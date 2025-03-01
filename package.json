@@ -1,0 +1,71 @@
+{
+  "name": "@vaneui/ui",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./ui/badge": {
+      "import": "./dist/ui/badge.js",
+      "require": "./dist/ui/badge.js",
+      "types": "./dist/ui/badge.d.ts"
+    },
+    "./ui/button": {
+      "import": "./dist/ui/button.js",
+      "require": "./dist/ui/button.js",
+      "types": "./dist/ui/button.d.ts"
+    },
+    "./ui/chip": {
+      "import": "./dist/ui/chip.js",
+      "require": "./dist/ui/chip.js",
+      "types": "./dist/ui/chip.d.ts"
+    },
+    "./ui/divider": {
+      "import": "./dist/ui/divider.js",
+      "require": "./dist/ui/divider.js",
+      "types": "./dist/ui/divider.d.ts"
+    },
+    "./ui/layout": {
+      "import": "./dist/ui/layout.js",
+      "require": "./dist/ui/layout.js",
+      "types": "./dist/ui/layout.d.ts"
+    },
+    "./ui/typography": {
+      "import": "./dist/ui/typography.js",
+      "require": "./dist/ui/typography.js",
+      "types": "./dist/ui/typography.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c --bundleConfigAsCjs",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "rollup": "^4.34.9",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "tailwind-merge": "^3.0.2",
+    "tslib": "^2.8.1"
+  }
+}
