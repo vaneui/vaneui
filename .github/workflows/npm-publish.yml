@@ -9,22 +9,57 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
-      - run: npm ci
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Package
+        run: npm run build
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Check if Version Already Published
+        id: check_version
+        run: |
+          # Get version from package.json
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Local package version: $VERSION"
+          # Get published version for the package (@vaneui/ui) or "none" if not published.
+          PUBLISHED_VERSION=$(npm view @vaneui/ui version || echo "none")
+          echo "Published package version: $PUBLISHED_VERSION"
+          if [ "$VERSION" = "$PUBLISHED_VERSION" ]; then
+            echo "Version already published. Skipping publish step."
+            echo "shouldPublish=false" >> $GITHUB_OUTPUT
+          else
+            echo "Version is new. Proceeding with publish."
+            echo "shouldPublish=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Publish Package to npm
+        if: steps.check_version.outputs.shouldPublish == 'true'
+        run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
