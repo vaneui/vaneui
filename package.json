@@ -1,6 +1,6 @@
 {
   "name": "@vaneui/ui",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -33,17 +33,16 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
-    "@rollup/plugin-typescript": "^12.1.2",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "rimraf": "^5.0.10",
     "rollup": "^4.34.9",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "typescript": "^5.8.2"
-  },
-  "dependencies": {
     "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.8.2",
     "tailwind-merge": "^3.0.2",
     "tslib": "^2.8.1"
+  },
+  "dependencies": {
   }
 }
