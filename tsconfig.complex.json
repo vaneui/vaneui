@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src/components/complex",
+    "outDir": "dist/components/complex",
+    "declarationDir": "dist/components/complex"
+  },
+  "include": [
+    "src/components/complex/**/*"
+  ]
+}

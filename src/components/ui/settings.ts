@@ -1,4 +1,4 @@
-import { CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, TextAppearanceProps, TextDecorationProps, TextTransformProps } from "./props";
+import { CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, TextAppearanceProps, TextDecorationProps, TextTransformProps } from "./props/props";
 
 export type CommonAppearanceSettings = { [key in keyof CommonAppearanceProps]: boolean; };
 

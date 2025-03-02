@@ -1,6 +1,6 @@
 import React from 'react';
-import { GridProps, LayoutComponentProps, ColProps, RowProps } from "./props";
-import { componentBuilder } from "./utils";
+import { GridProps, LayoutComponentProps, ColProps, RowProps } from "./props/props";
+import { componentBuilder } from "../utils/componentBuilder";
 
 const centeredClasses = {
   centered: "items-center justify-center",

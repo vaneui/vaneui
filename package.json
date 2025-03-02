@@ -1,6 +1,6 @@
 {
   "name": "@vaneui/ui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -12,44 +12,15 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./ui/badge": {
-      "import": "./dist/components/ui/badge.js",
-      "require": "./dist/components/ui/badge.js",
-      "types": "./dist/components/ui/badge.d.ts"
-    },
-    "./ui/button": {
-      "import": "./dist/components/ui/button.js",
-      "require": "./dist/components/ui/button.js",
-      "types": "./dist/components/ui/button.d.ts"
-    },
-    "./ui/chip": {
-      "import": "./dist/components/ui/chip.js",
-      "require": "./dist/components/ui/chip.js",
-      "types": "./dist/components/ui/chip.d.ts"
-    },
-    "./ui/divider": {
-      "import": "./dist/components/ui/divider.js",
-      "require": "./dist/components/ui/divider.js",
-      "types": "./dist/components/ui/divider.d.ts"
-    },
-    "./ui/layout": {
-      "import": "./dist/components/ui/layout.js",
-      "require": "./dist/components/ui/layout.js",
-      "types": "./dist/components/ui/layout.d.ts"
-    },
-    "./ui/typography": {
-      "import": "./dist/components/ui/typography.js",
-      "require": "./dist/components/ui/typography.js",
-      "types": "./dist/components/ui/typography.d.ts"
-    },
-    "./complex/sharer": {
-      "import": "./dist/components/complex/sharer.js",
-      "require": "./dist/components/complex/sharer.js",
-      "types": "./dist/components/complex/sharer.d.ts"
+    "./complex": {
+      "import": "./dist/components/complex/index.js",
+      "require": "./dist/components/complex/index.js",
+      "types": "./dist/components/complex/index.d.ts"
     }
   },
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
+    "clean": "rimraf dist",
+    "build": "npm run clean && rollup -c --bundleConfigAsCjs",
     "prepublishOnly": "npm run build"
   },
   "keywords": [],
@@ -65,11 +36,13 @@
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "rimraf": "^5.0.10",
     "rollup": "^4.34.9",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "rollup-plugin-typescript2": "^0.36.0",
     "tailwind-merge": "^3.0.2",
     "tslib": "^2.8.1"
   }

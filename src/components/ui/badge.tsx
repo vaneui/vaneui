@@ -1,6 +1,6 @@
 import React from 'react';
-import { componentBuilder } from "./utils";
-import { TypographyComponentProps } from "./props";
+import { componentBuilder } from "../utils/componentBuilder";
+import { TypographyComponentProps } from "./props/props";
 
 export const Badge: React.FC<TypographyComponentProps> = (props) =>
   componentBuilder(props, "span", "rounded-full w-fit")

@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 
 type Platform = 'fb' | 'li' | 'x' | 'th' | 'em' | 'wa' | 'tg' | 're';
@@ -64,7 +62,7 @@ const buildQueryString = (
     : '';
 };
 
-const SocialShare: React.FC<SocialShareProps> = ({
+export const SocialShare: React.FC<SocialShareProps> = ({
   url = window.location.href,
   text = '',
   width = 600,
@@ -216,5 +214,3 @@ const SocialShare: React.FC<SocialShareProps> = ({
     </Container>
   );
 };
-
-export default SocialShare;
