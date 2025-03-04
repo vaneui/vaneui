@@ -188,17 +188,14 @@ export const SocialShare: React.FC<SocialShareProps> = ({
     openShareWindow(shareUrl);
   };
 
-  // Use the provided container component or default to 'div'
-  const Container = containerComponent || 'div';
-  // Default button component to use if no platform-specific component is provided
+  const ContainerComponent = containerComponent || 'div';
   const DefaultButton = buttonComponent || 'button';
   const platformsToShow: Platform[] =
     platforms || (Object.keys(shareConfigs) as Platform[]);
 
   return (
-    <Container>
+    <ContainerComponent>
       {platformsToShow.map(key => {
-        // Use a specific button component if defined for the key
         const Button = (buttonComponents && buttonComponents[key]) || DefaultButton;
         const label = platformLabels[key] || key;
         return (
@@ -211,6 +208,6 @@ export const SocialShare: React.FC<SocialShareProps> = ({
           </Button>
         );
       })}
-    </Container>
+    </ContainerComponent>
   );
 };
