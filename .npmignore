@@ -1,0 +1,9 @@
+node_modules/
+src/
+.git/
+.github/
+.vscode/
+*.config.js
+*.config.mjs
+*.complex.json
+*.tsconfig.json
