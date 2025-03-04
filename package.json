@@ -42,10 +42,8 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
-    "@tailwindcss/postcss": "^4.0.9",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "postcss": "^8",
     "rimraf": "^5.0.10",
     "rollup": "^4.34.9",
     "rollup-plugin-peer-deps-external": "^2.2.4",
