@@ -1,11 +1,14 @@
 {
   "name": "@vaneui/ui",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.esm.js",
@@ -18,10 +21,10 @@
       "types": "./dist/components/complex/index.d.ts"
     },
     "./css/ui": {
-      "css": "./dist/ui.css"
+      "import": "./dist/ui.css"
     },
     "./css/complex": {
-      "css": "./dist/complex.css"
+      "import": "./dist/complex.css"
     }
   },
   "scripts": {
