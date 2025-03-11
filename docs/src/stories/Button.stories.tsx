@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from 'vaneui';
 
-const meta: Meta<typeof Button> = {
+const meta = {
   title: 'Components/Button',
   component: Button,
   parameters: {
@@ -9,6 +9,7 @@ const meta: Meta<typeof Button> = {
   },
   tags: ['autodocs'],
   argTypes: {
+    children: { control: 'text' },
     xs: { control: 'boolean' },
     sm: { control: 'boolean' },
     md: { control: 'boolean' },
@@ -23,10 +24,10 @@ const meta: Meta<typeof Button> = {
     extrabold: { control: 'boolean' },
     black: { control: 'boolean' },
   },
-};
+} as const;
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {

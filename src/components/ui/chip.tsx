@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { componentBuilder } from "./../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 
-export const Chip: React.FC<TypographyComponentProps> = (props) =>
+export const Chip = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "span", "rounded-full w-fit h-fit border")
     .withSizes({
       xs: "px-1 py-1 rounded-sm text-xs",

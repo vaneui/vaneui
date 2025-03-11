@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 
-export const Badge: React.FC<TypographyComponentProps> = (props) =>
+export const Badge = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "span", "rounded-full w-fit")
     .withSizes({
       xs: "px-2 py-1 text-xs",

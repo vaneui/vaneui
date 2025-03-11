@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 
-export const PageTitle: React.FC<TypographyComponentProps> = (props) =>
+export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "h1")
     .withSizes({
       xs: "text-3xl",
@@ -16,7 +16,7 @@ export const PageTitle: React.FC<TypographyComponentProps> = (props) =>
     })
     .build();
 
-export const SectionTitle: React.FC<TypographyComponentProps> = (props) =>
+export const SectionTitle = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "h2")
     .withSizes({
       xs: "text-2xl",
@@ -30,7 +30,7 @@ export const SectionTitle: React.FC<TypographyComponentProps> = (props) =>
     })
     .build();
 
-export const Title: React.FC<TypographyComponentProps> = (props) =>
+export const Title = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "h3")
     .withSizes({
       xs: "text-lg",
@@ -44,7 +44,7 @@ export const Title: React.FC<TypographyComponentProps> = (props) =>
     })
     .build();
 
-export const Text: React.FC<TypographyComponentProps> = (props) =>
+export const Text = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "p", "p-0 m-0")
     .withSizes({
       xs: "text-xs",
@@ -58,7 +58,7 @@ export const Text: React.FC<TypographyComponentProps> = (props) =>
     })
     .build();
 
-export const Link: React.FC<TypographyComponentProps> = (props) =>
+export const Link = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "a", "hover:underline")
     .withSizes({
       xs: "text-xs",
@@ -72,7 +72,7 @@ export const Link: React.FC<TypographyComponentProps> = (props) =>
     })
     .build();
 
-export const ListItem: React.FC<TypographyComponentProps> = (props) =>
+export const ListItem = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "li")
     .withSizes({
       xs: "text-xs",
@@ -84,7 +84,7 @@ export const ListItem: React.FC<TypographyComponentProps> = (props) =>
     .withTypography({})
     .build();
 
-export const List: React.FC<TypographyComponentProps> = (props) =>
+export const List = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "ul", "list-disc list-inside")
     .withSizes({
       xs: "text-xs",

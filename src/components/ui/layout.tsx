@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { GridProps, LayoutComponentProps, ColProps, RowProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 
@@ -10,7 +10,7 @@ const itemsClasses = {
   itemsStretch: "items-stretch"
 }
 
-export const Section: React.FC<LayoutComponentProps> = (props) =>
+export const Section = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "section", "w-full flex flex-col items-start")
     .withItems(itemsClasses)
     .withSizes({
@@ -29,7 +29,7 @@ export const Section: React.FC<LayoutComponentProps> = (props) =>
     })
     .build();
 
-export const Container: React.FC<LayoutComponentProps> = (props) =>
+export const Container = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col mx-auto w-full")
     .withItems(itemsClasses)
     .withSizes({
@@ -49,7 +49,7 @@ const commonGaps = {
   xl: "gap-8 max-lg:gap-7 max-md:gap-6",
 }
 
-export const Col: React.FC<ColProps> = (props) =>
+export const Col = (props: ColProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col")
     .withGaps({ noGap: "gap-0" }, commonGaps)
     .withReverse({
@@ -58,7 +58,7 @@ export const Col: React.FC<ColProps> = (props) =>
     .withItems(itemsClasses)
     .build();
 
-export const Row: React.FC<RowProps> = (props) =>
+export const Row = (props: RowProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-row")
     .withGaps({ noGap: "gap-0" }, commonGaps)
     .withReverse({
@@ -92,12 +92,12 @@ const gridGaps = {
   xl: "gap-10 max-lg:gap-8 max-md:gap-6",
 }
 
-export const Grid3: React.FC<GridProps> = (props) =>
+export const Grid3 = (props: GridProps): JSX.Element =>
   componentBuilder(props, "div", "w-full grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1")
     .withGaps({ noGap: "gap-0" }, gridGaps)
     .build();
 
-export const Grid4: React.FC<GridProps> = (props) =>
+export const Grid4 = (props: GridProps): JSX.Element =>
   componentBuilder(props, "div", "w-full grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1")
     .withGaps({ noGap: "gap-0" }, gridGaps)
     .build();
