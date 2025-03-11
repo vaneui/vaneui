@@ -96,10 +96,12 @@ export interface GapProps {
   noGap?: boolean;
 }
 
-export interface CenteredProps {
-  centered?: boolean;
-  vCentered?: boolean;
-  hCentered?: boolean;
+export interface ItemsProps {
+  itemsStart?: boolean;
+  itemsEnd?: boolean;
+  itemsCenter?: boolean;
+  itemsBaseline?: boolean;
+  itemsStretch?: boolean;
 }
 
 export interface JustifyProps {
@@ -115,7 +117,7 @@ export interface JustifyProps {
 
 export type BaseComponentProps = TagProps & Partial<SizeProps & HideProps & PositionProps> & React.HTMLProps<HTMLElement>;
 
-export type LayoutComponentProps = BaseComponentProps & ReverseProps & CenteredProps;
+export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProps;
 
 export type FontProps = FontWeightProps & FontStyleProps & TextDecorationProps & TextTransformProps & FontFamilyProps & TextAppearanceProps & CommonAppearanceProps;
 
@@ -123,6 +125,6 @@ export type TypographyComponentProps = BaseComponentProps & FontProps;
 
 export type GridProps = BaseComponentProps & GapProps;
 
-export type RowProps = BaseComponentProps & GapProps & ReverseProps & CenteredProps & BreakpointProps & JustifyProps;
+export type RowProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps;
 
-export type ColProps = BaseComponentProps & GapProps & ReverseProps & CenteredProps;
+export type ColProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps;

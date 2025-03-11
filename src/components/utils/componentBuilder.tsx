@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import { BaseComponentProps, BreakpointProps, CenteredProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, HideProps, PositionProps, ReverseProps, ColProps, RowProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, SizeProps } from "../ui/props/props";
+import { BaseComponentProps, BreakpointProps, ItemsProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, HideProps, PositionProps, ReverseProps, ColProps, RowProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, SizeProps } from "../ui/props/props";
 import { fontFamilyClasses, fontStyleClasses, fontWeightClasses, textAppearanceClasses, textDecorationClasses, textTransformClasses } from "../ui/props/commonValues";
 import { CommonAppearanceSettings, FontFamilySettings, FontStyleSettings, FontWeightSettings, TextAppearanceSettings, TextDecorationSettings, TextTransformSettings, TypographySettings } from "../ui/settings";
 
@@ -24,7 +24,7 @@ export function componentBuilder(
 ) {
   const extraClasses: string[] = [];
   const { className, children, tag, ...other } = baseProps;
-  const otherProps: (typeof other) & Partial<ReverseProps & CenteredProps & GapProps & RowProps & ColProps> = { ...other };
+  const otherProps: (typeof other) & Partial<ReverseProps & ItemsProps & GapProps & RowProps & ColProps> = { ...other };
   const propsToRemove: string[] = []
 
   const registerKeys = (keys: string[]) => {
@@ -78,7 +78,7 @@ export function componentBuilder(
     withSizes: (sizeMap: Record<keyof SizeProps, string>) => withBooleanProps(sizeMap, "md"),
     withBreakpoints: (breakpointMap: Record<keyof BreakpointProps, string>) => withBooleanProps(breakpointMap),
     withReverse: (reverseMap: Record<keyof ReverseProps, string>) => withBooleanProps(reverseMap),
-    withCentered: (centeredMap: Record<keyof CenteredProps, string>) => withBooleanProps(centeredMap),
+    withItems: (itemsMap: Record<keyof ItemsProps, string>) => withBooleanProps(itemsMap),
     withHide: (hideMap: Record<keyof HideProps, string>) => withBooleanProps(hideMap),
     withPosition: (positionMap: Record<keyof PositionProps, string>) => withBooleanProps(positionMap),
     withFontWeight: (fontWeight: Record<keyof FontWeightProps, string>, settings: FontWeightSettings) => withBooleanProps(fontWeight, undefined, settings),
