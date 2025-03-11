@@ -1,0 +1,40 @@
+{
+  "name": "vaneui-docs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "next": "^14.1.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vaneui": "file:../",
+    "tailwindcss": "^4.0.12",
+    "postcss": "^8.4.35",
+    "autoprefixer": "^10.4.19"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/addon-interactions": "^8.0.0",
+    "@storybook/addon-links": "^8.0.0",
+    "@storybook/addon-onboarding": "^8.6.4",
+    "@storybook/blocks": "^8.0.0",
+    "@storybook/nextjs": "^8.0.0",
+    "@storybook/react": "^8.0.0",
+    "@storybook/test": "^8.0.0",
+    "@types/node": "^20.11.28",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.1.3",
+    "eslint-plugin-storybook": "^0.8.0",
+    "storybook": "^8.0.0",
+    "typescript": "^5.4.2"
+  }
+} 

@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@source "./../../../dist/components/"
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Override default colors */
+  --text-color-default: var(--color-gray-800, #171717);
+  --text-color-secondary: var(--color-gray-600, #6B7280);
+}
+
+body {
+  background: var(--background);
+}
+
+@layer base {
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
