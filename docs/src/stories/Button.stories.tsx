@@ -59,6 +59,7 @@ const meta = {
         lg: { lg: true },
         xl: { xl: true }
       },
+      defaultValue: 'md',
     },
     fontWeight: {
       control: 'radio',
@@ -73,6 +74,7 @@ const meta = {
         extrabold: { extrabold: true },
         black: { black: true }
       },
+      defaultValue: 'semibold',
     },
     fontStyle: {
       control: 'radio',
@@ -81,6 +83,7 @@ const meta = {
         normal: { notItalic: true },
         italic: { italic: true }
       },
+      defaultValue: 'normal',
     },
     textDecoration: {
       control: 'radio',
@@ -91,6 +94,7 @@ const meta = {
         lineThrough: { lineThrough: true },
         overline: { overline: true }
       },
+      defaultValue: 'none',
     },
     textTransform: {
       control: 'radio',
@@ -101,6 +105,7 @@ const meta = {
         lowercase: { lowercase: true },
         capitalize: { capitalize: true }
       },
+      defaultValue: 'normal',
     },
     fontFamily: {
       control: 'radio',
@@ -110,6 +115,7 @@ const meta = {
         serif: { serif: true },
         mono: { mono: true }
       },
+      defaultValue: 'sans',
     },
     textAppearance: {
       control: 'radio',
@@ -119,6 +125,7 @@ const meta = {
         muted: { muted: true },
         link: { link: true }
       },
+      defaultValue: 'default',
     },
     appearance: {
       control: 'radio',
@@ -134,6 +141,7 @@ const meta = {
         warning: { warning: true },
         info: { info: true }
       },
+      defaultValue: 'default',
     }
   },
 } as const;
@@ -144,14 +152,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: 'Button',
-    ...meta.argTypes.size.mapping.md,
-    ...meta.argTypes.fontWeight.mapping.semibold,
-    ...meta.argTypes.fontStyle.mapping.normal,
-    ...meta.argTypes.textDecoration.mapping.none,
-    ...meta.argTypes.textTransform.mapping.normal,
-    ...meta.argTypes.fontFamily.mapping.sans,
-    ...meta.argTypes.textAppearance.mapping.default,
-    ...meta.argTypes.appearance.mapping.default,
   },
 };
 
@@ -159,13 +159,6 @@ export const Small: Story = {
   args: {
     children: 'Small Button',
     ...meta.argTypes.size.mapping.sm,
-    ...meta.argTypes.fontWeight.mapping.semibold,
-    ...meta.argTypes.fontStyle.mapping.normal,
-    ...meta.argTypes.textDecoration.mapping.none,
-    ...meta.argTypes.textTransform.mapping.normal,
-    ...meta.argTypes.fontFamily.mapping.sans,
-    ...meta.argTypes.textAppearance.mapping.default,
-    ...meta.argTypes.appearance.mapping.default,
   },
 };
 
@@ -173,26 +166,12 @@ export const Large: Story = {
   args: {
     children: 'Large Button',
     ...meta.argTypes.size.mapping.lg,
-    ...meta.argTypes.fontWeight.mapping.semibold,
-    ...meta.argTypes.fontStyle.mapping.normal,
-    ...meta.argTypes.textDecoration.mapping.none,
-    ...meta.argTypes.textTransform.mapping.normal,
-    ...meta.argTypes.fontFamily.mapping.sans,
-    ...meta.argTypes.textAppearance.mapping.default,
-    ...meta.argTypes.appearance.mapping.default,
   },
 };
 
 export const Bold: Story = {
   args: {
     children: 'Bold Button',
-    ...meta.argTypes.size.mapping.md,
     ...meta.argTypes.fontWeight.mapping.bold,
-    ...meta.argTypes.fontStyle.mapping.normal,
-    ...meta.argTypes.textDecoration.mapping.none,
-    ...meta.argTypes.textTransform.mapping.normal,
-    ...meta.argTypes.fontFamily.mapping.sans,
-    ...meta.argTypes.textAppearance.mapping.default,
-    ...meta.argTypes.appearance.mapping.default,
   },
 }; 
