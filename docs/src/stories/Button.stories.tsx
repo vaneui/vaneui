@@ -8,6 +8,16 @@ const meta = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: {
+    children: 'Button',
+    md: true,
+    semibold: true,
+    notItalic: true,
+    noUnderline: true,
+    normalCase: true,
+    sans: true,
+    default: true,
+  },
   argTypes: {
     children: { control: 'text' },
     // Hide individual controls
@@ -53,11 +63,11 @@ const meta = {
       control: 'radio',
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       mapping: {
-        xs: { xs: true },
-        sm: { sm: true },
-        md: { md: true },
-        lg: { lg: true },
-        xl: { xl: true }
+        xs: { xs: true, sm: false, md: false, lg: false, xl: false },
+        sm: { xs: false, sm: true, md: false, lg: false, xl: false },
+        md: { xs: false, sm: false, md: true, lg: false, xl: false },
+        lg: { xs: false, sm: false, md: false, lg: true, xl: false },
+        xl: { xs: false, sm: false, md: false, lg: false, xl: true }
       },
       defaultValue: 'md',
     },
@@ -65,14 +75,14 @@ const meta = {
       control: 'radio',
       options: ['thin', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'],
       mapping: {
-        thin: { thin: true },
-        light: { light: true },
-        normal: { normal: true },
-        medium: { medium: true },
-        semibold: { semibold: true },
-        bold: { bold: true },
-        extrabold: { extrabold: true },
-        black: { black: true }
+        thin: { thin: true, light: false, normal: false, medium: false, semibold: false, bold: false, extrabold: false, black: false },
+        light: { thin: false, light: true, normal: false, medium: false, semibold: false, bold: false, extrabold: false, black: false },
+        normal: { thin: false, light: false, normal: true, medium: false, semibold: false, bold: false, extrabold: false, black: false },
+        medium: { thin: false, light: false, normal: false, medium: true, semibold: false, bold: false, extrabold: false, black: false },
+        semibold: { thin: false, light: false, normal: false, medium: false, semibold: true, bold: false, extrabold: false, black: false },
+        bold: { thin: false, light: false, normal: false, medium: false, semibold: false, bold: true, extrabold: false, black: false },
+        extrabold: { thin: false, light: false, normal: false, medium: false, semibold: false, bold: false, extrabold: true, black: false },
+        black: { thin: false, light: false, normal: false, medium: false, semibold: false, bold: false, extrabold: false, black: true }
       },
       defaultValue: 'semibold',
     },
@@ -80,8 +90,8 @@ const meta = {
       control: 'radio',
       options: ['normal', 'italic'],
       mapping: {
-        normal: { notItalic: true },
-        italic: { italic: true }
+        normal: { notItalic: true, italic: false },
+        italic: { notItalic: false, italic: true }
       },
       defaultValue: 'normal',
     },
@@ -89,10 +99,10 @@ const meta = {
       control: 'radio',
       options: ['none', 'underline', 'lineThrough', 'overline'],
       mapping: {
-        none: { noUnderline: true },
-        underline: { underline: true },
-        lineThrough: { lineThrough: true },
-        overline: { overline: true }
+        none: { noUnderline: true, underline: false, lineThrough: false, overline: false },
+        underline: { noUnderline: false, underline: true, lineThrough: false, overline: false },
+        lineThrough: { noUnderline: false, underline: false, lineThrough: true, overline: false },
+        overline: { noUnderline: false, underline: false, lineThrough: false, overline: true }
       },
       defaultValue: 'none',
     },
@@ -100,10 +110,10 @@ const meta = {
       control: 'radio',
       options: ['normal', 'uppercase', 'lowercase', 'capitalize'],
       mapping: {
-        normal: { normalCase: true },
-        uppercase: { uppercase: true },
-        lowercase: { lowercase: true },
-        capitalize: { capitalize: true }
+        normal: { normalCase: true, uppercase: false, lowercase: false, capitalize: false },
+        uppercase: { normalCase: false, uppercase: true, lowercase: false, capitalize: false },
+        lowercase: { normalCase: false, uppercase: false, lowercase: true, capitalize: false },
+        capitalize: { normalCase: false, uppercase: false, lowercase: false, capitalize: true }
       },
       defaultValue: 'normal',
     },
@@ -111,9 +121,9 @@ const meta = {
       control: 'radio',
       options: ['sans', 'serif', 'mono'],
       mapping: {
-        sans: { sans: true },
-        serif: { serif: true },
-        mono: { mono: true }
+        sans: { sans: true, serif: false, mono: false },
+        serif: { sans: false, serif: true, mono: false },
+        mono: { sans: false, serif: false, mono: true }
       },
       defaultValue: 'sans',
     },
@@ -121,9 +131,9 @@ const meta = {
       control: 'radio',
       options: ['default', 'muted', 'link'],
       mapping: {
-        default: {},
-        muted: { muted: true },
-        link: { link: true }
+        default: { muted: false, link: false },
+        muted: { muted: true, link: false },
+        link: { muted: false, link: true }
       },
       defaultValue: 'default',
     },
@@ -131,15 +141,15 @@ const meta = {
       control: 'radio',
       options: ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'],
       mapping: {
-        default: { default: true },
-        accent: { accent: true },
-        primary: { primary: true },
-        secondary: { secondary: true },
-        tertiary: { tertiary: true },
-        success: { success: true },
-        danger: { danger: true },
-        warning: { warning: true },
-        info: { info: true }
+        default: { default: true, accent: false, primary: false, secondary: false, tertiary: false, success: false, danger: false, warning: false, info: false },
+        accent: { default: false, accent: true, primary: false, secondary: false, tertiary: false, success: false, danger: false, warning: false, info: false },
+        primary: { default: false, accent: false, primary: true, secondary: false, tertiary: false, success: false, danger: false, warning: false, info: false },
+        secondary: { default: false, accent: false, primary: false, secondary: true, tertiary: false, success: false, danger: false, warning: false, info: false },
+        tertiary: { default: false, accent: false, primary: false, secondary: false, tertiary: true, success: false, danger: false, warning: false, info: false },
+        success: { default: false, accent: false, primary: false, secondary: false, tertiary: false, success: true, danger: false, warning: false, info: false },
+        danger: { default: false, accent: false, primary: false, secondary: false, tertiary: false, success: false, danger: true, warning: false, info: false },
+        warning: { default: false, accent: false, primary: false, secondary: false, tertiary: false, success: false, danger: false, warning: true, info: false },
+        info: { default: false, accent: false, primary: false, secondary: false, tertiary: false, success: false, danger: false, warning: false, info: true }
       },
       defaultValue: 'default',
     }
