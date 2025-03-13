@@ -10,12 +10,19 @@ const meta = {
   tags: ['autodocs'],
   args: {
     children: 'Button',
+    // Default size
     md: true,
+    // Default font weight
     semibold: true,
+    // Default font style
     notItalic: true,
+    // Default text decoration
     noUnderline: true,
+    // Default text transform
     normalCase: true,
+    // Default font family
     sans: true,
+    // Default text appearance and appearance
     default: true,
   },
   argTypes: {
@@ -162,26 +169,51 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: 'Button',
+    md: true,
+    semibold: true,
+    notItalic: true,
+    noUnderline: true,
+    normalCase: true,
+    sans: true,
+    default: true,
   },
 };
 
 export const Small: Story = {
   args: {
     children: 'Small Button',
-    ...meta.argTypes.size.mapping.sm,
+    sm: true,
+    semibold: true,
+    notItalic: true,
+    noUnderline: true,
+    normalCase: true,
+    sans: true,
+    default: true,
   },
 };
 
 export const Large: Story = {
   args: {
     children: 'Large Button',
-    ...meta.argTypes.size.mapping.lg,
+    lg: true,
+    semibold: true,
+    notItalic: true,
+    noUnderline: true,
+    normalCase: true,
+    sans: true,
+    default: true,
   },
 };
 
 export const Bold: Story = {
   args: {
     children: 'Bold Button',
-    ...meta.argTypes.fontWeight.mapping.bold,
+    md: true,
+    bold: true,
+    notItalic: true,
+    noUnderline: true,
+    normalCase: true,
+    sans: true,
+    default: true,
   },
 }; 
