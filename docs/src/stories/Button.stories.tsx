@@ -10,19 +10,47 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     children: { control: 'text' },
-    xs: { control: 'boolean' },
-    sm: { control: 'boolean' },
-    md: { control: 'boolean' },
-    lg: { control: 'boolean' },
-    xl: { control: 'boolean' },
-    thin: { control: 'boolean' },
-    light: { control: 'boolean' },
-    normal: { control: 'boolean' },
-    medium: { control: 'boolean' },
-    semibold: { control: 'boolean' },
-    bold: { control: 'boolean' },
-    extrabold: { control: 'boolean' },
-    black: { control: 'boolean' },
+    // Hide individual size controls
+    xs: { control: false, table: { disable: true } },
+    sm: { control: false, table: { disable: true } },
+    md: { control: false, table: { disable: true } },
+    lg: { control: false, table: { disable: true } },
+    xl: { control: false, table: { disable: true } },
+    // Hide individual font weight controls
+    thin: { control: false, table: { disable: true } },
+    light: { control: false, table: { disable: true } },
+    normal: { control: false, table: { disable: true } },
+    medium: { control: false, table: { disable: true } },
+    semibold: { control: false, table: { disable: true } },
+    bold: { control: false, table: { disable: true } },
+    extrabold: { control: false, table: { disable: true } },
+    black: { control: false, table: { disable: true } },
+    // Radio group controls
+    size: {
+      control: 'radio',
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      mapping: {
+        xs: { xs: true },
+        sm: { sm: true },
+        md: { md: true },
+        lg: { lg: true },
+        xl: { xl: true }
+      },
+    },
+    fontWeight: {
+      control: 'radio',
+      options: ['thin', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'],
+      mapping: {
+        thin: { thin: true },
+        light: { light: true },
+        normal: { normal: true },
+        medium: { medium: true },
+        semibold: { semibold: true },
+        bold: { bold: true },
+        extrabold: { extrabold: true },
+        black: { black: true }
+      },
+    }
   },
 } as const;
 
@@ -32,29 +60,31 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: 'Button',
-    md: true,
-    semibold: true,
+    ...meta.argTypes.size.mapping.md,
+    ...meta.argTypes.fontWeight.mapping.semibold,
   },
 };
 
 export const Small: Story = {
   args: {
     children: 'Small Button',
-    sm: true,
+    ...meta.argTypes.size.mapping.sm,
+    ...meta.argTypes.fontWeight.mapping.semibold,
   },
 };
 
 export const Large: Story = {
   args: {
     children: 'Large Button',
-    lg: true,
+    ...meta.argTypes.size.mapping.lg,
+    ...meta.argTypes.fontWeight.mapping.semibold,
   },
 };
 
 export const Bold: Story = {
   args: {
     children: 'Bold Button',
-    md: true,
-    bold: true,
+    ...meta.argTypes.size.mapping.md,
+    ...meta.argTypes.fontWeight.mapping.bold,
   },
 }; 
