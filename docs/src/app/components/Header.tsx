@@ -1,26 +1,28 @@
+import { Link, Title, Section, Container, Row } from 'vaneui';
+
 export function Header() {
   return (
-    <header className="w-full bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
-            <a href="/" className="text-xl font-bold text-gray-900">
+    <Section tag={'header'} className="bg-white border-b">
+      <Container xl>
+        <Row justifyBetween itemsCenter>
+          <Title md>
+            <Link href="/" md>
               VaneUI
-            </a>
-          </div>
-          <nav className="flex space-x-8">
-            <a href="/components" className="text-gray-600 hover:text-gray-900">
+            </Link>
+          </Title>
+          <Row md>
+            <Link href="/components" md>
               Components
-            </a>
-            <a href="/docs" className="text-gray-600 hover:text-gray-900">
+            </Link>
+            <Link href="/docs" md>
               Documentation
-            </a>
-            <a href="https://github.com/yourusername/vaneui" className="text-gray-600 hover:text-gray-900">
+            </Link>
+            <Link href="https://github.com/yourusername/vaneui" md>
               GitHub
-            </a>
-          </nav>
-        </div>
-      </div>
-    </header>
+            </Link>
+          </Row>
+        </Row>
+      </Container>
+    </Section>
   );
 } 

@@ -1,20 +1,23 @@
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { PageTitle, Text, Section, Container, Col } from 'vaneui';
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <Col className="min-h-screen">
       <Header />
-      <main className="flex-grow flex flex-col items-center justify-between p-24">
-        <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
-          <h1 className="text-4xl font-bold mb-8">VaneUI Documentation</h1>
-          <p className="text-lg mb-4">
-            Welcome to the VaneUI documentation. This site showcases all the components
-            and their usage examples.
-          </p>
-        </div>
-      </main>
+      <Section tag={'main'} className="flex-grow">
+        <Container xl>
+          <Col lg>
+            <PageTitle md>VaneUI Documentation</PageTitle>
+            <Text lg>
+              Welcome to the VaneUI documentation. This site showcases all the components
+              and their usage examples.
+            </Text>
+          </Col>
+        </Container>
+      </Section>
       <Footer />
-    </div>
+    </Col>
   );
 } 
