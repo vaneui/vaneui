@@ -1,4 +1,5 @@
-import { Link, Title, Section, Container, Row, Col } from 'vaneui';
+import { Link, Title, Row, Col } from 'vaneui';
+import { PRODUCT } from '../constants';
 
 export function Header() {
   return (
@@ -6,7 +7,7 @@ export function Header() {
       <Row justifyBetween itemsCenter>
         <Title>
           <Link href="/">
-            VaneUI
+            {PRODUCT.title}
           </Link>
         </Title>
         <Row>
@@ -16,7 +17,7 @@ export function Header() {
           <Link href="/docs">
             Documentation
           </Link>
-          <Link href="https://github.com/yourusername/vaneui">
+          <Link href={PRODUCT.githubUrl}>
             GitHub
           </Link>
         </Row>

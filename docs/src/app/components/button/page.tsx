@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'vaneui';
-//import { Button } from './../../../../../src/components/ui/button';
 
 
 export default function ButtonDocs() {

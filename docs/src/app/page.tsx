@@ -1,6 +1,7 @@
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { PageTitle, Text, Section, Container, Col } from 'vaneui';
+import { PRODUCT } from './constants';
 
 export default function Home() {
   return (
@@ -9,9 +10,9 @@ export default function Home() {
       <Section tag={'main'} className="flex-grow">
         <Container xl>
           <Col lg>
-            <PageTitle mono>VaneUI Documentation</PageTitle>
+            <PageTitle mono>{PRODUCT.title} Documentation</PageTitle>
             <Text lg>
-              Welcome to the VaneUI documentation. This site showcases all the components
+              {PRODUCT.slogan}. This site showcases all the components
               and their usage examples.
             </Text>
           </Col>

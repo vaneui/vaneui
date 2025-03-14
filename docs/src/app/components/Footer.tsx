@@ -1,23 +1,24 @@
 import { Link, Text, Title, Section, Container, Col, Row, Grid3 } from 'vaneui';
+import { PRODUCT } from '../constants';
 
 export function Footer() {
   return (
     <Section tag={'footer'} className="bg-gray-50 border-t">
       <Container xl>
         <Row xl justifyBetween mdCol>
-          <Col>
-            <Text secondary uppercase>
+          <Col className="max-w-1/2 max-md:max-w-full">
+            <Text muted uppercase>
               About
             </Text>
             <Text>
-              VaneUI is a modern React component library built with Tailwind CSS.
+              {PRODUCT.description}
             </Text>
           </Col>
           {
             [
               {
                 text: 'Resources',
-                links: [{ text: 'Documentation', href: '/docs' }, { text: 'Components', href: '/components' }, { text: 'GitHub', href: 'https://github.com/vaneui' }]
+                links: [{ text: 'Documentation', href: '/docs' }, { text: 'Components', href: '/components' }, { text: 'GitHub', href: PRODUCT.githubUrl }]
               },
               {
                 text: 'Legal',
@@ -25,7 +26,7 @@ export function Footer() {
               }
             ].map((item, index) => (
               <Col key={index}>
-                <Text secondary uppercase>
+                <Text muted uppercase>
                   {item.text}
                 </Text>
                 <Col sm>
@@ -40,7 +41,7 @@ export function Footer() {
           }
         </Row>
         <Text muted sm>
-          © {new Date().getFullYear()} VaneUI. All rights reserved.
+          {PRODUCT.copyright}
         </Text>
       </Container>
     </Section>
