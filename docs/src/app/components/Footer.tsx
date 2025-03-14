@@ -7,7 +7,7 @@ export function Footer() {
       <Container xl>
         <Row xl justifyBetween mdCol>
           <Col className="max-w-1/2 max-md:max-w-full">
-            <Text muted uppercase>
+            <Text secondary uppercase>
               About
             </Text>
             <Text>
@@ -26,7 +26,7 @@ export function Footer() {
               }
             ].map((item, index) => (
               <Col key={index}>
-                <Text muted uppercase>
+                <Text secondary uppercase>
                   {item.text}
                 </Text>
                 <Col sm>

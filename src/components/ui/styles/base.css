@@ -1,0 +1,16 @@
+:root {
+  /* Text Colors */
+  --text-color-default: var(--tw-text-opacity, #1a1a1a);
+  --text-color-primary: var(--tw-blue-600, #2563eb);
+  --text-color-secondary: var(--tw-gray-600, #4b5563);
+  --text-color-tertiary: var(--tw-gray-500, #6b7280);
+  --text-color-muted: var(--tw-gray-400, #9ca3af);
+  --text-color-link: var(--tw-blue-600, #2563eb);
+
+  /* Status Colors */
+  --text-color-accent: var(--tw-purple-600, #7c3aed);
+  --text-color-success: var(--tw-emerald-600, #059669);
+  --text-color-danger: var(--tw-red-600, #dc2626);
+  --text-color-warning: var(--tw-amber-600, #d97706);
+  --text-color-info: var(--tw-cyan-600, #0891b2);
+} 
