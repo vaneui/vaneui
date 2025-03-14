@@ -14,11 +14,11 @@ export const Section = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "section", "w-full flex flex-col items-start")
     .withItems(itemsClasses)
     .withSizes({
-      xs: "py-6  max-lg:py-4  max-md:py-2",
-      sm: "py-8  max-lg:py-6  max-md:py-4",
-      md: "py-10 max-lg:py-8  max-md:py-6",
-      lg: "py-12 max-lg:py-10 max-md:py-8",
-      xl: "py-14 max-lg:py-12 max-md:py-10",
+      xs: "py-4  max-lg:py-2  max-md:py-0",
+      sm: "py-6  max-lg:py-6  max-md:py-2",
+      md: "py-8  max-lg:py-6  max-md:py-4",
+      lg: "py-10 max-lg:py-8  max-md:py-6",
+      xl: "py-12 max-lg:py-10 max-md:py-8",
     })
     .withSizes({
       xs: "px-4  max-lg:px-2  max-md:px-0",
