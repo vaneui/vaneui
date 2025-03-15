@@ -22,10 +22,8 @@ export function Header() {
             Docs
           </Text>
           <Button sm tag={Link} href={PRODUCT.githubUrl}>
-            <Row itemsCenter tag={"span"}>
-              <Image src={githubMark} alt="GitHub" width={20} height={20} className="color-red-300" />
-              <Text sm tag={"span"}>GitHub</Text>
-            </Row>
+            <Image src={githubMark} alt="GitHub" width={20} height={20} className="h-5 w-5" />
+            GitHub
           </Button>
         </Row>
       </Row >
