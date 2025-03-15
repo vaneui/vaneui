@@ -47,11 +47,11 @@ export const Title = (props: TypographyComponentProps): JSX.Element =>
 export const Text = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "p", "p-0 m-0")
     .withSizes({
-      xs: "text-xs",
-      sm: "text-sm",
-      md: "text-md",
-      lg: "text-lg",
-      xl: "text-xl",
+      xs: "text-xs/6",
+      sm: "text-sm/6",
+      md: "text-md/6",
+      lg: "text-lg/6",
+      xl: "text-xl/6",
     })
     .withTypography({
       textAppearance: { secondary: true }

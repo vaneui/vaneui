@@ -1,14 +1,10 @@
 @import "tailwindcss";
-@import "./../../../src/components/ui/styles/vars.css";
+@import "./../../../src/components/theme/vars.css";
 
 @source "./../../../docs/";
-@source "./../../../dist/components/";
 @source "./../../../src/components/";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-
   /* Override default colors */
   --text-color-default: var(--color-gray-800, #171717);
   --text-color-secondary: var(--color-gray-600, #6B7280);

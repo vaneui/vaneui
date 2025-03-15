@@ -3,7 +3,7 @@ import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 
 export const Button = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "button", "w-fit h-fit cursor-pointer flex justify-center items-center border border-gray-200 transition-all duration-300")
+  componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex justify-center border border-gray-200 transition-all duration-300")
     .withSizes({
       xs: "px-2 py-1 rounded-sm text-xs",
       sm: "px-3 py-1 rounded-md text-sm",
