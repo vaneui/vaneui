@@ -40,9 +40,9 @@
   "scripts": {
     "clean": "rimraf dist",
     "build:js": "npm run clean && rollup -c --bundleConfigAsCjs",
-    "build:css:all":     "npx @tailwindcss/cli -i index.css -o ./../../dist/all.css        --cwd ./src/components/",
-    "build:css:theme":   "npx @tailwindcss/cli -i vars.css  -o ./../../../dist/vars.css    --cwd ./src/components/theme/",
-    "build:css:ui":      "npx @tailwindcss/cli -i index.css -o ./../../../dist/ui.css      --cwd ./src/components/ui/",
+    "build:css:all": "npx @tailwindcss/cli -i index.css -o ./../../dist/all.css        --cwd ./src/components/",
+    "build:css:theme": "npx @tailwindcss/cli -i vars.css  -o ./../../../dist/vars.css    --cwd ./src/components/theme/",
+    "build:css:ui": "npx @tailwindcss/cli -i index.css -o ./../../../dist/ui.css      --cwd ./src/components/ui/",
     "build:css:complex": "npx @tailwindcss/cli -i index.css -o ./../../../dist/complex.css --cwd ./src/components/complex/",
     "build": "npm run clean && npm run build:js && npm run build:css:all && npm run build:css:theme && npm run build:css:ui && npm run build:css:complex",
     "prepublishOnly": "npm run build"
@@ -57,6 +57,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
+    "@tailwindcss/cli": "^4.0.14",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "rimraf": "^5.0.10",
