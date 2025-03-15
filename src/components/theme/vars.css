@@ -1,4 +1,4 @@
-:root {
+@theme {
   /* Text Colors */
   --text-color-default: var(--tw-text-opacity, #1a1a1a);
   --text-color-primary: var(--tw-blue-600, #2563eb);

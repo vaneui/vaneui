@@ -1,4 +1,2 @@
-@layer theme, utilities;
-
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities);
+@import "tailwindcss";
+@import "./../theme/vars.css" layer(theme);

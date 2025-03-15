@@ -1,9 +1,9 @@
 @import "tailwindcss";
+@import "./../../../src/components/ui/styles/vars.css";
 
 @source "./../../../docs/";
 @source "./../../../dist/components/";
 @source "./../../../src/components/";
-@import "./../../../src/components/ui/styles/vars.css";
 
 :root {
   --background: #ffffff;
