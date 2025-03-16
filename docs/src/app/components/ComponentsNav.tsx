@@ -41,7 +41,7 @@ const componentGroups = [
 
 export function ComponentsNav({ currentPath }: { currentPath?: string }) {
   return (
-    <Col className="sticky top-4 p-4 lg:pr-8 bg-gray-50 rounded-md">
+    <Col className="sticky top-4 p-4 lg:pr-8 bg-gray-50 border-r overflow-y-scroll max-h-[calc(100vh-4rem)]">
       <Text secondary uppercase semibold className="mb-4">
         Components
       </Text>
