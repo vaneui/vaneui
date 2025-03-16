@@ -49,3 +49,33 @@ export const textAppearanceClasses = {
   warning: "text-(--text-color-warning)",
   info: "text-(--text-color-info)",
 }
+
+export const backgroundAppearanceClasses = {
+  default: "bg-(--background-color-default)",
+  primary: "bg-(--background-color-primary)",
+  secondary: "bg-(--background-color-secondary)",
+  tertiary: "bg-(--background-color-tertiary)",
+  muted: "bg-(--background-color-muted)",
+  link: "bg-(--background-color-link)",
+
+  accent: "bg-(--background-color-accent)",
+  success: "bg-(--background-color-success)",
+  danger: "bg-(--background-color-danger)",
+  warning: "bg-(--background-color-warning)",
+  info: "bg-(--background-color-info)",
+}
+
+export const borderAppearanceClasses = {
+  default: "border-(--border-color-default)",
+  primary: "border-(--border-color-primary)",
+  secondary: "border-(--border-color-secondary)",
+  tertiary: "border-(--border-color-tertiary)",
+  muted: "border-(--border-color-muted)",
+  link: "border-(--border-color-link)",
+
+  accent: "border-(--border-color-accent)",
+  success: "border-(--border-color-success)",
+  danger: "border-(--border-color-danger)",
+  warning: "border-(--border-color-warning)",
+  info: "border-(--border-color-info)",
+}

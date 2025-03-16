@@ -1,6 +1,7 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
+import { backgroundAppearanceClasses, borderAppearanceClasses } from './props/commonValues';
 
 export const Badge = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "span", "rounded-full w-fit")
@@ -11,17 +12,8 @@ export const Badge = (props: TypographyComponentProps): JSX.Element =>
       lg: "px-5 py-2 text-lg",
       xl: "px-6 py-3 text-xl",
     })
-    .withAppearance({
-      default: "bg-gray-200",
-      accent: "bg-gray-200",
-      primary: "bg-blue-200",
-      secondary: "bg-gray-200",
-      tertiary: "bg-gray-200",
-      success: "bg-green-200",
-      danger: "bg-red-200",
-      warning: "bg-yellow-200",
-      info: "bg-blue-200"
-    }, {})
+    .withAppearance(backgroundAppearanceClasses, { default: true })
+    .withBooleanProps(borderAppearanceClasses, "default")
     .withTypography({
       fontWeight: { semibold: true },
       fontFamily: { mono: true },

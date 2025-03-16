@@ -1,6 +1,7 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "./../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
+import { backgroundAppearanceClasses, borderAppearanceClasses } from './props/commonValues';
 
 export const Chip = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "span", "rounded-full w-fit h-fit border")
@@ -11,17 +12,8 @@ export const Chip = (props: TypographyComponentProps): JSX.Element =>
       lg: "px-3 py-2 rounded-xl text-lg",
       xl: "px-4 py-3 rounded-2xl text-xl",
     })
-    .withAppearance({
-      default: "bg-gray-100",
-      accent: "bg-gray-200",
-      primary: "bg-blue-200",
-      secondary: "bg-gray-200",
-      tertiary: "bg-gray-200",
-      success: "bg-green-200",
-      danger: "bg-red-200",
-      warning: "bg-yellow-200",
-      info: "bg-blue-200"
-    }, {})
+    .withAppearance(backgroundAppearanceClasses, { default: true })
+    .withBooleanProps(borderAppearanceClasses, "default")
     .withTypography({
       fontFamily: { mono: true },
       textAppearance: { secondary: true },

@@ -10,7 +10,7 @@ export default function Home() {
       <Section tag={'main'} className="flex-grow">
         <Container xl>
           <Col lg>
-            <PageTitle mono>{PRODUCT.title} Documentation</PageTitle>
+            <PageTitle>{PRODUCT.title} Documentation</PageTitle>
             <Text lg>
               {PRODUCT.slogan}. This site showcases all the components
               and their usage examples.

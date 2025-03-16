@@ -1,13 +1,12 @@
 @theme {
   /* Text Colors */
-  --text-color-default: var(--color-gray-800, #1a1a1a);
+  --text-color-default: var(--color-gray-900, #111827);
   --text-color-primary: var(--color-blue-600, #2563eb);
   --text-color-secondary: var(--color-gray-600, #4b5563);
   --text-color-tertiary: var(--color-gray-500, #6b7280);
   --text-color-muted: var(--color-gray-400, #9ca3af);
   --text-color-link: var(--color-blue-600, #2563eb);
-
-  --text-color-accent: var(--color-purple-600, #7c3aed);
+  --text-color-accent: var(--color-purple-600, #9333ea);
   --text-color-success: var(--color-emerald-600, #059669);
   --text-color-danger: var(--color-red-600, #dc2626);
   --text-color-warning: var(--color-amber-600, #d97706);
@@ -19,13 +18,25 @@
   --background-color-secondary: var(--color-gray-50, #f9fafb);
   --background-color-tertiary: var(--color-gray-100, #f3f4f6);
   --background-color-muted: var(--color-gray-200, #e5e7eb);
+  --background-color-link: var(--color-blue-50, #eff6ff);
+  --background-color-accent: var(--color-purple-50, #faf5ff);
+  --background-color-success: var(--color-emerald-50, #ecfdf5);
+  --background-color-danger: var(--color-red-50, #fef2f2);
+  --background-color-warning: var(--color-amber-50, #fffbeb);
+  --background-color-info: var(--color-cyan-50, #ecfeff);
 
   /* Border Colors */
   --border-color-default: var(--color-gray-300, #d1d5db);
   --border-color-primary: var(--color-blue-300, #93c5fd);
-  --border-color-secondary: var(--color-gray-400, #9ca3af);
-  --border-color-focus: var(--color-blue-600, #2563eb);
-  --border-color-error: var(--color-red-500, #ef4444);
+  --border-color-secondary: var(--color-gray-300, #d1d5db);
+  --border-color-tertiary: var(--color-gray-200, #e5e7eb);
+  --border-color-muted: var(--color-gray-200, #e5e7eb);
+  --border-color-link: var(--color-blue-300, #93c5fd);
+  --border-color-accent: var(--color-purple-300, #d8b4fe);
+  --border-color-success: var(--color-emerald-300, #6ee7b7);
+  --border-color-danger: var(--color-red-300, #fca5a5);
+  --border-color-warning: var(--color-amber-300, #fcd34d);
+  --border-color-info: var(--color-cyan-300, #67e8f9);
 
   /* Accent / Action Colors */
   --accent-color-default: var(--color-purple-600, #7c3aed);
