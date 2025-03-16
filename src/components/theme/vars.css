@@ -1,4 +1,5 @@
 @theme {
+  /* Text Colors */
   --text-color-default: var(--color-gray-800, #1a1a1a);
   --text-color-primary: var(--color-blue-600, #2563eb);
   --text-color-secondary: var(--color-gray-600, #4b5563);
@@ -11,4 +12,25 @@
   --text-color-danger: var(--color-red-600, #dc2626);
   --text-color-warning: var(--color-amber-600, #d97706);
   --text-color-info: var(--color-cyan-600, #0891b2);
+
+  /* Background Colors */
+  --background-color-default: var(--color-white, #ffffff);
+  --background-color-primary: var(--color-blue-50, #eff6ff);
+  --background-color-secondary: var(--color-gray-50, #f9fafb);
+  --background-color-tertiary: var(--color-gray-100, #f3f4f6);
+  --background-color-muted: var(--color-gray-200, #e5e7eb);
+
+  /* Border Colors */
+  --border-color-default: var(--color-gray-300, #d1d5db);
+  --border-color-primary: var(--color-blue-300, #93c5fd);
+  --border-color-secondary: var(--color-gray-400, #9ca3af);
+  --border-color-focus: var(--color-blue-600, #2563eb);
+  --border-color-error: var(--color-red-500, #ef4444);
+
+  /* Accent / Action Colors */
+  --accent-color-default: var(--color-purple-600, #7c3aed);
+  --accent-color-hover: var(--color-purple-700, #6d28d9);
+
+  /* Additional Colors */
+  --overlay-color: rgba(0, 0, 0, 0.5);
 }

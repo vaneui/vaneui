@@ -9,7 +9,7 @@ export function Header() {
     <Col tag={'header'} className="bg-white border-b py-3 px-5">
       <Row lg justifyBetween itemsCenter>
         <Row itemsCenter tag={Link} href="/">
-          <Image src="/logo.svg" alt={PRODUCT.title} width={50} height={40} className="h-10" />
+          <Image src="/logo.svg" alt={PRODUCT.title} width={52} height={36} className="h-[32px]" />
           <Title sm>
             {PRODUCT.title}
           </Title>
@@ -29,4 +29,4 @@ export function Header() {
       </Row >
     </Col >
   );
-} 
+}
