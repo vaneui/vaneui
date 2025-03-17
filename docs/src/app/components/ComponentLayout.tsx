@@ -16,12 +16,10 @@ export function ComponentLayout({ children }: ComponentLayoutProps) {
   return (
     <Col noGap className="min-h-screen">
       <Header />
-      <Row>
-        <Col className="w-full lg:w-fit">
-          <ComponentsNav currentPath={pathname} />
-        </Col>
-        <Container className="py-8">
-          <Col className="w-full">
+      <Row relative className="h-full">
+        <ComponentsNav currentPath={pathname} />
+        <Container className="pt-[calc(36px+(var(--spacing)*6))]">
+          <Col className="py-10">
             {children}
           </Col>
         </Container>

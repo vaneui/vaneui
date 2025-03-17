@@ -6,6 +6,12 @@ import { Link, Text, Col } from 'vaneui';
 // Component groups with their components
 const componentGroups = [
   {
+    name: 'Getting Started',
+    components: [
+      { name: 'Installation', path: '/components/installation' },
+    ]
+  },
+  {
     name: 'Basic Components',
     components: [
       { name: 'Button', path: '/components/button' },
@@ -26,7 +32,7 @@ const componentGroups = [
     ]
   },
   {
-    name: 'Typography Components',
+    name: 'Typography',
     components: [
       { name: 'Text', path: '/components/text' },
       { name: 'Title', path: '/components/title' },
@@ -41,28 +47,27 @@ const componentGroups = [
 
 export function ComponentsNav({ currentPath }: { currentPath?: string }) {
   return (
-    <Col className="sticky top-4 p-4 lg:pr-8 bg-gray-50 border-r overflow-y-scroll max-h-[calc(100vh-4rem)]">
-      <Text secondary uppercase semibold className="mb-4">
+    <Col lg className="py-6 px-8 lg:pr-10 sticky top-[calc(36px+(var(--spacing)*6))] w-fit overflow-y-auto max-h-[calc(100dvh-36px-(var(--spacing)*6))] bg-gray-50 border-r">
+      <Text lg secondary>
         Components
       </Text>
-      
       {componentGroups.map((group, groupIndex) => (
-        <Col key={groupIndex} className="mb-6">
-          <Text secondary className="mb-2">
+        <Col key={groupIndex}>
+          <Text secondary uppercase sm mono>
             {group.name}
           </Text>
-          
-          <Col sm>
-            {group.components.map((component, componentIndex) => {
-              const isActive = currentPath === component.path;
-              
+          <Col noGap>
+            {group.components.map((item, i) => {
+              const isActive = currentPath === item.path;
               return (
-                <Link 
-                  key={componentIndex} 
-                  href={component.path}
-                  className={isActive ? 'font-medium text-blue-600' : ''}
+                <Link
+                  key={i}
+                  href={item.path}
+                  semibold={isActive}
+                  secondary
+                  className={`${isActive ? 'border-gray-600 text-gray-900' : 'hover:border-gray-400'} border-l pl-4 py-1 hover:no-underline hover:text-gray-900`}
                 >
-                  {component.name}
+                  {item.name}
                 </Link>
               );
             })}
