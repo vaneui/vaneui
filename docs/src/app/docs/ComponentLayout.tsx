@@ -18,7 +18,7 @@ export function ComponentLayout({ children }: ComponentLayoutProps) {
       <Header />
       <Row relative className="h-full">
         <ComponentsNav currentPath={pathname} />
-        <Container className="pt-[calc(36px+(var(--spacing)*6))]">
+        <Container sm className="pt-[calc(36px+(var(--spacing)*6))]">
           <Col className="py-10">
             {children}
           </Col>

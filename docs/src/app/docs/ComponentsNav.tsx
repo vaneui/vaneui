@@ -53,7 +53,7 @@ export function ComponentsNav({ currentPath }: { currentPath?: string }) {
       </Text>
       {componentGroups.map((group, groupIndex) => (
         <Col key={groupIndex}>
-          <Text secondary uppercase sm mono>
+          <Text secondary uppercase sm mono className="tracking-wider">
             {group.name}
           </Text>
           <Col noGap>

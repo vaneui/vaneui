@@ -7,10 +7,10 @@ export const Button = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center border transition-all duration-300")
     .withSizes({
       xs: "px-3 py-1   rounded-sm text-xs/5",
-      sm: "px-4 py-1.5 rounded-md text-sm/5",
-      md: "px-5 py-2   rounded-md text-base",
-      lg: "px-6 py-3   rounded-lg text-lg/6",
-      xl: "px-7 py-4   rounded-xl text-xl/6",
+      sm: "px-3 py-1.5 rounded-md text-sm/5",
+      md: "px-4 py-2   rounded-md text-base",
+      lg: "px-5 py-3   rounded-lg text-lg/6",
+      xl: "px-6 py-4   rounded-xl text-xl/6",
     })
     .withSizes({
       xs: "shadow-xs hover:shadow-sm",

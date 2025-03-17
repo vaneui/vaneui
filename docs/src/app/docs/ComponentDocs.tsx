@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Row, Text, Title, Section, Container } from 'vaneui';
+import { Col, Row, Text, Title, Section, Container, SectionTitle, PageTitle } from 'vaneui';
 import { ComponentDocsProps } from './types';
 
 export function ComponentDocs({
@@ -13,53 +13,49 @@ export function ComponentDocs({
   return (
     <Col xl>
       <Col>
-        <Title>{componentName}</Title>
-        <Text>{description}</Text>
+        <PageTitle sm>{componentName}</PageTitle>
+        <Text lg>{description}</Text>
       </Col>
 
       {/* Import Example */}
       <Col>
         <Title sm>Import</Title>
         <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-          <code className="font-mono">{importStatement}</code>
+          <code className="font-mono text-sm">{importStatement}</code>
         </pre>
       </Col>
 
       {/* Examples */}
       <Col>
-        <Title sm>Examples</Title>
+        <Title>Examples</Title>
         {examples.map((example, index) => (
-          <Col key={index} className="mt-6 border rounded-md p-6">
-            <Text secondary>{example.title}</Text>
-            <Text sm>{example.description}</Text>
-
-            <div className="my-4 p-4 flex justify-center items-center border rounded-md bg-white">
+          <Col key={index} className="border rounded-xl p-6">
+            <Title sm>{example.title}</Title>
+            <Text>{example.description}</Text>
+            <Col itemsCenter className="px-4 py-8 border rounded-md overflow-hidden">
               {example.component}
-            </div>
-
+            </Col>
             <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-              <code className="font-mono">{example.code}</code>
+              <code className="font-mono text-sm">{example.code}</code>
             </pre>
           </Col>
         ))}
       </Col>
 
       {/* Props Documentation */}
-      <Col>
+      <Col lg>
         <Title sm>Props</Title>
-
         {propCategories.map((category, catIndex) => (
-          <Col key={catIndex} className="mt-6">
+          <Col key={catIndex}>
             <Text secondary uppercase>{category.title}</Text>
-
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prop</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Default</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                    <th scope="col" className="min-w-44 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prop</th>
+                    <th scope="col" className="min-w-44 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                    <th scope="col" className="min-w-44 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Default</th>
+                    <th scope="col" className="min-w-44 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-full">Description</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">

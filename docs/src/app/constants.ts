@@ -1,5 +1,5 @@
 export const PRODUCT = {
-  title: 'VaneUI',
+  title: 'vaneui',
   slogan: 'Modern React Component Library',
   description: 'A modern React component library built with Tailwind CSS, designed for building beautiful and responsive user interfaces.',
   githubUrl: 'https://github.com/vaneui',
