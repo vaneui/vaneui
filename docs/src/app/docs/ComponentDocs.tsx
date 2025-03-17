@@ -21,7 +21,7 @@ export function ComponentDocs({
       <Col>
         <Title sm>Import</Title>
         <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-          <code>{importStatement}</code>
+          <code className="font-mono">{importStatement}</code>
         </pre>
       </Col>
 
@@ -38,7 +38,7 @@ export function ComponentDocs({
             </div>
 
             <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-              <code>{example.code}</code>
+              <code className="font-mono">{example.code}</code>
             </pre>
           </Col>
         ))}
@@ -69,8 +69,8 @@ export function ComponentDocs({
                         {prop.name}
                         {prop.required && <span className="text-red-500 ml-1">*</span>}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prop.type}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prop.defaultValue || '-'}</td>
+                      <td className="px-6 py-4 font-mono whitespace-nowrap text-sm text-gray-500">{prop.type}</td>
+                      <td className="px-6 py-4 font-mono whitespace-nowrap text-sm text-gray-500">{prop.defaultValue || '-'}</td>
                       <td className="px-6 py-4 text-sm text-gray-500">{prop.description}</td>
                     </tr>
                   ))}

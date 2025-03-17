@@ -5,13 +5,11 @@
 @source "./../../../src/components/";
 
 :root {
+
   /* Override default colors */
   --text-color-default: var(--color-gray-800, #171717);
   --text-color-secondary: var(--color-gray-600, #6B7280);
-}
 
-body {
-  background: var(--background);
 }
 
 @layer base {
@@ -23,4 +21,9 @@ body {
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+}
+
+body, html {
+  --font-mono: var(--font-jetbrains-mono);
+  --font-sans: var(--font-inter);
 }
