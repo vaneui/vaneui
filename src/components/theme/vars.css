@@ -26,17 +26,17 @@
   --background-color-info: var(--color-cyan-50, #ecfeff);
 
   /* Border Colors */
-  --border-color-default: var(--color-gray-300, #d1d5db);
-  --border-color-primary: var(--color-blue-300, #93c5fd);
-  --border-color-secondary: var(--color-gray-300, #d1d5db);
+  --border-color-default: var(--color-gray-200, #d1d5db);
+  --border-color-primary: var(--color-blue-200, #93c5fd);
+  --border-color-secondary: var(--color-gray-200, #d1d5db);
   --border-color-tertiary: var(--color-gray-200, #e5e7eb);
   --border-color-muted: var(--color-gray-200, #e5e7eb);
-  --border-color-link: var(--color-blue-300, #93c5fd);
-  --border-color-accent: var(--color-purple-300, #d8b4fe);
-  --border-color-success: var(--color-emerald-300, #6ee7b7);
-  --border-color-danger: var(--color-red-300, #fca5a5);
-  --border-color-warning: var(--color-amber-300, #fcd34d);
-  --border-color-info: var(--color-cyan-300, #67e8f9);
+  --border-color-link: var(--color-blue-200, #93c5fd);
+  --border-color-accent: var(--color-purple-200, #d8b4fe);
+  --border-color-success: var(--color-emerald-200, #6ee7b7);
+  --border-color-danger: var(--color-red-200, #fca5a5);
+  --border-color-warning: var(--color-amber-200, #fcd34d);
+  --border-color-info: var(--color-cyan-200, #67e8f9);
 
   /* Accent / Action Colors */
   --accent-color-default: var(--color-purple-600, #7c3aed);

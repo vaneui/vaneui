@@ -1,15 +1,16 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
+import { backgroundAppearanceClasses, borderAppearanceClasses } from "./props/commonValues";
 
 export const Button = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center border border-gray-200 transition-all duration-300")
+  componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center border transition-all duration-300")
     .withSizes({
-      xs: "px-2 py-1 rounded-sm text-xs/6",
-      sm: "px-3 py-1 rounded-md text-sm/6",
-      md: "px-4 py-2 rounded-md text-base",
-      lg: "px-6 py-3 rounded-lg text-lg/6",
-      xl: "px-8 py-4 rounded-xl text-xl/6",
+      xs: "px-3 py-1   rounded-sm text-xs/5",
+      sm: "px-4 py-1.5 rounded-md text-sm/5",
+      md: "px-5 py-2   rounded-md text-base",
+      lg: "px-6 py-3   rounded-lg text-lg/6",
+      xl: "px-7 py-4   rounded-xl text-xl/6",
     })
     .withSizes({
       xs: "shadow-xs hover:shadow-sm",
@@ -28,4 +29,6 @@ export const Button = (props: TypographyComponentProps): JSX.Element =>
     .withTypography({
       fontWeight: { semibold: true },
     })
+    .withBooleanProps(backgroundAppearanceClasses, "default")
+    .withBooleanProps(borderAppearanceClasses, "default")
     .build();

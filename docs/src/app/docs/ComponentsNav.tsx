@@ -8,39 +8,39 @@ const componentGroups = [
   {
     name: 'Getting Started',
     components: [
-      { name: 'Installation', path: '/components/installation' },
+      { name: 'Installation', path: '/docs/installation' },
     ]
   },
   {
     name: 'Basic Components',
     components: [
-      { name: 'Button', path: '/components/button' },
-      { name: 'Badge', path: '/components/badge' },
-      { name: 'Chip', path: '/components/chip' },
-      { name: 'Divider', path: '/components/divider' },
+      { name: 'Button', path: '/docs/button' },
+      { name: 'Badge', path: '/docs/badge' },
+      { name: 'Chip', path: '/docs/chip' },
+      { name: 'Divider', path: '/docs/divider' },
     ]
   },
   {
     name: 'Layout Components',
     components: [
-      { name: 'Section', path: '/components/section' },
-      { name: 'Container', path: '/components/container' },
-      { name: 'Row', path: '/components/row' },
-      { name: 'Col', path: '/components/col' },
-      { name: 'Grid3', path: '/components/grid3' },
-      { name: 'Grid4', path: '/components/grid4' },
+      { name: 'Section', path: '/docs/section' },
+      { name: 'Container', path: '/docs/container' },
+      { name: 'Row', path: '/docs/row' },
+      { name: 'Col', path: '/docs/col' },
+      { name: 'Grid3', path: '/docs/grid3' },
+      { name: 'Grid4', path: '/docs/grid4' },
     ]
   },
   {
     name: 'Typography',
     components: [
-      { name: 'Text', path: '/components/text' },
-      { name: 'Title', path: '/components/title' },
-      { name: 'PageTitle', path: '/components/page-title' },
-      { name: 'SectionTitle', path: '/components/section-title' },
-      { name: 'Link', path: '/components/link' },
-      { name: 'List', path: '/components/list' },
-      { name: 'ListItem', path: '/components/list-item' },
+      { name: 'Text', path: '/docs/text' },
+      { name: 'Title', path: '/docs/title' },
+      { name: 'PageTitle', path: '/docs/page-title' },
+      { name: 'SectionTitle', path: '/docs/section-title' },
+      { name: 'Link', path: '/docs/link' },
+      { name: 'List', path: '/docs/list' },
+      { name: 'ListItem', path: '/docs/list-item' },
     ]
   }
 ];

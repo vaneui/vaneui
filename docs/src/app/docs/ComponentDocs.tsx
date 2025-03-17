@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row, Text, Title, Section, Container } from 'vaneui';
-import { ComponentDocsProps } from '../types';
+import { ComponentDocsProps } from './types';
 
 export function ComponentDocs({
   componentName,
@@ -11,45 +11,47 @@ export function ComponentDocs({
   importStatement
 }: ComponentDocsProps) {
   return (
-    <Col>
-      <Title>{componentName}</Title>
-      <Text lg>{description}</Text>
-      
+    <Col xl>
+      <Col>
+        <Title>{componentName}</Title>
+        <Text>{description}</Text>
+      </Col>
+
       {/* Import Example */}
-      <Section className="my-8">
+      <Col>
         <Title sm>Import</Title>
         <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
           <code>{importStatement}</code>
         </pre>
-      </Section>
+      </Col>
 
       {/* Examples */}
-      <Section className="my-8">
+      <Col>
         <Title sm>Examples</Title>
         {examples.map((example, index) => (
           <Col key={index} className="mt-6 border rounded-md p-6">
             <Text secondary>{example.title}</Text>
             <Text sm>{example.description}</Text>
-            
+
             <div className="my-4 p-4 flex justify-center items-center border rounded-md bg-white">
               {example.component}
             </div>
-            
+
             <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
               <code>{example.code}</code>
             </pre>
           </Col>
         ))}
-      </Section>
+      </Col>
 
       {/* Props Documentation */}
-      <Section className="my-8">
+      <Col>
         <Title sm>Props</Title>
-        
+
         {propCategories.map((category, catIndex) => (
           <Col key={catIndex} className="mt-6">
             <Text secondary uppercase>{category.title}</Text>
-            
+
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
@@ -77,7 +79,7 @@ export function ComponentDocs({
             </div>
           </Col>
         ))}
-      </Section>
+      </Col>
     </Col>
   );
 } 

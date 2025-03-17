@@ -41,11 +41,11 @@ const componentGroups = [
   }
 ];
 
-export default function ComponentsPage() {
+export default function DocsPage() {
   return (
     <ComponentLayout>
       <Col>
-        <PageTitle>Components</PageTitle>
+        <PageTitle>Documentation</PageTitle>
         <Text lg>
           VaneUI provides a collection of reusable components that can be used to build modern and responsive web applications.
         </Text>

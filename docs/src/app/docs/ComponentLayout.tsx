@@ -3,7 +3,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'vaneui';
 import { ComponentsNav } from './ComponentsNav';
-import { Header } from './Header';
+import { Header } from '../components/Header';
 import { usePathname } from 'next/navigation';
 
 interface ComponentLayoutProps {

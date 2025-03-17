@@ -16,11 +16,8 @@ export function Header() {
             </Title>
           </Row>
           <Row lg itemsCenter>
-            <Text sm tag={Link} href="/components">
-              Components
-            </Text>
             <Text sm tag={Link} href="/docs">
-              Docs
+              Documentation
             </Text>
             <Button sm tag={Link} href={PRODUCT.githubUrl}>
               <Image src={githubMark} alt="GitHub" width={20} height={20} className="h-5 w-5" />
