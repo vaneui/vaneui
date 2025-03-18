@@ -27,3 +27,9 @@ body, html {
   --font-mono: var(--font-jetbrains-mono);
   --font-sans: var(--font-inter);
 }
+
+.styled-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #eaeaea transparent;
+  scrollbar-gutter: stable;
+}

@@ -18,22 +18,22 @@ export default function ButtonPage() {
       title: 'Basic Usage',
       description: 'Default button styles and variants.',
       code: `<Row>
-  <Button md>Default Button</Button>
-  <Button md primary>Primary Button</Button>
-  <Button md danger>Danger Button</Button>
+  <Button>Default Button</Button>
+  <Button primary>Primary Button</Button>
+  <Button danger>Danger Button</Button>
 </Row>`,
       component: (
         <Row>
-          <Button md>Default Button</Button>
-          <Button md primary>Primary Button</Button>
-          <Button md danger>Danger Button</Button>
+          <Button>Default Button</Button>
+          <Button primary>Primary Button</Button>
+          <Button danger>Danger Button</Button>
         </Row>
       ),
     },
     {
       title: 'Sizes',
       description: 'Buttons come in different sizes.',
-      code: `<Row>
+      code: `<Row itemsCenter>
   <Button xs>Extra Small</Button>
   <Button sm>Small</Button>
   <Button md>Medium</Button>
@@ -41,7 +41,7 @@ export default function ButtonPage() {
   <Button xl>Extra Large</Button>
 </Row>`,
       component: (
-        <Row>
+        <Row itemsCenter>
           <Button xs>Extra Small</Button>
           <Button sm>Small</Button>
           <Button md>Medium</Button>

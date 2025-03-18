@@ -2,17 +2,20 @@
 
 import React from 'react';
 import { Link, Text, Col } from 'vaneui';
+import { BeakerIcon } from '@heroicons/react/24/solid'
 
 // Component groups with their components
 const componentGroups = [
   {
     name: 'Getting Started',
+    icon: <BeakerIcon className="w-5 h-5" />,
     components: [
       { name: 'Installation', path: '/docs/installation' },
     ]
   },
   {
     name: 'Basic Components',
+    icon: <BeakerIcon className="w-5 h-5" />,
     components: [
       { name: 'Button', path: '/docs/button' },
       { name: 'Badge', path: '/docs/badge' },
@@ -22,6 +25,7 @@ const componentGroups = [
   },
   {
     name: 'Layout Components',
+    icon: <BeakerIcon className="w-5 h-5" />,
     components: [
       { name: 'Section', path: '/docs/section' },
       { name: 'Container', path: '/docs/container' },
@@ -33,6 +37,7 @@ const componentGroups = [
   },
   {
     name: 'Typography',
+    icon: <BeakerIcon className="w-5 h-5" />,
     components: [
       { name: 'Text', path: '/docs/text' },
       { name: 'Title', path: '/docs/title' },
@@ -47,13 +52,14 @@ const componentGroups = [
 
 export function ComponentsNav({ currentPath }: { currentPath?: string }) {
   return (
-    <Col xl sticky className="min-w-3xs py-6 px-8 lg:pr-10 top-[calc(36px+(var(--spacing)*6))] w-fit overflow-y-auto max-h-[calc(100dvh-36px-(var(--spacing)*6))] bg-gray-50 border-r">
+    <Col xl sticky className="styled-scrollbar min-w-3xs bg-white py-6 px-8 lg:pr-10 top-[calc(36px+(var(--spacing)*6))] w-fit overflow-y-auto max-h-[calc(100dvh-36px-(var(--spacing)*6))] border-r">
       <Text lg secondary>
         Components
       </Text>
       {componentGroups.map((group, groupIndex) => (
-        <Col key={groupIndex}>
-          <Text secondary uppercase sm mono className="tracking-wider">
+        <Col sm key={groupIndex}>
+          <Text uppercase sm mono className="tracking-widest">
+            {group.icon}
             {group.name}
           </Text>
           <Col noGap>
@@ -65,7 +71,7 @@ export function ComponentsNav({ currentPath }: { currentPath?: string }) {
                   href={item.path}
                   semibold={isActive}
                   secondary
-                  className={`${isActive ? 'border-gray-600 text-gray-900' : 'hover:border-gray-400'} border-l pl-4 py-1 hover:no-underline hover:text-gray-900`}
+                  className={`${isActive ? 'border-gray-600 text-gray-900' : 'hover:border-gray-400'} border-l pl-4 py-1 hover:no-underline hover:text-gray-900 hover:bg-gray-50`}
                 >
                   {item.name}
                 </Link>

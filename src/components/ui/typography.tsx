@@ -3,7 +3,7 @@ import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 
 export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "h1")
+  componentBuilder(props, "h1", "")
     .withSizes({
       xs: "text-3xl",
       sm: "text-4xl",
@@ -17,7 +17,7 @@ export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
     .build();
 
 export const SectionTitle = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "h2")
+  componentBuilder(props, "h2", "")
     .withSizes({
       xs: "text-2xl",
       sm: "text-3xl",
@@ -31,7 +31,7 @@ export const SectionTitle = (props: TypographyComponentProps): JSX.Element =>
     .build();
 
 export const Title = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "h3")
+  componentBuilder(props, "h3", "")
     .withSizes({
       xs: "text-lg",
       sm: "text-xl",
@@ -73,7 +73,7 @@ export const Link = (props: TypographyComponentProps): JSX.Element =>
     .build();
 
 export const ListItem = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "li")
+  componentBuilder(props, "li", "")
     .withSizes({
       xs: "text-xs",
       sm: "text-sm",

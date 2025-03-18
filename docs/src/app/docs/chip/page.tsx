@@ -64,7 +64,7 @@ export default function ChipPage() {
       title: 'Chip Appearances',
       description: 'Chips come in different appearances to convey purpose.',
       code: `
-<Row>
+<Row className="flex-wrap">
   <Chip>Default</Chip>
   <Chip primary>Primary</Chip>
   <Chip secondary>Secondary</Chip>
@@ -75,7 +75,7 @@ export default function ChipPage() {
   <Chip info>Info</Chip>
 </Row>`,
       component: (
-        <Row>
+        <Row className="flex-wrap">
           <Chip>Default</Chip>
           <Chip primary>Primary</Chip>
           <Chip secondary>Secondary</Chip>

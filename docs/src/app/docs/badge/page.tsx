@@ -49,7 +49,7 @@ export default function BadgePage() {
       title: 'Badge Sizes',
       description: 'Badges come in different sizes.',
       code: `
-<Row>
+<Row itemsCenter>
   <Badge xs>XS</Badge>
   <Badge sm>SM</Badge>
   <Badge>MD</Badge>
@@ -57,7 +57,7 @@ export default function BadgePage() {
   <Badge xl>XL</Badge>
 </Row>`,
       component: (
-        <Row>
+        <Row itemsCenter>
           <Badge xs>XS</Badge>
           <Badge sm>SM</Badge>
           <Badge>MD</Badge>
@@ -70,7 +70,7 @@ export default function BadgePage() {
       title: 'Badge Appearances',
       description: 'Badges come in different appearances to convey purpose.',
       code: `
-<Row>
+<Row className="flex-wrap">
   <Badge>Default</Badge>
   <Badge primary>Primary</Badge>
   <Badge secondary>Secondary</Badge>
@@ -81,7 +81,7 @@ export default function BadgePage() {
   <Badge info>Info</Badge>
 </Row>`,
       component: (
-        <Row>
+        <Row className="flex-wrap">
           <Badge>Default</Badge>
           <Badge primary>Primary</Badge>
           <Badge secondary>Secondary</Badge>

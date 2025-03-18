@@ -32,7 +32,7 @@ export function ComponentDocs({
           <Col key={index} className="border rounded-xl p-6">
             <Title sm>{example.title}</Title>
             <Text>{example.description}</Text>
-            <Col itemsCenter className="px-4 py-8 border rounded-md overflow-hidden">
+            <Col itemsCenter className="px-4 py-8 border rounded-md overflow-x-auto w-full">
               {example.component}
             </Col>
             <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
