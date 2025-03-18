@@ -1,21 +1,21 @@
 "use client";
 
 import React from 'react';
-import { Link, Text, Col } from 'vaneui';
+import { Link, Text, Col, Row } from 'vaneui';
 import { BeakerIcon } from '@heroicons/react/24/solid'
 
 // Component groups with their components
 const componentGroups = [
   {
     name: 'Getting Started',
-    icon: <BeakerIcon className="w-5 h-5" />,
+    icon: <BeakerIcon className="w-5 h-5 text-secondary" />,
     components: [
       { name: 'Installation', path: '/docs/installation' },
     ]
   },
   {
     name: 'Basic Components',
-    icon: <BeakerIcon className="w-5 h-5" />,
+    icon: <BeakerIcon className="w-5 h-5 text-secondary" />,
     components: [
       { name: 'Button', path: '/docs/button' },
       { name: 'Badge', path: '/docs/badge' },
@@ -25,7 +25,7 @@ const componentGroups = [
   },
   {
     name: 'Layout Components',
-    icon: <BeakerIcon className="w-5 h-5" />,
+    icon: <BeakerIcon className="w-5 h-5 text-secondary" />,
     components: [
       { name: 'Section', path: '/docs/section' },
       { name: 'Container', path: '/docs/container' },
@@ -37,7 +37,7 @@ const componentGroups = [
   },
   {
     name: 'Typography',
-    icon: <BeakerIcon className="w-5 h-5" />,
+    icon: <BeakerIcon className="w-5 h-5 text-secondary" />,
     components: [
       { name: 'Text', path: '/docs/text' },
       { name: 'Title', path: '/docs/title' },
@@ -57,12 +57,14 @@ export function ComponentsNav({ currentPath }: { currentPath?: string }) {
         Components
       </Text>
       {componentGroups.map((group, groupIndex) => (
-        <Col sm key={groupIndex}>
-          <Text uppercase sm mono className="tracking-widest">
+        <Col key={groupIndex}>
+          <Row sm itemsCenter>
             {group.icon}
-            {group.name}
-          </Text>
-          <Col noGap>
+            <Text uppercase sm mono secondary className="tracking-widest">
+              {group.name}
+            </Text>
+          </Row>
+          <Col noGap className="pl-[10px]">
             {group.components.map((item, i) => {
               const isActive = currentPath === item.path;
               return (
