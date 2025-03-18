@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Col, Row, Text, Title, Section, Container, SectionTitle, PageTitle } from 'vaneui';
 import { ComponentDocsProps } from './types';
-// Import Prism utilities and styles directly here
-import '../utils/prism';
+import { CodeBlock } from '../components/CodeBlock';
 
 export function ComponentDocs({
   componentName,
@@ -13,14 +12,6 @@ export function ComponentDocs({
   examples,
   importStatement
 }: ComponentDocsProps) {
-  
-  useEffect(() => {
-    // Call Prism to highlight code when component mounts or examples change
-    if (typeof window !== 'undefined') {
-      // Use the Prism global directly
-      (window as any).Prism?.highlightAll();
-    }
-  }, [examples]);
 
   return (
     <Col xl>
@@ -32,9 +23,7 @@ export function ComponentDocs({
       {/* Import Example */}
       <Col>
         <Title sm>Import</Title>
-        <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-          <code className="language-typescript font-mono text-sm">{importStatement}</code>
-        </pre>
+        <CodeBlock code={importStatement} language="typescript" />
       </Col>
 
       {/* Examples */}
@@ -47,9 +36,7 @@ export function ComponentDocs({
             <Col itemsCenter className="px-4 py-8 border rounded-md overflow-x-auto w-full">
               {example.component}
             </Col>
-            <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-              <code className="language-tsx font-mono text-sm">{example.code}</code>
-            </pre>
+            <CodeBlock code={example.code} language="tsx" />
           </Col>
         ))}
       </Col>

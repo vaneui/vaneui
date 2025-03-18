@@ -42,8 +42,7 @@ export default function ChipPage() {
     {
       title: 'Chip Sizes',
       description: 'Chips come in different sizes.',
-      code: `
-<Row>
+      code: `<Row>
   <Chip xs>XS</Chip>
   <Chip sm>SM</Chip>
   <Chip>MD</Chip>
@@ -63,8 +62,7 @@ export default function ChipPage() {
     {
       title: 'Chip Appearances',
       description: 'Chips come in different appearances to convey purpose.',
-      code: `
-<Row className="flex-wrap">
+      code: `<Row className="flex-wrap">
   <Chip>Default</Chip>
   <Chip primary>Primary</Chip>
   <Chip secondary>Secondary</Chip>
@@ -90,8 +88,7 @@ export default function ChipPage() {
     {
       title: 'Chip with Icon',
       description: 'Chips can contain icons along with text.',
-      code: `
-<Row>
+      code: `<Row>
   <Chip primary>
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" 
       stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

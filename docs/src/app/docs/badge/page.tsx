@@ -48,8 +48,7 @@ export default function BadgePage() {
     {
       title: 'Badge Sizes',
       description: 'Badges come in different sizes.',
-      code: `
-<Row itemsCenter>
+      code: `<Row itemsCenter>
   <Badge xs>XS</Badge>
   <Badge sm>SM</Badge>
   <Badge>MD</Badge>
@@ -69,8 +68,7 @@ export default function BadgePage() {
     {
       title: 'Badge Appearances',
       description: 'Badges come in different appearances to convey purpose.',
-      code: `
-<Row className="flex-wrap">
+      code: `<Row className="flex-wrap">
   <Badge>Default</Badge>
   <Badge primary>Primary</Badge>
   <Badge secondary>Secondary</Badge>

@@ -58,13 +58,13 @@ export function ComponentsNav({ currentPath }: { currentPath?: string }) {
       </Text>
       {componentGroups.map((item, i) => (
         <Col key={i}>
-          <Row sm itemsCenter>
-            <item.icon className="w-5 h-5 text-secondary" />
+          <Row noGap itemsCenter>
+            <item.icon className="w-5 h-5 text-secondary mr-3" />
             <Text uppercase sm mono secondary semibold className="tracking-wider">
               {item.name}
             </Text>
           </Row>
-          <Col noGap className="pl-[10px]">
+          <Col noGap className="pl-2.5">
             {item.components.map((item, i) => {
               const isActive = currentPath === item.path;
               return (
