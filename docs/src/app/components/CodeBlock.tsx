@@ -11,7 +11,6 @@ import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-bash';
 import { Button, Row, Col, Text } from 'vaneui';
-import './../../styles/code-theme.css';
 import { Square2StackIcon, CheckIcon } from "@heroicons/react/24/outline";
 
 interface CodeBlockProps {
@@ -60,7 +59,7 @@ export function CodeBlock({ code, language, className = '', fileName = '' }: Cod
         <Col>
           <pre className="m-0 p-4 overflow-visible">
             <code
-              className={`language-${language} font-mono ${className}`}
+              className={`language-${language} font-mono text-sm ${className}`}
               dangerouslySetInnerHTML={{
                 __html: Prism.highlight(
                   codeLines.map((_, i) => i + 1).join('\n'),
@@ -75,7 +74,7 @@ export function CodeBlock({ code, language, className = '', fileName = '' }: Cod
         <Col className="flex-1">
           <pre className="m-0 p-4 overflow-visible">
             <code
-              className={`language-${language} font-mono ${className}`}
+              className={`language-${language} font-mono text-sm ${className}`}
               dangerouslySetInnerHTML={{ __html: highlightedCode }}
             />
           </pre>
