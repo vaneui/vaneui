@@ -21,7 +21,7 @@ export const Button = (props: TypographyComponentProps): JSX.Element =>
     })
     .withSizes({
       xs: "gap-1",
-      sm: "gap-2",
+      sm: "gap-1.5",
       md: "gap-3",
       lg: "gap-4",
       xl: "gap-5",
