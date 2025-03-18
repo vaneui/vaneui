@@ -133,7 +133,6 @@ export default function ChipPage() {
       <ComponentDocs
         componentName="Chip"
         description="Chips are compact elements that represent an input, attribute, or action."
-        component={Chip}
         propCategories={propCategories}
         examples={examples}
         importStatement="import { Chip } from 'vaneui';"

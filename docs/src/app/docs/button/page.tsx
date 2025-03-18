@@ -83,7 +83,6 @@ export default function ButtonPage() {
       <ComponentDocs
         componentName="Button"
         description="Interactive elements for user actions with various sizes and styles."
-        component={Button}
         propCategories={propCategories}
         examples={examples}
         importStatement="import { Button } from 'vaneui';"

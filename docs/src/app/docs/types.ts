@@ -23,7 +23,6 @@ export type ComponentExample = {
 export interface ComponentDocsProps {
   componentName: string;
   description: string;
-  component: React.ComponentType<any>;
   propCategories: PropCategory[];
   examples: ComponentExample[];
   importStatement: string;

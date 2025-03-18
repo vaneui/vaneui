@@ -1,15 +1,27 @@
-import React from 'react';
+"use client";
+
+import React, { useEffect } from 'react';
 import { Col, Row, Text, Title, Section, Container, SectionTitle, PageTitle } from 'vaneui';
 import { ComponentDocsProps } from './types';
+// Import Prism utilities and styles directly here
+import '../utils/prism';
 
 export function ComponentDocs({
   componentName,
   description,
-  component: Component,
   propCategories,
   examples,
   importStatement
 }: ComponentDocsProps) {
+  
+  useEffect(() => {
+    // Call Prism to highlight code when component mounts or examples change
+    if (typeof window !== 'undefined') {
+      // Use the Prism global directly
+      (window as any).Prism?.highlightAll();
+    }
+  }, [examples]);
+
   return (
     <Col xl>
       <Col>
@@ -21,7 +33,7 @@ export function ComponentDocs({
       <Col>
         <Title sm>Import</Title>
         <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-          <code className="font-mono text-sm">{importStatement}</code>
+          <code className="language-typescript font-mono text-sm">{importStatement}</code>
         </pre>
       </Col>
 
@@ -36,7 +48,7 @@ export function ComponentDocs({
               {example.component}
             </Col>
             <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto">
-              <code className="font-mono text-sm">{example.code}</code>
+              <code className="language-tsx font-mono text-sm">{example.code}</code>
             </pre>
           </Col>
         ))}

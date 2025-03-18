@@ -100,7 +100,6 @@ export default function BadgePage() {
       <ComponentDocs
         componentName="Badge"
         description="Badges are small elements that can be used to represent a status, category, or tag."
-        component={Badge}
         propCategories={propCategories}
         examples={examples}
         importStatement="import { Badge } from 'vaneui';"
