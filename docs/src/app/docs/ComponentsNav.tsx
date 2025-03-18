@@ -2,20 +2,20 @@
 
 import React from 'react';
 import { Link, Text, Col, Row } from 'vaneui';
-import { BeakerIcon } from '@heroicons/react/24/solid'
+import { BeakerIcon, BookOpenIcon, CubeIcon, Square3Stack3DIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 
 // Component groups with their components
 const componentGroups = [
   {
     name: 'Getting Started',
-    icon: <BeakerIcon className="w-5 h-5 text-secondary" />,
+    icon: BookOpenIcon,
     components: [
       { name: 'Installation', path: '/docs/installation' },
     ]
   },
   {
     name: 'Basic Components',
-    icon: <BeakerIcon className="w-5 h-5 text-secondary" />,
+    icon: CubeIcon,
     components: [
       { name: 'Button', path: '/docs/button' },
       { name: 'Badge', path: '/docs/badge' },
@@ -25,7 +25,7 @@ const componentGroups = [
   },
   {
     name: 'Layout Components',
-    icon: <BeakerIcon className="w-5 h-5 text-secondary" />,
+    icon: Square3Stack3DIcon,
     components: [
       { name: 'Section', path: '/docs/section' },
       { name: 'Container', path: '/docs/container' },
@@ -37,7 +37,7 @@ const componentGroups = [
   },
   {
     name: 'Typography',
-    icon: <BeakerIcon className="w-5 h-5 text-secondary" />,
+    icon: DocumentTextIcon,
     components: [
       { name: 'Text', path: '/docs/text' },
       { name: 'Title', path: '/docs/title' },
@@ -56,16 +56,16 @@ export function ComponentsNav({ currentPath }: { currentPath?: string }) {
       <Text lg secondary>
         Components
       </Text>
-      {componentGroups.map((group, groupIndex) => (
-        <Col key={groupIndex}>
+      {componentGroups.map((item, i) => (
+        <Col key={i}>
           <Row sm itemsCenter>
-            {group.icon}
-            <Text uppercase sm mono secondary className="tracking-widest">
-              {group.name}
+            <item.icon className="w-5 h-5 text-secondary" />
+            <Text uppercase sm mono secondary semibold className="tracking-wider">
+              {item.name}
             </Text>
           </Row>
           <Col noGap className="pl-[10px]">
-            {group.components.map((item, i) => {
+            {item.components.map((item, i) => {
               const isActive = currentPath === item.path;
               return (
                 <Link
