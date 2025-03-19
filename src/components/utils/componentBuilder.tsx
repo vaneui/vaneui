@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
-import { BaseComponentProps, BreakpointProps, ItemsProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, HideProps, PositionProps, ReverseProps, ColProps, RowProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, SizeProps } from "../ui/props/props";
-import { fontFamilyClasses, fontStyleClasses, fontWeightClasses, textAppearanceClasses, textDecorationClasses, textTransformClasses } from "../ui/props/commonValues";
-import { CommonAppearanceSettings, FontFamilySettings, FontStyleSettings, FontWeightSettings, TextAppearanceSettings, TextDecorationSettings, TextTransformSettings, TypographySettings } from "../ui/settings";
+import { BaseComponentProps, BreakpointProps, ItemsProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, HideProps, PositionProps, ReverseProps, ColProps, RowProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, SizeProps, TextAlignProps } from "../ui/props/props";
+import { fontFamilyClasses, fontStyleClasses, fontWeightClasses, textAlignClasses, textAppearanceClasses, textDecorationClasses, textTransformClasses } from "../ui/props/commonValues";
+import { CommonAppearanceSettings, FontFamilySettings, FontStyleSettings, FontWeightSettings, TextAlignSettings, TextAppearanceSettings, TextDecorationSettings, TextTransformSettings, TypographySettings } from "../ui/settings";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(
   props: T,
@@ -86,6 +86,7 @@ export function componentBuilder(
     withFontFamily: (fontFamily: Record<keyof FontFamilyProps, string>, settings: FontFamilySettings) => withBooleanProps(fontFamily, undefined, settings),
     withTextDecoration: (textDecoration: Record<keyof TextDecorationProps, string>, settings: TextDecorationSettings) => withBooleanProps(textDecoration, undefined, settings),
     withTextTransform: (textTransform: Record<keyof TextTransformProps, string>, settings: TextTransformSettings) => withBooleanProps(textTransform, undefined, settings),
+    withTextAlign: (textAlign: Record<keyof TextAlignProps, string>, settings: TextAlignSettings) => withBooleanProps(textAlign, undefined, settings),
     withTextAppearance: (appearance: Record<keyof TextAppearanceProps & CommonAppearanceProps, string>, settings: TextAppearanceSettings) => withBooleanProps(appearance, "default", settings),
 
     withGaps: (gapMap: Record<keyof GapProps, string>, sizeMap: Record<keyof SizeProps, string>) =>
@@ -97,6 +98,7 @@ export function componentBuilder(
       .withFontWeight(fontWeightClasses, settings?.fontWeight ?? {})
       .withTextDecoration(textDecorationClasses, settings?.textDecoration ?? {})
       .withTextTransform(textTransformClasses, settings?.textTransform ?? {})
+      .withTextAlign(textAlignClasses, settings?.textAlign ?? {})
       .withTextAppearance(textAppearanceClasses, settings?.textAppearance ?? {}),
 
     withAppearance: (appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings) => withBooleanProps(appearance, "default", settings),

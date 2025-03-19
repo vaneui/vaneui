@@ -35,6 +35,13 @@ export const textTransformClasses = {
   normalCase: "normal-case",
 }
 
+export const textAlignClasses = {
+  textLeft: "text-left",
+  textCenter: "text-center",
+  textRight: "text-right",
+  textJustify: "text-justify",
+}
+
 export const textAppearanceClasses = {
   default: "text-(--text-color-default)",
   primary: "text-(--text-color-primary)",

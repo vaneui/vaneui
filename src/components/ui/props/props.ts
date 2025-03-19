@@ -43,6 +43,13 @@ export interface TextTransformProps {
   normalCase?: boolean;
 }
 
+export interface TextAlignProps {
+  textLeft?: boolean;
+  textCenter?: boolean;
+  textRight?: boolean;
+  textJustify?: boolean;
+}
+
 export interface TextAppearanceProps {
   muted?: boolean;
   link?: boolean;
@@ -119,7 +126,7 @@ export type BaseComponentProps = TagProps & Partial<SizeProps & HideProps & Posi
 
 export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProps;
 
-export type FontProps = FontWeightProps & FontStyleProps & TextDecorationProps & TextTransformProps & FontFamilyProps & TextAppearanceProps & CommonAppearanceProps;
+export type FontProps = FontWeightProps & FontStyleProps & TextDecorationProps & TextTransformProps & FontFamilyProps & TextAppearanceProps & CommonAppearanceProps & TextAlignProps;
 
 export type TypographyComponentProps = BaseComponentProps & FontProps;
 
