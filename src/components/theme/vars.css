@@ -6,7 +6,7 @@
   --text-color-tertiary: var(--color-gray-500, #6b7280);
   --text-color-muted: var(--color-gray-400, #9ca3af);
   --text-color-link: var(--color-blue-600, #2563eb);
-  --text-color-accent: var(--color-purple-600, #9333ea);
+  --text-color-accent: var(--color-rose-700, #9333ea);
   --text-color-success: var(--color-emerald-600, #059669);
   --text-color-danger: var(--color-red-600, #dc2626);
   --text-color-warning: var(--color-amber-600, #d97706);
@@ -19,7 +19,7 @@
   --background-color-tertiary: var(--color-gray-100, #f3f4f6);
   --background-color-muted: var(--color-gray-200, #e5e7eb);
   --background-color-link: var(--color-blue-50, #eff6ff);
-  --background-color-accent: var(--color-purple-50, #faf5ff);
+  --background-color-accent: var(--color-rose-50, #faf5ff);
   --background-color-success: var(--color-emerald-50, #ecfdf5);
   --background-color-danger: var(--color-red-50, #fef2f2);
   --background-color-warning: var(--color-amber-50, #fffbeb);
@@ -32,15 +32,15 @@
   --border-color-tertiary: var(--color-gray-200, #e5e7eb);
   --border-color-muted: var(--color-gray-200, #e5e7eb);
   --border-color-link: var(--color-blue-200, #93c5fd);
-  --border-color-accent: var(--color-purple-200, #d8b4fe);
+  --border-color-accent: var(--color-rose-200, #d8b4fe);
   --border-color-success: var(--color-emerald-200, #6ee7b7);
   --border-color-danger: var(--color-red-200, #fca5a5);
   --border-color-warning: var(--color-amber-200, #fcd34d);
   --border-color-info: var(--color-cyan-200, #67e8f9);
 
   /* Accent / Action Colors */
-  --accent-color-default: var(--color-purple-600, #7c3aed);
-  --accent-color-hover: var(--color-purple-700, #6d28d9);
+  --accent-color-default: var(--color-rose-600, #7c3aed);
+  --accent-color-hover: var(--color-rose-700, #6d28d9);
 
   /* Additional Colors */
   --overlay-color: rgba(0, 0, 0, 0.5);

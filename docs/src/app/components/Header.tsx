@@ -7,7 +7,7 @@ import githubMark from './../../../public/github-mark.svg'
 export function Header() {
   return (
     <>
-      <Col tag={'header'} className="bg-white border-b py-3 px-5 fixed w-full z-10">
+      <Col tag={'header'} className="bg-white/70 backdrop-blur-md border-b py-3 px-5 fixed w-full z-20">
         <Row lg justifyBetween itemsCenter>
           <Row itemsCenter tag={Link} href="/">
             <Image src="/logo.svg" alt={PRODUCT.title} width={56} height={36} className="h-[36px]" />

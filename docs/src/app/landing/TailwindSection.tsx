@@ -17,7 +17,7 @@ import { CodeBlock } from "../components/CodeBlock";
 
 export function TailwindSection() {
   return (
-    <Section className="py-20 bg-gray-50">
+    <Section className="py-20 bg-[linear-gradient(to_right,var(--color-gray-100)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-100)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*6)_calc(var(--spacing)*6)]">
       <Container xl>
         <Row>
           <Col md className="mb-6 md:mb-0">

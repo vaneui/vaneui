@@ -4,7 +4,7 @@ import { TypographyComponentProps } from "./props/props";
 import { backgroundAppearanceClasses, borderAppearanceClasses } from "./props/commonValues";
 
 export const Button = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center border transition-all duration-300")
+  componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300")
     .withSizes({
       xs: "px-3 py-1   rounded-sm text-xs/5",
       sm: "px-3 py-1.5 rounded-md text-sm/5",

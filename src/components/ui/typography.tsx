@@ -3,13 +3,13 @@ import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 
 export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "h1", "")
+  componentBuilder(props, "h1", "text-balance")
     .withSizes({
-      xs: "text-3xl",
-      sm: "text-4xl",
-      md: "text-5xl",
-      lg: "text-6xl",
-      xl: "text-7xl",
+      xs: "text-3xl max-lg:text-2xl max-md:text-xl",
+      sm: "text-4xl max-lg:text-3xl max-md:text-2xl",
+      md: "text-5xl max-lg:text-4xl max-md:text-3xl",
+      lg: "text-6xl max-lg:text-5xl max-md:text-4xl",
+      xl: "text-7xl max-lg:text-6xl max-md:text-5xl",
     })
     .withTypography({
       fontWeight: { semibold: true }
@@ -17,13 +17,13 @@ export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
     .build();
 
 export const SectionTitle = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "h2", "")
+  componentBuilder(props, "h2", "text-balance")
     .withSizes({
-      xs: "text-2xl",
-      sm: "text-3xl",
-      md: "text-4xl",
-      lg: "text-5xl",
-      xl: "text-6xl",
+      xs: "text-2xl max-lg:text-xl max-md:text-lg",
+      sm: "text-3xl max-lg:text-2xl max-md:text-xl",
+      md: "text-4xl max-lg:text-3xl max-md:text-2xl",
+      lg: "text-5xl max-lg:text-4xl max-md:text-3xl",
+      xl: "text-6xl max-lg:text-5xl max-md:text-4xl",
     })
     .withTypography({
       fontWeight: { semibold: true }
@@ -31,7 +31,7 @@ export const SectionTitle = (props: TypographyComponentProps): JSX.Element =>
     .build();
 
 export const Title = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "h3", "")
+  componentBuilder(props, "h3", "text-balance")
     .withSizes({
       xs: "text-lg",
       sm: "text-xl",
