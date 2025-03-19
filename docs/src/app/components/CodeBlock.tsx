@@ -10,6 +10,7 @@ import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-scss';
 import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-bash';
+import Image from 'next/image'
 import { Button, Row, Col, Text } from 'vaneui';
 import { Square2StackIcon, CheckIcon } from "@heroicons/react/24/outline";
 
@@ -41,12 +42,15 @@ export function CodeBlock({ code, language, className = '', fileName = '' }: Cod
   };
 
   return (
-    <Col noGap className="rounded-md overflow-hidden border border-gray-200">
+    <Col noGap className="rounded-lg overflow-hidden border border-gray-200">
       {/* Header with filename and copy button */}
-      <Row justifyBetween itemsCenter className="px-4 py-2 bg-gray-50 border-b border-gray-200">
-        {fileName && <Text sm semibold className="text-gray-600">{fileName}</Text>}
+      <Row justifyBetween itemsCenter className="px-2 py-2 bg-gray-50 border-b border-gray-200">
+        <Row sm itemsCenter>
+          <Image src="/react-icon.svg" alt="react-icon" width={56} height={36} className="h-5 w-5" />
+          {fileName && <Text sm semibold secondary>{fileName}</Text>}
+        </Row>
         <div className={fileName ? '' : 'ml-auto'}>
-          <Button sm onClick={copyToClipboard} default={!copied} success={copied}>
+          <Button xs onClick={copyToClipboard} secondary={!copied} success={copied}>
             {copied ? <CheckIcon className="w-5 h-5" /> : <Square2StackIcon className="w-5 h-5" />}
             {copied ? "Copied!" : "Copy"}
           </Button>

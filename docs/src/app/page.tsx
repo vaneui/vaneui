@@ -1,24 +1,30 @@
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { PageTitle, Text, Section, Container, Col } from 'vaneui';
-import { PRODUCT } from './constants';
+import { Col } from 'vaneui';
+import {
+  HeroSection,
+  FeaturesSection,
+  TailwindSection,
+  ResponsiveSection,
+  LayoutSection,
+  ThemingSection,
+  GetStartedSection
+} from './landing';
 
 export default function Home() {
   return (
     <Col noGap className="min-h-screen">
       <Header />
-      <Section tag={'main'} className="flex-grow">
-        <Container xl>
-          <Col lg>
-            <PageTitle>{PRODUCT.title} Documentation</PageTitle>
-            <Text lg>
-              {PRODUCT.slogan}. This site showcases all the components
-              and their usage examples.
-            </Text>
-          </Col>
-        </Container>
-      </Section>
+      <Col noGap className="flex-grow">
+        <HeroSection />
+        <FeaturesSection />
+        <TailwindSection />
+        <ResponsiveSection />
+        <LayoutSection />
+        <ThemingSection />
+        <GetStartedSection />
+      </Col>
       <Footer />
     </Col>
   );
-} 
+}
