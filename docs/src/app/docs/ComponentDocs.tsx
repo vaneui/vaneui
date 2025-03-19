@@ -23,8 +23,8 @@ export function ComponentDocs({
       {/* Import Example */}
       <Col>
         <Title sm>Import</Title>
-        <CodeBlock 
-          code={importStatement} 
+        <CodeBlock
+          code={importStatement}
           language="typescript"
           fileName="Import Statement"
         />
@@ -40,8 +40,8 @@ export function ComponentDocs({
             <Col itemsCenter className="px-4 py-8 border rounded-md overflow-x-auto w-full">
               {example.component}
             </Col>
-            <CodeBlock 
-              code={example.code} 
+            <CodeBlock
+              code={example.code}
               language="tsx"
               fileName={`${componentName}${example.title ? ' - ' + example.title : ''}.tsx`}
             />
