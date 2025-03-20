@@ -73,6 +73,20 @@ export const backgroundAppearanceClasses = {
   transparent: "bg-transparent",
 }
 
+export const layoutBackgroundAppearanceClasses = {
+  default: "bg-(--layout-background-default)",
+  primary: "bg-(--layout-background-primary)",
+  secondary: "bg-(--layout-background-secondary)",
+  tertiary: "bg-(--layout-background-tertiary)",
+  muted: "bg-(--layout-background-muted)",
+  accent: "bg-(--layout-background-accent)",
+  success: "bg-(--layout-background-success)",
+  danger: "bg-(--layout-background-danger)",
+  warning: "bg-(--layout-background-warning)",
+  info: "bg-(--layout-background-info)",
+  transparent: "bg-transparent",
+}
+
 export const borderAppearanceClasses = {
   default: "border-(--border-color-default)",
   primary: "border-(--border-color-primary)",
