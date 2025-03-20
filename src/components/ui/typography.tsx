@@ -49,7 +49,7 @@ export const Text = (props: TypographyComponentProps): JSX.Element =>
     .withSizes({
       xs: "text-xs",
       sm: "text-sm",
-      md: "text-md",
+      md: "text-base",
       lg: "text-lg",
       xl: "text-xl",
     })
@@ -63,7 +63,7 @@ export const Link = (props: TypographyComponentProps): JSX.Element =>
     .withSizes({
       xs: "text-xs",
       sm: "text-sm",
-      md: "text-md",
+      md: "text-base",
       lg: "text-lg",
       xl: "text-xl",
     })
@@ -77,7 +77,7 @@ export const ListItem = (props: TypographyComponentProps): JSX.Element =>
     .withSizes({
       xs: "text-xs",
       sm: "text-sm",
-      md: "text-md",
+      md: "text-base",
       lg: "text-lg",
       xl: "text-xl",
     })
@@ -89,7 +89,7 @@ export const List = (props: TypographyComponentProps): JSX.Element =>
     .withSizes({
       xs: "text-xs",
       sm: "text-sm",
-      md: "text-md",
+      md: "text-base",
       lg: "text-lg",
       xl: "text-xl",
     })

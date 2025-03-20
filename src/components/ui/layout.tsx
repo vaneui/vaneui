@@ -108,3 +108,23 @@ export const Grid4 = (props: GridProps): JSX.Element =>
     .withGaps({ noGap: "gap-0" }, gridGaps)
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .build();
+
+export const Card = (props: LayoutComponentProps): JSX.Element =>
+  componentBuilder(props, "div", "flex flex-col border shadow-sm")
+    .withItems(itemsClasses)
+    .withSizes({
+      xs: "p-2 rounded-md",
+      sm: "p-3 rounded-lg",
+      md: "p-4 rounded-xl",
+      lg: "p-5 rounded-2xl",
+      xl: "p-6 rounded-3xl"
+    })
+    .withSizes({
+      xs: "gap-2",
+      sm: "gap-3",
+      md: "gap-4",
+      lg: "gap-5",
+      xl: "gap-6"
+    })
+    .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
+    .build();

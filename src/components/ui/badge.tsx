@@ -16,7 +16,7 @@ export const Badge = (props: TypographyComponentProps): JSX.Element =>
     .withBooleanProps(borderAppearanceClasses, "default")
     .withTypography({
       fontWeight: { semibold: true },
-      fontFamily: { mono: true },
+      fontFamily: { sans: true },
       textTransform: { uppercase: true },
       textAppearance: { secondary: true },
     })
