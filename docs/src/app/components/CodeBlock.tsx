@@ -42,7 +42,7 @@ export function CodeBlock({ code, language, className = '', fileName = '' }: Cod
   };
 
   return (
-    <Col noGap className="rounded-lg overflow-hidden border border-gray-200">
+    <Col noGap className={`rounded-lg overflow-hidden border border-gray-200 w-full ${className}`}>
       {/* Header with filename and copy button */}
       <Row justifyBetween itemsCenter className="px-2 py-2 bg-gray-50 border-b border-gray-200">
         <Row sm itemsCenter>
@@ -63,7 +63,7 @@ export function CodeBlock({ code, language, className = '', fileName = '' }: Cod
         <Col>
           <pre className="m-0 p-4 overflow-visible">
             <code
-              className={`language-${language} font-mono text-sm ${className}`}
+              className={`language-${language} font-mono text-sm`}
               dangerouslySetInnerHTML={{
                 __html: Prism.highlight(
                   codeLines.map((_, i) => i + 1).join('\n'),

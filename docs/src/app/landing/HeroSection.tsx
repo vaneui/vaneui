@@ -8,6 +8,7 @@ import {
   Button
 } from 'vaneui';
 import { PRODUCT } from '../constants';
+import { CodeBlock } from "../components/CodeBlock";
 
 export function HeroSection() {
   return (
@@ -23,6 +24,17 @@ export function HeroSection() {
             <Button lg className="max-sm:w-full">Get Started</Button>
             <Button lg secondary className="max-sm:w-full">View on GitHub</Button>
           </Row>
+        </Col>
+      </Container>
+      <Container primary xs className="z-10 -mb-[calc(var(--spacing)*20)]">
+        <Col xl itemsCenter>
+          <CodeBlock
+            fileName="HeroSection.tsx"
+            language="tsx"
+            code={`import {
+  PageTitle,
+  Text,`}
+          />
         </Col>
       </Container>
     </Section>
