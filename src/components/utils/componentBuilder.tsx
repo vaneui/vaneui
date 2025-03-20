@@ -87,7 +87,7 @@ export function componentBuilder(
     withTextDecoration: (textDecoration: Record<keyof TextDecorationProps, string>, settings: TextDecorationSettings) => withBooleanProps(textDecoration, undefined, settings),
     withTextTransform: (textTransform: Record<keyof TextTransformProps, string>, settings: TextTransformSettings) => withBooleanProps(textTransform, undefined, settings),
     withTextAlign: (textAlign: Record<keyof TextAlignProps, string>, settings: TextAlignSettings) => withBooleanProps(textAlign, undefined, settings),
-    withTextAppearance: (appearance: Record<keyof TextAppearanceProps & CommonAppearanceProps, string>, settings: TextAppearanceSettings) => withBooleanProps(appearance, "default", settings),
+    withTextAppearance: (appearance: Record<keyof TextAppearanceProps & CommonAppearanceProps, string>, settings: TextAppearanceSettings) => withBooleanProps(appearance, undefined, settings),
 
     withGaps: (gapMap: Record<keyof GapProps, string>, sizeMap: Record<keyof SizeProps, string>) =>
       otherProps.noGap !== undefined && otherProps.noGap ? withBooleanProps(gapMap) : builder.withSizes(sizeMap),
@@ -101,7 +101,7 @@ export function componentBuilder(
       .withTextAlign(textAlignClasses, settings?.textAlign ?? {})
       .withTextAppearance(textAppearanceClasses, settings?.textAppearance ?? {}),
 
-    withAppearance: (appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings) => withBooleanProps(appearance, "default", settings),
+    withAppearance: (appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings) => withBooleanProps(appearance, undefined, settings),
 
     build() {
       builder.withHide({

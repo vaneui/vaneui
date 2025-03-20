@@ -12,7 +12,7 @@ import { CodeBlock } from "../components/CodeBlock";
 export function LayoutSection() {
   return (
     <Section className="py-20 bg-gray-50">
-      <Container xl transparent>
+      <Container xl>
         <Row justifyCenter className="mb-12">
           <Col md className="text-center">
             <SectionTitle>Flexible Layout System</SectionTitle>

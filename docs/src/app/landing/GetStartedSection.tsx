@@ -12,7 +12,7 @@ import { CodeBlock } from "../components/CodeBlock";
 export function GetStartedSection() {
   return (
     <Section primary>
-      <Container xl transparent>
+      <Container xl>
         <Row justifyCenter>
           <Col lg itemsCenter>
             <SectionTitle>Ready to Get Started?</SectionTitle>

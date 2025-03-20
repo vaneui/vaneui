@@ -41,7 +41,7 @@ export const Container = (props: LayoutComponentProps): JSX.Element =>
       lg: "max-w-6xl gap-8  max-lg:gap-7 max-md:gap-6",
       xl: "max-w-7xl gap-10 max-lg:gap-9 max-md:gap-8",
     })
-    .withAppearance(backgroundAppearanceClasses, { default: true })
+    .withAppearance(backgroundAppearanceClasses, { transparent: true })
     .build();
 
 const commonGaps = {

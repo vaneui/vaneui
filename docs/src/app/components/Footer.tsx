@@ -4,7 +4,7 @@ import { PRODUCT } from '../constants';
 export function Footer() {
   return (
     <Section tag={'footer'} secondary className="border-t">
-      <Container xl transparent>
+      <Container xl>
         <Row xl justifyBetween mdCol>
           <Col className="max-w-1/2 max-md:max-w-full">
             <Text secondary uppercase>
