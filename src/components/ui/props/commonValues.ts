@@ -70,6 +70,7 @@ export const backgroundAppearanceClasses = {
   danger: "bg-(--background-color-danger)",
   warning: "bg-(--background-color-warning)",
   info: "bg-(--background-color-info)",
+  transparent: "bg-transparent",
 }
 
 export const borderAppearanceClasses = {

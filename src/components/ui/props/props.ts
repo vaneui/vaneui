@@ -65,6 +65,7 @@ export interface CommonAppearanceProps {
   danger?: boolean;
   warning?: boolean;
   info?: boolean;
+  transparent?: boolean;
 }
 
 export interface BreakpointProps {
@@ -124,14 +125,14 @@ export interface JustifyProps {
 
 export type BaseComponentProps = TagProps & Partial<SizeProps & HideProps & PositionProps> & React.HTMLProps<HTMLElement>;
 
-export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProps;
+export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProps & CommonAppearanceProps;
 
 export type FontProps = FontWeightProps & FontStyleProps & TextDecorationProps & TextTransformProps & FontFamilyProps & TextAppearanceProps & CommonAppearanceProps & TextAlignProps;
 
 export type TypographyComponentProps = BaseComponentProps & FontProps;
 
-export type GridProps = BaseComponentProps & GapProps;
+export type GridProps = BaseComponentProps & GapProps & CommonAppearanceProps;
 
-export type RowProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps;
+export type RowProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps;
 
-export type ColProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps;
+export type ColProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & CommonAppearanceProps;

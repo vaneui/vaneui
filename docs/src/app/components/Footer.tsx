@@ -3,8 +3,8 @@ import { PRODUCT } from '../constants';
 
 export function Footer() {
   return (
-    <Section tag={'footer'} className="bg-gray-50 border-t">
-      <Container xl>
+    <Section tag={'footer'} secondary className="border-t">
+      <Container xl transparent>
         <Row xl justifyBetween mdCol>
           <Col className="max-w-1/2 max-md:max-w-full">
             <Text secondary uppercase>

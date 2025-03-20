@@ -1,6 +1,7 @@
 import React, { JSX } from 'react';
 import { GridProps, LayoutComponentProps, ColProps, RowProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
+import { backgroundAppearanceClasses } from "./props/commonValues";
 
 const itemsClasses = {
   itemsStart: "items-start",
@@ -27,6 +28,7 @@ export const Section = (props: LayoutComponentProps): JSX.Element =>
       lg: "px-10 max-lg:px-8  max-md:px-6",
       xl: "px-12 max-lg:px-10 max-md:px-8",
     })
+    .withAppearance(backgroundAppearanceClasses, { default: true })
     .build();
 
 export const Container = (props: LayoutComponentProps): JSX.Element =>
@@ -39,6 +41,7 @@ export const Container = (props: LayoutComponentProps): JSX.Element =>
       lg: "max-w-6xl gap-8  max-lg:gap-7 max-md:gap-6",
       xl: "max-w-7xl gap-10 max-lg:gap-9 max-md:gap-8",
     })
+    .withAppearance(backgroundAppearanceClasses, { default: true })
     .build();
 
 const commonGaps = {
@@ -95,10 +98,11 @@ const gridGaps = {
 export const Grid3 = (props: GridProps): JSX.Element =>
   componentBuilder(props, "div", "w-full grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1")
     .withGaps({ noGap: "gap-0" }, gridGaps)
+    .withAppearance(backgroundAppearanceClasses, { default: true })
     .build();
 
 export const Grid4 = (props: GridProps): JSX.Element =>
   componentBuilder(props, "div", "w-full grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1")
     .withGaps({ noGap: "gap-0" }, gridGaps)
+    .withAppearance(backgroundAppearanceClasses, { default: true })
     .build();
-

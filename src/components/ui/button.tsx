@@ -29,6 +29,6 @@ export const Button = (props: TypographyComponentProps): JSX.Element =>
     .withTypography({
       fontWeight: { semibold: true },
     })
-    .withBooleanProps(backgroundAppearanceClasses, "default")
+    .withAppearance(backgroundAppearanceClasses, { default: true })
     .withBooleanProps(borderAppearanceClasses, "default")
     .build();

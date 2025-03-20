@@ -11,12 +11,12 @@ import { CodeBlock } from "../components/CodeBlock";
 
 export function GetStartedSection() {
   return (
-    <Section className="py-20 bg-indigo-50">
-      <Container xl>
+    <Section primary>
+      <Container xl transparent>
         <Row justifyCenter>
-          <Col md className="text-center">
+          <Col lg itemsCenter>
             <SectionTitle>Ready to Get Started?</SectionTitle>
-            <Text lg className="mb-8">VaneUI is easy to install and integrate into your React projects</Text>
+            <Text lg>VaneUI is easy to install and integrate into your React projects</Text>
             
             <CodeBlock
               fileName="Installation"
@@ -28,10 +28,10 @@ npm install vaneui
 yarn add vaneui`}
             />
             
-            <div className="mt-12">
-              <Button lg primary className="mx-2">Read the Documentation</Button>
-              <Button lg default className="mx-2">View on GitHub</Button>
-            </div>
+            <Row lg>
+              <Button lg primary>Read the Documentation</Button>
+              <Button lg default>View on GitHub</Button>
+            </Row>
           </Col>
         </Row>
       </Container>
