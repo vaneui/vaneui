@@ -1,5 +1,3 @@
-"use client";
-
 import React from 'react';
 import { Col, Row, Text, Title, Section, Container, SectionTitle, PageTitle } from 'vaneui';
 import { ComponentDocsProps } from './types';

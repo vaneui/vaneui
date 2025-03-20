@@ -110,14 +110,14 @@ export const Grid4 = (props: GridProps): JSX.Element =>
     .build();
 
 export const Card = (props: LayoutComponentProps): JSX.Element =>
-  componentBuilder(props, "div", "flex flex-col border shadow-sm")
+  componentBuilder(props, "div", "flex flex-col border shadow-sm overflow-hidden")
     .withItems(itemsClasses)
     .withSizes({
-      xs: "p-2 rounded-md",
-      sm: "p-3 rounded-lg",
-      md: "p-4 rounded-xl",
-      lg: "p-5 rounded-2xl",
-      xl: "p-6 rounded-3xl"
+      xs: "rounded-md",
+      sm: "rounded-lg",
+      md: "rounded-xl",
+      lg: "rounded-2xl",
+      xl: "rounded-3xl"
     })
     .withSizes({
       xs: "gap-2",

@@ -1,6 +1,6 @@
 code[class*="language-"],
 pre[class*="language-"] {
-  color: #393A34;
+  color: #e3e3e3;
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -27,23 +27,23 @@ pre[class*="language-"]::-moz-selection,
 pre[class*="language-"] ::-moz-selection,
 code[class*="language-"]::-moz-selection,
 code[class*="language-"] ::-moz-selection {
-  background: #b3d4fc;
+  background: #3e4451;
 }
 
 pre[class*="language-"]::selection,
 pre[class*="language-"] ::selection,
 code[class*="language-"]::selection,
 code[class*="language-"] ::selection {
-  background: #b3d4fc;
+  background: #3e4451;
 }
 
 /* Code blocks */
-pre[class*="language-"] {
+pre:has(code[class*="language"]) {
   /*padding: 1em;
 	margin: .5em 0;
 	border: 1px solid #dddddd;*/
   overflow: auto;
-  background-color: white;
+  background-color: #1e1e2e;
 }
 
 /* Inline code */
@@ -51,7 +51,7 @@ pre[class*="language-"] {
   /*padding: .2em;
   padding-top: 1px;
   padding-bottom: 1px;*/
-  background: #f8f8f8;
+  background: #2d2d3a;
   /*border: 1px solid #dddddd;*/
 }
 
@@ -59,7 +59,7 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #999988;
+  color: #7a7c85;
   font-style: italic;
 }
 
@@ -69,13 +69,13 @@ pre[class*="language-"] {
 
 .token.string,
 .token.attr-value {
-  color: #e3116c;
+  color: #f9c96e; /* Amber for strings */
 }
 
 .token.punctuation,
 .token.operator {
-  color: #393A34;
-  /* no highlight */
+  color: #9da3b3;
+  /* Subtle highlight */
 }
 
 .token.entity,
@@ -88,26 +88,26 @@ pre[class*="language-"] {
 .token.property,
 .token.regex,
 .token.inserted {
-  color: #36acaa;
+  color: #74c7ec; /* Teal/Cyan for variables and values */
 }
 
 .token.atrule,
 .token.keyword,
 .token.attr-name,
 .language-autohotkey .token.selector {
-  color: #00a4db;
+  color: #c792ea; /* Purple for keywords */
 }
 
 .token.function,
 .token.deleted,
 .language-autohotkey .token.tag {
-  color: #9a050f;
+  color: #f97583; /* Pink/Red for functions */
 }
 
 .token.tag,
 .token.selector,
 .language-autohotkey .token.keyword {
-  color: #00009f;
+  color: #89ddff; /* Light blue for selectors and tags */
 }
 
 .token.important,
