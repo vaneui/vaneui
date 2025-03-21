@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
-import { GridProps, LayoutComponentProps, ColProps, RowProps } from "./props/props";
+import { GridProps, LayoutComponentProps, ColProps, RowProps, CardProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { layoutBackgroundAppearanceClasses } from "./props/commonValues";
+import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./props/commonValues";
 
 const itemsClasses = {
   itemsStart: "items-start",
@@ -109,9 +109,10 @@ export const Grid4 = (props: GridProps): JSX.Element =>
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .build();
 
-export const Card = (props: LayoutComponentProps): JSX.Element =>
+export const Card = (props: CardProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col border shadow-sm overflow-hidden")
     .withItems(itemsClasses)
+    .withGaps({ noGap: "gap-0" }, commonGaps)
     .withSizes({
       xs: "rounded-md",
       sm: "rounded-lg",
@@ -127,4 +128,5 @@ export const Card = (props: LayoutComponentProps): JSX.Element =>
       xl: "gap-6"
     })
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
+    .withBooleanProps(borderAppearanceClasses, undefined, { default: true })
     .build();

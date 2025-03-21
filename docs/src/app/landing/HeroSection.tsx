@@ -35,7 +35,7 @@ export function HeroSection() {
         <Col itemsCenter>
           <Col className="z-10 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
             <Card lg className="max-w-lg">
-              <Row lg itemsCenter smCol>
+              <Row lg noGap itemsCenter smCol>
                 <Col relative>
                   <img src="/puppy.png" alt="puppy" className="object-cover" />
                   <Badge absolute xs normalCase className="bottom-1 right-1 opacity-75">In foster care</Badge>

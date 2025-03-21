@@ -136,3 +136,5 @@ export type GridProps = BaseComponentProps & GapProps & CommonAppearanceProps;
 export type RowProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps;
 
 export type ColProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & CommonAppearanceProps;
+
+export type CardProps = BaseComponentProps & GapProps & ItemsProps & CommonAppearanceProps;
