@@ -52,6 +52,17 @@ const commonGaps = {
   xl: "gap-8 max-lg:gap-7 max-md:gap-6",
 }
 
+const justifyClasses = {
+  justifyStart: "justify-start",
+  justifyEnd: "justify-end",
+  justifyCenter: "justify-center",
+  justifyBetween: "justify-between",
+  justifyAround: "justify-around",
+  justifyEvenly: "justify-evenly",
+  justifyStretch: "justify-stretch",
+  justifyBaseline: "justify-baseline",
+}
+
 export const Col = (props: ColProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col")
     .withGaps({ noGap: "gap-0" }, commonGaps)
@@ -60,6 +71,7 @@ export const Col = (props: ColProps): JSX.Element =>
     })
     .withItems(itemsClasses)
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
+    .withBooleanProps(justifyClasses)
     .build();
 
 export const Row = (props: RowProps): JSX.Element =>
@@ -76,16 +88,7 @@ export const Row = (props: RowProps): JSX.Element =>
       lgCol: "max-lg:flex-col",
       xlCol: "max-xl:flex-col"
     })
-    .withBooleanProps({
-      justifyStart: "justify-start",
-      justifyEnd: "justify-end",
-      justifyCenter: "justify-center",
-      justifyBetween: "justify-between",
-      justifyAround: "justify-around",
-      justifyEvenly: "justify-evenly",
-      justifyStretch: "justify-stretch",
-      justifyBaseline: "justify-baseline",
-    })
+    .withBooleanProps(justifyClasses)
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
     .build();
 

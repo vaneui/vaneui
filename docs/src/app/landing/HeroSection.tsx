@@ -15,6 +15,13 @@ import {
 import { PRODUCT } from '../constants';
 import { CodeBlock } from "../components/CodeBlock";
 
+const dog = {
+  name: "Luka",
+  gender: "male",
+  image: "/puppy.png",
+  description: "Luka is a 5 months old puppy who loves to play with his toys. He is a very friendly and playful puppy, and he is looking for a new home."
+}
+
 export function HeroSection() {
   return (
     <Section relative className="border-b bg-gradient-to-r from-slate-100 via-white to-slate-100 mt-[calc(36px+(var(--spacing)*6))]">
@@ -34,22 +41,20 @@ export function HeroSection() {
       <Container sm className="z-10 ">
         <Col itemsCenter>
           <Col className="z-10 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
-            <Card lg className="max-w-lg">
-              <Row lg noGap itemsCenter smCol>
-                <Col relative>
-                  <img src="/puppy.png" alt="puppy" className="object-cover" />
-                  <Badge absolute xs normalCase className="bottom-1 right-1 opacity-75">In foster care</Badge>
-                </Col>
-                <Col>
+            <Card lg className="max-w-xl max-sm:max-w-80">
+              <Row noGap smCol>
+                <img src={dog.image} alt="puppy" className="size-52 h-fit max-sm:w-80 object-cover" />
+                <Col justifyBetween className="m-3">
                   <Row justifyBetween itemsCenter>
-                    <Title lg>Luka</Title>
-                    <Chip sm secondary semibold>male</Chip>
+                    <Title sm>{dog.name}</Title>
+                    <Chip sm secondary semibold>{dog.gender}</Chip>
                   </Row>
-                  <Row justifyBetween itemsCenter>
-                    <Text semibold>Breed:</Text>
-                    <Text secondary>Mixed breed</Text>
+                  <Divider />
+                  <Text sm>{dog.description}</Text>
+                  <Row justifyEnd>
+                    <Button sm primary>Adopt</Button>
+                    <Button sm secondary>Learn more</Button>
                   </Row>
-                  <Text italic>Luka is a 5 months old puppy who loves to play with his toys.</Text>
                 </Col>
               </Row>
             </Card>
@@ -59,24 +64,20 @@ export function HeroSection() {
             language="tsx"
             code={`import { Card, Row, Col, Title, Text, Chip } from 'vaneui';
 
-<Card xl className="max-w-lg">
-  <Row lg itemsCenter>
-    <Col relative>
-      <img src="/puppy.png" alt="puppy" className="rounded-xl object-cover" />
-      <Badge absolute xs normalCase className="bottom-1 right-1 opacity-75">
-        In foster care
-      </Badge>
-    </Col>
-    <Col>
+<Card lg className="max-w-xl max-sm:max-w-80">
+  <Row noGap smCol>
+    <img src={dog.image} alt="puppy" className="size-52 h-fit max-sm:w-80 object-cover" />
+    <Col justifyBetween className="m-3">
       <Row justifyBetween itemsCenter>
-        <Title lg>Luka</Title>
-        <Chip sm secondary semibold>male</Chip>
+        <Title sm>{dog.name}</Title>
+        <Chip sm secondary semibold>{dog.gender}</Chip>
       </Row>
-      <Row justifyBetween itemsCenter>
-        <Text semibold>Breed:</Text>
-        <Text secondary>Mixed breed</Text>
+      <Divider />
+      <Text sm>{dog.description}</Text>
+      <Row justifyEnd>
+        <Button primary>Adopt</Button>
+        <Button secondary>Learn more</Button>
       </Row>
-      <Text italic>Luka is a 5 months old puppy who loves to play with his toys.</Text>
     </Col>
   </Row>
 </Card>`}
