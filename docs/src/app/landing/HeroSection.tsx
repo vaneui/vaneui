@@ -43,10 +43,10 @@ export function HeroSection() {
           <Col className="z-10 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
             <Card lg className="max-w-xl max-sm:max-w-80">
               <Row noGap smCol>
-                <img src={dog.image} alt="puppy" className="size-52 h-fit max-sm:w-80 object-cover" />
-                <Col justifyBetween className="m-3">
+                <img src={dog.image} alt="puppy" className="size-52 max-sm:w-80 object-cover" />
+                <Col justifyBetween className="p-3">
                   <Row justifyBetween itemsCenter>
-                    <Title sm>{dog.name}</Title>
+                    <Title>{dog.name}</Title>
                     <Chip sm secondary semibold>{dog.gender}</Chip>
                   </Row>
                   <Divider />
@@ -66,17 +66,17 @@ export function HeroSection() {
 
 <Card lg className="max-w-xl max-sm:max-w-80">
   <Row noGap smCol>
-    <img src={dog.image} alt="puppy" className="size-52 h-fit max-sm:w-80 object-cover" />
+    <img src={dog.image} alt="puppy" className="size-52 max-sm:w-80 object-cover" />
     <Col justifyBetween className="m-3">
       <Row justifyBetween itemsCenter>
-        <Title sm>{dog.name}</Title>
+        <Title>{dog.name}</Title>
         <Chip sm secondary semibold>{dog.gender}</Chip>
       </Row>
       <Divider />
       <Text sm>{dog.description}</Text>
       <Row justifyEnd>
-        <Button primary>Adopt</Button>
-        <Button secondary>Learn more</Button>
+        <Button sm primary>Adopt</Button>
+        <Button sm secondary>Learn more</Button>
       </Row>
     </Col>
   </Row>
