@@ -32,7 +32,7 @@ export function HeroSection() {
             {PRODUCT.slogan}
           </PageTitle>
           <Text xl mono textCenter>{PRODUCT.description}</Text>
-          <Row lg smCol justifyCenter itemsCenter className="w-full">
+          <Row lg smCol justifyCenter className="w-full">
             <Button lg className="max-sm:w-full">Get Started</Button>
             <Button lg secondary className="max-sm:w-full">View on GitHub</Button>
           </Row>
@@ -43,15 +43,15 @@ export function HeroSection() {
           <Col className="max-w-xl max-sm:max-w-80 z-10 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
             <Card lg>
               <Row noGap smCol>
-                <img src={dog.image} alt="puppy" className="size-50 max-sm:w-80 object-cover" />
-                <Stack justifyBetween>
-                  <Row justifyBetween itemsCenter>
+                <img src={dog.image} alt="puppy" className="self-stretch w-48 object-cover max-sm:w-80" />
+                <Stack>
+                  <Row justifyBetween>
                     <Title>{dog.name}</Title>
                     <Chip sm secondary semibold>{dog.gender}</Chip>
                   </Row>
                   <Divider />
                   <Text sm>{dog.description}</Text>
-                  <Row justifyEnd>
+                  <Row sm justifyEnd>
                     <Button sm primary>Adopt</Button>
                     <Button sm secondary>Learn more</Button>
                   </Row>
@@ -66,19 +66,19 @@ export function HeroSection() {
 
 <Card lg>
   <Row noGap smCol>
-    <img src={dog.image} alt="puppy" className="size-50 max-sm:w-80 object-cover" />
-    <Col justifyBetween p3>
-      <Row justifyBetween itemsCenter>
+    <img src={dog.image} alt="puppy" className="self-stretch w-44 object-cover max-sm:w-80" />
+    <Stack sm>
+      <Row justifyBetween>
         <Title>{dog.name}</Title>
         <Chip sm secondary semibold>{dog.gender}</Chip>
       </Row>
       <Divider />
       <Text sm>{dog.description}</Text>
-      <Row justifyEnd>
+      <Row sm justifyEnd>
         <Button sm primary>Adopt</Button>
         <Button sm secondary>Learn more</Button>
       </Row>
-    </Col>
+    </Stack>
   </Row>
 </Card>`}
           />

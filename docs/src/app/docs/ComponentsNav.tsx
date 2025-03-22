@@ -58,7 +58,7 @@ export function ComponentsNav({ currentPath }: { currentPath?: string }) {
       </Text>
       {componentGroups.map((item, i) => (
         <Col key={i}>
-          <Row noGap itemsCenter>
+          <Row noGap>
             <item.icon className="w-5 h-5 text-secondary mr-3" />
             <Text uppercase sm mono secondary semibold className="tracking-wider">
               {item.name}

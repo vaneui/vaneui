@@ -19,7 +19,7 @@ export function TailwindSection() {
   return (
     <Section secondary className="py-20 bg-[linear-gradient(to_right,var(--color-gray-100)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-100)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*6)_calc(var(--spacing)*6)]">
       <Container primary xl className="p-8 rounded-2xl border">
-        <Row xl itemsCenter lgCol>
+        <Row xl lgCol>
           <Col md className="mb-6 md:mb-0">
             <SectionTitle>Powered by Tailwind CSS</SectionTitle>
             <Text lg className="mb-4">VaneUI is built on top of Tailwind CSS, giving you all the utility-first power you love while adding a layer of component abstraction.</Text>

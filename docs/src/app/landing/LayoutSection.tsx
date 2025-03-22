@@ -65,7 +65,7 @@ function LayoutExample() {
         </Row>
         
         {/* Row with alignment */}
-        <Row itemsCenter justifyBetween className="mb-4">
+        <Row justifyBetween className="mb-4">
           <Col md className="p-4 border rounded-lg">Left</Col>
           <Col md className="p-4 border rounded-lg">Center</Col>
           <Col md className="p-4 border rounded-lg">Right</Col>

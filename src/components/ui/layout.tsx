@@ -8,11 +8,11 @@ const itemsClasses = {
   itemsEnd: "items-end",
   itemsCenter: "items-center",
   itemsBaseline: "items-baseline",
-  itemsStretch: "items-stretch"
+  itemsStretch: "items-stretch",
 }
 
 export const Section = (props: LayoutComponentProps): JSX.Element =>
-  componentBuilder(props, "section", "w-full flex flex-col mx-auto items-center")
+  componentBuilder(props, "section", "w-full flex flex-col mx-auto")
     .withItems(itemsClasses)
     .withSizes({
       xs: "py-4  max-lg:py-2  max-md:py-0",
@@ -45,11 +45,11 @@ export const Container = (props: LayoutComponentProps): JSX.Element =>
     .build();
 
 const commonGaps = {
-  xs: "gap-1",
-  sm: "gap-2 max-lg:gap-1",
-  md: "gap-4 max-lg:gap-3 max-md:gap-2",
-  lg: "gap-6 max-lg:gap-5 max-md:gap-4",
-  xl: "gap-8 max-lg:gap-7 max-md:gap-6",
+  xs: "gap-2",
+  sm: "gap-3",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8",
 }
 
 const justifyClasses = {
@@ -80,7 +80,7 @@ export const Row = (props: RowProps): JSX.Element =>
     .withReverse({
       reverse: "flex-row-reverse"
     })
-    .withItems(itemsClasses)
+    .withItems(itemsClasses, { itemsCenter: true })
     .withBreakpoints({
       xsCol: "max-xs:flex-col",
       smCol: "max-sm:flex-col",

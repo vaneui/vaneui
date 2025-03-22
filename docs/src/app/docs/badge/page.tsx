@@ -48,7 +48,7 @@ export default function BadgePage() {
     {
       title: 'Badge Sizes',
       description: 'Badges come in different sizes.',
-      code: `<Row itemsCenter>
+      code: `<Row>
   <Badge xs>XS</Badge>
   <Badge sm>SM</Badge>
   <Badge>MD</Badge>
@@ -56,7 +56,7 @@ export default function BadgePage() {
   <Badge xl>XL</Badge>
 </Row>`,
       component: (
-        <Row itemsCenter>
+        <Row>
           <Badge xs>XS</Badge>
           <Badge sm>SM</Badge>
           <Badge>MD</Badge>

@@ -33,7 +33,7 @@ export default function ButtonPage() {
     {
       title: 'Sizes',
       description: 'Buttons come in different sizes.',
-      code: `<Row itemsCenter>
+      code: `<Row>
   <Button xs>Extra Small</Button>
   <Button sm>Small</Button>
   <Button md>Medium</Button>
@@ -41,7 +41,7 @@ export default function ButtonPage() {
   <Button xl>Extra Large</Button>
 </Row>`,
       component: (
-        <Row itemsCenter>
+        <Row>
           <Button xs>Extra Small</Button>
           <Button sm>Small</Button>
           <Button md>Medium</Button>

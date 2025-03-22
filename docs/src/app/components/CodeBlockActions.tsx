@@ -21,8 +21,8 @@ export function CodeBlockActions({ code, fileName = '' }: CodeBlockActionsProps)
   };
 
   return (
-    <Row justifyBetween itemsCenter className="p-2 border-b">
-      <Row sm itemsCenter>
+    <Row justifyBetween className="p-2 border-b">
+      <Row sm>
         <Image src="/react-icon.svg" alt="react-icon" width={56} height={36} className="h-5 w-5" />
         {fileName && <Text sm semibold>{fileName}</Text>}
       </Row>

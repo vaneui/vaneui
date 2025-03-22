@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 import { BaseComponentProps, BreakpointProps, ItemsProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, HideProps, PositionProps, ReverseProps, ColProps, RowProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, SizeProps, TextAlignProps } from "../ui/props/props";
 import { fontFamilyClasses, fontStyleClasses, fontWeightClasses, textAlignClasses, textAppearanceClasses, textDecorationClasses, textTransformClasses } from "../ui/props/commonValues";
-import { CommonAppearanceSettings, FontFamilySettings, FontStyleSettings, FontWeightSettings, TextAlignSettings, TextAppearanceSettings, TextDecorationSettings, TextTransformSettings, TypographySettings } from "../ui/settings";
+import { CommonAppearanceSettings, FontFamilySettings, FontStyleSettings, FontWeightSettings, TextAlignSettings, TextAppearanceSettings, TextDecorationSettings, TextTransformSettings, TypographySettings, ItemsSettings } from "../ui/settings";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(
   props: T,
@@ -78,7 +78,7 @@ export function componentBuilder(
     withSizes: (sizeMap: Record<keyof SizeProps, string>) => withBooleanProps(sizeMap, "md"),
     withBreakpoints: (breakpointMap: Record<keyof BreakpointProps, string>) => withBooleanProps(breakpointMap),
     withReverse: (reverseMap: Record<keyof ReverseProps, string>) => withBooleanProps(reverseMap),
-    withItems: (itemsMap: Record<keyof ItemsProps, string>) => withBooleanProps(itemsMap),
+    withItems: (itemsMap: Record<keyof ItemsProps, string>, settings?: ItemsSettings) => withBooleanProps(itemsMap, undefined, settings),
     withHide: (hideMap: Record<keyof HideProps, string>) => withBooleanProps(hideMap),
     withPosition: (positionMap: Record<keyof PositionProps, string>) => withBooleanProps(positionMap),
     withFontWeight: (fontWeight: Record<keyof FontWeightProps, string>, settings: FontWeightSettings) => withBooleanProps(fontWeight, undefined, settings),
