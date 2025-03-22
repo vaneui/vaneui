@@ -13,7 +13,7 @@ export const Badge = (props: TypographyComponentProps): JSX.Element =>
       xl: "px-6 py-3   text-xl",
     })
     .withAppearance(backgroundAppearanceClasses, { default: true })
-    .withBooleanProps(borderAppearanceClasses, "default")
+    .withBorder(borderAppearanceClasses, { default: true })
     .withTypography({
       fontWeight: { semibold: true },
       fontFamily: { sans: true },
@@ -21,4 +21,3 @@ export const Badge = (props: TypographyComponentProps): JSX.Element =>
       textAppearance: { secondary: true },
     })
     .build();
-    

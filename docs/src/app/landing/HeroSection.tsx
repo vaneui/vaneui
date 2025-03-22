@@ -31,7 +31,7 @@ export function HeroSection() {
           <PageTitle xl sans textCenter medium>
             {PRODUCT.slogan}
           </PageTitle>
-          <Text xl mono textCenter>{PRODUCT.description}</Text>
+          <Text lg textCenter>{PRODUCT.description}</Text>
           <Row lg smCol justifyCenter className="w-full">
             <Button lg className="max-sm:w-full">Get Started</Button>
             <Button lg secondary className="max-sm:w-full">View on GitHub</Button>
@@ -41,7 +41,7 @@ export function HeroSection() {
       <Container sm className="z-10 ">
         <Col itemsCenter>
           <Col className="max-w-xl max-sm:max-w-80 z-10 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
-            <Card lg>
+            <Card lg noBorder>
               <Row noGap smCol>
                 <img src={dog.image} alt="puppy" className="self-stretch w-52 object-cover max-sm:w-80" />
                 <Stack>
@@ -67,14 +67,14 @@ export function HeroSection() {
 <Card lg>
   <Row noGap smCol>
     <img src={dog.image} alt="puppy" className="self-stretch w-44 object-cover max-sm:w-80" />
-    <Stack sm>
+    <Stack>
       <Row justifyBetween>
         <Title>{dog.name}</Title>
         <Chip sm secondary semibold>{dog.gender}</Chip>
       </Row>
       <Divider />
       <Text sm>{dog.description}</Text>
-      <Row sm justifyEnd>
+      <Row justifyEnd>
         <Button sm primary>Adopt</Button>
         <Button sm secondary>Learn more</Button>
       </Row>

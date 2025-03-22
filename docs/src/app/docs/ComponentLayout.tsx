@@ -16,9 +16,9 @@ export function ComponentLayout({ children }: ComponentLayoutProps) {
   return (
     <Col noGap className="min-h-screen">
       <Header />
-      <Row relative className="h-full bg-gray-50">
+      <Row secondary itemsStretch relative>
         <ComponentsNav currentPath={pathname} />
-        <Container lg className="pt-[calc(36px+(var(--spacing)*6))] border-x px-10 bg-white">
+        <Container primary lg className="pt-[calc(36px+(var(--spacing)*6))] border-x px-10">
           <Container sm>
             <Col className="py-10">
               {children}

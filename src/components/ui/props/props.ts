@@ -68,6 +68,10 @@ export interface CommonAppearanceProps {
   transparent?: boolean;
 }
 
+export interface BorderAppearanceProps extends CommonAppearanceProps {
+  noBorder?: boolean;
+}
+
 export interface BreakpointProps {
   xsCol?: boolean;
   smCol?: boolean;
@@ -100,8 +104,13 @@ export interface ReverseProps {
   reverse?: boolean;
 }
 
-export interface GapProps {
+export interface GapProps extends SizeProps {
   noGap?: boolean;
+}
+
+export interface BorderRadiusProps extends SizeProps {
+  roundedFull?: boolean;
+  square?: boolean;
 }
 
 export interface StackDirectionProps {
@@ -142,6 +151,6 @@ export type RowProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps
 
 export type ColProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
 
-export type CardProps = BaseComponentProps & GapProps & ItemsProps & CommonAppearanceProps;
+export type CardProps = BaseComponentProps & GapProps & ItemsProps & CommonAppearanceProps & BorderAppearanceProps;
 
 export type StackProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps;

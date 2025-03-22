@@ -13,7 +13,7 @@ export const Chip = (props: TypographyComponentProps): JSX.Element =>
       xl: "px-4   py-2.5 rounded-2xl text-xl",
     })
     .withAppearance(backgroundAppearanceClasses, { default: true })
-    .withBooleanProps(borderAppearanceClasses, "default")
+    .withBorder(borderAppearanceClasses, { default: true })
     .withTypography({
       fontFamily: { mono: true },
       textAppearance: { secondary: true },

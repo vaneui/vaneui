@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col } from 'vaneui';
+import { Card, Col, Stack } from 'vaneui';
 import { CodeBlockRenderer } from './CodeBlockRenderer';
 import { CodeBlockActions } from './CodeBlockActions';
 
@@ -13,13 +13,14 @@ interface CodeBlockProps {
 export function CodeBlock({ code, language, className = '', fileName = '' }: CodeBlockProps) {
   return (
     <Col primary noGap className={`border rounded-lg overflow-hidden w-full ${className}`}>
-      {/* Header with filename and copy button - Client Component */}
-      <CodeBlockActions code={code} fileName={fileName} />
-
-      {/* Syntax highlighted code - Server Component */}
-      <Col secondary className="rounded-md overflow-hidden m-1">
-        <CodeBlockRenderer code={code} language={language} />
-      </Col>
+      <Stack xs row justifyBetween className="border-b">
+        <CodeBlockActions code={code} fileName={fileName} />
+      </Stack>
+      <Stack xs secondary>
+        <Card xs className="overflow-hidden">
+          <CodeBlockRenderer code={code} language={language} />
+        </Card>
+      </Stack>
     </Col>
   );
 } 

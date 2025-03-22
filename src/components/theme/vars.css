@@ -17,8 +17,6 @@
   --background-color-primary: var(--color-blue-50, #eff6ff);
   --background-color-secondary: var(--color-gray-50, #f9fafb);
   --background-color-tertiary: var(--color-gray-100, #f3f4f6);
-  --background-color-muted: var(--color-gray-200, #e5e7eb);
-  --background-color-link: var(--color-blue-50, #eff6ff);
   --background-color-accent: var(--color-rose-50, #faf5ff);
   --background-color-success: var(--color-emerald-50, #ecfdf5);
   --background-color-danger: var(--color-red-50, #fef2f2);
@@ -30,7 +28,6 @@
   --layout-background-primary: var(--color-white, #ffffff);
   --layout-background-secondary: var(--color-gray-50, #f9fafb);
   --layout-background-tertiary: var(--color-gray-100, #f3f4f6);
-  --layout-background-muted: var(--color-gray-200, #e5e7eb);
   --layout-background-accent: var(--color-indigo-50, #eef2ff);
   --layout-background-success: var(--color-green-50, #f0fdf4);
   --layout-background-danger: var(--color-red-50, #fef2f2);
