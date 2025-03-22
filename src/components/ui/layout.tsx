@@ -1,5 +1,5 @@
 import React, { JSX } from 'react';
-import { GridProps, LayoutComponentProps, ColProps, RowProps, CardProps } from "./props/props";
+import { GridProps, LayoutComponentProps, ColProps, RowProps, CardProps, StackProps, StackDirectionProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./props/commonValues";
 
@@ -12,7 +12,7 @@ const itemsClasses = {
 }
 
 export const Section = (props: LayoutComponentProps): JSX.Element =>
-  componentBuilder(props, "section", "w-full flex flex-col items-start")
+  componentBuilder(props, "section", "w-full flex flex-col mx-auto items-center")
     .withItems(itemsClasses)
     .withSizes({
       xs: "py-4  max-lg:py-2  max-md:py-0",
@@ -133,3 +133,38 @@ export const Card = (props: CardProps): JSX.Element =>
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .withBooleanProps(borderAppearanceClasses, undefined, { default: true })
     .build();
+
+const stackDirectionClasses: Record<keyof StackDirectionProps, string> = {
+  row: "flex-row",
+  column: "flex-col"
+};
+
+export const Stack = (props: StackProps): JSX.Element => {
+  const defaultDirection = !props.row && !props.column ? { column: true } : {};
+  const directionProps = { ...defaultDirection, ...props };
+  
+  return componentBuilder(directionProps, "div", "flex")
+    .withGaps({ noGap: "gap-0" }, commonGaps)
+    .withReverse({
+      reverse: props.row ? "flex-row-reverse" : "flex-col-reverse"
+    })
+    .withItems(itemsClasses)
+    .withBreakpoints({
+      xsCol: "max-xs:flex-col",
+      smCol: "max-sm:flex-col",
+      mdCol: "max-md:flex-col",
+      lgCol: "max-lg:flex-col",
+      xlCol: "max-xl:flex-col"
+    })
+    .withSizes({
+      xs: "p-2",
+      sm: "p-3",
+      md: "p-4",
+      lg: "p-5",
+      xl: "p-6"
+    })
+    .withBooleanProps(justifyClasses)
+    .withBooleanProps(stackDirectionClasses)
+    .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
+    .build();
+};

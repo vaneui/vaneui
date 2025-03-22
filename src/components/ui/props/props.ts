@@ -104,6 +104,11 @@ export interface GapProps {
   noGap?: boolean;
 }
 
+export interface StackDirectionProps {
+  row?: boolean;
+  column?: boolean;
+}
+
 export interface ItemsProps {
   itemsStart?: boolean;
   itemsEnd?: boolean;
@@ -138,3 +143,5 @@ export type RowProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps
 export type ColProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
 
 export type CardProps = BaseComponentProps & GapProps & ItemsProps & CommonAppearanceProps;
+
+export type StackProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps;

@@ -8,7 +8,7 @@ import {
   Button,
   Title,
   Card,
-  Badge,
+  Stack,
   Chip,
   Divider
 } from 'vaneui';
@@ -40,11 +40,11 @@ export function HeroSection() {
       </Container>
       <Container sm className="z-10 ">
         <Col itemsCenter>
-          <Col className="z-10 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
-            <Card lg className="max-w-xl max-sm:max-w-80">
+          <Col className="max-w-xl max-sm:max-w-80 z-10 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
+            <Card lg>
               <Row noGap smCol>
-                <img src={dog.image} alt="puppy" className="size-52 max-sm:w-80 object-cover" />
-                <Col justifyBetween className="p-3">
+                <img src={dog.image} alt="puppy" className="size-50 max-sm:w-80 object-cover" />
+                <Stack justifyBetween>
                   <Row justifyBetween itemsCenter>
                     <Title>{dog.name}</Title>
                     <Chip sm secondary semibold>{dog.gender}</Chip>
@@ -55,19 +55,19 @@ export function HeroSection() {
                     <Button sm primary>Adopt</Button>
                     <Button sm secondary>Learn more</Button>
                   </Row>
-                </Col>
+                </Stack>
               </Row>
             </Card>
           </Col>
           <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*20)] shadow-xl"
             fileName="DogCard.tsx"
             language="tsx"
-            code={`import { Card, Row, Col, Title, Text, Chip } from 'vaneui';
+            code={`import { Card, Row, Col, Title, Text, Chip, Divider, Button } from 'vaneui';
 
-<Card lg className="max-w-xl max-sm:max-w-80">
+<Card lg>
   <Row noGap smCol>
-    <img src={dog.image} alt="puppy" className="size-52 max-sm:w-80 object-cover" />
-    <Col justifyBetween className="m-3">
+    <img src={dog.image} alt="puppy" className="size-50 max-sm:w-80 object-cover" />
+    <Col justifyBetween p3>
       <Row justifyBetween itemsCenter>
         <Title>{dog.name}</Title>
         <Chip sm secondary semibold>{dog.gender}</Chip>
