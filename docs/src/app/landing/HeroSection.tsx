@@ -51,7 +51,7 @@ export function HeroSection() {
                   </Row>
                   <Divider />
                   <Text sm>{dog.description}</Text>
-                  <Row sm justifyEnd>
+                  <Row justifyEnd>
                     <Button sm primary>Adopt</Button>
                     <Button sm secondary>Learn more</Button>
                   </Row>
