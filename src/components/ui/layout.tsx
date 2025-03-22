@@ -1,7 +1,8 @@
 import React, { JSX } from 'react';
 import { GridProps, LayoutComponentProps, ColProps, RowProps, CardProps, StackProps, StackDirectionProps, GapProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { borderAppearanceClasses, cardBorderRadiusClasses, commonGaps, gridGaps, itemsClasses, justifyClasses, layoutBackgroundAppearanceClasses, rowToColumnBreakpointClasses, stackDirectionClasses } from "./props/commonValues";
+import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
+import { cardBorderRadiusClasses, commonGaps, gridGaps, itemsClasses, justifyClasses, rowToColumnBreakpointClasses, stackDirectionClasses } from "./props/layoutValues";
 
 export const Section = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "section", "w-full flex flex-col mx-auto")

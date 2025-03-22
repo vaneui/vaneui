@@ -50,7 +50,7 @@ export interface TextAlignProps {
   textJustify?: boolean;
 }
 
-export interface TextAppearanceProps {
+export interface TextAppearanceProps extends CommonAppearanceProps {
   muted?: boolean;
   link?: boolean;
 }

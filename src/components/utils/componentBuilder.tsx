@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import { BaseComponentProps, BreakpointProps, ItemsProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, HideProps, PositionProps, ReverseProps, ColProps, RowProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, SizeProps, TextAlignProps, JustifyProps, StackDirectionProps, BorderAppearanceProps, BorderRadiusProps } from "../ui/props/props";
-import { fontFamilyClasses, fontStyleClasses, fontWeightClasses, textAlignClasses, textAppearanceClasses, textDecorationClasses, textTransformClasses } from "../ui/props/commonValues";
+import { fontFamilyClasses, fontStyleClasses, fontWeightClasses, textAlignClasses, textAppearanceClasses, textDecorationClasses, textTransformClasses } from "../ui/props/typographyValues";
 import { CommonAppearanceSettings, FontFamilySettings, FontStyleSettings, FontWeightSettings, TextAlignSettings, TextAppearanceSettings, TextDecorationSettings, TextTransformSettings, TypographySettings, ItemsSettings, JustifySettings, StackDirectionSettings, BorderSettings, GapSettings, BorderRadiusSettings } from "../ui/settings";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(

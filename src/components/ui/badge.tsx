@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
-import { backgroundAppearanceClasses, borderAppearanceClasses } from './props/commonValues';
+import { backgroundAppearanceClasses, borderAppearanceClasses } from './props/appearanceValues';
 
 export const Badge = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "span", "rounded-full w-fit h-fit border inline-flex gap-2 items-center")
