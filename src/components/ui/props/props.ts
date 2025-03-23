@@ -6,6 +6,19 @@ export interface SizeProps {
   xl?: boolean;
 }
 
+export interface CommonAppearanceProps {
+  default?: boolean;
+  accent?: boolean;
+  primary?: boolean;
+  secondary?: boolean;
+  tertiary?: boolean;
+  success?: boolean;
+  danger?: boolean;
+  warning?: boolean;
+  info?: boolean;
+  transparent?: boolean;
+}
+
 export interface FontFamilyProps {
   sans?: boolean;
   serif?: boolean;
@@ -53,19 +66,6 @@ export interface TextAlignProps {
 export interface TextAppearanceProps extends CommonAppearanceProps {
   muted?: boolean;
   link?: boolean;
-}
-
-export interface CommonAppearanceProps {
-  default?: boolean;
-  accent?: boolean;
-  primary?: boolean;
-  secondary?: boolean;
-  tertiary?: boolean;
-  success?: boolean;
-  danger?: boolean;
-  warning?: boolean;
-  info?: boolean;
-  transparent?: boolean;
 }
 
 export interface BorderAppearanceProps extends CommonAppearanceProps {
@@ -144,6 +144,8 @@ export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProp
 export type FontProps = FontWeightProps & FontStyleProps & TextDecorationProps & TextTransformProps & FontFamilyProps & TextAppearanceProps & CommonAppearanceProps & TextAlignProps;
 
 export type TypographyComponentProps = BaseComponentProps & FontProps;
+
+export type ButtonProps = TypographyComponentProps & BorderAppearanceProps;
 
 export type GridProps = BaseComponentProps & GapProps & CommonAppearanceProps;
 
