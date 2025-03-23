@@ -81,10 +81,11 @@ export const Card = (props: CardProps): JSX.Element =>
     .withItems(itemsClasses)
     .withGaps(commonGaps, { md: true })
     .withNoGap()
-    .withRounded(undefined, { md: true })
+    .withRounded(roundedClasses, { md: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .withBorderColor(borderAppearanceClasses, { default: true })
     .withNoBorder()
+    .withSharp()
     .build();
 
 export const Stack = (props: StackProps): JSX.Element => {

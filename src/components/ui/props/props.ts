@@ -165,6 +165,6 @@ export type RowProps = BaseComponentProps & GapProps & NoGapProps & ReverseProps
 
 export type ColProps = BaseComponentProps & GapProps & NoGapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
 
-export type CardProps = BaseComponentProps & GapProps & NoGapProps & ItemsProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps;
+export type CardProps = BaseComponentProps & GapProps & NoGapProps & ItemsProps & SharpProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps;
 
 export type StackProps = BaseComponentProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps;
