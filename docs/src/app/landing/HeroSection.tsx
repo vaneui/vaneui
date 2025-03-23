@@ -64,9 +64,9 @@ export function HeroSection() {
             language="tsx"
             code={`import { Card, Row, Col, Title, Text, Chip, Divider, Button } from 'vaneui';
 
-<Card lg>
+<Card xl noBorder>
   <Row noGap smCol>
-    <img src={dog.image} alt="puppy" className="self-stretch w-44 object-cover max-sm:w-80" />
+    <img src={dog.image} alt="puppy" className="self-stretch w-52 object-cover max-sm:w-80" />
     <Stack>
       <Row justifyBetween>
         <Title>{dog.name}</Title>
