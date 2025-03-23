@@ -38,10 +38,10 @@ export function HeroSection() {
           </Row>
         </Col>
       </Container>
-      <Container sm className="z-10 ">
+      <Container sm className="z-10">
         <Col itemsCenter>
           <Col className="max-w-xl max-sm:max-w-80 z-10 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
-            <Card lg noBorder>
+            <Card xl noBorder>
               <Row noGap smCol>
                 <img src={dog.image} alt="puppy" className="self-stretch w-52 object-cover max-sm:w-80" />
                 <Stack>
@@ -52,8 +52,8 @@ export function HeroSection() {
                   <Divider />
                   <Text sm>{dog.description}</Text>
                   <Row justifyEnd>
-                    <Button sm primary noBorder>Adopt</Button>
-                    <Button sm secondary>Learn more</Button>
+                    <Button sm primary pill>Adopt</Button>
+                    <Button sm sharp secondary>Learn more</Button>
                   </Row>
                 </Stack>
               </Row>

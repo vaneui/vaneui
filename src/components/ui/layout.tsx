@@ -1,8 +1,8 @@
 import React, { JSX } from 'react';
-import { GridProps, LayoutComponentProps, ColProps, RowProps, CardProps, StackProps, StackDirectionProps, GapProps } from "./props/props";
+import { GridProps, LayoutComponentProps, ColProps, RowProps, CardProps, StackProps, StackDirectionProps, GapProps, BreakpointProps, JustifyProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { borderAppearanceClasses, layoutBackgroundAppearanceClasses, noBorderClasses } from "./props/appearanceValues";
-import { cardBorderRadiusClasses, commonGaps, gridGaps, itemsClasses, justifyClasses, rowToColumnBreakpointClasses, stackDirectionClasses } from "./props/layoutValues";
+import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
+import { commonGaps, gridGaps, itemsClasses, justifyClasses, rowToColumnBreakpointClasses, stackDirectionClasses, roundedClasses, pillClasses, sharpClasses } from "./props/layoutValues";
 
 export const Section = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "section", "w-full flex flex-col mx-auto")
@@ -40,6 +40,7 @@ export const Container = (props: LayoutComponentProps): JSX.Element =>
 export const Col = (props: ColProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col")
     .withGaps(commonGaps, { md: true })
+    .withNoGap()
     .withReverse({
       reverse: "flex-col-reverse"
     })
@@ -51,6 +52,7 @@ export const Col = (props: ColProps): JSX.Element =>
 export const Row = (props: RowProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-row")
     .withGaps(commonGaps, { md: true })
+    .withNoGap()
     .withReverse({
       reverse: "flex-row-reverse"
     })
@@ -63,12 +65,14 @@ export const Row = (props: RowProps): JSX.Element =>
 export const Grid3 = (props: GridProps): JSX.Element =>
   componentBuilder(props, "div", "w-full grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1")
     .withGaps(gridGaps, { md: true })
+    .withNoGap()
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .build();
 
 export const Grid4 = (props: GridProps): JSX.Element =>
   componentBuilder(props, "div", "w-full grid grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1")
     .withGaps(gridGaps, { md: true })
+    .withNoGap()
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .build();
 
@@ -76,10 +80,11 @@ export const Card = (props: CardProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col border shadow-sm overflow-hidden")
     .withItems(itemsClasses)
     .withGaps(commonGaps, { md: true })
-    .withBorderRadius(cardBorderRadiusClasses, { md: true })
+    .withNoGap()
+    .withRounded(undefined, { md: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
-    .withBorder(borderAppearanceClasses, { default: true })
-    .withNoBorder(noBorderClasses)
+    .withBorderColor(borderAppearanceClasses, { default: true })
+    .withNoBorder()
     .build();
 
 export const Stack = (props: StackProps): JSX.Element => {
@@ -88,6 +93,7 @@ export const Stack = (props: StackProps): JSX.Element => {
 
   return componentBuilder(directionProps, "div", "flex")
     .withGaps(commonGaps, { md: true })
+    .withNoGap()
     .withReverse({
       reverse: props.row ? "flex-row-reverse" : "flex-col-reverse"
     })

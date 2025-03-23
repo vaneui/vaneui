@@ -108,12 +108,21 @@ export interface ReverseProps {
 }
 
 export interface GapProps extends SizeProps {
+}
+
+export interface NoGapProps {
   noGap?: boolean;
 }
 
-export interface BorderRadiusProps extends SizeProps {
-  roundedFull?: boolean;
-  square?: boolean;
+export interface RoundedProps extends SizeProps {
+}
+
+export interface PillProps {
+  pill?: boolean;
+}
+
+export interface SharpProps {
+  sharp?: boolean;
 }
 
 export interface StackDirectionProps {
@@ -146,16 +155,16 @@ export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProp
 
 export type FontProps = FontWeightProps & FontStyleProps & TextDecorationProps & TextTransformProps & FontFamilyProps & TextAppearanceProps & CommonAppearanceProps & TextAlignProps;
 
-export type TypographyComponentProps = BaseComponentProps & FontProps & BorderAppearanceProps & NoBorderProps;
+export type TypographyComponentProps = BaseComponentProps & FontProps;
 
-export type ButtonProps = TypographyComponentProps;
+export type ButtonProps = TypographyComponentProps & RoundedProps & PillProps & SharpProps & BorderAppearanceProps & NoBorderProps;
 
-export type GridProps = BaseComponentProps & GapProps & CommonAppearanceProps;
+export type GridProps = BaseComponentProps & GapProps & NoGapProps & CommonAppearanceProps;
 
-export type RowProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps;
+export type RowProps = BaseComponentProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps;
 
-export type ColProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
+export type ColProps = BaseComponentProps & GapProps & NoGapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
 
-export type CardProps = BaseComponentProps & GapProps & ItemsProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps;
+export type CardProps = BaseComponentProps & GapProps & NoGapProps & ItemsProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps;
 
-export type StackProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps;
+export type StackProps = BaseComponentProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps;

@@ -1,4 +1,4 @@
-import { BreakpointProps, GapProps, ItemsProps, JustifyProps, StackDirectionProps, BorderRadiusProps } from "./props"
+import { BreakpointProps, GapProps, ItemsProps, JustifyProps, NoGapProps, StackDirectionProps, PillProps, RoundedProps, SharpProps } from "./props"
 
 export const rowToColumnBreakpointClasses: Record<keyof BreakpointProps, string> = {
   xsCol: "max-xs:flex-col",
@@ -13,8 +13,7 @@ export const gridGaps: Record<keyof GapProps, string> = {
   sm: "gap-4  max-lg:gap-2",
   md: "gap-6  max-lg:gap-4",
   lg: "gap-8  max-lg:gap-6 max-md:gap-4",
-  xl: "gap-10 max-lg:gap-8 max-md:gap-6",
-  noGap: "gap-0"
+  xl: "gap-10 max-lg:gap-8 max-md:gap-6"
 }
 
 export const itemsClasses: Record<keyof ItemsProps, string> = {
@@ -41,7 +40,10 @@ export const commonGaps: Record<keyof GapProps, string> = {
   sm: "gap-3",
   md: "gap-4",
   lg: "gap-6",
-  xl: "gap-8",
+  xl: "gap-8"
+}
+
+export const noGapClasses: Record<keyof NoGapProps, string> = {
   noGap: "gap-0"
 }
 
@@ -50,12 +52,18 @@ export const stackDirectionClasses: Record<keyof StackDirectionProps, string> = 
   column: "flex-col"
 };
 
-export const cardBorderRadiusClasses: Record<keyof BorderRadiusProps, string> = {
-  roundedFull: "rounded-full",
-  square: "rounded-none",
+export const roundedClasses: Record<keyof RoundedProps, string> = {
   xs: "rounded-sm",
   sm: "rounded-md",
   md: "rounded-lg",
   lg: "rounded-xl",
   xl: "rounded-2xl",
+}
+
+export const pillClasses: Record<keyof PillProps, string> = {
+  pill: "rounded-full"
+}
+
+export const sharpClasses: Record<keyof SharpProps, string> = {
+  sharp: "rounded-none"
 } 

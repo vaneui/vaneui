@@ -1,4 +1,4 @@
-import { BorderAppearanceProps, BorderRadiusProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, ItemsProps, JustifyProps, NoBorderProps, StackDirectionProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps } from "./props/props";
+import { BorderAppearanceProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, ItemsProps, JustifyProps, NoBorderProps, NoGapProps, PillProps, RoundedProps, SharpProps, StackDirectionProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps } from "./props/props";
 
 export type CommonAppearanceSettings = { [key in keyof CommonAppearanceProps]: boolean; };
 
@@ -14,8 +14,11 @@ export type JustifySettings = { [key in keyof JustifyProps]: boolean; };
 export type StackDirectionSettings = { [key in keyof StackDirectionProps]: boolean; };
 export type BorderSettings = { [key in keyof BorderAppearanceProps]: boolean; };
 export type NoBorderSettings = { [key in keyof NoBorderProps]: boolean; };
-export type BorderRadiusSettings = { [key in keyof BorderRadiusProps]: boolean; };
+export type RoundedSettings = { [key in keyof RoundedProps]: boolean; };
+export type PillSettings = { [key in keyof PillProps]: boolean; };
+export type SharpSettings = { [key in keyof SharpProps]: boolean; };
 export type GapSettings = { [key in keyof GapProps]: boolean; };
+export type NoGapSettings = { [key in keyof NoGapProps]: boolean; };
 
 export type TypographySettings = {
   fontFamily?: FontFamilySettings;

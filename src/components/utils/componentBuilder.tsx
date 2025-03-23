@@ -1,7 +1,9 @@
 import { twMerge } from "tailwind-merge";
-import { BaseComponentProps, BreakpointProps, ItemsProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, HideProps, PositionProps, ReverseProps, ColProps, RowProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, SizeProps, TextAlignProps, JustifyProps, StackDirectionProps, BorderAppearanceProps, BorderRadiusProps, NoBorderProps } from "../ui/props/props";
+import { BaseComponentProps, BreakpointProps, ItemsProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, HideProps, PositionProps, ReverseProps, ColProps, RowProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, SizeProps, TextAlignProps, JustifyProps, StackDirectionProps, BorderAppearanceProps, NoBorderProps, NoGapProps, RoundedProps, PillProps, SharpProps } from "../ui/props/props";
 import { fontFamilyClasses, fontStyleClasses, fontWeightClasses, textAlignClasses, textAppearanceClasses, textDecorationClasses, textTransformClasses } from "../ui/props/typographyValues";
-import { CommonAppearanceSettings, FontFamilySettings, FontStyleSettings, FontWeightSettings, TextAlignSettings, TextAppearanceSettings, TextDecorationSettings, TextTransformSettings, TypographySettings, ItemsSettings, JustifySettings, StackDirectionSettings, BorderSettings, GapSettings, BorderRadiusSettings, NoBorderSettings } from "../ui/settings";
+import { CommonAppearanceSettings, FontFamilySettings, FontStyleSettings, FontWeightSettings, TextAlignSettings, TextAppearanceSettings, TextDecorationSettings, TextTransformSettings, TypographySettings, ItemsSettings, JustifySettings, StackDirectionSettings, BorderSettings, GapSettings, NoBorderSettings, NoGapSettings, RoundedSettings, PillSettings, SharpSettings } from "../ui/settings";
+import { noBorderClasses } from "../ui/props/appearanceValues";
+import { noGapClasses, pillClasses, roundedClasses, sharpClasses } from "../ui/props/layoutValues";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(
   props: T,
@@ -86,12 +88,17 @@ export function componentBuilder(
     withTextAlign: (textAlign: Record<keyof TextAlignProps, string>, settings: TextAlignSettings) => withBooleanProps(textAlign, settings),
     withTextAppearance: (appearance: Record<keyof TextAppearanceProps & CommonAppearanceProps, string>, settings: TextAppearanceSettings) => withBooleanProps(appearance, settings),
     withGaps: (gapMap: Record<keyof GapProps, string>, settings: GapSettings) => withBooleanProps(gapMap, settings),
+    withNoGap: (noGapMap: Record<keyof NoGapProps, string> = noGapClasses) => withBooleanProps(noGapMap),
     withJustifyContent: (justifyContent: Record<keyof JustifyProps, string>, settings: JustifySettings) => withBooleanProps(justifyContent, settings),
     withAppearance: (appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings) => withBooleanProps(appearance, settings),
     withStackDirection: (directionMap: Record<keyof StackDirectionProps, string>, settings: StackDirectionSettings) => withBooleanProps(directionMap, settings),
-    withBorder: (borderMap: Record<keyof BorderAppearanceProps, string>, settings: BorderSettings) => withBooleanProps(borderMap, settings),
-    withNoBorder: (noBorderMap: Record<keyof NoBorderProps, string>, settings?: NoBorderSettings) => withBooleanProps(noBorderMap, settings),
-    withBorderRadius: (borderRadiusMap: Record<keyof BorderRadiusProps, string>, settings: BorderRadiusSettings) => withBooleanProps(borderRadiusMap, settings),
+    // Border
+    withBorderColor: (borderMap: Record<keyof BorderAppearanceProps, string>, settings: BorderSettings) => withBooleanProps(borderMap, settings),
+    withNoBorder: (noBorderMap: Record<keyof NoBorderProps, string> = noBorderClasses) => withBooleanProps(noBorderMap),
+    // Border Radius
+    withRounded: (roundedMap: Record<keyof RoundedProps, string> = roundedClasses, settings?: RoundedSettings) => withBooleanProps(roundedMap, settings),
+    withPill: (pillMap: Record<keyof PillProps, string> = pillClasses) => withBooleanProps(pillMap),
+    withSharp: (sharpMap: Record<keyof SharpProps, string> = sharpClasses) => withBooleanProps(sharpMap),
 
     withTypography: (settings: TypographySettings) => builder
       .withFontFamily(fontFamilyClasses, settings?.fontFamily ?? {})
