@@ -1,4 +1,4 @@
-import { BorderAppearanceProps, CommonAppearanceProps } from "./props"
+import { BorderAppearanceProps, CommonAppearanceProps, NoBorderProps } from "./props"
 
 export const backgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
   default: "bg-(--background-color-default)",
@@ -39,5 +39,8 @@ export const borderAppearanceClasses: Record<keyof BorderAppearanceProps, string
   warning: "border-(--border-color-warning)",
   info: "border-(--border-color-info)",
   transparent: "border-transparent",
-  noBorder: "border-none",
+}
+
+export const noBorderClasses: Record<keyof NoBorderProps, string> = {
+  noBorder: "border-none"
 } 

@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { ButtonProps } from "./props/props";
-import { backgroundAppearanceClasses, borderAppearanceClasses } from "./props/appearanceValues";
+import { backgroundAppearanceClasses, borderAppearanceClasses, noBorderClasses } from "./props/appearanceValues";
 
 export const Button = (props: ButtonProps): JSX.Element =>
   componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300")
@@ -31,4 +31,5 @@ export const Button = (props: ButtonProps): JSX.Element =>
     })
     .withAppearance(backgroundAppearanceClasses, { default: true })
     .withBorder(borderAppearanceClasses, { default: true })
+    .withNoBorder(noBorderClasses)
     .build();

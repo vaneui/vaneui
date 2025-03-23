@@ -69,6 +69,9 @@ export interface TextAppearanceProps extends CommonAppearanceProps {
 }
 
 export interface BorderAppearanceProps extends CommonAppearanceProps {
+}
+
+export interface NoBorderProps {
   noBorder?: boolean;
 }
 
@@ -143,9 +146,9 @@ export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProp
 
 export type FontProps = FontWeightProps & FontStyleProps & TextDecorationProps & TextTransformProps & FontFamilyProps & TextAppearanceProps & CommonAppearanceProps & TextAlignProps;
 
-export type TypographyComponentProps = BaseComponentProps & FontProps;
+export type TypographyComponentProps = BaseComponentProps & FontProps & BorderAppearanceProps & NoBorderProps;
 
-export type ButtonProps = TypographyComponentProps & BorderAppearanceProps;
+export type ButtonProps = TypographyComponentProps;
 
 export type GridProps = BaseComponentProps & GapProps & CommonAppearanceProps;
 
@@ -153,6 +156,6 @@ export type RowProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps
 
 export type ColProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
 
-export type CardProps = BaseComponentProps & GapProps & ItemsProps & CommonAppearanceProps & BorderAppearanceProps;
+export type CardProps = BaseComponentProps & GapProps & ItemsProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps;
 
 export type StackProps = BaseComponentProps & GapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps;

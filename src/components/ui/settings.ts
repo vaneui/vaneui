@@ -1,4 +1,4 @@
-import { BorderAppearanceProps, BorderRadiusProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, ItemsProps, JustifyProps, StackDirectionProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps } from "./props/props";
+import { BorderAppearanceProps, BorderRadiusProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, ItemsProps, JustifyProps, NoBorderProps, StackDirectionProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps } from "./props/props";
 
 export type CommonAppearanceSettings = { [key in keyof CommonAppearanceProps]: boolean; };
 
@@ -13,6 +13,7 @@ export type TextAlignSettings = { [key in keyof TextAlignProps]: boolean; };
 export type JustifySettings = { [key in keyof JustifyProps]: boolean; };
 export type StackDirectionSettings = { [key in keyof StackDirectionProps]: boolean; };
 export type BorderSettings = { [key in keyof BorderAppearanceProps]: boolean; };
+export type NoBorderSettings = { [key in keyof NoBorderProps]: boolean; };
 export type BorderRadiusSettings = { [key in keyof BorderRadiusProps]: boolean; };
 export type GapSettings = { [key in keyof GapProps]: boolean; };
 

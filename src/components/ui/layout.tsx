@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 import { GridProps, LayoutComponentProps, ColProps, RowProps, CardProps, StackProps, StackDirectionProps, GapProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
+import { borderAppearanceClasses, layoutBackgroundAppearanceClasses, noBorderClasses } from "./props/appearanceValues";
 import { cardBorderRadiusClasses, commonGaps, gridGaps, itemsClasses, justifyClasses, rowToColumnBreakpointClasses, stackDirectionClasses } from "./props/layoutValues";
 
 export const Section = (props: LayoutComponentProps): JSX.Element =>
@@ -79,6 +79,7 @@ export const Card = (props: CardProps): JSX.Element =>
     .withBorderRadius(cardBorderRadiusClasses, { md: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .withBorder(borderAppearanceClasses, { default: true })
+    .withNoBorder(noBorderClasses)
     .build();
 
 export const Stack = (props: StackProps): JSX.Element => {

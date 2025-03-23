@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "./../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
-import { backgroundAppearanceClasses, borderAppearanceClasses } from './props/appearanceValues';
+import { backgroundAppearanceClasses, borderAppearanceClasses, noBorderClasses } from './props/appearanceValues';
 
 export const Chip = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "span", "rounded-full w-fit h-fit border inline-flex gap-2 items-center")
@@ -14,6 +14,7 @@ export const Chip = (props: TypographyComponentProps): JSX.Element =>
     })
     .withAppearance(backgroundAppearanceClasses, { default: true })
     .withBorder(borderAppearanceClasses, { default: true })
+    .withNoBorder(noBorderClasses)
     .withTypography({
       fontFamily: { mono: true },
       textAppearance: { secondary: true },
