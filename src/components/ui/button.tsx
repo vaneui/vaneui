@@ -5,7 +5,9 @@ import {
   borderAppearanceClasses,
   backgroundAppearanceClasses,
   filledBackgroundAppearanceClasses,
-  filledBorderAppearanceClasses
+  filledBorderAppearanceClasses,
+  hoverBackgroundAppearanceClasses,
+  filledHoverBackgroundAppearanceClasses
 } from "./props/appearanceValues";
 import {
   textAppearanceClasses,
@@ -19,6 +21,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
 
   // Select the appropriate background, text, and border appearance classes based on button style
   const backgroundClasses = isFilled ? filledBackgroundAppearanceClasses : backgroundAppearanceClasses;
+  const hoverBackgroundClasses = isFilled ? filledHoverBackgroundAppearanceClasses : hoverBackgroundAppearanceClasses;
   const textClasses = isFilled ? filledTextAppearanceClasses : textAppearanceClasses;
   const borderClasses = isFilled ? filledBorderAppearanceClasses : borderAppearanceClasses;
 
@@ -50,6 +53,8 @@ export const Button = (props: ButtonProps): JSX.Element => {
     })
     // Use the appropriate background appearance classes based on button style
     .withAppearance(backgroundClasses, { default: true })
+    // Use the appropriate hover background appearance classes based on button style
+    .withAppearance(hoverBackgroundClasses, { default: true })
     // Use the appropriate text appearance classes based on button style
     .withTextAppearance(textClasses, { default: true })
     // Use the appropriate border appearance classes based on button style

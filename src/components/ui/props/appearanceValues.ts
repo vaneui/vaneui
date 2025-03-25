@@ -14,6 +14,20 @@ export const filledBackgroundAppearanceClasses: Record<keyof CommonAppearancePro
   transparent: "bg-transparent",
 }
 
+// Hover background classes for filled buttons
+export const filledHoverBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
+  default: "hover:bg-(--filled-background-color-hover-default)",
+  primary: "hover:bg-(--filled-background-color-hover-primary)",
+  secondary: "hover:bg-(--filled-background-color-hover-secondary)",
+  tertiary: "hover:bg-(--filled-background-color-hover-tertiary)",
+  accent: "hover:bg-(--filled-background-color-hover-accent)",
+  success: "hover:bg-(--filled-background-color-hover-success)",
+  danger: "hover:bg-(--filled-background-color-hover-danger)",
+  warning: "hover:bg-(--filled-background-color-hover-warning)",
+  info: "hover:bg-(--filled-background-color-hover-info)",
+  transparent: "hover:bg-transparent",
+}
+
 // Default background appearance classes (for non-button components)
 export const backgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
   default: "bg-(--background-color-default)",
@@ -26,6 +40,20 @@ export const backgroundAppearanceClasses: Record<keyof CommonAppearanceProps, st
   warning: "bg-(--background-color-warning)",
   info: "bg-(--background-color-info)",
   transparent: "bg-transparent",
+}
+
+// Hover background appearance classes for outline buttons
+export const hoverBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
+  default: "hover:bg-(--background-color-hover-default)",
+  primary: "hover:bg-(--background-color-hover-primary)",
+  secondary: "hover:bg-(--background-color-hover-secondary)",
+  tertiary: "hover:bg-(--background-color-hover-tertiary)",
+  accent: "hover:bg-(--background-color-hover-accent)",
+  success: "hover:bg-(--background-color-hover-success)",
+  danger: "hover:bg-(--background-color-hover-danger)",
+  warning: "hover:bg-(--background-color-hover-warning)",
+  info: "hover:bg-(--background-color-hover-info)",
+  transparent: "hover:bg-transparent",
 }
 
 export const layoutBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
