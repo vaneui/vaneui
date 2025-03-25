@@ -75,6 +75,10 @@ export interface NoBorderProps {
   noBorder?: boolean;
 }
 
+export interface NoPaddingProps {
+  noPadding?: boolean;
+}
+
 export interface BreakpointProps {
   xsCol?: boolean;
   smCol?: boolean;
@@ -176,6 +180,6 @@ export type RowProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & 
 
 export type ColProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps & WrapProps;
 
-export type CardProps = BaseComponentProps & GapProps & NoGapProps & ItemsProps & SharpProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps;
+export type CardProps = BaseComponentProps & GapProps & NoGapProps & ItemsProps & SharpProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps & NoPaddingProps;
 
-export type StackProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps & WrapProps;
+export type StackProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps & WrapProps & NoPaddingProps;

@@ -41,7 +41,7 @@ export function HeroSection() {
       <Container sm className="z-10">
         <Col itemsCenter>
           <Col className="max-w-xl max-sm:max-w-80 z-10 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
-            <Card xl noBorder>
+            <Card xl noBorder noPadding>
               <Row noGap smCol>
                 <img src={dog.image} alt="puppy" className="self-stretch w-52 object-cover max-sm:w-80" />
                 <Stack>

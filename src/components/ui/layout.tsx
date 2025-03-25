@@ -95,12 +95,20 @@ export const Grid4 = (props: GridProps): JSX.Element =>
 export const Card = (props: CardProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col border shadow-sm overflow-hidden")
     .withItems(itemsClasses)
+    .withSizes({
+      xs: "p-2",
+      sm: "p-3",
+      md: "p-4",
+      lg: "p-5",
+      xl: "p-6"
+    })
     .withGaps(commonGaps, { md: true })
     .withNoGap()
     .withRounded(roundedClasses, { md: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .withBorderColor(borderAppearanceClasses, { default: true })
     .withNoBorder()
+    .withNoPadding()
     .withSharp()
     .build();
 
@@ -126,6 +134,7 @@ export const Stack = (props: StackProps): JSX.Element => {
     .withJustifyContent(justifyClasses, {})
     .withStackDirection(stackDirectionClasses, { column: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
+    .withNoPadding()
     .withWrap()
     .build();
 };

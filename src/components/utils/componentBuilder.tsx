@@ -23,6 +23,7 @@ import {
   BorderAppearanceProps,
   NoBorderProps,
   NoGapProps,
+  NoPaddingProps,
   RoundedProps,
   PillProps,
   SharpProps,
@@ -56,7 +57,7 @@ import {
   WrapSettings
 } from "../ui/settings";
 import {noBorderClasses} from "../ui/props/appearanceValues";
-import {noGapClasses, pillClasses, roundedClasses, sharpClasses, wrapClasses} from "../ui/props/layoutValues";
+import {noGapClasses, noPaddingClasses, pillClasses, roundedClasses, sharpClasses, wrapClasses} from "../ui/props/layoutValues";
 import React from "react";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(
@@ -150,6 +151,7 @@ export function componentBuilder(
     // Border
     withBorderColor: (borderMap: Record<keyof BorderAppearanceProps, string>, settings: BorderSettings) => withBooleanProps(borderMap, settings),
     withNoBorder: (noBorderMap: Record<keyof NoBorderProps, string> = noBorderClasses) => withBooleanProps(noBorderMap),
+    withNoPadding: (noPaddingMap: Record<keyof NoPaddingProps, string> = noPaddingClasses) => withBooleanProps(noPaddingMap),
     // Border Radius
     withRounded: (roundedMap: Record<keyof RoundedProps, string> = roundedClasses, settings?: RoundedSettings) => withBooleanProps(roundedMap, settings),
     withPill: (pillMap: Record<keyof PillProps, string> = pillClasses) => withBooleanProps(pillMap),

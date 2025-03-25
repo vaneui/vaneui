@@ -12,12 +12,12 @@ interface CodeBlockProps {
 
 export function CodeBlock({ code, language, className = '', fileName = '' }: CodeBlockProps) {
   return (
-    <Card noGap lg className={`w-full ${className}`}>
+    <Card noGap noPadding lg className={`w-full ${className}`}>
       <Stack xs row justifyBetween className="border-b">
         <CodeBlockActions code={code} fileName={fileName} />
       </Stack>
       <Stack xs secondary>
-        <Card noBorder xs className="overflow-hidden">
+        <Card noPadding noBorder xs>
           <CodeBlockRenderer code={code} language={language} />
         </Card>
       </Stack>
