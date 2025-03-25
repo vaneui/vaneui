@@ -55,6 +55,21 @@ export const borderAppearanceClasses: Record<keyof BorderAppearanceProps, string
   transparent: "border-transparent",
 }
 
+// Border classes for filled buttons
+export const filledBorderAppearanceClasses: Record<keyof BorderAppearanceProps, string> = {
+  default: "border-(--filled-border-color-default)",
+  primary: "border-(--filled-border-color-primary)",
+  secondary: "border-(--filled-border-color-secondary)",
+  tertiary: "border-(--filled-border-color-tertiary)",
+
+  accent: "border-(--filled-border-color-accent)",
+  success: "border-(--filled-border-color-success)",
+  danger: "border-(--filled-border-color-danger)",
+  warning: "border-(--filled-border-color-warning)",
+  info: "border-(--filled-border-color-info)",
+  transparent: "border-transparent",
+}
+
 export const noBorderClasses: Record<keyof NoBorderProps, string> = {
   noBorder: "border-none"
 } 

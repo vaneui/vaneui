@@ -4,7 +4,8 @@ import { ButtonProps } from "./props/props";
 import {
   borderAppearanceClasses,
   backgroundAppearanceClasses,
-  filledBackgroundAppearanceClasses 
+  filledBackgroundAppearanceClasses,
+  filledBorderAppearanceClasses
 } from "./props/appearanceValues";
 import {
   textAppearanceClasses,
@@ -16,9 +17,10 @@ export const Button = (props: ButtonProps): JSX.Element => {
   const isOutline = props.outline !== false && !props.filled;
   const isFilled = props.filled === true;
 
-  // Select the appropriate background and text appearance classes based on button style
+  // Select the appropriate background, text, and border appearance classes based on button style
   const backgroundClasses = isFilled ? filledBackgroundAppearanceClasses : backgroundAppearanceClasses;
   const textClasses = isFilled ? filledTextAppearanceClasses : textAppearanceClasses;
+  const borderClasses = isFilled ? filledBorderAppearanceClasses : borderAppearanceClasses;
 
   return componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap")
     .withSizes({
@@ -50,7 +52,8 @@ export const Button = (props: ButtonProps): JSX.Element => {
     .withAppearance(backgroundClasses, { default: true })
     // Use the appropriate text appearance classes based on button style
     .withTextAppearance(textClasses, { default: true })
-    .withBorderColor(borderAppearanceClasses, { default: true })
+    // Use the appropriate border appearance classes based on button style
+    .withBorderColor(borderClasses, { default: true })
     .withRounded({
       xs: "rounded-sm",
       sm: "rounded-md",
