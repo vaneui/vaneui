@@ -13,20 +13,38 @@ export default function ButtonPage() {
     includeTypography: true,
   });
 
+  // Add border radius props
+  propCategories.push({
+    title: 'Border Radius',
+    props: [
+      { name: 'xs, sm, md, lg, xl', description: 'Size-based rounded corners (md is default)', type: 'boolean' },
+      { name: 'pill', description: 'Pill-shaped button with fully rounded corners', type: 'boolean' },
+      { name: 'sharp', description: 'Button with no rounded corners', type: 'boolean' },
+    ],
+  });
+
   const examples = [
     {
       title: 'Basic Usage',
       description: 'Default button styles and variants.',
-      code: `<Row>
+      code: `<Row flexWrap>
   <Button>Default Button</Button>
   <Button primary>Primary Button</Button>
   <Button danger>Danger Button</Button>
+  <Button warning>Warning Button</Button>
+  <Button success>Success Button</Button>
+  <Button info>Info Button</Button>
+  <Button link>Link Button</Button>          
 </Row>`,
       component: (
-        <Row>
+        <Row flexWrap>
           <Button>Default Button</Button>
           <Button primary>Primary Button</Button>
           <Button danger>Danger Button</Button>
+          <Button warning>Warning Button</Button>
+          <Button success>Success Button</Button>
+          <Button info>Info Button</Button>
+          <Button link>Link Button</Button>          
         </Row>
       ),
     },
@@ -73,6 +91,22 @@ export default function ButtonPage() {
           <Button md bold>Bold</Button>
           <Button md extrabold>Extra Bold</Button>
           <Button md black>Black</Button>
+        </Row>
+      ),
+    },
+    {
+      title: 'Border Radius Options',
+      description: 'Button supports three border radius styles: rounded (default), pill, and sharp.',
+      code: `<Row>
+  <Button>Default Rounded</Button>
+  <Button pill>Pill Shaped</Button>
+  <Button sharp>Sharp Corners</Button>
+</Row>`,
+      component: (
+        <Row>
+          <Button>Default Rounded</Button>
+          <Button pill>Pill Shaped</Button>
+          <Button sharp>Sharp Corners</Button>
         </Row>
       ),
     },

@@ -1,4 +1,4 @@
-import { BreakpointProps, GapProps, ItemsProps, JustifyProps, NoGapProps, StackDirectionProps, PillProps, RoundedProps, SharpProps } from "./props"
+import { BreakpointProps, GapProps, ItemsProps, JustifyProps, NoGapProps, StackDirectionProps, PillProps, RoundedProps, SharpProps, WrapProps } from "./props"
 
 export const rowToColumnBreakpointClasses: Record<keyof BreakpointProps, string> = {
   xsCol: "max-xs:flex-col",
@@ -50,6 +50,12 @@ export const noGapClasses: Record<keyof NoGapProps, string> = {
 export const stackDirectionClasses: Record<keyof StackDirectionProps, string> = {
   row: "flex-row",
   column: "flex-col"
+};
+
+export const wrapClasses: Record<keyof WrapProps, string> = {
+  flexWrap: "flex-wrap",
+  flexNoWrap: "flex-nowrap",
+  flexWrapReverse: "flex-wrap-reverse"
 };
 
 export const roundedClasses: Record<keyof RoundedProps, string> = {

@@ -1,9 +1,9 @@
 import { twMerge } from "tailwind-merge";
-import { BaseComponentProps, BreakpointProps, ItemsProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, HideProps, PositionProps, ReverseProps, ColProps, RowProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, SizeProps, TextAlignProps, JustifyProps, StackDirectionProps, BorderAppearanceProps, NoBorderProps, NoGapProps, RoundedProps, PillProps, SharpProps } from "../ui/props/props";
+import { BaseComponentProps, BreakpointProps, ItemsProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, HideProps, PositionProps, ReverseProps, ColProps, RowProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, SizeProps, TextAlignProps, JustifyProps, StackDirectionProps, BorderAppearanceProps, NoBorderProps, NoGapProps, RoundedProps, PillProps, SharpProps, WrapProps } from "../ui/props/props";
 import { fontFamilyClasses, fontStyleClasses, fontWeightClasses, textAlignClasses, textAppearanceClasses, textDecorationClasses, textTransformClasses } from "../ui/props/typographyValues";
-import { CommonAppearanceSettings, FontFamilySettings, FontStyleSettings, FontWeightSettings, TextAlignSettings, TextAppearanceSettings, TextDecorationSettings, TextTransformSettings, TypographySettings, ItemsSettings, JustifySettings, StackDirectionSettings, BorderSettings, GapSettings, NoBorderSettings, NoGapSettings, RoundedSettings, PillSettings, SharpSettings } from "../ui/settings";
+import { CommonAppearanceSettings, FontFamilySettings, FontStyleSettings, FontWeightSettings, TextAlignSettings, TextAppearanceSettings, TextDecorationSettings, TextTransformSettings, TypographySettings, ItemsSettings, JustifySettings, StackDirectionSettings, BorderSettings, GapSettings, NoBorderSettings, NoGapSettings, RoundedSettings, PillSettings, SharpSettings, WrapSettings } from "../ui/settings";
 import { noBorderClasses } from "../ui/props/appearanceValues";
-import { noGapClasses, pillClasses, roundedClasses, sharpClasses } from "../ui/props/layoutValues";
+import { noGapClasses, pillClasses, roundedClasses, sharpClasses, wrapClasses } from "../ui/props/layoutValues";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(
   props: T,
@@ -25,7 +25,7 @@ export function componentBuilder(
 ) {
   const extraClasses: string[] = [];
   const { className, children, tag, ...other } = baseProps;
-  const otherProps: (typeof other) & Partial<ReverseProps & ItemsProps & GapProps & RowProps & ColProps> = { ...other };
+  const otherProps = { ...other } as any as (typeof other) & Partial<ReverseProps & ItemsProps & GapProps & RowProps & ColProps & WrapProps>;
   const propsToRemove: string[] = []
 
   const registerKeys = (keys: string[]) => {
@@ -92,6 +92,7 @@ export function componentBuilder(
     withJustifyContent: (justifyContent: Record<keyof JustifyProps, string>, settings: JustifySettings) => withBooleanProps(justifyContent, settings),
     withAppearance: (appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings) => withBooleanProps(appearance, settings),
     withStackDirection: (directionMap: Record<keyof StackDirectionProps, string>, settings: StackDirectionSettings) => withBooleanProps(directionMap, settings),
+    withWrap: (wrapMap: Record<keyof WrapProps, string> = wrapClasses, settings?: WrapSettings) => withBooleanProps(wrapMap, settings),
     // Border
     withBorderColor: (borderMap: Record<keyof BorderAppearanceProps, string>, settings: BorderSettings) => withBooleanProps(borderMap, settings),
     withNoBorder: (noBorderMap: Record<keyof NoBorderProps, string> = noBorderClasses) => withBooleanProps(noBorderMap),

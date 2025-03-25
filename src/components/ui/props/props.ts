@@ -149,6 +149,12 @@ export interface JustifyProps {
   justifyBaseline?: boolean;
 }
 
+export interface WrapProps {
+  flexWrap?: boolean;
+  flexNoWrap?: boolean;
+  flexWrapReverse?: boolean;
+}
+
 export type BaseComponentProps = TagProps & Partial<SizeProps & HideProps & PositionProps> & React.HTMLProps<HTMLElement>;
 
 export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProps & CommonAppearanceProps;
@@ -161,10 +167,10 @@ export type ButtonProps = TypographyComponentProps & RoundedProps & PillProps & 
 
 export type GridProps = BaseComponentProps & GapProps & NoGapProps & CommonAppearanceProps;
 
-export type RowProps = BaseComponentProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps;
+export type RowProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & WrapProps;
 
-export type ColProps = BaseComponentProps & GapProps & NoGapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
+export type ColProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps & WrapProps;
 
 export type CardProps = BaseComponentProps & GapProps & NoGapProps & ItemsProps & SharpProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps;
 
-export type StackProps = BaseComponentProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps;
+export type StackProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps & WrapProps;

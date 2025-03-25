@@ -2,7 +2,7 @@ import React, { JSX } from 'react';
 import { GridProps, LayoutComponentProps, ColProps, RowProps, CardProps, StackProps, StackDirectionProps, GapProps, BreakpointProps, JustifyProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
-import { commonGaps, gridGaps, itemsClasses, justifyClasses, rowToColumnBreakpointClasses, stackDirectionClasses, roundedClasses, pillClasses, sharpClasses } from "./props/layoutValues";
+import { commonGaps, gridGaps, itemsClasses, justifyClasses, rowToColumnBreakpointClasses, stackDirectionClasses, roundedClasses, pillClasses, sharpClasses, wrapClasses } from "./props/layoutValues";
 
 export const Section = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "section", "w-full flex flex-col mx-auto")
@@ -37,6 +37,13 @@ export const Container = (props: LayoutComponentProps): JSX.Element =>
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
     .build();
 
+/**
+ * Column component for vertical layouts.
+ * Supports flex-wrap properties for controlling how items wrap.
+ * @param props.wrap - Allows items to wrap (flex-wrap)
+ * @param props.nowrap - Prevents items from wrapping (flex-nowrap)
+ * @param props.wrapReverse - Wraps items onto multiple lines in reverse (flex-wrap-reverse)
+ */
 export const Col = (props: ColProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col")
     .withGaps(commonGaps, { md: true })
@@ -47,8 +54,16 @@ export const Col = (props: ColProps): JSX.Element =>
     .withItems(itemsClasses)
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
     .withJustifyContent(justifyClasses, {})
+    .withWrap()
     .build();
 
+/**
+ * Row component for horizontal layouts.
+ * Uses flex-wrap by default and centers items vertically.
+ * @param props.wrap - Allows items to wrap (flex-wrap) - default
+ * @param props.nowrap - Prevents items from wrapping (flex-nowrap)
+ * @param props.wrapReverse - Wraps items onto multiple lines in reverse (flex-wrap-reverse)
+ */
 export const Row = (props: RowProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-row")
     .withGaps(commonGaps, { md: true })
@@ -60,6 +75,7 @@ export const Row = (props: RowProps): JSX.Element =>
     .withBreakpoints(rowToColumnBreakpointClasses)
     .withJustifyContent(justifyClasses, {})
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
+    .withWrap()
     .build();
 
 export const Grid3 = (props: GridProps): JSX.Element =>
@@ -110,5 +126,6 @@ export const Stack = (props: StackProps): JSX.Element => {
     .withJustifyContent(justifyClasses, {})
     .withStackDirection(stackDirectionClasses, { column: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
+    .withWrap()
     .build();
 };
