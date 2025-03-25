@@ -14,6 +14,7 @@ import {
 } from 'vaneui';
 import { PRODUCT } from '../constants';
 import { CodeBlock } from "../components/CodeBlock";
+import Link from "next/link";
 
 const dog = {
   name: "Luka",
@@ -34,7 +35,7 @@ export function HeroSection() {
           <Text lg textCenter>{PRODUCT.description}</Text>
           <Row lg smCol justifyCenter className="w-full">
             <Button lg filled className="max-sm:w-full">Get Started</Button>
-            <Button lg secondary className="max-sm:w-full">View on GitHub</Button>
+            <Button lg secondary className="max-sm:w-full" target="_blank" href={PRODUCT.githubUrl} tag={Link}>View on GitHub</Button>
           </Row>
         </Col>
       </Container>
