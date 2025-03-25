@@ -24,7 +24,7 @@
   --background-color-info: var(--color-cyan-50, #ecfeff);
 
   /* Background Hover Colors */
-  --background-color-hover-default: var(--color-gray-100, #f3f4f6);
+  --background-color-hover-default: var(--color-gray-50, #f3f4f6);
   --background-color-hover-primary: var(--color-blue-100, #dbeafe);
   --background-color-hover-secondary: var(--color-gray-100, #f3f4f6);
   --background-color-hover-tertiary: var(--color-gray-200, #e5e7eb);
