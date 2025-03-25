@@ -1,19 +1,5 @@
 import { BorderAppearanceProps, ButtonStyleProps, CommonAppearanceProps, NoBorderProps } from "./props"
 
-// Background classes for outline buttons (default)
-export const outlineBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
-  default: "bg-(--background-color-default)",
-  primary: "bg-(--background-color-primary)",
-  secondary: "bg-(--background-color-secondary)",
-  tertiary: "bg-(--background-color-tertiary)",
-  accent: "bg-(--background-color-accent)",
-  success: "bg-(--background-color-success)",
-  danger: "bg-(--background-color-danger)",
-  warning: "bg-(--background-color-warning)",
-  info: "bg-(--background-color-info)",
-  transparent: "bg-transparent",
-}
-
 // Background classes for filled buttons
 export const filledBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
   default: "bg-(--filled-background-color-default)",

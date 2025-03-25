@@ -1,14 +1,13 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { ButtonProps } from "./props/props";
-import { 
-  backgroundAppearanceClasses, 
-  borderAppearanceClasses, 
-  outlineBackgroundAppearanceClasses, 
+import {
+  borderAppearanceClasses,
+  backgroundAppearanceClasses,
   filledBackgroundAppearanceClasses 
 } from "./props/appearanceValues";
-import { 
-  outlineTextAppearanceClasses, 
+import {
+  textAppearanceClasses,
   filledTextAppearanceClasses 
 } from "./props/typographyValues";
 
@@ -18,8 +17,8 @@ export const Button = (props: ButtonProps): JSX.Element => {
   const isFilled = props.filled === true;
 
   // Select the appropriate background and text appearance classes based on button style
-  const backgroundClasses = isFilled ? filledBackgroundAppearanceClasses : outlineBackgroundAppearanceClasses;
-  const textClasses = isFilled ? filledTextAppearanceClasses : outlineTextAppearanceClasses;
+  const backgroundClasses = isFilled ? filledBackgroundAppearanceClasses : backgroundAppearanceClasses;
+  const textClasses = isFilled ? filledTextAppearanceClasses : textAppearanceClasses;
 
   return componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap")
     .withSizes({

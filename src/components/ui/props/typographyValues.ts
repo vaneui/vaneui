@@ -44,22 +44,6 @@ export const textAlignClasses: Record<keyof TextAlignProps, string> = {
   textJustify: "text-justify",
 }
 
-// Text appearance classes for outline buttons
-export const outlineTextAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
-  default: "text-(--text-color-default)",
-  primary: "text-(--text-color-primary)",
-  secondary: "text-(--text-color-secondary)",
-  tertiary: "text-(--text-color-tertiary)",
-  muted: "text-(--text-color-muted)",
-  link: "text-(--text-color-link)",
-  accent: "text-(--text-color-accent)",
-  success: "text-(--text-color-success)",
-  danger: "text-(--text-color-danger)",
-  warning: "text-(--text-color-warning)",
-  info: "text-(--text-color-info)",
-  transparent: "text-transparent",
-}
-
 // Text appearance classes for filled buttons (all white text)
 export const filledTextAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
   default: "text-white",
