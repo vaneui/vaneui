@@ -28,6 +28,20 @@ export const filledHoverBackgroundAppearanceClasses: Record<keyof CommonAppearan
   transparent: "hover:bg-transparent",
 }
 
+// Active background classes for filled buttons
+export const filledActiveBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
+  default: "active:bg-(--filled-background-color-active-default)",
+  primary: "active:bg-(--filled-background-color-active-primary)",
+  secondary: "active:bg-(--filled-background-color-active-secondary)",
+  tertiary: "active:bg-(--filled-background-color-active-tertiary)",
+  accent: "active:bg-(--filled-background-color-active-accent)",
+  success: "active:bg-(--filled-background-color-active-success)",
+  danger: "active:bg-(--filled-background-color-active-danger)",
+  warning: "active:bg-(--filled-background-color-active-warning)",
+  info: "active:bg-(--filled-background-color-active-info)",
+  transparent: "active:bg-transparent",
+}
+
 // Default background appearance classes (for non-button components)
 export const backgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
   default: "bg-(--background-color-default)",
@@ -54,6 +68,20 @@ export const hoverBackgroundAppearanceClasses: Record<keyof CommonAppearanceProp
   warning: "hover:bg-(--background-color-hover-warning)",
   info: "hover:bg-(--background-color-hover-info)",
   transparent: "hover:bg-transparent",
+}
+
+// Active background appearance classes for outline buttons
+export const activeBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
+  default: "active:bg-(--background-color-active-default)",
+  primary: "active:bg-(--background-color-active-primary)",
+  secondary: "active:bg-(--background-color-active-secondary)",
+  tertiary: "active:bg-(--background-color-active-tertiary)",
+  accent: "active:bg-(--background-color-active-accent)",
+  success: "active:bg-(--background-color-active-success)",
+  danger: "active:bg-(--background-color-active-danger)",
+  warning: "active:bg-(--background-color-active-warning)",
+  info: "active:bg-(--background-color-active-info)",
+  transparent: "active:bg-transparent",
 }
 
 export const layoutBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {

@@ -34,6 +34,17 @@
   --background-color-hover-warning: var(--color-amber-100, #fef3c7);
   --background-color-hover-info: var(--color-cyan-100, #cffafe);
 
+  /* Background Active Colors */
+  --background-color-active-default: var(--color-gray-100, #e5e7eb);
+  --background-color-active-primary: var(--color-blue-200, #bfdbfe);
+  --background-color-active-secondary: var(--color-gray-200, #e5e7eb);
+  --background-color-active-tertiary: var(--color-gray-300, #d1d5db);
+  --background-color-active-accent: var(--color-rose-200, #fbcfe8);
+  --background-color-active-success: var(--color-emerald-200, #a7f3d0);
+  --background-color-active-danger: var(--color-red-200, #fecaca);
+  --background-color-active-warning: var(--color-amber-200, #fde68a);
+  --background-color-active-info: var(--color-cyan-200, #a5f3fc);
+
   /* Filled Button Background Colors */
   --filled-background-color-default: var(--color-gray-800, #1f2937);
   --filled-background-color-primary: var(--color-blue-600, #2563eb);
@@ -55,6 +66,17 @@
   --filled-background-color-hover-danger: var(--color-red-700, #b91c1c);
   --filled-background-color-hover-warning: var(--color-amber-700, #b45309);
   --filled-background-color-hover-info: var(--color-cyan-700, #0e7490);
+
+  /* Filled Button Active Background Colors */
+  --filled-background-color-active-default: var(--color-gray-950, #030712);
+  --filled-background-color-active-primary: var(--color-blue-800, #1e40af);
+  --filled-background-color-active-secondary: var(--color-gray-800, #1f2937);
+  --filled-background-color-active-tertiary: var(--color-gray-700, #374151);
+  --filled-background-color-active-accent: var(--color-rose-800, #9f1239);
+  --filled-background-color-active-success: var(--color-emerald-800, #065f46);
+  --filled-background-color-active-danger: var(--color-red-800, #991b1b);
+  --filled-background-color-active-warning: var(--color-amber-800, #92400e);
+  --filled-background-color-active-info: var(--color-cyan-800, #155e75);
 
   /* Layout Background Colors */
   --layout-background-default: var(--color-white, #ffffff);
