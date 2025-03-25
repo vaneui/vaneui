@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageTitle, Text, Col, Row, Link } from 'vaneui';
-import { ComponentLayout } from './ComponentLayout';
+import { ComponentLayout } from './../docs/ComponentLayout';
 
 // Component groups with their components
 const componentGroups = [
