@@ -33,7 +33,7 @@ export function HeroSection() {
           </PageTitle>
           <Text lg textCenter>{PRODUCT.description}</Text>
           <Row lg smCol justifyCenter className="w-full">
-            <Button lg className="max-sm:w-full">Get Started</Button>
+            <Button lg filled className="max-sm:w-full">Get Started</Button>
             <Button lg secondary className="max-sm:w-full">View on GitHub</Button>
           </Row>
         </Col>
@@ -52,7 +52,7 @@ export function HeroSection() {
                   <Divider />
                   <Text sm>{dog.description}</Text>
                   <Row justifyEnd>
-                    <Button sm primary pill>Adopt</Button>
+                    <Button sm success filled>Adopt</Button>
                     <Button sm secondary>Learn more</Button>
                   </Row>
                 </Stack>

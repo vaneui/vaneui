@@ -125,6 +125,11 @@ export interface SharpProps {
   sharp?: boolean;
 }
 
+export interface ButtonStyleProps {
+  outline?: boolean;
+  filled?: boolean;
+}
+
 export interface StackDirectionProps {
   row?: boolean;
   column?: boolean;
@@ -163,7 +168,7 @@ export type FontProps = FontWeightProps & FontStyleProps & TextDecorationProps &
 
 export type TypographyComponentProps = BaseComponentProps & FontProps;
 
-export type ButtonProps = TypographyComponentProps & RoundedProps & PillProps & SharpProps & BorderAppearanceProps & NoBorderProps;
+export type ButtonProps = TypographyComponentProps & RoundedProps & PillProps & SharpProps & BorderAppearanceProps & NoBorderProps & ButtonStyleProps;
 
 export type GridProps = BaseComponentProps & GapProps & NoGapProps & CommonAppearanceProps;
 

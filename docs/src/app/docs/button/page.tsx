@@ -23,6 +23,15 @@ export default function ButtonPage() {
     ],
   });
 
+  // Add button style props
+  propCategories.push({
+    title: 'Button Style',
+    props: [
+      { name: 'outline', description: 'Outline style with transparent background (default)', type: 'boolean' },
+      { name: 'filled', description: 'Filled style with colored background', type: 'boolean' },
+    ],
+  });
+
   const examples = [
     {
       title: 'Basic Usage',
@@ -108,6 +117,38 @@ export default function ButtonPage() {
           <Button pill>Pill Shaped</Button>
           <Button sharp>Sharp Corners</Button>
         </Row>
+      ),
+    },
+    {
+      title: 'Button Styles',
+      description: 'Buttons can be styled as outline (default) or filled.',
+      code: `<Row flexWrap>
+  <Button outline>Outline Default</Button>
+  <Button outline primary>Outline Primary</Button>
+  <Button outline danger>Outline Danger</Button>
+  <Button outline success>Outline Success</Button>
+</Row>
+<Row flexWrap className="mt-4">
+  <Button filled>Filled Default</Button>
+  <Button filled primary>Filled Primary</Button>
+  <Button filled danger>Filled Danger</Button>
+  <Button filled success>Filled Success</Button>
+</Row>`,
+      component: (
+        <>
+          <Row flexWrap>
+            <Button outline>Outline Default</Button>
+            <Button outline primary>Outline Primary</Button>
+            <Button outline danger>Outline Danger</Button>
+            <Button outline success>Outline Success</Button>
+          </Row>
+          <Row flexWrap className="mt-4">
+            <Button filled>Filled Default</Button>
+            <Button filled primary>Filled Primary</Button>
+            <Button filled danger>Filled Danger</Button>
+            <Button filled success>Filled Success</Button>
+          </Row>
+        </>
       ),
     },
   ];

@@ -1,10 +1,27 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { ButtonProps } from "./props/props";
-import { backgroundAppearanceClasses, borderAppearanceClasses } from "./props/appearanceValues";
+import { 
+  backgroundAppearanceClasses, 
+  borderAppearanceClasses, 
+  outlineBackgroundAppearanceClasses, 
+  filledBackgroundAppearanceClasses 
+} from "./props/appearanceValues";
+import { 
+  outlineTextAppearanceClasses, 
+  filledTextAppearanceClasses 
+} from "./props/typographyValues";
 
-export const Button = (props: ButtonProps): JSX.Element =>
-  componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap")
+export const Button = (props: ButtonProps): JSX.Element => {
+  // Determine if button is outline or filled (default is outline)
+  const isOutline = props.outline !== false && !props.filled;
+  const isFilled = props.filled === true;
+
+  // Select the appropriate background and text appearance classes based on button style
+  const backgroundClasses = isFilled ? filledBackgroundAppearanceClasses : outlineBackgroundAppearanceClasses;
+  const textClasses = isFilled ? filledTextAppearanceClasses : outlineTextAppearanceClasses;
+
+  return componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap")
     .withSizes({
       xs: "px-2   py-1   text-xs/5",
       sm: "px-2.5 py-1.5 text-sm/5",
@@ -28,8 +45,12 @@ export const Button = (props: ButtonProps): JSX.Element =>
     })
     .withTypography({
       fontWeight: { semibold: true },
+      textAppearance: { default: true } // This will be overridden by withTextAppearance below
     })
-    .withAppearance(backgroundAppearanceClasses, { default: true })
+    // Use the appropriate background appearance classes based on button style
+    .withAppearance(backgroundClasses, { default: true })
+    // Use the appropriate text appearance classes based on button style
+    .withTextAppearance(textClasses, { default: true })
     .withBorderColor(borderAppearanceClasses, { default: true })
     .withRounded({
       xs: "rounded-sm",
@@ -42,3 +63,4 @@ export const Button = (props: ButtonProps): JSX.Element =>
     .withSharp()
     .withNoBorder()
     .build();
+};
