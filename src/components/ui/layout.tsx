@@ -5,8 +5,8 @@ import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./pr
 import { commonGaps, gridGaps, itemsClasses, justifyClasses, rowToColumnBreakpointClasses, stackDirectionClasses, roundedClasses, pillClasses, sharpClasses, wrapClasses } from "./props/layoutValues";
 
 export const Section = (props: LayoutComponentProps): JSX.Element =>
-  componentBuilder(props, "section", "w-full flex flex-col mx-auto")
-    .withItems(itemsClasses)
+  componentBuilder(props, "section", "w-full flex flex-col")
+    .withItems()
     .withSizes({
       xs: "py-4  max-lg:py-2  max-md:py-0",
       sm: "py-6  max-lg:py-6  max-md:py-2",
@@ -26,7 +26,7 @@ export const Section = (props: LayoutComponentProps): JSX.Element =>
 
 export const Container = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col mx-auto w-full")
-    .withItems(itemsClasses)
+    .withItems()
     .withSizes({
       xs: "max-w-3xl gap-2  max-lg:gap-1",
       sm: "max-w-4xl gap-4  max-lg:gap-3 max-md:gap-2",
@@ -51,7 +51,7 @@ export const Col = (props: ColProps): JSX.Element =>
     .withReverse({
       reverse: "flex-col-reverse"
     })
-    .withItems(itemsClasses)
+    .withItems()
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
     .withJustifyContent(justifyClasses, {})
     .withWrap()
@@ -71,7 +71,7 @@ export const Row = (props: RowProps): JSX.Element =>
     .withReverse({
       reverse: "flex-row-reverse"
     })
-    .withItems(itemsClasses, { itemsCenter: true })
+    .withItems({ itemsCenter: true })
     .withBreakpoints(rowToColumnBreakpointClasses)
     .withJustifyContent(justifyClasses, {})
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
@@ -94,7 +94,7 @@ export const Grid4 = (props: GridProps): JSX.Element =>
 
 export const Card = (props: CardProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col border shadow-sm overflow-hidden")
-    .withItems(itemsClasses)
+    .withItems()
     .withSizes({
       xs: "p-2",
       sm: "p-3",
@@ -122,7 +122,7 @@ export const Stack = (props: StackProps): JSX.Element => {
     .withReverse({
       reverse: props.row ? "flex-row-reverse" : "flex-col-reverse"
     })
-    .withItems(itemsClasses)
+    .withItems()
     .withBreakpoints(rowToColumnBreakpointClasses)
     .withSizes({
       xs: "p-2",

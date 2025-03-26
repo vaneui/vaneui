@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface SizeProps {
   xs?: boolean;
   sm?: boolean;
@@ -176,10 +178,10 @@ export type ButtonProps = TypographyComponentProps & RoundedProps & PillProps & 
 
 export type GridProps = BaseComponentProps & GapProps & NoGapProps & CommonAppearanceProps;
 
-export type RowProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & WrapProps;
+export type RowProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps;
 
-export type ColProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps & WrapProps;
+export type ColProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
 
 export type CardProps = BaseComponentProps & GapProps & NoGapProps & ItemsProps & SharpProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps & NoPaddingProps;
 
-export type StackProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps & WrapProps & NoPaddingProps;
+export type StackProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps & NoPaddingProps;

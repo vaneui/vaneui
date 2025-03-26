@@ -16,7 +16,7 @@ import {Grid3} from "../../../../src";
 
 export function FeaturesSection() {
   return (
-    <Section className="py-20">
+    <Section className="py-20 z-10">
       <Container xl>
         <Row justifyCenter className="mb-12">
           <Col md className="text-center">

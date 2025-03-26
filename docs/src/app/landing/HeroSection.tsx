@@ -15,6 +15,7 @@ import {
 import { PRODUCT } from '../constants';
 import { CodeBlock } from "../components/CodeBlock";
 import Link from "next/link";
+import {Badge} from "../../../../src";
 
 const dog = {
   name: "Luka",
@@ -25,10 +26,11 @@ const dog = {
 
 export function HeroSection() {
   return (
-    <Section relative className="border-b bg-gradient-to-r from-slate-100 via-white to-slate-100 mt-[calc(36px+(var(--spacing)*6))]">
+    <Section relative className="pt-20 gap-16 border-b bg-gradient-to-r from-slate-100 via-white to-slate-100 mt-[calc(36px+(var(--spacing)*6))]">
       <Row absolute className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]" />
-      <Container xs className="py-20 z-10">
+      <Container xs className="z-10">
         <Col xl itemsCenter>
+          <Badge normalCase normal>React components</Badge>
           <PageTitle xl sans textCenter medium>
             {PRODUCT.slogan}
           </PageTitle>
@@ -39,9 +41,9 @@ export function HeroSection() {
           </Row>
         </Col>
       </Container>
-      <Container sm className="z-10">
+      <Container sm className="z-10 -mb-12">
         <Col itemsCenter>
-          <Col className="max-w-xl max-sm:max-w-80 z-10 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
+          <Col className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
             <Card xl noBorder noPadding>
               <Row noGap smCol>
                 <img src={dog.image} alt="puppy" className="self-stretch w-52 object-cover max-sm:w-80" />

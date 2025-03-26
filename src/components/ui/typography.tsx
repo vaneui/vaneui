@@ -3,7 +3,7 @@ import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 
 export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "h1", "text-balance")
+  componentBuilder(props, "h1", "text-balance tracking-tighter")
     .withSizes({
       xs: "text-3xl max-lg:text-2xl max-md:text-xl",
       sm: "text-4xl max-lg:text-3xl max-md:text-2xl",

@@ -58,6 +58,7 @@ import {
 } from "../ui/settings";
 import {noBorderClasses} from "../ui/props/appearanceValues";
 import {
+  itemsClasses,
   noGapClasses,
   noPaddingClasses,
   pillClasses,
@@ -141,7 +142,7 @@ export function componentBuilder(
     withSizes: (sizeMap: Record<keyof SizeProps, string>) => withBooleanProps(sizeMap, {md: true}),
     withBreakpoints: (breakpointMap: Record<keyof BreakpointProps, string>) => withBooleanProps(breakpointMap),
     withReverse: (reverseMap: Record<keyof ReverseProps, string>) => withBooleanProps(reverseMap),
-    withItems: (itemsMap: Record<keyof ItemsProps, string>, settings?: ItemsSettings) => withBooleanProps(itemsMap, settings),
+    withItems: (settings?: ItemsSettings) => withBooleanProps(itemsClasses, settings),
     withHide: (hideMap: Record<keyof HideProps, string>) => withBooleanProps(hideMap),
     withPosition: (positionMap: Record<keyof PositionProps, string>) => withBooleanProps(positionMap),
     withFontWeight: (fontWeight: Record<keyof FontWeightProps, string>, settings: FontWeightSettings) => withBooleanProps(fontWeight, settings),
@@ -152,7 +153,7 @@ export function componentBuilder(
     withTextAlign: (textAlign: Record<keyof TextAlignProps, string>, settings: TextAlignSettings) => withBooleanProps(textAlign, settings),
     withTextAppearance: (appearance: Record<keyof TextAppearanceProps & CommonAppearanceProps, string>, settings: TextAppearanceSettings) => withBooleanProps(appearance, settings),
     withGaps: (gapMap: Record<keyof GapProps, string>, settings: GapSettings) => withBooleanProps(gapMap, settings),
-    withNoGap: (noGapMap: Record<keyof NoGapProps, string> = noGapClasses) => withBooleanProps(noGapMap),
+    withNoGap: () => withBooleanProps(noGapClasses),
     withJustifyContent: (justifyContent: Record<keyof JustifyProps, string>, settings: JustifySettings) => withBooleanProps(justifyContent, settings),
     withAppearance: (appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings) => withBooleanProps(appearance, settings),
     withStackDirection: (directionMap: Record<keyof StackDirectionProps, string>, settings: StackDirectionSettings) => withBooleanProps(directionMap, settings),
