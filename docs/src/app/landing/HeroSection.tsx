@@ -44,13 +44,13 @@ export function HeroSection() {
       <Container sm className="z-10 -mb-12">
         <Col itemsCenter>
           <Col className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
-            <Card xl noBorder noPadding>
+            <Card xl noPadding>
               <Row noGap smCol>
-                <img src={dog.image} alt="puppy" className="self-stretch w-52 object-cover max-sm:w-80" />
+                <img src={dog.image} alt="puppy" className="self-stretch w-52 max-sm:w-80" />
                 <Stack>
                   <Row justifyBetween>
                     <Title>{dog.name}</Title>
-                    <Chip sm secondary semibold>{dog.gender}</Chip>
+                    <Chip sm bold>{dog.gender}</Chip>
                   </Row>
                   <Divider />
                   <Text sm>{dog.description}</Text>
@@ -65,18 +65,18 @@ export function HeroSection() {
           <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*20)] shadow-xl"
             fileName="DogCard.tsx"
             language="tsx"
-            code={`import { Card, Row, Title, Text, Chip, Divider, Button } from '@vaneui/ui';
+            code={`import { Card, Row, Stack, Title, Text, Chip, Divider, Button } from '@vaneui/ui';
 import dog from './data/dog.json';
 
 export function DogCard() {
   return (
-    <Card xl noBorder noPadding>
+    <Card xl noPadding>
       <Row noGap smCol>
-        <img src={dog.image} alt="puppy" className="self-stretch w-52 object-cover max-sm:w-80" />
+        <img src={dog.image} alt="puppy" className="self-stretch w-52 max-sm:w-80" />
         <Stack>
           <Row justifyBetween>
             <Title>{dog.name}</Title>
-            <Chip sm secondary semibold>{dog.gender}</Chip>
+            <Chip sm semibold>{dog.gender}</Chip>
           </Row>
           <Divider />
           <Text sm>{dog.description}</Text>
