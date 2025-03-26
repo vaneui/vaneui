@@ -27,7 +27,7 @@ import {
   RoundedProps,
   PillProps,
   SharpProps,
-  WrapProps
+  WrapProps, ButtonStyleProps
 } from "../ui/props/props";
 import {
   fontFamilyClasses,
@@ -57,7 +57,14 @@ import {
   WrapSettings
 } from "../ui/settings";
 import {noBorderClasses} from "../ui/props/appearanceValues";
-import {noGapClasses, noPaddingClasses, pillClasses, roundedClasses, sharpClasses, wrapClasses} from "../ui/props/layoutValues";
+import {
+  noGapClasses,
+  noPaddingClasses,
+  pillClasses,
+  roundedClasses,
+  sharpClasses,
+  wrapClasses
+} from "../ui/props/layoutValues";
 import React from "react";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(
@@ -80,11 +87,13 @@ export function componentBuilder(
 ) {
   const extraClasses: string[] = [];
   const {className, children, tag, ...other} = baseProps;
-  const otherProps = {...other} as any as (typeof other) & Partial<ReverseProps & ItemsProps & GapProps & RowProps & ColProps & WrapProps>;
+  const otherProps = {...other} as any as (typeof other) & Partial<ReverseProps & ButtonStyleProps & ItemsProps & GapProps & RowProps & ColProps & WrapProps>;
   const propsToRemove: string[] = []
 
   const registerKeys = (keys: string[]) => {
-    keys.forEach((key) => propsToRemove.push(key));
+    keys.forEach((key) => {
+      if (propsToRemove.indexOf(key) == -1) propsToRemove.push(key)
+    });
   };
 
   const withBooleanProps = <T extends Record<string, string>>(
@@ -157,6 +166,11 @@ export function componentBuilder(
     withPill: (pillMap: Record<keyof PillProps, string> = pillClasses) => withBooleanProps(pillMap),
     withSharp: (sharpMap: Record<keyof SharpProps, string> = sharpClasses) => withBooleanProps(sharpMap),
 
+    withButtonStyle: () => {
+      registerKeys(['filled', 'outline']);
+      return builder;
+    },
+
     withTypography: (settings: TypographySettings) => builder
       .withFontFamily(fontFamilyClasses, settings?.fontFamily ?? {})
       .withFontStyle(fontStyleClasses, settings?.fontStyle ?? {})
@@ -181,7 +195,8 @@ export function componentBuilder(
         sticky: "sticky",
         static: "static"
       })
-      return finalize();
+      const re = finalize();
+      return re;
     },
   };
 

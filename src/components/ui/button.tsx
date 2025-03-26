@@ -74,5 +74,6 @@ export const Button = (props: ButtonProps): JSX.Element => {
     .withPill()
     .withSharp()
     .withNoBorder()
+    .withButtonStyle()
     .build();
 };
