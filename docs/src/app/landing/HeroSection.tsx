@@ -30,7 +30,7 @@ export function HeroSection() {
       <Row absolute className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]" />
       <Container xs className="z-10">
         <Col xl itemsCenter>
-          <Badge normalCase normal>React components</Badge>
+          <Badge normalCase normal>Open source components</Badge>
           <PageTitle xl sans textCenter medium>
             {PRODUCT.slogan}
           </PageTitle>
@@ -65,25 +65,30 @@ export function HeroSection() {
           <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*20)] shadow-xl"
             fileName="DogCard.tsx"
             language="tsx"
-            code={`import { Card, Row, Col, Title, Text, Chip, Divider, Button } from 'vaneui';
+            code={`import { Card, Row, Title, Text, Chip, Divider, Button } from '@vaneui/ui';
+import dog from './data/dog.json';
 
-<Card xl noBorder>
-  <Row noGap smCol>
-    <img src={dog.image} alt="puppy" className="self-stretch w-52 object-cover max-sm:w-80" />
-    <Stack>
-      <Row justifyBetween>
-        <Title>{dog.name}</Title>
-        <Chip sm secondary semibold>{dog.gender}</Chip>
+export function DogCard() {
+  return (
+    <Card xl noBorder noPadding>
+      <Row noGap smCol>
+        <img src={dog.image} alt="puppy" className="self-stretch w-52 object-cover max-sm:w-80" />
+        <Stack>
+          <Row justifyBetween>
+            <Title>{dog.name}</Title>
+            <Chip sm secondary semibold>{dog.gender}</Chip>
+          </Row>
+          <Divider />
+          <Text sm>{dog.description}</Text>
+          <Row justifyEnd>
+            <Button sm success filled>Adopt</Button>
+            <Button sm secondary>Learn more</Button>
+          </Row>
+        </Stack>
       </Row>
-      <Divider />
-      <Text sm>{dog.description}</Text>
-      <Row justifyEnd>
-        <Button sm primary>Adopt</Button>
-        <Button sm secondary>Learn more</Button>
-      </Row>
-    </Stack>
-  </Row>
-</Card>`}
+    </Card>  
+  );
+} `}
           />
         </Col>
       </Container>
