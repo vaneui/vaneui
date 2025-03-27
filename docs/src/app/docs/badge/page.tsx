@@ -2,7 +2,7 @@ import React from 'react';
 import { Badge, Row } from 'vaneui';
 import { ComponentDocs } from '../ComponentDocs';
 import { ComponentLayout } from '../ComponentLayout';
-import { createDefaultPropCategories } from '../../utils/propUtils';
+import { createDefaultPropCategories } from '../utils/propUtils';
 
 export default function BadgePage() {
   // Generate prop categories using our utility function

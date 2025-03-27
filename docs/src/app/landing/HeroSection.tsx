@@ -16,6 +16,8 @@ import {
 import {PRODUCT} from '../constants';
 import {CodeBlock} from "../components/CodeBlock";
 import Link from "next/link";
+import Image from "next/image";
+import githubMark from './../../../public/github-mark.svg'
 
 const dog = {
   name: "Luka",
@@ -32,14 +34,17 @@ export function HeroSection() {
            className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"/>
       <Container xs className="z-10">
         <Col xl itemsCenter>
-          <Badge normalCase light>Open source components</Badge>
+          <Badge normalCase light>
+            <Image src={githubMark} alt="GitHub" className="h-5 w-5" />
+            Open source components
+          </Badge>
           <PageTitle xl sans textCenter medium>
             {PRODUCT.slogan}
           </PageTitle>
           <Text lg textCenter>{PRODUCT.description}</Text>
           <Row lg smCol justifyCenter className="w-full">
             <Button lg filled className="max-sm:w-full">Get Started</Button>
-            <Button lg secondary className="max-sm:w-full" target="_blank" href={PRODUCT.githubUrl} tag={Link}>View on
+            <Button lg className="max-sm:w-full" target="_blank" href={PRODUCT.githubUrl} tag={Link}>View on
               GitHub</Button>
           </Row>
         </Col>

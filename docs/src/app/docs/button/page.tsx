@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Row } from 'vaneui';
 import { ComponentDocs } from '../ComponentDocs';
 import { ComponentLayout } from '../ComponentLayout';
-import { createDefaultPropCategories } from '../../utils/propUtils';
+import { createDefaultPropCategories } from '../utils/propUtils';
 
 export default function ButtonPage() {
   // Generate prop categories using our utility function
