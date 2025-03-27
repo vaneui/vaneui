@@ -58,10 +58,11 @@ import {
 } from "../ui/settings";
 import {noBorderClasses} from "../ui/props/appearanceValues";
 import {
-  itemsClasses,
+  hideClasses,
+  itemsClasses, justifyClasses,
   noGapClasses,
   noPaddingClasses,
-  pillClasses,
+  pillClasses, positionClasses,
   roundedClasses,
   sharpClasses,
   wrapClasses
@@ -139,33 +140,55 @@ export function componentBuilder(
 
   const builder = {
 
-    withSizes: (sizeMap: Record<keyof SizeProps, string>) => withBooleanProps(sizeMap, {md: true}),
-    withBreakpoints: (breakpointMap: Record<keyof BreakpointProps, string>) => withBooleanProps(breakpointMap),
-    withReverse: (reverseMap: Record<keyof ReverseProps, string>) => withBooleanProps(reverseMap),
-    withItems: (settings?: ItemsSettings) => withBooleanProps(itemsClasses, settings),
-    withHide: (hideMap: Record<keyof HideProps, string>) => withBooleanProps(hideMap),
-    withPosition: (positionMap: Record<keyof PositionProps, string>) => withBooleanProps(positionMap),
-    withFontWeight: (fontWeight: Record<keyof FontWeightProps, string>, settings: FontWeightSettings) => withBooleanProps(fontWeight, settings),
-    withFontStyle: (fontStyle: Record<keyof FontStyleProps, string>, settings: FontStyleSettings) => withBooleanProps(fontStyle, settings),
-    withFontFamily: (fontFamily: Record<keyof FontFamilyProps, string>, settings: FontFamilySettings) => withBooleanProps(fontFamily, settings),
+    withSizes: (sizeMap: Record<keyof SizeProps, string>) =>
+      withBooleanProps(sizeMap, {md: true}),
+    withBreakpoints: (breakpointMap: Record<keyof BreakpointProps, string>) =>
+      withBooleanProps(breakpointMap),
+    withReverse: (reverseMap: Record<keyof ReverseProps, string>) =>
+      withBooleanProps(reverseMap),
+    withItems: (settings?: ItemsSettings) =>
+      withBooleanProps(itemsClasses, settings),
+    withHide: () =>
+      withBooleanProps(hideClasses),
+    withPosition: () =>
+      withBooleanProps(positionClasses),
+    withFontWeight: (fontWeight: Record<keyof FontWeightProps, string>, settings: FontWeightSettings) =>
+      withBooleanProps(fontWeight, settings),
+    withFontStyle: (fontStyle: Record<keyof FontStyleProps, string>, settings: FontStyleSettings) =>
+      withBooleanProps(fontStyle, settings),
+    withFontFamily: (fontFamily: Record<keyof FontFamilyProps, string>, settings: FontFamilySettings) =>
+      withBooleanProps(fontFamily, settings),
     withTextDecoration: (textDecoration: Record<keyof TextDecorationProps, string>, settings: TextDecorationSettings) => withBooleanProps(textDecoration, settings),
-    withTextTransform: (textTransform: Record<keyof TextTransformProps, string>, settings: TextTransformSettings) => withBooleanProps(textTransform, settings),
-    withTextAlign: (textAlign: Record<keyof TextAlignProps, string>, settings: TextAlignSettings) => withBooleanProps(textAlign, settings),
+    withTextTransform: (textTransform: Record<keyof TextTransformProps, string>, settings: TextTransformSettings) =>
+      withBooleanProps(textTransform, settings),
+    withTextAlign: (textAlign: Record<keyof TextAlignProps, string>, settings: TextAlignSettings) =>
+      withBooleanProps(textAlign, settings),
     withTextAppearance: (appearance: Record<keyof TextAppearanceProps & CommonAppearanceProps, string>, settings: TextAppearanceSettings) => withBooleanProps(appearance, settings),
-    withGaps: (gapMap: Record<keyof GapProps, string>, settings: GapSettings) => withBooleanProps(gapMap, settings),
-    withNoGap: () => withBooleanProps(noGapClasses),
-    withJustifyContent: (justifyContent: Record<keyof JustifyProps, string>, settings: JustifySettings) => withBooleanProps(justifyContent, settings),
-    withAppearance: (appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings) => withBooleanProps(appearance, settings),
+    withGaps: (gapMap: Record<keyof GapProps, string>, settings: GapSettings) =>
+      withBooleanProps(gapMap, settings),
+    withNoGap: () =>
+      withBooleanProps(noGapClasses),
+    withJustifyContent: () =>
+      withBooleanProps(justifyClasses),
+    withAppearance: (appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings) =>
+      withBooleanProps(appearance, settings),
     withStackDirection: (directionMap: Record<keyof StackDirectionProps, string>, settings: StackDirectionSettings) => withBooleanProps(directionMap, settings),
-    withWrap: (wrapMap: Record<keyof WrapProps, string> = wrapClasses, settings?: WrapSettings) => withBooleanProps(wrapMap, settings),
+    withWrap: (settings?: WrapSettings) =>
+      withBooleanProps(wrapClasses, settings),
     // Border
-    withBorderColor: (borderMap: Record<keyof BorderAppearanceProps, string>, settings: BorderSettings) => withBooleanProps(borderMap, settings),
-    withNoBorder: (noBorderMap: Record<keyof NoBorderProps, string> = noBorderClasses) => withBooleanProps(noBorderMap),
-    withNoPadding: (noPaddingMap: Record<keyof NoPaddingProps, string> = noPaddingClasses) => withBooleanProps(noPaddingMap),
+    withBorderColor: (borderMap: Record<keyof BorderAppearanceProps, string>, settings: BorderSettings) =>
+      withBooleanProps(borderMap, settings),
+    withNoBorder: () =>
+      withBooleanProps(noBorderClasses),
+    withNoPadding: () =>
+      withBooleanProps(noPaddingClasses),
     // Border Radius
-    withRounded: (roundedMap: Record<keyof RoundedProps, string> = roundedClasses, settings?: RoundedSettings) => withBooleanProps(roundedMap, settings),
-    withPill: (pillMap: Record<keyof PillProps, string> = pillClasses) => withBooleanProps(pillMap),
-    withSharp: (sharpMap: Record<keyof SharpProps, string> = sharpClasses) => withBooleanProps(sharpMap),
+    withRounded: (rounded: Record<keyof RoundedProps, string>, settings?: RoundedSettings) =>
+      withBooleanProps(rounded, settings),
+    withPill: () =>
+      withBooleanProps(pillClasses),
+    withSharp: () =>
+      withBooleanProps(sharpClasses),
 
     withButtonStyle: () => {
       registerKeys(['filled', 'outline']);
@@ -182,22 +205,9 @@ export function componentBuilder(
       .withTextAppearance(textAppearanceClasses, settings?.textAppearance ?? {}),
 
     build() {
-      builder.withHide({
-        xsHide: "max-xs:hidden",
-        smHide: "max-sm:hidden",
-        mdHide: "max-md:hidden",
-        lgHide: "max-lg:hidden",
-        xlHide: "max-xl:hidden"
-      })
-      builder.withPosition({
-        relative: "relative",
-        absolute: "absolute",
-        fixed: "fixed",
-        sticky: "sticky",
-        static: "static"
-      })
-      const re = finalize();
-      return re;
+      builder.withHide()
+      builder.withPosition()
+      return finalize();
     },
   };
 

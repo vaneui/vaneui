@@ -53,7 +53,7 @@ export const Col = (props: ColProps): JSX.Element =>
     })
     .withItems()
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
-    .withJustifyContent(justifyClasses, {})
+    .withJustifyContent()
     .withWrap()
     .build();
 
@@ -73,7 +73,7 @@ export const Row = (props: RowProps): JSX.Element =>
     })
     .withItems({ itemsCenter: true })
     .withBreakpoints(rowToColumnBreakpointClasses)
-    .withJustifyContent(justifyClasses, {})
+    .withJustifyContent()
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
     .withWrap()
     .build();
@@ -131,7 +131,7 @@ export const Stack = (props: StackProps): JSX.Element => {
       lg: "p-5",
       xl: "p-6"
     })
-    .withJustifyContent(justifyClasses, {})
+    .withJustifyContent()
     .withStackDirection(stackDirectionClasses, { column: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
     .withNoPadding()

@@ -1,4 +1,17 @@
-import { BreakpointProps, GapProps, ItemsProps, JustifyProps, NoGapProps, NoPaddingProps, StackDirectionProps, PillProps, RoundedProps, SharpProps, WrapProps } from "./props"
+import {
+  BreakpointProps,
+  GapProps,
+  ItemsProps,
+  JustifyProps,
+  NoGapProps,
+  NoPaddingProps,
+  StackDirectionProps,
+  PillProps,
+  RoundedProps,
+  SharpProps,
+  WrapProps,
+  HideProps, PositionProps
+} from "./props"
 
 export const rowToColumnBreakpointClasses: Record<keyof BreakpointProps, string> = {
   xsCol: "max-xs:flex-col",
@@ -76,4 +89,20 @@ export const sharpClasses: Record<keyof SharpProps, string> = {
 
 export const noPaddingClasses: Record<keyof NoPaddingProps, string> = {
   noPadding: "p-0"
+}
+
+export const hideClasses: Record<keyof HideProps, string> = {
+  xsHide: "max-xs:hidden",
+  smHide: "max-sm:hidden",
+  mdHide: "max-md:hidden",
+  lgHide: "max-lg:hidden",
+  xlHide: "max-xl:hidden"
+}
+
+export const positionClasses: Record<keyof PositionProps, string> = {
+  relative: "relative",
+  absolute: "absolute",
+  fixed: "fixed",
+  sticky: "sticky",
+  static: "static"
 }
