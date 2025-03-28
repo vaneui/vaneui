@@ -46,28 +46,30 @@ export const Title = (props: TypographyComponentProps): JSX.Element =>
 
 export const Text = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "p", "p-0 m-0")
-    .withTextSize()
     .withTypography({
-      textAppearance: { secondary: true }
+      textAppearance: { secondary: true },
+      textSize: { md: true }
     })
     .build();
 
 export const Link = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "a", "hover:underline")
-    .withTextSize()
     .withTypography({
-      textAppearance: { link: true }
+      textAppearance: { link: true },
+      textSize: { md: true }
     })
     .build();
 
 export const ListItem = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "li", "")
-    .withTextSize()
-    .withTypography({})
+    .withTypography({
+      textSize: { md: true }
+    })
     .build();
 
 export const List = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "ul", "list-disc list-inside")
-    .withTextSize()
-    .withTypography({})
+    .withTypography({
+      textSize: { md: true }
+    })
     .build();

@@ -7,7 +7,6 @@ export const Badge = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "span", "rounded-full w-fit h-fit border inline-flex gap-2 items-center")
     .withPx()
     .withPy()
-    .withTextSize()
     .withAppearance(backgroundAppearanceClasses, { default: true })
     .withBorderColor(borderAppearanceClasses, { default: true })
     .withNoBorder()
@@ -16,5 +15,6 @@ export const Badge = (props: TypographyComponentProps): JSX.Element =>
       fontFamily: { sans: true },
       textTransform: { uppercase: true },
       textAppearance: { secondary: true },
+      textSize: { md: true }
     })
     .build();

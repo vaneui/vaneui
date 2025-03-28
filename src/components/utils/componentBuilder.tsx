@@ -52,6 +52,8 @@ import {
   BorderSettings,
   GapSettings,
   RoundedSettings,
+  PillSettings,
+  SharpSettings,
   WrapSettings
 } from "../ui/settings/settings";
 import {noBorderClasses, noShadowClasses} from "../ui/props/appearanceValues";
@@ -277,12 +279,12 @@ class ComponentBuilder {
     return this.withBooleanProps(rounded, settings);
   }
 
-  withPill(): this {
-    return this.withBooleanProps(pillClasses);
+  withPill(settings?: PillSettings): this {
+    return this.withBooleanProps(pillClasses, settings);
   }
 
-  withSharp(): this {
-    return this.withBooleanProps(sharpClasses);
+  withSharp(settings?: SharpSettings): this {
+    return this.withBooleanProps(sharpClasses, settings);
   }
 
   withTextSize(textSizeMap?: Record<keyof SizeProps, string>, settings?: { [key in keyof SizeProps]?: boolean }): this {
@@ -297,7 +299,8 @@ class ComponentBuilder {
       .withTextDecoration(textDecorationClasses, settings?.textDecoration ?? {})
       .withTextTransform(textTransformClasses, settings?.textTransform ?? {})
       .withTextAlign(textAlignClasses, settings?.textAlign ?? {})
-      .withTextAppearance(textAppearanceClasses, settings?.textAppearance ?? {});
+      .withTextAppearance(textAppearanceClasses, settings?.textAppearance ?? {})
+      .withTextSize(textSizeClasses, settings?.textSize ?? {});
   }
 
   build(): React.ReactElement {

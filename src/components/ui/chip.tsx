@@ -26,12 +26,12 @@ export const Chip = (props: TypographyComponentProps): JSX.Element =>
       lg: "rounded-xl",
       xl: "rounded-2xl"
     })
-    .withTextSize()
     .withAppearance(backgroundAppearanceClasses, { default: true })
     .withBorderColor(borderAppearanceClasses, { default: true })
     .withNoBorder()
     .withTypography({
       fontFamily: { mono: true },
       textAppearance: { secondary: true },
+      textSize: { md: true }
     })
     .build();
