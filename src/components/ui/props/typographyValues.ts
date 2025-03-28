@@ -1,4 +1,4 @@
-import { FontFamilyProps, FontStyleProps, FontWeightProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, CommonAppearanceProps } from "./props"
+import { FontFamilyProps, FontStyleProps, FontWeightProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, CommonAppearanceProps, SizeProps } from "./props"
 
 export const fontWeightClasses: Record<keyof FontWeightProps, string> = {
   thin: "font-thin",
@@ -75,3 +75,21 @@ export const textAppearanceClasses: Record<keyof TextAppearanceProps, string> = 
   info: "text-(--text-color-info)",
   transparent: "text-transparent",
 } 
+
+// Text size classes
+export const textSizeClasses: Record<keyof SizeProps, string> = {
+  xs: "text-xs",
+  sm: "text-sm",
+  md: "text-base",
+  lg: "text-lg",
+  xl: "text-xl",
+}
+
+// Button text size classes with line height
+export const buttonTextSizeClasses: Record<keyof SizeProps, string> = {
+  xs: "text-xs/5",
+  sm: "text-sm/5",
+  md: "text-base",
+  lg: "text-lg/6",
+  xl: "text-xl/6",
+}

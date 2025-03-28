@@ -13,7 +13,8 @@ import {
 } from "./props/appearanceValues";
 import {
   textAppearanceClasses,
-  filledTextAppearanceClasses 
+  filledTextAppearanceClasses,
+  buttonTextSizeClasses
 } from "./props/typographyValues";
 
 export const Button = (props: ButtonProps): JSX.Element => {
@@ -29,27 +30,12 @@ export const Button = (props: ButtonProps): JSX.Element => {
   const borderClasses = isFilled ? filledBorderAppearanceClasses : borderAppearanceClasses;
 
   return componentBuilder(props, "button", "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap")
-    .withSizes({
-      xs: "px-2   py-1   text-xs/5",
-      sm: "px-2.5 py-1.5 text-sm/5",
-      md: "px-3.5 py-2   text-base",
-      lg: "px-5   py-3   text-lg/6",
-      xl: "px-6   py-4   text-xl/6",
-    })
-    .withSizes({
-      xs: "gap-1",
-      sm: "gap-2",
-      md: "gap-3",
-      lg: "gap-4",
-      xl: "gap-5",
-    })
-    .withSizes({
-      xs: "shadow-xs hover:shadow-sm",
-      sm: "shadow-xs hover:shadow-sm",
-      md: "shadow-sm hover:shadow-md",
-      lg: "shadow-md hover:shadow-lg",
-      xl: "shadow-lg hover:shadow-xl",
-    })
+    .withPx()
+    .withPy()
+    .withTextSize(buttonTextSizeClasses)
+    .withGap()
+    .withShadow()
+    .withHoverShadow()
     .withTypography({
       fontWeight: { semibold: true },
       textAppearance: { default: true } // This will be overridden by withTextAppearance below

@@ -21,13 +21,7 @@ export const Section = (props: LayoutComponentProps): JSX.Element =>
       lg: "px-8  max-lg:px-7 max-md:px-6",
       xl: "px-9  max-lg:px-8 max-md:px-7",
     })
-    .withSizes({
-      xs: "gap-4",
-      sm: "gap-6",
-      md: "gap-8",
-      lg: "gap-12",
-      xl: "gap-16",
-    })
+    .withGap()
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .build();
 
@@ -102,13 +96,7 @@ export const Grid4 = (props: GridProps): JSX.Element =>
 export const Card = (props: CardProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col border shadow-sm overflow-hidden")
     .withItems()
-    .withSizes({
-      xs: "p-2",
-      sm: "p-3",
-      md: "p-4",
-      lg: "p-5",
-      xl: "p-6"
-    })
+    .withPadding()
     .withGaps(commonGaps, { md: true })
     .withNoGap()
     .withRounded(roundedClasses, { md: true })
@@ -132,13 +120,7 @@ export const Stack = (props: StackProps): JSX.Element => {
     })
     .withItems()
     .withBreakpoints(rowToColumnBreakpointClasses)
-    .withSizes({
-      xs: "p-2",
-      sm: "p-3",
-      md: "p-4",
-      lg: "p-5",
-      xl: "p-6"
-    })
+    .withPadding()
     .withJustifyContent()
     .withStackDirection(stackDirectionClasses, { column: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })

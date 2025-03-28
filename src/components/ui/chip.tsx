@@ -5,13 +5,28 @@ import { backgroundAppearanceClasses, borderAppearanceClasses } from './props/ap
 
 export const Chip = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "span", "rounded-full w-fit h-fit border inline-flex gap-2 items-center")
-    .withSizes({
-      xs: "px-1   py-0.5 rounded-sm  text-xs",
-      sm: "px-1.5 py-1   rounded-md  text-sm",
-      md: "px-2   py-1.5 rounded-lg  text-base",
-      lg: "px-3   py-2   rounded-xl  text-lg",
-      xl: "px-4   py-2.5 rounded-2xl text-xl",
+    .withPx({
+      xs: true,
+      sm: true,
+      md: true,
+      lg: true,
+      xl: true
     })
+    .withPy({
+      xs: true,
+      sm: true,
+      md: true,
+      lg: true,
+      xl: true
+    })
+    .withRounded({
+      xs: "rounded-sm",
+      sm: "rounded-md",
+      md: "rounded-lg",
+      lg: "rounded-xl",
+      xl: "rounded-2xl"
+    })
+    .withTextSize()
     .withAppearance(backgroundAppearanceClasses, { default: true })
     .withBorderColor(borderAppearanceClasses, { default: true })
     .withNoBorder()

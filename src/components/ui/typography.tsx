@@ -46,13 +46,7 @@ export const Title = (props: TypographyComponentProps): JSX.Element =>
 
 export const Text = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "p", "p-0 m-0")
-    .withSizes({
-      xs: "text-xs",
-      sm: "text-sm",
-      md: "text-base",
-      lg: "text-lg",
-      xl: "text-xl",
-    })
+    .withTextSize()
     .withTypography({
       textAppearance: { secondary: true }
     })
@@ -60,13 +54,7 @@ export const Text = (props: TypographyComponentProps): JSX.Element =>
 
 export const Link = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "a", "hover:underline")
-    .withSizes({
-      xs: "text-xs",
-      sm: "text-sm",
-      md: "text-base",
-      lg: "text-lg",
-      xl: "text-xl",
-    })
+    .withTextSize()
     .withTypography({
       textAppearance: { link: true }
     })
@@ -74,24 +62,12 @@ export const Link = (props: TypographyComponentProps): JSX.Element =>
 
 export const ListItem = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "li", "")
-    .withSizes({
-      xs: "text-xs",
-      sm: "text-sm",
-      md: "text-base",
-      lg: "text-lg",
-      xl: "text-xl",
-    })
+    .withTextSize()
     .withTypography({})
     .build();
 
 export const List = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "ul", "list-disc list-inside")
-    .withSizes({
-      xs: "text-xs",
-      sm: "text-sm",
-      md: "text-base",
-      lg: "text-lg",
-      xl: "text-xl",
-    })
+    .withTextSize()
     .withTypography({})
     .build();

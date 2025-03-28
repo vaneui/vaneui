@@ -10,7 +10,8 @@ import {
   RoundedProps,
   SharpProps,
   WrapProps,
-  HideProps, PositionProps
+  HideProps, PositionProps,
+  SizeProps
 } from "./props"
 
 export const rowToColumnBreakpointClasses: Record<keyof BreakpointProps, string> = {
@@ -105,4 +106,44 @@ export const positionClasses: Record<keyof PositionProps, string> = {
   fixed: "fixed",
   sticky: "sticky",
   static: "static"
+}
+
+export const shadowClasses: Record<keyof SizeProps, string> = {
+  xs: "shadow-xs",
+  sm: "shadow-sm",
+  md: "shadow-md",
+  lg: "shadow-lg",
+  xl: "shadow-xl"
+}
+
+export const hoverShadowClasses: Record<keyof SizeProps, string> = {
+  xs: "hover:shadow-xs",
+  sm: "hover:shadow-sm",
+  md: "hover:shadow-md",
+  lg: "hover:shadow-lg",
+  xl: "hover:shadow-xl"
+}
+
+export const pxClasses: Record<keyof SizeProps, string> = {
+  xs: "px-2",
+  sm: "px-2.5",
+  md: "px-3.5",
+  lg: "px-5",
+  xl: "px-6"
+}
+
+export const pyClasses: Record<keyof SizeProps, string> = {
+  xs: "py-1",
+  sm: "py-1.5",
+  md: "py-2",
+  lg: "py-3",
+  xl: "py-4"
+}
+
+export const paddingClasses: Record<keyof SizeProps, string> = {
+  xs: "p-2",
+  sm: "p-3",
+  md: "p-4",
+  lg: "p-5",
+  xl: "p-6"
 }

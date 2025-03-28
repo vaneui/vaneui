@@ -36,7 +36,8 @@ import {
   textAlignClasses,
   textAppearanceClasses,
   textDecorationClasses,
-  textTransformClasses
+  textTransformClasses,
+  textSizeClasses
 } from "../ui/props/typographyValues";
 import {
   CommonAppearanceSettings,
@@ -65,7 +66,13 @@ import {
   pillClasses, positionClasses,
   roundedClasses,
   sharpClasses,
-  wrapClasses
+  wrapClasses,
+  shadowClasses,
+  hoverShadowClasses,
+  pxClasses,
+  pyClasses,
+  paddingClasses,
+  commonGaps
 } from "../ui/props/layoutValues";
 import React from "react";
 
@@ -98,7 +105,7 @@ class ComponentBuilder {
     this.baseProps = baseProps;
     this.defaultTag = defaultTag;
     this.baseClasses = baseClasses;
-    
+
     const {className, children, tag, ...other} = baseProps;
     this.otherProps = {...other} as any as (typeof other) & Partial<ReverseProps & ButtonStyleProps & ItemsProps & GapProps & RowProps & ColProps & WrapProps>;
   }
@@ -153,6 +160,30 @@ class ComponentBuilder {
 
   withSizes(sizeMap: Record<keyof SizeProps, string>): this {
     return this.withBooleanProps(sizeMap, {md: true});
+  }
+
+  withGap(settings?: GapSettings): this {
+    return this.withBooleanProps(commonGaps, settings || {md: true});
+  }
+
+  withShadow(settings?: { [key in keyof SizeProps]?: boolean }): this {
+    return this.withBooleanProps(shadowClasses, settings || {md: true});
+  }
+
+  withHoverShadow(settings?: { [key in keyof SizeProps]?: boolean }): this {
+    return this.withBooleanProps(hoverShadowClasses, settings || {md: true});
+  }
+
+  withPx(settings?: { [key in keyof SizeProps]?: boolean }): this {
+    return this.withBooleanProps(pxClasses, settings || {md: true});
+  }
+
+  withPy(settings?: { [key in keyof SizeProps]?: boolean }): this {
+    return this.withBooleanProps(pyClasses, settings || {md: true});
+  }
+
+  withPadding(settings?: { [key in keyof SizeProps]?: boolean }): this {
+    return this.withBooleanProps(paddingClasses, settings || {md: true});
   }
 
   withBreakpoints(breakpointMap: Record<keyof BreakpointProps, string>): this {
@@ -255,6 +286,10 @@ class ComponentBuilder {
 
   withSharp(): this {
     return this.withBooleanProps(sharpClasses);
+  }
+
+  withTextSize(textSizeMap?: Record<keyof SizeProps, string>, settings?: { [key in keyof SizeProps]?: boolean }): this {
+    return this.withBooleanProps(textSizeMap || textSizeClasses, settings || {md: true});
   }
 
   withTypography(settings: TypographySettings): this {
