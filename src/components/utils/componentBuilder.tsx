@@ -56,7 +56,7 @@ import {
   GapSettings,
   RoundedSettings,
   WrapSettings
-} from "../ui/settings";
+} from "../ui/settings/settings";
 import {noBorderClasses, noShadowClasses} from "../ui/props/appearanceValues";
 import {
   hideClasses,

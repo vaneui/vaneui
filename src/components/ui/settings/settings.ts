@@ -1,4 +1,4 @@
-import { BorderAppearanceProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, ItemsProps, JustifyProps, NoBorderProps, NoGapProps, PillProps, RoundedProps, SharpProps, StackDirectionProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, WrapProps } from "./props/props";
+import { BorderAppearanceProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, ItemsProps, JustifyProps, NoBorderProps, NoGapProps, PillProps, RoundedProps, SharpProps, StackDirectionProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, WrapProps } from "../props/props";
 
 export type CommonAppearanceSettings = { [key in keyof CommonAppearanceProps]: boolean; };
 
