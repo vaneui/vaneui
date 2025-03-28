@@ -74,6 +74,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
     .withPill()
     .withSharp()
     .withNoBorder()
-    .withButtonStyle()
+    .withNoShadow()
+    .registerKeys(['filled', 'outline'])
     .build();
 };

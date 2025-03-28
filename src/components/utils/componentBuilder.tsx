@@ -56,7 +56,7 @@ import {
   RoundedSettings,
   WrapSettings
 } from "../ui/settings";
-import {noBorderClasses} from "../ui/props/appearanceValues";
+import {noBorderClasses, noShadowClasses} from "../ui/props/appearanceValues";
 import {
   hideClasses,
   itemsClasses, justifyClasses,
@@ -82,134 +82,207 @@ function getBooleanClass<T extends Record<string, boolean | undefined>>(
   return "";
 }
 
-export function componentBuilder(
-  baseProps: BaseComponentProps,
-  defaultTag: string,
-  baseClasses?: string
-) {
-  const extraClasses: string[] = [];
-  const {className, children, tag, ...other} = baseProps;
-  const otherProps = {...other} as any as (typeof other) & Partial<ReverseProps & ButtonStyleProps & ItemsProps & GapProps & RowProps & ColProps & WrapProps>;
-  const propsToRemove: string[] = []
+/**
+ * ComponentBuilder class for building React components with chainable methods
+ */
+class ComponentBuilder {
+  private readonly otherProps: any;
+  private readonly baseProps: BaseComponentProps;
+  private readonly defaultTag: string;
+  private readonly baseClasses?: string;
 
-  const registerKeys = (keys: string[]) => {
+  private propsToRemove: string[] = [];
+  private extraClasses: string[] = [];
+
+  constructor(baseProps: BaseComponentProps, defaultTag: string, baseClasses?: string) {
+    this.baseProps = baseProps;
+    this.defaultTag = defaultTag;
+    this.baseClasses = baseClasses;
+    
+    const {className, children, tag, ...other} = baseProps;
+    this.otherProps = {...other} as any as (typeof other) & Partial<ReverseProps & ButtonStyleProps & ItemsProps & GapProps & RowProps & ColProps & WrapProps>;
+  }
+
+  registerKeys(keys: string[]): this {
     keys.forEach((key) => {
-      if (propsToRemove.indexOf(key) == -1) propsToRemove.push(key)
+      if (this.propsToRemove.indexOf(key) === -1) this.propsToRemove.push(key);
     });
-  };
+    return this;
+  }
 
-  const withBooleanProps = <T extends Record<string, string>>(
+  private withBooleanProps<T extends Record<string, string>>(
     propMap: Record<keyof T, string>,
     settings?: { [key: string]: boolean }
-  ) => {
+  ): this {
     // Build a subset of props from otherProps for the keys in the map.
     const propsSubset: Partial<Record<keyof T, boolean>> = {} as Partial<Record<keyof T, boolean>>;
     const keys = Object.keys(propMap) as (keyof T)[];
     keys.forEach((key) => {
-      if (key in otherProps) {
-        propsSubset[key] = otherProps[key as keyof typeof otherProps];
+      if (key in this.otherProps) {
+        propsSubset[key] = this.otherProps[key as keyof typeof this.otherProps];
       }
     });
 
     if (settings) {
       const settingsClass = getBooleanClass(settings || {}, propMap);
-      extraClasses.push(settingsClass);
+      this.extraClasses.push(settingsClass);
     }
 
     // Compute the class.
     const newClass = getBooleanClass(propsSubset, propMap);
-    extraClasses.push(newClass);
+    this.extraClasses.push(newClass);
 
     // Register all keys found in the map.
-    registerKeys(keys as string[]);
-    return builder;
-  };
+    this.registerKeys(keys as string[]);
+    return this;
+  }
 
-  function finalize(): React.ReactElement {
-    const Tag = tag || defaultTag;
-    const merged = twMerge(baseClasses, ...extraClasses, className);
+  private finalize(): React.ReactElement {
+    const {className, children, tag} = this.baseProps;
+    const Tag = tag || this.defaultTag;
+    const merged = twMerge(this.baseClasses, ...this.extraClasses, className);
 
-    propsToRemove.forEach(key => delete otherProps[key as keyof typeof otherProps])
+    this.propsToRemove.forEach(key => delete this.otherProps[key as keyof typeof this.otherProps]);
 
     return (
-      <Tag className={merged} {...otherProps}>
+      <Tag className={merged} {...this.otherProps}>
         {children}
       </Tag>
     );
   }
 
-  const builder = {
+  withSizes(sizeMap: Record<keyof SizeProps, string>): this {
+    return this.withBooleanProps(sizeMap, {md: true});
+  }
 
-    withSizes: (sizeMap: Record<keyof SizeProps, string>) =>
-      withBooleanProps(sizeMap, {md: true}),
-    withBreakpoints: (breakpointMap: Record<keyof BreakpointProps, string>) =>
-      withBooleanProps(breakpointMap),
-    withReverse: (reverseMap: Record<keyof ReverseProps, string>) =>
-      withBooleanProps(reverseMap),
-    withItems: (settings?: ItemsSettings) =>
-      withBooleanProps(itemsClasses, settings),
-    withHide: () =>
-      withBooleanProps(hideClasses),
-    withPosition: () =>
-      withBooleanProps(positionClasses),
-    withFontWeight: (fontWeight: Record<keyof FontWeightProps, string>, settings: FontWeightSettings) =>
-      withBooleanProps(fontWeight, settings),
-    withFontStyle: (fontStyle: Record<keyof FontStyleProps, string>, settings: FontStyleSettings) =>
-      withBooleanProps(fontStyle, settings),
-    withFontFamily: (fontFamily: Record<keyof FontFamilyProps, string>, settings: FontFamilySettings) =>
-      withBooleanProps(fontFamily, settings),
-    withTextDecoration: (textDecoration: Record<keyof TextDecorationProps, string>, settings: TextDecorationSettings) => withBooleanProps(textDecoration, settings),
-    withTextTransform: (textTransform: Record<keyof TextTransformProps, string>, settings: TextTransformSettings) =>
-      withBooleanProps(textTransform, settings),
-    withTextAlign: (textAlign: Record<keyof TextAlignProps, string>, settings: TextAlignSettings) =>
-      withBooleanProps(textAlign, settings),
-    withTextAppearance: (appearance: Record<keyof TextAppearanceProps & CommonAppearanceProps, string>, settings: TextAppearanceSettings) => withBooleanProps(appearance, settings),
-    withGaps: (gapMap: Record<keyof GapProps, string>, settings: GapSettings) =>
-      withBooleanProps(gapMap, settings),
-    withNoGap: () =>
-      withBooleanProps(noGapClasses),
-    withJustifyContent: () =>
-      withBooleanProps(justifyClasses),
-    withAppearance: (appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings) =>
-      withBooleanProps(appearance, settings),
-    withStackDirection: (directionMap: Record<keyof StackDirectionProps, string>, settings: StackDirectionSettings) => withBooleanProps(directionMap, settings),
-    withWrap: (settings?: WrapSettings) =>
-      withBooleanProps(wrapClasses, settings),
-    // Border
-    withBorderColor: (borderMap: Record<keyof BorderAppearanceProps, string>, settings: BorderSettings) =>
-      withBooleanProps(borderMap, settings),
-    withNoBorder: () =>
-      withBooleanProps(noBorderClasses),
-    withNoPadding: () =>
-      withBooleanProps(noPaddingClasses),
-    // Border Radius
-    withRounded: (rounded: Record<keyof RoundedProps, string>, settings?: RoundedSettings) =>
-      withBooleanProps(rounded, settings),
-    withPill: () =>
-      withBooleanProps(pillClasses),
-    withSharp: () =>
-      withBooleanProps(sharpClasses),
+  withBreakpoints(breakpointMap: Record<keyof BreakpointProps, string>): this {
+    return this.withBooleanProps(breakpointMap);
+  }
 
-    withButtonStyle: () => {
-      registerKeys(['filled', 'outline']);
-      return builder;
-    },
+  withReverse(reverseMap: Record<keyof ReverseProps, string>): this {
+    return this.withBooleanProps(reverseMap);
+  }
 
-    withTypography: (settings: TypographySettings) => builder
+  withItems(settings?: ItemsSettings): this {
+    return this.withBooleanProps(itemsClasses, settings);
+  }
+
+  withHide(): this {
+    return this.withBooleanProps(hideClasses);
+  }
+
+  withPosition(): this {
+    return this.withBooleanProps(positionClasses);
+  }
+
+  withFontWeight(fontWeight: Record<keyof FontWeightProps, string>, settings: FontWeightSettings): this {
+    return this.withBooleanProps(fontWeight, settings);
+  }
+
+  withFontStyle(fontStyle: Record<keyof FontStyleProps, string>, settings: FontStyleSettings): this {
+    return this.withBooleanProps(fontStyle, settings);
+  }
+
+  withFontFamily(fontFamily: Record<keyof FontFamilyProps, string>, settings: FontFamilySettings): this {
+    return this.withBooleanProps(fontFamily, settings);
+  }
+
+  withTextDecoration(textDecoration: Record<keyof TextDecorationProps, string>, settings: TextDecorationSettings): this {
+    return this.withBooleanProps(textDecoration, settings);
+  }
+
+  withTextTransform(textTransform: Record<keyof TextTransformProps, string>, settings: TextTransformSettings): this {
+    return this.withBooleanProps(textTransform, settings);
+  }
+
+  withTextAlign(textAlign: Record<keyof TextAlignProps, string>, settings: TextAlignSettings): this {
+    return this.withBooleanProps(textAlign, settings);
+  }
+
+  withTextAppearance(appearance: Record<keyof TextAppearanceProps & CommonAppearanceProps, string>, settings: TextAppearanceSettings): this {
+    return this.withBooleanProps(appearance, settings);
+  }
+
+  withGaps(gapMap: Record<keyof GapProps, string>, settings: GapSettings): this {
+    return this.withBooleanProps(gapMap, settings);
+  }
+
+  withNoGap(): this {
+    return this.withBooleanProps(noGapClasses);
+  }
+
+  withJustifyContent(): this {
+    return this.withBooleanProps(justifyClasses);
+  }
+
+  withAppearance(appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings): this {
+    return this.withBooleanProps(appearance, settings);
+  }
+
+  withStackDirection(directionMap: Record<keyof StackDirectionProps, string>, settings: StackDirectionSettings): this {
+    return this.withBooleanProps(directionMap, settings);
+  }
+
+  withWrap(settings?: WrapSettings): this {
+    return this.withBooleanProps(wrapClasses, settings);
+  }
+
+  // Border
+  withBorderColor(borderMap: Record<keyof BorderAppearanceProps, string>, settings: BorderSettings): this {
+    return this.withBooleanProps(borderMap, settings);
+  }
+
+  withNoBorder(): this {
+    return this.withBooleanProps(noBorderClasses);
+  }
+
+  withNoShadow(): this {
+    return this.withBooleanProps(noShadowClasses);
+  }
+
+  withNoPadding(): this {
+    return this.withBooleanProps(noPaddingClasses);
+  }
+
+  // Border Radius
+  withRounded(rounded: Record<keyof RoundedProps, string>, settings?: RoundedSettings): this {
+    return this.withBooleanProps(rounded, settings);
+  }
+
+  withPill(): this {
+    return this.withBooleanProps(pillClasses);
+  }
+
+  withSharp(): this {
+    return this.withBooleanProps(sharpClasses);
+  }
+
+  withTypography(settings: TypographySettings): this {
+    return this
       .withFontFamily(fontFamilyClasses, settings?.fontFamily ?? {})
       .withFontStyle(fontStyleClasses, settings?.fontStyle ?? {})
       .withFontWeight(fontWeightClasses, settings?.fontWeight ?? {})
       .withTextDecoration(textDecorationClasses, settings?.textDecoration ?? {})
       .withTextTransform(textTransformClasses, settings?.textTransform ?? {})
       .withTextAlign(textAlignClasses, settings?.textAlign ?? {})
-      .withTextAppearance(textAppearanceClasses, settings?.textAppearance ?? {}),
+      .withTextAppearance(textAppearanceClasses, settings?.textAppearance ?? {});
+  }
 
-    build() {
-      builder.withHide()
-      builder.withPosition()
-      return finalize();
-    },
-  };
+  build(): React.ReactElement {
+    this.withHide();
+    this.withPosition();
+    return this.finalize();
+  }
+}
 
-  return builder;
+/**
+ * Factory function that creates and returns a ComponentBuilder instance
+ * This maintains backward compatibility with the existing code
+ */
+export function componentBuilder(
+  baseProps: BaseComponentProps,
+  defaultTag: string,
+  baseClasses?: string
+): ComponentBuilder {
+  return new ComponentBuilder(baseProps, defaultTag, baseClasses);
 }

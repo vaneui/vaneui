@@ -108,6 +108,7 @@ export const Card = (props: CardProps): JSX.Element =>
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .withBorderColor(borderAppearanceClasses, { default: true })
     .withNoBorder()
+    .withNoShadow()
     .withNoPadding()
     .withSharp()
     .build();

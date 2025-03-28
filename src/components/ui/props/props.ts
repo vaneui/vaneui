@@ -77,6 +77,10 @@ export interface NoBorderProps {
   noBorder?: boolean;
 }
 
+export interface NoShadowProps {
+  noShadow?: boolean;
+}
+
 export interface NoPaddingProps {
   noPadding?: boolean;
 }
@@ -174,7 +178,7 @@ export type FontProps = FontWeightProps & FontStyleProps & TextDecorationProps &
 
 export type TypographyComponentProps = BaseComponentProps & FontProps;
 
-export type ButtonProps = TypographyComponentProps & RoundedProps & PillProps & SharpProps & BorderAppearanceProps & NoBorderProps & ButtonStyleProps;
+export type ButtonProps = TypographyComponentProps & RoundedProps & PillProps & SharpProps & BorderAppearanceProps & NoBorderProps & NoShadowProps & ButtonStyleProps;
 
 export type GridProps = BaseComponentProps & GapProps & NoGapProps & CommonAppearanceProps;
 
@@ -182,6 +186,6 @@ export type RowProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & 
 
 export type ColProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
 
-export type CardProps = BaseComponentProps & GapProps & NoGapProps & ItemsProps & SharpProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps & NoPaddingProps;
+export type CardProps = BaseComponentProps & GapProps & NoGapProps & ItemsProps & SharpProps & CommonAppearanceProps & BorderAppearanceProps & NoBorderProps & NoShadowProps & NoPaddingProps;
 
 export type StackProps = BaseComponentProps & WrapProps & GapProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps & NoPaddingProps;

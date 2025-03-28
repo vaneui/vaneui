@@ -21,7 +21,7 @@ export function Header() {
               Documentation
             </Text>
             <Button sm tag={Link} href={PRODUCT.githubUrl}>
-              <Image src={githubMark} alt="GitHub" width={16} height={16} className="h-5 w-5" />
+              <Image src={githubMark} alt="GitHub" width={16} height={16} className="w-5 h-5" />
               GitHub
             </Button>
           </Row>
