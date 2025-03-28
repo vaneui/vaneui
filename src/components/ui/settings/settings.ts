@@ -1,4 +1,4 @@
-import { BorderAppearanceProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, GapProps, ItemsProps, JustifyProps, NoBorderProps, NoGapProps, PillProps, RoundedProps, SharpProps, StackDirectionProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, WrapProps } from "../props/props";
+import { CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, ItemsProps, JustifyProps, NoBorderProps, NoGapProps, PillProps, SharpProps, SizeProps, StackDirectionProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, WrapProps } from "../props/props";
 
 export type CommonAppearanceSettings = { [key in keyof CommonAppearanceProps]: boolean; };
 
@@ -13,12 +13,12 @@ export type TextAlignSettings = { [key in keyof TextAlignProps]: boolean; };
 export type JustifySettings = { [key in keyof JustifyProps]: boolean; };
 export type WrapSettings = { [key in keyof WrapProps]: boolean; };
 export type StackDirectionSettings = { [key in keyof StackDirectionProps]: boolean; };
-export type BorderSettings = { [key in keyof BorderAppearanceProps]: boolean; };
+export type BorderSettings = { [key in keyof CommonAppearanceProps]: boolean; };
 export type NoBorderSettings = { [key in keyof NoBorderProps]: boolean; };
-export type RoundedSettings = { [key in keyof RoundedProps]: boolean; };
+export type RoundedSettings = { [key in keyof SizeProps]: boolean; };
 export type PillSettings = { [key in keyof PillProps]: boolean; };
 export type SharpSettings = { [key in keyof SharpProps]: boolean; };
-export type GapSettings = { [key in keyof GapProps]: boolean; };
+export type GapSettings = { [key in keyof SizeProps]: boolean; };
 export type NoGapSettings = { [key in keyof NoGapProps]: boolean; };
 
 export type TypographySettings = {

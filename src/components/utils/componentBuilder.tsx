@@ -7,7 +7,6 @@ import {
   FontFamilyProps,
   FontStyleProps,
   FontWeightProps,
-  GapProps,
   HideProps,
   PositionProps,
   ReverseProps,
@@ -20,11 +19,9 @@ import {
   TextAlignProps,
   JustifyProps,
   StackDirectionProps,
-  BorderAppearanceProps,
   NoBorderProps,
   NoGapProps,
   NoPaddingProps,
-  RoundedProps,
   PillProps,
   SharpProps,
   WrapProps, ButtonStyleProps
@@ -107,7 +104,7 @@ class ComponentBuilder {
     this.baseClasses = baseClasses;
 
     const {className, children, tag, ...other} = baseProps;
-    this.otherProps = {...other} as any as (typeof other) & Partial<ReverseProps & ButtonStyleProps & ItemsProps & GapProps & RowProps & ColProps & WrapProps>;
+    this.otherProps = {...other} as any as (typeof other) & Partial<ReverseProps & ButtonStyleProps & ItemsProps & SizeProps & RowProps & ColProps & WrapProps>;
   }
 
   registerKeys(keys: string[]): this {
@@ -234,7 +231,7 @@ class ComponentBuilder {
     return this.withBooleanProps(appearance, settings);
   }
 
-  withGaps(gapMap: Record<keyof GapProps, string>, settings: GapSettings): this {
+  withGaps(gapMap: Record<keyof SizeProps, string>, settings: GapSettings): this {
     return this.withBooleanProps(gapMap, settings);
   }
 
@@ -259,7 +256,7 @@ class ComponentBuilder {
   }
 
   // Border
-  withBorderColor(borderMap: Record<keyof BorderAppearanceProps, string>, settings: BorderSettings): this {
+  withBorderColor(borderMap: Record<keyof CommonAppearanceProps, string>, settings: BorderSettings): this {
     return this.withBooleanProps(borderMap, settings);
   }
 
@@ -276,7 +273,7 @@ class ComponentBuilder {
   }
 
   // Border Radius
-  withRounded(rounded: Record<keyof RoundedProps, string>, settings?: RoundedSettings): this {
+  withRounded(rounded: Record<keyof SizeProps, string>, settings?: RoundedSettings): this {
     return this.withBooleanProps(rounded, settings);
   }
 

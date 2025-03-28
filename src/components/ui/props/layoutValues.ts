@@ -1,13 +1,11 @@
 import {
   BreakpointProps,
-  GapProps,
   ItemsProps,
   JustifyProps,
   NoGapProps,
   NoPaddingProps,
   StackDirectionProps,
   PillProps,
-  RoundedProps,
   SharpProps,
   WrapProps,
   HideProps, PositionProps,
@@ -22,7 +20,7 @@ export const rowToColumnBreakpointClasses: Record<keyof BreakpointProps, string>
   xlCol: "max-xl:flex-col"
 }
 
-export const gridGaps: Record<keyof GapProps, string> = {
+export const gridGaps: Record<keyof SizeProps, string> = {
   xs: "gap-2",
   sm: "gap-4  max-lg:gap-2",
   md: "gap-6  max-lg:gap-4",
@@ -49,7 +47,7 @@ export const justifyClasses: Record<keyof JustifyProps, string> = {
   justifyBaseline: "justify-baseline",
 }
 
-export const commonGaps: Record<keyof GapProps, string> = {
+export const commonGaps: Record<keyof SizeProps, string> = {
   xs: "gap-2",
   sm: "gap-3",
   md: "gap-4",
@@ -72,7 +70,7 @@ export const wrapClasses: Record<keyof WrapProps, string> = {
   flexWrapReverse: "flex-wrap-reverse"
 };
 
-export const roundedClasses: Record<keyof RoundedProps, string> = {
+export const roundedClasses: Record<keyof SizeProps, string> = {
   xs: "rounded-sm",
   sm: "rounded-md",
   md: "rounded-lg",
@@ -148,7 +146,7 @@ export const paddingClasses: Record<keyof SizeProps, string> = {
   xl: "p-6"
 }
 
-export const buttonRoundedClasses: Record<keyof RoundedProps, string> = {
+export const buttonRoundedClasses: Record<keyof SizeProps, string> = {
   xs: "rounded-sm",
   sm: "rounded-md",
   md: "rounded-md",

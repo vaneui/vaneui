@@ -1,4 +1,4 @@
-import { BorderAppearanceProps, ButtonStyleProps, CommonAppearanceProps, NoBorderProps, NoShadowProps } from "./props"
+import { ButtonStyleProps, CommonAppearanceProps, NoBorderProps, NoShadowProps } from "./props"
 
 // Background classes for filled buttons
 export const filledBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
@@ -97,7 +97,7 @@ export const layoutBackgroundAppearanceClasses: Record<keyof CommonAppearancePro
   transparent: "bg-transparent",
 }
 
-export const borderAppearanceClasses: Record<keyof BorderAppearanceProps, string> = {
+export const borderAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
   default: "border-(--border-color-default)",
   primary: "border-(--border-color-primary)",
   secondary: "border-(--border-color-secondary)",
@@ -112,7 +112,7 @@ export const borderAppearanceClasses: Record<keyof BorderAppearanceProps, string
 }
 
 // Border classes for filled buttons
-export const filledBorderAppearanceClasses: Record<keyof BorderAppearanceProps, string> = {
+export const filledBorderAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
   default: "border-(--filled-border-color-default)",
   primary: "border-(--filled-border-color-primary)",
   secondary: "border-(--filled-border-color-secondary)",
