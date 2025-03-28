@@ -1,8 +1,8 @@
-import React, { JSX } from 'react';
-import { GridProps, LayoutComponentProps, ColProps, RowProps, CardProps, StackProps, StackDirectionProps, GapProps, BreakpointProps, JustifyProps } from "./props/props";
+import { JSX } from 'react';
+import { GridProps, LayoutComponentProps, ColProps, RowProps, CardProps, StackProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
-import { commonGaps, gridGaps, itemsClasses, justifyClasses, rowToColumnBreakpointClasses, stackDirectionClasses, roundedClasses, pillClasses, sharpClasses, wrapClasses } from "./props/layoutValues";
+import { commonGaps, gridGaps, rowToColumnBreakpointClasses, stackDirectionClasses, roundedClasses } from "./props/layoutValues";
 
 export const Section = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "section", "w-full flex flex-col")
