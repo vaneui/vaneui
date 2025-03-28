@@ -55,20 +55,23 @@ export type TypographySettings = {
   textSize?: TextSizeSettings;
 };
 
-export type ClassesSettings = {
-  // Background and appearance classes
+// Type for style-specific classes (the structure inside filled and outline)
+export type ButtonStyleClasses = {
   backgroundAppearance?: Record<keyof CommonAppearanceProps, string>;
   hoverBackgroundAppearance?: Record<keyof CommonAppearanceProps, string>;
   activeBackgroundAppearance?: Record<keyof CommonAppearanceProps, string>;
-
-  // Text classes
   textAppearance?: Record<keyof TextAppearanceProps, string>;
-  textSize?: Record<keyof SizeProps, string>;
-
-  // Border classes
   borderColor?: Record<keyof CommonAppearanceProps, string>;
+};
 
-  // Layout classes
+export type ClassesSettings = {
+  // Button style variants based on ButtonStyleProps (filled and outline)
+  // Each key corresponds to a property in ButtonStyleProps
+  filled?: ButtonStyleClasses;
+  outline?: ButtonStyleClasses;
+
+  // Common classes for both styles
+  textSize?: Record<keyof SizeProps, string>;
   rounded?: Record<keyof SizeProps, string>;
 };
 
@@ -108,5 +111,5 @@ export type ButtonSettings = {
   buttonStyle?: ButtonStyleSettings;
 
   // Class mappings grouped into a single field
-  classes?: ClassesSettings;
+  classes: ClassesSettings;
 };
