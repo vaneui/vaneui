@@ -37,18 +37,18 @@ export const Button = (props: ButtonProps): JSX.Element => {
       xl: "px-6   py-4   text-xl/6",
     })
     .withSizes({
+      xs: "gap-1",
+      sm: "gap-2",
+      md: "gap-3",
+      lg: "gap-4",
+      xl: "gap-5",
+    })
+    .withSizes({
       xs: "shadow-xs hover:shadow-sm",
       sm: "shadow-xs hover:shadow-sm",
       md: "shadow-sm hover:shadow-md",
       lg: "shadow-md hover:shadow-lg",
       xl: "shadow-lg hover:shadow-xl",
-    })
-    .withSizes({
-      xs: "gap-1",
-      sm: "gap-1.5",
-      md: "gap-3",
-      lg: "gap-4",
-      xl: "gap-5",
     })
     .withTypography({
       fontWeight: { semibold: true },
