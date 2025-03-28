@@ -4,11 +4,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import githubMark from './../../../public/github-mark.svg'
 import logo from './../../../public/logo.svg'
+import {Section} from "../../../../src";
 
 export function Header() {
   return (
     <>
-      <Col tag={'header'} className="bg-white/70 backdrop-blur-md border-b py-3 px-5 fixed w-full z-40">
+      <Section xs tag={'header'} className="bg-white/70 backdrop-blur-md border-b fixed z-40">
         <Row lg justifyBetween>
           <Row tag={Link} href="/">
             <Image src={logo} alt={PRODUCT.title} className="h-[36px] w-[36px]" />
@@ -26,7 +27,7 @@ export function Header() {
             </Button>
           </Row>
         </Row>
-      </Col>
+      </Section>
     </>
   );
 }

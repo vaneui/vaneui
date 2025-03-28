@@ -28,8 +28,8 @@ const dog = {
 
 export function HeroSection() {
   return (
-    <Section relative
-             className="pt-20 gap-16 border-b bg-gradient-to-r from-slate-100 via-white to-slate-100 mt-[calc(36px+(var(--spacing)*6))]">
+    <Section xl relative
+             className="border-b bg-gradient-to-r from-slate-100 via-white to-slate-100 mt-[calc(36px+(var(--spacing)*6))]">
       <Row absolute
            className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"/>
       <Container xs className="z-10">

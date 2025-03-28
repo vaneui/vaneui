@@ -8,18 +8,25 @@ export const Section = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "section", "w-full flex flex-col")
     .withItems()
     .withSizes({
-      xs: "py-4  max-lg:py-2  max-md:py-0",
-      sm: "py-6  max-lg:py-6  max-md:py-2",
-      md: "py-8  max-lg:py-6  max-md:py-4",
-      lg: "py-10 max-lg:py-8  max-md:py-6",
-      xl: "py-12 max-lg:py-10 max-md:py-8",
+      xs: "py-3",
+      sm: "py-5",
+      md: "py-8  max-md:py-5",
+      lg: "py-16 max-lg:py-14 max-md:py-12",
+      xl: "py-20 max-lg:py-16 max-md:py-12",
     })
     .withSizes({
-      xs: "px-4  max-lg:px-2  max-md:px-0",
-      sm: "px-6  max-lg:px-6  max-md:px-2",
-      md: "px-8  max-lg:px-6  max-md:px-4",
-      lg: "px-10 max-lg:px-8  max-md:px-6",
-      xl: "px-12 max-lg:px-10 max-md:px-8",
+      xs: "px-5  max-lg:px-4 max-md:px-3",
+      sm: "px-6  max-lg:px-5 max-md:px-4",
+      md: "px-7  max-lg:px-6 max-md:px-5",
+      lg: "px-8  max-lg:px-7 max-md:px-6",
+      xl: "px-9  max-lg:px-8 max-md:px-7",
+    })
+    .withSizes({
+      xs: "gap-4",
+      sm: "gap-6",
+      md: "gap-8",
+      lg: "gap-12",
+      xl: "gap-16",
     })
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .build();
