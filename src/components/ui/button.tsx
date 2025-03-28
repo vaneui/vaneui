@@ -16,6 +16,7 @@ import {
   filledTextAppearanceClasses,
   buttonTextSizeClasses
 } from "./props/typographyValues";
+import { buttonRoundedClasses } from "./props/layoutValues";
 
 export const Button = (props: ButtonProps): JSX.Element => {
   // Determine if button is outline or filled (default is outline)
@@ -50,13 +51,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
     .withTextAppearance(textClasses, { default: true })
     // Use the appropriate border appearance classes based on button style
     .withBorderColor(borderClasses, { default: true })
-    .withRounded({
-      xs: "rounded-sm",
-      sm: "rounded-md",
-      md: "rounded-md",
-      lg: "rounded-lg",
-      xl: "rounded-xl"
-    }, { md: true })
+    .withRounded(buttonRoundedClasses, { md: true })
     .withPill()
     .withSharp()
     .withNoBorder()

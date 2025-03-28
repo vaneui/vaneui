@@ -147,3 +147,11 @@ export const paddingClasses: Record<keyof SizeProps, string> = {
   lg: "p-5",
   xl: "p-6"
 }
+
+export const buttonRoundedClasses: Record<keyof RoundedProps, string> = {
+  xs: "rounded-sm",
+  sm: "rounded-md",
+  md: "rounded-md",
+  lg: "rounded-lg",
+  xl: "rounded-xl"
+}
