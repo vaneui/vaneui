@@ -105,6 +105,6 @@ export type ButtonSettings = {
   shadow: ShadowSettings;
 
   // Boolean settings
-  noBorder: NoBorderSettings;
-  noShadow: NoShadowSettings;
+  noBorder: boolean;
+  noShadow: boolean;
 };

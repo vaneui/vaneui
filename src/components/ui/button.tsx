@@ -50,8 +50,8 @@ const defaultButtonClasses: ButtonClasses = {
 const defaultButtonSettings: ButtonSettings = {
   defaultTag: "button",
 
-  noBorder: {noBorder: false},
-  noShadow: {noShadow: false},
+  noBorder: false,
+  noShadow: false,
 
   style: {
     outline: true
@@ -111,8 +111,8 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
     .withRounded(classes.rounded, settings.borderRadius.rounded)
     .withPill(settings.borderRadius.pill)
     .withSharp(settings.borderRadius.sharp)
-    .withNoBorder()
-    .withNoShadow()
+    .withNoBorder(settings.noBorder)
+    .withNoShadow(settings.noShadow)
     .registerKeys(['filled', 'outline'])
     .build();
 };

@@ -262,12 +262,12 @@ class ComponentBuilder {
     return this.withBooleanProps(borderMap, settings);
   }
 
-  withNoBorder(): this {
-    return this.withBooleanProps(noBorderClasses);
+  withNoBorder(noBorder?: boolean): this {
+    return this.withBooleanProps(noBorderClasses, noBorder ? { noBorder } : undefined);
   }
 
-  withNoShadow(): this {
-    return this.withBooleanProps(noShadowClasses);
+  withNoShadow(noShadow?: boolean): this {
+    return this.withBooleanProps(noShadowClasses, noShadow ? { noShadow } : undefined);
   }
 
   withNoPadding(): this {
