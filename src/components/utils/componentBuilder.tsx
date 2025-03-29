@@ -229,7 +229,7 @@ class ComponentBuilder {
     return this.withBooleanProps(textAlign, settings);
   }
 
-  withTextAppearance(appearance: Record<keyof TextAppearanceProps & CommonAppearanceProps, string>, settings: TextAppearanceSettings): this {
+  withTextAppearance(appearance: Record<keyof TextAppearanceProps, string>, settings: TextAppearanceSettings): this {
     return this.withBooleanProps(appearance, settings);
   }
 

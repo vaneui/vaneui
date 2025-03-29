@@ -17,43 +17,18 @@ import {
   buttonTextSizeClasses
 } from "./props/typographyValues";
 import { buttonRoundedClasses } from "./props/layoutValues";
-import { ButtonSettings } from './settings/settings';
+import { ButtonSettings, ButtonClasses } from './settings/settings';
 
-// Default button settings
-const defaultButtonSettings: ButtonSettings = {
+// Default button classes
+const defaultButtonClasses: ButtonClasses = {
   // Component builder settings
-  defaultTag: "button",
   baseClasses: "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap",
 
-  // Typography settings
-  typography: {
-    fontWeight: { semibold: true },
-    textAppearance: { default: true },
-    textSize: { md: true }
-  },
-  px: { md: true },
-  py: { md: true },
-  gap: { md: true },
-  shadow: { md: true },
-  hover: {
-    shadow: { md: true },
-    backgroundAppearance: { default: true }
-  },
-  backgroundAppearance: { default: true },
-  active: {
-    backgroundAppearance: { default: true }
-  },
-  borderColor: { default: true },
-  borderRadius: {
-    rounded: { md: true }
-  },
-  // Group all class mappings into a single classes field
-  classes: {
-    // Common classes for both styles
-    textSize: buttonTextSizeClasses,
-    rounded: buttonRoundedClasses,
+  // Common classes for both styles
+  textSize: buttonTextSizeClasses,
+  rounded: buttonRoundedClasses,
 
-    // Filled button style classes
+  style: {
     filled: {
       backgroundAppearance: filledBackgroundAppearanceClasses,
       hoverBackgroundAppearance: filledHoverBackgroundAppearanceClasses,
@@ -61,8 +36,6 @@ const defaultButtonSettings: ButtonSettings = {
       textAppearance: filledTextAppearanceClasses,
       borderColor: filledBorderAppearanceClasses
     },
-
-    // Outline button style classes
     outline: {
       backgroundAppearance: backgroundAppearanceClasses,
       hoverBackgroundAppearance: hoverBackgroundAppearanceClasses,
@@ -73,60 +46,71 @@ const defaultButtonSettings: ButtonSettings = {
   }
 };
 
+// Default button settings
+const defaultButtonSettings: ButtonSettings = {
+  defaultTag: "button",
+
+  noBorder: {noBorder: false},
+  noShadow: {noShadow: false},
+
+  style: {
+    outline: true
+  },
+
+  typography: {
+    fontWeight: {semibold: true},
+    textAppearance: {default: true},
+    textSize: {md: true}
+  },
+  px: {md: true},
+  py: {md: true},
+  gap: {md: true},
+  shadow: {md: true},
+  hover: {
+    shadow: {md: true},
+    backgroundAppearance: {default: true}
+  },
+  backgroundAppearance: {default: true},
+  active: {
+    backgroundAppearance: {default: true}
+  },
+  borderColor: {default: true},
+  borderRadius: {
+    rounded: {md: true},
+    pill: {pill: false},
+    sharp: {sharp: false},
+  }
+};
+
 export type ButtonComponentProps = ButtonProps;
 
 export const Button = (props: ButtonComponentProps): JSX.Element => {
   const settings = defaultButtonSettings;
+  const classes = defaultButtonClasses;
 
   // Determine if button is outline or filled (default is outline)
-  const isOutline = props.outline !== false && !props.filled;
-  const isFilled = props.filled === true;
+  const isOutline = settings.style.outline !== false && !settings.style.filled;
+  const isFilled = settings.style.filled === true;
 
   // Select the appropriate classes based on button style (filled or outline)
-  const styleClasses = isFilled ? settings.classes.filled : settings.classes.outline;
+  const styleClasses = isFilled
+    ? classes.style.filled
+    : classes.style.outline;
 
-  // Select the appropriate background, text, and border appearance classes
-  const backgroundClasses = styleClasses?.backgroundAppearance || 
-    (isFilled ? filledBackgroundAppearanceClasses : backgroundAppearanceClasses);
-  const hoverBackgroundClasses = styleClasses?.hoverBackgroundAppearance || 
-    (isFilled ? filledHoverBackgroundAppearanceClasses : hoverBackgroundAppearanceClasses);
-  const activeBackgroundClasses = styleClasses?.activeBackgroundAppearance || 
-    (isFilled ? filledActiveBackgroundAppearanceClasses : activeBackgroundAppearanceClasses);
-  const textClasses = styleClasses?.textAppearance || 
-    (isFilled ? filledTextAppearanceClasses : textAppearanceClasses);
-  const borderClasses = styleClasses?.borderColor || 
-    (isFilled ? filledBorderAppearanceClasses : borderAppearanceClasses);
-
-  // Common classes for both styles
-  const textSizeClasses = settings.classes?.textSize || buttonTextSizeClasses;
-  const roundedClasses = settings.classes?.rounded || buttonRoundedClasses;
-
-  return componentBuilder(props, settings.defaultTag || "button", settings.baseClasses || "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap")
+  return componentBuilder(props, settings.defaultTag, classes.baseClasses)
     .withPx(settings.px)
     .withPy(settings.py)
     .withGap(settings.gap)
     .withShadow(settings.shadow)
     .withHoverShadow(settings.hover?.shadow)
-    .withTypography(settings.typography || {
-      fontWeight: { semibold: true },
-      textAppearance: { default: true },
-      textSize: { md: true }
-    })
-    // Override the text size classes with button-specific ones
-    .withTextSize(textSizeClasses, settings.typography?.textSize)
-    // Use the appropriate background appearance classes based on button style
-    .withAppearance(backgroundClasses, settings.backgroundAppearance ?? { default: true })
-    // Use the appropriate hover background appearance classes based on button style
-    .withAppearance(hoverBackgroundClasses, settings.hover?.backgroundAppearance ?? { default: true })
-    // Use the appropriate active background appearance classes based on button style
-    .withAppearance(activeBackgroundClasses, settings.active?.backgroundAppearance ?? { default: true })
-    // Use the appropriate text appearance classes based on button style
-    .withTextAppearance(textClasses, settings.typography?.textAppearance ?? { default: true })
-    // Use the appropriate border appearance classes based on button style
-    .withBorderColor(borderClasses, settings.borderColor ?? { default: true })
-    .withRounded(roundedClasses, settings.borderRadius?.rounded ?? { md: true })
-    .withPill(settings.borderRadius?.pill ?? {})
-    .withSharp(settings.borderRadius?.sharp ?? {})
+    .withTypography(settings.typography)
+    .withTextSize(classes.textSize, settings.typography?.textSize)
+    .withAppearance(styleClasses.hoverBackgroundAppearance, settings.hover.backgroundAppearance)
+    .withAppearance(styleClasses.activeBackgroundAppearance, settings.active.backgroundAppearance)
+    .withBorderColor(styleClasses.borderColor, settings.borderColor)
+    .withRounded(classes.rounded, settings.borderRadius.rounded)
+    .withPill(settings.borderRadius.pill)
+    .withSharp(settings.borderRadius.sharp)
     .withNoBorder()
     .withNoShadow()
     .registerKeys(['filled', 'outline'])

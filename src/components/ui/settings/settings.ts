@@ -21,9 +21,9 @@ export type PillSettings = { [key in keyof PillProps]: boolean; };
 export type SharpSettings = { [key in keyof SharpProps]: boolean; };
 
 export type BorderRadiusSettings = {
-  rounded?: RoundedSettings;
-  pill?: PillSettings;
-  sharp?: SharpSettings;
+  rounded: RoundedSettings;
+  pill: PillSettings;
+  sharp: SharpSettings;
 };
 export type GapSettings = { [key in keyof SizeProps]: boolean; };
 export type NoGapSettings = { [key in keyof NoGapProps]: boolean; };
@@ -31,12 +31,12 @@ export type ShadowSettings = { [key in keyof SizeProps]: boolean; };
 export type HoverShadowSettings = { [key in keyof SizeProps]: boolean; };
 
 export type HoverSettings = {
-  backgroundAppearance?: CommonAppearanceSettings;
-  shadow?: ShadowSettings;
+  backgroundAppearance: CommonAppearanceSettings;
+  shadow: ShadowSettings;
 };
 
 export type ActiveSettings = {
-  backgroundAppearance?: CommonAppearanceSettings;
+  backgroundAppearance: CommonAppearanceSettings;
 };
 
 export type PxSettings = { [key in keyof SizeProps]: boolean; };
@@ -48,7 +48,7 @@ export type TypographySettings = {
   fontFamily?: FontFamilySettings;
   fontWeight?: FontWeightSettings;
   fontStyle?: FontStyleSettings;
-  textAppearance?: TextAppearanceSettings;
+  textAppearance: TextAppearanceSettings;
   textDecoration?: TextDecorationSettings;
   textTransform?: TextTransformSettings;
   textAlign?: TextAlignSettings;
@@ -57,59 +57,54 @@ export type TypographySettings = {
 
 // Type for style-specific classes (the structure inside filled and outline)
 export type ButtonStyleClasses = {
-  backgroundAppearance?: Record<keyof CommonAppearanceProps, string>;
-  hoverBackgroundAppearance?: Record<keyof CommonAppearanceProps, string>;
-  activeBackgroundAppearance?: Record<keyof CommonAppearanceProps, string>;
-  textAppearance?: Record<keyof TextAppearanceProps, string>;
-  borderColor?: Record<keyof CommonAppearanceProps, string>;
+  backgroundAppearance: Record<keyof CommonAppearanceProps, string>;
+  hoverBackgroundAppearance: Record<keyof CommonAppearanceProps, string>;
+  activeBackgroundAppearance: Record<keyof CommonAppearanceProps, string>;
+  textAppearance: Record<keyof TextAppearanceProps, string>;
+  borderColor: Record<keyof CommonAppearanceProps, string>;
 };
 
-export type ClassesSettings = {
-  // Button style variants based on ButtonStyleProps (filled and outline)
-  // Each key corresponds to a property in ButtonStyleProps
-  filled?: ButtonStyleClasses;
-  outline?: ButtonStyleClasses;
+export type ButtonClasses = {
+  // Component builder settings
+  baseClasses: string;
+
+  style: Record<keyof ButtonStyleProps, ButtonStyleClasses>
 
   // Common classes for both styles
-  textSize?: Record<keyof SizeProps, string>;
-  rounded?: Record<keyof SizeProps, string>;
+  textSize: Record<keyof SizeProps, string>;
+  rounded: Record<keyof SizeProps, string>;
 };
 
 export type ButtonSettings = {
   // Component builder settings
-  defaultTag?: string;
-  baseClasses?: string;
+  defaultTag: string;
+
+  style: ButtonStyleSettings;
 
   // Typography settings
-  typography?: TypographySettings;
+  typography: TypographySettings;
 
   // Appearance settings
-  backgroundAppearance?: CommonAppearanceSettings;
-  borderColor?: BorderSettings;
+  backgroundAppearance: CommonAppearanceSettings;
+  borderColor: BorderSettings;
 
   // Hover settings
-  hover?: HoverSettings;
+  hover: HoverSettings;
 
   // Active settings
-  active?: ActiveSettings;
+  active: ActiveSettings;
 
   // Layout settings
-  px?: PxSettings;
-  py?: PySettings;
-  gap?: GapSettings;
+  px: PxSettings;
+  py: PySettings;
+  gap: GapSettings;
 
   // Border radius settings
-  borderRadius?: BorderRadiusSettings;
+  borderRadius: BorderRadiusSettings;
 
-  shadow?: ShadowSettings;
+  shadow: ShadowSettings;
 
   // Boolean settings
-  noBorder?: NoBorderSettings;
-  noShadow?: NoShadowSettings;
-
-  // Style settings
-  buttonStyle?: ButtonStyleSettings;
-
-  // Class mappings grouped into a single field
-  classes: ClassesSettings;
+  noBorder: NoBorderSettings;
+  noShadow: NoShadowSettings;
 };
