@@ -49,7 +49,7 @@ import {
   ItemsSettings,
   JustifySettings,
   StackDirectionSettings,
-  BorderSettings,
+  BorderColorSettings,
   GapSettings,
   RoundedSettings,
   PillSettings,
@@ -258,7 +258,7 @@ class ComponentBuilder {
   }
 
   // Border
-  withBorderColor(borderMap: Record<keyof CommonAppearanceProps, string>, settings: BorderSettings): this {
+  withBorderColor(borderMap: Record<keyof CommonAppearanceProps, string>, settings: BorderColorSettings): this {
     return this.withBooleanProps(borderMap, settings);
   }
 
@@ -279,19 +279,19 @@ class ComponentBuilder {
     return this.withBooleanProps(rounded, settings);
   }
 
-  withPill(settings?: PillSettings): this {
-    return this.withBooleanProps(pillClasses, settings);
+  withPill(pill?: boolean): this {
+    return this.withBooleanProps(pillClasses, pill ? { pill } : undefined);
   }
 
-  withSharp(settings?: SharpSettings): this {
-    return this.withBooleanProps(sharpClasses, settings);
+  withSharp(sharp?: boolean): this {
+    return this.withBooleanProps(sharpClasses, sharp ? { sharp } : undefined);
   }
 
   withTextSize(textSizeMap?: Record<keyof SizeProps, string>, settings?: { [key in keyof SizeProps]?: boolean }): this {
     return this.withBooleanProps(textSizeMap || textSizeClasses, settings || {md: true});
   }
 
-  withTypography(settings: TypographySettings): this {
+  withTypography(textSizeMap: Record<keyof SizeProps, string>, settings: TypographySettings): this {
     return this
       .withFontFamily(fontFamilyClasses, settings?.fontFamily ?? {})
       .withFontStyle(fontStyleClasses, settings?.fontStyle ?? {})
@@ -300,7 +300,7 @@ class ComponentBuilder {
       .withTextTransform(textTransformClasses, settings?.textTransform ?? {})
       .withTextAlign(textAlignClasses, settings?.textAlign ?? {})
       .withTextAppearance(textAppearanceClasses, settings?.textAppearance ?? {})
-      .withTextSize(textSizeClasses, settings?.textSize ?? {});
+      .withTextSize(textSizeMap, settings?.textSize ?? {});
   }
 
   build(): React.ReactElement {

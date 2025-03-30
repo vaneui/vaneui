@@ -74,11 +74,13 @@ const defaultButtonSettings: ButtonSettings = {
   active: {
     backgroundAppearance: {default: true}
   },
-  borderColor: {default: true},
-  borderRadius: {
-    rounded: {md: true},
-    pill: {pill: false},
-    sharp: {sharp: false},
+  border: {
+    color: {default: true},
+    radius: {
+      rounded: {md: true},
+      pill: false,
+      sharp: false,
+    }
   }
 };
 
@@ -103,14 +105,13 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
     .withGap(settings.gap)
     .withShadow(settings.shadow)
     .withHoverShadow(settings.hover?.shadow)
-    .withTypography(settings.typography)
-    .withTextSize(classes.textSize, settings.typography?.textSize)
+    .withTypography(classes.textSize, settings.typography)
     .withAppearance(styleClasses.hoverBackgroundAppearance, settings.hover.backgroundAppearance)
     .withAppearance(styleClasses.activeBackgroundAppearance, settings.active.backgroundAppearance)
-    .withBorderColor(styleClasses.borderColor, settings.borderColor)
-    .withRounded(classes.rounded, settings.borderRadius.rounded)
-    .withPill(settings.borderRadius.pill)
-    .withSharp(settings.borderRadius.sharp)
+    .withBorderColor(styleClasses.borderColor, settings.border.color)
+    .withRounded(classes.rounded, settings.border.radius.rounded)
+    .withPill(settings.border.radius.pill)
+    .withSharp(settings.border.radius.sharp)
     .withNoBorder(settings.noBorder)
     .withNoShadow(settings.noShadow)
     .registerKeys(['filled', 'outline'])

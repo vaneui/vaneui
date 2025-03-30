@@ -13,7 +13,7 @@ export type TextAlignSettings = { [key in keyof TextAlignProps]: boolean; };
 export type JustifySettings = { [key in keyof JustifyProps]: boolean; };
 export type WrapSettings = { [key in keyof WrapProps]: boolean; };
 export type StackDirectionSettings = { [key in keyof StackDirectionProps]: boolean; };
-export type BorderSettings = { [key in keyof CommonAppearanceProps]: boolean; };
+export type BorderColorSettings = { [key in keyof CommonAppearanceProps]: boolean; };
 export type NoBorderSettings = { [key in keyof NoBorderProps]: boolean; };
 export type NoShadowSettings = { [key in keyof NoShadowProps]: boolean; };
 export type RoundedSettings = { [key in keyof SizeProps]: boolean; };
@@ -22,8 +22,13 @@ export type SharpSettings = { [key in keyof SharpProps]: boolean; };
 
 export type BorderRadiusSettings = {
   rounded: RoundedSettings;
-  pill: PillSettings;
-  sharp: SharpSettings;
+  pill: boolean;
+  sharp: boolean;
+};
+
+export type BorderSettings = {
+  color: BorderColorSettings;
+  radius: BorderRadiusSettings;
 };
 export type GapSettings = { [key in keyof SizeProps]: boolean; };
 export type NoGapSettings = { [key in keyof NoGapProps]: boolean; };
@@ -86,7 +91,9 @@ export type ButtonSettings = {
 
   // Appearance settings
   backgroundAppearance: CommonAppearanceSettings;
-  borderColor: BorderSettings;
+
+  // Border settings
+  border: BorderSettings;
 
   // Hover settings
   hover: HoverSettings;
@@ -98,9 +105,6 @@ export type ButtonSettings = {
   px: PxSettings;
   py: PySettings;
   gap: GapSettings;
-
-  // Border radius settings
-  borderRadius: BorderRadiusSettings;
 
   shadow: ShadowSettings;
 
