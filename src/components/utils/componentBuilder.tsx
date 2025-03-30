@@ -71,7 +71,6 @@ import {
   hoverShadowClasses,
   pxClasses,
   pyClasses,
-  paddingClasses,
   commonGaps
 } from "../ui/props/layoutValues";
 import React from "react";
@@ -178,7 +177,6 @@ class ComponentBuilder {
     return this
       .withBooleanProps(px, settings || {md: true})
       .withBooleanProps(py, settings || {md: true})
-      .withBooleanProps(paddingClasses, settings || {md: true})
       .withBooleanProps(noPaddingClasses);
   }
 
@@ -192,14 +190,6 @@ class ComponentBuilder {
 
   withItems(settings?: ItemsSettings): this {
     return this.withBooleanProps(itemsClasses, settings);
-  }
-
-  withHide(): this {
-    return this.withBooleanProps(hideClasses);
-  }
-
-  withPosition(): this {
-    return this.withBooleanProps(positionClasses);
   }
 
   withGaps(gapMap?: Record<keyof SizeProps, string>, settings?: GapSettings): this {
@@ -255,8 +245,8 @@ class ComponentBuilder {
 
   build(): React.ReactElement {
     return this
-      .withHide()
-      .withPosition()
+      .withBooleanProps(hideClasses)
+      .withBooleanProps(positionClasses)
       .finalize();
   }
 }

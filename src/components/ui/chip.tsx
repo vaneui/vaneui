@@ -16,9 +16,9 @@ const chipRoundedClasses = {
 
 // Border settings for Chip
 const chipBorderSettings: BorderSettings = {
-  color: { default: true },
+  color: {default: true},
   radius: {
-    rounded: { md: true },
+    rounded: {md: true},
     pill: false,
     sharp: false
   }
@@ -26,8 +26,7 @@ const chipBorderSettings: BorderSettings = {
 
 export const Chip = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "span", "w-fit h-fit border inline-flex gap-2 items-center")
-    .withPx()
-    .withPy()
+    .withPadding()
     .withAppearance(backgroundAppearanceClasses, {default: true})
     .withBorder(borderAppearanceClasses, chipRoundedClasses, chipBorderSettings)
     .withTypography(textSizeClasses, {

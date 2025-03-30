@@ -138,14 +138,6 @@ export const pyClasses: Record<keyof SizeProps, string> = {
   xl: "py-4"
 }
 
-export const paddingClasses: Record<keyof SizeProps, string> = {
-  xs: "p-2",
-  sm: "p-3",
-  md: "p-4",
-  lg: "p-5",
-  xl: "p-6"
-}
-
 export const buttonRoundedClasses: Record<keyof SizeProps, string> = {
   xs: "rounded-sm",
   sm: "rounded-md",

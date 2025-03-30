@@ -106,8 +106,8 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
     .withShadow(settings.shadow, settings.noShadow)
     .withHoverShadow(settings.hover?.shadow)
     .withTypography(classes.textSize, settings.typography)
-    .withAppearance(styleClasses.hoverBackgroundAppearance, settings.hover.background)
-    .withAppearance(styleClasses.activeBackgroundAppearance, settings.active.background)
+    .withAppearance(styleClasses.hoverBackground, settings.hover.background)
+    .withAppearance(styleClasses.activeBackground, settings.active.background)
     .withBorder(styleClasses.borderColor, classes.rounded, settings.border, settings.noBorder)
     .registerKeys(['filled', 'outline'])
     .build();
