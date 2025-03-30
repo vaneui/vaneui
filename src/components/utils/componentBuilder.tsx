@@ -1,4 +1,4 @@
-import {twMerge} from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 import {
   BaseComponentProps,
   BreakpointProps,
@@ -54,9 +54,10 @@ import {
   RoundedSettings,
   PillSettings,
   SharpSettings,
-  WrapSettings
+  WrapSettings,
+  BorderSettings
 } from "../ui/settings/settings";
-import {noBorderClasses, noShadowClasses} from "../ui/props/appearanceValues";
+import { borderAppearanceClasses, noBorderClasses, noShadowClasses } from "../ui/props/appearanceValues";
 import {
   hideClasses,
   itemsClasses, justifyClasses,
@@ -205,40 +206,10 @@ class ComponentBuilder {
     return this.withBooleanProps(positionClasses);
   }
 
-  withFontWeight(fontWeight: Record<keyof FontWeightProps, string>, settings: FontWeightSettings): this {
-    return this.withBooleanProps(fontWeight, settings);
-  }
-
-  withFontStyle(fontStyle: Record<keyof FontStyleProps, string>, settings: FontStyleSettings): this {
-    return this.withBooleanProps(fontStyle, settings);
-  }
-
-  withFontFamily(fontFamily: Record<keyof FontFamilyProps, string>, settings: FontFamilySettings): this {
-    return this.withBooleanProps(fontFamily, settings);
-  }
-
-  withTextDecoration(textDecoration: Record<keyof TextDecorationProps, string>, settings: TextDecorationSettings): this {
-    return this.withBooleanProps(textDecoration, settings);
-  }
-
-  withTextTransform(textTransform: Record<keyof TextTransformProps, string>, settings: TextTransformSettings): this {
-    return this.withBooleanProps(textTransform, settings);
-  }
-
-  withTextAlign(textAlign: Record<keyof TextAlignProps, string>, settings: TextAlignSettings): this {
-    return this.withBooleanProps(textAlign, settings);
-  }
-
-  withTextAppearance(appearance: Record<keyof TextAppearanceProps, string>, settings: TextAppearanceSettings): this {
-    return this.withBooleanProps(appearance, settings);
-  }
-
   withGaps(gapMap: Record<keyof SizeProps, string>, settings: GapSettings): this {
-    return this.withBooleanProps(gapMap, settings);
-  }
-
-  withNoGap(): this {
-    return this.withBooleanProps(noGapClasses);
+    return this
+      .withBooleanProps(gapMap, settings)
+      .withBooleanProps(noGapClasses);
   }
 
   withJustifyContent(): this {
@@ -263,11 +234,11 @@ class ComponentBuilder {
   }
 
   withNoBorder(noBorder?: boolean): this {
-    return this.withBooleanProps(noBorderClasses, noBorder ? { noBorder } : undefined);
+    return this.withBooleanProps(noBorderClasses, noBorder ? {noBorder} : undefined);
   }
 
   withNoShadow(noShadow?: boolean): this {
-    return this.withBooleanProps(noShadowClasses, noShadow ? { noShadow } : undefined);
+    return this.withBooleanProps(noShadowClasses, noShadow ? {noShadow} : undefined);
   }
 
   withNoPadding(): this {
@@ -280,33 +251,51 @@ class ComponentBuilder {
   }
 
   withPill(pill?: boolean): this {
-    return this.withBooleanProps(pillClasses, pill ? { pill } : undefined);
+    return this.withBooleanProps(pillClasses, pill ? {pill} : undefined);
   }
 
   withSharp(sharp?: boolean): this {
-    return this.withBooleanProps(sharpClasses, sharp ? { sharp } : undefined);
+    return this.withBooleanProps(sharpClasses, sharp ? {sharp} : undefined);
   }
 
   withTextSize(textSizeMap?: Record<keyof SizeProps, string>, settings?: { [key in keyof SizeProps]?: boolean }): this {
     return this.withBooleanProps(textSizeMap || textSizeClasses, settings || {md: true});
   }
 
-  withTypography(textSizeMap: Record<keyof SizeProps, string>, settings: TypographySettings): this {
+  withTypography(
+    textSizeMap?: Record<keyof SizeProps, string>,
+    settings?: Partial<TypographySettings>
+  ): this {
     return this
-      .withFontFamily(fontFamilyClasses, settings?.fontFamily ?? {})
-      .withFontStyle(fontStyleClasses, settings?.fontStyle ?? {})
-      .withFontWeight(fontWeightClasses, settings?.fontWeight ?? {})
-      .withTextDecoration(textDecorationClasses, settings?.textDecoration ?? {})
-      .withTextTransform(textTransformClasses, settings?.textTransform ?? {})
-      .withTextAlign(textAlignClasses, settings?.textAlign ?? {})
-      .withTextAppearance(textAppearanceClasses, settings?.textAppearance ?? {})
-      .withTextSize(textSizeMap, settings?.textSize ?? {});
+      .withBooleanProps(fontFamilyClasses, settings?.fontFamily ?? {})
+      .withBooleanProps(fontStyleClasses, settings?.fontStyle ?? {})
+      .withBooleanProps(fontWeightClasses, settings?.fontWeight ?? {})
+      .withBooleanProps(textDecorationClasses, settings?.textDecoration ?? {})
+      .withBooleanProps(textTransformClasses, settings?.textTransform ?? {})
+      .withBooleanProps(textAlignClasses, settings?.textAlign ?? {})
+      .withBooleanProps(textAppearanceClasses, settings?.textAppearance ?? {})
+      .withBooleanProps(textSizeMap || textSizeClasses, settings?.textSize ?? {md: true});
+  }
+
+  withBorder(
+    borderColorMap: Record<keyof CommonAppearanceProps, string> = borderAppearanceClasses,
+    roundedMap: Record<keyof SizeProps, string> = roundedClasses,
+    settings?: BorderSettings,
+    noBorder?: boolean
+  ): this {
+    return !settings ? this : this
+      .withBorderColor(borderColorMap, settings.color)
+      .withRounded(roundedMap, settings.radius.rounded)
+      .withPill(settings.radius.pill)
+      .withSharp(settings.radius.sharp)
+      .withNoBorder(noBorder === undefined ? false : noBorder);
   }
 
   build(): React.ReactElement {
-    this.withHide();
-    this.withPosition();
-    return this.finalize();
+    return this
+      .withHide()
+      .withPosition()
+      .finalize();
   }
 }
 

@@ -9,7 +9,6 @@ export const Card = (props: CardProps): JSX.Element =>
     .withItems()
     .withPadding()
     .withGaps(commonGaps, { md: true })
-    .withNoGap()
     .withRounded(roundedClasses, { md: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .withBorderColor(borderAppearanceClasses, { default: true })

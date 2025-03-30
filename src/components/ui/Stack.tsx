@@ -10,7 +10,6 @@ export const Stack = (props: StackProps): JSX.Element => {
 
   return componentBuilder(directionProps, "div", "flex")
     .withGaps(commonGaps, { md: true })
-    .withNoGap()
     .withReverse({
       reverse: props.row ? "flex-row-reverse" : "flex-col-reverse"
     })

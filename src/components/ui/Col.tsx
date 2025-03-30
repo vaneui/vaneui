@@ -14,7 +14,6 @@ import { commonGaps } from "./props/layoutValues";
 export const Col = (props: ColProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col")
     .withGaps(commonGaps, { md: true })
-    .withNoGap()
     .withReverse({
       reverse: "flex-col-reverse"
     })

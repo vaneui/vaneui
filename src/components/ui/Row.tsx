@@ -14,7 +14,6 @@ import { commonGaps, rowToColumnBreakpointClasses } from "./props/layoutValues";
 export const Row = (props: RowProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-row")
     .withGaps(commonGaps, { md: true })
-    .withNoGap()
     .withReverse({
       reverse: "flex-row-reverse"
     })

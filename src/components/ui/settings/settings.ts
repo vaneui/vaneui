@@ -53,7 +53,7 @@ export type TypographySettings = {
   fontFamily?: FontFamilySettings;
   fontWeight?: FontWeightSettings;
   fontStyle?: FontStyleSettings;
-  textAppearance: TextAppearanceSettings;
+  textAppearance?: TextAppearanceSettings;
   textDecoration?: TextDecorationSettings;
   textTransform?: TextTransformSettings;
   textAlign?: TextAlignSettings;

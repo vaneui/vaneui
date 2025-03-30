@@ -108,11 +108,7 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
     .withTypography(classes.textSize, settings.typography)
     .withAppearance(styleClasses.hoverBackgroundAppearance, settings.hover.backgroundAppearance)
     .withAppearance(styleClasses.activeBackgroundAppearance, settings.active.backgroundAppearance)
-    .withBorderColor(styleClasses.borderColor, settings.border.color)
-    .withRounded(classes.rounded, settings.border.radius.rounded)
-    .withPill(settings.border.radius.pill)
-    .withSharp(settings.border.radius.sharp)
-    .withNoBorder(settings.noBorder)
+    .withBorder(styleClasses.borderColor, classes.rounded, settings.border, settings.noBorder)
     .withNoShadow(settings.noShadow)
     .registerKeys(['filled', 'outline'])
     .build();
