@@ -19,7 +19,6 @@ export const Stack = (props: StackProps): JSX.Element => {
     .withJustifyContent()
     .withStackDirection(stackDirectionClasses, { column: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
-    .withNoPadding()
     .withWrap()
     .build();
 };

@@ -16,12 +16,11 @@ const cardBorderSettings: BorderSettings = {
 };
 
 export const Card = (props: CardProps): JSX.Element =>
-  componentBuilder(props, "div", "flex flex-col border shadow-sm overflow-hidden")
+  componentBuilder(props, "div", "flex flex-col border overflow-hidden")
     .withItems()
     .withPadding()
     .withGaps(commonGaps, { md: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
     .withBorder(borderAppearanceClasses, roundedClasses, cardBorderSettings)
-    .withNoShadow()
-    .withNoPadding()
+    .withShadow()
     .build();

@@ -36,12 +36,12 @@ export type ShadowSettings = { [key in keyof SizeProps]: boolean; };
 export type HoverShadowSettings = { [key in keyof SizeProps]: boolean; };
 
 export type HoverSettings = {
-  backgroundAppearance: CommonAppearanceSettings;
+  background: CommonAppearanceSettings;
   shadow: ShadowSettings;
 };
 
 export type ActiveSettings = {
-  backgroundAppearance: CommonAppearanceSettings;
+  background: CommonAppearanceSettings;
 };
 
 export type PxSettings = { [key in keyof SizeProps]: boolean; };
@@ -62,9 +62,9 @@ export type TypographySettings = {
 
 // Type for style-specific classes (the structure inside filled and outline)
 export type ButtonStyleClasses = {
-  backgroundAppearance: Record<keyof CommonAppearanceProps, string>;
-  hoverBackgroundAppearance: Record<keyof CommonAppearanceProps, string>;
-  activeBackgroundAppearance: Record<keyof CommonAppearanceProps, string>;
+  background: Record<keyof CommonAppearanceProps, string>;
+  hoverBackground: Record<keyof CommonAppearanceProps, string>;
+  activeBackground: Record<keyof CommonAppearanceProps, string>;
   textAppearance: Record<keyof TextAppearanceProps, string>;
   borderColor: Record<keyof CommonAppearanceProps, string>;
 };
@@ -78,6 +78,9 @@ export type ButtonClasses = {
   // Common classes for both styles
   textSize: Record<keyof SizeProps, string>;
   rounded: Record<keyof SizeProps, string>;
+
+  px: Record<keyof SizeProps, string>;
+  py: Record<keyof SizeProps, string>;
 };
 
 export type ButtonSettings = {
@@ -90,7 +93,7 @@ export type ButtonSettings = {
   typography: TypographySettings;
 
   // Appearance settings
-  backgroundAppearance: CommonAppearanceSettings;
+  background: CommonAppearanceSettings;
 
   // Border settings
   border: BorderSettings;

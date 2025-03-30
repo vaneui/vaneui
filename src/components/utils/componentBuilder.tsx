@@ -162,28 +162,24 @@ class ComponentBuilder {
     return this.withBooleanProps(sizeMap, {md: true});
   }
 
-  withGap(settings?: GapSettings): this {
-    return this.withBooleanProps(commonGaps, settings || {md: true});
-  }
-
-  withShadow(settings?: { [key in keyof SizeProps]?: boolean }): this {
-    return this.withBooleanProps(shadowClasses, settings || {md: true});
+  withShadow(settings?: { [key in keyof SizeProps]?: boolean }, noShadow?: boolean): this {
+    return this
+      .withBooleanProps(shadowClasses, settings || {md: true})
+      .withBooleanProps(noShadowClasses, noShadow ? {noShadow} : undefined);
   }
 
   withHoverShadow(settings?: { [key in keyof SizeProps]?: boolean }): this {
     return this.withBooleanProps(hoverShadowClasses, settings || {md: true});
   }
 
-  withPx(settings?: { [key in keyof SizeProps]?: boolean }): this {
-    return this.withBooleanProps(pxClasses, settings || {md: true});
-  }
-
-  withPy(settings?: { [key in keyof SizeProps]?: boolean }): this {
-    return this.withBooleanProps(pyClasses, settings || {md: true});
-  }
-
-  withPadding(settings?: { [key in keyof SizeProps]?: boolean }): this {
-    return this.withBooleanProps(paddingClasses, settings || {md: true});
+  withPadding(px: Record<keyof SizeProps, string> = pxClasses,
+              py: Record<keyof SizeProps, string> = pyClasses,
+              settings?: { [key in keyof SizeProps]?: boolean }): this {
+    return this
+      .withBooleanProps(px, settings || {md: true})
+      .withBooleanProps(py, settings || {md: true})
+      .withBooleanProps(paddingClasses, settings || {md: true})
+      .withBooleanProps(noPaddingClasses);
   }
 
   withBreakpoints(breakpointMap: Record<keyof BreakpointProps, string>): this {
@@ -206,9 +202,9 @@ class ComponentBuilder {
     return this.withBooleanProps(positionClasses);
   }
 
-  withGaps(gapMap: Record<keyof SizeProps, string>, settings: GapSettings): this {
+  withGaps(gapMap?: Record<keyof SizeProps, string>, settings?: GapSettings): this {
     return this
-      .withBooleanProps(gapMap, settings)
+      .withBooleanProps(gapMap || commonGaps, settings || {md: true})
       .withBooleanProps(noGapClasses);
   }
 
@@ -226,28 +222,6 @@ class ComponentBuilder {
 
   withWrap(settings?: WrapSettings): this {
     return this.withBooleanProps(wrapClasses, settings);
-  }
-
-  // Border
-  withBorderColor(borderMap: Record<keyof CommonAppearanceProps, string>, settings: BorderColorSettings): this {
-    return this.withBooleanProps(borderMap, settings);
-  }
-
-  withNoBorder(noBorder?: boolean): this {
-    return this.withBooleanProps(noBorderClasses, noBorder ? {noBorder} : undefined);
-  }
-
-  withNoShadow(noShadow?: boolean): this {
-    return this.withBooleanProps(noShadowClasses, noShadow ? {noShadow} : undefined);
-  }
-
-  withNoPadding(): this {
-    return this.withBooleanProps(noPaddingClasses);
-  }
-
-  // Border Radius
-  withRounded(rounded: Record<keyof SizeProps, string>, settings?: RoundedSettings): this {
-    return this.withBooleanProps(rounded, settings);
   }
 
   withTypography(
@@ -272,11 +246,11 @@ class ComponentBuilder {
     noBorder?: boolean
   ): this {
     return !settings ? this : this
-      .withBorderColor(borderColorMap, settings.color)
-      .withRounded(roundedMap, settings.radius.rounded)
+      .withBooleanProps(borderColorMap, settings.color)
+      .withBooleanProps(roundedMap, settings.radius.rounded)
       .withBooleanProps(pillClasses, settings?.radius?.pill ? {pill: settings.radius.pill} : undefined)
       .withBooleanProps(sharpClasses, settings?.radius?.sharp ? {sharp: settings.radius.sharp} : undefined)
-      .withNoBorder(noBorder === undefined ? false : noBorder);
+      .withBooleanProps(noBorderClasses, noBorder ? {noBorder} : undefined);
   }
 
   build(): React.ReactElement {

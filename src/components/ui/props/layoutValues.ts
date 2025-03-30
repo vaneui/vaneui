@@ -87,7 +87,7 @@ export const sharpClasses: Record<keyof SharpProps, string> = {
 } 
 
 export const noPaddingClasses: Record<keyof NoPaddingProps, string> = {
-  noPadding: "p-0"
+  noPadding: "px-0 py-0"
 }
 
 export const hideClasses: Record<keyof HideProps, string> = {

@@ -16,7 +16,7 @@ import {
   filledTextAppearanceClasses,
   buttonTextSizeClasses
 } from "./props/typographyValues";
-import { buttonRoundedClasses } from "./props/layoutValues";
+import { buttonRoundedClasses, commonGaps, pxClasses, pyClasses } from "./props/layoutValues";
 import { ButtonSettings, ButtonClasses } from './settings/settings';
 
 // Default button classes
@@ -24,22 +24,23 @@ const defaultButtonClasses: ButtonClasses = {
   // Component builder settings
   baseClasses: "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap",
 
-  // Common classes for both styles
   textSize: buttonTextSizeClasses,
   rounded: buttonRoundedClasses,
+  px: pxClasses,
+  py: pyClasses,
 
   style: {
     filled: {
-      backgroundAppearance: filledBackgroundAppearanceClasses,
-      hoverBackgroundAppearance: filledHoverBackgroundAppearanceClasses,
-      activeBackgroundAppearance: filledActiveBackgroundAppearanceClasses,
+      background: filledBackgroundAppearanceClasses,
+      hoverBackground: filledHoverBackgroundAppearanceClasses,
+      activeBackground: filledActiveBackgroundAppearanceClasses,
       textAppearance: filledTextAppearanceClasses,
       borderColor: filledBorderAppearanceClasses
     },
     outline: {
-      backgroundAppearance: backgroundAppearanceClasses,
-      hoverBackgroundAppearance: hoverBackgroundAppearanceClasses,
-      activeBackgroundAppearance: activeBackgroundAppearanceClasses,
+      background: backgroundAppearanceClasses,
+      hoverBackground: hoverBackgroundAppearanceClasses,
+      activeBackground: activeBackgroundAppearanceClasses,
       textAppearance: textAppearanceClasses,
       borderColor: borderAppearanceClasses
     }
@@ -68,11 +69,11 @@ const defaultButtonSettings: ButtonSettings = {
   shadow: {md: true},
   hover: {
     shadow: {md: true},
-    backgroundAppearance: {default: true}
+    background: {default: true}
   },
-  backgroundAppearance: {default: true},
+  background: {default: true},
   active: {
-    backgroundAppearance: {default: true}
+    background: {default: true}
   },
   border: {
     color: {default: true},
@@ -100,16 +101,14 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
     : classes.style.outline;
 
   return componentBuilder(props, settings.defaultTag, classes.baseClasses)
-    .withPx(settings.px)
-    .withPy(settings.py)
-    .withGap(settings.gap)
-    .withShadow(settings.shadow)
+    .withPadding(classes.px, classes.py)
+    .withGaps(commonGaps, settings.gap)
+    .withShadow(settings.shadow, settings.noShadow)
     .withHoverShadow(settings.hover?.shadow)
     .withTypography(classes.textSize, settings.typography)
-    .withAppearance(styleClasses.hoverBackgroundAppearance, settings.hover.backgroundAppearance)
-    .withAppearance(styleClasses.activeBackgroundAppearance, settings.active.backgroundAppearance)
+    .withAppearance(styleClasses.hoverBackgroundAppearance, settings.hover.background)
+    .withAppearance(styleClasses.activeBackgroundAppearance, settings.active.background)
     .withBorder(styleClasses.borderColor, classes.rounded, settings.border, settings.noBorder)
-    .withNoShadow(settings.noShadow)
     .registerKeys(['filled', 'outline'])
     .build();
 };
