@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { CardProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
-import { commonGaps, roundedClasses } from "./props/layoutValues";
+import { commonGaps, itemsClasses, roundedClasses } from "./props/layoutValues";
 import { BorderSettings } from './settings/settings';
 
 // Border settings for Card
@@ -17,7 +17,7 @@ const cardBorderSettings: BorderSettings = {
 
 export const Card = (props: CardProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col border overflow-hidden")
-    .withItems()
+    .withClasses(itemsClasses)
     .withPadding()
     .withGaps(commonGaps, { md: true })
     .withAppearance(layoutBackgroundAppearanceClasses, { default: true })

@@ -2,10 +2,11 @@ import { JSX } from 'react';
 import { LayoutComponentProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
+import { itemsClasses } from "./props/layoutValues";
 
 export const Section = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "section", "w-full flex flex-col")
-    .withItems()
+    .withClasses(itemsClasses)
     .withPadding({
       xs: "px-5  max-lg:px-4 max-md:px-3",
       sm: "px-6  max-lg:px-5 max-md:px-4",

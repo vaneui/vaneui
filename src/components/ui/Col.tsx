@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { ColProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
-import { commonGaps } from "./props/layoutValues";
+import { commonGaps, itemsClasses, justifyClasses, wrapClasses } from "./props/layoutValues";
 
 /**
  * Column component for vertical layouts.
@@ -14,11 +14,11 @@ import { commonGaps } from "./props/layoutValues";
 export const Col = (props: ColProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col")
     .withGaps(commonGaps, { md: true })
-    .withReverse({
+    .withClasses({
       reverse: "flex-col-reverse"
     })
-    .withItems()
+    .withClasses(itemsClasses)
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
-    .withJustifyContent()
-    .withWrap()
+    .withClasses(justifyClasses)
+    .withClasses(wrapClasses)
     .build();

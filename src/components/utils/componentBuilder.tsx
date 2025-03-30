@@ -116,7 +116,7 @@ class ComponentBuilder {
     return this;
   }
 
-  private withBooleanProps<T extends Record<string, string>>(
+  withClasses<T extends Record<string, string>>(
     propMap: Record<keyof T, string>,
     settings?: { [key: string]: boolean }
   ): this {
@@ -157,61 +157,33 @@ class ComponentBuilder {
     );
   }
 
-  withSizes(sizeMap: Record<keyof SizeProps, string>): this {
-    return this.withBooleanProps(sizeMap, {md: true});
-  }
-
   withShadow(settings?: { [key in keyof SizeProps]?: boolean }, noShadow?: boolean): this {
     return this
-      .withBooleanProps(shadowClasses, settings || {md: true})
-      .withBooleanProps(noShadowClasses, noShadow ? {noShadow} : undefined);
+      .withClasses(shadowClasses, settings || {md: true})
+      .withClasses(noShadowClasses, noShadow ? {noShadow} : undefined);
   }
 
   withHoverShadow(settings?: { [key in keyof SizeProps]?: boolean }): this {
-    return this.withBooleanProps(hoverShadowClasses, settings || {md: true});
+    return this.withClasses(hoverShadowClasses, settings || {md: true});
   }
 
   withPadding(px: Record<keyof SizeProps, string> = pxClasses,
               py: Record<keyof SizeProps, string> = pyClasses,
               settings?: { [key in keyof SizeProps]?: boolean }): this {
     return this
-      .withBooleanProps(px, settings || {md: true})
-      .withBooleanProps(py, settings || {md: true})
-      .withBooleanProps(noPaddingClasses);
-  }
-
-  withBreakpoints(breakpointMap: Record<keyof BreakpointProps, string>): this {
-    return this.withBooleanProps(breakpointMap);
-  }
-
-  withReverse(reverseMap: Record<keyof ReverseProps, string>): this {
-    return this.withBooleanProps(reverseMap);
-  }
-
-  withItems(settings?: ItemsSettings): this {
-    return this.withBooleanProps(itemsClasses, settings);
+      .withClasses(px, settings || {md: true})
+      .withClasses(py, settings || {md: true})
+      .withClasses(noPaddingClasses);
   }
 
   withGaps(gapMap?: Record<keyof SizeProps, string>, settings?: GapSettings): this {
     return this
-      .withBooleanProps(gapMap || commonGaps, settings || {md: true})
-      .withBooleanProps(noGapClasses);
-  }
-
-  withJustifyContent(): this {
-    return this.withBooleanProps(justifyClasses);
+      .withClasses(gapMap || commonGaps, settings || {md: true})
+      .withClasses(noGapClasses);
   }
 
   withAppearance(appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings): this {
-    return this.withBooleanProps(appearance, settings);
-  }
-
-  withStackDirection(directionMap: Record<keyof StackDirectionProps, string>, settings: StackDirectionSettings): this {
-    return this.withBooleanProps(directionMap, settings);
-  }
-
-  withWrap(settings?: WrapSettings): this {
-    return this.withBooleanProps(wrapClasses, settings);
+    return this.withClasses(appearance, settings);
   }
 
   withTypography(
@@ -219,14 +191,14 @@ class ComponentBuilder {
     settings?: Partial<TypographySettings>
   ): this {
     return this
-      .withBooleanProps(fontFamilyClasses, settings?.fontFamily ?? {})
-      .withBooleanProps(fontStyleClasses, settings?.fontStyle ?? {})
-      .withBooleanProps(fontWeightClasses, settings?.fontWeight ?? {})
-      .withBooleanProps(textDecorationClasses, settings?.textDecoration ?? {})
-      .withBooleanProps(textTransformClasses, settings?.textTransform ?? {})
-      .withBooleanProps(textAlignClasses, settings?.textAlign ?? {})
-      .withBooleanProps(textAppearanceClasses, settings?.textAppearance ?? {})
-      .withBooleanProps(textSizeMap || textSizeClasses, settings?.textSize ?? {md: true});
+      .withClasses(fontFamilyClasses, settings?.fontFamily ?? {})
+      .withClasses(fontStyleClasses, settings?.fontStyle ?? {})
+      .withClasses(fontWeightClasses, settings?.fontWeight ?? {})
+      .withClasses(textDecorationClasses, settings?.textDecoration ?? {})
+      .withClasses(textTransformClasses, settings?.textTransform ?? {})
+      .withClasses(textAlignClasses, settings?.textAlign ?? {})
+      .withClasses(textAppearanceClasses, settings?.textAppearance ?? {})
+      .withClasses(textSizeMap || textSizeClasses, settings?.textSize ?? {md: true});
   }
 
   withBorder(
@@ -236,17 +208,17 @@ class ComponentBuilder {
     noBorder?: boolean
   ): this {
     return !settings ? this : this
-      .withBooleanProps(borderColorMap, settings.color)
-      .withBooleanProps(roundedMap, settings.radius.rounded)
-      .withBooleanProps(pillClasses, settings?.radius?.pill ? {pill: settings.radius.pill} : undefined)
-      .withBooleanProps(sharpClasses, settings?.radius?.sharp ? {sharp: settings.radius.sharp} : undefined)
-      .withBooleanProps(noBorderClasses, noBorder ? {noBorder} : undefined);
+      .withClasses(borderColorMap, settings.color)
+      .withClasses(roundedMap, settings.radius.rounded)
+      .withClasses(pillClasses, settings?.radius?.pill ? {pill: settings.radius.pill} : undefined)
+      .withClasses(sharpClasses, settings?.radius?.sharp ? {sharp: settings.radius.sharp} : undefined)
+      .withClasses(noBorderClasses, noBorder ? {noBorder} : undefined);
   }
 
   build(): React.ReactElement {
     return this
-      .withBooleanProps(hideClasses)
-      .withBooleanProps(positionClasses)
+      .withClasses(hideClasses)
+      .withClasses(positionClasses)
       .finalize();
   }
 }

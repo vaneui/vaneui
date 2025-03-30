@@ -2,7 +2,13 @@ import { JSX } from 'react';
 import { RowProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
-import { commonGaps, rowToColumnBreakpointClasses } from "./props/layoutValues";
+import {
+  commonGaps,
+  itemsClasses,
+  justifyClasses,
+  rowToColumnBreakpointClasses,
+  wrapClasses
+} from "./props/layoutValues";
 
 /**
  * Row component for horizontal layouts.
@@ -14,12 +20,12 @@ import { commonGaps, rowToColumnBreakpointClasses } from "./props/layoutValues";
 export const Row = (props: RowProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-row")
     .withGaps(commonGaps, { md: true })
-    .withReverse({
+    .withClasses({
       reverse: "flex-row-reverse"
     })
-    .withItems({ itemsCenter: true })
-    .withBreakpoints(rowToColumnBreakpointClasses)
-    .withJustifyContent()
+    .withClasses(itemsClasses, { itemsCenter: true })
+    .withClasses(rowToColumnBreakpointClasses)
+    .withClasses(justifyClasses)
     .withAppearance(layoutBackgroundAppearanceClasses, { transparent: true })
-    .withWrap()
+    .withClasses(wrapClasses)
     .build();
