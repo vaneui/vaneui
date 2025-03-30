@@ -1,63 +1,48 @@
-import { ButtonStyleProps, CommonAppearanceProps, FontFamilyProps, FontStyleProps, FontWeightProps, ItemsProps, JustifyProps, NoBorderProps, NoGapProps, NoShadowProps, PillProps, SharpProps, SizeProps, StackDirectionProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, WrapProps } from "../props/props";
+import {
+  ButtonStyleProps,
+  CommonAppearanceProps,
+  FontFamilyProps,
+  FontStyleProps,
+  FontWeightProps,
+  SizeProps,
+  TextAlignProps,
+  TextAppearanceProps,
+  TextDecorationProps,
+  TextTransformProps
+} from "../props/props";
 
+export type SizeSettings = { [key in keyof SizeProps]: boolean; };
 export type CommonAppearanceSettings = { [key in keyof CommonAppearanceProps]: boolean; };
 
-export type FontFamilySettings = { [key in keyof FontFamilyProps]: boolean; };
-export type FontWeightSettings = { [key in keyof FontWeightProps]: boolean; };
-export type FontStyleSettings = { [key in keyof FontStyleProps]: boolean; };
-export type ItemsSettings = { [key in keyof ItemsProps]: boolean; };
-export type TextAppearanceSettings = { [key in keyof TextAppearanceProps]: boolean; };
-export type TextDecorationSettings = { [key in keyof TextDecorationProps]: boolean; };
-export type TextTransformSettings = { [key in keyof TextTransformProps]: boolean; };
-export type TextAlignSettings = { [key in keyof TextAlignProps]: boolean; };
-export type JustifySettings = { [key in keyof JustifyProps]: boolean; };
-export type WrapSettings = { [key in keyof WrapProps]: boolean; };
-export type StackDirectionSettings = { [key in keyof StackDirectionProps]: boolean; };
-export type BorderColorSettings = { [key in keyof CommonAppearanceProps]: boolean; };
-export type NoBorderSettings = { [key in keyof NoBorderProps]: boolean; };
-export type NoShadowSettings = { [key in keyof NoShadowProps]: boolean; };
-export type RoundedSettings = { [key in keyof SizeProps]: boolean; };
-export type PillSettings = { [key in keyof PillProps]: boolean; };
-export type SharpSettings = { [key in keyof SharpProps]: boolean; };
-
-export type BorderRadiusSettings = {
-  rounded: RoundedSettings;
-  pill: boolean;
-  sharp: boolean;
-};
-
 export type BorderSettings = {
-  color: BorderColorSettings;
-  radius: BorderRadiusSettings;
+  color: CommonAppearanceSettings;
+  radius: {
+    rounded: SizeSettings;
+    pill: boolean;
+    sharp: boolean;
+  };
 };
-export type GapSettings = { [key in keyof SizeProps]: boolean; };
-export type NoGapSettings = { [key in keyof NoGapProps]: boolean; };
-export type ShadowSettings = { [key in keyof SizeProps]: boolean; };
-export type HoverShadowSettings = { [key in keyof SizeProps]: boolean; };
 
 export type HoverSettings = {
   background: CommonAppearanceSettings;
-  shadow: ShadowSettings;
+  shadow: SizeSettings;
 };
 
 export type ActiveSettings = {
   background: CommonAppearanceSettings;
 };
 
-export type PxSettings = { [key in keyof SizeProps]: boolean; };
-export type PySettings = { [key in keyof SizeProps]: boolean; };
-export type TextSizeSettings = { [key in keyof SizeProps]: boolean; };
 export type ButtonStyleSettings = { [key in keyof ButtonStyleProps]: boolean; };
 
 export type TypographySettings = {
-  fontFamily?: FontFamilySettings;
-  fontWeight?: FontWeightSettings;
-  fontStyle?: FontStyleSettings;
-  textAppearance?: TextAppearanceSettings;
-  textDecoration?: TextDecorationSettings;
-  textTransform?: TextTransformSettings;
-  textAlign?: TextAlignSettings;
-  textSize?: TextSizeSettings;
+  fontFamily?: { [key in keyof FontFamilyProps]: boolean; };
+  fontWeight?: { [key in keyof FontWeightProps]: boolean; };
+  fontStyle?: { [key in keyof FontStyleProps]: boolean; };
+  textAppearance?: { [key in keyof TextAppearanceProps]: boolean; };
+  textDecoration?: { [key in keyof TextDecorationProps]: boolean; };
+  textTransform?: { [key in keyof TextTransformProps]: boolean; };
+  textAlign?: { [key in keyof TextAlignProps]: boolean; };
+  textSize?: SizeSettings;
 };
 
 // Type for style-specific classes (the structure inside filled and outline)
@@ -70,12 +55,10 @@ export type ButtonStyleClasses = {
 };
 
 export type ButtonClasses = {
-  // Component builder settings
   baseClasses: string;
 
   style: Record<keyof ButtonStyleProps, ButtonStyleClasses>
 
-  // Common classes for both styles
   textSize: Record<keyof SizeProps, string>;
   rounded: Record<keyof SizeProps, string>;
 
@@ -84,34 +67,21 @@ export type ButtonClasses = {
 };
 
 export type ButtonSettings = {
-  // Component builder settings
   defaultTag: string;
 
   style: ButtonStyleSettings;
-
-  // Typography settings
   typography: TypographySettings;
-
-  // Appearance settings
   background: CommonAppearanceSettings;
-
-  // Border settings
   border: BorderSettings;
 
-  // Hover settings
   hover: HoverSettings;
-
-  // Active settings
   active: ActiveSettings;
 
-  // Layout settings
-  px: PxSettings;
-  py: PySettings;
-  gap: GapSettings;
+  px: SizeSettings;
+  py: SizeSettings;
+  gap: SizeSettings;
+  shadow: SizeSettings;
 
-  shadow: ShadowSettings;
-
-  // Boolean settings
   noBorder: boolean;
   noShadow: boolean;
 };

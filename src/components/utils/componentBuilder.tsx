@@ -22,8 +22,8 @@ import {
 import {
   CommonAppearanceSettings,
   TypographySettings,
-  GapSettings,
-  BorderSettings
+  BorderSettings,
+  SizeSettings
 } from "../ui/settings/settings";
 import { borderAppearanceClasses, noBorderClasses, noShadowClasses } from "../ui/props/appearanceValues";
 import {
@@ -123,26 +123,26 @@ class ComponentBuilder {
     );
   }
 
-  withShadow(settings?: { [key in keyof SizeProps]?: boolean }, noShadow?: boolean): this {
+  withShadow(settings?: SizeSettings, noShadow?: boolean): this {
     return this
       .withClasses(shadowClasses, settings || {md: true})
       .withClasses(noShadowClasses, noShadow ? {noShadow} : undefined);
   }
 
-  withHoverShadow(settings?: { [key in keyof SizeProps]?: boolean }): this {
+  withHoverShadow(settings?: SizeSettings): this {
     return this.withClasses(hoverShadowClasses, settings || {md: true});
   }
 
   withPadding(px: Record<keyof SizeProps, string> = pxClasses,
               py: Record<keyof SizeProps, string> = pyClasses,
-              settings?: { [key in keyof SizeProps]?: boolean }): this {
+              settings?: SizeSettings): this {
     return this
       .withClasses(px, settings || {md: true})
       .withClasses(py, settings || {md: true})
       .withClasses(noPaddingClasses);
   }
 
-  withGaps(gapMap?: Record<keyof SizeProps, string>, settings?: GapSettings): this {
+  withGaps(gapMap?: Record<keyof SizeProps, string>, settings?: SizeSettings): this {
     return this
       .withClasses(gapMap || commonGaps, settings || {md: true})
       .withClasses(noGapClasses);
