@@ -250,18 +250,6 @@ class ComponentBuilder {
     return this.withBooleanProps(rounded, settings);
   }
 
-  withPill(pill?: boolean): this {
-    return this.withBooleanProps(pillClasses, pill ? {pill} : undefined);
-  }
-
-  withSharp(sharp?: boolean): this {
-    return this.withBooleanProps(sharpClasses, sharp ? {sharp} : undefined);
-  }
-
-  withTextSize(textSizeMap?: Record<keyof SizeProps, string>, settings?: { [key in keyof SizeProps]?: boolean }): this {
-    return this.withBooleanProps(textSizeMap || textSizeClasses, settings || {md: true});
-  }
-
   withTypography(
     textSizeMap?: Record<keyof SizeProps, string>,
     settings?: Partial<TypographySettings>
@@ -286,8 +274,8 @@ class ComponentBuilder {
     return !settings ? this : this
       .withBorderColor(borderColorMap, settings.color)
       .withRounded(roundedMap, settings.radius.rounded)
-      .withPill(settings.radius.pill)
-      .withSharp(settings.radius.sharp)
+      .withBooleanProps(pillClasses, settings?.radius?.pill ? {pill: settings.radius.pill} : undefined)
+      .withBooleanProps(sharpClasses, settings?.radius?.sharp ? {sharp: settings.radius.sharp} : undefined)
       .withNoBorder(noBorder === undefined ? false : noBorder);
   }
 
