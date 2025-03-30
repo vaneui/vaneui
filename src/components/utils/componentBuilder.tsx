@@ -1,29 +1,12 @@
 import { twMerge } from "tailwind-merge";
 import {
   BaseComponentProps,
-  BreakpointProps,
   ItemsProps,
   CommonAppearanceProps,
-  FontFamilyProps,
-  FontStyleProps,
-  FontWeightProps,
-  HideProps,
-  PositionProps,
   ReverseProps,
   ColProps,
   RowProps,
-  TextAppearanceProps,
-  TextDecorationProps,
-  TextTransformProps,
   SizeProps,
-  TextAlignProps,
-  JustifyProps,
-  StackDirectionProps,
-  NoBorderProps,
-  NoGapProps,
-  NoPaddingProps,
-  PillProps,
-  SharpProps,
   WrapProps, ButtonStyleProps
 } from "../ui/props/props";
 import {
@@ -38,35 +21,18 @@ import {
 } from "../ui/props/typographyValues";
 import {
   CommonAppearanceSettings,
-  FontFamilySettings,
-  FontStyleSettings,
-  FontWeightSettings,
-  TextAlignSettings,
-  TextAppearanceSettings,
-  TextDecorationSettings,
-  TextTransformSettings,
   TypographySettings,
-  ItemsSettings,
-  JustifySettings,
-  StackDirectionSettings,
-  BorderColorSettings,
   GapSettings,
-  RoundedSettings,
-  PillSettings,
-  SharpSettings,
-  WrapSettings,
   BorderSettings
 } from "../ui/settings/settings";
 import { borderAppearanceClasses, noBorderClasses, noShadowClasses } from "../ui/props/appearanceValues";
 import {
   hideClasses,
-  itemsClasses, justifyClasses,
   noGapClasses,
   noPaddingClasses,
   pillClasses, positionClasses,
   roundedClasses,
   sharpClasses,
-  wrapClasses,
   shadowClasses,
   hoverShadowClasses,
   pxClasses,
