@@ -23,15 +23,6 @@ export type BorderSettings = {
   };
 };
 
-export type HoverSettings = {
-  background: CommonAppearanceSettings;
-  shadow: SizeSettings;
-};
-
-export type ActiveSettings = {
-  background: CommonAppearanceSettings;
-};
-
 export type ButtonStyleSettings = { [key in keyof ButtonStyleProps]: boolean; };
 
 export type TypographySettings = {
@@ -45,43 +36,23 @@ export type TypographySettings = {
   textSize?: SizeSettings;
 };
 
-// Type for style-specific classes (the structure inside filled and outline)
-export type ButtonStyleClasses = {
-  background: Record<keyof CommonAppearanceProps, string>;
-  hoverBackground: Record<keyof CommonAppearanceProps, string>;
-  activeBackground: Record<keyof CommonAppearanceProps, string>;
-  textAppearance: Record<keyof TextAppearanceProps, string>;
-  borderColor: Record<keyof CommonAppearanceProps, string>;
-};
-
-export type ButtonClasses = {
-  baseClasses: string;
-
-  style: Record<keyof ButtonStyleProps, ButtonStyleClasses>
-
-  textSize: Record<keyof SizeProps, string>;
-  rounded: Record<keyof SizeProps, string>;
-
-  px: Record<keyof SizeProps, string>;
-  py: Record<keyof SizeProps, string>;
-};
-
-export type ButtonSettings = {
-  defaultTag: string;
-
+export type BaseButtonSettings = {
   style: ButtonStyleSettings;
   typography: TypographySettings;
   background: CommonAppearanceSettings;
   border: BorderSettings;
-
-  hover: HoverSettings;
-  active: ActiveSettings;
-
+  shadow: SizeSettings;
   px: SizeSettings;
   py: SizeSettings;
   gap: SizeSettings;
-  shadow: SizeSettings;
-
   noBorder: boolean;
   noShadow: boolean;
+}
+
+export type ButtonSettings = {
+  tag: string;
+
+  base: BaseButtonSettings;
+  hover: BaseButtonSettings;
+  active: BaseButtonSettings;
 };

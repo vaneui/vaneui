@@ -1,5 +1,5 @@
 import React, { JSX } from 'react';
-import { componentBuilder } from "./../utils/componentBuilder";
+import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 import { backgroundAppearanceClasses, borderAppearanceClasses } from './props/appearanceValues';
 import { textSizeClasses } from "./props/typographyValues";

@@ -16,8 +16,16 @@ import {
   filledTextAppearanceClasses,
   buttonTextSizeClasses
 } from "./props/typographyValues";
-import { buttonRoundedClasses, commonGaps, pxClasses, pyClasses } from "./props/layoutValues";
-import { ButtonSettings, ButtonClasses } from './settings/settings';
+import {
+  buttonRoundedClasses,
+  commonGaps,
+  hoverShadowClasses,
+  pxClasses,
+  pyClasses,
+  shadowClasses
+} from "./props/layoutValues";
+import { ButtonSettings, BaseButtonSettings } from './settings/settings';
+import { ButtonClasses } from "./classes/classes";
 
 // Default button classes
 const defaultButtonClasses: ButtonClasses = {
@@ -28,6 +36,7 @@ const defaultButtonClasses: ButtonClasses = {
   rounded: buttonRoundedClasses,
   px: pxClasses,
   py: pyClasses,
+  shadow: shadowClasses,
 
   style: {
     filled: {
@@ -47,34 +56,14 @@ const defaultButtonClasses: ButtonClasses = {
   }
 };
 
-// Default button settings
-const defaultButtonSettings: ButtonSettings = {
-  defaultTag: "button",
-
-  noBorder: false,
-  noShadow: false,
-
-  style: {
-    outline: true
-  },
-
+const baseSettings: BaseButtonSettings = {
+  style: {outline: true},
   typography: {
     fontWeight: {semibold: true},
     textAppearance: {default: true},
     textSize: {md: true}
   },
-  px: {md: true},
-  py: {md: true},
-  gap: {md: true},
-  shadow: {md: true},
-  hover: {
-    shadow: {md: true},
-    background: {default: true}
-  },
   background: {default: true},
-  active: {
-    background: {default: true}
-  },
   border: {
     color: {default: true},
     radius: {
@@ -82,7 +71,22 @@ const defaultButtonSettings: ButtonSettings = {
       pill: false,
       sharp: false,
     }
-  }
+  },
+  shadow: {md: true},
+  px: {md: true},
+  py: {md: true},
+  gap: {md: true},
+  noBorder: false,
+  noShadow: false
+}
+
+// Default button settings
+const defaultButtonSettings: ButtonSettings = {
+  tag: "button",
+
+  base: baseSettings,
+  hover: baseSettings,
+  active: baseSettings,
 };
 
 export type ButtonComponentProps = ButtonProps;
@@ -92,23 +96,33 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
   const classes = defaultButtonClasses;
 
   // Determine if button is outline or filled (default is outline)
-  const isOutline = settings.style.outline !== false && !settings.style.filled;
-  const isFilled = settings.style.filled === true;
+  const isOutline = settings.base.style.outline !== false && !settings.base.style.filled;
+  const isFilled = settings.base.style.filled === true;
 
   // Select the appropriate classes based on button style (filled or outline)
   const styleClasses = isFilled
     ? classes.style.filled
     : classes.style.outline;
 
-  return componentBuilder(props, settings.defaultTag, classes.baseClasses)
-    .withPadding(classes.px, classes.py)
-    .withGaps(commonGaps, settings.gap)
-    .withShadow(settings.shadow, settings.noShadow)
-    .withHoverShadow(settings.hover?.shadow)
-    .withTypography(classes.textSize, settings.typography)
-    .withAppearance(styleClasses.hoverBackground, settings.hover.background)
-    .withAppearance(styleClasses.activeBackground, settings.active.background)
-    .withBorder(styleClasses.borderColor, classes.rounded, settings.border, settings.noBorder)
+  return componentBuilder(props, settings.tag, classes.baseClasses)
+    //apply base
+    .with(c => c
+      .withPadding(classes.px, classes.py)
+      .withGaps(commonGaps, settings.base.gap)
+      .withShadow(classes.shadow, settings.base.shadow, settings.base.noShadow)
+      .withTypography(classes.textSize, settings.base.typography)
+      .withBorder(styleClasses.borderColor, classes.rounded, settings.base.border, settings.base.noBorder)
+      .withAppearance(styleClasses.background, settings.base.background)
+    )
+    //apply hover
+    .with(c => c
+      .withShadow(hoverShadowClasses)
+      .withAppearance(styleClasses.hoverBackground, settings.hover.background)
+    )
+    //apply active
+    .with(c => c
+      .withAppearance(styleClasses.activeBackground, settings.active.background)
+    )
     .registerKeys(['filled', 'outline'])
     .build();
 };

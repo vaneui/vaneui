@@ -107,7 +107,7 @@ export interface PositionProps {
 }
 
 export interface TagProps {
-  tag?: React.ElementType | React.ForwardRefExoticComponent<any> | React.ComponentType<any> | React.JSXElementConstructor<any> | ((props: any) => React.ReactNode | Promise<React.ReactNode>) | string | any;
+  tag?: React.ElementType | React.ForwardRefExoticComponent<any> | React.ComponentType<any> | React.JSXElementConstructor<any> | ((props: any) => React.ReactNode | Promise<React.ReactNode>) | string;
 }
 
 export interface ReverseProps {

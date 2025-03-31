@@ -123,14 +123,10 @@ class ComponentBuilder {
     );
   }
 
-  withShadow(settings?: SizeSettings, noShadow?: boolean): this {
+  withShadow(classes: Record<keyof SizeProps, string> = shadowClasses, settings?: SizeSettings, noShadow?: boolean): this {
     return this
-      .withClasses(shadowClasses, settings || {md: true})
+      .withClasses(classes, settings || {md: true})
       .withClasses(noShadowClasses, noShadow ? {noShadow} : undefined);
-  }
-
-  withHoverShadow(settings?: SizeSettings): this {
-    return this.withClasses(hoverShadowClasses, settings || {md: true});
   }
 
   withPadding(px: Record<keyof SizeProps, string> = pxClasses,
@@ -179,6 +175,11 @@ class ComponentBuilder {
       .withClasses(pillClasses, settings?.radius?.pill ? {pill: settings.radius.pill} : undefined)
       .withClasses(sharpClasses, settings?.radius?.sharp ? {sharp: settings.radius.sharp} : undefined)
       .withClasses(noBorderClasses, noBorder ? {noBorder} : undefined);
+  }
+
+  with(action: (b: ComponentBuilder) => ComponentBuilder): this {
+    action(this);
+    return this;
   }
 
   build(): React.ReactElement {
