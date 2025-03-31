@@ -20,6 +20,12 @@ export const Section = (props: LayoutComponentProps): JSX.Element =>
       lg: "py-16 max-lg:py-14 max-md:py-12",
       xl: "py-20 max-lg:py-16 max-md:py-12",
     })
-    .withGaps()
+    .withGaps({
+      xs: "gap-2",
+      sm: "gap-4",
+      md: "gap-6",
+      lg: "gap-12",
+      xl: "gap-16"
+    })
     .withAppearance(layoutBackgroundAppearanceClasses, {default: true})
     .build();

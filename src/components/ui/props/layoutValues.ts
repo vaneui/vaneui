@@ -47,14 +47,6 @@ export const justifyClasses: Record<keyof JustifyProps, string> = {
   justifyBaseline: "justify-baseline",
 }
 
-export const commonGaps: Record<keyof SizeProps, string> = {
-  xs: "gap-2",
-  sm: "gap-3",
-  md: "gap-4",
-  lg: "gap-6",
-  xl: "gap-8"
-}
-
 export const noGapClasses: Record<keyof NoGapProps, string> = {
   noGap: "gap-0"
 }
@@ -84,7 +76,7 @@ export const pillClasses: Record<keyof PillProps, string> = {
 
 export const sharpClasses: Record<keyof SharpProps, string> = {
   sharp: "rounded-none"
-} 
+}
 
 export const noPaddingClasses: Record<keyof NoPaddingProps, string> = {
   noPadding: "px-0 py-0"
@@ -124,24 +116,24 @@ export const hoverShadowClasses: Record<keyof SizeProps, string> = {
 
 export const pxClasses: Record<keyof SizeProps, string> = {
   xs: "px-2",
-  sm: "px-2.5",
-  md: "px-3.5",
-  lg: "px-5",
-  xl: "px-6"
+  sm: "px-4",
+  md: "px-6",
+  lg: "px-8",
+  xl: "px-10"
 }
 
 export const pyClasses: Record<keyof SizeProps, string> = {
-  xs: "py-1",
-  sm: "py-1.5",
-  md: "py-2",
-  lg: "py-3",
-  xl: "py-4"
+  xs: "py-2",
+  sm: "py-4",
+  md: "py-6",
+  lg: "py-8",
+  xl: "py-10"
 }
 
-export const buttonRoundedClasses: Record<keyof SizeProps, string> = {
-  xs: "rounded-sm",
-  sm: "rounded-md",
-  md: "rounded-md",
-  lg: "rounded-lg",
-  xl: "rounded-xl"
+export const commonGaps: Record<keyof SizeProps, string> = {
+  xs: "gap-1",
+  sm: "gap-3",
+  md: "gap-4",
+  lg: "gap-6",
+  xl: "gap-8"
 }

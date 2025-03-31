@@ -7,9 +7,9 @@ import { BorderSettings } from './settings/settings';
 
 // Border settings for Card
 const cardBorderSettings: BorderSettings = {
-  color: { default: true },
+  color: {default: true},
   radius: {
-    rounded: { md: true },
+    rounded: {md: true},
     pill: false,
     sharp: false
   }
@@ -19,8 +19,8 @@ export const Card = (props: CardProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col border overflow-hidden")
     .withClasses(itemsClasses)
     .withPadding()
-    .withGaps(commonGaps, { md: true })
-    .withAppearance(layoutBackgroundAppearanceClasses, { default: true })
+    .withGaps(commonGaps, {md: true})
+    .withAppearance(layoutBackgroundAppearanceClasses, {default: true})
     .withBorder(borderAppearanceClasses, roundedClasses, cardBorderSettings)
     .withShadow()
     .build();

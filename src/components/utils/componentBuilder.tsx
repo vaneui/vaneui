@@ -7,7 +7,7 @@ import {
   ColProps,
   RowProps,
   SizeProps,
-  WrapProps, ButtonStyleProps
+  WrapProps, ButtonStyleProps, TextAppearanceProps
 } from "../ui/props/props";
 import {
   fontFamilyClasses,
@@ -149,7 +149,8 @@ class ComponentBuilder {
   }
 
   withTypography(
-    textSizeMap?: Record<keyof SizeProps, string>,
+    textSize?: Record<keyof SizeProps, string>,
+    textAppearance?: Record<keyof TextAppearanceProps, string>,
     settings?: Partial<TypographySettings>
   ): this {
     return this
@@ -159,8 +160,8 @@ class ComponentBuilder {
       .withClasses(textDecorationClasses, settings?.textDecoration ?? {})
       .withClasses(textTransformClasses, settings?.textTransform ?? {})
       .withClasses(textAlignClasses, settings?.textAlign ?? {})
-      .withClasses(textAppearanceClasses, settings?.textAppearance ?? {})
-      .withClasses(textSizeMap || textSizeClasses, settings?.textSize ?? {md: true});
+      .withClasses(textAppearance || textAppearanceClasses, settings?.textAppearance ?? {})
+      .withClasses(textSize || textSizeClasses, settings?.textSize ?? {md: true});
   }
 
   withBorder(

@@ -1,5 +1,3 @@
-
-// Type for style-specific classes (the structure inside filled and outline)
 import { ButtonStyleProps, CommonAppearanceProps, SizeProps, TextAppearanceProps } from "../props/props";
 
 export type ButtonStyleClasses = {
@@ -17,9 +15,7 @@ export type ButtonClasses = {
 
   textSize: Record<keyof SizeProps, string>;
   rounded: Record<keyof SizeProps, string>;
-
   shadow: Record<keyof SizeProps, string>;
-
   px: Record<keyof SizeProps, string>;
   py: Record<keyof SizeProps, string>;
 };

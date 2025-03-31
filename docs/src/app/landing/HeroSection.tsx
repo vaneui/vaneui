@@ -13,8 +13,8 @@ import {
   Divider,
   Badge
 } from 'vaneui';
-import {PRODUCT} from '../constants';
-import {CodeBlock} from "../components/CodeBlock";
+import { PRODUCT } from '../constants';
+import { CodeBlock } from "../components/CodeBlock";
 import Link from "next/link";
 import Image from "next/image";
 import githubMark from './../../../public/github-mark.svg'
@@ -35,7 +35,7 @@ export function HeroSection() {
       <Container xs className="z-10">
         <Col xl itemsCenter>
           <Badge normalCase light>
-            <Image src={githubMark} alt="GitHub" className="h-5 w-5" />
+            <Image src={githubMark} alt="GitHub" className="h-5 w-5"/>
             Open source components
           </Badge>
           <PageTitle xl sans textCenter medium>
@@ -44,8 +44,9 @@ export function HeroSection() {
           <Text lg textCenter>{PRODUCT.description}</Text>
           <Row lg smCol justifyCenter className="w-full">
             <Button lg filled className="max-sm:w-full">Get Started</Button>
-            <Button lg className="max-sm:w-full" target="_blank" href={PRODUCT.githubUrl} tag={Link}>View on
-              GitHub</Button>
+            <Button lg className="max-sm:w-full" target="_blank" href={PRODUCT.githubUrl} tag={Link}>
+              View on GitHub
+            </Button>
           </Row>
         </Col>
       </Container>
@@ -54,8 +55,8 @@ export function HeroSection() {
           <Col className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
             <Card xl noPadding>
               <Row noGap smCol>
-                <img src={dog.image} alt="puppy" className="self-stretch w-52 max-sm:w-80"/>
-                <Stack>
+                <img src={dog.image} alt="puppy" className="object-cover self-stretch w-48 max-sm:w-80"/>
+                <Stack sm>
                   <Row justifyBetween>
                     <Title>{dog.name}</Title>
                     <Chip sm bold>{dog.gender}</Chip>

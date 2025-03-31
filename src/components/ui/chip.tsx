@@ -2,7 +2,7 @@ import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 import { backgroundAppearanceClasses, borderAppearanceClasses } from './props/appearanceValues';
-import { textSizeClasses } from "./props/typographyValues";
+import { textAppearanceClasses, textSizeClasses } from "./props/typographyValues";
 import { BorderSettings } from './settings/settings';
 
 // Custom rounded classes for Chip
@@ -26,10 +26,22 @@ const chipBorderSettings: BorderSettings = {
 
 export const Chip = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "span", "w-fit h-fit border inline-flex gap-2 items-center")
-    .withPadding()
+    .withPadding({
+      xs: "px-2",
+      sm: "px-2.5",
+      md: "px-3.5",
+      lg: "px-5",
+      xl: "px-6"
+    }, {
+      xs: "py-1",
+      sm: "py-1.5",
+      md: "py-2",
+      lg: "py-3",
+      xl: "py-4"
+    })
     .withAppearance(backgroundAppearanceClasses, {default: true})
     .withBorder(borderAppearanceClasses, chipRoundedClasses, chipBorderSettings)
-    .withTypography(textSizeClasses, {
+    .withTypography(textSizeClasses, textAppearanceClasses, {
       fontFamily: {mono: true},
       textAppearance: {secondary: true},
       textSize: {md: true}

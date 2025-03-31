@@ -84,12 +84,3 @@ export const textSizeClasses: Record<keyof SizeProps, string> = {
   lg: "text-lg",
   xl: "text-xl",
 }
-
-// Button text size classes with line height
-export const buttonTextSizeClasses: Record<keyof SizeProps, string> = {
-  xs: "text-xs/5",
-  sm: "text-sm/5",
-  md: "text-base",
-  lg: "text-lg/6",
-  xl: "text-xl/6",
-}

@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
-import { textSizeClasses } from "./props/typographyValues";
+import { textAppearanceClasses, textSizeClasses } from "./props/typographyValues";
 
 export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "h1", "text-balance tracking-tighter")
@@ -11,7 +11,7 @@ export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
       md: "text-5xl max-lg:text-4xl max-md:text-3xl",
       lg: "text-6xl max-lg:text-5xl max-md:text-4xl",
       xl: "text-7xl max-lg:text-6xl max-md:text-5xl",
-    }, {
+    }, textAppearanceClasses, {
       fontWeight: {semibold: true},
       textAppearance: {default: true}
     })
@@ -25,7 +25,7 @@ export const SectionTitle = (props: TypographyComponentProps): JSX.Element =>
       md: "text-4xl max-lg:text-3xl max-md:text-2xl",
       lg: "text-5xl max-lg:text-4xl max-md:text-3xl",
       xl: "text-6xl max-lg:text-5xl max-md:text-4xl",
-    }, {
+    }, textAppearanceClasses, {
       fontWeight: {semibold: true},
       textAppearance: {default: true}
     })
@@ -39,7 +39,7 @@ export const Title = (props: TypographyComponentProps): JSX.Element =>
       md: "text-2xl",
       lg: "text-3xl",
       xl: "text-4xl",
-    }, {
+    }, textAppearanceClasses, {
       fontWeight: {semibold: true},
       textAppearance: {default: true}
     })
@@ -47,7 +47,7 @@ export const Title = (props: TypographyComponentProps): JSX.Element =>
 
 export const Text = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "p", "p-0 m-0")
-    .withTypography(textSizeClasses, {
+    .withTypography(textSizeClasses, textAppearanceClasses, {
       textAppearance: {secondary: true},
       textSize: {md: true}
     })
@@ -55,7 +55,7 @@ export const Text = (props: TypographyComponentProps): JSX.Element =>
 
 export const Link = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "a", "hover:underline")
-    .withTypography(textSizeClasses, {
+    .withTypography(textSizeClasses, textAppearanceClasses, {
       textAppearance: {link: true},
       textSize: {md: true}
     })
@@ -63,7 +63,7 @@ export const Link = (props: TypographyComponentProps): JSX.Element =>
 
 export const ListItem = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "li", "")
-    .withTypography(textSizeClasses, {
+    .withTypography(textSizeClasses, textAppearanceClasses, {
       textSize: {md: true},
       textAppearance: {default: true}
     })
@@ -71,7 +71,7 @@ export const ListItem = (props: TypographyComponentProps): JSX.Element =>
 
 export const List = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "ul", "list-disc list-inside")
-    .withTypography(textSizeClasses, {
+    .withTypography(textSizeClasses, textAppearanceClasses, {
       textSize: {md: true},
       textAppearance: {default: true}
     })

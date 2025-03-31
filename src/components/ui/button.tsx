@@ -14,14 +14,10 @@ import {
 import {
   textAppearanceClasses,
   filledTextAppearanceClasses,
-  buttonTextSizeClasses
 } from "./props/typographyValues";
 import {
-  buttonRoundedClasses,
   commonGaps,
   hoverShadowClasses,
-  pxClasses,
-  pyClasses,
   shadowClasses
 } from "./props/layoutValues";
 import { ButtonSettings, BaseButtonSettings } from './settings/settings';
@@ -32,10 +28,34 @@ const defaultButtonClasses: ButtonClasses = {
   // Component builder settings
   baseClasses: "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap",
 
-  textSize: buttonTextSizeClasses,
-  rounded: buttonRoundedClasses,
-  px: pxClasses,
-  py: pyClasses,
+  textSize: {
+    xs: "text-xs/5",
+    sm: "text-sm/5",
+    md: "text-base",
+    lg: "text-lg/6",
+    xl: "text-xl/6",
+  },
+  rounded: {
+    xs: "rounded-sm",
+    sm: "rounded-md",
+    md: "rounded-md",
+    lg: "rounded-lg",
+    xl: "rounded-xl"
+  },
+  px: {
+    xs: "px-2",
+    sm: "px-2.5",
+    md: "px-3.5",
+    lg: "px-5",
+    xl: "px-6"
+  },
+  py: {
+    xs: "py-1",
+    sm: "py-1.5",
+    md: "py-2",
+    lg: "py-3",
+    xl: "py-4"
+  },
   shadow: shadowClasses,
 
   style: {
@@ -57,7 +77,10 @@ const defaultButtonClasses: ButtonClasses = {
 };
 
 const baseSettings: BaseButtonSettings = {
-  style: {outline: true},
+  style: {
+    outline: true,
+    filled: false
+  },
   typography: {
     fontWeight: {semibold: true},
     textAppearance: {default: true},
@@ -96,21 +119,21 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
   const classes = defaultButtonClasses;
 
   // Determine if button is outline or filled (default is outline)
-  const isOutline = settings.base.style.outline !== false && !settings.base.style.filled;
-  const isFilled = settings.base.style.filled === true;
+  const isOutline = props.outline !== undefined ? props.outline : settings.base.style.outline;
+  const isFilled = props.filled !== undefined ? props.filled : settings.base.style.filled;
 
   // Select the appropriate classes based on button style (filled or outline)
   const styleClasses = isFilled
     ? classes.style.filled
     : classes.style.outline;
 
-  return componentBuilder(props, settings.tag, classes.baseClasses)
+  return componentBuilder(props, props.tag ? props.tag : settings.tag, classes.baseClasses)
     //apply base
     .with(c => c
       .withPadding(classes.px, classes.py)
       .withGaps(commonGaps, settings.base.gap)
       .withShadow(classes.shadow, settings.base.shadow, settings.base.noShadow)
-      .withTypography(classes.textSize, settings.base.typography)
+      .withTypography(classes.textSize, styleClasses?.textAppearance, settings.base.typography)
       .withBorder(styleClasses.borderColor, classes.rounded, settings.base.border, settings.base.noBorder)
       .withAppearance(styleClasses.background, settings.base.background)
     )
