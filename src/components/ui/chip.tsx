@@ -21,7 +21,8 @@ const chipBorderSettings: BorderSettings = {
     rounded: {md: true},
     pill: false,
     sharp: false
-  }
+  },
+  noBorder: false
 };
 
 export const Chip = (props: TypographyComponentProps): JSX.Element =>

@@ -12,7 +12,8 @@ const cardBorderSettings: BorderSettings = {
     rounded: {md: true},
     pill: false,
     sharp: false
-  }
+  },
+  noBorder: false
 };
 
 export const Card = (props: CardProps): JSX.Element =>

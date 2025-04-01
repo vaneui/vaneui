@@ -21,6 +21,7 @@ export type BorderSettings = {
     pill: boolean;
     sharp: boolean;
   };
+  noBorder: boolean;
 };
 
 export type ButtonStyleSettings = { [key in keyof ButtonStyleProps]: boolean; };
@@ -45,7 +46,6 @@ export type BaseButtonSettings = {
   px: SizeSettings;
   py: SizeSettings;
   gap: SizeSettings;
-  noBorder: boolean;
   noShadow: boolean;
 }
 

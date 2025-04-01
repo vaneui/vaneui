@@ -13,7 +13,8 @@ const badgeBorderSettings: BorderSettings = {
     rounded: {md: true},
     pill: true,
     sharp: false
-  }
+  },
+  noBorder: false
 };
 
 export const Badge = (props: TypographyComponentProps): JSX.Element =>

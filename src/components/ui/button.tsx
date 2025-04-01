@@ -93,13 +93,13 @@ const baseSettings: BaseButtonSettings = {
       rounded: {md: true},
       pill: false,
       sharp: false,
-    }
+    },
+    noBorder: false
   },
   shadow: {md: true},
   px: {md: true},
   py: {md: true},
   gap: {md: true},
-  noBorder: false,
   noShadow: false
 }
 
@@ -134,7 +134,7 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
       .withGaps(commonGaps, settings.base.gap)
       .withShadow(classes.shadow, settings.base.shadow, settings.base.noShadow)
       .withTypography(classes.textSize, styleClasses?.textAppearance, settings.base.typography)
-      .withBorder(styleClasses.borderColor, classes.rounded, settings.base.border, settings.base.noBorder)
+      .withBorder(styleClasses.borderColor, classes.rounded, settings.base.border, settings.base.border.noBorder)
       .withAppearance(styleClasses.background, settings.base.background)
     )
     //apply hover
