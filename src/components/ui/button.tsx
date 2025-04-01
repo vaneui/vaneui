@@ -20,7 +20,13 @@ import {
   hoverShadowClasses,
   shadowClasses
 } from "./props/layoutValues";
-import { ButtonSettings, BaseButtonSettings, ShadowSettings } from './settings/settings';
+import {
+  ButtonSettings,
+  BaseButtonSettings,
+  ShadowSettings,
+  GapSettings,
+  TypographySettings
+} from './settings/settings';
 import { ButtonClasses } from "./classes/classes";
 
 // Default button classes
@@ -81,11 +87,7 @@ const baseSettings: BaseButtonSettings = {
     outline: true,
     filled: false
   },
-  typography: {
-    fontWeight: {semibold: true},
-    textAppearance: {default: true},
-    textSize: {md: true}
-  },
+  typography: new TypographySettings({fontWeight: {semibold: true}}),
   background: {default: true},
   border: {
     color: {default: true},
@@ -99,10 +101,7 @@ const baseSettings: BaseButtonSettings = {
   shadow: new ShadowSettings(),
   px: {md: true},
   py: {md: true},
-  gap: {
-    size: {md: true},
-    noGap: false
-  }
+  gap: new GapSettings()
 }
 
 // Default button settings
@@ -133,10 +132,10 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
     //apply base
     .with(c => c
       .withPadding(classes.px, classes.py)
-      .withGaps(commonGaps, settings.base.gap.size, settings.base.gap.noGap)
+      .withGaps(commonGaps, settings.base.gap)
       .withShadow(classes.shadow, settings.base.shadow)
       .withTypography(classes.textSize, styleClasses?.textAppearance, settings.base.typography)
-      .withBorder(styleClasses.borderColor, classes.rounded, settings.base.border, settings.base.border.noBorder)
+      .withBorder(styleClasses.borderColor, classes.rounded, settings.base.border)
       .withAppearance(styleClasses.background, settings.base.background)
     )
     //apply hover

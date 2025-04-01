@@ -24,7 +24,7 @@ import {
   TypographySettings,
   BorderSettings,
   SizeSettings,
-  ShadowSettings
+  ShadowSettings, GapSettings
 } from "../ui/settings/settings";
 import { borderAppearanceClasses, noBorderClasses, noShadowClasses } from "../ui/props/appearanceValues";
 import {
@@ -139,10 +139,10 @@ class ComponentBuilder {
       .withClasses(noPaddingClasses);
   }
 
-  withGaps(gapMap: Record<keyof SizeProps, string> = commonGaps, settings: SizeSettings = {md: true}, noGap: boolean = false): this {
+  withGaps(gapClasses: Record<keyof SizeProps, string> = commonGaps, settings: GapSettings = new GapSettings()): this {
     return this
-      .withClasses(gapMap, settings)
-      .withClasses(noGapClasses, {noGap: noGap});
+      .withClasses(gapClasses, settings.size)
+      .withClasses(noGapClasses, {noGap: settings.noGap});
   }
 
   withAppearance(appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings): this {
@@ -152,31 +152,30 @@ class ComponentBuilder {
   withTypography(
     textSize?: Record<keyof SizeProps, string>,
     textAppearance?: Record<keyof TextAppearanceProps, string>,
-    settings?: Partial<TypographySettings>
+    settings: Partial<TypographySettings> = new TypographySettings()
   ): this {
     return this
-      .withClasses(fontFamilyClasses, settings?.fontFamily ?? {})
-      .withClasses(fontStyleClasses, settings?.fontStyle ?? {})
-      .withClasses(fontWeightClasses, settings?.fontWeight ?? {})
-      .withClasses(textDecorationClasses, settings?.textDecoration ?? {})
-      .withClasses(textTransformClasses, settings?.textTransform ?? {})
-      .withClasses(textAlignClasses, settings?.textAlign ?? {})
-      .withClasses(textAppearance || textAppearanceClasses, settings?.textAppearance ?? {})
-      .withClasses(textSize || textSizeClasses, settings?.textSize ?? {md: true});
+      .withClasses(fontFamilyClasses, settings.fontFamily)
+      .withClasses(fontStyleClasses, settings.fontStyle)
+      .withClasses(fontWeightClasses, settings.fontWeight)
+      .withClasses(textDecorationClasses, settings.textDecoration)
+      .withClasses(textTransformClasses, settings.textTransform)
+      .withClasses(textAlignClasses, settings.textAlign)
+      .withClasses(textAppearance || textAppearanceClasses, settings.textAppearance)
+      .withClasses(textSize || textSizeClasses, settings.textSize);
   }
 
   withBorder(
     borderColorMap: Record<keyof CommonAppearanceProps, string> = borderAppearanceClasses,
     roundedMap: Record<keyof SizeProps, string> = roundedClasses,
-    settings?: BorderSettings,
-    noBorder?: boolean
+    settings: BorderSettings = new BorderSettings()
   ): this {
-    return !settings ? this : this
+    return this
       .withClasses(borderColorMap, settings.color)
       .withClasses(roundedMap, settings.radius.rounded)
-      .withClasses(pillClasses, settings?.radius?.pill ? {pill: settings.radius.pill} : undefined)
-      .withClasses(sharpClasses, settings?.radius?.sharp ? {sharp: settings.radius.sharp} : undefined)
-      .withClasses(noBorderClasses, noBorder ? {noBorder} : undefined);
+      .withClasses(pillClasses, {pill: settings.radius.pill})
+      .withClasses(sharpClasses, {sharp: settings.radius.sharp})
+      .withClasses(noBorderClasses, {noBorder: settings.noBorder});
   }
 
   with(action: (b: ComponentBuilder) => ComponentBuilder): this {
