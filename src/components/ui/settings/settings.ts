@@ -24,6 +24,16 @@ export type BorderSettings = {
   noBorder: boolean;
 };
 
+export type ShadowSettings = {
+  size: SizeSettings;
+  noShadow: boolean;
+};
+
+export type GapSettings = {
+  size: SizeSettings;
+  noGap: boolean;
+};
+
 export type ButtonStyleSettings = { [key in keyof ButtonStyleProps]: boolean; };
 
 export type TypographySettings = {
@@ -42,11 +52,10 @@ export type BaseButtonSettings = {
   typography: TypographySettings;
   background: CommonAppearanceSettings;
   border: BorderSettings;
-  shadow: SizeSettings;
+  shadow: ShadowSettings;
   px: SizeSettings;
   py: SizeSettings;
-  gap: SizeSettings;
-  noShadow: boolean;
+  gap: GapSettings;
 }
 
 export type ButtonSettings = {

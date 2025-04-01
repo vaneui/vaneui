@@ -138,10 +138,10 @@ class ComponentBuilder {
       .withClasses(noPaddingClasses);
   }
 
-  withGaps(gapMap?: Record<keyof SizeProps, string>, settings?: SizeSettings): this {
+  withGaps(gapMap: Record<keyof SizeProps, string> = commonGaps, settings: SizeSettings = {md: true}, noGap: boolean = false): this {
     return this
-      .withClasses(gapMap || commonGaps, settings || {md: true})
-      .withClasses(noGapClasses);
+      .withClasses(gapMap, settings)
+      .withClasses(noGapClasses, {noGap: noGap});
   }
 
   withAppearance(appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings): this {

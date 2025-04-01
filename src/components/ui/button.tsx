@@ -96,11 +96,16 @@ const baseSettings: BaseButtonSettings = {
     },
     noBorder: false
   },
-  shadow: {md: true},
+  shadow: {
+    size: {md: true},
+    noShadow: false
+  },
   px: {md: true},
   py: {md: true},
-  gap: {md: true},
-  noShadow: false
+  gap: {
+    size: {md: true},
+    noGap: false
+  }
 }
 
 // Default button settings
@@ -131,8 +136,8 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
     //apply base
     .with(c => c
       .withPadding(classes.px, classes.py)
-      .withGaps(commonGaps, settings.base.gap)
-      .withShadow(classes.shadow, settings.base.shadow, settings.base.noShadow)
+      .withGaps(commonGaps, settings.base.gap.size, settings.base.gap.noGap)
+      .withShadow(classes.shadow, settings.base.shadow.size, settings.base.shadow.noShadow)
       .withTypography(classes.textSize, styleClasses?.textAppearance, settings.base.typography)
       .withBorder(styleClasses.borderColor, classes.rounded, settings.base.border, settings.base.border.noBorder)
       .withAppearance(styleClasses.background, settings.base.background)

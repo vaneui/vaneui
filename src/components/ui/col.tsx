@@ -13,7 +13,7 @@ import { commonGaps, itemsClasses, justifyClasses, wrapClasses } from "./props/l
  */
 export const Col = (props: ColProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col")
-    .withGaps(commonGaps, { md: true })
+    .withGaps()
     .withClasses({
       reverse: "flex-col-reverse"
     })

@@ -20,7 +20,7 @@ export const Card = (props: CardProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col border overflow-hidden")
     .withClasses(itemsClasses)
     .withPadding()
-    .withGaps(commonGaps, {md: true})
+    .withGaps()
     .withAppearance(layoutBackgroundAppearanceClasses, {default: true})
     .withBorder(borderAppearanceClasses, roundedClasses, cardBorderSettings)
     .withShadow()
