@@ -134,7 +134,7 @@ export const Button = (props: ButtonComponentProps): JSX.Element => {
     .with(c => c
       .withPadding(classes.px, classes.py)
       .withGaps(commonGaps, settings.base.gap.size, settings.base.gap.noGap)
-      .withShadow(classes.shadow, settings.base.shadow.size, settings.base.shadow.noShadow)
+      .withShadow(classes.shadow, settings.base.shadow)
       .withTypography(classes.textSize, styleClasses?.textAppearance, settings.base.typography)
       .withBorder(styleClasses.borderColor, classes.rounded, settings.base.border, settings.base.border.noBorder)
       .withAppearance(styleClasses.background, settings.base.background)

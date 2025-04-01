@@ -23,7 +23,8 @@ import {
   CommonAppearanceSettings,
   TypographySettings,
   BorderSettings,
-  SizeSettings
+  SizeSettings,
+  ShadowSettings
 } from "../ui/settings/settings";
 import { borderAppearanceClasses, noBorderClasses, noShadowClasses } from "../ui/props/appearanceValues";
 import {
@@ -123,10 +124,10 @@ class ComponentBuilder {
     );
   }
 
-  withShadow(classes: Record<keyof SizeProps, string> = shadowClasses, settings?: SizeSettings, noShadow?: boolean): this {
+  withShadow(classes: Record<keyof SizeProps, string> = shadowClasses, settings: ShadowSettings = new ShadowSettings()): this {
     return this
-      .withClasses(classes, settings || {md: true})
-      .withClasses(noShadowClasses, noShadow ? {noShadow} : undefined);
+      .withClasses(classes, settings.size)
+      .withClasses(noShadowClasses, {noShadow: settings.noShadow});
   }
 
   withPadding(px: Record<keyof SizeProps, string> = pxClasses,
