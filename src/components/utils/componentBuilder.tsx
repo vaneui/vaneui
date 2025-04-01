@@ -35,7 +35,6 @@ import {
   roundedClasses,
   sharpClasses,
   shadowClasses,
-  hoverShadowClasses,
   pxClasses,
   pyClasses,
   commonGaps
