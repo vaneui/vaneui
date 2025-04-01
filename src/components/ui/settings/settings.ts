@@ -24,10 +24,15 @@ export type BorderSettings = {
   noBorder: boolean;
 };
 
-export type ShadowSettings = {
+export class ShadowSettings {
   size: SizeSettings;
   noShadow: boolean;
-};
+
+  constructor() {
+    this.size = { md: true };
+    this.noShadow = false;
+  }
+}
 
 export type GapSettings = {
   size: SizeSettings;

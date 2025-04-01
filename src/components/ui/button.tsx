@@ -20,7 +20,7 @@ import {
   hoverShadowClasses,
   shadowClasses
 } from "./props/layoutValues";
-import { ButtonSettings, BaseButtonSettings } from './settings/settings';
+import { ButtonSettings, BaseButtonSettings, ShadowSettings } from './settings/settings';
 import { ButtonClasses } from "./classes/classes";
 
 // Default button classes
@@ -96,10 +96,7 @@ const baseSettings: BaseButtonSettings = {
     },
     noBorder: false
   },
-  shadow: {
-    size: {md: true},
-    noShadow: false
-  },
+  shadow: new ShadowSettings(),
   px: {md: true},
   py: {md: true},
   gap: {
