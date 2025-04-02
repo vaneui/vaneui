@@ -53,8 +53,8 @@ export class ButtonStyleClasses {
 
   constructor(
     base: ButtonBaseClasses = new ButtonBaseClasses(),
-    active: ButtonBaseClasses = base,
-    hover: ButtonBaseClasses = base,
+    active: ButtonBaseClasses = new ButtonBaseClasses(activeBackgroundAppearanceClasses, textAppearanceClasses, borderAppearanceClasses),
+    hover: ButtonBaseClasses = new ButtonBaseClasses(hoverBackgroundAppearanceClasses, textAppearanceClasses, borderAppearanceClasses),
   ) {
     this.base = base;
     this.active = active;
@@ -67,17 +67,23 @@ export class ButtonClasses {
   style: Record<keyof ButtonStyleProps, ButtonStyleClasses>;
 
   constructor() {
-    let outlineStyle = new ButtonStyleClasses();
-    outlineStyle.hover.background = hoverBackgroundAppearanceClasses;
-    outlineStyle.hover.shadow = hoverShadowClasses;
-    outlineStyle.active.background = activeBackgroundAppearanceClasses;
+    let outlineBaseStyle = new ButtonBaseClasses(
+      backgroundAppearanceClasses, textAppearanceClasses, borderAppearanceClasses);
+    let outlineHoverStyle = new ButtonBaseClasses(
+      hoverBackgroundAppearanceClasses, textAppearanceClasses, borderAppearanceClasses);
+    outlineHoverStyle.shadow = hoverShadowClasses;
+    let outlineActiveStyle = new ButtonBaseClasses(
+      activeBackgroundAppearanceClasses, textAppearanceClasses, borderAppearanceClasses);
+    let outlineStyle = new ButtonStyleClasses(outlineBaseStyle, outlineActiveStyle, outlineHoverStyle);
 
     let filledBaseStyle = new ButtonBaseClasses(
       filledBackgroundAppearanceClasses, filledTextAppearanceClasses, filledBorderAppearanceClasses);
-    let filledStyle = new ButtonStyleClasses(filledBaseStyle);
-    filledStyle.hover.background = filledHoverBackgroundAppearanceClasses;
-    filledStyle.hover.shadow = hoverShadowClasses;
-    filledStyle.active.background = filledActiveBackgroundAppearanceClasses;
+    let filledHoverStyle = new ButtonBaseClasses(
+      filledHoverBackgroundAppearanceClasses, filledTextAppearanceClasses, filledBorderAppearanceClasses);
+    filledHoverStyle.shadow = hoverShadowClasses;
+    let filledActiveStyle = new ButtonBaseClasses(
+      filledActiveBackgroundAppearanceClasses, filledTextAppearanceClasses, filledBorderAppearanceClasses);
+    let filledStyle = new ButtonStyleClasses(filledBaseStyle, filledActiveStyle, filledHoverStyle);
 
     this.style = {
       outline: outlineStyle,
