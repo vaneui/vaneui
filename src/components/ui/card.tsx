@@ -3,7 +3,7 @@ import { CardProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./classes/appearanceValues";
 import { commonGaps, itemsClasses, roundedClasses } from "./classes/layoutClasses";
-import { BorderSettings } from './settings/settings';
+import { BorderSettings } from './settings/borderSettings';
 
 // Border settings for Card
 const cardBorderSettings: BorderSettings = {

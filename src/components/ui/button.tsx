@@ -20,9 +20,7 @@ import {
   hoverShadowClasses,
   shadowClasses
 } from "./classes/layoutClasses";
-import {
-  ButtonSettings,
-} from './settings/settings';
+import { ButtonSettings } from './settings/buttonSettings';
 import { ButtonClasses } from "./classes/buttonClasses";
 
 const defaultButtonClasses: ButtonClasses = {

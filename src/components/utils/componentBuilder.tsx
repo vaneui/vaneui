@@ -19,13 +19,12 @@ import {
   textTransformClasses,
   textSizeClasses
 } from "../ui/classes/typographyClasses";
-import {
-  CommonAppearanceSettings,
-  TypographySettings,
-  BorderSettings,
-  SizeSettings,
-  ShadowSettings, GapSettings
-} from "../ui/settings/settings";
+import { CommonAppearanceSettings } from "../ui/settings/commonAppearanceSettings";
+import { TypographySettings } from "../ui/settings/typographySettings";
+import { BorderSettings } from "../ui/settings/borderSettings";
+import { SizeSettings } from "../ui/settings/sizeSettings";
+import { ShadowSettings } from "../ui/settings/shadowSettings";
+import { GapSettings } from "../ui/settings/gapSettings";
 import { borderAppearanceClasses } from "../ui/classes/appearanceValues";
 import {
   hideClasses,

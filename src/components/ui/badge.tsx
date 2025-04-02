@@ -3,7 +3,7 @@ import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 import { backgroundAppearanceClasses, borderAppearanceClasses } from './classes/appearanceValues';
 import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
-import { BorderSettings } from './settings/settings';
+import { BorderSettings } from './settings/borderSettings';
 import { roundedClasses } from "./classes/layoutClasses";
 
 // Border settings for Badge
