@@ -1,4 +1,4 @@
-import React, { JSX } from 'react';
+import { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { ButtonProps } from "./props/props";
 import {
@@ -22,10 +22,6 @@ import {
 } from "./classes/layoutClasses";
 import {
   ButtonSettings,
-  BaseButtonSettings,
-  ShadowSettings,
-  GapSettings,
-  TypographySettings
 } from './settings/settings';
 import { ButtonClasses } from "./classes/buttonClasses";
 
