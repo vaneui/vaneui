@@ -1,8 +1,8 @@
 import { JSX } from 'react';
 import { ColProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
-import { commonGaps, itemsClasses, justifyClasses, wrapClasses } from "./props/layoutValues";
+import { layoutBackgroundAppearanceClasses } from "./classes/appearanceValues";
+import { commonGaps, itemsClasses, justifyClasses, wrapClasses } from "./classes/layoutClasses";
 
 /**
  * Column component for vertical layouts.

@@ -1,8 +1,8 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
-import { backgroundAppearanceClasses, borderAppearanceClasses } from './props/appearanceValues';
-import { textAppearanceClasses, textSizeClasses } from "./props/typographyValues";
+import { backgroundAppearanceClasses, borderAppearanceClasses } from './classes/appearanceValues';
+import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
 import { BorderSettings } from './settings/settings';
 
 // Custom rounded classes for Chip
@@ -45,6 +45,6 @@ export const Chip = (props: TypographyComponentProps): JSX.Element =>
     .withTypography(textSizeClasses, textAppearanceClasses, {
       fontFamily: {mono: true},
       textAppearance: {secondary: true},
-      textSize: {md: true}
+      size: {md: true}
     })
     .build();

@@ -1,4 +1,4 @@
-import { ButtonStyleProps, CommonAppearanceProps, NoBorderProps, NoShadowProps } from "./props"
+import { ButtonStyleProps, CommonAppearanceProps, NoBorderProps, NoShadowProps } from "../props/props"
 
 // Background classes for filled buttons
 export const filledBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
@@ -124,12 +124,4 @@ export const filledBorderAppearanceClasses: Record<keyof CommonAppearanceProps, 
   warning: "border-(--filled-border-color-warning)",
   info: "border-(--filled-border-color-info)",
   transparent: "border-transparent",
-}
-
-export const noBorderClasses: Record<keyof NoBorderProps, string> = {
-  noBorder: "border-none"
-} 
-
-export const noShadowClasses: Record<keyof NoShadowProps, string> = {
-  noShadow: "shadow-none"
 }

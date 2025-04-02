@@ -18,7 +18,7 @@ import {
   textDecorationClasses,
   textTransformClasses,
   textSizeClasses
-} from "../ui/props/typographyValues";
+} from "../ui/classes/typographyClasses";
 import {
   CommonAppearanceSettings,
   TypographySettings,
@@ -26,7 +26,7 @@ import {
   SizeSettings,
   ShadowSettings, GapSettings
 } from "../ui/settings/settings";
-import { borderAppearanceClasses, noBorderClasses, noShadowClasses } from "../ui/props/appearanceValues";
+import { borderAppearanceClasses } from "../ui/classes/appearanceValues";
 import {
   hideClasses,
   noGapClasses,
@@ -37,8 +37,8 @@ import {
   shadowClasses,
   pxClasses,
   pyClasses,
-  commonGaps
-} from "../ui/props/layoutValues";
+  commonGaps, noBorderClasses, noShadowClasses
+} from "../ui/classes/layoutClasses";
 import React from "react";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(
@@ -161,7 +161,7 @@ class ComponentBuilder {
       .withClasses(textTransformClasses, settings.textTransform)
       .withClasses(textAlignClasses, settings.textAlign)
       .withClasses(textAppearance || textAppearanceClasses, settings.textAppearance)
-      .withClasses(textSize || textSizeClasses, settings.textSize);
+      .withClasses(textSize || textSizeClasses, settings.size);
   }
 
   withBorder(

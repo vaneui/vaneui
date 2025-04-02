@@ -1,8 +1,8 @@
 import { JSX } from 'react';
 import { CardProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
-import { commonGaps, itemsClasses, roundedClasses } from "./props/layoutValues";
+import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./classes/appearanceValues";
+import { commonGaps, itemsClasses, roundedClasses } from "./classes/layoutClasses";
 import { BorderSettings } from './settings/settings';
 
 // Border settings for Card

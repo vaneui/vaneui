@@ -10,16 +10,16 @@ import {
   filledHoverBackgroundAppearanceClasses,
   activeBackgroundAppearanceClasses,
   filledActiveBackgroundAppearanceClasses
-} from "./props/appearanceValues";
+} from "./classes/appearanceValues";
 import {
   textAppearanceClasses,
   filledTextAppearanceClasses,
-} from "./props/typographyValues";
+} from "./classes/typographyClasses";
 import {
   commonGaps,
   hoverShadowClasses,
   shadowClasses
-} from "./props/layoutValues";
+} from "./classes/layoutClasses";
 import {
   ButtonSettings,
   BaseButtonSettings,
@@ -27,7 +27,7 @@ import {
   GapSettings,
   TypographySettings
 } from './settings/settings';
-import { ButtonClasses } from "./classes/classes";
+import { ButtonClasses } from "./classes/buttonClasses";
 
 // Default button classes
 const defaultButtonClasses: ButtonClasses = {

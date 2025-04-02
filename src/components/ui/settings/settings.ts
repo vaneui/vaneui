@@ -24,22 +24,29 @@ export class BorderSettings {
   noBorder: boolean = false;
 
   constructor(init?: Partial<BorderSettings>) {
+    if (!init) return;
     Object.assign(this, init);
-    Object.assign(this.radius, init?.radius);
+    this.radius = {...this.radius, ...init.radius};
   }
 }
 
 export class ShadowSettings {
-  constructor(
-    public size: SizeSettings = {md: true},
-    public noShadow: boolean = false) {
+  public size: SizeSettings = {md: true};
+  public noShadow: boolean = false;
+
+  constructor(init?: Partial<ShadowSettings>) {
+    if (!init) return;
+    Object.assign(this, init);
   }
 }
 
 export class GapSettings {
-  constructor(
-    public size: SizeSettings = {md: true},
-    public noGap: boolean = false) {
+  public size: SizeSettings = {md: true};
+  public noGap: boolean = false;
+
+  constructor(init?: Partial<GapSettings>) {
+    if (!init) return;
+    Object.assign(this, init);
   }
 }
 
@@ -51,24 +58,37 @@ export class TypographySettings {
   textDecoration: { [key in keyof TextDecorationProps]: boolean } = {};
   textTransform: { [key in keyof TextTransformProps]: boolean } = {};
   textAlign: { [key in keyof TextAlignProps]: boolean } = {};
-  textSize: SizeSettings = {md: true};
+  size: SizeSettings = {md: true};
 
   constructor(init?: Partial<TypographySettings>) {
+    if (!init) return;
     Object.assign(this, init);
   }
 }
 
 export type ButtonStyleSettings = { [key in keyof ButtonStyleProps]: boolean; };
 
-export type BaseButtonSettings = {
-  style: ButtonStyleSettings;
-  typography: TypographySettings;
-  background: CommonAppearanceSettings;
-  border: BorderSettings;
-  shadow: ShadowSettings;
-  px: SizeSettings;
-  py: SizeSettings;
-  gap: GapSettings;
+export class BaseButtonSettings {
+  style: ButtonStyleSettings = {outline: true, filled: false};
+  typography: TypographySettings = new TypographySettings();
+  background: CommonAppearanceSettings = {default: true};
+  border: BorderSettings = new BorderSettings();
+  shadow: ShadowSettings = new ShadowSettings();
+  px: SizeSettings = {md: true};
+  py: SizeSettings = {md: true};
+  gap: GapSettings = new GapSettings();
+
+  constructor(init?: Partial<BaseButtonSettings>) {
+    if (!init) return;
+    this.style = {...this.style, ...init.style};
+    this.typography = new TypographySettings({...this.typography, ...init.typography});
+    this.background = {...this.background, ...init.background};
+    this.border = new BorderSettings({...this.border, ...init.border});
+    this.shadow = new ShadowSettings({...this.shadow, ...init.shadow});
+    this.px = {...this.px, ...init.px};
+    this.py = {...this.py, ...init.py};
+    this.gap = new GapSettings({...this.gap, ...init.gap});
+  }
 }
 
 export type ButtonSettings = {

@@ -1,14 +1,14 @@
 import { JSX } from 'react';
 import { StackProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
+import { layoutBackgroundAppearanceClasses } from "./classes/appearanceValues";
 import {
   commonGaps, itemsClasses,
   justifyClasses,
   rowToColumnBreakpointClasses,
   stackDirectionClasses,
   wrapClasses
-} from "./props/layoutValues";
+} from "./classes/layoutClasses";
 
 export const Stack = (props: StackProps): JSX.Element => {
   const defaultDirection = !props.row && !props.column ? {column: true} : {};

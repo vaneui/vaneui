@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
-import { textAppearanceClasses, textSizeClasses } from "./props/typographyValues";
+import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
 
 export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "h1", "text-balance tracking-tighter")
@@ -49,7 +49,7 @@ export const Text = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "p", "p-0 m-0")
     .withTypography(textSizeClasses, textAppearanceClasses, {
       textAppearance: {secondary: true},
-      textSize: {md: true}
+      size: {md: true}
     })
     .build();
 
@@ -57,14 +57,14 @@ export const Link = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "a", "hover:underline")
     .withTypography(textSizeClasses, textAppearanceClasses, {
       textAppearance: {link: true},
-      textSize: {md: true}
+      size: {md: true}
     })
     .build();
 
 export const ListItem = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "li", "")
     .withTypography(textSizeClasses, textAppearanceClasses, {
-      textSize: {md: true},
+      size: {md: true},
       textAppearance: {default: true}
     })
     .build();
@@ -72,7 +72,7 @@ export const ListItem = (props: TypographyComponentProps): JSX.Element =>
 export const List = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "ul", "list-disc list-inside")
     .withTypography(textSizeClasses, textAppearanceClasses, {
-      textSize: {md: true},
+      size: {md: true},
       textAppearance: {default: true}
     })
     .build();

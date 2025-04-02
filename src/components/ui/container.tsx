@@ -1,8 +1,8 @@
 import { JSX } from 'react';
 import { LayoutComponentProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
-import { itemsClasses } from "./props/layoutValues";
+import { layoutBackgroundAppearanceClasses } from "./classes/appearanceValues";
+import { itemsClasses } from "./classes/layoutClasses";
 
 export const Container = (props: LayoutComponentProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col mx-auto w-full")

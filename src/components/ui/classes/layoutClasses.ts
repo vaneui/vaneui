@@ -9,8 +9,8 @@ import {
   SharpProps,
   WrapProps,
   HideProps, PositionProps,
-  SizeProps
-} from "./props"
+  SizeProps, NoBorderProps, NoShadowProps
+} from "../props/props"
 
 export const rowToColumnBreakpointClasses: Record<keyof BreakpointProps, string> = {
   xsCol: "max-xs:flex-col",
@@ -136,4 +136,12 @@ export const commonGaps: Record<keyof SizeProps, string> = {
   md: "gap-4",
   lg: "gap-6",
   xl: "gap-8"
+}
+
+export const noBorderClasses: Record<keyof NoBorderProps, string> = {
+  noBorder: "border-none"
+}
+
+export const noShadowClasses: Record<keyof NoShadowProps, string> = {
+  noShadow: "shadow-none"
 }

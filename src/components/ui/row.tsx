@@ -1,14 +1,14 @@
 import { JSX } from 'react';
 import { RowProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { layoutBackgroundAppearanceClasses } from "./props/appearanceValues";
+import { layoutBackgroundAppearanceClasses } from "./classes/appearanceValues";
 import {
   commonGaps,
   itemsClasses,
   justifyClasses,
   rowToColumnBreakpointClasses,
   wrapClasses
-} from "./props/layoutValues";
+} from "./classes/layoutClasses";
 
 /**
  * Row component for horizontal layouts.

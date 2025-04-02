@@ -1,10 +1,10 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
-import { backgroundAppearanceClasses, borderAppearanceClasses } from './props/appearanceValues';
-import { textAppearanceClasses, textSizeClasses } from "./props/typographyValues";
+import { backgroundAppearanceClasses, borderAppearanceClasses } from './classes/appearanceValues';
+import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
 import { BorderSettings } from './settings/settings';
-import { roundedClasses } from "./props/layoutValues";
+import { roundedClasses } from "./classes/layoutClasses";
 
 // Border settings for Badge
 const badgeBorderSettings: BorderSettings = {
@@ -39,6 +39,6 @@ export const Badge = (props: TypographyComponentProps): JSX.Element =>
       fontFamily: {sans: true},
       textTransform: {uppercase: true},
       textAppearance: {secondary: true},
-      textSize: {md: true}
+      size: {md: true}
     })
     .build();

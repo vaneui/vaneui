@@ -1,4 +1,4 @@
-import { FontFamilyProps, FontStyleProps, FontWeightProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, CommonAppearanceProps, SizeProps } from "./props"
+import { FontFamilyProps, FontStyleProps, FontWeightProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, CommonAppearanceProps, SizeProps } from "../props/props"
 
 export const fontWeightClasses: Record<keyof FontWeightProps, string> = {
   thin: "font-thin",
