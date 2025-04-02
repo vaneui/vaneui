@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { LayoutComponentProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { layoutBackgroundAppearanceClasses } from "./classes/appearanceValues";
+import { layoutBackgroundAppearanceClasses } from "./classes/appearanceClasses";
 import { itemsClasses } from "./classes/layoutClasses";
 
 export const Container = (props: LayoutComponentProps): JSX.Element =>

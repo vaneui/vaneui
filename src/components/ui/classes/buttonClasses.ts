@@ -8,7 +8,7 @@ import {
   filledBackgroundAppearanceClasses, filledBorderAppearanceClasses,
   filledHoverBackgroundAppearanceClasses,
   hoverBackgroundAppearanceClasses
-} from "./appearanceValues";
+} from "./appearanceClasses";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "./typographyClasses";
 import { commonGaps } from "./spacingClasses";
 

@@ -25,7 +25,7 @@ import { BorderSettings } from "../ui/settings/borderSettings";
 import { SizeSettings } from "../ui/settings/sizeSettings";
 import { ShadowSettings } from "../ui/settings/shadowSettings";
 import { GapSettings } from "../ui/settings/gapSettings";
-import { borderAppearanceClasses } from "../ui/classes/appearanceValues";
+import { borderAppearanceClasses } from "../ui/classes/appearanceClasses";
 import {
   hideClasses,
   pillClasses, positionClasses,
@@ -59,7 +59,7 @@ function getBooleanClass<T extends Record<string, boolean | undefined>>(
 /**
  * ComponentBuilder class for building React components with chainable methods
  */
-class ComponentBuilder {
+export class ComponentBuilder {
   private readonly otherProps: any;
   private readonly baseProps: BaseComponentProps;
   private readonly defaultTag: string;

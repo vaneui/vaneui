@@ -1,5 +1,5 @@
 import { JSX } from 'react';
-import { componentBuilder } from "../utils/componentBuilder";
+import { ComponentBuilder, componentBuilder } from "../utils/componentBuilder";
 import { ButtonProps } from "./props/props";
 import { ButtonSettings } from './settings/buttonSettings';
 import { ButtonClasses, ButtonStyleClasses } from "./classes/buttonClasses";
@@ -20,7 +20,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
       : buttonClasses.style.filled;
   }
 
-  function applyState(c: any, type: 'base' | 'hover' | 'active') {
+  function applyState(c: ComponentBuilder, type: 'base' | 'hover' | 'active') {
     const classes = styleClasses[type];
     const settings = buttonSettings[type];
     return c

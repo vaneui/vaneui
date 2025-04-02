@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { GridProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { layoutBackgroundAppearanceClasses } from "./classes/appearanceValues";
+import { layoutBackgroundAppearanceClasses } from "./classes/appearanceClasses";
 import { gridGaps } from "./classes/spacingClasses";
 
 export const Grid3 = (props: GridProps): JSX.Element =>

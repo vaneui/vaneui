@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
-import { backgroundAppearanceClasses, borderAppearanceClasses } from './classes/appearanceValues';
+import { backgroundAppearanceClasses, borderAppearanceClasses } from './classes/appearanceClasses';
 import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
 import { BorderSettings } from './settings/borderSettings';
 import { roundedClasses } from "./classes/layoutClasses";
