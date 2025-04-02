@@ -23,8 +23,7 @@ export class BorderSettings {
   } = {rounded: {md: true}, pill: false, sharp: false};
   noBorder: boolean = false;
 
-  constructor(init?: Partial<BorderSettings>) {
-    if (!init) return;
+  constructor(init: Partial<BorderSettings> = {}) {
     Object.assign(this, init);
     this.radius = {...this.radius, ...init.radius};
   }
@@ -34,8 +33,7 @@ export class ShadowSettings {
   public size: SizeSettings = {md: true};
   public noShadow: boolean = false;
 
-  constructor(init?: Partial<ShadowSettings>) {
-    if (!init) return;
+  constructor(init: Partial<ShadowSettings> = {}) {
     Object.assign(this, init);
   }
 }
@@ -44,8 +42,7 @@ export class GapSettings {
   public size: SizeSettings = {md: true};
   public noGap: boolean = false;
 
-  constructor(init?: Partial<GapSettings>) {
-    if (!init) return;
+  constructor(init: Partial<GapSettings> = {}) {
     Object.assign(this, init);
   }
 }
@@ -60,8 +57,7 @@ export class TypographySettings {
   textAlign: { [key in keyof TextAlignProps]: boolean } = {};
   size: SizeSettings = {md: true};
 
-  constructor(init?: Partial<TypographySettings>) {
-    if (!init) return;
+  constructor(init: Partial<TypographySettings> = {}) {
     Object.assign(this, init);
   }
 }
@@ -78,8 +74,7 @@ export class BaseButtonSettings {
   py: SizeSettings = {md: true};
   gap: GapSettings = new GapSettings();
 
-  constructor(init?: Partial<BaseButtonSettings>) {
-    if (!init) return;
+  constructor(init: Partial<BaseButtonSettings> = {}) {
     this.style = {...this.style, ...init.style};
     this.typography = new TypographySettings({...this.typography, ...init.typography});
     this.background = {...this.background, ...init.background};
@@ -91,10 +86,18 @@ export class BaseButtonSettings {
   }
 }
 
-export type ButtonSettings = {
-  tag: string;
+export class ButtonSettings {
+  tag: string = "button";
 
-  base: BaseButtonSettings;
-  hover: BaseButtonSettings;
-  active: BaseButtonSettings;
-};
+  base: BaseButtonSettings = new BaseButtonSettings();
+  hover: BaseButtonSettings = new BaseButtonSettings();
+  active: BaseButtonSettings = new BaseButtonSettings();
+
+  constructor(init: Partial<ButtonSettings> = {}) {
+    this.tag = init.tag ?? this.tag;
+    this.base = new BaseButtonSettings({...this.base, ...init.base});
+    this.hover = new BaseButtonSettings({...this.hover, ...init.hover});
+    this.active = new BaseButtonSettings({...this.active, ...init.active});
+  }
+
+}
