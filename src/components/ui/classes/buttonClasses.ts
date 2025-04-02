@@ -53,8 +53,8 @@ export class ButtonStyleClasses {
 
   constructor(
     base: ButtonBaseClasses = new ButtonBaseClasses(),
-    active: ButtonBaseClasses = new ButtonBaseClasses(activeBackgroundAppearanceClasses, textAppearanceClasses, borderAppearanceClasses),
-    hover: ButtonBaseClasses = new ButtonBaseClasses(hoverBackgroundAppearanceClasses, textAppearanceClasses, borderAppearanceClasses),
+    active: ButtonBaseClasses = new ButtonBaseClasses(activeBackgroundAppearanceClasses),
+    hover: ButtonBaseClasses = new ButtonBaseClasses(hoverBackgroundAppearanceClasses),
   ) {
     this.base = base;
     this.active = active;
@@ -67,13 +67,10 @@ export class ButtonClasses {
   style: Record<keyof ButtonStyleProps, ButtonStyleClasses>;
 
   constructor() {
-    let outlineBaseStyle = new ButtonBaseClasses(
-      backgroundAppearanceClasses, textAppearanceClasses, borderAppearanceClasses);
-    let outlineHoverStyle = new ButtonBaseClasses(
-      hoverBackgroundAppearanceClasses, textAppearanceClasses, borderAppearanceClasses);
+    let outlineBaseStyle = new ButtonBaseClasses();
+    let outlineHoverStyle = new ButtonBaseClasses(hoverBackgroundAppearanceClasses);
     outlineHoverStyle.shadow = hoverShadowClasses;
-    let outlineActiveStyle = new ButtonBaseClasses(
-      activeBackgroundAppearanceClasses, textAppearanceClasses, borderAppearanceClasses);
+    let outlineActiveStyle = new ButtonBaseClasses(activeBackgroundAppearanceClasses);
     let outlineStyle = new ButtonStyleClasses(outlineBaseStyle, outlineActiveStyle, outlineHoverStyle);
 
     let filledBaseStyle = new ButtonBaseClasses(
