@@ -89,11 +89,11 @@ export const shadowClasses: Record<keyof SizeProps, string> = {
 }
 
 export const hoverShadowClasses: Record<keyof SizeProps, string> = {
-  xs: "hover:shadow-xs",
-  sm: "hover:shadow-sm",
-  md: "hover:shadow-md",
-  lg: "hover:shadow-lg",
-  xl: "hover:shadow-xl"
+  xs: "hover:shadow-sm",
+  sm: "hover:shadow-md",
+  md: "hover:shadow-lg",
+  lg: "hover:shadow-xl",
+  xl: "hover:shadow-2xl"
 }
 
 export const noBorderClasses: Record<keyof NoBorderProps, string> = {

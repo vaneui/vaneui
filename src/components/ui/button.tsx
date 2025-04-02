@@ -1,85 +1,41 @@
 import { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { ButtonProps } from "./props/props";
-import {
-  borderAppearanceClasses,
-  backgroundAppearanceClasses,
-  filledBackgroundAppearanceClasses,
-  filledBorderAppearanceClasses,
-  hoverBackgroundAppearanceClasses,
-  filledHoverBackgroundAppearanceClasses,
-  activeBackgroundAppearanceClasses,
-  filledActiveBackgroundAppearanceClasses
-} from "./classes/appearanceValues";
-import {
-  textAppearanceClasses,
-  filledTextAppearanceClasses,
-} from "./classes/typographyClasses";
-import {
-  hoverShadowClasses,
-  shadowClasses
-} from "./classes/layoutClasses";
-import {
-  commonGaps
-} from "./classes/spacingClasses";
 import { ButtonSettings } from './settings/buttonSettings';
-import { ButtonClasses } from "./classes/buttonClasses";
-
-const defaultButtonClasses: ButtonClasses = {
-  baseClasses: "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap",
-  textSize: {xs: "text-xs/5", sm: "text-sm/5", md: "text-base", lg: "text-lg/6", xl: "text-xl/6",},
-  rounded: {xs: "rounded-sm", sm: "rounded-md", md: "rounded-md", lg: "rounded-lg", xl: "rounded-xl"},
-  px: {xs: "px-2", sm: "px-2.5", md: "px-3.5", lg: "px-5", xl: "px-6"},
-  py: {xs: "py-1", sm: "py-1.5", md: "py-2", lg: "py-3", xl: "py-4"},
-  shadow: shadowClasses,
-  style: {
-    filled: {
-      background: filledBackgroundAppearanceClasses,
-      hoverBackground: filledHoverBackgroundAppearanceClasses,
-      activeBackground: filledActiveBackgroundAppearanceClasses,
-      textAppearance: filledTextAppearanceClasses,
-      borderColor: filledBorderAppearanceClasses
-    },
-    outline: {
-      background: backgroundAppearanceClasses,
-      hoverBackground: hoverBackgroundAppearanceClasses,
-      activeBackground: activeBackgroundAppearanceClasses,
-      textAppearance: textAppearanceClasses,
-      borderColor: borderAppearanceClasses
-    }
-  }
-};
+import { ButtonClasses, ButtonStyleClasses } from "./classes/buttonClasses";
 
 export const Button = (props: ButtonProps): JSX.Element => {
-  const settings = new ButtonSettings();
-  const classes = defaultButtonClasses;
+  const buttonSettings = new ButtonSettings();
+  const buttonClasses = new ButtonClasses();
 
-  const isOutline = props.outline !== undefined ? props.outline : settings.base.style.outline;
-  const isFilled = props.filled !== undefined ? props.filled : settings.base.style.filled;
+  let styleClasses: ButtonStyleClasses;
 
-  const styleClasses = isFilled
-    ? classes.style.filled
-    : classes.style.outline;
+  if (props.outline === true) {
+    styleClasses = buttonClasses.style.outline;
+  } else if (props.filled === true) {
+    styleClasses = buttonClasses.style.filled;
+  } else {
+    styleClasses = buttonSettings.base.style.outline
+      ? buttonClasses.style.outline
+      : buttonClasses.style.filled;
+  }
 
-  return componentBuilder(props, props.tag ? props.tag : settings.tag, classes.baseClasses)
-    //apply base
-    .with(c => c
+  function applyState(c: any, type: 'base' | 'hover' | 'active') {
+    const classes = styleClasses[type];
+    const settings = buttonSettings[type];
+    return c
       .withPadding(classes.px, classes.py)
-      .withGaps(commonGaps, settings.base.gap)
-      .withShadow(classes.shadow, settings.base.shadow)
-      .withTypography(classes.textSize, styleClasses?.textAppearance, settings.base.typography)
-      .withBorder(styleClasses.borderColor, classes.rounded, settings.base.border)
-      .withAppearance(styleClasses.background, settings.base.background)
-    )
-    //apply hover
-    .with(c => c
-      .withShadow(hoverShadowClasses)
-      .withAppearance(styleClasses.hoverBackground, settings.hover.background)
-    )
-    //apply active
-    .with(c => c
-      .withAppearance(styleClasses.activeBackground, settings.active.background)
-    )
+      .withGaps(classes.gap, settings.gap)
+      .withShadow(classes.shadow, settings.shadow)
+      .withTypography(classes.textSize, classes.textAppearance, settings.typography)
+      .withBorder(classes.borderColor, classes.rounded, settings.border)
+      .withAppearance(classes.background, settings.background);
+  }
+
+  return componentBuilder(props, props.tag ?? buttonSettings.tag, buttonClasses.baseClasses)
+    .with(c => applyState(c, 'base'))
+    .with(c => applyState(c, 'hover'))
+    .with(c => applyState(c, 'active'))
     .registerKeys(['filled', 'outline'])
     .build();
 };

@@ -1,4 +1,4 @@
-import { ButtonStyleProps, CommonAppearanceProps, NoBorderProps, NoShadowProps } from "../props/props"
+import { CommonAppearanceProps } from "../props/props"
 
 // Background classes for filled buttons
 export const filledBackgroundAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
