@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { CardProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./classes/appearanceClasses";
-import { itemsClasses, roundedClasses } from "./classes/layoutClasses";
+import { itemsClasses, roundedClasses, directionClasses } from "./classes/layoutClasses";
 import { commonGaps } from "./classes/spacingClasses";
 import { BorderSettings } from './settings/borderSettings';
 
@@ -17,12 +17,17 @@ const cardBorderSettings: BorderSettings = {
   noBorder: false
 };
 
-export const Card = (props: CardProps): JSX.Element =>
-  componentBuilder(props, "div", "flex flex-col border overflow-hidden")
+export const Card = (props: CardProps): JSX.Element => {
+  const defaultDirection = !props.row && !props.column ? {column: true} : {};
+  const directionProps = {...defaultDirection, ...props};
+
+  return componentBuilder(directionProps, "div", "flex border overflow-hidden")
     .withClasses(itemsClasses)
     .withPadding()
     .withGaps()
     .withAppearance(layoutBackgroundAppearanceClasses, {default: true})
     .withBorder(borderAppearanceClasses, roundedClasses, cardBorderSettings)
     .withShadow()
+    .withClasses(directionClasses, {column: true})
     .build();
+};

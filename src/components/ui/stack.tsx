@@ -6,7 +6,7 @@ import {
   itemsClasses,
   justifyClasses,
   rowToColumnBreakpointClasses,
-  stackDirectionClasses,
+  directionClasses,
   wrapClasses
 } from "./classes/layoutClasses";
 import {
@@ -26,7 +26,7 @@ export const Stack = (props: StackProps): JSX.Element => {
     .withClasses(rowToColumnBreakpointClasses)
     .withPadding()
     .withClasses(justifyClasses)
-    .withClasses(stackDirectionClasses, {column: true})
+    .withClasses(directionClasses, {column: true})
     .withAppearance(layoutBackgroundAppearanceClasses, {transparent: true})
     .withClasses(wrapClasses)
     .build();

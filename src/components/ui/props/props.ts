@@ -131,7 +131,7 @@ export interface ButtonStyleProps {
   filled?: boolean;
 }
 
-export interface StackDirectionProps {
+export interface DirectionProps {
   row?: boolean;
   column?: boolean;
 }
@@ -177,6 +177,6 @@ export type RowProps = BaseComponentProps & WrapProps & SizeProps & NoGapProps &
 
 export type ColProps = BaseComponentProps & WrapProps & SizeProps & NoGapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
 
-export type CardProps = BaseComponentProps & SizeProps & NoGapProps & ItemsProps & SharpProps & CommonAppearanceProps & NoBorderProps & NoShadowProps & NoPaddingProps;
+export type CardProps = BaseComponentProps & SizeProps & NoGapProps & ItemsProps & SharpProps & CommonAppearanceProps & NoBorderProps & NoShadowProps & NoPaddingProps & DirectionProps;
 
-export type StackProps = BaseComponentProps & WrapProps & SizeProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & StackDirectionProps & NoPaddingProps;
+export type StackProps = BaseComponentProps & WrapProps & SizeProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & DirectionProps & NoPaddingProps;

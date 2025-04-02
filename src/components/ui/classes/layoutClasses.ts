@@ -2,7 +2,7 @@ import {
   BreakpointProps,
   ItemsProps,
   JustifyProps,
-  StackDirectionProps,
+  DirectionProps,
   PillProps,
   SharpProps,
   WrapProps,
@@ -37,7 +37,7 @@ export const justifyClasses: Record<keyof JustifyProps, string> = {
   justifyBaseline: "justify-baseline",
 }
 
-export const stackDirectionClasses: Record<keyof StackDirectionProps, string> = {
+export const directionClasses: Record<keyof DirectionProps, string> = {
   row: "flex-row",
   column: "flex-col"
 };
