@@ -28,16 +28,19 @@ import { GapSettings } from "../ui/settings/gapSettings";
 import { borderAppearanceClasses } from "../ui/classes/appearanceValues";
 import {
   hideClasses,
-  noGapClasses,
-  noPaddingClasses,
   pillClasses, positionClasses,
   roundedClasses,
   sharpClasses,
   shadowClasses,
+  noBorderClasses, noShadowClasses
+} from "../ui/classes/layoutClasses";
+import {
+  noGapClasses,
+  noPaddingClasses,
   pxClasses,
   pyClasses,
-  commonGaps, noBorderClasses, noShadowClasses
-} from "../ui/classes/layoutClasses";
+  commonGaps
+} from "../ui/classes/spacingClasses";
 import React from "react";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(

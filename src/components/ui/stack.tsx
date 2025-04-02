@@ -3,12 +3,15 @@ import { StackProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { layoutBackgroundAppearanceClasses } from "./classes/appearanceValues";
 import {
-  commonGaps, itemsClasses,
+  itemsClasses,
   justifyClasses,
   rowToColumnBreakpointClasses,
   stackDirectionClasses,
   wrapClasses
 } from "./classes/layoutClasses";
+import {
+  commonGaps
+} from "./classes/spacingClasses";
 
 export const Stack = (props: StackProps): JSX.Element => {
   const defaultDirection = !props.row && !props.column ? {column: true} : {};

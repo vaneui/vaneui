@@ -16,10 +16,12 @@ import {
   filledTextAppearanceClasses,
 } from "./classes/typographyClasses";
 import {
-  commonGaps,
   hoverShadowClasses,
   shadowClasses
 } from "./classes/layoutClasses";
+import {
+  commonGaps
+} from "./classes/spacingClasses";
 import { ButtonSettings } from './settings/buttonSettings';
 import { ButtonClasses } from "./classes/buttonClasses";
 

@@ -3,12 +3,14 @@ import { RowProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { layoutBackgroundAppearanceClasses } from "./classes/appearanceValues";
 import {
-  commonGaps,
   itemsClasses,
   justifyClasses,
   rowToColumnBreakpointClasses,
   wrapClasses
 } from "./classes/layoutClasses";
+import {
+  commonGaps
+} from "./classes/spacingClasses";
 
 /**
  * Row component for horizontal layouts.
