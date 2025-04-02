@@ -8,7 +8,7 @@ import { GapSettings } from "./gapSettings";
 
 export class BaseButtonSettings {
   style: ButtonStyleSettings = {outline: true, filled: false};
-  typography: TypographySettings = new TypographySettings();
+  typography: TypographySettings = new TypographySettings({fontWeight: {semibold: true}});
   background: CommonAppearanceSettings = {default: true};
   border: BorderSettings = new BorderSettings();
   shadow: ShadowSettings = new ShadowSettings();
