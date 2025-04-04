@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 import { ButtonSettings } from '../ui/settings/buttonSettings';
 import { ButtonClasses } from '../ui/classes/buttonClasses';
 
@@ -8,8 +8,6 @@ interface ThemeContextType {
     settings: ButtonSettings;
     classes: ButtonClasses;
   };
-  updateButtonSettings: (settings: Partial<ButtonSettings>) => void;
-  updateButtonClasses: (classes: Partial<ButtonClasses>) => void;
 }
 
 // Create the context with a default value
@@ -34,30 +32,9 @@ export function ThemeProvider({
   children,
   theme = {},
 }: ThemeProviderProps) {
-  // Initialize state with default or provided values
-  const [buttonSettings, setButtonSettings] = useState<ButtonSettings>(
-    new ButtonSettings(theme.button?.settings || {})
-  );
-  const [buttonClasses, setButtonClasses] = useState<ButtonClasses>(
-    Object.assign(new ButtonClasses(), theme.button?.classes || {})
-  );
-
-  // Function to update button settings
-  const updateButtonSettings = (settings: Partial<ButtonSettings>) => {
-    setButtonSettings(prevSettings => {
-      return new ButtonSettings({
-        ...prevSettings,
-        ...settings,
-      });
-    });
-  };
-
-  // Function to update button classes
-  const updateButtonClasses = (classes: Partial<ButtonClasses>) => {
-    setButtonClasses(prevClasses => {
-      return Object.assign(new ButtonClasses(), prevClasses, classes);
-    });
-  };
+  // Initialize with default or provided values
+  const buttonSettings = new ButtonSettings(theme.button?.settings || {});
+  const buttonClasses = Object.assign(new ButtonClasses(), theme.button?.classes || {});
 
   // Create the context value
   const contextValue: ThemeContextType = {
@@ -65,8 +42,6 @@ export function ThemeProvider({
       settings: buttonSettings,
       classes: buttonClasses,
     },
-    updateButtonSettings,
-    updateButtonClasses,
   };
 
   // Provide the context to children

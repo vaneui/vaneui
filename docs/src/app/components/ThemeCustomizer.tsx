@@ -1,38 +1,37 @@
 'use client'
 
 import React, { useState } from 'react';
-import { useTheme, Button, Card, Title, Text, Row, Stack, ButtonSettings, BorderSettings, GapSettings, ShadowSettings, TypographySettings } from 'vaneui';
+import { Button, Card, Title, Text, Row, Stack, ThemeProvider, ButtonSettings, BorderSettings, GapSettings, ShadowSettings, TypographySettings } from 'vaneui';
+
+// Define custom button settings
+const customButtonSettings = new ButtonSettings({
+  tag: "button",
+  base: {
+    style: {outline: false, filled: true},
+    typography: new TypographySettings({
+      fontWeight: {bold: true}
+    }),
+    px: {lg: true},
+    py: {lg: true},
+    background: {},
+    border: new BorderSettings,
+    shadow: new ShadowSettings,
+    gap: new GapSettings
+  }
+});
+
+// Create custom theme
+const customTheme = {
+  button: {
+    settings: customButtonSettings
+  }
+};
 
 export const ThemeCustomizer: React.FC = () => {
-  const theme = useTheme();
   const [useCustomTheme, setUseCustomTheme] = useState(false);
-
-  // Define custom button settings
-  const customButtonSettings = new ButtonSettings({
-    tag: "button",
-    base: {
-      style: {outline: false, filled: true},
-      typography: new TypographySettings({
-        fontWeight: {bold: true}
-      }),
-      px: {lg: true},
-      py: {lg: true},
-      background: {},
-      border: new BorderSettings,
-      shadow: new ShadowSettings,
-      gap: new GapSettings
-    }
-  });
 
   // Toggle between default and custom theme
   const toggleTheme = () => {
-    if (useCustomTheme) {
-      // Reset to default settings
-      theme.updateButtonSettings(new ButtonSettings());
-    } else {
-      // Apply custom settings
-      theme.updateButtonSettings(customButtonSettings);
-    }
     setUseCustomTheme(!useCustomTheme);
   };
 
@@ -58,11 +57,14 @@ export const ThemeCustomizer: React.FC = () => {
           </Button>
         </Row>
 
-        <Row>
-          <Button>Default Button</Button>
-          <Button filled>Filled Button</Button>
-          <Button outline>Outline Button</Button>
-        </Row>
+        {/* Wrap buttons with ThemeProvider using the appropriate theme */}
+        <ThemeProvider theme={useCustomTheme ? customTheme : {}}>
+          <Row>
+            <Button>Default Button</Button>
+            <Button filled>Filled Button</Button>
+            <Button outline>Outline Button</Button>
+          </Row>
+        </ThemeProvider>
 
         <Text sm>
           The custom theme makes all buttons larger with bold text and filled by default.
