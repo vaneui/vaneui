@@ -5,15 +5,14 @@ import {
   Col, 
   SectionTitle, 
   Row,
-  Title
-} from 'vaneui';
+  Title,
+  Grid3
+} from '@vaneui/ui';
 import { 
   BoltIcon,
   AdjustmentsHorizontalIcon,
   PuzzlePieceIcon
 } from "@heroicons/react/24/outline";
-import {Grid3} from "../../../../src";
-
 export function FeaturesSection() {
   return (
     <Section className="py-20 z-10">

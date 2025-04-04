@@ -14,7 +14,7 @@ import {
   Chip,
   Divider,
   Badge
-} from 'vaneui';
+} from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import { CodeBlock } from "../components/CodeBlock";
 import { ThemeCustomizer } from "../components/ThemeCustomizer";

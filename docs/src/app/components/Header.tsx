@@ -1,4 +1,4 @@
-import { Title, Row, Col, Text, Button } from 'vaneui';
+import { Title, Row, Col, Text, Button } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Image from 'next/image'
 import Link from 'next/link'

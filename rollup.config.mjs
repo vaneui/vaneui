@@ -15,11 +15,13 @@ export default [
         file: pkg.main,
         format: "cjs",
         sourcemap: true,
+        banner: useClientBanner,
       },
       {
         file: pkg.module,
         format: "esm",
         sourcemap: true,
+        banner: useClientBanner,
       },
     ],
     plugins: [

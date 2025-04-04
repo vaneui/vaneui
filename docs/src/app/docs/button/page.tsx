@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Row } from 'vaneui';
+import { Button, Row } from '@vaneui/ui';
 import { ComponentDocs } from '../ComponentDocs';
 import { ComponentLayout } from '../ComponentLayout';
 import { createDefaultPropCategories } from '../utils/propUtils';
@@ -160,7 +160,7 @@ export default function ButtonPage() {
         description="Interactive elements for user actions with various sizes and styles."
         propCategories={propCategories}
         examples={examples}
-        importStatement="import { Button } from 'vaneui';"
+        importStatement="import { Button } from '@vaneui/ui';"
       />
     </ComponentLayout>
   );

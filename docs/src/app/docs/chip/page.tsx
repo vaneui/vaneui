@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chip, Row } from 'vaneui';
+import { Chip, Row } from '@vaneui/ui';
 import { ComponentDocs } from '../ComponentDocs';
 import { ComponentLayout } from '../ComponentLayout';
 import { createDefaultPropCategories } from '../utils/propUtils';
@@ -132,7 +132,7 @@ export default function ChipPage() {
         description="Chips are compact elements that represent an input, attribute, or action."
         propCategories={propCategories}
         examples={examples}
-        importStatement="import { Chip } from 'vaneui';"
+        importStatement="import { Chip } from '@vaneui/ui';"
       />
     </ComponentLayout>
   );

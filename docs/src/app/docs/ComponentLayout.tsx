@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Container, Row, Col } from 'vaneui';
+import { Container, Row, Col } from '@vaneui/ui';
 import { ComponentsNav } from './ComponentsNav';
 import { Header } from '../components/Header';
 import { usePathname } from 'next/navigation';

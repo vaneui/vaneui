@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge, Row } from 'vaneui';
+import { Badge, Row } from '@vaneui/ui';
 import { ComponentDocs } from '../ComponentDocs';
 import { ComponentLayout } from '../ComponentLayout';
 import { createDefaultPropCategories } from '../utils/propUtils';
@@ -100,7 +100,7 @@ export default function BadgePage() {
         description="Badges are small elements that can be used to represent a status, category, or tag."
         propCategories={propCategories}
         examples={examples}
-        importStatement="import { Badge } from 'vaneui';"
+        importStatement="import { Badge } from '@vaneui/ui';"
       />
     </ComponentLayout>
   );

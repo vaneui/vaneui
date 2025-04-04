@@ -6,7 +6,7 @@ import {
   SectionTitle, 
   Row,
   Title
-} from 'vaneui';
+} from '@vaneui/ui';
 import { CodeBlock } from "../components/CodeBlock";
 
 export function ThemingSection() {
@@ -17,9 +17,9 @@ export function ThemingSection() {
           <Col md className="mb-6 md:mb-0">
             <SectionTitle>CSS Variables & Theming</SectionTitle>
             <Text lg className="mb-4">VaneUI uses CSS variables for theming, making it easy to customize the look and feel of your application.</Text>
-            
+
             <Text className="mb-6">The framework includes a comprehensive set of CSS variables for colors, spacing, typography, and more. These variables can be customized globally or at the component level.</Text>
-            
+
             <div className="p-4 bg-gray-50 rounded-lg border border-gray-200 mb-6">
               <Title sm className="mb-2">Benefits of our CSS Variable System:</Title>
               <ul className="list-disc pl-5 space-y-1">
@@ -29,10 +29,10 @@ export function ThemingSection() {
                 <li><Text>Easy integration with design systems</Text></li>
               </ul>
             </div>
-            
+
             <Text>Change your entire design system by updating a few CSS variables!</Text>
           </Col>
-          
+
           <Col md className="flex-1">
             <CodeBlock
               fileName="ThemeExample.css"
@@ -45,23 +45,23 @@ export function ThemingSection() {
   --vane-primary-500: #3b82f6;
   --vane-primary-600: #2563eb;
   --vane-primary-700: #1d4ed8;
-  
+
   /* Secondary colors */
   --vane-secondary-50: #f5f3ff;
   --vane-secondary-500: #8b5cf6;
   --vane-secondary-700: #6d28d9;
-  
+
   /* Spacing scale */
   --vane-spacing-2: 0.5rem;
   --vane-spacing-4: 1rem;
   --vane-spacing-6: 1.5rem;
-  
+
   /* Typography */
   --vane-font-family: 'Inter', sans-serif;
   --vane-text-sm: 0.875rem;
   --vane-text-base: 1rem;
   --vane-text-lg: 1.125rem;
-  
+
   /* Border radius */
   --vane-radius-sm: 0.25rem;
   --vane-radius-md: 0.375rem;
@@ -73,17 +73,17 @@ export function ThemingSection() {
   --vane-primary-50: #1e293b;
   --vane-primary-500: #3b82f6;
   --vane-primary-700: #60a5fa;
-  
+
   /* Background and text colors */
   --vane-bg-primary: #0f172a;
   --vane-text-primary: #f8fafc;
 }`}
             />
-            
+
             <CodeBlock
               fileName="ThemeUsage.tsx"
               language="tsx"
-              code={`import { Button, Row, Col } from 'vaneui';
+              code={`import { Button, Row, Col } from '@vaneui/ui';
 
 function ThemedComponents() {
   return (

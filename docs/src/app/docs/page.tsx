@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageTitle, Text, Col, Row, Link } from 'vaneui';
+import { PageTitle, Text, Col, Row, Link } from '@vaneui/ui';
 import { ComponentLayout } from './ComponentLayout';
 
 // Component groups with their components
@@ -54,7 +54,7 @@ export default function DocsPage() {
           <Col key={groupIndex} className="mt-12">
             <Text lg semibold>{group.name}</Text>
             <Text secondary className="mb-4">{group.description}</Text>
-            
+
             <Row className="flex-wrap">
               {group.components.map((component, componentIndex) => (
                 <Col key={componentIndex} className="w-full md:w-1/2 lg:w-1/3 p-2">

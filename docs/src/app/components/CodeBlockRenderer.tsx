@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { highlight } from './syntax-highlighter';
-import { Row, Col } from 'vaneui';
+import { Row, Col } from '@vaneui/ui';
 
 interface CodeBlockRendererProps {
   code: string;

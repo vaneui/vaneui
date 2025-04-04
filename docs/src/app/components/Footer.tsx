@@ -1,4 +1,4 @@
-import { Link, Text, Title, Section, Container, Col, Row, Grid3 } from 'vaneui';
+import { Link, Text, Title, Section, Container, Col, Row, Grid3 } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 
 export function Footer() {

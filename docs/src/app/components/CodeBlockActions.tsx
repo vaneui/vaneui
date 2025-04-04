@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Button, Row, Stack, Text } from 'vaneui';
+import { Button, Row, Stack, Text } from '@vaneui/ui';
 import { Square2StackIcon, CheckIcon } from "@heroicons/react/24/outline";
 
 interface CodeBlockActionsProps {

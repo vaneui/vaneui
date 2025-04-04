@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Link, Text, Col, Row } from 'vaneui';
+import { Link, Text, Col, Row } from '@vaneui/ui';
 import { BeakerIcon, BookOpenIcon, CubeIcon, Square3Stack3DIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 
 // Component groups with their components

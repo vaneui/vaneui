@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Stack } from 'vaneui';
+import { Card, Col, Stack } from '@vaneui/ui';
 import { CodeBlockRenderer } from './CodeBlockRenderer';
 import { CodeBlockActions } from './CodeBlockActions';
 

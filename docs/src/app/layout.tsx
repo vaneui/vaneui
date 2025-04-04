@@ -3,7 +3,7 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import '../styles/globals.css';
-import { ThemeProvider } from 'vaneui';
+import { ThemeProvider } from './../../../dist/components/theme';
 import React from 'react';
 
 const inter = Inter({

@@ -6,7 +6,7 @@ import {
   SectionTitle,
   Row,
   Title
-} from 'vaneui';
+} from '@vaneui/ui';
 import {
   CubeIcon,
   SparklesIcon,
@@ -57,7 +57,7 @@ export function TailwindSection() {
             <CodeBlock
               fileName="TailwindExample.tsx"
               language="tsx"
-              code={`import { Button, Col, Row } from 'vaneui';
+              code={`import { Button, Col, Row } from '@vaneui/ui';
 
 // VaneUI components work seamlessly with Tailwind classes
 function TailwindExample() {
