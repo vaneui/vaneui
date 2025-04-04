@@ -15,6 +15,10 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./theme": {
+      "import": "./dist/components/theme/index.js",
+      "types": "./dist/components/theme/index.d.ts"
+    },
     "./complex": {
       "import": "./dist/components/complex/index.js",
       "require": "./dist/components/complex/index.js",

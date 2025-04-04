@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "declarationDir": "dist/components/theme",
+    "composite": true
+  },
+  "include": [
+    "src/components/theme/**/*",
+    "src/components/ui/settings/buttonSettings.ts",
+    "src/components/ui/classes/buttonClasses.ts"
+  ]
+}

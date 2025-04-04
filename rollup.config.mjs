@@ -4,6 +4,9 @@ import commonjs from "@rollup/plugin-commonjs";
 import typescript from "rollup-plugin-typescript2";
 import pkg from "./package.json";
 
+// Banner for 'use client' directive
+const useClientBanner = `'use client';\n`;
+
 export default [
   {
     input: "src/index.ts",
@@ -40,6 +43,23 @@ export default [
       resolve(),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.complex.json" }),
+    ],
+  },
+  {
+    input: "src/components/theme/index.ts",
+    output: [
+      {
+        file: "dist/components/theme/index.js",
+        format: "esm",
+        sourcemap: true,
+        banner: useClientBanner,
+      },
+    ],
+    plugins: [
+      peerDepsExternal(),
+      resolve(),
+      commonjs(),
+      typescript({ tsconfig: "./tsconfig.theme.json" }),
     ],
   },
 ];
