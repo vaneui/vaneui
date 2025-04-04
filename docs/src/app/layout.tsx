@@ -1,6 +1,10 @@
-import type {Metadata} from 'next';
-import {Inter, JetBrains_Mono} from 'next/font/google';
+'use client';
+
+import type { Metadata } from 'next';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import '../styles/globals.css';
+import { ThemeProvider } from 'vaneui';
+import React from 'react';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -14,10 +18,10 @@ const jetBrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 })
 
-export const metadata: Metadata = {
-  title: 'VaneUI Documentation',
-  description: 'Documentation and component showcase for VaneUI library',
-};
+//export const metadata: Metadata = {
+//  title: 'VaneUI Documentation',
+//  description: 'Documentation and component showcase for VaneUI library',
+//};
 
 export default function RootLayout({
                                      children,
@@ -34,7 +38,9 @@ export default function RootLayout({
       <link rel="manifest" href="/site.webmanifest"/>
     </head>
     <body className={`${inter.className} ${jetBrainsMono.variable}`}>
-    {children}
+    <ThemeProvider>
+      {children}
+    </ThemeProvider>
     </body>
     </html>
   );

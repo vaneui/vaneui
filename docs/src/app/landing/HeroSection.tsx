@@ -1,3 +1,5 @@
+'use client';
+
 import {
   PageTitle,
   Text,
@@ -15,6 +17,7 @@ import {
 } from 'vaneui';
 import { PRODUCT } from '../constants';
 import { CodeBlock } from "../components/CodeBlock";
+import { ThemeCustomizer } from "../components/ThemeCustomizer";
 import Link from "next/link";
 import Image from "next/image";
 import githubMark from './../../../public/github-mark.svg'
@@ -100,6 +103,11 @@ export function DogCard() {
 } `}
           />
         </Col>
+      </Container>
+
+      {/* Theme Customization Demo */}
+      <Container md className="z-10 mt-12">
+        <ThemeCustomizer />
       </Container>
     </Section>
   );
