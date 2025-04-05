@@ -1,8 +1,16 @@
 'use server';
 
 import React from 'react';
-import { highlight } from './syntax-highlighter';
 import { Row, Col } from '@vaneui/ui';
+import Prism from "prismjs";
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-tsx';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-scss';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-bash';
 
 interface CodeBlockRendererProps {
   code: string;
@@ -11,14 +19,22 @@ interface CodeBlockRendererProps {
 
 export async function CodeBlockRenderer({ code, language }: CodeBlockRendererProps) {
   // First perform syntax highlighting on the original code
-  const highlightedCode = highlight(code, language);
+  const highlightedCode = Prism.highlight(
+    code,
+    Prism.languages[language] || Prism.languages.typescript,
+    language
+  );
 
   // Split the code to count lines for rendering
   const codeLines = code.split('\n');
 
   // Generate line numbers
   const lineNumbers = codeLines.map((_, i) => i + 1).join('\n');
-  const highlightedLineNumbers = highlight(lineNumbers, language);
+  const highlightedLineNumbers = Prism.highlight(
+    lineNumbers,
+    Prism.languages[language] || Prism.languages.typescript,
+    language
+  );
 
   return (
     <Row noGap className="overflow-auto">

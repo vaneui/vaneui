@@ -8,8 +8,8 @@ import { CodeBlockActions } from './CodeBlockActions';
 interface CodeBlockProps {
   code: string;
   language: string;
-  className?: string;
-  fileName?: string;
+  className: string;
+  fileName: string;
 }
 
 export async function CodeBlock({ code, language, className = '', fileName = '' }: CodeBlockProps) {
