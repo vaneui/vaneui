@@ -1,10 +1,11 @@
-import { Title, Row, Col, Text, Button } from '@vaneui/ui';
+'use client'
+
+import { Title, Row, Col, Text, Button, Section } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Image from 'next/image'
 import Link from 'next/link'
 import githubMark from './../../../public/github-mark.svg'
 import logo from './../../../public/logo.svg'
-import {Section} from "../../../../src";
 
 export function Header() {
   return (
