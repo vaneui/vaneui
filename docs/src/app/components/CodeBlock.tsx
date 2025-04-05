@@ -1,4 +1,4 @@
-'use server'
+"use client";
 
 import React from 'react';
 import { Card, Stack } from '@vaneui/ui';
@@ -12,7 +12,7 @@ interface CodeBlockProps {
   fileName?: string;
 }
 
-export async function CodeBlock({ code, language, className = '', fileName = '' }: CodeBlockProps) {
+export function CodeBlock({ code, language, className = '', fileName = '' }: CodeBlockProps) {
   return (
     <Card noGap noPadding lg className={`w-full ${className}`}>
       <Stack xs row justifyBetween className="border-b">
@@ -25,4 +25,4 @@ export async function CodeBlock({ code, language, className = '', fileName = '' 
       </Stack>
     </Card>
   );
-} 
+}
