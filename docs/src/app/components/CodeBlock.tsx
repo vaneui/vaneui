@@ -1,5 +1,7 @@
+'use server'
+
 import React from 'react';
-import { Card, Col, Stack } from '@vaneui/ui';
+import { Card, Stack } from '@vaneui/ui';
 import { CodeBlockRenderer } from './CodeBlockRenderer';
 import { CodeBlockActions } from './CodeBlockActions';
 
@@ -10,7 +12,7 @@ interface CodeBlockProps {
   fileName?: string;
 }
 
-export function CodeBlock({ code, language, className = '', fileName = '' }: CodeBlockProps) {
+export async function CodeBlock({ code, language, className = '', fileName = '' }: CodeBlockProps) {
   return (
     <Card noGap noPadding lg className={`w-full ${className}`}>
       <Stack xs row justifyBetween className="border-b">
