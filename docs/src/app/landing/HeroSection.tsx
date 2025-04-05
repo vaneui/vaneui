@@ -1,4 +1,4 @@
-'use client';
+'use server';
 
 import {
   PageTitle,
@@ -29,7 +29,7 @@ const dog = {
   description: "Luka is a 5 months old puppy who loves to play with his toys. He is a very friendly and playful puppy, and he is looking for a new home."
 }
 
-export function HeroSection() {
+export async function HeroSection() {
   return (
     <Section xl relative
              className="border-b bg-gradient-to-r from-slate-100 via-white to-slate-100 mt-[calc(36px+(var(--spacing)*6))]">
