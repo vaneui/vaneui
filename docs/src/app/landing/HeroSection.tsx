@@ -56,22 +56,20 @@ export async function HeroSection() {
       <Container sm className="z-10 -mb-12">
         <Col itemsCenter>
           <Col className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
-            <Card xl noPadding>
-              <Row noGap smCol>
-                <img src={dog.image} alt="puppy" className="object-cover self-stretch w-48 max-sm:w-80"/>
-                <Stack sm>
-                  <Row justifyBetween>
-                    <Title>{dog.name}</Title>
-                    <Chip sm bold>{dog.gender}</Chip>
-                  </Row>
-                  <Divider/>
-                  <Text sm>{dog.description}</Text>
-                  <Row justifyEnd>
-                    <Button sm success filled>Adopt</Button>
-                    <Button sm secondary>Learn more</Button>
-                  </Row>
-                </Stack>
-              </Row>
+            <Card xl row smCol noPadding noGap>
+              <img src={dog.image} alt="puppy" className="object-cover self-stretch w-48 max-sm:w-80"/>
+              <Stack sm>
+                <Row justifyBetween>
+                  <Title>{dog.name}</Title>
+                  <Chip sm bold>{dog.gender}</Chip>
+                </Row>
+                <Divider/>
+                <Text sm>{dog.description}</Text>
+                <Row justifyEnd>
+                  <Button sm success filled>Adopt</Button>
+                  <Button sm secondary>Learn more</Button>
+                </Row>
+              </Stack>
             </Card>
           </Col>
           <CodeBlock className="z-0 lg:-mt-[calc(var(--spacing)*20)] shadow-xl"
@@ -82,23 +80,21 @@ import dog from './data/dog.json';
 
 export function DogCard() {
   return (
-    <Card xl noPadding>
-      <Row noGap smCol>
-        <img src={dog.image} alt="puppy" className="self-stretch w-52 max-sm:w-80" />
-        <Stack>
-          <Row justifyBetween>
-            <Title>{dog.name}</Title>
-            <Chip sm semibold>{dog.gender}</Chip>
-          </Row>
-          <Divider />
-          <Text sm>{dog.description}</Text>
-          <Row justifyEnd>
-            <Button sm success filled>Adopt</Button>
-            <Button sm secondary>Learn more</Button>
-          </Row>
-        </Stack>
-      </Row>
-    </Card>  
+    <Card xl row noPadding noGap>
+      <img src={dog.image} className="object-cover self-stretch w-48 max-sm:w-80"/>
+      <Stack sm>
+        <Row justifyBetween>
+          <Title>{dog.name}</Title>
+          <Chip sm bold>{dog.gender}</Chip>
+        </Row>
+        <Divider/>
+        <Text sm>{dog.description}</Text>
+        <Row justifyEnd>
+          <Button sm success filled>Adopt</Button>
+          <Button sm secondary>Learn more</Button>
+        </Row>
+      </Stack>
+    </Card>
   );
 } `}
           />
@@ -107,7 +103,7 @@ export function DogCard() {
 
       {/* Theme Customization Demo */}
       <Container md className="z-10 mt-12">
-        <ThemeCustomizer />
+        <ThemeCustomizer/>
       </Container>
     </Section>
   );

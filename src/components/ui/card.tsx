@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { CardProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./classes/appearanceClasses";
-import { itemsClasses, roundedClasses, directionClasses } from "./classes/layoutClasses";
+import { itemsClasses, roundedClasses, directionClasses, rowToColumnBreakpointClasses } from "./classes/layoutClasses";
 import { commonGaps } from "./classes/spacingClasses";
 import { BorderSettings } from './settings/borderSettings';
 
@@ -28,6 +28,7 @@ export const Card = (props: CardProps): JSX.Element => {
     .withAppearance(layoutBackgroundAppearanceClasses, {default: true})
     .withBorder(borderAppearanceClasses, roundedClasses, cardBorderSettings)
     .withShadow()
+    .withClasses(rowToColumnBreakpointClasses)
     .withClasses(directionClasses, {column: true})
     .build();
 };
