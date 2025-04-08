@@ -5,6 +5,7 @@ import { BorderSettings } from "./borderSettings";
 import { ShadowSettings } from "./shadowSettings";
 import { SizeSettings } from "./sizeSettings";
 import { GapSettings } from "./gapSettings";
+import { deepMerge } from "../../utils/deepMerge";
 
 export class BaseButtonSettings {
   style: ButtonStyleSettings = {outline: true, filled: false};
@@ -17,13 +18,7 @@ export class BaseButtonSettings {
   gap: GapSettings = new GapSettings();
 
   constructor(init: Partial<BaseButtonSettings> = {}) {
-    this.style = {...this.style, ...init.style};
-    this.typography = new TypographySettings({...this.typography, ...init.typography});
-    this.background = {...this.background, ...init.background};
-    this.border = new BorderSettings({...this.border, ...init.border});
-    this.shadow = new ShadowSettings({...this.shadow, ...init.shadow});
-    this.px = {...this.px, ...init.px};
-    this.py = {...this.py, ...init.py};
-    this.gap = new GapSettings({...this.gap, ...init.gap});
+    const merged = deepMerge(this, init);
+    Object.assign(this, merged);
   }
 }

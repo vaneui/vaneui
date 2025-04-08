@@ -1,5 +1,6 @@
 import { CommonAppearanceSettings } from "./commonAppearanceSettings";
 import { SizeSettings } from "./sizeSettings";
+import { deepMerge } from "../../utils/deepMerge";
 
 export class BorderSettings {
   color: CommonAppearanceSettings = {default: true};
@@ -11,7 +12,7 @@ export class BorderSettings {
   noBorder: boolean = false;
 
   constructor(init: Partial<BorderSettings> = {}) {
-    Object.assign(this, init);
-    this.radius = {...this.radius, ...init.radius};
+    const merged = deepMerge(this, init);
+    Object.assign(this, merged);
   }
 }

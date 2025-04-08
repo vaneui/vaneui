@@ -8,6 +8,7 @@ import {
   TextTransformProps
 } from "../props/props";
 import { SizeSettings } from "./sizeSettings";
+import { deepMerge } from "../../utils/deepMerge";
 
 export class TypographySettings {
   fontFamily: { [key in keyof FontFamilyProps]: boolean } = {};
@@ -20,6 +21,7 @@ export class TypographySettings {
   size: SizeSettings = {md: true};
 
   constructor(init: Partial<TypographySettings> = {}) {
-    Object.assign(this, init);
+    const merged = deepMerge(this, init);
+    Object.assign(this, merged);
   }
 }
