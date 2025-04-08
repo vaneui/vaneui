@@ -41,8 +41,12 @@ export function deepMerge<T extends object>(target: T, source?: Partial<T>): T {
         typeof targetValue === 'object' && 
         targetValue !== null
       ) {
+        // Handle arrays - replace instead of merge
+        if (Array.isArray(sourceValue)) {
+          result[key] = [...sourceValue];
+        }
         // Handle class instances by checking constructor
-        if (
+        else if (
           targetValue.constructor && 
           targetValue.constructor !== Object && 
           typeof targetValue.constructor === 'function'
