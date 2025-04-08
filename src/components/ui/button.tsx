@@ -27,7 +27,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
   } else if (props.filled === true) {
     styleClasses = buttonClasses.style.filled;
   } else {
-    styleClasses = buttonSettings.base.style.outline
+    styleClasses = buttonSettings.base.style?.outline
       ? buttonClasses.style.outline
       : buttonClasses.style.filled;
   }
@@ -41,7 +41,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
       .withShadow(classes.shadow, settings.shadow)
       .withTypography(classes.textSize, classes.textAppearance, settings.typography)
       .withBorder(classes.borderColor, classes.rounded, settings.border)
-      .withAppearance(classes.background, settings.background);
+      .withAppearance(classes.background, settings.background!);
   }
 
   return componentBuilder(props, props.tag ?? buttonSettings.tag, buttonClasses.baseClasses)

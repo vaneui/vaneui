@@ -14,3 +14,5 @@ export { BorderSettings } from "./components/ui/settings/borderSettings";
 export { ShadowSettings } from "./components/ui/settings/shadowSettings";
 export { SizeSettings } from "./components/ui/settings/sizeSettings";
 export { GapSettings } from "./components/ui/settings/gapSettings";
+
+export { ThemeProvider, useTheme } from './components/theme/themeContext';

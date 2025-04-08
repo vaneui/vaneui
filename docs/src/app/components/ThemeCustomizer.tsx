@@ -1,23 +1,17 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Button, Card, Title, Text, Row, Stack, ButtonSettings, BorderSettings, GapSettings, ShadowSettings, TypographySettings } from '@vaneui/ui';
-import { ThemeProvider } from './../../../../dist/components/theme';
+import { Button, Card, Title, Text, Row, Stack, ButtonSettings, BorderSettings, ShadowSettings, TypographySettings, ThemeProvider } from '@vaneui/ui';
 
 // Define custom button settings
 const customButtonSettings = new ButtonSettings({
   tag: "button",
   base: {
-    style: {outline: false, filled: true},
     typography: new TypographySettings({
-      fontWeight: {bold: true}
+      fontWeight: {light: true,}
     }),
-    px: {lg: true},
-    py: {lg: true},
-    background: {},
-    border: new BorderSettings,
-    shadow: new ShadowSettings,
-    gap: new GapSettings
+    border: new BorderSettings({noBorder: true}),
+    shadow: new ShadowSettings({noShadow: true}),
   }
 });
 
