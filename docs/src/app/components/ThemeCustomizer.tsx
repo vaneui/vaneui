@@ -24,7 +24,7 @@ const customButtonSettings = new ButtonSettings({
 // Create custom theme
 const customTheme = {
   button: {
-    settings: customButtonSettings
+    settings: customButtonSettings,
   }
 };
 

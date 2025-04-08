@@ -8,7 +8,7 @@ import {
   ResponsiveSection,
   LayoutSection,
   ThemingSection,
-  GetStartedSection
+  GetStartedSection, ThemeCustomizationSection
 } from './landing';
 
 export default function Home() {
@@ -17,6 +17,7 @@ export default function Home() {
       <Header />
       <Col noGap className="flex-grow">
         <HeroSection />
+        <ThemeCustomizationSection />
         <FeaturesSection />
         <TailwindSection />
         <ResponsiveSection />

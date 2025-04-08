@@ -8,7 +8,7 @@ import { CodeBlockActions } from './CodeBlockActions';
 interface CodeBlockProps {
   code: string;
   language: string;
-  className: string;
+  className?: string;
   fileName: string;
 }
 
