@@ -13,7 +13,8 @@ export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
       xl: "text-7xl max-lg:text-6xl max-md:text-5xl",
     }, textAppearanceClasses, {
       fontWeight: {semibold: true},
-      textAppearance: {default: true}
+      textAppearance: {default: true},
+      size: {md: true}
     })
     .build();
 
@@ -27,7 +28,8 @@ export const SectionTitle = (props: TypographyComponentProps): JSX.Element =>
       xl: "text-6xl max-lg:text-5xl max-md:text-4xl",
     }, textAppearanceClasses, {
       fontWeight: {semibold: true},
-      textAppearance: {default: true}
+      textAppearance: {default: true},
+      size: {md: true}
     })
     .build();
 
@@ -41,7 +43,8 @@ export const Title = (props: TypographyComponentProps): JSX.Element =>
       xl: "text-4xl",
     }, textAppearanceClasses, {
       fontWeight: {semibold: true},
-      textAppearance: {default: true}
+      textAppearance: {default: true},
+      size: {md: true}
     })
     .build();
 
