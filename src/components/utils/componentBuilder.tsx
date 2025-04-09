@@ -163,6 +163,8 @@ export class ComponentBuilder {
     textAppearance?: Record<keyof TextAppearanceProps, string>,
     settings: Partial<TypographySettings> = new TypographySettings()
   ): this {
+    if(!textSize && !textAppearance)
+      return this;
     return this
       .withClasses(fontFamilyClasses, settings.fontFamily)
       .withClasses(fontStyleClasses, settings.fontStyle)
