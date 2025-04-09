@@ -99,12 +99,16 @@ export class ComponentBuilder {
 
     if (settings) {
       const settingsClass = getBooleanClass(settings || {}, propMap);
-      this.extraClasses.push(settingsClass);
+      if (settingsClass !== "") {
+        this.extraClasses.push(settingsClass);
+      }
     }
 
     // Compute the class.
     const newClass = getBooleanClass(propsSubset, propMap);
-    this.extraClasses.push(newClass);
+    if (newClass !== "") {
+      this.extraClasses.push(newClass);
+    }
 
     // Register all keys found in the map.
     this.registerKeys(keys as string[]);
@@ -114,6 +118,7 @@ export class ComponentBuilder {
   private finalize(): React.ReactElement {
     const {className, children, tag} = this.baseProps;
     const Tag = tag || this.defaultTag;
+    console.log("twMerge", this.baseClasses, this.extraClasses, className)
     const merged = twMerge(this.baseClasses, ...this.extraClasses, className);
 
     this.propsToRemove.forEach(key => delete this.otherProps[key as keyof typeof this.otherProps]);
