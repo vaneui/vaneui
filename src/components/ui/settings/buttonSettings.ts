@@ -11,7 +11,7 @@ export class ButtonSettings {
   constructor(init: Partial<ButtonSettings> = {}) {
     this.tag = init.tag ?? this.tag;
     this.base = new BaseButtonSettings(deepMerge(this.base, init.base));
-    this.hover = new BaseButtonSettings(deepMerge(this.hover, init.hover));
-    this.active = new BaseButtonSettings(deepMerge(this.active, init.active));
+    this.hover = deepMerge(this.hover, init.hover);
+    this.active = deepMerge(this.active, init.active);
   }
 }

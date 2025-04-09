@@ -14,7 +14,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 // Define the shape of our theme props
-interface ThemeProps {
+export interface ThemeProps {
   button?: {
     settings?: Partial<ButtonSettings>;
     classes?: Partial<ButtonClasses>;
@@ -22,7 +22,7 @@ interface ThemeProps {
 }
 
 // Props for the ThemeProvider component
-interface ThemeProviderProps {
+export interface ThemeProviderProps {
   children: React.ReactNode;
   theme?: ThemeProps;
 }

@@ -135,7 +135,7 @@ export class ComponentBuilder {
 
   withShadow(classes?: Record<keyof SizeProps, string>, settings: ShadowSettings = new ShadowSettings()): this {
     return this
-      .withClasses(classes, settings.size)
+      .withClasses(classes, settings.noShadow ? {} : settings.size)
       .withClasses(noShadowClasses, {noShadow: settings.noShadow});
   }
 
