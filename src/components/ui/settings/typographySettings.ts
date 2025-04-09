@@ -24,4 +24,5 @@ export class TypographySettings {
     const merged = deepMerge(this, init);
     Object.assign(this, merged);
   }
+
 }

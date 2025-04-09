@@ -54,6 +54,23 @@ export function deepMerge<T extends object>(target: T, source?: Partial<T>): T {
           // If it's a class instance, create a new instance with merged properties
           const Constructor = targetValue.constructor as new (arg: any) => any;
           result[key] = new Constructor(deepMerge(targetValue, sourceValue));
+        } 
+        // Handle objects with all boolean values (like fontWeight and size in TypographySettings)
+        else if (
+          isAllBooleanValues(targetValue) && 
+          isAllBooleanValues(sourceValue) && 
+          hasTrueValue(sourceValue)
+        ) {
+          // Create a new object with all values set to false
+          const newObj: any = {};
+          for (const k in targetValue) {
+            newObj[k] = false;
+          }
+          // Then apply the source values
+          for (const k in sourceValue) {
+            newObj[k] = sourceValue[k];
+          }
+          result[key] = newObj;
         } else {
           // For plain objects, just deep merge
           result[key] = deepMerge(targetValue, sourceValue);
@@ -66,4 +83,42 @@ export function deepMerge<T extends object>(target: T, source?: Partial<T>): T {
   }
 
   return result;
+}
+
+/**
+ * Checks if all values in an object are booleans
+ * @param obj The object to check
+ * @returns True if all values are booleans, false otherwise
+ */
+function isAllBooleanValues(obj: any): boolean {
+  if (typeof obj !== 'object' || obj === null) {
+    return false;
+  }
+
+  for (const key in obj) {
+    if (typeof obj[key] !== 'boolean') {
+      return false;
+    }
+  }
+
+  return Object.keys(obj).length > 0;
+}
+
+/**
+ * Checks if an object has at least one true value
+ * @param obj The object to check
+ * @returns True if the object has at least one true value, false otherwise
+ */
+function hasTrueValue(obj: any): boolean {
+  if (typeof obj !== 'object' || obj === null) {
+    return false;
+  }
+
+  for (const key in obj) {
+    if (obj[key] === true) {
+      return true;
+    }
+  }
+
+  return false;
 }

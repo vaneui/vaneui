@@ -103,4 +103,88 @@ describe('deepMerge function', () => {
     expect(result).toEqual(target);
     expect(result).not.toBe(target); // Should be a new object, not the same reference
   });
+
+  // Test handling of objects with all boolean values
+  test('should handle objects with all boolean values correctly', () => {
+    // Test case for fontWeight in TypographySettings
+    const target = { 
+      fontWeight: { 
+        semibold: true, 
+        light: false, 
+        normal: false 
+      } 
+    };
+    const source = { 
+      fontWeight: { 
+        semibold: false, 
+        light: true, 
+        normal: false 
+      } 
+    };
+    // Use type assertion to bypass TypeScript's strict type checking
+    const result = deepMerge(target, source as any);
+
+    // All values in the target object should be set to false, and then the source values should be applied
+    expect(result).toEqual({ 
+      fontWeight: { 
+        semibold: false, 
+        light: true, 
+        normal: false 
+      } 
+    });
+
+    // Test case for size in TypographySettings
+    const targetSize = { 
+      size: { 
+        md: true, 
+        sm: false, 
+        lg: false 
+      } 
+    };
+    const sourceSize = { 
+      size: { 
+        md: false, 
+        sm: true, 
+        lg: false 
+      } 
+    };
+    // Use type assertion to bypass TypeScript's strict type checking
+    const resultSize = deepMerge(targetSize, sourceSize as any);
+
+    // All values in the target object should be set to false, and then the source values should be applied
+    expect(resultSize).toEqual({ 
+      size: { 
+        md: false, 
+        sm: true, 
+        lg: false 
+      } 
+    });
+
+    // Test case where source has no true values
+    const targetNoTrue = { 
+      fontWeight: { 
+        semibold: true, 
+        light: false, 
+        normal: false 
+      } 
+    };
+    const sourceNoTrue = { 
+      fontWeight: { 
+        semibold: false, 
+        light: false, 
+        normal: false 
+      } 
+    };
+    // Use type assertion to bypass TypeScript's strict type checking
+    const resultNoTrue = deepMerge(targetNoTrue, sourceNoTrue as any);
+
+    // In this case, the normal deep merge should be applied, not the special handling
+    expect(resultNoTrue).toEqual({ 
+      fontWeight: { 
+        semibold: false, 
+        light: false, 
+        normal: false 
+      } 
+    });
+  });
 });
