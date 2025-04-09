@@ -118,7 +118,7 @@ export class ComponentBuilder {
   private finalize(): React.ReactElement {
     const {className, children, tag} = this.baseProps;
     const Tag = tag || this.defaultTag;
-    console.log("twMerge", this.baseClasses, this.extraClasses, className)
+    //console.log("twMerge", this.baseClasses, this.extraClasses, className)
     const merged = twMerge(this.baseClasses, ...this.extraClasses, className);
 
     this.propsToRemove.forEach(key => delete this.otherProps[key as keyof typeof this.otherProps]);
