@@ -85,9 +85,12 @@ export class ComponentBuilder {
   }
 
   withClasses<T extends Record<string, string>>(
-    propMap: Record<keyof T, string>,
+    propMap?: Record<keyof T, string>,
     settings?: { [key: string]: boolean }
   ): this {
+    if(propMap === undefined)
+      return this;
+
     // Build a subset of props from otherProps for the keys in the map.
     const propsSubset: Partial<Record<keyof T, boolean>> = {} as Partial<Record<keyof T, boolean>>;
     const keys = Object.keys(propMap) as (keyof T)[];
@@ -118,7 +121,7 @@ export class ComponentBuilder {
   private finalize(): React.ReactElement {
     const {className, children, tag} = this.baseProps;
     const Tag = tag || this.defaultTag;
-    //console.log("twMerge", this.baseClasses, this.extraClasses, className)
+    console.log("twMerge", this.baseClasses, this.extraClasses, className)
     const merged = twMerge(this.baseClasses, ...this.extraClasses, className);
 
     this.propsToRemove.forEach(key => delete this.otherProps[key as keyof typeof this.otherProps]);
@@ -130,14 +133,14 @@ export class ComponentBuilder {
     );
   }
 
-  withShadow(classes: Record<keyof SizeProps, string> = shadowClasses, settings: ShadowSettings = new ShadowSettings()): this {
+  withShadow(classes?: Record<keyof SizeProps, string>, settings: ShadowSettings = new ShadowSettings()): this {
     return this
       .withClasses(classes, settings.size)
       .withClasses(noShadowClasses, {noShadow: settings.noShadow});
   }
 
-  withPadding(px: Record<keyof SizeProps, string> = pxClasses,
-              py: Record<keyof SizeProps, string> = pyClasses,
+  withPadding(px?: Record<keyof SizeProps, string>,
+              py?: Record<keyof SizeProps, string>,
               settings?: SizeSettings): this {
     return this
       .withClasses(px, settings || {md: true})
@@ -145,13 +148,13 @@ export class ComponentBuilder {
       .withClasses(noPaddingClasses);
   }
 
-  withGaps(gapClasses: Record<keyof SizeProps, string> = commonGaps, settings: GapSettings = new GapSettings()): this {
+  withGaps(gapClasses?: Record<keyof SizeProps, string>, settings: GapSettings = new GapSettings()): this {
     return this
       .withClasses(gapClasses, settings.size)
       .withClasses(noGapClasses, {noGap: settings.noGap});
   }
 
-  withAppearance(appearance: Record<keyof CommonAppearanceProps, string>, settings: CommonAppearanceSettings): this {
+  withAppearance(appearance?: Record<keyof CommonAppearanceProps, string>, settings?: CommonAppearanceSettings): this {
     return this.withClasses(appearance, settings);
   }
 
@@ -167,13 +170,13 @@ export class ComponentBuilder {
       .withClasses(textDecorationClasses, settings.textDecoration)
       .withClasses(textTransformClasses, settings.textTransform)
       .withClasses(textAlignClasses, settings.textAlign)
-      .withClasses(textAppearance || textAppearanceClasses, settings.textAppearance)
-      .withClasses(textSize || textSizeClasses, settings.size);
+      .withClasses(textAppearance, settings.textAppearance)
+      .withClasses(textSize, settings.size);
   }
 
   withBorder(
-    borderColorMap: Record<keyof CommonAppearanceProps, string> = borderAppearanceClasses,
-    roundedMap: Record<keyof SizeProps, string> = roundedClasses,
+    borderColorMap?: Record<keyof CommonAppearanceProps, string>,
+    roundedMap?: Record<keyof SizeProps, string>,
     settings: BorderSettings = new BorderSettings()
   ): this {
     return this

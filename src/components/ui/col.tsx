@@ -14,7 +14,7 @@ import { commonGaps } from "./classes/spacingClasses";
  */
 export const Col = (props: ColProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-col")
-    .withGaps()
+    .withGaps(commonGaps)
     .withClasses({
       reverse: "flex-col-reverse"
     })

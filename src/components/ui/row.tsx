@@ -21,7 +21,7 @@ import {
  */
 export const Row = (props: RowProps): JSX.Element =>
   componentBuilder(props, "div", "flex flex-row")
-    .withGaps()
+    .withGaps(commonGaps)
     .withClasses({
       reverse: "flex-row-reverse"
     })

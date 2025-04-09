@@ -36,12 +36,12 @@ export const Button = (props: ButtonProps): JSX.Element => {
     const classes = styleClasses[type];
     const settings = buttonSettings[type];
     return c
-      .withPadding(classes.px, classes.py)
-      .withGaps(classes.gap, settings.gap)
-      .withShadow(classes.shadow, settings.shadow)
-      .withTypography(classes.textSize, classes.textAppearance, settings.typography)
-      .withBorder(classes.borderColor, classes.rounded, settings.border)
-      .withAppearance(classes.background, settings.background!);
+      .withPadding(classes?.px, classes?.py)
+      .withGaps(classes?.gap, settings.gap)
+      .withShadow(classes?.shadow, settings.shadow)
+      .withTypography(classes?.textSize, classes?.textAppearance, settings.typography)
+      .withBorder(classes?.borderColor, classes?.rounded, settings.border)
+      .withAppearance(classes?.background, settings.background);
   }
 
   return componentBuilder(props, props.tag ?? buttonSettings.tag, buttonClasses.baseClasses)

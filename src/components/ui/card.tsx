@@ -2,8 +2,14 @@ import { JSX } from 'react';
 import { CardProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./classes/appearanceClasses";
-import { itemsClasses, roundedClasses, directionClasses, rowToColumnBreakpointClasses } from "./classes/layoutClasses";
-import { commonGaps } from "./classes/spacingClasses";
+import {
+  itemsClasses,
+  roundedClasses,
+  directionClasses,
+  rowToColumnBreakpointClasses,
+  shadowClasses
+} from "./classes/layoutClasses";
+import { commonGaps, pxClasses, pyClasses } from "./classes/spacingClasses";
 import { BorderSettings } from './settings/borderSettings';
 
 // Border settings for Card
@@ -23,11 +29,11 @@ export const Card = (props: CardProps): JSX.Element => {
 
   return componentBuilder(directionProps, "div", "flex border overflow-hidden")
     .withClasses(itemsClasses)
-    .withPadding()
-    .withGaps()
+    .withPadding(pxClasses, pyClasses)
+    .withGaps(commonGaps)
     .withAppearance(layoutBackgroundAppearanceClasses, {default: true})
     .withBorder(borderAppearanceClasses, roundedClasses, cardBorderSettings)
-    .withShadow()
+    .withShadow(shadowClasses)
     .withClasses(rowToColumnBreakpointClasses)
     .withClasses(directionClasses, {column: true})
     .build();

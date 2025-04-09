@@ -10,7 +10,7 @@ import {
   wrapClasses
 } from "./classes/layoutClasses";
 import {
-  commonGaps
+  commonGaps, pxClasses, pyClasses
 } from "./classes/spacingClasses";
 
 export const Stack = (props: StackProps): JSX.Element => {
@@ -18,13 +18,13 @@ export const Stack = (props: StackProps): JSX.Element => {
   const directionProps = {...defaultDirection, ...props};
 
   return componentBuilder(directionProps, "div", "flex")
-    .withGaps()
+    .withGaps(commonGaps)
     .withClasses({
       reverse: props.row ? "flex-row-reverse" : "flex-col-reverse"
     })
     .withClasses(itemsClasses)
     .withClasses(rowToColumnBreakpointClasses)
-    .withPadding()
+    .withPadding(pxClasses, pyClasses)
     .withClasses(justifyClasses)
     .withClasses(directionClasses, {column: true})
     .withAppearance(layoutBackgroundAppearanceClasses, {transparent: true})

@@ -5,7 +5,6 @@ import { Button, Card, Title, Text, Row, Stack, ButtonSettings, BorderSettings, 
 
 // Define custom button settings
 const customButtonSettings = new ButtonSettings({
-  tag: "button",
   base: {
     typography: new TypographySettings({
       fontWeight: {light: true,}
@@ -24,6 +23,8 @@ const customTheme = {
 
 export const ThemeCustomizer: React.FC = () => {
   const [useCustomTheme, setUseCustomTheme] = useState(false);
+
+  console.log("customTheme", customTheme);
 
   // Toggle between default and custom theme
   const toggleTheme = () => {
