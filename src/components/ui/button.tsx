@@ -32,15 +32,17 @@ export const Button = (props: ButtonProps): JSX.Element => {
       : buttonClasses.style.filled;
   }
 
+  console.log("button settings", buttonSettings)
+
   function applyState(c: ComponentBuilder, type: 'base' | 'hover' | 'active') {
     const classes = styleClasses[type];
     const settings = buttonSettings[type];
     return c
       .withPadding(classes?.px, classes?.py)
-      .withGaps(classes?.gap, settings.gap)
-      .withShadow(classes?.shadow, settings.shadow)
-      .withTypography(classes?.textSize, classes?.textAppearance, settings.typography)
-      .withBorder(classes?.borderColor, classes?.rounded, settings.border)
+      .withGaps(classes?.gap, settings?.gap)
+      .withShadow(classes?.shadow, settings?.shadow)
+      .withTypography(classes?.textSize, classes?.textAppearance, settings?.typography)
+      .withBorder(classes?.borderColor, classes?.rounded, settings?.border)
       .withAppearance(classes?.background, settings.background);
   }
 

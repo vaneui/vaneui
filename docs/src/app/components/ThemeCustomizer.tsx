@@ -1,24 +1,21 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Button, Card, Title, Text, Row, Stack, ButtonSettings, BorderSettings, ShadowSettings, TypographySettings,
-  ThemeProvider, ThemeProps } from '@vaneui/ui';
+import {
+  Button, Card, Title, Text, Row, Stack, ThemeProvider, ThemeProps
+} from '@vaneui/ui';
 
-// Define custom button settings
-const customButtonSettings = new ButtonSettings({
-  base: {
-    typography: new TypographySettings({
-      fontWeight: {light: true,}
-    }),
-    border: new BorderSettings({noBorder: true}),
-    shadow: new ShadowSettings({noShadow: true}),
-  }
-});
-
-// Create custom theme
-const customTheme : ThemeProps = {
+const customTheme: ThemeProps = {
   button: {
-    settings: customButtonSettings,
+    settings: {
+      base: {
+        typography: {
+          fontWeight: {light: true}
+        },
+        border: {noBorder: true},
+        shadow: {noShadow: true},
+      }
+    },
   }
 };
 
@@ -45,7 +42,7 @@ export const ThemeCustomizer: React.FC = () => {
           <Text semibold>
             {useCustomTheme ? 'Using Custom Theme' : 'Using Default Theme'}
           </Text>
-          <Button 
+          <Button
             onClick={toggleTheme}
             filled={useCustomTheme}
             outline={!useCustomTheme}

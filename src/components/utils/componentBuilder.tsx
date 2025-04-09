@@ -133,10 +133,10 @@ export class ComponentBuilder {
     );
   }
 
-  withShadow(classes?: Record<keyof SizeProps, string>, settings: ShadowSettings = new ShadowSettings()): this {
+  withShadow(classes?: Record<keyof SizeProps, string>, settings?: Partial<ShadowSettings>): this {
     return this
-      .withClasses(classes, settings.noShadow ? {} : settings.size)
-      .withClasses(noShadowClasses, {noShadow: settings.noShadow});
+      .withClasses(classes, settings?.noShadow ? {} : settings?.size)
+      .withClasses(noShadowClasses, settings?.noShadow ? {noShadow: settings?.noShadow} : {});
   }
 
   withPadding(px?: Record<keyof SizeProps, string>,
@@ -148,10 +148,10 @@ export class ComponentBuilder {
       .withClasses(noPaddingClasses);
   }
 
-  withGaps(gapClasses?: Record<keyof SizeProps, string>, settings: GapSettings = new GapSettings()): this {
+  withGaps(gapClasses?: Record<keyof SizeProps, string>, settings: Partial<GapSettings> = new GapSettings()): this {
     return this
       .withClasses(gapClasses, settings.size)
-      .withClasses(noGapClasses, {noGap: settings.noGap});
+      .withClasses(noGapClasses, settings.noGap ? {noGap: settings.noGap} : {});
   }
 
   withAppearance(appearance?: Record<keyof CommonAppearanceProps, string>, settings?: CommonAppearanceSettings): this {
@@ -177,14 +177,14 @@ export class ComponentBuilder {
   withBorder(
     borderColorMap?: Record<keyof CommonAppearanceProps, string>,
     roundedMap?: Record<keyof SizeProps, string>,
-    settings: BorderSettings = new BorderSettings()
+    settings?: Partial<BorderSettings>
   ): this {
     return this
-      .withClasses(borderColorMap, settings.color)
-      .withClasses(roundedMap, settings.radius.rounded)
-      .withClasses(pillClasses, {pill: settings.radius.pill})
-      .withClasses(sharpClasses, {sharp: settings.radius.sharp})
-      .withClasses(noBorderClasses, {noBorder: settings.noBorder});
+      .withClasses(borderColorMap, settings?.color)
+      .withClasses(roundedMap, settings?.radius?.rounded)
+      .withClasses(pillClasses, settings?.radius?.pill ? {pill: settings?.radius?.pill} : {})
+      .withClasses(sharpClasses, settings?.radius?.sharp ? {sharp: settings?.radius?.sharp} : {})
+      .withClasses(noBorderClasses, settings?.noBorder ? {noBorder: settings?.noBorder} : {});
   }
 
   with(action: (b: ComponentBuilder) => ComponentBuilder): this {

@@ -8,14 +8,24 @@ import { GapSettings } from "./gapSettings";
 import { deepMerge } from "../../utils/deepMerge";
 
 export class BaseButtonSettings {
-  style: ButtonStyleSettings = {outline: true, filled: false};
-  typography: TypographySettings = new TypographySettings({fontWeight: {semibold: true}});
-  background: CommonAppearanceSettings = {default: true};
-  border: BorderSettings = new BorderSettings();
-  shadow: ShadowSettings = new ShadowSettings();
-  px: SizeSettings = {md: true};
-  py: SizeSettings = {md: true};
-  gap: GapSettings = new GapSettings();
+  style: Partial<ButtonStyleSettings> = {outline: true, filled: false};
+  typography: Partial<TypographySettings> = {
+    fontWeight: {semibold: true},
+    textAppearance: {default: true},
+    size: {md: true},
+  };
+  background: Partial<CommonAppearanceSettings> = {default: true};
+  border: Partial<BorderSettings> = {
+    radius: {
+      rounded: {md: true},
+      pill: false,
+      sharp: false
+    }
+  };
+  shadow: Partial<ShadowSettings> = {size: {md: true}, noShadow: false};
+  px: Partial<SizeSettings> = {md: true};
+  py: Partial<SizeSettings> = {md: true};
+  gap: Partial<GapSettings> = {size: {md: true}, noGap: false};
 
   constructor(init: Partial<BaseButtonSettings> = {}) {
     const merged = deepMerge(this, init);
