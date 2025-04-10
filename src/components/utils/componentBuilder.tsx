@@ -32,7 +32,7 @@ import {
   roundedClasses,
   sharpClasses,
   shadowClasses,
-  noShadowClasses, noBorderModeClasses
+  noShadowClasses, noBorderModeClasses, borderModeClasses
 } from "../ui/classes/layoutClasses";
 import {
   noGapClasses,
@@ -82,6 +82,14 @@ export class ComponentBuilder {
     keys.forEach((key) => {
       if (this.propsToRemove.indexOf(key) === -1) this.propsToRemove.push(key);
     });
+    return this;
+  }
+
+  withClass(prop: string, className: string = "", condition: boolean | undefined): this {
+    if(condition != undefined && condition){
+      this.extraClasses.push(className);
+    }
+    this.registerKeys([prop])
     return this;
   }
 
@@ -183,12 +191,17 @@ export class ComponentBuilder {
     settings?: Partial<BorderSettings>,
     mode: Mode = 'base'
   ): this {
+    const hasNoBorderSetting = settings?.noBorder !== undefined;
+    const noBorder = hasNoBorderSetting && settings!.noBorder;
+    console.log("border settings", mode, settings)
     return this
       .withClasses(borderColorMap, settings?.color)
       .withClasses(roundedMap, settings?.radius?.rounded)
       .withClasses(pillClasses, settings?.radius?.pill ? {pill: settings?.radius?.pill} : {})
       .withClasses(sharpClasses, settings?.radius?.sharp ? {sharp: settings?.radius?.sharp} : {})
-      .withClasses(noBorderModeClasses[mode], settings?.noBorder ? {noBorder: settings?.noBorder} : {});
+      .withClass("noBorder", noBorderModeClasses[mode], mode !== "base" && noBorder)
+      .withClass("noBorder", borderModeClasses[mode], !noBorder)
+      //.withClasses(noBorderModeClasses[mode], settings?.noBorder ? {noBorder: settings?.noBorder} : {});
   }
 
   with(action: (b: ComponentBuilder) => ComponentBuilder): this {

@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { ComponentBuilder, componentBuilder } from "../utils/componentBuilder";
 import { ButtonProps } from "./props/props";
 import { ButtonSettings } from './settings/buttonSettings';
-import { ButtonClasses, ButtonStyleClasses } from "./classes/buttonClasses";
+import { ButtonBaseClasses, ButtonClasses } from "./classes/buttonClasses";
 import { useTheme } from '../theme';
 import { Mode } from "./settings/mode";
 
@@ -21,7 +21,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
     buttonClasses = new ButtonClasses();
   }
 
-  let styleClasses: ButtonStyleClasses;
+  let styleClasses: Record<Mode, Partial<ButtonBaseClasses>>;
 
   if (props.outline === true) {
     styleClasses = buttonClasses.style.outline;

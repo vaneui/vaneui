@@ -20,7 +20,9 @@ export class BaseButtonSettings {
       rounded: {md: true},
       pill: false,
       sharp: false
-    }
+    },
+    noBorder: false,
+    color: {default: true},
   };
   shadow: Partial<ShadowSettings> = {size: {md: true}, noShadow: false};
   px: Partial<SizeSettings> = {md: true};

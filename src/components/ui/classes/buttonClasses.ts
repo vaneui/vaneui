@@ -42,7 +42,7 @@ export class ButtonBaseClasses {
 }
 
 export class ButtonClasses {
-  baseClasses: string = "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap";
+  baseClasses: string = "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-300 whitespace-nowrap";
 
   style: Record<keyof ButtonStyleProps, Record<Mode, Partial<ButtonBaseClasses>>> = {
     outline: {

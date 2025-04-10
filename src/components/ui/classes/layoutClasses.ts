@@ -103,10 +103,16 @@ export const hoverShadowClasses: Record<keyof SizeProps, string> = {
   xl: "hover:shadow-2xl"
 }
 
-export const noBorderModeClasses: Record<Mode, Record<keyof NoBorderProps, string>> = {
-  base: {noBorder: "border-none"},
-  hover: {noBorder: "hover:border-none"},
-  active: {noBorder: "active:border-none"},
+export const noBorderModeClasses: Record<Mode, string> = {
+  base: "border-none",
+  hover: "hover:border-none",
+  active: "active:border-none",
+}
+
+export const borderModeClasses: Record<Mode, string> = {
+  base: "border",
+  hover: "hover:border",
+  active: "active:border",
 }
 
 export const noShadowClasses: Record<keyof NoShadowProps, string> = {
