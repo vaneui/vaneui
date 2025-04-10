@@ -12,8 +12,14 @@ const customTheme: ThemeProps = {
         typography: {
           fontWeight: {light: true}
         },
-        border: {noBorder: true},
+        border: {noBorder: true, radius: {pill: true}},
         shadow: {noShadow: true},
+      },
+      hover: {
+        shadow: {size: {xs: true}},
+        border: {
+          noBorder: false
+        }
       }
     },
   }
