@@ -32,7 +32,7 @@ import {
   roundedClasses,
   sharpClasses,
   shadowClasses,
-  noBorderClasses, noShadowClasses
+  noShadowClasses, noBorderModeClasses
 } from "../ui/classes/layoutClasses";
 import {
   noGapClasses,
@@ -42,6 +42,7 @@ import {
   commonGaps
 } from "../ui/classes/spacingClasses";
 import React from "react";
+import { Mode } from "../ui/settings/mode";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(
   props: T,
@@ -179,14 +180,15 @@ export class ComponentBuilder {
   withBorder(
     borderColorMap?: Record<keyof CommonAppearanceProps, string>,
     roundedMap?: Record<keyof SizeProps, string>,
-    settings?: Partial<BorderSettings>
+    settings?: Partial<BorderSettings>,
+    mode: Mode = 'base'
   ): this {
     return this
       .withClasses(borderColorMap, settings?.color)
       .withClasses(roundedMap, settings?.radius?.rounded)
       .withClasses(pillClasses, settings?.radius?.pill ? {pill: settings?.radius?.pill} : {})
       .withClasses(sharpClasses, settings?.radius?.sharp ? {sharp: settings?.radius?.sharp} : {})
-      .withClasses(noBorderClasses, settings?.noBorder ? {noBorder: settings?.noBorder} : {});
+      .withClasses(noBorderModeClasses[mode], settings?.noBorder ? {noBorder: settings?.noBorder} : {});
   }
 
   with(action: (b: ComponentBuilder) => ComponentBuilder): this {

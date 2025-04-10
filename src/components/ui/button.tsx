@@ -4,6 +4,7 @@ import { ButtonProps } from "./props/props";
 import { ButtonSettings } from './settings/buttonSettings';
 import { ButtonClasses, ButtonStyleClasses } from "./classes/buttonClasses";
 import { useTheme } from '../theme';
+import { Mode } from "./settings/mode";
 
 export const Button = (props: ButtonProps): JSX.Element => {
   // Try to get settings from theme context, fall back to defaults if not available
@@ -34,15 +35,15 @@ export const Button = (props: ButtonProps): JSX.Element => {
 
   console.log("button settings", buttonSettings)
 
-  function applyState(c: ComponentBuilder, type: 'base' | 'hover' | 'active') {
-    const classes = styleClasses[type];
-    const settings = buttonSettings[type];
+  function applyState(c: ComponentBuilder, mode: Mode) {
+    const classes = styleClasses[mode];
+    const settings = buttonSettings[mode];
     return c
       .withPadding(classes?.px, classes?.py)
       .withGaps(classes?.gap, settings?.gap)
       .withShadow(classes?.shadow, settings?.shadow)
       .withTypography(classes?.textSize, classes?.textAppearance, settings?.typography)
-      .withBorder(classes?.borderColor, classes?.rounded, settings?.border)
+      .withBorder(classes?.borderColor, classes?.rounded, settings?.border, mode)
       .withAppearance(classes?.background, settings.background);
   }
 

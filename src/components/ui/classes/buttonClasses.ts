@@ -11,6 +11,7 @@ import {
 } from "./appearanceClasses";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "./typographyClasses";
 import { deepMerge } from "../../utils/deepMerge";
+import { Mode } from "../settings/mode";
 
 const buttonTextSizeClasses: Record<keyof SizeProps, string> = {
   xs: "text-xs/5",
@@ -40,16 +41,10 @@ export class ButtonBaseClasses {
   gap: Record<keyof SizeProps, string> = {xs: "gap-1.5", sm: "gap-2", md: "gap-3", lg: "gap-4", xl: "gap-5"};
 }
 
-export class ButtonStyleClasses {
-  base: ButtonBaseClasses = new ButtonBaseClasses;
-  active: Partial<ButtonBaseClasses> | undefined;
-  hover: Partial<ButtonBaseClasses> | undefined;
-}
-
 export class ButtonClasses {
   baseClasses: string = "w-fit h-fit cursor-pointer inline-flex items-center justify-center border transition-all duration-300 whitespace-nowrap";
 
-  style: Record<keyof ButtonStyleProps, ButtonStyleClasses> = {
+  style: Record<keyof ButtonStyleProps, Record<Mode, Partial<ButtonBaseClasses>>> = {
     outline: {
       base: new ButtonBaseClasses,
       active: {

@@ -9,6 +9,7 @@ import {
   HideProps, PositionProps,
   SizeProps, NoBorderProps, NoShadowProps
 } from "../props/props"
+import { Mode } from "../settings/mode";
 
 export const rowToColumnBreakpointClasses: Record<keyof BreakpointProps, string> = {
   xsCol: "max-xs:flex-col",
@@ -59,9 +60,15 @@ export const roundedClasses: Record<keyof SizeProps, string> = {
 export const pillClasses: Record<keyof PillProps, string> = {
   pill: "rounded-full"
 }
+export const hoverPillClasses: Record<keyof PillProps, string> = {
+  pill: "hover:rounded-full"
+}
 
 export const sharpClasses: Record<keyof SharpProps, string> = {
   sharp: "rounded-none"
+}
+export const hoverSharpClasses: Record<keyof SharpProps, string> = {
+  sharp: "hover:rounded-none"
 }
 
 export const hideClasses: Record<keyof HideProps, string> = {
@@ -96,10 +103,15 @@ export const hoverShadowClasses: Record<keyof SizeProps, string> = {
   xl: "hover:shadow-2xl"
 }
 
-export const noBorderClasses: Record<keyof NoBorderProps, string> = {
-  noBorder: "border-none"
+export const noBorderModeClasses: Record<Mode, Record<keyof NoBorderProps, string>> = {
+  base: {noBorder: "border-none"},
+  hover: {noBorder: "hover:border-none"},
+  active: {noBorder: "active:border-none"},
 }
 
 export const noShadowClasses: Record<keyof NoShadowProps, string> = {
   noShadow: "shadow-none"
+}
+export const hoverNoShadowClasses: Record<keyof NoShadowProps, string> = {
+  noShadow: "hover:shadow-none"
 }
