@@ -22,6 +22,20 @@ const customTheme: ThemeProps = {
         }
       }
     },
+    /*classes: {
+      style: {
+        outline: {
+          base: {},
+          hover: {},
+          active: {}
+        },
+        filled: {
+          base: {},
+          hover: {},
+          active: {}
+        }
+      }
+    }*/
   }
 };
 

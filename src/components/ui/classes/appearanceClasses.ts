@@ -111,7 +111,7 @@ export const borderAppearanceClasses: Record<keyof CommonAppearanceProps, string
   transparent: "border-transparent",
 }
 
-// Border classes for filled buttons
+// Border classes for filled elements
 export const filledBorderAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
   default: "border-(--filled-border-color-default)",
   primary: "border-(--filled-border-color-primary)",
@@ -124,4 +124,33 @@ export const filledBorderAppearanceClasses: Record<keyof CommonAppearanceProps, 
   warning: "border-(--filled-border-color-warning)",
   info: "border-(--filled-border-color-info)",
   transparent: "border-transparent",
+}
+
+export const ringAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
+  default: "ring-(--border-color-default)",
+  primary: "ring-(--border-color-primary)",
+  secondary: "ring-(--border-color-secondary)",
+  tertiary: "ring-(--border-color-tertiary)",
+
+  accent: "ring-(--border-color-accent)",
+  success: "ring-(--border-color-success)",
+  danger: "ring-(--border-color-danger)",
+  warning: "ring-(--border-color-warning)",
+  info: "ring-(--border-color-info)",
+  transparent: "ring-transparent",
+}
+
+// Ring classes for filled elements
+export const filledRingAppearanceClasses: Record<keyof CommonAppearanceProps, string> = {
+  default: "ring-(--filled-border-color-default)",
+  primary: "ring-(--filled-border-color-primary)",
+  secondary: "ring-(--filled-border-color-secondary)",
+  tertiary: "ring-(--filled-border-color-tertiary)",
+
+  accent: "ring-(--filled-border-color-accent)",
+  success: "ring-(--filled-border-color-success)",
+  danger: "ring-(--filled-border-color-danger)",
+  warning: "ring-(--filled-border-color-warning)",
+  info: "ring-(--filled-border-color-info)",
+  transparent: "ring-transparent",
 }

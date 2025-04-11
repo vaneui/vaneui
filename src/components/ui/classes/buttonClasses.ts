@@ -6,8 +6,8 @@ import {
   borderAppearanceClasses,
   filledActiveBackgroundAppearanceClasses,
   filledBackgroundAppearanceClasses, filledBorderAppearanceClasses,
-  filledHoverBackgroundAppearanceClasses,
-  hoverBackgroundAppearanceClasses
+  filledHoverBackgroundAppearanceClasses, filledRingAppearanceClasses,
+  hoverBackgroundAppearanceClasses, ringAppearanceClasses
 } from "./appearanceClasses";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "./typographyClasses";
 import { deepMerge } from "../../utils/deepMerge";
@@ -32,7 +32,7 @@ const buttonRoundedClasses: Record<keyof SizeProps, string> = {
 export class ButtonBaseClasses {
   background: Record<keyof CommonAppearanceProps, string> = backgroundAppearanceClasses;
   textAppearance: Record<keyof TextAppearanceProps, string> = textAppearanceClasses;
-  borderColor: Record<keyof CommonAppearanceProps, string> = borderAppearanceClasses;
+  borderColor: Record<keyof CommonAppearanceProps, string> = ringAppearanceClasses;
   textSize: Record<keyof SizeProps, string> = buttonTextSizeClasses;
   rounded: Record<keyof SizeProps, string> = buttonRoundedClasses;
   shadow: Record<keyof SizeProps, string> = shadowClasses;
@@ -42,6 +42,12 @@ export class ButtonBaseClasses {
 }
 
 export class ButtonClasses {
+
+  constructor(init: Partial<ButtonClasses> = {}) {
+    this.baseClasses = init.baseClasses ?? this.baseClasses;
+    this.style = deepMerge(this.style, init.style);
+  }
+
   baseClasses: string = "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-300 whitespace-nowrap";
 
   style: Record<keyof ButtonStyleProps, Record<Mode, Partial<ButtonBaseClasses>>> = {
@@ -59,7 +65,7 @@ export class ButtonClasses {
       base: deepMerge(new ButtonBaseClasses, {
         background: filledBackgroundAppearanceClasses,
         textAppearance: filledTextAppearanceClasses,
-        borderColor: filledBorderAppearanceClasses
+        borderColor: filledRingAppearanceClasses
       }),
       active: {
         background: filledActiveBackgroundAppearanceClasses

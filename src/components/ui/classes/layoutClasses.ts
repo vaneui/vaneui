@@ -103,6 +103,18 @@ export const hoverShadowClasses: Record<keyof SizeProps, string> = {
   xl: "hover:shadow-2xl"
 }
 
+export const noRingModeClasses: Record<Mode, string> = {
+  base: "ring-0",
+  hover: "hover:ring-0",
+  active: "active:ring-0",
+}
+
+export const ringModeClasses: Record<Mode, string> = {
+  base: "ring ring-inset",
+  hover: "hover:ring hover:ring-inset",
+  active: "active:ring active:ring-inset",
+}
+
 export const noBorderModeClasses: Record<Mode, string> = {
   base: "border-none",
   hover: "hover:border-none",

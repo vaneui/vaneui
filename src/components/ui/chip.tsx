@@ -1,7 +1,11 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
-import { backgroundAppearanceClasses, borderAppearanceClasses } from './classes/appearanceClasses';
+import {
+  backgroundAppearanceClasses,
+  borderAppearanceClasses,
+  ringAppearanceClasses
+} from './classes/appearanceClasses';
 import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
 import { BorderSettings } from './settings/borderSettings';
 
@@ -26,7 +30,7 @@ const chipBorderSettings: BorderSettings = {
 };
 
 export const Chip = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "span", "w-fit h-fit border inline-flex gap-2 items-center")
+  componentBuilder(props, "span", "w-fit h-fit inline-flex gap-2 items-center")
     .withPadding({
       xs: "px-2",
       sm: "px-2.5",
@@ -41,7 +45,7 @@ export const Chip = (props: TypographyComponentProps): JSX.Element =>
       xl: "py-4"
     })
     .withAppearance(backgroundAppearanceClasses, {default: true})
-    .withBorder(borderAppearanceClasses, chipRoundedClasses, chipBorderSettings)
+    .withBorder(ringAppearanceClasses, chipRoundedClasses, chipBorderSettings, 'base', 'ring')
     .withTypography(textSizeClasses, textAppearanceClasses, {
       fontFamily: {mono: true},
       textAppearance: {secondary: true},

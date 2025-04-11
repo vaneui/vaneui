@@ -11,15 +11,9 @@ export const Button = (props: ButtonProps): JSX.Element => {
   let buttonSettings: ButtonSettings;
   let buttonClasses: ButtonClasses;
 
-  try {
-    const theme = useTheme();
-    buttonSettings = theme.button.settings;
-    buttonClasses = theme.button.classes;
-  } catch (e) {
-    // Fallback to default settings if not within a ThemeProvider
-    buttonSettings = new ButtonSettings();
-    buttonClasses = new ButtonClasses();
-  }
+  const theme = useTheme();
+  buttonSettings = new ButtonSettings(theme.button?.settings !== undefined ? theme.button?.settings : {});
+  buttonClasses = new ButtonClasses(theme.button?.classes !== undefined ? theme.button?.classes : {});
 
   let styleClasses: Record<Mode, Partial<ButtonBaseClasses>>;
 
@@ -43,7 +37,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
       .withGaps(classes?.gap, settings?.gap)
       .withShadow(classes?.shadow, settings?.shadow)
       .withTypography(classes?.textSize, classes?.textAppearance, settings?.typography)
-      .withBorder(classes?.borderColor, classes?.rounded, settings?.border, mode)
+      .withBorder(classes?.borderColor, classes?.rounded, settings?.border, mode, 'ring')
       .withAppearance(classes?.background, settings.background);
   }
 

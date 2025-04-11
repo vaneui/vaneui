@@ -2,17 +2,6 @@ import React, { createContext, useContext } from 'react';
 import { ButtonSettings } from '../ui/settings/buttonSettings';
 import { ButtonClasses } from '../ui/classes/buttonClasses';
 
-// Define the shape of our theme context
-interface ThemeContextType {
-  button: {
-    settings: ButtonSettings;
-    classes: ButtonClasses;
-  };
-}
-
-// Create the context with a default value
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
 // Define the shape of our theme props
 export interface ThemeProps {
   button?: {
@@ -20,6 +9,9 @@ export interface ThemeProps {
     classes?: Partial<ButtonClasses>;
   };
 }
+
+// Create the context with a default value
+const ThemeContext = createContext<ThemeProps | undefined>(undefined);
 
 // Props for the ThemeProvider component
 export interface ThemeProviderProps {
@@ -37,7 +29,7 @@ export function ThemeProvider({
   const buttonClasses = Object.assign(new ButtonClasses(), theme.button?.classes || {});
 
   // Create the context value
-  const contextValue: ThemeContextType = {
+  const contextValue: ThemeProps = {
     button: {
       settings: buttonSettings,
       classes: buttonClasses,
@@ -53,7 +45,7 @@ export function ThemeProvider({
 }
 
 // Custom hook to use the theme context
-export const useTheme = (): ThemeContextType => {
+export const useTheme = (): ThemeProps => {
   const context = useContext(ThemeContext);
   if (context === undefined) {
     throw new Error('useTheme must be used within a ThemeProvider');

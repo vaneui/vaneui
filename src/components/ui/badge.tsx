@@ -1,7 +1,11 @@
 import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
-import { backgroundAppearanceClasses, borderAppearanceClasses } from './classes/appearanceClasses';
+import {
+  backgroundAppearanceClasses,
+  borderAppearanceClasses,
+  ringAppearanceClasses
+} from './classes/appearanceClasses';
 import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
 import { BorderSettings } from './settings/borderSettings';
 import { roundedClasses } from "./classes/layoutClasses";
@@ -18,7 +22,7 @@ const badgeBorderSettings: BorderSettings = {
 };
 
 export const Badge = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "span", "w-fit h-fit border inline-flex gap-2 items-center")
+  componentBuilder(props, "span", "w-fit h-fit inline-flex gap-2 items-center")
     .withPadding({
       xs: "px-2",
       sm: "px-2.5",
@@ -33,7 +37,7 @@ export const Badge = (props: TypographyComponentProps): JSX.Element =>
       xl: "py-4"
     })
     .withAppearance(backgroundAppearanceClasses, {default: true})
-    .withBorder(borderAppearanceClasses, roundedClasses, badgeBorderSettings)
+    .withBorder(ringAppearanceClasses, roundedClasses, badgeBorderSettings, 'base', 'ring')
     .withTypography(textSizeClasses, textAppearanceClasses, {
       fontWeight: {semibold: true},
       fontFamily: {sans: true},

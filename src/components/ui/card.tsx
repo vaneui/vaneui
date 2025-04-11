@@ -27,12 +27,12 @@ export const Card = (props: CardProps): JSX.Element => {
   const defaultDirection = !props.row && !props.column ? {column: true} : {};
   const directionProps = {...defaultDirection, ...props};
 
-  return componentBuilder(directionProps, "div", "flex border overflow-hidden")
+  return componentBuilder(directionProps, "div", "flex overflow-hidden")
     .withClasses(itemsClasses)
     .withPadding(pxClasses, pyClasses)
     .withGaps(commonGaps)
     .withAppearance(layoutBackgroundAppearanceClasses, {default: true})
-    .withBorder(borderAppearanceClasses, roundedClasses, cardBorderSettings)
+    .withBorder(borderAppearanceClasses, roundedClasses, cardBorderSettings, 'base', 'border')
     .withShadow(shadowClasses)
     .withClasses(rowToColumnBreakpointClasses)
     .withClasses(directionClasses, {column: true})
