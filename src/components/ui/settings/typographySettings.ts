@@ -18,7 +18,7 @@ export class TypographySettings {
   textDecoration: { [key in keyof TextDecorationProps]: boolean } = {};
   textTransform: { [key in keyof TextTransformProps]: boolean } = {};
   textAlign: { [key in keyof TextAlignProps]: boolean } = {};
-  size: SizeSettings = {md: true};
+  size: SizeSettings = new SizeSettings;
 
   constructor(init: Partial<TypographySettings> = {}) {
     const merged = deepMerge(this, init);

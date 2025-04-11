@@ -9,12 +9,13 @@ import {
 import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
 import { BorderSettings } from './settings/borderSettings';
 import { roundedClasses } from "./classes/layoutClasses";
+import { SizeSettings } from "./settings/sizeSettings";
 
 // Border settings for Badge
 const badgeBorderSettings: BorderSettings = {
   color: {default: true},
   radius: {
-    rounded: {md: true},
+    rounded: new SizeSettings,
     pill: true,
     sharp: false
   },
@@ -43,6 +44,6 @@ export const Badge = (props: TypographyComponentProps): JSX.Element =>
       fontFamily: {sans: true},
       textTransform: {uppercase: true},
       textAppearance: {secondary: true},
-      size: {md: true}
+      size: new SizeSettings
     })
     .build();

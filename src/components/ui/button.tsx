@@ -20,7 +20,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
     buttonClasses = theme.button.classes(buttonClasses);
   }
 
-  let styleClasses: Record<Mode, Partial<ButtonBaseClasses>>;
+  let styleClasses: Record<Mode, ButtonBaseClasses>;
 
   if (props.outline === true) {
     styleClasses = buttonClasses.style.outline;
@@ -37,8 +37,10 @@ export const Button = (props: ButtonProps): JSX.Element => {
   function applyState(c: ComponentBuilder, mode: Mode) {
     const classes = styleClasses[mode];
     const settings = buttonSettings[mode];
+    console.log("button settings " + mode, buttonSettings[mode])
+    console.log("button classes " + mode, styleClasses[mode])
     return c
-      .withPadding(classes?.px, classes?.py)
+      .withPadding(classes?.px, classes?.py, settings?.px, settings?.py)
       .withGaps(classes?.gap, settings?.gap)
       .withShadow(classes?.shadow, settings?.shadow)
       .withTypography(classes?.textSize, classes?.textAppearance, settings?.typography)
@@ -51,5 +53,6 @@ export const Button = (props: ButtonProps): JSX.Element => {
     .with(c => applyState(c, 'hover'))
     .with(c => applyState(c, 'active'))
     .registerKeys(['filled', 'outline'])
+    .withExtraClasses(buttonClasses.extraClasses)
     .build();
 };

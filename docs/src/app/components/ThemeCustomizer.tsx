@@ -9,19 +9,26 @@ const customTheme: ThemeProps = {
   button: {
     // Using lambda function to modify button settings
     settings: (s) => {
+      console.log("before", s)
       s.base.typography.fontWeight.light = true;
       s.base.border.noBorder = true;
       s.base.border.radius.pill = true;
       s.base.shadow.noShadow = true;
+      s.base.px.setSize('sm');
+      s.base.py.setSize('sm');
 
-      s.hover.shadow.size.xs = true;
+      s.hover.shadow.size.setSize('xs');
       s.hover.border.noBorder = false;
+      s.hover.px.setSize('md');
+      s.hover.py.setSize('md');
 
+      console.log("after", s)
       return s;
     },
     classes: (c) => {
-      c.baseClasses = `${c.baseClasses} bg-red-500`;
-      c.extraClasses = "bg-red-400"
+      c.extraClasses = "hover:ring-4"
+      c.style.outline.hover.background!.success = "hover:bg-green-600";
+      //c.style.outline.hover.borderColor!.success = "hover:bg-green-800";
       return c;
     }
   }
@@ -66,6 +73,7 @@ export const ThemeCustomizer: React.FC = () => {
             <Button>Default Button</Button>
             <Button filled>Filled Button</Button>
             <Button outline>Outline Button</Button>
+            <Button outline success>Outline Success Button</Button>
           </Row>
         </ThemeProvider>
 

@@ -2,7 +2,7 @@ import { SizeSettings } from "./sizeSettings";
 import { deepMerge } from "../../utils/deepMerge";
 
 export class GapSettings {
-  public size: SizeSettings = {md: true};
+  public size: SizeSettings = new SizeSettings;
   public noGap: boolean = false;
 
   constructor(init: Partial<GapSettings> = {}) {

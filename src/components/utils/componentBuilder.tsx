@@ -86,6 +86,11 @@ export class ComponentBuilder {
     return this;
   }
 
+  withExtraClasses(className: string): this {
+    this.extraClasses.push(className);
+    return this;
+  }
+
   withClass(prop: string, className: string = "", condition: boolean | undefined): this {
     if(condition != undefined && condition){
       this.extraClasses.push(className);
@@ -131,7 +136,7 @@ export class ComponentBuilder {
   private finalize(): React.ReactElement {
     const {className, children, tag} = this.baseProps;
     const Tag = tag || this.defaultTag;
-    console.log("twMerge", this.baseClasses, this.extraClasses, className)
+    //console.log("twMerge", this.baseClasses, this.extraClasses, className)
     const merged = twMerge(this.baseClasses, ...this.extraClasses, className);
 
     this.propsToRemove.forEach(key => delete this.otherProps[key as keyof typeof this.otherProps]);
@@ -143,34 +148,35 @@ export class ComponentBuilder {
     );
   }
 
-  withShadow(classes?: Record<keyof SizeProps, string>, settings?: Partial<ShadowSettings>): this {
+  withShadow(classes?: Partial<Record<keyof SizeProps, string>>, settings?: Partial<ShadowSettings>): this {
     return this
-      .withClasses(classes, settings?.noShadow ? {} : settings?.size)
+      .withClasses(classes, settings?.noShadow ? {} : settings?.size?.getSettings())
       .withClasses(noShadowClasses, settings?.noShadow ? {noShadow: settings?.noShadow} : {});
   }
 
-  withPadding(px?: Record<keyof SizeProps, string>,
-              py?: Record<keyof SizeProps, string>,
-              settings?: SizeSettings): this {
+  withPadding(px?: Partial<Record<keyof SizeProps, string>>,
+              py?: Partial<Record<keyof SizeProps, string>>,
+              pxSettings?: SizeSettings,
+              pySettings?: SizeSettings): this {
     return this
-      .withClasses(px, settings || {md: true})
-      .withClasses(py, settings || {md: true})
+      .withClasses(px, pxSettings?.getSettings() || {md: true})
+      .withClasses(py, pySettings?.getSettings() || {md: true})
       .withClasses(noPaddingClasses);
   }
 
-  withGaps(gapClasses?: Record<keyof SizeProps, string>, settings: Partial<GapSettings> = new GapSettings()): this {
+  withGaps(gapClasses?: Partial<Record<keyof SizeProps, string>>, settings: Partial<GapSettings> = new GapSettings()): this {
     return this
-      .withClasses(gapClasses, settings.size)
+      .withClasses(gapClasses, settings.size?.getSettings())
       .withClasses(noGapClasses, settings.noGap ? {noGap: settings.noGap} : {});
   }
 
-  withAppearance(appearance?: Record<keyof CommonAppearanceProps, string>, settings?: CommonAppearanceSettings): this {
+  withAppearance(appearance?: Partial<Record<keyof CommonAppearanceProps, string>>, settings?: CommonAppearanceSettings): this {
     return this.withClasses(appearance, settings);
   }
 
   withTypography(
-    textSize?: Record<keyof SizeProps, string>,
-    textAppearance?: Record<keyof TextAppearanceProps, string>,
+    textSize?: Partial<Record<keyof SizeProps, string>>,
+    textAppearance?: Partial<Record<keyof TextAppearanceProps, string>>,
     settings: Partial<TypographySettings> = new TypographySettings()
   ): this {
     if(!textSize && !textAppearance)
@@ -183,12 +189,12 @@ export class ComponentBuilder {
       .withClasses(textTransformClasses, settings.textTransform)
       .withClasses(textAlignClasses, settings.textAlign)
       .withClasses(textAppearance, settings.textAppearance)
-      .withClasses(textSize, settings.size);
+      .withClasses(textSize, settings.size?.getSettings());
   }
 
   withBorder(
-    borderColorMap?: Record<keyof CommonAppearanceProps, string>,
-    roundedMap?: Record<keyof SizeProps, string>,
+    borderColorMap?: Partial<Record<keyof CommonAppearanceProps, string>>,
+    roundedMap?: Partial<Record<keyof SizeProps, string>>,
     settings?: Partial<BorderSettings>,
     mode: Mode = 'base',
     borderType: BorderType = 'border',
@@ -197,7 +203,7 @@ export class ComponentBuilder {
     const noBorder = hasNoBorderSetting && settings!.noBorder;
     return this
       .withClasses(borderColorMap, settings?.color)
-      .withClasses(roundedMap, settings?.radius?.rounded)
+      .withClasses(roundedMap, settings?.radius?.rounded?.getSettings())
       .withClasses(pillClasses, settings?.radius?.pill ? {pill: settings?.radius?.pill} : {})
       .withClasses(sharpClasses, settings?.radius?.sharp ? {sharp: settings?.radius?.sharp} : {})
       .withClass("noBorder", borderType === 'border' ? noBorderModeClasses[mode] : noRingModeClasses[mode], mode !== "base" && noBorder)

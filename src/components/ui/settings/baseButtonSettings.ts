@@ -12,7 +12,7 @@ export class BaseButtonSettings {
   typography: TypographySettings = {
     fontWeight: {semibold: true},
     textAppearance: {default: true},
-    size: {md: true},
+    size: new SizeSettings,
     fontFamily: {},
     fontStyle: {},
     textDecoration: {},
@@ -22,7 +22,7 @@ export class BaseButtonSettings {
   background: Partial<CommonAppearanceSettings> = {default: true};
   border: BorderSettings = {
     radius: {
-      rounded: {md: true},
+      rounded: new SizeSettings,
       pill: false,
       sharp: false
     },
@@ -30,12 +30,12 @@ export class BaseButtonSettings {
     color: {default: true},
   };
   shadow: ShadowSettings = {
-    size: {md: true},
+    size: new SizeSettings,
     noShadow: false
   };
-  px: Partial<SizeSettings> = {md: true};
-  py: Partial<SizeSettings> = {md: true};
-  gap: Partial<GapSettings> = {size: {md: true}, noGap: false};
+  px: SizeSettings = new SizeSettings;
+  py: SizeSettings = new SizeSettings;
+  gap: Partial<GapSettings> = {size: new SizeSettings, noGap: false};
 
   constructor(init: Partial<BaseButtonSettings> = {}) {
     const merged = deepMerge(this, init);

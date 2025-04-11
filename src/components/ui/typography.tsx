@@ -2,6 +2,7 @@ import React, { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
 import { TypographyComponentProps } from "./props/props";
 import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
+import { SizeSettings } from "./settings/sizeSettings";
 
 export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "h1", "text-balance tracking-tighter")
@@ -14,7 +15,7 @@ export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
     }, textAppearanceClasses, {
       fontWeight: {semibold: true},
       textAppearance: {default: true},
-      size: {md: true}
+      size: new SizeSettings
     })
     .build();
 
@@ -29,7 +30,7 @@ export const SectionTitle = (props: TypographyComponentProps): JSX.Element =>
     }, textAppearanceClasses, {
       fontWeight: {semibold: true},
       textAppearance: {default: true},
-      size: {md: true}
+      size: new SizeSettings
     })
     .build();
 
@@ -44,7 +45,7 @@ export const Title = (props: TypographyComponentProps): JSX.Element =>
     }, textAppearanceClasses, {
       fontWeight: {semibold: true},
       textAppearance: {default: true},
-      size: {md: true}
+      size: new SizeSettings
     })
     .build();
 
@@ -52,7 +53,7 @@ export const Text = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "p", "p-0 m-0")
     .withTypography(textSizeClasses, textAppearanceClasses, {
       textAppearance: {secondary: true},
-      size: {md: true}
+      size: new SizeSettings
     })
     .build();
 
@@ -60,14 +61,14 @@ export const Link = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "a", "hover:underline")
     .withTypography(textSizeClasses, textAppearanceClasses, {
       textAppearance: {link: true},
-      size: {md: true}
+      size: new SizeSettings
     })
     .build();
 
 export const ListItem = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "li", "")
     .withTypography(textSizeClasses, textAppearanceClasses, {
-      size: {md: true},
+      size: new SizeSettings,
       textAppearance: {default: true}
     })
     .build();
@@ -75,7 +76,7 @@ export const ListItem = (props: TypographyComponentProps): JSX.Element =>
 export const List = (props: TypographyComponentProps): JSX.Element =>
   componentBuilder(props, "ul", "list-disc list-inside")
     .withTypography(textSizeClasses, textAppearanceClasses, {
-      size: {md: true},
+      size: new SizeSettings,
       textAppearance: {default: true}
     })
     .build();

@@ -11,12 +11,13 @@ import {
 } from "./classes/layoutClasses";
 import { commonGaps, pxClasses, pyClasses } from "./classes/spacingClasses";
 import { BorderSettings } from './settings/borderSettings';
+import { SizeSettings } from "./settings/sizeSettings";
 
 // Border settings for Card
 const cardBorderSettings: BorderSettings = {
   color: {default: true},
   radius: {
-    rounded: {md: true},
+    rounded: new SizeSettings,
     pill: false,
     sharp: false
   },
