@@ -45,10 +45,12 @@ export class ButtonClasses {
 
   constructor(init: Partial<ButtonClasses> = {}) {
     this.baseClasses = init.baseClasses ?? this.baseClasses;
+    this.extraClasses = init.extraClasses ?? this.extraClasses;
     this.style = deepMerge(this.style, init.style);
   }
 
   baseClasses: string = "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-300 whitespace-nowrap";
+  extraClasses: string = "";
 
   style: Record<keyof ButtonStyleProps, Record<Mode, Partial<ButtonBaseClasses>>> = {
     outline: {

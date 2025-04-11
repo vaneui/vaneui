@@ -8,14 +8,19 @@ import { GapSettings } from "./gapSettings";
 import { deepMerge } from "../../utils/deepMerge";
 
 export class BaseButtonSettings {
-  style: Partial<ButtonStyleSettings> = {outline: true, filled: false};
-  typography: Partial<TypographySettings> = {
+  style: ButtonStyleSettings = {outline: true, filled: false};
+  typography: TypographySettings = {
     fontWeight: {semibold: true},
     textAppearance: {default: true},
     size: {md: true},
+    fontFamily: {},
+    fontStyle: {},
+    textDecoration: {},
+    textTransform: {},
+    textAlign: {}
   };
   background: Partial<CommonAppearanceSettings> = {default: true};
-  border: Partial<BorderSettings> = {
+  border: BorderSettings = {
     radius: {
       rounded: {md: true},
       pill: false,
@@ -24,7 +29,10 @@ export class BaseButtonSettings {
     noBorder: false,
     color: {default: true},
   };
-  shadow: Partial<ShadowSettings> = {size: {md: true}, noShadow: false};
+  shadow: ShadowSettings = {
+    size: {md: true},
+    noShadow: false
+  };
   px: Partial<SizeSettings> = {md: true};
   py: Partial<SizeSettings> = {md: true};
   gap: Partial<GapSettings> = {size: {md: true}, noGap: false};

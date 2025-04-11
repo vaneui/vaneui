@@ -4,9 +4,9 @@ import { deepMerge } from "../../utils/deepMerge";
 export class ButtonSettings {
   tag: string = "button";
 
-  base: Partial<BaseButtonSettings> = new BaseButtonSettings();
-  hover: Partial<BaseButtonSettings> = new BaseButtonSettings();
-  active: Partial<BaseButtonSettings> = new BaseButtonSettings();
+  base: BaseButtonSettings = new BaseButtonSettings();
+  hover: BaseButtonSettings = new BaseButtonSettings();
+  active: BaseButtonSettings = new BaseButtonSettings();
 
   constructor(init: Partial<ButtonSettings> = {}) {
     this.tag = init.tag ?? this.tag;

@@ -7,13 +7,18 @@ import { useTheme } from '../theme';
 import { Mode } from "./settings/mode";
 
 export const Button = (props: ButtonProps): JSX.Element => {
-  // Try to get settings from theme context, fall back to defaults if not available
-  let buttonSettings: ButtonSettings;
-  let buttonClasses: ButtonClasses;
+  // Create default instances
+  let buttonSettings = new ButtonSettings();
+  let buttonClasses = new ButtonClasses();
 
   const theme = useTheme();
-  buttonSettings = new ButtonSettings(theme.button?.settings !== undefined ? theme.button?.settings : {});
-  buttonClasses = new ButtonClasses(theme.button?.classes !== undefined ? theme.button?.classes : {});
+  // Apply settings and classes functions from theme context if available
+  if (theme?.button?.settings) {
+    buttonSettings = theme.button.settings(buttonSettings);
+  }
+  if (theme?.button?.classes) {
+    buttonClasses = theme.button.classes(buttonClasses);
+  }
 
   let styleClasses: Record<Mode, Partial<ButtonBaseClasses>>;
 

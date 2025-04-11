@@ -7,35 +7,23 @@ import {
 
 const customTheme: ThemeProps = {
   button: {
-    settings: {
-      base: {
-        typography: {
-          fontWeight: {light: true}
-        },
-        border: {noBorder: true, radius: {pill: true}},
-        shadow: {noShadow: true},
-      },
-      hover: {
-        shadow: {size: {xs: true}},
-        border: {
-          noBorder: false
-        }
-      }
+    // Using lambda function to modify button settings
+    settings: (s) => {
+      s.base.typography.fontWeight.light = true;
+      s.base.border.noBorder = true;
+      s.base.border.radius.pill = true;
+      s.base.shadow.noShadow = true;
+
+      s.hover.shadow.size.xs = true;
+      s.hover.border.noBorder = false;
+
+      return s;
     },
-    /*classes: {
-      style: {
-        outline: {
-          base: {},
-          hover: {},
-          active: {}
-        },
-        filled: {
-          base: {},
-          hover: {},
-          active: {}
-        }
-      }
-    }*/
+    classes: (c) => {
+      c.baseClasses = `${c.baseClasses} bg-red-500`;
+      c.extraClasses = "bg-red-400"
+      return c;
+    }
   }
 };
 
@@ -55,7 +43,8 @@ export const ThemeCustomizer: React.FC = () => {
         <Title>Theme Customization Demo</Title>
         <Text>
           This demonstrates the Global Configuration Provider using React Context.
-          Click the button to apply custom button settings.
+          Click the button to apply custom button settings using lambda functions.
+          Lambda functions allow for more dynamic customization by accessing and modifying the default settings and classes.
         </Text>
 
         <Row justifyBetween itemsCenter>
