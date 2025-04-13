@@ -1,8 +1,6 @@
 import { JSX } from 'react';
-import { ComponentBuilder, componentBuilder } from "../utils/componentBuilder";
+import { componentBuilder } from "../utils/componentBuilder";
 import { ButtonProps, ButtonStyleProps, SizeProps, TextAppearanceProps } from "./props/props";
-import { ButtonSettings } from './settings/buttonSettings';
-import { ButtonBaseClasses, ButtonClasses } from "./classes/buttonClasses";
 import { useTheme } from '../theme';
 import { Mode } from "./settings/mode";
 import { getFirstTruthyKey } from "../utils/getFirstTruthyKey";
@@ -42,7 +40,7 @@ export class ButtonSizeDefinition {
   borderRadius: string = "";
   shadow: string = "";
   gap: string = "";
-  text: string = "";
+  textSize: string = "";
 
   constructor(size: keyof SizeProps) {
     this.size = size;
@@ -50,7 +48,7 @@ export class ButtonSizeDefinition {
     this.gap = gap[size];
     this.shadow = shadowClasses[size];
     this.borderRadius = buttonRounded[size];
-    this.text = buttonTextSize[size];
+    this.textSize = buttonTextSize[size];
   }
 }
 
@@ -105,12 +103,10 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
     filled, outline,
     //appearance:
     default: defaultVal, accent, primary, secondary, tertiary, success, danger, warning, info, transparent, muted, link,
-    
+
     ...rest
   } = props;
 
-  //const style: keyof ButtonStyleProps = props.outline === true ? 'outline' : 'filled';
-  //const size = getFirstTruthyKey({xs, sm, md, lg, xl}, 'md');
   const size = getFirstTruthyKey<SizeProps>("md", {xs, sm, md, lg, xl});
   const style = getFirstTruthyKey<ButtonStyleProps>("outline", {filled, outline});
   const appearance = getFirstTruthyKey<TextAppearanceProps>("default",
@@ -119,6 +115,15 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
   const buttonDefinition: ButtonDefinition = new ButtonDefinition(style);
 
   return componentBuilder(props, props.tag ?? buttonDefinition.tag, buttonDefinition.baseClasses)
+    .withExtraClasses(buttonDefinition.mode.active.bg)
+    .withExtraClasses(buttonDefinition.mode.active.color)
+    .withExtraClasses(buttonDefinition.mode.active.borderColor)
+    .withExtraClasses(buttonDefinition.mode.active.extraClasses)
+    .withExtraClasses(buttonDefinition.mode.active.size[size]?.textSize)
+    .withExtraClasses(buttonDefinition.mode.active.size[size]?.gap)
+    .withExtraClasses(buttonDefinition.mode.active.size[size]?.shadow)
+    .withExtraClasses(buttonDefinition.mode.active.size[size]?.borderRadius)
+    .withExtraClasses(buttonDefinition.mode.active.size[size]?.extraClasses)
     .withExtraClasses(buttonDefinition.extraClasses)
     .build();
 };
