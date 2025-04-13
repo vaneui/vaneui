@@ -5,9 +5,7 @@ export { Chip } from "./components/ui/chip";
 export { Section, Container, Col, Row, Stack, Grid3, Grid4, Card } from "./components/ui/layout";
 export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle } from "./components/ui/typography";
 
-export { ButtonSettings } from "./components/ui/settings/buttonSettings";
-export { BaseButtonSettings } from "./components/ui/settings/baseButtonSettings";
-export { ButtonStyleSettings } from "./components/ui/settings/buttonStyleSettings";
+export { ButtonSettings, BaseButtonSettings, ButtonStyleSettings } from "./components/ui/settings/buttonSettings";
 export { TypographySettings } from "./components/ui/settings/typographySettings";
 export { CommonAppearanceSettings } from "./components/ui/settings/commonAppearanceSettings";
 export { BorderSettings } from "./components/ui/settings/borderSettings";
