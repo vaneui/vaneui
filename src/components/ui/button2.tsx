@@ -103,19 +103,42 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
     filled, outline,
     //appearance:
     default: defaultVal, accent, primary, secondary, tertiary, success, danger, warning, info, transparent, muted, link,
-
     ...rest
   } = props;
 
   const size = getFirstTruthyKey<SizeProps>("md", {xs, sm, md, lg, xl});
   const style = getFirstTruthyKey<ButtonStyleProps>("outline", {filled, outline});
   const appearance = getFirstTruthyKey<TextAppearanceProps>("default",
-    {default: defaultVal, accent, primary, secondary, tertiary, success, danger, warning, info, transparent, muted, link})
+    {
+      default: defaultVal,
+      accent,
+      primary,
+      secondary,
+      tertiary,
+      success,
+      danger,
+      warning,
+      info,
+      transparent,
+      muted,
+      link
+    })
 
   const buttonDefinition: ButtonDefinition = new ButtonDefinition(style);
 
-  return componentBuilder(props, props.tag ?? buttonDefinition.tag, buttonDefinition.baseClasses)
-    .withExtraClasses(buttonDefinition.mode.active.bg)
+  let builder = componentBuilder(props, props.tag ?? buttonDefinition.tag, buttonDefinition.baseClasses);
+  const modes : Mode[] = ['base', 'hover', 'active']
+  modes.forEach(mode => builder
+    .withExtraClasses(buttonDefinition.mode[mode].color)
+    .withExtraClasses(buttonDefinition.mode[mode].borderColor)
+    .withExtraClasses(buttonDefinition.mode[mode].extraClasses)
+    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.textSize)
+    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.gap)
+    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.shadow)
+    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.borderRadius)
+    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.extraClasses)
+  );
+  builder.withExtraClasses(buttonDefinition.mode.active.bg)
     .withExtraClasses(buttonDefinition.mode.active.color)
     .withExtraClasses(buttonDefinition.mode.active.borderColor)
     .withExtraClasses(buttonDefinition.mode.active.extraClasses)
@@ -125,5 +148,5 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
     .withExtraClasses(buttonDefinition.mode.active.size[size]?.borderRadius)
     .withExtraClasses(buttonDefinition.mode.active.size[size]?.extraClasses)
     .withExtraClasses(buttonDefinition.extraClasses)
-    .build();
+  return builder.build();
 };
