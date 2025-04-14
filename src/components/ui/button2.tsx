@@ -6,9 +6,9 @@ import { Mode } from "./settings/mode";
 import { getFirstTruthyKey } from "../utils/getFirstTruthyKey";
 
 
-const px: Record<keyof SizeProps, string> = {xs: "px-2", sm: "px-2.5", md: "px-3.5", lg: "px-5", xl: "px-6"}
-const py: Record<keyof SizeProps, string> = {xs: "py-1", sm: "py-1.5", md: "py-2", lg: "py-3", xl: "py-4"}
-const gap: Record<keyof SizeProps, string> = {xs: "gap-1.5", sm: "gap-2", md: "gap-3", lg: "gap-4", xl: "gap-5"}
+const pxClasses: Record<keyof SizeProps, string> = {xs: "px-2", sm: "px-2.5", md: "px-3.5", lg: "px-5", xl: "px-6"}
+const pyClasses: Record<keyof SizeProps, string> = {xs: "py-1", sm: "py-1.5", md: "py-2", lg: "py-3", xl: "py-4"}
+const gapClasses: Record<keyof SizeProps, string> = {xs: "gap-1.5", sm: "gap-2", md: "gap-3", lg: "gap-4", xl: "gap-5"}
 const shadowClasses: Record<keyof SizeProps, string> = {
   xs: "shadow-xs",
   sm: "shadow-sm",
@@ -16,14 +16,14 @@ const shadowClasses: Record<keyof SizeProps, string> = {
   lg: "shadow-lg",
   xl: "shadow-xl"
 }
-const buttonTextSize: Record<keyof SizeProps, string> = {
+const buttonTextSizeClasses: Record<keyof SizeProps, string> = {
   xs: "text-xs/5",
   sm: "text-sm/5",
   md: "text-base",
   lg: "text-lg/6",
   xl: "text-xl/6",
 }
-const buttonRounded: Record<keyof SizeProps, string> = {
+const buttonRoundedClasses: Record<keyof SizeProps, string> = {
   xs: "rounded-sm",
   sm: "rounded-md",
   md: "rounded-md",
@@ -31,9 +31,30 @@ const buttonRounded: Record<keyof SizeProps, string> = {
   xl: "rounded-xl"
 }
 
-export class ButtonSizeDefinition {
-  size: keyof SizeProps;
+export class ButtonColorsDefinition {
+  bg: string = "";
+  color: string = "";
+  borderColor: string = "";
+}
 
+export class ButtonAppearanceDefinition {
+  appearance: Record<keyof TextAppearanceProps, ButtonColorsDefinition> = {
+    muted: new ButtonColorsDefinition,
+    link: new ButtonColorsDefinition,
+    default: new ButtonColorsDefinition,
+    accent: new ButtonColorsDefinition,
+    primary: new ButtonColorsDefinition,
+    secondary: new ButtonColorsDefinition,
+    tertiary: new ButtonColorsDefinition,
+    success: new ButtonColorsDefinition,
+    danger: new ButtonColorsDefinition,
+    warning: new ButtonColorsDefinition,
+    info: new ButtonColorsDefinition,
+    transparent: new ButtonColorsDefinition
+  }
+}
+
+export class ButtonSizeDefinition {
   extraClasses: string = "";
 
   padding: { x: string; y: string };
@@ -43,24 +64,16 @@ export class ButtonSizeDefinition {
   textSize: string = "";
 
   constructor(size: keyof SizeProps) {
-    this.size = size;
-    this.padding = {x: px[size], y: py[size]};
-    this.gap = gap[size];
+    this.padding = {x: pxClasses[size], y: pyClasses[size]};
+    this.gap = gapClasses[size];
     this.shadow = shadowClasses[size];
-    this.borderRadius = buttonRounded[size];
-    this.textSize = buttonTextSize[size];
+    this.borderRadius = buttonRoundedClasses[size];
+    this.textSize = buttonTextSizeClasses[size];
   }
 }
 
 export class ButtonModeDefinition {
-  mode: Mode;
-  style: keyof ButtonStyleProps;
-
   extraClasses: string = "";
-
-  color: string = "";
-  bg: string = "";
-  borderColor: string = "";
 
   size: Record<keyof SizeProps, ButtonSizeDefinition> = {
     xs: new ButtonSizeDefinition('xs'),
@@ -70,9 +83,9 @@ export class ButtonModeDefinition {
     xl: new ButtonSizeDefinition('xl'),
   }
 
-  constructor(mode: Mode, style: keyof ButtonStyleProps) {
-    this.mode = mode;
-    this.style = style;
+  style: Record<keyof ButtonStyleProps, ButtonAppearanceDefinition> = {
+    outline: new ButtonAppearanceDefinition(),
+    filled: new ButtonAppearanceDefinition(),
   }
 }
 
@@ -81,16 +94,13 @@ export class ButtonDefinition {
   baseClasses: string = "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap";
   extraClasses: string = "";
 
-  style: keyof ButtonStyleProps;
-
   mode: Record<Mode, ButtonModeDefinition>;
 
-  constructor(style: keyof ButtonStyleProps) {
-    this.style = style;
+  constructor() {
     this.mode = {
-      base: new ButtonModeDefinition('base', style),
-      hover: new ButtonModeDefinition('hover', style),
-      active: new ButtonModeDefinition('active', style),
+      base: new ButtonModeDefinition,
+      hover: new ButtonModeDefinition,
+      active: new ButtonModeDefinition,
     };
   }
 }
@@ -124,29 +134,21 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
       link
     })
 
-  const buttonDefinition: ButtonDefinition = new ButtonDefinition(style);
+  const buttonDefinition: ButtonDefinition = new ButtonDefinition;
 
   let builder = componentBuilder(props, props.tag ?? buttonDefinition.tag, buttonDefinition.baseClasses);
   const modes : Mode[] = ['base', 'hover', 'active']
   modes.forEach(mode => builder
-    .withExtraClasses(buttonDefinition.mode[mode].color)
-    .withExtraClasses(buttonDefinition.mode[mode].borderColor)
     .withExtraClasses(buttonDefinition.mode[mode].extraClasses)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.textSize)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.gap)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.shadow)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.borderRadius)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.extraClasses)
+    .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.bg)
+    .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.borderColor)
+    .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.color)
   );
-  builder.withExtraClasses(buttonDefinition.mode.active.bg)
-    .withExtraClasses(buttonDefinition.mode.active.color)
-    .withExtraClasses(buttonDefinition.mode.active.borderColor)
-    .withExtraClasses(buttonDefinition.mode.active.extraClasses)
-    .withExtraClasses(buttonDefinition.mode.active.size[size]?.textSize)
-    .withExtraClasses(buttonDefinition.mode.active.size[size]?.gap)
-    .withExtraClasses(buttonDefinition.mode.active.size[size]?.shadow)
-    .withExtraClasses(buttonDefinition.mode.active.size[size]?.borderRadius)
-    .withExtraClasses(buttonDefinition.mode.active.size[size]?.extraClasses)
-    .withExtraClasses(buttonDefinition.extraClasses)
+  builder.withExtraClasses(buttonDefinition.extraClasses)
   return builder.build();
 };
