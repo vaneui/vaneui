@@ -1,9 +1,20 @@
 import { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
-import { ButtonProps, ButtonStyleProps, SizeProps, TextAppearanceProps } from "./props/props";
+import { ButtonProps, ButtonStyleProps, CommonAppearanceProps, SizeProps, TextAppearanceProps } from "./props/props";
 import { useTheme } from '../theme';
 import { Mode } from "./settings/mode";
 import { getFirstTruthyKey } from "../utils/getFirstTruthyKey";
+import { 
+  activeBackgroundAppearanceClasses, 
+  backgroundAppearanceClasses, 
+  borderAppearanceClasses, 
+  filledActiveBackgroundAppearanceClasses, 
+  filledBackgroundAppearanceClasses, 
+  filledBorderAppearanceClasses, 
+  filledHoverBackgroundAppearanceClasses, 
+  hoverBackgroundAppearanceClasses 
+} from "./classes/appearanceClasses";
+import { filledTextAppearanceClasses, textAppearanceClasses } from "./classes/typographyClasses";
 
 
 const pxClasses: Record<keyof SizeProps, string> = {xs: "px-2", sm: "px-2.5", md: "px-3.5", lg: "px-5", xl: "px-6"}
@@ -52,6 +63,57 @@ export class ButtonAppearanceDefinition {
     info: new ButtonColorsDefinition,
     transparent: new ButtonColorsDefinition
   }
+
+  // Style and mode configuration maps
+  private styleConfig: {
+    [key in keyof ButtonStyleProps]: {
+      [mode in Mode]: {
+        bg?: Record<keyof TextAppearanceProps, string>;
+        borderColor?: Record<keyof TextAppearanceProps, string>;
+        color?: Record<keyof TextAppearanceProps, string>;
+      }
+    }
+  } = {
+    filled: {
+      base: {
+        bg: filledBackgroundAppearanceClasses,
+        borderColor: filledBorderAppearanceClasses,
+        color: filledTextAppearanceClasses
+      },
+      hover: {
+        bg: filledHoverBackgroundAppearanceClasses
+      },
+      active: {
+        bg: filledActiveBackgroundAppearanceClasses
+      }
+    },
+    outline: {
+      base: {
+        bg: backgroundAppearanceClasses,
+        borderColor: borderAppearanceClasses,
+        color: textAppearanceClasses
+      },
+      hover: {
+        bg: hoverBackgroundAppearanceClasses
+      },
+      active: {
+        bg: activeBackgroundAppearanceClasses
+      }
+    }
+  };
+
+  constructor(style: keyof ButtonStyleProps, mode: Mode) {
+    const appearances = Object.keys(this.appearance) as (keyof TextAppearanceProps)[];
+
+    // Get the configuration for the current style and mode, or use an empty object if not found
+    const config = this.styleConfig[style]?.[mode] ?? {};
+
+    appearances.forEach(appearance => {
+      this.appearance[appearance].color = config.color?.[appearance] ?? "";
+      this.appearance[appearance].bg = config.bg?.[appearance] ?? "";
+      this.appearance[appearance].borderColor = config.borderColor?.[appearance] ?? "";
+    });
+  }
 }
 
 export class ButtonSizeDefinition {
@@ -83,9 +145,13 @@ export class ButtonModeDefinition {
     xl: new ButtonSizeDefinition('xl'),
   }
 
-  style: Record<keyof ButtonStyleProps, ButtonAppearanceDefinition> = {
-    outline: new ButtonAppearanceDefinition(),
-    filled: new ButtonAppearanceDefinition(),
+  style: Record<keyof ButtonStyleProps, ButtonAppearanceDefinition>;
+
+  constructor(mode: Mode) {
+    this.style = {
+      outline: new ButtonAppearanceDefinition('outline', mode),
+      filled: new ButtonAppearanceDefinition('filled', mode),
+    }
   }
 }
 
@@ -98,9 +164,9 @@ export class ButtonDefinition {
 
   constructor() {
     this.mode = {
-      base: new ButtonModeDefinition,
-      hover: new ButtonModeDefinition,
-      active: new ButtonModeDefinition,
+      base: new ButtonModeDefinition('base'),
+      hover: new ButtonModeDefinition('hover'),
+      active: new ButtonModeDefinition('active'),
     };
   }
 }

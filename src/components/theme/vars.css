@@ -22,6 +22,8 @@
   --background-color-danger: var(--color-red-50, #fef2f2);
   --background-color-warning: var(--color-amber-50, #fffbeb);
   --background-color-info: var(--color-cyan-50, #ecfeff);
+  --background-color-muted: var(--color-gray-50, #f9fafb);
+  --background-color-link: var(--color-blue-50, #eff6ff);
 
   /* Background Hover Colors */
   --background-color-hover-default: var(--color-gray-50, #f3f4f6);
@@ -33,6 +35,8 @@
   --background-color-hover-danger: var(--color-red-100, #fee2e2);
   --background-color-hover-warning: var(--color-amber-100, #fef3c7);
   --background-color-hover-info: var(--color-cyan-100, #cffafe);
+  --background-color-hover-muted: var(--color-gray-100, #f3f4f6);
+  --background-color-hover-link: var(--color-blue-100, #dbeafe);
 
   /* Background Active Colors */
   --background-color-active-default: var(--color-gray-100, #e5e7eb);
@@ -44,6 +48,8 @@
   --background-color-active-danger: var(--color-red-200, #fecaca);
   --background-color-active-warning: var(--color-amber-200, #fde68a);
   --background-color-active-info: var(--color-cyan-200, #a5f3fc);
+  --background-color-active-muted: var(--color-gray-200, #e5e7eb);
+  --background-color-active-link: var(--color-blue-200, #bfdbfe);
 
   /* Filled Button Background Colors */
   --filled-background-color-default: var(--color-gray-800, #1f2937);
@@ -55,6 +61,8 @@
   --filled-background-color-danger: var(--color-red-600, #dc2626);
   --filled-background-color-warning: var(--color-amber-600, #d97706);
   --filled-background-color-info: var(--color-cyan-600, #0891b2);
+  --filled-background-color-muted: var(--color-gray-500, #6b7280);
+  --filled-background-color-link: var(--color-blue-600, #2563eb);
 
   /* Filled Button Hover Background Colors */
   --filled-background-color-hover-default: var(--color-gray-900, #111827);
@@ -66,6 +74,8 @@
   --filled-background-color-hover-danger: var(--color-red-700, #b91c1c);
   --filled-background-color-hover-warning: var(--color-amber-700, #b45309);
   --filled-background-color-hover-info: var(--color-cyan-700, #0e7490);
+  --filled-background-color-hover-muted: var(--color-gray-600, #4b5563);
+  --filled-background-color-hover-link: var(--color-blue-700, #1d4ed8);
 
   /* Filled Button Active Background Colors */
   --filled-background-color-active-default: var(--color-gray-950, #030712);
@@ -77,6 +87,8 @@
   --filled-background-color-active-danger: var(--color-red-800, #991b1b);
   --filled-background-color-active-warning: var(--color-amber-800, #92400e);
   --filled-background-color-active-info: var(--color-cyan-800, #155e75);
+  --filled-background-color-active-muted: var(--color-gray-700, #374151);
+  --filled-background-color-active-link: var(--color-blue-800, #1e40af);
 
   /* Layout Background Colors */
   --layout-background-default: var(--color-white, #ffffff);
@@ -89,6 +101,8 @@
   --layout-background-warning: var(--color-yellow-50, #fefce8);
   --layout-background-info: var(--color-blue-50, #eff6ff);
   --layout-background-transparent: transparent;
+  --layout-background-muted: var(--color-gray-50, #f9fafb);
+  --layout-background-link: var(--color-blue-50, #eff6ff);
 
   /* Border Colors */
   --border-color-default: var(--color-gray-200, #d1d5db);
@@ -113,6 +127,8 @@
   --filled-border-color-danger: var(--color-red-600, #dc2626);
   --filled-border-color-warning: var(--color-amber-600, #d97706);
   --filled-border-color-info: var(--color-cyan-600, #0891b2);
+  --filled-border-color-muted: var(--color-gray-500, #6b7280);
+  --filled-border-color-link: var(--color-blue-600, #2563eb);
 
   /* Accent / Action Colors */
   --accent-color-default: var(--color-rose-600, #7c3aed);
