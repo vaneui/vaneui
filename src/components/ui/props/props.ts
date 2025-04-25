@@ -1,182 +1,132 @@
 import React from "react";
+import {
+  SizeKey,
+  AppearanceKey,
+  TextAppearanceKey,
+  FontFamilyKey,
+  FontWeightKey,
+  FontStyleKey,
+  TextDecorationKey,
+  TextTransformKey,
+  TextAlignKey,
+  BorderKey,
+  ShadowKey,
+  PaddingKey,
+  BreakpointKey,
+  HideKey,
+  PositionKey,
+  ReverseKey,
+  GapKey,
+  PillKey,
+  SharpKey,
+  StyleKey,
+  DirectionKey,
+  ItemsKey,
+  JustifyKey,
+  WrapKey
+} from "./propKeys";
 
-export interface SizeProps {
-  xs?: boolean;
-  sm?: boolean;
-  md?: boolean;
-  lg?: boolean;
-  xl?: boolean;
-}
-
-export interface CommonAppearanceProps {
-  default?: boolean;
-  accent?: boolean;
-  primary?: boolean;
-  secondary?: boolean;
-  tertiary?: boolean;
-  success?: boolean;
-  danger?: boolean;
-  warning?: boolean;
-  info?: boolean;
-  transparent?: boolean;
-}
-
-export interface FontFamilyProps {
-  sans?: boolean;
-  serif?: boolean;
-  mono?: boolean;
-}
-
-export interface FontWeightProps {
-  thin?: boolean;
-  extralight?: boolean;
-  light?: boolean;
-  normal?: boolean;
-  medium?: boolean;
-  semibold?: boolean;
-  bold?: boolean;
-  extrabold?: boolean;
-  black?: boolean;
-}
-
-export interface FontStyleProps {
-  italic?: boolean;
-  notItalic?: boolean;
-}
-
-export interface TextDecorationProps {
-  underline?: boolean;
-  lineThrough?: boolean;
-  noUnderline?: boolean;
-  overline?: boolean;
-}
-
-export interface TextTransformProps {
-  uppercase?: boolean;
-  lowercase?: boolean;
-  capitalize?: boolean;
-  normalCase?: boolean;
-}
-
-export interface TextAlignProps {
-  textLeft?: boolean;
-  textCenter?: boolean;
-  textRight?: boolean;
-  textJustify?: boolean;
-}
-
-export interface TextAppearanceProps extends CommonAppearanceProps {
-  muted?: boolean;
-  link?: boolean;
-}
-
-export interface NoBorderProps {
-  noBorder?: boolean;
-}
-
-export interface NoShadowProps {
-  noShadow?: boolean;
-}
-
-export interface NoPaddingProps {
-  noPadding?: boolean;
-}
-
-export interface BreakpointProps {
-  xsCol?: boolean;
-  smCol?: boolean;
-  mdCol?: boolean;
-  lgCol?: boolean;
-  xlCol?: boolean;
-}
-
-export interface HideProps {
-  xsHide?: boolean;
-  smHide?: boolean;
-  mdHide?: boolean;
-  lgHide?: boolean;
-  xlHide?: boolean;
-}
-
-export interface PositionProps {
-  relative?: boolean;
-  absolute?: boolean;
-  fixed?: boolean;
-  sticky?: boolean;
-  static?: boolean;
-}
+export type SizeProps = { [K in SizeKey]?: boolean; }
+export type CommonAppearanceProps = { [K in AppearanceKey]?: boolean; }
+export type FontFamilyProps = { [K in FontFamilyKey]?: boolean; }
+export type FontWeightProps = { [K in FontWeightKey]?: boolean; }
+export type FontStyleProps = { [K in FontStyleKey]?: boolean; }
+export type TextDecorationProps = { [K in TextDecorationKey]?: boolean; }
+export type TextTransformProps = { [K in TextTransformKey]?: boolean; }
+export type TextAlignProps = { [K in TextAlignKey]?: boolean; }
+export type TextAppearanceProps = { [K in TextAppearanceKey]?: boolean; }
+export type NoBorderProps = { [K in BorderKey]?: boolean; }
+export type NoShadowProps = { [K in ShadowKey]?: boolean; }
+export type NoPaddingProps = { [K in PaddingKey]?: boolean; }
+export type BreakpointProps = { [K in BreakpointKey]?: boolean; }
+export type HideProps = { [K in HideKey]?: boolean; }
+export type PositionProps = { [K in PositionKey]?: boolean; }
 
 export interface TagProps {
   tag?: React.ReactNode | string | any;
 }
 
-export interface ReverseProps {
-  reverse?: boolean;
-}
-
-export interface NoGapProps {
-  noGap?: boolean;
-}
-
-export interface PillProps {
-  pill?: boolean;
-}
-
-export interface SharpProps {
-  sharp?: boolean;
-}
-
-export interface ButtonStyleProps {
-  outline?: boolean;
-  filled?: boolean;
-}
-
-export interface DirectionProps {
-  row?: boolean;
-  column?: boolean;
-}
-
-export interface ItemsProps {
-  itemsStart?: boolean;
-  itemsEnd?: boolean;
-  itemsCenter?: boolean;
-  itemsBaseline?: boolean;
-  itemsStretch?: boolean;
-}
-
-export interface JustifyProps {
-  justifyStart?: boolean;
-  justifyEnd?: boolean;
-  justifyCenter?: boolean;
-  justifyBetween?: boolean;
-  justifyAround?: boolean;
-  justifyEvenly?: boolean;
-  justifyStretch?: boolean;
-  justifyBaseline?: boolean;
-}
-
-export interface WrapProps {
-  flexWrap?: boolean;
-  flexNoWrap?: boolean;
-  flexWrapReverse?: boolean;
-}
+export type ReverseProps = { [K in ReverseKey]?: boolean; }
+export type NoGapProps = { [K in GapKey]?: boolean; }
+export type PillProps = { [K in PillKey]?: boolean; }
+export type SharpProps = { [K in SharpKey]?: boolean; }
+export type ButtonStyleProps = { [K in StyleKey]?: boolean; }
+export type DirectionProps = { [K in DirectionKey]?: boolean; }
+export type ItemsProps = { [K in ItemsKey]?: boolean; }
+export type JustifyProps = { [K in JustifyKey]?: boolean; }
+export type WrapProps = { [K in WrapKey]?: boolean; }
 
 export type BaseComponentProps = TagProps & SizeProps & HideProps & PositionProps & React.HTMLProps<HTMLElement>;
 
 export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProps & CommonAppearanceProps;
 
-export type FontProps = FontWeightProps & FontStyleProps & TextDecorationProps & TextTransformProps & FontFamilyProps & TextAppearanceProps & CommonAppearanceProps & TextAlignProps;
+export type FontProps =
+  FontWeightProps
+  & FontStyleProps
+  & TextDecorationProps
+  & TextTransformProps
+  & FontFamilyProps
+  & TextAppearanceProps
+  & CommonAppearanceProps
+  & TextAlignProps;
 
 export type TypographyComponentProps = BaseComponentProps & FontProps;
 
-export type ButtonProps = TypographyComponentProps & SizeProps & PillProps & SharpProps & CommonAppearanceProps & NoBorderProps & NoShadowProps & ButtonStyleProps;
+export type ButtonProps =
+  TypographyComponentProps
+  & SizeProps
+  & PillProps
+  & SharpProps
+  & CommonAppearanceProps
+  & NoBorderProps
+  & NoShadowProps
+  & ButtonStyleProps;
 
 export type GridProps = BaseComponentProps & SizeProps & NoGapProps & CommonAppearanceProps;
 
-export type RowProps = BaseComponentProps & WrapProps & SizeProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps;
+export type RowProps =
+  BaseComponentProps
+  & WrapProps
+  & SizeProps
+  & NoGapProps
+  & ReverseProps
+  & ItemsProps
+  & BreakpointProps
+  & JustifyProps
+  & CommonAppearanceProps;
 
-export type ColProps = BaseComponentProps & WrapProps & SizeProps & NoGapProps & ReverseProps & ItemsProps & JustifyProps & CommonAppearanceProps;
+export type ColProps =
+  BaseComponentProps
+  & WrapProps
+  & SizeProps
+  & NoGapProps
+  & ReverseProps
+  & ItemsProps
+  & JustifyProps
+  & CommonAppearanceProps;
 
-export type CardProps = BaseComponentProps & SizeProps & NoGapProps & ItemsProps & SharpProps & BreakpointProps & CommonAppearanceProps & NoBorderProps & NoShadowProps & NoPaddingProps & DirectionProps;
+export type CardProps =
+  BaseComponentProps
+  & SizeProps
+  & NoGapProps
+  & ItemsProps
+  & SharpProps
+  & BreakpointProps
+  & CommonAppearanceProps
+  & NoBorderProps
+  & NoShadowProps
+  & NoPaddingProps
+  & DirectionProps;
 
-export type StackProps = BaseComponentProps & WrapProps & SizeProps & NoGapProps & ReverseProps & ItemsProps & BreakpointProps & JustifyProps & CommonAppearanceProps & DirectionProps & NoPaddingProps;
+export type StackProps =
+  BaseComponentProps
+  & WrapProps
+  & SizeProps
+  & NoGapProps
+  & ReverseProps
+  & ItemsProps
+  & BreakpointProps
+  & JustifyProps
+  & CommonAppearanceProps
+  & DirectionProps
+  & NoPaddingProps;

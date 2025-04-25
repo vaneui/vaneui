@@ -1,20 +1,40 @@
 import { JSX } from 'react';
 import { componentBuilder } from "../utils/componentBuilder";
-import { ButtonProps, ButtonStyleProps, CommonAppearanceProps, SizeProps, TextAppearanceProps } from "./props/props";
+import {
+  ButtonProps,
+  ButtonStyleProps,
+  CommonAppearanceProps,
+  FontFamilyProps, FontWeightProps,
+  SizeProps,
+  TextAppearanceProps
+} from "./props/props";
 import { useTheme } from '../theme';
 import { Mode } from "./settings/mode";
-import { getFirstTruthyKey } from "../utils/getFirstTruthyKey";
-import { 
-  activeBackgroundAppearanceClasses, 
-  backgroundAppearanceClasses, 
-  borderAppearanceClasses, 
-  filledActiveBackgroundAppearanceClasses, 
-  filledBackgroundAppearanceClasses, 
-  filledBorderAppearanceClasses, 
-  filledHoverBackgroundAppearanceClasses, 
-  hoverBackgroundAppearanceClasses 
+import { getFirstTruthyKey, omitProps, pickFirst } from "../utils/componentUtils";
+import {
+  activeBackgroundAppearanceClasses,
+  backgroundAppearanceClasses,
+  borderAppearanceClasses,
+  filledActiveBackgroundAppearanceClasses,
+  filledBackgroundAppearanceClasses,
+  filledBorderAppearanceClasses,
+  filledHoverBackgroundAppearanceClasses,
+  hoverBackgroundAppearanceClasses
 } from "./classes/appearanceClasses";
-import { filledTextAppearanceClasses, textAppearanceClasses } from "./classes/typographyClasses";
+import {
+  filledTextAppearanceClasses,
+  fontFamilyClasses, fontStyleClasses,
+  fontWeightClasses,
+  textAppearanceClasses
+} from "./classes/typographyClasses";
+import {
+  FLAG_KEYS,
+  FONT_FAMILY_KEYS, FONT_STYLE_KEYS,
+  FONT_WEIGHT_KEYS,
+  SIZE_KEYS,
+  STYLE_KEYS,
+  TEXT_APPEARANCE_KEYS
+} from "./props/propKeys";
 
 
 const pxClasses: Record<keyof SizeProps, string> = {xs: "px-2", sm: "px-2.5", md: "px-3.5", lg: "px-5", xl: "px-6"}
@@ -172,41 +192,26 @@ export class ButtonDefinition {
 }
 
 export const Button2 = (props: ButtonProps): JSX.Element => {
-  const {
-    //size:
-    xs, sm, md, lg, xl,
-    //style:
-    filled, outline,
-    //appearance:
-    default: defaultVal, accent, primary, secondary, tertiary, success, danger, warning, info, transparent, muted, link,
-    ...rest
-  } = props;
 
-  const size = getFirstTruthyKey<SizeProps>("md", {xs, sm, md, lg, xl});
-  const style = getFirstTruthyKey<ButtonStyleProps>("outline", {filled, outline});
-  const appearance = getFirstTruthyKey<TextAppearanceProps>("default",
-    {
-      default: defaultVal,
-      accent,
-      primary,
-      secondary,
-      tertiary,
-      success,
-      danger,
-      warning,
-      info,
-      transparent,
-      muted,
-      link
-    })
+  const size = pickFirst(props, SIZE_KEYS, 'md') ?? 'md';
+  const style = pickFirst(props, STYLE_KEYS, 'outline') ?? 'outline';
+  const appearance = pickFirst(props, TEXT_APPEARANCE_KEYS, 'default') ?? 'default';
+
+  const fontFamily = pickFirst(props, FONT_FAMILY_KEYS, 'sans');
+  const fontWeight = pickFirst(props, FONT_WEIGHT_KEYS, 'semibold');
+  const fontStyle = pickFirst(props, FONT_STYLE_KEYS);
+
+  const cleanProps = omitProps(props, FLAG_KEYS);
 
   const buttonDefinition: ButtonDefinition = new ButtonDefinition;
 
-  let builder = componentBuilder(props, props.tag ?? buttonDefinition.tag, buttonDefinition.baseClasses);
-  const modes : Mode[] = ['base', 'hover', 'active']
+  let builder = componentBuilder(cleanProps, props.tag ?? buttonDefinition.tag, buttonDefinition.baseClasses);
+  const modes: Mode[] = ['base', 'hover', 'active']
   modes.forEach(mode => builder
     .withExtraClasses(buttonDefinition.mode[mode].extraClasses)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.textSize)
+    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.padding.x)
+    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.padding.y)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.gap)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.shadow)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.borderRadius)
@@ -215,6 +220,9 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.borderColor)
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.color)
   );
+  builder.withExtraClasses(fontWeight === undefined ? '' : fontWeightClasses[fontWeight])
+  builder.withExtraClasses(fontFamily === undefined ? '' : fontFamilyClasses[fontFamily])
+  builder.withExtraClasses(fontStyle === undefined ? '' : fontStyleClasses[fontStyle])
   builder.withExtraClasses(buttonDefinition.extraClasses)
   return builder.build();
 };

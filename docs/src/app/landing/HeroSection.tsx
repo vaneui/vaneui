@@ -13,7 +13,7 @@ import {
   Stack,
   Chip,
   Divider,
-  Badge
+  Badge, Button2
 } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import { CodeBlock } from "../components/CodeBlock";
@@ -65,8 +65,8 @@ export async function HeroSection() {
                 <Divider/>
                 <Text sm>{dog.description}</Text>
                 <Row justifyEnd>
-                  <Button sm success filled>Adopt</Button>
-                  <Button sm secondary>Learn more</Button>
+                  <Button2 sm success filled>Adopt</Button2>
+                  <Button2 sm secondary>Learn more</Button2>
                 </Row>
               </Stack>
             </Card>
