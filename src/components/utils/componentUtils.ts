@@ -1,5 +1,5 @@
-export function pickFirst<
-  P,
+export function pickFirstKey<
+  P extends object,
   K extends keyof P
 >(
   props: P,
@@ -11,6 +11,22 @@ export function pickFirst<
     if (props[k]) return k;
   }
   return fallback;
+}
+
+export function pickFirstValue<
+  P extends object,
+  K extends keyof P
+>(
+  props: P,
+  keys: readonly K[],
+): boolean | undefined {
+  for (const k of keys) {
+    // Check if the property exists and is a boolean
+    if (k in props && typeof props[k] === 'boolean') {
+      return props[k] as boolean;
+    }
+  }
+  return undefined;
 }
 
 export function omitProps<
