@@ -12,10 +12,8 @@ import { omitProps, pickFirstKey, pickFirstValue } from "../utils/componentUtils
 import {
   activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses,
-  borderAppearanceClasses,
   filledActiveBackgroundAppearanceClasses,
   filledBackgroundAppearanceClasses,
-  filledBorderAppearanceClasses,
   filledHoverBackgroundAppearanceClasses, filledRingAppearanceClasses,
   hoverBackgroundAppearanceClasses, ringAppearanceClasses
 } from "./classes/appearanceClasses";
@@ -46,13 +44,8 @@ import {
   SHADOW_KEYS
 } from "./props/propKeys";
 import {
-  pillClasses,
-  sharpClasses,
   hideClasses,
   positionClasses,
-  noBorderModeClasses,
-  noShadowClasses,
-  borderModeClasses,
   noShadowModeClasses,
   pillModeClasses,
   sharpModeClasses,
