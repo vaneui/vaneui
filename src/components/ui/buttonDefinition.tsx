@@ -1,15 +1,10 @@
-import { JSX } from 'react';
-import { componentBuilder } from "../utils/componentBuilder";
 import {
-  ButtonProps,
   ButtonStyleProps,
   ShapeProps,
   SizeProps,
   TextAppearanceProps,
 } from "./props/props";
-import { useTheme } from '../theme';
-import { Mode, MODE_KEYS } from "./settings/mode";
-import { omitProps, pickFirstKey, pickFirstValue } from "../utils/componentUtils";
+import { Mode } from "./settings/mode";
 import {
   activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses,
@@ -20,40 +15,16 @@ import {
 } from "./classes/appearanceClasses";
 import {
   filledTextAppearanceClasses,
-  fontFamilyClasses, fontStyleClasses,
+  fontFamilyClasses,
   fontWeightClasses,
   textAppearanceClasses,
-  textDecorationClasses,
-  textTransformClasses,
   textAlignClasses
 } from "./classes/typographyClasses";
 import {
-  FLAG_KEYS,
-  FONT_FAMILY_KEYS, FONT_STYLE_KEYS,
-  FONT_WEIGHT_KEYS,
-  SIZE_KEYS,
-  STYLE_KEYS,
-  TEXT_APPEARANCE_KEYS,
-  TEXT_DECORATION_KEYS,
-  TEXT_TRANSFORM_KEYS,
-  TEXT_ALIGN_KEYS,
-  PILL_KEYS,
-  SHARP_KEYS,
-  SHAPE_KEYS,
-  HIDE_KEYS,
-  POSITION_KEYS,
-  BORDER_KEYS,
-  SHADOW_KEYS
-} from "./props/propKeys";
-import {
-  hideClasses,
-  positionClasses,
-  noShadowModeClasses,
   pillModeClasses,
   sharpModeClasses,
   roundedModeClasses,
   ringModeClasses,
-  noRingModeClasses
 } from "./classes/layoutClasses";
 
 
@@ -265,63 +236,3 @@ export class ButtonDefinition {
     };
   }
 }
-
-export const Button2 = (props: ButtonProps): JSX.Element => {
-
-  const size = pickFirstKey(props, SIZE_KEYS, 'md') ?? 'md';
-  const style = pickFirstKey(props, STYLE_KEYS, 'outline') ?? 'outline';
-  const appearance = pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default') ?? 'default';
-  const shape = pickFirstKey(props, SHAPE_KEYS, 'rounded');
-
-  //Font props
-  const fontFamily = pickFirstKey(props, FONT_FAMILY_KEYS, 'sans');
-  const fontWeight = pickFirstKey(props, FONT_WEIGHT_KEYS, 'semibold');
-  const fontStyle = pickFirstKey(props, FONT_STYLE_KEYS);
-
-  // Text props
-  const textDecoration = pickFirstKey(props, TEXT_DECORATION_KEYS);
-  const textTransform = pickFirstKey(props, TEXT_TRANSFORM_KEYS);
-  const textAlign = pickFirstKey(props, TEXT_ALIGN_KEYS);
-
-  // Layout props
-  const hide = pickFirstKey(props, HIDE_KEYS);
-  const position = pickFirstKey(props, POSITION_KEYS);
-
-  const noBorder = pickFirstValue(props, BORDER_KEYS);
-  const noShadow = pickFirstValue(props, SHADOW_KEYS);
-
-  const cleanProps = omitProps(props, FLAG_KEYS);
-
-  const buttonDefinition: ButtonDefinition = new ButtonDefinition;
-
-  let builder = componentBuilder(cleanProps, props.tag ?? buttonDefinition.tag, buttonDefinition.baseClasses);
-  MODE_KEYS.forEach(mode => builder
-    .withExtraClasses(buttonDefinition.mode[mode].extraClasses)
-    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.textSize)
-    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.padding.x)
-    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.padding.y)
-    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.gap)
-    .withExtraClasses(noShadow !== undefined && noShadow ? noShadowModeClasses[mode] : buttonDefinition.mode[mode].size[size]?.shadow)
-    .withExtraClasses(buttonDefinition.mode[mode].shape[shape ?? 'rounded'][size])
-    .withExtraClasses(noBorder !== undefined && noBorder ? noRingModeClasses[mode] : buttonDefinition.mode[mode].size[size]?.border)
-    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.extraClasses)
-    .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.bg)
-    .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.borderColor)
-    .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.color)
-    // Apply font-related classes based on mode and size
-    .withExtraClasses(fontWeight === undefined ? buttonDefinition.mode[mode].size[size].fontWeight : fontWeightClasses[fontWeight])
-    .withExtraClasses(fontFamily === undefined ? buttonDefinition.mode[mode].size[size].fontFamily : fontFamilyClasses[fontFamily])
-    .withExtraClasses(fontStyle === undefined ? buttonDefinition.mode[mode].size[size].fontStyle : fontStyleClasses[fontStyle])
-    // Apply text formatting classes based on mode and size
-    .withExtraClasses(textDecoration === undefined ? buttonDefinition.mode[mode].size[size].textDecoration : textDecorationClasses[textDecoration])
-    .withExtraClasses(textTransform === undefined ? buttonDefinition.mode[mode].size[size].textTransform : textTransformClasses[textTransform])
-    .withExtraClasses(textAlign === undefined ? buttonDefinition.mode[mode].size[size].textAlign : textAlignClasses[textAlign])
-  );
-
-  // Apply layout classes
-  builder.withExtraClasses(hide === undefined ? '' : hideClasses[hide])
-  builder.withExtraClasses(position === undefined ? '' : positionClasses[position])
-
-  builder.withExtraClasses(buttonDefinition.extraClasses)
-  return builder.build();
-};

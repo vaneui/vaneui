@@ -1,5 +1,4 @@
 export { Button } from "./components/ui/button";
-export { Button2 } from "./components/ui/button2";
 export { Badge } from "./components/ui/badge";
 export { Divider } from "./components/ui/divider";
 export { Chip } from "./components/ui/chip";

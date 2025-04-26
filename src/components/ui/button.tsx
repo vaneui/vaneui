@@ -1,54 +1,142 @@
-import { JSX } from 'react';
-import { ComponentBuilder, componentBuilder } from "../utils/componentBuilder";
-import { ButtonProps } from "./props/props";
-import { ButtonSettings } from './settings/buttonSettings';
-import { ButtonBaseClasses, ButtonClasses } from "./classes/buttonClasses";
-import { useTheme } from '../theme';
-import { Mode } from "./settings/mode";
+import { JSX, useMemo } from 'react';
+import {
+  ButtonProps
+} from './props/props';
+import {
+  SIZE_KEYS,
+  STYLE_KEYS,
+  TEXT_APPEARANCE_KEYS,
+  FONT_FAMILY_KEYS,
+  FONT_WEIGHT_KEYS,
+  FONT_STYLE_KEYS,
+  TEXT_DECORATION_KEYS,
+  TEXT_TRANSFORM_KEYS,
+  TEXT_ALIGN_KEYS,
+  SHAPE_KEYS,
+  HIDE_KEYS,
+  POSITION_KEYS,
+  BORDER_KEYS,
+  SHADOW_KEYS,
+  FLAG_KEYS
+} from './props/propKeys';
+import {
+  pickFirstKey,
+  pickFirstValue,
+  omitProps
+} from '../utils/componentUtils';
+import { MODE_KEYS } from './settings/mode';
+import { ButtonDefinition } from './buttonDefinition'
+import {
+  fontFamilyClasses,
+  fontStyleClasses,
+  fontWeightClasses,
+  textDecorationClasses,
+  textTransformClasses,
+  textAlignClasses
+} from './classes/typographyClasses';
+import {
+  noBorderModeClasses,
+  noShadowModeClasses,
+  hideClasses,
+  positionClasses
+} from './classes/layoutClasses';
+import React from 'react';
+import { componentBuilder } from '../utils/componentBuilder';
+
+export function useButtonClasses(props: ButtonProps) {
+  const {
+    size,
+    style,
+    appearance,
+    shape,
+    fontFamily,
+    fontWeight,
+    fontStyle,
+    textDecoration,
+    textTransform,
+    textAlign,
+    hide,
+    position,
+    noBorder,
+    noShadow
+  } = useMemo(() => ({
+    size:           pickFirstKey(props, SIZE_KEYS, 'md') ?? 'md',
+    style:          pickFirstKey(props, STYLE_KEYS, 'outline') ?? 'outline',
+    appearance:     pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default') ?? 'default',
+    shape:          pickFirstKey(props, SHAPE_KEYS, 'rounded') ?? 'rounded',
+    fontFamily:     pickFirstKey(props, FONT_FAMILY_KEYS, 'sans'),
+    fontWeight:     pickFirstKey(props, FONT_WEIGHT_KEYS, 'semibold'),
+    fontStyle:      pickFirstKey(props, FONT_STYLE_KEYS),
+    textDecoration: pickFirstKey(props, TEXT_DECORATION_KEYS),
+    textTransform:  pickFirstKey(props, TEXT_TRANSFORM_KEYS),
+    textAlign:      pickFirstKey(props, TEXT_ALIGN_KEYS),
+    hide:           pickFirstKey(props, HIDE_KEYS),
+    position:       pickFirstKey(props, POSITION_KEYS),
+    noBorder:       pickFirstValue(props, BORDER_KEYS),
+    noShadow:       pickFirstValue(props, SHADOW_KEYS),
+  }), [props]);
+
+  // strip all the boolean flags
+  const cleanProps = omitProps(props, FLAG_KEYS);
+
+  // build once
+  const buttonDef = new ButtonDefinition();
+  const tag         = props.tag ?? buttonDef.tag;
+  const baseClasses = buttonDef.baseClasses;
+
+  const classesByMode: Record<typeof MODE_KEYS[number], string[]> = {} as any;
+
+  MODE_KEYS.forEach(mode => {
+    const def = buttonDef.mode[mode];
+    const sizeDef = def.size[size];
+    const styleDef = def.style[style].appearance[appearance];
+
+    const arr = [
+      def.extraClasses,
+      sizeDef.textSize,
+      sizeDef.padding.x,
+      sizeDef.padding.y,
+      sizeDef.gap,
+      noShadow ? noShadowModeClasses[mode] : sizeDef.shadow,
+      def.shape[shape][size],
+      noBorder ? noBorderModeClasses[mode] : sizeDef.border,
+      sizeDef.extraClasses,
+      styleDef.bg,
+      styleDef.borderColor,
+      styleDef.color,
+      fontWeight
+        ? fontWeightClasses[fontWeight]
+        : sizeDef.fontWeight,
+      fontFamily
+        ? fontFamilyClasses[fontFamily]
+        : sizeDef.fontFamily,
+      fontStyle
+        ? fontStyleClasses[fontStyle]
+        : sizeDef.fontStyle,
+      textDecoration
+        ? textDecorationClasses[textDecoration]
+        : sizeDef.textDecoration,
+      textTransform
+        ? textTransformClasses[textTransform]
+        : sizeDef.textTransform,
+      textAlign
+        ? textAlignClasses[textAlign]
+        : sizeDef.textAlign,
+      hide ? hideClasses[hide] : '',
+      position ? positionClasses[position] : ''
+    ];
+
+    classesByMode[mode] = arr.filter(Boolean);
+  });
+
+  return { cleanProps, tag, baseClasses, classesByMode };
+}
 
 export const Button = (props: ButtonProps): JSX.Element => {
-  // Create default instances
-  let buttonSettings = new ButtonSettings();
-  let buttonClasses = new ButtonClasses();
+  const { cleanProps, tag, baseClasses, classesByMode } = useButtonClasses(props);
 
-  const theme = useTheme();
-  // Apply settings and classes functions from theme context if available
-  if (theme?.button?.settings) {
-    buttonSettings = theme.button.settings(buttonSettings);
-  }
-  if (theme?.button?.classes) {
-    buttonClasses = theme.button.classes(buttonClasses);
-  }
+  const builder = componentBuilder(cleanProps, tag, baseClasses);
+  MODE_KEYS.forEach(mode => builder.withExtraClasses(classesByMode[mode]));
 
-  let styleClasses: Record<Mode, ButtonBaseClasses>;
-
-  if (props.outline === true) {
-    styleClasses = buttonClasses.style.outline;
-  } else if (props.filled === true) {
-    styleClasses = buttonClasses.style.filled;
-  } else {
-    styleClasses = buttonSettings.base.style?.outline
-      ? buttonClasses.style.outline
-      : buttonClasses.style.filled;
-  }
-
-  function applyState(c: ComponentBuilder, mode: Mode) {
-    const classes = styleClasses[mode];
-    const settings = buttonSettings[mode];
-    return c
-      .withPadding(classes?.px, classes?.py, settings?.px, settings?.py)
-      .withGaps(classes?.gap, settings?.gap)
-      .withShadow(classes?.shadow, settings?.shadow)
-      .withTypography(classes?.textSize, classes?.textAppearance, settings?.typography)
-      .withBorder(classes?.borderColor, classes?.rounded, settings?.border, mode, 'ring')
-      .withAppearance(classes?.background, settings.background);
-  }
-
-  return componentBuilder(props, props.tag ?? buttonSettings.tag, buttonClasses.baseClasses)
-    .with(c => applyState(c, 'base'))
-    .with(c => applyState(c, 'hover'))
-    .with(c => applyState(c, 'active'))
-    .registerKeys(['filled', 'outline'])
-    .withExtraClasses(buttonClasses.extraClasses)
-    .build();
+  return builder.build();
 };
