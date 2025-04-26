@@ -271,6 +271,7 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
   const size = pickFirstKey(props, SIZE_KEYS, 'md') ?? 'md';
   const style = pickFirstKey(props, STYLE_KEYS, 'outline') ?? 'outline';
   const appearance = pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default') ?? 'default';
+  const shape = pickFirstKey(props, SHAPE_KEYS, 'rounded');
 
   //Font props
   const fontFamily = pickFirstKey(props, FONT_FAMILY_KEYS, 'sans');
@@ -288,7 +289,6 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
 
   const noBorder = pickFirstValue(props, BORDER_KEYS);
   const noShadow = pickFirstValue(props, SHADOW_KEYS);
-  const shape = pickFirstKey(props, SHAPE_KEYS, 'rounded');
 
   const cleanProps = omitProps(props, FLAG_KEYS);
 
