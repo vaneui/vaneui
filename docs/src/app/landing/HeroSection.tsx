@@ -65,8 +65,8 @@ export async function HeroSection() {
                 <Divider/>
                 <Text sm>{dog.description}</Text>
                 <Row justifyEnd>
-                  <Button2 sm success filled>Adopt</Button2>
-                  <Button2 sm secondary>Learn more</Button2>
+                  <Button sm success filled sharp>Adopt</Button>
+                  <Button2 sm secondary noBorder pill>Learn more</Button2>
                 </Row>
               </Stack>
             </Card>

@@ -32,13 +32,9 @@ export const Button = (props: ButtonProps): JSX.Element => {
       : buttonClasses.style.filled;
   }
 
-  console.log("button settings", buttonSettings)
-
   function applyState(c: ComponentBuilder, mode: Mode) {
     const classes = styleClasses[mode];
     const settings = buttonSettings[mode];
-    console.log("button settings " + mode, buttonSettings[mode])
-    console.log("button classes " + mode, styleClasses[mode])
     return c
       .withPadding(classes?.px, classes?.py, settings?.px, settings?.py)
       .withGaps(classes?.gap, settings?.gap)

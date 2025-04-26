@@ -16,8 +16,8 @@ import {
   filledActiveBackgroundAppearanceClasses,
   filledBackgroundAppearanceClasses,
   filledBorderAppearanceClasses,
-  filledHoverBackgroundAppearanceClasses,
-  hoverBackgroundAppearanceClasses
+  filledHoverBackgroundAppearanceClasses, filledRingAppearanceClasses,
+  hoverBackgroundAppearanceClasses, ringAppearanceClasses
 } from "./classes/appearanceClasses";
 import {
   filledTextAppearanceClasses,
@@ -51,7 +51,13 @@ import {
   hideClasses,
   positionClasses,
   noBorderModeClasses,
-  noShadowClasses, borderModeClasses, noShadowModeClasses
+  noShadowClasses,
+  borderModeClasses,
+  noShadowModeClasses,
+  pillModeClasses,
+  sharpModeClasses,
+  ringModeClasses,
+  noRingModeClasses
 } from "./classes/layoutClasses";
 
 
@@ -127,7 +133,7 @@ export class ButtonAppearanceDefinition {
     filled: {
       base: {
         bg: filledBackgroundAppearanceClasses,
-        borderColor: filledBorderAppearanceClasses,
+        borderColor: filledRingAppearanceClasses,
         color: filledTextAppearanceClasses
       },
       hover: {
@@ -140,7 +146,7 @@ export class ButtonAppearanceDefinition {
     outline: {
       base: {
         bg: backgroundAppearanceClasses,
-        borderColor: borderAppearanceClasses,
+        borderColor: ringAppearanceClasses,
         color: textAppearanceClasses
       },
       hover: {
@@ -194,7 +200,7 @@ export class ButtonSizeDefinition {
     this.shadow = shadowModeClasses[mode][size];
 
     this.borderRadius = buttonRoundedClasses[size];
-    this.border = borderModeClasses[mode];
+    this.border = ringModeClasses[mode];
     this.textSize = buttonTextSizeClasses[size];
 
     // Font and text properties - same for all sizes
@@ -262,13 +268,13 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
   const textAlign = pickFirstKey(props, TEXT_ALIGN_KEYS);
 
   // Layout props
-  const pill = pickFirstKey(props, PILL_KEYS);
-  const sharp = pickFirstKey(props, SHARP_KEYS);
   const hide = pickFirstKey(props, HIDE_KEYS);
   const position = pickFirstKey(props, POSITION_KEYS);
 
   const noBorder = pickFirstValue(props, BORDER_KEYS);
   const noShadow = pickFirstValue(props, SHADOW_KEYS);
+  const pill = pickFirstValue(props, PILL_KEYS);
+  const sharp = pickFirstValue(props, SHARP_KEYS);
 
   const cleanProps = omitProps(props, FLAG_KEYS);
 
@@ -281,10 +287,13 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.padding.x)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.padding.y)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.gap)
-    .withExtraClasses(noShadow === undefined || noShadow ? buttonDefinition.mode[mode].size[size]?.shadow : noShadowModeClasses[mode])
-    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.shadow)
-    .withExtraClasses(buttonDefinition.mode[mode].size[size]?.borderRadius)
-    .withExtraClasses(noBorder === undefined || noBorder ? buttonDefinition.mode[mode].size[size]?.border : noBorderModeClasses[mode])
+    .withExtraClasses(noShadow !== undefined && noShadow ? noShadowModeClasses[mode] : buttonDefinition.mode[mode].size[size]?.shadow)
+    .withExtraClasses(pill !== undefined && pill
+      ? pillModeClasses[mode]
+      : sharp !== undefined && sharp ? sharpModeClasses[mode]
+        : buttonDefinition.mode[mode].size[size]?.borderRadius
+    )
+    .withExtraClasses(noBorder !== undefined && noBorder ? noRingModeClasses[mode] : buttonDefinition.mode[mode].size[size]?.border)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.extraClasses)
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.bg)
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.borderColor)
@@ -300,8 +309,6 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
   );
 
   // Apply layout classes
-  builder.withExtraClasses(pill === undefined ? '' : pillClasses[pill])
-  builder.withExtraClasses(sharp === undefined ? '' : sharpClasses[sharp])
   builder.withExtraClasses(hide === undefined ? '' : hideClasses[hide])
   builder.withExtraClasses(position === undefined ? '' : positionClasses[position])
 

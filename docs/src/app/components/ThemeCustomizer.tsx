@@ -37,8 +37,6 @@ const customTheme: ThemeProps = {
 export const ThemeCustomizer: React.FC = () => {
   const [useCustomTheme, setUseCustomTheme] = useState(false);
 
-  console.log("customTheme", customTheme);
-
   // Toggle between default and custom theme
   const toggleTheme = () => {
     setUseCustomTheme(!useCustomTheme);
