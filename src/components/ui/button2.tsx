@@ -8,7 +8,7 @@ import {
 } from "./props/props";
 import { useTheme } from '../theme';
 import { Mode, MODE_KEYS } from "./settings/mode";
-import { omitProps, pickFirst } from "../utils/componentUtils";
+import { omitProps, pickFirstKey, pickFirstValue } from "../utils/componentUtils";
 import {
   activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses,
@@ -51,7 +51,7 @@ import {
   hideClasses,
   positionClasses,
   noBorderModeClasses,
-  noShadowClasses
+  noShadowClasses, borderModeClasses, noShadowModeClasses
 } from "./classes/layoutClasses";
 
 
@@ -170,6 +170,7 @@ export class ButtonSizeDefinition {
   extraClasses: string = "";
 
   padding: { x: string; y: string };
+  border: string = "";
   borderRadius: string = "";
   shadow: string = "";
   gap: string = "";
@@ -193,6 +194,7 @@ export class ButtonSizeDefinition {
     this.shadow = shadowModeClasses[mode][size];
 
     this.borderRadius = buttonRoundedClasses[size];
+    this.border = borderModeClasses[mode];
     this.textSize = buttonTextSizeClasses[size];
 
     // Font and text properties - same for all sizes
@@ -245,27 +247,28 @@ export class ButtonDefinition {
 
 export const Button2 = (props: ButtonProps): JSX.Element => {
 
-  const size = pickFirst(props, SIZE_KEYS, 'md') ?? 'md';
-  const style = pickFirst(props, STYLE_KEYS, 'outline') ?? 'outline';
-  const appearance = pickFirst(props, TEXT_APPEARANCE_KEYS, 'default') ?? 'default';
+  const size = pickFirstKey(props, SIZE_KEYS, 'md') ?? 'md';
+  const style = pickFirstKey(props, STYLE_KEYS, 'outline') ?? 'outline';
+  const appearance = pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default') ?? 'default';
 
   //Font props
-  const fontFamily = pickFirst(props, FONT_FAMILY_KEYS, 'sans');
-  const fontWeight = pickFirst(props, FONT_WEIGHT_KEYS, 'semibold');
-  const fontStyle = pickFirst(props, FONT_STYLE_KEYS);
+  const fontFamily = pickFirstKey(props, FONT_FAMILY_KEYS, 'sans');
+  const fontWeight = pickFirstKey(props, FONT_WEIGHT_KEYS, 'semibold');
+  const fontStyle = pickFirstKey(props, FONT_STYLE_KEYS);
 
   // Text props
-  const textDecoration = pickFirst(props, TEXT_DECORATION_KEYS);
-  const textTransform = pickFirst(props, TEXT_TRANSFORM_KEYS);
-  const textAlign = pickFirst(props, TEXT_ALIGN_KEYS);
+  const textDecoration = pickFirstKey(props, TEXT_DECORATION_KEYS);
+  const textTransform = pickFirstKey(props, TEXT_TRANSFORM_KEYS);
+  const textAlign = pickFirstKey(props, TEXT_ALIGN_KEYS);
 
   // Layout props
-  const pill = pickFirst(props, PILL_KEYS);
-  const sharp = pickFirst(props, SHARP_KEYS);
-  const hide = pickFirst(props, HIDE_KEYS);
-  const position = pickFirst(props, POSITION_KEYS);
-  const noBorder = pickFirst(props, BORDER_KEYS);
-  const noShadow = pickFirst(props, SHADOW_KEYS);
+  const pill = pickFirstKey(props, PILL_KEYS);
+  const sharp = pickFirstKey(props, SHARP_KEYS);
+  const hide = pickFirstKey(props, HIDE_KEYS);
+  const position = pickFirstKey(props, POSITION_KEYS);
+
+  const noBorder = pickFirstValue(props, BORDER_KEYS);
+  const noShadow = pickFirstValue(props, SHADOW_KEYS);
 
   const cleanProps = omitProps(props, FLAG_KEYS);
 
@@ -278,8 +281,10 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.padding.x)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.padding.y)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.gap)
+    .withExtraClasses(noShadow === undefined || noShadow ? buttonDefinition.mode[mode].size[size]?.shadow : noShadowModeClasses[mode])
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.shadow)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.borderRadius)
+    .withExtraClasses(noBorder === undefined || noBorder ? buttonDefinition.mode[mode].size[size]?.border : noBorderModeClasses[mode])
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.extraClasses)
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.bg)
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.borderColor)
@@ -299,8 +304,6 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
   builder.withExtraClasses(sharp === undefined ? '' : sharpClasses[sharp])
   builder.withExtraClasses(hide === undefined ? '' : hideClasses[hide])
   builder.withExtraClasses(position === undefined ? '' : positionClasses[position])
-  builder.withExtraClasses(noBorder === undefined ? '' : noBorderModeClasses['base'])
-  builder.withExtraClasses(noShadow === undefined ? '' : noShadowClasses[noShadow])
 
   builder.withExtraClasses(buttonDefinition.extraClasses)
   return builder.build();
