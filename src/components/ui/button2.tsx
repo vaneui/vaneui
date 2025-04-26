@@ -3,6 +3,7 @@ import { componentBuilder } from "../utils/componentBuilder";
 import {
   ButtonProps,
   ButtonStyleProps,
+  ShapeProps,
   SizeProps,
   TextAppearanceProps,
 } from "./props/props";
@@ -38,6 +39,7 @@ import {
   TEXT_ALIGN_KEYS,
   PILL_KEYS,
   SHARP_KEYS,
+  SHAPE_KEYS,
   HIDE_KEYS,
   POSITION_KEYS,
   BORDER_KEYS,
@@ -49,6 +51,7 @@ import {
   noShadowModeClasses,
   pillModeClasses,
   sharpModeClasses,
+  roundedModeClasses,
   ringModeClasses,
   noRingModeClasses
 } from "./classes/layoutClasses";
@@ -211,6 +214,7 @@ export class ButtonModeDefinition {
 
   size: Record<keyof SizeProps, ButtonSizeDefinition>;
   style: Record<keyof ButtonStyleProps, ButtonAppearanceDefinition>;
+  shape: Record<keyof ShapeProps, Record<keyof SizeProps, string>>;
 
   constructor(mode: Mode) {
     this.size = {
@@ -224,6 +228,24 @@ export class ButtonModeDefinition {
     this.style = {
       'outline': new ButtonAppearanceDefinition('outline', mode),
       'filled': new ButtonAppearanceDefinition('filled', mode)
+    }
+
+    this.shape = {
+      'rounded': roundedModeClasses[mode],
+      'pill': {
+        'xs': pillModeClasses[mode],
+        'sm': pillModeClasses[mode],
+        'md': pillModeClasses[mode],
+        'lg': pillModeClasses[mode],
+        'xl': pillModeClasses[mode]
+      },
+      'sharp': {
+        'xs': sharpModeClasses[mode],
+        'sm': sharpModeClasses[mode],
+        'md': sharpModeClasses[mode],
+        'lg': sharpModeClasses[mode],
+        'xl': sharpModeClasses[mode]
+      }
     }
   }
 }
@@ -266,8 +288,7 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
 
   const noBorder = pickFirstValue(props, BORDER_KEYS);
   const noShadow = pickFirstValue(props, SHADOW_KEYS);
-  const pill = pickFirstValue(props, PILL_KEYS);
-  const sharp = pickFirstValue(props, SHARP_KEYS);
+  const shape = pickFirstKey(props, SHAPE_KEYS, 'rounded');
 
   const cleanProps = omitProps(props, FLAG_KEYS);
 
@@ -281,11 +302,7 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.padding.y)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.gap)
     .withExtraClasses(noShadow !== undefined && noShadow ? noShadowModeClasses[mode] : buttonDefinition.mode[mode].size[size]?.shadow)
-    .withExtraClasses(pill !== undefined && pill
-      ? pillModeClasses[mode]
-      : sharp !== undefined && sharp ? sharpModeClasses[mode]
-        : buttonDefinition.mode[mode].size[size]?.borderRadius
-    )
+    .withExtraClasses(buttonDefinition.mode[mode].shape[shape ?? 'rounded'][size])
     .withExtraClasses(noBorder !== undefined && noBorder ? noRingModeClasses[mode] : buttonDefinition.mode[mode].size[size]?.border)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.extraClasses)
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.bg)

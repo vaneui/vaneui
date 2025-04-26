@@ -19,6 +19,7 @@ import {
   GapKey,
   PillKey,
   SharpKey,
+  ShapeKey,
   StyleKey,
   DirectionKey,
   ItemsKey,
@@ -50,6 +51,7 @@ export type ReverseProps = { [K in ReverseKey]?: boolean; }
 export type NoGapProps = { [K in GapKey]?: boolean; }
 export type PillProps = { [K in PillKey]?: boolean; }
 export type SharpProps = { [K in SharpKey]?: boolean; }
+export type ShapeProps = { [K in ShapeKey]?: boolean; }
 export type ButtonStyleProps = { [K in StyleKey]?: boolean; }
 export type DirectionProps = { [K in DirectionKey]?: boolean; }
 export type ItemsProps = { [K in ItemsKey]?: boolean; }
@@ -75,8 +77,7 @@ export type TypographyComponentProps = BaseComponentProps & FontProps;
 export type ButtonProps =
   TypographyComponentProps
   & SizeProps
-  & PillProps
-  & SharpProps
+  & ShapeProps
   & CommonAppearanceProps
   & NoBorderProps
   & NoShadowProps

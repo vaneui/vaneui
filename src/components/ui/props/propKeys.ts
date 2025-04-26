@@ -18,6 +18,7 @@ export const REVERSE_KEYS = ['reverse'] as const;
 export const GAP_KEYS = ['noGap'] as const;
 export const PILL_KEYS = ['pill'] as const;
 export const SHARP_KEYS = ['sharp'] as const;
+export const SHAPE_KEYS = ['rounded', 'pill', 'sharp'] as const;
 export const DIRECTION_KEYS = ['row', 'column'] as const;
 export const ITEMS_KEYS = ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const;
 export const JUSTIFY_KEYS = ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const;
@@ -43,6 +44,7 @@ export type ReverseKey = typeof REVERSE_KEYS[number];
 export type GapKey = typeof GAP_KEYS[number];
 export type PillKey = typeof PILL_KEYS[number];
 export type SharpKey = typeof SHARP_KEYS[number];
+export type ShapeKey = typeof SHAPE_KEYS[number];
 export type DirectionKey = typeof DIRECTION_KEYS[number];
 export type ItemsKey = typeof ITEMS_KEYS[number];
 export type JustifyKey = typeof JUSTIFY_KEYS[number];
@@ -68,6 +70,7 @@ export const FLAG_KEYS = [
   ...GAP_KEYS,
   ...PILL_KEYS,
   ...SHARP_KEYS,
+  ...SHAPE_KEYS,
   ...DIRECTION_KEYS,
   ...ITEMS_KEYS,
   ...JUSTIFY_KEYS,
