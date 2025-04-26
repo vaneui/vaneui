@@ -7,7 +7,7 @@ import {
   TextAppearanceProps,
 } from "./props/props";
 import { useTheme } from '../theme';
-import { Mode } from "./settings/mode";
+import { Mode, MODE_KEYS } from "./settings/mode";
 import { omitProps, pickFirst } from "../utils/componentUtils";
 import {
   activeBackgroundAppearanceClasses,
@@ -163,12 +163,30 @@ export class ButtonSizeDefinition {
   gap: string = "";
   textSize: string = "";
 
+  // Font properties
+  fontFamily: string = "";
+  fontWeight: string = "";
+  fontStyle: string = "";
+
+  // Text properties
+  textDecoration: string = "";
+  textTransform: string = "";
+  textAlign: string = "";
+
   constructor(size: keyof SizeProps) {
     this.padding = {x: pxClasses[size], y: pyClasses[size]};
     this.gap = gapClasses[size];
     this.shadow = shadowClasses[size];
     this.borderRadius = buttonRoundedClasses[size];
     this.textSize = buttonTextSizeClasses[size];
+
+    // Font and text properties - same for all sizes
+    this.fontFamily = fontFamilyClasses['sans'];
+    this.fontWeight = fontWeightClasses['semibold'];
+    this.fontStyle = "";
+    this.textDecoration = "";
+    this.textTransform = "";
+    this.textAlign = textAlignClasses['textCenter'];
   }
 }
 
@@ -176,19 +194,19 @@ export class ButtonModeDefinition {
   extraClasses: string = "";
 
   size: Record<keyof SizeProps, ButtonSizeDefinition> = {
-    xs: new ButtonSizeDefinition('xs'),
-    sm: new ButtonSizeDefinition('sm'),
-    md: new ButtonSizeDefinition('md'),
-    lg: new ButtonSizeDefinition('lg'),
-    xl: new ButtonSizeDefinition('xl'),
+    'xs': new ButtonSizeDefinition('xs'),
+    'sm': new ButtonSizeDefinition('sm'),
+    'md': new ButtonSizeDefinition('md'),
+    'lg': new ButtonSizeDefinition('lg'),
+    'xl': new ButtonSizeDefinition('xl')
   }
 
   style: Record<keyof ButtonStyleProps, ButtonAppearanceDefinition>;
 
   constructor(mode: Mode) {
     this.style = {
-      outline: new ButtonAppearanceDefinition('outline', mode),
-      filled: new ButtonAppearanceDefinition('filled', mode),
+      'outline': new ButtonAppearanceDefinition('outline', mode),
+      'filled': new ButtonAppearanceDefinition('filled', mode)
     }
   }
 }
@@ -202,9 +220,9 @@ export class ButtonDefinition {
 
   constructor() {
     this.mode = {
-      base: new ButtonModeDefinition('base'),
-      hover: new ButtonModeDefinition('hover'),
-      active: new ButtonModeDefinition('active'),
+      'base': new ButtonModeDefinition('base'),
+      'hover': new ButtonModeDefinition('hover'),
+      'active': new ButtonModeDefinition('active')
     };
   }
 }
@@ -238,8 +256,7 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
   const buttonDefinition: ButtonDefinition = new ButtonDefinition;
 
   let builder = componentBuilder(cleanProps, props.tag ?? buttonDefinition.tag, buttonDefinition.baseClasses);
-  const modes: Mode[] = ['base', 'hover', 'active']
-  modes.forEach(mode => builder
+  MODE_KEYS.forEach(mode => builder
     .withExtraClasses(buttonDefinition.mode[mode].extraClasses)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.textSize)
     .withExtraClasses(buttonDefinition.mode[mode].size[size]?.padding.x)
@@ -251,23 +268,22 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.bg)
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.borderColor)
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.color)
+    // Apply font-related classes based on mode and size
+    .withExtraClasses(fontWeight === undefined ? buttonDefinition.mode[mode].size[size].fontWeight : fontWeightClasses[fontWeight])
+    .withExtraClasses(fontFamily === undefined ? buttonDefinition.mode[mode].size[size].fontFamily : fontFamilyClasses[fontFamily])
+    .withExtraClasses(fontStyle === undefined ? buttonDefinition.mode[mode].size[size].fontStyle : fontStyleClasses[fontStyle])
+    // Apply text formatting classes based on mode and size
+    .withExtraClasses(textDecoration === undefined ? buttonDefinition.mode[mode].size[size].textDecoration : textDecorationClasses[textDecoration])
+    .withExtraClasses(textTransform === undefined ? buttonDefinition.mode[mode].size[size].textTransform : textTransformClasses[textTransform])
+    .withExtraClasses(textAlign === undefined ? buttonDefinition.mode[mode].size[size].textAlign : textAlignClasses[textAlign])
   );
-  // Apply font-related classes
-  builder.withExtraClasses(fontWeight === undefined ? '' : fontWeightClasses[fontWeight])
-  builder.withExtraClasses(fontFamily === undefined ? '' : fontFamilyClasses[fontFamily])
-  builder.withExtraClasses(fontStyle === undefined ? '' : fontStyleClasses[fontStyle])
-
-  // Apply text formatting classes
-  builder.withExtraClasses(textDecoration === undefined ? '' : textDecorationClasses[textDecoration])
-  builder.withExtraClasses(textTransform === undefined ? '' : textTransformClasses[textTransform])
-  builder.withExtraClasses(textAlign === undefined ? '' : textAlignClasses[textAlign])
 
   // Apply layout classes
   builder.withExtraClasses(pill === undefined ? '' : pillClasses[pill])
   builder.withExtraClasses(sharp === undefined ? '' : sharpClasses[sharp])
   builder.withExtraClasses(hide === undefined ? '' : hideClasses[hide])
   builder.withExtraClasses(position === undefined ? '' : positionClasses[position])
-  builder.withExtraClasses(noBorder === undefined ? '' : noBorderModeClasses.base)
+  builder.withExtraClasses(noBorder === undefined ? '' : noBorderModeClasses['base'])
   builder.withExtraClasses(noShadow === undefined ? '' : noShadowClasses[noShadow])
 
   builder.withExtraClasses(buttonDefinition.extraClasses)
