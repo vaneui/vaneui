@@ -3,28 +3,12 @@ import { componentBuilder } from "../utils/componentBuilder";
 import {
   ButtonProps,
   ButtonStyleProps,
-  CommonAppearanceProps,
-  FontFamilyProps, FontWeightProps,
   SizeProps,
   TextAppearanceProps,
-  TextDecorationProps,
-  TextTransformProps,
-  TextAlignProps,
-  BreakpointProps,
-  ItemsProps,
-  JustifyProps,
-  DirectionProps,
-  WrapProps,
-  PillProps,
-  SharpProps,
-  HideProps,
-  PositionProps,
-  NoBorderProps,
-  NoShadowProps
 } from "./props/props";
 import { useTheme } from '../theme';
 import { Mode } from "./settings/mode";
-import { getFirstTruthyKey, omitProps, pickFirst } from "../utils/componentUtils";
+import { omitProps, pickFirst } from "../utils/componentUtils";
 import {
   activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses,
@@ -54,11 +38,6 @@ import {
   TEXT_DECORATION_KEYS,
   TEXT_TRANSFORM_KEYS,
   TEXT_ALIGN_KEYS,
-  BREAKPOINT_KEYS,
-  ITEMS_KEYS,
-  JUSTIFY_KEYS,
-  DIRECTION_KEYS,
-  WRAP_KEYS,
   PILL_KEYS,
   SHARP_KEYS,
   HIDE_KEYS,
@@ -67,11 +46,6 @@ import {
   SHADOW_KEYS
 } from "./props/propKeys";
 import {
-  rowToColumnBreakpointClasses,
-  itemsClasses,
-  justifyClasses,
-  directionClasses,
-  wrapClasses,
   pillClasses,
   sharpClasses,
   hideClasses,
