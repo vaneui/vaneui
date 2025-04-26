@@ -6,7 +6,21 @@ import {
   CommonAppearanceProps,
   FontFamilyProps, FontWeightProps,
   SizeProps,
-  TextAppearanceProps
+  TextAppearanceProps,
+  TextDecorationProps,
+  TextTransformProps,
+  TextAlignProps,
+  BreakpointProps,
+  ItemsProps,
+  JustifyProps,
+  DirectionProps,
+  WrapProps,
+  PillProps,
+  SharpProps,
+  HideProps,
+  PositionProps,
+  NoBorderProps,
+  NoShadowProps
 } from "./props/props";
 import { useTheme } from '../theme';
 import { Mode } from "./settings/mode";
@@ -25,7 +39,10 @@ import {
   filledTextAppearanceClasses,
   fontFamilyClasses, fontStyleClasses,
   fontWeightClasses,
-  textAppearanceClasses
+  textAppearanceClasses,
+  textDecorationClasses,
+  textTransformClasses,
+  textAlignClasses
 } from "./classes/typographyClasses";
 import {
   FLAG_KEYS,
@@ -33,8 +50,35 @@ import {
   FONT_WEIGHT_KEYS,
   SIZE_KEYS,
   STYLE_KEYS,
-  TEXT_APPEARANCE_KEYS
+  TEXT_APPEARANCE_KEYS,
+  TEXT_DECORATION_KEYS,
+  TEXT_TRANSFORM_KEYS,
+  TEXT_ALIGN_KEYS,
+  BREAKPOINT_KEYS,
+  ITEMS_KEYS,
+  JUSTIFY_KEYS,
+  DIRECTION_KEYS,
+  WRAP_KEYS,
+  PILL_KEYS,
+  SHARP_KEYS,
+  HIDE_KEYS,
+  POSITION_KEYS,
+  BORDER_KEYS,
+  SHADOW_KEYS
 } from "./props/propKeys";
+import {
+  rowToColumnBreakpointClasses,
+  itemsClasses,
+  justifyClasses,
+  directionClasses,
+  wrapClasses,
+  pillClasses,
+  sharpClasses,
+  hideClasses,
+  positionClasses,
+  noBorderModeClasses,
+  noShadowClasses
+} from "./classes/layoutClasses";
 
 
 const pxClasses: Record<keyof SizeProps, string> = {xs: "px-2", sm: "px-2.5", md: "px-3.5", lg: "px-5", xl: "px-6"}
@@ -197,9 +241,23 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
   const style = pickFirst(props, STYLE_KEYS, 'outline') ?? 'outline';
   const appearance = pickFirst(props, TEXT_APPEARANCE_KEYS, 'default') ?? 'default';
 
+  //Font props
   const fontFamily = pickFirst(props, FONT_FAMILY_KEYS, 'sans');
   const fontWeight = pickFirst(props, FONT_WEIGHT_KEYS, 'semibold');
   const fontStyle = pickFirst(props, FONT_STYLE_KEYS);
+
+  // Text props
+  const textDecoration = pickFirst(props, TEXT_DECORATION_KEYS);
+  const textTransform = pickFirst(props, TEXT_TRANSFORM_KEYS);
+  const textAlign = pickFirst(props, TEXT_ALIGN_KEYS);
+
+  // Layout props
+  const pill = pickFirst(props, PILL_KEYS);
+  const sharp = pickFirst(props, SHARP_KEYS);
+  const hide = pickFirst(props, HIDE_KEYS);
+  const position = pickFirst(props, POSITION_KEYS);
+  const noBorder = pickFirst(props, BORDER_KEYS);
+  const noShadow = pickFirst(props, SHADOW_KEYS);
 
   const cleanProps = omitProps(props, FLAG_KEYS);
 
@@ -220,9 +278,24 @@ export const Button2 = (props: ButtonProps): JSX.Element => {
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.borderColor)
     .withExtraClasses(buttonDefinition.mode[mode].style[style]?.appearance[appearance]?.color)
   );
+  // Apply font-related classes
   builder.withExtraClasses(fontWeight === undefined ? '' : fontWeightClasses[fontWeight])
   builder.withExtraClasses(fontFamily === undefined ? '' : fontFamilyClasses[fontFamily])
   builder.withExtraClasses(fontStyle === undefined ? '' : fontStyleClasses[fontStyle])
+
+  // Apply text formatting classes
+  builder.withExtraClasses(textDecoration === undefined ? '' : textDecorationClasses[textDecoration])
+  builder.withExtraClasses(textTransform === undefined ? '' : textTransformClasses[textTransform])
+  builder.withExtraClasses(textAlign === undefined ? '' : textAlignClasses[textAlign])
+
+  // Apply layout classes
+  builder.withExtraClasses(pill === undefined ? '' : pillClasses[pill])
+  builder.withExtraClasses(sharp === undefined ? '' : sharpClasses[sharp])
+  builder.withExtraClasses(hide === undefined ? '' : hideClasses[hide])
+  builder.withExtraClasses(position === undefined ? '' : positionClasses[position])
+  builder.withExtraClasses(noBorder === undefined ? '' : noBorderModeClasses.base)
+  builder.withExtraClasses(noShadow === undefined ? '' : noShadowClasses[noShadow])
+
   builder.withExtraClasses(buttonDefinition.extraClasses)
   return builder.build();
 };
