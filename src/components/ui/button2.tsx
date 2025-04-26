@@ -65,6 +65,18 @@ const shadowClasses: Record<keyof SizeProps, string> = {
   lg: "shadow-lg",
   xl: "shadow-xl"
 }
+const hoverShadowClasses: Record<keyof SizeProps, string> = {
+  xs: "hover:shadow-sm",
+  sm: "hover:shadow-md",
+  md: "hover:shadow-lg",
+  lg: "hover:shadow-xl",
+  xl: "hover:shadow-2xl"
+}
+const shadowModeClasses: Record<Mode, Record<keyof SizeProps, string>> = {
+  base: shadowClasses,
+  hover: hoverShadowClasses,
+  active: hoverShadowClasses // Using hover shadow classes for active mode as per comment
+}
 const buttonTextSizeClasses: Record<keyof SizeProps, string> = {
   xs: "text-xs/5",
   sm: "text-sm/5",
@@ -173,10 +185,13 @@ export class ButtonSizeDefinition {
   textTransform: string = "";
   textAlign: string = "";
 
-  constructor(size: keyof SizeProps) {
+  constructor(size: keyof SizeProps, mode: Mode) {
     this.padding = {x: pxClasses[size], y: pyClasses[size]};
     this.gap = gapClasses[size];
-    this.shadow = shadowClasses[size];
+
+    // Get shadow class based on mode from the shadowModeClasses collection
+    this.shadow = shadowModeClasses[mode][size];
+
     this.borderRadius = buttonRoundedClasses[size];
     this.textSize = buttonTextSizeClasses[size];
 
@@ -193,17 +208,18 @@ export class ButtonSizeDefinition {
 export class ButtonModeDefinition {
   extraClasses: string = "";
 
-  size: Record<keyof SizeProps, ButtonSizeDefinition> = {
-    'xs': new ButtonSizeDefinition('xs'),
-    'sm': new ButtonSizeDefinition('sm'),
-    'md': new ButtonSizeDefinition('md'),
-    'lg': new ButtonSizeDefinition('lg'),
-    'xl': new ButtonSizeDefinition('xl')
-  }
-
+  size: Record<keyof SizeProps, ButtonSizeDefinition>;
   style: Record<keyof ButtonStyleProps, ButtonAppearanceDefinition>;
 
   constructor(mode: Mode) {
+    this.size = {
+      'xs': new ButtonSizeDefinition('xs', mode),
+      'sm': new ButtonSizeDefinition('sm', mode),
+      'md': new ButtonSizeDefinition('md', mode),
+      'lg': new ButtonSizeDefinition('lg', mode),
+      'xl': new ButtonSizeDefinition('xl', mode)
+    };
+
     this.style = {
       'outline': new ButtonAppearanceDefinition('outline', mode),
       'filled': new ButtonAppearanceDefinition('filled', mode)
