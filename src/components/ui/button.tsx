@@ -81,52 +81,40 @@ export function useButtonClasses(props: ButtonProps) {
 
   // build once
   const buttonDef = new ButtonDefinition();
-  const tag         = props.tag ?? buttonDef.tag;
+  const tag = props.tag ?? buttonDef.tag;
   const baseClasses = buttonDef.baseClasses;
 
   const classesByMode: Record<typeof MODE_KEYS[number], string[]> = {} as any;
 
   MODE_KEYS.forEach(mode => {
-    const def = buttonDef.mode[mode];
-    const sizeDef = def.size[size];
-    const styleDef = def.style[style].appearance[appearance];
+    const buttonMode = buttonDef.mode[mode];
+    const buttonSize = buttonMode.size[size];
+    const buttonColors = buttonMode.style[style].appearance[appearance];
 
-    const arr = [
-      def.extraClasses,
-      sizeDef.textSize,
-      sizeDef.padding.x,
-      sizeDef.padding.y,
-      sizeDef.gap,
-      noShadow ? noShadowModeClasses[mode] : sizeDef.shadow,
-      def.shape[shape][size],
-      noBorder ? noBorderModeClasses[mode] : sizeDef.border,
-      sizeDef.extraClasses,
-      styleDef.bg,
-      styleDef.borderColor,
-      styleDef.color,
-      fontWeight
-        ? fontWeightClasses[fontWeight]
-        : sizeDef.fontWeight,
-      fontFamily
-        ? fontFamilyClasses[fontFamily]
-        : sizeDef.fontFamily,
-      fontStyle
-        ? fontStyleClasses[fontStyle]
-        : sizeDef.fontStyle,
-      textDecoration
-        ? textDecorationClasses[textDecoration]
-        : sizeDef.textDecoration,
-      textTransform
-        ? textTransformClasses[textTransform]
-        : sizeDef.textTransform,
-      textAlign
-        ? textAlignClasses[textAlign]
-        : sizeDef.textAlign,
+    const modeClasses = [
+      buttonMode.extraClasses,
+      buttonSize.extraClasses,
+      buttonSize.textSize,
+      buttonSize.padding.x,
+      buttonSize.padding.y,
+      buttonSize.gap,
+      noShadow ? noShadowModeClasses[mode] : buttonSize.shadow,
+      buttonMode.shape[shape][size],
+      noBorder ? noBorderModeClasses[mode] : buttonSize.border,
+      buttonColors.bg,
+      buttonColors.borderColor,
+      buttonColors.color,
+      fontWeight ? fontWeightClasses[fontWeight] : buttonSize.fontWeight,
+      fontFamily ? fontFamilyClasses[fontFamily] : buttonSize.fontFamily,
+      fontStyle ? fontStyleClasses[fontStyle] : buttonSize.fontStyle,
+      textDecoration ? textDecorationClasses[textDecoration] : buttonSize.textDecoration,
+      textTransform ? textTransformClasses[textTransform] : buttonSize.textTransform,
+      textAlign ? textAlignClasses[textAlign] : buttonSize.textAlign,
       hide ? hideClasses[hide] : '',
       position ? positionClasses[position] : ''
     ];
 
-    classesByMode[mode] = arr.filter(Boolean);
+    classesByMode[mode] = modeClasses.filter(Boolean);
   });
 
   return { cleanProps, tag, baseClasses, classesByMode };
