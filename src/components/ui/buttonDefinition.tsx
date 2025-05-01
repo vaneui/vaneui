@@ -148,6 +148,7 @@ export class ButtonSizeDefinition {
   shadow: string = "";
   gap: string = "";
   textSize: string = "";
+  shape: Record<keyof ShapeProps, string> = {} as Record<keyof ShapeProps, string>;
 
   // Font properties
   fontFamily: string = "";
@@ -170,6 +171,13 @@ export class ButtonSizeDefinition {
     this.border = ringModeClasses[mode];
     this.textSize = buttonTextSizeClasses[size];
 
+    // Shape properties
+    this.shape = {
+      'rounded': roundedModeClasses[mode][size],
+      'pill': pillModeClasses[mode],
+      'sharp': sharpModeClasses[mode]
+    };
+
     // Font and text properties - same for all sizes
     this.fontFamily = fontFamilyClasses['sans'];
     this.fontWeight = fontWeightClasses['semibold'];
@@ -185,7 +193,6 @@ export class ButtonModeDefinition {
 
   size: Record<keyof SizeProps, ButtonSizeDefinition>;
   style: Record<keyof ButtonStyleProps, ButtonAppearanceDefinition>;
-  shape: Record<keyof ShapeProps, Record<keyof SizeProps, string>>;
 
   constructor(mode: Mode) {
     this.size = {
@@ -199,24 +206,6 @@ export class ButtonModeDefinition {
     this.style = {
       'outline': new ButtonAppearanceDefinition('outline', mode),
       'filled': new ButtonAppearanceDefinition('filled', mode)
-    }
-
-    this.shape = {
-      'rounded': roundedModeClasses[mode],
-      'pill': {
-        'xs': pillModeClasses[mode],
-        'sm': pillModeClasses[mode],
-        'md': pillModeClasses[mode],
-        'lg': pillModeClasses[mode],
-        'xl': pillModeClasses[mode]
-      },
-      'sharp': {
-        'xs': sharpModeClasses[mode],
-        'sm': sharpModeClasses[mode],
-        'md': sharpModeClasses[mode],
-        'lg': sharpModeClasses[mode],
-        'xl': sharpModeClasses[mode]
-      }
     }
   }
 }

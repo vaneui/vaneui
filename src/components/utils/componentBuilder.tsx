@@ -86,11 +86,6 @@ export class ComponentBuilder {
     return this;
   }
 
-  withExtraClass(className: string): this {
-    this.extraClasses.push(className);
-    return this;
-  }
-
   withExtraClasses(classNames: string[]): this {
     this.extraClasses.push(...classNames);
     return this;
