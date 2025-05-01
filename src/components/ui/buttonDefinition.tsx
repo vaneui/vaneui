@@ -26,6 +26,7 @@ import {
   roundedModeClasses,
   ringModeClasses,
 } from "./classes/layoutClasses";
+import { TEXT_APPEARANCE_KEYS } from "./props/propKeys";
 
 
 const pxClasses: Record<keyof SizeProps, string> = {xs: "px-2", sm: "px-2.5", md: "px-3.5", lg: "px-5", xl: "px-6"}
@@ -126,12 +127,10 @@ export class ButtonAppearanceDefinition {
   };
 
   constructor(style: keyof ButtonStyleProps, mode: Mode) {
-    const appearances = Object.keys(this.appearance) as (keyof TextAppearanceProps)[];
-
     // Get the configuration for the current style and mode, or use an empty object if not found
     const config = this.styleConfig[style]?.[mode] ?? {};
 
-    appearances.forEach(appearance => {
+    TEXT_APPEARANCE_KEYS.forEach(appearance => {
       this.appearance[appearance].color = config.color?.[appearance] ?? "";
       this.appearance[appearance].bg = config.bg?.[appearance] ?? "";
       this.appearance[appearance].borderColor = config.borderColor?.[appearance] ?? "";
