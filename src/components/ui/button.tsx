@@ -17,7 +17,11 @@ import {
   POSITION_KEYS,
   BORDER_KEYS,
   SHADOW_KEYS,
-  FLAG_KEYS
+  FLAG_KEYS,
+  TextAppearanceKey,
+  StyleKey,
+  SizeKey,
+  ShapeKey
 } from './props/propKeys';
 import {
   pickFirstKey,
@@ -25,7 +29,27 @@ import {
   omitProps
 } from '../utils/componentUtils';
 import { MODE_KEYS } from './settings/mode';
-import { ButtonDefinition } from './buttonDefinition'
+import { 
+  pxMap, 
+  pyMap, 
+  textSizeMap, 
+  roundedMap, 
+  gapMap
+} from './classes/buttonClasses'
+import {
+  activeBackgroundAppearanceClasses,
+  backgroundAppearanceClasses,
+  filledActiveBackgroundAppearanceClasses,
+  filledBackgroundAppearanceClasses,
+  filledHoverBackgroundAppearanceClasses, 
+  filledRingAppearanceClasses,
+  hoverBackgroundAppearanceClasses, 
+  ringAppearanceClasses
+} from './classes/appearanceClasses';
+import {
+  filledTextAppearanceClasses,
+  textAppearanceClasses
+} from './classes/typographyClasses';
 import {
   fontFamilyClasses,
   fontStyleClasses,
@@ -38,10 +62,91 @@ import {
   noBorderModeClasses,
   noShadowModeClasses,
   hideClasses,
-  positionClasses
+  positionClasses,
+  shadowClasses,
+  hoverShadowClasses,
+  activeShadowClasses
 } from './classes/layoutClasses';
 import React from 'react';
 import { componentBuilder } from '../utils/componentBuilder';
+
+/**
+ * Defines the classes for a component's different states
+ */
+export type VariantClasses = {
+  [K in typeof MODE_KEYS[number]]: string;
+}
+
+/**
+ * Maps size keys to their variant classes
+ */
+export type ButtonSizeVariants = Record<SizeKey, VariantClasses>;
+
+/**
+ * Maps style keys to appearance keys to their variant classes
+ */
+export type ButtonStyleVariants = Record<StyleKey, Record<TextAppearanceKey, VariantClasses>>;
+
+/**
+ * Size variants for buttons
+ */
+export const SIZE_VARIANTS: ButtonSizeVariants = SIZE_KEYS.reduce((acc, size) => {
+  acc[size] = {
+    base: `${pxMap[size]} ${pyMap[size]} ${textSizeMap[size]} ${roundedMap[size]} ${shadowClasses[size]} ${gapMap[size]} ${fontFamilyClasses.sans} ${fontWeightClasses.semibold} ${textAlignClasses.textCenter}`,
+    hover: hoverShadowClasses[size],
+    active: activeShadowClasses[size],
+  };
+  return acc;
+}, {} as ButtonSizeVariants);
+
+/**
+ * Shape variants for buttons
+ */
+export const SHAPE_VARIANTS: Record<ShapeKey, VariantClasses> = {
+  rounded: { base: 'rounded-md', hover: '', active: '' },
+  pill:    { base: 'rounded-full', hover: '', active: '' },
+  sharp:   { base: 'rounded-none', hover: '', active: '' },
+};
+
+/**
+ * Style variants for buttons
+ */
+export const STYLE_VARIANTS: ButtonStyleVariants = {
+  outline: makeStyleVariants(
+    backgroundAppearanceClasses,
+    hoverBackgroundAppearanceClasses,
+    activeBackgroundAppearanceClasses,
+    ringAppearanceClasses,
+    textAppearanceClasses,
+  ),
+  filled: makeStyleVariants(
+    filledBackgroundAppearanceClasses,
+    filledHoverBackgroundAppearanceClasses,
+    filledActiveBackgroundAppearanceClasses,
+    filledRingAppearanceClasses,
+    filledTextAppearanceClasses,
+  ),
+};
+
+/**
+ * Factory function to create style variants
+ */
+export function makeStyleVariants(
+  baseBg: Record<TextAppearanceKey, string>,
+  hoverBg: Record<TextAppearanceKey, string>,
+  activeBg: Record<TextAppearanceKey, string>,
+  ring: Record<TextAppearanceKey, string>,
+  text: Record<TextAppearanceKey, string>,
+): Record<TextAppearanceKey, Record<typeof MODE_KEYS[number], string>> {
+  return TEXT_APPEARANCE_KEYS.reduce((acc, key) => {
+    acc[key] = {
+      base: `${baseBg[key]} border ${ring[key]} ${text[key]}`,
+      hover: hoverBg[key],
+      active: activeBg[key],
+    };
+    return acc;
+  }, {} as Record<TextAppearanceKey, Record<typeof MODE_KEYS[number], string>>);
+}
 
 export function useButtonClasses(props: ButtonProps) {
   const {
@@ -79,43 +184,48 @@ export function useButtonClasses(props: ButtonProps) {
   // strip all the boolean flags
   const cleanProps = omitProps(props, FLAG_KEYS);
 
-  // build once
-  const buttonDef = new ButtonDefinition();
-  const tag = props.tag ?? buttonDef.tag;
-  const baseClasses = buttonDef.baseClasses;
+  // Get the size, style, and shape variants
+  const sizeClasses = SIZE_VARIANTS[size as keyof typeof SIZE_VARIANTS];
+  const styleClasses = STYLE_VARIANTS[style as keyof typeof STYLE_VARIANTS][appearance as TextAppearanceKey];
+  const shapeClasses = SHAPE_VARIANTS[shape as keyof typeof SHAPE_VARIANTS];
 
-  const classesByMode: Record<typeof MODE_KEYS[number], string[]> = {} as any;
+  // Define the base tag and classes
+  const tag = props.tag ?? "button";
+  const baseClasses = "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap";
 
-  MODE_KEYS.forEach(mode => {
-    const buttonMode = buttonDef.mode[mode];
-    const buttonSize = buttonMode.size[size];
-    const buttonColors = buttonMode.style[style].appearance[appearance];
-
-    const modeClasses = [
-      buttonMode.extraClasses,
-      buttonSize.extraClasses,
-      buttonSize.textSize,
-      buttonSize.padding.x,
-      buttonSize.padding.y,
-      buttonSize.gap,
-      buttonSize.shape[shape],
-      noShadow ? noShadowModeClasses[mode] : buttonSize.shadow,
-      noBorder ? noBorderModeClasses[mode] : buttonSize.border,
-      buttonColors.bg,
-      buttonColors.borderColor,
-      buttonColors.color,
-      fontWeight ? fontWeightClasses[fontWeight] : buttonSize.fontWeight,
-      fontFamily ? fontFamilyClasses[fontFamily] : buttonSize.fontFamily,
-      fontStyle ? fontStyleClasses[fontStyle] : buttonSize.fontStyle,
-      textDecoration ? textDecorationClasses[textDecoration] : buttonSize.textDecoration,
-      textTransform ? textTransformClasses[textTransform] : buttonSize.textTransform,
-      textAlign ? textAlignClasses[textAlign] : buttonSize.textAlign,
+  // Combine all classes by mode
+  const classesByMode: Record<typeof MODE_KEYS[number], string[]> = {
+    base: [
+      baseClasses,
+      sizeClasses.base,
+      styleClasses.base,
+      fontWeight ? fontWeightClasses[fontWeight] : '',
+      fontFamily ? fontFamilyClasses[fontFamily] : '',
+      fontStyle ? fontStyleClasses[fontStyle] : '',
+      textDecoration ? textDecorationClasses[textDecoration] : '',
+      textTransform ? textTransformClasses[textTransform] : '',
+      textAlign ? textAlignClasses[textAlign] : '',
       hide ? hideClasses[hide] : '',
-      position ? positionClasses[position] : ''
-    ];
-
-    classesByMode[mode] = modeClasses.filter(Boolean);
-  });
+      position ? positionClasses[position] : '',
+      shapeClasses.base,
+      noBorder ? noBorderModeClasses.base : '',
+      noShadow ? noShadowModeClasses.base : ''
+    ].filter(Boolean),
+    hover: [
+      sizeClasses.hover,
+      styleClasses.hover,
+      shapeClasses.hover,
+      noBorder ? noBorderModeClasses.hover : '',
+      noShadow ? noShadowModeClasses.hover : ''
+    ].filter(Boolean),
+    active: [
+      sizeClasses.active,
+      styleClasses.active,
+      shapeClasses.active,
+      noBorder ? noBorderModeClasses.active : '',
+      noShadow ? noShadowModeClasses.active : ''
+    ].filter(Boolean)
+  };
 
   return { cleanProps, tag, baseClasses, classesByMode };
 }

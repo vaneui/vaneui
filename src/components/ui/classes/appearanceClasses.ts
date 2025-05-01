@@ -1,4 +1,4 @@
-import { CommonAppearanceProps, TextAppearanceProps } from "../props/props"
+import { TextAppearanceProps } from "../props/props"
 
 // Background classes for filled buttons
 export const filledBackgroundAppearanceClasses: Record<keyof TextAppearanceProps, string> = {

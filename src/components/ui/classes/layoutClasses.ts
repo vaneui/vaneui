@@ -97,6 +97,14 @@ export const hoverShadowClasses: Record<keyof SizeProps, string> = {
   xl: "hover:shadow-2xl"
 }
 
+export const activeShadowClasses: Record<keyof SizeProps, string> = {
+  xs: "active:shadow-sm",
+  sm: "active:shadow-md",
+  md: "active:shadow-lg",
+  lg: "active:shadow-xl",
+  xl: "active:shadow-2xl"
+}
+
 export const noRingModeClasses: Record<Mode, string> = {
   base: "ring-0",
   hover: "hover:ring-0",

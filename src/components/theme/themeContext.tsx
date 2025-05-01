@@ -1,12 +1,8 @@
 import React, { createContext, useContext } from 'react';
-import { ButtonSettings } from '../ui/settings/buttonSettings';
-import { ButtonClasses } from '../ui/classes/buttonClasses';
 
 // Define the shape of our theme props
 export interface ThemeProps {
   button?: {
-    settings?: ((settings: ButtonSettings) => ButtonSettings);
-    classes?: ((classes: ButtonClasses) => ButtonClasses);
   };
 }
 
