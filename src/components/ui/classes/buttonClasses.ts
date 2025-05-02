@@ -1,5 +1,4 @@
 import { SizeKey } from "../props/propKeys";
-import { SIZE_VARIANTS, SHAPE_VARIANTS, STYLE_VARIANTS } from "../button";
 
 /**
  * Maps for size-related classes
