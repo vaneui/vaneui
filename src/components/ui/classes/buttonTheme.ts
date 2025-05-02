@@ -116,9 +116,9 @@ export type ButtonTheme = {
 function makeSizeVariants(): Record<SizeKey, ModeledStyles> {
   return SIZE_KEYS.reduce((acc, size) => {
     acc[size] = {
-      base: `${pxMap[size]} ${pyMap[size]} ${textSizeMap[size]} ${shadowClasses[size]} ${gapMap[size]}`,
-      hover: hoverShadowClasses[size],
-      active: activeShadowClasses[size],
+      base: `${pxMap[size]} ${pyMap[size]} ${textSizeMap[size]} ${gapMap[size]}`,
+      hover: '',
+      active: '',
     };
     return acc;
   }, {} as Record<SizeKey, ModeledStyles>);
@@ -150,7 +150,7 @@ function makeStyleAppearanceVariant(
 ): Record<TextAppearanceKey, ModeledStyles> {
   return TEXT_APPEARANCE_KEYS.reduce((acc, key) => {
     acc[key] = {
-      base: `${baseBg[key]} border ${ring[key]} ${text[key]}`,
+      base: `${baseBg[key]} ${ring[key]} ${text[key]}`,
       hover: hoverBg[key],
       active: activeBg[key],
     };
@@ -233,43 +233,5 @@ export const defaultButtonTheme: ButtonTheme = {
   },
 };
 
-// Export a singleton instance that can be imported and overridden
-export let buttonTheme: ButtonTheme = defaultButtonTheme;
-
-/**
- * Function to override the default button theme
- * @param theme Partial configuration to override the default
- */
-export function setButtonTheme(theme: Partial<ButtonTheme>): void {
-  buttonTheme = { 
-    ...defaultButtonTheme, 
-    ...theme,
-    variants: {
-      ...defaultButtonTheme.variants,
-      ...(theme.variants || {}),
-    },
-    typography: {
-      ...defaultButtonTheme.typography,
-      ...(theme.typography || {}),
-    },
-    layout: {
-      ...defaultButtonTheme.layout,
-      ...(theme.layout || {}),
-      flags: {
-        ...defaultButtonTheme.layout.flags,
-        ...(theme.layout?.flags || {}),
-      },
-    },
-    defaults: {
-      ...defaultButtonTheme.defaults,
-      ...(theme.defaults || {}),
-    },
-  };
-}
-
-/**
- * Function to reset the button theme to default
- */
-export function resetButtonTheme(): void {
-  buttonTheme = defaultButtonTheme;
-}
+// Export the default button theme to be used with the useButtonTheme hook
+// For customization, use the ThemeProvider component with a theme prop that includes button overrides

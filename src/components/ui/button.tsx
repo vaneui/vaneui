@@ -39,13 +39,15 @@ import {
 import { MODE_KEYS } from './settings/mode';
 import React from 'react';
 import { componentBuilder } from '../utils/componentBuilder';
-import { buttonTheme } from './classes/buttonTheme';
+import { useButtonTheme } from '../theme/themeContext';
 
 export type VariantClasses = {
   [K in typeof MODE_KEYS[number]]: string;
 }
 
 export function useButtonClasses(props: ButtonProps) {
+  const buttonTheme = useButtonTheme();
+
   // Extract props using defaults from buttonTheme
   const {
     size,
@@ -77,7 +79,7 @@ export function useButtonClasses(props: ButtonProps) {
     position: pickFirstKey(props, POSITION_KEYS, buttonTheme.defaults.position as PositionKey),
     noBorder: pickFirstValue(props, BORDER_KEYS),
     noShadow: pickFirstValue(props, SHADOW_KEYS),
-  }), [props]);
+  }), [props, buttonTheme]);
 
   // strip all the boolean flags
   const cleanProps = omitProps(props, FLAG_KEYS);
@@ -108,21 +110,21 @@ export function useButtonClasses(props: ButtonProps) {
       shapeClasses.base,
       noBorder ? buttonTheme.layout.flags.noBorder.base : '',
       noShadow ? buttonTheme.layout.flags.noShadow.base : ''
-    ].filter(Boolean) as string[],
+    ],
     hover: [
       sizeClasses.hover ?? '',
       styleClasses.hover ?? '',
       shapeClasses.hover ?? '',
       noBorder ? buttonTheme.layout.flags.noBorder.hover ?? '' : '',
       noShadow ? buttonTheme.layout.flags.noShadow.hover ?? '' : ''
-    ].filter(Boolean) as string[],
+    ],
     active: [
       sizeClasses.active ?? '',
       styleClasses.active ?? '',
       shapeClasses.active ?? '',
       noBorder ? buttonTheme.layout.flags.noBorder.active ?? '' : '',
       noShadow ? buttonTheme.layout.flags.noShadow.active ?? '' : ''
-    ].filter(Boolean) as string[]
+    ]
   };
 
   return {cleanProps, tag, baseClasses, classesByMode};
