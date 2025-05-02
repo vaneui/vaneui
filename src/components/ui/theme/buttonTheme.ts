@@ -109,12 +109,12 @@ export type ButtonTheme = {
     fontFamily: FontFamilyKey;
     fontWeight: FontWeightKey;
     // Add defaults for others if needed (e.g., null/undefined means "don't apply")
-    fontStyle: FontStyleKey | null;
-    textDecoration: TextDecorationKey | null;
-    textTransform: TextTransformKey | null;
-    textAlign: TextAlignKey | null;
-    hide: HideKey | null;
-    position: PositionKey | null;
+    fontStyle: FontStyleKey | undefined;
+    textDecoration: TextDecorationKey | undefined;
+    textTransform: TextTransformKey | undefined;
+    textAlign: TextAlignKey | undefined;
+    hide: HideKey | undefined;
+    position: PositionKey | undefined;
     noShadow: boolean;
     noBorder: boolean;
     noRing: boolean;
@@ -235,12 +235,12 @@ export const defaultButtonTheme: ButtonTheme = {
     shape: 'rounded',
     fontFamily: 'sans',
     fontWeight: 'semibold',
-    fontStyle: null,
-    textDecoration: null,
-    textTransform: null,
+    fontStyle: undefined,
+    textDecoration: undefined,
+    textTransform: undefined,
     textAlign: 'textCenter',
-    hide: null,
-    position: null,
+    hide: undefined,
+    position: undefined,
     noShadow: false,
     noBorder: true,
     noRing: false,
