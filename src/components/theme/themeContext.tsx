@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { ButtonTheme, defaultButtonTheme } from '../ui/classes/buttonTheme';
+import { ButtonTheme, defaultButtonTheme } from '../ui/theme/buttonTheme';
 import { deepMerge } from '../utils/deepMerge';
 
 // Define the shape of our theme props

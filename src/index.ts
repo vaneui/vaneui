@@ -22,4 +22,4 @@ export {
   defaultButtonTheme,
   ButtonTheme,
   ModeledStyles
-} from "./components/ui/classes/buttonTheme"
+} from "./components/ui/theme/buttonTheme"

@@ -22,7 +22,7 @@ import {
   textSizeMap,
   roundedMap,
   gapMap
-} from "./buttonClasses";
+} from "../classes/buttonClasses";
 import {
   backgroundAppearanceClasses,
   hoverBackgroundAppearanceClasses,
@@ -32,7 +32,7 @@ import {
   filledHoverBackgroundAppearanceClasses,
   filledActiveBackgroundAppearanceClasses,
   filledRingAppearanceClasses
-} from "./appearanceClasses";
+} from "../classes/appearanceClasses";
 import {
   textAppearanceClasses,
   filledTextAppearanceClasses,
@@ -42,7 +42,7 @@ import {
   textDecorationClasses,
   textTransformClasses,
   textAlignClasses
-} from "./typographyClasses";
+} from "../classes/typographyClasses";
 import {
   shadowClasses,
   hoverShadowClasses,
@@ -53,7 +53,7 @@ import {
   noShadowModeClasses,
   noRingModeClasses,
   ringModeClasses, borderModeClasses
-} from "./layoutClasses";
+} from "../classes/layoutClasses";
 import { Mode } from "../settings/mode";
 
 // Represents styles that can vary by interaction mode (base, hover, active)
