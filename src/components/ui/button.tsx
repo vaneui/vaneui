@@ -76,17 +76,30 @@ export type VariantClasses = {
 
 export const SIZE_VARIANTS: Record<SizeKey, VariantClasses> = SIZE_KEYS.reduce((acc, size) => {
   acc[size] = {
-    base: `${pxMap[size]} ${pyMap[size]} ${textSizeMap[size]} ${roundedMap[size]} ${shadowClasses[size]} ${gapMap[size]} ${fontFamilyClasses.sans} ${fontWeightClasses.semibold} ${textAlignClasses.textCenter}`,
+    base: `${pxMap[size]} ${pyMap[size]} ${textSizeMap[size]} ${shadowClasses[size]} ${gapMap[size]} ${fontFamilyClasses.sans} ${fontWeightClasses.semibold} ${textAlignClasses.textCenter}`,
     hover: hoverShadowClasses[size],
     active: activeShadowClasses[size],
   };
   return acc;
 }, {} as Record<SizeKey, VariantClasses>);
 
-export const SHAPE_VARIANTS: Record<ShapeKey, VariantClasses> = {
-  rounded: {base: 'rounded-md', hover: '', active: ''},
-  pill: {base: 'rounded-full', hover: '', active: ''},
-  sharp: {base: 'rounded-none', hover: '', active: ''},
+export function makeShapeVariant(
+  baseClassFn: (size: SizeKey) => string
+): Record<SizeKey, VariantClasses> {
+  return SIZE_KEYS.reduce((acc, size) => {
+    acc[size] = {
+      base: baseClassFn(size),
+      hover: '',
+      active: '',
+    };
+    return acc;
+  }, {} as Record<SizeKey, VariantClasses>);
+}
+
+export const SHAPE_VARIANTS: Record<ShapeKey, Record<SizeKey, VariantClasses>> = {
+  rounded: makeShapeVariant((size) => roundedMap[size]),
+  pill: makeShapeVariant(() => 'rounded-full'),
+  sharp: makeShapeVariant(() => 'rounded-none'),
 };
 
 export const STYLE_VARIANTS: Record<StyleKey, Record<TextAppearanceKey, VariantClasses>> = {
@@ -165,7 +178,7 @@ export function useButtonClasses(props: ButtonProps) {
   // Get the size, style, and shape variants
   const sizeClasses = SIZE_VARIANTS[size as keyof typeof SIZE_VARIANTS];
   const styleClasses = STYLE_VARIANTS[style as keyof typeof STYLE_VARIANTS][appearance as TextAppearanceKey];
-  const shapeClasses = SHAPE_VARIANTS[shape as keyof typeof SHAPE_VARIANTS];
+  const shapeClasses = SHAPE_VARIANTS[shape as keyof typeof SHAPE_VARIANTS][size as keyof typeof SIZE_VARIANTS];
 
   // Define the base tag and classes
   const tag = props.tag ?? "button";
