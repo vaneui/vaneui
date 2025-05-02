@@ -109,21 +109,21 @@ export function useButtonClasses(props: ButtonProps) {
       position ? buttonTheme.layout.position[position as PositionKey] : '',
       shapeClasses.base,
       noBorder ? buttonTheme.layout.flags.noBorder.base : '',
-      noShadow ? buttonTheme.layout.flags.noShadow.base : ''
+      noShadow ? buttonTheme.layout.flags.noShadow.base : buttonTheme.layout.shadow.base[size as SizeKey]
     ],
     hover: [
       sizeClasses.hover ?? '',
       styleClasses.hover ?? '',
       shapeClasses.hover ?? '',
       noBorder ? buttonTheme.layout.flags.noBorder.hover ?? '' : '',
-      noShadow ? buttonTheme.layout.flags.noShadow.hover ?? '' : ''
+      noShadow ? buttonTheme.layout.flags.noShadow.hover ?? '' : buttonTheme.layout.shadow.hover[size as SizeKey]
     ],
     active: [
       sizeClasses.active ?? '',
       styleClasses.active ?? '',
       shapeClasses.active ?? '',
       noBorder ? buttonTheme.layout.flags.noBorder.active ?? '' : '',
-      noShadow ? buttonTheme.layout.flags.noShadow.active ?? '' : ''
+      noShadow ? buttonTheme.layout.flags.noShadow.active ?? '' : buttonTheme.layout.shadow.active[size as SizeKey]
     ]
   };
 

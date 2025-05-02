@@ -50,7 +50,9 @@ import {
   hideClasses,
   positionClasses,
   noBorderModeClasses,
-  noShadowModeClasses
+  noShadowModeClasses,
+  noRingModeClasses,
+  ringModeClasses
 } from "./layoutClasses";
 
 // Represents styles that can vary by interaction mode (base, hover, active)
@@ -85,6 +87,12 @@ export type ButtonTheme = {
     layout: {
         hide: Record<HideKey, string>;
         position: Record<PositionKey, string>;
+        // Shadow classes for each size
+        shadow: {
+            base: Record<SizeKey, string>;
+            hover: Record<SizeKey, string>;
+            active: Record<SizeKey, string>;
+        };
         // Specific flags like noBorder, noShadow
         flags: {
             noBorder: ModeledStyles;
@@ -203,11 +211,16 @@ export const defaultButtonTheme: ButtonTheme = {
   layout: {
     hide: hideClasses,
     position: positionClasses,
+    shadow: {
+      base: shadowClasses,
+      hover: hoverShadowClasses,
+      active: activeShadowClasses,
+    },
     flags: {
       noBorder: {
-        base: noBorderModeClasses.base,
-        hover: noBorderModeClasses.hover,
-        active: noBorderModeClasses.active,
+        base: noRingModeClasses.base,
+        hover: noRingModeClasses.hover,
+        active: noRingModeClasses.active,
       },
       noShadow: {
         base: noShadowModeClasses.base,
