@@ -16,3 +16,12 @@ export { ThemeProvider, useTheme, ThemeProps, ThemeProviderProps } from './compo
 
 export { Mode } from "./components/ui/settings/mode"
 export { BorderType } from "./components/ui/settings/borderType"
+
+// Button theme
+export {
+  buttonTheme,
+  setButtonTheme,
+  resetButtonTheme,
+  ButtonTheme,
+  ModeledStyles
+} from "./components/ui/classes/buttonTheme"

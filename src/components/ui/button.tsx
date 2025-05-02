@@ -21,7 +21,15 @@ import {
   TextAppearanceKey,
   StyleKey,
   SizeKey,
-  ShapeKey
+  ShapeKey,
+  FontFamilyKey,
+  FontWeightKey,
+  FontStyleKey,
+  TextDecorationKey,
+  TextTransformKey,
+  TextAlignKey,
+  HideKey,
+  PositionKey
 } from './props/propKeys';
 import {
   pickFirstKey,
@@ -29,117 +37,16 @@ import {
   omitProps
 } from '../utils/componentUtils';
 import { MODE_KEYS } from './settings/mode';
-import {
-  pxMap,
-  pyMap,
-  textSizeMap,
-  roundedMap,
-  gapMap
-} from './classes/buttonClasses'
-import {
-  activeBackgroundAppearanceClasses,
-  backgroundAppearanceClasses,
-  filledActiveBackgroundAppearanceClasses,
-  filledBackgroundAppearanceClasses,
-  filledHoverBackgroundAppearanceClasses,
-  filledRingAppearanceClasses,
-  hoverBackgroundAppearanceClasses,
-  ringAppearanceClasses
-} from './classes/appearanceClasses';
-import {
-  filledTextAppearanceClasses,
-  textAppearanceClasses
-} from './classes/typographyClasses';
-import {
-  fontFamilyClasses,
-  fontStyleClasses,
-  fontWeightClasses,
-  textDecorationClasses,
-  textTransformClasses,
-  textAlignClasses
-} from './classes/typographyClasses';
-import {
-  noBorderModeClasses,
-  noShadowModeClasses,
-  hideClasses,
-  positionClasses,
-  shadowClasses,
-  hoverShadowClasses,
-  activeShadowClasses
-} from './classes/layoutClasses';
 import React from 'react';
 import { componentBuilder } from '../utils/componentBuilder';
+import { buttonTheme } from './classes/buttonTheme';
 
 export type VariantClasses = {
   [K in typeof MODE_KEYS[number]]: string;
 }
 
-export const SIZE_VARIANTS: Record<SizeKey, VariantClasses> = SIZE_KEYS.reduce((acc, size) => {
-  acc[size] = {
-    base: `${pxMap[size]} ${pyMap[size]} ${textSizeMap[size]} ${shadowClasses[size]} ${gapMap[size]} ${fontFamilyClasses.sans} ${fontWeightClasses.semibold} ${textAlignClasses.textCenter}`,
-    hover: hoverShadowClasses[size],
-    active: activeShadowClasses[size],
-  };
-  return acc;
-}, {} as Record<SizeKey, VariantClasses>);
-
-export function makeShapeVariant(
-  baseClassFn: (size: SizeKey) => string
-): Record<SizeKey, VariantClasses> {
-  return SIZE_KEYS.reduce((acc, size) => {
-    acc[size] = {
-      base: baseClassFn(size),
-      hover: '',
-      active: '',
-    };
-    return acc;
-  }, {} as Record<SizeKey, VariantClasses>);
-}
-
-export const SHAPE_VARIANTS: Record<ShapeKey, Record<SizeKey, VariantClasses>> = {
-  rounded: makeShapeVariant((size) => roundedMap[size]),
-  pill: makeShapeVariant(() => 'rounded-full'),
-  sharp: makeShapeVariant(() => 'rounded-none'),
-};
-
-export const STYLE_VARIANTS: Record<StyleKey, Record<TextAppearanceKey, VariantClasses>> = {
-  outline: makeStyleVariants(
-    backgroundAppearanceClasses,
-    hoverBackgroundAppearanceClasses,
-    activeBackgroundAppearanceClasses,
-    ringAppearanceClasses,
-    textAppearanceClasses,
-  ),
-  filled: makeStyleVariants(
-    filledBackgroundAppearanceClasses,
-    filledHoverBackgroundAppearanceClasses,
-    filledActiveBackgroundAppearanceClasses,
-    filledRingAppearanceClasses,
-    filledTextAppearanceClasses,
-  ),
-};
-
-/**
- * Factory function to create style variants
- */
-export function makeStyleVariants(
-  baseBg: Record<TextAppearanceKey, string>,
-  hoverBg: Record<TextAppearanceKey, string>,
-  activeBg: Record<TextAppearanceKey, string>,
-  ring: Record<TextAppearanceKey, string>,
-  text: Record<TextAppearanceKey, string>,
-): Record<TextAppearanceKey, Record<typeof MODE_KEYS[number], string>> {
-  return TEXT_APPEARANCE_KEYS.reduce((acc, key) => {
-    acc[key] = {
-      base: `${baseBg[key]} border ${ring[key]} ${text[key]}`,
-      hover: hoverBg[key],
-      active: activeBg[key],
-    };
-    return acc;
-  }, {} as Record<TextAppearanceKey, Record<typeof MODE_KEYS[number], string>>);
-}
-
 export function useButtonClasses(props: ButtonProps) {
+  // Extract props using defaults from buttonTheme
   const {
     size,
     style,
@@ -156,18 +63,18 @@ export function useButtonClasses(props: ButtonProps) {
     noBorder,
     noShadow
   } = useMemo(() => ({
-    size: pickFirstKey(props, SIZE_KEYS, 'md') ?? 'md',
-    style: pickFirstKey(props, STYLE_KEYS, 'outline') ?? 'outline',
-    appearance: pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default') ?? 'default',
-    shape: pickFirstKey(props, SHAPE_KEYS, 'rounded') ?? 'rounded',
-    fontFamily: pickFirstKey(props, FONT_FAMILY_KEYS, 'sans'),
-    fontWeight: pickFirstKey(props, FONT_WEIGHT_KEYS, 'semibold'),
-    fontStyle: pickFirstKey(props, FONT_STYLE_KEYS),
-    textDecoration: pickFirstKey(props, TEXT_DECORATION_KEYS),
-    textTransform: pickFirstKey(props, TEXT_TRANSFORM_KEYS),
-    textAlign: pickFirstKey(props, TEXT_ALIGN_KEYS),
-    hide: pickFirstKey(props, HIDE_KEYS),
-    position: pickFirstKey(props, POSITION_KEYS),
+    size: pickFirstKey(props, SIZE_KEYS, buttonTheme.defaults.size) ?? buttonTheme.defaults.size,
+    style: pickFirstKey(props, STYLE_KEYS, buttonTheme.defaults.style) ?? buttonTheme.defaults.style,
+    appearance: pickFirstKey(props, TEXT_APPEARANCE_KEYS, buttonTheme.defaults.appearance) ?? buttonTheme.defaults.appearance,
+    shape: pickFirstKey(props, SHAPE_KEYS, buttonTheme.defaults.shape) ?? buttonTheme.defaults.shape,
+    fontFamily: pickFirstKey(props, FONT_FAMILY_KEYS, buttonTheme.defaults.fontFamily),
+    fontWeight: pickFirstKey(props, FONT_WEIGHT_KEYS, buttonTheme.defaults.fontWeight),
+    fontStyle: pickFirstKey(props, FONT_STYLE_KEYS, buttonTheme.defaults.fontStyle as FontStyleKey),
+    textDecoration: pickFirstKey(props, TEXT_DECORATION_KEYS, buttonTheme.defaults.textDecoration as TextDecorationKey),
+    textTransform: pickFirstKey(props, TEXT_TRANSFORM_KEYS, buttonTheme.defaults.textTransform as TextTransformKey),
+    textAlign: pickFirstKey(props, TEXT_ALIGN_KEYS, buttonTheme.defaults.textAlign as TextAlignKey),
+    hide: pickFirstKey(props, HIDE_KEYS, buttonTheme.defaults.hide as HideKey),
+    position: pickFirstKey(props, POSITION_KEYS, buttonTheme.defaults.position as PositionKey),
     noBorder: pickFirstValue(props, BORDER_KEYS),
     noShadow: pickFirstValue(props, SHADOW_KEYS),
   }), [props]);
@@ -175,14 +82,14 @@ export function useButtonClasses(props: ButtonProps) {
   // strip all the boolean flags
   const cleanProps = omitProps(props, FLAG_KEYS);
 
-  // Get the size, style, and shape variants
-  const sizeClasses = SIZE_VARIANTS[size as keyof typeof SIZE_VARIANTS];
-  const styleClasses = STYLE_VARIANTS[style as keyof typeof STYLE_VARIANTS][appearance as TextAppearanceKey];
-  const shapeClasses = SHAPE_VARIANTS[shape as keyof typeof SHAPE_VARIANTS][size as keyof typeof SIZE_VARIANTS];
+  // Get the variants from the buttonTheme
+  const sizeClasses = buttonTheme.variants.size[size as SizeKey];
+  const styleClasses = buttonTheme.variants.styleAppearance[style as StyleKey][appearance as TextAppearanceKey];
+  const shapeClasses = buttonTheme.variants.shape[shape as ShapeKey][size as SizeKey];
 
   // Define the base tag and classes
   const tag = props.tag ?? "button";
-  const baseClasses = "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap";
+  const baseClasses = buttonTheme.base;
 
   // Combine all classes by mode
   const classesByMode: Record<typeof MODE_KEYS[number], string[]> = {
@@ -190,32 +97,32 @@ export function useButtonClasses(props: ButtonProps) {
       baseClasses,
       sizeClasses.base,
       styleClasses.base,
-      fontWeight ? fontWeightClasses[fontWeight] : '',
-      fontFamily ? fontFamilyClasses[fontFamily] : '',
-      fontStyle ? fontStyleClasses[fontStyle] : '',
-      textDecoration ? textDecorationClasses[textDecoration] : '',
-      textTransform ? textTransformClasses[textTransform] : '',
-      textAlign ? textAlignClasses[textAlign] : '',
-      hide ? hideClasses[hide] : '',
-      position ? positionClasses[position] : '',
+      fontWeight ? buttonTheme.typography.fontWeight[fontWeight as FontWeightKey] : '',
+      fontFamily ? buttonTheme.typography.fontFamily[fontFamily as FontFamilyKey] : '',
+      fontStyle ? buttonTheme.typography.fontStyle[fontStyle as FontStyleKey] : '',
+      textDecoration ? buttonTheme.typography.textDecoration[textDecoration as TextDecorationKey] : '',
+      textTransform ? buttonTheme.typography.textTransform[textTransform as TextTransformKey] : '',
+      textAlign ? buttonTheme.typography.textAlign[textAlign as TextAlignKey] : '',
+      hide ? buttonTheme.layout.hide[hide as HideKey] : '',
+      position ? buttonTheme.layout.position[position as PositionKey] : '',
       shapeClasses.base,
-      noBorder ? noBorderModeClasses.base : '',
-      noShadow ? noShadowModeClasses.base : ''
-    ].filter(Boolean),
+      noBorder ? buttonTheme.layout.flags.noBorder.base : '',
+      noShadow ? buttonTheme.layout.flags.noShadow.base : ''
+    ].filter(Boolean) as string[],
     hover: [
-      sizeClasses.hover,
-      styleClasses.hover,
-      shapeClasses.hover,
-      noBorder ? noBorderModeClasses.hover : '',
-      noShadow ? noShadowModeClasses.hover : ''
-    ].filter(Boolean),
+      sizeClasses.hover ?? '',
+      styleClasses.hover ?? '',
+      shapeClasses.hover ?? '',
+      noBorder ? buttonTheme.layout.flags.noBorder.hover ?? '' : '',
+      noShadow ? buttonTheme.layout.flags.noShadow.hover ?? '' : ''
+    ].filter(Boolean) as string[],
     active: [
-      sizeClasses.active,
-      styleClasses.active,
-      shapeClasses.active,
-      noBorder ? noBorderModeClasses.active : '',
-      noShadow ? noShadowModeClasses.active : ''
-    ].filter(Boolean)
+      sizeClasses.active ?? '',
+      styleClasses.active ?? '',
+      shapeClasses.active ?? '',
+      noBorder ? buttonTheme.layout.flags.noBorder.active ?? '' : '',
+      noShadow ? buttonTheme.layout.flags.noShadow.active ?? '' : ''
+    ].filter(Boolean) as string[]
   };
 
   return {cleanProps, tag, baseClasses, classesByMode};
