@@ -63,7 +63,8 @@ export function useButtonClasses(props: ButtonProps) {
     hide,
     position,
     noBorder,
-    noShadow
+    noShadow,
+    noRing
   } = useMemo(() => ({
     size: pickFirstKey(props, SIZE_KEYS, buttonTheme.defaults.size) ?? buttonTheme.defaults.size,
     style: pickFirstKey(props, STYLE_KEYS, buttonTheme.defaults.style) ?? buttonTheme.defaults.style,
@@ -77,8 +78,9 @@ export function useButtonClasses(props: ButtonProps) {
     textAlign: pickFirstKey(props, TEXT_ALIGN_KEYS, buttonTheme.defaults.textAlign as TextAlignKey),
     hide: pickFirstKey(props, HIDE_KEYS, buttonTheme.defaults.hide as HideKey),
     position: pickFirstKey(props, POSITION_KEYS, buttonTheme.defaults.position as PositionKey),
-    noBorder: pickFirstValue(props, BORDER_KEYS),
-    noShadow: pickFirstValue(props, SHADOW_KEYS),
+    noBorder: props.noBorder,
+    noShadow: props.noShadow,
+    noRing: props.noRing,
   }), [props, buttonTheme]);
 
   // strip all the boolean flags
@@ -108,21 +110,24 @@ export function useButtonClasses(props: ButtonProps) {
       hide ? buttonTheme.layout.hide[hide as HideKey] : '',
       position ? buttonTheme.layout.position[position as PositionKey] : '',
       shapeClasses.base,
-      noBorder ? buttonTheme.layout.flags.noBorder.base : '',
+      noRing ? buttonTheme.layout.flags.noRing.base : buttonTheme.layout.ring.base,
+      noBorder ? buttonTheme.layout.flags.noBorder.base : buttonTheme.layout.border.base,
       noShadow ? buttonTheme.layout.flags.noShadow.base : buttonTheme.layout.shadow.base[size as SizeKey]
     ],
     hover: [
       sizeClasses.hover ?? '',
       styleClasses.hover ?? '',
       shapeClasses.hover ?? '',
-      noBorder ? buttonTheme.layout.flags.noBorder.hover ?? '' : '',
+      noRing ? buttonTheme.layout.flags.noRing.hover ?? '' : buttonTheme.layout.ring.hover,
+      noBorder ? buttonTheme.layout.flags.noBorder.hover ?? '' : buttonTheme.layout.border.hover,
       noShadow ? buttonTheme.layout.flags.noShadow.hover ?? '' : buttonTheme.layout.shadow.hover[size as SizeKey]
     ],
     active: [
       sizeClasses.active ?? '',
       styleClasses.active ?? '',
       shapeClasses.active ?? '',
-      noBorder ? buttonTheme.layout.flags.noBorder.active ?? '' : '',
+      noRing ? buttonTheme.layout.flags.noRing.active ?? '' : buttonTheme.layout.ring.active,
+      noBorder ? buttonTheme.layout.flags.noBorder.active ?? '' : buttonTheme.layout.border.active,
       noShadow ? buttonTheme.layout.flags.noShadow.active ?? '' : buttonTheme.layout.shadow.active[size as SizeKey]
     ]
   };

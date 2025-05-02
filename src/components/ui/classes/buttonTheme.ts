@@ -1,7 +1,7 @@
-import { 
-  SizeKey, 
-  ShapeKey, 
-  StyleKey, 
+import {
+  SizeKey,
+  ShapeKey,
+  StyleKey,
   TextAppearanceKey,
   FontFamilyKey,
   FontWeightKey,
@@ -52,70 +52,73 @@ import {
   noBorderModeClasses,
   noShadowModeClasses,
   noRingModeClasses,
-  ringModeClasses
+  ringModeClasses, borderModeClasses
 } from "./layoutClasses";
+import { Mode } from "../settings/mode";
 
 // Represents styles that can vary by interaction mode (base, hover, active)
 export type ModeledStyles = {
-    base: string;
-    hover?: string;
-    active?: string;
+  base: string;
+  hover?: string;
+  active?: string;
 };
 
 // The main theme structure for the Button component
 export type ButtonTheme = {
-    // Base structural classes applied regardless of variants
-    base: string;
-    // Core visual variants
-    variants: {
-        size: Record<SizeKey, ModeledStyles>;
-        // Nested structure for style + appearance combinations
-        styleAppearance: Record<StyleKey, Record<TextAppearanceKey, ModeledStyles>>;
-        // Shape variants, potentially dependent on size
-        shape: Record<ShapeKey, Record<SizeKey, ModeledStyles>>;
+  // Base structural classes applied regardless of variants
+  base: string;
+  // Core visual variants
+  variants: {
+    size: Record<SizeKey, ModeledStyles>;
+    // Nested structure for style + appearance combinations
+    styleAppearance: Record<StyleKey, Record<TextAppearanceKey, ModeledStyles>>;
+    // Shape variants, potentially dependent on size
+    shape: Record<ShapeKey, Record<SizeKey, ModeledStyles>>;
+  };
+  // Typography classes mapped by their keys
+  typography: {
+    fontFamily: Record<FontFamilyKey, string>;
+    fontWeight: Record<FontWeightKey, string>;
+    fontStyle: Record<FontStyleKey, string>;
+    textDecoration: Record<TextDecorationKey, string>;
+    textTransform: Record<TextTransformKey, string>;
+    textAlign: Record<TextAlignKey, string>;
+  };
+  // Layout and utility classes
+  layout: {
+    hide: Record<HideKey, string>;
+    position: Record<PositionKey, string>;
+    // Shadow classes for each size
+    shadow: Record<Mode, Record<SizeKey, string>>;
+    border: Record<Mode, string>;
+    ring: Record<Mode, string>;
+    // Specific flags like noBorder, noShadow
+    flags: {
+      noBorder: ModeledStyles;
+      noShadow: ModeledStyles;
+      noRing: ModeledStyles;
+      // Add other boolean flag styles here if needed
     };
-    // Typography classes mapped by their keys
-    typography: {
-        fontFamily: Record<FontFamilyKey, string>;
-        fontWeight: Record<FontWeightKey, string>;
-        fontStyle: Record<FontStyleKey, string>;
-        textDecoration: Record<TextDecorationKey, string>;
-        textTransform: Record<TextTransformKey, string>;
-        textAlign: Record<TextAlignKey, string>;
-    };
-    // Layout and utility classes
-    layout: {
-        hide: Record<HideKey, string>;
-        position: Record<PositionKey, string>;
-        // Shadow classes for each size
-        shadow: {
-            base: Record<SizeKey, string>;
-            hover: Record<SizeKey, string>;
-            active: Record<SizeKey, string>;
-        };
-        // Specific flags like noBorder, noShadow
-        flags: {
-            noBorder: ModeledStyles;
-            noShadow: ModeledStyles;
-            // Add other boolean flag styles here if needed
-        };
-    };
-    // Default values used when a specific boolean prop isn't provided
-    defaults: {
-        size: SizeKey;
-        style: StyleKey;
-        appearance: TextAppearanceKey;
-        shape: ShapeKey;
-        fontFamily: FontFamilyKey;
-        fontWeight: FontWeightKey;
-        // Add defaults for others if needed (e.g., null/undefined means "don't apply")
-        fontStyle: FontStyleKey | null;
-        textDecoration: TextDecorationKey | null;
-        textTransform: TextTransformKey | null;
-        textAlign: TextAlignKey | null;
-        hide: HideKey | null;
-        position: PositionKey | null;
-    }
+  };
+  // Default values used when a specific boolean prop isn't provided
+  defaults: {
+    size: SizeKey;
+    style: StyleKey;
+    appearance: TextAppearanceKey;
+    shape: ShapeKey;
+    fontFamily: FontFamilyKey;
+    fontWeight: FontWeightKey;
+    // Add defaults for others if needed (e.g., null/undefined means "don't apply")
+    fontStyle: FontStyleKey | null;
+    textDecoration: TextDecorationKey | null;
+    textTransform: TextTransformKey | null;
+    textAlign: TextAlignKey | null;
+    hide: HideKey | null;
+    position: PositionKey | null;
+    noShadow: boolean;
+    noBorder: boolean;
+    noRing: boolean;
+  }
 };
 
 /**
@@ -216,17 +219,12 @@ export const defaultButtonTheme: ButtonTheme = {
       hover: hoverShadowClasses,
       active: activeShadowClasses,
     },
+    border: borderModeClasses,
+    ring: ringModeClasses,
     flags: {
-      noBorder: {
-        base: noRingModeClasses.base,
-        hover: noRingModeClasses.hover,
-        active: noRingModeClasses.active,
-      },
-      noShadow: {
-        base: noShadowModeClasses.base,
-        hover: noShadowModeClasses.hover,
-        active: noShadowModeClasses.active,
-      },
+      noBorder: noBorderModeClasses,
+      noRing: noRingModeClasses,
+      noShadow: noShadowModeClasses,
     },
   },
 
@@ -243,8 +241,8 @@ export const defaultButtonTheme: ButtonTheme = {
     textAlign: 'textCenter',
     hide: null,
     position: null,
+    noShadow: false,
+    noBorder: true,
+    noRing: false,
   },
 };
-
-// Export the default button theme to be used with the useButtonTheme hook
-// For customization, use the ThemeProvider component with a theme prop that includes button overrides

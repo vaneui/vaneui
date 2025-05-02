@@ -24,7 +24,7 @@ import {
   DirectionKey,
   ItemsKey,
   JustifyKey,
-  WrapKey
+  WrapKey, RingKey
 } from "./propKeys";
 
 export type SizeProps = { [K in SizeKey]?: boolean; }
@@ -38,6 +38,7 @@ export type TextAlignProps = { [K in TextAlignKey]?: boolean; }
 export type TextAppearanceProps = { [K in TextAppearanceKey]?: boolean; }
 export type NoBorderProps = { [K in BorderKey]?: boolean; }
 export type NoShadowProps = { [K in ShadowKey]?: boolean; }
+export type NoRingProps = { [K in RingKey]?: boolean; }
 export type NoPaddingProps = { [K in PaddingKey]?: boolean; }
 export type BreakpointProps = { [K in BreakpointKey]?: boolean; }
 export type HideProps = { [K in HideKey]?: boolean; }
@@ -81,6 +82,7 @@ export type ButtonProps =
   & CommonAppearanceProps
   & NoBorderProps
   & NoShadowProps
+  & NoRingProps
   & ButtonStyleProps;
 
 export type GridProps = BaseComponentProps & SizeProps & NoGapProps & CommonAppearanceProps;

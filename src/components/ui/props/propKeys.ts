@@ -10,6 +10,7 @@ export const TEXT_TRANSFORM_KEYS = ['uppercase', 'lowercase', 'capitalize', 'nor
 export const TEXT_ALIGN_KEYS = ['textLeft', 'textCenter', 'textRight', 'textJustify'] as const;
 export const BORDER_KEYS = ['noBorder'] as const;
 export const SHADOW_KEYS = ['noShadow'] as const;
+export const RING_KEYS = ['noRing'] as const;
 export const PADDING_KEYS = ['noPadding'] as const;
 export const BREAKPOINT_KEYS = ['xsCol', 'smCol', 'mdCol', 'lgCol', 'xlCol'] as const;
 export const HIDE_KEYS = ['xsHide', 'smHide', 'mdHide', 'lgHide', 'xlHide'] as const;
@@ -36,6 +37,7 @@ export type TextTransformKey = typeof TEXT_TRANSFORM_KEYS[number];
 export type TextAlignKey = typeof TEXT_ALIGN_KEYS[number];
 export type BorderKey = typeof BORDER_KEYS[number];
 export type ShadowKey = typeof SHADOW_KEYS[number];
+export type RingKey = typeof RING_KEYS[number];
 export type PaddingKey = typeof PADDING_KEYS[number];
 export type BreakpointKey = typeof BREAKPOINT_KEYS[number];
 export type HideKey = typeof HIDE_KEYS[number];
@@ -62,6 +64,7 @@ export const FLAG_KEYS = [
   ...TEXT_ALIGN_KEYS,
   ...BORDER_KEYS,
   ...SHADOW_KEYS,
+  ...RING_KEYS,
   ...PADDING_KEYS,
   ...BREAKPOINT_KEYS,
   ...HIDE_KEYS,
