@@ -29,11 +29,11 @@ import {
   omitProps
 } from '../utils/componentUtils';
 import { MODE_KEYS } from './settings/mode';
-import { 
-  pxMap, 
-  pyMap, 
-  textSizeMap, 
-  roundedMap, 
+import {
+  pxMap,
+  pyMap,
+  textSizeMap,
+  roundedMap,
   gapMap
 } from './classes/buttonClasses'
 import {
@@ -41,9 +41,9 @@ import {
   backgroundAppearanceClasses,
   filledActiveBackgroundAppearanceClasses,
   filledBackgroundAppearanceClasses,
-  filledHoverBackgroundAppearanceClasses, 
+  filledHoverBackgroundAppearanceClasses,
   filledRingAppearanceClasses,
-  hoverBackgroundAppearanceClasses, 
+  hoverBackgroundAppearanceClasses,
   ringAppearanceClasses
 } from './classes/appearanceClasses';
 import {
@@ -70,48 +70,26 @@ import {
 import React from 'react';
 import { componentBuilder } from '../utils/componentBuilder';
 
-/**
- * Defines the classes for a component's different states
- */
 export type VariantClasses = {
   [K in typeof MODE_KEYS[number]]: string;
 }
 
-/**
- * Maps size keys to their variant classes
- */
-export type ButtonSizeVariants = Record<SizeKey, VariantClasses>;
-
-/**
- * Maps style keys to appearance keys to their variant classes
- */
-export type ButtonStyleVariants = Record<StyleKey, Record<TextAppearanceKey, VariantClasses>>;
-
-/**
- * Size variants for buttons
- */
-export const SIZE_VARIANTS: ButtonSizeVariants = SIZE_KEYS.reduce((acc, size) => {
+export const SIZE_VARIANTS: Record<SizeKey, VariantClasses> = SIZE_KEYS.reduce((acc, size) => {
   acc[size] = {
     base: `${pxMap[size]} ${pyMap[size]} ${textSizeMap[size]} ${roundedMap[size]} ${shadowClasses[size]} ${gapMap[size]} ${fontFamilyClasses.sans} ${fontWeightClasses.semibold} ${textAlignClasses.textCenter}`,
     hover: hoverShadowClasses[size],
     active: activeShadowClasses[size],
   };
   return acc;
-}, {} as ButtonSizeVariants);
+}, {} as Record<SizeKey, VariantClasses>);
 
-/**
- * Shape variants for buttons
- */
 export const SHAPE_VARIANTS: Record<ShapeKey, VariantClasses> = {
-  rounded: { base: 'rounded-md', hover: '', active: '' },
-  pill:    { base: 'rounded-full', hover: '', active: '' },
-  sharp:   { base: 'rounded-none', hover: '', active: '' },
+  rounded: {base: 'rounded-md', hover: '', active: ''},
+  pill: {base: 'rounded-full', hover: '', active: ''},
+  sharp: {base: 'rounded-none', hover: '', active: ''},
 };
 
-/**
- * Style variants for buttons
- */
-export const STYLE_VARIANTS: ButtonStyleVariants = {
+export const STYLE_VARIANTS: Record<StyleKey, Record<TextAppearanceKey, VariantClasses>> = {
   outline: makeStyleVariants(
     backgroundAppearanceClasses,
     hoverBackgroundAppearanceClasses,
@@ -165,20 +143,20 @@ export function useButtonClasses(props: ButtonProps) {
     noBorder,
     noShadow
   } = useMemo(() => ({
-    size:           pickFirstKey(props, SIZE_KEYS, 'md') ?? 'md',
-    style:          pickFirstKey(props, STYLE_KEYS, 'outline') ?? 'outline',
-    appearance:     pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default') ?? 'default',
-    shape:          pickFirstKey(props, SHAPE_KEYS, 'rounded') ?? 'rounded',
-    fontFamily:     pickFirstKey(props, FONT_FAMILY_KEYS, 'sans'),
-    fontWeight:     pickFirstKey(props, FONT_WEIGHT_KEYS, 'semibold'),
-    fontStyle:      pickFirstKey(props, FONT_STYLE_KEYS),
+    size: pickFirstKey(props, SIZE_KEYS, 'md') ?? 'md',
+    style: pickFirstKey(props, STYLE_KEYS, 'outline') ?? 'outline',
+    appearance: pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default') ?? 'default',
+    shape: pickFirstKey(props, SHAPE_KEYS, 'rounded') ?? 'rounded',
+    fontFamily: pickFirstKey(props, FONT_FAMILY_KEYS, 'sans'),
+    fontWeight: pickFirstKey(props, FONT_WEIGHT_KEYS, 'semibold'),
+    fontStyle: pickFirstKey(props, FONT_STYLE_KEYS),
     textDecoration: pickFirstKey(props, TEXT_DECORATION_KEYS),
-    textTransform:  pickFirstKey(props, TEXT_TRANSFORM_KEYS),
-    textAlign:      pickFirstKey(props, TEXT_ALIGN_KEYS),
-    hide:           pickFirstKey(props, HIDE_KEYS),
-    position:       pickFirstKey(props, POSITION_KEYS),
-    noBorder:       pickFirstValue(props, BORDER_KEYS),
-    noShadow:       pickFirstValue(props, SHADOW_KEYS),
+    textTransform: pickFirstKey(props, TEXT_TRANSFORM_KEYS),
+    textAlign: pickFirstKey(props, TEXT_ALIGN_KEYS),
+    hide: pickFirstKey(props, HIDE_KEYS),
+    position: pickFirstKey(props, POSITION_KEYS),
+    noBorder: pickFirstValue(props, BORDER_KEYS),
+    noShadow: pickFirstValue(props, SHADOW_KEYS),
   }), [props]);
 
   // strip all the boolean flags
@@ -227,11 +205,11 @@ export function useButtonClasses(props: ButtonProps) {
     ].filter(Boolean)
   };
 
-  return { cleanProps, tag, baseClasses, classesByMode };
+  return {cleanProps, tag, baseClasses, classesByMode};
 }
 
 export const Button = (props: ButtonProps): JSX.Element => {
-  const { cleanProps, tag, baseClasses, classesByMode } = useButtonClasses(props);
+  const {cleanProps, tag, baseClasses, classesByMode} = useButtonClasses(props);
 
   const builder = componentBuilder(cleanProps, tag, baseClasses);
   MODE_KEYS.forEach(mode => builder.withExtraClasses(classesByMode[mode]));
