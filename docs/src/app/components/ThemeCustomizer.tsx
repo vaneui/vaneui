@@ -16,16 +16,10 @@ const customTheme: ThemeProps = {
         }
       }
     },
-    shape: {
-      pill: {
-        sm: {
-          base: 'rounded-full'
-        }
-      }
-    },
     defaults: {
       fontWeight: 'normal',
       noShadow: true,
+      shape: 'pill'
     }
   }
 };

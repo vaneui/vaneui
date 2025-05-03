@@ -78,7 +78,7 @@ export function useButtonClasses(props: ButtonProps) {
 
   // --- Get variants/styles from the FLATTENED buttonTheme structure ---
   const sizeVariant = buttonTheme.size[size]; // Direct access
-  const shapeVariant = buttonTheme.shape[shape]?.[size]; // Direct access
+  const shapeClass = shape === 'rounded' ? buttonTheme.layout.radius[size] : shape === 'pill' ? 'rounded-full' : shape === 'sharp' ? 'rounded-none' : buttonTheme.layout.radius[size]; // Direct access
   const appearanceVariant = buttonTheme.style[style]?.[appearance]; // Direct access
 
   // Define the base tag and classes
@@ -89,6 +89,7 @@ export function useButtonClasses(props: ButtonProps) {
   // (These don't have hover/active states directly tied to them in the theme)
   const baseClasses = [
     baseThemeClasses,
+    shapeClass,
     fontWeight ? buttonTheme.typography.fontWeight[fontWeight] : '',
     fontFamily ? buttonTheme.typography.fontFamily[fontFamily] : '',
     fontStyle ? buttonTheme.typography.fontStyle[fontStyle] : '',
@@ -129,7 +130,6 @@ export function useButtonClasses(props: ButtonProps) {
     // Build the array of classes for the current mode
     const currentModeClasses = [
       sizeVariant?.[mode] ?? '',
-      shapeVariant?.[mode] ?? '',
 
       // Appearance classes
       backgroundClass,

@@ -74,7 +74,6 @@ export type ButtonTheme = {
 
   // --- Variants moved to top level ---
   size: Record<SizeKey, ModeledStyles>;
-  shape: Record<ShapeKey, Record<SizeKey, ModeledStyles>>;
   style: Record<StyleKey, Record<TextAppearanceKey, ButtonVariantAppearance>>;
 
   // --- Other top-level categories ---
@@ -92,6 +91,7 @@ export type ButtonTheme = {
     shadow: Record<Mode, Record<SizeKey, string>>;
     border: Record<Mode, string>; // Base border utility classes by mode
     ring: Record<Mode, string>;   // Base ring utility classes by mode
+    radius: Record<SizeKey, string>;
     flags: {
       noBorder: ModeledStyles; // Classes to apply when noBorder=true
       noShadow: ModeledStyles;
@@ -144,12 +144,6 @@ export const defaultButtonTheme: ButtonTheme = {
   base: "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
 
   size: makeSizeVariants(),
-
-  shape: {
-    rounded: makeShapeVariant(size => roundedMap[size]),
-    pill: makeShapeVariant(() => 'rounded-full'),
-    sharp: makeShapeVariant(() => 'rounded-none'),
-  },
 
   // Use nested reduce to build the style object correctly
   style: STYLE_KEYS.reduce((styleAcc, styleKey) => {
@@ -210,6 +204,7 @@ export const defaultButtonTheme: ButtonTheme = {
   layout: {
     hide: hideClasses,
     position: positionClasses,
+    radius: roundedMap,
     shadow: {
       base: shadowClasses,
       hover: hoverShadowClasses,
