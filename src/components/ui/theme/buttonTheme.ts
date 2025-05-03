@@ -68,7 +68,6 @@ export type ButtonVariantAppearance = {
   // Add other properties here if they depend on style+appearance
 };
 
-// --- Updated ButtonTheme Type (Flattened) ---
 export type ButtonTheme = {
   // Base structural classes applied regardless of variants
   base: string;
@@ -239,7 +238,7 @@ export const defaultButtonTheme: ButtonTheme = {
     hide: undefined,
     position: undefined,
     noShadow: false,
-    noBorder: false,
-    noRing: true,
+    noBorder: true,
+    noRing: false,
   },
 };
