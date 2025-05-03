@@ -16,9 +16,15 @@ const customTheme: ThemeProps = {
         }
       }
     },
+    shape: {
+      pill: {
+        sm: {
+          base: 'rounded-full'
+        }
+      }
+    },
     defaults: {
       fontWeight: 'normal',
-      textDecoration: 'underline',
       noShadow: true,
     }
   }
@@ -61,7 +67,7 @@ export const ThemeCustomizer: React.FC = () => {
           <Row>
             <Button>Default Button</Button>
             <Button filled>Filled Button</Button>
-            <Button outline>Outline Button</Button>
+            <Button sm outline>Outline Button Small</Button>
             <Button outline success>Outline Success Button</Button>
           </Row>
         </ThemeProvider>
