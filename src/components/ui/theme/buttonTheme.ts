@@ -1,60 +1,56 @@
 import {
-  SizeKey,
-  ShapeKey,
-  StyleKey,
-  TextAppearanceKey,
   FontFamilyKey,
-  FontWeightKey,
   FontStyleKey,
-  TextDecorationKey,
-  TextTransformKey,
-  TextAlignKey,
+  FontWeightKey,
   HideKey,
   PositionKey,
+  ShapeKey,
   SIZE_KEYS,
-  SHAPE_KEYS,
+  SizeKey,
   STYLE_KEYS,
-  TEXT_APPEARANCE_KEYS
-} from "../props/propKeys";
+  StyleKey,
+  TEXT_APPEARANCE_KEYS,
+  TextAlignKey,
+  TextAppearanceKey,
+  TextDecorationKey,
+  TextTransformKey
+} from "../props/propKeys"; // Adjust path if needed
+import { gapMap, pxMap, pyMap, roundedMap, textSizeMap } from "../classes/buttonClasses"; // Adjust path if needed
 import {
-  pxMap,
-  pyMap,
-  textSizeMap,
-  roundedMap,
-  gapMap
-} from "../classes/buttonClasses";
-import {
-  backgroundAppearanceClasses,
-  hoverBackgroundAppearanceClasses,
   activeBackgroundAppearanceClasses,
-  ringAppearanceClasses,
-  filledBackgroundAppearanceClasses,
-  filledHoverBackgroundAppearanceClasses,
+  backgroundAppearanceClasses,
+  borderAppearanceClasses,
   filledActiveBackgroundAppearanceClasses,
-  filledRingAppearanceClasses
-} from "../classes/appearanceClasses";
+  filledBackgroundAppearanceClasses,
+  filledBorderAppearanceClasses,
+  filledHoverBackgroundAppearanceClasses,
+  filledRingAppearanceClasses,
+  hoverBackgroundAppearanceClasses,
+  ringAppearanceClasses,
+} from "../classes/appearanceClasses"; // Adjust path if needed
 import {
-  textAppearanceClasses,
   filledTextAppearanceClasses,
   fontFamilyClasses,
-  fontWeightClasses,
   fontStyleClasses,
+  fontWeightClasses,
+  textAlignClasses,
+  textAppearanceClasses,
   textDecorationClasses,
-  textTransformClasses,
-  textAlignClasses
-} from "../classes/typographyClasses";
+  textTransformClasses
+} from "../classes/typographyClasses"; // Adjust path if needed
 import {
-  shadowClasses,
-  hoverShadowClasses,
   activeShadowClasses,
+  borderModeClasses,
   hideClasses,
-  positionClasses,
+  hoverShadowClasses,
   noBorderModeClasses,
-  noShadowModeClasses,
   noRingModeClasses,
-  ringModeClasses, borderModeClasses
-} from "../classes/layoutClasses";
-import { Mode } from "../settings/mode";
+  noShadowModeClasses,
+  positionClasses,
+  ringModeClasses,
+  shadowClasses
+} from "../classes/layoutClasses"; // Adjust path if needed
+import { Mode } from "../settings/mode"; // Adjust path if needed
 
 // Represents styles that can vary by interaction mode (base, hover, active)
 export type ModeledStyles = {
@@ -63,19 +59,26 @@ export type ModeledStyles = {
   active?: string;
 };
 
-// The main theme structure for the Button component
+// Helper type for the bundle of properties defining a specific style+appearance
+export type ButtonVariantAppearance = {
+  background: ModeledStyles;
+  textColor: ModeledStyles;
+  borderColor: ModeledStyles;
+  ringColor: ModeledStyles;
+  // Add other properties here if they depend on style+appearance
+};
+
+// --- Updated ButtonTheme Type (Flattened) ---
 export type ButtonTheme = {
   // Base structural classes applied regardless of variants
   base: string;
-  // Core visual variants
-  variants: {
-    size: Record<SizeKey, ModeledStyles>;
-    // Nested structure for style + appearance combinations
-    styleAppearance: Record<StyleKey, Record<TextAppearanceKey, ModeledStyles>>;
-    // Shape variants, potentially dependent on size
-    shape: Record<ShapeKey, Record<SizeKey, ModeledStyles>>;
-  };
-  // Typography classes mapped by their keys
+
+  // --- Variants moved to top level ---
+  size: Record<SizeKey, ModeledStyles>;
+  shape: Record<ShapeKey, Record<SizeKey, ModeledStyles>>;
+  style: Record<StyleKey, Record<TextAppearanceKey, ButtonVariantAppearance>>;
+
+  // --- Other top-level categories ---
   typography: {
     fontFamily: Record<FontFamilyKey, string>;
     fontWeight: Record<FontWeightKey, string>;
@@ -84,23 +87,18 @@ export type ButtonTheme = {
     textTransform: Record<TextTransformKey, string>;
     textAlign: Record<TextAlignKey, string>;
   };
-  // Layout and utility classes
   layout: {
     hide: Record<HideKey, string>;
     position: Record<PositionKey, string>;
-    // Shadow classes for each size
     shadow: Record<Mode, Record<SizeKey, string>>;
-    border: Record<Mode, string>;
-    ring: Record<Mode, string>;
-    // Specific flags like noBorder, noShadow
+    border: Record<Mode, string>; // Base border utility classes by mode
+    ring: Record<Mode, string>;   // Base ring utility classes by mode
     flags: {
-      noBorder: ModeledStyles;
+      noBorder: ModeledStyles; // Classes to apply when noBorder=true
       noShadow: ModeledStyles;
-      noRing: ModeledStyles;
-      // Add other boolean flag styles here if needed
+      noRing: ModeledStyles;   // Classes to apply when noRing=true
     };
   };
-  // Default values used when a specific boolean prop isn't provided
   defaults: {
     size: SizeKey;
     style: StyleKey;
@@ -108,7 +106,6 @@ export type ButtonTheme = {
     shape: ShapeKey;
     fontFamily: FontFamilyKey;
     fontWeight: FontWeightKey;
-    // Add defaults for others if needed (e.g., null/undefined means "don't apply")
     fontStyle: FontStyleKey | undefined;
     textDecoration: TextDecorationKey | undefined;
     textTransform: TextTransformKey | undefined;
@@ -121,9 +118,7 @@ export type ButtonTheme = {
   }
 };
 
-/**
- * Helper function to create size variants
- */
+// Size variant helper
 function makeSizeVariants(): Record<SizeKey, ModeledStyles> {
   return SIZE_KEYS.reduce((acc, size) => {
     acc[size] = {
@@ -134,10 +129,7 @@ function makeSizeVariants(): Record<SizeKey, ModeledStyles> {
     return acc;
   }, {} as Record<SizeKey, ModeledStyles>);
 }
-
-/**
- * Helper function to create shape variants
- */
+// Shape variant helper
 function makeShapeVariant(baseClassFn: (size: SizeKey) => string): Record<SizeKey, ModeledStyles> {
   return SIZE_KEYS.reduce((acc, size) => {
     acc[size] = {
@@ -149,58 +141,63 @@ function makeShapeVariant(baseClassFn: (size: SizeKey) => string): Record<SizeKe
   }, {} as Record<SizeKey, ModeledStyles>);
 }
 
-/**
- * Helper function to create style appearance variants
- */
-function makeStyleAppearanceVariant(
-  baseBg: Record<TextAppearanceKey, string>,
-  hoverBg: Record<TextAppearanceKey, string>,
-  activeBg: Record<TextAppearanceKey, string>,
-  ring: Record<TextAppearanceKey, string>,
-  text: Record<TextAppearanceKey, string>,
-): Record<TextAppearanceKey, ModeledStyles> {
-  return TEXT_APPEARANCE_KEYS.reduce((acc, key) => {
-    acc[key] = {
-      base: `${baseBg[key]} ${ring[key]} ${text[key]}`,
-      hover: hoverBg[key],
-      active: activeBg[key],
-    };
-    return acc;
-  }, {} as Record<TextAppearanceKey, ModeledStyles>);
-}
-
-/**
- * Default implementation of the button theme
- */
 export const defaultButtonTheme: ButtonTheme = {
   base: "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
 
-  variants: {
-    size: makeSizeVariants(),
+  size: makeSizeVariants(),
 
-    styleAppearance: {
-      outline: makeStyleAppearanceVariant(
-        backgroundAppearanceClasses,
-        hoverBackgroundAppearanceClasses,
-        activeBackgroundAppearanceClasses,
-        ringAppearanceClasses,
-        textAppearanceClasses
-      ),
-      filled: makeStyleAppearanceVariant(
-        filledBackgroundAppearanceClasses,
-        filledHoverBackgroundAppearanceClasses,
-        filledActiveBackgroundAppearanceClasses,
-        filledRingAppearanceClasses,
-        filledTextAppearanceClasses
-      ),
-    },
-
-    shape: {
-      rounded: makeShapeVariant(size => roundedMap[size]),
-      pill: makeShapeVariant(() => 'rounded-full'),
-      sharp: makeShapeVariant(() => 'rounded-none'),
-    },
+  shape: {
+    rounded: makeShapeVariant(size => roundedMap[size]),
+    pill: makeShapeVariant(() => 'rounded-full'),
+    sharp: makeShapeVariant(() => 'rounded-none'),
   },
+
+  // Use nested reduce to build the style object correctly
+  style: STYLE_KEYS.reduce((styleAcc, styleKey) => {
+    const isFilled = styleKey === 'filled';
+
+    // Determine source objects based on styleKey (same as before)
+    const bgBaseSource = isFilled ? filledBackgroundAppearanceClasses : backgroundAppearanceClasses;
+    const bgHoverSource = isFilled ? filledHoverBackgroundAppearanceClasses : hoverBackgroundAppearanceClasses;
+    const bgActiveSource = isFilled ? filledActiveBackgroundAppearanceClasses : activeBackgroundAppearanceClasses;
+    const textBaseSource = isFilled ? filledTextAppearanceClasses : textAppearanceClasses;
+    const borderBaseSource = isFilled ? filledBorderAppearanceClasses : borderAppearanceClasses; // Assumes these exist
+    const ringBaseSource = isFilled ? filledRingAppearanceClasses : ringAppearanceClasses;
+
+    // Use reduce to build the inner Record<TextAppearanceKey, ButtonVariantAppearance>
+     // Initial value for the INNER reduce
+    // Assign the fully constructed inner object (appearanceMap) to the outer accumulator
+    styleAcc[styleKey] = TEXT_APPEARANCE_KEYS.reduce((appearanceAcc, appearanceKey) => {
+      // Construct the ButtonVariantAppearance object for this specific style+appearance
+      appearanceAcc[appearanceKey] = {
+        background: {
+          base: bgBaseSource[appearanceKey] ?? '',
+          hover: bgHoverSource[appearanceKey] ?? '',
+          active: bgActiveSource[appearanceKey] ?? '',
+        },
+        textColor: {
+          base: textBaseSource[appearanceKey] ?? '',
+          hover: '', // Add sources if they exist
+          active: '',
+        },
+        borderColor: {
+          base: borderBaseSource[appearanceKey] ?? '',
+          hover: '', // Add sources if they exist
+          active: '',
+        },
+        ringColor: {
+          base: ringBaseSource[appearanceKey] ?? '',
+          hover: '', // Add sources if they exist
+          active: '',
+        }
+      };
+      return appearanceAcc;
+    }, {} as Record<TextAppearanceKey, ButtonVariantAppearance>);
+
+    return styleAcc;
+    // Type the initial value for the OUTER reduce correctly
+  }, {} as Record<StyleKey, Record<TextAppearanceKey, ButtonVariantAppearance>>),
+
 
   typography: {
     fontFamily: fontFamilyClasses,
@@ -242,7 +239,7 @@ export const defaultButtonTheme: ButtonTheme = {
     hide: undefined,
     position: undefined,
     noShadow: false,
-    noBorder: true,
-    noRing: false,
+    noBorder: false,
+    noRing: true,
   },
 };

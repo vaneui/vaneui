@@ -1,10 +1,11 @@
 import React, { createContext, useContext } from 'react';
 import { ButtonTheme, defaultButtonTheme } from '../ui/theme/buttonTheme';
 import { deepMerge } from '../utils/deepMerge';
+import { DeepPartial } from "../utils/deepPartial";
 
 // Define the shape of our theme props
 export interface ThemeProps {
-  button?: Partial<ButtonTheme>;
+  button?: DeepPartial<ButtonTheme>;
 }
 
 // Create the context with a default value

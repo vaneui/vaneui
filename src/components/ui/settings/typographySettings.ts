@@ -9,6 +9,7 @@ import {
 } from "../props/props";
 import { SizeSettings } from "./sizeSettings";
 import { deepMerge } from "../../utils/deepMerge";
+import { DeepPartial } from "../../utils/deepPartial";
 
 export class TypographySettings {
   fontFamily: { [key in keyof FontFamilyProps]: boolean } = {};
@@ -20,7 +21,7 @@ export class TypographySettings {
   textAlign: { [key in keyof TextAlignProps]: boolean } = {};
   size: SizeSettings = new SizeSettings;
 
-  constructor(init: Partial<TypographySettings> = {}) {
+  constructor(init: DeepPartial<TypographySettings> = {}) {
     const merged = deepMerge(this, init);
     Object.assign(this, merged);
   }

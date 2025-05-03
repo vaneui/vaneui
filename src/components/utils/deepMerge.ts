@@ -1,3 +1,5 @@
+import { DeepPartial } from "./deepPartial";
+
 /**
  * Deep merges two objects of the same type.
  * Handles both simple objects and class instances.
@@ -5,7 +7,7 @@
  * @param source The source object to merge from
  * @returns A new object with merged properties
  */
-export function deepMerge<T extends object>(target: T, source?: Partial<T>): T {
+export function deepMerge<T extends object>(target: T, source?: DeepPartial<T> | Partial<T>): T {
   // If source is undefined or null, return a copy of target
   if (!source) {
     return Array.isArray(target) 
