@@ -1,7 +1,7 @@
 import { JSX, useMemo } from 'react';
 import {
   ButtonProps
-} from './props/props'; // Adjust path if needed
+} from './props/props';
 import {
   SIZE_KEYS,
   STYLE_KEYS,
@@ -15,21 +15,19 @@ import {
   SHAPE_KEYS,
   HIDE_KEYS,
   POSITION_KEYS,
-  FLAG_KEYS,
-} from './props/propKeys'; // Adjust path if needed
+  BUTTON_KEYS,
+} from './props/propKeys';
 import {
   pickFirstKey,
   omitProps, pickFirstKeyOptional
-} from '../utils/componentUtils'; // Adjust path if needed
-import { MODE_KEYS } from './settings/mode'; // Adjust path if needed
-import { componentBuilder } from '../utils/componentBuilder'; // Adjust path if needed
-import { useTheme } from '../theme'; // Adjust path if needed
+} from '../utils/componentUtils';
+import { MODE_KEYS } from './settings/mode';
+import { componentBuilder } from '../utils/componentBuilder';
+import { useTheme } from '../theme';
 
 export function useButtonClasses(props: ButtonProps) {
   const theme = useTheme();
-
   const buttonTheme = theme.button;
-  // Extract props using defaults from buttonTheme
   const {
     size,
     style,
@@ -70,8 +68,7 @@ export function useButtonClasses(props: ButtonProps) {
     };
   }, [props, buttonTheme]);
 
-  // strip all the boolean flags
-  const cleanProps = omitProps(props, FLAG_KEYS);
+  const cleanProps = omitProps(props, BUTTON_KEYS);
 
   const sizeVariant = buttonTheme.size[size];
   const shapeClass = shape === 'rounded'
@@ -118,16 +115,12 @@ export function useButtonClasses(props: ButtonProps) {
     ]);
   });
 
-  // Return the same structure as before (arrays)
   return { cleanProps, tag, baseClasses, modeClasses };
 }
 
-// --- Button Component (Unchanged from your last version) ---
 export const Button = (props: ButtonProps): JSX.Element => {
   const {cleanProps, tag, baseClasses, modeClasses} = useButtonClasses(props);
 
-  // Still relies on componentBuilder to handle the flattened array
-  // containing base styles and all mode styles (including empty strings).
   return componentBuilder(cleanProps, tag)
     .withExtraClasses([...baseClasses, ...modeClasses])
     .build();

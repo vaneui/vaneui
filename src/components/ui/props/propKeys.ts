@@ -52,30 +52,113 @@ export type ItemsKey = typeof ITEMS_KEYS[number];
 export type JustifyKey = typeof JUSTIFY_KEYS[number];
 export type WrapKey = typeof WRAP_KEYS[number];
 
-export const FLAG_KEYS = [
+// Base component keys
+export const BASE_COMPONENT_KEYS = [
   ...SIZE_KEYS,
-  ...STYLE_KEYS,
-  ...TEXT_APPEARANCE_KEYS,
-  ...FONT_FAMILY_KEYS,
+  ...HIDE_KEYS,
+  ...POSITION_KEYS
+] as const;
+
+// Layout component keys
+export const LAYOUT_COMPONENT_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...REVERSE_KEYS,
+  ...ITEMS_KEYS,
+  ...APPEARANCE_KEYS
+] as const;
+
+// Font keys
+export const FONT_KEYS = [
   ...FONT_WEIGHT_KEYS,
   ...FONT_STYLE_KEYS,
   ...TEXT_DECORATION_KEYS,
   ...TEXT_TRANSFORM_KEYS,
-  ...TEXT_ALIGN_KEYS,
+  ...FONT_FAMILY_KEYS,
+  ...TEXT_APPEARANCE_KEYS,
+  ...TEXT_ALIGN_KEYS
+] as const;
+
+// Typography component keys
+export const TYPOGRAPHY_COMPONENT_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...FONT_KEYS
+] as const;
+
+// Button keys
+export const BUTTON_KEYS = [
+  ...TYPOGRAPHY_COMPONENT_KEYS,
+  ...SHAPE_KEYS,
   ...BORDER_KEYS,
   ...SHADOW_KEYS,
   ...RING_KEYS,
-  ...PADDING_KEYS,
-  ...BREAKPOINT_KEYS,
-  ...HIDE_KEYS,
-  ...POSITION_KEYS,
-  ...REVERSE_KEYS,
+  ...STYLE_KEYS
+] as const;
+
+// Grid keys
+export const GRID_KEYS = [
+  ...BASE_COMPONENT_KEYS,
   ...GAP_KEYS,
-  ...PILL_KEYS,
-  ...SHARP_KEYS,
-  ...SHAPE_KEYS,
-  ...DIRECTION_KEYS,
+  ...APPEARANCE_KEYS
+] as const;
+
+// Row keys
+export const ROW_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...WRAP_KEYS,
+  ...GAP_KEYS,
+  ...REVERSE_KEYS,
+  ...ITEMS_KEYS,
+  ...BREAKPOINT_KEYS,
+  ...JUSTIFY_KEYS,
+  ...APPEARANCE_KEYS
+] as const;
+
+// Col keys
+export const COL_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...WRAP_KEYS,
+  ...GAP_KEYS,
+  ...REVERSE_KEYS,
   ...ITEMS_KEYS,
   ...JUSTIFY_KEYS,
-  ...WRAP_KEYS
+  ...APPEARANCE_KEYS
 ] as const;
+
+// Card keys
+export const CARD_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...GAP_KEYS,
+  ...ITEMS_KEYS,
+  ...SHARP_KEYS,
+  ...BREAKPOINT_KEYS,
+  ...APPEARANCE_KEYS,
+  ...BORDER_KEYS,
+  ...SHADOW_KEYS,
+  ...PADDING_KEYS,
+  ...DIRECTION_KEYS
+] as const;
+
+// Stack keys
+export const STACK_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...WRAP_KEYS,
+  ...GAP_KEYS,
+  ...REVERSE_KEYS,
+  ...ITEMS_KEYS,
+  ...BREAKPOINT_KEYS,
+  ...JUSTIFY_KEYS,
+  ...APPEARANCE_KEYS,
+  ...DIRECTION_KEYS,
+  ...PADDING_KEYS
+] as const;
+
+export type BaseComponentKey = typeof BASE_COMPONENT_KEYS[number];
+export type LayoutComponentKey = typeof LAYOUT_COMPONENT_KEYS[number];
+export type FontKey = typeof FONT_KEYS[number];
+export type TypographyComponentKey = typeof TYPOGRAPHY_COMPONENT_KEYS[number];
+export type ButtonKey = typeof BUTTON_KEYS[number];
+export type GridKey = typeof GRID_KEYS[number];
+export type RowKey = typeof ROW_KEYS[number];
+export type ColKey = typeof COL_KEYS[number];
+export type CardKey = typeof CARD_KEYS[number];
+export type StackKey = typeof STACK_KEYS[number];
