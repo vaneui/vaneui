@@ -14,8 +14,8 @@ import {
   TextAppearanceKey,
   TextDecorationKey,
   TextTransformKey
-} from "../props/propKeys"; // Adjust path if needed
-import { gapMap, pxMap, pyMap, roundedMap, textSizeMap } from "../classes/buttonClasses"; // Adjust path if needed
+} from "../props/propKeys";
+import { gapMap, pxMap, pyMap, roundedMap, textSizeMap } from "../classes/buttonClasses";
 import {
   activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses,
@@ -27,7 +27,7 @@ import {
   filledRingAppearanceClasses,
   hoverBackgroundAppearanceClasses,
   ringAppearanceClasses,
-} from "../classes/appearanceClasses"; // Adjust path if needed
+} from "../classes/appearanceClasses";
 import {
   filledTextAppearanceClasses,
   fontFamilyClasses,
@@ -37,7 +37,7 @@ import {
   textAppearanceClasses,
   textDecorationClasses,
   textTransformClasses
-} from "../classes/typographyClasses"; // Adjust path if needed
+} from "../classes/typographyClasses";
 import {
   activeShadowClasses,
   borderModeClasses,
@@ -49,34 +49,28 @@ import {
   positionClasses,
   ringModeClasses,
   shadowClasses
-} from "../classes/layoutClasses"; // Adjust path if needed
-import { Mode } from "../settings/mode"; // Adjust path if needed
+} from "../classes/layoutClasses";
+import { Mode } from "../settings/mode";
 
-// Represents styles that can vary by interaction mode (base, hover, active)
 export type ModeledStyles = {
   base: string;
   hover?: string;
   active?: string;
 };
 
-// Helper type for the bundle of properties defining a specific style+appearance
 export type ButtonVariantAppearance = {
   background: ModeledStyles;
   textColor: ModeledStyles;
   borderColor: ModeledStyles;
   ringColor: ModeledStyles;
-  // Add other properties here if they depend on style+appearance
 };
 
 export type ButtonTheme = {
-  // Base structural classes applied regardless of variants
   base: string;
 
-  // --- Variants moved to top level ---
   size: Record<SizeKey, ModeledStyles>;
   style: Record<StyleKey, Record<TextAppearanceKey, ButtonVariantAppearance>>;
 
-  // --- Other top-level categories ---
   typography: {
     fontFamily: Record<FontFamilyKey, string>;
     fontWeight: Record<FontWeightKey, string>;
@@ -89,13 +83,13 @@ export type ButtonTheme = {
     hide: Record<HideKey, string>;
     position: Record<PositionKey, string>;
     shadow: Record<Mode, Record<SizeKey, string>>;
-    border: Record<Mode, string>; // Base border utility classes by mode
-    ring: Record<Mode, string>;   // Base ring utility classes by mode
+    border: Record<Mode, string>;
+    ring: Record<Mode, string>;
     radius: Record<SizeKey, string>;
     flags: {
-      noBorder: ModeledStyles; // Classes to apply when noBorder=true
+      noBorder: ModeledStyles;
       noShadow: ModeledStyles;
-      noRing: ModeledStyles;   // Classes to apply when noRing=true
+      noRing: ModeledStyles;
     };
   };
   defaults: {
@@ -117,7 +111,6 @@ export type ButtonTheme = {
   }
 };
 
-// Size variant helper
 function makeSizeVariants(): Record<SizeKey, ModeledStyles> {
   return SIZE_KEYS.reduce((acc, size) => {
     acc[size] = {
@@ -134,23 +127,17 @@ export const defaultButtonTheme: ButtonTheme = {
 
   size: makeSizeVariants(),
 
-  // Use nested reduce to build the style object correctly
   style: STYLE_KEYS.reduce((styleAcc, styleKey) => {
     const isFilled = styleKey === 'filled';
 
-    // Determine source objects based on styleKey (same as before)
     const bgBaseSource = isFilled ? filledBackgroundAppearanceClasses : backgroundAppearanceClasses;
     const bgHoverSource = isFilled ? filledHoverBackgroundAppearanceClasses : hoverBackgroundAppearanceClasses;
     const bgActiveSource = isFilled ? filledActiveBackgroundAppearanceClasses : activeBackgroundAppearanceClasses;
     const textBaseSource = isFilled ? filledTextAppearanceClasses : textAppearanceClasses;
-    const borderBaseSource = isFilled ? filledBorderAppearanceClasses : borderAppearanceClasses; // Assumes these exist
+    const borderBaseSource = isFilled ? filledBorderAppearanceClasses : borderAppearanceClasses;
     const ringBaseSource = isFilled ? filledRingAppearanceClasses : ringAppearanceClasses;
 
-    // Use reduce to build the inner Record<TextAppearanceKey, ButtonVariantAppearance>
-     // Initial value for the INNER reduce
-    // Assign the fully constructed inner object (appearanceMap) to the outer accumulator
     styleAcc[styleKey] = TEXT_APPEARANCE_KEYS.reduce((appearanceAcc, appearanceKey) => {
-      // Construct the ButtonVariantAppearance object for this specific style+appearance
       appearanceAcc[appearanceKey] = {
         background: {
           base: bgBaseSource[appearanceKey] ?? '',
@@ -159,17 +146,17 @@ export const defaultButtonTheme: ButtonTheme = {
         },
         textColor: {
           base: textBaseSource[appearanceKey] ?? '',
-          hover: '', // Add sources if they exist
+          hover: '',
           active: '',
         },
         borderColor: {
           base: borderBaseSource[appearanceKey] ?? '',
-          hover: '', // Add sources if they exist
+          hover: '',
           active: '',
         },
         ringColor: {
           base: ringBaseSource[appearanceKey] ?? '',
-          hover: '', // Add sources if they exist
+          hover: '',
           active: '',
         }
       };
@@ -177,7 +164,6 @@ export const defaultButtonTheme: ButtonTheme = {
     }, {} as Record<TextAppearanceKey, ButtonVariantAppearance>);
 
     return styleAcc;
-    // Type the initial value for the OUTER reduce correctly
   }, {} as Record<StyleKey, Record<TextAppearanceKey, ButtonVariantAppearance>>),
 
 
