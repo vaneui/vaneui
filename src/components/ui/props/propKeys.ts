@@ -151,14 +151,3 @@ export const STACK_KEYS = [
   ...DIRECTION_KEYS,
   ...PADDING_KEYS
 ] as const;
-
-export type BaseComponentKey = typeof BASE_COMPONENT_KEYS[number];
-export type LayoutComponentKey = typeof LAYOUT_COMPONENT_KEYS[number];
-export type FontKey = typeof FONT_KEYS[number];
-export type TypographyComponentKey = typeof TYPOGRAPHY_COMPONENT_KEYS[number];
-export type ButtonKey = typeof BUTTON_KEYS[number];
-export type GridKey = typeof GRID_KEYS[number];
-export type RowKey = typeof ROW_KEYS[number];
-export type ColKey = typeof COL_KEYS[number];
-export type CardKey = typeof CARD_KEYS[number];
-export type StackKey = typeof STACK_KEYS[number];
