@@ -12,7 +12,7 @@ export { ShadowSettings } from "./components/ui/settings/shadowSettings";
 export { SizeSettings } from "./components/ui/settings/sizeSettings";
 export { GapSettings } from "./components/ui/settings/gapSettings";
 
-export { ThemeProvider, useTheme, useButtonTheme, ThemeProps, ThemeProviderProps } from './components/theme/themeContext';
+export { ThemeProvider, useTheme, ThemeProps, ThemeProviderProps } from './components/theme/themeContext';
 
 export { Mode } from "./components/ui/settings/mode"
 export { BorderType } from "./components/ui/settings/borderType"

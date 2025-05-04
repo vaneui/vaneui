@@ -5,22 +5,22 @@ import { DeepPartial } from "../utils/deepPartial";
 
 // Define the shape of our theme props
 export interface ThemeProps {
-  button?: DeepPartial<ButtonTheme>;
+  button: ButtonTheme;
 }
 
 // Create the context with a default value
-const ThemeContext = createContext<ThemeProps | undefined>(undefined);
+const ThemeContext = createContext<ThemeProps>({button: defaultButtonTheme});
 
 // Props for the ThemeProvider component
 export interface ThemeProviderProps {
   children: React.ReactNode;
-  theme?: ThemeProps;
+  theme: ThemeProps;
 }
 
 // ThemeProvider component
 export function ThemeProvider({
   children,
-  theme = {},
+  theme = {button: defaultButtonTheme},
 }: ThemeProviderProps) {
   // Provide the context to children
   return (
@@ -31,16 +31,7 @@ export function ThemeProvider({
 }
 
 // Custom hook to use the theme context
-export const useTheme = (): ThemeProps | undefined => {
+export const useTheme = (): ThemeProps => {
   const context = useContext(ThemeContext);
   return context;
-};
-
-// Custom hook to use the button theme
-export const useButtonTheme = (): ButtonTheme => {
-  const theme = useTheme();
-  // Merge the default button theme with any overrides from the context
-  return theme?.button 
-    ? deepMerge(defaultButtonTheme, theme.button)
-    : defaultButtonTheme;
 };

@@ -1,11 +1,26 @@
-export function pickFirstKey<
+export function pickFirstKeyOptional<
   P extends object,
   K extends keyof P
 >(
   props: P,
   keys: readonly K[],
   fallback: K | undefined = undefined,
-): K | undefined{
+): K | undefined {
+  for (const k of keys) {
+    // props[k] is allowed on any P, and truthiness check works
+    if (props[k]) return k;
+  }
+  return fallback;
+}
+
+export function pickFirstKey<
+  P extends object,
+  K extends keyof P
+>(
+  props: P,
+  keys: readonly K[],
+  fallback: K,
+): K {
   for (const k of keys) {
     // props[k] is allowed on any P, and truthiness check works
     if (props[k]) return k;
@@ -20,7 +35,7 @@ export function omitProps<
   props: P,
   keys: readonly K[]
 ): Omit<P, Extract<K, keyof P>> {
-  const result = { ...props };
+  const result = {...props};
   for (const k of keys) {
     if (k in result) {
       delete (result as any)[k];

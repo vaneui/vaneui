@@ -128,17 +128,6 @@ function makeSizeVariants(): Record<SizeKey, ModeledStyles> {
     return acc;
   }, {} as Record<SizeKey, ModeledStyles>);
 }
-// Shape variant helper
-function makeShapeVariant(baseClassFn: (size: SizeKey) => string): Record<SizeKey, ModeledStyles> {
-  return SIZE_KEYS.reduce((acc, size) => {
-    acc[size] = {
-      base: baseClassFn(size),
-      hover: '',
-      active: '',
-    };
-    return acc;
-  }, {} as Record<SizeKey, ModeledStyles>);
-}
 
 export const defaultButtonTheme: ButtonTheme = {
   base: "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
