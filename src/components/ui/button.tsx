@@ -23,7 +23,7 @@ import {
 } from '../utils/componentUtils'; // Adjust path if needed
 import { MODE_KEYS } from './settings/mode'; // Adjust path if needed
 import { componentBuilder } from '../utils/componentBuilder'; // Adjust path if needed
-import { useTheme } from '../theme/themeContext'; // Adjust path if needed
+import { useTheme } from '../theme'; // Adjust path if needed
 
 export function useButtonClasses(props: ButtonProps) {
   const theme = useTheme();
@@ -47,7 +47,6 @@ export function useButtonClasses(props: ButtonProps) {
     noShadow,
     noRing,
   } = useMemo(() => {
-
     return {
       size: pickFirstKey(props, SIZE_KEYS, buttonTheme.defaults.size),
       style: pickFirstKey(props, STYLE_KEYS, buttonTheme.defaults.style),
@@ -74,17 +73,19 @@ export function useButtonClasses(props: ButtonProps) {
   // strip all the boolean flags
   const cleanProps = omitProps(props, FLAG_KEYS);
 
-  // --- Get variants/styles from the FLATTENED buttonTheme structure ---
-  const sizeVariant = buttonTheme.size[size]; // Direct access
-  const shapeClass = shape === 'rounded' ? buttonTheme.layout.radius[size] : shape === 'pill' ? 'rounded-full' : shape === 'sharp' ? 'rounded-none' : buttonTheme.layout.radius[size]; // Direct access
-  const appearanceVariant = buttonTheme.style[style]?.[appearance]; // Direct access
+  const sizeVariant = buttonTheme.size[size];
+  const shapeClass = shape === 'rounded'
+    ? buttonTheme.layout.radius[size]
+    : shape === 'pill'
+      ? 'rounded-full'
+      : shape === 'sharp'
+        ? 'rounded-none'
+        : buttonTheme.layout.radius[size];
+  const appearanceVariant = buttonTheme.style[style]?.[appearance];
 
-  // Define the base tag and classes
   const tag = props.tag ?? "button";
   const baseThemeClasses = buttonTheme.base;
 
-  // Base classes related to typography/layout props
-  // (These don't have hover/active states directly tied to them in the theme)
   const baseClasses = [
     baseThemeClasses,
     shapeClass,
@@ -98,27 +99,19 @@ export function useButtonClasses(props: ButtonProps) {
     position ? buttonTheme.layout.position[position] : '',
   ];
 
-  // Array to hold all mode-specific classes (base variant, hover, active)
   const modeClasses: string[] = [];
 
   MODE_KEYS.forEach(mode => {
     modeClasses.push(...[
       sizeVariant?.[mode] ?? '',
-
-      // Appearance classes
       appearanceVariant?.background?.[mode] ?? '',
       appearanceVariant?.textColor?.[mode] ?? '',
-
-      // Border/Ring/Shadow handled conditionally below
-
       noRing
         ? buttonTheme.layout.flags.noRing[mode] ?? ''
         : `${buttonTheme.layout.ring[mode] ?? ''} ${appearanceVariant?.ringColor?.[mode] ?? ''}`,
-
       noBorder
         ? buttonTheme.layout.flags.noBorder[mode] ?? ''
         : `${buttonTheme.layout.border[mode] ?? ''} ${appearanceVariant?.borderColor?.[mode] ?? ''}`,
-
       noShadow
         ? buttonTheme.layout.flags.noShadow[mode] ?? ''
         : buttonTheme.layout.shadow[mode]?.[size] ?? '',
@@ -126,7 +119,7 @@ export function useButtonClasses(props: ButtonProps) {
   });
 
   // Return the same structure as before (arrays)
-  return { cleanProps, tag, baseClasses: baseClasses, modeClasses: modeClasses };
+  return { cleanProps, tag, baseClasses, modeClasses };
 }
 
 // --- Button Component (Unchanged from your last version) ---

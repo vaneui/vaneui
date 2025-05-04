@@ -11,7 +11,8 @@ const customTheme: ThemeProps = {
       outline: {
         default: {
           textColor: {
-            base: 'text-gray-400'
+            base: 'text-gray-400',
+            hover: 'text-gray-600'
           }
         }
       }

@@ -79,5 +79,3 @@ export const FLAG_KEYS = [
   ...JUSTIFY_KEYS,
   ...WRAP_KEYS
 ] as const;
-
-export type FlagKey = typeof FLAG_KEYS[number];
