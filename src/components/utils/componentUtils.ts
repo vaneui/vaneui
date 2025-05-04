@@ -7,7 +7,6 @@ export function pickFirstKeyOptional<
   fallback: K | undefined = undefined,
 ): K | undefined {
   for (const k of keys) {
-    // props[k] is allowed on any P, and truthiness check works
     if (props[k]) return k;
   }
   return fallback;
@@ -22,7 +21,6 @@ export function pickFirstKey<
   fallback: K,
 ): K {
   for (const k of keys) {
-    // props[k] is allowed on any P, and truthiness check works
     if (props[k]) return k;
   }
   return fallback;
