@@ -24,7 +24,8 @@ import {
   DirectionKey,
   ItemsKey,
   JustifyKey,
-  WrapKey, RingKey
+  WrapKey,
+  RingKey,
 } from "./propKeys";
 
 export type SizeProps = { [K in SizeKey]?: boolean; }
