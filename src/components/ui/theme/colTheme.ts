@@ -1,10 +1,9 @@
 import { ColProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
-import { 
-  ComponentTheme, 
-  VariantAppearance, 
+import {
+  ComponentTheme,
+  VariantAppearance,
   createVariantAppearance,
-  makeSizeVariants,
-  makeGapVariants,
+  makeSizeVariant,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -20,15 +19,6 @@ const gapMap: Record<SizeKey, string> = {
   xl: 'gap-6',
 };
 
-// Empty maps for unused size properties
-const emptyMap: Record<SizeKey, string> = {
-  xs: '',
-  sm: '',
-  md: '',
-  lg: '',
-  xl: '',
-};
-
 // Col-specific rounded classes
 const roundedMap: Record<SizeKey, string> = {
   xs: 'rounded-none',
@@ -41,14 +31,15 @@ const roundedMap: Record<SizeKey, string> = {
 // Col-specific theme type
 export type ColTheme = ComponentTheme<VariantAppearance, ColProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
 
-
 // Default col theme
 export const defaultColTheme: ColTheme = {
   // Col-specific base classes
   base: "flex flex-col",
 
   // Use only gap variant generator for col
-  gap: makeGapVariants(gapMap),
+  size: {
+    gap: makeSizeVariant(gapMap)
+  },
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

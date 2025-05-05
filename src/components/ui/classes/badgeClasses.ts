@@ -1,5 +1,4 @@
 import { SizeKey } from "../props/propKeys";
-import { textSizeClasses } from "../classes/typographyClasses";
 
 /**
  * Maps for badge size-related classes
@@ -29,17 +28,9 @@ export const gapMap: Record<SizeKey, string> = {
 };
 
 export const roundedMap: Record<SizeKey, string> = {
-  xs: "rounded",
-  sm: "rounded",
-  md: "rounded",
-  lg: "rounded-md",
-  xl: "rounded-md"
-};
-
-export const textSizeMap: Record<SizeKey, string> = {
-  xs: textSizeClasses.xs,
-  sm: textSizeClasses.sm,
-  md: textSizeClasses.md,
-  lg: textSizeClasses.lg,
-  xl: textSizeClasses.xl
+  xs: "rounded-xs",
+  sm: "rounded-sm",
+  md: "rounded-md",
+  lg: "rounded-lg",
+  xl: "rounded-xl"
 };

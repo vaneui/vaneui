@@ -1,14 +1,11 @@
 import { LayoutComponentProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
-import { 
-  ComponentTheme, 
-  VariantAppearance, 
+import {
+  ComponentTheme,
+  VariantAppearance,
   createVariantAppearance,
-  makeSizeVariants,
-  makePxVariants,
-  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme
+  createDefaultLayoutTheme, makeSizeVariant
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
 
@@ -29,15 +26,6 @@ const gapMap: Record<SizeKey, string> = {
   xl: 'gap-10 max-lg:gap-9 max-md:gap-8',
 };
 
-// Empty maps for unused size properties
-const emptyMap: Record<SizeKey, string> = {
-  xs: '',
-  sm: '',
-  md: '',
-  lg: '',
-  xl: '',
-};
-
 // Container-specific rounded classes
 const roundedMap: Record<SizeKey, string> = {
   xs: 'rounded-none',
@@ -56,9 +44,10 @@ export const defaultContainerTheme: ContainerTheme = {
   // Container-specific base classes
   base: "flex flex-col mx-auto w-full",
 
-  // Use only px and gap variant generators for container
-  px: makePxVariants(widthMap),
-  gap: makeGapVariants(gapMap),
+  size: {
+    px: makeSizeVariant(widthMap),//TODO: change the logic
+    gap: makeSizeVariant(gapMap),
+  },
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

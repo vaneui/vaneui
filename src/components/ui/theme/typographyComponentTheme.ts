@@ -1,54 +1,16 @@
 import { TypographyComponentProps, ButtonStyleProps, ShapeProps, NoShadowProps } from "../props/props";
-import { 
-  ComponentTheme, 
-  VariantAppearance, 
+import {
+  ComponentTheme,
+  VariantAppearance,
   createVariantAppearance,
-  makeSizeVariants,
-  makeTextSizeVariants,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme
+  createDefaultLayoutTheme, makeSizeVariant
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
 
 // Typography component-specific theme type
 export type TypographyComponentTheme = ComponentTheme<VariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
-
-// Create typography component-specific variant appearance
-function createTypographyComponentVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
-
-// Typography component-specific size maps
-const pxMap: Record<SizeKey, string> = {
-  xs: '',
-  sm: '',
-  md: '',
-  lg: '',
-  xl: '',
-};
-
-const pyMap: Record<SizeKey, string> = {
-  xs: '',
-  sm: '',
-  md: '',
-  lg: '',
-  xl: '',
-};
 
 const textSizeMap: Record<SizeKey, string> = {
   xs: 'text-sm',
@@ -56,14 +18,6 @@ const textSizeMap: Record<SizeKey, string> = {
   md: 'text-lg',
   lg: 'text-xl',
   xl: 'text-2xl',
-};
-
-const gapMap: Record<SizeKey, string> = {
-  xs: '',
-  sm: '',
-  md: '',
-  lg: '',
-  xl: '',
 };
 
 // Typography component-specific rounded classes
@@ -81,10 +35,12 @@ export const defaultTypographyComponentTheme: TypographyComponentTheme = {
   base: "text-balance",
 
   // Use only textSize variant generator for typography component
-  textSize: makeTextSizeVariants(textSizeMap),
+  size: {
+    text: makeSizeVariant(textSizeMap)
+  },
 
   // Use common style variant generator with typography component-specific factory
-  style: makeStyleVariants(createTypographyComponentVariantAppearance),
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

@@ -1,15 +1,11 @@
 import { LayoutComponentProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
-import { 
-  ComponentTheme, 
-  VariantAppearance, 
+import {
+  ComponentTheme,
+  VariantAppearance,
   createVariantAppearance,
-  makeSizeVariants,
-  makePxVariants,
-  makePyVariants,
-  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme
+  createDefaultLayoutTheme, makeSizeVariant
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
 
@@ -38,15 +34,6 @@ const pyMap: Record<SizeKey, string> = {
   xl: 'py-20 max-lg:py-16 max-md:py-12',
 };
 
-// Empty maps for unused size properties
-const emptyMap: Record<SizeKey, string> = {
-  xs: '',
-  sm: '',
-  md: '',
-  lg: '',
-  xl: '',
-};
-
 // Section-specific rounded classes
 const roundedMap: Record<SizeKey, string> = {
   xs: 'rounded-none',
@@ -66,9 +53,11 @@ export const defaultSectionTheme: SectionTheme = {
   base: "w-full flex flex-col",
 
   // Use separate size variant generators with section-specific maps
-  px: makePxVariants(pxMap),
-  py: makePyVariants(pyMap),
-  gap: makeGapVariants(gapMap),
+  size: {
+    px: makeSizeVariant(pxMap),
+    py: makeSizeVariant(pyMap),
+    gap: makeSizeVariant(gapMap),
+  },
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

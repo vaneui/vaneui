@@ -1,13 +1,11 @@
 import { RowProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
-import { 
-  ComponentTheme, 
-  VariantAppearance, 
+import {
+  ComponentTheme,
+  VariantAppearance,
   createVariantAppearance,
-  makeSizeVariants,
-  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme
+  createDefaultLayoutTheme, makeSizeVariant
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
 
@@ -18,15 +16,6 @@ const gapMap: Record<SizeKey, string> = {
   md: 'gap-4',
   lg: 'gap-5',
   xl: 'gap-6',
-};
-
-// Empty maps for unused size properties
-const emptyMap: Record<SizeKey, string> = {
-  xs: '',
-  sm: '',
-  md: '',
-  lg: '',
-  xl: '',
 };
 
 // Row-specific rounded classes
@@ -48,7 +37,9 @@ export const defaultRowTheme: RowTheme = {
   base: "flex flex-row",
 
   // Use only gap variant generator for row
-  gap: makeGapVariants(gapMap),
+  size: {
+    gap: makeSizeVariant(gapMap)
+  },
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

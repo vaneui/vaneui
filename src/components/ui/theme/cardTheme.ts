@@ -1,24 +1,17 @@
 import { SizeKey } from "../props/propKeys";
 import { CardProps, ButtonStyleProps, ShapeProps, FontFamilyProps, FontWeightProps, NoRingProps } from "../props/props";
-import { 
-  ComponentTheme, 
-  VariantAppearance, 
+import {
+  ComponentTheme,
+  VariantAppearance,
   createVariantAppearance,
-  makeSizeVariants,
-  makePxVariants,
-  makePyVariants,
-  makeTextSizeVariants,
-  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme
+  createDefaultLayoutTheme, makeSizeVariant
 } from "./componentTheme";
-import { commonGaps } from "../classes/spacingClasses";
 import { roundedClasses } from "../classes/layoutClasses";
 
 // Card-specific theme type
 export type CardTheme = ComponentTheme<VariantAppearance, CardProps & ButtonStyleProps & ShapeProps & FontFamilyProps & FontWeightProps & NoRingProps>;
-
 
 // Size maps for card
 const pxMap: Record<SizeKey, string> = {
@@ -59,10 +52,12 @@ export const defaultCardTheme: CardTheme = {
   base: "flex overflow-hidden",
 
   // Use separate size variant generators with card-specific maps
-  px: makePxVariants(pxMap),
-  py: makePyVariants(pyMap),
-  textSize: makeTextSizeVariants(textSizeMap),
-  gap: makeGapVariants(gapMap),
+  size: {
+    px: makeSizeVariant(pxMap),
+    py: makeSizeVariant(pyMap),
+    text: makeSizeVariant(textSizeMap),
+    gap: makeSizeVariant(gapMap),
+  },
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

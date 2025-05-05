@@ -1,17 +1,12 @@
 import { SizeKey } from "../props/propKeys";
 import { TypographyComponentProps, ButtonStyleProps, ShapeProps, NoShadowProps } from "../props/props";
-import { 
-  ComponentTheme, 
-  VariantAppearance, 
+import {
+  ComponentTheme,
+  VariantAppearance,
   createVariantAppearance,
-  makeSizeVariants,
-  makePxVariants,
-  makePyVariants,
-  makeTextSizeVariants,
-  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme
+  createDefaultLayoutTheme, makeSizeVariant
 } from "./componentTheme";
 
 // Chip-specific size maps
@@ -59,17 +54,17 @@ const roundedMap: Record<SizeKey, string> = {
 // Chip-specific theme type
 export type ChipTheme = ComponentTheme<VariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
 
-
 // Default chip theme
 export const defaultChipTheme: ChipTheme = {
   // Chip-specific base classes
   base: "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
 
-  // Use separate size variant generators with chip-specific maps
-  px: makePxVariants(pxMap),
-  py: makePyVariants(pyMap),
-  textSize: makeTextSizeVariants(textSizeMap),
-  gap: makeGapVariants(gapMap),
+  size: {
+    px: makeSizeVariant(pxMap),
+    py: makeSizeVariant(pyMap),
+    text: makeSizeVariant(textSizeMap),
+    gap: makeSizeVariant(gapMap),
+  },
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),
