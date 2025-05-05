@@ -104,7 +104,11 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
 
   const cleanProps = omitProps(props, allPropsToOmit);
 
-  const sizeVariant = theme.size[size];
+  // Get size variants from the new structure
+  const pxVariant = theme.size?.px?.[size];
+  const pyVariant = theme.size?.py?.[size];
+  const textVariant = theme.size?.text?.[size];
+  const gapVariant = theme.size?.gap?.[size];
   const shapeClass = shape === 'rounded'
     ? theme.layout.radius[size]
     : shape === 'pill'
@@ -134,7 +138,11 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
 
   MODE_KEYS.forEach(mode => {
     modeClasses.push(...[
-      sizeVariant?.[mode] ?? '',
+      // Include all size variants
+      pxVariant?.[mode] ?? '',
+      pyVariant?.[mode] ?? '',
+      textVariant?.[mode] ?? '',
+      gapVariant?.[mode] ?? '',
       appearanceVariant?.background?.[mode] ?? '',
       appearanceVariant?.textColor?.[mode] ?? '',
       noRing

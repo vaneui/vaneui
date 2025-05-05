@@ -3,7 +3,8 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makeTextSizeVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -79,8 +80,8 @@ export const defaultTypographyComponentTheme: TypographyComponentTheme = {
   // Typography component-specific base classes
   base: "text-balance",
 
-  // Use common size variant generator with typography component-specific maps
-  size: makeSizeVariants(pxMap, pyMap, textSizeMap, gapMap),
+  // Use only textSize variant generator for typography component
+  textSize: makeTextSizeVariants(textSizeMap),
 
   // Use common style variant generator with typography component-specific factory
   style: makeStyleVariants(createTypographyComponentVariantAppearance),

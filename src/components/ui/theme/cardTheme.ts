@@ -4,7 +4,11 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makePxVariants,
+  makePyVariants,
+  makeTextSizeVariants,
+  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -54,8 +58,11 @@ export const defaultCardTheme: CardTheme = {
   // Card-specific base classes
   base: "flex overflow-hidden",
 
-  // Use common size variant generator with card-specific maps
-  size: makeSizeVariants(pxMap, pyMap, textSizeMap, gapMap),
+  // Use separate size variant generators with card-specific maps
+  px: makePxVariants(pxMap),
+  py: makePyVariants(pyMap),
+  textSize: makeTextSizeVariants(textSizeMap),
+  gap: makeGapVariants(gapMap),
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

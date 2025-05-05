@@ -3,7 +3,9 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makePxVariants,
+  makePyVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -54,8 +56,9 @@ export const defaultDividerTheme: DividerTheme = {
   // Divider-specific base classes
   base: "bg-gray-200",
 
-  // Use common size variant generator with divider-specific maps
-  size: makeSizeVariants(widthMap, heightMap, emptyMap, emptyMap),
+  // Use only px and py variant generators for divider
+  px: makePxVariants(widthMap),
+  py: makePyVariants(heightMap),
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

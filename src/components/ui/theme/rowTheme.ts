@@ -3,7 +3,8 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -46,8 +47,8 @@ export const defaultRowTheme: RowTheme = {
   // Row-specific base classes
   base: "flex flex-row",
 
-  // Use common size variant generator with row-specific maps
-  size: makeSizeVariants(emptyMap, emptyMap, emptyMap, gapMap),
+  // Use only gap variant generator for row
+  gap: makeGapVariants(gapMap),
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

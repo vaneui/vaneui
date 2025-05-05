@@ -4,7 +4,11 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makePxVariants,
+  makePyVariants,
+  makeTextSizeVariants,
+  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -61,8 +65,11 @@ export const defaultChipTheme: ChipTheme = {
   // Chip-specific base classes
   base: "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
 
-  // Use common size variant generator with chip-specific maps
-  size: makeSizeVariants(pxMap, pyMap, textSizeMap, gapMap),
+  // Use separate size variant generators with chip-specific maps
+  px: makePxVariants(pxMap),
+  py: makePyVariants(pyMap),
+  textSize: makeTextSizeVariants(textSizeMap),
+  gap: makeGapVariants(gapMap),
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

@@ -3,7 +3,10 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makePxVariants,
+  makePyVariants,
+  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -62,8 +65,10 @@ export const defaultStackTheme: StackTheme = {
   // Stack-specific base classes
   base: "flex",
 
-  // Use common size variant generator with stack-specific maps
-  size: makeSizeVariants(pxMap, pyMap, emptyMap, gapMap),
+  // Use separate size variant generators with stack-specific maps
+  px: makePxVariants(pxMap),
+  py: makePyVariants(pyMap),
+  gap: makeGapVariants(gapMap),
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

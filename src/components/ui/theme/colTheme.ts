@@ -3,7 +3,8 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -46,8 +47,8 @@ export const defaultColTheme: ColTheme = {
   // Col-specific base classes
   base: "flex flex-col",
 
-  // Use common size variant generator with col-specific maps
-  size: makeSizeVariants(emptyMap, emptyMap, emptyMap, gapMap),
+  // Use only gap variant generator for col
+  gap: makeGapVariants(gapMap),
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

@@ -3,7 +3,8 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -46,8 +47,8 @@ export const defaultGridTheme: GridTheme = {
   // Grid-specific base classes
   base: "grid",
 
-  // Use common size variant generator with grid-specific maps
-  size: makeSizeVariants(emptyMap, emptyMap, emptyMap, gapMap),
+  // Use only gap variant generator for grid
+  gap: makeGapVariants(gapMap),
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

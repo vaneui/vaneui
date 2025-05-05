@@ -5,7 +5,11 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makePxVariants,
+  makePyVariants,
+  makeTextSizeVariants,
+  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -20,8 +24,11 @@ export const defaultButtonTheme: ButtonTheme = {
   // Button-specific base classes
   base: "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
 
-  // Use common size variant generator with button-specific maps
-  size: makeSizeVariants(pxMap, pyMap, textSizeMap, gapMap),
+  // Use separate size variant generators with button-specific maps
+  px: makePxVariants(pxMap),
+  py: makePyVariants(pyMap),
+  textSize: makeTextSizeVariants(textSizeMap),
+  gap: makeGapVariants(gapMap),
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

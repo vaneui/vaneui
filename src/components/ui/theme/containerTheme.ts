@@ -3,7 +3,9 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makePxVariants,
+  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -54,8 +56,9 @@ export const defaultContainerTheme: ContainerTheme = {
   // Container-specific base classes
   base: "flex flex-col mx-auto w-full",
 
-  // Use common size variant generator with container-specific maps
-  size: makeSizeVariants(widthMap, emptyMap, emptyMap, gapMap),
+  // Use only px and gap variant generators for container
+  px: makePxVariants(widthMap),
+  gap: makeGapVariants(gapMap),
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),

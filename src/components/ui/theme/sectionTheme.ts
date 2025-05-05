@@ -3,7 +3,10 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeSizeVariants, 
+  makeSizeVariants,
+  makePxVariants,
+  makePyVariants,
+  makeGapVariants,
   makeStyleVariants,
   defaultTypographyTheme,
   createDefaultLayoutTheme
@@ -62,8 +65,10 @@ export const defaultSectionTheme: SectionTheme = {
   // Section-specific base classes
   base: "w-full flex flex-col",
 
-  // Use common size variant generator with section-specific maps
-  size: makeSizeVariants(pxMap, pyMap, emptyMap, gapMap),
+  // Use separate size variant generators with section-specific maps
+  px: makePxVariants(pxMap),
+  py: makePyVariants(pyMap),
+  gap: makeGapVariants(gapMap),
 
   // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),
