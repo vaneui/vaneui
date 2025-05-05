@@ -2,48 +2,18 @@ import { twMerge } from "tailwind-merge";
 import {
   BaseComponentProps,
   ItemsProps,
-  CommonAppearanceProps,
   ReverseProps,
   ColProps,
   RowProps,
   SizeProps,
-  WrapProps, ButtonStyleProps, TextAppearanceProps
+  WrapProps,
+  ButtonStyleProps,
 } from "../ui/props/props";
 import {
-  fontFamilyClasses,
-  fontStyleClasses,
-  fontWeightClasses,
-  textAlignClasses,
-  textAppearanceClasses,
-  textDecorationClasses,
-  textTransformClasses,
-  textSizeClasses
-} from "../ui/classes/typographyClasses";
-import { CommonAppearanceSettings } from "../ui/settings/commonAppearanceSettings";
-import { TypographySettings } from "../ui/settings/typographySettings";
-import { BorderSettings } from "../ui/settings/borderSettings";
-import { SizeSettings } from "../ui/settings/sizeSettings";
-import { ShadowSettings } from "../ui/settings/shadowSettings";
-import { GapSettings } from "../ui/settings/gapSettings";
-import { borderAppearanceClasses } from "../ui/classes/appearanceClasses";
-import {
   hideClasses,
-  pillClasses, positionClasses,
-  roundedClasses,
-  sharpClasses,
-  shadowClasses,
-  noShadowClasses, noBorderModeClasses, borderModeClasses, noRingModeClasses, ringModeClasses
+  positionClasses,
 } from "../ui/classes/layoutClasses";
-import {
-  noGapClasses,
-  noPaddingClasses,
-  pxClasses,
-  pyClasses,
-  commonGaps
-} from "../ui/classes/spacingClasses";
 import React from "react";
-import { Mode } from "../ui/settings/mode";
-import { BorderType } from "../ui/settings/borderType";
 
 function getBooleanClass<T extends Record<string, boolean | undefined>>(
   props: T,
@@ -91,19 +61,11 @@ export class ComponentBuilder {
     return this;
   }
 
-  withClass(prop: string, className: string = "", condition: boolean | undefined): this {
-    if(condition != undefined && condition){
-      this.extraClasses.push(className);
-    }
-    this.registerKeys([prop])
-    return this;
-  }
-
   withClasses<T extends Record<string, string>>(
     propMap?: Record<keyof T, string>,
     settings?: { [key: string]: boolean }
   ): this {
-    if(propMap === undefined)
+    if (propMap === undefined)
       return this;
 
     // Build a subset of props from otherProps for the keys in the map.
@@ -136,7 +98,6 @@ export class ComponentBuilder {
   private finalize(): React.ReactElement {
     const {className, children, tag} = this.baseProps;
     const Tag = tag || this.defaultTag;
-    //console.log("twMerge", this.baseClasses, this.extraClasses, className)
     const merged = twMerge(this.baseClasses, ...this.extraClasses, className);
 
     this.propsToRemove.forEach(key => delete this.otherProps[key as keyof typeof this.otherProps]);
@@ -146,74 +107,6 @@ export class ComponentBuilder {
         {children}
       </Tag>
     );
-  }
-
-  withShadow(classes?: Partial<Record<keyof SizeProps, string>>, settings?: Partial<ShadowSettings>): this {
-    return this
-      .withClasses(classes, settings?.noShadow ? {} : settings?.size?.getSettings())
-      .withClasses(noShadowClasses, settings?.noShadow ? {noShadow: settings?.noShadow} : {});
-  }
-
-  withPadding(px?: Partial<Record<keyof SizeProps, string>>,
-              py?: Partial<Record<keyof SizeProps, string>>,
-              pxSettings?: SizeSettings,
-              pySettings?: SizeSettings): this {
-    return this
-      .withClasses(px, pxSettings?.getSettings() || {md: true})
-      .withClasses(py, pySettings?.getSettings() || {md: true})
-      .withClasses(noPaddingClasses);
-  }
-
-  withGaps(gapClasses?: Partial<Record<keyof SizeProps, string>>, settings: Partial<GapSettings> = new GapSettings()): this {
-    return this
-      .withClasses(gapClasses, settings.size?.getSettings())
-      .withClasses(noGapClasses, settings.noGap ? {noGap: settings.noGap} : {});
-  }
-
-  withAppearance(appearance?: Partial<Record<keyof CommonAppearanceProps, string>>, settings?: CommonAppearanceSettings): this {
-    return this.withClasses(appearance, settings);
-  }
-
-  withTypography(
-    textSize?: Partial<Record<keyof SizeProps, string>>,
-    textAppearance?: Partial<Record<keyof TextAppearanceProps, string>>,
-    settings: Partial<TypographySettings> = new TypographySettings()
-  ): this {
-    if(!textSize && !textAppearance)
-      return this;
-    return this
-      .withClasses(fontFamilyClasses, settings.fontFamily)
-      .withClasses(fontStyleClasses, settings.fontStyle)
-      .withClasses(fontWeightClasses, settings.fontWeight)
-      .withClasses(textDecorationClasses, settings.textDecoration)
-      .withClasses(textTransformClasses, settings.textTransform)
-      .withClasses(textAlignClasses, settings.textAlign)
-      .withClasses(textAppearance, settings.textAppearance)
-      .withClasses(textSize, settings.size?.getSettings());
-  }
-
-  withBorder(
-    borderColorMap?: Partial<Record<keyof CommonAppearanceProps, string>>,
-    roundedMap?: Partial<Record<keyof SizeProps, string>>,
-    settings?: Partial<BorderSettings>,
-    mode: Mode = 'base',
-    borderType: BorderType = 'border',
-  ): this {
-    const hasNoBorderSetting = settings?.noBorder !== undefined;
-    const noBorder = hasNoBorderSetting && settings!.noBorder;
-    return this
-      .withClasses(borderColorMap, settings?.color)
-      .withClasses(roundedMap, settings?.radius?.rounded?.getSettings())
-      .withClasses(pillClasses, settings?.radius?.pill ? {pill: settings?.radius?.pill} : {})
-      .withClasses(sharpClasses, settings?.radius?.sharp ? {sharp: settings?.radius?.sharp} : {})
-      .withClass("noBorder", borderType === 'border' ? noBorderModeClasses[mode] : noRingModeClasses[mode], mode !== "base" && noBorder)
-      .withClass("noBorder", borderType === 'border' ? borderModeClasses[mode] : ringModeClasses[mode], !noBorder)
-      //.withClasses(noBorderModeClasses[mode], settings?.noBorder ? {noBorder: settings?.noBorder} : {});
-  }
-
-  with(action: (b: ComponentBuilder) => ComponentBuilder): this {
-    action(this);
-    return this;
   }
 
   build(): React.ReactElement {

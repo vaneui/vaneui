@@ -1,1 +1,0 @@
-export type BorderType = 'border' | 'ring';

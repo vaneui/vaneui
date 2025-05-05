@@ -15,7 +15,7 @@ import {
   ringModeClasses,
   shadowClasses
 } from "../classes/layoutClasses";
-import { Mode } from "../settings/mode";
+import { Mode } from "../props/mode";
 import { ModeledStyles } from "./commonTypes";
 
 // Layout theme structure

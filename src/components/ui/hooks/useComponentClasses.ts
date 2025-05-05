@@ -14,7 +14,7 @@ import {
   POSITION_KEYS 
 } from '../props/propKeys';
 import { pickFirstKey, pickFirstKeyOptional, omitProps } from '../../utils/componentUtils';
-import { MODE_KEYS } from '../settings/mode';
+import { MODE_KEYS } from '../props/mode';
 import { ComponentTheme, VariantAppearance } from '../theme/componentTheme';
 
 // Generic props interface for components that use the theme system

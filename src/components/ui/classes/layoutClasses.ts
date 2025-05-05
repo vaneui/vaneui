@@ -10,7 +10,7 @@ import {
   HideProps, PositionProps,
   SizeProps, NoBorderProps, NoShadowProps
 } from "../props/props"
-import { Mode } from "../settings/mode";
+import { Mode } from "../props/mode";
 
 export const rowToColumnBreakpointClasses: Record<keyof BreakpointProps, string> = {
   xsCol: "max-xs:flex-col",

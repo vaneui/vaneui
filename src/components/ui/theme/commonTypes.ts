@@ -1,4 +1,4 @@
-import { Mode } from "../settings/mode";
+import { Mode } from "../props/mode";
 
 // Common types for all themes
 export type ModeledStyles = {
