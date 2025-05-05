@@ -14,24 +14,6 @@ import {
 // Button-specific theme type
 export type ButtonTheme = ComponentTheme<VariantAppearance, ButtonProps>;
 
-// Create button-specific variant appearance
-function createButtonVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Default button theme
 export const defaultButtonTheme: ButtonTheme = {
@@ -41,8 +23,8 @@ export const defaultButtonTheme: ButtonTheme = {
   // Use common size variant generator with button-specific maps
   size: makeSizeVariants(pxMap, pyMap, textSizeMap, gapMap),
 
-  // Use common style variant generator with button-specific factory
-  style: makeStyleVariants(createButtonVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

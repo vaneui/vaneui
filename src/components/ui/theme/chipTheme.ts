@@ -55,24 +55,6 @@ const roundedMap: Record<SizeKey, string> = {
 // Chip-specific theme type
 export type ChipTheme = ComponentTheme<VariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
 
-// Create chip-specific variant appearance
-function createChipVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Default chip theme
 export const defaultChipTheme: ChipTheme = {
@@ -82,8 +64,8 @@ export const defaultChipTheme: ChipTheme = {
   // Use common size variant generator with chip-specific maps
   size: makeSizeVariants(pxMap, pyMap, textSizeMap, gapMap),
 
-  // Use common style variant generator with chip-specific factory
-  style: makeStyleVariants(createChipVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

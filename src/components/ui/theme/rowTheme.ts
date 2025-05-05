@@ -40,24 +40,6 @@ const roundedMap: Record<SizeKey, string> = {
 // Row-specific theme type
 export type RowTheme = ComponentTheme<VariantAppearance, RowProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
 
-// Create row-specific variant appearance
-function createRowVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Default row theme
 export const defaultRowTheme: RowTheme = {
@@ -67,8 +49,8 @@ export const defaultRowTheme: RowTheme = {
   // Use common size variant generator with row-specific maps
   size: makeSizeVariants(emptyMap, emptyMap, emptyMap, gapMap),
 
-  // Use common style variant generator with row-specific factory
-  style: makeStyleVariants(createRowVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

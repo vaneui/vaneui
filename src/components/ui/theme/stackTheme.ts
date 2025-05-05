@@ -56,24 +56,6 @@ const roundedMap: Record<SizeKey, string> = {
 // Stack-specific theme type
 export type StackTheme = ComponentTheme<VariantAppearance, StackProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps & NoPaddingProps>;
 
-// Create stack-specific variant appearance
-function createStackVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Default stack theme
 export const defaultStackTheme: StackTheme = {
@@ -83,8 +65,8 @@ export const defaultStackTheme: StackTheme = {
   // Use common size variant generator with stack-specific maps
   size: makeSizeVariants(pxMap, pyMap, emptyMap, gapMap),
 
-  // Use common style variant generator with stack-specific factory
-  style: makeStyleVariants(createStackVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

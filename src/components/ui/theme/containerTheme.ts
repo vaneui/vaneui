@@ -48,24 +48,6 @@ const roundedMap: Record<SizeKey, string> = {
 // Container-specific theme type
 export type ContainerTheme = ComponentTheme<VariantAppearance, LayoutComponentProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
 
-// Create container-specific variant appearance
-function createContainerVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Default container theme
 export const defaultContainerTheme: ContainerTheme = {
@@ -75,8 +57,8 @@ export const defaultContainerTheme: ContainerTheme = {
   // Use common size variant generator with container-specific maps
   size: makeSizeVariants(widthMap, emptyMap, emptyMap, gapMap),
 
-  // Use common style variant generator with container-specific factory
-  style: makeStyleVariants(createContainerVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

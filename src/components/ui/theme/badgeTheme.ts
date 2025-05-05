@@ -14,24 +14,6 @@ import {
 // Badge-specific theme type
 export type BadgeTheme = ComponentTheme<VariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
 
-// Create badge-specific variant appearance
-function createBadgeVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Default badge theme
 export const defaultBadgeTheme: BadgeTheme = {
@@ -41,8 +23,8 @@ export const defaultBadgeTheme: BadgeTheme = {
   // Use common size variant generator with badge-specific maps
   size: makeSizeVariants(pxMap, pyMap, textSizeMap, gapMap),
 
-  // Use common style variant generator with badge-specific factory
-  style: makeStyleVariants(createBadgeVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

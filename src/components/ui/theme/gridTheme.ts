@@ -40,24 +40,6 @@ const roundedMap: Record<SizeKey, string> = {
 // Grid-specific theme type
 export type GridTheme = ComponentTheme<VariantAppearance, GridProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
 
-// Create grid-specific variant appearance
-function createGridVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Default grid theme
 export const defaultGridTheme: GridTheme = {
@@ -67,8 +49,8 @@ export const defaultGridTheme: GridTheme = {
   // Use common size variant generator with grid-specific maps
   size: makeSizeVariants(emptyMap, emptyMap, emptyMap, gapMap),
 
-  // Use common style variant generator with grid-specific factory
-  style: makeStyleVariants(createGridVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

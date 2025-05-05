@@ -48,24 +48,6 @@ const roundedMap: Record<SizeKey, string> = {
 // Divider-specific theme type
 export type DividerTheme = ComponentTheme<VariantAppearance, BaseComponentProps & ButtonStyleProps & NoRingProps & NoShadowProps & NoBorderProps>;
 
-// Create divider-specific variant appearance
-function createDividerVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Default divider theme
 export const defaultDividerTheme: DividerTheme = {
@@ -75,8 +57,8 @@ export const defaultDividerTheme: DividerTheme = {
   // Use common size variant generator with divider-specific maps
   size: makeSizeVariants(widthMap, heightMap, emptyMap, emptyMap),
 
-  // Use common style variant generator with divider-specific factory
-  style: makeStyleVariants(createDividerVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

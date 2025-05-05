@@ -56,24 +56,6 @@ const roundedMap: Record<SizeKey, string> = {
 // Section-specific theme type
 export type SectionTheme = ComponentTheme<VariantAppearance, LayoutComponentProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
 
-// Create section-specific variant appearance
-function createSectionVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Default section theme
 export const defaultSectionTheme: SectionTheme = {
@@ -83,8 +65,8 @@ export const defaultSectionTheme: SectionTheme = {
   // Use common size variant generator with section-specific maps
   size: makeSizeVariants(pxMap, pyMap, emptyMap, gapMap),
 
-  // Use common style variant generator with section-specific factory
-  style: makeStyleVariants(createSectionVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

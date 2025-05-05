@@ -15,24 +15,6 @@ import { roundedClasses } from "../classes/layoutClasses";
 // Card-specific theme type
 export type CardTheme = ComponentTheme<VariantAppearance, CardProps & ButtonStyleProps & ShapeProps & FontFamilyProps & FontWeightProps & NoRingProps>;
 
-// Create card-specific variant appearance
-function createCardVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Size maps for card
 const pxMap: Record<SizeKey, string> = {
@@ -75,8 +57,8 @@ export const defaultCardTheme: CardTheme = {
   // Use common size variant generator with card-specific maps
   size: makeSizeVariants(pxMap, pyMap, textSizeMap, gapMap),
 
-  // Use common style variant generator with card-specific factory
-  style: makeStyleVariants(createCardVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

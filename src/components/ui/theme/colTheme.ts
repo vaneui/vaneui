@@ -40,24 +40,6 @@ const roundedMap: Record<SizeKey, string> = {
 // Col-specific theme type
 export type ColTheme = ComponentTheme<VariantAppearance, ColProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
 
-// Create col-specific variant appearance
-function createColVariantAppearance(
-  bgBase: string,
-  bgHover: string,
-  bgActive: string,
-  textBase: string,
-  borderBase: string,
-  ringBase: string
-): VariantAppearance {
-  return createVariantAppearance(
-    bgBase,
-    bgHover,
-    bgActive,
-    textBase,
-    borderBase,
-    ringBase
-  );
-}
 
 // Default col theme
 export const defaultColTheme: ColTheme = {
@@ -67,8 +49,8 @@ export const defaultColTheme: ColTheme = {
   // Use common size variant generator with col-specific maps
   size: makeSizeVariants(emptyMap, emptyMap, emptyMap, gapMap),
 
-  // Use common style variant generator with col-specific factory
-  style: makeStyleVariants(createColVariantAppearance),
+  // Use common style variant generator
+  style: makeStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,
