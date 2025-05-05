@@ -1,82 +1,139 @@
-import React, { JSX } from 'react';
-import { componentBuilder } from "../utils/componentBuilder";
-import { TypographyComponentProps } from "./props/props";
-import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
-import { SizeSettings } from "./settings/sizeSettings";
+import { JSX } from 'react';
+import { componentBuilder } from '../utils/componentBuilder';
+import { TypographyComponentProps } from './props/props';
+import { useTheme } from '../theme';
+import { useComponentClasses } from './hooks/useComponentClasses';
+import { TYPOGRAPHY_COMPONENT_KEYS } from './props/propKeys';
 
-export const PageTitle = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "h1", "text-balance tracking-tighter")
-    .withTypography({
-      xs: "text-3xl max-lg:text-2xl max-md:text-xl",
-      sm: "text-4xl max-lg:text-3xl max-md:text-2xl",
-      md: "text-5xl max-lg:text-4xl max-md:text-3xl",
-      lg: "text-6xl max-lg:text-5xl max-md:text-4xl",
-      xl: "text-7xl max-lg:text-6xl max-md:text-5xl",
-    }, textAppearanceClasses, {
-      fontWeight: {semibold: true},
-      textAppearance: {default: true},
-      size: new SizeSettings
-    })
-    .build();
+export const PageTitle = (props: TypographyComponentProps): JSX.Element => {
+  const theme = useTheme();
+  const pageTitleTheme = theme.pageTitle;
 
-export const SectionTitle = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "h2", "text-balance")
-    .withTypography({
-      xs: "text-2xl max-lg:text-xl max-md:text-lg",
-      sm: "text-3xl max-lg:text-2xl max-md:text-xl",
-      md: "text-4xl max-lg:text-3xl max-md:text-2xl",
-      lg: "text-5xl max-lg:text-4xl max-md:text-3xl",
-      xl: "text-6xl max-lg:text-5xl max-md:text-4xl",
-    }, textAppearanceClasses, {
-      fontWeight: {semibold: true},
-      textAppearance: {default: true},
-      size: new SizeSettings
-    })
-    .build();
+  // Use the common component classes hook with page title-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    pageTitleTheme,
+    TYPOGRAPHY_COMPONENT_KEYS
+  );
 
-export const Title = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "h3", "text-balance")
-    .withTypography({
-      xs: "text-lg",
-      sm: "text-xl",
-      md: "text-2xl",
-      lg: "text-3xl",
-      xl: "text-4xl",
-    }, textAppearanceClasses, {
-      fontWeight: {semibold: true},
-      textAppearance: {default: true},
-      size: new SizeSettings
-    })
-    .build();
+  // Override the default tag to be "h1" for page titles
+  const tag = props.tag ?? "h1";
 
-export const Text = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "p", "p-0 m-0")
-    .withTypography(textSizeClasses, textAppearanceClasses, {
-      textAppearance: {secondary: true},
-      size: new SizeSettings
-    })
+  return componentBuilder(cleanProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
     .build();
+};
 
-export const Link = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "a", "hover:underline")
-    .withTypography(textSizeClasses, textAppearanceClasses, {
-      textAppearance: {link: true},
-      size: new SizeSettings
-    })
-    .build();
+export const SectionTitle = (props: TypographyComponentProps): JSX.Element => {
+  const theme = useTheme();
+  const sectionTitleTheme = theme.sectionTitle;
 
-export const ListItem = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "li", "")
-    .withTypography(textSizeClasses, textAppearanceClasses, {
-      size: new SizeSettings,
-      textAppearance: {default: true}
-    })
-    .build();
+  // Use the common component classes hook with section title-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    sectionTitleTheme,
+    TYPOGRAPHY_COMPONENT_KEYS
+  );
 
-export const List = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "ul", "list-disc list-inside")
-    .withTypography(textSizeClasses, textAppearanceClasses, {
-      size: new SizeSettings,
-      textAppearance: {default: true}
-    })
+  // Override the default tag to be "h2" for section titles
+  const tag = props.tag ?? "h2";
+
+  return componentBuilder(cleanProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
     .build();
+};
+
+export const Title = (props: TypographyComponentProps): JSX.Element => {
+  const theme = useTheme();
+  const titleTheme = theme.title;
+
+  // Use the common component classes hook with title-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    titleTheme,
+    TYPOGRAPHY_COMPONENT_KEYS
+  );
+
+  // Override the default tag to be "h3" for titles
+  const tag = props.tag ?? "h3";
+
+  return componentBuilder(cleanProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
+    .build();
+};
+
+export const Text = (props: TypographyComponentProps): JSX.Element => {
+  const theme = useTheme();
+  const textTheme = theme.text;
+
+  // Use the common component classes hook with text-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    textTheme,
+    TYPOGRAPHY_COMPONENT_KEYS
+  );
+
+  // Override the default tag to be "p" for text
+  const tag = props.tag ?? "p";
+
+  return componentBuilder(cleanProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
+    .build();
+};
+
+export const Link = (props: TypographyComponentProps): JSX.Element => {
+  const theme = useTheme();
+  const linkTheme = theme.link;
+
+  // Use the common component classes hook with link-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    linkTheme,
+    TYPOGRAPHY_COMPONENT_KEYS
+  );
+
+  // Override the default tag to be "a" for links
+  const tag = props.tag ?? "a";
+
+  return componentBuilder(cleanProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
+    .build();
+};
+
+export const ListItem = (props: TypographyComponentProps): JSX.Element => {
+  const theme = useTheme();
+  const listItemTheme = theme.listItem;
+
+  // Use the common component classes hook with list item-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    listItemTheme,
+    TYPOGRAPHY_COMPONENT_KEYS
+  );
+
+  // Override the default tag to be "li" for list items
+  const tag = props.tag ?? "li";
+
+  return componentBuilder(cleanProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
+    .build();
+};
+
+export const List = (props: TypographyComponentProps): JSX.Element => {
+  const theme = useTheme();
+  const listTheme = theme.list;
+
+  // Use the common component classes hook with list-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    listTheme,
+    TYPOGRAPHY_COMPONENT_KEYS
+  );
+
+  // Override the default tag to be "ul" for lists
+  const tag = props.tag ?? "ul";
+
+  return componentBuilder(cleanProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
+    .build();
+};

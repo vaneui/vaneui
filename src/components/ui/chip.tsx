@@ -1,55 +1,25 @@
-import React, { JSX } from 'react';
-import { componentBuilder } from "../utils/componentBuilder";
-import { TypographyComponentProps } from "./props/props";
-import {
-  backgroundAppearanceClasses,
-  borderAppearanceClasses,
-  ringAppearanceClasses
-} from './classes/appearanceClasses';
-import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
-import { BorderSettings } from './settings/borderSettings';
-import { SizeSettings } from "./settings/sizeSettings";
+import { JSX } from 'react';
+import { TypographyComponentProps } from './props/props';
+import { componentBuilder } from '../utils/componentBuilder';
+import { useTheme } from '../theme';
+import { useComponentClasses } from './hooks/useComponentClasses';
+import { CHIP_KEYS } from './props/propKeys';
 
-// Custom rounded classes for Chip
-const chipRoundedClasses = {
-  xs: "rounded-sm",
-  sm: "rounded-md",
-  md: "rounded-lg",
-  lg: "rounded-xl",
-  xl: "rounded-2xl"
-};
+export const Chip = (props: TypographyComponentProps): JSX.Element => {
+  const theme = useTheme();
+  const chipTheme = theme.chip;
 
-// Border settings for Chip
-const chipBorderSettings: BorderSettings = {
-  color: {default: true},
-  radius: {
-    rounded: new SizeSettings,
-    pill: false,
-    sharp: false
-  },
-  noBorder: false
-};
+  // Use the common component classes hook with chip-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    chipTheme,
+    CHIP_KEYS
+  );
 
-export const Chip = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "span", "w-fit h-fit inline-flex gap-2 items-center")
-    .withPadding({
-      xs: "px-2",
-      sm: "px-2.5",
-      md: "px-3.5",
-      lg: "px-5",
-      xl: "px-6"
-    }, {
-      xs: "py-1",
-      sm: "py-1.5",
-      md: "py-2",
-      lg: "py-3",
-      xl: "py-4"
-    })
-    .withAppearance(backgroundAppearanceClasses, {default: true})
-    .withBorder(ringAppearanceClasses, chipRoundedClasses, chipBorderSettings, 'base', 'ring')
-    .withTypography(textSizeClasses, textAppearanceClasses, {
-      fontFamily: {mono: true},
-      textAppearance: {secondary: true},
-      size: new SizeSettings
-    })
+  // Override the default tag to be "span" for chips
+  const tag = props.tag ?? "span";
+
+  return componentBuilder(cleanProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
     .build();
+};

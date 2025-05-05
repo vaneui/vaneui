@@ -1,31 +1,25 @@
 import { JSX } from 'react';
-import { LayoutComponentProps } from "./props/props";
-import { componentBuilder } from "../utils/componentBuilder";
-import { layoutBackgroundAppearanceClasses } from "./classes/appearanceClasses";
-import { itemsClasses } from "./classes/layoutClasses";
+import { LayoutComponentProps } from './props/props';
+import { componentBuilder } from '../utils/componentBuilder';
+import { useTheme } from '../theme';
+import { useComponentClasses } from './hooks/useComponentClasses';
+import { SECTION_KEYS } from './props/propKeys';
 
-export const Section = (props: LayoutComponentProps): JSX.Element =>
-  componentBuilder(props, "section", "w-full flex flex-col")
-    .withClasses(itemsClasses)
-    .withPadding({
-      xs: "px-5  max-lg:px-4 max-md:px-3",
-      sm: "px-6  max-lg:px-5 max-md:px-4",
-      md: "px-7  max-lg:px-6 max-md:px-5",
-      lg: "px-8  max-lg:px-7 max-md:px-6",
-      xl: "px-9  max-lg:px-8 max-md:px-7",
-    }, {
-      xs: "py-3",
-      sm: "py-5",
-      md: "py-8  max-md:py-5",
-      lg: "py-16 max-lg:py-14 max-md:py-12",
-      xl: "py-20 max-lg:py-16 max-md:py-12",
-    })
-    .withGaps({
-      xs: "gap-2",
-      sm: "gap-4",
-      md: "gap-6",
-      lg: "gap-12",
-      xl: "gap-16"
-    })
-    .withAppearance(layoutBackgroundAppearanceClasses, {default: true})
+export const Section = (props: LayoutComponentProps): JSX.Element => {
+  const theme = useTheme();
+  const sectionTheme = theme.section;
+
+  // Use the common component classes hook with section-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    sectionTheme,
+    SECTION_KEYS
+  );
+
+  // Override the default tag to be "section" for sections
+  const tag = props.tag ?? "section";
+
+  return componentBuilder(cleanProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
     .build();
+};

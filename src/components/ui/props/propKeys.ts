@@ -151,3 +151,42 @@ export const STACK_KEYS = [
   ...DIRECTION_KEYS,
   ...PADDING_KEYS
 ] as const;
+
+// Chip keys
+export const CHIP_KEYS = [
+  ...TYPOGRAPHY_COMPONENT_KEYS,
+  ...SHAPE_KEYS,
+  ...STYLE_KEYS,
+  ...SHADOW_KEYS
+] as const;
+
+// Divider keys
+export const DIVIDER_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...BORDER_KEYS,
+  ...SHADOW_KEYS,
+  ...RING_KEYS,
+  ...STYLE_KEYS
+] as const;
+
+// Container keys
+export const CONTAINER_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...ITEMS_KEYS,
+  ...APPEARANCE_KEYS,
+  ...BORDER_KEYS,
+  ...SHADOW_KEYS,
+  ...RING_KEYS,
+  ...STYLE_KEYS
+] as const;
+
+// Section keys
+export const SECTION_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...ITEMS_KEYS,
+  ...APPEARANCE_KEYS,
+  ...BORDER_KEYS,
+  ...SHADOW_KEYS,
+  ...RING_KEYS,
+  ...STYLE_KEYS
+] as const;

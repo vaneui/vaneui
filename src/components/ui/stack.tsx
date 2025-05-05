@@ -1,33 +1,32 @@
 import { JSX } from 'react';
-import { StackProps } from "./props/props";
-import { componentBuilder } from "../utils/componentBuilder";
-import { layoutBackgroundAppearanceClasses } from "./classes/appearanceClasses";
-import {
-  itemsClasses,
-  justifyClasses,
-  rowToColumnBreakpointClasses,
-  directionClasses,
-  wrapClasses
-} from "./classes/layoutClasses";
-import {
-  commonGaps, pxClasses, pyClasses
-} from "./classes/spacingClasses";
+import { StackProps } from './props/props';
+import { componentBuilder } from '../utils/componentBuilder';
+import { useTheme } from '../theme';
+import { useComponentClasses } from './hooks/useComponentClasses';
+import { STACK_KEYS } from './props/propKeys';
+import { rowToColumnBreakpointClasses, directionClasses } from './classes/layoutClasses';
 
 export const Stack = (props: StackProps): JSX.Element => {
-  const defaultDirection = !props.row && !props.column ? {column: true} : {};
-  const directionProps = {...defaultDirection, ...props};
+  const theme = useTheme();
+  const stackTheme = theme.stack;
 
-  return componentBuilder(directionProps, "div", "flex")
-    .withGaps(commonGaps)
-    .withClasses({
-      reverse: props.row ? "flex-row-reverse" : "flex-col-reverse"
-    })
-    .withClasses(itemsClasses)
+  // Use the common component classes hook with stack-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    stackTheme,
+    STACK_KEYS
+  );
+
+  // Set default direction if none is specified
+  const defaultDirection = !props.row && !props.column ? {column: true} : {};
+  const directionProps = {...defaultDirection, ...cleanProps};
+
+  // Override the default tag to be "div" for stacks
+  const tag = props.tag ?? "div";
+
+  return componentBuilder(directionProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
     .withClasses(rowToColumnBreakpointClasses)
-    .withPadding(pxClasses, pyClasses)
-    .withClasses(justifyClasses)
     .withClasses(directionClasses, {column: true})
-    .withAppearance(layoutBackgroundAppearanceClasses, {transparent: true})
-    .withClasses(wrapClasses)
     .build();
 };
