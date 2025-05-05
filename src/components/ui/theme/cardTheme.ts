@@ -1,4 +1,5 @@
 import { SizeKey } from "../props/propKeys";
+import { CardProps, ButtonStyleProps, ShapeProps, FontFamilyProps, FontWeightProps, NoRingProps } from "../props/props";
 import { 
   ComponentTheme, 
   VariantAppearance, 
@@ -15,7 +16,7 @@ import { roundedClasses } from "../classes/layoutClasses";
 export type CardVariantAppearance = VariantAppearance;
 
 // Card-specific theme type
-export type CardTheme = ComponentTheme<CardVariantAppearance>;
+export type CardTheme = ComponentTheme<CardVariantAppearance, CardProps & ButtonStyleProps & ShapeProps & FontFamilyProps & FontWeightProps & NoRingProps>;
 
 // Create card-specific variant appearance
 function createCardVariantAppearance(

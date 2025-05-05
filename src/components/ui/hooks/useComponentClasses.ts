@@ -27,9 +27,9 @@ export interface ComponentProps {
 }
 
 // Hook to generate component classes based on props and theme
-export function useComponentClasses<T extends VariantAppearance, P extends ComponentProps>(
+export function useComponentClasses<T extends VariantAppearance, P extends ComponentProps, D extends Record<string, any> = {}>(
   props: P,
-  theme: ComponentTheme<T>,
+  theme: ComponentTheme<T, D>,
   propsToOmit: readonly string[] = []
 ) {
   const {
@@ -52,7 +52,7 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
     // Helper function to find the default key from theme.defaults
     const findDefaultKey = <K extends string>(keys: readonly K[]): K | undefined => {
       for (const key of keys) {
-        if (theme.defaults && key in theme.defaults && theme.defaults[key as keyof typeof theme.defaults]) {
+        if (theme.defaults && key in theme.defaults && (theme.defaults as any)[key]) {
           return key;
         }
       }
@@ -76,9 +76,9 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
       position: pickFirstKeyOptional(props, POSITION_KEYS, findDefaultKey(POSITION_KEYS)),
 
       // Assign prop value if present, otherwise use theme default boolean
-      noBorder: props.noBorder ?? theme.defaults.noBorder ?? false,
-      noShadow: props.noShadow ?? theme.defaults.noShadow ?? false,
-      noRing: props.noRing ?? theme.defaults.noRing ?? false,
+      noBorder: props.noBorder ?? (theme.defaults as any).noBorder ?? false,
+      noShadow: props.noShadow ?? (theme.defaults as any).noShadow ?? false,
+      noRing: props.noRing ?? (theme.defaults as any).noRing ?? false,
     };
   }, [props, theme]);
 

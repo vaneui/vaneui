@@ -1,5 +1,6 @@
 import { SizeKey } from "../props/propKeys";
 import { pxMap, pyMap, gapMap, roundedMap, textSizeMap } from "../classes/badgeClasses";
+import { TypographyComponentProps, ButtonStyleProps, ShapeProps, NoShadowProps } from "../props/props";
 import { 
   ComponentTheme, 
   VariantAppearance, 
@@ -14,7 +15,7 @@ import {
 export type BadgeVariantAppearance = VariantAppearance;
 
 // Badge-specific theme type
-export type BadgeTheme = ComponentTheme<BadgeVariantAppearance>;
+export type BadgeTheme = ComponentTheme<BadgeVariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
 
 // Create badge-specific variant appearance
 function createBadgeVariantAppearance(

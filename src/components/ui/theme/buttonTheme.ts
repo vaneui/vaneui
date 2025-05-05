@@ -1,5 +1,6 @@
 import { SizeKey } from "../props/propKeys";
 import { gapMap, pxMap, pyMap, roundedMap, textSizeMap } from "../classes/buttonClasses";
+import { ButtonProps } from "../props/props";
 import { 
   ComponentTheme, 
   VariantAppearance, 
@@ -14,7 +15,7 @@ import {
 export type ButtonVariantAppearance = VariantAppearance;
 
 // Button-specific theme type
-export type ButtonTheme = ComponentTheme<ButtonVariantAppearance>;
+export type ButtonTheme = ComponentTheme<ButtonVariantAppearance, ButtonProps>;
 
 // Create button-specific variant appearance
 function createButtonVariantAppearance(
