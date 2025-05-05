@@ -1,49 +1,33 @@
-import React, { JSX } from 'react';
-import { componentBuilder } from "../utils/componentBuilder";
-import { TypographyComponentProps } from "./props/props";
-import {
-  backgroundAppearanceClasses,
-  borderAppearanceClasses,
-  ringAppearanceClasses
-} from './classes/appearanceClasses';
-import { textAppearanceClasses, textSizeClasses } from "./classes/typographyClasses";
-import { BorderSettings } from './settings/borderSettings';
-import { roundedClasses } from "./classes/layoutClasses";
-import { SizeSettings } from "./settings/sizeSettings";
+import { JSX } from 'react';
+import { TypographyComponentProps } from './props/props';
+import { componentBuilder } from '../utils/componentBuilder';
+import { useTheme } from '../theme';
+import { useComponentClasses } from './hooks/useComponentClasses';
 
-// Border settings for Badge
-const badgeBorderSettings: BorderSettings = {
-  color: {default: true},
-  radius: {
-    rounded: new SizeSettings,
-    pill: true,
-    sharp: false
-  },
-  noBorder: false
-};
+/**
+ * Badge component
+ * 
+ * A badge is a small visual indicator that typically appears as a colored dot, 
+ * circle, or pill-shaped element. It's commonly used to highlight new or unread 
+ * items, notify users of updates, or display counts.
+ * 
+ * The badge component maintains its original simple implementation while using
+ * the theme system for consistent styling.
+ */
+export const Badge = (props: TypographyComponentProps): JSX.Element => {
+  const theme = useTheme();
+  const badgeTheme = theme.badge;
 
-export const Badge = (props: TypographyComponentProps): JSX.Element =>
-  componentBuilder(props, "span", "w-fit h-fit inline-flex gap-2 items-center")
-    .withPadding({
-      xs: "px-2",
-      sm: "px-2.5",
-      md: "px-3.5",
-      lg: "px-5",
-      xl: "px-6"
-    }, {
-      xs: "py-1",
-      sm: "py-1.5",
-      md: "py-2",
-      lg: "py-3",
-      xl: "py-4"
-    })
-    .withAppearance(backgroundAppearanceClasses, {default: true})
-    .withBorder(ringAppearanceClasses, roundedClasses, badgeBorderSettings, 'base', 'ring')
-    .withTypography(textSizeClasses, textAppearanceClasses, {
-      fontWeight: {semibold: true},
-      fontFamily: {sans: true},
-      textTransform: {uppercase: true},
-      textAppearance: {secondary: true},
-      size: new SizeSettings
-    })
+  // Use the common component classes hook with badge-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    badgeTheme
+  );
+
+  // Override the default tag to be "span" for badges (original implementation used span)
+  const tag = props.tag ?? "span";
+
+  return componentBuilder(cleanProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
     .build();
+};

@@ -17,9 +17,30 @@ export { ThemeProvider, useTheme, ThemeProps, ThemeProviderProps } from './compo
 export { Mode } from "./components/ui/settings/mode"
 export { BorderType } from "./components/ui/settings/borderType"
 
+// Common theme types
+export {
+  ModeledStyles,
+  VariantAppearance,
+  ComponentTheme
+} from "./components/ui/theme/componentTheme"
+
 // Button theme types
 export {
   defaultButtonTheme,
   ButtonTheme,
-  ModeledStyles
+  ButtonVariantAppearance
 } from "./components/ui/theme/buttonTheme"
+
+// Badge theme types
+export {
+  defaultBadgeTheme,
+  BadgeTheme,
+  BadgeVariantAppearance
+} from "./components/ui/theme/badgeTheme"
+
+// Card theme types
+export {
+  defaultCardTheme,
+  CardTheme,
+  CardVariantAppearance
+} from "./components/ui/theme/cardTheme"

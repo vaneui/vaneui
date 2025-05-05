@@ -1,40 +1,37 @@
 import { JSX } from 'react';
 import { CardProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
-import { borderAppearanceClasses, layoutBackgroundAppearanceClasses } from "./classes/appearanceClasses";
-import {
-  itemsClasses,
-  roundedClasses,
-  directionClasses,
-  rowToColumnBreakpointClasses,
-  shadowClasses
-} from "./classes/layoutClasses";
-import { commonGaps, pxClasses, pyClasses } from "./classes/spacingClasses";
-import { BorderSettings } from './settings/borderSettings';
-import { SizeSettings } from "./settings/sizeSettings";
+import { useTheme } from '../theme';
+import { useComponentClasses } from './hooks/useComponentClasses';
+import { CARD_KEYS } from './props/propKeys';
+import { directionClasses, rowToColumnBreakpointClasses } from "./classes/layoutClasses";
 
-// Border settings for Card
-const cardBorderSettings: BorderSettings = {
-  color: {default: true},
-  radius: {
-    rounded: new SizeSettings,
-    pill: false,
-    sharp: false
-  },
-  noBorder: false
-};
-
+/**
+ * Card component
+ * 
+ * A card is a flexible container that groups related content and actions.
+ * It can contain various elements such as text, images, buttons, and more.
+ */
 export const Card = (props: CardProps): JSX.Element => {
-  const defaultDirection = !props.row && !props.column ? {column: true} : {};
-  const directionProps = {...defaultDirection, ...props};
+  const theme = useTheme();
+  const cardTheme = theme.card;
 
-  return componentBuilder(directionProps, "div", "flex overflow-hidden")
-    .withClasses(itemsClasses)
-    .withPadding(pxClasses, pyClasses)
-    .withGaps(commonGaps)
-    .withAppearance(layoutBackgroundAppearanceClasses, {default: true})
-    .withBorder(borderAppearanceClasses, roundedClasses, cardBorderSettings, 'base', 'border')
-    .withShadow(shadowClasses)
+  // Use the common component classes hook with card-specific defaults
+  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+    props,
+    cardTheme,
+    [...CARD_KEYS]
+  );
+
+  // Set default direction if none is specified
+  const defaultDirection = !props.row && !props.column ? {column: true} : {};
+  const directionProps = {...defaultDirection, ...cleanProps};
+
+  // Override the default tag to be "div" for cards
+  const tag = props.tag ?? "div";
+
+  return componentBuilder(directionProps, tag)
+    .withExtraClasses([...baseClasses, ...modeClasses])
     .withClasses(rowToColumnBreakpointClasses)
     .withClasses(directionClasses, {column: true})
     .build();
