@@ -6,12 +6,6 @@ import { useComponentClasses } from './hooks/useComponentClasses';
 import { CARD_KEYS } from './props/propKeys';
 import { directionClasses, rowToColumnBreakpointClasses } from "./classes/layoutClasses";
 
-/**
- * Card component
- * 
- * A card is a flexible container that groups related content and actions.
- * It can contain various elements such as text, images, buttons, and more.
- */
 export const Card = (props: CardProps): JSX.Element => {
   const theme = useTheme();
   const cardTheme = theme.card;
@@ -20,7 +14,7 @@ export const Card = (props: CardProps): JSX.Element => {
   const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
     props,
     cardTheme,
-    [...CARD_KEYS]
+    CARD_KEYS
   );
 
   // Set default direction if none is specified

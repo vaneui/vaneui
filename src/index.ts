@@ -28,19 +28,16 @@ export {
 export {
   defaultButtonTheme,
   ButtonTheme,
-  ButtonVariantAppearance
 } from "./components/ui/theme/buttonTheme"
 
 // Badge theme types
 export {
   defaultBadgeTheme,
   BadgeTheme,
-  BadgeVariantAppearance
 } from "./components/ui/theme/badgeTheme"
 
 // Card theme types
 export {
   defaultCardTheme,
   CardTheme,
-  CardVariantAppearance
 } from "./components/ui/theme/cardTheme"

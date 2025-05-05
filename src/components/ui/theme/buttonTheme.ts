@@ -11,11 +11,8 @@ import {
   createDefaultLayoutTheme
 } from "./componentTheme";
 
-// Button-specific variant appearance type
-export type ButtonVariantAppearance = VariantAppearance;
-
 // Button-specific theme type
-export type ButtonTheme = ComponentTheme<ButtonVariantAppearance, ButtonProps>;
+export type ButtonTheme = ComponentTheme<VariantAppearance, ButtonProps>;
 
 // Create button-specific variant appearance
 function createButtonVariantAppearance(
@@ -25,7 +22,7 @@ function createButtonVariantAppearance(
   textBase: string,
   borderBase: string,
   ringBase: string
-): ButtonVariantAppearance {
+): VariantAppearance {
   return createVariantAppearance(
     bgBase,
     bgHover,

@@ -11,11 +11,8 @@ import {
   createDefaultLayoutTheme
 } from "./componentTheme";
 
-// Badge-specific variant appearance type
-export type BadgeVariantAppearance = VariantAppearance;
-
 // Badge-specific theme type
-export type BadgeTheme = ComponentTheme<BadgeVariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
+export type BadgeTheme = ComponentTheme<VariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
 
 // Create badge-specific variant appearance
 function createBadgeVariantAppearance(
@@ -25,7 +22,7 @@ function createBadgeVariantAppearance(
   textBase: string,
   borderBase: string,
   ringBase: string
-): BadgeVariantAppearance {
+): VariantAppearance {
   return createVariantAppearance(
     bgBase,
     bgHover,

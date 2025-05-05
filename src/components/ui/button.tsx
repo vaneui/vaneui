@@ -5,13 +5,6 @@ import { useTheme } from '../theme';
 import { useComponentClasses } from './hooks/useComponentClasses';
 import { BUTTON_KEYS } from './props/propKeys';
 
-/**
- * Button component
- * 
- * A button is a clickable element that is used to trigger an action or event.
- * It can be used to submit forms, open dialogs, cancel actions, or perform
- * other interactive functions.
- */
 export const Button = (props: ButtonProps): JSX.Element => {
   const theme = useTheme();
   const buttonTheme = theme.button;
@@ -20,7 +13,7 @@ export const Button = (props: ButtonProps): JSX.Element => {
   const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
     props,
     buttonTheme,
-    [...BUTTON_KEYS]
+    BUTTON_KEYS
   );
 
   // Override the default tag to be "button" for buttons

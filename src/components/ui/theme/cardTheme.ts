@@ -12,11 +12,8 @@ import {
 import { commonGaps } from "../classes/spacingClasses";
 import { roundedClasses } from "../classes/layoutClasses";
 
-// Card-specific variant appearance type
-export type CardVariantAppearance = VariantAppearance;
-
 // Card-specific theme type
-export type CardTheme = ComponentTheme<CardVariantAppearance, CardProps & ButtonStyleProps & ShapeProps & FontFamilyProps & FontWeightProps & NoRingProps>;
+export type CardTheme = ComponentTheme<VariantAppearance, CardProps & ButtonStyleProps & ShapeProps & FontFamilyProps & FontWeightProps & NoRingProps>;
 
 // Create card-specific variant appearance
 function createCardVariantAppearance(
@@ -26,7 +23,7 @@ function createCardVariantAppearance(
   textBase: string,
   borderBase: string,
   ringBase: string
-): CardVariantAppearance {
+): VariantAppearance {
   return createVariantAppearance(
     bgBase,
     bgHover,
