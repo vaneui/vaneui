@@ -8,112 +8,112 @@ import {
   createDefaultLayoutTheme, makeSizeVariant
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
+import { textSizeClasses } from "../classes/typographyClasses";
 
-// Typography component-specific theme type
 export type TypographyComponentTheme = ComponentTheme<VariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
 
-const textSizeMap: Record<SizeKey, string> = {
-  xs: 'text-sm',
-  sm: 'text-base',
-  md: 'text-lg',
-  lg: 'text-xl',
-  xl: 'text-2xl',
+const typographyThemeDefaults = {
+  md: true,
+  outline: true,
+  default: true,
+  sans: true,
+  normal: true,
+  noShadow: true,
 };
 
-// Default typography component theme
-export const defaultTypographyComponentTheme: TypographyComponentTheme = {
-  // Typography component-specific base classes
+export const createTypographyComponentTheme = (textSizeMap: Record<SizeKey, string> = textSizeClasses): TypographyComponentTheme => ({
   base: "text-balance",
-
-  // Use only textSize variant generator for typography component
   size: {
     text: makeSizeVariant(textSizeMap)
   },
-
-  // Use common style variant generator with typography component-specific factory
   style: makeStyleVariants(createVariantAppearance),
-
-  // Use default typography settings
   typography: defaultTypographyTheme,
-
-  // Use default layout with typography component-specific radius
   layout: createDefaultLayoutTheme(),
-
-  // Typography component-specific defaults
-  defaults: {
-    md: true,
-    outline: true,
-    default: true,
-    sans: true,
-    normal: true,
-    noShadow: true,
-  },
-};
+  defaults: typographyThemeDefaults,
+});
 
 // Page title specific theme
 export const pageTitleTheme: TypographyComponentTheme = {
-  ...defaultTypographyComponentTheme,
+  ...createTypographyComponentTheme({
+    xs: "text-3xl max-lg:text-2xl max-md:text-xl",
+    sm: "text-4xl max-lg:text-3xl max-md:text-2xl",
+    md: "text-5xl max-lg:text-4xl max-md:text-3xl",
+    lg: "text-6xl max-lg:text-5xl max-md:text-4xl",
+    xl: "text-7xl max-lg:text-6xl max-md:text-5xl",
+  }),
   base: "text-balance tracking-tighter",
   defaults: {
-    ...defaultTypographyComponentTheme.defaults,
+    ...typographyThemeDefaults,
     semibold: true,
   },
 };
 
 // Section title specific theme
 export const sectionTitleTheme: TypographyComponentTheme = {
-  ...defaultTypographyComponentTheme,
+  ...createTypographyComponentTheme({
+    xs: "text-2xl max-lg:text-xl max-md:text-lg",
+    sm: "text-3xl max-lg:text-2xl max-md:text-xl",
+    md: "text-4xl max-lg:text-3xl max-md:text-2xl",
+    lg: "text-5xl max-lg:text-4xl max-md:text-3xl",
+    xl: "text-6xl max-lg:text-5xl max-md:text-4xl",
+  }),
   base: "text-balance",
   defaults: {
-    ...defaultTypographyComponentTheme.defaults,
+    ...typographyThemeDefaults,
     semibold: true,
   },
 };
 
 // Title specific theme
 export const titleTheme: TypographyComponentTheme = {
-  ...defaultTypographyComponentTheme,
+  ...createTypographyComponentTheme({
+    xs: "text-lg",
+    sm: "text-xl",
+    md: "text-2xl",
+    lg: "text-3xl",
+    xl: "text-4xl",
+  }),
   base: "text-balance",
   defaults: {
-    ...defaultTypographyComponentTheme.defaults,
+    ...typographyThemeDefaults,
     semibold: true,
   },
 };
 
 // Text specific theme
 export const textTheme: TypographyComponentTheme = {
-  ...defaultTypographyComponentTheme,
+  ...createTypographyComponentTheme(),
   base: "p-0 m-0",
   defaults: {
-    ...defaultTypographyComponentTheme.defaults,
+    ...typographyThemeDefaults,
     secondary: true,
   },
 };
 
 // Link specific theme
 export const linkTheme: TypographyComponentTheme = {
-  ...defaultTypographyComponentTheme,
+  ...createTypographyComponentTheme(),
   base: "hover:underline",
   defaults: {
-    ...defaultTypographyComponentTheme.defaults,
+    ...typographyThemeDefaults,
     link: true,
   },
 };
 
 // List item specific theme
 export const listItemTheme: TypographyComponentTheme = {
-  ...defaultTypographyComponentTheme,
+  ...createTypographyComponentTheme(),
   base: "",
   defaults: {
-    ...defaultTypographyComponentTheme.defaults,
+    ...typographyThemeDefaults,
   },
 };
 
 // List specific theme
 export const listTheme: TypographyComponentTheme = {
-  ...defaultTypographyComponentTheme,
+  ...createTypographyComponentTheme(),
   base: "list-disc list-inside",
   defaults: {
-    ...defaultTypographyComponentTheme.defaults,
+    ...typographyThemeDefaults,
   },
 };

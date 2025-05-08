@@ -29,16 +29,13 @@ export const SectionTitle = (props: TypographyComponentProps): JSX.Element => {
   const sectionTitleTheme = theme.sectionTitle;
 
   // Use the common component classes hook with section title-specific defaults
-  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+  const { cleanProps, tag, baseClasses, modeClasses } = useComponentClasses(
     props,
     sectionTitleTheme,
     TYPOGRAPHY_COMPONENT_KEYS
   );
 
-  // Override the default tag to be "h2" for section titles
-  const tag = props.tag ?? "h2";
-
-  return componentBuilder(cleanProps, tag)
+  return componentBuilder(cleanProps, tag ?? "h2")
     .withExtraClasses([...baseClasses, ...modeClasses])
     .build();
 };

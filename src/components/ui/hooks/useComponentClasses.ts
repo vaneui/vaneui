@@ -119,7 +119,7 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
         : sizeShapeClass;
   const appearanceVariant = theme.style[style]?.[appearance];
 
-  const tag = props.tag ?? "div";
+  const tag: string | undefined = props.tag;
   const baseThemeClasses = theme.base;
 
   const baseClasses = [
