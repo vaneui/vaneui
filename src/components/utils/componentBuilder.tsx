@@ -95,11 +95,10 @@ export class ComponentBuilder {
     return this;
   }
 
-  private finalize(): React.ReactElement {
+  build(): React.ReactElement {
     const {className, children, tag} = this.baseProps;
     const Tag = tag || this.defaultTag;
     const merged = twMerge(this.baseClasses, ...this.extraClasses, className);
-
     this.propsToRemove.forEach(key => delete this.otherProps[key as keyof typeof this.otherProps]);
 
     return (
@@ -107,13 +106,6 @@ export class ComponentBuilder {
         {children}
       </Tag>
     );
-  }
-
-  build(): React.ReactElement {
-    return this
-      .withClasses(hideClasses)
-      .withClasses(positionClasses)
-      .finalize();
   }
 }
 

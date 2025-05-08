@@ -1,5 +1,5 @@
 import { SizeKey } from "../props/propKeys";
-import { CardProps, ButtonStyleProps, ShapeProps, FontFamilyProps, FontWeightProps, NoRingProps } from "../props/props";
+import { CardProps } from "../props/props";
 import {
   ComponentTheme,
   VariantAppearance,
@@ -11,7 +11,7 @@ import {
 import { roundedClasses } from "../classes/layoutClasses";
 
 // Card-specific theme type
-export type CardTheme = ComponentTheme<VariantAppearance, CardProps & ButtonStyleProps & ShapeProps & FontFamilyProps & FontWeightProps & NoRingProps>;
+export type CardTheme = ComponentTheme<VariantAppearance, CardProps>;
 
 // Size maps for card
 const pxMap: Record<SizeKey, string> = {
@@ -71,11 +71,9 @@ export const defaultCardTheme: CardTheme = {
   // Card-specific defaults
   defaults: {
     md: true,
-    outline: true,
     default: true,
-    rounded: true,
+    //rounded: true,
     sans: true,
     normal: true,
-    noRing: true,
   },
 };

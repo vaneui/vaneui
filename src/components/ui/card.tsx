@@ -11,7 +11,7 @@ export const Card = (props: CardProps): JSX.Element => {
   const cardTheme = theme.card;
 
   // Use the common component classes hook with card-specific defaults
-  const { cleanProps, tag: defaultTag, baseClasses, modeClasses } = useComponentClasses(
+  const { cleanProps, tag, baseClasses, modeClasses } = useComponentClasses(
     props,
     cardTheme,
     CARD_KEYS
@@ -21,10 +21,7 @@ export const Card = (props: CardProps): JSX.Element => {
   const defaultDirection = !props.row && !props.column ? {column: true} : {};
   const directionProps = {...defaultDirection, ...cleanProps};
 
-  // Override the default tag to be "div" for cards
-  const tag = props.tag ?? "div";
-
-  return componentBuilder(directionProps, tag)
+  return componentBuilder(directionProps, tag ?? "div")
     .withExtraClasses([...baseClasses, ...modeClasses])
     .withClasses(rowToColumnBreakpointClasses)
     .withClasses(directionClasses, {column: true})

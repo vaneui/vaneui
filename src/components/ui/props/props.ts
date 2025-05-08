@@ -116,7 +116,7 @@ export type CardProps =
   & ItemsProps
   & SharpProps
   & BreakpointProps
-  & CommonAppearanceProps
+  & TypographyComponentProps
   & NoBorderProps
   & NoShadowProps
   & NoPaddingProps
