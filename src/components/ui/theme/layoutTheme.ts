@@ -25,7 +25,7 @@ export type LayoutTheme = {
   shadow: Record<Mode, Record<SizeKey, string>>;
   border: Record<Mode, string>;
   ring: Record<Mode, string>;
-  radius: Record<SizeKey, string>;
+  radius?: Record<SizeKey, string>;
   flags: {
     noBorder: ModeledStyles;
     noShadow: ModeledStyles;
@@ -34,7 +34,7 @@ export type LayoutTheme = {
 };
 
 // Default layout theme (without radius, which is component-specific)
-export const createDefaultLayoutTheme = (radius: Record<SizeKey, string>): LayoutTheme => ({
+export const createDefaultLayoutTheme = (radius: Record<SizeKey, string> | undefined = undefined): LayoutTheme => ({
   hide: hideClasses,
   position: positionClasses,
   shadow: {

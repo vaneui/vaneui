@@ -109,13 +109,14 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
   const pyVariant = theme.size?.py?.[size];
   const textVariant = theme.size?.text?.[size];
   const gapVariant = theme.size?.gap?.[size];
+  const sizeShapeClass = theme.layout.radius === undefined ? "" : theme.layout.radius[size];
   const shapeClass = shape === 'rounded'
-    ? theme.layout.radius[size]
+    ? sizeShapeClass
     : shape === 'pill'
       ? 'rounded-full'
       : shape === 'sharp'
         ? 'rounded-none'
-        : theme.layout.radius[size];
+        : sizeShapeClass;
   const appearanceVariant = theme.style[style]?.[appearance];
 
   const tag = props.tag ?? "div";

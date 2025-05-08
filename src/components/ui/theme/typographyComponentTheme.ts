@@ -20,15 +20,6 @@ const textSizeMap: Record<SizeKey, string> = {
   xl: 'text-2xl',
 };
 
-// Typography component-specific rounded classes
-const roundedMap: Record<SizeKey, string> = {
-  xs: 'rounded-none',
-  sm: 'rounded-none',
-  md: 'rounded-none',
-  lg: 'rounded-none',
-  xl: 'rounded-none',
-};
-
 // Default typography component theme
 export const defaultTypographyComponentTheme: TypographyComponentTheme = {
   // Typography component-specific base classes
@@ -46,7 +37,7 @@ export const defaultTypographyComponentTheme: TypographyComponentTheme = {
   typography: defaultTypographyTheme,
 
   // Use default layout with typography component-specific radius
-  layout: createDefaultLayoutTheme(roundedMap),
+  layout: createDefaultLayoutTheme(),
 
   // Typography component-specific defaults
   defaults: {
