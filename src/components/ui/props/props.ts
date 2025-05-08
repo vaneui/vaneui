@@ -9,14 +9,14 @@ import {
   TextDecorationKey,
   TextTransformKey,
   TextAlignKey,
-  BorderKey,
-  ShadowKey,
-  PaddingKey,
+  NoBorderKey,
+  NoShadowKey,
+  NoPaddingKey,
   BreakpointKey,
   HideKey,
   PositionKey,
-  ReverseKey,
-  GapKey,
+  DirectionReverseKey,
+  NoGapKey,
   PillKey,
   SharpKey,
   ShapeKey,
@@ -25,7 +25,7 @@ import {
   ItemsKey,
   JustifyKey,
   WrapKey,
-  RingKey,
+  NoRingKey,
 } from "./propKeys";
 
 export type SizeProps = { [K in SizeKey]?: boolean; }
@@ -37,20 +37,15 @@ export type TextDecorationProps = { [K in TextDecorationKey]?: boolean; }
 export type TextTransformProps = { [K in TextTransformKey]?: boolean; }
 export type TextAlignProps = { [K in TextAlignKey]?: boolean; }
 export type TextAppearanceProps = { [K in TextAppearanceKey]?: boolean; }
-export type NoBorderProps = { [K in BorderKey]?: boolean; }
-export type NoShadowProps = { [K in ShadowKey]?: boolean; }
-export type NoRingProps = { [K in RingKey]?: boolean; }
-export type NoPaddingProps = { [K in PaddingKey]?: boolean; }
+export type NoBorderProps = { [K in NoBorderKey]?: boolean; }
+export type NoShadowProps = { [K in NoShadowKey]?: boolean; }
+export type NoRingProps = { [K in NoRingKey]?: boolean; }
+export type NoPaddingProps = { [K in NoPaddingKey]?: boolean; }
 export type BreakpointProps = { [K in BreakpointKey]?: boolean; }
 export type HideProps = { [K in HideKey]?: boolean; }
 export type PositionProps = { [K in PositionKey]?: boolean; }
-
-export interface TagProps {
-  tag?: React.ReactNode | string | any;
-}
-
-export type ReverseProps = { [K in ReverseKey]?: boolean; }
-export type NoGapProps = { [K in GapKey]?: boolean; }
+export type ReverseProps = { [K in DirectionReverseKey]?: boolean; }
+export type NoGapProps = { [K in NoGapKey]?: boolean; }
 export type PillProps = { [K in PillKey]?: boolean; }
 export type SharpProps = { [K in SharpKey]?: boolean; }
 export type ShapeProps = { [K in ShapeKey]?: boolean; }
@@ -59,6 +54,10 @@ export type DirectionProps = { [K in DirectionKey]?: boolean; }
 export type ItemsProps = { [K in ItemsKey]?: boolean; }
 export type JustifyProps = { [K in JustifyKey]?: boolean; }
 export type WrapProps = { [K in WrapKey]?: boolean; }
+
+export interface TagProps {
+  tag?: React.ReactNode | string | any;
+}
 
 export type BaseComponentProps = TagProps & SizeProps & HideProps & PositionProps & React.HTMLProps<HTMLElement>;
 

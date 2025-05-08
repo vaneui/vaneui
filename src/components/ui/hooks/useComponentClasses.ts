@@ -1,17 +1,24 @@
 import { useMemo } from 'react';
-import { 
-  SIZE_KEYS, 
-  STYLE_KEYS, 
-  TEXT_APPEARANCE_KEYS, 
-  FONT_FAMILY_KEYS, 
-  FONT_WEIGHT_KEYS, 
-  FONT_STYLE_KEYS, 
-  TEXT_DECORATION_KEYS, 
-  TEXT_TRANSFORM_KEYS, 
-  TEXT_ALIGN_KEYS, 
-  SHAPE_KEYS, 
-  HIDE_KEYS, 
-  POSITION_KEYS 
+import {
+  SIZE_KEYS,
+  STYLE_KEYS,
+  TEXT_APPEARANCE_KEYS,
+  FONT_FAMILY_KEYS,
+  FONT_WEIGHT_KEYS,
+  FONT_STYLE_KEYS,
+  TEXT_DECORATION_KEYS,
+  TEXT_TRANSFORM_KEYS,
+  TEXT_ALIGN_KEYS,
+  SHAPE_KEYS,
+  HIDE_KEYS,
+  POSITION_KEYS,
+  NO_BORDER_KEYS,
+  NO_SHADOW_KEYS,
+  NO_RING_KEYS,
+  DIRECTION_KEYS,
+  ITEMS_KEYS,
+  JUSTIFY_KEYS,
+  DIRECTION_REVERSE_KEYS, WRAP_KEYS
 } from '../props/propKeys';
 import { pickFirstKey, pickFirstKeyOptional, omitProps } from '../../utils/componentUtils';
 import { MODE_KEYS } from '../props/mode';
@@ -48,6 +55,12 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
     noBorder,
     noShadow,
     noRing,
+
+    reverse,
+    direction,
+    items,
+    justify,
+    wrap,
   } = useMemo(() => {
     // Helper function to find the default key from theme.defaults
     const findDefaultKey = <K extends string>(keys: readonly K[]): K | undefined => {
@@ -74,6 +87,12 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
       textAlign: pickFirstKeyOptional(props, TEXT_ALIGN_KEYS, findDefaultKey(TEXT_ALIGN_KEYS)),
       hide: pickFirstKeyOptional(props, HIDE_KEYS, findDefaultKey(HIDE_KEYS)),
       position: pickFirstKeyOptional(props, POSITION_KEYS, findDefaultKey(POSITION_KEYS)),
+      reverse: pickFirstKeyOptional(props, DIRECTION_REVERSE_KEYS, findDefaultKey(DIRECTION_REVERSE_KEYS)),
+
+      direction: pickFirstKeyOptional(props, DIRECTION_KEYS, findDefaultKey(DIRECTION_KEYS)),
+      items: pickFirstKeyOptional(props, ITEMS_KEYS, findDefaultKey(ITEMS_KEYS)),
+      justify: pickFirstKeyOptional(props, JUSTIFY_KEYS, findDefaultKey(JUSTIFY_KEYS)),
+      wrap: pickFirstKeyOptional(props, WRAP_KEYS, findDefaultKey(WRAP_KEYS)),
 
       // Assign prop value if present, otherwise use theme default boolean
       noBorder: props.noBorder ?? (theme.defaults as any).noBorder ?? false,
@@ -95,10 +114,10 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
     ...TEXT_TRANSFORM_KEYS, 
     ...TEXT_ALIGN_KEYS, 
     ...HIDE_KEYS, 
-    ...POSITION_KEYS, 
-    'noBorder', 
-    'noShadow', 
-    'noRing',
+    ...POSITION_KEYS,
+    ...NO_BORDER_KEYS,
+    ...NO_SHADOW_KEYS,
+    ...NO_RING_KEYS,
     ...propsToOmit
   ] as const;
 
@@ -133,6 +152,11 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
     textAlign ? theme.typography.textAlign[textAlign] : '',
     hide ? theme.layout.hide[hide] : '',
     position ? theme.layout.position[position] : '',
+    reverse ? theme.layout.reverse[reverse] : '',
+    direction ? theme.layout.direction[direction] : '',
+    items ? theme.layout.items[items] : '',
+    justify ? theme.layout.justify[justify] : '',
+    wrap ? theme.layout.wrap[wrap] : '',
   ];
 
   const modeClasses: string[] = [];

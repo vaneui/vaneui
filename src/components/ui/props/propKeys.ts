@@ -8,18 +8,19 @@ export const FONT_STYLE_KEYS = ['italic', 'notItalic'] as const;
 export const TEXT_DECORATION_KEYS = ['underline', 'lineThrough', 'noUnderline', 'overline'] as const;
 export const TEXT_TRANSFORM_KEYS = ['uppercase', 'lowercase', 'capitalize', 'normalCase'] as const;
 export const TEXT_ALIGN_KEYS = ['textLeft', 'textCenter', 'textRight', 'textJustify'] as const;
-export const BORDER_KEYS = ['noBorder'] as const;
-export const SHADOW_KEYS = ['noShadow'] as const;
-export const RING_KEYS = ['noRing'] as const;
-export const PADDING_KEYS = ['noPadding'] as const;
+export const NO_BORDER_KEYS = ['noBorder'] as const;
+export const NO_SHADOW_KEYS = ['noShadow'] as const;
+export const NO_RING_KEYS = ['noRing'] as const;
+export const NO_PADDING_KEYS = ['noPadding'] as const;
 export const BREAKPOINT_KEYS = ['xsCol', 'smCol', 'mdCol', 'lgCol', 'xlCol'] as const;
 export const HIDE_KEYS = ['xsHide', 'smHide', 'mdHide', 'lgHide', 'xlHide'] as const;
 export const POSITION_KEYS = ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const;
-export const REVERSE_KEYS = ['reverse'] as const;
-export const GAP_KEYS = ['noGap'] as const;
+export const DIRECTION_REVERSE_KEYS = ['reverse'] as const;
+export const NO_GAP_KEYS = ['noGap'] as const;
 export const PILL_KEYS = ['pill'] as const;
 export const SHARP_KEYS = ['sharp'] as const;
-export const SHAPE_KEYS = ['rounded', 'pill', 'sharp'] as const;
+export const ROUNDED_KEYS = ['rounded'] as const;
+export const SHAPE_KEYS = [...PILL_KEYS, ...SHARP_KEYS, ...ROUNDED_KEYS] as const;
 export const DIRECTION_KEYS = ['row', 'column'] as const;
 export const ITEMS_KEYS = ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const;
 export const JUSTIFY_KEYS = ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const;
@@ -35,15 +36,15 @@ export type FontStyleKey = typeof FONT_STYLE_KEYS[number];
 export type TextDecorationKey = typeof TEXT_DECORATION_KEYS[number];
 export type TextTransformKey = typeof TEXT_TRANSFORM_KEYS[number];
 export type TextAlignKey = typeof TEXT_ALIGN_KEYS[number];
-export type BorderKey = typeof BORDER_KEYS[number];
-export type ShadowKey = typeof SHADOW_KEYS[number];
-export type RingKey = typeof RING_KEYS[number];
-export type PaddingKey = typeof PADDING_KEYS[number];
+export type NoBorderKey = typeof NO_BORDER_KEYS[number];
+export type NoShadowKey = typeof NO_SHADOW_KEYS[number];
+export type NoRingKey = typeof NO_RING_KEYS[number];
+export type NoPaddingKey = typeof NO_PADDING_KEYS[number];
 export type BreakpointKey = typeof BREAKPOINT_KEYS[number];
 export type HideKey = typeof HIDE_KEYS[number];
 export type PositionKey = typeof POSITION_KEYS[number];
-export type ReverseKey = typeof REVERSE_KEYS[number];
-export type GapKey = typeof GAP_KEYS[number];
+export type DirectionReverseKey = typeof DIRECTION_REVERSE_KEYS[number];
+export type NoGapKey = typeof NO_GAP_KEYS[number];
 export type PillKey = typeof PILL_KEYS[number];
 export type SharpKey = typeof SHARP_KEYS[number];
 export type ShapeKey = typeof SHAPE_KEYS[number];
@@ -62,7 +63,7 @@ export const BASE_COMPONENT_KEYS = [
 // Layout component keys
 export const LAYOUT_COMPONENT_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...REVERSE_KEYS,
+  ...DIRECTION_REVERSE_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
@@ -88,16 +89,16 @@ export const TYPOGRAPHY_COMPONENT_KEYS = [
 export const BUTTON_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...SHAPE_KEYS,
-  ...BORDER_KEYS,
-  ...SHADOW_KEYS,
-  ...RING_KEYS,
+  ...NO_BORDER_KEYS,
+  ...NO_SHADOW_KEYS,
+  ...NO_RING_KEYS,
   ...STYLE_KEYS
 ] as const;
 
 // Grid keys
 export const GRID_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...GAP_KEYS,
+  ...NO_GAP_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
 
@@ -105,8 +106,8 @@ export const GRID_KEYS = [
 export const ROW_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...WRAP_KEYS,
-  ...GAP_KEYS,
-  ...REVERSE_KEYS,
+  ...NO_GAP_KEYS,
+  ...DIRECTION_REVERSE_KEYS,
   ...ITEMS_KEYS,
   ...BREAKPOINT_KEYS,
   ...JUSTIFY_KEYS,
@@ -117,8 +118,8 @@ export const ROW_KEYS = [
 export const COL_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...WRAP_KEYS,
-  ...GAP_KEYS,
-  ...REVERSE_KEYS,
+  ...NO_GAP_KEYS,
+  ...DIRECTION_REVERSE_KEYS,
   ...ITEMS_KEYS,
   ...JUSTIFY_KEYS,
   ...APPEARANCE_KEYS
@@ -127,14 +128,14 @@ export const COL_KEYS = [
 // Card keys
 export const CARD_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...GAP_KEYS,
+  ...NO_GAP_KEYS,
   ...ITEMS_KEYS,
   ...SHARP_KEYS,
   ...BREAKPOINT_KEYS,
   ...APPEARANCE_KEYS,
-  ...BORDER_KEYS,
-  ...SHADOW_KEYS,
-  ...PADDING_KEYS,
+  ...NO_BORDER_KEYS,
+  ...NO_SHADOW_KEYS,
+  ...NO_PADDING_KEYS,
   ...DIRECTION_KEYS
 ] as const;
 
@@ -142,14 +143,14 @@ export const CARD_KEYS = [
 export const STACK_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...WRAP_KEYS,
-  ...GAP_KEYS,
-  ...REVERSE_KEYS,
+  ...NO_GAP_KEYS,
+  ...DIRECTION_REVERSE_KEYS,
   ...ITEMS_KEYS,
   ...BREAKPOINT_KEYS,
   ...JUSTIFY_KEYS,
   ...APPEARANCE_KEYS,
   ...DIRECTION_KEYS,
-  ...PADDING_KEYS
+  ...NO_PADDING_KEYS
 ] as const;
 
 // Chip keys
@@ -157,15 +158,15 @@ export const CHIP_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...SHAPE_KEYS,
   ...STYLE_KEYS,
-  ...SHADOW_KEYS
+  ...NO_SHADOW_KEYS
 ] as const;
 
 // Divider keys
 export const DIVIDER_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...BORDER_KEYS,
-  ...SHADOW_KEYS,
-  ...RING_KEYS,
+  ...NO_BORDER_KEYS,
+  ...NO_SHADOW_KEYS,
+  ...NO_RING_KEYS,
   ...STYLE_KEYS
 ] as const;
 
@@ -174,9 +175,9 @@ export const CONTAINER_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS,
-  ...BORDER_KEYS,
-  ...SHADOW_KEYS,
-  ...RING_KEYS,
+  ...NO_BORDER_KEYS,
+  ...NO_SHADOW_KEYS,
+  ...NO_RING_KEYS,
   ...STYLE_KEYS
 ] as const;
 
@@ -185,8 +186,8 @@ export const SECTION_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS,
-  ...BORDER_KEYS,
-  ...SHADOW_KEYS,
-  ...RING_KEYS,
+  ...NO_BORDER_KEYS,
+  ...NO_SHADOW_KEYS,
+  ...NO_RING_KEYS,
   ...STYLE_KEYS
 ] as const;

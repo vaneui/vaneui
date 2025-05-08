@@ -1,19 +1,20 @@
 import {
-  HideKey,
-  PositionKey,
-  SizeKey
+  DirectionKey,
+  HideKey, ItemsKey, JustifyKey,
+  PositionKey, DirectionReverseKey,
+  SizeKey, WrapKey
 } from "../props/propKeys";
 import {
   activeShadowClasses,
-  borderModeClasses,
+  borderModeClasses, directionClasses,
   hideClasses,
-  hoverShadowClasses,
+  hoverShadowClasses, itemsClasses, justifyClasses,
   noBorderModeClasses,
   noRingModeClasses,
   noShadowModeClasses,
   positionClasses,
   ringModeClasses,
-  shadowClasses
+  shadowClasses, wrapClasses
 } from "../classes/layoutClasses";
 import { Mode } from "../props/mode";
 import { ModeledStyles } from "./commonTypes";
@@ -31,6 +32,12 @@ export type LayoutTheme = {
     noShadow: ModeledStyles;
     noRing: ModeledStyles;
   };
+
+  reverse: Record<DirectionReverseKey, string>;
+  direction: Record<DirectionKey, string>;
+  items: Record<ItemsKey, string>;
+  justify: Record<JustifyKey, string>;
+  wrap: Record<WrapKey, string>;
 };
 
 // Default layout theme (without radius, which is component-specific)
@@ -50,4 +57,12 @@ export const createDefaultLayoutTheme = (radius: Record<SizeKey, string> | undef
     noRing: noRingModeClasses,
     noShadow: noShadowModeClasses,
   },
+  items: itemsClasses,
+  justify: justifyClasses,
+  direction: directionClasses,
+  wrap: wrapClasses,
+  //TODO: update properly
+  reverse: {
+    reverse: ""
+  }
 });

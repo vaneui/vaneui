@@ -1,3 +1,5 @@
+import { ComponentTheme } from "../ui/theme/componentTheme";
+
 export function pickFirstKeyOptional<
   P extends object,
   K extends keyof P
