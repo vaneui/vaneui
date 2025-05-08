@@ -18,7 +18,7 @@ import {
   DIRECTION_KEYS,
   ITEMS_KEYS,
   JUSTIFY_KEYS,
-  DIRECTION_REVERSE_KEYS, WRAP_KEYS
+  DIRECTION_REVERSE_KEYS, WRAP_KEYS, BREAKPOINT_KEYS
 } from '../props/propKeys';
 import { pickFirstKey, pickFirstKeyOptional, omitProps } from '../../utils/componentUtils';
 import { MODE_KEYS } from '../props/mode';
@@ -60,6 +60,7 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
     items,
     justify,
     wrap,
+    breakpoint,
   } = useMemo(() => {
     // Helper function to find the default key from theme.defaults
     const findDefaultKey = <K extends string>(keys: readonly K[]): K | undefined => {
@@ -87,6 +88,7 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
       hide: pickFirstKeyOptional(props, HIDE_KEYS, findDefaultKey(HIDE_KEYS)),
       position: pickFirstKeyOptional(props, POSITION_KEYS, findDefaultKey(POSITION_KEYS)),
       reverse: pickFirstKeyOptional(props, DIRECTION_REVERSE_KEYS, findDefaultKey(DIRECTION_REVERSE_KEYS)),
+      breakpoint: pickFirstKeyOptional(props, BREAKPOINT_KEYS, findDefaultKey(BREAKPOINT_KEYS)),
 
       direction: pickFirstKeyOptional(props, DIRECTION_KEYS, findDefaultKey(DIRECTION_KEYS)),
       items: pickFirstKeyOptional(props, ITEMS_KEYS, findDefaultKey(ITEMS_KEYS)),
@@ -156,6 +158,7 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
     items ? theme.layout.items[items] : '',
     justify ? theme.layout.justify[justify] : '',
     wrap ? theme.layout.wrap[wrap] : '',
+    breakpoint ? theme.layout.breakpoint[breakpoint] : '',
   ];
 
   const modeClasses: string[] = [];

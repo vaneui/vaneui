@@ -2,7 +2,7 @@ import {
   DirectionKey,
   HideKey, ItemsKey, JustifyKey,
   PositionKey, DirectionReverseKey,
-  SizeKey, WrapKey
+  SizeKey, WrapKey, BreakpointKey
 } from "../props/propKeys";
 import {
   activeShadowClasses,
@@ -13,7 +13,7 @@ import {
   noRingModeClasses,
   noShadowModeClasses,
   positionClasses,
-  ringModeClasses,
+  ringModeClasses, rowToColumnBreakpointClasses,
   shadowClasses, wrapClasses
 } from "../classes/layoutClasses";
 import { Mode } from "../props/mode";
@@ -37,9 +37,9 @@ export type LayoutTheme = {
   items: Record<ItemsKey, string>;
   justify: Record<JustifyKey, string>;
   wrap: Record<WrapKey, string>;
+  breakpoint: Record<BreakpointKey, string>;
 };
 
-// Default layout theme (without radius, which is component-specific)
 export const createDefaultLayoutTheme = (radius: Record<SizeKey, string> | undefined = undefined): LayoutTheme => ({
   hide: hideClasses,
   position: positionClasses,
@@ -60,6 +60,7 @@ export const createDefaultLayoutTheme = (radius: Record<SizeKey, string> | undef
   justify: justifyClasses,
   direction: directionClasses,
   wrap: wrapClasses,
+  breakpoint: rowToColumnBreakpointClasses,
   //TODO: update properly
   reverse: {
     reverse: ""

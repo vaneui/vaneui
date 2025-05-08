@@ -4,7 +4,6 @@ import { componentBuilder } from "../utils/componentBuilder";
 import { useTheme } from '../theme';
 import { useComponentClasses } from './hooks/useComponentClasses';
 import { CARD_KEYS } from './props/propKeys';
-import { directionClasses, rowToColumnBreakpointClasses } from "./classes/layoutClasses";
 
 export const Card = (props: CardProps): JSX.Element => {
   const theme = useTheme();
@@ -23,6 +22,5 @@ export const Card = (props: CardProps): JSX.Element => {
 
   return componentBuilder(directionProps, tag ?? "div")
     .withExtraClasses([...baseClasses, ...modeClasses])
-    .withClasses(rowToColumnBreakpointClasses)
     .build();
 };
