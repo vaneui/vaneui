@@ -75,5 +75,6 @@ export const defaultCardTheme: CardTheme = {
     //rounded: true,
     sans: true,
     normal: true,
+    column: true,
   },
 };

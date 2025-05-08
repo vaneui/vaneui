@@ -1,17 +1,10 @@
 import { Mode } from "../props/mode";
 
-// Common types for all themes
-export type ModeledStyles = {
-  base: string;
-  hover?: string;
-  active?: string;
-};
-
 export type VariantAppearance = {
-  background: ModeledStyles;
-  textColor: ModeledStyles;
-  borderColor: ModeledStyles;
-  ringColor: ModeledStyles;
+  background: Record<Mode, string>;
+  textColor: Record<Mode, string>;
+  borderColor: Record<Mode, string>;
+  ringColor: Record<Mode, string>;
 };
 
 // Helper function to create a standard variant appearance

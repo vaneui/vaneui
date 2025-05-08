@@ -11,7 +11,6 @@ export { Mode } from "./components/ui/props/mode"
 
 // Common theme types
 export {
-  ModeledStyles,
   VariantAppearance,
   ComponentTheme
 } from "./components/ui/theme/componentTheme"

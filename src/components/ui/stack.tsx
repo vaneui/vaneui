@@ -27,6 +27,5 @@ export const Stack = (props: StackProps): JSX.Element => {
   return componentBuilder(directionProps, tag)
     .withExtraClasses([...baseClasses, ...modeClasses])
     .withClasses(rowToColumnBreakpointClasses)
-    .withClasses(directionClasses, {column: true})
     .build();
 };

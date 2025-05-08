@@ -17,7 +17,6 @@ import {
   shadowClasses, wrapClasses
 } from "../classes/layoutClasses";
 import { Mode } from "../props/mode";
-import { ModeledStyles } from "./commonTypes";
 
 // Layout theme structure
 export type LayoutTheme = {
@@ -28,9 +27,9 @@ export type LayoutTheme = {
   ring: Record<Mode, string>;
   radius?: Record<SizeKey, string>;
   flags: {
-    noBorder: ModeledStyles;
-    noShadow: ModeledStyles;
-    noRing: ModeledStyles;
+    noBorder: Record<Mode, string>;
+    noShadow: Record<Mode, string>;
+    noRing: Record<Mode, string>;
   };
 
   reverse: Record<DirectionReverseKey, string>;

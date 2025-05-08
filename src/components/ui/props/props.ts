@@ -132,4 +132,7 @@ export type StackProps =
   & JustifyProps
   & CommonAppearanceProps
   & DirectionProps
+  & NoBorderProps
+  & NoShadowProps
+  & NoRingProps
   & NoPaddingProps;

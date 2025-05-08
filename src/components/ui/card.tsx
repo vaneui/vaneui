@@ -24,6 +24,5 @@ export const Card = (props: CardProps): JSX.Element => {
   return componentBuilder(directionProps, tag ?? "div")
     .withExtraClasses([...baseClasses, ...modeClasses])
     .withClasses(rowToColumnBreakpointClasses)
-    .withClasses(directionClasses, {column: true})
     .build();
 };

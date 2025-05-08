@@ -55,7 +55,6 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
     noBorder,
     noShadow,
     noRing,
-
     reverse,
     direction,
     items,
