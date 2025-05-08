@@ -2,21 +2,11 @@ import { JSX } from 'react';
 import { CardProps } from "./props/props";
 import { componentBuilder } from "../utils/componentBuilder";
 import { useTheme } from '../theme';
-import { useComponentClasses } from './hooks/useComponentClasses';
 import { CARD_KEYS } from './props/propKeys';
 
 export const Card = (props: CardProps): JSX.Element => {
   const theme = useTheme();
   const cardTheme = theme.card;
 
-  // Use the common component classes hook with card-specific defaults
-  const { cleanProps, tag, baseClasses, modeClasses } = useComponentClasses(
-    props,
-    cardTheme,
-    CARD_KEYS
-  );
-
-  return componentBuilder(cleanProps, tag ?? "div")
-    .withExtraClasses([...baseClasses, ...modeClasses])
-    .build();
+  return componentBuilder(props, cardTheme, CARD_KEYS).build();
 };

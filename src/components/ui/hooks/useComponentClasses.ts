@@ -184,5 +184,7 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
     ]);
   });
 
-  return { cleanProps, tag, baseClasses, modeClasses };
+  const classes = [...baseClasses, ...modeClasses];
+
+  return { cleanProps, tag, classes };
 }

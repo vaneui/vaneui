@@ -3,6 +3,9 @@ import {
   BaseComponentProps,
 } from "../ui/props/props";
 import React from "react";
+import { ComponentTheme, VariantAppearance } from '../ui/theme/componentTheme';
+import { useComponentClasses, ComponentProps } from '../ui/hooks/useComponentClasses';
+
 
 /**
  * ComponentBuilder class for building React components with chainable methods
@@ -39,13 +42,14 @@ export class ComponentBuilder {
 }
 
 /**
- * Factory function that creates and returns a ComponentBuilder instance
+ * Factory function that creates and returns a ComponentBuilder instance with component classes
  * This maintains backward compatibility with the existing code
  */
-export function componentBuilder(
-  cleanProps: BaseComponentProps,
-  defaultTag: string,
-  baseClasses?: string
+export function componentBuilder<T extends VariantAppearance, P extends ComponentProps, D extends Record<string, any> = {}>(
+  props: P,
+  theme: ComponentTheme<T, D>,
+  propsToOmit: readonly string[] = []
 ): ComponentBuilder {
-  return new ComponentBuilder(cleanProps, defaultTag, baseClasses);
+  const { cleanProps, tag, classes } = useComponentClasses(props, theme, propsToOmit);
+  return new ComponentBuilder(cleanProps, tag ?? "div").withExtraClasses(classes);
 }
