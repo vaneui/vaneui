@@ -1,59 +1,23 @@
 import { twMerge } from "tailwind-merge";
 import {
   BaseComponentProps,
-  ItemsProps,
-  ReverseProps,
-  ColProps,
-  RowProps,
-  SizeProps,
-  WrapProps,
-  ButtonStyleProps,
 } from "../ui/props/props";
-import {
-  hideClasses,
-  positionClasses,
-} from "../ui/classes/layoutClasses";
 import React from "react";
-
-function getBooleanClass<T extends Record<string, boolean | undefined>>(
-  props: T,
-  classes?: Record<keyof T, string>
-): string {
-  if (!classes) return "";
-  for (const key in props) {
-    if (Object.prototype.hasOwnProperty.call(props, key) && props[key]) {
-      return classes[key] ?? "";
-    }
-  }
-  return "";
-}
 
 /**
  * ComponentBuilder class for building React components with chainable methods
  */
 export class ComponentBuilder {
-  private readonly otherProps: any;
-  private readonly baseProps: BaseComponentProps;
-  private readonly defaultTag: string;
+  private readonly cleanProps: BaseComponentProps;
+  private readonly tag: any;
   private readonly baseClasses?: string;
 
-  private propsToRemove: string[] = [];
   private extraClasses: string[] = [];
 
-  constructor(baseProps: BaseComponentProps, defaultTag: string, baseClasses?: string) {
-    this.baseProps = baseProps;
-    this.defaultTag = defaultTag;
+  constructor(cleanProps: BaseComponentProps, tag: any, baseClasses?: string) {
+    this.cleanProps = cleanProps;
+    this.tag = tag;
     this.baseClasses = baseClasses;
-
-    const {className, children, tag, ...other} = baseProps;
-    this.otherProps = {...other} as any as (typeof other) & Partial<ReverseProps & ButtonStyleProps & ItemsProps & SizeProps & RowProps & ColProps & WrapProps>;
-  }
-
-  registerKeys(keys: string[]): this {
-    keys.forEach((key) => {
-      if (this.propsToRemove.indexOf(key) === -1) this.propsToRemove.push(key);
-    });
-    return this;
   }
 
   withExtraClasses(classNames: string[]): this {
@@ -61,48 +25,13 @@ export class ComponentBuilder {
     return this;
   }
 
-  withClasses<T extends Record<string, string>>(
-    propMap?: Record<keyof T, string>,
-    settings?: { [key: string]: boolean }
-  ): this {
-    if (propMap === undefined)
-      return this;
-
-    // Build a subset of props from otherProps for the keys in the map.
-    const propsSubset: Partial<Record<keyof T, boolean>> = {} as Partial<Record<keyof T, boolean>>;
-    const keys = Object.keys(propMap) as (keyof T)[];
-    keys.forEach((key) => {
-      if (key in this.otherProps) {
-        propsSubset[key] = this.otherProps[key as keyof typeof this.otherProps];
-      }
-    });
-
-    if (settings) {
-      const settingsClass = getBooleanClass(settings || {}, propMap);
-      if (settingsClass !== "") {
-        this.extraClasses.push(settingsClass);
-      }
-    }
-
-    // Compute the class.
-    const newClass = getBooleanClass(propsSubset, propMap);
-    if (newClass !== "") {
-      this.extraClasses.push(newClass);
-    }
-
-    // Register all keys found in the map.
-    this.registerKeys(keys as string[]);
-    return this;
-  }
-
   build(): React.ReactElement {
-    const {className, children, tag} = this.baseProps;
-    const Tag = tag || this.defaultTag;
+    const {className, children, ...other} = this.cleanProps;
+    const Tag = this.tag;
     const merged = twMerge(this.baseClasses, ...this.extraClasses, className);
-    this.propsToRemove.forEach(key => delete this.otherProps[key as keyof typeof this.otherProps]);
 
     return (
-      <Tag className={merged} {...this.otherProps}>
+      <Tag className={merged} {...other}>
         {children}
       </Tag>
     );
@@ -114,9 +43,9 @@ export class ComponentBuilder {
  * This maintains backward compatibility with the existing code
  */
 export function componentBuilder(
-  baseProps: BaseComponentProps,
+  cleanProps: BaseComponentProps,
   defaultTag: string,
   baseClasses?: string
 ): ComponentBuilder {
-  return new ComponentBuilder(baseProps, defaultTag, baseClasses);
+  return new ComponentBuilder(cleanProps, defaultTag, baseClasses);
 }

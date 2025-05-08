@@ -6,13 +6,6 @@ import { useComponentClasses } from './hooks/useComponentClasses';
 import { ROW_KEYS } from './props/propKeys';
 import { rowToColumnBreakpointClasses } from './classes/layoutClasses';
 
-/**
- * Row component for horizontal layouts.
- * Uses flex-wrap by default and centers items vertically.
- * @param props.wrap - Allows items to wrap (flex-wrap) - default
- * @param props.nowrap - Prevents items from wrapping (flex-nowrap)
- * @param props.wrapReverse - Wraps items onto multiple lines in reverse (flex-wrap-reverse)
- */
 export const Row = (props: RowProps): JSX.Element => {
   const theme = useTheme();
   const rowTheme = theme.row;
@@ -32,6 +25,5 @@ export const Row = (props: RowProps): JSX.Element => {
 
   return componentBuilder(directionProps, tag)
     .withExtraClasses([...baseClasses, ...modeClasses])
-    .withClasses(rowToColumnBreakpointClasses)
     .build();
 };

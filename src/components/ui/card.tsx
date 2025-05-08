@@ -16,11 +16,7 @@ export const Card = (props: CardProps): JSX.Element => {
     CARD_KEYS
   );
 
-  // Set default direction if none is specified
-  const defaultDirection = !props.row && !props.column ? {column: true} : {};
-  const directionProps = {...defaultDirection, ...cleanProps};
-
-  return componentBuilder(directionProps, tag ?? "div")
+  return componentBuilder(cleanProps, tag ?? "div")
     .withExtraClasses([...baseClasses, ...modeClasses])
     .build();
 };
