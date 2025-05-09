@@ -3,7 +3,7 @@ import {
   ComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
-  makeStyleVariants,
+  makeSimpleStyleVariants,
   defaultTypographyTheme
 } from "./componentTheme";
 import { createBaseLayoutTheme } from "./baseLayoutTheme";
@@ -18,8 +18,8 @@ export const defaultDividerTheme: DividerTheme = {
   // Divider-specific base classes
   base: "bg-gray-200 h-px w-full",
 
-  // Use common style variant generator
-  style: makeStyleVariants(createVariantAppearance),
+  // Use simple style variant generator
+  style: makeSimpleStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

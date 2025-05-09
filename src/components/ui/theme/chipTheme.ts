@@ -1,7 +1,7 @@
 import { SizeKey } from "../props/propKeys";
 import { TypographyComponentProps, ButtonStyleProps, ShapeProps, NoShadowProps } from "../props/props";
 import {
-  ComponentTheme,
+  StyleVariantComponentTheme,
   VariantAppearance,
   createVariantAppearance,
   makeStyleVariants,
@@ -53,7 +53,7 @@ const roundedMap: Record<SizeKey, string> = {
 };
 
 // Chip-specific theme type
-export type ChipTheme = ComponentTheme<VariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
+export type ChipTheme = StyleVariantComponentTheme<VariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
 
 // Default chip theme
 export const defaultChipTheme: ChipTheme = {

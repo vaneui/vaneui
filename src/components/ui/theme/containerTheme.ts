@@ -3,7 +3,7 @@ import {
   ComponentTheme,
   VariantAppearance,
   createVariantAppearance,
-  makeStyleVariants,
+  makeSimpleStyleVariants,
   defaultTypographyTheme,
   makeSizeVariant
 } from "./componentTheme";
@@ -51,7 +51,7 @@ export const defaultContainerTheme: ContainerTheme = {
   },
 
   // Use common style variant generator
-  style: makeStyleVariants(createVariantAppearance),
+  style: makeSimpleStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,

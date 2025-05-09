@@ -1,7 +1,7 @@
 import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { ButtonProps } from "../props/props";
 import { 
-  ComponentTheme, 
+  StyleVariantComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
   makeStyleVariants,
@@ -11,7 +11,7 @@ import {
 import { createButtonLayoutTheme } from "./buttonLayoutTheme";
 
 // Button-specific theme type
-export type ButtonTheme = ComponentTheme<VariantAppearance, ButtonProps>;
+export type ButtonTheme = StyleVariantComponentTheme<VariantAppearance, ButtonProps>;
 
 // Default button theme
 export const defaultButtonTheme: ButtonTheme = {

@@ -3,7 +3,7 @@ import {
   ComponentTheme,
   VariantAppearance,
   createVariantAppearance,
-  makeStyleVariants,
+  makeSimpleStyleVariants,
   defaultTypographyTheme,
   makeSizeVariant
 } from "./componentTheme";
@@ -27,7 +27,7 @@ export const createTypographyComponentTheme = (textSizeMap: Record<SizeKey, stri
   size: {
     text: makeSizeVariant(textSizeMap)
   },
-  style: makeStyleVariants(createVariantAppearance),
+  style: makeSimpleStyleVariants(createVariantAppearance),
   typography: defaultTypographyTheme,
   layout: createBaseLayoutTheme(),
   defaults: typographyThemeDefaults,

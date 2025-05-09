@@ -4,7 +4,7 @@ import {
   ComponentTheme,
   VariantAppearance,
   createVariantAppearance,
-  makeStyleVariants,
+  makeSimpleStyleVariants,
   defaultTypographyTheme,
   makeSizeVariant
 } from "./componentTheme";
@@ -54,7 +54,7 @@ export const defaultCardTheme: CardTheme = {
     gap: makeSizeVariant(gapMap),
   },
 
-  style: makeStyleVariants(createVariantAppearance),
+  style: makeSimpleStyleVariants(createVariantAppearance),
 
   typography: defaultTypographyTheme,
 

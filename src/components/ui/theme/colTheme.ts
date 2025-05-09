@@ -4,7 +4,7 @@ import {
   VariantAppearance,
   createVariantAppearance,
   makeSizeVariant,
-  makeStyleVariants,
+  makeSimpleStyleVariants,
   defaultTypographyTheme
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
@@ -35,7 +35,7 @@ export const defaultColTheme: ColTheme = {
   },
 
   // Use common style variant generator
-  style: makeStyleVariants(createVariantAppearance),
+  style: makeSimpleStyleVariants(createVariantAppearance),
 
   // Use default typography settings
   typography: defaultTypographyTheme,
