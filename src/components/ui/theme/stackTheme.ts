@@ -12,11 +12,11 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme, makeSizeVariant
+  makeSizeVariant
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
+import { createStackLayoutTheme } from "./stackLayoutTheme";
 
-// Stack-specific size maps
 const gapMap: Record<SizeKey, string> = {
   xs: 'gap-2',
   sm: 'gap-3',
@@ -41,21 +41,9 @@ const pyMap: Record<SizeKey, string> = {
   xl: 'py-6',
 };
 
-// Stack-specific rounded classes
-const roundedMap: Record<SizeKey, string> = {
-  xs: 'rounded-none',
-  sm: 'rounded-none',
-  md: 'rounded-none',
-  lg: 'rounded-none',
-  xl: 'rounded-none',
-};
-
-// Stack-specific theme type
 export type StackTheme = ComponentTheme<VariantAppearance, StackProps>;
 
-// Default stack theme
 export const defaultStackTheme: StackTheme = {
-  // Stack-specific base classes
   base: "flex",
 
   size: {
@@ -64,16 +52,12 @@ export const defaultStackTheme: StackTheme = {
     gap: makeSizeVariant(gapMap),
   },
 
-  // Use common style variant generator
   style: makeStyleVariants(createVariantAppearance),
 
-  // Use default typography settings
   typography: defaultTypographyTheme,
 
-  // Use default layout with stack-specific radius
-  layout: createDefaultLayoutTheme(roundedMap),
+  layout: createStackLayoutTheme(),
 
-  // Stack-specific defaults
   defaults: {
     md: true,
     transparent: true,

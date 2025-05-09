@@ -5,10 +5,10 @@ import {
   createVariantAppearance,
   makeSizeVariant,
   makeStyleVariants,
-  defaultTypographyTheme,
-  createDefaultLayoutTheme
+  defaultTypographyTheme
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
+import { createColLayoutTheme } from "./colLayoutTheme";
 
 // Col-specific size maps
 const gapMap: Record<SizeKey, string> = {
@@ -19,14 +19,7 @@ const gapMap: Record<SizeKey, string> = {
   xl: 'gap-6',
 };
 
-// Col-specific rounded classes
-const roundedMap: Record<SizeKey, string> = {
-  xs: 'rounded-none',
-  sm: 'rounded-none',
-  md: 'rounded-none',
-  lg: 'rounded-none',
-  xl: 'rounded-none',
-};
+// Col-specific rounded classes are now defined in colLayoutTheme.ts
 
 // Col-specific theme type
 export type ColTheme = ComponentTheme<VariantAppearance, ColProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
@@ -47,8 +40,8 @@ export const defaultColTheme: ColTheme = {
   // Use default typography settings
   typography: defaultTypographyTheme,
 
-  // Use default layout with col-specific radius
-  layout: createDefaultLayoutTheme(roundedMap),
+  // Use col-specific layout theme
+  layout: createColLayoutTheme(),
 
   // Col-specific defaults
   defaults: {

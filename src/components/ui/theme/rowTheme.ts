@@ -5,9 +5,10 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme, makeSizeVariant
+  makeSizeVariant
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
+import { createRowLayoutTheme } from "./rowLayoutTheme";
 
 // Row-specific size maps
 const gapMap: Record<SizeKey, string> = {
@@ -18,14 +19,7 @@ const gapMap: Record<SizeKey, string> = {
   xl: 'gap-6',
 };
 
-// Row-specific rounded classes
-const roundedMap: Record<SizeKey, string> = {
-  xs: 'rounded-none',
-  sm: 'rounded-none',
-  md: 'rounded-none',
-  lg: 'rounded-none',
-  xl: 'rounded-none',
-};
+// Row-specific rounded classes are now defined in rowLayoutTheme.ts
 
 // Row-specific theme type
 export type RowTheme = ComponentTheme<VariantAppearance, RowProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
@@ -47,8 +41,8 @@ export const defaultRowTheme: RowTheme = {
   // Use default typography settings
   typography: defaultTypographyTheme,
 
-  // Use default layout with row-specific radius
-  layout: createDefaultLayoutTheme(roundedMap),
+  // Use row-specific layout theme
+  layout: createRowLayoutTheme(),
 
   // Row-specific defaults
   defaults: {
