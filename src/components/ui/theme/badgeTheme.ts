@@ -1,4 +1,4 @@
-import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
+import { pxMap, pyMap, gapMap } from "../classes/badgeClasses";
 import { TypographyComponentProps, ButtonStyleProps, ShapeProps, NoShadowProps } from "../props/props";
 import {
   ComponentTheme,
@@ -6,10 +6,10 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme,
   makeSizeVariant
 } from "./componentTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
+import { createBadgeLayoutTheme } from "./badgeLayoutTheme";
 
 // Badge-specific theme type
 export type BadgeTheme = ComponentTheme<VariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
@@ -32,8 +32,8 @@ export const defaultBadgeTheme: BadgeTheme = {
   // Use default typography settings
   typography: defaultTypographyTheme,
 
-  // Use default layout with badge-specific radius
-  layout: createDefaultLayoutTheme(roundedMap),
+  // Use badge-specific layout theme
+  layout: createBadgeLayoutTheme(),
 
   // Badge-specific defaults
   defaults: {

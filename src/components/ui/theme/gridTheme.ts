@@ -5,7 +5,8 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme, makeSizeVariant
+  makeSizeVariant,
+  createDefaultLayoutTheme
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
 
@@ -18,14 +19,6 @@ const gapMap: Record<SizeKey, string> = {
   xl: 'gap-6',
 };
 
-// Grid-specific rounded classes
-const roundedMap: Record<SizeKey, string> = {
-  xs: 'rounded-none',
-  sm: 'rounded-none',
-  md: 'rounded-none',
-  lg: 'rounded-none',
-  xl: 'rounded-none',
-};
 
 // Grid-specific theme type
 export type GridTheme = ComponentTheme<VariantAppearance, GridProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
@@ -47,8 +40,8 @@ export const defaultGridTheme: GridTheme = {
   // Use default typography settings
   typography: defaultTypographyTheme,
 
-  // Use default layout with grid-specific radius
-  layout: createDefaultLayoutTheme(roundedMap),
+  // Use default layout theme
+  layout: createDefaultLayoutTheme(),
 
   // Grid-specific defaults
   defaults: {

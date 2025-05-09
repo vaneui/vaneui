@@ -9,14 +9,6 @@ import {
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
 
-//TODO: remove it
-const roundedMap: Record<SizeKey, string> = {
-  xs: 'rounded-none',
-  sm: 'rounded-none',
-  md: 'rounded-none',
-  lg: 'rounded-none',
-  xl: 'rounded-none',
-};
 
 // Divider-specific theme type
 export type DividerTheme = ComponentTheme<VariantAppearance, BaseComponentProps & ButtonStyleProps & NoRingProps & NoShadowProps & NoBorderProps>;
@@ -32,8 +24,8 @@ export const defaultDividerTheme: DividerTheme = {
   // Use default typography settings
   typography: defaultTypographyTheme,
 
-  // Use default layout with divider-specific radius
-  layout: createDefaultLayoutTheme(roundedMap),
+  // Use default layout theme
+  layout: createDefaultLayoutTheme(),
 
   // Divider-specific defaults
   defaults: {

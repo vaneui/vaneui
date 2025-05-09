@@ -5,7 +5,8 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme, makeSizeVariant
+  makeSizeVariant,
+  createDefaultLayoutTheme
 } from "./componentTheme";
 import { SizeKey } from "../props/propKeys";
 
@@ -34,14 +35,6 @@ const pyMap: Record<SizeKey, string> = {
   xl: 'py-20 max-lg:py-16 max-md:py-12',
 };
 
-// Section-specific rounded classes
-const roundedMap: Record<SizeKey, string> = {
-  xs: 'rounded-none',
-  sm: 'rounded-none',
-  md: 'rounded-none',
-  lg: 'rounded-none',
-  xl: 'rounded-none',
-};
 
 // Section-specific theme type
 export type SectionTheme = ComponentTheme<VariantAppearance, LayoutComponentProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
@@ -65,8 +58,8 @@ export const defaultSectionTheme: SectionTheme = {
   // Use default typography settings
   typography: defaultTypographyTheme,
 
-  // Use default layout with section-specific radius
-  layout: createDefaultLayoutTheme(roundedMap),
+  // Use default layout theme
+  layout: createDefaultLayoutTheme(),
 
   // Section-specific defaults
   defaults: {

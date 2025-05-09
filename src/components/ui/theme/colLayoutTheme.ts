@@ -11,6 +11,7 @@ export const createColLayoutTheme = (): ColLayoutTheme => {
     direction: {
       ...baseTheme.direction,
       column: "flex-col",
+      row: "flex-row",
     },
   };
 };

@@ -6,8 +6,9 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme, makeSizeVariant
+  makeSizeVariant
 } from "./componentTheme";
+import { createChipLayoutTheme } from "./chipLayoutTheme";
 
 // Chip-specific size maps
 const pxMap: Record<SizeKey, string> = {
@@ -72,8 +73,8 @@ export const defaultChipTheme: ChipTheme = {
   // Use default typography settings
   typography: defaultTypographyTheme,
 
-  // Use default layout with chip-specific radius
-  layout: createDefaultLayoutTheme(roundedMap),
+  // Use chip-specific layout theme
+  layout: createChipLayoutTheme(),
 
   // Chip-specific defaults
   defaults: {

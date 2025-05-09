@@ -23,7 +23,6 @@ export type BaseLayoutTheme = {
   shadow: Record<Mode, Record<SizeKey, string>>;
   border: Record<Mode, string>;
   ring: Record<Mode, string>;
-  radius?: Record<SizeKey, string>;
   flags: {
     noBorder: Record<Mode, string>;
     noShadow: Record<Mode, string>;
@@ -38,7 +37,7 @@ export type BaseLayoutTheme = {
   breakpoint: Record<BreakpointKey, string>;
 };
 
-export const createBaseLayoutTheme = (radius: Record<SizeKey, string> | undefined = undefined): BaseLayoutTheme => ({
+export const createBaseLayoutTheme = (): BaseLayoutTheme => ({
   hide: hideClasses,
   position: positionClasses,
   shadow: {
@@ -48,7 +47,6 @@ export const createBaseLayoutTheme = (radius: Record<SizeKey, string> | undefine
   },
   border: borderModeClasses,
   ring: ringModeClasses,
-  radius,
   flags: {
     noBorder: noBorderModeClasses,
     noRing: noRingModeClasses,

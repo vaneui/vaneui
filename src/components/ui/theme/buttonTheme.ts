@@ -1,4 +1,4 @@
-import { gapMap, pxMap, pyMap, roundedMap, textSizeMap } from "../classes/buttonClasses";
+import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { ButtonProps } from "../props/props";
 import { 
   ComponentTheme, 
@@ -6,9 +6,9 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme,
   makeSizeVariant
 } from "./componentTheme";
+import { createButtonLayoutTheme } from "./buttonLayoutTheme";
 
 // Button-specific theme type
 export type ButtonTheme = ComponentTheme<VariantAppearance, ButtonProps>;
@@ -31,8 +31,8 @@ export const defaultButtonTheme: ButtonTheme = {
   // Use default typography settings
   typography: defaultTypographyTheme,
 
-  // Use default layout with button-specific radius
-  layout: createDefaultLayoutTheme(roundedMap),
+  // Use button-specific layout theme
+  layout: createButtonLayoutTheme(),
 
   // Button-specific defaults
   defaults: {

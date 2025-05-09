@@ -1,11 +1,11 @@
 import { BaseLayoutTheme, createBaseLayoutTheme } from "./baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";
 
-export type CardLayoutTheme = BaseLayoutTheme & {
+export type ChipLayoutTheme = BaseLayoutTheme & {
   radius?: Record<SizeKey, string>;
 };
 
-// Card-specific rounded classes
+// Chip-specific rounded classes
 const roundedMap: Record<SizeKey, string> = {
   xs: 'rounded-sm',
   sm: 'rounded-md',
@@ -14,7 +14,7 @@ const roundedMap: Record<SizeKey, string> = {
   xl: 'rounded-2xl',
 };
 
-export const createCardLayoutTheme = (): CardLayoutTheme => {
+export const createChipLayoutTheme = (): ChipLayoutTheme => {
   const baseTheme = createBaseLayoutTheme();
 
   return {
