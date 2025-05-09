@@ -5,9 +5,9 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  makeSizeVariant,
-  createDefaultLayoutTheme
+  makeSizeVariant
 } from "./componentTheme";
+import { createBaseLayoutTheme } from "./baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";
 
 // Section-specific size maps
@@ -59,7 +59,7 @@ export const defaultSectionTheme: SectionTheme = {
   typography: defaultTypographyTheme,
 
   // Use default layout theme
-  layout: createDefaultLayoutTheme(),
+  layout: createBaseLayoutTheme(),
 
   // Section-specific defaults
   defaults: {

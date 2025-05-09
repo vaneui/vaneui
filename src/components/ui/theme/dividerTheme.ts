@@ -4,9 +4,9 @@ import {
   VariantAppearance, 
   createVariantAppearance,
   makeStyleVariants,
-  defaultTypographyTheme,
-  createDefaultLayoutTheme
+  defaultTypographyTheme
 } from "./componentTheme";
+import { createBaseLayoutTheme } from "./baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";
 
 
@@ -25,7 +25,7 @@ export const defaultDividerTheme: DividerTheme = {
   typography: defaultTypographyTheme,
 
   // Use default layout theme
-  layout: createDefaultLayoutTheme(),
+  layout: createBaseLayoutTheme(),
 
   // Divider-specific defaults
   defaults: {

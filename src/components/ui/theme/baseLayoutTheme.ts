@@ -35,6 +35,7 @@ export type BaseLayoutTheme = {
   justify: Record<JustifyKey, string>;
   wrap: Record<WrapKey, string>;
   breakpoint: Record<BreakpointKey, string>;
+  radius?: Record<SizeKey, string>;
 };
 
 export const createBaseLayoutTheme = (): BaseLayoutTheme => ({

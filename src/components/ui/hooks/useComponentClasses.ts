@@ -23,6 +23,7 @@ import {
 import { pickFirstKey, pickFirstKeyOptional, omitProps } from '../../utils/componentUtils';
 import { MODE_KEYS } from '../props/mode';
 import { ComponentTheme, VariantAppearance } from '../theme/componentTheme';
+import { BaseLayoutTheme } from '../theme/baseLayoutTheme';
 
 // Generic props interface for components that use the theme system
 export interface ComponentProps {
@@ -129,7 +130,9 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
   const pyVariant = theme.size?.py?.[size];
   const textVariant = theme.size?.text?.[size];
   const gapVariant = theme.size?.gap?.[size];
-  const sizeShapeClass = theme.layout.radius === undefined ? "" : theme.layout.radius[size];
+  // Handle the case where theme.layout.radius might not exist
+  const layoutWithRadius = theme.layout as BaseLayoutTheme & { radius?: Record<string, string> };
+  const sizeShapeClass = layoutWithRadius.radius ? layoutWithRadius.radius[size] : "";
   const shapeClass = shape === 'rounded'
     ? sizeShapeClass
     : shape === 'pill'
@@ -145,20 +148,20 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
   const baseClasses = [
     baseThemeClasses,
     shapeClass,
-    fontWeight ? theme.typography.fontWeight[fontWeight] : '',
-    fontFamily ? theme.typography.fontFamily[fontFamily] : '',
-    fontStyle ? theme.typography.fontStyle[fontStyle] : '',
-    textDecoration ? theme.typography.textDecoration[textDecoration] : '',
-    textTransform ? theme.typography.textTransform[textTransform] : '',
-    textAlign ? theme.typography.textAlign[textAlign] : '',
-    hide ? theme.layout.hide[hide] : '',
-    position ? theme.layout.position[position] : '',
-    reverse ? theme.layout.reverse[reverse] : '',
-    direction ? theme.layout.direction[direction] : '',
-    items ? theme.layout.items[items] : '',
-    justify ? theme.layout.justify[justify] : '',
-    wrap ? theme.layout.wrap[wrap] : '',
-    breakpoint ? theme.layout.breakpoint[breakpoint] : '',
+    fontWeight && theme.typography?.fontWeight ? theme.typography.fontWeight[fontWeight] : '',
+    fontFamily && theme.typography?.fontFamily ? theme.typography.fontFamily[fontFamily] : '',
+    fontStyle && theme.typography?.fontStyle ? theme.typography.fontStyle[fontStyle] : '',
+    textDecoration && theme.typography?.textDecoration ? theme.typography.textDecoration[textDecoration] : '',
+    textTransform && theme.typography?.textTransform ? theme.typography.textTransform[textTransform] : '',
+    textAlign && theme.typography?.textAlign ? theme.typography.textAlign[textAlign] : '',
+    hide && theme.layout?.hide ? theme.layout.hide[hide] : '',
+    position && theme.layout?.position ? theme.layout.position[position] : '',
+    reverse && theme.layout?.reverse ? theme.layout.reverse[reverse] : '',
+    direction && theme.layout?.direction ? theme.layout.direction[direction] : '',
+    items && theme.layout?.items ? theme.layout.items[items] : '',
+    justify && theme.layout?.justify ? theme.layout.justify[justify] : '',
+    wrap && theme.layout?.wrap ? theme.layout.wrap[wrap] : '',
+    breakpoint && theme.layout?.breakpoint ? theme.layout.breakpoint[breakpoint] : '',
   ];
 
   const modeClasses: string[] = [];
@@ -172,15 +175,15 @@ export function useComponentClasses<T extends VariantAppearance, P extends Compo
       gapVariant?.[mode] ?? '',
       appearanceVariant?.background?.[mode] ?? '',
       appearanceVariant?.textColor?.[mode] ?? '',
-      noRing
+      noRing && theme.layout?.flags?.noRing
         ? theme.layout.flags.noRing[mode] ?? ''
-        : `${theme.layout.ring[mode] ?? ''} ${appearanceVariant?.ringColor?.[mode] ?? ''}`,
-      noBorder
+        : `${theme.layout?.ring ? theme.layout.ring[mode] ?? '' : ''} ${appearanceVariant?.ringColor?.[mode] ?? ''}`,
+      noBorder && theme.layout?.flags?.noBorder
         ? theme.layout.flags.noBorder[mode] ?? ''
-        : `${theme.layout.border[mode] ?? ''} ${appearanceVariant?.borderColor?.[mode] ?? ''}`,
-      noShadow
+        : `${theme.layout?.border ? theme.layout.border[mode] ?? '' : ''} ${appearanceVariant?.borderColor?.[mode] ?? ''}`,
+      noShadow && theme.layout?.flags?.noShadow
         ? theme.layout.flags.noShadow[mode] ?? ''
-        : theme.layout.shadow[mode]?.[size] ?? '',
+        : theme.layout?.shadow ? theme.layout.shadow[mode]?.[size] ?? '' : '',
     ]);
   });
 

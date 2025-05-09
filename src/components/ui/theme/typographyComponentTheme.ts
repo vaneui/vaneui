@@ -5,8 +5,9 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  createDefaultLayoutTheme, makeSizeVariant
+  makeSizeVariant
 } from "./componentTheme";
+import { createBaseLayoutTheme } from "./baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";
 import { textSizeClasses } from "../classes/typographyClasses";
 
@@ -28,7 +29,7 @@ export const createTypographyComponentTheme = (textSizeMap: Record<SizeKey, stri
   },
   style: makeStyleVariants(createVariantAppearance),
   typography: defaultTypographyTheme,
-  layout: createDefaultLayoutTheme(),
+  layout: createBaseLayoutTheme(),
   defaults: typographyThemeDefaults,
 });
 

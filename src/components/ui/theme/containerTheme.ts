@@ -5,9 +5,9 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  makeSizeVariant,
-  createDefaultLayoutTheme
+  makeSizeVariant
 } from "./componentTheme";
+import { createBaseLayoutTheme } from "./baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";
 
 // Container-specific size maps
@@ -57,7 +57,7 @@ export const defaultContainerTheme: ContainerTheme = {
   typography: defaultTypographyTheme,
 
   // Use default layout theme
-  layout: createDefaultLayoutTheme(),
+  layout: createBaseLayoutTheme(),
 
   // Container-specific defaults
   defaults: {

@@ -5,9 +5,9 @@ import {
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
-  makeSizeVariant,
-  createDefaultLayoutTheme
+  makeSizeVariant
 } from "./componentTheme";
+import { createBaseLayoutTheme } from "./baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";
 
 // Grid-specific size maps
@@ -41,7 +41,7 @@ export const defaultGridTheme: GridTheme = {
   typography: defaultTypographyTheme,
 
   // Use default layout theme
-  layout: createDefaultLayoutTheme(),
+  layout: createBaseLayoutTheme(),
 
   // Grid-specific defaults
   defaults: {
