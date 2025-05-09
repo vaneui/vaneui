@@ -11,5 +11,5 @@ export const Button = (props: ButtonProps): JSX.Element => {
   // Override the default tag to be "button" for buttons
   const propsWithDefaultTag = { ...props, tag: props.tag ?? "button" };
 
-  return componentBuilder(propsWithDefaultTag, buttonTheme, BUTTON_KEYS).build();
+  return componentBuilder(propsWithDefaultTag, buttonTheme as any, BUTTON_KEYS).build();
 };

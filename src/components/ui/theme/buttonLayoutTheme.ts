@@ -6,11 +6,3 @@ export type ButtonLayoutTheme = BaseLayoutTheme & {
   radius?: Record<SizeKey, string>;
 };
 
-export const createButtonLayoutTheme = (): ButtonLayoutTheme => {
-  const baseTheme = createBaseLayoutTheme();
-
-  return {
-    ...baseTheme,
-    radius: roundedMap
-  };
-};

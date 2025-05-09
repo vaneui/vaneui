@@ -14,11 +14,3 @@ const roundedMap: Record<SizeKey, string> = {
   xl: 'rounded-2xl',
 };
 
-export const createChipLayoutTheme = (): ChipLayoutTheme => {
-  const baseTheme = createBaseLayoutTheme();
-
-  return {
-    ...baseTheme,
-    radius: roundedMap
-  };
-};

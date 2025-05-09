@@ -1,14 +1,16 @@
 import { SizeKey } from "../props/propKeys";
 import { TypographyComponentProps, ButtonStyleProps, ShapeProps, NoShadowProps } from "../props/props";
 import {
-  StyleVariantComponentTheme,
   VariantAppearance,
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
   makeSizeVariant
 } from "./componentTheme";
-import { createChipLayoutTheme } from "./chipLayoutTheme";
+import { StyleVariantComponentThemeClass } from "./componentThemeClass";
+import { SizeTheme } from "./sizeThemeClass";
+import { StyleVariantAppearanceTheme, VariantAppearanceTheme } from "./appearanceThemeClass";
+import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 
 // Chip-specific size maps
 const pxMap: Record<SizeKey, string> = {
@@ -52,32 +54,63 @@ const roundedMap: Record<SizeKey, string> = {
   xl: 'rounded-2xl',
 };
 
+// Helper function to convert VariantAppearance to VariantAppearanceTheme
+function convertToVariantAppearanceTheme(variant: VariantAppearance): VariantAppearanceTheme {
+  return new VariantAppearanceTheme(
+    variant.background,
+    variant.textColor,
+    variant.borderColor,
+    variant.ringColor
+  );
+}
+
+// Helper function to convert makeStyleVariants result to StyleVariantAppearanceTheme input
+function convertStyleVariants(
+  styleVariants: Record<string, Record<string, VariantAppearance>>
+): Partial<Record<string, Partial<Record<string, VariantAppearanceTheme>>>> {
+  const result: Partial<Record<string, Partial<Record<string, VariantAppearanceTheme>>>> = {};
+
+  for (const style in styleVariants) {
+    result[style] = {};
+    for (const appearance in styleVariants[style]) {
+      result[style]![appearance] = convertToVariantAppearanceTheme(styleVariants[style][appearance]);
+    }
+  }
+
+  return result;
+}
+
 // Chip-specific theme type
-export type ChipTheme = StyleVariantComponentTheme<VariantAppearance, TypographyComponentProps & ButtonStyleProps & ShapeProps & NoShadowProps>;
+export type ChipTheme = StyleVariantComponentThemeClass;
 
 // Default chip theme
-export const defaultChipTheme: ChipTheme = {
+export const defaultChipTheme: ChipTheme = new StyleVariantComponentThemeClass(
   // Chip-specific base classes
-  base: "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
+  "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
 
-  size: {
-    px: makeSizeVariant(pxMap),
-    py: makeSizeVariant(pyMap),
-    text: makeSizeVariant(textSizeMap),
-    gap: makeSizeVariant(gapMap),
-  },
+  // Size theme
+  new SizeTheme(
+    makeSizeVariant(pxMap),
+    makeSizeVariant(pyMap),
+    makeSizeVariant(textSizeMap),
+    makeSizeVariant(gapMap)
+  ),
 
-  // Use common style variant generator
-  style: makeStyleVariants(createVariantAppearance),
+  // Style theme
+  new StyleVariantAppearanceTheme(convertStyleVariants(makeStyleVariants(createVariantAppearance))),
 
-  // Use default typography settings
-  typography: defaultTypographyTheme,
+  // Typography theme
+  defaultTypographyTheme,
 
-  // Use chip-specific layout theme
-  layout: createChipLayoutTheme(),
+  // Layout theme
+  (() => {
+    const baseLayout = BaseLayoutThemeClass.createBaseLayoutTheme();
+    baseLayout.radius = roundedMap;
+    return baseLayout;
+  })(),
 
   // Chip-specific defaults
-  defaults: {
+  {
     md: true,
     outline: true,
     secondary: true,
@@ -85,5 +118,5 @@ export const defaultChipTheme: ChipTheme = {
     mono: true,
     normal: true,
     noShadow: true,
-  },
-};
+  }
+);

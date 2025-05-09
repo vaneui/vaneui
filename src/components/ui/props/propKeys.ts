@@ -153,6 +153,14 @@ export const STACK_KEYS = [
   ...NO_PADDING_KEYS
 ] as const;
 
+// Badge keys
+export const BADGE_KEYS = [
+  ...TYPOGRAPHY_COMPONENT_KEYS,
+  ...SHAPE_KEYS,
+  ...STYLE_KEYS,
+  ...NO_SHADOW_KEYS
+] as const;
+
 // Chip keys
 export const CHIP_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,

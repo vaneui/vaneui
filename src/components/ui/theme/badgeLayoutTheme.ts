@@ -6,11 +6,3 @@ export type BadgeLayoutTheme = BaseLayoutTheme & {
   radius?: Record<SizeKey, string>;
 };
 
-export const createBadgeLayoutTheme = (): BadgeLayoutTheme => {
-  const baseTheme = createBaseLayoutTheme();
-
-  return {
-    ...baseTheme,
-    radius: roundedMap
-  };
-};

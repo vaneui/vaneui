@@ -1,41 +1,75 @@
 import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { ButtonProps } from "../props/props";
 import { 
-  StyleVariantComponentTheme, 
   VariantAppearance, 
   createVariantAppearance,
   makeStyleVariants,
   defaultTypographyTheme,
   makeSizeVariant
 } from "./componentTheme";
-import { createButtonLayoutTheme } from "./buttonLayoutTheme";
+import { StyleVariantComponentThemeClass } from "./componentThemeClass";
+import { SizeTheme } from "./sizeThemeClass";
+import { StyleVariantAppearanceTheme, VariantAppearanceTheme } from "./appearanceThemeClass";
+import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { roundedMap } from "../classes/buttonClasses";
+
+// Helper function to convert VariantAppearance to VariantAppearanceTheme
+function convertToVariantAppearanceTheme(variant: VariantAppearance): VariantAppearanceTheme {
+  return new VariantAppearanceTheme(
+    variant.background,
+    variant.textColor,
+    variant.borderColor,
+    variant.ringColor
+  );
+}
+
+// Helper function to convert makeStyleVariants result to StyleVariantAppearanceTheme input
+function convertStyleVariants(
+  styleVariants: Record<string, Record<string, VariantAppearance>>
+): Partial<Record<string, Partial<Record<string, VariantAppearanceTheme>>>> {
+  const result: Partial<Record<string, Partial<Record<string, VariantAppearanceTheme>>>> = {};
+
+  for (const style in styleVariants) {
+    result[style] = {};
+    for (const appearance in styleVariants[style]) {
+      result[style]![appearance] = convertToVariantAppearanceTheme(styleVariants[style][appearance]);
+    }
+  }
+
+  return result;
+}
 
 // Button-specific theme type
-export type ButtonTheme = StyleVariantComponentTheme<VariantAppearance, ButtonProps>;
+export type ButtonTheme = StyleVariantComponentThemeClass;
 
 // Default button theme
-export const defaultButtonTheme: ButtonTheme = {
+export const defaultButtonTheme: ButtonTheme = new StyleVariantComponentThemeClass(
   // Button-specific base classes
-  base: "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
+  "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
 
-  size: {
-    px: makeSizeVariant(pxMap),
-    py: makeSizeVariant(pyMap),
-    text: makeSizeVariant(textSizeMap),
-    gap: makeSizeVariant(gapMap),
-  },
+  // Size theme
+  new SizeTheme(
+    makeSizeVariant(pxMap),
+    makeSizeVariant(pyMap),
+    makeSizeVariant(textSizeMap),
+    makeSizeVariant(gapMap)
+  ),
 
-  // Use common style variant generator
-  style: makeStyleVariants(createVariantAppearance),
+  // Style theme
+  new StyleVariantAppearanceTheme(convertStyleVariants(makeStyleVariants(createVariantAppearance))),
 
-  // Use default typography settings
-  typography: defaultTypographyTheme,
+  // Typography theme
+  defaultTypographyTheme,
 
-  // Use button-specific layout theme
-  layout: createButtonLayoutTheme(),
+  // Layout theme
+  (() => {
+    const baseLayout = BaseLayoutThemeClass.createBaseLayoutTheme();
+    baseLayout.radius = roundedMap;
+    return baseLayout;
+  })(),
 
   // Button-specific defaults
-  defaults: {
+  {
     md: true,
     outline: true,
     default: true,
@@ -44,5 +78,5 @@ export const defaultButtonTheme: ButtonTheme = {
     semibold: true,
     textCenter: true,
     noBorder: true,
-  },
-};
+  }
+);
