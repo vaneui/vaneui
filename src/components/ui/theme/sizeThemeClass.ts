@@ -52,34 +52,6 @@ export class SizeTheme extends BaseTheme {
   }
 
   /**
-   * Get padding X classes for a specific size and mode
-   */
-  getPxClasses(size: SizeKey, mode: Mode = 'base'): string {
-    return this.px[size]?.[mode] || '';
-  }
-
-  /**
-   * Get padding Y classes for a specific size and mode
-   */
-  getPyClasses(size: SizeKey, mode: Mode = 'base'): string {
-    return this.py[size]?.[mode] || '';
-  }
-
-  /**
-   * Get text size classes for a specific size and mode
-   */
-  getTextClasses(size: SizeKey, mode: Mode = 'base'): string {
-    return this.text[size]?.[mode] || '';
-  }
-
-  /**
-   * Get gap classes for a specific size and mode
-   */
-  getGapClasses(size: SizeKey, mode: Mode = 'base'): string {
-    return this.gap[size]?.[mode] || '';
-  }
-
-  /**
    * Create a size variant with the given size map
    * @param sizeMap Map of sizes to CSS classes
    * @returns Record of sizes with modes

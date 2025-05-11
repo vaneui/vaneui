@@ -58,22 +58,6 @@ export class VariantAppearanceTheme extends BaseTheme {
     return classes.filter(Boolean).join(' ');
   }
 
-  getBackgroundClasses(mode: Mode = 'base'): string {
-    return this.background[mode] || '';
-  }
-
-  getTextColorClasses(mode: Mode = 'base'): string {
-    return this.textColor[mode] || '';
-  }
-
-  getBorderColorClasses(mode: Mode = 'base'): string {
-    return this.borderColor[mode] || '';
-  }
-
-  getRingColorClasses(mode: Mode = 'base'): string {
-    return this.ringColor[mode] || '';
-  }
-
   /**
    * Helper function that creates a VariantAppearanceTheme with the given appearance classes
    * @param bgBase Background base class
@@ -120,10 +104,6 @@ export class StyleVariantAppearanceTheme extends BaseTheme {
     if (!variant) return '';
 
     return variant.getClasses(props, mode);
-  }
-
-  getVariant(style: StyleKey, appearance: TextAppearanceKey): VariantAppearanceTheme | undefined {
-    return this.styleVariants[style]?.[appearance];
   }
 
   /**
@@ -184,10 +164,6 @@ export class SimpleAppearanceTheme extends BaseTheme {
     if (!variant) return '';
 
     return variant.getClasses(props, mode);
-  }
-
-  getVariant(appearance: TextAppearanceKey): VariantAppearanceTheme | undefined {
-    return this.variants[appearance];
   }
 
   /**

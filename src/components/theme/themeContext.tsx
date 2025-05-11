@@ -1,12 +1,7 @@
 import React, { createContext, useContext } from 'react';
 import { ButtonTheme, defaultButtonTheme } from '../ui/theme/buttonTheme';
 import { BadgeTheme, defaultBadgeTheme } from '../ui/theme/badgeTheme';
-import { CardTheme, defaultCardTheme } from '../ui/theme/cardTheme';
 import { ChipTheme, defaultChipTheme } from '../ui/theme/chipTheme';
-import { DividerTheme, defaultDividerTheme } from '../ui/theme/dividerTheme';
-import { ContainerTheme, defaultContainerTheme } from '../ui/theme/containerTheme';
-import { RowTheme, defaultRowTheme } from '../ui/theme/rowTheme';
-import { StackTheme, defaultStackTheme } from '../ui/theme/stackTheme';
 import { SectionTheme, defaultSectionTheme } from '../ui/theme/sectionTheme';
 import { 
   TypographyComponentTheme, 
@@ -19,20 +14,23 @@ import {
   listTheme 
 } from '../ui/theme/typographyComponentTheme';
 import { GridTheme, defaultGridTheme, grid3Theme, grid4Theme } from '../ui/theme/gridTheme';
-import { ColTheme, defaultColTheme } from '../ui/theme/colTheme';
-import { deepMerge } from '../utils/deepMerge';
-import { DeepPartial } from "../utils/deepPartial";
+import { CardThemeClass } from "../ui/theme/cardThemeClass";
+import { DividerThemeClass } from "../ui/theme/dividerThemeClass";
+import { ContainerThemeClass } from "../ui/theme/containerThemeClass";
+import { RowThemeClass } from "../ui/theme/rowThemeClass";
+import { StackThemeClass } from "../ui/theme/stackThemeClass";
+import { ColThemeClass } from "../ui/theme/colThemeClass";
 
 // Define the shape of our theme props
 export interface ThemeProps {
   button: ButtonTheme;
   badge: BadgeTheme;
-  card: CardTheme;
+  card: CardThemeClass;
   chip: ChipTheme;
-  divider: DividerTheme;
-  container: ContainerTheme;
-  row: RowTheme;
-  stack: StackTheme;
+  divider: DividerThemeClass;
+  container: ContainerThemeClass;
+  row: RowThemeClass;
+  stack: StackThemeClass;
   section: SectionTheme;
   pageTitle: TypographyComponentTheme;
   sectionTitle: TypographyComponentTheme;
@@ -44,19 +42,18 @@ export interface ThemeProps {
   grid: GridTheme;
   grid3: GridTheme;
   grid4: GridTheme;
-  col: ColTheme;
+  col: ColThemeClass;
 }
 
-// Create the context with a default value
-const ThemeContext = createContext<ThemeProps>({
+export const defaultTheme: ThemeProps = {
   button: defaultButtonTheme,
   badge: defaultBadgeTheme,
-  card: defaultCardTheme,
+  card: CardThemeClass.createDefaultCardTheme(),
   chip: defaultChipTheme,
-  divider: defaultDividerTheme,
-  container: defaultContainerTheme,
-  row: defaultRowTheme,
-  stack: defaultStackTheme,
+  divider: DividerThemeClass.createDefaultDividerTheme(),
+  container: ContainerThemeClass.createDefaultContainerTheme(),
+  row: RowThemeClass.createDefaultRowTheme(),
+  stack: StackThemeClass.createDefaultStackTheme(),
   section: defaultSectionTheme,
   pageTitle: pageTitleTheme,
   sectionTitle: sectionTitleTheme,
@@ -68,8 +65,11 @@ const ThemeContext = createContext<ThemeProps>({
   grid: defaultGridTheme,
   grid3: grid3Theme,
   grid4: grid4Theme,
-  col: defaultColTheme
-});
+  col: ColThemeClass.createDefaultColTheme()
+}
+
+// Create the context with a default value
+const ThemeContext = createContext<ThemeProps>(defaultTheme);
 
 // Props for the ThemeProvider component
 export interface ThemeProviderProps {
@@ -80,28 +80,7 @@ export interface ThemeProviderProps {
 // ThemeProvider component
 export function ThemeProvider({
   children,
-  theme = {
-    button: defaultButtonTheme, 
-    badge: defaultBadgeTheme, 
-    card: defaultCardTheme, 
-    chip: defaultChipTheme, 
-    divider: defaultDividerTheme, 
-    container: defaultContainerTheme, 
-    row: defaultRowTheme, 
-    stack: defaultStackTheme, 
-    section: defaultSectionTheme,
-    pageTitle: pageTitleTheme,
-    sectionTitle: sectionTitleTheme,
-    title: titleTheme,
-    text: textTheme,
-    link: linkTheme,
-    listItem: listItemTheme,
-    list: listTheme,
-    grid: defaultGridTheme,
-    grid3: grid3Theme,
-    grid4: grid4Theme,
-    col: defaultColTheme
-  },
+  theme = defaultTheme,
 }: ThemeProviderProps) {
   // Provide the context to children
   return (

@@ -1,9 +1,5 @@
-import { TypographyComponentProps, ButtonStyleProps, ShapeProps, NoShadowProps } from "../props/props";
-import {
-  VariantAppearance,
-  createVariantAppearance
-} from "./componentTheme";
-import { ComponentThemeClass, SimpleComponentThemeClass } from "./componentThemeClass";
+
+import { SimpleComponentThemeClass } from "./componentThemeClass";
 import { defaultTypographyTheme } from "./typographyThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
 import { SimpleAppearanceTheme, VariantAppearanceTheme } from "./appearanceThemeClass";
