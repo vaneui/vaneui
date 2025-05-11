@@ -73,6 +73,32 @@ export class VariantAppearanceTheme extends BaseTheme {
   getRingColorClasses(mode: Mode = 'base'): string {
     return this.ringColor[mode] || '';
   }
+
+  /**
+   * Helper function that creates a VariantAppearanceTheme with the given appearance classes
+   * @param bgBase Background base class
+   * @param bgHover Background hover class
+   * @param bgActive Background active class
+   * @param textBase Text color base class
+   * @param borderBase Border color base class
+   * @param ringBase Ring color base class
+   * @returns A new VariantAppearanceTheme instance
+   */
+  static createVariantAppearanceTheme(
+    bgBase: string,
+    bgHover: string,
+    bgActive: string,
+    textBase: string,
+    borderBase: string,
+    ringBase: string
+  ): VariantAppearanceTheme {
+    return new VariantAppearanceTheme(
+      { base: bgBase, hover: bgHover, active: bgActive },
+      { base: textBase, hover: '', active: '' },
+      { base: borderBase, hover: '', active: '' },
+      { base: ringBase, hover: '', active: '' }
+    );
+  }
 }
 
 /**

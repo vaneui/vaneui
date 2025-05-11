@@ -1,0 +1,150 @@
+import { BaseTheme } from "./baseTheme";
+import { Mode } from "../props/mode";
+import { SizeTheme } from "./sizeThemeClass";
+import { SimpleAppearanceTheme } from "./appearanceThemeClass";
+import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { TypographyThemeClass } from "./typographyThemeClass";
+import { SizeKey } from "../props/propKeys";
+import { LayoutComponentProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
+
+/**
+ * Section theme class for handling section-specific styling
+ */
+export class SectionThemeClass extends BaseTheme {
+  base: string;
+  size: SizeTheme;
+  style: SimpleAppearanceTheme;
+  typography: TypographyThemeClass;
+  layout: BaseLayoutThemeClass;
+  defaults: Record<string, any>;
+
+  /**
+   * Create a new SectionThemeClass instance
+   * @param base Base CSS classes
+   * @param size Size-related CSS classes
+   * @param style Style-related CSS classes
+   * @param typography Typography-related CSS classes
+   * @param layout Layout-related CSS classes
+   * @param defaults Default prop values
+   */
+  constructor(
+    base: string = "w-full flex flex-col",
+    size: SizeTheme = new SizeTheme(),
+    style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
+    typography: TypographyThemeClass = new TypographyThemeClass(),
+    layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
+    defaults: Record<string, any> = {
+      md: true,
+      outline: true,
+      default: true,
+      itemsStart: true,
+      noBorder: true,
+      noShadow: true,
+      noRing: true,
+    }
+  ) {
+    super();
+    this.base = base;
+    this.size = size;
+    this.style = style;
+    this.typography = typography;
+    this.layout = layout;
+    this.defaults = defaults;
+  }
+
+  /**
+   * Get all CSS classes for the section based on props
+   * @param props Component props
+   * @param mode Current mode (base, hover, active)
+   * @returns CSS classes as a string
+   */
+  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+    const classes = [
+      this.base,
+      this.size.getClasses(props, mode),
+      this.style.getClasses(props, mode),
+      this.typography.getClasses(props, mode),
+      this.layout.getClasses(props, mode)
+    ];
+
+    return classes.filter(Boolean).join(' ');
+  }
+
+  /**
+   * Create a default section theme with section-specific size maps
+   */
+  static createDefaultSectionTheme(): SectionThemeClass {
+    // Section-specific size maps
+    const gapMap: Record<SizeKey, string> = {
+      xs: 'gap-2',
+      sm: 'gap-4',
+      md: 'gap-6',
+      lg: 'gap-12',
+      xl: 'gap-16',
+    };
+
+    const pxMap: Record<SizeKey, string> = {
+      xs: 'px-5 max-lg:px-4 max-md:px-3',
+      sm: 'px-6 max-lg:px-5 max-md:px-4',
+      md: 'px-7 max-lg:px-6 max-md:px-5',
+      lg: 'px-8 max-lg:px-7 max-md:px-6',
+      xl: 'px-9 max-lg:px-8 max-md:px-7',
+    };
+
+    const pyMap: Record<SizeKey, string> = {
+      xs: 'py-3',
+      sm: 'py-5',
+      md: 'py-8 max-md:py-5',
+      lg: 'py-16 max-lg:py-14 max-md:py-12',
+      xl: 'py-20 max-lg:py-16 max-md:py-12',
+    };
+
+    // Create size theme with section-specific maps
+    const sizeTheme = new SizeTheme(
+      SizeTheme.makeSizeVariant(pxMap),
+      SizeTheme.makeSizeVariant(pyMap),
+      SizeTheme.makeSizeVariant({
+        xs: '',
+        sm: '',
+        md: '',
+        lg: '',
+        xl: '',
+      }),
+      SizeTheme.makeSizeVariant(gapMap)
+    );
+
+    // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
+    const styleTheme = new SimpleAppearanceTheme(
+      SimpleAppearanceTheme.makeSimpleStyleVariants(
+        (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
+          return new VariantAppearanceTheme(
+            { base: bgBase, hover: bgHover, active: bgActive },
+            { base: textBase },
+            { base: borderBase },
+            { base: ringBase }
+          );
+        }
+      )
+    );
+
+    return new SectionThemeClass(
+      "w-full flex flex-col",
+      sizeTheme,
+      styleTheme,
+      new TypographyThemeClass(),
+      BaseLayoutThemeClass.createBaseLayoutTheme(),
+      {
+        md: true,
+        outline: true,
+        default: true,
+        itemsStart: true,
+        noBorder: true,
+        noShadow: true,
+        noRing: true,
+      }
+    );
+  }
+}
+
+// Import VariantAppearanceTheme for the static method
+import { VariantAppearanceTheme } from "./appearanceThemeClass";

@@ -1,12 +1,7 @@
-import { BaseLayoutTheme, createBaseLayoutTheme } from "./baseLayoutTheme";
+import { StackLayoutThemeClass } from "./stackLayoutThemeClass";
 
-export type StackLayoutTheme = BaseLayoutTheme & {
-};
+// Re-export the StackLayoutThemeClass as StackLayoutTheme
+export type StackLayoutTheme = StackLayoutThemeClass;
 
-export const createStackLayoutTheme = (): StackLayoutTheme => {
-  const baseTheme = createBaseLayoutTheme();
-
-  return {
-    ...baseTheme,
-  };
-};
+// Re-export the createStackLayoutTheme function from StackLayoutThemeClass
+export const createStackLayoutTheme = StackLayoutThemeClass.createStackLayoutTheme;

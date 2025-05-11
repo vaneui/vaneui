@@ -1,67 +1,13 @@
-import { GridProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
-import {
-  ComponentTheme,
-  VariantAppearance,
-  createVariantAppearance,
-  makeSimpleStyleVariants,
-  defaultTypographyTheme,
-  makeSizeVariant
-} from "./componentTheme";
-import { createBaseLayoutTheme } from "./baseLayoutTheme";
-import { SizeKey } from "../props/propKeys";
+import { GridThemeClass } from "./gridThemeClass";
 
-// Grid-specific size maps
-const gapMap: Record<SizeKey, string> = {
-  xs: 'gap-2',
-  sm: 'gap-3',
-  md: 'gap-4',
-  lg: 'gap-5',
-  xl: 'gap-6',
-};
-
-
-// Grid-specific theme type
-export type GridTheme = ComponentTheme<VariantAppearance, GridProps & ButtonStyleProps & NoBorderProps & NoShadowProps & NoRingProps>;
-
+// Re-export the GridThemeClass as GridTheme
+export type GridTheme = GridThemeClass;
 
 // Default grid theme
-export const defaultGridTheme: GridTheme = {
-  // Grid-specific base classes
-  base: "grid",
-
-  // Use only gap variant generator for grid
-  size: {
-    gap: makeSizeVariant(gapMap)
-  },
-
-  // Use common style variant generator
-  style: makeSimpleStyleVariants(createVariantAppearance),
-
-  // Use default typography settings
-  typography: defaultTypographyTheme,
-
-  // Use default layout theme
-  layout: createBaseLayoutTheme(),
-
-  // Grid-specific defaults
-  defaults: {
-    md: true,
-    outline: true,
-    transparent: true,
-    noBorder: true,
-    noShadow: true,
-    noRing: true,
-  },
-};
+export const defaultGridTheme: GridTheme = GridThemeClass.createDefaultGridTheme();
 
 // Grid3 specific theme
-export const grid3Theme: GridTheme = {
-  ...defaultGridTheme,
-  base: "grid grid-cols-1 md:grid-cols-3",
-};
+export const grid3Theme: GridTheme = GridThemeClass.createGrid3Theme();
 
 // Grid4 specific theme
-export const grid4Theme: GridTheme = {
-  ...defaultGridTheme,
-  base: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
-};
+export const grid4Theme: GridTheme = GridThemeClass.createGrid4Theme();

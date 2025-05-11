@@ -1,8 +1,7 @@
-import { BaseLayoutTheme, createBaseLayoutTheme } from "./baseLayoutTheme";
-import { SizeKey } from "../props/propKeys";
-import { roundedMap } from "../classes/badgeClasses";
+import { BadgeLayoutThemeClass } from "./badgeLayoutThemeClass";
 
-export type BadgeLayoutTheme = BaseLayoutTheme & {
-  radius?: Record<SizeKey, string>;
-};
+// Re-export the BadgeLayoutThemeClass as BadgeLayoutTheme
+export type BadgeLayoutTheme = BadgeLayoutThemeClass;
 
+// Re-export the createBadgeLayoutTheme function from BadgeLayoutThemeClass
+export const createBadgeLayoutTheme = BadgeLayoutThemeClass.createBadgeLayoutTheme;

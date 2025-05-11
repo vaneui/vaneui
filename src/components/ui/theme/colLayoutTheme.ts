@@ -1,17 +1,7 @@
-import { BaseLayoutTheme, createBaseLayoutTheme } from "./baseLayoutTheme";
+import { ColLayoutThemeClass } from "./colLayoutThemeClass";
 
-export type ColLayoutTheme = BaseLayoutTheme & {
-};
+// Re-export the ColLayoutThemeClass as ColLayoutTheme
+export type ColLayoutTheme = ColLayoutThemeClass;
 
-export const createColLayoutTheme = (): ColLayoutTheme => {
-  const baseTheme = createBaseLayoutTheme();
-
-  return {
-    ...baseTheme,
-    direction: {
-      ...baseTheme.direction,
-      column: "flex-col",
-      row: "flex-row",
-    },
-  };
-};
+// Re-export the createColLayoutTheme function from ColLayoutThemeClass
+export const createColLayoutTheme = ColLayoutThemeClass.createColLayoutTheme;

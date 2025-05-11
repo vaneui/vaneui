@@ -1,39 +1,7 @@
-import { BaseComponentProps, ButtonStyleProps, NoRingProps, NoShadowProps, NoBorderProps } from "../props/props";
-import { 
-  ComponentTheme, 
-  VariantAppearance, 
-  createVariantAppearance,
-  makeSimpleStyleVariants,
-  defaultTypographyTheme
-} from "./componentTheme";
-import { createBaseLayoutTheme } from "./baseLayoutTheme";
-import { SizeKey } from "../props/propKeys";
+import { DividerThemeClass } from "./dividerThemeClass";
 
-
-// Divider-specific theme type
-export type DividerTheme = ComponentTheme<VariantAppearance, BaseComponentProps & ButtonStyleProps & NoRingProps & NoShadowProps & NoBorderProps>;
+// Re-export the DividerThemeClass as DividerTheme
+export type DividerTheme = DividerThemeClass;
 
 // Default divider theme
-export const defaultDividerTheme: DividerTheme = {
-  // Divider-specific base classes
-  base: "bg-gray-200 h-px w-full",
-
-  // Use simple style variant generator
-  style: makeSimpleStyleVariants(createVariantAppearance),
-
-  // Use default typography settings
-  typography: defaultTypographyTheme,
-
-  // Use default layout theme
-  layout: createBaseLayoutTheme(),
-
-  // Divider-specific defaults
-  defaults: {
-    xs: true,
-    outline: true,
-    default: true,
-    noBorder: true,
-    noShadow: true,
-    noRing: true,
-  },
-};
+export const defaultDividerTheme: DividerTheme = DividerThemeClass.createDefaultDividerTheme();

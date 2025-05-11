@@ -1,16 +1,7 @@
-import { BaseLayoutTheme, createBaseLayoutTheme } from "./baseLayoutTheme";
-import { SizeKey } from "../props/propKeys";
+import { ChipLayoutThemeClass } from "./chipLayoutThemeClass";
 
-export type ChipLayoutTheme = BaseLayoutTheme & {
-  radius?: Record<SizeKey, string>;
-};
+// Re-export the ChipLayoutThemeClass as ChipLayoutTheme
+export type ChipLayoutTheme = ChipLayoutThemeClass;
 
-// Chip-specific rounded classes
-const roundedMap: Record<SizeKey, string> = {
-  xs: 'rounded-sm',
-  sm: 'rounded-md',
-  md: 'rounded-lg',
-  lg: 'rounded-xl',
-  xl: 'rounded-2xl',
-};
-
+// Re-export the createChipLayoutTheme function from ChipLayoutThemeClass
+export const createChipLayoutTheme = ChipLayoutThemeClass.createChipLayoutTheme;

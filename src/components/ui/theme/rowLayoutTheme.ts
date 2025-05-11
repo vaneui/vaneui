@@ -1,16 +1,7 @@
-import { BaseLayoutTheme, createBaseLayoutTheme } from "./baseLayoutTheme";
+import { RowLayoutThemeClass } from "./rowLayoutThemeClass";
 
-export type RowLayoutTheme = BaseLayoutTheme & {
-};
+// Re-export the RowLayoutThemeClass as RowLayoutTheme
+export type RowLayoutTheme = RowLayoutThemeClass;
 
-export const createRowLayoutTheme = (): RowLayoutTheme => {
-  const baseTheme = createBaseLayoutTheme();
-
-  return {
-    ...baseTheme,
-    direction: {
-      ...baseTheme.direction,
-      row: "flex-row",
-    },
-  };
-};
+// Re-export the createRowLayoutTheme function from RowLayoutThemeClass
+export const createRowLayoutTheme = RowLayoutThemeClass.createRowLayoutTheme;

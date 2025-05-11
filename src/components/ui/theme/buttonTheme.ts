@@ -1,43 +1,12 @@
 import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { ButtonProps } from "../props/props";
-import { 
-  VariantAppearance, 
-  createVariantAppearance,
-  makeStyleVariants,
-  defaultTypographyTheme,
-  makeSizeVariant
-} from "./componentTheme";
+import { defaultTypographyTheme } from "./typographyThemeClass";
+import { makeSizeVariant } from "./sizeTheme";
 import { StyleVariantComponentThemeClass } from "./componentThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
 import { StyleVariantAppearanceTheme, VariantAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { roundedMap } from "../classes/buttonClasses";
-
-// Helper function to convert VariantAppearance to VariantAppearanceTheme
-function convertToVariantAppearanceTheme(variant: VariantAppearance): VariantAppearanceTheme {
-  return new VariantAppearanceTheme(
-    variant.background,
-    variant.textColor,
-    variant.borderColor,
-    variant.ringColor
-  );
-}
-
-// Helper function to convert makeStyleVariants result to StyleVariantAppearanceTheme input
-function convertStyleVariants(
-  styleVariants: Record<string, Record<string, VariantAppearance>>
-): Partial<Record<string, Partial<Record<string, VariantAppearanceTheme>>>> {
-  const result: Partial<Record<string, Partial<Record<string, VariantAppearanceTheme>>>> = {};
-
-  for (const style in styleVariants) {
-    result[style] = {};
-    for (const appearance in styleVariants[style]) {
-      result[style]![appearance] = convertToVariantAppearanceTheme(styleVariants[style][appearance]);
-    }
-  }
-
-  return result;
-}
 
 // Button-specific theme type
 export type ButtonTheme = StyleVariantComponentThemeClass;
@@ -56,7 +25,7 @@ export const defaultButtonTheme: ButtonTheme = new StyleVariantComponentThemeCla
   ),
 
   // Style theme
-  new StyleVariantAppearanceTheme(convertStyleVariants(makeStyleVariants(createVariantAppearance))),
+  new StyleVariantAppearanceTheme(StyleVariantAppearanceTheme.makeStyleVariants(VariantAppearanceTheme.createVariantAppearanceTheme)),
 
   // Typography theme
   defaultTypographyTheme,

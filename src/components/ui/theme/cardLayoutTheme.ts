@@ -1,24 +1,7 @@
-import { BaseLayoutTheme, createBaseLayoutTheme } from "./baseLayoutTheme";
-import { SizeKey } from "../props/propKeys";
+import { CardLayoutThemeClass } from "./cardLayoutThemeClass";
 
-export type CardLayoutTheme = BaseLayoutTheme & {
-  radius?: Record<SizeKey, string>;
-};
+// Re-export the CardLayoutThemeClass as CardLayoutTheme
+export type CardLayoutTheme = CardLayoutThemeClass;
 
-// Card-specific rounded classes
-const roundedMap: Record<SizeKey, string> = {
-  xs: 'rounded-sm',
-  sm: 'rounded-md',
-  md: 'rounded-lg',
-  lg: 'rounded-xl',
-  xl: 'rounded-2xl',
-};
-
-export const createCardLayoutTheme = (): CardLayoutTheme => {
-  const baseTheme = createBaseLayoutTheme();
-
-  return {
-    ...baseTheme,
-    radius: roundedMap
-  };
-};
+// Re-export the createCardLayoutTheme function from CardLayoutThemeClass
+export const createCardLayoutTheme = CardLayoutThemeClass.createCardLayoutTheme;

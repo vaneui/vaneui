@@ -1,8 +1,7 @@
-import { BaseLayoutTheme, createBaseLayoutTheme } from "./baseLayoutTheme";
-import { SizeKey } from "../props/propKeys";
-import { roundedMap } from "../classes/buttonClasses";
+import { ButtonLayoutThemeClass } from "./buttonLayoutThemeClass";
 
-export type ButtonLayoutTheme = BaseLayoutTheme & {
-  radius?: Record<SizeKey, string>;
-};
+// Re-export the ButtonLayoutThemeClass as ButtonLayoutTheme
+export type ButtonLayoutTheme = ButtonLayoutThemeClass;
 
+// Re-export the createButtonLayoutTheme function from ButtonLayoutThemeClass
+export const createButtonLayoutTheme = ButtonLayoutThemeClass.createButtonLayoutTheme;
