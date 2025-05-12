@@ -5,7 +5,7 @@ import { SimpleAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { GridProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
-import { VariantAppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme } from "./appearanceThemeClass";
 import { SizeKey } from "../props/propKeys";
 
 /**
@@ -30,17 +30,17 @@ export class GridTheme extends BaseTheme {
       undefined,
       undefined,
       undefined,
-      SizeTheme.makeSizeVariant({
+      {
         xs: 'gap-2',
         sm: 'gap-3',
         md: 'gap-4',
         lg: 'gap-5',
         xl: 'gap-6',
-      }));
+      });
     this.style = new SimpleAppearanceTheme(
       SimpleAppearanceTheme.makeSimpleStyleVariants(
         (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
-          return new VariantAppearanceTheme(
+          return new AppearanceTheme(
             {base: bgBase, hover: bgHover, active: bgActive},
             {base: textBase},
             {base: borderBase},

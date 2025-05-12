@@ -5,7 +5,7 @@ import { SimpleAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { StackProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps, NoPaddingProps } from "../props/props";
-import { VariantAppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme } from "./appearanceThemeClass";
 import { SizeKey } from "../props/propKeys";
 import { StackLayoutThemeClass } from "./stackLayoutThemeClass";
 
@@ -103,23 +103,17 @@ export class StackThemeClass extends BaseTheme {
 
     // Create size theme with stack-specific maps
     const sizeTheme = new SizeTheme(
-      SizeTheme.makeSizeVariant(pxMap),
-      SizeTheme.makeSizeVariant(pyMap),
-      SizeTheme.makeSizeVariant({
-        xs: '',
-        sm: '',
-        md: '',
-        lg: '',
-        xl: '',
-      }),
-      SizeTheme.makeSizeVariant(gapMap)
+      pxMap,
+      pyMap,
+      undefined,
+      gapMap
     );
 
     // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
     const styleTheme = new SimpleAppearanceTheme(
       SimpleAppearanceTheme.makeSimpleStyleVariants(
         (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
-          return new VariantAppearanceTheme(
+          return new AppearanceTheme(
             { base: bgBase, hover: bgHover, active: bgActive },
             { base: textBase },
             { base: borderBase },

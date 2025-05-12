@@ -12,24 +12,17 @@ export class SizeTheme extends BaseTheme {
   private text: Partial<Record<SizeKey, Record<Mode, string>>>;
   private gap: Partial<Record<SizeKey, Record<Mode, string>>>;
 
-  /**
-   * Create a new SizeTheme instance
-   * @param px Padding X classes by size and mode
-   * @param py Padding Y classes by size and mode
-   * @param text Text size classes by size and mode
-   * @param gap Gap classes by size and mode
-   */
   constructor(
-    px?: Record<SizeKey, Record<Mode, string>>,
-    py?: Record<SizeKey, Record<Mode, string>>,
-    text?: Record<SizeKey, Record<Mode, string>>,
-    gap?: Record<SizeKey, Record<Mode, string>>
+    px?: Record<SizeKey, string>,
+    py?: Record<SizeKey, string>,
+    text?: Record<SizeKey, string>,
+    gap?: Record<SizeKey, string>
   ) {
     super();
-    this.px = px || {};
-    this.py = py || {};
-    this.text = text || {};
-    this.gap = gap || {};
+    this.px = px ? SizeTheme.makeSizeVariant(px) : {};
+    this.py = py ? SizeTheme.makeSizeVariant(py) : {};
+    this.text = text ? SizeTheme.makeSizeVariant(text) :{};
+    this.gap = gap ? SizeTheme.makeSizeVariant(gap) : {};
   }
 
   /**

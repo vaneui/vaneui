@@ -1,11 +1,11 @@
 import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { TypographyThemeClass } from "./typographyThemeClass";
-import { makeSizeVariant } from "./sizeTheme";
 import { StyleVariantComponentThemeClass } from "./componentThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
-import { StyleVariantAppearanceTheme, VariantAppearanceTheme } from "./appearanceThemeClass";
+import { StyleAppearanceTheme, AppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { roundedMap } from "../classes/buttonClasses";
+import { textSizeClasses } from "../classes/typographyClasses";
 
 // Button-specific theme type
 export type ButtonTheme = StyleVariantComponentThemeClass;
@@ -17,14 +17,14 @@ export const defaultButtonTheme: ButtonTheme = new StyleVariantComponentThemeCla
 
   // Size theme
   new SizeTheme(
-    makeSizeVariant(pxMap),
-    makeSizeVariant(pyMap),
-    makeSizeVariant(textSizeMap),
-    makeSizeVariant(gapMap)
+    pxMap,
+    pyMap,
+    textSizeClasses,
+    gapMap
   ),
 
   // Style theme
-  new StyleVariantAppearanceTheme(StyleVariantAppearanceTheme.makeStyleVariants(VariantAppearanceTheme.createVariantAppearanceTheme)),
+  new StyleAppearanceTheme(StyleAppearanceTheme.makeStyleVariants(AppearanceTheme.createVariantAppearanceTheme)),
 
   // Typography theme
   TypographyThemeClass.createDefaultTypographyTheme(),

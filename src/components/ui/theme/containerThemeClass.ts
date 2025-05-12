@@ -5,7 +5,7 @@ import { SimpleAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { LayoutComponentProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
-import { VariantAppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme } from "./appearanceThemeClass";
 import { SizeKey } from "../props/propKeys";
 
 /**
@@ -94,29 +94,17 @@ export class ContainerThemeClass extends BaseTheme {
 
     // Create size theme with container-specific maps
     const sizeTheme = new SizeTheme(
-      SizeTheme.makeSizeVariant(widthMap), // TODO: change the logic
-      SizeTheme.makeSizeVariant({
-        xs: '',
-        sm: '',
-        md: '',
-        lg: '',
-        xl: '',
-      }),
-      SizeTheme.makeSizeVariant({
-        xs: '',
-        sm: '',
-        md: '',
-        lg: '',
-        xl: '',
-      }),
-      SizeTheme.makeSizeVariant(gapMap)
+      widthMap, // TODO: change the logic
+      undefined,
+      undefined,
+      gapMap
     );
 
     // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
     const styleTheme = new SimpleAppearanceTheme(
       SimpleAppearanceTheme.makeSimpleStyleVariants(
         (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
-          return new VariantAppearanceTheme(
+          return new AppearanceTheme(
             { base: bgBase, hover: bgHover, active: bgActive },
             { base: textBase },
             { base: borderBase },

@@ -7,7 +7,9 @@ import { TypographyThemeClass } from "./typographyThemeClass";
 import { SizeKey } from "../props/propKeys";
 import { CardProps } from "../props/props";
 import { CardLayoutThemeClass } from "./cardLayoutThemeClass";
-import { VariantAppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme } from "./appearanceThemeClass";
+import { gapMap, pxMap, pyMap } from "../classes/badgeClasses";
+import { textSizeClasses } from "../classes/typographyClasses";
 
 /**
  * Card theme class for handling card-specific styling
@@ -109,17 +111,17 @@ export class CardThemeClass extends BaseTheme {
 
     // Create size theme with card-specific maps
     const sizeTheme = new SizeTheme(
-      SizeTheme.makeSizeVariant(pxMap),
-      SizeTheme.makeSizeVariant(pyMap),
-      SizeTheme.makeSizeVariant(textSizeMap),
-      SizeTheme.makeSizeVariant(gapMap)
+      pxMap,
+      pyMap,
+      textSizeMap,
+      gapMap
     );
 
     // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
     const styleTheme = new SimpleAppearanceTheme(
       SimpleAppearanceTheme.makeSimpleStyleVariants(
         (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
-          return new VariantAppearanceTheme(
+          return new AppearanceTheme(
             { base: bgBase, hover: bgHover, active: bgActive },
             { base: textBase },
             { base: borderBase },

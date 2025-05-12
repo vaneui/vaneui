@@ -30,6 +30,7 @@ export interface ThemeProps {
   divider: DividerThemeClass;
   container: ContainerThemeClass;
   row: RowThemeClass;
+  col: ColThemeClass;
   stack: StackThemeClass;
   section: SectionTheme;
   pageTitle: TypographyComponentTheme;
@@ -41,7 +42,6 @@ export interface ThemeProps {
   list: TypographyComponentTheme;
   grid3: GridTheme;
   grid4: GridTheme;
-  col: ColThemeClass;
 }
 
 export const defaultTheme: ThemeProps = {
@@ -52,6 +52,7 @@ export const defaultTheme: ThemeProps = {
   divider: DividerThemeClass.createDefaultDividerTheme(),
   container: ContainerThemeClass.createDefaultContainerTheme(),
   row: RowThemeClass.createDefaultRowTheme(),
+  col: ColThemeClass.createDefaultColTheme(),
   stack: StackThemeClass.createDefaultStackTheme(),
   section: defaultSectionTheme,
   pageTitle: pageTitleTheme,
@@ -63,7 +64,6 @@ export const defaultTheme: ThemeProps = {
   list: listTheme,
   grid3: GridTheme.createGrid3Theme(),
   grid4: GridTheme.createGrid4Theme(),
-  col: ColThemeClass.createDefaultColTheme()
 }
 
 // Create the context with a default value

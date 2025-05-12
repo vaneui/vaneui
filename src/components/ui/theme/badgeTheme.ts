@@ -1,10 +1,9 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
 import { TypographyThemeClass } from "./typographyThemeClass";
-import { makeSizeVariant } from "./sizeTheme";
 import { StyleVariantComponentThemeClass } from "./componentThemeClass";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SizeTheme } from "./sizeThemeClass";
-import { StyleVariantAppearanceTheme, VariantAppearanceTheme } from "./appearanceThemeClass";
+import { StyleAppearanceTheme, AppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 
 // Badge-specific theme type
@@ -17,14 +16,14 @@ export const defaultBadgeTheme: BadgeTheme = new StyleVariantComponentThemeClass
 
   // Size theme
   new SizeTheme(
-    makeSizeVariant(pxMap),
-    makeSizeVariant(pyMap),
-    makeSizeVariant(textSizeClasses),
-    makeSizeVariant(gapMap)
+    pxMap,
+    pyMap,
+    textSizeClasses,
+    gapMap
   ),
 
   // Style theme
-  new StyleVariantAppearanceTheme(StyleVariantAppearanceTheme.makeStyleVariants(VariantAppearanceTheme.createVariantAppearanceTheme)),
+  new StyleAppearanceTheme(StyleAppearanceTheme.makeStyleVariants(AppearanceTheme.createVariantAppearanceTheme)),
 
   // Typography theme
   TypographyThemeClass.createDefaultTypographyTheme(),

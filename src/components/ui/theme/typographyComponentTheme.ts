@@ -2,7 +2,7 @@
 import { SimpleComponentThemeClass } from "./componentThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
-import { SimpleAppearanceTheme, VariantAppearanceTheme } from "./appearanceThemeClass";
+import { SimpleAppearanceTheme, AppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { SizeKey } from "../props/propKeys";
 import { textSizeClasses } from "../classes/typographyClasses";
@@ -23,14 +23,14 @@ export const createTypographyComponentTheme = (textSizeMap: Record<SizeKey, stri
   const sizeTheme = new SizeTheme(
     undefined, // px
     undefined, // py
-    SizeTheme.makeSizeVariant(textSizeMap), // text
+    textSizeMap, // text
     undefined  // gap
   );
 
   // Create appearance theme
   const styleTheme = SimpleAppearanceTheme.makeSimpleStyleVariants(
     (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => 
-      new VariantAppearanceTheme(
+      new AppearanceTheme(
         { base: bgBase, hover: bgHover, active: bgActive },
         { base: textBase, hover: '', active: '' },
         { base: borderBase, hover: '', active: '' },

@@ -101,23 +101,17 @@ export class SectionThemeClass extends BaseTheme {
 
     // Create size theme with section-specific maps
     const sizeTheme = new SizeTheme(
-      SizeTheme.makeSizeVariant(pxMap),
-      SizeTheme.makeSizeVariant(pyMap),
-      SizeTheme.makeSizeVariant({
-        xs: '',
-        sm: '',
-        md: '',
-        lg: '',
-        xl: '',
-      }),
-      SizeTheme.makeSizeVariant(gapMap)
+      pxMap,
+      pyMap,
+      undefined,
+      gapMap
     );
 
     // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
     const styleTheme = new SimpleAppearanceTheme(
       SimpleAppearanceTheme.makeSimpleStyleVariants(
         (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
-          return new VariantAppearanceTheme(
+          return new AppearanceTheme(
             { base: bgBase, hover: bgHover, active: bgActive },
             { base: textBase },
             { base: borderBase },
@@ -147,4 +141,4 @@ export class SectionThemeClass extends BaseTheme {
 }
 
 // Import VariantAppearanceTheme for the static method
-import { VariantAppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme } from "./appearanceThemeClass";

@@ -1,9 +1,8 @@
 import { SizeKey } from "../props/propKeys";
 import { TypographyThemeClass } from "./typographyThemeClass";
-import { makeSizeVariant } from "./sizeTheme";
 import { StyleVariantComponentThemeClass } from "./componentThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
-import { StyleVariantAppearanceTheme, VariantAppearanceTheme } from "./appearanceThemeClass";
+import { StyleAppearanceTheme, AppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 
 // Chip-specific size maps
@@ -59,14 +58,14 @@ export const defaultChipTheme: ChipTheme = new StyleVariantComponentThemeClass(
 
   // Size theme
   new SizeTheme(
-    makeSizeVariant(pxMap),
-    makeSizeVariant(pyMap),
-    makeSizeVariant(textSizeMap),
-    makeSizeVariant(gapMap)
+    pxMap,
+    pyMap,
+    textSizeMap,
+    gapMap
   ),
 
   // Style theme
-  new StyleVariantAppearanceTheme(StyleVariantAppearanceTheme.makeStyleVariants(VariantAppearanceTheme.createVariantAppearanceTheme)),
+  new StyleAppearanceTheme(StyleAppearanceTheme.makeStyleVariants(AppearanceTheme.createVariantAppearanceTheme)),
 
   // Typography theme
   TypographyThemeClass.createDefaultTypographyTheme(),

@@ -28,7 +28,7 @@ import {
 /**
  * Base appearance variant class
  */
-export class VariantAppearanceTheme extends BaseTheme {
+export class AppearanceTheme extends BaseTheme {
   background: Partial<Record<Mode, string>>;
   textColor: Partial<Record<Mode, string>>;
   borderColor: Partial<Record<Mode, string>>;
@@ -75,8 +75,8 @@ export class VariantAppearanceTheme extends BaseTheme {
     textBase: string,
     borderBase: string,
     ringBase: string
-  ): VariantAppearanceTheme {
-    return new VariantAppearanceTheme(
+  ): AppearanceTheme {
+    return new AppearanceTheme(
       { base: bgBase, hover: bgHover, active: bgActive },
       { base: textBase, hover: '', active: '' },
       { base: borderBase, hover: '', active: '' },
@@ -88,10 +88,10 @@ export class VariantAppearanceTheme extends BaseTheme {
 /**
  * Appearance theme class for components with style variants
  */
-export class StyleVariantAppearanceTheme extends BaseTheme {
-  private styleVariants: Partial<Record<StyleKey, Partial<Record<TextAppearanceKey, VariantAppearanceTheme>>>>;
+export class StyleAppearanceTheme extends BaseTheme {
+  private styleVariants: Partial<Record<StyleKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>>;
 
-  constructor(styleVariants: Partial<Record<StyleKey, Partial<Record<TextAppearanceKey, VariantAppearanceTheme>>>> = {}) {
+  constructor(styleVariants: Partial<Record<StyleKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>> = {}) {
     super();
     this.styleVariants = styleVariants;
   }
@@ -117,8 +117,8 @@ export class StyleVariantAppearanceTheme extends BaseTheme {
       textBase: string,
       borderBase: string,
       ringBase: string
-    ) => VariantAppearanceTheme
-  ): Record<StyleKey, Record<TextAppearanceKey, VariantAppearanceTheme>> {
+    ) => AppearanceTheme
+  ): Record<StyleKey, Record<TextAppearanceKey, AppearanceTheme>> {
     return STYLE_KEYS.reduce((styleAcc, styleKey) => {
       const isFilled = styleKey === 'filled';
 
@@ -139,10 +139,10 @@ export class StyleVariantAppearanceTheme extends BaseTheme {
           ringBaseSource[appearanceKey] ?? ''
         );
         return appearanceAcc;
-      }, {} as Record<TextAppearanceKey, VariantAppearanceTheme>);
+      }, {} as Record<TextAppearanceKey, AppearanceTheme>);
 
       return styleAcc;
-    }, {} as Record<StyleKey, Record<TextAppearanceKey, VariantAppearanceTheme>>);
+    }, {} as Record<StyleKey, Record<TextAppearanceKey, AppearanceTheme>>);
   }
 }
 
@@ -150,9 +150,9 @@ export class StyleVariantAppearanceTheme extends BaseTheme {
  * Simple appearance theme class for components without style variants
  */
 export class SimpleAppearanceTheme extends BaseTheme {
-  private variants: Partial<Record<TextAppearanceKey, VariantAppearanceTheme>>;
+  private variants: Partial<Record<TextAppearanceKey, AppearanceTheme>>;
 
-  constructor(variants: Partial<Record<TextAppearanceKey, VariantAppearanceTheme>> = {}) {
+  constructor(variants: Partial<Record<TextAppearanceKey, AppearanceTheme>> = {}) {
     super();
     this.variants = variants;
   }
@@ -177,9 +177,9 @@ export class SimpleAppearanceTheme extends BaseTheme {
       textBase: string,
       borderBase: string,
       ringBase: string
-    ) => VariantAppearanceTheme,
+    ) => AppearanceTheme,
     styleKey: StyleKey = 'outline' // Default to outline style
-  ): Record<TextAppearanceKey, VariantAppearanceTheme> {
+  ): Record<TextAppearanceKey, AppearanceTheme> {
     const isFilled = styleKey === 'filled';
 
     const bgBaseSource = isFilled ? filledBackgroundAppearanceClasses : backgroundAppearanceClasses;
@@ -199,6 +199,6 @@ export class SimpleAppearanceTheme extends BaseTheme {
         ringBaseSource[appearanceKey] ?? ''
       );
       return appearanceAcc;
-    }, {} as Record<TextAppearanceKey, VariantAppearanceTheme>);
+    }, {} as Record<TextAppearanceKey, AppearanceTheme>);
   }
 }

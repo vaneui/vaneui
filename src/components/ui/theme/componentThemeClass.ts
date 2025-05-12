@@ -1,7 +1,7 @@
 import { BaseTheme } from "./baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
-import { VariantAppearanceTheme, StyleVariantAppearanceTheme, SimpleAppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme, StyleAppearanceTheme, SimpleAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { StyleKey, TextAppearanceKey } from "../props/propKeys";
@@ -53,12 +53,12 @@ export class ComponentThemeClass extends BaseTheme {
  * Component theme class for components with style variants (button, chip, badge)
  */
 export class StyleVariantComponentThemeClass extends ComponentThemeClass {
-  style: StyleVariantAppearanceTheme;
+  style: StyleAppearanceTheme;
 
   constructor(
     base: string = '',
     size: SizeTheme = new SizeTheme(),
-    style: StyleVariantAppearanceTheme = new StyleVariantAppearanceTheme(),
+    style: StyleAppearanceTheme = new StyleAppearanceTheme(),
     typography: TypographyThemeClass = new TypographyThemeClass(),
     layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
     defaults: Record<string, any> = {}
