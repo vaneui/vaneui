@@ -1,6 +1,5 @@
 import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
-import { ButtonProps } from "../props/props";
-import { defaultTypographyTheme } from "./typographyThemeClass";
+import { TypographyThemeClass } from "./typographyThemeClass";
 import { makeSizeVariant } from "./sizeTheme";
 import { StyleVariantComponentThemeClass } from "./componentThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
@@ -28,7 +27,7 @@ export const defaultButtonTheme: ButtonTheme = new StyleVariantComponentThemeCla
   new StyleVariantAppearanceTheme(StyleVariantAppearanceTheme.makeStyleVariants(VariantAppearanceTheme.createVariantAppearanceTheme)),
 
   // Typography theme
-  defaultTypographyTheme,
+  TypographyThemeClass.createDefaultTypographyTheme(),
 
   // Layout theme
   (() => {

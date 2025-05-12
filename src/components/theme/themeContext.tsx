@@ -39,7 +39,6 @@ export interface ThemeProps {
   link: TypographyComponentTheme;
   listItem: TypographyComponentTheme;
   list: TypographyComponentTheme;
-  grid: GridTheme;
   grid3: GridTheme;
   grid4: GridTheme;
   col: ColThemeClass;
@@ -62,7 +61,6 @@ export const defaultTheme: ThemeProps = {
   link: linkTheme,
   listItem: listItemTheme,
   list: listTheme,
-  grid: GridTheme.createGridTheme(),
   grid3: GridTheme.createGrid3Theme(),
   grid4: GridTheme.createGrid4Theme(),
   col: ColThemeClass.createDefaultColTheme()

@@ -1,6 +1,5 @@
 import { SizeKey } from "../props/propKeys";
-import { TypographyComponentProps, ButtonStyleProps, ShapeProps, NoShadowProps } from "../props/props";
-import { defaultTypographyTheme } from "./typographyThemeClass";
+import { TypographyThemeClass } from "./typographyThemeClass";
 import { makeSizeVariant } from "./sizeTheme";
 import { StyleVariantComponentThemeClass } from "./componentThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
@@ -70,7 +69,7 @@ export const defaultChipTheme: ChipTheme = new StyleVariantComponentThemeClass(
   new StyleVariantAppearanceTheme(StyleVariantAppearanceTheme.makeStyleVariants(VariantAppearanceTheme.createVariantAppearanceTheme)),
 
   // Typography theme
-  defaultTypographyTheme,
+  TypographyThemeClass.createDefaultTypographyTheme(),
 
   // Layout theme
   (() => {

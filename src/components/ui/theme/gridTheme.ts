@@ -22,34 +22,43 @@ export class GridTheme extends BaseTheme {
   /**
    * Create a new GridThemeClass instance
    * @param base Base CSS classes
-   * @param size Size-related CSS classes
-   * @param style Style-related CSS classes
-   * @param typography Typography-related CSS classes
-   * @param layout Layout-related CSS classes
-   * @param defaults Default prop values
    */
-  constructor(
-    base: string = "grid",
-    size: SizeTheme = new SizeTheme(),
-    style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = new TypographyThemeClass(),
-    layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
-    defaults: Record<string, any> = {
+  constructor(base: string = "grid") {
+    super();
+    this.base = base;
+    this.size = new SizeTheme(
+      undefined,
+      undefined,
+      undefined,
+      SizeTheme.makeSizeVariant({
+        xs: 'gap-2',
+        sm: 'gap-3',
+        md: 'gap-4',
+        lg: 'gap-5',
+        xl: 'gap-6',
+      }));
+    this.style = new SimpleAppearanceTheme(
+      SimpleAppearanceTheme.makeSimpleStyleVariants(
+        (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
+          return new VariantAppearanceTheme(
+            {base: bgBase, hover: bgHover, active: bgActive},
+            {base: textBase},
+            {base: borderBase},
+            {base: ringBase}
+          );
+        }
+      )
+    );
+    this.typography = new TypographyThemeClass();
+    this.layout = BaseLayoutThemeClass.createBaseLayoutTheme();
+    this.defaults = {
       md: true,
       outline: true,
       transparent: true,
       noBorder: true,
       noShadow: true,
       noRing: true,
-    }
-  ) {
-    super();
-    this.base = base;
-    this.size = size;
-    this.style = style;
-    this.typography = typography;
-    this.layout = layout;
-    this.defaults = defaults;
+    };
   }
 
   /**
@@ -71,65 +80,16 @@ export class GridTheme extends BaseTheme {
   }
 
   /**
-   * Create a default grid theme with grid-specific size maps
-   */
-  static createGridTheme(baseClass: string = ""): GridTheme {
-    // Create size theme with grid-specific maps
-    const sizeTheme = new SizeTheme(
-      undefined,
-      undefined,
-      undefined,
-      SizeTheme.makeSizeVariant({
-        xs: 'gap-2',
-        sm: 'gap-3',
-        md: 'gap-4',
-        lg: 'gap-5',
-        xl: 'gap-6',
-      })
-    );
-
-    // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
-    const styleTheme = new SimpleAppearanceTheme(
-      SimpleAppearanceTheme.makeSimpleStyleVariants(
-        (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
-          return new VariantAppearanceTheme(
-            { base: bgBase, hover: bgHover, active: bgActive },
-            { base: textBase },
-            { base: borderBase },
-            { base: ringBase }
-          );
-        }
-      )
-    );
-
-    return new GridTheme(
-      baseClass,
-      sizeTheme,
-      styleTheme,
-      new TypographyThemeClass(),
-      BaseLayoutThemeClass.createBaseLayoutTheme(),
-      {
-        md: true,
-        outline: true,
-        transparent: true,
-        noBorder: true,
-        noShadow: true,
-        noRing: true,
-      }
-    );
-  }
-
-  /**
    * Create a grid3 theme with 3-column grid layout
    */
   static createGrid3Theme(): GridTheme {
-    return GridTheme.createGridTheme("grid grid-cols-1 md:grid-cols-3");
+    return new GridTheme("grid grid-cols-1 md:grid-cols-3");
   }
 
   /**
    * Create a grid4 theme with 4-column grid layout
    */
   static createGrid4Theme(): GridTheme {
-    return GridTheme.createGridTheme("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4");
+    return new GridTheme("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4");
   }
 }

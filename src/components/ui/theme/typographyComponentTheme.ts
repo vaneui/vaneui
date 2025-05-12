@@ -1,6 +1,6 @@
 
 import { SimpleComponentThemeClass } from "./componentThemeClass";
-import { defaultTypographyTheme } from "./typographyThemeClass";
+import { TypographyThemeClass } from "./typographyThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
 import { SimpleAppearanceTheme, VariantAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
@@ -42,7 +42,7 @@ export const createTypographyComponentTheme = (textSizeMap: Record<SizeKey, stri
     "text-balance", // base
     sizeTheme,
     new SimpleAppearanceTheme(styleTheme),
-    defaultTypographyTheme,
+    TypographyThemeClass.createDefaultTypographyTheme(),
     BaseLayoutThemeClass.createBaseLayoutTheme(),
     typographyThemeDefaults
   );

@@ -88,54 +88,9 @@ export class TypographyThemeClass extends BaseTheme {
   }
 
   /**
-   * Get font family classes for a specific font family
-   */
-  getFontFamilyClasses(fontFamily: FontFamilyKey): string {
-    return this.fontFamily[fontFamily] || '';
-  }
-
-  /**
-   * Get font weight classes for a specific font weight
-   */
-  getFontWeightClasses(fontWeight: FontWeightKey): string {
-    return this.fontWeight[fontWeight] || '';
-  }
-
-  /**
-   * Get font style classes for a specific font style
-   */
-  getFontStyleClasses(fontStyle: FontStyleKey): string {
-    return this.fontStyle[fontStyle] || '';
-  }
-
-  /**
-   * Get text decoration classes for a specific text decoration
-   */
-  getTextDecorationClasses(textDecoration: TextDecorationKey): string {
-    return this.textDecoration[textDecoration] || '';
-  }
-
-  /**
-   * Get text transform classes for a specific text transform
-   */
-  getTextTransformClasses(textTransform: TextTransformKey): string {
-    return this.textTransform[textTransform] || '';
-  }
-
-  /**
-   * Get text align classes for a specific text align
-   */
-  getTextAlignClasses(textAlign: TextAlignKey): string {
-    return this.textAlign[textAlign] || '';
-  }
-
-  /**
    * Create a default typography theme
    */
   static createDefaultTypographyTheme(): TypographyThemeClass {
     return new TypographyThemeClass();
   }
 }
-
-// Export the default typography theme instance
-export const defaultTypographyTheme = TypographyThemeClass.createDefaultTypographyTheme();
