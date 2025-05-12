@@ -22,57 +22,13 @@ export class CardThemeClass extends BaseTheme {
   /**
    * Create a new CardThemeClass instance
    * @param base Base CSS classes
-   * @param size Size-related CSS classes
-   * @param style Style-related CSS classes
-   * @param typography Typography-related CSS classes
-   * @param layout Layout-related CSS classes
-   * @param defaults Default prop values
    */
   constructor(
-    base: string = "flex overflow-hidden",
-    size: SizeTheme = new SizeTheme(),
-    style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
-    layout: BaseLayoutThemeClass = CardLayoutThemeClass.createCardLayoutTheme(),
-    defaults: Record<string, any> = {
-      md: true,
-      default: true,
-      sans: true,
-      normal: true,
-      column: true,
-    }
+    base: string = "flex overflow-hidden"
   ) {
     super();
     this.base = base;
-    this.size = size;
-    this.style = style;
-    this.typography = typography;
-    this.layout = layout;
-    this.defaults = defaults;
-  }
 
-  /**
-   * Get all CSS classes for the card based on props
-   * @param props Component props
-   * @param mode Current mode (base, hover, active)
-   * @returns CSS classes as a string
-   */
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
-    const classes = [
-      this.base,
-      this.size.getClasses(props, mode),
-      this.style.getClasses(props, mode),
-      this.typography.getClasses(props, mode),
-      this.layout.getClasses(props, mode)
-    ];
-
-    return classes.filter(Boolean).join(' ');
-  }
-
-  /**
-   * Create a default card theme with card-specific size maps
-   */
-  static createDefaultCardTheme(): CardThemeClass {
     // Card-specific size maps
     const pxMap: Record<SizeKey, string> = {
       xs: 'px-3',
@@ -107,7 +63,7 @@ export class CardThemeClass extends BaseTheme {
     };
 
     // Create size theme with card-specific maps
-    const sizeTheme = new SizeTheme(
+    this.size = new SizeTheme(
       pxMap,
       pyMap,
       textSizeMap,
@@ -115,7 +71,7 @@ export class CardThemeClass extends BaseTheme {
     );
 
     // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
-    const styleTheme = new SimpleAppearanceTheme(
+    this.style = new SimpleAppearanceTheme(
       SimpleAppearanceTheme.makeSimpleStyleVariants(
         (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
           return new AppearanceTheme(
@@ -128,19 +84,41 @@ export class CardThemeClass extends BaseTheme {
       )
     );
 
+    this.typography = TypographyThemeClass.createDefaultTypographyTheme();
+    this.layout = CardLayoutThemeClass.createCardLayoutTheme();
+    this.defaults = {
+      md: true,
+      default: true,
+      sans: true,
+      normal: true,
+      column: true,
+    };
+  }
+
+  /**
+   * Get all CSS classes for the card based on props
+   * @param props Component props
+   * @param mode Current mode (base, hover, active)
+   * @returns CSS classes as a string
+   */
+  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+    const classes = [
+      this.base,
+      this.size.getClasses(props, mode),
+      this.style.getClasses(props, mode),
+      this.typography.getClasses(props, mode),
+      this.layout.getClasses(props, mode)
+    ];
+
+    return classes.filter(Boolean).join(' ');
+  }
+
+  /**
+   * Create a default card theme with card-specific size maps
+   */
+  static createDefaultCardTheme(): CardThemeClass {
     return new CardThemeClass(
-      "flex overflow-hidden",
-      sizeTheme,
-      styleTheme,
-      TypographyThemeClass.createDefaultTypographyTheme(),
-      CardLayoutThemeClass.createCardLayoutTheme(),
-      {
-        md: true,
-        default: true,
-        sans: true,
-        normal: true,
-        column: true,
-      }
+      "flex overflow-hidden"
     );
   }
 }

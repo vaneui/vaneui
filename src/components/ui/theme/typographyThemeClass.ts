@@ -91,6 +91,13 @@ export class TypographyThemeClass extends BaseTheme {
    * Create a default typography theme
    */
   static createDefaultTypographyTheme(): TypographyThemeClass {
-    return TypographyThemeClass.createDefaultTypographyTheme();
+    return new TypographyThemeClass(
+      fontFamilyClasses,
+      fontWeightClasses,
+      fontStyleClasses,
+      textDecorationClasses,
+      textTransformClasses,
+      textAlignClasses
+    );
   }
 }

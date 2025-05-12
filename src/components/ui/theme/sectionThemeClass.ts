@@ -21,59 +21,13 @@ export class SectionThemeClass extends BaseTheme {
   /**
    * Create a new SectionThemeClass instance
    * @param base Base CSS classes
-   * @param size Size-related CSS classes
-   * @param style Style-related CSS classes
-   * @param typography Typography-related CSS classes
-   * @param layout Layout-related CSS classes
-   * @param defaults Default prop values
    */
   constructor(
-    base: string = "w-full flex flex-col",
-    size: SizeTheme = new SizeTheme(),
-    style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
-    layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
-    defaults: Record<string, any> = {
-      md: true,
-      outline: true,
-      default: true,
-      itemsStart: true,
-      noBorder: true,
-      noShadow: true,
-      noRing: true,
-    }
+    base: string = "w-full flex flex-col"
   ) {
     super();
     this.base = base;
-    this.size = size;
-    this.style = style;
-    this.typography = typography;
-    this.layout = layout;
-    this.defaults = defaults;
-  }
 
-  /**
-   * Get all CSS classes for the section based on props
-   * @param props Component props
-   * @param mode Current mode (base, hover, active)
-   * @returns CSS classes as a string
-   */
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
-    const classes = [
-      this.base,
-      this.size.getClasses(props, mode),
-      this.style.getClasses(props, mode),
-      this.typography.getClasses(props, mode),
-      this.layout.getClasses(props, mode)
-    ];
-
-    return classes.filter(Boolean).join(' ');
-  }
-
-  /**
-   * Create a default section theme with section-specific size maps
-   */
-  static createDefaultSectionTheme(): SectionThemeClass {
     // Section-specific size maps
     const gapMap: Record<SizeKey, string> = {
       xs: 'gap-2',
@@ -100,7 +54,7 @@ export class SectionThemeClass extends BaseTheme {
     };
 
     // Create size theme with section-specific maps
-    const sizeTheme = new SizeTheme(
+    this.size = new SizeTheme(
       pxMap,
       pyMap,
       undefined,
@@ -108,7 +62,7 @@ export class SectionThemeClass extends BaseTheme {
     );
 
     // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
-    const styleTheme = new SimpleAppearanceTheme(
+    this.style = new SimpleAppearanceTheme(
       SimpleAppearanceTheme.makeSimpleStyleVariants(
         (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
           return new AppearanceTheme(
@@ -121,21 +75,43 @@ export class SectionThemeClass extends BaseTheme {
       )
     );
 
+    this.typography = TypographyThemeClass.createDefaultTypographyTheme();
+    this.layout = BaseLayoutThemeClass.createBaseLayoutTheme();
+    this.defaults = {
+      md: true,
+      outline: true,
+      default: true,
+      itemsStart: true,
+      noBorder: true,
+      noShadow: true,
+      noRing: true,
+    };
+  }
+
+  /**
+   * Get all CSS classes for the section based on props
+   * @param props Component props
+   * @param mode Current mode (base, hover, active)
+   * @returns CSS classes as a string
+   */
+  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+    const classes = [
+      this.base,
+      this.size.getClasses(props, mode),
+      this.style.getClasses(props, mode),
+      this.typography.getClasses(props, mode),
+      this.layout.getClasses(props, mode)
+    ];
+
+    return classes.filter(Boolean).join(' ');
+  }
+
+  /**
+   * Create a default section theme with section-specific size maps
+   */
+  static createDefaultSectionTheme(): SectionThemeClass {
     return new SectionThemeClass(
-      "w-full flex flex-col",
-      sizeTheme,
-      styleTheme,
-      TypographyThemeClass.createDefaultTypographyTheme(),
-      BaseLayoutThemeClass.createBaseLayoutTheme(),
-      {
-        md: true,
-        outline: true,
-        default: true,
-        itemsStart: true,
-        noBorder: true,
-        noShadow: true,
-        noRing: true,
-      }
+      "w-full flex flex-col"
     );
   }
 }

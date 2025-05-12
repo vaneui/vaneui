@@ -23,34 +23,54 @@ export class ColThemeClass extends BaseTheme {
   /**
    * Create a new ColThemeClass instance
    * @param base Base CSS classes
-   * @param size Size-related CSS classes
-   * @param style Style-related CSS classes
-   * @param typography Typography-related CSS classes
-   * @param layout Layout-related CSS classes
-   * @param defaults Default prop values
    */
   constructor(
-    base: string = "flex flex-col",
-    size: SizeTheme = new SizeTheme(),
-    style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
-    layout: BaseLayoutThemeClass = ColLayoutThemeClass.createColLayoutTheme(),
-    defaults: Record<string, any> = {
+    base: string = "flex flex-col"
+  ) {
+    super();
+    this.base = base;
+
+    // Col-specific size maps
+    const gapMap: Record<SizeKey, string> = {
+      xs: 'gap-2',
+      sm: 'gap-3',
+      md: 'gap-4',
+      lg: 'gap-5',
+      xl: 'gap-6',
+    };
+
+    // Create size theme with col-specific maps
+    this.size = new SizeTheme(
+      undefined,
+      undefined,
+      undefined,
+      gapMap
+    );
+
+    // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
+    this.style = new SimpleAppearanceTheme(
+      SimpleAppearanceTheme.makeSimpleStyleVariants(
+        (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
+          return new AppearanceTheme(
+            { base: bgBase, hover: bgHover, active: bgActive },
+            { base: textBase },
+            { base: borderBase },
+            { base: ringBase }
+          );
+        }
+      )
+    );
+
+    this.typography = TypographyThemeClass.createDefaultTypographyTheme();
+    this.layout = ColLayoutThemeClass.createColLayoutTheme();
+    this.defaults = {
       md: true,
       outline: true,
       transparent: true,
       noBorder: true,
       noShadow: true,
       noRing: true,
-    }
-  ) {
-    super();
-    this.base = base;
-    this.size = size;
-    this.style = style;
-    this.typography = typography;
-    this.layout = layout;
-    this.defaults = defaults;
+    };
   }
 
   /**
@@ -75,51 +95,8 @@ export class ColThemeClass extends BaseTheme {
    * Create a default column theme with column-specific size maps
    */
   static createDefaultColTheme(): ColThemeClass {
-    // Col-specific size maps
-    const gapMap: Record<SizeKey, string> = {
-      xs: 'gap-2',
-      sm: 'gap-3',
-      md: 'gap-4',
-      lg: 'gap-5',
-      xl: 'gap-6',
-    };
-
-    // Create size theme with col-specific maps
-    const sizeTheme = new SizeTheme(
-      undefined,
-      undefined,
-      undefined,
-      gapMap
-    );
-
-    // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
-    const styleTheme = new SimpleAppearanceTheme(
-      SimpleAppearanceTheme.makeSimpleStyleVariants(
-        (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
-          return new AppearanceTheme(
-            { base: bgBase, hover: bgHover, active: bgActive },
-            { base: textBase },
-            { base: borderBase },
-            { base: ringBase }
-          );
-        }
-      )
-    );
-
     return new ColThemeClass(
-      "flex flex-col",
-      sizeTheme,
-      styleTheme,
-      TypographyThemeClass.createDefaultTypographyTheme(),
-      ColLayoutThemeClass.createColLayoutTheme(),
-      {
-        md: true,
-        outline: true,
-        transparent: true,
-        noBorder: true,
-        noShadow: true,
-        noRing: true,
-      }
+      "flex flex-col"
     );
   }
 }

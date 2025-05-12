@@ -20,34 +20,39 @@ export class DividerThemeClass extends BaseTheme {
   /**
    * Create a new DividerThemeClass instance
    * @param base Base CSS classes
-   * @param size Size-related CSS classes
-   * @param style Style-related CSS classes
-   * @param typography Typography-related CSS classes
-   * @param layout Layout-related CSS classes
-   * @param defaults Default prop values
    */
   constructor(
-    base: string = "bg-gray-200 h-px w-full",
-    size: SizeTheme = new SizeTheme(),
-    style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
-    layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
-    defaults: Record<string, any> = {
+    base: string = "bg-gray-200 h-px w-full"
+  ) {
+    super();
+    this.base = base;
+
+    this.size = new SizeTheme();
+
+    // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
+    this.style = new SimpleAppearanceTheme(
+      SimpleAppearanceTheme.makeSimpleStyleVariants(
+        (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
+          return new AppearanceTheme(
+            { base: bgBase, hover: bgHover, active: bgActive },
+            { base: textBase },
+            { base: borderBase },
+            { base: ringBase }
+          );
+        }
+      )
+    );
+
+    this.typography = TypographyThemeClass.createDefaultTypographyTheme();
+    this.layout = BaseLayoutThemeClass.createBaseLayoutTheme();
+    this.defaults = {
       xs: true,
       outline: true,
       default: true,
       noBorder: true,
       noShadow: true,
       noRing: true,
-    }
-  ) {
-    super();
-    this.base = base;
-    this.size = size;
-    this.style = style;
-    this.typography = typography;
-    this.layout = layout;
-    this.defaults = defaults;
+    };
   }
 
   /**
@@ -72,34 +77,8 @@ export class DividerThemeClass extends BaseTheme {
    * Create a default divider theme
    */
   static createDefaultDividerTheme(): DividerThemeClass {
-    // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
-    const styleTheme = new SimpleAppearanceTheme(
-      SimpleAppearanceTheme.makeSimpleStyleVariants(
-        (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
-          return new AppearanceTheme(
-            { base: bgBase, hover: bgHover, active: bgActive },
-            { base: textBase },
-            { base: borderBase },
-            { base: ringBase }
-          );
-        }
-      )
-    );
-
     return new DividerThemeClass(
-      "bg-gray-200 h-px w-full",
-      new SizeTheme(),
-      styleTheme,
-      TypographyThemeClass.createDefaultTypographyTheme(),
-      BaseLayoutThemeClass.createBaseLayoutTheme(),
-      {
-        xs: true,
-        outline: true,
-        default: true,
-        noBorder: true,
-        noShadow: true,
-        noRing: true,
-      }
+      "bg-gray-200 h-px w-full"
     );
   }
 }
