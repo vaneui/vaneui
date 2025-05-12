@@ -44,7 +44,7 @@ export class TypographyThemeClass extends BaseTheme {
    * @param textTransform Text transform classes
    * @param textAlign Text align classes
    */
-  constructor(
+  private constructor(
     fontFamily: Record<FontFamilyKey, string> = fontFamilyClasses,
     fontWeight: Record<FontWeightKey, string> = fontWeightClasses,
     fontStyle: Record<FontStyleKey, string> = fontStyleClasses,
