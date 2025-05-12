@@ -73,40 +73,19 @@ export class GridTheme extends BaseTheme {
   /**
    * Create a default grid theme with grid-specific size maps
    */
-  static createDefaultGridTheme(): GridTheme {
-    // Grid-specific size maps
-    const gapMap: Record<SizeKey, string> = {
-      xs: 'gap-2',
-      sm: 'gap-3',
-      md: 'gap-4',
-      lg: 'gap-5',
-      xl: 'gap-6',
-    };
-
+  static createGridTheme(baseClass: string = ""): GridTheme {
     // Create size theme with grid-specific maps
     const sizeTheme = new SizeTheme(
+      undefined,
+      undefined,
+      undefined,
       SizeTheme.makeSizeVariant({
-        xs: '',
-        sm: '',
-        md: '',
-        lg: '',
-        xl: '',
-      }),
-      SizeTheme.makeSizeVariant({
-        xs: '',
-        sm: '',
-        md: '',
-        lg: '',
-        xl: '',
-      }),
-      SizeTheme.makeSizeVariant({
-        xs: '',
-        sm: '',
-        md: '',
-        lg: '',
-        xl: '',
-      }),
-      SizeTheme.makeSizeVariant(gapMap)
+        xs: 'gap-2',
+        sm: 'gap-3',
+        md: 'gap-4',
+        lg: 'gap-5',
+        xl: 'gap-6',
+      })
     );
 
     // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
@@ -124,7 +103,7 @@ export class GridTheme extends BaseTheme {
     );
 
     return new GridTheme(
-      "grid",
+      baseClass,
       sizeTheme,
       styleTheme,
       new TypographyThemeClass(),
@@ -144,29 +123,13 @@ export class GridTheme extends BaseTheme {
    * Create a grid3 theme with 3-column grid layout
    */
   static createGrid3Theme(): GridTheme {
-    const defaultTheme = GridTheme.createDefaultGridTheme();
-    return new GridTheme(
-      "grid grid-cols-1 md:grid-cols-3",
-      defaultTheme.size,
-      defaultTheme.style,
-      defaultTheme.typography,
-      defaultTheme.layout,
-      defaultTheme.defaults
-    );
+    return GridTheme.createGridTheme("grid grid-cols-1 md:grid-cols-3");
   }
 
   /**
    * Create a grid4 theme with 4-column grid layout
    */
   static createGrid4Theme(): GridTheme {
-    const defaultTheme = GridTheme.createDefaultGridTheme();
-    return new GridTheme(
-      "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
-      defaultTheme.size,
-      defaultTheme.style,
-      defaultTheme.typography,
-      defaultTheme.layout,
-      defaultTheme.defaults
-    );
+    return GridTheme.createGridTheme("grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4");
   }
 }
