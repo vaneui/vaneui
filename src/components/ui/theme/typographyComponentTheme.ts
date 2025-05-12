@@ -1,4 +1,4 @@
-import { SimpleComponentThemeClass } from "./componentThemeClass";
+import { SimpleComponentTheme } from "./componentTheme";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -7,7 +7,7 @@ import { SizeKey } from "../props/propKeys";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 
-export type TypographyComponentTheme = SimpleComponentThemeClass;
+export type TypographyComponentTheme = SimpleComponentTheme;
 
 const typographyThemeDefaults = {
   md: true,
@@ -27,7 +27,7 @@ export const createTypographyComponentTheme = (textSizeMap: Record<SizeKey, stri
     undefined  // gap
   );
 
-  return new SimpleComponentThemeClass(
+  return new SimpleComponentTheme(
     "text-balance", // base
     sizeTheme,
     TypographyThemeClass.createDefaultTypographyTheme(),
@@ -47,7 +47,7 @@ export const pageTitleTheme: TypographyComponentTheme = (() => {
   });
 
   // Create a new instance with modified properties
-  return new SimpleComponentThemeClass(
+  return new SimpleComponentTheme(
     "text-balance tracking-tighter",
     theme.size,
     theme.typography,
@@ -67,7 +67,7 @@ export const sectionTitleTheme: TypographyComponentTheme = (() => {
   });
 
   // Create a new instance with modified properties
-  return new SimpleComponentThemeClass(
+  return new SimpleComponentTheme(
     "text-balance",
     theme.size,
     theme.typography,
@@ -87,7 +87,7 @@ export const titleTheme: TypographyComponentTheme = (() => {
   });
 
   // Create a new instance with modified properties
-  return new SimpleComponentThemeClass(
+  return new SimpleComponentTheme(
     "text-balance",
     theme.size,
     theme.typography,
@@ -101,7 +101,7 @@ export const textTheme: TypographyComponentTheme = (() => {
   const theme = createTypographyComponentTheme();
 
   // Create a new instance with modified properties
-  return new SimpleComponentThemeClass(
+  return new SimpleComponentTheme(
     "p-0 m-0",
     theme.size,
     theme.typography,
@@ -115,7 +115,7 @@ export const linkTheme: TypographyComponentTheme = (() => {
   const theme = createTypographyComponentTheme();
 
   // Create a new instance with modified properties
-  return new SimpleComponentThemeClass(
+  return new SimpleComponentTheme(
     "hover:underline",
     theme.size,
     theme.typography,
@@ -129,7 +129,7 @@ export const listItemTheme: TypographyComponentTheme = (() => {
   const theme = createTypographyComponentTheme();
 
   // Create a new instance with modified properties
-  return new SimpleComponentThemeClass(
+  return new SimpleComponentTheme(
     "",
     theme.size,
     theme.typography,
@@ -143,7 +143,7 @@ export const listTheme: TypographyComponentTheme = (() => {
   const theme = createTypographyComponentTheme();
 
   // Create a new instance with modified properties
-  return new SimpleComponentThemeClass(
+  return new SimpleComponentTheme(
     "list-disc list-inside",
     theme.size,
     theme.typography,

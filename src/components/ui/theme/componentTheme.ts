@@ -9,7 +9,7 @@ import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 /**
  * Base component theme class that combines all theme aspects
  */
-export class ComponentThemeClass extends BaseTheme {
+export class ComponentTheme extends BaseTheme {
   base: string;
   size: SizeTheme;
   typography: TypographyThemeClass;
@@ -52,7 +52,7 @@ export class ComponentThemeClass extends BaseTheme {
 /**
  * Component theme class for components with style variants (button, chip, badge)
  */
-export class StyleVariantComponentThemeClass extends ComponentThemeClass {
+export class StyleVariantComponentTheme extends ComponentTheme {
   style: StyleAppearanceTheme;
 
   constructor(
@@ -90,7 +90,7 @@ export class StyleVariantComponentThemeClass extends ComponentThemeClass {
 /**
  * Component theme class for components with simple appearance (no style variants)
  */
-export class SimpleComponentThemeClass extends ComponentThemeClass {
+export class SimpleComponentTheme extends ComponentTheme {
   style: SimpleAppearanceTheme;
 
   constructor(

@@ -1,6 +1,6 @@
 import { SizeKey } from "../props/propKeys";
 import { TypographyThemeClass } from "./typographyThemeClass";
-import { StyleVariantComponentThemeClass } from "./componentThemeClass";
+import { StyleVariantComponentTheme } from "./componentTheme";
 import { SizeTheme } from "./sizeThemeClass";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
@@ -50,10 +50,10 @@ const roundedMap: Record<SizeKey, string> = {
 
 
 // Chip-specific theme type
-export type ChipTheme = StyleVariantComponentThemeClass;
+export type ChipTheme = StyleVariantComponentTheme;
 
 // Default chip theme
-export const defaultChipTheme: ChipTheme = new StyleVariantComponentThemeClass(
+export const defaultChipTheme: ChipTheme = new StyleVariantComponentTheme(
   // Chip-specific base classes
   "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
 

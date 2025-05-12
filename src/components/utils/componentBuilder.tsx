@@ -3,7 +3,7 @@ import {
   BaseComponentProps,
 } from "../ui/props/props";
 import React from "react";
-import { ComponentThemeClass, StyleVariantComponentThemeClass, SimpleComponentThemeClass } from '../ui/theme/componentThemeClass';
+import { ComponentTheme, StyleVariantComponentTheme, SimpleComponentTheme } from '../ui/theme/componentTheme';
 import { BaseTheme } from '../ui/theme/baseTheme';
 import { useComponentClasses, ComponentProps } from '../ui/hooks/useComponentClasses';
 import { VariantAppearance } from "../ui/theme/commonTypes";
@@ -49,7 +49,7 @@ export class ComponentBuilder {
  */
 export function componentBuilder<T extends VariantAppearance, P extends ComponentProps, D extends Record<string, any> = {}>(
   props: P,
-  theme: ComponentThemeClass | StyleVariantComponentThemeClass | SimpleComponentThemeClass | BaseTheme,
+  theme: ComponentTheme | StyleVariantComponentTheme | SimpleComponentTheme | BaseTheme,
   propsToOmit: readonly string[] = []
 ): ComponentBuilder {
   const { cleanProps, tag, classes } = useComponentClasses(props, theme as BaseTheme, propsToOmit);

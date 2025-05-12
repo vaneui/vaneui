@@ -11,8 +11,8 @@ export { Mode } from "./components/ui/props/mode"
 
 // Common theme types
 export {
-  ComponentThemeClass
-} from "./components/ui/theme/componentThemeClass"
+  ComponentTheme
+} from "./components/ui/theme/componentTheme"
 
 // Button theme types
 export {

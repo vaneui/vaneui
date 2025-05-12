@@ -1,6 +1,6 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
 import { TypographyThemeClass } from "./typographyThemeClass";
-import { StyleVariantComponentThemeClass } from "./componentThemeClass";
+import { StyleVariantComponentTheme } from "./componentTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SizeTheme } from "./sizeThemeClass";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -8,10 +8,10 @@ import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 
 // Badge-specific theme type
-export type BadgeTheme = StyleVariantComponentThemeClass;
+export type BadgeTheme = StyleVariantComponentTheme;
 
 // Default badge theme
-export const defaultBadgeTheme: BadgeTheme = new StyleVariantComponentThemeClass(
+export const defaultBadgeTheme: BadgeTheme = new StyleVariantComponentTheme(
   // Badge-specific base classes
   "w-fit h-fit inline-flex items-center transition-all duration-200 whitespace-nowrap",
 

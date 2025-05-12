@@ -1,6 +1,6 @@
 import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { TypographyThemeClass } from "./typographyThemeClass";
-import { StyleVariantComponentThemeClass } from "./componentThemeClass";
+import { StyleVariantComponentTheme } from "./componentTheme";
 import { SizeTheme } from "./sizeThemeClass";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
@@ -9,10 +9,10 @@ import { textSizeClasses } from "../classes/typographyClasses";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 
 // Button-specific theme type
-export type ButtonTheme = StyleVariantComponentThemeClass;
+export type ButtonTheme = StyleVariantComponentTheme;
 
 // Default button theme
-export const defaultButtonTheme: ButtonTheme = new StyleVariantComponentThemeClass(
+export const defaultButtonTheme: ButtonTheme = new StyleVariantComponentTheme(
   // Button-specific base classes
   "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
 
