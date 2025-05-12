@@ -2,10 +2,11 @@ import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { StyleVariantComponentThemeClass } from "./componentThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
-import { StyleAppearanceTheme, AppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { roundedMap } from "../classes/buttonClasses";
 import { textSizeClasses } from "../classes/typographyClasses";
+import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 
 // Button-specific theme type
 export type ButtonTheme = StyleVariantComponentThemeClass;

@@ -1,15 +1,12 @@
 import { BaseTheme } from "./baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
-import { SimpleAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { SizeKey } from "../props/propKeys";
-import { CardProps } from "../props/props";
 import { CardLayoutThemeClass } from "./cardLayoutThemeClass";
-import { AppearanceTheme } from "./appearanceThemeClass";
-import { gapMap, pxMap, pyMap } from "../classes/badgeClasses";
-import { textSizeClasses } from "../classes/typographyClasses";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 
 /**
  * Card theme class for handling card-specific styling

@@ -1,11 +1,11 @@
 import { BaseTheme } from "./baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
-import { SimpleAppearanceTheme } from "./appearanceThemeClass";
+import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { RowProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
-import { AppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SizeKey } from "../props/propKeys";
 import { RowLayoutThemeClass } from "./rowLayoutThemeClass";
 

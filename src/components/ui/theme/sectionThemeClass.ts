@@ -1,11 +1,11 @@
 import { BaseTheme } from "./baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
-import { SimpleAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { SizeKey } from "../props/propKeys";
-import { LayoutComponentProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 
 /**
  * Section theme class for handling section-specific styling
@@ -139,6 +139,3 @@ export class SectionThemeClass extends BaseTheme {
     );
   }
 }
-
-// Import VariantAppearanceTheme for the static method
-import { AppearanceTheme } from "./appearanceThemeClass";

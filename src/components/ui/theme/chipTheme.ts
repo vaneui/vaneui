@@ -2,8 +2,9 @@ import { SizeKey } from "../props/propKeys";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { StyleVariantComponentThemeClass } from "./componentThemeClass";
 import { SizeTheme } from "./sizeThemeClass";
-import { StyleAppearanceTheme, AppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 
 // Chip-specific size maps
 const pxMap: Record<SizeKey, string> = {

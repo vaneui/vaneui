@@ -1,10 +1,10 @@
 import { BaseTheme } from "./baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
-import { AppearanceTheme, StyleAppearanceTheme, SimpleAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
-import { StyleKey, TextAppearanceKey } from "../props/propKeys";
+import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
+import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 
 /**
  * Base component theme class that combines all theme aspects

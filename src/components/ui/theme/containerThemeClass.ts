@@ -1,12 +1,11 @@
 import { BaseTheme } from "./baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
-import { SimpleAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
-import { LayoutComponentProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
-import { AppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SizeKey } from "../props/propKeys";
+import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 
 /**
  * Container theme class for handling container-specific styling

@@ -1,12 +1,10 @@
 import { BaseTheme } from "./baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
-import { SimpleAppearanceTheme } from "./appearanceThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
-import { GridProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
-import { AppearanceTheme } from "./appearanceThemeClass";
-import { SizeKey } from "../props/propKeys";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 
 /**
  * Grid theme class for handling grid-specific styling

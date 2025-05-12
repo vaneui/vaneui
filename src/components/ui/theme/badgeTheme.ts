@@ -3,8 +3,9 @@ import { TypographyThemeClass } from "./typographyThemeClass";
 import { StyleVariantComponentThemeClass } from "./componentThemeClass";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SizeTheme } from "./sizeThemeClass";
-import { StyleAppearanceTheme, AppearanceTheme } from "./appearanceThemeClass";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 
 // Badge-specific theme type
 export type BadgeTheme = StyleVariantComponentThemeClass;
