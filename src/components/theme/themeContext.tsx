@@ -13,7 +13,7 @@ import {
   listItemTheme, 
   listTheme 
 } from '../ui/theme/typographyComponentTheme';
-import { GridTheme, defaultGridTheme, grid3Theme, grid4Theme } from '../ui/theme/gridTheme';
+import { GridTheme } from '../ui/theme/gridTheme';
 import { CardThemeClass } from "../ui/theme/cardThemeClass";
 import { DividerThemeClass } from "../ui/theme/dividerThemeClass";
 import { ContainerThemeClass } from "../ui/theme/containerThemeClass";
@@ -62,9 +62,9 @@ export const defaultTheme: ThemeProps = {
   link: linkTheme,
   listItem: listItemTheme,
   list: listTheme,
-  grid: defaultGridTheme,
-  grid3: grid3Theme,
-  grid4: grid4Theme,
+  grid: GridTheme.createDefaultGridTheme(),
+  grid3: GridTheme.createGrid3Theme(),
+  grid4: GridTheme.createGrid4Theme(),
   col: ColThemeClass.createDefaultColTheme()
 }
 
