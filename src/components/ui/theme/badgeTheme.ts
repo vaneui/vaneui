@@ -24,7 +24,7 @@ export const defaultBadgeTheme: BadgeTheme = new StyleVariantComponentThemeClass
   ),
 
   // Style theme
-  new StyleAppearanceTheme(StyleAppearanceTheme.makeStyleVariants(AppearanceTheme.createVariantAppearanceTheme)),
+  new StyleAppearanceTheme(StyleAppearanceTheme.makeStyleVariants(AppearanceTheme.createAppearanceTheme)),
 
   // Typography theme
   TypographyThemeClass.createDefaultTypographyTheme(),

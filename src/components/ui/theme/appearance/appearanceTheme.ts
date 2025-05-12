@@ -68,7 +68,7 @@ export class AppearanceTheme extends BaseTheme {
    * @param ringBase Ring color base class
    * @returns A new VariantAppearanceTheme instance
    */
-  static createVariantAppearanceTheme(
+  static createAppearanceTheme(
     bgBase: string,
     bgHover: string,
     bgActive: string,

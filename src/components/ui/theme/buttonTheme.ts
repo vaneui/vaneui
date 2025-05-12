@@ -25,7 +25,7 @@ export const defaultButtonTheme: ButtonTheme = new StyleVariantComponentThemeCla
   ),
 
   // Style theme
-  new StyleAppearanceTheme(StyleAppearanceTheme.makeStyleVariants(AppearanceTheme.createVariantAppearanceTheme)),
+  new StyleAppearanceTheme(StyleAppearanceTheme.makeStyleVariants(AppearanceTheme.createAppearanceTheme)),
 
   // Typography theme
   TypographyThemeClass.createDefaultTypographyTheme(),
