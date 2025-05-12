@@ -96,13 +96,12 @@ export class SimpleComponentThemeClass extends ComponentThemeClass {
   constructor(
     base: string = '',
     size: SizeTheme = new SizeTheme(),
-    style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
     typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
     defaults: Record<string, any> = {}
   ) {
     super(base, size, typography, layout, defaults);
-    this.style = style;
+    this.style = SimpleAppearanceTheme.createDefaultStyle();
   }
 
   /**

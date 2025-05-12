@@ -45,18 +45,7 @@ export class ContainerThemeClass extends BaseTheme {
         xl: 'gap-10 max-lg:gap-9 max-md:gap-8',
       }
     );
-    this.style = new SimpleAppearanceTheme(
-      SimpleAppearanceTheme.makeSimpleStyleVariants(
-        (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
-          return new AppearanceTheme(
-            { base: bgBase, hover: bgHover, active: bgActive },
-            { base: textBase },
-            { base: borderBase },
-            { base: ringBase }
-          );
-        }
-      )
-    );
+    this.style = SimpleAppearanceTheme.createDefaultStyle();
     this.typography = TypographyThemeClass.createDefaultTypographyTheme();
     this.layout = BaseLayoutThemeClass.createBaseLayoutTheme();
     this.defaults = {

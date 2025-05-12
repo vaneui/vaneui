@@ -27,21 +27,9 @@ export const createTypographyComponentTheme = (textSizeMap: Record<SizeKey, stri
     undefined  // gap
   );
 
-  // Create appearance theme
-  const styleTheme = SimpleAppearanceTheme.makeSimpleStyleVariants(
-    (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => 
-      new AppearanceTheme(
-        { base: bgBase, hover: bgHover, active: bgActive },
-        { base: textBase, hover: '', active: '' },
-        { base: borderBase, hover: '', active: '' },
-        { base: ringBase, hover: '', active: '' }
-      )
-  );
-
   return new SimpleComponentThemeClass(
     "text-balance", // base
     sizeTheme,
-    new SimpleAppearanceTheme(styleTheme),
     TypographyThemeClass.createDefaultTypographyTheme(),
     BaseLayoutThemeClass.createBaseLayoutTheme(),
     typographyThemeDefaults
@@ -62,7 +50,6 @@ export const pageTitleTheme: TypographyComponentTheme = (() => {
   return new SimpleComponentThemeClass(
     "text-balance tracking-tighter",
     theme.size,
-    theme.style,
     theme.typography,
     theme.layout,
     { ...typographyThemeDefaults, semibold: true }
@@ -83,7 +70,6 @@ export const sectionTitleTheme: TypographyComponentTheme = (() => {
   return new SimpleComponentThemeClass(
     "text-balance",
     theme.size,
-    theme.style,
     theme.typography,
     theme.layout,
     { ...typographyThemeDefaults, semibold: true }
@@ -104,7 +90,6 @@ export const titleTheme: TypographyComponentTheme = (() => {
   return new SimpleComponentThemeClass(
     "text-balance",
     theme.size,
-    theme.style,
     theme.typography,
     theme.layout,
     { ...typographyThemeDefaults, semibold: true }
@@ -119,7 +104,6 @@ export const textTheme: TypographyComponentTheme = (() => {
   return new SimpleComponentThemeClass(
     "p-0 m-0",
     theme.size,
-    theme.style,
     theme.typography,
     theme.layout,
     { ...typographyThemeDefaults, secondary: true }
@@ -134,7 +118,6 @@ export const linkTheme: TypographyComponentTheme = (() => {
   return new SimpleComponentThemeClass(
     "hover:underline",
     theme.size,
-    theme.style,
     theme.typography,
     theme.layout,
     { ...typographyThemeDefaults, link: true }
@@ -149,7 +132,6 @@ export const listItemTheme: TypographyComponentTheme = (() => {
   return new SimpleComponentThemeClass(
     "",
     theme.size,
-    theme.style,
     theme.typography,
     theme.layout,
     { ...typographyThemeDefaults }
@@ -164,7 +146,6 @@ export const listTheme: TypographyComponentTheme = (() => {
   return new SimpleComponentThemeClass(
     "list-disc list-inside",
     theme.size,
-    theme.style,
     theme.typography,
     theme.layout,
     { ...typographyThemeDefaults }

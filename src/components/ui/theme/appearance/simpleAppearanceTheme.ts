@@ -47,6 +47,25 @@ export class SimpleAppearanceTheme extends BaseTheme {
   }
 
   /**
+   * Creates a default style with standard AppearanceTheme configuration
+   * @returns A new SimpleAppearanceTheme instance
+   */
+  static createDefaultStyle(): SimpleAppearanceTheme {
+    return new SimpleAppearanceTheme(
+      SimpleAppearanceTheme.makeSimpleStyleVariants(
+        (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
+          return new AppearanceTheme(
+            { base: bgBase, hover: bgHover, active: bgActive },
+            { base: textBase },
+            { base: borderBase },
+            { base: ringBase }
+          );
+        }
+      )
+    );
+  }
+
+  /**
    * Create simple style variants for components without style variants
    */
   static makeSimpleStyleVariants(
@@ -57,26 +76,16 @@ export class SimpleAppearanceTheme extends BaseTheme {
       textBase: string,
       borderBase: string,
       ringBase: string
-    ) => AppearanceTheme,
-    styleKey: StyleKey = 'outline' // Default to outline style
+    ) => AppearanceTheme
   ): Record<TextAppearanceKey, AppearanceTheme> {
-    const isFilled = styleKey === 'filled';
-
-    const bgBaseSource = isFilled ? filledBackgroundAppearanceClasses : backgroundAppearanceClasses;
-    const bgHoverSource = isFilled ? filledHoverBackgroundAppearanceClasses : hoverBackgroundAppearanceClasses;
-    const bgActiveSource = isFilled ? filledActiveBackgroundAppearanceClasses : activeBackgroundAppearanceClasses;
-    const textBaseSource = isFilled ? filledTextAppearanceClasses : textAppearanceClasses;
-    const borderBaseSource = isFilled ? filledBorderAppearanceClasses : borderAppearanceClasses;
-    const ringBaseSource = isFilled ? filledRingAppearanceClasses : ringAppearanceClasses;
-
     return TEXT_APPEARANCE_KEYS.reduce((appearanceAcc, appearanceKey) => {
       appearanceAcc[appearanceKey] = variantFactory(
-        bgBaseSource[appearanceKey] ?? '',
-        bgHoverSource[appearanceKey] ?? '',
-        bgActiveSource[appearanceKey] ?? '',
-        textBaseSource[appearanceKey] ?? '',
-        borderBaseSource[appearanceKey] ?? '',
-        ringBaseSource[appearanceKey] ?? ''
+        backgroundAppearanceClasses[appearanceKey] ?? '',
+        hoverBackgroundAppearanceClasses[appearanceKey] ?? '',
+        activeBackgroundAppearanceClasses[appearanceKey] ?? '',
+        textAppearanceClasses[appearanceKey] ?? '',
+        borderAppearanceClasses[appearanceKey] ?? '',
+        ringAppearanceClasses[appearanceKey] ?? ''
       );
       return appearanceAcc;
     }, {} as Record<TextAppearanceKey, AppearanceTheme>);

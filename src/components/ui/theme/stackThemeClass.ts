@@ -63,20 +63,7 @@ export class StackThemeClass extends BaseTheme {
       gapMap
     );
 
-    // Create style theme with SimpleAppearanceTheme.makeSimpleStyleVariants
-    this.style = new SimpleAppearanceTheme(
-      SimpleAppearanceTheme.makeSimpleStyleVariants(
-        (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
-          return new AppearanceTheme(
-            { base: bgBase, hover: bgHover, active: bgActive },
-            { base: textBase },
-            { base: borderBase },
-            { base: ringBase }
-          );
-        }
-      )
-    );
-
+    this.style = SimpleAppearanceTheme.createDefaultStyle();
     this.typography = TypographyThemeClass.createDefaultTypographyTheme();
     this.layout = StackLayoutThemeClass.createStackLayoutTheme();
     this.defaults = {
