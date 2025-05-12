@@ -5,6 +5,7 @@ import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { TypographyThemeClass } from "./typographyThemeClass";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 
 /**
  * Base component theme class that combines all theme aspects
@@ -94,11 +95,11 @@ export class SimpleComponentTheme extends ComponentTheme {
   style: SimpleAppearanceTheme;
 
   constructor(
-    base: string = '',
-    size: SizeTheme = new SizeTheme(),
-    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
-    layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
-    defaults: Record<string, any> = {}
+    base: string,
+    size: SizeTheme,
+    typography: TypographyThemeClass,
+    layout: BaseLayoutThemeClass,
+    defaults: Record<string, any>,
   ) {
     super(base, size, typography, layout, defaults);
     this.style = SimpleAppearanceTheme.createDefaultStyle();
@@ -122,4 +123,16 @@ export class SimpleComponentTheme extends ComponentTheme {
     return classes.filter(Boolean).join(' ');
   }
 
+  static createSimpleComponentTheme(
+    base: string = '',
+    size: SizeTheme = new SizeTheme(),
+    defaults: Record<string, any> = {}): SimpleComponentTheme {
+    return new SimpleComponentTheme(
+      base,
+      size,
+      TypographyThemeClass.createDefaultTypographyTheme(),
+      BaseLayoutThemeClass.createBaseLayoutTheme(),
+      defaults,
+    );
+  }
 }
