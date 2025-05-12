@@ -32,7 +32,7 @@ export class CardThemeClass extends BaseTheme {
     base: string = "flex overflow-hidden",
     size: SizeTheme = new SizeTheme(),
     style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = new TypographyThemeClass(),
+    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = CardLayoutThemeClass.createCardLayoutTheme(),
     defaults: Record<string, any> = {
       md: true,
@@ -132,7 +132,7 @@ export class CardThemeClass extends BaseTheme {
       "flex overflow-hidden",
       sizeTheme,
       styleTheme,
-      new TypographyThemeClass(),
+      TypographyThemeClass.createDefaultTypographyTheme(),
       CardLayoutThemeClass.createCardLayoutTheme(),
       {
         md: true,

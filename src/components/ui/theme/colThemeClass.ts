@@ -33,7 +33,7 @@ export class ColThemeClass extends BaseTheme {
     base: string = "flex flex-col",
     size: SizeTheme = new SizeTheme(),
     style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = new TypographyThemeClass(),
+    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = ColLayoutThemeClass.createColLayoutTheme(),
     defaults: Record<string, any> = {
       md: true,
@@ -110,7 +110,7 @@ export class ColThemeClass extends BaseTheme {
       "flex flex-col",
       sizeTheme,
       styleTheme,
-      new TypographyThemeClass(),
+      TypographyThemeClass.createDefaultTypographyTheme(),
       ColLayoutThemeClass.createColLayoutTheme(),
       {
         md: true,

@@ -19,7 +19,7 @@ export class ComponentThemeClass extends BaseTheme {
   constructor(
     base: string = '',
     size: SizeTheme = new SizeTheme(),
-    typography: TypographyThemeClass = new TypographyThemeClass(),
+    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
     defaults: Record<string, any> = {}
   ) {
@@ -59,7 +59,7 @@ export class StyleVariantComponentThemeClass extends ComponentThemeClass {
     base: string = '',
     size: SizeTheme = new SizeTheme(),
     style: StyleAppearanceTheme = new StyleAppearanceTheme(),
-    typography: TypographyThemeClass = new TypographyThemeClass(),
+    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
     defaults: Record<string, any> = {}
   ) {
@@ -97,7 +97,7 @@ export class SimpleComponentThemeClass extends ComponentThemeClass {
     base: string = '',
     size: SizeTheme = new SizeTheme(),
     style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = new TypographyThemeClass(),
+    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
     defaults: Record<string, any> = {}
   ) {

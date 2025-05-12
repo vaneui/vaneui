@@ -33,7 +33,7 @@ export class RowThemeClass extends BaseTheme {
     base: string = "flex flex-row",
     size: SizeTheme = new SizeTheme(),
     style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = new TypographyThemeClass(),
+    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = RowLayoutThemeClass.createRowLayoutTheme(),
     defaults: Record<string, any> = {
       md: true,
@@ -112,7 +112,7 @@ export class RowThemeClass extends BaseTheme {
       "flex flex-row",
       sizeTheme,
       styleTheme,
-      new TypographyThemeClass(),
+      TypographyThemeClass.createDefaultTypographyTheme(),
       RowLayoutThemeClass.createRowLayoutTheme(),
       {
         md: true,

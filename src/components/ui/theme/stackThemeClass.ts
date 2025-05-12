@@ -33,7 +33,7 @@ export class StackThemeClass extends BaseTheme {
     base: string = "flex",
     size: SizeTheme = new SizeTheme(),
     style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = new TypographyThemeClass(),
+    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = StackLayoutThemeClass.createStackLayoutTheme(),
     defaults: Record<string, any> = {
       md: true,
@@ -127,7 +127,7 @@ export class StackThemeClass extends BaseTheme {
       "flex",
       sizeTheme,
       styleTheme,
-      new TypographyThemeClass(),
+      TypographyThemeClass.createDefaultTypographyTheme(),
       StackLayoutThemeClass.createStackLayoutTheme(),
       {
         md: true,

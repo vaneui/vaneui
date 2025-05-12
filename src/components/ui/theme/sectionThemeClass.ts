@@ -31,7 +31,7 @@ export class SectionThemeClass extends BaseTheme {
     base: string = "w-full flex flex-col",
     size: SizeTheme = new SizeTheme(),
     style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = new TypographyThemeClass(),
+    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
     defaults: Record<string, any> = {
       md: true,
@@ -125,7 +125,7 @@ export class SectionThemeClass extends BaseTheme {
       "w-full flex flex-col",
       sizeTheme,
       styleTheme,
-      new TypographyThemeClass(),
+      TypographyThemeClass.createDefaultTypographyTheme(),
       BaseLayoutThemeClass.createBaseLayoutTheme(),
       {
         md: true,

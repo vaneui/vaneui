@@ -47,7 +47,7 @@ export class GridTheme extends BaseTheme {
         }
       )
     );
-    this.typography = new TypographyThemeClass();
+    this.typography = TypographyThemeClass.createDefaultTypographyTheme();
     this.layout = BaseLayoutThemeClass.createBaseLayoutTheme();
     this.defaults = {
       md: true,

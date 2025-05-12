@@ -30,7 +30,7 @@ export class DividerThemeClass extends BaseTheme {
     base: string = "bg-gray-200 h-px w-full",
     size: SizeTheme = new SizeTheme(),
     style: SimpleAppearanceTheme = new SimpleAppearanceTheme(),
-    typography: TypographyThemeClass = new TypographyThemeClass(),
+    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
     defaults: Record<string, any> = {
       xs: true,
@@ -90,7 +90,7 @@ export class DividerThemeClass extends BaseTheme {
       "bg-gray-200 h-px w-full",
       new SizeTheme(),
       styleTheme,
-      new TypographyThemeClass(),
+      TypographyThemeClass.createDefaultTypographyTheme(),
       BaseLayoutThemeClass.createBaseLayoutTheme(),
       {
         xs: true,
