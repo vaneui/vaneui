@@ -1,8 +1,8 @@
 import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
-import { SizeTheme } from "./sizeThemeClass";
+import { SizeTheme } from "./sizeTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
-import { BaseLayoutTheme } from "./baseLayoutTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { TypographyTheme } from "./typographyTheme";
 import { RowProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";

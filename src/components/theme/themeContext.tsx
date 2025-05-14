@@ -16,7 +16,7 @@ import {
 import { GridTheme } from '../ui/theme/gridTheme';
 import { CardTheme } from "../ui/theme/cardTheme";
 import { DividerThemeClass } from "../ui/theme/dividerThemeClass";
-import { ContainerThemeClass } from "../ui/theme/containerThemeClass";
+import { ContainerTheme } from "../ui/theme/containerTheme";
 import { RowThemeClass } from "../ui/theme/rowThemeClass";
 import { StackThemeClass } from "../ui/theme/stackThemeClass";
 import { ColTheme } from "../ui/theme/colTheme";
@@ -28,7 +28,7 @@ export interface ThemeProps {
   card: CardTheme;
   chip: ChipTheme;
   divider: DividerThemeClass;
-  container: ContainerThemeClass;
+  container: ContainerTheme;
   row: RowThemeClass;
   col: ColTheme;
   stack: StackThemeClass;
@@ -50,7 +50,7 @@ export const defaultTheme: ThemeProps = {
   card: CardTheme.createDefaultCardTheme(),
   chip: defaultChipTheme,
   divider: DividerThemeClass.createDefaultDividerTheme(),
-  container: ContainerThemeClass.createDefaultContainerTheme(),
+  container: ContainerTheme.createDefaultContainerTheme(),
   row: RowThemeClass.createDefaultRowTheme(),
   col: ColTheme.createDefaultColTheme(),
   stack: StackThemeClass.createDefaultStackTheme(),

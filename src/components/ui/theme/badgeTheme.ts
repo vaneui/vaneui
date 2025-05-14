@@ -1,9 +1,9 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
 import { TypographyTheme } from "./typographyTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
-import { SizeTheme } from "./sizeThemeClass";
+import { SizeTheme } from "./sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { BaseLayoutTheme } from "./baseLayoutTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
 

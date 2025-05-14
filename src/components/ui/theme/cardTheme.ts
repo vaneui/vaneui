@@ -1,10 +1,10 @@
 import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
-import { SizeTheme } from "./sizeThemeClass";
-import { BaseLayoutTheme } from "./baseLayoutTheme";
+import { SizeTheme } from "./sizeTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { TypographyTheme } from "./typographyTheme";
 import { SizeKey } from "../props/propKeys";
-import { CardLayoutTheme } from "./cardLayoutTheme";
+import { CardLayoutTheme } from "./layout/cardLayoutTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 
 /**

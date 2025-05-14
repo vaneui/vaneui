@@ -1,5 +1,5 @@
 import { BaseLayoutTheme } from "./baseLayoutTheme";
-import { SizeKey } from "../props/propKeys";
+import { SizeKey } from "../../props/propKeys";
 
 /**
  * Card layout theme class for handling card-specific layout styling

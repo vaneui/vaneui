@@ -1,8 +1,8 @@
 import { SizeKey } from "../props/propKeys";
 import { TypographyTheme } from "./typographyTheme";
-import { SizeTheme } from "./sizeThemeClass";
+import { SizeTheme } from "./sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { BaseLayoutTheme } from "./baseLayoutTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
 

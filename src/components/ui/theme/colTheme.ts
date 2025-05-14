@@ -1,13 +1,13 @@
 import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
-import { SizeTheme } from "./sizeThemeClass";
+import { SizeTheme } from "./sizeTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
-import { BaseLayoutTheme } from "./baseLayoutTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { TypographyTheme } from "./typographyTheme";
 import { ColProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SizeKey } from "../props/propKeys";
-import { ColLayoutTheme } from "./colLayoutTheme";
+import { ColLayoutTheme } from "./layout/colLayoutTheme";
 
 /**
  * Col theme class for handling column-specific styling

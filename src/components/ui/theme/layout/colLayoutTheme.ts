@@ -1,5 +1,5 @@
 import { BaseLayoutTheme } from "./baseLayoutTheme";
-import { DirectionKey } from "../props/propKeys";
+import { DirectionKey } from "../../props/propKeys";
 
 /**
  * Col layout theme class for handling column-specific layout styling

@@ -1,4 +1,4 @@
-import { BaseLayoutTheme } from "./baseLayoutTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 
 /**
  * Row layout theme class for handling row-specific layout styling

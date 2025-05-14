@@ -22,9 +22,7 @@ export function useComponentClasses<P extends ComponentProps>(
   propsToOmit: readonly string[] = []
 ) {
   // Use only the props to omit passed from the outside
-  const allPropsToOmit: readonly string[] = propsToOmit;
-
-  const cleanProps = omitProps(props, allPropsToOmit);
+  const cleanProps = omitProps(props, propsToOmit);
   const tag: string | undefined = props.tag;
 
   // Get classes for each mode

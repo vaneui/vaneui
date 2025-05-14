@@ -1,13 +1,13 @@
 import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
-import { SizeTheme } from "./sizeThemeClass";
+import { SizeTheme } from "./sizeTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
-import { BaseLayoutTheme } from "./baseLayoutTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { TypographyTheme } from "./typographyTheme";
 import { StackProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps, NoPaddingProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SizeKey } from "../props/propKeys";
-import { StackLayoutThemeClass } from "./stackLayoutThemeClass";
+import { StackLayoutThemeClass } from "./layout/stackLayoutThemeClass";
 
 /**
  * Stack theme class for handling stack-specific styling

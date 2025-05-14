@@ -6,7 +6,7 @@ import { Mode } from "../../props/mode";
  * Base appearance variant class
  */
 export class AppearanceTheme extends BaseTheme {
-  background: Partial<Record<Mode, string>>;
+  backgroundColor: Partial<Record<Mode, string>>;
   textColor: Partial<Record<Mode, string>>;
   borderColor: Partial<Record<Mode, string>>;
   ringColor: Partial<Record<Mode, string>>;
@@ -18,7 +18,7 @@ export class AppearanceTheme extends BaseTheme {
     ringColor: Partial<Record<Mode, string>> = {}
   ) {
     super();
-    this.background = background;
+    this.backgroundColor = background;
     this.textColor = textColor;
     this.borderColor = borderColor;
     this.ringColor = ringColor;
@@ -26,7 +26,7 @@ export class AppearanceTheme extends BaseTheme {
 
   getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
     const classes = [
-      this.background[mode] || '',
+      this.backgroundColor[mode] || '',
       this.textColor[mode] || '',
       this.borderColor[mode] || '',
       this.ringColor[mode] || ''

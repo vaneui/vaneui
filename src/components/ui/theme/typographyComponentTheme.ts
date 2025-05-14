@@ -1,7 +1,7 @@
 import { TypographyTheme } from "./typographyTheme";
-import { SizeTheme } from "./sizeThemeClass";
+import { SizeTheme } from "./sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { BaseLayoutTheme } from "./baseLayoutTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";

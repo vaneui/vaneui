@@ -1,8 +1,8 @@
 import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { TypographyTheme } from "./typographyTheme";
-import { SizeTheme } from "./sizeThemeClass";
+import { SizeTheme } from "./sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { BaseLayoutTheme } from "./baseLayoutTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { roundedMap } from "../classes/buttonClasses";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";

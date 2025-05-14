@@ -1,20 +1,20 @@
 import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
-import { SizeTheme } from "./sizeThemeClass";
-import { BaseLayoutTheme } from "./baseLayoutTheme";
+import { SizeTheme } from "./sizeTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { TypographyTheme } from "./typographyTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 
 /**
  * Container theme class for handling container-specific styling
  */
-export class ContainerThemeClass extends BaseTheme {
+export class ContainerTheme extends BaseTheme {
   base: string;
   size: SizeTheme;
   style: SimpleAppearanceTheme;
   typography: TypographyTheme;
   layout: BaseLayoutTheme;
-  defaults: Record<string, any>;
+  defaults: Record<string, boolean>;
 
   /**
    * Create a new ContainerThemeClass instance
@@ -78,8 +78,8 @@ export class ContainerThemeClass extends BaseTheme {
   /**
    * Create a default container theme with container-specific size maps
    */
-  static createDefaultContainerTheme(): ContainerThemeClass {
-    return new ContainerThemeClass(
+  static createDefaultContainerTheme(): ContainerTheme {
+    return new ContainerTheme(
       "flex flex-col mx-auto w-full",
     );
   }

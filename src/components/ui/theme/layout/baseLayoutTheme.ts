@@ -1,5 +1,5 @@
-import { BaseTheme } from "./common/baseTheme";
-import { Mode } from "../props/mode";
+import { BaseTheme } from "../common/baseTheme";
+import { Mode } from "../../props/mode";
 import {
   DirectionKey,
   HideKey, ItemsKey, JustifyKey,
@@ -9,7 +9,7 @@ import {
   ITEMS_KEYS, JUSTIFY_KEYS, WRAP_KEYS,
   BREAKPOINT_KEYS, DIRECTION_REVERSE_KEYS,
   SHAPE_KEYS, SIZE_KEYS
-} from "../props/propKeys";
+} from "../../props/propKeys";
 import {
   activeShadowClasses,
   borderModeClasses, directionClasses,
@@ -21,8 +21,8 @@ import {
   positionClasses,
   ringModeClasses, rowToColumnBreakpointClasses,
   shadowClasses, wrapClasses
-} from "../classes/layoutClasses";
-import { pickFirstKey, pickFirstKeyOptional } from "../../utils/componentUtils";
+} from "../../classes/layoutClasses";
+import { pickFirstKey, pickFirstKeyOptional } from "../../../utils/componentUtils";
 
 /**
  * Base layout theme class for handling layout-related CSS classes
