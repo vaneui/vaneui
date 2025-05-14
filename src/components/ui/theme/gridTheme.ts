@@ -2,7 +2,7 @@ import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeTheme";
 import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
-import { TypographyTheme } from "./typographyTheme";
+import { TypographyTheme } from "./typography/typographyTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 

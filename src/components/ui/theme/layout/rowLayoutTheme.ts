@@ -1,9 +1,9 @@
-import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 
 /**
  * Row layout theme class for handling row-specific layout styling
  */
-export class RowLayoutThemeClass extends BaseLayoutTheme {
+export class RowLayoutTheme extends BaseLayoutTheme {
   /**
    * Create a new RowLayoutThemeClass instance with extended direction properties
    */
@@ -22,12 +22,12 @@ export class RowLayoutThemeClass extends BaseLayoutTheme {
   /**
    * Create a row layout theme with row-specific direction classes
    */
-  static createRowLayoutTheme(): RowLayoutThemeClass {
+  static createRowLayoutTheme(): RowLayoutTheme {
     // Create base layout theme
     const baseTheme = BaseLayoutTheme.createBaseLayoutTheme();
 
     // Create row layout theme with extended direction
-    return new RowLayoutThemeClass(
+    return new RowLayoutTheme(
       baseTheme.hide,
       baseTheme.position,
       baseTheme.shadow,

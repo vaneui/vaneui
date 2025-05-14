@@ -1,6 +1,6 @@
 import { SimpleAppearanceTheme } from "../appearance/simpleAppearanceTheme";
 import { SizeTheme } from "../sizeTheme";
-import { TypographyTheme } from "../typographyTheme";
+import { TypographyTheme } from "../typography/typographyTheme";
 import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
 import { Mode } from "../../props/mode";
 import { BaseComponentTheme } from "./baseComponentTheme";
@@ -9,7 +9,7 @@ import { BaseComponentTheme } from "./baseComponentTheme";
  * Component theme class for components with simple appearance (no style variants)
  */
 export class SimpleComponentTheme extends BaseComponentTheme {
-  style: SimpleAppearanceTheme;
+  appearance: SimpleAppearanceTheme;
 
   constructor(
     base: string,
@@ -19,7 +19,7 @@ export class SimpleComponentTheme extends BaseComponentTheme {
     defaults: Record<string, boolean>,
   ) {
     super(base, size, typography, layout, defaults);
-    this.style = SimpleAppearanceTheme.createDefaultStyle();
+    this.appearance = SimpleAppearanceTheme.createDefaultStyle();
   }
 
   /**
@@ -32,7 +32,7 @@ export class SimpleComponentTheme extends BaseComponentTheme {
     const classes = [
       this.base,
       this.size.getClasses(props, mode),
-      this.style.getClasses(props, mode),
+      this.appearance.getClasses(props, mode),
       this.typography.getClasses(props, mode),
       this.layout.getClasses(props, mode)
     ];

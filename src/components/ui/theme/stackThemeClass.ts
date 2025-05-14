@@ -3,11 +3,11 @@ import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
-import { TypographyTheme } from "./typographyTheme";
+import { TypographyTheme } from "./typography/typographyTheme";
 import { StackProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps, NoPaddingProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SizeKey } from "../props/propKeys";
-import { StackLayoutThemeClass } from "./layout/stackLayoutThemeClass";
+import { StackLayoutTheme } from "./layout/stackLayoutTheme";
 
 /**
  * Stack theme class for handling stack-specific styling
@@ -65,7 +65,7 @@ export class StackThemeClass extends BaseTheme {
 
     this.style = SimpleAppearanceTheme.createDefaultStyle();
     this.typography = TypographyTheme.createDefaultTypographyTheme();
-    this.layout = StackLayoutThemeClass.createStackLayoutTheme();
+    this.layout = StackLayoutTheme.createStackLayoutTheme();
     this.defaults = {
       md: true,
       transparent: true,

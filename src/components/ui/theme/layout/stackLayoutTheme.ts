@@ -3,16 +3,16 @@ import { BaseLayoutTheme } from "./baseLayoutTheme";
 /**
  * Stack layout theme class for handling stack-specific layout styling
  */
-export class StackLayoutThemeClass extends BaseLayoutTheme {
+export class StackLayoutTheme extends BaseLayoutTheme {
   /**
    * Create a stack layout theme with default settings
    */
-  static createStackLayoutTheme(): StackLayoutThemeClass {
+  static createStackLayoutTheme(): StackLayoutTheme {
     // Create base layout theme
     const baseTheme = BaseLayoutTheme.createBaseLayoutTheme();
 
     // Create stack layout theme with base theme properties
-    return new StackLayoutThemeClass(
+    return new StackLayoutTheme(
       baseTheme.hide,
       baseTheme.position,
       baseTheme.shadow,

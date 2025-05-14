@@ -2,7 +2,6 @@ import React, { createContext, useContext } from 'react';
 import { ButtonTheme, defaultButtonTheme } from '../ui/theme/buttonTheme';
 import { BadgeTheme, defaultBadgeTheme } from '../ui/theme/badgeTheme';
 import { ChipTheme, defaultChipTheme } from '../ui/theme/chipTheme';
-import { SectionTheme, defaultSectionTheme } from '../ui/theme/sectionTheme';
 import { 
   TypographyComponentTheme, 
   pageTitleTheme, 
@@ -20,6 +19,7 @@ import { ContainerTheme } from "../ui/theme/containerTheme";
 import { RowThemeClass } from "../ui/theme/rowThemeClass";
 import { StackThemeClass } from "../ui/theme/stackThemeClass";
 import { ColTheme } from "../ui/theme/colTheme";
+import { SectionTheme } from "../ui/theme/sectionTheme";
 
 // Define the shape of our theme props
 export interface ThemeProps {
@@ -54,7 +54,7 @@ export const defaultTheme: ThemeProps = {
   row: RowThemeClass.createDefaultRowTheme(),
   col: ColTheme.createDefaultColTheme(),
   stack: StackThemeClass.createDefaultStackTheme(),
-  section: defaultSectionTheme,
+  section: SectionTheme.createDefaultSectionTheme(),
   pageTitle: pageTitleTheme,
   sectionTitle: sectionTitleTheme,
   title: titleTheme,

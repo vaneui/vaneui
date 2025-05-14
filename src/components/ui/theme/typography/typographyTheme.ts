@@ -1,5 +1,5 @@
-import { BaseTheme } from "./common/baseTheme";
-import { Mode } from "../props/mode";
+import { BaseTheme } from "../common/baseTheme";
+import { Mode } from "../../props/mode";
 import {
   FontFamilyKey,
   FontStyleKey,
@@ -13,7 +13,7 @@ import {
   TEXT_DECORATION_KEYS,
   TEXT_TRANSFORM_KEYS,
   TEXT_ALIGN_KEYS
-} from "../props/propKeys";
+} from "../../props/propKeys";
 import {
   fontFamilyClasses,
   fontStyleClasses,
@@ -21,8 +21,8 @@ import {
   textAlignClasses,
   textDecorationClasses,
   textTransformClasses
-} from "../classes/typographyClasses";
-import { pickFirstKey, pickFirstKeyOptional } from "../../utils/componentUtils";
+} from "../../classes/typographyClasses";
+import { pickFirstKey, pickFirstKeyOptional } from "../../../utils/componentUtils";
 
 /**
  * Typography theme class for handling typography-related CSS classes

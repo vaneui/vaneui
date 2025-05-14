@@ -1,5 +1,5 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
-import { TypographyTheme } from "./typographyTheme";
+import { TypographyTheme } from "./typography/typographyTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SizeTheme } from "./sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";

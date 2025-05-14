@@ -1,6 +1,6 @@
 import { StyleAppearanceTheme } from "../appearance/styleAppearanceTheme";
 import { SizeTheme } from "../sizeTheme";
-import { TypographyTheme } from "../typographyTheme";
+import { TypographyTheme } from "../typography/typographyTheme";
 import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
 import { Mode } from "../../props/mode";
 import { BaseComponentTheme } from "./baseComponentTheme";

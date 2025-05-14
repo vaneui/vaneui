@@ -2,7 +2,7 @@ import { BaseTheme } from "./baseTheme";
 import { Mode } from "../../props/mode";
 import { SizeTheme } from "../sizeTheme";
 import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
-import { TypographyTheme } from "../typographyTheme";
+import { TypographyTheme } from "../typography/typographyTheme";
 
 /**
  * Base component theme class that combines all theme aspects

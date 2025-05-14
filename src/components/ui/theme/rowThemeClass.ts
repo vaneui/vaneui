@@ -3,11 +3,11 @@ import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
-import { TypographyTheme } from "./typographyTheme";
+import { TypographyTheme } from "./typography/typographyTheme";
 import { RowProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SizeKey } from "../props/propKeys";
-import { RowLayoutThemeClass } from "./rowLayoutThemeClass";
+import { RowLayoutTheme } from "./layout/rowLayoutTheme";
 
 /**
  * Row theme class for handling row-specific styling
@@ -49,7 +49,7 @@ export class RowThemeClass extends BaseTheme {
 
     this.style = SimpleAppearanceTheme.createDefaultStyle();
     this.typography = TypographyTheme.createDefaultTypographyTheme();
-    this.layout = RowLayoutThemeClass.createRowLayoutTheme();
+    this.layout = RowLayoutTheme.createRowLayoutTheme();
     this.defaults = {
       md: true,
       outline: true,

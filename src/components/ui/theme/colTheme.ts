@@ -3,7 +3,7 @@ import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
-import { TypographyTheme } from "./typographyTheme";
+import { TypographyTheme } from "./typography/typographyTheme";
 import { ColProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SizeKey } from "../props/propKeys";
