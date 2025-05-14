@@ -2,7 +2,7 @@ import { BaseTheme } from "./baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
-import { TypographyThemeClass } from "./typographyThemeClass";
+import { TypographyTheme } from "./typographyTheme";
 import { SizeKey } from "../props/propKeys";
 import { CardLayoutThemeClass } from "./cardLayoutThemeClass";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -15,7 +15,7 @@ export class CardThemeClass extends BaseTheme {
   base: string;
   size: SizeTheme;
   style: SimpleAppearanceTheme;
-  typography: TypographyThemeClass;
+  typography: TypographyTheme;
   layout: BaseLayoutThemeClass;
   defaults: Record<string, any>;
 
@@ -71,7 +71,7 @@ export class CardThemeClass extends BaseTheme {
     );
 
     this.style = SimpleAppearanceTheme.createDefaultStyle();
-    this.typography = TypographyThemeClass.createDefaultTypographyTheme();
+    this.typography = TypographyTheme.createDefaultTypographyTheme();
     this.layout = CardLayoutThemeClass.createCardLayoutTheme();
     this.defaults = {
       md: true,

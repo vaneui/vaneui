@@ -6,8 +6,6 @@ import React from "react";
 import { ComponentTheme, StyleVariantComponentTheme, SimpleComponentTheme } from '../ui/theme/componentTheme';
 import { BaseTheme } from '../ui/theme/baseTheme';
 import { useComponentClasses, ComponentProps } from '../ui/hooks/useComponentClasses';
-import { VariantAppearance } from "../ui/theme/commonTypes";
-
 
 /**
  * ComponentBuilder class for building React components with chainable methods
@@ -47,7 +45,7 @@ export class ComponentBuilder {
  * Factory function that creates and returns a ComponentBuilder instance with component classes
  * This maintains backward compatibility with the existing code
  */
-export function componentBuilder<T extends VariantAppearance, P extends ComponentProps, D extends Record<string, any> = {}>(
+export function componentBuilder<P extends ComponentProps>(
   props: P,
   theme: ComponentTheme | StyleVariantComponentTheme | SimpleComponentTheme | BaseTheme,
   propsToOmit: readonly string[] = []

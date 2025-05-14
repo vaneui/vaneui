@@ -1,29 +1,6 @@
 import { BaseTheme } from "../baseTheme";
 import { Mode } from "../../props/mode";
-import { 
-  STYLE_KEYS, 
-  StyleKey, 
-  TEXT_APPEARANCE_KEYS, 
-  TextAppearanceKey 
-} from "../../props/propKeys";
-import { pickFirstKey } from "../../../utils/componentUtils";
-import { VariantAppearance } from "../commonTypes";
-import {
-  activeBackgroundAppearanceClasses,
-  backgroundAppearanceClasses,
-  borderAppearanceClasses,
-  filledActiveBackgroundAppearanceClasses,
-  filledBackgroundAppearanceClasses,
-  filledBorderAppearanceClasses,
-  filledHoverBackgroundAppearanceClasses,
-  filledRingAppearanceClasses,
-  hoverBackgroundAppearanceClasses,
-  ringAppearanceClasses,
-} from "../../classes/appearanceClasses";
-import {
-  filledTextAppearanceClasses,
-  textAppearanceClasses
-} from "../../classes/typographyClasses";
+
 
 /**
  * Base appearance variant class

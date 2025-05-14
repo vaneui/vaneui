@@ -7,7 +7,6 @@ import {
   TextAppearanceKey 
 } from "../../props/propKeys";
 import { pickFirstKey } from "../../../utils/componentUtils";
-import { VariantAppearance } from "../commonTypes";
 import {
   activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses,

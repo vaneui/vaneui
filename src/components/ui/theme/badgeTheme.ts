@@ -1,5 +1,5 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
-import { TypographyThemeClass } from "./typographyThemeClass";
+import { TypographyTheme } from "./typographyTheme";
 import { StyleVariantComponentTheme } from "./componentTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SizeTheme } from "./sizeThemeClass";
@@ -27,7 +27,7 @@ export const defaultBadgeTheme: BadgeTheme = new StyleVariantComponentTheme(
   new StyleAppearanceTheme(StyleAppearanceTheme.makeStyleVariants(AppearanceTheme.createAppearanceTheme)),
 
   // Typography theme
-  TypographyThemeClass.createDefaultTypographyTheme(),
+  TypographyTheme.createDefaultTypographyTheme(),
 
   // Layout theme
   (() => {

@@ -1,27 +1,26 @@
 import { SimpleComponentTheme } from "./componentTheme";
-import { TypographyThemeClass } from "./typographyThemeClass";
+import { TypographyTheme } from "./typographyTheme";
 import { SizeTheme } from "./sizeThemeClass";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
 import { SizeKey } from "../props/propKeys";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
+import { TypographyComponentProps } from "../props/props";
 
 export type TypographyComponentTheme = SimpleComponentTheme;
 
-const typographyThemeDefaults = {
+const typographyThemeDefaults: Partial<Record<keyof TypographyComponentProps, boolean>> = {
   md: true,
-  outline: true,
   default: true,
   sans: true,
   normal: true,
-  noShadow: true,
 };
 
 export const createTypographyComponentTheme = (
   base: string = "text-balance",
   textSizeMap: Record<SizeKey, string> = textSizeClasses,
-  defaults: Record<string, any> = typographyThemeDefaults,
+  defaults: Partial<Record<keyof TypographyComponentProps, boolean>> = typographyThemeDefaults,
 ): TypographyComponentTheme => {
   return SimpleComponentTheme.createSimpleComponentTheme(
     base,

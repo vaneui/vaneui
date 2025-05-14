@@ -2,7 +2,7 @@ import { BaseTheme } from "./baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
-import { TypographyThemeClass } from "./typographyThemeClass";
+import { TypographyTheme } from "./typographyTheme";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -13,14 +13,14 @@ import { AppearanceTheme } from "./appearance/appearanceTheme";
 export class ComponentTheme extends BaseTheme {
   base: string;
   size: SizeTheme;
-  typography: TypographyThemeClass;
+  typography: TypographyTheme;
   layout: BaseLayoutThemeClass;
   defaults: Record<string, any>;
 
   constructor(
     base: string = '',
     size: SizeTheme = new SizeTheme(),
-    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
+    typography: TypographyTheme = TypographyTheme.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
     defaults: Record<string, any> = {}
   ) {
@@ -60,7 +60,7 @@ export class StyleVariantComponentTheme extends ComponentTheme {
     base: string = '',
     size: SizeTheme = new SizeTheme(),
     style: StyleAppearanceTheme = new StyleAppearanceTheme(),
-    typography: TypographyThemeClass = TypographyThemeClass.createDefaultTypographyTheme(),
+    typography: TypographyTheme = TypographyTheme.createDefaultTypographyTheme(),
     layout: BaseLayoutThemeClass = BaseLayoutThemeClass.createBaseLayoutTheme(),
     defaults: Record<string, any> = {}
   ) {
@@ -97,7 +97,7 @@ export class SimpleComponentTheme extends ComponentTheme {
   constructor(
     base: string,
     size: SizeTheme,
-    typography: TypographyThemeClass,
+    typography: TypographyTheme,
     layout: BaseLayoutThemeClass,
     defaults: Record<string, any>,
   ) {
@@ -130,7 +130,7 @@ export class SimpleComponentTheme extends ComponentTheme {
     return new SimpleComponentTheme(
       base,
       size,
-      TypographyThemeClass.createDefaultTypographyTheme(),
+      TypographyTheme.createDefaultTypographyTheme(),
       BaseLayoutThemeClass.createBaseLayoutTheme(),
       defaults,
     );

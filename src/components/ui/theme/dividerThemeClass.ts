@@ -2,7 +2,7 @@ import { BaseTheme } from "./baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
-import { TypographyThemeClass } from "./typographyThemeClass";
+import { TypographyTheme } from "./typographyTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 
@@ -13,7 +13,7 @@ export class DividerThemeClass extends BaseTheme {
   base: string;
   size: SizeTheme;
   style: SimpleAppearanceTheme;
-  typography: TypographyThemeClass;
+  typography: TypographyTheme;
   layout: BaseLayoutThemeClass;
   defaults: Record<string, any>;
 
@@ -31,7 +31,7 @@ export class DividerThemeClass extends BaseTheme {
 
     this.style = SimpleAppearanceTheme.createDefaultStyle();
 
-    this.typography = TypographyThemeClass.createDefaultTypographyTheme();
+    this.typography = TypographyTheme.createDefaultTypographyTheme();
     this.layout = BaseLayoutThemeClass.createBaseLayoutTheme();
     this.defaults = {
       xs: true,

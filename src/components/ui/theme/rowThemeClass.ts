@@ -3,7 +3,7 @@ import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
-import { TypographyThemeClass } from "./typographyThemeClass";
+import { TypographyTheme } from "./typographyTheme";
 import { RowProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SizeKey } from "../props/propKeys";
@@ -16,7 +16,7 @@ export class RowThemeClass extends BaseTheme {
   base: string;
   size: SizeTheme;
   style: SimpleAppearanceTheme;
-  typography: TypographyThemeClass;
+  typography: TypographyTheme;
   layout: BaseLayoutThemeClass;
   defaults: Record<string, any>;
 
@@ -48,7 +48,7 @@ export class RowThemeClass extends BaseTheme {
     );
 
     this.style = SimpleAppearanceTheme.createDefaultStyle();
-    this.typography = TypographyThemeClass.createDefaultTypographyTheme();
+    this.typography = TypographyTheme.createDefaultTypographyTheme();
     this.layout = RowLayoutThemeClass.createRowLayoutTheme();
     this.defaults = {
       md: true,

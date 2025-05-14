@@ -27,7 +27,7 @@ import { pickFirstKey, pickFirstKeyOptional } from "../../utils/componentUtils";
 /**
  * Typography theme class for handling typography-related CSS classes
  */
-export class TypographyThemeClass extends BaseTheme {
+export class TypographyTheme extends BaseTheme {
   fontFamily: Record<FontFamilyKey, string>;
   fontWeight: Record<FontWeightKey, string>;
   fontStyle: Record<FontStyleKey, string>;
@@ -90,8 +90,8 @@ export class TypographyThemeClass extends BaseTheme {
   /**
    * Create a default typography theme
    */
-  static createDefaultTypographyTheme(): TypographyThemeClass {
-    return new TypographyThemeClass(
+  static createDefaultTypographyTheme(): TypographyTheme {
+    return new TypographyTheme(
       fontFamilyClasses,
       fontWeightClasses,
       fontStyleClasses,
