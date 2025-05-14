@@ -26,18 +26,18 @@ import {
 import { AppearanceTheme } from "./appearanceTheme";
 
 export class StyleAppearanceTheme extends BaseTheme {
-  private styleVariants: Partial<Record<StyleKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>>;
+  private variants: Partial<Record<StyleKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>>;
 
   constructor(styleVariants: Partial<Record<StyleKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>> = {}) {
     super();
-    this.styleVariants = styleVariants;
+    this.variants = styleVariants;
   }
 
   getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
     const style = pickFirstKey(props, STYLE_KEYS, 'outline');
     const appearance = pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default');
 
-    const variant = this.styleVariants[style]?.[appearance];
+    const variant = this.variants[style]?.[appearance];
     if (!variant) return '';
 
     return variant.getClasses(props, mode);

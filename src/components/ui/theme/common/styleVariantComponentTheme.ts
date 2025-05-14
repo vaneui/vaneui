@@ -9,18 +9,18 @@ import { BaseComponentTheme } from "./baseComponentTheme";
  * Component theme class for components with style variants (button, chip, badge)
  */
 export class StyleVariantComponentTheme extends BaseComponentTheme {
-  style: StyleAppearanceTheme;
+  appearance: StyleAppearanceTheme;
 
   constructor(
     base: string = '',
     size: SizeTheme = new SizeTheme(),
-    style: StyleAppearanceTheme = new StyleAppearanceTheme(),
+    appearanceTheme: StyleAppearanceTheme = new StyleAppearanceTheme(),
     typography: TypographyTheme = TypographyTheme.createDefaultTypographyTheme(),
     layout: BaseLayoutTheme = BaseLayoutTheme.createBaseLayoutTheme(),
-    defaults: Record<string, any> = {}
+    defaults: Record<string, boolean> = {}
   ) {
     super(base, size, typography, layout, defaults);
-    this.style = style;
+    this.appearance = appearanceTheme;
   }
 
   /**
@@ -29,11 +29,11 @@ export class StyleVariantComponentTheme extends BaseComponentTheme {
    * @param mode Current mode (base, hover, active)
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+  getClasses(props: Record<string, boolean>, mode: Mode = 'base'): string {
     const classes = [
       this.base,
       this.size.getClasses(props, mode),
-      this.style.getClasses(props, mode),
+      this.appearance.getClasses(props, mode),
       this.typography.getClasses(props, mode),
       this.layout.getClasses(props, mode)
     ];
