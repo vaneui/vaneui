@@ -14,23 +14,23 @@ import {
   listTheme 
 } from '../ui/theme/typographyComponentTheme';
 import { GridTheme } from '../ui/theme/gridTheme';
-import { CardThemeClass } from "../ui/theme/cardThemeClass";
+import { CardTheme } from "../ui/theme/cardTheme";
 import { DividerThemeClass } from "../ui/theme/dividerThemeClass";
 import { ContainerThemeClass } from "../ui/theme/containerThemeClass";
 import { RowThemeClass } from "../ui/theme/rowThemeClass";
 import { StackThemeClass } from "../ui/theme/stackThemeClass";
-import { ColThemeClass } from "../ui/theme/colThemeClass";
+import { ColTheme } from "../ui/theme/colTheme";
 
 // Define the shape of our theme props
 export interface ThemeProps {
   button: ButtonTheme;
   badge: BadgeTheme;
-  card: CardThemeClass;
+  card: CardTheme;
   chip: ChipTheme;
   divider: DividerThemeClass;
   container: ContainerThemeClass;
   row: RowThemeClass;
-  col: ColThemeClass;
+  col: ColTheme;
   stack: StackThemeClass;
   section: SectionTheme;
   pageTitle: TypographyComponentTheme;
@@ -47,12 +47,12 @@ export interface ThemeProps {
 export const defaultTheme: ThemeProps = {
   button: defaultButtonTheme,
   badge: defaultBadgeTheme,
-  card: CardThemeClass.createDefaultCardTheme(),
+  card: CardTheme.createDefaultCardTheme(),
   chip: defaultChipTheme,
   divider: DividerThemeClass.createDefaultDividerTheme(),
   container: ContainerThemeClass.createDefaultContainerTheme(),
   row: RowThemeClass.createDefaultRowTheme(),
-  col: ColThemeClass.createDefaultColTheme(),
+  col: ColTheme.createDefaultColTheme(),
   stack: StackThemeClass.createDefaultStackTheme(),
   section: defaultSectionTheme,
   pageTitle: pageTitleTheme,

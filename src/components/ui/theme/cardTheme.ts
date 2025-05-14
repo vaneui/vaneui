@@ -1,22 +1,21 @@
-import { BaseTheme } from "./baseTheme";
+import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
-import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 import { TypographyTheme } from "./typographyTheme";
 import { SizeKey } from "../props/propKeys";
-import { CardLayoutThemeClass } from "./cardLayoutThemeClass";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { CardLayoutTheme } from "./cardLayoutTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 
 /**
  * Card theme class for handling card-specific styling
  */
-export class CardThemeClass extends BaseTheme {
+export class CardTheme extends BaseTheme {
   base: string;
   size: SizeTheme;
   style: SimpleAppearanceTheme;
   typography: TypographyTheme;
-  layout: BaseLayoutThemeClass;
+  layout: BaseLayoutTheme;
   defaults: Record<string, any>;
 
   /**
@@ -72,7 +71,7 @@ export class CardThemeClass extends BaseTheme {
 
     this.style = SimpleAppearanceTheme.createDefaultStyle();
     this.typography = TypographyTheme.createDefaultTypographyTheme();
-    this.layout = CardLayoutThemeClass.createCardLayoutTheme();
+    this.layout = CardLayoutTheme.createCardLayoutTheme();
     this.defaults = {
       md: true,
       default: true,
@@ -103,8 +102,8 @@ export class CardThemeClass extends BaseTheme {
   /**
    * Create a default card theme with card-specific size maps
    */
-  static createDefaultCardTheme(): CardThemeClass {
-    return new CardThemeClass(
+  static createDefaultCardTheme(): CardTheme {
+    return new CardTheme(
       "flex overflow-hidden"
     );
   }

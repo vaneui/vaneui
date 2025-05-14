@@ -11,8 +11,8 @@ export { Mode } from "./components/ui/props/mode"
 
 // Common theme types
 export {
-  ComponentTheme
-} from "./components/ui/theme/componentTheme"
+  BaseComponentTheme
+} from "./components/ui/theme/common/baseComponentTheme"
 
 // Button theme types
 export {
@@ -26,5 +26,5 @@ export {
 
 // Card theme types
 export {
-  CardThemeClass,
-} from "./components/ui/theme/cardThemeClass"
+  CardTheme,
+} from "./components/ui/theme/cardTheme"

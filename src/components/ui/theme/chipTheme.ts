@@ -1,10 +1,10 @@
 import { SizeKey } from "../props/propKeys";
 import { TypographyTheme } from "./typographyTheme";
-import { StyleVariantComponentTheme } from "./componentTheme";
 import { SizeTheme } from "./sizeThemeClass";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
+import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
 
 // Chip-specific size maps
 const pxMap: Record<SizeKey, string> = {
@@ -73,7 +73,7 @@ export const defaultChipTheme: ChipTheme = new StyleVariantComponentTheme(
 
   // Layout theme
   (() => {
-    const baseLayout = BaseLayoutThemeClass.createBaseLayoutTheme();
+    const baseLayout = BaseLayoutTheme.createBaseLayoutTheme();
     baseLayout.radius = roundedMap;
     return baseLayout;
   })(),

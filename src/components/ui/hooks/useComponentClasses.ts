@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import { MODE_KEYS } from '../props/mode';
 import { omitProps } from '../../utils/componentUtils';
-import { ComponentTheme, StyleVariantComponentTheme, SimpleComponentTheme } from '../theme/componentTheme';
-import { BaseTheme } from '../theme/baseTheme';
+import { BaseComponentTheme } from '../theme/common/baseComponentTheme';
+import { BaseTheme } from '../theme/common/baseTheme';
+import { StyleVariantComponentTheme } from "../theme/common/styleVariantComponentTheme";
+import { SimpleComponentTheme } from "../theme/common/simpleComponentTheme";
 
 // Generic props interface for components that use the theme system
 export interface ComponentProps {
@@ -16,7 +18,7 @@ export interface ComponentProps {
 // Hook to generate component classes based on props and theme
 export function useComponentClasses<P extends ComponentProps>(
   props: P,
-  theme: ComponentTheme | StyleVariantComponentTheme | SimpleComponentTheme | BaseTheme,
+  theme: BaseComponentTheme | StyleVariantComponentTheme | SimpleComponentTheme | BaseTheme,
   propsToOmit: readonly string[] = []
 ) {
   // Use only the props to omit passed from the outside

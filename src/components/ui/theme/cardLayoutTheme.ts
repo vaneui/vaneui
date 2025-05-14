@@ -1,10 +1,10 @@
-import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";
 
 /**
  * Card layout theme class for handling card-specific layout styling
  */
-export class CardLayoutThemeClass extends BaseLayoutThemeClass {
+export class CardLayoutTheme extends BaseLayoutTheme {
   /**
    * Create a new CardLayoutThemeClass instance
    * @param radius Card-specific rounded classes by size
@@ -17,7 +17,7 @@ export class CardLayoutThemeClass extends BaseLayoutThemeClass {
       lg: 'rounded-xl',
       xl: 'rounded-2xl',
     },
-    ...args: ConstructorParameters<typeof BaseLayoutThemeClass>
+    ...args: ConstructorParameters<typeof BaseLayoutTheme>
   ) {
     super(...args);
     this.radius = radius;
@@ -26,7 +26,7 @@ export class CardLayoutThemeClass extends BaseLayoutThemeClass {
   /**
    * Create a card layout theme with card-specific rounded classes
    */
-  static createCardLayoutTheme(): CardLayoutThemeClass {
+  static createCardLayoutTheme(): CardLayoutTheme {
     // Card-specific rounded classes
     const roundedMap: Record<SizeKey, string> = {
       xs: 'rounded-sm',
@@ -37,10 +37,10 @@ export class CardLayoutThemeClass extends BaseLayoutThemeClass {
     };
 
     // Create base layout theme
-    const baseTheme = BaseLayoutThemeClass.createBaseLayoutTheme();
+    const baseTheme = BaseLayoutTheme.createBaseLayoutTheme();
 
     // Create card layout theme with rounded classes
-    return new CardLayoutThemeClass(
+    return new CardLayoutTheme(
       roundedMap,
       baseTheme.hide,
       baseTheme.position,

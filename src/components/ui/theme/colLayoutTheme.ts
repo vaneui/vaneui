@@ -1,15 +1,15 @@
-import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 import { DirectionKey } from "../props/propKeys";
 
 /**
  * Col layout theme class for handling column-specific layout styling
  */
-export class ColLayoutThemeClass extends BaseLayoutThemeClass {
+export class ColLayoutTheme extends BaseLayoutTheme {
   /**
    * Create a new ColLayoutThemeClass instance with extended direction properties
    */
   constructor(
-    ...args: ConstructorParameters<typeof BaseLayoutThemeClass>
+    ...args: ConstructorParameters<typeof BaseLayoutTheme>
   ) {
     super(...args);
     
@@ -24,12 +24,12 @@ export class ColLayoutThemeClass extends BaseLayoutThemeClass {
   /**
    * Create a column layout theme with column-specific direction classes
    */
-  static createColLayoutTheme(): ColLayoutThemeClass {
+  static createColLayoutTheme(): ColLayoutTheme {
     // Create base layout theme
-    const baseTheme = BaseLayoutThemeClass.createBaseLayoutTheme();
+    const baseTheme = BaseLayoutTheme.createBaseLayoutTheme();
 
     // Create column layout theme with extended direction
-    return new ColLayoutThemeClass(
+    return new ColLayoutTheme(
       baseTheme.hide,
       baseTheme.position,
       baseTheme.shadow,

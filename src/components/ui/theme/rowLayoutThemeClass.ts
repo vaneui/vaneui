@@ -1,14 +1,14 @@
-import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 
 /**
  * Row layout theme class for handling row-specific layout styling
  */
-export class RowLayoutThemeClass extends BaseLayoutThemeClass {
+export class RowLayoutThemeClass extends BaseLayoutTheme {
   /**
    * Create a new RowLayoutThemeClass instance with extended direction properties
    */
   constructor(
-    ...args: ConstructorParameters<typeof BaseLayoutThemeClass>
+    ...args: ConstructorParameters<typeof BaseLayoutTheme>
   ) {
     super(...args);
     
@@ -24,7 +24,7 @@ export class RowLayoutThemeClass extends BaseLayoutThemeClass {
    */
   static createRowLayoutTheme(): RowLayoutThemeClass {
     // Create base layout theme
-    const baseTheme = BaseLayoutThemeClass.createBaseLayoutTheme();
+    const baseTheme = BaseLayoutTheme.createBaseLayoutTheme();
 
     // Create row layout theme with extended direction
     return new RowLayoutThemeClass(

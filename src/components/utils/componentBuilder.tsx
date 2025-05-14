@@ -3,9 +3,11 @@ import {
   BaseComponentProps,
 } from "../ui/props/props";
 import React from "react";
-import { ComponentTheme, StyleVariantComponentTheme, SimpleComponentTheme } from '../ui/theme/componentTheme';
-import { BaseTheme } from '../ui/theme/baseTheme';
+import { BaseComponentTheme } from '../ui/theme/common/baseComponentTheme';
+import { BaseTheme } from '../ui/theme/common/baseTheme';
 import { useComponentClasses, ComponentProps } from '../ui/hooks/useComponentClasses';
+import { StyleVariantComponentTheme } from "../ui/theme/common/styleVariantComponentTheme";
+import { SimpleComponentTheme } from "../ui/theme/common/simpleComponentTheme";
 
 /**
  * ComponentBuilder class for building React components with chainable methods
@@ -47,7 +49,7 @@ export class ComponentBuilder {
  */
 export function componentBuilder<P extends ComponentProps>(
   props: P,
-  theme: ComponentTheme | StyleVariantComponentTheme | SimpleComponentTheme | BaseTheme,
+  theme: BaseComponentTheme | StyleVariantComponentTheme | SimpleComponentTheme | BaseTheme,
   propsToOmit: readonly string[] = []
 ): ComponentBuilder {
   const { cleanProps, tag, classes } = useComponentClasses(props, theme as BaseTheme, propsToOmit);

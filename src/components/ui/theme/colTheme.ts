@@ -1,23 +1,23 @@
-import { BaseTheme } from "./baseTheme";
+import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
-import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 import { TypographyTheme } from "./typographyTheme";
 import { ColProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { SizeKey } from "../props/propKeys";
-import { ColLayoutThemeClass } from "./colLayoutThemeClass";
+import { ColLayoutTheme } from "./colLayoutTheme";
 
 /**
  * Col theme class for handling column-specific styling
  */
-export class ColThemeClass extends BaseTheme {
+export class ColTheme extends BaseTheme {
   base: string;
   size: SizeTheme;
   style: SimpleAppearanceTheme;
   typography: TypographyTheme;
-  layout: BaseLayoutThemeClass;
+  layout: BaseLayoutTheme;
   defaults: Record<string, any>;
 
   /**
@@ -49,7 +49,7 @@ export class ColThemeClass extends BaseTheme {
 
     this.style = SimpleAppearanceTheme.createDefaultStyle();
     this.typography = TypographyTheme.createDefaultTypographyTheme();
-    this.layout = ColLayoutThemeClass.createColLayoutTheme();
+    this.layout = ColLayoutTheme.createColLayoutTheme();
     this.defaults = {
       md: true,
       outline: true,
@@ -81,8 +81,8 @@ export class ColThemeClass extends BaseTheme {
   /**
    * Create a default column theme with column-specific size maps
    */
-  static createDefaultColTheme(): ColThemeClass {
-    return new ColThemeClass(
+  static createDefaultColTheme(): ColTheme {
+    return new ColTheme(
       "flex flex-col"
     );
   }

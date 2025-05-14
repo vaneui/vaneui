@@ -1,4 +1,4 @@
-import { Mode } from "../props/mode";
+import { Mode } from "../../props/mode";
 
 /**
  * Base Theme class that all theme types will extend

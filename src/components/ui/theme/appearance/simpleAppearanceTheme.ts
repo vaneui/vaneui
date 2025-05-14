@@ -1,4 +1,4 @@
-import { BaseTheme } from "../baseTheme";
+import { BaseTheme } from "../common/baseTheme";
 import { Mode } from "../../props/mode";
 import {
   TEXT_APPEARANCE_KEYS, 

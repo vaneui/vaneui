@@ -1,8 +1,8 @@
-import { BaseTheme } from "./baseTheme";
+import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeThemeClass";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
-import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 import { TypographyTheme } from "./typographyTheme";
 import { StackProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps, NoPaddingProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -17,7 +17,7 @@ export class StackThemeClass extends BaseTheme {
   size: SizeTheme;
   style: SimpleAppearanceTheme;
   typography: TypographyTheme;
-  layout: BaseLayoutThemeClass;
+  layout: BaseLayoutTheme;
   defaults: Record<string, any>;
 
   /**

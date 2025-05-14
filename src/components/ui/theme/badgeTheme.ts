@@ -1,11 +1,11 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
 import { TypographyTheme } from "./typographyTheme";
-import { StyleVariantComponentTheme } from "./componentTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SizeTheme } from "./sizeThemeClass";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
+import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
 
 // Badge-specific theme type
 export type BadgeTheme = StyleVariantComponentTheme;
@@ -31,7 +31,7 @@ export const defaultBadgeTheme: BadgeTheme = new StyleVariantComponentTheme(
 
   // Layout theme
   (() => {
-    const baseLayout = BaseLayoutThemeClass.createBaseLayoutTheme();
+    const baseLayout = BaseLayoutTheme.createBaseLayoutTheme();
     baseLayout.radius = roundedMap;
     return baseLayout;
   })(),

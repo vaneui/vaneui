@@ -1,4 +1,4 @@
-import { BaseTheme } from "./baseTheme";
+import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
 import {
   DirectionKey,
@@ -27,7 +27,7 @@ import { pickFirstKey, pickFirstKeyOptional } from "../../utils/componentUtils";
 /**
  * Base layout theme class for handling layout-related CSS classes
  */
-export class BaseLayoutThemeClass extends BaseTheme {
+export class BaseLayoutTheme extends BaseTheme {
   hide: Partial<Record<HideKey, string>>;
   position: Partial<Record<PositionKey, string>>;
   shadow: Partial<Record<Mode, Partial<Record<SizeKey, string>>>>;
@@ -131,8 +131,8 @@ export class BaseLayoutThemeClass extends BaseTheme {
   /**
    * Create a new BaseLayoutTheme with default values
    */
-  static createBaseLayoutTheme(): BaseLayoutThemeClass {
-    return new BaseLayoutThemeClass(
+  static createBaseLayoutTheme(): BaseLayoutTheme {
+    return new BaseLayoutTheme(
       hideClasses,
       positionClasses,
       {

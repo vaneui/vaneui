@@ -1,12 +1,12 @@
-import { SimpleComponentTheme } from "./componentTheme";
 import { TypographyTheme } from "./typographyTheme";
 import { SizeTheme } from "./sizeThemeClass";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { TypographyComponentProps } from "../props/props";
+import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 
 export type TypographyComponentTheme = SimpleComponentTheme;
 

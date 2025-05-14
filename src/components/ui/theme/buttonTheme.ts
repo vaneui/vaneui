@@ -1,12 +1,12 @@
 import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { TypographyTheme } from "./typographyTheme";
-import { StyleVariantComponentTheme } from "./componentTheme";
 import { SizeTheme } from "./sizeThemeClass";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { BaseLayoutThemeClass } from "./baseLayoutThemeClass";
+import { BaseLayoutTheme } from "./baseLayoutTheme";
 import { roundedMap } from "../classes/buttonClasses";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
+import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
 
 // Button-specific theme type
 export type ButtonTheme = StyleVariantComponentTheme;
@@ -32,7 +32,7 @@ export const defaultButtonTheme: ButtonTheme = new StyleVariantComponentTheme(
 
   // Layout theme
   (() => {
-    const baseLayout = BaseLayoutThemeClass.createBaseLayoutTheme();
+    const baseLayout = BaseLayoutTheme.createBaseLayoutTheme();
     baseLayout.radius = roundedMap;
     return baseLayout;
   })(),
