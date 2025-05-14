@@ -12,7 +12,7 @@ import { StackLayoutTheme } from "./layout/stackLayoutTheme";
 /**
  * Stack theme class for handling stack-specific styling
  */
-export class StackThemeClass extends BaseTheme {
+export class StackTheme extends BaseTheme {
   base: string;
   size: SizeTheme;
   style: SimpleAppearanceTheme;
@@ -98,8 +98,8 @@ export class StackThemeClass extends BaseTheme {
   /**
    * Create a default stack theme with stack-specific size maps
    */
-  static createDefaultStackTheme(): StackThemeClass {
-    return new StackThemeClass(
+  static createDefaultStackTheme(): StackTheme {
+    return new StackTheme(
       "flex"
     );
   }

@@ -1,15 +1,18 @@
 import { BaseTheme } from "./common/baseTheme";
 import { Mode } from "../props/mode";
 import { SizeTheme } from "./sizeTheme";
+import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
+import { RowProps, ButtonStyleProps, NoBorderProps, NoShadowProps, NoRingProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
+import { SizeKey } from "../props/propKeys";
+import { RowLayoutTheme } from "./layout/rowLayoutTheme";
 
 /**
- * Divider theme class for handling divider-specific styling
+ * Row theme class for handling row-specific styling
  */
-export class DividerThemeClass extends BaseTheme {
+export class RowTheme extends BaseTheme {
   base: string;
   size: SizeTheme;
   style: SimpleAppearanceTheme;
@@ -18,25 +21,41 @@ export class DividerThemeClass extends BaseTheme {
   defaults: Record<string, any>;
 
   /**
-   * Create a new DividerThemeClass instance
+   * Create a new RowThemeClass instance
    * @param base Base CSS classes
    */
   constructor(
-    base: string = "bg-gray-200 h-px w-full"
+    base: string = "flex flex-row"
   ) {
     super();
     this.base = base;
 
-    this.size = new SizeTheme();
+    // Row-specific size maps
+    const gapMap: Record<SizeKey, string> = {
+      xs: 'gap-2',
+      sm: 'gap-3',
+      md: 'gap-4',
+      lg: 'gap-5',
+      xl: 'gap-6',
+    };
+
+    // Create size theme with row-specific maps
+    this.size = new SizeTheme(
+      undefined,
+      undefined,
+      undefined,
+      gapMap
+    );
 
     this.style = SimpleAppearanceTheme.createDefaultStyle();
-
     this.typography = TypographyTheme.createDefaultTypographyTheme();
-    this.layout = BaseLayoutTheme.createBaseLayoutTheme();
+    this.layout = RowLayoutTheme.createRowLayoutTheme();
     this.defaults = {
-      xs: true,
+      md: true,
       outline: true,
-      default: true,
+      transparent: true,
+      itemsCenter: true,
+      flexWrap: true,
       noBorder: true,
       noShadow: true,
       noRing: true,
@@ -44,7 +63,7 @@ export class DividerThemeClass extends BaseTheme {
   }
 
   /**
-   * Get all CSS classes for the divider based on props
+   * Get all CSS classes for the row based on props
    * @param props Component props
    * @param mode Current mode (base, hover, active)
    * @returns CSS classes as a string
@@ -62,11 +81,11 @@ export class DividerThemeClass extends BaseTheme {
   }
 
   /**
-   * Create a default divider theme
+   * Create a default row theme with row-specific size maps
    */
-  static createDefaultDividerTheme(): DividerThemeClass {
-    return new DividerThemeClass(
-      "bg-gray-200 h-px w-full"
+  static createDefaultRowTheme(): RowTheme {
+    return new RowTheme(
+      "flex flex-row"
     );
   }
 }

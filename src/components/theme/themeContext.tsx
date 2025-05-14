@@ -14,10 +14,10 @@ import {
 } from '../ui/theme/typographyComponentTheme';
 import { GridTheme } from '../ui/theme/gridTheme';
 import { CardTheme } from "../ui/theme/cardTheme";
-import { DividerThemeClass } from "../ui/theme/dividerThemeClass";
+import { DividerTheme } from "../ui/theme/dividerTheme";
 import { ContainerTheme } from "../ui/theme/containerTheme";
-import { RowThemeClass } from "../ui/theme/rowThemeClass";
-import { StackThemeClass } from "../ui/theme/stackThemeClass";
+import { RowTheme } from "../ui/theme/rowTheme";
+import { StackTheme } from "../ui/theme/stackTheme";
 import { ColTheme } from "../ui/theme/colTheme";
 import { SectionTheme } from "../ui/theme/sectionTheme";
 
@@ -27,11 +27,11 @@ export interface ThemeProps {
   badge: BadgeTheme;
   card: CardTheme;
   chip: ChipTheme;
-  divider: DividerThemeClass;
+  divider: DividerTheme;
   container: ContainerTheme;
-  row: RowThemeClass;
+  row: RowTheme;
   col: ColTheme;
-  stack: StackThemeClass;
+  stack: StackTheme;
   section: SectionTheme;
   pageTitle: TypographyComponentTheme;
   sectionTitle: TypographyComponentTheme;
@@ -49,11 +49,11 @@ export const defaultTheme: ThemeProps = {
   badge: defaultBadgeTheme,
   card: CardTheme.createDefaultCardTheme(),
   chip: defaultChipTheme,
-  divider: DividerThemeClass.createDefaultDividerTheme(),
+  divider: DividerTheme.createDefaultDividerTheme(),
   container: ContainerTheme.createDefaultContainerTheme(),
-  row: RowThemeClass.createDefaultRowTheme(),
+  row: RowTheme.createDefaultRowTheme(),
   col: ColTheme.createDefaultColTheme(),
-  stack: StackThemeClass.createDefaultStackTheme(),
+  stack: StackTheme.createDefaultStackTheme(),
   section: SectionTheme.createDefaultSectionTheme(),
   pageTitle: pageTitleTheme,
   sectionTitle: sectionTitleTheme,
