@@ -43,6 +43,10 @@ export class StyleAppearanceTheme extends BaseTheme {
     return variant.getClasses(props, mode);
   }
 
+  static createDefault(): StyleAppearanceTheme {
+    return new StyleAppearanceTheme(StyleAppearanceTheme.makeStyleVariants(AppearanceTheme.createAppearanceTheme));
+  }
+
   /**
    * Create style variants for components like button, chip, and badge
    */

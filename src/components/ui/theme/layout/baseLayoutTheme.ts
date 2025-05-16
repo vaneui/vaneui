@@ -38,47 +38,39 @@ export class BaseLayoutTheme extends BaseTheme {
     noShadow: Partial<Record<Mode, string>>;
     noRing: Partial<Record<Mode, string>>;
   };
-  reverse: Partial<Record<DirectionReverseKey, string>>;
-  direction: Partial<Record<DirectionKey, string>>;
+  //reverse: Partial<Record<DirectionReverseKey, string>>;
+  //direction: Partial<Record<DirectionKey, string>>;
   items: Partial<Record<ItemsKey, string>>;
   justify: Partial<Record<JustifyKey, string>>;
   wrap: Partial<Record<WrapKey, string>>;
-  breakpoint: Partial<Record<BreakpointKey, string>>;
-  radius?: Partial<Record<SizeKey, string>>;
+  //breakpoint: Partial<Record<BreakpointKey, string>>;
+  //radius?: Partial<Record<SizeKey, string>>;
 
-  constructor(
-    hide: Partial<Record<HideKey, string>> = {},
-    position: Partial<Record<PositionKey, string>> = {},
-    shadow: Partial<Record<Mode, Partial<Record<SizeKey, string>>>> = {},
-    border: Partial<Record<Mode, string>> = {},
-    ring: Partial<Record<Mode, string>> = {},
-    flags: {
-      noBorder: Partial<Record<Mode, string>>;
-      noShadow: Partial<Record<Mode, string>>;
-      noRing: Partial<Record<Mode, string>>;
-    } = { noBorder: {}, noShadow: {}, noRing: {} },
-    reverse: Partial<Record<DirectionReverseKey, string>> = {},
-    direction: Partial<Record<DirectionKey, string>> = {},
-    items: Partial<Record<ItemsKey, string>> = {},
-    justify: Partial<Record<JustifyKey, string>> = {},
-    wrap: Partial<Record<WrapKey, string>> = {},
-    breakpoint: Partial<Record<BreakpointKey, string>> = {},
-    radius?: Partial<Record<SizeKey, string>>
-  ) {
+  constructor() {
     super();
-    this.hide = hide;
-    this.position = position;
-    this.shadow = shadow;
-    this.border = border;
-    this.ring = ring;
-    this.flags = flags;
-    this.reverse = reverse;
-    this.direction = direction;
-    this.items = items;
-    this.justify = justify;
-    this.wrap = wrap;
-    this.breakpoint = breakpoint;
-    this.radius = radius;
+    this.hide = hideClasses;
+    this.position = positionClasses;
+    this.shadow = {
+      base: shadowClasses,
+      hover: hoverShadowClasses,
+      active: activeShadowClasses,
+    };
+    this.border = borderModeClasses;
+    this.ring = ringModeClasses;
+    this.flags = {
+      noBorder: noBorderModeClasses,
+      noRing: noRingModeClasses,
+      noShadow: noShadowModeClasses,
+    };
+    //TODO: fix it
+    //this.reverse = {reverse: ""};
+
+    //this.direction = directionClasses;
+    this.items = itemsClasses;
+    this.justify = justifyClasses;
+    this.wrap = wrapClasses;
+    //this.breakpoint = rowToColumnBreakpointClasses;
+    //this.radius = radius;
   }
 
   /**
@@ -92,12 +84,12 @@ export class BaseLayoutTheme extends BaseTheme {
     const size = pickFirstKey(props, SIZE_KEYS, 'md');
     const hide = pickFirstKeyOptional(props, HIDE_KEYS);
     const position = pickFirstKeyOptional(props, POSITION_KEYS);
-    const reverse = pickFirstKeyOptional(props, DIRECTION_REVERSE_KEYS);
-    const direction = pickFirstKeyOptional(props, DIRECTION_KEYS);
+    //const reverse = pickFirstKeyOptional(props, DIRECTION_REVERSE_KEYS);
+    //const direction = pickFirstKeyOptional(props, DIRECTION_KEYS);
     const items = pickFirstKeyOptional(props, ITEMS_KEYS);
     const justify = pickFirstKeyOptional(props, JUSTIFY_KEYS);
     const wrap = pickFirstKeyOptional(props, WRAP_KEYS);
-    const breakpoint = pickFirstKeyOptional(props, BREAKPOINT_KEYS);
+    //const breakpoint = pickFirstKeyOptional(props, BREAKPOINT_KEYS);
     const noBorder = props.noBorder ?? false;
     const noShadow = props.noShadow ?? false;
     const noRing = props.noRing ?? false;
@@ -107,12 +99,12 @@ export class BaseLayoutTheme extends BaseTheme {
       // Layout classes
       hide ? this.hide[hide] || '' : '',
       position ? this.position[position] || '' : '',
-      reverse ? this.reverse[reverse] || '' : '',
-      direction ? this.direction[direction] || '' : '',
+      //reverse ? this.reverse[reverse] || '' : '',
+      //direction ? this.direction[direction] || '' : '',
       items ? this.items[items] || '' : '',
       justify ? this.justify[justify] || '' : '',
       wrap ? this.wrap[wrap] || '' : '',
-      breakpoint ? this.breakpoint[breakpoint] || '' : '',
+      //breakpoint ? this.breakpoint[breakpoint] || '' : '',
 
       // Border, shadow, ring classes based on mode
       noBorder ? this.flags.noBorder[mode] || '' : this.border[mode] || '',
@@ -120,7 +112,7 @@ export class BaseLayoutTheme extends BaseTheme {
       noRing ? this.flags.noRing[mode] || '' : this.ring[mode] || '',
 
       // Shape/radius classes
-      shape === 'rounded' && this.radius ? this.radius[size] || '' : '',
+      //shape === 'rounded' && this.radius ? this.radius[size] || '' : '',
       shape === 'pill' ? 'rounded-full' : '',
       shape === 'sharp' ? 'rounded-none' : ''
     ];
@@ -132,29 +124,6 @@ export class BaseLayoutTheme extends BaseTheme {
    * Create a new BaseLayoutTheme with default values
    */
   static createBaseLayoutTheme(): BaseLayoutTheme {
-    return new BaseLayoutTheme(
-      hideClasses,
-      positionClasses,
-      {
-        base: shadowClasses,
-        hover: hoverShadowClasses,
-        active: activeShadowClasses,
-      },
-      borderModeClasses,
-      ringModeClasses,
-      {
-        noBorder: noBorderModeClasses,
-        noRing: noRingModeClasses,
-        noShadow: noShadowModeClasses,
-      },
-      {
-        reverse: ""
-      },
-      directionClasses,
-      itemsClasses,
-      justifyClasses,
-      wrapClasses,
-      rowToColumnBreakpointClasses
-    );
+    return new BaseLayoutTheme();
   }
 }

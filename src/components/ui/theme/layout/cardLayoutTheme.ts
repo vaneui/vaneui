@@ -9,6 +9,9 @@ export class CardLayoutTheme extends BaseLayoutTheme {
    * Create a new CardLayoutThemeClass instance
    * @param radius Card-specific rounded classes by size
    */
+
+  radius: Partial<Record<SizeKey, string>>;
+
   constructor(
     radius: Record<SizeKey, string> = {
       xs: 'rounded-sm',
@@ -16,10 +19,9 @@ export class CardLayoutTheme extends BaseLayoutTheme {
       md: 'rounded-lg',
       lg: 'rounded-xl',
       xl: 'rounded-2xl',
-    },
-    ...args: ConstructorParameters<typeof BaseLayoutTheme>
+    }
   ) {
-    super(...args);
+    super();
     this.radius = radius;
   }
 
@@ -41,19 +43,7 @@ export class CardLayoutTheme extends BaseLayoutTheme {
 
     // Create card layout theme with rounded classes
     return new CardLayoutTheme(
-      roundedMap,
-      baseTheme.hide,
-      baseTheme.position,
-      baseTheme.shadow,
-      baseTheme.border,
-      baseTheme.ring,
-      baseTheme.flags,
-      baseTheme.reverse,
-      baseTheme.direction,
-      baseTheme.items,
-      baseTheme.justify,
-      baseTheme.wrap,
-      baseTheme.breakpoint
+      roundedMap
     );
   }
 }

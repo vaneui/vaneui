@@ -1,5 +1,5 @@
 import { TypographyTheme } from "./typography/typographyTheme";
-import { SizeTheme } from "./sizeTheme";
+import { SizeTheme } from "./size/sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";

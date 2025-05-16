@@ -1,7 +1,7 @@
-import { BaseTheme } from "./common/baseTheme";
-import { Mode } from "../props/mode";
-import { SIZE_KEYS, SizeKey } from "../props/propKeys";
-import { pickFirstKey } from "../../utils/componentUtils";
+import { BaseTheme } from "../common/baseTheme";
+import { Mode } from "../../props/mode";
+import { SIZE_KEYS, SizeKey } from "../../props/propKeys";
+import { pickFirstKey } from "../../../utils/componentUtils";
 
 /**
  * Size theme class for handling size-related CSS classes
