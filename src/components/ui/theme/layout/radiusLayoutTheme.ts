@@ -32,7 +32,7 @@ export class RadiusLayoutTheme extends BaseLayoutTheme {
       baseClasses,
       shape === 'rounded' && this.radius ? this.radius[size] || '' : '',
       shape === 'pill' ? 'rounded-full' : '',
-      shape === 'sharp' ? 'rounded-none' : ''
+      shape === 'sharp' ? 'rounded-none' : '',
     ];
 
     return classes.filter(Boolean).join(' ');

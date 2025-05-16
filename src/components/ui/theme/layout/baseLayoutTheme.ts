@@ -38,12 +38,9 @@ export class BaseLayoutTheme extends BaseTheme {
     noShadow: Partial<Record<Mode, string>>;
     noRing: Partial<Record<Mode, string>>;
   };
-  //reverse: Partial<Record<DirectionReverseKey, string>>;
-  //direction: Partial<Record<DirectionKey, string>>;
   items: Partial<Record<ItemsKey, string>>;
   justify: Partial<Record<JustifyKey, string>>;
   wrap: Partial<Record<WrapKey, string>>;
-  //breakpoint: Partial<Record<BreakpointKey, string>>;
 
   constructor() {
     super();
@@ -61,14 +58,9 @@ export class BaseLayoutTheme extends BaseTheme {
       noRing: noRingModeClasses,
       noShadow: noShadowModeClasses,
     };
-    //TODO: fix it
-    //this.reverse = {reverse: ""};
-
-    //this.direction = directionClasses;
     this.items = itemsClasses;
     this.justify = justifyClasses;
     this.wrap = wrapClasses;
-    //this.breakpoint = rowToColumnBreakpointClasses;
   }
 
   /**
@@ -78,41 +70,25 @@ export class BaseLayoutTheme extends BaseTheme {
    * @returns CSS classes as a string
    */
   getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
-    // Use SIZE_KEYS instead of SHAPE_KEYS to ensure size is of type SizeKey
     const size = pickFirstKey(props, SIZE_KEYS, 'md');
     const hide = pickFirstKeyOptional(props, HIDE_KEYS);
     const position = pickFirstKeyOptional(props, POSITION_KEYS);
-    //const reverse = pickFirstKeyOptional(props, DIRECTION_REVERSE_KEYS);
-    //const direction = pickFirstKeyOptional(props, DIRECTION_KEYS);
     const items = pickFirstKeyOptional(props, ITEMS_KEYS);
     const justify = pickFirstKeyOptional(props, JUSTIFY_KEYS);
     const wrap = pickFirstKeyOptional(props, WRAP_KEYS);
-    //const breakpoint = pickFirstKeyOptional(props, BREAKPOINT_KEYS);
     const noBorder = props.noBorder ?? false;
     const noShadow = props.noShadow ?? false;
     const noRing = props.noRing ?? false;
-    const shape = props.shape ?? 'rounded';
 
     const classes = [
-      // Layout classes
       hide ? this.hide[hide] || '' : '',
       position ? this.position[position] || '' : '',
-      //reverse ? this.reverse[reverse] || '' : '',
-      //direction ? this.direction[direction] || '' : '',
       items ? this.items[items] || '' : '',
       justify ? this.justify[justify] || '' : '',
       wrap ? this.wrap[wrap] || '' : '',
-      //breakpoint ? this.breakpoint[breakpoint] || '' : '',
-
-      // Border, shadow, ring classes based on mode
       noBorder ? this.flags.noBorder[mode] || '' : this.border[mode] || '',
       noShadow ? this.flags.noShadow[mode] || '' : this.shadow[mode]?.[size] || '',
       noRing ? this.flags.noRing[mode] || '' : this.ring[mode] || '',
-
-      // Shape/radius classes
-      //shape === 'rounded' && this.radius ? this.radius[size] || '' : '',
-      shape === 'pill' ? 'rounded-full' : '',
-      shape === 'sharp' ? 'rounded-none' : ''
     ];
 
     return classes.filter(Boolean).join(' ');

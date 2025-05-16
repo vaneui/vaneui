@@ -1,35 +1,37 @@
 import React, { createContext, useContext } from 'react';
-import { ButtonTheme, defaultButtonTheme } from '../ui/theme/buttonTheme';
-import { BadgeTheme, defaultBadgeTheme } from '../ui/theme/badgeTheme';
+import { defaultButtonTheme } from '../ui/theme/buttonTheme';
+import { defaultBadgeTheme } from '../ui/theme/badgeTheme';
 import { ChipTheme, defaultChipTheme } from '../ui/theme/chipTheme';
-import { 
-  TypographyComponentTheme, 
-  pageTitleTheme, 
-  sectionTitleTheme, 
-  titleTheme, 
-  textTheme, 
-  linkTheme, 
-  listItemTheme, 
-  listTheme 
+import {
+  TypographyComponentTheme,
+  pageTitleTheme,
+  sectionTitleTheme,
+  titleTheme,
+  textTheme,
+  linkTheme,
+  listItemTheme,
+  listTheme
 } from '../ui/theme/typographyComponentTheme';
 import { GridTheme } from '../ui/theme/gridTheme';
-import { CardTheme } from "../ui/theme/cardTheme";
+import { defaultCardTheme } from "../ui/theme/cardTheme";
 import { DividerTheme } from "../ui/theme/dividerTheme";
 import { ContainerTheme } from "../ui/theme/containerTheme";
-import { RowTheme } from "../ui/theme/rowTheme";
 import { StackTheme } from "../ui/theme/stackTheme";
 import { ColTheme } from "../ui/theme/colTheme";
 import { SectionTheme } from "../ui/theme/sectionTheme";
+import { StyleVariantComponentTheme } from "../ui/theme/common/styleVariantComponentTheme";
+import { SimpleComponentTheme } from "../ui/theme/common/simpleComponentTheme";
+import { defaultRowTheme } from "../ui/theme/rowTheme";
 
 // Define the shape of our theme props
 export interface ThemeProps {
-  button: ButtonTheme;
-  badge: BadgeTheme;
-  card: CardTheme;
+  button: StyleVariantComponentTheme;
+  badge: StyleVariantComponentTheme;
+  card: SimpleComponentTheme;
   chip: ChipTheme;
   divider: DividerTheme;
   container: ContainerTheme;
-  row: RowTheme;
+  row: SimpleComponentTheme;
   col: ColTheme;
   stack: StackTheme;
   section: SectionTheme;
@@ -47,11 +49,11 @@ export interface ThemeProps {
 export const defaultTheme: ThemeProps = {
   button: defaultButtonTheme,
   badge: defaultBadgeTheme,
-  card: CardTheme.createDefaultCardTheme(),
+  card: defaultCardTheme,
   chip: defaultChipTheme,
   divider: DividerTheme.createDefaultDividerTheme(),
   container: ContainerTheme.createDefaultContainerTheme(),
-  row: RowTheme.createDefaultRowTheme(),
+  row: defaultRowTheme,
   col: ColTheme.createDefaultColTheme(),
   stack: StackTheme.createDefaultStackTheme(),
   section: SectionTheme.createDefaultSectionTheme(),
@@ -77,9 +79,9 @@ export interface ThemeProviderProps {
 
 // ThemeProvider component
 export function ThemeProvider({
-  children,
-  theme = defaultTheme,
-}: ThemeProviderProps) {
+                                children,
+                                theme = defaultTheme,
+                              }: ThemeProviderProps) {
   // Provide the context to children
   return (
     <ThemeContext.Provider value={theme}>

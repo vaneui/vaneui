@@ -9,13 +9,12 @@ import { Mode } from "../../props/mode";
 import { pickFirstKeyOptional } from "../../../utils/componentUtils";
 import { directionClasses, rowToColumnBreakpointClasses } from "../../classes/layoutClasses";
 
-export class RowLayoutTheme extends BaseLayoutTheme {
+export class DirectionLayoutTheme extends BaseLayoutTheme {
   direction: Partial<Record<DirectionKey, string>>;
   breakpoint: Partial<Record<BreakpointKey, string>>;
 
   constructor() {
     super();
-
     this.direction = {
       column: "flex-col",
       row: "flex-row",
@@ -40,7 +39,8 @@ export class RowLayoutTheme extends BaseLayoutTheme {
     return classes.filter(Boolean).join(' ');
   }
 
-  static createRowLayoutTheme(): RowLayoutTheme {
-    return new RowLayoutTheme();
+  static createDirectionTheme(): DirectionLayoutTheme {
+    return new DirectionLayoutTheme();
   }
+
 }
