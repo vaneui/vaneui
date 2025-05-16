@@ -44,7 +44,6 @@ export class BaseLayoutTheme extends BaseTheme {
   justify: Partial<Record<JustifyKey, string>>;
   wrap: Partial<Record<WrapKey, string>>;
   //breakpoint: Partial<Record<BreakpointKey, string>>;
-  //radius?: Partial<Record<SizeKey, string>>;
 
   constructor() {
     super();
@@ -70,7 +69,6 @@ export class BaseLayoutTheme extends BaseTheme {
     this.justify = justifyClasses;
     this.wrap = wrapClasses;
     //this.breakpoint = rowToColumnBreakpointClasses;
-    //this.radius = radius;
   }
 
   /**
