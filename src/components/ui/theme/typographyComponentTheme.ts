@@ -1,14 +1,8 @@
-import { TypographyTheme } from "./typography/typographyTheme";
 import { SizeTheme } from "./size/sizeTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { SizeKey } from "../props/propKeys";
 import { textSizeClasses } from "../classes/typographyClasses";
-import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { TypographyComponentProps } from "../props/props";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
-
-export type TypographyComponentTheme = SimpleComponentTheme;
 
 const typographyThemeDefaults: Partial<Record<keyof TypographyComponentProps, boolean>> = {
   md: true,
@@ -21,7 +15,7 @@ export const createTypographyComponentTheme = (
   base: string = "text-balance",
   textSizeMap: Record<SizeKey, string> = textSizeClasses,
   defaults: Partial<Record<keyof TypographyComponentProps, boolean>> = typographyThemeDefaults,
-): TypographyComponentTheme => {
+): SimpleComponentTheme => {
   return SimpleComponentTheme.createSimpleComponentTheme(
     base,
     new SizeTheme(
@@ -34,7 +28,7 @@ export const createTypographyComponentTheme = (
 };
 
 // Page title specific theme
-export const pageTitleTheme: TypographyComponentTheme = createTypographyComponentTheme(
+export const pageTitleTheme: SimpleComponentTheme = createTypographyComponentTheme(
   "text-balance tracking-tighter",
   {
     xs: "text-3xl max-lg:text-2xl max-md:text-xl",
@@ -47,7 +41,7 @@ export const pageTitleTheme: TypographyComponentTheme = createTypographyComponen
 );
 
 // Section title specific theme
-export const sectionTitleTheme: TypographyComponentTheme = createTypographyComponentTheme(
+export const sectionTitleTheme: SimpleComponentTheme = createTypographyComponentTheme(
   "text-balance",
   {
     xs: "text-2xl max-lg:text-xl  max-md:text-lg",
@@ -60,7 +54,7 @@ export const sectionTitleTheme: TypographyComponentTheme = createTypographyCompo
 );
 
 // Title specific theme
-export const titleTheme: TypographyComponentTheme = createTypographyComponentTheme(
+export const titleTheme: SimpleComponentTheme = createTypographyComponentTheme(
   "text-balance",
   {
     xs: "text-lg",
@@ -73,21 +67,21 @@ export const titleTheme: TypographyComponentTheme = createTypographyComponentThe
 );
 
 // Text specific theme
-export const textTheme: TypographyComponentTheme = createTypographyComponentTheme(
+export const textTheme: SimpleComponentTheme = createTypographyComponentTheme(
   "p-0 m-0",
   textSizeClasses,
   {...typographyThemeDefaults, secondary: true}
 );
 
 // Link specific theme
-export const linkTheme: TypographyComponentTheme = createTypographyComponentTheme(
+export const linkTheme: SimpleComponentTheme = createTypographyComponentTheme(
   "hover:underline",
   textSizeClasses,
   {...typographyThemeDefaults, link: true}
 );
 
 // List item specific theme
-export const listItemTheme: TypographyComponentTheme = createTypographyComponentTheme();
+export const listItemTheme: SimpleComponentTheme = createTypographyComponentTheme();
 
 // List specific theme
-export const listTheme: TypographyComponentTheme = createTypographyComponentTheme("list-disc list-inside");
+export const listTheme: SimpleComponentTheme = createTypographyComponentTheme("list-disc list-inside");

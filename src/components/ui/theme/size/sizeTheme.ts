@@ -7,10 +7,10 @@ import { pickFirstKey } from "../../../utils/componentUtils";
  * Size theme class for handling size-related CSS classes
  */
 export class SizeTheme extends BaseTheme {
-  private px: Partial<Record<SizeKey, Record<Mode, string>>>;
-  private py: Partial<Record<SizeKey, Record<Mode, string>>>;
-  private text: Partial<Record<SizeKey, Record<Mode, string>>>;
-  private gap: Partial<Record<SizeKey, Record<Mode, string>>>;
+  px: Partial<Record<SizeKey, Record<Mode, string>>>;
+  py: Partial<Record<SizeKey, Record<Mode, string>>>;
+  text: Partial<Record<SizeKey, Record<Mode, string>>>;
+  gap: Partial<Record<SizeKey, Record<Mode, string>>>;
 
   constructor(
     px?: Record<SizeKey, string>,

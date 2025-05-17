@@ -1,9 +1,8 @@
 import React, { createContext, useContext } from 'react';
 import { defaultButtonTheme } from '../ui/theme/buttonTheme';
 import { defaultBadgeTheme } from '../ui/theme/badgeTheme';
-import { ChipTheme, defaultChipTheme } from '../ui/theme/chipTheme';
+import { defaultChipTheme } from '../ui/theme/chipTheme';
 import {
-  TypographyComponentTheme,
   pageTitleTheme,
   sectionTitleTheme,
   titleTheme,
@@ -12,38 +11,38 @@ import {
   listItemTheme,
   listTheme
 } from '../ui/theme/typographyComponentTheme';
-import { GridTheme } from '../ui/theme/gridTheme';
 import { defaultCardTheme } from "../ui/theme/cardTheme";
-import { DividerTheme } from "../ui/theme/dividerTheme";
-import { ContainerTheme } from "../ui/theme/containerTheme";
-import { StackTheme } from "../ui/theme/stackTheme";
-import { ColTheme } from "../ui/theme/colTheme";
-import { SectionTheme } from "../ui/theme/sectionTheme";
 import { StyleVariantComponentTheme } from "../ui/theme/common/styleVariantComponentTheme";
 import { SimpleComponentTheme } from "../ui/theme/common/simpleComponentTheme";
 import { defaultRowTheme } from "../ui/theme/rowTheme";
+import { defaultDividerTheme } from '../ui/theme/dividerTheme';
+import { defaultContainerTheme } from '../ui/theme/containerTheme';
+import { defaultColTheme } from '../ui/theme/colTheme';
+import { defaultStackTheme } from '../ui/theme/stackTheme';
+import { defaultSectionTheme } from "../ui/theme/sectionTheme";
+import { defaultGrid3Theme, defaultGrid4Theme } from "../ui/theme/gridTheme";
 
 // Define the shape of our theme props
 export interface ThemeProps {
   button: StyleVariantComponentTheme;
   badge: StyleVariantComponentTheme;
   card: SimpleComponentTheme;
-  chip: ChipTheme;
-  divider: DividerTheme;
-  container: ContainerTheme;
+  chip: StyleVariantComponentTheme;
+  divider: SimpleComponentTheme;
+  container: SimpleComponentTheme;
   row: SimpleComponentTheme;
-  col: ColTheme;
-  stack: StackTheme;
-  section: SectionTheme;
-  pageTitle: TypographyComponentTheme;
-  sectionTitle: TypographyComponentTheme;
-  title: TypographyComponentTheme;
-  text: TypographyComponentTheme;
-  link: TypographyComponentTheme;
-  listItem: TypographyComponentTheme;
-  list: TypographyComponentTheme;
-  grid3: GridTheme;
-  grid4: GridTheme;
+  col: SimpleComponentTheme;
+  stack: SimpleComponentTheme;
+  section: SimpleComponentTheme;
+  pageTitle: SimpleComponentTheme;
+  sectionTitle: SimpleComponentTheme;
+  title: SimpleComponentTheme;
+  text: SimpleComponentTheme;
+  link: SimpleComponentTheme;
+  listItem: SimpleComponentTheme;
+  list: SimpleComponentTheme;
+  grid3: SimpleComponentTheme;
+  grid4: SimpleComponentTheme;
 }
 
 export const defaultTheme: ThemeProps = {
@@ -51,12 +50,12 @@ export const defaultTheme: ThemeProps = {
   badge: defaultBadgeTheme,
   card: defaultCardTheme,
   chip: defaultChipTheme,
-  divider: DividerTheme.createDefaultDividerTheme(),
-  container: ContainerTheme.createDefaultContainerTheme(),
+  divider: defaultDividerTheme,
+  container: defaultContainerTheme,
   row: defaultRowTheme,
-  col: ColTheme.createDefaultColTheme(),
-  stack: StackTheme.createDefaultStackTheme(),
-  section: SectionTheme.createDefaultSectionTheme(),
+  col: defaultColTheme,
+  stack: defaultStackTheme,
+  section: defaultSectionTheme,
   pageTitle: pageTitleTheme,
   sectionTitle: sectionTitleTheme,
   title: titleTheme,
@@ -64,8 +63,8 @@ export const defaultTheme: ThemeProps = {
   link: linkTheme,
   listItem: listItemTheme,
   list: listTheme,
-  grid3: GridTheme.createGrid3Theme(),
-  grid4: GridTheme.createGrid4Theme(),
+  grid3: defaultGrid3Theme,
+  grid4: defaultGrid4Theme,
 }
 
 // Create the context with a default value

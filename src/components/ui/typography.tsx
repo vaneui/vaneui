@@ -3,9 +3,9 @@ import { componentBuilder } from '../utils/componentBuilder';
 import { TypographyComponentProps } from './props/props';
 import { useTheme } from '../theme';
 import { TYPOGRAPHY_COMPONENT_KEYS } from './props/propKeys';
-import { TypographyComponentTheme } from "./theme/typographyComponentTheme";
+import { SimpleComponentTheme } from "./theme/common/simpleComponentTheme";
 
-const buildTypographyComponent = (props: TypographyComponentProps, theme: TypographyComponentTheme, defaultTag: string): JSX.Element => {
+const buildTypographyComponent = (props: TypographyComponentProps, theme: SimpleComponentTheme, defaultTag: string): JSX.Element => {
   const propsWithDefaultTag = { ...props, tag: props.tag ?? defaultTag };
   return componentBuilder(propsWithDefaultTag, theme, TYPOGRAPHY_COMPONENT_KEYS).build();
 };
