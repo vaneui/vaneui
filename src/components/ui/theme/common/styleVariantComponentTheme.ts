@@ -2,7 +2,6 @@ import { StyleAppearanceTheme } from "../appearance/styleAppearanceTheme";
 import { SizeTheme } from "../size/sizeTheme";
 import { TypographyTheme } from "../typography/typographyTheme";
 import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
-import { Mode } from "../../props/mode";
 import { BaseComponentTheme } from "./baseComponentTheme";
 
 /**
@@ -26,19 +25,9 @@ export class StyleVariantComponentTheme extends BaseComponentTheme {
   /**
    * Get all CSS classes for the component based on props
    * @param props Component props
-   * @param mode Current mode (base, hover, active)
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, boolean>, mode: Mode = 'base'): string {
-    const classes = [
-      this.base,
-      this.size.getClasses(props, mode),
-      this.appearance.getClasses(props, mode),
-      this.typography.getClasses(props, mode),
-      this.layout.getClasses(props, mode)
-    ];
-
-    return classes.filter(Boolean).join(' ');
+  getClasses(props: Record<string, boolean>): string {
+    return [this.base, super.getClasses(props)].filter(Boolean).join(' ');
   }
-
 }

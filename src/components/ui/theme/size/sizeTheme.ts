@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import { Mode } from "../../props/mode";
+import { Mode, MODE_KEYS } from "../../props/mode";
 import { SIZE_KEYS, SizeKey } from "../../props/propKeys";
 import { pickFirstKey } from "../../../utils/componentUtils";
 
@@ -28,20 +28,18 @@ export class SizeTheme extends BaseTheme {
   /**
    * Get size-related CSS classes based on props
    * @param props Component props
-   * @param mode Current mode (base, hover, active)
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+  getClasses(props: Record<string, any>): string {
     const size = pickFirstKey(props, SIZE_KEYS, 'md');
-
-    const classes = [
+    const modeClasses = MODE_KEYS.flatMap(mode => [
       this.px[size]?.[mode] || '',
       this.py[size]?.[mode] || '',
       this.text[size]?.[mode] || '',
       this.gap[size]?.[mode] || ''
-    ];
+    ]);
 
-    return classes.filter(Boolean).join(' ');
+    return modeClasses.filter(Boolean).join(' ');
   }
 
   /**

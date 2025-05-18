@@ -1,4 +1,6 @@
 import React, { createContext, useContext } from 'react';
+import { StyleVariantComponentTheme } from "../ui/theme/common/styleVariantComponentTheme";
+import { SimpleComponentTheme } from "../ui/theme/common/simpleComponentTheme";
 import { defaultButtonTheme } from '../ui/theme/buttonTheme';
 import { defaultBadgeTheme } from '../ui/theme/badgeTheme';
 import { defaultChipTheme } from '../ui/theme/chipTheme';
@@ -12,8 +14,6 @@ import {
   listTheme
 } from '../ui/theme/typographyComponentTheme';
 import { defaultCardTheme } from "../ui/theme/cardTheme";
-import { StyleVariantComponentTheme } from "../ui/theme/common/styleVariantComponentTheme";
-import { SimpleComponentTheme } from "../ui/theme/common/simpleComponentTheme";
 import { defaultRowTheme } from "../ui/theme/rowTheme";
 import { defaultDividerTheme } from '../ui/theme/dividerTheme';
 import { defaultContainerTheme } from '../ui/theme/containerTheme';

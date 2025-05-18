@@ -1,5 +1,4 @@
-import { BaseTheme } from "../common/baseTheme";
-import { Mode } from "../../props/mode";
+import { Mode, MODE_KEYS } from "../../props/mode";
 import { SIZE_KEYS, SizeKey } from "../../props/propKeys";
 import { pickFirstKey } from "../../../utils/componentUtils";
 import { SizeTheme } from "./sizeTheme";
@@ -24,18 +23,13 @@ export class MaxWidthSizeTheme extends SizeTheme {
   /**
    * Get size-related CSS classes based on props
    * @param props Component props
-   * @param mode Current mode (base, hover, active)
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+  getClasses(props: Record<string, any>): string {
     const size = pickFirstKey(props, SIZE_KEYS, 'md');
     const base = super.getClasses(props);
+    const modeClasses = MODE_KEYS.map(mode => this.maxW[size]?.[mode] || '');
 
-    const classes = [
-      base,
-      this.maxW[size]?.[mode] || '',
-    ];
-
-    return classes.filter(Boolean).join(' ');
+    return [base, modeClasses].filter(Boolean).join(' ');
   }
 }

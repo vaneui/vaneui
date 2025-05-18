@@ -1,5 +1,4 @@
 import { BaseTheme } from "./baseTheme";
-import { Mode } from "../../props/mode";
 import { SizeTheme } from "../size/sizeTheme";
 import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
 import { TypographyTheme } from "../typography/typographyTheme";
@@ -32,18 +31,17 @@ export class BaseComponentTheme extends BaseTheme {
   /**
    * Get all CSS classes for the component based on props
    * @param props Component props
-   * @param mode Current mode (base, hover, active)
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+  getClasses(props: Record<string, any>): string {
     const classes = [
       this.base,
-      this.size.getClasses(props, mode),
-      this.typography.getClasses(props, mode),
-      this.layout.getClasses(props, mode)
+      this.typography.getClasses(props),
+      this.layout.getClasses(props),
+      this.size.getClasses(props)
     ];
 
-    return classes.filter(Boolean).join(' ');
+    return classes.join(' ');
   }
 }
 

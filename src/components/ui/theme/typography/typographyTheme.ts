@@ -64,10 +64,9 @@ export class TypographyTheme extends BaseTheme {
   /**
    * Get typography-related CSS classes based on props
    * @param props Component props
-   * @param mode Current mode (base, hover, active) - not used for typography as it doesn't have mode-specific classes
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+  getClasses(props: Record<string, any>): string {
     const fontFamily = pickFirstKey(props, FONT_FAMILY_KEYS, 'sans');
     const fontWeight = pickFirstKey(props, FONT_WEIGHT_KEYS, 'normal');
     const fontStyle = pickFirstKeyOptional(props, FONT_STYLE_KEYS);

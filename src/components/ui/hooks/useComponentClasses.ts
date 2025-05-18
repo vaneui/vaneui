@@ -1,5 +1,4 @@
 import { useMemo } from 'react';
-import { MODE_KEYS } from '../props/mode';
 import { omitProps } from '../../utils/componentUtils';
 import { BaseComponentTheme } from '../theme/common/baseComponentTheme';
 import { BaseTheme } from '../theme/common/baseTheme';
@@ -12,6 +11,7 @@ export interface ComponentProps {
   noBorder?: boolean;
   noShadow?: boolean;
   noRing?: boolean;
+
   [key: string]: any;
 }
 
@@ -27,15 +27,8 @@ export function useComponentClasses<P extends ComponentProps>(
 
   // Get classes for each mode
   const classes = useMemo(() => {
-    const modeClasses: string[] = [];
-
-    // Get classes for each mode (base, hover, active)
-    MODE_KEYS.forEach(mode => {
-      modeClasses.push(theme.getClasses(props, mode));
-    });
-
-    return modeClasses.filter(Boolean).join(' ');
+    return theme.getClasses(props);
   }, [props, theme]);
 
-  return { cleanProps, tag, classes };
+  return {cleanProps, tag, classes};
 }

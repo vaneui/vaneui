@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import { Mode } from "../../props/mode";
+import { Mode, MODE_KEYS } from "../../props/mode";
 import {
   DirectionKey,
   HideKey, ItemsKey, JustifyKey,
@@ -66,10 +66,9 @@ export class BaseLayoutTheme extends BaseTheme {
   /**
    * Get layout-related CSS classes based on props
    * @param props Component props
-   * @param mode Current mode (base, hover, active)
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+  getClasses(props: Record<string, any>): string {
     const size = pickFirstKey(props, SIZE_KEYS, 'md');
     const hide = pickFirstKeyOptional(props, HIDE_KEYS);
     const position = pickFirstKeyOptional(props, POSITION_KEYS);
@@ -86,12 +85,14 @@ export class BaseLayoutTheme extends BaseTheme {
       items ? this.items[items] || '' : '',
       justify ? this.justify[justify] || '' : '',
       wrap ? this.wrap[wrap] || '' : '',
+    ];
+    const modeClasses = MODE_KEYS.flatMap(mode => [
       noBorder ? this.flags.noBorder[mode] || '' : this.border[mode] || '',
       noShadow ? this.flags.noShadow[mode] || '' : this.shadow[mode]?.[size] || '',
       noRing ? this.flags.noRing[mode] || '' : this.ring[mode] || '',
-    ];
+    ]);
 
-    return classes.filter(Boolean).join(' ');
+    return [...classes, ...modeClasses].filter(Boolean).join(' ');
   }
 
   /**

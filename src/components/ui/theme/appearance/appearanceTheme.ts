@@ -1,6 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import { Mode } from "../../props/mode";
-
+import { Mode, MODE_KEYS } from "../../props/mode";
 
 /**
  * Base appearance variant class
@@ -24,15 +23,15 @@ export class AppearanceTheme extends BaseTheme {
     this.ringColor = ringColor;
   }
 
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
-    const classes = [
+  getClasses(props: Record<string, any>): string {
+    const modeClasses = MODE_KEYS.flatMap(mode => [
       this.backgroundColor[mode] || '',
       this.textColor[mode] || '',
       this.borderColor[mode] || '',
       this.ringColor[mode] || ''
-    ];
+    ]);
 
-    return classes.filter(Boolean).join(' ');
+    return modeClasses.filter(Boolean).join(' ');
   }
 
   /**
@@ -54,10 +53,10 @@ export class AppearanceTheme extends BaseTheme {
     ringBase: string
   ): AppearanceTheme {
     return new AppearanceTheme(
-      { base: bgBase, hover: bgHover, active: bgActive },
-      { base: textBase, hover: '', active: '' },
-      { base: borderBase, hover: '', active: '' },
-      { base: ringBase, hover: '', active: '' }
+      {base: bgBase, hover: bgHover, active: bgActive},
+      {base: textBase, hover: '', active: ''},
+      {base: borderBase, hover: '', active: ''},
+      {base: ringBase, hover: '', active: ''}
     );
   }
 }
