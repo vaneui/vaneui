@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 import { RowProps } from './props/props';
-import { componentBuilder } from '../utils/componentBuilder';
+import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
 import { ROW_KEYS } from './props/propKeys';
 import { rowToColumnBreakpointClasses } from './classes/layoutClasses';
@@ -12,5 +12,5 @@ export const Row = (props: RowProps): JSX.Element => {
   // Override the default tag to be "div" for rows
   const propsWithDefaultTag = { ...props, tag: props.tag ?? "div" };
 
-  return componentBuilder(propsWithDefaultTag, rowTheme, ROW_KEYS).build();
+  return buildComponent(propsWithDefaultTag, rowTheme, ROW_KEYS);
 };

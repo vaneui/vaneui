@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 import { LayoutComponentProps } from './props/props';
-import { componentBuilder } from '../utils/componentBuilder';
+import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
 import { SECTION_KEYS } from './props/propKeys';
 
@@ -11,5 +11,5 @@ export const Section = (props: LayoutComponentProps): JSX.Element => {
   // Override the default tag to be "section" for sections
   const propsWithDefaultTag = { ...props, tag: props.tag ?? "section" };
 
-  return componentBuilder(propsWithDefaultTag, sectionTheme, SECTION_KEYS).build();
+  return buildComponent(propsWithDefaultTag, sectionTheme, SECTION_KEYS);
 };

@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 import { ColProps } from './props/props';
-import { componentBuilder } from '../utils/componentBuilder';
+import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
 import { COL_KEYS } from './props/propKeys';
 
@@ -18,5 +18,5 @@ export const Col = (props: ColProps): JSX.Element => {
   // Override the default tag to be "div" for col
   const propsWithDefaultTag = { ...props, tag: props.tag ?? "div" };
 
-  return componentBuilder(propsWithDefaultTag, colTheme, COL_KEYS).build();
+  return buildComponent(propsWithDefaultTag, colTheme, COL_KEYS);
 };

@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 import { BaseComponentProps } from './props/props';
-import { componentBuilder } from '../utils/componentBuilder';
+import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
 import { DIVIDER_KEYS } from './props/propKeys';
 
@@ -11,5 +11,5 @@ export const Divider = (props: BaseComponentProps): JSX.Element => {
   // Override the default tag to be "div" for dividers
   const propsWithDefaultTag = { ...props, tag: props.tag ?? "div" };
 
-  return componentBuilder(propsWithDefaultTag, dividerTheme, DIVIDER_KEYS).build();
+  return buildComponent(propsWithDefaultTag, dividerTheme, DIVIDER_KEYS);
 };

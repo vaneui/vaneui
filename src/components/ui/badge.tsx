@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 import { TypographyComponentProps } from './props/props';
-import { componentBuilder } from '../utils/componentBuilder';
+import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
 import { BADGE_KEYS } from './props/propKeys';
 
@@ -11,5 +11,5 @@ export const Badge = (props: TypographyComponentProps): JSX.Element => {
   // Override the default tag to be "span" for badges (original implementation used span)
   const propsWithDefaultTag = { ...props, tag: props.tag ?? "span" };
 
-  return componentBuilder(propsWithDefaultTag, badgeTheme, BADGE_KEYS).build();
+  return buildComponent(propsWithDefaultTag, badgeTheme, BADGE_KEYS);
 };

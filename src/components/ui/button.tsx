@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 import { ButtonProps } from './props/props';
-import { componentBuilder } from '../utils/componentBuilder';
+import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
 import { BUTTON_KEYS } from './props/propKeys';
 
@@ -11,5 +11,5 @@ export const Button = (props: ButtonProps): JSX.Element => {
   // Override the default tag to be "button" for buttons
   const propsWithDefaultTag = { ...props, tag: props.tag ?? "button" };
 
-  return componentBuilder(propsWithDefaultTag, buttonTheme as any, BUTTON_KEYS).build();
+  return buildComponent(propsWithDefaultTag, buttonTheme, BUTTON_KEYS);
 };

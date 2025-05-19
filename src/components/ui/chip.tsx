@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 import { TypographyComponentProps } from './props/props';
-import { componentBuilder } from '../utils/componentBuilder';
+import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
 import { CHIP_KEYS } from './props/propKeys';
 
@@ -11,5 +11,5 @@ export const Chip = (props: TypographyComponentProps): JSX.Element => {
   // Override the default tag to be "span" for chips
   const propsWithDefaultTag = { ...props, tag: props.tag ?? "span" };
 
-  return componentBuilder(propsWithDefaultTag, chipTheme, CHIP_KEYS).build();
+  return buildComponent(propsWithDefaultTag, chipTheme, CHIP_KEYS);
 };
