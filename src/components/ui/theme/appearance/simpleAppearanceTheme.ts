@@ -21,20 +21,20 @@ import { AppearanceTheme } from "./appearanceTheme";
  * Simple appearance theme class for components without style variants
  */
 export class SimpleAppearanceTheme extends BaseTheme {
-  private variants: Partial<Record<TextAppearanceKey, AppearanceTheme>>;
+  variants: Partial<Record<TextAppearanceKey, AppearanceTheme>>;
 
   constructor(variants: Partial<Record<TextAppearanceKey, AppearanceTheme>> = {}) {
     super();
     this.variants = variants;
   }
 
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+  getClasses(props: Record<string, any>): string {
     const appearance = pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default');
 
     const variant = this.variants[appearance];
     if (!variant) return '';
 
-    return variant.getClasses(props, mode);
+    return variant.getClasses(props);
   }
 
   /**

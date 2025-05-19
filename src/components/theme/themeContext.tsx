@@ -21,10 +21,11 @@ import { defaultColTheme } from '../ui/theme/colTheme';
 import { defaultStackTheme } from '../ui/theme/stackTheme';
 import { defaultSectionTheme } from "../ui/theme/sectionTheme";
 import { defaultGrid3Theme, defaultGrid4Theme } from "../ui/theme/gridTheme";
+import { ButtonProps } from "../ui/props/props";
 
 // Define the shape of our theme props
 export interface ThemeProps {
-  button: StyleVariantComponentTheme;
+  button: StyleVariantComponentTheme<ButtonProps>;
   badge: StyleVariantComponentTheme;
   card: SimpleComponentTheme;
   chip: StyleVariantComponentTheme;

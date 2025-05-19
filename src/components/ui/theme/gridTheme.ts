@@ -2,6 +2,7 @@ import { SizeTheme } from "./size/sizeTheme";
 import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
+import { GridProps } from "../props/props";
 
 const gridSize = new SizeTheme(
   undefined,
@@ -17,16 +18,12 @@ const gridSize = new SizeTheme(
 
 const gridTypography = TypographyTheme.createDefaultTypographyTheme();
 const gridLayout = BaseLayoutTheme.createBaseLayoutTheme();
-const gridDefaults = {
+const gridDefaults: Partial<Record<keyof GridProps, boolean>> = {
   md: true,
-  outline: true,
   transparent: true,
-  noBorder: true,
-  noShadow: true,
-  noRing: true,
 };
 
-export const defaultGrid3Theme: SimpleComponentTheme = new SimpleComponentTheme(
+export const defaultGrid3Theme: SimpleComponentTheme<GridProps> = new SimpleComponentTheme(
   "grid grid-cols-1 md:grid-cols-3",
   gridSize,
   gridTypography,
@@ -34,8 +31,7 @@ export const defaultGrid3Theme: SimpleComponentTheme = new SimpleComponentTheme(
   gridDefaults,
 );
 
-
-export const defaultGrid4Theme: SimpleComponentTheme = new SimpleComponentTheme(
+export const defaultGrid4Theme: SimpleComponentTheme<GridProps>  = new SimpleComponentTheme(
   "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   gridSize,
   gridTypography,

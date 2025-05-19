@@ -7,7 +7,7 @@ import { BaseComponentTheme } from "./baseComponentTheme";
 /**
  * Component theme class for components with style variants (button, chip, badge)
  */
-export class StyleVariantComponentTheme extends BaseComponentTheme {
+export class StyleVariantComponentTheme<T> extends BaseComponentTheme<T> {
   appearance: StyleAppearanceTheme;
 
   constructor(
@@ -16,7 +16,7 @@ export class StyleVariantComponentTheme extends BaseComponentTheme {
     appearanceTheme: StyleAppearanceTheme = new StyleAppearanceTheme(),
     typography: TypographyTheme = TypographyTheme.createDefaultTypographyTheme(),
     layout: BaseLayoutTheme = BaseLayoutTheme.createBaseLayoutTheme(),
-    defaults: Record<string, boolean> = {}
+    defaults: Partial<Record<keyof T, boolean>> = {}
   ) {
     super(base, size, typography, layout, defaults);
     this.appearance = appearanceTheme;

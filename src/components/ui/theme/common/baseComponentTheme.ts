@@ -6,19 +6,19 @@ import { TypographyTheme } from "../typography/typographyTheme";
 /**
  * Base component theme class that combines all theme aspects
  */
-export class BaseComponentTheme extends BaseTheme {
+export class BaseComponentTheme<T> extends BaseTheme {
   base: string;
   size: SizeTheme;
   typography: TypographyTheme;
   layout: BaseLayoutTheme;
-  defaults: Record<string, boolean>;
+  defaults: Partial<Record<keyof T, boolean>>;
 
   constructor(
     base: string = '',
     size: SizeTheme = new SizeTheme(),
     typography: TypographyTheme = TypographyTheme.createDefaultTypographyTheme(),
     layout: BaseLayoutTheme = BaseLayoutTheme.createBaseLayoutTheme(),
-    defaults: Record<string, boolean> = {}
+    defaults: Partial<Record<keyof T, boolean>> = {}
   ) {
     super();
     this.base = base;
