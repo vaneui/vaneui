@@ -21,7 +21,7 @@ import { defaultColTheme } from '../ui/theme/colTheme';
 import { defaultStackTheme } from '../ui/theme/stackTheme';
 import { defaultSectionTheme } from "../ui/theme/sectionTheme";
 import { defaultGrid3Theme, defaultGrid4Theme } from "../ui/theme/gridTheme";
-import { ButtonProps } from "../ui/props/props";
+import { ButtonProps, GridProps } from "../ui/props/props";
 
 // Define the shape of our theme props
 export interface ThemeProps {
@@ -42,8 +42,8 @@ export interface ThemeProps {
   link: SimpleComponentTheme;
   listItem: SimpleComponentTheme;
   list: SimpleComponentTheme;
-  grid3: SimpleComponentTheme;
-  grid4: SimpleComponentTheme;
+  grid3: SimpleComponentTheme<GridProps>;
+  grid4: SimpleComponentTheme<GridProps>;
 }
 
 export const defaultTheme: ThemeProps = {
