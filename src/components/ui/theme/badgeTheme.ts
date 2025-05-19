@@ -7,7 +7,8 @@ import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme"
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { BadgeProps, TypographyComponentProps } from "../props/props";
 
-export const defaultBadgeTheme: StyleVariantComponentTheme<BadgeProps> = new StyleVariantComponentTheme<BadgeProps>(
+export const defaultBadgeTheme: StyleVariantComponentTheme<BadgeProps> = StyleVariantComponentTheme.createStyleVariantComponentTheme<BadgeProps>(
+  "span",
   "w-fit h-fit inline-flex items-center transition-all duration-200 whitespace-nowrap",
   new SizeTheme(
     pxMap,

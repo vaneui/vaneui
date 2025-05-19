@@ -56,7 +56,7 @@ export type JustifyProps = { [K in JustifyKey]?: boolean; }
 export type WrapProps = { [K in WrapKey]?: boolean; }
 
 export interface TagProps {
-  tag?: React.ReactNode | string | any;
+  tag: React.ReactNode | string | any;
 }
 
 export type BaseComponentProps = TagProps & SizeProps & HideProps & PositionProps & React.HTMLProps<HTMLElement>;

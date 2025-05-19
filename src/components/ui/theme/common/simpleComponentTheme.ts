@@ -5,6 +5,7 @@ import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
 import { Mode } from "../../props/mode";
 import { BaseComponentTheme } from "./baseComponentTheme";
 import { TypographyComponentProps } from "../../props/props";
+import React from "react";
 
 /**
  * Component theme class for components with simple appearance (no style variants)
@@ -13,13 +14,14 @@ export class SimpleComponentTheme<T extends Partial<TypographyComponentProps>> e
   appearance: SimpleAppearanceTheme;
 
   constructor(
+    tag: React.ReactNode | string | any,
     base: string,
     size: SizeTheme,
     typography: TypographyTheme,
     layout: BaseLayoutTheme,
     defaults: Partial<Record<keyof T, boolean>>
   ) {
-    super(base, size, typography, layout, defaults);
+    super(tag, base, size, typography, layout, defaults);
     this.appearance = SimpleAppearanceTheme.createDefaultStyle();
   }
 
@@ -39,10 +41,12 @@ export class SimpleComponentTheme<T extends Partial<TypographyComponentProps>> e
   }
 
   static createSimpleComponentTheme<T extends Partial<TypographyComponentProps>>(
+    tag: React.ReactNode | string | any,
     base: string = '',
     size: SizeTheme = new SizeTheme(),
     defaults: Partial<Record<keyof T, boolean>> = {}): SimpleComponentTheme<T> {
     return new SimpleComponentTheme<T>(
+      tag,
       base,
       size,
       TypographyTheme.createDefaultTypographyTheme(),

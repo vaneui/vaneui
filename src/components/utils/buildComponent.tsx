@@ -18,7 +18,7 @@ export function buildComponent<P extends Partial<TypographyComponentProps>>(
     }
   }
   const {className, children, ...other} = cleanProps;
-  const tag: string = props.tag ?? "div";
+  const tag: string = props.tag ?? theme.tag ?? "div";
   const themeClasses = useMemo(() => {
     return theme.getClasses(props as Partial<Record<keyof P, boolean>>);
   }, [props, theme]);

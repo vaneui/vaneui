@@ -7,7 +7,8 @@ import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme"
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { ButtonProps } from "../props/props";
 
-export const defaultButtonTheme: StyleVariantComponentTheme<ButtonProps> = new StyleVariantComponentTheme<ButtonProps>(
+export const defaultButtonTheme: StyleVariantComponentTheme<ButtonProps> = StyleVariantComponentTheme.createStyleVariantComponentTheme<ButtonProps>(
+  "button",
   "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
   new SizeTheme(
     pxMap,

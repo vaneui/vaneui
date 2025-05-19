@@ -3,11 +3,13 @@ import { SizeTheme } from "../size/sizeTheme";
 import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
 import { TypographyTheme } from "../typography/typographyTheme";
 import { TypographyComponentProps } from "../../props/props";
+import React from "react";
 
 /**
  * Base component theme class that combines all theme aspects
  */
 export class BaseComponentTheme<T extends Partial<TypographyComponentProps>> extends BaseTheme {
+  tag: React.ReactNode | string | any = "div";
   base: string;
   size: SizeTheme;
   typography: TypographyTheme;
@@ -15,6 +17,7 @@ export class BaseComponentTheme<T extends Partial<TypographyComponentProps>> ext
   defaults: Partial<Record<keyof T, boolean>>;
 
   constructor(
+    tag: React.ReactNode | string | any,
     base: string = '',
     size: SizeTheme = new SizeTheme(),
     typography: TypographyTheme = TypographyTheme.createDefaultTypographyTheme(),
@@ -22,6 +25,7 @@ export class BaseComponentTheme<T extends Partial<TypographyComponentProps>> ext
     defaults: Partial<Record<keyof T, boolean>> = {}
   ) {
     super();
+    this.tag = tag;
     this.base = base;
     this.size = size;
     this.typography = typography;
