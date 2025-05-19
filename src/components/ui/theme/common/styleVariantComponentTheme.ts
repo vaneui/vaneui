@@ -1,4 +1,4 @@
-import { StyleAppearanceTheme } from "../appearance/styleAppearanceTheme";
+import { VariantAppearanceTheme } from "../appearance/variantAppearanceTheme";
 import { SizeTheme } from "../size/sizeTheme";
 import { TypographyTheme } from "../typography/typographyTheme";
 import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
@@ -10,13 +10,13 @@ import React from "react";
  * Component theme class for components with style variants (button, chip, badge)
  */
 export class StyleVariantComponentTheme<T extends Partial<TypographyComponentProps>> extends BaseComponentTheme<T> {
-  appearance: StyleAppearanceTheme;
+  appearance: VariantAppearanceTheme;
 
   constructor(
     tag: React.ReactNode | string | any,
     base: string = '',
     size: SizeTheme = new SizeTheme(),
-    appearanceTheme: StyleAppearanceTheme = new StyleAppearanceTheme(),
+    appearanceTheme: VariantAppearanceTheme = new VariantAppearanceTheme(),
     typography: TypographyTheme = TypographyTheme.createDefaultTypographyTheme(),
     layout: BaseLayoutTheme = BaseLayoutTheme.createBaseLayoutTheme(),
     defaults: Partial<Record<keyof T, boolean>> = {}
@@ -38,7 +38,7 @@ export class StyleVariantComponentTheme<T extends Partial<TypographyComponentPro
     tag: React.ReactNode | string | any,
     base: string = '',
     size: SizeTheme = new SizeTheme(),
-    appearanceTheme: StyleAppearanceTheme = new StyleAppearanceTheme(),
+    appearanceTheme: VariantAppearanceTheme = new VariantAppearanceTheme(),
     typography: TypographyTheme = TypographyTheme.createDefaultTypographyTheme(),
     layout: BaseLayoutTheme = BaseLayoutTheme.createBaseLayoutTheme(),
     defaults: Partial<Record<keyof T, boolean>> = {}): StyleVariantComponentTheme<T> {

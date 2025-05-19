@@ -1,6 +1,6 @@
 import { TypographyTheme } from "./typography/typographyTheme";
 import { SizeTheme } from "./size/sizeTheme";
-import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
+import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
 import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { ChipProps, TypographyComponentProps } from "../props/props";
@@ -38,7 +38,7 @@ export const defaultChipTheme: StyleVariantComponentTheme<ChipProps> = StyleVari
       xl: 'gap-3',
     }
   ),
-  StyleAppearanceTheme.createDefault(),
+  VariantAppearanceTheme.createDefault(),
   TypographyTheme.createDefaultTypographyTheme(),
   RadiusLayoutTheme.createBaseLayoutTheme({
     xs: 'rounded-sm',

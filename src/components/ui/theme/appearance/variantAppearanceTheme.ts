@@ -24,7 +24,7 @@ import {
 } from "../../classes/typographyClasses";
 import { AppearanceTheme } from "./appearanceTheme";
 
-export class StyleAppearanceTheme extends BaseTheme {
+export class VariantAppearanceTheme extends BaseTheme {
   variants: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>>;
 
   constructor(styleVariants: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>> = {}) {
@@ -41,8 +41,8 @@ export class StyleAppearanceTheme extends BaseTheme {
     return variant ? variant.getClasses(props) : '';
   }
 
-  static createDefault(): StyleAppearanceTheme {
-    return new StyleAppearanceTheme(StyleAppearanceTheme.makeStyleVariants(AppearanceTheme.createAppearanceTheme));
+  static createDefault(): VariantAppearanceTheme {
+    return new VariantAppearanceTheme(VariantAppearanceTheme.makeStyleVariants(AppearanceTheme.createAppearanceTheme));
   }
 
   /**

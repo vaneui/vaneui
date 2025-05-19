@@ -2,7 +2,7 @@ import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SizeTheme } from "./size/sizeTheme";
-import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
+import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
 import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { BadgeProps, TypographyComponentProps } from "../props/props";
@@ -16,7 +16,7 @@ export const defaultBadgeTheme: StyleVariantComponentTheme<BadgeProps> = StyleVa
     textSizeClasses,
     gapMap
   ),
-  StyleAppearanceTheme.createDefault(),
+  VariantAppearanceTheme.createDefault(),
   TypographyTheme.createDefaultTypographyTheme(),
   RadiusLayoutTheme.createBaseLayoutTheme(roundedMap),
   {
