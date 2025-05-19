@@ -2,7 +2,7 @@ import { SizeTheme } from "./size/sizeTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
-import { BaseComponentProps, LayoutComponentProps } from "../props/props";
+import { LayoutComponentProps } from "../props/props";
 
 export const defaultSectionTheme: SimpleComponentTheme<LayoutComponentProps> = new SimpleComponentTheme<LayoutComponentProps>(
   "w-full flex flex-col",

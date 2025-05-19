@@ -2,7 +2,7 @@ import { TypographyTheme } from "./typography/typographyTheme";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
 import { MaxWidthSizeTheme } from "./size/maxWidthSizeTheme";
-import { BaseComponentProps, LayoutComponentProps } from "../props/props";
+import { LayoutComponentProps } from "../props/props";
 
 export const defaultContainerTheme: SimpleComponentTheme<LayoutComponentProps> = new SimpleComponentTheme<LayoutComponentProps>(
   "flex flex-col mx-auto w-full",

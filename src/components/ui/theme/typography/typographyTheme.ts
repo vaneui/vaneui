@@ -23,6 +23,7 @@ import {
   textTransformClasses
 } from "../../classes/typographyClasses";
 import { pickFirstKey, pickFirstKeyOptional } from "../../../utils/componentUtils";
+import { FontProps } from "../../props/props";
 
 /**
  * Typography theme class for handling typography-related CSS classes
@@ -66,9 +67,10 @@ export class TypographyTheme extends BaseTheme {
    * @param props Component props
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, any>): string {
+  getClasses(props: Partial<Record<keyof FontProps, any>>): string {
     const fontFamily = pickFirstKey(props, FONT_FAMILY_KEYS, 'sans');
     const fontWeight = pickFirstKey(props, FONT_WEIGHT_KEYS, 'normal');
+
     const fontStyle = pickFirstKeyOptional(props, FONT_STYLE_KEYS);
     const textDecoration = pickFirstKeyOptional(props, TEXT_DECORATION_KEYS);
     const textTransform = pickFirstKeyOptional(props, TEXT_TRANSFORM_KEYS);
@@ -90,13 +92,6 @@ export class TypographyTheme extends BaseTheme {
    * Create a default typography theme
    */
   static createDefaultTypographyTheme(): TypographyTheme {
-    return new TypographyTheme(
-      fontFamilyClasses,
-      fontWeightClasses,
-      fontStyleClasses,
-      textDecorationClasses,
-      textTransformClasses,
-      textAlignClasses
-    );
+    return new TypographyTheme();
   }
 }

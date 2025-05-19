@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { omitProps } from '../../utils/componentUtils';
 import { BaseComponentTheme } from '../theme/common/baseComponentTheme';
-import { BaseTheme } from '../theme/common/baseTheme';
 import { StyleVariantComponentTheme } from "../theme/common/styleVariantComponentTheme";
 import { SimpleComponentTheme } from "../theme/common/simpleComponentTheme";
 
@@ -18,7 +17,7 @@ export interface ComponentProps {
 // Hook to generate component classes based on props and theme
 export function useComponentClasses<P extends ComponentProps>(
   props: P,
-  theme: BaseComponentTheme | StyleVariantComponentTheme | SimpleComponentTheme | BaseTheme,
+  theme: BaseComponentTheme<P> | StyleVariantComponentTheme<P> | SimpleComponentTheme<P>,
   propsToOmit: readonly string[] = []
 ) {
   // Use only the props to omit passed from the outside

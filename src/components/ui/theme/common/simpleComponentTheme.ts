@@ -4,11 +4,12 @@ import { TypographyTheme } from "../typography/typographyTheme";
 import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
 import { Mode } from "../../props/mode";
 import { BaseComponentTheme } from "./baseComponentTheme";
+import { TypographyComponentProps } from "../../props/props";
 
 /**
  * Component theme class for components with simple appearance (no style variants)
  */
-export class SimpleComponentTheme<T> extends BaseComponentTheme<T> {
+export class SimpleComponentTheme<T extends Partial<TypographyComponentProps>> extends BaseComponentTheme<T> {
   appearance: SimpleAppearanceTheme;
 
   constructor(
@@ -27,7 +28,7 @@ export class SimpleComponentTheme<T> extends BaseComponentTheme<T> {
    * @param props Component props
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, boolean>): string {
+  getClasses(props: Partial<Record<keyof T, boolean>>): string {
     const base = super.getClasses(props);
     const classes = [
       this.base,
@@ -37,7 +38,7 @@ export class SimpleComponentTheme<T> extends BaseComponentTheme<T> {
     return [base, ...classes].filter(Boolean).join(' ');
   }
 
-  static createSimpleComponentTheme<T>(
+  static createSimpleComponentTheme<T extends Partial<TypographyComponentProps>>(
     base: string = '',
     size: SizeTheme = new SizeTheme(),
     defaults: Partial<Record<keyof T, boolean>> = {}): SimpleComponentTheme<T> {

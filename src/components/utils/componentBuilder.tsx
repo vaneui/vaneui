@@ -1,10 +1,7 @@
 import { twMerge } from "tailwind-merge";
-import {
-  BaseComponentProps,
-} from "../ui/props/props";
+import { BaseComponentProps } from "../ui/props/props";
 import React from "react";
 import { BaseComponentTheme } from '../ui/theme/common/baseComponentTheme';
-import { BaseTheme } from '../ui/theme/common/baseTheme';
 import { useComponentClasses, ComponentProps } from '../ui/hooks/useComponentClasses';
 import { StyleVariantComponentTheme } from "../ui/theme/common/styleVariantComponentTheme";
 import { SimpleComponentTheme } from "../ui/theme/common/simpleComponentTheme";
@@ -49,9 +46,9 @@ export class ComponentBuilder {
  */
 export function componentBuilder<P extends ComponentProps>(
   props: P,
-  theme: BaseComponentTheme | StyleVariantComponentTheme | SimpleComponentTheme | BaseTheme,
+  theme: BaseComponentTheme<P> | StyleVariantComponentTheme<P> | SimpleComponentTheme<P>,
   propsToOmit: readonly string[] = []
 ): ComponentBuilder {
-  const { cleanProps, tag, classes } = useComponentClasses(props, theme as BaseTheme, propsToOmit);
+  const {cleanProps, tag, classes} = useComponentClasses(props, theme, propsToOmit);
   return new ComponentBuilder(cleanProps, tag ?? "div").withExtraClasses([classes]);
 }

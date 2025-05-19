@@ -3,11 +3,12 @@ import { SizeTheme } from "../size/sizeTheme";
 import { TypographyTheme } from "../typography/typographyTheme";
 import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
 import { BaseComponentTheme } from "./baseComponentTheme";
+import { TypographyComponentProps } from "../../props/props";
 
 /**
  * Component theme class for components with style variants (button, chip, badge)
  */
-export class StyleVariantComponentTheme<T> extends BaseComponentTheme<T> {
+export class StyleVariantComponentTheme<T extends Partial<TypographyComponentProps>> extends BaseComponentTheme<T> {
   appearance: StyleAppearanceTheme;
 
   constructor(
@@ -27,7 +28,7 @@ export class StyleVariantComponentTheme<T> extends BaseComponentTheme<T> {
    * @param props Component props
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, boolean>): string {
+  getClasses(props: Partial<Record<keyof T, boolean>>): string {
     return [this.base, super.getClasses(props)].filter(Boolean).join(' ');
   }
 }

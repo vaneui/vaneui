@@ -61,19 +61,19 @@ export interface TagProps {
 
 export type BaseComponentProps = TagProps & SizeProps & HideProps & PositionProps & React.HTMLProps<HTMLElement>;
 
-export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProps & CommonAppearanceProps & JustifyProps;
-
 export type FontProps =
   FontWeightProps
   & FontStyleProps
   & TextDecorationProps
   & TextTransformProps
   & FontFamilyProps
-  & TextAppearanceProps
-  & CommonAppearanceProps
   & TextAlignProps;
 
-export type TypographyComponentProps = BaseComponentProps & FontProps;
+export type TypographyComponentProps =
+  BaseComponentProps
+  & FontProps
+  & TextAppearanceProps
+  & CommonAppearanceProps;
 
 export type ButtonProps =
   TypographyComponentProps
@@ -104,6 +104,13 @@ export type ChipProps =
 
 export type GridProps = BaseComponentProps & NoGapProps & CommonAppearanceProps;
 
+export type LayoutComponentProps =
+  TypographyComponentProps
+  & ReverseProps
+  & ItemsProps
+  & CommonAppearanceProps
+  & JustifyProps;
+
 export type RowProps =
   LayoutComponentProps
   & WrapProps
@@ -120,7 +127,6 @@ export type CardProps =
   & NoGapProps
   & SharpProps
   & BreakpointProps
-  & TypographyComponentProps
   & NoBorderProps
   & NoShadowProps
   & NoPaddingProps

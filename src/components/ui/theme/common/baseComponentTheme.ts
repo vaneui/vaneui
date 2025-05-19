@@ -2,11 +2,12 @@ import { BaseTheme } from "./baseTheme";
 import { SizeTheme } from "../size/sizeTheme";
 import { BaseLayoutTheme } from "../layout/baseLayoutTheme";
 import { TypographyTheme } from "../typography/typographyTheme";
+import { TypographyComponentProps } from "../../props/props";
 
 /**
  * Base component theme class that combines all theme aspects
  */
-export class BaseComponentTheme<T> extends BaseTheme {
+export class BaseComponentTheme<T extends Partial<TypographyComponentProps>> extends BaseTheme {
   base: string;
   size: SizeTheme;
   typography: TypographyTheme;
@@ -33,7 +34,7 @@ export class BaseComponentTheme<T> extends BaseTheme {
    * @param props Component props
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, any>): string {
+  getClasses(props: Partial<Record<keyof T, boolean>>): string {
     const classes = [
       this.base,
       this.typography.getClasses(props),

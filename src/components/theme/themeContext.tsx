@@ -36,14 +36,16 @@ import {
 export interface ThemeProps {
   button: StyleVariantComponentTheme<ButtonProps>;
   badge: StyleVariantComponentTheme<BadgeProps>;
-  card: SimpleComponentTheme<CardProps>;
   chip: StyleVariantComponentTheme<ChipProps>;
+  card: SimpleComponentTheme<CardProps>;
   divider: SimpleComponentTheme<LayoutComponentProps>;
   container: SimpleComponentTheme<LayoutComponentProps>;
   row: SimpleComponentTheme<RowProps>;
   col: SimpleComponentTheme<ColProps>;
   stack: SimpleComponentTheme<StackProps>;
   section: SimpleComponentTheme<LayoutComponentProps>;
+  grid3: SimpleComponentTheme<GridProps>;
+  grid4: SimpleComponentTheme<GridProps>;
   pageTitle: SimpleComponentTheme<TypographyComponentProps>;
   sectionTitle: SimpleComponentTheme<TypographyComponentProps>;
   title: SimpleComponentTheme<TypographyComponentProps>;
@@ -51,8 +53,6 @@ export interface ThemeProps {
   link: SimpleComponentTheme<TypographyComponentProps>;
   listItem: SimpleComponentTheme<TypographyComponentProps>;
   list: SimpleComponentTheme<TypographyComponentProps>;
-  grid3: SimpleComponentTheme<GridProps>;
-  grid4: SimpleComponentTheme<GridProps>;
 }
 
 export const defaultTheme: ThemeProps = {
