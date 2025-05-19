@@ -2,8 +2,9 @@ import { SizeTheme } from "./size/sizeTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
+import { StackProps } from "../props/props";
 
-export const defaultStackTheme: SimpleComponentTheme = new SimpleComponentTheme(
+export const defaultStackTheme: SimpleComponentTheme<StackProps> = new SimpleComponentTheme<StackProps>(
   "flex",
   new SizeTheme(
     {

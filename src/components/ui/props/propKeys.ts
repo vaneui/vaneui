@@ -1,5 +1,5 @@
 export const SIZE_KEYS = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
-export const STYLE_KEYS = ['filled', 'outline'] as const;
+export const VARIANT_KEYS = ['filled', 'outline'] as const;
 export const APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'transparent'] as const;
 export const TEXT_APPEARANCE_KEYS = [...APPEARANCE_KEYS, 'muted', 'link'] as const;
 export const FONT_FAMILY_KEYS = ['sans', 'serif', 'mono'] as const;
@@ -27,7 +27,7 @@ export const JUSTIFY_KEYS = ['justifyStart', 'justifyEnd', 'justifyCenter', 'jus
 export const WRAP_KEYS = ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const;
 
 export type SizeKey = typeof SIZE_KEYS[number];
-export type StyleKey = typeof STYLE_KEYS[number];
+export type VariantKey = typeof VARIANT_KEYS[number];
 export type AppearanceKey = typeof APPEARANCE_KEYS[number];
 export type TextAppearanceKey = typeof TEXT_APPEARANCE_KEYS[number];
 export type FontFamilyKey = typeof FONT_FAMILY_KEYS[number];
@@ -92,7 +92,7 @@ export const BUTTON_KEYS = [
   ...NO_BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_RING_KEYS,
-  ...STYLE_KEYS
+  ...VARIANT_KEYS
 ] as const;
 
 // Grid keys
@@ -157,7 +157,7 @@ export const STACK_KEYS = [
 export const BADGE_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...SHAPE_KEYS,
-  ...STYLE_KEYS,
+  ...VARIANT_KEYS,
   ...NO_SHADOW_KEYS
 ] as const;
 
@@ -165,7 +165,7 @@ export const BADGE_KEYS = [
 export const CHIP_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...SHAPE_KEYS,
-  ...STYLE_KEYS,
+  ...VARIANT_KEYS,
   ...NO_SHADOW_KEYS
 ] as const;
 
@@ -175,7 +175,7 @@ export const DIVIDER_KEYS = [
   ...NO_BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_RING_KEYS,
-  ...STYLE_KEYS
+  ...VARIANT_KEYS
 ] as const;
 
 // Container keys
@@ -186,7 +186,7 @@ export const CONTAINER_KEYS = [
   ...NO_BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_RING_KEYS,
-  ...STYLE_KEYS
+  ...VARIANT_KEYS
 ] as const;
 
 // Section keys
@@ -197,5 +197,5 @@ export const SECTION_KEYS = [
   ...NO_BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_RING_KEYS,
-  ...STYLE_KEYS
+  ...VARIANT_KEYS
 ] as const;

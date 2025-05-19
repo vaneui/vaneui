@@ -5,8 +5,9 @@ import { roundedMap } from "../classes/buttonClasses";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
+import { ButtonProps } from "../props/props";
 
-export const defaultButtonTheme: StyleVariantComponentTheme = new StyleVariantComponentTheme(
+export const defaultButtonTheme: StyleVariantComponentTheme<ButtonProps> = new StyleVariantComponentTheme<ButtonProps>(
   "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
   new SizeTheme(
     pxMap,

@@ -2,8 +2,9 @@ import { SizeTheme } from "./size/sizeTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
+import { RowProps } from "../props/props";
 
-export const defaultRowTheme: SimpleComponentTheme = new SimpleComponentTheme(
+export const defaultRowTheme: SimpleComponentTheme<RowProps> = new SimpleComponentTheme<RowProps>(
   "flex flex-row",
   new SizeTheme(
     undefined,
@@ -21,12 +22,8 @@ export const defaultRowTheme: SimpleComponentTheme = new SimpleComponentTheme(
   DirectionLayoutTheme.createDirectionTheme(),
   {
     md: true,
-    outline: true,
     transparent: true,
     itemsCenter: true,
     flexWrap: true,
-    noBorder: true,
-    noShadow: true,
-    noRing: true,
   }
 );

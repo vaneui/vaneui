@@ -1,8 +1,7 @@
 import { BaseTheme } from "../common/baseTheme";
-import { Mode } from "../../props/mode";
 import { 
-  STYLE_KEYS, 
-  StyleKey, 
+  VARIANT_KEYS,
+  VariantKey,
   TEXT_APPEARANCE_KEYS, 
   TextAppearanceKey 
 } from "../../props/propKeys";
@@ -26,15 +25,15 @@ import {
 import { AppearanceTheme } from "./appearanceTheme";
 
 export class StyleAppearanceTheme extends BaseTheme {
-  variants: Partial<Record<StyleKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>>;
+  variants: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>>;
 
-  constructor(styleVariants: Partial<Record<StyleKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>> = {}) {
+  constructor(styleVariants: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>> = {}) {
     super();
     this.variants = styleVariants;
   }
 
   getClasses(props: Record<string, any>): string {
-    const style = pickFirstKey(props, STYLE_KEYS, 'outline');
+    const style = pickFirstKey(props, VARIANT_KEYS, 'outline');
     const appearance = pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default');
 
     const variant = this.variants[style]?.[appearance];
@@ -58,8 +57,8 @@ export class StyleAppearanceTheme extends BaseTheme {
       borderBase: string,
       ringBase: string
     ) => AppearanceTheme
-  ): Record<StyleKey, Record<TextAppearanceKey, AppearanceTheme>> {
-    return STYLE_KEYS.reduce((styleAcc, styleKey) => {
+  ): Record<VariantKey, Record<TextAppearanceKey, AppearanceTheme>> {
+    return VARIANT_KEYS.reduce((styleAcc, styleKey) => {
       const isFilled = styleKey === 'filled';
 
       const bgBaseSource = isFilled ? filledBackgroundAppearanceClasses : backgroundAppearanceClasses;
@@ -82,6 +81,6 @@ export class StyleAppearanceTheme extends BaseTheme {
       }, {} as Record<TextAppearanceKey, AppearanceTheme>);
 
       return styleAcc;
-    }, {} as Record<StyleKey, Record<TextAppearanceKey, AppearanceTheme>>);
+    }, {} as Record<VariantKey, Record<TextAppearanceKey, AppearanceTheme>>);
   }
 }

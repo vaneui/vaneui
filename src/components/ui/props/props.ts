@@ -20,7 +20,7 @@ import {
   PillKey,
   SharpKey,
   ShapeKey,
-  StyleKey,
+  VariantKey,
   DirectionKey,
   ItemsKey,
   JustifyKey,
@@ -49,7 +49,7 @@ export type NoGapProps = { [K in NoGapKey]?: boolean; }
 export type PillProps = { [K in PillKey]?: boolean; }
 export type SharpProps = { [K in SharpKey]?: boolean; }
 export type ShapeProps = { [K in ShapeKey]?: boolean; }
-export type ButtonStyleProps = { [K in StyleKey]?: boolean; }
+export type VariantProps = { [K in VariantKey]?: boolean; }
 export type DirectionProps = { [K in DirectionKey]?: boolean; }
 export type ItemsProps = { [K in ItemsKey]?: boolean; }
 export type JustifyProps = { [K in JustifyKey]?: boolean; }
@@ -61,7 +61,7 @@ export interface TagProps {
 
 export type BaseComponentProps = TagProps & SizeProps & HideProps & PositionProps & React.HTMLProps<HTMLElement>;
 
-export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProps & CommonAppearanceProps;
+export type LayoutComponentProps = BaseComponentProps & ReverseProps & ItemsProps & CommonAppearanceProps & JustifyProps;
 
 export type FontProps =
   FontWeightProps
@@ -77,42 +77,47 @@ export type TypographyComponentProps = BaseComponentProps & FontProps;
 
 export type ButtonProps =
   TypographyComponentProps
-  & SizeProps
   & ShapeProps
   & CommonAppearanceProps
   & NoBorderProps
   & NoShadowProps
   & NoRingProps
-  & ButtonStyleProps;
+  & VariantProps;
 
-export type GridProps = BaseComponentProps & SizeProps & NoGapProps & CommonAppearanceProps;
+export type BadgeProps =
+  TypographyComponentProps
+  & ShapeProps
+  & CommonAppearanceProps
+  & NoBorderProps
+  & NoShadowProps
+  & NoRingProps
+  & VariantProps;
+
+export type ChipProps =
+  TypographyComponentProps
+  & ShapeProps
+  & CommonAppearanceProps
+  & NoBorderProps
+  & NoShadowProps
+  & NoRingProps
+  & VariantProps;
+
+export type GridProps = BaseComponentProps & NoGapProps & CommonAppearanceProps;
 
 export type RowProps =
-  BaseComponentProps
+  LayoutComponentProps
   & WrapProps
-  & SizeProps
   & NoGapProps
-  & ReverseProps
-  & ItemsProps
-  & BreakpointProps
-  & JustifyProps
-  & CommonAppearanceProps;
+  & BreakpointProps;
 
 export type ColProps =
-  BaseComponentProps
+  LayoutComponentProps
   & WrapProps
-  & SizeProps
-  & NoGapProps
-  & ReverseProps
-  & ItemsProps
-  & JustifyProps
-  & CommonAppearanceProps;
+  & NoGapProps;
 
 export type CardProps =
-  BaseComponentProps
-  & SizeProps
+  LayoutComponentProps
   & NoGapProps
-  & ItemsProps
   & SharpProps
   & BreakpointProps
   & TypographyComponentProps
@@ -122,15 +127,10 @@ export type CardProps =
   & DirectionProps;
 
 export type StackProps =
-  BaseComponentProps
+  LayoutComponentProps
   & WrapProps
-  & SizeProps
   & NoGapProps
-  & ReverseProps
-  & ItemsProps
   & BreakpointProps
-  & JustifyProps
-  & CommonAppearanceProps
   & DirectionProps
   & NoBorderProps
   & NoShadowProps

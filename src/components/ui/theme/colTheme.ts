@@ -2,9 +2,9 @@ import { SizeTheme } from "./size/sizeTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
+import { ColProps } from "../props/props";
 
-
-export const defaultColTheme: SimpleComponentTheme = new SimpleComponentTheme(
+export const defaultColTheme: SimpleComponentTheme<ColProps> = new SimpleComponentTheme<ColProps>(
   "flex flex-col",
   new SizeTheme(
     undefined,
@@ -22,10 +22,6 @@ export const defaultColTheme: SimpleComponentTheme = new SimpleComponentTheme(
   DirectionLayoutTheme.createDirectionTheme(),
   {
     md: true,
-    outline: true,
     transparent: true,
-    noBorder: true,
-    noShadow: true,
-    noRing: true,
   }
 );

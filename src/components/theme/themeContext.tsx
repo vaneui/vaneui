@@ -21,27 +21,36 @@ import { defaultColTheme } from '../ui/theme/colTheme';
 import { defaultStackTheme } from '../ui/theme/stackTheme';
 import { defaultSectionTheme } from "../ui/theme/sectionTheme";
 import { defaultGrid3Theme, defaultGrid4Theme } from "../ui/theme/gridTheme";
-import { ButtonProps, GridProps } from "../ui/props/props";
+import {
+  ButtonProps,
+  GridProps,
+  TypographyComponentProps,
+  CardProps,
+  RowProps,
+  ColProps,
+  StackProps,
+  BadgeProps, ChipProps, LayoutComponentProps
+} from "../ui/props/props";
 
 // Define the shape of our theme props
 export interface ThemeProps {
   button: StyleVariantComponentTheme<ButtonProps>;
-  badge: StyleVariantComponentTheme;
-  card: SimpleComponentTheme;
-  chip: StyleVariantComponentTheme;
-  divider: SimpleComponentTheme;
-  container: SimpleComponentTheme;
-  row: SimpleComponentTheme;
-  col: SimpleComponentTheme;
-  stack: SimpleComponentTheme;
-  section: SimpleComponentTheme;
-  pageTitle: SimpleComponentTheme;
-  sectionTitle: SimpleComponentTheme;
-  title: SimpleComponentTheme;
-  text: SimpleComponentTheme;
-  link: SimpleComponentTheme;
-  listItem: SimpleComponentTheme;
-  list: SimpleComponentTheme;
+  badge: StyleVariantComponentTheme<BadgeProps>;
+  card: SimpleComponentTheme<CardProps>;
+  chip: StyleVariantComponentTheme<ChipProps>;
+  divider: SimpleComponentTheme<LayoutComponentProps>;
+  container: SimpleComponentTheme<LayoutComponentProps>;
+  row: SimpleComponentTheme<RowProps>;
+  col: SimpleComponentTheme<ColProps>;
+  stack: SimpleComponentTheme<StackProps>;
+  section: SimpleComponentTheme<LayoutComponentProps>;
+  pageTitle: SimpleComponentTheme<TypographyComponentProps>;
+  sectionTitle: SimpleComponentTheme<TypographyComponentProps>;
+  title: SimpleComponentTheme<TypographyComponentProps>;
+  text: SimpleComponentTheme<TypographyComponentProps>;
+  link: SimpleComponentTheme<TypographyComponentProps>;
+  listItem: SimpleComponentTheme<TypographyComponentProps>;
+  list: SimpleComponentTheme<TypographyComponentProps>;
   grid3: SimpleComponentTheme<GridProps>;
   grid4: SimpleComponentTheme<GridProps>;
 }

@@ -3,8 +3,9 @@ import { SizeTheme } from "./size/sizeTheme";
 import { StyleAppearanceTheme } from "./appearance/styleAppearanceTheme";
 import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
+import { ChipProps, TypographyComponentProps } from "../props/props";
 
-export const defaultChipTheme: StyleVariantComponentTheme = new StyleVariantComponentTheme(
+export const defaultChipTheme: StyleVariantComponentTheme<ChipProps> = new StyleVariantComponentTheme<ChipProps>(
   "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
   new SizeTheme(
     {
