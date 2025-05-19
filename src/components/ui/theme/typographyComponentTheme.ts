@@ -4,6 +4,8 @@ import { textSizeClasses } from "../classes/typographyClasses";
 import { TypographyComponentProps } from "../props/props";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import React from "react";
+import { TypographyTheme } from "./typography/typographyTheme";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 
 const typographyThemeDefaults: Partial<Record<keyof TypographyComponentProps, boolean>> = {
   md: true,
@@ -27,6 +29,8 @@ export const createTypographyComponentTheme = (
       textSizeMap, // text
       undefined  // gap
     ),
+    TypographyTheme.createDefaultTypographyTheme(),
+    BaseLayoutTheme.createBaseLayoutTheme(),
     defaults);
 };
 

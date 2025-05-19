@@ -4,7 +4,8 @@ import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
 import { LayoutComponentProps } from "../props/props";
 
-export const defaultSectionTheme: SimpleComponentTheme<LayoutComponentProps> = new SimpleComponentTheme<LayoutComponentProps>(
+export const defaultSectionTheme: SimpleComponentTheme<LayoutComponentProps> = SimpleComponentTheme.createSimpleComponentTheme<LayoutComponentProps>(
+  "div",
   "w-full flex flex-col",
   new SizeTheme(
     {

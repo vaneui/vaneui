@@ -4,7 +4,8 @@ import { TypographyTheme } from "./typography/typographyTheme";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { LayoutComponentProps } from "../props/props";
 
-export const defaultDividerTheme: SimpleComponentTheme<LayoutComponentProps> = new SimpleComponentTheme<LayoutComponentProps>(
+export const defaultDividerTheme: SimpleComponentTheme<LayoutComponentProps> = SimpleComponentTheme.createSimpleComponentTheme<LayoutComponentProps>(
+  "div",
   "bg-gray-200 h-px w-full",
   new SizeTheme(),
   TypographyTheme.createDefaultTypographyTheme(),

@@ -4,7 +4,8 @@ import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
 import { MaxWidthSizeTheme } from "./size/maxWidthSizeTheme";
 import { LayoutComponentProps } from "../props/props";
 
-export const defaultContainerTheme: SimpleComponentTheme<LayoutComponentProps> = new SimpleComponentTheme<LayoutComponentProps>(
+export const defaultContainerTheme: SimpleComponentTheme<LayoutComponentProps> = SimpleComponentTheme.createSimpleComponentTheme<LayoutComponentProps>(
+  "div",
   "flex flex-col mx-auto w-full",
   new MaxWidthSizeTheme(
     undefined,

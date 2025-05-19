@@ -4,7 +4,8 @@ import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { RowProps } from "../props/props";
 
-export const defaultRowTheme: SimpleComponentTheme<RowProps> = new SimpleComponentTheme<RowProps>(
+export const defaultRowTheme: SimpleComponentTheme<RowProps> = SimpleComponentTheme.createSimpleComponentTheme<RowProps>(
+  "div",
   "flex flex-row",
   new SizeTheme(
     undefined,

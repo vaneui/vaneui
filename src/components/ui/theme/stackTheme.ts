@@ -4,7 +4,8 @@ import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
 import { StackProps } from "../props/props";
 
-export const defaultStackTheme: SimpleComponentTheme<StackProps> = new SimpleComponentTheme<StackProps>(
+export const defaultStackTheme: SimpleComponentTheme<StackProps> = SimpleComponentTheme.createSimpleComponentTheme<StackProps>(
+  "div",
   "flex",
   new SizeTheme(
     {

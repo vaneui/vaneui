@@ -23,7 +23,8 @@ const gridDefaults: Partial<Record<keyof GridProps, boolean>> = {
   transparent: true,
 };
 
-export const defaultGrid3Theme: SimpleComponentTheme<GridProps> = new SimpleComponentTheme(
+export const defaultGrid3Theme: SimpleComponentTheme<GridProps> = SimpleComponentTheme.createSimpleComponentTheme<GridProps>(
+  "div",
   "grid grid-cols-1 md:grid-cols-3",
   gridSize,
   gridTypography,
@@ -31,7 +32,8 @@ export const defaultGrid3Theme: SimpleComponentTheme<GridProps> = new SimpleComp
   gridDefaults,
 );
 
-export const defaultGrid4Theme: SimpleComponentTheme<GridProps>  = new SimpleComponentTheme(
+export const defaultGrid4Theme: SimpleComponentTheme<GridProps>  = SimpleComponentTheme.createSimpleComponentTheme<GridProps>(
+  "div",
   "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   gridSize,
   gridTypography,

@@ -4,7 +4,8 @@ import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
 import { ColProps } from "../props/props";
 
-export const defaultColTheme: SimpleComponentTheme<ColProps> = new SimpleComponentTheme<ColProps>(
+export const defaultColTheme: SimpleComponentTheme<ColProps> = SimpleComponentTheme.createSimpleComponentTheme<ColProps>(
+  "div",
   "flex flex-col",
   new SizeTheme(
     undefined,

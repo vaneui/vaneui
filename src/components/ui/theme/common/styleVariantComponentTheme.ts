@@ -31,7 +31,13 @@ export class StyleVariantComponentTheme<T extends Partial<TypographyComponentPro
    * @returns CSS classes as a string
    */
   getClasses(props: Partial<Record<keyof T, boolean>>): string {
-    return [this.base, super.getClasses(props)].filter(Boolean).join(' ');
+    const base = super.getClasses(props);
+    const classes = [
+      this.base,
+      this.appearance.getClasses({...this.defaults, ...props}),
+    ];
+
+    return [base, ...classes].filter(Boolean).join(' ');
   }
 
   static createStyleVariantComponentTheme<T extends Partial<TypographyComponentProps>>(

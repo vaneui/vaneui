@@ -4,7 +4,8 @@ import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
 import { CardProps } from "../props/props";
 
-export const defaultCardTheme: SimpleComponentTheme<CardProps> = new SimpleComponentTheme<CardProps>(
+export const defaultCardTheme: SimpleComponentTheme<CardProps> = SimpleComponentTheme.createSimpleComponentTheme<CardProps>(
+  "div",
   "flex overflow-hidden",
   new SizeTheme(
     {

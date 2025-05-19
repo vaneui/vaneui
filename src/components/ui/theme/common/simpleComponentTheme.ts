@@ -34,7 +34,7 @@ export class SimpleComponentTheme<T extends Partial<TypographyComponentProps>> e
     const base = super.getClasses(props);
     const classes = [
       this.base,
-      this.appearance.getClasses(props),
+      this.appearance.getClasses({...this.defaults, ...props}),
     ];
 
     return [base, ...classes].filter(Boolean).join(' ');
@@ -44,13 +44,15 @@ export class SimpleComponentTheme<T extends Partial<TypographyComponentProps>> e
     tag: React.ReactNode | string | any,
     base: string = '',
     size: SizeTheme = new SizeTheme(),
+    typography: TypographyTheme = TypographyTheme.createDefaultTypographyTheme(),
+    layout: BaseLayoutTheme = BaseLayoutTheme.createBaseLayoutTheme(),
     defaults: Partial<Record<keyof T, boolean>> = {}): SimpleComponentTheme<T> {
     return new SimpleComponentTheme<T>(
       tag,
       base,
       size,
-      TypographyTheme.createDefaultTypographyTheme(),
-      BaseLayoutTheme.createBaseLayoutTheme(),
+      typography,
+      layout,
       defaults,
     );
   }
