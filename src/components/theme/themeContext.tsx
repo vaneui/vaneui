@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { StyleVariantComponentTheme } from "../ui/theme/common/styleVariantComponentTheme";
+import { VariantComponentTheme } from "../ui/theme/common/variantComponentTheme";
 import { SimpleComponentTheme } from "../ui/theme/common/simpleComponentTheme";
 import { defaultButtonTheme } from '../ui/theme/buttonTheme';
 import { defaultBadgeTheme } from '../ui/theme/badgeTheme';
@@ -34,9 +34,9 @@ import {
 
 // Define the shape of our theme props
 export interface ThemeProps {
-  button: StyleVariantComponentTheme<ButtonProps>;
-  badge: StyleVariantComponentTheme<BadgeProps>;
-  chip: StyleVariantComponentTheme<ChipProps>;
+  button: VariantComponentTheme<ButtonProps>;
+  badge: VariantComponentTheme<BadgeProps>;
+  chip: VariantComponentTheme<ChipProps>;
   card: SimpleComponentTheme<CardProps>;
   divider: SimpleComponentTheme<LayoutComponentProps>;
   container: SimpleComponentTheme<LayoutComponentProps>;

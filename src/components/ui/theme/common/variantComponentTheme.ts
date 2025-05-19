@@ -9,7 +9,7 @@ import React from "react";
 /**
  * Component theme class for components with style variants (button, chip, badge)
  */
-export class StyleVariantComponentTheme<T extends Partial<TypographyComponentProps>> extends BaseComponentTheme<T> {
+export class VariantComponentTheme<T extends Partial<TypographyComponentProps>> extends BaseComponentTheme<T> {
   appearance: VariantAppearanceTheme;
 
   constructor(
@@ -47,8 +47,8 @@ export class StyleVariantComponentTheme<T extends Partial<TypographyComponentPro
     appearanceTheme: VariantAppearanceTheme = new VariantAppearanceTheme(),
     typography: TypographyTheme = TypographyTheme.createDefaultTypographyTheme(),
     layout: BaseLayoutTheme = BaseLayoutTheme.createBaseLayoutTheme(),
-    defaults: Partial<Record<keyof T, boolean>> = {}): StyleVariantComponentTheme<T> {
-    return new StyleVariantComponentTheme<T>(
+    defaults: Partial<Record<keyof T, boolean>> = {}): VariantComponentTheme<T> {
+    return new VariantComponentTheme<T>(
       tag,
       base,
       size,

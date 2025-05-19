@@ -1,11 +1,11 @@
 import { TypographyTheme } from "./typography/typographyTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
-import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
+import { VariantComponentTheme } from "./common/variantComponentTheme";
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { ChipProps, TypographyComponentProps } from "../props/props";
 
-export const defaultChipTheme: StyleVariantComponentTheme<ChipProps> = StyleVariantComponentTheme.createStyleVariantComponentTheme<ChipProps>(
+export const defaultChipTheme: VariantComponentTheme<ChipProps> = VariantComponentTheme.createStyleVariantComponentTheme<ChipProps>(
   "span",
   "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
   new SizeTheme(

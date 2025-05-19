@@ -3,11 +3,11 @@ import { TypographyTheme } from "./typography/typographyTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { SizeTheme } from "./size/sizeTheme";
 import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
-import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
+import { VariantComponentTheme } from "./common/variantComponentTheme";
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { BadgeProps, TypographyComponentProps } from "../props/props";
 
-export const defaultBadgeTheme: StyleVariantComponentTheme<BadgeProps> = StyleVariantComponentTheme.createStyleVariantComponentTheme<BadgeProps>(
+export const defaultBadgeTheme: VariantComponentTheme<BadgeProps> = VariantComponentTheme.createStyleVariantComponentTheme<BadgeProps>(
   "span",
   "w-fit h-fit inline-flex items-center transition-all duration-200 whitespace-nowrap",
   new SizeTheme(

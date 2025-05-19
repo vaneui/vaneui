@@ -3,11 +3,11 @@ import { TypographyTheme } from "./typography/typographyTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { roundedMap } from "../classes/buttonClasses";
 import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
-import { StyleVariantComponentTheme } from "./common/styleVariantComponentTheme";
+import { VariantComponentTheme } from "./common/variantComponentTheme";
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { ButtonProps } from "../props/props";
 
-export const defaultButtonTheme: StyleVariantComponentTheme<ButtonProps> = StyleVariantComponentTheme.createStyleVariantComponentTheme<ButtonProps>(
+export const defaultButtonTheme: VariantComponentTheme<ButtonProps> = VariantComponentTheme.createStyleVariantComponentTheme<ButtonProps>(
   "button",
   "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
   new SizeTheme(
