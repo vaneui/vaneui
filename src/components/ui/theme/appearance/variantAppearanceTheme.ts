@@ -25,9 +25,9 @@ import {
 import { AppearanceTheme } from "./appearanceTheme";
 
 export class VariantAppearanceTheme extends BaseTheme {
-  variants: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>>;
+  variants: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, Partial<AppearanceTheme>>>>>;
 
-  constructor(styleVariants: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, AppearanceTheme>>>> = {}) {
+  constructor(styleVariants: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, Partial<AppearanceTheme>>>>> = {}) {
     super();
     this.variants = styleVariants;
   }
@@ -38,7 +38,7 @@ export class VariantAppearanceTheme extends BaseTheme {
 
     const variant = this.variants[style]?.[appearance];
 
-    return variant ? variant.getClasses(props) : '';
+    return variant?.getClasses !== undefined ? variant.getClasses(props) : '';
   }
 
   static createDefault(): VariantAppearanceTheme {

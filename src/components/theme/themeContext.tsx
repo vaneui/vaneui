@@ -31,6 +31,8 @@ import {
   StackProps,
   BadgeProps, ChipProps, LayoutComponentProps
 } from "../ui/props/props";
+import { DeepPartial } from "../utils/deepPartial";
+import { deepMerge } from "../utils/deepMerge";
 
 // Define the shape of our theme props
 export interface ThemeProps {
@@ -54,6 +56,9 @@ export interface ThemeProps {
   listItem: SimpleComponentTheme<TypographyComponentProps>;
   list: SimpleComponentTheme<TypographyComponentProps>;
 }
+
+// Export the partial theme type for external use
+export type PartialTheme = DeepPartial<ThemeProps>;
 
 export const defaultTheme: ThemeProps = {
   button: defaultButtonTheme,
@@ -83,17 +88,20 @@ const ThemeContext = createContext<ThemeProps>(defaultTheme);
 // Props for the ThemeProvider component
 export interface ThemeProviderProps {
   children: React.ReactNode;
-  theme: ThemeProps;
+  theme?: PartialTheme;
 }
 
 // ThemeProvider component
 export function ThemeProvider({
                                 children,
-                                theme = defaultTheme,
+                                theme,
                               }: ThemeProviderProps) {
+  // Merge the partial theme with the default theme
+  const mergedTheme = theme ? deepMerge(defaultTheme, theme) : defaultTheme;
+
   // Provide the context to children
   return (
-    <ThemeContext.Provider value={theme}>
+    <ThemeContext.Provider value={mergedTheme}>
       {children}
     </ThemeContext.Provider>
   );

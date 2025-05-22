@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import {
-  Button, Card, Title, Text, Row, Stack, ThemeProvider, ThemeProps
+  Button, Card, Title, Text, Row, Stack, ThemeProvider, PartialTheme
 } from '@vaneui/ui';
 
-const customTheme: ThemeProps = {
+const customTheme: PartialTheme = {
   button: {
     appearance: {
       variants: {
