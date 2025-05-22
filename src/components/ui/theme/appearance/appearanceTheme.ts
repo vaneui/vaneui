@@ -5,10 +5,10 @@ import { Mode, MODE_KEYS } from "../../props/mode";
  * Base appearance variant class
  */
 export class AppearanceTheme extends BaseTheme {
-  backgroundColor: Partial<Record<Mode, string>>;
-  textColor: Partial<Record<Mode, string>>;
-  borderColor: Partial<Record<Mode, string>>;
-  ringColor: Partial<Record<Mode, string>>;
+  backgroundColor?: Partial<Record<Mode, string>>;
+  textColor?: Partial<Record<Mode, string>>;
+  borderColor?: Partial<Record<Mode, string>>;
+  ringColor?: Partial<Record<Mode, string>>;
 
   constructor(
     background: Partial<Record<Mode, string>> = {},
@@ -25,10 +25,10 @@ export class AppearanceTheme extends BaseTheme {
 
   getClasses(props: Record<string, any>): string {
     const modeClasses = MODE_KEYS.flatMap(mode => [
-      this.backgroundColor[mode] || '',
-      this.textColor[mode] || '',
-      this.borderColor[mode] || '',
-      this.ringColor[mode] || ''
+      this.backgroundColor !== undefined ? this.backgroundColor[mode] : '',
+      this.textColor !== undefined ? this.textColor[mode] : '',
+      this.borderColor !== undefined ? this.borderColor[mode] : '',
+      this.ringColor !== undefined ? this.ringColor[mode] : ''
     ]);
 
     return modeClasses.filter(Boolean).join(' ');

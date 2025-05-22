@@ -9,12 +9,12 @@ import React from "react";
  * Base component theme class that combines all theme aspects
  */
 export class BaseComponentTheme<T extends Partial<TypographyComponentProps>> extends BaseTheme {
-  tag: React.ReactNode | string | any = "div";
-  base: string;
-  size: SizeTheme;
-  typography: TypographyTheme;
-  layout: BaseLayoutTheme;
-  defaults: Partial<Record<keyof T, boolean>>;
+  tag?: React.ReactNode | string | any = "div";
+  base?: string;
+  size?: SizeTheme;
+  typography?: TypographyTheme;
+  layout?: BaseLayoutTheme;
+  defaults?: Partial<Record<keyof T, boolean>>;
 
   constructor(
     tag: React.ReactNode | string | any,
@@ -42,9 +42,9 @@ export class BaseComponentTheme<T extends Partial<TypographyComponentProps>> ext
     const effectiveProps = {...this.defaults, ...props}
     const classes = [
       this.base,
-      this.typography.getClasses(effectiveProps),
-      this.layout.getClasses(effectiveProps),
-      this.size.getClasses(effectiveProps)
+      this.typography?.getClasses(effectiveProps),
+      this.layout?.getClasses(effectiveProps),
+      this.size?.getClasses(effectiveProps)
     ];
 
     return classes.join(' ');

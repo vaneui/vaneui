@@ -7,20 +7,22 @@ import {
 
 const customTheme: ThemeProps = {
   button: {
-    style: {
-      outline: {
-        default: {
-          textColor: {
-            base: 'text-gray-400',
-            hover: 'text-gray-600'
+    appearance: {
+      variants: {
+        outline: {
+          default: {
+            textColor: {
+              base: 'text-gray-400',
+              hover: 'text-gray-600'
+            },
           }
         }
-      }
+      },
     },
     defaults: {
-      fontWeight: 'normal',
+      normal: true,
       noShadow: true,
-      shape: 'pill'
+      pill: true,
     }
   }
 };
