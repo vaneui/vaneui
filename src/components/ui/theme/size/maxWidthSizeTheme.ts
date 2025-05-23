@@ -1,6 +1,6 @@
 import { Mode, MODE_KEYS } from "../../props/mode";
 import { SIZE_KEYS, SizeKey } from "../../props/propKeys";
-import { pickFirstKey } from "../../../utils/componentUtils";
+import { pickFirstKey, makeSizeVariant } from "../../../utils/componentUtils";
 import { SizeTheme } from "./sizeTheme";
 
 /**
@@ -17,7 +17,7 @@ export class MaxWidthSizeTheme extends SizeTheme {
     maxW?: Record<SizeKey, string>,
   ) {
     super(px, py, text, gap);
-    this.maxW = maxW ? SizeTheme.makeSizeVariant(maxW) : {};
+    this.maxW = maxW ? makeSizeVariant(maxW) : {};
   }
 
   /**

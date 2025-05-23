@@ -1,7 +1,7 @@
 import { BaseTheme } from "../common/baseTheme";
 import { Mode, MODE_KEYS } from "../../props/mode";
 import { SIZE_KEYS, SizeKey } from "../../props/propKeys";
-import { pickFirstKey } from "../../../utils/componentUtils";
+import { pickFirstKey, makeSizeVariant } from "../../../utils/componentUtils";
 
 /**
  * Size theme class for handling size-related CSS classes
@@ -19,10 +19,10 @@ export class SizeTheme extends BaseTheme {
     gap?: Record<SizeKey, string>
   ) {
     super();
-    this.px = px ? SizeTheme.makeSizeVariant(px) : {};
-    this.py = py ? SizeTheme.makeSizeVariant(py) : {};
-    this.text = text ? SizeTheme.makeSizeVariant(text) :{};
-    this.gap = gap ? SizeTheme.makeSizeVariant(gap) : {};
+    this.px = px ? makeSizeVariant(px) : {};
+    this.py = py ? makeSizeVariant(py) : {};
+    this.text = text ? makeSizeVariant(text) :{};
+    this.gap = gap ? makeSizeVariant(gap) : {};
   }
 
   /**
@@ -40,23 +40,5 @@ export class SizeTheme extends BaseTheme {
     ]);
 
     return modeClasses.filter(Boolean);
-  }
-
-  /**
-   * Create a size variant with the given size map
-   * @param sizeMap Map of sizes to CSS classes
-   * @returns Record of sizes with modes
-   */
-  static makeSizeVariant(
-    sizeMap: Record<SizeKey, string>
-  ): Record<SizeKey, Record<Mode, string>> {
-    return SIZE_KEYS.reduce((acc, size) => {
-      acc[size] = {
-        base: sizeMap[size],
-        hover: '',
-        active: '',
-      };
-      return acc;
-    }, {} as Record<SizeKey, Record<Mode, string>>);
   }
 }
