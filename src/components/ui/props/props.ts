@@ -108,23 +108,20 @@ export type LayoutComponentProps =
   TypographyComponentProps
   & ReverseProps
   & ItemsProps
+  & NoGapProps
   & CommonAppearanceProps
-  & JustifyProps;
+  & JustifyProps
+  & WrapProps;
 
 export type RowProps =
   LayoutComponentProps
-  & WrapProps
-  & NoGapProps
   & BreakpointProps;
 
 export type ColProps =
-  LayoutComponentProps
-  & WrapProps
-  & NoGapProps;
+  LayoutComponentProps;
 
 export type CardProps =
   LayoutComponentProps
-  & NoGapProps
   & SharpProps
   & BreakpointProps
   & NoBorderProps
@@ -134,8 +131,6 @@ export type CardProps =
 
 export type StackProps =
   LayoutComponentProps
-  & WrapProps
-  & NoGapProps
   & BreakpointProps
   & DirectionProps
   & NoBorderProps
