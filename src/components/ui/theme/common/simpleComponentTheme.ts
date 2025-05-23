@@ -28,16 +28,16 @@ export class SimpleComponentTheme<T extends Partial<TypographyComponentProps>> e
   /**
    * Get all CSS classes for the component based on props
    * @param props Component props
-   * @returns CSS classes as a string
+   * @returns CSS classes as an array of strings
    */
-  getClasses(props: Partial<Record<keyof T, boolean>>): string {
-    const base = super.getClasses(props);
-    const classes = [
-      this.base,
-      this.appearance.getClasses({...this.defaults, ...props}),
-    ];
+  getClasses(props: Partial<Record<keyof T, boolean>>): string[] {
+    const baseClasses = super.getClasses(props);
+    const appearanceClasses = this.appearance.getClasses({...this.defaults, ...props});
 
-    return [base, ...classes].filter(Boolean).join(' ');
+    return [
+      ...baseClasses,
+      ...appearanceClasses
+    ].filter(Boolean);
   }
 
   static createSimpleComponentTheme<T extends Partial<TypographyComponentProps>>(

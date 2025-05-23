@@ -23,20 +23,20 @@ export class DirectionLayoutTheme extends BaseLayoutTheme {
     this.breakpoint = rowToColumnBreakpointClasses;
   }
 
-  getClasses(props: Record<string, any>, mode: Mode = 'base'): string {
+  getClasses(props: Record<string, any>, mode: Mode = 'base'): string[] {
     const baseClasses = super.getClasses(props);
     const reverse = pickFirstKeyOptional(props, DIRECTION_REVERSE_KEYS);
     const direction = pickFirstKeyOptional(props, DIRECTION_KEYS) ?? 'column';
     const breakpoint = pickFirstKeyOptional(props, BREAKPOINT_KEYS);
 
     const classes = [
-      baseClasses,
+        ...baseClasses,
       reverse ? (direction === 'row' ? 'flex-row-reverse' : direction === 'column' ? 'flex-col-reverse' : '') : '',
       reverse === undefined && direction ? this.direction[direction] || '' : '',
       breakpoint ? this.breakpoint[breakpoint] || '' : '',
     ];
 
-    return classes.filter(Boolean).join(' ');
+    return classes;
   }
 
   static createDirectionTheme(): DirectionLayoutTheme {

@@ -1,18 +1,17 @@
 import { BaseTheme } from "../common/baseTheme";
-import { Mode } from "../../props/mode";
 import {
+  FONT_FAMILY_KEYS,
+  FONT_STYLE_KEYS,
+  FONT_WEIGHT_KEYS,
   FontFamilyKey,
   FontStyleKey,
   FontWeightKey,
-  TextAlignKey,
-  TextDecorationKey,
-  TextTransformKey,
-  FONT_FAMILY_KEYS,
-  FONT_WEIGHT_KEYS,
-  FONT_STYLE_KEYS,
+  TEXT_ALIGN_KEYS,
   TEXT_DECORATION_KEYS,
   TEXT_TRANSFORM_KEYS,
-  TEXT_ALIGN_KEYS
+  TextAlignKey,
+  TextDecorationKey,
+  TextTransformKey
 } from "../../props/propKeys";
 import {
   fontFamilyClasses,
@@ -65,9 +64,9 @@ export class TypographyTheme extends BaseTheme {
   /**
    * Get typography-related CSS classes based on props
    * @param props Component props
-   * @returns CSS classes as a string
+   * @returns CSS classes as an array of strings
    */
-  getClasses(props: Partial<Record<keyof FontProps, any>>): string {
+  getClasses(props: Partial<Record<keyof FontProps, any>>): string[] {
     const fontFamily = pickFirstKey(props, FONT_FAMILY_KEYS, 'sans');
     const fontWeight = pickFirstKey(props, FONT_WEIGHT_KEYS, 'normal');
 
@@ -85,7 +84,7 @@ export class TypographyTheme extends BaseTheme {
       textAlign ? this.textAlign[textAlign] || '' : ''
     ];
 
-    return classes.filter(Boolean).join(' ');
+    return classes;
   }
 
   /**

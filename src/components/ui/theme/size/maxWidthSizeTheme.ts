@@ -25,11 +25,11 @@ export class MaxWidthSizeTheme extends SizeTheme {
    * @param props Component props
    * @returns CSS classes as a string
    */
-  getClasses(props: Record<string, any>): string {
+  getClasses(props: Record<string, any>): string[] {
     const size = pickFirstKey(props, SIZE_KEYS, 'md');
     const base = super.getClasses(props);
     const modeClasses = MODE_KEYS.map(mode => this.maxW[size]?.[mode] || '');
 
-    return [base, modeClasses].filter(Boolean).join(' ');
+    return [...base, ...modeClasses];
   }
 }

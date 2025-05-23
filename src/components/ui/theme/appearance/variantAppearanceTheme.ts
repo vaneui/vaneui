@@ -32,13 +32,13 @@ export class VariantAppearanceTheme extends BaseTheme {
     this.variants = styleVariants;
   }
 
-  getClasses(props: Record<string, any>): string {
+  getClasses(props: Record<string, any>): string[] {
     const style = pickFirstKey(props, VARIANT_KEYS, 'outline');
     const appearance = pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default');
 
     const variant = this.variants[style]?.[appearance];
 
-    return variant?.getClasses !== undefined ? variant.getClasses(props) : '';
+    return variant?.getClasses !== undefined ? variant.getClasses(props) : [];
   }
 
   static createDefault(): VariantAppearanceTheme {

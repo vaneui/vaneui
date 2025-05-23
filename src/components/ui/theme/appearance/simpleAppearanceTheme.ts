@@ -28,11 +28,11 @@ export class SimpleAppearanceTheme extends BaseTheme {
     this.appearance = appearance;
   }
 
-  getClasses(props: Record<string, any>): string {
+  getClasses(props: Record<string, any>): string[] {
     const appearance = pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default');
 
     const variant = this.appearance[appearance];
-    if (!variant) return '';
+    if (!variant) return [];
 
     return variant.getClasses(props);
   }

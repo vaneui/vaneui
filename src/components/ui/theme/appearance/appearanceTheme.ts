@@ -23,15 +23,15 @@ export class AppearanceTheme extends BaseTheme {
     this.ringColor = ringColor;
   }
 
-  getClasses(props: Record<string, any>): string {
+  getClasses(props: Record<string, any>): string[] {
     const modeClasses = MODE_KEYS.flatMap(mode => [
-      this.backgroundColor !== undefined ? this.backgroundColor[mode] : '',
-      this.textColor !== undefined ? this.textColor[mode] : '',
-      this.borderColor !== undefined ? this.borderColor[mode] : '',
-      this.ringColor !== undefined ? this.ringColor[mode] : ''
+      this.backgroundColor !== undefined ? (this.backgroundColor[mode] ?? '') : '',
+      this.textColor !== undefined ? (this.textColor[mode] ?? '') : '',
+      this.borderColor !== undefined ? (this.borderColor[mode] ?? '') : '',
+      this.ringColor !== undefined ? (this.ringColor[mode] ?? '') : ''
     ]);
 
-    return modeClasses.filter(Boolean).join(' ');
+    return modeClasses.filter(Boolean);
   }
 
   /**

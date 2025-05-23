@@ -66,9 +66,9 @@ export class BaseLayoutTheme extends BaseTheme {
   /**
    * Get layout-related CSS classes based on props
    * @param props Component props
-   * @returns CSS classes as a string
+   * @returns CSS classes as an array of strings
    */
-  getClasses(props: Record<string, any>): string {
+  getClasses(props: Record<string, any>): string[] {
     const size = pickFirstKey(props, SIZE_KEYS, 'md');
     const hide = pickFirstKeyOptional(props, HIDE_KEYS);
     const position = pickFirstKeyOptional(props, POSITION_KEYS);
@@ -92,7 +92,7 @@ export class BaseLayoutTheme extends BaseTheme {
       noRing ? this.flags.noRing[mode] || '' : this.ring[mode] || '',
     ]);
 
-    return [...classes, ...modeClasses].filter(Boolean).join(' ');
+    return [...classes, ...modeClasses].filter(Boolean);
   }
 
   /**

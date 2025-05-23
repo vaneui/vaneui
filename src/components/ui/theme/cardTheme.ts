@@ -3,6 +3,7 @@ import { TypographyTheme } from "./typography/typographyTheme";
 import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
 import { CardProps } from "../props/props";
+import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 
 export const defaultCardTheme: SimpleComponentTheme<CardProps> = SimpleComponentTheme.createSimpleComponentTheme<CardProps>(
   "div",

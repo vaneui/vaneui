@@ -36,18 +36,17 @@ export class BaseComponentTheme<T extends Partial<TypographyComponentProps>> ext
   /**
    * Get all CSS classes for the component based on props
    * @param props Component props
-   * @returns CSS classes as a string
+   * @returns CSS classes as an array of strings
    */
-  getClasses(props: Partial<Record<keyof T, boolean>>): string {
+  getClasses(props: Partial<Record<keyof T, boolean>>): string[] {
     const effectiveProps = {...this.defaults, ...props}
     const classes = [
-      this.base,
-      this.typography?.getClasses(effectiveProps),
-      this.layout?.getClasses(effectiveProps),
-      this.size?.getClasses(effectiveProps)
+      this.base ?? "",
+      ...(this.typography?.getClasses(effectiveProps) || []),
+      ...(this.layout?.getClasses(effectiveProps) || []),
+      ...(this.size?.getClasses(effectiveProps) || [])
     ];
 
-    return classes.join(' ');
+    return classes.filter(Boolean);
   }
 }
-

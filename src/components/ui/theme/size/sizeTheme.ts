@@ -28,9 +28,9 @@ export class SizeTheme extends BaseTheme {
   /**
    * Get size-related CSS classes based on props
    * @param props Component props
-   * @returns CSS classes as a string
+   * @returns CSS classes as an array of strings
    */
-  getClasses(props: Record<string, any>): string {
+  getClasses(props: Record<string, any>): string[] {
     const size = pickFirstKey(props, SIZE_KEYS, 'md');
     const modeClasses = MODE_KEYS.flatMap(mode => [
       this.px[size]?.[mode] || '',
@@ -39,7 +39,7 @@ export class SizeTheme extends BaseTheme {
       this.gap[size]?.[mode] || ''
     ]);
 
-    return modeClasses.filter(Boolean).join(' ');
+    return modeClasses.filter(Boolean);
   }
 
   /**
