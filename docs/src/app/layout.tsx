@@ -1,10 +1,9 @@
 'use client';
 
-import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import '../styles/globals.css';
-import { ThemeProvider } from './../../../dist/components/theme';
 import React from 'react';
+import { ThemeProvider } from '@vaneui/ui';
 
 const inter = Inter({
   subsets: ['latin'],
