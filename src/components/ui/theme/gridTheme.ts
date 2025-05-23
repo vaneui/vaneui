@@ -14,7 +14,7 @@ const gridGap = new GapSizeTheme({
 
 const gridTypography = TypographyTheme.createDefaultTypographyTheme();
 const gridAppearance = SimpleAppearanceTheme.createDefaultStyle();
-const gridDefaults: Partial<Record<keyof GridProps, boolean>> = {
+const gridDefaults: Partial<GridProps> = {
   md: true,
   transparent: true,
 };
