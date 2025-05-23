@@ -17,12 +17,12 @@ export function buildComponent<P extends Partial<TypographyComponentProps>>(
       delete (cleanProps as any)[k];
     }
   }
-  const {className, children, ...other} = cleanProps;
-  const tag: string = props.tag ?? theme.tag ?? "div";
+  const {className, children, tag, ...other} = cleanProps;
+  const componentTag: string = tag ?? theme.tag ?? "div";
   const themeClasses = useMemo(() => {
     return theme.getClasses(props as Partial<Record<keyof P, boolean>>);
   }, [props, theme]);
-  const Tag = tag;
+  const Tag = componentTag;
   const merged = twMerge(...themeClasses, className);
 
   return (
