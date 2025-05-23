@@ -3,6 +3,7 @@ import { SimpleComponentTheme } from "./common/simpleComponentTheme";
 import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
 import { MaxWidthSizeTheme } from "./size/maxWidthSizeTheme";
 import { LayoutComponentProps } from "../props/props";
+import { SizeTheme } from "./size/sizeTheme";
 
 export const defaultContainerTheme: SimpleComponentTheme<LayoutComponentProps> = SimpleComponentTheme.createSimpleComponentTheme<LayoutComponentProps>(
   "div",
