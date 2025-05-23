@@ -1,6 +1,6 @@
 import { Mode } from "../../props/mode";
 import { ringModeClasses, noRingModeClasses } from "../../classes/layoutClasses";
-import { BaseTheme } from "../common/BaseTheme";
+import { BaseTheme } from "../common/baseTheme";
 
 export class RingTheme extends BaseTheme {
   constructor(

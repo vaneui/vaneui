@@ -1,6 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { VariantComponentTheme } from "../ui/theme/common/variantComponentTheme";
-import { SimpleComponentTheme } from "../ui/theme/common/simpleComponentTheme";
+import { ComponentTheme } from "../ui/theme/common/ComponentTheme";
 import { defaultButtonTheme } from '../ui/theme/buttonTheme';
 import { defaultBadgeTheme } from '../ui/theme/badgeTheme';
 import { defaultChipTheme } from '../ui/theme/chipTheme';
@@ -36,25 +35,25 @@ import { deepMerge } from "../utils/deepMerge";
 
 // Define the shape of our theme props
 export interface ThemeProps {
-  button: VariantComponentTheme<ButtonProps>;
-  badge: VariantComponentTheme<BadgeProps>;
-  chip: VariantComponentTheme<ChipProps>;
-  card: SimpleComponentTheme<CardProps>;
-  divider: SimpleComponentTheme<LayoutComponentProps>;
-  container: SimpleComponentTheme<LayoutComponentProps>;
-  row: SimpleComponentTheme<RowProps>;
-  col: SimpleComponentTheme<ColProps>;
-  stack: SimpleComponentTheme<StackProps>;
-  section: SimpleComponentTheme<LayoutComponentProps>;
-  grid3: SimpleComponentTheme<GridProps>;
-  grid4: SimpleComponentTheme<GridProps>;
-  pageTitle: SimpleComponentTheme<TypographyComponentProps>;
-  sectionTitle: SimpleComponentTheme<TypographyComponentProps>;
-  title: SimpleComponentTheme<TypographyComponentProps>;
-  text: SimpleComponentTheme<TypographyComponentProps>;
-  link: SimpleComponentTheme<TypographyComponentProps>;
-  listItem: SimpleComponentTheme<TypographyComponentProps>;
-  list: SimpleComponentTheme<TypographyComponentProps>;
+  button: ComponentTheme<ButtonProps>;
+  badge: ComponentTheme<BadgeProps>;
+  chip: ComponentTheme<ChipProps>;
+  card: ComponentTheme<CardProps>;
+  divider: ComponentTheme<LayoutComponentProps>;
+  container: ComponentTheme<LayoutComponentProps>;
+  row: ComponentTheme<RowProps>;
+  col: ComponentTheme<ColProps>;
+  stack: ComponentTheme<StackProps>;
+  section: ComponentTheme<LayoutComponentProps>;
+  grid3: ComponentTheme<GridProps>;
+  grid4: ComponentTheme<GridProps>;
+  pageTitle: ComponentTheme<TypographyComponentProps>;
+  sectionTitle: ComponentTheme<TypographyComponentProps>;
+  title: ComponentTheme<TypographyComponentProps>;
+  text: ComponentTheme<TypographyComponentProps>;
+  link: ComponentTheme<TypographyComponentProps>;
+  listItem: ComponentTheme<TypographyComponentProps>;
+  list: ComponentTheme<TypographyComponentProps>;
 }
 
 // Export the partial theme type for external use

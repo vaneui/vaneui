@@ -1,7 +1,7 @@
 import { WrapKey, WRAP_KEYS } from "../../props/propKeys";
 import { wrapClasses } from "../../classes/layoutClasses";
 import { pickFirstKeyOptional } from "../../../utils/componentUtils";
-import { BaseTheme } from "../common/BaseTheme";
+import { BaseTheme } from "../common/baseTheme";
 
 export class WrapTheme extends BaseTheme {
   constructor(private classes: Record<WrapKey, string> = wrapClasses) {

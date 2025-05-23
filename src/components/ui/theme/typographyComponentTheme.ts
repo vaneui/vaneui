@@ -30,7 +30,8 @@ export const createTypographyComponentTheme = (
       typography: TypographyTheme.createDefaultTypographyTheme(),
       appearance: SimpleAppearanceTheme.createDefaultStyle(),
     },
-    defaults);
+    // Use a type assertion to handle properties that expect string values, not boolean values
+    defaults as any);
 };
 
 // Page title specific theme

@@ -1,6 +1,6 @@
 import { Mode } from "../../props/mode";
 import { borderModeClasses, noBorderModeClasses } from "../../classes/layoutClasses";
-import { BaseTheme } from "../common/BaseTheme";
+import { BaseTheme } from "../common/baseTheme";
 
 export class BorderTheme extends BaseTheme {
   constructor(

@@ -1,7 +1,7 @@
 import { DirectionKey, DIRECTION_KEYS, DirectionReverseKey, DIRECTION_REVERSE_KEYS } from "../../props/propKeys";
 import { directionClasses } from "../../classes/layoutClasses";
 import { pickFirstKeyOptional } from "../../../utils/componentUtils";
-import { BaseTheme } from "../common/BaseTheme";
+import { BaseTheme } from "../common/baseTheme";
 
 export class DirectionTheme extends BaseTheme {
   constructor(private classes: Record<DirectionKey, string> = directionClasses) {

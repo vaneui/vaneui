@@ -2,7 +2,7 @@ import { Mode } from "../../props/mode";
 import { SizeKey, SIZE_KEYS } from "../../props/propKeys";
 import { shadowClasses, hoverShadowClasses, activeShadowClasses, noShadowModeClasses } from "../../classes/layoutClasses";
 import { pickFirstKey } from "../../../utils/componentUtils";
-import { BaseTheme } from "../common/BaseTheme";
+import { BaseTheme } from "../common/baseTheme";
 
 export class ShadowTheme extends BaseTheme {
   constructor(
