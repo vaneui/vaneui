@@ -1,5 +1,4 @@
 import { BaseTheme } from "../common/baseTheme";
-import { Mode } from "../../props/mode";
 import {
   TEXT_APPEARANCE_KEYS, 
   TextAppearanceKey 
@@ -16,6 +15,10 @@ import {
   textAppearanceClasses
 } from "../../classes/typographyClasses";
 import { AppearanceTheme } from "./appearanceTheme";
+import { BackgroundAppearanceTheme } from "./backgroundAppearanceTheme";
+import { TextAppearanceTheme } from "./textAppearanceTheme";
+import { BorderAppearanceTheme } from "./borderAppearanceTheme";
+import { RingAppearanceTheme } from "./ringAppearanceTheme";
 
 /**
  * Simple appearance theme class for components without style variants
@@ -46,10 +49,10 @@ export class SimpleAppearanceTheme extends BaseTheme {
       SimpleAppearanceTheme.makeSimpleStyleVariants(
         (bgBase, bgHover, bgActive, textBase, borderBase, ringBase) => {
           return new AppearanceTheme(
-            { base: bgBase, hover: bgHover, active: bgActive },
-            { base: textBase },
-            { base: borderBase },
-            { base: ringBase }
+            new BackgroundAppearanceTheme({ base: bgBase, hover: bgHover, active: bgActive }),
+            new TextAppearanceTheme({ base: textBase }),
+            new BorderAppearanceTheme({ base: borderBase }),
+            new RingAppearanceTheme({ base: ringBase })
           );
         }
       )

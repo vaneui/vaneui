@@ -1,24 +1,29 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
-import { SizeTheme } from "./size/sizeTheme";
+import { PxTheme } from "./size/pxTheme";
+import { PyTheme } from "./size/pyTheme";
+import { TextTheme } from "./size/textTheme";
+import { GapSizeTheme } from "./size/gapSizeTheme";
 import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
-import { VariantComponentTheme } from "./common/variantComponentTheme";
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
-import { BadgeProps, TypographyComponentProps } from "../props/props";
+import { ComponentTheme } from "./common/ComponentTheme";
+import { BadgeProps } from "../props/props";
 
-export const defaultBadgeTheme: VariantComponentTheme<BadgeProps> = VariantComponentTheme.createStyleVariantComponentTheme<BadgeProps>(
+export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
   "span",
   "w-fit h-fit inline-flex items-center transition-all duration-200 whitespace-nowrap",
-  new SizeTheme(
-    pxMap,
-    pyMap,
-    textSizeClasses,
-    gapMap
-  ),
-  VariantAppearanceTheme.createDefault(),
-  TypographyTheme.createDefaultTypographyTheme(),
-  RadiusLayoutTheme.createBaseLayoutTheme(roundedMap),
+  {
+    size: {
+      px: new PxTheme(pxMap),
+      py: new PyTheme(pyMap),
+      text: new TextTheme(textSizeClasses),
+      gap: new GapSizeTheme(gapMap),
+    },
+    appearance: VariantAppearanceTheme.createDefault(),
+    typography: TypographyTheme.createDefaultTypographyTheme(),
+    radius: RadiusLayoutTheme.createBaseLayoutTheme(roundedMap),
+  },
   {
     md: true,
     outline: true,

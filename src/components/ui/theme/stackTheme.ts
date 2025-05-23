@@ -1,38 +1,45 @@
-import { SizeTheme } from "./size/sizeTheme";
+import { PxTheme } from "./size/pxTheme";
+import { PyTheme } from "./size/pyTheme";
+import { GapSizeTheme } from "./size/gapSizeTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
-import { SimpleComponentTheme } from "./common/simpleComponentTheme";
-import { DirectionLayoutTheme } from "./layout/directionLayoutTheme";
+import { DirectionTheme } from "./layout/directionTheme";
+import { WrapTheme } from "./layout/wrapTheme";
+import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
+import { ComponentTheme } from "./common/ComponentTheme";
 import { StackProps } from "../props/props";
 
-export const defaultStackTheme: SimpleComponentTheme<StackProps> = SimpleComponentTheme.createSimpleComponentTheme<StackProps>(
+export const defaultStackTheme = new ComponentTheme<StackProps>(
   "div",
   "flex",
-  new SizeTheme(
-    {
-      xs: 'px-2',
-      sm: 'px-3',
-      md: 'px-4',
-      lg: 'px-5',
-      xl: 'px-6',
+  {
+    size: {
+      px: new PxTheme({
+        xs: 'px-2',
+        sm: 'px-3',
+        md: 'px-4',
+        lg: 'px-5',
+        xl: 'px-6',
+      }),
+      py: new PyTheme({
+        xs: 'py-2',
+        sm: 'py-3',
+        md: 'py-4',
+        lg: 'py-5',
+        xl: 'py-6',
+      }),
+      gap: new GapSizeTheme({
+        xs: 'gap-2',
+        sm: 'gap-3',
+        md: 'gap-4',
+        lg: 'gap-5',
+        xl: 'gap-6',
+      }),
     },
-    {
-      xs: 'py-2',
-      sm: 'py-3',
-      md: 'py-4',
-      lg: 'py-5',
-      xl: 'py-6',
-    },
-    undefined,
-    {
-      xs: 'gap-2',
-      sm: 'gap-3',
-      md: 'gap-4',
-      lg: 'gap-5',
-      xl: 'gap-6',
-    }
-  ),
-  TypographyTheme.createDefaultTypographyTheme(),
-  DirectionLayoutTheme.createDirectionTheme(),
+    typography: TypographyTheme.createDefaultTypographyTheme(),
+    direction: new DirectionTheme(),
+    wrap: new WrapTheme(),
+    appearance: SimpleAppearanceTheme.createDefaultStyle(),
+  },
   {
     md: true,
     transparent: true,

@@ -1,15 +1,15 @@
-import { SizeTheme } from "./size/sizeTheme";
-import { BaseLayoutTheme } from "./layout/baseLayoutTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
-import { SimpleComponentTheme } from "./common/simpleComponentTheme";
+import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
+import { ComponentTheme } from "./common/ComponentTheme";
 import { LayoutComponentProps } from "../props/props";
 
-export const defaultDividerTheme: SimpleComponentTheme<LayoutComponentProps> = SimpleComponentTheme.createSimpleComponentTheme<LayoutComponentProps>(
+export const defaultDividerTheme = new ComponentTheme<LayoutComponentProps>(
   "div",
   "bg-gray-200 h-px w-full",
-  new SizeTheme(),
-  TypographyTheme.createDefaultTypographyTheme(),
-  BaseLayoutTheme.createBaseLayoutTheme(),
+  {
+    typography: TypographyTheme.createDefaultTypographyTheme(),
+    appearance: SimpleAppearanceTheme.createDefaultStyle(),
+  },
   {
     md: true,
     default: true,

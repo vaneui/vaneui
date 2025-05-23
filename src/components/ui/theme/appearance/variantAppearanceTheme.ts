@@ -23,6 +23,10 @@ import {
   textAppearanceClasses
 } from "../../classes/typographyClasses";
 import { AppearanceTheme } from "./appearanceTheme";
+import { BackgroundAppearanceTheme } from "./backgroundAppearanceTheme";
+import { TextAppearanceTheme } from "./textAppearanceTheme";
+import { BorderAppearanceTheme } from "./borderAppearanceTheme";
+import { RingAppearanceTheme } from "./ringAppearanceTheme";
 
 export class VariantAppearanceTheme extends BaseTheme {
   variants: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, Partial<AppearanceTheme>>>>>;
