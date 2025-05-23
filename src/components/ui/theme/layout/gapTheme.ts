@@ -1,6 +1,6 @@
 import { SizeKey, SIZE_KEYS, NoGapKey, NO_GAP_KEYS } from "../../props/propKeys";
 import { pickFirstKey, pickFirstKeyOptional } from "../../../utils/componentUtils";
-import { BaseTheme } from "../common/BaseTheme";
+import { BaseTheme } from "../common/baseTheme";
 
 export class GapTheme extends BaseTheme {
   constructor(private classes: Record<SizeKey, string> = {

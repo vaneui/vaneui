@@ -1,4 +1,4 @@
-import { Mode } from "../../props/mode";
+import { Mode, MODE_KEYS } from "../../props/mode";
 import { borderModeClasses, noBorderModeClasses } from "../../classes/layoutClasses";
 import { BaseTheme } from "../common/baseTheme";
 
@@ -11,9 +11,8 @@ export class BorderTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, any>): string[] {
-    const m = props.mode ?? 'base';
-    return props.noBorder
-      ? [this.noBorderClasses[m]]
-      : [this.modeClasses[m]];
+    return MODE_KEYS.map(mode => props.noBorder
+      ? this.noBorderClasses[mode]
+      : this.modeClasses[mode] || '');
   }
 }
