@@ -8,8 +8,3 @@ export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle } from "./co
 export { ThemeProvider, useTheme, ThemeProps, ThemeProviderProps, PartialTheme } from './components/theme/themeContext';
 
 export { Mode } from "./components/ui/props/mode"
-
-// Common theme types
-export {
-  BaseComponentTheme
-} from "./components/ui/theme/common/baseComponentTheme"
