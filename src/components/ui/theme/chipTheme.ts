@@ -1,10 +1,10 @@
 import { TypographyTheme } from "./typography/typographyTheme";
 import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
-import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { ChipProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
+import { RadiusTheme } from "./layout/radiusTheme";
 
 export const defaultChipTheme = new ComponentTheme<ChipProps>(
   "span",
@@ -42,13 +42,15 @@ export const defaultChipTheme = new ComponentTheme<ChipProps>(
     },
     appearance: VariantAppearanceTheme.createDefault(),
     typography: TypographyTheme.createDefaultTypographyTheme(),
-    radius: RadiusLayoutTheme.createBaseLayoutTheme({
-      xs: 'rounded-sm',
-      sm: 'rounded-md',
-      md: 'rounded-lg',
-      lg: 'rounded-xl',
-      xl: 'rounded-2xl',
-    }),
+    layout: {
+      radius: new RadiusTheme({
+        xs: 'rounded-sm',
+        sm: 'rounded-md',
+        md: 'rounded-lg',
+        lg: 'rounded-xl',
+        xl: 'rounded-2xl',
+      })
+    },
   },
   {
     md: true,

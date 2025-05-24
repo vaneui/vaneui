@@ -2,11 +2,11 @@ import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { roundedMap } from "../classes/buttonClasses";
 import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
-import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { ButtonProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
+import { RadiusTheme } from "./layout/radiusTheme";
 
 export const defaultButtonTheme = new ComponentTheme<ButtonProps>(
   "button",
@@ -20,7 +20,9 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps>(
     },
     appearance: VariantAppearanceTheme.createDefault(),
     typography: TypographyTheme.createDefaultTypographyTheme(),
-    radius: RadiusLayoutTheme.createBaseLayoutTheme(roundedMap),
+    layout: {
+      radius: new RadiusTheme(roundedMap)
+    },
   },
   {
     md: true,

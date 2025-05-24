@@ -2,11 +2,11 @@ import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
-import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { BadgeProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
+import { RadiusTheme } from "./layout/radiusTheme";
 
 export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
   "span",
@@ -20,7 +20,9 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
     },
     appearance: VariantAppearanceTheme.createDefault(),
     typography: TypographyTheme.createDefaultTypographyTheme(),
-    radius: RadiusLayoutTheme.createBaseLayoutTheme(roundedMap),
+    layout: {
+      radius: new RadiusTheme(roundedMap)
+    },
   },
   {
     md: true,
