@@ -1,10 +1,10 @@
 import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
-import { MaxWidthTheme } from "./size/maxWidthTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { LayoutComponentProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
+import { SizeTheme } from "./size/sizeTheme";
 
 export const defaultContainerTheme = new ComponentTheme<LayoutComponentProps>(
   "div",
@@ -18,7 +18,7 @@ export const defaultContainerTheme = new ComponentTheme<LayoutComponentProps>(
         lg: 'gap-8 max-lg:gap-7 max-md:gap-6',
         xl: 'gap-10 max-lg:gap-9 max-md:gap-8',
       }),
-      maxWidth: new MaxWidthTheme({
+      maxWidth: new SizeTheme({
         xs: 'max-w-3xl',
         sm: 'max-w-4xl',
         md: 'max-w-5xl',

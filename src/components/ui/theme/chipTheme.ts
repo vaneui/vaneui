@@ -1,40 +1,38 @@
 import { TypographyTheme } from "./typography/typographyTheme";
-import { PxTheme } from "./size/pxTheme";
-import { PyTheme } from "./size/pyTheme";
-import { TextTheme } from "./size/textTheme";
-import { GapSizeTheme } from "./size/gapSizeTheme";
 import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
 import { RadiusLayoutTheme } from "./layout/radiusLayoutTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { ChipProps } from "../props/props";
+import { SizeTheme } from "./size/sizeTheme";
+import { GapTheme } from "./size/gapTheme";
 
 export const defaultChipTheme = new ComponentTheme<ChipProps>(
   "span",
   "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new PxTheme({
+      px: new SizeTheme({
         xs: 'px-2',
         sm: 'px-2.5',
         md: 'px-3.5',
         lg: 'px-5',
         xl: 'px-6',
       }),
-      py: new PyTheme({
+      py: new SizeTheme({
         xs: 'py-1',
         sm: 'py-1.5',
         md: 'py-2',
         lg: 'py-3',
         xl: 'py-4',
       }),
-      text: new TextTheme({
+      text: new SizeTheme({
         xs: 'text-xs',
         sm: 'text-sm',
         md: 'text-sm',
         lg: 'text-base',
         xl: 'text-base',
       }),
-      gap: new GapSizeTheme({
+      gap: new GapTheme({
         xs: 'gap-1',
         sm: 'gap-1.5',
         md: 'gap-2',

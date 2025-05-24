@@ -1,5 +1,3 @@
-import { PxTheme } from "./size/pxTheme";
-import { PyTheme } from "./size/pyTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { WrapTheme } from "./layout/wrapTheme";
@@ -7,20 +5,21 @@ import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { StackProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
+import { SizeTheme } from "./size/sizeTheme";
 
 export const defaultStackTheme = new ComponentTheme<StackProps>(
   "div",
   "flex",
   {
     size: {
-      px: new PxTheme({
+      px: new SizeTheme({
         xs: 'px-2',
         sm: 'px-3',
         md: 'px-4',
         lg: 'px-5',
         xl: 'px-6',
       }),
-      py: new PyTheme({
+      py: new SizeTheme({
         xs: 'py-2',
         sm: 'py-3',
         md: 'py-4',

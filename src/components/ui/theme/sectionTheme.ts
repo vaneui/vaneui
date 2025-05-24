@@ -11,22 +11,21 @@ import { RingTheme } from "./layout/ringTheme";
 import { HideTheme } from "./layout/hideTheme";
 import { PositionTheme } from "./layout/positionTheme";
 import { LayoutComponentProps } from "../props/props";
-import { PxTheme } from "./size/pxTheme";
-import { PyTheme } from "./size/pyTheme";
+import { SizeTheme } from "./size/sizeTheme";
 
 export const defaultSectionTheme = new ComponentTheme<LayoutComponentProps>(
   "div",
   "w-full flex flex-col",
   {
     size: {
-      px: new PxTheme({
+      px: new SizeTheme({
         xs: 'px-5 max-lg:px-4 max-md:px-3',
         sm: 'px-6 max-lg:px-5 max-md:px-4',
         md: 'px-7 max-lg:px-6 max-md:px-5',
         lg: 'px-8 max-lg:px-7 max-md:px-6',
         xl: 'px-9 max-lg:px-8 max-md:px-7',
       }),
-      py: new PyTheme({
+      py: new SizeTheme({
         xs: 'py-3',
         sm: 'py-5',
         md: 'py-8 max-md:py-5',

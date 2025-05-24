@@ -1,7 +1,3 @@
-import { PxTheme } from "./size/pxTheme";
-import { PyTheme } from "./size/pyTheme";
-import { TextTheme } from "./size/textTheme";
-import { GapSizeTheme } from "./size/gapSizeTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
@@ -11,15 +7,16 @@ import { HideTheme } from "./layout/hideTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { RowProps } from "../props/props";
+import { SizeTheme } from "./size/sizeTheme";
 
 export const defaultRowTheme = new ComponentTheme<RowProps>(
   "div",
   "flex flex-row",
   {
     size: {
-      px: new PxTheme(),
-      py: new PyTheme(),
-      text: new TextTheme(),
+      px: new SizeTheme(),
+      py: new SizeTheme(),
+      text: new SizeTheme(),
       gap: new GapTheme({
         xs: 'gap-2',
         sm: 'gap-3',

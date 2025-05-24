@@ -3,9 +3,9 @@ import { textSizeClasses } from "../classes/typographyClasses";
 import { TypographyComponentProps } from "../props/props";
 import React from "react";
 import { TypographyTheme } from "./typography/typographyTheme";
-import { TextTheme } from "./size/textTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
+import { SizeTheme } from "./size/sizeTheme";
 
 const typographyThemeDefaults: Partial<Record<keyof TypographyComponentProps, boolean>> = {
   md: true,
@@ -25,7 +25,7 @@ export const createTypographyComponentTheme = (
     base,
     {
       size: {
-        text: new TextTheme(textSizeMap),
+        text: new SizeTheme(textSizeMap),
       },
       typography: TypographyTheme.createDefaultTypographyTheme(),
       appearance: SimpleAppearanceTheme.createDefaultStyle(),

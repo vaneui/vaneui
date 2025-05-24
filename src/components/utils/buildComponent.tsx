@@ -18,8 +18,6 @@ export function buildComponent<P extends Partial<TypographyComponentProps>>(
   const {className, children, tag, ...other} = cleanProps;
   const componentTag: string = tag ?? theme.tag ?? "div";
   const themeClasses = useMemo(() => {
-    // Use a type assertion to tell TypeScript that theme has a getClasses method
-    // that returns an array of strings, regardless of its specific type
     return theme.getClasses(props);
   }, [props, theme]);
   const Tag = componentTag;
