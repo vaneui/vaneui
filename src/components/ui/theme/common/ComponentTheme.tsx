@@ -42,10 +42,10 @@ export class ComponentTheme<P extends object> {
     this.defaults = defaults;
   }
 
-  getClasses(props: P): string[] {
+  getClasses(props: P, defaults: Partial<P> = this.defaults): string[] {
     // Don't merge defaults with props, keep them separate
     const propsRecord = props as Record<string, any>;
-    const defaultsRecord = this.defaults as Record<string, any>;
+    const defaultsRecord = defaults as Record<string, any>;
     const classes: string[] = [];
 
     if (this.base) {

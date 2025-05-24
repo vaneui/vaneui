@@ -21,7 +21,7 @@ import {
   textDecorationClasses,
   textTransformClasses
 } from "../../classes/typographyClasses";
-import { pickFirstKey, pickFirstKeyOptional, pickKey } from "../../../utils/componentUtils";
+import { pickKey } from "../../../utils/componentUtils";
 import { FontProps } from "../../props/props";
 
 /**

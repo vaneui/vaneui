@@ -1,6 +1,6 @@
 import { DirectionKey, DIRECTION_KEYS,  DIRECTION_REVERSE_KEYS } from "../../props/propKeys";
 import { directionClasses } from "../../classes/layoutClasses";
-import { pickFirstKeyOptional } from "../../../utils/componentUtils";
+import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
 export class DirectionTheme extends BaseTheme {
@@ -8,9 +8,9 @@ export class DirectionTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>): string[] {
-    const reverse = pickFirstKeyOptional(props, DIRECTION_REVERSE_KEYS);
-    const direction = pickFirstKeyOptional(props, DIRECTION_KEYS) ?? 'column';
+  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+    const reverse = pickKey(props, defaults, DIRECTION_REVERSE_KEYS);
+    const direction = pickKey(props, defaults, DIRECTION_KEYS, 'column');
 
     if (reverse) {
       return direction === 'row' 

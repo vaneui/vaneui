@@ -5,7 +5,7 @@ import {
   TEXT_APPEARANCE_KEYS, 
   TextAppearanceKey 
 } from "../../props/propKeys";
-import { pickFirstKey } from "../../../utils/componentUtils";
+import { pickKey } from "../../../utils/componentUtils";
 import {
   activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses,
@@ -36,13 +36,13 @@ export class VariantAppearanceTheme extends BaseTheme {
     this.variants = styleVariants;
   }
 
-  getClasses(props: Record<string, any>): string[] {
-    const style = pickFirstKey(props, VARIANT_KEYS, 'outline');
-    const appearance = pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default');
+  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+    const style = pickKey(props, defaults, VARIANT_KEYS, 'outline');
+    const appearance = pickKey(props, defaults, TEXT_APPEARANCE_KEYS, 'default');
 
-    const variant = this.variants[style]?.[appearance];
+    const variant = this.variants[style ?? 'outline']?.[appearance ?? 'default'];
 
-    return variant?.getClasses !== undefined ? variant.getClasses(props) : [];
+    return variant?.getClasses !== undefined ? variant.getClasses(props, defaults) : [];
   }
 
   static createDefault(): VariantAppearanceTheme {

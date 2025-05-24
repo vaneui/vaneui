@@ -10,7 +10,7 @@ export class RingTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>): string[] {
+  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
     return MODE_KEYS.map(mode => props.noRing
       ? this.noRingClasses[mode]
       : this.modeClasses[mode] || '');

@@ -1,5 +1,5 @@
 import { SizeKey, SIZE_KEYS, NO_GAP_KEYS } from "../../props/propKeys";
-import { pickFirstKey, pickFirstKeyOptional } from "../../../utils/componentUtils";
+import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
 export class GapTheme extends BaseTheme {
@@ -13,13 +13,13 @@ export class GapTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>): string[] {
-    const noGap = pickFirstKeyOptional(props, NO_GAP_KEYS);
+  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+    const noGap = pickKey(props, defaults, NO_GAP_KEYS);
     if (noGap) {
       return ['gap-0'];
     }
 
-    const size = pickFirstKey(props, SIZE_KEYS, 'md');
-    return [this.classes[size]];
+    const size = pickKey(props, defaults, SIZE_KEYS, 'md');
+    return [this.classes[size ?? 'md']];
   }
 }
