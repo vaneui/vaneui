@@ -6,7 +6,7 @@ import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
 
-const typographyThemeDefaults: Partial<Record<keyof TypographyComponentProps, boolean>> = {
+const typographyThemeDefaults: Partial<TypographyComponentProps> = {
   md: true,
   default: true,
   sans: true,
@@ -17,7 +17,7 @@ export const createTypographyComponentTheme = (
   tag: React.ReactNode | string | any,
   base: string = "text-balance",
   textSizeMap: Record<SizeKey, string> = textSizeClasses,
-  defaults: Partial<Record<keyof TypographyComponentProps, boolean>> = typographyThemeDefaults,
+  defaults: Partial<TypographyComponentProps> = typographyThemeDefaults,
 ): ComponentTheme<TypographyComponentProps> => {
   return new ComponentTheme<TypographyComponentProps>(
     tag,
@@ -29,7 +29,7 @@ export const createTypographyComponentTheme = (
       appearance: SimpleAppearanceTheme.createDefaultStyle(),
     },
     // Use a type assertion to handle properties that expect string values, not boolean values
-    defaults as any);
+    defaults);
 };
 
 // Page title specific theme
