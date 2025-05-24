@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import { SIZE_KEYS, SizeKey } from "../../props/propKeys";
-import { pickKey, makeSizeVariant } from "../../../utils/componentUtils";
+import { pickKey } from "../../../utils/componentUtils";
 
 export class SizeTheme extends BaseTheme {
   constructor(private classes: Partial<Record<SizeKey, string>> = {}) {
