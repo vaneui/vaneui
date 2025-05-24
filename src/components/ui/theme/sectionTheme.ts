@@ -1,15 +1,7 @@
-import { TypographyTheme } from "./typography/typographyTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
-import { ItemsTheme } from "./layout/itemsTheme";
-import { JustifyTheme } from "./layout/justifyTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { BorderTheme } from "./layout/borderTheme";
-import { ShadowTheme } from "./layout/shadowTheme";
-import { RingTheme } from "./layout/ringTheme";
-import { HideTheme } from "./layout/hideTheme";
-import { PositionTheme } from "./layout/positionTheme";
 import { LayoutComponentProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 
@@ -40,16 +32,10 @@ export const defaultSectionTheme = new ComponentTheme<LayoutComponentProps>(
         xl: 'gap-16',
       }),
     },
-    typography: TypographyTheme.createDefaultTypographyTheme(),
-    direction: new DirectionTheme(),
-    items: new ItemsTheme(),
-    justify: new JustifyTheme(),
-    wrap: new WrapTheme(),
-    border: new BorderTheme(),
-    shadow: new ShadowTheme(),
-    ring: new RingTheme(),
-    hide: new HideTheme(),
-    position: new PositionTheme(),
+    layout: {
+      wrap: new WrapTheme(),
+      direction: new DirectionTheme(),
+    },
   },
   {
     md: true,

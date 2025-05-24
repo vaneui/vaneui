@@ -1,7 +1,5 @@
-import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { StackProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
@@ -34,18 +32,15 @@ export const defaultStackTheme = new ComponentTheme<StackProps>(
         xl: 'gap-6',
       }),
     },
-    typography: TypographyTheme.createDefaultTypographyTheme(),
-    direction: new DirectionTheme(),
-    wrap: new WrapTheme(),
-    appearance: SimpleAppearanceTheme.createDefaultStyle(),
+    layout: {
+      wrap: new WrapTheme(),
+      direction: new DirectionTheme(),
+    },
   },
   {
     md: true,
     transparent: true,
     column: true,
     flexWrap: true,
-    noBorder: true,
-    noShadow: true,
-    noRing: true,
   }
 );

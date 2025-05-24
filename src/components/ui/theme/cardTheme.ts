@@ -5,6 +5,7 @@ import { ComponentTheme } from "./common/ComponentTheme";
 import { CardProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
+import { WrapTheme } from "./layout/wrapTheme";
 
 export const defaultCardTheme = new ComponentTheme<CardProps>(
   "div",
@@ -33,8 +34,10 @@ export const defaultCardTheme = new ComponentTheme<CardProps>(
         xl: 'gap-6',
       }),
     },
-    typography: TypographyTheme.createDefaultTypographyTheme(),
-    direction: new DirectionTheme(),
+    layout: {
+      wrap: new WrapTheme(),
+      direction: new DirectionTheme(),
+    },
     appearance: SimpleAppearanceTheme.createDefaultStyle(),
   },
   {

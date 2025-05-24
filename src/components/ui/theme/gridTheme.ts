@@ -1,12 +1,9 @@
-import { TypographyTheme } from "./typography/typographyTheme";
-import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { GridProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 
 const gridDefaults: Partial<GridProps> = {
   md: true,
-  transparent: true,
 };
 
 const gridSubThemes = {
@@ -19,8 +16,6 @@ const gridSubThemes = {
       xl: 'gap-6',
     }),
   },
-  typography: TypographyTheme.createDefaultTypographyTheme(),
-  appearance: SimpleAppearanceTheme.createDefaultStyle(),
 };
 
 export const defaultGrid3Theme = new ComponentTheme<GridProps>(

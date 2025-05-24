@@ -7,6 +7,9 @@ import { BadgeProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
+import { BorderTheme } from "./layout/borderTheme";
+import { ShadowTheme } from "./layout/shadowTheme";
+import { RingTheme } from "./layout/ringTheme";
 
 export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
   "span",
@@ -17,11 +20,14 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
       py: new SizeTheme(pyMap),
       text: new SizeTheme(textSizeClasses),
       gap: new GapTheme(gapMap),
+      shadow: new ShadowTheme(),
     },
     appearance: VariantAppearanceTheme.createDefault(),
     typography: TypographyTheme.createDefaultTypographyTheme(),
     layout: {
-      radius: new RadiusTheme(roundedMap)
+      border: new BorderTheme(),
+      ring: new RingTheme(),
+      radius: new RadiusTheme(roundedMap),
     },
   },
   {

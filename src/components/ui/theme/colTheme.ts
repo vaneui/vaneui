@@ -1,9 +1,9 @@
-import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { ColProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
+import { WrapTheme } from "./layout/wrapTheme";
 
 export const defaultColTheme = new ComponentTheme<ColProps>(
   "div",
@@ -18,8 +18,10 @@ export const defaultColTheme = new ComponentTheme<ColProps>(
         xl: 'gap-6',
       }),
     },
-    typography: TypographyTheme.createDefaultTypographyTheme(),
-    direction: new DirectionTheme(),
+    layout: {
+      wrap: new WrapTheme(),
+      direction: new DirectionTheme(),
+    },
     appearance: SimpleAppearanceTheme.createDefaultStyle(),
   },
   {

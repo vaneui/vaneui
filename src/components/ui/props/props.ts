@@ -102,7 +102,7 @@ export type ChipProps =
   & NoRingProps
   & VariantProps;
 
-export type GridProps = BaseComponentProps & NoGapProps & CommonAppearanceProps;
+export type GridProps = BaseComponentProps & NoGapProps;
 
 export type LayoutComponentProps =
   TypographyComponentProps
@@ -132,8 +132,4 @@ export type CardProps =
 export type StackProps =
   LayoutComponentProps
   & BreakpointProps
-  & DirectionProps
-  & NoBorderProps
-  & NoShadowProps
-  & NoRingProps
-  & NoPaddingProps;
+  & DirectionProps;

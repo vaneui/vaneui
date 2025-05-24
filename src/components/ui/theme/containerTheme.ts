@@ -1,10 +1,9 @@
-import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
-import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { LayoutComponentProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { SizeTheme } from "./size/sizeTheme";
+import { WrapTheme } from "./layout/wrapTheme";
 
 export const defaultContainerTheme = new ComponentTheme<LayoutComponentProps>(
   "div",
@@ -26,9 +25,10 @@ export const defaultContainerTheme = new ComponentTheme<LayoutComponentProps>(
         xl: 'max-w-7xl',
       }),
     },
-    typography: TypographyTheme.createDefaultTypographyTheme(),
-    direction: new DirectionTheme(),
-    appearance: SimpleAppearanceTheme.createDefaultStyle(),
+    layout: {
+      wrap: new WrapTheme(),
+      direction: new DirectionTheme(),
+    },
   },
   {
     md: true,

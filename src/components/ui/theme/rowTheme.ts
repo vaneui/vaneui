@@ -1,10 +1,6 @@
-import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
-import { ItemsTheme } from "./layout/itemsTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { HideTheme } from "./layout/hideTheme";
-import { RingTheme } from "./layout/ringTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { RowProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
@@ -25,12 +21,10 @@ export const defaultRowTheme = new ComponentTheme<RowProps>(
         xl: 'gap-6',
       }),
     },
-    hide: new HideTheme(),
-    ring: new RingTheme(),
-    typography: TypographyTheme.createDefaultTypographyTheme(),
-    direction: new DirectionTheme(),
-    items: new ItemsTheme(),
-    wrap: new WrapTheme(),
+    layout: {
+      wrap: new WrapTheme(),
+      direction: new DirectionTheme(),
+    },
   },
   {
     md: true,

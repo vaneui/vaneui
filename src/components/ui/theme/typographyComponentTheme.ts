@@ -2,7 +2,6 @@ import { SizeKey } from "../props/propKeys";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { TypographyComponentProps } from "../props/props";
 import React from "react";
-import { TypographyTheme } from "./typography/typographyTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
@@ -27,7 +26,6 @@ export const createTypographyComponentTheme = (
       size: {
         text: new SizeTheme(textSizeMap),
       },
-      typography: TypographyTheme.createDefaultTypographyTheme(),
       appearance: SimpleAppearanceTheme.createDefaultStyle(),
     },
     // Use a type assertion to handle properties that expect string values, not boolean values
