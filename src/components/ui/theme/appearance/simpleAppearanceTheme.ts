@@ -3,7 +3,7 @@ import {
   TEXT_APPEARANCE_KEYS, 
   TextAppearanceKey 
 } from "../../props/propKeys";
-import { pickFirstKey } from "../../../utils/componentUtils";
+import { pickFirstKey, pickFirstKeyOptional } from "../../../utils/componentUtils";
 import {
   activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses,
@@ -31,13 +31,18 @@ export class SimpleAppearanceTheme extends BaseTheme {
     this.appearance = appearance;
   }
 
-  getClasses(props: Record<string, any>): string[] {
-    const appearance = pickFirstKey(props, TEXT_APPEARANCE_KEYS, 'default');
+  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+    // First look for an explicit value in the real props
+    const explicitAppearance = pickFirstKeyOptional(props, TEXT_APPEARANCE_KEYS);
+
+    // If none was found, check defaults or use fallback
+    const appearance = explicitAppearance || pickFirstKey(defaults, TEXT_APPEARANCE_KEYS, 'default');
 
     const variant = this.appearance[appearance];
     if (!variant) return [];
 
-    return variant.getClasses(props);
+    // Pass both props and defaults to the variant's getClasses method
+    return variant.getClasses(props, defaults);
   }
 
   /**

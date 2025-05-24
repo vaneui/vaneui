@@ -8,8 +8,13 @@ export class JustifyTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>): string[] {
-    const key = pickFirstKeyOptional(props, JUSTIFY_KEYS);
+  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+    // First look for an explicit value in the real props
+    const explicitKey = pickFirstKeyOptional(props, JUSTIFY_KEYS);
+
+    // If none was found, check defaults
+    const key = explicitKey || pickFirstKeyOptional(defaults, JUSTIFY_KEYS);
+
     return key ? [this.classes[key]] : [];
   }
 }

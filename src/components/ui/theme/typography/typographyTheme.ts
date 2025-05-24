@@ -63,17 +63,31 @@ export class TypographyTheme extends BaseTheme {
 
   /**
    * Get typography-related CSS classes based on props
-   * @param props Component props
+   * @param props Component props (only the real props the user passed)
+   * @param defaults Component-level defaults
    * @returns CSS classes as an array of strings
    */
-  getClasses(props: Partial<Record<keyof FontProps, any>>): string[] {
-    const fontFamily = pickFirstKey(props, FONT_FAMILY_KEYS, 'sans');
-    const fontWeight = pickFirstKey(props, FONT_WEIGHT_KEYS, 'normal');
+  getClasses(
+    props: Partial<Record<keyof FontProps, any>>,
+    defaults: Partial<Record<keyof FontProps, any>>
+  ): string[] {
+    // First look for explicit values in the real props
+    const explicitFontFamily = pickFirstKeyOptional(props, FONT_FAMILY_KEYS);
+    const explicitFontWeight = pickFirstKeyOptional(props, FONT_WEIGHT_KEYS);
+    const explicitFontStyle = pickFirstKeyOptional(props, FONT_STYLE_KEYS);
+    const explicitTextDecoration = pickFirstKeyOptional(props, TEXT_DECORATION_KEYS);
+    const explicitTextTransform = pickFirstKeyOptional(props, TEXT_TRANSFORM_KEYS);
+    const explicitTextAlign = pickFirstKeyOptional(props, TEXT_ALIGN_KEYS);
 
-    const fontStyle = pickFirstKeyOptional(props, FONT_STYLE_KEYS);
-    const textDecoration = pickFirstKeyOptional(props, TEXT_DECORATION_KEYS);
-    const textTransform = pickFirstKeyOptional(props, TEXT_TRANSFORM_KEYS);
-    const textAlign = pickFirstKeyOptional(props, TEXT_ALIGN_KEYS);
+    // If none was found, check defaults or use fallbacks
+    const fontFamily = explicitFontFamily || pickFirstKey(defaults, FONT_FAMILY_KEYS, 'sans');
+    const fontWeight = explicitFontWeight || pickFirstKey(defaults, FONT_WEIGHT_KEYS, 'normal');
+
+    // For optional properties, check defaults only if no explicit value was provided
+    const fontStyle = explicitFontStyle || pickFirstKeyOptional(defaults, FONT_STYLE_KEYS);
+    const textDecoration = explicitTextDecoration || pickFirstKeyOptional(defaults, TEXT_DECORATION_KEYS);
+    const textTransform = explicitTextTransform || pickFirstKeyOptional(defaults, TEXT_TRANSFORM_KEYS);
+    const textAlign = explicitTextAlign || pickFirstKeyOptional(defaults, TEXT_ALIGN_KEYS);
 
     const classes = [
       this.fontFamily[fontFamily] || '',

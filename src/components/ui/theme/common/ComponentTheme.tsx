@@ -43,10 +43,9 @@ export class ComponentTheme<P extends object> {
   }
 
   getClasses(props: P): string[] {
-    const merged = {...this.defaults, ...props} as Record<string, any>;
-    //console.log("defaults", this.defaults);
-    //console.log("props", props);
-    //console.log("merged", merged);
+    // Don't merge defaults with props, keep them separate
+    const propsRecord = props as Record<string, any>;
+    const defaultsRecord = this.defaults as Record<string, any>;
     const classes: string[] = [];
 
     if (this.base) {
@@ -57,7 +56,8 @@ export class ComponentTheme<P extends object> {
       for (const key in map) {
         const node = map[key];
         if (node instanceof BaseTheme) {
-          classes.push(...node.getClasses(merged));
+          // Pass both real props and defaults separately
+          classes.push(...node.getClasses(propsRecord, defaultsRecord));
         } else {
           walk(node);
         }

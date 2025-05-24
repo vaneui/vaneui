@@ -27,12 +27,12 @@ export class AppearanceTheme extends BaseTheme {
     this.ring = ring;
   }
 
-  getClasses(props: Record<string, any>): string[] {
+  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
     return [
-      ...this.background.getClasses(props),
-      ...this.text.getClasses(props),
-      ...this.border.getClasses(props),
-      ...this.ring.getClasses(props)
+      ...this.background.getClasses(props, defaults),
+      ...this.text.getClasses(props, defaults),
+      ...this.border.getClasses(props, defaults),
+      ...this.ring.getClasses(props, defaults)
     ];
   }
 

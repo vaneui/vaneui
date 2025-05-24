@@ -4,8 +4,12 @@
 export abstract class BaseTheme {
   /**
    * Get CSS classes based on props
-   * @param props Component props
+   * @param props Component props (only the real props the user passed)
+   * @param defaults Component-level defaults
    * @returns CSS classes as an array of strings
    */
-  abstract getClasses(props: Record<string, any>): string[];
+  abstract getClasses(
+    props: Record<string, any>,
+    defaults: Record<string, any>
+  ): string[];
 }
