@@ -1,4 +1,4 @@
-import { SizeKey, SIZE_KEYS, NoGapKey, NO_GAP_KEYS } from "../../props/propKeys";
+import { SizeKey, SIZE_KEYS, NO_GAP_KEYS } from "../../props/propKeys";
 import { pickFirstKey, pickFirstKeyOptional } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 

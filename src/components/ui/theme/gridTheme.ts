@@ -1,19 +1,9 @@
-import { GapSizeTheme } from "./size/gapSizeTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { GridProps } from "../props/props";
+import { GapTheme } from "./size/gapTheme";
 
-const gridGap = new GapSizeTheme({
-  xs: 'gap-2',
-  sm: 'gap-3',
-  md: 'gap-4',
-  lg: 'gap-5',
-  xl: 'gap-6',
-});
-
-const gridTypography = TypographyTheme.createDefaultTypographyTheme();
-const gridAppearance = SimpleAppearanceTheme.createDefaultStyle();
 const gridDefaults: Partial<GridProps> = {
   md: true,
   transparent: true,
@@ -21,10 +11,16 @@ const gridDefaults: Partial<GridProps> = {
 
 const gridSubThemes = {
   size: {
-    gap: gridGap,
+    gap: new GapTheme({
+      xs: 'gap-2',
+      sm: 'gap-3',
+      md: 'gap-4',
+      lg: 'gap-5',
+      xl: 'gap-6',
+    }),
   },
-  typography: gridTypography,
-  appearance: gridAppearance,
+  typography: TypographyTheme.createDefaultTypographyTheme(),
+  appearance: SimpleAppearanceTheme.createDefaultStyle(),
 };
 
 export const defaultGrid3Theme = new ComponentTheme<GridProps>(

@@ -4,7 +4,7 @@ import { TextTheme } from "./size/textTheme";
 import { GapSizeTheme } from "./size/gapSizeTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
-import { GapTheme } from "./layout/gapTheme";
+import { GapTheme } from "./size/gapTheme";
 import { ItemsTheme } from "./layout/itemsTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { HideTheme } from "./layout/hideTheme";
@@ -20,19 +20,18 @@ export const defaultRowTheme = new ComponentTheme<RowProps>(
       px: new PxTheme(),
       py: new PyTheme(),
       text: new TextTheme(),
-      gap: new GapSizeTheme(),
+      gap: new GapTheme({
+        xs: 'gap-2',
+        sm: 'gap-3',
+        md: 'gap-4',
+        lg: 'gap-5',
+        xl: 'gap-6',
+      }),
     },
     hide: new HideTheme(),
     ring: new RingTheme(),
     typography: TypographyTheme.createDefaultTypographyTheme(),
     direction: new DirectionTheme(),
-    gap: new GapTheme({
-      xs: 'gap-2',
-      sm: 'gap-3',
-      md: 'gap-4',
-      lg: 'gap-5',
-      xl: 'gap-6',
-    }),
     items: new ItemsTheme(),
     wrap: new WrapTheme(),
   },

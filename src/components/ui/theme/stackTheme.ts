@@ -1,12 +1,12 @@
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { GapSizeTheme } from "./size/gapSizeTheme";
 import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { StackProps } from "../props/props";
+import { GapTheme } from "./size/gapTheme";
 
 export const defaultStackTheme = new ComponentTheme<StackProps>(
   "div",
@@ -27,7 +27,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps>(
         lg: 'py-5',
         xl: 'py-6',
       }),
-      gap: new GapSizeTheme({
+      gap: new GapTheme({
         xs: 'gap-2',
         sm: 'gap-3',
         md: 'gap-4',

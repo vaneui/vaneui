@@ -1,17 +1,17 @@
 import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
-import { GapSizeTheme } from "./size/gapSizeTheme";
 import { MaxWidthTheme } from "./size/maxWidthTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { LayoutComponentProps } from "../props/props";
+import { GapTheme } from "./size/gapTheme";
 
 export const defaultContainerTheme = new ComponentTheme<LayoutComponentProps>(
   "div",
   "flex flex-col mx-auto w-full",
   {
     size: {
-      gap: new GapSizeTheme({
+      gap: new GapTheme({
         xs: 'gap-2 max-lg:gap-1',
         sm: 'gap-4 max-lg:gap-3 max-md:gap-2',
         md: 'gap-6 max-lg:gap-5 max-md:gap-4',
