@@ -1,4 +1,3 @@
-import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
@@ -23,7 +22,6 @@ export const defaultRowTheme = new ComponentTheme<RowProps>(
     },
     layout: {
       wrap: new WrapTheme(),
-      direction: new DirectionTheme(),
     },
   },
   {

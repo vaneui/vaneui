@@ -6,6 +6,7 @@ import { CardProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
+import { ShadowTheme } from "./layout/shadowTheme";
 
 export const defaultCardTheme = new ComponentTheme<CardProps>(
   "div",
@@ -33,6 +34,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps>(
         lg: 'gap-5',
         xl: 'gap-6',
       }),
+      shadow: new ShadowTheme(),
     },
     layout: {
       wrap: new WrapTheme(),

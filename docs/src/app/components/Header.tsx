@@ -1,6 +1,6 @@
 'use client'
 
-import { Title, Row, Col, Text, Button, Section } from '@vaneui/ui';
+import { Title, Row, Text, Button, Section } from '@vaneui/ui';
 import { PRODUCT } from '../constants';
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,8 +10,8 @@ import logo from './../../../public/logo.svg'
 export function Header() {
   return (
     <>
-      <Section xs tag={'header'} className="bg-white/70 backdrop-blur-md border-b fixed z-40">
-        <Row lg justifyBetween>
+      <Section row xs tag={'header'} className="bg-white/70 backdrop-blur-md border-b fixed z-40">
+        <Row lg justifyBetween className="w-full">
           <Row tag={Link} href="/">
             <Image src={logo} alt={PRODUCT.title} className="h-[36px] w-[36px]" />
             <Title sm>

@@ -1,4 +1,4 @@
-import { DirectionKey, DIRECTION_KEYS, DirectionReverseKey, DIRECTION_REVERSE_KEYS } from "../../props/propKeys";
+import { DirectionKey, DIRECTION_KEYS,  DIRECTION_REVERSE_KEYS } from "../../props/propKeys";
 import { directionClasses } from "../../classes/layoutClasses";
 import { pickFirstKeyOptional } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";

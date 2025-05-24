@@ -1,5 +1,4 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
-import { TypographyTheme } from "./typography/typographyTheme";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
@@ -13,7 +12,7 @@ import { RingTheme } from "./layout/ringTheme";
 
 export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
   "span",
-  "w-fit h-fit inline-flex items-center transition-all duration-200 whitespace-nowrap",
+  "w-fit h-fit inline-flex transition-all duration-200 whitespace-nowrap",
   {
     size: {
       px: new SizeTheme(pxMap),
@@ -23,7 +22,6 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
       shadow: new ShadowTheme(),
     },
     appearance: VariantAppearanceTheme.createDefault(),
-    typography: TypographyTheme.createDefaultTypographyTheme(),
     layout: {
       border: new BorderTheme(),
       ring: new RingTheme(),
@@ -34,10 +32,11 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
     md: true,
     outline: true,
     secondary: true,
-    rounded: true,
+    pill: true,
     sans: true,
     semibold: true,
     uppercase: true,
     noShadow: true,
+    itemsCenter: true,
   }
 );

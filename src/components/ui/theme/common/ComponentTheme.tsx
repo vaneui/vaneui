@@ -44,6 +44,9 @@ export class ComponentTheme<P extends object> {
 
   getClasses(props: P): string[] {
     const merged = {...this.defaults, ...props} as Record<string, any>;
+    //console.log("defaults", this.defaults);
+    //console.log("props", props);
+    //console.log("merged", merged);
     const classes: string[] = [];
 
     if (this.base) {
@@ -63,15 +66,5 @@ export class ComponentTheme<P extends object> {
 
     walk(this.subThemes);
     return classes.filter(Boolean);
-  }
-
-  createElement(props: P & { children?: React.ReactNode }) {
-    const {children, ...rest} = props as any;
-    const Comp = this.tag;
-    return (
-      <Comp className={this.getClasses(rest)} {...rest}>
-        {children}
-      </Comp>
-    );
   }
 }

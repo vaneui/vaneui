@@ -2,10 +2,10 @@ import { ComponentTheme } from "./common/ComponentTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { LayoutComponentProps } from "../props/props";
+import {  SectionProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 
-export const defaultSectionTheme = new ComponentTheme<LayoutComponentProps>(
+export const defaultSectionTheme = new ComponentTheme<SectionProps>(
   "div",
   "w-full flex flex-col",
   {

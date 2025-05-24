@@ -2,47 +2,40 @@ import { JSX } from 'react';
 import { TypographyComponentProps } from './props/props';
 import { useTheme } from '../theme';
 import { ComponentTheme } from "./theme/common/ComponentTheme";
-
-const buildTypographyComponent = (
-  props: TypographyComponentProps,
-  theme: ComponentTheme<TypographyComponentProps>,
-  defaultTag: string
-): JSX.Element => {
-  const propsWithDefaultTag = {...props, tag: props.tag ?? defaultTag};
-  return theme.createElement(propsWithDefaultTag);
-};
+import { buildComponent } from "../utils/buildComponent";
+import { STACK_KEYS, TYPOGRAPHY_COMPONENT_KEYS } from "./props/propKeys";
 
 export const PageTitle = (props: TypographyComponentProps): JSX.Element => {
   const theme = useTheme();
-  return buildTypographyComponent(props, theme.pageTitle, "h1");
+  return buildComponent(props, theme.pageTitle, TYPOGRAPHY_COMPONENT_KEYS);
 };
 
 export const SectionTitle = (props: TypographyComponentProps): JSX.Element => {
   const theme = useTheme();
-  return buildTypographyComponent(props, theme.sectionTitle, "h2");
+  return buildComponent(props, theme.sectionTitle, TYPOGRAPHY_COMPONENT_KEYS);
 };
 
 export const Title = (props: TypographyComponentProps): JSX.Element => {
   const theme = useTheme();
-  return buildTypographyComponent(props, theme.title, "h3");
+  return buildComponent(props, theme.title, TYPOGRAPHY_COMPONENT_KEYS);
 };
 
 export const Text = (props: TypographyComponentProps): JSX.Element => {
   const theme = useTheme();
-  return buildTypographyComponent(props, theme.text, "p");
+  return buildComponent(props, theme.text, TYPOGRAPHY_COMPONENT_KEYS);
 };
 
 export const Link = (props: TypographyComponentProps): JSX.Element => {
   const theme = useTheme();
-  return buildTypographyComponent(props, theme.link, "a");
+  return buildComponent(props, theme.link, TYPOGRAPHY_COMPONENT_KEYS);
 };
 
 export const ListItem = (props: TypographyComponentProps): JSX.Element => {
   const theme = useTheme();
-  return buildTypographyComponent(props, theme.listItem, "li");
+  return buildComponent(props, theme.listItem, TYPOGRAPHY_COMPONENT_KEYS);
 };
 
 export const List = (props: TypographyComponentProps): JSX.Element => {
   const theme = useTheme();
-  return buildTypographyComponent(props, theme.list, "ul");
+  return buildComponent(props, theme.list, TYPOGRAPHY_COMPONENT_KEYS);
 };

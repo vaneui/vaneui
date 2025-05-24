@@ -82,6 +82,7 @@ export type ButtonProps =
   & NoBorderProps
   & NoShadowProps
   & NoRingProps
+  & ItemsProps
   & VariantProps;
 
 export type BadgeProps =
@@ -91,6 +92,7 @@ export type BadgeProps =
   & NoBorderProps
   & NoShadowProps
   & NoRingProps
+  & ItemsProps
   & VariantProps;
 
 export type ChipProps =
@@ -100,6 +102,7 @@ export type ChipProps =
   & NoBorderProps
   & NoShadowProps
   & NoRingProps
+  & ItemsProps
   & VariantProps;
 
 export type GridProps = BaseComponentProps & NoGapProps;
@@ -130,6 +133,11 @@ export type CardProps =
   & DirectionProps;
 
 export type StackProps =
+  LayoutComponentProps
+  & BreakpointProps
+  & DirectionProps;
+
+export type SectionProps =
   LayoutComponentProps
   & BreakpointProps
   & DirectionProps;

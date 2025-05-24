@@ -192,6 +192,7 @@ export const CONTAINER_KEYS = [
 // Section keys
 export const SECTION_KEYS = [
   ...BASE_COMPONENT_KEYS,
+  ...DIRECTION_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS,
   ...NO_BORDER_KEYS,

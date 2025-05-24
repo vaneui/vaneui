@@ -1,5 +1,4 @@
 import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
-import { TypographyTheme } from "./typography/typographyTheme";
 import { roundedMap } from "../classes/buttonClasses";
 import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
@@ -23,7 +22,6 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps>(
       shadow: new ShadowTheme(),
     },
     appearance: VariantAppearanceTheme.createDefault(),
-    typography: TypographyTheme.createDefaultTypographyTheme(),
     layout: {
       border: new BorderTheme(),
       ring: new RingTheme(),
