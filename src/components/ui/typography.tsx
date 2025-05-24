@@ -1,17 +1,15 @@
 import { JSX } from 'react';
-import { buildComponent } from '../utils/buildComponent';
 import { TypographyComponentProps } from './props/props';
 import { useTheme } from '../theme';
-import { TYPOGRAPHY_COMPONENT_KEYS } from './props/propKeys';
-import { SimpleComponentTheme } from "./theme/common/simpleComponentTheme";
+import { ComponentTheme } from "./theme/common/ComponentTheme";
 
 const buildTypographyComponent = (
   props: TypographyComponentProps,
-  theme: SimpleComponentTheme<TypographyComponentProps>,
+  theme: ComponentTheme<TypographyComponentProps>,
   defaultTag: string
 ): JSX.Element => {
   const propsWithDefaultTag = {...props, tag: props.tag ?? defaultTag};
-  return buildComponent(propsWithDefaultTag, theme, TYPOGRAPHY_COMPONENT_KEYS);
+  return theme.createElement(propsWithDefaultTag);
 };
 
 export const PageTitle = (props: TypographyComponentProps): JSX.Element => {

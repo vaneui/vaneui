@@ -2,14 +2,12 @@ import { twMerge } from "tailwind-merge";
 import { TypographyComponentProps } from "../ui/props/props";
 import React, { useMemo } from "react";
 import { BaseComponentTheme } from '../ui/theme/common/baseComponentTheme';
-import { VariantComponentTheme } from "../ui/theme/common/variantComponentTheme";
-import { SimpleComponentTheme } from "../ui/theme/common/simpleComponentTheme";
 import { ComponentTheme } from "../ui/theme/common/ComponentTheme";
 
 
 export function buildComponent<P extends Partial<TypographyComponentProps>>(
   props: P,
-  theme: BaseComponentTheme<P> | VariantComponentTheme<P> | SimpleComponentTheme<P> | ComponentTheme<P>,
+  theme: BaseComponentTheme<P> | ComponentTheme<P>,
   propsToOmit: readonly string[] = []
 ): React.ReactElement {
   const cleanProps = {...props};
