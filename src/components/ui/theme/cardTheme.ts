@@ -7,20 +7,26 @@ import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { ShadowTheme } from "./layout/shadowTheme";
+import { BorderTheme } from "./layout/borderTheme";
+import { RingTheme } from "./layout/ringTheme";
+import { RadiusTheme } from "./layout/radiusTheme";
+import { roundedMap } from "../classes/badgeClasses";
+import { PxTheme } from "./size/pxTheme";
+import { PyTheme } from "./size/pyTheme";
 
 export const defaultCardTheme = new ComponentTheme<CardProps>(
   "div",
   "flex overflow-hidden",
   {
     size: {
-      px: new SizeTheme({
+      px: new PxTheme({
         xs: 'px-3',
         sm: 'px-4',
         md: 'px-5',
         lg: 'px-6',
         xl: 'px-8',
       }),
-      py: new SizeTheme({
+      py: new PyTheme({
         xs: 'py-2',
         sm: 'py-3',
         md: 'py-4',
@@ -37,6 +43,8 @@ export const defaultCardTheme = new ComponentTheme<CardProps>(
       shadow: new ShadowTheme(),
     },
     layout: {
+      border: new BorderTheme(),
+      radius: new RadiusTheme(roundedMap),
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
     },
@@ -45,6 +53,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps>(
   {
     md: true,
     default: true,
+    rounded: true,
     sans: true,
     normal: true,
     column: true,

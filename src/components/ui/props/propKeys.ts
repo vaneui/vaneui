@@ -45,6 +45,7 @@ export type HideKey = typeof HIDE_KEYS[number];
 export type PositionKey = typeof POSITION_KEYS[number];
 export type DirectionReverseKey = typeof DIRECTION_REVERSE_KEYS[number];
 export type NoGapKey = typeof NO_GAP_KEYS[number];
+export type RoundedKey = typeof ROUNDED_KEYS[number];
 export type PillKey = typeof PILL_KEYS[number];
 export type SharpKey = typeof SHARP_KEYS[number];
 export type ShapeKey = typeof SHAPE_KEYS[number];
@@ -198,5 +199,6 @@ export const SECTION_KEYS = [
   ...NO_BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_RING_KEYS,
+  ...NO_PADDING_KEYS,
   ...VARIANT_KEYS
 ] as const;

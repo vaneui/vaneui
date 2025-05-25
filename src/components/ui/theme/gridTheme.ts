@@ -1,6 +1,7 @@
 import { ComponentTheme } from "./common/ComponentTheme";
 import { GridProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
+import { gridGaps } from "../classes/spacingClasses";
 
 const gridDefaults: Partial<GridProps> = {
   md: true,
@@ -8,13 +9,7 @@ const gridDefaults: Partial<GridProps> = {
 
 const gridSubThemes = {
   size: {
-    gap: new GapTheme({
-      xs: 'gap-2',
-      sm: 'gap-3',
-      md: 'gap-4',
-      lg: 'gap-5',
-      xl: 'gap-6',
-    }),
+    gap: new GapTheme(gridGaps),
   },
 };
 

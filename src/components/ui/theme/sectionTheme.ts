@@ -2,22 +2,23 @@ import { ComponentTheme } from "./common/ComponentTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import {  SectionProps } from "../props/props";
-import { SizeTheme } from "./size/sizeTheme";
+import { SectionProps } from "../props/props";
+import { PxTheme } from "./size/pxTheme";
+import { PyTheme } from "./size/pyTheme";
 
 export const defaultSectionTheme = new ComponentTheme<SectionProps>(
   "div",
   "w-full flex flex-col",
   {
     size: {
-      px: new SizeTheme({
+      px: new PxTheme({
         xs: 'px-5 max-lg:px-4 max-md:px-3',
         sm: 'px-6 max-lg:px-5 max-md:px-4',
         md: 'px-7 max-lg:px-6 max-md:px-5',
         lg: 'px-8 max-lg:px-7 max-md:px-6',
         xl: 'px-9 max-lg:px-8 max-md:px-7',
       }),
-      py: new SizeTheme({
+      py: new PyTheme({
         xs: 'py-3',
         sm: 'py-5',
         md: 'py-8 max-md:py-5',

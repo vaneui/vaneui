@@ -36,7 +36,7 @@ export async function HeroSection() {
            className="inset-0 bg-[radial-gradient(var(--color-slate-200)_1px,transparent_1px)] [background-size:calc(var(--spacing)*4)_calc(var(--spacing)*4)]"/>
       <Container xs className="z-10">
         <Col xl itemsCenter>
-          <Badge xl normalCase light>
+          <Badge normalCase light>
             <Image src={githubMark} alt="GitHub" className="h-5 w-5"/>
             Open source components
           </Badge>

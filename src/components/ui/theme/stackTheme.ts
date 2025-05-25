@@ -4,20 +4,22 @@ import { ComponentTheme } from "./common/ComponentTheme";
 import { StackProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { SizeTheme } from "./size/sizeTheme";
+import { PxTheme } from "./size/pxTheme";
+import { PyTheme } from "./size/pyTheme";
 
 export const defaultStackTheme = new ComponentTheme<StackProps>(
   "div",
   "flex",
   {
     size: {
-      px: new SizeTheme({
+      px: new PxTheme({
         xs: 'px-2',
         sm: 'px-3',
         md: 'px-4',
         lg: 'px-5',
         xl: 'px-6',
       }),
-      py: new SizeTheme({
+      py: new PyTheme({
         xs: 'py-2',
         sm: 'py-3',
         md: 'py-4',

@@ -58,13 +58,6 @@ export const roundedClasses: Record<keyof SizeProps, string> = {
   xl: "rounded-2xl",
 }
 
-export const pillClasses: Record<keyof PillProps, string> = {
-  pill: "rounded-full"
-}
-export const sharpClasses: Record<keyof SharpProps, string> = {
-  sharp: "rounded-none"
-}
-
 export const hideClasses: Record<keyof HideProps, string> = {
   xsHide: "max-xs:hidden",
   smHide: "max-sm:hidden",
@@ -167,8 +160,4 @@ export const roundedModeClasses: Record<Mode, Record<keyof SizeProps, string>> =
   base: roundedClasses,
   hover: hoverRoundedClasses,
   active: activeRoundedClasses
-}
-
-export const noShadowClasses: Record<keyof NoShadowProps, string> = {
-  noShadow: "shadow-none"
 }

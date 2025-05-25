@@ -7,20 +7,22 @@ import { RadiusTheme } from "./layout/radiusTheme";
 import { ShadowTheme } from "./layout/shadowTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
+import { PxTheme } from "./size/pxTheme";
+import { PyTheme } from "./size/pyTheme";
 
 export const defaultChipTheme = new ComponentTheme<ChipProps>(
   "span",
   "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new SizeTheme({
+      px: new PxTheme({
         xs: 'px-2',
         sm: 'px-2.5',
         md: 'px-3.5',
         lg: 'px-5',
         xl: 'px-6',
       }),
-      py: new SizeTheme({
+      py: new PyTheme({
         xs: 'py-1',
         sm: 'py-1.5',
         md: 'py-2',

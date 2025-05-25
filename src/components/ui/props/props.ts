@@ -25,7 +25,7 @@ import {
   ItemsKey,
   JustifyKey,
   WrapKey,
-  NoRingKey,
+  NoRingKey, RoundedKey,
 } from "./propKeys";
 
 export type SizeProps = { [K in SizeKey]?: boolean; }
@@ -49,6 +49,7 @@ export type NoGapProps = { [K in NoGapKey]?: boolean; }
 export type PillProps = { [K in PillKey]?: boolean; }
 export type SharpProps = { [K in SharpKey]?: boolean; }
 export type ShapeProps = { [K in ShapeKey]?: boolean; }
+export type RoundedProps = { [K in RoundedKey]?: boolean; }
 export type VariantProps = { [K in VariantKey]?: boolean; }
 export type DirectionProps = { [K in DirectionKey]?: boolean; }
 export type ItemsProps = { [K in ItemsKey]?: boolean; }
@@ -126,6 +127,7 @@ export type ColProps =
 export type CardProps =
   LayoutComponentProps
   & SharpProps
+  & RoundedProps
   & BreakpointProps
   & NoBorderProps
   & NoShadowProps
@@ -140,4 +142,5 @@ export type StackProps =
 export type SectionProps =
   LayoutComponentProps
   & BreakpointProps
+  & NoPaddingProps
   & DirectionProps;

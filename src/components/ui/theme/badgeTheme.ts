@@ -9,14 +9,16 @@ import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { ShadowTheme } from "./layout/shadowTheme";
 import { RingTheme } from "./layout/ringTheme";
+import { PxTheme } from "./size/pxTheme";
+import { PyTheme } from "./size/pyTheme";
 
 export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
   "span",
   "w-fit h-fit inline-flex transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new SizeTheme(pxMap),
-      py: new SizeTheme(pyMap),
+      px: new PxTheme(pxMap),
+      py: new PyTheme(pyMap),
       text: new SizeTheme(textSizeClasses),
       gap: new GapTheme(gapMap),
       shadow: new ShadowTheme(),
