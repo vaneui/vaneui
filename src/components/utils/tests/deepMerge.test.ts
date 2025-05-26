@@ -1,4 +1,5 @@
 import { deepMerge } from '../deepMerge';
+import { DeepPartial } from '../deepPartial';
 
 // Simple class for testing class instance merging
 class TestClass {
@@ -15,7 +16,9 @@ describe('deepMerge function', () => {
   // Test merging simple objects
   test('should merge simple objects correctly', () => {
     const target = { a: 1, b: 2 };
-    const source = { b: 3, c: 4 };
+    // Define a type that extends the target type with the additional property 'c'
+    type ExtendedTarget = typeof target & { c: number };
+    const source: DeepPartial<ExtendedTarget> = { b: 3, c: 4 };
     const result = deepMerge(target, source);
 
     expect(result).toEqual({ a: 1, b: 3, c: 4 });
@@ -27,9 +30,10 @@ describe('deepMerge function', () => {
   // Test merging nested objects
   test('should merge nested objects correctly', () => {
     const target = { a: 1, b: { c: 2, d: 3 } };
-    const source = { b: { c: 4, e: 5 } };
-    // Use type assertion to bypass TypeScript's strict type checking
-    const result = deepMerge(target, source as any);
+    // Define a type that extends the target type with the additional property 'e'
+    type ExtendedTarget = typeof target & { b: { e: number } };
+    const source: DeepPartial<ExtendedTarget> = { b: { c: 4, e: 5 } };
+    const result = deepMerge(target, source);
 
     expect(result).toEqual({ a: 1, b: { c: 4, d: 3, e: 5 } });
     // Original objects should not be modified
@@ -40,7 +44,7 @@ describe('deepMerge function', () => {
   // Test that values from the second object override values from the first object
   test('should override values from the first object with values from the second object', () => {
     const target = { a: 1, b: 2, c: 3 };
-    const source = { a: 10, b: 20 };
+    const source: DeepPartial<typeof target> = { a: 10, b: 20 };
     const result = deepMerge(target, source);
 
     expect(result).toEqual({ a: 10, b: 20, c: 3 });
@@ -49,7 +53,9 @@ describe('deepMerge function', () => {
   // Test that undefined values in the second object don't override values from the first object
   test('should not override values from the first object with undefined values from the second object', () => {
     const target = { a: 1, b: 2 };
-    const source = { a: undefined, c: 3 };
+    // Define a type that extends the target type with the additional property 'c'
+    type ExtendedTarget = typeof target & { c: number };
+    const source: DeepPartial<ExtendedTarget> = { a: undefined, c: 3 };
     const result = deepMerge(target, source);
 
     expect(result).toEqual({ a: 1, b: 2, c: 3 });
@@ -58,9 +64,11 @@ describe('deepMerge function', () => {
   // Test that null values in the second object override values from the first object
   test('should override values from the first object with null values from the second object', () => {
     const target = { a: 1, b: 2 };
-    const source = { a: null, c: 3 };
-    // Use type assertion to bypass TypeScript's strict type checking
-    const result = deepMerge(target, source as any);
+    // Define a type that extends the target type with the additional property 'c'
+    type ExtendedTarget = typeof target & { c: number };
+    // Use a type assertion for null since DeepPartial doesn't allow null directly
+    const source: DeepPartial<ExtendedTarget> = { a: null as any, c: 3 };
+    const result = deepMerge(target, source);
 
     expect(result).toEqual({ a: null, b: 2, c: 3 });
   });
@@ -68,7 +76,7 @@ describe('deepMerge function', () => {
   // Test handling of arrays
   test('should handle arrays correctly', () => {
     const target = { a: [1, 2, 3] };
-    const source = { a: [4, 5] };
+    const source: DeepPartial<typeof target> = { a: [4, 5] };
     const result = deepMerge(target, source);
 
     // Arrays should be replaced, not merged
@@ -78,12 +86,21 @@ describe('deepMerge function', () => {
   // Test handling of class instances
   test('should handle class instances correctly', () => {
     const target = { a: new TestClass({ prop1: 'original', prop2: 10 }) };
-    const source = { a: { prop1: 'updated' } };
-    // Use type assertion to bypass TypeScript's strict type checking
-    const result = deepMerge(target, source as any);
+    const source: DeepPartial<typeof target> = { a: { prop1: 'updated' } };
+    const result = deepMerge(target, source);
 
     expect(result.a).toBeInstanceOf(TestClass);
     expect(result).toEqual({ a: new TestClass({ prop1: 'updated', prop2: 10 }) });
+  });
+
+  test('should handle strings correctly', () => {
+    const target = { a: { prop1: 'original', prop2: 10 } };
+    // Define a type that extends the target type with the additional property 'prop3'
+    type ExtendedTarget = typeof target & { a: { prop3: boolean } };
+    const source: DeepPartial<ExtendedTarget> = { a: { prop1: 'updated', prop3: true } };
+    const result = deepMerge(target, source);
+
+    expect(result).toEqual({ a: { prop1: 'updated', prop2: 10, prop3: true } });
   });
 
   // Test with undefined or null source
@@ -97,8 +114,8 @@ describe('deepMerge function', () => {
 
   test('should return a copy of target when source is null', () => {
     const target = { a: 1, b: 2 };
-    // Use type assertion to bypass TypeScript's strict type checking
-    const result = deepMerge(target, null as any);
+    // null is not a valid DeepPartial<T>, but the function handles it specially
+    const result = deepMerge(target, null as unknown as DeepPartial<typeof target>);
 
     expect(result).toEqual(target);
     expect(result).not.toBe(target); // Should be a new object, not the same reference
@@ -114,15 +131,14 @@ describe('deepMerge function', () => {
         normal: false 
       } 
     };
-    const source = { 
+    const source: DeepPartial<typeof target> = { 
       fontWeight: { 
         semibold: false, 
         light: true, 
         normal: false 
       } 
     };
-    // Use type assertion to bypass TypeScript's strict type checking
-    const result = deepMerge(target, source as any);
+    const result = deepMerge(target, source);
 
     // All values in the target object should be set to false, and then the source values should be applied
     expect(result).toEqual({ 
@@ -141,15 +157,14 @@ describe('deepMerge function', () => {
         lg: false 
       } 
     };
-    const sourceSize = { 
+    const sourceSize: DeepPartial<typeof targetSize> = { 
       size: { 
         md: false, 
         sm: true, 
         lg: false 
       } 
     };
-    // Use type assertion to bypass TypeScript's strict type checking
-    const resultSize = deepMerge(targetSize, sourceSize as any);
+    const resultSize = deepMerge(targetSize, sourceSize);
 
     // All values in the target object should be set to false, and then the source values should be applied
     expect(resultSize).toEqual({ 
@@ -168,15 +183,14 @@ describe('deepMerge function', () => {
         normal: false 
       } 
     };
-    const sourceNoTrue = { 
+    const sourceNoTrue: DeepPartial<typeof targetNoTrue> = { 
       fontWeight: { 
         semibold: false, 
         light: false, 
         normal: false 
       } 
     };
-    // Use type assertion to bypass TypeScript's strict type checking
-    const resultNoTrue = deepMerge(targetNoTrue, sourceNoTrue as any);
+    const resultNoTrue = deepMerge(targetNoTrue, sourceNoTrue);
 
     // In this case, the normal deep merge should be applied, not the special handling
     expect(resultNoTrue).toEqual({ 
