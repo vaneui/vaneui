@@ -1,5 +1,4 @@
 import { DirectionTheme } from "./layout/directionTheme";
-import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { CardProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
@@ -11,6 +10,13 @@ import { roundedMap } from "../classes/badgeClasses";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { commonGaps } from "../classes/spacingClasses";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
+import {
+  activeBackgroundAppearanceClasses,
+  backgroundAppearanceClasses, borderAppearanceClasses,
+  hoverBackgroundAppearanceClasses, ringAppearanceClasses
+} from "../classes/appearanceClasses";
+import { textAppearanceClasses } from "../classes/typographyClasses";
 
 export const defaultCardTheme = new ComponentTheme<CardProps>(
   "div",
@@ -40,7 +46,20 @@ export const defaultCardTheme = new ComponentTheme<CardProps>(
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
     },
-    appearance: SimpleAppearanceTheme.createDefaultStyle(),
+    appearance: {
+      background: AppearanceTheme.createDefaultStyle({
+        base: backgroundAppearanceClasses,
+        hover: hoverBackgroundAppearanceClasses,
+        active: activeBackgroundAppearanceClasses
+      }),
+      text: AppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
+      border: AppearanceTheme.createDefaultStyle({
+        base: borderAppearanceClasses,
+      }),
+      ring: AppearanceTheme.createDefaultStyle({
+        base: ringAppearanceClasses,
+      }),
+    }
   },
   {
     md: true,

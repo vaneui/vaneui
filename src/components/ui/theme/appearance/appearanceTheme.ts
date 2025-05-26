@@ -1,64 +1,42 @@
 import { BaseTheme } from "../common/baseTheme";
+import { ModeTheme } from "../common/modeTheme";
+import { TEXT_APPEARANCE_KEYS, TextAppearanceKey } from "../../props/propKeys";
+import { pickKey } from "../../../utils/componentUtils";
 import { Mode } from "../../props/mode";
-import { BackgroundAppearanceTheme } from "./backgroundAppearanceTheme";
-import { TextAppearanceTheme } from "./textAppearanceTheme";
-import { BorderAppearanceTheme } from "./borderAppearanceTheme";
-import { RingAppearanceTheme } from "./ringAppearanceTheme";
+import { TextAppearanceProps } from "../../props/props";
 
-/**
- * Base appearance variant class that composes atomic appearance themes
- */
 export class AppearanceTheme extends BaseTheme {
-  background: BackgroundAppearanceTheme;
-  text: TextAppearanceTheme;
-  border: BorderAppearanceTheme;
-  ring: RingAppearanceTheme;
+  appearance: Record<TextAppearanceKey, ModeTheme>;
 
   constructor(
-    background: BackgroundAppearanceTheme = new BackgroundAppearanceTheme(),
-    text: TextAppearanceTheme = new TextAppearanceTheme(),
-    border: BorderAppearanceTheme = new BorderAppearanceTheme(),
-    ring: RingAppearanceTheme = new RingAppearanceTheme()
+    appearance: Record<TextAppearanceKey, ModeTheme>
   ) {
     super();
-    this.background = background;
-    this.text = text;
-    this.border = border;
-    this.ring = ring;
+    this.appearance = appearance;
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
-    return [
-      ...this.background.getClasses(props, defaults),
-      ...this.text.getClasses(props, defaults),
-      ...this.border.getClasses(props, defaults),
-      ...this.ring.getClasses(props, defaults)
-    ];
+    const appearance = pickKey(props, defaults, TEXT_APPEARANCE_KEYS, 'default')!;
+    const theme = this.appearance[appearance];
+    return theme?.getClasses(props, defaults) ?? [];
   }
 
   /**
-   * Helper function that creates an AppearanceTheme with the given appearance classes
-   * @param bgBase Background base class
-   * @param bgHover Background hover class
-   * @param bgActive Background active class
-   * @param textBase Text color base class
-   * @param borderBase Border color base class
-   * @param ringBase Ring color base class
-   * @returns A new AppearanceTheme instance
+   * Creates a default style with standard AppearanceTheme configuration
    */
-  static createAppearanceTheme(
-    bgBase: string,
-    bgHover: string,
-    bgActive: string,
-    textBase: string,
-    borderBase: string,
-    ringBase: string
-  ): AppearanceTheme {
-    return new AppearanceTheme(
-      new BackgroundAppearanceTheme({base: bgBase, hover: bgHover, active: bgActive}),
-      new TextAppearanceTheme({base: textBase, hover: '', active: ''}),
-      new BorderAppearanceTheme({base: borderBase, hover: '', active: ''}),
-      new RingAppearanceTheme({base: ringBase, hover: '', active: ''})
+  static createDefaultStyle(src: Partial<Record<Mode, Partial<Record<keyof TextAppearanceProps, string>>>>): AppearanceTheme {
+    return new AppearanceTheme(Object.fromEntries(
+        TEXT_APPEARANCE_KEYS.map((key) => {
+          const theme =
+            new ModeTheme({
+                base: src.base?.[key] || '',
+                hover: src.hover?.[key] || '',
+                active: src.active?.[key] || '',
+              }
+            );
+          return [key, theme];
+        })
+      ) as Record<TextAppearanceKey, ModeTheme>
     );
   }
 }

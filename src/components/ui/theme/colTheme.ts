@@ -1,10 +1,16 @@
 import { DirectionTheme } from "./layout/directionTheme";
-import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { ColProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { commonGaps } from "../classes/spacingClasses";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
+import {
+  activeBackgroundAppearanceClasses,
+  backgroundAppearanceClasses, borderAppearanceClasses,
+  hoverBackgroundAppearanceClasses, ringAppearanceClasses
+} from "../classes/appearanceClasses";
+import { textAppearanceClasses } from "../classes/typographyClasses";
 
 export const defaultColTheme = new ComponentTheme<ColProps>(
   "div",
@@ -17,7 +23,20 @@ export const defaultColTheme = new ComponentTheme<ColProps>(
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
     },
-    appearance: SimpleAppearanceTheme.createDefaultStyle(),
+    appearance: {
+      background: AppearanceTheme.createDefaultStyle({
+        base: backgroundAppearanceClasses,
+        hover: hoverBackgroundAppearanceClasses,
+        active: activeBackgroundAppearanceClasses
+      }),
+      text: AppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
+      border: AppearanceTheme.createDefaultStyle({
+        base: borderAppearanceClasses,
+      }),
+      ring: AppearanceTheme.createDefaultStyle({
+        base: ringAppearanceClasses,
+      }),
+    }
   },
   {
     md: true,

@@ -1,4 +1,3 @@
-import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { ChipProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
@@ -9,6 +8,18 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
+import { VariantTheme } from "./appearance/variantTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
+import {
+  activeBackgroundAppearanceClasses,
+  backgroundAppearanceClasses,
+  borderAppearanceClasses, filledActiveBackgroundAppearanceClasses,
+  filledBackgroundAppearanceClasses, filledBorderAppearanceClasses,
+  filledHoverBackgroundAppearanceClasses, filledRingAppearanceClasses,
+  hoverBackgroundAppearanceClasses,
+  ringAppearanceClasses
+} from "../classes/appearanceClasses";
+import { filledTextAppearanceClasses, textAppearanceClasses } from "../classes/typographyClasses";
 
 export const defaultChipTheme = new ComponentTheme<ChipProps>(
   "span",
@@ -45,7 +56,32 @@ export const defaultChipTheme = new ComponentTheme<ChipProps>(
       }),
       shadow: new ShadowTheme(),
     },
-    appearance: VariantAppearanceTheme.createDefault(),
+    appearance: {
+      background: VariantTheme.createDefault({
+        outline: AppearanceTheme.createDefaultStyle({
+          base: backgroundAppearanceClasses,
+          hover: hoverBackgroundAppearanceClasses,
+          active: activeBackgroundAppearanceClasses
+        }),
+        filled: AppearanceTheme.createDefaultStyle({
+          base: filledBackgroundAppearanceClasses,
+          hover: filledHoverBackgroundAppearanceClasses,
+          active: filledActiveBackgroundAppearanceClasses
+        })
+      }),
+      text: VariantTheme.createDefault({
+        outline: AppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
+        filled: AppearanceTheme.createDefaultStyle({base: filledTextAppearanceClasses})
+      }),
+      border: VariantTheme.createDefault({
+        outline: AppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
+        filled: AppearanceTheme.createDefaultStyle({base: filledBorderAppearanceClasses})
+      }),
+      ring: VariantTheme.createDefault({
+        outline: AppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
+        filled: AppearanceTheme.createDefaultStyle({base: filledRingAppearanceClasses})
+      }),
+    },
     layout: {
       radius: new RadiusTheme({
         xs: 'rounded-sm',

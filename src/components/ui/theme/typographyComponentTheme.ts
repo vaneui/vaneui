@@ -1,10 +1,15 @@
 import { SizeKey } from "../props/propKeys";
-import { textSizeClasses } from "../classes/typographyClasses";
+import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
 import { TypographyComponentProps } from "../props/props";
 import React from "react";
-import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
+import {
+  activeBackgroundAppearanceClasses,
+  backgroundAppearanceClasses, borderAppearanceClasses,
+  hoverBackgroundAppearanceClasses, ringAppearanceClasses
+} from "../classes/appearanceClasses";
 
 const typographyThemeDefaults: Partial<TypographyComponentProps> = {
   md: true,
@@ -26,7 +31,9 @@ export const createTypographyComponentTheme = (
       size: {
         text: new SizeTheme(textSizeMap),
       },
-      appearance: SimpleAppearanceTheme.createDefaultStyle(),
+      appearance: {
+        text: AppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
+      }
     },
     // Use a type assertion to handle properties that expect string values, not boolean values
     defaults);

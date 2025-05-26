@@ -1,6 +1,5 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
-import { textSizeClasses } from "../classes/typographyClasses";
-import { VariantAppearanceTheme } from "./appearance/variantAppearanceTheme";
+import { filledTextAppearanceClasses, textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { BadgeProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
@@ -11,6 +10,16 @@ import { ShadowTheme } from "./layout/shadowTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
+import { VariantTheme } from "./appearance/variantTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
+import {
+  activeBackgroundAppearanceClasses,
+  backgroundAppearanceClasses, borderAppearanceClasses,
+  filledActiveBackgroundAppearanceClasses,
+  filledBackgroundAppearanceClasses, filledBorderAppearanceClasses,
+  filledHoverBackgroundAppearanceClasses, filledRingAppearanceClasses,
+  hoverBackgroundAppearanceClasses, ringAppearanceClasses
+} from "../classes/appearanceClasses";
 
 export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
   "span",
@@ -23,7 +32,32 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
       gap: new GapTheme(gapMap),
       shadow: new ShadowTheme(),
     },
-    appearance: VariantAppearanceTheme.createDefault(),
+    appearance: {
+      background: VariantTheme.createDefault({
+        outline: AppearanceTheme.createDefaultStyle({
+          base: backgroundAppearanceClasses,
+          hover: hoverBackgroundAppearanceClasses,
+          active: activeBackgroundAppearanceClasses
+        }),
+        filled: AppearanceTheme.createDefaultStyle({
+          base: filledBackgroundAppearanceClasses,
+          hover: filledHoverBackgroundAppearanceClasses,
+          active: filledActiveBackgroundAppearanceClasses
+        })
+      }),
+      text: VariantTheme.createDefault({
+        outline: AppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
+        filled: AppearanceTheme.createDefaultStyle({base: filledTextAppearanceClasses})
+      }),
+      border: VariantTheme.createDefault({
+        outline: AppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
+        filled: AppearanceTheme.createDefaultStyle({base: filledBorderAppearanceClasses})
+      }),
+      ring: VariantTheme.createDefault({
+        outline: AppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
+        filled: AppearanceTheme.createDefaultStyle({base: filledRingAppearanceClasses})
+      }),
+    },
     layout: {
       border: new BorderTheme(),
       ring: new RingTheme(),
