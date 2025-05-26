@@ -58,9 +58,9 @@ export class ComponentTheme<P extends object> {
           // string leaf → split on spaces
           classes.push(...node.split(/\s+/).filter(Boolean));
 
-        } else if (node instanceof BaseTheme) {
+        } else if (node && typeof node === "object" && "getClasses" in node) {
           // theme leaf → call its getClasses
-          classes.push(...node.getClasses(user, defs));
+          classes.push(...(node as BaseTheme).getClasses(user, defs));
 
         } else if (node && typeof node === "object") {
           // nested map → recurse

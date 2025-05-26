@@ -3,9 +3,8 @@ import { wrapClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export class WrapTheme extends BaseTheme {
+export class WrapTheme implements BaseTheme {
   constructor(private classes: Record<WrapKey, string> = wrapClasses) {
-    super();
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {

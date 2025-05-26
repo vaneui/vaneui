@@ -2,7 +2,7 @@ import { SizeKey, SIZE_KEYS, NO_GAP_KEYS } from "../../props/propKeys";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export class GapTheme extends BaseTheme {
+export class GapTheme implements BaseTheme {
   constructor(private classes: Record<SizeKey, string> = {
     xs: 'gap-2',
     sm: 'gap-3',
@@ -10,7 +10,6 @@ export class GapTheme extends BaseTheme {
     lg: 'gap-5',
     xl: 'gap-6',
   }) {
-    super();
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {

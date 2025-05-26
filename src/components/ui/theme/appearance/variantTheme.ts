@@ -7,13 +7,12 @@ import {
 import { pickKey } from "../../../utils/componentUtils";
 import { AppearanceTheme } from "./appearanceTheme";
 
-export class VariantTheme extends BaseTheme {
+export class VariantTheme implements BaseTheme {
   variants: Record<VariantKey, AppearanceTheme>;
 
   constructor(
     variants: Record<VariantKey, AppearanceTheme>
   ) {
-    super();
     this.variants = variants;
   }
 

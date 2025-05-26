@@ -3,9 +3,8 @@ import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 import { pyClasses } from "../../classes/spacingClasses";
 
-export class PyTheme extends BaseTheme {
+export class PyTheme implements BaseTheme {
   constructor(private classes: Record<SizeKey, string> = pyClasses) {
-    super();
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {

@@ -27,7 +27,7 @@ import { FontProps } from "../../props/props";
 /**
  * Typography theme class for handling typography-related CSS classes
  */
-export class TypographyTheme extends BaseTheme {
+export class TypographyTheme implements BaseTheme {
   fontFamily: Record<FontFamilyKey, string>;
   fontWeight: Record<FontWeightKey, string>;
   fontStyle: Record<FontStyleKey, string>;
@@ -52,7 +52,6 @@ export class TypographyTheme extends BaseTheme {
     textTransform: Record<TextTransformKey, string> = textTransformClasses,
     textAlign: Record<TextAlignKey, string> = textAlignClasses
   ) {
-    super();
     this.fontFamily = fontFamily;
     this.fontWeight = fontWeight;
     this.fontStyle = fontStyle;

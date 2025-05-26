@@ -3,9 +3,8 @@ import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 import { pxClasses } from "../../classes/spacingClasses";
 
-export class PxTheme extends BaseTheme {
+export class PxTheme implements BaseTheme {
   constructor(private classes: Record<SizeKey, string> = pxClasses) {
-    super();
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {

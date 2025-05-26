@@ -3,9 +3,8 @@ import { itemsClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export class ItemsTheme extends BaseTheme {
+export class ItemsTheme implements BaseTheme {
   constructor(private classes: Record<ItemsKey, string> = itemsClasses) {
-    super();
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
