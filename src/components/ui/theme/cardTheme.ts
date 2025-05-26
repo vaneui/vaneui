@@ -1,18 +1,16 @@
-import { TypographyTheme } from "./typography/typographyTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { SimpleAppearanceTheme } from "./appearance/simpleAppearanceTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { CardProps } from "../props/props";
-import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { ShadowTheme } from "./layout/shadowTheme";
 import { BorderTheme } from "./layout/borderTheme";
-import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { roundedMap } from "../classes/badgeClasses";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
+import { commonGaps } from "../classes/spacingClasses";
 
 export const defaultCardTheme = new ComponentTheme<CardProps>(
   "div",
@@ -33,13 +31,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps>(
         lg: 'py-5',
         xl: 'py-6',
       }),
-      gap: new GapTheme({
-        xs: 'gap-2',
-        sm: 'gap-3',
-        md: 'gap-4',
-        lg: 'gap-5',
-        xl: 'gap-6',
-      }),
+      gap: new GapTheme(commonGaps),
       shadow: new ShadowTheme(),
     },
     layout: {
