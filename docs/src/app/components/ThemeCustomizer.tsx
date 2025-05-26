@@ -7,16 +7,18 @@ import {
 
 const customTheme: PartialTheme = {
   button: {
-    appearance: {
-      variants: {
-        outline: {
-          default: {
-            textColor: {
-              base: 'text-gray-400',
-              hover: 'text-gray-600'
-            },
+    subThemes:{
+      appearance: {
+        variants: {
+          outline: {
+            default: {
+              textColor: {
+                base: 'text-gray-400',
+                hover: 'text-gray-600'
+              },
+            }
           }
-        }
+        },
       },
     },
     defaults: {

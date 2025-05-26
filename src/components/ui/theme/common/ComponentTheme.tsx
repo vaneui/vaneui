@@ -8,7 +8,7 @@ import { JustifyTheme } from "../layout/justifyTheme";
 import { PositionTheme } from "../layout/positionTheme";
 
 export interface ThemeMap<P> {
-  [key: string]: BaseTheme | ThemeMap<P>;
+  [key: string]: BaseTheme | ThemeMap<P> | string;
 }
 
 export class ComponentTheme<P extends object> {
@@ -16,16 +16,6 @@ export class ComponentTheme<P extends object> {
   readonly base: string;
   readonly subThemes: ThemeMap<P>;
   readonly defaults: Partial<P>;
-
-  private commonSubThemes: ThemeMap<P> = {
-    layout: {
-      hide: new HideTheme(),
-      items: new ItemsTheme(),
-      justify: new JustifyTheme(),
-      position: new PositionTheme(),
-    },
-    typography: TypographyTheme.createDefaultTypographyTheme(),
-  };
 
   constructor(
     tag: React.ElementType,
@@ -35,31 +25,46 @@ export class ComponentTheme<P extends object> {
   ) {
     this.tag = tag;
     this.base = base;
-    this.subThemes = deepMerge(
-      this.commonSubThemes,
+    this.subThemes = deepMerge({
+        layout: {
+          hide: new HideTheme(),
+          items: new ItemsTheme(),
+          justify: new JustifyTheme(),
+          position: new PositionTheme(),
+        },
+        typography: TypographyTheme.createDefaultTypographyTheme(),
+      },
       subThemes
     );
     this.defaults = defaults;
   }
 
   getClasses(props: P, defaults: Partial<P> = this.defaults): string[] {
-    // Don't merge defaults with props, keep them separate
-    const propsRecord = props as Record<string, any>;
-    const defaultsRecord = defaults as Record<string, any>;
+    const user = props as Record<string, any>;
+    const defs = defaults as Record<string, any>;
     const classes: string[] = [];
 
+    // 1) add the base string
     if (this.base) {
-      classes.push(...this.base.split(" "));
+      classes.push(...this.base.split(/\s+/));
     }
 
+    // 2) walk recursively
     const walk = (map: ThemeMap<P>) => {
       for (const key in map) {
         const node = map[key];
-        if (node instanceof BaseTheme) {
-          // Pass both real props and defaults separately
-          classes.push(...node.getClasses(propsRecord, defaultsRecord));
-        } else {
-          walk(node);
+
+        if (typeof node === "string") {
+          // string leaf → split on spaces
+          classes.push(...node.split(/\s+/).filter(Boolean));
+
+        } else if (node instanceof BaseTheme) {
+          // theme leaf → call its getClasses
+          classes.push(...node.getClasses(user, defs));
+
+        } else if (node && typeof node === "object") {
+          // nested map → recurse
+          walk(node as ThemeMap<P>);
         }
       }
     };
