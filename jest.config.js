@@ -12,7 +12,7 @@ export default {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
   testMatch: [
-    '**/tests/**/*.ts?(x)',
-    '**/?(*.)+(spec|test).ts?(x)'
+    '**/src/**/tests/**/*.ts?(x)',
+    '**/src/**/?(*.)+(spec|test).ts?(x)'
   ],
 };
