@@ -3,8 +3,9 @@ import { positionClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export class PositionTheme implements BaseTheme {
+export class PositionTheme extends BaseTheme {
   constructor(private classes: Record<PositionKey, string> = positionClasses) {
+    super();
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {

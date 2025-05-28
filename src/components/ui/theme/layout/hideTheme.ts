@@ -3,8 +3,9 @@ import { hideClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export class HideTheme implements BaseTheme {
+export class HideTheme extends BaseTheme {
   constructor(private classes: Record<HideKey, string> = hideClasses) {
+    super();
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {

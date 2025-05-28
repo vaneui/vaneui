@@ -4,7 +4,7 @@ import { shadowClasses, hoverShadowClasses, activeShadowClasses, noShadowModeCla
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export class ShadowTheme implements BaseTheme {
+export class ShadowTheme extends BaseTheme {
   constructor(
     private sizeClasses: Record<Mode, Record<SizeKey, string>> = {
       base: shadowClasses,
@@ -13,6 +13,7 @@ export class ShadowTheme implements BaseTheme {
     },
     private noShadowClasses: Record<Mode, string> = noShadowModeClasses,
   ) {
+    super();
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {

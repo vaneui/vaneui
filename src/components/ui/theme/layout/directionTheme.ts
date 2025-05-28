@@ -3,8 +3,9 @@ import { directionClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export class DirectionTheme implements BaseTheme {
+export class DirectionTheme extends BaseTheme {
   constructor(private classes: Record<DirectionKey, string> = directionClasses) {
+    super();
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {

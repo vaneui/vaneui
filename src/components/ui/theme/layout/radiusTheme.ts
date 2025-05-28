@@ -3,8 +3,9 @@ import { roundedClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export class RadiusTheme implements BaseTheme {
+export class RadiusTheme extends BaseTheme {
   constructor(private classes: Partial<Record<SizeKey, string>> = roundedClasses) {
+    super();
   }
 
   getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {

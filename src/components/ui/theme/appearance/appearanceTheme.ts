@@ -5,12 +5,13 @@ import { pickKey } from "../../../utils/componentUtils";
 import { Mode } from "../../props/mode";
 import { TextAppearanceProps } from "../../props/props";
 
-export class AppearanceTheme implements BaseTheme {
+export class AppearanceTheme extends BaseTheme {
   appearance: Record<TextAppearanceKey, ModeTheme>;
 
   constructor(
     appearance: Record<TextAppearanceKey, ModeTheme>
   ) {
+    super();
     this.appearance = appearance;
   }
 
