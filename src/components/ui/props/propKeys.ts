@@ -93,7 +93,9 @@ export const BUTTON_KEYS = [
   ...NO_BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_RING_KEYS,
-  ...VARIANT_KEYS
+  ...VARIANT_KEYS,
+  ...ITEMS_KEYS,
+  ...APPEARANCE_KEYS
 ] as const;
 
 // Grid keys
@@ -132,12 +134,16 @@ export const CARD_KEYS = [
   ...NO_GAP_KEYS,
   ...ITEMS_KEYS,
   ...SHARP_KEYS,
+  ...ROUNDED_KEYS,
   ...BREAKPOINT_KEYS,
   ...APPEARANCE_KEYS,
   ...NO_BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_PADDING_KEYS,
-  ...DIRECTION_KEYS
+  ...DIRECTION_KEYS,
+  ...DIRECTION_REVERSE_KEYS,
+  ...JUSTIFY_KEYS,
+  ...WRAP_KEYS
 ] as const;
 
 // Stack keys
@@ -159,7 +165,11 @@ export const BADGE_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...SHAPE_KEYS,
   ...VARIANT_KEYS,
-  ...NO_SHADOW_KEYS
+  ...NO_SHADOW_KEYS,
+  ...NO_BORDER_KEYS,
+  ...NO_RING_KEYS,
+  ...ITEMS_KEYS,
+  ...APPEARANCE_KEYS
 ] as const;
 
 // Chip keys
@@ -167,7 +177,11 @@ export const CHIP_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...SHAPE_KEYS,
   ...VARIANT_KEYS,
-  ...NO_SHADOW_KEYS
+  ...NO_SHADOW_KEYS,
+  ...NO_BORDER_KEYS,
+  ...NO_RING_KEYS,
+  ...ITEMS_KEYS,
+  ...APPEARANCE_KEYS
 ] as const;
 
 // Divider keys
@@ -196,9 +210,10 @@ export const SECTION_KEYS = [
   ...DIRECTION_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS,
-  ...NO_BORDER_KEYS,
-  ...NO_SHADOW_KEYS,
-  ...NO_RING_KEYS,
   ...NO_PADDING_KEYS,
-  ...VARIANT_KEYS
+  ...DIRECTION_REVERSE_KEYS,
+  ...JUSTIFY_KEYS,
+  ...WRAP_KEYS,
+  ...BREAKPOINT_KEYS,
+  ...NO_GAP_KEYS
 ] as const;

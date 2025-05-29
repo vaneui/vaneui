@@ -25,7 +25,7 @@ import {
   ItemsKey,
   JustifyKey,
   WrapKey,
-  NoRingKey, RoundedKey,
+  NoRingKey, RoundedKey, WRAP_KEYS, BADGE_KEYS,
 } from "./propKeys";
 
 export type SizeProps = { [K in SizeKey]?: boolean; }
@@ -106,7 +106,7 @@ export type ChipProps =
   & ItemsProps
   & VariantProps;
 
-export type GridProps = BaseComponentProps & NoGapProps;
+export type GridProps = BaseComponentProps & NoGapProps & CommonAppearanceProps;
 
 export type LayoutComponentProps =
   TypographyComponentProps
@@ -144,3 +144,19 @@ export type SectionProps =
   & BreakpointProps
   & NoPaddingProps
   & DirectionProps;
+
+export type DividerProps =
+  BaseComponentProps
+  & NoBorderProps
+  & NoShadowProps
+  & NoRingProps
+  & VariantProps;
+
+export type ContainerProps =
+  BaseComponentProps
+  & ItemsProps
+  & CommonAppearanceProps
+  & NoBorderProps
+  & NoShadowProps
+  & NoRingProps
+  & VariantProps;
