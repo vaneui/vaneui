@@ -10,7 +10,7 @@ export class BorderTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     return MODE_KEYS.map(mode => props.noBorder
       ? this.noBorderClasses[mode]
       : this.modeClasses[mode] || '');

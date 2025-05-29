@@ -16,7 +16,7 @@ export class ShadowTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const size = pickKey(props, defaults, SIZE_KEYS, 'md');
     const noShadow = pickKey(props, defaults, NO_SHADOW_KEYS);
     return MODE_KEYS.map(mode => noShadow

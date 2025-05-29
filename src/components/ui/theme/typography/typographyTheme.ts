@@ -68,8 +68,8 @@ export class TypographyTheme extends BaseTheme {
    * @returns CSS classes as an array of strings
    */
   getClasses(
-    props: Partial<Record<keyof FontProps, any>>,
-    defaults: Partial<Record<keyof FontProps, any>>
+    props: Partial<Record<keyof FontProps, boolean>>,
+    defaults: Partial<Record<keyof FontProps, boolean>>
   ): string[] {
     const fontFamily = pickKey(props, defaults, FONT_FAMILY_KEYS);
     const fontWeight = pickKey(props, defaults, FONT_WEIGHT_KEYS);

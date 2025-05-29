@@ -7,7 +7,7 @@ export class SizeTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const size = pickKey(props, defaults, SIZE_KEYS);
     return [this.classes[size ?? 'md'] || ''];
   }

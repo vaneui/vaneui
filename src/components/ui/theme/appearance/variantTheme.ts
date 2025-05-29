@@ -17,7 +17,7 @@ export class VariantTheme extends BaseTheme {
     this.variants = variants;
   }
 
-  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const style = pickKey(props, defaults, VARIANT_KEYS, 'outline')!;
     const appearance = pickKey(props, defaults, TEXT_APPEARANCE_KEYS, 'default')!;
     const theme = this.variants[style].appearance[appearance];

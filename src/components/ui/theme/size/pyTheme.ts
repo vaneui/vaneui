@@ -8,7 +8,7 @@ export class PyTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const noPadding = pickKey(props, defaults, NO_PADDING_KEYS);
     if (noPadding) {
       return ['py-0'];

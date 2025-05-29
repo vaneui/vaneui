@@ -8,7 +8,7 @@ export class PxTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const noPadding = pickKey(props, defaults, NO_PADDING_KEYS);
     if (noPadding) {
       return ['px-0'];

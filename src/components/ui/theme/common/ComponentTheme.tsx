@@ -40,8 +40,8 @@ export class ComponentTheme<P extends object> {
   }
 
   getClasses(props: P, defaults: Partial<P> = this.defaults): string[] {
-    const user = props as Record<string, any>;
-    const defs = defaults as Record<string, any>;
+    const user = props as unknown as Record<string, boolean>;
+    const defs = defaults as unknown as Record<string, boolean>;
     const classes: string[] = [];
 
     // 1) add the base string

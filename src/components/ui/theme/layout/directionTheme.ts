@@ -8,7 +8,7 @@ export class DirectionTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const reverse = pickKey(props, defaults, DIRECTION_REVERSE_KEYS);
     const direction = pickKey(props, defaults, DIRECTION_KEYS, 'column');
 

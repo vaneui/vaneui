@@ -9,7 +9,7 @@ export abstract class BaseTheme {
    * @returns CSS classes as an array of strings
    */
   abstract getClasses(
-    props: Record<string, any>,
-    defaults: Record<string, any>
+    props: Record<string, boolean>,
+    defaults: Record<string, boolean>
   ): string[];
 }

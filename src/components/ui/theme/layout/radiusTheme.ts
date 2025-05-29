@@ -8,7 +8,7 @@ export class RadiusTheme extends BaseTheme {
     super();
   }
 
-  getClasses(props: Record<string, any>, defaults: Record<string, any>): string[] {
+  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const size = pickKey(props, defaults, SIZE_KEYS, 'md');
     const shape = pickKey(props, defaults, SHAPE_KEYS, 'rounded');
     switch (shape) {
