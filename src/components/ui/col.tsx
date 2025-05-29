@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { ColProps } from './props/props';
 import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
-import { COL_KEYS } from './props/propKeys';
+import { COL_KEYS } from './props/keys';
 
 /**
  * Column component for vertical layouts.

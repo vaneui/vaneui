@@ -85,6 +85,7 @@ export const TYPOGRAPHY_COMPONENT_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...FONT_KEYS
 ] as const;
+export type TypographyKey = typeof TYPOGRAPHY_COMPONENT_KEYS[number];
 
 // Button keys
 export const BUTTON_KEYS = [
@@ -97,6 +98,7 @@ export const BUTTON_KEYS = [
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
+export type ButtonKey = typeof BUTTON_KEYS[number];
 
 // Grid keys
 export const GRID_KEYS = [
@@ -104,6 +106,7 @@ export const GRID_KEYS = [
   ...NO_GAP_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
+export type GridKey = typeof GRID_KEYS[number];
 
 // Row keys
 export const ROW_KEYS = [
@@ -116,6 +119,7 @@ export const ROW_KEYS = [
   ...JUSTIFY_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
+export type RowKey = typeof ROW_KEYS[number];
 
 // Col keys
 export const COL_KEYS = [
@@ -127,6 +131,7 @@ export const COL_KEYS = [
   ...JUSTIFY_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
+export type ColKey = typeof COL_KEYS[number];
 
 // Card keys
 export const CARD_KEYS = [
@@ -141,10 +146,12 @@ export const CARD_KEYS = [
   ...NO_SHADOW_KEYS,
   ...NO_PADDING_KEYS,
   ...DIRECTION_KEYS,
+  ...FONT_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...JUSTIFY_KEYS,
   ...WRAP_KEYS
 ] as const;
+export type CardKey = typeof CARD_KEYS[number];
 
 // Stack keys
 export const STACK_KEYS = [
@@ -159,6 +166,7 @@ export const STACK_KEYS = [
   ...DIRECTION_KEYS,
   ...NO_PADDING_KEYS
 ] as const;
+export type StackKey = typeof STACK_KEYS[number];
 
 // Badge keys
 export const BADGE_KEYS = [
@@ -171,6 +179,7 @@ export const BADGE_KEYS = [
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
+export type BadgeKey = typeof BADGE_KEYS[number];
 
 // Chip keys
 export const CHIP_KEYS = [
@@ -183,6 +192,7 @@ export const CHIP_KEYS = [
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
+export type ChipKey = typeof CHIP_KEYS[number];
 
 // Divider keys
 export const DIVIDER_KEYS = [
@@ -192,6 +202,7 @@ export const DIVIDER_KEYS = [
   ...NO_RING_KEYS,
   ...VARIANT_KEYS
 ] as const;
+export type DividerKey = typeof DIVIDER_KEYS[number];
 
 // Container keys
 export const CONTAINER_KEYS = [
@@ -203,6 +214,7 @@ export const CONTAINER_KEYS = [
   ...NO_RING_KEYS,
   ...VARIANT_KEYS
 ] as const;
+export type ContainerKey = typeof CONTAINER_KEYS[number];
 
 // Section keys
 export const SECTION_KEYS = [
@@ -217,3 +229,4 @@ export const SECTION_KEYS = [
   ...BREAKPOINT_KEYS,
   ...NO_GAP_KEYS
 ] as const;
+export type SectionKey = typeof SECTION_KEYS[number];

@@ -1,4 +1,4 @@
-import { SHAPE_KEYS, SIZE_KEYS, SizeKey } from "../../props/propKeys";
+import { SHAPE_KEYS, SIZE_KEYS, SizeKey } from "../../props/keys";
 import { roundedClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";

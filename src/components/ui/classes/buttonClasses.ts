@@ -1,4 +1,4 @@
-import { SizeKey } from "../props/propKeys";
+import { SizeKey } from "../props/keys";
 
 /**
  * Maps for size-related classes

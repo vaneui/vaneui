@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { GridProps } from './props/props';
 import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
-import { GRID_KEYS } from './props/propKeys';
+import { GRID_KEYS } from './props/keys';
 
 export const Grid3 = (props: GridProps): JSX.Element => {
   const theme = useTheme();

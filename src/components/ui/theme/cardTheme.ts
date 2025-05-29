@@ -65,7 +65,6 @@ export const defaultCardTheme = new ComponentTheme<CardProps>(
     md: true,
     default: true,
     rounded: true,
-    sans: true,
     normal: true,
     column: true,
   }

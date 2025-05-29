@@ -1,4 +1,4 @@
-import { JustifyKey, JUSTIFY_KEYS } from "../../props/propKeys";
+import { JustifyKey, JUSTIFY_KEYS } from "../../props/keys";
 import { justifyClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";

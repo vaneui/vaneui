@@ -3,7 +3,7 @@ import { TypographyComponentProps } from './props/props';
 import { useTheme } from '../theme';
 import { ComponentTheme } from "./theme/common/ComponentTheme";
 import { buildComponent } from "../utils/buildComponent";
-import { STACK_KEYS, TYPOGRAPHY_COMPONENT_KEYS } from "./props/propKeys";
+import { STACK_KEYS, TYPOGRAPHY_COMPONENT_KEYS } from "./props/keys";
 
 export const PageTitle = (props: TypographyComponentProps): JSX.Element => {
   const theme = useTheme();

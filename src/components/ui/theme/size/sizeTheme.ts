@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import { SIZE_KEYS, SizeKey } from "../../props/propKeys";
+import { SIZE_KEYS, SizeKey } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 
 export class SizeTheme extends BaseTheme {

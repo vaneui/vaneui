@@ -1,7 +1,7 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
 import { filledTextAppearanceClasses, textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
 import { ComponentTheme } from "./common/ComponentTheme";
-import { BadgeProps } from "../props/props";
+import { BadgeProps, TagProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
@@ -20,8 +20,10 @@ import {
   filledHoverBackgroundAppearanceClasses, filledRingAppearanceClasses,
   hoverBackgroundAppearanceClasses, ringAppearanceClasses
 } from "../classes/appearanceClasses";
+import { BADGE_KEYS } from "../props/keys";
+import React from "react";
 
-export const defaultBadgeTheme = new ComponentTheme<BadgeProps>(
+export const defaultBadgeTheme = new ComponentTheme<{ [K in typeof BADGE_KEYS[number]]?: boolean; } & TagProps & React.HTMLProps<HTMLElement>>(
   "span",
   "w-fit h-fit inline-flex transition-all duration-200 whitespace-nowrap",
   {

@@ -1,4 +1,4 @@
-import { SizeKey, SIZE_KEYS, NO_PADDING_KEYS } from "../../props/propKeys";
+import { SizeKey, SIZE_KEYS, NO_PADDING_KEYS } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 import { pxClasses } from "../../classes/spacingClasses";

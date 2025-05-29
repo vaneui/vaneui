@@ -2,7 +2,7 @@ import { JSX } from 'react';
 import { LayoutComponentProps, SectionProps } from './props/props';
 import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
-import { SECTION_KEYS } from './props/propKeys';
+import { SECTION_KEYS } from './props/keys';
 
 export const Section = (props: SectionProps): JSX.Element => {
   const theme = useTheme();

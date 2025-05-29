@@ -12,7 +12,7 @@ import {
   TextAlignKey,
   TextDecorationKey,
   TextTransformKey
-} from "../../props/propKeys";
+} from "../../props/keys";
 import {
   fontFamilyClasses,
   fontStyleClasses,

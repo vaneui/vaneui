@@ -1,4 +1,4 @@
-import { HideKey, HIDE_KEYS } from "../../props/propKeys";
+import { HideKey, HIDE_KEYS } from "../../props/keys";
 import { hideClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";

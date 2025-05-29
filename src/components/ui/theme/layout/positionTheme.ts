@@ -1,4 +1,4 @@
-import { PositionKey, POSITION_KEYS } from "../../props/propKeys";
+import { PositionKey, POSITION_KEYS } from "../../props/keys";
 import { positionClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";

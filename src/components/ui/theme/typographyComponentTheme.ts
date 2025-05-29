@@ -1,4 +1,4 @@
-import { SizeKey } from "../props/propKeys";
+import { SizeKey } from "../props/keys";
 import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
 import { TypographyComponentProps } from "../props/props";
 import React from "react";

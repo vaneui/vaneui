@@ -1,5 +1,5 @@
 import { Mode, MODE_KEYS } from "../../props/mode";
-import { SizeKey, SIZE_KEYS, NO_SHADOW_KEYS } from "../../props/propKeys";
+import { SizeKey, SIZE_KEYS, NO_SHADOW_KEYS } from "../../props/keys";
 import { shadowClasses, hoverShadowClasses, activeShadowClasses, noShadowModeClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";

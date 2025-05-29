@@ -1,4 +1,4 @@
-import { WrapKey, WRAP_KEYS } from "../../props/propKeys";
+import { WrapKey, WRAP_KEYS } from "../../props/keys";
 import { wrapClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";

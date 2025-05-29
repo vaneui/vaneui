@@ -3,7 +3,7 @@ import {
   VARIANT_KEYS,
   VariantKey,
   TEXT_APPEARANCE_KEYS,
-} from "../../props/propKeys";
+} from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 import { AppearanceTheme } from "./appearanceTheme";
 

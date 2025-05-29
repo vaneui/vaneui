@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import { ModeTheme } from "../common/modeTheme";
-import { TEXT_APPEARANCE_KEYS, TextAppearanceKey } from "../../props/propKeys";
+import { TEXT_APPEARANCE_KEYS, TextAppearanceKey } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 import { Mode } from "../../props/mode";
 import { TextAppearanceProps } from "../../props/props";

@@ -1,4 +1,4 @@
-import { ItemsKey, ITEMS_KEYS } from "../../props/propKeys";
+import { ItemsKey, ITEMS_KEYS } from "../../props/keys";
 import { itemsClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";

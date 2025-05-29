@@ -25,8 +25,21 @@ import {
   ItemsKey,
   JustifyKey,
   WrapKey,
-  NoRingKey, RoundedKey, WRAP_KEYS, BADGE_KEYS,
-} from "./propKeys";
+  NoRingKey, 
+  RoundedKey, 
+  BADGE_KEYS, 
+  BadgeKey,
+  ButtonKey,
+  GridKey,
+  RowKey,
+  ColKey,
+  CardKey,
+  StackKey,
+  ChipKey,
+  DividerKey,
+  ContainerKey,
+  SectionKey,
+} from "./keys";
 
 export type SizeProps = { [K in SizeKey]?: boolean; }
 export type CommonAppearanceProps = { [K in AppearanceKey]?: boolean; }
@@ -60,6 +73,8 @@ export interface TagProps {
   tag?: React.ReactNode | string | any;
 }
 
+export type ComponentProps = TagProps & React.HTMLProps<HTMLElement>;
+
 export type BaseComponentProps = TagProps & SizeProps & HideProps & PositionProps & React.HTMLProps<HTMLElement>;
 
 export type FontProps =
@@ -76,37 +91,13 @@ export type TypographyComponentProps =
   & TextAppearanceProps
   & CommonAppearanceProps;
 
-export type ButtonProps =
-  TypographyComponentProps
-  & ShapeProps
-  & CommonAppearanceProps
-  & NoBorderProps
-  & NoShadowProps
-  & NoRingProps
-  & ItemsProps
-  & VariantProps;
+export type ButtonProps = { [K in ButtonKey]?: boolean; } & ComponentProps;
 
-export type BadgeProps =
-  TypographyComponentProps
-  & ShapeProps
-  & CommonAppearanceProps
-  & NoBorderProps
-  & NoShadowProps
-  & NoRingProps
-  & ItemsProps
-  & VariantProps;
+export type BadgeProps = { [K in BadgeKey]?: boolean; } & ComponentProps;
 
-export type ChipProps =
-  TypographyComponentProps
-  & ShapeProps
-  & CommonAppearanceProps
-  & NoBorderProps
-  & NoShadowProps
-  & NoRingProps
-  & ItemsProps
-  & VariantProps;
+export type ChipProps = { [K in ChipKey]?: boolean; } & ComponentProps;
 
-export type GridProps = BaseComponentProps & NoGapProps & CommonAppearanceProps;
+export type GridProps = { [K in GridKey]?: boolean; } & ComponentProps;
 
 export type LayoutComponentProps =
   TypographyComponentProps
@@ -117,46 +108,16 @@ export type LayoutComponentProps =
   & JustifyProps
   & WrapProps;
 
-export type RowProps =
-  LayoutComponentProps
-  & BreakpointProps;
+export type RowProps = { [K in RowKey]?: boolean; } & ComponentProps;
 
-export type ColProps =
-  LayoutComponentProps;
+export type ColProps = { [K in ColKey]?: boolean; } & ComponentProps;
 
-export type CardProps =
-  LayoutComponentProps
-  & SharpProps
-  & RoundedProps
-  & BreakpointProps
-  & NoBorderProps
-  & NoShadowProps
-  & NoPaddingProps
-  & DirectionProps;
+export type CardProps = { [K in CardKey]?: boolean; } & ComponentProps;
 
-export type StackProps =
-  LayoutComponentProps
-  & BreakpointProps
-  & DirectionProps;
+export type StackProps = { [K in StackKey]?: boolean; } & ComponentProps;
 
-export type SectionProps =
-  LayoutComponentProps
-  & BreakpointProps
-  & NoPaddingProps
-  & DirectionProps;
+export type SectionProps = { [K in SectionKey]?: boolean; } & ComponentProps;
 
-export type DividerProps =
-  BaseComponentProps
-  & NoBorderProps
-  & NoShadowProps
-  & NoRingProps
-  & VariantProps;
+export type DividerProps = { [K in DividerKey]?: boolean; } & ComponentProps;
 
-export type ContainerProps =
-  BaseComponentProps
-  & ItemsProps
-  & CommonAppearanceProps
-  & NoBorderProps
-  & NoShadowProps
-  & NoRingProps
-  & VariantProps;
+export type ContainerProps = { [K in ContainerKey]?: boolean; } & ComponentProps;
