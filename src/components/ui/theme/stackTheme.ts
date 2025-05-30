@@ -3,7 +3,6 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { StackProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
-import { SizeTheme } from "./size/sizeTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 

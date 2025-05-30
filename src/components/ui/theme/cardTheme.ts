@@ -12,9 +12,9 @@ import { PyTheme } from "./size/pyTheme";
 import { commonGaps } from "../classes/spacingClasses";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import {
-  activeBackgroundAppearanceClasses,
-  backgroundAppearanceClasses, borderAppearanceClasses,
-  hoverBackgroundAppearanceClasses, ringAppearanceClasses
+  borderAppearanceClasses,
+  layoutBackgroundAppearanceClasses,
+  ringAppearanceClasses
 } from "../classes/appearanceClasses";
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { LayoutAppearanceTheme } from "./appearance/layoutAppearanceTheme";
@@ -49,9 +49,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps>(
     },
     appearance: {
       background: LayoutAppearanceTheme.createDefaultStyle({
-        base: backgroundAppearanceClasses,
-        hover: hoverBackgroundAppearanceClasses,
-        active: activeBackgroundAppearanceClasses
+        base: layoutBackgroundAppearanceClasses,
       }),
       text: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
       border: TextAppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
@@ -64,5 +62,6 @@ export const defaultCardTheme = new ComponentTheme<CardProps>(
     rounded: true,
     normal: true,
     column: true,
+    noBorder: true,
   }
 );

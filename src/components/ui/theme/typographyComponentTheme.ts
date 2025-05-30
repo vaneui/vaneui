@@ -5,11 +5,6 @@ import React from "react";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
-import {
-  activeBackgroundAppearanceClasses,
-  backgroundAppearanceClasses, borderAppearanceClasses,
-  hoverBackgroundAppearanceClasses, ringAppearanceClasses
-} from "../classes/appearanceClasses";
 
 const typographyThemeDefaults: Partial<TypographyComponentProps> = {
   md: true,

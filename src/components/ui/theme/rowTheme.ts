@@ -2,7 +2,6 @@ import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
 import { RowProps } from "../props/props";
-import { SizeTheme } from "./size/sizeTheme";
 import { commonGaps } from "../classes/spacingClasses";
 
 export const defaultRowTheme = new ComponentTheme<RowProps>(
@@ -10,7 +9,6 @@ export const defaultRowTheme = new ComponentTheme<RowProps>(
   "flex flex-row",
   {
     size: {
-      text: new SizeTheme(),
       gap: new GapTheme(commonGaps),
     },
     layout: {
