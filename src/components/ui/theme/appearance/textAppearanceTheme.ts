@@ -2,7 +2,7 @@ import { BaseTheme } from "../common/baseTheme";
 import { MODE_KEYS, ModeKey, TEXT_APPEARANCE_KEYS, TextAppearanceKey } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 
-export class AppearanceTheme extends BaseTheme {
+export class TextAppearanceTheme extends BaseTheme {
   appearance: Record<TextAppearanceKey, Record<ModeKey, string>>;
 
   constructor(
@@ -18,11 +18,8 @@ export class AppearanceTheme extends BaseTheme {
     return MODE_KEYS.map(mode => theme[mode] || '');
   }
 
-  /**
-   * Creates a default style with standard AppearanceTheme configuration
-   */
-  static createDefaultStyle(src: Partial<Record<ModeKey, Partial<Record<TextAppearanceKey, string>>>>): AppearanceTheme {
-    return new AppearanceTheme(Object.fromEntries(
+  static createDefaultStyle(src: Partial<Record<ModeKey, Partial<Record<TextAppearanceKey, string>>>>): TextAppearanceTheme {
+    return new TextAppearanceTheme(Object.fromEntries(
         TEXT_APPEARANCE_KEYS.map((key) => {
           return [key, {
             base: src.base?.[key] || '',

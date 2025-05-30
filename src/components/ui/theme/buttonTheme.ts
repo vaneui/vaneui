@@ -11,7 +11,7 @@ import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { VariantTheme } from "./appearance/variantTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import {
   activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses, borderAppearanceClasses,
@@ -35,28 +35,28 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps>(
     },
     appearance: {
       background: VariantTheme.createDefault({
-        outline: AppearanceTheme.createDefaultStyle({
+        outline: TextAppearanceTheme.createDefaultStyle({
           base: backgroundAppearanceClasses,
           hover: hoverBackgroundAppearanceClasses,
           active: activeBackgroundAppearanceClasses
         }),
-        filled: AppearanceTheme.createDefaultStyle({
+        filled: TextAppearanceTheme.createDefaultStyle({
           base: filledBackgroundAppearanceClasses,
           hover: filledHoverBackgroundAppearanceClasses,
           active: filledActiveBackgroundAppearanceClasses
         })
       }),
       text: VariantTheme.createDefault({
-        outline: AppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
-        filled: AppearanceTheme.createDefaultStyle({base: filledTextAppearanceClasses})
+        outline: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
+        filled: TextAppearanceTheme.createDefaultStyle({base: filledTextAppearanceClasses})
       }),
       border: VariantTheme.createDefault({
-        outline: AppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
-        filled: AppearanceTheme.createDefaultStyle({base: filledBorderAppearanceClasses})
+        outline: TextAppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
+        filled: TextAppearanceTheme.createDefaultStyle({base: filledBorderAppearanceClasses})
       }),
       ring: VariantTheme.createDefault({
-        outline: AppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
-        filled: AppearanceTheme.createDefaultStyle({base: filledRingAppearanceClasses})
+        outline: TextAppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
+        filled: TextAppearanceTheme.createDefaultStyle({base: filledRingAppearanceClasses})
       }),
     },
     layout: {

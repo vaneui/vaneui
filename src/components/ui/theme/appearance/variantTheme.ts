@@ -5,13 +5,13 @@ import {
   TEXT_APPEARANCE_KEYS, MODE_KEYS,
 } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
-import { AppearanceTheme } from "./appearanceTheme";
+import { TextAppearanceTheme } from "./textAppearanceTheme";
 
 export class VariantTheme extends BaseTheme {
-  variants: Record<VariantKey, AppearanceTheme>;
+  variants: Record<VariantKey, TextAppearanceTheme>;
 
   constructor(
-    variants: Record<VariantKey, AppearanceTheme>
+    variants: Record<VariantKey, TextAppearanceTheme>
   ) {
     super();
     this.variants = variants;
@@ -27,12 +27,12 @@ export class VariantTheme extends BaseTheme {
   /**
    * Creates a default set of variant-based appearance themes
    */
-  static createDefault(src: Partial<Record<VariantKey, AppearanceTheme>>): VariantTheme {
+  static createDefault(src: Partial<Record<VariantKey, TextAppearanceTheme>>): VariantTheme {
     const variants = Object.fromEntries(
       VARIANT_KEYS.map((vk) => {
         return [vk, src[vk]];
       })
-    ) as Record<VariantKey, AppearanceTheme>;
+    ) as Record<VariantKey, TextAppearanceTheme>;
     return new VariantTheme(variants);
   }
 }

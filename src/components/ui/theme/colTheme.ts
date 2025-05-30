@@ -4,7 +4,7 @@ import { ColProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { commonGaps } from "../classes/spacingClasses";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import {
   activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses, borderAppearanceClasses,
@@ -24,16 +24,16 @@ export const defaultColTheme = new ComponentTheme<ColProps>(
       direction: new DirectionTheme(),
     },
     appearance: {
-      background: AppearanceTheme.createDefaultStyle({
+      background: TextAppearanceTheme.createDefaultStyle({
         base: backgroundAppearanceClasses,
         hover: hoverBackgroundAppearanceClasses,
         active: activeBackgroundAppearanceClasses
       }),
-      text: AppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
-      border: AppearanceTheme.createDefaultStyle({
+      text: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
+      border: TextAppearanceTheme.createDefaultStyle({
         base: borderAppearanceClasses,
       }),
-      ring: AppearanceTheme.createDefaultStyle({
+      ring: TextAppearanceTheme.createDefaultStyle({
         base: ringAppearanceClasses,
       }),
     }

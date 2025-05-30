@@ -1,6 +1,6 @@
 import { ComponentTheme } from "./common/ComponentTheme";
 import { DividerProps } from "../props/props";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import {   backgroundAppearanceClasses } from "../classes/appearanceClasses";
 
 export const defaultDividerTheme = new ComponentTheme<DividerProps>(
@@ -8,7 +8,7 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps>(
   "bg-gray-200 h-px w-full",
   {
     appearance: {
-      background: AppearanceTheme.createDefaultStyle({
+      background: TextAppearanceTheme.createDefaultStyle({
         base: backgroundAppearanceClasses,
       }),
     }
