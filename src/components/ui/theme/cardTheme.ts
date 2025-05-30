@@ -53,12 +53,8 @@ export const defaultCardTheme = new ComponentTheme<CardProps>(
         active: activeBackgroundAppearanceClasses
       }),
       text: AppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
-      border: AppearanceTheme.createDefaultStyle({
-        base: borderAppearanceClasses,
-      }),
-      ring: AppearanceTheme.createDefaultStyle({
-        base: ringAppearanceClasses,
-      }),
+      border: AppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
+      ring: AppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
     }
   },
   {
