@@ -68,6 +68,7 @@ export const LAYOUT_COMPONENT_KEYS = [
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
+export type LayoutComponentKey = typeof LAYOUT_COMPONENT_KEYS[number];
 
 // Font keys
 export const FONT_KEYS = [
@@ -85,7 +86,7 @@ export const TYPOGRAPHY_COMPONENT_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...FONT_KEYS
 ] as const;
-export type TypographyKey = typeof TYPOGRAPHY_COMPONENT_KEYS[number];
+export type TypographyComponentKey = typeof TYPOGRAPHY_COMPONENT_KEYS[number];
 
 // Button keys
 export const BUTTON_KEYS = [
@@ -135,7 +136,6 @@ export type ColKey = typeof COL_KEYS[number];
 
 // Card keys
 export const CARD_KEYS = [
-  ...BASE_COMPONENT_KEYS,
   ...NO_GAP_KEYS,
   ...ITEMS_KEYS,
   ...SHARP_KEYS,
@@ -146,7 +146,7 @@ export const CARD_KEYS = [
   ...NO_SHADOW_KEYS,
   ...NO_PADDING_KEYS,
   ...DIRECTION_KEYS,
-  ...FONT_KEYS,
+  ...TYPOGRAPHY_COMPONENT_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...JUSTIFY_KEYS,
   ...WRAP_KEYS

@@ -28,7 +28,11 @@ import {
   RowProps,
   ColProps,
   StackProps,
-  BadgeProps, ChipProps, LayoutComponentProps
+  BadgeProps,
+  ChipProps,
+  DividerProps,
+  ContainerProps,
+  SectionProps
 } from "../ui/props/props";
 import { DeepPartial } from "../utils/deepPartial";
 import { deepMerge } from "../utils/deepMerge";
@@ -38,12 +42,12 @@ export interface ThemeProps {
   badge:     ComponentTheme<BadgeProps>;
   chip:      ComponentTheme<ChipProps>;
   card:      ComponentTheme<CardProps>;
-  divider:   ComponentTheme<LayoutComponentProps>;
-  container: ComponentTheme<LayoutComponentProps>;
+  divider:   ComponentTheme<DividerProps>;
+  container: ComponentTheme<ContainerProps>;
   row:       ComponentTheme<RowProps>;
   col:       ComponentTheme<ColProps>;
   stack:     ComponentTheme<StackProps>;
-  section:   ComponentTheme<LayoutComponentProps>;
+  section:   ComponentTheme<SectionProps>;
   grid3:     ComponentTheme<GridProps>;
   grid4:     ComponentTheme<GridProps>;
   pageTitle:    ComponentTheme<TypographyComponentProps>;

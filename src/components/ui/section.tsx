@@ -1,5 +1,5 @@
 import { JSX } from 'react';
-import { LayoutComponentProps, SectionProps } from './props/props';
+import { SectionProps } from './props/props';
 import { buildComponent } from '../utils/buildComponent';
 import { useTheme } from '../theme';
 import { SECTION_KEYS } from './props/keys';

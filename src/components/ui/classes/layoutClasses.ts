@@ -3,12 +3,10 @@ import {
   ItemsProps,
   JustifyProps,
   DirectionProps,
-  PillProps,
-  SharpProps,
-  ShapeProps,
   WrapProps,
-  HideProps, PositionProps,
-  SizeProps, NoBorderProps, NoShadowProps
+  HideProps,
+  PositionProps,
+  SizeProps,
 } from "../props/props"
 import { Mode } from "../props/mode";
 
@@ -128,18 +126,6 @@ export const noShadowModeClasses: Record<Mode, string> = {
   active: "active:shadow-none",
 }
 
-export const pillModeClasses: Record<Mode, string> = {
-  base: "rounded-full",
-  hover: "hover:rounded-full",
-  active: "active:rounded-full",
-}
-
-export const sharpModeClasses: Record<Mode, string> = {
-  base: "rounded-none",
-  hover: "hover:rounded-none",
-  active: "active:rounded-none",
-}
-
 export const hoverRoundedClasses: Record<keyof SizeProps, string> = {
   xs: "hover:rounded-sm",
   sm: "hover:rounded-md",
@@ -154,10 +140,4 @@ export const activeRoundedClasses: Record<keyof SizeProps, string> = {
   md: "active:rounded-lg",
   lg: "active:rounded-xl",
   xl: "active:rounded-2xl",
-}
-
-export const roundedModeClasses: Record<Mode, Record<keyof SizeProps, string>> = {
-  base: roundedClasses,
-  hover: hoverRoundedClasses,
-  active: activeRoundedClasses
 }

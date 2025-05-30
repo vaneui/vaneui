@@ -1,11 +1,11 @@
 import { DirectionTheme } from "./layout/directionTheme";
 import { ComponentTheme } from "./common/ComponentTheme";
-import { LayoutComponentProps } from "../props/props";
+import { ContainerProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 
-export const defaultContainerTheme = new ComponentTheme<LayoutComponentProps>(
+export const defaultContainerTheme = new ComponentTheme<ContainerProps>(
   "div",
   "flex flex-col mx-auto w-full",
   {

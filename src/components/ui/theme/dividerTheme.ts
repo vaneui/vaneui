@@ -1,14 +1,9 @@
 import { ComponentTheme } from "./common/ComponentTheme";
-import { LayoutComponentProps } from "../props/props";
+import { DividerProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import {
-  activeBackgroundAppearanceClasses,
-  backgroundAppearanceClasses, borderAppearanceClasses,
-  hoverBackgroundAppearanceClasses, ringAppearanceClasses
-} from "../classes/appearanceClasses";
-import { textAppearanceClasses } from "../classes/typographyClasses";
+import {   backgroundAppearanceClasses } from "../classes/appearanceClasses";
 
-export const defaultDividerTheme = new ComponentTheme<LayoutComponentProps>(
+export const defaultDividerTheme = new ComponentTheme<DividerProps>(
   "div",
   "bg-gray-200 h-px w-full",
   {
