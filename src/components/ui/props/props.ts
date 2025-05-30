@@ -52,14 +52,6 @@ export interface TagProps {
 
 export type ComponentProps = TagProps & React.HTMLProps<HTMLElement>;
 
-export type FontProps =
-  FontWeightProps
-  & FontStyleProps
-  & TextDecorationProps
-  & TextTransformProps
-  & FontFamilyProps
-  & TextAlignProps;
-
 export type TypographyComponentProps = { [K in TypographyComponentKey]?: boolean; } & ComponentProps;
 export type ButtonProps = { [K in ButtonKey]?: boolean; } & ComponentProps;
 export type BadgeProps = { [K in BadgeKey]?: boolean; } & ComponentProps;
