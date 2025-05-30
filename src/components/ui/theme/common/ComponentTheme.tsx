@@ -1,11 +1,16 @@
 import React from "react";
 import { BaseTheme } from "./baseTheme";
-import { TypographyTheme } from "../typography/typographyTheme";
 import { HideTheme } from "../layout/hideTheme";
 import { deepMerge } from "../../../utils/deepMerge";
 import { ItemsTheme } from "../layout/itemsTheme";
 import { JustifyTheme } from "../layout/justifyTheme";
 import { PositionTheme } from "../layout/positionTheme";
+import { FontFamilyTheme } from "../typography/fontFamilyTheme";
+import { FontWeightTheme } from "../typography/fontWeightTheme";
+import { FontStyleTheme } from "../typography/fontStyleTheme";
+import { TextDecorationTheme } from "../typography/textDecorationTheme";
+import { TextTransformTheme } from "../typography/textTransformTheme";
+import { TextAlignTheme } from "../typography/textAlignTheme";
 
 export interface ThemeMap<P> {
   [key: string]: BaseTheme | ThemeMap<P> | string;
@@ -32,7 +37,14 @@ export class ComponentTheme<P extends object> {
           justify: new JustifyTheme(),
           position: new PositionTheme(),
         },
-        typography: TypographyTheme.createDefaultTypographyTheme(),
+        typography: {
+          fontFamily: new FontFamilyTheme(),
+          fontWeight: new FontWeightTheme(),
+          fontStyle: new FontStyleTheme(),
+          textDecoration: new TextDecorationTheme(),
+          textTransform: new TextTransformTheme(),
+          textAlign: new TextAlignTheme()
+        }
       },
       subThemes
     );
