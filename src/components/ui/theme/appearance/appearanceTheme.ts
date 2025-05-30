@@ -15,7 +15,7 @@ export class AppearanceTheme extends BaseTheme {
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const appearance = pickKey(props, defaults, TEXT_APPEARANCE_KEYS, 'default')!;
     const theme = this.appearance[appearance];
-    return MODE_KEYS.map(mode => theme[mode] || '')
+    return MODE_KEYS.map(mode => theme[mode] || '');
   }
 
   /**

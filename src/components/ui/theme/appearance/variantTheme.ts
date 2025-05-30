@@ -1,8 +1,8 @@
 import { BaseTheme } from "../common/baseTheme";
-import { 
+import {
   VARIANT_KEYS,
   VariantKey,
-  TEXT_APPEARANCE_KEYS,
+  TEXT_APPEARANCE_KEYS, MODE_KEYS,
 } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 import { AppearanceTheme } from "./appearanceTheme";
@@ -21,7 +21,7 @@ export class VariantTheme extends BaseTheme {
     const style = pickKey(props, defaults, VARIANT_KEYS, 'outline')!;
     const appearance = pickKey(props, defaults, TEXT_APPEARANCE_KEYS, 'default')!;
     const theme = this.variants[style].appearance[appearance];
-    return theme?.getClasses(props, defaults) ?? [];
+    return MODE_KEYS.map(mode => theme[mode] || '');
   }
 
   /**
