@@ -36,19 +36,9 @@ export type FontStyleKey = typeof FONT_STYLE_KEYS[number];
 export type TextDecorationKey = typeof TEXT_DECORATION_KEYS[number];
 export type TextTransformKey = typeof TEXT_TRANSFORM_KEYS[number];
 export type TextAlignKey = typeof TEXT_ALIGN_KEYS[number];
-export type NoBorderKey = typeof NO_BORDER_KEYS[number];
-export type NoShadowKey = typeof NO_SHADOW_KEYS[number];
-export type NoRingKey = typeof NO_RING_KEYS[number];
-export type NoPaddingKey = typeof NO_PADDING_KEYS[number];
 export type BreakpointKey = typeof BREAKPOINT_KEYS[number];
 export type HideKey = typeof HIDE_KEYS[number];
 export type PositionKey = typeof POSITION_KEYS[number];
-export type DirectionReverseKey = typeof DIRECTION_REVERSE_KEYS[number];
-export type NoGapKey = typeof NO_GAP_KEYS[number];
-export type RoundedKey = typeof ROUNDED_KEYS[number];
-export type PillKey = typeof PILL_KEYS[number];
-export type SharpKey = typeof SHARP_KEYS[number];
-export type ShapeKey = typeof SHAPE_KEYS[number];
 export type DirectionKey = typeof DIRECTION_KEYS[number];
 export type ItemsKey = typeof ITEMS_KEYS[number];
 export type JustifyKey = typeof JUSTIFY_KEYS[number];
@@ -60,15 +50,6 @@ export const BASE_COMPONENT_KEYS = [
   ...HIDE_KEYS,
   ...POSITION_KEYS
 ] as const;
-
-// Layout component keys
-export const LAYOUT_COMPONENT_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...DIRECTION_REVERSE_KEYS,
-  ...ITEMS_KEYS,
-  ...APPEARANCE_KEYS
-] as const;
-export type LayoutComponentKey = typeof LAYOUT_COMPONENT_KEYS[number];
 
 // Font keys
 export const FONT_KEYS = [

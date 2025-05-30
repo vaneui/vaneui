@@ -1,7 +1,7 @@
-import { TextAppearanceProps } from "../props/props"
+import { TextAppearanceKey } from "../props/keys";
 
 // Background classes for filled buttons
-export const filledBackgroundAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const filledBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "bg-(--filled-background-color-default)",
   primary: "bg-(--filled-background-color-primary)",
   secondary: "bg-(--filled-background-color-secondary)",
@@ -17,7 +17,7 @@ export const filledBackgroundAppearanceClasses: Record<keyof TextAppearanceProps
 }
 
 // Hover background classes for filled buttons
-export const filledHoverBackgroundAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const filledHoverBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "hover:bg-(--filled-background-color-hover-default)",
   primary: "hover:bg-(--filled-background-color-hover-primary)",
   secondary: "hover:bg-(--filled-background-color-hover-secondary)",
@@ -33,7 +33,7 @@ export const filledHoverBackgroundAppearanceClasses: Record<keyof TextAppearance
 }
 
 // Active background classes for filled buttons
-export const filledActiveBackgroundAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const filledActiveBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "active:bg-(--filled-background-color-active-default)",
   primary: "active:bg-(--filled-background-color-active-primary)",
   secondary: "active:bg-(--filled-background-color-active-secondary)",
@@ -49,7 +49,7 @@ export const filledActiveBackgroundAppearanceClasses: Record<keyof TextAppearanc
 }
 
 // Default background appearance classes (for non-button components)
-export const backgroundAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const backgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "bg-(--background-color-default)",
   primary: "bg-(--background-color-primary)",
   secondary: "bg-(--background-color-secondary)",
@@ -65,7 +65,7 @@ export const backgroundAppearanceClasses: Record<keyof TextAppearanceProps, stri
 }
 
 // Hover background appearance classes for outline buttons
-export const hoverBackgroundAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const hoverBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "hover:bg-(--background-color-hover-default)",
   primary: "hover:bg-(--background-color-hover-primary)",
   secondary: "hover:bg-(--background-color-hover-secondary)",
@@ -81,7 +81,7 @@ export const hoverBackgroundAppearanceClasses: Record<keyof TextAppearanceProps,
 }
 
 // Active background appearance classes for outline buttons
-export const activeBackgroundAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const activeBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "active:bg-(--background-color-active-default)",
   primary: "active:bg-(--background-color-active-primary)",
   secondary: "active:bg-(--background-color-active-secondary)",
@@ -96,7 +96,8 @@ export const activeBackgroundAppearanceClasses: Record<keyof TextAppearanceProps
   link: "active:bg-(--background-color-active-link)",
 }
 
-export const layoutBackgroundAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+//TODO: use the classes
+export const layoutBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "bg-(--layout-background-default)",
   primary: "bg-(--layout-background-primary)",
   secondary: "bg-(--layout-background-secondary)",
@@ -111,7 +112,7 @@ export const layoutBackgroundAppearanceClasses: Record<keyof TextAppearanceProps
   link: "bg-(--layout-background-link)",
 }
 
-export const borderAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const borderAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "border-(--border-color-default)",
   primary: "border-(--border-color-primary)",
   secondary: "border-(--border-color-secondary)",
@@ -127,7 +128,7 @@ export const borderAppearanceClasses: Record<keyof TextAppearanceProps, string> 
 }
 
 // Border classes for filled elements
-export const filledBorderAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const filledBorderAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "border-(--filled-border-color-default)",
   primary: "border-(--filled-border-color-primary)",
   secondary: "border-(--filled-border-color-secondary)",
@@ -142,7 +143,7 @@ export const filledBorderAppearanceClasses: Record<keyof TextAppearanceProps, st
   link: "border-(--filled-border-color-link)",
 }
 
-export const ringAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const ringAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "ring-(--border-color-default)",
   primary: "ring-(--border-color-primary)",
   secondary: "ring-(--border-color-secondary)",
@@ -158,7 +159,7 @@ export const ringAppearanceClasses: Record<keyof TextAppearanceProps, string> = 
 }
 
 // Ring classes for filled elements
-export const filledRingAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const filledRingAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "ring-(--filled-border-color-default)",
   primary: "ring-(--filled-border-color-primary)",
   secondary: "ring-(--filled-border-color-secondary)",

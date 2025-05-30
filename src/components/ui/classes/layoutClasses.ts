@@ -1,16 +1,16 @@
-import {
-  BreakpointProps,
-  ItemsProps,
-  JustifyProps,
-  DirectionProps,
-  WrapProps,
-  HideProps,
-  PositionProps,
-  SizeProps,
-} from "../props/props"
 import { Mode } from "../props/mode";
+import {
+  BreakpointKey,
+  DirectionKey,
+  HideKey,
+  ItemsKey,
+  JustifyKey,
+  PositionKey,
+  SizeKey,
+  WrapKey
+} from "../props/keys";
 
-export const rowToColumnBreakpointClasses: Record<keyof BreakpointProps, string> = {
+export const rowToColumnBreakpointClasses: Record<BreakpointKey, string> = {
   xsCol: "max-xs:flex-col",
   smCol: "max-sm:flex-col",
   mdCol: "max-md:flex-col",
@@ -18,7 +18,7 @@ export const rowToColumnBreakpointClasses: Record<keyof BreakpointProps, string>
   xlCol: "max-xl:flex-col"
 }
 
-export const itemsClasses: Record<keyof ItemsProps, string> = {
+export const itemsClasses: Record<ItemsKey, string> = {
   itemsStart: "items-start",
   itemsEnd: "items-end",
   itemsCenter: "items-center",
@@ -26,7 +26,7 @@ export const itemsClasses: Record<keyof ItemsProps, string> = {
   itemsStretch: "items-stretch",
 }
 
-export const justifyClasses: Record<keyof JustifyProps, string> = {
+export const justifyClasses: Record<JustifyKey, string> = {
   justifyStart: "justify-start",
   justifyEnd: "justify-end",
   justifyCenter: "justify-center",
@@ -37,18 +37,18 @@ export const justifyClasses: Record<keyof JustifyProps, string> = {
   justifyBaseline: "justify-baseline",
 }
 
-export const directionClasses: Record<keyof DirectionProps, string> = {
+export const directionClasses: Record<DirectionKey, string> = {
   row: "flex-row",
   column: "flex-col"
 };
 
-export const wrapClasses: Record<keyof WrapProps, string> = {
+export const wrapClasses: Record<WrapKey, string> = {
   flexWrap: "flex-wrap",
   flexNoWrap: "flex-nowrap",
   flexWrapReverse: "flex-wrap-reverse"
 };
 
-export const roundedClasses: Record<keyof SizeProps, string> = {
+export const roundedClasses: Record<SizeKey, string> = {
   xs: "rounded-sm",
   sm: "rounded-md",
   md: "rounded-lg",
@@ -56,7 +56,7 @@ export const roundedClasses: Record<keyof SizeProps, string> = {
   xl: "rounded-2xl",
 }
 
-export const hideClasses: Record<keyof HideProps, string> = {
+export const hideClasses: Record<HideKey, string> = {
   xsHide: "max-xs:hidden",
   smHide: "max-sm:hidden",
   mdHide: "max-md:hidden",
@@ -64,7 +64,7 @@ export const hideClasses: Record<keyof HideProps, string> = {
   xlHide: "max-xl:hidden"
 }
 
-export const positionClasses: Record<keyof PositionProps, string> = {
+export const positionClasses: Record<PositionKey, string> = {
   relative: "relative",
   absolute: "absolute",
   fixed: "fixed",
@@ -72,7 +72,7 @@ export const positionClasses: Record<keyof PositionProps, string> = {
   static: "static"
 }
 
-export const shadowClasses: Record<keyof SizeProps, string> = {
+export const shadowClasses: Record<SizeKey, string> = {
   xs: "shadow-xs",
   sm: "shadow-sm",
   md: "shadow-md",
@@ -80,7 +80,7 @@ export const shadowClasses: Record<keyof SizeProps, string> = {
   xl: "shadow-xl"
 }
 
-export const hoverShadowClasses: Record<keyof SizeProps, string> = {
+export const hoverShadowClasses: Record<SizeKey, string> = {
   xs: "hover:shadow-sm",
   sm: "hover:shadow-md",
   md: "hover:shadow-lg",
@@ -88,7 +88,7 @@ export const hoverShadowClasses: Record<keyof SizeProps, string> = {
   xl: "hover:shadow-2xl"
 }
 
-export const activeShadowClasses: Record<keyof SizeProps, string> = {
+export const activeShadowClasses: Record<SizeKey, string> = {
   xs: "active:shadow-sm",
   sm: "active:shadow-md",
   md: "active:shadow-lg",
@@ -124,20 +124,4 @@ export const noShadowModeClasses: Record<Mode, string> = {
   base: "shadow-none",
   hover: "hover:shadow-none",
   active: "active:shadow-none",
-}
-
-export const hoverRoundedClasses: Record<keyof SizeProps, string> = {
-  xs: "hover:rounded-sm",
-  sm: "hover:rounded-md",
-  md: "hover:rounded-lg",
-  lg: "hover:rounded-xl",
-  xl: "hover:rounded-2xl",
-}
-
-export const activeRoundedClasses: Record<keyof SizeProps, string> = {
-  xs: "active:rounded-sm",
-  sm: "active:rounded-md",
-  md: "active:rounded-lg",
-  lg: "active:rounded-xl",
-  xl: "active:rounded-2xl",
 }

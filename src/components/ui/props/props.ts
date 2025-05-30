@@ -1,14 +1,7 @@
 import React from "react";
 import {
   SizeKey,
-  AppearanceKey,
   TextAppearanceKey,
-  FontFamilyKey,
-  FontWeightKey,
-  FontStyleKey,
-  TextDecorationKey,
-  TextTransformKey,
-  TextAlignKey,
   BreakpointKey,
   HideKey,
   PositionKey,
@@ -30,13 +23,6 @@ import {
 } from "./keys";
 
 export type SizeProps = { [K in SizeKey]?: boolean; }
-export type CommonAppearanceProps = { [K in AppearanceKey]?: boolean; }
-export type FontFamilyProps = { [K in FontFamilyKey]?: boolean; }
-export type FontWeightProps = { [K in FontWeightKey]?: boolean; }
-export type FontStyleProps = { [K in FontStyleKey]?: boolean; }
-export type TextDecorationProps = { [K in TextDecorationKey]?: boolean; }
-export type TextTransformProps = { [K in TextTransformKey]?: boolean; }
-export type TextAlignProps = { [K in TextAlignKey]?: boolean; }
 export type TextAppearanceProps = { [K in TextAppearanceKey]?: boolean; }
 export type BreakpointProps = { [K in BreakpointKey]?: boolean; }
 export type HideProps = { [K in HideKey]?: boolean; }

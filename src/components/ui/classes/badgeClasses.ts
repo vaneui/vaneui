@@ -1,8 +1,5 @@
 import { SizeKey } from "../props/keys";
 
-/**
- * Maps for badge size-related classes
- */
 export const pxMap: Record<SizeKey, string> = {
   xs: "px-2",
   sm: "px-2.5",

@@ -1,6 +1,15 @@
-import { FontFamilyProps, FontStyleProps, FontWeightProps, TextAlignProps, TextAppearanceProps, TextDecorationProps, TextTransformProps, CommonAppearanceProps, SizeProps } from "../props/props"
+import {
+  FontFamilyKey,
+  FontStyleKey,
+  FontWeightKey,
+  SizeKey,
+  TextAlignKey,
+  TextAppearanceKey,
+  TextDecorationKey,
+  TextTransformKey
+} from "../props/keys";
 
-export const fontWeightClasses: Record<keyof FontWeightProps, string> = {
+export const fontWeightClasses: Record<FontWeightKey, string> = {
   thin: "font-thin",
   extralight: "font-extralight",
   light: "font-light",
@@ -12,32 +21,32 @@ export const fontWeightClasses: Record<keyof FontWeightProps, string> = {
   black: "font-black",
 }
 
-export const fontStyleClasses: Record<keyof FontStyleProps, string> = {
+export const fontStyleClasses: Record<FontStyleKey, string> = {
   italic: "italic",
   notItalic: "not-italic",
 }
 
-export const fontFamilyClasses: Record<keyof FontFamilyProps, string> = {
+export const fontFamilyClasses: Record<FontFamilyKey, string> = {
   sans: "font-sans",
   serif: "font-serif",
   mono: "font-mono",
 }
 
-export const textDecorationClasses: Record<keyof TextDecorationProps, string> = {
+export const textDecorationClasses: Record<TextDecorationKey, string> = {
   underline: "underline",
   lineThrough: "line-through",
   noUnderline: "no-underline",
   overline: "overline",
 }
 
-export const textTransformClasses: Record<keyof TextTransformProps, string> = {
+export const textTransformClasses: Record<TextTransformKey, string> = {
   uppercase: "uppercase",
   lowercase: "lowercase",
   capitalize: "capitalize",
   normalCase: "normal-case",
 }
 
-export const textAlignClasses: Record<keyof TextAlignProps, string> = {
+export const textAlignClasses: Record<TextAlignKey, string> = {
   textLeft: "text-left",
   textCenter: "text-center",
   textRight: "text-right",
@@ -45,7 +54,7 @@ export const textAlignClasses: Record<keyof TextAlignProps, string> = {
 }
 
 // Text appearance classes for filled buttons (all white text)
-export const filledTextAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const filledTextAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "text-white",
   primary: "text-white",
   secondary: "text-white",
@@ -61,7 +70,7 @@ export const filledTextAppearanceClasses: Record<keyof TextAppearanceProps, stri
 }
 
 // Default text appearance classes (for non-button components)
-export const textAppearanceClasses: Record<keyof TextAppearanceProps, string> = {
+export const textAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "text-(--text-color-default)",
   primary: "text-(--text-color-primary)",
   secondary: "text-(--text-color-secondary)",
@@ -74,10 +83,10 @@ export const textAppearanceClasses: Record<keyof TextAppearanceProps, string> = 
   warning: "text-(--text-color-warning)",
   info: "text-(--text-color-info)",
   transparent: "text-transparent",
-} 
+}
 
 // Text size classes
-export const textSizeClasses: Record<keyof SizeProps, string> = {
+export const textSizeClasses: Record<SizeKey, string> = {
   xs: "text-xs",
   sm: "text-sm",
   md: "text-base",
