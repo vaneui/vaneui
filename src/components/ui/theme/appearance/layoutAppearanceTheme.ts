@@ -4,7 +4,6 @@ import {
   AppearanceKey,
   MODE_KEYS,
   ModeKey,
-  TextAppearanceKey
 } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 
@@ -24,7 +23,7 @@ export class LayoutAppearanceTheme extends BaseTheme {
     return MODE_KEYS.map(mode => theme[mode] || '');
   }
 
-  static createDefaultStyle(src: Partial<Record<ModeKey, Partial<Record<TextAppearanceKey, string>>>>): LayoutAppearanceTheme {
+  static createDefaultStyle(src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>>): LayoutAppearanceTheme {
     return new LayoutAppearanceTheme(Object.fromEntries(
       APPEARANCE_KEYS.map((key) => {
           return [key, {
@@ -33,7 +32,7 @@ export class LayoutAppearanceTheme extends BaseTheme {
             active: src.active?.[key] || '',
           }];
         })
-      ) as Record<TextAppearanceKey, Record<ModeKey, string>>
+      ) as Record<AppearanceKey, Record<ModeKey, string>>
     );
   }
 }
