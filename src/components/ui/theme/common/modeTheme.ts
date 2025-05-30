@@ -1,8 +1,9 @@
 import { BaseTheme } from "./baseTheme";
-import { Mode, MODE_KEYS } from "../../props/mode";
+
+import { MODE_KEYS, ModeKey } from "../../props/keys";
 
 export class ModeTheme extends BaseTheme {
-  constructor(private classes: Partial<Record<Mode, string>> = {}) {
+  constructor(private classes: Partial<Record<ModeKey, string>> = {}) {
     super();
   }
 

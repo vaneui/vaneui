@@ -1,3 +1,4 @@
+export const MODE_KEYS = ['base', 'hover', 'active'] as const;
 export const SIZE_KEYS = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 export const VARIANT_KEYS = ['filled', 'outline'] as const;
 export const APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'transparent'] as const;
@@ -26,6 +27,7 @@ export const ITEMS_KEYS = ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseli
 export const JUSTIFY_KEYS = ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const;
 export const WRAP_KEYS = ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const;
 
+export type ModeKey = typeof MODE_KEYS[number];
 export type SizeKey = typeof SIZE_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
 export type AppearanceKey = typeof APPEARANCE_KEYS[number];

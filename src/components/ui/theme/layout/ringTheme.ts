@@ -1,11 +1,11 @@
-import { Mode, MODE_KEYS } from "../../props/mode";
 import { ringModeClasses, noRingModeClasses } from "../../classes/layoutClasses";
 import { BaseTheme } from "../common/baseTheme";
+import { MODE_KEYS, ModeKey } from "../../props/keys";
 
 export class RingTheme extends BaseTheme {
   constructor(
-    private modeClasses: Record<Mode, string> = ringModeClasses,
-    private noRingClasses: Record<Mode, string> = noRingModeClasses,
+    private modeClasses: Record<ModeKey, string> = ringModeClasses,
+    private noRingClasses: Record<ModeKey, string> = noRingModeClasses,
   ) {
     super();
   }

@@ -1,11 +1,11 @@
-import { Mode, MODE_KEYS } from "../../props/mode";
 import { borderModeClasses, noBorderModeClasses } from "../../classes/layoutClasses";
 import { BaseTheme } from "../common/baseTheme";
+import { MODE_KEYS, ModeKey } from "../../props/keys";
 
 export class BorderTheme extends BaseTheme {
   constructor(
-    private modeClasses: Record<Mode, string> = borderModeClasses,
-    private noBorderClasses: Record<Mode, string> = noBorderModeClasses,
+    private modeClasses: Record<ModeKey, string> = borderModeClasses,
+    private noBorderClasses: Record<ModeKey, string> = noBorderModeClasses,
   ) {
     super();
   }

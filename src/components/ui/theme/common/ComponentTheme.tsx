@@ -19,7 +19,7 @@ export interface ThemeMap<P> {
 export class ComponentTheme<P extends object> {
   readonly tag: React.ElementType;
   readonly base: string;
-  readonly subThemes: ThemeMap<P>;
+  readonly themes: ThemeMap<P>;
   readonly defaults: Partial<P>;
 
   constructor(
@@ -30,7 +30,7 @@ export class ComponentTheme<P extends object> {
   ) {
     this.tag = tag;
     this.base = base;
-    this.subThemes = deepMerge({
+    this.themes = deepMerge({
         layout: {
           hide: new HideTheme(),
           items: new ItemsTheme(),
@@ -81,7 +81,7 @@ export class ComponentTheme<P extends object> {
       }
     };
 
-    walk(this.subThemes);
+    walk(this.themes);
     return classes.filter(Boolean);
   }
 }

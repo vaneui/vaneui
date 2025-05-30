@@ -1,4 +1,4 @@
-import { TextAppearanceKey } from "../props/keys";
+import { AppearanceKey, TextAppearanceKey } from "../props/keys";
 
 // Background classes for filled buttons
 export const filledBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
@@ -97,7 +97,7 @@ export const activeBackgroundAppearanceClasses: Record<TextAppearanceKey, string
 }
 
 //TODO: use the classes
-export const layoutBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const layoutBackgroundAppearanceClasses: Record<AppearanceKey, string> = {
   default: "bg-(--layout-background-default)",
   primary: "bg-(--layout-background-primary)",
   secondary: "bg-(--layout-background-secondary)",
@@ -108,8 +108,6 @@ export const layoutBackgroundAppearanceClasses: Record<TextAppearanceKey, string
   warning: "bg-(--layout-background-warning)",
   info: "bg-(--layout-background-info)",
   transparent: "bg-transparent",
-  muted: "bg-(--layout-background-muted)",
-  link: "bg-(--layout-background-link)",
 }
 
 export const borderAppearanceClasses: Record<TextAppearanceKey, string> = {

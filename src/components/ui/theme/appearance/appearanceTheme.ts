@@ -1,9 +1,7 @@
 import { BaseTheme } from "../common/baseTheme";
 import { ModeTheme } from "../common/modeTheme";
-import { TEXT_APPEARANCE_KEYS, TextAppearanceKey } from "../../props/keys";
+import { ModeKey, TEXT_APPEARANCE_KEYS, TextAppearanceKey } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
-import { Mode } from "../../props/mode";
-import { TextAppearanceProps } from "../../props/props";
 
 export class AppearanceTheme extends BaseTheme {
   appearance: Record<TextAppearanceKey, ModeTheme>;
@@ -24,7 +22,7 @@ export class AppearanceTheme extends BaseTheme {
   /**
    * Creates a default style with standard AppearanceTheme configuration
    */
-  static createDefaultStyle(src: Partial<Record<Mode, Partial<Record<keyof TextAppearanceProps, string>>>>): AppearanceTheme {
+  static createDefaultStyle(src: Partial<Record<ModeKey, Partial<Record<TextAppearanceKey, string>>>>): AppearanceTheme {
     return new AppearanceTheme(Object.fromEntries(
         TEXT_APPEARANCE_KEYS.map((key) => {
           const theme =

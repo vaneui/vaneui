@@ -1,10 +1,9 @@
-import { Mode } from "../props/mode";
 import {
   BreakpointKey,
   DirectionKey,
   HideKey,
   ItemsKey,
-  JustifyKey,
+  JustifyKey, ModeKey,
   PositionKey,
   SizeKey,
   WrapKey
@@ -96,31 +95,31 @@ export const activeShadowClasses: Record<SizeKey, string> = {
   xl: "active:shadow-2xl"
 }
 
-export const noRingModeClasses: Record<Mode, string> = {
+export const noRingModeClasses: Record<ModeKey, string> = {
   base: "ring-0",
   hover: "hover:ring-0",
   active: "active:ring-0",
 }
 
-export const ringModeClasses: Record<Mode, string> = {
+export const ringModeClasses: Record<ModeKey, string> = {
   base: "ring ring-inset",
   hover: "hover:ring hover:ring-inset",
   active: "active:ring active:ring-inset",
 }
 
-export const noBorderModeClasses: Record<Mode, string> = {
+export const noBorderModeClasses: Record<ModeKey, string> = {
   base: "border-none",
   hover: "hover:border-none",
   active: "active:border-none",
 }
 
-export const borderModeClasses: Record<Mode, string> = {
+export const borderModeClasses: Record<ModeKey, string> = {
   base: "border",
   hover: "hover:border",
   active: "active:border",
 }
 
-export const noShadowModeClasses: Record<Mode, string> = {
+export const noShadowModeClasses: Record<ModeKey, string> = {
   base: "shadow-none",
   hover: "hover:shadow-none",
   active: "active:shadow-none",

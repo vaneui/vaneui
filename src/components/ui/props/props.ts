@@ -1,14 +1,5 @@
 import React from "react";
 import {
-  SizeKey,
-  TextAppearanceKey,
-  BreakpointKey,
-  HideKey,
-  PositionKey,
-  DirectionKey,
-  ItemsKey,
-  JustifyKey,
-  WrapKey,
   BadgeKey,
   ButtonKey,
   GridKey,
@@ -21,16 +12,6 @@ import {
   ContainerKey,
   SectionKey, TypographyComponentKey,
 } from "./keys";
-
-export type SizeProps = { [K in SizeKey]?: boolean; }
-export type TextAppearanceProps = { [K in TextAppearanceKey]?: boolean; }
-export type BreakpointProps = { [K in BreakpointKey]?: boolean; }
-export type HideProps = { [K in HideKey]?: boolean; }
-export type PositionProps = { [K in PositionKey]?: boolean; }
-export type DirectionProps = { [K in DirectionKey]?: boolean; }
-export type ItemsProps = { [K in ItemsKey]?: boolean; }
-export type JustifyProps = { [K in JustifyKey]?: boolean; }
-export type WrapProps = { [K in WrapKey]?: boolean; }
 
 export interface TagProps {
   tag?: React.ReactNode | string | any;

@@ -1,17 +1,16 @@
-import { Mode, MODE_KEYS } from "../../props/mode";
-import { SizeKey, SIZE_KEYS, NO_SHADOW_KEYS } from "../../props/keys";
+import { SizeKey, SIZE_KEYS, NO_SHADOW_KEYS, ModeKey, MODE_KEYS } from "../../props/keys";
 import { shadowClasses, hoverShadowClasses, activeShadowClasses, noShadowModeClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
 export class ShadowTheme extends BaseTheme {
   constructor(
-    private sizeClasses: Record<Mode, Record<SizeKey, string>> = {
+    private sizeClasses: Record<ModeKey, Record<SizeKey, string>> = {
       base: shadowClasses,
       hover: hoverShadowClasses,
       active: activeShadowClasses,
     },
-    private noShadowClasses: Record<Mode, string> = noShadowModeClasses,
+    private noShadowClasses: Record<ModeKey, string> = noShadowModeClasses,
   ) {
     super();
   }
