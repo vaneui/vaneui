@@ -7,9 +7,5 @@ import { CHIP_KEYS } from './props/keys';
 export const Chip = (props: TypographyComponentProps): JSX.Element => {
   const theme = useTheme();
   const chipTheme = theme.chip;
-
-  // Override the default tag to be "span" for chips
-  const propsWithDefaultTag = { ...props, tag: props.tag ?? "span" };
-
-  return buildComponent(propsWithDefaultTag, chipTheme, CHIP_KEYS);
+  return buildComponent(props, chipTheme, CHIP_KEYS);
 };

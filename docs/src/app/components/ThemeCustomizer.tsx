@@ -7,7 +7,7 @@ import {
 
 const customTheme: PartialTheme = {
   button: {
-    subThemes:{
+    themes: {
       appearance: {
         variants: {
           outline: {

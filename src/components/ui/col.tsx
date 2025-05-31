@@ -14,9 +14,5 @@ import { COL_KEYS } from './props/keys';
 export const Col = (props: ColProps): JSX.Element => {
   const theme = useTheme();
   const colTheme = theme.col;
-
-  // Override the default tag to be "div" for col
-  const propsWithDefaultTag = { ...props, tag: props.tag ?? "div" };
-
-  return buildComponent(propsWithDefaultTag, colTheme, COL_KEYS);
+  return buildComponent(props, colTheme, COL_KEYS);
 };
