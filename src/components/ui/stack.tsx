@@ -7,10 +7,5 @@ import { STACK_KEYS } from './props/keys';
 export const Stack = (props: StackProps): JSX.Element => {
   const theme = useTheme();
   const stackTheme = theme.stack;
-
-  // Set default direction if none is specified
-  const defaultDirection = !props.row && !props.column ? {column: true} : {};
-  const propsWithDirection = {...defaultDirection, ...props};
-
-  return buildComponent(propsWithDirection, stackTheme, STACK_KEYS);
+  return buildComponent(props, stackTheme, STACK_KEYS);
 };

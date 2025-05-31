@@ -8,9 +8,5 @@ import { rowToColumnBreakpointClasses } from './classes/layoutClasses';
 export const Row = (props: RowProps): JSX.Element => {
   const theme = useTheme();
   const rowTheme = theme.row;
-
-  // Override the default tag to be "div" for rows
-  const propsWithDefaultTag = { ...props, tag: props.tag ?? "div" };
-
-  return buildComponent(propsWithDefaultTag, rowTheme, ROW_KEYS);
+  return buildComponent(props, rowTheme, ROW_KEYS);
 };

@@ -17,14 +17,6 @@ export const rowToColumnBreakpointClasses: Record<BreakpointKey, string> = {
   xlCol: "max-xl:flex-col"
 }
 
-export const itemsClasses: Record<ItemsKey, string> = {
-  itemsStart: "items-start",
-  itemsEnd: "items-end",
-  itemsCenter: "items-center",
-  itemsBaseline: "items-baseline",
-  itemsStretch: "items-stretch",
-}
-
 export const justifyClasses: Record<JustifyKey, string> = {
   justifyStart: "justify-start",
   justifyEnd: "justify-end",
