@@ -1,33 +1,85 @@
 import { BaseTheme } from "../common/baseTheme";
 import { MODE_KEYS, ModeKey, TEXT_APPEARANCE_KEYS, TextAppearanceKey } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
+import { textAppearanceClasses } from "../../classes/typographyClasses";
+
+export interface TextAppearanceTheme extends Record<TextAppearanceKey, Record<ModeKey, string>> {}
 
 export class TextAppearanceTheme extends BaseTheme {
-  appearance: Record<TextAppearanceKey, Record<ModeKey, string>>;
+  public static readonly defaultFullConfig: Record<TextAppearanceKey, Record<ModeKey, string>> =
+    (() => {
+      const config: Partial<Record<TextAppearanceKey, Record<ModeKey, string>>> = {};
+      TEXT_APPEARANCE_KEYS.forEach((key: TextAppearanceKey) => {
+        config[key] = {
+          base: textAppearanceClasses[key] || '',
+          hover: '',
+          active: '',
+        };
+      });
+      return config as Record<TextAppearanceKey, Record<ModeKey, string>>;
+    })();
 
-  constructor(
-    appearance: Record<TextAppearanceKey, Record<ModeKey, string>>
-  ) {
+  constructor(initialOverrides?: Partial<Record<TextAppearanceKey, Partial<Record<ModeKey, string>>>>) {
     super();
-    this.appearance = appearance;
+    TEXT_APPEARANCE_KEYS.forEach((textKey: TextAppearanceKey) => {
+      const defaultModesForKey = TextAppearanceTheme.defaultFullConfig[textKey];
+      const overrideModesForKey = initialOverrides?.[textKey];
+      this[textKey] = {
+        ...defaultModesForKey,
+        ...(overrideModesForKey || {}),
+      };
+    });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const appearance = pickKey(props, defaults, TEXT_APPEARANCE_KEYS, 'default')!;
-    const theme = this.appearance[appearance];
-    return MODE_KEYS.map(mode => theme[mode] || '');
+    const pickedAppearanceKey = pickKey(props, defaults, TEXT_APPEARANCE_KEYS, 'default') as TextAppearanceKey;
+    const modesForAppearance = this[pickedAppearanceKey];
+
+    if (!modesForAppearance) {
+      return MODE_KEYS.map(() => '');
+    }
+    return MODE_KEYS.map(mode => modesForAppearance[mode] || '');
   }
 
-  static createDefaultStyle(src: Partial<Record<ModeKey, Partial<Record<TextAppearanceKey, string>>>>): TextAppearanceTheme {
-    return new TextAppearanceTheme(Object.fromEntries(
-        TEXT_APPEARANCE_KEYS.map((key) => {
-          return [key, {
-            base: src.base?.[key] || '',
-            hover: src.hover?.[key] || '',
-            active: src.active?.[key] || '',
-          }];
-        })
-      ) as Record<TextAppearanceKey, Record<ModeKey, string>>
-    );
+  public cloneWithOverrides(
+    overrides: Partial<Record<TextAppearanceKey, Partial<Record<ModeKey, string>>>>
+  ): TextAppearanceTheme {
+    const currentConfigSnapshot: Partial<Record<TextAppearanceKey, Record<ModeKey, string>>> = {};
+    TEXT_APPEARANCE_KEYS.forEach((textKey: TextAppearanceKey) => {
+      currentConfigSnapshot[textKey] = { ...this[textKey] };
+    });
+
+    const newInitialConfig: Partial<Record<TextAppearanceKey, Partial<Record<ModeKey, string>>>> = {};
+    TEXT_APPEARANCE_KEYS.forEach((textKey: TextAppearanceKey) => {
+      newInitialConfig[textKey] = {
+        ...(currentConfigSnapshot[textKey] || {}),
+        ...(overrides[textKey] || {}),
+      };
+    });
+    return new TextAppearanceTheme(newInitialConfig);
+  }
+
+  static createDefaultStyle(
+    src: Partial<Record<ModeKey, Partial<Record<TextAppearanceKey, string>>>> = {}
+  ): TextAppearanceTheme {
+    const initialOverridesForConstructor: Partial<Record<TextAppearanceKey, Partial<Record<ModeKey, string>>>> = {};
+
+    TEXT_APPEARANCE_KEYS.forEach((textKey: TextAppearanceKey) => {
+      const modesForCurrentTextKey: Partial<Record<ModeKey, string>> = {};
+      let keyHasDataInSrc = false;
+
+      MODE_KEYS.forEach((modeKey: ModeKey) => {
+        const classValue = src[modeKey]?.[textKey];
+        if (classValue !== undefined) {
+          modesForCurrentTextKey[modeKey] = classValue;
+          keyHasDataInSrc = true;
+        }
+      });
+
+      if (keyHasDataInSrc) {
+        initialOverridesForConstructor[textKey] = modesForCurrentTextKey;
+      }
+    });
+    return new TextAppearanceTheme(initialOverridesForConstructor);
   }
 }

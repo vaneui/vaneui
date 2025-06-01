@@ -6,33 +6,85 @@ import {
   ModeKey,
 } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
+import { textAppearanceClasses } from "../../classes/typographyClasses";
+
+export interface LayoutAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {}
 
 export class LayoutAppearanceTheme extends BaseTheme {
-  appearance: Record<AppearanceKey, Record<ModeKey, string>>;
+  public static readonly defaultFullConfig: Record<AppearanceKey, Record<ModeKey, string>> =
+    (() => {
+      const config: Partial<Record<AppearanceKey, Record<ModeKey, string>>> = {};
+      APPEARANCE_KEYS.forEach((key: AppearanceKey) => {
+        config[key] = {
+          base: textAppearanceClasses[key] || '',
+          hover: '',
+          active: '',
+        };
+      });
+      return config as Record<AppearanceKey, Record<ModeKey, string>>;
+    })();
 
-  constructor(
-    appearance: Record<AppearanceKey, Record<ModeKey, string>>
-  ) {
+  constructor(initialOverrides?: Partial<Record<AppearanceKey, Partial<Record<ModeKey, string>>>>) {
     super();
-    this.appearance = appearance;
+    APPEARANCE_KEYS.forEach((textKey: AppearanceKey) => {
+      const defaultModesForKey = LayoutAppearanceTheme.defaultFullConfig[textKey];
+      const overrideModesForKey = initialOverrides?.[textKey];
+      this[textKey] = {
+        ...defaultModesForKey,
+        ...(overrideModesForKey || {}),
+      };
+    });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const appearance = pickKey(props, defaults, APPEARANCE_KEYS, 'default')!;
-    const theme = this.appearance[appearance];
-    return MODE_KEYS.map(mode => theme[mode] || '');
+    const pickedAppearanceKey = pickKey(props, defaults, APPEARANCE_KEYS, 'default') as AppearanceKey;
+    const modesForAppearance = this[pickedAppearanceKey];
+
+    if (!modesForAppearance) {
+      return MODE_KEYS.map(() => '');
+    }
+    return MODE_KEYS.map(mode => modesForAppearance[mode] || '');
   }
 
-  static createDefaultStyle(src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>>): LayoutAppearanceTheme {
-    return new LayoutAppearanceTheme(Object.fromEntries(
-      APPEARANCE_KEYS.map((key) => {
-          return [key, {
-            base: src.base?.[key] || '',
-            hover: src.hover?.[key] || '',
-            active: src.active?.[key] || '',
-          }];
-        })
-      ) as Record<AppearanceKey, Record<ModeKey, string>>
-    );
+  public cloneWithOverrides(
+    overrides: Partial<Record<AppearanceKey, Partial<Record<ModeKey, string>>>>
+  ): LayoutAppearanceTheme {
+    const currentConfigSnapshot: Partial<Record<AppearanceKey, Record<ModeKey, string>>> = {};
+    APPEARANCE_KEYS.forEach((textKey: AppearanceKey) => {
+      currentConfigSnapshot[textKey] = { ...this[textKey] };
+    });
+
+    const newInitialConfig: Partial<Record<AppearanceKey, Partial<Record<ModeKey, string>>>> = {};
+    APPEARANCE_KEYS.forEach((textKey: AppearanceKey) => {
+      newInitialConfig[textKey] = {
+        ...(currentConfigSnapshot[textKey] || {}),
+        ...(overrides[textKey] || {}),
+      };
+    });
+    return new LayoutAppearanceTheme(newInitialConfig);
+  }
+
+  static createDefaultStyle(
+    src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {}
+  ): LayoutAppearanceTheme {
+    const initialOverridesForConstructor: Partial<Record<AppearanceKey, Partial<Record<ModeKey, string>>>> = {};
+
+    APPEARANCE_KEYS.forEach((textKey: AppearanceKey) => {
+      const modesForCurrentTextKey: Partial<Record<ModeKey, string>> = {};
+      let keyHasDataInSrc = false;
+
+      MODE_KEYS.forEach((modeKey: ModeKey) => {
+        const classValue = src[modeKey]?.[textKey];
+        if (classValue !== undefined) {
+          modesForCurrentTextKey[modeKey] = classValue;
+          keyHasDataInSrc = true;
+        }
+      });
+
+      if (keyHasDataInSrc) {
+        initialOverridesForConstructor[textKey] = modesForCurrentTextKey;
+      }
+    });
+    return new LayoutAppearanceTheme(initialOverridesForConstructor);
   }
 }
