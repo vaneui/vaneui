@@ -1,11 +1,21 @@
 import { DirectionTheme } from "./layout/directionTheme";
-import { ComponentTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { ColProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { commonGaps } from "../classes/spacingClasses";
 
-export const defaultColTheme = new ComponentTheme<ColProps>(
+export interface ColTheme<P> extends BaseComponentTheme<P> {
+  size: {
+    gap: GapTheme;
+  };
+  layout: DefaultLayoutThemes<P> & {
+    wrap: WrapTheme;
+    direction: DirectionTheme;
+  };
+}
+
+export const defaultColTheme = new ComponentTheme<ColProps, ColTheme<ColProps>>(
   "div",
   "flex flex-col",
   {

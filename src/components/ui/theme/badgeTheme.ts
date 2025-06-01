@@ -1,6 +1,6 @@
 import { pxMap, pyMap, gapMap, roundedMap } from "../classes/badgeClasses";
 import { filledTextAppearanceClasses, textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
-import { ComponentTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { BadgeProps, TagProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
@@ -23,7 +23,28 @@ import {
 import { BADGE_KEYS } from "../props/keys";
 import React from "react";
 
-export const defaultBadgeTheme = new ComponentTheme<{ [K in typeof BADGE_KEYS[number]]?: boolean; } & TagProps & React.HTMLProps<HTMLElement>>(
+export interface BadgeTheme<P> extends BaseComponentTheme<P> {
+  size: {
+    px: PxTheme;
+    py: PyTheme;
+    text: SizeTheme;
+    gap: GapTheme;
+    shadow: ShadowTheme;
+  };
+  appearance: {
+    background: VariantTheme;
+    text: VariantTheme;
+    border: VariantTheme;
+    ring: VariantTheme;
+  };
+  layout: DefaultLayoutThemes<P> & {
+    border: BorderTheme;
+    ring: RingTheme;
+    radius: RadiusTheme;
+  };
+}
+
+export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<BadgeProps>>(
   "span",
   "w-fit h-fit inline-flex transition-all duration-200 whitespace-nowrap",
   {

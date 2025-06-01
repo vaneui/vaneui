@@ -99,18 +99,6 @@ export const ringModeClasses: Record<ModeKey, string> = {
   active: "active:ring active:ring-inset",
 }
 
-export const noBorderModeClasses: Record<ModeKey, string> = {
-  base: "border-none",
-  hover: "hover:border-none",
-  active: "active:border-none",
-}
-
-export const borderModeClasses: Record<ModeKey, string> = {
-  base: "border",
-  hover: "hover:border",
-  active: "active:border",
-}
-
 export const noShadowModeClasses: Record<ModeKey, string> = {
   base: "shadow-none",
   hover: "hover:shadow-none",

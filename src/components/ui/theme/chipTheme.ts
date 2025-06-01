@@ -1,4 +1,4 @@
-import { ComponentTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { ChipProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
@@ -21,7 +21,28 @@ import {
 } from "../classes/appearanceClasses";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "../classes/typographyClasses";
 
-export const defaultChipTheme = new ComponentTheme<ChipProps>(
+export interface ChipTheme<P> extends BaseComponentTheme<P> {
+  size: {
+    px: PxTheme;
+    py: PyTheme;
+    text: SizeTheme;
+    gap: GapTheme;
+    shadow: ShadowTheme;
+  };
+  appearance: {
+    background: VariantTheme;
+    text: VariantTheme;
+    border: VariantTheme;
+    ring: VariantTheme;
+  };
+  layout: DefaultLayoutThemes<P> & {
+    radius: RadiusTheme;
+    border: BorderTheme;
+    ring: RingTheme;
+  };
+}
+
+export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProps>>(
   "span",
   "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
   {

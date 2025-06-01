@@ -3,9 +3,16 @@ import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 import { pyClasses } from "../../classes/spacingClasses";
 
+export interface PyTheme extends Record<SizeKey, string> {}
+
 export class PyTheme extends BaseTheme {
-  constructor(private classes: Record<SizeKey, string> = pyClasses) {
+  public static readonly defaultClasses: Record<SizeKey, string> = pyClasses;
+
+  constructor(initialConfig?: Partial<Record<SizeKey, string>>) {
     super();
+    SIZE_KEYS.forEach((key) => {
+      this[key] = initialConfig?.[key] ?? PyTheme.defaultClasses[key];
+    });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
@@ -14,7 +21,16 @@ export class PyTheme extends BaseTheme {
       return ['py-0'];
     }
 
-    const size = pickKey(props, defaults, SIZE_KEYS);
-    return [this.classes[size ?? 'md']];
+    const size = pickKey(props, defaults, SIZE_KEYS, 'md');
+    return [this[size ?? 'md']];
+  }
+
+  public cloneWithOverrides(overrides: Partial<Record<SizeKey, string>>): PyTheme {
+    const currentValues: Partial<Record<SizeKey, string>> = {};
+    SIZE_KEYS.forEach(key => {
+      currentValues[key] = this[key];
+    });
+    const newInitialConfig = { ...currentValues, ...overrides };
+    return new PyTheme(newInitialConfig);
   }
 }

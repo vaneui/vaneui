@@ -1,6 +1,6 @@
 import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
 import { roundedMap } from "../classes/buttonClasses";
-import { ComponentTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { ButtonProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
@@ -22,7 +22,28 @@ import {
 } from "../classes/appearanceClasses";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "../classes/typographyClasses";
 
-export const defaultButtonTheme = new ComponentTheme<ButtonProps>(
+export interface ButtonTheme<P> extends BaseComponentTheme<P> {
+  size: {
+    px: PxTheme;
+    py: PyTheme;
+    text: SizeTheme;
+    gap: GapTheme;
+    shadow: ShadowTheme;
+  };
+  appearance: {
+    background: VariantTheme;
+    text: VariantTheme;
+    border: VariantTheme;
+    ring: VariantTheme;
+  };
+  layout: DefaultLayoutThemes<P> & {
+    border: BorderTheme;
+    ring: RingTheme;
+    radius: RadiusTheme;
+  };
+}
+
+export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<ButtonProps>>(
   "button",
   "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
   {

@@ -1,9 +1,15 @@
-import { ComponentTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { DividerProps } from "../props/props";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import {   backgroundAppearanceClasses } from "../classes/appearanceClasses";
 
-export const defaultDividerTheme = new ComponentTheme<DividerProps>(
+export interface DividerTheme<P> extends BaseComponentTheme<P> {
+  appearance: {
+    background: TextAppearanceTheme;
+  };
+}
+
+export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme<DividerProps>>(
   "div",
   "bg-gray-200 h-px w-full",
   {

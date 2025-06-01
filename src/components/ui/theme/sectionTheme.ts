@@ -1,4 +1,4 @@
-import { ComponentTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
@@ -6,7 +6,19 @@ import { SectionProps } from "../props/props";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 
-export const defaultSectionTheme = new ComponentTheme<SectionProps>(
+export interface SectionTheme<P> extends BaseComponentTheme<P> {
+  size: {
+    px: PxTheme;
+    py: PyTheme;
+    gap: GapTheme;
+  };
+  layout: DefaultLayoutThemes<P> & {
+    wrap: WrapTheme;
+    direction: DirectionTheme;
+  };
+}
+
+export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme<SectionProps>>(
   "div",
   "w-full flex flex-col",
   {

@@ -1,11 +1,22 @@
 import { DirectionTheme } from "./layout/directionTheme";
-import { ComponentTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { ContainerProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 
-export const defaultContainerTheme = new ComponentTheme<ContainerProps>(
+export interface ContainerTheme<P> extends BaseComponentTheme<P> {
+  size: {
+    gap: GapTheme;
+    maxWidth: SizeTheme;
+  };
+  layout: DefaultLayoutThemes<P> & {
+    wrap: WrapTheme;
+    direction: DirectionTheme;
+  };
+}
+
+export const defaultContainerTheme = new ComponentTheme<ContainerProps, ContainerTheme<ContainerProps>>(
   "div",
   "flex flex-col mx-auto w-full",
   {

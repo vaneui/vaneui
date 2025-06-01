@@ -11,44 +11,69 @@ import { FontStyleTheme } from "../typography/fontStyleTheme";
 import { TextDecorationTheme } from "../typography/textDecorationTheme";
 import { TextTransformTheme } from "../typography/textTransformTheme";
 import { TextAlignTheme } from "../typography/textAlignTheme";
+import { DeepPartial } from "../../../utils/deepPartial";
 
 export interface ThemeMap<P> {
   [key: string]: BaseTheme | ThemeMap<P> | string;
 }
 
-export class ComponentTheme<P extends object> {
+export interface DefaultLayoutThemes<P> extends ThemeMap<P> {
+  hide: HideTheme;
+  items: ItemsTheme;
+  justify: JustifyTheme;
+  position: PositionTheme;
+}
+
+export interface DefaultTypographyThemes<P> extends ThemeMap<P> {
+  fontFamily: FontFamilyTheme;
+  fontWeight: FontWeightTheme;
+  fontStyle: FontStyleTheme;
+  textDecoration: TextDecorationTheme;
+  textTransform: TextTransformTheme;
+  textAlign: TextAlignTheme;
+}
+
+export interface BaseComponentTheme<P> extends ThemeMap<P> {
+  layout: DefaultLayoutThemes<P>;
+  typography: DefaultTypographyThemes<P>;
+}
+
+export class ComponentTheme<
+  P extends object,
+  TThemes extends ThemeMap<P>
+> {
   readonly tag: React.ElementType;
   readonly base: string;
-  readonly themes: ThemeMap<P>;
   readonly defaults: Partial<P>;
+  readonly themes: TThemes;
 
   constructor(
     tag: React.ElementType,
     base: string,
-    subThemes: ThemeMap<P>,
+    subThemes: DeepPartial<TThemes>,
     defaults: Partial<P> = {}
   ) {
     this.tag = tag;
     this.base = base;
-    this.themes = deepMerge({
-        layout: {
-          hide: new HideTheme(),
-          items: new ItemsTheme(),
-          justify: new JustifyTheme(),
-          position: new PositionTheme(),
-        },
-        typography: {
-          fontFamily: new FontFamilyTheme(),
-          fontWeight: new FontWeightTheme(),
-          fontStyle: new FontStyleTheme(),
-          textDecoration: new TextDecorationTheme(),
-          textTransform: new TextTransformTheme(),
-          textAlign: new TextAlignTheme()
-        }
-      },
-      subThemes
-    );
     this.defaults = defaults;
+
+    const defaultInternalThemes: BaseComponentTheme<P> = {
+      layout: {
+        hide: new HideTheme(),
+        items: new ItemsTheme(),
+        justify: new JustifyTheme(),
+        position: new PositionTheme(),
+      },
+      typography: {
+        fontFamily: new FontFamilyTheme(),
+        fontWeight: new FontWeightTheme(),
+        fontStyle: new FontStyleTheme(),
+        textDecoration: new TextDecorationTheme(),
+        textTransform: new TextTransformTheme(),
+        textAlign: new TextAlignTheme()
+      }
+    };
+    this.themes = deepMerge(defaultInternalThemes as unknown as TThemes, subThemes) as TThemes;
   }
 
   getClasses(props: P, defaults: Partial<P> = this.defaults): string[] {
@@ -56,26 +81,21 @@ export class ComponentTheme<P extends object> {
     const defs = defaults as unknown as Record<string, boolean>;
     const classes: string[] = [];
 
-    // 1) add the base string
     if (this.base) {
       classes.push(...this.base.split(/\s+/));
     }
 
-    // 2) walk recursively
     const walk = (map: ThemeMap<P>) => {
       for (const key in map) {
         const node = map[key];
 
         if (typeof node === "string") {
-          // string leaf → split on spaces
           classes.push(...node.split(/\s+/).filter(Boolean));
 
         } else if (node instanceof BaseTheme) {
-          // theme leaf → call its getClasses
           classes.push(...node.getClasses(user, defs));
 
         } else if (node && typeof node === "object") {
-          // nested map → recurse
           walk(node as ThemeMap<P>);
         }
       }

@@ -1,5 +1,5 @@
 import { DirectionTheme } from "./layout/directionTheme";
-import { ComponentTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { CardProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
@@ -19,7 +19,28 @@ import {
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { LayoutAppearanceTheme } from "./appearance/layoutAppearanceTheme";
 
-export const defaultCardTheme = new ComponentTheme<CardProps>(
+export interface CardTheme<P> extends BaseComponentTheme<P> {
+  size: {
+    px: PxTheme;
+    py: PyTheme;
+    gap: GapTheme;
+    shadow: ShadowTheme;
+  };
+  layout: DefaultLayoutThemes<P> & {
+    border: BorderTheme;
+    radius: RadiusTheme;
+    wrap: WrapTheme;
+    direction: DirectionTheme;
+  };
+  appearance: {
+    background: LayoutAppearanceTheme;
+    text: TextAppearanceTheme;
+    border: TextAppearanceTheme;
+    ring: TextAppearanceTheme;
+  };
+}
+
+export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme<CardProps>>(
   "div",
   "flex overflow-hidden",
   {

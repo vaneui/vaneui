@@ -3,9 +3,16 @@ import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 import { pxClasses } from "../../classes/spacingClasses";
 
+export interface PxTheme extends Record<SizeKey, string> {}
+
 export class PxTheme extends BaseTheme {
-  constructor(private classes: Record<SizeKey, string> = pxClasses) {
+  public static readonly defaultClasses: Record<SizeKey, string> = pxClasses;
+
+  constructor(initialConfig?: Partial<Record<SizeKey, string>>) {
     super();
+    SIZE_KEYS.forEach((key) => {
+      this[key] = initialConfig?.[key] ?? PxTheme.defaultClasses[key];
+    });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
@@ -15,6 +22,15 @@ export class PxTheme extends BaseTheme {
     }
 
     const size = pickKey(props, defaults, SIZE_KEYS, 'md');
-    return [this.classes[size ?? 'md']];
+    return [this[size ?? 'md']];
+  }
+
+  public cloneWithOverrides(overrides: Partial<Record<SizeKey, string>>): PxTheme {
+    const currentValues: Partial<Record<SizeKey, string>> = {};
+    SIZE_KEYS.forEach(key => {
+      currentValues[key] = this[key];
+    });
+    const newInitialConfig = { ...currentValues, ...overrides };
+    return new PxTheme(newInitialConfig);
   }
 }
