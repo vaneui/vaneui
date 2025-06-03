@@ -2,37 +2,118 @@ import { BaseTheme } from "../common/baseTheme";
 import {
   VARIANT_KEYS,
   VariantKey,
-  TEXT_APPEARANCE_KEYS, MODE_KEYS,
+  ModeKey,
+  TextAppearanceKey
 } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 import { TextAppearanceTheme } from "./textAppearanceTheme";
+import {
+  activeBackgroundAppearanceClasses,
+  backgroundAppearanceClasses, borderAppearanceClasses,
+  filledActiveBackgroundAppearanceClasses,
+  filledBackgroundAppearanceClasses, filledBorderAppearanceClasses,
+  filledHoverBackgroundAppearanceClasses, filledRingAppearanceClasses,
+  hoverBackgroundAppearanceClasses, ringAppearanceClasses
+} from "../../classes/appearanceClasses";
+import { filledTextAppearanceClasses, textAppearanceClasses } from "../../classes/typographyClasses";
+
+export interface VariantTheme extends Record<VariantKey, TextAppearanceTheme> {}
 
 export class VariantTheme extends BaseTheme {
-  variants: Record<VariantKey, TextAppearanceTheme>;
+  public static readonly defaultInstances: Record<VariantKey, TextAppearanceTheme> =
+    Object.fromEntries(
+      VARIANT_KEYS.map(variantKey => [
+        variantKey,
+        new TextAppearanceTheme()
+      ])
+    ) as Record<VariantKey, TextAppearanceTheme>;
 
   constructor(
-    variants: Record<VariantKey, TextAppearanceTheme>
+    variantInstances: Record<VariantKey, TextAppearanceTheme> = VariantTheme.defaultInstances
   ) {
     super();
-    this.variants = variants;
+    VARIANT_KEYS.forEach((variantKey: VariantKey) => {
+      this[variantKey] = variantInstances[variantKey] || VariantTheme.defaultInstances[variantKey];
+    });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const style = pickKey(props, defaults, VARIANT_KEYS, 'outline')!;
-    const appearance = pickKey(props, defaults, TEXT_APPEARANCE_KEYS, 'default')!;
-    const theme = this.variants[style].appearance[appearance];
-    return MODE_KEYS.map(mode => theme[mode] || '');
+    const activeVariantKey = pickKey(props, defaults, VARIANT_KEYS, 'outline') as VariantKey;
+    const activeTextAppearanceTheme = this[activeVariantKey];
+
+    if (!activeTextAppearanceTheme) {
+      return [];
+    }
+    return activeTextAppearanceTheme.getClasses(props, defaults);
   }
 
-  /**
-   * Creates a default set of variant-based appearance themes
-   */
-  static createDefault(src: Partial<Record<VariantKey, TextAppearanceTheme>>): VariantTheme {
-    const variants = Object.fromEntries(
-      VARIANT_KEYS.map((vk) => {
-        return [vk, src[vk]];
+  public cloneWithOverrides(
+    overrides: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, Partial<Record<ModeKey, string>>>>>>
+  ): VariantTheme {
+    const newVariantInstancesMap: Partial<Record<VariantKey, TextAppearanceTheme>> = {};
+
+    VARIANT_KEYS.forEach((variantKey: VariantKey) => {
+      const currentTATInstance = this[variantKey];
+      const overrideConfigForThisTAT = overrides?.[variantKey];
+
+      if (overrideConfigForThisTAT && Object.keys(overrideConfigForThisTAT).length > 0) {
+        newVariantInstancesMap[variantKey] = currentTATInstance.cloneWithOverrides(overrideConfigForThisTAT);
+      } else {
+        newVariantInstancesMap[variantKey] = currentTATInstance;
+      }
+    });
+
+    const finalInstancesForConstructor = {
+      ...VariantTheme.defaultInstances,
+      ...newVariantInstancesMap
+    } as Record<VariantKey, TextAppearanceTheme>;
+
+    return new VariantTheme(finalInstancesForConstructor);
+  }
+
+  static createDefault(
+    initialInstances?: Partial<Record<VariantKey, TextAppearanceTheme>>
+  ): VariantTheme {
+    const fullInitialInstances = {
+      ...VariantTheme.defaultInstances,
+      ...(initialInstances || {})
+    };
+    return new VariantTheme(fullInitialInstances);
+  }
+
+  static createDefaultBackground(): VariantTheme {
+    return this.createDefault({
+      outline: TextAppearanceTheme.createDefaultStyle({
+        base: backgroundAppearanceClasses,
+        hover: hoverBackgroundAppearanceClasses,
+        active: activeBackgroundAppearanceClasses
+      }),
+      filled: TextAppearanceTheme.createDefaultStyle({
+        base: filledBackgroundAppearanceClasses,
+        hover: filledHoverBackgroundAppearanceClasses,
+        active: filledActiveBackgroundAppearanceClasses
       })
-    ) as Record<VariantKey, TextAppearanceTheme>;
-    return new VariantTheme(variants);
+    });
+  }
+
+  static createDefaultText(): VariantTheme {
+    return this.createDefault({
+      outline: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
+      filled: TextAppearanceTheme.createDefaultStyle({base: filledTextAppearanceClasses})
+    });
+  }
+
+  static createDefaultBorder(): VariantTheme {
+    return this.createDefault({
+      outline: TextAppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
+      filled: TextAppearanceTheme.createDefaultStyle({base: filledBorderAppearanceClasses})
+    });
+  }
+
+  static createDefaultRing(): VariantTheme {
+    return this.createDefault({
+      outline: TextAppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
+      filled: TextAppearanceTheme.createDefaultStyle({base: filledRingAppearanceClasses})
+    });
   }
 }

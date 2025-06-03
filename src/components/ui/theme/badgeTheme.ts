@@ -56,30 +56,10 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
       shadow: new ShadowTheme(),
     },
     appearance: {
-      background: VariantTheme.createDefault({
-        outline: TextAppearanceTheme.createDefaultStyle({
-          base: backgroundAppearanceClasses,
-          hover: hoverBackgroundAppearanceClasses,
-          active: activeBackgroundAppearanceClasses
-        }),
-        filled: TextAppearanceTheme.createDefaultStyle({
-          base: filledBackgroundAppearanceClasses,
-          hover: filledHoverBackgroundAppearanceClasses,
-          active: filledActiveBackgroundAppearanceClasses
-        })
-      }),
-      text: VariantTheme.createDefault({
-        outline: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
-        filled: TextAppearanceTheme.createDefaultStyle({base: filledTextAppearanceClasses})
-      }),
-      border: VariantTheme.createDefault({
-        outline: TextAppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
-        filled: TextAppearanceTheme.createDefaultStyle({base: filledBorderAppearanceClasses})
-      }),
-      ring: VariantTheme.createDefault({
-        outline: TextAppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
-        filled: TextAppearanceTheme.createDefaultStyle({base: filledRingAppearanceClasses})
-      }),
+      background: VariantTheme.createDefaultBackground(),
+      text: VariantTheme.createDefaultText(),
+      border: VariantTheme.createDefaultBorder(),
+      ring: VariantTheme.createDefaultRing(),
     },
     layout: {
       border: new BorderTheme(),
