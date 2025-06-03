@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect } from 'react';
 import { ComponentTheme } from "../ui/theme/common/ComponentTheme";
-import { defaultButtonTheme } from '../ui/theme/buttonTheme';
-import { defaultBadgeTheme } from '../ui/theme/badgeTheme';
-import { defaultChipTheme } from '../ui/theme/chipTheme';
+import { ButtonTheme, defaultButtonTheme } from '../ui/theme/buttonTheme';
+import { BadgeTheme, defaultBadgeTheme } from '../ui/theme/badgeTheme';
+import { ChipTheme, defaultChipTheme } from '../ui/theme/chipTheme';
 import {
   pageTitleTheme,
   sectionTitleTheme,
@@ -10,16 +10,16 @@ import {
   textTheme,
   linkTheme,
   listItemTheme,
-  listTheme
+  listTheme, TypographyComponentTheme
 } from '../ui/theme/typographyComponentTheme';
-import { defaultCardTheme } from "../ui/theme/cardTheme";
-import { defaultRowTheme } from "../ui/theme/rowTheme";
-import { defaultDividerTheme } from '../ui/theme/dividerTheme';
-import { defaultContainerTheme } from '../ui/theme/containerTheme';
-import { defaultColTheme } from '../ui/theme/colTheme';
-import { defaultStackTheme } from '../ui/theme/stackTheme';
-import { defaultSectionTheme } from "../ui/theme/sectionTheme";
-import { defaultGrid3Theme, defaultGrid4Theme } from "../ui/theme/gridTheme";
+import { CardTheme, defaultCardTheme } from "../ui/theme/cardTheme";
+import { defaultRowTheme, RowTheme } from "../ui/theme/rowTheme";
+import { defaultDividerTheme, DividerTheme } from '../ui/theme/dividerTheme';
+import { ContainerTheme, defaultContainerTheme } from '../ui/theme/containerTheme';
+import { ColTheme, defaultColTheme } from '../ui/theme/colTheme';
+import { defaultStackTheme, StackTheme } from '../ui/theme/stackTheme';
+import { defaultSectionTheme, SectionTheme } from "../ui/theme/sectionTheme";
+import { defaultGrid3Theme, defaultGrid4Theme, GridTheme } from "../ui/theme/gridTheme";
 import {
   ButtonProps,
   GridProps,
@@ -38,25 +38,25 @@ import { DeepPartial } from "../utils/deepPartial";
 import { deepMerge } from "../utils/deepMerge";
 
 export interface ThemeProps {
-  button:    ComponentTheme<ButtonProps>;
-  badge:     ComponentTheme<BadgeProps>;
-  chip:      ComponentTheme<ChipProps>;
-  card:      ComponentTheme<CardProps>;
-  divider:   ComponentTheme<DividerProps>;
-  container: ComponentTheme<ContainerProps>;
-  row:       ComponentTheme<RowProps>;
-  col:       ComponentTheme<ColProps>;
-  stack:     ComponentTheme<StackProps>;
-  section:   ComponentTheme<SectionProps>;
-  grid3:     ComponentTheme<GridProps>;
-  grid4:     ComponentTheme<GridProps>;
-  pageTitle:    ComponentTheme<TypographyComponentProps>;
-  sectionTitle: ComponentTheme<TypographyComponentProps>;
-  title:        ComponentTheme<TypographyComponentProps>;
-  text:         ComponentTheme<TypographyComponentProps>;
-  link:         ComponentTheme<TypographyComponentProps>;
-  listItem:     ComponentTheme<TypographyComponentProps>;
-  list:         ComponentTheme<TypographyComponentProps>;
+  button:    ComponentTheme<ButtonProps, ButtonTheme<ButtonProps>>;
+  badge:     ComponentTheme<BadgeProps, BadgeTheme<BadgeProps>>;
+  chip:      ComponentTheme<ChipProps, ChipTheme<ChipProps>>;
+  card:      ComponentTheme<CardProps, CardTheme<CardProps>>;
+  divider:   ComponentTheme<DividerProps, DividerTheme<DividerProps>>;
+  container: ComponentTheme<ContainerProps, ContainerTheme<ContainerProps>>;
+  row:       ComponentTheme<RowProps, RowTheme<RowProps>>;
+  col:       ComponentTheme<ColProps, ColTheme<ColProps>>;
+  stack:     ComponentTheme<StackProps, StackTheme<StackProps>>;
+  section:   ComponentTheme<SectionProps, SectionTheme<SectionProps>>;
+  grid3:     ComponentTheme<GridProps, GridTheme<GridProps>>;
+  grid4:     ComponentTheme<GridProps, GridTheme<GridProps>>;
+  pageTitle:    ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
+  sectionTitle: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
+  title:        ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
+  text:         ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
+  link:         ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
+  listItem:     ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
+  list:         ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
