@@ -46,24 +46,6 @@ export class LayoutAppearanceTheme extends BaseTheme {
     return MODE_KEYS.map(mode => modesForAppearance[mode] || '');
   }
 
-  public cloneWithOverrides(
-    overrides: Partial<Record<AppearanceKey, Partial<Record<ModeKey, string>>>>
-  ): LayoutAppearanceTheme {
-    const currentConfigSnapshot: Partial<Record<AppearanceKey, Record<ModeKey, string>>> = {};
-    APPEARANCE_KEYS.forEach((textKey: AppearanceKey) => {
-      currentConfigSnapshot[textKey] = { ...this[textKey] };
-    });
-
-    const newInitialConfig: Partial<Record<AppearanceKey, Partial<Record<ModeKey, string>>>> = {};
-    APPEARANCE_KEYS.forEach((textKey: AppearanceKey) => {
-      newInitialConfig[textKey] = {
-        ...(currentConfigSnapshot[textKey] || {}),
-        ...(overrides[textKey] || {}),
-      };
-    });
-    return new LayoutAppearanceTheme(newInitialConfig);
-  }
-
   static createDefaultStyle(
     src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {}
   ): LayoutAppearanceTheme {

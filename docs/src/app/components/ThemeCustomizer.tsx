@@ -9,13 +9,11 @@ const customTheme: PartialTheme = {
   button: {
     themes: {
       appearance: {
-        variants: {
+        text: {
           outline: {
             default: {
-              textColor: {
-                base: 'text-gray-400',
-                hover: 'text-gray-600'
-              },
+              base: 'text-gray-400',
+              hover: 'text-gray-600',
             }
           }
         },

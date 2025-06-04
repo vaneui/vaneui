@@ -1,31 +1,49 @@
 import { twMerge } from "tailwind-merge";
-import { TypographyComponentProps } from "../ui/props/props";
 import React, { useMemo } from "react";
-import { ComponentTheme } from "../ui/theme/common/ComponentTheme";
+import { ComponentTheme, ThemeMap } from "../ui/theme/common/ComponentTheme";
+import { TagProps } from "../ui/props/props";
 
+export interface BuildableComponentProps extends TagProps {
+  className?: string;
+  children?: React.ReactNode;
+}
 
-export function buildComponent<P extends Partial<TypographyComponentProps>>(
+export function buildComponent<
+  P extends BuildableComponentProps,
+  TThemes extends ThemeMap<P>
+>(
   props: P,
-  theme: ComponentTheme<P>,
+  theme: ComponentTheme<P, TThemes>,
   propsToOmit: readonly string[] = []
 ): React.ReactElement {
-  const cleanProps = {...props};
+  const cleanProps: Record<string, any> = { ...props };
+
   for (const k of propsToOmit) {
     if (k in cleanProps) {
-      delete (cleanProps as any)[k];
+      delete cleanProps[k];
     }
   }
-  const {className, children, tag, ...other} = cleanProps;
-  const componentTag: string = tag ?? theme.tag ?? "div";
-  const themeClasses = useMemo(() => {
+
+  const {
+    className,
+    children,
+    tag,
+    ...other
+  } = cleanProps as P;
+
+  const componentTag: React.ElementType = tag ?? theme.tag ?? "div";
+
+  const themeGeneratedClasses = useMemo(() => {
     return theme.getClasses(props);
   }, [props, theme]);
-  const Tag = componentTag;
-  const merged = twMerge(...themeClasses, className);
+
+  const mergedClasses = twMerge(...themeGeneratedClasses, className);
+
+  const TagToRender = componentTag as React.ElementType;
 
   return (
-    <Tag className={merged} {...other}>
+    <TagToRender className={mergedClasses} {...other}>
       {children}
-    </Tag>
+    </TagToRender>
   );
 }

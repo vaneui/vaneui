@@ -41,23 +41,6 @@ export class TextAppearanceTheme extends BaseTheme {
     return MODE_KEYS.map(mode => modesForAppearance[mode] || '');
   }
 
-  public cloneWithOverrides(
-    overrides: Partial<Record<TextAppearanceKey, Partial<Record<ModeKey, string>>>>
-  ): TextAppearanceTheme {
-    const currentConfigSnapshot: Partial<Record<TextAppearanceKey, Record<ModeKey, string>>> = {};
-    TEXT_APPEARANCE_KEYS.forEach((textKey: TextAppearanceKey) => {
-      currentConfigSnapshot[textKey] = { ...this[textKey] };
-    });
-
-    const newInitialConfig: Partial<Record<TextAppearanceKey, Partial<Record<ModeKey, string>>>> = {};
-    TEXT_APPEARANCE_KEYS.forEach((textKey: TextAppearanceKey) => {
-      newInitialConfig[textKey] = {
-        ...(currentConfigSnapshot[textKey] || {}),
-        ...(overrides[textKey] || {}),
-      };
-    });
-    return new TextAppearanceTheme(newInitialConfig);
-  }
 
   static createDefaultStyle(
     src: Partial<Record<ModeKey, Partial<Record<TextAppearanceKey, string>>>> = {}

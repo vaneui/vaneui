@@ -24,13 +24,4 @@ export class SizeTheme extends BaseTheme {
     const size = pickKey(props, defaults, SIZE_KEYS);
     return [this[size ?? 'md'] || ''];
   }
-
-  public cloneWithOverrides(overrides: Partial<Record<SizeKey, string>>): SizeTheme {
-    const currentValues: Partial<Record<SizeKey, string>> = {};
-    SIZE_KEYS.forEach(key => {
-      currentValues[key] = this[key];
-    });
-    const newInitialConfig = { ...currentValues, ...overrides };
-    return new SizeTheme(newInitialConfig);
-  }
 }

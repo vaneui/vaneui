@@ -24,13 +24,4 @@ export class PxTheme extends BaseTheme {
     const size = pickKey(props, defaults, SIZE_KEYS, 'md');
     return [this[size ?? 'md']];
   }
-
-  public cloneWithOverrides(overrides: Partial<Record<SizeKey, string>>): PxTheme {
-    const currentValues: Partial<Record<SizeKey, string>> = {};
-    SIZE_KEYS.forEach(key => {
-      currentValues[key] = this[key];
-    });
-    const newInitialConfig = { ...currentValues, ...overrides };
-    return new PxTheme(newInitialConfig);
-  }
 }

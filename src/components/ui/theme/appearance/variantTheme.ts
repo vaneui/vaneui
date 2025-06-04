@@ -47,30 +47,6 @@ export class VariantTheme extends BaseTheme {
     return activeTextAppearanceTheme.getClasses(props, defaults);
   }
 
-  public cloneWithOverrides(
-    overrides: Partial<Record<VariantKey, Partial<Record<TextAppearanceKey, Partial<Record<ModeKey, string>>>>>>
-  ): VariantTheme {
-    const newVariantInstancesMap: Partial<Record<VariantKey, TextAppearanceTheme>> = {};
-
-    VARIANT_KEYS.forEach((variantKey: VariantKey) => {
-      const currentTATInstance = this[variantKey];
-      const overrideConfigForThisTAT = overrides?.[variantKey];
-
-      if (overrideConfigForThisTAT && Object.keys(overrideConfigForThisTAT).length > 0) {
-        newVariantInstancesMap[variantKey] = currentTATInstance.cloneWithOverrides(overrideConfigForThisTAT);
-      } else {
-        newVariantInstancesMap[variantKey] = currentTATInstance;
-      }
-    });
-
-    const finalInstancesForConstructor = {
-      ...VariantTheme.defaultInstances,
-      ...newVariantInstancesMap
-    } as Record<VariantKey, TextAppearanceTheme>;
-
-    return new VariantTheme(finalInstancesForConstructor);
-  }
-
   static createDefault(
     initialInstances?: Partial<Record<VariantKey, TextAppearanceTheme>>
   ): VariantTheme {

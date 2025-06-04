@@ -24,13 +24,4 @@ export class ItemsTheme extends BaseTheme {
     const pickedKey = pickKey(props, defaults, ITEMS_KEYS);
     return [pickedKey && this[pickedKey] ? this[pickedKey] : ''];
   }
-
-  public cloneWithOverrides(overrides: Partial<Record<ItemsKey, string>>): ItemsTheme {
-    const currentValues: Partial<Record<ItemsKey, string>> = {};
-    ITEMS_KEYS.forEach(key => {
-      currentValues[key] = this[key];
-    });
-    const newInitialConfig = { ...currentValues, ...overrides };
-    return new ItemsTheme(newInitialConfig);
-  }
 }
