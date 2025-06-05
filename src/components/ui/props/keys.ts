@@ -9,7 +9,7 @@ export const FONT_STYLE_KEYS = ['italic', 'notItalic'] as const;
 export const TEXT_DECORATION_KEYS = ['underline', 'lineThrough', 'noUnderline', 'overline'] as const;
 export const TEXT_TRANSFORM_KEYS = ['uppercase', 'lowercase', 'capitalize', 'normalCase'] as const;
 export const TEXT_ALIGN_KEYS = ['textLeft', 'textCenter', 'textRight', 'textJustify'] as const;
-export const NO_BORDER_KEYS = ['noBorder'] as const;
+export const BORDER_KEYS = ['border', 'noBorder'] as const;
 export const NO_SHADOW_KEYS = ['noShadow'] as const;
 export const NO_RING_KEYS = ['noRing'] as const;
 export const NO_PADDING_KEYS = ['noPadding'] as const;
@@ -29,6 +29,7 @@ export const WRAP_KEYS = ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const;
 
 export type ModeKey = typeof MODE_KEYS[number];
 export type SizeKey = typeof SIZE_KEYS[number];
+export type BorderKey = typeof BORDER_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
 export type AppearanceKey = typeof APPEARANCE_KEYS[number];
 export type TextAppearanceKey = typeof TEXT_APPEARANCE_KEYS[number];
@@ -75,7 +76,7 @@ export type TypographyComponentKey = typeof TYPOGRAPHY_COMPONENT_KEYS[number];
 export const BUTTON_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...SHAPE_KEYS,
-  ...NO_BORDER_KEYS,
+  ...BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_RING_KEYS,
   ...VARIANT_KEYS,
@@ -125,7 +126,7 @@ export const CARD_KEYS = [
   ...ROUNDED_KEYS,
   ...BREAKPOINT_KEYS,
   ...APPEARANCE_KEYS,
-  ...NO_BORDER_KEYS,
+  ...BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_PADDING_KEYS,
   ...DIRECTION_KEYS,
@@ -157,7 +158,7 @@ export const BADGE_KEYS = [
   ...SHAPE_KEYS,
   ...VARIANT_KEYS,
   ...NO_SHADOW_KEYS,
-  ...NO_BORDER_KEYS,
+  ...BORDER_KEYS,
   ...NO_RING_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
@@ -170,7 +171,7 @@ export const CHIP_KEYS = [
   ...SHAPE_KEYS,
   ...VARIANT_KEYS,
   ...NO_SHADOW_KEYS,
-  ...NO_BORDER_KEYS,
+  ...BORDER_KEYS,
   ...NO_RING_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
@@ -180,7 +181,7 @@ export type ChipKey = typeof CHIP_KEYS[number];
 // Divider keys
 export const DIVIDER_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...NO_BORDER_KEYS,
+  ...BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_RING_KEYS,
   ...VARIANT_KEYS
@@ -192,7 +193,7 @@ export const CONTAINER_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS,
-  ...NO_BORDER_KEYS,
+  ...BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_RING_KEYS,
   ...VARIANT_KEYS

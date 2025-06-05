@@ -13,10 +13,10 @@ export class SizeTheme extends BaseTheme {
     xl: ''
   };
 
-  constructor(initialConfig?: Partial<Record<SizeKey, string>>) {
+  constructor(initial?: Partial<Record<SizeKey, string>>) {
     super();
     SIZE_KEYS.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? SizeTheme.defaultClasses[key];
+      this[key] = initial?.[key] ?? SizeTheme.defaultClasses[key];
     });
   }
 
