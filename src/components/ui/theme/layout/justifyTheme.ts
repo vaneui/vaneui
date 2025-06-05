@@ -3,13 +3,20 @@ import { justifyClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
+export interface JustifyTheme extends Record<JustifyKey, string> {}
+
 export class JustifyTheme extends BaseTheme {
-  constructor(private classes: Record<JustifyKey, string> = justifyClasses) {
+  public static readonly defaultClasses: Record<JustifyKey, string> = justifyClasses;
+
+  constructor(initialConfig?: Partial<Record<JustifyKey, string>>) {
     super();
+    JUSTIFY_KEYS.forEach((key) => {
+      this[key] = initialConfig?.[key] ?? JustifyTheme.defaultClasses[key];
+    });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const key = pickKey(props, defaults, JUSTIFY_KEYS);
-    return [key ? this.classes[key] : ''];
+    return [key ? this[key] : ''];
   }
 }

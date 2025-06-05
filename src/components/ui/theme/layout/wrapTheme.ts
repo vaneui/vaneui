@@ -3,13 +3,20 @@ import { wrapClasses } from "../../classes/layoutClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
+export interface WrapTheme extends Record<WrapKey, string> {}
+
 export class WrapTheme extends BaseTheme {
-  constructor(private classes: Record<WrapKey, string> = wrapClasses) {
+  public static readonly defaultClasses: Record<WrapKey, string> = wrapClasses;
+
+  constructor(initialConfig?: Partial<Record<WrapKey, string>>) {
     super();
+    WRAP_KEYS.forEach((key) => {
+      this[key] = initialConfig?.[key] ?? WrapTheme.defaultClasses[key];
+    });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const key = pickKey(props, defaults, WRAP_KEYS);
-    return key ? [this.classes[key]] : [];
+    return key ? [this[key]] : [];
   }
 }

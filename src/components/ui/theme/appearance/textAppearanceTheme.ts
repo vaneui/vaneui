@@ -3,7 +3,8 @@ import { MODE_KEYS, ModeKey, TEXT_APPEARANCE_KEYS, TextAppearanceKey } from "../
 import { pickKey } from "../../../utils/componentUtils";
 import { textAppearanceClasses } from "../../classes/typographyClasses";
 
-export interface TextAppearanceTheme extends Record<TextAppearanceKey, Record<ModeKey, string>> {}
+export interface TextAppearanceTheme extends Record<TextAppearanceKey, Record<ModeKey, string>> {
+}
 
 export class TextAppearanceTheme extends BaseTheme {
   public static readonly defaultFullConfig: Record<TextAppearanceKey, Record<ModeKey, string>> =
@@ -40,7 +41,6 @@ export class TextAppearanceTheme extends BaseTheme {
     }
     return MODE_KEYS.map(mode => modesForAppearance[mode] || '');
   }
-
 
   static createDefaultStyle(
     src: Partial<Record<ModeKey, Partial<Record<TextAppearanceKey, string>>>> = {}
