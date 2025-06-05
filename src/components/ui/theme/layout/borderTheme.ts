@@ -21,31 +21,20 @@ export class BorderTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<BorderKey, Record<ModeKey, string>>>) {
     super();
-    BORDER_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? BorderTheme.defaultClasses[key];
-    });
     BORDER_KEYS.forEach((key: BorderKey) => {
-      const defaultModesForKey = BorderTheme.defaultClasses[key];
-      const overrideModesForKey = initial?.[key];
-
       this[key] = {
-        ...defaultModesForKey,
-        ...(overrideModesForKey || {}),
+        ...BorderTheme.defaultClasses[key],
+        ...(initial?.[key] || {}),
       };
     });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const key = pickKey(props, defaults, BORDER_KEYS) as BorderKey | undefined;
-    if (!key) {
+    if (!key || !this[key]) {
       return MODE_KEYS.map(() => '');
     }
 
-    const modesForPickedKey = this[key];
-
-    if (!modesForPickedKey)
-      return MODE_KEYS.map(() => '');
-
-    return MODE_KEYS.map(mode => modesForPickedKey[mode] || '');
+    return MODE_KEYS.map(mode => this[key][mode] || '');
   }
 }
