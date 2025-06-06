@@ -1,25 +1,41 @@
-import { DirectionKey, DIRECTION_KEYS,  DIRECTION_REVERSE_KEYS } from "../../props/keys";
-import { directionClasses } from "../../classes/layoutClasses";
+import {
+  FlexDirectionKey,
+  FLEX_DIRECTION_KEYS,
+  DIRECTION_REVERSE_KEYS,
+} from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
+export interface DirectionTheme extends Record<FlexDirectionKey, string> {
+}
+
 export class DirectionTheme extends BaseTheme {
-  constructor(private classes: Record<DirectionKey, string> = directionClasses) {
+  public static readonly defaultClasses: Record<FlexDirectionKey, string> = {
+    row: "flex-row",
+    column: "flex-col",
+    rowReverse: "flex-row-reverse",
+    columnReverse: "flex-col-reverse",
+  };
+
+  constructor(initial?: Partial<Record<FlexDirectionKey, string>>) {
     super();
+    FLEX_DIRECTION_KEYS.forEach((key: FlexDirectionKey) => {
+      this[key] = initial?.[key] || DirectionTheme.defaultClasses[key];
+    });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
+    let direction = pickKey(props, defaults, FLEX_DIRECTION_KEYS) ?? 'column';
     const reverse = pickKey(props, defaults, DIRECTION_REVERSE_KEYS);
-    const direction = pickKey(props, defaults, DIRECTION_KEYS, 'column');
 
     if (reverse) {
-      return direction === 'row' 
-        ? ['flex-row-reverse'] 
-        : direction === 'column' 
-          ? ['flex-col-reverse'] 
-          : [];
+      switch (direction) {
+        case "column": direction = "columnReverse"; break;
+        case "row": direction = "rowReverse"; break;
+        default: break;
+      }
     }
 
-    return direction ? [this.classes[direction]] : [];
+    return direction ? [this[direction]] : [];
   }
 }

@@ -22,7 +22,7 @@ export const PILL_KEYS = ['pill'] as const;
 export const SHARP_KEYS = ['sharp'] as const;
 export const ROUNDED_KEYS = ['rounded'] as const;
 export const SHAPE_KEYS = [...PILL_KEYS, ...SHARP_KEYS, ...ROUNDED_KEYS] as const;
-export const DIRECTION_KEYS = ['row', 'column'] as const;
+export const FLEX_DIRECTION_KEYS = ['row', 'column', 'rowReverse', 'columnReverse'] as const;
 export const ITEMS_KEYS = ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const;
 export const JUSTIFY_KEYS = ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const;
 export const WRAP_KEYS = ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const;
@@ -42,7 +42,7 @@ export type TextAlignKey = typeof TEXT_ALIGN_KEYS[number];
 export type BreakpointKey = typeof BREAKPOINT_KEYS[number];
 export type HideKey = typeof HIDE_KEYS[number];
 export type PositionKey = typeof POSITION_KEYS[number];
-export type DirectionKey = typeof DIRECTION_KEYS[number];
+export type FlexDirectionKey = typeof FLEX_DIRECTION_KEYS[number];
 export type ItemsKey = typeof ITEMS_KEYS[number];
 export type JustifyKey = typeof JUSTIFY_KEYS[number];
 export type WrapKey = typeof WRAP_KEYS[number];
@@ -129,7 +129,7 @@ export const CARD_KEYS = [
   ...BORDER_KEYS,
   ...NO_SHADOW_KEYS,
   ...NO_PADDING_KEYS,
-  ...DIRECTION_KEYS,
+  ...FLEX_DIRECTION_KEYS,
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...JUSTIFY_KEYS,
@@ -147,7 +147,7 @@ export const STACK_KEYS = [
   ...BREAKPOINT_KEYS,
   ...JUSTIFY_KEYS,
   ...APPEARANCE_KEYS,
-  ...DIRECTION_KEYS,
+  ...FLEX_DIRECTION_KEYS,
   ...NO_PADDING_KEYS
 ] as const;
 export type StackKey = typeof STACK_KEYS[number];
@@ -203,7 +203,7 @@ export type ContainerKey = typeof CONTAINER_KEYS[number];
 // Section keys
 export const SECTION_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...DIRECTION_KEYS,
+  ...FLEX_DIRECTION_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS,
   ...NO_PADDING_KEYS,

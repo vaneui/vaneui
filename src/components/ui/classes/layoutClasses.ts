@@ -1,6 +1,6 @@
 import {
   BreakpointKey,
-  DirectionKey,
+  FlexDirectionKey,
   HideKey,
   ItemsKey,
   JustifyKey, ModeKey,
@@ -27,11 +27,6 @@ export const justifyClasses: Record<JustifyKey, string> = {
   justifyStretch: "justify-stretch",
   justifyBaseline: "justify-baseline",
 }
-
-export const directionClasses: Record<DirectionKey, string> = {
-  row: "flex-row",
-  column: "flex-col"
-};
 
 export const wrapClasses: Record<WrapKey, string> = {
   flexWrap: "flex-wrap",
