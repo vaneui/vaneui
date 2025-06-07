@@ -12,7 +12,7 @@ export const TEXT_ALIGN_KEYS = ['textLeft', 'textCenter', 'textRight', 'textJust
 export const BORDER_KEYS = ['border', 'noBorder'] as const;
 export const SHADOW_KEYS = ['shadow', 'noShadow'] as const;
 export const RING_KEYS = ['ring', 'noRing'] as const;
-export const NO_PADDING_KEYS = ['noPadding'] as const;
+export const PADDING_KEYS = ['padding', 'noPadding'] as const;
 export const BREAKPOINT_KEYS = ['xsCol', 'smCol', 'mdCol', 'lgCol', 'xlCol'] as const;
 export const HIDE_KEYS = ['xsHide', 'smHide', 'mdHide', 'lgHide', 'xlHide'] as const;
 export const POSITION_KEYS = ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const;
@@ -33,6 +33,7 @@ export type RingKey = typeof RING_KEYS[number];
 export type ShapeKey = typeof SHAPE_KEYS[number];
 export type BorderKey = typeof BORDER_KEYS[number];
 export type ShadowKey = typeof SHADOW_KEYS[number];
+export type PaddingKey = typeof PADDING_KEYS[number];
 export type GapKey = typeof GAP_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
 export type AppearanceKey = typeof APPEARANCE_KEYS[number];
@@ -132,7 +133,7 @@ export const CARD_KEYS = [
   ...APPEARANCE_KEYS,
   ...BORDER_KEYS,
   ...SHADOW_KEYS,
-  ...NO_PADDING_KEYS,
+  ...PADDING_KEYS,
   ...FLEX_DIRECTION_KEYS,
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...DIRECTION_REVERSE_KEYS,
@@ -152,7 +153,7 @@ export const STACK_KEYS = [
   ...JUSTIFY_KEYS,
   ...APPEARANCE_KEYS,
   ...FLEX_DIRECTION_KEYS,
-  ...NO_PADDING_KEYS
+  ...PADDING_KEYS
 ] as const;
 export type StackKey = typeof STACK_KEYS[number];
 
@@ -210,7 +211,7 @@ export const SECTION_KEYS = [
   ...FLEX_DIRECTION_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS,
-  ...NO_PADDING_KEYS,
+  ...PADDING_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...JUSTIFY_KEYS,
   ...WRAP_KEYS,
