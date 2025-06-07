@@ -17,7 +17,7 @@ export const BREAKPOINT_KEYS = ['xsCol', 'smCol', 'mdCol', 'lgCol', 'xlCol'] as 
 export const HIDE_KEYS = ['xsHide', 'smHide', 'mdHide', 'lgHide', 'xlHide'] as const;
 export const POSITION_KEYS = ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const;
 export const DIRECTION_REVERSE_KEYS = ['reverse'] as const;
-export const NO_GAP_KEYS = ['noGap'] as const;
+export const GAP_KEYS = ['gap', 'noGap'] as const;
 export const PILL_KEYS = ['pill'] as const;
 export const SHARP_KEYS = ['sharp'] as const;
 export const ROUNDED_KEYS = ['rounded'] as const;
@@ -33,6 +33,7 @@ export type RingKey = typeof RING_KEYS[number];
 export type ShapeKey = typeof SHAPE_KEYS[number];
 export type BorderKey = typeof BORDER_KEYS[number];
 export type ShadowKey = typeof SHADOW_KEYS[number];
+export type GapKey = typeof GAP_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
 export type AppearanceKey = typeof APPEARANCE_KEYS[number];
 export type TextAppearanceKey = typeof TEXT_APPEARANCE_KEYS[number];
@@ -91,7 +92,7 @@ export type ButtonKey = typeof BUTTON_KEYS[number];
 // Grid keys
 export const GRID_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...NO_GAP_KEYS,
+  ...GAP_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
 export type GridKey = typeof GRID_KEYS[number];
@@ -100,7 +101,7 @@ export type GridKey = typeof GRID_KEYS[number];
 export const ROW_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...WRAP_KEYS,
-  ...NO_GAP_KEYS,
+  ...GAP_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...ITEMS_KEYS,
   ...BREAKPOINT_KEYS,
@@ -113,7 +114,7 @@ export type RowKey = typeof ROW_KEYS[number];
 export const COL_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...WRAP_KEYS,
-  ...NO_GAP_KEYS,
+  ...GAP_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...ITEMS_KEYS,
   ...JUSTIFY_KEYS,
@@ -123,7 +124,7 @@ export type ColKey = typeof COL_KEYS[number];
 
 // Card keys
 export const CARD_KEYS = [
-  ...NO_GAP_KEYS,
+  ...GAP_KEYS,
   ...ITEMS_KEYS,
   ...SHARP_KEYS,
   ...ROUNDED_KEYS,
@@ -144,7 +145,7 @@ export type CardKey = typeof CARD_KEYS[number];
 export const STACK_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...WRAP_KEYS,
-  ...NO_GAP_KEYS,
+  ...GAP_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...ITEMS_KEYS,
   ...BREAKPOINT_KEYS,
@@ -214,6 +215,6 @@ export const SECTION_KEYS = [
   ...JUSTIFY_KEYS,
   ...WRAP_KEYS,
   ...BREAKPOINT_KEYS,
-  ...NO_GAP_KEYS
+  ...GAP_KEYS
 ] as const;
 export type SectionKey = typeof SECTION_KEYS[number];
