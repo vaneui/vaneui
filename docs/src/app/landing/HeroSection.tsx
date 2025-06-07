@@ -53,10 +53,10 @@ export async function HeroSection() {
         </Col>
       </Container>
       <Container sm itemsCenter className="z-10">
-        <Col itemsCenter>
+        <Col itemsCenter className="w-full">
           <Col className="max-w-xl max-sm:max-w-80 z-20 border-8 rounded-3xl border-gray-400/10 backdrop-blur-sm">
             <Card xl row smCol noPadding noGap>
-              <img src={dog.image} alt="puppy" className="object-cover self-stretch w-48 max-sm:w-80"/>
+              <img src={dog.image} alt="puppy" className="object-cover w-44 max-sm:w-80"/>
               <Stack sm>
                 <Row justifyBetween>
                   <Title>{dog.name}</Title>
