@@ -10,8 +10,8 @@ export const TEXT_DECORATION_KEYS = ['underline', 'lineThrough', 'noUnderline', 
 export const TEXT_TRANSFORM_KEYS = ['uppercase', 'lowercase', 'capitalize', 'normalCase'] as const;
 export const TEXT_ALIGN_KEYS = ['textLeft', 'textCenter', 'textRight', 'textJustify'] as const;
 export const BORDER_KEYS = ['border', 'noBorder'] as const;
-export const NO_SHADOW_KEYS = ['noShadow'] as const;
-export const NO_RING_KEYS = ['noRing'] as const;
+export const SHADOW_KEYS = ['shadow', 'noShadow'] as const;
+export const RING_KEYS = ['ring', 'noRing'] as const;
 export const NO_PADDING_KEYS = ['noPadding'] as const;
 export const BREAKPOINT_KEYS = ['xsCol', 'smCol', 'mdCol', 'lgCol', 'xlCol'] as const;
 export const HIDE_KEYS = ['xsHide', 'smHide', 'mdHide', 'lgHide', 'xlHide'] as const;
@@ -29,7 +29,10 @@ export const WRAP_KEYS = ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const;
 
 export type ModeKey = typeof MODE_KEYS[number];
 export type SizeKey = typeof SIZE_KEYS[number];
+export type RingKey = typeof RING_KEYS[number];
+export type ShapeKey = typeof SHAPE_KEYS[number];
 export type BorderKey = typeof BORDER_KEYS[number];
+export type ShadowKey = typeof SHADOW_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
 export type AppearanceKey = typeof APPEARANCE_KEYS[number];
 export type TextAppearanceKey = typeof TEXT_APPEARANCE_KEYS[number];
@@ -77,8 +80,8 @@ export const BUTTON_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...SHAPE_KEYS,
   ...BORDER_KEYS,
-  ...NO_SHADOW_KEYS,
-  ...NO_RING_KEYS,
+  ...SHADOW_KEYS,
+  ...RING_KEYS,
   ...VARIANT_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
@@ -127,7 +130,7 @@ export const CARD_KEYS = [
   ...BREAKPOINT_KEYS,
   ...APPEARANCE_KEYS,
   ...BORDER_KEYS,
-  ...NO_SHADOW_KEYS,
+  ...SHADOW_KEYS,
   ...NO_PADDING_KEYS,
   ...FLEX_DIRECTION_KEYS,
   ...TYPOGRAPHY_COMPONENT_KEYS,
@@ -157,9 +160,9 @@ export const BADGE_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...SHAPE_KEYS,
   ...VARIANT_KEYS,
-  ...NO_SHADOW_KEYS,
+  ...SHADOW_KEYS,
   ...BORDER_KEYS,
-  ...NO_RING_KEYS,
+  ...RING_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
@@ -170,9 +173,9 @@ export const CHIP_KEYS = [
   ...TYPOGRAPHY_COMPONENT_KEYS,
   ...SHAPE_KEYS,
   ...VARIANT_KEYS,
-  ...NO_SHADOW_KEYS,
+  ...SHADOW_KEYS,
   ...BORDER_KEYS,
-  ...NO_RING_KEYS,
+  ...RING_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
@@ -182,8 +185,8 @@ export type ChipKey = typeof CHIP_KEYS[number];
 export const DIVIDER_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...BORDER_KEYS,
-  ...NO_SHADOW_KEYS,
-  ...NO_RING_KEYS,
+  ...SHADOW_KEYS,
+  ...RING_KEYS,
   ...VARIANT_KEYS
 ] as const;
 export type DividerKey = typeof DIVIDER_KEYS[number];
@@ -194,8 +197,8 @@ export const CONTAINER_KEYS = [
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS,
   ...BORDER_KEYS,
-  ...NO_SHADOW_KEYS,
-  ...NO_RING_KEYS,
+  ...SHADOW_KEYS,
+  ...RING_KEYS,
   ...VARIANT_KEYS
 ] as const;
 export type ContainerKey = typeof CONTAINER_KEYS[number];

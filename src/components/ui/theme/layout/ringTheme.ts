@@ -1,18 +1,33 @@
 import { ringModeClasses, noRingModeClasses } from "../../classes/layoutClasses";
 import { BaseTheme } from "../common/baseTheme";
-import { MODE_KEYS, ModeKey } from "../../props/keys";
+import { MODE_KEYS, ModeKey, RING_KEYS, RingKey } from "../../props/keys";
+import { pickKey } from "../../../utils/componentUtils";
+
+export interface RingTheme extends Record<RingKey, Record<ModeKey, string>> {
+}
 
 export class RingTheme extends BaseTheme {
-  constructor(
-    private modeClasses: Record<ModeKey, string> = ringModeClasses,
-    private noRingClasses: Record<ModeKey, string> = noRingModeClasses,
-  ) {
+  public static readonly defaultClasses: Record<RingKey, Record<ModeKey, string>> = {
+    ring: ringModeClasses,
+    noRing: noRingModeClasses,
+  };
+
+  constructor(initial?: Partial<Record<RingKey, Record<ModeKey, string>>>) {
     super();
+    RING_KEYS.forEach((key: RingKey) => {
+      this[key] = {
+        ...RingTheme.defaultClasses[key],
+        ...(initial?.[key] || {}),
+      };
+    });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    return MODE_KEYS.map(mode => props.noRing
-      ? this.noRingClasses[mode]
-      : this.modeClasses[mode] || '');
+    const key = pickKey(props, defaults, RING_KEYS) as RingKey | undefined;
+    if (!key || !this[key]) {
+      return MODE_KEYS.map(() => '');
+    }
+
+    return MODE_KEYS.map(mode => this[key][mode] || '');
   }
 }
