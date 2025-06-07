@@ -65,5 +65,8 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
     semibold: true,
     textCenter: true,
     noBorder: true,
+    gap: true,
+    padding: true,
+    ring: true,
   }
 );

@@ -100,5 +100,8 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProp
     mono: true,
     normal: true,
     noShadow: true,
+    padding: true,
+    gap: true,
+    ring: true,
   }
 );

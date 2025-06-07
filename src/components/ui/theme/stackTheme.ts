@@ -61,5 +61,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme<Stack
     transparent: true,
     column: true,
     flexWrap: true,
+    gap: true,
+    padding: true,
   }
 );

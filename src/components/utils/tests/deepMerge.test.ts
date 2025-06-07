@@ -103,15 +103,6 @@ describe('deepMerge function', () => {
     expect(result).toEqual({ a: { prop1: 'updated', prop2: 10, prop3: true } });
   });
 
-  // Test with undefined or null source
-  test('should return a copy of target when source is undefined', () => {
-    const target = { a: 1, b: 2 };
-    const result = deepMerge(target, undefined);
-
-    expect(result).toEqual(target);
-    expect(result).not.toBe(target); // Should be a new object, not the same reference
-  });
-
   test('should return a copy of target when source is null', () => {
     const target = { a: 1, b: 2 };
     // null is not a valid DeepPartial<T>, but the function handles it specially

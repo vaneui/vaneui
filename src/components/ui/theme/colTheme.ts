@@ -30,5 +30,6 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme<ColProps>>(
   {
     md: true,
     transparent: true,
+    gap: true,
   }
 );

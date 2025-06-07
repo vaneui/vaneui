@@ -37,7 +37,7 @@ export async function CodeBlockRenderer({ code, language }: CodeBlockRendererPro
   );
 
   return (
-    <Row noGap className="overflow-auto">
+    <Row noGap flexNoWrap className="overflow-auto">
       {/* Line numbers column */}
       <Col>
         <pre className="m-0 py-4 pl-6 pr-2 overflow-visible">

@@ -47,5 +47,6 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
     md: true,
     transparent: true,
     itemsStart: true,
+    gap: true,
   }
 );

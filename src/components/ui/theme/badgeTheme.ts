@@ -11,6 +11,15 @@ import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { VariantTheme } from "./appearance/variantTheme";
+import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import {
+  activeBackgroundAppearanceClasses,
+  backgroundAppearanceClasses,
+  filledActiveBackgroundAppearanceClasses,
+  filledBackgroundAppearanceClasses,
+  filledHoverBackgroundAppearanceClasses,
+  hoverBackgroundAppearanceClasses
+} from "../classes/appearanceClasses";
 
 export interface BadgeTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -45,7 +54,14 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
       shadow: new ShadowTheme(),
     },
     appearance: {
-      background: VariantTheme.createDefaultBackground(),
+      background: VariantTheme.createDefault({
+        outline: TextAppearanceTheme.createDefaultStyle({
+          base: backgroundAppearanceClasses,
+        }),
+        filled: TextAppearanceTheme.createDefaultStyle({
+          base: filledBackgroundAppearanceClasses,
+        })
+      }),
       text: VariantTheme.createDefaultText(),
       border: VariantTheme.createDefaultBorder(),
       ring: VariantTheme.createDefaultRing(),
@@ -66,5 +82,8 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
     uppercase: true,
     noShadow: true,
     itemsCenter: true,
+    padding: true,
+    gap: true,
+    ring: true,
   }
 );

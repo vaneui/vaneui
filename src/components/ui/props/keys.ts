@@ -84,6 +84,8 @@ export const BUTTON_KEYS = [
   ...BORDER_KEYS,
   ...SHADOW_KEYS,
   ...RING_KEYS,
+  ...GAP_KEYS,
+  ...PADDING_KEYS,
   ...VARIANT_KEYS,
   ...ITEMS_KEYS,
   ...APPEARANCE_KEYS
@@ -166,6 +168,8 @@ export const BADGE_KEYS = [
   ...BORDER_KEYS,
   ...RING_KEYS,
   ...ITEMS_KEYS,
+  ...GAP_KEYS,
+  ...PADDING_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
 export type BadgeKey = typeof BADGE_KEYS[number];
@@ -179,6 +183,8 @@ export const CHIP_KEYS = [
   ...BORDER_KEYS,
   ...RING_KEYS,
   ...ITEMS_KEYS,
+  ...GAP_KEYS,
+  ...PADDING_KEYS,
   ...APPEARANCE_KEYS
 ] as const;
 export type ChipKey = typeof CHIP_KEYS[number];
@@ -201,6 +207,7 @@ export const CONTAINER_KEYS = [
   ...BORDER_KEYS,
   ...SHADOW_KEYS,
   ...RING_KEYS,
+  ...GAP_KEYS,
   ...VARIANT_KEYS
 ] as const;
 export type ContainerKey = typeof CONTAINER_KEYS[number];

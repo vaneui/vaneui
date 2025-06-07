@@ -11,6 +11,7 @@ export interface GridTheme<P> extends BaseComponentTheme<P> {
 
 const gridDefaults: Partial<GridProps> = {
   md: true,
+  gap: true,
 };
 
 const gridSubThemes = {

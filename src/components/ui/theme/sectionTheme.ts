@@ -60,5 +60,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
     md: true,
     default: true,
     itemsStart: true,
+    gap: true,
+    padding: true,
   }
 );
