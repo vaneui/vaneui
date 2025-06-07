@@ -64,7 +64,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
     layout: {
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: new RadiusTheme(roundedMap),
+      radius: new RadiusTheme({rounded: roundedMap}),
     },
   },
   {

@@ -64,7 +64,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme<CardProp
     },
     layout: {
       border: new BorderTheme(),
-      radius: new RadiusTheme(roundedMap),
+      radius: new RadiusTheme({rounded: roundedMap}),
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
     },

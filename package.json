@@ -43,7 +43,8 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "build:js": "npm run clean && rollup -c --bundleConfigAsCjs",
+    "type-check": "tsc --noEmit",
+    "build:js": "npm run type-check && npm run clean && rollup -c --bundleConfigAsCjs",
     "build:css:all": "npx @tailwindcss/cli -i ./src/components/index.css -o ./dist/all.css",
     "build:css:theme": "npx @tailwindcss/cli -i ./src/components/theme/vars.css -o ./dist/vars.css",
     "build:css:ui": "npx @tailwindcss/cli -i ./src/components/ui/index.css -o ./dist/ui.css",
@@ -52,7 +53,7 @@
     "watch:css:theme": "npx @tailwindcss/cli --watch -i ./src/components/theme/vars.css -o ./dist/vars.css",
     "watch:css:ui": "npx @tailwindcss/cli --watch -i ./src/components/ui/index.css -o ./dist/ui.css",
     "watch:css:complex": "npx @tailwindcss/cli --watch -i ./src/components/complex/index.css -o ./dist/complex.css",
-    "build": "npm run clean && npm run build:js && npm run build:css:all && npm run build:css:theme && npm run build:css:ui && npm run build:css:complex",
+    "build": "npm run type-check && npm run clean && npm run build:js && npm run build:css:all && npm run build:css:theme && npm run build:css:ui && npm run build:css:complex",
     "watch": "npm run clean && concurrently \"rollup -c --bundleConfigAsCjs -w\" \"npm run watch:css:all\" \"npm run watch:css:theme\" \"npm run watch:css:ui\" \"npm run watch:css:complex\"",
     "prepublishOnly": "npm run build",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"

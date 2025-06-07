@@ -63,7 +63,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
     layout: {
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: new RadiusTheme(roundedMap),
+      radius: new RadiusTheme({rounded: roundedMap}),
     },
   },
   {

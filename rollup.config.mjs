@@ -28,7 +28,11 @@ export default [
       peerDepsExternal(),
       resolve(),
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.json" }),
+      typescript({ 
+        tsconfig: "./tsconfig.json",
+        check: true,
+        abortOnError: true
+      }),
     ],
   },
   {
@@ -44,7 +48,11 @@ export default [
       peerDepsExternal(),
       resolve(),
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.complex.json" }),
+      typescript({ 
+        tsconfig: "./tsconfig.complex.json",
+        check: true,
+        abortOnError: true
+      }),
     ],
   },
   {
@@ -61,7 +69,11 @@ export default [
       peerDepsExternal(),
       resolve(),
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.theme.json" }),
+      typescript({ 
+        tsconfig: "./tsconfig.theme.json",
+        check: true,
+        abortOnError: true
+      }),
     ],
   },
 ];
