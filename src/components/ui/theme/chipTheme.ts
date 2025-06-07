@@ -9,17 +9,6 @@ import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { VariantTheme } from "./appearance/variantTheme";
-import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
-import {
-  activeBackgroundAppearanceClasses,
-  backgroundAppearanceClasses,
-  borderAppearanceClasses, filledActiveBackgroundAppearanceClasses,
-  filledBackgroundAppearanceClasses, filledBorderAppearanceClasses,
-  filledHoverBackgroundAppearanceClasses, filledRingAppearanceClasses,
-  hoverBackgroundAppearanceClasses,
-  ringAppearanceClasses
-} from "../classes/appearanceClasses";
-import { filledTextAppearanceClasses, textAppearanceClasses } from "../classes/typographyClasses";
 
 export interface ChipTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -48,18 +37,22 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProp
   {
     size: {
       px: new PxTheme({
-        xs: 'px-2',
-        sm: 'px-2.5',
-        md: 'px-3.5',
-        lg: 'px-5',
-        xl: 'px-6',
+        padding: {
+          xs: 'px-2',
+          sm: 'px-2.5',
+          md: 'px-3.5',
+          lg: 'px-5',
+          xl: 'px-6',
+        }
       }),
       py: new PyTheme({
-        xs: 'py-1',
-        sm: 'py-1.5',
-        md: 'py-2',
-        lg: 'py-3',
-        xl: 'py-4',
+        padding: {
+          xs: 'py-1',
+          sm: 'py-1.5',
+          md: 'py-2',
+          lg: 'py-3',
+          xl: 'py-4',
+        }
       }),
       text: new SizeTheme({
         xs: 'text-xs',
@@ -69,11 +62,13 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProp
         xl: 'text-base',
       }),
       gap: new GapTheme({
-        xs: 'gap-1',
-        sm: 'gap-1.5',
-        md: 'gap-2',
-        lg: 'gap-2.5',
-        xl: 'gap-3',
+        gap: {
+          xs: 'gap-1',
+          sm: 'gap-1.5',
+          md: 'gap-2',
+          lg: 'gap-2.5',
+          xl: 'gap-3',
+        }
       }),
       shadow: new ShadowTheme(),
     },

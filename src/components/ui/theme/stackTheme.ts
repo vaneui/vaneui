@@ -24,25 +24,31 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme<Stack
   {
     size: {
       px: new PxTheme({
-        xs: 'px-2',
-        sm: 'px-3',
-        md: 'px-4',
-        lg: 'px-5',
-        xl: 'px-6',
+        padding: {
+          xs: 'px-2',
+          sm: 'px-3',
+          md: 'px-4',
+          lg: 'px-5',
+          xl: 'px-6',
+        }
       }),
       py: new PyTheme({
-        xs: 'py-2',
-        sm: 'py-3',
-        md: 'py-4',
-        lg: 'py-5',
-        xl: 'py-6',
+        padding: {
+          xs: 'py-2',
+          sm: 'py-3',
+          md: 'py-4',
+          lg: 'py-5',
+          xl: 'py-6',
+        }
       }),
       gap: new GapTheme({
-        xs: 'gap-2',
-        sm: 'gap-3',
-        md: 'gap-4',
-        lg: 'gap-5',
-        xl: 'gap-6',
+        gap: {
+          xs: 'gap-2',
+          sm: 'gap-3',
+          md: 'gap-4',
+          lg: 'gap-5',
+          xl: 'gap-6',
+        }
       }),
     },
     layout: {

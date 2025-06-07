@@ -12,7 +12,7 @@ export class PxTheme extends BaseTheme {
     noPadding: "px-0"
   };
 
-  constructor(initial?: Record<PaddingKey, string | Record<SizeKey, string>>) {
+  constructor(initial?: Partial<Record<PaddingKey, string | Record<SizeKey, string>>>) {
     super();
     PADDING_KEYS.forEach((key) => {
       this[key] = initial?.[key] ?? PxTheme.defaultClasses[key];

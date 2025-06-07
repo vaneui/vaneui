@@ -24,25 +24,31 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   {
     size: {
       px: new PxTheme({
-        xs: 'px-5 max-lg:px-4 max-md:px-3',
-        sm: 'px-6 max-lg:px-5 max-md:px-4',
-        md: 'px-7 max-lg:px-6 max-md:px-5',
-        lg: 'px-8 max-lg:px-7 max-md:px-6',
-        xl: 'px-9 max-lg:px-8 max-md:px-7',
+        padding: {
+          xs: 'px-5 max-lg:px-4 max-md:px-3',
+          sm: 'px-6 max-lg:px-5 max-md:px-4',
+          md: 'px-7 max-lg:px-6 max-md:px-5',
+          lg: 'px-8 max-lg:px-7 max-md:px-6',
+          xl: 'px-9 max-lg:px-8 max-md:px-7',
+        }
       }),
       py: new PyTheme({
-        xs: 'py-3',
-        sm: 'py-5',
-        md: 'py-8 max-md:py-5',
-        lg: 'py-16 max-lg:py-14 max-md:py-12',
-        xl: 'py-20 max-lg:py-16 max-md:py-12',
+        padding: {
+          xs: 'py-3',
+          sm: 'py-5',
+          md: 'py-8 max-md:py-5',
+          lg: 'py-16 max-lg:py-14 max-md:py-12',
+          xl: 'py-20 max-lg:py-16 max-md:py-12',
+        }
       }),
       gap: new GapTheme({
-        xs: 'gap-2',
-        sm: 'gap-4',
-        md: 'gap-6',
-        lg: 'gap-12',
-        xl: 'gap-16',
+        gap: {
+          xs: 'gap-2',
+          sm: 'gap-4',
+          md: 'gap-6',
+          lg: 'gap-12',
+          xl: 'gap-16',
+        }
       }),
     },
     layout: {

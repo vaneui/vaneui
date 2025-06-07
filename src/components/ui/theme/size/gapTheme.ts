@@ -24,7 +24,7 @@ export class GapTheme extends BaseTheme {
     noGap: "gap-0"
   };
 
-  constructor(initial?: Record<GapKey, string | Record<SizeKey, string>>) {
+  constructor(initial?: Partial<Record<GapKey, string | Record<SizeKey, string>>>) {
     super();
     GAP_KEYS.forEach((key) => {
       this[key] = initial?.[key] ?? GapTheme.defaultClasses[key];

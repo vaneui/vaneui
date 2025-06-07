@@ -46,20 +46,24 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme<CardProp
   {
     size: {
       px: new PxTheme({
-        xs: 'px-3',
-        sm: 'px-4',
-        md: 'px-5',
-        lg: 'px-6',
-        xl: 'px-8',
+        padding: {
+          xs: 'px-3',
+          sm: 'px-4',
+          md: 'px-5',
+          lg: 'px-6',
+          xl: 'px-8',
+        }
       }),
       py: new PyTheme({
-        xs: 'py-2',
-        sm: 'py-3',
-        md: 'py-4',
-        lg: 'py-5',
-        xl: 'py-6',
+        padding: {
+          xs: 'py-2',
+          sm: 'py-3',
+          md: 'py-4',
+          lg: 'py-5',
+          xl: 'py-6',
+        }
       }),
-      gap: new GapTheme(commonGaps),
+      gap: new GapTheme({gap: commonGaps}),
       shadow: new ShadowTheme(),
     },
     layout: {

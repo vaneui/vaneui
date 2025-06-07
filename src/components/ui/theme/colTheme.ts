@@ -20,7 +20,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme<ColProps>>(
   "flex flex-col",
   {
     size: {
-      gap: new GapTheme(commonGaps),
+      gap: new GapTheme({gap: commonGaps}),
     },
     layout: {
       wrap: new WrapTheme(),

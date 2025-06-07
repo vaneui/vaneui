@@ -18,7 +18,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme<RowProps>>(
   "flex flex-row",
   {
     size: {
-      gap: new GapTheme(commonGaps),
+      gap: new GapTheme({gap: commonGaps}),
     },
     layout: {
       wrap: new WrapTheme(),

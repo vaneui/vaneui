@@ -15,7 +15,7 @@ const gridDefaults: Partial<GridProps> = {
 
 const gridSubThemes = {
   size: {
-    gap: new GapTheme(gridGaps),
+    gap: new GapTheme({gap: gridGaps}),
   },
 };
 
