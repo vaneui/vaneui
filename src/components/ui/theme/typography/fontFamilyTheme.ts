@@ -3,13 +3,20 @@ import { fontFamilyClasses } from "../../classes/typographyClasses";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
+export interface FontFamilyTheme extends Record<FontFamilyKey, string> {}
+
 export class FontFamilyTheme extends BaseTheme {
-  constructor(private classes: Record<FontFamilyKey, string> = fontFamilyClasses) {
+  public static readonly defaultClasses: Record<FontFamilyKey, string> = fontFamilyClasses;
+
+  constructor(initial?: Partial<Record<FontFamilyKey, string>>) {
     super();
+    FONT_FAMILY_KEYS.forEach((key) => {
+      this[key] = initial?.[key] ?? FontFamilyTheme.defaultClasses[key];
+    });
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const key = pickKey(props, defaults, FONT_FAMILY_KEYS);
-    return [this.classes[key ?? 'sans']];
+    return [this[key ?? 'sans'] || ''];
   }
 }
