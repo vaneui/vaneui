@@ -1,4 +1,5 @@
 import { DeepPartial } from "./deepPartial";
+import { EXCLUSIVE_KEY_GROUPS } from "../ui/props/keys";
 
 const isObject = (item: unknown): item is Record<string, any> => {
   return item !== null && typeof item === 'object' && !Array.isArray(item);
@@ -19,12 +20,26 @@ export const deepMerge = <T extends object>(
         continue;
       }
 
-      if (isObject(targetValue) && isObject(sourceValue)) {
+      // Special case: If the key is 'defaults', use the contextual mergeDefaults function.
+      if (
+        key === 'defaults' &&
+        isObject(targetValue) &&
+        isObject(sourceValue)
+      ) {
+        output[key] = mergeDefaults(
+          targetValue as Record<string, boolean>,
+          sourceValue as Record<string, boolean>
+        );
+      }
+      // For all other objects, use the standard recursive deep merge.
+      else if (isObject(targetValue) && isObject(sourceValue)) {
         output[key] = deepMerge(
           targetValue,
           sourceValue as DeepPartial<typeof targetValue>
         );
-      } else {
+      }
+      // For non-object values, just assign the value from the source.
+      else {
         output[key] = sourceValue;
       }
     }
@@ -48,3 +63,40 @@ export const deepClone = <T extends object>(source: T): T => {
 
   return output;
 }
+
+const findGroup = (key: string) =>
+  EXCLUSIVE_KEY_GROUPS.find(group => (group as readonly string[]).includes(key));
+
+export const mergeDefaults = (
+  baseDefaults: Record<string, boolean>,
+  overrideDefaults: Record<string, boolean>
+): Record<string, boolean> => {
+  const finalDefaults = {...baseDefaults};
+
+  // Iterate over the override keys to apply them.
+  for (const key in overrideDefaults) {
+    if (Object.prototype.hasOwnProperty.call(overrideDefaults, key)) {
+      const overrideValue = overrideDefaults[key];
+
+      // If the override is setting a key to true...
+      if (overrideValue) {
+        // Find the exclusive group this key belongs to (e.g., SIZE_KEYS).
+        const group = findGroup(key);
+
+        // If the key is part of an exclusive group...
+        if (group) {
+          // ...set all other keys in that group to false.
+          group.forEach(groupKey => {
+            if (groupKey !== key) {
+              finalDefaults[groupKey] = false;
+            }
+          });
+        }
+      }
+
+      finalDefaults[key] = overrideValue;
+    }
+  }
+
+  return finalDefaults;
+};

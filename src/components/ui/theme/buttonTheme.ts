@@ -68,5 +68,6 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
     gap: true,
     padding: true,
     ring: true,
+    shadow: true,
   }
 );

@@ -46,6 +46,8 @@ const customTheme: PartialTheme = {
 
 const overrideFunc = (theme: ThemeProps) => {
   theme.button.themes.appearance.text.outline.default.base = 'text-blue-500';
+  theme.button.themes.appearance.text.outline.default.hover = 'hover:text-blue-700';
+  theme.button.themes.appearance.text.outline.default.active = 'active:text-blue-900';
   return theme;
 };
 

@@ -27,6 +27,34 @@ export const ITEMS_KEYS = ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseli
 export const JUSTIFY_KEYS = ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const;
 export const WRAP_KEYS = ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const;
 
+// A master list of all groups where only one key can be 'true' at a time.
+export const EXCLUSIVE_KEY_GROUPS = [
+  MODE_KEYS,
+  SIZE_KEYS,
+  TEXT_APPEARANCE_KEYS,
+  VARIANT_KEYS,
+  FONT_FAMILY_KEYS,
+  FONT_WEIGHT_KEYS,
+  FONT_STYLE_KEYS,
+  TEXT_DECORATION_KEYS,
+  TEXT_TRANSFORM_KEYS,
+  TEXT_ALIGN_KEYS,
+  BORDER_KEYS,
+  SHADOW_KEYS,
+  RING_KEYS,
+  PADDING_KEYS,
+  BREAKPOINT_KEYS,
+  HIDE_KEYS,
+  POSITION_KEYS,
+  DIRECTION_REVERSE_KEYS,
+  GAP_KEYS,
+  SHAPE_KEYS,
+  FLEX_DIRECTION_KEYS,
+  ITEMS_KEYS,
+  JUSTIFY_KEYS,
+  WRAP_KEYS,
+];
+
 export type ModeKey = typeof MODE_KEYS[number];
 export type SizeKey = typeof SIZE_KEYS[number];
 export type RingKey = typeof RING_KEYS[number];
