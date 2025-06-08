@@ -9,6 +9,8 @@ import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { VariantTheme } from "./appearance/variantTheme";
+import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { backgroundAppearanceClasses, filledBackgroundAppearanceClasses } from "../classes/appearanceClasses";
 
 export interface ChipTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -73,7 +75,14 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProp
       shadow: new ShadowTheme(),
     },
     appearance: {
-      background: VariantTheme.createDefaultBackground(),
+      background: VariantTheme.createDefault({
+        outline: TextAppearanceTheme.createDefaultStyle({
+          base: backgroundAppearanceClasses,
+        }),
+        filled: TextAppearanceTheme.createDefaultStyle({
+          base: filledBackgroundAppearanceClasses,
+        })
+      }),
       text: VariantTheme.createDefaultText(),
       border: VariantTheme.createDefaultBorder(),
       ring: VariantTheme.createDefaultRing(),
