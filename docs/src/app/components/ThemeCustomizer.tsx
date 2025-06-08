@@ -21,12 +21,20 @@ const customTheme: PartialTheme = {
         ring: {
           outline: {
             default: {
-              base: 'ring-2',
-              active: 'active:ring-3',
+              base: 'ring-green-300',
+              active: 'active:ring-green-500',
             }
           }
         }
       },
+      layout: {
+        border: {
+          border: {
+            base: 'ring-2',
+            active: 'active:ring-3',
+          }
+        }
+      }
     },
     defaults: {
       normal: true,
@@ -37,7 +45,7 @@ const customTheme: PartialTheme = {
 };
 
 const overrideFunc = (theme: ThemeProps) => {
-  //theme.button.themes.appearance.text.outline.default.base = 'text-blue-500';
+  theme.button.themes.appearance.text.outline.default.base = 'text-blue-500';
   return theme;
 };
 
@@ -75,7 +83,7 @@ export const ThemeCustomizer: React.FC = () => {
 
         {/* Wrap buttons with ThemeProvider using the appropriate theme */}
         <ThemeProvider theme={useCustomTheme ? customTheme : {}}
-                       //themeOverride={useCustomTheme ? overrideFunc : undefined}
+                       themeOverride={useCustomTheme ? overrideFunc : undefined}
         >
           <Row>
             <Button>Default Button</Button>
