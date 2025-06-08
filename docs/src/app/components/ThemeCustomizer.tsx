@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import {
   Button, Card, Title, Text, Row, Stack, ThemeProvider, PartialTheme
 } from '@vaneui/ui';
+import { ThemeProps } from "../../../../src";
 
 const customTheme: PartialTheme = {
   button: {
@@ -12,11 +13,19 @@ const customTheme: PartialTheme = {
         text: {
           outline: {
             default: {
-              base: 'text-gray-400',
-              hover: 'text-gray-600',
+              hover: 'hover:text-gray-800',
+              active: 'active:text-gray-400',
             }
           }
         },
+        ring: {
+          outline: {
+            default: {
+              base: 'ring-2',
+              active: 'active:ring-3',
+            }
+          }
+        }
       },
     },
     defaults: {
@@ -25,6 +34,11 @@ const customTheme: PartialTheme = {
       pill: true,
     }
   }
+};
+
+const overrideFunc = (theme: ThemeProps) => {
+  //theme.button.themes.appearance.text.outline.default.base = 'text-blue-500';
+  return theme;
 };
 
 export const ThemeCustomizer: React.FC = () => {
@@ -60,7 +74,9 @@ export const ThemeCustomizer: React.FC = () => {
         </Row>
 
         {/* Wrap buttons with ThemeProvider using the appropriate theme */}
-        <ThemeProvider theme={useCustomTheme ? customTheme : {}}>
+        <ThemeProvider theme={useCustomTheme ? customTheme : {}}
+                       //themeOverride={useCustomTheme ? overrideFunc : undefined}
+        >
           <Row>
             <Button>Default Button</Button>
             <Button filled>Filled Button</Button>

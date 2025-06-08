@@ -32,3 +32,19 @@ export const deepMerge = <T extends object>(
 
   return output;
 };
+
+export const deepClone = <T extends object>(source: T): T => {
+  if (!isObject(source)) {
+    return source;
+  }
+
+  const output = Object.assign(Object.create(Object.getPrototypeOf(source)), source);
+
+  for (const key in output) {
+    if (Object.prototype.hasOwnProperty.call(output, key)) {
+      output[key] = deepClone(output[key]);
+    }
+  }
+
+  return output;
+}
