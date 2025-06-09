@@ -19,6 +19,7 @@ import {
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { LayoutAppearanceTheme } from "./appearance/layoutAppearanceTheme";
 import { BreakpointTheme } from "./size/breakpointTheme";
+import { RingTheme } from "./layout/ringTheme";
 
 export interface CardTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -30,6 +31,7 @@ export interface CardTheme<P> extends BaseComponentTheme<P> {
   layout: DefaultLayoutThemes<P> & {
     border: BorderTheme;
     radius: RadiusTheme;
+    ring: RingTheme;
     wrap: WrapTheme;
     direction: DirectionTheme;
     breakpoint: BreakpointTheme;
@@ -70,6 +72,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme<CardProp
     },
     layout: {
       border: new BorderTheme(),
+      ring: new RingTheme(),
       radius: new RadiusTheme({rounded: roundedMap}),
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
@@ -90,7 +93,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme<CardProp
     rounded: true,
     normal: true,
     column: true,
-    noBorder: true,
+    border: true,
     gap: true,
     padding: true,
   }

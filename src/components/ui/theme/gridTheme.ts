@@ -1,4 +1,4 @@
-import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme } from "./common/ComponentTheme";
 import { GridProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { gridGaps } from "../classes/spacingClasses";

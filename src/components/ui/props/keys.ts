@@ -162,6 +162,7 @@ export const CARD_KEYS = [
   ...BREAKPOINT_KEYS,
   ...APPEARANCE_KEYS,
   ...BORDER_KEYS,
+  ...RING_KEYS,
   ...SHADOW_KEYS,
   ...PADDING_KEYS,
   ...FLEX_DIRECTION_KEYS,
@@ -220,10 +221,7 @@ export type ChipKey = typeof CHIP_KEYS[number];
 // Divider keys
 export const DIVIDER_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...BORDER_KEYS,
-  ...SHADOW_KEYS,
-  ...RING_KEYS,
-  ...VARIANT_KEYS
+  ...APPEARANCE_KEYS
 ] as const;
 export type DividerKey = typeof DIVIDER_KEYS[number];
 
@@ -236,7 +234,6 @@ export const CONTAINER_KEYS = [
   ...SHADOW_KEYS,
   ...RING_KEYS,
   ...GAP_KEYS,
-  ...VARIANT_KEYS
 ] as const;
 export type ContainerKey = typeof CONTAINER_KEYS[number];
 

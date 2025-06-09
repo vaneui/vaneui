@@ -18,7 +18,7 @@ export async function CodeBlock({ code, language, className = '', fileName = '' 
       <Stack xs row justifyBetween className="border-b">
         <CodeBlockActions code={code} fileName={fileName} />
       </Stack>
-      <Stack xs secondary>
+      <Stack xs noPadding className="overflow-x-auto">
         <Card noPadding noBorder xs>
           <CodeBlockRenderer code={code} language={language} />
         </Card>

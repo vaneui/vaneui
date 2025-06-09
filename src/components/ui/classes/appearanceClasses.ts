@@ -96,7 +96,6 @@ export const activeBackgroundAppearanceClasses: Record<TextAppearanceKey, string
   link: "active:bg-(--background-color-active-link)",
 }
 
-//TODO: use the classes
 export const layoutBackgroundAppearanceClasses: Record<AppearanceKey, string> = {
   default: "bg-(--layout-background-default)",
   primary: "bg-(--layout-background-primary)",
@@ -108,6 +107,21 @@ export const layoutBackgroundAppearanceClasses: Record<AppearanceKey, string> = 
   warning: "bg-(--layout-background-warning)",
   info: "bg-(--layout-background-info)",
   transparent: "bg-transparent",
+}
+
+export const dividerAppearanceClasses: Record<TextAppearanceKey, string> = {
+  default: "bg-(--border-color-default)",
+  primary: "bg-(--border-color-primary)",
+  secondary: "bg-(--border-color-secondary)",
+  tertiary: "bg-(--border-color-tertiary)",
+  accent: "bg-(--border-color-accent)",
+  success: "bg-(--border-color-success)",
+  danger: "bg-(--border-color-danger)",
+  warning: "bg-(--border-color-warning)",
+  info: "bg-(--border-color-info)",
+  transparent: "bg-transparent",
+  muted: "bg-(--border-color-muted)",
+  link: "bg-(--border-color-link)",
 }
 
 export const borderAppearanceClasses: Record<TextAppearanceKey, string> = {

@@ -13,12 +13,8 @@ import { PyTheme } from "./size/pyTheme";
 import { VariantTheme } from "./appearance/variantTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import {
-  activeBackgroundAppearanceClasses,
   backgroundAppearanceClasses,
-  filledActiveBackgroundAppearanceClasses,
   filledBackgroundAppearanceClasses,
-  filledHoverBackgroundAppearanceClasses,
-  hoverBackgroundAppearanceClasses
 } from "../classes/appearanceClasses";
 
 export interface BadgeTheme<P> extends BaseComponentTheme<P> {
@@ -50,7 +46,13 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
       px: new PxTheme({padding: pxMap}),
       py: new PyTheme({padding: pyMap}),
       gap: new GapTheme({gap: gapMap}),
-      text: new SizeTheme(textSizeClasses),
+      text: new SizeTheme({
+        xs: 'text-xs/5',
+        sm: 'text-sm/5',
+        md: 'text-base',
+        lg: 'text-lg/6',
+        xl: 'text-xl/6',
+      }),
       shadow: new ShadowTheme(),
     },
     appearance: {
@@ -75,7 +77,6 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
   {
     md: true,
     outline: true,
-    secondary: true,
     pill: true,
     sans: true,
     semibold: true,

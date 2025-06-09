@@ -13,18 +13,20 @@ import { TextTransformTheme } from "../typography/textTransformTheme";
 import { TextAlignTheme } from "../typography/textAlignTheme";
 import { DeepPartial } from "../../../utils/deepPartial";
 
-export interface ThemeMap<P> {
-  [key: string]: BaseTheme | ThemeMap<P> | string;
-}
+type ThemeNode<P> = BaseTheme | ThemeMap<P>;
 
-export interface DefaultLayoutThemes<P> extends ThemeMap<P> {
+export type ThemeMap<P> = {
+  [key: string]: ThemeNode<P>;
+};
+
+export interface DefaultLayoutThemes<P> {
   hide: HideTheme;
   items: ItemsTheme;
   justify: JustifyTheme;
   position: PositionTheme;
 }
 
-export interface DefaultTypographyThemes<P> extends ThemeMap<P> {
+export interface DefaultTypographyThemes<P> {
   fontFamily: FontFamilyTheme;
   fontWeight: FontWeightTheme;
   fontStyle: FontStyleTheme;
@@ -33,14 +35,14 @@ export interface DefaultTypographyThemes<P> extends ThemeMap<P> {
   textAlign: TextAlignTheme;
 }
 
-export interface BaseComponentTheme<P> extends ThemeMap<P> {
+export interface BaseComponentTheme<P> {
   layout: DefaultLayoutThemes<P>;
   typography: DefaultTypographyThemes<P>;
 }
 
 export class ComponentTheme<
   P extends object,
-  TThemes extends ThemeMap<P>
+  TThemes extends object
 > {
   readonly tag: React.ElementType;
   readonly base: string;
@@ -85,18 +87,14 @@ export class ComponentTheme<
       classes.push(...this.base.split(/\s+/));
     }
 
-    const walk = (map: ThemeMap<P>) => {
-      for (const key in map) {
-        const node = map[key];
+    const walk = (map: object) => {
+      for (const key of Object.keys(map)) {
+        const node = (map as ThemeMap<P>)[key];
 
-        if (typeof node === "string") {
-          classes.push(...node.split(/\s+/).filter(Boolean));
-
-        } else if (node instanceof BaseTheme) {
+        if (node instanceof BaseTheme) {
           classes.push(...node.getClasses(user, defs));
-
-        } else if (node && typeof node === "object") {
-          walk(node as ThemeMap<P>);
+        } else if (node && typeof node === "object" && !Array.isArray(node)) {
+          walk(node);
         }
       }
     };

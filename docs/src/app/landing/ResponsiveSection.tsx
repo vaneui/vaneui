@@ -1,9 +1,9 @@
-import { 
-  Text, 
-  Section, 
-  Container, 
-  Col, 
-  SectionTitle, 
+import {
+  Text,
+  Section,
+  Container,
+  Col,
+  SectionTitle,
   Row,
   Title
 } from '@vaneui/ui';
@@ -12,9 +12,9 @@ import { CodeBlock } from "../components/CodeBlock";
 export function ResponsiveSection() {
   return (
     <Section className="py-20">
-      <Container xl>
+      <Container xl itemsCenter>
         <Row>
-          <Col md className="order-2 md:order-1">
+          <Col md justifyCenter>
             <CodeBlock
               fileName="ResponsiveExample.tsx"
               language="tsx"
@@ -48,8 +48,10 @@ function ResponsiveLayout() {
 
           <Col md className="order-1 md:order-2 mb-6 md:mb-0">
             <SectionTitle>Responsive Design Built In</SectionTitle>
-            <Text lg className="mb-4">Build interfaces that look great on any device with VaneUI's responsive components.</Text>
-            <Text className="mb-6">Every component in VaneUI is designed with responsiveness in mind. Our grid system based on Row and Col components makes building responsive layouts intuitive.</Text>
+            <Text lg className="mb-4">Build interfaces that look great on any device with VaneUI's responsive
+              components.</Text>
+            <Text className="mb-6">Every component in VaneUI is designed with responsiveness in mind. Our grid system
+              based on Row and Col components makes building responsive layouts intuitive.</Text>
 
             <div className="p-4 border border-indigo-200 rounded-lg bg-indigo-50 mb-6">
               <Title sm className="text-indigo-700 mb-2">Responsive Breakpoints:</Title>

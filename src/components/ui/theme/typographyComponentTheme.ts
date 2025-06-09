@@ -2,7 +2,7 @@ import { SizeKey } from "../props/keys";
 import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
 import { TypographyComponentProps } from "../props/props";
 import React from "react";
-import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 
@@ -39,7 +39,6 @@ export const createTypographyComponentTheme = (
         text: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
       }
     },
-    // Use a type assertion to handle properties that expect string values, not boolean values
     defaults);
 };
 

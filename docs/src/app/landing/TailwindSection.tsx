@@ -18,7 +18,7 @@ import { CodeBlock } from "../components/CodeBlock";
 export function TailwindSection() {
   return (
     <Section secondary className="py-20 bg-[linear-gradient(to_right,var(--color-gray-100)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-100)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*6)_calc(var(--spacing)*6)]">
-      <Container primary xl className="p-8 rounded-2xl border">
+      <Container default xl border className="p-8 rounded-2xl">
         <Row xl lgCol>
           <Col md className="mb-6 md:mb-0">
             <SectionTitle>Powered by Tailwind CSS</SectionTitle>
@@ -53,7 +53,7 @@ export function TailwindSection() {
             </Row>
           </Col>
 
-          <Col md className="flex-1 -mr-[calc(var(--spacing)*16)] shadow-lg rounded-lg shadow-gray-100">
+          <Col md>
             <CodeBlock
               fileName="TailwindExample.tsx"
               language="tsx"

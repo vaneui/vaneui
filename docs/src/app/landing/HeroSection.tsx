@@ -37,7 +37,7 @@ export async function HeroSection() {
       <Container xs className="z-10">
         <Col xl itemsCenter>
           <Badge normalCase light>
-            <Image src={githubMark} alt="GitHub" className="h-5 w-5"/>
+            <Image src={githubMark} alt="GitHub" className="h-6 w-6"/>
             Open source components
           </Badge>
           <PageTitle xl sans textCenter medium>
@@ -62,7 +62,7 @@ export async function HeroSection() {
                   <Title>{dog.name}</Title>
                   <Chip sm bold>{dog.gender}</Chip>
                 </Row>
-                <Divider/>
+                <Divider />
                 <Text sm>{dog.description}</Text>
                 <Row justifyEnd>
                   <Button sm success filled>Adopt</Button>

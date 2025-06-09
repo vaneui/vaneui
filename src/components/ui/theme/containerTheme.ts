@@ -4,6 +4,16 @@ import { ContainerProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { WrapTheme } from "./layout/wrapTheme";
+import { BorderTheme } from "./layout/borderTheme";
+import { RingTheme } from "./layout/ringTheme";
+import { LayoutAppearanceTheme } from "./appearance/layoutAppearanceTheme";
+import {
+  borderAppearanceClasses,
+  layoutBackgroundAppearanceClasses,
+  ringAppearanceClasses
+} from "../classes/appearanceClasses";
+import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { textAppearanceClasses } from "../classes/typographyClasses";
 
 export interface ContainerTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -13,7 +23,15 @@ export interface ContainerTheme<P> extends BaseComponentTheme<P> {
   layout: DefaultLayoutThemes<P> & {
     wrap: WrapTheme;
     direction: DirectionTheme;
+    border: BorderTheme;
+    ring: RingTheme;
   };
+  appearance: {
+    background: LayoutAppearanceTheme;
+    text: TextAppearanceTheme;
+    border: TextAppearanceTheme;
+    ring: TextAppearanceTheme;
+  }
 }
 
 export const defaultContainerTheme = new ComponentTheme<ContainerProps, ContainerTheme<ContainerProps>>(
@@ -39,14 +57,24 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       }),
     },
     layout: {
+      border: new BorderTheme(),
+      ring: new RingTheme(),
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
     },
+    appearance: {
+      background: LayoutAppearanceTheme.createDefaultStyle({
+        base: layoutBackgroundAppearanceClasses,
+      }),
+      text: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
+      border: TextAppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
+      ring: TextAppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
+    }
   },
   {
-    md: true,
     transparent: true,
-    itemsStart: true,
+    md: true,
+    itemsCenter: true,
     gap: true,
   }
 );

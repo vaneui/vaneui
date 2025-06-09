@@ -31,7 +31,6 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme<RowProps>>(
     md: true,
     transparent: true,
     itemsCenter: true,
-    flexWrap: true,
     gap: true,
   }
 );

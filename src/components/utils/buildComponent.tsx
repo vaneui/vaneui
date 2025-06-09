@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import React, { useMemo } from "react";
-import { ComponentTheme, ThemeMap } from "../ui/theme/common/ComponentTheme";
+import { ComponentTheme } from "../ui/theme/common/ComponentTheme";
 import { TagProps } from "../ui/props/props";
 
 export interface BuildableComponentProps extends TagProps {
@@ -10,7 +10,7 @@ export interface BuildableComponentProps extends TagProps {
 
 export function buildComponent<
   P extends BuildableComponentProps,
-  TThemes extends ThemeMap<P>
+  TThemes extends object
 >(
   props: P,
   theme: ComponentTheme<P, TThemes>,
