@@ -1,14 +1,19 @@
 import { SizeKey, SIZE_KEYS, PADDING_KEYS, PaddingKey } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
-import { pyClasses } from "../../classes/spacingClasses";
 
 export interface PyTheme extends Record<PaddingKey, string | Record<SizeKey, string>> {
 }
 
 export class PyTheme extends BaseTheme {
   public static readonly defaultClasses: Record<PaddingKey, string | Record<SizeKey, string>> = {
-    padding: pyClasses,
+    padding: {
+      xs: "py-2",
+      sm: "py-4",
+      md: "py-6",
+      lg: "py-8",
+      xl: "py-10"
+    },
     noPadding: "py-0"
   };
 

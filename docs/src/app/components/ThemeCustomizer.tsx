@@ -60,8 +60,8 @@ export const ThemeCustomizer: React.FC = () => {
   };
 
   return (
-    <Card xl className="w-full">
-      <Stack md>
+    <Card className="w-full">
+      <Stack md noPadding>
         <Title>Theme Customization Demo</Title>
         <Text>
           This demonstrates the Global Configuration Provider using React Context.
@@ -70,7 +70,7 @@ export const ThemeCustomizer: React.FC = () => {
           classes.
         </Text>
 
-        <Row justifyBetween itemsCenter>
+        <Row justifyBetween itemsCenter mdCol>
           <Text semibold>
             {useCustomTheme ? 'Using Custom Theme' : 'Using Default Theme'}
           </Text>

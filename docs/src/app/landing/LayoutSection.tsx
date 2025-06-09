@@ -1,9 +1,9 @@
-import { 
-  Text, 
-  Section, 
-  Container, 
-  Col, 
-  SectionTitle, 
+import {
+  Text,
+  Section,
+  Container,
+  Col,
+  SectionTitle,
   Row,
   Title
 } from '@vaneui/ui';
@@ -13,14 +13,17 @@ export function LayoutSection() {
   return (
     <Section className="py-20 bg-gray-50">
       <Container xl>
-        <Row justifyCenter className="mb-12">
-          <Col md className="text-center">
+        <Row justifyCenter>
+          <Col md itemsCenter>
             <SectionTitle>Flexible Layout System</SectionTitle>
-            <Text lg>VaneUI's layout system is built around Row and Col components, making complex layouts simple and intuitive.</Text>
+            <Text lg textCenter>
+              VaneUI's layout system is built around Row and Col components, making complex layouts
+              simple and intuitive.
+            </Text>
           </Col>
         </Row>
 
-        <Row>
+        <Row lgCol className="w-full">
           <Col md className="mb-6 md:mb-0">
             <Title sm className="mb-4">Powerful Grid Features:</Title>
 
@@ -47,7 +50,7 @@ export function LayoutSection() {
             </div>
           </Col>
 
-          <Col md className="flex-1">
+          <Col md className="w-full">
             <CodeBlock
               fileName="LayoutExample.tsx"
               language="tsx"

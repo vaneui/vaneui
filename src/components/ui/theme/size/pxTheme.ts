@@ -1,14 +1,20 @@
 import { SizeKey, SIZE_KEYS, PADDING_KEYS, PaddingKey } from "../../props/keys";
 import { pickKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
-import { pxClasses } from "../../classes/spacingClasses";
+
 
 export interface PxTheme extends Record<PaddingKey, string | Record<SizeKey, string>> {
 }
 
 export class PxTheme extends BaseTheme {
   public static readonly defaultClasses: Record<PaddingKey, string | Record<SizeKey, string>> = {
-    padding: pxClasses,
+    padding: {
+      xs: "px-2",
+      sm: "px-4",
+      md: "px-6",
+      lg: "px-8",
+      xl: "px-10"
+    },
     noPadding: "px-0"
   };
 

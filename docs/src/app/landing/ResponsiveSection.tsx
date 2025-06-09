@@ -13,8 +13,8 @@ export function ResponsiveSection() {
   return (
     <Section className="py-20">
       <Container xl itemsCenter>
-        <Row>
-          <Col md justifyCenter>
+        <Row lgCol className="w-full">
+          <Col md justifyCenter className="w-full">
             <CodeBlock
               fileName="ResponsiveExample.tsx"
               language="tsx"

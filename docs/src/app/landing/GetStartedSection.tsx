@@ -13,8 +13,8 @@ export function GetStartedSection() {
   return (
     <Section primary>
       <Container xl itemsCenter>
-        <Row justifyCenter>
-          <Col lg itemsCenter>
+        <Row justifyCenter className="w-full">
+          <Col lg itemsCenter className="w-full">
             <SectionTitle>Ready to Get Started?</SectionTitle>
             <Text lg>VaneUI is easy to install and integrate into your React projects</Text>
 
@@ -28,9 +28,9 @@ npm install @vaneui/ui
 yarn add @vaneui/ui`}
             />
 
-            <Row lg>
-              <Button lg primary>Read the Documentation</Button>
-              <Button lg default>View on GitHub</Button>
+            <Row lg mdCol className="w-full">
+              <Button lg primary className="max-sm:w-full">Read the Documentation</Button>
+              <Button lg default className="max-sm:w-full">View on GitHub</Button>
             </Row>
           </Col>
         </Row>

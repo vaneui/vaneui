@@ -13,6 +13,7 @@ import {
   AdjustmentsHorizontalIcon,
   PuzzlePieceIcon
 } from "@heroicons/react/24/outline";
+
 export function FeaturesSection() {
   return (
     <Section className="py-20 z-10">

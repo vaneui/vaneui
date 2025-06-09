@@ -1,7 +1,6 @@
 import { BaseComponentTheme, ComponentTheme } from "./common/ComponentTheme";
 import { GridProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
-import { gridGaps } from "../classes/spacingClasses";
 
 export interface GridTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -16,7 +15,15 @@ const gridDefaults: Partial<GridProps> = {
 
 const gridSubThemes = {
   size: {
-    gap: new GapTheme({gap: gridGaps}),
+    gap: new GapTheme({
+      gap: {
+        xs: "gap-2",
+        sm: "gap-4  max-lg:gap-2",
+        md: "gap-6  max-lg:gap-4",
+        lg: "gap-8  max-lg:gap-6 max-md:gap-4",
+        xl: "gap-10 max-lg:gap-8 max-md:gap-6"
+      }
+    }),
   },
 };
 

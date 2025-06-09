@@ -13,7 +13,7 @@ export function ThemingSection() {
   return (
     <Section className="py-20">
       <Container xl>
-        <Row>
+        <Row lgCol className="w-full">
           <Col md className="mb-6 md:mb-0">
             <SectionTitle>CSS Variables & Theming</SectionTitle>
             <Text lg className="mb-4">VaneUI uses CSS variables for theming, making it easy to customize the look and feel of your application.</Text>
@@ -33,7 +33,7 @@ export function ThemingSection() {
             <Text>Change your entire design system by updating a few CSS variables!</Text>
           </Col>
 
-          <Col md className="flex-1">
+          <Col md className="w-full">
             <CodeBlock
               fileName="ThemeExample.css"
               language="css"
