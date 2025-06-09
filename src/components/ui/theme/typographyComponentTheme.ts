@@ -45,7 +45,7 @@ export const createTypographyComponentTheme = (
 // Page title specific theme
 export const pageTitleTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>> = createTypographyComponentTheme(
   "h1",
-  "text-balance tracking-tighter",
+  "text-balance tracking-tighter w-fit",
   {
     xs: "text-3xl max-lg:text-2xl max-md:text-xl",
     sm: "text-4xl max-lg:text-3xl max-md:text-2xl",
@@ -59,7 +59,7 @@ export const pageTitleTheme: ComponentTheme<TypographyComponentProps, Typography
 // Section title specific theme
 export const sectionTitleTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>> = createTypographyComponentTheme(
   "h2",
-  "text-balance",
+  "text-balance w-fit",
   {
     xs: "text-2xl max-lg:text-xl  max-md:text-lg",
     sm: "text-3xl max-lg:text-2xl max-md:text-xl",
@@ -73,7 +73,7 @@ export const sectionTitleTheme: ComponentTheme<TypographyComponentProps, Typogra
 // Title specific theme
 export const titleTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>> = createTypographyComponentTheme(
   "h3",
-  "text-balance",
+  "text-balance w-fit",
   {
     xs: "text-lg",
     sm: "text-xl",
@@ -87,7 +87,7 @@ export const titleTheme: ComponentTheme<TypographyComponentProps, TypographyComp
 // Text specific theme
 export const textTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>> = createTypographyComponentTheme(
   "p",
-  "p-0 m-0",
+  "p-0 m-0 w-fit",
   textSizeClasses,
   {...typographyThemeDefaults, secondary: true}
 );
@@ -95,18 +95,18 @@ export const textTheme: ComponentTheme<TypographyComponentProps, TypographyCompo
 // Link specific theme
 export const linkTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>> = createTypographyComponentTheme(
   "a",
-  "hover:underline",
+  "hover:underline w-fit",
   textSizeClasses,
   {...typographyThemeDefaults, link: true}
 );
 
 // List item specific theme
 export const listItemTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>> = createTypographyComponentTheme(
-  "li"
+  "li w-fit"
 );
 
 // List specific theme
 export const listTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>> = createTypographyComponentTheme(
-  "ul",
+  "ul w-fit",
   "list-disc list-inside"
 );

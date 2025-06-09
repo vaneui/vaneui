@@ -60,7 +60,7 @@ export const ThemeCustomizer: React.FC = () => {
   };
 
   return (
-    <Card xl>
+    <Card xl className="w-full">
       <Stack md>
         <Title>Theme Customization Demo</Title>
         <Text>
@@ -87,7 +87,7 @@ export const ThemeCustomizer: React.FC = () => {
         <ThemeProvider theme={useCustomTheme ? customTheme : {}}
                        themeOverride={useCustomTheme ? overrideFunc : undefined}
         >
-          <Row>
+          <Row flexWrap>
             <Button>Default Button</Button>
             <Button filled>Filled Button</Button>
             <Button sm outline>Outline Button Small</Button>

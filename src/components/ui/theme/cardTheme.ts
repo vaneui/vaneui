@@ -46,7 +46,7 @@ export interface CardTheme<P> extends BaseComponentTheme<P> {
 
 export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme<CardProps>>(
   "div",
-  "flex overflow-hidden",
+  "flex",
   {
     size: {
       px: new PxTheme({

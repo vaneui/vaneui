@@ -18,9 +18,9 @@ export function FeaturesSection() {
     <Section className="py-20 z-10">
       <Container xl>
         <Row justifyCenter className="mb-12">
-          <Col md className="text-center">
+          <Col md itemsCenter>
             <SectionTitle>Key Features</SectionTitle>
-            <Text lg>VaneUI combines the flexibility of Tailwind CSS with the structure of a component library, giving you the best of both worlds.</Text>
+            <Text lg className="text-center">VaneUI combines the flexibility of Tailwind CSS with the structure of a component library, giving you the best of both worlds.</Text>
           </Col>
         </Row>
         

@@ -17,34 +17,34 @@ import { CodeBlock } from "../components/CodeBlock";
 
 export function TailwindSection() {
   return (
-    <Section secondary className="py-20 bg-[linear-gradient(to_right,var(--color-gray-100)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-100)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*6)_calc(var(--spacing)*6)]">
-      <Container default xl border className="p-8 rounded-2xl">
-        <Row xl lgCol>
-          <Col md className="mb-6 md:mb-0">
+    <Section secondary className="py-20 w-full bg-[linear-gradient(to_right,var(--color-gray-100)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-gray-100)_1px,transparent_1px)] bg-[size:calc(var(--spacing)*6)_calc(var(--spacing)*6)]">
+      <Container default xl border className="p-8 rounded-2xl w-full">
+        <Row xl lgCol className="w-full">
+          <Col md className="w-full">
             <SectionTitle>Powered by Tailwind CSS</SectionTitle>
             <Text lg className="mb-4">VaneUI is built on top of Tailwind CSS, giving you all the utility-first power you love while adding a layer of component abstraction.</Text>
             <Text className="mb-6">Every VaneUI component accepts Tailwind classes, allowing you to customize and extend functionality without leaving the component ecosystem.</Text>
 
-            <Row className="gap-y-4">
-              <Col sm className="flex-1">
+            <Row flexWrap>
+              <Col sm>
                 <div className="flex items-center">
                   <CubeIcon className="w-5 h-5 text-indigo-500 mr-2" />
                   <Text semibold>Zero Config</Text>
                 </div>
               </Col>
-              <Col sm className="flex-1">
+              <Col sm>
                 <div className="flex items-center">
                   <SparklesIcon className="w-5 h-5 text-indigo-500 mr-2" />
                   <Text semibold>Utility Classes</Text>
                 </div>
               </Col>
-              <Col sm className="flex-1">
+              <Col sm>
                 <div className="flex items-center">
                   <ArrowsPointingOutIcon className="w-5 h-5 text-indigo-500 mr-2" />
                   <Text semibold>Responsive Design</Text>
                 </div>
               </Col>
-              <Col sm className="flex-1">
+              <Col sm>
                 <div className="flex items-center">
                   <SwatchIcon className="w-5 h-5 text-indigo-500 mr-2" />
                   <Text semibold>Visual Consistency</Text>
@@ -53,7 +53,7 @@ export function TailwindSection() {
             </Row>
           </Col>
 
-          <Col md>
+          <Col md className="w-full max-w-full">
             <CodeBlock
               fileName="TailwindExample.tsx"
               language="tsx"
