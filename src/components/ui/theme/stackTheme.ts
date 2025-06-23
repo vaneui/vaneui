@@ -5,6 +5,7 @@ import { StackProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
+import { commonGaps } from "../classes/spacingClasses";
 
 export interface StackTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -42,13 +43,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme<Stack
         }
       }),
       gap: new GapTheme({
-        gap: {
-          xs: 'gap-2',
-          sm: 'gap-3',
-          md: 'gap-4',
-          lg: 'gap-5',
-          xl: 'gap-6',
-        }
+        gap: commonGaps
       }),
     },
     layout: {

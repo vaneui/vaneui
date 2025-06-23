@@ -18,9 +18,9 @@ export function ComponentLayout({ children }: ComponentLayoutProps) {
       <Header />
       <Row secondary itemsStretch relative>
         <ComponentsNav currentPath={pathname} />
-        <Container primary lg className="pt-[calc(36px+(var(--spacing)*6))] border-x px-10">
+        <Container default lg className="pt-[calc(36px+(var(--spacing)*6))] border-x px-10">
           <Container sm>
-            <Col className="py-10">
+            <Col className="py-10 w-full">
               {children}
             </Col>
           </Container>

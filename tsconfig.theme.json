@@ -8,7 +8,5 @@
   },
   "include": [
     "src/components/theme/**/*",
-    "src/components/ui/settings/buttonSettings.ts",
-    "src/components/ui/classes/buttonClasses.ts"
   ]
 }

@@ -14,12 +14,12 @@ interface CodeBlockProps {
 
 export async function CodeBlock({ code, language, className = '', fileName = '' }: CodeBlockProps) {
   return (
-    <Card noGap noPadding lg className={`w-full ${className}`}>
-      <Stack xs row justifyBetween className="border-b">
+    <Card noGap noPadding className={`w-full ${className}`}>
+      <Stack xs row justifyBetween>
         <CodeBlockActions code={code} fileName={fileName} />
       </Stack>
       <Stack xs noPadding className="overflow-x-auto">
-        <Card noPadding noBorder xs>
+        <Card noPadding noBorder sharp>
           <CodeBlockRenderer code={code} language={language} />
         </Card>
       </Stack>

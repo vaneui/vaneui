@@ -1,5 +1,3 @@
-import { gapMap, pxMap, pyMap, textSizeMap } from "../classes/buttonClasses";
-import { roundedMap } from "../classes/buttonClasses";
 import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { ButtonProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
@@ -38,10 +36,40 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
   "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new PxTheme({padding: pxMap}),
-      py: new PyTheme({padding: pyMap}),
-      gap: new GapTheme({gap: gapMap}),
-      text: new SizeTheme(textSizeMap),
+      px: new PxTheme({
+        padding: {
+          xs: 'px-2',
+          sm: 'px-2.5',
+          md: 'px-3.5',
+          lg: 'px-5',
+          xl: 'px-6',
+        }
+      }),
+      py: new PyTheme({
+        padding: {
+          xs: 'py-1',
+          sm: 'py-1.5',
+          md: 'py-2',
+          lg: 'py-3',
+          xl: 'py-4',
+        }
+      }),
+      gap: new GapTheme({
+        gap: {
+          xs: 'gap-1.5',
+          sm: 'gap-2',
+          md: 'gap-3',
+          lg: 'gap-4',
+          xl: 'gap-5',
+        }
+      }),
+      text: new SizeTheme({
+        xs: 'text-xs/5',
+        sm: 'text-sm/5',
+        md: 'text-base',
+        lg: 'text-lg/6',
+        xl: 'text-xl/6',
+      }),
       shadow: new ShadowTheme(),
     },
     appearance: {
@@ -53,7 +81,15 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
     layout: {
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: new RadiusTheme({rounded: roundedMap}),
+      radius: new RadiusTheme({
+        rounded: {
+          xs: 'rounded-sm',
+          sm: 'rounded-md',
+          md: 'rounded-md',
+          lg: 'rounded-lg',
+          xl: 'rounded-xl',
+        }
+      }),
     },
   },
   {

@@ -6,7 +6,6 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { ShadowTheme } from "./layout/shadowTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
-import { roundedMap } from "../classes/badgeClasses";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { commonGaps } from "../classes/spacingClasses";
@@ -73,7 +72,15 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme<CardProp
     layout: {
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: new RadiusTheme({rounded: roundedMap}),
+      radius: new RadiusTheme({
+        rounded: {
+          xs: "rounded-md",
+          sm: "rounded-lg",
+          md: "rounded-xl",
+          lg: "rounded-2xl",
+          xl: "rounded-3xl"
+        }
+      }),
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       breakpoint: new BreakpointTheme(),

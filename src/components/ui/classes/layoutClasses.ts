@@ -1,8 +1,6 @@
 import {
   BreakpointKey,
-  FlexDirectionKey,
   HideKey,
-  ItemsKey,
   JustifyKey, ModeKey,
   PositionKey,
   SizeKey,

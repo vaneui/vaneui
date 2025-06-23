@@ -53,9 +53,6 @@ const componentGroups = [
 export function ComponentsNav({ currentPath }: { currentPath?: string }) {
   return (
     <Col xl sticky className="styled-scrollbar min-w-3xs bg-white py-6 px-8 lg:pr-10 top-[calc(36px+(var(--spacing)*6))] w-fit overflow-y-auto max-h-[calc(100dvh-36px-(var(--spacing)*6))] border-r">
-      <Text lg secondary>
-        Components
-      </Text>
       {componentGroups.map((item, i) => (
         <Col key={i}>
           <Row noGap>
