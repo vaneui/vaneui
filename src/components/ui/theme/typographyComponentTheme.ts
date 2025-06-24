@@ -5,6 +5,7 @@ import React from "react";
 import { BaseComponentTheme, ComponentTheme } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { mergeDefaults } from "../../utils/deepMerge";
 
 export interface TypographyComponentTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -53,7 +54,7 @@ export const pageTitleTheme: ComponentTheme<TypographyComponentProps, Typography
     lg: "text-6xl max-lg:text-5xl max-md:text-4xl",
     xl: "text-7xl max-lg:text-6xl max-md:text-5xl",
   },
-  {...typographyThemeDefaults, semibold: true}
+  mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {semibold: true})
 );
 
 // Section title specific theme
@@ -67,7 +68,7 @@ export const sectionTitleTheme: ComponentTheme<TypographyComponentProps, Typogra
     lg: "text-5xl max-lg:text-4xl max-md:text-3xl",
     xl: "text-6xl max-lg:text-5xl max-md:text-4xl",
   },
-  {...typographyThemeDefaults, semibold: true}
+  mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {semibold: true})
 );
 
 // Title specific theme
@@ -81,7 +82,7 @@ export const titleTheme: ComponentTheme<TypographyComponentProps, TypographyComp
     lg: "text-3xl",
     xl: "text-4xl",
   },
-  {...typographyThemeDefaults, semibold: true}
+  mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {semibold: true})
 );
 
 // Text specific theme
@@ -89,7 +90,7 @@ export const textTheme: ComponentTheme<TypographyComponentProps, TypographyCompo
   "p",
   "p-0 m-0 w-fit",
   textSizeClasses,
-  {...typographyThemeDefaults, secondary: true}
+  mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {secondary: true})
 );
 
 // Link specific theme
@@ -97,7 +98,7 @@ export const linkTheme: ComponentTheme<TypographyComponentProps, TypographyCompo
   "a",
   "hover:underline w-fit",
   textSizeClasses,
-  {...typographyThemeDefaults, link: true}
+  mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {link: true})
 );
 
 // List item specific theme
