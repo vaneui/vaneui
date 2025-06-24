@@ -102,11 +102,11 @@ export const linkTheme: ComponentTheme<TypographyComponentProps, TypographyCompo
 
 // List item specific theme
 export const listItemTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>> = createTypographyComponentTheme(
-  "li w-fit"
+  "li"
 );
 
 // List specific theme
 export const listTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>> = createTypographyComponentTheme(
-  "ul w-fit",
+  "ul",
   "list-disc list-inside"
 );
