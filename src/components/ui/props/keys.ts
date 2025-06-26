@@ -248,6 +248,10 @@ export const SECTION_KEYS = [
   ...JUSTIFY_KEYS,
   ...WRAP_KEYS,
   ...BREAKPOINT_KEYS,
-  ...GAP_KEYS
+  ...GAP_KEYS,
+  ...BORDER_KEYS,
+  ...SHADOW_KEYS,
+  ...RING_KEYS,
+  ...SHAPE_KEYS,
 ] as const;
 export type SectionKey = typeof SECTION_KEYS[number];

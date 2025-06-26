@@ -5,16 +5,39 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { SectionProps } from "../props/props";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
+import { VariantTheme } from "./appearance/variantTheme";
+import { BorderTheme } from "./layout/borderTheme";
+import { RingTheme } from "./layout/ringTheme";
+import { RadiusTheme } from "./layout/radiusTheme";
+import { ShadowTheme } from "./layout/shadowTheme";
+import { LayoutAppearanceTheme } from "./appearance/layoutAppearanceTheme";
+import {
+  borderAppearanceClasses,
+  layoutBackgroundAppearanceClasses,
+  ringAppearanceClasses
+} from "../classes/appearanceClasses";
+import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { textAppearanceClasses } from "../classes/typographyClasses";
 
 export interface SectionTheme<P> extends BaseComponentTheme<P> {
   size: {
     px: PxTheme;
     py: PyTheme;
     gap: GapTheme;
+    shadow: ShadowTheme;
+  };
+  appearance: {
+    background: VariantTheme;
+    text: VariantTheme;
+    border: VariantTheme;
+    ring: VariantTheme;
   };
   layout: DefaultLayoutThemes<P> & {
     wrap: WrapTheme;
     direction: DirectionTheme;
+    border: BorderTheme;
+    ring: RingTheme;
+    radius: RadiusTheme;
   };
 }
 
@@ -50,10 +73,30 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
           xl: 'gap-16',
         }
       }),
+      shadow: new ShadowTheme(),
+    },
+    appearance: {
+      background: LayoutAppearanceTheme.createDefaultStyle({
+        base: layoutBackgroundAppearanceClasses,
+      }),
+      text: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
+      border: TextAppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
+      ring: TextAppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
     },
     layout: {
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
+      border: new BorderTheme(),
+      ring: new RingTheme(),
+      radius: new RadiusTheme({
+        rounded: {
+          xs: 'rounded-md',
+          sm: 'rounded-lg',
+          md: 'rounded-xl',
+          lg: 'rounded-2xl',
+          xl: 'rounded-3xl',
+        }
+      }),
     },
   },
   {
@@ -62,5 +105,9 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
     itemsStart: true,
     gap: true,
     padding: true,
+    noBorder: true,
+    noRing: true,
+    noShadow: true,
+    sharp: true,
   }
 );
