@@ -8,14 +8,14 @@ export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle } from "./co
 export {
   ThemeProvider,
   useTheme,
-  ThemeProps,
-  ThemeDefaults,
-  ThemeProviderProps,
-  PartialTheme,
+  type ThemeProps,
+  type ThemeDefaults,
+  type ThemeProviderProps,
+  type PartialTheme,
   defaultTheme,
-  ComponentKey,
+  type ComponentKey,
   COMPONENT_KEYS
 } from './components/theme/themeContext';
 
 
-export { ModeKey } from "./components/ui/props/keys";
+export { type ModeKey } from "./components/ui/props/keys";
