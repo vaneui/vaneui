@@ -20,6 +20,7 @@ import { CodeBlock } from "../components/CodeBlock";
 import Link from "next/link";
 import Image from "next/image";
 import githubMark from './../../../public/github-mark.svg'
+import { ArrowRight, Play } from "react-feather";
 
 const dog = {
   name: "Luka",
@@ -45,7 +46,9 @@ export async function HeroSection() {
           </PageTitle>
           <Text lg textCenter>{PRODUCT.description}</Text>
           <Row lg smCol justifyCenter className="w-full">
-            <Button lg filled className="max-sm:w-full">Get Started</Button>
+            <Button lg filled className="max-sm:w-full">
+              Get Started <Play/>
+            </Button>
             <Button lg className="max-sm:w-full" target="_blank" href={PRODUCT.githubUrl} tag={Link}>
               View on GitHub
             </Button>
@@ -62,7 +65,7 @@ export async function HeroSection() {
                   <Title>{dog.name}</Title>
                   <Chip sm bold>{dog.gender}</Chip>
                 </Row>
-                <Divider />
+                <Divider/>
                 <Text sm>{dog.description}</Text>
                 <Row sm justifyEnd>
                   <Button sm success filled>Adopt</Button>

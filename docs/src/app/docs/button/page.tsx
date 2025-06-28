@@ -78,6 +78,26 @@ export default function ButtonPage() {
       ),
     },
     {
+      title: 'Sizes with Icon',
+      description: 'Buttons come in different sizes.',
+      code: `<Row>
+  <Button xs>Extra Small</Button>
+  <Button sm>Small</Button>
+  <Button md>Medium</Button>
+  <Button lg>Large</Button>
+  <Button xl>Extra Large</Button>
+</Row>`,
+      component: (
+        <Row>
+          <Button xs><span className="rounded-full size-4 bg-gray-300"/> Extra Small</Button>
+          <Button sm><span className="rounded-full size-4.5 bg-gray-300"/> Small</Button>
+          <Button md><span className="rounded-full size-5 bg-gray-300"/> Medium</Button>
+          <Button lg><span className="rounded-full size-6 bg-gray-300"/> Large</Button>
+          <Button xl><span className="rounded-full size-7 bg-gray-300"/> Extra Large</Button>
+        </Row>
+      ),
+    },
+    {
       title: 'Font Weights',
       description: 'Buttons support different font weights.',
       code: `<Row className="flex-wrap">

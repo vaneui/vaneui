@@ -38,7 +38,6 @@ const customTheme: PartialTheme = {
     },
     defaults: {
       normal: true,
-      noShadow: true,
       pill: true,
     }
   }
@@ -50,6 +49,12 @@ const overrideFunc = (theme: ThemeProps) => {
   theme.button.themes.appearance.text.outline.default.active = 'active:text-blue-900';
   return theme;
 };
+
+const themeDefaults = {
+  button: {
+    noShadow: true
+  }
+}
 
 export const ThemeCustomizer: React.FC = () => {
   const [useCustomTheme, setUseCustomTheme] = useState(false);
@@ -86,6 +91,7 @@ export const ThemeCustomizer: React.FC = () => {
         {/* Wrap buttons with ThemeProvider using the appropriate theme */}
         <ThemeProvider theme={useCustomTheme ? customTheme : {}}
                        themeOverride={useCustomTheme ? overrideFunc : undefined}
+                       themeDefaults={useCustomTheme ? themeDefaults : undefined}
         >
           <Row flexWrap>
             <Button>Default Button</Button>

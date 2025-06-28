@@ -42,26 +42,26 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProp
         padding: {
           xs: 'px-2',
           sm: 'px-2.5',
-          md: 'px-3.5',
-          lg: 'px-5',
-          xl: 'px-6',
+          md: 'px-3',
+          lg: 'px-3.5',
+          xl: 'px-4',
         }
       }),
       py: new PyTheme({
         padding: {
-          xs: 'py-1',
-          sm: 'py-1.5',
-          md: 'py-2',
-          lg: 'py-3',
-          xl: 'py-4',
+          xs: 'py-0.5',
+          sm: 'py-1',
+          md: 'py-1.5',
+          lg: 'py-2',
+          xl: 'py-2.5',
         }
       }),
       text: new SizeTheme({
         xs: 'text-xs',
         sm: 'text-sm',
-        md: 'text-sm',
-        lg: 'text-base',
-        xl: 'text-base',
+        md: 'text-base',
+        lg: 'text-lg',
+        xl: 'text-xl',
       }),
       gap: new GapTheme({
         gap: {

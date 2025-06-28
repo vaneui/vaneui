@@ -1,16 +1,17 @@
-import React, { createContext, useContext, useEffect, useMemo } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { ComponentTheme } from "../ui/theme/common/ComponentTheme";
 import { ButtonTheme, defaultButtonTheme } from '../ui/theme/buttonTheme';
 import { BadgeTheme, defaultBadgeTheme } from '../ui/theme/badgeTheme';
 import { ChipTheme, defaultChipTheme } from '../ui/theme/chipTheme';
 import {
-  pageTitleTheme,
-  sectionTitleTheme,
-  titleTheme,
-  textTheme,
   linkTheme,
   listItemTheme,
-  listTheme, TypographyComponentTheme
+  listTheme,
+  pageTitleTheme,
+  sectionTitleTheme,
+  textTheme,
+  titleTheme,
+  TypographyComponentTheme
 } from '../ui/theme/typographyComponentTheme';
 import { CardTheme, defaultCardTheme } from "../ui/theme/cardTheme";
 import { defaultRowTheme, RowTheme } from "../ui/theme/rowTheme";
@@ -21,23 +22,27 @@ import { defaultStackTheme, StackTheme } from '../ui/theme/stackTheme';
 import { defaultSectionTheme, SectionTheme } from "../ui/theme/sectionTheme";
 import { defaultGrid3Theme, defaultGrid4Theme, GridTheme } from "../ui/theme/gridTheme";
 import {
-  ButtonProps,
-  GridProps,
-  TypographyComponentProps,
-  CardProps,
-  RowProps,
-  ColProps,
-  StackProps,
   BadgeProps,
+  ButtonProps,
+  CardProps,
   ChipProps,
-  DividerProps,
+  ColProps,
   ContainerProps,
-  SectionProps
+  DividerProps,
+  GridProps,
+  RowProps,
+  SectionProps,
+  StackProps,
+  TypographyComponentProps
 } from "../ui/props/props";
 import { DeepPartial } from "../utils/deepPartial";
-import { deepClone, deepMerge } from "../utils/deepMerge";
+import { deepClone, deepMerge, mergeDefaults } from "../utils/deepMerge";
 
-export interface ThemeProps {
+export const COMPONENT_KEYS = ['button', 'badge', 'chip', 'card', 'divider', 'row', 'col', 'stack', 'section',
+  'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem'] as const;
+export type ComponentKey = typeof COMPONENT_KEYS[number];
+
+export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, object>> {
   button: ComponentTheme<ButtonProps, ButtonTheme<ButtonProps>>;
   badge: ComponentTheme<BadgeProps, BadgeTheme<BadgeProps>>;
   chip: ComponentTheme<ChipProps, ChipTheme<ChipProps>>;
@@ -55,8 +60,8 @@ export interface ThemeProps {
   title: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
   text: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
   link: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
-  listItem: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
   list: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
+  listItem: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -83,11 +88,14 @@ export const defaultTheme: ThemeProps = {
   list: listTheme,
 };
 
+export type ThemeDefaults = Partial<Record<ComponentKey, Record<string, boolean>>>;
+
 const ThemeContext = createContext<ThemeProps>(defaultTheme);
 
 export interface ThemeProviderProps {
   children: React.ReactNode;
   theme?: PartialTheme;
+  themeDefaults?: ThemeDefaults;
   themeOverride?: (theme: ThemeProps) => ThemeProps;
 }
 
@@ -95,20 +103,39 @@ export function ThemeProvider(
   {
     children,
     theme: themeObject = {},
+    themeDefaults,
     themeOverride
   }: ThemeProviderProps) {
   const mergedTheme = useMemo(() => {
-    let baseTheme = themeObject
-      ? deepMerge(defaultTheme, themeObject)
-      : defaultTheme;
 
-    if (typeof themeOverride === 'function') {
-      const themeToModify = deepClone(baseTheme);
-      return themeOverride(themeToModify);
-    }
+        let finalTheme = themeObject
+          ? deepMerge(defaultTheme, themeObject)
+          : defaultTheme;
 
-    return baseTheme;
-  }, [themeObject, themeOverride]);
+        if (typeof themeOverride === 'function') {
+          const themeToModify = deepClone(finalTheme);
+          finalTheme = themeOverride(themeToModify);
+        }
+
+        if (themeDefaults !== undefined) {
+          for (const key in themeDefaults) {
+            const componentKey = key as ComponentKey;
+            const componentTheme = finalTheme[componentKey];
+            const themeDefault = themeDefaults[componentKey]
+            if (themeDefault !== undefined) {
+              finalTheme[componentKey].defaults =
+                mergeDefaults(componentTheme.defaults as Record<string, boolean>, themeDefaults[componentKey] as Record<string, boolean>);
+            }
+          }
+        }
+
+        return finalTheme;
+      }
+
+      ,
+      [themeObject, themeOverride]
+    )
+  ;
 
   return (
     <ThemeContext.Provider value={mergedTheme}>

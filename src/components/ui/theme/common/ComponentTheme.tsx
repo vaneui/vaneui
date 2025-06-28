@@ -1,17 +1,17 @@
 import React from "react";
 import { BaseTheme } from "./baseTheme";
 import { HideTheme } from "../layout/hideTheme";
-import { deepMerge } from "../../../utils/deepMerge";
 import { ItemsTheme } from "../layout/itemsTheme";
 import { JustifyTheme } from "../layout/justifyTheme";
 import { PositionTheme } from "../layout/positionTheme";
+import { FontStyleTheme } from "../typography/fontStyleTheme";
 import { FontFamilyTheme } from "../typography/fontFamilyTheme";
 import { FontWeightTheme } from "../typography/fontWeightTheme";
-import { FontStyleTheme } from "../typography/fontStyleTheme";
 import { TextDecorationTheme } from "../typography/textDecorationTheme";
 import { TextTransformTheme } from "../typography/textTransformTheme";
 import { TextAlignTheme } from "../typography/textAlignTheme";
 import { DeepPartial } from "../../../utils/deepPartial";
+import { deepMerge } from "../../../utils/deepMerge";
 
 type ThemeNode<P> = BaseTheme | ThemeMap<P>;
 
@@ -46,8 +46,8 @@ export class ComponentTheme<
 > {
   readonly tag: React.ElementType;
   readonly base: string;
-  readonly defaults: Partial<P>;
   readonly themes: TThemes;
+  defaults: Partial<P>;
 
   constructor(
     tag: React.ElementType,

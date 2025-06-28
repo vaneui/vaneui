@@ -2,20 +2,20 @@
 
 import React from 'react';
 import { Link, Text, Col, Row } from '@vaneui/ui';
-import { BeakerIcon, BookOpenIcon, CubeIcon, Square3Stack3DIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import { BookOpen, Box, FileText, Layers } from "react-feather";
 
 // Component groups with their components
 const componentGroups = [
   {
     name: 'Getting Started',
-    icon: BookOpenIcon,
+    icon: BookOpen,
     components: [
       { name: 'Installation', path: '/docs/installation' },
     ]
   },
   {
     name: 'Basic Components',
-    icon: CubeIcon,
+    icon: Box,
     components: [
       { name: 'Button', path: '/docs/button' },
       { name: 'Badge', path: '/docs/badge' },
@@ -25,7 +25,7 @@ const componentGroups = [
   },
   {
     name: 'Layout Components',
-    icon: Square3Stack3DIcon,
+    icon: Layers,
     components: [
       { name: 'Section', path: '/docs/section' },
       { name: 'Container', path: '/docs/container' },
@@ -37,7 +37,7 @@ const componentGroups = [
   },
   {
     name: 'Typography',
-    icon: DocumentTextIcon,
+    icon: FileText,
     components: [
       { name: 'Text', path: '/docs/text' },
       { name: 'Title', path: '/docs/title' },
@@ -52,16 +52,16 @@ const componentGroups = [
 
 export function ComponentsNav({ currentPath }: { currentPath?: string }) {
   return (
-    <Col xl sticky className="styled-scrollbar min-w-3xs bg-white py-6 px-8 lg:pr-10 top-[calc(36px+(var(--spacing)*6))] w-fit overflow-y-auto max-h-[calc(100dvh-36px-(var(--spacing)*6))] border-r">
+    <Col xl sticky className="styled-scrollbar min-w-xs bg-white py-6 px-8 lg:pr-10 top-[calc(36px+(var(--spacing)*6))] w-fit overflow-y-auto max-h-[calc(100dvh-36px-(var(--spacing)*6))] border-r">
       {componentGroups.map((item, i) => (
         <Col key={i}>
-          <Row noGap>
-            <item.icon className="w-5 h-5 text-secondary mr-3" />
+          <Row sm>
+            <item.icon className="w-5 h-5 text-secondary" />
             <Text uppercase sm mono secondary semibold className="tracking-wider">
               {item.name}
             </Text>
           </Row>
-          <Col noGap className="pl-2.5">
+          <Col noGap className="pl-[calc(var(--spacing)*2.5-1px)]">
             {item.components.map((item, i) => {
               const isActive = currentPath === item.path;
               return (
@@ -70,7 +70,7 @@ export function ComponentsNav({ currentPath }: { currentPath?: string }) {
                   href={item.path}
                   semibold={isActive}
                   secondary
-                  className={`${isActive ? 'border-gray-600 text-gray-900' : 'hover:border-gray-400'} border-l pl-4 py-1 hover:no-underline hover:text-gray-900 hover:bg-gray-50`}
+                  className={`w-full ${isActive ? 'border-gray-600 text-gray-900 bg-gray-50' : 'hover:border-gray-400'} border-l-2 pl-4 py-1 hover:no-underline hover:text-gray-900 hover:bg-gray-100`}
                 >
                   {item.name}
                 </Link>

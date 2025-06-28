@@ -57,27 +57,27 @@ export const positionClasses: Record<PositionKey, string> = {
 }
 
 export const shadowClasses: Record<SizeKey, string> = {
-  xs: "shadow-xs",
-  sm: "shadow-sm",
-  md: "shadow-md",
-  lg: "shadow-lg",
-  xl: "shadow-xl"
+  xs: "shadow-2xs",
+  sm: "shadow-xs",
+  md: "shadow-sm",
+  lg: "shadow-md",
+  xl: "shadow-lg"
 }
 
 export const hoverShadowClasses: Record<SizeKey, string> = {
-  xs: "hover:shadow-sm",
-  sm: "hover:shadow-md",
-  md: "hover:shadow-lg",
-  lg: "hover:shadow-xl",
-  xl: "hover:shadow-2xl"
+  xs: "hover:shadow-xs",
+  sm: "hover:shadow-sm",
+  md: "hover:shadow-md",
+  lg: "hover:shadow-lg",
+  xl: "hover:shadow-xl"
 }
 
 export const activeShadowClasses: Record<SizeKey, string> = {
-  xs: "active:shadow-sm",
-  sm: "active:shadow-md",
-  md: "active:shadow-lg",
-  lg: "active:shadow-xl",
-  xl: "active:shadow-2xl"
+  xs: "active:shadow-xs",
+  sm: "active:shadow-sm",
+  md: "active:shadow-md",
+  lg: "active:shadow-lg",
+  xl: "active:shadow-xl"
 }
 
 export const noRingModeClasses: Record<ModeKey, string> = {

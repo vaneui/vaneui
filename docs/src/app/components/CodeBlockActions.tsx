@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Button, Row, Stack, Text } from '@vaneui/ui';
-import { Square2StackIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { Button, Row, Text } from '@vaneui/ui';
+import { Check, Copy } from "react-feather";
 
 interface CodeBlockActionsProps {
   code: string;
@@ -27,7 +27,7 @@ export function CodeBlockActions({ code, fileName = '' }: CodeBlockActionsProps)
         {fileName && <Text sm>{fileName}</Text>}
       </Row>
       <Button xs onClick={copyToClipboard} default={!copied} success={copied}>
-        {copied ? <CheckIcon className="w-5 h-5" /> : <Square2StackIcon className="w-5 h-5" />}
+        {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
         {copied ? "Copied!" : "Copy"}
       </Button>
     </>

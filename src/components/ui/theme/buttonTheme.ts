@@ -39,8 +39,8 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
       px: new PxTheme({
         padding: {
           xs: 'px-2',
-          sm: 'px-2.5',
-          md: 'px-3.5',
+          sm: 'px-3',
+          md: 'px-4',
           lg: 'px-5',
           xl: 'px-6',
         }
@@ -50,25 +50,25 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
           xs: 'py-1',
           sm: 'py-1.5',
           md: 'py-2',
-          lg: 'py-3',
-          xl: 'py-4',
+          lg: 'py-2.5',
+          xl: 'py-3',
         }
       }),
       gap: new GapTheme({
         gap: {
-          xs: 'gap-1.5',
-          sm: 'gap-2',
-          md: 'gap-3',
-          lg: 'gap-4',
-          xl: 'gap-5',
+          xs: 'gap-1',
+          sm: 'gap-1.5',
+          md: 'gap-2',
+          lg: 'gap-2.5',
+          xl: 'gap-3',
         }
       }),
       text: new SizeTheme({
-        xs: 'text-xs/5',
-        sm: 'text-sm/5',
+        xs: 'text-xs',
+        sm: 'text-sm',
         md: 'text-base',
-        lg: 'text-lg/6',
-        xl: 'text-xl/6',
+        lg: 'text-lg',
+        xl: 'text-xl',
       }),
       shadow: new ShadowTheme(),
     },
