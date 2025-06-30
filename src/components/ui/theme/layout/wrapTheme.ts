@@ -1,6 +1,6 @@
 import { WrapKey, WRAP_KEYS } from "../../props/keys";
 import { wrapClasses } from "../../classes/layoutClasses";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
 export interface WrapTheme extends Record<WrapKey, string> {}
@@ -16,7 +16,7 @@ export class WrapTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickKey(props, defaults, WRAP_KEYS);
+    const key = pickFirstTruthyKey(props, defaults, WRAP_KEYS);
     return key ? [this[key]] : [];
   }
 }

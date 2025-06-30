@@ -5,7 +5,7 @@ import {
   activeShadowClasses,
   noShadowModeClasses,
 } from "../../classes/layoutClasses";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
 export interface ShadowTheme extends Record<ShadowKey, Record<ModeKey, string | Record<SizeKey, string>>> {
@@ -29,8 +29,8 @@ export class ShadowTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const size = pickKey(props, defaults, SIZE_KEYS) || 'md';
-    const key = pickKey(props, defaults, SHADOW_KEYS);
+    const size = pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md';
+    const key = pickFirstTruthyKey(props, defaults, SHADOW_KEYS);
 
     if (key === undefined) {
       return [];

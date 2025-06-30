@@ -1,6 +1,6 @@
 import { HideKey, HIDE_KEYS } from "../../props/keys";
 import { hideClasses } from "../../classes/layoutClasses";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
 export interface HideTheme extends Record<HideKey, string> {}
@@ -16,7 +16,7 @@ export class HideTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickKey(props, defaults, HIDE_KEYS);
+    const key = pickFirstTruthyKey(props, defaults, HIDE_KEYS);
     return [key ? this[key] : ''];
   }
 }

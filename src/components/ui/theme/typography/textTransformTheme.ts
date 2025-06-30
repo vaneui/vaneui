@@ -1,6 +1,6 @@
 import { TextTransformKey, TEXT_TRANSFORM_KEYS } from "../../props/keys";
 import { textTransformClasses } from "../../classes/typographyClasses";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
 export interface TextTransformTheme extends Record<TextTransformKey, string> {}
@@ -16,7 +16,7 @@ export class TextTransformTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickKey(props, defaults, TEXT_TRANSFORM_KEYS);
+    const key = pickFirstTruthyKey(props, defaults, TEXT_TRANSFORM_KEYS);
     return [key ? this[key] : '']; // No default for text transform
   }
 }

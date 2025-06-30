@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import { SIZE_KEYS, SizeKey } from "../../props/keys";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 
 export interface SizeTheme extends Record<SizeKey, string> {}
 
@@ -21,7 +21,7 @@ export class SizeTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const size = pickKey(props, defaults, SIZE_KEYS);
+    const size = pickFirstTruthyKey(props, defaults, SIZE_KEYS);
     return [this[size ?? 'md'] || ''];
   }
 }

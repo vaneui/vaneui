@@ -5,7 +5,7 @@ import {
   MODE_KEYS,
   ModeKey,
 } from "../../props/keys";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { textAppearanceClasses } from "../../classes/typographyClasses";
 
 export interface LayoutAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {}
@@ -37,7 +37,7 @@ export class LayoutAppearanceTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const pickedAppearanceKey = pickKey(props, defaults, APPEARANCE_KEYS, 'default') as AppearanceKey;
+    const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS) || 'default';
     const modesForAppearance = this[pickedAppearanceKey];
 
     if (!modesForAppearance) {

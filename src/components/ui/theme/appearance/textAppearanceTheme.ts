@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import { MODE_KEYS, ModeKey, TEXT_APPEARANCE_KEYS, TextAppearanceKey } from "../../props/keys";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { textAppearanceClasses } from "../../classes/typographyClasses";
 
 export interface TextAppearanceTheme extends Record<TextAppearanceKey, Record<ModeKey, string>> {
@@ -33,7 +33,7 @@ export class TextAppearanceTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const pickedAppearanceKey = pickKey(props, defaults, TEXT_APPEARANCE_KEYS, 'default') as TextAppearanceKey;
+    const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, TEXT_APPEARANCE_KEYS) || 'default';
     const modesForAppearance = this[pickedAppearanceKey];
 
     if (!modesForAppearance) {

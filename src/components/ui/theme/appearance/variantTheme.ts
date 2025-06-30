@@ -5,7 +5,7 @@ import {
   ModeKey,
   TextAppearanceKey
 } from "../../props/keys";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { TextAppearanceTheme } from "./textAppearanceTheme";
 import {
   activeBackgroundAppearanceClasses,
@@ -38,7 +38,7 @@ export class VariantTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const activeVariantKey = pickKey(props, defaults, VARIANT_KEYS, 'outline') as VariantKey;
+    const activeVariantKey = pickFirstTruthyKey(props, defaults, VARIANT_KEYS) || 'outline';
     const activeTextAppearanceTheme = this[activeVariantKey];
 
     if (!activeTextAppearanceTheme) {

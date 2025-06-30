@@ -3,7 +3,7 @@ import {
   FLEX_DIRECTION_KEYS,
   DIRECTION_REVERSE_KEYS,
 } from "../../props/keys";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
 export interface DirectionTheme extends Record<FlexDirectionKey, string> {
@@ -25,8 +25,8 @@ export class DirectionTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    let direction = pickKey(props, defaults, FLEX_DIRECTION_KEYS) ?? 'column';
-    const reverse = pickKey(props, defaults, DIRECTION_REVERSE_KEYS);
+    let direction = pickFirstTruthyKey(props, defaults, FLEX_DIRECTION_KEYS) || 'column';
+    const reverse = pickFirstTruthyKey(props, defaults, DIRECTION_REVERSE_KEYS);
 
     if (reverse) {
       switch (direction) {

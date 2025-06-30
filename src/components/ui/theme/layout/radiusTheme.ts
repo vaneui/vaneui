@@ -1,6 +1,6 @@
 import { SHAPE_KEYS, ShapeKey, SIZE_KEYS, SizeKey } from "../../props/keys";
 import { roundedClasses } from "../../classes/layoutClasses";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
 export interface RadiusTheme extends Record<ShapeKey, string | Record<SizeKey, string>> {
@@ -21,8 +21,8 @@ export class RadiusTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const size = pickKey(props, defaults, SIZE_KEYS) || 'md';
-    const shape = pickKey(props, defaults, SHAPE_KEYS) || 'rounded';
+    const size = pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md';
+    const shape = pickFirstTruthyKey(props, defaults, SHAPE_KEYS) || 'rounded';
     return [typeof this[shape] === 'string' ? this[shape] : (this[shape] as Record<SizeKey, string>)[size]];
   }
 }

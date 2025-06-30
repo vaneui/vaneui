@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import { BREAKPOINT_KEYS, BreakpointKey, SIZE_KEYS, SizeKey } from "../../props/keys";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { rowToColumnBreakpointClasses } from "../../classes/layoutClasses";
 
 export interface BreakpointTheme extends Record<BreakpointKey, string> {
@@ -18,7 +18,7 @@ export class BreakpointTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickKey(props, defaults, BREAKPOINT_KEYS);
+    const key = pickFirstTruthyKey(props, defaults, BREAKPOINT_KEYS);
     if (!key)
       return [];
 

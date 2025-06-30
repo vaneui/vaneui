@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import { MODE_KEYS, ModeKey, BORDER_KEYS, SizeKey, BorderKey, SIZE_KEYS } from "../../props/keys";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { SizeTheme } from "../size/sizeTheme";
 
 export interface BorderTheme extends Record<BorderKey, Record<ModeKey, string>> {}
@@ -35,7 +35,7 @@ export class BorderTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickKey(props, defaults, BORDER_KEYS) as BorderKey | undefined;
+    const key = pickFirstTruthyKey(props, defaults, BORDER_KEYS);
     if (!key || !this[key]) {
       return MODE_KEYS.map(() => '');
     }

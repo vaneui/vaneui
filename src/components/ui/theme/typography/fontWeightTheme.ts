@@ -1,6 +1,6 @@
 import { FontWeightKey, FONT_WEIGHT_KEYS } from "../../props/keys";
 import { fontWeightClasses } from "../../classes/typographyClasses";
-import { pickKey } from "../../../utils/componentUtils";
+import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
 export interface FontWeightTheme extends Record<FontWeightKey, string> {}
@@ -16,7 +16,7 @@ export class FontWeightTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickKey(props, defaults, FONT_WEIGHT_KEYS);
+    const key = pickFirstTruthyKey(props, defaults, FONT_WEIGHT_KEYS);
     return [this[key ?? 'normal'] || '']; // Default to 'normal' if no key is provided
   }
 }

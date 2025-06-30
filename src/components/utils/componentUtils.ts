@@ -1,34 +1,32 @@
-function pickFirstKeyOptional<
+function pickFirstTruthyKeyOptional<
   P extends object,
   K extends keyof P
 >(
-  props: P,
-  keys: readonly K[],
-  fallback: K | undefined = undefined,
+  collection: P,
+  keys: readonly K[]
 ): K | undefined {
   for (const k of keys) {
-    if (props[k]) return k;
+    if (collection[k] === true)
+      return k;
   }
-  return fallback;
+  return undefined;
 }
 
 /**
  * Pick the first truthy key from props, then from defaults, then fallback.
  */
-export function pickKey<P, K extends keyof P>(
+export function pickFirstTruthyKey<P, K extends keyof P>(
   props: Partial<P>,
   defaults: Partial<P>,
-  keys: readonly K[],
-  fallback?: K
+  keys: readonly K[]
 ): K | undefined {
-  // 1) explicit user prop
-  const explicit = pickFirstKeyOptional(props, keys);
+  // first check explicit usage in props
+  const explicit = pickFirstTruthyKeyOptional(props, keys);
   if (explicit) return explicit;
 
-  // 2) component‐level default
-  const def = pickFirstKeyOptional(defaults, keys);
+  // then check component‐level defaults
+  const def = pickFirstTruthyKeyOptional(defaults, keys);
   if (def) return def;
 
-  // 3) built‐in fallback
-  return fallback;
+  return undefined;
 }
