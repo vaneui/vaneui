@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { GridProps } from './props/props';
-import { ThemedComponent } from '../utils/buildComponent';
-import { useTheme } from '../theme';
+import { ThemedComponent } from '../themedComponent';
+import { useTheme } from "../themeContext";
 import { GRID_KEYS } from './props/keys';
 
 export const Grid3 = (props: GridProps): JSX.Element => {

@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { RowProps } from './props/props';
-import { ThemedComponent } from '../utils/buildComponent';
-import { useTheme } from '../theme';
+import { ThemedComponent } from '../themedComponent';
+import { useTheme } from "../themeContext";
 import { ROW_KEYS } from './props/keys';
 
 export const Row = (props: RowProps): JSX.Element => {

@@ -44,16 +44,16 @@ export interface BaseComponentTheme<P> {
   typography: DefaultTypographyThemes<P>;
 }
 
-export class ComponentTheme<P extends ComponentProps, TThemes extends object> {
+export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly tag: React.ElementType;
   readonly base: string;
-  readonly themes: TThemes;
+  readonly themes: TTheme;
   defaults: Partial<P>;
 
   constructor(
     tag: React.ElementType,
     base: string,
-    subThemes: DeepPartial<TThemes>,
+    subThemes: DeepPartial<TTheme>,
     defaults: Partial<P> = {}
   ) {
     this.tag = tag;
@@ -77,7 +77,7 @@ export class ComponentTheme<P extends ComponentProps, TThemes extends object> {
         textAlign: new TextAlignTheme()
       }
     };
-    this.themes = deepMerge(defaultInternalThemes as TThemes, subThemes) as TThemes;
+    this.themes = deepMerge(defaultInternalThemes as TTheme, subThemes) as TTheme;
   }
 
   getClasses(props: P, defaults: Partial<P> = this.defaults): string[] {

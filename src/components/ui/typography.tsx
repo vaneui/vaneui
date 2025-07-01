@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { TypographyComponentProps } from './props/props';
-import { useTheme } from '../theme';
-import { ThemedComponent } from "../utils/buildComponent";
+import { useTheme } from "../themeContext";
+import { ThemedComponent } from "../themedComponent";
 import { TYPOGRAPHY_COMPONENT_KEYS } from "./props/keys";
 
 export const PageTitle = (props: TypographyComponentProps): JSX.Element => {

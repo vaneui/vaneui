@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { ComponentTheme } from "../ui/theme/common/ComponentTheme";
-import { ButtonTheme, defaultButtonTheme } from '../ui/theme/buttonTheme';
-import { BadgeTheme, defaultBadgeTheme } from '../ui/theme/badgeTheme';
-import { ChipTheme, defaultChipTheme } from '../ui/theme/chipTheme';
+import { ComponentTheme } from "./ui/theme/common/ComponentTheme";
+import { ButtonTheme, defaultButtonTheme } from './ui/theme/buttonTheme';
+import { BadgeTheme, defaultBadgeTheme } from './ui/theme/badgeTheme';
+import { ChipTheme, defaultChipTheme } from './ui/theme/chipTheme';
 import {
   linkTheme,
   listItemTheme,
@@ -12,15 +12,15 @@ import {
   textTheme,
   titleTheme,
   TypographyComponentTheme
-} from '../ui/theme/typographyComponentTheme';
-import { CardTheme, defaultCardTheme } from "../ui/theme/cardTheme";
-import { defaultRowTheme, RowTheme } from "../ui/theme/rowTheme";
-import { defaultDividerTheme, DividerTheme } from '../ui/theme/dividerTheme';
-import { ContainerTheme, defaultContainerTheme } from '../ui/theme/containerTheme';
-import { ColTheme, defaultColTheme } from '../ui/theme/colTheme';
-import { defaultStackTheme, StackTheme } from '../ui/theme/stackTheme';
-import { defaultSectionTheme, SectionTheme } from "../ui/theme/sectionTheme";
-import { defaultGrid3Theme, defaultGrid4Theme, GridTheme } from "../ui/theme/gridTheme";
+} from './ui/theme/typographyComponentTheme';
+import { CardTheme, defaultCardTheme } from "./ui/theme/cardTheme";
+import { defaultRowTheme, RowTheme } from "./ui/theme/rowTheme";
+import { defaultDividerTheme, DividerTheme } from './ui/theme/dividerTheme';
+import { ContainerTheme, defaultContainerTheme } from './ui/theme/containerTheme';
+import { ColTheme, defaultColTheme } from './ui/theme/colTheme';
+import { defaultStackTheme, StackTheme } from './ui/theme/stackTheme';
+import { defaultSectionTheme, SectionTheme } from "./ui/theme/sectionTheme";
+import { defaultGrid3Theme, defaultGrid4Theme, GridTheme } from "./ui/theme/gridTheme";
 import {
   BadgeProps,
   ButtonProps,
@@ -34,9 +34,9 @@ import {
   SectionProps,
   StackProps,
   TypographyComponentProps
-} from "../ui/props/props";
-import { DeepPartial } from "../utils/deepPartial";
-import { deepClone, deepMerge, mergeDefaults } from "../utils/deepMerge";
+} from "./ui/props/props";
+import { DeepPartial } from "./utils/deepPartial";
+import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
 export const COMPONENT_KEYS = ['button', 'badge', 'chip', 'card', 'divider', 'row', 'col', 'stack', 'section',
   'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem'] as const;
@@ -107,35 +107,31 @@ export function ThemeProvider(
     themeOverride
   }: ThemeProviderProps) {
   const mergedTheme = useMemo(() => {
+      let finalTheme = themeObject
+        ? deepMerge(defaultTheme, themeObject)
+        : defaultTheme;
 
-        let finalTheme = themeObject
-          ? deepMerge(defaultTheme, themeObject)
-          : defaultTheme;
-
-        if (typeof themeOverride === 'function') {
-          const themeToModify = deepClone(finalTheme);
-          finalTheme = themeOverride(themeToModify);
-        }
-
-        if (themeDefaults !== undefined) {
-          for (const key in themeDefaults) {
-            const componentKey = key as ComponentKey;
-            const componentTheme = finalTheme[componentKey];
-            const themeDefault = themeDefaults[componentKey]
-            if (themeDefault !== undefined) {
-              finalTheme[componentKey].defaults =
-                mergeDefaults(componentTheme.defaults as Record<string, boolean>, themeDefaults[componentKey] as Record<string, boolean>);
-            }
-          }
-        }
-
-        return finalTheme;
+      if (typeof themeOverride === 'function') {
+        const themeToModify = deepClone(finalTheme);
+        finalTheme = themeOverride(themeToModify);
       }
 
-      ,
-      [themeObject, themeOverride]
-    )
-  ;
+      if (themeDefaults !== undefined) {
+        for (const key in themeDefaults) {
+          const componentKey = key as ComponentKey;
+          const componentTheme = finalTheme[componentKey];
+          const themeDefault = themeDefaults[componentKey]
+          if (themeDefault !== undefined) {
+            finalTheme[componentKey].defaults =
+              mergeDefaults(componentTheme.defaults as Record<string, boolean>, themeDefaults[componentKey] as Record<string, boolean>);
+          }
+        }
+      }
+
+      return finalTheme;
+    },
+    [themeObject, themeOverride]
+  );
 
   return (
     <ThemeContext.Provider value={mergedTheme}>

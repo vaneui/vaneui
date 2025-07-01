@@ -28,7 +28,7 @@ export default [
       peerDepsExternal(),
       resolve(),
       commonjs(),
-      typescript({ 
+      typescript({
         tsconfig: "./tsconfig.json",
         check: true,
         abortOnError: true
@@ -48,29 +48,8 @@ export default [
       peerDepsExternal(),
       resolve(),
       commonjs(),
-      typescript({ 
+      typescript({
         tsconfig: "./tsconfig.complex.json",
-        check: true,
-        abortOnError: true
-      }),
-    ],
-  },
-  {
-    input: "src/components/theme/index.ts",
-    output: [
-      {
-        file: "dist/components/theme/index.js",
-        format: "esm",
-        sourcemap: true,
-        banner: useClientBanner,
-      },
-    ],
-    plugins: [
-      peerDepsExternal(),
-      resolve(),
-      commonjs(),
-      typescript({ 
-        tsconfig: "./tsconfig.theme.json",
         check: true,
         abortOnError: true
       }),

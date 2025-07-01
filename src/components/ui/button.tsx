@@ -1,8 +1,8 @@
 import { JSX } from 'react';
 import { ButtonProps } from './props/props';
-import { useTheme } from '../theme';
+import { useTheme } from "../themeContext";
 import { BUTTON_KEYS } from './props/keys';
-import { ThemedComponent } from "../utils/buildComponent";
+import { ThemedComponent } from "../themedComponent";
 
 export const Button = (props: ButtonProps): JSX.Element => {
   const theme = useTheme();

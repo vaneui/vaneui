@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { CardProps } from "./props/props";
-import { ThemedComponent } from "../utils/buildComponent";
-import { useTheme } from '../theme';
+import { ThemedComponent } from "../themedComponent";
+import { useTheme } from "../themeContext";
 import { CARD_KEYS } from './props/keys';
 
 export const Card = (props: CardProps): JSX.Element => {

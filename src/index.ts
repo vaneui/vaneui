@@ -15,7 +15,7 @@ export {
   defaultTheme,
   type ComponentKey,
   COMPONENT_KEYS
-} from './components/theme/themeContext';
+} from './components/themeContext';
 
 
 export { type ModeKey } from "./components/ui/props/keys";

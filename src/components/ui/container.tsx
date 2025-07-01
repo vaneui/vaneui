@@ -1,7 +1,7 @@
 import { JSX } from 'react';
 import { ContainerProps } from './props/props';
-import { ThemedComponent } from '../utils/buildComponent';
-import { useTheme } from '../theme';
+import { ThemedComponent } from '../themedComponent';
+import { useTheme } from "../themeContext";
 import { CONTAINER_KEYS } from './props/keys';
 
 export const Container = (props: ContainerProps): JSX.Element => {
