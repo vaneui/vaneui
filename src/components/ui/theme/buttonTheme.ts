@@ -33,7 +33,7 @@ export interface ButtonTheme<P> extends BaseComponentTheme<P> {
 
 export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<ButtonProps>>(
   "button",
-  "w-fit h-fit cursor-pointer inline-flex items-center justify-center transition-all duration-200 whitespace-nowrap",
+  "w-fit h-fit cursor-pointer transition-all duration-200 whitespace-nowrap",
   {
     size: {
       px: new PxTheme({
@@ -94,6 +94,9 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
   },
   {
     md: true,
+    inlineFlex: true,
+    itemsCenter: true,
+    justifyCenter: true,
     outline: true,
     default: true,
     rounded: true,

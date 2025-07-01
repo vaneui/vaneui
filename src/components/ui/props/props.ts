@@ -13,11 +13,11 @@ import {
   SectionKey, TypographyComponentKey,
 } from "./keys";
 
-export interface TagProps {
+export type ComponentProps = {
   tag?: React.ReactNode | string | any;
-}
-
-export type ComponentProps = TagProps & React.HTMLProps<HTMLElement>;
+  className?: string;
+  children?: React.ReactNode;
+} & React.HTMLProps<HTMLElement>;
 
 export type TypographyComponentProps = { [K in TypographyComponentKey]?: boolean; } & ComponentProps;
 export type ButtonProps = { [K in ButtonKey]?: boolean; } & ComponentProps;

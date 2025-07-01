@@ -17,7 +17,7 @@ export interface ColTheme<P> extends BaseComponentTheme<P> {
 
 export const defaultColTheme = new ComponentTheme<ColProps, ColTheme<ColProps>>(
   "div",
-  "flex flex-col",
+  "flex-col",
   {
     size: {
       gap: new GapTheme({gap: commonGaps}),
@@ -29,6 +29,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme<ColProps>>(
   },
   {
     md: true,
+    flex: true,
     transparent: true,
     gap: true,
   }

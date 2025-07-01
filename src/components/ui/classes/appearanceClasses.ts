@@ -109,7 +109,7 @@ export const layoutBackgroundAppearanceClasses: Record<AppearanceKey, string> = 
   transparent: "bg-transparent",
 }
 
-export const dividerAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const bgBorderAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "bg-(--border-color-default)",
   primary: "bg-(--border-color-primary)",
   secondary: "bg-(--border-color-secondary)",

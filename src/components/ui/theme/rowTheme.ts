@@ -17,7 +17,7 @@ export interface RowTheme<P> extends BaseComponentTheme<P> {
 
 export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme<RowProps>>(
   "div",
-  "flex flex-row",
+  "flex-row",
   {
     size: {
       gap: new GapTheme({gap: commonGaps}),
@@ -29,6 +29,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme<RowProps>>(
   },
   {
     md: true,
+    flex: true,
     transparent: true,
     itemsCenter: true,
     gap: true,

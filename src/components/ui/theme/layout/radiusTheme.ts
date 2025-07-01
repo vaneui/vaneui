@@ -1,5 +1,4 @@
 import { SHAPE_KEYS, ShapeKey, SIZE_KEYS, SizeKey } from "../../props/keys";
-import { roundedClasses } from "../../classes/layoutClasses";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
@@ -10,7 +9,13 @@ export class RadiusTheme extends BaseTheme {
   public static readonly defaultClasses: Record<ShapeKey, string | Record<SizeKey, string>> = {
     pill: "rounded-full",
     sharp: "rounded-none",
-    rounded: roundedClasses
+    rounded: {
+      xs: "rounded-sm",
+      sm: "rounded-md",
+      md: "rounded-lg",
+      lg: "rounded-xl",
+      xl: "rounded-2xl",
+    }
   };
 
   constructor(initial?: Partial<Record<ShapeKey, string | Record<SizeKey, string>>>) {

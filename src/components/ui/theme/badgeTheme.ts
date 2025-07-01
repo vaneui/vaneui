@@ -38,7 +38,7 @@ export interface BadgeTheme<P> extends BaseComponentTheme<P> {
 
 export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<BadgeProps>>(
   "span",
-  "w-fit h-fit inline-flex transition-all duration-200 whitespace-nowrap",
+  "w-fit h-fit transition-all duration-200 whitespace-nowrap",
   {
     size: {
       px: new PxTheme({
@@ -106,6 +106,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
   },
   {
     md: true,
+    inlineFlex: true,
     outline: true,
     pill: true,
     sans: true,

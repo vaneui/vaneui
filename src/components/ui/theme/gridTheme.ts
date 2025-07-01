@@ -11,6 +11,7 @@ export interface GridTheme<P> extends BaseComponentTheme<P> {
 const gridDefaults: Partial<GridProps> = {
   md: true,
   gap: true,
+  grid: true,
 };
 
 const gridSubThemes = {
@@ -29,14 +30,14 @@ const gridSubThemes = {
 
 export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme<GridProps>>(
   "div",
-  "grid grid-cols-1 md:grid-cols-3",
+  "grid-cols-1 md:grid-cols-3",
   gridSubThemes,
   gridDefaults,
 );
 
 export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme<GridProps>>(
   "div",
-  "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
+  "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   gridSubThemes,
   gridDefaults,
 );

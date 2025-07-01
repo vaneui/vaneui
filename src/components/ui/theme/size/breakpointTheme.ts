@@ -1,14 +1,19 @@
 import { BaseTheme } from "../common/baseTheme";
 import { BREAKPOINT_KEYS, BreakpointKey, SIZE_KEYS, SizeKey } from "../../props/keys";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
-import { rowToColumnBreakpointClasses } from "../../classes/layoutClasses";
 
 export interface BreakpointTheme extends Record<BreakpointKey, string> {
 }
 
 export class BreakpointTheme extends BaseTheme {
   public static readonly defaultClasses: Record<BreakpointKey, string> =
-    rowToColumnBreakpointClasses;
+    {
+      xsCol: "max-xs:flex-col",
+      smCol: "max-sm:flex-col",
+      mdCol: "max-md:flex-col",
+      lgCol: "max-lg:flex-col",
+      xlCol: "max-xl:flex-col"
+    };
 
   constructor(initial?: Partial<Record<BreakpointKey, string>>) {
     super();

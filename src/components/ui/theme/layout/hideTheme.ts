@@ -1,12 +1,18 @@
 import { HideKey, HIDE_KEYS } from "../../props/keys";
-import { hideClasses } from "../../classes/layoutClasses";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export interface HideTheme extends Record<HideKey, string> {}
+export interface HideTheme extends Record<HideKey, string> {
+}
 
 export class HideTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<HideKey, string> = hideClasses;
+  public static readonly defaultClasses: Record<HideKey, string> = {
+    xsHide: "max-xs:hidden",
+    smHide: "max-sm:hidden",
+    mdHide: "max-md:hidden",
+    lgHide: "max-lg:hidden",
+    xlHide: "max-xl:hidden"
+  };
 
   constructor(initialConfig?: Partial<Record<HideKey, string>>) {
     super();

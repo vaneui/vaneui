@@ -1,49 +1,25 @@
-import { twMerge } from "tailwind-merge";
 import React, { useMemo } from "react";
 import { ComponentTheme } from "../ui/theme/common/ComponentTheme";
-import { TagProps } from "../ui/props/props";
+import { ComponentProps } from "../ui/props/props";
 
-export interface BuildableComponentProps extends TagProps {
-  className?: string;
-  children?: React.ReactNode;
-}
+export type ThemedComponentProps<P extends ComponentProps, T extends object> = P & {
+  theme: ComponentTheme<P, T>;
+  propsToOmit?: readonly string[];
+};
 
-export function buildComponent<
-  P extends BuildableComponentProps,
-  TThemes extends object
->(
-  props: P,
-  theme: ComponentTheme<P, TThemes>,
-  propsToOmit: readonly string[] = []
-): React.ReactElement {
-  const cleanProps: Record<string, any> = { ...props };
-
-  for (const k of propsToOmit) {
-    if (k in cleanProps) {
-      delete cleanProps[k];
-    }
-  }
-
-  const {
-    className,
-    children,
-    tag,
-    ...other
-  } = cleanProps as P;
-
-  const componentTag: React.ElementType = tag ?? theme.tag ?? "div";
-
-  const themeGeneratedClasses = useMemo(() => {
-    return theme.getClasses(props);
-  }, [props, theme]);
-
-  const mergedClasses = twMerge(...themeGeneratedClasses, className);
-
-  const TagToRender = componentTag as React.ElementType;
+export function ThemedComponent<P extends ComponentProps, T extends object>(
+  {
+    theme,
+    propsToOmit,
+    ...props
+  }: ThemedComponentProps<P, T>) {
+  const {Tag, finalClasses, finalProps} = useMemo(() => {
+    return theme.getComponentConfig(props as unknown as P, propsToOmit);
+  }, [theme, props, propsToOmit]);
 
   return (
-    <TagToRender className={mergedClasses} {...other}>
-      {children}
-    </TagToRender>
+    <Tag className={finalClasses} {...finalProps}>
+      {props.children}
+    </Tag>
   );
 }

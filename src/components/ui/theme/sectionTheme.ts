@@ -43,7 +43,7 @@ export interface SectionTheme<P> extends BaseComponentTheme<P> {
 
 export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme<SectionProps>>(
   "div",
-  "w-full flex flex-col",
+  "w-full flex-col",
   {
     size: {
       px: new PxTheme({
@@ -101,6 +101,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   },
   {
     md: true,
+    flex: true,
     default: true,
     itemsStart: true,
     gap: true,

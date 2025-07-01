@@ -1,12 +1,18 @@
 import { PositionKey, POSITION_KEYS } from "../../props/keys";
-import { positionClasses } from "../../classes/layoutClasses";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export interface PositionTheme extends Record<PositionKey, string> {}
+export interface PositionTheme extends Record<PositionKey, string> {
+}
 
 export class PositionTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<PositionKey, string> = positionClasses;
+  public static readonly defaultClasses: Record<PositionKey, string> = {
+    relative: "relative",
+    absolute: "absolute",
+    fixed: "fixed",
+    sticky: "sticky",
+    static: "static"
+  };
 
   constructor(initialConfig?: Partial<Record<PositionKey, string>>) {
     super();

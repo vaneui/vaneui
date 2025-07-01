@@ -21,7 +21,7 @@ export interface StackTheme<P> extends BaseComponentTheme<P> {
 
 export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme<StackProps>>(
   "div",
-  "flex",
+  "",
   {
     size: {
       px: new PxTheme({
@@ -53,6 +53,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme<Stack
   },
   {
     md: true,
+    flex: true,
     transparent: true,
     column: true,
     flexWrap: true,

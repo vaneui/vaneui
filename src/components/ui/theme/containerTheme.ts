@@ -14,6 +14,7 @@ import {
 } from "../classes/appearanceClasses";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
+import { RadiusTheme } from "./layout/radiusTheme";
 
 export interface ContainerTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -25,6 +26,7 @@ export interface ContainerTheme<P> extends BaseComponentTheme<P> {
     direction: DirectionTheme;
     border: BorderTheme;
     ring: RingTheme;
+    radius: RadiusTheme;
   };
   appearance: {
     background: LayoutAppearanceTheme;
@@ -36,7 +38,7 @@ export interface ContainerTheme<P> extends BaseComponentTheme<P> {
 
 export const defaultContainerTheme = new ComponentTheme<ContainerProps, ContainerTheme<ContainerProps>>(
   "div",
-  "flex flex-col mx-auto w-full",
+  "flex-col mx-auto w-full",
   {
     size: {
       gap: new GapTheme({
@@ -61,6 +63,15 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       ring: new RingTheme(),
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
+      radius: new RadiusTheme({
+        rounded: {
+          xs: "rounded-md",
+          sm: "rounded-lg",
+          md: "rounded-xl",
+          lg: "rounded-2xl",
+          xl: "rounded-3xl"
+        }
+      }),
     },
     appearance: {
       background: LayoutAppearanceTheme.createDefaultStyle({
@@ -73,8 +84,11 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
   },
   {
     transparent: true,
+    noRing: true,
+    flex: true,
     md: true,
     itemsCenter: true,
     gap: true,
+    sharp: true,
   }
 );

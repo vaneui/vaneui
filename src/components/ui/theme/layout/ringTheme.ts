@@ -1,4 +1,3 @@
-import { ringModeClasses, noRingModeClasses } from "../../classes/layoutClasses";
 import { BaseTheme } from "../common/baseTheme";
 import { MODE_KEYS, ModeKey, RING_KEYS, RingKey } from "../../props/keys";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
@@ -8,8 +7,16 @@ export interface RingTheme extends Record<RingKey, Record<ModeKey, string>> {
 
 export class RingTheme extends BaseTheme {
   public static readonly defaultClasses: Record<RingKey, Record<ModeKey, string>> = {
-    ring: ringModeClasses,
-    noRing: noRingModeClasses,
+    ring: {
+      base: "ring ring-inset",
+      hover: "hover:ring hover:ring-inset",
+      active: "active:ring active:ring-inset",
+    },
+    noRing: {
+      base: "ring-0",
+      hover: "hover:ring-0",
+      active: "active:ring-0",
+    },
   };
 
   constructor(initial?: Partial<Record<RingKey, Record<ModeKey, string>>>) {

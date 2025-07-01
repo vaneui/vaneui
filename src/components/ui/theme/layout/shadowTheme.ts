@@ -1,10 +1,4 @@
 import { SizeKey, SIZE_KEYS, SHADOW_KEYS, ModeKey, MODE_KEYS, ShadowKey } from "../../props/keys";
-import {
-  shadowClasses,
-  hoverShadowClasses,
-  activeShadowClasses,
-  noShadowModeClasses,
-} from "../../classes/layoutClasses";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
@@ -14,11 +8,33 @@ export interface ShadowTheme extends Record<ShadowKey, Record<ModeKey, string | 
 export class ShadowTheme extends BaseTheme {
   public static readonly defaultClasses: Record<ShadowKey, Record<ModeKey, string | Record<SizeKey, string>>> = {
     shadow: {
-      base: shadowClasses,
-      hover: hoverShadowClasses,
-      active: activeShadowClasses,
+      base: {
+        xs: "shadow-2xs",
+        sm: "shadow-xs",
+        md: "shadow-sm",
+        lg: "shadow-md",
+        xl: "shadow-lg"
+      },
+      hover: {
+        xs: "hover:shadow-xs",
+        sm: "hover:shadow-sm",
+        md: "hover:shadow-md",
+        lg: "hover:shadow-lg",
+        xl: "hover:shadow-xl"
+      },
+      active: {
+        xs: "active:shadow-xs",
+        sm: "active:shadow-sm",
+        md: "active:shadow-md",
+        lg: "active:shadow-lg",
+        xl: "active:shadow-xl"
+      },
     },
-    noShadow: noShadowModeClasses
+    noShadow: {
+      base: "shadow-none",
+      hover: "hover:shadow-none",
+      active: "active:shadow-none",
+    }
   };
 
   constructor(initial?: Partial<Record<ShadowKey, Record<ModeKey, string | Record<SizeKey, string>>>>) {

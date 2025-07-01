@@ -1,12 +1,16 @@
 import { WrapKey, WRAP_KEYS } from "../../props/keys";
-import { wrapClasses } from "../../classes/layoutClasses";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export interface WrapTheme extends Record<WrapKey, string> {}
+export interface WrapTheme extends Record<WrapKey, string> {
+}
 
 export class WrapTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<WrapKey, string> = wrapClasses;
+  public static readonly defaultClasses: Record<WrapKey, string> = {
+    flexWrap: "flex-wrap",
+    flexNoWrap: "flex-nowrap",
+    flexWrapReverse: "flex-wrap-reverse"
+  };
 
   constructor(initialConfig?: Partial<Record<WrapKey, string>>) {
     super();

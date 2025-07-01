@@ -12,6 +12,9 @@ import { TextTransformTheme } from "../typography/textTransformTheme";
 import { TextAlignTheme } from "../typography/textAlignTheme";
 import { DeepPartial } from "../../../utils/deepPartial";
 import { deepMerge } from "../../../utils/deepMerge";
+import { DisplayTheme } from "../layout/displayTheme";
+import { twMerge } from "tailwind-merge";
+import { ComponentProps } from "../../props/props";
 
 type ThemeNode<P> = BaseTheme | ThemeMap<P>;
 
@@ -24,6 +27,7 @@ export interface DefaultLayoutThemes<P> {
   items: ItemsTheme;
   justify: JustifyTheme;
   position: PositionTheme;
+  display: DisplayTheme;
 }
 
 export interface DefaultTypographyThemes<P> {
@@ -40,10 +44,7 @@ export interface BaseComponentTheme<P> {
   typography: DefaultTypographyThemes<P>;
 }
 
-export class ComponentTheme<
-  P extends object,
-  TThemes extends object
-> {
+export class ComponentTheme<P extends ComponentProps, TThemes extends object> {
   readonly tag: React.ElementType;
   readonly base: string;
   readonly themes: TThemes;
@@ -65,6 +66,7 @@ export class ComponentTheme<
         items: new ItemsTheme(),
         justify: new JustifyTheme(),
         position: new PositionTheme(),
+        display: new DisplayTheme()
       },
       typography: {
         fontFamily: new FontFamilyTheme(),
@@ -75,12 +77,12 @@ export class ComponentTheme<
         textAlign: new TextAlignTheme()
       }
     };
-    this.themes = deepMerge(defaultInternalThemes as unknown as TThemes, subThemes) as TThemes;
+    this.themes = deepMerge(defaultInternalThemes as TThemes, subThemes) as TThemes;
   }
 
   getClasses(props: P, defaults: Partial<P> = this.defaults): string[] {
     const user = props as unknown as Record<string, boolean>;
-    const defs = defaults as unknown as Record<string, boolean>;
+    const defs = defaults as Record<string, boolean>;
     const classes: string[] = [];
 
     if (this.base) {
@@ -102,4 +104,23 @@ export class ComponentTheme<
     walk(this.themes);
     return classes.filter(Boolean);
   }
+
+  getComponentConfig(props: P, propsToOmit: readonly string[] = []) {
+    const cleanProps: Record<string, any> = {...props};
+    for (const k of propsToOmit) {
+      delete cleanProps[k];
+    }
+
+    const {className, tag, ...other} = cleanProps as P;
+    const componentTag: React.ElementType = tag ?? this.tag ?? "div";
+    const themeGeneratedClasses = this.getClasses(props);
+    const finalClasses = twMerge(...themeGeneratedClasses, className);
+
+    return {
+      Tag: componentTag,
+      finalClasses,
+      finalProps: other,
+    };
+  }
 }
+

@@ -35,7 +35,7 @@ export interface ChipTheme<P> extends BaseComponentTheme<P> {
 
 export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProps>>(
   "span",
-  "w-fit h-fit inline-flex gap-2 items-center transition-all duration-200 whitespace-nowrap",
+  "w-fit h-fit transition-all duration-200 whitespace-nowrap",
   {
     size: {
       px: new PxTheme({
@@ -103,6 +103,8 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProp
   },
   {
     md: true,
+    inlineFlex: true,
+    itemsCenter: true,
     outline: true,
     secondary: true,
     rounded: true,

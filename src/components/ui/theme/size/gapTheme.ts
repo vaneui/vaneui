@@ -1,13 +1,6 @@
-import { SizeKey, SIZE_KEYS, GAP_KEYS, ShadowKey, ModeKey, GapKey, SHADOW_KEYS, SHAPE_KEYS } from "../../props/keys";
+import { SizeKey, SIZE_KEYS, GAP_KEYS, GapKey } from "../../props/keys";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
-import {
-  activeShadowClasses,
-  hoverShadowClasses,
-  noShadowModeClasses,
-  shadowClasses
-} from "../../classes/layoutClasses";
-import { ShadowTheme } from "../layout/shadowTheme";
 
 export interface GapTheme extends Record<GapKey, string | Record<SizeKey, string>> {
 }
