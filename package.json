@@ -1,6 +1,6 @@
 {
   "name": "@vaneui/ui",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -30,11 +30,7 @@
     "build:js": "npm run type-check && npm run clean && rollup -c --bundleConfigAsCjs",
     "build:css:vars": "npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css",
     "build:css:ui": "npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css",
-    "watch:css:vars": "npx @tailwindcss/cli --watch -i src/components/css/vars.css -o ./dist/vars.css",
-    "watch:css:ui": "npx @tailwindcss/cli --watch -i src/components/index.css -o ./dist/ui.css",
     "build": "npm run clean && npm run build:js && npm run build:css:ui && npm run build:css:vars",
-    "watch": "npm run clean && concurrently \"rollup -c --bundleConfigAsCjs -w\" \"npm run watch:css:ui\" \"npm run watch:css:vars\"",
-    "prepublishOnly": "npm run build",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "keywords": [],
