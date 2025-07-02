@@ -1,12 +1,17 @@
 import { TextAlignKey, TEXT_ALIGN_KEYS } from "../../props/keys";
-import { textAlignClasses } from "../../classes/typographyClasses";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export interface TextAlignTheme extends Record<TextAlignKey, string> {}
+export interface TextAlignTheme extends Record<TextAlignKey, string> {
+}
 
 export class TextAlignTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<TextAlignKey, string> = textAlignClasses;
+  public static readonly defaultClasses: Record<TextAlignKey, string> = {
+    textLeft: "text-left",
+    textCenter: "text-center",
+    textRight: "text-right",
+    textJustify: "text-justify",
+  };
 
   constructor(initial?: Partial<Record<TextAlignKey, string>>) {
     super();

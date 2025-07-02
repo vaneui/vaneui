@@ -46,7 +46,7 @@ export const createTypographyComponentTheme = (
 // Page title specific theme
 export const pageTitleTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>> = createTypographyComponentTheme(
   "h1",
-  "text-balance tracking-tighter w-fit",
+  "text-balance tracking-tight w-fit",
   {
     xs: "text-3xl max-lg:text-2xl max-md:text-xl",
     sm: "text-4xl max-lg:text-3xl max-md:text-2xl",

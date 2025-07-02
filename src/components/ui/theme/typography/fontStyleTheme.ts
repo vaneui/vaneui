@@ -1,12 +1,15 @@
 import { FontStyleKey, FONT_STYLE_KEYS } from "../../props/keys";
-import { fontStyleClasses } from "../../classes/typographyClasses";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export interface FontStyleTheme extends Record<FontStyleKey, string> {}
+export interface FontStyleTheme extends Record<FontStyleKey, string> {
+}
 
 export class FontStyleTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<FontStyleKey, string> = fontStyleClasses;
+  public static readonly defaultClasses: Record<FontStyleKey, string> = {
+    italic: "italic",
+    notItalic: "not-italic",
+  };
 
   constructor(initial?: Partial<Record<FontStyleKey, string>>) {
     super();

@@ -1,12 +1,16 @@
 import { FontFamilyKey, FONT_FAMILY_KEYS } from "../../props/keys";
-import { fontFamilyClasses } from "../../classes/typographyClasses";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export interface FontFamilyTheme extends Record<FontFamilyKey, string> {}
+export interface FontFamilyTheme extends Record<FontFamilyKey, string> {
+}
 
 export class FontFamilyTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<FontFamilyKey, string> = fontFamilyClasses;
+  public static readonly defaultClasses: Record<FontFamilyKey, string> = {
+    sans: "font-sans",
+    serif: "font-serif",
+    mono: "font-mono",
+  };
 
   constructor(initial?: Partial<Record<FontFamilyKey, string>>) {
     super();

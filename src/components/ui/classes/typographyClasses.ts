@@ -9,50 +9,6 @@ import {
   TextTransformKey
 } from "../props/keys";
 
-export const fontWeightClasses: Record<FontWeightKey, string> = {
-  thin: "font-thin",
-  extralight: "font-extralight",
-  light: "font-light",
-  normal: "font-normal",
-  medium: "font-medium",
-  semibold: "font-semibold",
-  bold: "font-bold",
-  extrabold: "font-extrabold",
-  black: "font-black",
-}
-
-export const fontStyleClasses: Record<FontStyleKey, string> = {
-  italic: "italic",
-  notItalic: "not-italic",
-}
-
-export const fontFamilyClasses: Record<FontFamilyKey, string> = {
-  sans: "font-sans",
-  serif: "font-serif",
-  mono: "font-mono",
-}
-
-export const textDecorationClasses: Record<TextDecorationKey, string> = {
-  underline: "underline",
-  lineThrough: "line-through",
-  noUnderline: "no-underline",
-  overline: "overline",
-}
-
-export const textTransformClasses: Record<TextTransformKey, string> = {
-  uppercase: "uppercase",
-  lowercase: "lowercase",
-  capitalize: "capitalize",
-  normalCase: "normal-case",
-}
-
-export const textAlignClasses: Record<TextAlignKey, string> = {
-  textLeft: "text-left",
-  textCenter: "text-center",
-  textRight: "text-right",
-  textJustify: "text-justify",
-}
-
 // Text appearance classes for filled buttons (all white text)
 export const filledTextAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "text-white",

@@ -1,12 +1,17 @@
 import { TextTransformKey, TEXT_TRANSFORM_KEYS } from "../../props/keys";
-import { textTransformClasses } from "../../classes/typographyClasses";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export interface TextTransformTheme extends Record<TextTransformKey, string> {}
+export interface TextTransformTheme extends Record<TextTransformKey, string> {
+}
 
 export class TextTransformTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<TextTransformKey, string> = textTransformClasses;
+  public static readonly defaultClasses: Record<TextTransformKey, string> = {
+    uppercase: "uppercase",
+    lowercase: "lowercase",
+    capitalize: "capitalize",
+    normalCase: "normal-case",
+  };
 
   constructor(initial?: Partial<Record<TextTransformKey, string>>) {
     super();
