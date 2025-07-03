@@ -31,7 +31,8 @@ jobs:
         id: check_version
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          PUBLISHED_VERSION=$(npm view ${{ fromJSON(file('package.json')).name }} version 2>/dev/null || echo "none")
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          PUBLISHED_VERSION=$(npm view $PACKAGE_NAME version 2>/dev/null || echo "none")
           echo "Local version: $VERSION"
           echo "Published version: $PUBLISHED_VERSION"
           if [ "$VERSION" = "$PUBLISHED_VERSION" ]; then
