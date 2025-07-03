@@ -1,12 +1,13 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+name: Publish to npm
 
-name: Npm publish on push
-
-on: [push]
+# Run on pushes to the main branch
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -16,7 +17,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: 'https://registry.npmjs.org' # Set registry for all npm commands
           cache: 'npm'
 
       - name: Install Dependencies
@@ -25,47 +26,34 @@ jobs:
       - name: Run Tests
         run: npm test
 
-      - name: Build Package
-        run: npm run build
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Install Dependencies
-        run: npm ci
-
-      - name: Run Tests
-        run: npm test
-
-      - name: Check if Version Already Published
+      # Check if the version in package.json already exists on npm
+      - name: Check if Version is Already Published
         id: check_version
         run: |
-          # Get version from package.json
           VERSION=$(node -p "require('./package.json').version")
-          echo "Local package version: $VERSION"
-          # Get published version for the package (@vaneui/ui) or "none" if not published.
-          PUBLISHED_VERSION=$(npm view @vaneui/ui version || echo "none")
-          echo "Published package version: $PUBLISHED_VERSION"
+          PUBLISHED_VERSION=$(npm view ${{ fromJSON(file('package.json')).name }} version 2>/dev/null || echo "none")
+          echo "Local version: $VERSION"
+          echo "Published version: $PUBLISHED_VERSION"
           if [ "$VERSION" = "$PUBLISHED_VERSION" ]; then
-            echo "Version already published. Skipping publish step."
-            echo "shouldPublish=false" >> $GITHUB_OUTPUT
+            echo "Version $VERSION is already published. Skipping."
+            echo "should_publish=false" >> $GITHUB_OUTPUT
           else
-            echo "Version is new. Proceeding with publish."
-            echo "shouldPublish=true" >> $GITHUB_OUTPUT
+            echo "Version $VERSION is new. Proceeding to publish."
+            echo "should_publish=true" >> $GITHUB_OUTPUT
           fi
 
+      # Proceed only if the version is new
+      - name: Build Package
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: npm run build
+
+      # Best Practice: Verify what will be in the package before publishing
+      - name: Verify Package Contents
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: npm pack --dry-run
+
       - name: Publish Package to npm
-        if: steps.check_version.outputs.shouldPublish == 'true'
+        if: steps.check_version.outputs.should_publish == 'true'
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

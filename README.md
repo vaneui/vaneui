@@ -116,6 +116,18 @@ npm run build
 
 # Watch mode for development
 npm run watch
+
+# Verify package contents
+npm run verify-package
+```
+
+### Publishing the Package
+
+Before publishing, the package automatically runs the build process and verifies that all required files are present. This ensures that the published package contains all necessary files for users.
+
+```bash
+# Publish the package
+npm publish
 ```
 
 ### Component Development Guidelines

@@ -8,13 +8,13 @@ export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle } from "./co
 export {
   ThemeProvider,
   useTheme,
+  defaultTheme,
+  COMPONENT_KEYS,
   type ThemeProps,
   type ThemeDefaults,
   type ThemeProviderProps,
   type PartialTheme,
-  defaultTheme,
   type ComponentKey,
-  COMPONENT_KEYS
 } from './components/themeContext';
 
 export * from "./components/ui/props/index";
