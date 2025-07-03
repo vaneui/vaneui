@@ -1,5 +1,5 @@
 import { DeepPartial } from "./deepPartial";
-import { EXCLUSIVE_KEY_GROUPS } from "../ui/props/keys";
+import { EXCLUSIVE_KEY_GROUPS } from "../ui/props";
 
 const isObject = (item: unknown): item is Record<string, any> => {
   return item !== null && typeof item === 'object' && !Array.isArray(item);

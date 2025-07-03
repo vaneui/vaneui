@@ -1,32 +1,33 @@
 import { BaseTheme } from "../common/baseTheme";
 import {
-  APPEARANCE_KEYS,
-  AppearanceKey,
+  BG_APPEARANCE_KEYS,
+  BgAppearanceKey,
   MODE_KEYS,
   ModeKey,
-} from "../../props/keys";
+} from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
-import { textAppearanceClasses } from "../../classes/typographyClasses";
+import { backgroundAppearanceClasses } from "../../classes/appearanceClasses";
 
-export interface LayoutAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {}
+export interface LayoutAppearanceTheme extends Record<BgAppearanceKey, Record<ModeKey, string>> {
+}
 
 export class LayoutAppearanceTheme extends BaseTheme {
-  public static readonly defaultFullConfig: Record<AppearanceKey, Record<ModeKey, string>> =
+  public static readonly defaultFullConfig: Record<BgAppearanceKey, Record<ModeKey, string>> =
     (() => {
-      const config: Partial<Record<AppearanceKey, Record<ModeKey, string>>> = {};
-      APPEARANCE_KEYS.forEach((key: AppearanceKey) => {
+      const config: Partial<Record<BgAppearanceKey, Record<ModeKey, string>>> = {};
+      BG_APPEARANCE_KEYS.forEach((key: BgAppearanceKey) => {
         config[key] = {
-          base: textAppearanceClasses[key] || '',
+          base: backgroundAppearanceClasses[key] || '',
           hover: '',
           active: '',
         };
       });
-      return config as Record<AppearanceKey, Record<ModeKey, string>>;
+      return config as Record<BgAppearanceKey, Record<ModeKey, string>>;
     })();
 
-  constructor(initialOverrides?: Partial<Record<AppearanceKey, Partial<Record<ModeKey, string>>>>) {
+  constructor(initialOverrides?: Partial<Record<BgAppearanceKey, Partial<Record<ModeKey, string>>>>) {
     super();
-    APPEARANCE_KEYS.forEach((textKey: AppearanceKey) => {
+    BG_APPEARANCE_KEYS.forEach((textKey: BgAppearanceKey) => {
       const defaultModesForKey = LayoutAppearanceTheme.defaultFullConfig[textKey];
       const overrideModesForKey = initialOverrides?.[textKey];
       this[textKey] = {
@@ -37,7 +38,7 @@ export class LayoutAppearanceTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS) || 'default';
+    const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, BG_APPEARANCE_KEYS) || 'default';
     const modesForAppearance = this[pickedAppearanceKey];
 
     if (!modesForAppearance) {
@@ -47,11 +48,11 @@ export class LayoutAppearanceTheme extends BaseTheme {
   }
 
   static createDefaultStyle(
-    src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {}
+    src: Partial<Record<ModeKey, Partial<Record<BgAppearanceKey, string>>>> = {}
   ): LayoutAppearanceTheme {
-    const initialOverridesForConstructor: Partial<Record<AppearanceKey, Partial<Record<ModeKey, string>>>> = {};
+    const initialOverridesForConstructor: Partial<Record<BgAppearanceKey, Partial<Record<ModeKey, string>>>> = {};
 
-    APPEARANCE_KEYS.forEach((textKey: AppearanceKey) => {
+    BG_APPEARANCE_KEYS.forEach((textKey: BgAppearanceKey) => {
       const modesForCurrentTextKey: Partial<Record<ModeKey, string>> = {};
       let keyHasDataInSrc = false;
 

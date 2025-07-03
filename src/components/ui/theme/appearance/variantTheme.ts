@@ -2,9 +2,7 @@ import { BaseTheme } from "../common/baseTheme";
 import {
   VARIANT_KEYS,
   VariantKey,
-  ModeKey,
-  TextAppearanceKey
-} from "../../props/keys";
+} from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { TextAppearanceTheme } from "./textAppearanceTheme";
 import {

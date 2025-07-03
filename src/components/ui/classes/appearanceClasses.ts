@@ -1,7 +1,6 @@
-import { AppearanceKey, TextAppearanceKey } from "../props/keys";
+import { BgAppearanceKey, TextAppearanceKey } from "../props";
 
-// Background classes for filled buttons
-export const filledBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const filledBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "bg-(--filled-background-color-default)",
   primary: "bg-(--filled-background-color-primary)",
   secondary: "bg-(--filled-background-color-secondary)",
@@ -12,12 +11,9 @@ export const filledBackgroundAppearanceClasses: Record<TextAppearanceKey, string
   warning: "bg-(--filled-background-color-warning)",
   info: "bg-(--filled-background-color-info)",
   transparent: "bg-transparent",
-  muted: "bg-(--filled-background-color-muted)",
-  link: "bg-(--filled-background-color-link)",
 }
 
-// Hover background classes for filled buttons
-export const filledHoverBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const filledHoverBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "hover:bg-(--filled-background-color-hover-default)",
   primary: "hover:bg-(--filled-background-color-hover-primary)",
   secondary: "hover:bg-(--filled-background-color-hover-secondary)",
@@ -28,12 +24,9 @@ export const filledHoverBackgroundAppearanceClasses: Record<TextAppearanceKey, s
   warning: "hover:bg-(--filled-background-color-hover-warning)",
   info: "hover:bg-(--filled-background-color-hover-info)",
   transparent: "hover:bg-transparent",
-  muted: "hover:bg-(--filled-background-color-hover-muted)",
-  link: "hover:bg-(--filled-background-color-hover-link)",
 }
 
-// Active background classes for filled buttons
-export const filledActiveBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const filledActiveBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "active:bg-(--filled-background-color-active-default)",
   primary: "active:bg-(--filled-background-color-active-primary)",
   secondary: "active:bg-(--filled-background-color-active-secondary)",
@@ -44,12 +37,9 @@ export const filledActiveBackgroundAppearanceClasses: Record<TextAppearanceKey, 
   warning: "active:bg-(--filled-background-color-active-warning)",
   info: "active:bg-(--filled-background-color-active-info)",
   transparent: "active:bg-transparent",
-  muted: "active:bg-(--filled-background-color-active-muted)",
-  link: "active:bg-(--filled-background-color-active-link)",
 }
 
-// Default background appearance classes (for non-button components)
-export const backgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const backgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "bg-(--background-color-default)",
   primary: "bg-(--background-color-primary)",
   secondary: "bg-(--background-color-secondary)",
@@ -60,12 +50,9 @@ export const backgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
   warning: "bg-(--background-color-warning)",
   info: "bg-(--background-color-info)",
   transparent: "bg-transparent",
-  muted: "bg-(--background-color-muted)",
-  link: "bg-(--background-color-link)",
 }
 
-// Hover background appearance classes for outline buttons
-export const hoverBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const hoverBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "hover:bg-(--background-color-hover-default)",
   primary: "hover:bg-(--background-color-hover-primary)",
   secondary: "hover:bg-(--background-color-hover-secondary)",
@@ -76,12 +63,9 @@ export const hoverBackgroundAppearanceClasses: Record<TextAppearanceKey, string>
   warning: "hover:bg-(--background-color-hover-warning)",
   info: "hover:bg-(--background-color-hover-info)",
   transparent: "hover:bg-transparent",
-  muted: "hover:bg-(--background-color-hover-muted)",
-  link: "hover:bg-(--background-color-hover-link)",
 }
 
-// Active background appearance classes for outline buttons
-export const activeBackgroundAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const activeBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "active:bg-(--background-color-active-default)",
   primary: "active:bg-(--background-color-active-primary)",
   secondary: "active:bg-(--background-color-active-secondary)",
@@ -92,11 +76,9 @@ export const activeBackgroundAppearanceClasses: Record<TextAppearanceKey, string
   warning: "active:bg-(--background-color-active-warning)",
   info: "active:bg-(--background-color-active-info)",
   transparent: "active:bg-transparent",
-  muted: "active:bg-(--background-color-active-muted)",
-  link: "active:bg-(--background-color-active-link)",
 }
 
-export const layoutBackgroundAppearanceClasses: Record<AppearanceKey, string> = {
+export const layoutBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "bg-(--layout-background-default)",
   primary: "bg-(--layout-background-primary)",
   secondary: "bg-(--layout-background-secondary)",
@@ -119,7 +101,6 @@ export const bgBorderAppearanceClasses: Record<TextAppearanceKey, string> = {
   danger: "bg-(--border-color-danger)",
   warning: "bg-(--border-color-warning)",
   info: "bg-(--border-color-info)",
-  transparent: "bg-transparent",
   muted: "bg-(--border-color-muted)",
   link: "bg-(--border-color-link)",
 }
@@ -134,12 +115,10 @@ export const borderAppearanceClasses: Record<TextAppearanceKey, string> = {
   danger: "border-(--border-color-danger)",
   warning: "border-(--border-color-warning)",
   info: "border-(--border-color-info)",
-  transparent: "border-transparent",
   muted: "border-(--border-color-muted)",
   link: "border-(--border-color-link)",
 }
 
-// Border classes for filled elements
 export const filledBorderAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "border-(--filled-border-color-default)",
   primary: "border-(--filled-border-color-primary)",
@@ -150,7 +129,6 @@ export const filledBorderAppearanceClasses: Record<TextAppearanceKey, string> = 
   danger: "border-(--filled-border-color-danger)",
   warning: "border-(--filled-border-color-warning)",
   info: "border-(--filled-border-color-info)",
-  transparent: "border-transparent",
   muted: "border-(--filled-border-color-muted)",
   link: "border-(--filled-border-color-link)",
 }
@@ -165,12 +143,10 @@ export const ringAppearanceClasses: Record<TextAppearanceKey, string> = {
   danger: "ring-(--border-color-danger)",
   warning: "ring-(--border-color-warning)",
   info: "ring-(--border-color-info)",
-  transparent: "ring-transparent",
   muted: "ring-(--border-color-muted)",
   link: "ring-(--border-color-link)",
 }
 
-// Ring classes for filled elements
 export const filledRingAppearanceClasses: Record<TextAppearanceKey, string> = {
   default: "ring-(--filled-border-color-default)",
   primary: "ring-(--filled-border-color-primary)",
@@ -181,7 +157,6 @@ export const filledRingAppearanceClasses: Record<TextAppearanceKey, string> = {
   danger: "ring-(--filled-border-color-danger)",
   warning: "ring-(--filled-border-color-warning)",
   info: "ring-(--filled-border-color-info)",
-  transparent: "ring-transparent",
   muted: "ring-(--filled-border-color-muted)",
   link: "ring-(--filled-border-color-link)",
 }
