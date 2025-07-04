@@ -1,18 +1,22 @@
 import { BaseTheme } from "../common/baseTheme";
-import { MODE_KEYS, ModeKey, TEXT_APPEARANCE_KEYS, TextAppearanceKey } from "../../props";
+import {
+  BG_APPEARANCE_KEYS,
+  BgAppearanceKey,
+  MODE_KEYS,
+  ModeKey,
+} from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
-import { textAppearanceClasses } from "../../classes/typographyClasses";
+import { backgroundAppearanceClasses } from "../../classes/appearanceClasses";
 
-export interface TextAppearanceTheme extends Record<TextAppearanceKey, Record<ModeKey, string>> {
+export interface BgAppearanceTheme extends Record<BgAppearanceKey, Record<ModeKey, string>> {
 }
 
-export class TextAppearanceTheme extends BaseTheme {
-
-  constructor(initialOverrides?: Partial<Record<TextAppearanceKey, Partial<Record<ModeKey, string>>>>) {
+export class BgAppearanceTheme extends BaseTheme {
+  constructor(initialOverrides?: Partial<Record<BgAppearanceKey, Partial<Record<ModeKey, string>>>>) {
     super();
-    TEXT_APPEARANCE_KEYS.forEach((textKey: TextAppearanceKey) => {
+    BG_APPEARANCE_KEYS.forEach((textKey: BgAppearanceKey) => {
       this[textKey] = {
-        base: textAppearanceClasses[textKey] || '',
+        base: backgroundAppearanceClasses[textKey] || '',
         hover: '',
         active: '',
         ...(initialOverrides?.[textKey] || {}),
@@ -21,7 +25,7 @@ export class TextAppearanceTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, TEXT_APPEARANCE_KEYS) || 'default';
+    const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, BG_APPEARANCE_KEYS) || 'default';
     const modesForAppearance = this[pickedAppearanceKey];
 
     if (!modesForAppearance) {
@@ -31,11 +35,11 @@ export class TextAppearanceTheme extends BaseTheme {
   }
 
   static createDefaultTheme(
-    src: Partial<Record<ModeKey, Partial<Record<TextAppearanceKey, string>>>> = {}
-  ): TextAppearanceTheme {
-    return new TextAppearanceTheme(
+    src: Partial<Record<ModeKey, Partial<Record<BgAppearanceKey, string>>>> = {}
+  ): BgAppearanceTheme {
+    return new BgAppearanceTheme(
       Object.fromEntries(
-        TEXT_APPEARANCE_KEYS.map(textKey => [
+        BG_APPEARANCE_KEYS.map(textKey => [
           textKey,
           Object.fromEntries(
             MODE_KEYS

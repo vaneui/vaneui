@@ -8,7 +8,8 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { VariantTheme } from "./appearance/variantTheme";
+import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 
 export interface ButtonTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -19,10 +20,10 @@ export interface ButtonTheme<P> extends BaseComponentTheme<P> {
     shadow: ShadowTheme;
   };
   appearance: {
-    background: VariantTheme;
-    text: VariantTheme;
-    border: VariantTheme;
-    ring: VariantTheme;
+    background: GenericVariantTheme<TextAppearanceTheme>;
+    text: GenericVariantTheme<TextAppearanceTheme>;
+    border: GenericVariantTheme<TextAppearanceTheme>;
+    ring: GenericVariantTheme<TextAppearanceTheme>;
   };
   layout: DefaultLayoutThemes<P> & {
     border: BorderTheme;
@@ -73,10 +74,10 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
       shadow: new ShadowTheme(),
     },
     appearance: {
-      background: VariantTheme.createDefaultBackground(),
-      text: VariantTheme.createDefaultText(),
-      border: VariantTheme.createDefaultBorder(),
-      ring: VariantTheme.createDefaultRing(),
+      background: GenericVariantTheme.createBgAppearanceTheme(),
+      text: GenericVariantTheme.createTextAppearanceTheme(),
+      border: GenericVariantTheme.createBorderAppearanceTheme(),
+      ring: GenericVariantTheme.createRingAppearanceTheme(),
     },
     layout: {
       border: new BorderTheme(),

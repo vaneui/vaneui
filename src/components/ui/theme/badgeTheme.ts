@@ -8,12 +8,8 @@ import { ShadowTheme } from "./layout/shadowTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { VariantTheme } from "./appearance/variantTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
-import {
-  backgroundAppearanceClasses,
-  filledBackgroundAppearanceClasses,
-} from "../classes/appearanceClasses";
+import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 
 export interface BadgeTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -24,10 +20,10 @@ export interface BadgeTheme<P> extends BaseComponentTheme<P> {
     shadow: ShadowTheme;
   };
   appearance: {
-    background: VariantTheme;
-    text: VariantTheme;
-    border: VariantTheme;
-    ring: VariantTheme;
+    background: GenericVariantTheme<TextAppearanceTheme>;
+    text: GenericVariantTheme<TextAppearanceTheme>;
+    border: GenericVariantTheme<TextAppearanceTheme>;
+    ring: GenericVariantTheme<TextAppearanceTheme>;
   };
   layout: DefaultLayoutThemes<P> & {
     border: BorderTheme;
@@ -78,17 +74,10 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
       shadow: new ShadowTheme(),
     },
     appearance: {
-      background: VariantTheme.createDefault({
-        outline: TextAppearanceTheme.createDefaultStyle({
-          base: backgroundAppearanceClasses,
-        }),
-        filled: TextAppearanceTheme.createDefaultStyle({
-          base: filledBackgroundAppearanceClasses,
-        })
-      }),
-      text: VariantTheme.createDefaultText(),
-      border: VariantTheme.createDefaultBorder(),
-      ring: VariantTheme.createDefaultRing(),
+      background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
+      text: GenericVariantTheme.createTextAppearanceTheme(),
+      border: GenericVariantTheme.createBorderAppearanceTheme(),
+      ring: GenericVariantTheme.createRingAppearanceTheme(),
     },
     layout: {
       border: new BorderTheme(),

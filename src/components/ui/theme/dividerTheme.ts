@@ -14,7 +14,7 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
   "h-px w-full",
   {
     appearance: {
-      background: TextAppearanceTheme.createDefaultStyle({
+      background: TextAppearanceTheme.createDefaultTheme({
         base: bgBorderAppearanceClasses,
       }),
     }

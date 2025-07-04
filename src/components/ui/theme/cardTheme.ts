@@ -16,7 +16,7 @@ import {
   ringAppearanceClasses
 } from "../classes/appearanceClasses";
 import { textAppearanceClasses } from "../classes/typographyClasses";
-import { LayoutAppearanceTheme } from "./appearance/layoutAppearanceTheme";
+import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { RingTheme } from "./layout/ringTheme";
 
@@ -36,7 +36,7 @@ export interface CardTheme<P> extends BaseComponentTheme<P> {
     breakpoint: BreakpointTheme;
   };
   appearance: {
-    background: LayoutAppearanceTheme;
+    background: BgAppearanceTheme;
     text: TextAppearanceTheme;
     border: TextAppearanceTheme;
     ring: TextAppearanceTheme;
@@ -86,12 +86,12 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme<CardProp
       breakpoint: new BreakpointTheme(),
     },
     appearance: {
-      background: LayoutAppearanceTheme.createDefaultStyle({
+      background: BgAppearanceTheme.createDefaultTheme({
         base: layoutBackgroundAppearanceClasses,
       }),
-      text: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
-      border: TextAppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
-      ring: TextAppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
+      text: TextAppearanceTheme.createDefaultTheme({base: textAppearanceClasses}),
+      border: TextAppearanceTheme.createDefaultTheme({base: borderAppearanceClasses}),
+      ring: TextAppearanceTheme.createDefaultTheme({base: ringAppearanceClasses}),
     }
   },
   {

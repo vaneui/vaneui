@@ -6,7 +6,7 @@ import { SizeTheme } from "./size/sizeTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
-import { LayoutAppearanceTheme } from "./appearance/layoutAppearanceTheme";
+import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
 import {
   borderAppearanceClasses,
   layoutBackgroundAppearanceClasses,
@@ -29,7 +29,7 @@ export interface ContainerTheme<P> extends BaseComponentTheme<P> {
     radius: RadiusTheme;
   };
   appearance: {
-    background: LayoutAppearanceTheme;
+    background: BgAppearanceTheme;
     text: TextAppearanceTheme;
     border: TextAppearanceTheme;
     ring: TextAppearanceTheme;
@@ -74,12 +74,12 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       }),
     },
     appearance: {
-      background: LayoutAppearanceTheme.createDefaultStyle({
+      background: BgAppearanceTheme.createDefaultTheme({
         base: layoutBackgroundAppearanceClasses,
       }),
-      text: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
-      border: TextAppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
-      ring: TextAppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
+      text: TextAppearanceTheme.createDefaultTheme({base: textAppearanceClasses}),
+      border: TextAppearanceTheme.createDefaultTheme({base: borderAppearanceClasses}),
+      ring: TextAppearanceTheme.createDefaultTheme({base: ringAppearanceClasses}),
     }
   },
   {

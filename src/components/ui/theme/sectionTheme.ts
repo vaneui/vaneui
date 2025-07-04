@@ -5,12 +5,11 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { SectionProps } from "../props/props";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { VariantTheme } from "./appearance/variantTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { ShadowTheme } from "./layout/shadowTheme";
-import { LayoutAppearanceTheme } from "./appearance/layoutAppearanceTheme";
+import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
 import {
   borderAppearanceClasses,
   layoutBackgroundAppearanceClasses,
@@ -18,6 +17,7 @@ import {
 } from "../classes/appearanceClasses";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
+import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 
 export interface SectionTheme<P> extends BaseComponentTheme<P> {
   size: {
@@ -27,10 +27,10 @@ export interface SectionTheme<P> extends BaseComponentTheme<P> {
     shadow: ShadowTheme;
   };
   appearance: {
-    background: VariantTheme;
-    text: VariantTheme;
-    border: VariantTheme;
-    ring: VariantTheme;
+    background: GenericVariantTheme<BgAppearanceTheme>;
+    text: GenericVariantTheme<TextAppearanceTheme>;
+    border: GenericVariantTheme<TextAppearanceTheme>;
+    ring: GenericVariantTheme<TextAppearanceTheme>;
   };
   layout: DefaultLayoutThemes<P> & {
     wrap: WrapTheme;
@@ -76,12 +76,12 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       shadow: new ShadowTheme(),
     },
     appearance: {
-      background: LayoutAppearanceTheme.createDefaultStyle({
+      background: BgAppearanceTheme.createDefaultTheme({
         base: layoutBackgroundAppearanceClasses,
       }),
-      text: TextAppearanceTheme.createDefaultStyle({base: textAppearanceClasses}),
-      border: TextAppearanceTheme.createDefaultStyle({base: borderAppearanceClasses}),
-      ring: TextAppearanceTheme.createDefaultStyle({base: ringAppearanceClasses}),
+      text: TextAppearanceTheme.createDefaultTheme({base: textAppearanceClasses}),
+      border: TextAppearanceTheme.createDefaultTheme({base: borderAppearanceClasses}),
+      ring: TextAppearanceTheme.createDefaultTheme({base: ringAppearanceClasses}),
     },
     layout: {
       wrap: new WrapTheme(),
