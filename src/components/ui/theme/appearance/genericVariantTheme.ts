@@ -21,7 +21,7 @@ export interface GenericVariantTheme<T extends BaseTheme> extends Record<Variant
 
 export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
 
-  constructor(
+  private constructor(
     variantInstances: Record<VariantKey, T>
   ) {
     super();
@@ -32,8 +32,8 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const activeVariantKey = pickFirstTruthyKey(props, defaults, VARIANT_KEYS) || 'outline';
-    const activeTextAppearanceTheme = this[activeVariantKey];
+    const variantKey = pickFirstTruthyKey(props, defaults, VARIANT_KEYS) || 'outline';
+    const activeTextAppearanceTheme = this[variantKey];
 
     if (!activeTextAppearanceTheme) {
       return [];
@@ -41,35 +41,41 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     return activeTextAppearanceTheme.getClasses(props, defaults);
   }
 
-  static createTextAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
+  // used for button, bages, chips, etc
+  static createUIElementTextTheme(): GenericVariantTheme<TextAppearanceTheme> {
+    //transparent UI elements have a default text color
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createDefaultTheme({base: textAppearanceClasses}),
-      filled: TextAppearanceTheme.createDefaultTheme({base: filledTextAppearanceClasses})
+      outline: TextAppearanceTheme.createTheme({
+        base: {...textAppearanceClasses, transparent: textAppearanceClasses.default}
+      }),
+      filled: TextAppearanceTheme.createTheme({
+        base: {...filledTextAppearanceClasses, transparent: textAppearanceClasses.default}
+      })
     });
   }
 
   static createBorderAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createDefaultTheme({base: borderAppearanceClasses}),
-      filled: TextAppearanceTheme.createDefaultTheme({base: filledBorderAppearanceClasses})
+      outline: TextAppearanceTheme.createTheme({base: borderAppearanceClasses}),
+      filled: TextAppearanceTheme.createTheme({base: filledBorderAppearanceClasses})
     });
   }
 
   static createRingAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createDefaultTheme({base: ringAppearanceClasses}),
-      filled: TextAppearanceTheme.createDefaultTheme({base: filledRingAppearanceClasses})
+      outline: TextAppearanceTheme.createTheme({base: ringAppearanceClasses}),
+      filled: TextAppearanceTheme.createTheme({base: filledRingAppearanceClasses})
     });
   }
 
   static createBgAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createDefaultTheme({
+      outline: TextAppearanceTheme.createTheme({
         base: backgroundAppearanceClasses,
         hover: hoverBackgroundAppearanceClasses,
         active: activeBackgroundAppearanceClasses
       }),
-      filled: TextAppearanceTheme.createDefaultTheme({
+      filled: TextAppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
         hover: filledHoverBackgroundAppearanceClasses,
         active: filledActiveBackgroundAppearanceClasses
@@ -79,10 +85,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
 
   static createSimpleBgAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createDefaultTheme({
+      outline: TextAppearanceTheme.createTheme({
         base: backgroundAppearanceClasses,
       }),
-      filled: TextAppearanceTheme.createDefaultTheme({
+      filled: TextAppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
       })
     });

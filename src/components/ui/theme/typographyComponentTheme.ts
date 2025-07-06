@@ -37,7 +37,7 @@ export const createTypographyComponentTheme = (
         text: new SizeTheme(textSizeMap),
       },
       appearance: {
-        text: TextAppearanceTheme.createDefaultTheme({base: textAppearanceClasses}),
+        text: TextAppearanceTheme.createTheme({base: textAppearanceClasses}),
       }
     },
     defaults);

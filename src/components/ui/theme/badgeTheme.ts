@@ -75,7 +75,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
     },
     appearance: {
       background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
-      text: GenericVariantTheme.createTextAppearanceTheme(),
+      text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createBorderAppearanceTheme(),
       ring: GenericVariantTheme.createRingAppearanceTheme(),
     },

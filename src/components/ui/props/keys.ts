@@ -1,9 +1,8 @@
 export const MODE_KEYS = ['base', 'hover', 'active'] as const;
 export const SIZE_KEYS = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 export const VARIANT_KEYS = ['filled', 'outline'] as const;
-export const UI_APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
-export const BG_APPEARANCE_KEYS = [...UI_APPEARANCE_KEYS, 'transparent'] as const;
-export const TEXT_APPEARANCE_KEYS = [...UI_APPEARANCE_KEYS, 'muted', 'link'] as const;
+export const BG_APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'transparent'] as const;
+export const TEXT_APPEARANCE_KEYS = [...BG_APPEARANCE_KEYS, 'muted', 'link'] as const;
 export const FONT_FAMILY_KEYS = ['sans', 'serif', 'mono'] as const;
 export const FONT_WEIGHT_KEYS = ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'] as const;
 export const FONT_STYLE_KEYS = ['italic', 'notItalic'] as const;
@@ -35,7 +34,6 @@ export const EXCLUSIVE_KEY_GROUPS = [
   SIZE_KEYS,
   TEXT_APPEARANCE_KEYS,
   BG_APPEARANCE_KEYS,
-  UI_APPEARANCE_KEYS,
   VARIANT_KEYS,
   FONT_FAMILY_KEYS,
   FONT_WEIGHT_KEYS,
@@ -69,7 +67,6 @@ export type ShadowKey = typeof SHADOW_KEYS[number];
 export type PaddingKey = typeof PADDING_KEYS[number];
 export type GapKey = typeof GAP_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
-export type UiAppearanceKey = typeof UI_APPEARANCE_KEYS[number];
 export type BgAppearanceKey = typeof BG_APPEARANCE_KEYS[number];
 export type TextAppearanceKey = typeof TEXT_APPEARANCE_KEYS[number];
 export type FontFamilyKey = typeof FONT_FAMILY_KEYS[number];

@@ -76,12 +76,10 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       shadow: new ShadowTheme(),
     },
     appearance: {
-      background: BgAppearanceTheme.createDefaultTheme({
-        base: layoutBackgroundAppearanceClasses,
-      }),
-      text: TextAppearanceTheme.createDefaultTheme({base: textAppearanceClasses}),
-      border: TextAppearanceTheme.createDefaultTheme({base: borderAppearanceClasses}),
-      ring: TextAppearanceTheme.createDefaultTheme({base: ringAppearanceClasses}),
+      background: new BgAppearanceTheme(),
+      text: TextAppearanceTheme.createTheme({base: textAppearanceClasses}),
+      border: TextAppearanceTheme.createTheme({base: borderAppearanceClasses}),
+      ring: TextAppearanceTheme.createTheme({base: ringAppearanceClasses}),
     },
     layout: {
       wrap: new WrapTheme(),

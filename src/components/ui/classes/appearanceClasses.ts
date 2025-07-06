@@ -103,6 +103,7 @@ export const bgBorderAppearanceClasses: Record<TextAppearanceKey, string> = {
   info: "bg-(--border-color-info)",
   muted: "bg-(--border-color-muted)",
   link: "bg-(--border-color-link)",
+  transparent: "bg-transparent",
 }
 
 export const borderAppearanceClasses: Record<TextAppearanceKey, string> = {
@@ -117,6 +118,7 @@ export const borderAppearanceClasses: Record<TextAppearanceKey, string> = {
   info: "border-(--border-color-info)",
   muted: "border-(--border-color-muted)",
   link: "border-(--border-color-link)",
+  transparent: "border-transparent",
 }
 
 export const filledBorderAppearanceClasses: Record<TextAppearanceKey, string> = {
@@ -131,6 +133,7 @@ export const filledBorderAppearanceClasses: Record<TextAppearanceKey, string> = 
   info: "border-(--filled-border-color-info)",
   muted: "border-(--filled-border-color-muted)",
   link: "border-(--filled-border-color-link)",
+  transparent: "border-transparent",
 }
 
 export const ringAppearanceClasses: Record<TextAppearanceKey, string> = {
@@ -145,6 +148,7 @@ export const ringAppearanceClasses: Record<TextAppearanceKey, string> = {
   info: "ring-(--border-color-info)",
   muted: "ring-(--border-color-muted)",
   link: "ring-(--border-color-link)",
+  transparent: "ring-transparent",
 }
 
 export const filledRingAppearanceClasses: Record<TextAppearanceKey, string> = {
@@ -159,4 +163,5 @@ export const filledRingAppearanceClasses: Record<TextAppearanceKey, string> = {
   info: "ring-(--filled-border-color-info)",
   muted: "ring-(--filled-border-color-muted)",
   link: "ring-(--filled-border-color-link)",
+  transparent: "ring-transparent",
 }
