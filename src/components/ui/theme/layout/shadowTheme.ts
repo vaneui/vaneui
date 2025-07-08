@@ -1,4 +1,4 @@
-import { SizeKey, SIZE_KEYS, SHADOW_KEYS, ModeKey, MODE_KEYS, ShadowKey } from "../../props/keys";
+import { SizeKey, SIZE_KEYS, SHADOW_KEYS, ModeKey, MODE_KEYS, ShadowKey } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 

@@ -43,25 +43,25 @@ export const COMPONENT_KEYS = ['button', 'badge', 'chip', 'card', 'divider', 'ro
 export type ComponentKey = typeof COMPONENT_KEYS[number];
 
 export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, object>> {
-  button: ComponentTheme<ButtonProps, ButtonTheme<ButtonProps>>;
-  badge: ComponentTheme<BadgeProps, BadgeTheme<BadgeProps>>;
-  chip: ComponentTheme<ChipProps, ChipTheme<ChipProps>>;
-  card: ComponentTheme<CardProps, CardTheme<CardProps>>;
-  divider: ComponentTheme<DividerProps, DividerTheme<DividerProps>>;
-  container: ComponentTheme<ContainerProps, ContainerTheme<ContainerProps>>;
-  row: ComponentTheme<RowProps, RowTheme<RowProps>>;
-  col: ComponentTheme<ColProps, ColTheme<ColProps>>;
-  stack: ComponentTheme<StackProps, StackTheme<StackProps>>;
-  section: ComponentTheme<SectionProps, SectionTheme<SectionProps>>;
-  grid3: ComponentTheme<GridProps, GridTheme<GridProps>>;
-  grid4: ComponentTheme<GridProps, GridTheme<GridProps>>;
-  pageTitle: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
-  sectionTitle: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
-  title: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
-  text: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
-  link: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
-  list: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
-  listItem: ComponentTheme<TypographyComponentProps, TypographyComponentTheme<TypographyComponentProps>>;
+  button: ComponentTheme<ButtonProps, ButtonTheme>;
+  badge: ComponentTheme<BadgeProps, BadgeTheme>;
+  chip: ComponentTheme<ChipProps, ChipTheme>;
+  card: ComponentTheme<CardProps, CardTheme>;
+  divider: ComponentTheme<DividerProps, DividerTheme>;
+  container: ComponentTheme<ContainerProps, ContainerTheme>;
+  row: ComponentTheme<RowProps, RowTheme>;
+  col: ComponentTheme<ColProps, ColTheme>;
+  stack: ComponentTheme<StackProps, StackTheme>;
+  section: ComponentTheme<SectionProps, SectionTheme>;
+  grid3: ComponentTheme<GridProps, GridTheme>;
+  grid4: ComponentTheme<GridProps, GridTheme>;
+  pageTitle: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
+  sectionTitle: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
+  title: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
+  text: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
+  link: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
+  list: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
+  listItem: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;

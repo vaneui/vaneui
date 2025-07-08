@@ -1,4 +1,8 @@
-import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import {
+  BaseTypographyComponentTheme,
+  ComponentTheme, defaultLayoutTheme,
+  DefaultLayoutThemes, defaultTypographyTheme
+} from "./common/ComponentTheme";
 import { BadgeProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
@@ -11,7 +15,7 @@ import { PyTheme } from "./size/pyTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 
-export interface BadgeTheme<P> extends BaseComponentTheme<P> {
+export interface BadgeTheme extends BaseTypographyComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
@@ -25,14 +29,14 @@ export interface BadgeTheme<P> extends BaseComponentTheme<P> {
     border: GenericVariantTheme<TextAppearanceTheme>;
     ring: GenericVariantTheme<TextAppearanceTheme>;
   };
-  layout: DefaultLayoutThemes<P> & {
+  layout: DefaultLayoutThemes & {
     border: BorderTheme;
     ring: RingTheme;
     radius: RadiusTheme;
   };
 }
 
-export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<BadgeProps>>(
+export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
   "span",
   "w-fit h-fit transition-all duration-200 whitespace-nowrap",
   {
@@ -80,6 +84,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
       ring: GenericVariantTheme.createRingAppearanceTheme(),
     },
     layout: {
+      ...defaultLayoutTheme,
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: new RadiusTheme({
@@ -92,6 +97,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme<Badge
         }
       }),
     },
+    typography: defaultTypographyTheme,
   },
   {
     md: true,

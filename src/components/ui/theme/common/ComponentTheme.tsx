@@ -11,7 +11,6 @@ import { TextDecorationTheme } from "../typography/textDecorationTheme";
 import { TextTransformTheme } from "../typography/textTransformTheme";
 import { TextAlignTheme } from "../typography/textAlignTheme";
 import { DeepPartial } from "../../../utils/deepPartial";
-import { deepMerge } from "../../../utils/deepMerge";
 import { DisplayTheme } from "../layout/displayTheme";
 import { twMerge } from "tailwind-merge";
 import { ComponentProps } from "../../props/props";
@@ -22,7 +21,7 @@ export type ThemeMap<P> = {
   [key: string]: ThemeNode<P>;
 };
 
-export interface DefaultLayoutThemes<P> {
+export interface DefaultLayoutThemes {
   hide: HideTheme;
   items: ItemsTheme;
   justify: JustifyTheme;
@@ -30,7 +29,7 @@ export interface DefaultLayoutThemes<P> {
   display: DisplayTheme;
 }
 
-export interface DefaultTypographyThemes<P> {
+export interface DefaultTypographyThemes {
   fontFamily: FontFamilyTheme;
   fontWeight: FontWeightTheme;
   fontStyle: FontStyleTheme;
@@ -39,15 +38,35 @@ export interface DefaultTypographyThemes<P> {
   textAlign: TextAlignTheme;
 }
 
-export interface BaseComponentTheme<P> {
-  layout: DefaultLayoutThemes<P>;
-  typography: DefaultTypographyThemes<P>;
+export const defaultLayoutTheme: DefaultLayoutThemes = {
+  hide: new HideTheme(),
+  items: new ItemsTheme(),
+  justify: new JustifyTheme(),
+  position: new PositionTheme(),
+  display: new DisplayTheme()
+};
+
+export const defaultTypographyTheme: DefaultTypographyThemes = {
+  fontFamily: new FontFamilyTheme(),
+  fontWeight: new FontWeightTheme(),
+  fontStyle: new FontStyleTheme(),
+  textDecoration: new TextDecorationTheme(),
+  textTransform: new TextTransformTheme(),
+  textAlign: new TextAlignTheme()
+};
+
+export interface BaseComponentTheme {
+  layout: DefaultLayoutThemes;
+}
+
+export interface BaseTypographyComponentTheme extends BaseComponentTheme {
+  typography: DefaultTypographyThemes;
 }
 
 export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly tag: React.ElementType;
   readonly base: string;
-  readonly themes: TTheme;
+  readonly themes: DeepPartial<TTheme>;
   defaults: Partial<P>;
 
   constructor(
@@ -59,25 +78,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     this.tag = tag;
     this.base = base;
     this.defaults = defaults;
-
-    const defaultInternalThemes: BaseComponentTheme<P> = {
-      layout: {
-        hide: new HideTheme(),
-        items: new ItemsTheme(),
-        justify: new JustifyTheme(),
-        position: new PositionTheme(),
-        display: new DisplayTheme()
-      },
-      typography: {
-        fontFamily: new FontFamilyTheme(),
-        fontWeight: new FontWeightTheme(),
-        fontStyle: new FontStyleTheme(),
-        textDecoration: new TextDecorationTheme(),
-        textTransform: new TextTransformTheme(),
-        textAlign: new TextAlignTheme()
-      }
-    };
-    this.themes = deepMerge(defaultInternalThemes as TTheme, subThemes) as TTheme;
+    this.themes = subThemes;
   }
 
   getClasses(props: P, defaults: Partial<P> = this.defaults): string[] {

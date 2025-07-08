@@ -1,4 +1,8 @@
-import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import {
+  BaseTypographyComponentTheme,
+  ComponentTheme, defaultLayoutTheme,
+  DefaultLayoutThemes, defaultTypographyTheme
+} from "./common/ComponentTheme";
 import { ButtonProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
@@ -11,7 +15,7 @@ import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 
-export interface ButtonTheme<P> extends BaseComponentTheme<P> {
+export interface ButtonTheme extends BaseTypographyComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
@@ -25,14 +29,14 @@ export interface ButtonTheme<P> extends BaseComponentTheme<P> {
     border: GenericVariantTheme<TextAppearanceTheme>;
     ring: GenericVariantTheme<TextAppearanceTheme>;
   };
-  layout: DefaultLayoutThemes<P> & {
+  layout: DefaultLayoutThemes & {
     border: BorderTheme;
     ring: RingTheme;
     radius: RadiusTheme;
   };
 }
 
-export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<ButtonProps>>(
+export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   "button",
   "w-fit h-fit cursor-pointer transition-all duration-200 whitespace-nowrap",
   {
@@ -80,6 +84,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
       ring: GenericVariantTheme.createRingAppearanceTheme(),
     },
     layout: {
+      ...defaultLayoutTheme,
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: new RadiusTheme({
@@ -92,6 +97,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme<Bu
         }
       }),
     },
+    typography: defaultTypographyTheme,
   },
   {
     md: true,

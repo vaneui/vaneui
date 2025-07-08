@@ -1,21 +1,21 @@
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { RowProps } from "../props/props";
 import { commonGaps } from "../classes/spacingClasses";
 import { BreakpointTheme } from "./size/breakpointTheme";
 
-export interface RowTheme<P> extends BaseComponentTheme<P> {
+export interface RowTheme extends BaseComponentTheme {
   size: {
     gap: GapTheme;
     breakpoint: BreakpointTheme;
   };
-  layout: DefaultLayoutThemes<P> & {
+  layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
   };
 }
 
-export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme<RowProps>>(
+export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
   "div",
   "flex-row",
   {
@@ -24,6 +24,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme<RowProps>>(
       breakpoint: new BreakpointTheme(),
     },
     layout: {
+      ...defaultLayoutTheme,
       wrap: new WrapTheme(),
     },
   },

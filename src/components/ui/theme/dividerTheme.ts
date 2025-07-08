@@ -3,13 +3,13 @@ import { DividerProps } from "../props/props";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { bgBorderAppearanceClasses } from "../classes/appearanceClasses";
 
-export interface DividerTheme<P> extends BaseComponentTheme<P> {
+export interface DividerTheme extends BaseComponentTheme {
   appearance: {
     background: TextAppearanceTheme;
   };
 }
 
-export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme<DividerProps>>(
+export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme>(
   "div",
   "h-px w-full",
   {

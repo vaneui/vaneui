@@ -13,7 +13,7 @@ export class TextAppearanceTheme extends BaseTheme {
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, TEXT_APPEARANCE_KEYS) || 'default';
-    const modesForAppearance = (this as any)[pickedAppearanceKey];
+    const modesForAppearance = this[pickedAppearanceKey];
 
     if (!modesForAppearance) {
       return MODE_KEYS.map(() => '');

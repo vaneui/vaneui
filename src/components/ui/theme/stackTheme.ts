@@ -1,25 +1,25 @@
 import { DirectionTheme } from "./layout/directionTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { StackProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { commonGaps } from "../classes/spacingClasses";
 
-export interface StackTheme<P> extends BaseComponentTheme<P> {
+export interface StackTheme extends BaseComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
     gap: GapTheme;
   };
-  layout: DefaultLayoutThemes<P> & {
+  layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
     direction: DirectionTheme;
   };
 }
 
-export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme<StackProps>>(
+export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
   "div",
   "",
   {
@@ -47,6 +47,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme<Stack
       }),
     },
     layout: {
+      ...defaultLayoutTheme,
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
     },

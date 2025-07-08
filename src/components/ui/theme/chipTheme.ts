@@ -1,4 +1,10 @@
-import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import {
+  BaseTypographyComponentTheme,
+  ComponentTheme,
+  defaultLayoutTheme,
+  DefaultLayoutThemes,
+  defaultTypographyTheme
+} from "./common/ComponentTheme";
 import { ChipProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
@@ -11,7 +17,7 @@ import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 
-export interface ChipTheme<P> extends BaseComponentTheme<P> {
+export interface ChipTheme extends BaseTypographyComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
@@ -25,14 +31,14 @@ export interface ChipTheme<P> extends BaseComponentTheme<P> {
     border: GenericVariantTheme<TextAppearanceTheme>;
     ring: GenericVariantTheme<TextAppearanceTheme>;
   };
-  layout: DefaultLayoutThemes<P> & {
+  layout: DefaultLayoutThemes & {
     radius: RadiusTheme;
     border: BorderTheme;
     ring: RingTheme;
   };
 }
 
-export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProps>>(
+export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   "span",
   "w-fit h-fit transition-all duration-200 whitespace-nowrap",
   {
@@ -80,6 +86,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProp
       ring: GenericVariantTheme.createRingAppearanceTheme(),
     },
     layout: {
+      ...defaultLayoutTheme,
       radius: new RadiusTheme({
         rounded: {
           xs: 'rounded-sm',
@@ -92,6 +99,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme<ChipProp
       border: new BorderTheme(),
       ring: new RingTheme(),
     },
+    typography: defaultTypographyTheme,
   },
   {
     md: true,

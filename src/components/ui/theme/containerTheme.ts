@@ -1,5 +1,5 @@
 import { DirectionTheme } from "./layout/directionTheme";
-import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { ContainerProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { SizeTheme } from "./size/sizeTheme";
@@ -16,12 +16,12 @@ import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { RadiusTheme } from "./layout/radiusTheme";
 
-export interface ContainerTheme<P> extends BaseComponentTheme<P> {
+export interface ContainerTheme extends BaseComponentTheme {
   size: {
     gap: GapTheme;
     maxWidth: SizeTheme;
   };
-  layout: DefaultLayoutThemes<P> & {
+  layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
     direction: DirectionTheme;
     border: BorderTheme;
@@ -36,7 +36,7 @@ export interface ContainerTheme<P> extends BaseComponentTheme<P> {
   }
 }
 
-export const defaultContainerTheme = new ComponentTheme<ContainerProps, ContainerTheme<ContainerProps>>(
+export const defaultContainerTheme = new ComponentTheme<ContainerProps, ContainerTheme>(
   "div",
   "flex-col mx-auto w-full",
   {
@@ -59,6 +59,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       }),
     },
     layout: {
+      ...defaultLayoutTheme,
       border: new BorderTheme(),
       ring: new RingTheme(),
       wrap: new WrapTheme(),

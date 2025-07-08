@@ -1,4 +1,4 @@
-import { BaseComponentTheme, ComponentTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
@@ -19,7 +19,7 @@ import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 
-export interface SectionTheme<P> extends BaseComponentTheme<P> {
+export interface SectionTheme extends BaseComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
@@ -32,7 +32,7 @@ export interface SectionTheme<P> extends BaseComponentTheme<P> {
     border: GenericVariantTheme<TextAppearanceTheme>;
     ring: GenericVariantTheme<TextAppearanceTheme>;
   };
-  layout: DefaultLayoutThemes<P> & {
+  layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
     direction: DirectionTheme;
     border: BorderTheme;
@@ -41,7 +41,7 @@ export interface SectionTheme<P> extends BaseComponentTheme<P> {
   };
 }
 
-export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme<SectionProps>>(
+export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme>(
   "div",
   "w-full flex-col",
   {
@@ -82,6 +82,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       ring: TextAppearanceTheme.createTheme({base: ringAppearanceClasses}),
     },
     layout: {
+      ...defaultLayoutTheme,
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       border: new BorderTheme(),
