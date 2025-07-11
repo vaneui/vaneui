@@ -1,4 +1,4 @@
-import { ItemsKey, ITEMS_KEYS, DisplayKey, DISPLAY_KEYS } from "../../props/keys";
+import { DisplayKey, DISPLAY_KEYS } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
@@ -27,7 +27,7 @@ export class DisplayTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const pickedKey = pickFirstTruthyKey(props, defaults, DISPLAY_KEYS);
-    return [pickedKey && this[pickedKey] ? this[pickedKey] : ''];
+    const key = pickFirstTruthyKey(props, defaults, DISPLAY_KEYS);
+    return [key && this[key] ? this[key] : ''];
   }
 }

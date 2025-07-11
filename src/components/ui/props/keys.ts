@@ -27,6 +27,7 @@ export const ITEMS_KEYS = ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseli
 export const JUSTIFY_KEYS = ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const;
 export const WRAP_KEYS = ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const;
 export const DISPLAY_KEYS = ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const;
+export const OVERFLOW_KEYS = ['overflowAuto', 'overflowHidden', 'overflowClip', 'overflowVisible', 'overflowScroll', 'overflowXAuto', 'overflowYAuto', 'overflowXHidden', 'overflowYHidden', 'overflowXClip', 'overflowYClip', 'overflowXVisible', 'overflowYVisible', 'overflowXScroll', 'overflowYScroll'] as const;
 
 // A master list of all groups where only one key can be 'true' at a time.
 export const EXCLUSIVE_KEY_GROUPS = [
@@ -63,7 +64,6 @@ export type SizeKey = typeof SIZE_KEYS[number];
 export type RingKey = typeof RING_KEYS[number];
 export type ShapeKey = typeof SHAPE_KEYS[number];
 export type BorderKey = typeof BORDER_KEYS[number];
-export type ShadowKey = typeof SHADOW_KEYS[number];
 export type PaddingKey = typeof PADDING_KEYS[number];
 export type GapKey = typeof GAP_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
@@ -83,6 +83,7 @@ export type ItemsKey = typeof ITEMS_KEYS[number];
 export type JustifyKey = typeof JUSTIFY_KEYS[number];
 export type WrapKey = typeof WRAP_KEYS[number];
 export type DisplayKey = typeof DISPLAY_KEYS[number];
+export type OverflowKey = typeof OVERFLOW_KEYS[number];
 
 // Base component keys
 export const BASE_COMPONENT_KEYS = [
@@ -91,7 +92,8 @@ export const BASE_COMPONENT_KEYS = [
   ...ITEMS_KEYS,
   ...JUSTIFY_KEYS,
   ...POSITION_KEYS,
-  ...DISPLAY_KEYS
+  ...DISPLAY_KEYS,
+  ...OVERFLOW_KEYS,
 ] as const;
 
 // Font keys

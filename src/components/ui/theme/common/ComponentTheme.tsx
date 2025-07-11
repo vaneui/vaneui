@@ -14,6 +14,7 @@ import { DeepPartial } from "../../../utils/deepPartial";
 import { DisplayTheme } from "../layout/displayTheme";
 import { twMerge } from "tailwind-merge";
 import { ComponentProps } from "../../props/props";
+import { OverflowTheme } from "../layout/overflowTheme";
 
 type ThemeNode<P> = BaseTheme | ThemeMap<P>;
 
@@ -27,6 +28,7 @@ export interface DefaultLayoutThemes {
   justify: JustifyTheme;
   position: PositionTheme;
   display: DisplayTheme;
+  overflow: OverflowTheme;
 }
 
 export interface DefaultTypographyThemes {
@@ -43,7 +45,8 @@ export const defaultLayoutTheme: DefaultLayoutThemes = {
   items: new ItemsTheme(),
   justify: new JustifyTheme(),
   position: new PositionTheme(),
-  display: new DisplayTheme()
+  display: new DisplayTheme(),
+  overflow: new OverflowTheme(),
 };
 
 export const defaultTypographyTheme: DefaultTypographyThemes = {

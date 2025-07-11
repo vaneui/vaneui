@@ -1,6 +1,7 @@
-import { BaseComponentTheme, ComponentTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme } from "./common/ComponentTheme";
 import { GridProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
+import { DeepPartial } from "../../utils/deepPartial";
 
 export interface GridTheme extends BaseComponentTheme {
   size: {
@@ -14,7 +15,7 @@ const gridDefaults: Partial<GridProps> = {
   grid: true,
 };
 
-const gridSubThemes = {
+const gridSubThemes: DeepPartial<GridTheme> = {
   size: {
     gap: new GapTheme({
       gap: {
@@ -26,6 +27,7 @@ const gridSubThemes = {
       }
     }),
   },
+  layout: defaultLayoutTheme,
 };
 
 export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(
