@@ -3,7 +3,6 @@ import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutTh
 import { CardProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { ShadowTheme } from "./layout/shadowTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { PxTheme } from "./size/pxTheme";
@@ -18,13 +17,13 @@ import { textAppearanceClasses } from "../classes/typographyClasses";
 import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { RingTheme } from "./layout/ringTheme";
+import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 
 export interface CardTheme extends BaseComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
     gap: GapTheme;
-    shadow: ShadowTheme;
   };
   layout: DefaultLayoutThemes & {
     border: BorderTheme;
@@ -33,6 +32,7 @@ export interface CardTheme extends BaseComponentTheme {
     wrap: WrapTheme;
     direction: DirectionTheme;
     breakpoint: BreakpointTheme;
+    shadow: ShadowAppearanceTheme;
   };
   appearance: {
     background: BgAppearanceTheme;
@@ -66,7 +66,6 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
         }
       }),
       gap: new GapTheme({gap: commonGaps}),
-      shadow: new ShadowTheme(),
     },
     layout: {
       ...defaultLayoutTheme,
@@ -84,6 +83,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       breakpoint: new BreakpointTheme(),
+      shadow: ShadowAppearanceTheme.createTheme(),
     },
     appearance: {
       background: new BgAppearanceTheme(),

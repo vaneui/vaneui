@@ -14,6 +14,7 @@ import {
   hoverBackgroundAppearanceClasses,
   ringAppearanceClasses
 } from "../../classes/appearanceClasses";
+import { ShadowAppearanceTheme } from "./shadowAppearanceTheme";
 
 
 export interface GenericVariantTheme<T extends BaseTheme> extends Record<VariantKey, T> {
@@ -51,6 +52,14 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
       filled: TextAppearanceTheme.createTheme({
         base: {...filledTextAppearanceClasses, transparent: textAppearanceClasses.default}
       })
+    });
+  }
+
+  static createUIElementShadowTheme(): GenericVariantTheme<ShadowAppearanceTheme> {
+    //transparent UI elements won't have a shadow
+    return new GenericVariantTheme({
+      outline: ShadowAppearanceTheme.createTheme({transparent: undefined, link: undefined}),
+      filled: ShadowAppearanceTheme.createTheme({transparent: undefined, link: undefined})
     });
   }
 

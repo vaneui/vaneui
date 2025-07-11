@@ -8,12 +8,12 @@ import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
-import { ShadowTheme } from "./layout/shadowTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 
 export interface BadgeTheme extends BaseTypographyComponentTheme {
   size: {
@@ -21,13 +21,13 @@ export interface BadgeTheme extends BaseTypographyComponentTheme {
     py: PyTheme;
     text: SizeTheme;
     gap: GapTheme;
-    shadow: ShadowTheme;
   };
   appearance: {
     background: GenericVariantTheme<TextAppearanceTheme>;
     text: GenericVariantTheme<TextAppearanceTheme>;
     border: GenericVariantTheme<TextAppearanceTheme>;
     ring: GenericVariantTheme<TextAppearanceTheme>;
+    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
     border: BorderTheme;
@@ -74,14 +74,14 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
         md: 'text-base',
         lg: 'text-lg',
         xl: 'text-xl',
-      }),
-      shadow: new ShadowTheme(),
+      })
     },
     appearance: {
       background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createBorderAppearanceTheme(),
       ring: GenericVariantTheme.createRingAppearanceTheme(),
+      shadow: GenericVariantTheme.createUIElementShadowTheme()
     },
     layout: {
       ...defaultLayoutTheme,

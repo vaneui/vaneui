@@ -8,29 +8,28 @@ import { PyTheme } from "./size/pyTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
-import { ShadowTheme } from "./layout/shadowTheme";
 import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
 import {
   borderAppearanceClasses,
-  layoutBackgroundAppearanceClasses,
   ringAppearanceClasses
 } from "../classes/appearanceClasses";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 
 export interface SectionTheme extends BaseComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
     gap: GapTheme;
-    shadow: ShadowTheme;
   };
   appearance: {
     background: GenericVariantTheme<BgAppearanceTheme>;
     text: GenericVariantTheme<TextAppearanceTheme>;
     border: GenericVariantTheme<TextAppearanceTheme>;
     ring: GenericVariantTheme<TextAppearanceTheme>;
+    shadow: ShadowAppearanceTheme;
   };
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
@@ -73,13 +72,13 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
           xl: 'gap-16',
         }
       }),
-      shadow: new ShadowTheme(),
     },
     appearance: {
       background: new BgAppearanceTheme(),
       text: TextAppearanceTheme.createTheme({base: textAppearanceClasses}),
       border: TextAppearanceTheme.createTheme({base: borderAppearanceClasses}),
       ring: TextAppearanceTheme.createTheme({base: ringAppearanceClasses}),
+      shadow: ShadowAppearanceTheme.createTheme(),
     },
     layout: {
       ...defaultLayoutTheme,

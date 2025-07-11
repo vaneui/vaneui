@@ -9,13 +9,13 @@ import { ChipProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
-import { ShadowTheme } from "./layout/shadowTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 
 export interface ChipTheme extends BaseTypographyComponentTheme {
   size: {
@@ -23,13 +23,13 @@ export interface ChipTheme extends BaseTypographyComponentTheme {
     py: PyTheme;
     text: SizeTheme;
     gap: GapTheme;
-    shadow: ShadowTheme;
   };
   appearance: {
     background: GenericVariantTheme<TextAppearanceTheme>;
     text: GenericVariantTheme<TextAppearanceTheme>;
     border: GenericVariantTheme<TextAppearanceTheme>;
     ring: GenericVariantTheme<TextAppearanceTheme>;
+    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
     radius: RadiusTheme;
@@ -76,14 +76,14 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
           lg: 'gap-2.5',
           xl: 'gap-3',
         }
-      }),
-      shadow: new ShadowTheme(),
+      })
     },
     appearance: {
       background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createBorderAppearanceTheme(),
       ring: GenericVariantTheme.createRingAppearanceTheme(),
+      shadow: GenericVariantTheme.createUIElementShadowTheme()
     },
     layout: {
       ...defaultLayoutTheme,

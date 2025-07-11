@@ -7,13 +7,13 @@ import { ButtonProps } from "../props/props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
-import { ShadowTheme } from "./layout/shadowTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 
 export interface ButtonTheme extends BaseTypographyComponentTheme {
   size: {
@@ -21,13 +21,13 @@ export interface ButtonTheme extends BaseTypographyComponentTheme {
     py: PyTheme;
     text: SizeTheme;
     gap: GapTheme;
-    shadow: ShadowTheme;
   };
   appearance: {
     background: GenericVariantTheme<TextAppearanceTheme>;
     text: GenericVariantTheme<TextAppearanceTheme>;
     border: GenericVariantTheme<TextAppearanceTheme>;
     ring: GenericVariantTheme<TextAppearanceTheme>;
+    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
     border: BorderTheme;
@@ -75,13 +75,13 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
         lg: 'text-lg',
         xl: 'text-xl',
       }),
-      shadow: new ShadowTheme(),
     },
     appearance: {
       background: GenericVariantTheme.createBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createBorderAppearanceTheme(),
       ring: GenericVariantTheme.createRingAppearanceTheme(),
+      shadow: GenericVariantTheme.createUIElementShadowTheme()
     },
     layout: {
       ...defaultLayoutTheme,
