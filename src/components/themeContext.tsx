@@ -30,6 +30,7 @@ import {
   ContainerProps,
   DividerProps,
   GridProps,
+  ListProps,
   RowProps,
   SectionProps,
   StackProps,
@@ -61,7 +62,7 @@ export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, 
   text: ComponentTheme<TypographyProps, TypographyTheme>;
   link: ComponentTheme<TypographyProps, TypographyTheme>;
   listItem: ComponentTheme<TypographyProps, TypographyTheme>;
-  list: ComponentTheme<TypographyProps, ListTheme>;
+  list: ComponentTheme<ListProps, ListTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
