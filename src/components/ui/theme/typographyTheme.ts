@@ -123,7 +123,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
     },
     typography: defaultTypographyTheme,
   },
-  typographyThemeDefaults
+  {}//keep empty to apply parent style
 );
 
 // List specific theme
