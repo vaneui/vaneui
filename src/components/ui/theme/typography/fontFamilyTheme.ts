@@ -1,4 +1,4 @@
-import { FontFamilyKey, FONT_FAMILY_KEYS } from "../../props/keys";
+import { FontFamilyKey, FONT_FAMILY_KEYS } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
@@ -21,6 +21,9 @@ export class FontFamilyTheme extends BaseTheme {
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const key = pickFirstTruthyKey(props, defaults, FONT_FAMILY_KEYS);
-    return [this[key ?? 'sans'] || ''];
+    if (key === undefined)
+      return [];
+
+    return [this[key]];
   }
 }
