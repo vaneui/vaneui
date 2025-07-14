@@ -7,7 +7,6 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { commonGaps } from "../classes/spacingClasses";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import {
   borderAppearanceClasses,
@@ -65,7 +64,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
           xl: "py-6 max-lg:py-5 max-md:py-4"
         }
       }),
-      gap: new GapTheme({gap: commonGaps}),
+      gap: new GapTheme(),
     },
     layout: {
       ...defaultLayoutTheme,

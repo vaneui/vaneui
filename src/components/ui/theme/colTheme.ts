@@ -3,7 +3,7 @@ import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutTh
 import { ColProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { commonGaps } from "../classes/spacingClasses";
+import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
 
 export interface ColTheme extends BaseComponentTheme {
   size: {
@@ -13,6 +13,9 @@ export interface ColTheme extends BaseComponentTheme {
     wrap: WrapTheme;
     direction: DirectionTheme;
   };
+  appearance: {
+    background: BgAppearanceTheme;
+  }
 }
 
 export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
@@ -20,13 +23,16 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   "flex-col",
   {
     size: {
-      gap: new GapTheme({gap: commonGaps}),
+      gap: new GapTheme(),
     },
     layout: {
       ...defaultLayoutTheme,
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
     },
+    appearance: {
+      background: new BgAppearanceTheme(),
+    }
   },
   {
     md: true,

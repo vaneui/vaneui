@@ -5,7 +5,7 @@ import { StackProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { commonGaps } from "../classes/spacingClasses";
+import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
 
 export interface StackTheme extends BaseComponentTheme {
   size: {
@@ -17,6 +17,9 @@ export interface StackTheme extends BaseComponentTheme {
     wrap: WrapTheme;
     direction: DirectionTheme;
   };
+  appearance: {
+    background: BgAppearanceTheme;
+  }
 }
 
 export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
@@ -42,15 +45,16 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
           xl: 'py-6',
         }
       }),
-      gap: new GapTheme({
-        gap: commonGaps
-      }),
+      gap: new GapTheme(),
     },
     layout: {
       ...defaultLayoutTheme,
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
     },
+    appearance: {
+      background: new BgAppearanceTheme(),
+    }
   },
   {
     md: true,

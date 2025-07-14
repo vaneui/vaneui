@@ -11,8 +11,8 @@ import {
   sectionTitleTheme,
   textTheme,
   titleTheme,
-  TypographyComponentTheme
-} from './ui/theme/typographyComponentTheme';
+  TypographyTheme
+} from './ui/theme/typographyTheme';
 import { CardTheme, defaultCardTheme } from "./ui/theme/cardTheme";
 import { defaultRowTheme, RowTheme } from "./ui/theme/rowTheme";
 import { defaultDividerTheme, DividerTheme } from './ui/theme/dividerTheme';
@@ -55,13 +55,13 @@ export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, 
   section: ComponentTheme<SectionProps, SectionTheme>;
   grid3: ComponentTheme<GridProps, GridTheme>;
   grid4: ComponentTheme<GridProps, GridTheme>;
-  pageTitle: ComponentTheme<TypographyProps, TypographyComponentTheme>;
-  sectionTitle: ComponentTheme<TypographyProps, TypographyComponentTheme>;
-  title: ComponentTheme<TypographyProps, TypographyComponentTheme>;
-  text: ComponentTheme<TypographyProps, TypographyComponentTheme>;
-  link: ComponentTheme<TypographyProps, TypographyComponentTheme>;
+  pageTitle: ComponentTheme<TypographyProps, TypographyTheme>;
+  sectionTitle: ComponentTheme<TypographyProps, TypographyTheme>;
+  title: ComponentTheme<TypographyProps, TypographyTheme>;
+  text: ComponentTheme<TypographyProps, TypographyTheme>;
+  link: ComponentTheme<TypographyProps, TypographyTheme>;
+  listItem: ComponentTheme<TypographyProps, TypographyTheme>;
   list: ComponentTheme<TypographyProps, ListTheme>;
-  listItem: ComponentTheme<TypographyProps, TypographyComponentTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -84,8 +84,8 @@ export const defaultTheme: ThemeProps = {
   title: titleTheme,
   text: textTheme,
   link: linkTheme,
-  list: listTheme,
   listItem: listItemTheme,
+  list: listTheme,
 };
 
 export type ThemeDefaults = Partial<Record<ComponentKey, Record<string, boolean>>>;

@@ -16,13 +16,13 @@ export const PADDING_KEYS = ['padding', 'noPadding'] as const;
 export const BREAKPOINT_KEYS = ['xsCol', 'smCol', 'mdCol', 'lgCol', 'xlCol'] as const;
 export const HIDE_KEYS = ['xsHide', 'smHide', 'mdHide', 'lgHide', 'xlHide'] as const;
 export const POSITION_KEYS = ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const;
+export const FLEX_DIRECTION_KEYS = ['row', 'column', 'rowReverse', 'columnReverse'] as const;
 export const DIRECTION_REVERSE_KEYS = ['reverse'] as const;
 export const GAP_KEYS = ['gap', 'noGap'] as const;
 export const PILL_KEYS = ['pill'] as const;
 export const SHARP_KEYS = ['sharp'] as const;
 export const ROUNDED_KEYS = ['rounded'] as const;
 export const SHAPE_KEYS = [...PILL_KEYS, ...SHARP_KEYS, ...ROUNDED_KEYS] as const;
-export const FLEX_DIRECTION_KEYS = ['row', 'column', 'rowReverse', 'columnReverse'] as const;
 export const ITEMS_KEYS = ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const;
 export const JUSTIFY_KEYS = ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const;
 export const WRAP_KEYS = ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const;
@@ -49,10 +49,10 @@ export const EXCLUSIVE_KEY_GROUPS = [
   BREAKPOINT_KEYS,
   HIDE_KEYS,
   POSITION_KEYS,
-  DIRECTION_REVERSE_KEYS,
   GAP_KEYS,
   SHAPE_KEYS,
   FLEX_DIRECTION_KEYS,
+  DIRECTION_REVERSE_KEYS,
   ITEMS_KEYS,
   JUSTIFY_KEYS,
   WRAP_KEYS,
@@ -141,6 +141,7 @@ export const ROW_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...WRAP_KEYS,
   ...GAP_KEYS,
+  ...FLEX_DIRECTION_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...BREAKPOINT_KEYS,
   ...BG_APPEARANCE_KEYS
@@ -152,10 +153,24 @@ export const COL_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...WRAP_KEYS,
   ...GAP_KEYS,
+  ...FLEX_DIRECTION_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...BG_APPEARANCE_KEYS
 ] as const;
 export type ColKey = typeof COL_KEYS[number];
+
+// Stack keys
+export const STACK_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...WRAP_KEYS,
+  ...GAP_KEYS,
+  ...DIRECTION_REVERSE_KEYS,
+  ...BREAKPOINT_KEYS,
+  ...BG_APPEARANCE_KEYS,
+  ...FLEX_DIRECTION_KEYS,
+  ...PADDING_KEYS
+] as const;
+export type StackKey = typeof STACK_KEYS[number];
 
 // Card keys
 export const CARD_KEYS = [
@@ -174,19 +189,6 @@ export const CARD_KEYS = [
   ...WRAP_KEYS
 ] as const;
 export type CardKey = typeof CARD_KEYS[number];
-
-// Stack keys
-export const STACK_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...WRAP_KEYS,
-  ...GAP_KEYS,
-  ...DIRECTION_REVERSE_KEYS,
-  ...BREAKPOINT_KEYS,
-  ...BG_APPEARANCE_KEYS,
-  ...FLEX_DIRECTION_KEYS,
-  ...PADDING_KEYS
-] as const;
-export type StackKey = typeof STACK_KEYS[number];
 
 // Badge keys
 export const BADGE_KEYS = [
@@ -238,9 +240,9 @@ export type ContainerKey = typeof CONTAINER_KEYS[number];
 // Section keys
 export const SECTION_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...FLEX_DIRECTION_KEYS,
   ...BG_APPEARANCE_KEYS,
   ...PADDING_KEYS,
+  ...FLEX_DIRECTION_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...WRAP_KEYS,
   ...BREAKPOINT_KEYS,

@@ -12,13 +12,15 @@ export class TextAppearanceTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, TEXT_APPEARANCE_KEYS) || 'default';
-    const modesForAppearance = this[pickedAppearanceKey];
-
-    if (!modesForAppearance) {
-      return MODE_KEYS.map(() => '');
+    const appearance = pickFirstTruthyKey(props, defaults, TEXT_APPEARANCE_KEYS);
+    if (!appearance) {
+      return [];
     }
-    return MODE_KEYS.map(mode => modesForAppearance[mode] || '');
+    const modes = this[appearance];
+    if (!modes) {
+      return [];
+    }
+    return MODE_KEYS.map(mode => modes[mode] || '');
   }
 
   static createTheme(

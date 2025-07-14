@@ -2,8 +2,9 @@ import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { RowProps } from "../props/props";
-import { commonGaps } from "../classes/spacingClasses";
 import { BreakpointTheme } from "./size/breakpointTheme";
+import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
+import { DirectionTheme } from "./layout/directionTheme";
 
 export interface RowTheme extends BaseComponentTheme {
   size: {
@@ -12,7 +13,11 @@ export interface RowTheme extends BaseComponentTheme {
   };
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
+    direction: DirectionTheme;
   };
+  appearance: {
+    background: BgAppearanceTheme;
+  }
 }
 
 export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
@@ -20,13 +25,17 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
   "flex-row",
   {
     size: {
-      gap: new GapTheme({gap: commonGaps}),
+      gap: new GapTheme(),
       breakpoint: new BreakpointTheme(),
     },
     layout: {
       ...defaultLayoutTheme,
       wrap: new WrapTheme(),
+      direction: new DirectionTheme(),
     },
+    appearance: {
+      background: new BgAppearanceTheme(),
+    }
   },
   {
     md: true,
