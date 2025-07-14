@@ -1,0 +1,98 @@
+name: Create Release
+
+# Manual trigger for creating releases
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+        - patch
+        - minor
+        - major
+      target_branch:
+        description: 'Target branch for release'
+        required: true
+        default: 'prod'
+        type: choice
+        options:
+        - prod
+        - main
+      release_notes:
+        description: 'Release notes (optional)'
+        required: false
+        type: string
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.target_branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Bump Version
+        id: version
+        run: |
+          OLD_VERSION=$(node -p "require('./package.json').version")
+          npm version ${{ inputs.version_type }} --no-git-tag-version
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          echo "old_version=$OLD_VERSION" >> $GITHUB_OUTPUT
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "Bumped version from $OLD_VERSION to $NEW_VERSION"
+
+      - name: Build Package
+        run: npm run build
+
+      - name: Commit Version Bump
+        run: |
+          git add package.json package-lock.json
+          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }}"
+          git push origin ${{ inputs.target_branch }}
+
+      - name: Create Pull Request (if target is prod)
+        if: inputs.target_branch == 'prod'
+        run: |
+          echo "Version bump committed to prod branch"
+          echo "Stable release will be triggered automatically"
+
+      - name: Create Pre-release (if target is main)
+        if: inputs.target_branch == 'main'
+        run: |
+          echo "Version bump committed to main branch"
+          echo "Pre-release will be triggered automatically"
+
+      - name: Summary
+        run: |
+          echo "✅ Release process initiated successfully!"
+          echo "📦 Version: ${{ steps.version.outputs.old_version }} → ${{ steps.version.outputs.new_version }}"
+          echo "🌲 Branch: ${{ inputs.target_branch }}"
+          echo "🏷️ Type: ${{ inputs.version_type }}"
+          if [ "${{ inputs.target_branch }}" = "prod" ]; then
+            echo "🚀 Stable release will be published automatically"
+          else
+            echo "🧪 Pre-release will be published automatically"
+          fi

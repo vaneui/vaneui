@@ -1,4 +1,4 @@
-name: Publish to npm
+name: Publish Pre-release to npm
 
 # Run on pushes to the main branch
 on:
@@ -26,35 +26,49 @@ jobs:
       - name: Run Tests
         run: npm test
 
-      # Check if the version in package.json already exists on npm
-      - name: Check if Version is Already Published
-        id: check_version
+      # Generate pre-release version with timestamp and commit SHA
+      - name: Generate Pre-release Version
+        id: version
         run: |
-          VERSION=$(node -p "require('./package.json').version")
-          PACKAGE_NAME=$(node -p "require('./package.json').name")
-          PUBLISHED_VERSION=$(npm view $PACKAGE_NAME version 2>/dev/null || echo "none")
-          echo "Local version: $VERSION"
-          echo "Published version: $PUBLISHED_VERSION"
-          if [ "$VERSION" = "$PUBLISHED_VERSION" ]; then
-            echo "Version $VERSION is already published. Skipping."
-            echo "should_publish=false" >> $GITHUB_OUTPUT
-          else
-            echo "Version $VERSION is new. Proceeding to publish."
-            echo "should_publish=true" >> $GITHUB_OUTPUT
-          fi
+          BASE_VERSION=$(node -p "require('./package.json').version")
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          PRE_VERSION="${BASE_VERSION}-alpha.${TIMESTAMP}.${SHORT_SHA}"
+          echo "Pre-release version: $PRE_VERSION"
+          echo "version=$PRE_VERSION" >> $GITHUB_OUTPUT
+          # Update package.json with pre-release version
+          npm version $PRE_VERSION --no-git-tag-version
 
-      # Proceed only if the version is new
       - name: Build Package
-        if: steps.check_version.outputs.should_publish == 'true'
         run: npm run build
 
       # Best Practice: Verify what will be in the package before publishing
       - name: Verify Package Contents
-        if: steps.check_version.outputs.should_publish == 'true'
         run: npm pack --dry-run
 
-      - name: Publish Package to npm
-        if: steps.check_version.outputs.should_publish == 'true'
-        run: npm publish --access public
+      - name: Publish Pre-release to npm
+        run: npm publish --access public --tag alpha
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Pre-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          release_name: Pre-release v${{ steps.version.outputs.version }}
+          body: |
+            🚀 Pre-release version from main branch
+            
+            **Installation:**
+            ```bash
+            npm install @vaneui/ui@alpha
+            # or specific version
+            npm install @vaneui/ui@${{ steps.version.outputs.version }}
+            ```
+            
+            **Commit:** ${{ github.sha }}
+            **Branch:** ${{ github.ref_name }}
+          draft: false
+          prerelease: true

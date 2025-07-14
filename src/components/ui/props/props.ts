@@ -10,7 +10,8 @@ import {
   ChipKey,
   DividerKey,
   ContainerKey,
-  SectionKey, TypographyComponentKey,
+  SectionKey,
+  TypographyKey,
 } from "./keys";
 
 export type ComponentProps = {
@@ -19,7 +20,7 @@ export type ComponentProps = {
   children?: React.ReactNode;
 } & React.HTMLProps<HTMLElement>;
 
-export type TypographyComponentProps = { [K in TypographyComponentKey]?: boolean; } & ComponentProps;
+export type TypographyProps = { [K in TypographyKey]?: boolean; } & ComponentProps;
 export type ButtonProps = { [K in ButtonKey]?: boolean; } & ComponentProps;
 export type BadgeProps = { [K in BadgeKey]?: boolean; } & ComponentProps;
 export type ChipProps = { [K in ChipKey]?: boolean; } & ComponentProps;

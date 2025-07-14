@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import { SIZE_KEYS, SizeKey } from "../../props/keys";
+import { SIZE_KEYS, SizeKey } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 
 export interface SizeTheme extends Record<SizeKey, string> {}

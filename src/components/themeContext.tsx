@@ -4,7 +4,7 @@ import { ButtonTheme, defaultButtonTheme } from './ui/theme/buttonTheme';
 import { BadgeTheme, defaultBadgeTheme } from './ui/theme/badgeTheme';
 import { ChipTheme, defaultChipTheme } from './ui/theme/chipTheme';
 import {
-  linkTheme,
+  linkTheme, ListTheme,
   listItemTheme,
   listTheme,
   pageTitleTheme,
@@ -33,7 +33,7 @@ import {
   RowProps,
   SectionProps,
   StackProps,
-  TypographyComponentProps
+  TypographyProps
 } from "./ui/props/props";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
@@ -55,13 +55,13 @@ export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, 
   section: ComponentTheme<SectionProps, SectionTheme>;
   grid3: ComponentTheme<GridProps, GridTheme>;
   grid4: ComponentTheme<GridProps, GridTheme>;
-  pageTitle: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
-  sectionTitle: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
-  title: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
-  text: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
-  link: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
-  list: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
-  listItem: ComponentTheme<TypographyComponentProps, TypographyComponentTheme>;
+  pageTitle: ComponentTheme<TypographyProps, TypographyComponentTheme>;
+  sectionTitle: ComponentTheme<TypographyProps, TypographyComponentTheme>;
+  title: ComponentTheme<TypographyProps, TypographyComponentTheme>;
+  text: ComponentTheme<TypographyProps, TypographyComponentTheme>;
+  link: ComponentTheme<TypographyProps, TypographyComponentTheme>;
+  list: ComponentTheme<TypographyProps, ListTheme>;
+  listItem: ComponentTheme<TypographyProps, TypographyComponentTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -84,8 +84,8 @@ export const defaultTheme: ThemeProps = {
   title: titleTheme,
   text: textTheme,
   link: linkTheme,
-  listItem: listItemTheme,
   list: listTheme,
+  listItem: listItemTheme,
 };
 
 export type ThemeDefaults = Partial<Record<ComponentKey, Record<string, boolean>>>;

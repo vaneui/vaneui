@@ -1,11 +1,12 @@
 import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
-import { TypographyComponentProps } from "../props/props";
+import { TypographyProps } from "../props/props";
 import React from "react";
 import { BaseTypographyComponentTheme, ComponentTheme, defaultTypographyTheme } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
 import { SizeKey } from "../props";
+import { PlTheme } from "./size/plTheme";
 
 export interface TypographyComponentTheme extends BaseTypographyComponentTheme {
   size: {
@@ -16,7 +17,14 @@ export interface TypographyComponentTheme extends BaseTypographyComponentTheme {
   };
 }
 
-const typographyThemeDefaults: Partial<TypographyComponentProps> = {
+export interface ListTheme extends TypographyComponentTheme {
+  size: {
+    text: SizeTheme;
+    paddingLeft: PlTheme;
+  }
+}
+
+const typographyThemeDefaults: Partial<TypographyProps> = {
   md: true,
   default: true,
   sans: true,
@@ -27,9 +35,9 @@ export const createTypographyComponentTheme = (
   tag: React.ReactNode | string | any,
   base: string = "text-balance",
   textSizeMap: Record<SizeKey, string> = textSizeClasses,
-  defaults: Partial<TypographyComponentProps> = typographyThemeDefaults,
-): ComponentTheme<TypographyComponentProps, TypographyComponentTheme> => {
-  return new ComponentTheme<TypographyComponentProps, TypographyComponentTheme>(
+  defaults: Partial<TypographyProps> = typographyThemeDefaults,
+): ComponentTheme<TypographyProps, TypographyComponentTheme> => {
+  return new ComponentTheme<TypographyProps, TypographyComponentTheme>(
     tag,
     base,
     {
@@ -45,7 +53,7 @@ export const createTypographyComponentTheme = (
 };
 
 // Page title specific theme
-export const pageTitleTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme> = createTypographyComponentTheme(
+export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyComponentTheme> = createTypographyComponentTheme(
   "h1",
   "text-balance tracking-tight w-fit",
   {
@@ -59,7 +67,7 @@ export const pageTitleTheme: ComponentTheme<TypographyComponentProps, Typography
 );
 
 // Section title specific theme
-export const sectionTitleTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme> = createTypographyComponentTheme(
+export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyComponentTheme> = createTypographyComponentTheme(
   "h2",
   "text-balance w-fit",
   {
@@ -73,7 +81,7 @@ export const sectionTitleTheme: ComponentTheme<TypographyComponentProps, Typogra
 );
 
 // Title specific theme
-export const titleTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme> = createTypographyComponentTheme(
+export const titleTheme: ComponentTheme<TypographyProps, TypographyComponentTheme> = createTypographyComponentTheme(
   "h3",
   "text-balance w-fit",
   {
@@ -87,7 +95,7 @@ export const titleTheme: ComponentTheme<TypographyComponentProps, TypographyComp
 );
 
 // Text specific theme
-export const textTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme> = createTypographyComponentTheme(
+export const textTheme: ComponentTheme<TypographyProps, TypographyComponentTheme> = createTypographyComponentTheme(
   "p",
   "p-0 m-0 w-fit",
   textSizeClasses,
@@ -95,7 +103,7 @@ export const textTheme: ComponentTheme<TypographyComponentProps, TypographyCompo
 );
 
 // Link specific theme
-export const linkTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme> = createTypographyComponentTheme(
+export const linkTheme: ComponentTheme<TypographyProps, TypographyComponentTheme> = createTypographyComponentTheme(
   "a",
   "hover:underline w-fit",
   textSizeClasses,
@@ -103,12 +111,22 @@ export const linkTheme: ComponentTheme<TypographyComponentProps, TypographyCompo
 );
 
 // List item specific theme
-export const listItemTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme> = createTypographyComponentTheme(
+export const listItemTheme: ComponentTheme<TypographyProps, TypographyComponentTheme> = createTypographyComponentTheme(
   "li"
 );
 
 // List specific theme
-export const listTheme: ComponentTheme<TypographyComponentProps, TypographyComponentTheme> = createTypographyComponentTheme(
+export const listTheme: ComponentTheme<TypographyProps, ListTheme> = new ComponentTheme<TypographyProps, ListTheme>(
   "ul",
-  "list-disc list-inside"
-);
+  "list-disc list-inside",
+  {
+    size: {
+      text: new SizeTheme(textSizeClasses),
+      paddingLeft: new PlTheme(),
+    },
+    appearance: {
+      text: TextAppearanceTheme.createTheme({base: textAppearanceClasses}),
+    },
+    typography: defaultTypographyTheme,
+  },
+  typographyThemeDefaults);

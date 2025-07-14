@@ -1,0 +1,101 @@
+name: Publish Stable Release to npm
+
+# Run on pushes to the prod branch
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test
+
+      # Check if the version in package.json already exists on npm
+      - name: Check if Version is Already Published
+        id: check_version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          PUBLISHED_VERSION=$(npm view $PACKAGE_NAME version 2>/dev/null || echo "none")
+          echo "Local version: $VERSION"
+          echo "Published version: $PUBLISHED_VERSION"
+          if [ "$VERSION" = "$PUBLISHED_VERSION" ]; then
+            echo "Version $VERSION is already published. Skipping."
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+          else
+            echo "Version $VERSION is new. Proceeding to publish."
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      # Proceed only if the version is new
+      - name: Build Package
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: npm run build
+
+      # Best Practice: Verify what will be in the package before publishing
+      - name: Verify Package Contents
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: npm pack --dry-run
+
+      - name: Publish Stable Package to npm
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Git Tag
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag -a "v${{ steps.check_version.outputs.version }}" -m "Release version ${{ steps.check_version.outputs.version }}"
+          git push origin "v${{ steps.check_version.outputs.version }}"
+
+      - name: Create GitHub Release
+        if: steps.check_version.outputs.should_publish == 'true'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.check_version.outputs.version }}
+          release_name: Release v${{ steps.check_version.outputs.version }}
+          body: |
+            🎉 Stable release v${{ steps.check_version.outputs.version }}
+            
+            **Installation:**
+            ```bash
+            npm install @vaneui/ui@latest
+            # or specific version
+            npm install @vaneui/ui@${{ steps.check_version.outputs.version }}
+            ```
+            
+            **Changes in this release:**
+            - Check the commit history for detailed changes
+            
+            **Commit:** ${{ github.sha }}
+            **Branch:** ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
+      - name: Notify Slack/Discord (Optional)
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: |
+          echo "🎉 Successfully published @vaneui/ui@${{ steps.check_version.outputs.version }} to npm!"
+          echo "Add your notification logic here (Slack, Discord, etc.)"

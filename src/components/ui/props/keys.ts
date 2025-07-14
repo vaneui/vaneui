@@ -108,15 +108,15 @@ export const FONT_KEYS = [
 ] as const;
 
 // Typography component keys
-export const TYPOGRAPHY_COMPONENT_KEYS = [
+export const TYPOGRAPHY_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...FONT_KEYS
 ] as const;
-export type TypographyComponentKey = typeof TYPOGRAPHY_COMPONENT_KEYS[number];
+export type TypographyKey = typeof TYPOGRAPHY_KEYS[number];
 
 // Button keys
 export const BUTTON_KEYS = [
-  ...TYPOGRAPHY_COMPONENT_KEYS,
+  ...TYPOGRAPHY_KEYS,
   ...SHAPE_KEYS,
   ...BORDER_KEYS,
   ...SHADOW_KEYS,
@@ -159,7 +159,7 @@ export type ColKey = typeof COL_KEYS[number];
 
 // Card keys
 export const CARD_KEYS = [
-  ...TYPOGRAPHY_COMPONENT_KEYS,
+  ...TYPOGRAPHY_KEYS,
   ...GAP_KEYS,
   ...SHARP_KEYS,
   ...ROUNDED_KEYS,
@@ -190,7 +190,7 @@ export type StackKey = typeof STACK_KEYS[number];
 
 // Badge keys
 export const BADGE_KEYS = [
-  ...TYPOGRAPHY_COMPONENT_KEYS,
+  ...TYPOGRAPHY_KEYS,
   ...SHAPE_KEYS,
   ...VARIANT_KEYS,
   ...SHADOW_KEYS,
@@ -204,7 +204,7 @@ export type BadgeKey = typeof BADGE_KEYS[number];
 
 // Chip keys
 export const CHIP_KEYS = [
-  ...TYPOGRAPHY_COMPONENT_KEYS,
+  ...TYPOGRAPHY_KEYS,
   ...SHAPE_KEYS,
   ...VARIANT_KEYS,
   ...SHADOW_KEYS,
