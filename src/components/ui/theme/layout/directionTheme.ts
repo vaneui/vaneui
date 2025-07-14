@@ -2,7 +2,7 @@ import {
   FlexDirectionKey,
   FLEX_DIRECTION_KEYS,
   DIRECTION_REVERSE_KEYS,
-} from "../../props/keys";
+} from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
