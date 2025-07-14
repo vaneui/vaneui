@@ -26,7 +26,7 @@ export class PaddingTheme extends BaseTheme {
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const size = pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md';
-    const key = pickFirstTruthyKey(props, defaults, PADDING_KEYS) || 'noPadding';
+    const key = pickFirstTruthyKey(props, defaults, PADDING_KEYS) || 'padding';
 
     return [typeof this[key] === 'string' ? this[key] : (this[key] as Record<SizeKey, string>)[size]];
   }
