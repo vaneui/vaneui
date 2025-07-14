@@ -114,6 +114,13 @@ export const TYPOGRAPHY_KEYS = [
 ] as const;
 export type TypographyKey = typeof TYPOGRAPHY_KEYS[number];
 
+export const LIST_KEYS = [
+  ...TYPOGRAPHY_KEYS,
+  ...PADDING_KEYS,
+  ...TEXT_APPEARANCE_KEYS
+]
+export type ListKey = typeof LIST_KEYS[number];
+
 // Button keys
 export const BUTTON_KEYS = [
   ...TYPOGRAPHY_KEYS,
@@ -124,7 +131,6 @@ export const BUTTON_KEYS = [
   ...GAP_KEYS,
   ...PADDING_KEYS,
   ...VARIANT_KEYS,
-  ...TEXT_APPEARANCE_KEYS
 ] as const;
 export type ButtonKey = typeof BUTTON_KEYS[number];
 
@@ -179,7 +185,6 @@ export const CARD_KEYS = [
   ...SHARP_KEYS,
   ...ROUNDED_KEYS,
   ...BREAKPOINT_KEYS,
-  ...BG_APPEARANCE_KEYS,
   ...BORDER_KEYS,
   ...RING_KEYS,
   ...SHADOW_KEYS,
@@ -200,7 +205,6 @@ export const BADGE_KEYS = [
   ...RING_KEYS,
   ...GAP_KEYS,
   ...PADDING_KEYS,
-  ...TEXT_APPEARANCE_KEYS
 ] as const;
 export type BadgeKey = typeof BADGE_KEYS[number];
 
@@ -214,7 +218,6 @@ export const CHIP_KEYS = [
   ...RING_KEYS,
   ...GAP_KEYS,
   ...PADDING_KEYS,
-  ...TEXT_APPEARANCE_KEYS
 ] as const;
 export type ChipKey = typeof CHIP_KEYS[number];
 

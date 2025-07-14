@@ -12,6 +12,7 @@ import {
   ContainerKey,
   SectionKey,
   TypographyKey,
+  ListKey,
 } from "./keys";
 
 export type ComponentProps = {
@@ -21,6 +22,7 @@ export type ComponentProps = {
 } & React.HTMLProps<HTMLElement>;
 
 export type TypographyProps = { [K in TypographyKey]?: boolean; } & ComponentProps;
+export type ListProps = { [K in ListKey]?: boolean; } & ComponentProps;
 export type ButtonProps = { [K in ButtonKey]?: boolean; } & ComponentProps;
 export type BadgeProps = { [K in BadgeKey]?: boolean; } & ComponentProps;
 export type ChipProps = { [K in ChipKey]?: boolean; } & ComponentProps;

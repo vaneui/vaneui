@@ -101,6 +101,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
   },
   {
     md: true,
+    default: true,
     inlineFlex: true,
     outline: true,
     pill: true,

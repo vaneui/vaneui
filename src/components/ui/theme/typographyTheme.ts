@@ -1,5 +1,5 @@
 import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
-import { TypographyProps } from "../props/props";
+import { ListProps, TypographyProps } from "../props/props";
 import React from "react";
 import { BaseTypographyComponentTheme, ComponentTheme, defaultTypographyTheme } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
@@ -127,7 +127,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
 );
 
 // List specific theme
-export const listTheme: ComponentTheme<TypographyProps, ListTheme> = new ComponentTheme<TypographyProps, ListTheme>(
+export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentTheme<ListProps, ListTheme>(
   "ul",
   "list-disc list-inside",
   {
