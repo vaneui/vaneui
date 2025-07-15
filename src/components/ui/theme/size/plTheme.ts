@@ -1,4 +1,5 @@
 import { SizeKey, PaddingKey } from "../../props";
+import { PADDING_KEYS } from "../../props/keys";
 import { PaddingTheme } from "./paddingTheme";
 
 export interface PlTheme extends Record<PaddingKey, string | Record<SizeKey, string>> {
@@ -15,4 +16,12 @@ export class PlTheme extends PaddingTheme {
     },
     noPadding: "pl-0"
   };
+
+  constructor(initial?: Partial<Record<PaddingKey, string | Record<SizeKey, string>>>) {
+    super(initial);
+    // Override with PlTheme's default classes
+    PADDING_KEYS.forEach((key) => {
+      this[key] = initial?.[key] ?? this.defaultClasses[key];
+    });
+  }
 }

@@ -148,5 +148,6 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
     default: true,
     sans: true,
     normal: true,
+    padding: true,
   }
 );
