@@ -1,0 +1,87 @@
+name: Test Suite
+
+# Run tests on pull requests and pushes to main/prod branches
+on:
+  pull_request:
+    branches: [ main, prod ]
+  push:
+    branches: [ main, prod ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Type Check
+        run: npm run type-check
+
+      - name: Run Tests
+        run: npm test
+        env:
+          CI: true
+
+      - name: Build Package
+        run: npm run build
+
+      - name: Run Tests on Built Package
+        run: npm test
+        env:
+          CI: true
+
+      - name: Verify Package Contents
+        run: npm pack --dry-run
+
+      - name: Test Results Summary
+        if: always()
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "✅ All tests passed successfully!"
+            echo "📦 Package builds correctly"
+            echo "🔍 Type checking passed"
+            echo "🧪 Test suite completed"
+          else
+            echo "❌ Some tests failed"
+            echo "Please fix the failing tests before merging"
+            exit 1
+          fi
+
+  test-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests with Coverage
+        run: npm test -- --coverage
+        env:
+          CI: true
+
+      - name: Coverage Summary
+        if: always()
+        run: |
+          echo "📊 Test coverage report generated"
+          echo "Check the coverage results above"

@@ -11,16 +11,30 @@ The release pipeline supports two types of releases:
 
 ## Workflows
 
-### 1. Pre-release Pipeline (`npm-publish.yml`)
+### 1. Test Suite (`test.yml`)
+
+**Trigger:** Pull requests and pushes to `main`/`prod` branches  
+**Purpose:** Ensure code quality and prevent regressions
+
+**Process:**
+- Runs on multiple Node.js versions (18, 20)
+- Type checking with TypeScript
+- Full test suite execution
+- Package building verification
+- Test coverage reporting
+- Blocks merging if tests fail
+
+### 2. Pre-release Pipeline (`npm-publish.yml`)
 
 **Trigger:** Push to `main` branch  
 **Purpose:** Create pre-release versions for testing and review
 
 **Process:**
-- Runs tests automatically
+- Runs tests automatically (fails if tests fail)
 - Generates version: `{base-version}-alpha.{timestamp}.{commit-sha}`
-- Publishes to npm with `alpha` tag
-- Creates GitHub pre-release
+- Builds package and runs tests again
+- Publishes to npm with `alpha` tag only if all tests pass
+- Reports publication success
 
 **Installation:**
 ```bash
@@ -33,11 +47,12 @@ npm install @vaneui/ui@alpha
 **Purpose:** Create stable production releases
 
 **Process:**
-- Runs tests automatically
+- Runs tests automatically (fails if tests fail)
 - Checks if version already exists on npm
-- Publishes to npm as `latest`
+- Builds package and runs tests again
+- Publishes to npm as `latest` only if all tests pass
 - Creates git tag and GitHub release
-- Only publishes if version is new
+- Only publishes if version is new and tests pass
 
 **Installation:**
 ```bash
@@ -50,9 +65,11 @@ npm install @vaneui/ui@latest
 **Purpose:** Bump version and initiate release process
 
 **Features:**
+- Runs tests before proceeding (fails if tests fail)
 - Choose version bump type: patch, minor, major
 - Choose target branch: main (pre-release) or prod (stable)
-- Automatically commits version bump
+- Builds package and runs tests again
+- Automatically commits version bump only if all tests pass
 - Triggers appropriate release pipeline
 
 ## Release Process
@@ -81,6 +98,27 @@ npm install @vaneui/ui@latest
    - Bump version manually in `package.json`
    - Push to `prod` branch
    - Stable release is created automatically
+
+## Quality Gates
+
+All release workflows include multiple quality gates to ensure package reliability:
+
+### 🧪 **Test Gates**
+- **Pre-build tests**: Run before any build process
+- **Post-build tests**: Run after building to ensure build doesn't break functionality
+- **Multiple Node.js versions**: Test compatibility across Node 18 and 20
+- **Type checking**: Ensure TypeScript compilation succeeds
+
+### 🚫 **Failure Handling**
+- **Immediate stop**: Any test failure immediately stops the release process
+- **Clear error messages**: Descriptive failure messages in CI logs
+- **No partial publishes**: Package is never published if any step fails
+- **Version rollback**: Failed releases don't increment version numbers
+
+### 🔍 **Verification Steps**
+- **Package content verification**: Ensure all required files are included
+- **Test coverage reporting**: Monitor test coverage trends
+- **Build artifact validation**: Verify built package integrity
 
 ## Version Strategy
 

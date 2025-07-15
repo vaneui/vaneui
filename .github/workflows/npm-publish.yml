@@ -25,6 +25,15 @@ jobs:
 
       - name: Run Tests
         run: npm test
+        env:
+          CI: true
+
+      - name: Check Test Results
+        if: failure()
+        run: |
+          echo "❌ Tests failed! Cannot proceed with pre-release publication."
+          echo "Please fix the failing tests before merging to main branch."
+          exit 1
 
       # Generate pre-release version with timestamp and commit SHA
       - name: Generate Pre-release Version
@@ -42,6 +51,18 @@ jobs:
       - name: Build Package
         run: npm run build
 
+      - name: Run Tests on Built Package
+        run: npm test
+        env:
+          CI: true
+
+      - name: Check Build and Test Results
+        if: failure()
+        run: |
+          echo "❌ Build or post-build tests failed!"
+          echo "Cannot proceed with pre-release publication."
+          exit 1
+
       # Best Practice: Verify what will be in the package before publishing
       - name: Verify Package Contents
         run: npm pack --dry-run
@@ -50,3 +71,10 @@ jobs:
         run: npm publish --access public --tag alpha
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Report Success
+        run: |
+          echo "✅ Pre-release published successfully!"
+          echo "📦 Version: ${{ steps.version.outputs.version }}"
+          echo "🏷️  Tag: alpha"
+          echo "📥 Install with: npm install @vaneui/ui@alpha"

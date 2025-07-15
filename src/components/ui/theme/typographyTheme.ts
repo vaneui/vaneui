@@ -17,13 +17,6 @@ export interface TypographyTheme extends BaseTypographyComponentTheme {
   };
 }
 
-export interface ListTheme extends TypographyTheme {
-  size: {
-    text: SizeTheme;
-    paddingLeft: PlTheme;
-  }
-}
-
 const typographyThemeDefaults: Partial<TypographyProps> = {
   md: true,
   default: true,
@@ -126,6 +119,16 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
   {}//keep empty to apply parent style
 );
 
+export interface ListTheme extends BaseTypographyComponentTheme {
+  size: {
+    text: SizeTheme;
+    paddingLeft: PlTheme;
+  }
+  appearance: {
+    text: TextAppearanceTheme;
+  };
+}
+
 // List specific theme
 export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentTheme<ListProps, ListTheme>(
   "ul",
@@ -140,5 +143,10 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
     },
     typography: defaultTypographyTheme,
   },
-  typographyThemeDefaults
+  {
+    md: true,
+    default: true,
+    sans: true,
+    normal: true,
+  }
 );

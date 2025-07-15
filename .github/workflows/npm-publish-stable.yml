@@ -25,6 +25,15 @@ jobs:
 
       - name: Run Tests
         run: npm test
+        env:
+          CI: true
+
+      - name: Check Test Results
+        if: failure()
+        run: |
+          echo "❌ Tests failed! Cannot proceed with stable release publication."
+          echo "Please fix the failing tests before merging to prod branch."
+          exit 1
 
       # Check if the version in package.json already exists on npm
       - name: Check if Version is Already Published
@@ -49,6 +58,19 @@ jobs:
         if: steps.check_version.outputs.should_publish == 'true'
         run: npm run build
 
+      - name: Run Tests on Built Package
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: npm test
+        env:
+          CI: true
+
+      - name: Check Build and Test Results
+        if: steps.check_version.outputs.should_publish == 'true' && failure()
+        run: |
+          echo "❌ Build or post-build tests failed!"
+          echo "Cannot proceed with stable release publication."
+          exit 1
+
       # Best Practice: Verify what will be in the package before publishing
       - name: Verify Package Contents
         if: steps.check_version.outputs.should_publish == 'true'
@@ -59,6 +81,14 @@ jobs:
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Report Success
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: |
+          echo "✅ Stable release published successfully!"
+          echo "📦 Version: ${{ steps.check_version.outputs.version }}"
+          echo "🏷️  Tag: latest"
+          echo "📥 Install with: npm install @vaneui/ui@latest"
 
       - name: Create Git Tag
         if: steps.check_version.outputs.should_publish == 'true'

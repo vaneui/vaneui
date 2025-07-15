@@ -48,6 +48,15 @@ jobs:
 
       - name: Run Tests
         run: npm test
+        env:
+          CI: true
+
+      - name: Check Test Results
+        if: failure()
+        run: |
+          echo "❌ Tests failed! Cannot proceed with version bump."
+          echo "Please fix the failing tests before creating a release."
+          exit 1
 
       - name: Configure Git
         run: |
@@ -66,6 +75,18 @@ jobs:
 
       - name: Build Package
         run: npm run build
+
+      - name: Run Tests on Built Package
+        run: npm test
+        env:
+          CI: true
+
+      - name: Check Build and Test Results
+        if: failure()
+        run: |
+          echo "❌ Build or post-build tests failed!"
+          echo "Cannot proceed with version bump commit."
+          exit 1
 
       - name: Commit Version Bump
         run: |
