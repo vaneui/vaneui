@@ -69,7 +69,7 @@ export interface BaseTypographyComponentTheme extends BaseComponentTheme {
 export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly tag: React.ElementType;
   readonly base: string;
-  readonly themes: DeepPartial<TTheme>;
+  readonly themes: TTheme;
   defaults: Partial<P>;
 
   constructor(
@@ -81,7 +81,8 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     this.tag = tag;
     this.base = base;
     this.defaults = defaults;
-    this.themes = subThemes;
+    // Type assertion: we trust that all default themes provide complete objects
+    this.themes = subThemes as TTheme;
   }
 
   getClasses(props: P, defaults: Partial<P> = this.defaults): string[] {
