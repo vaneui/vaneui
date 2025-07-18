@@ -1,5 +1,5 @@
-import { deepMerge } from '../deepMerge';
-import { DeepPartial } from '../deepPartial';
+import { deepMerge } from '../utils/deepMerge';
+import { DeepPartial } from '../utils/deepPartial';
 
 // Simple class for testing class instance merging
 class TestClass {

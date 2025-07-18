@@ -1,7 +1,12 @@
 import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
 import { ListProps, TypographyProps } from "../props/props";
 import React from "react";
-import { BaseTypographyComponentTheme, ComponentTheme, defaultTypographyTheme } from "./common/ComponentTheme";
+import {
+  BaseTypographyComponentTheme,
+  ComponentTheme, defaultLayoutTheme,
+  DefaultLayoutThemes,
+  defaultTypographyTheme
+} from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
@@ -15,6 +20,7 @@ export interface TypographyTheme extends BaseTypographyComponentTheme {
   appearance: {
     text: TextAppearanceTheme;
   };
+  layout: DefaultLayoutThemes;
 }
 
 const typographyThemeDefaults: Partial<TypographyProps> = {
@@ -41,6 +47,7 @@ export const createTypographyComponentTheme = (
         text: TextAppearanceTheme.createTheme({base: textAppearanceClasses}),
       },
       typography: defaultTypographyTheme,
+      layout: defaultLayoutTheme,
     },
     defaults);
 };
@@ -127,6 +134,7 @@ export interface ListTheme extends BaseTypographyComponentTheme {
   appearance: {
     text: TextAppearanceTheme;
   };
+  layout: DefaultLayoutThemes;
 }
 
 // List specific theme
@@ -142,6 +150,7 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
       text: TextAppearanceTheme.createTheme({base: textAppearanceClasses}),
     },
     typography: defaultTypographyTheme,
+    layout: defaultLayoutTheme,
   },
   {
     md: true,

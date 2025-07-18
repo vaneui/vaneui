@@ -381,6 +381,136 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
     });
   });
 
+  describe('Typography Layout Props', () => {
+    it('Text should apply display layout props correctly', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text flex>Text with flex display</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      expect(text).toBeInTheDocument();
+      expect(text).toHaveClass('flex'); // display: flex
+    });
+
+    it('Title should apply position layout props correctly', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title relative>Title with relative position</Title>
+        </ThemeProvider>
+      );
+
+      const title = container.querySelector('h3');
+      expect(title).toBeInTheDocument();
+      expect(title).toHaveClass('relative'); // position: relative
+    });
+
+    it('PageTitle should apply flex items alignment props correctly', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PageTitle flex itemsCenter>Page Title with items center</PageTitle>
+        </ThemeProvider>
+      );
+
+      const pageTitle = container.querySelector('h1');
+      expect(pageTitle).toBeInTheDocument();
+      expect(pageTitle).toHaveClass('flex'); // display: flex
+      expect(pageTitle).toHaveClass('items-center'); // align-items: center
+    });
+
+    it('SectionTitle should apply justify content props correctly', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <SectionTitle flex justifyCenter>Section Title with justify center</SectionTitle>
+        </ThemeProvider>
+      );
+
+      const sectionTitle = container.querySelector('h2');
+      expect(sectionTitle).toBeInTheDocument();
+      expect(sectionTitle).toHaveClass('flex'); // display: flex
+      expect(sectionTitle).toHaveClass('justify-center'); // justify-content: center
+    });
+
+    it('Link should apply overflow props correctly', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test" overflowHidden>Link with overflow hidden</Link>
+        </ThemeProvider>
+      );
+
+      const link = container.querySelector('a');
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveClass('overflow-hidden'); // overflow: hidden
+    });
+
+    it('Text should apply multiple layout props together', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text flex itemsCenter justifyBetween relative>Text with multiple layout props</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      expect(text).toBeInTheDocument();
+      expect(text).toHaveClass('flex'); // display: flex
+      expect(text).toHaveClass('items-center'); // align-items: center
+      expect(text).toHaveClass('justify-between'); // justify-content: space-between
+      expect(text).toHaveClass('relative'); // position: relative
+    });
+
+    it('List should apply layout props correctly', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List flex itemsStart>
+            <ListItem>Item with layout</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+
+      const list = container.querySelector('ul');
+      expect(list).toBeInTheDocument();
+      expect(list).toHaveClass('flex'); // display: flex
+      expect(list).toHaveClass('items-start'); // align-items: flex-start
+    });
+
+    it('Typography components should support responsive hide props', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text mdHide>Text hidden on medium screens</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      expect(text).toBeInTheDocument();
+      expect(text).toHaveClass('max-md:hidden'); // hidden on medium and smaller screens
+    });
+
+    it('Typography components should support grid display', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title grid>Grid title</Title>
+        </ThemeProvider>
+      );
+
+      const title = container.querySelector('h3');
+      expect(title).toBeInTheDocument();
+      expect(title).toHaveClass('grid'); // display: grid
+    });
+
+    it('Typography components should support absolute positioning', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test" absolute>Absolute positioned link</Link>
+        </ThemeProvider>
+      );
+
+      const link = container.querySelector('a');
+      expect(link).toBeInTheDocument();
+      expect(link).toHaveClass('absolute'); // position: absolute
+    });
+  });
+
   describe('Custom className override', () => {
     it('should merge custom className with theme classes', () => {
       const {container} = render(
