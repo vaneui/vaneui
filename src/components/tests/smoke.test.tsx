@@ -102,7 +102,7 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
   });
 
   describe('Divider Component', () => {
-    it('should render with default theme classes', () => {
+    it('should render with default theme classes and no padding by default', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Divider/>
@@ -114,6 +114,51 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
       // Divider uses base component theme with default appearance
       expect(divider).toHaveClass('bg-(--border-color-default)'); // default border color
       expect(divider).toHaveClass('h-px', 'w-full');
+      expect(divider).toHaveClass('py-0'); // no padding by default
+    });
+
+    it('should apply padding when padding prop is true', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider padding/>
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toBeInTheDocument();
+      expect(divider).toHaveClass('py-6'); // md size padding from PyTheme
+    });
+
+    it('should apply different padding sizes', () => {
+      const {container: containerXs} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider padding xs/>
+        </ThemeProvider>
+      );
+
+      const {container: containerLg} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider padding lg/>
+        </ThemeProvider>
+      );
+
+      const dividerXs = containerXs.querySelector('div');
+      const dividerLg = containerLg.querySelector('div');
+      
+      expect(dividerXs).toHaveClass('py-2'); // xs size padding
+      expect(dividerLg).toHaveClass('py-8'); // lg size padding
+    });
+
+    it('should explicitly apply noPadding when noPadding prop is true', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider noPadding/>
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toBeInTheDocument();
+      expect(divider).toHaveClass('py-0'); // no padding
     });
   });
 

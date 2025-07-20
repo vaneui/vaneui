@@ -224,7 +224,8 @@ export type ChipKey = typeof CHIP_KEYS[number];
 // Divider keys
 export const DIVIDER_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...BG_APPEARANCE_KEYS
+  ...BG_APPEARANCE_KEYS,
+  ...PADDING_KEYS
 ] as const;
 export type DividerKey = typeof DIVIDER_KEYS[number];
 
