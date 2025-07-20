@@ -98,8 +98,7 @@ export const titleTheme: ComponentTheme<TypographyProps, TypographyTheme> = crea
 export const textTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "p",
   "p-0 m-0 w-fit",
-  textSizeClasses,
-  mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {secondary: true})
+  textSizeClasses
 );
 
 // Link specific theme
