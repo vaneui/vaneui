@@ -222,7 +222,7 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
       expect(text).toBeInTheDocument();
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
       expect(text).toHaveClass('text-base'); // md size
-      expect(text).toHaveClass('text-(--text-color-secondary)'); // secondary appearance
+      expect(text).toHaveClass('text-(--text-color-default)'); // default appearance
       expect(text).toHaveClass('font-sans');
       expect(text).toHaveClass('font-normal');
     });
