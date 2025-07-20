@@ -228,6 +228,56 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
       expect(stack).toHaveClass('flex', 'flex-wrap', 'flex-col', 'gap-4');
     });
 
+    it('Stack should apply row direction when row prop is true', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Stack row>Stack row content</Stack>
+        </ThemeProvider>
+      );
+
+      const stack = container.querySelector('div');
+      expect(stack).toBeInTheDocument();
+      expect(stack).toHaveClass('flex-row'); // row direction
+      expect(stack).not.toHaveClass('flex-col'); // should not have column
+    });
+
+    it('Stack should apply column direction when column prop is true', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Stack column>Stack column content</Stack>
+        </ThemeProvider>
+      );
+
+      const stack = container.querySelector('div');
+      expect(stack).toBeInTheDocument();
+      expect(stack).toHaveClass('flex-col'); // column direction
+      expect(stack).not.toHaveClass('flex-row'); // should not have row
+    });
+
+    it('Stack should apply reverse direction when reverse prop is true with row', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Stack row reverse>Stack row reverse content</Stack>
+        </ThemeProvider>
+      );
+
+      const stack = container.querySelector('div');
+      expect(stack).toBeInTheDocument();
+      expect(stack).toHaveClass('flex-row-reverse'); // row reverse direction
+    });
+
+    it('Stack should apply reverse direction when reverse prop is true with column', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Stack column reverse>Stack column reverse content</Stack>
+        </ThemeProvider>
+      );
+
+      const stack = container.querySelector('div');
+      expect(stack).toBeInTheDocument();
+      expect(stack).toHaveClass('flex-col-reverse'); // column reverse direction
+    });
+
     it('Grid3 should render with default theme classes', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
