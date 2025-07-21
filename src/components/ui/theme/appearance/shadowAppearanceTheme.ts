@@ -10,7 +10,7 @@ import {
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export interface ShadowAppearanceTheme extends Record<TextAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | undefined> {
+export interface ShadowAppearanceTheme extends Record<TextAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
 }
 
 export class ShadowAppearanceTheme extends BaseTheme {
@@ -22,10 +22,11 @@ export class ShadowAppearanceTheme extends BaseTheme {
     xl: {base: "shadow-lg", hover: "hover:shadow-xl", active: ""}
   }
 
-  constructor(initial?: Partial<Record<TextAppearanceKey, Record<SizeKey, Record<ModeKey, string>>>>) {
+  constructor(initial?: Partial<Record<TextAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>>) {
     super();
     TEXT_APPEARANCE_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? ShadowAppearanceTheme.defaultShadow;
+      const initialAppearance = initial?.[key];
+      this[key] = initialAppearance === undefined ? ShadowAppearanceTheme.defaultShadow : null;
     })
   }
 
@@ -42,7 +43,7 @@ export class ShadowAppearanceTheme extends BaseTheme {
   }
 
   static createTheme(
-    src: Partial<Record<TextAppearanceKey, Record<SizeKey, Record<ModeKey, string>>>> = {}
+    src: Partial<Record<TextAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>> = {}
   ): ShadowAppearanceTheme {
     return new ShadowAppearanceTheme(src);
   }

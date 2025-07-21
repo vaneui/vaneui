@@ -39,10 +39,29 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
       expect(button).toBeInTheDocument();
       expect(button).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
       expect(button).toHaveClass('text-base'); // md size
+      expect(button).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
       expect(button).toHaveClass('text-(--text-color-default)'); // default appearance
       expect(button).toHaveClass('font-sans'); // sans family
       expect(button).toHaveClass('font-semibold'); // semibold weight
       expect(button).toHaveClass('inline-flex', 'items-center', 'justify-center');
+    });
+  });
+
+  describe('Transparent/Link Button Component', () => {
+    it('should render without shadow', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button id="transparent" transparent>Click me</Button>
+          <Button id="link" transparent>Click me</Button>
+        </ThemeProvider>
+      );
+
+      const button1 = container.querySelector('#transparent');
+      const button2 = container.querySelector('#link');
+      expect(button1).toBeInTheDocument();
+      expect(button1).not.toHaveClass('shadow-sm', 'hover:shadow-md');
+      expect(button2).toBeInTheDocument();
+      expect(button2).not.toHaveClass('shadow-sm', 'hover:shadow-md');
     });
   });
 

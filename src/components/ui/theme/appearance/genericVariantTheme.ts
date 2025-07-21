@@ -58,8 +58,8 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
   static createUIElementShadowTheme(): GenericVariantTheme<ShadowAppearanceTheme> {
     //transparent UI elements won't have a shadow
     return new GenericVariantTheme({
-      outline: ShadowAppearanceTheme.createTheme({transparent: undefined, link: undefined}),
-      filled: ShadowAppearanceTheme.createTheme({transparent: undefined, link: undefined})
+      outline: ShadowAppearanceTheme.createTheme({transparent: null, link: null}),
+      filled: ShadowAppearanceTheme.createTheme({transparent: null, link: null})
     });
   }
 
