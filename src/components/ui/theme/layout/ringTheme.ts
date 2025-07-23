@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import { MODE_KEYS, ModeKey, RING_KEYS, RingKey } from "../../props/keys";
+import { MODE_KEYS, ModeKey, RING_KEYS, RingKey } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 
 export interface RingTheme extends Record<RingKey, Record<ModeKey, string>> {
@@ -13,10 +13,15 @@ export class RingTheme extends BaseTheme {
       active: "active:ring active:ring-inset",
     },
     noRing: {
-      base: "ring-0",
-      hover: "hover:ring-0",
-      active: "active:ring-0",
+      base: "",
+      hover: "",
+      active: "",
     },
+    //noRing: {
+    //  base: "ring-0",
+    //  hover: "hover:ring-0",
+    //  active: "active:ring-0",
+    //},
   };
 
   constructor(initial?: Partial<Record<RingKey, Record<ModeKey, string>>>) {

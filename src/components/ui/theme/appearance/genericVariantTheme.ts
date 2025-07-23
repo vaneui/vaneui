@@ -74,10 +74,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     //transparent and link UI elements won't have a border
     return new GenericVariantTheme({
       outline: TextAppearanceTheme.createTheme({
-        base: {...borderAppearanceClasses, transparent: '', link: ''}
+        base: {...borderAppearanceClasses, transparent: 'border-transparent', link: 'border-transparent'}
       }),
       filled: TextAppearanceTheme.createTheme({
-        base: {...filledBorderAppearanceClasses, transparent: '', link: ''}
+        base: {...filledBorderAppearanceClasses, transparent: 'border-transparent', link: 'border-transparent'}
       })
     });
   }
@@ -93,10 +93,18 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     //transparent and link UI elements won't have a ring
     return new GenericVariantTheme({
       outline: TextAppearanceTheme.createTheme({
-        base: {...ringAppearanceClasses, transparent: '', link: ''}
+        base: {
+          ...ringAppearanceClasses,
+          transparent: ringAppearanceClasses.transparent,
+          link: ringAppearanceClasses.transparent
+        }
       }),
       filled: TextAppearanceTheme.createTheme({
-        base: {...filledRingAppearanceClasses, transparent: '', link: ''}
+        base: {
+          ...filledRingAppearanceClasses,
+          transparent: ringAppearanceClasses.transparent,
+          link: ringAppearanceClasses.transparent
+        }
       })
     });
   }

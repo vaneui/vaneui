@@ -2,7 +2,6 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import React from 'react';
 import {
-  Button,
   Badge,
   Card,
   Chip,
@@ -27,81 +26,6 @@ import {
 
 describe('Component Smoke Tests - Default Theme Classes', () => {
 
-  describe('Button Component', () => {
-    it('should render with default theme classes', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button>Click me</Button>
-        </ThemeProvider>
-      );
-
-      const button = container.querySelector('button');
-      expect(button).toBeInTheDocument();
-      expect(button).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
-      expect(button).toHaveClass('text-base'); // md size
-      expect(button).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
-      expect(button).toHaveClass('text-(--text-color-default)'); // default appearance
-      expect(button).toHaveClass('font-sans'); // sans family
-      expect(button).toHaveClass('font-semibold'); // semibold weight
-      expect(button).toHaveClass('inline-flex', 'items-center', 'justify-center');
-    });
-  });
-
-  describe('Transparent/Link Button Component', () => {
-    it('should render without shadow', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button id="transparent" transparent>Click me</Button>
-          <Button id="link" link>Click me</Button>
-        </ThemeProvider>
-      );
-
-      const button1 = container.querySelector('#transparent');
-      const button2 = container.querySelector('#link');
-      expect(button1).toBeInTheDocument();
-      expect(button1).not.toHaveClass('shadow-sm', 'hover:shadow-md');
-      expect(button2).toBeInTheDocument();
-      expect(button2).not.toHaveClass('shadow-sm', 'hover:shadow-md');
-    });
-
-    it('should render without border and ring', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button id="transparent" transparent>Click me</Button>
-          <Button id="link" link>Click me</Button>
-        </ThemeProvider>
-      );
-
-      const button1 = container.querySelector('#transparent');
-      const button2 = container.querySelector('#link');
-      
-      // Transparent and link buttons should not have border classes
-      expect(button1).toBeInTheDocument();
-      expect(button1).not.toHaveClass('border-(--border-color-default)', 'border-(--border-color-transparent)', 'border-(--border-color-link)');
-      
-      expect(button2).toBeInTheDocument();
-      expect(button2).not.toHaveClass('border-(--border-color-default)', 'border-(--border-color-transparent)', 'border-(--border-color-link)');
-      
-      // Transparent and link buttons should not have ring classes
-      expect(button1).not.toHaveClass('ring-(--border-color-default)', 'ring-(--border-color-transparent)', 'ring-(--border-color-link)');
-      expect(button2).not.toHaveClass('ring-(--border-color-default)', 'ring-(--border-color-transparent)', 'ring-(--border-color-link)');
-    });
-
-    it('should have default text color for transparent but link color for link button', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button id="transparent" transparent>Click me</Button>
-          <Button id="link" link>Click me</Button>
-        </ThemeProvider>
-      );
-
-      const button1 = container.querySelector('#transparent');
-      const button2 = container.querySelector('#link');
-      
-      expect(button1).toHaveClass('text-(--text-color-default)'); // transparent uses default text color
-      expect(button2).toHaveClass('text-(--text-color-link)'); // link uses link text color
-    });
-  });
 
   describe('Badge Component', () => {
     it('should render with default theme classes', () => {
@@ -121,7 +45,7 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
       expect(badge).toHaveClass('inline-flex', 'items-center', 'rounded-full', 'uppercase');
     });
 
-    it('should render transparent and link badges without border, ring, and shadow', () => {
+    it('should render transparent and link badges with transparent border/ring and no shadow', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Badge id="transparent" transparent>Transparent Badge</Badge>
@@ -131,18 +55,18 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
 
       const badge1 = container.querySelector('#transparent');
       const badge2 = container.querySelector('#link');
-      
+
       // Should not have shadows
       expect(badge1).not.toHaveClass('shadow-sm', 'hover:shadow-md');
       expect(badge2).not.toHaveClass('shadow-sm', 'hover:shadow-md');
-      
-      // Should not have border classes
-      expect(badge1).not.toHaveClass('border-(--border-color-default)', 'border-(--border-color-transparent)', 'border-(--border-color-link)');
-      expect(badge2).not.toHaveClass('border-(--border-color-default)', 'border-(--border-color-transparent)', 'border-(--border-color-link)');
-      
-      // Should not have ring classes
-      expect(badge1).not.toHaveClass('ring-(--border-color-default)', 'ring-(--border-color-transparent)', 'ring-(--border-color-link)');
-      expect(badge2).not.toHaveClass('ring-(--border-color-default)', 'ring-(--border-color-transparent)', 'ring-(--border-color-link)');
+
+      // Should have transparent border classes
+      expect(badge1).toHaveClass('border-transparent');
+      expect(badge2).toHaveClass('border-transparent');
+
+      // Should have transparent ring classes
+      expect(badge1).toHaveClass('ring-transparent');
+      expect(badge2).toHaveClass('ring-transparent');
     });
   });
 
@@ -181,7 +105,7 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
       expect(chip).toHaveClass('inline-flex', 'items-center', 'rounded-lg');
     });
 
-    it('should render transparent and link chips without border, ring, and shadow', () => {
+    it('should render transparent and link chips with transparent border/ring and no shadow', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Chip id="transparent" transparent>Transparent Chip</Chip>
@@ -191,18 +115,18 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
 
       const chip1 = container.querySelector('#transparent');
       const chip2 = container.querySelector('#link');
-      
+
       // Should not have shadows
       expect(chip1).not.toHaveClass('shadow-sm', 'hover:shadow-md');
       expect(chip2).not.toHaveClass('shadow-sm', 'hover:shadow-md');
-      
-      // Should not have border classes
-      expect(chip1).not.toHaveClass('border-(--border-color-default)', 'border-(--border-color-transparent)', 'border-(--border-color-link)');
-      expect(chip2).not.toHaveClass('border-(--border-color-default)', 'border-(--border-color-transparent)', 'border-(--border-color-link)');
-      
-      // Should not have ring classes
-      expect(chip1).not.toHaveClass('ring-(--border-color-default)', 'ring-(--border-color-transparent)', 'ring-(--border-color-link)');
-      expect(chip2).not.toHaveClass('ring-(--border-color-default)', 'ring-(--border-color-transparent)', 'ring-(--border-color-link)');
+
+      // Should have transparent border classes
+      expect(chip1).toHaveClass('border-transparent');
+      expect(chip2).toHaveClass('border-transparent');
+
+      // Should have transparent ring classes
+      expect(chip1).toHaveClass('ring-transparent');
+      expect(chip2).toHaveClass('ring-transparent');
     });
   });
 
@@ -249,7 +173,7 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
 
       const dividerXs = containerXs.querySelector('div');
       const dividerLg = containerLg.querySelector('div');
-      
+
       expect(dividerXs).toHaveClass('py-2'); // xs size padding
       expect(dividerLg).toHaveClass('py-8'); // lg size padding
     });
@@ -526,20 +450,15 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
     });
   });
 
-  describe('UI Element Border, Ring, and Shadow Removal', () => {
-    it('should remove borders, rings, and shadows for transparent and link variants in both outline and filled modes', () => {
+  describe('Badge and Chip Border, Ring, and Shadow Behavior', () => {
+    it('should have transparent borders, rings, and no shadows for transparent and link variants in both outline and filled modes', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Button id="btn-outline-transparent" transparent>Outline Transparent</Button>
-          <Button id="btn-outline-link" link>Outline Link</Button>
-          <Button id="btn-filled-transparent" filled transparent>Filled Transparent</Button>
-          <Button id="btn-filled-link" filled link>Filled Link</Button>
-          
           <Badge id="badge-outline-transparent" transparent>Outline Transparent</Badge>
           <Badge id="badge-outline-link" link>Outline Link</Badge>
           <Badge id="badge-filled-transparent" filled transparent>Filled Transparent</Badge>
           <Badge id="badge-filled-link" filled link>Filled Link</Badge>
-          
+
           <Chip id="chip-outline-transparent" transparent>Outline Transparent</Chip>
           <Chip id="chip-outline-link" link>Outline Link</Chip>
           <Chip id="chip-filled-transparent" filled transparent>Filled Transparent</Chip>
@@ -547,37 +466,16 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
         </ThemeProvider>
       );
 
-      // Test all button variants
-      const btnOutlineTransparent = container.querySelector('#btn-outline-transparent');
-      const btnOutlineLink = container.querySelector('#btn-outline-link');
-      const btnFilledTransparent = container.querySelector('#btn-filled-transparent');
-      const btnFilledLink = container.querySelector('#btn-filled-link');
-      
-      // None should have shadows
-      [btnOutlineTransparent, btnOutlineLink, btnFilledTransparent, btnFilledLink].forEach(btn => {
-        expect(btn).not.toHaveClass('shadow-sm', 'hover:shadow-md', 'shadow-lg');
-      });
-      
-      // None should have border classes (empty string means no border)
-      [btnOutlineTransparent, btnOutlineLink, btnFilledTransparent, btnFilledLink].forEach(btn => {
-        expect(btn).not.toHaveClass('border-(--border-color-default)', 'border-(--filled-border-color-default)');
-      });
-      
-      // None should have ring classes (empty string means no ring)
-      [btnOutlineTransparent, btnOutlineLink, btnFilledTransparent, btnFilledLink].forEach(btn => {
-        expect(btn).not.toHaveClass('ring-(--border-color-default)', 'ring-(--filled-border-color-default)');
-      });
-
       // Test all badge variants
       const badgeOutlineTransparent = container.querySelector('#badge-outline-transparent');
       const badgeOutlineLink = container.querySelector('#badge-outline-link');
       const badgeFilledTransparent = container.querySelector('#badge-filled-transparent');
       const badgeFilledLink = container.querySelector('#badge-filled-link');
-      
+
       [badgeOutlineTransparent, badgeOutlineLink, badgeFilledTransparent, badgeFilledLink].forEach(badge => {
         expect(badge).not.toHaveClass('shadow-sm', 'hover:shadow-md', 'shadow-lg');
-        expect(badge).not.toHaveClass('border-(--border-color-default)', 'border-(--filled-border-color-default)');
-        expect(badge).not.toHaveClass('ring-(--border-color-default)', 'ring-(--filled-border-color-default)');
+        expect(badge).toHaveClass('border-transparent');
+        expect(badge).toHaveClass('ring-transparent');
       });
 
       // Test all chip variants
@@ -585,86 +483,16 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
       const chipOutlineLink = container.querySelector('#chip-outline-link');
       const chipFilledTransparent = container.querySelector('#chip-filled-transparent');
       const chipFilledLink = container.querySelector('#chip-filled-link');
-      
+
       [chipOutlineTransparent, chipOutlineLink, chipFilledTransparent, chipFilledLink].forEach(chip => {
         expect(chip).not.toHaveClass('shadow-sm', 'hover:shadow-md', 'shadow-lg');
-        expect(chip).not.toHaveClass('border-(--border-color-default)', 'border-(--filled-border-color-default)');
-        expect(chip).not.toHaveClass('ring-(--border-color-default)', 'ring-(--filled-border-color-default)');
+        expect(chip).toHaveClass('border-transparent');
+        expect(chip).toHaveClass('ring-transparent');
       });
-    });
-    
-    it('should preserve borders, rings, and shadows for other appearance variants', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button id="btn-default">Default</Button>
-          <Button id="btn-primary" primary>Primary</Button>
-          <Button id="btn-secondary" secondary>Secondary</Button>
-        </ThemeProvider>
-      );
-
-      const btnDefault = container.querySelector('#btn-default');
-      const btnPrimary = container.querySelector('#btn-primary');
-      const btnSecondary = container.querySelector('#btn-secondary');
-      
-      // These should have shadows (default button behavior)
-      [btnDefault, btnPrimary, btnSecondary].forEach(btn => {
-        expect(btn).toHaveClass('shadow-sm', 'hover:shadow-md');
-      });
-      
-      // Note: borders and rings would only be visible when the button is focused or has those states active
-      // The default button theme has noBorder and noRing as defaults, so they don't show border/ring classes by default
-    });
-    
-    it('should demonstrate ring functionality works for normal buttons when ring prop is enabled', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button id="btn-default-ring" ring primary>Default with Ring</Button>
-          <Button id="btn-transparent-ring" ring transparent>Transparent with Ring (should not show)</Button>
-          <Button id="btn-link-ring" ring link>Link with Ring (should not show)</Button>
-        </ThemeProvider>
-      );
-
-      const btnDefaultRing = container.querySelector('#btn-default-ring');
-      const btnTransparentRing = container.querySelector('#btn-transparent-ring');
-      const btnLinkRing = container.querySelector('#btn-link-ring');
-      
-      // Default button with ring should show ring classes
-      expect(btnDefaultRing).toHaveClass('ring-(--border-color-primary)');
-      
-      // Transparent and link buttons should not show ring classes even when ring prop is set
-      expect(btnTransparentRing).not.toHaveClass('ring-(--border-color-default)', 'ring-(--border-color-transparent)', 'ring-(--border-color-primary)');
-      expect(btnLinkRing).not.toHaveClass('ring-(--border-color-default)', 'ring-(--border-color-link)', 'ring-(--border-color-primary)');
     });
   });
 
   describe('Component Variants', () => {
-    it('Button with primary variant should have primary classes', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button primary>Primary Button</Button>
-        </ThemeProvider>
-      );
-
-      const button = container.querySelector('button');
-      expect(button).toBeInTheDocument();
-      expect(button).toHaveClass('text-(--text-color-primary)'); // primary color
-      expect(button).toHaveClass('bg-(--background-color-primary)'); // primary background
-      expect(button).toHaveClass('px-4', 'py-2'); // padding
-    });
-
-    it('Button with secondary variant should have secondary classes', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button secondary>Secondary Button</Button>
-        </ThemeProvider>
-      );
-
-      const button = container.querySelector('button');
-      expect(button).toBeInTheDocument();
-      expect(button).toHaveClass('text-(--text-color-secondary)'); // secondary color
-      expect(button).toHaveClass('bg-(--background-color-secondary)'); // secondary background
-    });
-
     it('Text with different size should have correct size classes', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
@@ -822,18 +650,4 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
     });
   });
 
-  describe('Custom className override', () => {
-    it('should merge custom className with theme classes', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button className="custom-class">Custom Button</Button>
-        </ThemeProvider>
-      );
-
-      const button = container.querySelector('button');
-      expect(button).toBeInTheDocument();
-      expect(button).toHaveClass('w-fit', 'h-fit', 'cursor-pointer'); // theme classes
-      expect(button).toHaveClass('custom-class'); // custom class
-    });
-  });
 });

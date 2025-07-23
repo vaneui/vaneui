@@ -1,7 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
-import { MODE_KEYS, ModeKey, BORDER_KEYS, SizeKey, BorderKey, SIZE_KEYS } from "../../props/keys";
+import { MODE_KEYS, ModeKey, BORDER_KEYS, BorderKey } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
-import { SizeTheme } from "../size/sizeTheme";
 
 export interface BorderTheme extends Record<BorderKey, Record<ModeKey, string>> {}
 
