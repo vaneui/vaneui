@@ -79,8 +79,8 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
     appearance: {
       background: GenericVariantTheme.createBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
-      border: GenericVariantTheme.createBorderAppearanceTheme(),
-      ring: GenericVariantTheme.createRingAppearanceTheme(),
+      border: GenericVariantTheme.createUIElementBorderTheme(),
+      ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createUIElementShadowTheme()
     },
     layout: {

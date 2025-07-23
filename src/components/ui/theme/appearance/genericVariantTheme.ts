@@ -70,10 +70,34 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
+  static createUIElementBorderTheme(): GenericVariantTheme<TextAppearanceTheme> {
+    //transparent and link UI elements won't have a border
+    return new GenericVariantTheme({
+      outline: TextAppearanceTheme.createTheme({
+        base: {...borderAppearanceClasses, transparent: '', link: ''}
+      }),
+      filled: TextAppearanceTheme.createTheme({
+        base: {...filledBorderAppearanceClasses, transparent: '', link: ''}
+      })
+    });
+  }
+
   static createRingAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
       outline: TextAppearanceTheme.createTheme({base: ringAppearanceClasses}),
       filled: TextAppearanceTheme.createTheme({base: filledRingAppearanceClasses})
+    });
+  }
+
+  static createUIElementRingTheme(): GenericVariantTheme<TextAppearanceTheme> {
+    //transparent and link UI elements won't have a ring
+    return new GenericVariantTheme({
+      outline: TextAppearanceTheme.createTheme({
+        base: {...ringAppearanceClasses, transparent: '', link: ''}
+      }),
+      filled: TextAppearanceTheme.createTheme({
+        base: {...filledRingAppearanceClasses, transparent: '', link: ''}
+      })
     });
   }
 

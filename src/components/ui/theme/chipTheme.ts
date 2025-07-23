@@ -81,8 +81,8 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
     appearance: {
       background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
-      border: GenericVariantTheme.createBorderAppearanceTheme(),
-      ring: GenericVariantTheme.createRingAppearanceTheme(),
+      border: GenericVariantTheme.createUIElementBorderTheme(),
+      ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createUIElementShadowTheme()
     },
     layout: {
