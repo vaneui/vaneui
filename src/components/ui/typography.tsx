@@ -1,8 +1,8 @@
 import { JSX } from 'react';
-import { TypographyProps } from './props/props';
+import { TypographyProps, ListProps } from './props/props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
-import { TYPOGRAPHY_KEYS } from "./props/keys";
+import { TYPOGRAPHY_KEYS, LIST_KEYS } from "./props/keys";
 
 export const PageTitle = (props: TypographyProps): JSX.Element => {
   const theme = useTheme();
@@ -34,7 +34,7 @@ export const ListItem = (props: TypographyProps): JSX.Element => {
   return <ThemedComponent theme={theme.listItem} propsToOmit={TYPOGRAPHY_KEYS} {...props} />
 };
 
-export const List = (props: TypographyProps): JSX.Element => {
+export const List = (props: ListProps): JSX.Element => {
   const theme = useTheme();
-  return <ThemedComponent theme={theme.list} propsToOmit={TYPOGRAPHY_KEYS} {...props} />
+  return <ThemedComponent theme={theme.list} propsToOmit={LIST_KEYS} {...props} />
 };
