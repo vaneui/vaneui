@@ -1,4 +1,4 @@
-import { BgAppearanceKey, TextAppearanceKey } from "../props";
+import { BgAppearanceKey } from "../props";
 
 export const filledBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "bg-(--filled-background-color-default)",
@@ -11,6 +11,7 @@ export const filledBackgroundAppearanceClasses: Record<BgAppearanceKey, string> 
   warning: "bg-(--filled-background-color-warning)",
   info: "bg-(--filled-background-color-info)",
   transparent: "bg-transparent",
+  link: "bg-(--filled-background-color-link)",
 }
 
 export const filledHoverBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
@@ -24,6 +25,7 @@ export const filledHoverBackgroundAppearanceClasses: Record<BgAppearanceKey, str
   warning: "hover:bg-(--filled-background-color-hover-warning)",
   info: "hover:bg-(--filled-background-color-hover-info)",
   transparent: "hover:bg-transparent",
+  link: "hover:bg-(--filled-background-color-hover-link)",
 }
 
 export const filledActiveBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
@@ -37,6 +39,7 @@ export const filledActiveBackgroundAppearanceClasses: Record<BgAppearanceKey, st
   warning: "active:bg-(--filled-background-color-active-warning)",
   info: "active:bg-(--filled-background-color-active-info)",
   transparent: "active:bg-transparent",
+  link: "active:bg-(--filled-background-color-active-link)",
 }
 
 export const backgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
@@ -50,6 +53,7 @@ export const backgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
   warning: "bg-(--background-color-warning)",
   info: "bg-(--background-color-info)",
   transparent: "bg-transparent",
+  link: "bg-(--background-color-link)",
 }
 
 export const hoverBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
@@ -63,6 +67,7 @@ export const hoverBackgroundAppearanceClasses: Record<BgAppearanceKey, string> =
   warning: "hover:bg-(--background-color-hover-warning)",
   info: "hover:bg-(--background-color-hover-info)",
   transparent: "hover:bg-transparent",
+  link: "hover:bg-(--background-color-hover-link)",
 }
 
 export const activeBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
@@ -76,6 +81,7 @@ export const activeBackgroundAppearanceClasses: Record<BgAppearanceKey, string> 
   warning: "active:bg-(--background-color-active-warning)",
   info: "active:bg-(--background-color-active-info)",
   transparent: "active:bg-transparent",
+  link: "active:bg-(--background-color-active-link)",
 }
 
 export const layoutBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
@@ -89,9 +95,10 @@ export const layoutBackgroundAppearanceClasses: Record<BgAppearanceKey, string> 
   warning: "bg-(--layout-background-warning)",
   info: "bg-(--layout-background-info)",
   transparent: "bg-transparent",
+  link: "bg-(--layout-background-link)",
 }
 
-export const bgBorderAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const bgBorderAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "bg-(--border-color-default)",
   primary: "bg-(--border-color-primary)",
   secondary: "bg-(--border-color-secondary)",
@@ -101,12 +108,11 @@ export const bgBorderAppearanceClasses: Record<TextAppearanceKey, string> = {
   danger: "bg-(--border-color-danger)",
   warning: "bg-(--border-color-warning)",
   info: "bg-(--border-color-info)",
-  muted: "bg-(--border-color-muted)",
   link: "bg-(--border-color-link)",
   transparent: "bg-transparent",
 }
 
-export const borderAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const borderAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "border-(--border-color-default)",
   primary: "border-(--border-color-primary)",
   secondary: "border-(--border-color-secondary)",
@@ -116,12 +122,11 @@ export const borderAppearanceClasses: Record<TextAppearanceKey, string> = {
   danger: "border-(--border-color-danger)",
   warning: "border-(--border-color-warning)",
   info: "border-(--border-color-info)",
-  muted: "border-(--border-color-muted)",
   link: "border-(--border-color-link)",
   transparent: "border-transparent",
 }
 
-export const filledBorderAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const filledBorderAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "border-(--filled-border-color-default)",
   primary: "border-(--filled-border-color-primary)",
   secondary: "border-(--filled-border-color-secondary)",
@@ -131,12 +136,11 @@ export const filledBorderAppearanceClasses: Record<TextAppearanceKey, string> = 
   danger: "border-(--filled-border-color-danger)",
   warning: "border-(--filled-border-color-warning)",
   info: "border-(--filled-border-color-info)",
-  muted: "border-(--filled-border-color-muted)",
   link: "border-(--filled-border-color-link)",
   transparent: "border-transparent",
 }
 
-export const ringAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const ringAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "ring-(--border-color-default)",
   primary: "ring-(--border-color-primary)",
   secondary: "ring-(--border-color-secondary)",
@@ -146,12 +150,11 @@ export const ringAppearanceClasses: Record<TextAppearanceKey, string> = {
   danger: "ring-(--border-color-danger)",
   warning: "ring-(--border-color-warning)",
   info: "ring-(--border-color-info)",
-  muted: "ring-(--border-color-muted)",
   link: "ring-(--border-color-link)",
   transparent: "ring-transparent",
 }
 
-export const filledRingAppearanceClasses: Record<TextAppearanceKey, string> = {
+export const filledRingAppearanceClasses: Record<BgAppearanceKey, string> = {
   default: "ring-(--filled-border-color-default)",
   primary: "ring-(--filled-border-color-primary)",
   secondary: "ring-(--filled-border-color-secondary)",
@@ -161,7 +164,6 @@ export const filledRingAppearanceClasses: Record<TextAppearanceKey, string> = {
   danger: "ring-(--filled-border-color-danger)",
   warning: "ring-(--filled-border-color-warning)",
   info: "ring-(--filled-border-color-info)",
-  muted: "ring-(--filled-border-color-muted)",
   link: "ring-(--filled-border-color-link)",
   transparent: "ring-transparent",
 }

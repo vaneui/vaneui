@@ -1,8 +1,7 @@
 export const MODE_KEYS = ['base', 'hover', 'active'] as const;
 export const SIZE_KEYS = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 export const VARIANT_KEYS = ['filled', 'outline'] as const;
-export const BG_APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'transparent'] as const;
-export const TEXT_APPEARANCE_KEYS = [...BG_APPEARANCE_KEYS, 'muted', 'link'] as const;
+export const BG_APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'transparent', 'link'] as const;
 export const FONT_FAMILY_KEYS = ['sans', 'serif', 'mono'] as const;
 export const FONT_WEIGHT_KEYS = ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'] as const;
 export const FONT_STYLE_KEYS = ['italic', 'notItalic'] as const;
@@ -33,7 +32,6 @@ export const OVERFLOW_KEYS = ['overflowAuto', 'overflowHidden', 'overflowClip', 
 export const EXCLUSIVE_KEY_GROUPS = [
   MODE_KEYS,
   SIZE_KEYS,
-  TEXT_APPEARANCE_KEYS,
   BG_APPEARANCE_KEYS,
   VARIANT_KEYS,
   FONT_FAMILY_KEYS,
@@ -68,7 +66,6 @@ export type PaddingKey = typeof PADDING_KEYS[number];
 export type GapKey = typeof GAP_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
 export type BgAppearanceKey = typeof BG_APPEARANCE_KEYS[number];
-export type TextAppearanceKey = typeof TEXT_APPEARANCE_KEYS[number];
 export type FontFamilyKey = typeof FONT_FAMILY_KEYS[number];
 export type FontWeightKey = typeof FONT_WEIGHT_KEYS[number];
 export type FontStyleKey = typeof FONT_STYLE_KEYS[number];
@@ -103,7 +100,7 @@ export const FONT_KEYS = [
   ...TEXT_DECORATION_KEYS,
   ...TEXT_TRANSFORM_KEYS,
   ...FONT_FAMILY_KEYS,
-  ...TEXT_APPEARANCE_KEYS,
+  ...BG_APPEARANCE_KEYS,
   ...TEXT_ALIGN_KEYS
 ] as const;
 
@@ -117,7 +114,7 @@ export type TypographyKey = typeof TYPOGRAPHY_KEYS[number];
 export const LIST_KEYS = [
   ...TYPOGRAPHY_KEYS,
   ...PADDING_KEYS,
-  ...TEXT_APPEARANCE_KEYS
+  ...BG_APPEARANCE_KEYS
 ]
 export type ListKey = typeof LIST_KEYS[number];
 
