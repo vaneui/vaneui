@@ -1,9 +1,9 @@
 import {
   SizeKey,
-  BgAppearanceKey,
+  AppearanceKey,
 } from "../props";
 
-export const filledTextAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const filledTextAppearanceClasses: Record<AppearanceKey, string> = {
   default: "text-white",
   primary: "text-white",
   secondary: "text-white",
@@ -17,7 +17,7 @@ export const filledTextAppearanceClasses: Record<BgAppearanceKey, string> = {
   transparent: "text-transparent",
 }
 
-export const textAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const textAppearanceClasses: Record<AppearanceKey, string> = {
   default: "text-(--text-color-default)",
   primary: "text-(--text-color-primary)",
   secondary: "text-(--text-color-secondary)",

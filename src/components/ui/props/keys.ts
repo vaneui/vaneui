@@ -1,7 +1,7 @@
 export const MODE_KEYS = ['base', 'hover', 'active'] as const;
 export const SIZE_KEYS = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 export const VARIANT_KEYS = ['filled', 'outline'] as const;
-export const BG_APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'transparent', 'link'] as const;
+export const APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'transparent', 'link'] as const;
 export const FONT_FAMILY_KEYS = ['sans', 'serif', 'mono'] as const;
 export const FONT_WEIGHT_KEYS = ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'] as const;
 export const FONT_STYLE_KEYS = ['italic', 'notItalic'] as const;
@@ -32,7 +32,7 @@ export const OVERFLOW_KEYS = ['overflowAuto', 'overflowHidden', 'overflowClip', 
 export const EXCLUSIVE_KEY_GROUPS = [
   MODE_KEYS,
   SIZE_KEYS,
-  BG_APPEARANCE_KEYS,
+  APPEARANCE_KEYS,
   VARIANT_KEYS,
   FONT_FAMILY_KEYS,
   FONT_WEIGHT_KEYS,
@@ -65,7 +65,7 @@ export type BorderKey = typeof BORDER_KEYS[number];
 export type PaddingKey = typeof PADDING_KEYS[number];
 export type GapKey = typeof GAP_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
-export type BgAppearanceKey = typeof BG_APPEARANCE_KEYS[number];
+export type AppearanceKey = typeof APPEARANCE_KEYS[number];
 export type FontFamilyKey = typeof FONT_FAMILY_KEYS[number];
 export type FontWeightKey = typeof FONT_WEIGHT_KEYS[number];
 export type FontStyleKey = typeof FONT_STYLE_KEYS[number];
@@ -100,7 +100,7 @@ export const FONT_KEYS = [
   ...TEXT_DECORATION_KEYS,
   ...TEXT_TRANSFORM_KEYS,
   ...FONT_FAMILY_KEYS,
-  ...BG_APPEARANCE_KEYS,
+  ...APPEARANCE_KEYS,
   ...TEXT_ALIGN_KEYS
 ] as const;
 
@@ -114,7 +114,7 @@ export type TypographyKey = typeof TYPOGRAPHY_KEYS[number];
 export const LIST_KEYS = [
   ...TYPOGRAPHY_KEYS,
   ...PADDING_KEYS,
-  ...BG_APPEARANCE_KEYS
+  ...APPEARANCE_KEYS
 ]
 export type ListKey = typeof LIST_KEYS[number];
 
@@ -135,7 +135,7 @@ export type ButtonKey = typeof BUTTON_KEYS[number];
 export const GRID_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...GAP_KEYS,
-  ...BG_APPEARANCE_KEYS
+  ...APPEARANCE_KEYS
 ] as const;
 export type GridKey = typeof GRID_KEYS[number];
 
@@ -147,7 +147,7 @@ export const ROW_KEYS = [
   ...FLEX_DIRECTION_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...BREAKPOINT_KEYS,
-  ...BG_APPEARANCE_KEYS
+  ...APPEARANCE_KEYS
 ] as const;
 export type RowKey = typeof ROW_KEYS[number];
 
@@ -158,7 +158,7 @@ export const COL_KEYS = [
   ...GAP_KEYS,
   ...FLEX_DIRECTION_KEYS,
   ...DIRECTION_REVERSE_KEYS,
-  ...BG_APPEARANCE_KEYS
+  ...APPEARANCE_KEYS
 ] as const;
 export type ColKey = typeof COL_KEYS[number];
 
@@ -169,7 +169,7 @@ export const STACK_KEYS = [
   ...GAP_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...BREAKPOINT_KEYS,
-  ...BG_APPEARANCE_KEYS,
+  ...APPEARANCE_KEYS,
   ...FLEX_DIRECTION_KEYS,
   ...PADDING_KEYS
 ] as const;
@@ -221,7 +221,7 @@ export type ChipKey = typeof CHIP_KEYS[number];
 // Divider keys
 export const DIVIDER_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...BG_APPEARANCE_KEYS,
+  ...APPEARANCE_KEYS,
   ...PADDING_KEYS
 ] as const;
 export type DividerKey = typeof DIVIDER_KEYS[number];
@@ -229,7 +229,7 @@ export type DividerKey = typeof DIVIDER_KEYS[number];
 // Container keys
 export const CONTAINER_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...BG_APPEARANCE_KEYS,
+  ...APPEARANCE_KEYS,
   ...BORDER_KEYS,
   ...SHADOW_KEYS,
   ...RING_KEYS,
@@ -241,7 +241,7 @@ export type ContainerKey = typeof CONTAINER_KEYS[number];
 // Section keys
 export const SECTION_KEYS = [
   ...BASE_COMPONENT_KEYS,
-  ...BG_APPEARANCE_KEYS,
+  ...APPEARANCE_KEYS,
   ...PADDING_KEYS,
   ...FLEX_DIRECTION_KEYS,
   ...DIRECTION_REVERSE_KEYS,

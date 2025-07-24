@@ -1,6 +1,6 @@
-import { BgAppearanceKey } from "../props";
+import { AppearanceKey } from "../props";
 
-export const filledBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const filledBackgroundAppearanceClasses: Record<AppearanceKey, string> = {
   default: "bg-(--filled-background-color-default)",
   primary: "bg-(--filled-background-color-primary)",
   secondary: "bg-(--filled-background-color-secondary)",
@@ -14,7 +14,7 @@ export const filledBackgroundAppearanceClasses: Record<BgAppearanceKey, string> 
   link: "bg-(--filled-background-color-link)",
 }
 
-export const filledHoverBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const filledHoverBackgroundAppearanceClasses: Record<AppearanceKey, string> = {
   default: "hover:bg-(--filled-background-color-hover-default)",
   primary: "hover:bg-(--filled-background-color-hover-primary)",
   secondary: "hover:bg-(--filled-background-color-hover-secondary)",
@@ -28,7 +28,7 @@ export const filledHoverBackgroundAppearanceClasses: Record<BgAppearanceKey, str
   link: "hover:bg-(--filled-background-color-hover-link)",
 }
 
-export const filledActiveBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const filledActiveBackgroundAppearanceClasses: Record<AppearanceKey, string> = {
   default: "active:bg-(--filled-background-color-active-default)",
   primary: "active:bg-(--filled-background-color-active-primary)",
   secondary: "active:bg-(--filled-background-color-active-secondary)",
@@ -42,7 +42,7 @@ export const filledActiveBackgroundAppearanceClasses: Record<BgAppearanceKey, st
   link: "active:bg-(--filled-background-color-active-link)",
 }
 
-export const backgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const backgroundAppearanceClasses: Record<AppearanceKey, string> = {
   default: "bg-(--background-color-default)",
   primary: "bg-(--background-color-primary)",
   secondary: "bg-(--background-color-secondary)",
@@ -56,7 +56,7 @@ export const backgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
   link: "bg-(--background-color-link)",
 }
 
-export const hoverBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const hoverBackgroundAppearanceClasses: Record<AppearanceKey, string> = {
   default: "hover:bg-(--background-color-hover-default)",
   primary: "hover:bg-(--background-color-hover-primary)",
   secondary: "hover:bg-(--background-color-hover-secondary)",
@@ -70,7 +70,7 @@ export const hoverBackgroundAppearanceClasses: Record<BgAppearanceKey, string> =
   link: "hover:bg-(--background-color-hover-link)",
 }
 
-export const activeBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const activeBackgroundAppearanceClasses: Record<AppearanceKey, string> = {
   default: "active:bg-(--background-color-active-default)",
   primary: "active:bg-(--background-color-active-primary)",
   secondary: "active:bg-(--background-color-active-secondary)",
@@ -84,7 +84,7 @@ export const activeBackgroundAppearanceClasses: Record<BgAppearanceKey, string> 
   link: "active:bg-(--background-color-active-link)",
 }
 
-export const layoutBackgroundAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const layoutBackgroundAppearanceClasses: Record<AppearanceKey, string> = {
   default: "bg-(--layout-background-default)",
   primary: "bg-(--layout-background-primary)",
   secondary: "bg-(--layout-background-secondary)",
@@ -98,7 +98,7 @@ export const layoutBackgroundAppearanceClasses: Record<BgAppearanceKey, string> 
   link: "bg-(--layout-background-link)",
 }
 
-export const bgBorderAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const bgBorderAppearanceClasses: Record<AppearanceKey, string> = {
   default: "bg-(--border-color-default)",
   primary: "bg-(--border-color-primary)",
   secondary: "bg-(--border-color-secondary)",
@@ -112,7 +112,7 @@ export const bgBorderAppearanceClasses: Record<BgAppearanceKey, string> = {
   transparent: "bg-transparent",
 }
 
-export const borderAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const borderAppearanceClasses: Record<AppearanceKey, string> = {
   default: "border-(--border-color-default)",
   primary: "border-(--border-color-primary)",
   secondary: "border-(--border-color-secondary)",
@@ -126,7 +126,7 @@ export const borderAppearanceClasses: Record<BgAppearanceKey, string> = {
   transparent: "border-transparent",
 }
 
-export const filledBorderAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const filledBorderAppearanceClasses: Record<AppearanceKey, string> = {
   default: "border-(--filled-border-color-default)",
   primary: "border-(--filled-border-color-primary)",
   secondary: "border-(--filled-border-color-secondary)",
@@ -140,7 +140,7 @@ export const filledBorderAppearanceClasses: Record<BgAppearanceKey, string> = {
   transparent: "border-transparent",
 }
 
-export const ringAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const ringAppearanceClasses: Record<AppearanceKey, string> = {
   default: "ring-(--border-color-default)",
   primary: "ring-(--border-color-primary)",
   secondary: "ring-(--border-color-secondary)",
@@ -154,7 +154,7 @@ export const ringAppearanceClasses: Record<BgAppearanceKey, string> = {
   transparent: "ring-transparent",
 }
 
-export const filledRingAppearanceClasses: Record<BgAppearanceKey, string> = {
+export const filledRingAppearanceClasses: Record<AppearanceKey, string> = {
   default: "ring-(--filled-border-color-default)",
   primary: "ring-(--filled-border-color-primary)",
   secondary: "ring-(--filled-border-color-secondary)",

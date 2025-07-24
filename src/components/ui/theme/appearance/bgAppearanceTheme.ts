@@ -1,21 +1,21 @@
 import { BaseTheme } from "../common/baseTheme";
 import {
-  BG_APPEARANCE_KEYS,
-  BgAppearanceKey,
+  APPEARANCE_KEYS,
+  AppearanceKey,
   MODE_KEYS,
   ModeKey,
 } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { layoutBackgroundAppearanceClasses } from "../../classes/appearanceClasses";
 
-export interface BgAppearanceTheme extends Record<BgAppearanceKey, Record<ModeKey, string>> {
+export interface BgAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
 }
 
 export class BgAppearanceTheme extends BaseTheme {
   constructor() {
     super();
 
-    BG_APPEARANCE_KEYS.forEach(key => {
+    APPEARANCE_KEYS.forEach(key => {
       this[key] = {
         base: layoutBackgroundAppearanceClasses[key] || '',
         hover: '',
@@ -25,7 +25,7 @@ export class BgAppearanceTheme extends BaseTheme {
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, BG_APPEARANCE_KEYS) || 'default';
+    const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS) || 'default';
     const modesForAppearance = this[pickedAppearanceKey];
 
     if (!modesForAppearance) {

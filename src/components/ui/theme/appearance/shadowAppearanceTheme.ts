@@ -4,13 +4,13 @@ import {
   SHADOW_KEYS,
   ModeKey,
   MODE_KEYS,
-  BG_APPEARANCE_KEYS,
-  BgAppearanceKey
+  APPEARANCE_KEYS,
+  AppearanceKey
 } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export interface ShadowAppearanceTheme extends Record<BgAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
+export interface ShadowAppearanceTheme extends Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
 }
 
 export class ShadowAppearanceTheme extends BaseTheme {
@@ -22,16 +22,16 @@ export class ShadowAppearanceTheme extends BaseTheme {
     xl: {base: "shadow-lg", hover: "hover:shadow-xl", active: ""}
   }
 
-  constructor(initial?: Partial<Record<BgAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>>) {
+  constructor(initial?: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>>) {
     super();
-    BG_APPEARANCE_KEYS.forEach((key) => {
+    APPEARANCE_KEYS.forEach((key) => {
       const initialAppearance = initial?.[key];
       this[key] = initialAppearance === undefined ? ShadowAppearanceTheme.defaultShadow : null;
     })
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const appearance = pickFirstTruthyKey(props, defaults, BG_APPEARANCE_KEYS) || 'default';
+    const appearance = pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS) || 'default';
     const size = pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md';
     const key = pickFirstTruthyKey(props, defaults, SHADOW_KEYS);
 
@@ -43,7 +43,7 @@ export class ShadowAppearanceTheme extends BaseTheme {
   }
 
   static createTheme(
-    src: Partial<Record<BgAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>> = {}
+    src: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>> = {}
   ): ShadowAppearanceTheme {
     return new ShadowAppearanceTheme(src);
   }
