@@ -38,3 +38,4 @@ export const textSizeClasses: Record<SizeKey, string> = {
   lg: "text-lg",
   xl: "text-xl",
 }
+

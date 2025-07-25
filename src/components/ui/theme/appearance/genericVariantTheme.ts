@@ -1,7 +1,7 @@
 import { BaseTheme } from "../common/baseTheme";
 import { VARIANT_KEYS, VariantKey, } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
-import { TextAppearanceTheme } from "./textAppearanceTheme";
+import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./textAppearanceTheme";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "../../classes/typographyClasses";
 import {
   activeBackgroundAppearanceClasses,
@@ -14,7 +14,9 @@ import {
   hoverBackgroundAppearanceClasses,
   ringAppearanceClasses
 } from "../../classes/appearanceClasses";
+import { UI_ELEMENT_APPEARANCE_KEYS, UIElementAppearanceKey } from "../../props";
 import { ShadowAppearanceTheme } from "./shadowAppearanceTheme";
+import { UIElementShadowAppearanceTheme } from "./uiElementShadowAppearanceTheme";
 
 
 export interface GenericVariantTheme<T extends BaseTheme> extends Record<VariantKey, T> {
@@ -32,6 +34,19 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
+  // Helper function to filter appearance classes to only include UI element keys
+  private static filterToUIElementKeys<T extends Record<string, any>>(
+    classes: T
+  ): Record<UIElementAppearanceKey, T[keyof T]> {
+    const result = {} as Record<UIElementAppearanceKey, T[keyof T]>;
+    UI_ELEMENT_APPEARANCE_KEYS.forEach(key => {
+      if (key in classes) {
+        result[key] = classes[key];
+      }
+    });
+    return result;
+  }
+
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
     const variantKey = pickFirstTruthyKey(props, defaults, VARIANT_KEYS) || 'outline';
     const activeTextAppearanceTheme = this[variantKey];
@@ -43,23 +58,21 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
   }
 
   // used for button, bages, chips, etc
-  static createUIElementTextTheme(): GenericVariantTheme<TextAppearanceTheme> {
-    //transparent UI elements have a default text color
+  static createUIElementTextTheme(): GenericVariantTheme<UIElementTextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({
-        base: {...textAppearanceClasses, transparent: textAppearanceClasses.default}
+      outline: UIElementTextAppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(textAppearanceClasses)
       }),
-      filled: TextAppearanceTheme.createTheme({
-        base: {...filledTextAppearanceClasses, transparent: textAppearanceClasses.default}
+      filled: UIElementTextAppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(filledTextAppearanceClasses)
       })
     });
   }
 
-  static createUIElementShadowTheme(): GenericVariantTheme<ShadowAppearanceTheme> {
-    //transparent UI elements won't have a shadow
+  static createUIElementShadowTheme(): GenericVariantTheme<UIElementShadowAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: ShadowAppearanceTheme.createTheme({transparent: null, link: null}),
-      filled: ShadowAppearanceTheme.createTheme({transparent: null, link: null})
+      outline: UIElementShadowAppearanceTheme.createTheme({}),
+      filled: UIElementShadowAppearanceTheme.createTheme({})
     });
   }
 
@@ -70,14 +83,13 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
-  static createUIElementBorderTheme(): GenericVariantTheme<TextAppearanceTheme> {
-    //transparent and link UI elements won't have a border
+  static createUIElementBorderTheme(): GenericVariantTheme<UIElementTextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({
-        base: {...borderAppearanceClasses, transparent: 'border-transparent', link: 'border-transparent'}
+      outline: UIElementTextAppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(borderAppearanceClasses)
       }),
-      filled: TextAppearanceTheme.createTheme({
-        base: {...filledBorderAppearanceClasses, transparent: 'border-transparent', link: 'border-transparent'}
+      filled: UIElementTextAppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(filledBorderAppearanceClasses)
       })
     });
   }
@@ -89,22 +101,13 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
-  static createUIElementRingTheme(): GenericVariantTheme<TextAppearanceTheme> {
-    //transparent and link UI elements won't have a ring
+  static createUIElementRingTheme(): GenericVariantTheme<UIElementTextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({
-        base: {
-          ...ringAppearanceClasses,
-          transparent: ringAppearanceClasses.transparent,
-          link: ringAppearanceClasses.transparent
-        }
+      outline: UIElementTextAppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(ringAppearanceClasses)
       }),
-      filled: TextAppearanceTheme.createTheme({
-        base: {
-          ...filledRingAppearanceClasses,
-          transparent: ringAppearanceClasses.transparent,
-          link: ringAppearanceClasses.transparent
-        }
+      filled: UIElementTextAppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(filledRingAppearanceClasses)
       })
     });
   }
@@ -124,6 +127,21 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
+  static createUIElementBgAppearanceTheme(): GenericVariantTheme<UIElementTextAppearanceTheme> {
+    return new GenericVariantTheme({
+      outline: UIElementTextAppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(backgroundAppearanceClasses),
+        hover: this.filterToUIElementKeys(hoverBackgroundAppearanceClasses),
+        active: this.filterToUIElementKeys(activeBackgroundAppearanceClasses)
+      }),
+      filled: UIElementTextAppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(filledBackgroundAppearanceClasses),
+        hover: this.filterToUIElementKeys(filledHoverBackgroundAppearanceClasses),
+        active: this.filterToUIElementKeys(filledActiveBackgroundAppearanceClasses)
+      })
+    });
+  }
+
   static createSimpleBgAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
       outline: TextAppearanceTheme.createTheme({
@@ -131,6 +149,17 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
       }),
       filled: TextAppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
+      })
+    });
+  }
+
+  static createSimpleUIElementBgAppearanceTheme(): GenericVariantTheme<UIElementTextAppearanceTheme> {
+    return new GenericVariantTheme({
+      outline: UIElementTextAppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(backgroundAppearanceClasses),
+      }),
+      filled: UIElementTextAppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(filledBackgroundAppearanceClasses),
       })
     });
   }

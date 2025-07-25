@@ -1,7 +1,8 @@
 export const MODE_KEYS = ['base', 'hover', 'active'] as const;
 export const SIZE_KEYS = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 export const VARIANT_KEYS = ['filled', 'outline'] as const;
-export const APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'transparent', 'link'] as const;
+export const UI_ELEMENT_APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
+export const APPEARANCE_KEYS = [...UI_ELEMENT_APPEARANCE_KEYS, 'transparent', 'link'] as const;
 export const FONT_FAMILY_KEYS = ['sans', 'serif', 'mono'] as const;
 export const FONT_WEIGHT_KEYS = ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'] as const;
 export const FONT_STYLE_KEYS = ['italic', 'notItalic'] as const;
@@ -33,6 +34,7 @@ export const EXCLUSIVE_KEY_GROUPS = [
   MODE_KEYS,
   SIZE_KEYS,
   APPEARANCE_KEYS,
+  UI_ELEMENT_APPEARANCE_KEYS,
   VARIANT_KEYS,
   FONT_FAMILY_KEYS,
   FONT_WEIGHT_KEYS,
@@ -66,6 +68,7 @@ export type PaddingKey = typeof PADDING_KEYS[number];
 export type GapKey = typeof GAP_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
 export type AppearanceKey = typeof APPEARANCE_KEYS[number];
+export type UIElementAppearanceKey = typeof UI_ELEMENT_APPEARANCE_KEYS[number];
 export type FontFamilyKey = typeof FONT_FAMILY_KEYS[number];
 export type FontWeightKey = typeof FONT_WEIGHT_KEYS[number];
 export type FontStyleKey = typeof FONT_STYLE_KEYS[number];
@@ -118,9 +121,21 @@ export const LIST_KEYS = [
 ]
 export type ListKey = typeof LIST_KEYS[number];
 
+// UI Element keys (for buttons, badges, chips)
+export const UI_ELEMENT_KEYS = [
+  ...BASE_COMPONENT_KEYS,
+  ...FONT_WEIGHT_KEYS,
+  ...FONT_STYLE_KEYS,
+  ...TEXT_DECORATION_KEYS,
+  ...TEXT_TRANSFORM_KEYS,
+  ...FONT_FAMILY_KEYS,
+  ...UI_ELEMENT_APPEARANCE_KEYS,
+  ...TEXT_ALIGN_KEYS
+] as const;
+
 // Button keys
 export const BUTTON_KEYS = [
-  ...TYPOGRAPHY_KEYS,
+  ...UI_ELEMENT_KEYS,
   ...SHAPE_KEYS,
   ...BORDER_KEYS,
   ...SHADOW_KEYS,
@@ -194,7 +209,7 @@ export type CardKey = typeof CARD_KEYS[number];
 
 // Badge keys
 export const BADGE_KEYS = [
-  ...TYPOGRAPHY_KEYS,
+  ...UI_ELEMENT_KEYS,
   ...SHAPE_KEYS,
   ...VARIANT_KEYS,
   ...SHADOW_KEYS,
@@ -207,7 +222,7 @@ export type BadgeKey = typeof BADGE_KEYS[number];
 
 // Chip keys
 export const CHIP_KEYS = [
-  ...TYPOGRAPHY_KEYS,
+  ...UI_ELEMENT_KEYS,
   ...SHAPE_KEYS,
   ...VARIANT_KEYS,
   ...SHADOW_KEYS,

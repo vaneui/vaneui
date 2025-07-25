@@ -4,17 +4,16 @@ import {
   SHADOW_KEYS,
   ModeKey,
   MODE_KEYS,
-  APPEARANCE_KEYS,
-  AppearanceKey
+  UI_ELEMENT_APPEARANCE_KEYS,
+  UIElementAppearanceKey
 } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
 
-export interface ShadowAppearanceTheme extends Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
+export interface UIElementShadowAppearanceTheme extends Record<UIElementAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
 }
 
-
-export class ShadowAppearanceTheme extends BaseTheme {
+export class UIElementShadowAppearanceTheme extends BaseTheme {
   private static readonly defaultShadow: Record<SizeKey, Record<ModeKey, string>> = {
     xs: {base: "shadow-2xs", hover: "hover:shadow-xs", active: ""},
     sm: {base: "shadow-xs", hover: "hover:shadow-sm", active: ""},
@@ -23,16 +22,16 @@ export class ShadowAppearanceTheme extends BaseTheme {
     xl: {base: "shadow-lg", hover: "hover:shadow-xl", active: ""}
   }
 
-  constructor(initial?: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>>) {
+  constructor(initial?: Partial<Record<UIElementAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>>) {
     super();
-    APPEARANCE_KEYS.forEach((key) => {
+    UI_ELEMENT_APPEARANCE_KEYS.forEach((key) => {
       const initialAppearance = initial?.[key];
-      this[key] = initialAppearance === undefined ? ShadowAppearanceTheme.defaultShadow : null;
+      this[key] = initialAppearance === undefined ? UIElementShadowAppearanceTheme.defaultShadow : null;
     })
   }
 
   getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const appearance = pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS) || 'default';
+    const appearance = pickFirstTruthyKey(props, defaults, UI_ELEMENT_APPEARANCE_KEYS) || 'default';
     const size = pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md';
     const key = pickFirstTruthyKey(props, defaults, SHADOW_KEYS);
 
@@ -44,9 +43,8 @@ export class ShadowAppearanceTheme extends BaseTheme {
   }
 
   static createTheme(
-    src: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>> = {}
-  ): ShadowAppearanceTheme {
-    return new ShadowAppearanceTheme(src);
+    src: Partial<Record<UIElementAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>> = {}
+  ): UIElementShadowAppearanceTheme {
+    return new UIElementShadowAppearanceTheme(src);
   }
 }
-

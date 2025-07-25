@@ -45,29 +45,6 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
       expect(badge).toHaveClass('inline-flex', 'items-center', 'rounded-full', 'uppercase');
     });
 
-    it('should render transparent and link badges with transparent border/ring and no shadow', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Badge id="transparent" transparent>Transparent Badge</Badge>
-          <Badge id="link" link>Link Badge</Badge>
-        </ThemeProvider>
-      );
-
-      const badge1 = container.querySelector('#transparent');
-      const badge2 = container.querySelector('#link');
-
-      // Should not have shadows
-      expect(badge1).not.toHaveClass('shadow-sm', 'hover:shadow-md');
-      expect(badge2).not.toHaveClass('shadow-sm', 'hover:shadow-md');
-
-      // Should have transparent border classes
-      expect(badge1).toHaveClass('border-transparent');
-      expect(badge2).toHaveClass('border-transparent');
-
-      // Should have transparent ring classes
-      expect(badge1).toHaveClass('ring-transparent');
-      expect(badge2).toHaveClass('ring-transparent');
-    });
   });
 
   describe('Card Component', () => {
@@ -105,29 +82,6 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
       expect(chip).toHaveClass('inline-flex', 'items-center', 'rounded-lg');
     });
 
-    it('should render transparent and link chips with transparent border/ring and no shadow', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Chip id="transparent" transparent>Transparent Chip</Chip>
-          <Chip id="link" link>Link Chip</Chip>
-        </ThemeProvider>
-      );
-
-      const chip1 = container.querySelector('#transparent');
-      const chip2 = container.querySelector('#link');
-
-      // Should not have shadows
-      expect(chip1).not.toHaveClass('shadow-sm', 'hover:shadow-md');
-      expect(chip2).not.toHaveClass('shadow-sm', 'hover:shadow-md');
-
-      // Should have transparent border classes
-      expect(chip1).toHaveClass('border-transparent');
-      expect(chip2).toHaveClass('border-transparent');
-
-      // Should have transparent ring classes
-      expect(chip1).toHaveClass('ring-transparent');
-      expect(chip2).toHaveClass('ring-transparent');
-    });
   });
 
   describe('Divider Component', () => {
@@ -451,45 +405,6 @@ describe('Component Smoke Tests - Default Theme Classes', () => {
   });
 
   describe('Badge and Chip Border, Ring, and Shadow Behavior', () => {
-    it('should have transparent borders, rings, and no shadows for transparent and link variants in both outline and filled modes', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Badge id="badge-outline-transparent" transparent>Outline Transparent</Badge>
-          <Badge id="badge-outline-link" link>Outline Link</Badge>
-          <Badge id="badge-filled-transparent" filled transparent>Filled Transparent</Badge>
-          <Badge id="badge-filled-link" filled link>Filled Link</Badge>
-
-          <Chip id="chip-outline-transparent" transparent>Outline Transparent</Chip>
-          <Chip id="chip-outline-link" link>Outline Link</Chip>
-          <Chip id="chip-filled-transparent" filled transparent>Filled Transparent</Chip>
-          <Chip id="chip-filled-link" filled link>Filled Link</Chip>
-        </ThemeProvider>
-      );
-
-      // Test all badge variants
-      const badgeOutlineTransparent = container.querySelector('#badge-outline-transparent');
-      const badgeOutlineLink = container.querySelector('#badge-outline-link');
-      const badgeFilledTransparent = container.querySelector('#badge-filled-transparent');
-      const badgeFilledLink = container.querySelector('#badge-filled-link');
-
-      [badgeOutlineTransparent, badgeOutlineLink, badgeFilledTransparent, badgeFilledLink].forEach(badge => {
-        expect(badge).not.toHaveClass('shadow-sm', 'hover:shadow-md', 'shadow-lg');
-        expect(badge).toHaveClass('border-transparent');
-        expect(badge).toHaveClass('ring-transparent');
-      });
-
-      // Test all chip variants
-      const chipOutlineTransparent = container.querySelector('#chip-outline-transparent');
-      const chipOutlineLink = container.querySelector('#chip-outline-link');
-      const chipFilledTransparent = container.querySelector('#chip-filled-transparent');
-      const chipFilledLink = container.querySelector('#chip-filled-link');
-
-      [chipOutlineTransparent, chipOutlineLink, chipFilledTransparent, chipFilledLink].forEach(chip => {
-        expect(chip).not.toHaveClass('shadow-sm', 'hover:shadow-md', 'shadow-lg');
-        expect(chip).toHaveClass('border-transparent');
-        expect(chip).toHaveClass('ring-transparent');
-      });
-    });
   });
 
   describe('Component Variants', () => {

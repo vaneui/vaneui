@@ -1,8 +1,11 @@
 import { BaseTheme } from "../common/baseTheme";
-import { MODE_KEYS, ModeKey, APPEARANCE_KEYS, AppearanceKey } from "../../props";
+import { MODE_KEYS, ModeKey, APPEARANCE_KEYS, AppearanceKey, UI_ELEMENT_APPEARANCE_KEYS, UIElementAppearanceKey } from "../../props";
 import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 
 export interface TextAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
+}
+
+export interface UIElementTextAppearanceTheme extends Record<UIElementAppearanceKey, Record<ModeKey, string>> {
 }
 
 export class TextAppearanceTheme extends BaseTheme {
@@ -39,5 +42,42 @@ export class TextAppearanceTheme extends BaseTheme {
     ) as Record<AppearanceKey, Record<ModeKey, string>>;
 
     return new TextAppearanceTheme(finalConfig);
+  }
+}
+
+export class UIElementTextAppearanceTheme extends BaseTheme {
+  private constructor(config: Record<UIElementAppearanceKey, Record<ModeKey, string>>) {
+    super();
+    Object.assign(this, config);
+  }
+
+  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
+    const appearance = pickFirstTruthyKey(props, defaults, UI_ELEMENT_APPEARANCE_KEYS);
+    if (!appearance) {
+      return [];
+    }
+    const modes = this[appearance];
+    if (!modes) {
+      return [];
+    }
+    return MODE_KEYS.map(mode => modes[mode] || '');
+  }
+
+  static createTheme(
+    src: Partial<Record<ModeKey, Partial<Record<UIElementAppearanceKey, string>>>> = {}
+  ): UIElementTextAppearanceTheme {
+    const finalConfig = Object.fromEntries(
+      UI_ELEMENT_APPEARANCE_KEYS.map(textKey => [
+        textKey,
+        Object.fromEntries(
+          MODE_KEYS.map(modeKey => [
+            modeKey,
+            src[modeKey]?.[textKey] || ''
+          ])
+        ),
+      ])
+    ) as Record<UIElementAppearanceKey, Record<ModeKey, string>>;
+
+    return new UIElementTextAppearanceTheme(finalConfig);
   }
 }

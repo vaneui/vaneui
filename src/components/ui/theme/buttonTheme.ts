@@ -12,8 +12,9 @@ import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
-import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { UIElementShadowAppearanceTheme } from "./appearance/uiElementShadowAppearanceTheme";
 
 export interface ButtonTheme extends BaseTypographyComponentTheme {
   size: {
@@ -23,11 +24,11 @@ export interface ButtonTheme extends BaseTypographyComponentTheme {
     gap: GapTheme;
   };
   appearance: {
-    background: GenericVariantTheme<TextAppearanceTheme>;
-    text: GenericVariantTheme<TextAppearanceTheme>;
-    border: GenericVariantTheme<TextAppearanceTheme>;
-    ring: GenericVariantTheme<TextAppearanceTheme>;
-    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
+    background: GenericVariantTheme<UIElementTextAppearanceTheme>;
+    text: GenericVariantTheme<UIElementTextAppearanceTheme>;
+    border: GenericVariantTheme<UIElementTextAppearanceTheme>;
+    ring: GenericVariantTheme<UIElementTextAppearanceTheme>;
+    shadow: GenericVariantTheme<UIElementShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
     border: BorderTheme;
@@ -77,7 +78,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       }),
     },
     appearance: {
-      background: GenericVariantTheme.createBgAppearanceTheme(),
+      background: GenericVariantTheme.createUIElementBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),

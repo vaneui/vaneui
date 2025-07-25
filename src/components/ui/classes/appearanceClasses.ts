@@ -167,3 +167,4 @@ export const filledRingAppearanceClasses: Record<AppearanceKey, string> = {
   link: "ring-(--filled-border-color-link)",
   transparent: "ring-transparent",
 }
+

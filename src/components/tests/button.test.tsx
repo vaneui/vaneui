@@ -29,61 +29,6 @@ describe('Button Component Tests', () => {
     });
   });
 
-  describe('Transparent/Link Button Component', () => {
-    it('should render without shadow', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button id="transparent" transparent>Click me</Button>
-          <Button id="link" link>Click me</Button>
-        </ThemeProvider>
-      );
-
-      const button1 = container.querySelector('#transparent');
-      const button2 = container.querySelector('#link');
-      expect(button1).toBeInTheDocument();
-      expect(button1).not.toHaveClass('shadow-sm', 'hover:shadow-md');
-      expect(button2).toBeInTheDocument();
-      expect(button2).not.toHaveClass('shadow-sm', 'hover:shadow-md');
-    });
-
-    it('should render with transparent border and ring', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button id="transparent" transparent>Click me</Button>
-          <Button id="link" link>Click me</Button>
-        </ThemeProvider>
-      );
-
-      const button1 = container.querySelector('#transparent');
-      const button2 = container.querySelector('#link');
-
-      // Transparent and link buttons should have transparent border classes
-      expect(button1).toBeInTheDocument();
-      expect(button1).toHaveClass('border-transparent');
-
-      expect(button2).toBeInTheDocument();
-      expect(button2).toHaveClass('border-transparent');
-
-      // Transparent and link buttons should have transparent ring classes
-      expect(button1).toHaveClass('ring-transparent');
-      expect(button2).toHaveClass('ring-transparent');
-    });
-
-    it('should have default text color for transparent but link color for link button', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button id="transparent" transparent>Click me</Button>
-          <Button id="link" link>Click me</Button>
-        </ThemeProvider>
-      );
-
-      const button1 = container.querySelector('#transparent');
-      const button2 = container.querySelector('#link');
-
-      expect(button1).toHaveClass('text-(--text-color-default)'); // transparent uses default text color
-      expect(button2).toHaveClass('text-(--text-color-link)'); // link uses link text color
-    });
-  });
 
   describe('Button Variants', () => {
     it('Button with primary variant should have primary classes', () => {
@@ -115,39 +60,7 @@ describe('Button Component Tests', () => {
   });
 
   describe('Button Border, Ring, and Shadow Behavior', () => {
-    it('should have transparent borders, rings, and no shadows for transparent and link variants in both outline and filled modes', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Button id="btn-outline-transparent" transparent>Outline Transparent</Button>
-          <Button id="btn-outline-link" link>Outline Link</Button>
-          <Button id="btn-filled-transparent" filled transparent>Filled Transparent</Button>
-          <Button id="btn-filled-link" filled link>Filled Link</Button>
-        </ThemeProvider>
-      );
-
-      // Test all button variants
-      const btnOutlineTransparent = container.querySelector('#btn-outline-transparent');
-      const btnOutlineLink = container.querySelector('#btn-outline-link');
-      const btnFilledTransparent = container.querySelector('#btn-filled-transparent');
-      const btnFilledLink = container.querySelector('#btn-filled-link');
-
-      // None should have shadows
-      [btnOutlineTransparent, btnOutlineLink, btnFilledTransparent, btnFilledLink].forEach(btn => {
-        expect(btn).not.toHaveClass('shadow-sm', 'hover:shadow-md', 'shadow-lg');
-      });
-
-      // All should have transparent border classes
-      [btnOutlineTransparent, btnOutlineLink, btnFilledTransparent, btnFilledLink].forEach(btn => {
-        expect(btn).toHaveClass('border-transparent');
-      });
-
-      // All should have transparent ring classes  
-      [btnOutlineTransparent, btnOutlineLink, btnFilledTransparent, btnFilledLink].forEach(btn => {
-        expect(btn).toHaveClass('ring-transparent');
-      });
-    });
-
-    it('should preserve borders, rings, and shadows for other appearance variants', () => {
+    it('should preserve borders, rings, and shadows for appearance variants', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Button id="btn-default">Default</Button>
@@ -169,25 +82,20 @@ describe('Button Component Tests', () => {
       // The default button theme has noBorder and noRing as defaults, so they don't show border/ring classes by default
     });
 
-    it('should demonstrate ring functionality works for normal buttons when ring prop is enabled', () => {
+    it('should demonstrate ring functionality works for buttons when ring prop is enabled', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Button id="btn-default-ring" ring primary>Default with Ring</Button>
-          <Button id="btn-transparent-ring" ring transparent>Transparent with Ring (should be transparent)</Button>
-          <Button id="btn-link-ring" ring link>Link with Ring (should be transparent)</Button>
+          <Button id="btn-secondary-ring" ring secondary>Secondary with Ring</Button>
         </ThemeProvider>
       );
 
       const btnDefaultRing = container.querySelector('#btn-default-ring');
-      const btnTransparentRing = container.querySelector('#btn-transparent-ring');
-      const btnLinkRing = container.querySelector('#btn-link-ring');
+      const btnSecondaryRing = container.querySelector('#btn-secondary-ring');
 
-      // Default button with ring should show ring classes
+      // Buttons with ring should show ring classes
       expect(btnDefaultRing).toHaveClass('ring-(--border-color-primary)');
-
-      // Transparent and link buttons should always have transparent ring even when ring prop is set
-      expect(btnTransparentRing).toHaveClass('ring-transparent');
-      expect(btnLinkRing).toHaveClass('ring-transparent');
+      expect(btnSecondaryRing).toHaveClass('ring-(--border-color-secondary)');
     });
   });
 
