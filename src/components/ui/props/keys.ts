@@ -101,37 +101,6 @@ export const ComponentKeys: ComponentKeysMap = {
   overflow: OVERFLOW_KEYS,
 }
 
-// A master list of all groups where only one key can be 'true' at a time.
-export const EXCLUSIVE_KEY_GROUPS = [
-  MODE_KEYS,
-  SIZE_KEYS,
-  APPEARANCE_KEYS,
-  TRANSPARENT_KEYS,
-  LINK_KEYS,
-  VARIANT_KEYS,
-  FONT_FAMILY_KEYS,
-  FONT_WEIGHT_KEYS,
-  FONT_STYLE_KEYS,
-  TEXT_DECORATION_KEYS,
-  TEXT_TRANSFORM_KEYS,
-  TEXT_ALIGN_KEYS,
-  BORDER_KEYS,
-  SHADOW_KEYS,
-  RING_KEYS,
-  PADDING_KEYS,
-  BREAKPOINT_KEYS,
-  HIDE_KEYS,
-  POSITION_KEYS,
-  GAP_KEYS,
-  SHAPE_KEYS,
-  FLEX_DIRECTION_KEYS,
-  DIRECTION_REVERSE_KEYS,
-  ITEMS_KEYS,
-  JUSTIFY_KEYS,
-  WRAP_KEYS,
-  DISPLAY_KEYS,
-];
-
 export type ModeKey = typeof MODE_KEYS[number];
 export type SizeKey = typeof SIZE_KEYS[number];
 export type RingKey = typeof RING_KEYS[number];

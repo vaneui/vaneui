@@ -1,5 +1,5 @@
 import { DeepPartial } from "./deepPartial";
-import { EXCLUSIVE_KEY_GROUPS } from "../ui/props";
+import { ComponentKeys } from "../ui/props";
 
 const isObject = (item: unknown): item is Record<string, any> => {
   return item !== null && typeof item === 'object' && !Array.isArray(item);
@@ -64,8 +64,15 @@ export const deepClone = <T extends object>(source: T): T => {
   return output;
 }
 
-const findGroup = (key: string) =>
-  EXCLUSIVE_KEY_GROUPS.find(group => (group as readonly string[]).includes(key));
+const findGroup = (key: string) => {
+  // Check each group in ComponentKeys to find which one contains this key
+  for (const [groupName, group] of Object.entries(ComponentKeys)) {
+    if (group.includes(key)) {
+      return group;
+    }
+  }
+  return undefined;
+};
 
 export const mergeDefaults = (
   baseDefaults: Record<string, boolean>,
