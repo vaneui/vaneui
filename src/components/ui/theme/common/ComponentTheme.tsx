@@ -121,13 +121,19 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
 
   getComponentConfig(props: P, propsToOmit: readonly string[] = []) {
     const cleanProps: Record<string, any> = {...props};
+    // Remove the propsToOmit keys
     for (const k of propsToOmit) {
       delete cleanProps[k];
     }
+    // Also remove internal ThemedComponent props
+    delete cleanProps.propsToOmit;
+    delete cleanProps.theme;
 
     const {className, tag, ...other} = cleanProps as P;
     const componentTag: React.ElementType = tag ?? this.tag ?? "div";
-    const themeGeneratedClasses = this.getClasses(props);
+    // Use original props for theme generation, but cleanProps for final DOM props
+    const originalProps = props as P;
+    const themeGeneratedClasses = this.getClasses(originalProps);
     const finalClasses = twMerge(...themeGeneratedClasses, className);
 
     return {

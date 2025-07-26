@@ -63,10 +63,12 @@ export const COMPONENT_PROPS_CATEGORY = [
   'display',
   'overflow'
 ] as const;
+
 export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
 export type ComponentKeysMap = {
   [key in ComponentCategoryKey]: readonly string[];
 };
+
 export const ComponentKeys: ComponentKeysMap = {
   mode: MODE_KEYS,
   size: SIZE_KEYS,
@@ -102,7 +104,7 @@ export const ComponentKeys: ComponentKeysMap = {
 }
 
 export type ModeKey = typeof MODE_KEYS[number];
-export type SizeKey = typeof SIZE_KEYS[number];
+export type SizeKey = typeof ComponentKeys.size[number];
 export type RingKey = typeof RING_KEYS[number];
 export type ShapeKey = typeof SHAPE_KEYS[number];
 export type BorderKey = typeof BORDER_KEYS[number];
@@ -130,194 +132,76 @@ export type DisplayKey = typeof DISPLAY_KEYS[number];
 export type OverflowKey = typeof OVERFLOW_KEYS[number];
 export type DirectionReverseKey = typeof DIRECTION_REVERSE_KEYS[number];
 
-// Base component keys
-export const BASE_COMPONENT_KEYS = [
-  ...SIZE_KEYS,
-  ...HIDE_KEYS,
-  ...ITEMS_KEYS,
-  ...JUSTIFY_KEYS,
-  ...POSITION_KEYS,
-  ...DISPLAY_KEYS,
-  ...OVERFLOW_KEYS,
-] as const;
+export const getKeysFromCategories = <T extends readonly ComponentCategoryKey[]>(categories: T): readonly string[] => {
+  return categories.flatMap(category => ComponentKeys[category]);
+};
 
-// Font keys
-export const FONT_KEYS = [
-  ...FONT_WEIGHT_KEYS,
-  ...FONT_STYLE_KEYS,
-  ...TEXT_DECORATION_KEYS,
-  ...TEXT_TRANSFORM_KEYS,
-  ...FONT_FAMILY_KEYS,
-  ...APPEARANCE_KEYS,
-  ...TRANSPARENT_KEYS,
-  ...LINK_KEYS,
-  ...TEXT_ALIGN_KEYS
-] as const;
+const LAYOUT_CORE = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
+const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'directionReverse'] as const;
+const VISUAL_CORE = ['appearance', 'transparent'] as const;
+const VISUAL_DECORATION = ['border', 'shadow', 'ring', 'shape'] as const;
+const TYPOGRAPHY_STYLE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
+const TYPOGRAPHY_SEMANTIC = ['link'] as const;
+const FORM_STYLING = ['variant'] as const;
 
-// Typography component keys
-export const TYPOGRAPHY_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...FONT_KEYS
-] as const;
+export const BASE_COMPONENT_CATEGORIES = LAYOUT_CORE;
+
+export const FONT_CATEGORIES: ComponentCategoryKey[] = [...TYPOGRAPHY_STYLE, ...VISUAL_CORE, ...TYPOGRAPHY_SEMANTIC] as const;
+
+export const TYPOGRAPHY_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...FONT_CATEGORIES] as const;
+export const TYPOGRAPHY_KEYS = getKeysFromCategories(TYPOGRAPHY_CATEGORIES);
 export type TypographyKey = typeof TYPOGRAPHY_KEYS[number];
 
-export const LIST_KEYS = [
-  ...TYPOGRAPHY_KEYS,
-  ...PADDING_KEYS,
-  ...APPEARANCE_KEYS
-]
+export const LIST_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, 'padding'] as const;
+export const LIST_KEYS = getKeysFromCategories(LIST_CATEGORIES);
 export type ListKey = typeof LIST_KEYS[number];
 
-// UI Element keys (for buttons, badges, chips)
-export const UI_ELEMENT_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...FONT_WEIGHT_KEYS,
-  ...FONT_STYLE_KEYS,
-  ...TEXT_DECORATION_KEYS,
-  ...TEXT_TRANSFORM_KEYS,
-  ...FONT_FAMILY_KEYS,
-  ...APPEARANCE_KEYS,
-  ...TEXT_ALIGN_KEYS
-] as const;
+export const UI_ELEMENT_CATEGORIES = [...LAYOUT_CORE, ...TYPOGRAPHY_STYLE, 'appearance'] as const;
 
-// Button keys
-export const BUTTON_KEYS = [
-  ...UI_ELEMENT_KEYS,
-  ...SHAPE_KEYS,
-  ...BORDER_KEYS,
-  ...SHADOW_KEYS,
-  ...RING_KEYS,
-  ...GAP_KEYS,
-  ...PADDING_KEYS,
-  ...VARIANT_KEYS,
-] as const;
+export const INTERACTIVE_CATEGORIES = [...UI_ELEMENT_CATEGORIES, 'shape', ...VISUAL_DECORATION, 'gap', 'padding', ...FORM_STYLING] as const;
+
+export const BUTTON_CATEGORIES = INTERACTIVE_CATEGORIES;
+export const BUTTON_KEYS = getKeysFromCategories(BUTTON_CATEGORIES);
 export type ButtonKey = typeof BUTTON_KEYS[number];
 
-// Grid keys
-export const GRID_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...GAP_KEYS,
-  ...APPEARANCE_KEYS,
-  ...TRANSPARENT_KEYS
-] as const;
-export type GridKey = typeof GRID_KEYS[number];
-
-// Row keys
-export const ROW_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...WRAP_KEYS,
-  ...GAP_KEYS,
-  ...FLEX_DIRECTION_KEYS,
-  ...DIRECTION_REVERSE_KEYS,
-  ...BREAKPOINT_KEYS,
-  ...APPEARANCE_KEYS,
-  ...TRANSPARENT_KEYS
-] as const;
-export type RowKey = typeof ROW_KEYS[number];
-
-// Col keys
-export const COL_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...WRAP_KEYS,
-  ...GAP_KEYS,
-  ...FLEX_DIRECTION_KEYS,
-  ...DIRECTION_REVERSE_KEYS,
-  ...APPEARANCE_KEYS,
-  ...TRANSPARENT_KEYS
-] as const;
-export type ColKey = typeof COL_KEYS[number];
-
-// Stack keys
-export const STACK_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...WRAP_KEYS,
-  ...GAP_KEYS,
-  ...DIRECTION_REVERSE_KEYS,
-  ...BREAKPOINT_KEYS,
-  ...APPEARANCE_KEYS,
-  ...TRANSPARENT_KEYS,
-  ...FLEX_DIRECTION_KEYS,
-  ...PADDING_KEYS
-] as const;
-export type StackKey = typeof STACK_KEYS[number];
-
-// Card keys
-export const CARD_KEYS = [
-  ...TYPOGRAPHY_KEYS,
-  ...GAP_KEYS,
-  ...SHARP_KEYS,
-  ...ROUNDED_KEYS,
-  ...BREAKPOINT_KEYS,
-  ...BORDER_KEYS,
-  ...RING_KEYS,
-  ...SHADOW_KEYS,
-  ...PADDING_KEYS,
-  ...FLEX_DIRECTION_KEYS,
-  ...DIRECTION_REVERSE_KEYS,
-  ...WRAP_KEYS
-] as const;
-export type CardKey = typeof CARD_KEYS[number];
-
-// Badge keys
-export const BADGE_KEYS = [
-  ...UI_ELEMENT_KEYS,
-  ...SHAPE_KEYS,
-  ...VARIANT_KEYS,
-  ...SHADOW_KEYS,
-  ...BORDER_KEYS,
-  ...RING_KEYS,
-  ...GAP_KEYS,
-  ...PADDING_KEYS,
-] as const;
+export const BADGE_CATEGORIES = INTERACTIVE_CATEGORIES;
+export const BADGE_KEYS = getKeysFromCategories(BADGE_CATEGORIES);
 export type BadgeKey = typeof BADGE_KEYS[number];
 
-// Chip keys
-export const CHIP_KEYS = [
-  ...UI_ELEMENT_KEYS,
-  ...SHAPE_KEYS,
-  ...VARIANT_KEYS,
-  ...SHADOW_KEYS,
-  ...BORDER_KEYS,
-  ...RING_KEYS,
-  ...GAP_KEYS,
-  ...PADDING_KEYS,
-] as const;
+export const CHIP_CATEGORIES = INTERACTIVE_CATEGORIES;
+export const CHIP_KEYS = getKeysFromCategories(CHIP_CATEGORIES);
 export type ChipKey = typeof CHIP_KEYS[number];
 
-// Divider keys
-export const DIVIDER_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...APPEARANCE_KEYS,
-  ...PADDING_KEYS
-] as const;
+export const GRID_CATEGORIES = [...LAYOUT_CORE, 'gap', ...VISUAL_CORE] as const;
+export const GRID_KEYS = getKeysFromCategories(GRID_CATEGORIES);
+export type GridKey = typeof GRID_KEYS[number];
+
+export const FLEX_CONTAINER_CATEGORIES = [...LAYOUT_CORE, ...LAYOUT_FLEX, ...VISUAL_CORE] as const;
+
+export const ROW_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, 'breakpoint'] as const;
+export const ROW_KEYS = getKeysFromCategories(ROW_CATEGORIES);
+export type RowKey = typeof ROW_KEYS[number];
+
+export const COL_CATEGORIES = FLEX_CONTAINER_CATEGORIES;
+export const COL_KEYS = getKeysFromCategories(COL_CATEGORIES);
+export type ColKey = typeof COL_KEYS[number];
+
+export const STACK_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, 'breakpoint', 'padding'] as const;
+export const STACK_KEYS = getKeysFromCategories(STACK_CATEGORIES);
+export type StackKey = typeof STACK_KEYS[number];
+
+export const CARD_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_FLEX, 'sharp', 'rounded', 'breakpoint', ...VISUAL_DECORATION, 'padding'] as const;
+export const CARD_KEYS = getKeysFromCategories(CARD_CATEGORIES);
+export type CardKey = typeof CARD_KEYS[number];
+
+export const DIVIDER_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, 'appearance', 'padding'] as const;
+export const DIVIDER_KEYS = getKeysFromCategories(DIVIDER_CATEGORIES);
 export type DividerKey = typeof DIVIDER_KEYS[number];
 
-// Container keys
-export const CONTAINER_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...APPEARANCE_KEYS,
-  ...TRANSPARENT_KEYS,
-  ...BORDER_KEYS,
-  ...SHADOW_KEYS,
-  ...RING_KEYS,
-  ...GAP_KEYS,
-  ...SHAPE_KEYS
-] as const;
+export const CONTAINER_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...VISUAL_DECORATION, 'gap'] as const;
+export const CONTAINER_KEYS = getKeysFromCategories(CONTAINER_CATEGORIES);
 export type ContainerKey = typeof CONTAINER_KEYS[number];
 
-// Section keys
-export const SECTION_KEYS = [
-  ...BASE_COMPONENT_KEYS,
-  ...APPEARANCE_KEYS,
-  ...PADDING_KEYS,
-  ...FLEX_DIRECTION_KEYS,
-  ...DIRECTION_REVERSE_KEYS,
-  ...WRAP_KEYS,
-  ...BREAKPOINT_KEYS,
-  ...GAP_KEYS,
-  ...BORDER_KEYS,
-  ...SHADOW_KEYS,
-  ...RING_KEYS,
-  ...SHAPE_KEYS,
-] as const;
+export const SECTION_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, 'appearance', 'padding', ...LAYOUT_FLEX, 'breakpoint', ...VISUAL_DECORATION] as const;
+export const SECTION_KEYS = getKeysFromCategories(SECTION_CATEGORIES);
 export type SectionKey = typeof SECTION_KEYS[number];

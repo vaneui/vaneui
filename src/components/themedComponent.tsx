@@ -8,14 +8,12 @@ export type ThemedComponentProps<P extends ComponentProps, T extends object> = P
 };
 
 export function ThemedComponent<P extends ComponentProps, T extends object>(
-  {
-    theme,
-    propsToOmit,
-    ...props
-  }: ThemedComponentProps<P, T>) {
+  allProps: ThemedComponentProps<P, T>) {
+  const { theme, propsToOmit, ...props } = allProps;
   const {Tag, finalClasses, finalProps} = useMemo(() => {
-    return theme.getComponentConfig(props as unknown as P, propsToOmit);
-  }, [theme, props, propsToOmit]);
+    // Pass the full allProps and let getComponentConfig handle filtering
+    return theme.getComponentConfig(allProps, propsToOmit);
+  }, [theme, allProps, propsToOmit]);
 
   return (
     <Tag className={finalClasses} {...finalProps}>

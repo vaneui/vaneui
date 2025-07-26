@@ -13,7 +13,10 @@
       "Bash(mkdir:*)",
       "Bash(npx tsc:*)",
       "Bash(sed:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(npm run clean:*)",
+      "Bash(npx rollup:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }

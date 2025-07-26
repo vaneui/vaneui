@@ -19,12 +19,12 @@ export class TextAppearanceTheme extends BaseTheme {
     // Check for specific transparent or link styles first
     if (extractedKeys?.transparent) {
       const transparentClass = textAppearanceClasses[extractedKeys.transparent as TransparentKey];
-      return [transparentClass || '', '', ''];
+      return [transparentClass || ''];
     }
     
     if (extractedKeys?.link) {
       const linkClass = textAppearanceClasses[extractedKeys.link as LinkKey];
-      return [linkClass || '', '', ''];
+      return [linkClass || ''];
     }
     
     // Use regular appearance
