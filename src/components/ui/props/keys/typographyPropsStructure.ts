@@ -1,6 +1,8 @@
 import type {
   SizeKey,
   AppearanceKey,
+  TransparentKey,
+  LinkKey,
   DisplayKey,
   PositionKey,
   ItemsKey,
@@ -35,6 +37,8 @@ export interface BaseLayoutPropsStructure extends BasePropsStructure {
  */
 export interface TypographyPropsStructure extends BaseLayoutPropsStructure {
   appearance?: AppearanceKey;
+  transparent?: TransparentKey;
+  link?: LinkKey;
   fontFamily?: FontFamilyKey;
   fontWeight?: FontWeightKey;
   fontStyle?: FontStyleKey;

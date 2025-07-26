@@ -1,8 +1,9 @@
 export const MODE_KEYS = ['base', 'hover', 'active'] as const;
 export const SIZE_KEYS = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 export const VARIANT_KEYS = ['filled', 'outline'] as const;
-export const UI_ELEMENT_APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
-export const APPEARANCE_KEYS = [...UI_ELEMENT_APPEARANCE_KEYS, 'transparent', 'link'] as const;
+export const APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
+export const TRANSPARENT_KEYS = ['transparent'] as const;
+export const LINK_KEYS = ['link'] as const;
 export const FONT_FAMILY_KEYS = ['sans', 'serif', 'mono'] as const;
 export const FONT_WEIGHT_KEYS = ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'] as const;
 export const FONT_STYLE_KEYS = ['italic', 'notItalic'] as const;
@@ -33,8 +34,9 @@ export const COMPONENT_PROPS_CATEGORY = [
   'mode',
   'size',
   'variant',
-  'uiElementAppearance',
   'appearance',
+  'transparent',
+  'link',
   'fontFamily',
   'fontWeight',
   'fontStyle',
@@ -69,8 +71,9 @@ export const ComponentKeys: ComponentKeysMap = {
   mode: MODE_KEYS,
   size: SIZE_KEYS,
   variant: VARIANT_KEYS,
-  uiElementAppearance: UI_ELEMENT_APPEARANCE_KEYS,
   appearance: APPEARANCE_KEYS,
+  transparent: TRANSPARENT_KEYS,
+  link: LINK_KEYS,
   fontFamily: FONT_FAMILY_KEYS,
   fontWeight: FONT_WEIGHT_KEYS,
   fontStyle: FONT_STYLE_KEYS,
@@ -103,7 +106,8 @@ export const EXCLUSIVE_KEY_GROUPS = [
   MODE_KEYS,
   SIZE_KEYS,
   APPEARANCE_KEYS,
-  UI_ELEMENT_APPEARANCE_KEYS,
+  TRANSPARENT_KEYS,
+  LINK_KEYS,
   VARIANT_KEYS,
   FONT_FAMILY_KEYS,
   FONT_WEIGHT_KEYS,
@@ -138,7 +142,8 @@ export type PaddingKey = typeof PADDING_KEYS[number];
 export type GapKey = typeof GAP_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
 export type AppearanceKey = typeof APPEARANCE_KEYS[number];
-export type UIElementAppearanceKey = typeof UI_ELEMENT_APPEARANCE_KEYS[number];
+export type TransparentKey = typeof TRANSPARENT_KEYS[number];
+export type LinkKey = typeof LINK_KEYS[number];
 export type FontFamilyKey = typeof FONT_FAMILY_KEYS[number];
 export type FontWeightKey = typeof FONT_WEIGHT_KEYS[number];
 export type FontStyleKey = typeof FONT_STYLE_KEYS[number];
@@ -175,6 +180,8 @@ export const FONT_KEYS = [
   ...TEXT_TRANSFORM_KEYS,
   ...FONT_FAMILY_KEYS,
   ...APPEARANCE_KEYS,
+  ...TRANSPARENT_KEYS,
+  ...LINK_KEYS,
   ...TEXT_ALIGN_KEYS
 ] as const;
 
@@ -200,7 +207,7 @@ export const UI_ELEMENT_KEYS = [
   ...TEXT_DECORATION_KEYS,
   ...TEXT_TRANSFORM_KEYS,
   ...FONT_FAMILY_KEYS,
-  ...UI_ELEMENT_APPEARANCE_KEYS,
+  ...APPEARANCE_KEYS,
   ...TEXT_ALIGN_KEYS
 ] as const;
 
@@ -221,7 +228,8 @@ export type ButtonKey = typeof BUTTON_KEYS[number];
 export const GRID_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...GAP_KEYS,
-  ...APPEARANCE_KEYS
+  ...APPEARANCE_KEYS,
+  ...TRANSPARENT_KEYS
 ] as const;
 export type GridKey = typeof GRID_KEYS[number];
 
@@ -233,7 +241,8 @@ export const ROW_KEYS = [
   ...FLEX_DIRECTION_KEYS,
   ...DIRECTION_REVERSE_KEYS,
   ...BREAKPOINT_KEYS,
-  ...APPEARANCE_KEYS
+  ...APPEARANCE_KEYS,
+  ...TRANSPARENT_KEYS
 ] as const;
 export type RowKey = typeof ROW_KEYS[number];
 
@@ -244,7 +253,8 @@ export const COL_KEYS = [
   ...GAP_KEYS,
   ...FLEX_DIRECTION_KEYS,
   ...DIRECTION_REVERSE_KEYS,
-  ...APPEARANCE_KEYS
+  ...APPEARANCE_KEYS,
+  ...TRANSPARENT_KEYS
 ] as const;
 export type ColKey = typeof COL_KEYS[number];
 
@@ -256,6 +266,7 @@ export const STACK_KEYS = [
   ...DIRECTION_REVERSE_KEYS,
   ...BREAKPOINT_KEYS,
   ...APPEARANCE_KEYS,
+  ...TRANSPARENT_KEYS,
   ...FLEX_DIRECTION_KEYS,
   ...PADDING_KEYS
 ] as const;
@@ -316,6 +327,7 @@ export type DividerKey = typeof DIVIDER_KEYS[number];
 export const CONTAINER_KEYS = [
   ...BASE_COMPONENT_KEYS,
   ...APPEARANCE_KEYS,
+  ...TRANSPARENT_KEYS,
   ...BORDER_KEYS,
   ...SHADOW_KEYS,
   ...RING_KEYS,

@@ -1,9 +1,11 @@
 import {
   SizeKey,
   AppearanceKey,
+  TransparentKey,
+  LinkKey,
 } from "../props";
 
-export const filledTextAppearanceClasses: Record<AppearanceKey, string> = {
+export const filledTextAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
   default: "text-white",
   primary: "text-white",
   secondary: "text-white",
@@ -17,7 +19,7 @@ export const filledTextAppearanceClasses: Record<AppearanceKey, string> = {
   transparent: "text-transparent",
 }
 
-export const textAppearanceClasses: Record<AppearanceKey, string> = {
+export const textAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
   default: "text-(--text-color-default)",
   primary: "text-(--text-color-primary)",
   secondary: "text-(--text-color-secondary)",

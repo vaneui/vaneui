@@ -1,11 +1,12 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
-import { MODE_KEYS, ModeKey, APPEARANCE_KEYS, AppearanceKey, UI_ELEMENT_APPEARANCE_KEYS, UIElementAppearanceKey } from "../../props";
+import { MODE_KEYS, ModeKey, APPEARANCE_KEYS, AppearanceKey, TransparentKey, LinkKey } from "../../props";
+import { textAppearanceClasses } from "../../classes/typographyClasses";
 
 export interface TextAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
 }
 
-export interface UIElementTextAppearanceTheme extends Record<UIElementAppearanceKey, Record<ModeKey, string>> {
+export interface UIElementTextAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
 }
 
 export class TextAppearanceTheme extends BaseTheme {
@@ -15,11 +16,23 @@ export class TextAppearanceTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: BasePropsStructure): string[] {
-    const appearance = extractedKeys?.appearance as AppearanceKey;
-    if (!appearance) {
+    // Check for specific transparent or link styles first
+    if (extractedKeys?.transparent) {
+      const transparentClass = textAppearanceClasses[extractedKeys.transparent as TransparentKey];
+      return [transparentClass || '', '', ''];
+    }
+    
+    if (extractedKeys?.link) {
+      const linkClass = textAppearanceClasses[extractedKeys.link as LinkKey];
+      return [linkClass || '', '', ''];
+    }
+    
+    // Use regular appearance
+    const pickedAppearanceKey = (extractedKeys?.appearance as AppearanceKey) ?? 'default';
+    if (!pickedAppearanceKey) {
       return [];
     }
-    const modes = this[appearance];
+    const modes = this[pickedAppearanceKey];
     if (!modes) {
       return [];
     }
@@ -46,13 +59,13 @@ export class TextAppearanceTheme extends BaseTheme {
 }
 
 export class UIElementTextAppearanceTheme extends BaseTheme {
-  private constructor(config: Record<UIElementAppearanceKey, Record<ModeKey, string>>) {
+  private constructor(config: Record<AppearanceKey, Record<ModeKey, string>>) {
     super();
     Object.assign(this, config);
   }
 
   getClasses(extractedKeys: BasePropsStructure): string[] {
-    const appearance = extractedKeys?.appearance as UIElementAppearanceKey;
+    const appearance = extractedKeys?.appearance as AppearanceKey;
     if (!appearance) {
       return [];
     }
@@ -64,10 +77,10 @@ export class UIElementTextAppearanceTheme extends BaseTheme {
   }
 
   static createTheme(
-    src: Partial<Record<ModeKey, Partial<Record<UIElementAppearanceKey, string>>>> = {}
+    src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {}
   ): UIElementTextAppearanceTheme {
     const finalConfig = Object.fromEntries(
-      UI_ELEMENT_APPEARANCE_KEYS.map(textKey => [
+      APPEARANCE_KEYS.map(textKey => [
         textKey,
         Object.fromEntries(
           MODE_KEYS.map(modeKey => [
@@ -76,7 +89,7 @@ export class UIElementTextAppearanceTheme extends BaseTheme {
           ])
         ),
       ])
-    ) as Record<UIElementAppearanceKey, Record<ModeKey, string>>;
+    ) as Record<AppearanceKey, Record<ModeKey, string>>;
 
     return new UIElementTextAppearanceTheme(finalConfig);
   }

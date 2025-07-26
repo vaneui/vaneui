@@ -4,13 +4,13 @@ import {
   SHADOW_KEYS,
   ModeKey,
   MODE_KEYS,
-  UI_ELEMENT_APPEARANCE_KEYS,
-  UIElementAppearanceKey
+  APPEARANCE_KEYS,
+  AppearanceKey
 } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
-export interface UIElementShadowAppearanceTheme extends Record<UIElementAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
+export interface UIElementShadowAppearanceTheme extends Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
 }
 
 export class UIElementShadowAppearanceTheme extends BaseTheme {
@@ -22,16 +22,16 @@ export class UIElementShadowAppearanceTheme extends BaseTheme {
     xl: {base: "shadow-lg", hover: "hover:shadow-xl", active: ""}
   }
 
-  constructor(initial?: Partial<Record<UIElementAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>>) {
+  constructor(initial?: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>>) {
     super();
-    UI_ELEMENT_APPEARANCE_KEYS.forEach((key) => {
+    APPEARANCE_KEYS.forEach((key) => {
       const initialAppearance = initial?.[key];
       this[key] = initialAppearance === undefined ? UIElementShadowAppearanceTheme.defaultShadow : null;
     })
   }
 
   getClasses(extractedKeys: BasePropsStructure): string[] {
-    const appearance = (extractedKeys?.appearance as UIElementAppearanceKey) ?? 'default';
+    const appearance = (extractedKeys?.appearance as AppearanceKey) ?? 'default';
     const size = (extractedKeys?.size as SizeKey) ?? 'md';
     const shadow = extractedKeys?.shadow;
 
@@ -43,7 +43,7 @@ export class UIElementShadowAppearanceTheme extends BaseTheme {
   }
 
   static createTheme(
-    src: Partial<Record<UIElementAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>> = {}
+    src: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>> = {}
   ): UIElementShadowAppearanceTheme {
     return new UIElementShadowAppearanceTheme(src);
   }

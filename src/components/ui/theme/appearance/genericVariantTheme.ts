@@ -14,7 +14,7 @@ import {
   hoverBackgroundAppearanceClasses,
   ringAppearanceClasses
 } from "../../classes/appearanceClasses";
-import { UI_ELEMENT_APPEARANCE_KEYS, UIElementAppearanceKey } from "../../props";
+import { APPEARANCE_KEYS, AppearanceKey } from "../../props";
 import { ShadowAppearanceTheme } from "./shadowAppearanceTheme";
 import { UIElementShadowAppearanceTheme } from "./uiElementShadowAppearanceTheme";
 
@@ -37,9 +37,9 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
   // Helper function to filter appearance classes to only include UI element keys
   private static filterToUIElementKeys<T extends Record<string, any>>(
     classes: T
-  ): Record<UIElementAppearanceKey, T[keyof T]> {
-    const result = {} as Record<UIElementAppearanceKey, T[keyof T]>;
-    UI_ELEMENT_APPEARANCE_KEYS.forEach(key => {
+  ): Record<AppearanceKey, T[keyof T]> {
+    const result = {} as Record<AppearanceKey, T[keyof T]>;
+    APPEARANCE_KEYS.forEach(key => {
       if (key in classes) {
         result[key] = classes[key];
       }

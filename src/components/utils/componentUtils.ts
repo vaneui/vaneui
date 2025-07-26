@@ -9,7 +9,8 @@ import type {
 import {
   SIZE_KEYS,
   APPEARANCE_KEYS,
-  UI_ELEMENT_APPEARANCE_KEYS,
+  TRANSPARENT_KEYS,
+  LINK_KEYS,
   VARIANT_KEYS,
   SHAPE_KEYS,
   SHADOW_KEYS,
@@ -72,7 +73,7 @@ export function extractButtonKeys(
 ): ButtonPropsStructure {
   return {
     size: pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md',
-    appearance: pickFirstTruthyKey(props, defaults, UI_ELEMENT_APPEARANCE_KEYS) || 'default',
+    appearance: pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS) || 'default',
     variant: pickFirstTruthyKey(props, defaults, VARIANT_KEYS),
     shape: pickFirstTruthyKey(props, defaults, SHAPE_KEYS),
     shadow: pickFirstTruthyKey(props, defaults, SHADOW_KEYS),
@@ -127,6 +128,8 @@ export function extractTypographyKeys(
   return {
     size: pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md',
     appearance: pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS) || 'default',
+    transparent: pickFirstTruthyKey(props, defaults, TRANSPARENT_KEYS),
+    link: pickFirstTruthyKey(props, defaults, LINK_KEYS),
     fontFamily: pickFirstTruthyKey(props, defaults, FONT_FAMILY_KEYS),
     fontWeight: pickFirstTruthyKey(props, defaults, FONT_WEIGHT_KEYS),
     fontStyle: pickFirstTruthyKey(props, defaults, FONT_STYLE_KEYS),
@@ -175,6 +178,7 @@ export function extractLayoutKeys(
   return {
     size: pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md',
     appearance: pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS) || 'default',
+    transparent: pickFirstTruthyKey(props, defaults, TRANSPARENT_KEYS),
     gap: pickFirstTruthyKey(props, defaults, GAP_KEYS),
     padding: pickFirstTruthyKey(props, defaults, PADDING_KEYS),
     flexDirection: pickFirstTruthyKey(props, defaults, FLEX_DIRECTION_KEYS),

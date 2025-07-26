@@ -1,5 +1,5 @@
 import type {
-  UIElementAppearanceKey,
+  AppearanceKey,
   FontFamilyKey,
   FontWeightKey,
   FontStyleKey,
@@ -14,7 +14,7 @@ import { BaseLayoutPropsStructure } from './typographyPropsStructure';
  * Used by Button, Badge, Chip components
  */
 export interface UIElementPropsStructure extends BaseLayoutPropsStructure {
-  appearance?: UIElementAppearanceKey;
+  appearance?: AppearanceKey;
   fontFamily?: FontFamilyKey;
   fontWeight?: FontWeightKey;
   fontStyle?: FontStyleKey;

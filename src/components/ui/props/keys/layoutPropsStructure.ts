@@ -1,5 +1,6 @@
 import type {
   AppearanceKey,
+  TransparentKey,
   GapKey,
   PaddingKey,
   FlexDirectionKey,
@@ -14,6 +15,7 @@ import { BaseLayoutPropsStructure } from './typographyPropsStructure';
  */
 export interface LayoutPropsStructure extends BaseLayoutPropsStructure {
   appearance?: AppearanceKey;
+  transparent?: TransparentKey;
   gap?: GapKey;
   padding?: PaddingKey;
   flexDirection?: FlexDirectionKey;
