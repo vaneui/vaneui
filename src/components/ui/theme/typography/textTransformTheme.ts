@@ -1,4 +1,4 @@
-import { TextTransformKey, TEXT_TRANSFORM_KEYS } from "../../props/keys";
+import { TextTransformKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -15,8 +15,8 @@ export class TextTransformTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<TextTransformKey, string>>) {
     super();
-    TEXT_TRANSFORM_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? TextTransformTheme.defaultClasses[key];
+    ComponentKeys.textTransform.forEach((key) => {
+      this[key as TextTransformKey] = initial?.[key as TextTransformKey] ?? TextTransformTheme.defaultClasses[key as TextTransformKey];
     });
   }
 

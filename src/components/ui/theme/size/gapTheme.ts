@@ -1,4 +1,4 @@
-import { SizeKey, SIZE_KEYS, GAP_KEYS, GapKey } from "../../props";
+import { SizeKey, GapKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -19,8 +19,8 @@ export class GapTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<GapKey, string | Record<SizeKey, string>>>) {
     super();
-    GAP_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? GapTheme.defaultClasses[key];
+    ComponentKeys.gap.forEach((key) => {
+      this[key as GapKey] = initial?.[key as GapKey] ?? GapTheme.defaultClasses[key as GapKey];
     });
   }
 

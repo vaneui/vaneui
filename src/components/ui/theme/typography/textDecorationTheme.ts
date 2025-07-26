@@ -1,4 +1,4 @@
-import { TextDecorationKey, TEXT_DECORATION_KEYS } from "../../props/keys";
+import { TextDecorationKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -15,8 +15,8 @@ export class TextDecorationTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<TextDecorationKey, string>>) {
     super();
-    TEXT_DECORATION_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? TextDecorationTheme.defaultClasses[key];
+    ComponentKeys.textDecoration.forEach((key) => {
+      this[key as TextDecorationKey] = initial?.[key as TextDecorationKey] ?? TextDecorationTheme.defaultClasses[key as TextDecorationKey];
     });
   }
 

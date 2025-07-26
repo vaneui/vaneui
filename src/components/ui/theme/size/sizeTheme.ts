@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
-import { SIZE_KEYS, SizeKey } from "../../props";
+import { SizeKey, ComponentKeys } from "../../props";
 
 export interface SizeTheme extends Record<SizeKey, string> {
 }
@@ -12,8 +12,8 @@ export class SizeTheme extends BaseTheme {
   constructor(initial?: Partial<Record<SizeKey, string>>, useDefaultKey: boolean = true) {
     super();
     this.useDefaultKey = useDefaultKey;
-    SIZE_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? "";
+    ComponentKeys.size.forEach((key) => {
+      this[key as SizeKey] = initial?.[key as SizeKey] ?? "";
     });
   }
 

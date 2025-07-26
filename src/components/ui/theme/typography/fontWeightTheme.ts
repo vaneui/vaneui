@@ -1,4 +1,4 @@
-import { FontWeightKey, FONT_WEIGHT_KEYS } from "../../props";
+import { FontWeightKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -20,8 +20,8 @@ export class FontWeightTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<FontWeightKey, string>>) {
     super();
-    FONT_WEIGHT_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? FontWeightTheme.defaultClasses[key];
+    ComponentKeys.fontWeight.forEach((key) => {
+      this[key as FontWeightKey] = initial?.[key as FontWeightKey] ?? FontWeightTheme.defaultClasses[key as FontWeightKey];
     });
   }
 

@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
-import { MODE_KEYS, ModeKey, APPEARANCE_KEYS, AppearanceKey, TransparentKey, LinkKey } from "../../props";
+import { ComponentKeys, ModeKey, AppearanceKey, TransparentKey, LinkKey } from "../../props";
 import { textAppearanceClasses } from "../../classes/typographyClasses";
 
 export interface TextAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
@@ -36,17 +36,17 @@ export class TextAppearanceTheme extends BaseTheme {
     if (!modes) {
       return [];
     }
-    return MODE_KEYS.map(mode => modes[mode] || '');
+    return (ComponentKeys.mode as readonly ModeKey[]).map(mode => modes[mode] || '');
   }
 
   static createTheme(
     src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {}
   ): TextAppearanceTheme {
     const finalConfig = Object.fromEntries(
-      APPEARANCE_KEYS.map(textKey => [
+      (ComponentKeys.appearance as readonly AppearanceKey[]).map(textKey => [
         textKey,
         Object.fromEntries(
-          MODE_KEYS.map(modeKey => [
+          (ComponentKeys.mode as readonly ModeKey[]).map(modeKey => [
             modeKey,
             src[modeKey]?.[textKey] || ''
           ])
@@ -73,17 +73,17 @@ export class UIElementTextAppearanceTheme extends BaseTheme {
     if (!modes) {
       return [];
     }
-    return MODE_KEYS.map(mode => modes[mode] || '');
+    return (ComponentKeys.mode as readonly ModeKey[]).map(mode => modes[mode] || '');
   }
 
   static createTheme(
     src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {}
   ): UIElementTextAppearanceTheme {
     const finalConfig = Object.fromEntries(
-      APPEARANCE_KEYS.map(textKey => [
+      (ComponentKeys.appearance as readonly AppearanceKey[]).map(textKey => [
         textKey,
         Object.fromEntries(
-          MODE_KEYS.map(modeKey => [
+          (ComponentKeys.mode as readonly ModeKey[]).map(modeKey => [
             modeKey,
             src[modeKey]?.[textKey] || ''
           ])

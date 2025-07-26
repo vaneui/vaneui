@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
-import { BREAKPOINT_KEYS, BreakpointKey, SIZE_KEYS, SizeKey } from "../../props/keys";
+import { BreakpointKey, SizeKey, ComponentKeys } from "../../props";
 
 export interface BreakpointTheme extends Record<BreakpointKey, string> {
 }
@@ -17,8 +17,8 @@ export class BreakpointTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<BreakpointKey, string>>) {
     super();
-    BREAKPOINT_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? BreakpointTheme.defaultClasses[key];
+    ComponentKeys.breakpoint.forEach((key) => {
+      this[key as BreakpointKey] = initial?.[key as BreakpointKey] ?? BreakpointTheme.defaultClasses[key as BreakpointKey];
     });
   }
 

@@ -1,4 +1,4 @@
-import { SHAPE_KEYS, ShapeKey, SIZE_KEYS, SizeKey } from "../../props/keys";
+import { ShapeKey, SizeKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -20,8 +20,8 @@ export class RadiusTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<ShapeKey, string | Record<SizeKey, string>>>) {
     super();
-    SHAPE_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? RadiusTheme.defaultClasses[key];
+    ComponentKeys.shape.forEach((key) => {
+      this[key as ShapeKey] = initial?.[key as ShapeKey] ?? RadiusTheme.defaultClasses[key as ShapeKey];
     });
   }
 

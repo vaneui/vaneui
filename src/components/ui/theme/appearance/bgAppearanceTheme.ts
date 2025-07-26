@@ -1,13 +1,10 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 import {
-  APPEARANCE_KEYS,
-  TRANSPARENT_KEYS,
-  LINK_KEYS,
+  ComponentKeys,
   AppearanceKey,
   TransparentKey,
   LinkKey,
-  MODE_KEYS,
   ModeKey,
 } from "../../props";
 import { layoutBackgroundAppearanceClasses } from "../../classes/appearanceClasses";
@@ -20,9 +17,9 @@ export class BgAppearanceTheme extends BaseTheme {
     super();
 
     // Set up appearance keys only
-    APPEARANCE_KEYS.forEach(key => {
+    (ComponentKeys.appearance as readonly AppearanceKey[]).forEach(key => {
       this[key] = {
-        base: layoutBackgroundAppearanceClasses[key] || '',
+        base: layoutBackgroundAppearanceClasses[key as keyof typeof layoutBackgroundAppearanceClasses] || '',
         hover: '',
         active: '',
       };
@@ -46,8 +43,8 @@ export class BgAppearanceTheme extends BaseTheme {
     const modesForAppearance = this[pickedAppearanceKey];
 
     if (!modesForAppearance) {
-      return MODE_KEYS.map(() => '');
+      return (ComponentKeys.mode as readonly ModeKey[]).map(() => '');
     }
-    return MODE_KEYS.map(mode => modesForAppearance[mode] || '');
+    return (ComponentKeys.mode as readonly ModeKey[]).map(mode => modesForAppearance[mode] || '');
   }
 }

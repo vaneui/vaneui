@@ -1,4 +1,4 @@
-import { FontFamilyKey, FONT_FAMILY_KEYS } from "../../props";
+import { FontFamilyKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -14,8 +14,8 @@ export class FontFamilyTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<FontFamilyKey, string>>) {
     super();
-    FONT_FAMILY_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? FontFamilyTheme.defaultClasses[key];
+    ComponentKeys.fontFamily.forEach((key) => {
+      this[key as FontFamilyKey] = initial?.[key as FontFamilyKey] ?? FontFamilyTheme.defaultClasses[key as FontFamilyKey];
     });
   }
 

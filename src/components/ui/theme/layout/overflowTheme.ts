@@ -1,4 +1,4 @@
-import { OverflowKey, OVERFLOW_KEYS } from "../../props";
+import { OverflowKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -26,8 +26,8 @@ export class OverflowTheme extends BaseTheme {
 
   constructor(initialConfig?: Partial<Record<OverflowKey, string>>) {
     super();
-    OVERFLOW_KEYS.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? OverflowTheme.defaultClasses[key];
+    ComponentKeys.overflow.forEach((key) => {
+      this[key as OverflowKey] = initialConfig?.[key as OverflowKey] ?? OverflowTheme.defaultClasses[key as OverflowKey];
     });
   }
 

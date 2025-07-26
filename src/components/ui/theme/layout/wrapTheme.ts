@@ -1,4 +1,4 @@
-import { WrapKey, WRAP_KEYS } from "../../props/keys";
+import { WrapKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -14,8 +14,8 @@ export class WrapTheme extends BaseTheme {
 
   constructor(initialConfig?: Partial<Record<WrapKey, string>>) {
     super();
-    WRAP_KEYS.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? WrapTheme.defaultClasses[key];
+    ComponentKeys.wrap.forEach((key) => {
+      this[key as WrapKey] = initialConfig?.[key as WrapKey] ?? WrapTheme.defaultClasses[key as WrapKey];
     });
   }
 

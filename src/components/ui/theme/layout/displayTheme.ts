@@ -1,4 +1,4 @@
-import { DisplayKey, DISPLAY_KEYS } from "../../props";
+import { DisplayKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -21,8 +21,8 @@ export class DisplayTheme extends BaseTheme {
 
   constructor(initialConfig?: Partial<Record<DisplayKey, string>>) {
     super();
-    DISPLAY_KEYS.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? DisplayTheme.defaultClasses[key];
+    ComponentKeys.display.forEach((key) => {
+      this[key as DisplayKey] = initialConfig?.[key as DisplayKey] ?? DisplayTheme.defaultClasses[key as DisplayKey];
     });
   }
 

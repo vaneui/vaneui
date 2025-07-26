@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
-import { VARIANT_KEYS, VariantKey, } from "../../props";
+import { ComponentKeys, VariantKey, } from "../../props";
 import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./textAppearanceTheme";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "../../classes/typographyClasses";
 import {
@@ -14,7 +14,7 @@ import {
   hoverBackgroundAppearanceClasses,
   ringAppearanceClasses
 } from "../../classes/appearanceClasses";
-import { APPEARANCE_KEYS, AppearanceKey } from "../../props";
+import { AppearanceKey } from "../../props";
 import { ShadowAppearanceTheme } from "./shadowAppearanceTheme";
 import { UIElementShadowAppearanceTheme } from "./uiElementShadowAppearanceTheme";
 
@@ -29,8 +29,8 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
   ) {
     super();
 
-    VARIANT_KEYS.forEach((variantKey: VariantKey) => {
-      this[variantKey] = variantInstances[variantKey];
+    ComponentKeys.variant.forEach((variantKey) => {
+      this[variantKey as VariantKey] = variantInstances[variantKey as VariantKey];
     });
   }
 
@@ -39,9 +39,9 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     classes: T
   ): Record<AppearanceKey, T[keyof T]> {
     const result = {} as Record<AppearanceKey, T[keyof T]>;
-    APPEARANCE_KEYS.forEach(key => {
+    ComponentKeys.appearance.forEach(key => {
       if (key in classes) {
-        result[key] = classes[key];
+        result[key as AppearanceKey] = classes[key];
       }
     });
     return result;

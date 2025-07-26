@@ -1,4 +1,4 @@
-import { ItemsKey, ITEMS_KEYS } from "../../props/keys";
+import { ItemsKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -15,8 +15,8 @@ export class ItemsTheme extends BaseTheme {
 
   constructor(initialConfig?: Partial<Record<ItemsKey, string>>) {
     super();
-    ITEMS_KEYS.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? ItemsTheme.defaultClasses[key];
+    ComponentKeys.items.forEach((key) => {
+      this[key as ItemsKey] = initialConfig?.[key as ItemsKey] ?? ItemsTheme.defaultClasses[key as ItemsKey];
     });
   }
 

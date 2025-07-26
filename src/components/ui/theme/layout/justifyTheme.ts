@@ -1,4 +1,4 @@
-import { JustifyKey, JUSTIFY_KEYS } from "../../props/keys";
+import { JustifyKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -18,8 +18,8 @@ export class JustifyTheme extends BaseTheme {
 
   constructor(initialConfig?: Partial<Record<JustifyKey, string>>) {
     super();
-    JUSTIFY_KEYS.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? JustifyTheme.defaultClasses[key];
+    ComponentKeys.justify.forEach((key) => {
+      this[key as JustifyKey] = initialConfig?.[key as JustifyKey] ?? JustifyTheme.defaultClasses[key as JustifyKey];
     });
   }
 

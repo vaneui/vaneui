@@ -1,4 +1,4 @@
-import { FontStyleKey, FONT_STYLE_KEYS } from "../../props/keys";
+import { FontStyleKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -13,8 +13,8 @@ export class FontStyleTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<FontStyleKey, string>>) {
     super();
-    FONT_STYLE_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? FontStyleTheme.defaultClasses[key];
+    ComponentKeys.fontStyle.forEach((key) => {
+      this[key as FontStyleKey] = initial?.[key as FontStyleKey] ?? FontStyleTheme.defaultClasses[key as FontStyleKey];
     });
   }
 

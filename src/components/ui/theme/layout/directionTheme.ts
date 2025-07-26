@@ -1,7 +1,6 @@
 import {
   FlexDirectionKey,
-  FLEX_DIRECTION_KEYS,
-  DIRECTION_REVERSE_KEYS,
+  ComponentKeys,
 } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
@@ -19,8 +18,8 @@ export class DirectionTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<FlexDirectionKey, string>>) {
     super();
-    FLEX_DIRECTION_KEYS.forEach((key: FlexDirectionKey) => {
-      this[key] = initial?.[key] || DirectionTheme.defaultClasses[key];
+    ComponentKeys.flexDirection.forEach((key) => {
+      this[key as FlexDirectionKey] = initial?.[key as FlexDirectionKey] || DirectionTheme.defaultClasses[key as FlexDirectionKey];
     });
   }
 

@@ -1,4 +1,4 @@
-import { SizeKey, SIZE_KEYS, PADDING_KEYS, PaddingKey } from "../../props";
+import { SizeKey, PaddingKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -19,8 +19,8 @@ export class PaddingTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<PaddingKey, string | Record<SizeKey, string>>>) {
     super();
-    PADDING_KEYS.forEach((key) => {
-      this[key] = initial?.[key] ?? this.defaultClasses[key];
+    ComponentKeys.padding.forEach((key) => {
+      this[key as PaddingKey] = initial?.[key as PaddingKey] ?? this.defaultClasses[key as PaddingKey];
     });
   }
 

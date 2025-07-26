@@ -1,4 +1,4 @@
-import { HideKey, HIDE_KEYS } from "../../props/keys";
+import { HideKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -16,8 +16,8 @@ export class HideTheme extends BaseTheme {
 
   constructor(initialConfig?: Partial<Record<HideKey, string>>) {
     super();
-    HIDE_KEYS.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? HideTheme.defaultClasses[key];
+    ComponentKeys.hide.forEach((key) => {
+      this[key as HideKey] = initialConfig?.[key as HideKey] ?? HideTheme.defaultClasses[key as HideKey];
     });
   }
 

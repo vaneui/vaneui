@@ -1,4 +1,4 @@
-import { PositionKey, POSITION_KEYS } from "../../props/keys";
+import { PositionKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
 
@@ -16,8 +16,8 @@ export class PositionTheme extends BaseTheme {
 
   constructor(initialConfig?: Partial<Record<PositionKey, string>>) {
     super();
-    POSITION_KEYS.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? PositionTheme.defaultClasses[key];
+    ComponentKeys.position.forEach((key) => {
+      this[key as PositionKey] = initialConfig?.[key as PositionKey] ?? PositionTheme.defaultClasses[key as PositionKey];
     });
   }
 

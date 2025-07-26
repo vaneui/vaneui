@@ -1,11 +1,8 @@
 import {
   SizeKey,
-  SIZE_KEYS,
-  SHADOW_KEYS,
   ModeKey,
-  MODE_KEYS,
-  APPEARANCE_KEYS,
-  AppearanceKey
+  AppearanceKey,
+  ComponentKeys
 } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { BasePropsStructure } from "../../props/keys/";
@@ -25,9 +22,9 @@ export class ShadowAppearanceTheme extends BaseTheme {
 
   constructor(initial?: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>>) {
     super();
-    APPEARANCE_KEYS.forEach((key) => {
-      const initialAppearance = initial?.[key];
-      this[key] = initialAppearance === undefined ? ShadowAppearanceTheme.defaultShadow : null;
+    ComponentKeys.appearance.forEach((key) => {
+      const initialAppearance = initial?.[key as AppearanceKey];
+      this[key as AppearanceKey] = initialAppearance === undefined ? ShadowAppearanceTheme.defaultShadow : null;
     })
   }
 
@@ -40,7 +37,7 @@ export class ShadowAppearanceTheme extends BaseTheme {
       return [];
     }
 
-    return MODE_KEYS.map(mode => this[appearance]?.[size]?.[mode] ?? "");
+    return ComponentKeys.mode.map(mode => this[appearance]?.[size]?.[mode as ModeKey] ?? "");
   }
 
   static createTheme(
