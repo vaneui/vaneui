@@ -6,6 +6,7 @@ import { GapTheme } from "./size/gapTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
+import { extractStackKeys } from "../../utils/componentUtils";
 
 export interface StackTheme extends BaseComponentTheme {
   size: {
@@ -64,5 +65,6 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
     flexWrap: true,
     gap: true,
     padding: true,
-  }
+  },
+  extractStackKeys
 );

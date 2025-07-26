@@ -8,7 +8,11 @@
       "Bash(npm test:*)",
       "Bash(npm run type-check:*)",
       "Bash(mv:*)",
-      "Bash(rmdir:*)"
+      "Bash(rmdir:*)",
+      "Bash(node:*)",
+      "Bash(mkdir:*)",
+      "Bash(npx tsc:*)",
+      "Bash(sed:*)"
     ],
     "deny": []
   }

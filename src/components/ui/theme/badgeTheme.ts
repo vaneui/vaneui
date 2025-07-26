@@ -15,6 +15,7 @@ import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./appearance/
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { UIElementShadowAppearanceTheme } from "./appearance/uiElementShadowAppearanceTheme";
+import { extractBadgeKeys } from "../../utils/componentUtils";
 
 export interface BadgeTheme extends BaseTypographyComponentTheme {
   size: {
@@ -114,5 +115,6 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
     padding: true,
     gap: true,
     ring: true,
-  }
+  },
+  extractBadgeKeys
 );

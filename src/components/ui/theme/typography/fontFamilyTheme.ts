@@ -1,6 +1,6 @@
 import { FontFamilyKey, FONT_FAMILY_KEYS } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface FontFamilyTheme extends Record<FontFamilyKey, string> {
 }
@@ -19,8 +19,8 @@ export class FontFamilyTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, FONT_FAMILY_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.fontFamily as FontFamilyKey;
     if (key === undefined)
       return [];
 

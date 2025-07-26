@@ -1,6 +1,6 @@
 import { JustifyKey, JUSTIFY_KEYS } from "../../props/keys";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface JustifyTheme extends Record<JustifyKey, string> {}
 
@@ -23,8 +23,8 @@ export class JustifyTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, JUSTIFY_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.justify as JustifyKey;
     return [key ? this[key] : ''];
   }
 }

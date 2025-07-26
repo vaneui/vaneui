@@ -5,6 +5,7 @@ import { RowProps } from "../props/props";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
 import { DirectionTheme } from "./layout/directionTheme";
+import { extractRowKeys } from "../../utils/componentUtils";
 
 export interface RowTheme extends BaseComponentTheme {
   size: {
@@ -44,5 +45,6 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
     transparent: true,
     itemsCenter: true,
     gap: true,
-  }
+  },
+  extractRowKeys
 );

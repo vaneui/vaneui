@@ -64,6 +64,7 @@ export type SizeKey = typeof SIZE_KEYS[number];
 export type RingKey = typeof RING_KEYS[number];
 export type ShapeKey = typeof SHAPE_KEYS[number];
 export type BorderKey = typeof BORDER_KEYS[number];
+export type ShadowKey = typeof SHADOW_KEYS[number];
 export type PaddingKey = typeof PADDING_KEYS[number];
 export type GapKey = typeof GAP_KEYS[number];
 export type VariantKey = typeof VARIANT_KEYS[number];
@@ -84,6 +85,7 @@ export type JustifyKey = typeof JUSTIFY_KEYS[number];
 export type WrapKey = typeof WRAP_KEYS[number];
 export type DisplayKey = typeof DISPLAY_KEYS[number];
 export type OverflowKey = typeof OVERFLOW_KEYS[number];
+export type DirectionReverseKey = typeof DIRECTION_REVERSE_KEYS[number];
 
 // Base component keys
 export const BASE_COMPONENT_KEYS = [

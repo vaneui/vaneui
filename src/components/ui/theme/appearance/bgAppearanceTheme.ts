@@ -1,11 +1,11 @@
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 import {
   APPEARANCE_KEYS,
   AppearanceKey,
   MODE_KEYS,
   ModeKey,
 } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { layoutBackgroundAppearanceClasses } from "../../classes/appearanceClasses";
 
 export interface BgAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
@@ -24,8 +24,8 @@ export class BgAppearanceTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const pickedAppearanceKey = pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS) || 'default';
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const pickedAppearanceKey = (extractedKeys?.appearance as AppearanceKey) ?? 'default';
     const modesForAppearance = this[pickedAppearanceKey];
 
     if (!modesForAppearance) {

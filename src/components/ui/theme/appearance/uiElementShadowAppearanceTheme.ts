@@ -7,8 +7,8 @@ import {
   UI_ELEMENT_APPEARANCE_KEYS,
   UIElementAppearanceKey
 } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface UIElementShadowAppearanceTheme extends Record<UIElementAppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
 }
@@ -30,12 +30,12 @@ export class UIElementShadowAppearanceTheme extends BaseTheme {
     })
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const appearance = pickFirstTruthyKey(props, defaults, UI_ELEMENT_APPEARANCE_KEYS) || 'default';
-    const size = pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md';
-    const key = pickFirstTruthyKey(props, defaults, SHADOW_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const appearance = (extractedKeys?.appearance as UIElementAppearanceKey) ?? 'default';
+    const size = (extractedKeys?.size as SizeKey) ?? 'md';
+    const shadow = extractedKeys?.shadow;
 
-    if (key === undefined || key === 'noShadow') {
+    if (shadow === undefined || shadow === 'noShadow') {
       return [];
     }
 

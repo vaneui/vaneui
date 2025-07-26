@@ -1,6 +1,6 @@
 import { PositionKey, POSITION_KEYS } from "../../props/keys";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface PositionTheme extends Record<PositionKey, string> {
 }
@@ -21,8 +21,8 @@ export class PositionTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, POSITION_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.position as PositionKey;
     return [key ? this[key] : ''];
   }
 }

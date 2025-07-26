@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 import { MODE_KEYS, ModeKey, APPEARANCE_KEYS, AppearanceKey, UI_ELEMENT_APPEARANCE_KEYS, UIElementAppearanceKey } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 
 export interface TextAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
 }
@@ -14,8 +14,8 @@ export class TextAppearanceTheme extends BaseTheme {
     Object.assign(this, config);
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const appearance = pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const appearance = extractedKeys?.appearance as AppearanceKey;
     if (!appearance) {
       return [];
     }
@@ -51,8 +51,8 @@ export class UIElementTextAppearanceTheme extends BaseTheme {
     Object.assign(this, config);
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const appearance = pickFirstTruthyKey(props, defaults, UI_ELEMENT_APPEARANCE_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const appearance = extractedKeys?.appearance as UIElementAppearanceKey;
     if (!appearance) {
       return [];
     }

@@ -1,6 +1,6 @@
 import { FontStyleKey, FONT_STYLE_KEYS } from "../../props/keys";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface FontStyleTheme extends Record<FontStyleKey, string> {
 }
@@ -18,8 +18,8 @@ export class FontStyleTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, FONT_STYLE_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.fontStyle as FontStyleKey;
     return [key ? this[key] : '']; // No default for font style
   }
 }

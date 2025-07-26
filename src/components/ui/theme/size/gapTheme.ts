@@ -1,6 +1,6 @@
 import { SizeKey, SIZE_KEYS, GAP_KEYS, GapKey } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface GapTheme extends Record<GapKey, string | Record<SizeKey, string>> {
 }
@@ -24,9 +24,9 @@ export class GapTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const size = pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md';
-    const key = pickFirstTruthyKey(props, defaults, GAP_KEYS) || 'noGap';
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const size = (extractedKeys?.size as SizeKey) ?? 'md';
+    const key = (extractedKeys?.gap as GapKey) ?? 'noGap';
 
     return [typeof this[key] === 'string' ? this[key] : (this[key] as Record<SizeKey, string>)[size]];
   }

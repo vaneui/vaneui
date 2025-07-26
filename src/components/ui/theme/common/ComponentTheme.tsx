@@ -1,5 +1,6 @@
 import React from "react";
 import { BaseTheme } from "./baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 import { HideTheme } from "../layout/hideTheme";
 import { ItemsTheme } from "../layout/itemsTheme";
 import { JustifyTheme } from "../layout/justifyTheme";
@@ -71,16 +72,19 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly base: string;
   readonly themes: TTheme;
   defaults: Partial<P>;
+  private readonly extractKeys?: (props: Record<string, boolean>, defaults: Record<string, boolean>) => BasePropsStructure;
 
   constructor(
     tag: React.ElementType,
     base: string,
     subThemes: DeepPartial<TTheme>,
-    defaults: Partial<P> = {}
+    defaults: Partial<P> = {},
+    extractKeys?: (props: Record<string, boolean>, defaults: Record<string, boolean>) => BasePropsStructure
   ) {
     this.tag = tag;
     this.base = base;
     this.defaults = defaults;
+    this.extractKeys = extractKeys;
     // Type assertion: we trust that all default themes provide complete objects
     this.themes = subThemes as TTheme;
   }
@@ -94,12 +98,17 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       classes.push(...this.base.split(/\s+/));
     }
 
+    // Extract keys once if extractor is provided
+    const extractedKeys = this.extractKeys ? this.extractKeys(user, defs) : undefined;
+
     const walk = (map: object) => {
       for (const key of Object.keys(map)) {
         const node = (map as ThemeMap<P>)[key];
 
         if (node instanceof BaseTheme) {
-          classes.push(...node.getClasses(user, defs));
+          // If extractedKeys is not available, create a minimal one for backward compatibility
+          const keys = extractedKeys || {};
+          classes.push(...node.getClasses(keys));
         } else if (node && typeof node === "object" && !Array.isArray(node)) {
           walk(node);
         }

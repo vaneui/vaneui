@@ -15,6 +15,7 @@ import {
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { RadiusTheme } from "./layout/radiusTheme";
+import { extractContainerKeys } from "../../utils/componentUtils";
 
 export interface ContainerTheme extends BaseComponentTheme {
   size: {
@@ -89,5 +90,6 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
     itemsCenter: true,
     gap: true,
     sharp: true,
-  }
+  },
+  extractContainerKeys
 );

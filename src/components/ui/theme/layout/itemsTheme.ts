@@ -1,6 +1,6 @@
 import { ItemsKey, ITEMS_KEYS } from "../../props/keys";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface ItemsTheme extends Record<ItemsKey, string> {}
 
@@ -20,8 +20,8 @@ export class ItemsTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const pickedKey = pickFirstTruthyKey(props, defaults, ITEMS_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const pickedKey = extractedKeys?.items as ItemsKey;
     return [pickedKey && this[pickedKey] ? this[pickedKey] : ''];
   }
 }

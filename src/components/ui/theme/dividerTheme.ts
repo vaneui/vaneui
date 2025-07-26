@@ -3,6 +3,7 @@ import { DividerProps } from "../props/props";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { bgBorderAppearanceClasses } from "../classes/appearanceClasses";
 import { PyTheme } from "./size/pyTheme";
+import { extractDividerKeys } from "../../utils/componentUtils";
 
 export interface DividerTheme extends BaseComponentTheme {
   size: {
@@ -30,5 +31,6 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
     md: true,
     default: true,
     noPadding: true,
-  }
+  },
+  extractDividerKeys
 );

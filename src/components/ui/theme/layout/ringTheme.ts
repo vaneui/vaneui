@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 import { MODE_KEYS, ModeKey, RING_KEYS, RingKey } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 
 export interface RingTheme extends Record<RingKey, Record<ModeKey, string>> {
 }
@@ -34,8 +34,8 @@ export class RingTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, RING_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.ring as RingKey;
     if (!key || !this[key]) {
       return MODE_KEYS.map(() => '');
     }

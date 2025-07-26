@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 import { BREAKPOINT_KEYS, BreakpointKey, SIZE_KEYS, SizeKey } from "../../props/keys";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 
 export interface BreakpointTheme extends Record<BreakpointKey, string> {
 }
@@ -22,8 +22,8 @@ export class BreakpointTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, BREAKPOINT_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.breakpoint as BreakpointKey;
     if (!key)
       return [];
 

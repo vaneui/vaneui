@@ -1,6 +1,6 @@
 import { FontWeightKey, FONT_WEIGHT_KEYS } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface FontWeightTheme extends Record<FontWeightKey, string> {
 }
@@ -25,8 +25,8 @@ export class FontWeightTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, FONT_WEIGHT_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.fontWeight as FontWeightKey;
     if (key === undefined)
       return [];
 

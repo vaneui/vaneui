@@ -1,6 +1,6 @@
 import { SizeKey, SIZE_KEYS, PADDING_KEYS, PaddingKey } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface PaddingTheme extends Record<PaddingKey, string | Record<SizeKey, string>> {
 }
@@ -24,9 +24,9 @@ export class PaddingTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const size = pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md';
-    const key = pickFirstTruthyKey(props, defaults, PADDING_KEYS) || 'padding';
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const size = (extractedKeys?.size as SizeKey) ?? 'md';
+    const key = (extractedKeys?.padding as PaddingKey) ?? 'padding';
 
     return [typeof this[key] === 'string' ? this[key] : (this[key] as Record<SizeKey, string>)[size]];
   }

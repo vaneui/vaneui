@@ -1,6 +1,6 @@
 import { HideKey, HIDE_KEYS } from "../../props/keys";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface HideTheme extends Record<HideKey, string> {
 }
@@ -21,8 +21,8 @@ export class HideTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, HIDE_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.hide as HideKey;
     return [key ? this[key] : ''];
   }
 }

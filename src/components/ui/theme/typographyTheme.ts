@@ -12,6 +12,7 @@ import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
 import { SizeKey } from "../props";
 import { PlTheme } from "./size/plTheme";
+import { extractTypographyKeys, extractListKeys } from "../../utils/componentUtils";
 
 export interface TypographyTheme extends BaseTypographyComponentTheme {
   size: {
@@ -49,7 +50,8 @@ export const createTypographyComponentTheme = (
       typography: defaultTypographyTheme,
       layout: defaultLayoutTheme,
     },
-    defaults);
+    defaults,
+    extractTypographyKeys);
 };
 
 // Page title specific theme
@@ -122,7 +124,8 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
     },
     typography: defaultTypographyTheme,
   },
-  {}//keep empty to apply parent style
+  {},//keep empty to apply parent style
+  extractTypographyKeys
 );
 
 export interface ListTheme extends BaseTypographyComponentTheme {
@@ -157,5 +160,6 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
     sans: true,
     normal: true,
     padding: true,
-  }
+  },
+  extractListKeys
 );

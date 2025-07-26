@@ -1,6 +1,6 @@
 import { TextDecorationKey, TEXT_DECORATION_KEYS } from "../../props/keys";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface TextDecorationTheme extends Record<TextDecorationKey, string> {
 }
@@ -20,8 +20,8 @@ export class TextDecorationTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, TEXT_DECORATION_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.textDecoration as TextDecorationKey;
     return [key ? this[key] : '']; // No default for text decoration
   }
 }

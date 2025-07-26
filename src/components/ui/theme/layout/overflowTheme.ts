@@ -1,6 +1,6 @@
 import { OverflowKey, OVERFLOW_KEYS } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface OverflowTheme extends Record<OverflowKey, string> {
 }
@@ -31,8 +31,8 @@ export class OverflowTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, OVERFLOW_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.overflow as OverflowKey;
     return [key && this[key] ? this[key] : ''];
   }
 }

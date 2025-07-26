@@ -15,6 +15,7 @@ import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { UIElementShadowAppearanceTheme } from "./appearance/uiElementShadowAppearanceTheme";
+import { extractButtonKeys } from "../../utils/componentUtils";
 
 export interface ButtonTheme extends BaseTypographyComponentTheme {
   size: {
@@ -116,5 +117,6 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
     padding: true,
     ring: true,
     shadow: true,
-  }
+  },
+  extractButtonKeys
 );

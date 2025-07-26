@@ -7,8 +7,8 @@ import {
   APPEARANCE_KEYS,
   AppearanceKey
 } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface ShadowAppearanceTheme extends Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
 }
@@ -31,10 +31,10 @@ export class ShadowAppearanceTheme extends BaseTheme {
     })
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const appearance = pickFirstTruthyKey(props, defaults, APPEARANCE_KEYS) || 'default';
-    const size = pickFirstTruthyKey(props, defaults, SIZE_KEYS) || 'md';
-    const key = pickFirstTruthyKey(props, defaults, SHADOW_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const appearance = (extractedKeys?.appearance as AppearanceKey) ?? 'default';
+    const size = (extractedKeys?.size as SizeKey) ?? 'md';
+    const key = extractedKeys?.shadow;
 
     if (key === undefined || key === 'noShadow') {
       return [];

@@ -4,6 +4,7 @@ import { ColProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
+import { extractColKeys } from "../../utils/componentUtils";
 
 export interface ColTheme extends BaseComponentTheme {
   size: {
@@ -40,5 +41,6 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
     flex: true,
     transparent: true,
     gap: true,
-  }
+  },
+  extractColKeys
 );

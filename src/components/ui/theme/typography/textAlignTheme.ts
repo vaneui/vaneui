@@ -1,6 +1,6 @@
 import { TextAlignKey, TEXT_ALIGN_KEYS } from "../../props/keys";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 
 export interface TextAlignTheme extends Record<TextAlignKey, string> {
 }
@@ -20,8 +20,8 @@ export class TextAlignTheme extends BaseTheme {
     });
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const key = pickFirstTruthyKey(props, defaults, TEXT_ALIGN_KEYS);
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const key = extractedKeys?.textAlign as TextAlignKey;
     return [key ? this[key] : '']; // No default for text align
   }
 }

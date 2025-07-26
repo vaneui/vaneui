@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
+import type { BasePropsStructure } from "../../props/keys/";
 import { VARIANT_KEYS, VariantKey, } from "../../props";
-import { pickFirstTruthyKey } from "../../../utils/componentUtils";
 import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./textAppearanceTheme";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "../../classes/typographyClasses";
 import {
@@ -47,14 +47,14 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     return result;
   }
 
-  getClasses(props: Record<string, boolean>, defaults: Record<string, boolean>): string[] {
-    const variantKey = pickFirstTruthyKey(props, defaults, VARIANT_KEYS) || 'outline';
+  getClasses(extractedKeys: BasePropsStructure): string[] {
+    const variantKey = (extractedKeys?.variant as VariantKey) ?? 'outline';
     const activeTextAppearanceTheme = this[variantKey];
 
     if (!activeTextAppearanceTheme) {
       return [];
     }
-    return activeTextAppearanceTheme.getClasses(props, defaults);
+    return activeTextAppearanceTheme.getClasses(extractedKeys);
   }
 
   // used for button, bages, chips, etc
