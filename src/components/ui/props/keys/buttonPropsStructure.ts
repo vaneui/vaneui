@@ -1,8 +1,23 @@
-import { UIComponentPropsStructure } from './uiComponentPropsStructure';
+import type {
+  ShapeKey,
+  BorderKey,
+  ShadowKey,
+  RingKey,
+  GapKey,
+  PaddingKey,
+  VariantKey
+} from '../keys';
+import { UIElementPropsStructure } from './uiElementPropsStructure';
 
 /**
- * Props structure for Button components
+ * Button props structure - matches BUTTON_KEYS
  */
-export interface ButtonPropsStructure extends UIComponentPropsStructure {
-  // Button uses all common UI component props
+export interface ButtonPropsStructure extends UIElementPropsStructure {
+  shape?: ShapeKey;
+  border?: BorderKey;
+  shadow?: ShadowKey;
+  ring?: RingKey;
+  gap?: GapKey;
+  padding?: PaddingKey;
+  variant?: VariantKey;
 }

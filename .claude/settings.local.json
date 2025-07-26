@@ -12,7 +12,8 @@
       "Bash(node:*)",
       "Bash(mkdir:*)",
       "Bash(npx tsc:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(rm:*)"
     ],
     "deny": []
   }

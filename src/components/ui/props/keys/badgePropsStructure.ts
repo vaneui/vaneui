@@ -1,8 +1,23 @@
-import { UIComponentPropsStructure } from './uiComponentPropsStructure';
+import type {
+  ShapeKey,
+  VariantKey,
+  ShadowKey,
+  BorderKey,
+  RingKey,
+  GapKey,
+  PaddingKey
+} from '../keys';
+import { UIElementPropsStructure } from './uiElementPropsStructure';
 
 /**
- * Props structure for Badge components  
+ * Badge props structure - matches BADGE_KEYS
  */
-export interface BadgePropsStructure extends UIComponentPropsStructure {
-  // Badge uses all common UI component props
+export interface BadgePropsStructure extends UIElementPropsStructure {
+  shape?: ShapeKey;
+  variant?: VariantKey;
+  shadow?: ShadowKey;
+  border?: BorderKey;
+  ring?: RingKey;
+  gap?: GapKey;
+  padding?: PaddingKey;
 }

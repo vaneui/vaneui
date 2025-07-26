@@ -1,8 +1,7 @@
 export { BasePropsStructure } from './basePropsStructure';
-export { CommonLayoutPropsStructure, CommonTypographyPropsStructure } from './commonPropsStructure';
+export { BaseLayoutPropsStructure, TypographyPropsStructure } from './typographyPropsStructure';
 export { LayoutPropsStructure } from './layoutPropsStructure';
-export { TypographyPropsStructure } from './typographyPropsStructure';
-export { UIComponentPropsStructure } from './uiComponentPropsStructure';
+export { UIElementPropsStructure } from './uiElementPropsStructure';
 export { ButtonPropsStructure } from './buttonPropsStructure';
 export { BadgePropsStructure } from './badgePropsStructure';
 export { ChipPropsStructure } from './chipPropsStructure';

@@ -6,12 +6,13 @@ import type {
   WrapKey,
   BreakpointKey
 } from '../keys';
-import { CommonLayoutPropsStructure } from './commonPropsStructure';
+import { BaseLayoutPropsStructure } from './typographyPropsStructure';
 
 /**
- * Props structure for Layout components
+ * Layout component props structure
+ * Used by layout components like Container, Row, Col, Grid
  */
-export interface LayoutPropsStructure extends CommonLayoutPropsStructure {
+export interface LayoutPropsStructure extends BaseLayoutPropsStructure {
   appearance?: AppearanceKey;
   gap?: GapKey;
   padding?: PaddingKey;

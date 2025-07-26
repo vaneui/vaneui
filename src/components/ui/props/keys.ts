@@ -29,6 +29,75 @@ export const WRAP_KEYS = ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const;
 export const DISPLAY_KEYS = ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const;
 export const OVERFLOW_KEYS = ['overflowAuto', 'overflowHidden', 'overflowClip', 'overflowVisible', 'overflowScroll', 'overflowXAuto', 'overflowYAuto', 'overflowXHidden', 'overflowYHidden', 'overflowXClip', 'overflowYClip', 'overflowXVisible', 'overflowYVisible', 'overflowXScroll', 'overflowYScroll'] as const;
 
+export const COMPONENT_PROPS_CATEGORY = [
+  'mode',
+  'size',
+  'variant',
+  'uiElementAppearance',
+  'appearance',
+  'fontFamily',
+  'fontWeight',
+  'fontStyle',
+  'textDecoration',
+  'textTransform',
+  'textAlign',
+  'border',
+  'shadow',
+  'ring',
+  'padding',
+  'breakpoint',
+  'hide',
+  'position',
+  'flexDirection',
+  'directionReverse',
+  'gap',
+  'pill',
+  'sharp',
+  'rounded',
+  'shape',
+  'items',
+  'justify',
+  'wrap',
+  'display',
+  'overflow'
+] as const;
+export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
+export type ComponentKeysMap = {
+  [key in ComponentCategoryKey]: readonly string[];
+};
+export const ComponentKeys: ComponentKeysMap = {
+  mode: MODE_KEYS,
+  size: SIZE_KEYS,
+  variant: VARIANT_KEYS,
+  uiElementAppearance: UI_ELEMENT_APPEARANCE_KEYS,
+  appearance: APPEARANCE_KEYS,
+  fontFamily: FONT_FAMILY_KEYS,
+  fontWeight: FONT_WEIGHT_KEYS,
+  fontStyle: FONT_STYLE_KEYS,
+  textDecoration: TEXT_DECORATION_KEYS,
+  textTransform: TEXT_TRANSFORM_KEYS,
+  textAlign: TEXT_ALIGN_KEYS,
+  border: BORDER_KEYS,
+  shadow: SHADOW_KEYS,
+  ring: RING_KEYS,
+  padding: PADDING_KEYS,
+  breakpoint: BREAKPOINT_KEYS,
+  hide: HIDE_KEYS,
+  position: POSITION_KEYS,
+  flexDirection: FLEX_DIRECTION_KEYS,
+  directionReverse: DIRECTION_REVERSE_KEYS,
+  gap: GAP_KEYS,
+  pill: PILL_KEYS,
+  sharp: SHARP_KEYS,
+  rounded: ROUNDED_KEYS,
+  shape: SHAPE_KEYS,
+  items: ITEMS_KEYS,
+  justify: JUSTIFY_KEYS,
+  wrap: WRAP_KEYS,
+  display: DISPLAY_KEYS,
+  overflow: OVERFLOW_KEYS,
+}
+
 // A master list of all groups where only one key can be 'true' at a time.
 export const EXCLUSIVE_KEY_GROUPS = [
   MODE_KEYS,
