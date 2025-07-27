@@ -1,10 +1,9 @@
 import { JSX } from 'react';
-import { ChipProps } from './props/props';
+import { ChipProps, CHIP_PROPS_TO_OMIT } from './props/props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
-import { CHIP_KEYS } from './props/keys';
 
 export const Chip = (props: ChipProps): JSX.Element => {
   const theme = useTheme();
-  return <ThemedComponent theme={theme.chip} propsToOmit={CHIP_KEYS} {...props} />
+  return <ThemedComponent theme={theme.chip} propsToOmit={CHIP_PROPS_TO_OMIT} {...props} />
 };

@@ -1,11 +1,10 @@
 import { JSX } from 'react';
-import { StackProps } from './props/props';
+import { StackProps, STACK_PROPS_TO_OMIT } from './props/props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
-import { STACK_KEYS } from './props/keys';
 
 export const Stack = (props: StackProps): JSX.Element => {
   const theme = useTheme();
   const stackTheme = theme.stack;
-  return <ThemedComponent theme={stackTheme} propsToOmit={STACK_KEYS} {...props} />
+  return <ThemedComponent theme={stackTheme} propsToOmit={STACK_PROPS_TO_OMIT} {...props} />
 };

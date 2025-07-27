@@ -46,39 +46,52 @@ export type ComponentProps = {
 // Component-specific prop interfaces generated from ComponentKeys
 type ButtonKey = FlattenKeysFromCategories<typeof BUTTON_CATEGORIES>;
 export interface ButtonProps extends ComponentProps, CreateBooleanProps<ButtonKey> {}
+export const BUTTON_PROPS_TO_OMIT: readonly ButtonKey[] = BUTTON_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly ButtonKey[];
 
 type BadgeKey = FlattenKeysFromCategories<typeof BADGE_CATEGORIES>;
 export interface BadgeProps extends ComponentProps, CreateBooleanProps<BadgeKey> {}
+export const BADGE_PROPS_TO_OMIT: readonly BadgeKey[] = BADGE_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly BadgeKey[];
 
 type ChipKey = FlattenKeysFromCategories<typeof CHIP_CATEGORIES>;
 export interface ChipProps extends ComponentProps, CreateBooleanProps<ChipKey> {}
+export const CHIP_PROPS_TO_OMIT: readonly ChipKey[] = CHIP_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly ChipKey[];
 
 type GridKey = FlattenKeysFromCategories<typeof GRID_CATEGORIES>;
 export interface GridProps extends ComponentProps, CreateBooleanProps<GridKey> {}
+export const GRID_PROPS_TO_OMIT: readonly GridKey[] = GRID_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly GridKey[];
 
 type RowKey = FlattenKeysFromCategories<typeof ROW_CATEGORIES>;
 export interface RowProps extends ComponentProps, CreateBooleanProps<RowKey> {}
+export const ROW_PROPS_TO_OMIT: readonly RowKey[] = ROW_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly RowKey[];
 
 type ColKey = FlattenKeysFromCategories<typeof COL_CATEGORIES>;
 export interface ColProps extends ComponentProps, CreateBooleanProps<ColKey> {}
+export const COL_PROPS_TO_OMIT: readonly ColKey[] = COL_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly ColKey[];
 
 type CardKey = FlattenKeysFromCategories<typeof CARD_CATEGORIES>;
 export interface CardProps extends ComponentProps, CreateBooleanProps<CardKey> {}
+export const CARD_PROPS_TO_OMIT: readonly CardKey[] = CARD_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly CardKey[];
 
 type StackKey = FlattenKeysFromCategories<typeof STACK_CATEGORIES>;
 export interface StackProps extends ComponentProps, CreateBooleanProps<StackKey> {}
+export const STACK_PROPS_TO_OMIT: readonly StackKey[] = STACK_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly StackKey[];
 
 type SectionKey = FlattenKeysFromCategories<typeof SECTION_CATEGORIES>;
 export interface SectionProps extends ComponentProps, CreateBooleanProps<SectionKey> {}
+export const SECTION_PROPS_TO_OMIT: readonly SectionKey[] = SECTION_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly SectionKey[];
 
 type DividerKey = FlattenKeysFromCategories<typeof DIVIDER_CATEGORIES>;
 export interface DividerProps extends ComponentProps, CreateBooleanProps<DividerKey> {}
+export const DIVIDER_PROPS_TO_OMIT: readonly DividerKey[] = DIVIDER_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly DividerKey[];
 
 type ContainerKey = FlattenKeysFromCategories<typeof CONTAINER_CATEGORIES>;
 export interface ContainerProps extends ComponentProps, CreateBooleanProps<ContainerKey> {}
+export const CONTAINER_PROPS_TO_OMIT: readonly ContainerKey[] = CONTAINER_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly ContainerKey[];
 
 type TypographyKey = FlattenKeysFromCategories<typeof TYPOGRAPHY_CATEGORIES>;
 export interface TypographyProps extends ComponentProps, CreateBooleanProps<TypographyKey> {}
+export const TYPOGRAPHY_PROPS_TO_OMIT: readonly TypographyKey[] = TYPOGRAPHY_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly TypographyKey[];
 
 type ListKey = FlattenKeysFromCategories<typeof LIST_CATEGORIES>;
 export interface ListProps extends ComponentProps, CreateBooleanProps<ListKey> {}
+export const LIST_PROPS_TO_OMIT: readonly ListKey[] = LIST_CATEGORIES.flatMap(category => ComponentKeys[category]) as readonly ListKey[];

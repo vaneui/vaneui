@@ -128,10 +128,6 @@ export type DisplayKey = typeof ComponentKeys.display[number];
 export type OverflowKey = typeof ComponentKeys.overflow[number];
 export type DirectionReverseKey = typeof ComponentKeys.directionReverse[number];
 
-export const getKeysFromCategories = <T extends readonly ComponentCategoryKey[]>(categories: T): readonly string[] => {
-  return categories.flatMap(category => ComponentKeys[category]);
-};
-
 const LAYOUT_CORE = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
 const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'directionReverse'] as const;
 const VISUAL_CORE = ['appearance', 'transparent'] as const;
@@ -141,63 +137,20 @@ const TYPOGRAPHY_SEMANTIC = ['link'] as const;
 const FORM_STYLING = ['variant'] as const;
 
 export const BASE_COMPONENT_CATEGORIES = LAYOUT_CORE;
-
 export const FONT_CATEGORIES: ComponentCategoryKey[] = [...TYPOGRAPHY_STYLE, ...VISUAL_CORE, ...TYPOGRAPHY_SEMANTIC] as const;
-
 export const TYPOGRAPHY_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...FONT_CATEGORIES] as const;
-export const TYPOGRAPHY_KEYS = getKeysFromCategories(TYPOGRAPHY_CATEGORIES);
-export type TypographyKey = typeof TYPOGRAPHY_KEYS[number];
-
 export const LIST_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, 'padding'] as const;
-export const LIST_KEYS = getKeysFromCategories(LIST_CATEGORIES);
-export type ListKey = typeof LIST_KEYS[number];
-
 export const UI_ELEMENT_CATEGORIES = [...LAYOUT_CORE, ...TYPOGRAPHY_STYLE, 'appearance'] as const;
-
 export const INTERACTIVE_CATEGORIES = [...UI_ELEMENT_CATEGORIES, 'shape', ...VISUAL_DECORATION, 'gap', 'padding', ...FORM_STYLING] as const;
-
 export const BUTTON_CATEGORIES = INTERACTIVE_CATEGORIES;
-export const BUTTON_KEYS = getKeysFromCategories(BUTTON_CATEGORIES);
-export type ButtonKey = typeof BUTTON_KEYS[number];
-
 export const BADGE_CATEGORIES = INTERACTIVE_CATEGORIES;
-export const BADGE_KEYS = getKeysFromCategories(BADGE_CATEGORIES);
-export type BadgeKey = typeof BADGE_KEYS[number];
-
 export const CHIP_CATEGORIES = INTERACTIVE_CATEGORIES;
-export const CHIP_KEYS = getKeysFromCategories(CHIP_CATEGORIES);
-export type ChipKey = typeof CHIP_KEYS[number];
-
 export const GRID_CATEGORIES = [...LAYOUT_CORE, 'gap', ...VISUAL_CORE] as const;
-export const GRID_KEYS = getKeysFromCategories(GRID_CATEGORIES);
-export type GridKey = typeof GRID_KEYS[number];
-
 export const FLEX_CONTAINER_CATEGORIES = [...LAYOUT_CORE, ...LAYOUT_FLEX, ...VISUAL_CORE] as const;
-
 export const ROW_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, 'breakpoint'] as const;
-export const ROW_KEYS = getKeysFromCategories(ROW_CATEGORIES);
-export type RowKey = typeof ROW_KEYS[number];
-
 export const COL_CATEGORIES = FLEX_CONTAINER_CATEGORIES;
-export const COL_KEYS = getKeysFromCategories(COL_CATEGORIES);
-export type ColKey = typeof COL_KEYS[number];
-
 export const STACK_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, 'breakpoint', 'padding'] as const;
-export const STACK_KEYS = getKeysFromCategories(STACK_CATEGORIES);
-export type StackKey = typeof STACK_KEYS[number];
-
 export const CARD_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_FLEX, 'sharp', 'rounded', 'breakpoint', ...VISUAL_DECORATION, 'padding'] as const;
-export const CARD_KEYS = getKeysFromCategories(CARD_CATEGORIES);
-export type CardKey = typeof CARD_KEYS[number];
-
 export const DIVIDER_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, 'appearance', 'padding'] as const;
-export const DIVIDER_KEYS = getKeysFromCategories(DIVIDER_CATEGORIES);
-export type DividerKey = typeof DIVIDER_KEYS[number];
-
 export const CONTAINER_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...VISUAL_DECORATION, 'gap'] as const;
-export const CONTAINER_KEYS = getKeysFromCategories(CONTAINER_CATEGORIES);
-export type ContainerKey = typeof CONTAINER_KEYS[number];
-
 export const SECTION_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, 'appearance', 'padding', ...LAYOUT_FLEX, 'breakpoint', ...VISUAL_DECORATION] as const;
-export const SECTION_KEYS = getKeysFromCategories(SECTION_CATEGORIES);
-export type SectionKey = typeof SECTION_KEYS[number];
