@@ -16,7 +16,8 @@
       "Bash(rm:*)",
       "Bash(npm run clean:*)",
       "Bash(npx rollup:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   }
