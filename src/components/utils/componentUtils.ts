@@ -73,27 +73,27 @@ export function extractButtonKeys(
   defaults: Record<string, boolean>
 ): ButtonPropsStructure {
   return {
-    size: pickFirstTruthyKey(props, defaults, ComponentKeys.size as readonly SizeKey[]) || 'md',
-    appearance: pickFirstTruthyKey(props, defaults, ComponentKeys.appearance as readonly AppearanceKey[]) || 'default',
-    variant: pickFirstTruthyKey(props, defaults, ComponentKeys.variant as readonly VariantKey[]),
-    shape: pickFirstTruthyKey(props, defaults, ComponentKeys.shape as readonly ShapeKey[]),
-    shadow: pickFirstTruthyKey(props, defaults, ComponentKeys.shadow as readonly ShadowKey[]),
-    border: pickFirstTruthyKey(props, defaults, ComponentKeys.border as readonly BorderKey[]),
-    ring: pickFirstTruthyKey(props, defaults, ComponentKeys.ring as readonly RingKey[]),
-    padding: pickFirstTruthyKey(props, defaults, ComponentKeys.padding as readonly PaddingKey[]),
-    gap: pickFirstTruthyKey(props, defaults, ComponentKeys.gap as readonly GapKey[]),
-    fontFamily: pickFirstTruthyKey(props, defaults, ComponentKeys.fontFamily as readonly FontFamilyKey[]),
-    fontWeight: pickFirstTruthyKey(props, defaults, ComponentKeys.fontWeight as readonly FontWeightKey[]),
-    fontStyle: pickFirstTruthyKey(props, defaults, ComponentKeys.fontStyle as readonly FontStyleKey[]),
-    textDecoration: pickFirstTruthyKey(props, defaults, ComponentKeys.textDecoration as readonly TextDecorationKey[]),
-    textTransform: pickFirstTruthyKey(props, defaults, ComponentKeys.textTransform as readonly TextTransformKey[]),
-    textAlign: pickFirstTruthyKey(props, defaults, ComponentKeys.textAlign as readonly TextAlignKey[]),
-    display: pickFirstTruthyKey(props, defaults, ComponentKeys.display as readonly DisplayKey[]),
-    position: pickFirstTruthyKey(props, defaults, ComponentKeys.position as readonly PositionKey[]),
-    items: pickFirstTruthyKey(props, defaults, ComponentKeys.items as readonly ItemsKey[]),
-    justify: pickFirstTruthyKey(props, defaults, ComponentKeys.justify as readonly JustifyKey[]),
-    hide: pickFirstTruthyKey(props, defaults, ComponentKeys.hide as readonly HideKey[]),
-    overflow: pickFirstTruthyKey(props, defaults, ComponentKeys.overflow as readonly OverflowKey[]),
+    size: pickFirstTruthyKey(props, defaults, ComponentKeys.size) || 'md',
+    appearance: pickFirstTruthyKey(props, defaults, ComponentKeys.appearance) || 'default',
+    variant: pickFirstTruthyKey(props, defaults, ComponentKeys.variant),
+    shape: pickFirstTruthyKey(props, defaults, ComponentKeys.shape),
+    shadow: pickFirstTruthyKey(props, defaults, ComponentKeys.shadow),
+    border: pickFirstTruthyKey(props, defaults, ComponentKeys.border),
+    ring: pickFirstTruthyKey(props, defaults, ComponentKeys.ring),
+    padding: pickFirstTruthyKey(props, defaults, ComponentKeys.padding),
+    gap: pickFirstTruthyKey(props, defaults, ComponentKeys.gap),
+    fontFamily: pickFirstTruthyKey(props, defaults, ComponentKeys.fontFamily),
+    fontWeight: pickFirstTruthyKey(props, defaults, ComponentKeys.fontWeight),
+    fontStyle: pickFirstTruthyKey(props, defaults, ComponentKeys.fontStyle),
+    textDecoration: pickFirstTruthyKey(props, defaults, ComponentKeys.textDecoration),
+    textTransform: pickFirstTruthyKey(props, defaults, ComponentKeys.textTransform),
+    textAlign: pickFirstTruthyKey(props, defaults, ComponentKeys.textAlign),
+    display: pickFirstTruthyKey(props, defaults, ComponentKeys.display),
+    position: pickFirstTruthyKey(props, defaults, ComponentKeys.position),
+    items: pickFirstTruthyKey(props, defaults, ComponentKeys.items),
+    justify: pickFirstTruthyKey(props, defaults, ComponentKeys.justify),
+    hide: pickFirstTruthyKey(props, defaults, ComponentKeys.hide),
+    overflow: pickFirstTruthyKey(props, defaults, ComponentKeys.overflow),
   };
 }
 
@@ -127,23 +127,23 @@ export function extractTypographyKeys(
   defaults: Record<string, boolean>
 ): TypographyPropsStructure {
   return {
-    size: pickFirstTruthyKey(props, defaults, ComponentKeys.size as readonly SizeKey[]) || 'md',
-    appearance: pickFirstTruthyKey(props, defaults, ComponentKeys.appearance as readonly AppearanceKey[]) || 'default',
-    transparent: pickFirstTruthyKey(props, defaults, ComponentKeys.transparent as readonly TransparentKey[]),
-    link: pickFirstTruthyKey(props, defaults, ComponentKeys.link as readonly LinkKey[]),
-    fontFamily: pickFirstTruthyKey(props, defaults, ComponentKeys.fontFamily as readonly FontFamilyKey[]),
-    fontWeight: pickFirstTruthyKey(props, defaults, ComponentKeys.fontWeight as readonly FontWeightKey[]),
-    fontStyle: pickFirstTruthyKey(props, defaults, ComponentKeys.fontStyle as readonly FontStyleKey[]),
-    textDecoration: pickFirstTruthyKey(props, defaults, ComponentKeys.textDecoration as readonly TextDecorationKey[]),
-    textTransform: pickFirstTruthyKey(props, defaults, ComponentKeys.textTransform as readonly TextTransformKey[]),
-    textAlign: pickFirstTruthyKey(props, defaults, ComponentKeys.textAlign as readonly TextAlignKey[]),
-    display: pickFirstTruthyKey(props, defaults, ComponentKeys.display as readonly DisplayKey[]),
-    position: pickFirstTruthyKey(props, defaults, ComponentKeys.position as readonly PositionKey[]),
-    items: pickFirstTruthyKey(props, defaults, ComponentKeys.items as readonly ItemsKey[]),
-    justify: pickFirstTruthyKey(props, defaults, ComponentKeys.justify as readonly JustifyKey[]),
-    hide: pickFirstTruthyKey(props, defaults, ComponentKeys.hide as readonly HideKey[]),
-    overflow: pickFirstTruthyKey(props, defaults, ComponentKeys.overflow as readonly OverflowKey[]),
-    padding: pickFirstTruthyKey(props, defaults, ComponentKeys.padding as readonly PaddingKey[]),
+    size: pickFirstTruthyKey(props, defaults, ComponentKeys.size) || 'md',
+    appearance: pickFirstTruthyKey(props, defaults, ComponentKeys.appearance) || 'default',
+    transparent: pickFirstTruthyKey(props, defaults, ComponentKeys.transparent),
+    link: pickFirstTruthyKey(props, defaults, ComponentKeys.link),
+    fontFamily: pickFirstTruthyKey(props, defaults, ComponentKeys.fontFamily),
+    fontWeight: pickFirstTruthyKey(props, defaults, ComponentKeys.fontWeight),
+    fontStyle: pickFirstTruthyKey(props, defaults, ComponentKeys.fontStyle),
+    textDecoration: pickFirstTruthyKey(props, defaults, ComponentKeys.textDecoration),
+    textTransform: pickFirstTruthyKey(props, defaults, ComponentKeys.textTransform),
+    textAlign: pickFirstTruthyKey(props, defaults, ComponentKeys.textAlign),
+    display: pickFirstTruthyKey(props, defaults, ComponentKeys.display),
+    position: pickFirstTruthyKey(props, defaults, ComponentKeys.position),
+    items: pickFirstTruthyKey(props, defaults, ComponentKeys.items),
+    justify: pickFirstTruthyKey(props, defaults, ComponentKeys.justify),
+    hide: pickFirstTruthyKey(props, defaults, ComponentKeys.hide),
+    overflow: pickFirstTruthyKey(props, defaults, ComponentKeys.overflow),
+    padding: pickFirstTruthyKey(props, defaults, ComponentKeys.padding),
   };
 }
 
@@ -156,16 +156,16 @@ export function extractCardKeys(
 ): CardPropsStructure {
   return {
     ...extractTypographyKeys(props, defaults),
-    gap: pickFirstTruthyKey(props, defaults, ComponentKeys.gap as readonly GapKey[]),
-    shape: pickFirstTruthyKey(props, defaults, ComponentKeys.shape as readonly ShapeKey[]),
-    border: pickFirstTruthyKey(props, defaults, ComponentKeys.border as readonly BorderKey[]),
-    ring: pickFirstTruthyKey(props, defaults, ComponentKeys.ring as readonly RingKey[]),
-    shadow: pickFirstTruthyKey(props, defaults, ComponentKeys.shadow as readonly ShadowKey[]),
-    padding: pickFirstTruthyKey(props, defaults, ComponentKeys.padding as readonly PaddingKey[]),
-    flexDirection: pickFirstTruthyKey(props, defaults, ComponentKeys.flexDirection as readonly FlexDirectionKey[]),
-    wrap: pickFirstTruthyKey(props, defaults, ComponentKeys.wrap as readonly WrapKey[]),
-    breakpoint: pickFirstTruthyKey(props, defaults, ComponentKeys.breakpoint as readonly BreakpointKey[]),
-    reverse: pickFirstTruthyKey(props, defaults, ComponentKeys.directionReverse as readonly DirectionReverseKey[]),
+    gap: pickFirstTruthyKey(props, defaults, ComponentKeys.gap),
+    shape: pickFirstTruthyKey(props, defaults, ComponentKeys.shape),
+    border: pickFirstTruthyKey(props, defaults, ComponentKeys.border),
+    ring: pickFirstTruthyKey(props, defaults, ComponentKeys.ring),
+    shadow: pickFirstTruthyKey(props, defaults, ComponentKeys.shadow),
+    padding: pickFirstTruthyKey(props, defaults, ComponentKeys.padding),
+    flexDirection: pickFirstTruthyKey(props, defaults, ComponentKeys.flexDirection),
+    wrap: pickFirstTruthyKey(props, defaults, ComponentKeys.wrap),
+    breakpoint: pickFirstTruthyKey(props, defaults, ComponentKeys.breakpoint),
+    reverse: pickFirstTruthyKey(props, defaults, ComponentKeys.directionReverse),
   };
 }
 
@@ -177,20 +177,20 @@ export function extractLayoutKeys(
   defaults: Record<string, boolean>
 ): LayoutPropsStructure {
   return {
-    size: pickFirstTruthyKey(props, defaults, ComponentKeys.size as readonly SizeKey[]) || 'md',
-    appearance: pickFirstTruthyKey(props, defaults, ComponentKeys.appearance as readonly AppearanceKey[]) || 'default',
-    transparent: pickFirstTruthyKey(props, defaults, ComponentKeys.transparent as readonly TransparentKey[]),
-    gap: pickFirstTruthyKey(props, defaults, ComponentKeys.gap as readonly GapKey[]),
-    padding: pickFirstTruthyKey(props, defaults, ComponentKeys.padding as readonly PaddingKey[]),
-    flexDirection: pickFirstTruthyKey(props, defaults, ComponentKeys.flexDirection as readonly FlexDirectionKey[]),
-    wrap: pickFirstTruthyKey(props, defaults, ComponentKeys.wrap as readonly WrapKey[]),
-    items: pickFirstTruthyKey(props, defaults, ComponentKeys.items as readonly ItemsKey[]),
-    justify: pickFirstTruthyKey(props, defaults, ComponentKeys.justify as readonly JustifyKey[]),
-    display: pickFirstTruthyKey(props, defaults, ComponentKeys.display as readonly DisplayKey[]),
-    position: pickFirstTruthyKey(props, defaults, ComponentKeys.position as readonly PositionKey[]),
-    hide: pickFirstTruthyKey(props, defaults, ComponentKeys.hide as readonly HideKey[]),
-    overflow: pickFirstTruthyKey(props, defaults, ComponentKeys.overflow as readonly OverflowKey[]),
-    breakpoint: pickFirstTruthyKey(props, defaults, ComponentKeys.breakpoint as readonly BreakpointKey[]),
+    size: pickFirstTruthyKey(props, defaults, ComponentKeys.size) || 'md',
+    appearance: pickFirstTruthyKey(props, defaults, ComponentKeys.appearance) || 'default',
+    transparent: pickFirstTruthyKey(props, defaults, ComponentKeys.transparent),
+    gap: pickFirstTruthyKey(props, defaults, ComponentKeys.gap),
+    padding: pickFirstTruthyKey(props, defaults, ComponentKeys.padding),
+    flexDirection: pickFirstTruthyKey(props, defaults, ComponentKeys.flexDirection),
+    wrap: pickFirstTruthyKey(props, defaults, ComponentKeys.wrap),
+    items: pickFirstTruthyKey(props, defaults, ComponentKeys.items),
+    justify: pickFirstTruthyKey(props, defaults, ComponentKeys.justify),
+    display: pickFirstTruthyKey(props, defaults, ComponentKeys.display),
+    position: pickFirstTruthyKey(props, defaults, ComponentKeys.position),
+    hide: pickFirstTruthyKey(props, defaults, ComponentKeys.hide),
+    overflow: pickFirstTruthyKey(props, defaults, ComponentKeys.overflow),
+    breakpoint: pickFirstTruthyKey(props, defaults, ComponentKeys.breakpoint),
   };
 }
 
@@ -273,6 +273,6 @@ export function extractListKeys(
 ): TypographyPropsStructure {
   return {
     ...extractTypographyKeys(props, defaults),
-    padding: pickFirstTruthyKey(props, defaults, ComponentKeys.padding as readonly PaddingKey[]),
+    padding: pickFirstTruthyKey(props, defaults, ComponentKeys.padding),
   };
 }

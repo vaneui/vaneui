@@ -65,11 +65,7 @@ export const COMPONENT_PROPS_CATEGORY = [
 ] as const;
 
 export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
-export type ComponentKeysMap = {
-  [key in ComponentCategoryKey]: readonly string[];
-};
-
-export const ComponentKeys: ComponentKeysMap = {
+export const ComponentKeys = {
   mode: MODE_KEYS,
   size: SIZE_KEYS,
   variant: VARIANT_KEYS,
@@ -101,36 +97,36 @@ export const ComponentKeys: ComponentKeysMap = {
   wrap: WRAP_KEYS,
   display: DISPLAY_KEYS,
   overflow: OVERFLOW_KEYS,
-}
+};
 
-export type ModeKey = typeof MODE_KEYS[number];
+export type ModeKey = typeof ComponentKeys.mode[number];
 export type SizeKey = typeof ComponentKeys.size[number];
-export type RingKey = typeof RING_KEYS[number];
-export type ShapeKey = typeof SHAPE_KEYS[number];
-export type BorderKey = typeof BORDER_KEYS[number];
-export type ShadowKey = typeof SHADOW_KEYS[number];
-export type PaddingKey = typeof PADDING_KEYS[number];
-export type GapKey = typeof GAP_KEYS[number];
-export type VariantKey = typeof VARIANT_KEYS[number];
-export type AppearanceKey = typeof APPEARANCE_KEYS[number];
-export type TransparentKey = typeof TRANSPARENT_KEYS[number];
-export type LinkKey = typeof LINK_KEYS[number];
-export type FontFamilyKey = typeof FONT_FAMILY_KEYS[number];
-export type FontWeightKey = typeof FONT_WEIGHT_KEYS[number];
-export type FontStyleKey = typeof FONT_STYLE_KEYS[number];
-export type TextDecorationKey = typeof TEXT_DECORATION_KEYS[number];
-export type TextTransformKey = typeof TEXT_TRANSFORM_KEYS[number];
-export type TextAlignKey = typeof TEXT_ALIGN_KEYS[number];
-export type BreakpointKey = typeof BREAKPOINT_KEYS[number];
-export type HideKey = typeof HIDE_KEYS[number];
-export type PositionKey = typeof POSITION_KEYS[number];
-export type FlexDirectionKey = typeof FLEX_DIRECTION_KEYS[number];
-export type ItemsKey = typeof ITEMS_KEYS[number];
-export type JustifyKey = typeof JUSTIFY_KEYS[number];
-export type WrapKey = typeof WRAP_KEYS[number];
-export type DisplayKey = typeof DISPLAY_KEYS[number];
-export type OverflowKey = typeof OVERFLOW_KEYS[number];
-export type DirectionReverseKey = typeof DIRECTION_REVERSE_KEYS[number];
+export type RingKey = typeof ComponentKeys.ring[number];
+export type ShapeKey = typeof ComponentKeys.shape[number];
+export type BorderKey = typeof ComponentKeys.border[number];
+export type ShadowKey = typeof ComponentKeys.shadow[number];
+export type PaddingKey = typeof ComponentKeys.padding[number];
+export type GapKey = typeof ComponentKeys.gap[number];
+export type VariantKey = typeof ComponentKeys.variant[number];
+export type AppearanceKey = typeof ComponentKeys.appearance[number];
+export type TransparentKey = typeof ComponentKeys.transparent[number];
+export type LinkKey = typeof ComponentKeys.link[number];
+export type FontFamilyKey = typeof ComponentKeys.fontFamily[number];
+export type FontWeightKey = typeof ComponentKeys.fontWeight[number];
+export type FontStyleKey = typeof ComponentKeys.fontStyle[number];
+export type TextDecorationKey = typeof ComponentKeys.textDecoration[number];
+export type TextTransformKey = typeof ComponentKeys.textTransform[number];
+export type TextAlignKey = typeof ComponentKeys.textAlign[number];
+export type BreakpointKey = typeof ComponentKeys.breakpoint[number];
+export type HideKey = typeof ComponentKeys.hide[number];
+export type PositionKey = typeof ComponentKeys.position[number];
+export type FlexDirectionKey = typeof ComponentKeys.flexDirection[number];
+export type ItemsKey = typeof ComponentKeys.items[number];
+export type JustifyKey = typeof ComponentKeys.justify[number];
+export type WrapKey = typeof ComponentKeys.wrap[number];
+export type DisplayKey = typeof ComponentKeys.display[number];
+export type OverflowKey = typeof ComponentKeys.overflow[number];
+export type DirectionReverseKey = typeof ComponentKeys.directionReverse[number];
 
 export const getKeysFromCategories = <T extends readonly ComponentCategoryKey[]>(categories: T): readonly string[] => {
   return categories.flatMap(category => ComponentKeys[category]);
