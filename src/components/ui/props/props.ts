@@ -41,11 +41,7 @@ export type ComponentProps = {
   tag?: React.ReactNode | string | any;
   className?: string;
   children?: React.ReactNode;
-} & Omit<React.HTMLProps<HTMLElement>, 
-  'size' | 'shape' | 'hidden' | 'translate' | 'content' | 'wrap' | 
-  'border' | 'color' | 'display' | 'height' | 'width' | 'position' |
-  'start' | 'span' | 'slot'
->;
+} & React.HTMLProps<HTMLElement>;
 
 // Component-specific prop interfaces generated from ComponentKeys
 type ButtonKey = FlattenKeysFromCategories<typeof BUTTON_CATEGORIES>;
