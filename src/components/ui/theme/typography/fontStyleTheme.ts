@@ -19,7 +19,7 @@ export class FontStyleTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.fontStyle as FontStyleKey;
+    const key = extractedKeys?.fontStyle;
     return [key ? this[key] : '']; // No default for font style
   }
 }

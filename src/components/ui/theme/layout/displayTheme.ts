@@ -27,7 +27,7 @@ export class DisplayTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.display as DisplayKey;
+    const key = extractedKeys?.display;
     return [key && this[key] ? this[key] : ''];
   }
 }

@@ -19,7 +19,7 @@ export class FontFamilyTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.fontFamily as FontFamilyKey;
+    const key = extractedKeys?.fontFamily;
     if (key === undefined)
       return [];
 

@@ -26,7 +26,7 @@ export class FontWeightTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.fontWeight as FontWeightKey;
+    const key = extractedKeys?.fontWeight;
     if (key === undefined)
       return [];
 

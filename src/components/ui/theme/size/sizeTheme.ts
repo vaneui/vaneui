@@ -18,7 +18,7 @@ export class SizeTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const size = (extractedKeys?.size as SizeKey) ?? (this.useDefaultKey ? 'md' : undefined);
+    const size = extractedKeys?.size ?? (this.useDefaultKey ? 'md' : undefined);
     if (size !== undefined)
       return [this[size]];
     else return [''];

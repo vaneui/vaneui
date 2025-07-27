@@ -20,7 +20,7 @@ export class WrapTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.wrap as WrapKey;
+    const key = extractedKeys?.wrap;
     return key ? [this[key]] : [];
   }
 }

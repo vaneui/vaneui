@@ -17,7 +17,7 @@ export class BgAppearanceTheme extends BaseTheme {
     super();
 
     // Set up appearance keys only
-    (ComponentKeys.appearance as readonly AppearanceKey[]).forEach(key => {
+    ComponentKeys.appearance.forEach(key => {
       this[key] = {
         base: layoutBackgroundAppearanceClasses[key as keyof typeof layoutBackgroundAppearanceClasses] || '',
         hover: '',
@@ -29,22 +29,22 @@ export class BgAppearanceTheme extends BaseTheme {
   getClasses(extractedKeys: CategoryProps): string[] {
     // Check for specific transparent or link styles first
     if (extractedKeys?.transparent) {
-      const transparentClass = layoutBackgroundAppearanceClasses[extractedKeys.transparent as TransparentKey];
+      const transparentClass = layoutBackgroundAppearanceClasses[extractedKeys.transparent];
       return [transparentClass || '', '', ''];
     }
     
     if (extractedKeys?.link) {
-      const linkClass = layoutBackgroundAppearanceClasses[extractedKeys.link as LinkKey];
+      const linkClass = layoutBackgroundAppearanceClasses[extractedKeys.link];
       return [linkClass || '', '', ''];
     }
     
     // Use regular appearance
-    const pickedAppearanceKey = (extractedKeys?.appearance as AppearanceKey) ?? 'default';
+    const pickedAppearanceKey = extractedKeys?.appearance ?? 'default';
     const modesForAppearance = this[pickedAppearanceKey];
 
     if (!modesForAppearance) {
-      return (ComponentKeys.mode as readonly ModeKey[]).map(() => '');
+      return ComponentKeys.mode.map(() => '');
     }
-    return (ComponentKeys.mode as readonly ModeKey[]).map(mode => modesForAppearance[mode] || '');
+    return ComponentKeys.mode.map(mode => modesForAppearance[mode] || '');
   }
 }

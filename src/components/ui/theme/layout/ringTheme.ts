@@ -35,7 +35,7 @@ export class RingTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.ring as RingKey;
+    const key = extractedKeys?.ring;
     if (!key || !this[key]) {
       return ComponentKeys.mode.map(() => '');
     }

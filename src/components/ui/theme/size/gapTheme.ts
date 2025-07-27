@@ -25,8 +25,8 @@ export class GapTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const size = (extractedKeys?.size as SizeKey) ?? 'md';
-    const key = (extractedKeys?.gap as GapKey) ?? 'noGap';
+    const size = extractedKeys?.size ?? 'md';
+    const key = extractedKeys?.gap ?? 'noGap';
 
     return [typeof this[key] === 'string' ? this[key] : (this[key] as Record<SizeKey, string>)[size]];
   }

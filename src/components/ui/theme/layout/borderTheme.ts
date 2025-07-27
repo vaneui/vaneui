@@ -34,7 +34,7 @@ export class BorderTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.border as BorderKey;
+    const key = extractedKeys?.border;
     if (!key || !this[key]) {
       return ComponentKeys.mode.map(() => '');
     }

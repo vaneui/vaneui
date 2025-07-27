@@ -18,17 +18,17 @@ export class TextAppearanceTheme extends BaseTheme {
   getClasses(extractedKeys: CategoryProps): string[] {
     // Check for specific transparent or link styles first
     if (extractedKeys?.transparent) {
-      const transparentClass = textAppearanceClasses[extractedKeys.transparent as TransparentKey];
+      const transparentClass = textAppearanceClasses[extractedKeys.transparent];
       return [transparentClass || ''];
     }
     
     if (extractedKeys?.link) {
-      const linkClass = textAppearanceClasses[extractedKeys.link as LinkKey];
+      const linkClass = textAppearanceClasses[extractedKeys.link];
       return [linkClass || ''];
     }
     
     // Use regular appearance
-    const pickedAppearanceKey = (extractedKeys?.appearance as AppearanceKey) ?? 'default';
+    const pickedAppearanceKey = extractedKeys?.appearance ?? 'default';
     if (!pickedAppearanceKey) {
       return [];
     }
@@ -36,17 +36,17 @@ export class TextAppearanceTheme extends BaseTheme {
     if (!modes) {
       return [];
     }
-    return (ComponentKeys.mode as readonly ModeKey[]).map(mode => modes[mode] || '');
+    return ComponentKeys.mode.map(mode => modes[mode] || '');
   }
 
   static createTheme(
     src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {}
   ): TextAppearanceTheme {
     const finalConfig = Object.fromEntries(
-      (ComponentKeys.appearance as readonly AppearanceKey[]).map(textKey => [
+      ComponentKeys.appearance.map(textKey => [
         textKey,
         Object.fromEntries(
-          (ComponentKeys.mode as readonly ModeKey[]).map(modeKey => [
+          ComponentKeys.mode.map(modeKey => [
             modeKey,
             src[modeKey]?.[textKey] || ''
           ])
@@ -65,7 +65,7 @@ export class UIElementTextAppearanceTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const appearance = extractedKeys?.appearance as AppearanceKey;
+    const appearance = extractedKeys?.appearance;
     if (!appearance) {
       return [];
     }
@@ -73,17 +73,17 @@ export class UIElementTextAppearanceTheme extends BaseTheme {
     if (!modes) {
       return [];
     }
-    return (ComponentKeys.mode as readonly ModeKey[]).map(mode => modes[mode] || '');
+    return ComponentKeys.mode.map(mode => modes[mode] || '');
   }
 
   static createTheme(
     src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {}
   ): UIElementTextAppearanceTheme {
     const finalConfig = Object.fromEntries(
-      (ComponentKeys.appearance as readonly AppearanceKey[]).map(textKey => [
+      ComponentKeys.appearance.map(textKey => [
         textKey,
         Object.fromEntries(
-          (ComponentKeys.mode as readonly ModeKey[]).map(modeKey => [
+          ComponentKeys.mode.map(modeKey => [
             modeKey,
             src[modeKey]?.[textKey] || ''
           ])

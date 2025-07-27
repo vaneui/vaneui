@@ -21,7 +21,7 @@ export class TextDecorationTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.textDecoration as TextDecorationKey;
+    const key = extractedKeys?.textDecoration;
     return [key ? this[key] : '']; // No default for text decoration
   }
 }

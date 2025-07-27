@@ -21,7 +21,7 @@ export class ItemsTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const pickedKey = extractedKeys?.items as ItemsKey;
+    const pickedKey = extractedKeys?.items;
     return [pickedKey && this[pickedKey] ? this[pickedKey] : ''];
   }
 }

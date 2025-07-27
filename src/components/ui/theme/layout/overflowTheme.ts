@@ -32,7 +32,7 @@ export class OverflowTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.overflow as OverflowKey;
+    const key = extractedKeys?.overflow;
     return [key && this[key] ? this[key] : ''];
   }
 }

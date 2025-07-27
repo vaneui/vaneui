@@ -22,7 +22,7 @@ export class PositionTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.position as PositionKey;
+    const key = extractedKeys?.position;
     return [key ? this[key] : ''];
   }
 }

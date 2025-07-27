@@ -22,7 +22,7 @@ export class HideTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.hide as HideKey;
+    const key = extractedKeys?.hide;
     return [key ? this[key] : ''];
   }
 }

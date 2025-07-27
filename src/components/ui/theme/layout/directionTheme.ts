@@ -24,7 +24,7 @@ export class DirectionTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    let direction = (extractedKeys?.flexDirection as FlexDirectionKey) ?? 'column';
+    let direction = extractedKeys?.flexDirection ?? 'column';
     const reverse = extractedKeys?.reverse;
 
     if (reverse === 'reverse') {

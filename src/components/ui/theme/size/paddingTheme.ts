@@ -25,8 +25,8 @@ export class PaddingTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const size = (extractedKeys?.size as SizeKey) ?? 'md';
-    const key = (extractedKeys?.padding as PaddingKey) ?? 'padding';
+    const size = extractedKeys?.size ?? 'md';
+    const key = extractedKeys?.padding ?? 'padding';
 
     return [typeof this[key] === 'string' ? this[key] : (this[key] as Record<SizeKey, string>)[size]];
   }

@@ -29,8 +29,8 @@ export class ShadowAppearanceTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const appearance = (extractedKeys?.appearance as AppearanceKey) ?? 'default';
-    const size = (extractedKeys?.size as SizeKey) ?? 'md';
+    const appearance = extractedKeys?.appearance ?? 'default';
+    const size = extractedKeys?.size ?? 'md';
     const key = extractedKeys?.shadow;
 
     if (key === undefined || key === 'noShadow') {

@@ -23,7 +23,7 @@ export class BreakpointTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.breakpoint as BreakpointKey;
+    const key = extractedKeys?.breakpoint;
     if (!key)
       return [];
 

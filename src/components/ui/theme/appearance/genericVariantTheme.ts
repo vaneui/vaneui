@@ -48,7 +48,7 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const variantKey = (extractedKeys?.variant as VariantKey) ?? 'outline';
+    const variantKey = extractedKeys?.variant ?? 'outline';
     const activeTextAppearanceTheme = this[variantKey];
 
     if (!activeTextAppearanceTheme) {

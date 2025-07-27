@@ -21,7 +21,7 @@ export class TextTransformTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.textTransform as TextTransformKey;
+    const key = extractedKeys?.textTransform;
     return [key ? this[key] : '']; // No default for text transform
   }
 }

@@ -21,7 +21,7 @@ export class TextAlignTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.textAlign as TextAlignKey;
+    const key = extractedKeys?.textAlign;
     return [key ? this[key] : '']; // No default for text align
   }
 }

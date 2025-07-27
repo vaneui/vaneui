@@ -28,8 +28,8 @@ export class UIElementShadowAppearanceTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const appearance = (extractedKeys?.appearance as AppearanceKey) ?? 'default';
-    const size = (extractedKeys?.size as SizeKey) ?? 'md';
+    const appearance = extractedKeys?.appearance ?? 'default';
+    const size = extractedKeys?.size ?? 'md';
     const shadow = extractedKeys?.shadow;
 
     if (shadow === undefined || shadow === 'noShadow') {
