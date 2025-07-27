@@ -1,4 +1,4 @@
-import { CategoryProps } from "../../props/basePropsStructure";
+import { CategoryProps } from "../../props";
 
 /**
  * Base Theme class that all theme types will extend

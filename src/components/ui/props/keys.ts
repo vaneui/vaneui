@@ -154,3 +154,10 @@ export const CARD_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_FLEX, 'sharp
 export const DIVIDER_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, 'appearance', 'padding'] as const;
 export const CONTAINER_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...VISUAL_DECORATION, 'gap'] as const;
 export const SECTION_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, 'appearance', 'padding', ...LAYOUT_FLEX, 'breakpoint', ...VISUAL_DECORATION] as const;
+
+export type CategoryProps = {
+  [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];
+} & {
+  // Special mapped field names used by extractKeysFromCategories
+  reverse?: 'reverse';
+};

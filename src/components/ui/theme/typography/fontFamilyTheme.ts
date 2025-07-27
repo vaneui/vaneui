@@ -1,6 +1,5 @@
-import { FontFamilyKey, ComponentKeys } from "../../props";
+import { FontFamilyKey, ComponentKeys, CategoryProps } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import { CategoryProps } from "../../props/basePropsStructure";
 
 export interface FontFamilyTheme extends Record<FontFamilyKey, string> {
 }
