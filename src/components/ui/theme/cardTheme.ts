@@ -17,7 +17,8 @@ import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { extractCardKeys } from "../../utils/componentUtils";
+import { extractKeysFromCategories } from "../../utils/componentUtils";
+import { CARD_CATEGORIES } from "../props";
 
 export interface CardTheme extends BaseComponentTheme {
   size: {
@@ -103,5 +104,5 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
     gap: true,
     padding: true,
   },
-  extractCardKeys
+  (props, defaults) => extractKeysFromCategories(props, defaults, CARD_CATEGORIES)
 );
