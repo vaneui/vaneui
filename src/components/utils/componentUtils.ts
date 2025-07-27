@@ -46,21 +46,7 @@ export function extractKeysFromCategories<T extends readonly ComponentCategoryKe
   
   for (const category of categories) {
     const value = pickFirstTruthyKeyByCategory(props, defaults, category);
-    
-    // Map category names to field names expected by themes
-    let fieldName: string = category;
-    if (category === 'directionReverse') {
-      fieldName = 'reverse';
-    }
-    
-    // Apply default values for specific categories if needed
-    if (category === 'size' && !value) {
-      result[fieldName] = 'md';
-    } else if (category === 'appearance' && !value) {
-      result[fieldName] = 'default';
-    } else {
-      result[fieldName] = value;
-    }
+    result[category] = value;
   }
   
   return result;

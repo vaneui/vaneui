@@ -51,7 +51,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   'hide',
   'position',
   'flexDirection',
-  'directionReverse',
+  'reverse',
   'gap',
   'pill',
   'sharp',
@@ -86,7 +86,7 @@ export const ComponentKeys = {
   hide: HIDE_KEYS,
   position: POSITION_KEYS,
   flexDirection: FLEX_DIRECTION_KEYS,
-  directionReverse: DIRECTION_REVERSE_KEYS,
+  reverse: DIRECTION_REVERSE_KEYS,
   gap: GAP_KEYS,
   pill: PILL_KEYS,
   sharp: SHARP_KEYS,
@@ -126,10 +126,10 @@ export type JustifyKey = typeof ComponentKeys.justify[number];
 export type WrapKey = typeof ComponentKeys.wrap[number];
 export type DisplayKey = typeof ComponentKeys.display[number];
 export type OverflowKey = typeof ComponentKeys.overflow[number];
-export type DirectionReverseKey = typeof ComponentKeys.directionReverse[number];
+export type ReverseKey = typeof ComponentKeys.reverse[number];
 
 const LAYOUT_CORE = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
-const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'directionReverse'] as const;
+const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
 const VISUAL_CORE = ['appearance', 'transparent'] as const;
 const VISUAL_DECORATION = ['border', 'shadow', 'ring', 'shape'] as const;
 const TYPOGRAPHY_STYLE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
@@ -157,7 +157,4 @@ export const SECTION_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, 'appearance', '
 
 export type CategoryProps = {
   [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];
-} & {
-  // Special mapped field names used by extractKeysFromCategories
-  reverse?: 'reverse';
 };
