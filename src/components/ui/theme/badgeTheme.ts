@@ -14,7 +14,6 @@ import { PyTheme } from "./size/pyTheme";
 import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { UIElementShadowAppearanceTheme } from "./appearance/uiElementShadowAppearanceTheme";
 import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { BADGE_CATEGORIES } from "../props";
 
@@ -30,7 +29,7 @@ export interface BadgeTheme extends BaseTypographyComponentTheme {
     text: GenericVariantTheme<UIElementTextAppearanceTheme>;
     border: GenericVariantTheme<UIElementTextAppearanceTheme>;
     ring: GenericVariantTheme<UIElementTextAppearanceTheme>;
-    shadow: GenericVariantTheme<UIElementShadowAppearanceTheme>;
+    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
     border: BorderTheme;

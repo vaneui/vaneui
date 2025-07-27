@@ -16,7 +16,6 @@ import {
 } from "../../classes/appearanceClasses";
 import { AppearanceKey } from "../../props";
 import { ShadowAppearanceTheme } from "./shadowAppearanceTheme";
-import { UIElementShadowAppearanceTheme } from "./uiElementShadowAppearanceTheme";
 
 
 export interface GenericVariantTheme<T extends BaseTheme> extends Record<VariantKey, T> {
@@ -69,10 +68,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
-  static createUIElementShadowTheme(): GenericVariantTheme<UIElementShadowAppearanceTheme> {
+  static createUIElementShadowTheme(): GenericVariantTheme<ShadowAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: UIElementShadowAppearanceTheme.createTheme({}),
-      filled: UIElementShadowAppearanceTheme.createTheme({})
+      outline: ShadowAppearanceTheme.createTheme({}),
+      filled: ShadowAppearanceTheme.createTheme({})
     });
   }
 
