@@ -8,74 +8,8 @@ import type {
 } from '../ui/props';
 import { 
   ComponentKeys,
-  ComponentCategoryKey,
-  SizeKey,
-  AppearanceKey,
-  VariantKey,
-  ShapeKey,
-  ShadowKey,
-  BorderKey,
-  RingKey,
-  PaddingKey,
-  GapKey,
-  FontFamilyKey,
-  FontWeightKey,
-  FontStyleKey,
-  TextDecorationKey,
-  TextTransformKey,
-  TextAlignKey,
-  DisplayKey,
-  PositionKey,
-  ItemsKey,
-  JustifyKey,
-  HideKey,
-  OverflowKey,
-  FlexDirectionKey,
-  WrapKey,
-  BreakpointKey,
-  DirectionReverseKey,
-  TransparentKey,
-  LinkKey,
-  ModeKey
+  ComponentCategoryKey
 } from '../ui/props';
-
-/**
- * Type mapping from ComponentCategoryKey to specific key types
- */
-type CategoryKeyMap = {
-  mode: ModeKey;
-  size: SizeKey;
-  variant: VariantKey;
-  appearance: AppearanceKey;
-  transparent: TransparentKey;
-  link: LinkKey;
-  fontFamily: FontFamilyKey;
-  fontWeight: FontWeightKey;
-  fontStyle: FontStyleKey;
-  textDecoration: TextDecorationKey;
-  textTransform: TextTransformKey;
-  textAlign: TextAlignKey;
-  border: BorderKey;
-  shadow: ShadowKey;
-  ring: RingKey;
-  padding: PaddingKey;
-  breakpoint: BreakpointKey;
-  hide: HideKey;
-  position: PositionKey;
-  flexDirection: FlexDirectionKey;
-  directionReverse: DirectionReverseKey;
-  gap: GapKey;
-  pill: string; // PILL_KEYS only has 'pill'
-  sharp: string; // SHARP_KEYS only has 'sharp'  
-  rounded: string; // ROUNDED_KEYS only has 'rounded'
-  shape: ShapeKey;
-  items: ItemsKey;
-  justify: JustifyKey;
-  wrap: WrapKey;
-  display: DisplayKey;
-  overflow: OverflowKey;
-};
-
 
 /**
  * Pick the first truthy key from props using a ComponentKeys category name.
@@ -86,7 +20,7 @@ export function pickFirstTruthyKeyByCategory<T extends ComponentCategoryKey>(
   props: Record<string, any>,
   defaults: Record<string, any>,
   category: T
-): CategoryKeyMap[T] | undefined {
+): typeof ComponentKeys[T][number] | undefined {
   const keys = ComponentKeys[category];
   
   const falsyKeys: string[] = [];
@@ -94,7 +28,7 @@ export function pickFirstTruthyKeyByCategory<T extends ComponentCategoryKey>(
   for (const k of keys) {
     const p = props[k];
     if (p === true)
-      return k as CategoryKeyMap[T];
+      return k as typeof ComponentKeys[T][number];
     if (p === false)
       falsyKeys.push(k);
   }
@@ -102,7 +36,7 @@ export function pickFirstTruthyKeyByCategory<T extends ComponentCategoryKey>(
   for (const k of keys) {
     const d = defaults[k];
     if (d === true && !falsyKeys.includes(k))
-      return k as CategoryKeyMap[T];
+      return k as typeof ComponentKeys[T][number];
   }
 
   return undefined;
