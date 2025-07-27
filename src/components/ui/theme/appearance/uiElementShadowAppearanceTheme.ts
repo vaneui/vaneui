@@ -22,8 +22,8 @@ export class UIElementShadowAppearanceTheme extends BaseTheme {
   constructor(initial?: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>>) {
     super();
     ComponentKeys.appearance.forEach((key) => {
-      const initialAppearance = initial?.[key as AppearanceKey];
-      this[key as AppearanceKey] = initialAppearance === undefined ? UIElementShadowAppearanceTheme.defaultShadow : null;
+      const initialAppearance = initial?.[key];
+      this[key] = initialAppearance === undefined ? UIElementShadowAppearanceTheme.defaultShadow : null;
     })
   }
 
