@@ -1,110 +1,72 @@
-export const MODE_KEYS = ['base', 'hover', 'active'] as const;
-export const SIZE_KEYS = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
-export const VARIANT_KEYS = ['filled', 'outline'] as const;
-export const APPEARANCE_KEYS = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
-export const TRANSPARENT_KEYS = ['transparent'] as const;
-export const LINK_KEYS = ['link'] as const;
-export const FONT_FAMILY_KEYS = ['sans', 'serif', 'mono'] as const;
-export const FONT_WEIGHT_KEYS = ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'] as const;
-export const FONT_STYLE_KEYS = ['italic', 'notItalic'] as const;
-export const TEXT_DECORATION_KEYS = ['underline', 'lineThrough', 'noUnderline', 'overline'] as const;
-export const TEXT_TRANSFORM_KEYS = ['uppercase', 'lowercase', 'capitalize', 'normalCase'] as const;
-export const TEXT_ALIGN_KEYS = ['textLeft', 'textCenter', 'textRight', 'textJustify'] as const;
-export const BORDER_KEYS = ['border', 'noBorder'] as const;
-export const SHADOW_KEYS = ['shadow', 'noShadow'] as const;
-export const RING_KEYS = ['ring', 'noRing'] as const;
-export const PADDING_KEYS = ['padding', 'noPadding'] as const;
-export const BREAKPOINT_KEYS = ['xsCol', 'smCol', 'mdCol', 'lgCol', 'xlCol'] as const;
-export const HIDE_KEYS = ['xsHide', 'smHide', 'mdHide', 'lgHide', 'xlHide'] as const;
-export const POSITION_KEYS = ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const;
-export const FLEX_DIRECTION_KEYS = ['row', 'column', 'rowReverse', 'columnReverse'] as const;
-export const DIRECTION_REVERSE_KEYS = ['reverse'] as const;
-export const GAP_KEYS = ['gap', 'noGap'] as const;
-export const PILL_KEYS = ['pill'] as const;
-export const SHARP_KEYS = ['sharp'] as const;
-export const ROUNDED_KEYS = ['rounded'] as const;
-export const SHAPE_KEYS = [...PILL_KEYS, ...SHARP_KEYS, ...ROUNDED_KEYS] as const;
-export const ITEMS_KEYS = ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const;
-export const JUSTIFY_KEYS = ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const;
-export const WRAP_KEYS = ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const;
-export const DISPLAY_KEYS = ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const;
-export const OVERFLOW_KEYS = ['overflowAuto', 'overflowHidden', 'overflowClip', 'overflowVisible', 'overflowScroll', 'overflowXAuto', 'overflowYAuto', 'overflowXHidden', 'overflowYHidden', 'overflowXClip', 'overflowYClip', 'overflowXVisible', 'overflowYVisible', 'overflowXScroll', 'overflowYScroll'] as const;
-
 export const COMPONENT_PROPS_CATEGORY = [
-  'mode',
-  'size',
-  'variant',
   'appearance',
-  'transparent',
-  'link',
-  'fontFamily',
-  'fontWeight',
-  'fontStyle',
-  'textDecoration',
-  'textTransform',
-  'textAlign',
   'border',
-  'shadow',
-  'ring',
-  'padding',
   'breakpoint',
-  'hide',
-  'position',
+  'display',
   'flexDirection',
-  'reverse',
+  'fontFamily',
+  'fontStyle',
+  'fontWeight',
   'gap',
-  'shape',
-  'sharp',
-  'rounded',
+  'hide',
   'items',
   'justify',
-  'wrap',
-  'display',
-  'overflow'
+  'link',
+  'mode',
+  'overflow',
+  'padding',
+  'position',
+  'reverse',
+  'ring',
+  'shadow',
+  'shape',
+  'size',
+  'textAlign',
+  'textDecoration',
+  'textTransform',
+  'transparent',
+  'variant',
+  'wrap'
 ] as const;
 
 export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
 export const ComponentKeys = {
-  mode: MODE_KEYS,
-  size: SIZE_KEYS,
-  variant: VARIANT_KEYS,
-  appearance: APPEARANCE_KEYS,
-  transparent: TRANSPARENT_KEYS,
-  link: LINK_KEYS,
-  fontFamily: FONT_FAMILY_KEYS,
-  fontWeight: FONT_WEIGHT_KEYS,
-  fontStyle: FONT_STYLE_KEYS,
-  textDecoration: TEXT_DECORATION_KEYS,
-  textTransform: TEXT_TRANSFORM_KEYS,
-  textAlign: TEXT_ALIGN_KEYS,
-  border: BORDER_KEYS,
-  shadow: SHADOW_KEYS,
-  ring: RING_KEYS,
-  padding: PADDING_KEYS,
-  breakpoint: BREAKPOINT_KEYS,
-  hide: HIDE_KEYS,
-  position: POSITION_KEYS,
-  flexDirection: FLEX_DIRECTION_KEYS,
-  reverse: DIRECTION_REVERSE_KEYS,
-  gap: GAP_KEYS,
-  shape: SHAPE_KEYS,
-  sharp: SHARP_KEYS,
-  rounded: ROUNDED_KEYS,
-  items: ITEMS_KEYS,
-  justify: JUSTIFY_KEYS,
-  wrap: WRAP_KEYS,
-  display: DISPLAY_KEYS,
-  overflow: OVERFLOW_KEYS,
-};
+  appearance: ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'],
+  border: ['border', 'noBorder'],
+  breakpoint: ['xsCol', 'smCol', 'mdCol', 'lgCol', 'xlCol'],
+  display: ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'],
+  flexDirection: ['row', 'column', 'rowReverse', 'columnReverse'],
+  fontFamily: ['sans', 'serif', 'mono'],
+  fontStyle: ['italic', 'notItalic'],
+  fontWeight: ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'],
+  gap: ['gap', 'noGap'],
+  hide: ['xsHide', 'smHide', 'mdHide', 'lgHide', 'xlHide'],
+  items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'],
+  justify: ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'],
+  link: ['link'],
+  mode: ['base', 'hover', 'active'],
+  overflow: ['overflowAuto', 'overflowHidden', 'overflowClip', 'overflowVisible', 'overflowScroll', 'overflowXAuto', 'overflowYAuto', 'overflowXHidden', 'overflowYHidden', 'overflowXClip', 'overflowYClip', 'overflowXVisible', 'overflowYVisible', 'overflowXScroll', 'overflowYScroll'],
+  padding: ['padding', 'noPadding'],
+  position: ['relative', 'absolute', 'fixed', 'sticky', 'static'],
+  reverse: ['reverse'],
+  ring: ['ring', 'noRing'],
+  rounded: ['rounded'],
+  shadow: ['shadow', 'noShadow'],
+  shape: ['pill', 'sharp', 'rounded'],
+  size: ['xs', 'sm', 'md', 'lg', 'xl'],
+  textAlign: ['textLeft', 'textCenter', 'textRight', 'textJustify'],
+  textDecoration: ['underline', 'lineThrough', 'noUnderline', 'overline'],
+  textTransform: ['uppercase', 'lowercase', 'capitalize', 'normalCase'],
+  transparent: ['transparent'],
+  variant: ['filled', 'outline'],
+  wrap: ['flexWrap', 'flexNoWrap', 'flexWrapReverse'],
+} as const;
 
 export type ModeKey = typeof ComponentKeys.mode[number];
 export type SizeKey = typeof ComponentKeys.size[number];
 export type RingKey = typeof ComponentKeys.ring[number];
 export type ShapeKey = typeof ComponentKeys.shape[number];
-export type SharpKey = typeof ComponentKeys.sharp[number];
-export type RoundedKey = typeof ComponentKeys.rounded[number];
 export type BorderKey = typeof ComponentKeys.border[number];
-export type ShadowKey = typeof ComponentKeys.shadow[number];
 export type PaddingKey = typeof ComponentKeys.padding[number];
 export type GapKey = typeof ComponentKeys.gap[number];
 export type VariantKey = typeof ComponentKeys.variant[number];
@@ -126,49 +88,48 @@ export type JustifyKey = typeof ComponentKeys.justify[number];
 export type WrapKey = typeof ComponentKeys.wrap[number];
 export type DisplayKey = typeof ComponentKeys.display[number];
 export type OverflowKey = typeof ComponentKeys.overflow[number];
-export type ReverseKey = typeof ComponentKeys.reverse[number];
 
 // Core building blocks - fundamental categories
-const LAYOUT_CORE = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
-const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
-const LAYOUT_SPACING = ['padding'] as const;
-const LAYOUT_RESPONSIVE = ['breakpoint'] as const;
+const LAYOUT_CORE: ComponentCategoryKey[] = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
+const LAYOUT_FLEX: ComponentCategoryKey[] = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
+const LAYOUT_SPACING: ComponentCategoryKey[] = ['padding'] as const;
+const LAYOUT_RESPONSIVE: ComponentCategoryKey[] = ['breakpoint'] as const;
 
-const VISUAL_CORE = ['appearance', 'transparent'] as const;
-const VISUAL_DECORATION = ['border', 'shadow', 'ring'] as const;
-const VISUAL_SHAPE = ['shape', 'sharp', 'rounded'] as const;
+const VISUAL_CORE: ComponentCategoryKey[] = ['appearance', 'transparent'] as const;
+const VISUAL_DECORATION: ComponentCategoryKey[] = ['border', 'shadow', 'ring'] as const;
+const VISUAL_SHAPE: ComponentCategoryKey[] = ['shape'] as const;
 
-const TYPOGRAPHY_STYLE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
-const TYPOGRAPHY_SEMANTIC = ['link'] as const;
+const TYPOGRAPHY_STYLE: ComponentCategoryKey[] = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
+const TYPOGRAPHY_SEMANTIC: ComponentCategoryKey[] = ['link'] as const;
 
-const INTERACTION_FORM = ['variant'] as const;
+const INTERACTION_FORM: ComponentCategoryKey[] = ['variant'] as const;
 
 // Composite categories built from core blocks
-const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
-const VISUAL_FULL = [...VISUAL_CORE, ...VISUAL_DECORATION, ...VISUAL_SHAPE] as const;
-const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE, ...TYPOGRAPHY_SEMANTIC] as const;
+const LAYOUT_FULL: ComponentCategoryKey[] = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
+const VISUAL_FULL: ComponentCategoryKey[] = [...VISUAL_CORE, ...VISUAL_DECORATION, ...VISUAL_SHAPE] as const;
+const TYPOGRAPHY_FULL: ComponentCategoryKey[] = [...TYPOGRAPHY_STYLE, ...TYPOGRAPHY_SEMANTIC] as const;
 
 // Component-specific category combinations
-export const BASE_COMPONENT_CATEGORIES = LAYOUT_CORE;
-export const TYPOGRAPHY_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...TYPOGRAPHY_FULL] as const;
-export const LIST_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_SPACING] as const;
+export const BASE_COMPONENT_CATEGORIES: ComponentCategoryKey[] = LAYOUT_CORE;
+export const TYPOGRAPHY_CATEGORIES: ComponentCategoryKey[] = [...LAYOUT_CORE, ...VISUAL_CORE, ...TYPOGRAPHY_FULL] as const;
+export const LIST_CATEGORIES: ComponentCategoryKey[] = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_SPACING] as const;
 
-export const INTERACTIVE_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...LAYOUT_SPACING, ...LAYOUT_FLEX, ...INTERACTION_FORM] as const;
-export const BUTTON_CATEGORIES = INTERACTIVE_CATEGORIES;
-export const BADGE_CATEGORIES = INTERACTIVE_CATEGORIES;
-export const CHIP_CATEGORIES = INTERACTIVE_CATEGORIES;
+export const INTERACTIVE_CATEGORIES: ComponentCategoryKey[] = [...LAYOUT_CORE, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...LAYOUT_SPACING, ...LAYOUT_FLEX, ...INTERACTION_FORM] as const;
+export const BUTTON_CATEGORIES: ComponentCategoryKey[] = INTERACTIVE_CATEGORIES;
+export const BADGE_CATEGORIES: ComponentCategoryKey[] = INTERACTIVE_CATEGORIES;
+export const CHIP_CATEGORIES: ComponentCategoryKey[] = INTERACTIVE_CATEGORIES;
 
-export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL] as const;
-export const FLEX_CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_CORE] as const;
-export const GRID_CATEGORIES = [...LAYOUT_CORE, ...LAYOUT_FLEX, ...VISUAL_CORE] as const;
+export const CONTAINER_CATEGORIES: ComponentCategoryKey[] = [...LAYOUT_FULL, ...VISUAL_FULL] as const;
+export const FLEX_CONTAINER_CATEGORIES: ComponentCategoryKey[] = [...LAYOUT_FULL, ...VISUAL_CORE] as const;
+export const GRID_CATEGORIES: ComponentCategoryKey[] = [...LAYOUT_CORE, ...LAYOUT_FLEX, ...VISUAL_CORE] as const;
 
-export const ROW_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...LAYOUT_RESPONSIVE] as const;
-export const COL_CATEGORIES = FLEX_CONTAINER_CATEGORIES;
-export const STACK_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...LAYOUT_RESPONSIVE, ...LAYOUT_SPACING] as const;
+export const ROW_CATEGORIES: ComponentCategoryKey[] = [...FLEX_CONTAINER_CATEGORIES, ...LAYOUT_RESPONSIVE] as const;
+export const COL_CATEGORIES: ComponentCategoryKey[] = FLEX_CONTAINER_CATEGORIES;
+export const STACK_CATEGORIES: ComponentCategoryKey[] = [...FLEX_CONTAINER_CATEGORIES, ...LAYOUT_RESPONSIVE, ...LAYOUT_SPACING] as const;
 
-export const CARD_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_FLEX, ...LAYOUT_RESPONSIVE, ...VISUAL_DECORATION, ...VISUAL_SHAPE, ...LAYOUT_SPACING] as const;
-export const DIVIDER_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...LAYOUT_SPACING] as const;
-export const SECTION_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...LAYOUT_SPACING, ...LAYOUT_FLEX, ...LAYOUT_RESPONSIVE, ...VISUAL_DECORATION, ...VISUAL_SHAPE] as const;
+export const CARD_CATEGORIES: ComponentCategoryKey[] = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_FLEX, ...LAYOUT_RESPONSIVE, ...VISUAL_DECORATION, ...VISUAL_SHAPE, ...LAYOUT_SPACING] as const;
+export const DIVIDER_CATEGORIES: ComponentCategoryKey[] = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...LAYOUT_SPACING] as const;
+export const SECTION_CATEGORIES: ComponentCategoryKey[] = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...LAYOUT_SPACING, ...LAYOUT_FLEX, ...LAYOUT_RESPONSIVE, ...VISUAL_DECORATION, ...VISUAL_SHAPE] as const;
 
 export type CategoryProps = {
   [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];

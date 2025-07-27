@@ -9,7 +9,7 @@ export {
   ThemeProvider,
   useTheme,
   defaultTheme,
-  COMPONENT_KEYS,
+  COMPONENT,
   type ThemeProps,
   type ThemeDefaults,
   type ThemeProviderProps,

@@ -39,9 +39,9 @@ import {
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
-export const COMPONENT_KEYS = ['button', 'badge', 'chip', 'card', 'divider', 'row', 'col', 'stack', 'section',
+export const COMPONENT = ['button', 'badge', 'chip', 'card', 'divider', 'row', 'col', 'stack', 'section',
   'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem'] as const;
-export type ComponentKey = typeof COMPONENT_KEYS[number];
+export type ComponentKey = typeof COMPONENT[number];
 
 export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, object>> {
   button: ComponentTheme<ButtonProps, ButtonTheme>;

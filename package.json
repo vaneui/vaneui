@@ -48,7 +48,7 @@
     "build:css:vars": "npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css",
     "build:css:ui": "npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css",
     "build": "npm run clean && npm run build:js && npm run build:css:ui && npm run build:css:vars",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node node_modules/jest/bin/jest.js"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
