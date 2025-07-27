@@ -1,6 +1,6 @@
 import { PositionKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props/keys/";
+import type { BasePropsStructure } from "../../props";
 
 export interface PositionTheme extends Record<PositionKey, string> {
 }

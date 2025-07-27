@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props/keys/";
+import type { BasePropsStructure } from "../../props";
 import { SizeKey, ComponentKeys } from "../../props";
 
 export interface SizeTheme extends Record<SizeKey, string> {

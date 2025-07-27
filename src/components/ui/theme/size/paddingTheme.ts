@@ -1,6 +1,6 @@
 import { SizeKey, PaddingKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props/keys/";
+import type { BasePropsStructure } from "../../props";
 
 export interface PaddingTheme extends Record<PaddingKey, string | Record<SizeKey, string>> {
 }

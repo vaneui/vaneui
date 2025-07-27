@@ -5,7 +5,7 @@ import {
   ComponentKeys
 } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props/keys/";
+import type { BasePropsStructure } from "../../props";
 
 export interface UIElementShadowAppearanceTheme extends Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
 }

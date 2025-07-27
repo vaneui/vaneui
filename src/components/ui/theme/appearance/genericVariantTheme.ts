@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props/keys/";
+import type { BasePropsStructure } from "../../props";
 import { ComponentKeys, VariantKey, } from "../../props";
 import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./textAppearanceTheme";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "../../classes/typographyClasses";

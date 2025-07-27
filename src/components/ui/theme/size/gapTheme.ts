@@ -1,6 +1,6 @@
 import { SizeKey, GapKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props/keys/";
+import type { BasePropsStructure } from "../../props";
 
 export interface GapTheme extends Record<GapKey, string | Record<SizeKey, string>> {
 }

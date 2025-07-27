@@ -1,1 +1,0 @@
-export { BasePropsStructure } from './basePropsStructure';

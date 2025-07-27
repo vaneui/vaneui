@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props/keys/";
+import type { BasePropsStructure } from "../../props";
 import { ModeKey, RingKey, ComponentKeys } from "../../props";
 
 export interface RingTheme extends Record<RingKey, Record<ModeKey, string>> {

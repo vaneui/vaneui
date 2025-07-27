@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props/keys/";
+import type { BasePropsStructure } from "../../props";
 import { ModeKey, BorderKey, ComponentKeys } from "../../props";
 
 export interface BorderTheme extends Record<BorderKey, Record<ModeKey, string>> {}

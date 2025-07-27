@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props/keys/";
+import type { BasePropsStructure } from "../../props";
 import { ComponentKeys, ModeKey, AppearanceKey, TransparentKey, LinkKey } from "../../props";
 import { textAppearanceClasses } from "../../classes/typographyClasses";
 

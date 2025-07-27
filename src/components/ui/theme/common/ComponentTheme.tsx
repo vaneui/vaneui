@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseTheme } from "./baseTheme";
-import type { BasePropsStructure } from "../../props/keys/";
+import type { BasePropsStructure } from "../../props";
 import { HideTheme } from "../layout/hideTheme";
 import { ItemsTheme } from "../layout/itemsTheme";
 import { JustifyTheme } from "../layout/justifyTheme";

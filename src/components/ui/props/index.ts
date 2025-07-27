@@ -1,2 +1,2 @@
 export * from './keys';
-export * from './keys/index';
+export { BasePropsStructure } from './basePropsStructure';
