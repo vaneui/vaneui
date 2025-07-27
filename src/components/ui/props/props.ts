@@ -1,273 +1,88 @@
 import React from "react";
+import { 
+  ComponentKeys,
+  ComponentCategoryKey,
+  BUTTON_CATEGORIES,
+  BADGE_CATEGORIES,
+  CHIP_CATEGORIES,
+  GRID_CATEGORIES,
+  ROW_CATEGORIES,
+  COL_CATEGORIES,
+  CARD_CATEGORIES,
+  STACK_CATEGORIES,
+  SECTION_CATEGORIES,
+  DIVIDER_CATEGORIES,
+  CONTAINER_CATEGORIES,
+  TYPOGRAPHY_CATEGORIES,
+  LIST_CATEGORIES
+} from './keys';
+
+/**
+ * Extracts a union of all string literals from a given set of component categories.
+ * @template T - A readonly array of keys from COMPONENT_PROPS_CATEGORY.
+ */
+type FlattenKeysFromCategories<T extends ReadonlyArray<ComponentCategoryKey>> = {
+  // 1. Map over the input categories `T` (e.g., ['size', 'hide']).
+  [K in T[number]]: 
+    // 2. For each category, look up its corresponding array of keys in `ComponentKeys`.
+    (typeof ComponentKeys)[K][number] 
+    // 3. Extract the union of all values from the resulting object.
+}[T[number]];
+
+/**
+ * Creates a type with optional boolean properties from a union of string literals.
+ * @template T - A union of string literals.
+ */
+type CreateBooleanProps<T extends string> = {
+  [K in T]?: boolean;
+};
 
 export type ComponentProps = {
   tag?: React.ReactNode | string | any;
   className?: string;
   children?: React.ReactNode;
-} & React.HTMLProps<HTMLElement>;
+} & Omit<React.HTMLProps<HTMLElement>, 
+  'size' | 'shape' | 'hidden' | 'translate' | 'content' | 'wrap' | 
+  'border' | 'color' | 'display' | 'height' | 'width' | 'position' |
+  'start' | 'span' | 'slot'
+>;
 
-export interface TypographyProps extends ComponentProps, ComponentBooleanProps {}
-export interface ListProps extends ComponentProps, ComponentBooleanProps {}
-export interface ButtonProps extends ComponentProps {
-  // Size props
-  xs?: boolean;
-  sm?: boolean;
-  md?: boolean;
-  lg?: boolean;
-  xl?: boolean;
-  
-  // Layout props
-  xsHide?: boolean;
-  smHide?: boolean;
-  mdHide?: boolean;
-  lgHide?: boolean;
-  xlHide?: boolean;
-  itemsStart?: boolean;
-  itemsEnd?: boolean;
-  itemsCenter?: boolean;
-  itemsBaseline?: boolean;
-  itemsStretch?: boolean;
-  justifyStart?: boolean;
-  justifyEnd?: boolean;
-  justifyCenter?: boolean;
-  justifyBetween?: boolean;
-  justifyAround?: boolean;
-  justifyEvenly?: boolean;
-  justifyStretch?: boolean;
-  justifyBaseline?: boolean;
-  relative?: boolean;
-  absolute?: boolean;
-  fixed?: boolean;
-  sticky?: boolean;
-  static?: boolean;
-  inline?: boolean;
-  block?: boolean;
-  inlineBlock?: boolean;
-  flex?: boolean;
-  inlineFlex?: boolean;
-  grid?: boolean;
-  inlineGrid?: boolean;
-  contents?: boolean;
-  table?: boolean;
-  tableCell?: boolean;
-  hidden?: boolean;
-  overflowAuto?: boolean;
-  overflowHidden?: boolean;
-  overflowClip?: boolean;
-  overflowVisible?: boolean;
-  overflowScroll?: boolean;
-  overflowXAuto?: boolean;
-  overflowYAuto?: boolean;
-  overflowXHidden?: boolean;
-  overflowYHidden?: boolean;
-  overflowXClip?: boolean;
-  overflowYClip?: boolean;
-  overflowXVisible?: boolean;
-  overflowYVisible?: boolean;
-  overflowXScroll?: boolean;
-  overflowYScroll?: boolean;
-  
-  // Typography props
-  thin?: boolean;
-  extralight?: boolean;
-  light?: boolean;
-  normal?: boolean;
-  medium?: boolean;
-  semibold?: boolean;
-  bold?: boolean;
-  extrabold?: boolean;
-  black?: boolean;
-  italic?: boolean;
-  notItalic?: boolean;
-  underline?: boolean;
-  lineThrough?: boolean;
-  noUnderline?: boolean;
-  overline?: boolean;
-  uppercase?: boolean;
-  lowercase?: boolean;
-  capitalize?: boolean;
-  normalCase?: boolean;
-  sans?: boolean;
-  serif?: boolean;
-  mono?: boolean;
-  textLeft?: boolean;
-  textCenter?: boolean;
-  textRight?: boolean;
-  textJustify?: boolean;
-  
-  // Appearance props
-  default?: boolean;
-  accent?: boolean;
-  primary?: boolean;
-  secondary?: boolean;
-  tertiary?: boolean;
-  success?: boolean;
-  danger?: boolean;
-  warning?: boolean;
-  info?: boolean;
-  
-  // Style props
-  pill?: boolean;
-  sharp?: boolean;
-  rounded?: boolean;
-  border?: boolean;
-  noBorder?: boolean;
-  shadow?: boolean;
-  noShadow?: boolean;
-  ring?: boolean;
-  noRing?: boolean;
-  gap?: boolean;
-  noGap?: boolean;
-  padding?: boolean;
-  noPadding?: boolean;
-  filled?: boolean;
-  outline?: boolean;
-}
-// Create a utility type that works with explicit keys
-type ComponentBooleanProps = {
-  // Size props
-  xs?: boolean;
-  sm?: boolean;
-  md?: boolean;
-  lg?: boolean;
-  xl?: boolean;
-  
-  // Hide props
-  xsHide?: boolean;
-  smHide?: boolean;
-  mdHide?: boolean;
-  lgHide?: boolean;
-  xlHide?: boolean;
-  
-  // Layout props
-  itemsStart?: boolean;
-  itemsEnd?: boolean;
-  itemsCenter?: boolean;
-  itemsBaseline?: boolean;
-  itemsStretch?: boolean;
-  justifyStart?: boolean;
-  justifyEnd?: boolean;
-  justifyCenter?: boolean;
-  justifyBetween?: boolean;
-  justifyAround?: boolean;
-  justifyEvenly?: boolean;
-  justifyStretch?: boolean;
-  justifyBaseline?: boolean;
-  relative?: boolean;
-  absolute?: boolean;
-  fixed?: boolean;
-  sticky?: boolean;
-  static?: boolean;
-  inline?: boolean;
-  block?: boolean;
-  inlineBlock?: boolean;
-  flex?: boolean;
-  inlineFlex?: boolean;
-  grid?: boolean;
-  inlineGrid?: boolean;
-  contents?: boolean;
-  table?: boolean;
-  tableCell?: boolean;
-  hidden?: boolean;
-  overflowAuto?: boolean;
-  overflowHidden?: boolean;
-  overflowClip?: boolean;
-  overflowVisible?: boolean;
-  overflowScroll?: boolean;
-  overflowXAuto?: boolean;
-  overflowYAuto?: boolean;
-  overflowXHidden?: boolean;
-  overflowYHidden?: boolean;
-  overflowXClip?: boolean;
-  overflowYClip?: boolean;
-  overflowXVisible?: boolean;
-  overflowYVisible?: boolean;
-  overflowXScroll?: boolean;
-  overflowYScroll?: boolean;
-  
-  // Typography props
-  thin?: boolean;
-  extralight?: boolean;
-  light?: boolean;
-  normal?: boolean;
-  medium?: boolean;
-  semibold?: boolean;
-  bold?: boolean;
-  extrabold?: boolean;
-  black?: boolean;
-  italic?: boolean;
-  notItalic?: boolean;
-  underline?: boolean;
-  lineThrough?: boolean;
-  noUnderline?: boolean;
-  overline?: boolean;
-  uppercase?: boolean;
-  lowercase?: boolean;
-  capitalize?: boolean;
-  normalCase?: boolean;
-  sans?: boolean;
-  serif?: boolean;
-  mono?: boolean;
-  textLeft?: boolean;
-  textCenter?: boolean;
-  textRight?: boolean;
-  textJustify?: boolean;
-  
-  // Appearance props
-  default?: boolean;
-  accent?: boolean;
-  primary?: boolean;
-  secondary?: boolean;
-  tertiary?: boolean;
-  success?: boolean;
-  danger?: boolean;
-  warning?: boolean;
-  info?: boolean;
-  transparent?: boolean;
-  link?: boolean;
-  
-  // Style props
-  pill?: boolean;
-  sharp?: boolean;
-  rounded?: boolean;
-  filled?: boolean;
-  outline?: boolean;
-  shadow?: boolean;
-  noShadow?: boolean;
-  border?: boolean;
-  noBorder?: boolean;
-  ring?: boolean;
-  noRing?: boolean;
-  gap?: boolean;
-  noGap?: boolean;
-  padding?: boolean;
-  noPadding?: boolean;
-  
-  // Direction and wrap props
-  row?: boolean;
-  column?: boolean;
-  rowReverse?: boolean;
-  columnReverse?: boolean;
-  reverse?: boolean;
-  flexWrap?: boolean;
-  flexNoWrap?: boolean;
-  flexWrapReverse?: boolean;
-  
-  // Breakpoint props
-  xsCol?: boolean;
-  smCol?: boolean;
-  mdCol?: boolean;
-  lgCol?: boolean;
-  xlCol?: boolean;
-};
+// Component-specific prop interfaces generated from ComponentKeys
+type ButtonKey = FlattenKeysFromCategories<typeof BUTTON_CATEGORIES>;
+export interface ButtonProps extends ComponentProps, CreateBooleanProps<ButtonKey> {}
 
-export interface BadgeProps extends ComponentProps, ComponentBooleanProps {}
-export interface ChipProps extends ComponentProps, ComponentBooleanProps {}
-export interface GridProps extends ComponentProps, ComponentBooleanProps {}
-export interface RowProps extends ComponentProps, ComponentBooleanProps {}
-export interface ColProps extends ComponentProps, ComponentBooleanProps {}
-export interface CardProps extends ComponentProps, ComponentBooleanProps {}
-export interface StackProps extends ComponentProps, ComponentBooleanProps {}
-export interface SectionProps extends ComponentProps, ComponentBooleanProps {}
-export interface DividerProps extends ComponentProps, ComponentBooleanProps {}
-export interface ContainerProps extends ComponentProps, ComponentBooleanProps {}
+type BadgeKey = FlattenKeysFromCategories<typeof BADGE_CATEGORIES>;
+export interface BadgeProps extends ComponentProps, CreateBooleanProps<BadgeKey> {}
+
+type ChipKey = FlattenKeysFromCategories<typeof CHIP_CATEGORIES>;
+export interface ChipProps extends ComponentProps, CreateBooleanProps<ChipKey> {}
+
+type GridKey = FlattenKeysFromCategories<typeof GRID_CATEGORIES>;
+export interface GridProps extends ComponentProps, CreateBooleanProps<GridKey> {}
+
+type RowKey = FlattenKeysFromCategories<typeof ROW_CATEGORIES>;
+export interface RowProps extends ComponentProps, CreateBooleanProps<RowKey> {}
+
+type ColKey = FlattenKeysFromCategories<typeof COL_CATEGORIES>;
+export interface ColProps extends ComponentProps, CreateBooleanProps<ColKey> {}
+
+type CardKey = FlattenKeysFromCategories<typeof CARD_CATEGORIES>;
+export interface CardProps extends ComponentProps, CreateBooleanProps<CardKey> {}
+
+type StackKey = FlattenKeysFromCategories<typeof STACK_CATEGORIES>;
+export interface StackProps extends ComponentProps, CreateBooleanProps<StackKey> {}
+
+type SectionKey = FlattenKeysFromCategories<typeof SECTION_CATEGORIES>;
+export interface SectionProps extends ComponentProps, CreateBooleanProps<SectionKey> {}
+
+type DividerKey = FlattenKeysFromCategories<typeof DIVIDER_CATEGORIES>;
+export interface DividerProps extends ComponentProps, CreateBooleanProps<DividerKey> {}
+
+type ContainerKey = FlattenKeysFromCategories<typeof CONTAINER_CATEGORIES>;
+export interface ContainerProps extends ComponentProps, CreateBooleanProps<ContainerKey> {}
+
+type TypographyKey = FlattenKeysFromCategories<typeof TYPOGRAPHY_CATEGORIES>;
+export interface TypographyProps extends ComponentProps, CreateBooleanProps<TypographyKey> {}
+
+type ListKey = FlattenKeysFromCategories<typeof LIST_CATEGORIES>;
+export interface ListProps extends ComponentProps, CreateBooleanProps<ListKey> {}
