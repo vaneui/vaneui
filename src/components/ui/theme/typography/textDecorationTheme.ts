@@ -1,6 +1,6 @@
 import { TextDecorationKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface TextDecorationTheme extends Record<TextDecorationKey, string> {
 }
@@ -20,7 +20,7 @@ export class TextDecorationTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.textDecoration as TextDecorationKey;
     return [key ? this[key] : '']; // No default for text decoration
   }

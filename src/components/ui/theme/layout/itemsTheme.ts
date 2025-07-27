@@ -1,6 +1,6 @@
 import { ItemsKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface ItemsTheme extends Record<ItemsKey, string> {}
 
@@ -20,7 +20,7 @@ export class ItemsTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const pickedKey = extractedKeys?.items as ItemsKey;
     return [pickedKey && this[pickedKey] ? this[pickedKey] : ''];
   }

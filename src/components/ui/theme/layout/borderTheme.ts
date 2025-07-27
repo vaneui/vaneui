@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 import { ModeKey, BorderKey, ComponentKeys } from "../../props";
 
 export interface BorderTheme extends Record<BorderKey, Record<ModeKey, string>> {}
@@ -33,7 +33,7 @@ export class BorderTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.border as BorderKey;
     if (!key || !this[key]) {
       return ComponentKeys.mode.map(() => '');

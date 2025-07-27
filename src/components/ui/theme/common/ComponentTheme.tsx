@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseTheme } from "./baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 import { HideTheme } from "../layout/hideTheme";
 import { ItemsTheme } from "../layout/itemsTheme";
 import { JustifyTheme } from "../layout/justifyTheme";
@@ -72,14 +72,14 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly base: string;
   readonly themes: TTheme;
   defaults: Partial<P>;
-  private readonly extractKeys?: (props: Record<string, boolean>, defaults: Record<string, boolean>) => BasePropsStructure;
+  private readonly extractKeys?: (props: Record<string, boolean>, defaults: Record<string, boolean>) => CategoryProps;
 
   constructor(
     tag: React.ElementType,
     base: string,
     subThemes: DeepPartial<TTheme>,
     defaults: Partial<P> = {},
-    extractKeys?: (props: Record<string, boolean>, defaults: Record<string, boolean>) => BasePropsStructure
+    extractKeys?: (props: Record<string, boolean>, defaults: Record<string, boolean>) => CategoryProps
   ) {
     this.tag = tag;
     this.base = base;

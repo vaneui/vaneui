@@ -1,6 +1,6 @@
 import { OverflowKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface OverflowTheme extends Record<OverflowKey, string> {
 }
@@ -31,7 +31,7 @@ export class OverflowTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.overflow as OverflowKey;
     return [key && this[key] ? this[key] : ''];
   }

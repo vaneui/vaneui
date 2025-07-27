@@ -1,6 +1,6 @@
 import { TextTransformKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface TextTransformTheme extends Record<TextTransformKey, string> {
 }
@@ -20,7 +20,7 @@ export class TextTransformTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.textTransform as TextTransformKey;
     return [key ? this[key] : '']; // No default for text transform
   }

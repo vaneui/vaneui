@@ -1,6 +1,6 @@
 import { FontWeightKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface FontWeightTheme extends Record<FontWeightKey, string> {
 }
@@ -25,7 +25,7 @@ export class FontWeightTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.fontWeight as FontWeightKey;
     if (key === undefined)
       return [];

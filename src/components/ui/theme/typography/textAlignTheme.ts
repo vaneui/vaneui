@@ -1,6 +1,6 @@
 import { TextAlignKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface TextAlignTheme extends Record<TextAlignKey, string> {
 }
@@ -20,7 +20,7 @@ export class TextAlignTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.textAlign as TextAlignKey;
     return [key ? this[key] : '']; // No default for text align
   }

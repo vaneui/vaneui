@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 import { ComponentKeys, ModeKey, AppearanceKey, TransparentKey, LinkKey } from "../../props";
 import { textAppearanceClasses } from "../../classes/typographyClasses";
 
@@ -15,7 +15,7 @@ export class TextAppearanceTheme extends BaseTheme {
     Object.assign(this, config);
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     // Check for specific transparent or link styles first
     if (extractedKeys?.transparent) {
       const transparentClass = textAppearanceClasses[extractedKeys.transparent as TransparentKey];
@@ -64,7 +64,7 @@ export class UIElementTextAppearanceTheme extends BaseTheme {
     Object.assign(this, config);
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const appearance = extractedKeys?.appearance as AppearanceKey;
     if (!appearance) {
       return [];

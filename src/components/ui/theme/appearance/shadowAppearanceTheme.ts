@@ -5,7 +5,7 @@ import {
   ComponentKeys
 } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface ShadowAppearanceTheme extends Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
 }
@@ -28,7 +28,7 @@ export class ShadowAppearanceTheme extends BaseTheme {
     })
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const appearance = (extractedKeys?.appearance as AppearanceKey) ?? 'default';
     const size = (extractedKeys?.size as SizeKey) ?? 'md';
     const key = extractedKeys?.shadow;

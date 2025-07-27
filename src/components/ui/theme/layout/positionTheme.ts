@@ -1,6 +1,6 @@
 import { PositionKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface PositionTheme extends Record<PositionKey, string> {
 }
@@ -21,7 +21,7 @@ export class PositionTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.position as PositionKey;
     return [key ? this[key] : ''];
   }

@@ -1,6 +1,6 @@
 import { WrapKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface WrapTheme extends Record<WrapKey, string> {
 }
@@ -19,7 +19,7 @@ export class WrapTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.wrap as WrapKey;
     return key ? [this[key]] : [];
   }

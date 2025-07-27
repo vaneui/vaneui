@@ -1,4 +1,4 @@
-import type { BasePropsStructure } from '../../props';
+import { CategoryProps } from "../../props/basePropsStructure";
 
 /**
  * Base Theme class that all theme types will extend
@@ -9,5 +9,5 @@ export abstract class BaseTheme {
    * @param extractedKeys Pre-extracted keys from props and defaults
    * @returns CSS classes as an array of strings
    */
-  abstract getClasses(extractedKeys: BasePropsStructure): string[];
+  abstract getClasses(extractedKeys: CategoryProps): string[];
 }

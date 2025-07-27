@@ -1,6 +1,6 @@
 import { FontFamilyKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import { CategoryProps } from "../../props/basePropsStructure";
 
 export interface FontFamilyTheme extends Record<FontFamilyKey, string> {
 }
@@ -19,7 +19,7 @@ export class FontFamilyTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.fontFamily as FontFamilyKey;
     if (key === undefined)
       return [];

@@ -1,6 +1,6 @@
 import { FontStyleKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface FontStyleTheme extends Record<FontStyleKey, string> {
 }
@@ -18,7 +18,7 @@ export class FontStyleTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.fontStyle as FontStyleKey;
     return [key ? this[key] : '']; // No default for font style
   }

@@ -1,6 +1,6 @@
 import { HideKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface HideTheme extends Record<HideKey, string> {
 }
@@ -21,7 +21,7 @@ export class HideTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.hide as HideKey;
     return [key ? this[key] : ''];
   }

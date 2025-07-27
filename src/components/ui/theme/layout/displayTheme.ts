@@ -1,6 +1,6 @@
 import { DisplayKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface DisplayTheme extends Record<DisplayKey, string> {}
 
@@ -26,7 +26,7 @@ export class DisplayTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.display as DisplayKey;
     return [key && this[key] ? this[key] : ''];
   }

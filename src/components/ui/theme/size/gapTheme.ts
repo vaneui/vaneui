@@ -1,6 +1,6 @@
 import { SizeKey, GapKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface GapTheme extends Record<GapKey, string | Record<SizeKey, string>> {
 }
@@ -24,7 +24,7 @@ export class GapTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const size = (extractedKeys?.size as SizeKey) ?? 'md';
     const key = (extractedKeys?.gap as GapKey) ?? 'noGap';
 

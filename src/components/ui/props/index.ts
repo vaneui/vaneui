@@ -1,2 +1,2 @@
 export * from './keys';
-export { BasePropsStructure } from './basePropsStructure';
+export { CategoryProps } from './basePropsStructure';

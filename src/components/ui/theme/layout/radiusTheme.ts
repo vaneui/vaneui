@@ -1,6 +1,6 @@
 import { ShapeKey, SizeKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface RadiusTheme extends Record<ShapeKey, string | Record<SizeKey, string>> {
 }
@@ -25,7 +25,7 @@ export class RadiusTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const size = (extractedKeys?.size as SizeKey) ?? 'md';
     const shape = (extractedKeys?.shape as ShapeKey) ?? 'rounded';
     return [typeof this[shape] === 'string' ? this[shape] : (this[shape] as Record<SizeKey, string>)[size]];

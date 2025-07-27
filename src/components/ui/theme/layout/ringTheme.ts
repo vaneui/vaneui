@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 import { ModeKey, RingKey, ComponentKeys } from "../../props";
 
 export interface RingTheme extends Record<RingKey, Record<ModeKey, string>> {
@@ -34,7 +34,7 @@ export class RingTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.ring as RingKey;
     if (!key || !this[key]) {
       return ComponentKeys.mode.map(() => '');

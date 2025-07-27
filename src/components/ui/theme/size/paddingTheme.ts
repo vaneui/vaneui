@@ -1,6 +1,6 @@
 import { SizeKey, PaddingKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface PaddingTheme extends Record<PaddingKey, string | Record<SizeKey, string>> {
 }
@@ -24,7 +24,7 @@ export class PaddingTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const size = (extractedKeys?.size as SizeKey) ?? 'md';
     const key = (extractedKeys?.padding as PaddingKey) ?? 'padding';
 

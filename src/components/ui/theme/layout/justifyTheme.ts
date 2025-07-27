@@ -1,6 +1,6 @@
 import { JustifyKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface JustifyTheme extends Record<JustifyKey, string> {}
 
@@ -23,7 +23,7 @@ export class JustifyTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.justify as JustifyKey;
     return [key ? this[key] : ''];
   }

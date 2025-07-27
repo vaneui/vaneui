@@ -3,7 +3,7 @@ import {
   ComponentKeys,
 } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 
 export interface DirectionTheme extends Record<FlexDirectionKey, string> {
 }
@@ -23,7 +23,7 @@ export class DirectionTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     let direction = (extractedKeys?.flexDirection as FlexDirectionKey) ?? 'column';
     const reverse = extractedKeys?.reverse;
 

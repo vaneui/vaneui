@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 import { ComponentKeys, VariantKey, } from "../../props";
 import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./textAppearanceTheme";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "../../classes/typographyClasses";
@@ -47,7 +47,7 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     return result;
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const variantKey = (extractedKeys?.variant as VariantKey) ?? 'outline';
     const activeTextAppearanceTheme = this[variantKey];
 

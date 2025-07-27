@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 import { SizeKey, ComponentKeys } from "../../props";
 
 export interface SizeTheme extends Record<SizeKey, string> {
@@ -17,7 +17,7 @@ export class SizeTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const size = (extractedKeys?.size as SizeKey) ?? (this.useDefaultKey ? 'md' : undefined);
     if (size !== undefined)
       return [this[size]];

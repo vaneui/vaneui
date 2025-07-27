@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 import {
   ComponentKeys,
   AppearanceKey,
@@ -26,7 +26,7 @@ export class BgAppearanceTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     // Check for specific transparent or link styles first
     if (extractedKeys?.transparent) {
       const transparentClass = layoutBackgroundAppearanceClasses[extractedKeys.transparent as TransparentKey];

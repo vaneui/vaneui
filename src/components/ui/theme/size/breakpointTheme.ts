@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { BasePropsStructure } from "../../props";
+import type { CategoryProps } from "../../props";
 import { BreakpointKey, SizeKey, ComponentKeys } from "../../props";
 
 export interface BreakpointTheme extends Record<BreakpointKey, string> {
@@ -22,7 +22,7 @@ export class BreakpointTheme extends BaseTheme {
     });
   }
 
-  getClasses(extractedKeys: BasePropsStructure): string[] {
+  getClasses(extractedKeys: CategoryProps): string[] {
     const key = extractedKeys?.breakpoint as BreakpointKey;
     if (!key)
       return [];
