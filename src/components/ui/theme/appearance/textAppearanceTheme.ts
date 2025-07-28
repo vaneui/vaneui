@@ -28,7 +28,7 @@ export class TextAppearanceTheme extends BaseTheme {
     }
     
     // Use regular appearance
-    const pickedAppearanceKey = extractedKeys?.appearance ?? 'default';
+    const pickedAppearanceKey = extractedKeys?.appearance;
     if (!pickedAppearanceKey) {
       return [];
     }
