@@ -3,8 +3,6 @@ import type { CategoryProps } from "../../props";
 import {
   ComponentKeys,
   AppearanceKey,
-  TransparentKey,
-  LinkKey,
   ModeKey,
 } from "../../props";
 import { layoutBackgroundAppearanceClasses } from "../../classes/appearanceClasses";
@@ -30,21 +28,24 @@ export class BgAppearanceTheme extends BaseTheme {
     // Check for specific transparent or link styles first
     if (extractedKeys?.transparent) {
       const transparentClass = layoutBackgroundAppearanceClasses[extractedKeys.transparent];
-      return [transparentClass || '', '', ''];
+      return [transparentClass || ''];
     }
-    
+
     if (extractedKeys?.link) {
       const linkClass = layoutBackgroundAppearanceClasses[extractedKeys.link];
-      return [linkClass || '', '', ''];
+      return [linkClass || ''];
     }
-    
-    // Use regular appearance
-    const pickedAppearanceKey = extractedKeys?.appearance ?? 'default';
-    const modesForAppearance = this[pickedAppearanceKey];
 
-    if (!modesForAppearance) {
-      return ComponentKeys.mode.map(() => '');
+    // Use regular appearance
+    const pickedAppearanceKey = extractedKeys?.appearance;
+    if (pickedAppearanceKey !== undefined) {
+
+      const modesForAppearance = this[pickedAppearanceKey];
+      if (!modesForAppearance) {
+        return [];
+      }
+      return ComponentKeys.mode.map(mode => modesForAppearance[mode] || '');
     }
-    return ComponentKeys.mode.map(mode => modesForAppearance[mode] || '');
+    return [];
   }
 }

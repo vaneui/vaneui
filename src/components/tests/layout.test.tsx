@@ -38,6 +38,17 @@ describe('Layout Components Tests', () => {
       const containerEl = container.querySelector('div');
       expect(containerEl).toHaveClass('bg-transparent');
     });
+
+    it('should apply default background correctly', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container default>Transparent Container</Container>
+        </ThemeProvider>
+      );
+
+      const containerEl = container.querySelector('div');
+      expect(containerEl).toHaveClass('bg-(--layout-background-default)');
+    });
   });
 
   describe('Section Component', () => {
@@ -66,7 +77,7 @@ describe('Layout Components Tests', () => {
       const row = container.querySelector('div');
       expect(row).toBeInTheDocument();
       expect(row).toHaveClass('flex', 'flex-row', 'items-center');
-      expect(row).toHaveClass('bg-transparent');
+      expect(row).not.toHaveClass('bg-transparent', 'bg-(--layout-background-default)');
     });
   });
 
@@ -81,7 +92,7 @@ describe('Layout Components Tests', () => {
       const col = container.querySelector('div');
       expect(col).toBeInTheDocument();
       expect(col).toHaveClass('flex', 'flex-col');
-      expect(col).toHaveClass('bg-transparent');
+      expect(col).not.toHaveClass('bg-transparent', 'bg-(--layout-background-default)');
     });
   });
 
@@ -96,7 +107,7 @@ describe('Layout Components Tests', () => {
       const stack = container.querySelector('div');
       expect(stack).toBeInTheDocument();
       expect(stack).toHaveClass('flex', 'flex-wrap', 'flex-col');
-      expect(stack).toHaveClass('bg-transparent');
+      expect(stack).not.toHaveClass('bg-transparent', 'bg-(--layout-background-default)');
     });
 
     it('should apply row direction when row prop is true', () => {

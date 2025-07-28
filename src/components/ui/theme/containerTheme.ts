@@ -84,7 +84,6 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
     }
   },
   {
-    transparent: true,
     noRing: true,
     flex: true,
     md: true,

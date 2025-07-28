@@ -40,7 +40,6 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
     column: true,
     md: true,
     flex: true,
-    transparent: true,
     gap: true,
   },
   (props, defaults) => extractKeysFromCategories(props, defaults, COL_CATEGORIES)

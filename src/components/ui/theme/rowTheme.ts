@@ -43,7 +43,6 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
     row: true,
     md: true,
     flex: true,
-    transparent: true,
     itemsCenter: true,
     gap: true,
   },
