@@ -15,7 +15,6 @@ import {
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { RadiusTheme } from "./layout/radiusTheme";
-import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { CONTAINER_CATEGORIES } from "../props";
 
 export interface ContainerTheme extends BaseComponentTheme {
@@ -91,5 +90,5 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
     gap: true,
     sharp: true,
   },
-  (props, defaults) => extractKeysFromCategories(props, defaults, CONTAINER_CATEGORIES)
+  CONTAINER_CATEGORIES
 );

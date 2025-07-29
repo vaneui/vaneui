@@ -17,7 +17,6 @@ import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { SECTION_CATEGORIES } from "../props";
 
 export interface SectionTheme extends BaseComponentTheme {
@@ -111,5 +110,5 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
     noShadow: true,
     sharp: true,
   },
-  (props, defaults) => extractKeysFromCategories(props, defaults, SECTION_CATEGORIES)
+  SECTION_CATEGORIES
 );

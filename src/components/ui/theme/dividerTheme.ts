@@ -3,7 +3,6 @@ import { DividerProps } from "../props/props";
 import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { bgBorderAppearanceClasses } from "../classes/appearanceClasses";
 import { PyTheme } from "./size/pyTheme";
-import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { DIVIDER_CATEGORIES } from "../props";
 
 export interface DividerTheme extends BaseComponentTheme {
@@ -33,5 +32,5 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
     default: true,
     noPadding: true,
   },
-  (props, defaults) => extractKeysFromCategories(props, defaults, DIVIDER_CATEGORIES)
+  DIVIDER_CATEGORIES
 );

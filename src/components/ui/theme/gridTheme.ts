@@ -2,7 +2,6 @@ import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme } from "./common
 import { GridProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { DeepPartial } from "../../utils/deepPartial";
-import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { GRID_CATEGORIES } from "../props";
 
 export interface GridTheme extends BaseComponentTheme {
@@ -37,7 +36,7 @@ export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(
   "grid-cols-1 md:grid-cols-3",
   gridSubThemes,
   gridDefaults,
-  (props, defaults) => extractKeysFromCategories(props, defaults, GRID_CATEGORIES)
+  GRID_CATEGORIES
 );
 
 export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
@@ -45,5 +44,5 @@ export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
   "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   gridSubThemes,
   gridDefaults,
-  (props, defaults) => extractKeysFromCategories(props, defaults, GRID_CATEGORIES)
+  GRID_CATEGORIES
 );

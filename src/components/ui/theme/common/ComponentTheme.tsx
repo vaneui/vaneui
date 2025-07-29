@@ -1,6 +1,7 @@
 import React from "react";
 import { BaseTheme } from "./baseTheme";
-import type { CategoryProps } from "../../props";
+import type { ComponentCategoryKey } from "../../props";
+import { ComponentKeys } from "../../props";
 import { HideTheme } from "../layout/hideTheme";
 import { ItemsTheme } from "../layout/itemsTheme";
 import { JustifyTheme } from "../layout/justifyTheme";
@@ -16,6 +17,7 @@ import { DisplayTheme } from "../layout/displayTheme";
 import { twMerge } from "tailwind-merge";
 import { ComponentProps } from "../../props/props";
 import { OverflowTheme } from "../layout/overflowTheme";
+import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
 
 type ThemeNode<P> = BaseTheme | ThemeMap<P>;
 
@@ -72,43 +74,43 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly base: string;
   readonly themes: TTheme;
   defaults: Partial<P>;
-  private readonly extractKeys?: (props: Record<string, boolean>, defaults: Record<string, boolean>) => CategoryProps;
+  private readonly categories: readonly ComponentCategoryKey[];
 
   constructor(
     tag: React.ElementType,
     base: string,
     subThemes: DeepPartial<TTheme>,
     defaults: Partial<P> = {},
-    extractKeys?: (props: Record<string, boolean>, defaults: Record<string, boolean>) => CategoryProps
+    categories: readonly ComponentCategoryKey[]
   ) {
     this.tag = tag;
     this.base = base;
     this.defaults = defaults;
-    this.extractKeys = extractKeys;
+    this.categories = categories;
     // Type assertion: we trust that all default themes provide complete objects
     this.themes = subThemes as TTheme;
   }
 
-  getClasses(props: P, defaults: Partial<P> = this.defaults): string[] {
-    const user = props as unknown as Record<string, boolean>;
-    const defs = defaults as Record<string, boolean>;
+  getClasses(props: P): string[] {
+    const componentProps = props as unknown as Record<string, boolean>;
     const classes: string[] = [];
 
     if (this.base) {
       classes.push(...this.base.split(/\s+/));
     }
 
-    // Extract keys once if extractor is provided
-    const extractedKeys = this.extractKeys ? this.extractKeys(user, defs) : undefined;
+    const defaults = this.defaults as Record<string, boolean>;
+    const extractedKeys: Record<string, string | undefined> = {};
+    for (const category of this.categories) {
+      extractedKeys[category] = pickFirstTruthyKeyByCategory(componentProps, defaults, category);
+    }
 
     const walk = (map: object) => {
       for (const key of Object.keys(map)) {
         const node = (map as ThemeMap<P>)[key];
 
         if (node instanceof BaseTheme) {
-          // If extractedKeys is not available, create a minimal one for backward compatibility
-          const keys = extractedKeys || {};
-          classes.push(...node.getClasses(keys));
+          classes.push(...node.getClasses(extractedKeys));
         } else if (node && typeof node === "object" && !Array.isArray(node)) {
           walk(node);
         }
@@ -119,14 +121,16 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     return classes.filter(Boolean);
   }
 
-  getComponentConfig(props: P, propsToOmit: readonly string[] = []) {
+  getComponentConfig(props: P) {
     const cleanProps: Record<string, any> = {...props};
-    // Remove the propsToOmit keys
-    for (const k of propsToOmit) {
+
+    const keysToOmit = this.categories.flatMap(category => ComponentKeys[category]);
+
+    // Remove the component-specific keys
+    for (const k of keysToOmit) {
       delete cleanProps[k];
     }
-    // Also remove internal ThemedComponent props
-    delete cleanProps.propsToOmit;
+
     delete cleanProps.theme;
 
     const {className, tag, ...other} = cleanProps as P;

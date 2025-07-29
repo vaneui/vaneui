@@ -12,7 +12,6 @@ import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
 import { SizeKey } from "../props";
 import { PlTheme } from "./size/plTheme";
-import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from "../props";
 
 export interface TypographyTheme extends BaseTypographyComponentTheme {
@@ -52,7 +51,7 @@ export const createTypographyComponentTheme = (
       layout: defaultLayoutTheme,
     },
     defaults,
-    (props, defaults) => extractKeysFromCategories(props, defaults, TYPOGRAPHY_CATEGORIES));
+    TYPOGRAPHY_CATEGORIES);
 };
 
 // Page title specific theme
@@ -126,7 +125,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
     typography: defaultTypographyTheme,
   },
   {},//keep empty to apply parent style
-  (props, defaults) => extractKeysFromCategories(props, defaults, TYPOGRAPHY_CATEGORIES)
+  TYPOGRAPHY_CATEGORIES
 );
 
 export interface ListTheme extends BaseTypographyComponentTheme {
@@ -162,5 +161,5 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
     normal: true,
     padding: true,
   },
-  (props, defaults) => extractKeysFromCategories(props, defaults, LIST_CATEGORIES)
+  LIST_CATEGORIES
 );

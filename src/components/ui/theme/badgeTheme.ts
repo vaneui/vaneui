@@ -14,7 +14,6 @@ import { PyTheme } from "./size/pyTheme";
 import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { BADGE_CATEGORIES } from "../props";
 
 export interface BadgeTheme extends BaseTypographyComponentTheme {
@@ -116,5 +115,5 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
     gap: true,
     ring: true,
   },
-  (props, defaults) => extractKeysFromCategories(props, defaults, BADGE_CATEGORIES)
+  BADGE_CATEGORIES
 );

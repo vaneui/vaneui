@@ -6,7 +6,6 @@ import { GapTheme } from "./size/gapTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
-import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { STACK_CATEGORIES } from "../props";
 
 export interface StackTheme extends BaseComponentTheme {
@@ -66,5 +65,5 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
     gap: true,
     padding: true,
   },
-  (props, defaults) => extractKeysFromCategories(props, defaults, STACK_CATEGORIES)
+  STACK_CATEGORIES
 );

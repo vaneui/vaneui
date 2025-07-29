@@ -16,7 +16,6 @@ import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { CHIP_CATEGORIES } from "../props";
 
 export interface ChipTheme extends BaseTypographyComponentTheme {
@@ -117,5 +116,5 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
     gap: true,
     ring: true,
   },
-  (props, defaults) => extractKeysFromCategories(props, defaults, CHIP_CATEGORIES)
+  CHIP_CATEGORIES
 );

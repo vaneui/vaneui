@@ -14,7 +14,6 @@ import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { BUTTON_CATEGORIES } from "../props";
 
 export interface ButtonTheme extends BaseTypographyComponentTheme {
@@ -118,5 +117,5 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
     ring: true,
     shadow: true,
   },
-  (props, defaults) => extractKeysFromCategories(props, defaults, BUTTON_CATEGORIES)
+  BUTTON_CATEGORIES
 );

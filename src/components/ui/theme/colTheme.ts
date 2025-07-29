@@ -4,7 +4,6 @@ import { ColProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
-import { extractKeysFromCategories } from "../../utils/componentUtils";
 import { COL_CATEGORIES } from "../props";
 
 export interface ColTheme extends BaseComponentTheme {
@@ -42,5 +41,5 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
     flex: true,
     gap: true,
   },
-  (props, defaults) => extractKeysFromCategories(props, defaults, COL_CATEGORIES)
+  COL_CATEGORIES
 );
