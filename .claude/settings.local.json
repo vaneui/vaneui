@@ -18,7 +18,8 @@
       "Bash(npx rollup:*)",
       "Bash(find:*)",
       "Bash(git checkout:*)",
-      "Bash(tail:*)"
+      "Bash(tail:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }
