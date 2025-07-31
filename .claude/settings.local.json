@@ -19,7 +19,14 @@
       "Bash(find:*)",
       "Bash(git checkout:*)",
       "Bash(tail:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(npm run playground:dev:*)",
+      "Bash(pkill:*)",
+      "Bash(taskkill:*)",
+      "Bash(npx typescript:*)",
+      "Bash(timeout 10s npm run dev)",
+      "Bash(npx tsx:*)",
+      "Bash(npm run dev:*)"
     ],
     "deny": []
   }

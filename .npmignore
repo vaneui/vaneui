@@ -1,9 +1,37 @@
-node_modules/
+# Playground - not included in npm package
+playground/
+
+# Source files - only dist is published
 src/
-.git/
-.github/
-.vscode/
 *.config.js
-*.config.mjs
-*.complex.json
-*.tsconfig.json
+*.config.ts
+jest.config.js
+tsconfig.json
+rollup.config.js
+
+# Tests
+**/*.test.*
+**/*.spec.*
+**/tests/
+
+# Development files
+.gitignore
+.editorconfig
+.eslintrc
+.prettierrc
+
+# Documentation
+*.md
+!README.md
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# Misc
+coverage/
+node_modules/
+.vscode/
+.idea/
+*.log

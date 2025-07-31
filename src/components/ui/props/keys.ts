@@ -89,46 +89,46 @@ export type DisplayKey = typeof ComponentKeys.display[number];
 export type OverflowKey = typeof ComponentKeys.overflow[number];
 
 // Core building blocks - fundamental categories
-const LAYOUT_CORE: ComponentCategoryKey[] = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
-const LAYOUT_FLEX: ComponentCategoryKey[] = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
-const PADDING: ComponentCategoryKey[] = ['padding'] as const;
-const BREAKPOINT: ComponentCategoryKey[] = ['breakpoint'] as const;
+const LAYOUT_CORE = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
+const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
+const PADDING = ['padding'] as const;
+const BREAKPOINT = ['breakpoint'] as const;
 
-const VISUAL_CORE: ComponentCategoryKey[] = ['appearance', 'transparent'] as const;
-const VISUAL_DECORATION: ComponentCategoryKey[] = ['border', 'shadow', 'ring'] as const;
-const SHAPE: ComponentCategoryKey[] = ['shape'] as const;
+const VISUAL_CORE = ['appearance', 'transparent'] as const;
+const VISUAL_DECORATION = ['border', 'shadow', 'ring'] as const;
+const SHAPE = ['shape'] as const;
 
-const TYPOGRAPHY_STYLE: ComponentCategoryKey[] = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
-const LINK: ComponentCategoryKey[] = ['link'] as const;
+const TYPOGRAPHY_STYLE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
+const LINK = ['link'] as const;
 
-const VARIANT: ComponentCategoryKey[] = ['variant'] as const;
+const VARIANT = ['variant'] as const;
 
 // Composite categories built from core blocks
-const LAYOUT_FULL: ComponentCategoryKey[] = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
-const VISUAL_FULL: ComponentCategoryKey[] = [...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE] as const;
-const TYPOGRAPHY_FULL: ComponentCategoryKey[] = [...TYPOGRAPHY_STYLE, ...LINK] as const;
+const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
+const VISUAL_FULL = [...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE] as const;
+const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE, ...LINK] as const;
 
 // Component-specific category combinations
-export const BASE_COMPONENT_CATEGORIES: ComponentCategoryKey[] = LAYOUT_CORE;
-export const TYPOGRAPHY_CATEGORIES: ComponentCategoryKey[] = [...LAYOUT_CORE, ...VISUAL_CORE, ...TYPOGRAPHY_FULL] as const;
-export const LIST_CATEGORIES: ComponentCategoryKey[] = [...TYPOGRAPHY_CATEGORIES, ...PADDING] as const;
+export const BASE_COMPONENT_CATEGORIES = LAYOUT_CORE;
+export const TYPOGRAPHY_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...TYPOGRAPHY_FULL] as const;
+export const LIST_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...PADDING] as const;
 
-export const INTERACTIVE_CATEGORIES: ComponentCategoryKey[] = [...LAYOUT_CORE, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...LAYOUT_FLEX, ...VARIANT] as const;
-export const BUTTON_CATEGORIES: ComponentCategoryKey[] = INTERACTIVE_CATEGORIES;
-export const BADGE_CATEGORIES: ComponentCategoryKey[] = INTERACTIVE_CATEGORIES;
-export const CHIP_CATEGORIES: ComponentCategoryKey[] = INTERACTIVE_CATEGORIES;
+export const INTERACTIVE_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...LAYOUT_FLEX, ...VARIANT] as const;
+export const BUTTON_CATEGORIES = INTERACTIVE_CATEGORIES;
+export const BADGE_CATEGORIES = INTERACTIVE_CATEGORIES;
+export const CHIP_CATEGORIES = INTERACTIVE_CATEGORIES;
 
-export const CONTAINER_CATEGORIES: ComponentCategoryKey[] = [...LAYOUT_FULL, ...VISUAL_FULL] as const;
-export const FLEX_CONTAINER_CATEGORIES: ComponentCategoryKey[] = [...LAYOUT_FULL, ...VISUAL_CORE] as const;
-export const GRID_CATEGORIES: ComponentCategoryKey[] = [...LAYOUT_CORE, ...LAYOUT_FLEX, ...VISUAL_CORE] as const;
+export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL] as const;
+export const FLEX_CONTAINER_CATEGORIES = [...LAYOUT_FULL] as const;
+export const GRID_CATEGORIES = [...LAYOUT_CORE, ...LAYOUT_FLEX, ...VISUAL_CORE] as const;
 
-export const ROW_CATEGORIES: ComponentCategoryKey[] = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT] as const;
-export const COL_CATEGORIES: ComponentCategoryKey[] = FLEX_CONTAINER_CATEGORIES;
-export const STACK_CATEGORIES: ComponentCategoryKey[] = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT, ...PADDING] as const;
+export const ROW_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT, ...VISUAL_CORE] as const;
+export const COL_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...VISUAL_CORE] as const;
+export const STACK_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT, ...PADDING, ...VISUAL_CORE] as const;
 
-export const CARD_CATEGORIES: ComponentCategoryKey[] = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE, ...PADDING] as const;
-export const DIVIDER_CATEGORIES: ComponentCategoryKey[] = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...PADDING] as const;
-export const SECTION_CATEGORIES: ComponentCategoryKey[] = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...PADDING, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE] as const;
+export const CARD_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE, ...PADDING] as const;
+export const DIVIDER_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...PADDING] as const;
+export const SECTION_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...PADDING, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE] as const;
 
 export type CategoryProps = {
   [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];
