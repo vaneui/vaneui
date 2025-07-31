@@ -1,32 +1,26 @@
+export const LAYOUT_CORE = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
+export const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
+export const PADDING = ['padding'] as const;
+export const BREAKPOINT = ['breakpoint'] as const;
+export const VISUAL_CORE = ['appearance', 'transparent'] as const;
+export const VISUAL_DECORATION = ['border', 'shadow', 'ring'] as const;
+export const SHAPE = ['shape'] as const;
+export const TYPOGRAPHY_STYLE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
+export const LINK = ['link'] as const;
+export const VARIANT = ['variant'] as const;
+
 export const COMPONENT_PROPS_CATEGORY = [
-  'appearance',
-  'border',
-  'breakpoint',
-  'display',
-  'flexDirection',
-  'fontFamily',
-  'fontStyle',
-  'fontWeight',
-  'gap',
-  'hide',
-  'items',
-  'justify',
-  'link',
+  ...VISUAL_CORE,
+  ...LAYOUT_FLEX,
+  ...TYPOGRAPHY_STYLE,
+  ...LAYOUT_CORE,
+  ...BREAKPOINT,
+  ...LINK,
+  ...PADDING,
+  ...VISUAL_DECORATION,
+  ...SHAPE,
+  ...VARIANT,
   'mode',
-  'overflow',
-  'padding',
-  'position',
-  'reverse',
-  'ring',
-  'shadow',
-  'shape',
-  'size',
-  'textAlign',
-  'textDecoration',
-  'textTransform',
-  'transparent',
-  'variant',
-  'wrap'
 ] as const;
 
 export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
@@ -44,7 +38,7 @@ export const ComponentKeys = {
   items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'],
   justify: ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'],
   link: ['link'],
-  mode: ['base', 'hover', 'active'],
+  mode: ['base', 'hover', 'active'] as const,
   overflow: ['overflowAuto', 'overflowHidden', 'overflowClip', 'overflowVisible', 'overflowScroll', 'overflowXAuto', 'overflowYAuto', 'overflowXHidden', 'overflowYHidden', 'overflowXClip', 'overflowYClip', 'overflowXVisible', 'overflowYVisible', 'overflowXScroll', 'overflowYScroll'],
   padding: ['padding', 'noPadding'],
   position: ['relative', 'absolute', 'fixed', 'sticky', 'static'],
@@ -88,28 +82,12 @@ export type WrapKey = typeof ComponentKeys.wrap[number];
 export type DisplayKey = typeof ComponentKeys.display[number];
 export type OverflowKey = typeof ComponentKeys.overflow[number];
 
-// Core building blocks - fundamental categories
-const LAYOUT_CORE = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
-const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
-const PADDING = ['padding'] as const;
-const BREAKPOINT = ['breakpoint'] as const;
-
-const VISUAL_CORE = ['appearance', 'transparent'] as const;
-const VISUAL_DECORATION = ['border', 'shadow', 'ring'] as const;
-const SHAPE = ['shape'] as const;
-
-const TYPOGRAPHY_STYLE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
-const LINK = ['link'] as const;
-
-const VARIANT = ['variant'] as const;
-
 // Composite categories built from core blocks
 const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
 const VISUAL_FULL = [...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE] as const;
 const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE, ...LINK] as const;
 
 // Component-specific category combinations
-export const BASE_COMPONENT_CATEGORIES = LAYOUT_CORE;
 export const TYPOGRAPHY_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...TYPOGRAPHY_FULL] as const;
 export const LIST_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...PADDING] as const;
 
@@ -127,8 +105,8 @@ export const COL_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...VISUAL_CORE] as 
 export const STACK_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT, ...PADDING, ...VISUAL_CORE] as const;
 
 export const CARD_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE, ...PADDING] as const;
-export const DIVIDER_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...PADDING] as const;
-export const SECTION_CATEGORIES = [...BASE_COMPONENT_CATEGORIES, ...VISUAL_CORE, ...PADDING, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE] as const;
+export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
+export const SECTION_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE] as const;
 
 export type CategoryProps = {
   [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];
