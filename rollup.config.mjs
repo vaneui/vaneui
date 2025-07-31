@@ -35,24 +35,4 @@ export default [
       }),
     ],
   },
-  {
-    input: "src/components/complex/index.ts",
-    output: [
-      {
-        file: "dist/components/complex/index.js",
-        format: "esm",
-        sourcemap: true,
-      },
-    ],
-    plugins: [
-      peerDepsExternal(),
-      resolve(),
-      commonjs(),
-      typescript({
-        tsconfig: "./tsconfig.complex.json",
-        check: true,
-        abortOnError: true
-      }),
-    ],
-  },
 ];
