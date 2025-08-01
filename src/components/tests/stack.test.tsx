@@ -134,6 +134,31 @@ describe('Stack Component Tests', () => {
       expect(stack).toHaveTextContent('Stack with consistent rendering');
     });
 
+    it('should support visual decoration props', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Stack 
+            warning
+            border 
+            ring 
+            rounded
+            noBorder={false}
+            noRing={false}
+            sharp={false}
+          >
+            Decorated Stack
+          </Stack>
+        </ThemeProvider>
+      );
+
+      const stack = container.querySelector('div');
+      expect(stack).toHaveClass('border');
+      expect(stack).toHaveClass('border-(--border-color-warning)');
+      expect(stack).toHaveClass('ring');
+      expect(stack).toHaveClass('ring-(--border-color-warning)');
+      expect(stack).toHaveClass('rounded-lg');
+    });
+
     it('should support appearance variants', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

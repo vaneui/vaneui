@@ -1,7 +1,7 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 import { ComponentKeys, VariantKey, } from "../../props";
-import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./textAppearanceTheme";
+import { TextAppearanceTheme } from "./textAppearanceTheme";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "../../classes/typographyClasses";
 import {
   activeBackgroundAppearanceClasses,
@@ -57,12 +57,12 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
   }
 
   // used for button, bages, chips, etc
-  static createUIElementTextTheme(): GenericVariantTheme<UIElementTextAppearanceTheme> {
+  static createUIElementTextTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: UIElementTextAppearanceTheme.createTheme({
+      outline: TextAppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(textAppearanceClasses)
       }),
-      filled: UIElementTextAppearanceTheme.createTheme({
+      filled: TextAppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(filledTextAppearanceClasses)
       })
     });
@@ -82,12 +82,12 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
-  static createUIElementBorderTheme(): GenericVariantTheme<UIElementTextAppearanceTheme> {
+  static createUIElementBorderTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: UIElementTextAppearanceTheme.createTheme({
+      outline: TextAppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(borderAppearanceClasses)
       }),
-      filled: UIElementTextAppearanceTheme.createTheme({
+      filled: TextAppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(filledBorderAppearanceClasses)
       })
     });
@@ -100,12 +100,12 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
-  static createUIElementRingTheme(): GenericVariantTheme<UIElementTextAppearanceTheme> {
+  static createUIElementRingTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: UIElementTextAppearanceTheme.createTheme({
+      outline: TextAppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(ringAppearanceClasses)
       }),
-      filled: UIElementTextAppearanceTheme.createTheme({
+      filled: TextAppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(filledRingAppearanceClasses)
       })
     });
@@ -126,14 +126,14 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
-  static createUIElementBgAppearanceTheme(): GenericVariantTheme<UIElementTextAppearanceTheme> {
+  static createUIElementBgAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: UIElementTextAppearanceTheme.createTheme({
+      outline: TextAppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(backgroundAppearanceClasses),
         hover: this.filterToUIElementKeys(hoverBackgroundAppearanceClasses),
         active: this.filterToUIElementKeys(activeBackgroundAppearanceClasses)
       }),
-      filled: UIElementTextAppearanceTheme.createTheme({
+      filled: TextAppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(filledBackgroundAppearanceClasses),
         hover: this.filterToUIElementKeys(filledHoverBackgroundAppearanceClasses),
         active: this.filterToUIElementKeys(filledActiveBackgroundAppearanceClasses)
@@ -152,12 +152,12 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
-  static createSimpleUIElementBgAppearanceTheme(): GenericVariantTheme<UIElementTextAppearanceTheme> {
+  static createSimpleUIElementBgAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: UIElementTextAppearanceTheme.createTheme({
+      outline: TextAppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(backgroundAppearanceClasses),
       }),
-      filled: UIElementTextAppearanceTheme.createTheme({
+      filled: TextAppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(filledBackgroundAppearanceClasses),
       })
     });

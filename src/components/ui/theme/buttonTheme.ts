@@ -12,7 +12,7 @@ import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
-import { TextAppearanceTheme, UIElementTextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { BUTTON_CATEGORIES } from "../props";
 
@@ -24,10 +24,10 @@ export interface ButtonTheme extends BaseTypographyComponentTheme {
     gap: GapTheme;
   };
   appearance: {
-    background: GenericVariantTheme<UIElementTextAppearanceTheme>;
-    text: GenericVariantTheme<UIElementTextAppearanceTheme>;
-    border: GenericVariantTheme<UIElementTextAppearanceTheme>;
-    ring: GenericVariantTheme<UIElementTextAppearanceTheme>;
+    background: GenericVariantTheme<TextAppearanceTheme>;
+    text: GenericVariantTheme<TextAppearanceTheme>;
+    border: GenericVariantTheme<TextAppearanceTheme>;
+    ring: GenericVariantTheme<TextAppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
@@ -43,13 +43,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   {
     size: {
       px: new PxTheme({
-        padding: {
-          xs: 'px-2',
-          sm: 'px-3',
-          md: 'px-4',
-          lg: 'px-5',
-          xl: 'px-6',
-        }
+        padding: {xs: 'px-2', sm: 'px-3', md: 'px-4', lg: 'px-5', xl: 'px-6',}
       }),
       py: new PyTheme({
         padding: {

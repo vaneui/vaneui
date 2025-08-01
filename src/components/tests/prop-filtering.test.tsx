@@ -12,64 +12,95 @@ describe('Component Prop Filtering', () => {
   };
 
   describe('Row component prop filtering', () => {
-    test('should filter out shape-related props from DOM', () => {
-      // Using 'any' to bypass TypeScript checking for testing runtime behavior
-      const props: any = {
-        // Valid Row props
-        primary: true,
-        itemsCenter: true,
-        gap: true,
-        
-        // Invalid props that should be filtered
-        rounded: true,
-        pill: true,
-        sharp: true,
-        outline: true,
-        
-        // Standard HTML props that should pass through
-        'data-testid': 'test-row',
-        'aria-label': 'Test row',
-        
-        children: 'Content'
-      };
+    test('should filter out component props but warn about invalid ones', () => {
+      // Mock console.error to capture React warnings
+      const originalError = console.error;
+      const consoleErrorMock = jest.fn();
+      console.error = consoleErrorMock;
 
-      const { container } = renderWithTheme(<Row {...props} />);
-      const element = container.firstChild as HTMLElement;
+      try {
+        // Using 'any' to bypass TypeScript checking for testing runtime behavior
+        const props: any = {
+          // Valid Row props
+          primary: true,
+          itemsCenter: true,
+          gap: true,
+          
+          // Invalid props that should cause React warnings
+          outline: true,  // variant category not in ROW_CATEGORIES
+          padding: true,  // padding category not in ROW_CATEGORIES
+          
+          // Standard HTML props that should pass through
+          'data-testid': 'test-row',
+          'aria-label': 'Test row',
+          
+          children: 'Content'
+        };
 
-      // Valid HTML attributes should be present
-      expect(element.getAttribute('data-testid')).toBe('test-row');
-      expect(element.getAttribute('aria-label')).toBe('Test row');
+        const { container } = renderWithTheme(<Row {...props} />);
+        const element = container.firstChild as HTMLElement;
 
-      // Component-specific props should be filtered out
-      expect(element.hasAttribute('primary')).toBe(false);
-      expect(element.hasAttribute('itemsCenter')).toBe(false);
-      expect(element.hasAttribute('gap')).toBe(false);
-      
-      // Invalid props should definitely be filtered out
-      expect(element.hasAttribute('rounded')).toBe(false);
-      expect(element.hasAttribute('pill')).toBe(false);
-      expect(element.hasAttribute('sharp')).toBe(false);
-      expect(element.hasAttribute('outline')).toBe(false);
+        // Valid HTML attributes should be present
+        expect(element.getAttribute('data-testid')).toBe('test-row');
+        expect(element.getAttribute('aria-label')).toBe('Test row');
+
+        // All component-specific props should be filtered out from DOM
+        expect(element.hasAttribute('primary')).toBe(false);
+        expect(element.hasAttribute('itemsCenter')).toBe(false);
+        expect(element.hasAttribute('gap')).toBe(false);
+        expect(element.hasAttribute('outline')).toBe(false);
+        expect(element.hasAttribute('padding')).toBe(false);
+
+        // Verify React warnings were generated for invalid props
+        const calls = consoleErrorMock.mock.calls;
+        expect(calls).toHaveLength(2);
+        
+        // Check for outline warning
+        expect(calls.some(call => 
+          call[0]?.includes('non-boolean attribute') && call[2] === 'outline'
+        )).toBe(true);
+        
+        // Check for padding warning  
+        expect(calls.some(call => 
+          call[0]?.includes('non-boolean attribute') && call[2] === 'padding'
+        )).toBe(true);
+      } finally {
+        console.error = originalError;
+      }
     });
 
-    test('should apply correct CSS classes for valid props', () => {
-      const { container } = renderWithTheme(
-        <Row primary itemsCenter gap>
-          Content
-        </Row>
-      );
-      
-      const element = container.firstChild as HTMLElement;
-      const classes = element.className;
+    test('should apply correct CSS classes for valid props without warnings', () => {
+      // Mock console.error to ensure no warnings for valid props
+      const originalError = console.error;
+      const consoleErrorMock = jest.fn();
+      console.error = consoleErrorMock;
 
-      // Should have flex and row by default
-      expect(classes).toContain('flex');
-      
-      // Should have appearance styling
-      expect(classes).toContain('bg-(--layout-background-primary)'); // CSS variable for primary
-      
-      // Should have items-center
-      expect(classes).toContain('items-center');
+      try {
+        const { container } = renderWithTheme(
+          <Row primary itemsCenter gap>
+            Content
+          </Row>
+        );
+        
+        const element = container.firstChild as HTMLElement;
+        const classes = element.className;
+
+        // Should have flex and row by default
+        expect(classes).toContain('flex');
+        
+        // Should have appearance styling
+        expect(classes).toContain('bg-(--layout-background-primary)'); // CSS variable for primary
+        
+        // Should have items-center
+        expect(classes).toContain('items-center');
+
+        // Valid props should not generate React warnings
+        expect(consoleErrorMock).not.toHaveBeenCalledWith(
+          expect.stringContaining('Received `true` for a non-boolean attribute')
+        );
+      } finally {
+        console.error = originalError;
+      }
     });
   });
 
@@ -95,31 +126,47 @@ describe('Component Prop Filtering', () => {
   });
 
   describe('Stack component prop filtering', () => {
-    test('should filter out shape props from Stack', () => {
-      const props: any = {
-        // Valid Stack props
-        gap: true,
-        padding: true,
-        primary: true,
-        
-        // Invalid shape props
-        rounded: true,
-        pill: true,
-        
-        children: 'Stack content'
-      };
+    test('should filter component props and warn about invalid ones', () => {
+      // Mock console.error to capture React warnings
+      const originalError = console.error;
+      const consoleErrorMock = jest.fn();
+      console.error = consoleErrorMock;
 
-      const { container } = renderWithTheme(<Stack {...props} />);
-      const element = container.firstChild as HTMLElement;
+      try {
+        const props: any = {
+          // Valid Stack props
+          gap: true,
+          padding: true,
+          primary: true,
+          
+          // Invalid props that should cause React warnings
+          outline: true,  // variant category not in STACK_CATEGORIES
+          filled: true,   // variant category not in STACK_CATEGORIES
+          
+          children: 'Stack content'
+        };
 
-      // Shape props should be filtered out
-      expect(element.hasAttribute('rounded')).toBe(false);
-      expect(element.hasAttribute('pill')).toBe(false);
-      
-      // Valid props should be filtered too (they're used for styling)
-      expect(element.hasAttribute('gap')).toBe(false);
-      expect(element.hasAttribute('padding')).toBe(false);
-      expect(element.hasAttribute('primary')).toBe(false);
+        const { container } = renderWithTheme(<Stack {...props} />);
+        const element = container.firstChild as HTMLElement;
+
+        // All component props should be filtered out from DOM
+        expect(element.hasAttribute('gap')).toBe(false);
+        expect(element.hasAttribute('padding')).toBe(false);
+        expect(element.hasAttribute('primary')).toBe(false);
+        expect(element.hasAttribute('outline')).toBe(false);
+        expect(element.hasAttribute('filled')).toBe(false);
+
+        // Verify React warnings were generated for invalid props
+        const calls = consoleErrorMock.mock.calls;
+        expect(calls.length).toBeGreaterThanOrEqual(1);
+        
+        // Check for warnings about invalid attributes
+        expect(calls.some(call => 
+          call[0]?.includes('non-boolean attribute') && call[2] === 'filled'
+        )).toBe(true);
+      } finally {
+        console.error = originalError;
+      }
     });
   });
 

@@ -107,6 +107,31 @@ describe('Col Component Tests', () => {
       expect(col).toHaveClass('bg-transparent');
     });
 
+    it('should support visual decoration props', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col 
+            danger
+            border 
+            ring 
+            pill
+            noBorder={false}
+            noRing={false}
+            sharp={false}
+          >
+            Decorated Col
+          </Col>
+        </ThemeProvider>
+      );
+
+      const col = container.querySelector('div');
+      expect(col).toHaveClass('border');
+      expect(col).toHaveClass('border-(--border-color-danger)');
+      expect(col).toHaveClass('ring');
+      expect(col).toHaveClass('ring-(--border-color-danger)');
+      expect(col).toHaveClass('rounded-full');
+    });
+
     it('should support layout positioning', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

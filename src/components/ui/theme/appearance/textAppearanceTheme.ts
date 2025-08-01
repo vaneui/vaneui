@@ -6,9 +6,6 @@ import { textAppearanceClasses } from "../../classes/typographyClasses";
 export interface TextAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
 }
 
-export interface UIElementTextAppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
-}
-
 export class TextAppearanceTheme extends BaseTheme {
   private constructor(config: Record<AppearanceKey, Record<ModeKey, string>>) {
     super();
@@ -55,42 +52,5 @@ export class TextAppearanceTheme extends BaseTheme {
     ) as Record<AppearanceKey, Record<ModeKey, string>>;
 
     return new TextAppearanceTheme(finalConfig);
-  }
-}
-
-export class UIElementTextAppearanceTheme extends BaseTheme {
-  private constructor(config: Record<AppearanceKey, Record<ModeKey, string>>) {
-    super();
-    Object.assign(this, config);
-  }
-
-  getClasses(extractedKeys: CategoryProps): string[] {
-    const appearance = extractedKeys?.appearance;
-    if (!appearance) {
-      return [];
-    }
-    const modes = this[appearance];
-    if (!modes) {
-      return [];
-    }
-    return ComponentKeys.mode.map(mode => modes[mode] || '');
-  }
-
-  static createTheme(
-    src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {}
-  ): UIElementTextAppearanceTheme {
-    const finalConfig = Object.fromEntries(
-      ComponentKeys.appearance.map(textKey => [
-        textKey,
-        Object.fromEntries(
-          ComponentKeys.mode.map(modeKey => [
-            modeKey,
-            src[modeKey]?.[textKey] || ''
-          ])
-        ),
-      ])
-    ) as Record<AppearanceKey, Record<ModeKey, string>>;
-
-    return new UIElementTextAppearanceTheme(finalConfig);
   }
 }

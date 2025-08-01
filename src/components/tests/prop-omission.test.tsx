@@ -222,9 +222,7 @@ describe('Component Prop Omission Tests', () => {
         { name: 'List', categories: LIST_CATEGORIES, expectedCount: LIST_CATEGORIES.length }
       ];
 
-      console.log('Component Category Coverage:');
       componentTests.forEach(({ name, categories, expectedCount }) => {
-        console.log(`  ${name}: ${categories.length}/${expectedCount} categories`);
         expect(categories.length).toBe(expectedCount);
       });
     });

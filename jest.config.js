@@ -20,4 +20,6 @@ export default {
     'utils/'
   ],
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
+  silent: false,
+  verbose: false,
 };

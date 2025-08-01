@@ -152,7 +152,6 @@ export function createPropOmissionTest(
       it('should list all props being tested for omission', () => {
         const allBooleanProps = getAllBooleanPropsForCategories(categories);
         
-        console.log(`${componentName} tests the omission of ${allBooleanProps.length} boolean props:`, allBooleanProps);
         expect(allBooleanProps.length).toBeGreaterThan(0);
       });
     });

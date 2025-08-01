@@ -100,13 +100,16 @@ export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL] as const;
 export const FLEX_CONTAINER_CATEGORIES = [...LAYOUT_FULL] as const;
 export const GRID_CATEGORIES = [...LAYOUT_CORE, ...LAYOUT_FLEX, ...VISUAL_CORE] as const;
 
-export const ROW_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT, ...VISUAL_CORE] as const;
-export const COL_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...VISUAL_CORE] as const;
-export const STACK_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT, ...PADDING, ...VISUAL_CORE] as const;
+export const ROW_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT, ...VISUAL_FULL] as const;
+export const COL_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...VISUAL_FULL] as const;
+export const STACK_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT, ...PADDING, ...VISUAL_FULL] as const;
 
 export const CARD_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE, ...PADDING] as const;
 export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
 export const SECTION_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE] as const;
+
+// All component-specific props that should be filtered from DOM
+export const ALL_COMPONENT_PROPS = Object.values(ComponentKeys).flat();
 
 export type CategoryProps = {
   [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];

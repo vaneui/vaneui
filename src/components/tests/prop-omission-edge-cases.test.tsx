@@ -131,7 +131,6 @@ describe('Prop Omission Edge Cases', () => {
       Object.entries(ComponentKeys).forEach(([category, keys]) => {
         expect(keys.length).toBeGreaterThan(0);
         expect(Array.isArray(keys)).toBe(true);
-        console.log(`${category}: ${keys.length} keys`);
       });
     });
 
@@ -161,9 +160,6 @@ describe('Prop Omission Edge Cases', () => {
       const badgeKeys = getAllBooleanPropsForCategories(BADGE_CATEGORIES);
       const cardKeys = getAllBooleanPropsForCategories(CARD_CATEGORIES);
 
-      console.log('Button keys count:', buttonKeys.length);
-      console.log('Badge keys count:', badgeKeys.length);  
-      console.log('Card keys count:', cardKeys.length);
 
       expect(buttonKeys.length).toBeGreaterThan(10); // Should have many keys
       expect(badgeKeys.length).toBeGreaterThan(10);

@@ -46,7 +46,7 @@ describe('Component Prop Type Validation', () => {
   };
 
   describe('Valid Props Tests', () => {
-    test('Row should accept appearance and layout props but not shape props', () => {
+    test('Row should accept appearance, layout, and shape props', () => {
       // Valid props for Row
       const validRow = (
         <Row 
@@ -56,6 +56,9 @@ describe('Component Prop Type Validation', () => {
           gap // gap
           md // size
           flexWrap // wrap
+          rounded // shape - now valid for Row
+          border // border - now valid for Row
+          ring // ring - now valid for Row
         >
           Content
         </Row>
@@ -116,30 +119,36 @@ describe('Component Prop Type Validation', () => {
 
 
   describe('Runtime Prop Filtering Tests', () => {
-    test('Row should filter out shape props even if passed at runtime', () => {
-      // Using any to bypass TypeScript for runtime testing
-      const rowProps: any = {
-        primary: true,
-        rounded: true, // This should be filtered out
-        children: 'Content'
-      };
-      
-      const { container } = renderWithTheme(<Row {...rowProps} />);
+    test('Row should properly handle shape props and filter them from DOM', () => {
+      // Now that Row supports shape props, they should be filtered from DOM but used for styling
+      const { container } = renderWithTheme(
+        <Row primary rounded border>
+          Content
+        </Row>
+      );
       const rowElement = container.firstChild as HTMLElement;
       
-      // Verify rounded is not in the DOM
-      expect(rowElement.getAttribute('rounded')).toBeNull();
+      // Component props should be filtered out from DOM attributes
       expect(rowElement.hasAttribute('rounded')).toBe(false);
+      expect(rowElement.hasAttribute('border')).toBe(false);
+      expect(rowElement.hasAttribute('primary')).toBe(false);
+      
+      // But styling should be applied (check for rounded classes)
+      expect(rowElement.className).toMatch(/rounded/);
     });
 
-    test('Button should NOT filter out shape props', () => {
+    test('Button should properly handle shape props', () => {
       const { container } = renderWithTheme(
         <Button primary rounded>Click me</Button>
       );
       const buttonElement = container.firstChild as HTMLElement;
       
-      // Button should have rounded styling applied (through classes)
-      expect(buttonElement.className).toContain('rounded');
+      // Props should be filtered from DOM
+      expect(buttonElement.hasAttribute('rounded')).toBe(false);
+      expect(buttonElement.hasAttribute('primary')).toBe(false);
+      
+      // But styling should be applied (through classes)
+      expect(buttonElement.className).toMatch(/rounded/);
     });
   });
 });
@@ -173,8 +182,8 @@ describe('Category Arrays Validation', () => {
     validateCategories(LIST_CATEGORIES, 'LIST_CATEGORIES');
   });
 
-  test('ROW_CATEGORIES should not include shape category', () => {
-    expect(ROW_CATEGORIES).not.toContain('shape');
+  test('ROW_CATEGORIES should include shape category', () => {
+    expect(ROW_CATEGORIES).toContain('shape');
   });
 
   test('ROW_CATEGORIES should include appearance and transparent', () => {

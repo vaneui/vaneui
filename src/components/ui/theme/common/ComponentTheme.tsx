@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseTheme } from "./baseTheme";
 import type { ComponentCategoryKey } from "../../props";
-import { ComponentKeys } from "../../props";
+import { ComponentKeys, ALL_COMPONENT_PROPS } from "../../props";
 import { HideTheme } from "../layout/hideTheme";
 import { ItemsTheme } from "../layout/itemsTheme";
 import { JustifyTheme } from "../layout/justifyTheme";
@@ -124,9 +124,8 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   getComponentConfig(props: P) {
     const cleanProps: Record<string, any> = {...props};
 
-    const keysToOmit = this.categories.flatMap(category => ComponentKeys[category]);
-
-    // Remove the component-specific keys
+    const keysToOmit =
+      this.categories.flatMap(category => ComponentKeys[category]);
     for (const k of keysToOmit) {
       delete cleanProps[k];
     }

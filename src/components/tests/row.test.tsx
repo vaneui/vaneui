@@ -134,6 +134,31 @@ describe('Row Component Tests', () => {
       expect(row).toHaveClass('custom-row-class'); // custom class
     });
 
+    it('should support visual decoration props', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Row 
+            primary
+            border 
+            ring 
+            rounded
+            noBorder={false}
+            noRing={false}
+            sharp={false}
+          >
+            Decorated Row
+          </Row>
+        </ThemeProvider>
+      );
+
+      const row = container.querySelector('div');
+      expect(row).toHaveClass('border');
+      expect(row).toHaveClass('border-(--border-color-primary)');
+      expect(row).toHaveClass('ring');
+      expect(row).toHaveClass('ring-(--border-color-primary)');
+      expect(row).toHaveClass('rounded-lg');
+    });
+
     it('should support custom HTML tag', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
