@@ -104,11 +104,26 @@ export const textTheme: ComponentTheme<TypographyProps, TypographyTheme> = creat
 );
 
 // Link specific theme
-export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
+export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new ComponentTheme<TypographyProps, TypographyTheme>(
   "a",
   "hover:underline w-fit",
-  textSizeClasses,
-  mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {link: true})
+  {
+    size: {
+      text: new SizeTheme(textSizeClasses, false),
+    },
+    appearance: {
+      text: TextAppearanceTheme.createTheme({base: textAppearanceClasses}),
+    },
+    typography: defaultTypographyTheme,
+    layout: defaultLayoutTheme,
+  },
+  {
+    link: true,
+    default: true,
+    sans: true,
+    normal: true,
+  },
+  TYPOGRAPHY_CATEGORIES
 );
 
 // List specific theme

@@ -20,7 +20,7 @@ describe('Link Component Tests', () => {
       const link = container.querySelector('a');
       expect(link).toBeInTheDocument();
       expect(link).toHaveClass('hover:underline', 'w-fit');
-      expect(link).toHaveClass('text-base'); // md size
+      expect(link).not.toHaveClass('text-base'); // no default size
       expect(link).toHaveClass('text-(--text-color-link)'); // link appearance
       expect(link).toHaveClass('font-sans');
       expect(link).toHaveClass('font-normal');
@@ -278,7 +278,7 @@ describe('Link Component Tests', () => {
       );
 
       const link = container.querySelector('a');
-      expect(link).toHaveClass('hover:underline', 'text-base'); // theme classes
+      expect(link).toHaveClass('hover:underline'); // theme classes (no text-base)
       expect(link).toHaveClass('custom-link-class'); // custom class
     });
 

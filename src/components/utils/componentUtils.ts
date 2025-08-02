@@ -33,22 +33,3 @@ export function pickFirstTruthyKeyByCategory<T extends ComponentCategoryKey>(
 
   return undefined;
 }
-
-/**
- * Generic function to extract keys for any component based on its categories
- */
-export function extractKeysFromCategories<T extends readonly ComponentCategoryKey[]>(
-  props: Record<string, boolean>,
-  defaults: Record<string, boolean>,
-  categories: T
-): Record<string, string | undefined> {
-  const result: Record<string, string | undefined> = {};
-  
-  for (const category of categories) {
-    const value = pickFirstTruthyKeyByCategory(props, defaults, category);
-    result[category] = value;
-  }
-  
-  return result;
-}
-
