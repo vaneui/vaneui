@@ -6,21 +6,11 @@ import { defaultRowTheme } from "../../src/components/ui/theme/rowTheme";
 function App() {
   return (
     <>
-      <Row transparent>
+      <Row warning rounded border>
         <Badge>Test 1</Badge>
         <Badge>Test 2</Badge>
         <Badge>Test 3</Badge>
       </Row>
-      <Text sm default>Text</Text>
-      <Text lg primary>Text</Text>
-      <Text xl secondary>Text</Text>
-      <Text xl transparent>Text</Text>
-      <Text xl link>Text</Text>
-      <Divider/>
-      <Col xs>
-        <Link href="/">Some link text</Link>
-        <Link transparent>Some link text</Link>
-      </Col>
     </>
   );
 }

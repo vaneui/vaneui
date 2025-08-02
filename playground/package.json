@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/dev.js",
+    "dev:vite": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
