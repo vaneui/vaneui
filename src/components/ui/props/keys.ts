@@ -83,33 +83,28 @@ export type DisplayKey = typeof ComponentKeys.display[number];
 export type OverflowKey = typeof ComponentKeys.overflow[number];
 
 // Composite categories built from core blocks
-const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
-const VISUAL_FULL = [...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE] as const;
-const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE, ...LINK] as const;
+export const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
+export const VISUAL_FULL = [...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE] as const;
+export const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE, ...LINK] as const;
 
-// Component-specific category combinations
-export const TYPOGRAPHY_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...TYPOGRAPHY_FULL] as const;
-export const LIST_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...PADDING] as const;
-
-export const INTERACTIVE_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...LAYOUT_FLEX, ...VARIANT] as const;
+export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT] as const;
 export const BUTTON_CATEGORIES = INTERACTIVE_CATEGORIES;
 export const BADGE_CATEGORIES = INTERACTIVE_CATEGORIES;
 export const CHIP_CATEGORIES = INTERACTIVE_CATEGORIES;
 
+//typography:
+export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE] as const;
+export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
+
+//layout:
+export const GRID_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_CORE] as const;
 export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL] as const;
-export const FLEX_CONTAINER_CATEGORIES = [...LAYOUT_FULL] as const;
-export const GRID_CATEGORIES = [...LAYOUT_CORE, ...LAYOUT_FLEX, ...VISUAL_CORE] as const;
-
-export const ROW_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT, ...VISUAL_FULL] as const;
-export const COL_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...VISUAL_FULL] as const;
-export const STACK_CATEGORIES = [...FLEX_CONTAINER_CATEGORIES, ...BREAKPOINT, ...PADDING, ...VISUAL_FULL] as const;
-
-export const CARD_CATEGORIES = [...TYPOGRAPHY_CATEGORIES, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE, ...PADDING] as const;
+export const COL_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL] as const;
+export const ROW_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_FULL] as const;
+export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_FULL] as const;
+export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_FULL, ...PADDING] as const;
 export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
-export const SECTION_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...LAYOUT_FLEX, ...BREAKPOINT, ...VISUAL_DECORATION, ...SHAPE] as const;
-
-// All component-specific props that should be filtered from DOM
-export const ALL_COMPONENT_PROPS = Object.values(ComponentKeys).flat();
+export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...PADDING, ...BREAKPOINT] as const;
 
 export type CategoryProps = {
   [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];

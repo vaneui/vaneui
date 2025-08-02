@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseTheme } from "./baseTheme";
 import type { ComponentCategoryKey } from "../../props";
-import { ComponentKeys, ALL_COMPONENT_PROPS } from "../../props";
+import { ComponentKeys } from "../../props";
 import { HideTheme } from "../layout/hideTheme";
 import { ItemsTheme } from "../layout/itemsTheme";
 import { JustifyTheme } from "../layout/justifyTheme";
