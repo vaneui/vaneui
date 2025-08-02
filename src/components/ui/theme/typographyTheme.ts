@@ -106,7 +106,7 @@ export const textTheme: ComponentTheme<TypographyProps, TypographyTheme> = creat
 // Link specific theme
 export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new ComponentTheme<TypographyProps, TypographyTheme>(
   "a",
-  "hover:underline w-fit",
+  "hover:underline w-fit cursor-pointer",
   {
     size: {
       text: new SizeTheme(textSizeClasses, false),
