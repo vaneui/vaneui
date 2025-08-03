@@ -90,6 +90,7 @@ export const defaultTheme: ThemeProps = {
 };
 
 export type ThemeDefaults = Partial<Record<ComponentKey, Record<string, boolean>>>;
+export type ThemeExtraClasses = Partial<Record<ComponentKey, Record<string, string>>>;
 
 const ThemeContext = createContext<ThemeProps>(defaultTheme);
 
@@ -97,6 +98,7 @@ export interface ThemeProviderProps {
   children: React.ReactNode;
   theme?: PartialTheme;
   themeDefaults?: ThemeDefaults;
+  extraClasses?: ThemeExtraClasses;
   themeOverride?: (theme: ThemeProps) => ThemeProps;
 }
 
@@ -105,6 +107,7 @@ export function ThemeProvider(
     children,
     theme: themeObject = {},
     themeDefaults,
+    extraClasses,
     themeOverride
   }: ThemeProviderProps) {
   const mergedTheme = useMemo(() => {
@@ -129,9 +132,22 @@ export function ThemeProvider(
         }
       }
 
+      if (extraClasses !== undefined) {
+        for (const key in extraClasses) {
+          const componentKey = key as ComponentKey;
+          const componentExtraClasses = extraClasses[componentKey];
+          if (componentExtraClasses !== undefined) {
+            finalTheme[componentKey].extraClasses = {
+              ...finalTheme[componentKey].extraClasses,
+              ...componentExtraClasses
+            };
+          }
+        }
+      }
+
       return finalTheme;
     },
-    [themeObject, themeOverride]
+    [themeObject, themeDefaults, extraClasses, themeOverride]
   );
 
   return (

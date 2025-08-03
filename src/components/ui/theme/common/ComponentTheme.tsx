@@ -74,6 +74,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly base: string;
   readonly themes: TTheme;
   defaults: Partial<P>;
+  extraClasses: Record<string, string>;
   private readonly categories: readonly ComponentCategoryKey[];
   private readonly tagFunction?: (props: P, defaults: Partial<P>) => React.ElementType;
 
@@ -88,6 +89,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     this.tag = tag;
     this.base = base;
     this.defaults = defaults;
+    this.extraClasses = {};
     this.categories = categories;
     this.tagFunction = tagFunction;
     // Type assertion: we trust that all default themes provide complete objects
@@ -121,6 +123,14 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     };
 
     walk(this.themes);
+    
+    // Apply extra classes based on extracted keys
+    for (const [key, value] of Object.entries(extractedKeys)) {
+      if (value && this.extraClasses[value]) {
+        classes.push(...this.extraClasses[value].split(/\s+/));
+      }
+    }
+    
     return classes.filter(Boolean);
   }
 
