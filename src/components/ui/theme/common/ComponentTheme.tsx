@@ -75,18 +75,21 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly themes: TTheme;
   defaults: Partial<P>;
   private readonly categories: readonly ComponentCategoryKey[];
+  private readonly tagFunction?: (props: P, defaults: Partial<P>) => React.ElementType;
 
   constructor(
     tag: React.ElementType,
     base: string,
     subThemes: DeepPartial<TTheme>,
     defaults: Partial<P> = {},
-    categories: readonly ComponentCategoryKey[]
+    categories: readonly ComponentCategoryKey[],
+    tagFunction?: (props: P, defaults: Partial<P>) => React.ElementType
   ) {
     this.tag = tag;
     this.base = base;
     this.defaults = defaults;
     this.categories = categories;
+    this.tagFunction = tagFunction;
     // Type assertion: we trust that all default themes provide complete objects
     this.themes = subThemes as TTheme;
   }
@@ -121,6 +124,13 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     return classes.filter(Boolean);
   }
 
+  getTag(props: P): React.ElementType {
+    if (this.tagFunction) {
+      return this.tagFunction(props, this.defaults);
+    }
+    return this.tag;
+  }
+
   getComponentConfig(props: P) {
     const cleanProps: Record<string, any> = {...props};
 
@@ -133,7 +143,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     delete cleanProps.theme;
 
     const {className, tag, ...other} = cleanProps as P;
-    const componentTag: React.ElementType = tag ?? this.tag ?? "div";
+    const componentTag: React.ElementType = tag ?? this.getTag(props) ?? "div";
     // Use original props for theme generation, but cleanProps for final DOM props
     const originalProps = props as P;
     const themeGeneratedClasses = this.getClasses(originalProps);

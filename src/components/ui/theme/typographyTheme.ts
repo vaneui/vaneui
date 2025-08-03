@@ -180,5 +180,15 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
     padding: true,
     disc: true,
   },
-  LIST_CATEGORIES
+  LIST_CATEGORIES,
+  (props: ListProps, defaults: Partial<ListProps>) => {
+    // Determine tag based on list style from props and defaults
+    const componentProps = props as unknown as Record<string, boolean>;
+    const defaultsRecord = defaults as Record<string, boolean>;
+    
+    // Check if decimal is set in props or defaults
+    const hasDecimal = componentProps?.decimal || defaultsRecord?.decimal;
+    
+    return hasDecimal ? "ol" : "ul";
+  }
 );

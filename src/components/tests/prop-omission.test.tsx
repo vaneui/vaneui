@@ -41,7 +41,7 @@ import {
   LIST_CATEGORIES
 } from '../ui/props/keys';
 
-import { createPropOmissionTest } from './utils/propOmissionTestUtils';
+import { createPropOmissionTest, createTestPropsWithAllBooleans, checkForOmittedProps } from './utils/propOmissionTestUtils';
 
 describe('Component Prop Omission Tests', () => {
   const renderWithTheme = (Component: React.ComponentType<any>, tag: string = '') => 
@@ -171,13 +171,66 @@ describe('Component Prop Omission Tests', () => {
     'a'
   ));
 
-  // List Tests
-  describe('List Component', createPropOmissionTest(
-    'List',
-    LIST_CATEGORIES,
-    renderWithTheme(List),
-    'ul'
-  ));
+  // List Tests - Custom test to handle both ul and ol tags
+  describe('List Component', () => {
+    describe('List Prop Omission Tests', () => {
+      it('should omit all boolean component props from DOM attributes', () => {
+        const testProps = createTestPropsWithAllBooleans(LIST_CATEGORIES);
+        const { container } = renderWithTheme(List)(testProps);
+        
+        // Try both ul and ol since List can be either based on props
+        const element = container.querySelector('ul') || container.querySelector('ol');
+        const { hasInvalidProps, invalidProps } = checkForOmittedProps(element, LIST_CATEGORIES);
+        
+        if (hasInvalidProps) {
+          console.error('List failed prop omission test. Found invalid props:', invalidProps);
+          console.error('Element attributes:', Array.from(element?.attributes || []).map((attr: Attr) => attr.name));
+        }
+        
+        expect(hasInvalidProps).toBe(false);
+      });
+
+      it('should still render valid HTML attributes', () => {
+        const htmlProps = {
+          id: 'test-id',
+          'data-testid': 'test-component',
+          'aria-label': 'Test component'
+        };
+
+        const { container } = renderWithTheme(List)(htmlProps);
+        const element = container.querySelector('ul') || container.querySelector('ol');
+        
+        expect(element).toHaveAttribute('id', 'test-id');
+        expect(element).toHaveAttribute('data-testid', 'test-component');
+        expect(element).toHaveAttribute('aria-label', 'Test component');
+      });
+
+      it('should preserve className attribute', () => {
+        const propsWithClass = {
+          className: 'custom-test-class'
+        };
+
+        const { container } = renderWithTheme(List)(propsWithClass);
+        const element = container.querySelector('ul') || container.querySelector('ol');
+        
+        expect(element).toHaveAttribute('class');
+        expect(element).toHaveClass('custom-test-class');
+      });
+
+      it('should not render theme prop in DOM attributes', () => {
+        // Test with a prop that might be accidentally passed as an attribute
+        const propsWithUnexpectedAttribute = {
+          'data-theme': 'custom-theme'
+        };
+
+        const { container } = renderWithTheme(List)(propsWithUnexpectedAttribute);
+        const element = container.querySelector('ul') || container.querySelector('ol');
+        
+        expect(element).toHaveAttribute('data-theme', 'custom-theme'); // This should be preserved as it's a valid HTML attribute
+        expect(element).toBeInTheDocument();
+      });
+    });
+  });
 
   // ListItem Tests
   describe('ListItem Component', createPropOmissionTest(

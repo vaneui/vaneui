@@ -73,7 +73,7 @@ describe('List and ListItem Components Tests', () => {
       });
     });
 
-    it('should render with decimal list style', () => {
+    it('should render with decimal list style using ol tag', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <List decimal>
@@ -83,13 +83,17 @@ describe('List and ListItem Components Tests', () => {
         </ThemeProvider>
       );
 
-      const list = container.querySelector('ul');
+      const list = container.querySelector('ol');
       expect(list).toBeInTheDocument();
       expect(list).toHaveClass('list-decimal', 'list-inside');
       expect(list).not.toHaveClass('list-disc');
+      
+      // Verify no ul tag exists
+      const ulList = container.querySelector('ul');
+      expect(ulList).not.toBeInTheDocument();
     });
 
-    it('should render with disc list style by default', () => {
+    it('should render with disc list style by default using ul tag', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <List>
@@ -103,9 +107,13 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toBeInTheDocument();
       expect(list).toHaveClass('list-disc', 'list-inside');
       expect(list).not.toHaveClass('list-decimal');
+      
+      // Verify no ol tag exists
+      const olList = container.querySelector('ol');
+      expect(olList).not.toBeInTheDocument();
     });
 
-    it('should render with explicit disc list style', () => {
+    it('should render with explicit disc list style using ul tag', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <List disc>
@@ -119,6 +127,34 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toBeInTheDocument();
       expect(list).toHaveClass('list-disc', 'list-inside');
       expect(list).not.toHaveClass('list-decimal');
+      
+      // Verify no ol tag exists
+      const olList = container.querySelector('ol');
+      expect(olList).not.toBeInTheDocument();
+    });
+
+    it('should handle mixed list types in nested structures', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List primary>
+            <ListItem>Disc parent item</ListItem>
+            <List decimal secondary>
+              <ListItem>Decimal nested item</ListItem>
+            </List>
+          </List>
+        </ThemeProvider>
+      );
+
+      const ulList = container.querySelector('ul');
+      const olList = container.querySelector('ol');
+      
+      // Parent should be ul with disc styling
+      expect(ulList).toBeInTheDocument();
+      expect(ulList).toHaveClass('text-(--text-color-primary)', 'list-disc');
+      
+      // Nested should be ol with decimal styling
+      expect(olList).toBeInTheDocument();
+      expect(olList).toHaveClass('text-(--text-color-secondary)', 'list-decimal');
     });
 
     it('should support custom className', () => {
