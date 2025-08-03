@@ -6,6 +6,7 @@ export const VISUAL_CORE = ['appearance', 'transparent'] as const;
 export const VISUAL_DECORATION = ['border', 'shadow', 'ring'] as const;
 export const SHAPE = ['shape'] as const;
 export const TYPOGRAPHY_STYLE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
+export const LIST_STYLE = ['listStyle'] as const;
 export const LINK = ['link'] as const;
 export const VARIANT = ['variant'] as const;
 
@@ -13,6 +14,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...VISUAL_CORE,
   ...LAYOUT_FLEX,
   ...TYPOGRAPHY_STYLE,
+  ...LIST_STYLE,
   ...LAYOUT_CORE,
   ...BREAKPOINT,
   ...LINK,
@@ -38,6 +40,7 @@ export const ComponentKeys = {
   items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'],
   justify: ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'],
   link: ['link'],
+  listStyle: ['disc', 'decimal'],
   mode: ['base', 'hover', 'active'] as const,
   overflow: ['overflowAuto', 'overflowHidden', 'overflowClip', 'overflowVisible', 'overflowScroll', 'overflowXAuto', 'overflowYAuto', 'overflowXHidden', 'overflowYHidden', 'overflowXClip', 'overflowYClip', 'overflowXVisible', 'overflowYVisible', 'overflowXScroll', 'overflowYScroll'],
   padding: ['padding', 'noPadding'],
@@ -66,6 +69,7 @@ export type VariantKey = typeof ComponentKeys.variant[number];
 export type AppearanceKey = typeof ComponentKeys.appearance[number];
 export type TransparentKey = typeof ComponentKeys.transparent[number];
 export type LinkKey = typeof ComponentKeys.link[number];
+export type ListStyleKey = typeof ComponentKeys.listStyle[number];
 export type FontFamilyKey = typeof ComponentKeys.fontFamily[number];
 export type FontWeightKey = typeof ComponentKeys.fontWeight[number];
 export type FontStyleKey = typeof ComponentKeys.fontStyle[number];
@@ -94,7 +98,7 @@ export const CHIP_CATEGORIES = INTERACTIVE_CATEGORIES;
 
 //typography:
 export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE] as const;
-export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
+export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LIST_STYLE, ...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
 
 //layout:
 export const GRID_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_CORE] as const;

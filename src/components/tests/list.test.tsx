@@ -73,6 +73,54 @@ describe('List and ListItem Components Tests', () => {
       });
     });
 
+    it('should render with decimal list style', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List decimal>
+            <ListItem>Item 1</ListItem>
+            <ListItem>Item 2</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+
+      const list = container.querySelector('ul');
+      expect(list).toBeInTheDocument();
+      expect(list).toHaveClass('list-decimal', 'list-inside');
+      expect(list).not.toHaveClass('list-disc');
+    });
+
+    it('should render with disc list style by default', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem>Item 1</ListItem>
+            <ListItem>Item 2</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+
+      const list = container.querySelector('ul');
+      expect(list).toBeInTheDocument();
+      expect(list).toHaveClass('list-disc', 'list-inside');
+      expect(list).not.toHaveClass('list-decimal');
+    });
+
+    it('should render with explicit disc list style', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List disc>
+            <ListItem>Item 1</ListItem>
+            <ListItem>Item 2</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+
+      const list = container.querySelector('ul');
+      expect(list).toBeInTheDocument();
+      expect(list).toHaveClass('list-disc', 'list-inside');
+      expect(list).not.toHaveClass('list-decimal');
+    });
+
     it('should support custom className', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

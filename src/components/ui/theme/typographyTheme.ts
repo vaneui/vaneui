@@ -12,6 +12,7 @@ import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
 import { SizeKey } from "../props";
 import { PlTheme } from "./size/plTheme";
+import { ListStyleTheme } from "./list/listStyleTheme";
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from "../props";
 
 export interface TypographyTheme extends BaseTypographyComponentTheme {
@@ -152,12 +153,13 @@ export interface ListTheme extends BaseTypographyComponentTheme {
     text: TextAppearanceTheme;
   };
   layout: DefaultLayoutThemes;
+  listStyle: ListStyleTheme;
 }
 
 // List specific theme
 export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentTheme<ListProps, ListTheme>(
   "ul",
-  "list-disc list-inside",
+  "list-inside",
   {
     size: {
       text: new SizeTheme(textSizeClasses),
@@ -168,6 +170,7 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
     },
     typography: defaultTypographyTheme,
     layout: defaultLayoutTheme,
+    listStyle: new ListStyleTheme(),
   },
   {
     md: true,
@@ -175,6 +178,7 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
     sans: true,
     normal: true,
     padding: true,
+    disc: true,
   },
   LIST_CATEGORIES
 );
