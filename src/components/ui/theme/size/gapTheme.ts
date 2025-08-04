@@ -17,10 +17,16 @@ export class GapTheme extends BaseTheme {
     noGap: "gap-0"
   };
 
-  constructor(initial?: Partial<Record<GapKey, string | Record<SizeKey, string>>>) {
+  constructor(sizeMap?: Record<SizeKey, string>) {
+    // If a simple size map is provided, convert it to the expected format
+    const initial = sizeMap ? { gap: sizeMap } : undefined;
     super();
     ComponentKeys.gap.forEach((key) => {
-      this[key as GapKey] = initial?.[key as GapKey] ?? GapTheme.defaultClasses[key as GapKey];
+      if (key === 'gap' && initial?.gap) {
+        this[key as GapKey] = initial.gap;
+      } else {
+        this[key as GapKey] = GapTheme.defaultClasses[key as GapKey];
+      }
     });
   }
 

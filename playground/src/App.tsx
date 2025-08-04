@@ -25,19 +25,52 @@ function App() {
       }
     }}>
       <Section>
-        <Title>Code Component Showcase</Title>
-        <Text>The new Code component is designed for inline code display with smaller paddings than Chip.</Text>
-
-        <Divider/>
+        <Text>
+          Use the Code component for inline code like <Code>console.log('hello')</Code> or
+          commands like <Code>npm install</Code>. It uses monospace font by default.
+        </Text>
+        <Text sm>
+          Use the Code component for inline code like <Code sm>console.log('hello')</Code> or
+          commands like <Code sm>npm install</Code>. It uses monospace font by default.
+        </Text>
+        <Text lg>
+          Use the Code component for inline code like <Code lg>console.log('hello')</Code> or
+          commands like <Code lg>npm install</Code>. It uses monospace font by default.
+        </Text>
 
         <Title>Basic Usage</Title>
-        <Card className="max-w-xs">
-          <Text>
-            Use the Code component for inline code like <Code>console.log('hello')</Code> or
-            commands like <Code>npm install</Code>. It uses monospace font by default.
-          </Text>
-        </Card>
-
+        <Row flexWrap>
+          <Card className="max-w-xs">
+            <Text xs>
+              Use the Code component for inline code like <Code xs>console.log('hello')</Code> or
+              commands like <Code xs>npm install</Code>. It uses monospace font by default.
+            </Text>
+          </Card>
+          <Card className="max-w-xs">
+            <Text sm>
+              Use the Code component for inline code like <Code sm>console.log('hello')</Code> or
+              commands like <Code sm>npm install</Code>. It uses monospace font by default.
+            </Text>
+          </Card>
+          <Card className="max-w-xs">
+            <Text>
+              Use the Code component for inline code like <Code>console.log('hello')</Code> or
+              commands like <Code>npm install</Code>. It uses monospace font by default.
+            </Text>
+          </Card>
+          <Card className="max-w-xs">
+            <Text lg>
+              Use the Code component for inline code like <Code lg>console.log('hello')</Code> or
+              commands like <Code lg>npm install</Code>. It uses monospace font by default.
+            </Text>
+          </Card>
+          <Card className="max-w-xs">
+            <Text xl>
+              Use the Code component for inline code like <Code xl>console.log('hello')</Code> or
+              commands like <Code xl>npm install</Code>. It uses monospace font by default.
+            </Text>
+          </Card>
+        </Row>
         <Divider/>
 
         <Title>Size Variants</Title>
@@ -64,45 +97,6 @@ function App() {
 
         <Divider/>
 
-        <Title>Variant Styles</Title>
-        <Col gap>
-          <Text>Outline (default): <Code outline primary>git commit -m "fix"</Code></Text>
-          <Text>Filled: <Code filled primary>git push origin main</Code></Text>
-          <Text>Filled Success: <Code filled success>Tests passing ✓</Code></Text>
-          <Text>Filled Danger: <Code filled danger>Build failed ✗</Code></Text>
-        </Col>
-
-        <Divider/>
-
-        <Title>Typography Options</Title>
-        <Col gap>
-          <Text>Monospace (default): <Code>{'function fibonacci(n) { return n; }'}</Code></Text>
-          <Text>Sans font: <Code sans>user-friendly text</Code></Text>
-          <Text>Serif font: <Code serif>elegant code</Code></Text>
-          <Text>Bold: <Code bold>emphasized code</Code></Text>
-          <Text>Semibold: <Code semibold>npm run build</Code></Text>
-        </Col>
-
-        <Divider/>
-
-        <Title>Layout Options</Title>
-        <Col gap>
-          <Text>Inline (default): This is <Code>inline code</Code> within text.</Text>
-          <Text>Block: <Code block>This code takes full width as block element</Code></Text>
-          <Text>Inline-flex: <Code inlineFlex>flex-aligned</Code> code element.</Text>
-        </Col>
-
-        <Divider/>
-
-        <Title>Shape Variants</Title>
-        <Row gap>
-          <Code rounded>rounded corners</Code>
-          <Code pill>pill shaped</Code>
-          <Code sharp>sharp corners</Code>
-        </Row>
-
-        <Divider/>
-
         <Title>Real-World Examples</Title>
         <Col gap>
           <Text>Install package: <Code>npm install @vaneui/ui</Code></Text>
@@ -125,36 +119,6 @@ function App() {
           <Text>Code has no shadow/ring by default for cleaner inline appearance.</Text>
         </Col>
 
-        <Divider/>
-
-        <Title>With Extra Classes</Title>
-        <Col gap>
-          <Text>Primary with border: <Code primary>styled code</Code></Text>
-          <Text>Success with background: <Code success>success message</Code></Text>
-          <Text>Danger with background: <Code danger>error details</Code></Text>
-          <Text>Large with bold tracking: <Code lg>emphasized large</Code></Text>
-        </Col>
-
-        <Divider/>
-
-        <Title>Complex Code Examples</Title>
-        <Col gap>
-          <Text>
-            Function definition: <Code>{'const add = (a, b) => a + b;'}</Code>
-          </Text>
-          <Text>
-            React hook: <Code primary>{'const [state, setState] = useState(0);'}</Code>
-          </Text>
-          <Text>
-            SQL query: <Code info>SELECT * FROM users WHERE active = true;</Code>
-          </Text>
-          <Text>
-            Terminal command: <Code>curl -X POST https://api.example.com/data</Code>
-          </Text>
-          <Text>
-            Configuration: <Code secondary>{'{"apiKey": "your-key-here", "timeout": 5000}'}</Code>
-          </Text>
-        </Col>
       </Section>
     </ThemeProvider>
   );

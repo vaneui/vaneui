@@ -43,25 +43,21 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   {
     size: {
       px: new PxTheme({
-        padding: {xs: 'px-2', sm: 'px-3', md: 'px-4', lg: 'px-5', xl: 'px-6',}
+        xs: 'px-2', sm: 'px-3', md: 'px-4', lg: 'px-5', xl: 'px-6',
       }),
       py: new PyTheme({
-        padding: {
-          xs: 'py-1',
-          sm: 'py-1.5',
-          md: 'py-2',
-          lg: 'py-2.5',
-          xl: 'py-3',
-        }
+        xs: 'py-1',
+        sm: 'py-1.5',
+        md: 'py-2',
+        lg: 'py-2.5',
+        xl: 'py-3',
       }),
       gap: new GapTheme({
-        gap: {
-          xs: 'gap-1',
-          sm: 'gap-1.5',
-          md: 'gap-2',
-          lg: 'gap-2.5',
-          xl: 'gap-3',
-        }
+        xs: 'gap-1',
+        sm: 'gap-1.5',
+        md: 'gap-2',
+        lg: 'gap-2.5',
+        xl: 'gap-3',
       }),
       text: new SizeTheme({
         xs: 'text-xs',
@@ -83,13 +79,11 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: new RadiusTheme({
-        rounded: {
-          xs: 'rounded-sm',
-          sm: 'rounded-md',
-          md: 'rounded-md',
-          lg: 'rounded-lg',
-          xl: 'rounded-xl',
-        }
+        xs: 'rounded-sm',
+        sm: 'rounded-md',
+        md: 'rounded-md',
+        lg: 'rounded-lg',
+        xl: 'rounded-xl',
       }),
     },
     typography: defaultTypographyTheme,

@@ -9,11 +9,11 @@ export class SizeTheme extends BaseTheme {
 
   private readonly useDefaultKey: boolean;
 
-  constructor(initial?: Partial<Record<SizeKey, string>>, useDefaultKey: boolean = true) {
+  constructor(sizeMap?: Record<SizeKey, string>, useDefaultKey: boolean = true) {
     super();
     this.useDefaultKey = useDefaultKey;
     ComponentKeys.size.forEach((key) => {
-      this[key as SizeKey] = initial?.[key as SizeKey] ?? "";
+      this[key as SizeKey] = sizeMap?.[key as SizeKey] ?? "";
     });
   }
 

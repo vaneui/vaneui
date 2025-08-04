@@ -47,31 +47,25 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   {
     size: {
       px: new PxTheme({
-        padding: {
-          xs: 'px-5 max-lg:px-4 max-md:px-3',
-          sm: 'px-6 max-lg:px-5 max-md:px-4',
-          md: 'px-7 max-lg:px-6 max-md:px-5',
-          lg: 'px-8 max-lg:px-7 max-md:px-6',
-          xl: 'px-9 max-lg:px-8 max-md:px-7',
-        }
+        xs: 'px-5 max-lg:px-4 max-md:px-3',
+        sm: 'px-6 max-lg:px-5 max-md:px-4',
+        md: 'px-7 max-lg:px-6 max-md:px-5',
+        lg: 'px-8 max-lg:px-7 max-md:px-6',
+        xl: 'px-9 max-lg:px-8 max-md:px-7',
       }),
       py: new PyTheme({
-        padding: {
-          xs: 'py-4 max-md:py-3',
-          sm: 'py-8 max-md:py-6',
-          md: 'py-12 max-md:py-6',
-          lg: 'py-16 max-lg:py-14 max-md:py-12',
-          xl: 'py-20 max-lg:py-16 max-md:py-12',
-        }
+        xs: 'py-4 max-md:py-3',
+        sm: 'py-8 max-md:py-6',
+        md: 'py-12 max-md:py-6',
+        lg: 'py-16 max-lg:py-14 max-md:py-12',
+        xl: 'py-20 max-lg:py-16 max-md:py-12',
       }),
       gap: new GapTheme({
-        gap: {
-          xs: 'gap-4',
-          sm: 'gap-6',
-          md: 'gap-8',
-          lg: 'gap-12',
-          xl: 'gap-16',
-        }
+        xs: 'gap-4',
+        sm: 'gap-6',
+        md: 'gap-8',
+        lg: 'gap-12',
+        xl: 'gap-16',
       }),
     },
     appearance: {
@@ -88,13 +82,11 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: new RadiusTheme({
-        rounded: {
-          xs: 'rounded-md',
-          sm: 'rounded-lg',
-          md: 'rounded-xl',
-          lg: 'rounded-2xl',
-          xl: 'rounded-3xl',
-        }
+        xs: 'rounded-md',
+        sm: 'rounded-lg',
+        md: 'rounded-xl',
+        lg: 'rounded-2xl',
+        xl: 'rounded-3xl',
       }),
     },
   },

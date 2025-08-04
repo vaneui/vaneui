@@ -16,11 +16,17 @@ export class PyTheme extends PaddingTheme {
     noPadding: "py-0"
   };
 
-  constructor(initial?: Partial<Record<PaddingKey, string | Record<SizeKey, string>>>) {
+  constructor(sizeMap?: Record<SizeKey, string>) {
+    // If a simple size map is provided, convert it to the expected format
+    const initial = sizeMap ? { padding: sizeMap } : undefined;
     super(initial);
     // Override with PyTheme's default classes
     ComponentKeys.padding.forEach((key) => {
-      this[key as PaddingKey] = initial?.[key as PaddingKey] ?? this.defaultClasses[key as PaddingKey];
+      if (key === 'padding' && initial?.padding) {
+        this[key as PaddingKey] = initial.padding;
+      } else {
+        this[key as PaddingKey] = this.defaultClasses[key as PaddingKey];
+      }
     });
   }
 }

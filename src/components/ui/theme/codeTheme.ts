@@ -41,26 +41,22 @@ export interface CodeTheme extends BaseTypographyComponentTheme {
 
 export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
   "code",
-  "w-fit h-fit transition-all duration-200 whitespace-nowrap",
+  "",
   {
     size: {
       px: new PxTheme({
-        padding: {
-          xs: 'px-1',
-          sm: 'px-1.5',
-          md: 'px-2',
-          lg: 'px-2.5',
-          xl: 'px-3',
-        }
+        xs: 'px-1',
+        sm: 'px-1.5',
+        md: 'px-1.5',
+        lg: 'px-2',
+        xl: 'px-2',
       }),
       py: new PyTheme({
-        padding: {
-          xs: 'py-0.5',
-          sm: 'py-0.5',
-          md: 'py-1',
-          lg: 'py-1.5',
-          xl: 'py-2',
-        }
+        xs: 'py-0',
+        sm: 'py-0.5',
+        md: 'py-1',
+        lg: 'py-1',
+        xl: 'py-1',
       }),
       text: new SizeTheme({
         xs: 'text-xs',
@@ -70,13 +66,11 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
         xl: 'text-lg',
       }),
       gap: new GapTheme({
-        gap: {
-          xs: 'gap-0.5',
-          sm: 'gap-1',
-          md: 'gap-1.5',
-          lg: 'gap-2',
-          xl: 'gap-2.5',
-        }
+        xs: 'gap-0.5',
+        sm: 'gap-1',
+        md: 'gap-1.5',
+        lg: 'gap-2',
+        xl: 'gap-2.5',
       })
     },
     appearance: {
@@ -89,13 +83,11 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
     layout: {
       ...defaultLayoutTheme,
       radius: new RadiusTheme({
-        rounded: {
-          xs: 'rounded',
-          sm: 'rounded-sm',
-          md: 'rounded-md',
-          lg: 'rounded-lg',
-          xl: 'rounded-xl',
-        }
+        xs: 'rounded',
+        sm: 'rounded-sm',
+        md: 'rounded-md',
+        lg: 'rounded-lg',
+        xl: 'rounded-xl',
       }),
       border: new BorderTheme(),
       ring: new RingTheme(),
@@ -103,6 +95,7 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
     typography: defaultTypographyTheme,
   },
   {
+    inline: true,
     outline: true,
     default: true,
     rounded: true,

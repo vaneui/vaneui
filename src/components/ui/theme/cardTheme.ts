@@ -48,22 +48,18 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   {
     size: {
       px: new PxTheme({
-        padding: {
-          xs: "px-2",
-          sm: "px-3 max-lg:px-2",
-          md: "px-4 max-lg:px-3",
-          lg: "px-5 max-lg:px-4 max-md:px-3",
-          xl: "px-6 max-lg:px-5 max-md:px-4"
-        }
+        xs: "px-2",
+        sm: "px-3 max-lg:px-2",
+        md: "px-4 max-lg:px-3",
+        lg: "px-5 max-lg:px-4 max-md:px-3",
+        xl: "px-6 max-lg:px-5 max-md:px-4"
       }),
       py: new PyTheme({
-        padding: {
-          xs: "py-2",
-          sm: "py-3 max-lg:py-2",
-          md: "py-4 max-lg:py-3",
-          lg: "py-5 max-lg:py-4 max-md:py-3",
-          xl: "py-6 max-lg:py-5 max-md:py-4"
-        }
+        xs: "py-2",
+        sm: "py-3 max-lg:py-2",
+        md: "py-4 max-lg:py-3",
+        lg: "py-5 max-lg:py-4 max-md:py-3",
+        xl: "py-6 max-lg:py-5 max-md:py-4"
       }),
       gap: new GapTheme(),
     },
@@ -72,13 +68,11 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: new RadiusTheme({
-        rounded: {
-          xs: "rounded-md",
-          sm: "rounded-lg",
-          md: "rounded-xl",
-          lg: "rounded-2xl",
-          xl: "rounded-3xl"
-        }
+        xs: "rounded-md",
+        sm: "rounded-lg",
+        md: "rounded-xl",
+        lg: "rounded-2xl",
+        xl: "rounded-3xl"
       }),
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),

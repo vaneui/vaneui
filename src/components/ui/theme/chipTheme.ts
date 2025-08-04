@@ -45,22 +45,18 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   {
     size: {
       px: new PxTheme({
-        padding: {
-          xs: 'px-2',
-          sm: 'px-2.5',
-          md: 'px-3',
-          lg: 'px-3.5',
-          xl: 'px-4',
-        }
+        xs: 'px-2',
+        sm: 'px-2.5',
+        md: 'px-3',
+        lg: 'px-3.5',
+        xl: 'px-4',
       }),
       py: new PyTheme({
-        padding: {
-          xs: 'py-0.5',
-          sm: 'py-1',
-          md: 'py-1.5',
-          lg: 'py-2',
-          xl: 'py-2.5',
-        }
+        xs: 'py-0.5',
+        sm: 'py-1',
+        md: 'py-1.5',
+        lg: 'py-2',
+        xl: 'py-2.5',
       }),
       text: new SizeTheme({
         xs: 'text-xs',
@@ -70,13 +66,11 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
         xl: 'text-xl',
       }),
       gap: new GapTheme({
-        gap: {
-          xs: 'gap-1',
-          sm: 'gap-1.5',
-          md: 'gap-2',
-          lg: 'gap-2.5',
-          xl: 'gap-3',
-        }
+        xs: 'gap-1',
+        sm: 'gap-1.5',
+        md: 'gap-2',
+        lg: 'gap-2.5',
+        xl: 'gap-3',
       })
     },
     appearance: {
@@ -89,13 +83,11 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
     layout: {
       ...defaultLayoutTheme,
       radius: new RadiusTheme({
-        rounded: {
-          xs: 'rounded-sm',
-          sm: 'rounded-md',
-          md: 'rounded-lg',
-          lg: 'rounded-xl',
-          xl: 'rounded-2xl',
-        }
+        xs: 'rounded-sm',
+        sm: 'rounded-md',
+        md: 'rounded-lg',
+        lg: 'rounded-xl',
+        xl: 'rounded-2xl',
       }),
       border: new BorderTheme(),
       ring: new RingTheme(),

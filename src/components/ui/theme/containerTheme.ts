@@ -43,13 +43,11 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
   {
     size: {
       gap: new GapTheme({
-        gap: {
-          xs: 'gap-2 max-lg:gap-1',
-          sm: 'gap-4 max-lg:gap-3 max-md:gap-2',
-          md: 'gap-6 max-lg:gap-5 max-md:gap-4',
-          lg: 'gap-8 max-lg:gap-7 max-md:gap-6',
-          xl: 'gap-10 max-lg:gap-9 max-md:gap-8',
-        }
+        xs: 'gap-2 max-lg:gap-1',
+        sm: 'gap-4 max-lg:gap-3 max-md:gap-2',
+        md: 'gap-6 max-lg:gap-5 max-md:gap-4',
+        lg: 'gap-8 max-lg:gap-7 max-md:gap-6',
+        xl: 'gap-10 max-lg:gap-9 max-md:gap-8',
       }),
       maxWidth: new SizeTheme({
         xs: 'max-w-3xl',
@@ -66,13 +64,11 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       radius: new RadiusTheme({
-        rounded: {
-          xs: "rounded-md",
-          sm: "rounded-lg",
-          md: "rounded-xl",
-          lg: "rounded-2xl",
-          xl: "rounded-3xl"
-        }
+        xs: "rounded-md",
+        sm: "rounded-lg",
+        md: "rounded-xl",
+        lg: "rounded-2xl",
+        xl: "rounded-3xl"
       }),
     },
     appearance: {

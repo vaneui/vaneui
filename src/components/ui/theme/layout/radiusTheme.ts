@@ -18,10 +18,16 @@ export class RadiusTheme extends BaseTheme {
     }
   };
 
-  constructor(initial?: Partial<Record<ShapeKey, string | Record<SizeKey, string>>>) {
+  constructor(sizeMap?: Record<SizeKey, string>) {
+    // If a simple size map is provided, convert it to the expected format
+    const initial = sizeMap ? { rounded: sizeMap } : undefined;
     super();
     ComponentKeys.shape.forEach((key) => {
-      this[key as ShapeKey] = initial?.[key as ShapeKey] ?? RadiusTheme.defaultClasses[key as ShapeKey];
+      if (key === 'rounded' && initial?.rounded) {
+        this[key as ShapeKey] = initial.rounded;
+      } else {
+        this[key as ShapeKey] = RadiusTheme.defaultClasses[key as ShapeKey];
+      }
     });
   }
 
