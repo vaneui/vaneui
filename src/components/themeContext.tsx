@@ -3,6 +3,7 @@ import { ComponentTheme } from "./ui/theme/common/ComponentTheme";
 import { ButtonTheme, defaultButtonTheme } from './ui/theme/buttonTheme';
 import { BadgeTheme, defaultBadgeTheme } from './ui/theme/badgeTheme';
 import { ChipTheme, defaultChipTheme } from './ui/theme/chipTheme';
+import { CodeTheme, defaultCodeTheme } from './ui/theme/codeTheme';
 import {
   linkTheme, ListTheme,
   listItemTheme,
@@ -26,6 +27,7 @@ import {
   ButtonProps,
   CardProps,
   ChipProps,
+  CodeProps,
   ColProps,
   ContainerProps,
   DividerProps,
@@ -39,7 +41,7 @@ import {
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
-export const COMPONENT = ['button', 'badge', 'chip', 'card', 'divider', 'row', 'col', 'stack', 'section',
+export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'row', 'col', 'stack', 'section',
   'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem'] as const;
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -47,6 +49,7 @@ export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, 
   button: ComponentTheme<ButtonProps, ButtonTheme>;
   badge: ComponentTheme<BadgeProps, BadgeTheme>;
   chip: ComponentTheme<ChipProps, ChipTheme>;
+  code: ComponentTheme<CodeProps, CodeTheme>;
   card: ComponentTheme<CardProps, CardTheme>;
   divider: ComponentTheme<DividerProps, DividerTheme>;
   container: ComponentTheme<ContainerProps, ContainerTheme>;
@@ -71,6 +74,7 @@ export const defaultTheme: ThemeProps = {
   button: defaultButtonTheme,
   badge: defaultBadgeTheme,
   chip: defaultChipTheme,
+  code: defaultCodeTheme,
   card: defaultCardTheme,
   divider: defaultDividerTheme,
   container: defaultContainerTheme,

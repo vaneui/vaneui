@@ -5,6 +5,7 @@ import {
   BUTTON_CATEGORIES,
   BADGE_CATEGORIES,
   CHIP_CATEGORIES,
+  CODE_CATEGORIES,
   GRID_CATEGORIES,
   ROW_CATEGORIES,
   COL_CATEGORIES,
@@ -38,6 +39,7 @@ export type ComponentProps = {
 export interface ButtonProps extends ComponentProps, ComponentPropsFromCategories<typeof BUTTON_CATEGORIES> {}
 export interface BadgeProps extends ComponentProps, ComponentPropsFromCategories<typeof BADGE_CATEGORIES> {}
 export interface ChipProps extends ComponentProps, ComponentPropsFromCategories<typeof CHIP_CATEGORIES> {}
+export interface CodeProps extends ComponentProps, ComponentPropsFromCategories<typeof CODE_CATEGORIES> {}
 export interface GridProps extends ComponentProps, ComponentPropsFromCategories<typeof GRID_CATEGORIES> {}
 export interface RowProps extends ComponentProps, ComponentPropsFromCategories<typeof ROW_CATEGORIES> {}
 export interface ColProps extends ComponentProps, ComponentPropsFromCategories<typeof COL_CATEGORIES> {}
