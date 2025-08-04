@@ -111,9 +111,10 @@ export function ThemeProvider(
     themeOverride
   }: ThemeProviderProps) {
   const mergedTheme = useMemo(() => {
+      // Always start with a deep clone to ensure isolation
       let finalTheme = themeObject
-        ? deepMerge(defaultTheme, themeObject)
-        : defaultTheme;
+        ? deepMerge(deepClone(defaultTheme), themeObject)
+        : deepClone(defaultTheme);
 
       if (typeof themeOverride === 'function') {
         const themeToModify = deepClone(finalTheme);
@@ -121,6 +122,8 @@ export function ThemeProvider(
       }
 
       if (themeDefaults !== undefined) {
+        // Clone before modifying to ensure isolation
+        finalTheme = deepClone(finalTheme);
         for (const key in themeDefaults) {
           const componentKey = key as ComponentKey;
           const componentTheme = finalTheme[componentKey];
@@ -133,6 +136,8 @@ export function ThemeProvider(
       }
 
       if (extraClasses !== undefined) {
+        // Clone before modifying to ensure isolation
+        finalTheme = deepClone(finalTheme);
         for (const key in extraClasses) {
           const componentKey = key as ComponentKey;
           const componentExtraClasses = extraClasses[componentKey];
