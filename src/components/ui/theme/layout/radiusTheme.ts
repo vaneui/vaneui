@@ -1,22 +1,13 @@
 import { ShapeKey, SizeKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
+import { borderRadiusShapeClasses } from "../../classes/radiusClasses";
 
 export interface RadiusTheme extends Record<ShapeKey, string | Record<SizeKey, string>> {
 }
 
 export class RadiusTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<ShapeKey, string | Record<SizeKey, string>> = {
-    pill: "rounded-full",
-    sharp: "rounded-none",
-    rounded: {
-      xs: "rounded-sm",
-      sm: "rounded-md",
-      md: "rounded-lg",
-      lg: "rounded-xl",
-      xl: "rounded-2xl",
-    }
-  };
+  public static readonly defaultClasses: Record<ShapeKey, string | Record<SizeKey, string>> = borderRadiusShapeClasses;
 
   constructor(sizeMap?: Record<SizeKey, string>) {
     // If a simple size map is provided, convert it to the expected format
@@ -26,7 +17,7 @@ export class RadiusTheme extends BaseTheme {
       if (key === 'rounded' && initial?.rounded) {
         this[key as ShapeKey] = initial.rounded;
       } else {
-        this[key as ShapeKey] = RadiusTheme.defaultClasses[key as ShapeKey];
+        this[key as ShapeKey] = borderRadiusShapeClasses[key as ShapeKey];
       }
     });
   }

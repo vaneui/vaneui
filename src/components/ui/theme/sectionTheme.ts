@@ -8,12 +8,11 @@ import { PyTheme } from "./size/pyTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
-import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import {
   borderAppearanceClasses,
   ringAppearanceClasses
 } from "../classes/appearanceClasses";
-import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -26,10 +25,10 @@ export interface SectionTheme extends BaseComponentTheme {
     gap: GapTheme;
   };
   appearance: {
-    background: GenericVariantTheme<BgAppearanceTheme>;
-    text: GenericVariantTheme<TextAppearanceTheme>;
-    border: GenericVariantTheme<TextAppearanceTheme>;
-    ring: GenericVariantTheme<TextAppearanceTheme>;
+    background: GenericVariantTheme<AppearanceTheme>;
+    text: GenericVariantTheme<AppearanceTheme>;
+    border: GenericVariantTheme<AppearanceTheme>;
+    ring: GenericVariantTheme<AppearanceTheme>;
     shadow: ShadowAppearanceTheme;
   };
   layout: DefaultLayoutThemes & {
@@ -69,10 +68,19 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       }),
     },
     appearance: {
-      background: new BgAppearanceTheme(),
-      text: TextAppearanceTheme.createTheme({base: textAppearanceClasses}),
-      border: TextAppearanceTheme.createTheme({base: borderAppearanceClasses}),
-      ring: TextAppearanceTheme.createTheme({base: ringAppearanceClasses}),
+      background: AppearanceTheme.createLayoutBgTheme(),
+      text: AppearanceTheme.createTheme({base: textAppearanceClasses}, {
+        transparentClassSource: textAppearanceClasses,
+        linkClassSource: textAppearanceClasses
+      }),
+      border: AppearanceTheme.createTheme({base: borderAppearanceClasses}, {
+        transparentClassSource: borderAppearanceClasses,
+        linkClassSource: borderAppearanceClasses
+      }),
+      ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}, {
+        transparentClassSource: ringAppearanceClasses,
+        linkClassSource: ringAppearanceClasses
+      }),
       shadow: ShadowAppearanceTheme.createTheme(),
     },
     layout: {

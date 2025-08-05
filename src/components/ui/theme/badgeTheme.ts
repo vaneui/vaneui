@@ -11,7 +11,7 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { BADGE_CATEGORIES } from "../props";
@@ -24,10 +24,10 @@ export interface BadgeTheme extends BaseTypographyComponentTheme {
     gap: GapTheme;
   };
   appearance: {
-    background: GenericVariantTheme<TextAppearanceTheme>;
-    text: GenericVariantTheme<TextAppearanceTheme>;
-    border: GenericVariantTheme<TextAppearanceTheme>;
-    ring: GenericVariantTheme<TextAppearanceTheme>;
+    background: GenericVariantTheme<AppearanceTheme>;
+    text: GenericVariantTheme<AppearanceTheme>;
+    border: GenericVariantTheme<AppearanceTheme>;
+    ring: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {

@@ -1,7 +1,7 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 import { ComponentKeys, VariantKey, } from "../../props";
-import { TextAppearanceTheme } from "./textAppearanceTheme";
+import { AppearanceTheme } from "./appearanceTheme";
 import { filledTextAppearanceClasses, textAppearanceClasses } from "../../classes/typographyClasses";
 import {
   activeBackgroundAppearanceClasses,
@@ -57,13 +57,19 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
   }
 
   // used for button, bages, chips, etc
-  static createUIElementTextTheme(): GenericVariantTheme<TextAppearanceTheme> {
+  static createUIElementTextTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({
+      outline: AppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(textAppearanceClasses)
+      }, {
+        transparentClassSource: textAppearanceClasses,
+        linkClassSource: textAppearanceClasses
       }),
-      filled: TextAppearanceTheme.createTheme({
+      filled: AppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(filledTextAppearanceClasses)
+      }, {
+        transparentClassSource: filledTextAppearanceClasses,
+        linkClassSource: filledTextAppearanceClasses
       })
     });
   }
@@ -75,90 +81,138 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
-  static createBorderAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
+  static createBorderAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({base: borderAppearanceClasses}),
-      filled: TextAppearanceTheme.createTheme({base: filledBorderAppearanceClasses})
+      outline: AppearanceTheme.createTheme({base: borderAppearanceClasses}, {
+        transparentClassSource: borderAppearanceClasses,
+        linkClassSource: borderAppearanceClasses
+      }),
+      filled: AppearanceTheme.createTheme({base: filledBorderAppearanceClasses}, {
+        transparentClassSource: filledBorderAppearanceClasses,
+        linkClassSource: filledBorderAppearanceClasses
+      })
     });
   }
 
-  static createUIElementBorderTheme(): GenericVariantTheme<TextAppearanceTheme> {
+  static createUIElementBorderTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({
+      outline: AppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(borderAppearanceClasses)
+      }, {
+        transparentClassSource: borderAppearanceClasses,
+        linkClassSource: borderAppearanceClasses
       }),
-      filled: TextAppearanceTheme.createTheme({
+      filled: AppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(filledBorderAppearanceClasses)
+      }, {
+        transparentClassSource: filledBorderAppearanceClasses,
+        linkClassSource: filledBorderAppearanceClasses
       })
     });
   }
 
-  static createRingAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
+  static createRingAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({base: ringAppearanceClasses}),
-      filled: TextAppearanceTheme.createTheme({base: filledRingAppearanceClasses})
-    });
-  }
-
-  static createUIElementRingTheme(): GenericVariantTheme<TextAppearanceTheme> {
-    return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({
-        base: this.filterToUIElementKeys(ringAppearanceClasses)
+      outline: AppearanceTheme.createTheme({base: ringAppearanceClasses}, {
+        transparentClassSource: ringAppearanceClasses,
+        linkClassSource: ringAppearanceClasses
       }),
-      filled: TextAppearanceTheme.createTheme({
-        base: this.filterToUIElementKeys(filledRingAppearanceClasses)
+      filled: AppearanceTheme.createTheme({base: filledRingAppearanceClasses}, {
+        transparentClassSource: filledRingAppearanceClasses,
+        linkClassSource: filledRingAppearanceClasses
       })
     });
   }
 
-  static createBgAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
+  static createUIElementRingTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({
+      outline: AppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(ringAppearanceClasses)
+      }, {
+        transparentClassSource: ringAppearanceClasses,
+        linkClassSource: ringAppearanceClasses
+      }),
+      filled: AppearanceTheme.createTheme({
+        base: this.filterToUIElementKeys(filledRingAppearanceClasses)
+      }, {
+        transparentClassSource: filledRingAppearanceClasses,
+        linkClassSource: filledRingAppearanceClasses
+      })
+    });
+  }
+
+  static createBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
+    return new GenericVariantTheme({
+      outline: AppearanceTheme.createTheme({
         base: backgroundAppearanceClasses,
         hover: hoverBackgroundAppearanceClasses,
         active: activeBackgroundAppearanceClasses
+      }, {
+        transparentClassSource: backgroundAppearanceClasses,
+        linkClassSource: backgroundAppearanceClasses
       }),
-      filled: TextAppearanceTheme.createTheme({
+      filled: AppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
         hover: filledHoverBackgroundAppearanceClasses,
         active: filledActiveBackgroundAppearanceClasses
+      }, {
+        transparentClassSource: filledBackgroundAppearanceClasses,
+        linkClassSource: filledBackgroundAppearanceClasses
       })
     });
   }
 
-  static createUIElementBgAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
+  static createUIElementBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({
+      outline: AppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(backgroundAppearanceClasses),
         hover: this.filterToUIElementKeys(hoverBackgroundAppearanceClasses),
         active: this.filterToUIElementKeys(activeBackgroundAppearanceClasses)
+      }, {
+        transparentClassSource: backgroundAppearanceClasses,
+        linkClassSource: backgroundAppearanceClasses
       }),
-      filled: TextAppearanceTheme.createTheme({
+      filled: AppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(filledBackgroundAppearanceClasses),
         hover: this.filterToUIElementKeys(filledHoverBackgroundAppearanceClasses),
         active: this.filterToUIElementKeys(filledActiveBackgroundAppearanceClasses)
+      }, {
+        transparentClassSource: filledBackgroundAppearanceClasses,
+        linkClassSource: filledBackgroundAppearanceClasses
       })
     });
   }
 
-  static createSimpleBgAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
+  static createSimpleBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({
+      outline: AppearanceTheme.createTheme({
         base: backgroundAppearanceClasses,
+      }, {
+        transparentClassSource: backgroundAppearanceClasses,
+        linkClassSource: backgroundAppearanceClasses
       }),
-      filled: TextAppearanceTheme.createTheme({
+      filled: AppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
+      }, {
+        transparentClassSource: filledBackgroundAppearanceClasses,
+        linkClassSource: filledBackgroundAppearanceClasses
       })
     });
   }
 
-  static createSimpleUIElementBgAppearanceTheme(): GenericVariantTheme<TextAppearanceTheme> {
+  static createSimpleUIElementBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
-      outline: TextAppearanceTheme.createTheme({
+      outline: AppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(backgroundAppearanceClasses),
+      }, {
+        transparentClassSource: backgroundAppearanceClasses,
+        linkClassSource: backgroundAppearanceClasses
       }),
-      filled: TextAppearanceTheme.createTheme({
+      filled: AppearanceTheme.createTheme({
         base: this.filterToUIElementKeys(filledBackgroundAppearanceClasses),
+      }, {
+        transparentClassSource: filledBackgroundAppearanceClasses,
+        linkClassSource: filledBackgroundAppearanceClasses
       })
     });
   }

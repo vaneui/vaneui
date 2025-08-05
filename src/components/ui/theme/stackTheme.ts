@@ -5,12 +5,11 @@ import { StackProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
-import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { STACK_CATEGORIES } from "../props";
 
 export interface StackTheme extends BaseComponentTheme {
@@ -27,9 +26,9 @@ export interface StackTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    background: BgAppearanceTheme;
-    border: GenericVariantTheme<TextAppearanceTheme>;
-    ring: GenericVariantTheme<TextAppearanceTheme>;
+    background: AppearanceTheme;
+    border: GenericVariantTheme<AppearanceTheme>;
+    ring: GenericVariantTheme<AppearanceTheme>;
   }
 }
 
@@ -63,7 +62,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
       radius: new RadiusTheme(),
     },
     appearance: {
-      background: new BgAppearanceTheme(),
+      background: AppearanceTheme.createLayoutBgTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
     }

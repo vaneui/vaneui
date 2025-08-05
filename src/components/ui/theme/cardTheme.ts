@@ -7,13 +7,12 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import {
   borderAppearanceClasses,
   ringAppearanceClasses
 } from "../classes/appearanceClasses";
 import { textAppearanceClasses } from "../classes/typographyClasses";
-import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -35,10 +34,10 @@ export interface CardTheme extends BaseComponentTheme {
     shadow: ShadowAppearanceTheme;
   };
   appearance: {
-    background: BgAppearanceTheme;
-    text: TextAppearanceTheme;
-    border: TextAppearanceTheme;
-    ring: TextAppearanceTheme;
+    background: AppearanceTheme;
+    text: AppearanceTheme;
+    border: AppearanceTheme;
+    ring: AppearanceTheme;
   };
 }
 
@@ -80,10 +79,19 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       shadow: ShadowAppearanceTheme.createTheme(),
     },
     appearance: {
-      background: new BgAppearanceTheme(),
-      text: TextAppearanceTheme.createTheme({base: textAppearanceClasses}),
-      border: TextAppearanceTheme.createTheme({base: borderAppearanceClasses}),
-      ring: TextAppearanceTheme.createTheme({base: ringAppearanceClasses}),
+      background: AppearanceTheme.createLayoutBgTheme(),
+      text: AppearanceTheme.createTheme({base: textAppearanceClasses}, {
+        transparentClassSource: textAppearanceClasses,
+        linkClassSource: textAppearanceClasses
+      }),
+      border: AppearanceTheme.createTheme({base: borderAppearanceClasses}, {
+        transparentClassSource: borderAppearanceClasses,
+        linkClassSource: borderAppearanceClasses
+      }),
+      ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}, {
+        transparentClassSource: ringAppearanceClasses,
+        linkClassSource: ringAppearanceClasses
+      }),
     }
   },
   {

@@ -3,12 +3,11 @@ import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutTh
 import { ColProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
-import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { COL_CATEGORIES } from "../props";
 
 export interface ColTheme extends BaseComponentTheme {
@@ -23,9 +22,9 @@ export interface ColTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    background: BgAppearanceTheme;
-    border: GenericVariantTheme<TextAppearanceTheme>;
-    ring: GenericVariantTheme<TextAppearanceTheme>;
+    background: AppearanceTheme;
+    border: GenericVariantTheme<AppearanceTheme>;
+    ring: GenericVariantTheme<AppearanceTheme>;
   }
 }
 
@@ -45,7 +44,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
       radius: new RadiusTheme(),
     },
     appearance: {
-      background: new BgAppearanceTheme(),
+      background: AppearanceTheme.createLayoutBgTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
     }

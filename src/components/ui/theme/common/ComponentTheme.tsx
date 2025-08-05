@@ -43,6 +43,15 @@ export interface DefaultTypographyThemes {
   textAlign: TextAlignTheme;
 }
 
+export interface BaseComponentTheme {
+  layout: DefaultLayoutThemes;
+}
+
+export interface BaseTypographyComponentTheme extends BaseComponentTheme {
+  typography: DefaultTypographyThemes;
+}
+
+
 export const defaultLayoutTheme: DefaultLayoutThemes = {
   hide: new HideTheme(),
   items: new ItemsTheme(),
@@ -60,14 +69,6 @@ export const defaultTypographyTheme: DefaultTypographyThemes = {
   textTransform: new TextTransformTheme(),
   textAlign: new TextAlignTheme()
 };
-
-export interface BaseComponentTheme {
-  layout: DefaultLayoutThemes;
-}
-
-export interface BaseTypographyComponentTheme extends BaseComponentTheme {
-  typography: DefaultTypographyThemes;
-}
 
 export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly tag: React.ElementType;

@@ -6,13 +6,12 @@ import { SizeTheme } from "./size/sizeTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
-import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import {
   borderAppearanceClasses,
   layoutBackgroundAppearanceClasses,
   ringAppearanceClasses
 } from "../classes/appearanceClasses";
-import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { CONTAINER_CATEGORIES } from "../props";
@@ -30,10 +29,10 @@ export interface ContainerTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    background: BgAppearanceTheme;
-    text: TextAppearanceTheme;
-    border: TextAppearanceTheme;
-    ring: TextAppearanceTheme;
+    background: AppearanceTheme;
+    text: AppearanceTheme;
+    border: AppearanceTheme;
+    ring: AppearanceTheme;
   }
 }
 
@@ -72,10 +71,19 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       }),
     },
     appearance: {
-      background: new BgAppearanceTheme(),
-      text: TextAppearanceTheme.createTheme({base: textAppearanceClasses}),
-      border: TextAppearanceTheme.createTheme({base: borderAppearanceClasses}),
-      ring: TextAppearanceTheme.createTheme({base: ringAppearanceClasses}),
+      background: AppearanceTheme.createLayoutBgTheme(),
+      text: AppearanceTheme.createTheme({base: textAppearanceClasses}, {
+        transparentClassSource: textAppearanceClasses,
+        linkClassSource: textAppearanceClasses
+      }),
+      border: AppearanceTheme.createTheme({base: borderAppearanceClasses}, {
+        transparentClassSource: borderAppearanceClasses,
+        linkClassSource: borderAppearanceClasses
+      }),
+      ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}, {
+        transparentClassSource: ringAppearanceClasses,
+        linkClassSource: ringAppearanceClasses
+      }),
     }
   },
   {

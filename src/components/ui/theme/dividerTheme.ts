@@ -1,6 +1,6 @@
 import { BaseComponentTheme, ComponentTheme } from "./common/ComponentTheme";
 import { DividerProps } from "../props/props";
-import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { bgBorderAppearanceClasses } from "../classes/appearanceClasses";
 import { PyTheme } from "./size/pyTheme";
 import { DIVIDER_CATEGORIES } from "../props";
@@ -10,7 +10,7 @@ export interface DividerTheme extends BaseComponentTheme {
     py: PyTheme;
   };
   appearance: {
-    background: TextAppearanceTheme;
+    background: AppearanceTheme;
   };
 }
 
@@ -22,7 +22,7 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
       py: new PyTheme(),
     },
     appearance: {
-      background: TextAppearanceTheme.createTheme({
+      background: AppearanceTheme.createTheme({
         base: bgBorderAppearanceClasses,
       }),
     }

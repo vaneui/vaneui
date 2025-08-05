@@ -3,13 +3,12 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { RowProps } from "../props/props";
 import { BreakpointTheme } from "./size/breakpointTheme";
-import { BgAppearanceTheme } from "./appearance/bgAppearanceTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
-import { TextAppearanceTheme } from "./appearance/textAppearanceTheme";
 import { ROW_CATEGORIES } from "../props";
 
 export interface RowTheme extends BaseComponentTheme {
@@ -25,9 +24,9 @@ export interface RowTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    background: BgAppearanceTheme;
-    border: GenericVariantTheme<TextAppearanceTheme>;
-    ring: GenericVariantTheme<TextAppearanceTheme>;
+    background: AppearanceTheme;
+    border: GenericVariantTheme<AppearanceTheme>;
+    ring: GenericVariantTheme<AppearanceTheme>;
   }
 }
 
@@ -48,7 +47,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
       radius: new RadiusTheme(),
     },
     appearance: {
-      background: new BgAppearanceTheme(),
+      background: AppearanceTheme.createLayoutBgTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
     }
