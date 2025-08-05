@@ -24,7 +24,7 @@ describe('Chip Component Tests', () => {
       expect(chip).toHaveClass('text-(--text-color-secondary)'); // secondary appearance (default for chip)
       expect(chip).toHaveClass('font-mono'); // mono font for chip
       expect(chip).toHaveClass('font-normal'); // normal weight
-      expect(chip).toHaveClass('inline-flex', 'items-center', 'rounded-lg');
+      expect(chip).toHaveClass('inline-flex', 'items-center', 'rounded-(--ui-border-radius-md)');
     });
   });
 
@@ -126,7 +126,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('rounded-lg'); // default rounded
+      expect(chip).toHaveClass('rounded-(--ui-border-radius-md)'); // default rounded
     });
 
     it('should render with sharp corners when sharp prop is true', () => {

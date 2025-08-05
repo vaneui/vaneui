@@ -156,7 +156,7 @@ describe('Row Component Tests', () => {
       expect(row).toHaveClass('border-(--border-color-primary)');
       expect(row).toHaveClass('ring');
       expect(row).toHaveClass('ring-(--border-color-primary)');
-      expect(row).toHaveClass('rounded-(--border-radius-md)');
+      expect(row).toHaveClass('rounded-(--layout-border-radius-md)');
     });
 
     it('should support custom HTML tag', () => {

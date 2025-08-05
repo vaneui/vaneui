@@ -83,14 +83,8 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
 
   static createBorderAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
-      outline: AppearanceTheme.createTheme({base: borderAppearanceClasses}, {
-        transparentClassSource: borderAppearanceClasses,
-        linkClassSource: borderAppearanceClasses
-      }),
-      filled: AppearanceTheme.createTheme({base: filledBorderAppearanceClasses}, {
-        transparentClassSource: filledBorderAppearanceClasses,
-        linkClassSource: filledBorderAppearanceClasses
-      })
+      outline: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
+      filled: AppearanceTheme.createTheme({base: filledBorderAppearanceClasses})
     });
   }
 
@@ -113,14 +107,8 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
 
   static createRingAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
-      outline: AppearanceTheme.createTheme({base: ringAppearanceClasses}, {
-        transparentClassSource: ringAppearanceClasses,
-        linkClassSource: ringAppearanceClasses
-      }),
-      filled: AppearanceTheme.createTheme({base: filledRingAppearanceClasses}, {
-        transparentClassSource: filledRingAppearanceClasses,
-        linkClassSource: filledRingAppearanceClasses
-      })
+      outline: AppearanceTheme.createTheme({base: ringAppearanceClasses}),
+      filled: AppearanceTheme.createTheme({base: filledRingAppearanceClasses})
     });
   }
 
@@ -147,17 +135,11 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
         base: backgroundAppearanceClasses,
         hover: hoverBackgroundAppearanceClasses,
         active: activeBackgroundAppearanceClasses
-      }, {
-        transparentClassSource: backgroundAppearanceClasses,
-        linkClassSource: backgroundAppearanceClasses
       }),
       filled: AppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
         hover: filledHoverBackgroundAppearanceClasses,
         active: filledActiveBackgroundAppearanceClasses
-      }, {
-        transparentClassSource: filledBackgroundAppearanceClasses,
-        linkClassSource: filledBackgroundAppearanceClasses
       })
     });
   }
@@ -187,15 +169,9 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: backgroundAppearanceClasses,
-      }, {
-        transparentClassSource: backgroundAppearanceClasses,
-        linkClassSource: backgroundAppearanceClasses
       }),
       filled: AppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
-      }, {
-        transparentClassSource: filledBackgroundAppearanceClasses,
-        linkClassSource: filledBackgroundAppearanceClasses
       })
     });
   }

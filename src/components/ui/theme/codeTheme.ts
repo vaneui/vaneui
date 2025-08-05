@@ -82,13 +82,7 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
     },
     layout: {
       ...defaultLayoutTheme,
-      radius: new RadiusTheme({
-        xs: 'rounded',
-        sm: 'rounded-sm',
-        md: 'rounded-md',
-        lg: 'rounded-lg',
-        xl: 'rounded-xl',
-      }),
+      radius: RadiusTheme.createUITheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
     },

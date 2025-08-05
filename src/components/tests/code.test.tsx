@@ -49,7 +49,7 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('py-1');
       expect(codeElement).toHaveClass('bg-(--background-color-default)');
       expect(codeElement).toHaveClass('text-(--text-color-default)');
-      expect(codeElement).toHaveClass('rounded-md');
+      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-md)');
       expect(codeElement).toHaveClass('font-mono');
     });
 
@@ -70,7 +70,7 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-xs');
       expect(codeElement).toHaveClass('px-1');
       expect(codeElement).toHaveClass('py-0');
-      expect(codeElement).toHaveClass('rounded');
+      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-xs)');
     });
 
     it('should apply md size classes', () => {
@@ -80,7 +80,7 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-sm');
       expect(codeElement).toHaveClass('px-1.5');
       expect(codeElement).toHaveClass('py-1');
-      expect(codeElement).toHaveClass('rounded-md');
+      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-md)');
     });
 
     it('should apply lg size classes', () => {
@@ -90,7 +90,7 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-base');
       expect(codeElement).toHaveClass('px-2');
       expect(codeElement).toHaveClass('py-1');
-      expect(codeElement).toHaveClass('rounded-lg');
+      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-lg)');
     });
 
     it('should apply xl size classes', () => {
@@ -100,7 +100,7 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-lg');
       expect(codeElement).toHaveClass('px-2');
       expect(codeElement).toHaveClass('py-1');
-      expect(codeElement).toHaveClass('rounded-xl');
+      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-xl)');
     });
   });
 
@@ -234,7 +234,7 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('rounded-md');
+      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-md)');
     });
 
     it('should apply pill shape', () => {

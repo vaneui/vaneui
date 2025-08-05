@@ -82,13 +82,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
     },
     layout: {
       ...defaultLayoutTheme,
-      radius: new RadiusTheme({
-        xs: 'rounded-sm',
-        sm: 'rounded-md',
-        md: 'rounded-lg',
-        lg: 'rounded-xl',
-        xl: 'rounded-2xl',
-      }),
+      radius: RadiusTheme.createUITheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
     },

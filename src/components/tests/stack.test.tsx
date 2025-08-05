@@ -156,7 +156,7 @@ describe('Stack Component Tests', () => {
       expect(stack).toHaveClass('border-(--border-color-warning)');
       expect(stack).toHaveClass('ring');
       expect(stack).toHaveClass('ring-(--border-color-warning)');
-      expect(stack).toHaveClass('rounded-(--border-radius-md)');
+      expect(stack).toHaveClass('rounded-(--layout-border-radius-md)');
     });
 
     it('should support appearance variants', () => {

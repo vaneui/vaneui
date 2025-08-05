@@ -20,8 +20,8 @@ function App() {
       code: {
         //primary: 'border-2 border-blue-300 shadow-lg',
         //success: 'bg-green-50 border border-green-200',
-        danger: 'bg-red-50 border border-red-200',
-        lg: 'font-bold tracking-wide'
+        //danger: 'bg-red-50 border border-red-200',
+        //lg: 'font-bold tracking-wide'
       }
     }}>
       <Section>
@@ -40,31 +40,31 @@ function App() {
 
         <Title>Basic Usage</Title>
         <Row flexWrap>
-          <Card className="max-w-xs">
+          <Card xs className="max-w-xs">
             <Text xs>
               Use the Code component for inline code like <Code xs>console.log('hello')</Code> or
               commands like <Code xs>npm install</Code>. It uses monospace font by default.
             </Text>
           </Card>
-          <Card className="max-w-xs">
+          <Card sm className="max-w-xs">
             <Text sm>
               Use the Code component for inline code like <Code sm>console.log('hello')</Code> or
               commands like <Code sm>npm install</Code>. It uses monospace font by default.
             </Text>
           </Card>
-          <Card className="max-w-xs">
+          <Card md className="max-w-xs">
             <Text>
               Use the Code component for inline code like <Code>console.log('hello')</Code> or
               commands like <Code>npm install</Code>. It uses monospace font by default.
             </Text>
           </Card>
-          <Card className="max-w-xs">
+          <Card lg className="max-w-xs">
             <Text lg>
               Use the Code component for inline code like <Code lg>console.log('hello')</Code> or
               commands like <Code lg>npm install</Code>. It uses monospace font by default.
             </Text>
           </Card>
-          <Card className="max-w-xs">
+          <Card xl className="max-w-xs">
             <Text xl>
               Use the Code component for inline code like <Code xl>console.log('hello')</Code> or
               commands like <Code xl>npm install</Code>. It uses monospace font by default.

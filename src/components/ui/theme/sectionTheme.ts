@@ -69,18 +69,9 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
     },
     appearance: {
       background: AppearanceTheme.createLayoutBgTheme(),
-      text: AppearanceTheme.createTheme({base: textAppearanceClasses}, {
-        transparentClassSource: textAppearanceClasses,
-        linkClassSource: textAppearanceClasses
-      }),
-      border: AppearanceTheme.createTheme({base: borderAppearanceClasses}, {
-        transparentClassSource: borderAppearanceClasses,
-        linkClassSource: borderAppearanceClasses
-      }),
-      ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}, {
-        transparentClassSource: ringAppearanceClasses,
-        linkClassSource: ringAppearanceClasses
-      }),
+      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
+      border: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
+      ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}),
       shadow: ShadowAppearanceTheme.createTheme(),
     },
     layout: {
@@ -89,13 +80,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       direction: new DirectionTheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: new RadiusTheme({
-        xs: 'rounded-md',
-        sm: 'rounded-lg',
-        md: 'rounded-xl',
-        lg: 'rounded-2xl',
-        xl: 'rounded-3xl',
-      }),
+      radius: RadiusTheme.createLayoutTheme(),
     },
   },
   {

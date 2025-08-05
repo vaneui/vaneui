@@ -82,13 +82,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
       ...defaultLayoutTheme,
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: new RadiusTheme({
-        xs: "rounded-xs",
-        sm: "rounded-sm",
-        md: "rounded-md",
-        lg: "rounded-lg",
-        xl: "rounded-xl"
-      }),
+      radius: RadiusTheme.createUITheme(),
     },
     typography: defaultTypographyTheme,
   },

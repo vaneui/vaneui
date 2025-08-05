@@ -99,7 +99,7 @@ describe('Visual Decoration Props', () => {
         <Row rounded sharp={false}>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('rounded-(--border-radius-md)');
+      expect(element.className).toContain('rounded-(--layout-border-radius-md)');
     });
 
     it('should apply rounded classes to Col component', () => {
@@ -107,7 +107,7 @@ describe('Visual Decoration Props', () => {
         <Col rounded sharp={false}>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('rounded-(--border-radius-md)');
+      expect(element.className).toContain('rounded-(--layout-border-radius-md)');
     });
 
     it('should apply rounded classes to Stack component', () => {
@@ -115,7 +115,7 @@ describe('Visual Decoration Props', () => {
         <Stack rounded sharp={false}>Content</Stack>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('rounded-(--border-radius-md)');
+      expect(element.className).toContain('rounded-(--layout-border-radius-md)');
     });
 
     it('should apply pill classes when pill prop is true', () => {
@@ -171,7 +171,7 @@ describe('Visual Decoration Props', () => {
       expect(element.className).toContain('border-(--border-color-primary)');
       expect(element.className).toContain('ring');
       expect(element.className).toContain('ring-(--border-color-primary)');
-      expect(element.className).toContain('rounded-(--border-radius-md)');
+      expect(element.className).toContain('rounded-(--layout-border-radius-md)');
     });
 
     it('should handle appearance props with visual decorations', () => {
@@ -194,7 +194,7 @@ describe('Visual Decoration Props', () => {
       expect(element.className).toContain('border-(--border-color-primary)');
       expect(element.className).toContain('ring');
       expect(element.className).toContain('ring-(--border-color-primary)');
-      expect(element.className).toContain('rounded-(--border-radius-md)');
+      expect(element.className).toContain('rounded-(--layout-border-radius-md)');
     });
   });
 

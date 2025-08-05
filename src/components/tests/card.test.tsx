@@ -21,7 +21,7 @@ describe('Card Component Tests', () => {
       expect(card).toBeInTheDocument();
       expect(card).toHaveClass('px-4', 'py-4', 'gap-4', 'flex');
       expect(card).toHaveClass('text-(--text-color-default)'); // default appearance
-      expect(card).toHaveClass('bg-(--layout-background-default)', 'rounded-xl', 'flex-col');
+      expect(card).toHaveClass('bg-(--layout-background-default)', 'rounded-(--layout-border-radius-md)', 'flex-col');
       expect(card).toHaveClass('border-(--border-color-default)', 'hover:border', 'active:border');
     });
   });

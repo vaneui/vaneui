@@ -46,10 +46,7 @@ export const createTypographyComponentTheme = (
         text: new SizeTheme(textSizeMap),
       },
       appearance: {
-        text: AppearanceTheme.createTheme({base: textAppearanceClasses}, {
-          transparentClassSource: textAppearanceClasses,
-          linkClassSource: textAppearanceClasses
-        }),
+        text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
       },
       typography: defaultTypographyTheme,
       layout: defaultLayoutTheme,
@@ -116,10 +113,7 @@ export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new C
       text: new SizeTheme(textSizeClasses, false),
     },
     appearance: {
-      text: AppearanceTheme.createTheme({base: textAppearanceClasses}, {
-        transparentClassSource: textAppearanceClasses,
-        linkClassSource: textAppearanceClasses
-      }),
+      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
     },
     typography: defaultTypographyTheme,
     layout: defaultLayoutTheme,

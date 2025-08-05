@@ -66,7 +66,14 @@ export class AppearanceTheme extends BaseTheme {
       ])
     ) as Record<AppearanceKey, Record<ModeKey, string>>;
 
-    return new AppearanceTheme(finalConfig, options);
+    // Auto-detect base classes for transparent and link sources if not explicitly provided
+    const baseClasses = src.base;
+    const finalOptions = {
+      transparentClassSource: options?.transparentClassSource || baseClasses,
+      linkClassSource: options?.linkClassSource || baseClasses,
+    };
+
+    return new AppearanceTheme(finalConfig, finalOptions);
   }
 
   static createLayoutBgTheme(): AppearanceTheme {

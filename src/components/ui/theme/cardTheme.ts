@@ -66,13 +66,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       ...defaultLayoutTheme,
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: new RadiusTheme({
-        xs: "rounded-md",
-        sm: "rounded-lg",
-        md: "rounded-xl",
-        lg: "rounded-2xl",
-        xl: "rounded-3xl"
-      }),
+      radius: RadiusTheme.createLayoutTheme(),
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       breakpoint: new BreakpointTheme(),
@@ -80,18 +74,9 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
     },
     appearance: {
       background: AppearanceTheme.createLayoutBgTheme(),
-      text: AppearanceTheme.createTheme({base: textAppearanceClasses}, {
-        transparentClassSource: textAppearanceClasses,
-        linkClassSource: textAppearanceClasses
-      }),
-      border: AppearanceTheme.createTheme({base: borderAppearanceClasses}, {
-        transparentClassSource: borderAppearanceClasses,
-        linkClassSource: borderAppearanceClasses
-      }),
-      ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}, {
-        transparentClassSource: ringAppearanceClasses,
-        linkClassSource: ringAppearanceClasses
-      }),
+      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
+      border: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
+      ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}),
     }
   },
   {

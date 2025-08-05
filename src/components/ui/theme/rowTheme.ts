@@ -44,7 +44,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
       direction: new DirectionTheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: new RadiusTheme(),
+      radius: RadiusTheme.createLayoutTheme(),
     },
     appearance: {
       background: AppearanceTheme.createLayoutBgTheme(),
