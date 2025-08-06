@@ -59,13 +59,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
         lg: 'py-16 max-lg:py-14 max-md:py-12',
         xl: 'py-20 max-lg:py-16 max-md:py-12',
       }),
-      gap: new GapTheme({
-        xs: 'gap-4',
-        sm: 'gap-6',
-        md: 'gap-8',
-        lg: 'gap-12',
-        xl: 'gap-16',
-      }),
+      gap: new GapTheme({xs: 'gap-4', sm: 'gap-6', md: 'gap-8', lg: 'gap-12', xl: 'gap-16'}),
     },
     appearance: {
       background: AppearanceTheme.createLayoutBgTheme(),

@@ -44,34 +44,10 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   "w-fit h-fit transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new PxTheme({
-        xs: 'px-2',
-        sm: 'px-2.5',
-        md: 'px-3',
-        lg: 'px-3.5',
-        xl: 'px-4',
-      }),
-      py: new PyTheme({
-        xs: 'py-0.5',
-        sm: 'py-1',
-        md: 'py-1.5',
-        lg: 'py-2',
-        xl: 'py-2.5',
-      }),
-      text: new SizeTheme({
-        xs: 'text-xs',
-        sm: 'text-sm',
-        md: 'text-base',
-        lg: 'text-lg',
-        xl: 'text-xl',
-      }),
-      gap: new GapTheme({
-        xs: 'gap-1',
-        sm: 'gap-1.5',
-        md: 'gap-2',
-        lg: 'gap-2.5',
-        xl: 'gap-3',
-      })
+      px: new PxTheme({xs: 'px-2', sm: 'px-2.5', md: 'px-3', lg: 'px-3.5', xl: 'px-4'}),
+      py: new PyTheme({xs: 'py-0.5', sm: 'py-1', md: 'py-1.5', lg: 'py-2', xl: 'py-2.5'}),
+      text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'}),
+      gap: new GapTheme({xs: 'gap-1', sm: 'gap-1.5', md: 'gap-2', lg: 'gap-2.5', xl: 'gap-3'})
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),

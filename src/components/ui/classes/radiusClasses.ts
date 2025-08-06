@@ -2,7 +2,7 @@ import { SizeKey, ShapeKey } from "../props";
 
 export const uiBorderRadiusClasses: Record<SizeKey, string> = {
   xs: "rounded-(--ui-border-radius-xs)",
-  sm: "rounded-(--ui-border-radius-sm)", 
+  sm: "rounded-(--ui-border-radius-sm)",
   md: "rounded-(--ui-border-radius-md)",
   lg: "rounded-(--ui-border-radius-lg)",
   xl: "rounded-(--ui-border-radius-xl)",
@@ -10,7 +10,7 @@ export const uiBorderRadiusClasses: Record<SizeKey, string> = {
 
 export const layoutBorderRadiusClasses: Record<SizeKey, string> = {
   xs: "rounded-(--layout-border-radius-xs)",
-  sm: "rounded-(--layout-border-radius-sm)", 
+  sm: "rounded-(--layout-border-radius-sm)",
   md: "rounded-(--layout-border-radius-md)",
   lg: "rounded-(--layout-border-radius-lg)",
   xl: "rounded-(--layout-border-radius-xl)",
@@ -27,7 +27,3 @@ export const layoutBorderRadiusShapeClasses: Record<ShapeKey, string | Record<Si
   sharp: "rounded-none",
   rounded: layoutBorderRadiusClasses,
 };
-
-// Backward compatibility - defaults to layout radius
-export const borderRadiusClasses = layoutBorderRadiusClasses;
-export const borderRadiusShapeClasses = layoutBorderRadiusShapeClasses;

@@ -59,13 +59,7 @@ export const createTypographyComponentTheme = (
 export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h1",
   "text-balance tracking-tight w-fit",
-  {
-    xs: "text-3xl max-lg:text-2xl max-md:text-xl",
-    sm: "text-4xl max-lg:text-3xl max-md:text-2xl",
-    md: "text-5xl max-lg:text-4xl max-md:text-3xl",
-    lg: "text-6xl max-lg:text-5xl max-md:text-4xl",
-    xl: "text-7xl max-lg:text-6xl max-md:text-5xl",
-  },
+  {xs: "text-3xl max-lg:text-2xl max-md:text-xl", sm: "text-4xl max-lg:text-3xl max-md:text-2xl", md: "text-5xl max-lg:text-4xl max-md:text-3xl", lg: "text-6xl max-lg:text-5xl max-md:text-4xl", xl: "text-7xl max-lg:text-6xl max-md:text-5xl"},
   mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {semibold: true})
 );
 
@@ -73,13 +67,7 @@ export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = 
 export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h2",
   "text-balance w-fit",
-  {
-    xs: "text-2xl max-lg:text-xl  max-md:text-lg",
-    sm: "text-3xl max-lg:text-2xl max-md:text-xl",
-    md: "text-4xl max-lg:text-3xl max-md:text-2xl",
-    lg: "text-5xl max-lg:text-4xl max-md:text-3xl",
-    xl: "text-6xl max-lg:text-5xl max-md:text-4xl",
-  },
+  {xs: "text-2xl max-lg:text-xl  max-md:text-lg", sm: "text-3xl max-lg:text-2xl max-md:text-xl", md: "text-4xl max-lg:text-3xl max-md:text-2xl", lg: "text-5xl max-lg:text-4xl max-md:text-3xl", xl: "text-6xl max-lg:text-5xl max-md:text-4xl"},
   mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {semibold: true})
 );
 
@@ -87,13 +75,7 @@ export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyTheme>
 export const titleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h3",
   "text-balance w-fit",
-  {
-    xs: "text-lg",
-    sm: "text-xl",
-    md: "text-2xl",
-    lg: "text-3xl",
-    xl: "text-4xl",
-  },
+  {xs: "text-lg", sm: "text-xl", md: "text-2xl", lg: "text-3xl", xl: "text-4xl"},
   mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {semibold: true})
 );
 

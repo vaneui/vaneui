@@ -6,13 +6,7 @@ export interface PyTheme extends Record<PaddingKey, string | Record<SizeKey, str
 
 export class PyTheme extends PaddingTheme {
   public readonly defaultClasses: Record<PaddingKey, string | Record<SizeKey, string>> = {
-    padding: {
-      xs: "py-2",
-      sm: "py-4",
-      md: "py-6",
-      lg: "py-8",
-      xl: "py-10"
-    },
+    padding: {xs: "py-2", sm: "py-4", md: "py-6", lg: "py-8", xl: "py-10"},
     noPadding: "py-0"
   };
 

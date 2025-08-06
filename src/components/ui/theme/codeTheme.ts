@@ -44,34 +44,10 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
   "",
   {
     size: {
-      px: new PxTheme({
-        xs: 'px-1',
-        sm: 'px-1.5',
-        md: 'px-1.5',
-        lg: 'px-2',
-        xl: 'px-2',
-      }),
-      py: new PyTheme({
-        xs: 'py-0',
-        sm: 'py-0.5',
-        md: 'py-1',
-        lg: 'py-1',
-        xl: 'py-1',
-      }),
-      text: new SizeTheme({
-        xs: 'text-xs',
-        sm: 'text-sm',
-        md: 'text-sm',
-        lg: 'text-base',
-        xl: 'text-lg',
-      }),
-      gap: new GapTheme({
-        xs: 'gap-0.5',
-        sm: 'gap-1',
-        md: 'gap-1.5',
-        lg: 'gap-2',
-        xl: 'gap-2.5',
-      })
+      px: new PxTheme({xs: 'px-1', sm: 'px-1.5', md: 'px-1.5', lg: 'px-2', xl: 'px-2'}),
+      py: new PyTheme({xs: 'py-0', sm: 'py-0.5', md: 'py-1', lg: 'py-1', xl: 'py-1'}),
+      text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-sm', lg: 'text-base', xl: 'text-lg'}),
+      gap: new GapTheme({xs: 'gap-0.5', sm: 'gap-1', md: 'gap-1.5', lg: 'gap-2', xl: 'gap-2.5'})
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),

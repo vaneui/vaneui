@@ -37,20 +37,8 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
   "",
   {
     size: {
-      px: new PxTheme({
-        xs: 'px-2',
-        sm: 'px-3',
-        md: 'px-4',
-        lg: 'px-5',
-        xl: 'px-6',
-      }),
-      py: new PyTheme({
-        xs: 'py-2',
-        sm: 'py-3',
-        md: 'py-4',
-        lg: 'py-5',
-        xl: 'py-6',
-      }),
+      px: new PxTheme({xs: 'px-2', sm: 'px-3', md: 'px-4', lg: 'px-5', xl: 'px-6'}),
+      py: new PyTheme({xs: 'py-2', sm: 'py-3', md: 'py-4', lg: 'py-5', xl: 'py-6'}),
       gap: new GapTheme(),
     },
     layout: {

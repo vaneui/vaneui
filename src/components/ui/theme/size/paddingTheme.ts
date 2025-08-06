@@ -7,13 +7,7 @@ export interface PaddingTheme extends Record<PaddingKey, string | Record<SizeKey
 
 export class PaddingTheme extends BaseTheme {
   public readonly defaultClasses: Record<PaddingKey, string | Record<SizeKey, string>> = {
-    padding: {
-      xs: "",
-      sm: "",
-      md: "",
-      lg: "",
-      xl: ""
-    },
+    padding: {xs: "", sm: "", md: "", lg: "", xl: ""},
     noPadding: ""
   };
 

@@ -7,13 +7,7 @@ export interface GapTheme extends Record<GapKey, string | Record<SizeKey, string
 
 export class GapTheme extends BaseTheme {
   public static readonly defaultClasses: Record<GapKey, string | Record<SizeKey, string>> = {
-    gap: {
-      xs: 'gap-2',
-      sm: 'gap-3',
-      md: 'gap-4',
-      lg: 'gap-5',
-      xl: 'gap-6',
-    },
+    gap: {xs: 'gap-2', sm: 'gap-3', md: 'gap-4', lg: 'gap-5', xl: 'gap-6'},
     noGap: "gap-0"
   };
 

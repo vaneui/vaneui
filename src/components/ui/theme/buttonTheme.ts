@@ -45,27 +45,9 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       px: new PxTheme({
         xs: 'px-2', sm: 'px-3', md: 'px-4', lg: 'px-5', xl: 'px-6',
       }),
-      py: new PyTheme({
-        xs: 'py-1',
-        sm: 'py-1.5',
-        md: 'py-2',
-        lg: 'py-2.5',
-        xl: 'py-3',
-      }),
-      gap: new GapTheme({
-        xs: 'gap-1',
-        sm: 'gap-1.5',
-        md: 'gap-2',
-        lg: 'gap-2.5',
-        xl: 'gap-3',
-      }),
-      text: new SizeTheme({
-        xs: 'text-xs',
-        sm: 'text-sm',
-        md: 'text-base',
-        lg: 'text-lg',
-        xl: 'text-xl',
-      }),
+      py: new PyTheme({xs: 'py-1', sm: 'py-1.5', md: 'py-2', lg: 'py-2.5', xl: 'py-3'}),
+      gap: new GapTheme({xs: 'gap-1', sm: 'gap-1.5', md: 'gap-2', lg: 'gap-2.5', xl: 'gap-3'}),
+      text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'}),
     },
     appearance: {
       background: GenericVariantTheme.createUIElementBgAppearanceTheme(),
