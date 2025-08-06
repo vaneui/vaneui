@@ -168,3 +168,58 @@ export const filledRingAppearanceClasses: Record<AppearanceKey | TransparentKey 
   transparent: "ring-transparent",
 }
 
+export const accentColorAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
+  default: "accent-(--background-color-default)",
+  primary: "accent-(--background-color-primary)",
+  secondary: "accent-(--background-color-secondary)",
+  tertiary: "accent-(--background-color-tertiary)",
+  accent: "accent-(--background-color-accent)",
+  success: "accent-(--background-color-success)",
+  danger: "accent-(--background-color-danger)",
+  warning: "accent-(--background-color-warning)",
+  info: "accent-(--background-color-info)",
+  transparent: "accent-transparent",
+  link: "accent-(--background-color-link)",
+}
+
+export const filledAccentColorAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
+  default: "accent-(--filled-background-color-default)",
+  primary: "accent-(--filled-background-color-primary)",
+  secondary: "accent-(--filled-background-color-secondary)",
+  tertiary: "accent-(--filled-background-color-tertiary)",
+  accent: "accent-(--filled-background-color-accent)",
+  success: "accent-(--filled-background-color-success)",
+  danger: "accent-(--filled-background-color-danger)",
+  warning: "accent-(--filled-background-color-warning)",
+  info: "accent-(--filled-background-color-info)",
+  transparent: "accent-transparent",
+  link: "accent-(--filled-background-color-link)",
+}
+
+export const checkedBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
+  default: "checked:bg-(--background-color-default)",
+  primary: "checked:bg-(--background-color-primary)",
+  secondary: "checked:bg-(--background-color-secondary)",
+  tertiary: "checked:bg-(--background-color-tertiary)",
+  accent: "checked:bg-(--background-color-accent)",
+  success: "checked:bg-(--background-color-success)",
+  danger: "checked:bg-(--background-color-danger)",
+  warning: "checked:bg-(--background-color-warning)",
+  info: "checked:bg-(--background-color-info)",
+  transparent: "checked:bg-transparent",
+  link: "checked:bg-(--background-color-link)",
+}
+
+export const filledCheckedBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
+  default: "checked:bg-(--filled-background-color-default)",
+  primary: "checked:bg-(--filled-background-color-primary)",
+  secondary: "checked:bg-(--filled-background-color-secondary)",
+  tertiary: "checked:bg-(--filled-background-color-tertiary)",
+  accent: "checked:bg-(--filled-background-color-accent)",
+  success: "checked:bg-(--filled-background-color-success)",
+  danger: "checked:bg-(--filled-background-color-danger)",
+  warning: "checked:bg-(--filled-background-color-warning)",
+  info: "checked:bg-(--filled-background-color-info)",
+  transparent: "checked:bg-transparent",
+  link: "checked:bg-(--filled-background-color-link)",
+}

@@ -6,22 +6,16 @@ import {
   layoutBorderRadiusShapeClasses
 } from "../../classes/radiusClasses";
 
-export type RadiusType = 'ui' | 'layout';
-
 export interface RadiusTheme extends Record<ShapeKey, string | Record<SizeKey, string>> {
 }
 
 export class RadiusTheme extends BaseTheme {
 
-  constructor(sizeMap?: Record<SizeKey, string>, radiusType: RadiusType = 'layout') {
-    // If a simple size map is provided, convert it to the expected format
-    const initial = sizeMap ? {rounded: sizeMap} : undefined;
-    const shapeClasses = radiusType === 'ui' ? uiBorderRadiusShapeClasses : layoutBorderRadiusShapeClasses;
-
+  private constructor(shapeClasses: Record<ShapeKey, string | Record<SizeKey, string>>, sizeMap?: Record<SizeKey, string>) {
     super();
     ComponentKeys.shape.forEach((key) => {
-      if (key === 'rounded' && initial?.rounded) {
-        this[key as ShapeKey] = initial.rounded;
+      if (key === 'rounded' && sizeMap) {
+        this[key as ShapeKey] = sizeMap;
       } else {
         this[key as ShapeKey] = shapeClasses[key as ShapeKey];
       }
@@ -29,11 +23,11 @@ export class RadiusTheme extends BaseTheme {
   }
 
   static createUITheme(sizeMap?: Record<SizeKey, string>): RadiusTheme {
-    return new RadiusTheme(sizeMap, 'ui');
+    return new RadiusTheme(uiBorderRadiusShapeClasses, sizeMap);
   }
 
   static createLayoutTheme(sizeMap?: Record<SizeKey, string>): RadiusTheme {
-    return new RadiusTheme(sizeMap, 'layout');
+    return new RadiusTheme(layoutBorderRadiusShapeClasses, sizeMap);
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

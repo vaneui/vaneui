@@ -8,19 +8,14 @@ export class BorderTheme extends BaseTheme {
   public static readonly defaultClasses: Record<BorderKey, Record<ModeKey, string>> = {
     border: {
       base: "border",
-      hover: "hover:border",
-      active: "active:border",
+      hover: "",//"hover:border",
+      active: "",//"active:border",
     },
     noBorder: {
       base: "",
       hover: "",
       active: "",
     },
-    //noBorder: {
-    //  base: "border-none",
-    //  hover: "hover:border-none",
-    //  active: "active:border-none",
-    //},
   };
 
   constructor(initial?: Partial<Record<BorderKey, Record<ModeKey, string>>>) {

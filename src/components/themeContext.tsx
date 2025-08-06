@@ -22,6 +22,9 @@ import { ColTheme, defaultColTheme } from './ui/theme/colTheme';
 import { defaultStackTheme, StackTheme } from './ui/theme/stackTheme';
 import { defaultSectionTheme, SectionTheme } from "./ui/theme/sectionTheme";
 import { defaultGrid3Theme, defaultGrid4Theme, GridTheme } from "./ui/theme/gridTheme";
+import { CheckboxTheme, defaultCheckboxTheme } from './ui/theme/checkboxTheme';
+import { LabelTheme, defaultLabelTheme } from './ui/theme/labelTheme';
+import { CheckTheme, defaultCheckTheme } from './ui/theme/checkTheme';
 import {
   BadgeProps,
   ButtonProps,
@@ -36,13 +39,17 @@ import {
   RowProps,
   SectionProps,
   StackProps,
-  TypographyProps
+  TypographyProps,
+  LinkProps,
+  CheckboxProps,
+  LabelProps,
+  CheckProps
 } from "./ui/props/props";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
 export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'row', 'col', 'stack', 'section',
-  'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem'] as const;
+  'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'check'] as const;
 export type ComponentKey = typeof COMPONENT[number];
 
 export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, object>> {
@@ -63,9 +70,12 @@ export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, 
   sectionTitle: ComponentTheme<TypographyProps, TypographyTheme>;
   title: ComponentTheme<TypographyProps, TypographyTheme>;
   text: ComponentTheme<TypographyProps, TypographyTheme>;
-  link: ComponentTheme<TypographyProps, TypographyTheme>;
+  link: ComponentTheme<LinkProps, TypographyTheme>;
   listItem: ComponentTheme<TypographyProps, TypographyTheme>;
   list: ComponentTheme<ListProps, ListTheme>;
+  checkbox: ComponentTheme<CheckboxProps, CheckboxTheme>;
+  label: ComponentTheme<LabelProps, LabelTheme>;
+  check: ComponentTheme<CheckProps, CheckTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -91,6 +101,9 @@ export const defaultTheme: ThemeProps = {
   link: linkTheme,
   listItem: listItemTheme,
   list: listTheme,
+  checkbox: defaultCheckboxTheme,
+  label: defaultLabelTheme,
+  check: defaultCheckTheme,
 };
 
 export type ThemeDefaults = Partial<Record<ComponentKey, Record<string, boolean>>>;

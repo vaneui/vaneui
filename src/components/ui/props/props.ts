@@ -15,7 +15,10 @@ import {
   DIVIDER_CATEGORIES,
   CONTAINER_CATEGORIES,
   TYPOGRAPHY_CATEGORIES,
-  LIST_CATEGORIES
+  LIST_CATEGORIES,
+  CHECKBOX_CATEGORIES,
+  LABEL_CATEGORIES,
+  CHECK_CATEGORIES
 } from './keys';
 
 /**
@@ -41,6 +44,8 @@ export type ButtonComponentProps = BaseComponentProps & React.ButtonHTMLAttribut
 export type SpanComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLSpanElement>;
 export type DivComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLDivElement>;
 export type AnchorComponentProps = BaseComponentProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
+export type CheckboxComponentProps = BaseComponentProps & React.InputHTMLAttributes<HTMLInputElement>;
+export type LabelComponentProps = BaseComponentProps & React.LabelHTMLAttributes<HTMLLabelElement>;
 // Generic component props for ThemedComponent, ComponentTheme, and Code elements
 export type ComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLElement>;
 
@@ -60,3 +65,6 @@ export interface ContainerProps extends DivComponentProps, ComponentPropsFromCat
 export interface TypographyProps extends ComponentProps, ComponentPropsFromCategories<typeof TYPOGRAPHY_CATEGORIES> {}
 export interface LinkProps extends AnchorComponentProps, ComponentPropsFromCategories<typeof TYPOGRAPHY_CATEGORIES> {}
 export interface ListProps extends ComponentProps, ComponentPropsFromCategories<typeof LIST_CATEGORIES> {}
+export interface CheckboxProps extends CheckboxComponentProps, ComponentPropsFromCategories<typeof CHECKBOX_CATEGORIES> {}
+export interface LabelProps extends LabelComponentProps, ComponentPropsFromCategories<typeof LABEL_CATEGORIES> {}
+export interface CheckProps extends ComponentProps, ComponentPropsFromCategories<typeof CHECK_CATEGORIES> {}
