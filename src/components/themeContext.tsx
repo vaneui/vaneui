@@ -22,9 +22,8 @@ import { ColTheme, defaultColTheme } from './ui/theme/colTheme';
 import { defaultStackTheme, StackTheme } from './ui/theme/stackTheme';
 import { defaultSectionTheme, SectionTheme } from "./ui/theme/sectionTheme";
 import { defaultGrid3Theme, defaultGrid4Theme, GridTheme } from "./ui/theme/gridTheme";
-import { CheckboxTheme, defaultCheckboxTheme } from './ui/theme/checkboxTheme';
+import { CheckboxTheme, CheckWrapperTheme, defaultCheckboxTheme, defaultCheckWrapperTheme } from './ui/theme/checkboxTheme';
 import { LabelTheme, defaultLabelTheme } from './ui/theme/labelTheme';
-import { CheckTheme, defaultCheckTheme } from './ui/theme/checkTheme';
 import {
   BadgeProps,
   ButtonProps,
@@ -42,17 +41,16 @@ import {
   TypographyProps,
   LinkProps,
   CheckboxProps,
-  LabelProps,
-  CheckProps
+  LabelProps
 } from "./ui/props/props";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
 export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'row', 'col', 'stack', 'section',
-  'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'check'] as const;
+  'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label'] as const;
 export type ComponentKey = typeof COMPONENT[number];
 
-export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, object>> {
+export interface ThemeProps {
   button: ComponentTheme<ButtonProps, ButtonTheme>;
   badge: ComponentTheme<BadgeProps, BadgeTheme>;
   chip: ComponentTheme<ChipProps, ChipTheme>;
@@ -73,9 +71,11 @@ export interface ThemeProps extends Record<ComponentKey, ComponentTheme<object, 
   link: ComponentTheme<LinkProps, TypographyTheme>;
   listItem: ComponentTheme<TypographyProps, TypographyTheme>;
   list: ComponentTheme<ListProps, ListTheme>;
-  checkbox: ComponentTheme<CheckboxProps, CheckboxTheme>;
+  checkbox: {
+    input: ComponentTheme<CheckboxProps, CheckboxTheme>;
+    wrapper: ComponentTheme<CheckboxProps, CheckWrapperTheme>;
+  };
   label: ComponentTheme<LabelProps, LabelTheme>;
-  check: ComponentTheme<CheckProps, CheckTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -101,9 +101,11 @@ export const defaultTheme: ThemeProps = {
   link: linkTheme,
   listItem: listItemTheme,
   list: listTheme,
-  checkbox: defaultCheckboxTheme,
+  checkbox: {
+    input: defaultCheckboxTheme,
+    wrapper: defaultCheckWrapperTheme,
+  },
   label: defaultLabelTheme,
-  check: defaultCheckTheme,
 };
 
 export type ThemeDefaults = Partial<Record<ComponentKey, Record<string, boolean>>>;
@@ -146,8 +148,17 @@ export function ThemeProvider(
           const componentTheme = finalTheme[componentKey];
           const themeDefault = themeDefaults[componentKey]
           if (themeDefault !== undefined) {
-            finalTheme[componentKey].defaults =
-              mergeDefaults(componentTheme.defaults as Record<string, boolean>, themeDefaults[componentKey] as Record<string, boolean>);
+            // Special handling for checkbox which is an object with input and wrapper
+            if (componentKey === 'checkbox' && typeof componentTheme === 'object' && 'input' in componentTheme) {
+              // Apply defaults to both input and wrapper
+              (finalTheme[componentKey] as any).input.defaults =
+                mergeDefaults((componentTheme as any).input.defaults as Record<string, boolean>, themeDefaults[componentKey] as Record<string, boolean>);
+              (finalTheme[componentKey] as any).wrapper.defaults =
+                mergeDefaults((componentTheme as any).wrapper.defaults as Record<string, boolean>, themeDefaults[componentKey] as Record<string, boolean>);
+            } else if ('defaults' in componentTheme) {
+              (finalTheme[componentKey] as any).defaults =
+                mergeDefaults((componentTheme as any).defaults as Record<string, boolean>, themeDefaults[componentKey] as Record<string, boolean>);
+            }
           }
         }
       }
@@ -158,11 +169,25 @@ export function ThemeProvider(
         for (const key in extraClasses) {
           const componentKey = key as ComponentKey;
           const componentExtraClasses = extraClasses[componentKey];
+          const componentTheme = finalTheme[componentKey];
           if (componentExtraClasses !== undefined) {
-            finalTheme[componentKey].extraClasses = {
-              ...finalTheme[componentKey].extraClasses,
-              ...componentExtraClasses
-            };
+            // Special handling for checkbox which is an object with input and wrapper
+            if (componentKey === 'checkbox' && typeof componentTheme === 'object' && 'input' in componentTheme) {
+              // Apply extra classes to both input and wrapper
+              (finalTheme[componentKey] as any).input.extraClasses = {
+                ...(componentTheme as any).input.extraClasses,
+                ...componentExtraClasses
+              };
+              (finalTheme[componentKey] as any).wrapper.extraClasses = {
+                ...(componentTheme as any).wrapper.extraClasses,
+                ...componentExtraClasses
+              };
+            } else if ('extraClasses' in componentTheme) {
+              (finalTheme[componentKey] as any).extraClasses = {
+                ...(componentTheme as any).extraClasses,
+                ...componentExtraClasses
+              };
+            }
           }
         }
       }

@@ -13,6 +13,7 @@ import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { CHECKBOX_CATEGORIES } from "../props";
 import { textSizeClasses } from "../classes/typographyClasses";
+import React, { ReactElement } from "react";
 
 export interface CheckboxTheme extends BaseComponentTheme {
   size: {
@@ -30,6 +31,13 @@ export interface CheckboxTheme extends BaseComponentTheme {
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
     check: GenericVariantTheme<AppearanceTheme>;
+  };
+}
+
+export interface CheckWrapperTheme extends BaseComponentTheme {
+  checkElement: () => ReactElement;
+  appearance: {
+    color: GenericVariantTheme<AppearanceTheme>;
   };
 }
 
@@ -72,6 +80,32 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
     border: true,
     rounded: true,
     noRing: true,
+    filled: true,
+  },
+  CHECKBOX_CATEGORIES
+);
+
+export const defaultCheckWrapperTheme = new ComponentTheme<CheckboxProps, CheckWrapperTheme>(
+  "span",
+  "invisible col-start-1 row-start-1 peer-checked:visible",
+  {
+    checkElement: () =>
+      <svg viewBox="0 0 14 14" fill="none">
+        <path
+          d="M3 8L6 11L11 3.5"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+          stroke="currentColor"
+        />
+      </svg>,
+    appearance: {
+      color: GenericVariantTheme.createUIElementTextTheme()
+    }
+  },
+  {
+    default: true,
     filled: true,
   },
   CHECKBOX_CATEGORIES

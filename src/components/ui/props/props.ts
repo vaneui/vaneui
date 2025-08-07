@@ -18,7 +18,6 @@ import {
   LIST_CATEGORIES,
   CHECKBOX_CATEGORIES,
   LABEL_CATEGORIES,
-  CHECK_CATEGORIES
 } from './keys';
 
 /**
@@ -67,4 +66,3 @@ export interface LinkProps extends AnchorComponentProps, ComponentPropsFromCateg
 export interface ListProps extends ComponentProps, ComponentPropsFromCategories<typeof LIST_CATEGORIES> {}
 export interface CheckboxProps extends CheckboxComponentProps, ComponentPropsFromCategories<typeof CHECKBOX_CATEGORIES> {}
 export interface LabelProps extends LabelComponentProps, ComponentPropsFromCategories<typeof LABEL_CATEGORIES> {}
-export interface CheckProps extends ComponentProps, ComponentPropsFromCategories<typeof CHECK_CATEGORIES> {}

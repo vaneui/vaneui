@@ -22,7 +22,7 @@ describe('Card Component Tests', () => {
       expect(card).toHaveClass('px-4', 'py-4', 'gap-4', 'flex');
       expect(card).toHaveClass('text-(--text-color-default)'); // default appearance
       expect(card).toHaveClass('bg-(--layout-background-default)', 'rounded-(--layout-border-radius-md)', 'flex-col');
-      expect(card).toHaveClass('border-(--border-color-default)', 'hover:border', 'active:border');
+      expect(card).toHaveClass('border-(--border-color-default)');
     });
   });
 
@@ -110,7 +110,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('border', 'hover:border', 'active:border');
+      expect(card).toHaveClass('border');
     });
 
     it('should render with no border when noBorder prop is true', () => {

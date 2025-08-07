@@ -114,7 +114,6 @@ export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...PADDING, .
 // Form component categories
 export const CHECKBOX_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT] as const;
 export const LABEL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_CORE] as const;
-export const CHECK_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT] as const;
 
 export type CategoryProps = {
   [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];

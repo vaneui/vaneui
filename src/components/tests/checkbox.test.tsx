@@ -25,9 +25,14 @@ describe('Checkbox Component Tests', () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('peer', 'col-start-1', 'row-start-1', 'cursor-pointer', 'appearance-none');
       
-      const svg = wrapper?.querySelector('svg');
+      // Check wrapper span
+      const checkWrapper = wrapper?.querySelector('span.invisible');
+      expect(checkWrapper).toBeInTheDocument();
+      expect(checkWrapper).toHaveClass('invisible', 'col-start-1', 'row-start-1', 'peer-checked:visible');
+      
+      // SVG is inside the check wrapper
+      const svg = checkWrapper?.querySelector('svg');
       expect(svg).toBeInTheDocument();
-      expect(svg).toHaveClass('invisible', 'col-start-1', 'row-start-1', 'peer-checked:visible');
       
       const path = svg?.querySelector('path');
       expect(path).toBeInTheDocument();
@@ -46,7 +51,7 @@ describe('Checkbox Component Tests', () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('cursor-pointer');
       expect(checkbox).toHaveClass('h-4', 'w-4'); // md size default
-      expect(checkbox).toHaveClass('rounded-(--ui-border-radius-md)'); // rounded default
+      expect(checkbox).toHaveClass('rounded-(--ui-border-radius-sm)'); // rounded default for md size
       expect(checkbox).toHaveClass('ring-(--filled-border-color-default)'); // ring from theme
     });
 
@@ -110,7 +115,8 @@ describe('Checkbox Component Tests', () => {
         expect(checkbox).toBeInTheDocument();
         // Check for checked state classes using filled theme (default)
         expect(checkbox).toHaveClass(`checked:bg-(--filled-background-color-${appearance})`);
-        expect(checkbox).toHaveClass(`checked:border-(--filled-background-color-${appearance})`);
+        // Border appearance is separate from checked state
+        expect(checkbox).toHaveClass(`border-(--filled-border-color-${appearance})`);
       });
     });
 
@@ -121,7 +127,10 @@ describe('Checkbox Component Tests', () => {
         </ThemeProvider>
       );
 
-      const svg = container.querySelector('svg');
+      const checkWrapper = container.querySelector('span.invisible');
+      expect(checkWrapper).toBeInTheDocument();
+      
+      const svg = checkWrapper?.querySelector('svg');
       expect(svg).toBeInTheDocument();
       expect(svg).toHaveAttribute('viewBox', '0 0 14 14');
       expect(svg).toHaveAttribute('fill', 'none');
@@ -131,7 +140,7 @@ describe('Checkbox Component Tests', () => {
       const shapes = [
         { prop: 'pill', class: 'rounded-full' },
         { prop: 'sharp', class: 'rounded-none' },
-        { prop: 'rounded', class: 'rounded-(--ui-border-radius-md)' }
+        { prop: 'rounded', class: 'rounded-(--ui-border-radius-sm)' }
       ] as const;
 
       shapes.forEach(({prop, class: expectedClass}) => {
@@ -195,10 +204,14 @@ describe('Checkbox Component Tests', () => {
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('checked:bg-(--filled-background-color-primary)');
-      expect(checkbox).toHaveClass('checked:border-(--filled-background-color-primary)');
+      // Border is not tied to checked state but to regular border appearance
+      expect(checkbox).toHaveClass('border-(--filled-border-color-primary)');
       
-      // Check component should also receive filled variant
-      const svg = container.querySelector('svg');
+      // Check wrapper should also receive filled variant
+      const checkWrapper = container.querySelector('span.invisible');
+      expect(checkWrapper).toBeInTheDocument();
+      
+      const svg = checkWrapper?.querySelector('svg');
       expect(svg).toBeInTheDocument();
     });
 
@@ -212,7 +225,8 @@ describe('Checkbox Component Tests', () => {
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('checked:bg-(--background-color-secondary)');
-      expect(checkbox).toHaveClass('checked:border-(--background-color-secondary)');
+      // Outline variant uses regular border colors
+      expect(checkbox).toHaveClass('border-(--border-color-secondary)');
     });
 
     it('should use filled variant by default based on theme defaults', () => {
@@ -226,7 +240,8 @@ describe('Checkbox Component Tests', () => {
       expect(checkbox).toBeInTheDocument();
       // Based on the theme defaults showing filled: true
       expect(checkbox).toHaveClass('checked:bg-(--filled-background-color-accent)');
-      expect(checkbox).toHaveClass('checked:border-(--filled-background-color-accent)');
+      // Border is separate from checked state
+      expect(checkbox).toHaveClass('border-(--filled-border-color-accent)');
     });
   });
 });
