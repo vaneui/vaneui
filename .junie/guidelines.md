@@ -1,74 +1,133 @@
-# VaneUI Project Guidelines
+# Project Guidelines
 
-## Project Overview
+Project: VaneUI — a React component library powered by Tailwind CSS. The core idea is that components expose boolean props which map to category keys (such as size, appearance, layout, shape, etc.). Setting a prop like `lg` or `primary` to true selects that variant for the component. A theme system provides defaults and allows deep customization without stringly-typed variant props.
 
-VaneUI is a React component library built with TypeScript and styled using Tailwind CSS. It provides a collection of reusable UI components designed to help developers build consistent and responsive user interfaces quickly.
+---
 
-The library is organized into two main categories:
-- **UI Components**: Basic building blocks and primitive components
-- **Complex Components**: Higher-level components composed of multiple UI components
+## Overview
 
-## Project Structure
+- React + TypeScript component library
+- Tailwind CSS for all styling (via utility classes and CSS variables)
+- Boolean prop API for variants
+  - Example: `<Button primary lg pill>` instead of `<Button appearance="primary" size="lg" shape="pill"/>`
+- Theming via `ThemeProvider`
+  - Supports providing a partial theme, default boolean props, extra classes, and programmatic override
 
+## Key Concepts
+
+- Component Categories (src/components/ui/props/keys.ts)
+  - Categories such as size, appearance, variant, shape, layout, typography, listStyle, etc.
+  - Each category declares allowed keys; props are generated as optional booleans from these keys
+- Boolean Props Model (src/components/ui/props/props.ts)
+  - Component interfaces extend "ComponentPropsFromCategories", turning category keys into boolean props
+  - Ensures a consistent, type-safe surface across all components
+- ThemedComponent (src/components/themedComponent.tsx)
+  - Generic renderer that uses the component’s theme to compute final tag, classes, and HTML props
+- Theme System (src/components/themeContext.tsx)
+  - defaultTheme defines the base for all components
+  - ThemeProvider merges a provided theme with defaults and can apply:
+    - theme: PartialTheme — deep merged with defaultTheme (type-safe)
+    - themeDefaults: ThemeDefaults — inject default boolean props per component or sub-part
+    - extraClasses: ThemeExtraClasses — append Tailwind classes to theme nodes
+    - themeOverride(theme) — programmatic override hook executed after merge
+
+## Theme Customization
+
+ThemeProvider props (src/components/themeContext.tsx):
+- theme?: PartialTheme
+  - Deep-merged onto defaultTheme to override specific theme parts
+- themeDefaults?: ThemeDefaults
+  - Recursively sets default boolean props (e.g., make `lg` and `primary` the defaults for Button)
+- extraClasses?: ThemeExtraClasses
+  - Recursively appends extra Tailwind classes to theme structures (useful for brand tweaks)
+- themeOverride?: (theme: ThemeProps) => ThemeProps
+  - Final hook to programmatically modify the computed theme
+
+Example:
+```tsx
+import React from 'react';
+import { ThemeProvider, defaultTheme, Button, Text } from '@vaneui/ui';
+import '@vaneui/ui/dist/ui.css';
+import '@vaneui/ui/dist/vars.css';
+
+const custom = {
+  ...defaultTheme,
+};
+
+function App() {
+  return (
+    <ThemeProvider
+      theme={custom}
+      themeDefaults={{
+        button: { primary: true, lg: true, pill: true },
+        text: { md: true, sans: true }
+      }}
+      extraClasses={{
+        button: { primary: 'shadow-md', lg: 'tracking-wide' },
+        text: { default: 'leading-relaxed' }
+      }}
+      themeOverride={(t) => {
+        // Example: force all links to be underline by default
+        (t.link.defaults as any).underline = true;
+        return t;
+      }}
+    >
+      <Button>Primary large pill by default</Button>
+      <Text>Relaxed text</Text>
+    </ThemeProvider>
+  );
+}
 ```
-vaneui/
-├── .junie/           # Project guidelines and documentation
-├── dist/             # Compiled output files
-├── docs/             # Documentation files
-├── src/              # Source code
-│   ├── components/   # React components
-│   │   ├── complex/  # Complex/composite components
-│   │   ├── theme/    # Theme variables and settings
-│   │   ├── ui/       # Basic UI components
-│   │   └── utils/    # Utility functions and helpers
-├── scripts/          # Build and development scripts
-└── ...               # Configuration files
-```
 
-## Development Guidelines
+## Project Structure (high level)
 
-### Component Development
+- src/components
+  - ui
+    - Primitive components (button, text, label, checkbox, card, grid, etc.)
+    - props
+      - keys.ts — category and key definitions (size, appearance, etc.)
+      - props.ts — typed component props generated from category keys
+    - theme
+      - Theme definitions per component (e.g., buttonTheme, typographyTheme, checkboxTheme)
+  - themedComponent.tsx — generic themed component renderer
+  - themeContext.tsx — ThemeProvider, defaultTheme, and merging helpers
+- playground — local demo app (see playground/src/App.tsx)
+- dist — built CSS and JS
 
-1. **Component Builder Pattern**: Use the componentBuilder utility for consistent component creation
-2. **Tailwind Integration**: Utilize Tailwind CSS classes for styling
-3. **TypeScript**: Write all components using TypeScript with proper type definitions
-4. **Props Structure**: Follow the established props pattern for component properties
+## Running and Testing
 
-### Styling Guidelines
+- Install deps: `npm install`
+- Build library: `npm run build`
+- Run tests: `npm test`
+  - Jest + ts-jest, jsdom environment
+  - Test patterns:
+    - src/**/tests/**/*.ts?(x)
+    - src/**/?(*.)+(spec|test).ts?(x)
+  - Setup file: src/setupTests.ts (Testing Library matchers)
+- Type check: `npm run type-check`
+- Dev watch: `npm run watch`
+- Playground: typically run from the playground project with your dev tooling, importing from `../../src`
 
-1. Use Tailwind CSS classes for styling
-2. Maintain consistent naming conventions
-3. Use the theme variables defined in the theme directory
-4. Ensure responsive design across different screen sizes
+## How Boolean Props Map to Tailwind
 
-### Build Process
+- Each component’s theme assembles Tailwind classes based on which boolean props are true
+- Categories control which keys are valid for a given component (e.g., Buttons use INTERACTIVE_CATEGORIES)
+- Themes (e.g., TypographyTheme) define how size/appearance/layout tokens map to Tailwind classes
 
-The build process generates:
-- JavaScript files (ESM and CommonJS)
-- CSS files (complete, theme variables, UI components, complex components)
+## Code Style and Contribution
 
-## Usage
+- TypeScript throughout; prefer explicit types for theme structures
+- Use boolean props from the category keys instead of string props
+- Keep theming logic in theme files; prefer extending existing themes
+- Styling via Tailwind utilities and CSS variables
+- Update or add tests for new components and theme behaviors
+- Follow existing patterns in tests under src/components/tests
 
-Import components from the library:
+## Useful References in Repo
 
-```jsx
-import { Button, Card } from '@vaneui/ui';
-```
-
-Import styles:
-
-```jsx
-import '@vaneui/ui/css'; // All styles
-// or
-import '@vaneui/ui/css/ui'; // Only UI component styles
-import '@vaneui/ui/css/complex'; // Only complex component styles
-import '@vaneui/ui/css/vars'; // Only theme variables
-```
-
-## Contributing
-
-When contributing to this project:
-1. Follow the established code style and patterns
-2. Write tests for new components
-3. Update documentation as needed
-4. Ensure backward compatibility
+- src/components/ui/props/keys.ts — category and key definitions
+- src/components/ui/props/props.ts — typed boolean props per component
+- src/components/themedComponent.tsx — generic theme-driven renderer
+- src/components/themeContext.tsx — ThemeProvider, defaultTheme, themeDefaults, extraClasses, themeOverride
+- src/components/ui/theme/*.ts(x) — concrete theme implementations
+- playground/src/App.tsx — example usage
