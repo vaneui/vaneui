@@ -10,7 +10,7 @@ import {
 describe('Checkbox Component Tests', () => {
 
   describe('Checkbox Component', () => {
-    it('should render with wrapper span and Check component', () => {
+    it('should render with wrapper span and check element', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Checkbox />
@@ -25,13 +25,13 @@ describe('Checkbox Component Tests', () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('peer', 'col-start-1', 'row-start-1', 'cursor-pointer', 'appearance-none');
       
-      // Check wrapper span
-      const checkWrapper = wrapper?.querySelector('span.invisible');
-      expect(checkWrapper).toBeInTheDocument();
-      expect(checkWrapper).toHaveClass('invisible', 'col-start-1', 'row-start-1', 'peer-checked:visible');
+      // Check element span
+      const checkElement = wrapper?.querySelector('span.invisible');
+      expect(checkElement).toBeInTheDocument();
+      expect(checkElement).toHaveClass('invisible', 'col-start-1', 'row-start-1', 'peer-checked:visible');
       
-      // SVG is inside the check wrapper
-      const svg = checkWrapper?.querySelector('svg');
+      // SVG is inside the check element
+      const svg = checkElement?.querySelector('svg');
       expect(svg).toBeInTheDocument();
       
       const path = svg?.querySelector('path');
@@ -120,17 +120,17 @@ describe('Checkbox Component Tests', () => {
       });
     });
 
-    it('should render Check component with correct props', () => {
+    it('should render check element with correct props', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Checkbox primary />
         </ThemeProvider>
       );
 
-      const checkWrapper = container.querySelector('span.invisible');
-      expect(checkWrapper).toBeInTheDocument();
+      const checkElement = container.querySelector('span.invisible');
+      expect(checkElement).toBeInTheDocument();
       
-      const svg = checkWrapper?.querySelector('svg');
+      const svg = checkElement?.querySelector('svg');
       expect(svg).toBeInTheDocument();
       expect(svg).toHaveAttribute('viewBox', '0 0 14 14');
       expect(svg).toHaveAttribute('fill', 'none');
@@ -207,11 +207,11 @@ describe('Checkbox Component Tests', () => {
       // Border is not tied to checked state but to regular border appearance
       expect(checkbox).toHaveClass('border-(--filled-border-color-primary)');
       
-      // Check wrapper should also receive filled variant
-      const checkWrapper = container.querySelector('span.invisible');
-      expect(checkWrapper).toBeInTheDocument();
+      // Check element should also receive filled variant
+      const checkElement = container.querySelector('span.invisible');
+      expect(checkElement).toBeInTheDocument();
       
-      const svg = checkWrapper?.querySelector('svg');
+      const svg = checkElement?.querySelector('svg');
       expect(svg).toBeInTheDocument();
     });
 

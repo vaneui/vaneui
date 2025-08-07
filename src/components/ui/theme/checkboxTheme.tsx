@@ -4,7 +4,7 @@ import {
   defaultLayoutTheme,
   DefaultLayoutThemes
 } from "./common/ComponentTheme";
-import { CheckboxProps } from "../props/props";
+import { CheckboxProps } from "../props";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
@@ -34,10 +34,16 @@ export interface CheckboxTheme extends BaseComponentTheme {
   };
 }
 
-export interface CheckWrapperTheme extends BaseComponentTheme {
+export interface CheckTheme extends BaseComponentTheme {
   checkElement: () => ReactElement;
   appearance: {
     color: GenericVariantTheme<AppearanceTheme>;
+  };
+}
+
+export interface CheckboxWrapperTheme extends BaseComponentTheme {
+  size: {
+    height: SizeTheme;
   };
 }
 
@@ -85,7 +91,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
   CHECKBOX_CATEGORIES
 );
 
-export const defaultCheckWrapperTheme = new ComponentTheme<CheckboxProps, CheckWrapperTheme>(
+export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
   "span",
   "invisible col-start-1 row-start-1 peer-checked:visible",
   {
@@ -107,6 +113,26 @@ export const defaultCheckWrapperTheme = new ComponentTheme<CheckboxProps, CheckW
   {
     default: true,
     filled: true,
+  },
+  CHECKBOX_CATEGORIES
+);
+
+export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, CheckboxWrapperTheme>(
+  "span",
+  "grid items-center justify-center",
+  {
+    size: {
+      height: new SizeTheme({
+        xs: 'h-4',
+        sm: 'h-5', 
+        md: 'h-6',
+        lg: 'h-7',
+        xl: 'h-7'
+      })
+    }
+  },
+  {
+    md: true,
   },
   CHECKBOX_CATEGORIES
 );

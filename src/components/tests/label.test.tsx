@@ -21,7 +21,7 @@ describe('Label Component Tests', () => {
       const label = container.querySelector('label');
       expect(label).toBeInTheDocument();
       expect(label).toHaveClass('cursor-pointer');
-      expect(label).toHaveClass('flex', 'items-center'); // flex by default
+      expect(label).toHaveClass('flex'); // flex by default
       expect(label).toHaveClass('gap-2.5'); // default gap
       expect(label).toHaveClass('text-base'); // md size default
       expect(label).toHaveClass('text-(--text-color-default)'); // default appearance
@@ -53,7 +53,7 @@ describe('Label Component Tests', () => {
 
       const label = container.querySelector('label');
       expect(label).toBeInTheDocument();
-      expect(label).toHaveClass('flex', 'items-center', 'gap-2.5');
+      expect(label).toHaveClass('flex', 'gap-2.5');
       expect(label).toHaveAttribute('for', 'demo1');
       
       const checkboxWrapper = label?.querySelector('span.grid');

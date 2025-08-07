@@ -18,6 +18,7 @@ import {
   LIST_CATEGORIES,
   CHECKBOX_CATEGORIES,
   LABEL_CATEGORIES,
+  IMG_CATEGORIES,
 } from './keys';
 
 /**
@@ -45,6 +46,7 @@ export type DivComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLDi
 export type AnchorComponentProps = BaseComponentProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 export type CheckboxComponentProps = BaseComponentProps & React.InputHTMLAttributes<HTMLInputElement>;
 export type LabelComponentProps = BaseComponentProps & React.LabelHTMLAttributes<HTMLLabelElement>;
+export type ImgComponentProps = BaseComponentProps & React.ImgHTMLAttributes<HTMLImageElement>;
 // Generic component props for ThemedComponent, ComponentTheme, and Code elements
 export type ComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLElement>;
 
@@ -66,3 +68,4 @@ export interface LinkProps extends AnchorComponentProps, ComponentPropsFromCateg
 export interface ListProps extends ComponentProps, ComponentPropsFromCategories<typeof LIST_CATEGORIES> {}
 export interface CheckboxProps extends CheckboxComponentProps, ComponentPropsFromCategories<typeof CHECKBOX_CATEGORIES> {}
 export interface LabelProps extends LabelComponentProps, ComponentPropsFromCategories<typeof LABEL_CATEGORIES> {}
+export interface ImgProps extends ImgComponentProps, ComponentPropsFromCategories<typeof IMG_CATEGORIES> {}

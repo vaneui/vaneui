@@ -5,6 +5,7 @@ export { Chip } from "./components/ui/chip";
 export { Code } from "./components/ui/code";
 export { Checkbox } from "./components/ui/checkbox";
 export { Label } from "./components/ui/label";
+export { Img } from "./components/ui/img";
 export { Section, Container, Col, Row, Stack, Grid3, Grid4, Card } from "./components/ui/layout";
 export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle } from "./components/ui/typography";
 export { ComponentKeys } from "./components/ui/props/keys";

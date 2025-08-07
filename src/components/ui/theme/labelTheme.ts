@@ -41,7 +41,6 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
     md: true,
     flex: true,
     gap: true,
-    itemsCenter: true,
     default: true,
     sans: true,
     medium: true,

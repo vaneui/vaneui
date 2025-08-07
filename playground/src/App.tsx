@@ -9,7 +9,7 @@ import {
   Title,
   Section,
   Code,
-  Chip, Card, Checkbox, Label
+  Chip, Card, Checkbox, Label, Img
 } from '../../src';
 import Demo from './Demo';
 
@@ -25,24 +25,25 @@ function App() {
       }
     }}>
       <Section>
-        <Card xs>
+        <Card xs className="max-w-xs">
           <Row xs>
-            <Label xs htmlFor="demo5">
-              <Checkbox filled success xs id="demo5"/>
-              Demo
+            <Label success xs htmlFor="demo5">
+              <Checkbox filled success pill xs id="demo5"/>
+              Demo asdf asdf asdf asdf asdf asdf asfg asdg asdf a f faddg adfs gadsr
             </Label>
           </Row>
         </Card>
-        <Card sm>
+        <Card sm className="max-w-xs">
           <Row sm>
             <Label sm htmlFor="demo4">
               <Checkbox sharp sm id="demo4"/>
-              Demo
+              Demo asdf asdf asdf asdf asdf asdf asfg asdg
             </Label>
           </Row>
         </Card>
         <Row xs>
           <Card className="max-w-xs">
+            <Img src="https://placehold.co/600x400"/>
             <Row>
               <Label primary htmlFor="demo1">
                 <Checkbox primary id="demo1"/>
@@ -57,24 +58,24 @@ function App() {
             <Row>
               <Label primary htmlFor="demo6">
                 <Checkbox primary id="demo6"/>
-                Demo asdf asdf asdf asdf asdf
+                Demo asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf asdf
               </Label>
             </Row>
           </Card>
         </Row>
-        <Card lg>
+        <Card lg className="max-w-xs">
           <Row lg>
             <Label lg htmlFor="demo2">
               <Checkbox lg outline id="demo2"/>
-              Demo
+              Demo asdf asdf asdf asdf asdf asdf asfg asdg
             </Label>
           </Row>
         </Card>
-        <Card xl>
+        <Card xl className="max-w-xs">
           <Row xl>
             <Label xl htmlFor="demo3">
               <Checkbox outline primary xl id="demo3"/>
-              Demo
+              Demo asdf asdf asdf asdf asdf asdf asfg asdg
             </Label>
           </Row>
         </Card>
