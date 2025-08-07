@@ -62,5 +62,9 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
     noRing: true,
     sharp: true,
   },
-  ROW_CATEGORIES
+  ROW_CATEGORIES,
+  (props: RowProps, defaults: Partial<RowProps>) => {
+    // Determine tag based on href prop
+    return props.href ? "a" : "div";
+  }
 );

@@ -73,5 +73,8 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
     gap: true,
     sharp: true,
   },
-  CONTAINER_CATEGORIES
+  CONTAINER_CATEGORIES,
+  (props: ContainerProps, defaults: Partial<ContainerProps>) => {
+    return props.href ? "a" : "div";
+  }
 );

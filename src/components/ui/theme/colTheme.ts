@@ -58,5 +58,8 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
     noRing: true,
     sharp: true,
   },
-  COL_CATEGORIES
+  COL_CATEGORIES,
+  (props: ColProps, defaults: Partial<ColProps>) => {
+    return props.href ? "a" : "div";
+  }
 );

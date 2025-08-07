@@ -9,7 +9,7 @@ import {
   Title,
   Section,
   Code,
-  Chip, Card, Checkbox, Label, Img
+  Chip, Card, Checkbox, Label, Img, Button
 } from '../../src';
 import Demo from './Demo';
 
@@ -31,6 +31,7 @@ function App() {
               <Checkbox filled success pill xs id="demo5"/>
               Demo asdf asdf asdf asdf asdf asdf asfg asdg asdf a f faddg adfs gadsr
             </Label>
+            <Button href="aaa">Test button</Button>
           </Row>
         </Card>
         <Card sm className="max-w-xs">

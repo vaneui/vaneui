@@ -89,5 +89,8 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
     noShadow: true,
     sharp: true,
   },
-  SECTION_CATEGORIES
+  SECTION_CATEGORIES,
+  (props: SectionProps, defaults: Partial<SectionProps>) => {
+    return props.href ? "a" : "div";
+  }
 );

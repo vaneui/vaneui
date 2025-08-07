@@ -34,7 +34,10 @@ export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(
   "grid-cols-1 md:grid-cols-3",
   gridSubThemes,
   gridDefaults,
-  GRID_CATEGORIES
+  GRID_CATEGORIES,
+  (props: GridProps, defaults: Partial<GridProps>) => {
+    return props.href ? "a" : "div";
+  }
 );
 
 export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
@@ -42,5 +45,8 @@ export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
   "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   gridSubThemes,
   gridDefaults,
-  GRID_CATEGORIES
+  GRID_CATEGORIES,
+  (props: GridProps, defaults: Partial<GridProps>) => {
+    return props.href ? "a" : "div";
+  }
 );

@@ -90,5 +90,8 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
     gap: true,
     padding: true,
   },
-  CARD_CATEGORIES
+  CARD_CATEGORIES,
+  (props: CardProps, defaults: Partial<CardProps>) => {
+    return props.href ? "a" : "div";
+  }
 );

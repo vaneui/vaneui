@@ -66,5 +66,8 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
     noRing: true,
     sharp: true,
   },
-  STACK_CATEGORIES
+  STACK_CATEGORIES,
+  (props: StackProps, defaults: Partial<StackProps>) => {
+    return props.href ? "a" : "div";
+  }
 );

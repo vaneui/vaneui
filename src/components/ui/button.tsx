@@ -1,5 +1,5 @@
 import { JSX } from 'react';
-import { ButtonProps } from './props/props';
+import { ButtonProps } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
 

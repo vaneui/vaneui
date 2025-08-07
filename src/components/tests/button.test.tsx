@@ -10,7 +10,7 @@ import {
 describe('Button Component Tests', () => {
 
   describe('Button Component', () => {
-    it('should render with default theme classes', () => {
+    it('should render as button tag when no href prop is provided', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Button>Click me</Button>
@@ -26,6 +26,64 @@ describe('Button Component Tests', () => {
       expect(button).toHaveClass('font-sans'); // sans family
       expect(button).toHaveClass('font-semibold'); // semibold weight
       expect(button).toHaveClass('inline-flex', 'items-center', 'justify-center');
+      
+      // Should not render as anchor
+      const anchor = container.querySelector('a');
+      expect(anchor).not.toBeInTheDocument();
+    });
+
+    it('should render as anchor tag when href prop is provided', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button href="/test-link">Link Button</Button>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
+      expect(anchor).toHaveClass('text-base'); // md size
+      expect(anchor).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
+      expect(anchor).toHaveClass('text-(--text-color-default)'); // default appearance
+      expect(anchor).toHaveClass('font-sans'); // sans family
+      expect(anchor).toHaveClass('font-semibold'); // semibold weight
+      expect(anchor).toHaveClass('inline-flex', 'items-center', 'justify-center');
+      expect(anchor).toHaveAttribute('href', '/test-link');
+      
+      // Should not render as button
+      const button = container.querySelector('button');
+      expect(button).not.toBeInTheDocument();
+    });
+
+    it('should support anchor-specific attributes when href is present', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button href="/external" target="_blank" rel="noopener noreferrer">
+            External Link
+          </Button>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', '/external');
+      expect(anchor).toHaveAttribute('target', '_blank');
+      expect(anchor).toHaveAttribute('rel', 'noopener noreferrer');
+    });
+
+    it('should support button-specific attributes when href is not present', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button type="submit" disabled>
+            Submit Button
+          </Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveAttribute('type', 'submit');
+      expect(button).toBeDisabled();
     });
   });
 

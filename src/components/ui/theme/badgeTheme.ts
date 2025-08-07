@@ -77,5 +77,8 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
     gap: true,
     ring: true,
   },
-  BADGE_CATEGORIES
+  BADGE_CATEGORIES,
+  (props: BadgeProps, defaults: Partial<BadgeProps>) => {
+    return props.href ? "a" : "span";
+  }
 );
