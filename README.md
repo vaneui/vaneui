@@ -2,251 +2,172 @@
 
 [![npm version](https://img.shields.io/npm/v/%40vaneui/ui.svg?style=flat)](https://www.npmjs.com/package/%40vaneui/ui)
 
-A modern React component library built with TypeScript and styled using Tailwind CSS. VaneUI provides a collection of reusable UI components designed to help developers build consistent and responsive user interfaces quickly.
+VaneUI is a React + TypeScript component library powered by Tailwind CSS. It uses a boolean-prop API for variants (size, appearance, shape, layout, typography, etc.) and a flexible theme system so you can set defaults, add extra classes, or programmatically override styles.
+
+- Boolean prop API: <Button primary lg pill> instead of stringly typed props
+- ThemeProvider with defaults (themeDefaults), extra classes (extraClasses), and programmatic override (themeOverride)
+- Built CSS you can import directly (no Tailwind setup required to consume)
 
 ## Installation
 
 ```bash
-# Using npm
 npm install @vaneui/ui
-
-# Using yarn
+# or
 yarn add @vaneui/ui
-
-# Using pnpm
+# or
 pnpm add @vaneui/ui
 ```
 
-## Requirements
+Peer requirements:
+- react and react-dom: ^16.8.0 || ^17 || ^18 || ^19
 
-VaneUI requires React 16.8.0 or later.
+## Styles
 
-## Usage
+You can import the prebuilt CSS directly:
 
-### Importing Components
+```ts
+// Recommended: use the package export paths
+import '@vaneui/ui/css';   // component styles
+import '@vaneui/ui/vars';  // CSS variables
 
-```jsx
-import { Button, Card, Stack, Text } from '@vaneui/ui';
-
-// For complex components
-import { SocialShare } from '@vaneui/ui/complex';
-```
-
-### Importing Styles
-
-```jsx
-// Import UI component styles (includes all component styling)
-import '@vaneui/ui/dist/ui.css';
-
-// Import theme variables (CSS custom properties)
-import '@vaneui/ui/dist/vars.css';
-
-// Or import both
+// Alternatively (equivalent)
 import '@vaneui/ui/dist/ui.css';
 import '@vaneui/ui/dist/vars.css';
 ```
 
-### Basic Example
+## Quick Start
 
-```jsx
+```tsx
 import React from 'react';
-import { Button, Stack } from '@vaneui/ui';
-import '@vaneui/ui/dist/ui.css';
-import '@vaneui/ui/dist/vars.css';
+import { Button, Text } from '@vaneui/ui';
+import '@vaneui/ui/css';
+import '@vaneui/ui/vars';
 
-function App() {
+export default function App() {
   return (
-    <Stack gap>
-      <Button primary>Primary Button</Button>
-      <Button secondary>Secondary Button</Button>
-      <Button danger>Danger Button</Button>
-    </Stack>
+    <>
+      <Button primary lg pill>Primary large pill</Button>
+      <Text md sans>Typed boolean props for typography too</Text>
+    </>
   );
 }
 ```
 
-## Component Categories
+## Theming
 
-VaneUI is organized into two main categories:
+All components work out of the box with defaults. For deeper customization, wrap your app with ThemeProvider.
 
-### UI Components
+```tsx
+import React from 'react';
+import { ThemeProvider, defaultTheme, Button, Text } from '@vaneui/ui';
+import '@vaneui/ui/css';
+import '@vaneui/ui/vars';
 
-Basic building blocks and primitive components:
-
-**Interactive Components:**
-- Button - Interactive elements with multiple appearance variants
-- Badge - Small status indicators 
-- Chip - Compact elements for tags or labels
-
-**Layout Components:**
-- Stack - Flexible container for stacking elements
-- Grid3, Grid4 - Pre-configured grid layouts
-- Row, Col - Flexible grid system
-- Card - Content containers with styling
-- Container - Page-level containers
-- Section - Semantic content sections
-
-**Typography Components:**
-- Text - Basic text elements with styling
-- Title - Heading elements
-- Link - Styled link elements
-- List, ListItem - Structured lists
-- SectionTitle, PageTitle - Semantic titles
-
-**Other Components:**
-- Divider - Visual separators
-
-### Complex Components
-
-Higher-level components composed of multiple UI components:
-
-- SocialShare - Social media sharing component
-
-## Theme System
-
-VaneUI features a sophisticated theme system that provides consistent styling across all components.
-
-### Theme Provider (Optional)
-
-Components work out of the box with default styling. For advanced theme customization, you can use the `ThemeProvider`:
-
-```jsx
-import { ThemeProvider, defaultTheme } from '@vaneui/ui';
-
-// Customize default component properties
-const customTheme = {
-  ...defaultTheme,
-  Button: { ...defaultTheme.Button, primary: true }, // Make primary the default
-  Text: { ...defaultTheme.Text, lg: true }           // Make lg the default size
-};
-
-function App() {
+export function App() {
   return (
-    <ThemeProvider theme={customTheme}>
-      {/* Components will use customized defaults */}
-      <Button>This is primary by default</Button>
-      <Text>This is large by default</Text>
+    <ThemeProvider
+      theme={defaultTheme}
+      themeDefaults={{
+        button: { primary: true, lg: true, pill: true },
+        text: { md: true, sans: true }
+      }}
+      extraClasses={{
+        button: { primary: 'shadow-md', lg: 'tracking-wide' },
+        text: { default: 'leading-relaxed' }
+      }}
+      themeOverride={(t) => {
+        // Example: force all links to be underline by default
+        (t.link.defaults as any).underline = true;
+        return t;
+      }}
+    >
+      <Button>Primary large pill by default</Button>
+      <Text>Relaxed text</Text>
     </ThemeProvider>
   );
 }
 ```
 
-### Appearance System
+## Boolean Props Model
 
-Components support different appearance variants:
+Each component exposes optional boolean props generated from category keys. Common examples:
+- Size: xs, sm, md, lg, xl
+- Appearance: default, primary, secondary, tertiary, accent, success, danger, warning, info, transparent
+- Variant: filled, outline
+- Shape: pill, rounded, sharp
+- Typography: sans, serif, mono, thin…black, italic/notItalic, underline/lineThrough/overline, uppercase/lowercase/capitalize
+- Layout: gap/noGap, inline/block/flex/grid, justify*, items*, padding/noPadding, shadow/noShadow, ring/noRing
 
-**UI Elements (Button, Badge, Chip):**
-- `default` - Default styling
-- `primary` - Primary brand color
-- `secondary` - Secondary color
-- `tertiary` - Tertiary color
-- `accent` - Accent color
-- `success` - Success/positive color
-- `danger` - Error/negative color
-- `warning` - Warning color
-- `info` - Information color
+Only the categories relevant to a component are used. The theme maps these booleans to Tailwind utility classes.
 
-**All Other Components (Text, Card, etc.):**
-All the above plus:
-- `transparent` - Transparent background
-- `link` - Link styling
+## Available Components
 
-### Component Variants
+From the main entry import:
+- Interactive: Button, Badge, Chip, Code, Checkbox, Label
+- Layout: Section, Container, Row, Col, Stack, Grid3, Grid4, Card, Divider
+- Typography: Text, Title, Link, List, ListItem, SectionTitle, PageTitle
+- Media: Img
 
-Many components support additional variants:
-
-- **Size variants:** `xs`, `sm`, `md`, `lg`, `xl`
-- **Shape variants:** `rounded`, `pill`, `sharp`
-- **Layout variants:** `filled`, `outline`
-- **Typography variants:** Font families, weights, decorations, etc.
-
-### Example Usage
-
-```jsx
-<Stack gap>
-  <Button primary lg>Large Primary Button</Button>
-  <Badge secondary pill>Pill Badge</Badge>
-  <Text link lg>Link Text</Text>
-  <Card transparent rounded>Transparent Card</Card>
-</Stack>
+```ts
+import {
+  Button, Badge, Chip, Code,
+  Checkbox, Label, Img,
+  Section, Container, Row, Col, Stack, Grid3, Grid4, Card, Divider,
+  Text, Title, Link, List, ListItem, SectionTitle, PageTitle,
+} from '@vaneui/ui';
 ```
 
-## Project Structure
+## Playground
 
-```
-vaneui/
-├── .junie/           # Project guidelines and documentation
-├── dist/             # Compiled output files
-├── docs/             # Documentation files
-├── src/              # Source code
-│   ├── components/   # React components
-│   │   ├── complex/  # Complex/composite components
-│   │   ├── theme/    # Theme variables and settings
-│   │   ├── ui/       # Basic UI components
-│   │   └── utils/    # Utility functions and helpers
-├── scripts/          # Build and development scripts
-└── ...               # Configuration files
-```
-
-## Development
-
-### Building the Library
+This repo includes a local playground for development and manual testing.
 
 ```bash
-# Install dependencies
-npm install
+# Build the library then start the playground (recommended for fresh state)
+npm run playground
 
-# Build the library
-npm run build
-
-# Run tests
-npm test
-
-# Type checking
-npm run type-check
-
-# Watch mode for development
-npm run watch
-
-# Verify package contents
-npm run verify-package
+# Or run the playground using the last build
+npm run playground:dev
 ```
 
-### Publishing the Package
+The sample at playground/src/App.tsx demonstrates several components working together with ThemeProvider.
 
-Before publishing, the package automatically runs the build process and verifies that all required files are present. This ensures that the published package contains all necessary files for users.
+## Scripts
 
 ```bash
-# Publish the package
-npm publish
+npm run build        # Build JS (Rollup) and CSS (Tailwind CLI) into dist/
+npm test             # Type-check then run Jest + Testing Library (jsdom)
+npm run type-check   # TypeScript type checking only
+npm run playground   # Build then start the Vite playground
+npm run playground:dev  # Start playground against the current dist
 ```
 
-### Component Development Guidelines
+## Project Structure (high level)
 
-1. **Theme System**: All components use the `ComponentTheme` pattern for consistent theming and styling
-2. **Type Safety**: Components are built with TypeScript and use strongly-typed prop definitions from key arrays
-3. **Prop Pattern**: Components use boolean props for variants (e.g., `primary`, `lg`, `pill`) rather than string props
-4. **Appearance Keys**: UI elements (Button, Badge, Chip) use `UI_ELEMENT_APPEARANCE_KEYS`, while other components use full `APPEARANCE_KEYS`
-5. **Theme Inheritance**: Components extend base themes and utilize shared theme patterns for consistency
+- src/components
+  - ui
+    - Primitive components (button, text, label, checkbox, card, grid, layout, etc.)
+    - props
+      - keys.ts — category/key definitions (size, appearance, layout, typography, etc.)
+      - props.ts — typed boolean props for components
+    - theme — Tailwind class mappings per component
+  - themedComponent.tsx — generic theme-driven renderer
+  - themeContext.tsx — ThemeProvider, defaultTheme, and merging helpers
+- playground — local demo app
+- dist — built CSS and JS output
 
-### Styling Guidelines
+## Requirements
 
-1. **Tailwind CSS**: All styling is done through Tailwind CSS classes and CSS custom properties
-2. **Theme Classes**: Use appearance classes from `appearanceClasses.ts` and `typographyClasses.ts`
-3. **CSS Variables**: Leverage CSS custom properties for theming (defined in `vars.css`)
-4. **Responsive Design**: Utilize Tailwind's responsive utilities and VaneUI's breakpoint system
-5. **Component Themes**: Extend existing theme patterns rather than creating custom styling
+- React 16.8+ (hooks) up to React 19 are supported as peer dependencies.
+- No Tailwind setup is required to consume the library; styles are prebuilt. If you do use Tailwind in your app, VaneUI styles coexist via CSS variables and utility classes.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-When contributing to this project:
-1. Follow the established code style and patterns
-2. Write tests for new components
-3. Update documentation as needed
-4. Ensure backward compatibility
+Contributions are welcome! Please:
+- Follow the boolean props model and existing theme patterns
+- Add or update tests when adding features
+- Keep theming logic in theme files and prefer extending existing patterns
 
 ## License
 
-This project is licensed under the ISC License.
+ISC
+
