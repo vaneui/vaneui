@@ -48,7 +48,7 @@ import {
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
-export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'row', 'col', 'stack', 'section',
+export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
   'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img'] as const;
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -124,6 +124,7 @@ export type ThemeDefaults = {
   code?: Record<string, boolean>;
   card?: Record<string, boolean>;
   divider?: Record<string, boolean>;
+  container?: Record<string, boolean>;
   row?: Record<string, boolean>;
   col?: Record<string, boolean>;
   stack?: Record<string, boolean>;
@@ -156,6 +157,7 @@ export type ThemeExtraClasses = {
   code?: Record<string, string>;
   card?: Record<string, string>;
   divider?: Record<string, string>;
+  container?: Record<string, string>;
   row?: Record<string, string>;
   col?: Record<string, string>;
   stack?: Record<string, string>;

@@ -17,6 +17,7 @@ export {
   COMPONENT,
   type ThemeProps,
   type ThemeDefaults,
+  type ThemeExtraClasses,
   type ThemeProviderProps,
   type PartialTheme,
   type ComponentKey,
