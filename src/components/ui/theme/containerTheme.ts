@@ -7,6 +7,8 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import {
   borderAppearanceClasses,
   layoutBackgroundAppearanceClasses,
@@ -33,6 +35,7 @@ export interface ContainerTheme extends BaseComponentTheme {
     text: AppearanceTheme;
     border: AppearanceTheme;
     ring: AppearanceTheme;
+    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   }
 }
 
@@ -63,6 +66,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
       border: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
       ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}),
+      shadow: GenericVariantTheme.createUIElementShadowTheme(),
     }
   },
   {

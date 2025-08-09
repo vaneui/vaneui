@@ -9,6 +9,7 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { ROW_CATEGORIES } from "../props";
 
 export interface RowTheme extends BaseComponentTheme {
@@ -27,6 +28,7 @@ export interface RowTheme extends BaseComponentTheme {
     background: AppearanceTheme;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
+    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   }
 }
 
@@ -50,6 +52,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
       background: AppearanceTheme.createLayoutBgTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
+      shadow: GenericVariantTheme.createUIElementShadowTheme(),
     }
   },
   {

@@ -1,4 +1,4 @@
-import { BaseComponentTheme, ComponentTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { DividerProps } from "../props/props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { bgBorderAppearanceClasses } from "../classes/appearanceClasses";
@@ -12,6 +12,7 @@ export interface DividerTheme extends BaseComponentTheme {
   appearance: {
     background: AppearanceTheme;
   };
+  layout: DefaultLayoutThemes;
 }
 
 export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme>(
@@ -25,7 +26,8 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
       background: AppearanceTheme.createTheme({
         base: bgBorderAppearanceClasses,
       }),
-    }
+    },
+    layout: defaultLayoutTheme,
   },
   {
     md: true,

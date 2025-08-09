@@ -8,6 +8,7 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { COL_CATEGORIES } from "../props";
 
 export interface ColTheme extends BaseComponentTheme {
@@ -25,6 +26,7 @@ export interface ColTheme extends BaseComponentTheme {
     background: AppearanceTheme;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
+    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   }
 }
 
@@ -47,6 +49,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
       background: AppearanceTheme.createLayoutBgTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
+      shadow: GenericVariantTheme.createUIElementShadowTheme(),
     }
   },
   {

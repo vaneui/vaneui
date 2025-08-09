@@ -5,11 +5,13 @@ import { StackProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
+import { BreakpointTheme } from "./size/breakpointTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { STACK_CATEGORIES } from "../props";
 
 export interface StackTheme extends BaseComponentTheme {
@@ -17,6 +19,7 @@ export interface StackTheme extends BaseComponentTheme {
     px: PxTheme;
     py: PyTheme;
     gap: GapTheme;
+    breakpoint: BreakpointTheme;
   };
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
@@ -29,6 +32,7 @@ export interface StackTheme extends BaseComponentTheme {
     background: AppearanceTheme;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
+    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   }
 }
 
@@ -40,6 +44,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
       px: new PxTheme({xs: 'px-2', sm: 'px-3', md: 'px-4', lg: 'px-5', xl: 'px-6'}),
       py: new PyTheme({xs: 'py-2', sm: 'py-3', md: 'py-4', lg: 'py-5', xl: 'py-6'}),
       gap: new GapTheme(),
+      breakpoint: new BreakpointTheme(),
     },
     layout: {
       ...defaultLayoutTheme,
@@ -53,6 +58,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
       background: AppearanceTheme.createLayoutBgTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
+      shadow: GenericVariantTheme.createUIElementShadowTheme(),
     }
   },
   {
