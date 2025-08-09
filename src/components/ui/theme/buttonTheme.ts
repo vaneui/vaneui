@@ -38,7 +38,6 @@ export interface ButtonTheme extends BaseTypographyComponentTheme {
     radius: RadiusTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
-    reverse: DirectionTheme;
   };
 }
 
@@ -68,7 +67,6 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       radius: RadiusTheme.createUITheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
-      reverse: new DirectionTheme(),
     },
     typography: defaultTypographyTheme,
   },

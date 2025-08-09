@@ -25,7 +25,6 @@ export interface LabelTheme extends BaseTypographyComponentTheme {
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
-    reverse: DirectionTheme;
   };
 }
 
@@ -45,7 +44,6 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       ...defaultLayoutTheme,
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
-      reverse: new DirectionTheme(),
     },
   },
   {

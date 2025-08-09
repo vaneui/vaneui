@@ -40,7 +40,6 @@ export interface CodeTheme extends BaseTypographyComponentTheme {
     ring: RingTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
-    reverse: DirectionTheme;
   };
 }
 
@@ -68,7 +67,6 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
       ring: new RingTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
-      reverse: new DirectionTheme(),
     },
     typography: defaultTypographyTheme,
   },

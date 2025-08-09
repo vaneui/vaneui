@@ -17,7 +17,6 @@ export interface GridTheme extends BaseComponentTheme {
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
-    reverse: DirectionTheme;
   };
 }
 
@@ -44,7 +43,6 @@ const gridSubThemes: DeepPartial<GridTheme> = {
     ...defaultLayoutTheme,
     wrap: new WrapTheme(),
     flexDirection: new DirectionTheme(),
-    reverse: new DirectionTheme(),
   },
 };
 

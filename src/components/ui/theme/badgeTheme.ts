@@ -38,7 +38,6 @@ export interface BadgeTheme extends BaseTypographyComponentTheme {
     radius: RadiusTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
-    reverse: DirectionTheme;
   };
 }
 
@@ -66,7 +65,6 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
       radius: RadiusTheme.createUITheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
-      reverse: new DirectionTheme(),
     },
     typography: defaultTypographyTheme,
   },
