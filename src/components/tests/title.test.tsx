@@ -28,6 +28,22 @@ describe('Title Components Tests', () => {
       expect(title).toHaveClass('font-semibold');
     });
 
+    it('should render as anchor when href prop is provided', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title href="/title-link">Clickable Title</Title>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a');
+      const heading = container.querySelector('h3');
+      
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', '/title-link');
+      expect(anchor).toHaveTextContent('Clickable Title');
+      expect(heading).not.toBeInTheDocument();
+    });
+
     it('should apply position layout props correctly', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

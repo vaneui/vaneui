@@ -1,5 +1,5 @@
 import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
-import { ListProps, TypographyProps } from "../props";
+import { ButtonProps, ListProps, TypographyProps } from "../props";
 import React from "react";
 import {
   BaseTypographyComponentTheme,
@@ -51,7 +51,11 @@ export const createTypographyComponentTheme = (
       layout: defaultLayoutTheme,
     },
     defaults,
-    TYPOGRAPHY_CATEGORIES);
+    TYPOGRAPHY_CATEGORIES,
+    (props: TypographyProps, defaults: Partial<TypographyProps>) => {
+      // Determine tag based on href prop
+      return props.href ? "a" : tag;
+    });
 };
 
 // Page title specific theme

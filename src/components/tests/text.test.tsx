@@ -298,4 +298,70 @@ describe('Text Component Tests', () => {
       expect(spanEl).toHaveTextContent('Span Text');
     });
   });
+
+  describe('Text as link', () => {
+    it('should render as anchor tag when href prop is provided', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text href="/test-link">Link text</Text>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a');
+      const paragraph = container.querySelector('p');
+      
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', '/test-link');
+      expect(anchor).toHaveTextContent('Link text');
+      expect(paragraph).not.toBeInTheDocument();
+    });
+
+    it('should render as paragraph tag when href prop is not provided', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text>Regular text</Text>
+        </ThemeProvider>
+      );
+
+      const paragraph = container.querySelector('p');
+      const anchor = container.querySelector('a');
+      
+      expect(paragraph).toBeInTheDocument();
+      expect(paragraph).toHaveTextContent('Regular text');
+      expect(anchor).not.toBeInTheDocument();
+    });
+
+    it('should support anchor-specific attributes when href is present', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text href="/external" target="_blank" rel="noopener">
+            External link
+          </Text>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', '/external');
+      expect(anchor).toHaveAttribute('target', '_blank');
+      expect(anchor).toHaveAttribute('rel', 'noopener');
+    });
+
+    it('should maintain theme classes when used as link', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text href="/styled-link" primary semibold lg>
+            Styled link text
+          </Text>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveClass('text-(--text-color-primary)'); // primary color
+      expect(anchor).toHaveClass('font-semibold'); // font weight
+      expect(anchor).toHaveClass('text-lg'); // size
+      expect(anchor).toHaveClass('font-sans'); // default font family
+    });
+  });
 });

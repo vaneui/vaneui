@@ -41,7 +41,6 @@ export type BaseComponentProps = {
 
 // Specific component props for different HTML element types
 export type ButtonComponentProps = BaseComponentProps & React.ButtonHTMLAttributes<HTMLButtonElement> & React.AnchorHTMLAttributes<HTMLAnchorElement>;
-export type SpanComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLSpanElement>;
 export type DivComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLDivElement>;
 export type AnchorComponentProps = BaseComponentProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 export type CheckboxComponentProps = BaseComponentProps & React.InputHTMLAttributes<HTMLInputElement>;
@@ -68,7 +67,7 @@ export interface StackProps extends LinkableDivComponentProps, ComponentPropsFro
 export interface SectionProps extends LinkableDivComponentProps, ComponentPropsFromCategories<typeof SECTION_CATEGORIES> {}
 export interface DividerProps extends DivComponentProps, ComponentPropsFromCategories<typeof DIVIDER_CATEGORIES> {}
 export interface ContainerProps extends LinkableDivComponentProps, ComponentPropsFromCategories<typeof CONTAINER_CATEGORIES> {}
-export interface TypographyProps extends ComponentProps, ComponentPropsFromCategories<typeof TYPOGRAPHY_CATEGORIES> {}
+export interface TypographyProps extends LinkableSpanComponentProps, ComponentPropsFromCategories<typeof TYPOGRAPHY_CATEGORIES> {}
 export interface LinkProps extends AnchorComponentProps, ComponentPropsFromCategories<typeof TYPOGRAPHY_CATEGORIES> {}
 export interface ListProps extends ComponentProps, ComponentPropsFromCategories<typeof LIST_CATEGORIES> {}
 export interface CheckboxProps extends CheckboxComponentProps, ComponentPropsFromCategories<typeof CHECKBOX_CATEGORIES> {}
