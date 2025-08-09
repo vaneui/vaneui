@@ -33,6 +33,12 @@ export class RadiusTheme extends BaseTheme {
   getClasses(extractedKeys: CategoryProps): string[] {
     const size = extractedKeys?.size ?? 'md';
     const shape = extractedKeys?.shape ?? 'rounded';
-    return [typeof this[shape] === 'string' ? this[shape] : (this[shape] as Record<SizeKey, string>)[size]];
+    
+    const shapeValue = this[shape];
+    if (shapeValue === undefined) {
+      return [''];
+    }
+    
+    return [typeof shapeValue === 'string' ? shapeValue : (shapeValue as Record<SizeKey, string>)[size] || ''];
   }
 }

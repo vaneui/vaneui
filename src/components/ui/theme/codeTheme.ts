@@ -16,6 +16,8 @@ import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { WrapTheme } from "./layout/wrapTheme";
+import { DirectionTheme } from "./layout/directionTheme";
 import { CODE_CATEGORIES } from "../props";
 
 export interface CodeTheme extends BaseTypographyComponentTheme {
@@ -36,6 +38,9 @@ export interface CodeTheme extends BaseTypographyComponentTheme {
     radius: RadiusTheme;
     border: BorderTheme;
     ring: RingTheme;
+    wrap: WrapTheme;
+    flexDirection: DirectionTheme;
+    reverse: DirectionTheme;
   };
 }
 
@@ -61,6 +66,9 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
       radius: RadiusTheme.createUITheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
+      wrap: new WrapTheme(),
+      flexDirection: new DirectionTheme(),
+      reverse: new DirectionTheme(),
     },
     typography: defaultTypographyTheme,
   },

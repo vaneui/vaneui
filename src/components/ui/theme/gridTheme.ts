@@ -1,12 +1,23 @@
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { GridProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
+import { WrapTheme } from "./layout/wrapTheme";
+import { DirectionTheme } from "./layout/directionTheme";
+import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { DeepPartial } from "../../utils/deepPartial";
 import { GRID_CATEGORIES } from "../props";
 
 export interface GridTheme extends BaseComponentTheme {
   size: {
     gap: GapTheme;
+  };
+  appearance: {
+    background: AppearanceTheme;
+  };
+  layout: DefaultLayoutThemes & {
+    wrap: WrapTheme;
+    flexDirection: DirectionTheme;
+    reverse: DirectionTheme;
   };
 }
 
@@ -26,7 +37,15 @@ const gridSubThemes: DeepPartial<GridTheme> = {
       xl: "gap-10 max-lg:gap-8 max-md:gap-6"
     }),
   },
-  layout: defaultLayoutTheme,
+  appearance: {
+    background: AppearanceTheme.createLayoutBgTheme(),
+  },
+  layout: {
+    ...defaultLayoutTheme,
+    wrap: new WrapTheme(),
+    flexDirection: new DirectionTheme(),
+    reverse: new DirectionTheme(),
+  },
 };
 
 export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(

@@ -14,6 +14,8 @@ import { PyTheme } from "./size/pyTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { WrapTheme } from "./layout/wrapTheme";
+import { DirectionTheme } from "./layout/directionTheme";
 import { BADGE_CATEGORIES } from "../props";
 
 export interface BadgeTheme extends BaseTypographyComponentTheme {
@@ -34,6 +36,9 @@ export interface BadgeTheme extends BaseTypographyComponentTheme {
     border: BorderTheme;
     ring: RingTheme;
     radius: RadiusTheme;
+    wrap: WrapTheme;
+    flexDirection: DirectionTheme;
+    reverse: DirectionTheme;
   };
 }
 
@@ -59,6 +64,9 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: RadiusTheme.createUITheme(),
+      wrap: new WrapTheme(),
+      flexDirection: new DirectionTheme(),
+      reverse: new DirectionTheme(),
     },
     typography: defaultTypographyTheme,
   },

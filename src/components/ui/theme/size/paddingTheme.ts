@@ -22,6 +22,11 @@ export class PaddingTheme extends BaseTheme {
     const size = extractedKeys?.size ?? 'md';
     const key = extractedKeys?.padding ?? 'padding';
 
-    return [typeof this[key] === 'string' ? this[key] : (this[key] as Record<SizeKey, string>)[size]];
+    const paddingValue = this[key];
+    if (paddingValue === undefined) {
+      return [''];
+    }
+
+    return [typeof paddingValue === 'string' ? paddingValue : (paddingValue as Record<SizeKey, string>)[size] || ''];
   }
 }

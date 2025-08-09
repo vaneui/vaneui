@@ -10,6 +10,8 @@ import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
+import { WrapTheme } from "./layout/wrapTheme";
+import { DirectionTheme } from "./layout/directionTheme";
 import { LABEL_CATEGORIES } from "../props";
 
 export interface LabelTheme extends BaseTypographyComponentTheme {
@@ -20,7 +22,11 @@ export interface LabelTheme extends BaseTypographyComponentTheme {
   appearance: {
     text: AppearanceTheme;
   };
-  layout: DefaultLayoutThemes;
+  layout: DefaultLayoutThemes & {
+    wrap: WrapTheme;
+    flexDirection: DirectionTheme;
+    reverse: DirectionTheme;
+  };
 }
 
 export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
@@ -35,7 +41,12 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
     },
     typography: defaultTypographyTheme,
-    layout: defaultLayoutTheme,
+    layout: {
+      ...defaultLayoutTheme,
+      wrap: new WrapTheme(),
+      flexDirection: new DirectionTheme(),
+      reverse: new DirectionTheme(),
+    },
   },
   {
     md: true,

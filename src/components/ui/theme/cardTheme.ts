@@ -1,5 +1,11 @@
 import { DirectionTheme } from "./layout/directionTheme";
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import {
+  BaseComponentTheme, BaseTypographyComponentTheme,
+  ComponentTheme,
+  defaultLayoutTheme,
+  DefaultLayoutThemes,
+  defaultTypographyTheme
+} from "./common/ComponentTheme";
 import { CardProps } from "../props/props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
@@ -18,7 +24,7 @@ import { RingTheme } from "./layout/ringTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { CARD_CATEGORIES } from "../props";
 
-export interface CardTheme extends BaseComponentTheme {
+export interface CardTheme extends BaseTypographyComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
@@ -77,7 +83,8 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
       border: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
       ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}),
-    }
+    },
+    typography: defaultTypographyTheme,
   },
   {
     md: true,

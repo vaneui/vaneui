@@ -51,7 +51,6 @@ export interface BaseTypographyComponentTheme extends BaseComponentTheme {
   typography: DefaultTypographyThemes;
 }
 
-
 export const defaultLayoutTheme: DefaultLayoutThemes = {
   hide: new HideTheme(),
   items: new ItemsTheme(),

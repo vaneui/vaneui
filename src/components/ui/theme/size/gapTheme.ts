@@ -28,6 +28,11 @@ export class GapTheme extends BaseTheme {
     const size = extractedKeys?.size ?? 'md';
     const key = extractedKeys?.gap ?? 'noGap';
 
-    return [typeof this[key] === 'string' ? this[key] : (this[key] as Record<SizeKey, string>)[size]];
+    const gapValue = this[key];
+    if (gapValue === undefined) {
+      return [''];
+    }
+
+    return [typeof gapValue === 'string' ? gapValue : (gapValue as Record<SizeKey, string>)[size] || ''];
   }
 }

@@ -2,7 +2,7 @@ import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutTh
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { SectionProps } from "../props/props";
+import { SectionProps } from "../props";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { BorderTheme } from "./layout/borderTheme";
@@ -17,12 +17,14 @@ import { textAppearanceClasses } from "../classes/typographyClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { SECTION_CATEGORIES } from "../props";
+import { BreakpointTheme } from "./size/breakpointTheme";
 
 export interface SectionTheme extends BaseComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
     gap: GapTheme;
+    breakpoint: BreakpointTheme;
   };
   appearance: {
     background: GenericVariantTheme<AppearanceTheme>;
@@ -60,6 +62,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
         xl: 'py-20 max-lg:py-16 max-md:py-12',
       }),
       gap: new GapTheme({xs: 'gap-4', sm: 'gap-6', md: 'gap-8', lg: 'gap-12', xl: 'gap-16'}),
+      breakpoint: new BreakpointTheme(),
     },
     appearance: {
       background: AppearanceTheme.createLayoutBgTheme(),

@@ -14,6 +14,7 @@ import { SizeTheme } from "./size/sizeTheme";
 import { CHECKBOX_CATEGORIES } from "../props";
 import { textSizeClasses } from "../classes/typographyClasses";
 import React, { ReactElement } from "react";
+import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 
 export interface CheckboxTheme extends BaseComponentTheme {
   size: {
@@ -31,6 +32,7 @@ export interface CheckboxTheme extends BaseComponentTheme {
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
     check: GenericVariantTheme<AppearanceTheme>;
+    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
 }
 
@@ -64,7 +66,8 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       border: GenericVariantTheme.createUIElementBorderTheme(),
       background: GenericVariantTheme.createCheckboxBgAppearanceTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
-      check: GenericVariantTheme.createCheckedAppearanceTheme()
+      check: GenericVariantTheme.createCheckedAppearanceTheme(),
+      shadow: GenericVariantTheme.createUIElementShadowTheme(),
     }
   },
   {
@@ -73,6 +76,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
     border: true,
     rounded: true,
     noRing: true,
+    noShadow: true,
     filled: true,
   },
   CHECKBOX_CATEGORIES
@@ -117,7 +121,7 @@ export interface CheckboxWrapperTheme extends BaseComponentTheme {
   size: {
     height: SizeTheme;
   };
-  //layout: DefaultLayoutThemes;
+  layout: DefaultLayoutThemes;
 }
 
 export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, CheckboxWrapperTheme>(
@@ -133,7 +137,7 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
         xl: 'h-7'
       })
     },
-    //layout: defaultLayoutTheme,
+    layout: defaultLayoutTheme,
   },
   {
     md: true,

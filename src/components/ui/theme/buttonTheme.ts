@@ -14,6 +14,8 @@ import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { WrapTheme } from "./layout/wrapTheme";
+import { DirectionTheme } from "./layout/directionTheme";
 import { BUTTON_CATEGORIES } from "../props";
 
 export interface ButtonTheme extends BaseTypographyComponentTheme {
@@ -34,6 +36,9 @@ export interface ButtonTheme extends BaseTypographyComponentTheme {
     border: BorderTheme;
     ring: RingTheme;
     radius: RadiusTheme;
+    wrap: WrapTheme;
+    flexDirection: DirectionTheme;
+    reverse: DirectionTheme;
   };
 }
 
@@ -61,6 +66,9 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: RadiusTheme.createUITheme(),
+      wrap: new WrapTheme(),
+      flexDirection: new DirectionTheme(),
+      reverse: new DirectionTheme(),
     },
     typography: defaultTypographyTheme,
   },
