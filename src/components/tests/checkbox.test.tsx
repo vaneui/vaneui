@@ -17,9 +17,9 @@ describe('Checkbox Component Tests', () => {
         </ThemeProvider>
       );
 
-      const wrapper = container.querySelector('span.grid');
+      const wrapper = container.querySelector('span.inline-grid');
       expect(wrapper).toBeInTheDocument();
-      expect(wrapper).toHaveClass('grid', 'items-center', 'justify-center');
+      expect(wrapper).toHaveClass('inline-grid', 'items-center', 'justify-center');
       
       const checkbox = wrapper?.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();

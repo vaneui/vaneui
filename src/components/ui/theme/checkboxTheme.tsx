@@ -34,19 +34,6 @@ export interface CheckboxTheme extends BaseComponentTheme {
   };
 }
 
-export interface CheckTheme extends BaseComponentTheme {
-  checkElement: () => ReactElement;
-  appearance: {
-    color: GenericVariantTheme<AppearanceTheme>;
-  };
-}
-
-export interface CheckboxWrapperTheme extends BaseComponentTheme {
-  size: {
-    height: SizeTheme;
-  };
-}
-
 export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTheme>(
   "input",
   "peer col-start-1 row-start-1 cursor-pointer appearance-none ring-transparent",
@@ -91,6 +78,14 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
   CHECKBOX_CATEGORIES
 );
 
+export interface CheckTheme extends BaseComponentTheme {
+  checkElement: () => ReactElement;
+  appearance: {
+    color: GenericVariantTheme<AppearanceTheme>;
+  };
+  layout: DefaultLayoutThemes;
+}
+
 export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
   "span",
   "invisible col-start-1 row-start-1 peer-checked:visible",
@@ -108,7 +103,8 @@ export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
       </svg>,
     appearance: {
       color: GenericVariantTheme.createUIElementTextTheme()
-    }
+    },
+    layout: defaultLayoutTheme,
   },
   {
     default: true,
@@ -117,9 +113,16 @@ export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
   CHECKBOX_CATEGORIES
 );
 
+export interface CheckboxWrapperTheme extends BaseComponentTheme {
+  size: {
+    height: SizeTheme;
+  };
+  //layout: DefaultLayoutThemes;
+}
+
 export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, CheckboxWrapperTheme>(
   "span",
-  "grid items-center justify-center",
+  "",
   {
     size: {
       height: new SizeTheme({
@@ -129,10 +132,14 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
         lg: 'h-7',
         xl: 'h-7'
       })
-    }
+    },
+    //layout: defaultLayoutTheme,
   },
   {
     md: true,
+    inlineGrid: true,
+    itemsCenter: true,
+    justifyCenter: true,
   },
   CHECKBOX_CATEGORIES
 );

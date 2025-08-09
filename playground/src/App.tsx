@@ -9,7 +9,7 @@ import {
   Title,
   Section,
   Code,
-  Chip, Card, Checkbox, Label, Img, Button
+  Chip, Card, Checkbox, Label, Img, Button, Link
 } from '../../src';
 import Demo from './Demo';
 
@@ -25,6 +25,22 @@ function App() {
       }
     }}>
       <Section>
+        <Card>
+          <Col>
+            <Label htmlFor="terms">
+              <Checkbox id="terms" />
+              <span>I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
+            </Label>
+
+            <Label htmlFor="emails">
+              <Checkbox defaultChecked id="emails" />
+              <Col noGap tag="span">
+                <Text>Receive product updates</Text>
+                <Text xs secondary>Occasional emails about new features</Text>
+              </Col>
+            </Label>
+          </Col>
+        </Card>
         <Card xs className="max-w-xs">
           <Row xs>
             <Label success xs htmlFor="demo5">

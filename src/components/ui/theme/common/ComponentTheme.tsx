@@ -82,7 +82,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   constructor(
     tag: React.ElementType,
     base: string,
-    subThemes: DeepPartial<TTheme>,
+    themes: DeepPartial<TTheme>,
     defaults: Partial<P> = {},
     categories: readonly ComponentCategoryKey[],
     tagFunction?: (props: P, defaults: Partial<P>) => React.ElementType
@@ -94,7 +94,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     this.categories = categories;
     this.tagFunction = tagFunction;
     // Type assertion: we trust that all default themes provide complete objects
-    this.themes = subThemes as TTheme;
+    this.themes = themes as TTheme;
   }
 
   getClasses(props: P): string[] {

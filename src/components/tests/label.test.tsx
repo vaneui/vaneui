@@ -56,7 +56,7 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('flex', 'gap-2.5');
       expect(label).toHaveAttribute('for', 'demo1');
       
-      const checkboxWrapper = label?.querySelector('span.grid');
+      const checkboxWrapper = label?.querySelector('span.inline-grid');
       expect(checkboxWrapper).toBeInTheDocument();
       
       const checkbox = label?.querySelector('input[type="checkbox"]');

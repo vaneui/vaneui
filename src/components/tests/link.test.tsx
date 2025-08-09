@@ -23,7 +23,6 @@ describe('Link Component Tests', () => {
       expect(link).not.toHaveClass('text-base'); // no default size
       expect(link).toHaveClass('text-(--text-color-link)'); // link appearance
       expect(link).toHaveClass('font-sans');
-      expect(link).toHaveClass('font-normal');
       expect(link).toHaveAttribute('href', '#test');
     });
 

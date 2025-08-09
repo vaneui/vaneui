@@ -23,7 +23,8 @@ describe('Text Component Tests', () => {
       expect(text).toHaveClass('text-base'); // md size
       expect(text).toHaveClass('text-(--text-color-default)'); // default appearance
       expect(text).toHaveClass('font-sans');
-      expect(text).toHaveClass('font-normal');
+      // No default font weight; variants like medium/bold are opt-in
+      expect(text).not.toHaveClass('font-normal');
     });
 
     it('should apply different size classes', () => {
