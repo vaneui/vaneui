@@ -32,44 +32,38 @@ type ComponentPropsFromCategories<T extends ReadonlyArray<ComponentCategoryKey>>
   }[T[number]]]?: boolean;
 };
 
-// Base component props for different HTML elements
-export type BaseComponentProps = {
-  tag?: React.ReactNode | string | any;
-  className?: string;
-  children?: React.ReactNode;
-};
+// Helper types
+type NativeProps<E extends React.ElementType> = React.ComponentPropsWithoutRef<E>;
+type Base = { className?: string; children?: React.ReactNode; tag?: React.ReactNode | string | any };
+type Cats<T extends ReadonlyArray<ComponentCategoryKey>> = ComponentPropsFromCategories<T>;
 
-// Specific component props for different HTML element types
-export type ButtonComponentProps = BaseComponentProps & React.ButtonHTMLAttributes<HTMLButtonElement> & React.AnchorHTMLAttributes<HTMLAnchorElement>;
-export type DivComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLDivElement>;
-export type AnchorComponentProps = BaseComponentProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
-export type CheckboxComponentProps = BaseComponentProps & React.InputHTMLAttributes<HTMLInputElement>;
-export type LabelComponentProps = BaseComponentProps & React.LabelHTMLAttributes<HTMLLabelElement>;
-export type ImgComponentProps = BaseComponentProps & React.ImgHTMLAttributes<HTMLImageElement>;
+// Linkable helper type - component can be either native element or anchor with href
+export type Linkable<E extends React.ElementType, Own = {}> =
+  | (Own & Omit<NativeProps<E>, keyof Own | "href"> & { href?: never })
+  | (Own & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof Own> & { href: string });
 
-// Linkable component props - can render as div or anchor based on href presence
-export type LinkableDivComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLDivElement> & React.AnchorHTMLAttributes<HTMLAnchorElement>;
-export type LinkableSpanComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLSpanElement> & React.AnchorHTMLAttributes<HTMLAnchorElement>;
+// Component-specific prop interfaces using new pattern
+// Linkable components (can render as native element or anchor with href)
+export type ButtonProps = Linkable<"button", Base> & Cats<typeof BUTTON_CATEGORIES>;
+export type BadgeProps = Linkable<"span", Base> & Cats<typeof BADGE_CATEGORIES>;
+export type ChipProps = Linkable<"span", Base> & Cats<typeof CHIP_CATEGORIES>;
+export type GridProps = Linkable<"div", Base> & Cats<typeof GRID_CATEGORIES>;
+export type RowProps = Linkable<"div", Base> & Cats<typeof ROW_CATEGORIES>;
+export type ColProps = Linkable<"div", Base> & Cats<typeof COL_CATEGORIES>;
+export type CardProps = Linkable<"div", Base> & Cats<typeof CARD_CATEGORIES>;
+export type StackProps = Linkable<"div", Base> & Cats<typeof STACK_CATEGORIES>;
+export type SectionProps = Linkable<"div", Base> & Cats<typeof SECTION_CATEGORIES>;
+export type ContainerProps = Linkable<"div", Base> & Cats<typeof CONTAINER_CATEGORIES>;
+export type TypographyProps = Linkable<"span", Base> & Cats<typeof TYPOGRAPHY_CATEGORIES>;
 
-// Generic component props for ThemedComponent, ComponentTheme, and Code elements
-export type ComponentProps = BaseComponentProps & React.HTMLAttributes<HTMLElement>;
+// Pure (non-linkable) components
+export type DividerProps = (Base & React.HTMLAttributes<HTMLDivElement>) & Cats<typeof DIVIDER_CATEGORIES>;
+export type CodeProps = (Base & React.HTMLAttributes<HTMLElement>) & Cats<typeof CODE_CATEGORIES>;
+export type ListProps = (Base & React.HTMLAttributes<HTMLElement>) & Cats<typeof LIST_CATEGORIES>;
+export type CheckboxProps = (Base & React.InputHTMLAttributes<HTMLInputElement>) & Cats<typeof CHECKBOX_CATEGORIES>;
+export type LabelProps = (Base & React.LabelHTMLAttributes<HTMLLabelElement>) & Cats<typeof LABEL_CATEGORIES>;
+export type ImgProps = (Base & React.ImgHTMLAttributes<HTMLImageElement>) & Cats<typeof IMG_CATEGORIES>;
 
-// Component-specific prop interfaces with proper HTML element typing
-export interface ButtonProps extends ButtonComponentProps, ComponentPropsFromCategories<typeof BUTTON_CATEGORIES> {}
-export interface BadgeProps extends LinkableSpanComponentProps, ComponentPropsFromCategories<typeof BADGE_CATEGORIES> {}
-export interface ChipProps extends LinkableSpanComponentProps, ComponentPropsFromCategories<typeof CHIP_CATEGORIES> {}
-export interface CodeProps extends ComponentProps, ComponentPropsFromCategories<typeof CODE_CATEGORIES> {}
-export interface GridProps extends LinkableDivComponentProps, ComponentPropsFromCategories<typeof GRID_CATEGORIES> {}
-export interface RowProps extends LinkableDivComponentProps, ComponentPropsFromCategories<typeof ROW_CATEGORIES> {}
-export interface ColProps extends LinkableDivComponentProps, ComponentPropsFromCategories<typeof COL_CATEGORIES> {}
-export interface CardProps extends LinkableDivComponentProps, ComponentPropsFromCategories<typeof CARD_CATEGORIES> {}
-export interface StackProps extends LinkableDivComponentProps, ComponentPropsFromCategories<typeof STACK_CATEGORIES> {}
-export interface SectionProps extends LinkableDivComponentProps, ComponentPropsFromCategories<typeof SECTION_CATEGORIES> {}
-export interface DividerProps extends DivComponentProps, ComponentPropsFromCategories<typeof DIVIDER_CATEGORIES> {}
-export interface ContainerProps extends LinkableDivComponentProps, ComponentPropsFromCategories<typeof CONTAINER_CATEGORIES> {}
-export interface TypographyProps extends LinkableSpanComponentProps, ComponentPropsFromCategories<typeof TYPOGRAPHY_CATEGORIES> {}
-export interface LinkProps extends AnchorComponentProps, ComponentPropsFromCategories<typeof TYPOGRAPHY_CATEGORIES> {}
-export interface ListProps extends ComponentProps, ComponentPropsFromCategories<typeof LIST_CATEGORIES> {}
-export interface CheckboxProps extends CheckboxComponentProps, ComponentPropsFromCategories<typeof CHECKBOX_CATEGORIES> {}
-export interface LabelProps extends LabelComponentProps, ComponentPropsFromCategories<typeof LABEL_CATEGORIES> {}
-export interface ImgProps extends ImgComponentProps, ComponentPropsFromCategories<typeof IMG_CATEGORIES> {}
+// Legacy types for backward compatibility
+export type LinkProps = TypographyProps;
+export type ComponentProps = Base & React.HTMLAttributes<HTMLElement>;
