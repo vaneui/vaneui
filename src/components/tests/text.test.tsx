@@ -286,16 +286,16 @@ describe('Text Component Tests', () => {
       expect(text).toHaveClass('custom-text-class'); // custom class
     });
 
-    it('should support custom HTML tag', () => {
+    it('should render as paragraph by default', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text tag="span">Span Text</Text>
+          <Text>Default Text</Text>
         </ThemeProvider>
       );
 
-      const spanEl = container.querySelector('span');
-      expect(spanEl).toBeInTheDocument();
-      expect(spanEl).toHaveTextContent('Span Text');
+      const paragraph = container.querySelector('p');
+      expect(paragraph).toBeInTheDocument();
+      expect(paragraph).toHaveTextContent('Default Text');
     });
   });
 
