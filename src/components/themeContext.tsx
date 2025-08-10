@@ -40,7 +40,6 @@ import {
   SectionProps,
   StackProps,
   TypographyProps,
-  LinkProps,
   CheckboxProps,
   LabelProps,
   ImgProps
@@ -70,7 +69,7 @@ export interface ThemeProps {
   sectionTitle: ComponentTheme<TypographyProps, TypographyTheme>;
   title: ComponentTheme<TypographyProps, TypographyTheme>;
   text: ComponentTheme<TypographyProps, TypographyTheme>;
-  link: ComponentTheme<LinkProps, TypographyTheme>;
+  link: ComponentTheme<TypographyProps, TypographyTheme>;
   listItem: ComponentTheme<TypographyProps, TypographyTheme>;
   list: ComponentTheme<ListProps, ListTheme>;
   checkbox: {

@@ -1,5 +1,5 @@
 import { JSX } from 'react';
-import { TypographyProps, LinkProps, ListProps } from './props/props';
+import { TypographyProps, ListProps } from './props/props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
 
@@ -23,7 +23,7 @@ export const Text = (props: TypographyProps): JSX.Element => {
   return <ThemedComponent theme={theme.text} {...props} />
 };
 
-export const Link = (props: LinkProps): JSX.Element => {
+export const Link = (props: TypographyProps): JSX.Element => {
   const theme = useTheme();
   return <ThemedComponent theme={theme.link} {...props} />
 };

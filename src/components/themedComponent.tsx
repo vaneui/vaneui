@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { ComponentTheme } from "./ui/theme/common/ComponentTheme";
-import { ComponentProps } from "./ui/props/props";
+type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 
 export type ThemedComponentProps<P extends ComponentProps, T extends object> = P & {
   theme: ComponentTheme<any, T>;

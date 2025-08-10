@@ -33,37 +33,74 @@ type ComponentPropsFromCategories<T extends ReadonlyArray<ComponentCategoryKey>>
 };
 
 // Helper types
-type NativeProps<E extends React.ElementType> = React.ComponentPropsWithoutRef<E>;
-type Base = { className?: string; children?: React.ReactNode; tag?: React.ReactNode | string | any };
+type Base = { className?: string; children?: React.ReactNode };
 type Cats<T extends ReadonlyArray<ComponentCategoryKey>> = ComponentPropsFromCategories<T>;
 
-// Linkable helper type - component can be either native element or anchor with href
-export type Linkable<E extends React.ElementType, Own = {}> =
-  | (Own & Omit<NativeProps<E>, keyof Own | "href"> & { href?: never })
-  | (Own & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof Own> & { href: string });
+type ElementOf<E extends React.ElementType> = React.ComponentPropsWithoutRef<E>;
+type RefOf<E extends React.ElementType> = React.ComponentPropsWithRef<E>["ref"];
 
-// Component-specific prop interfaces using new pattern
-// Linkable components (can render as native element or anchor with href)
-export type ButtonProps = Linkable<"button", Base> & Cats<typeof BUTTON_CATEGORIES>;
-export type BadgeProps = Linkable<"span", Base> & Cats<typeof BADGE_CATEGORIES>;
-export type ChipProps = Linkable<"span", Base> & Cats<typeof CHIP_CATEGORIES>;
-export type GridProps = Linkable<"div", Base> & Cats<typeof GRID_CATEGORIES>;
-export type RowProps = Linkable<"div", Base> & Cats<typeof ROW_CATEGORIES>;
-export type ColProps = Linkable<"div", Base> & Cats<typeof COL_CATEGORIES>;
-export type CardProps = Linkable<"div", Base> & Cats<typeof CARD_CATEGORIES>;
-export type StackProps = Linkable<"div", Base> & Cats<typeof STACK_CATEGORIES>;
-export type SectionProps = Linkable<"div", Base> & Cats<typeof SECTION_CATEGORIES>;
-export type ContainerProps = Linkable<"div", Base> & Cats<typeof CONTAINER_CATEGORIES>;
-export type TypographyProps = Linkable<"span", Base> & Cats<typeof TYPOGRAPHY_CATEGORIES>;
+// Mode A: tag-polymorphic (no href allowed)
+type WithTag<E extends React.ElementType, Own> =
+  Own &
+  Omit<ElementOf<E>, keyof Own | "tag" | "href"> & {
+    tag?: React.ElementType;
+    href?: never;
+  };
 
-// Pure (non-linkable) components
-export type DividerProps = (Base & React.HTMLAttributes<HTMLDivElement>) & Cats<typeof DIVIDER_CATEGORIES>;
-export type CodeProps = (Base & React.HTMLAttributes<HTMLElement>) & Cats<typeof CODE_CATEGORIES>;
-export type ListProps = (Base & React.HTMLAttributes<HTMLElement>) & Cats<typeof LIST_CATEGORIES>;
-export type CheckboxProps = (Base & React.InputHTMLAttributes<HTMLInputElement>) & Cats<typeof CHECKBOX_CATEGORIES>;
-export type LabelProps = (Base & React.LabelHTMLAttributes<HTMLLabelElement>) & Cats<typeof LABEL_CATEGORIES>;
-export type ImgProps = (Base & React.ImgHTMLAttributes<HTMLImageElement>) & Cats<typeof IMG_CATEGORIES>;
+// Mode B: link mode (href required; tag limited to anchor-like)
+type LinkLikeProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
+type LinkLikeComponent = React.ComponentType<LinkLikeProps>; // e.g. Next.js Link
 
-// Legacy types for backward compatibility
-export type LinkProps = TypographyProps;
-export type ComponentProps = Base & React.HTMLAttributes<HTMLElement>;
+type LinkBranch<Own> =
+  Own &
+  Omit<LinkLikeProps, keyof Own | "tag"> & {
+    href: string;
+    tag?: "a" | LinkLikeComponent;
+  };
+
+// Union of the two modes
+type TagOrHref<E extends React.ElementType, Own> = WithTag<E, Own> | LinkBranch<Own>;
+
+// Component-specific prop interfaces using TagOrHref pattern
+// Components with both tag polymorphism and link mode
+export type ButtonProps<E extends React.ElementType = "button"> = 
+  TagOrHref<E, Base & Cats<typeof BUTTON_CATEGORIES>>;
+
+export type BadgeProps<E extends React.ElementType = "span"> = 
+  TagOrHref<E, Base & Cats<typeof BADGE_CATEGORIES>>;
+
+export type ChipProps<E extends React.ElementType = "span"> = 
+  TagOrHref<E, Base & Cats<typeof CHIP_CATEGORIES>>;
+
+export type GridProps<E extends React.ElementType = "div"> = 
+  TagOrHref<E, Base & Cats<typeof GRID_CATEGORIES>>;
+
+export type RowProps<E extends React.ElementType = "div"> = 
+  TagOrHref<E, Base & Cats<typeof ROW_CATEGORIES>>;
+
+export type ColProps<E extends React.ElementType = "div"> = 
+  TagOrHref<E, Base & Cats<typeof COL_CATEGORIES>>;
+
+export type CardProps<E extends React.ElementType = "div"> = 
+  TagOrHref<E, Base & Cats<typeof CARD_CATEGORIES>>;
+
+export type StackProps<E extends React.ElementType = "div"> = 
+  TagOrHref<E, Base & Cats<typeof STACK_CATEGORIES>>;
+
+export type SectionProps<E extends React.ElementType = "div"> = 
+  TagOrHref<E, Base & Cats<typeof SECTION_CATEGORIES>>;
+
+export type ContainerProps<E extends React.ElementType = "div"> = 
+  TagOrHref<E, Base & Cats<typeof CONTAINER_CATEGORIES>>;
+
+export type TypographyProps<E extends React.ElementType = "span"> = 
+  TagOrHref<E, Base & Cats<typeof TYPOGRAPHY_CATEGORIES>>;
+
+// Pure (non-linkable) components with tag support
+export type DividerProps = (Base & React.HTMLAttributes<HTMLDivElement>) & Cats<typeof DIVIDER_CATEGORIES> & { tag?: React.ElementType };
+export type CodeProps = (Base & React.HTMLAttributes<HTMLElement>) & Cats<typeof CODE_CATEGORIES> & { tag?: React.ElementType };
+export type ListProps = (Base & React.HTMLAttributes<HTMLElement>) & Cats<typeof LIST_CATEGORIES> & { tag?: React.ElementType };
+export type CheckboxProps = (Base & React.InputHTMLAttributes<HTMLInputElement>) & Cats<typeof CHECKBOX_CATEGORIES> & { tag?: React.ElementType };
+export type LabelProps = (Base & React.LabelHTMLAttributes<HTMLLabelElement>) & Cats<typeof LABEL_CATEGORIES> & { tag?: React.ElementType };
+export type ImgProps = (Base & React.ImgHTMLAttributes<HTMLImageElement>) & Cats<typeof IMG_CATEGORIES> & { tag?: React.ElementType };
+

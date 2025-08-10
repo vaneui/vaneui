@@ -15,7 +15,7 @@ import { TextAlignTheme } from "../typography/textAlignTheme";
 import { DeepPartial } from "../../../utils/deepPartial";
 import { DisplayTheme } from "../layout/displayTheme";
 import { twMerge } from "tailwind-merge";
-import { ComponentProps } from "../../props/props";
+type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 import { OverflowTheme } from "../layout/overflowTheme";
 import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
 
