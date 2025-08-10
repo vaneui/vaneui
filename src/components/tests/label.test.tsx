@@ -20,7 +20,8 @@ describe('Label Component Tests', () => {
 
       const label = container.querySelector('label');
       expect(label).toBeInTheDocument();
-      expect(label).toHaveClass('cursor-pointer');
+      expect(label).toHaveClass('cursor-default'); // cursor-default when no input
+      expect(label).toHaveClass('has-[input]:cursor-pointer'); // will be cursor-pointer with input
       expect(label).toHaveClass('flex'); // flex by default
       expect(label).toHaveClass('gap-2.5'); // default gap
       expect(label).toHaveClass('text-base'); // md size default
@@ -54,6 +55,8 @@ describe('Label Component Tests', () => {
       const label = container.querySelector('label');
       expect(label).toBeInTheDocument();
       expect(label).toHaveClass('flex', 'gap-2.5');
+      expect(label).toHaveClass('has-[input]:cursor-pointer'); // has-[input] selector applies
+      expect(label).toHaveClass('cursor-default'); // base cursor class
       expect(label).toHaveAttribute('for', 'demo1');
       
       const checkboxWrapper = label?.querySelector('span.inline-grid');
@@ -255,7 +258,8 @@ describe('Label Component Tests', () => {
       );
 
       const label = container.querySelector('label');
-      expect(label).toHaveClass('cursor-pointer'); // theme classes
+      expect(label).toHaveClass('cursor-default'); // theme classes
+      expect(label).toHaveClass('has-[input]:cursor-pointer'); // conditional cursor
       expect(label).toHaveClass('custom-label-class'); // custom class
     });
 
@@ -315,6 +319,36 @@ describe('Label Component Tests', () => {
       label.click();
       
       expect(handleChange).toHaveBeenCalled();
+    });
+    it('should have cursor-pointer only when input is present', () => {
+      // Label without input - should have cursor-default
+      const {container: containerWithoutInput} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label>Label without input</Label>
+        </ThemeProvider>
+      );
+
+      const labelWithoutInput = containerWithoutInput.querySelector('label');
+      expect(labelWithoutInput).toHaveClass('cursor-default');
+      expect(labelWithoutInput).toHaveClass('has-[input]:cursor-pointer');
+      // The has-[input] selector won't apply since there's no input
+
+      // Label with input - should have cursor-pointer through has-[input] selector
+      const {container: containerWithInput} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label>
+            <input type="text" />
+            Label with input
+          </Label>
+        </ThemeProvider>
+      );
+
+      const labelWithInput = containerWithInput.querySelector('label');
+      expect(labelWithInput).toHaveClass('cursor-default');
+      expect(labelWithInput).toHaveClass('has-[input]:cursor-pointer');
+      // The has-[input] selector will apply since there's an input
+      const input = labelWithInput?.querySelector('input');
+      expect(input).toBeInTheDocument();
     });
   });
 });

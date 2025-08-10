@@ -30,7 +30,7 @@ export interface LabelTheme extends BaseTypographyComponentTheme {
 
 export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
   "label",
-  "cursor-pointer",
+  "has-[input]:cursor-pointer cursor-default",
   {
     size: {
       text: new SizeTheme(textSizeClasses),

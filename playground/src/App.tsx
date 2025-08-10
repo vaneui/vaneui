@@ -26,6 +26,40 @@ function App() {
     }}>
       <Section>
         <Card>
+          <Col gap>
+            <Title>Label Cursor Behavior Demo</Title>
+            <Divider />
+            
+            <Row gap>
+              <Col>
+                <Text sm bold>Label without input (cursor-default):</Text>
+                <Label className="border border-gray-300 p-2">
+                  This label has no input - hover to see cursor-default
+                </Label>
+              </Col>
+              
+              <Col>
+                <Text sm bold>Label with checkbox (cursor-pointer):</Text>
+                <Label htmlFor="demo-cursor" className="border border-gray-300 p-2">
+                  <Checkbox id="demo-cursor" />
+                  This label has an input - hover to see cursor-pointer
+                </Label>
+              </Col>
+              
+              <Col>
+                <Text sm bold>Label with text input (cursor-pointer):</Text>
+                <Label className="border border-gray-300 p-2">
+                  <input type="text" className="border rounded px-2" placeholder="Type here" />
+                  <span>Label with text input</span>
+                </Label>
+              </Col>
+            </Row>
+            
+            <Divider />
+          </Col>
+        </Card>
+        
+        <Card>
           <Col>
             <Label htmlFor="terms">
               <Checkbox id="terms" />
