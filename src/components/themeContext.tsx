@@ -42,14 +42,10 @@ import {
   TypographyProps,
   CheckboxProps,
   LabelProps,
-  ImgProps
+  ImgProps,
 } from "./ui/props";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
-
-export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img'] as const;
-export type ComponentKey = typeof COMPONENT[number];
 
 export interface ThemeProps {
   button: ComponentTheme<ButtonProps, ButtonTheme>;

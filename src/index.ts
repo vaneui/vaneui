@@ -8,19 +8,22 @@ export { Label } from "./components/ui/label";
 export { Img } from "./components/ui/img";
 export { Section, Container, Col, Row, Stack, Grid3, Grid4, Card } from "./components/ui/layout";
 export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle } from "./components/ui/typography";
-export { ComponentKeys } from "./components/ui/props/keys";
+export {
+  COMPONENT,
+  ComponentKeys,
+  ComponentCategories,
+  type ComponentKey,
+} from "./components/ui/props/keys";
 
 export {
   ThemeProvider,
   useTheme,
   defaultTheme,
-  COMPONENT,
   type ThemeProps,
   type ThemeDefaults,
   type ThemeExtraClasses,
   type ThemeProviderProps,
   type PartialTheme,
-  type ComponentKey,
 } from './components/themeContext';
 
 export * from "./components/ui/props/index";

@@ -121,3 +121,33 @@ export const IMG_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...VISUAL_DECORAT
 export type CategoryProps = {
   [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];
 };
+
+export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
+  'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img'] as const;
+export type ComponentKey = typeof COMPONENT[number];
+
+export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
+  badge: BADGE_CATEGORIES,
+  button: BUTTON_CATEGORIES,
+  card: CARD_CATEGORIES,
+  checkbox: CHECKBOX_CATEGORIES,
+  chip: CHIP_CATEGORIES,
+  code: CODE_CATEGORIES,
+  col: COL_CATEGORIES,
+  container: CONTAINER_CATEGORIES,
+  divider: DIVIDER_CATEGORIES,
+  grid3: GRID_CATEGORIES,
+  grid4: GRID_CATEGORIES,
+  img: IMG_CATEGORIES,
+  label: LABEL_CATEGORIES,
+  link: TYPOGRAPHY_CATEGORIES,
+  list: LIST_CATEGORIES,
+  listItem: TYPOGRAPHY_CATEGORIES,
+  pageTitle: TYPOGRAPHY_CATEGORIES,
+  row: ROW_CATEGORIES,
+  section: SECTION_CATEGORIES,
+  sectionTitle: TYPOGRAPHY_CATEGORIES,
+  stack: STACK_CATEGORIES,
+  text: TYPOGRAPHY_CATEGORIES,
+  title: TYPOGRAPHY_CATEGORIES
+}
