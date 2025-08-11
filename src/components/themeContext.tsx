@@ -109,70 +109,85 @@ export const defaultTheme: ThemeProps = {
   img: defaultImgTheme,
 };
 
-// ThemeDefaults mirrors the structure of ThemeProps
-// For regular components: Record<string, boolean> for defaults
-// For checkbox: nested structure with input and wrapper
+/**
+ * Helper type to extract boolean keys from component props.
+ * This ensures only valid component prop keys can be used in ThemeDefaults.
+ * For example, ButtonProps will only allow keys like 'primary', 'secondary', 'filled', etc.
+ */
+type BooleanKeys<T> = {
+  [K in keyof T as T[K] extends boolean | undefined ? K : never]: boolean;
+};
+
+/**
+ * Helper type to get all boolean keys from component props as string-valued keys.
+ * This ensures only valid component prop keys can be used in ThemeExtraClasses.
+ * The keys are the same as BooleanKeys, but the values are strings (CSS class names).
+ */
+type StringValueKeys<T> = {
+  [K in keyof T as T[K] extends boolean | undefined ? K : never]: string;
+};
+
 export type ThemeDefaults = {
-  button?: Record<string, boolean>;
-  badge?: Record<string, boolean>;
-  chip?: Record<string, boolean>;
-  code?: Record<string, boolean>;
-  card?: Record<string, boolean>;
-  divider?: Record<string, boolean>;
-  container?: Record<string, boolean>;
-  row?: Record<string, boolean>;
-  col?: Record<string, boolean>;
-  stack?: Record<string, boolean>;
-  section?: Record<string, boolean>;
-  grid3?: Record<string, boolean>;
-  grid4?: Record<string, boolean>;
-  pageTitle?: Record<string, boolean>;
-  sectionTitle?: Record<string, boolean>;
-  title?: Record<string, boolean>;
-  text?: Record<string, boolean>;
-  link?: Record<string, boolean>;
-  list?: Record<string, boolean>;
-  listItem?: Record<string, boolean>;
+  button?: Partial<BooleanKeys<ButtonProps>>;
+  badge?: Partial<BooleanKeys<BadgeProps>>;
+  chip?: Partial<BooleanKeys<ChipProps>>;
+  code?: Partial<BooleanKeys<CodeProps>>;
+  card?: Partial<BooleanKeys<CardProps>>;
+  divider?: Partial<BooleanKeys<DividerProps>>;
+  container?: Partial<BooleanKeys<ContainerProps>>;
+  row?: Partial<BooleanKeys<RowProps>>;
+  col?: Partial<BooleanKeys<ColProps>>;
+  stack?: Partial<BooleanKeys<StackProps>>;
+  section?: Partial<BooleanKeys<SectionProps>>;
+  grid3?: Partial<BooleanKeys<GridProps>>;
+  grid4?: Partial<BooleanKeys<GridProps>>;
+  pageTitle?: Partial<BooleanKeys<TypographyProps>>;
+  sectionTitle?: Partial<BooleanKeys<TypographyProps>>;
+  title?: Partial<BooleanKeys<TypographyProps>>;
+  text?: Partial<BooleanKeys<TypographyProps>>;
+  link?: Partial<BooleanKeys<TypographyProps>>;
+  list?: Partial<BooleanKeys<ListProps>>;
+  listItem?: Partial<BooleanKeys<TypographyProps>>;
   checkbox?: {
-    input?: Record<string, boolean>;
-    check?: Record<string, boolean>;
-    wrapper?: Record<string, boolean>;
+    input?: Partial<BooleanKeys<CheckboxProps>>;
+    check?: Partial<BooleanKeys<CheckboxProps>>;
+    wrapper?: Partial<BooleanKeys<CheckboxProps>>;
   };
-  label?: Record<string, boolean>;
-  img?: Record<string, boolean>;
+  label?: Partial<BooleanKeys<LabelProps>>;
+  img?: Partial<BooleanKeys<ImgProps>>;
 };
 
 // ThemeExtraClasses mirrors the structure of ThemeProps
 // For regular components: Record<string, string> for extra classes
 // For checkbox: nested structure with input and wrapper
 export type ThemeExtraClasses = {
-  button?: Record<string, string>;
-  badge?: Record<string, string>;
-  chip?: Record<string, string>;
-  code?: Record<string, string>;
-  card?: Record<string, string>;
-  divider?: Record<string, string>;
-  container?: Record<string, string>;
-  row?: Record<string, string>;
-  col?: Record<string, string>;
-  stack?: Record<string, string>;
-  section?: Record<string, string>;
-  grid3?: Record<string, string>;
-  grid4?: Record<string, string>;
-  pageTitle?: Record<string, string>;
-  sectionTitle?: Record<string, string>;
-  title?: Record<string, string>;
-  text?: Record<string, string>;
-  link?: Record<string, string>;
-  list?: Record<string, string>;
-  listItem?: Record<string, string>;
+  button?: Partial<StringValueKeys<ButtonProps>>;
+  badge?: Partial<StringValueKeys<BadgeProps>>;
+  chip?: Partial<StringValueKeys<ChipProps>>;
+  code?: Partial<StringValueKeys<CodeProps>>;
+  card?: Partial<StringValueKeys<CardProps>>;
+  divider?: Partial<StringValueKeys<DividerProps>>;
+  container?: Partial<StringValueKeys<ContainerProps>>;
+  row?: Partial<StringValueKeys<RowProps>>;
+  col?: Partial<StringValueKeys<ColProps>>;
+  stack?: Partial<StringValueKeys<StackProps>>;
+  section?: Partial<StringValueKeys<SectionProps>>;
+  grid3?: Partial<StringValueKeys<GridProps>>;
+  grid4?: Partial<StringValueKeys<GridProps>>;
+  pageTitle?: Partial<StringValueKeys<TypographyProps>>;
+  sectionTitle?: Partial<StringValueKeys<TypographyProps>>;
+  title?: Partial<StringValueKeys<TypographyProps>>;
+  text?: Partial<StringValueKeys<TypographyProps>>;
+  link?: Partial<StringValueKeys<TypographyProps>>;
+  list?: Partial<StringValueKeys<ListProps>>;
+  listItem?: Partial<StringValueKeys<TypographyProps>>;
   checkbox?: {
-    input?: Record<string, string>;
-    check?: Record<string, string>;
-    wrapper?: Record<string, string>;
+    input?: Partial<StringValueKeys<CheckboxProps>>;
+    check?: Partial<StringValueKeys<CheckboxProps>>;
+    wrapper?: Partial<StringValueKeys<CheckboxProps>>;
   };
-  label?: Record<string, string>;
-  img?: Record<string, string>;
+  label?: Partial<StringValueKeys<LabelProps>>;
+  img?: Partial<StringValueKeys<ImgProps>>;
 };
 
 /**

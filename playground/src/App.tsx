@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -14,6 +14,22 @@ import {
 import Demo from './Demo';
 
 function App() {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Example: focus the button on mount
+    if (buttonRef.current) {
+      console.log('Button ref is available:', buttonRef.current);
+    }
+    if (textRef.current) {
+      console.log('Text ref is available:', textRef.current);
+    }
+    if (cardRef.current) {
+      console.log('Card ref is available:', cardRef.current);
+    }
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme} extraClasses={{
@@ -25,11 +41,42 @@ function App() {
       }
     }}>
       <Section>
-        <Card>
+        <Card ref={cardRef}>
           <Col gap>
-            <Title>Label Cursor Behavior Demo</Title>
+            <Title>Component Ref Support Demo</Title>
             <Divider />
             
+            <Row gap>
+              <Col>
+                <Text sm bold>Button with ref:</Text>
+                <Button 
+                  ref={buttonRef} 
+                  primary
+                  onClick={() => {
+                    console.log('Button clicked! Ref:', buttonRef.current);
+                    // You can access DOM methods through ref
+                    if (textRef.current) {
+                      textRef.current.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  Click me (has ref)
+                </Button>
+              </Col>
+              
+              <Col>
+                <Text ref={textRef} sm bold>
+                  Text with ref - Button click will scroll here
+                </Text>
+                <Text secondary xs>
+                  Check the console to see ref usage
+                </Text>
+              </Col>
+            </Row>
+            
+            <Divider />
+            
+            <Title>Label Cursor Behavior Demo</Title>
             <Row gap>
               <Col>
                 <Text sm bold>Label without input (cursor-default):</Text>

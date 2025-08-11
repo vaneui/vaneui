@@ -1,39 +1,53 @@
-import { JSX } from 'react';
+import React, { forwardRef } from 'react';
 import { TypographyProps, ListProps } from './props/props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
 
-export const PageTitle = (props: TypographyProps): JSX.Element => {
-  const theme = useTheme();
-  return <ThemedComponent theme={theme.pageTitle} {...props} />
-};
+export const PageTitle = forwardRef<HTMLHeadingElement, TypographyProps>(
+  function PageTitle(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent ref={ref} theme={theme.pageTitle} {...props} />
+  }
+);
 
-export const SectionTitle = (props: TypographyProps): JSX.Element => {
-  const theme = useTheme();
-  return <ThemedComponent theme={theme.sectionTitle} {...props} />
-};
+export const SectionTitle = forwardRef<HTMLHeadingElement, TypographyProps>(
+  function SectionTitle(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent ref={ref} theme={theme.sectionTitle} {...props} />
+  }
+);
 
-export const Title = (props: TypographyProps): JSX.Element => {
-  const theme = useTheme();
-  return <ThemedComponent theme={theme.title} {...props} />
-};
+export const Title = forwardRef<HTMLHeadingElement, TypographyProps>(
+  function Title(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent ref={ref} theme={theme.title} {...props} />
+  }
+);
 
-export const Text = (props: TypographyProps): JSX.Element => {
-  const theme = useTheme();
-  return <ThemedComponent theme={theme.text} {...props} />
-};
+export const Text = forwardRef<HTMLParagraphElement, TypographyProps>(
+  function Text(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent ref={ref} theme={theme.text} {...props} />
+  }
+);
 
-export const Link = (props: TypographyProps): JSX.Element => {
-  const theme = useTheme();
-  return <ThemedComponent theme={theme.link} {...props} />
-};
+export const Link = forwardRef<HTMLAnchorElement, TypographyProps>(
+  function Link(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent ref={ref} theme={theme.link} {...props} />
+  }
+);
 
-export const ListItem = (props: TypographyProps): JSX.Element => {
-  const theme = useTheme();
-  return <ThemedComponent theme={theme.listItem} {...props} />
-};
+export const ListItem = forwardRef<HTMLLIElement, TypographyProps>(
+  function ListItem(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent ref={ref} theme={theme.listItem} {...props} />
+  }
+);
 
-export const List = (props: ListProps): JSX.Element => {
-  const theme = useTheme();
-  return <ThemedComponent theme={theme.list} {...props} />
-};
+export const List = forwardRef<HTMLUListElement, ListProps>(
+  function List(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent ref={ref} theme={theme.list} {...props} />
+  }
+);

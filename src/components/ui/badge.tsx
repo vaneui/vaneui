@@ -1,9 +1,11 @@
-import { JSX } from 'react';
+import React, { JSX, forwardRef } from 'react';
 import { BadgeProps } from './props/props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
 
-export const Badge = (props: BadgeProps): JSX.Element => {
-  const theme = useTheme();
-  return <ThemedComponent theme={theme.badge} {...props} />
-}
+export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
+  function Badge(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent theme={theme.badge} ref={ref} {...props} />
+  }
+)

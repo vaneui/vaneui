@@ -1,9 +1,11 @@
-import { JSX } from 'react';
+import React, { JSX, forwardRef } from 'react';
 import { CodeProps } from './props/props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
 
-export const Code = (props: CodeProps): JSX.Element => {
-  const theme = useTheme();
-  return <ThemedComponent theme={theme.code} {...props} />
-};
+export const Code = forwardRef<HTMLElement, CodeProps>(
+  function Code(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent theme={theme.code} ref={ref} {...props} />
+  }
+);
