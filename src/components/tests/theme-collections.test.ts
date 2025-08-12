@@ -26,6 +26,7 @@ describe('Theme structure consistency', () => {
       col: {},
       stack: {},
       section: {},
+      grid2: {},
       grid3: {},
       grid4: {},
       pageTitle: {},

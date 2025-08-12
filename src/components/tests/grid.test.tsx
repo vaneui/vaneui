@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import React from 'react';
 import {
+  Grid2,
   Grid3,
   Grid4,
   ThemeProvider,
@@ -9,6 +10,24 @@ import {
 } from '../../index';
 
 describe('Grid Components Tests', () => {
+
+  describe('Grid2 Component', () => {
+    it('should render with 2-column grid classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid2>Grid2 content</Grid2>
+        </ThemeProvider>
+      );
+
+      const grid = container.querySelector('div');
+      expect(grid).toBeInTheDocument();
+      expect(grid).toHaveClass('grid-cols-1'); // mobile and small screens: 1 column
+      expect(grid).toHaveClass('md:grid-cols-2'); // medium screens and up: 2 columns
+      expect(grid).toHaveClass('grid');
+      expect(grid).toHaveClass('gap-6'); // default md gap
+      expect(grid).toHaveTextContent('Grid2 content');
+    });
+  });
 
   describe('Grid3 Component', () => {
     it('should render with default theme classes', () => {

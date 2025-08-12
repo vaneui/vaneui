@@ -46,6 +46,17 @@ const gridSubThemes: DeepPartial<GridTheme> = {
   },
 };
 
+export const defaultGrid2Theme = new ComponentTheme<GridProps, GridTheme>(
+  "div",
+  "grid-cols-1 md:grid-cols-2",
+  gridSubThemes,
+  gridDefaults,
+  GRID_CATEGORIES,
+  (props: GridProps, defaults: Partial<GridProps>) => {
+    return props.href ? "a" : "div";
+  }
+);
+
 export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(
   "div",
   "grid-cols-1 md:grid-cols-3",

@@ -9,7 +9,7 @@ import {
   Title,
   Section,
   Code,
-  Chip, Card, Checkbox, Label, Img, Button, Link
+  Chip, Card, Checkbox, Label, Img, Button, Link, Grid2
 } from '../../src';
 import Demo from './Demo';
 
@@ -101,6 +101,43 @@ function App() {
                 </Label>
               </Col>
             </Row>
+            
+            <Divider />
+            
+            <Title>Grid2 Component Demo</Title>
+            <Text secondary xs mb={4}>
+              2-column grid that adapts to screen size (1 column on mobile/small screens, 2 columns on medium screens and up)
+            </Text>
+            
+            <Grid2 className="mb-4">
+              <Card>
+                <Text bold>Grid Item 1</Text>
+                <Text secondary>First column content</Text>
+              </Card>
+              <Card>
+                <Text bold>Grid Item 2</Text>
+                <Text secondary>Second column content</Text>
+              </Card>
+              <Card>
+                <Text bold>Grid Item 3</Text>
+                <Text secondary>Third item wraps to new row</Text>
+              </Card>
+              <Card>
+                <Text bold>Grid Item 4</Text>
+                <Text secondary>Fourth item in second row</Text>
+              </Card>
+            </Grid2>
+            
+            <Grid2 lg primary className="p-4">
+              <div>
+                <Text bold>Large Gap Demo</Text>
+                <Text secondary xs>This grid uses large gap spacing and primary background</Text>
+              </div>
+              <div>
+                <Text bold>Responsive Design</Text>
+                <Text secondary xs>Automatically adjusts columns based on screen size</Text>
+              </div>
+            </Grid2>
             
             <Divider />
           </Col>

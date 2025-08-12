@@ -123,7 +123,7 @@ export type CategoryProps = {
 };
 
 export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img'] as const;
+  'grid2', 'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img'] as const;
 export type ComponentKey = typeof COMPONENT[number];
 
 export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
@@ -136,6 +136,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   col: COL_CATEGORIES,
   container: CONTAINER_CATEGORIES,
   divider: DIVIDER_CATEGORIES,
+  grid2: GRID_CATEGORIES,
   grid3: GRID_CATEGORIES,
   grid4: GRID_CATEGORIES,
   img: IMG_CATEGORIES,

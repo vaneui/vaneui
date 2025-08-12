@@ -21,7 +21,7 @@ import { ContainerTheme, defaultContainerTheme } from './ui/theme/containerTheme
 import { ColTheme, defaultColTheme } from './ui/theme/colTheme';
 import { defaultStackTheme, StackTheme } from './ui/theme/stackTheme';
 import { defaultSectionTheme, SectionTheme } from "./ui/theme/sectionTheme";
-import { defaultGrid3Theme, defaultGrid4Theme, GridTheme } from "./ui/theme/gridTheme";
+import { defaultGrid2Theme, defaultGrid3Theme, defaultGrid4Theme, GridTheme } from "./ui/theme/gridTheme";
 import { CheckboxTheme, CheckTheme, CheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckTheme, defaultCheckboxWrapperTheme } from './ui/theme/checkboxTheme';
 import { LabelTheme, defaultLabelTheme } from './ui/theme/labelTheme';
 import { ImgTheme, defaultImgTheme } from './ui/theme/imgTheme';
@@ -59,6 +59,7 @@ export interface ThemeProps {
   col: ComponentTheme<ColProps, ColTheme>;
   stack: ComponentTheme<StackProps, StackTheme>;
   section: ComponentTheme<SectionProps, SectionTheme>;
+  grid2: ComponentTheme<GridProps, GridTheme>;
   grid3: ComponentTheme<GridProps, GridTheme>;
   grid4: ComponentTheme<GridProps, GridTheme>;
   pageTitle: ComponentTheme<TypographyProps, TypographyTheme>;
@@ -91,6 +92,7 @@ export const defaultTheme: ThemeProps = {
   col: defaultColTheme,
   stack: defaultStackTheme,
   section: defaultSectionTheme,
+  grid2: defaultGrid2Theme,
   grid3: defaultGrid3Theme,
   grid4: defaultGrid4Theme,
   pageTitle: pageTitleTheme,
@@ -139,6 +141,7 @@ export type ThemeDefaults = {
   col?: Partial<BooleanKeys<ColProps>>;
   stack?: Partial<BooleanKeys<StackProps>>;
   section?: Partial<BooleanKeys<SectionProps>>;
+  grid2?: Partial<BooleanKeys<GridProps>>;
   grid3?: Partial<BooleanKeys<GridProps>>;
   grid4?: Partial<BooleanKeys<GridProps>>;
   pageTitle?: Partial<BooleanKeys<TypographyProps>>;
@@ -172,6 +175,7 @@ export type ThemeExtraClasses = {
   col?: Partial<StringValueKeys<ColProps>>;
   stack?: Partial<StringValueKeys<StackProps>>;
   section?: Partial<StringValueKeys<SectionProps>>;
+  grid2?: Partial<StringValueKeys<GridProps>>;
   grid3?: Partial<StringValueKeys<GridProps>>;
   grid4?: Partial<StringValueKeys<GridProps>>;
   pageTitle?: Partial<StringValueKeys<TypographyProps>>;

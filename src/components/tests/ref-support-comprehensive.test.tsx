@@ -27,6 +27,7 @@ import {
   Col,
   Stack,
   Section,
+  Grid2,
   Grid3,
   Grid4,
   Card,
@@ -328,6 +329,30 @@ describe('Comprehensive Ref Support Tests', () => {
       
       expect(section).toBeInTheDocument();
       expect(sectionRef).toBe(section);
+    });
+
+    it('Grid2 should forward ref', () => {
+      let gridRef: HTMLDivElement | null = null;
+      
+      const TestComponent = () => {
+        const ref = useRef<HTMLDivElement>(null);
+        
+        useEffect(() => {
+          gridRef = ref.current;
+        }, []);
+        
+        return (
+          <ThemeProvider theme={defaultTheme}>
+            <Grid2 ref={ref}>Grid2 Content</Grid2>
+          </ThemeProvider>
+        );
+      };
+      
+      const { container } = render(<TestComponent />);
+      const grid = container.querySelector('div');
+      
+      expect(grid).toBeInTheDocument();
+      expect(gridRef).toBe(grid);
     });
 
     it('Grid3 should forward ref', () => {
