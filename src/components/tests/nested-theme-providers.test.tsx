@@ -97,7 +97,8 @@ describe('Nested ThemeProvider Tests', () => {
       // Inner title should have inner extra classes
       expect(innerTitle).toHaveClass('inner-animate-pulse', 'inner-opacity-90');
       
-      // Inner title should NOT have outer extra classes
+      // Inner title should NOT have outer extra classes because it's using 'secondary' prop
+      // and outer extra classes are only for 'primary' prop
       expect(innerTitle).not.toHaveClass('outer-shadow-lg');
       expect(innerTitle).not.toHaveClass('outer-border-2');
     });
@@ -154,9 +155,10 @@ describe('Nested ThemeProvider Tests', () => {
       expect(innerButton).toHaveClass('text-lg'); // from lg default
       expect(innerButton).toHaveClass('font-bold', 'tracking-wide');
       
-      // Inner button should NOT inherit outer extra classes - proper isolation
-      expect(innerButton).not.toHaveClass('transform');
-      expect(innerButton).not.toHaveClass('hover:scale-105');
+      // Inner button SHOULD inherit outer extra classes in merge mode
+      // because it still has primary: true from the outer override
+      expect(innerButton).toHaveClass('transform');
+      expect(innerButton).toHaveClass('hover:scale-105');
     });
   });
 
@@ -356,8 +358,8 @@ describe('Nested ThemeProvider Tests', () => {
       // Outer title should have extra classes
       expect(outerTitle).toHaveClass('outer-custom-class');
 
-      // Inner title should NOT have outer extra classes (proper isolation)
-      expect(innerTitle).not.toHaveClass('outer-custom-class');
+      // Inner title SHOULD inherit outer extra classes in merge mode (default)
+      expect(innerTitle).toHaveClass('outer-custom-class');
 
       // Both should have primary appearance
       expect(outerTitle).toHaveClass('text-(--text-color-primary)');

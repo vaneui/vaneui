@@ -69,7 +69,7 @@ describe('Simple Nested ThemeProvider Test', () => {
     // Outer title should have the extra class
     expect(outerTitle).toHaveClass('outer-class');
 
-    // Inner title should inherit the outer extra class in merge mode
+    // Inner title SHOULD inherit the outer extra class in merge mode
     expect(innerTitle).toHaveClass('outer-class');
     expect(innerTitle).toHaveClass('font-semibold');
     expect(innerTitle).toHaveClass('text-(--text-color-primary)');
@@ -154,6 +154,50 @@ describe('Simple Nested ThemeProvider Test', () => {
     expect(innerReplaced).not.toHaveClass('text-lg'); // NOT inherited
     expect(innerReplaced).toHaveClass('inner-secondary-class');
     expect(innerReplaced).not.toHaveClass('outer-primary-class'); // NOT inherited
+  });
+
+  it('should handle extra classes correctly with different merge strategies', () => {
+    const { container } = render(
+      <div>
+        {/* Test 1: Merge mode - extra classes should be inherited */}
+        <ThemeProvider 
+          extraClasses={{ button: { primary: 'outer-class-merge' } }}
+        >
+          <ThemeProvider 
+            extraClasses={{ button: { secondary: 'inner-class-merge' } }}
+          >
+            <Button primary className="merge-primary">Merge Primary</Button>
+            <Button secondary className="merge-secondary">Merge Secondary</Button>
+          </ThemeProvider>
+        </ThemeProvider>
+
+        {/* Test 2: Replace mode - extra classes should NOT be inherited */}
+        <ThemeProvider 
+          extraClasses={{ button: { primary: 'outer-class-replace' } }}
+        >
+          <ThemeProvider 
+            mergeStrategy="replace"
+            extraClasses={{ button: { secondary: 'inner-class-replace' } }}
+          >
+            <Button primary className="replace-primary">Replace Primary</Button>
+            <Button secondary className="replace-secondary">Replace Secondary</Button>
+          </ThemeProvider>
+        </ThemeProvider>
+      </div>
+    );
+
+    const mergePrimary = container.querySelector('.merge-primary');
+    const mergeSecondary = container.querySelector('.merge-secondary');
+    const replacePrimary = container.querySelector('.replace-primary');
+    const replaceSecondary = container.querySelector('.replace-secondary');
+
+    // Merge mode: both outer and inner extra classes are available
+    expect(mergePrimary).toHaveClass('outer-class-merge'); // inherited from outer
+    expect(mergeSecondary).toHaveClass('inner-class-merge'); // from inner
+
+    // Replace mode: only inner extra classes are available
+    expect(replacePrimary).not.toHaveClass('outer-class-replace'); // NOT inherited
+    expect(replaceSecondary).toHaveClass('inner-class-replace'); // from inner
   });
 
   it('should handle deeply nested providers with mixed strategies', () => {
