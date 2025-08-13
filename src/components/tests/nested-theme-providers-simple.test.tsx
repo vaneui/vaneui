@@ -4,7 +4,8 @@ import React from 'react';
 import {
   Title,
   ThemeProvider,
-  defaultTheme
+  defaultTheme,
+  Button
 } from '../../index';
 
 describe('Simple Nested ThemeProvider Test', () => {
@@ -40,11 +41,11 @@ describe('Simple Nested ThemeProvider Test', () => {
         <Title className="no-provider">No Provider</Title>
         
         {/* Outer provider with extra classes */}
-        <ThemeProvider extraClasses={{ title: { primary: 'outer-class' } }}>
+        <ThemeProvider extraClasses={{ title: { primary: 'outer-class' } }} themeDefaults={{ title: {bold: true } }}>
           <Title primary className="outer-title">Outer Title</Title>
           
           {/* Inner provider without extra classes */}
-          <ThemeProvider>
+          <ThemeProvider themeDefaults={{ title: {semibold: true } }}>
             <Title primary className="inner-title">Inner Title</Title>
           </ThemeProvider>
         </ThemeProvider>
@@ -68,10 +69,161 @@ describe('Simple Nested ThemeProvider Test', () => {
     // Outer title should have the extra class
     expect(outerTitle).toHaveClass('outer-class');
 
-    // Inner title should NOT have the outer extra class
-    expect(innerTitle).not.toHaveClass('outer-class');
+    // Inner title should inherit the outer extra class in merge mode
+    expect(innerTitle).toHaveClass('outer-class');
+    expect(innerTitle).toHaveClass('font-semibold');
+    expect(innerTitle).toHaveClass('text-(--text-color-primary)');
 
     // Another outer title should have the extra class
     expect(outerTitle2).toHaveClass('outer-class');
+  });
+
+  it('should merge themes by default (merge strategy)', () => {
+    const { container } = render(
+      <div>
+        {/* Outer provider sets primary and lg */}
+        <ThemeProvider 
+          themeDefaults={{ button: { primary: true, lg: true } }}
+          extraClasses={{ button: { primary: 'outer-primary-class' } }}
+        >
+          <Button className="outer-button">Outer Button</Button>
+          
+          {/* Inner provider with default merge strategy - should inherit from parent */}
+          <ThemeProvider 
+            themeDefaults={{ button: { secondary: true } }}
+            extraClasses={{ button: { secondary: 'inner-secondary-class' } }}
+          >
+            <Button className="inner-merged">Inner Merged</Button>
+          </ThemeProvider>
+        </ThemeProvider>
+      </div>
+    );
+
+    const outerButton = container.querySelector('.outer-button');
+    const innerMerged = container.querySelector('.inner-merged');
+
+    // Outer button should have primary and lg
+    expect(outerButton).toHaveClass('bg-(--background-color-primary)');
+    expect(outerButton).toHaveClass('text-lg');
+    expect(outerButton).toHaveClass('outer-primary-class');
+
+    // Inner button with merge strategy should:
+    // - Have secondary (from inner provider)
+    // - Keep lg (inherited from outer provider)
+    // - Have both extra classes available
+    expect(innerMerged).toHaveClass('bg-(--background-color-secondary)');
+    expect(innerMerged).toHaveClass('text-lg'); // inherited from outer
+    expect(innerMerged).toHaveClass('inner-secondary-class');
+  });
+
+  it('should replace parent theme when using replace strategy', () => {
+    const { container } = render(
+      <div>
+        {/* Outer provider sets primary and lg */}
+        <ThemeProvider 
+          themeDefaults={{ button: { primary: true, lg: true } }}
+          extraClasses={{ button: { primary: 'outer-primary-class' } }}
+        >
+          <Button className="outer-button">Outer Button</Button>
+          
+          {/* Inner provider with replace strategy - should NOT inherit from parent */}
+          <ThemeProvider 
+            mergeStrategy="replace"
+            themeDefaults={{ button: { secondary: true } }}
+            extraClasses={{ button: { secondary: 'inner-secondary-class' } }}
+          >
+            <Button className="inner-replaced">Inner Replaced</Button>
+          </ThemeProvider>
+        </ThemeProvider>
+      </div>
+    );
+
+    const outerButton = container.querySelector('.outer-button');
+    const innerReplaced = container.querySelector('.inner-replaced');
+
+    // Outer button should have primary and lg
+    expect(outerButton).toHaveClass('bg-(--background-color-primary)');
+    expect(outerButton).toHaveClass('text-lg');
+    expect(outerButton).toHaveClass('outer-primary-class');
+
+    // Inner button with replace strategy should:
+    // - Have secondary (from inner provider)
+    // - NOT have lg (not inherited due to replace)
+    // - Only have inner extra classes
+    expect(innerReplaced).toHaveClass('bg-(--background-color-secondary)');
+    expect(innerReplaced).not.toHaveClass('text-lg'); // NOT inherited
+    expect(innerReplaced).toHaveClass('inner-secondary-class');
+    expect(innerReplaced).not.toHaveClass('outer-primary-class'); // NOT inherited
+  });
+
+  it('should handle deeply nested providers with mixed strategies', () => {
+    const { container } = render(
+      <div>
+        {/* Level 1: Outer provider */}
+        <ThemeProvider 
+          themeDefaults={{ button: { primary: true, lg: true } }}
+          extraClasses={{ button: { primary: 'level-1-class' } }}
+        >
+          <Button className="level-1">Level 1</Button>
+          
+          {/* Level 2: Merge strategy (default) */}
+          <ThemeProvider 
+            themeDefaults={{ button: { filled: true } }}
+            extraClasses={{ button: { filled: 'level-2-class' } }}
+          >
+            <Button className="level-2-merged">Level 2 Merged</Button>
+            
+            {/* Level 3: Replace strategy */}
+            <ThemeProvider 
+              mergeStrategy="replace"
+              themeDefaults={{ button: { secondary: true, sm: true } }}
+              extraClasses={{ button: { secondary: 'level-3-class' } }}
+            >
+              <Button className="level-3-replaced">Level 3 Replaced</Button>
+              
+              {/* Level 4: Merge strategy after replace */}
+              <ThemeProvider 
+                themeDefaults={{ button: { outline: true } }}
+                extraClasses={{ button: { outline: 'level-4-class' } }}
+              >
+                <Button className="level-4-merged-after-replace">Level 4</Button>
+              </ThemeProvider>
+            </ThemeProvider>
+          </ThemeProvider>
+        </ThemeProvider>
+      </div>
+    );
+
+    const level1 = container.querySelector('.level-1');
+    const level2 = container.querySelector('.level-2-merged');
+    const level3 = container.querySelector('.level-3-replaced');
+    const level4 = container.querySelector('.level-4-merged-after-replace');
+
+    // Level 1: Has primary and lg
+    expect(level1).toHaveClass('bg-(--background-color-primary)');
+    expect(level1).toHaveClass('text-lg');
+    expect(level1).toHaveClass('level-1-class');
+
+    // Level 2: Inherits from level 1 and adds filled
+    expect(level2).toHaveClass('bg-(--filled-background-color-primary)'); // filled variant
+    expect(level2).toHaveClass('text-lg'); // inherited
+    expect(level2).toHaveClass('shadow-md'); // filled
+    expect(level2).toHaveClass('level-2-class');
+
+    // Level 3: Replace strategy - starts fresh from defaultTheme
+    expect(level3).toHaveClass('bg-(--background-color-secondary)');
+    expect(level3).toHaveClass('text-sm'); // sm, not lg
+    expect(level3).not.toHaveClass('text-lg'); // NOT inherited
+    expect(level3).not.toHaveClass('shadow-md'); // NOT inherited
+    expect(level3).toHaveClass('level-3-class');
+    expect(level3).not.toHaveClass('level-1-class'); // NOT inherited
+    expect(level3).not.toHaveClass('level-2-class'); // NOT inherited
+
+    // Level 4: Merges with level 3 (not level 1 or 2)
+    expect(level4).toHaveClass('bg-(--background-color-secondary)'); // inherited from level 3
+    expect(level4).toHaveClass('text-sm'); // inherited from level 3
+    expect(level4).toHaveClass('level-4-class');
+    expect(level4).not.toHaveClass('level-1-class'); // NOT inherited (blocked by replace)
+    expect(level4).not.toHaveClass('level-2-class'); // NOT inherited (blocked by replace)
   });
 });

@@ -268,12 +268,15 @@ function applyExtraClassesRecursively(
 
 const ThemeContext = createContext<ThemeProps>(defaultTheme);
 
+export type MergeStrategy = 'merge' | 'replace';
+
 export interface ThemeProviderProps {
   children: React.ReactNode;
   theme?: PartialTheme;
   themeDefaults?: ThemeDefaults;
   extraClasses?: ThemeExtraClasses;
   themeOverride?: (theme: ThemeProps) => ThemeProps;
+  mergeStrategy?: MergeStrategy;
 }
 
 export function ThemeProvider(
@@ -282,13 +285,21 @@ export function ThemeProvider(
     theme: themeObject = {},
     themeDefaults,
     extraClasses,
-    themeOverride
+    themeOverride,
+    mergeStrategy = 'merge'
   }: ThemeProviderProps) {
+  const parentTheme = useContext(ThemeContext);
+  
   const mergedTheme = useMemo(() => {
+      // Determine the base theme based on merge strategy
+      const baseTheme = mergeStrategy === 'replace' 
+        ? defaultTheme 
+        : parentTheme;
+      
       // Always start with a deep clone to ensure isolation
       let finalTheme = themeObject
-        ? deepMerge(deepClone(defaultTheme), themeObject)
-        : deepClone(defaultTheme);
+        ? deepMerge(deepClone(baseTheme), themeObject)
+        : deepClone(baseTheme);
 
       if (typeof themeOverride === 'function') {
         const themeToModify = deepClone(finalTheme);
@@ -311,7 +322,7 @@ export function ThemeProvider(
 
       return finalTheme;
     },
-    [themeObject, themeDefaults, extraClasses, themeOverride]
+    [themeObject, themeDefaults, extraClasses, themeOverride, mergeStrategy, parentTheme]
   );
 
   return (
