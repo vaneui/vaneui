@@ -7,7 +7,6 @@ export const VISUAL_DECORATION = ['border', 'shadow', 'ring'] as const;
 export const SHAPE = ['shape'] as const;
 export const TYPOGRAPHY_STYLE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
 export const LIST_STYLE = ['listStyle'] as const;
-export const LINK = ['link'] as const;
 export const VARIANT = ['variant'] as const;
 
 export const COMPONENT_PROPS_CATEGORY = [
@@ -17,7 +16,6 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...LIST_STYLE,
   ...LAYOUT_CORE,
   ...BREAKPOINT,
-  ...LINK,
   ...PADDING,
   ...VISUAL_DECORATION,
   ...SHAPE,
@@ -27,7 +25,7 @@ export const COMPONENT_PROPS_CATEGORY = [
 
 export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
 export const ComponentKeys = {
-  appearance: ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'],
+  appearance: ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'link'],
   border: ['border', 'noBorder'],
   breakpoint: ['xsCol', 'smCol', 'mdCol', 'lgCol', 'xlCol'],
   display: ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'],
@@ -39,7 +37,6 @@ export const ComponentKeys = {
   hide: ['xsHide', 'smHide', 'mdHide', 'lgHide', 'xlHide'],
   items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'],
   justify: ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'],
-  link: ['link'],
   listStyle: ['disc', 'decimal'],
   mode: ['base', 'hover', 'active'] as const,
   overflow: ['overflowAuto', 'overflowHidden', 'overflowClip', 'overflowVisible', 'overflowScroll', 'overflowXAuto', 'overflowYAuto', 'overflowXHidden', 'overflowYHidden', 'overflowXClip', 'overflowYClip', 'overflowXVisible', 'overflowYVisible', 'overflowXScroll', 'overflowYScroll'],
@@ -68,7 +65,7 @@ export type GapKey = typeof ComponentKeys.gap[number];
 export type VariantKey = typeof ComponentKeys.variant[number];
 export type AppearanceKey = typeof ComponentKeys.appearance[number];
 export type TransparentKey = typeof ComponentKeys.transparent[number];
-export type LinkKey = typeof ComponentKeys.link[number];
+export type LinkKey = 'link';
 export type ListStyleKey = typeof ComponentKeys.listStyle[number];
 export type FontFamilyKey = typeof ComponentKeys.fontFamily[number];
 export type FontWeightKey = typeof ComponentKeys.fontWeight[number];
@@ -89,7 +86,7 @@ export type OverflowKey = typeof ComponentKeys.overflow[number];
 // Composite categories built from core blocks
 export const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
 export const VISUAL_FULL = [...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE] as const;
-export const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE, ...LINK] as const;
+export const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE] as const;
 
 export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT] as const;
 export const BUTTON_CATEGORIES = INTERACTIVE_CATEGORIES;

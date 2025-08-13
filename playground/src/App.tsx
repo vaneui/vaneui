@@ -105,7 +105,7 @@ function App() {
             <Divider />
             
             <Title>Grid2 Component Demo</Title>
-            <Text secondary xs mb={4}>
+            <Text secondary xs>
               2-column grid that adapts to screen size (1 column on mobile/small screens, 2 columns on medium screens and up)
             </Text>
             

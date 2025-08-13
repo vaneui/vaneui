@@ -3,7 +3,7 @@ import {
   ComponentTheme, defaultLayoutTheme,
   DefaultLayoutThemes, defaultTypographyTheme
 } from "./common/ComponentTheme";
-import { ButtonProps } from "../props/props";
+import { ButtonProps } from "../props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";

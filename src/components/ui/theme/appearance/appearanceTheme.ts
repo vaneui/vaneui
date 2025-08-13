@@ -24,27 +24,22 @@ export class AppearanceTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    // Check for specific transparent or link styles first
+    // Check for specific transparent styles first
     if (extractedKeys?.transparent) {
       const transparentClass = this.transparentClassSource?.[extractedKeys.transparent] || '';
       return [transparentClass];
     }
     
-    if (extractedKeys?.link) {
-      const linkClass = this.linkClassSource?.[extractedKeys.link] || '';
-      return [linkClass];
+    // Use appearance (now includes link as an appearance option)
+    const pickedAppearanceKey = extractedKeys?.appearance;
+    if (pickedAppearanceKey) {
+      const modes = this[pickedAppearanceKey];
+      if (modes) {
+        return ComponentKeys.mode.map(mode => modes[mode] || '');
+      }
     }
     
-    // Use regular appearance
-    const pickedAppearanceKey = extractedKeys?.appearance;
-    if (!pickedAppearanceKey) {
-      return [];
-    }
-    const modes = this[pickedAppearanceKey];
-    if (!modes) {
-      return [];
-    }
-    return ComponentKeys.mode.map(mode => modes[mode] || '');
+    return [];
   }
 
   static createTheme(

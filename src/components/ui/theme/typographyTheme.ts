@@ -10,7 +10,7 @@ import {
 import { SizeTheme } from "./size/sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
-import { SizeKey } from "../props";
+import { SizeKey, ComponentKeys, AppearanceKey, ModeKey, CategoryProps } from "../props";
 import { PlTheme } from "./size/plTheme";
 import { ListStyleTheme } from "./list/listStyleTheme";
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from "../props";
@@ -117,7 +117,6 @@ export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new C
   },
   {
     link: true,
-    default: true,
     sans: true,
   },
   TYPOGRAPHY_CATEGORIES
