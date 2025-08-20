@@ -148,6 +148,37 @@ describe('Visual Decoration Props', () => {
       expect(element1.className).toContain('rounded');
       expect(element2.className).toContain('rounded');
     });
+
+    it('should apply pill shape classes correctly', () => {
+      const { container } = renderWithTheme(
+        <Row pill>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('rounded-full');
+    });
+
+    it('should apply sharp shape classes correctly', () => {
+      const { container } = renderWithTheme(
+        <Row sharp>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('rounded-none');
+    });
+
+    it('should apply rounded classes with different sizes', () => {
+      const { container: containerXS } = renderWithTheme(
+        <Row xs rounded>Content XS</Row>
+      );
+      const { container: containerLG } = renderWithTheme(
+        <Row lg rounded>Content LG</Row>
+      );
+      
+      const elementXS = containerXS.firstChild as HTMLElement;
+      const elementLG = containerLG.firstChild as HTMLElement;
+      
+      expect(elementXS.className).toContain('rounded-(--layout-border-radius-xs)');
+      expect(elementLG.className).toContain('rounded-(--layout-border-radius-lg)');
+    });
   });
 
   describe('Combined Visual Props', () => {
