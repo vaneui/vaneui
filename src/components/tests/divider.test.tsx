@@ -45,7 +45,7 @@ describe('Divider Component Tests', () => {
       );
 
       const divider = container.querySelector('div');
-      expect(divider).toHaveClass('py-0'); // no padding by default
+      expect(divider).not.toHaveClass('py-2', 'py-4', 'py-6', 'py-8', 'py-10'); // no padding classes applied
     });
   });
 

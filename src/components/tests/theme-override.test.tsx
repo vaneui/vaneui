@@ -307,12 +307,9 @@ describe('Theme Override Tests', () => {
         // Override size-related classes
         theme.button.themes.size.text.md = 'text-lg';
         theme.button.themes.size.text.lg = 'text-2xl';
-        if (typeof theme.button.themes.size.px.padding === 'object') {
-          theme.button.themes.size.px.padding.md = 'px-8';
-        }
-        if (typeof theme.button.themes.size.py.padding === 'object') {
-          theme.button.themes.size.py.padding.md = 'py-4';
-        }
+        // Override padding size classes directly
+        theme.button.themes.size.px.md = 'px-8';
+        theme.button.themes.size.py.md = 'py-4';
         
         // Override appearance
         theme.button.themes.appearance.background.filled.primary.base = 'bg-emerald-500';

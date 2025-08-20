@@ -142,6 +142,8 @@ class ComponentThemeTester {
       extractedWithDifferent[category] = key === 'ring' ? 'noRing' : 'ring';
     } else if (category === 'size') {
       extractedWithDifferent[category] = key === 'md' ? 'lg' : 'md';
+    } else if (category === 'padding') {
+      extractedWithDifferent[category] = key === 'padding' ? 'noPadding' : 'padding';
     } else {
       extractedWithDifferent[category] = 'INVALID_TEST_VALUE_DIFFERENT_FROM_KEY';
     }

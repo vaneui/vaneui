@@ -104,7 +104,8 @@ describe('Stack Component Tests', () => {
 
       const stack = container.querySelector('div');
       expect(stack).not.toHaveClass('px-4');
-      expect(stack).toHaveClass('px-0', 'py-0');
+      expect(stack).not.toHaveClass('px-2', 'px-4', 'px-6', 'px-8', 'px-10'); // no px padding classes
+      expect(stack).not.toHaveClass('py-2', 'py-4', 'py-6', 'py-8', 'py-10'); // no py padding classes
     });
 
     it('should support flex alignment properties', () => {

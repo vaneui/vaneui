@@ -2,31 +2,36 @@ import { SizeKey, PaddingKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface PaddingTheme extends Record<PaddingKey, string | Record<SizeKey, string>> {
+export interface PaddingTheme extends Record<SizeKey, string> {
 }
 
 export class PaddingTheme extends BaseTheme {
-  public readonly defaultClasses: Record<PaddingKey, string | Record<SizeKey, string>> = {
-    padding: {xs: "", sm: "", md: "", lg: "", xl: ""},
-    noPadding: ""
+  public readonly defaultClasses: Record<SizeKey, string> = {
+    xs: "", sm: "", md: "", lg: "", xl: ""
   };
 
-  constructor(initial?: Partial<Record<PaddingKey, string | Record<SizeKey, string>>>) {
+  constructor(initial?: Partial<Record<SizeKey, string>>) {
     super();
-    ComponentKeys.padding.forEach((key) => {
-      this[key as PaddingKey] = initial?.[key as PaddingKey] ?? this.defaultClasses[key as PaddingKey];
+    ComponentKeys.size.forEach((key) => {
+      this[key as SizeKey] = initial?.[key as SizeKey] ?? this.defaultClasses[key as SizeKey];
     });
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const size = extractedKeys?.size ?? 'md';
-    const key = extractedKeys?.padding ?? 'padding';
+    const padding = extractedKeys?.padding;
 
-    const paddingValue = this[key];
-    if (paddingValue === undefined) {
-      return [''];
+    // If noPadding is true, return empty array (no padding classes)
+    if (padding === 'noPadding') {
+      return [];
     }
 
-    return [typeof paddingValue === 'string' ? paddingValue : (paddingValue as Record<SizeKey, string>)[size] || ''];
+    // If padding is true or undefined, apply padding classes based on size
+    if (padding === 'padding' || padding === undefined) {
+      const paddingClass = this[size];
+      return paddingClass ? [paddingClass] : [];
+    }
+
+    return [];
   }
 }
