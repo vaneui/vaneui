@@ -60,7 +60,8 @@ describe('Grid2 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('gap-0');
+      // With new GapTheme, noGap applies no gap classes instead of gap-0
+      expect(grid).not.toHaveClass('gap-2', 'gap-3', 'gap-4', 'gap-5', 'gap-6');
     });
 
     it('should support background appearance variants', () => {

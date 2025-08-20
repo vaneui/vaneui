@@ -90,7 +90,8 @@ describe('Stack Component Tests', () => {
 
       const stack = container.querySelector('div');
       expect(stack).not.toHaveClass('gap-4');
-      expect(stack).toHaveClass('gap-0');
+      // With new GapTheme, noGap applies no gap classes instead of gap-0
+      expect(stack).not.toHaveClass('gap-2', 'gap-3', 'gap-4', 'gap-5', 'gap-6');
     });
 
     it('should support no padding option', () => {

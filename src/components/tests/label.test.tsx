@@ -104,7 +104,8 @@ describe('Label Component Tests', () => {
       );
 
       const label = container.querySelector('label');
-      expect(label).toHaveClass('gap-0');
+      // With new GapTheme, noGap applies no gap classes instead of gap-0
+      expect(label).not.toHaveClass('gap-2', 'gap-3', 'gap-4', 'gap-5', 'gap-6');
     });
 
     it('should support different sizes', () => {

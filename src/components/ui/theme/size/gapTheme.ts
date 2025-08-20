@@ -1,38 +1,37 @@
-import { SizeKey, GapKey, ComponentKeys } from "../../props";
+import { SizeKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface GapTheme extends Record<GapKey, string | Record<SizeKey, string>> {
+export interface GapTheme extends Record<SizeKey, string> {
 }
 
 export class GapTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<GapKey, string | Record<SizeKey, string>> = {
-    gap: {xs: 'gap-2', sm: 'gap-3', md: 'gap-4', lg: 'gap-5', xl: 'gap-6'},
-    noGap: "gap-0"
+  public readonly defaultClasses: Record<SizeKey, string> = {
+    xs: 'gap-2', sm: 'gap-3', md: 'gap-4', lg: 'gap-5', xl: 'gap-6'
   };
 
   constructor(sizeMap?: Record<SizeKey, string>) {
-    // If a simple size map is provided, convert it to the expected format
-    const initial = sizeMap ? { gap: sizeMap } : undefined;
     super();
-    ComponentKeys.gap.forEach((key) => {
-      if (key === 'gap' && initial?.gap) {
-        this[key as GapKey] = initial.gap;
-      } else {
-        this[key as GapKey] = GapTheme.defaultClasses[key as GapKey];
-      }
+    ComponentKeys.size.forEach((key) => {
+      this[key as SizeKey] = sizeMap?.[key as SizeKey] ?? this.defaultClasses[key as SizeKey];
     });
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const size = extractedKeys?.size ?? 'md';
-    const key = extractedKeys?.gap ?? 'noGap';
+    const gap = extractedKeys?.gap;
 
-    const gapValue = this[key];
-    if (gapValue === undefined) {
-      return [''];
+    // If noGap is true, return empty array (no gap classes)
+    if (gap === 'noGap') {
+      return [];
     }
 
-    return [typeof gapValue === 'string' ? gapValue : (gapValue as Record<SizeKey, string>)[size] || ''];
+    // If gap is true or undefined, apply gap classes based on size
+    if (gap === 'gap' || gap === undefined) {
+      const gapClass = this[size];
+      return gapClass ? [gapClass] : [];
+    }
+
+    return [];
   }
 }
