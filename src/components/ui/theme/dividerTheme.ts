@@ -1,5 +1,6 @@
 import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { DividerProps } from "../props/props";
+import { themeDefaults } from "./defaults";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { bgBorderAppearanceClasses } from "../classes/appearanceClasses";
 import { PyTheme } from "./size/pyTheme";
@@ -29,10 +30,6 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
     },
     layout: defaultLayoutTheme,
   },
-  {
-    md: true,
-    default: true,
-    noPadding: true,
-  },
+  themeDefaults.divider,
   DIVIDER_CATEGORIES
 );

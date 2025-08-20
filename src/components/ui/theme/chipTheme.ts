@@ -19,6 +19,7 @@ import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { CHIP_CATEGORIES } from "../props";
+import { themeDefaults } from "./defaults";
 
 export interface ChipTheme extends BaseTypographyComponentTheme {
   size: {
@@ -70,20 +71,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
     },
     typography: defaultTypographyTheme,
   },
-  {
-    md: true,
-    inlineFlex: true,
-    itemsCenter: true,
-    outline: true,
-    secondary: true,
-    rounded: true,
-    mono: true,
-    normal: true,
-    noShadow: true,
-    padding: true,
-    gap: true,
-    ring: true,
-  },
+  themeDefaults.chip as Partial<ChipProps>,
   CHIP_CATEGORIES,
   (props: ChipProps, defaults: Partial<ChipProps>) => {
     return props.href ? "a" : "span";

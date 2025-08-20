@@ -5,6 +5,7 @@ import {
   DefaultLayoutThemes
 } from "./common/ComponentTheme";
 import { ImgProps } from "../props";
+import { themeDefaults } from "./defaults";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
@@ -43,11 +44,6 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
       shadow: GenericVariantTheme.createLayoutShadowTheme()
     }
   },
-  {
-    rounded: true,
-    noShadow: true,
-    noBorder: true,
-    noRing: true,
-  },
+  themeDefaults.img,
   IMG_CATEGORIES
 );

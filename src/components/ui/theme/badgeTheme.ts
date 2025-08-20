@@ -4,6 +4,7 @@ import {
   DefaultLayoutThemes, defaultTypographyTheme
 } from "./common/ComponentTheme";
 import { BadgeProps } from "../props/props";
+import { themeDefaults } from "./defaults";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
@@ -68,21 +69,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
     },
     typography: defaultTypographyTheme,
   },
-  {
-    md: true,
-    default: true,
-    inlineFlex: true,
-    outline: true,
-    pill: true,
-    sans: true,
-    semibold: true,
-    uppercase: true,
-    noShadow: true,
-    itemsCenter: true,
-    padding: true,
-    gap: true,
-    ring: true,
-  },
+  themeDefaults.badge as Partial<BadgeProps>,
   BADGE_CATEGORIES,
   (props: BadgeProps, defaults: Partial<BadgeProps>) => {
     return props.href ? "a" : "span";

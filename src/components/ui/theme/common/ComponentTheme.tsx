@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseTheme } from "./baseTheme";
-import type { ComponentCategoryKey } from "../../props";
+import { CategoryProps, ComponentCategoryKey } from "../../props";
 import { ComponentKeys } from "../../props";
 import { HideTheme } from "../layout/hideTheme";
 import { ItemsTheme } from "../layout/itemsTheme";
@@ -15,6 +15,7 @@ import { TextAlignTheme } from "../typography/textAlignTheme";
 import { DeepPartial } from "../../../utils/deepPartial";
 import { DisplayTheme } from "../layout/displayTheme";
 import { twMerge } from "tailwind-merge";
+
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 import { OverflowTheme } from "../layout/overflowTheme";
 import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
@@ -74,7 +75,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly base: string;
   readonly themes: TTheme;
   defaults: Partial<P>;
-  extraClasses: Record<string, string>;
+  extraClasses: Partial<Record<keyof P, string>>;
   private readonly categories: readonly ComponentCategoryKey[];
   private readonly tagFunction?: (props: P, defaults: Partial<P>) => React.ElementType;
 
@@ -105,9 +106,12 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     }
 
     const defaults = this.defaults as Record<string, boolean>;
-    const extractedKeys: Record<string, string | undefined> = {};
+    const extractedKeys: Record<string, string> = {};
     for (const category of this.categories) {
-      extractedKeys[category] = pickFirstTruthyKeyByCategory(componentProps, defaults, category);
+      const key = pickFirstTruthyKeyByCategory(componentProps, defaults, category);
+      if (key !== undefined) {
+        extractedKeys[category] = key;
+      }
     }
 
     const walk = (map: object) => {
@@ -123,14 +127,18 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     };
 
     walk(this.themes);
-    
+
     // Apply extra classes based on extracted keys
     for (const [key, value] of Object.entries(extractedKeys)) {
-      if (value && this.extraClasses[value]) {
-        classes.push(...this.extraClasses[value].split(/\s+/));
+      if (value && this.extraClasses[value as keyof P]) {
+        const existingClasses = this.extraClasses[value as keyof P];
+        if (existingClasses !== undefined) {
+          const cs = existingClasses.split(/\s+/);
+          classes.push(...cs);
+        }
       }
     }
-    
+
     return classes.filter(Boolean);
   }
 

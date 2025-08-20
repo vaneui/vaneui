@@ -1,5 +1,6 @@
 import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
 import { ButtonProps, ListProps, TypographyProps } from "../props";
+import { themeDefaults } from "./defaults";
 import React from "react";
 import {
   BaseTypographyComponentTheme,
@@ -25,17 +26,12 @@ export interface TypographyTheme extends BaseTypographyComponentTheme {
   layout: DefaultLayoutThemes;
 }
 
-const typographyThemeDefaults: Partial<TypographyProps> = {
-  md: true,
-  default: true,
-  sans: true,
-};
 
 export const createTypographyComponentTheme = (
   tag: React.ReactNode | string | any,
   base: string = "text-balance",
   textSizeMap: Record<SizeKey, string> = textSizeClasses,
-  defaults: Partial<TypographyProps> = typographyThemeDefaults,
+  defaults: Partial<TypographyProps> = {},
 ): ComponentTheme<TypographyProps, TypographyTheme> => {
   return new ComponentTheme<TypographyProps, TypographyTheme>(
     tag,
@@ -69,7 +65,7 @@ export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = 
     lg: "text-6xl max-lg:text-5xl max-md:text-4xl",
     xl: "text-7xl max-lg:text-6xl max-md:text-5xl"
   },
-  mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {semibold: true})
+  mergeDefaults(themeDefaults.pageTitle as Record<string, boolean>, {semibold: true})
 );
 
 // Section title specific theme
@@ -83,7 +79,7 @@ export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyTheme>
     lg: "text-5xl max-lg:text-4xl max-md:text-3xl",
     xl: "text-6xl max-lg:text-5xl max-md:text-4xl"
   },
-  mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {semibold: true})
+  mergeDefaults(themeDefaults.sectionTitle as Record<string, boolean>, {semibold: true})
 );
 
 // Title specific theme
@@ -91,14 +87,15 @@ export const titleTheme: ComponentTheme<TypographyProps, TypographyTheme> = crea
   "h3",
   "text-balance w-fit",
   {xs: "text-lg", sm: "text-xl", md: "text-2xl", lg: "text-3xl", xl: "text-4xl"},
-  mergeDefaults(typographyThemeDefaults as Record<string, boolean>, {semibold: true})
+  mergeDefaults(themeDefaults.title as Record<string, boolean>, {semibold: true})
 );
 
 // Text specific theme
 export const textTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "p",
   "p-0 m-0 w-fit",
-  textSizeClasses
+  textSizeClasses,
+  themeDefaults.text as Partial<TypographyProps>
 );
 
 // Link specific theme
@@ -115,10 +112,7 @@ export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new C
     typography: defaultTypographyTheme,
     layout: defaultLayoutTheme,
   },
-  {
-    link: true,
-    sans: true,
-  },
+  themeDefaults.link as Partial<TypographyProps>,
   TYPOGRAPHY_CATEGORIES
 );
 
@@ -135,7 +129,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
     },
     typography: defaultTypographyTheme,
   },
-  {},//keep empty to apply parent style
+  themeDefaults.listItem as Partial<TypographyProps>,
   TYPOGRAPHY_CATEGORIES
 );
 
@@ -167,14 +161,7 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
     layout: defaultLayoutTheme,
     listStyle: new ListStyleTheme(),
   },
-  {
-    md: true,
-    default: true,
-    sans: true,
-    normal: true,
-    padding: true,
-    disc: true,
-  },
+  themeDefaults.list as Partial<ListProps>,
   LIST_CATEGORIES,
   (props: ListProps, defaults: Partial<ListProps>) => {
     // Determine tag based on list style from props and defaults

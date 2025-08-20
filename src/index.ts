@@ -26,4 +26,6 @@ export {
   type PartialTheme,
 } from './components/themeContext';
 
+export { themeDefaults } from './components/ui/theme/defaults';
+
 export * from "./components/ui/props/index";

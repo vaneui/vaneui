@@ -2,6 +2,7 @@ import { DirectionTheme } from "./layout/directionTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { StackProps } from "../props/props";
+import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
@@ -61,17 +62,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
       shadow: GenericVariantTheme.createLayoutShadowTheme(),
     }
   },
-  {
-    md: true,
-    flex: true,
-    column: true,
-    flexWrap: true,
-    gap: true,
-    padding: true,
-    noBorder: true,
-    noRing: true,
-    sharp: true,
-  },
+  themeDefaults.stack as Partial<StackProps>,
   STACK_CATEGORIES,
   (props: StackProps, defaults: Partial<StackProps>) => {
     return props.href ? "a" : "div";

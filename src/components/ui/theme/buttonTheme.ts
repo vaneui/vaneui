@@ -17,6 +17,7 @@ import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { BUTTON_CATEGORIES } from "../props";
+import { themeDefaults } from "./defaults";
 
 export interface ButtonTheme extends BaseTypographyComponentTheme {
   size: {
@@ -70,23 +71,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
     },
     typography: defaultTypographyTheme,
   },
-  {
-    md: true,
-    inlineFlex: true,
-    itemsCenter: true,
-    justifyCenter: true,
-    outline: true,
-    default: true,
-    rounded: true,
-    sans: true,
-    semibold: true,
-    textCenter: true,
-    noBorder: true,
-    gap: true,
-    padding: true,
-    ring: true,
-    shadow: true,
-  },
+  themeDefaults.button as Partial<ButtonProps>,
   BUTTON_CATEGORIES,
   (props: ButtonProps, defaults: Partial<ButtonProps>) => {
     // Determine tag based on href prop

@@ -5,6 +5,7 @@ import {
   DefaultLayoutThemes
 } from "./common/ComponentTheme";
 import { CheckboxProps } from "../props";
+import { themeDefaults } from "./defaults";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
@@ -70,15 +71,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       shadow: GenericVariantTheme.createUIElementShadowTheme(),
     }
   },
-  {
-    md: true,
-    default: true,
-    border: true,
-    rounded: true,
-    noRing: true,
-    noShadow: true,
-    filled: true,
-  },
+  themeDefaults.checkbox?.input || {},
   CHECKBOX_CATEGORIES
 );
 
@@ -110,10 +103,7 @@ export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
     },
     layout: defaultLayoutTheme,
   },
-  {
-    default: true,
-    filled: true,
-  },
+  themeDefaults.checkbox?.check || {},
   CHECKBOX_CATEGORIES
 );
 
@@ -139,11 +129,6 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
     },
     layout: defaultLayoutTheme,
   },
-  {
-    md: true,
-    inlineGrid: true,
-    itemsCenter: true,
-    justifyCenter: true,
-  },
+  themeDefaults.checkbox?.wrapper || {},
   CHECKBOX_CATEGORIES
 );

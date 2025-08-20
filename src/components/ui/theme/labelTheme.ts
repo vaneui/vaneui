@@ -6,6 +6,7 @@ import {
   defaultTypographyTheme
 } from "./common/ComponentTheme";
 import { LabelProps } from "../props";
+import { themeDefaults } from "./defaults";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -46,13 +47,6 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       flexDirection: new DirectionTheme(),
     },
   },
-  {
-    md: true,
-    flex: true,
-    gap: true,
-    default: true,
-    sans: true,
-    medium: true,
-  },
+  themeDefaults.label,
   LABEL_CATEGORIES
 );

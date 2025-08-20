@@ -1,6 +1,7 @@
 import { DirectionTheme } from "./layout/directionTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { ContainerProps } from "../props/props";
+import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { WrapTheme } from "./layout/wrapTheme";
@@ -69,14 +70,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       shadow: GenericVariantTheme.createLayoutShadowTheme(),
     }
   },
-  {
-    noRing: true,
-    flex: true,
-    md: true,
-    itemsCenter: true,
-    gap: true,
-    sharp: true,
-  },
+  themeDefaults.container as Partial<ContainerProps>,
   CONTAINER_CATEGORIES,
   (props: ContainerProps, defaults: Partial<ContainerProps>) => {
     return props.href ? "a" : "div";

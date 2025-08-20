@@ -1,6 +1,7 @@
 import { DirectionTheme } from "./layout/directionTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { ColProps } from "../props/props";
+import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -52,15 +53,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
       shadow: GenericVariantTheme.createLayoutShadowTheme(),
     }
   },
-  {
-    column: true,
-    md: true,
-    flex: true,
-    gap: true,
-    noBorder: true,
-    noRing: true,
-    sharp: true,
-  },
+  themeDefaults.col as Partial<ColProps>,
   COL_CATEGORIES,
   (props: ColProps, defaults: Partial<ColProps>) => {
     return props.href ? "a" : "div";

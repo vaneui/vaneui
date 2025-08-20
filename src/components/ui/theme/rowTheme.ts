@@ -2,6 +2,7 @@ import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { RowProps } from "../props/props";
+import { themeDefaults } from "./defaults";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { DirectionTheme } from "./layout/directionTheme";
@@ -55,16 +56,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
       shadow: GenericVariantTheme.createLayoutShadowTheme(),
     }
   },
-  {
-    row: true,
-    md: true,
-    flex: true,
-    itemsCenter: true,
-    gap: true,
-    noBorder: true,
-    noRing: true,
-    sharp: true,
-  },
+  themeDefaults.row as Partial<RowProps>,
   ROW_CATEGORIES,
   (props: RowProps, defaults: Partial<RowProps>) => {
     // Determine tag based on href prop

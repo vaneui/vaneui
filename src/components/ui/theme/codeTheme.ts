@@ -6,6 +6,7 @@ import {
   defaultTypographyTheme
 } from "./common/ComponentTheme";
 import { CodeProps } from "../props/props";
+import { themeDefaults } from "./defaults";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
@@ -70,15 +71,6 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
     },
     typography: defaultTypographyTheme,
   },
-  {
-    inline: true,
-    outline: true,
-    default: true,
-    rounded: true,
-    mono: true,
-    padding: true,
-    gap: true,
-    ring: true,
-  },
+  themeDefaults.code,
   CODE_CATEGORIES
 );

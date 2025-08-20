@@ -3,6 +3,7 @@ import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { SectionProps } from "../props";
+import { themeDefaults } from "./defaults";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { BorderTheme } from "./layout/borderTheme";
@@ -80,18 +81,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       radius: RadiusTheme.createLayoutTheme(),
     },
   },
-  {
-    md: true,
-    flex: true,
-    default: true,
-    itemsStart: true,
-    gap: true,
-    padding: true,
-    noBorder: true,
-    noRing: true,
-    noShadow: true,
-    sharp: true,
-  },
+  themeDefaults.section as Partial<SectionProps>,
   SECTION_CATEGORIES,
   (props: SectionProps, defaults: Partial<SectionProps>) => {
     return props.href ? "a" : "div";

@@ -1,5 +1,6 @@
 import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { GridProps } from "../props/props";
+import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
@@ -20,11 +21,6 @@ export interface GridTheme extends BaseComponentTheme {
   };
 }
 
-const gridDefaults: Partial<GridProps> = {
-  md: true,
-  gap: true,
-  grid: true,
-};
 
 const gridSubThemes: DeepPartial<GridTheme> = {
   size: {
@@ -50,7 +46,7 @@ export const defaultGrid2Theme = new ComponentTheme<GridProps, GridTheme>(
   "div",
   "grid-cols-1 md:grid-cols-2",
   gridSubThemes,
-  gridDefaults,
+  themeDefaults.grid2 as Partial<GridProps>,
   GRID_CATEGORIES,
   (props: GridProps, defaults: Partial<GridProps>) => {
     return props.href ? "a" : "div";
@@ -61,7 +57,7 @@ export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(
   "div",
   "grid-cols-1 md:grid-cols-3",
   gridSubThemes,
-  gridDefaults,
+  themeDefaults.grid3 as Partial<GridProps>,
   GRID_CATEGORIES,
   (props: GridProps, defaults: Partial<GridProps>) => {
     return props.href ? "a" : "div";
@@ -72,7 +68,7 @@ export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
   "div",
   "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   gridSubThemes,
-  gridDefaults,
+  themeDefaults.grid4 as Partial<GridProps>,
   GRID_CATEGORIES,
   (props: GridProps, defaults: Partial<GridProps>) => {
     return props.href ? "a" : "div";

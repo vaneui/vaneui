@@ -23,6 +23,7 @@ import { BreakpointTheme } from "./size/breakpointTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { CARD_CATEGORIES } from "../props";
+import { themeDefaults } from "./defaults";
 
 export interface CardTheme extends BaseTypographyComponentTheme {
   size: {
@@ -86,17 +87,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
     },
     typography: defaultTypographyTheme,
   },
-  {
-    md: true,
-    flex: true,
-    default: true,
-    rounded: true,
-    normal: true,
-    column: true,
-    border: true,
-    gap: true,
-    padding: true,
-  },
+  themeDefaults.card as Partial<CardProps>,
   CARD_CATEGORIES,
   (props: CardProps, defaults: Partial<CardProps>) => {
     return props.href ? "a" : "div";
