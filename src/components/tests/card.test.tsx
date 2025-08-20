@@ -226,4 +226,186 @@ describe('Card Component Tests', () => {
       expect(card).toHaveClass('custom-card-class'); // custom class
     });
   });
+
+  describe('Card Border and Ring Theme Tests', () => {
+    describe('Border functionality', () => {
+      it('should apply border classes when border prop is true', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card border>Card with Border</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        expect(card).toHaveClass('border');
+      });
+
+      it('should not apply border classes when noBorder prop is true', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card noBorder>Card without Border</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        expect(card).not.toHaveClass('border');
+        // Should not have any border-related classes
+        expect(card!.className).not.toMatch(/\bborder\b(?!-)/);
+      });
+
+      it('should apply border classes by default (card has border: true in defaults)', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card>Default Card</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        expect(card).toHaveClass('border'); // Card has border: true as default
+      });
+
+      it('should apply border classes for different appearance variants when border is enabled', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card border primary className="border-primary">Primary Card with Border</Card>
+            <Card border secondary className="border-secondary">Secondary Card with Border</Card>
+            <Card border accent className="border-accent">Accent Card with Border</Card>
+          </ThemeProvider>
+        );
+
+        const primaryCard = container.querySelector('.border-primary');
+        const secondaryCard = container.querySelector('.border-secondary');
+        const accentCard = container.querySelector('.border-accent');
+
+        [primaryCard, secondaryCard, accentCard].forEach(card => {
+          expect(card).toHaveClass('border');
+        });
+      });
+    });
+
+    describe('Ring functionality', () => {
+      it('should apply ring classes when ring prop is true', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card ring>Card with Ring</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        expect(card).toHaveClass('ring', 'ring-inset');
+        expect(card).toHaveClass('hover:ring', 'hover:ring-inset');
+        expect(card).toHaveClass('active:ring', 'active:ring-inset');
+      });
+
+      it('should not apply ring classes when noRing prop is true', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card noRing>Card without Ring</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        expect(card).not.toHaveClass('ring');
+        expect(card).not.toHaveClass('ring-inset');
+        expect(card).not.toHaveClass('hover:ring');
+        expect(card).not.toHaveClass('active:ring');
+        // Should not have any ring-related classes
+        expect(card!.className).not.toMatch(/\bring\b(?!-)/);
+      });
+
+      it('should apply ring classes by default (card has ring: true in defaults)', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card>Default Card</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        // Card uses appearance-based ring classes, not layout ring classes
+        expect(card).toHaveClass('ring-(--border-color-default)'); // Card has ring: true as default
+      });
+
+      it('should apply ring classes for different appearance variants when ring is enabled', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card ring primary className="ring-primary">Primary Card with Ring</Card>
+            <Card ring info className="ring-info">Info Card with Ring</Card>
+            <Card ring warning className="ring-warning">Warning Card with Ring</Card>
+          </ThemeProvider>
+        );
+
+        const primaryCard = container.querySelector('.ring-primary');
+        const infoCard = container.querySelector('.ring-info');
+        const warningCard = container.querySelector('.ring-warning');
+
+        [primaryCard, infoCard, warningCard].forEach(card => {
+          expect(card).toHaveClass('ring', 'ring-inset');
+          expect(card).toHaveClass('hover:ring', 'hover:ring-inset');
+          expect(card).toHaveClass('active:ring', 'active:ring-inset');
+        });
+      });
+    });
+
+    describe('Combined border and ring functionality', () => {
+      it('should apply both border and ring classes when both props are true', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card border ring primary>Card with Border and Ring</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        // Should have border classes
+        expect(card).toHaveClass('border');
+        // Should have appearance-based ring classes
+        expect(card).toHaveClass('ring-(--border-color-primary)');
+      });
+
+      it('should not apply any border or ring classes when both noBorder and noRing are true', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card noBorder noRing>Card without Border or Ring</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        // Should not have border classes
+        expect(card).not.toHaveClass('border');
+        expect(card!.className).not.toMatch(/\bborder\b(?!-)/);
+        // Should not have ring classes
+        expect(card).not.toHaveClass('ring');
+        expect(card!.className).not.toMatch(/\bring\b(?!-)/);
+      });
+
+      it('should work with different sizes and padding combinations', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card border ring lg padding className="size-test">Large Card with Border, Ring, and Padding</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('.size-test');
+        // Should have border and ring classes
+        expect(card).toHaveClass('border');
+        expect(card).toHaveClass('ring-(--border-color-default)');
+        // Should have size and padding classes
+        expect(card).toHaveClass('px-5', 'py-5'); // lg padding
+      });
+
+      it('should work with responsive breakpoints', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card border ring mdCol className="responsive-test">Responsive Card</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('.responsive-test');
+        // Should have border and ring classes
+        expect(card).toHaveClass('border');
+        expect(card).toHaveClass('ring-(--border-color-default)');
+        // Should have responsive classes
+        expect(card).toHaveClass('max-md:flex-col');
+      });
+    });
+  });
 });
