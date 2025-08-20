@@ -27,7 +27,7 @@ export class GapTheme extends BaseTheme {
     }
 
     // If gap is true or undefined, apply gap classes based on size
-    if (gap === 'gap' || gap === undefined) {
+    if (gap === 'gap') {
       const gapClass = this[size];
       return gapClass ? [gapClass] : [];
     }
