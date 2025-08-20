@@ -40,7 +40,7 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
     appearance: {
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
-      shadow: GenericVariantTheme.createUIElementShadowTheme()
+      shadow: GenericVariantTheme.createLayoutShadowTheme()
     }
   },
   {

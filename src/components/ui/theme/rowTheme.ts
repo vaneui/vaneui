@@ -52,7 +52,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
       background: AppearanceTheme.createLayoutBgTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
-      shadow: GenericVariantTheme.createUIElementShadowTheme(),
+      shadow: GenericVariantTheme.createLayoutShadowTheme(),
     }
   },
   {

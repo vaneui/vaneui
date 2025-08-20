@@ -19,6 +19,14 @@ export class ShadowAppearanceTheme extends BaseTheme {
     xl: {base: "shadow-lg", hover: "hover:shadow-xl", active: ""}
   }
 
+  private static readonly layoutShadow: Record<SizeKey, Record<ModeKey, string>> = {
+    xs: {base: "shadow-2xs", hover: "", active: ""},
+    sm: {base: "shadow-xs", hover: "", active: ""},
+    md: {base: "shadow-sm", hover: "", active: ""},
+    lg: {base: "shadow-md", hover: "", active: ""},
+    xl: {base: "shadow-lg", hover: "", active: ""}
+  }
+
   constructor(initial?: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>>) {
     super();
     ComponentKeys.appearance.forEach((key) => {
@@ -43,6 +51,18 @@ export class ShadowAppearanceTheme extends BaseTheme {
     src: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>> = {}
   ): ShadowAppearanceTheme {
     return new ShadowAppearanceTheme(src);
+  }
+
+  static createLayoutTheme(
+    src: Partial<Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null>> = {}
+  ): ShadowAppearanceTheme {
+    const theme = new ShadowAppearanceTheme(src);
+    ComponentKeys.appearance.forEach((key) => {
+      if (theme[key] === ShadowAppearanceTheme.defaultShadow) {
+        theme[key] = ShadowAppearanceTheme.layoutShadow;
+      }
+    });
+    return theme;
   }
 }
 

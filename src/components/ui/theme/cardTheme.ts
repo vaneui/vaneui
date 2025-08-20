@@ -76,7 +76,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       breakpoint: new BreakpointTheme(),
-      shadow: ShadowAppearanceTheme.createTheme(),
+      shadow: ShadowAppearanceTheme.createLayoutTheme(),
     },
     appearance: {
       background: AppearanceTheme.createLayoutBgTheme(),

@@ -134,7 +134,8 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('shadow-sm', 'hover:shadow-md');
+      expect(card).toHaveClass('shadow-sm');
+      expect(card).not.toHaveClass('hover:shadow-md');
     });
 
     it('should not have shadow by default', () => {

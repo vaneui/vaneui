@@ -66,7 +66,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
       border: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
       ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}),
-      shadow: GenericVariantTheme.createUIElementShadowTheme(),
+      shadow: GenericVariantTheme.createLayoutShadowTheme(),
     }
   },
   {

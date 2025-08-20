@@ -69,7 +69,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
       border: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
       ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}),
-      shadow: ShadowAppearanceTheme.createTheme(),
+      shadow: ShadowAppearanceTheme.createLayoutTheme(),
     },
     layout: {
       ...defaultLayoutTheme,

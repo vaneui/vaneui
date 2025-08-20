@@ -70,8 +70,9 @@ describe('Img Component Tests', () => {
 
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
-      // Shadow should be applied when shadow prop is true
-      expect(img).toHaveClass('shadow-sm', 'hover:shadow-md');
+      // Shadow should be applied when shadow prop is true (static, no hover)
+      expect(img).toHaveClass('shadow-sm');
+      expect(img).not.toHaveClass('hover:shadow-md');
     });
 
     it('should support ring variants', () => {
@@ -180,7 +181,8 @@ describe('Img Component Tests', () => {
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
       expect(img).toHaveClass('border-(--border-color-primary)');
-      expect(img).toHaveClass('shadow-sm', 'hover:shadow-md');
+      expect(img).toHaveClass('shadow-sm');
+      expect(img).not.toHaveClass('hover:shadow-md');
       expect(img).toHaveClass('ring-(--border-color-primary)');
     });
 

@@ -66,6 +66,13 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
+  static createLayoutShadowTheme(): GenericVariantTheme<ShadowAppearanceTheme> {
+    return new GenericVariantTheme({
+      outline: ShadowAppearanceTheme.createLayoutTheme({}),
+      filled: ShadowAppearanceTheme.createLayoutTheme({})
+    });
+  }
+
   static createBorderAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
