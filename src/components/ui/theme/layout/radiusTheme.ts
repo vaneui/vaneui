@@ -1,44 +1,49 @@
-import { ShapeKey, SizeKey, ComponentKeys } from "../../props";
+import { SizeKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 import {
-  uiBorderRadiusShapeClasses,
-  layoutBorderRadiusShapeClasses
+  uiBorderRadiusClasses,
+  layoutBorderRadiusClasses
 } from "../../classes/radiusClasses";
 
-export interface RadiusTheme extends Record<ShapeKey, string | Record<SizeKey, string>> {
+export interface RadiusTheme {
+  pill: string;
+  sharp: string;
+  rounded: Record<SizeKey, string>;
 }
 
 export class RadiusTheme extends BaseTheme {
+  pill: string = "rounded-full";
+  sharp: string = "rounded-none";
+  rounded: Record<SizeKey, string>;
 
-  private constructor(shapeClasses: Record<ShapeKey, string | Record<SizeKey, string>>, sizeMap?: Record<SizeKey, string>) {
+  private constructor(roundedClasses: Record<SizeKey, string>) {
     super();
-    ComponentKeys.shape.forEach((key) => {
-      if (key === 'rounded' && sizeMap) {
-        this[key as ShapeKey] = sizeMap;
-      } else {
-        this[key as ShapeKey] = shapeClasses[key as ShapeKey];
-      }
-    });
+    this.rounded = roundedClasses;
   }
 
-  static createUITheme(sizeMap?: Record<SizeKey, string>): RadiusTheme {
-    return new RadiusTheme(uiBorderRadiusShapeClasses, sizeMap);
+  static createUITheme(customRounded?: Record<SizeKey, string>): RadiusTheme {
+    return new RadiusTheme(customRounded || uiBorderRadiusClasses);
   }
 
-  static createLayoutTheme(sizeMap?: Record<SizeKey, string>): RadiusTheme {
-    return new RadiusTheme(layoutBorderRadiusShapeClasses, sizeMap);
+  static createLayoutTheme(customRounded?: Record<SizeKey, string>): RadiusTheme {
+    return new RadiusTheme(customRounded || layoutBorderRadiusClasses);
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const size = extractedKeys?.size ?? 'md';
     const shape = extractedKeys?.shape ?? 'rounded';
     
-    const shapeValue = this[shape];
-    if (shapeValue === undefined) {
-      return [''];
+    switch (shape) {
+      case 'pill':
+        return [this.pill];
+      case 'sharp':
+        return [this.sharp];
+      case 'rounded':
+        const roundedClass = this.rounded[size];
+        return roundedClass ? [roundedClass] : [];
+      default:
+        return [];
     }
-    
-    return [typeof shapeValue === 'string' ? shapeValue : (shapeValue as Record<SizeKey, string>)[size] || ''];
   }
 }
