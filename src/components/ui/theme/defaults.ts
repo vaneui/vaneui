@@ -230,12 +230,14 @@ export const themeDefaults: ThemeDefaults = {
     },
     check: {
       default: true,
+      filled: true,
     },
     wrapper: {
       md: true,
       inlineGrid: true,
       itemsCenter: true,
       justifyCenter: true,
+      filled: true,
     },
   },
 };

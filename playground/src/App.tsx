@@ -150,6 +150,11 @@ function App() {
               <span>I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
             </Label>
 
+            <Label htmlFor="terms2">
+              <Checkbox outline id="terms2" />
+              <span>I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
+            </Label>
+
             <Label htmlFor="emails">
               <Checkbox defaultChecked id="emails" />
               <Col noGap tag="span">
