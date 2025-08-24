@@ -243,5 +243,101 @@ describe('Checkbox Component Tests', () => {
       // Border is separate from checked state
       expect(checkbox).toHaveClass('border-(--filled-border-color-accent)');
     });
+
+    describe('Check Element Color Tests', () => {
+      it('should apply white text color to check element with filled variant for all appearances', () => {
+        const appearances = ['default', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'accent'] as const;
+        
+        appearances.forEach(appearance => {
+          const {container} = render(
+            <ThemeProvider theme={defaultTheme}>
+              <Checkbox filled {...{[appearance]: true}} />
+            </ThemeProvider>
+          );
+
+          const checkElement = container.querySelector('span.invisible');
+          expect(checkElement).toBeInTheDocument();
+          // Filled variant should have white text for the check mark
+          expect(checkElement).toHaveClass('text-white');
+        });
+      });
+
+      it('should apply colored text to check element with outline variant matching appearance colors', () => {
+        const appearances = [
+          { prop: 'default', expectedClass: 'text-(--text-color-default)' },
+          { prop: 'primary', expectedClass: 'text-(--text-color-primary)' },
+          { prop: 'secondary', expectedClass: 'text-(--text-color-secondary)' },
+          { prop: 'tertiary', expectedClass: 'text-(--text-color-tertiary)' },
+          { prop: 'success', expectedClass: 'text-(--text-color-success)' },
+          { prop: 'danger', expectedClass: 'text-(--text-color-danger)' },
+          { prop: 'warning', expectedClass: 'text-(--text-color-warning)' },
+          { prop: 'info', expectedClass: 'text-(--text-color-info)' },
+          { prop: 'accent', expectedClass: 'text-(--text-color-accent)' }
+        ] as const;
+        
+        appearances.forEach(({prop, expectedClass}) => {
+          const {container} = render(
+            <ThemeProvider theme={defaultTheme}>
+              <Checkbox outline {...{[prop]: true}} />
+            </ThemeProvider>
+          );
+
+          const checkElement = container.querySelector('span.invisible');
+          expect(checkElement).toBeInTheDocument();
+          // Outline variant should have colored text matching the appearance
+          expect(checkElement).toHaveClass(expectedClass);
+        });
+      });
+
+      it('should apply proper check colors for mixed filled and outline variants', () => {
+        const {container: filledContainer} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <div>
+              <Checkbox filled primary data-testid="filled-primary" />
+              <Checkbox outline primary data-testid="outline-primary" />
+              <Checkbox filled danger data-testid="filled-danger" />
+              <Checkbox outline danger data-testid="outline-danger" />
+            </div>
+          </ThemeProvider>
+        );
+
+        // Test filled primary checkbox - should have white check
+        const filledPrimaryWrapper = filledContainer.querySelector('[data-testid="filled-primary"]')?.parentElement;
+        const filledPrimaryCheck = filledPrimaryWrapper?.querySelector('span.invisible');
+        expect(filledPrimaryCheck).toHaveClass('text-white');
+
+        // Test outline primary checkbox - should have primary colored check  
+        const outlinePrimaryWrapper = filledContainer.querySelector('[data-testid="outline-primary"]')?.parentElement;
+        const outlinePrimaryCheck = outlinePrimaryWrapper?.querySelector('span.invisible');
+        expect(outlinePrimaryCheck).toHaveClass('text-(--text-color-primary)');
+
+        // Test filled danger checkbox - should have white check
+        const filledDangerWrapper = filledContainer.querySelector('[data-testid="filled-danger"]')?.parentElement;
+        const filledDangerCheck = filledDangerWrapper?.querySelector('span.invisible');
+        expect(filledDangerCheck).toHaveClass('text-white');
+
+        // Test outline danger checkbox - should have danger colored check
+        const outlineDangerWrapper = filledContainer.querySelector('[data-testid="outline-danger"]')?.parentElement;
+        const outlineDangerCheck = outlineDangerWrapper?.querySelector('span.invisible');
+        expect(outlineDangerCheck).toHaveClass('text-(--text-color-danger)');
+      });
+
+      it('should verify check element SVG uses currentColor for proper theming', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Checkbox outline success />
+          </ThemeProvider>
+        );
+
+        const checkElement = container.querySelector('span.invisible');
+        const svg = checkElement?.querySelector('svg');
+        const path = svg?.querySelector('path');
+        
+        // Verify that the SVG path uses currentColor to inherit text color
+        expect(path).toHaveAttribute('stroke', 'currentColor');
+        // Verify check element has the proper color class
+        expect(checkElement).toHaveClass('text-(--text-color-success)');
+      });
+    });
   });
 });

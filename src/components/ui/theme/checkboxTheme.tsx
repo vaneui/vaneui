@@ -112,6 +112,9 @@ export interface CheckboxWrapperTheme extends BaseComponentTheme {
     height: SizeTheme;
   };
   layout: DefaultLayoutThemes;
+  appearance: {
+    variant: GenericVariantTheme<AppearanceTheme>;
+  };
 }
 
 export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, CheckboxWrapperTheme>(
@@ -128,6 +131,9 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
       })
     },
     layout: defaultLayoutTheme,
+    appearance: {
+      variant: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme()
+    }
   },
   themeDefaults.checkbox?.wrapper || {},
   CHECKBOX_CATEGORIES
