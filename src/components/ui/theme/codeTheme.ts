@@ -5,7 +5,7 @@ import {
   DefaultLayoutThemes,
   defaultTypographyTheme
 } from "./common/ComponentTheme";
-import { CodeProps } from "../props/props";
+import { CodeProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";

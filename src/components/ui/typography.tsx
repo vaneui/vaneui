@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { TypographyProps, ListProps } from './props/props';
+import { TypographyProps, ListProps } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
 

@@ -1,12 +1,12 @@
 import { DirectionTheme } from "./layout/directionTheme";
 import {
-  BaseComponentTheme, BaseTypographyComponentTheme,
+  BaseTypographyComponentTheme,
   ComponentTheme,
   defaultLayoutTheme,
   DefaultLayoutThemes,
   defaultTypographyTheme
 } from "./common/ComponentTheme";
-import { CardProps } from "../props/props";
+import { CardProps } from "../props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BorderTheme } from "./layout/borderTheme";

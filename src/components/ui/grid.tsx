@@ -1,5 +1,5 @@
 import React, { JSX, forwardRef } from 'react';
-import { GridProps } from './props/props';
+import { GridProps } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
 

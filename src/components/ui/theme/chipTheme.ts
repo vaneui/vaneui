@@ -5,7 +5,7 @@ import {
   DefaultLayoutThemes,
   defaultTypographyTheme
 } from "./common/ComponentTheme";
-import { ChipProps } from "../props/props";
+import { ChipProps } from "../props";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";

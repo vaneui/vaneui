@@ -1,7 +1,7 @@
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
-import { RowProps } from "../props/props";
+import { RowProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";

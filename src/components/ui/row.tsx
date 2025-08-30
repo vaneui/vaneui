@@ -1,5 +1,5 @@
-import React, { JSX, forwardRef } from 'react';
-import { RowProps } from './props/props';
+import React, { forwardRef } from 'react';
+import { RowProps } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
 

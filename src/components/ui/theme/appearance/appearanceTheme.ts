@@ -7,29 +7,24 @@ export interface AppearanceTheme extends Record<AppearanceKey, Record<ModeKey, s
 }
 
 export class AppearanceTheme extends BaseTheme {
-  private readonly transparentClassSource?: Record<string, string>;
-  private readonly linkClassSource?: Record<string, string>;
+  private readonly transparentClasses?: Record<string, string>;
 
   private constructor(
     config: Record<AppearanceKey, Record<ModeKey, string>>,
-    options?: {
-      transparentClassSource?: Record<string, string>;
-      linkClassSource?: Record<string, string>;
-    }
+    transparentClasses?: Record<string, string>
   ) {
     super();
     Object.assign(this, config);
-    this.transparentClassSource = options?.transparentClassSource;
-    this.linkClassSource = options?.linkClassSource;
+    this.transparentClasses = transparentClasses;
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
     // Check for specific transparent styles first
     if (extractedKeys?.transparent) {
-      const transparentClass = this.transparentClassSource?.[extractedKeys.transparent] || '';
+      const transparentClass = this.transparentClasses?.[extractedKeys.transparent] || '';
       return [transparentClass];
     }
-    
+
     // Use appearance (now includes link as an appearance option)
     const pickedAppearanceKey = extractedKeys?.appearance;
     if (pickedAppearanceKey) {
@@ -38,18 +33,14 @@ export class AppearanceTheme extends BaseTheme {
         return ComponentKeys.mode.map(mode => modes[mode] || '');
       }
     }
-    
+
     return [];
   }
 
   static createTheme(
     src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {},
-    options?: {
-      transparentClassSource?: Record<string, string>;
-      linkClassSource?: Record<string, string>;
-    }
   ): AppearanceTheme {
-    const finalConfig = Object.fromEntries(
+    const config = Object.fromEntries(
       ComponentKeys.appearance.map(textKey => [
         textKey,
         Object.fromEntries(
@@ -61,14 +52,7 @@ export class AppearanceTheme extends BaseTheme {
       ])
     ) as Record<AppearanceKey, Record<ModeKey, string>>;
 
-    // Auto-detect base classes for transparent and link sources if not explicitly provided
-    const baseClasses = src.base;
-    const finalOptions = {
-      transparentClassSource: options?.transparentClassSource || baseClasses,
-      linkClassSource: options?.linkClassSource || baseClasses,
-    };
-
-    return new AppearanceTheme(finalConfig, finalOptions);
+    return new AppearanceTheme(config, src.base);
   }
 
   static createLayoutBgTheme(): AppearanceTheme {
@@ -84,9 +68,6 @@ export class AppearanceTheme extends BaseTheme {
       ])
     ) as Record<AppearanceKey, Record<ModeKey, string>>;
 
-    return new AppearanceTheme(config, {
-      transparentClassSource: layoutBackgroundAppearanceClasses,
-      linkClassSource: layoutBackgroundAppearanceClasses
-    });
+    return new AppearanceTheme(config, layoutBackgroundAppearanceClasses);
   }
 }

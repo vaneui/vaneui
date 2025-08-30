@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { CardProps } from "./props/props";
+import { CardProps } from "./props";
 import { ThemedComponent } from "../themedComponent";
 import { useTheme } from "../themeContext";
 

@@ -1,6 +1,6 @@
 import { DirectionTheme } from "./layout/directionTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
-import { ContainerProps } from "../props/props";
+import { ContainerProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { SizeTheme } from "./size/sizeTheme";
@@ -12,7 +12,6 @@ import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import {
   borderAppearanceClasses,
-  layoutBackgroundAppearanceClasses,
   ringAppearanceClasses
 } from "../classes/appearanceClasses";
 import { textAppearanceClasses } from "../classes/typographyClasses";

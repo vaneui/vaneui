@@ -1,5 +1,5 @@
 import React, { JSX, forwardRef } from 'react';
-import { CodeProps } from './props/props';
+import { CodeProps } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
 
