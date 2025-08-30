@@ -106,6 +106,26 @@ describe('Text Component Tests', () => {
       });
     });
 
+    it('should support filled and outline variants', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text primary outline>Outline text</Text>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text primary filled>Filled text</Text>
+        </ThemeProvider>
+      );
+
+      const outlineText = outlineContainer.querySelector('p');
+      const filledText = filledContainer.querySelector('p');
+
+      expect(outlineText).toHaveClass('text-(--text-color-primary)');
+      expect(filledText).toHaveClass('text-white');
+    });
+
     it('should support font weight variants', () => {
       const weights = [
         { prop: 'thin', class: 'font-thin' },

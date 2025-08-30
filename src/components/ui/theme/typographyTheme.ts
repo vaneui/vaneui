@@ -10,6 +10,7 @@ import {
 } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
 import { SizeKey, ComponentKeys, AppearanceKey, ModeKey, CategoryProps } from "../props";
 import { PlTheme } from "./size/plTheme";
@@ -21,7 +22,7 @@ export interface TypographyTheme extends BaseTypographyComponentTheme {
     text: SizeTheme;
   };
   appearance: {
-    text: AppearanceTheme;
+    text: GenericVariantTheme<AppearanceTheme>;
   };
   layout: DefaultLayoutThemes;
 }
@@ -41,7 +42,7 @@ export const createTypographyComponentTheme = (
         text: new SizeTheme(textSizeMap),
       },
       appearance: {
-        text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
+        text: GenericVariantTheme.createUIElementTextTheme(),
       },
       typography: defaultTypographyTheme,
       layout: defaultLayoutTheme,
@@ -107,7 +108,7 @@ export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new C
       text: new SizeTheme(textSizeClasses, false),
     },
     appearance: {
-      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
+      text: GenericVariantTheme.createUIElementTextTheme(),
     },
     typography: defaultTypographyTheme,
     layout: defaultLayoutTheme,
@@ -125,7 +126,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
       text: new SizeTheme(textSizeClasses, false),
     },
     appearance: {
-      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
+      text: GenericVariantTheme.createUIElementTextTheme(),
     },
     typography: defaultTypographyTheme,
   },
@@ -139,7 +140,7 @@ export interface ListTheme extends BaseTypographyComponentTheme {
     paddingLeft: PlTheme;
   }
   appearance: {
-    text: AppearanceTheme;
+    text: GenericVariantTheme<AppearanceTheme>;
   };
   layout: DefaultLayoutThemes;
   listStyle: ListStyleTheme;
@@ -155,7 +156,7 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
       paddingLeft: new PlTheme(),
     },
     appearance: {
-      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
+      text: GenericVariantTheme.createUIElementTextTheme(),
     },
     typography: defaultTypographyTheme,
     layout: defaultLayoutTheme,

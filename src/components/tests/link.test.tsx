@@ -86,6 +86,26 @@ describe('Link Component Tests', () => {
       });
     });
 
+    it('should support filled and outline variants', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test" primary outline>Outline link</Link>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test" primary filled>Filled link</Link>
+        </ThemeProvider>
+      );
+
+      const outlineLink = outlineContainer.querySelector('a');
+      const filledLink = filledContainer.querySelector('a');
+
+      expect(outlineLink).toHaveClass('text-(--text-color-primary)');
+      expect(filledLink).toHaveClass('text-white');
+    });
+
     it('should use link appearance by default when no appearance prop is provided', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

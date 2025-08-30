@@ -26,8 +26,7 @@ describe('Component Prop Filtering', () => {
           itemsCenter: true,
           gap: true,
           
-          // Invalid props that should cause React warnings
-          outline: true,  // variant category not in ROW_CATEGORIES
+          // Invalid prop that should cause React warnings
           padding: true,  // padding category not in ROW_CATEGORIES
           
           // Standard HTML props that should pass through
@@ -48,19 +47,13 @@ describe('Component Prop Filtering', () => {
         expect(element.hasAttribute('primary')).toBe(false);
         expect(element.hasAttribute('itemsCenter')).toBe(false);
         expect(element.hasAttribute('gap')).toBe(false);
-        expect(element.hasAttribute('outline')).toBe(false);
         expect(element.hasAttribute('padding')).toBe(false);
 
         // Verify React warnings were generated for invalid props
         const calls = consoleErrorMock.mock.calls;
-        expect(calls).toHaveLength(2);
+        expect(calls).toHaveLength(1);
         
-        // Check for outline warning
-        expect(calls.some(call => 
-          call[0]?.includes('non-boolean attribute') && call[2] === 'outline'
-        )).toBe(true);
-        
-        // Check for padding warning  
+        // Check for padding warning
         expect(calls.some(call => 
           call[0]?.includes('non-boolean attribute') && call[2] === 'padding'
         )).toBe(true);
@@ -89,7 +82,7 @@ describe('Component Prop Filtering', () => {
         expect(classes).toContain('flex');
         
         // Should have appearance styling
-        expect(classes).toContain('bg-(--layout-background-primary)'); // CSS variable for primary
+        expect(classes).toContain('bg-(--background-color-primary)'); // CSS variable for primary
         
         // Should have items-center
         expect(classes).toContain('items-center');
@@ -136,12 +129,11 @@ describe('Component Prop Filtering', () => {
         const props: any = {
           // Valid Stack props
           gap: true,
-          padding: true,
           primary: true,
           
           // Invalid props that should cause React warnings
-          outline: true,  // variant category not in STACK_CATEGORIES
-          filled: true,   // variant category not in STACK_CATEGORIES
+          disc: true,       // listStyle category not in STACK_CATEGORIES
+          underline: true,  // textDecoration category not in STACK_CATEGORIES
           
           children: 'Stack content'
         };
@@ -151,18 +143,21 @@ describe('Component Prop Filtering', () => {
 
         // All component props should be filtered out from DOM
         expect(element.hasAttribute('gap')).toBe(false);
-        expect(element.hasAttribute('padding')).toBe(false);
         expect(element.hasAttribute('primary')).toBe(false);
-        expect(element.hasAttribute('outline')).toBe(false);
-        expect(element.hasAttribute('filled')).toBe(false);
+        expect(element.hasAttribute('disc')).toBe(false);
+        expect(element.hasAttribute('underline')).toBe(false);
 
         // Verify React warnings were generated for invalid props
         const calls = consoleErrorMock.mock.calls;
-        expect(calls.length).toBeGreaterThanOrEqual(1);
+        expect(calls.length).toBeGreaterThanOrEqual(2);
         
         // Check for warnings about invalid attributes
         expect(calls.some(call => 
-          call[0]?.includes('non-boolean attribute') && call[2] === 'filled'
+          call[0]?.includes('non-boolean attribute') && call[2] === 'disc'
+        )).toBe(true);
+        
+        expect(calls.some(call => 
+          call[0]?.includes('non-boolean attribute') && call[2] === 'underline'
         )).toBe(true);
       } finally {
         console.error = originalError;

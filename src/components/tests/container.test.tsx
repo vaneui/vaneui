@@ -41,7 +41,7 @@ describe('Container Component Tests', () => {
       );
 
       const containerEl = container.querySelector('div');
-      expect(containerEl).toHaveClass('bg-(--layout-background-default)');
+      expect(containerEl).toHaveClass('bg-(--background-color-default)');
     });
 
     it('should support different appearance variants for background', () => {
@@ -57,7 +57,7 @@ describe('Container Component Tests', () => {
         );
 
         const containerEl = container.querySelector('div');
-        expect(containerEl).toHaveClass(`bg-(--layout-background-${appearance})`);
+        expect(containerEl).toHaveClass(`bg-(--background-color-${appearance})`);
       });
     });
 
@@ -76,6 +76,39 @@ describe('Container Component Tests', () => {
         const containerEl = container.querySelector('div');
         expect(containerEl).toHaveClass(`text-(--text-color-${appearance})`);
       });
+    });
+
+    it('should support filled and outline variants for text, background, border, and ring', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container primary outline border ring>Outline container</Container>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container primary filled border ring>Filled container</Container>
+        </ThemeProvider>
+      );
+
+      const outlineContainer1 = outlineContainer.querySelector('div');
+      const filledContainer1 = filledContainer.querySelector('div');
+
+      // Text colors
+      expect(outlineContainer1).toHaveClass('text-(--text-color-primary)');
+      expect(filledContainer1).toHaveClass('text-white');
+      
+      // Background colors
+      expect(outlineContainer1).toHaveClass('bg-(--background-color-primary)');
+      expect(filledContainer1).toHaveClass('bg-(--filled-background-color-primary)');
+      
+      // Border colors
+      expect(outlineContainer1).toHaveClass('border-(--border-color-primary)');
+      expect(filledContainer1).toHaveClass('border-(--filled-border-color-primary)');
+      
+      // Ring colors
+      expect(outlineContainer1).toHaveClass('ring-(--border-color-primary)');
+      expect(filledContainer1).toHaveClass('ring-(--filled-border-color-primary)');
     });
 
     it('should support layout props', () => {

@@ -91,7 +91,7 @@ describe('Col Component Tests', () => {
       );
 
       const col = container.querySelector('div');
-      expect(col).toHaveClass('bg-(--layout-background-secondary)');
+      expect(col).toHaveClass('bg-(--background-color-secondary)');
     });
 
     it('should support appearance variants for text color', () => {
@@ -109,6 +109,39 @@ describe('Col Component Tests', () => {
         const col = container.querySelector('div');
         expect(col).toHaveClass(`text-(--text-color-${appearance})`);
       });
+    });
+
+    it('should support filled and outline variants for text, background, border, and ring', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col primary outline border ring>Outline col</Col>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col primary filled border ring>Filled col</Col>
+        </ThemeProvider>
+      );
+
+      const outlineCol = outlineContainer.querySelector('div');
+      const filledCol = filledContainer.querySelector('div');
+
+      // Text colors
+      expect(outlineCol).toHaveClass('text-(--text-color-primary)');
+      expect(filledCol).toHaveClass('text-white');
+      
+      // Background colors
+      expect(outlineCol).toHaveClass('bg-(--background-color-primary)');
+      expect(filledCol).toHaveClass('bg-(--filled-background-color-primary)');
+      
+      // Border colors
+      expect(outlineCol).toHaveClass('border-(--border-color-primary)');
+      expect(filledCol).toHaveClass('border-(--filled-border-color-primary)');
+      
+      // Ring colors
+      expect(outlineCol).toHaveClass('ring-(--border-color-primary)');
+      expect(filledCol).toHaveClass('ring-(--filled-border-color-primary)');
     });
 
     it('should support transparent background', () => {

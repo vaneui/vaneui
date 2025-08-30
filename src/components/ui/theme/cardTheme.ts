@@ -19,6 +19,7 @@ import {
   ringAppearanceClasses
 } from "../classes/appearanceClasses";
 import { textAppearanceClasses } from "../classes/typographyClasses";
+import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -41,10 +42,10 @@ export interface CardTheme extends BaseTypographyComponentTheme {
     shadow: ShadowAppearanceTheme;
   };
   appearance: {
-    background: AppearanceTheme;
-    text: AppearanceTheme;
-    border: AppearanceTheme;
-    ring: AppearanceTheme;
+    background: GenericVariantTheme<AppearanceTheme>;
+    text: GenericVariantTheme<AppearanceTheme>;
+    border: GenericVariantTheme<AppearanceTheme>;
+    ring: GenericVariantTheme<AppearanceTheme>;
   };
 }
 
@@ -80,10 +81,10 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
     },
     appearance: {
-      background: AppearanceTheme.createLayoutBgTheme(),
-      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
-      border: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
-      ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}),
+      background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
+      text: GenericVariantTheme.createUIElementTextTheme(),
+      border: GenericVariantTheme.createUIElementBorderTheme(),
+      ring: GenericVariantTheme.createUIElementRingTheme(),
     },
     typography: defaultTypographyTheme,
   },

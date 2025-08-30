@@ -31,10 +31,10 @@ export interface ContainerTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    background: AppearanceTheme;
-    text: AppearanceTheme;
-    border: AppearanceTheme;
-    ring: AppearanceTheme;
+    background: GenericVariantTheme<AppearanceTheme>;
+    text: GenericVariantTheme<AppearanceTheme>;
+    border: GenericVariantTheme<AppearanceTheme>;
+    ring: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   }
 }
@@ -62,10 +62,10 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       radius: RadiusTheme.createLayoutTheme(),
     },
     appearance: {
-      background: AppearanceTheme.createLayoutBgTheme(),
-      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
-      border: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
-      ring: AppearanceTheme.createTheme({base: ringAppearanceClasses}),
+      background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
+      text: GenericVariantTheme.createUIElementTextTheme(),
+      border: GenericVariantTheme.createUIElementBorderTheme(),
+      ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme(),
     }
   },

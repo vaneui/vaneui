@@ -69,6 +69,39 @@ describe('Section Component Tests', () => {
       });
     });
 
+    it('should support filled and outline variants for text, background, border, and ring', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Section primary outline border ring>Outline section</Section>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Section primary filled border ring>Filled section</Section>
+        </ThemeProvider>
+      );
+
+      const outlineSection = outlineContainer.querySelector('div');
+      const filledSection = filledContainer.querySelector('div');
+
+      // Text colors
+      expect(outlineSection).toHaveClass('text-(--text-color-primary)');
+      expect(filledSection).toHaveClass('text-white');
+      
+      // Background colors
+      expect(outlineSection).toHaveClass('bg-(--background-color-primary)');
+      expect(filledSection).toHaveClass('bg-(--filled-background-color-primary)');
+      
+      // Border colors
+      expect(outlineSection).toHaveClass('border-(--border-color-primary)');
+      expect(filledSection).toHaveClass('border-(--filled-border-color-primary)');
+      
+      // Ring colors
+      expect(outlineSection).toHaveClass('ring-(--border-color-primary)');
+      expect(filledSection).toHaveClass('ring-(--filled-border-color-primary)');
+    });
+
     it('should support custom HTML tag', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

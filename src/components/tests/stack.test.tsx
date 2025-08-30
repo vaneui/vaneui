@@ -171,7 +171,7 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('bg-(--layout-background-accent)');
+      expect(stack).toHaveClass('bg-(--background-color-accent)');
     });
 
     it('should support appearance variants for text color', () => {
@@ -189,6 +189,39 @@ describe('Stack Component Tests', () => {
         const stack = container.querySelector('div');
         expect(stack).toHaveClass(`text-(--text-color-${appearance})`);
       });
+    });
+
+    it('should support filled and outline variants for text, background, border, and ring', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Stack primary outline border ring>Outline stack</Stack>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Stack primary filled border ring>Filled stack</Stack>
+        </ThemeProvider>
+      );
+
+      const outlineStack = outlineContainer.querySelector('div');
+      const filledStack = filledContainer.querySelector('div');
+
+      // Text colors
+      expect(outlineStack).toHaveClass('text-(--text-color-primary)');
+      expect(filledStack).toHaveClass('text-white');
+      
+      // Background colors
+      expect(outlineStack).toHaveClass('bg-(--background-color-primary)');
+      expect(filledStack).toHaveClass('bg-(--filled-background-color-primary)');
+      
+      // Border colors
+      expect(outlineStack).toHaveClass('border-(--border-color-primary)');
+      expect(filledStack).toHaveClass('border-(--filled-border-color-primary)');
+      
+      // Ring colors
+      expect(outlineStack).toHaveClass('ring-(--border-color-primary)');
+      expect(filledStack).toHaveClass('ring-(--filled-border-color-primary)');
     });
 
     it('should support transparent background', () => {

@@ -95,25 +95,25 @@ export const CHIP_CATEGORIES = INTERACTIVE_CATEGORIES;
 export const CODE_CATEGORIES = INTERACTIVE_CATEGORIES;
 
 //typography:
-export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE] as const;
-export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LIST_STYLE, ...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
+export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT] as const;
+export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LIST_STYLE, ...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT] as const;
 
 //layout:
-export const GRID_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_CORE] as const;
-export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL] as const;
-export const COL_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL] as const;
-export const ROW_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_FULL] as const;
-export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_FULL] as const;
-export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_FULL, ...PADDING] as const;
+export const GRID_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_CORE, ...VARIANT] as const;
+export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...VARIANT] as const;
+export const COL_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...VARIANT] as const;
+export const ROW_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_FULL, ...VARIANT] as const;
+export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_FULL, ...VARIANT] as const;
+export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_FULL, ...PADDING, ...VARIANT] as const;
 export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
-export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...PADDING, ...BREAKPOINT] as const;
+export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...PADDING, ...BREAKPOINT, ...VARIANT] as const;
 
 // Form component categories
 export const CHECKBOX_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT] as const;
-export const LABEL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_CORE] as const;
+export const LABEL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_CORE, ...VARIANT] as const;
 
 // Media component categories
-export const IMG_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE] as const;
+export const IMG_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT] as const;
 
 export type CategoryProps = {
   [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];

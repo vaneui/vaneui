@@ -25,8 +25,8 @@ export interface ColTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    background: AppearanceTheme;
-    text: AppearanceTheme;
+    background: GenericVariantTheme<AppearanceTheme>;
+    text: GenericVariantTheme<AppearanceTheme>;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
@@ -49,8 +49,8 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
       radius: RadiusTheme.createLayoutTheme(),
     },
     appearance: {
-      background: AppearanceTheme.createLayoutBgTheme(),
-      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
+      background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
+      text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme(),

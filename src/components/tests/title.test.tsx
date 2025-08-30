@@ -102,6 +102,26 @@ describe('Title Components Tests', () => {
       });
     });
 
+    it('should support filled and outline variants', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title primary outline>Outline title</Title>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title primary filled>Filled title</Title>
+        </ThemeProvider>
+      );
+
+      const outlineTitle = outlineContainer.querySelector('h3');
+      const filledTitle = filledContainer.querySelector('h3');
+
+      expect(outlineTitle).toHaveClass('text-(--text-color-primary)');
+      expect(filledTitle).toHaveClass('text-white');
+    });
+
     it('should support flex and alignment props', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
@@ -204,6 +224,26 @@ describe('Title Components Tests', () => {
       });
     });
 
+    it('should support filled and outline variants for PageTitle', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PageTitle primary outline>Outline page title</PageTitle>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PageTitle primary filled>Filled page title</PageTitle>
+        </ThemeProvider>
+      );
+
+      const outlineTitle = outlineContainer.querySelector('h1');
+      const filledTitle = filledContainer.querySelector('h1');
+
+      expect(outlineTitle).toHaveClass('text-(--text-color-primary)');
+      expect(filledTitle).toHaveClass('text-white');
+    });
+
     it('should support layout positioning', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
@@ -302,6 +342,26 @@ describe('Title Components Tests', () => {
         const sectionTitle = container.querySelector('h2');
         expect(sectionTitle).toHaveClass(`text-(--text-color-${appearance})`);
       });
+    });
+
+    it('should support filled and outline variants for SectionTitle', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <SectionTitle primary outline>Outline section title</SectionTitle>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <SectionTitle primary filled>Filled section title</SectionTitle>
+        </ThemeProvider>
+      );
+
+      const outlineTitle = outlineContainer.querySelector('h2');
+      const filledTitle = filledContainer.querySelector('h2');
+
+      expect(outlineTitle).toHaveClass('text-(--text-color-primary)');
+      expect(filledTitle).toHaveClass('text-white');
     });
 
     it('should support all justify variants', () => {

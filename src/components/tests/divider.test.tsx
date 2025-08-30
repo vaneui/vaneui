@@ -71,6 +71,7 @@ describe('Divider Component Tests', () => {
       const divider = container.querySelector('div');
       expect(divider).toHaveClass('bg-(--border-color-secondary)');
     });
+
   });
 
   describe('Custom className override', () => {

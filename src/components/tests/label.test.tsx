@@ -229,6 +229,26 @@ describe('Label Component Tests', () => {
       });
     });
 
+    it('should support filled and outline variants', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label primary outline>Outline label</Label>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label primary filled>Filled label</Label>
+        </ThemeProvider>
+      );
+
+      const outlineLabel = outlineContainer.querySelector('label');
+      const filledLabel = filledContainer.querySelector('label');
+
+      expect(outlineLabel).toHaveClass('text-(--text-color-primary)');
+      expect(filledLabel).toHaveClass('text-white');
+    });
+
     it('should support transparent appearance', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

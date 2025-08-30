@@ -99,6 +99,31 @@ describe('Grid Components Tests', () => {
       });
     });
 
+    it('should support filled and outline variants for text and background colors', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 primary outline>Outline grid3</Grid3>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 primary filled>Filled grid3</Grid3>
+        </ThemeProvider>
+      );
+
+      const outlineGrid = outlineContainer.querySelector('div');
+      const filledGrid = filledContainer.querySelector('div');
+
+      // Text colors
+      expect(outlineGrid).toHaveClass('text-(--text-color-primary)');
+      expect(filledGrid).toHaveClass('text-white');
+      
+      // Background colors
+      expect(outlineGrid).toHaveClass('bg-(--background-color-primary)');
+      expect(filledGrid).toHaveClass('bg-(--filled-background-color-primary)');
+    });
+
     it('should support custom className', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
@@ -222,6 +247,31 @@ describe('Grid Components Tests', () => {
         const grid = container.querySelector('div');
         expect(grid).toHaveClass(`text-(--text-color-${appearance})`);
       });
+    });
+
+    it('should support filled and outline variants for text and background colors', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid4 primary outline>Outline grid4</Grid4>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid4 primary filled>Filled grid4</Grid4>
+        </ThemeProvider>
+      );
+
+      const outlineGrid = outlineContainer.querySelector('div');
+      const filledGrid = filledContainer.querySelector('div');
+
+      // Text colors
+      expect(outlineGrid).toHaveClass('text-(--text-color-primary)');
+      expect(filledGrid).toHaveClass('text-white');
+      
+      // Background colors
+      expect(outlineGrid).toHaveClass('bg-(--background-color-primary)');
+      expect(filledGrid).toHaveClass('bg-(--filled-background-color-primary)');
     });
 
     it('should support custom className', () => {

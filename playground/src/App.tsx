@@ -42,15 +42,21 @@ function App() {
     }}>
       <Section>
         <Text lg link bold>Large link text</Text>
-        <Card success>
-          <Title>Card title</Title>
-          <Text>This is a card text. It is used right under the card title.</Text>
-        </Card>
-        <Card>
+        <Row filled secondary rounded>
+          <Card success>
+            <Title>Card title</Title>
+            <Text secondary>This is a card text. It is used right under the card title.</Text>
+          </Card>
+          <Card success filled>
+            <Title black>Card title</Title>
+            <Text>This is a card text. It is used right under the card title.</Text>
+          </Card>
+        </Row>
+        <Card warning filled>
           <Col>
             <Label htmlFor="terms">
               <Checkbox id="terms" />
-              <span>I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
+              <span>I agree to the <Link filled href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
             </Label>
 
             <Label htmlFor="terms2">
@@ -62,7 +68,7 @@ function App() {
               <Checkbox defaultChecked id="emails" />
               <Col noGap tag="span">
                 <Text>Receive product updates</Text>
-                <Text xs secondary>Occasional emails about new features</Text>
+                <Text xs secondary filled>Occasional emails about new features</Text>
               </Col>
             </Label>
           </Col>

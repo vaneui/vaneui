@@ -73,6 +73,30 @@ describe('List and ListItem Components Tests', () => {
       });
     });
 
+    it('should support filled and outline variants', () => {
+      const {container: outlineContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List primary outline>
+            <ListItem>Outline list item</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+
+      const {container: filledContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List primary filled>
+            <ListItem>Filled list item</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+
+      const outlineList = outlineContainer.querySelector('ul');
+      const filledList = filledContainer.querySelector('ul');
+
+      expect(outlineList).toHaveClass('text-(--text-color-primary)');
+      expect(filledList).toHaveClass('text-white');
+    });
+
     it('should render with decimal list style using ol tag', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

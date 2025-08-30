@@ -6,6 +6,7 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { textAppearanceClasses } from "../classes/typographyClasses";
+import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { DeepPartial } from "../../utils/deepPartial";
 import { GRID_CATEGORIES } from "../props";
 
@@ -14,8 +15,8 @@ export interface GridTheme extends BaseComponentTheme {
     gap: GapTheme;
   };
   appearance: {
-    background: AppearanceTheme;
-    text: AppearanceTheme;
+    background: GenericVariantTheme<AppearanceTheme>;
+    text: GenericVariantTheme<AppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
@@ -35,8 +36,8 @@ const gridSubThemes: DeepPartial<GridTheme> = {
     }),
   },
   appearance: {
-    background: AppearanceTheme.createLayoutBgTheme(),
-    text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
+    background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
+    text: GenericVariantTheme.createUIElementTextTheme(),
   },
   layout: {
     ...defaultLayoutTheme,
