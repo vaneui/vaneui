@@ -21,7 +21,7 @@ describe('Link Component Tests', () => {
       expect(link).toBeInTheDocument();
       expect(link).toHaveClass('hover:underline', 'w-fit');
       expect(link).not.toHaveClass('text-base'); // no default size
-      expect(link).toHaveClass('text-(--text-color-link)'); // link appearance
+      expect(link).toHaveClass('text-(--text-color-link)'); // link appearance by default
       expect(link).toHaveClass('font-sans');
       expect(link).toHaveAttribute('href', '#test');
     });
@@ -94,7 +94,7 @@ describe('Link Component Tests', () => {
       );
 
       const link = container.querySelector('a');
-      // Link without appearance props should use link appearance
+      // Link without appearance props should use link appearance by default
       expect(link).toHaveClass('text-(--text-color-link)');
     });
 
@@ -289,7 +289,7 @@ describe('Link Component Tests', () => {
       );
 
       const link = container.querySelector('a');
-      expect(link).toHaveClass('hover:underline'); // theme classes (no text-base)
+      expect(link).toHaveClass('hover:underline'); // theme classes (no default color)
       expect(link).toHaveClass('custom-link-class'); // custom class
     });
 

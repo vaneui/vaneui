@@ -25,7 +25,7 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('flex'); // flex by default
       expect(label).toHaveClass('gap-2.5'); // default gap
       expect(label).toHaveClass('text-base'); // md size default
-      expect(label).toHaveClass('text-(--text-color-default)'); // default appearance
+      expect(label).not.toHaveClass('text-(--text-color-default)'); // no default appearance
       expect(label).toHaveClass('font-sans');
       expect(label).toHaveClass('font-medium');
       expect(label).toHaveTextContent('Label text');

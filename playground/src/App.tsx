@@ -42,7 +42,7 @@ function App() {
     }}>
       <Section>
         <Text lg link bold>Large link text</Text>
-        <Card warning>
+        <Card success>
           <Title>Card title</Title>
           <Text>This is a card text. It is used right under the card title.</Text>
         </Card>

@@ -5,6 +5,7 @@ import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { textAppearanceClasses } from "../classes/typographyClasses";
 import { DeepPartial } from "../../utils/deepPartial";
 import { GRID_CATEGORIES } from "../props";
 
@@ -14,6 +15,7 @@ export interface GridTheme extends BaseComponentTheme {
   };
   appearance: {
     background: AppearanceTheme;
+    text: AppearanceTheme;
   };
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
@@ -34,6 +36,7 @@ const gridSubThemes: DeepPartial<GridTheme> = {
   },
   appearance: {
     background: AppearanceTheme.createLayoutBgTheme(),
+    text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
   },
   layout: {
     ...defaultLayoutTheme,

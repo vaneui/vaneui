@@ -44,7 +44,7 @@ describe('Container Component Tests', () => {
       expect(containerEl).toHaveClass('bg-(--layout-background-default)');
     });
 
-    it('should support different appearance variants', () => {
+    it('should support different appearance variants for background', () => {
       const appearances = ['primary', 'secondary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
       
       appearances.forEach(appearance => {
@@ -58,6 +58,23 @@ describe('Container Component Tests', () => {
 
         const containerEl = container.querySelector('div');
         expect(containerEl).toHaveClass(`bg-(--layout-background-${appearance})`);
+      });
+    });
+
+    it('should support appearance variants for text color', () => {
+      const appearances = ['primary', 'secondary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
+      
+      appearances.forEach(appearance => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Container {...{[appearance]: true}}>
+              {appearance} container
+            </Container>
+          </ThemeProvider>
+        );
+
+        const containerEl = container.querySelector('div');
+        expect(containerEl).toHaveClass(`text-(--text-color-${appearance})`);
       });
     });
 

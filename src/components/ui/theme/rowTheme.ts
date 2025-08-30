@@ -11,6 +11,7 @@ import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { textAppearanceClasses } from "../classes/typographyClasses";
 import { ROW_CATEGORIES } from "../props";
 
 export interface RowTheme extends BaseComponentTheme {
@@ -27,6 +28,7 @@ export interface RowTheme extends BaseComponentTheme {
   };
   appearance: {
     background: AppearanceTheme;
+    text: AppearanceTheme;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
@@ -51,6 +53,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
     },
     appearance: {
       background: AppearanceTheme.createLayoutBgTheme(),
+      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme(),

@@ -25,7 +25,7 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toBeInTheDocument();
       expect(list).toHaveClass('list-disc', 'list-inside');
       expect(list).toHaveClass('text-base'); // md size
-      expect(list).toHaveClass('text-(--text-color-default)'); // default appearance
+      expect(list).not.toHaveClass('text-(--text-color-default)'); // no default appearance
       expect(list).toHaveClass('font-sans');
       expect(list).toHaveClass('font-normal');
     });

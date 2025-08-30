@@ -161,7 +161,7 @@ describe('Stack Component Tests', () => {
       expect(stack).toHaveClass('rounded-(--layout-border-radius-md)');
     });
 
-    it('should support appearance variants', () => {
+    it('should support appearance variants for background', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Stack accent>
@@ -172,6 +172,23 @@ describe('Stack Component Tests', () => {
 
       const stack = container.querySelector('div');
       expect(stack).toHaveClass('bg-(--layout-background-accent)');
+    });
+
+    it('should support appearance variants for text color', () => {
+      const appearances = ['primary', 'secondary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
+      
+      appearances.forEach(appearance => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Stack {...{[appearance]: true}}>
+              {appearance} stack
+            </Stack>
+          </ThemeProvider>
+        );
+
+        const stack = container.querySelector('div');
+        expect(stack).toHaveClass(`text-(--text-color-${appearance})`);
+      });
     });
 
     it('should support transparent background', () => {

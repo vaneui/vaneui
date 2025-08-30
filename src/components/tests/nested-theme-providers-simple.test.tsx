@@ -17,8 +17,10 @@ describe('Simple Nested ThemeProvider Test', () => {
 
     const { container } = render(
       <div>
-        <Title className="no-override">No Override</Title>
-        <ThemeProvider themeOverride={override}>
+        <ThemeProvider theme={defaultTheme}>
+          <Title className="no-override">No Override</Title>
+        </ThemeProvider>
+        <ThemeProvider theme={defaultTheme} themeOverride={override}>
           <Title className="with-override">With Override</Title>
         </ThemeProvider>
       </div>
@@ -27,8 +29,9 @@ describe('Simple Nested ThemeProvider Test', () => {
     const noOverride = container.querySelector('.no-override');
     const withOverride = container.querySelector('.with-override');
 
-    // Without override should have default appearance
-    expect(noOverride).toHaveClass('text-(--text-color-default)');
+    // Without override should have no default text color
+    expect(noOverride).not.toHaveClass('text-(--text-color-default)');
+    expect(noOverride).not.toHaveClass('text-(--text-color-primary)');
     
     // With override should have primary appearance
     expect(withOverride).toHaveClass('text-(--text-color-primary)');

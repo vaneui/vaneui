@@ -23,7 +23,7 @@ describe('Title Components Tests', () => {
       expect(title).toBeInTheDocument();
       expect(title).toHaveClass('text-balance', 'w-fit');
       expect(title).toHaveClass('text-2xl'); // md size for title
-      expect(title).toHaveClass('text-(--text-color-default)'); // default appearance
+      expect(title).not.toHaveClass('text-(--text-color-default)'); // no default appearance
       expect(title).toHaveClass('font-sans');
       expect(title).toHaveClass('font-semibold');
     });
@@ -123,7 +123,7 @@ describe('Title Components Tests', () => {
       );
 
       const title = container.querySelector('h3');
-      expect(title).toHaveClass('text-2xl', 'font-semibold'); // theme classes
+      expect(title).toHaveClass('text-2xl', 'font-semibold'); // theme classes (no default color)
       expect(title).toHaveClass('custom-title-class'); // custom class
     });
 
@@ -152,7 +152,7 @@ describe('Title Components Tests', () => {
       expect(pageTitle).toBeInTheDocument();
       expect(pageTitle).toHaveClass('text-balance', 'tracking-tight', 'w-fit');
       expect(pageTitle).toHaveClass('text-5xl'); // md size for page title
-      expect(pageTitle).toHaveClass('text-(--text-color-default)'); // default appearance
+      expect(pageTitle).not.toHaveClass('text-(--text-color-default)'); // no default appearance
       expect(pageTitle).toHaveClass('font-sans');
       expect(pageTitle).toHaveClass('font-semibold');
     });
@@ -223,7 +223,7 @@ describe('Title Components Tests', () => {
       );
 
       const pageTitle = container.querySelector('h1');
-      expect(pageTitle).toHaveClass('text-5xl', 'font-semibold', 'tracking-tight'); // theme classes
+      expect(pageTitle).toHaveClass('text-5xl', 'font-semibold', 'tracking-tight'); // theme classes (no default color)
       expect(pageTitle).toHaveClass('custom-page-title-class'); // custom class
     });
 
@@ -252,7 +252,7 @@ describe('Title Components Tests', () => {
       expect(sectionTitle).toBeInTheDocument();
       expect(sectionTitle).toHaveClass('text-balance', 'w-fit');
       expect(sectionTitle).toHaveClass('text-4xl'); // md size for section title
-      expect(sectionTitle).toHaveClass('text-(--text-color-default)'); // default appearance
+      expect(sectionTitle).not.toHaveClass('text-(--text-color-default)'); // no default appearance
       expect(sectionTitle).toHaveClass('font-sans');
       expect(sectionTitle).toHaveClass('font-semibold');
     });
@@ -345,7 +345,7 @@ describe('Title Components Tests', () => {
       );
 
       const sectionTitle = container.querySelector('h2');
-      expect(sectionTitle).toHaveClass('text-4xl', 'font-semibold'); // theme classes
+      expect(sectionTitle).toHaveClass('text-4xl', 'font-semibold'); // theme classes (no default color)
       expect(sectionTitle).toHaveClass('custom-section-title-class'); // custom class
     });
 

@@ -148,7 +148,6 @@ export const themeDefaults: ThemeDefaults = {
     md: true,
     flex: true,
     gap: true,
-    default: true,
     sans: true,
     medium: true,
   },
@@ -170,14 +169,12 @@ export const themeDefaults: ThemeDefaults = {
 
   text: {
     md: true,
-    default: true,
     sans: true,
     textLeft: true,
   },
 
   title: {
     md: true,
-    default: true,
     sans: true,
     semibold: true,
     textLeft: true,
@@ -185,7 +182,6 @@ export const themeDefaults: ThemeDefaults = {
 
   pageTitle: {
     md: true,
-    default: true,
     sans: true,
     semibold: true,
     textLeft: true,
@@ -193,7 +189,6 @@ export const themeDefaults: ThemeDefaults = {
 
   sectionTitle: {
     md: true,
-    default: true,
     sans: true,
     semibold: true,
     textLeft: true,
@@ -211,7 +206,6 @@ export const themeDefaults: ThemeDefaults = {
 
   list: {
     md: true,
-    default: true,
     sans: true,
     normal: true,
     padding: true,

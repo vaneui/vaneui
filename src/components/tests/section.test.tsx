@@ -52,6 +52,23 @@ describe('Section Component Tests', () => {
       expect(section).toHaveClass('custom-section-class'); // custom class
     });
 
+    it('should support appearance variants for text color', () => {
+      const appearances = ['primary', 'secondary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
+      
+      appearances.forEach(appearance => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Section {...{[appearance]: true}}>
+              {appearance} section
+            </Section>
+          </ThemeProvider>
+        );
+
+        const section = container.querySelector('div');
+        expect(section).toHaveClass(`text-(--text-color-${appearance})`);
+      });
+    });
+
     it('should support custom HTML tag', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

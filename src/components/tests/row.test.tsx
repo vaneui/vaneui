@@ -94,7 +94,7 @@ describe('Row Component Tests', () => {
       expect(row).toHaveClass('max-md:flex-col');
     });
 
-    it('should support appearance variants', () => {
+    it('should support appearance variants for background', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Row primary>
@@ -105,6 +105,23 @@ describe('Row Component Tests', () => {
 
       const row = container.querySelector('div');
       expect(row).toHaveClass('bg-(--layout-background-primary)');
+    });
+
+    it('should support appearance variants for text color', () => {
+      const appearances = ['primary', 'secondary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
+      
+      appearances.forEach(appearance => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Row {...{[appearance]: true}}>
+              {appearance} row
+            </Row>
+          </ThemeProvider>
+        );
+
+        const row = container.querySelector('div');
+        expect(row).toHaveClass(`text-(--text-color-${appearance})`);
+      });
     });
 
     it('should support transparent background', () => {

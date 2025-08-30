@@ -81,7 +81,7 @@ describe('Col Component Tests', () => {
       expect(col).toHaveClass('flex-wrap');
     });
 
-    it('should support appearance variants', () => {
+    it('should support appearance variants for background', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Col secondary>
@@ -92,6 +92,23 @@ describe('Col Component Tests', () => {
 
       const col = container.querySelector('div');
       expect(col).toHaveClass('bg-(--layout-background-secondary)');
+    });
+
+    it('should support appearance variants for text color', () => {
+      const appearances = ['primary', 'secondary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
+      
+      appearances.forEach(appearance => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Col {...{[appearance]: true}}>
+              {appearance} col
+            </Col>
+          </ThemeProvider>
+        );
+
+        const col = container.querySelector('div');
+        expect(col).toHaveClass(`text-(--text-color-${appearance})`);
+      });
     });
 
     it('should support transparent background', () => {

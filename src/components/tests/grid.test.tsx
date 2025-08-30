@@ -82,6 +82,23 @@ describe('Grid Components Tests', () => {
       expect(grid).toHaveClass('items-center', 'justify-between');
     });
 
+    it('should support appearance variants for text color', () => {
+      const appearances = ['primary', 'secondary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
+      
+      appearances.forEach(appearance => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Grid3 {...{[appearance]: true}}>
+              {appearance} grid3
+            </Grid3>
+          </ThemeProvider>
+        );
+
+        const grid = container.querySelector('div');
+        expect(grid).toHaveClass(`text-(--text-color-${appearance})`);
+      });
+    });
+
     it('should support custom className', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
@@ -188,6 +205,23 @@ describe('Grid Components Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toHaveClass('overflow-hidden');
+    });
+
+    it('should support appearance variants for text color', () => {
+      const appearances = ['primary', 'secondary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
+      
+      appearances.forEach(appearance => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Grid4 {...{[appearance]: true}}>
+              {appearance} grid4
+            </Grid4>
+          </ThemeProvider>
+        );
+
+        const grid = container.querySelector('div');
+        expect(grid).toHaveClass(`text-(--text-color-${appearance})`);
+      });
     });
 
     it('should support custom className', () => {

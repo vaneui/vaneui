@@ -21,7 +21,7 @@ describe('Text Component Tests', () => {
       expect(text).toBeInTheDocument();
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
       expect(text).toHaveClass('text-base'); // md size
-      expect(text).toHaveClass('text-(--text-color-default)'); // default appearance
+      expect(text).not.toHaveClass('text-(--text-color-default)'); // no default appearance
       expect(text).toHaveClass('font-sans');
       // No default font weight; variants like medium/bold are opt-in
       expect(text).not.toHaveClass('font-normal');
@@ -282,7 +282,7 @@ describe('Text Component Tests', () => {
       );
 
       const text = container.querySelector('p');
-      expect(text).toHaveClass('text-base', 'font-sans'); // theme classes
+      expect(text).toHaveClass('text-base', 'font-sans'); // theme classes (no default color)
       expect(text).toHaveClass('custom-text-class'); // custom class
     });
 

@@ -13,6 +13,7 @@ import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { textAppearanceClasses } from "../classes/typographyClasses";
 import { STACK_CATEGORIES } from "../props";
 
 export interface StackTheme extends BaseComponentTheme {
@@ -31,6 +32,7 @@ export interface StackTheme extends BaseComponentTheme {
   };
   appearance: {
     background: AppearanceTheme;
+    text: AppearanceTheme;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
@@ -57,6 +59,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
     },
     appearance: {
       background: AppearanceTheme.createLayoutBgTheme(),
+      text: AppearanceTheme.createTheme({base: textAppearanceClasses}),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme(),
