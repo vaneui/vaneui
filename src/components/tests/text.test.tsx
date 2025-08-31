@@ -123,7 +123,7 @@ describe('Text Component Tests', () => {
       const filledText = filledContainer.querySelector('p');
 
       expect(outlineText).toHaveClass('text-(--text-color-primary)');
-      expect(filledText).toHaveClass('text-white');
+      expect(filledText).toHaveClass('text-(--filled-text-color-primary)');
     });
 
     it('should support font weight variants', () => {

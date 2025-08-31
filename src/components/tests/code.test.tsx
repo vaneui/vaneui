@@ -156,7 +156,7 @@ describe('Code Component', () => {
       const codeElement = container.querySelector('code');
       
       expect(codeElement).toHaveClass('bg-(--filled-background-color-default)');
-      expect(codeElement).toHaveClass('text-white');
+      expect(codeElement).toHaveClass('text-(--filled-text-color-default)');
     });
 
     it('should apply filled variant with primary appearance', () => {
@@ -164,7 +164,7 @@ describe('Code Component', () => {
       const codeElement = container.querySelector('code');
       
       expect(codeElement).toHaveClass('bg-(--filled-background-color-primary)');
-      expect(codeElement).toHaveClass('text-white');
+      expect(codeElement).toHaveClass('text-(--filled-text-color-primary)');
     });
   });
 

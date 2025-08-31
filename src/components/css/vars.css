@@ -11,7 +11,20 @@
     --text-color-warning: var(--color-amber-600, #d97706);
     --text-color-info: var(--color-cyan-600, #0891b2);
 
-    /* Background Colors */
+    /* Filled Text Colors */
+    --filled-text-color-default: var(--color-gray-100, #f3f4f6);
+    --filled-text-color-primary: var(--color-blue-100, #dbeafe);
+    --filled-text-color-secondary: var(--color-gray-100, #f3f4f6);
+    --filled-text-color-tertiary: var(--color-gray-200, #e5e7eb);
+    --filled-text-color-link: var(--color-blue-100, #dbeafe);
+    --filled-text-color-accent: var(--color-rose-100, #fdf2f8);
+    --filled-text-color-success: var(--color-emerald-100, #d1fae5);
+    --filled-text-color-danger: var(--color-red-100, #fee2e2);
+    --filled-text-color-warning: var(--color-amber-100, #fef3c7);
+    --filled-text-color-info: var(--color-cyan-100, #cffafe);
+    --filled-text-color-transparent: transparent;
+
+    /* UI Background Colors */
     --background-color-default: var(--color-white, #ffffff);
     --background-color-primary: var(--color-blue-50, #eff6ff);
     --background-color-secondary: var(--color-gray-50, #f9fafb);
@@ -23,7 +36,7 @@
     --background-color-info: var(--color-cyan-50, #ecfeff);
     --background-color-link: var(--color-blue-50, #eff6ff);
 
-    /* Background Hover Colors */
+    /* UI Background Hover Colors */
     --background-color-hover-default: var(--color-gray-50, #f3f4f6);
     --background-color-hover-primary: var(--color-blue-100, #dbeafe);
     --background-color-hover-secondary: var(--color-gray-100, #f3f4f6);
@@ -35,7 +48,7 @@
     --background-color-hover-info: var(--color-cyan-100, #cffafe);
     --background-color-hover-link: var(--color-blue-100, #dbeafe);
 
-    /* Background Active Colors */
+    /* UI Background Active Colors */
     --background-color-active-default: var(--color-gray-100, #e5e7eb);
     --background-color-active-primary: var(--color-blue-200, #bfdbfe);
     --background-color-active-secondary: var(--color-gray-200, #e5e7eb);
@@ -47,7 +60,7 @@
     --background-color-active-info: var(--color-cyan-200, #a5f3fc);
     --background-color-active-link: var(--color-blue-200, #bfdbfe);
 
-    /* Filled Button Background Colors */
+    /* Filled UI Background Colors */
     --filled-background-color-default: var(--color-gray-800, #1f2937);
     --filled-background-color-primary: var(--color-blue-600, #2563eb);
     --filled-background-color-secondary: var(--color-gray-600, #4b5563);
@@ -59,7 +72,7 @@
     --filled-background-color-info: var(--color-cyan-600, #0891b2);
     --filled-background-color-link: var(--color-blue-600, #2563eb);
 
-    /* Filled Button Hover Background Colors */
+    /* Filled UI Hover Background Colors */
     --filled-background-color-hover-default: var(--color-gray-900, #111827);
     --filled-background-color-hover-primary: var(--color-blue-700, #1d4ed8);
     --filled-background-color-hover-secondary: var(--color-gray-700, #374151);
@@ -71,7 +84,7 @@
     --filled-background-color-hover-info: var(--color-cyan-700, #0e7490);
     --filled-background-color-hover-link: var(--color-blue-700, #1d4ed8);
 
-    /* Filled Button Active Background Colors */
+    /* Filled UI Active Background Colors */
     --filled-background-color-active-default: var(--color-gray-950, #030712);
     --filled-background-color-active-primary: var(--color-blue-800, #1e40af);
     --filled-background-color-active-secondary: var(--color-gray-800, #1f2937);
@@ -95,6 +108,19 @@
     --layout-background-info: var(--color-blue-50, #eff6ff);
     --layout-background-transparent: transparent;
     --layout-background-link: var(--color-blue-50, #eff6ff);
+
+    /* Layout Filled Background Colors */
+    --layout-filled-background-color-default: var(--color-gray-600, #4b5563);
+    --layout-filled-background-color-primary: var(--color-blue-600, #2563eb);
+    --layout-filled-background-color-secondary: var(--color-gray-600, #4b5563);
+    --layout-filled-background-color-tertiary: var(--color-gray-500, #6b7280);
+    --layout-filled-background-color-accent: var(--color-indigo-600, #4f46e5);
+    --layout-filled-background-color-success: var(--color-green-600, #16a34a);
+    --layout-filled-background-color-danger: var(--color-red-600, #dc2626);
+    --layout-filled-background-color-warning: var(--color-yellow-600, #ca8a04);
+    --layout-filled-background-color-info: var(--color-blue-600, #2563eb);
+    --layout-filled-background-color-transparent: transparent;
+    --layout-filled-background-color-link: var(--color-blue-600, #2563eb);
 
     /* Border Colors */
     --border-color-default: var(--color-gray-200, #d1d5db);

@@ -81,7 +81,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
     },
     appearance: {
-      background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
+      background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),

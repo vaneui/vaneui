@@ -119,7 +119,7 @@ describe('Title Components Tests', () => {
       const filledTitle = filledContainer.querySelector('h3');
 
       expect(outlineTitle).toHaveClass('text-(--text-color-primary)');
-      expect(filledTitle).toHaveClass('text-white');
+      expect(filledTitle).toHaveClass('text-(--filled-text-color-primary)');
     });
 
     it('should support flex and alignment props', () => {
@@ -241,7 +241,7 @@ describe('Title Components Tests', () => {
       const filledTitle = filledContainer.querySelector('h1');
 
       expect(outlineTitle).toHaveClass('text-(--text-color-primary)');
-      expect(filledTitle).toHaveClass('text-white');
+      expect(filledTitle).toHaveClass('text-(--filled-text-color-primary)');
     });
 
     it('should support layout positioning', () => {
@@ -361,7 +361,7 @@ describe('Title Components Tests', () => {
       const filledTitle = filledContainer.querySelector('h2');
 
       expect(outlineTitle).toHaveClass('text-(--text-color-primary)');
-      expect(filledTitle).toHaveClass('text-white');
+      expect(filledTitle).toHaveClass('text-(--filled-text-color-primary)');
     });
 
     it('should support all justify variants', () => {

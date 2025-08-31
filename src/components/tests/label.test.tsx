@@ -246,7 +246,7 @@ describe('Label Component Tests', () => {
       const filledLabel = filledContainer.querySelector('label');
 
       expect(outlineLabel).toHaveClass('text-(--text-color-primary)');
-      expect(filledLabel).toHaveClass('text-white');
+      expect(filledLabel).toHaveClass('text-(--filled-text-color-primary)');
     });
 
     it('should support transparent appearance', () => {

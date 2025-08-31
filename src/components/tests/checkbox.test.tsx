@@ -257,8 +257,8 @@ describe('Checkbox Component Tests', () => {
 
           const checkElement = container.querySelector('span.invisible');
           expect(checkElement).toBeInTheDocument();
-          // Filled variant should have white text for the check mark
-          expect(checkElement).toHaveClass('text-white');
+          // Filled variant should have light colored text for the check mark
+          expect(checkElement).toHaveClass(`text-(--filled-text-color-${appearance})`);
         });
       });
 
@@ -304,7 +304,7 @@ describe('Checkbox Component Tests', () => {
         // Test filled primary checkbox - should have white check
         const filledPrimaryWrapper = filledContainer.querySelector('[data-testid="filled-primary"]')?.parentElement;
         const filledPrimaryCheck = filledPrimaryWrapper?.querySelector('span.invisible');
-        expect(filledPrimaryCheck).toHaveClass('text-white');
+        expect(filledPrimaryCheck).toHaveClass('text-(--filled-text-color-primary)');
 
         // Test outline primary checkbox - should have primary colored check  
         const outlinePrimaryWrapper = filledContainer.querySelector('[data-testid="outline-primary"]')?.parentElement;
@@ -314,7 +314,7 @@ describe('Checkbox Component Tests', () => {
         // Test filled danger checkbox - should have white check
         const filledDangerWrapper = filledContainer.querySelector('[data-testid="filled-danger"]')?.parentElement;
         const filledDangerCheck = filledDangerWrapper?.querySelector('span.invisible');
-        expect(filledDangerCheck).toHaveClass('text-white');
+        expect(filledDangerCheck).toHaveClass('text-(--filled-text-color-danger)');
 
         // Test outline danger checkbox - should have danger colored check
         const outlineDangerWrapper = filledContainer.querySelector('[data-testid="outline-danger"]')?.parentElement;

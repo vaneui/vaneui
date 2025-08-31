@@ -1,7 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 import { ComponentKeys, ModeKey, AppearanceKey } from "../../props";
-import { layoutBackgroundAppearanceClasses } from "../../classes/appearanceClasses";
 
 export interface AppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
 }
@@ -53,21 +52,5 @@ export class AppearanceTheme extends BaseTheme {
     ) as Record<AppearanceKey, Record<ModeKey, string>>;
 
     return new AppearanceTheme(config, src.base);
-  }
-
-  static createLayoutBgTheme(): AppearanceTheme {
-    // Creates a theme for layout backgrounds, replacing BgAppearanceTheme
-    const config = Object.fromEntries(
-      ComponentKeys.appearance.map(key => [
-        key,
-        {
-          base: layoutBackgroundAppearanceClasses[key] || '',
-          hover: '',
-          active: '',
-        }
-      ])
-    ) as Record<AppearanceKey, Record<ModeKey, string>>;
-
-    return new AppearanceTheme(config, layoutBackgroundAppearanceClasses);
   }
 }

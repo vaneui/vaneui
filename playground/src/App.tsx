@@ -42,30 +42,59 @@ function App() {
     }}>
       <Section>
         <Text lg link bold>Large link text</Text>
-        <Row filled secondary rounded>
-          <Card success>
-            <Title>Card title</Title>
-            <Text secondary>This is a card text. It is used right under the card title.</Text>
-          </Card>
-          <Card success filled>
-            <Title black>Card title</Title>
-            <Text>This is a card text. It is used right under the card title.</Text>
-          </Card>
-        </Row>
+        <Text lg primary filled bold>Large link text</Text>
+        <Text lg secondary filled bold>Large link text</Text>
+        <Text lg success filled bold>Large link text</Text>
+        <Text lg warning filled bold>Large link text</Text>
+        <Text lg danger filled bold>Large link text</Text>
+        <Col>
+          <Row>
+            <Card>
+              <Title>Card title</Title>
+              <Text secondary>This is a card text. It is used right under the card title.</Text>
+            </Card>
+            <Card filled>
+              <Title>Card title</Title>
+              <Text>This is a card text. It is used right under the card title.</Text>
+            </Card>
+          </Row>
+          <Row filled secondary rounded>
+            <Card success>
+              <Title>Card title</Title>
+              <Text secondary>This is a card text. It is used right under the card title.</Text>
+            </Card>
+            <Card success filled>
+              <Title black>Card title</Title>
+              <Text>This is a card text. It is used right under the card title.</Text>
+            </Card>
+          </Row>
+          <Row>
+            <Card primary>
+              <Title>Card title</Title>
+              <Text secondary>This is a card text. It is used right under the card title.</Text>
+            </Card>
+            <Card primary filled>
+              <Title black>Card title</Title>
+              <Text>This is a card text. It is used right under the card title.</Text>
+            </Card>
+          </Row>
+        </Col>
         <Card warning filled>
           <Col>
             <Label htmlFor="terms">
-              <Checkbox id="terms" />
-              <span>I agree to the <Link filled href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
+              <Checkbox id="terms"/>
+              <span>I agree to the <Link filled href="#">Terms of Service</Link> and <Link
+                href="#">Privacy Policy</Link>.</span>
             </Label>
 
             <Label htmlFor="terms2">
-              <Checkbox outline id="terms2" />
-              <span>I agree to the <Link href="#">Terms of Service</Link> and <Link href="#">Privacy Policy</Link>.</span>
+              <Checkbox outline id="terms2"/>
+              <span>I agree to the <Link href="#">Terms of Service</Link> and <Link
+                href="#">Privacy Policy</Link>.</span>
             </Label>
 
             <Label htmlFor="emails">
-              <Checkbox defaultChecked id="emails" />
+              <Checkbox defaultChecked id="emails"/>
               <Col noGap tag="span">
                 <Text>Receive product updates</Text>
                 <Text xs secondary filled>Occasional emails about new features</Text>

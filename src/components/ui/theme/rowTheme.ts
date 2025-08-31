@@ -52,7 +52,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
       radius: RadiusTheme.createLayoutTheme(),
     },
     appearance: {
-      background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
+      background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),

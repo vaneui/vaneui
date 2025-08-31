@@ -6,17 +6,17 @@ import {
 } from "../props";
 
 export const filledTextAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
-  default: "text-white",
-  primary: "text-white",
-  secondary: "text-white",
-  tertiary: "text-white",
-  link: "text-white",
-  accent: "text-white",
-  success: "text-white",
-  danger: "text-white",
-  warning: "text-white",
-  info: "text-white",
-  transparent: "text-transparent",
+  default: "text-(--filled-text-color-default)",
+  primary: "text-(--filled-text-color-primary)",
+  secondary: "text-(--filled-text-color-secondary)",
+  tertiary: "text-(--filled-text-color-tertiary)",
+  link: "text-(--filled-text-color-link)",
+  accent: "text-(--filled-text-color-accent)",
+  success: "text-(--filled-text-color-success)",
+  danger: "text-(--filled-text-color-danger)",
+  warning: "text-(--filled-text-color-warning)",
+  info: "text-(--filled-text-color-info)",
+  transparent: "text-(--filled-text-color-transparent)",
 }
 
 export const textAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {

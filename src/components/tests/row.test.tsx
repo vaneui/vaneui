@@ -104,7 +104,7 @@ describe('Row Component Tests', () => {
       );
 
       const row = container.querySelector('div');
-      expect(row).toHaveClass('bg-(--background-color-primary)');
+      expect(row).toHaveClass('bg-(--layout-background-primary)');
     });
 
     it('should support appearance variants for text color', () => {
@@ -142,11 +142,11 @@ describe('Row Component Tests', () => {
 
       // Text colors
       expect(outlineRow).toHaveClass('text-(--text-color-primary)');
-      expect(filledRow).toHaveClass('text-white');
+      expect(filledRow).toHaveClass('text-(--filled-text-color-primary)');
       
       // Background colors
-      expect(outlineRow).toHaveClass('bg-(--background-color-primary)');
-      expect(filledRow).toHaveClass('bg-(--filled-background-color-primary)');
+      expect(outlineRow).toHaveClass('bg-(--layout-background-primary)');
+      expect(filledRow).toHaveClass('bg-(--layout-filled-background-color-primary)');
       
       // Border colors
       expect(outlineRow).toHaveClass('border-(--border-color-primary)');

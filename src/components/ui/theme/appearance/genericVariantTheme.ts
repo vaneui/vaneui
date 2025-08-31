@@ -17,6 +17,8 @@ import {
   filledHoverBackgroundAppearanceClasses,
   filledRingAppearanceClasses,
   hoverBackgroundAppearanceClasses,
+  layoutBackgroundAppearanceClasses,
+  layoutFilledBackgroundAppearanceClasses,
   ringAppearanceClasses,
 } from "../../classes/appearanceClasses";
 import { ShadowAppearanceTheme } from "./shadowAppearanceTheme";
@@ -183,6 +185,17 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
       }),
       filled: AppearanceTheme.createTheme({
         base: filledCheckedBackgroundAppearanceClasses
+      })
+    });
+  }
+
+  static createLayoutBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
+    return new GenericVariantTheme({
+      outline: AppearanceTheme.createTheme({
+        base: layoutBackgroundAppearanceClasses
+      }),
+      filled: AppearanceTheme.createTheme({
+        base: layoutFilledBackgroundAppearanceClasses
       })
     });
   }

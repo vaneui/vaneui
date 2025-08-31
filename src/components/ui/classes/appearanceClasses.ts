@@ -98,6 +98,20 @@ export const layoutBackgroundAppearanceClasses: Record<AppearanceKey | Transpare
   link: "bg-(--layout-background-link)",
 }
 
+export const layoutFilledBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
+  default: "bg-(--layout-filled-background-color-default)",
+  primary: "bg-(--layout-filled-background-color-primary)",
+  secondary: "bg-(--layout-filled-background-color-secondary)",
+  tertiary: "bg-(--layout-filled-background-color-tertiary)",
+  accent: "bg-(--layout-filled-background-color-accent)",
+  success: "bg-(--layout-filled-background-color-success)",
+  danger: "bg-(--layout-filled-background-color-danger)",
+  warning: "bg-(--layout-filled-background-color-warning)",
+  info: "bg-(--layout-filled-background-color-info)",
+  transparent: "bg-transparent",
+  link: "bg-(--layout-filled-background-color-link)",
+}
+
 export const bgBorderAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
   default: "bg-(--border-color-default)",
   primary: "bg-(--border-color-primary)",

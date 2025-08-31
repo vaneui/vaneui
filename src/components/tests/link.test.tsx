@@ -103,7 +103,7 @@ describe('Link Component Tests', () => {
       const filledLink = filledContainer.querySelector('a');
 
       expect(outlineLink).toHaveClass('text-(--text-color-primary)');
-      expect(filledLink).toHaveClass('text-white');
+      expect(filledLink).toHaveClass('text-(--filled-text-color-primary)');
     });
 
     it('should use link appearance by default when no appearance prop is provided', () => {

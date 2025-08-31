@@ -66,7 +66,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       breakpoint: new BreakpointTheme(),
     },
     appearance: {
-      background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
+      background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),

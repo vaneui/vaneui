@@ -62,7 +62,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       radius: RadiusTheme.createLayoutTheme(),
     },
     appearance: {
-      background: GenericVariantTheme.createSimpleBgAppearanceTheme(),
+      background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),

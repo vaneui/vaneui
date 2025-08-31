@@ -117,11 +117,11 @@ describe('Grid Components Tests', () => {
 
       // Text colors
       expect(outlineGrid).toHaveClass('text-(--text-color-primary)');
-      expect(filledGrid).toHaveClass('text-white');
+      expect(filledGrid).toHaveClass('text-(--filled-text-color-primary)');
       
       // Background colors
-      expect(outlineGrid).toHaveClass('bg-(--background-color-primary)');
-      expect(filledGrid).toHaveClass('bg-(--filled-background-color-primary)');
+      expect(outlineGrid).toHaveClass('bg-(--layout-background-primary)');
+      expect(filledGrid).toHaveClass('bg-(--layout-filled-background-color-primary)');
     });
 
     it('should support custom className', () => {
@@ -267,11 +267,11 @@ describe('Grid Components Tests', () => {
 
       // Text colors
       expect(outlineGrid).toHaveClass('text-(--text-color-primary)');
-      expect(filledGrid).toHaveClass('text-white');
+      expect(filledGrid).toHaveClass('text-(--filled-text-color-primary)');
       
       // Background colors
-      expect(outlineGrid).toHaveClass('bg-(--background-color-primary)');
-      expect(filledGrid).toHaveClass('bg-(--filled-background-color-primary)');
+      expect(outlineGrid).toHaveClass('bg-(--layout-background-primary)');
+      expect(filledGrid).toHaveClass('bg-(--layout-filled-background-color-primary)');
     });
 
     it('should support custom className', () => {

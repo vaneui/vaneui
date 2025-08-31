@@ -94,7 +94,7 @@ describe('List and ListItem Components Tests', () => {
       const filledList = filledContainer.querySelector('ul');
 
       expect(outlineList).toHaveClass('text-(--text-color-primary)');
-      expect(filledList).toHaveClass('text-white');
+      expect(filledList).toHaveClass('text-(--filled-text-color-primary)');
     });
 
     it('should render with decimal list style using ol tag', () => {
