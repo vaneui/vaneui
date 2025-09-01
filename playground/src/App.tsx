@@ -43,10 +43,6 @@ function App() {
       <Section>
         <Text lg link bold>Large link text</Text>
         <Text lg primary filled bold>Large link text</Text>
-        <Text lg secondary filled bold>Large link text</Text>
-        <Text lg success filled bold>Large link text</Text>
-        <Text lg warning filled bold>Large link text</Text>
-        <Text lg danger filled bold>Large link text</Text>
         <Col>
           <Row>
             <Card>

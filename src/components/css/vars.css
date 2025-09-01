@@ -12,7 +12,7 @@
     --text-color-info: var(--color-cyan-600, #0891b2);
 
     /* Filled Text Colors */
-    --filled-text-color-default: var(--color-gray-100, #f3f4f6);
+    --filled-text-color-default: #ffffff;
     --filled-text-color-primary: var(--color-blue-100, #dbeafe);
     --filled-text-color-secondary: var(--color-gray-100, #f3f4f6);
     --filled-text-color-tertiary: var(--color-gray-200, #e5e7eb);
@@ -110,17 +110,17 @@
     --layout-background-link: var(--color-blue-50, #eff6ff);
 
     /* Layout Filled Background Colors */
-    --layout-filled-background-color-default: var(--color-gray-600, #4b5563);
-    --layout-filled-background-color-primary: var(--color-blue-600, #2563eb);
-    --layout-filled-background-color-secondary: var(--color-gray-600, #4b5563);
-    --layout-filled-background-color-tertiary: var(--color-gray-500, #6b7280);
-    --layout-filled-background-color-accent: var(--color-indigo-600, #4f46e5);
-    --layout-filled-background-color-success: var(--color-green-600, #16a34a);
-    --layout-filled-background-color-danger: var(--color-red-600, #dc2626);
-    --layout-filled-background-color-warning: var(--color-yellow-600, #ca8a04);
-    --layout-filled-background-color-info: var(--color-blue-600, #2563eb);
+    --layout-filled-background-color-default: var(--color-gray-800, #4b5563);
+    --layout-filled-background-color-primary: var(--color-blue-800, #2563eb);
+    --layout-filled-background-color-secondary: var(--color-gray-800, #4b5563);
+    --layout-filled-background-color-tertiary: var(--color-gray-800, #6b7280);
+    --layout-filled-background-color-accent: var(--color-indigo-800, #4f46e5);
+    --layout-filled-background-color-success: var(--color-green-800, #16a34a);
+    --layout-filled-background-color-danger: var(--color-red-800, #dc2626);
+    --layout-filled-background-color-warning: var(--color-yellow-800, #ca8a04);
+    --layout-filled-background-color-info: var(--color-blue-800, #2563eb);
     --layout-filled-background-color-transparent: transparent;
-    --layout-filled-background-color-link: var(--color-blue-600, #2563eb);
+    --layout-filled-background-color-link: var(--color-blue-800, #2563eb);
 
     /* Border Colors */
     --border-color-default: var(--color-gray-200, #d1d5db);

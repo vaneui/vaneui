@@ -49,8 +49,7 @@
     "build:css:ui": "npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css",
     "build": "npm run clean && npm run build:js && npm run build:css:ui && npm run build:css:vars",
     "test": "tsc --noEmit && node node_modules/jest/bin/jest.js",
-    "playground": "npm run build && cd playground && npm run dev",
-    "playground:dev": "cd playground && npm run dev"
+    "playground": "npm run build:css:ui && npm run build:css:vars && concurrently --kill-others --raw \"npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css --watch\" \"npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css --watch\" \"cd playground && npm run dev\""
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
