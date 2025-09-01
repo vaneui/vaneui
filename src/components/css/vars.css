@@ -112,7 +112,7 @@
     /* Layout Filled Background Colors */
     --layout-filled-background-color-default: var(--color-gray-800, #4b5563);
     --layout-filled-background-color-primary: var(--color-blue-800, #2563eb);
-    --layout-filled-background-color-secondary: var(--color-gray-800, #4b5563);
+    --layout-filled-background-color-secondary: var(--color-gray-900, #4b5563);
     --layout-filled-background-color-tertiary: var(--color-gray-800, #6b7280);
     --layout-filled-background-color-accent: var(--color-indigo-800, #4f46e5);
     --layout-filled-background-color-success: var(--color-green-800, #16a34a);
