@@ -9,17 +9,15 @@ export interface DirectionTheme extends Record<FlexDirectionKey, string> {
 }
 
 export class DirectionTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<FlexDirectionKey, string> = {
-    row: "flex-row",
-    column: "flex-col",
-    rowReverse: "flex-row-reverse",
-    columnReverse: "flex-col-reverse",
-  };
-
   constructor(initial?: Partial<Record<FlexDirectionKey, string>>) {
     super();
     ComponentKeys.flexDirection.forEach((key) => {
-      this[key as FlexDirectionKey] = initial?.[key as FlexDirectionKey] || DirectionTheme.defaultClasses[key as FlexDirectionKey];
+      this[key] = initial?.[key] || {
+        row: "flex-row",
+        column: "flex-col",
+        rowReverse: "flex-row-reverse",
+        columnReverse: "flex-col-reverse",
+      }[key];
     });
   }
 

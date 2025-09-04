@@ -6,17 +6,15 @@ export interface TextAlignTheme extends Record<TextAlignKey, string> {
 }
 
 export class TextAlignTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<TextAlignKey, string> = {
-    textLeft: "text-left",
-    textCenter: "text-center",
-    textRight: "text-right",
-    textJustify: "text-justify",
-  };
-
   constructor(initial?: Partial<Record<TextAlignKey, string>>) {
     super();
     ComponentKeys.textAlign.forEach((key) => {
-      this[key as TextAlignKey] = initial?.[key as TextAlignKey] ?? TextAlignTheme.defaultClasses[key as TextAlignKey];
+      this[key] = initial?.[key] ?? {
+        textLeft: "text-left",
+        textCenter: "text-center",
+        textRight: "text-right",
+        textJustify: "text-justify",
+      }[key];
     });
   }
 

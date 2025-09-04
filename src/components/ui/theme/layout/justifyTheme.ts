@@ -5,21 +5,19 @@ import type { CategoryProps } from "../../props";
 export interface JustifyTheme extends Record<JustifyKey, string> {}
 
 export class JustifyTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<JustifyKey, string> = {
-    justifyStart: "justify-start",
-    justifyEnd: "justify-end",
-    justifyCenter: "justify-center",
-    justifyBetween: "justify-between",
-    justifyAround: "justify-around",
-    justifyEvenly: "justify-evenly",
-    justifyStretch: "justify-stretch",
-    justifyBaseline: "justify-baseline",
-  };
-
   constructor(initialConfig?: Partial<Record<JustifyKey, string>>) {
     super();
     ComponentKeys.justify.forEach((key) => {
-      this[key as JustifyKey] = initialConfig?.[key as JustifyKey] ?? JustifyTheme.defaultClasses[key as JustifyKey];
+      this[key] = initialConfig?.[key] ?? {
+        justifyStart: "justify-start",
+        justifyEnd: "justify-end",
+        justifyCenter: "justify-center",
+        justifyBetween: "justify-between",
+        justifyAround: "justify-around",
+        justifyEvenly: "justify-evenly",
+        justifyStretch: "justify-stretch",
+        justifyBaseline: "justify-baseline",
+      }[key];
     });
   }
 

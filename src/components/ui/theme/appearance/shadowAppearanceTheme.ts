@@ -44,7 +44,7 @@ export class ShadowAppearanceTheme extends BaseTheme {
       return [];
     }
 
-    return ComponentKeys.mode.map(mode => this[appearance]?.[size]?.[mode as ModeKey] ?? "");
+    return ComponentKeys.mode.map(mode => this[appearance]?.[size]?.[mode] ?? "");
   }
 
   static createTheme(

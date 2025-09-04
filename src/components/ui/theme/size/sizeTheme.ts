@@ -13,7 +13,7 @@ export class SizeTheme extends BaseTheme {
     super();
     this.useDefaultKey = useDefaultKey;
     ComponentKeys.size.forEach((key) => {
-      this[key as SizeKey] = sizeMap?.[key as SizeKey] ?? "";
+      this[key] = sizeMap?.[key] ?? "";
     });
   }
 

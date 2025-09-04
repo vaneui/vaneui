@@ -26,7 +26,8 @@
       "Bash(npx typescript:*)",
       "Bash(timeout 10s npm run dev)",
       "Bash(npx tsx:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(npm run lint)"
     ],
     "deny": []
   }

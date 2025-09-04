@@ -6,15 +6,13 @@ export interface FontStyleTheme extends Record<FontStyleKey, string> {
 }
 
 export class FontStyleTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<FontStyleKey, string> = {
-    italic: "italic",
-    notItalic: "not-italic",
-  };
-
   constructor(initial?: Partial<Record<FontStyleKey, string>>) {
     super();
     ComponentKeys.fontStyle.forEach((key) => {
-      this[key as FontStyleKey] = initial?.[key as FontStyleKey] ?? FontStyleTheme.defaultClasses[key as FontStyleKey];
+      this[key] = initial?.[key] ?? {
+        italic: "italic",
+        notItalic: "not-italic",
+      }[key];
     });
   }
 

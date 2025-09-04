@@ -6,17 +6,15 @@ export interface TextTransformTheme extends Record<TextTransformKey, string> {
 }
 
 export class TextTransformTheme extends BaseTheme {
-  public static readonly defaultClasses: Record<TextTransformKey, string> = {
-    uppercase: "uppercase",
-    lowercase: "lowercase",
-    capitalize: "capitalize",
-    normalCase: "normal-case",
-  };
-
   constructor(initial?: Partial<Record<TextTransformKey, string>>) {
     super();
     ComponentKeys.textTransform.forEach((key) => {
-      this[key as TextTransformKey] = initial?.[key as TextTransformKey] ?? TextTransformTheme.defaultClasses[key as TextTransformKey];
+      this[key] = initial?.[key] ?? {
+        uppercase: "uppercase",
+        lowercase: "lowercase",
+        capitalize: "capitalize",
+        normalCase: "normal-case",
+      }[key];
     });
   }
 

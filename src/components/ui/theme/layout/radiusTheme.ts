@@ -1,4 +1,4 @@
-import { SizeKey, ComponentKeys } from "../../props";
+import { SizeKey } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 import {

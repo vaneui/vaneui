@@ -6,16 +6,14 @@ export interface RingTheme extends Record<ModeKey, string> {
 }
 
 export class RingTheme extends BaseTheme {
-  public readonly defaultClasses: Record<ModeKey, string> = {
-    base: "ring ring-inset",
-    hover: "hover:ring hover:ring-inset",
-    active: "active:ring active:ring-inset",
-  };
-
   constructor(initial?: Partial<Record<ModeKey, string>>) {
     super();
     ComponentKeys.mode.forEach((key) => {
-      this[key as ModeKey] = initial?.[key as ModeKey] ?? this.defaultClasses[key as ModeKey];
+      this[key] = initial?.[key] ?? {
+        base: "ring ring-inset",
+        hover: "hover:ring hover:ring-inset",
+        active: "active:ring active:ring-inset",
+      }[key];
     });
   }
 
@@ -29,7 +27,7 @@ export class RingTheme extends BaseTheme {
 
     // Only apply ring classes if ring is explicitly true
     if (ring === 'ring') {
-      return ComponentKeys.mode.map(mode => this[mode as ModeKey] || '').filter(Boolean);
+      return ComponentKeys.mode.map(mode => this[mode] || '').filter(Boolean);
     }
 
     return [];

@@ -35,7 +35,7 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     super();
 
     ComponentKeys.variant.forEach((variantKey) => {
-      this[variantKey as VariantKey] = variantInstances[variantKey as VariantKey];
+      this[variantKey] = variantInstances[variantKey];
     });
   }
 
@@ -141,17 +141,6 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
         base: filledBackgroundAppearanceClasses,
         hover: filledHoverBackgroundAppearanceClasses,
         active: filledActiveBackgroundAppearanceClasses
-      })
-    });
-  }
-
-  static createSimpleBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
-    return new GenericVariantTheme({
-      outline: AppearanceTheme.createTheme({
-        base: backgroundAppearanceClasses,
-      }),
-      filled: AppearanceTheme.createTheme({
-        base: filledBackgroundAppearanceClasses,
       })
     });
   }

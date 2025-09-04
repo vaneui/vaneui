@@ -6,14 +6,12 @@ export interface PaddingTheme extends Record<SizeKey, string> {
 }
 
 export class PaddingTheme extends BaseTheme {
-  public readonly defaultClasses: Record<SizeKey, string> = {
-    xs: "", sm: "", md: "", lg: "", xl: ""
-  };
-
   constructor(initial?: Partial<Record<SizeKey, string>>) {
     super();
     ComponentKeys.size.forEach((key) => {
-      this[key as SizeKey] = initial?.[key as SizeKey] ?? this.defaultClasses[key as SizeKey];
+      this[key] = initial?.[key] ?? {
+        xs: "", sm: "", md: "", lg: "", xl: ""
+      }[key];
     });
   }
 
