@@ -21,7 +21,6 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, required, readOnly,
       // Other HTML attributes
       id, className, tabIndex, 'aria-label': ariaLabel,
-      // Extract any remaining props that might include data-testid
       ...remainingProps
     } = props;
 
@@ -37,7 +36,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, required, readOnly,
       id, tabIndex, 'aria-label': ariaLabel,
       className, // Apply className to the input element
-      ...remainingProps, // This includes data-testid and other HTML attributes
+      ...remainingProps,
       ...themeProps
     };
     
