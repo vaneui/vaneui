@@ -7,16 +7,6 @@ export class RingTheme extends BaseTheme implements Record<ModeKey, string> {
   hover: string = "";
   active: string = "";
 
-  constructor(initial?: Partial<Record<ModeKey, string>>) {
-    super();
-    if (initial) {
-      ComponentKeys.mode.forEach((key) => {
-        if (initial[key] !== undefined) {
-          this[key] = initial[key];
-        }
-      });
-    }
-  }
 
   getClasses(extractedKeys: CategoryProps): string[] {
     return extractedKeys?.ring === 'ring'

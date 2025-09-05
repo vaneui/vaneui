@@ -1,21 +1,11 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
-import { ListStyleKey, ComponentKeys } from "../../props";
+import { ListStyleKey } from "../../props";
 
 export class ListStyleTheme extends BaseTheme implements Record<ListStyleKey, string> {
   disc: string = 'list-disc';
   decimal: string = 'list-decimal';
 
-  constructor(initial?: Partial<Record<ListStyleKey, string>>) {
-    super();
-    if (initial) {
-      ComponentKeys.listStyle.forEach((key) => {
-        if (initial[key] !== undefined) {
-          this[key] = initial[key];
-        }
-      });
-    }
-  }
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const listStyle = extractedKeys?.listStyle;

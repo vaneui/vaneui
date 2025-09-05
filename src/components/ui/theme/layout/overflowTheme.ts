@@ -1,4 +1,4 @@
-import { OverflowKey, ComponentKeys } from "../../props";
+import { OverflowKey } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
@@ -19,16 +19,6 @@ export class OverflowTheme extends BaseTheme implements Record<OverflowKey, stri
   overflowXScroll: string = 'overflow-x-scroll';
   overflowYScroll: string = 'overflow-y-scroll';
 
-  constructor(initialConfig?: Partial<Record<OverflowKey, string>>) {
-    super();
-    if (initialConfig) {
-      ComponentKeys.overflow.forEach((key) => {
-        if (initialConfig[key] !== undefined) {
-          this[key] = initialConfig[key];
-        }
-      });
-    }
-  }
 
   getClasses(extractedKeys: CategoryProps): string[] {
     return [extractedKeys?.overflow && this[extractedKeys.overflow] ? this[extractedKeys.overflow] : ''];

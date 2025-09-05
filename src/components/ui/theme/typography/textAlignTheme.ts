@@ -1,4 +1,4 @@
-import { TextAlignKey, ComponentKeys } from "../../props";
+import { TextAlignKey } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
@@ -8,16 +8,6 @@ export class TextAlignTheme extends BaseTheme implements Record<TextAlignKey, st
   textRight: string = "text-right";
   textJustify: string = "text-justify";
 
-  constructor(initial?: Partial<Record<TextAlignKey, string>>) {
-    super();
-    if (initial) {
-      ComponentKeys.textAlign.forEach((key) => {
-        if (initial[key] !== undefined) {
-          this[key] = initial[key];
-        }
-      });
-    }
-  }
 
   getClasses(extractedKeys: CategoryProps): string[] {
     return [extractedKeys?.textAlign ? this[extractedKeys.textAlign] : ''];
