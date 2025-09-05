@@ -73,7 +73,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   },
   themeDefaults.button as Partial<ButtonProps>,
   BUTTON_CATEGORIES,
-  (props: ButtonProps, defaults: Partial<ButtonProps>) => {
+  (props: ButtonProps) => {
     // Determine tag based on href prop
     return props.href ? "a" : "button";
   }

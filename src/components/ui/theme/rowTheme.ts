@@ -11,7 +11,6 @@ import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { textAppearanceClasses } from "../classes/typographyClasses";
 import { ROW_CATEGORIES } from "../props";
 
 export interface RowTheme extends BaseComponentTheme {
@@ -61,7 +60,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
   },
   themeDefaults.row as Partial<RowProps>,
   ROW_CATEGORIES,
-  (props: RowProps, defaults: Partial<RowProps>) => {
+  (props: RowProps) => {
     // Determine tag based on href prop
     return props.href ? "a" : "div";
   }

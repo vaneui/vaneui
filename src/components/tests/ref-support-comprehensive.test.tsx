@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import {
   // Basic UI Components
   Button,
@@ -13,11 +13,6 @@ import {
   Checkbox,
   
   // Typography Components
-  Text,
-  Title,
-  PageTitle,
-  SectionTitle,
-  Link,
   List,
   ListItem,
   
@@ -458,13 +453,10 @@ describe('Comprehensive Ref Support Tests', () => {
 
   describe('Ref Functionality', () => {
     it('should allow focus on Label through ref', () => {
-      let labelRef: HTMLLabelElement | null = null;
-      
       const TestComponent = () => {
         const ref = useRef<HTMLLabelElement>(null);
         
         useEffect(() => {
-          labelRef = ref.current;
           // Focus the label through ref
           if (ref.current) {
             ref.current.focus();

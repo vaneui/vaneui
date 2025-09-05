@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React from 'react';
+
 import {
   List,
   ListItem,
@@ -233,7 +233,6 @@ describe('List and ListItem Components Tests', () => {
         expect(listItem).not.toHaveClass('text-(--text-color-primary)');
         expect(listItem).not.toHaveClass('text-(--text-color-secondary)');
         // ListItem should inherit text color from parent List via CSS cascade
-        const computedStyle = window.getComputedStyle(listItem);
         // Note: In actual browser, this would inherit the CSS custom property value
         // In test environment, we verify the inheritance pattern by ensuring no explicit color classes
       });

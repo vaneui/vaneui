@@ -10,11 +10,6 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import {
-  borderAppearanceClasses,
-  ringAppearanceClasses
-} from "../classes/appearanceClasses";
-import { textAppearanceClasses } from "../classes/typographyClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { SECTION_CATEGORIES } from "../props";
@@ -83,7 +78,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   },
   themeDefaults.section as Partial<SectionProps>,
   SECTION_CATEGORIES,
-  (props: SectionProps, defaults: Partial<SectionProps>) => {
+  (props: SectionProps) => {
     return props.href ? "a" : "div";
   }
 );

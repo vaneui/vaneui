@@ -1,4 +1,4 @@
-import { SizeKey, PaddingKey, ComponentKeys } from "../../props";
+import { SizeKey, ComponentKeys } from "../../props";
 import { PaddingTheme } from "./paddingTheme";
 
 export interface PlTheme extends Record<SizeKey, string> {

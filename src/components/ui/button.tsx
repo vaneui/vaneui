@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { ButtonProps } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";

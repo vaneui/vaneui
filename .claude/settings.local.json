@@ -27,7 +27,12 @@
       "Bash(timeout 10s npm run dev)",
       "Bash(npx tsx:*)",
       "Bash(npm run dev:*)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "Bash(npx eslint:*)",
+      "Bash(for:*)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(head:*)",
+      "Bash(done)"
     ],
     "deny": []
   }

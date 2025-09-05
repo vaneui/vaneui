@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React from 'react';
+
 import {
   Button,
   Badge,
@@ -128,7 +128,7 @@ describe('Prop Omission Edge Cases', () => {
 
   describe('ComponentKeys Validation', () => {
     it('should ensure all ComponentKeys categories have at least one key', () => {
-      Object.entries(ComponentKeys).forEach(([category, keys]) => {
+      Object.entries(ComponentKeys).forEach(([, keys]) => {
         expect(keys.length).toBeGreaterThan(0);
         expect(Array.isArray(keys)).toBe(true);
       });
@@ -138,7 +138,7 @@ describe('Prop Omission Edge Cases', () => {
       const allKeys: string[] = [];
       const duplicates: string[] = [];
 
-      Object.entries(ComponentKeys).forEach(([category, keys]) => {
+      Object.entries(ComponentKeys).forEach(([, keys]) => {
         keys.forEach(key => {
           if (allKeys.includes(key)) {
             duplicates.push(`${key} (found in multiple categories)`);

@@ -1,4 +1,4 @@
-import React, { JSX, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { CheckboxProps } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
@@ -17,9 +17,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       filled, outline,
       // Shape props
       pill, sharp, rounded,
-      // Custom props
-      className,
-      ...inputProps 
+      // Custom props 
     } = props;
 
     const themeProps = {

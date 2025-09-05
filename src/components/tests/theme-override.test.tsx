@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React from 'react';
-import { Button, Badge, ThemeProvider, ThemeProps, defaultTheme } from '../../index';
+
+import { Button, Badge, ThemeProvider, ThemeProps } from '../../index';
 
 describe('Theme Override Tests', () => {
   describe('CSS Class Application', () => {

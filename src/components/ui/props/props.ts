@@ -37,7 +37,6 @@ type Base = { className?: string; children?: React.ReactNode };
 type Cats<T extends ReadonlyArray<ComponentCategoryKey>> = ComponentPropsFromCategories<T>;
 
 type ElementOf<E extends React.ElementType> = React.ComponentPropsWithoutRef<E>;
-type RefOf<E extends React.ElementType> = React.ComponentPropsWithRef<E>["ref"];
 
 // Mode A: tag-polymorphic (no href allowed)
 type WithTag<E extends React.ElementType, Own> =

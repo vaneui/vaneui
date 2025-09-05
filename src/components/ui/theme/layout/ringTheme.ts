@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
-import { ModeKey, RingKey, ComponentKeys } from "../../props";
+import { ModeKey, ComponentKeys } from "../../props";
 
 export interface RingTheme extends Record<ModeKey, string> {
 }
@@ -19,11 +19,6 @@ export class RingTheme extends BaseTheme {
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const ring = extractedKeys?.ring;
-
-    // If noRing is true, return empty array (no ring classes)
-    if (ring === 'noRing') {
-      return [];
-    }
 
     // Only apply ring classes if ring is explicitly true
     if (ring === 'ring') {

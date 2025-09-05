@@ -1,13 +1,12 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React from 'react';
+
 import {
   Button,
   Badge,
   Title,
   Text,
   ThemeProvider,
-  defaultTheme,
   ThemeProps
 } from '../../index';
 import { mergeDefaults } from '../utils/deepMerge';

@@ -1,6 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
-import { BreakpointKey, SizeKey, ComponentKeys } from "../../props";
+import { BreakpointKey, ComponentKeys } from "../../props";
 
 export interface BreakpointTheme extends Record<BreakpointKey, string> {
 }

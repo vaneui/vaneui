@@ -19,11 +19,6 @@ export class GapTheme extends BaseTheme {
     const size = extractedKeys?.size ?? 'md';
     const gap = extractedKeys?.gap;
 
-    // If noGap is true, return empty array (no gap classes)
-    if (gap === 'noGap') {
-      return [];
-    }
-
     // If gap is true or undefined, apply gap classes based on size
     if (gap === 'gap') {
       const gapClass = this[size];

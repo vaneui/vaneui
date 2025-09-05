@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { render } from '@testing-library/react';
 import { Row, Button, Stack, Card, ThemeProvider, defaultTheme } from '../../index';
 

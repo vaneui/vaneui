@@ -1,13 +1,12 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import {
   Button,
   Card,
   Text,
   Title,
   PageTitle,
-  SectionTitle,
   Link,
   ThemeProvider,
   defaultTheme
@@ -189,13 +188,10 @@ describe('Ref Support Tests', () => {
   });
 
   it('should allow focus through ref', () => {
-    let buttonRef: HTMLButtonElement | null = null;
-    
     const TestComponent = () => {
       const ref = useRef<HTMLButtonElement>(null);
       
       useEffect(() => {
-        buttonRef = ref.current;
         // Focus the button through ref
         if (ref.current) {
           ref.current.focus();

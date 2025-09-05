@@ -66,7 +66,7 @@ export const deepClone = <T extends object>(source: T): T => {
 
 const findGroup = (key: string) => {
   // Check each group in ComponentKeys to find which one contains this key
-  for (const [groupName, group] of Object.entries(ComponentKeys)) {
+  for (const [, group] of Object.entries(ComponentKeys)) {
     if ((group as readonly string[]).includes(key)) {
       return group;
     }

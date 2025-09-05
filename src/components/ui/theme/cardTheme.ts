@@ -14,11 +14,6 @@ import { RadiusTheme } from "./layout/radiusTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import {
-  borderAppearanceClasses,
-  ringAppearanceClasses
-} from "../classes/appearanceClasses";
-import { textAppearanceClasses } from "../classes/typographyClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { RingTheme } from "./layout/ringTheme";
@@ -90,7 +85,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   },
   themeDefaults.card as Partial<CardProps>,
   CARD_CATEGORIES,
-  (props: CardProps, defaults: Partial<CardProps>) => {
+  (props: CardProps) => {
     return props.href ? "a" : "div";
   }
 );

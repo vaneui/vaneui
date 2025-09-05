@@ -1,4 +1,4 @@
-import { SizeKey, PaddingKey, ComponentKeys } from "../../props";
+import { SizeKey, ComponentKeys } from "../../props";
 import { PaddingTheme } from "./paddingTheme";
 
 export interface PyTheme extends Record<SizeKey, string> {
