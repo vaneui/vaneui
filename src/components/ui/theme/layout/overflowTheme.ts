@@ -31,7 +31,6 @@ export class OverflowTheme extends BaseTheme implements Record<OverflowKey, stri
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.overflow;
-    return [key && this[key] ? this[key] : ''];
+    return [extractedKeys?.overflow && this[extractedKeys.overflow] ? this[extractedKeys.overflow] : ''];
   }
 }

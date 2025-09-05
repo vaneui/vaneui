@@ -21,10 +21,6 @@ export class BreakpointTheme extends BaseTheme implements Record<BreakpointKey, 
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.breakpoint;
-    if (!key)
-      return [];
-
-    return [this[key] || ''];
+    return extractedKeys?.breakpoint ? [this[extractedKeys.breakpoint] || ''] : [];
   }
 }

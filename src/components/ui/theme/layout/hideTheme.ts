@@ -21,7 +21,6 @@ export class HideTheme extends BaseTheme implements Record<HideKey, string> {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.hide;
-    return [key ? this[key] : ''];
+    return [extractedKeys?.hide ? this[extractedKeys.hide] : ''];
   }
 }

@@ -23,16 +23,11 @@ export class DirectionTheme extends BaseTheme implements Record<FlexDirectionKey
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    let direction = extractedKeys?.flexDirection;
-    const reverse = extractedKeys?.reverse;
-
-    if (reverse === 'reverse') {
-      switch (direction) {
-        case "column": direction = "columnReverse"; break;
-        case "row": direction = "rowReverse"; break;
-        default: break;
-      }
-    }
+    const direction = extractedKeys?.reverse === 'reverse'
+      ? (extractedKeys?.flexDirection === "column" ? "columnReverse"
+         : extractedKeys?.flexDirection === "row" ? "rowReverse"
+         : extractedKeys?.flexDirection)
+      : extractedKeys?.flexDirection;
 
     return direction ? [this[direction]] : [];
   }

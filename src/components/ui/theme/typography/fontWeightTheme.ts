@@ -25,10 +25,6 @@ export class FontWeightTheme extends BaseTheme implements Record<FontWeightKey, 
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.fontWeight;
-    if (key === undefined)
-      return [];
-
-    return [this[key]];
+    return extractedKeys?.fontWeight ? [this[extractedKeys.fontWeight]] : [];
   }
 }

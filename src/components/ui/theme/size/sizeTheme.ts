@@ -21,8 +21,6 @@ export class SizeTheme extends BaseTheme implements Record<SizeKey, string> {
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const size = extractedKeys?.size ?? (this.useDefaultKey ? 'md' : undefined);
-    if (size !== undefined)
-      return [this[size]];
-    else return [''];
+    return size ? [this[size]] : [''];
   }
 }

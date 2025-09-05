@@ -21,15 +21,10 @@ export class PaddingTheme extends BaseTheme implements Record<SizeKey, string> {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const size = extractedKeys?.size ?? 'md';
-    const padding = extractedKeys?.padding;
-
-    // If padding is true or undefined, apply padding classes based on size
-    if (padding === 'padding' || padding === undefined) {
-      const paddingClass = this[size];
+    if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
+      const paddingClass = this[extractedKeys?.size ?? 'md'];
       return paddingClass ? [paddingClass] : [];
     }
-
     return [];
   }
 }

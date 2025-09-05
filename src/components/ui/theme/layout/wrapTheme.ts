@@ -19,7 +19,6 @@ export class WrapTheme extends BaseTheme implements Record<WrapKey, string> {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.wrap;
-    return key ? [this[key]] : [];
+    return extractedKeys?.wrap ? [this[extractedKeys.wrap]] : [];
   }
 }

@@ -20,7 +20,6 @@ export class TextDecorationTheme extends BaseTheme implements Record<TextDecorat
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.textDecoration;
-    return [key ? this[key] : '']; // No default for text decoration
+    return [extractedKeys?.textDecoration ? this[extractedKeys.textDecoration] : ''];
   }
 }

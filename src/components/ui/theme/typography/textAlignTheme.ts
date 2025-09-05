@@ -20,7 +20,6 @@ export class TextAlignTheme extends BaseTheme implements Record<TextAlignKey, st
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.textAlign;
-    return [key ? this[key] : '']; // No default for text align
+    return [extractedKeys?.textAlign ? this[extractedKeys.textAlign] : ''];
   }
 }

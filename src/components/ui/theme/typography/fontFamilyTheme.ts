@@ -18,10 +18,6 @@ export class FontFamilyTheme extends BaseTheme implements Record<FontFamilyKey, 
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.fontFamily;
-    if (key === undefined)
-      return [];
-
-    return [this[key]];
+    return extractedKeys?.fontFamily ? [this[extractedKeys.fontFamily]] : [];
   }
 }

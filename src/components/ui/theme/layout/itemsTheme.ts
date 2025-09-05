@@ -21,7 +21,6 @@ export class ItemsTheme extends BaseTheme implements Record<ItemsKey, string> {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const pickedKey = extractedKeys?.items;
-    return [pickedKey && this[pickedKey] ? this[pickedKey] : ''];
+    return [extractedKeys?.items && this[extractedKeys.items] ? this[extractedKeys.items] : ''];
   }
 }

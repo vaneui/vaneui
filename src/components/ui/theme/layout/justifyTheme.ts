@@ -24,7 +24,6 @@ export class JustifyTheme extends BaseTheme implements Record<JustifyKey, string
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.justify;
-    return [key ? this[key] : ''];
+    return [extractedKeys?.justify ? this[extractedKeys.justify] : ''];
   }
 }

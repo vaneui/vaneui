@@ -4,8 +4,8 @@ import { ModeKey, ComponentKeys } from "../../props";
 
 export class RingTheme extends BaseTheme implements Record<ModeKey, string> {
   base: string = "ring ring-inset";
-  hover: string = "hover:ring hover:ring-inset";
-  active: string = "active:ring active:ring-inset";
+  hover: string = "";
+  active: string = "";
 
   constructor(initial?: Partial<Record<ModeKey, string>>) {
     super();
@@ -19,13 +19,8 @@ export class RingTheme extends BaseTheme implements Record<ModeKey, string> {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const ring = extractedKeys?.ring;
-
-    // Only apply ring classes if ring is explicitly true
-    if (ring === 'ring') {
-      return ComponentKeys.mode.map(mode => this[mode] || '').filter(Boolean);
-    }
-
-    return [];
+    return extractedKeys?.ring === 'ring'
+      ? ComponentKeys.mode.map(mode => this[mode] || '').filter(Boolean)
+      : [];
   }
 }

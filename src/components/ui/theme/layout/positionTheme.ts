@@ -21,7 +21,6 @@ export class PositionTheme extends BaseTheme implements Record<PositionKey, stri
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.position;
-    return [key ? this[key] : ''];
+    return [extractedKeys?.position ? this[extractedKeys.position] : ''];
   }
 }

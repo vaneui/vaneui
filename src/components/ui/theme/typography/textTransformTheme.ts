@@ -20,7 +20,6 @@ export class TextTransformTheme extends BaseTheme implements Record<TextTransfor
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.textTransform;
-    return [key ? this[key] : '']; // No default for text transform
+    return [extractedKeys?.textTransform ? this[extractedKeys.textTransform] : ''];
   }
 }

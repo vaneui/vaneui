@@ -21,15 +21,10 @@ export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const size = extractedKeys?.size ?? 'md';
-    const gap = extractedKeys?.gap;
-
-    // If gap is true or undefined, apply gap classes based on size
-    if (gap === 'gap') {
-      const gapClass = this[size];
+    if (extractedKeys?.gap === 'gap') {
+      const gapClass = this[extractedKeys?.size ?? 'md'];
       return gapClass ? [gapClass] : [];
     }
-
     return [];
   }
 }

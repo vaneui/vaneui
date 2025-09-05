@@ -27,7 +27,6 @@ export class DisplayTheme extends BaseTheme implements Record<DisplayKey, string
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.display;
-    return [key && this[key] ? this[key] : ''];
+    return [extractedKeys?.display && this[extractedKeys.display] ? this[extractedKeys.display] : ''];
   }
 }
