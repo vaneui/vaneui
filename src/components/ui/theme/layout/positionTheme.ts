@@ -2,21 +2,22 @@ import { PositionKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface PositionTheme extends Record<PositionKey, string> {
-}
+export class PositionTheme extends BaseTheme implements Record<PositionKey, string> {
+  relative: string = "relative";
+  absolute: string = "absolute";
+  fixed: string = "fixed";
+  sticky: string = "sticky";
+  static: string = "static";
 
-export class PositionTheme extends BaseTheme {
   constructor(initialConfig?: Partial<Record<PositionKey, string>>) {
     super();
-    ComponentKeys.position.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? {
-        relative: "relative",
-        absolute: "absolute",
-        fixed: "fixed",
-        sticky: "sticky",
-        static: "static"
-      }[key];
-    });
+    if (initialConfig) {
+      ComponentKeys.position.forEach((key) => {
+        if (initialConfig[key] !== undefined) {
+          this[key] = initialConfig[key];
+        }
+      });
+    }
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

@@ -2,23 +2,25 @@ import { JustifyKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface JustifyTheme extends Record<JustifyKey, string> {}
+export class JustifyTheme extends BaseTheme implements Record<JustifyKey, string> {
+  justifyStart: string = "justify-start";
+  justifyEnd: string = "justify-end";
+  justifyCenter: string = "justify-center";
+  justifyBetween: string = "justify-between";
+  justifyAround: string = "justify-around";
+  justifyEvenly: string = "justify-evenly";
+  justifyStretch: string = "justify-stretch";
+  justifyBaseline: string = "justify-baseline";
 
-export class JustifyTheme extends BaseTheme {
   constructor(initialConfig?: Partial<Record<JustifyKey, string>>) {
     super();
-    ComponentKeys.justify.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? {
-        justifyStart: "justify-start",
-        justifyEnd: "justify-end",
-        justifyCenter: "justify-center",
-        justifyBetween: "justify-between",
-        justifyAround: "justify-around",
-        justifyEvenly: "justify-evenly",
-        justifyStretch: "justify-stretch",
-        justifyBaseline: "justify-baseline",
-      }[key];
-    });
+    if (initialConfig) {
+      ComponentKeys.justify.forEach((key) => {
+        if (initialConfig[key] !== undefined) {
+          this[key] = initialConfig[key];
+        }
+      });
+    }
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

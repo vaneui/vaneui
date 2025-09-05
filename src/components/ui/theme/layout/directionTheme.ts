@@ -5,20 +5,21 @@ import {
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface DirectionTheme extends Record<FlexDirectionKey, string> {
-}
+export class DirectionTheme extends BaseTheme implements Record<FlexDirectionKey, string> {
+  row: string = "flex-row";
+  column: string = "flex-col";
+  rowReverse: string = "flex-row-reverse";
+  columnReverse: string = "flex-col-reverse";
 
-export class DirectionTheme extends BaseTheme {
   constructor(initial?: Partial<Record<FlexDirectionKey, string>>) {
     super();
-    ComponentKeys.flexDirection.forEach((key) => {
-      this[key] = initial?.[key] || {
-        row: "flex-row",
-        column: "flex-col",
-        rowReverse: "flex-row-reverse",
-        columnReverse: "flex-col-reverse",
-      }[key];
-    });
+    if (initial) {
+      ComponentKeys.flexDirection.forEach((key) => {
+        if (initial[key] !== undefined) {
+          this[key] = initial[key];
+        }
+      });
+    }
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

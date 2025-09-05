@@ -2,17 +2,22 @@ import { SizeKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface GapTheme extends Record<SizeKey, string> {
-}
+export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
+  xs: string = 'gap-2';
+  sm: string = 'gap-3';
+  md: string = 'gap-4';
+  lg: string = 'gap-5';
+  xl: string = 'gap-6';
 
-export class GapTheme extends BaseTheme {
   constructor(sizeMap?: Record<SizeKey, string>) {
     super();
-    ComponentKeys.size.forEach((key) => {
-      this[key] = sizeMap?.[key] ?? {
-        xs: 'gap-2', sm: 'gap-3', md: 'gap-4', lg: 'gap-5', xl: 'gap-6'
-      }[key];
-    });
+    if (sizeMap) {
+      ComponentKeys.size.forEach((key) => {
+        if (sizeMap[key] !== undefined) {
+          this[key] = sizeMap[key];
+        }
+      });
+    }
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

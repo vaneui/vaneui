@@ -24,10 +24,9 @@ import {
 import { ShadowAppearanceTheme } from "./shadowAppearanceTheme";
 
 
-export interface GenericVariantTheme<T extends BaseTheme> extends Record<VariantKey, T> {
-}
-
-export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
+export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implements Record<VariantKey, T> {
+  filled!: T;
+  outline!: T;
 
   private constructor(
     variantInstances: Record<VariantKey, T>

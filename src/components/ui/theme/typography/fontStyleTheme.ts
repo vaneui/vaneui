@@ -2,18 +2,19 @@ import { FontStyleKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface FontStyleTheme extends Record<FontStyleKey, string> {
-}
+export class FontStyleTheme extends BaseTheme implements Record<FontStyleKey, string> {
+  italic: string = "italic";
+  notItalic: string = "not-italic";
 
-export class FontStyleTheme extends BaseTheme {
   constructor(initial?: Partial<Record<FontStyleKey, string>>) {
     super();
-    ComponentKeys.fontStyle.forEach((key) => {
-      this[key] = initial?.[key] ?? {
-        italic: "italic",
-        notItalic: "not-italic",
-      }[key];
-    });
+    if (initial) {
+      ComponentKeys.fontStyle.forEach((key) => {
+        if (initial[key] !== undefined) {
+          this[key] = initial[key];
+        }
+      });
+    }
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

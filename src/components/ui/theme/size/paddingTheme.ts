@@ -2,17 +2,22 @@ import { SizeKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface PaddingTheme extends Record<SizeKey, string> {
-}
+export class PaddingTheme extends BaseTheme implements Record<SizeKey, string> {
+  xs: string = "";
+  sm: string = "";
+  md: string = "";
+  lg: string = "";
+  xl: string = "";
 
-export class PaddingTheme extends BaseTheme {
   constructor(initial?: Partial<Record<SizeKey, string>>) {
     super();
-    ComponentKeys.size.forEach((key) => {
-      this[key] = initial?.[key] ?? {
-        xs: "", sm: "", md: "", lg: "", xl: ""
-      }[key];
-    });
+    if (initial) {
+      ComponentKeys.size.forEach((key) => {
+        if (initial[key] !== undefined) {
+          this[key] = initial[key];
+        }
+      });
+    }
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

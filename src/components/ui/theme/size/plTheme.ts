@@ -1,9 +1,6 @@
 import { SizeKey, ComponentKeys } from "../../props";
 import { PaddingTheme } from "./paddingTheme";
 
-export interface PlTheme extends Record<SizeKey, string> {
-}
-
 export class PlTheme extends PaddingTheme {
   constructor(sizeMap?: Record<SizeKey, string>) {
     super(sizeMap);

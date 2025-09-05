@@ -2,20 +2,22 @@ import { ItemsKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface ItemsTheme extends Record<ItemsKey, string> {}
+export class ItemsTheme extends BaseTheme implements Record<ItemsKey, string> {
+  itemsStart: string = "items-start";
+  itemsEnd: string = "items-end";
+  itemsCenter: string = "items-center";
+  itemsBaseline: string = "items-baseline";
+  itemsStretch: string = "items-stretch";
 
-export class ItemsTheme extends BaseTheme {
   constructor(initialConfig?: Partial<Record<ItemsKey, string>>) {
     super();
-    ComponentKeys.items.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? {
-        itemsStart: "items-start",
-        itemsEnd: "items-end",
-        itemsCenter: "items-center",
-        itemsBaseline: "items-baseline",
-        itemsStretch: "items-stretch",
-      }[key];
-    });
+    if (initialConfig) {
+      ComponentKeys.items.forEach((key) => {
+        if (initialConfig[key] !== undefined) {
+          this[key] = initialConfig[key];
+        }
+      });
+    }
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

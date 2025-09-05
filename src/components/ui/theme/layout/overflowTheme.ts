@@ -2,31 +2,32 @@ import { OverflowKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface OverflowTheme extends Record<OverflowKey, string> {
-}
+export class OverflowTheme extends BaseTheme implements Record<OverflowKey, string> {
+  overflowAuto: string = 'overflow-auto';
+  overflowHidden: string = 'overflow-hidden';
+  overflowClip: string = 'overflow-clip';
+  overflowVisible: string = 'overflow-visible';
+  overflowScroll: string = 'overflow-scroll';
+  overflowXAuto: string = 'overflow-x-auto';
+  overflowYAuto: string = 'overflow-y-auto';
+  overflowXHidden: string = 'overflow-x-hidden';
+  overflowYHidden: string = 'overflow-y-hidden';
+  overflowXClip: string = 'overflow-x-clip';
+  overflowYClip: string = 'overflow-y-clip';
+  overflowXVisible: string = 'overflow-x-visible';
+  overflowYVisible: string = 'overflow-y-visible';
+  overflowXScroll: string = 'overflow-x-scroll';
+  overflowYScroll: string = 'overflow-y-scroll';
 
-export class OverflowTheme extends BaseTheme {
   constructor(initialConfig?: Partial<Record<OverflowKey, string>>) {
     super();
-    ComponentKeys.overflow.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? {
-        overflowAuto: 'overflow-auto',
-        overflowHidden: 'overflow-hidden',
-        overflowClip: 'overflow-clip',
-        overflowVisible: 'overflow-visible',
-        overflowScroll: 'overflow-scroll',
-        overflowXAuto: 'overflow-x-auto',
-        overflowYAuto: 'overflow-y-auto',
-        overflowXHidden: 'overflow-x-hidden',
-        overflowYHidden: 'overflow-y-hidden',
-        overflowXClip: 'overflow-x-clip',
-        overflowYClip: 'overflow-y-clip',
-        overflowXVisible: 'overflow-x-visible',
-        overflowYVisible: 'overflow-y-visible',
-        overflowXScroll: 'overflow-x-scroll',
-        overflowYScroll: 'overflow-y-scroll',
-      }[key];
-    });
+    if (initialConfig) {
+      ComponentKeys.overflow.forEach((key) => {
+        if (initialConfig[key] !== undefined) {
+          this[key] = initialConfig[key];
+        }
+      });
+    }
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

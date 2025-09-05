@@ -2,10 +2,18 @@ import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 import { ComponentKeys, ModeKey, AppearanceKey } from "../../props";
 
-export interface AppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
-}
+export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, Record<ModeKey, string>> {
+  default!: Record<ModeKey, string>;
+  accent!: Record<ModeKey, string>;
+  primary!: Record<ModeKey, string>;
+  secondary!: Record<ModeKey, string>;
+  tertiary!: Record<ModeKey, string>;
+  success!: Record<ModeKey, string>;
+  danger!: Record<ModeKey, string>;
+  warning!: Record<ModeKey, string>;
+  info!: Record<ModeKey, string>;
+  link!: Record<ModeKey, string>;
 
-export class AppearanceTheme extends BaseTheme {
   private readonly transparentClasses?: Record<string, string>;
 
   private constructor(

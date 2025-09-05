@@ -2,19 +2,20 @@ import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 import { ModeKey, ComponentKeys } from "../../props";
 
-export interface RingTheme extends Record<ModeKey, string> {
-}
+export class RingTheme extends BaseTheme implements Record<ModeKey, string> {
+  base: string = "ring ring-inset";
+  hover: string = "hover:ring hover:ring-inset";
+  active: string = "active:ring active:ring-inset";
 
-export class RingTheme extends BaseTheme {
   constructor(initial?: Partial<Record<ModeKey, string>>) {
     super();
-    ComponentKeys.mode.forEach((key) => {
-      this[key] = initial?.[key] ?? {
-        base: "ring ring-inset",
-        hover: "hover:ring hover:ring-inset",
-        active: "active:ring active:ring-inset",
-      }[key];
-    });
+    if (initial) {
+      ComponentKeys.mode.forEach((key) => {
+        if (initial[key] !== undefined) {
+          this[key] = initial[key];
+        }
+      });
+    }
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

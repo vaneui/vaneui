@@ -39,9 +39,10 @@ export class RadiusTheme extends BaseTheme {
         return [this.pill];
       case 'sharp':
         return [this.sharp];
-      case 'rounded':
+      case 'rounded': {
         const roundedClass = this.rounded[size];
         return roundedClass ? [roundedClass] : [];
+      }
       default:
         return [];
     }
