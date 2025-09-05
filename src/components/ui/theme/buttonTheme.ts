@@ -55,7 +55,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'}),
     },
     appearance: {
-      background: GenericVariantTheme.createUIElementBgAppearanceTheme(),
+      background: GenericVariantTheme.createBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),

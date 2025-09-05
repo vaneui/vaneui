@@ -74,13 +74,6 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     });
   }
 
-  static createBorderAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
-    return new GenericVariantTheme({
-      outline: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
-      filled: AppearanceTheme.createTheme({base: filledBorderAppearanceClasses})
-    });
-  }
-
   static createUIElementBorderTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
@@ -103,21 +96,6 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     });
   }
 
-  static createBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
-    return new GenericVariantTheme({
-      outline: AppearanceTheme.createTheme({
-        base: backgroundAppearanceClasses,
-        hover: hoverBackgroundAppearanceClasses,
-        active: activeBackgroundAppearanceClasses
-      }),
-      filled: AppearanceTheme.createTheme({
-        base: filledBackgroundAppearanceClasses,
-        hover: filledHoverBackgroundAppearanceClasses,
-        active: filledActiveBackgroundAppearanceClasses
-      })
-    });
-  }
-
   static createCheckboxBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
@@ -129,7 +107,7 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     });
   }
 
-  static createUIElementBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
+  static createBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: backgroundAppearanceClasses,

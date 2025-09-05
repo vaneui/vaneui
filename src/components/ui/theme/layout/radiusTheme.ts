@@ -20,8 +20,8 @@ export class RadiusTheme extends BaseTheme {
     return new RadiusTheme(customRounded || uiBorderRadiusClasses);
   }
 
-  static createLayoutTheme(customRounded?: Record<SizeKey, string>): RadiusTheme {
-    return new RadiusTheme(customRounded || layoutBorderRadiusClasses);
+  static createLayoutTheme(): RadiusTheme {
+    return new RadiusTheme(layoutBorderRadiusClasses);
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

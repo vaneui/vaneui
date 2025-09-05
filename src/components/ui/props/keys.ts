@@ -57,11 +57,6 @@ export const ComponentKeys = {
 
 export type ModeKey = typeof ComponentKeys.mode[number];
 export type SizeKey = typeof ComponentKeys.size[number];
-export type RingKey = typeof ComponentKeys.ring[number];
-export type ShapeKey = typeof ComponentKeys.shape[number];
-export type BorderKey = typeof ComponentKeys.border[number];
-export type PaddingKey = typeof ComponentKeys.padding[number];
-export type GapKey = typeof ComponentKeys.gap[number];
 export type VariantKey = typeof ComponentKeys.variant[number];
 export type AppearanceKey = typeof ComponentKeys.appearance[number];
 export type TransparentKey = typeof ComponentKeys.transparent[number];

@@ -7,7 +7,6 @@ export class WrapTheme extends BaseTheme implements Record<WrapKey, string> {
   flexNoWrap: string = "flex-nowrap";
   flexWrapReverse: string = "flex-wrap-reverse";
 
-
   getClasses(extractedKeys: CategoryProps): string[] {
     return extractedKeys?.wrap ? [this[extractedKeys.wrap]] : [];
   }
