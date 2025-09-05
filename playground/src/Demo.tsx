@@ -1,42 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Button,
-  Badge,
-  Chip,
-  Card,
   Section,
   Container,
-  Col,
-  Row,
   Stack,
-  Grid3,
-  Divider,
   Text,
-  Title,
   SectionTitle,
-  PageTitle,
-  Checkbox,
-  Label
+  PageTitle
 } from '../../src';
 
 function Demo() {
-  const [formData, setFormData] = useState({
-    newsletter: false,
-    notifications: true,
-    marketing: false,
-    privacy: false,
-    terms: false,
-    darkMode: false,
-    autoSave: true,
-    rememberMe: false
-  });
-
-  const handleCheckboxChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: event.target.checked
-    }));
-  };
 
   return (
     <Container>

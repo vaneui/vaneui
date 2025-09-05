@@ -61,6 +61,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['dist/**', 'node_modules/**', 'playground/**']
+    ignores: ['dist/**', 'node_modules/**', 'playground/dist/**', 'playground/scripts/**', '**/*.config.js', '**/*.config.ts']
   }
 );

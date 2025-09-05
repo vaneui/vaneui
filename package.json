@@ -44,7 +44,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "type-check": "tsc --noEmit",
-    "lint": "eslint src --ext .ts,.tsx",
+    "lint": "eslint src playground --ext .ts,.tsx",
     "build:js": "npm run type-check && npm run lint && npm run clean && rollup -c --bundleConfigAsCjs",
     "build:css:vars": "npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css",
     "build:css:ui": "npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css",
