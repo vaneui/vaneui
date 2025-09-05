@@ -213,10 +213,10 @@ describe('Ref Support Tests', () => {
   });
 
   it('should work with Text component using custom tag', () => {
-    let spanRef: any = null;
+    let spanRef: HTMLParagraphElement | null = null;
     
     const TestComponent = () => {
-      const ref = useRef<any>(null);
+      const ref = useRef<HTMLParagraphElement>(null);
       
       useEffect(() => {
         spanRef = ref.current;

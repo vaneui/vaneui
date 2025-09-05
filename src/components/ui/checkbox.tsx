@@ -17,7 +17,12 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       filled, outline,
       // Shape props
       pill, sharp, rounded,
-      // Custom props 
+      // Extract input HTML attributes
+      checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, required, readOnly,
+      // Other HTML attributes
+      id, className, tabIndex, 'aria-label': ariaLabel,
+      // Extract any remaining props that might include data-testid
+      ...remainingProps
     } = props;
 
     const themeProps = {
@@ -26,10 +31,19 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       filled, outline,
       pill, sharp, rounded
     };
+
+    const inputProps = {
+      type: "checkbox" as const,
+      checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, required, readOnly,
+      id, tabIndex, 'aria-label': ariaLabel,
+      className, // Apply className to the input element
+      ...remainingProps, // This includes data-testid and other HTML attributes
+      ...themeProps
+    };
     
     return (
       <ThemedComponent theme={theme.checkbox.wrapper} ref={ref} {...themeProps}>
-        <ThemedComponent theme={theme.checkbox.input} {...props} type="checkbox"/>
+        <ThemedComponent theme={theme.checkbox.input} {...inputProps} />
         <ThemedComponent theme={theme.checkbox.check} {...themeProps}>
           {theme.checkbox.check.themes.checkElement()}
         </ThemedComponent>

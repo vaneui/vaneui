@@ -29,7 +29,7 @@ export interface TypographyTheme extends BaseTypographyComponentTheme {
 
 
 export const createTypographyComponentTheme = (
-  tag: React.ReactNode | string | any,
+  tag: React.ElementType,
   base: string = "text-balance",
   textSizeMap: Record<SizeKey, string> = textSizeClasses,
   defaults: Partial<TypographyProps> = {},

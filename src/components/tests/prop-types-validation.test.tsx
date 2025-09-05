@@ -21,7 +21,8 @@ import {
   TYPOGRAPHY_CATEGORIES,
   LIST_CATEGORIES,
   COMPONENT_PROPS_CATEGORY,
-  ComponentKeys
+  ComponentKeys,
+  ComponentCategoryKey
 } from '../../index';
 
 describe('Component Prop Type Validation', () => {
@@ -151,7 +152,7 @@ describe('Category Arrays Validation', () => {
     // Helper to check if all values in an array are valid category keys
     const validateCategories = (categories: readonly string[]) => {
       categories.forEach(category => {
-        expect(validCategoryKeys.has(category as any)).toBe(true);
+        expect(validCategoryKeys.has(category as ComponentCategoryKey)).toBe(true);
       });
     };
     

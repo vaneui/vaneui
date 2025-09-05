@@ -9,8 +9,8 @@ import {
  * Returns the specific key type for the given category.
  */
 export function pickFirstTruthyKeyByCategory<T extends ComponentCategoryKey>(
-  props: Record<string, any>,
-  defaults: Record<string, any>,
+  props: Record<string, unknown>,
+  defaults: Record<string, unknown>,
   category: T
 ): typeof ComponentKeys[T][number] | undefined {
   const keys = ComponentKeys[category];

@@ -150,7 +150,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   }
 
   getComponentConfig(props: P) {
-    const cleanProps: Record<string, any> = {...props};
+    const cleanProps: Record<string, unknown> = {...props};
 
     const keysToOmit =
       this.categories.flatMap(category => ComponentKeys[category]);

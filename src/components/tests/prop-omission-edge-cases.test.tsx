@@ -23,7 +23,7 @@ import {
 } from './utils/propOmissionTestUtils';
 
 describe('Prop Omission Edge Cases', () => {
-  const renderWithTheme = (Component: React.ComponentType<any>) => (props: any) =>
+  const renderWithTheme = (Component: React.ComponentType<Record<string, unknown>>) => (props: Record<string, unknown>) =>
     render(
       <ThemeProvider theme={defaultTheme}>
         <Component {...props}>Test Content</Component>
@@ -203,7 +203,7 @@ describe('Prop Omission Edge Cases', () => {
   describe('Runtime Prop Filtering', () => {
     it('should demonstrate that props are filtered at runtime, not compile time', () => {
       // Create props object dynamically
-      const dynamicProps: Record<string, any> = {};
+      const dynamicProps: Record<string, unknown> = {};
       
       // Add all button boolean props dynamically
       getAllBooleanPropsForCategories(BUTTON_CATEGORIES).forEach(key => {

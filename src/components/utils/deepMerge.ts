@@ -1,7 +1,7 @@
 import { DeepPartial } from "./deepPartial";
 import { ComponentKeys } from "../ui/props";
 
-const isObject = (item: unknown): item is Record<string, any> => {
+const isObject = (item: unknown): item is Record<string, unknown> => {
   return item !== null && typeof item === 'object' && !Array.isArray(item);
 };
 

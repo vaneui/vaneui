@@ -85,7 +85,7 @@ export function checkForRequiredProps(element: Element | null): {
 export function createPropOmissionTest(
   componentName: string,
   categories: readonly ComponentCategoryKey[],
-  renderComponent: (props: any) => any,
+  renderComponent: (props: Record<string, unknown>) => { container: HTMLElement },
   querySelector: string = componentName.toLowerCase()
 ) {
   return () => {

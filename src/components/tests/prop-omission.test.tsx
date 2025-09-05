@@ -44,8 +44,8 @@ import {
 import { createPropOmissionTest, createTestPropsWithAllBooleans, checkForOmittedProps } from './utils/propOmissionTestUtils';
 
 describe('Component Prop Omission Tests', () => {
-  const renderWithTheme = (Component: React.ComponentType<any>) => 
-    (props: any) => render(
+  const renderWithTheme = (Component: React.ComponentType<Record<string, unknown>>) => 
+    (props: Record<string, unknown>) => render(
       <ThemeProvider theme={defaultTheme}>
         <Component {...props}>Test Content</Component>
       </ThemeProvider>

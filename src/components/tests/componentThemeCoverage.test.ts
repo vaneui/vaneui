@@ -57,11 +57,11 @@ class ComponentThemeTester {
   }
 
   // Recursively collect all BaseTheme instances from the themes tree
-  collectBaseThemes(node: any): BaseTheme[] {
+  collectBaseThemes(node: unknown): BaseTheme[] {
     const result: BaseTheme[] = [];
     const visited = new WeakSet();
     
-    const visit = (n: any, depth: number = 0) => {
+    const visit = (n: unknown, depth: number = 0) => {
       if (!n || typeof n !== "object" || depth > 10) return; // Prevent infinite recursion
       if (visited.has(n)) return; // Prevent circular references
       visited.add(n);
@@ -73,7 +73,7 @@ class ComponentThemeTester {
       // Recursively visit all properties, including nested objects
       try {
         for (const k of Object.keys(n)) {
-          const value = (n as any)[k];
+          const value = (n as Record<string, unknown>)[k];
           if (value && typeof value === "object") {
             visit(value, depth + 1);
           }
@@ -89,7 +89,7 @@ class ComponentThemeTester {
 
   // Test if any theme can handle a specific category by testing all keys in that category
   canHandleCategory(category: keyof ComponentKeysType, baseThemes: BaseTheme[]): boolean {
-    const categoryKeys = (ComponentKeys as any)[category] as string[] || [];
+    const categoryKeys = ComponentKeys[category] as readonly string[] || [];
     if (categoryKeys.length === 0) return false;
     
     // Test each key in the category to see if any theme can handle it
@@ -125,10 +125,10 @@ class ComponentThemeTester {
     };
     
     // Test by setting the category to the key value vs a different value
-    const extractedWithKey: Record<string, any> = { ...baseContext };
+    const extractedWithKey: Record<string, unknown> = { ...baseContext };
     extractedWithKey[category] = key;
     
-    const extractedWithDifferent: Record<string, any> = { ...baseContext };
+    const extractedWithDifferent: Record<string, unknown> = { ...baseContext };
     // Use a different value for the category that should produce different output
     if (category === 'shape') {
       extractedWithDifferent[category] = key === 'rounded' ? 'sharp' : 'rounded';
@@ -149,8 +149,8 @@ class ComponentThemeTester {
     }
     
     try {
-      const classesWithKey = theme.getClasses(extractedWithKey as any);
-      const classesWithDifferent = theme.getClasses(extractedWithDifferent as any);
+      const classesWithKey = theme.getClasses(extractedWithKey as Parameters<typeof theme.getClasses>[0]);
+      const classesWithDifferent = theme.getClasses(extractedWithDifferent as Parameters<typeof theme.getClasses>[0]);
       
       const keyContent = Array.isArray(classesWithKey) ? classesWithKey.filter(s => s && s.trim()).join(' ') : '';
       const differentContent = Array.isArray(classesWithDifferent) ? classesWithDifferent.filter(s => s && s.trim()).join(' ') : '';
@@ -163,12 +163,12 @@ class ComponentThemeTester {
   }
 
   // Test a single theme's default props using category-driven approach
-  testThemeDefaults(themeName: string, theme: any): void {
+  testThemeDefaults(themeName: string, theme: { defaults?: Record<string, unknown>, themes?: unknown }): void {
     const defaults = theme.defaults || {};
-    const defaultTrueProps = Object.keys(defaults).filter(key => (defaults as any)[key] === true);
+    const defaultTrueProps = Object.keys(defaults).filter(key => defaults[key] === true);
     
     // Collect all BaseTheme instances from this theme
-    const baseThemes = this.collectBaseThemes(theme.themes as any);
+    const baseThemes = this.collectBaseThemes(theme.themes);
     
     // Debug: show only if there are missing handlers
     // Remove debug logging unless needed
@@ -205,9 +205,9 @@ class ComponentThemeTester {
   }
 
   // Test coverage of component category keys across multiple themes using category-driven approach
-  testCategoryCoverage(componentName: string, categories: readonly string[], themes: Array<{name: string, theme: any}>): void {
+  testCategoryCoverage(componentName: string, categories: readonly string[], themes: Array<{name: string, theme: { defaults?: Record<string, unknown>, themes?: unknown }}>): void {
     // Collect all BaseThemes from all provided themes
-    const allBaseThemes = themes.flatMap(({theme}) => this.collectBaseThemes(theme.themes as any));
+    const allBaseThemes = themes.flatMap(({theme}) => this.collectBaseThemes(theme.themes));
     
     // Check each category to see if any theme can handle it
     const missingCategories: string[] = [];
@@ -242,7 +242,7 @@ interface ComponentTestConfig {
   categories: readonly string[];
   themes: Array<{
     name: string;
-    theme: any;
+    theme: { defaults?: Record<string, unknown>, themes?: unknown };
   }>;
 }
 

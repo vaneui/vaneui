@@ -19,8 +19,8 @@ describe('Component Prop Filtering', () => {
       console.error = consoleErrorMock;
 
       try {
-        // Using 'any' to bypass TypeScript checking for testing runtime behavior
-        const props: any = {
+        // Using Record<string, unknown> to bypass TypeScript checking for testing runtime behavior
+        const props: Record<string, unknown> = {
           // Valid Row props
           primary: true,
           itemsCenter: true,
@@ -126,7 +126,7 @@ describe('Component Prop Filtering', () => {
       console.error = consoleErrorMock;
 
       try {
-        const props: any = {
+        const props: Record<string, unknown> = {
           // Valid Stack props
           gap: true,
           primary: true,
@@ -168,7 +168,7 @@ describe('Component Prop Filtering', () => {
   describe('Category-based filtering verification', () => {
     test('components should only filter props from their defined categories', () => {
       // Test data: props that exist in different categories
-      const testProps: any = {
+      const testProps: Record<string, unknown> = {
         // appearance
         primary: true,
         
