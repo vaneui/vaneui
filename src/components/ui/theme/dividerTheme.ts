@@ -26,7 +26,7 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
     appearance: {
       background: AppearanceTheme.createTheme({
         base: bgBorderAppearanceClasses,
-      }),
+      }, 'bg'),
     },
     layout: defaultLayoutTheme,
   },

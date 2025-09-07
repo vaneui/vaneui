@@ -52,7 +52,7 @@ describe('Checkbox Component Tests', () => {
       expect(checkbox).toHaveClass('cursor-pointer');
       expect(checkbox).toHaveClass('h-4', 'w-4'); // md size default
       expect(checkbox).toHaveClass('rounded-(--ui-border-radius-sm)'); // rounded default for md size
-      expect(checkbox).toHaveClass('ring-(--filled-border-color-default)'); // ring from theme
+      // Note: Ring is disabled by default (noRing: true in defaults), so no ring classes expected
     });
 
     it('should support checked state', () => {

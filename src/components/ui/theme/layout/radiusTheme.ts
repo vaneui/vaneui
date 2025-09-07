@@ -25,8 +25,8 @@ export class RadiusTheme extends BaseTheme {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const size = extractedKeys?.size ?? 'md';
-    const shape = extractedKeys?.shape ?? 'rounded';
+    const size = extractedKeys.size ?? 'md';
+    const shape = extractedKeys.shape ?? 'rounded';
     
     switch (shape) {
       case 'pill':

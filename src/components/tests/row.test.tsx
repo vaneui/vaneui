@@ -192,9 +192,6 @@ describe('Row Component Tests', () => {
             border 
             ring 
             rounded
-            noBorder={false}
-            noRing={false}
-            sharp={false}
           >
             Decorated Row
           </Row>

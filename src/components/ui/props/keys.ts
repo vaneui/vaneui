@@ -23,6 +23,13 @@ export const COMPONENT_PROPS_CATEGORY = [
   'mode',
 ] as const;
 
+/**
+ * Describes what the @ComponentKeys.appearance can be applied to
+ * @see ComponentKeys.appearance
+ */
+export const APPEARANCE_CATEGORY = ['text', 'border', 'ring', 'shadow', 'bg', 'accent'] as const;
+export type AppearanceCategoryKey = typeof APPEARANCE_CATEGORY[number];
+
 export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
 export const ComponentKeys = {
   appearance: ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'link'],

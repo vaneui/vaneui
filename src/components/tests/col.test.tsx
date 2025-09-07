@@ -165,9 +165,6 @@ describe('Col Component Tests', () => {
             border 
             ring 
             pill
-            noBorder={false}
-            noRing={false}
-            sharp={false}
           >
             Decorated Col
           </Col>

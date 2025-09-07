@@ -29,7 +29,8 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
   outline!: T;
 
   private constructor(
-    variantInstances: Record<VariantKey, T>
+    variantInstances: Record<VariantKey, T>,
+
   ) {
     super();
 
@@ -40,12 +41,12 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const variantKey = extractedKeys?.variant ?? 'outline';
-    const activeTextAppearanceTheme = this[variantKey];
+    const activeTheme = this[variantKey];
 
-    if (!activeTextAppearanceTheme) {
+    if (!activeTheme) {
       return [];
     }
-    return activeTextAppearanceTheme.getClasses(extractedKeys);
+    return activeTheme.getClasses(extractedKeys);
   }
 
   // used for button, bages, chips, etc
@@ -53,10 +54,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: textAppearanceClasses
-      }),
+      }, 'text'),
       filled: AppearanceTheme.createTheme({
         base: filledTextAppearanceClasses
-      })
+      }, 'text')
     });
   }
 
@@ -78,10 +79,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: borderAppearanceClasses
-      }),
+      }, 'border'),
       filled: AppearanceTheme.createTheme({
         base: filledBorderAppearanceClasses
-      })
+      }, 'border')
     });
   }
 
@@ -89,10 +90,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: ringAppearanceClasses
-      }),
+      }, 'ring'),
       filled: AppearanceTheme.createTheme({
         base: filledRingAppearanceClasses
-      })
+      }, 'ring')
     });
   }
 
@@ -100,10 +101,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: backgroundAppearanceClasses,
-      }),
+      }, 'bg'),
       filled: AppearanceTheme.createTheme({
         base: backgroundAppearanceClasses,
-      })
+      }, 'bg')
     });
   }
 
@@ -113,12 +114,12 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
         base: backgroundAppearanceClasses,
         hover: hoverBackgroundAppearanceClasses,
         active: activeBackgroundAppearanceClasses
-      }),
+      }, 'bg'),
       filled: AppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
         hover: filledHoverBackgroundAppearanceClasses,
         active: filledActiveBackgroundAppearanceClasses
-      })
+      }, 'bg')
     });
   }
 
@@ -126,10 +127,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: backgroundAppearanceClasses,
-      }),
+      }, 'bg'),
       filled: AppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
-      })
+      }, 'bg')
     });
   }
 
@@ -137,10 +138,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: accentColorAppearanceClasses
-      }),
+      }, 'accent'),
       filled: AppearanceTheme.createTheme({
         base: filledAccentColorAppearanceClasses
-      })
+      }, 'accent')
     });
   }
 
@@ -148,10 +149,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: checkedBackgroundAppearanceClasses
-      }),
+      }, 'bg'),
       filled: AppearanceTheme.createTheme({
         base: filledCheckedBackgroundAppearanceClasses
-      })
+      }, 'bg')
     });
   }
 
@@ -159,10 +160,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: layoutBackgroundAppearanceClasses
-      }),
+      }, 'bg'),
       filled: AppearanceTheme.createTheme({
         base: layoutFilledBackgroundAppearanceClasses
-      })
+      }, 'bg')
     });
   }
 }

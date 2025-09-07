@@ -296,7 +296,7 @@ describe('Nested ThemeProvider Tests', () => {
           extraClasses={outerExtraClasses}
         >
           <div>
-            <Button className="outer-button">Outer Button</Button>
+            <Button border className="outer-button">Outer Button</Button>
             <ThemeProvider 
               themeOverride={innerOverride}
               themeDefaults={innerDefaults}
