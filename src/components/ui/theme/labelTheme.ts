@@ -10,7 +10,7 @@ import { themeDefaults } from "./defaults";
 import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
+import { textSizeClasses } from "../classes/typographyClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";

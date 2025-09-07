@@ -12,7 +12,6 @@ import { RingTheme } from "./layout/ringTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
-import { borderAppearanceClasses, ringAppearanceClasses } from "../classes/appearanceClasses";
 import { IMG_CATEGORIES } from "../props";
 
 export interface ImgTheme extends BaseComponentTheme {

@@ -1,23 +1,47 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
+import { AppearanceCategoryKey, CategoryProps } from "../../props";
 import { ComponentKeys, ModeKey, AppearanceKey } from "../../props";
 
-export interface AppearanceTheme extends Record<AppearanceKey, Record<ModeKey, string>> {
-}
+export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, Record<ModeKey, string>> {
+  default!: Record<ModeKey, string>;
+  accent!: Record<ModeKey, string>;
+  primary!: Record<ModeKey, string>;
+  secondary!: Record<ModeKey, string>;
+  tertiary!: Record<ModeKey, string>;
+  success!: Record<ModeKey, string>;
+  danger!: Record<ModeKey, string>;
+  warning!: Record<ModeKey, string>;
+  info!: Record<ModeKey, string>;
+  link!: Record<ModeKey, string>;
 
-export class AppearanceTheme extends BaseTheme {
   private readonly transparentClasses?: Record<string, string>;
+  private readonly category: AppearanceCategoryKey;
 
   private constructor(
     config: Record<AppearanceKey, Record<ModeKey, string>>,
+    category: AppearanceCategoryKey,
     transparentClasses?: Record<string, string>
   ) {
     super();
     Object.assign(this, config);
+    this.category = category;
     this.transparentClasses = transparentClasses;
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
+    if(this.category === 'border' && extractedKeys.border === 'noBorder')
+    {
+      return [];
+    }
+    if(this.category === 'ring' && extractedKeys.ring === 'noRing')
+    {
+      return [];
+    }
+    if(this.category === 'shadow' && extractedKeys.shadow === 'noShadow')
+    {
+      return [];
+    }
+
     // Check for specific transparent styles first
     if (extractedKeys?.transparent) {
       const transparentClass = this.transparentClasses?.[extractedKeys.transparent] || '';
@@ -38,6 +62,7 @@ export class AppearanceTheme extends BaseTheme {
 
   static createTheme(
     src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {},
+    category: AppearanceCategoryKey,
   ): AppearanceTheme {
     const config = Object.fromEntries(
       ComponentKeys.appearance.map(textKey => [
@@ -51,6 +76,6 @@ export class AppearanceTheme extends BaseTheme {
       ])
     ) as Record<AppearanceKey, Record<ModeKey, string>>;
 
-    return new AppearanceTheme(config, src.base);
+    return new AppearanceTheme(config, category, src.base);
   }
 }

@@ -10,11 +10,6 @@ import { RingTheme } from "./layout/ringTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
-import {
-  borderAppearanceClasses,
-  ringAppearanceClasses
-} from "../classes/appearanceClasses";
-import { textAppearanceClasses } from "../classes/typographyClasses";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { CONTAINER_CATEGORIES } from "../props";
 
@@ -71,7 +66,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
   },
   themeDefaults.container as Partial<ContainerProps>,
   CONTAINER_CATEGORIES,
-  (props: ContainerProps, defaults: Partial<ContainerProps>) => {
+  (props: ContainerProps) => {
     return props.href ? "a" : "div";
   }
 );

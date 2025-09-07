@@ -1,20 +1,11 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
-import { ListStyleKey, ComponentKeys } from "../../props";
+import { ListStyleKey } from "../../props";
 
-export interface ListStyleTheme extends Record<ListStyleKey, string> {
-}
+export class ListStyleTheme extends BaseTheme implements Record<ListStyleKey, string> {
+  disc: string = 'list-disc';
+  decimal: string = 'list-decimal';
 
-export class ListStyleTheme extends BaseTheme {
-  constructor(initial?: Partial<Record<ListStyleKey, string>>) {
-    super();
-    ComponentKeys.listStyle.forEach((key) => {
-      this[key] = initial?.[key] ?? {
-        disc: 'list-disc',
-        decimal: 'list-decimal',
-      }[key];
-    });
-  }
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const listStyle = extractedKeys?.listStyle;

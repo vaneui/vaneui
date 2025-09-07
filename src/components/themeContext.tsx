@@ -199,8 +199,8 @@ export type ThemeExtraClasses = {
  * Navigates both theme and defaults objects in parallel.
  */
 function applyDefaultsRecursively(
-  themeObject: any,
-  defaultsObject: any
+  themeObject: Record<string, unknown> | object,
+  defaultsObject: Record<string, unknown> | object
 ): void {
   if (!themeObject || typeof themeObject !== 'object' || !defaultsObject || typeof defaultsObject !== 'object') {
     return;
@@ -220,11 +220,11 @@ function applyDefaultsRecursively(
     // Recursively navigate matching structure
     for (const key in defaultsObject) {
       if (key in themeObject && 
-          typeof themeObject[key] === 'object' &&
-          themeObject[key] !== null &&
-          typeof defaultsObject[key] === 'object' &&
-          defaultsObject[key] !== null) {
-        applyDefaultsRecursively(themeObject[key], defaultsObject[key]);
+          typeof (themeObject as Record<string, unknown>)[key] === 'object' &&
+          (themeObject as Record<string, unknown>)[key] !== null &&
+          typeof (defaultsObject as Record<string, unknown>)[key] === 'object' &&
+          (defaultsObject as Record<string, unknown>)[key] !== null) {
+        applyDefaultsRecursively((themeObject as Record<string, unknown>)[key] as Record<string, unknown>, (defaultsObject as Record<string, unknown>)[key] as Record<string, unknown>);
       }
     }
   }
@@ -235,8 +235,8 @@ function applyDefaultsRecursively(
  * Navigates both theme and extraClasses objects in parallel.
  */
 function applyExtraClassesRecursively(
-  themeObject: any,
-  extraClassesObject: any
+  themeObject: Record<string, unknown> | object,
+  extraClassesObject: Record<string, unknown> | object
 ): void {
   if (!themeObject || typeof themeObject !== 'object' || !extraClassesObject || typeof extraClassesObject !== 'object') {
     return;
@@ -256,11 +256,11 @@ function applyExtraClassesRecursively(
     // Recursively navigate matching structure
     for (const key in extraClassesObject) {
       if (key in themeObject && 
-          typeof themeObject[key] === 'object' &&
-          themeObject[key] !== null &&
-          typeof extraClassesObject[key] === 'object' &&
-          extraClassesObject[key] !== null) {
-        applyExtraClassesRecursively(themeObject[key], extraClassesObject[key]);
+          typeof (themeObject as Record<string, unknown>)[key] === 'object' &&
+          (themeObject as Record<string, unknown>)[key] !== null &&
+          typeof (extraClassesObject as Record<string, unknown>)[key] === 'object' &&
+          (extraClassesObject as Record<string, unknown>)[key] !== null) {
+        applyExtraClassesRecursively((themeObject as Record<string, unknown>)[key] as Record<string, unknown>, (extraClassesObject as Record<string, unknown>)[key] as Record<string, unknown>);
       }
     }
   }

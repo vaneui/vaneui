@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React from 'react';
+
 import {
   Col,
   ThemeProvider,
@@ -165,9 +165,6 @@ describe('Col Component Tests', () => {
             border 
             ring 
             pill
-            noBorder={false}
-            noRing={false}
-            sharp={false}
           >
             Decorated Col
           </Col>

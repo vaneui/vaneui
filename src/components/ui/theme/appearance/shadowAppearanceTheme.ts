@@ -7,10 +7,18 @@ import {
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface ShadowAppearanceTheme extends Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
-}
+export class ShadowAppearanceTheme extends BaseTheme implements Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
+  default!: Record<SizeKey, Record<ModeKey, string>> | null;
+  accent!: Record<SizeKey, Record<ModeKey, string>> | null;
+  primary!: Record<SizeKey, Record<ModeKey, string>> | null;
+  secondary!: Record<SizeKey, Record<ModeKey, string>> | null;
+  tertiary!: Record<SizeKey, Record<ModeKey, string>> | null;
+  success!: Record<SizeKey, Record<ModeKey, string>> | null;
+  danger!: Record<SizeKey, Record<ModeKey, string>> | null;
+  warning!: Record<SizeKey, Record<ModeKey, string>> | null;
+  info!: Record<SizeKey, Record<ModeKey, string>> | null;
+  link!: Record<SizeKey, Record<ModeKey, string>> | null;
 
-export class ShadowAppearanceTheme extends BaseTheme {
   private static readonly defaultShadow: Record<SizeKey, Record<ModeKey, string>> = {
     xs: {base: "shadow-2xs", hover: "hover:shadow-xs", active: ""},
     sm: {base: "shadow-xs", hover: "hover:shadow-sm", active: ""},

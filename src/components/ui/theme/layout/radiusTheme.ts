@@ -6,12 +6,6 @@ import {
   layoutBorderRadiusClasses
 } from "../../classes/radiusClasses";
 
-export interface RadiusTheme {
-  pill: string;
-  sharp: string;
-  rounded: Record<SizeKey, string>;
-}
-
 export class RadiusTheme extends BaseTheme {
   pill: string = "rounded-full";
   sharp: string = "rounded-none";
@@ -26,22 +20,23 @@ export class RadiusTheme extends BaseTheme {
     return new RadiusTheme(customRounded || uiBorderRadiusClasses);
   }
 
-  static createLayoutTheme(customRounded?: Record<SizeKey, string>): RadiusTheme {
-    return new RadiusTheme(customRounded || layoutBorderRadiusClasses);
+  static createLayoutTheme(): RadiusTheme {
+    return new RadiusTheme(layoutBorderRadiusClasses);
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const size = extractedKeys?.size ?? 'md';
-    const shape = extractedKeys?.shape ?? 'rounded';
+    const size = extractedKeys.size ?? 'md';
+    const shape = extractedKeys.shape ?? 'rounded';
     
     switch (shape) {
       case 'pill':
         return [this.pill];
       case 'sharp':
         return [this.sharp];
-      case 'rounded':
+      case 'rounded': {
         const roundedClass = this.rounded[size];
         return roundedClass ? [roundedClass] : [];
+      }
       default:
         return [];
     }

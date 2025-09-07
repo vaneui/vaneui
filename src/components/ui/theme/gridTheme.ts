@@ -5,7 +5,6 @@ import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { textAppearanceClasses } from "../classes/typographyClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { DeepPartial } from "../../utils/deepPartial";
 import { GRID_CATEGORIES } from "../props";
@@ -52,7 +51,7 @@ export const defaultGrid2Theme = new ComponentTheme<GridProps, GridTheme>(
   gridSubThemes,
   themeDefaults.grid2 as Partial<GridProps>,
   GRID_CATEGORIES,
-  (props: GridProps, defaults: Partial<GridProps>) => {
+  (props: GridProps) => {
     return props.href ? "a" : "div";
   }
 );
@@ -63,7 +62,7 @@ export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(
   gridSubThemes,
   themeDefaults.grid3 as Partial<GridProps>,
   GRID_CATEGORIES,
-  (props: GridProps, defaults: Partial<GridProps>) => {
+  (props: GridProps) => {
     return props.href ? "a" : "div";
   }
 );
@@ -74,7 +73,7 @@ export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
   gridSubThemes,
   themeDefaults.grid4 as Partial<GridProps>,
   GRID_CATEGORIES,
-  (props: GridProps, defaults: Partial<GridProps>) => {
+  (props: GridProps) => {
     return props.href ? "a" : "div";
   }
 );

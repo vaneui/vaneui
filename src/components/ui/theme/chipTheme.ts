@@ -73,7 +73,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   },
   themeDefaults.chip as Partial<ChipProps>,
   CHIP_CATEGORIES,
-  (props: ChipProps, defaults: Partial<ChipProps>) => {
+  (props: ChipProps) => {
     return props.href ? "a" : "span";
   }
 );

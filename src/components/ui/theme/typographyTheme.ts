@@ -1,5 +1,5 @@
-import { textAppearanceClasses, textSizeClasses } from "../classes/typographyClasses";
-import { ButtonProps, ListProps, TypographyProps } from "../props";
+import { textSizeClasses } from "../classes/typographyClasses";
+import { ListProps, TypographyProps } from "../props";
 import { themeDefaults } from "./defaults";
 import React from "react";
 import {
@@ -12,7 +12,7 @@ import { SizeTheme } from "./size/sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
-import { SizeKey, ComponentKeys, AppearanceKey, ModeKey, CategoryProps } from "../props";
+import { SizeKey } from "../props";
 import { PlTheme } from "./size/plTheme";
 import { ListStyleTheme } from "./list/listStyleTheme";
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from "../props";
@@ -29,7 +29,7 @@ export interface TypographyTheme extends BaseTypographyComponentTheme {
 
 
 export const createTypographyComponentTheme = (
-  tag: React.ReactNode | string | any,
+  tag: React.ElementType,
   base: string = "text-balance",
   textSizeMap: Record<SizeKey, string> = textSizeClasses,
   defaults: Partial<TypographyProps> = {},
@@ -49,7 +49,7 @@ export const createTypographyComponentTheme = (
     },
     defaults,
     TYPOGRAPHY_CATEGORIES,
-    (props: TypographyProps, defaults: Partial<TypographyProps>) => {
+    (props: TypographyProps) => {
       // Determine tag based on href prop
       return props.href ? "a" : tag;
     });
@@ -164,13 +164,12 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
   },
   themeDefaults.list as Partial<ListProps>,
   LIST_CATEGORIES,
-  (props: ListProps, defaults: Partial<ListProps>) => {
-    // Determine tag based on list style from props and defaults
+  (props: ListProps) => {
+    // Determine tag based on list style from props
     const componentProps = props as unknown as Record<string, boolean>;
-    const defaultsRecord = defaults as Record<string, boolean>;
     
-    // Check if decimal is set in props or defaults
-    const hasDecimal = componentProps?.decimal || defaultsRecord?.decimal;
+    // Check if decimal is set in props
+    const hasDecimal = componentProps?.decimal;
     
     return hasDecimal ? "ol" : "ul";
   }

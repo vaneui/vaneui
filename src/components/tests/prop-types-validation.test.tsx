@@ -1,21 +1,10 @@
-import React from 'react';
+
 import { render } from '@testing-library/react';
 import {
   Button,
-  Badge,
-  Chip,
   Card,
   Row,
-  Col,
   Stack,
-  Grid3,
-  Container,
-  Section,
-  Divider,
-  Text,
-  Title,
-  Link,
-  List,
   ThemeProvider,
   defaultTheme,
   BUTTON_CATEGORIES,
@@ -32,7 +21,8 @@ import {
   TYPOGRAPHY_CATEGORIES,
   LIST_CATEGORIES,
   COMPONENT_PROPS_CATEGORY,
-  ComponentKeys
+  ComponentKeys,
+  ComponentCategoryKey
 } from '../../index';
 
 describe('Component Prop Type Validation', () => {
@@ -160,26 +150,26 @@ describe('Category Arrays Validation', () => {
     const validCategoryKeys = new Set(COMPONENT_PROPS_CATEGORY);
     
     // Helper to check if all values in an array are valid category keys
-    const validateCategories = (categories: readonly string[], name: string) => {
+    const validateCategories = (categories: readonly string[]) => {
       categories.forEach(category => {
-        expect(validCategoryKeys.has(category as any)).toBe(true);
+        expect(validCategoryKeys.has(category as ComponentCategoryKey)).toBe(true);
       });
     };
     
     // Test all component category arrays
-    validateCategories(ROW_CATEGORIES, 'ROW_CATEGORIES');
-    validateCategories(COL_CATEGORIES, 'COL_CATEGORIES');
-    validateCategories(STACK_CATEGORIES, 'STACK_CATEGORIES');
-    validateCategories(BUTTON_CATEGORIES, 'BUTTON_CATEGORIES');
-    validateCategories(BADGE_CATEGORIES, 'BADGE_CATEGORIES');
-    validateCategories(CHIP_CATEGORIES, 'CHIP_CATEGORIES');
-    validateCategories(CARD_CATEGORIES, 'CARD_CATEGORIES');
-    validateCategories(GRID_CATEGORIES, 'GRID_CATEGORIES');
-    validateCategories(CONTAINER_CATEGORIES, 'CONTAINER_CATEGORIES');
-    validateCategories(SECTION_CATEGORIES, 'SECTION_CATEGORIES');
-    validateCategories(DIVIDER_CATEGORIES, 'DIVIDER_CATEGORIES');
-    validateCategories(TYPOGRAPHY_CATEGORIES, 'TYPOGRAPHY_CATEGORIES');
-    validateCategories(LIST_CATEGORIES, 'LIST_CATEGORIES');
+    validateCategories(ROW_CATEGORIES);
+    validateCategories(COL_CATEGORIES);
+    validateCategories(STACK_CATEGORIES);
+    validateCategories(BUTTON_CATEGORIES);
+    validateCategories(BADGE_CATEGORIES);
+    validateCategories(CHIP_CATEGORIES);
+    validateCategories(CARD_CATEGORIES);
+    validateCategories(GRID_CATEGORIES);
+    validateCategories(CONTAINER_CATEGORIES);
+    validateCategories(SECTION_CATEGORIES);
+    validateCategories(DIVIDER_CATEGORIES);
+    validateCategories(TYPOGRAPHY_CATEGORIES);
+    validateCategories(LIST_CATEGORIES);
   });
 
   test('ROW_CATEGORIES should include shape category', () => {
@@ -208,7 +198,7 @@ describe('Category Arrays Validation', () => {
 
 describe('ComponentKeys Coverage', () => {
   test('All keys in category arrays should map to valid ComponentKeys', () => {
-    const testCategories = (categories: readonly string[], componentName: string) => {
+    const testCategories = (categories: readonly string[]) => {
       categories.forEach(category => {
         // Verify the category exists in ComponentKeys
         expect(ComponentKeys).toHaveProperty(category);
@@ -220,9 +210,9 @@ describe('ComponentKeys Coverage', () => {
       });
     };
     
-    testCategories(ROW_CATEGORIES, 'Row');
-    testCategories(BUTTON_CATEGORIES, 'Button');
-    testCategories(STACK_CATEGORIES, 'Stack');
-    testCategories(CARD_CATEGORIES, 'Card');
+    testCategories(ROW_CATEGORIES);
+    testCategories(BUTTON_CATEGORIES);
+    testCategories(STACK_CATEGORIES);
+    testCategories(CARD_CATEGORIES);
   });
 });

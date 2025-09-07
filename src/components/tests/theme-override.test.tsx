@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React from 'react';
-import { Button, Badge, ThemeProvider, ThemeProps, defaultTheme } from '../../index';
+
+import { Button, Badge, ThemeProvider, ThemeProps } from '../../index';
 
 describe('Theme Override Tests', () => {
   describe('CSS Class Application', () => {
@@ -48,7 +48,8 @@ describe('Theme Override Tests', () => {
 
     it('should override border styles and apply to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.border.outline.default.base = 'border-2 border-green-500';
+        theme.button.themes.layout.border.base = 'border-2'
+        theme.button.themes.appearance.border.outline.default.base = 'border-green-500';
         theme.button.themes.appearance.border.outline.default.hover = 'hover:border-green-600';
         theme.button.themes.appearance.border.outline.default.active = 'active:border-green-700';
         return theme;
@@ -56,12 +57,12 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Button>Border Test</Button>
+          <Button border>Border Test</Button>
         </ThemeProvider>
       );
 
       const button = container.querySelector('button');
-      expect(button).toHaveClass('border-2');
+      expect(button).toHaveClass('border-2'); // border width from BorderTheme
       expect(button).toHaveClass('border-green-500');
       expect(button).toHaveClass('hover:border-green-600');
       expect(button).toHaveClass('active:border-green-700');
@@ -201,7 +202,7 @@ describe('Theme Override Tests', () => {
             badge: { outline: true, pill: true, sm: true }
           }}
         >
-          <Button className="complex-button">Complex Button</Button>
+          <Button border className="complex-button">Complex Button</Button>
           <Badge className="complex-badge">Complex Badge</Badge>
         </ThemeProvider>
       );
@@ -215,7 +216,7 @@ describe('Theme Override Tests', () => {
       expect(button).toHaveClass('bg-gradient-to-r');
       expect(button).toHaveClass('from-indigo-500');
       expect(button).toHaveClass('to-purple-600');
-      expect(button).toHaveClass('border-2');
+      expect(button).toHaveClass('border'); // border width from BorderTheme  
       expect(button).toHaveClass('border-indigo-400');
       expect(button).toHaveClass('font-semibold'); // from themeDefaults
       expect(button).toHaveClass('text-xl'); // from themeDefaults
@@ -282,7 +283,7 @@ describe('Theme Override Tests', () => {
           <div>
             <Button className="instance-1">Button 1</Button>
             <Button filled className="instance-2">Button 2</Button>
-            <Button outline className="instance-3">Button 3</Button>
+            <Button border outline className="instance-3">Button 3</Button>
           </div>
         </ThemeProvider>
       );

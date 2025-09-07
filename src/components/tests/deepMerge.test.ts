@@ -67,7 +67,7 @@ describe('deepMerge function', () => {
     // Define a type that extends the target type with the additional property 'c'
     type ExtendedTarget = typeof target & { c: number };
     // Use a type assertion for null since DeepPartial doesn't allow null directly
-    const source: DeepPartial<ExtendedTarget> = { a: null as any, c: 3 };
+    const source: DeepPartial<ExtendedTarget> = { a: null as unknown as number, c: 3 };
     const result = deepMerge(target, source);
 
     expect(result).toEqual({ a: null, b: 2, c: 3 });

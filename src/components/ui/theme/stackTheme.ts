@@ -13,7 +13,6 @@ import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { textAppearanceClasses } from "../classes/typographyClasses";
 import { STACK_CATEGORIES } from "../props";
 
 export interface StackTheme extends BaseComponentTheme {
@@ -67,7 +66,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
   },
   themeDefaults.stack as Partial<StackProps>,
   STACK_CATEGORIES,
-  (props: StackProps, defaults: Partial<StackProps>) => {
+  (props: StackProps) => {
     return props.href ? "a" : "div";
   }
 );

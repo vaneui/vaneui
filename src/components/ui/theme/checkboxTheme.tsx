@@ -14,7 +14,7 @@ import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { CHECKBOX_CATEGORIES } from "../props";
 import { textSizeClasses } from "../classes/typographyClasses";
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 
 export interface CheckboxTheme extends BaseComponentTheme {

@@ -1,4 +1,4 @@
-import React, { JSX, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { LabelProps } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";

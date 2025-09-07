@@ -1,4 +1,4 @@
-import { ComponentKeys, ComponentCategoryKey } from '../../ui/props/keys';
+import { ComponentKeys, ComponentCategoryKey } from '../../ui/props';
 
 /**
  * Get all possible boolean props for a given set of component categories
@@ -54,38 +54,12 @@ export function checkForOmittedProps(
 }
 
 /**
- * Check if element has the standard allowed props that should never be omitted
- */
-export function checkForRequiredProps(element: Element | null): {
-  hasRequiredProps: boolean;
-  missingProps: string[];
-} {
-  if (!element) {
-    return { hasRequiredProps: false, missingProps: ['element'] };
-  }
-
-  const requiredProps = ['class']; // className should be converted to class
-  const missingProps: string[] = [];
-
-  for (const prop of requiredProps) {
-    if (!element.hasAttribute(prop)) {
-      missingProps.push(prop);
-    }
-  }
-
-  return {
-    hasRequiredProps: missingProps.length === 0,
-    missingProps
-  };
-}
-
-/**
  * Create a comprehensive test case for prop omission
  */
 export function createPropOmissionTest(
   componentName: string,
   categories: readonly ComponentCategoryKey[],
-  renderComponent: (props: any) => any,
+  renderComponent: (props: Record<string, unknown>) => { container: HTMLElement },
   querySelector: string = componentName.toLowerCase()
 ) {
   return () => {

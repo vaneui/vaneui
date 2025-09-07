@@ -1,24 +1,13 @@
-import { WrapKey, ComponentKeys } from "../../props";
+import { WrapKey } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface WrapTheme extends Record<WrapKey, string> {
-}
-
-export class WrapTheme extends BaseTheme {
-  constructor(initialConfig?: Partial<Record<WrapKey, string>>) {
-    super();
-    ComponentKeys.wrap.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? {
-        flexWrap: "flex-wrap",
-        flexNoWrap: "flex-nowrap",
-        flexWrapReverse: "flex-wrap-reverse"
-      }[key];
-    });
-  }
+export class WrapTheme extends BaseTheme implements Record<WrapKey, string> {
+  flexWrap: string = "flex-wrap";
+  flexNoWrap: string = "flex-nowrap";
+  flexWrapReverse: string = "flex-wrap-reverse";
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.wrap;
-    return key ? [this[key]] : [];
+    return extractedKeys?.wrap ? [this[extractedKeys.wrap]] : [];
   }
 }

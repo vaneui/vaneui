@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React from 'react';
+
 import {
   Button,
   Badge,
@@ -44,8 +44,8 @@ import {
 import { createPropOmissionTest, createTestPropsWithAllBooleans, checkForOmittedProps } from './utils/propOmissionTestUtils';
 
 describe('Component Prop Omission Tests', () => {
-  const renderWithTheme = (Component: React.ComponentType<any>, tag: string = '') => 
-    (props: any) => render(
+  const renderWithTheme = (Component: React.ComponentType<Record<string, unknown>>) => 
+    (props: Record<string, unknown>) => render(
       <ThemeProvider theme={defaultTheme}>
         <Component {...props}>Test Content</Component>
       </ThemeProvider>
@@ -275,7 +275,7 @@ describe('Component Prop Omission Tests', () => {
         { name: 'List', categories: LIST_CATEGORIES, expectedCount: LIST_CATEGORIES.length }
       ];
 
-      componentTests.forEach(({ name, categories, expectedCount }) => {
+      componentTests.forEach(({ categories, expectedCount }) => {
         expect(categories.length).toBe(expectedCount);
       });
     });
@@ -297,7 +297,7 @@ describe('Component Prop Omission Tests', () => {
         LIST_CATEGORIES
       ];
 
-      allCategories.forEach((categories, index) => {
+      allCategories.forEach((categories) => {
         expect(categories.length).toBeGreaterThan(0);
       });
     });

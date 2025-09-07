@@ -24,13 +24,13 @@ import {
 import { ShadowAppearanceTheme } from "./shadowAppearanceTheme";
 
 
-export interface GenericVariantTheme<T extends BaseTheme> extends Record<VariantKey, T> {
-}
-
-export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
+export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implements Record<VariantKey, T> {
+  filled!: T;
+  outline!: T;
 
   private constructor(
-    variantInstances: Record<VariantKey, T>
+    variantInstances: Record<VariantKey, T>,
+
   ) {
     super();
 
@@ -41,12 +41,12 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const variantKey = extractedKeys?.variant ?? 'outline';
-    const activeTextAppearanceTheme = this[variantKey];
+    const activeTheme = this[variantKey];
 
-    if (!activeTextAppearanceTheme) {
+    if (!activeTheme) {
       return [];
     }
-    return activeTextAppearanceTheme.getClasses(extractedKeys);
+    return activeTheme.getClasses(extractedKeys);
   }
 
   // used for button, bages, chips, etc
@@ -54,10 +54,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: textAppearanceClasses
-      }),
+      }, 'text'),
       filled: AppearanceTheme.createTheme({
         base: filledTextAppearanceClasses
-      })
+      }, 'text')
     });
   }
 
@@ -75,21 +75,14 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     });
   }
 
-  static createBorderAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
-    return new GenericVariantTheme({
-      outline: AppearanceTheme.createTheme({base: borderAppearanceClasses}),
-      filled: AppearanceTheme.createTheme({base: filledBorderAppearanceClasses})
-    });
-  }
-
   static createUIElementBorderTheme(): GenericVariantTheme<AppearanceTheme> {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: borderAppearanceClasses
-      }),
+      }, 'border'),
       filled: AppearanceTheme.createTheme({
         base: filledBorderAppearanceClasses
-      })
+      }, 'border')
     });
   }
 
@@ -97,10 +90,21 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: ringAppearanceClasses
-      }),
+      }, 'ring'),
       filled: AppearanceTheme.createTheme({
         base: filledRingAppearanceClasses
-      })
+      }, 'ring')
+    });
+  }
+
+  static createCheckboxBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
+    return new GenericVariantTheme({
+      outline: AppearanceTheme.createTheme({
+        base: backgroundAppearanceClasses,
+      }, 'bg'),
+      filled: AppearanceTheme.createTheme({
+        base: backgroundAppearanceClasses,
+      }, 'bg')
     });
   }
 
@@ -110,38 +114,12 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
         base: backgroundAppearanceClasses,
         hover: hoverBackgroundAppearanceClasses,
         active: activeBackgroundAppearanceClasses
-      }),
+      }, 'bg'),
       filled: AppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
         hover: filledHoverBackgroundAppearanceClasses,
         active: filledActiveBackgroundAppearanceClasses
-      })
-    });
-  }
-
-  static createCheckboxBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
-    return new GenericVariantTheme({
-      outline: AppearanceTheme.createTheme({
-        base: backgroundAppearanceClasses,
-      }),
-      filled: AppearanceTheme.createTheme({
-        base: backgroundAppearanceClasses,
-      })
-    });
-  }
-
-  static createUIElementBgAppearanceTheme(): GenericVariantTheme<AppearanceTheme> {
-    return new GenericVariantTheme({
-      outline: AppearanceTheme.createTheme({
-        base: backgroundAppearanceClasses,
-        hover: hoverBackgroundAppearanceClasses,
-        active: activeBackgroundAppearanceClasses
-      }),
-      filled: AppearanceTheme.createTheme({
-        base: filledBackgroundAppearanceClasses,
-        hover: filledHoverBackgroundAppearanceClasses,
-        active: filledActiveBackgroundAppearanceClasses
-      })
+      }, 'bg')
     });
   }
 
@@ -149,10 +127,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: backgroundAppearanceClasses,
-      }),
+      }, 'bg'),
       filled: AppearanceTheme.createTheme({
         base: filledBackgroundAppearanceClasses,
-      })
+      }, 'bg')
     });
   }
 
@@ -160,10 +138,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: accentColorAppearanceClasses
-      }),
+      }, 'accent'),
       filled: AppearanceTheme.createTheme({
         base: filledAccentColorAppearanceClasses
-      })
+      }, 'accent')
     });
   }
 
@@ -171,10 +149,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: checkedBackgroundAppearanceClasses
-      }),
+      }, 'bg'),
       filled: AppearanceTheme.createTheme({
         base: filledCheckedBackgroundAppearanceClasses
-      })
+      }, 'bg')
     });
   }
 
@@ -182,10 +160,10 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme {
     return new GenericVariantTheme({
       outline: AppearanceTheme.createTheme({
         base: layoutBackgroundAppearanceClasses
-      }),
+      }, 'bg'),
       filled: AppearanceTheme.createTheme({
         base: layoutFilledBackgroundAppearanceClasses
-      })
+      }, 'bg')
     });
   }
 }

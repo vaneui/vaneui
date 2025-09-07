@@ -1,17 +1,14 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
   Row,
   Text,
-  Divider,
   Col,
   Title,
   Section,
-  Code,
-  Chip, Card, Checkbox, Label, Img, Button, Link, Grid2
+  Card, Checkbox, Label, Link
 } from '../../src';
-import Demo from './Demo';
 
 function App() {
   const buttonRef = useRef<HTMLButtonElement>(null);

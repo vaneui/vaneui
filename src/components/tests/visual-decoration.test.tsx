@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { render } from '@testing-library/react';
 import { Row, Col, Stack, ThemeProvider } from '../..';
 
@@ -10,7 +10,7 @@ describe('Visual Decoration Props', () => {
   describe('Border Props', () => {
     it('should apply border classes to Row component', () => {
       const { container } = renderWithTheme(
-        <Row border noBorder={false}>Content</Row>
+        <Row border>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('border');
@@ -18,7 +18,7 @@ describe('Visual Decoration Props', () => {
 
     it('should apply border classes to Col component', () => {
       const { container } = renderWithTheme(
-        <Col border noBorder={false}>Content</Col>
+        <Col border>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('border');
@@ -26,13 +26,21 @@ describe('Visual Decoration Props', () => {
 
     it('should apply border classes to Stack component', () => {
       const { container } = renderWithTheme(
-        <Stack border noBorder={false}>Content</Stack>
+        <Stack border>Content</Stack>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('border');
     });
 
-    it('should not apply border when noBorder is true (default)', () => {
+    it('should not apply border when noBorder is true', () => {
+      const { container } = renderWithTheme(
+        <Row noBorder>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).not.toContain('border');
+    });
+
+    it('should not apply border by default (when no border props are set)', () => {
       const { container } = renderWithTheme(
         <Row>Content</Row>
       );
@@ -42,7 +50,7 @@ describe('Visual Decoration Props', () => {
 
     it('should apply border appearance classes with variants', () => {
       const { container } = renderWithTheme(
-        <Row primary border noBorder={false}>Content</Row>
+        <Row primary border>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('border');
@@ -53,7 +61,7 @@ describe('Visual Decoration Props', () => {
   describe('Ring Props', () => {
     it('should apply ring classes to Row component', () => {
       const { container } = renderWithTheme(
-        <Row ring noRing={false}>Content</Row>
+        <Row ring>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('ring');
@@ -61,7 +69,7 @@ describe('Visual Decoration Props', () => {
 
     it('should apply ring classes to Col component', () => {
       const { container } = renderWithTheme(
-        <Col ring noRing={false}>Content</Col>
+        <Col ring>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('ring');
@@ -69,23 +77,31 @@ describe('Visual Decoration Props', () => {
 
     it('should apply ring classes to Stack component', () => {
       const { container } = renderWithTheme(
-        <Stack ring noRing={false}>Content</Stack>
+        <Stack ring>Content</Stack>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('ring');
     });
 
-    it('should not apply ring when noRing is true (default)', () => {
+    it('should not apply ring when noRing is true', () => {
+      const { container } = renderWithTheme(
+        <Row noRing>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).not.toContain('ring');
+    });
+
+    it('should not apply ring by default (when no ring props are set)', () => {
       const { container } = renderWithTheme(
         <Row>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).not.toContain('ring-2');
+      expect(element.className).not.toContain('ring');
     });
 
     it('should apply ring appearance classes with variants', () => {
       const { container } = renderWithTheme(
-        <Row success ring noRing={false}>Content</Row>
+        <Row success ring>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('ring');
@@ -189,9 +205,6 @@ describe('Visual Decoration Props', () => {
           border 
           ring 
           rounded
-          noBorder={false}
-          noRing={false}
-          sharp={false}
         >
           Content
         </Row>
@@ -212,9 +225,6 @@ describe('Visual Decoration Props', () => {
           border 
           ring
           rounded
-          noBorder={false}
-          noRing={false}
-          sharp={false}
         >
           Content
         </Row>

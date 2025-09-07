@@ -3,7 +3,6 @@ import { DividerProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { bgBorderAppearanceClasses } from "../classes/appearanceClasses";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { PyTheme } from "./size/pyTheme";
 import { DIVIDER_CATEGORIES } from "../props";
 
@@ -27,7 +26,7 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
     appearance: {
       background: AppearanceTheme.createTheme({
         base: bgBorderAppearanceClasses,
-      }),
+      }, 'bg'),
     },
     layout: defaultLayoutTheme,
   },

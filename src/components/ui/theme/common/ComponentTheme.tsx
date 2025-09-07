@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseTheme } from "./baseTheme";
-import { CategoryProps, ComponentCategoryKey } from "../../props";
+import { ComponentCategoryKey } from "../../props";
 import { ComponentKeys } from "../../props";
 import { HideTheme } from "../layout/hideTheme";
 import { ItemsTheme } from "../layout/itemsTheme";
@@ -129,7 +129,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     walk(this.themes);
 
     // Apply extra classes based on extracted keys
-    for (const [key, value] of Object.entries(extractedKeys)) {
+    for (const [, value] of Object.entries(extractedKeys)) {
       if (value && this.extraClasses[value as keyof P]) {
         const existingClasses = this.extraClasses[value as keyof P];
         if (existingClasses !== undefined) {
@@ -150,7 +150,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   }
 
   getComponentConfig(props: P) {
-    const cleanProps: Record<string, any> = {...props};
+    const cleanProps: Record<string, unknown> = {...props};
 
     const keysToOmit =
       this.categories.flatMap(category => ComponentKeys[category]);

@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { SectionProps } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";

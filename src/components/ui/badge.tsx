@@ -1,4 +1,4 @@
-import React, { JSX, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { BadgeProps } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";

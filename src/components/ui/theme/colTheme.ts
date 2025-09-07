@@ -10,7 +10,6 @@ import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { textAppearanceClasses } from "../classes/typographyClasses";
 import { COL_CATEGORIES } from "../props";
 
 export interface ColTheme extends BaseComponentTheme {
@@ -58,7 +57,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   },
   themeDefaults.col as Partial<ColProps>,
   COL_CATEGORIES,
-  (props: ColProps, defaults: Partial<ColProps>) => {
+  (props: ColProps) => {
     return props.href ? "a" : "div";
   }
 );

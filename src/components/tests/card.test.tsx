@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React from 'react';
+
 import {
   Card,
   ThemeProvider,
@@ -326,8 +326,9 @@ describe('Card Component Tests', () => {
 
         const card = container.querySelector('div');
         expect(card).toHaveClass('ring', 'ring-inset');
-        expect(card).toHaveClass('hover:ring', 'hover:ring-inset');
-        expect(card).toHaveClass('active:ring', 'active:ring-inset');
+        // RingTheme now has empty hover and active defaults
+        expect(card).not.toHaveClass('hover:ring', 'hover:ring-inset');
+        expect(card).not.toHaveClass('active:ring', 'active:ring-inset');
       });
 
       it('should not apply ring classes when noRing prop is true', () => {
@@ -373,8 +374,9 @@ describe('Card Component Tests', () => {
 
         [primaryCard, infoCard, warningCard].forEach(card => {
           expect(card).toHaveClass('ring', 'ring-inset');
-          expect(card).toHaveClass('hover:ring', 'hover:ring-inset');
-          expect(card).toHaveClass('active:ring', 'active:ring-inset');
+          // RingTheme now has empty hover and active defaults
+          expect(card).not.toHaveClass('hover:ring', 'hover:ring-inset');
+          expect(card).not.toHaveClass('active:ring', 'active:ring-inset');
         });
       });
     });

@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
-import React from 'react';
+
 import {
   Title,
   ThemeProvider,
@@ -10,7 +10,7 @@ import {
 
 describe('Simple Nested ThemeProvider Test', () => {
   it('should apply theme overrides correctly', () => {
-    const override = (theme: any) => {
+    const override = (theme: typeof defaultTheme) => {
       theme.title.defaults = { primary: true };
       return theme;
     };

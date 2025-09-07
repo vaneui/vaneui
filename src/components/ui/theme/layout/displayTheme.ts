@@ -1,31 +1,22 @@
-import { DisplayKey, ComponentKeys } from "../../props";
+import { DisplayKey } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-export interface DisplayTheme extends Record<DisplayKey, string> {}
+export class DisplayTheme extends BaseTheme implements Record<DisplayKey, string> {
+  inline: string = "inline";
+  block: string = "block";
+  inlineBlock: string = "inline-block";
+  flex: string = "flex";
+  inlineFlex: string = "inline-flex";
+  grid: string = "grid";
+  inlineGrid: string = "inline-grid";
+  contents: string = "contents";
+  table: string = "table";
+  tableCell: string = "table-cell";
+  hidden: string = "hidden";
 
-export class DisplayTheme extends BaseTheme {
-  constructor(initialConfig?: Partial<Record<DisplayKey, string>>) {
-    super();
-    ComponentKeys.display.forEach((key) => {
-      this[key] = initialConfig?.[key] ?? {
-        inline: "inline",
-        block: "block",
-        inlineBlock: "inline-block",
-        flex: "flex",
-        inlineFlex: "inline-flex",
-        grid: "grid",
-        inlineGrid: "inline-grid",
-        contents: "contents",
-        table: "table",
-        tableCell: "table-cell",
-        hidden: "hidden"
-      }[key];
-    });
-  }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.display;
-    return [key && this[key] ? this[key] : ''];
+    return [extractedKeys?.display && this[extractedKeys.display] ? this[extractedKeys.display] : ''];
   }
 }

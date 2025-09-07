@@ -23,6 +23,13 @@ export const COMPONENT_PROPS_CATEGORY = [
   'mode',
 ] as const;
 
+/**
+ * Describes what the @ComponentKeys.appearance can be applied to
+ * @see ComponentKeys.appearance
+ */
+export const APPEARANCE_CATEGORY = ['text', 'border', 'ring', 'shadow', 'bg', 'accent'] as const;
+export type AppearanceCategoryKey = typeof APPEARANCE_CATEGORY[number];
+
 export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
 export const ComponentKeys = {
   appearance: ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'link'],
@@ -57,11 +64,6 @@ export const ComponentKeys = {
 
 export type ModeKey = typeof ComponentKeys.mode[number];
 export type SizeKey = typeof ComponentKeys.size[number];
-export type RingKey = typeof ComponentKeys.ring[number];
-export type ShapeKey = typeof ComponentKeys.shape[number];
-export type BorderKey = typeof ComponentKeys.border[number];
-export type PaddingKey = typeof ComponentKeys.padding[number];
-export type GapKey = typeof ComponentKeys.gap[number];
 export type VariantKey = typeof ComponentKeys.variant[number];
 export type AppearanceKey = typeof ComponentKeys.appearance[number];
 export type TransparentKey = typeof ComponentKeys.transparent[number];
