@@ -15,7 +15,7 @@ export const filledTextAppearanceClasses: Record<AppearanceKey | TransparentKey,
   danger: "text-(--filled-text-color-danger)",
   warning: "text-(--filled-text-color-warning)",
   info: "text-(--filled-text-color-info)",
-  transparent: "text-(--filled-text-color-transparent)",
+  transparent: "text-transparent",
 }
 
 export const textAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {

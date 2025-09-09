@@ -99,7 +99,7 @@ export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
         />
       </svg>,
     appearance: {
-      color: GenericVariantTheme.createUIElementTextTheme()
+      color: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent()
     },
     layout: defaultLayoutsThemes,
   },

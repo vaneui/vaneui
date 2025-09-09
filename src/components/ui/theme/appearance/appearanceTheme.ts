@@ -16,16 +16,19 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
 
   private readonly transparentClasses?: Record<string, string>;
   private readonly category: AppearanceCategoryKey;
+  private readonly ignoreTransparent: boolean;
 
   private constructor(
     config: Record<AppearanceKey, Record<ModeKey, string>>,
     category: AppearanceCategoryKey,
-    transparentClasses?: Record<string, string>
+    transparentClasses?: Record<string, string>,
+    ignoreTransparent: boolean = false
   ) {
     super();
     Object.assign(this, config);
     this.category = category;
     this.transparentClasses = transparentClasses;
+    this.ignoreTransparent = ignoreTransparent;
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
@@ -43,7 +46,7 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
     }
 
     // Check for specific transparent styles first
-    if (extractedKeys?.transparent) {
+    if (extractedKeys?.transparent && !this.ignoreTransparent) {
       const transparentClass = this.transparentClasses?.[extractedKeys.transparent] || '';
       return [transparentClass];
     }
@@ -63,6 +66,7 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
   static createTheme(
     src: Partial<Record<ModeKey, Partial<Record<AppearanceKey | TransparentKey, string>>>> = {},
     category: AppearanceCategoryKey,
+    ignoreTransparent: boolean = false
   ): AppearanceTheme {
     const config = Object.fromEntries(
       ComponentKeys.appearance.map(key => [
@@ -76,6 +80,6 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
       ])
     ) as Record<AppearanceKey, Record<ModeKey, string>>;
 
-    return new AppearanceTheme(config, category, src.base);
+    return new AppearanceTheme(config, category, src.base, ignoreTransparent);
   }
 }

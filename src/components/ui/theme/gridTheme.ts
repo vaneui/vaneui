@@ -36,7 +36,7 @@ const gridSubThemes: DeepPartial<GridTheme> = {
   },
   appearance: {
     background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-    text: GenericVariantTheme.createUIElementTextTheme(),
+    text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
   },
   layout: {
     ...defaultLayoutsThemes,

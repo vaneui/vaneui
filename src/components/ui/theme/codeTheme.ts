@@ -56,7 +56,7 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme()

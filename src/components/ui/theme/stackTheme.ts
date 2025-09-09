@@ -58,7 +58,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme(),

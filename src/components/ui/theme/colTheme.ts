@@ -49,7 +49,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme(),

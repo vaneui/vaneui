@@ -21,6 +21,7 @@ export interface ImgTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
+    background: GenericVariantTheme<AppearanceTheme>;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
@@ -38,6 +39,7 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
       radius: RadiusTheme.createLayoutTheme(),
     },
     appearance: {
+      background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme()

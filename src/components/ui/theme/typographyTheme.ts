@@ -42,7 +42,7 @@ export const createTypographyComponentTheme = (
         text: new SizeTheme(textSizeMap),
       },
       appearance: {
-        text: GenericVariantTheme.createUIElementTextTheme(),
+        text: GenericVariantTheme.createTypographyTextTheme(),
       },
       typography: defaultTypographyThemes,
       layout: defaultLayoutsThemes,
@@ -108,7 +108,7 @@ export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new C
       text: new SizeTheme(textSizeClasses, false),
     },
     appearance: {
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createTypographyTextTheme(),
     },
     typography: defaultTypographyThemes,
     layout: defaultLayoutsThemes,
@@ -126,7 +126,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
       text: new SizeTheme(textSizeClasses, false),
     },
     appearance: {
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createTypographyTextTheme(),
     },
     typography: defaultTypographyThemes,
   },
@@ -156,7 +156,7 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
       paddingLeft: new PlTheme(),
     },
     appearance: {
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createTypographyTextTheme(),
     },
     typography: defaultTypographyThemes,
     layout: defaultLayoutsThemes,

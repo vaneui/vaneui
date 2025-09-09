@@ -62,7 +62,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
