@@ -4,9 +4,9 @@ import { themeDefaults } from "./defaults";
 import React from "react";
 import {
   BaseTypographyComponentTheme,
-  ComponentTheme, defaultLayoutTheme,
+  ComponentTheme, defaultLayoutsThemes,
   DefaultLayoutThemes,
-  defaultTypographyTheme
+  defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -44,8 +44,8 @@ export const createTypographyComponentTheme = (
       appearance: {
         text: GenericVariantTheme.createUIElementTextTheme(),
       },
-      typography: defaultTypographyTheme,
-      layout: defaultLayoutTheme,
+      typography: defaultTypographyThemes,
+      layout: defaultLayoutsThemes,
     },
     defaults,
     TYPOGRAPHY_CATEGORIES,
@@ -110,8 +110,8 @@ export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new C
     appearance: {
       text: GenericVariantTheme.createUIElementTextTheme(),
     },
-    typography: defaultTypographyTheme,
-    layout: defaultLayoutTheme,
+    typography: defaultTypographyThemes,
+    layout: defaultLayoutsThemes,
   },
   themeDefaults.link as Partial<TypographyProps>,
   TYPOGRAPHY_CATEGORIES
@@ -128,7 +128,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
     appearance: {
       text: GenericVariantTheme.createUIElementTextTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
   },
   themeDefaults.listItem as Partial<TypographyProps>,
   TYPOGRAPHY_CATEGORIES
@@ -158,8 +158,8 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
     appearance: {
       text: GenericVariantTheme.createUIElementTextTheme(),
     },
-    typography: defaultTypographyTheme,
-    layout: defaultLayoutTheme,
+    typography: defaultTypographyThemes,
+    layout: defaultLayoutsThemes,
     listStyle: new ListStyleTheme(),
   },
   themeDefaults.list as Partial<ListProps>,

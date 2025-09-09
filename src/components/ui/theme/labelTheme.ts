@@ -1,9 +1,9 @@
 import {
   BaseTypographyComponentTheme,
   ComponentTheme,
-  defaultLayoutTheme,
+  defaultLayoutsThemes,
   DefaultLayoutThemes,
-  defaultTypographyTheme
+  defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { LabelProps } from "../props";
 import { themeDefaults } from "./defaults";
@@ -41,9 +41,9 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
     appearance: {
       text: GenericVariantTheme.createUIElementTextTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },

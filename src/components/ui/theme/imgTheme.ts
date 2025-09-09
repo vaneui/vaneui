@@ -1,7 +1,7 @@
 import {
   BaseComponentTheme,
   ComponentTheme,
-  defaultLayoutTheme,
+  defaultLayoutsThemes,
   DefaultLayoutThemes
 } from "./common/ComponentTheme";
 import { ImgProps } from "../props";
@@ -32,7 +32,7 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
   "object-cover", // Default to cover for better image display
   {
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: RadiusTheme.createLayoutTheme(),

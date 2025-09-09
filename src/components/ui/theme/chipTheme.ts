@@ -1,9 +1,9 @@
 import {
   BaseTypographyComponentTheme,
   ComponentTheme,
-  defaultLayoutTheme,
+  defaultLayoutsThemes,
   DefaultLayoutThemes,
-  defaultTypographyTheme
+  defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { ChipProps } from "../props";
 import { SizeTheme } from "./size/sizeTheme";
@@ -62,14 +62,14 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
       shadow: GenericVariantTheme.createLayoutShadowTheme()
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       radius: RadiusTheme.createUITheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
   },
   themeDefaults.chip as Partial<ChipProps>,
   CHIP_CATEGORIES,

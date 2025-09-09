@@ -1,7 +1,7 @@
 import {
   BaseTypographyComponentTheme,
-  ComponentTheme, defaultLayoutTheme,
-  DefaultLayoutThemes, defaultTypographyTheme
+  ComponentTheme, defaultLayoutsThemes,
+  DefaultLayoutThemes, defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { BadgeProps } from "../props";
 import { themeDefaults } from "./defaults";
@@ -60,14 +60,14 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
       shadow: GenericVariantTheme.createLayoutShadowTheme()
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: RadiusTheme.createUITheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
   },
   themeDefaults.badge as Partial<BadgeProps>,
   BADGE_CATEGORIES,

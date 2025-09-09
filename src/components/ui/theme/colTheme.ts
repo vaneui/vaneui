@@ -1,5 +1,5 @@
 import { DirectionTheme } from "./layout/directionTheme";
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { ColProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
@@ -40,7 +40,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
       gap: new GapTheme(),
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       border: new BorderTheme(),

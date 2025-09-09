@@ -1,4 +1,4 @@
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { DividerProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -28,7 +28,7 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
         base: bgBorderAppearanceClasses,
       }, 'bg'),
     },
-    layout: defaultLayoutTheme,
+    layout: defaultLayoutsThemes,
   },
   themeDefaults.divider,
   DIVIDER_CATEGORIES

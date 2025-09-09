@@ -2,9 +2,9 @@ import { DirectionTheme } from "./layout/directionTheme";
 import {
   BaseTypographyComponentTheme,
   ComponentTheme,
-  defaultLayoutTheme,
+  defaultLayoutsThemes,
   DefaultLayoutThemes,
-  defaultTypographyTheme
+  defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { CardProps } from "../props";
 import { GapTheme } from "./size/gapTheme";
@@ -66,7 +66,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       gap: new GapTheme(),
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: RadiusTheme.createLayoutTheme(),
@@ -81,7 +81,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
   },
   themeDefaults.card as Partial<CardProps>,
   CARD_CATEGORIES,

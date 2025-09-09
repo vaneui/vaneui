@@ -1,4 +1,4 @@
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
@@ -68,7 +68,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       border: new BorderTheme(),

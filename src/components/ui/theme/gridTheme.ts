@@ -1,4 +1,4 @@
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { GridProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
@@ -39,7 +39,7 @@ const gridSubThemes: DeepPartial<GridTheme> = {
     text: GenericVariantTheme.createUIElementTextTheme(),
   },
   layout: {
-    ...defaultLayoutTheme,
+    ...defaultLayoutsThemes,
     wrap: new WrapTheme(),
     flexDirection: new DirectionTheme(),
   },

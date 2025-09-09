@@ -1,9 +1,9 @@
 import {
   BaseTypographyComponentTheme,
   ComponentTheme,
-  defaultLayoutTheme,
+  defaultLayoutsThemes,
   DefaultLayoutThemes,
-  defaultTypographyTheme
+  defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { CodeProps } from "../props";
 import { themeDefaults } from "./defaults";
@@ -62,14 +62,14 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
       shadow: GenericVariantTheme.createLayoutShadowTheme()
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       radius: RadiusTheme.createUITheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
   },
   themeDefaults.code,
   CODE_CATEGORIES

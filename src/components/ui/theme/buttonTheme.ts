@@ -1,7 +1,7 @@
 import {
   BaseTypographyComponentTheme,
-  ComponentTheme, defaultLayoutTheme,
-  DefaultLayoutThemes, defaultTypographyTheme
+  ComponentTheme, defaultLayoutsThemes,
+  DefaultLayoutThemes, defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { ButtonProps } from "../props";
 import { SizeTheme } from "./size/sizeTheme";
@@ -62,14 +62,14 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       shadow: GenericVariantTheme.createUIElementShadowTheme()
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: RadiusTheme.createUITheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
   },
   themeDefaults.button as Partial<ButtonProps>,
   BUTTON_CATEGORIES,

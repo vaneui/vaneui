@@ -1,6 +1,6 @@
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { RowProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { BreakpointTheme } from "./size/breakpointTheme";
@@ -43,7 +43,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
       breakpoint: new BreakpointTheme(),
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       border: new BorderTheme(),

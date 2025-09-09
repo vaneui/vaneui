@@ -1,7 +1,7 @@
 import {
   BaseComponentTheme,
   ComponentTheme,
-  defaultLayoutTheme,
+  defaultLayoutsThemes,
   DefaultLayoutThemes
 } from "./common/ComponentTheme";
 import { CheckboxProps } from "../props";
@@ -52,7 +52,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       text: new SizeTheme(textSizeClasses)
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: RadiusTheme.createUITheme({
@@ -101,7 +101,7 @@ export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
     appearance: {
       color: GenericVariantTheme.createUIElementTextTheme()
     },
-    layout: defaultLayoutTheme,
+    layout: defaultLayoutsThemes,
   },
   themeDefaults.checkbox?.check || {},
   CHECKBOX_CATEGORIES
@@ -130,7 +130,7 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
         xl: 'h-7'
       })
     },
-    layout: defaultLayoutTheme,
+    layout: defaultLayoutsThemes,
     appearance: {
       variant: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme()
     }

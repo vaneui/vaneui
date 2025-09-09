@@ -15,11 +15,10 @@ import { TextAlignTheme } from "../typography/textAlignTheme";
 import { DeepPartial } from "../../../utils/deepPartial";
 import { DisplayTheme } from "../layout/displayTheme";
 import { twMerge } from "tailwind-merge";
-
-type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 import { OverflowTheme } from "../layout/overflowTheme";
 import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
 
+type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 type ThemeNode<P> = BaseTheme | ThemeMap<P>;
 
 export type ThemeMap<P> = {
@@ -52,7 +51,7 @@ export interface BaseTypographyComponentTheme extends BaseComponentTheme {
   typography: DefaultTypographyThemes;
 }
 
-export const defaultLayoutTheme: DefaultLayoutThemes = {
+export const defaultLayoutsThemes: DefaultLayoutThemes = {
   hide: new HideTheme(),
   items: new ItemsTheme(),
   justify: new JustifyTheme(),
@@ -61,7 +60,7 @@ export const defaultLayoutTheme: DefaultLayoutThemes = {
   overflow: new OverflowTheme(),
 };
 
-export const defaultTypographyTheme: DefaultTypographyThemes = {
+export const defaultTypographyThemes: DefaultTypographyThemes = {
   fontFamily: new FontFamilyTheme(),
   fontWeight: new FontWeightTheme(),
   fontStyle: new FontStyleTheme(),
