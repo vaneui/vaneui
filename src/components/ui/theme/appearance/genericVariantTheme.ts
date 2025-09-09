@@ -63,15 +63,15 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
 
   static createUIElementShadowTheme(): GenericVariantTheme<ShadowAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: ShadowAppearanceTheme.createTheme({}),
-      filled: ShadowAppearanceTheme.createTheme({})
+      outline: ShadowAppearanceTheme.createUITheme(),
+      filled: ShadowAppearanceTheme.createUITheme()
     });
   }
 
   static createLayoutShadowTheme(): GenericVariantTheme<ShadowAppearanceTheme> {
     return new GenericVariantTheme({
-      outline: ShadowAppearanceTheme.createLayoutTheme({}),
-      filled: ShadowAppearanceTheme.createLayoutTheme({})
+      outline: ShadowAppearanceTheme.createLayoutTheme(),
+      filled: ShadowAppearanceTheme.createLayoutTheme()
     });
   }
 

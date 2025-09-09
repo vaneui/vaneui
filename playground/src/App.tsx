@@ -45,6 +45,11 @@ function App() {
             <Card>
               <Title>Card title</Title>
               <Text secondary>This is a card text. It is used right under the card title.</Text>
+              <input
+                className="w-full rounded-md border
+         focus:border-blue-600           /* behavior: always on focus */
+         focus:outline-none
+         focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"/>
             </Card>
             <Card filled>
               <Title>Card title</Title>
