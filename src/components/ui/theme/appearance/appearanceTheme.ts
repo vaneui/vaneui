@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import { AppearanceCategoryKey, CategoryProps } from "../../props";
+import { AppearanceCategoryKey, CategoryProps, TransparentKey } from "../../props";
 import { ComponentKeys, ModeKey, AppearanceKey } from "../../props";
 
 export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, Record<ModeKey, string>> {
@@ -61,16 +61,16 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
   }
 
   static createTheme(
-    src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {},
+    src: Partial<Record<ModeKey, Partial<Record<AppearanceKey | TransparentKey, string>>>> = {},
     category: AppearanceCategoryKey,
   ): AppearanceTheme {
     const config = Object.fromEntries(
-      ComponentKeys.appearance.map(textKey => [
-        textKey,
+      ComponentKeys.appearance.map(key => [
+        key,
         Object.fromEntries(
           ComponentKeys.mode.map(modeKey => [
             modeKey,
-            src[modeKey]?.[textKey] || ''
+            src[modeKey]?.[key] || ''
           ])
         ),
       ])

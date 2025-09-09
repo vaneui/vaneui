@@ -67,7 +67,6 @@ export type SizeKey = typeof ComponentKeys.size[number];
 export type VariantKey = typeof ComponentKeys.variant[number];
 export type AppearanceKey = typeof ComponentKeys.appearance[number];
 export type TransparentKey = typeof ComponentKeys.transparent[number];
-export type LinkKey = 'link';
 export type ListStyleKey = typeof ComponentKeys.listStyle[number];
 export type FontFamilyKey = typeof ComponentKeys.fontFamily[number];
 export type FontWeightKey = typeof ComponentKeys.fontWeight[number];
