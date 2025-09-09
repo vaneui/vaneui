@@ -22,9 +22,9 @@ describe('Card Component Tests', () => {
       expect(card).toHaveClass('px-5', 'py-5', 'gap-4', 'flex');
       expect(card).toHaveClass('max-lg:px-4', 'max-lg:py-4'); // md responsive padding classes
       expect(card).toHaveClass('max-lg:gap-3'); // md responsive gap classes
-      expect(card).toHaveClass('text-(--text-color-default)'); // default appearance
-      expect(card).toHaveClass('bg-(--layout-background-default)', 'rounded-(--layout-border-radius-md)', 'flex-col');
-      expect(card).toHaveClass('border-(--border-color-default)');
+      expect(card).toHaveClass('text-(--color-text-default)'); // default appearance
+      expect(card).toHaveClass('bg-(--color-bg-layout-default)', 'rounded-(--layout-br-md)', 'flex-col');
+      expect(card).toHaveClass('border-(--color-border-default)');
     });
   });
 
@@ -38,8 +38,8 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('text-(--text-color-primary)'); // primary text color
-      expect(card).toHaveClass('bg-(--layout-background-primary)'); // primary background
+      expect(card).toHaveClass('text-(--color-text-primary)'); // primary text color
+      expect(card).toHaveClass('bg-(--color-bg-layout-primary)'); // primary background
     });
 
     it('Card with secondary variant should have secondary classes', () => {
@@ -51,8 +51,8 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('text-(--text-color-secondary)'); // secondary text color
-      expect(card).toHaveClass('bg-(--layout-background-secondary)'); // secondary background
+      expect(card).toHaveClass('text-(--color-text-secondary)'); // secondary text color
+      expect(card).toHaveClass('bg-(--color-bg-layout-secondary)'); // secondary background
     });
 
     it('Card with transparent background should have transparent classes', () => {
@@ -228,7 +228,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('text-(--text-color-primary)');
+      expect(card).toHaveClass('text-(--color-text-primary)');
     });
 
     it('should support filled and outline variants for text, background, border, and ring', () => {
@@ -248,20 +248,20 @@ describe('Card Component Tests', () => {
       const filledCard = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineCard).toHaveClass('text-(--text-color-primary)');
-      expect(filledCard).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineCard).toHaveClass('text-(--color-text-primary)');
+      expect(filledCard).toHaveClass('text-(--color-text-filled-primary)');
       
       // Background colors
-      expect(outlineCard).toHaveClass('bg-(--layout-background-primary)');
-      expect(filledCard).toHaveClass('bg-(--layout-filled-background-color-primary)');
+      expect(outlineCard).toHaveClass('bg-(--color-bg-layout-primary)');
+      expect(filledCard).toHaveClass('bg-(--color-bg-filled-layout-primary)');
       
       // Border colors
-      expect(outlineCard).toHaveClass('border-(--border-color-primary)');
-      expect(filledCard).toHaveClass('border-(--filled-border-color-primary)');
+      expect(outlineCard).toHaveClass('border-(--color-border-primary)');
+      expect(filledCard).toHaveClass('border-(--color-border-filled-primary)');
       
       // Ring colors
-      expect(outlineCard).toHaveClass('ring-(--border-color-primary)');
-      expect(filledCard).toHaveClass('ring-(--filled-border-color-primary)');
+      expect(outlineCard).toHaveClass('ring-(--color-border-primary)');
+      expect(filledCard).toHaveClass('ring-(--color-border-filled-primary)');
     });
   });
 
@@ -389,7 +389,7 @@ describe('Card Component Tests', () => {
 
         const card = container.querySelector('div');
         // Card uses appearance-based ring classes, not layout ring classes
-        expect(card).toHaveClass('ring-(--border-color-default)'); // Card has ring: true as default
+        expect(card).toHaveClass('ring-(--color-border-default)'); // Card has ring: true as default
       });
 
       it('should apply ring classes for different appearance variants when ring is enabled', () => {
@@ -426,7 +426,7 @@ describe('Card Component Tests', () => {
         // Should have border classes
         expect(card).toHaveClass('border');
         // Should have appearance-based ring classes
-        expect(card).toHaveClass('ring-(--border-color-primary)');
+        expect(card).toHaveClass('ring-(--color-border-primary)');
       });
 
       it('should not apply any border or ring classes when both noBorder and noRing are true', () => {
@@ -455,7 +455,7 @@ describe('Card Component Tests', () => {
         const card = container.querySelector('.size-test');
         // Should have border and ring classes
         expect(card).toHaveClass('border');
-        expect(card).toHaveClass('ring-(--border-color-default)');
+        expect(card).toHaveClass('ring-(--color-border-default)');
         // Should have size and padding classes
         expect(card).toHaveClass('px-6', 'py-6'); // lg padding
         expect(card).toHaveClass('max-lg:px-5', 'max-lg:py-5'); // lg responsive padding classes
@@ -473,7 +473,7 @@ describe('Card Component Tests', () => {
         const card = container.querySelector('.responsive-test');
         // Should have border and ring classes
         expect(card).toHaveClass('border');
-        expect(card).toHaveClass('ring-(--border-color-default)');
+        expect(card).toHaveClass('ring-(--color-border-default)');
         // Should have responsive classes
         expect(card).toHaveClass('max-md:flex-col');
       });

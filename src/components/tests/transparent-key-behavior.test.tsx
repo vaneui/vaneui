@@ -15,7 +15,7 @@ describe('Transparent Key Behavior', () => {
       expect(element).toHaveClass('text-transparent');
       
       // Should not have primary text color
-      expect(element).not.toHaveClass('text-(--text-color-primary)');
+      expect(element).not.toHaveClass('text-(--color-text-primary)');
     });
 
     it('should make text transparent but keep appearance-based background for Title', () => {
@@ -30,7 +30,7 @@ describe('Transparent Key Behavior', () => {
       expect(element).toHaveClass('text-transparent');
       
       // Should not have primary text color
-      expect(element).not.toHaveClass('text-(--text-color-primary)');
+      expect(element).not.toHaveClass('text-(--color-text-primary)');
     });
 
     it('should use appearance-based text color when transparent is false for Text', () => {
@@ -42,7 +42,7 @@ describe('Transparent Key Behavior', () => {
       const element = container.firstChild as HTMLElement;
       
       // Text should use primary color
-      expect(element).toHaveClass('text-(--text-color-primary)');
+      expect(element).toHaveClass('text-(--color-text-primary)');
       
       // Should not have transparent text
       expect(element).not.toHaveClass('text-transparent');
@@ -62,7 +62,7 @@ describe('Transparent Key Behavior', () => {
       expect(element).toHaveClass('bg-transparent');
       
       // Text should still use appearance-based color (not transparent)
-      expect(element).toHaveClass('text-(--text-color-primary)');
+      expect(element).toHaveClass('text-(--color-text-primary)');
       expect(element).not.toHaveClass('text-transparent');
     });
 
@@ -78,7 +78,7 @@ describe('Transparent Key Behavior', () => {
       expect(element).toHaveClass('bg-transparent');
       
       // Text should still use appearance-based color (not transparent)
-      expect(element).toHaveClass('text-(--text-color-primary)');
+      expect(element).toHaveClass('text-(--color-text-primary)');
       expect(element).not.toHaveClass('text-transparent');
     });
 
@@ -94,7 +94,7 @@ describe('Transparent Key Behavior', () => {
       expect(element).toHaveClass('bg-transparent');
       
       // Text should still use appearance-based color (not transparent)
-      expect(element).toHaveClass('text-(--text-color-primary)');
+      expect(element).toHaveClass('text-(--color-text-primary)');
       expect(element).not.toHaveClass('text-transparent');
     });
 
@@ -107,7 +107,7 @@ describe('Transparent Key Behavior', () => {
       const element = container.firstChild as HTMLElement;
       
       // Background should use primary color
-      expect(element).toHaveClass('bg-(--background-color-primary)');
+      expect(element).toHaveClass('bg-(--color-bg-primary)');
       
       // Should not have transparent background
       expect(element).not.toHaveClass('bg-transparent');
@@ -127,7 +127,7 @@ describe('Transparent Key Behavior', () => {
       expect(element).toHaveClass('bg-transparent');
       
       // Border should still use appearance-based color (not transparent)
-      expect(element).toHaveClass('border-(--border-color-primary)');
+      expect(element).toHaveClass('border-(--color-border-primary)');
       expect(element).not.toHaveClass('border-transparent');
     });
   });
@@ -145,7 +145,7 @@ describe('Transparent Key Behavior', () => {
       expect(element).toHaveClass('text-transparent');
       
       // Should not have filled text color
-      expect(element).not.toHaveClass('text-(--filled-text-color-primary)');
+      expect(element).not.toHaveClass('text-(--color-text-filled-primary)');
     });
 
     it('should use filled transparent background for layout/UI components', () => {
@@ -160,7 +160,7 @@ describe('Transparent Key Behavior', () => {
       expect(element).toHaveClass('bg-transparent');
       
       // Text should still use filled appearance-based color
-      expect(element).toHaveClass('text-(--filled-text-color-primary)');
+      expect(element).toHaveClass('text-(--color-text-filled-primary)');
       expect(element).not.toHaveClass('text-transparent');
     });
   });

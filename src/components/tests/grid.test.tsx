@@ -95,7 +95,7 @@ describe('Grid Components Tests', () => {
         );
 
         const grid = container.querySelector('div');
-        expect(grid).toHaveClass(`text-(--text-color-${appearance})`);
+        expect(grid).toHaveClass(`text-(--color-text-${appearance})`);
       });
     });
 
@@ -116,12 +116,12 @@ describe('Grid Components Tests', () => {
       const filledGrid = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineGrid).toHaveClass('text-(--text-color-primary)');
-      expect(filledGrid).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineGrid).toHaveClass('text-(--color-text-primary)');
+      expect(filledGrid).toHaveClass('text-(--color-text-filled-primary)');
       
       // Background colors
-      expect(outlineGrid).toHaveClass('bg-(--layout-background-primary)');
-      expect(filledGrid).toHaveClass('bg-(--layout-filled-background-color-primary)');
+      expect(outlineGrid).toHaveClass('bg-(--color-bg-layout-primary)');
+      expect(filledGrid).toHaveClass('bg-(--color-bg-filled-layout-primary)');
     });
 
     it('should support custom className', () => {
@@ -245,7 +245,7 @@ describe('Grid Components Tests', () => {
         );
 
         const grid = container.querySelector('div');
-        expect(grid).toHaveClass(`text-(--text-color-${appearance})`);
+        expect(grid).toHaveClass(`text-(--color-text-${appearance})`);
       });
     });
 
@@ -266,12 +266,12 @@ describe('Grid Components Tests', () => {
       const filledGrid = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineGrid).toHaveClass('text-(--text-color-primary)');
-      expect(filledGrid).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineGrid).toHaveClass('text-(--color-text-primary)');
+      expect(filledGrid).toHaveClass('text-(--color-text-filled-primary)');
       
       // Background colors
-      expect(outlineGrid).toHaveClass('bg-(--layout-background-primary)');
-      expect(filledGrid).toHaveClass('bg-(--layout-filled-background-color-primary)');
+      expect(outlineGrid).toHaveClass('bg-(--color-bg-layout-primary)');
+      expect(filledGrid).toHaveClass('bg-(--color-bg-filled-layout-primary)');
     });
 
     it('should support custom className', () => {

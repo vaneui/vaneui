@@ -20,7 +20,7 @@ describe('Img Component Tests', () => {
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
       expect(img).toHaveClass('object-cover'); // base class
-      expect(img).toHaveClass('rounded-(--layout-border-radius-md)'); // rounded default
+      expect(img).toHaveClass('rounded-(--layout-br-md)'); // rounded default
       expect(img).toHaveAttribute('src', 'test.jpg');
       expect(img).toHaveAttribute('alt', 'Test image');
     });
@@ -31,7 +31,7 @@ describe('Img Component Tests', () => {
       const shapes = [
         { prop: 'pill', class: 'rounded-full' },
         { prop: 'sharp', class: 'rounded-none' },
-        { prop: 'rounded', class: 'rounded-(--layout-border-radius-md)' }
+        { prop: 'rounded', class: 'rounded-(--layout-br-md)' }
       ] as const;
 
       shapes.forEach(({prop, class: expectedClass}) => {
@@ -58,7 +58,7 @@ describe('Img Component Tests', () => {
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
       expect(img).toHaveClass('border');
-      expect(img).toHaveClass('border-(--border-color-primary)');
+      expect(img).toHaveClass('border-(--color-border-primary)');
     });
 
     it('should support shadow prop', () => {
@@ -84,7 +84,7 @@ describe('Img Component Tests', () => {
 
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
-      expect(img).toHaveClass('ring-(--border-color-secondary)');
+      expect(img).toHaveClass('ring-(--color-border-secondary)');
     });
 
     it('should support custom className', () => {
@@ -180,10 +180,10 @@ describe('Img Component Tests', () => {
 
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
-      expect(img).toHaveClass('border-(--border-color-primary)');
+      expect(img).toHaveClass('border-(--color-border-primary)');
       expect(img).toHaveClass('shadow-sm');
       expect(img).not.toHaveClass('hover:shadow-md');
-      expect(img).toHaveClass('ring-(--border-color-primary)');
+      expect(img).toHaveClass('ring-(--color-border-primary)');
     });
 
     it('should have no visual shadow/border/ring classes by default', () => {

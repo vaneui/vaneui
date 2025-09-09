@@ -47,9 +47,9 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-sm');
       expect(codeElement).toHaveClass('px-1.5');
       expect(codeElement).toHaveClass('py-1');
-      expect(codeElement).toHaveClass('bg-(--background-color-default)');
-      expect(codeElement).toHaveClass('text-(--text-color-default)');
-      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-md)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-default)');
+      expect(codeElement).toHaveClass('text-(--color-text-default)');
+      expect(codeElement).toHaveClass('rounded-(--ui-br-md)');
       expect(codeElement).toHaveClass('font-mono');
     });
 
@@ -70,7 +70,7 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-xs');
       expect(codeElement).toHaveClass('px-1');
       expect(codeElement).toHaveClass('py-0');
-      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-xs)');
+      expect(codeElement).toHaveClass('rounded-(--ui-br-xs)');
     });
 
     it('should apply md size classes', () => {
@@ -80,7 +80,7 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-sm');
       expect(codeElement).toHaveClass('px-1.5');
       expect(codeElement).toHaveClass('py-1');
-      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-md)');
+      expect(codeElement).toHaveClass('rounded-(--ui-br-md)');
     });
 
     it('should apply lg size classes', () => {
@@ -90,7 +90,7 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-base');
       expect(codeElement).toHaveClass('px-2');
       expect(codeElement).toHaveClass('py-1');
-      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-lg)');
+      expect(codeElement).toHaveClass('rounded-(--ui-br-lg)');
     });
 
     it('should apply xl size classes', () => {
@@ -100,7 +100,7 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-lg');
       expect(codeElement).toHaveClass('px-2');
       expect(codeElement).toHaveClass('py-1');
-      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-xl)');
+      expect(codeElement).toHaveClass('rounded-(--ui-br-xl)');
     });
   });
 
@@ -109,36 +109,36 @@ describe('Code Component', () => {
       const { container } = render(<Code primary>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--background-color-primary)');
-      expect(codeElement).toHaveClass('text-(--text-color-primary)');
-      expect(codeElement).toHaveClass('border-(--border-color-primary)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-primary)');
+      expect(codeElement).toHaveClass('text-(--color-text-primary)');
+      expect(codeElement).toHaveClass('border-(--color-border-primary)');
     });
 
     it('should apply secondary appearance', () => {
       const { container } = render(<Code secondary>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--background-color-secondary)');
-      expect(codeElement).toHaveClass('text-(--text-color-secondary)');
-      expect(codeElement).toHaveClass('border-(--border-color-secondary)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-secondary)');
+      expect(codeElement).toHaveClass('text-(--color-text-secondary)');
+      expect(codeElement).toHaveClass('border-(--color-border-secondary)');
     });
 
     it('should apply success appearance', () => {
       const { container } = render(<Code success>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--background-color-success)');
-      expect(codeElement).toHaveClass('text-(--text-color-success)');
-      expect(codeElement).toHaveClass('border-(--border-color-success)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-success)');
+      expect(codeElement).toHaveClass('text-(--color-text-success)');
+      expect(codeElement).toHaveClass('border-(--color-border-success)');
     });
 
     it('should apply danger appearance', () => {
       const { container } = render(<Code danger>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--background-color-danger)');
-      expect(codeElement).toHaveClass('text-(--text-color-danger)');
-      expect(codeElement).toHaveClass('border-(--border-color-danger)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-danger)');
+      expect(codeElement).toHaveClass('text-(--color-text-danger)');
+      expect(codeElement).toHaveClass('border-(--color-border-danger)');
     });
   });
 
@@ -147,24 +147,24 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--background-color-default)');
-      expect(codeElement).not.toHaveClass('bg-(--filled-background-color-default)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-default)');
+      expect(codeElement).not.toHaveClass('bg-(--color-bg-filled-default)');
     });
 
     it('should apply filled variant when specified', () => {
       const { container } = render(<Code filled>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--filled-background-color-default)');
-      expect(codeElement).toHaveClass('text-(--filled-text-color-default)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-filled-default)');
+      expect(codeElement).toHaveClass('text-(--color-text-filled-default)');
     });
 
     it('should apply filled variant with primary appearance', () => {
       const { container } = render(<Code filled primary>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--filled-background-color-primary)');
-      expect(codeElement).toHaveClass('text-(--filled-text-color-primary)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-filled-primary)');
+      expect(codeElement).toHaveClass('text-(--color-text-filled-primary)');
     });
   });
 
@@ -234,7 +234,7 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('rounded-(--ui-border-radius-md)');
+      expect(codeElement).toHaveClass('rounded-(--ui-br-md)');
     });
 
     it('should apply pill shape', () => {
@@ -340,7 +340,7 @@ describe('Code Component', () => {
       const codeElement = container.querySelector('code');
       
       expect(codeElement).toHaveClass('text-xs');
-      expect(codeElement).toHaveClass('bg-(--filled-background-color-primary)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-filled-primary)');
       expect(codeElement).toHaveClass('rounded-full');
       expect(codeElement).toHaveClass('font-mono');
       expect(codeElement).toHaveClass('font-bold');
@@ -353,8 +353,8 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--background-color-default)');
-      expect(codeElement).toHaveClass('text-(--text-color-default)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-default)');
+      expect(codeElement).toHaveClass('text-(--color-text-default)');
     });
 
     it('should show ring by default', () => {

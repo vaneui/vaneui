@@ -78,7 +78,7 @@ describe('Grid2 Component Tests', () => {
         );
 
         const grid = container.querySelector('div');
-        expect(grid).toHaveClass(`bg-(--layout-background-${appearance})`);
+        expect(grid).toHaveClass(`bg-(--color-bg-layout-${appearance})`);
       });
     });
 

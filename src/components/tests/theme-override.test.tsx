@@ -168,9 +168,9 @@ describe('Theme Override Tests', () => {
       const primaryOutline = container.querySelector('.combined-test-3');
 
       // Primary button should have default primary styling + size defaults
-      expect(primaryDefault).toHaveClass('bg-(--background-color-primary)');
+      expect(primaryDefault).toHaveClass('bg-(--color-bg-primary)');
       expect(primaryDefault).toHaveClass('text-lg'); // from themeDefaults
-      expect(primaryDefault).toHaveClass('rounded-(--ui-border-radius-lg)'); // lg is the actual size being applied
+      expect(primaryDefault).toHaveClass('rounded-(--ui-br-lg)'); // lg is the actual size being applied
 
       // Secondary filled should use custom background
       expect(secondaryFilled).toHaveClass('bg-custom-secondary'); // from themeOverride

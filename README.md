@@ -117,8 +117,8 @@ You can customize the VaneUI by overriding the CSS variables:
 
 ```css
 :root {
-  --text-color-primary: #8b5cf6;      /* Primary text color */
-  --ui-border-radius-md: 1rem;        /* Medium UI radius */
+  --color-text-primary: #8b5cf6;      /* Primary text color */
+  --ui-br-md: 1rem;        /* Medium UI radius */
 }
 ```
 

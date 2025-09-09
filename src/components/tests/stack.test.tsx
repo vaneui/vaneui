@@ -152,10 +152,10 @@ describe('Stack Component Tests', () => {
 
       const stack = container.querySelector('div');
       expect(stack).toHaveClass('border');
-      expect(stack).toHaveClass('border-(--border-color-warning)');
+      expect(stack).toHaveClass('border-(--color-border-warning)');
       expect(stack).toHaveClass('ring');
-      expect(stack).toHaveClass('ring-(--border-color-warning)');
-      expect(stack).toHaveClass('rounded-(--layout-border-radius-md)');
+      expect(stack).toHaveClass('ring-(--color-border-warning)');
+      expect(stack).toHaveClass('rounded-(--layout-br-md)');
     });
 
     it('should support appearance variants for background', () => {
@@ -168,7 +168,7 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('bg-(--layout-background-accent)');
+      expect(stack).toHaveClass('bg-(--color-bg-layout-accent)');
     });
 
     it('should support appearance variants for text color', () => {
@@ -184,7 +184,7 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass(`text-(--text-color-${appearance})`);
+        expect(stack).toHaveClass(`text-(--color-text-${appearance})`);
       });
     });
 
@@ -205,20 +205,20 @@ describe('Stack Component Tests', () => {
       const filledStack = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineStack).toHaveClass('text-(--text-color-primary)');
-      expect(filledStack).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineStack).toHaveClass('text-(--color-text-primary)');
+      expect(filledStack).toHaveClass('text-(--color-text-filled-primary)');
       
       // Background colors
-      expect(outlineStack).toHaveClass('bg-(--layout-background-primary)');
-      expect(filledStack).toHaveClass('bg-(--layout-filled-background-color-primary)');
+      expect(outlineStack).toHaveClass('bg-(--color-bg-layout-primary)');
+      expect(filledStack).toHaveClass('bg-(--color-bg-filled-layout-primary)');
       
       // Border colors
-      expect(outlineStack).toHaveClass('border-(--border-color-primary)');
-      expect(filledStack).toHaveClass('border-(--filled-border-color-primary)');
+      expect(outlineStack).toHaveClass('border-(--color-border-primary)');
+      expect(filledStack).toHaveClass('border-(--color-border-filled-primary)');
       
       // Ring colors
-      expect(outlineStack).toHaveClass('ring-(--border-color-primary)');
-      expect(filledStack).toHaveClass('ring-(--filled-border-color-primary)');
+      expect(outlineStack).toHaveClass('ring-(--color-border-primary)');
+      expect(filledStack).toHaveClass('ring-(--color-border-filled-primary)');
     });
 
     it('should support transparent background', () => {

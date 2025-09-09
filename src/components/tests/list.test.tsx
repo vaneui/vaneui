@@ -25,7 +25,7 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toBeInTheDocument();
       expect(list).toHaveClass('list-disc', 'list-inside');
       expect(list).toHaveClass('text-base'); // md size
-      expect(list).not.toHaveClass('text-(--text-color-default)'); // no default appearance
+      expect(list).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(list).toHaveClass('font-sans');
       expect(list).toHaveClass('font-normal');
     });
@@ -69,7 +69,7 @@ describe('List and ListItem Components Tests', () => {
         );
 
         const list = container.querySelector('ul');
-        expect(list).toHaveClass(`text-(--text-color-${appearance})`);
+        expect(list).toHaveClass(`text-(--color-text-${appearance})`);
       });
     });
 
@@ -93,8 +93,8 @@ describe('List and ListItem Components Tests', () => {
       const outlineList = outlineContainer.querySelector('ul');
       const filledList = filledContainer.querySelector('ul');
 
-      expect(outlineList).toHaveClass('text-(--text-color-primary)');
-      expect(filledList).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineList).toHaveClass('text-(--color-text-primary)');
+      expect(filledList).toHaveClass('text-(--color-text-filled-primary)');
     });
 
     it('should render with decimal list style using ol tag', () => {
@@ -174,11 +174,11 @@ describe('List and ListItem Components Tests', () => {
       
       // Parent should be ul with disc styling
       expect(ulList).toBeInTheDocument();
-      expect(ulList).toHaveClass('text-(--text-color-primary)', 'list-disc');
+      expect(ulList).toHaveClass('text-(--color-text-primary)', 'list-disc');
       
       // Nested should be ol with decimal styling
       expect(olList).toBeInTheDocument();
-      expect(olList).toHaveClass('text-(--text-color-secondary)', 'list-decimal');
+      expect(olList).toHaveClass('text-(--color-text-secondary)', 'list-decimal');
     });
 
     it('should support custom className', () => {
@@ -225,13 +225,13 @@ describe('List and ListItem Components Tests', () => {
       const listItems = container.querySelectorAll('li');
       
       // Verify the List has primary text color
-      expect(list).toHaveClass('text-(--text-color-primary)');
+      expect(list).toHaveClass('text-(--color-text-primary)');
       
       // Verify ListItems inherit the color through CSS (no explicit text color class)
       listItems.forEach(listItem => {
-        expect(listItem).not.toHaveClass('text-(--text-color-default)');
-        expect(listItem).not.toHaveClass('text-(--text-color-primary)');
-        expect(listItem).not.toHaveClass('text-(--text-color-secondary)');
+        expect(listItem).not.toHaveClass('text-(--color-text-default)');
+        expect(listItem).not.toHaveClass('text-(--color-text-primary)');
+        expect(listItem).not.toHaveClass('text-(--color-text-secondary)');
         // ListItem should inherit text color from parent List via CSS cascade
         // Note: In actual browser, this would inherit the CSS custom property value
         // In test environment, we verify the inheritance pattern by ensuring no explicit color classes
@@ -252,13 +252,13 @@ describe('List and ListItem Components Tests', () => {
       const listItems = container.querySelectorAll('li');
       
       // Verify the List has secondary text color
-      expect(list).toHaveClass('text-(--text-color-secondary)');
+      expect(list).toHaveClass('text-(--color-text-secondary)');
       
       // Verify ListItems inherit the color through CSS (no explicit text color class)
       listItems.forEach(listItem => {
-        expect(listItem).not.toHaveClass('text-(--text-color-default)');
-        expect(listItem).not.toHaveClass('text-(--text-color-primary)');
-        expect(listItem).not.toHaveClass('text-(--text-color-secondary)');
+        expect(listItem).not.toHaveClass('text-(--color-text-default)');
+        expect(listItem).not.toHaveClass('text-(--color-text-primary)');
+        expect(listItem).not.toHaveClass('text-(--color-text-secondary)');
         // ListItem should inherit text color from parent List via CSS cascade
       });
     });
@@ -279,11 +279,11 @@ describe('List and ListItem Components Tests', () => {
         const listItem = container.querySelector('li');
         
         // Verify the List has the correct appearance text color
-        expect(list).toHaveClass(`text-(--text-color-${appearance})`);
+        expect(list).toHaveClass(`text-(--color-text-${appearance})`);
         
         // Verify ListItem doesn't have any explicit text color classes (inherits from parent)
-        expect(listItem).not.toHaveClass('text-(--text-color-default)');
-        expect(listItem).not.toHaveClass(`text-(--text-color-${appearance})`);
+        expect(listItem).not.toHaveClass('text-(--color-text-default)');
+        expect(listItem).not.toHaveClass(`text-(--color-text-${appearance})`);
       });
     });
 
@@ -304,16 +304,16 @@ describe('List and ListItem Components Tests', () => {
       const listItems = container.querySelectorAll('li');
       
       // Parent List should have primary color
-      expect(parentList).toHaveClass('text-(--text-color-primary)');
+      expect(parentList).toHaveClass('text-(--color-text-primary)');
       
       // Nested List should have secondary color
-      expect(nestedList).toHaveClass('text-(--text-color-secondary)');
+      expect(nestedList).toHaveClass('text-(--color-text-secondary)');
       
       // All ListItems should inherit from their immediate parent List
       listItems.forEach(listItem => {
-        expect(listItem).not.toHaveClass('text-(--text-color-primary)');
-        expect(listItem).not.toHaveClass('text-(--text-color-secondary)');
-        expect(listItem).not.toHaveClass('text-(--text-color-default)');
+        expect(listItem).not.toHaveClass('text-(--color-text-primary)');
+        expect(listItem).not.toHaveClass('text-(--color-text-secondary)');
+        expect(listItem).not.toHaveClass('text-(--color-text-default)');
       });
     });
 

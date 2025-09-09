@@ -104,7 +104,7 @@ describe('Row Component Tests', () => {
       );
 
       const row = container.querySelector('div');
-      expect(row).toHaveClass('bg-(--layout-background-primary)');
+      expect(row).toHaveClass('bg-(--color-bg-layout-primary)');
     });
 
     it('should support appearance variants for text color', () => {
@@ -120,7 +120,7 @@ describe('Row Component Tests', () => {
         );
 
         const row = container.querySelector('div');
-        expect(row).toHaveClass(`text-(--text-color-${appearance})`);
+        expect(row).toHaveClass(`text-(--color-text-${appearance})`);
       });
     });
 
@@ -141,20 +141,20 @@ describe('Row Component Tests', () => {
       const filledRow = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineRow).toHaveClass('text-(--text-color-primary)');
-      expect(filledRow).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineRow).toHaveClass('text-(--color-text-primary)');
+      expect(filledRow).toHaveClass('text-(--color-text-filled-primary)');
       
       // Background colors
-      expect(outlineRow).toHaveClass('bg-(--layout-background-primary)');
-      expect(filledRow).toHaveClass('bg-(--layout-filled-background-color-primary)');
+      expect(outlineRow).toHaveClass('bg-(--color-bg-layout-primary)');
+      expect(filledRow).toHaveClass('bg-(--color-bg-filled-layout-primary)');
       
       // Border colors
-      expect(outlineRow).toHaveClass('border-(--border-color-primary)');
-      expect(filledRow).toHaveClass('border-(--filled-border-color-primary)');
+      expect(outlineRow).toHaveClass('border-(--color-border-primary)');
+      expect(filledRow).toHaveClass('border-(--color-border-filled-primary)');
       
       // Ring colors
-      expect(outlineRow).toHaveClass('ring-(--border-color-primary)');
-      expect(filledRow).toHaveClass('ring-(--filled-border-color-primary)');
+      expect(outlineRow).toHaveClass('ring-(--color-border-primary)');
+      expect(filledRow).toHaveClass('ring-(--color-border-filled-primary)');
     });
 
     it('should support transparent background', () => {
@@ -200,10 +200,10 @@ describe('Row Component Tests', () => {
 
       const row = container.querySelector('div');
       expect(row).toHaveClass('border');
-      expect(row).toHaveClass('border-(--border-color-primary)');
+      expect(row).toHaveClass('border-(--color-border-primary)');
       expect(row).toHaveClass('ring');
-      expect(row).toHaveClass('ring-(--border-color-primary)');
-      expect(row).toHaveClass('rounded-(--layout-border-radius-md)');
+      expect(row).toHaveClass('ring-(--color-border-primary)');
+      expect(row).toHaveClass('rounded-(--layout-br-md)');
     });
 
     it('should support custom HTML tag', () => {

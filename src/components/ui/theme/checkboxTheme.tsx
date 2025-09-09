@@ -56,11 +56,11 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: RadiusTheme.createUITheme({
-        xs: 'rounded-(--ui-border-radius-xs)',
-        sm: 'rounded-(--ui-border-radius-xs)',
-        md: 'rounded-(--ui-border-radius-sm)',
-        lg: 'rounded-(--ui-border-radius-sm)',
-        xl: 'rounded-(--ui-border-radius-md)'}),
+        xs: 'rounded-(--ui-br-xs)',
+        sm: 'rounded-(--ui-br-xs)',
+        md: 'rounded-(--ui-br-sm)',
+        lg: 'rounded-(--ui-br-sm)',
+        xl: 'rounded-(--ui-br-md)'}),
     },
     appearance: {
       accent: GenericVariantTheme.createAccentColorAppearanceTheme(),

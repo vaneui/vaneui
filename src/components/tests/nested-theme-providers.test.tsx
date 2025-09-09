@@ -50,12 +50,12 @@ describe('Nested ThemeProvider Tests', () => {
       const outerTitle2 = container.querySelector('.outer-title-2');
 
       // Outer titles should have primary appearance from outer override
-      expect(outerTitle1).toHaveClass('text-(--text-color-primary)');
-      expect(outerTitle2).toHaveClass('text-(--text-color-primary)');
+      expect(outerTitle1).toHaveClass('text-(--color-text-primary)');
+      expect(outerTitle2).toHaveClass('text-(--color-text-primary)');
 
       // Inner title should have secondary appearance from inner override
-      expect(innerTitle).toHaveClass('text-(--text-color-secondary)');
-      expect(innerTitle).not.toHaveClass('text-(--text-color-primary)');
+      expect(innerTitle).toHaveClass('text-(--color-text-secondary)');
+      expect(innerTitle).not.toHaveClass('text-(--color-text-primary)');
     });
   });
 
@@ -146,7 +146,7 @@ describe('Nested ThemeProvider Tests', () => {
       const innerButton = container.querySelector('.inner-button');
 
       // Outer button should have primary appearance and its extra classes
-      expect(outerButton).toHaveClass('bg-(--background-color-primary)');
+      expect(outerButton).toHaveClass('bg-(--color-bg-primary)');
       expect(outerButton).toHaveClass('transform', 'hover:scale-105');
 
       // Inner button should have lg size and its extra classes from inner override
@@ -240,12 +240,12 @@ describe('Nested ThemeProvider Tests', () => {
       const outerBadge2 = container.querySelector('.outer-badge-2');
 
       // Outer badges should have success appearance
-      expect(outerBadge1).toHaveClass('bg-(--background-color-success)');
-      expect(outerBadge2).toHaveClass('bg-(--background-color-success)');
+      expect(outerBadge1).toHaveClass('bg-(--color-bg-success)');
+      expect(outerBadge2).toHaveClass('bg-(--color-bg-success)');
 
       // Inner badge should have danger appearance
-      expect(innerBadge).toHaveClass('bg-(--background-color-danger)');
-      expect(innerBadge).not.toHaveClass('bg-(--background-color-success)');
+      expect(innerBadge).toHaveClass('bg-(--color-bg-danger)');
+      expect(innerBadge).not.toHaveClass('bg-(--color-bg-success)');
     });
   });
 
@@ -313,15 +313,15 @@ describe('Nested ThemeProvider Tests', () => {
 
       // Outer button checks
       // outline variant = true from themeOverride + primary & lg from themeDefaults
-      expect(outerButton).toHaveClass('bg-(--background-color-primary)'); // outline variant with primary appearance
-      expect(outerButton).toHaveClass('border-(--border-color-primary)'); // primary from defaults
+      expect(outerButton).toHaveClass('bg-(--color-bg-primary)'); // outline variant with primary appearance
+      expect(outerButton).toHaveClass('border-(--color-border-primary)'); // primary from defaults
       expect(outerButton).toHaveClass('text-lg'); // lg from defaults
       expect(outerButton).toHaveClass('outer-primary-class', 'outer-lg-class'); // extra classes
 
       // Inner button checks
       // filled variant = true from themeOverride + secondary & sm from themeDefaults
-      expect(innerButton).toHaveClass('bg-(--filled-background-color-secondary)'); // filled variant with secondary appearance
-      expect(innerButton).not.toHaveClass('bg-(--background-color-secondary)'); // not outline variant
+      expect(innerButton).toHaveClass('bg-(--color-bg-filled-secondary)'); // filled variant with secondary appearance
+      expect(innerButton).not.toHaveClass('bg-(--color-bg-secondary)'); // not outline variant
       expect(innerButton).toHaveClass('text-sm'); // sm from defaults
       expect(innerButton).toHaveClass('inner-secondary-class', 'inner-sm-class'); // extra classes
       
@@ -361,8 +361,8 @@ describe('Nested ThemeProvider Tests', () => {
       expect(innerTitle).toHaveClass('outer-custom-class');
 
       // Both should have primary appearance
-      expect(outerTitle).toHaveClass('text-(--text-color-primary)');
-      expect(innerTitle).toHaveClass('text-(--text-color-primary)');
+      expect(outerTitle).toHaveClass('text-(--color-text-primary)');
+      expect(innerTitle).toHaveClass('text-(--color-text-primary)');
     });
   });
 });

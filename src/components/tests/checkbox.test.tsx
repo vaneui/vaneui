@@ -51,7 +51,7 @@ describe('Checkbox Component Tests', () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('cursor-pointer');
       expect(checkbox).toHaveClass('h-4', 'w-4'); // md size default
-      expect(checkbox).toHaveClass('rounded-(--ui-border-radius-sm)'); // rounded default for md size
+      expect(checkbox).toHaveClass('rounded-(--ui-br-sm)'); // rounded default for md size
       // Note: Ring is disabled by default (noRing: true in defaults), so no ring classes expected
     });
 
@@ -114,9 +114,9 @@ describe('Checkbox Component Tests', () => {
         const checkbox = container.querySelector('input[type="checkbox"]');
         expect(checkbox).toBeInTheDocument();
         // Check for checked state classes using filled theme (default)
-        expect(checkbox).toHaveClass(`checked:bg-(--filled-background-color-${appearance})`);
+        expect(checkbox).toHaveClass(`checked:bg-(--color-bg-filled-${appearance})`);
         // Border appearance is separate from checked state
-        expect(checkbox).toHaveClass(`border-(--filled-border-color-${appearance})`);
+        expect(checkbox).toHaveClass(`border-(--color-border-filled-${appearance})`);
       });
     });
 
@@ -140,7 +140,7 @@ describe('Checkbox Component Tests', () => {
       const shapes = [
         { prop: 'pill', class: 'rounded-full' },
         { prop: 'sharp', class: 'rounded-none' },
-        { prop: 'rounded', class: 'rounded-(--ui-border-radius-sm)' }
+        { prop: 'rounded', class: 'rounded-(--ui-br-sm)' }
       ] as const;
 
       shapes.forEach(({prop, class: expectedClass}) => {
@@ -203,9 +203,9 @@ describe('Checkbox Component Tests', () => {
 
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
-      expect(checkbox).toHaveClass('checked:bg-(--filled-background-color-primary)');
+      expect(checkbox).toHaveClass('checked:bg-(--color-bg-filled-primary)');
       // Border is not tied to checked state but to regular border appearance
-      expect(checkbox).toHaveClass('border-(--filled-border-color-primary)');
+      expect(checkbox).toHaveClass('border-(--color-border-filled-primary)');
       
       // Check element should also receive filled variant
       const checkElement = container.querySelector('span.invisible');
@@ -224,9 +224,9 @@ describe('Checkbox Component Tests', () => {
 
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
-      expect(checkbox).toHaveClass('checked:bg-(--background-color-secondary)');
+      expect(checkbox).toHaveClass('checked:bg-(--color-bg-secondary)');
       // Outline variant uses regular border colors
-      expect(checkbox).toHaveClass('border-(--border-color-secondary)');
+      expect(checkbox).toHaveClass('border-(--color-border-secondary)');
     });
 
     it('should use filled variant by default based on theme defaults', () => {
@@ -239,9 +239,9 @@ describe('Checkbox Component Tests', () => {
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
       // Based on the theme defaults showing filled: true
-      expect(checkbox).toHaveClass('checked:bg-(--filled-background-color-accent)');
+      expect(checkbox).toHaveClass('checked:bg-(--color-bg-filled-accent)');
       // Border is separate from checked state
-      expect(checkbox).toHaveClass('border-(--filled-border-color-accent)');
+      expect(checkbox).toHaveClass('border-(--color-border-filled-accent)');
     });
 
     describe('Check Element Color Tests', () => {
@@ -258,21 +258,21 @@ describe('Checkbox Component Tests', () => {
           const checkElement = container.querySelector('span.invisible');
           expect(checkElement).toBeInTheDocument();
           // Filled variant should have light colored text for the check mark
-          expect(checkElement).toHaveClass(`text-(--filled-text-color-${appearance})`);
+          expect(checkElement).toHaveClass(`text-(--color-text-filled-${appearance})`);
         });
       });
 
       it('should apply colored text to check element with outline variant matching appearance colors', () => {
         const appearances = [
-          { prop: 'default', expectedClass: 'text-(--text-color-default)' },
-          { prop: 'primary', expectedClass: 'text-(--text-color-primary)' },
-          { prop: 'secondary', expectedClass: 'text-(--text-color-secondary)' },
-          { prop: 'tertiary', expectedClass: 'text-(--text-color-tertiary)' },
-          { prop: 'success', expectedClass: 'text-(--text-color-success)' },
-          { prop: 'danger', expectedClass: 'text-(--text-color-danger)' },
-          { prop: 'warning', expectedClass: 'text-(--text-color-warning)' },
-          { prop: 'info', expectedClass: 'text-(--text-color-info)' },
-          { prop: 'accent', expectedClass: 'text-(--text-color-accent)' }
+          { prop: 'default', expectedClass: 'text-(--color-text-default)' },
+          { prop: 'primary', expectedClass: 'text-(--color-text-primary)' },
+          { prop: 'secondary', expectedClass: 'text-(--color-text-secondary)' },
+          { prop: 'tertiary', expectedClass: 'text-(--color-text-tertiary)' },
+          { prop: 'success', expectedClass: 'text-(--color-text-success)' },
+          { prop: 'danger', expectedClass: 'text-(--color-text-danger)' },
+          { prop: 'warning', expectedClass: 'text-(--color-text-warning)' },
+          { prop: 'info', expectedClass: 'text-(--color-text-info)' },
+          { prop: 'accent', expectedClass: 'text-(--color-text-accent)' }
         ] as const;
         
         appearances.forEach(({prop, expectedClass}) => {
@@ -304,22 +304,22 @@ describe('Checkbox Component Tests', () => {
         // Test filled primary checkbox - should have white check
         const filledPrimaryWrapper = filledContainer.querySelector('[data-testid="filled-primary"]')?.parentElement;
         const filledPrimaryCheck = filledPrimaryWrapper?.querySelector('span.invisible');
-        expect(filledPrimaryCheck).toHaveClass('text-(--filled-text-color-primary)');
+        expect(filledPrimaryCheck).toHaveClass('text-(--color-text-filled-primary)');
 
         // Test outline primary checkbox - should have primary colored check  
         const outlinePrimaryWrapper = filledContainer.querySelector('[data-testid="outline-primary"]')?.parentElement;
         const outlinePrimaryCheck = outlinePrimaryWrapper?.querySelector('span.invisible');
-        expect(outlinePrimaryCheck).toHaveClass('text-(--text-color-primary)');
+        expect(outlinePrimaryCheck).toHaveClass('text-(--color-text-primary)');
 
         // Test filled danger checkbox - should have white check
         const filledDangerWrapper = filledContainer.querySelector('[data-testid="filled-danger"]')?.parentElement;
         const filledDangerCheck = filledDangerWrapper?.querySelector('span.invisible');
-        expect(filledDangerCheck).toHaveClass('text-(--filled-text-color-danger)');
+        expect(filledDangerCheck).toHaveClass('text-(--color-text-filled-danger)');
 
         // Test outline danger checkbox - should have danger colored check
         const outlineDangerWrapper = filledContainer.querySelector('[data-testid="outline-danger"]')?.parentElement;
         const outlineDangerCheck = outlineDangerWrapper?.querySelector('span.invisible');
-        expect(outlineDangerCheck).toHaveClass('text-(--text-color-danger)');
+        expect(outlineDangerCheck).toHaveClass('text-(--color-text-danger)');
       });
 
       it('should verify check element SVG uses currentColor for proper theming', () => {
@@ -336,7 +336,7 @@ describe('Checkbox Component Tests', () => {
         // Verify that the SVG path uses currentColor to inherit text color
         expect(path).toHaveAttribute('stroke', 'currentColor');
         // Verify check element has the proper color class
-        expect(checkElement).toHaveClass('text-(--text-color-success)');
+        expect(checkElement).toHaveClass('text-(--color-text-success)');
       });
     });
   });
