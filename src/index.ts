@@ -13,6 +13,7 @@ export {
   ComponentKeys,
   ComponentCategories,
   type ComponentKey,
+  // All individual property constants with JSDoc are now exported via separate files
 } from "./components/ui/props/keys";
 
 export {
