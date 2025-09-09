@@ -50,20 +50,26 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   {
     size: {
       px: new PxTheme({
-        xs: "px-2",
-        sm: "px-3 max-lg:px-2",
-        md: "px-4 max-lg:px-3",
-        lg: "px-5 max-lg:px-4 max-md:px-3",
-        xl: "px-6 max-lg:px-5 max-md:px-4"
+        xs: "px-3",
+        sm: "px-4 max-lg:px-3",
+        md: "px-5 max-lg:px-4",
+        lg: "px-6 max-lg:px-5 max-md:px-4",
+        xl: "px-7 max-lg:px-6 max-md:px-5"
       }),
       py: new PyTheme({
-        xs: "py-2",
-        sm: "py-3 max-lg:py-2",
-        md: "py-4 max-lg:py-3",
-        lg: "py-5 max-lg:py-4 max-md:py-3",
-        xl: "py-6 max-lg:py-5 max-md:py-4"
+        xs: "py-3",
+        sm: "py-4 max-lg:py-3",
+        md: "py-5 max-lg:py-4",
+        lg: "py-6 max-lg:py-5 max-md:py-4",
+        xl: "py-7 max-lg:py-6 max-md:py-5"
       }),
-      gap: new GapTheme(),
+      gap: new GapTheme({
+        xs: "gap-2",
+        sm: "gap-3 max-lg:gap-2",
+        md: "gap-4 max-lg:gap-3",
+        lg: "gap-5 max-lg:gap-4 max-md:gap-3",
+        xl: "gap-6 max-lg:gap-5 max-md:gap-4"
+      }),
     },
     layout: {
       ...defaultLayoutsThemes,
