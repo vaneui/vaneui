@@ -1,6 +1,6 @@
-/** Show focus ring */
+/** Show ring - adds decorative ring/outline border around element */
 export const RING = 'ring' as const;
-/** Hide focus ring */
+/** Hide ring - removes ring/outline border styling */
 export const NO_RING = 'noRing' as const;
 
 /** All ring property values */

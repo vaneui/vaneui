@@ -1,4 +1,4 @@
-/** Reverse the order of flex items */
+/** Reverse flex direction - converts row to row-reverse or column to column-reverse */
 export const REVERSE = 'reverse' as const;
 
 /** All reverse property values */

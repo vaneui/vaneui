@@ -1,6 +1,6 @@
-/** Filled variant with solid background */
+/** Filled variant - solid background with contrasting text color */
 export const FILLED = 'filled' as const;
-/** Outline variant with border only */
+/** Outline variant - transparent background with border and colored text (default) */
 export const OUTLINE = 'outline' as const;
 
 /** All variant property values */

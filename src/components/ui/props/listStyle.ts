@@ -1,6 +1,6 @@
-/** Disc bullets for unordered lists */
+/** Disc bullet points - circular bullets for list items */
 export const DISC = 'disc' as const;
-/** Decimal numbers for ordered lists */
+/** Decimal numbers - numbered list items (1, 2, 3...) */
 export const DECIMAL = 'decimal' as const;
 
 /** All list style property values */

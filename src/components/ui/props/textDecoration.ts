@@ -1,8 +1,8 @@
-/** Add underline decoration to text */
+/** Add underline decoration below text */
 export const UNDERLINE = 'underline' as const;
-/** Add strikethrough/line-through decoration to text */
+/** Add strikethrough/line-through decoration across text */
 export const LINE_THROUGH = 'lineThrough' as const;
-/** Remove underline decoration from text */
+/** Remove text decoration (no underline, strikethrough, etc.) */
 export const NO_UNDERLINE = 'noUnderline' as const;
 /** Add overline decoration above text */
 export const OVERLINE = 'overline' as const;

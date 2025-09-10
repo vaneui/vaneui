@@ -1,20 +1,20 @@
-/** Thin font weight (100) */
+/** Thin font weight - CSS font-weight: 100 */
 export const THIN = 'thin' as const;
-/** Extra light font weight (200) */
+/** Extra light font weight - CSS font-weight: 200 */
 export const EXTRALIGHT = 'extralight' as const;
-/** Light font weight (300) */
+/** Light font weight - CSS font-weight: 300 */
 export const LIGHT = 'light' as const;
-/** Normal font weight (400) */
+/** Normal font weight - CSS font-weight: 400 (default) */
 export const NORMAL = 'normal' as const;
-/** Medium font weight (500) */
+/** Medium font weight - CSS font-weight: 500 */
 export const MEDIUM = 'medium' as const;
-/** Semibold font weight (600) */
+/** Semibold font weight - CSS font-weight: 600 */
 export const SEMIBOLD = 'semibold' as const;
-/** Bold font weight (700) */
+/** Bold font weight - CSS font-weight: 700 */
 export const BOLD = 'bold' as const;
-/** Extra bold font weight (800) */
+/** Extra bold font weight - CSS font-weight: 800 */
 export const EXTRABOLD = 'extrabold' as const;
-/** Black font weight (900) */
+/** Black font weight - CSS font-weight: 900 (heaviest) */
 export const BLACK = 'black' as const;
 
 /** All font weight property values */

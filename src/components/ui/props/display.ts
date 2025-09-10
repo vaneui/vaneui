@@ -12,7 +12,7 @@ export const INLINE_FLEX = 'inlineFlex' as const;
 export const GRID = 'grid' as const;
 /** Inline-grid display - inline grid container */
 export const INLINE_GRID = 'inlineGrid' as const;
-/** Contents display - box disappears, children remain */
+/** Contents display - element's box is removed, children display as if parent didn't exist */
 export const CONTENTS = 'contents' as const;
 /** Table display - behaves like table element */
 export const TABLE = 'table' as const;

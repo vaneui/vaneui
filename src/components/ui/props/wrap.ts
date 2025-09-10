@@ -1,8 +1,8 @@
-/** Allow flex items to wrap to new lines */
+/** Allow flex items to wrap to new lines when container is too narrow */
 export const FLEX_WRAP = 'flexWrap' as const;
-/** Prevent flex items from wrapping (single line) */
+/** Force flex items to stay on single line (may overflow) */
 export const FLEX_NO_WRAP = 'flexNoWrap' as const;
-/** Allow flex items to wrap in reverse order */
+/** Wrap flex items in reverse order (last items wrap first) */
 export const FLEX_WRAP_REVERSE = 'flexWrapReverse' as const;
 
 /** All wrap property values */

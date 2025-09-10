@@ -1,8 +1,8 @@
-/** Base state - default appearance */
+/** Base state - default resting appearance */
 export const BASE = 'base' as const;
-/** Hover state - when cursor is over element */
+/** Hover state - appearance when cursor hovers over element */
 export const HOVER = 'hover' as const;
-/** Active state - when element is being clicked/pressed */
+/** Active state - appearance when element is being pressed/clicked */
 export const ACTIVE = 'active' as const;
 
 /** All mode property values */

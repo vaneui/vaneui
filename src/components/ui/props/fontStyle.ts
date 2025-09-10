@@ -1,6 +1,6 @@
-/** Italic font style */
+/** Italic font style - slanted text styling */
 export const ITALIC = 'italic' as const;
-/** Normal font style (not italic) */
+/** Normal font style - upright text styling (not italic) */
 export const NOT_ITALIC = 'notItalic' as const;
 
 /** All font style property values */
