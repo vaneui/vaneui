@@ -6,6 +6,8 @@ export class RingTheme extends BaseTheme implements Record<ModeKey, string> {
   base: string = "ring ring-inset";
   hover: string = "";
   active: string = "";
+  focus: string = "";
+  focusVisible: string = "";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     return extractedKeys?.ring === 'ring'

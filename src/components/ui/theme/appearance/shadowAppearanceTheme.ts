@@ -20,19 +20,19 @@ export class ShadowAppearanceTheme extends BaseTheme implements Record<Appearanc
   link!: Record<SizeKey, Record<ModeKey, string>> | null;
 
   private static readonly defaultUIShadow: Record<SizeKey, Record<ModeKey, string>> = {
-    xs: {base: "shadow-2xs", hover: "hover:shadow-xs", active: ""},
-    sm: {base: "shadow-xs", hover: "hover:shadow-sm", active: ""},
-    md: {base: "shadow-sm", hover: "hover:shadow-md", active: ""},
-    lg: {base: "shadow-md", hover: "hover:shadow-lg", active: ""},
-    xl: {base: "shadow-lg", hover: "hover:shadow-xl", active: ""}
+    xs: {base: "shadow-2xs", hover: "hover:shadow-xs", active: "", focus: "", focusVisible: ""},
+    sm: {base: "shadow-xs", hover: "hover:shadow-sm", active: "", focus: "", focusVisible: ""},
+    md: {base: "shadow-sm", hover: "hover:shadow-md", active: "", focus: "", focusVisible: ""},
+    lg: {base: "shadow-md", hover: "hover:shadow-lg", active: "", focus: "", focusVisible: ""},
+    xl: {base: "shadow-lg", hover: "hover:shadow-xl", active: "", focus: "", focusVisible: ""}
   }
 
   private static readonly defaultLayoutShadow: Record<SizeKey, Record<ModeKey, string>> = {
-    xs: {base: "shadow-2xs", hover: "", active: ""},
-    sm: {base: "shadow-xs", hover: "", active: ""},
-    md: {base: "shadow-sm", hover: "", active: ""},
-    lg: {base: "shadow-md", hover: "", active: ""},
-    xl: {base: "shadow-lg", hover: "", active: ""}
+    xs: {base: "shadow-2xs", hover: "", active: "", focus: "", focusVisible: ""},
+    sm: {base: "shadow-xs", hover: "", active: "", focus: "", focusVisible: ""},
+    md: {base: "shadow-sm", hover: "", active: "", focus: "", focusVisible: ""},
+    lg: {base: "shadow-md", hover: "", active: "", focus: "", focusVisible: ""},
+    xl: {base: "shadow-lg", hover: "", active: "", focus: "", focusVisible: ""}
   }
 
   constructor(initial: Record<SizeKey, Record<ModeKey, string>>) {
