@@ -1,4 +1,3 @@
-import { useRef, useEffect } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -7,26 +6,10 @@ import {
   Col,
   Title,
   Section,
-  Card, Checkbox, Label, Link
+  Card, Checkbox, Label, Link, Input, Button
 } from '../../src';
 
 function App() {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const textRef = useRef<HTMLParagraphElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Example: focus the button on mount
-    if (buttonRef.current) {
-      console.log('Button ref is available:', buttonRef.current);
-    }
-    if (textRef.current) {
-      console.log('Text ref is available:', textRef.current);
-    }
-    if (cardRef.current) {
-      console.log('Card ref is available:', cardRef.current);
-    }
-  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme} extraClasses={{
@@ -38,32 +21,79 @@ function App() {
       }
     }}>
       <Section>
+        <Card>
+          <Title>Input Examples</Title>
+          <Text secondary>VaneUI Input component with different appearances and modes</Text>
+          <Col>
+            <Row>
+              <Input border placeholder="Default input"/>
+              <Button noShadow noRing border>Default</Button>
+            </Row>
+            <input
+              className="rounded
+    ring-2 ring-blue-600
+    focus-visible:outline-2 focus-visible:outline-blue-950 focus-visible:outline-offset-4
+  " placeholder="Some text"/>
+          </Col>
+        </Card>
         <Text lg link bold>Large link text</Text>
         <Text lg primary filled bold>Large link text</Text>
         <Col>
           <Row>
             <Card>
-              <Title>Card title</Title>
-              <Text secondary>This is a card text. It is used right under the card title.</Text>
-              <input
-                className="w-full rounded-md border
-         focus:border-blue-600           /* behavior: always on focus */
-         focus:outline-none
-         focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"/>
+              <Title>Input Examples</Title>
+              <Text secondary>VaneUI Input component with different appearances and modes</Text>
+              <Col gap>
+                <Input placeholder="Default input" />
+                <Input primary placeholder="Primary input" />
+                <Input secondary placeholder="Secondary input" />
+                <Input success placeholder="Success input" />
+                <Input danger placeholder="Danger input" />
+                <Input warning placeholder="Warning input" />
+              </Col>
             </Card>
             <Card filled>
-              <Title>Card title</Title>
-              <Text>This is a card text. It is used right under the card title.</Text>
+              <Title>Input Sizes & Variants</Title>
+              <Text>Different sizes and filled variants</Text>
+              <Col gap>
+                <Input xs placeholder="Extra small input" />
+                <Input sm placeholder="Small input" />
+                <Input md placeholder="Medium input (default)" />
+                <Input lg placeholder="Large input" />
+                <Input xl placeholder="Extra large input" />
+                <Input filled primary placeholder="Filled primary input" />
+                <Input filled success placeholder="Filled success input" />
+              </Col>
             </Card>
           </Row>
           <Row filled secondary rounded>
             <Card success>
-              <Title>Card title</Title>
-              <Text secondary>This is a card text. It is used right under the card title.</Text>
+              <Title>Form Example</Title>
+              <Text secondary>Inputs with labels and different types</Text>
+              <Col gap>
+                <Label htmlFor="name">
+                  <Text semibold>Full Name</Text>
+                  <Input id="name" type="text" placeholder="Enter your full name" />
+                </Label>
+                <Label htmlFor="email">
+                  <Text semibold>Email Address</Text>
+                  <Input id="email" type="email" primary placeholder="Enter your email" />
+                </Label>
+                <Label htmlFor="password">
+                  <Text semibold>Password</Text>
+                  <Input id="password" type="password" secondary placeholder="Enter your password" />
+                </Label>
+              </Col>
             </Card>
             <Card success filled>
-              <Title black>Card title</Title>
-              <Text>This is a card text. It is used right under the card title.</Text>
+              <Title black>Input States</Title>
+              <Text>Focus and disabled states</Text>
+              <Col gap>
+                <Input placeholder="Normal input" />
+                <Input disabled placeholder="Disabled input" />
+                <Input readOnly value="Read-only input" />
+                <Input required placeholder="Required input" />
+              </Col>
             </Card>
           </Row>
           <Row>

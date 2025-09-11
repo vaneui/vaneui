@@ -19,6 +19,7 @@ import {
   CHECKBOX_CATEGORIES,
   LABEL_CATEGORIES,
   IMG_CATEGORIES,
+  INPUT_CATEGORIES,
 } from './keys';
 
 /**
@@ -102,4 +103,5 @@ export type ListProps = (Base & React.HTMLAttributes<HTMLElement>) & Cats<typeof
 export type CheckboxProps = (Base & React.InputHTMLAttributes<HTMLInputElement>) & Cats<typeof CHECKBOX_CATEGORIES> & { tag?: React.ElementType };
 export type LabelProps = (Base & React.LabelHTMLAttributes<HTMLLabelElement>) & Cats<typeof LABEL_CATEGORIES> & { tag?: React.ElementType };
 export type ImgProps = (Base & React.ImgHTMLAttributes<HTMLImageElement>) & Cats<typeof IMG_CATEGORIES> & { tag?: React.ElementType };
+export type InputProps = (Base & React.InputHTMLAttributes<HTMLInputElement>) & Cats<typeof INPUT_CATEGORIES> & { tag?: React.ElementType };
 

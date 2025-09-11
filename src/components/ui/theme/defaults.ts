@@ -235,4 +235,19 @@ export const themeDefaults: ThemeDefaults = {
       filled: true,
     },
   },
+
+  input: {
+    md: true,
+    default: true,
+    //border: true,
+    rounded: true,
+    outline: true,
+    sans: true,
+    normal: true,
+    padding: true,
+    //ring: true,
+    noShadow: true,
+    //focus: true,
+    //focusVisible: true,
+  },
 };

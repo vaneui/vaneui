@@ -256,6 +256,8 @@ export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...PADDING, .
 export const CHECKBOX_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT] as const;
 /** Categories for label form components with typography support */
 export const LABEL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_CORE, ...VARIANT] as const;
+/** Categories for input form components with interactive and form-specific properties */
+export const INPUT_CATEGORIES = [...INTERACTIVE_CATEGORIES] as const;
 
 /** Media component categories */
 /** Categories for image media components */
@@ -268,7 +270,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img'] as const;
+  'grid2', 'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -287,6 +289,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   grid3: GRID_CATEGORIES,
   grid4: GRID_CATEGORIES,
   img: IMG_CATEGORIES,
+  input: INPUT_CATEGORIES,
   label: LABEL_CATEGORIES,
   link: TYPOGRAPHY_CATEGORIES,
   list: LIST_CATEGORIES,

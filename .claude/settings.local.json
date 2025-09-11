@@ -33,7 +33,8 @@
       "Bash(do echo \"=== $file ===\")",
       "Bash(head:*)",
       "Bash(done)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(timeout 10s npm run playground)"
     ],
     "deny": []
   }

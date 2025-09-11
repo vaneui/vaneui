@@ -25,6 +25,7 @@ import { defaultGrid2Theme, defaultGrid3Theme, defaultGrid4Theme, GridTheme } fr
 import { CheckboxTheme, CheckTheme, CheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckTheme, defaultCheckboxWrapperTheme } from './ui/theme/checkboxTheme';
 import { LabelTheme, defaultLabelTheme } from './ui/theme/labelTheme';
 import { ImgTheme, defaultImgTheme } from './ui/theme/imgTheme';
+import { InputTheme, defaultInputTheme } from './ui/theme/inputTheme';
 import {
   BadgeProps,
   ButtonProps,
@@ -43,6 +44,7 @@ import {
   CheckboxProps,
   LabelProps,
   ImgProps,
+  InputProps,
 } from "./ui/props";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
@@ -76,6 +78,7 @@ export interface ThemeProps {
   };
   label: ComponentTheme<LabelProps, LabelTheme>;
   img: ComponentTheme<ImgProps, ImgTheme>;
+  input: ComponentTheme<InputProps, InputTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -109,6 +112,7 @@ export const defaultTheme: ThemeProps = {
   },
   label: defaultLabelTheme,
   img: defaultImgTheme,
+  input: defaultInputTheme,
 };
 
 /**
@@ -158,6 +162,7 @@ export type ThemeDefaults = {
   };
   label?: Partial<BooleanKeys<LabelProps>>;
   img?: Partial<BooleanKeys<ImgProps>>;
+  input?: Partial<BooleanKeys<InputProps>>;
 };
 
 // ThemeExtraClasses mirrors the structure of ThemeProps
@@ -192,6 +197,7 @@ export type ThemeExtraClasses = {
   };
   label?: Partial<StringValueKeys<LabelProps>>;
   img?: Partial<StringValueKeys<ImgProps>>;
+  input?: Partial<StringValueKeys<InputProps>>;
 };
 
 /**
