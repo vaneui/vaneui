@@ -9,6 +9,7 @@ import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
+import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
@@ -30,12 +31,15 @@ export interface InputTheme extends BaseTypographyComponentTheme {
     background: GenericVariantTheme<AppearanceTheme>;
     text: GenericVariantTheme<AppearanceTheme>;
     border: GenericVariantTheme<AppearanceTheme>;
+    focusBorder: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
+    focusVisible: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
     border: BorderTheme;
     ring: RingTheme;
+    focusVisible: FocusVisibleTheme;
     radius: RadiusTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
@@ -58,13 +62,16 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
       background: GenericVariantTheme.createBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
+      focusBorder: GenericVariantTheme.createUIElementFocusBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
+      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme(),
       shadow: GenericVariantTheme.createUIElementShadowTheme()
     },
     layout: {
       ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
+      focusVisible: new FocusVisibleTheme(),
       radius: RadiusTheme.createUITheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),

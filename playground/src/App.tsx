@@ -32,7 +32,7 @@ function App() {
             <input
               className="rounded
     ring-2 ring-blue-600
-    focus-visible:outline-2 focus-visible:outline-blue-950 focus-visible:outline-offset-4
+    focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-4
   " placeholder="Some text"/>
           </Col>
         </Card>

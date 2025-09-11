@@ -9,7 +9,7 @@ export const BREAKPOINT = ['breakpoint'] as const;
 /** Core visual properties including appearance colors and transparency */
 export const VISUAL_CORE = ['appearance', 'transparent'] as const;
 /** Visual decoration properties for borders, shadows, and focus rings */
-export const VISUAL_DECORATION = ['border', 'shadow', 'ring'] as const;
+export const VISUAL_DECORATION = ['border', 'shadow', 'ring', 'focusVisible'] as const;
 /** Shape properties for border radius and corner rounding */
 export const SHAPE = ['shape'] as const;
 /** Typography styling properties for text appearance and formatting */
@@ -38,7 +38,7 @@ export const COMPONENT_PROPS_CATEGORY = [
  * Describes category for which the appearance can be applied
  * @see ComponentKeys.appearance
  */
-export const APPEARANCE_CATEGORY = ['text', 'border', 'ring', 'shadow', 'bg', 'accent'] as const;
+export const APPEARANCE_CATEGORY = ['text', 'border', 'ring', 'shadow', 'bg', 'accent', 'focusVisible'] as const;
 /** Type for appearance category keys used in theming */
 export type AppearanceCategoryKey = typeof APPEARANCE_CATEGORY[number];
 
@@ -66,6 +66,7 @@ import { POSITION_VALUES } from './position';
 import { REVERSE_VALUES } from './reverse';
 import { RING_VALUES } from './ring';
 import { SHADOW_VALUES } from './shadow';
+import { FOCUS_VISIBLE_VALUES } from './focusVisible';
 import { SHAPE_VALUES } from './shape';
 import { SIZE_VALUES } from './size';
 import { TEXT_ALIGN_VALUES } from './textAlign';
@@ -96,6 +97,7 @@ export * from './position';
 export * from './reverse';
 export * from './ring';
 export * from './shadow';
+export * from './focusVisible';
 export * from './shape';
 export * from './size';
 export * from './textAlign';
@@ -147,6 +149,8 @@ export const ComponentKeys = {
   ring: RING_VALUES,
   /** Drop shadow visibility: shadow (enabled) or noShadow (disabled) */
   shadow: SHADOW_VALUES,
+  /** Focus-visible outline visibility: focusVisible (show) or noFocusVisible (hide) */
+  focusVisible: FOCUS_VISIBLE_VALUES,
   /** Border radius shape: pill (fully rounded), sharp (no radius), rounded (medium radius) */
   shape: SHAPE_VALUES,
   /** Size scale from extra-small to extra-large */
@@ -207,6 +211,8 @@ export type WrapKey = typeof ComponentKeys.wrap[number];
 export type DisplayKey = typeof ComponentKeys.display[number];
 /** CSS overflow property keys for content clipping behavior */
 export type OverflowKey = typeof ComponentKeys.overflow[number];
+/** Focus-visible outline keys: focusVisible or noFocusVisible */
+export type FocusVisibleKey = typeof ComponentKeys.focusVisible[number];
 
 /** Composite categories built from core blocks */
 /** Complete layout category including core and flex properties */
