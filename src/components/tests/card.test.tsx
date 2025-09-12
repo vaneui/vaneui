@@ -19,8 +19,8 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('px-5', 'py-5', 'gap-4', 'flex');
-      expect(card).toHaveClass('max-lg:px-4', 'max-lg:py-4'); // md responsive padding classes
+      expect(card).toHaveClass('px-6', 'py-6', 'gap-4', 'flex');
+      expect(card).toHaveClass('max-lg:px-5', 'max-lg:py-5'); // md responsive padding classes
       expect(card).toHaveClass('max-lg:gap-3'); // md responsive gap classes
       expect(card).toHaveClass('text-(--color-text-default)'); // default appearance
       expect(card).toHaveClass('bg-(--color-bg-layout-default)', 'rounded-(--layout-br-md)', 'flex-col');
@@ -77,7 +77,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-3', 'py-3', 'gap-2'); // xs sizing for padding and gap
+      expect(card).toHaveClass('px-4', 'py-4', 'gap-2'); // xs sizing for padding and gap
       // xs size has no responsive classes
     });
 
@@ -89,8 +89,8 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-4', 'py-4', 'gap-3'); // sm sizing for padding and gap
-      expect(card).toHaveClass('max-lg:px-3', 'max-lg:py-3'); // sm responsive padding classes
+      expect(card).toHaveClass('px-5', 'py-5', 'gap-3'); // sm sizing for padding and gap
+      expect(card).toHaveClass('max-lg:px-4', 'max-lg:py-4'); // sm responsive padding classes
       expect(card).toHaveClass('max-lg:gap-2'); // sm responsive gap classes
     });
 
@@ -102,9 +102,9 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-6', 'py-6', 'gap-5'); // lg sizing with responsive variations
-      expect(card).toHaveClass('max-lg:px-5', 'max-lg:py-5'); // lg responsive padding classes for smaller screens
-      expect(card).toHaveClass('max-md:px-4', 'max-md:py-4'); // lg responsive padding classes for mobile
+      expect(card).toHaveClass('px-7', 'py-7', 'gap-5'); // lg sizing with responsive variations
+      expect(card).toHaveClass('max-lg:px-6', 'max-lg:py-6'); // lg responsive padding classes for smaller screens
+      expect(card).toHaveClass('max-md:px-5', 'max-md:py-5'); // lg responsive padding classes for mobile
       expect(card).toHaveClass('max-lg:gap-4', 'max-md:gap-3'); // lg responsive gap classes
     });
 
@@ -116,9 +116,9 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-7', 'py-7', 'gap-6'); // xl sizing for padding and gap
-      expect(card).toHaveClass('max-lg:px-6', 'max-lg:py-6'); // xl responsive padding classes for large screens
-      expect(card).toHaveClass('max-md:px-5', 'max-md:py-5'); // xl responsive padding classes for mobile
+      expect(card).toHaveClass('px-8', 'py-8', 'gap-6'); // xl sizing for padding and gap
+      expect(card).toHaveClass('max-lg:px-7', 'max-lg:py-7'); // xl responsive padding classes for large screens
+      expect(card).toHaveClass('max-md:px-6', 'max-md:py-6'); // xl responsive padding classes for mobile
       expect(card).toHaveClass('max-lg:gap-5', 'max-md:gap-4'); // xl responsive gap classes
     });
   });
@@ -380,7 +380,7 @@ describe('Card Component Tests', () => {
         expect(card!.className).not.toMatch(/\bring\b(?!-)/);
       });
 
-      it('should apply ring classes by default (card has ring: true in defaults)', () => {
+      it('should not apply ring classes by default (card does not have ring: true in defaults)', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <Card>Default Card</Card>
@@ -388,8 +388,9 @@ describe('Card Component Tests', () => {
         );
 
         const card = container.querySelector('div');
-        // Card uses appearance-based ring classes, not layout ring classes
-        expect(card).toHaveClass('ring-(--color-border-default)'); // Card has ring: true as default
+        // Card no longer has ring: true as default
+        expect(card).not.toHaveClass('ring-(--color-border-default)');
+        expect(card).not.toHaveClass('ring', 'ring-inset');
       });
 
       it('should apply ring classes for different appearance variants when ring is enabled', () => {
@@ -457,9 +458,9 @@ describe('Card Component Tests', () => {
         expect(card).toHaveClass('border');
         expect(card).toHaveClass('ring-(--color-border-default)');
         // Should have size and padding classes
-        expect(card).toHaveClass('px-6', 'py-6'); // lg padding
-        expect(card).toHaveClass('max-lg:px-5', 'max-lg:py-5'); // lg responsive padding classes
-        expect(card).toHaveClass('max-md:px-4', 'max-md:py-4'); // lg responsive padding classes for mobile
+        expect(card).toHaveClass('px-7', 'py-7'); // lg padding
+        expect(card).toHaveClass('max-lg:px-6', 'max-lg:py-6'); // lg responsive padding classes
+        expect(card).toHaveClass('max-md:px-5', 'max-md:py-5'); // lg responsive padding classes for mobile
         expect(card).toHaveClass('max-lg:gap-4', 'max-md:gap-3'); // lg responsive gap classes
       });
 

@@ -35,6 +35,20 @@ function App() {
             </Row>
           </Col>
         </Card>
+        <Card filled>
+          <Title>Input Examples</Title>
+          <Text secondary>VaneUI Input component with different appearances and modes</Text>
+          <Col>
+            <Row>
+              <Input filled placeholder="Default input"/>
+              <Button filled>Default</Button>
+            </Row>
+            <Row>
+              <Input primary filled placeholder="Default input"/>
+              <Button primary filled>Default</Button>
+            </Row>
+          </Col>
+        </Card>
         <Text lg link bold>Large link text</Text>
         <Text lg primary filled bold>Large link text</Text>
         <Col>
@@ -92,6 +106,50 @@ function App() {
                 <Input disabled placeholder="Disabled input" />
                 <Input readOnly value="Read-only input" />
                 <Input required placeholder="Required input" />
+              </Col>
+            </Card>
+          </Row>
+          <Row>
+            <Card warning>
+              <Title>Input with Icons</Title>
+              <Text secondary>Input components with icon combinations using flex layout</Text>
+              <Col gap>
+                <Label htmlFor="search">
+                  <Text semibold>Search with Icon</Text>
+                  <Row relative>
+                    <Input id="search" className="pl-10" placeholder="Search..." />
+                    <span className="absolute left-3 text-gray-500">🔍</span>
+                  </Row>
+                </Label>
+                <Label htmlFor="email-icon">
+                  <Text semibold>Email with Icon</Text>
+                  <Row itemsCenter className="relative">
+                    <Input id="email-icon" type="email" primary className="pl-10" placeholder="Enter email address" />
+                    <span className="absolute left-3 text-blue-500">📧</span>
+                  </Row>
+                </Label>
+                <Label htmlFor="password-icon">
+                  <Text semibold>Password with Icon</Text>
+                  <Row itemsCenter className="relative">
+                    <Input id="password-icon" type="password" danger className="pl-10 pr-10" placeholder="Enter password" />
+                    <span className="absolute left-3 text-red-500">🔒</span>
+                    <span className="absolute right-3 text-gray-400 cursor-pointer">👁️</span>
+                  </Row>
+                </Label>
+              </Col>
+            </Card>
+            <Card warning filled>
+              <Title black>Input Focus-Visible Demo</Title>
+              <Text>Click vs keyboard navigation focus behavior</Text>
+              <Col gap>
+                <Text xs secondary>Try clicking vs tabbing to see focus-visible outline</Text>
+                <Input placeholder="Focus-visible outline demo" />
+                <Input primary placeholder="Primary with focus-visible" />
+                <Input danger placeholder="Danger with focus-visible" />
+                <Row itemsCenter className="relative">
+                  <Input success className="pl-8" placeholder="Success with icon" />
+                  <span className="absolute left-2 text-green-500">✓</span>
+                </Row>
               </Col>
             </Card>
           </Row>

@@ -32,15 +32,15 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    if(this.category === 'border' && extractedKeys.border === 'noBorder')
+    if(this.category === 'border' && (extractedKeys.border === 'noBorder' || extractedKeys.border === undefined))
     {
       return [];
     }
-    if(this.category === 'ring' && extractedKeys.ring === 'noRing')
+    if(this.category === 'ring' && (extractedKeys.ring === 'noRing' || extractedKeys.ring === undefined))
     {
       return [];
     }
-    if(this.category === 'shadow' && extractedKeys.shadow === 'noShadow')
+    if(this.category === 'shadow' && (extractedKeys.shadow === 'noShadow' || extractedKeys.shadow === undefined))
     {
       return [];
     }
