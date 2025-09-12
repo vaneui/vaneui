@@ -26,14 +26,13 @@ function App() {
           <Text secondary>VaneUI Input component with different appearances and modes</Text>
           <Col>
             <Row>
-              <Input border placeholder="Default input"/>
-              <Button noShadow noRing border>Default</Button>
+              <Input placeholder="Default input"/>
+              <Button noShadow>Default</Button>
             </Row>
-            <input
-              className="rounded
-    ring-2 ring-blue-600
-    focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-4
-  " placeholder="Some text"/>
+            <Row>
+              <Input primary placeholder="Default input"/>
+              <Button primary>Default</Button>
+            </Row>
           </Col>
         </Card>
         <Text lg link bold>Large link text</Text>

@@ -239,7 +239,6 @@ export const themeDefaults: ThemeDefaults = {
   input: {
     md: true,
     default: true,
-    border: true,
     rounded: true,
     outline: true,
     sans: true,

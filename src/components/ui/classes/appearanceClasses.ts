@@ -210,34 +210,6 @@ export const filledFocusVisibleOutlineAppearanceClasses: Record<AppearanceKey | 
   transparent: "focus-visible:outline-transparent",
 }
 
-export const focusBorderAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "focus:border-(--color-border-default)",
-  primary: "focus:border-(--color-border-primary)",
-  secondary: "focus:border-(--color-border-secondary)",
-  tertiary: "focus:border-(--color-border-tertiary)",
-  accent: "focus:border-(--color-border-accent)",
-  success: "focus:border-(--color-border-success)",
-  danger: "focus:border-(--color-border-danger)",
-  warning: "focus:border-(--color-border-warning)",
-  info: "focus:border-(--color-border-info)",
-  link: "focus:border-(--color-border-link)",
-  transparent: "focus:border-transparent",
-}
-
-export const filledFocusBorderAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "focus:border-(--color-border-filled-default)",
-  primary: "focus:border-(--color-border-filled-primary)",
-  secondary: "focus:border-(--color-border-filled-secondary)",
-  tertiary: "focus:border-(--color-border-filled-tertiary)",
-  accent: "focus:border-(--color-border-filled-accent)",
-  success: "focus:border-(--color-border-filled-success)",
-  danger: "focus:border-(--color-border-filled-danger)",
-  warning: "focus:border-(--color-border-filled-warning)",
-  info: "focus:border-(--color-border-filled-info)",
-  link: "focus:border-(--color-border-filled-link)",
-  transparent: "focus:border-transparent",
-}
-
 export const accentColorAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
   default: "accent-(--color-bg-default)",
   primary: "accent-(--color-bg-primary)",

@@ -7,7 +7,7 @@ export class FocusVisibleTheme extends BaseTheme implements Record<ModeKey, stri
   hover: string = "";
   active: string = "";
   focus: string = "";
-  focusVisible: string = "focus-visible:outline-2 focus-visible:outline-offset-4";
+  focusVisible: string = "focus-visible:outline-2 focus-visible:outline-offset-2";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     return extractedKeys?.focusVisible === 'focusVisible'

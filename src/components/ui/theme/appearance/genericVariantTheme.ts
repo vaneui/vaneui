@@ -22,8 +22,6 @@ import {
   ringAppearanceClasses,
   focusVisibleOutlineAppearanceClasses,
   filledFocusVisibleOutlineAppearanceClasses,
-  focusBorderAppearanceClasses,
-  filledFocusBorderAppearanceClasses,
 } from "../../classes/appearanceClasses";
 import { ShadowAppearanceTheme } from "./shadowAppearanceTheme";
 
@@ -223,17 +221,6 @@ export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implemen
       filled: AppearanceTheme.createTheme({
         focusVisible: filledFocusVisibleOutlineAppearanceClasses
       }, 'focusVisible', true)
-    });
-  }
-
-  static createUIElementFocusBorderTheme(): GenericVariantTheme<AppearanceTheme> {
-    return new GenericVariantTheme({
-      outline: AppearanceTheme.createTheme({
-        focus: focusBorderAppearanceClasses
-      }, 'border', true), // UI components: focus border themes should ignore transparent
-      filled: AppearanceTheme.createTheme({
-        focus: filledFocusBorderAppearanceClasses
-      }, 'border', true)
     });
   }
 }

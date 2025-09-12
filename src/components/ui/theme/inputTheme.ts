@@ -31,7 +31,6 @@ export interface InputTheme extends BaseTypographyComponentTheme {
     background: GenericVariantTheme<AppearanceTheme>;
     text: GenericVariantTheme<AppearanceTheme>;
     border: GenericVariantTheme<AppearanceTheme>;
-    focusBorder: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
     focusVisible: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
@@ -62,7 +61,6 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
       background: GenericVariantTheme.createBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
-      focusBorder: GenericVariantTheme.createUIElementFocusBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme(),
       shadow: GenericVariantTheme.createUIElementShadowTheme()
