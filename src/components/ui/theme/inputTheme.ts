@@ -56,7 +56,7 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
       text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'}),
     },
     appearance: {
-      background: GenericVariantTheme.createBgAppearanceTheme(),
+      background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
       text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
