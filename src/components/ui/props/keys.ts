@@ -33,7 +33,6 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...VISUAL_DECORATION,
   ...SHAPE,
   ...VARIANT,
-  'mode',
 ] as const;
 
 /**
@@ -61,7 +60,6 @@ import { HIDE_VALUES } from './hide';
 import { ITEMS_VALUES } from './items';
 import { JUSTIFY_VALUES } from './justify';
 import { LIST_STYLE_VALUES } from './listStyle';
-import { MODE_VALUES } from './mode';
 import { OVERFLOW_VALUES } from './overflow';
 import { PADDING_VALUES } from './padding';
 import { POSITION_VALUES } from './position';
@@ -137,8 +135,6 @@ export const ComponentKeys = {
   justify: JUSTIFY_VALUES,
   /** List bullet/numbering style: disc (bullets) or decimal (numbers) */
   listStyle: LIST_STYLE_VALUES,
-  /** Interaction states for styling: base, hover, active */
-  mode: MODE_VALUES,
   /** Overflow behavior for content that exceeds container bounds */
   overflow: OVERFLOW_VALUES,
   /** Internal spacing: padding (enabled) or noPadding (disabled) */
@@ -172,7 +168,7 @@ export const ComponentKeys = {
 } as const;
 
 /** Interaction state keys for component styling modes */
-export type ModeKey = typeof ComponentKeys.mode[number];
+export type ModeKey = typeof import('./mode').ModeKeys.mode[number];
 /** Size scale keys: xs, sm, md, lg, xl */
 export type SizeKey = typeof ComponentKeys.size[number];
 /** Style variant keys: filled or outline */
@@ -213,8 +209,6 @@ export type WrapKey = typeof ComponentKeys.wrap[number];
 export type DisplayKey = typeof ComponentKeys.display[number];
 /** CSS overflow property keys for content clipping behavior */
 export type OverflowKey = typeof ComponentKeys.overflow[number];
-/** Focus-visible outline keys: focusVisible or noFocusVisible */
-export type FocusVisibleKey = typeof ComponentKeys.focusVisible[number];
 
 /** Composite categories built from core blocks */
 /** Complete layout category including core and flex properties */

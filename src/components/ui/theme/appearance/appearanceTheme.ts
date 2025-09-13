@@ -1,6 +1,7 @@
 import { BaseTheme } from "../common/baseTheme";
 import { AppearanceCategoryKey, CategoryProps, TransparentKey } from "../../props";
 import { ComponentKeys, ModeKey, AppearanceKey } from "../../props";
+import { ModeKeys } from "../../props/mode";
 
 export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, Record<ModeKey, string>> {
   default!: Record<ModeKey, string>;
@@ -56,7 +57,7 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
     if (pickedAppearanceKey) {
       const modes = this[pickedAppearanceKey];
       if (modes) {
-        return ComponentKeys.mode.map(mode => modes[mode] || '');
+        return ModeKeys.mode.map(mode => modes[mode] || '');
       }
     }
 
@@ -72,7 +73,7 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
       ComponentKeys.appearance.map(key => [
         key,
         Object.fromEntries(
-          ComponentKeys.mode.map(modeKey => [
+          ModeKeys.mode.map(modeKey => [
             modeKey,
             src[modeKey]?.[key] || ''
           ])

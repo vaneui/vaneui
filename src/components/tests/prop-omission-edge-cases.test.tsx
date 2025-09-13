@@ -135,24 +135,31 @@ describe('Prop Omission Edge Cases', () => {
     });
 
     it('should ensure no duplicate keys across different categories', () => {
-      const allKeys: string[] = [];
+      const keyToCategories: Record<string, string[]> = {};
       const duplicates: string[] = [];
 
-      Object.entries(ComponentKeys).forEach(([, keys]) => {
+      Object.entries(ComponentKeys).forEach(([categoryName, keys]) => {
         keys.forEach(key => {
-          if (allKeys.includes(key)) {
-            duplicates.push(`${key} (found in multiple categories)`);
+          if (!keyToCategories[key]) {
+            keyToCategories[key] = [];
           }
-          allKeys.push(key);
+          keyToCategories[key].push(categoryName);
         });
+      });
+
+      // Find keys that appear in multiple categories
+      Object.entries(keyToCategories).forEach(([key, categories]) => {
+        if (categories.length > 1) {
+          duplicates.push(`${key} (found in categories: ${categories.join(', ')})`);
+        }
       });
 
       if (duplicates.length > 0) {
         console.warn('Duplicate keys found:', duplicates);
-        // Note: Some duplicates might be intentional, so we log but don't fail
+        fail(`Found duplicate keys: ${duplicates.join(', ')}`);
       }
 
-      expect(allKeys.length).toBeGreaterThan(0);
+      expect(Object.keys(keyToCategories).length).toBeGreaterThan(0);
     });
 
     it('should validate component categories contain expected number of unique keys', () => {
@@ -160,15 +167,14 @@ describe('Prop Omission Edge Cases', () => {
       const badgeKeys = getAllBooleanPropsForCategories(BADGE_CATEGORIES);
       const cardKeys = getAllBooleanPropsForCategories(CARD_CATEGORIES);
 
-
       expect(buttonKeys.length).toBeGreaterThan(10); // Should have many keys
       expect(badgeKeys.length).toBeGreaterThan(10);
       expect(cardKeys.length).toBeGreaterThan(10);
 
       // Ensure no undefined/null keys
-      expect(buttonKeys.every(key => typeof key === 'string' && key.length > 0)).toBe(true);
-      expect(badgeKeys.every(key => typeof key === 'string' && key.length > 0)).toBe(true);
-      expect(cardKeys.every(key => typeof key === 'string' && key.length > 0)).toBe(true);
+      expect(buttonKeys.every(key => key.length > 0)).toBe(true);
+      expect(badgeKeys.every(key => key.length > 0)).toBe(true);
+      expect(cardKeys.every(key => key.length > 0)).toBe(true);
     });
   });
 

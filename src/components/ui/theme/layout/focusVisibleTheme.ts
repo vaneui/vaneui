@@ -1,6 +1,7 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
-import { ModeKey, ComponentKeys } from "../../props";
+import { ModeKey } from "../../props";
+import { ModeKeys } from "../../props/mode";
 
 export class FocusVisibleTheme extends BaseTheme implements Record<ModeKey, string> {
   base: string = "";
@@ -11,7 +12,7 @@ export class FocusVisibleTheme extends BaseTheme implements Record<ModeKey, stri
 
   getClasses(extractedKeys: CategoryProps): string[] {
     return extractedKeys?.focusVisible === 'focusVisible'
-      ? ComponentKeys.mode.map(mode => this[mode] || '').filter(Boolean)
+      ? ModeKeys.mode.map(mode => this[mode] || '').filter(Boolean)
       : [];
   }
 }

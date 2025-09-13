@@ -4,6 +4,7 @@ import {
   AppearanceKey,
   ComponentKeys
 } from "../../props";
+import { ModeKeys } from "../../props/mode";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
@@ -49,7 +50,7 @@ export class ShadowAppearanceTheme extends BaseTheme implements Record<Appearanc
 
     return shadow === undefined || shadow === 'noShadow'
       ? []
-      : ComponentKeys.mode.map(mode => this[appearance]?.[size]?.[mode] ?? "");
+      : ModeKeys.mode.map(mode => this[appearance]?.[size]?.[mode] ?? "");
   }
 
   static createUITheme(): ShadowAppearanceTheme {
