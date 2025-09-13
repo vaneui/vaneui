@@ -1,150 +1,150 @@
 @theme inline {
     /* Text Colors */
-    --color-text-default: var(--color-gray-900, #111827);
-    --color-text-primary: var(--color-blue-600, #2563eb);
-    --color-text-secondary: var(--color-gray-600, #4b5563);
-    --color-text-tertiary: var(--color-gray-500, #6b7280);
-    --color-text-link: var(--color-blue-600, #2563eb);
-    --color-text-accent: var(--color-rose-700, #be123c);
-    --color-text-success: var(--color-emerald-600, #059669);
-    --color-text-danger: var(--color-red-600, #dc2626);
-    --color-text-warning: var(--color-amber-600, #d97706);
-    --color-text-info: var(--color-cyan-600, #0891b2);
+    --color-text-default: var(--color-gray-900);
+    --color-text-primary: var(--color-blue-600);
+    --color-text-secondary: var(--color-gray-600);
+    --color-text-tertiary: var(--color-gray-500);
+    --color-text-link: var(--color-blue-600);
+    --color-text-accent: var(--color-rose-700);
+    --color-text-success: var(--color-emerald-600);
+    --color-text-danger: var(--color-red-600);
+    --color-text-warning: var(--color-amber-600);
+    --color-text-info: var(--color-cyan-600);
 
     /* Filled Text Colors */
-    --color-text-filled-default: #ffffff;
-    --color-text-filled-primary: var(--color-blue-100, #dbeafe);
-    --color-text-filled-secondary: var(--color-gray-100, #f3f4f6);
-    --color-text-filled-tertiary: var(--color-gray-200, #e5e7eb);
-    --color-text-filled-link: var(--color-blue-100, #dbeafe);
-    --color-text-filled-accent: var(--color-rose-100, #ffe4e6);
-    --color-text-filled-success: var(--color-emerald-100, #d1fae5);
-    --color-text-filled-danger: var(--color-red-100, #fee2e2);
-    --color-text-filled-warning: var(--color-amber-100, #fef3c7);
-    --color-text-filled-info: var(--color-cyan-100, #cffafe);
+    --color-text-filled-default: var(--color-white);
+    --color-text-filled-primary: var(--color-blue-100);
+    --color-text-filled-secondary: var(--color-gray-200);
+    --color-text-filled-tertiary: var(--color-gray-300);
+    --color-text-filled-link: var(--color-blue-100);
+    --color-text-filled-accent: var(--color-rose-100);
+    --color-text-filled-success: var(--color-emerald-100);
+    --color-text-filled-danger: var(--color-red-100);
+    --color-text-filled-warning: var(--color-amber-100);
+    --color-text-filled-info: var(--color-cyan-100);
     --color-text-filled-transparent: transparent;
 
     /* UI Background Colors */
-    --color-bg-default: var(--color-white, #ffffff);
-    --color-bg-primary: var(--color-blue-50, #eff6ff);
-    --color-bg-secondary: var(--color-gray-50, #f9fafb);
-    --color-bg-tertiary: var(--color-gray-100, #f3f4f6);
-    --color-bg-accent: var(--color-rose-50, #fff1f2);
-    --color-bg-success: var(--color-emerald-50, #ecfdf5);
-    --color-bg-danger: var(--color-red-50, #fef2f2);
-    --color-bg-warning: var(--color-amber-50, #fffbeb);
-    --color-bg-info: var(--color-cyan-50, #ecfeff);
-    --color-bg-link: var(--color-blue-50, #eff6ff);
+    --color-bg-default: var(--color-white);
+    --color-bg-primary: var(--color-blue-50);
+    --color-bg-secondary: var(--color-gray-50);
+    --color-bg-tertiary: var(--color-gray-100);
+    --color-bg-accent: var(--color-rose-50);
+    --color-bg-success: var(--color-emerald-50);
+    --color-bg-danger: var(--color-red-50);
+    --color-bg-warning: var(--color-amber-50);
+    --color-bg-info: var(--color-cyan-50);
+    --color-bg-link: var(--color-blue-50);
 
     /* UI Background Hover Colors */
-    --color-bg-hover-default: var(--color-gray-50, #f9fafb);
-    --color-bg-hover-primary: var(--color-blue-100, #dbeafe);
-    --color-bg-hover-secondary: var(--color-gray-100, #f3f4f6);
-    --color-bg-hover-tertiary: var(--color-gray-200, #e5e7eb);
-    --color-bg-hover-accent: var(--color-rose-100, #ffe4e6);
-    --color-bg-hover-success: var(--color-emerald-100, #d1fae5);
-    --color-bg-hover-danger: var(--color-red-100, #fee2e2);
-    --color-bg-hover-warning: var(--color-amber-100, #fef3c7);
-    --color-bg-hover-info: var(--color-cyan-100, #cffafe);
-    --color-bg-hover-link: var(--color-blue-100, #dbeafe);
+    --color-bg-hover-default: var(--color-gray-50);
+    --color-bg-hover-primary: var(--color-blue-100);
+    --color-bg-hover-secondary: var(--color-gray-100);
+    --color-bg-hover-tertiary: var(--color-gray-200);
+    --color-bg-hover-accent: var(--color-rose-100);
+    --color-bg-hover-success: var(--color-emerald-100);
+    --color-bg-hover-danger: var(--color-red-100);
+    --color-bg-hover-warning: var(--color-amber-100);
+    --color-bg-hover-info: var(--color-cyan-100);
+    --color-bg-hover-link: var(--color-blue-100);
 
     /* UI Background Active Colors */
-    --color-bg-active-default: var(--color-gray-100, #e5e7eb);
-    --color-bg-active-primary: var(--color-blue-200, #bfdbfe);
-    --color-bg-active-secondary: var(--color-gray-200, #e5e7eb);
-    --color-bg-active-tertiary: var(--color-gray-300, #d1d5db);
-    --color-bg-active-accent: var(--color-rose-200, #fecdd3);
-    --color-bg-active-success: var(--color-emerald-200, #a7f3d0);
-    --color-bg-active-danger: var(--color-red-200, #fecaca);
-    --color-bg-active-warning: var(--color-amber-200, #fde68a);
-    --color-bg-active-info: var(--color-cyan-200, #a5f3fc);
-    --color-bg-active-link: var(--color-blue-200, #bfdbfe);
+    --color-bg-active-default: var(--color-gray-100);
+    --color-bg-active-primary: var(--color-blue-200);
+    --color-bg-active-secondary: var(--color-gray-200);
+    --color-bg-active-tertiary: var(--color-gray-300);
+    --color-bg-active-accent: var(--color-rose-200);
+    --color-bg-active-success: var(--color-emerald-200);
+    --color-bg-active-danger: var(--color-red-200);
+    --color-bg-active-warning: var(--color-amber-200);
+    --color-bg-active-info: var(--color-cyan-200);
+    --color-bg-active-link: var(--color-blue-200);
 
     /* Filled UI Background Colors */
-    --color-bg-filled-default: var(--color-gray-800, #1f2937);
-    --color-bg-filled-primary: var(--color-blue-600, #2563eb);
-    --color-bg-filled-secondary: var(--color-gray-600, #4b5563);
-    --color-bg-filled-tertiary: var(--color-gray-500, #6b7280);
-    --color-bg-filled-accent: var(--color-rose-600, #e11d48);
-    --color-bg-filled-success: var(--color-emerald-600, #059669);
-    --color-bg-filled-danger: var(--color-red-600, #dc2626);
-    --color-bg-filled-warning: var(--color-amber-600, #d97706);
-    --color-bg-filled-info: var(--color-cyan-600, #0891b2);
-    --color-bg-filled-link: var(--color-blue-600, #2563eb);
+    --color-bg-filled-default: var(--color-gray-800);
+    --color-bg-filled-primary: var(--color-blue-600);
+    --color-bg-filled-secondary: var(--color-gray-600);
+    --color-bg-filled-tertiary: var(--color-gray-500);
+    --color-bg-filled-accent: var(--color-rose-600);
+    --color-bg-filled-success: var(--color-emerald-600);
+    --color-bg-filled-danger: var(--color-red-600);
+    --color-bg-filled-warning: var(--color-amber-600);
+    --color-bg-filled-info: var(--color-cyan-600);
+    --color-bg-filled-link: var(--color-blue-600);
 
     /* Filled UI Hover Background Colors */
-    --color-bg-filled-hover-default: var(--color-gray-900, #111827);
-    --color-bg-filled-hover-primary: var(--color-blue-700, #1d4ed8);
-    --color-bg-filled-hover-secondary: var(--color-gray-700, #374151);
-    --color-bg-filled-hover-tertiary: var(--color-gray-600, #4b5563);
-    --color-bg-filled-hover-accent: var(--color-rose-700, #be123c);
-    --color-bg-filled-hover-success: var(--color-emerald-700, #047857);
-    --color-bg-filled-hover-danger: var(--color-red-700, #b91c1c);
-    --color-bg-filled-hover-warning: var(--color-amber-700, #b45309);
-    --color-bg-filled-hover-info: var(--color-cyan-700, #0e7490);
-    --color-bg-filled-hover-link: var(--color-blue-700, #1d4ed8);
+    --color-bg-filled-hover-default: var(--color-gray-900);
+    --color-bg-filled-hover-primary: var(--color-blue-700);
+    --color-bg-filled-hover-secondary: var(--color-gray-700);
+    --color-bg-filled-hover-tertiary: var(--color-gray-600);
+    --color-bg-filled-hover-accent: var(--color-rose-700);
+    --color-bg-filled-hover-success: var(--color-emerald-700);
+    --color-bg-filled-hover-danger: var(--color-red-700);
+    --color-bg-filled-hover-warning: var(--color-amber-700);
+    --color-bg-filled-hover-info: var(--color-cyan-700);
+    --color-bg-filled-hover-link: var(--color-blue-700);
 
     /* Filled UI Active Background Colors */
-    --color-bg-filled-active-default: var(--color-gray-950, #030712);
-    --color-bg-filled-active-primary: var(--color-blue-800, #1e40af);
-    --color-bg-filled-active-secondary: var(--color-gray-800, #1f2937);
-    --color-bg-filled-active-tertiary: var(--color-gray-700, #374151);
-    --color-bg-filled-active-accent: var(--color-rose-800, #9f1239);
-    --color-bg-filled-active-success: var(--color-emerald-800, #065f46);
-    --color-bg-filled-active-danger: var(--color-red-800, #991b1b);
-    --color-bg-filled-active-warning: var(--color-amber-800, #92400e);
-    --color-bg-filled-active-info: var(--color-cyan-800, #155e75);
-    --color-bg-filled-active-link: var(--color-blue-800, #1e40af);
+    --color-bg-filled-active-default: var(--color-gray-950);
+    --color-bg-filled-active-primary: var(--color-blue-800);
+    --color-bg-filled-active-secondary: var(--color-gray-800);
+    --color-bg-filled-active-tertiary: var(--color-gray-700);
+    --color-bg-filled-active-accent: var(--color-rose-800);
+    --color-bg-filled-active-success: var(--color-emerald-800);
+    --color-bg-filled-active-danger: var(--color-red-800);
+    --color-bg-filled-active-warning: var(--color-amber-800);
+    --color-bg-filled-active-info: var(--color-cyan-800);
+    --color-bg-filled-active-link: var(--color-blue-800);
 
     /* Layout Background Colors */
-    --color-bg-layout-default: var(--color-white, #ffffff);
-    --color-bg-layout-primary: var(--color-white, #ffffff);
-    --color-bg-layout-secondary: var(--color-gray-50, #f9fafb);
-    --color-bg-layout-tertiary: var(--color-gray-100, #f3f4f6);
-    --color-bg-layout-accent: var(--color-indigo-50, #eef2ff);
-    --color-bg-layout-success: var(--color-green-50, #f0fdf4);
-    --color-bg-layout-danger: var(--color-red-50, #fef2f2);
-    --color-bg-layout-warning: var(--color-yellow-50, #fefce8);
-    --color-bg-layout-info: var(--color-blue-50, #eff6ff);
+    --color-bg-layout-default: var(--color-white);
+    --color-bg-layout-primary: var(--color-white);
+    --color-bg-layout-secondary: var(--color-gray-50);
+    --color-bg-layout-tertiary: var(--color-gray-100);
+    --color-bg-layout-accent: var(--color-indigo-50);
+    --color-bg-layout-success: var(--color-green-50);
+    --color-bg-layout-danger: var(--color-red-50);
+    --color-bg-layout-warning: var(--color-yellow-50);
+    --color-bg-layout-info: var(--color-blue-50);
     --color-bg-layout-transparent: transparent;
-    --color-bg-layout-link: var(--color-blue-50, #eff6ff);
+    --color-bg-layout-link: var(--color-blue-50);
 
     /* Layout Filled Background Colors */
-    --color-bg-filled-layout-default: var(--color-gray-800, #1f2937);
-    --color-bg-filled-layout-primary: var(--color-blue-800, #1e40af);
-    --color-bg-filled-layout-secondary: var(--color-gray-900, #111827);
-    --color-bg-filled-layout-tertiary: var(--color-gray-800, #1f2937);
-    --color-bg-filled-layout-accent: var(--color-indigo-800, #3730a3);
-    --color-bg-filled-layout-success: var(--color-green-800, #166534);
-    --color-bg-filled-layout-danger: var(--color-red-800, #991b1b);
-    --color-bg-filled-layout-warning: var(--color-yellow-800, #854d0e);
-    --color-bg-filled-layout-info: var(--color-blue-800, #2563eb);
+    --color-bg-filled-layout-default: var(--color-gray-700);
+    --color-bg-filled-layout-primary: var(--color-blue-800);
+    --color-bg-filled-layout-secondary: var(--color-gray-800);
+    --color-bg-filled-layout-tertiary: var(--color-gray-900);
+    --color-bg-filled-layout-accent: var(--color-indigo-800);
+    --color-bg-filled-layout-success: var(--color-green-800);
+    --color-bg-filled-layout-danger: var(--color-red-800);
+    --color-bg-filled-layout-warning: var(--color-yellow-800);
+    --color-bg-filled-layout-info: var(--color-blue-800);
     --color-bg-filled-layout-transparent: transparent;
-    --color-bg-filled-layout-link: var(--color-blue-800, #2563eb);
+    --color-bg-filled-layout-link: var(--color-blue-800);
 
     /* Border Colors */
-    --color-border-default: var(--color-gray-200, #d1d5db);
-    --color-border-primary: var(--color-blue-200, #bfdbfe);
-    --color-border-secondary: var(--color-gray-200, #d1d5db);
-    --color-border-tertiary: var(--color-gray-300, #e5e7eb);
-    --color-border-link: var(--color-blue-200, #bfdbfe);
-    --color-border-accent: var(--color-rose-200, #fecdd3);
-    --color-border-success: var(--color-emerald-200, #a7f3d0);
-    --color-border-danger: var(--color-red-200, #fecaca);
-    --color-border-warning: var(--color-amber-200, #fde68a);
-    --color-border-info: var(--color-cyan-200, #a5f3fc);
+    --color-border-default: var(--color-gray-200);
+    --color-border-primary: var(--color-blue-200);
+    --color-border-secondary: var(--color-gray-200);
+    --color-border-tertiary: var(--color-gray-300);
+    --color-border-link: var(--color-blue-200);
+    --color-border-accent: var(--color-rose-200);
+    --color-border-success: var(--color-green-200);
+    --color-border-danger: var(--color-red-200);
+    --color-border-warning: var(--color-yellow-200);
+    --color-border-info: var(--color-blue-200);
 
     /* Filled Button Border Colors */
-    --color-border-filled-default: var(--color-gray-800, #1f2937);
-    --color-border-filled-primary: var(--color-blue-600, #2563eb);
-    --color-border-filled-secondary: var(--color-gray-600, #4b5563);
-    --color-border-filled-tertiary: var(--color-gray-500, #6b7280);
-    --color-border-filled-accent: var(--color-rose-600, #e11d48);
-    --color-border-filled-success: var(--color-emerald-600, #059669);
-    --color-border-filled-danger: var(--color-red-600, #dc2626);
-    --color-border-filled-warning: var(--color-amber-600, #d97706);
-    --color-border-filled-info: var(--color-cyan-600, #0891b2);
-    --color-border-filled-link: var(--color-blue-600, #2563eb);
+    --color-border-filled-default: var(--color-gray-900);
+    --color-border-filled-primary: var(--color-blue-900);
+    --color-border-filled-secondary: var(--color-gray-900);
+    --color-border-filled-tertiary: var(--color-gray-950);
+    --color-border-filled-accent: var(--color-rose-900);
+    --color-border-filled-success: var(--color-green-900);
+    --color-border-filled-danger: var(--color-red-900);
+    --color-border-filled-warning: var(--color-yellow-900);
+    --color-border-filled-info: var(--color-blue-900);
+    --color-border-filled-link: var(--color-blue-900);
 
     /* UI Component Border Radius Sizes */
     --ui-br-xs: 0.125rem;

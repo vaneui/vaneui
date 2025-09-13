@@ -11,6 +11,7 @@ import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
+import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
@@ -33,12 +34,14 @@ export interface ChipTheme extends BaseTypographyComponentTheme {
     text: GenericVariantTheme<AppearanceTheme>;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
+    focusVisible: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
     radius: RadiusTheme;
     border: BorderTheme;
     ring: RingTheme;
+    focusVisible: FocusVisibleTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
   };
@@ -59,6 +62,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
       text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
+      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme()
     },
     layout: {
@@ -66,6 +70,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
       radius: RadiusTheme.createUITheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
+      focusVisible: new FocusVisibleTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },

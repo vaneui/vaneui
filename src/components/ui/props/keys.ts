@@ -10,6 +10,8 @@ export const BREAKPOINT = ['breakpoint'] as const;
 export const VISUAL_CORE = ['appearance', 'transparent'] as const;
 /** Visual decoration properties for borders, shadows, and focus rings */
 export const VISUAL_DECORATION = ['border', 'shadow', 'ring', 'focusVisible'] as const;
+/** Layout-specific visual decoration (excluding focusVisible for non-interactive elements) */
+export const VISUAL_DECORATION_LAYOUT = ['border', 'shadow', 'ring'] as const;
 /** Shape properties for border radius and corner rounding */
 export const SHAPE = ['shape'] as const;
 /** Typography styling properties for text appearance and formatting */
@@ -219,6 +221,8 @@ export type FocusVisibleKey = typeof ComponentKeys.focusVisible[number];
 export const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
 /** Complete visual category including core, decoration, and shape properties */
 export const VISUAL_FULL = [...VISUAL_CORE, ...VISUAL_DECORATION, ...SHAPE] as const;
+/** Layout-specific visual category (excludes focusVisible for non-interactive elements) */
+export const VISUAL_LAYOUT = [...VISUAL_CORE, ...VISUAL_DECORATION_LAYOUT, ...SHAPE] as const;
 /** Complete typography category for text styling */
 export const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE] as const;
 
@@ -243,19 +247,19 @@ export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LIST_STYLE, ...LAYOUT_COR
 /** Categories for grid layout components */
 export const GRID_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_CORE, ...VARIANT] as const;
 /** Categories for container layout components */
-export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...VARIANT] as const;
+export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...VARIANT] as const;
 /** Categories for column layout components */
-export const COL_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...VARIANT] as const;
+export const COL_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...VARIANT] as const;
 /** Categories for row layout components with responsive breakpoints */
-export const ROW_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_FULL, ...VARIANT] as const;
+export const ROW_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_LAYOUT, ...VARIANT] as const;
 /** Categories for stack layout components with responsive and padding support */
-export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_FULL, ...VARIANT] as const;
+export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_LAYOUT, ...VARIANT] as const;
 /** Categories for card components with full typography and layout support */
-export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_FULL, ...PADDING, ...VARIANT] as const;
+export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_LAYOUT, ...PADDING, ...VARIANT] as const;
 /** Categories for divider components with basic layout and visual properties */
 export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
 /** Categories for section layout components with full responsive support */
-export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...PADDING, ...BREAKPOINT, ...VARIANT] as const;
+export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...BREAKPOINT, ...VARIANT] as const;
 
 /** Form component categories */
 /** Categories for checkbox form components */

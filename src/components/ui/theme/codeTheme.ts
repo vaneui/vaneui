@@ -19,6 +19,7 @@ import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
+import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { CODE_CATEGORIES } from "../props";
 
 export interface CodeTheme extends BaseTypographyComponentTheme {
@@ -33,12 +34,14 @@ export interface CodeTheme extends BaseTypographyComponentTheme {
     text: GenericVariantTheme<AppearanceTheme>;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
+    focusVisible: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
     radius: RadiusTheme;
     border: BorderTheme;
     ring: RingTheme;
+    focusVisible: FocusVisibleTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
   };
@@ -59,6 +62,7 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
       text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
+      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme()
     },
     layout: {
@@ -66,6 +70,7 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
       radius: RadiusTheme.createUITheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
+      focusVisible: new FocusVisibleTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },

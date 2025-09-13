@@ -16,6 +16,7 @@ import { CHECKBOX_CATEGORIES } from "../props";
 import { textSizeClasses } from "../classes/typographyClasses";
 import { ReactElement } from "react";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 
 export interface CheckboxTheme extends BaseComponentTheme {
   size: {
@@ -25,6 +26,7 @@ export interface CheckboxTheme extends BaseComponentTheme {
   layout: DefaultLayoutThemes & {
     border: BorderTheme;
     ring: RingTheme;
+    focusVisible: FocusVisibleTheme;
     radius: RadiusTheme;
   };
   appearance: {
@@ -32,6 +34,7 @@ export interface CheckboxTheme extends BaseComponentTheme {
     background: GenericVariantTheme<AppearanceTheme>;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
+    focusVisible: GenericVariantTheme<AppearanceTheme>;
     check: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
@@ -55,6 +58,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
+      focusVisible: new FocusVisibleTheme(),
       radius: RadiusTheme.createUITheme({
         xs: 'rounded-(--ui-br-xs)',
         sm: 'rounded-(--ui-br-xs)',
@@ -67,6 +71,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       border: GenericVariantTheme.createUIElementBorderTheme(),
       background: GenericVariantTheme.createCheckboxBgAppearanceTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
+      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme(),
       check: GenericVariantTheme.createCheckedAppearanceTheme(),
       shadow: GenericVariantTheme.createUIElementShadowTheme(),
     }
@@ -79,8 +84,11 @@ export interface CheckTheme extends BaseComponentTheme {
   checkElement: () => ReactElement;
   appearance: {
     color: GenericVariantTheme<AppearanceTheme>;
+    focusVisible: GenericVariantTheme<AppearanceTheme>;
   };
-  layout: DefaultLayoutThemes;
+  layout: DefaultLayoutThemes & {
+    focusVisible: FocusVisibleTheme;
+  };
 }
 
 export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
@@ -99,9 +107,13 @@ export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
         />
       </svg>,
     appearance: {
-      color: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent()
+      color: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
+      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme()
     },
-    layout: defaultLayoutsThemes,
+    layout: {
+      ...defaultLayoutsThemes,
+      focusVisible: new FocusVisibleTheme()
+    },
   },
   themeDefaults.checkbox?.check || {},
   CHECKBOX_CATEGORIES
@@ -111,9 +123,12 @@ export interface CheckboxWrapperTheme extends BaseComponentTheme {
   size: {
     height: SizeTheme;
   };
-  layout: DefaultLayoutThemes;
+  layout: DefaultLayoutThemes & {
+    focusVisible: FocusVisibleTheme;
+  };
   appearance: {
     variant: GenericVariantTheme<AppearanceTheme>;
+    focusVisible: GenericVariantTheme<AppearanceTheme>;
   };
 }
 
@@ -130,9 +145,13 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
         xl: 'h-7'
       })
     },
-    layout: defaultLayoutsThemes,
+    layout: {
+      ...defaultLayoutsThemes,
+      focusVisible: new FocusVisibleTheme()
+    },
     appearance: {
-      variant: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme()
+      variant: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
+      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme()
     }
   },
   themeDefaults.checkbox?.wrapper || {},

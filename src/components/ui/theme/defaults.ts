@@ -20,6 +20,7 @@ export const themeDefaults: ThemeDefaults = {
     padding: true,
     ring: true,
     shadow: true,
+    focusVisible: true,
   },
 
   card: {
@@ -221,6 +222,7 @@ export const themeDefaults: ThemeDefaults = {
       noRing: true,
       noShadow: true,
       filled: true,
+      focusVisible: true,
     },
     check: {
       default: true,

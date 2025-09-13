@@ -39,6 +39,7 @@ describe('Theme structure consistency', () => {
       checkbox: { input: {}, check: {}, wrapper: {} },
       label: {},
       img: {},
+      input: {},
     };
 
     // At runtime, also ensure the keys align with COMPONENT

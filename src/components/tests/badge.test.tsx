@@ -165,7 +165,7 @@ describe('Badge Component Tests', () => {
 
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass('border-(--color-border-primary)'); // outline variant shows border
+      expect(badge).toHaveClass('ring-(--color-border-primary)'); // outline variant shows ring
     });
   });
 

@@ -111,7 +111,7 @@ describe('Code Component', () => {
       
       expect(codeElement).toHaveClass('bg-(--color-bg-primary)');
       expect(codeElement).toHaveClass('text-(--color-text-primary)');
-      expect(codeElement).toHaveClass('border-(--color-border-primary)');
+      expect(codeElement).toHaveClass('ring-(--color-border-primary)');
     });
 
     it('should apply secondary appearance', () => {
@@ -120,7 +120,7 @@ describe('Code Component', () => {
       
       expect(codeElement).toHaveClass('bg-(--color-bg-secondary)');
       expect(codeElement).toHaveClass('text-(--color-text-secondary)');
-      expect(codeElement).toHaveClass('border-(--color-border-secondary)');
+      expect(codeElement).toHaveClass('ring-(--color-border-secondary)');
     });
 
     it('should apply success appearance', () => {
@@ -129,7 +129,7 @@ describe('Code Component', () => {
       
       expect(codeElement).toHaveClass('bg-(--color-bg-success)');
       expect(codeElement).toHaveClass('text-(--color-text-success)');
-      expect(codeElement).toHaveClass('border-(--color-border-success)');
+      expect(codeElement).toHaveClass('ring-(--color-border-success)');
     });
 
     it('should apply danger appearance', () => {
@@ -138,7 +138,7 @@ describe('Code Component', () => {
       
       expect(codeElement).toHaveClass('bg-(--color-bg-danger)');
       expect(codeElement).toHaveClass('text-(--color-text-danger)');
-      expect(codeElement).toHaveClass('border-(--color-border-danger)');
+      expect(codeElement).toHaveClass('ring-(--color-border-danger)');
     });
   });
 
