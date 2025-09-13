@@ -23,7 +23,6 @@ export interface GridTheme extends BaseComponentTheme {
   };
 }
 
-
 const gridSubThemes: DeepPartial<GridTheme> = {
   size: {
     gap: new GapTheme({
@@ -72,6 +71,28 @@ export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
   "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   gridSubThemes,
   themeDefaults.grid4 as Partial<GridProps>,
+  GRID_CATEGORIES,
+  (props: GridProps) => {
+    return props.href ? "a" : "div";
+  }
+);
+
+export const defaultGrid5Theme = new ComponentTheme<GridProps, GridTheme>(
+  "div",
+  "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5",
+  gridSubThemes,
+  themeDefaults.grid5 as Partial<GridProps>,
+  GRID_CATEGORIES,
+  (props: GridProps) => {
+    return props.href ? "a" : "div";
+  }
+);
+
+export const defaultGrid6Theme = new ComponentTheme<GridProps, GridTheme>(
+  "div",
+  "grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6",
+  gridSubThemes,
+  themeDefaults.grid6 as Partial<GridProps>,
   GRID_CATEGORIES,
   (props: GridProps) => {
     return props.href ? "a" : "div";

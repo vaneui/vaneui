@@ -280,7 +280,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -298,6 +298,8 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   grid2: GRID_CATEGORIES,
   grid3: GRID_CATEGORIES,
   grid4: GRID_CATEGORIES,
+  grid5: GRID_CATEGORIES,
+  grid6: GRID_CATEGORIES,
   img: IMG_CATEGORIES,
   input: INPUT_CATEGORIES,
   label: LABEL_CATEGORIES,

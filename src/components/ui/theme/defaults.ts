@@ -139,6 +139,18 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
   },
 
+  grid5: {
+    md: true,
+    grid: true,
+    gap: true,
+  },
+
+  grid6: {
+    md: true,
+    grid: true,
+    gap: true,
+  },
+
   divider: {
     md: true,
     default: true,

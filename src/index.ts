@@ -7,7 +7,7 @@ export { Checkbox } from "./components/ui/checkbox";
 export { Label } from "./components/ui/label";
 export { Img } from "./components/ui/img";
 export { Input } from "./components/ui/input";
-export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Card } from "./components/ui/layout";
+export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card } from "./components/ui/layout";
 export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle } from "./components/ui/typography";
 export {
   COMPONENT,
