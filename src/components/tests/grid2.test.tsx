@@ -226,24 +226,6 @@ describe('Grid2 Component Tests', () => {
       expect(section).toHaveClass('grid-cols-1', 'md:grid-cols-2');
     });
 
-    it('should render as anchor when href prop is provided', () => {
-      const { container } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Grid2 href="/grid-link">
-            <div>Item 1</div>
-            <div>Item 2</div>
-          </Grid2>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      const div = container.querySelector('div div'); // nested div inside anchor
-      
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/grid-link');
-      expect(anchor).toHaveClass('grid-cols-1', 'md:grid-cols-2');
-      expect(div).toBeInTheDocument(); // children should render inside anchor
-    });
 
     it('should support accessibility attributes', () => {
       const { container } = render(

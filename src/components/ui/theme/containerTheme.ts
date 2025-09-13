@@ -66,7 +66,4 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
   },
   themeDefaults.container as Partial<ContainerProps>,
   CONTAINER_CATEGORIES,
-  (props: ContainerProps) => {
-    return props.href ? "a" : "div";
-  }
 );

@@ -259,27 +259,6 @@ describe('Grid5 Component Tests', () => {
       expect(section).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-3', 'lg:grid-cols-5');
     });
 
-    it('should render as anchor when href prop is provided', () => {
-      const { container } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Grid5 href="/grid-link">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-            <div>Item 4</div>
-            <div>Item 5</div>
-          </Grid5>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      const div = container.querySelector('a div'); // nested div inside anchor
-      
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/grid-link');
-      expect(anchor).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-3', 'lg:grid-cols-5');
-      expect(div).toBeInTheDocument(); // children should render inside anchor
-    });
 
     it('should support accessibility attributes', () => {
       const { container } = render(

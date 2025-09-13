@@ -72,26 +72,19 @@ export type BadgeProps<E extends React.ElementType = "span"> =
 export type ChipProps<E extends React.ElementType = "span"> = 
   TagOrHref<E, Base & Cats<typeof CHIP_CATEGORIES>>;
 
-export type GridProps<E extends React.ElementType = "div"> = 
-  TagOrHref<E, Base & Cats<typeof GRID_CATEGORIES>>;
+export type GridProps = (Base & React.HTMLAttributes<HTMLDivElement>) & Cats<typeof GRID_CATEGORIES> & { tag?: React.ElementType };
 
-export type RowProps<E extends React.ElementType = "div"> = 
-  TagOrHref<E, Base & Cats<typeof ROW_CATEGORIES>>;
+export type RowProps = (Base & React.HTMLAttributes<HTMLDivElement>) & Cats<typeof ROW_CATEGORIES> & { tag?: React.ElementType };
 
-export type ColProps<E extends React.ElementType = "div"> = 
-  TagOrHref<E, Base & Cats<typeof COL_CATEGORIES>>;
+export type ColProps = (Base & React.HTMLAttributes<HTMLDivElement>) & Cats<typeof COL_CATEGORIES> & { tag?: React.ElementType };
 
-export type CardProps<E extends React.ElementType = "div"> = 
-  TagOrHref<E, Base & Cats<typeof CARD_CATEGORIES>>;
+export type CardProps = (Base & React.HTMLAttributes<HTMLDivElement>) & Cats<typeof CARD_CATEGORIES> & { tag?: React.ElementType };
 
-export type StackProps<E extends React.ElementType = "div"> = 
-  TagOrHref<E, Base & Cats<typeof STACK_CATEGORIES>>;
+export type StackProps = (Base & React.HTMLAttributes<HTMLDivElement>) & Cats<typeof STACK_CATEGORIES> & { tag?: React.ElementType };
 
-export type SectionProps<E extends React.ElementType = "div"> = 
-  TagOrHref<E, Base & Cats<typeof SECTION_CATEGORIES>>;
+export type SectionProps = (Base & React.HTMLAttributes<HTMLDivElement>) & Cats<typeof SECTION_CATEGORIES> & { tag?: React.ElementType };
 
-export type ContainerProps<E extends React.ElementType = "div"> = 
-  TagOrHref<E, Base & Cats<typeof CONTAINER_CATEGORIES>>;
+export type ContainerProps = (Base & React.HTMLAttributes<HTMLDivElement>) & Cats<typeof CONTAINER_CATEGORIES> & { tag?: React.ElementType };
 
 export type TypographyProps<E extends React.ElementType = "span"> = 
   TagOrHref<E, Base & Cats<typeof TYPOGRAPHY_CATEGORIES>>;

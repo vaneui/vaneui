@@ -59,9 +59,5 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
     }
   },
   themeDefaults.row as Partial<RowProps>,
-  ROW_CATEGORIES,
-  (props: RowProps) => {
-    // Determine tag based on href prop
-    return props.href ? "a" : "div";
-  }
+  ROW_CATEGORIES
 );
