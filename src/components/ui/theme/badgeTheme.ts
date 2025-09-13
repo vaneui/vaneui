@@ -1,7 +1,7 @@
 import {
   BaseTypographyComponentTheme,
-  ComponentTheme, defaultLayoutTheme,
-  DefaultLayoutThemes, defaultTypographyTheme
+  ComponentTheme, defaultLayoutsThemes,
+  DefaultLayoutThemes, defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { BadgeProps } from "../props";
 import { themeDefaults } from "./defaults";
@@ -10,6 +10,7 @@ import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
+import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -31,11 +32,13 @@ export interface BadgeTheme extends BaseTypographyComponentTheme {
     text: GenericVariantTheme<AppearanceTheme>;
     border: GenericVariantTheme<AppearanceTheme>;
     ring: GenericVariantTheme<AppearanceTheme>;
+    focusVisible: GenericVariantTheme<AppearanceTheme>;
     shadow: GenericVariantTheme<ShadowAppearanceTheme>;
   };
   layout: DefaultLayoutThemes & {
     border: BorderTheme;
     ring: RingTheme;
+    focusVisible: FocusVisibleTheme;
     radius: RadiusTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
@@ -54,20 +57,22 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
+      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme()
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
+      focusVisible: new FocusVisibleTheme(),
       radius: RadiusTheme.createUITheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
   },
   themeDefaults.badge as Partial<BadgeProps>,
   BADGE_CATEGORIES,

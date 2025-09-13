@@ -29,6 +29,8 @@ describe('Theme structure consistency', () => {
       grid2: {},
       grid3: {},
       grid4: {},
+      grid5: {},
+      grid6: {},
       pageTitle: {},
       sectionTitle: {},
       title: {},
@@ -39,6 +41,7 @@ describe('Theme structure consistency', () => {
       checkbox: { input: {}, check: {}, wrapper: {} },
       label: {},
       img: {},
+      input: {},
     };
 
     // At runtime, also ensure the keys align with COMPONENT

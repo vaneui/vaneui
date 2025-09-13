@@ -25,7 +25,7 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('flex'); // flex by default
       expect(label).toHaveClass('gap-2.5'); // default gap
       expect(label).toHaveClass('text-base'); // md size default
-      expect(label).not.toHaveClass('text-(--text-color-default)'); // no default appearance
+      expect(label).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(label).toHaveClass('font-sans');
       expect(label).toHaveClass('font-medium');
       expect(label).toHaveTextContent('Label text');
@@ -140,7 +140,7 @@ describe('Label Component Tests', () => {
         );
 
         const label = container.querySelector('label');
-        expect(label).toHaveClass(`text-(--text-color-${appearance})`);
+        expect(label).toHaveClass(`text-(--color-text-${appearance})`);
       });
     });
 
@@ -245,8 +245,8 @@ describe('Label Component Tests', () => {
       const outlineLabel = outlineContainer.querySelector('label');
       const filledLabel = filledContainer.querySelector('label');
 
-      expect(outlineLabel).toHaveClass('text-(--text-color-primary)');
-      expect(filledLabel).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineLabel).toHaveClass('text-(--color-text-primary)');
+      expect(filledLabel).toHaveClass('text-(--color-text-filled-primary)');
     });
 
     it('should support transparent appearance', () => {
@@ -268,7 +268,7 @@ describe('Label Component Tests', () => {
       );
 
       const label = container.querySelector('label');
-      expect(label).toHaveClass('text-(--text-color-link)');
+      expect(label).toHaveClass('text-(--color-text-link)');
     });
 
     it('should support custom className', () => {

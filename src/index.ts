@@ -6,13 +6,15 @@ export { Code } from "./components/ui/code";
 export { Checkbox } from "./components/ui/checkbox";
 export { Label } from "./components/ui/label";
 export { Img } from "./components/ui/img";
-export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Card } from "./components/ui/layout";
+export { Input } from "./components/ui/input";
+export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card } from "./components/ui/layout";
 export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle } from "./components/ui/typography";
 export {
   COMPONENT,
   ComponentKeys,
   ComponentCategories,
   type ComponentKey,
+  // All individual property constants with JSDoc are now exported via separate files
 } from "./components/ui/props/keys";
 
 export {

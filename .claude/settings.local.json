@@ -32,7 +32,10 @@
       "Bash(for:*)",
       "Bash(do echo \"=== $file ===\")",
       "Bash(head:*)",
-      "Bash(done)"
+      "Bash(done)",
+      "WebSearch",
+      "Bash(timeout 10s npm run playground)",
+      "Bash(timeout 5s npm run playground)"
     ],
     "deny": []
   }

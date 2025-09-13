@@ -103,21 +103,6 @@ describe('Linkable Components Tests', () => {
       expect(anchor).not.toBeInTheDocument();
     });
 
-    it('should render as anchor when href prop is provided', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Card href="/card-detail">Clickable Card</Card>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/card-detail');
-      expect(anchor).toHaveTextContent('Clickable Card');
-      
-      const div = container.querySelector('div');
-      expect(div).not.toBeInTheDocument();
-    });
   });
 
   describe('Chip Component', () => {
@@ -169,21 +154,6 @@ describe('Linkable Components Tests', () => {
       expect(anchor).not.toBeInTheDocument();
     });
 
-    it('should render Row as anchor when href prop is provided', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Row href="/row-link">Clickable Row</Row>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/row-link');
-      expect(anchor).toHaveTextContent('Clickable Row');
-      
-      const div = container.querySelector('div');
-      expect(div).not.toBeInTheDocument();
-    });
 
     it('should render Col as div when no href prop is provided', () => {
       const {container} = render(
@@ -200,21 +170,6 @@ describe('Linkable Components Tests', () => {
       expect(anchor).not.toBeInTheDocument();
     });
 
-    it('should render Col as anchor when href prop is provided', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Col href="/column-link">Clickable Column</Col>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/column-link');
-      expect(anchor).toHaveTextContent('Clickable Column');
-      
-      const div = container.querySelector('div');
-      expect(div).not.toBeInTheDocument();
-    });
 
     it('should render Container as div when no href prop is provided', () => {
       const {container} = render(
@@ -231,21 +186,6 @@ describe('Linkable Components Tests', () => {
       expect(anchor).not.toBeInTheDocument();
     });
 
-    it('should render Container as anchor when href prop is provided', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Container href="/container-link">Clickable Container</Container>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/container-link');
-      expect(anchor).toHaveTextContent('Clickable Container');
-      
-      const div = container.querySelector('div');
-      expect(div).not.toBeInTheDocument();
-    });
   });
 
   describe('Grid Components', () => {
@@ -264,21 +204,6 @@ describe('Linkable Components Tests', () => {
       expect(anchor).not.toBeInTheDocument();
     });
 
-    it('should render Grid3 as anchor when href prop is provided', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Grid3 href="/grid-link">Clickable Grid</Grid3>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/grid-link');
-      expect(anchor).toHaveTextContent('Clickable Grid');
-      
-      const div = container.querySelector('div');
-      expect(div).not.toBeInTheDocument();
-    });
 
     it('should render Grid4 as div when no href prop is provided', () => {
       const {container} = render(
@@ -295,21 +220,6 @@ describe('Linkable Components Tests', () => {
       expect(anchor).not.toBeInTheDocument();
     });
 
-    it('should render Grid4 as anchor when href prop is provided', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Grid4 href="/grid4-link">Clickable Grid4</Grid4>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/grid4-link');
-      expect(anchor).toHaveTextContent('Clickable Grid4');
-      
-      const div = container.querySelector('div');
-      expect(div).not.toBeInTheDocument();
-    });
   });
 
   describe('Other Layout Components', () => {
@@ -328,21 +238,6 @@ describe('Linkable Components Tests', () => {
       expect(anchor).not.toBeInTheDocument();
     });
 
-    it('should render Stack as anchor when href prop is provided', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Stack href="/stack-link">Clickable Stack</Stack>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/stack-link');
-      expect(anchor).toHaveTextContent('Clickable Stack');
-      
-      const div = container.querySelector('div');
-      expect(div).not.toBeInTheDocument();
-    });
 
     it('should render Section as div when no href prop is provided', () => {
       const {container} = render(
@@ -359,40 +254,10 @@ describe('Linkable Components Tests', () => {
       expect(anchor).not.toBeInTheDocument();
     });
 
-    it('should render Section as anchor when href prop is provided', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Section href="/section-link">Clickable Section</Section>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/section-link');
-      expect(anchor).toHaveTextContent('Clickable Section');
-      
-      const div = container.querySelector('div');
-      expect(div).not.toBeInTheDocument();
-    });
 
   });
 
   describe('Anchor-specific attributes', () => {
-    it('should support target and rel attributes on linkable components', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Card href="/external" target="_blank" rel="noopener noreferrer">
-            External Card
-          </Card>
-        </ThemeProvider>
-      );
-
-      const anchor = container.querySelector('a');
-      expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveAttribute('href', '/external');
-      expect(anchor).toHaveAttribute('target', '_blank');
-      expect(anchor).toHaveAttribute('rel', 'noopener noreferrer');
-    });
 
     it('should support onClick handlers on linkable components', () => {
       const handleClick = jest.fn();
@@ -422,7 +287,7 @@ describe('Linkable Components Tests', () => {
       expect(anchor).toBeInTheDocument();
       expect(anchor).toHaveAttribute('href', '/chip-link');
       // Should maintain theme classes
-      expect(anchor).toHaveClass('text-(--text-color-primary)');
+      expect(anchor).toHaveClass('text-(--color-text-primary)');
       expect(anchor).toHaveClass('rounded-full');
     });
   });

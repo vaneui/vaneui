@@ -1,4 +1,4 @@
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
@@ -62,13 +62,13 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       border: new BorderTheme(),
@@ -78,7 +78,4 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   },
   themeDefaults.section as Partial<SectionProps>,
   SECTION_CATEGORIES,
-  (props: SectionProps) => {
-    return props.href ? "a" : "div";
-  }
 );

@@ -23,3 +23,17 @@ export const Grid4 = forwardRef<HTMLDivElement, GridProps>(
     return <ThemedComponent theme={theme.grid4} ref={ref} {...props} />
   }
 );
+
+export const Grid5 = forwardRef<HTMLDivElement, GridProps>(
+  function Grid5(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent theme={theme.grid5} ref={ref} {...props} />
+  }
+);
+
+export const Grid6 = forwardRef<HTMLDivElement, GridProps>(
+  function Grid6(props, ref) {
+    const theme = useTheme();
+    return <ThemedComponent theme={theme.grid6} ref={ref} {...props} />
+  }
+);

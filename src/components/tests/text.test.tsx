@@ -21,7 +21,7 @@ describe('Text Component Tests', () => {
       expect(text).toBeInTheDocument();
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
       expect(text).toHaveClass('text-base'); // md size
-      expect(text).not.toHaveClass('text-(--text-color-default)'); // no default appearance
+      expect(text).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(text).toHaveClass('font-sans');
       // No default font weight; variants like medium/bold are opt-in
       expect(text).not.toHaveClass('font-normal');
@@ -102,7 +102,7 @@ describe('Text Component Tests', () => {
         );
 
         const text = container.querySelector('p');
-        expect(text).toHaveClass(`text-(--text-color-${appearance})`);
+        expect(text).toHaveClass(`text-(--color-text-${appearance})`);
       });
     });
 
@@ -122,8 +122,8 @@ describe('Text Component Tests', () => {
       const outlineText = outlineContainer.querySelector('p');
       const filledText = filledContainer.querySelector('p');
 
-      expect(outlineText).toHaveClass('text-(--text-color-primary)');
-      expect(filledText).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineText).toHaveClass('text-(--color-text-primary)');
+      expect(filledText).toHaveClass('text-(--color-text-filled-primary)');
     });
 
     it('should support font weight variants', () => {
@@ -247,7 +247,7 @@ describe('Text Component Tests', () => {
       );
 
       const text = container.querySelector('p');
-      expect(text).toHaveClass('text-(--text-color-link)');
+      expect(text).toHaveClass('text-(--color-text-link)');
     });
 
     it('should support display variants', () => {
@@ -378,7 +378,7 @@ describe('Text Component Tests', () => {
 
       const anchor = container.querySelector('a');
       expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveClass('text-(--text-color-primary)'); // primary color
+      expect(anchor).toHaveClass('text-(--color-text-primary)'); // primary color
       expect(anchor).toHaveClass('font-semibold'); // font weight
       expect(anchor).toHaveClass('text-lg'); // size
       expect(anchor).toHaveClass('font-sans'); // default font family

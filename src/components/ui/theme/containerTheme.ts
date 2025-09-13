@@ -1,5 +1,5 @@
 import { DirectionTheme } from "./layout/directionTheme";
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { ContainerProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
@@ -49,7 +49,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       maxWidth: new SizeTheme({xs: 'max-w-3xl', sm: 'max-w-4xl', md: 'max-w-5xl', lg: 'max-w-6xl', xl: 'max-w-7xl'}),
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
       wrap: new WrapTheme(),
@@ -58,7 +58,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme(),
@@ -66,7 +66,4 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
   },
   themeDefaults.container as Partial<ContainerProps>,
   CONTAINER_CATEGORIES,
-  (props: ContainerProps) => {
-    return props.href ? "a" : "div";
-  }
 );

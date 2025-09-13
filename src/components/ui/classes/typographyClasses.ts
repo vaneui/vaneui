@@ -2,34 +2,33 @@ import {
   SizeKey,
   AppearanceKey,
   TransparentKey,
-  LinkKey,
 } from "../props";
 
-export const filledTextAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
-  default: "text-(--filled-text-color-default)",
-  primary: "text-(--filled-text-color-primary)",
-  secondary: "text-(--filled-text-color-secondary)",
-  tertiary: "text-(--filled-text-color-tertiary)",
-  link: "text-(--filled-text-color-link)",
-  accent: "text-(--filled-text-color-accent)",
-  success: "text-(--filled-text-color-success)",
-  danger: "text-(--filled-text-color-danger)",
-  warning: "text-(--filled-text-color-warning)",
-  info: "text-(--filled-text-color-info)",
-  transparent: "text-(--filled-text-color-transparent)",
+export const filledTextAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
+  default: "text-(--color-text-filled-default)",
+  primary: "text-(--color-text-filled-primary)",
+  secondary: "text-(--color-text-filled-secondary)",
+  tertiary: "text-(--color-text-filled-tertiary)",
+  link: "text-(--color-text-filled-link)",
+  accent: "text-(--color-text-filled-accent)",
+  success: "text-(--color-text-filled-success)",
+  danger: "text-(--color-text-filled-danger)",
+  warning: "text-(--color-text-filled-warning)",
+  info: "text-(--color-text-filled-info)",
+  transparent: "text-transparent",
 }
 
-export const textAppearanceClasses: Record<AppearanceKey | TransparentKey | LinkKey, string> = {
-  default: "text-(--text-color-default)",
-  primary: "text-(--text-color-primary)",
-  secondary: "text-(--text-color-secondary)",
-  tertiary: "text-(--text-color-tertiary)",
-  link: "text-(--text-color-link)",
-  accent: "text-(--text-color-accent)",
-  success: "text-(--text-color-success)",
-  danger: "text-(--text-color-danger)",
-  warning: "text-(--text-color-warning)",
-  info: "text-(--text-color-info)",
+export const textAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
+  default: "text-(--color-text-default)",
+  primary: "text-(--color-text-primary)",
+  secondary: "text-(--color-text-secondary)",
+  tertiary: "text-(--color-text-tertiary)",
+  link: "text-(--color-text-link)",
+  accent: "text-(--color-text-accent)",
+  success: "text-(--color-text-success)",
+  danger: "text-(--color-text-danger)",
+  warning: "text-(--color-text-warning)",
+  info: "text-(--color-text-info)",
   transparent: "text-transparent",
 }
 

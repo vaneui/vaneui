@@ -1,4 +1,4 @@
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { GridProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
@@ -23,7 +23,6 @@ export interface GridTheme extends BaseComponentTheme {
   };
 }
 
-
 const gridSubThemes: DeepPartial<GridTheme> = {
   size: {
     gap: new GapTheme({
@@ -36,10 +35,10 @@ const gridSubThemes: DeepPartial<GridTheme> = {
   },
   appearance: {
     background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-    text: GenericVariantTheme.createUIElementTextTheme(),
+    text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
   },
   layout: {
-    ...defaultLayoutTheme,
+    ...defaultLayoutsThemes,
     wrap: new WrapTheme(),
     flexDirection: new DirectionTheme(),
   },
@@ -50,10 +49,7 @@ export const defaultGrid2Theme = new ComponentTheme<GridProps, GridTheme>(
   "grid-cols-1 md:grid-cols-2",
   gridSubThemes,
   themeDefaults.grid2 as Partial<GridProps>,
-  GRID_CATEGORIES,
-  (props: GridProps) => {
-    return props.href ? "a" : "div";
-  }
+  GRID_CATEGORIES
 );
 
 export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(
@@ -61,10 +57,7 @@ export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(
   "grid-cols-1 md:grid-cols-3",
   gridSubThemes,
   themeDefaults.grid3 as Partial<GridProps>,
-  GRID_CATEGORIES,
-  (props: GridProps) => {
-    return props.href ? "a" : "div";
-  }
+  GRID_CATEGORIES
 );
 
 export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
@@ -72,8 +65,21 @@ export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
   "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   gridSubThemes,
   themeDefaults.grid4 as Partial<GridProps>,
-  GRID_CATEGORIES,
-  (props: GridProps) => {
-    return props.href ? "a" : "div";
-  }
+  GRID_CATEGORIES
+);
+
+export const defaultGrid5Theme = new ComponentTheme<GridProps, GridTheme>(
+  "div",
+  "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5",
+  gridSubThemes,
+  themeDefaults.grid5 as Partial<GridProps>,
+  GRID_CATEGORIES
+);
+
+export const defaultGrid6Theme = new ComponentTheme<GridProps, GridTheme>(
+  "div",
+  "grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6",
+  gridSubThemes,
+  themeDefaults.grid6 as Partial<GridProps>,
+  GRID_CATEGORIES
 );

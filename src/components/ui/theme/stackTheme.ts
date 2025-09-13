@@ -1,6 +1,6 @@
 import { DirectionTheme } from "./layout/directionTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { BaseComponentTheme, ComponentTheme, defaultLayoutTheme, DefaultLayoutThemes } from "./common/ComponentTheme";
+import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import { StackProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
@@ -49,7 +49,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
       breakpoint: new BreakpointTheme(),
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       border: new BorderTheme(),
@@ -58,7 +58,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
       shadow: GenericVariantTheme.createLayoutShadowTheme(),
@@ -66,7 +66,4 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
   },
   themeDefaults.stack as Partial<StackProps>,
   STACK_CATEGORIES,
-  (props: StackProps) => {
-    return props.href ? "a" : "div";
-  }
 );

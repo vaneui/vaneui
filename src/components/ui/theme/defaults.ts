@@ -20,6 +20,7 @@ export const themeDefaults: ThemeDefaults = {
     padding: true,
     ring: true,
     shadow: true,
+    focusVisible: true,
   },
 
   card: {
@@ -138,6 +139,18 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
   },
 
+  grid5: {
+    md: true,
+    grid: true,
+    gap: true,
+  },
+
+  grid6: {
+    md: true,
+    grid: true,
+    gap: true,
+  },
+
   divider: {
     md: true,
     default: true,
@@ -221,6 +234,7 @@ export const themeDefaults: ThemeDefaults = {
       noRing: true,
       noShadow: true,
       filled: true,
+      focusVisible: true,
     },
     check: {
       default: true,
@@ -234,5 +248,18 @@ export const themeDefaults: ThemeDefaults = {
       justifyCenter: true,
       filled: true,
     },
+  },
+
+  input: {
+    md: true,
+    default: true,
+    rounded: true,
+    outline: true,
+    sans: true,
+    normal: true,
+    padding: true,
+    ring: true,
+    noShadow: true,
+    focusVisible: true,
   },
 };

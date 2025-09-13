@@ -21,10 +21,11 @@ import { ContainerTheme, defaultContainerTheme } from './ui/theme/containerTheme
 import { ColTheme, defaultColTheme } from './ui/theme/colTheme';
 import { defaultStackTheme, StackTheme } from './ui/theme/stackTheme';
 import { defaultSectionTheme, SectionTheme } from "./ui/theme/sectionTheme";
-import { defaultGrid2Theme, defaultGrid3Theme, defaultGrid4Theme, GridTheme } from "./ui/theme/gridTheme";
+import { defaultGrid2Theme, defaultGrid3Theme, defaultGrid4Theme, defaultGrid5Theme, defaultGrid6Theme, GridTheme } from "./ui/theme/gridTheme";
 import { CheckboxTheme, CheckTheme, CheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckTheme, defaultCheckboxWrapperTheme } from './ui/theme/checkboxTheme';
 import { LabelTheme, defaultLabelTheme } from './ui/theme/labelTheme';
 import { ImgTheme, defaultImgTheme } from './ui/theme/imgTheme';
+import { InputTheme, defaultInputTheme } from './ui/theme/inputTheme';
 import {
   BadgeProps,
   ButtonProps,
@@ -43,6 +44,7 @@ import {
   CheckboxProps,
   LabelProps,
   ImgProps,
+  InputProps,
 } from "./ui/props";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
@@ -62,6 +64,8 @@ export interface ThemeProps {
   grid2: ComponentTheme<GridProps, GridTheme>;
   grid3: ComponentTheme<GridProps, GridTheme>;
   grid4: ComponentTheme<GridProps, GridTheme>;
+  grid5: ComponentTheme<GridProps, GridTheme>;
+  grid6: ComponentTheme<GridProps, GridTheme>;
   pageTitle: ComponentTheme<TypographyProps, TypographyTheme>;
   sectionTitle: ComponentTheme<TypographyProps, TypographyTheme>;
   title: ComponentTheme<TypographyProps, TypographyTheme>;
@@ -76,6 +80,7 @@ export interface ThemeProps {
   };
   label: ComponentTheme<LabelProps, LabelTheme>;
   img: ComponentTheme<ImgProps, ImgTheme>;
+  input: ComponentTheme<InputProps, InputTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -95,6 +100,8 @@ export const defaultTheme: ThemeProps = {
   grid2: defaultGrid2Theme,
   grid3: defaultGrid3Theme,
   grid4: defaultGrid4Theme,
+  grid5: defaultGrid5Theme,
+  grid6: defaultGrid6Theme,
   pageTitle: pageTitleTheme,
   sectionTitle: sectionTitleTheme,
   title: titleTheme,
@@ -109,6 +116,7 @@ export const defaultTheme: ThemeProps = {
   },
   label: defaultLabelTheme,
   img: defaultImgTheme,
+  input: defaultInputTheme,
 };
 
 /**
@@ -144,6 +152,8 @@ export type ThemeDefaults = {
   grid2?: Partial<BooleanKeys<GridProps>>;
   grid3?: Partial<BooleanKeys<GridProps>>;
   grid4?: Partial<BooleanKeys<GridProps>>;
+  grid5?: Partial<BooleanKeys<GridProps>>;
+  grid6?: Partial<BooleanKeys<GridProps>>;
   pageTitle?: Partial<BooleanKeys<TypographyProps>>;
   sectionTitle?: Partial<BooleanKeys<TypographyProps>>;
   title?: Partial<BooleanKeys<TypographyProps>>;
@@ -158,6 +168,7 @@ export type ThemeDefaults = {
   };
   label?: Partial<BooleanKeys<LabelProps>>;
   img?: Partial<BooleanKeys<ImgProps>>;
+  input?: Partial<BooleanKeys<InputProps>>;
 };
 
 // ThemeExtraClasses mirrors the structure of ThemeProps
@@ -178,6 +189,8 @@ export type ThemeExtraClasses = {
   grid2?: Partial<StringValueKeys<GridProps>>;
   grid3?: Partial<StringValueKeys<GridProps>>;
   grid4?: Partial<StringValueKeys<GridProps>>;
+  grid5?: Partial<StringValueKeys<GridProps>>;
+  grid6?: Partial<StringValueKeys<GridProps>>;
   pageTitle?: Partial<StringValueKeys<TypographyProps>>;
   sectionTitle?: Partial<StringValueKeys<TypographyProps>>;
   title?: Partial<StringValueKeys<TypographyProps>>;
@@ -192,6 +205,7 @@ export type ThemeExtraClasses = {
   };
   label?: Partial<StringValueKeys<LabelProps>>;
   img?: Partial<StringValueKeys<ImgProps>>;
+  input?: Partial<StringValueKeys<InputProps>>;
 };
 
 /**

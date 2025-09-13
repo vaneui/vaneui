@@ -65,7 +65,7 @@ describe('Section Component Tests', () => {
         );
 
         const section = container.querySelector('div');
-        expect(section).toHaveClass(`text-(--text-color-${appearance})`);
+        expect(section).toHaveClass(`text-(--color-text-${appearance})`);
       });
     });
 
@@ -86,20 +86,20 @@ describe('Section Component Tests', () => {
       const filledSection = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineSection).toHaveClass('text-(--text-color-primary)');
-      expect(filledSection).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineSection).toHaveClass('text-(--color-text-primary)');
+      expect(filledSection).toHaveClass('text-(--color-text-filled-primary)');
       
       // Background colors
-      expect(outlineSection).toHaveClass('bg-(--layout-background-primary)');
-      expect(filledSection).toHaveClass('bg-(--layout-filled-background-color-primary)');
+      expect(outlineSection).toHaveClass('bg-(--color-bg-layout-primary)');
+      expect(filledSection).toHaveClass('bg-(--color-bg-filled-layout-primary)');
       
       // Border colors
-      expect(outlineSection).toHaveClass('border-(--border-color-primary)');
-      expect(filledSection).toHaveClass('border-(--filled-border-color-primary)');
+      expect(outlineSection).toHaveClass('border-(--color-border-primary)');
+      expect(filledSection).toHaveClass('border-(--color-border-filled-primary)');
       
       // Ring colors
-      expect(outlineSection).toHaveClass('ring-(--border-color-primary)');
-      expect(filledSection).toHaveClass('ring-(--filled-border-color-primary)');
+      expect(outlineSection).toHaveClass('ring-(--color-border-primary)');
+      expect(filledSection).toHaveClass('ring-(--color-border-filled-primary)');
     });
 
     it('should support custom HTML tag', () => {

@@ -1,6 +1,7 @@
 import { BaseTheme } from "../common/baseTheme";
-import { AppearanceCategoryKey, CategoryProps } from "../../props";
+import { AppearanceCategoryKey, CategoryProps, TransparentKey } from "../../props";
 import { ComponentKeys, ModeKey, AppearanceKey } from "../../props";
+import { ModeKeys } from "../../props/mode";
 
 export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, Record<ModeKey, string>> {
   default!: Record<ModeKey, string>;
@@ -16,34 +17,37 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
 
   private readonly transparentClasses?: Record<string, string>;
   private readonly category: AppearanceCategoryKey;
+  private readonly ignoreTransparent: boolean;
 
   private constructor(
     config: Record<AppearanceKey, Record<ModeKey, string>>,
     category: AppearanceCategoryKey,
-    transparentClasses?: Record<string, string>
+    transparentClasses?: Record<string, string>,
+    ignoreTransparent: boolean = false
   ) {
     super();
     Object.assign(this, config);
     this.category = category;
     this.transparentClasses = transparentClasses;
+    this.ignoreTransparent = ignoreTransparent;
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    if(this.category === 'border' && extractedKeys.border === 'noBorder')
-    {
+    if (this.category === 'border' && (extractedKeys.border === 'noBorder' || extractedKeys.border === undefined)) {
       return [];
     }
-    if(this.category === 'ring' && extractedKeys.ring === 'noRing')
-    {
+    if (this.category === 'ring' && (extractedKeys.ring === 'noRing' || extractedKeys.ring === undefined)) {
       return [];
     }
-    if(this.category === 'shadow' && extractedKeys.shadow === 'noShadow')
-    {
+    if (this.category === 'shadow' && (extractedKeys.shadow === 'noShadow' || extractedKeys.shadow === undefined)) {
+      return [];
+    }
+    if (this.category === 'focusVisible' && (extractedKeys.focusVisible === 'noFocusVisible' || extractedKeys.focusVisible === undefined)) {
       return [];
     }
 
     // Check for specific transparent styles first
-    if (extractedKeys?.transparent) {
+    if (extractedKeys?.transparent && !this.ignoreTransparent) {
       const transparentClass = this.transparentClasses?.[extractedKeys.transparent] || '';
       return [transparentClass];
     }
@@ -53,7 +57,7 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
     if (pickedAppearanceKey) {
       const modes = this[pickedAppearanceKey];
       if (modes) {
-        return ComponentKeys.mode.map(mode => modes[mode] || '');
+        return ModeKeys.mode.map(mode => modes[mode] || '');
       }
     }
 
@@ -61,21 +65,22 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
   }
 
   static createTheme(
-    src: Partial<Record<ModeKey, Partial<Record<AppearanceKey, string>>>> = {},
+    src: Partial<Record<ModeKey, Partial<Record<AppearanceKey | TransparentKey, string>>>> = {},
     category: AppearanceCategoryKey,
+    ignoreTransparent: boolean = false
   ): AppearanceTheme {
     const config = Object.fromEntries(
-      ComponentKeys.appearance.map(textKey => [
-        textKey,
+      ComponentKeys.appearance.map(key => [
+        key,
         Object.fromEntries(
-          ComponentKeys.mode.map(modeKey => [
+          ModeKeys.mode.map(modeKey => [
             modeKey,
-            src[modeKey]?.[textKey] || ''
+            src[modeKey]?.[key] || ''
           ])
         ),
       ])
     ) as Record<AppearanceKey, Record<ModeKey, string>>;
 
-    return new AppearanceTheme(config, category, src.base);
+    return new AppearanceTheme(config, category, src.base, ignoreTransparent);
   }
 }

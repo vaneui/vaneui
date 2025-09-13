@@ -19,10 +19,12 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('px-4', 'py-4', 'gap-4', 'flex');
-      expect(card).toHaveClass('text-(--text-color-default)'); // default appearance
-      expect(card).toHaveClass('bg-(--layout-background-default)', 'rounded-(--layout-border-radius-md)', 'flex-col');
-      expect(card).toHaveClass('border-(--border-color-default)');
+      expect(card).toHaveClass('px-6', 'py-6', 'gap-4', 'flex');
+      expect(card).toHaveClass('max-lg:px-5', 'max-lg:py-5'); // md responsive padding classes
+      expect(card).toHaveClass('max-lg:gap-3'); // md responsive gap classes
+      expect(card).toHaveClass('text-(--color-text-default)'); // default appearance
+      expect(card).toHaveClass('bg-(--color-bg-layout-default)', 'rounded-(--layout-br-md)', 'flex-col');
+      expect(card).toHaveClass('border-(--color-border-default)');
     });
   });
 
@@ -36,8 +38,8 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('text-(--text-color-primary)'); // primary text color
-      expect(card).toHaveClass('bg-(--layout-background-primary)'); // primary background
+      expect(card).toHaveClass('text-(--color-text-primary)'); // primary text color
+      expect(card).toHaveClass('bg-(--color-bg-layout-primary)'); // primary background
     });
 
     it('Card with secondary variant should have secondary classes', () => {
@@ -49,8 +51,8 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('text-(--text-color-secondary)'); // secondary text color
-      expect(card).toHaveClass('bg-(--layout-background-secondary)'); // secondary background
+      expect(card).toHaveClass('text-(--color-text-secondary)'); // secondary text color
+      expect(card).toHaveClass('bg-(--color-bg-layout-secondary)'); // secondary background
     });
 
     it('Card with transparent background should have transparent classes', () => {
@@ -75,7 +77,21 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-2', 'py-2', 'gap-2'); // xs sizing for padding and gap
+      expect(card).toHaveClass('px-4', 'py-4', 'gap-2'); // xs sizing for padding and gap
+      // xs size has no responsive classes
+    });
+
+    it('should render with sm size classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card sm>Small Card</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('div');
+      expect(card).toHaveClass('px-5', 'py-5', 'gap-3'); // sm sizing for padding and gap
+      expect(card).toHaveClass('max-lg:px-4', 'max-lg:py-4'); // sm responsive padding classes
+      expect(card).toHaveClass('max-lg:gap-2'); // sm responsive gap classes
     });
 
     it('should render with lg size classes', () => {
@@ -86,7 +102,24 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-5', 'py-5', 'gap-5'); // lg sizing with responsive variations
+      expect(card).toHaveClass('px-7', 'py-7', 'gap-5'); // lg sizing with responsive variations
+      expect(card).toHaveClass('max-lg:px-6', 'max-lg:py-6'); // lg responsive padding classes for smaller screens
+      expect(card).toHaveClass('max-md:px-5', 'max-md:py-5'); // lg responsive padding classes for mobile
+      expect(card).toHaveClass('max-lg:gap-4', 'max-md:gap-3'); // lg responsive gap classes
+    });
+
+    it('should render with xl size classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card xl>Extra Large Card</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('div');
+      expect(card).toHaveClass('px-8', 'py-8', 'gap-6'); // xl sizing for padding and gap
+      expect(card).toHaveClass('max-lg:px-7', 'max-lg:py-7'); // xl responsive padding classes for large screens
+      expect(card).toHaveClass('max-md:px-6', 'max-md:py-6'); // xl responsive padding classes for mobile
+      expect(card).toHaveClass('max-lg:gap-5', 'max-md:gap-4'); // xl responsive gap classes
     });
   });
 
@@ -195,7 +228,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('text-(--text-color-primary)');
+      expect(card).toHaveClass('text-(--color-text-primary)');
     });
 
     it('should support filled and outline variants for text, background, border, and ring', () => {
@@ -215,20 +248,20 @@ describe('Card Component Tests', () => {
       const filledCard = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineCard).toHaveClass('text-(--text-color-primary)');
-      expect(filledCard).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineCard).toHaveClass('text-(--color-text-primary)');
+      expect(filledCard).toHaveClass('text-(--color-text-filled-primary)');
       
       // Background colors
-      expect(outlineCard).toHaveClass('bg-(--layout-background-primary)');
-      expect(filledCard).toHaveClass('bg-(--layout-filled-background-color-primary)');
+      expect(outlineCard).toHaveClass('bg-(--color-bg-layout-primary)');
+      expect(filledCard).toHaveClass('bg-(--color-bg-filled-layout-primary)');
       
       // Border colors
-      expect(outlineCard).toHaveClass('border-(--border-color-primary)');
-      expect(filledCard).toHaveClass('border-(--filled-border-color-primary)');
+      expect(outlineCard).toHaveClass('border-(--color-border-primary)');
+      expect(filledCard).toHaveClass('border-(--color-border-filled-primary)');
       
       // Ring colors
-      expect(outlineCard).toHaveClass('ring-(--border-color-primary)');
-      expect(filledCard).toHaveClass('ring-(--filled-border-color-primary)');
+      expect(outlineCard).toHaveClass('ring-(--color-border-primary)');
+      expect(filledCard).toHaveClass('ring-(--color-border-filled-primary)');
     });
   });
 
@@ -347,7 +380,7 @@ describe('Card Component Tests', () => {
         expect(card!.className).not.toMatch(/\bring\b(?!-)/);
       });
 
-      it('should apply ring classes by default (card has ring: true in defaults)', () => {
+      it('should not apply ring classes by default (card does not have ring: true in defaults)', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <Card>Default Card</Card>
@@ -355,8 +388,9 @@ describe('Card Component Tests', () => {
         );
 
         const card = container.querySelector('div');
-        // Card uses appearance-based ring classes, not layout ring classes
-        expect(card).toHaveClass('ring-(--border-color-default)'); // Card has ring: true as default
+        // Card no longer has ring: true as default
+        expect(card).not.toHaveClass('ring-(--color-border-default)');
+        expect(card).not.toHaveClass('ring', 'ring-inset');
       });
 
       it('should apply ring classes for different appearance variants when ring is enabled', () => {
@@ -393,7 +427,7 @@ describe('Card Component Tests', () => {
         // Should have border classes
         expect(card).toHaveClass('border');
         // Should have appearance-based ring classes
-        expect(card).toHaveClass('ring-(--border-color-primary)');
+        expect(card).toHaveClass('ring-(--color-border-primary)');
       });
 
       it('should not apply any border or ring classes when both noBorder and noRing are true', () => {
@@ -422,9 +456,12 @@ describe('Card Component Tests', () => {
         const card = container.querySelector('.size-test');
         // Should have border and ring classes
         expect(card).toHaveClass('border');
-        expect(card).toHaveClass('ring-(--border-color-default)');
+        expect(card).toHaveClass('ring-(--color-border-default)');
         // Should have size and padding classes
-        expect(card).toHaveClass('px-5', 'py-5'); // lg padding
+        expect(card).toHaveClass('px-7', 'py-7'); // lg padding
+        expect(card).toHaveClass('max-lg:px-6', 'max-lg:py-6'); // lg responsive padding classes
+        expect(card).toHaveClass('max-md:px-5', 'max-md:py-5'); // lg responsive padding classes for mobile
+        expect(card).toHaveClass('max-lg:gap-4', 'max-md:gap-3'); // lg responsive gap classes
       });
 
       it('should work with responsive breakpoints', () => {
@@ -437,7 +474,7 @@ describe('Card Component Tests', () => {
         const card = container.querySelector('.responsive-test');
         // Should have border and ring classes
         expect(card).toHaveClass('border');
-        expect(card).toHaveClass('ring-(--border-color-default)');
+        expect(card).toHaveClass('ring-(--color-border-default)');
         // Should have responsive classes
         expect(card).toHaveClass('max-md:flex-col');
       });

@@ -4,9 +4,9 @@ import { themeDefaults } from "./defaults";
 import React from "react";
 import {
   BaseTypographyComponentTheme,
-  ComponentTheme, defaultLayoutTheme,
+  ComponentTheme, defaultLayoutsThemes,
   DefaultLayoutThemes,
-  defaultTypographyTheme
+  defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -42,10 +42,10 @@ export const createTypographyComponentTheme = (
         text: new SizeTheme(textSizeMap),
       },
       appearance: {
-        text: GenericVariantTheme.createUIElementTextTheme(),
+        text: GenericVariantTheme.createTypographyTextTheme(),
       },
-      typography: defaultTypographyTheme,
-      layout: defaultLayoutTheme,
+      typography: defaultTypographyThemes,
+      layout: defaultLayoutsThemes,
     },
     defaults,
     TYPOGRAPHY_CATEGORIES,
@@ -108,10 +108,10 @@ export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new C
       text: new SizeTheme(textSizeClasses, false),
     },
     appearance: {
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createTypographyTextTheme(),
     },
-    typography: defaultTypographyTheme,
-    layout: defaultLayoutTheme,
+    typography: defaultTypographyThemes,
+    layout: defaultLayoutsThemes,
   },
   themeDefaults.link as Partial<TypographyProps>,
   TYPOGRAPHY_CATEGORIES
@@ -126,9 +126,9 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
       text: new SizeTheme(textSizeClasses, false),
     },
     appearance: {
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createTypographyTextTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
   },
   themeDefaults.listItem as Partial<TypographyProps>,
   TYPOGRAPHY_CATEGORIES
@@ -156,10 +156,10 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
       paddingLeft: new PlTheme(),
     },
     appearance: {
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createTypographyTextTheme(),
     },
-    typography: defaultTypographyTheme,
-    layout: defaultLayoutTheme,
+    typography: defaultTypographyThemes,
+    layout: defaultLayoutsThemes,
     listStyle: new ListStyleTheme(),
   },
   themeDefaults.list as Partial<ListProps>,

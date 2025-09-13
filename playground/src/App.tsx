@@ -1,4 +1,3 @@
-import { useRef, useEffect } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -7,26 +6,10 @@ import {
   Col,
   Title,
   Section,
-  Card, Checkbox, Label, Link
+  Card, Checkbox, Label, Link, Input, Button
 } from '../../src';
 
 function App() {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const textRef = useRef<HTMLParagraphElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Example: focus the button on mount
-    if (buttonRef.current) {
-      console.log('Button ref is available:', buttonRef.current);
-    }
-    if (textRef.current) {
-      console.log('Text ref is available:', textRef.current);
-    }
-    if (cardRef.current) {
-      console.log('Card ref is available:', cardRef.current);
-    }
-  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme} extraClasses={{
@@ -38,61 +21,46 @@ function App() {
       }
     }}>
       <Section>
-        <Text lg link bold>Large link text</Text>
-        <Text lg primary filled bold>Large link text</Text>
-        <Col>
-          <Row>
-            <Card>
-              <Title>Card title</Title>
-              <Text secondary>This is a card text. It is used right under the card title.</Text>
-            </Card>
-            <Card filled>
-              <Title>Card title</Title>
-              <Text>This is a card text. It is used right under the card title.</Text>
-            </Card>
-          </Row>
-          <Row filled secondary rounded>
-            <Card success>
-              <Title>Card title</Title>
-              <Text secondary>This is a card text. It is used right under the card title.</Text>
-            </Card>
-            <Card success filled>
-              <Title black>Card title</Title>
-              <Text>This is a card text. It is used right under the card title.</Text>
-            </Card>
-          </Row>
-          <Row>
-            <Card primary>
-              <Title>Card title</Title>
-              <Text secondary>This is a card text. It is used right under the card title.</Text>
-            </Card>
-            <Card primary filled>
-              <Title black>Card title</Title>
-              <Text>This is a card text. It is used right under the card title.</Text>
-            </Card>
-          </Row>
-        </Col>
-        <Card warning filled>
+        <Card>
+          <Title>Input Examples</Title>
+          <Text secondary>VaneUI Input component with different appearances and modes</Text>
           <Col>
+            <Row>
+              <Label htmlFor="search">
+                Search with Icon
+              </Label>
+              <Row relative>
+                <Input id="search" className="pl-10" placeholder="Search..."/>
+                <span className="absolute left-3 text-gray-500">🔍</span>
+              </Row>
+            </Row>
+            <Row>
+              <Input placeholder="Default input"/>
+              <Button>Default</Button>
+            </Row>
+            <Row>
+              <Input primary placeholder="Default input"/>
+              <Button primary>Default</Button>
+            </Row>
             <Label htmlFor="terms">
               <Checkbox id="terms"/>
-              <span>I agree to the <Link filled href="#">Terms of Service</Link> and <Link
+              <span>I agree to the <Link  href="#">Terms of Service</Link> and <Link
                 href="#">Privacy Policy</Link>.</span>
             </Label>
-
-            <Label htmlFor="terms2">
-              <Checkbox outline id="terms2"/>
-              <span>I agree to the <Link href="#">Terms of Service</Link> and <Link
-                href="#">Privacy Policy</Link>.</span>
-            </Label>
-
-            <Label htmlFor="emails">
-              <Checkbox defaultChecked id="emails"/>
-              <Col noGap tag="span">
-                <Text>Receive product updates</Text>
-                <Text xs secondary filled>Occasional emails about new features</Text>
-              </Col>
-            </Label>
+          </Col>
+        </Card>
+        <Card filled>
+          <Title>Input Examples</Title>
+          <Text secondary filled>VaneUI Input component with different appearances and modes</Text>
+          <Col>
+            <Row>
+              <Input filled placeholder="Default input"/>
+              <Button filled>Default</Button>
+            </Row>
+            <Row>
+              <Input primary filled placeholder="Default input"/>
+              <Button primary filled>Default</Button>
+            </Row>
           </Col>
         </Card>
       </Section>

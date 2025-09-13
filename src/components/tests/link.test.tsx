@@ -21,7 +21,7 @@ describe('Link Component Tests', () => {
       expect(link).toBeInTheDocument();
       expect(link).toHaveClass('hover:underline', 'w-fit');
       expect(link).not.toHaveClass('text-base'); // no default size
-      expect(link).toHaveClass('text-(--text-color-link)'); // link appearance by default
+      expect(link).toHaveClass('text-(--color-text-link)'); // link appearance by default
       expect(link).toHaveClass('font-sans');
       expect(link).toHaveAttribute('href', '#test');
     });
@@ -81,8 +81,8 @@ describe('Link Component Tests', () => {
 
         const link = container.querySelector('a');
         // Link should use the specified appearance color
-        expect(link).toHaveClass(`text-(--text-color-${appearance})`);
-        expect(link).not.toHaveClass('text-(--text-color-link)');
+        expect(link).toHaveClass(`text-(--color-text-${appearance})`);
+        expect(link).not.toHaveClass('text-(--color-text-link)');
       });
     });
 
@@ -102,8 +102,8 @@ describe('Link Component Tests', () => {
       const outlineLink = outlineContainer.querySelector('a');
       const filledLink = filledContainer.querySelector('a');
 
-      expect(outlineLink).toHaveClass('text-(--text-color-primary)');
-      expect(filledLink).toHaveClass('text-(--filled-text-color-primary)');
+      expect(outlineLink).toHaveClass('text-(--color-text-primary)');
+      expect(filledLink).toHaveClass('text-(--color-text-filled-primary)');
     });
 
     it('should use link appearance by default when no appearance prop is provided', () => {
@@ -115,7 +115,7 @@ describe('Link Component Tests', () => {
 
       const link = container.querySelector('a');
       // Link without appearance props should use link appearance by default
-      expect(link).toHaveClass('text-(--text-color-link)');
+      expect(link).toHaveClass('text-(--color-text-link)');
     });
 
     it('should support all overflow variants', () => {

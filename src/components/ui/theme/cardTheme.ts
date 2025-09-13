@@ -2,9 +2,9 @@ import { DirectionTheme } from "./layout/directionTheme";
 import {
   BaseTypographyComponentTheme,
   ComponentTheme,
-  defaultLayoutTheme,
+  defaultLayoutsThemes,
   DefaultLayoutThemes,
-  defaultTypographyTheme
+  defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { CardProps } from "../props";
 import { GapTheme } from "./size/gapTheme";
@@ -50,23 +50,29 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   {
     size: {
       px: new PxTheme({
-        xs: "px-2",
-        sm: "px-3 max-lg:px-2",
-        md: "px-4 max-lg:px-3",
-        lg: "px-5 max-lg:px-4 max-md:px-3",
-        xl: "px-6 max-lg:px-5 max-md:px-4"
+        xs: "px-4",
+        sm: "px-5 max-lg:px-4",
+        md: "px-6 max-lg:px-5",
+        lg: "px-7 max-lg:px-6 max-md:px-5",
+        xl: "px-8 max-lg:px-7 max-md:px-6"
       }),
       py: new PyTheme({
-        xs: "py-2",
-        sm: "py-3 max-lg:py-2",
-        md: "py-4 max-lg:py-3",
-        lg: "py-5 max-lg:py-4 max-md:py-3",
-        xl: "py-6 max-lg:py-5 max-md:py-4"
+        xs: "py-4",
+        sm: "py-5 max-lg:py-4",
+        md: "py-6 max-lg:py-5",
+        lg: "py-7 max-lg:py-6 max-md:py-5",
+        xl: "py-8 max-lg:py-7 max-md:py-6"
       }),
-      gap: new GapTheme(),
+      gap: new GapTheme({
+        xs: "gap-2",
+        sm: "gap-3 max-lg:gap-2",
+        md: "gap-4 max-lg:gap-3",
+        lg: "gap-5 max-lg:gap-4 max-md:gap-3",
+        xl: "gap-6 max-lg:gap-5 max-md:gap-4"
+      }),
     },
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
       radius: RadiusTheme.createLayoutTheme(),
@@ -77,15 +83,12 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
       border: GenericVariantTheme.createUIElementBorderTheme(),
       ring: GenericVariantTheme.createUIElementRingTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
   },
   themeDefaults.card as Partial<CardProps>,
   CARD_CATEGORIES,
-  (props: CardProps) => {
-    return props.href ? "a" : "div";
-  }
 );

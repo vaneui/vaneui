@@ -1,9 +1,9 @@
 import {
   BaseTypographyComponentTheme,
   ComponentTheme,
-  defaultLayoutTheme,
+  defaultLayoutsThemes,
   DefaultLayoutThemes,
-  defaultTypographyTheme
+  defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { LabelProps } from "../props";
 import { themeDefaults } from "./defaults";
@@ -39,11 +39,11 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       gap: new GapTheme({xs: 'gap-1.5', sm: 'gap-2', md: 'gap-2.5', lg: 'gap-3', xl: 'gap-3'}),
     },
     appearance: {
-      text: GenericVariantTheme.createUIElementTextTheme(),
+      text: GenericVariantTheme.createTypographyTextTheme(),
     },
-    typography: defaultTypographyTheme,
+    typography: defaultTypographyThemes,
     layout: {
-      ...defaultLayoutTheme,
+      ...defaultLayoutsThemes,
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },
