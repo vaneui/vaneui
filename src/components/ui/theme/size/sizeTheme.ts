@@ -3,10 +3,15 @@ import type { CategoryProps } from "../../props";
 import { SizeKey, ComponentKeys } from "../../props";
 
 export class SizeTheme extends BaseTheme implements Record<SizeKey, string> {
+  /** Extra-small size variant */
   xs: string = "";
+  /** Small size variant */
   sm: string = "";
+  /** Medium size variant (default) */
   md: string = "";
+  /** Large size variant */
   lg: string = "";
+  /** Extra-large size variant */
   xl: string = "";
 
   private readonly useDefaultKey: boolean;

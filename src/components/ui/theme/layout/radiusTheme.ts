@@ -7,8 +7,11 @@ import {
 } from "../../classes/radiusClasses";
 
 export class RadiusTheme extends BaseTheme {
+  /** Pill shape - fully rounded corners */
   pill: string = "rounded-full";
+  /** Sharp shape - no rounded corners */
   sharp: string = "rounded-none";
+  /** Size-based rounded corners - varies by component size */
   rounded: Record<SizeKey, string>;
 
   private constructor(roundedClasses: Record<SizeKey, string>) {

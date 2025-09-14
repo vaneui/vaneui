@@ -1,6 +1,7 @@
 import { SizeKey, ComponentKeys } from "../../props";
 import { PaddingTheme } from "./paddingTheme";
 
+/** Left padding theme - controls left padding only */
 export class PlTheme extends PaddingTheme {
   constructor(sizeMap?: Record<SizeKey, string>) {
     super(sizeMap);

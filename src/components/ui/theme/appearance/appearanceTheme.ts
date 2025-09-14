@@ -4,15 +4,25 @@ import { ComponentKeys, ModeKey, AppearanceKey } from "../../props";
 import { ModeKeys } from "../../props/mode";
 
 export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, Record<ModeKey, string>> {
+  /** Default neutral appearance - uses default color variables */
   default!: Record<ModeKey, string>;
+  /** Accent appearance - uses accent/rose color variables for brand secondary styling */
   accent!: Record<ModeKey, string>;
+  /** Primary appearance - uses primary/blue color variables for main brand styling */
   primary!: Record<ModeKey, string>;
+  /** Secondary appearance - uses secondary/gray color variables for muted styling */
   secondary!: Record<ModeKey, string>;
+  /** Tertiary appearance - uses tertiary/gray color variables for subtle styling */
   tertiary!: Record<ModeKey, string>;
+  /** Success appearance - uses success/emerald color variables for positive states */
   success!: Record<ModeKey, string>;
+  /** Danger appearance - uses danger/red color variables for error/destructive states */
   danger!: Record<ModeKey, string>;
+  /** Warning appearance - uses warning/amber color variables for caution states */
   warning!: Record<ModeKey, string>;
+  /** Info appearance - uses info/cyan color variables for informational states */
   info!: Record<ModeKey, string>;
+  /** Link appearance - uses link/blue color variables for hyperlinks and navigation */
   link!: Record<ModeKey, string>;
 
   private readonly transparentClasses?: Record<string, string>;

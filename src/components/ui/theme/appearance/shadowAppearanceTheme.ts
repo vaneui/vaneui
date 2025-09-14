@@ -9,15 +9,25 @@ import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
 export class ShadowAppearanceTheme extends BaseTheme implements Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
+  /** Default shadow appearance - neutral shadow styling */
   default!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Accent shadow appearance - shadow styling for brand secondary elements */
   accent!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Primary shadow appearance - shadow styling for main brand elements */
   primary!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Secondary shadow appearance - shadow styling for muted elements */
   secondary!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Tertiary shadow appearance - shadow styling for subtle elements */
   tertiary!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Success shadow appearance - shadow styling for positive state elements */
   success!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Danger shadow appearance - shadow styling for error/destructive elements */
   danger!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Warning shadow appearance - shadow styling for caution state elements */
   warning!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Info shadow appearance - shadow styling for informational elements */
   info!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Link shadow appearance - shadow styling for link elements */
   link!: Record<SizeKey, Record<ModeKey, string>> | null;
 
   private static readonly defaultUIShadow: Record<SizeKey, Record<ModeKey, string>> = {

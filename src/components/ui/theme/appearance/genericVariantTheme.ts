@@ -26,7 +26,9 @@ import {
 import { ShadowAppearanceTheme } from "./shadowAppearanceTheme";
 
 export class GenericVariantTheme<T extends BaseTheme> extends BaseTheme implements Record<VariantKey, T> {
+  /** Filled variant theme - solid background styling */
   filled!: T;
+  /** Outline variant theme - border-only styling */
   outline!: T;
 
   private constructor(

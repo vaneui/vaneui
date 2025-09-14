@@ -1,6 +1,7 @@
 import { SizeKey, ComponentKeys } from "../../props";
 import { PaddingTheme } from "./paddingTheme";
 
+/** Vertical padding theme - controls top and bottom padding */
 export class PyTheme extends PaddingTheme {
   constructor(sizeMap?: Record<SizeKey, string>) {
     super(sizeMap);
