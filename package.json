@@ -1,6 +1,6 @@
 {
   "name": "@vaneui/ui",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A simple and lightweight UI component library for React, built with Tailwind CSS.",
   "author": "",
   "license": "ISC",
@@ -45,7 +45,8 @@
     "clean": "rimraf dist",
     "type-check": "tsc --noEmit",
     "lint": "eslint src playground --ext .ts,.tsx",
-    "build:js": "npm run type-check && npm run lint && npm run clean && rollup -c --bundleConfigAsCjs",
+    "build:declarations": "tsc --project tsconfig.build.json --emitDeclarationOnly",
+    "build:js": "npm run type-check && npm run lint && npm run clean && rollup -c --bundleConfigAsCjs && npm run build:declarations",
     "build:css:vars": "npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css",
     "build:css:ui": "npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css",
     "build": "npm run clean && npm run build:js && npm run build:css:ui && npm run build:css:vars",

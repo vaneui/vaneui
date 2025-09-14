@@ -29,9 +29,11 @@ export default [
       resolve(),
       commonjs(),
       typescript({
-        tsconfig: "./tsconfig.json",
+        tsconfig: "./tsconfig.build.json",
         check: true,
-        abortOnError: true
+        abortOnError: true,
+        clean: true,
+        useTsconfigDeclarationDir: true
       }),
     ],
   },
