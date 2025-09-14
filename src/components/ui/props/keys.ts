@@ -10,13 +10,6 @@ export const BREAKPOINT = ['breakpoint'] as const;
 export const VISUAL_CORE = ['appearance', 'transparent'] as const;
 /** Border properties for visual decoration */
 export const BORDER = ['border'] as const;
-export const BORDER_T = ['borderT'] as const;  
-export const BORDER_B = ['borderB'] as const;
-export const BORDER_L = ['borderL'] as const;
-export const BORDER_R = ['borderR'] as const;
-export const BORDER_X = ['borderX'] as const;
-export const BORDER_Y = ['borderY'] as const;
-export const NO_BORDER = ['noBorder'] as const;
 /** Visual decoration properties for shadows and focus rings */
 export const VISUAL_DECORATION = ['shadow', 'ring', 'focusVisible'] as const;
 /** Layout-specific visual decoration (excluding focusVisible for non-interactive elements) */
@@ -40,13 +33,6 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...BREAKPOINT,
   ...PADDING,
   ...BORDER,
-  ...BORDER_T,
-  ...BORDER_B,
-  ...BORDER_L,
-  ...BORDER_R,
-  ...BORDER_X,
-  ...BORDER_Y,
-  ...NO_BORDER,
   ...VISUAL_DECORATION,
   ...SHAPE,
   ...VARIANT,
@@ -65,7 +51,7 @@ export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
 
 // Import individual property constants from separate files
 import { APPEARANCE_VALUES } from './appearance';
-import { BORDER_VALUES, BORDER_T_VALUES, BORDER_B_VALUES, BORDER_L_VALUES, BORDER_R_VALUES, BORDER_X_VALUES, BORDER_Y_VALUES, NO_BORDER_VALUES } from './border';
+import { BORDER_VALUES } from './border';
 import { BREAKPOINT_VALUES } from './breakpoint';
 import { DISPLAY_VALUES } from './display';
 import { FLEX_DIRECTION_VALUES } from './flexDirection';
@@ -128,22 +114,8 @@ export * from './wrap';
 export const ComponentKeys = {
   /** Color appearance options */
   appearance: APPEARANCE_VALUES,
-  /** Border visibility: border (show) */
+  /** Border visibility: includes all border variations and noBorder (border, borderT, borderB, etc., noBorder) */
   border: BORDER_VALUES,
-  /** Top border visibility: borderT (show) */
-  borderT: BORDER_T_VALUES,
-  /** Bottom border visibility: borderB (show) */
-  borderB: BORDER_B_VALUES,
-  /** Left border visibility: borderL (show) */
-  borderL: BORDER_L_VALUES,
-  /** Right border visibility: borderR (show) */
-  borderR: BORDER_R_VALUES,
-  /** Horizontal borders visibility: borderX (show) */
-  borderX: BORDER_X_VALUES,
-  /** Vertical borders visibility: borderY (show) */
-  borderY: BORDER_Y_VALUES,
-  /** Hide borders: noBorder (hide) */
-  noBorder: NO_BORDER_VALUES,
   /** Column breakpoints for responsive grid layouts */
   breakpoint: BREAKPOINT_VALUES,
   /** CSS display property values for element layout behavior */
@@ -245,9 +217,9 @@ export type OverflowKey = typeof ComponentKeys.overflow[number];
 /** Complete layout category including core and flex properties */
 export const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
 /** Complete visual category including core, decoration, and shape properties */
-export const VISUAL_FULL = [...VISUAL_CORE, ...BORDER, ...BORDER_T, ...BORDER_B, ...BORDER_L, ...BORDER_R, ...BORDER_X, ...BORDER_Y, ...NO_BORDER, ...VISUAL_DECORATION, ...SHAPE] as const;
+export const VISUAL_FULL = [...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE] as const;
 /** Layout-specific visual category (excludes focusVisible for non-interactive elements) */
-export const VISUAL_LAYOUT = [...VISUAL_CORE, ...BORDER, ...BORDER_T, ...BORDER_B, ...BORDER_L, ...BORDER_R, ...BORDER_X, ...BORDER_Y, ...NO_BORDER, ...VISUAL_DECORATION_LAYOUT, ...SHAPE] as const;
+export const VISUAL_LAYOUT = [...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION_LAYOUT, ...SHAPE] as const;
 /** Complete typography category for text styling */
 export const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE] as const;
 
@@ -288,7 +260,7 @@ export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING,
 
 /** Form component categories */
 /** Categories for checkbox form components */
-export const CHECKBOX_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...BORDER_T, ...BORDER_B, ...BORDER_L, ...BORDER_R, ...BORDER_X, ...BORDER_Y, ...NO_BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT] as const;
+export const CHECKBOX_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT] as const;
 /** Categories for label form components with typography support */
 export const LABEL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_CORE, ...VARIANT] as const;
 /** Categories for input form components with interactive and form-specific properties */
@@ -296,7 +268,7 @@ export const INPUT_CATEGORIES = [...INTERACTIVE_CATEGORIES] as const;
 
 /** Media component categories */
 /** Categories for image media components */
-export const IMG_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...BORDER_T, ...BORDER_B, ...BORDER_L, ...BORDER_R, ...BORDER_X, ...BORDER_Y, ...NO_BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT] as const;
+export const IMG_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT] as const;
 
 /** Props type mapping category keys to their possible values */
 export type CategoryProps = {

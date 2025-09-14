@@ -14,12 +14,18 @@ export class BorderTheme extends BaseTheme implements Record<BorderKey, string> 
   getClasses(extractedKeys: CategoryProps): string[] {
     const classes: string[] = [];
 
-    // Check each border key and add corresponding class if prop is set
-    BORDER_KEYS.forEach((borderKey) => {
-      if (extractedKeys?.[borderKey] === borderKey) {
-        classes.push(this[borderKey]);
-      }
-    });
+    // Now all border variations and noBorder come through the 'border' category
+    const borderValue = extractedKeys?.border;
+    
+    // If noBorder is selected, don't apply any border classes
+    if (borderValue === "noBorder") {
+      return [];
+    }
+
+    // Check if the border value matches any of our border keys (BORDER_KEYS excludes noBorder)
+    if (borderValue && BORDER_KEYS.includes(borderValue as BorderKey)) {
+      classes.push(this[borderValue as BorderKey]);
+    }
 
     return classes;
   }

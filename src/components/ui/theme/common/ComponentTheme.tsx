@@ -113,6 +113,10 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       }
     }
 
+    // No need for border/noBorder mutual exclusion logic anymore
+    // since noBorder is now part of the border category and 
+    // pickFirstTruthyKeyByCategory handles the priority naturally
+
     const walk = (map: object) => {
       for (const key of Object.keys(map)) {
         const node = (map as ThemeMap<P>)[key];
