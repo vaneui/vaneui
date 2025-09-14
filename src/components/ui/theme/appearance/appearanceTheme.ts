@@ -33,8 +33,24 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    if (this.category === 'border' && (extractedKeys.border === 'noBorder' || extractedKeys.border === undefined)) {
-      return [];
+    if (this.category === 'border') {
+      // If noBorder is set, don't apply appearance colors
+      if (extractedKeys.noBorder === 'noBorder') {
+        return [];
+      }
+      // If no border props are set at all, don't apply appearance colors
+      const hasBorderProps = (
+        extractedKeys.border === 'border' ||
+        extractedKeys.borderT === 'borderT' ||
+        extractedKeys.borderB === 'borderB' ||
+        extractedKeys.borderL === 'borderL' ||
+        extractedKeys.borderR === 'borderR' ||
+        extractedKeys.borderX === 'borderX' ||
+        extractedKeys.borderY === 'borderY'
+      );
+      if (!hasBorderProps) {
+        return [];
+      }
     }
     if (this.category === 'ring' && (extractedKeys.ring === 'noRing' || extractedKeys.ring === undefined)) {
       return [];

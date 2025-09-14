@@ -58,6 +58,102 @@ describe('Visual Decoration Props', () => {
     });
   });
 
+  describe('Border Side Props', () => {
+    it('should apply border-t (top border) classes to Row component', () => {
+      const { container } = renderWithTheme(
+        <Row borderT>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('border-t');
+    });
+
+    it('should apply border-b (bottom border) classes to Col component', () => {
+      const { container } = renderWithTheme(
+        <Col borderB>Content</Col>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('border-b');
+    });
+
+    it('should apply border-l (left border) classes to Stack component', () => {
+      const { container } = renderWithTheme(
+        <Stack borderL>Content</Stack>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('border-l');
+    });
+
+    it('should apply border-r (right border) classes to Row component', () => {
+      const { container } = renderWithTheme(
+        <Row borderR>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('border-r');
+    });
+
+    it('should apply border-x (horizontal borders) classes to Col component', () => {
+      const { container } = renderWithTheme(
+        <Col borderX>Content</Col>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('border-x');
+    });
+
+    it('should apply border-y (vertical borders) classes to Stack component', () => {
+      const { container } = renderWithTheme(
+        <Stack borderY>Content</Stack>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('border-y');
+    });
+
+    it('should not apply any borders when noBorder is true', () => {
+      const { container } = renderWithTheme(
+        <Row border borderT noBorder>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).not.toContain('border');
+      expect(element.className).not.toContain('border-t');
+    });
+
+    it('should not apply appearance colors when noBorder is true', () => {
+      const { container } = renderWithTheme(
+        <Col primary border noBorder>Content</Col>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).not.toContain('border');
+      expect(element.className).not.toContain('border-(--color-border-primary)');
+    });
+
+    it('should apply border side appearance classes with variants', () => {
+      const { container } = renderWithTheme(
+        <Row primary borderT>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('border-t');
+      expect(element.className).toContain('border-(--color-border-primary)');
+    });
+
+    it('should handle multiple border sides together', () => {
+      const { container } = renderWithTheme(
+        <Row borderT borderB borderL>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('border-t');
+      expect(element.className).toContain('border-b');
+      expect(element.className).toContain('border-l');
+    });
+
+    it('should handle border sides with general border', () => {
+      const { container } = renderWithTheme(
+        <Row border borderT>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('border');
+      expect(element.className).toContain('border-t');
+    });
+  });
+
   describe('Ring Props', () => {
     it('should apply ring classes to Row component', () => {
       const { container } = renderWithTheme(

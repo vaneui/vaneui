@@ -48,7 +48,7 @@ describe('Theme Override Tests', () => {
 
     it('should override border styles and apply to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.layout.border.base = 'border-2'
+        theme.button.themes.layout.border.border = 'border-2'
         theme.button.themes.appearance.border.outline.default.base = 'border-green-500';
         theme.button.themes.appearance.border.outline.default.hover = 'hover:border-green-600';
         theme.button.themes.appearance.border.outline.default.active = 'active:border-green-700';
