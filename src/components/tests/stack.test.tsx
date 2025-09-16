@@ -19,7 +19,7 @@ describe('Stack Component Tests', () => {
 
       const stack = container.querySelector('div');
       expect(stack).toBeInTheDocument();
-      expect(stack).toHaveClass('px-4', 'py-4', 'gap-4', 'flex', 'flex-wrap', 'flex-col');
+      expect(stack).toHaveClass('px-4', 'py-4', 'gap-(--layout-gap-md)', 'flex', 'flex-wrap', 'flex-col');
     });
 
     it('should apply row direction when row prop is true', () => {
@@ -89,9 +89,9 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).not.toHaveClass('gap-4');
+      expect(stack).not.toHaveClass('gap-(--layout-gap-md)');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(stack).not.toHaveClass('gap-2', 'gap-3', 'gap-4', 'gap-5', 'gap-6');
+      expect(stack).not.toHaveClass('gap-(--layout-gap-xs)', 'gap-(--layout-gap-sm)', 'gap-(--layout-gap-md)', 'gap-(--layout-gap-lg)', 'gap-(--layout-gap-xl)');
     });
 
     it('should support no padding option', () => {
@@ -257,7 +257,7 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('px-4', 'py-4', 'gap-4', 'flex', 'flex-wrap', 'flex-col'); // theme classes
+      expect(stack).toHaveClass('px-4', 'py-4', 'gap-(--layout-gap-md)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
       expect(stack).toHaveClass('custom-stack-class'); // custom class
     });
 

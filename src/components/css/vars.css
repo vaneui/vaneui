@@ -114,13 +114,13 @@
     --color-bg-filled-layout-primary: var(--color-blue-800);
     --color-bg-filled-layout-secondary: var(--color-gray-800);
     --color-bg-filled-layout-tertiary: var(--color-gray-900);
-    --color-bg-filled-layout-accent: var(--color-indigo-800);
-    --color-bg-filled-layout-success: var(--color-green-800);
-    --color-bg-filled-layout-danger: var(--color-red-800);
+    --color-bg-filled-layout-accent: var(--color-indigo-700);
+    --color-bg-filled-layout-success: var(--color-green-700);
+    --color-bg-filled-layout-danger: var(--color-red-700);
     --color-bg-filled-layout-warning: var(--color-yellow-800);
-    --color-bg-filled-layout-info: var(--color-blue-800);
+    --color-bg-filled-layout-info: var(--color-blue-700);
     --color-bg-filled-layout-transparent: transparent;
-    --color-bg-filled-layout-link: var(--color-blue-800);
+    --color-bg-filled-layout-link: var(--color-blue-700);
 
     /* Border Colors */
     --color-border-default: var(--color-gray-200);
@@ -135,28 +135,38 @@
     --color-border-info: var(--color-blue-200);
 
     /* Filled Button Border Colors */
-    --color-border-filled-default: var(--color-gray-900);
-    --color-border-filled-primary: var(--color-blue-900);
-    --color-border-filled-secondary: var(--color-gray-900);
-    --color-border-filled-tertiary: var(--color-gray-950);
-    --color-border-filled-accent: var(--color-rose-900);
-    --color-border-filled-success: var(--color-green-900);
-    --color-border-filled-danger: var(--color-red-900);
-    --color-border-filled-warning: var(--color-yellow-900);
-    --color-border-filled-info: var(--color-blue-900);
-    --color-border-filled-link: var(--color-blue-900);
+    --color-border-filled-default: var(--color-gray-600);
+    --color-border-filled-primary: var(--color-blue-600);
+    --color-border-filled-secondary: var(--color-gray-700);
+    --color-border-filled-tertiary: var(--color-gray-800);
+    --color-border-filled-accent: var(--color-rose-600);
+    --color-border-filled-success: var(--color-green-600);
+    --color-border-filled-danger: var(--color-red-600);
+    --color-border-filled-warning: var(--color-yellow-600);
+    --color-border-filled-info: var(--color-blue-600);
+    --color-border-filled-link: var(--color-blue-600);
 
     /* UI Component Border Radius Sizes */
-    --ui-br-xs: 0.125rem;
-    --ui-br-sm: 0.25rem;
-    --ui-br-md: 0.375rem;
-    --ui-br-lg: 0.5rem;
-    --ui-br-xl: 0.625rem;
+    --ui-br-spacing: 0.125rem;
+    --ui-br-xs: calc(1 * var(--ui-br-spacing));
+    --ui-br-sm: calc(2 * var(--ui-br-spacing));
+    --ui-br-md: calc(3 * var(--ui-br-spacing));
+    --ui-br-lg: calc(4 * var(--ui-br-spacing));
+    --ui-br-xl: calc(5 * var(--ui-br-spacing));
 
     /* Layout Component Border Radius Sizes */
-    --layout-br-xs: 0.375rem;
-    --layout-br-sm: 0.5rem;
-    --layout-br-md: 0.625rem;
-    --layout-br-lg: 0.75rem;
-    --layout-br-xl: 0.875rem;
+    --layout-br-spacing: 0.25rem;
+    --layout-br-xs: calc(3 * var(--layout-br-spacing));
+    --layout-br-sm: calc(4 * var(--layout-br-spacing));
+    --layout-br-md: calc(5 * var(--layout-br-spacing));
+    --layout-br-lg: calc(6 * var(--layout-br-spacing));
+    --layout-br-xl: calc(7 * var(--layout-br-spacing));
+
+    /* Layout Component Gap Sizes */
+    --layout-spacing: clamp(0.1rem, 0.16rem + 0.4vw, 0.375rem);
+    --layout-gap-xs: calc(2 * var(--layout-spacing));
+    --layout-gap-sm: calc(3 * var(--layout-spacing));
+    --layout-gap-md: calc(4 * var(--layout-spacing));
+    --layout-gap-lg: calc(5 * var(--layout-spacing));
+    --layout-gap-xl: calc(6 * var(--layout-spacing));
 }
