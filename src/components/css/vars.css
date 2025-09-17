@@ -169,4 +169,32 @@
     --layout-gap-md: calc(4 * var(--layout-spacing));
     --layout-gap-lg: calc(5 * var(--layout-spacing));
     --layout-gap-xl: calc(6 * var(--layout-spacing));
+
+    /* Layout Component Horizontal Padding Sizes */
+    --layout-px-xs: calc(2 * var(--layout-spacing));
+    --layout-px-sm: calc(3 * var(--layout-spacing));
+    --layout-px-md: calc(4 * var(--layout-spacing));
+    --layout-px-lg: calc(5 * var(--layout-spacing));
+    --layout-px-xl: calc(6 * var(--layout-spacing));
+
+    /* Layout Component Vertical Padding Sizes */
+    --layout-py-xs: calc(2 * var(--layout-spacing));
+    --layout-py-sm: calc(3 * var(--layout-spacing));
+    --layout-py-md: calc(4 * var(--layout-spacing));
+    --layout-py-lg: calc(5 * var(--layout-spacing));
+    --layout-py-xl: calc(6 * var(--layout-spacing));
+
+    /* Section Component Horizontal Padding Sizes */
+    --section-px-xs: calc(5 * var(--layout-spacing));
+    --section-px-sm: calc(6 * var(--layout-spacing));
+    --section-px-md: calc(7 * var(--layout-spacing));
+    --section-px-lg: calc(8 * var(--layout-spacing));
+    --section-px-xl: calc(9 * var(--layout-spacing));
+
+    /* Section Component Vertical Padding Sizes */
+    --section-py-xs: calc(4 * var(--layout-spacing));
+    --section-py-sm: calc(8 * var(--layout-spacing));
+    --section-py-md: calc(12 * var(--layout-spacing));
+    --section-py-lg: calc(16 * var(--layout-spacing));
+    --section-py-xl: calc(20 * var(--layout-spacing));
 }

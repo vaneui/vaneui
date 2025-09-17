@@ -19,9 +19,7 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('px-6', 'py-6', 'gap-4', 'flex');
-      expect(card).toHaveClass('max-lg:px-5', 'max-lg:py-5'); // md responsive padding classes
-      expect(card).toHaveClass('max-lg:gap-3'); // md responsive gap classes
+      expect(card).toHaveClass('px-(--layout-px-md)', 'py-(--layout-py-md)', 'gap-(--layout-gap-md)', 'flex');
       expect(card).toHaveClass('text-(--color-text-default)'); // default appearance
       expect(card).toHaveClass('bg-(--color-bg-layout-default)', 'rounded-(--layout-br-md)', 'flex-col');
       expect(card).toHaveClass('border-(--color-border-default)');
@@ -77,7 +75,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-4', 'py-4', 'gap-2'); // xs sizing for padding and gap
+      expect(card).toHaveClass('px-(--layout-px-xs)', 'py-(--layout-py-xs)', 'gap-(--layout-gap-xs)'); // xs sizing for padding and gap
       // xs size has no responsive classes
     });
 
@@ -89,9 +87,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-5', 'py-5', 'gap-3'); // sm sizing for padding and gap
-      expect(card).toHaveClass('max-lg:px-4', 'max-lg:py-4'); // sm responsive padding classes
-      expect(card).toHaveClass('max-lg:gap-2'); // sm responsive gap classes
+      expect(card).toHaveClass('px-(--layout-px-sm)', 'py-(--layout-py-sm)', 'gap-(--layout-gap-sm)'); // sm sizing for padding and gap
     });
 
     it('should render with lg size classes', () => {
@@ -102,10 +98,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-7', 'py-7', 'gap-5'); // lg sizing with responsive variations
-      expect(card).toHaveClass('max-lg:px-6', 'max-lg:py-6'); // lg responsive padding classes for smaller screens
-      expect(card).toHaveClass('max-md:px-5', 'max-md:py-5'); // lg responsive padding classes for mobile
-      expect(card).toHaveClass('max-lg:gap-4', 'max-md:gap-3'); // lg responsive gap classes
+      expect(card).toHaveClass('px-(--layout-px-lg)', 'py-(--layout-py-lg)', 'gap-(--layout-gap-lg)'); // lg sizing
     });
 
     it('should render with xl size classes', () => {
@@ -116,10 +109,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-8', 'py-8', 'gap-6'); // xl sizing for padding and gap
-      expect(card).toHaveClass('max-lg:px-7', 'max-lg:py-7'); // xl responsive padding classes for large screens
-      expect(card).toHaveClass('max-md:px-6', 'max-md:py-6'); // xl responsive padding classes for mobile
-      expect(card).toHaveClass('max-lg:gap-5', 'max-md:gap-4'); // xl responsive gap classes
+      expect(card).toHaveClass('px-(--layout-px-xl)', 'py-(--layout-py-xl)', 'gap-(--layout-gap-xl)'); // xl sizing
     });
   });
 
@@ -458,10 +448,7 @@ describe('Card Component Tests', () => {
         expect(card).toHaveClass('border');
         expect(card).toHaveClass('ring-(--color-border-default)');
         // Should have size and padding classes
-        expect(card).toHaveClass('px-7', 'py-7'); // lg padding
-        expect(card).toHaveClass('max-lg:px-6', 'max-lg:py-6'); // lg responsive padding classes
-        expect(card).toHaveClass('max-md:px-5', 'max-md:py-5'); // lg responsive padding classes for mobile
-        expect(card).toHaveClass('max-lg:gap-4', 'max-md:gap-3'); // lg responsive gap classes
+        expect(card).toHaveClass('px-(--layout-px-lg)', 'py-(--layout-py-lg)'); // lg padding
       });
 
       it('should work with responsive breakpoints', () => {

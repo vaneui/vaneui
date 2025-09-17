@@ -1,7 +1,7 @@
 import { SizeKey, ComponentKeys } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
-import { layoutGapClasses } from "../../classes/gapClasses";
+import { layoutGapClasses } from "../../classes/layoutClasses";
 
 export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
   /** Extra-small gap - uses CSS variable --layout-gap-xs */

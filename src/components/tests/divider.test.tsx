@@ -34,7 +34,7 @@ describe('Divider Component Tests', () => {
 
       const divider = container.querySelector('div');
       expect(divider).toBeInTheDocument();
-      expect(divider).toHaveClass('py-6'); // md size padding
+      expect(divider).toHaveClass('py-(--layout-py-md)'); // md size padding
     });
 
     it('should apply no padding by default', () => {
