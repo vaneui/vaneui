@@ -51,7 +51,13 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
     size: {
       px: new PxTheme(),
       py: new PyTheme(),
-      gap: new GapTheme(),
+      gap: new GapTheme({
+        xs: "[--gap-unit:1]",
+        sm: "[--gap-unit:1.5]",
+        md: "[--gap-unit:2]",
+        lg: "[--gap-unit:2.5]",
+        xl: "[--gap-unit:3]",
+      }),
     },
     layout: {
       ...defaultLayoutsThemes,

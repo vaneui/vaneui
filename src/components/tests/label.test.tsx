@@ -23,7 +23,7 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('cursor-default'); // cursor-default when no input
       expect(label).toHaveClass('has-[input]:cursor-pointer'); // will be cursor-pointer with input
       expect(label).toHaveClass('flex'); // flex by default
-      expect(label).toHaveClass('gap-2.5'); // default gap
+      expect(label).toHaveClass('gap-(--gap)'); // default gap
       expect(label).toHaveClass('text-base'); // md size default
       expect(label).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(label).toHaveClass('font-sans');
@@ -54,7 +54,7 @@ describe('Label Component Tests', () => {
 
       const label = container.querySelector('label');
       expect(label).toBeInTheDocument();
-      expect(label).toHaveClass('flex', 'gap-2.5');
+      expect(label).toHaveClass('flex', 'gap-(--gap)');
       expect(label).toHaveClass('has-[input]:cursor-pointer'); // has-[input] selector applies
       expect(label).toHaveClass('cursor-default'); // base cursor class
       expect(label).toHaveAttribute('for', 'demo1');
@@ -71,11 +71,11 @@ describe('Label Component Tests', () => {
 
     it('should support different gap sizes', () => {
       const gaps = [
-        { prop: 'xs', class: 'gap-1.5' },
-        { prop: 'sm', class: 'gap-2' },
-        { prop: 'md', class: 'gap-2.5' },
-        { prop: 'lg', class: 'gap-3' },
-        { prop: 'xl', class: 'gap-3' }
+        { prop: 'xs', class: 'gap-(--gap)' },
+        { prop: 'sm', class: 'gap-(--gap)' },
+        { prop: 'md', class: 'gap-(--gap)' },
+        { prop: 'lg', class: 'gap-(--gap)' },
+        { prop: 'xl', class: 'gap-(--gap)' }
       ] as const;
 
       gaps.forEach(({prop, class: expectedClass}) => {
@@ -105,7 +105,7 @@ describe('Label Component Tests', () => {
 
       const label = container.querySelector('label');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(label).not.toHaveClass('gap-2', 'gap-3', 'gap-4', 'gap-5', 'gap-6');
+      expect(label).not.toHaveClass('gap-(--gap)');
     });
 
     it('should support different sizes', () => {

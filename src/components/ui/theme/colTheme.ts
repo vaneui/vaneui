@@ -37,7 +37,13 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   "",
   {
     size: {
-      gap: new GapTheme(),
+      gap: new GapTheme({
+        xs: "[--gap-unit:2]",
+        sm: "[--gap-unit:3]",
+        md: "[--gap-unit:4]",
+        lg: "[--gap-unit:5]",
+        xl: "[--gap-unit:6]",
+      }),
     },
     layout: {
       ...defaultLayoutsThemes,

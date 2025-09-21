@@ -19,7 +19,7 @@ describe('Stack Component Tests', () => {
 
       const stack = container.querySelector('div');
       expect(stack).toBeInTheDocument();
-      expect(stack).toHaveClass('px-(--layout-px-md)', 'py-(--layout-py-md)', 'gap-(--layout-gap-md)', 'flex', 'flex-wrap', 'flex-col');
+      expect(stack).toHaveClass('px-(--px) [--h-unit:4]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col');
     });
 
     it('should apply row direction when row prop is true', () => {
@@ -89,9 +89,9 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).not.toHaveClass('gap-(--layout-gap-md)');
+      expect(stack).not.toHaveClass('gap-(--gap)');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(stack).not.toHaveClass('gap-(--layout-gap-xs)', 'gap-(--layout-gap-sm)', 'gap-(--layout-gap-md)', 'gap-(--layout-gap-lg)', 'gap-(--layout-gap-xl)');
+      expect(stack).not.toHaveClass('gap-(--gap)');
     });
 
     it('should support no padding option', () => {
@@ -104,9 +104,9 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).not.toHaveClass('px-(--layout-px-md)');
-      expect(stack).not.toHaveClass('px-2', 'px-(--layout-px-md)', 'px-6', 'px-8', 'px-10'); // no px padding classes
-      expect(stack).not.toHaveClass('py-2', 'py-(--layout-py-md)', 'py-6', 'py-8', 'py-10'); // no py padding classes
+      expect(stack).not.toHaveClass('px-(--px)');
+      expect(stack).not.toHaveClass('px-(--px)'); // no px padding classes
+      expect(stack).not.toHaveClass('py-(--py)'); // no py padding classes
     });
 
     it('should support flex alignment properties', () => {
@@ -257,7 +257,7 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('px-(--layout-px-md)', 'py-(--layout-py-md)', 'gap-(--layout-gap-md)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
+      expect(stack).toHaveClass('px-(--px) [--h-unit:4]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
       expect(stack).toHaveClass('custom-stack-class'); // custom class
     });
 

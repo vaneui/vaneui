@@ -6,7 +6,7 @@ import { SectionProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { sectionPaddingXClasses, sectionPaddingYClasses } from "../classes/layoutClasses";
+import { layoutPaddingClasses, sectionAspectRatioClasses } from "../classes/layoutClasses";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
@@ -44,9 +44,21 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   "w-full flex-col",
   {
     size: {
-      px: new PxTheme(sectionPaddingXClasses),
-      py: new PyTheme(sectionPaddingYClasses),
-      gap: new GapTheme(),
+      px: new PxTheme(layoutPaddingClasses, sectionAspectRatioClasses),
+      py: new PyTheme({
+        xs: "[--h-unit:4]",
+        sm: "[--h-unit:8]",
+        md: "[--h-unit:12]",
+        lg: "[--h-unit:16]",
+        xl: "[--h-unit:20]",
+      }),
+      gap: new GapTheme({
+        xs: "[--gap-unit:2]",
+        sm: "[--gap-unit:3]",
+        md: "[--gap-unit:4]",
+        lg: "[--gap-unit:5]",
+        xl: "[--gap-unit:6]",
+      }),
       breakpoint: new BreakpointTheme(),
     },
     appearance: {

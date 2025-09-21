@@ -39,7 +39,13 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
   "flex-col mx-auto w-full",
   {
     size: {
-      gap: new GapTheme(),
+      gap: new GapTheme({
+        xs: "[--gap-unit:2]",
+        sm: "[--gap-unit:3]",
+        md: "[--gap-unit:4]",
+        lg: "[--gap-unit:5]",
+        xl: "[--gap-unit:6]",
+      }),
       maxWidth: new SizeTheme({xs: 'max-w-3xl', sm: 'max-w-4xl', md: 'max-w-5xl', lg: 'max-w-6xl', xl: 'max-w-7xl'}),
     },
     layout: {

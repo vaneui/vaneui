@@ -91,7 +91,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-xs', 'px-2', 'py-0.5', 'gap-1');
+      expect(chip).toHaveClass('text-xs', 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
     });
 
     it('should render with lg size classes', () => {
@@ -102,7 +102,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-lg', 'px-3.5', 'py-2', 'gap-2.5');
+      expect(chip).toHaveClass('text-lg', 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
     });
 
     it('should render with xl size classes', () => {
@@ -113,7 +113,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-xl', 'px-4', 'py-2.5', 'gap-3');
+      expect(chip).toHaveClass('text-xl', 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
     });
   });
 

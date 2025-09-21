@@ -19,7 +19,7 @@ describe('Col Component Tests', () => {
 
       const col = container.querySelector('div');
       expect(col).toBeInTheDocument();
-      expect(col).toHaveClass('gap-(--layout-gap-md)', 'flex', 'flex-col');
+      expect(col).toHaveClass('gap-(--gap) [--gap-unit:4]', 'flex', 'flex-col');
     });
 
     it('should support row direction', () => {
@@ -65,7 +65,7 @@ describe('Col Component Tests', () => {
       );
 
       const col = container.querySelector('div');
-      expect(col).toHaveClass('items-center', 'justify-between', 'gap-(--layout-gap-md)');
+      expect(col).toHaveClass('items-center', 'justify-between', 'gap-(--gap) [--gap-unit:4]');
     });
 
     it('should support wrap properties', () => {
@@ -215,7 +215,7 @@ describe('Col Component Tests', () => {
       );
 
       const col = container.querySelector('div');
-      expect(col).toHaveClass('gap-(--layout-gap-md)', 'flex', 'flex-col'); // theme classes
+      expect(col).toHaveClass('gap-(--gap) [--gap-unit:4]', 'flex', 'flex-col'); // theme classes
       expect(col).toHaveClass('custom-col-class'); // custom class
     });
 

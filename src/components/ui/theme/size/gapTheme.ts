@@ -29,7 +29,7 @@ export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.gap === 'gap') {
       const gapClass = this[extractedKeys?.size ?? 'md'];
-      return gapClass ? [gapClass] : [];
+      return gapClass ? [gapClass, "gap-(--gap)"] : [];
     }
     return [];
   }

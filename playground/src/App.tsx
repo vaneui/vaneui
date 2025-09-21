@@ -21,23 +21,31 @@ function App() {
       }
     }}>
       <Section secondary>
-        <Row xs mdCol className="w-full">
-          <Card primary filled className="w-1/3">
-            <Title>Card title 1</Title>
-            <Text>This is the text of the card.</Text>
-            <Row xs>
-              <Input borderB noRing placeholder="Default input"/>
-              <Button filled pill>Default</Button>
-            </Row>
+        <Row xs>
+          <Card xs filled danger>
+            <Title xs bold>Card title 1</Title>
+            <Text xs>This is the text of the card.</Text>
+            <Button xs danger filled>Learn more</Button>
           </Card>
-          <Card filled danger className="w-1/3">
+          <Card sm filled danger>
+            <Title sm bold>Card title 1</Title>
+            <Text sm>This is the text of the card.</Text>
+            <Button sm danger filled>Learn more</Button>
+          </Card>
+          <Card filled danger>
             <Title bold>Card title 1</Title>
             <Text>This is the text of the card.</Text>
             <Button danger filled>Learn more</Button>
           </Card>
-          <Card success filled pill className="w-1/3">
-            <Title>Card title 1</Title>
-            <Text>This is the text of the card.</Text>
+          <Card lg filled danger>
+            <Title lg bold>Card title 1</Title>
+            <Text lg>This is the text of the card.</Text>
+            <Button lg danger filled>Learn more</Button>
+          </Card>
+          <Card xl filled danger>
+            <Title xl bold>Card title 1</Title>
+            <Text xl>This is the text of the card.</Text>
+            <Button xl danger filled>Learn more</Button>
           </Card>
         </Row>
         <Grid4 xs className="w-full">

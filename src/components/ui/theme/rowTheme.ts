@@ -39,7 +39,13 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
   "",
   {
     size: {
-      gap: new GapTheme(),
+      gap: new GapTheme({
+        xs: "[--gap-unit:2]",
+        sm: "[--gap-unit:3]",
+        md: "[--gap-unit:4]",
+        lg: "[--gap-unit:5]",
+        xl: "[--gap-unit:6]",
+      }),
       breakpoint: new BreakpointTheme(),
     },
     layout: {

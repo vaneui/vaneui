@@ -24,7 +24,7 @@ describe('Grid Components Tests', () => {
       expect(grid).toHaveClass('grid-cols-1'); // mobile and small screens: 1 column
       expect(grid).toHaveClass('md:grid-cols-2'); // medium screens and up: 2 columns
       expect(grid).toHaveClass('grid');
-      expect(grid).toHaveClass('gap-(--layout-gap-md)'); // default md gap
+      expect(grid).toHaveClass('gap-(--gap) [--gap-unit:4]'); // default md gap
       expect(grid).toHaveTextContent('Grid2 content');
     });
   });
@@ -39,7 +39,7 @@ describe('Grid Components Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--layout-gap-md)', 'grid');
+      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--gap) [--gap-unit:4]', 'grid');
     });
 
     it('should render consistently', () => {
@@ -64,9 +64,9 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).not.toHaveClass('gap-(--layout-gap-md)');
+      expect(grid).not.toHaveClass('gap-(--gap) [--gap-unit:4]');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(grid).not.toHaveClass('gap-(--layout-gap-xs)', 'gap-(--layout-gap-sm)', 'gap-(--layout-gap-md)', 'gap-(--layout-gap-lg)', 'gap-(--layout-gap-xl)');
+      expect(grid).not.toHaveClass('gap-(--gap) [--gap-unit:2]', 'gap-(--gap) [--gap-unit:3]', 'gap-(--gap) [--gap-unit:4]', 'gap-(--gap) [--gap-unit:5]', 'gap-(--gap) [--gap-unit:6]');
     });
 
     it('should support flex properties for grid items', () => {
@@ -134,7 +134,7 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--layout-gap-md)', 'grid'); // theme classes
+      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--gap) [--gap-unit:4]', 'grid'); // theme classes
       expect(grid).toHaveClass('custom-grid3-class'); // custom class
     });
 
@@ -163,7 +163,7 @@ describe('Grid Components Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--layout-gap-md)', 'grid');
+      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--gap) [--gap-unit:4]', 'grid');
     });
 
     it('should render consistently', () => {
@@ -188,9 +188,9 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).not.toHaveClass('gap-(--layout-gap-md)');
+      expect(grid).not.toHaveClass('gap-(--gap) [--gap-unit:4]');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(grid).not.toHaveClass('gap-(--layout-gap-xs)', 'gap-(--layout-gap-sm)', 'gap-(--layout-gap-md)', 'gap-(--layout-gap-lg)', 'gap-(--layout-gap-xl)');
+      expect(grid).not.toHaveClass('gap-(--gap) [--gap-unit:2]', 'gap-(--gap) [--gap-unit:3]', 'gap-(--gap) [--gap-unit:4]', 'gap-(--gap) [--gap-unit:5]', 'gap-(--gap) [--gap-unit:6]');
     });
 
     it('should support flex properties for grid items', () => {
@@ -284,7 +284,7 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--layout-gap-md)', 'grid'); // theme classes
+      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--gap) [--gap-unit:4]', 'grid'); // theme classes
       expect(grid).toHaveClass('custom-grid4-class'); // custom class
     });
 
@@ -324,8 +324,8 @@ describe('Grid Components Tests', () => {
       expect(grid4).toHaveClass('lg:grid-cols-4');
       
       // Both should share common grid properties
-      expect(grid3).toHaveClass('grid', 'gap-(--layout-gap-md)');
-      expect(grid4).toHaveClass('grid', 'gap-(--layout-gap-md)');
+      expect(grid3).toHaveClass('grid', 'gap-(--gap) [--gap-unit:4]');
+      expect(grid4).toHaveClass('grid', 'gap-(--gap) [--gap-unit:4]');
     });
   });
 });

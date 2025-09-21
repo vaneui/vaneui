@@ -23,17 +23,17 @@ describe('Grid5 Component Tests', () => {
       expect(grid).toHaveClass('md:grid-cols-3'); // medium screens: 3 columns
       expect(grid).toHaveClass('lg:grid-cols-5'); // large screens and up: 5 columns
       expect(grid).toHaveClass('grid'); // grid display
-      expect(grid).toHaveClass('gap-(--layout-gap-md)'); // default md gap
+      expect(grid).toHaveClass('gap-(--gap) [--gap-unit:4]'); // default md gap
       expect(grid).toHaveTextContent('Grid5 content');
     });
 
     it('should support different gap sizes', () => {
       const gaps = [
-        { prop: 'xs', class: 'gap-(--layout-gap-xs)' },
-        { prop: 'sm', class: 'gap-(--layout-gap-sm)' },
-        { prop: 'md', class: 'gap-(--layout-gap-md)' },
-        { prop: 'lg', class: 'gap-(--layout-gap-lg)' },
-        { prop: 'xl', class: 'gap-(--layout-gap-xl)' }
+        { prop: 'xs', class: 'gap-(--gap) [--gap-unit:2]' },
+        { prop: 'sm', class: 'gap-(--gap) [--gap-unit:3]' },
+        { prop: 'md', class: 'gap-(--gap) [--gap-unit:4]' },
+        { prop: 'lg', class: 'gap-(--gap) [--gap-unit:5]' },
+        { prop: 'xl', class: 'gap-(--gap) [--gap-unit:6]' }
       ] as const;
 
       gaps.forEach(({ prop, class: expectedClass }) => {
@@ -69,7 +69,7 @@ describe('Grid5 Component Tests', () => {
 
       const grid = container.querySelector('div');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(grid).not.toHaveClass('gap-(--layout-gap-xs)', 'gap-(--layout-gap-sm)', 'gap-(--layout-gap-md)', 'gap-(--layout-gap-lg)', 'gap-(--layout-gap-xl)');
+      expect(grid).not.toHaveClass('gap-(--gap) [--gap-unit:2]', 'gap-(--gap) [--gap-unit:3]', 'gap-(--gap) [--gap-unit:4]', 'gap-(--gap) [--gap-unit:5]', 'gap-(--gap) [--gap-unit:6]');
     });
 
     it('should support background appearance variants', () => {
@@ -354,7 +354,7 @@ describe('Grid5 Component Tests', () => {
         'sm:grid-cols-2', // small screens
         'md:grid-cols-3', // medium screens
         'lg:grid-cols-5', // large screens and up
-        'gap-(--layout-gap-lg)', // lg gap
+        'gap-(--gap) [--gap-unit:5]', // lg gap
         'max-sm:hidden' // hidden on small screens
       );
     });

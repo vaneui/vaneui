@@ -1,6 +1,7 @@
 import { SizeKey, ComponentKeys } from "../../props";
 import { PaddingTheme } from "./paddingTheme";
-import { layoutPaddingYClasses } from "../../classes/layoutClasses";
+import { layoutPaddingClasses } from "../../classes/layoutClasses";
+import type { CategoryProps } from "../../props";
 
 /** Vertical padding theme - controls top and bottom padding */
 export class PyTheme extends PaddingTheme {
@@ -9,8 +10,16 @@ export class PyTheme extends PaddingTheme {
     // Override with PyTheme's default classes if no custom sizeMap provided
     if (!sizeMap) {
       ComponentKeys.size.forEach((key) => {
-        this[key] = layoutPaddingYClasses[key];
+        this[key] = layoutPaddingClasses[key];
       });
     }
+  }
+
+  getClasses(extractedKeys: CategoryProps): string[] {
+    if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
+      const paddingClass = this[extractedKeys?.size ?? 'md'];
+      return paddingClass ? [paddingClass, "py-(--py)"] : [];
+    }
+    return [];
   }
 }
