@@ -21,7 +21,7 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
   "h-px w-full",
   {
     size: {
-      py: new PyTheme(),
+      py: new PyTheme(), // Uses layout spacing by default
     },
     appearance: {
       background: AppearanceTheme.createTheme({

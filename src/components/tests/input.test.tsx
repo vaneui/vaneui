@@ -21,7 +21,7 @@ describe('Input Component Tests', () => {
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('w-full', 'transition-all', 'duration-200');
       expect(input).toHaveClass('text-base'); // md size
-      expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // padding
+      expect(input).toHaveClass('px-(--ui-px)', 'py-(--ui-py)'); // padding
       expect(input).toHaveClass('font-sans', 'font-normal'); // typography
       expect(input).toHaveClass('rounded-(--ui-br-md)'); // rounded
       expect(input).toHaveAttribute('placeholder', 'Test input');
@@ -164,7 +164,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('text-xs'); // xs text size
-      expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // xs padding
+      expect(input).toHaveClass('px-(--ui-px)', 'py-(--ui-py)'); // xs padding
     });
 
     it('should render with sm size classes', () => {
@@ -177,7 +177,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('text-sm'); // sm text size
-      expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // sm padding
+      expect(input).toHaveClass('px-(--ui-px)', 'py-(--ui-py)'); // sm padding
     });
 
     it('should render with lg size classes', () => {
@@ -190,7 +190,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('text-lg'); // lg text size
-      expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // lg padding
+      expect(input).toHaveClass('px-(--ui-px)', 'py-(--ui-py)'); // lg padding
     });
 
     it('should render with xl size classes', () => {
@@ -203,7 +203,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('text-xl'); // xl text size
-      expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // xl padding
+      expect(input).toHaveClass('px-(--ui-px)', 'py-(--ui-py)'); // xl padding
     });
   });
 
@@ -377,7 +377,7 @@ describe('Input Component Tests', () => {
       expect(input).toBeInTheDocument();
       
       // Size classes
-      expect(input).toHaveClass('text-lg', 'px-(--px)', 'py-(--py)');
+      expect(input).toHaveClass('text-lg', 'px-(--ui-px)', 'py-(--ui-py)');
       
       // Success filled appearance classes
       expect(input).toHaveClass('bg-(--color-bg-filled-success)');

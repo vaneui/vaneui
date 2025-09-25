@@ -19,7 +19,7 @@ describe('Stack Component Tests', () => {
 
       const stack = container.querySelector('div');
       expect(stack).toBeInTheDocument();
-      expect(stack).toHaveClass('px-(--px) [--h-unit:4]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col');
+      expect(stack).toHaveClass('px-(--px) [--py-unit:4]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col');
     });
 
     it('should apply row direction when row prop is true', () => {
@@ -257,7 +257,7 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('px-(--px) [--h-unit:4]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
+      expect(stack).toHaveClass('px-(--px) [--py-unit:4]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
       expect(stack).toHaveClass('custom-stack-class'); // custom class
     });
 

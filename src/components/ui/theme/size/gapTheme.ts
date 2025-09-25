@@ -15,8 +15,11 @@ export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
   /** Extra-large gap - uses CSS variable --layout-gap-xl */
   xl: string = layoutGapClasses.xl;
 
-  constructor(sizeMap?: Record<SizeKey, string>) {
+  private isUIComponent: boolean;
+
+  constructor(sizeMap?: Record<SizeKey, string>, isUIComponent = false) {
     super();
+    this.isUIComponent = isUIComponent;
     if (sizeMap) {
       ComponentKeys.size.forEach((key) => {
         if (sizeMap[key] !== undefined) {
@@ -29,7 +32,8 @@ export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.gap === 'gap') {
       const gapClass = this[extractedKeys?.size ?? 'md'];
-      return gapClass ? [gapClass, "gap-(--gap)"] : [];
+      const gapVar = this.isUIComponent ? "gap-(--ui-gap)" : "gap-(--gap)";
+      return gapClass ? [gapClass, gapVar] : [];
     }
     return [];
   }

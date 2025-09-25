@@ -100,7 +100,7 @@ describe('Button Component Tests', () => {
       expect(button).toBeInTheDocument();
       expect(button).toHaveClass('text-(--color-text-primary)'); // primary color
       expect(button).toHaveClass('bg-(--color-bg-primary)'); // primary background
-      expect(button).toHaveClass('px-(--px)', 'py-(--py)'); // padding
+      expect(button).toHaveClass('px-(--ui-px)', 'py-(--ui-py)'); // padding
     });
 
     it('Button with secondary variant should have secondary classes', () => {

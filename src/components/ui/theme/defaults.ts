@@ -78,6 +78,7 @@ export const themeDefaults: ThemeDefaults = {
   section: {
     md: true,
     flex: true,
+    column: true,
     default: true,
     itemsStart: true,
     gap: true,

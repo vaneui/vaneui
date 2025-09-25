@@ -14,6 +14,7 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
+import { codePyClasses, codeAspectRatioClasses } from "../classes/layoutClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -52,10 +53,10 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
   "",
   {
     size: {
-      px: new PxTheme({xs: 'px-1', sm: 'px-1.5', md: 'px-1.5', lg: 'px-2', xl: 'px-2'}),
-      py: new PyTheme({xs: 'py-0', sm: 'py-0.5', md: 'py-1', lg: 'py-1', xl: 'py-1'}),
+      px: new PxTheme(codePyClasses, codeAspectRatioClasses, true),
+      py: new PyTheme(codePyClasses, true),
       text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-sm', lg: 'text-base', xl: 'text-lg'}),
-      gap: new GapTheme({xs: 'gap-0.5', sm: 'gap-1', md: 'gap-1.5', lg: 'gap-2', xl: 'gap-2.5'})
+      gap: new GapTheme({xs: '[--gap-unit:0.5]', sm: '[--gap-unit:1]', md: '[--gap-unit:1.5]', lg: '[--gap-unit:2]', xl: '[--gap-unit:2.5]'}, true)
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),

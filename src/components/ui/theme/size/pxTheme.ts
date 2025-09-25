@@ -6,10 +6,12 @@ import type { CategoryProps } from "../../props";
 /** Horizontal padding theme - controls left and right padding */
 export class PxTheme extends PaddingTheme {
   private aspectRatioMap?: Record<SizeKey, string>;
+  private isUIComponent?: boolean;
 
-  constructor(sizeMap?: Record<SizeKey, string>, aspectRatioMap?: Record<SizeKey, string>) {
+  constructor(sizeMap?: Record<SizeKey, string>, aspectRatioMap?: Record<SizeKey, string>, isUIComponent = false) {
     super(sizeMap);
     this.aspectRatioMap = aspectRatioMap;
+    this.isUIComponent = isUIComponent;
     // Override with PxTheme's default classes if no custom sizeMap provided
     if (!sizeMap) {
       ComponentKeys.size.forEach((key) => {
@@ -27,7 +29,10 @@ export class PxTheme extends PaddingTheme {
       const classes: string[] = [];
       if (paddingClass) classes.push(paddingClass);
       if (aspectRatioClass) classes.push(aspectRatioClass);
-      classes.push("px-(--px)");
+      
+      // Use UI or layout CSS variables based on component type
+      const cssVar = this.isUIComponent ? "px-(--ui-px)" : "px-(--px)";
+      classes.push(cssVar);
       
       return classes.length > 1 ? classes : [];
     }

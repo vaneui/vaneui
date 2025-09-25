@@ -41,16 +41,16 @@ export interface SectionTheme extends BaseComponentTheme {
 
 export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme>(
   "div",
-  "w-full flex-col",
+  "w-full",
   {
     size: {
       px: new PxTheme(layoutPaddingClasses, sectionAspectRatioClasses),
       py: new PyTheme({
-        xs: "[--h-unit:4]",
-        sm: "[--h-unit:8]",
-        md: "[--h-unit:12]",
-        lg: "[--h-unit:16]",
-        xl: "[--h-unit:20]",
+        xs: "[--py-unit:4]",
+        sm: "[--py-unit:8]",
+        md: "[--py-unit:12]",
+        lg: "[--py-unit:16]",
+        xl: "[--py-unit:20]",
       }),
       gap: new GapTheme({
         xs: "[--gap-unit:2]",

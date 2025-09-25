@@ -309,8 +309,8 @@ describe('Theme Override Tests', () => {
         theme.button.themes.size.text.md = 'text-lg';
         theme.button.themes.size.text.lg = 'text-2xl';
         // Override padding size classes directly
-        theme.button.themes.size.px.md = 'px-(--px)';
-        theme.button.themes.size.py.md = 'py-(--py)';
+        theme.button.themes.size.px.md = 'px-(--ui-px)';
+        theme.button.themes.size.py.md = 'py-(--ui-py)';
         
         // Override appearance
         theme.button.themes.appearance.background.filled.primary.base = 'bg-emerald-500';
@@ -334,8 +334,8 @@ describe('Theme Override Tests', () => {
 
       // MD button should use overridden size classes
       expect(mdButton).toHaveClass('text-lg'); // overridden from text-base
-      expect(mdButton).toHaveClass('px-(--px)'); // overridden size
-      expect(mdButton).toHaveClass('py-(--py)'); // overridden size
+      expect(mdButton).toHaveClass('px-(--ui-px)'); // overridden size
+      expect(mdButton).toHaveClass('py-(--ui-py)'); // overridden size
       expect(mdButton).toHaveClass('bg-emerald-500'); // overridden background
 
       // LG button should use overridden text size but default padding (since lg size wasn't defaulted)

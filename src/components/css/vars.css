@@ -162,7 +162,8 @@
     --layout-br-lg: calc(6 * var(--layout-br-spacing));
     --layout-br-xl: calc(7 * var(--layout-br-spacing));
 
-    --layout-spacing: clamp(0.1rem, 0.16rem + 0.4vw, 0.375rem);
+    --layout-spacing: clamp(0.1rem, 0.16rem + 0.4vw, 0.25rem);
+    --ui-spacing: var(--spacing);
 }
 
 @layer base {
@@ -170,10 +171,15 @@
         /* Layout Gap: the --gap-unit variable is set depending on component and it's size */
         --gap-unit: 1;
         --gap: calc(var(--gap-unit) * var(--layout-spacing));
+        --ui-gap: calc(var(--gap-unit) * var(--ui-spacing));
 
         --aspect-ratio: 1;
-        --px: calc(var(--aspect-ratio) * var(--h-unit) * var(--layout-spacing));
-        --h-unit: 1;
-        --py: calc(var(--h-unit) * var(--layout-spacing));
+        --py-unit: 1;
+
+        --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--layout-spacing));
+        --py: calc(var(--py-unit) * var(--layout-spacing));
+
+        --ui-px: calc(var(--aspect-ratio) * var(--py-unit) * var(--ui-spacing));
+        --ui-py: calc(var(--py-unit) * var(--ui-spacing));
     }
 }

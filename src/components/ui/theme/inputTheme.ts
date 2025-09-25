@@ -12,6 +12,7 @@ import { RingTheme } from "./layout/ringTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
+import { uiPaddingClasses, inputAspectRatioClasses } from "../classes/layoutClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -50,9 +51,9 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
   "w-full transition-all duration-200",
   {
     size: {
-      px: new PxTheme({xs: 'px-2', sm: 'px-3', md: 'px-4', lg: 'px-5', xl: 'px-6',}),
-      py: new PyTheme({xs: 'py-1', sm: 'py-1.5', md: 'py-2', lg: 'py-2.5', xl: 'py-3'}),
-      gap: new GapTheme({xs: 'gap-1', sm: 'gap-1.5', md: 'gap-2', lg: 'gap-2.5', xl: 'gap-3'}),
+      px: new PxTheme(uiPaddingClasses, inputAspectRatioClasses, true),
+      py: new PyTheme(uiPaddingClasses, true),
+      gap: new GapTheme({xs: '[--gap-unit:1]', sm: '[--gap-unit:1.5]', md: '[--gap-unit:2]', lg: '[--gap-unit:2.5]', xl: '[--gap-unit:3]'}, true),
       text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'}),
     },
     appearance: {
