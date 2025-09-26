@@ -6,7 +6,7 @@ import { SectionProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { layoutPaddingClasses, sectionAspectRatioClasses } from "../classes/layoutClasses";
+import { sectionAspectRatioClasses } from "../classes/layoutClasses";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
@@ -44,7 +44,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   "w-full",
   {
     size: {
-      px: new PxTheme(layoutPaddingClasses, sectionAspectRatioClasses),
+      px: new PxTheme(sectionAspectRatioClasses),
       py: new PyTheme({
         xs: "[--py-unit:4]",
         sm: "[--py-unit:8]",

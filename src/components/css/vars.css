@@ -162,7 +162,7 @@
     --layout-br-lg: calc(6 * var(--layout-br-spacing));
     --layout-br-xl: calc(7 * var(--layout-br-spacing));
 
-    --layout-spacing: clamp(0.1rem, 0.16rem + 0.4vw, 0.25rem);
+    --layout-spacing: clamp(0.1rem, 0.16rem + 0.4vw, 0.3rem);
     --ui-spacing: var(--spacing);
 }
 
@@ -181,5 +181,12 @@
 
         --ui-px: calc(var(--aspect-ratio) * var(--py-unit) * var(--ui-spacing));
         --ui-py: calc(var(--py-unit) * var(--ui-spacing));
+
+        --br-unit: 1;
+        --br-base: 0.25rem;
+        --br: calc(var(--br-unit) * var(--br-base));
+
+        --ui-br-base: 0.125rem;
+        --ui-br: calc(var(--br-unit) * var(--ui-br-base));
     }
 }

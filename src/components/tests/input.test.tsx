@@ -23,7 +23,7 @@ describe('Input Component Tests', () => {
       expect(input).toHaveClass('text-base'); // md size
       expect(input).toHaveClass('px-(--ui-px)', 'py-(--ui-py)'); // padding
       expect(input).toHaveClass('font-sans', 'font-normal'); // typography
-      expect(input).toHaveClass('rounded-(--ui-br-md)'); // rounded
+      expect(input).toHaveClass('rounded-(--ui-br)'); // rounded
       expect(input).toHaveAttribute('placeholder', 'Test input');
     });
 

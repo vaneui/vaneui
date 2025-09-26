@@ -24,7 +24,7 @@ function App() {
       <Section success>
         <Row primary filled className="w-full h-10"></Row>
         <Container primary border>
-          <Row xs>
+          <Row sm>
             <Card xs filled danger>
               <Title xs bold>Card title 1</Title>
               <Text xs>This is the text of the card.</Text>
@@ -94,11 +94,11 @@ function App() {
                 <span className="absolute left-3 text-gray-500">🔍</span>
               </Row>
             </Row>
-            <Row xs>
+            <Row>
               <Input placeholder="Default input"/>
               <Button>Default</Button>
             </Row>
-            <Row xs>
+            <Row>
               <Input primary placeholder="Default input"/>
               <Button primary>Default</Button>
             </Row>

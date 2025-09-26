@@ -51,7 +51,7 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
   "w-full transition-all duration-200",
   {
     size: {
-      px: new PxTheme(uiPaddingClasses, inputAspectRatioClasses, true),
+      px: new PxTheme(inputAspectRatioClasses, true),
       py: new PyTheme(uiPaddingClasses, true),
       gap: new GapTheme({xs: '[--gap-unit:1]', sm: '[--gap-unit:1.5]', md: '[--gap-unit:2]', lg: '[--gap-unit:2.5]', xl: '[--gap-unit:3]'}, true),
       text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'}),

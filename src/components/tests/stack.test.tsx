@@ -155,7 +155,7 @@ describe('Stack Component Tests', () => {
       expect(stack).toHaveClass('border-(--color-border-warning)');
       expect(stack).toHaveClass('ring');
       expect(stack).toHaveClass('ring-(--color-border-warning)');
-      expect(stack).toHaveClass('rounded-(--layout-br-md)');
+      expect(stack).toHaveClass('rounded-(--br)');
     });
 
     it('should support appearance variants for background', () => {
@@ -273,6 +273,100 @@ describe('Stack Component Tests', () => {
       const sectionEl = container.querySelector('section');
       expect(sectionEl).toBeInTheDocument();
       expect(sectionEl).toHaveTextContent('Section Stack');
+    });
+  });
+
+  describe('CSS Variable Classes Based on Size', () => {
+    describe('Border Radius Variables', () => {
+      it('should apply correct --br-unit for xs size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Stack xs rounded>XS Stack</Stack>
+          </ThemeProvider>
+        );
+
+        const stack = container.querySelector('div');
+        expect(stack).toHaveClass('[--br-unit:3]');
+        expect(stack).toHaveClass('rounded-(--br)');
+      });
+
+      it('should apply correct --br-unit for lg size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Stack lg rounded>LG Stack</Stack>
+          </ThemeProvider>
+        );
+
+        const stack = container.querySelector('div');
+        expect(stack).toHaveClass('[--br-unit:6]');
+        expect(stack).toHaveClass('rounded-(--br)');
+      });
+
+      it('should apply correct --br-unit for xl size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Stack xl rounded>XL Stack</Stack>
+          </ThemeProvider>
+        );
+
+        const stack = container.querySelector('div');
+        expect(stack).toHaveClass('[--br-unit:7]');
+        expect(stack).toHaveClass('rounded-(--br)');
+      });
+    });
+
+    describe('Padding Variables', () => {
+      it('should apply correct --py-unit for xs size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Stack xs>XS Stack</Stack>
+          </ThemeProvider>
+        );
+
+        const stack = container.querySelector('div');
+        expect(stack).toHaveClass('[--py-unit:2]');
+        expect(stack).toHaveClass('px-(--px)');
+        expect(stack).toHaveClass('py-(--py)');
+      });
+
+      it('should apply correct --py-unit for lg size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Stack lg>LG Stack</Stack>
+          </ThemeProvider>
+        );
+
+        const stack = container.querySelector('div');
+        expect(stack).toHaveClass('[--py-unit:5]');
+        expect(stack).toHaveClass('px-(--px)');
+        expect(stack).toHaveClass('py-(--py)');
+      });
+    });
+
+    describe('Gap Variables', () => {
+      it('should apply correct --gap-unit for xs size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Stack xs gap>XS Stack</Stack>
+          </ThemeProvider>
+        );
+
+        const stack = container.querySelector('div');
+        expect(stack).toHaveClass('[--gap-unit:2]');
+        expect(stack).toHaveClass('gap-(--gap)');
+      });
+
+      it('should apply correct --gap-unit for xl size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Stack xl gap>XL Stack</Stack>
+          </ThemeProvider>
+        );
+
+        const stack = container.querySelector('div');
+        expect(stack).toHaveClass('[--gap-unit:6]');
+        expect(stack).toHaveClass('gap-(--gap)');
+      });
     });
   });
 });

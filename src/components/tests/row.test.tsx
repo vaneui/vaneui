@@ -203,7 +203,7 @@ describe('Row Component Tests', () => {
       expect(row).toHaveClass('border-(--color-border-primary)');
       expect(row).toHaveClass('ring');
       expect(row).toHaveClass('ring-(--color-border-primary)');
-      expect(row).toHaveClass('rounded-(--layout-br-md)');
+      expect(row).toHaveClass('rounded-(--br)');
     });
 
     it('should support custom HTML tag', () => {

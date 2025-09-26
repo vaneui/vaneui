@@ -20,7 +20,7 @@ describe('Img Component Tests', () => {
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
       expect(img).toHaveClass('object-cover'); // base class
-      expect(img).toHaveClass('rounded-(--layout-br-md)'); // rounded default
+      expect(img).toHaveClass('rounded-(--br)'); // rounded default
       expect(img).toHaveAttribute('src', 'test.jpg');
       expect(img).toHaveAttribute('alt', 'Test image');
     });
@@ -31,7 +31,7 @@ describe('Img Component Tests', () => {
       const shapes = [
         { prop: 'pill', class: 'rounded-full' },
         { prop: 'sharp', class: 'rounded-none' },
-        { prop: 'rounded', class: 'rounded-(--layout-br-md)' }
+        { prop: 'rounded', class: 'rounded-(--br)' }
       ] as const;
 
       shapes.forEach(({prop, class: expectedClass}) => {

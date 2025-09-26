@@ -53,7 +53,7 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
   "",
   {
     size: {
-      px: new PxTheme(codePyClasses, codeAspectRatioClasses, true),
+      px: new PxTheme(codeAspectRatioClasses, true),
       py: new PyTheme(codePyClasses, true),
       text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-sm', lg: 'text-base', xl: 'text-lg'}),
       gap: new GapTheme({xs: '[--gap-unit:0.5]', sm: '[--gap-unit:1]', md: '[--gap-unit:1.5]', lg: '[--gap-unit:2]', xl: '[--gap-unit:2.5]'}, true)

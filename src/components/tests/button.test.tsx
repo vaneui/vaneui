@@ -362,4 +362,123 @@ describe('Button Component Tests', () => {
       });
     });
   });
+
+  describe('CSS Variable Classes Based on Size', () => {
+    describe('Border Radius Variables', () => {
+      it('should apply correct --br-unit for xs size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Button xs>XS Button</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('[--br-unit:1]');
+        expect(button).toHaveClass('rounded-(--ui-br)');
+      });
+
+      it('should apply correct --br-unit for sm size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Button sm>SM Button</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('[--br-unit:2]');
+        expect(button).toHaveClass('rounded-(--ui-br)');
+      });
+
+      it('should apply correct --br-unit for md size (default)', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Button>MD Button</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('[--br-unit:3]');
+        expect(button).toHaveClass('rounded-(--ui-br)');
+      });
+
+      it('should apply correct --br-unit for lg size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Button lg>LG Button</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('[--br-unit:4]');
+        expect(button).toHaveClass('rounded-(--ui-br)');
+      });
+
+      it('should apply correct --br-unit for xl size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Button xl>XL Button</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('[--br-unit:5]');
+        expect(button).toHaveClass('rounded-(--ui-br)');
+      });
+    });
+
+    describe('Padding Variables', () => {
+      it('should apply correct aspect-ratio and --py-unit for xs size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Button xs>XS Button</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('[--aspect-ratio:2]');
+        expect(button).toHaveClass('[--py-unit:1]');
+        expect(button).toHaveClass('px-(--ui-px)');
+        expect(button).toHaveClass('py-(--ui-py)');
+      });
+
+      it('should apply correct aspect-ratio and --py-unit for lg size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Button lg>LG Button</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('[--aspect-ratio:2]');
+        expect(button).toHaveClass('[--py-unit:2.5]');
+        expect(button).toHaveClass('px-(--ui-px)');
+        expect(button).toHaveClass('py-(--ui-py)');
+      });
+    });
+
+    describe('Gap Variables', () => {
+      it('should apply correct --gap-unit for different sizes', () => {
+        const {container: xsContainer} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Button xs gap>XS Button</Button>
+          </ThemeProvider>
+        );
+
+        const {container: lgContainer} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Button lg gap>LG Button</Button>
+          </ThemeProvider>
+        );
+
+        const xsButton = xsContainer.querySelector('button');
+        const lgButton = lgContainer.querySelector('button');
+
+        expect(xsButton).toHaveClass('[--gap-unit:1]');
+        expect(xsButton).toHaveClass('gap-(--ui-gap)');
+
+        expect(lgButton).toHaveClass('[--gap-unit:2.5]');
+        expect(lgButton).toHaveClass('gap-(--ui-gap)');
+      });
+    });
+  });
 });

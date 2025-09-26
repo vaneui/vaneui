@@ -51,7 +51,7 @@ describe('Checkbox Component Tests', () => {
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('cursor-pointer');
       expect(checkbox).toHaveClass('h-4', 'w-4'); // md size default
-      expect(checkbox).toHaveClass('rounded-(--ui-br-sm)'); // rounded default for md size
+      expect(checkbox).toHaveClass('rounded-(--ui-br)'); // rounded default for md size
       // Note: Ring is disabled by default (noRing: true in defaults), so no ring classes expected
     });
 
@@ -140,7 +140,7 @@ describe('Checkbox Component Tests', () => {
       const shapes = [
         { prop: 'pill', class: 'rounded-full' },
         { prop: 'sharp', class: 'rounded-none' },
-        { prop: 'rounded', class: 'rounded-(--ui-br-sm)' }
+        { prop: 'rounded', class: 'rounded-(--ui-br)' }
       ] as const;
 
       shapes.forEach(({prop, class: expectedClass}) => {

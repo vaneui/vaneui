@@ -24,7 +24,7 @@ describe('Chip Component Tests', () => {
       expect(chip).toHaveClass('text-(--color-text-secondary)'); // secondary appearance (default for chip)
       expect(chip).toHaveClass('font-mono'); // mono font for chip
       expect(chip).toHaveClass('font-normal'); // normal weight
-      expect(chip).toHaveClass('inline-flex', 'items-center', 'rounded-(--ui-br-md)');
+      expect(chip).toHaveClass('inline-flex', 'items-center', 'rounded-(--ui-br)');
     });
   });
 
@@ -126,7 +126,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('rounded-(--ui-br-md)'); // default rounded
+      expect(chip).toHaveClass('rounded-(--ui-br)'); // default rounded
     });
 
     it('should render with sharp corners when sharp prop is true', () => {
@@ -262,6 +262,64 @@ describe('Chip Component Tests', () => {
       expect(chip).toBeInTheDocument();
       expect(chip).toHaveClass('w-fit', 'h-fit', 'whitespace-nowrap'); // theme classes
       expect(chip).toHaveClass('custom-chip-class'); // custom class
+    });
+  });
+
+  describe('CSS Variable Classes Based on Size', () => {
+    describe('Border Radius Variables', () => {
+      it('should apply correct --br-unit for xs size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Chip xs>XS Chip</Chip>
+          </ThemeProvider>
+        );
+
+        const chip = container.querySelector('span');
+        expect(chip).toHaveClass('[--br-unit:1]');
+        expect(chip).toHaveClass('rounded-(--ui-br)');
+      });
+
+      it('should apply correct --br-unit for lg size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Chip lg>LG Chip</Chip>
+          </ThemeProvider>
+        );
+
+        const chip = container.querySelector('span');
+        expect(chip).toHaveClass('[--br-unit:4]');
+        expect(chip).toHaveClass('rounded-(--ui-br)');
+      });
+    });
+
+    describe('Padding Variables', () => {
+      it('should apply correct aspect-ratio and --py-unit for xs size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Chip xs>XS Chip</Chip>
+          </ThemeProvider>
+        );
+
+        const chip = container.querySelector('span');
+        expect(chip).toHaveClass('[--aspect-ratio:4]');
+        expect(chip).toHaveClass('[--py-unit:0.5]');
+        expect(chip).toHaveClass('px-(--ui-px)');
+        expect(chip).toHaveClass('py-(--ui-py)');
+      });
+    });
+
+    describe('Gap Variables', () => {
+      it('should apply correct --gap-unit for xs size', () => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Chip xs gap>XS Chip</Chip>
+          </ThemeProvider>
+        );
+
+        const chip = container.querySelector('span');
+        expect(chip).toHaveClass('[--gap-unit:1]');
+        expect(chip).toHaveClass('gap-(--ui-gap)');
+      });
     });
   });
 });
