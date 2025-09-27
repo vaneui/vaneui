@@ -420,5 +420,30 @@ describe('Title Components Tests', () => {
       expect(h3El).toBeInTheDocument();
       expect(h3El).toHaveTextContent('H3 Section Title');
     });
+
+    it('should apply correct line height based on text size for Title', () => {
+      const sizes = [
+        { prop: 'xs', expectedTextSize: 'text-lg', unitClass: '[--lh-unit:1.556]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'sm', expectedTextSize: 'text-xl', unitClass: '[--lh-unit:1.4]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'md', expectedTextSize: 'text-2xl', unitClass: '[--lh-unit:1.333]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'lg', expectedTextSize: 'text-3xl', unitClass: '[--lh-unit:1.2]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'xl', expectedTextSize: 'text-4xl', unitClass: '[--lh-unit:1.111]', lineHeightClass: 'leading-(--lh)' }
+      ] as const;
+
+      sizes.forEach(({prop, expectedTextSize, unitClass, lineHeightClass}) => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Title {...(prop === 'md' ? {} : {[prop]: true})}>
+              {prop} title with line height
+            </Title>
+          </ThemeProvider>
+        );
+
+        const title = container.querySelector('h3');
+        expect(title).toHaveClass(expectedTextSize);
+        expect(title).toHaveClass(unitClass);
+        expect(title).toHaveClass(lineHeightClass);
+      });
+    });
   });
 });

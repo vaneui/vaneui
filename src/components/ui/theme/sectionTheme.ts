@@ -6,7 +6,7 @@ import { SectionProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { sectionAspectRatioClasses } from "../classes/layoutClasses";
+import { SizeKey } from "../props";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
@@ -15,6 +15,14 @@ import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { SECTION_CATEGORIES } from "../props";
 import { BreakpointTheme } from "./size/breakpointTheme";
+
+const sectionAspectRatioClasses: Record<SizeKey, string> = {
+  xs: "[--aspect-ratio:2.5]",
+  sm: "[--aspect-ratio:2]",
+  md: "[--aspect-ratio:1.75]",
+  lg: "[--aspect-ratio:1.6]",
+  xl: "[--aspect-ratio:1.5]",
+};
 
 export interface SectionTheme extends BaseComponentTheme {
   size: {
@@ -52,13 +60,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
         lg: "[--py-unit:16]",
         xl: "[--py-unit:20]",
       }),
-      gap: new GapTheme({
-        xs: "[--gap-unit:2]",
-        sm: "[--gap-unit:3]",
-        md: "[--gap-unit:4]",
-        lg: "[--gap-unit:5]",
-        xl: "[--gap-unit:6]",
-      }),
+      gap: new GapTheme(),
       breakpoint: new BreakpointTheme(),
     },
     appearance: {

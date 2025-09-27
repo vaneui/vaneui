@@ -1,39 +1,38 @@
-import { SizeKey, ComponentKeys } from "../../props";
+import { SizeKey } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
-import { layoutGapClasses } from "../../classes/layoutClasses";
+import { layoutGapClasses, uiGapClasses } from "../../classes/layoutClasses";
 
 export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
-  /** Extra-small gap - uses CSS variable --layout-gap-xs */
-  xs: string = layoutGapClasses.xs;
-  /** Small gap - uses CSS variable --layout-gap-sm */
-  sm: string = layoutGapClasses.sm;
-  /** Medium gap - uses CSS variable --layout-gap-md */
-  md: string = layoutGapClasses.md;
-  /** Large gap - uses CSS variable --layout-gap-lg */
-  lg: string = layoutGapClasses.lg;
-  /** Extra-large gap - uses CSS variable --layout-gap-xl */
-  xl: string = layoutGapClasses.xl;
+  /** Extra-small gap */
+  xs: string;
+  /** Small gap */
+  sm: string;
+  /** Medium gap */
+  md: string;
+  /** Large gap */
+  lg: string;
+  /** Extra-large gap */
+  xl: string;
 
-  private isUIComponent: boolean;
+  private readonly gapVarClass: string;
 
-  constructor(sizeMap?: Record<SizeKey, string>, isUIComponent = false) {
+  constructor(isUIComponent = false) {
     super();
-    this.isUIComponent = isUIComponent;
-    if (sizeMap) {
-      ComponentKeys.size.forEach((key) => {
-        if (sizeMap[key] !== undefined) {
-          this[key] = sizeMap[key];
-        }
-      });
-    }
+    this.gapVarClass = isUIComponent ? "gap-(--ui-gap)" : "gap-(--gap)";
+    
+    const gapClasses = isUIComponent ? uiGapClasses : layoutGapClasses;
+    this.xs = gapClasses.xs;
+    this.sm = gapClasses.sm;
+    this.md = gapClasses.md;
+    this.lg = gapClasses.lg;
+    this.xl = gapClasses.xl;
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.gap === 'gap') {
       const gapClass = this[extractedKeys?.size ?? 'md'];
-      const gapVar = this.isUIComponent ? "gap-(--ui-gap)" : "gap-(--gap)";
-      return gapClass ? [gapClass, gapVar] : [];
+      return gapClass ? [gapClass, this.gapVarClass] : [];
     }
     return [];
   }

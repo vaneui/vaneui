@@ -12,7 +12,8 @@ import { RingTheme } from "./layout/ringTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { uiPaddingClasses, inputAspectRatioClasses } from "../classes/layoutClasses";
+import { uiPaddingClasses } from "../classes/layoutClasses";
+import { SizeKey } from "../props";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -20,6 +21,15 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { INPUT_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
+
+// Input aspect ratios (same as button)
+const inputAspectRatioClasses: Record<SizeKey, string> = {
+  xs: "[--aspect-ratio:2]",
+  sm: "[--aspect-ratio:2]",
+  md: "[--aspect-ratio:2]",
+  lg: "[--aspect-ratio:2]",
+  xl: "[--aspect-ratio:2]",
+};
 
 export interface InputTheme extends BaseTypographyComponentTheme {
   size: {
@@ -53,7 +63,7 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
     size: {
       px: new PxTheme(inputAspectRatioClasses, true),
       py: new PyTheme(uiPaddingClasses, true),
-      gap: new GapTheme({xs: '[--gap-unit:1]', sm: '[--gap-unit:1.5]', md: '[--gap-unit:2]', lg: '[--gap-unit:2.5]', xl: '[--gap-unit:3]'}, true),
+      gap: new GapTheme(true),
       text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'}),
     },
     appearance: {

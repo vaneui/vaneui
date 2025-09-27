@@ -19,7 +19,7 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('px-(--px) [--py-unit:4]', 'py-(--py) [--gap-unit:2]', 'gap-(--gap)', 'flex');
+      expect(card).toHaveClass('px-(--px) [--py-unit:4]', 'py-(--py) [--gap-unit:2]', 'gap-(--ui-gap)', 'flex');
       expect(card).toHaveClass('text-(--color-text-default)'); // default appearance
       expect(card).toHaveClass('bg-(--color-bg-layout-default)', 'rounded-(--br)', 'flex-col');
       expect(card).toHaveClass('border-(--color-border-default)');
@@ -75,7 +75,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:2]', 'py-(--py) [--gap-unit:1]', 'gap-(--gap)'); // xs sizing for padding and gap
+      expect(card).toHaveClass('px-(--px) [--py-unit:2]', 'py-(--py) [--gap-unit:1]', 'gap-(--ui-gap)'); // xs sizing for padding and gap
       // xs size has no responsive classes
     });
 
@@ -87,7 +87,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:3]', 'py-(--py) [--gap-unit:1.5]', 'gap-(--gap)'); // sm sizing for padding and gap
+      expect(card).toHaveClass('px-(--px) [--py-unit:3]', 'py-(--py) [--gap-unit:1.5]', 'gap-(--ui-gap)'); // sm sizing for padding and gap
     });
 
     it('should render with lg size classes', () => {
@@ -98,7 +98,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:5]', 'py-(--py) [--gap-unit:2.5]', 'gap-(--gap)'); // lg sizing
+      expect(card).toHaveClass('px-(--px) [--py-unit:5]', 'py-(--py) [--gap-unit:2.5]', 'gap-(--ui-gap)'); // lg sizing
     });
 
     it('should render with xl size classes', () => {
@@ -109,7 +109,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:6]', 'py-(--py) [--gap-unit:3]', 'gap-(--gap)'); // xl sizing
+      expect(card).toHaveClass('px-(--px) [--py-unit:6]', 'py-(--py) [--gap-unit:3]', 'gap-(--ui-gap)'); // xl sizing
     });
   });
 

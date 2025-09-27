@@ -15,6 +15,7 @@ import { mergeDefaults } from "../../utils/deepMerge";
 import { SizeKey } from "../props";
 import { PlTheme } from "./size/plTheme";
 import { ListStyleTheme } from "./list/listStyleTheme";
+import { LineHeightTheme } from "./typography/lineHeightTheme";
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from "../props";
 
 export interface TypographyTheme extends BaseTypographyComponentTheme {
@@ -33,7 +34,12 @@ export const createTypographyComponentTheme = (
   base: string = "text-balance",
   textSizeMap: Record<SizeKey, string> = textSizeClasses,
   defaults: Partial<TypographyProps> = {},
+  lineHeightTheme?: LineHeightTheme,
 ): ComponentTheme<TypographyProps, TypographyTheme> => {
+  const typographyThemes = lineHeightTheme 
+    ? { ...defaultTypographyThemes, lineHeight: lineHeightTheme }
+    : defaultTypographyThemes;
+
   return new ComponentTheme<TypographyProps, TypographyTheme>(
     tag,
     base,
@@ -44,7 +50,7 @@ export const createTypographyComponentTheme = (
       appearance: {
         text: GenericVariantTheme.createTypographyTextTheme(),
       },
-      typography: defaultTypographyThemes,
+      typography: typographyThemes,
       layout: defaultLayoutsThemes,
     },
     defaults,
@@ -66,7 +72,8 @@ export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = 
     lg: "text-6xl max-lg:text-5xl max-md:text-4xl",
     xl: "text-7xl max-lg:text-6xl max-md:text-5xl"
   },
-  mergeDefaults(themeDefaults.pageTitle as Record<string, boolean>, {semibold: true})
+  mergeDefaults(themeDefaults.pageTitle as Record<string, boolean>, {semibold: true}),
+  LineHeightTheme.createForPageTitle()
 );
 
 // Section title specific theme
@@ -80,7 +87,8 @@ export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyTheme>
     lg: "text-5xl max-lg:text-4xl max-md:text-3xl",
     xl: "text-6xl max-lg:text-5xl max-md:text-4xl"
   },
-  mergeDefaults(themeDefaults.sectionTitle as Record<string, boolean>, {semibold: true})
+  mergeDefaults(themeDefaults.sectionTitle as Record<string, boolean>, {semibold: true}),
+  LineHeightTheme.createForSectionTitle()
 );
 
 // Title specific theme
@@ -88,7 +96,8 @@ export const titleTheme: ComponentTheme<TypographyProps, TypographyTheme> = crea
   "h3",
   "text-balance w-fit",
   {xs: "text-lg", sm: "text-xl", md: "text-2xl", lg: "text-3xl", xl: "text-4xl"},
-  mergeDefaults(themeDefaults.title as Record<string, boolean>, {semibold: true})
+  mergeDefaults(themeDefaults.title as Record<string, boolean>, {semibold: true}),
+  LineHeightTheme.createForTitle()
 );
 
 // Text specific theme
@@ -129,6 +138,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
       text: GenericVariantTheme.createTypographyTextTheme(),
     },
     typography: defaultTypographyThemes,
+    layout: defaultLayoutsThemes,
   },
   themeDefaults.listItem as Partial<TypographyProps>,
   TYPOGRAPHY_CATEGORIES

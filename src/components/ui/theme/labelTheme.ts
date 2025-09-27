@@ -36,7 +36,7 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
   {
     size: {
       text: new SizeTheme(textSizeClasses),
-      gap: new GapTheme({xs: '[--gap-unit:1.5]', sm: '[--gap-unit:2]', md: '[--gap-unit:2.5]', lg: '[--gap-unit:3]', xl: '[--gap-unit:3]'}, true),
+      gap: new GapTheme(true),
     },
     appearance: {
       text: GenericVariantTheme.createTypographyTextTheme(),

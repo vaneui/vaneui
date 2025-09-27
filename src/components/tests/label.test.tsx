@@ -71,10 +71,10 @@ describe('Label Component Tests', () => {
 
     it('should support different gap sizes', () => {
       const gaps = [
-        { prop: 'xs', gapClass: 'gap-(--ui-gap)', unitClass: '[--gap-unit:1.5]' },
-        { prop: 'sm', gapClass: 'gap-(--ui-gap)', unitClass: '[--gap-unit:2]' },
-        { prop: 'md', gapClass: 'gap-(--ui-gap)', unitClass: '[--gap-unit:2.5]' },
-        { prop: 'lg', gapClass: 'gap-(--ui-gap)', unitClass: '[--gap-unit:3]' },
+        { prop: 'xs', gapClass: 'gap-(--ui-gap)', unitClass: '[--gap-unit:1]' },
+        { prop: 'sm', gapClass: 'gap-(--ui-gap)', unitClass: '[--gap-unit:1.5]' },
+        { prop: 'md', gapClass: 'gap-(--ui-gap)', unitClass: '[--gap-unit:2]' },
+        { prop: 'lg', gapClass: 'gap-(--ui-gap)', unitClass: '[--gap-unit:2.5]' },
         { prop: 'xl', gapClass: 'gap-(--ui-gap)', unitClass: '[--gap-unit:3]' }
       ] as const;
 

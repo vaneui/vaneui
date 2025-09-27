@@ -45,13 +45,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
     size: {
       px: new PxTheme(),
       py: new PyTheme(),
-      gap: new GapTheme({
-        xs: "[--gap-unit:2]",
-        sm: "[--gap-unit:3]",
-        md: "[--gap-unit:4]",
-        lg: "[--gap-unit:5]",
-        xl: "[--gap-unit:6]",
-      }),
+      gap: new GapTheme(),
       breakpoint: new BreakpointTheme(),
     },
     layout: {

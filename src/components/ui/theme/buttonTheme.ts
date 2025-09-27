@@ -12,7 +12,8 @@ import { RingTheme } from "./layout/ringTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { uiPaddingClasses, buttonAspectRatioClasses } from "../classes/layoutClasses";
+import { uiPaddingClasses } from "../classes/layoutClasses";
+import { SizeKey } from "../props";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -20,6 +21,15 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { BUTTON_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
+
+// Button-specific aspect ratios (px-2,3,4,5,6 vs py-1,1.5,2,2.5,3)
+const buttonAspectRatioClasses: Record<SizeKey, string> = {
+  xs: "[--aspect-ratio:2]",    // px-2 vs py-1 = 2
+  sm: "[--aspect-ratio:2]",    // px-3 vs py-1.5 = 2
+  md: "[--aspect-ratio:2]",    // px-4 vs py-2 = 2
+  lg: "[--aspect-ratio:2]",    // px-5 vs py-2.5 = 2
+  xl: "[--aspect-ratio:2]",    // px-6 vs py-3 = 2
+};
 
 export interface ButtonTheme extends BaseTypographyComponentTheme {
   size: {
@@ -53,7 +63,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
     size: {
       px: new PxTheme(buttonAspectRatioClasses, true),
       py: new PyTheme(uiPaddingClasses, true),
-      gap: new GapTheme({xs: '[--gap-unit:1]', sm: '[--gap-unit:1.5]', md: '[--gap-unit:2]', lg: '[--gap-unit:2.5]', xl: '[--gap-unit:3]'}, true),
+      gap: new GapTheme(true),
       text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'}),
     },
     appearance: {

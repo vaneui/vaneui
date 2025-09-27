@@ -367,6 +367,30 @@ describe('Text Component Tests', () => {
       expect(anchor).toHaveAttribute('rel', 'noopener');
     });
 
+    it('should apply correct line height based on size', () => {
+      const sizes = [
+        { prop: 'xs', unitClass: '[--lh-unit:1.333]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'sm', unitClass: '[--lh-unit:1.429]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'md', unitClass: '[--lh-unit:1.5]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'lg', unitClass: '[--lh-unit:1.556]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'xl', unitClass: '[--lh-unit:1.4]', lineHeightClass: 'leading-(--lh)' }
+      ] as const;
+
+      sizes.forEach(({prop, unitClass, lineHeightClass}) => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Text {...(prop === 'md' ? {} : {[prop]: true})}>
+              {prop} text with line height
+            </Text>
+          </ThemeProvider>
+        );
+
+        const text = container.querySelector('p');
+        expect(text).toHaveClass(unitClass);
+        expect(text).toHaveClass(lineHeightClass);
+      });
+    });
+
     it('should maintain theme classes when used as link', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
@@ -382,6 +406,8 @@ describe('Text Component Tests', () => {
       expect(anchor).toHaveClass('font-semibold'); // font weight
       expect(anchor).toHaveClass('text-lg'); // size
       expect(anchor).toHaveClass('font-sans'); // default font family
+      expect(anchor).toHaveClass('[--lh-unit:1.556]'); // line height unit for lg size
+      expect(anchor).toHaveClass('leading-(--lh)'); // line height variable
     });
   });
 });

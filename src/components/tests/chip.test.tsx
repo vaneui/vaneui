@@ -301,7 +301,7 @@ describe('Chip Component Tests', () => {
         );
 
         const chip = container.querySelector('span');
-        expect(chip).toHaveClass('[--aspect-ratio:4]');
+        expect(chip).toHaveClass('[--aspect-ratio:2]');
         expect(chip).toHaveClass('[--py-unit:0.5]');
         expect(chip).toHaveClass('px-(--ui-px)');
         expect(chip).toHaveClass('py-(--ui-py)');

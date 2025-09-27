@@ -9,7 +9,7 @@ export class RadiusTheme extends BaseTheme {
   sharp: string = "rounded-none";
   /** Size-based rounded corners - varies by component size */
   rounded: Record<SizeKey, string>;
-  
+
   private isUIComponent: boolean;
 
   private constructor(roundedClasses: Record<SizeKey, string>, isUIComponent: boolean = false) {
@@ -18,15 +18,24 @@ export class RadiusTheme extends BaseTheme {
     this.isUIComponent = isUIComponent;
   }
 
-  static createUITheme(customRounded?: Record<SizeKey, string>): RadiusTheme {
-    const brUnitClasses: Record<SizeKey, string> = {
+  static createCheckboxTheme(): RadiusTheme {
+    return new RadiusTheme({
       xs: '[--br-unit:1]',
-      sm: '[--br-unit:2]', 
+      sm: '[--br-unit:1.5]',
+      md: '[--br-unit:2]',
+      lg: '[--br-unit:2.5]',
+      xl: '[--br-unit:3]'
+    }, true);
+  }
+
+  static createUITheme(): RadiusTheme {
+    return new RadiusTheme({
+      xs: '[--br-unit:1]',
+      sm: '[--br-unit:2]',
       md: '[--br-unit:3]',
       lg: '[--br-unit:4]',
       xl: '[--br-unit:5]'
-    };
-    return new RadiusTheme(customRounded || brUnitClasses, true);
+    }, true);
   }
 
   static createLayoutTheme(): RadiusTheme {
@@ -43,7 +52,7 @@ export class RadiusTheme extends BaseTheme {
   getClasses(extractedKeys: CategoryProps): string[] {
     const size = extractedKeys.size ?? 'md';
     const shape = extractedKeys.shape ?? 'rounded';
-    
+
     switch (shape) {
       case 'pill':
         return [this.pill];

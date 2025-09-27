@@ -188,5 +188,8 @@
 
         --ui-br-base: 0.125rem;
         --ui-br: calc(var(--br-unit) * var(--ui-br-base));
+
+        --lh-unit: 1.5;
+        --lh: var(--lh-unit);
     }
 }
