@@ -7,10 +7,9 @@ import {
 } from "./common/ComponentTheme";
 import { LabelProps } from "../props";
 import { themeDefaults } from "./defaults";
-import { SizeTheme } from "./size/sizeTheme";
 import { GapTheme } from "./size/gapTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { textSizeClasses } from "../classes/typographyClasses";
+import { FontSizeTheme } from "./typography/fontSizeTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
@@ -18,7 +17,7 @@ import { LABEL_CATEGORIES } from "../props";
 
 export interface LabelTheme extends BaseTypographyComponentTheme {
   size: {
-    text: SizeTheme;
+    text: FontSizeTheme;
     gap: GapTheme;
   };
   appearance: {
@@ -35,7 +34,7 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
   "has-[input]:cursor-pointer cursor-default",
   {
     size: {
-      text: new SizeTheme(textSizeClasses),
+      text: new FontSizeTheme(),
       gap: new GapTheme(true),
     },
     appearance: {

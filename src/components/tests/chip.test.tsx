@@ -275,7 +275,7 @@ describe('Chip Component Tests', () => {
         );
 
         const chip = container.querySelector('span');
-        expect(chip).toHaveClass('[--br-unit:1]');
+        expect(chip).toHaveClass('[--br-unit:2]');
         expect(chip).toHaveClass('rounded-(--ui-br)');
       });
 
@@ -287,7 +287,7 @@ describe('Chip Component Tests', () => {
         );
 
         const chip = container.querySelector('span');
-        expect(chip).toHaveClass('[--br-unit:4]');
+        expect(chip).toHaveClass('[--br-unit:5]');
         expect(chip).toHaveClass('rounded-(--ui-br)');
       });
     });

@@ -30,11 +30,11 @@ export class RadiusTheme extends BaseTheme {
 
   static createUITheme(): RadiusTheme {
     return new RadiusTheme({
-      xs: '[--br-unit:1]',
-      sm: '[--br-unit:2]',
-      md: '[--br-unit:3]',
-      lg: '[--br-unit:4]',
-      xl: '[--br-unit:5]'
+      xs: '[--br-unit:2]',
+      sm: '[--br-unit:3]',
+      md: '[--br-unit:4]',
+      lg: '[--br-unit:5]',
+      xl: '[--br-unit:6]'
     }, true);
   }
 

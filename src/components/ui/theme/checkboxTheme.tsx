@@ -13,7 +13,7 @@ import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { CHECKBOX_CATEGORIES } from "../props";
-import { textSizeClasses } from "../classes/typographyClasses";
+import { FontSizeTheme } from "./typography/fontSizeTheme";
 import { ReactElement } from "react";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
@@ -21,7 +21,7 @@ import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 export interface CheckboxTheme extends BaseComponentTheme {
   size: {
     size: SizeTheme;
-    text: SizeTheme;
+    text: FontSizeTheme;
   };
   layout: DefaultLayoutThemes & {
     border: BorderTheme;
@@ -52,7 +52,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
         lg: 'h-4.5 w-4.5',
         xl: 'h-5 w-5'
       }),
-      text: new SizeTheme(textSizeClasses)
+      text: new FontSizeTheme()
     },
     layout: {
       ...defaultLayoutsThemes,

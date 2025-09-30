@@ -373,7 +373,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('[--br-unit:1]');
+        expect(button).toHaveClass('[--br-unit:2]');
         expect(button).toHaveClass('rounded-(--ui-br)');
       });
 
@@ -385,7 +385,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('[--br-unit:2]');
+        expect(button).toHaveClass('[--br-unit:3]');
         expect(button).toHaveClass('rounded-(--ui-br)');
       });
 
@@ -397,7 +397,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('[--br-unit:3]');
+        expect(button).toHaveClass('[--br-unit:4]');
         expect(button).toHaveClass('rounded-(--ui-br)');
       });
 
@@ -409,7 +409,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('[--br-unit:4]');
+        expect(button).toHaveClass('[--br-unit:5]');
         expect(button).toHaveClass('rounded-(--ui-br)');
       });
 
@@ -421,7 +421,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('[--br-unit:5]');
+        expect(button).toHaveClass('[--br-unit:6]');
         expect(button).toHaveClass('rounded-(--ui-br)');
       });
     });

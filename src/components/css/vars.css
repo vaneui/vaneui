@@ -146,15 +146,16 @@
     --color-border-filled-info: var(--color-blue-600);
     --color-border-filled-link: var(--color-blue-600);
 
+
     --layout-spacing: clamp(0.1rem, 0.16rem + 0.4vw, 0.3rem);
     --ui-spacing: var(--spacing);
     --br-base: 0.25rem;
     --ui-br-base: 0.125rem;
+    --fs-base: 0.125rem;
 }
 
 @layer base {
     :where(*) {
-        /* Layout Gap: the --gap-unit variable is set depending on component and it's size */
         --gap-unit: 1;
         --gap: calc(var(--gap-unit) * var(--layout-spacing));
         --ui-gap: calc(var(--gap-unit) * var(--ui-spacing));
@@ -172,5 +173,8 @@
 
         --lh-unit: 1.5;
         --lh: var(--lh-unit);
+
+        --fs-unit: 8; /* Default to text-base (1rem = 8 * 0.125rem) */
+        --fs: calc(var(--fs-unit) * var(--fs-base));
     }
 }
