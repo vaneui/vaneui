@@ -146,24 +146,10 @@
     --color-border-filled-info: var(--color-blue-600);
     --color-border-filled-link: var(--color-blue-600);
 
-    /* UI Component Border Radius Sizes */
-    --ui-br-unit: 0.125rem;
-    --ui-br-xs: calc(1 * var(--ui-br-unit));
-    --ui-br-sm: calc(2 * var(--ui-br-unit));
-    --ui-br-md: calc(3 * var(--ui-br-unit));
-    --ui-br-lg: calc(4 * var(--ui-br-unit));
-    --ui-br-xl: calc(5 * var(--ui-br-unit));
-
-    /* Layout Component Border Radius Sizes */
-    --layout-br-spacing: 0.25rem;
-    --layout-br-xs: calc(3 * var(--layout-br-spacing));
-    --layout-br-sm: calc(4 * var(--layout-br-spacing));
-    --layout-br-md: calc(5 * var(--layout-br-spacing));
-    --layout-br-lg: calc(6 * var(--layout-br-spacing));
-    --layout-br-xl: calc(7 * var(--layout-br-spacing));
-
     --layout-spacing: clamp(0.1rem, 0.16rem + 0.4vw, 0.3rem);
     --ui-spacing: var(--spacing);
+    --br-base: 0.25rem;
+    --ui-br-base: 0.125rem;
 }
 
 @layer base {
@@ -175,18 +161,13 @@
 
         --aspect-ratio: 1;
         --py-unit: 1;
-
         --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--layout-spacing));
         --py: calc(var(--py-unit) * var(--layout-spacing));
-
         --ui-px: calc(var(--aspect-ratio) * var(--py-unit) * var(--ui-spacing));
         --ui-py: calc(var(--py-unit) * var(--ui-spacing));
 
         --br-unit: 1;
-        --br-base: 0.25rem;
         --br: calc(var(--br-unit) * var(--br-base));
-
-        --ui-br-base: 0.125rem;
         --ui-br: calc(var(--br-unit) * var(--ui-br-base));
 
         --lh-unit: 1.5;
