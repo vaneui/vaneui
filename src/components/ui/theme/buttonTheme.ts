@@ -4,7 +4,8 @@ import {
   DefaultLayoutThemes, defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { ButtonProps } from "../props";
-import { SizeTheme } from "./size/sizeTheme";
+import { FontSizeTheme } from "./size/fontSizeTheme";
+import { LineHeightTheme } from "./size/lineHeightTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
@@ -22,7 +23,6 @@ import { DirectionTheme } from "./layout/directionTheme";
 import { BUTTON_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 
-// Button-specific aspect ratios (px-2,3,4,5,6 vs py-1,1.5,2,2.5,3)
 const buttonAspectRatioClasses: Record<SizeKey, string> = {
   xs: "[--aspect-ratio:2]",    // px-2 vs py-1 = 2
   sm: "[--aspect-ratio:2]",    // px-3 vs py-1.5 = 2
@@ -35,7 +35,8 @@ export interface ButtonTheme extends BaseTypographyComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
-    text: SizeTheme;
+    text: FontSizeTheme;
+    lineHeight: LineHeightTheme;
     gap: GapTheme;
   };
   appearance: {
@@ -64,7 +65,14 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       px: new PxTheme(buttonAspectRatioClasses, true),
       py: new PyTheme(uiPaddingClasses, true),
       gap: new GapTheme(true),
-      text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'}),
+      text: new FontSizeTheme(),
+      lineHeight: new LineHeightTheme({
+        xs: "[--lh-unit:1.3]",
+        sm: "[--lh-unit:1.3]",
+        md: "[--lh-unit:1.3]",
+        lg: "[--lh-unit:1.3]",
+        xl: "[--lh-unit:1.3]"
+      }),
     },
     appearance: {
       background: GenericVariantTheme.createBgAppearanceTheme(),

@@ -33,6 +33,10 @@ export class LineHeightTheme extends BaseTheme implements Record<SizeKey, string
     return [this.md, "leading-(--lh)"];
   }
 
+  static createDefault(): LineHeightTheme {
+    return new LineHeightTheme();
+  }
+
   // Static factory methods for different text size ranges
   static createForSectionTitle(): LineHeightTheme {
     return new LineHeightTheme({

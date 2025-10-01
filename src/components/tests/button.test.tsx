@@ -20,7 +20,7 @@ describe('Button Component Tests', () => {
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
       expect(button).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
-      expect(button).toHaveClass('text-base'); // md size
+      expect(button).toHaveClass('[--fs-unit:8]', 'text-(length:--fs)'); // md size
       expect(button).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
       expect(button).toHaveClass('text-(--color-text-default)'); // default appearance
       expect(button).toHaveClass('font-sans'); // sans family
@@ -42,7 +42,7 @@ describe('Button Component Tests', () => {
       const anchor = container.querySelector('a');
       expect(anchor).toBeInTheDocument();
       expect(anchor).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
-      expect(anchor).toHaveClass('text-base'); // md size
+      expect(anchor).toHaveClass('[--fs-unit:8]', 'text-(length:--fs)'); // md size
       expect(anchor).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
       expect(anchor).toHaveClass('text-(--color-text-default)'); // default appearance
       expect(anchor).toHaveClass('font-sans'); // sans family

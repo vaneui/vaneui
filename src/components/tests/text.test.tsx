@@ -21,7 +21,7 @@ describe('Text Component Tests', () => {
       expect(text).toBeInTheDocument();
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
       expect(text).toHaveClass('[--fs-unit:8]'); // md size (1rem = 8 * 0.125rem)
-      expect(text).toHaveClass('text-(--fs)'); // CSS variable font size
+      expect(text).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(text).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(text).toHaveClass('font-sans');
       // No default font weight; variants like medium/bold are opt-in
@@ -30,11 +30,11 @@ describe('Text Component Tests', () => {
 
     it('should apply different size classes', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:6]', textClass: 'text-(--fs)' }, // 0.75rem = 6 * 0.125rem
-        { prop: 'sm', unitClass: '[--fs-unit:7]', textClass: 'text-(--fs)' }, // 0.875rem = 7 * 0.125rem
-        { prop: 'md', unitClass: '[--fs-unit:8]', textClass: 'text-(--fs)' }, // 1rem = 8 * 0.125rem
-        { prop: 'lg', unitClass: '[--fs-unit:9]', textClass: 'text-(--fs)' }, // 1.125rem = 9 * 0.125rem
-        { prop: 'xl', unitClass: '[--fs-unit:10]', textClass: 'text-(--fs)' } // 1.25rem = 10 * 0.125rem
+        { prop: 'xs', unitClass: '[--fs-unit:6]', textClass: 'text-(length:--fs)' }, // 0.75rem = 6 * 0.125rem
+        { prop: 'sm', unitClass: '[--fs-unit:7]', textClass: 'text-(length:--fs)' }, // 0.875rem = 7 * 0.125rem
+        { prop: 'md', unitClass: '[--fs-unit:8]', textClass: 'text-(length:--fs)' }, // 1rem = 8 * 0.125rem
+        { prop: 'lg', unitClass: '[--fs-unit:9]', textClass: 'text-(length:--fs)' }, // 1.125rem = 9 * 0.125rem
+        { prop: 'xl', unitClass: '[--fs-unit:10]', textClass: 'text-(length:--fs)' } // 1.25rem = 10 * 0.125rem
       ] as const;
 
       sizes.forEach(({prop, unitClass, textClass}) => {
@@ -304,7 +304,7 @@ describe('Text Component Tests', () => {
       );
 
       const text = container.querySelector('p');
-      expect(text).toHaveClass('[--fs-unit:8]', 'text-(--fs)', 'font-sans'); // theme classes (no default color)
+      expect(text).toHaveClass('[--fs-unit:8]', 'text-(length:--fs)', 'font-sans'); // theme classes (no default color)
       expect(text).toHaveClass('custom-text-class'); // custom class
     });
 
@@ -407,7 +407,7 @@ describe('Text Component Tests', () => {
       expect(anchor).toHaveClass('text-(--color-text-primary)'); // primary color
       expect(anchor).toHaveClass('font-semibold'); // font weight
       expect(anchor).toHaveClass('[--fs-unit:9]'); // CSS variable font size (1.125rem = 9 * 0.125rem)
-      // Note: text-(--fs) class appears to be conflicting with text-(--color-text-primary) 
+      // Note: text-(length:--fs) class appears to be conflicting with text-(--color-text-primary) 
       // The font size is still applied via the CSS variable, but the utility class is not present
       expect(anchor).toHaveClass('font-sans'); // default font family
       expect(anchor).toHaveClass('[--lh-unit:1.556]'); // line height unit for lg size

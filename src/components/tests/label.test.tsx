@@ -25,7 +25,7 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('flex'); // flex by default
       expect(label).toHaveClass('gap-(--ui-gap)'); // default gap
       expect(label).toHaveClass('[--fs-unit:8]'); // md size default (1rem = 8 * 0.125rem)
-      expect(label).toHaveClass('text-(--fs)'); // CSS variable font size
+      expect(label).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(label).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(label).toHaveClass('font-sans');
       expect(label).toHaveClass('font-medium');
@@ -112,11 +112,11 @@ describe('Label Component Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:6]', textClass: 'text-(--fs)' }, // 0.75rem = 6 * 0.125rem
-        { prop: 'sm', unitClass: '[--fs-unit:7]', textClass: 'text-(--fs)' }, // 0.875rem = 7 * 0.125rem
-        { prop: 'md', unitClass: '[--fs-unit:8]', textClass: 'text-(--fs)' }, // 1rem = 8 * 0.125rem
-        { prop: 'lg', unitClass: '[--fs-unit:9]', textClass: 'text-(--fs)' }, // 1.125rem = 9 * 0.125rem
-        { prop: 'xl', unitClass: '[--fs-unit:10]', textClass: 'text-(--fs)' } // 1.25rem = 10 * 0.125rem
+        { prop: 'xs', unitClass: '[--fs-unit:6]', textClass: 'text-(length:--fs)' }, // 0.75rem = 6 * 0.125rem
+        { prop: 'sm', unitClass: '[--fs-unit:7]', textClass: 'text-(length:--fs)' }, // 0.875rem = 7 * 0.125rem
+        { prop: 'md', unitClass: '[--fs-unit:8]', textClass: 'text-(length:--fs)' }, // 1rem = 8 * 0.125rem
+        { prop: 'lg', unitClass: '[--fs-unit:9]', textClass: 'text-(length:--fs)' }, // 1.125rem = 9 * 0.125rem
+        { prop: 'xl', unitClass: '[--fs-unit:10]', textClass: 'text-(length:--fs)' } // 1.25rem = 10 * 0.125rem
       ] as const;
 
       sizes.forEach(({prop, unitClass, textClass}) => {

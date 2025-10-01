@@ -6,7 +6,6 @@ import { SectionProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { SizeKey } from "../props";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
@@ -15,14 +14,6 @@ import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { SECTION_CATEGORIES } from "../props";
 import { BreakpointTheme } from "./size/breakpointTheme";
-
-const sectionAspectRatioClasses: Record<SizeKey, string> = {
-  xs: "[--aspect-ratio:2.5]",
-  sm: "[--aspect-ratio:2]",
-  md: "[--aspect-ratio:1.75]",
-  lg: "[--aspect-ratio:1.6]",
-  xl: "[--aspect-ratio:1.5]",
-};
 
 export interface SectionTheme extends BaseComponentTheme {
   size: {
@@ -52,7 +43,13 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   "w-full",
   {
     size: {
-      px: new PxTheme(sectionAspectRatioClasses),
+      px: new PxTheme({
+        xs: "[--aspect-ratio:2.5]",
+        sm: "[--aspect-ratio:2]",
+        md: "[--aspect-ratio:1.75]",
+        lg: "[--aspect-ratio:1.6]",
+        xl: "[--aspect-ratio:1.5]",
+      }),
       py: new PyTheme({
         xs: "[--py-unit:4]",
         sm: "[--py-unit:8]",

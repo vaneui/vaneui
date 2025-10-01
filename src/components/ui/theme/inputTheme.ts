@@ -4,7 +4,8 @@ import {
   DefaultLayoutThemes, defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { InputProps } from "../props";
-import { SizeTheme } from "./size/sizeTheme";
+import { FontSizeTheme } from "./size/fontSizeTheme";
+import { LineHeightTheme } from "./size/lineHeightTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
@@ -13,7 +14,6 @@ import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { uiPaddingClasses } from "../classes/layoutClasses";
-import { SizeKey } from "../props";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -22,21 +22,13 @@ import { DirectionTheme } from "./layout/directionTheme";
 import { INPUT_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 
-// Input aspect ratios (same as button)
-const inputAspectRatioClasses: Record<SizeKey, string> = {
-  xs: "[--aspect-ratio:2]",
-  sm: "[--aspect-ratio:2]",
-  md: "[--aspect-ratio:2]",
-  lg: "[--aspect-ratio:2]",
-  xl: "[--aspect-ratio:2]",
-};
-
 export interface InputTheme extends BaseTypographyComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
-    text: SizeTheme;
     gap: GapTheme;
+    text: FontSizeTheme;
+    lineHeight: LineHeightTheme;
   };
   appearance: {
     background: GenericVariantTheme<AppearanceTheme>;
@@ -61,10 +53,17 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
   "w-full transition-all duration-200",
   {
     size: {
-      px: new PxTheme(inputAspectRatioClasses, true),
+      px: new PxTheme({
+        xs: "[--aspect-ratio:2]",
+        sm: "[--aspect-ratio:2]",
+        md: "[--aspect-ratio:2]",
+        lg: "[--aspect-ratio:2]",
+        xl: "[--aspect-ratio:2]",
+      }, true),
       py: new PyTheme(uiPaddingClasses, true),
       gap: new GapTheme(true),
-      text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'}),
+      text: new FontSizeTheme(),
+      lineHeight: LineHeightTheme.createDefault(),
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),

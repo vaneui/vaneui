@@ -20,7 +20,7 @@ describe('Chip Component Tests', () => {
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
       expect(chip).toHaveClass('w-fit', 'h-fit', 'whitespace-nowrap');
-      expect(chip).toHaveClass('text-base'); // md size
+      expect(chip).toHaveClass('[--fs-unit:8]', 'text-(length:--fs)'); // md size
       expect(chip).toHaveClass('text-(--color-text-secondary)'); // secondary appearance (default for chip)
       expect(chip).toHaveClass('font-mono'); // mono font for chip
       expect(chip).toHaveClass('font-normal'); // normal weight
@@ -91,7 +91,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-xs', 'px-(--ui-px)', 'py-(--ui-py)', 'gap-(--ui-gap)');
+      expect(chip).toHaveClass('[--fs-unit:6]', 'text-(length:--fs)', 'px-(--ui-px)', 'py-(--ui-py)', 'gap-(--ui-gap)');
     });
 
     it('should render with lg size classes', () => {
@@ -102,7 +102,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-lg', 'px-(--ui-px)', 'py-(--ui-py)', 'gap-(--ui-gap)');
+      expect(chip).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)', 'px-(--ui-px)', 'py-(--ui-py)', 'gap-(--ui-gap)');
     });
 
     it('should render with xl size classes', () => {
@@ -113,7 +113,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-xl', 'px-(--ui-px)', 'py-(--ui-py)', 'gap-(--ui-gap)');
+      expect(chip).toHaveClass('[--fs-unit:10]', 'text-(length:--fs)', 'px-(--ui-px)', 'py-(--ui-py)', 'gap-(--ui-gap)');
     });
   });
 

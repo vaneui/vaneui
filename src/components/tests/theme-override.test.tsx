@@ -169,16 +169,16 @@ describe('Theme Override Tests', () => {
 
       // Primary button should have default primary styling + size defaults
       expect(primaryDefault).toHaveClass('bg-(--color-bg-primary)');
-      expect(primaryDefault).toHaveClass('text-lg'); // from themeDefaults
+      expect(primaryDefault).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)'); // lg from themeDefaults
       expect(primaryDefault).toHaveClass('rounded-(--ui-br)'); // lg is the actual size being applied
 
       // Secondary filled should use custom background
       expect(secondaryFilled).toHaveClass('bg-custom-secondary'); // from themeOverride
-      expect(secondaryFilled).toHaveClass('text-lg'); // from themeDefaults
+      expect(secondaryFilled).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)'); // lg from themeDefaults
 
       // Primary outline should use custom text color
       expect(primaryOutline).toHaveClass('text-custom-primary'); // from themeOverride
-      expect(primaryOutline).toHaveClass('text-lg'); // from themeDefaults
+      expect(primaryOutline).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)'); // lg from themeDefaults
     });
 
     it('should handle complex theme override and defaults combinations', () => {
@@ -219,11 +219,11 @@ describe('Theme Override Tests', () => {
       expect(button).toHaveClass('border'); // border width from BorderTheme  
       expect(button).toHaveClass('border-indigo-400');
       expect(button).toHaveClass('font-semibold'); // from themeDefaults
-      expect(button).toHaveClass('text-xl'); // from themeDefaults
+      expect(button).toHaveClass('[--fs-unit:10]', 'text-(length:--fs)'); // xl from themeDefaults
 
       // Badge should have overridden text and default styling
       expect(badge).toHaveClass('text-pink-600'); // from themeOverride
-      expect(badge).toHaveClass('text-sm'); // from themeDefaults
+      expect(badge).toHaveClass('[--fs-unit:7]', 'text-(length:--fs)'); // sm from themeDefaults
       expect(badge).toHaveClass('rounded-full'); // pill maps to rounded-full
     });
 
@@ -259,11 +259,11 @@ describe('Theme Override Tests', () => {
 
       // Outer button uses outer theme override and defaults
       expect(outerButton).toHaveClass('text-red-500'); // from outer override
-      expect(outerButton).toHaveClass('text-lg'); // from outer defaults
+      expect(outerButton).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)'); // lg from outer defaults
 
       // Inner button uses inner theme override and defaults
       expect(innerButton).toHaveClass('bg-blue-500'); // from inner override
-      expect(innerButton).toHaveClass('text-sm'); // from inner defaults
+      expect(innerButton).toHaveClass('[--fs-unit:7]', 'text-(length:--fs)'); // sm from inner defaults
       // Note: filled variant uses white text by default, outer text override may not be visible
     });
 
@@ -333,13 +333,13 @@ describe('Theme Override Tests', () => {
       const lgButton = container.querySelector('.size-test-lg');
 
       // MD button should use overridden size classes
-      expect(mdButton).toHaveClass('text-lg'); // overridden from text-base
+      expect(mdButton).toHaveClass('text-(length:--fs)'); // FontSizeTheme CSS variable
       expect(mdButton).toHaveClass('px-(--ui-px)'); // overridden size
       expect(mdButton).toHaveClass('py-(--ui-py)'); // overridden size
       expect(mdButton).toHaveClass('bg-emerald-500'); // overridden background
 
       // LG button should use overridden text size but default padding (since lg size wasn't defaulted)
-      expect(lgButton).toHaveClass('text-2xl'); // overridden for lg
+      expect(lgButton).toHaveClass('text-(length:--fs)'); // FontSizeTheme CSS variable
       expect(lgButton).toHaveClass('bg-emerald-500'); // same background override
     });
   });

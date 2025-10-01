@@ -25,7 +25,7 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toBeInTheDocument();
       expect(list).toHaveClass('list-disc', 'list-inside');
       expect(list).toHaveClass('[--fs-unit:8]'); // md size (1rem = 8 * 0.125rem)
-      expect(list).toHaveClass('text-(--fs)'); // CSS variable font size
+      expect(list).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(list).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(list).toHaveClass('font-sans');
       expect(list).toHaveClass('font-normal');
@@ -41,7 +41,7 @@ describe('List and ListItem Components Tests', () => {
       );
 
       const list = container.querySelector('ul');
-      expect(list).toHaveClass('[--fs-unit:9]', 'text-(--fs)', 'pl-8'); // lg size (1.125rem = 9 * 0.125rem) should have pl-8 padding
+      expect(list).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)', 'pl-8'); // lg size (1.125rem = 9 * 0.125rem) should have pl-8 padding
     });
 
     it('should apply layout props correctly', () => {

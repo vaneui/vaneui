@@ -20,7 +20,7 @@ describe('Badge Component Tests', () => {
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveClass('w-fit', 'h-fit', 'whitespace-nowrap');
-      expect(badge).toHaveClass('text-base'); // md size
+      expect(badge).toHaveClass('[--fs-unit:8]', 'text-(length:--fs)'); // md size
       expect(badge).toHaveClass('text-(--color-text-default)'); // default appearance
       expect(badge).toHaveClass('font-sans');
       expect(badge).toHaveClass('font-semibold'); // semibold weight
@@ -91,7 +91,7 @@ describe('Badge Component Tests', () => {
       );
 
       const badge = container.querySelector('span');
-      expect(badge).toHaveClass('text-xs', 'px-(--ui-px)', 'py-(--ui-py)');
+      expect(badge).toHaveClass('[--fs-unit:6]', 'text-(length:--fs)', 'px-(--ui-px)', 'py-(--ui-py)');
     });
 
     it('should render with lg size classes', () => {
@@ -102,7 +102,7 @@ describe('Badge Component Tests', () => {
       );
 
       const badge = container.querySelector('span');
-      expect(badge).toHaveClass('text-lg', 'px-(--ui-px)', 'py-(--ui-py)');
+      expect(badge).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)', 'px-(--ui-px)', 'py-(--ui-py)');
     });
   });
 

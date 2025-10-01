@@ -6,6 +6,7 @@ import {
   DefaultLayoutThemes,
   defaultTypographyThemes
 } from "./common/ComponentTheme";
+import { LineHeightTheme } from "./size/lineHeightTheme";
 import { CardProps } from "../props";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
@@ -25,6 +26,7 @@ export interface CardTheme extends BaseTypographyComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
+    lineHeight: LineHeightTheme;
     gap: GapTheme;
   };
   layout: DefaultLayoutThemes & {
@@ -51,6 +53,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
     size: {
       px: new PxTheme(),
       py: new PyTheme(),
+      lineHeight: LineHeightTheme.createDefault(),
       gap: new GapTheme(true),
     },
     layout: {

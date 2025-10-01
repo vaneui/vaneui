@@ -23,7 +23,7 @@ describe('Title Components Tests', () => {
       expect(title).toBeInTheDocument();
       expect(title).toHaveClass('text-balance', 'w-fit');
       expect(title).toHaveClass('[--fs-unit:12]'); // md size for title (1.5rem = 12 * 0.125rem)
-      expect(title).toHaveClass('text-(--fs)'); // CSS variable font size
+      expect(title).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(title).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(title).toHaveClass('font-sans');
       expect(title).toHaveClass('font-semibold');
@@ -69,11 +69,11 @@ describe('Title Components Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:9]', textClass: 'text-(--fs)' },  // text-lg: 1.125rem = 9 * 0.125rem
-        { prop: 'sm', unitClass: '[--fs-unit:10]', textClass: 'text-(--fs)' }, // text-xl: 1.25rem = 10 * 0.125rem
-        { prop: 'md', unitClass: '[--fs-unit:12]', textClass: 'text-(--fs)' }, // text-2xl: 1.5rem = 12 * 0.125rem
-        { prop: 'lg', unitClass: '[--fs-unit:15]', textClass: 'text-(--fs)' }, // text-3xl: 1.875rem = 15 * 0.125rem
-        { prop: 'xl', unitClass: '[--fs-unit:18]', textClass: 'text-(--fs)' }  // text-4xl: 2.25rem = 18 * 0.125rem
+        { prop: 'xs', unitClass: '[--fs-unit:9]', textClass: 'text-(length:--fs)' },  // text-lg: 1.125rem = 9 * 0.125rem
+        { prop: 'sm', unitClass: '[--fs-unit:10]', textClass: 'text-(length:--fs)' }, // text-xl: 1.25rem = 10 * 0.125rem
+        { prop: 'md', unitClass: '[--fs-unit:12]', textClass: 'text-(length:--fs)' }, // text-2xl: 1.5rem = 12 * 0.125rem
+        { prop: 'lg', unitClass: '[--fs-unit:15]', textClass: 'text-(length:--fs)' }, // text-3xl: 1.875rem = 15 * 0.125rem
+        { prop: 'xl', unitClass: '[--fs-unit:18]', textClass: 'text-(length:--fs)' }  // text-4xl: 2.25rem = 18 * 0.125rem
       ] as const;
 
       sizes.forEach(({prop, unitClass, textClass}) => {
@@ -145,7 +145,7 @@ describe('Title Components Tests', () => {
       );
 
       const title = container.querySelector('h3');
-      expect(title).toHaveClass('[--fs-unit:12]', 'text-(--fs)', 'font-semibold'); // theme classes (no default color)
+      expect(title).toHaveClass('[--fs-unit:12]', 'text-(length:--fs)', 'font-semibold'); // theme classes (no default color)
       expect(title).toHaveClass('custom-title-class'); // custom class
     });
 
@@ -174,7 +174,7 @@ describe('Title Components Tests', () => {
       expect(pageTitle).toBeInTheDocument();
       expect(pageTitle).toHaveClass('text-balance', 'tracking-tight', 'w-fit');
       expect(pageTitle).toHaveClass('[--fs-unit:24]'); // md size for page title (3rem = 24 * 0.125rem)
-      expect(pageTitle).toHaveClass('text-(--fs)'); // CSS variable font size
+      expect(pageTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(pageTitle).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(pageTitle).toHaveClass('font-sans');
       expect(pageTitle).toHaveClass('font-semibold');
@@ -193,11 +193,11 @@ describe('Title Components Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:15]', textClass: 'text-(--fs)' }, // text-3xl: 1.875rem = 15 * 0.125rem
-        { prop: 'sm', unitClass: '[--fs-unit:18]', textClass: 'text-(--fs)' }, // text-4xl: 2.25rem = 18 * 0.125rem
-        { prop: 'md', unitClass: '[--fs-unit:24]', textClass: 'text-(--fs)' }, // text-5xl: 3rem = 24 * 0.125rem
-        { prop: 'lg', unitClass: '[--fs-unit:30]', textClass: 'text-(--fs)' }, // text-6xl: 3.75rem = 30 * 0.125rem
-        { prop: 'xl', unitClass: '[--fs-unit:36]', textClass: 'text-(--fs)' }  // text-7xl: 4.5rem = 36 * 0.125rem
+        { prop: 'xs', unitClass: '[--fs-unit:15]', textClass: 'text-(length:--fs)' }, // text-3xl: 1.875rem = 15 * 0.125rem
+        { prop: 'sm', unitClass: '[--fs-unit:18]', textClass: 'text-(length:--fs)' }, // text-4xl: 2.25rem = 18 * 0.125rem
+        { prop: 'md', unitClass: '[--fs-unit:24]', textClass: 'text-(length:--fs)' }, // text-5xl: 3rem = 24 * 0.125rem
+        { prop: 'lg', unitClass: '[--fs-unit:30]', textClass: 'text-(length:--fs)' }, // text-6xl: 3.75rem = 30 * 0.125rem
+        { prop: 'xl', unitClass: '[--fs-unit:36]', textClass: 'text-(length:--fs)' }  // text-7xl: 4.5rem = 36 * 0.125rem
       ] as const;
 
       sizes.forEach(({prop, unitClass, textClass}) => {
@@ -267,7 +267,7 @@ describe('Title Components Tests', () => {
       );
 
       const pageTitle = container.querySelector('h1');
-      expect(pageTitle).toHaveClass('[--fs-unit:24]', 'text-(--fs)', 'font-semibold', 'tracking-tight'); // theme classes (no default color)
+      expect(pageTitle).toHaveClass('[--fs-unit:24]', 'text-(length:--fs)', 'font-semibold', 'tracking-tight'); // theme classes (no default color)
       expect(pageTitle).toHaveClass('custom-page-title-class'); // custom class
     });
 
@@ -296,7 +296,7 @@ describe('Title Components Tests', () => {
       expect(sectionTitle).toBeInTheDocument();
       expect(sectionTitle).toHaveClass('text-balance', 'w-fit');
       expect(sectionTitle).toHaveClass('[--fs-unit:18]'); // md size for section title (2.25rem = 18 * 0.125rem)
-      expect(sectionTitle).toHaveClass('text-(--fs)'); // CSS variable font size
+      expect(sectionTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(sectionTitle).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(sectionTitle).toHaveClass('font-sans');
       expect(sectionTitle).toHaveClass('font-semibold');
@@ -315,11 +315,11 @@ describe('Title Components Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:12]', textClass: 'text-(--fs)' }, // text-2xl: 1.5rem = 12 * 0.125rem
-        { prop: 'sm', unitClass: '[--fs-unit:15]', textClass: 'text-(--fs)' }, // text-3xl: 1.875rem = 15 * 0.125rem
-        { prop: 'md', unitClass: '[--fs-unit:18]', textClass: 'text-(--fs)' }, // text-4xl: 2.25rem = 18 * 0.125rem
-        { prop: 'lg', unitClass: '[--fs-unit:24]', textClass: 'text-(--fs)' }, // text-5xl: 3rem = 24 * 0.125rem
-        { prop: 'xl', unitClass: '[--fs-unit:30]', textClass: 'text-(--fs)' }  // text-6xl: 3.75rem = 30 * 0.125rem
+        { prop: 'xs', unitClass: '[--fs-unit:12]', textClass: 'text-(length:--fs)' }, // text-2xl: 1.5rem = 12 * 0.125rem
+        { prop: 'sm', unitClass: '[--fs-unit:15]', textClass: 'text-(length:--fs)' }, // text-3xl: 1.875rem = 15 * 0.125rem
+        { prop: 'md', unitClass: '[--fs-unit:18]', textClass: 'text-(length:--fs)' }, // text-4xl: 2.25rem = 18 * 0.125rem
+        { prop: 'lg', unitClass: '[--fs-unit:24]', textClass: 'text-(length:--fs)' }, // text-5xl: 3rem = 24 * 0.125rem
+        { prop: 'xl', unitClass: '[--fs-unit:30]', textClass: 'text-(length:--fs)' }  // text-6xl: 3.75rem = 30 * 0.125rem
       ] as const;
 
       sizes.forEach(({prop, unitClass, textClass}) => {
@@ -411,7 +411,7 @@ describe('Title Components Tests', () => {
       );
 
       const sectionTitle = container.querySelector('h2');
-      expect(sectionTitle).toHaveClass('[--fs-unit:18]', 'text-(--fs)', 'font-semibold'); // theme classes (no default color)
+      expect(sectionTitle).toHaveClass('[--fs-unit:18]', 'text-(length:--fs)', 'font-semibold'); // theme classes (no default color)
       expect(sectionTitle).toHaveClass('custom-section-title-class'); // custom class
     });
 
@@ -429,11 +429,11 @@ describe('Title Components Tests', () => {
 
     it('should apply correct line height based on text size for Title', () => {
       const sizes = [
-        { prop: 'xs', fontSizeUnit: '[--fs-unit:9]', fontSizeClass: 'text-(--fs)', lhUnitClass: '[--lh-unit:1.556]', lineHeightClass: 'leading-(--lh)' },  // text-lg
-        { prop: 'sm', fontSizeUnit: '[--fs-unit:10]', fontSizeClass: 'text-(--fs)', lhUnitClass: '[--lh-unit:1.4]', lineHeightClass: 'leading-(--lh)' }, // text-xl
-        { prop: 'md', fontSizeUnit: '[--fs-unit:12]', fontSizeClass: 'text-(--fs)', lhUnitClass: '[--lh-unit:1.333]', lineHeightClass: 'leading-(--lh)' }, // text-2xl
-        { prop: 'lg', fontSizeUnit: '[--fs-unit:15]', fontSizeClass: 'text-(--fs)', lhUnitClass: '[--lh-unit:1.2]', lineHeightClass: 'leading-(--lh)' }, // text-3xl
-        { prop: 'xl', fontSizeUnit: '[--fs-unit:18]', fontSizeClass: 'text-(--fs)', lhUnitClass: '[--lh-unit:1.111]', lineHeightClass: 'leading-(--lh)' } // text-4xl
+        { prop: 'xs', fontSizeUnit: '[--fs-unit:9]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh-unit:1.556]', lineHeightClass: 'leading-(--lh)' },  // text-lg
+        { prop: 'sm', fontSizeUnit: '[--fs-unit:10]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh-unit:1.4]', lineHeightClass: 'leading-(--lh)' }, // text-xl
+        { prop: 'md', fontSizeUnit: '[--fs-unit:12]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh-unit:1.333]', lineHeightClass: 'leading-(--lh)' }, // text-2xl
+        { prop: 'lg', fontSizeUnit: '[--fs-unit:15]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh-unit:1.2]', lineHeightClass: 'leading-(--lh)' }, // text-3xl
+        { prop: 'xl', fontSizeUnit: '[--fs-unit:18]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh-unit:1.111]', lineHeightClass: 'leading-(--lh)' } // text-4xl
       ] as const;
 
       sizes.forEach(({prop, fontSizeUnit, fontSizeClass, lhUnitClass, lineHeightClass}) => {

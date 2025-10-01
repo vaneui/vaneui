@@ -7,22 +7,22 @@ import {
   Title,
   Section,
   Card, Checkbox, Label, Link, Input, Button,
-  Container, Badge, Divider, Chip, Code
+  Container, Badge, Divider, Chip, Code, PageTitle
 } from '../../src';
 
 function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Section>
-        <Container>
-          <Title xl>VaneUI Component Library Examples</Title>
-          <Text>All UI components shown in 5 sizes (xs, sm, md, lg, xl)</Text>
+      <Section className="max-tablet:bg-red-500">
+        <Container itemsCenter>
+          <PageTitle>VaneUI Component Library Examples</PageTitle>
+          <Text xl>All UI components shown in 5 sizes (xs, sm, md, lg, xl)</Text>
           
           {/* Button Examples */}
           <Card>
             <Title>Button</Title>
-            <Row>
+            <Row flexWrap>
               <Button xs>Button XS</Button>
               <Button sm>Button SM</Button>
               <Button>Button MD</Button>
@@ -34,7 +34,7 @@ function App() {
           {/* Badge Examples */}
           <Card>
             <Title>Badge</Title>
-            <Row>
+            <Row flexWrap>
               <Badge xs>Badge XS</Badge>
               <Badge sm>Badge SM</Badge>
               <Badge>Badge MD</Badge>
@@ -46,7 +46,7 @@ function App() {
           {/* Chip Examples */}
           <Card>
             <Title>Chip</Title>
-            <Row>
+            <Row flexWrap>
               <Chip xs>Chip XS</Chip>
               <Chip sm>Chip SM</Chip>
               <Chip>Chip MD</Chip>
@@ -58,7 +58,7 @@ function App() {
           {/* Code Examples */}
           <Card>
             <Title>Code</Title>
-            <Row>
+            <Row flexWrap>
               <Code xs>const x = 1;</Code>
               <Code sm>const x = 1;</Code>
               <Code>const x = 1;</Code>
@@ -70,7 +70,7 @@ function App() {
           {/* Input Examples */}
           <Card>
             <Title>Input</Title>
-            <Row>
+            <Row flexWrap>
               <Input xs placeholder="Input XS"/>
               <Input sm placeholder="Input SM"/>
               <Input placeholder="Input MD"/>

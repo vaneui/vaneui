@@ -5,7 +5,8 @@ import {
 } from "./common/ComponentTheme";
 import { BadgeProps } from "../props";
 import { themeDefaults } from "./defaults";
-import { SizeTheme } from "./size/sizeTheme";
+import { FontSizeTheme } from "./size/fontSizeTheme";
+import { LineHeightTheme } from "./size/lineHeightTheme";
 import { GapTheme } from "./size/gapTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
@@ -35,7 +36,8 @@ export interface BadgeTheme extends BaseTypographyComponentTheme {
   size: {
     px: PxTheme;
     py: PyTheme;
-    text: SizeTheme;
+    text: FontSizeTheme;
+    lineHeight: LineHeightTheme;
     gap: GapTheme;
   };
   appearance: {
@@ -64,7 +66,8 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
       px: new PxTheme(badgeAspectRatioClasses, true),
       py: new PyTheme(uiPaddingClasses, true),
       gap: new GapTheme(true),
-      text: new SizeTheme({xs: 'text-xs', sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl'})
+      text: new FontSizeTheme(),
+      lineHeight: LineHeightTheme.createDefault()
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),

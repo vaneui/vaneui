@@ -66,7 +66,7 @@ describe('Link Component Tests', () => {
 
         const link = container.querySelector('a');
         expect(link).toHaveClass(unitClass);
-        // Note: text-(--fs) class conflicts with text-(--color-text-link) for Link components
+        // Note: text-(length:--fs) class conflicts with text-(--color-text-link) for Link components
         // The font size is still applied via the CSS variable, but the utility class is not present
       });
     });

@@ -28,9 +28,9 @@ export class FontSizeTheme extends BaseTheme implements Record<SizeKey, string> 
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.size) {
       const fsUnitClass = this[extractedKeys.size];
-      return fsUnitClass ? [fsUnitClass, "text-(--fs)"] : [];
+      return fsUnitClass ? [fsUnitClass, "text-(length:--fs)"] : [];
     }
-    return [this.md, "text-(--fs)"];
+    return [this.md, "text-(length:--fs)"];
   }
 
   // Static factory methods for different text size ranges

@@ -12,13 +12,14 @@ import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
 import { PlTheme } from "./size/plTheme";
 import { ListStyleTheme } from "./list/listStyleTheme";
-import { LineHeightTheme } from "./typography/lineHeightTheme";
-import { FontSizeTheme } from "./typography/fontSizeTheme";
+import { LineHeightTheme } from "./size/lineHeightTheme";
+import { FontSizeTheme } from "./size/fontSizeTheme";
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from "../props";
 
 export interface TypographyTheme extends BaseTypographyComponentTheme {
   size: {
     text: FontSizeTheme;
+    lineHeight: LineHeightTheme;
   };
   appearance: {
     text: GenericVariantTheme<AppearanceTheme>;
@@ -32,23 +33,20 @@ export const createTypographyComponentTheme = (
   base: string = "text-balance",
   fontSizeTheme: FontSizeTheme = new FontSizeTheme(),
   defaults: Partial<TypographyProps> = {},
-  lineHeightTheme?: LineHeightTheme,
+  lineHeightTheme: LineHeightTheme = LineHeightTheme.createDefault(),
 ): ComponentTheme<TypographyProps, TypographyTheme> => {
-  const typographyThemes = lineHeightTheme 
-    ? { ...defaultTypographyThemes, lineHeight: lineHeightTheme }
-    : defaultTypographyThemes;
-
   return new ComponentTheme<TypographyProps, TypographyTheme>(
     tag,
     base,
     {
       size: {
         text: fontSizeTheme,
+        lineHeight: lineHeightTheme,
       },
       appearance: {
         text: GenericVariantTheme.createTypographyTextTheme(),
       },
-      typography: typographyThemes,
+      typography: defaultTypographyThemes,
       layout: defaultLayoutsThemes,
     },
     defaults,

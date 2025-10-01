@@ -13,7 +13,7 @@ import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { CHECKBOX_CATEGORIES } from "../props";
-import { FontSizeTheme } from "./typography/fontSizeTheme";
+import { FontSizeTheme } from "./size/fontSizeTheme";
 import { ReactElement } from "react";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";

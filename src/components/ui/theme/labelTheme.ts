@@ -9,7 +9,8 @@ import { LabelProps } from "../props";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { FontSizeTheme } from "./typography/fontSizeTheme";
+import { FontSizeTheme } from "./size/fontSizeTheme";
+import { LineHeightTheme } from "./size/lineHeightTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
@@ -18,6 +19,7 @@ import { LABEL_CATEGORIES } from "../props";
 export interface LabelTheme extends BaseTypographyComponentTheme {
   size: {
     text: FontSizeTheme;
+    lineHeight: LineHeightTheme;
     gap: GapTheme;
   };
   appearance: {
@@ -35,6 +37,7 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
   {
     size: {
       text: new FontSizeTheme(),
+      lineHeight: LineHeightTheme.createDefault(),
       gap: new GapTheme(true),
     },
     appearance: {

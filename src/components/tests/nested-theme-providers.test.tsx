@@ -151,7 +151,7 @@ describe('Nested ThemeProvider Tests', () => {
 
       // Inner button should have lg size and its extra classes from inner override
       // Note: inner override sets lg: true as default
-      expect(innerButton).toHaveClass('text-lg'); // from lg default
+      expect(innerButton).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)'); // lg from defaults
       expect(innerButton).toHaveClass('font-bold', 'tracking-wide');
       
       // Inner button SHOULD inherit outer extra classes in merge mode
@@ -315,20 +315,20 @@ describe('Nested ThemeProvider Tests', () => {
       // outline variant = true from themeOverride + primary & lg from themeDefaults
       expect(outerButton).toHaveClass('bg-(--color-bg-primary)'); // outline variant with primary appearance
       expect(outerButton).toHaveClass('border-(--color-border-primary)'); // primary from defaults
-      expect(outerButton).toHaveClass('text-lg'); // lg from defaults
+      expect(outerButton).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)'); // lg from defaults
       expect(outerButton).toHaveClass('outer-primary-class', 'outer-lg-class'); // extra classes
 
       // Inner button checks
       // filled variant = true from themeOverride + secondary & sm from themeDefaults
       expect(innerButton).toHaveClass('bg-(--color-bg-filled-secondary)'); // filled variant with secondary appearance
       expect(innerButton).not.toHaveClass('bg-(--color-bg-secondary)'); // not outline variant
-      expect(innerButton).toHaveClass('text-sm'); // sm from defaults
+      expect(innerButton).toHaveClass('[--fs-unit:7]', 'text-(length:--fs)'); // sm from defaults
       expect(innerButton).toHaveClass('inner-secondary-class', 'inner-sm-class'); // extra classes
       
       // Inner button should NOT have outer classes - proper isolation
       expect(innerButton).not.toHaveClass('outer-primary-class');
       expect(innerButton).not.toHaveClass('outer-lg-class');
-      expect(innerButton).not.toHaveClass('text-lg');
+      expect(innerButton).not.toHaveClass('[--fs-unit:9]');
     });
   });
 
