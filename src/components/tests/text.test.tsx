@@ -64,21 +64,20 @@ describe('Text Component Tests', () => {
     it('should support responsive hide props', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text mdHide>Text hidden on medium screens</Text>
+          <Text tabletHide>Text hidden on tablet screens</Text>
         </ThemeProvider>
       );
 
       const text = container.querySelector('p');
-      expect(text).toHaveClass('max-md:hidden');
+      expect(text).toHaveClass('max-tablet:hidden');
     });
 
     it('should support all hide breakpoints', () => {
       const hideProps = [
-        { prop: 'xsHide', class: 'max-xs:hidden' },
-        { prop: 'smHide', class: 'max-sm:hidden' },
-        { prop: 'mdHide', class: 'max-md:hidden' },
-        { prop: 'lgHide', class: 'max-lg:hidden' },
-        { prop: 'xlHide', class: 'max-xl:hidden' }
+        { prop: 'mobileHide', class: 'max-mobile:hidden' },
+        { prop: 'tabletHide', class: 'max-tablet:hidden' },
+        { prop: 'laptopHide', class: 'max-laptop:hidden' },
+        { prop: 'desktopHide', class: 'max-desktop:hidden' }
       ] as const;
 
       hideProps.forEach(({prop, class: expectedClass}) => {

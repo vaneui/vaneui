@@ -17,7 +17,7 @@ export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
 
   private readonly gapVarClass: string;
 
-  constructor(isUIComponent = false) {
+  constructor(isUIComponent: boolean = false) {
     super();
     this.gapVarClass = isUIComponent ? "gap-(--ui-gap)" : "gap-(--gap)";
     

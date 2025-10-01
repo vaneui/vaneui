@@ -84,14 +84,14 @@ describe('Row Component Tests', () => {
     it('should support responsive breakpoint props', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Row mdCol>
+          <Row tabletCol>
             Responsive Row
           </Row>
         </ThemeProvider>
       );
 
       const row = container.querySelector('div');
-      expect(row).toHaveClass('max-md:flex-col');
+      expect(row).toHaveClass('max-tablet:flex-col');
     });
 
     it('should support appearance variants for background', () => {

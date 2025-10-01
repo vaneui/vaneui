@@ -1,13 +1,11 @@
-/** Extra-small column breakpoint - responsive grid column sizing for xs screens */
-export const XS_COL = 'xsCol' as const;
-/** Small column breakpoint - responsive grid column sizing for sm screens */
-export const SM_COL = 'smCol' as const;
-/** Medium column breakpoint - responsive grid column sizing for md screens */
-export const MD_COL = 'mdCol' as const;
-/** Large column breakpoint - responsive grid column sizing for lg screens */
-export const LG_COL = 'lgCol' as const;
-/** Extra-large column breakpoint - responsive grid column sizing for xl screens */
-export const XL_COL = 'xlCol' as const;
+/** Mobile column breakpoint - switch to column layout on mobile devices (max-mobile: 20rem) */
+export const MOBILE_COL = 'mobileCol' as const;
+/** Tablet column breakpoint - switch to column layout on tablet devices (max-tablet: 40rem) */
+export const TABLET_COL = 'tabletCol' as const;
+/** Laptop column breakpoint - switch to column layout on laptop devices (max-laptop: 64rem) */
+export const LAPTOP_COL = 'laptopCol' as const;
+/** Desktop column breakpoint - switch to column layout on desktop devices (max-desktop: 80rem) */
+export const DESKTOP_COL = 'desktopCol' as const;
 
 /** All breakpoint property values */
-export const BREAKPOINT_VALUES = [XS_COL, SM_COL, MD_COL, LG_COL, XL_COL] as const;
+export const BREAKPOINT_VALUES = [MOBILE_COL, TABLET_COL, LAPTOP_COL, DESKTOP_COL] as const;

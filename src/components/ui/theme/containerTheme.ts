@@ -36,7 +36,7 @@ export interface ContainerTheme extends BaseComponentTheme {
 
 export const defaultContainerTheme = new ComponentTheme<ContainerProps, ContainerTheme>(
   "div",
-  "flex-col mx-auto w-full",
+  "mx-auto w-full",
   {
     size: {
       gap: new GapTheme(),

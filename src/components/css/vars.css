@@ -152,8 +152,8 @@
     --ui-br-base: calc(var(--spacing) * 0.5);
     --fs-base: calc(var(--spacing) * 0.5);
 
-    --breakpoint-mobile: 20rem;
-    --breakpoint-tablet: 40rem;
+    --breakpoint-mobile: 40rem;
+    --breakpoint-tablet: 48rem;
     --breakpoint-laptop: 64rem;
     --breakpoint-desktop: 80rem;
 }
@@ -167,8 +167,8 @@
         --aspect-ratio: 1;
         --py-unit: 1;
         --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--layout-spacing));
-        --py: calc(var(--py-unit) * var(--layout-spacing));
         --ui-px: calc(var(--aspect-ratio) * var(--py-unit) * var(--ui-spacing));
+        --py: calc(var(--py-unit) * var(--layout-spacing));
         --ui-py: calc(var(--py-unit) * var(--ui-spacing));
 
         --br-unit: 1;

@@ -170,11 +170,10 @@ describe('Grid6 Component Tests', () => {
 
     it('should support hide on different breakpoints', () => {
       const hideProps = [
-        { prop: 'xsHide', class: 'max-xs:hidden' },
-        { prop: 'smHide', class: 'max-sm:hidden' },
-        { prop: 'mdHide', class: 'max-md:hidden' },
-        { prop: 'lgHide', class: 'max-lg:hidden' },
-        { prop: 'xlHide', class: 'max-xl:hidden' }
+        { prop: 'mobileHide', class: 'max-mobile:hidden' },
+        { prop: 'tabletHide', class: 'max-tablet:hidden' },
+        { prop: 'laptopHide', class: 'max-laptop:hidden' },
+        { prop: 'desktopHide', class: 'max-desktop:hidden' }
       ] as const;
 
       hideProps.forEach(({ prop, class: expectedClass }) => {
@@ -353,7 +352,7 @@ describe('Grid6 Component Tests', () => {
     it('should work with complex responsive design', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Grid6 lg smHide>
+          <Grid6 lg mobileHide>
             <div>This grid is large and hidden on small screens</div>
             <div>Second item</div>
             <div>Third item</div>
@@ -371,7 +370,7 @@ describe('Grid6 Component Tests', () => {
         'md:grid-cols-4', // medium screens
         'lg:grid-cols-6', // large screens and up
         'gap-(--gap) [--gap-unit:5]', // lg gap
-        'max-sm:hidden' // hidden on small screens
+        'max-mobile:hidden' // hidden on mobile screens
       );
     });
   });

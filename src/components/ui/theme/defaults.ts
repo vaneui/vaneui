@@ -69,6 +69,7 @@ export const themeDefaults: ThemeDefaults = {
   container: {
     noRing: true,
     flex: true,
+    column: true,
     md: true,
     itemsCenter: true,
     gap: true,

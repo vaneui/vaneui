@@ -19,7 +19,7 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('px-(--px) [--py-unit:4]', 'py-(--py) [--gap-unit:2]', 'gap-(--ui-gap)', 'flex');
+      expect(card).toHaveClass('px-(--px) [--py-unit:6]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex');
       expect(card).toHaveClass('text-(--color-text-default)'); // default appearance
       expect(card).toHaveClass('bg-(--color-bg-layout-default)', 'rounded-(--br)', 'flex-col');
       expect(card).toHaveClass('border-(--color-border-default)');
@@ -75,7 +75,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:2]', 'py-(--py) [--gap-unit:1]', 'gap-(--ui-gap)'); // xs sizing for padding and gap
+      expect(card).toHaveClass('px-(--px) [--py-unit:2]', 'py-(--py) [--gap-unit:2]', 'gap-(--gap)'); // xs sizing for padding and gap
       // xs size has no responsive classes
     });
 
@@ -87,7 +87,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:3]', 'py-(--py) [--gap-unit:1.5]', 'gap-(--ui-gap)'); // sm sizing for padding and gap
+      expect(card).toHaveClass('px-(--px) [--py-unit:4]', 'py-(--py) [--gap-unit:3]', 'gap-(--gap)'); // sm sizing for padding and gap
     });
 
     it('should render with lg size classes', () => {
@@ -98,7 +98,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:5]', 'py-(--py) [--gap-unit:2.5]', 'gap-(--ui-gap)'); // lg sizing
+      expect(card).toHaveClass('px-(--px) [--py-unit:8]', 'py-(--py) [--gap-unit:5]', 'gap-(--gap)'); // lg sizing
     });
 
     it('should render with xl size classes', () => {
@@ -109,7 +109,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:6]', 'py-(--py) [--gap-unit:3]', 'gap-(--ui-gap)'); // xl sizing
+      expect(card).toHaveClass('px-(--px) [--py-unit:10]', 'py-(--py) [--gap-unit:6]', 'gap-(--gap)'); // xl sizing
     });
   });
 
@@ -259,12 +259,12 @@ describe('Card Component Tests', () => {
     it('should apply responsive classes correctly', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Card mdCol>Responsive Card</Card>
+          <Card tabletCol>Responsive Card</Card>
         </ThemeProvider>
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('max-md:flex-col'); // Card uses max-md responsive pattern
+      expect(card).toHaveClass('max-tablet:flex-col'); // Card uses max-tablet responsive pattern
     });
   });
 
@@ -448,13 +448,13 @@ describe('Card Component Tests', () => {
         expect(card).toHaveClass('border');
         expect(card).toHaveClass('ring-(--color-border-default)');
         // Should have size and padding classes
-        expect(card).toHaveClass('px-(--px) [--py-unit:5]', 'py-(--py) [--gap-unit:2.5]'); // lg padding
+        expect(card).toHaveClass('px-(--px) [--py-unit:8]', 'py-(--py) [--gap-unit:5]'); // lg padding
       });
 
       it('should work with responsive breakpoints', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card border ring mdCol className="responsive-test">Responsive Card</Card>
+            <Card border ring tabletCol className="responsive-test">Responsive Card</Card>
           </ThemeProvider>
         );
 
@@ -463,7 +463,7 @@ describe('Card Component Tests', () => {
         expect(card).toHaveClass('border');
         expect(card).toHaveClass('ring-(--color-border-default)');
         // Should have responsive classes
-        expect(card).toHaveClass('max-md:flex-col');
+        expect(card).toHaveClass('max-tablet:flex-col');
       });
     });
   });

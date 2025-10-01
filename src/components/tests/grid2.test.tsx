@@ -146,11 +146,10 @@ describe('Grid2 Component Tests', () => {
 
     it('should support hide on different breakpoints', () => {
       const hideProps = [
-        { prop: 'xsHide', class: 'max-xs:hidden' },
-        { prop: 'smHide', class: 'max-sm:hidden' },
-        { prop: 'mdHide', class: 'max-md:hidden' },
-        { prop: 'lgHide', class: 'max-lg:hidden' },
-        { prop: 'xlHide', class: 'max-xl:hidden' }
+        { prop: 'mobileHide', class: 'max-mobile:hidden' },
+        { prop: 'tabletHide', class: 'max-tablet:hidden' },
+        { prop: 'laptopHide', class: 'max-laptop:hidden' },
+        { prop: 'desktopHide', class: 'max-desktop:hidden' }
       ] as const;
 
       hideProps.forEach(({ prop, class: expectedClass }) => {
@@ -294,7 +293,7 @@ describe('Grid2 Component Tests', () => {
     it('should work with complex responsive design', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Grid2 lg smHide>
+          <Grid2 lg mobileHide>
             <div>This grid is large and hidden on small screens</div>
             <div>Second item</div>
           </Grid2>
@@ -306,7 +305,7 @@ describe('Grid2 Component Tests', () => {
         'grid-cols-1', // mobile and small screens
         'md:grid-cols-2', // medium screens and up
         'gap-(--gap) [--gap-unit:5]', // lg gap
-        'max-sm:hidden' // hidden on small screens
+        'max-mobile:hidden' // hidden on mobile screens
       );
     });
   });

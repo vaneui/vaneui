@@ -14,7 +14,7 @@ function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Section className="max-tablet:bg-red-500">
+      <Section className="max-w-mobile">
         <Container itemsCenter>
           <PageTitle>VaneUI Component Library Examples</PageTitle>
           <Text xl>All UI components shown in 5 sizes (xs, sm, md, lg, xl)</Text>
@@ -159,7 +159,7 @@ function App() {
           {/* Card Examples */}
           <Card>
             <Title>Card</Title>
-            <Row>
+            <Row flexWrap>
               <Card xs>
                 <Text xs>Card XS</Text>
               </Card>

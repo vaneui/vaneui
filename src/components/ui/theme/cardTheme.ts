@@ -51,10 +51,22 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   "",
   {
     size: {
-      px: new PxTheme(),
-      py: new PyTheme(),
+      px: new PxTheme({
+        xs: "[--aspect-ratio:1]",
+        sm: "[--aspect-ratio:1]",
+        md: "[--aspect-ratio:1]",
+        lg: "[--aspect-ratio:1]",
+        xl: "[--aspect-ratio:1]",
+      }),
+      py: new PyTheme({
+        xs: "[--py-unit:2]",
+        sm: "[--py-unit:4]",
+        md: "[--py-unit:6]",
+        lg: "[--py-unit:8]",
+        xl: "[--py-unit:10]",
+      }),
       lineHeight: LineHeightTheme.createDefault(),
-      gap: new GapTheme(true),
+      gap: new GapTheme(false),
     },
     layout: {
       ...defaultLayoutsThemes,
