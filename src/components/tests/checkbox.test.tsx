@@ -50,7 +50,7 @@ describe('Checkbox Component Tests', () => {
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('cursor-pointer');
-      expect(checkbox).toHaveClass('h-4', 'w-4'); // md size default
+      expect(checkbox).toHaveClass('size-(--ui-size)', '[--size-unit:4]'); // md size default
       expect(checkbox).toHaveClass('rounded-(--ui-br)'); // rounded default for md size
       // Note: Ring is disabled by default (noRing: true in defaults), so no ring classes expected
     });
@@ -79,11 +79,11 @@ describe('Checkbox Component Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', classes: ['h-3', 'w-3'] },
-        { prop: 'sm', classes: ['h-3.5', 'w-3.5'] },
-        { prop: 'md', classes: ['h-4', 'w-4'] },
-        { prop: 'lg', classes: ['h-4.5', 'w-4.5'] },
-        { prop: 'xl', classes: ['h-5', 'w-5'] }
+        { prop: 'xs', classes: ['size-(--ui-size)', '[--size-unit:3]'] },
+        { prop: 'sm', classes: ['size-(--ui-size)', '[--size-unit:3.5]'] },
+        { prop: 'md', classes: ['size-(--ui-size)', '[--size-unit:4]'] },
+        { prop: 'lg', classes: ['size-(--ui-size)', '[--size-unit:4.5]'] },
+        { prop: 'xl', classes: ['size-(--ui-size)', '[--size-unit:5]'] }
       ] as const;
 
       sizes.forEach(({prop, classes}) => {

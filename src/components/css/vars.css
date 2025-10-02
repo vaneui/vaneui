@@ -163,6 +163,7 @@
     --aspect-ratio: 1;
     --py-unit: 1;
     --br-unit: 1;
+    --size-unit: 1;
 }
 
 @layer base {
@@ -174,6 +175,7 @@
         --ui-px: calc(var(--aspect-ratio) * var(--py-unit) * var(--ui-spacing));
         --py: calc(var(--py-unit) * var(--layout-spacing));
         --ui-py: calc(var(--py-unit) * var(--ui-spacing));
+        --ui-size: calc(var(--size-unit) * var(--ui-spacing));
 
         --br: calc(var(--br-unit) * var(--br-base));
         --ui-br: calc(var(--br-unit) * var(--ui-br-base));
