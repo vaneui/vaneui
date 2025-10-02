@@ -156,29 +156,28 @@
     --breakpoint-tablet: 48rem;
     --breakpoint-laptop: 64rem;
     --breakpoint-desktop: 80rem;
+
+    --lh: 1;
+    --fs-unit: 8; /* Default to text-base (1rem = 8 * 0.125rem) */
+    --gap-unit: 1;
+    --aspect-ratio: 1;
+    --py-unit: 1;
+    --br-unit: 1;
 }
 
 @layer base {
     :where(*) {
-        --gap-unit: 1;
         --gap: calc(var(--gap-unit) * var(--layout-spacing));
         --ui-gap: calc(var(--gap-unit) * var(--ui-spacing));
 
-        --aspect-ratio: 1;
-        --py-unit: 1;
         --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--layout-spacing));
         --ui-px: calc(var(--aspect-ratio) * var(--py-unit) * var(--ui-spacing));
         --py: calc(var(--py-unit) * var(--layout-spacing));
         --ui-py: calc(var(--py-unit) * var(--ui-spacing));
 
-        --br-unit: 1;
         --br: calc(var(--br-unit) * var(--br-base));
         --ui-br: calc(var(--br-unit) * var(--ui-br-base));
 
-        --lh-unit: 1.5;
-        --lh: var(--lh-unit);
-
-        --fs-unit: 8; /* Default to text-base (1rem = 8 * 0.125rem) */
         --fs: calc(var(--fs-unit) * var(--fs-base));
     }
 }

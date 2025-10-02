@@ -67,11 +67,11 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       gap: new GapTheme(true),
       text: new FontSizeTheme(),
       lineHeight: new LineHeightTheme({
-        xs: "[--lh-unit:1.3]",
-        sm: "[--lh-unit:1.3]",
-        md: "[--lh-unit:1.3]",
-        lg: "[--lh-unit:1.3]",
-        xl: "[--lh-unit:1.3]"
+        xs: "[--lh:1.3]",
+        sm: "[--lh:1.3]",
+        md: "[--lh:1.3]",
+        lg: "[--lh:1.3]",
+        xl: "[--lh:1.3]"
       }),
     },
     appearance: {

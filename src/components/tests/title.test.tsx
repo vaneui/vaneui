@@ -429,11 +429,11 @@ describe('Title Components Tests', () => {
 
     it('should apply correct line height based on text size for Title', () => {
       const sizes = [
-        { prop: 'xs', fontSizeUnit: '[--fs-unit:9] max-laptop:[--fs-unit:8] max-tablet:[--fs-unit:7]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh-unit:1.556]', lineHeightClass: 'leading-(--lh)' },  // text-lg with responsive scaling
-        { prop: 'sm', fontSizeUnit: '[--fs-unit:10] max-laptop:[--fs-unit:9] max-tablet:[--fs-unit:8]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh-unit:1.4]', lineHeightClass: 'leading-(--lh)' }, // text-xl with responsive scaling
-        { prop: 'md', fontSizeUnit: '[--fs-unit:12] max-laptop:[--fs-unit:11] max-tablet:[--fs-unit:10]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh-unit:1.333]', lineHeightClass: 'leading-(--lh)' }, // text-2xl with responsive scaling
-        { prop: 'lg', fontSizeUnit: '[--fs-unit:15] max-laptop:[--fs-unit:14] max-tablet:[--fs-unit:13]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh-unit:1.2]', lineHeightClass: 'leading-(--lh)' }, // text-3xl with responsive scaling
-        { prop: 'xl', fontSizeUnit: '[--fs-unit:18] max-laptop:[--fs-unit:17] max-tablet:[--fs-unit:16]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh-unit:1.111]', lineHeightClass: 'leading-(--lh)' } // text-4xl with responsive scaling
+        { prop: 'xs', fontSizeUnit: '[--fs-unit:9] max-laptop:[--fs-unit:8] max-tablet:[--fs-unit:7]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh:1.556]', lineHeightClass: 'leading-(--lh)' },  // text-lg with responsive scaling
+        { prop: 'sm', fontSizeUnit: '[--fs-unit:10] max-laptop:[--fs-unit:9] max-tablet:[--fs-unit:8]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh:1.4]', lineHeightClass: 'leading-(--lh)' }, // text-xl with responsive scaling
+        { prop: 'md', fontSizeUnit: '[--fs-unit:12] max-laptop:[--fs-unit:11] max-tablet:[--fs-unit:10]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh:1.333]', lineHeightClass: 'leading-(--lh)' }, // text-2xl with responsive scaling
+        { prop: 'lg', fontSizeUnit: '[--fs-unit:15] max-laptop:[--fs-unit:14] max-tablet:[--fs-unit:13]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh:1.2]', lineHeightClass: 'leading-(--lh)' }, // text-3xl with responsive scaling
+        { prop: 'xl', fontSizeUnit: '[--fs-unit:18] max-laptop:[--fs-unit:17] max-tablet:[--fs-unit:16]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh:1.111]', lineHeightClass: 'leading-(--lh)' } // text-4xl with responsive scaling
       ] as const;
 
       sizes.forEach(({prop, fontSizeUnit, fontSizeClass, lhUnitClass, lineHeightClass}) => {

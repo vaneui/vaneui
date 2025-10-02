@@ -133,11 +133,11 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
   {
     size: {
       height: new SizeTheme({
-        xs: 'h-4',
-        sm: 'h-5', 
-        md: 'h-6',
-        lg: 'h-7',
-        xl: 'h-7'
+        xs: 'h-[calc(var(--lh)*var(--fs))]',
+        sm: 'h-[calc(var(--lh)*var(--fs))]',
+        md: 'h-[calc(var(--lh)*var(--fs))]',
+        lg: 'h-[calc(var(--lh)*var(--fs))]',
+        xl: 'h-[calc(var(--lh)*var(--fs))]'
       })
     },
     layout: {

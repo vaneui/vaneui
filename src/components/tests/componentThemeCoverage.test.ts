@@ -156,7 +156,11 @@ class ComponentThemeTester {
       const differentContent = Array.isArray(classesWithDifferent) ? classesWithDifferent.filter(s => s && s.trim()).join(' ') : '';
       
       // A theme handles a category if it produces different output for different category values
-      return keyContent !== differentContent;
+      // OR if it produces any non-empty output for the key (handles uniform values)
+      const hasOutput = keyContent.length > 0;
+      const hasDifferentOutput = keyContent !== differentContent;
+      
+      return hasDifferentOutput || hasOutput;
     } catch {
       return false;
     }
