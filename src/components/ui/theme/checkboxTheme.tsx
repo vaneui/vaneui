@@ -42,15 +42,15 @@ export interface CheckboxTheme extends BaseComponentTheme {
 
 export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTheme>(
   "input",
-  "peer col-start-1 row-start-1 cursor-pointer appearance-none ring-transparent",
+  "peer col-start-1 row-start-1 cursor-pointer appearance-none ring-transparent size-(--ui-size)",
   {
     size: {
       size: new SizeTheme({
-        xs: 'size-(--ui-size) [--size-unit:3]',
-        sm: 'size-(--ui-size) [--size-unit:3.5]',
-        md: 'size-(--ui-size) [--size-unit:4]',
-        lg: 'size-(--ui-size) [--size-unit:4.5]',
-        xl: 'size-(--ui-size) [--size-unit:5]'
+        xs: '[--size-unit:3]',
+        sm: '[--size-unit:3.5]',
+        md: '[--size-unit:4]',
+        lg: '[--size-unit:4.5]',
+        xl: '[--size-unit:5]'
       }),
       text: new FontSizeTheme()
     },
