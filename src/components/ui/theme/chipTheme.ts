@@ -15,7 +15,6 @@ import { RingTheme } from "./layout/ringTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { SizeKey } from "../props";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -23,22 +22,6 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { CHIP_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
-
-const chipAspectRatioClasses: Record<SizeKey, string> = {
-  xs: "[--aspect-ratio:2]",
-  sm: "[--aspect-ratio:2]",
-  md: "[--aspect-ratio:2]",
-  lg: "[--aspect-ratio:2]",
-  xl: "[--aspect-ratio:2]",
-};
-
-const chipPyClasses: Record<SizeKey, string> = {
-  xs: "[--py-unit:0.5]",
-  sm: "[--py-unit:1]",
-  md: "[--py-unit:1.5]",
-  lg: "[--py-unit:2]",
-  xl: "[--py-unit:2.5]",
-};
 
 export interface ChipTheme extends BaseTypographyComponentTheme {
   size: {
@@ -71,10 +54,30 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   "w-fit h-fit transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new PxTheme(chipAspectRatioClasses, true),
-      py: new PyTheme(chipPyClasses, true),
+      px: new PxTheme({
+        xs: "[--aspect-ratio:2]",
+        sm: "[--aspect-ratio:2]",
+        md: "[--aspect-ratio:2]",
+        lg: "[--aspect-ratio:2]",
+        xl: "[--aspect-ratio:2]",
+      }, true),
+      py: new PyTheme({
+        xs: "[--py-unit:0.5]",
+        sm: "[--py-unit:1]",
+        md: "[--py-unit:1.5]",
+        lg: "[--py-unit:2]",
+        xl: "[--py-unit:2.5]",
+      }, true),
       text: new FontSizeTheme(),
-      lineHeight: LineHeightTheme.createDefault(),
+      lineHeight: new LineHeightTheme(
+        {
+          xs: "[--lh:1.2]",
+          sm: "[--lh:1.2]",
+          md: "[--lh:1.2]",
+          lg: "[--lh:1.2]",
+          xl: "[--lh:1.2]"
+        }
+      ),
       gap: new GapTheme(true)
     },
     appearance: {

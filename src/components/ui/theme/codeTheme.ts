@@ -15,7 +15,6 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { SizeKey } from "../props";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -23,22 +22,6 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { CODE_CATEGORIES } from "../props";
-
-const codeAspectRatioClasses: Record<SizeKey, string> = {
-  xs: "[--aspect-ratio:1.5]",
-  sm: "[--aspect-ratio:1.5]",
-  md: "[--aspect-ratio:1.5]",
-  lg: "[--aspect-ratio:1.5]",
-  xl: "[--aspect-ratio:1.5]",
-};
-
-const codePyClasses: Record<SizeKey, string> = {
-  xs: "[--py-unit:0.5]",
-  sm: "[--py-unit:0.5]",
-  md: "[--py-unit:1]",
-  lg: "[--py-unit:1]",
-  xl: "[--py-unit:1]",
-};
 
 export interface CodeTheme extends BaseTypographyComponentTheme {
   size: {
@@ -71,10 +54,30 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
   "",
   {
     size: {
-      px: new PxTheme(codeAspectRatioClasses, true),
-      py: new PyTheme(codePyClasses, true),
+      px: new PxTheme({
+        xs: "[--aspect-ratio:1.5]",
+        sm: "[--aspect-ratio:1.5]",
+        md: "[--aspect-ratio:1.5]",
+        lg: "[--aspect-ratio:1.5]",
+        xl: "[--aspect-ratio:1.5]",
+      }, true),
+      py: new PyTheme({
+        xs: "[--py-unit:1]",
+        sm: "[--py-unit:1.5]",
+        md: "[--py-unit:1.5]",
+        lg: "[--py-unit:2]",
+        xl: "[--py-unit:2]",
+      }, true),
       text: new FontSizeTheme(),
-      lineHeight: LineHeightTheme.createDefault(),
+      lineHeight: new LineHeightTheme(
+        {
+          xs: "[--lh:1.2]",
+          sm: "[--lh:1.2]",
+          md: "[--lh:1.2]",
+          lg: "[--lh:1.2]",
+          xl: "[--lh:1.2]"
+        }
+      ),
       gap: new GapTheme(true)
     },
     appearance: {
