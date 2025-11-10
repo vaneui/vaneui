@@ -1,7 +1,6 @@
 import { SizeKey } from "../../props";
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
-import { layoutGapClasses, uiGapClasses } from "../../classes/layoutClasses";
 
 export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
   /** Extra-small gap */
@@ -20,8 +19,22 @@ export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
   constructor(isUIComponent: boolean = false) {
     super();
     this.gapVarClass = isUIComponent ? "gap-(--ui-gap)" : "gap-(--gap)";
-    
-    const gapClasses = isUIComponent ? uiGapClasses : layoutGapClasses;
+
+    const gapClasses = isUIComponent
+      ? {
+        xs: "[--gap-unit:1]",
+        sm: "[--gap-unit:1.5]",
+        md: "[--gap-unit:2]",
+        lg: "[--gap-unit:2.5]",
+        xl: "[--gap-unit:3]",
+      }
+      : {
+        xs: "[--gap-unit:2]",
+        sm: "[--gap-unit:3]",
+        md: "[--gap-unit:4]",
+        lg: "[--gap-unit:5]",
+        xl: "[--gap-unit:6]",
+      };
     this.xs = gapClasses.xs;
     this.sm = gapClasses.sm;
     this.md = gapClasses.md;

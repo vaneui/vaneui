@@ -13,7 +13,6 @@ import { RingTheme } from "./layout/ringTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { uiPaddingClasses } from "../classes/layoutClasses";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -60,7 +59,7 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
         lg: "[--aspect-ratio:2]",
         xl: "[--aspect-ratio:2]",
       }, true),
-      py: new PyTheme(uiPaddingClasses, true),
+      py: PyTheme.createForUI(),
       gap: new GapTheme(true),
       text: new FontSizeTheme(),
       lineHeight: LineHeightTheme.createDefault(),

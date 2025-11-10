@@ -43,7 +43,13 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
   "",
   {
     size: {
-      px: new PxTheme(),
+      px: new PxTheme({
+        xs: "[--aspect-ratio:1]",
+        sm: "[--aspect-ratio:1]",
+        md: "[--aspect-ratio:1]",
+        lg: "[--aspect-ratio:1]",
+        xl: "[--aspect-ratio:1]",
+      }),
       py: new PyTheme(),
       gap: new GapTheme(),
       breakpoint: new BreakpointTheme(),

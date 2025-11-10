@@ -13,7 +13,6 @@ import { RingTheme } from "./layout/ringTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { uiPaddingClasses } from "../classes/layoutClasses";
 import { SizeKey } from "../props";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
@@ -63,7 +62,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   {
     size: {
       px: new PxTheme(buttonAspectRatioClasses, true),
-      py: new PyTheme(uiPaddingClasses, true),
+      py: PyTheme.createForUI(),
       gap: new GapTheme(true),
       text: new FontSizeTheme(),
       lineHeight: new LineHeightTheme({
