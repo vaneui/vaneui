@@ -78,7 +78,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
           xl: "[--lh:1.2]"
         }
       ),
-      gap: new GapTheme(true)
+      gap: GapTheme.createForUI()
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),

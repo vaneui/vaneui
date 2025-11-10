@@ -25,7 +25,7 @@ export interface GridTheme extends BaseComponentTheme {
 
 const gridSubThemes: DeepPartial<GridTheme> = {
   size: {
-    gap: new GapTheme(),
+    gap: GapTheme.createForLayout(),
   },
   appearance: {
     background: GenericVariantTheme.createLayoutBgAppearanceTheme(),

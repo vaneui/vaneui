@@ -57,7 +57,13 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
         lg: "[--py-unit:16] max-laptop:[--py-unit:8]  max-tablet:[--py-unit:2]",
         xl: "[--py-unit:20] max-laptop:[--py-unit:10] max-tablet:[--py-unit:4]",
       }),
-      gap: new GapTheme(),
+      gap: new GapTheme({
+        xs: "[--gap-unit:4]  max-laptop:[--gap-unit:3]  max-tablet:[--gap-unit:2]",
+        sm: "[--gap-unit:6]  max-laptop:[--gap-unit:5]  max-tablet:[--gap-unit:4]",
+        md: "[--gap-unit:8]  max-laptop:[--gap-unit:6]  max-tablet:[--gap-unit:4]",
+        lg: "[--gap-unit:10] max-laptop:[--gap-unit:8]  max-tablet:[--gap-unit:6]",
+        xl: "[--gap-unit:12] max-laptop:[--gap-unit:10] max-tablet:[--gap-unit:8]",
+      }),
       breakpoint: new BreakpointTheme(),
     },
     appearance: {

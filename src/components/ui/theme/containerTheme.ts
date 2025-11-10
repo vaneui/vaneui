@@ -39,7 +39,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
   "mx-auto w-full",
   {
     size: {
-      gap: new GapTheme(),
+      gap: GapTheme.createForLayout(),
       maxWidth: new SizeTheme({xs: 'max-w-3xl', sm: 'max-w-4xl', md: 'max-w-5xl', lg: 'max-w-6xl', xl: 'max-w-7xl'}),
     },
     layout: {

@@ -64,7 +64,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
     size: {
       px: new PxTheme(badgeAspectRatioClasses, true),
       py: PyTheme.createForUI(),
-      gap: new GapTheme(true),
+      gap: GapTheme.createForUI(),
       text: new FontSizeTheme(),
       lineHeight: LineHeightTheme.createDefault()
     },

@@ -66,7 +66,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
         xl: "[--py-unit:10]",
       }),
       lineHeight: LineHeightTheme.createDefault(),
-      gap: new GapTheme(false),
+      gap: GapTheme.createForLayout(),
     },
     layout: {
       ...defaultLayoutsThemes,

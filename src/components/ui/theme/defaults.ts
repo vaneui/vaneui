@@ -73,7 +73,6 @@ export const themeDefaults: ThemeDefaults = {
     md: true,
     itemsCenter: true,
     gap: true,
-    sharp: true,
   },
 
   section: {
@@ -87,7 +86,6 @@ export const themeDefaults: ThemeDefaults = {
     noBorder: true,
     noRing: true,
     noShadow: true,
-    sharp: true,
   },
 
   stack: {
@@ -99,7 +97,6 @@ export const themeDefaults: ThemeDefaults = {
     padding: true,
     noBorder: true,
     noRing: true,
-    sharp: true,
   },
 
   row: {
@@ -110,7 +107,6 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
     noBorder: true,
     noRing: true,
-    sharp: true,
   },
 
   col: {
@@ -120,7 +116,6 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
     noBorder: true,
     noRing: true,
-    sharp: true,
   },
 
   grid2: {

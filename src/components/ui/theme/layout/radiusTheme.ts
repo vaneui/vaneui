@@ -51,20 +51,24 @@ export class RadiusTheme extends BaseTheme {
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const size = extractedKeys.size ?? 'md';
-    const shape = extractedKeys.shape ?? 'rounded';
+    const shape = extractedKeys.shape;
 
-    switch (shape) {
-      case 'pill':
-        return [this.pill];
-      case 'sharp':
-        return [this.sharp];
-      case 'rounded': {
-        const brUnitClass = this.rounded[size];
-        const roundedVar = this.isUIComponent ? "rounded-(--ui-br)" : "rounded-(--br)";
-        return brUnitClass ? [brUnitClass, roundedVar] : [];
+    if(shape){
+      switch (shape) {
+        case 'pill':
+          return [this.pill];
+        case 'sharp':
+          return [this.sharp];
+        case 'rounded': {
+          const brUnitClass = this.rounded[size];
+          const roundedVar = this.isUIComponent ? "rounded-(--ui-br)" : "rounded-(--br)";
+          return brUnitClass ? [brUnitClass, roundedVar] : [];
+        }
+        default:
+          return [];
       }
-      default:
-        return [];
     }
+
+    return [];
   }
 }

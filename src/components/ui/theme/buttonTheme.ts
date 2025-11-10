@@ -63,7 +63,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
     size: {
       px: new PxTheme(buttonAspectRatioClasses, true),
       py: PyTheme.createForUI(),
-      gap: new GapTheme(true),
+      gap: GapTheme.createForUI(),
       text: new FontSizeTheme(),
       lineHeight: new LineHeightTheme({
         xs: "[--lh:1.3]",

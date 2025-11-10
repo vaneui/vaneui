@@ -16,6 +16,7 @@ function App() {
     <ThemeProvider theme={defaultTheme}>
       <Section className="max-w-mobile">
         <Container itemsCenter>
+          <Col noGap>Col content</Col>
           <PageTitle>VaneUI Component Library Examples</PageTitle>
           <Text xl>All UI components shown in 5 sizes (xs, sm, md, lg, xl)</Text>
           

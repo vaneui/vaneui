@@ -51,7 +51,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
         xl: "[--aspect-ratio:1]",
       }),
       py: new PyTheme(),
-      gap: new GapTheme(),
+      gap: GapTheme.createForLayout(),
       breakpoint: new BreakpointTheme(),
     },
     layout: {

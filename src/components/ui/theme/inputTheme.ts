@@ -60,7 +60,7 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
         xl: "[--aspect-ratio:2]",
       }, true),
       py: PyTheme.createForUI(),
-      gap: new GapTheme(true),
+      gap: GapTheme.createForUI(),
       text: new FontSizeTheme(),
       lineHeight: LineHeightTheme.createDefault(),
     },

@@ -78,7 +78,7 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
           xl: "[--lh:1.2]"
         }
       ),
-      gap: new GapTheme(true)
+      gap: GapTheme.createForUI()
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),

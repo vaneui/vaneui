@@ -37,7 +37,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   "",
   {
     size: {
-      gap: new GapTheme(),
+      gap: GapTheme.createForLayout(),
     },
     layout: {
       ...defaultLayoutsThemes,

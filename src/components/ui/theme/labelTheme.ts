@@ -38,7 +38,7 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
     size: {
       text: new FontSizeTheme(),
       lineHeight: LineHeightTheme.createDefault(),
-      gap: new GapTheme(true),
+      gap: GapTheme.createForUI(),
     },
     appearance: {
       text: GenericVariantTheme.createTypographyTextTheme(),

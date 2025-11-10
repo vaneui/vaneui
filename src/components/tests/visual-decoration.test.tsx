@@ -243,12 +243,14 @@ describe('Visual Decoration Props', () => {
       expect(element.className).toContain('rounded-full');
     });
 
-    it('should not apply rounded classes when sharp is true (default)', () => {
+    it('should not apply any shape classes when no shape prop provided', () => {
       const { container } = renderWithTheme(
         <Row>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('rounded-none');
+      expect(element.className).not.toContain('rounded-none');
+      expect(element.className).not.toContain('rounded-full');
+      expect(element.className).not.toContain('rounded-(--br)');
     });
 
     it('should apply different radius sizes', () => {
@@ -346,11 +348,13 @@ describe('Visual Decoration Props', () => {
         <Row>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      
-      // Should not have border, ring, or rounded by default
+
+      // Should not have border, ring, or shape classes by default
       expect(element.className).not.toContain('border');
       expect(element.className).not.toContain('ring-2');
-      expect(element.className).toContain('rounded-none');
+      expect(element.className).not.toContain('rounded-none');
+      expect(element.className).not.toContain('rounded-full');
+      expect(element.className).not.toContain('rounded-(--br)');
     });
 
     it('Col should maintain original appearance by default', () => {
@@ -358,11 +362,13 @@ describe('Visual Decoration Props', () => {
         <Col>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
-      
-      // Should not have border, ring, or rounded by default
+
+      // Should not have border, ring, or shape classes by default
       expect(element.className).not.toContain('border');
       expect(element.className).not.toContain('ring-2');
-      expect(element.className).toContain('rounded-none');
+      expect(element.className).not.toContain('rounded-none');
+      expect(element.className).not.toContain('rounded-full');
+      expect(element.className).not.toContain('rounded-(--br)');
     });
 
     it('Stack should maintain original appearance by default', () => {
@@ -370,11 +376,13 @@ describe('Visual Decoration Props', () => {
         <Stack>Content</Stack>
       );
       const element = container.firstChild as HTMLElement;
-      
-      // Should not have border, ring, or rounded by default
+
+      // Should not have border, ring, or shape classes by default
       expect(element.className).not.toContain('border');
       expect(element.className).not.toContain('ring-2');
-      expect(element.className).toContain('rounded-none');
+      expect(element.className).not.toContain('rounded-none');
+      expect(element.className).not.toContain('rounded-full');
+      expect(element.className).not.toContain('rounded-(--br)');
     });
   });
 });
