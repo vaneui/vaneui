@@ -16,10 +16,36 @@ function App() {
     <ThemeProvider theme={defaultTheme}>
       <Section className="max-w-mobile">
         <Container itemsCenter>
-          <Col noGap>Col content</Col>
           <PageTitle>VaneUI Component Library Examples</PageTitle>
-          <Text xl>All UI components shown in 5 sizes (xs, sm, md, lg, xl)</Text>
-          
+          <Text xs className="max-w-sm">
+            Every component adapts to screen size automatically.
+            Use responsive props like <Code xs primary>xs</Code>, <Code xs primary>sm</Code>,
+            <Code xs primary>md</Code>, <Code xs primary>lg</Code>, <Code xs primary>xl</Code> to fine-tune layouts for any
+            device.
+          </Text>
+          <Text sm className="max-w-sm">
+            Every component adapts to screen size automatically.
+            Use responsive props like <Code sm primary>xs</Code>, <Code sm primary>sm</Code>,
+            <Code sm primary>md</Code>, <Code sm primary>lg</Code>, <Code sm primary>xl</Code> to fine-tune layouts for any
+            device.
+          </Text>
+          <Text className="max-w-md">
+            Every component adapts to screen size automatically.
+            Use responsive props like <Code primary>xs</Code>, <Code primary>sm</Code>,
+            <Code primary>md</Code>, <Code primary>lg</Code>, <Code primary>xl</Code> to fine-tune layouts for any
+            device.
+          </Text>
+          <Text lg className="max-w-lg">
+            Every component adapts to screen size automatically.
+            Use responsive props like <Code lg primary>xs</Code>, <Code lg primary>sm</Code>, <Code lg primary>md</Code>, <Code lg primary>lg</Code>, <Code lg primary>xl</Code> to fine-tune layouts for any device.
+          </Text>
+          <Text xl className="max-w-xl">
+            Every component adapts to screen size automatically.
+            Use responsive props like <Code xl primary>xs</Code>, <Code xl primary>sm</Code>,
+            <Code xl primary>md</Code>, <Code xl primary>lg</Code>, <Code xl primary>xl</Code> to fine-tune layouts for any
+            device.
+          </Text>
+
           {/* Button Examples */}
           <Card>
             <Title>Button</Title>
@@ -108,11 +134,16 @@ function App() {
           <Card>
             <Title>Text</Title>
             <Col>
-              <Text xs>Text XS - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Text>
-              <Text sm>Text SM - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Text>
-              <Text>Text MD - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Text>
-              <Text lg>Text LG - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Text>
-              <Text xl>Text XL - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</Text>
+              <Text xs>Text XS - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua</Text>
+              <Text sm>Text SM - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua</Text>
+              <Text>Text MD - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua</Text>
+              <Text lg>Text LG - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua</Text>
+              <Text xl>Text XL - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua</Text>
             </Col>
           </Card>
 

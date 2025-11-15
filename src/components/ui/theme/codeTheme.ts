@@ -62,20 +62,20 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
         xl: "[--aspect-ratio:1.5]",
       }, true),
       py: new PyTheme({
-        xs: "[--py-unit:1]",
-        sm: "[--py-unit:1.5]",
-        md: "[--py-unit:1.5]",
-        lg: "[--py-unit:2]",
-        xl: "[--py-unit:2]",
+        xs: "[--py-unit:0.6]",
+        sm: "[--py-unit:0.8]",
+        md: "[--py-unit:1]",
+        lg: "[--py-unit:1.2]",
+        xl: "[--py-unit:1.4]",
       }, true),
       text: new FontSizeTheme(),
       lineHeight: new LineHeightTheme(
         {
-          xs: "[--lh:1.2]",
-          sm: "[--lh:1.2]",
-          md: "[--lh:1.2]",
-          lg: "[--lh:1.2]",
-          xl: "[--lh:1.2]"
+          xs: "[--lh:1]",
+          sm: "[--lh:1]",
+          md: "[--lh:1]",
+          lg: "[--lh:1]",
+          xl: "[--lh:1]"
         }
       ),
       gap: GapTheme.createForUI()
