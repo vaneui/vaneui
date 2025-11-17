@@ -12,20 +12,10 @@ export class RadiusTheme extends BaseTheme {
 
   private isUIComponent: boolean;
 
-  private constructor(roundedClasses: Record<SizeKey, string>, isUIComponent: boolean = false) {
+  public constructor(roundedClasses: Record<SizeKey, string>, isUIComponent: boolean = false) {
     super();
     this.rounded = roundedClasses;
     this.isUIComponent = isUIComponent;
-  }
-
-  static createCheckboxTheme(): RadiusTheme {
-    return new RadiusTheme({
-      xs: '[--br-unit:1]',
-      sm: '[--br-unit:1.5]',
-      md: '[--br-unit:2]',
-      lg: '[--br-unit:2.5]',
-      xl: '[--br-unit:3]'
-    }, true);
   }
 
   static createUITheme(): RadiusTheme {

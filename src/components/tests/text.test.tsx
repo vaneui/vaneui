@@ -370,11 +370,11 @@ describe('Text Component Tests', () => {
 
     it('should apply correct line height based on size', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--lh:1.333]', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'sm', unitClass: '[--lh:1.429]', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'md', unitClass: '[--lh:1.5]', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'lg', unitClass: '[--lh:1.556]', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'xl', unitClass: '[--lh:1.4]', lineHeightClass: 'leading-(--lh)' }
+        { prop: 'xs', unitClass: '[--lh:1.4]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'sm', unitClass: '[--lh:1.6]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'md', unitClass: '[--lh:1.6]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'lg', unitClass: '[--lh:1.6]', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'xl', unitClass: '[--lh:1.6]', lineHeightClass: 'leading-(--lh)' }
       ] as const;
 
       sizes.forEach(({prop, unitClass, lineHeightClass}) => {
@@ -406,10 +406,10 @@ describe('Text Component Tests', () => {
       expect(anchor).toHaveClass('text-(--color-text-primary)'); // primary color
       expect(anchor).toHaveClass('font-semibold'); // font weight
       expect(anchor).toHaveClass('[--fs-unit:9]'); // CSS variable font size (1.125rem = 9 * 0.125rem)
-      // Note: text-(length:--fs) class appears to be conflicting with text-(--color-text-primary) 
+      // Note: text-(length:--fs) class appears to be conflicting with text-(--color-text-primary)
       // The font size is still applied via the CSS variable, but the utility class is not present
       expect(anchor).toHaveClass('font-sans'); // default font family
-      expect(anchor).toHaveClass('[--lh:1.556]'); // line height unit for lg size
+      expect(anchor).toHaveClass('[--lh:1.6]'); // line height unit for lg size
       expect(anchor).toHaveClass('leading-(--lh)'); // line height variable
     });
   });

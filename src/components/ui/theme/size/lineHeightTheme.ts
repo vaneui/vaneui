@@ -4,15 +4,15 @@ import type { CategoryProps } from "../../props";
 
 export class LineHeightTheme extends BaseTheme implements Record<SizeKey, string> {
   /** Extra-small line height - matches text-xs default line height */
-  xs: string = "[--lh:1.333]"; // calc(1 / 0.75) ≈ 1.333
+  xs: string = "[--lh:1.4]"; // calc(1 / 0.75) ≈ 1.333
   /** Small line height - matches text-sm default line height */
-  sm: string = "[--lh:1.429]"; // calc(1.25 / 0.875) ≈ 1.429
+  sm: string = "[--lh:1.6]"; // calc(1.25 / 0.875) ≈ 1.429
   /** Medium line height - matches text-base default line height */
-  md: string = "[--lh:1.5]"; // calc(1.5 / 1) = 1.5
+  md: string = "[--lh:1.6]"; // calc(1.5 / 1) = 1.5
   /** Large line height - matches text-lg default line height */
-  lg: string = "[--lh:1.556]"; // calc(1.75 / 1.125) ≈ 1.556
+  lg: string = "[--lh:1.6]"; // calc(1.75 / 1.125) ≈ 1.556
   /** Extra-large line height - matches text-xl default line height */
-  xl: string = "[--lh:1.4]"; // calc(1.75 / 1.25) = 1.4
+  xl: string = "[--lh:1.6]"; // calc(1.75 / 1.25) = 1.4
 
   constructor(customMapping?: Record<SizeKey, string>) {
     super();

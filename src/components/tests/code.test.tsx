@@ -42,9 +42,9 @@ describe('Code Component', () => {
     it('should have default theme classes applied', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
-      
+
       expect(codeElement).toHaveClass('inline');
-      expect(codeElement).toHaveClass('[--fs-unit:8]');
+      expect(codeElement).toHaveClass('[--fs-unit:7]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
       expect(codeElement).toHaveClass('px-(--ui-px)');
       expect(codeElement).toHaveClass('py-(--ui-py)');
@@ -67,8 +67,8 @@ describe('Code Component', () => {
     it('should apply xs size classes', () => {
       const { container } = render(<Code xs>test</Code>);
       const codeElement = container.querySelector('code');
-      
-      expect(codeElement).toHaveClass('[--fs-unit:6]');
+
+      expect(codeElement).toHaveClass('[--fs-unit:5]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
       expect(codeElement).toHaveClass('px-(--ui-px)');
       expect(codeElement).toHaveClass('py-(--ui-py)');
@@ -78,8 +78,8 @@ describe('Code Component', () => {
     it('should apply md size classes', () => {
       const { container } = render(<Code md>test</Code>);
       const codeElement = container.querySelector('code');
-      
-      expect(codeElement).toHaveClass('[--fs-unit:8]');
+
+      expect(codeElement).toHaveClass('[--fs-unit:7]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
       expect(codeElement).toHaveClass('px-(--ui-px)');
       expect(codeElement).toHaveClass('py-(--ui-py)');
@@ -89,8 +89,8 @@ describe('Code Component', () => {
     it('should apply lg size classes', () => {
       const { container } = render(<Code lg>test</Code>);
       const codeElement = container.querySelector('code');
-      
-      expect(codeElement).toHaveClass('[--fs-unit:9]');
+
+      expect(codeElement).toHaveClass('[--fs-unit:8]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
       expect(codeElement).toHaveClass('px-(--ui-px)');
       expect(codeElement).toHaveClass('py-(--ui-py)');
@@ -100,8 +100,8 @@ describe('Code Component', () => {
     it('should apply xl size classes', () => {
       const { container } = render(<Code xl>test</Code>);
       const codeElement = container.querySelector('code');
-      
-      expect(codeElement).toHaveClass('[--fs-unit:10]');
+
+      expect(codeElement).toHaveClass('[--fs-unit:9]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
       expect(codeElement).toHaveClass('px-(--ui-px)');
       expect(codeElement).toHaveClass('py-(--ui-py)');
@@ -291,8 +291,8 @@ describe('Code Component', () => {
     it('should have same default size as Chip now', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
-      
-      expect(codeElement).toHaveClass('[--fs-unit:8]');
+
+      expect(codeElement).toHaveClass('[--fs-unit:7]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
     });
 
@@ -344,8 +344,8 @@ describe('Code Component', () => {
         </Code>
       );
       const codeElement = container.querySelector('code');
-      
-      expect(codeElement).toHaveClass('[--fs-unit:6]');
+
+      expect(codeElement).toHaveClass('[--fs-unit:5]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
       expect(codeElement).toHaveClass('bg-(--color-bg-filled-primary)');
       expect(codeElement).toHaveClass('rounded-full');
@@ -382,8 +382,8 @@ describe('Code Component', () => {
     it('should allow explicit sm size', () => {
       const { container } = render(<Code sm>test</Code>);
       const codeElement = container.querySelector('code');
-      
-      expect(codeElement).toHaveClass('[--fs-unit:7]');
+
+      expect(codeElement).toHaveClass('[--fs-unit:6]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
       expect(codeElement).toHaveClass('px-(--ui-px)');
       expect(codeElement).toHaveClass('py-(--ui-py)');

@@ -55,20 +55,26 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
   {
     size: {
       px: new PxTheme({
-        xs: "[--aspect-ratio:1.5]",
-        sm: "[--aspect-ratio:1.5]",
-        md: "[--aspect-ratio:1.5]",
-        lg: "[--aspect-ratio:1.5]",
-        xl: "[--aspect-ratio:1.5]",
+        xs: "[--aspect-ratio:1.8]",
+        sm: "[--aspect-ratio:1.8]",
+        md: "[--aspect-ratio:1.8]",
+        lg: "[--aspect-ratio:1.8]",
+        xl: "[--aspect-ratio:1.8]",
       }, true),
       py: new PyTheme({
-        xs: "[--py-unit:0.6]",
-        sm: "[--py-unit:0.8]",
-        md: "[--py-unit:1]",
-        lg: "[--py-unit:1.2]",
-        xl: "[--py-unit:1.4]",
+        xs: "[--py-unit:0.4]",
+        sm: "[--py-unit:0.6]",
+        md: "[--py-unit:0.8]",
+        lg: "[--py-unit:1]",
+        xl: "[--py-unit:1.2]",
       }, true),
-      text: new FontSizeTheme(),
+      text: new FontSizeTheme({
+        xs: "[--fs-unit:5]",
+        sm: "[--fs-unit:6]",
+        md: "[--fs-unit:7]",
+        lg: "[--fs-unit:8]",
+        xl: "[--fs-unit:9]",
+      }),
       lineHeight: new LineHeightTheme(
         {
           xs: "[--lh:1]",
@@ -90,7 +96,13 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
     },
     layout: {
       ...defaultLayoutsThemes,
-      radius: RadiusTheme.createUITheme(),
+      radius: new RadiusTheme({
+        xs: '[--br-unit:1]',
+        sm: '[--br-unit:2]',
+        md: '[--br-unit:3]',
+        lg: '[--br-unit:4]',
+        xl: '[--br-unit:5]'
+      }, true),
       border: new BorderTheme(),
       ring: new RingTheme(),
       focusVisible: new FocusVisibleTheme(),

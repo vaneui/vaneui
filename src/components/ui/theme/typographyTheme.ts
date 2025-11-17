@@ -27,7 +27,6 @@ export interface TypographyTheme extends BaseTypographyComponentTheme {
   layout: DefaultLayoutThemes;
 }
 
-
 export const createTypographyComponentTheme = (
   tag: React.ElementType,
   base: string = "text-balance",

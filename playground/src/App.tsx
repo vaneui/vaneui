@@ -29,9 +29,11 @@ function App() {
             <Code sm primary>md</Code>, <Code sm primary>lg</Code>, <Code sm primary>xl</Code> to fine-tune layouts for any
             device.
           </Text>
-          <Text className="max-w-md">
+          <Text className="max-w-[216px]">
             Every component adapts to screen size automatically.
-            Use responsive props like <Code primary>xs</Code>, <Code primary>sm</Code>,
+            Use responsive props like <Code secondary>xs</Code>, <Code primary>sm</Code>,
+            <Code primary>xs</Code>, <Code primary>sm</Code>, <Code primary>xs</Code>, <Code>sm</Code>, <Code>xs</Code>, <Code secondary>sm</Code>,
+            <Code secondary>xs</Code>, <Code>sm</Code>,
             <Code primary>md</Code>, <Code primary>lg</Code>, <Code primary>xl</Code> to fine-tune layouts for any
             device.
           </Text>
@@ -41,7 +43,9 @@ function App() {
           </Text>
           <Text xl className="max-w-xl">
             Every component adapts to screen size automatically.
-            Use responsive props like <Code xl primary>xs</Code>, <Code xl primary>sm</Code>,
+            Use responsive props like <Code xl primary>xs</Code>, <Code xl primary>sm</Code>, <Code xl primary>xs</Code>, <Code xl primary>sm</Code>,
+            <Code xl primary>xs</Code>, <Code xl primary>sm</Code>, <Code xl primary>xs</Code>, <Code xl primary>sm</Code>,
+            <Code xl primary>xs</Code>, <Code xl primary>sm</Code>, <Code xl primary>xs</Code>, <Code xl primary>sm</Code>,
             <Code xl primary>md</Code>, <Code xl primary>lg</Code>, <Code xl primary>xl</Code> to fine-tune layouts for any
             device.
           </Text>
