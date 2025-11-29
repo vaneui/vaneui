@@ -905,3 +905,163 @@ describe('MyComponent', () => {
 
 5. **Don't forget to export new components from index.ts**
    - Component must be exported to be part of public API
+
+6. **Don't skip JSDoc documentation for components**
+   - Add comprehensive JSDoc to component exports for IntelliSense support
+   - Document all props using `@param` tags
+   - Include 3-5 usage examples showing common patterns
+   - **Use reusable documentation blocks** from `src/components/ui/docs/propDocs.ts` (see `REUSABLE_JSDOC_GUIDE.md`)
+   - See `COMPONENT_DOCUMENTATION_TEMPLATE.md` for templates and guidelines
+
+### Component Documentation Guidelines
+
+VaneUI components should have comprehensive JSDoc documentation to provide excellent IntelliSense support in IDEs. Since props are generated via mapped types, JSDoc must be added directly to component exports.
+
+#### Documentation Requirements
+
+Every component export should include:
+
+1. **Component Description** - Brief summary of purpose and behavior
+2. **Usage Examples** - 3-5 realistic code examples showing:
+   - Basic usage
+   - Common prop combinations
+   - Link mode (if supported via `href`)
+   - Special features or behaviors
+3. **Prop Documentation** - Document all props by category:
+   - Size props (xs, sm, md, lg, xl)
+   - Appearance props (primary, secondary, success, etc.)
+   - Variant props (filled, outlined, ghost)
+   - Shape props (rounded, pill, sharp)
+   - Typography props (font family, weight, style, alignment)
+   - Layout props (gap, padding, flex, alignment)
+   - Responsive props (breakpoint modifiers)
+   - Special props (href, tag, className, children)
+4. **Type Reference** - Link to full type definition with `@see` tag
+
+#### Automated Documentation Generation
+
+**VaneUI uses automated JSDoc generation** to eliminate manual work and ensure consistency across all components.
+
+**Key files:**
+- **`src/components/ui/docs/propDocs.ts`** - Single source of truth for all prop documentation blocks
+- **`scripts/generateComponentDocs.ts`** - Automated script that generates JSDoc for components
+
+**How it works:**
+
+1. Component metadata (name, description, examples) is defined in `scripts/generateComponentDocs.ts`
+2. The script reads which prop categories each component uses (from `keys.ts`)
+3. It maps categories to documentation blocks from `propDocs.ts`
+4. JSDoc is automatically generated and injected into component source files
+5. The script runs automatically before every build
+
+**Workflow for adding new components:**
+
+1. **Add component metadata to `scripts/generateComponentDocs.ts`:**
+   ```typescript
+   const COMPONENTS: ComponentMetadata[] = [
+     {
+       name: 'MyComponent',
+       file: 'mycomponent.tsx',
+       propsType: 'MyComponentProps',
+       refType: 'HTMLDivElement',
+       description: 'A brief description of what this component does',
+       examples: [
+         '// Basic usage',
+         '<MyComponent>Content</MyComponent>',
+         '',
+         '// With props',
+         '<MyComponent primary lg>Styled</MyComponent>',
+       ],
+     },
+     // ... other components
+   ];
+   ```
+
+2. **Run the documentation generator:**
+   ```bash
+   npm run docs:generate
+   ```
+
+3. **Build and verify:**
+   ```bash
+   npm run build
+   cat dist/components/ui/mycomponent.d.ts
+   ```
+
+**Benefits:**
+- ✅ **Fully automated** - JSDoc generated programmatically, zero manual copying
+- ✅ **Single source of truth** - All prop descriptions in `propDocs.ts`
+- ✅ **Consistency** - All components use identical wording for same props
+- ✅ **Zero duplication** - Documentation blocks reused across all components
+- ✅ **Easy maintenance** - Update `propDocs.ts` once, regenerate all docs
+- ✅ **Integrated build** - Runs automatically before every build
+
+#### Example: Button Component JSDoc
+
+```typescript
+/**
+ * Button component - A clickable button element with customizable appearance and behavior.
+ *
+ * @example
+ * ```tsx
+ * // Basic usage
+ * <Button>Click me</Button>
+ *
+ * // With size, appearance, and variant
+ * <Button lg primary filled>Submit</Button>
+ *
+ * // As a link
+ * <Button href="/about">About</Button>
+ * ```
+ *
+ * @param props - Button props
+ * @param props.children - Button content
+ * @param props.className - Additional CSS classes
+ *
+ * SIZE PROPS:
+ * @param props.xs - Extra small size
+ * @param props.sm - Small size
+ * @param props.md - Medium size (default)
+ * @param props.lg - Large size
+ * @param props.xl - Extra large size
+ *
+ * APPEARANCE PROPS:
+ * @param props.primary - Primary color appearance (blue)
+ * @param props.secondary - Secondary color appearance (gray)
+ * @param props.success - Success color appearance (green)
+ * @param props.danger - Danger color appearance (red)
+ * // ... more appearances
+ *
+ * VARIANT PROPS:
+ * @param props.filled - Filled variant with solid background
+ * @param props.outlined - Outlined variant with border only
+ * @param props.ghost - Ghost variant with minimal styling
+ *
+ * // ... more prop categories
+ *
+ * @see {@link ButtonProps} for the complete type definition
+ */
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(...);
+```
+
+#### Verification Steps
+
+After adding documentation:
+
+1. **Build the package**: `npm run build`
+2. **Check `.d.ts` files**: Verify JSDoc is preserved in `dist/components/ui/[component].d.ts`
+3. **Test in IDE**: Open a consuming project and verify IntelliSense shows:
+   - Component description on hover
+   - Prop descriptions when typing
+   - Examples in completion details
+4. **Validate examples**: Ensure code examples are syntactically correct
+
+#### Documentation Best Practices
+
+- **Be complete but concise** - List all props, but keep descriptions brief (one line each)
+- **Group props logically** - Organize by category (size, appearance, variant, etc.)
+- **Show real examples** - Use actual use cases, not contrived examples
+- **Mention defaults** - Note which props are default (e.g., "`md` - Medium size (default)")
+- **Document special behavior** - Call out auto-responsive, link conversion, tag polymorphism
+- **Include TypeScript reference** - Always link to the full Props type with `@see`
+- **Update on changes** - When adding new props or features, update JSDoc immediately
