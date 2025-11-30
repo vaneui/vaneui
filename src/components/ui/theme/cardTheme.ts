@@ -7,7 +7,7 @@ import {
   defaultTypographyThemes
 } from "./common/ComponentTheme";
 import { LineHeightTheme } from "./size/lineHeightTheme";
-import { CardProps } from "../props";
+import type { CardProps } from "../card";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BorderTheme } from "./layout/borderTheme";

@@ -1,6 +1,6 @@
 import { DirectionTheme } from "./layout/directionTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
-import { ColProps } from "../props";
+import type { ColProps } from "../col";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";

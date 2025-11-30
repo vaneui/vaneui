@@ -1,6 +1,6 @@
 import { DirectionTheme } from "./layout/directionTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
-import { ContainerProps } from "../props";
+import type { ContainerProps } from "../container";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { SizeTheme } from "./size/sizeTheme";

@@ -1,7 +1,44 @@
 import { forwardRef } from 'react';
-import { GridProps } from './props';
+import type {
+  BaseProps,
+  SizeProps,
+  HideProps,
+  ItemsProps,
+  JustifyProps,
+  PositionProps,
+  DisplayProps,
+  OverflowProps,
+  WrapProps,
+  GapProps,
+  FlexDirectionProps,
+  ReverseProps,
+  AppearanceProps,
+  TransparentProps,
+  VariantProps
+} from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
+
+/** Grid component props */
+export type GridProps = BaseProps &
+  SizeProps &
+  HideProps &
+  ItemsProps &
+  JustifyProps &
+  PositionProps &
+  DisplayProps &
+  OverflowProps &
+  WrapProps &
+  GapProps &
+  FlexDirectionProps &
+  ReverseProps &
+  AppearanceProps &
+  TransparentProps &
+  VariantProps &
+  Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
+  /** Custom HTML tag or React component to render as */
+  tag?: React.ElementType;
+};
 
 export const Grid2 = forwardRef<HTMLDivElement, GridProps>(
   function Grid2(props, ref) {

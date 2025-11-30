@@ -5,7 +5,7 @@ import {
   DefaultLayoutThemes,
   defaultTypographyThemes
 } from "./common/ComponentTheme";
-import { ChipProps } from "../props";
+import type { ChipProps } from "../chip";
 import { FontSizeTheme } from "./size/fontSizeTheme";
 import { LineHeightTheme } from "./size/lineHeightTheme";
 import { GapTheme } from "./size/gapTheme";

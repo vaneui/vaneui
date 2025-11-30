@@ -1,5 +1,5 @@
 import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
-import { DividerProps } from "../props";
+import type { DividerProps } from "../divider";
 import { themeDefaults } from "./defaults";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { bgBorderAppearanceClasses } from "../classes/appearanceClasses";

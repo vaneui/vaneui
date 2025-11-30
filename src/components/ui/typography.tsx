@@ -1,7 +1,78 @@
 import { forwardRef } from 'react';
-import { TypographyProps, ListProps } from './props';
+import type {
+  BaseProps,
+  FontWeightProps,
+  FontStyleProps,
+  TextDecorationProps,
+  TextTransformProps,
+  FontFamilyProps,
+  TextAlignProps,
+  SizeProps,
+  HideProps,
+  ItemsProps,
+  JustifyProps,
+  PositionProps,
+  DisplayProps,
+  OverflowProps,
+  AppearanceProps,
+  TransparentProps,
+  VariantProps,
+  ListStyleProps,
+  PaddingProps
+} from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
+
+/** Typography component props (for Text, PageTitle, SectionTitle, Title, Link, ListItem) */
+export type TypographyProps = BaseProps &
+  FontWeightProps &
+  FontStyleProps &
+  TextDecorationProps &
+  TextTransformProps &
+  FontFamilyProps &
+  TextAlignProps &
+  SizeProps &
+  HideProps &
+  ItemsProps &
+  JustifyProps &
+  PositionProps &
+  DisplayProps &
+  OverflowProps &
+  AppearanceProps &
+  TransparentProps &
+  VariantProps &
+  Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
+  Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
+  /** URL to navigate to (renders component as anchor tag) */
+  href?: string;
+  /** Custom HTML tag or React component to render as */
+  tag?: React.ElementType;
+};
+
+/** List component props */
+export type ListProps = BaseProps &
+  FontWeightProps &
+  FontStyleProps &
+  TextDecorationProps &
+  TextTransformProps &
+  FontFamilyProps &
+  TextAlignProps &
+  ListStyleProps &
+  SizeProps &
+  HideProps &
+  ItemsProps &
+  JustifyProps &
+  PositionProps &
+  DisplayProps &
+  OverflowProps &
+  AppearanceProps &
+  TransparentProps &
+  PaddingProps &
+  VariantProps &
+  Omit<React.HTMLAttributes<HTMLElement>, 'className' | 'children'> & {
+  /** Custom HTML tag or React component to render as */
+  tag?: React.ElementType;
+};
 
 export const PageTitle = forwardRef<HTMLHeadingElement, TypographyProps>(
   function PageTitle(props, ref) {

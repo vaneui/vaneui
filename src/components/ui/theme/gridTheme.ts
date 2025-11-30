@@ -1,5 +1,5 @@
 import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
-import { GridProps } from "../props";
+import type { GridProps } from "../grid";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";

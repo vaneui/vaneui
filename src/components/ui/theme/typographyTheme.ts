@@ -1,4 +1,4 @@
-import { ListProps, TypographyProps } from "../props";
+import type { ListProps, TypographyProps } from "../typography";
 import { themeDefaults } from "./defaults";
 import React from "react";
 import {

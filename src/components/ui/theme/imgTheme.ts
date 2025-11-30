@@ -4,7 +4,7 @@ import {
   defaultLayoutsThemes,
   DefaultLayoutThemes
 } from "./common/ComponentTheme";
-import { ImgProps } from "../props";
+import type { ImgProps } from "../img";
 import { themeDefaults } from "./defaults";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";

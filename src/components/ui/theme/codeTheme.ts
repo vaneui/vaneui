@@ -5,7 +5,7 @@ import {
   DefaultLayoutThemes,
   defaultTypographyThemes
 } from "./common/ComponentTheme";
-import { CodeProps } from "../props";
+import type { CodeProps } from "../code";
 import { themeDefaults } from "./defaults";
 import { FontSizeTheme } from "./size/fontSizeTheme";
 import { LineHeightTheme } from "./size/lineHeightTheme";

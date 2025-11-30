@@ -2,7 +2,7 @@ import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayout
 import { DirectionTheme } from "./layout/directionTheme";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { SectionProps } from "../props";
+import type { SectionProps } from "../section";
 import { themeDefaults } from "./defaults";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";

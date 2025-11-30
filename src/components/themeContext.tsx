@@ -26,26 +26,23 @@ import { CheckboxTheme, CheckTheme, CheckboxWrapperTheme, defaultCheckboxTheme, 
 import { LabelTheme, defaultLabelTheme } from './ui/theme/labelTheme';
 import { ImgTheme, defaultImgTheme } from './ui/theme/imgTheme';
 import { InputTheme, defaultInputTheme } from './ui/theme/inputTheme';
-import {
-  BadgeProps,
-  ButtonProps,
-  CardProps,
-  ChipProps,
-  CodeProps,
-  ColProps,
-  ContainerProps,
-  DividerProps,
-  GridProps,
-  ListProps,
-  RowProps,
-  SectionProps,
-  StackProps,
-  TypographyProps,
-  CheckboxProps,
-  LabelProps,
-  ImgProps,
-  InputProps,
-} from "./ui/props";
+import type { BadgeProps } from "./ui/badge";
+import type { ButtonProps } from "./ui/button";
+import type { CardProps } from "./ui/card";
+import type { ChipProps } from "./ui/chip";
+import type { CodeProps } from "./ui/code";
+import type { ColProps } from "./ui/col";
+import type { ContainerProps } from "./ui/container";
+import type { DividerProps } from "./ui/divider";
+import type { GridProps } from "./ui/grid";
+import type { ListProps, TypographyProps } from "./ui/typography";
+import type { RowProps } from "./ui/row";
+import type { SectionProps } from "./ui/section";
+import type { StackProps } from "./ui/stack";
+import type { CheckboxProps } from "./ui/checkbox";
+import type { LabelProps } from "./ui/label";
+import type { ImgProps } from "./ui/img";
+import type { InputProps } from "./ui/input";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 

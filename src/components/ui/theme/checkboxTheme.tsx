@@ -4,7 +4,7 @@ import {
   defaultLayoutsThemes,
   DefaultLayoutThemes
 } from "./common/ComponentTheme";
-import { CheckboxProps } from "../props";
+import type { CheckboxProps } from "../checkbox";
 import { themeDefaults } from "./defaults";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";

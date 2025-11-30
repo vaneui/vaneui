@@ -5,7 +5,7 @@ import {
   DefaultLayoutThemes,
   defaultTypographyThemes
 } from "./common/ComponentTheme";
-import { LabelProps } from "../props";
+import type { LabelProps } from "../label";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";

@@ -1,7 +1,7 @@
 import { DirectionTheme } from "./layout/directionTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
-import { StackProps } from "../props";
+import type { StackProps } from "../stack";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { PxTheme } from "./size/pxTheme";

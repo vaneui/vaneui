@@ -3,7 +3,7 @@ import {
   ComponentTheme, defaultLayoutsThemes,
   DefaultLayoutThemes, defaultTypographyThemes
 } from "./common/ComponentTheme";
-import { BadgeProps } from "../props";
+import type { BadgeProps } from "../badge";
 import { themeDefaults } from "./defaults";
 import { FontSizeTheme } from "./size/fontSizeTheme";
 import { LineHeightTheme } from "./size/lineHeightTheme";

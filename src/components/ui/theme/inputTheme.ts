@@ -3,7 +3,7 @@ import {
   ComponentTheme, defaultLayoutsThemes,
   DefaultLayoutThemes, defaultTypographyThemes
 } from "./common/ComponentTheme";
-import { InputProps } from "../props";
+import type { InputProps } from "../input";
 import { FontSizeTheme } from "./size/fontSizeTheme";
 import { LineHeightTheme } from "./size/lineHeightTheme";
 import { GapTheme } from "./size/gapTheme";

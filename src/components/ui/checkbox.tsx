@@ -1,7 +1,46 @@
 import { forwardRef } from 'react';
-import { CheckboxProps } from './props';
+import type {
+  BaseProps,
+  SizeProps,
+  HideProps,
+  ItemsProps,
+  JustifyProps,
+  PositionProps,
+  DisplayProps,
+  OverflowProps,
+  AppearanceProps,
+  TransparentProps,
+  BorderProps,
+  ShadowProps,
+  RingProps,
+  FocusVisibleProps,
+  ShapeProps,
+  VariantProps
+} from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
+
+/** Checkbox component props */
+export type CheckboxProps = BaseProps &
+  SizeProps &
+  HideProps &
+  ItemsProps &
+  JustifyProps &
+  PositionProps &
+  DisplayProps &
+  OverflowProps &
+  AppearanceProps &
+  TransparentProps &
+  BorderProps &
+  ShadowProps &
+  RingProps &
+  FocusVisibleProps &
+  ShapeProps &
+  VariantProps &
+  Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className' | 'children'> & {
+  /** Custom HTML tag or React component to render as */
+  tag?: React.ElementType;
+};
 
 export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
   function Checkbox(props, ref) {
