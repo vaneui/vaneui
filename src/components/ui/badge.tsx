@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import type {
   BaseProps,
   SizeProps,
@@ -67,6 +67,39 @@ export type BadgeProps = BaseProps &
   tag?: React.ElementType;
 };
 
+/**
+ * A compact badge component for displaying status, labels, or counts.
+ *
+ * Badges are typically used to highlight important information or indicate
+ * status (e.g., "New", "Beta", notification counts). Supports the same
+ * customization options as buttons including appearances, sizes, and variants.
+ *
+ * @example
+ * ```tsx
+ * // Basic badge
+ * <Badge>New</Badge>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Success badge with filled variant
+ * <Badge success filled>Active</Badge>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Notification count badge
+ * <Badge danger pill xs>3</Badge>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Badge as a link
+ * <Badge href="/beta" info outlined>Beta</Badge>
+ * ```
+ *
+ * @see {@link BadgeProps} for all available props
+ */
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
   function Badge(props, ref) {
     const theme = useTheme();

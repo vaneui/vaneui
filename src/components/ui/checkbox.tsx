@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import type {
   BaseProps,
   SizeProps,
@@ -42,6 +42,42 @@ export type CheckboxProps = BaseProps &
   tag?: React.ElementType;
 };
 
+/**
+ * A styled checkbox component for forms and selections.
+ *
+ * Provides a custom-styled checkbox with checkmark visualization. Supports
+ * all standard HTML checkbox attributes (checked, onChange, disabled, etc.)
+ * and can be customized with appearances, sizes, and variants.
+ *
+ * @example
+ * ```tsx
+ * // Basic checkbox
+ * <Checkbox />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Controlled checkbox with label
+ * <Label>
+ *   <Checkbox checked={accepted} onChange={(e) => setAccepted(e.target.checked)} />
+ *   I accept the terms
+ * </Label>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Primary checkbox with custom size
+ * <Checkbox primary lg defaultChecked />
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Disabled checkbox
+ * <Checkbox disabled checked />
+ * ```
+ *
+ * @see {@link CheckboxProps} for all available props
+ */
 export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
   function Checkbox(props, ref) {
     const theme = useTheme();

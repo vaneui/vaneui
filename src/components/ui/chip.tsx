@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import type {
   BaseProps,
   SizeProps,
@@ -67,6 +67,39 @@ export type ChipProps = BaseProps &
   tag?: React.ElementType;
 };
 
+/**
+ * A chip component for displaying tags, filters, or selections.
+ *
+ * Chips are interactive elements commonly used to represent tags, filters,
+ * or user selections. They typically appear in pill shape and can be
+ * removed or clicked. Similar to badges but more interactive in nature.
+ *
+ * @example
+ * ```tsx
+ * // Basic chip
+ * <Chip>React</Chip>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Filter chip with primary color
+ * <Chip primary pill>JavaScript</Chip>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Removable tag chip
+ * <Chip secondary outlined xs>TypeScript ×</Chip>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Clickable chip as link
+ * <Chip href="/tag/react" accent>React</Chip>
+ * ```
+ *
+ * @see {@link ChipProps} for all available props
+ */
 export const Chip = forwardRef<HTMLSpanElement, ChipProps>(
   function Chip(props, ref) {
     const theme = useTheme();
