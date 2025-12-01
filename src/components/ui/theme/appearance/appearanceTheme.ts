@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import { AppearanceCategoryKey, CategoryProps, TransparentKey, NO_BORDER } from "../../props";
+import { AppearanceCategoryKey, CategoryProps, TransparentKey } from "../../props";
 import { ComponentKeys, ModeKey, AppearanceKey } from "../../props";
 import { ModeKeys } from "../../props/mode";
 
@@ -45,13 +45,13 @@ export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, 
   getClasses(extractedKeys: CategoryProps): string[] {
     if (this.category === 'border') {
       // If noBorder is selected from the border category, don't apply appearance colors
-      if ((extractedKeys.border as string) === NO_BORDER) {
+      if ((extractedKeys.border as string) === 'noBorder') {
         return [];
       }
-      
+
       // Only apply appearance colors if any border prop is set (and not noBorder)
-      const hasBorderProps = extractedKeys.border !== undefined && (extractedKeys.border as string) !== NO_BORDER;
-      
+      const hasBorderProps = extractedKeys.border !== undefined && (extractedKeys.border as string) !== 'noBorder';
+
       // If no border props are set, don't apply appearance colors
       if (!hasBorderProps) {
         return [];

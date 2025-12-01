@@ -49,126 +49,79 @@ export type AppearanceCategoryKey = typeof APPEARANCE_CATEGORY[number];
 /** Type for all component category keys */
 export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
 
-// Import individual property constants from separate files
-import { APPEARANCE_VALUES } from './appearance';
-import { BORDER_VALUES } from './border';
-import { BREAKPOINT_VALUES } from './breakpoint';
-import { DISPLAY_VALUES } from './display';
-import { FLEX_DIRECTION_VALUES } from './flexDirection';
-import { FONT_FAMILY_VALUES } from './fontFamily';
-import { FONT_STYLE_VALUES } from './fontStyle';
-import { FONT_WEIGHT_VALUES } from './fontWeight';
-import { GAP_VALUES } from './gap';
-import { HIDE_VALUES } from './hide';
-import { ITEMS_VALUES } from './items';
-import { JUSTIFY_VALUES } from './justify';
-import { LIST_STYLE_VALUES } from './listStyle';
-import { OVERFLOW_VALUES } from './overflow';
-import { PADDING_VALUES } from './padding';
-import { POSITION_VALUES } from './position';
-import { REVERSE_VALUES } from './reverse';
-import { RING_VALUES } from './ring';
-import { SHADOW_VALUES } from './shadow';
-import { FOCUS_VISIBLE_VALUES } from './focusVisible';
-import { SHAPE_VALUES } from './shape';
-import { SIZE_VALUES } from './size';
-import { TEXT_ALIGN_VALUES } from './textAlign';
-import { TEXT_DECORATION_VALUES } from './textDecoration';
-import { TEXT_TRANSFORM_VALUES } from './textTransform';
-import { TRANSPARENT_VALUES } from './transparent';
-import { VARIANT_VALUES } from './variant';
-import { WRAP_VALUES } from './wrap';
-
-// Re-export all individual constants for backward compatibility
-export * from './appearance';
-export * from './border';
-export * from './breakpoint';
-export * from './display';
-export * from './flexDirection';
-export * from './fontFamily';
-export * from './fontStyle';
-export * from './fontWeight';
-export * from './gap';
-export * from './hide';
-export * from './items';
-export * from './justify';
-export * from './listStyle';
+// Re-export mode module
 export * from './mode';
-export * from './overflow';
-export * from './padding';
-export * from './position';
-export * from './reverse';
-export * from './ring';
-export * from './shadow';
-export * from './focusVisible';
-export * from './shape';
-export * from './size';
-export * from './textAlign';
-export * from './textDecoration';
-export * from './textTransform';
-export * from './transparent';
-export * from './variant';
-export * from './wrap';
 
 /** Component property keys mapping categories to their available values */
 export const ComponentKeys = {
   /** Color appearance options */
-  appearance: APPEARANCE_VALUES,
+  appearance: ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'link'] as const,
   /** Border visibility: includes all border variations and noBorder (border, borderT, borderB, etc., noBorder) */
-  border: BORDER_VALUES,
+  border: ['border', 'borderT', 'borderB', 'borderL', 'borderR', 'borderX', 'borderY', 'noBorder'] as const,
   /** Column breakpoints for responsive grid layouts */
-  breakpoint: BREAKPOINT_VALUES,
+  breakpoint: ['mobileCol', 'tabletCol', 'laptopCol', 'desktopCol'] as const,
   /** CSS display property values for element layout behavior */
-  display: DISPLAY_VALUES,
+  display: ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const,
   /** Flex direction: row (horizontal), column (vertical), or reversed variants */
-  flexDirection: FLEX_DIRECTION_VALUES,
+  flexDirection: ['row', 'column', 'rowReverse', 'columnReverse'] as const,
   /** Font family types: sans-serif, serif, or monospace */
-  fontFamily: FONT_FAMILY_VALUES,
+  fontFamily: ['sans', 'serif', 'mono'] as const,
   /** Font style: italic or notItalic (normal) */
-  fontStyle: FONT_STYLE_VALUES,
+  fontStyle: ['italic', 'notItalic'] as const,
   /** Font weight from thin (100) to black (900) */
-  fontWeight: FONT_WEIGHT_VALUES,
+  fontWeight: ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'] as const,
   /** Spacing between flex/grid items: gap (enabled) or noGap (disabled) */
-  gap: GAP_VALUES,
+  gap: ['gap', 'noGap'] as const,
   /** Hide elements at specific breakpoint sizes */
-  hide: HIDE_VALUES,
+  hide: ['mobileHide', 'tabletHide', 'laptopHide', 'desktopHide'] as const,
   /** Cross-axis alignment for flex items (align-items) */
-  items: ITEMS_VALUES,
+  items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const,
   /** Main-axis alignment for flex items (justify-content) */
-  justify: JUSTIFY_VALUES,
+  justify: ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const,
   /** List bullet/numbering style: disc (bullets) or decimal (numbers) */
-  listStyle: LIST_STYLE_VALUES,
+  listStyle: ['disc', 'decimal'] as const,
   /** Overflow behavior for content that exceeds container bounds */
-  overflow: OVERFLOW_VALUES,
+  overflow: [
+    'overflowAuto', 'overflowHidden', 'overflowClip', 'overflowVisible', 'overflowScroll',
+    'overflowXAuto', 'overflowYAuto', 'overflowXHidden', 'overflowYHidden',
+    'overflowXClip', 'overflowYClip', 'overflowXVisible', 'overflowYVisible',
+    'overflowXScroll', 'overflowYScroll'
+  ] as const,
   /** Internal spacing: padding (enabled) or noPadding (disabled) */
-  padding: PADDING_VALUES,
+  padding: ['padding', 'noPadding'] as const,
   /** CSS positioning: relative, absolute, fixed, sticky, static */
-  position: POSITION_VALUES,
+  position: ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const,
   /** Reverse the order of flex items */
-  reverse: REVERSE_VALUES,
+  reverse: ['reverse'] as const,
   /** Focus ring visibility: ring (show) or noRing (hide) */
-  ring: RING_VALUES,
+  ring: ['ring', 'noRing'] as const,
   /** Drop shadow visibility: shadow (enabled) or noShadow (disabled) */
-  shadow: SHADOW_VALUES,
+  shadow: ['shadow', 'noShadow'] as const,
   /** Focus-visible outline visibility: focusVisible (show) or noFocusVisible (hide) */
-  focusVisible: FOCUS_VISIBLE_VALUES,
+  focusVisible: ['focusVisible', 'noFocusVisible'] as const,
   /** Border radius shape: pill (fully rounded), sharp (no radius), rounded (medium radius) */
-  shape: SHAPE_VALUES,
+  shape: ['pill', 'sharp', 'rounded'] as const,
   /** Size scale from extra-small to extra-large */
-  size: SIZE_VALUES,
+  size: ['xs', 'sm', 'md', 'lg', 'xl'] as const,
   /** Text alignment: left, center, right, justify */
-  textAlign: TEXT_ALIGN_VALUES,
+  textAlign: ['textLeft', 'textCenter', 'textRight', 'textJustify'] as const,
   /** Text decoration: underline, strikethrough (lineThrough), none (noUnderline), overline */
-  textDecoration: TEXT_DECORATION_VALUES,
+  textDecoration: ['underline', 'lineThrough', 'noUnderline', 'overline'] as const,
   /** Text case transformation: UPPERCASE, lowercase, Capitalize, normalCase */
-  textTransform: TEXT_TRANSFORM_VALUES,
+  textTransform: ['uppercase', 'lowercase', 'capitalize', 'normalCase'] as const,
   /** Make background (layout/UI) or text (typography) transparent */
-  transparent: TRANSPARENT_VALUES,
+  transparent: ['transparent'] as const,
   /** Style variant: filled (solid background) or outline (border only) */
-  variant: VARIANT_VALUES,
+  variant: ['filled', 'outline'] as const,
   /** Flex item wrapping behavior: wrap, no-wrap, or wrap-reverse */
-  wrap: WRAP_VALUES,
+  wrap: ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const,
 } as const;
+
+/** All border side keys (excluding noBorder since it doesn't have a CSS class) */
+export const BORDER_KEYS = ['border', 'borderT', 'borderB', 'borderL', 'borderR', 'borderX', 'borderY'] as const;
+
+/** Type for all border side keys (excluding noBorder) */
+export type BorderKey = typeof BORDER_KEYS[number];
 
 /** Interaction state keys for component styling modes */
 export type ModeKey = typeof import('./mode').ModeKeys.mode[number];

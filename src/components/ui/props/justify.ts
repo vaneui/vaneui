@@ -1,2 +1,0 @@
-/** All justify property values */
-export const JUSTIFY_VALUES = ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const;
