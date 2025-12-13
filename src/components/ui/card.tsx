@@ -83,7 +83,7 @@ export type CardProps = BaseProps &
  * @example
  * ```tsx
  * // Card with styling
- * <Card primary outlined shadow padding gap>
+ * <Card primary outline shadow padding gap>
  *   <Title>Feature</Title>
  *   <Text>Description of the feature</Text>
  *   <Button>Learn More</Button>

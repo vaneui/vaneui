@@ -80,7 +80,7 @@ export type InputProps = BaseProps &
  * @example
  * ```tsx
  * // Email input with primary styling
- * <Input type="email" primary outlined placeholder="Email address" />
+ * <Input type="email" primary outline placeholder="Email address" />
  * ```
  *
  * @example

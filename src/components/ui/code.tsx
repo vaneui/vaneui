@@ -86,7 +86,7 @@ export type CodeProps = BaseProps &
  * @example
  * ```tsx
  * // Code block style
- * <Code secondary outlined lg mono>function hello() {}</Code>
+ * <Code secondary outline lg mono>function hello() {}</Code>
  * ```
  *
  * @example

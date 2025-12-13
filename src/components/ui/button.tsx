@@ -74,7 +74,7 @@ export type ButtonProps = BaseProps &
  *
  * Supports rendering as a button element or anchor tag when href is provided.
  * Can be styled with different appearances (primary, secondary, success, etc.),
- * sizes (xs to xl), and variants (filled, outlined, ghost).
+ * sizes (xs to xl), and variants (filled, outline).
  *
  * @example
  * ```tsx
@@ -97,7 +97,7 @@ export type ButtonProps = BaseProps &
  * @example
  * ```tsx
  * // Danger button with custom styling
- * <Button danger outlined className="w-full">Delete</Button>
+ * <Button danger outline className="w-full">Delete</Button>
  * ```
  *
  * @see {@link ButtonProps} for all available props

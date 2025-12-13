@@ -89,7 +89,7 @@ export type ChipProps = BaseProps &
  * @example
  * ```tsx
  * // Removable tag chip
- * <Chip secondary outlined xs>TypeScript ×</Chip>
+ * <Chip secondary outline xs>TypeScript ×</Chip>
  * ```
  *
  * @example

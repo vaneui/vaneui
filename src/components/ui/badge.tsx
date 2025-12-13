@@ -95,7 +95,7 @@ export type BadgeProps = BaseProps &
  * @example
  * ```tsx
  * // Badge as a link
- * <Badge href="/beta" info outlined>Beta</Badge>
+ * <Badge href="/beta" info outline>Beta</Badge>
  * ```
  *
  * @see {@link BadgeProps} for all available props

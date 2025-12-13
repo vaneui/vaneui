@@ -72,13 +72,12 @@ export const APPEARANCE_PROPS_TEXT = `
  * @param props.link - Link text color (blue-600)`;
 
 /**
- * Variant props (filled, outlined, ghost)
+ * Variant props (filled, outline)
  */
 export const VARIANT_PROPS = `
  * VARIANT PROPS:
  * @param props.filled - Filled variant with solid background
- * @param props.outlined - Outlined variant with border only
- * @param props.ghost - Ghost variant with minimal styling`;
+ * @param props.outline - Outline variant with border only`;
 
 /**
  * Shape props (rounded, pill, sharp)

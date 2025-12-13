@@ -21,7 +21,7 @@ VaneUI is a **React component library** that provides **customizable, ready-to-u
 VaneUI provides two categories of components:
 
 **UI Components** (Interactive elements with compact spacing):
-- `Button` - Clickable buttons with multiple variants (filled, outlined, ghost)
+- `Button` - Clickable buttons with multiple variants (filled, outline)
 - `Badge` - Status indicators and labels
 - `Chip` - Compact, removable tags
 - `Code` - Inline code snippets with syntax highlighting support
@@ -100,12 +100,11 @@ All components support a consistent prop API:
 <Button danger>Danger</Button>
 ```
 
-**Variant Props**: `default`, `filled`, `outlined`, `ghost`
+**Variant Props**: `filled`, `outline`
 ```tsx
-<Button>Default</Button>
 <Button filled>Filled</Button>
-<Button outlined>Outlined</Button>
-<Button ghost>Ghost</Button>
+<Button outline>Outline</Button>
+
 ```
 
 **Shape Props**: `rounded` (default), `pill`, `sharp`
@@ -300,7 +299,7 @@ function App() {
         button: { primary: true, lg: true, semibold: true },
         title: { primary: true, semibold: true },
         sectionTitle: { primary: true, bold: true },
-        card: { primary: true, outlined: true }
+        card: { primary: true, outline: true }
       }}
       extraClasses={{
         button: {
@@ -330,7 +329,7 @@ function LandingPage() {
 
       {/* Content section with smaller, subtle elements */}
       <ThemeProvider themeDefaults={{
-        button: { md: true, outlined: true },
+        button: { md: true, outline: true },
         text: { sm: true }
       }}>
         <Content />
@@ -338,7 +337,7 @@ function LandingPage() {
 
       {/* Footer with compact elements */}
       <ThemeProvider themeDefaults={{
-        button: { xs: true, ghost: true },
+        button: { xs: true,  },
         text: { xs: true }
       }}>
         <Footer />
@@ -745,7 +744,7 @@ Components use category-based prop organization (defined in `src/components/ui/p
 export const ComponentKeys = {
   size: ['xs', 'sm', 'md', 'lg', 'xl'],
   appearance: ['default', 'primary', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info', 'link'],
-  variant: ['default', 'filled', 'outlined', 'ghost'],
+  variant: ['filled', 'outline'],
   shape: ['rounded', 'pill', 'sharp'],
   fontFamily: ['sans', 'serif', 'mono'],
   fontWeight: ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'],
@@ -825,7 +824,7 @@ Tests should verify:
 - Default theme classes are applied
 - Size variants work (xs, sm, md, lg, xl)
 - Appearance variants work (primary, secondary, success, etc.)
-- Variant modifiers work (filled, outlined, ghost)
+- Variant modifiers work (filled, outline)
 - Custom className prop is merged correctly
 - Ref forwarding works
 - TypeScript types are correct
@@ -930,7 +929,7 @@ Every component export should include:
 3. **Prop Documentation** - Document all props by category:
    - Size props (xs, sm, md, lg, xl)
    - Appearance props (primary, secondary, success, etc.)
-   - Variant props (filled, outlined, ghost)
+   - Variant props (filled, outline)
    - Shape props (rounded, pill, sharp)
    - Typography props (font family, weight, style, alignment)
    - Layout props (gap, padding, flex, alignment)
@@ -1034,8 +1033,7 @@ Every component export should include:
  *
  * VARIANT PROPS:
  * @param props.filled - Filled variant with solid background
- * @param props.outlined - Outlined variant with border only
- * @param props.ghost - Ghost variant with minimal styling
+ * @param props.outline - Outline variant with border only
  *
  * // ... more prop categories
  *
