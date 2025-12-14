@@ -22,6 +22,8 @@ describe('Link Component Tests', () => {
       expect(link).toHaveClass('hover:underline', 'w-fit');
       expect(link).not.toHaveClass('text-base'); // no default size
       expect(link).toHaveClass('text-(--color-text-link)'); // link appearance by default
+      expect(link).toHaveClass('[--lh:1.6]'); // md line height
+      expect(link).toHaveClass('leading-(--lh)'); // CSS variable line height
       expect(link).toHaveClass('font-sans');
       expect(link).toHaveAttribute('href', '#test');
     });
@@ -48,16 +50,16 @@ describe('Link Component Tests', () => {
       expect(link).toHaveClass('absolute');
     });
 
-    it('should support different sizes', () => {
+    it('should support different sizes with correct line heights', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:6]' }, // 0.75rem = 6 * 0.125rem
-        { prop: 'sm', unitClass: '[--fs-unit:7]' }, // 0.875rem = 7 * 0.125rem
-        { prop: 'md', unitClass: '[--fs-unit:8]' }, // 1rem = 8 * 0.125rem
-        { prop: 'lg', unitClass: '[--fs-unit:9]' }, // 1.125rem = 9 * 0.125rem
-        { prop: 'xl', unitClass: '[--fs-unit:10]' } // 1.25rem = 10 * 0.125rem
+        { prop: 'xs', unitClass: '[--fs-unit:6]', lhClass: '[--lh:1.4]' },
+        { prop: 'sm', unitClass: '[--fs-unit:7]', lhClass: '[--lh:1.6]' },
+        { prop: 'md', unitClass: '[--fs-unit:8]', lhClass: '[--lh:1.6]' },
+        { prop: 'lg', unitClass: '[--fs-unit:9]', lhClass: '[--lh:1.6]' },
+        { prop: 'xl', unitClass: '[--fs-unit:10]', lhClass: '[--lh:1.6]' }
       ] as const;
 
-      sizes.forEach(({prop, unitClass}) => {
+      sizes.forEach(({prop, unitClass, lhClass}) => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <Link href="#test" {...{[prop]: true}}>{prop} link</Link>
@@ -66,6 +68,7 @@ describe('Link Component Tests', () => {
 
         const link = container.querySelector('a');
         expect(link).toHaveClass(unitClass);
+        expect(link).toHaveClass(lhClass, 'leading-(--lh)'); // line height classes
         // Note: text-(length:--fs) class conflicts with text-(--color-text-link) for Link components
         // The font size is still applied via the CSS variable, but the utility class is not present
       });

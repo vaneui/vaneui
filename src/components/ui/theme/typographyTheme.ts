@@ -98,6 +98,7 @@ export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new C
   {
     size: {
       text: new FontSizeTheme(),
+      lineHeight: LineHeightTheme.createDefault(),
     },
     appearance: {
       text: GenericVariantTheme.createTypographyTextTheme(),
@@ -109,13 +110,14 @@ export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new C
   TYPOGRAPHY_CATEGORIES
 );
 
-// List specific theme
+// ListItem specific theme
 export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = new ComponentTheme<TypographyProps, TypographyTheme>(
   "li",
   "",
   {
     size: {
       text: new FontSizeTheme(),
+      lineHeight: LineHeightTheme.createDefault(),
     },
     appearance: {
       text: GenericVariantTheme.createTypographyTextTheme(),
@@ -130,6 +132,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
 export interface ListTheme extends BaseTypographyComponentTheme {
   size: {
     text: FontSizeTheme;
+    lineHeight: LineHeightTheme;
     paddingLeft: PlTheme;
   }
   appearance: {
@@ -146,6 +149,7 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
   {
     size: {
       text: new FontSizeTheme(),
+      lineHeight: LineHeightTheme.createDefault(),
       paddingLeft: new PlTheme(),
     },
     appearance: {
@@ -160,10 +164,10 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
   (props: ListProps) => {
     // Determine tag based on list style from props
     const componentProps = props as unknown as Record<string, boolean>;
-    
+
     // Check if decimal is set in props
     const hasDecimal = componentProps?.decimal;
-    
+
     return hasDecimal ? "ol" : "ul";
   }
 );

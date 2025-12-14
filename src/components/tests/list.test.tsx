@@ -26,6 +26,8 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toHaveClass('list-disc', 'list-inside');
       expect(list).toHaveClass('[--fs-unit:8]'); // md size (1rem = 8 * 0.125rem)
       expect(list).toHaveClass('text-(length:--fs)'); // CSS variable font size
+      expect(list).toHaveClass('[--lh:1.6]'); // md line height
+      expect(list).toHaveClass('leading-(--lh)'); // CSS variable line height
       expect(list).not.toHaveClass('text-(--color-text-default)'); // no default appearance
       expect(list).toHaveClass('font-sans');
       expect(list).toHaveClass('font-normal');
@@ -42,6 +44,7 @@ describe('List and ListItem Components Tests', () => {
 
       const list = container.querySelector('ul');
       expect(list).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)', 'pl-8'); // lg size (1.125rem = 9 * 0.125rem) should have pl-8 padding
+      expect(list).toHaveClass('[--lh:1.6]', 'leading-(--lh)'); // lg line height
     });
 
     it('should apply layout props correctly', () => {
@@ -210,6 +213,8 @@ describe('List and ListItem Components Tests', () => {
       const listItem = container.querySelector('li');
       expect(listItem).toBeInTheDocument();
       expect(listItem).toHaveTextContent('List item content');
+      // ListItem should have its own line height classes
+      expect(listItem).toHaveClass('[--lh:1.6]', 'leading-(--lh)');
     });
 
     it('should inherit text color from parent List with primary appearance', () => {
