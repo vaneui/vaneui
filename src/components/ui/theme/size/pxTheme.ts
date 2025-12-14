@@ -17,8 +17,6 @@ export class PxTheme extends PaddingTheme {
       xl: "[--aspect-ratio:1]",
     };
     this.isUIComponent = isUIComponent;
-    // PxTheme should not set any padding classes - that's PyTheme's job
-    // PxTheme only handles aspect-ratio
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {

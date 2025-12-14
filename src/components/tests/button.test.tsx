@@ -136,8 +136,8 @@ describe('Button Component Tests', () => {
         expect(btn).toHaveClass('shadow-sm', 'hover:shadow-md');
       });
 
-      // Note: borders and rings would only be visible when the button is focused or has those states active
-      // The default button theme has noBorder and noRing as defaults, so they don't show border/ring classes by default
+      // Note: borders would only be visible when the border prop is enabled
+      // The default button theme has noBorder as default, so border classes don't show by default
     });
 
     it('should demonstrate ring functionality works for buttons when ring prop is enabled', () => {

@@ -23,11 +23,11 @@ import { BUTTON_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 
 const buttonAspectRatioClasses: Record<SizeKey, string> = {
-  xs: "[--aspect-ratio:2]",    // px-2 vs py-1 = 2
-  sm: "[--aspect-ratio:2]",    // px-3 vs py-1.5 = 2
-  md: "[--aspect-ratio:2]",    // px-4 vs py-2 = 2
-  lg: "[--aspect-ratio:2]",    // px-5 vs py-2.5 = 2
-  xl: "[--aspect-ratio:2]",    // px-6 vs py-3 = 2
+  xs: "[--aspect-ratio:2]",
+  sm: "[--aspect-ratio:2]",
+  md: "[--aspect-ratio:2]",
+  lg: "[--aspect-ratio:2]",
+  xl: "[--aspect-ratio:2]",
 };
 
 export interface ButtonTheme extends BaseTypographyComponentTheme {

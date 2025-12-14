@@ -196,7 +196,7 @@ describe('Img Component Tests', () => {
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
       
-      // Should not have visual classes since noBorder/noRing/noShadow are true by default
+      // Should not have visual classes since border/ring/shadow are not enabled by default
       expect(img!.className).not.toMatch(/\bborder\b(?!-)/); // No actual border class
       expect(img!.className).not.toMatch(/\bring\b(?!-)/); // No actual ring class  
       expect(img!.className).not.toMatch(/shadow-/); // No shadow classes
