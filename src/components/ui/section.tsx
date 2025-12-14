@@ -94,3 +94,5 @@ export const Section = forwardRef<HTMLDivElement, SectionProps>(
     return <ThemedComponent theme={theme.section} ref={ref} {...props} />
   }
 );
+
+Section.displayName = 'Section';

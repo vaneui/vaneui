@@ -108,6 +108,8 @@ export const PageTitle = forwardRef<HTMLHeadingElement, TypographyProps>(
   }
 );
 
+PageTitle.displayName = 'PageTitle';
+
 /**
  * A section heading component (h2).
  *
@@ -142,6 +144,8 @@ export const SectionTitle = forwardRef<HTMLHeadingElement, TypographyProps>(
   }
 );
 
+SectionTitle.displayName = 'SectionTitle';
+
 /**
  * A subsection heading component (h3).
  *
@@ -174,6 +178,8 @@ export const Title = forwardRef<HTMLHeadingElement, TypographyProps>(
     return <ThemedComponent ref={ref} theme={theme.title} {...props} />
   }
 );
+
+Title.displayName = 'Title';
 
 /**
  * A body text component (p).
@@ -215,6 +221,8 @@ export const Text = forwardRef<HTMLParagraphElement, TypographyProps>(
   }
 );
 
+Text.displayName = 'Text';
+
 /**
  * An anchor link component (a).
  *
@@ -250,6 +258,8 @@ export const Link = forwardRef<HTMLAnchorElement, TypographyProps>(
     return <ThemedComponent ref={ref} theme={theme.link} {...props} />
   }
 );
+
+Link.displayName = 'Link';
 
 /**
  * A list item component (li).
@@ -287,6 +297,8 @@ export const ListItem = forwardRef<HTMLLIElement, TypographyProps>(
     return <ThemedComponent ref={ref} theme={theme.listItem} {...props} />
   }
 );
+
+ListItem.displayName = 'ListItem';
 
 /**
  * A list container component (ul or ol).
@@ -330,3 +342,5 @@ export const List = forwardRef<HTMLUListElement, ListProps>(
     return <ThemedComponent ref={ref} theme={theme.list} {...props} />
   }
 );
+
+List.displayName = 'List';

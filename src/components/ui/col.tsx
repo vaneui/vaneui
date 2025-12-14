@@ -92,3 +92,5 @@ export const Col = forwardRef<HTMLDivElement, ColProps>(
     return <ThemedComponent theme={theme.col} ref={ref} {...props} />
   }
 );
+
+Col.displayName = 'Col';

@@ -75,6 +75,8 @@ export const Grid2 = forwardRef<HTMLDivElement, GridProps>(
   }
 );
 
+Grid2.displayName = 'Grid2';
+
 /**
  * A 3-column CSS grid container.
  *
@@ -99,6 +101,8 @@ export const Grid3 = forwardRef<HTMLDivElement, GridProps>(
     return <ThemedComponent theme={theme.grid3} ref={ref} {...props} />
   }
 );
+
+Grid3.displayName = 'Grid3';
 
 /**
  * A 4-column CSS grid container.
@@ -125,6 +129,8 @@ export const Grid4 = forwardRef<HTMLDivElement, GridProps>(
     return <ThemedComponent theme={theme.grid4} ref={ref} {...props} />
   }
 );
+
+Grid4.displayName = 'Grid4';
 
 /**
  * A 5-column CSS grid container.
@@ -153,6 +159,8 @@ export const Grid5 = forwardRef<HTMLDivElement, GridProps>(
   }
 );
 
+Grid5.displayName = 'Grid5';
+
 /**
  * A 6-column CSS grid container.
  *
@@ -180,3 +188,5 @@ export const Grid6 = forwardRef<HTMLDivElement, GridProps>(
     return <ThemedComponent theme={theme.grid6} ref={ref} {...props} />
   }
 );
+
+Grid6.displayName = 'Grid6';

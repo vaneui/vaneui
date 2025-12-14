@@ -110,3 +110,5 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     return <ThemedComponent ref={ref} theme={theme.card} {...props} />
   }
 );
+
+Card.displayName = 'Card';

@@ -89,3 +89,5 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
     return <ThemedComponent theme={theme.container} ref={ref} {...props} />
   }
 );
+
+Container.displayName = 'Container';

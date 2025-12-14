@@ -105,4 +105,6 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
     const theme = useTheme();
     return <ThemedComponent theme={theme.badge} ref={ref} {...props} />
   }
-)
+);
+
+Badge.displayName = 'Badge';

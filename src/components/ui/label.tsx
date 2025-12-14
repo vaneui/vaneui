@@ -97,3 +97,5 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
     return <ThemedComponent theme={theme.label} ref={ref} {...props} />;
   }
 );
+
+Label.displayName = 'Label';

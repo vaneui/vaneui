@@ -96,3 +96,5 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>(
     return <ThemedComponent theme={stackTheme} ref={ref} {...props} />
   }
 );
+
+Stack.displayName = 'Stack';

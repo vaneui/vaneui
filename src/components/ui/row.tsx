@@ -93,3 +93,5 @@ export const Row = forwardRef<HTMLDivElement, RowProps>(
     return <ThemedComponent theme={theme.row} ref={ref} {...props} />
   }
 );
+
+Row.displayName = 'Row';

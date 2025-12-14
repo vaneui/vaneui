@@ -108,3 +108,5 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return <ThemedComponent ref={ref} theme={theme.button} {...props} />
   }
 );
+
+Button.displayName = 'Button';

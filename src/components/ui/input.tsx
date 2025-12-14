@@ -103,3 +103,5 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return <ThemedComponent ref={ref} theme={theme.input} {...props} />
   }
 );
+
+Input.displayName = 'Input';

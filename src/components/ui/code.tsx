@@ -103,3 +103,5 @@ export const Code = forwardRef<HTMLElement, CodeProps>(
     return <ThemedComponent theme={theme.code} ref={ref} {...props} />
   }
 );
+
+Code.displayName = 'Code';

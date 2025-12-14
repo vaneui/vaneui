@@ -106,3 +106,5 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(
     return <ThemedComponent theme={theme.chip} ref={ref} {...props} />
   }
 );
+
+Chip.displayName = 'Chip';

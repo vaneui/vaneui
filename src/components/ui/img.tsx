@@ -82,3 +82,5 @@ export const Img = forwardRef<HTMLImageElement, ImgProps>(
     );
   }
 );
+
+Img.displayName = 'Img';

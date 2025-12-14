@@ -67,3 +67,5 @@ export const Divider = forwardRef<HTMLDivElement, DividerProps>(
     return <ThemedComponent theme={theme.divider} ref={ref} {...props} />
   }
 );
+
+Divider.displayName = 'Divider';

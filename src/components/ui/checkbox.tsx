@@ -81,12 +81,12 @@ export type CheckboxProps = BaseProps &
 export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
   function Checkbox(props, ref) {
     const theme = useTheme();
-    
+
     // Extract only theme-relevant props for wrapper and check components
-    const { 
+    const {
       // Size props
       xs, sm, md, lg, xl,
-      // Appearance props  
+      // Appearance props
       default: defaultProp, accent, primary, secondary, tertiary, success, danger, warning, info, transparent,
       // Variant props
       filled, outline,
@@ -114,7 +114,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       ...remainingProps,
       ...themeProps
     };
-    
+
     return (
       <ThemedComponent theme={theme.checkbox.wrapper} ref={ref} {...themeProps}>
         <ThemedComponent theme={theme.checkbox.input} {...inputProps} />
@@ -125,3 +125,5 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
     );
   }
 );
+
+Checkbox.displayName = 'Checkbox';
