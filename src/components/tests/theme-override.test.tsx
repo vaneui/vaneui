@@ -311,17 +311,17 @@ describe('Theme Override Tests', () => {
         // Override padding size classes directly
         theme.button.themes.size.px.md = 'px-(--ui-px)';
         theme.button.themes.size.py.md = 'py-(--ui-py)';
-        
+
         // Override appearance
         theme.button.themes.appearance.background.filled.primary.base = 'bg-emerald-500';
         return theme;
       };
 
       const { container } = render(
-        <ThemeProvider 
+        <ThemeProvider
           themeOverride={layoutOverride}
-          themeDefaults={{ 
-            button: { filled: true, primary: true, md: true, padding: true } 
+          themeDefaults={{
+            button: { filled: true, primary: true, md: true, padding: true }
           }}
         >
           <Button className="size-test-md">MD Button</Button>
@@ -341,6 +341,66 @@ describe('Theme Override Tests', () => {
       // LG button should use overridden text size but default padding (since lg size wasn't defaulted)
       expect(lgButton).toHaveClass('text-(length:--fs)'); // FontSizeTheme CSS variable
       expect(lgButton).toHaveClass('bg-emerald-500'); // same background override
+    });
+
+    it('should override PxTheme aspect ratio via direct property access', () => {
+      const aspectRatioOverride = (theme: ThemeProps) => {
+        // Override aspect ratio for sm buttons - this tests that PxTheme reads from direct properties
+        theme.button.themes.size.px.sm = "[--aspect-ratio:3]";
+        // Also override md to verify multiple size overrides work
+        theme.button.themes.size.px.md = "[--aspect-ratio:4]";
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={aspectRatioOverride}>
+          <Button sm className="sm-button">SM Button</Button>
+          <Button md className="md-button">MD Button</Button>
+          <Button lg className="lg-button">LG Button</Button>
+        </ThemeProvider>
+      );
+
+      const smButton = container.querySelector('.sm-button');
+      const mdButton = container.querySelector('.md-button');
+      const lgButton = container.querySelector('.lg-button');
+
+      // SM button should use overridden aspect ratio
+      expect(smButton).toHaveClass('[--aspect-ratio:3]');
+      expect(smButton).toHaveClass('px-(--ui-px)');
+
+      // MD button should use overridden aspect ratio
+      expect(mdButton).toHaveClass('[--aspect-ratio:4]');
+      expect(mdButton).toHaveClass('px-(--ui-px)');
+
+      // LG button should use default aspect ratio (not overridden)
+      expect(lgButton).toHaveClass('[--aspect-ratio:2]'); // default button aspect ratio
+      expect(lgButton).toHaveClass('px-(--ui-px)');
+    });
+
+    it('should override PyTheme py-unit via direct property access', () => {
+      const pyOverride = (theme: ThemeProps) => {
+        // Override py-unit for sm buttons
+        theme.button.themes.size.py.sm = "[--py-unit:5]";
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={pyOverride}>
+          <Button sm className="sm-button">SM Button</Button>
+          <Button md className="md-button">MD Button</Button>
+        </ThemeProvider>
+      );
+
+      const smButton = container.querySelector('.sm-button');
+      const mdButton = container.querySelector('.md-button');
+
+      // SM button should use overridden py-unit
+      expect(smButton).toHaveClass('[--py-unit:5]');
+      expect(smButton).toHaveClass('py-(--ui-py)');
+
+      // MD button should use default py-unit
+      expect(mdButton).toHaveClass('[--py-unit:2]'); // default UI py-unit for md
+      expect(mdButton).toHaveClass('py-(--ui-py)');
     });
   });
 });
