@@ -59,13 +59,56 @@ npm install @vaneui/ui
 yarn add @vaneui/ui
 ```
 
+### CSS Setup
+
+VaneUI supports two CSS setup patterns depending on whether you use Tailwind CSS in your project.
+
+#### Option 1: With Tailwind CSS (Recommended for Tailwind users)
+
+If your project already uses Tailwind CSS v4, let Tailwind generate VaneUI's utility classes alongside your own:
+
+```css
+/* globals.css */
+@import "tailwindcss";
+@import "@vaneui/ui/vars.css";  /* CSS variables for colors, spacing */
+
+@source "@vaneui/ui";           /* Tell Tailwind to scan VaneUI components */
+```
+
+**Benefits:**
+- Single unified CSS build process
+- Tailwind generates only the classes you use
+- Can customize Tailwind config (colors, spacing) and VaneUI respects it
+- No duplicate utility classes if you use Tailwind elsewhere
+
+#### Option 2: Without Tailwind CSS (Standalone)
+
+If you don't use Tailwind, import VaneUI's pre-built CSS:
+
+```css
+/* globals.css or import in your entry file */
+@import "@vaneui/ui/css";       /* Pre-built utility classes (~60KB) */
+@import "@vaneui/ui/vars.css";  /* CSS variables for colors, spacing (~7KB) */
+```
+
+Or in JavaScript/TypeScript:
+
+```tsx
+import '@vaneui/ui/css';
+import '@vaneui/ui/vars.css';
+```
+
+**Benefits:**
+- Works in any project (React, Vue, plain HTML)
+- No build tools required
+- Ready to use out of the box
+
 ### Basic Usage
 
 Import and use components with their default styling:
 
 ```tsx
 import { Button, Card, Text, Stack } from '@vaneui/ui';
-import '@vaneui/ui/css';  // Import base styles
 
 function App() {
   return (
