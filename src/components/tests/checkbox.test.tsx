@@ -102,7 +102,7 @@ describe('Checkbox Component Tests', () => {
     });
 
     it('should support checked appearance with color variants', () => {
-      const appearances = ['default', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
+      const appearances = ['primary', 'brand', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
       
       appearances.forEach(appearance => {
         const {container} = render(
@@ -246,7 +246,7 @@ describe('Checkbox Component Tests', () => {
 
     describe('Check Element Color Tests', () => {
       it('should apply white text color to check element with filled variant for all appearances', () => {
-        const appearances = ['default', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'accent'] as const;
+        const appearances = ['primary', 'brand', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'accent'] as const;
         
         appearances.forEach(appearance => {
           const {container} = render(
@@ -264,8 +264,8 @@ describe('Checkbox Component Tests', () => {
 
       it('should apply colored text to check element with outline variant matching appearance colors', () => {
         const appearances = [
-          { prop: 'default', expectedClass: 'text-(--color-text-default)' },
           { prop: 'primary', expectedClass: 'text-(--color-text-primary)' },
+          { prop: 'brand', expectedClass: 'text-(--color-text-brand)' },
           { prop: 'secondary', expectedClass: 'text-(--color-text-secondary)' },
           { prop: 'tertiary', expectedClass: 'text-(--color-text-tertiary)' },
           { prop: 'success', expectedClass: 'text-(--color-text-success)' },

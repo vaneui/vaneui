@@ -1,7 +1,7 @@
 import { AppearanceKey, TransparentKey } from "../props";
 
 export const filledBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "bg-(--color-bg-filled-default)",
+  brand: "bg-(--color-bg-filled-brand)",
   primary: "bg-(--color-bg-filled-primary)",
   secondary: "bg-(--color-bg-filled-secondary)",
   tertiary: "bg-(--color-bg-filled-tertiary)",
@@ -14,7 +14,7 @@ export const filledBackgroundAppearanceClasses: Record<AppearanceKey | Transpare
 }
 
 export const filledHoverBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "hover:bg-(--color-bg-filled-hover-default)",
+  brand: "hover:bg-(--color-bg-filled-hover-brand)",
   primary: "hover:bg-(--color-bg-filled-hover-primary)",
   secondary: "hover:bg-(--color-bg-filled-hover-secondary)",
   tertiary: "hover:bg-(--color-bg-filled-hover-tertiary)",
@@ -27,7 +27,7 @@ export const filledHoverBackgroundAppearanceClasses: Record<AppearanceKey | Tran
 }
 
 export const filledActiveBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "active:bg-(--color-bg-filled-active-default)",
+  brand: "active:bg-(--color-bg-filled-active-brand)",
   primary: "active:bg-(--color-bg-filled-active-primary)",
   secondary: "active:bg-(--color-bg-filled-active-secondary)",
   tertiary: "active:bg-(--color-bg-filled-active-tertiary)",
@@ -40,7 +40,7 @@ export const filledActiveBackgroundAppearanceClasses: Record<AppearanceKey | Tra
 }
 
 export const backgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "bg-(--color-bg-default)",
+  brand: "bg-(--color-bg-brand)",
   primary: "bg-(--color-bg-primary)",
   secondary: "bg-(--color-bg-secondary)",
   tertiary: "bg-(--color-bg-tertiary)",
@@ -53,7 +53,7 @@ export const backgroundAppearanceClasses: Record<AppearanceKey | TransparentKey,
 }
 
 export const hoverBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "hover:bg-(--color-bg-hover-default)",
+  brand: "hover:bg-(--color-bg-hover-brand)",
   primary: "hover:bg-(--color-bg-hover-primary)",
   secondary: "hover:bg-(--color-bg-hover-secondary)",
   tertiary: "hover:bg-(--color-bg-hover-tertiary)",
@@ -66,7 +66,7 @@ export const hoverBackgroundAppearanceClasses: Record<AppearanceKey | Transparen
 }
 
 export const activeBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "active:bg-(--color-bg-active-default)",
+  brand: "active:bg-(--color-bg-active-brand)",
   primary: "active:bg-(--color-bg-active-primary)",
   secondary: "active:bg-(--color-bg-active-secondary)",
   tertiary: "active:bg-(--color-bg-active-tertiary)",
@@ -79,7 +79,7 @@ export const activeBackgroundAppearanceClasses: Record<AppearanceKey | Transpare
 }
 
 export const layoutBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "bg-(--color-bg-layout-default)",
+  brand: "bg-(--color-bg-layout-brand)",
   primary: "bg-(--color-bg-layout-primary)",
   secondary: "bg-(--color-bg-layout-secondary)",
   tertiary: "bg-(--color-bg-layout-tertiary)",
@@ -92,7 +92,7 @@ export const layoutBackgroundAppearanceClasses: Record<AppearanceKey | Transpare
 }
 
 export const layoutFilledBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "bg-(--color-bg-filled-layout-default)",
+  brand: "bg-(--color-bg-filled-layout-brand)",
   primary: "bg-(--color-bg-filled-layout-primary)",
   secondary: "bg-(--color-bg-filled-layout-secondary)",
   tertiary: "bg-(--color-bg-filled-layout-tertiary)",
@@ -105,7 +105,7 @@ export const layoutFilledBackgroundAppearanceClasses: Record<AppearanceKey | Tra
 }
 
 export const bgBorderAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "bg-(--color-border-default)",
+  brand: "bg-(--color-border-brand)",
   primary: "bg-(--color-border-primary)",
   secondary: "bg-(--color-border-secondary)",
   tertiary: "bg-(--color-border-tertiary)",
@@ -118,7 +118,7 @@ export const bgBorderAppearanceClasses: Record<AppearanceKey | TransparentKey, s
 }
 
 export const borderAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "border-(--color-border-default)",
+  brand: "border-(--color-border-brand)",
   primary: "border-(--color-border-primary)",
   secondary: "border-(--color-border-secondary)",
   tertiary: "border-(--color-border-tertiary)",
@@ -131,7 +131,7 @@ export const borderAppearanceClasses: Record<AppearanceKey | TransparentKey, str
 }
 
 export const filledBorderAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "border-(--color-border-filled-default)",
+  brand: "border-(--color-border-filled-brand)",
   primary: "border-(--color-border-filled-primary)",
   secondary: "border-(--color-border-filled-secondary)",
   tertiary: "border-(--color-border-filled-tertiary)",
@@ -144,7 +144,7 @@ export const filledBorderAppearanceClasses: Record<AppearanceKey | TransparentKe
 }
 
 export const ringAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "ring-(--color-border-default)",
+  brand: "ring-(--color-border-brand)",
   primary: "ring-(--color-border-primary)",
   secondary: "ring-(--color-border-secondary)",
   tertiary: "ring-(--color-border-tertiary)",
@@ -157,7 +157,7 @@ export const ringAppearanceClasses: Record<AppearanceKey | TransparentKey, strin
 }
 
 export const filledRingAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "ring-(--color-border-filled-default)",
+  brand: "ring-(--color-border-filled-brand)",
   primary: "ring-(--color-border-filled-primary)",
   secondary: "ring-(--color-border-filled-secondary)",
   tertiary: "ring-(--color-border-filled-tertiary)",
@@ -170,7 +170,7 @@ export const filledRingAppearanceClasses: Record<AppearanceKey | TransparentKey,
 }
 
 export const focusVisibleOutlineAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "focus-visible:outline-(--color-border-default)",
+  brand: "focus-visible:outline-(--color-border-brand)",
   primary: "focus-visible:outline-(--color-border-primary)",
   secondary: "focus-visible:outline-(--color-border-secondary)",
   tertiary: "focus-visible:outline-(--color-border-tertiary)",
@@ -183,7 +183,7 @@ export const focusVisibleOutlineAppearanceClasses: Record<AppearanceKey | Transp
 }
 
 export const filledFocusVisibleOutlineAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "focus-visible:outline-(--color-border-filled-default)",
+  brand: "focus-visible:outline-(--color-border-filled-brand)",
   primary: "focus-visible:outline-(--color-border-filled-primary)",
   secondary: "focus-visible:outline-(--color-border-filled-secondary)",
   tertiary: "focus-visible:outline-(--color-border-filled-tertiary)",
@@ -196,7 +196,7 @@ export const filledFocusVisibleOutlineAppearanceClasses: Record<AppearanceKey | 
 }
 
 export const accentColorAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "accent-(--color-bg-default)",
+  brand: "accent-(--color-bg-brand)",
   primary: "accent-(--color-bg-primary)",
   secondary: "accent-(--color-bg-secondary)",
   tertiary: "accent-(--color-bg-tertiary)",
@@ -209,7 +209,7 @@ export const accentColorAppearanceClasses: Record<AppearanceKey | TransparentKey
 }
 
 export const filledAccentColorAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "accent-(--color-bg-filled-default)",
+  brand: "accent-(--color-bg-filled-brand)",
   primary: "accent-(--color-bg-filled-primary)",
   secondary: "accent-(--color-bg-filled-secondary)",
   tertiary: "accent-(--color-bg-filled-tertiary)",
@@ -222,7 +222,7 @@ export const filledAccentColorAppearanceClasses: Record<AppearanceKey | Transpar
 }
 
 export const checkedBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "checked:bg-(--color-bg-default)",
+  brand: "checked:bg-(--color-bg-brand)",
   primary: "checked:bg-(--color-bg-primary)",
   secondary: "checked:bg-(--color-bg-secondary)",
   tertiary: "checked:bg-(--color-bg-tertiary)",
@@ -235,7 +235,7 @@ export const checkedBackgroundAppearanceClasses: Record<AppearanceKey | Transpar
 }
 
 export const filledCheckedBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "checked:bg-(--color-bg-filled-default)",
+  brand: "checked:bg-(--color-bg-filled-brand)",
   primary: "checked:bg-(--color-bg-filled-primary)",
   secondary: "checked:bg-(--color-bg-filled-secondary)",
   tertiary: "checked:bg-(--color-bg-filled-tertiary)",

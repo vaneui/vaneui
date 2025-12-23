@@ -36,8 +36,8 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('bg-(--color-bg-default)'); // default background
-      expect(input).toHaveClass('text-(--color-text-default)'); // default text
+      expect(input).toHaveClass('bg-(--color-bg-primary)'); // primary background
+      expect(input).toHaveClass('text-(--color-text-primary)'); // primary text
       // Note: border classes only appear when border prop is explicitly set
     });
 
@@ -54,7 +54,7 @@ describe('Input Component Tests', () => {
       expect(input).not.toHaveClass('border');
       // Ring is enabled by default
       expect(input).toHaveClass('ring', 'ring-inset'); // ring enabled
-      expect(input).toHaveClass('ring-(--color-border-default)'); // ring color
+      expect(input).toHaveClass('ring-(--color-border-primary)'); // ring color
     });
 
     it('should render with focus-visible support by default', () => {
@@ -67,7 +67,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('focus-visible:outline-2', 'focus-visible:outline-offset-2');
-      expect(input).toHaveClass('focus-visible:outline-(--color-border-default)');
+      expect(input).toHaveClass('focus-visible:outline-(--color-border-primary)');
     });
   });
 

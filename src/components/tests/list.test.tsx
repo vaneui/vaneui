@@ -28,7 +28,7 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(list).toHaveClass('[--lh:1.6]'); // md line height
       expect(list).toHaveClass('leading-(--lh)'); // CSS variable line height
-      expect(list).not.toHaveClass('text-(--color-text-default)'); // no default appearance
+      expect(list).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
       expect(list).toHaveClass('font-sans');
       expect(list).toHaveClass('font-normal');
     });
@@ -235,7 +235,7 @@ describe('List and ListItem Components Tests', () => {
       
       // Verify ListItems inherit the color through CSS (no explicit text color class)
       listItems.forEach(listItem => {
-        expect(listItem).not.toHaveClass('text-(--color-text-default)');
+        expect(listItem).not.toHaveClass('text-(--color-text-primary)');
         expect(listItem).not.toHaveClass('text-(--color-text-primary)');
         expect(listItem).not.toHaveClass('text-(--color-text-secondary)');
         // ListItem should inherit text color from parent List via CSS cascade
@@ -262,7 +262,7 @@ describe('List and ListItem Components Tests', () => {
       
       // Verify ListItems inherit the color through CSS (no explicit text color class)
       listItems.forEach(listItem => {
-        expect(listItem).not.toHaveClass('text-(--color-text-default)');
+        expect(listItem).not.toHaveClass('text-(--color-text-primary)');
         expect(listItem).not.toHaveClass('text-(--color-text-primary)');
         expect(listItem).not.toHaveClass('text-(--color-text-secondary)');
         // ListItem should inherit text color from parent List via CSS cascade
@@ -288,7 +288,7 @@ describe('List and ListItem Components Tests', () => {
         expect(list).toHaveClass(`text-(--color-text-${appearance})`);
         
         // Verify ListItem doesn't have any explicit text color classes (inherits from parent)
-        expect(listItem).not.toHaveClass('text-(--color-text-default)');
+        expect(listItem).not.toHaveClass('text-(--color-text-primary)');
         expect(listItem).not.toHaveClass(`text-(--color-text-${appearance})`);
       });
     });
@@ -319,7 +319,7 @@ describe('List and ListItem Components Tests', () => {
       listItems.forEach(listItem => {
         expect(listItem).not.toHaveClass('text-(--color-text-primary)');
         expect(listItem).not.toHaveClass('text-(--color-text-secondary)');
-        expect(listItem).not.toHaveClass('text-(--color-text-default)');
+        expect(listItem).not.toHaveClass('text-(--color-text-primary)');
       });
     });
 

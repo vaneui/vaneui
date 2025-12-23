@@ -55,7 +55,7 @@ export * from './mode';
 /** Component property keys mapping categories to their available values */
 export const ComponentKeys = {
   /** Color appearance options */
-  appearance: ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const,
+  appearance: ['primary', 'brand', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const,
   /** Border visibility: includes all border variations and noBorder (border, borderT, borderB, etc., noBorder) */
   border: ['border', 'borderT', 'borderB', 'borderL', 'borderR', 'borderX', 'borderY', 'noBorder'] as const,
   /** Column breakpoints for responsive grid layouts */

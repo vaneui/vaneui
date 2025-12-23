@@ -4,12 +4,12 @@ import { ComponentKeys, ModeKey, AppearanceKey } from "../../props";
 import { ModeKeys } from "../../props/mode";
 
 export class AppearanceTheme extends BaseTheme implements Record<AppearanceKey, Record<ModeKey, string>> {
-  /** Default neutral appearance - uses default color variables */
-  default!: Record<ModeKey, string>;
+  /** Primary appearance - uses primary/gray color variables for main neutral styling */
+  primary!: Record<ModeKey, string>;
+  /** Brand appearance - uses brand/blue color variables for brand styling */
+  brand!: Record<ModeKey, string>;
   /** Accent appearance - uses accent/rose color variables for brand secondary styling */
   accent!: Record<ModeKey, string>;
-  /** Primary appearance - uses primary/blue color variables for main brand styling */
-  primary!: Record<ModeKey, string>;
   /** Secondary appearance - uses secondary/gray color variables for muted styling */
   secondary!: Record<ModeKey, string>;
   /** Tertiary appearance - uses tertiary/gray color variables for subtle styling */

@@ -3,10 +3,10 @@
  */
 
 export interface AppearanceProps {
-  /** Default color appearance */
-  default?: boolean;
-  /** Primary color appearance (blue) */
+  /** Primary color appearance (gray) */
   primary?: boolean;
+  /** Brand color appearance (blue) */
+  brand?: boolean;
   /** Secondary color appearance (gray) */
   secondary?: boolean;
   /** Tertiary color appearance */

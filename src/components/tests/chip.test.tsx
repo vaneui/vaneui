@@ -42,17 +42,17 @@ describe('Chip Component Tests', () => {
       expect(chip).toHaveClass('bg-(--color-bg-primary)'); // primary background
     });
 
-    it('Chip with default variant should have default classes', () => {
+    it('Chip with primary variant should have primary classes', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Chip default>Default Chip</Chip>
+          <Chip primary>Primary Chip</Chip>
         </ThemeProvider>
       );
 
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
-      expect(chip).toHaveClass('text-(--color-text-default)'); // default color
-      expect(chip).toHaveClass('bg-(--color-bg-default)'); // default background
+      expect(chip).toHaveClass('text-(--color-text-primary)'); // primary color
+      expect(chip).toHaveClass('bg-(--color-bg-primary)'); // primary background
     });
 
     it('Chip with success variant should have success classes', () => {

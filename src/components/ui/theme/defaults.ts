@@ -10,7 +10,7 @@ export const themeDefaults: ThemeDefaults = {
     itemsCenter: true,
     justifyCenter: true,
     outline: true,
-    default: true,
+    primary: true,
     rounded: true,
     sans: true,
     semibold: true,
@@ -26,7 +26,7 @@ export const themeDefaults: ThemeDefaults = {
   card: {
     md: true,
     flex: true,
-    default: true,
+    primary: true,
     rounded: true,
     normal: true,
     column: true,
@@ -52,7 +52,7 @@ export const themeDefaults: ThemeDefaults = {
 
   badge: {
     md: true,
-    default: true,
+    primary: true,
     inlineFlex: true,
     outline: true,
     pill: true,
@@ -79,7 +79,7 @@ export const themeDefaults: ThemeDefaults = {
     md: true,
     flex: true,
     column: true,
-    default: true,
+    primary: true,
     itemsStart: true,
     gap: true,
     padding: true,
@@ -150,7 +150,7 @@ export const themeDefaults: ThemeDefaults = {
 
   divider: {
     md: true,
-    default: true,
+    primary: true,
     noPadding: true,
   },
 
@@ -173,7 +173,7 @@ export const themeDefaults: ThemeDefaults = {
     rounded: true,
     inline: true,
     padding: true,
-    default: true,
+    primary: true,
     ring: true,
   },
 
@@ -224,7 +224,7 @@ export const themeDefaults: ThemeDefaults = {
   checkbox: {
     input: {
       md: true,
-      default: true,
+      primary: true,
       border: true,
       rounded: true,
       noRing: true,
@@ -233,7 +233,7 @@ export const themeDefaults: ThemeDefaults = {
       focusVisible: true,
     },
     check: {
-      default: true,
+      primary: true,
       filled: true,
     },
     wrapper: {
@@ -248,7 +248,7 @@ export const themeDefaults: ThemeDefaults = {
 
   input: {
     md: true,
-    default: true,
+    primary: true,
     rounded: true,
     outline: true,
     sans: true,

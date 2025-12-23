@@ -1,4 +1,5 @@
 import { Title, Card } from '../../src';
+import { colorMappings, getTailwindColor } from './colorMappings';
 
 const appearances = [
   'default',
@@ -21,12 +22,19 @@ interface ColorSwatchProps {
 }
 
 function ColorSwatch({ cssVar, label }: ColorSwatchProps) {
+  const tailwindColor = getTailwindColor(cssVar, colorMappings);
+
   return (
-    <div
-      className="h-10 flex items-center justify-center"
-      style={{ backgroundColor: `var(${cssVar})` }}
-      title={`${cssVar}${label ? ` (${label})` : ''}`}
-    />
+    <div className="flex flex-col">
+      <div
+        className="h-10 flex items-center justify-center"
+        style={{ backgroundColor: `var(${cssVar})` }}
+        title={`${cssVar}${label ? ` (${label})` : ''}`}
+      />
+      <div className="text-[10px] text-gray-600 text-center truncate px-1" title={tailwindColor}>
+        {tailwindColor}
+      </div>
+    </div>
   );
 }
 
@@ -63,7 +71,7 @@ function ColorGrid({ title, variant }: ColorGridProps) {
       <h3 className="text-sm font-semibold mb-3 text-gray-700">
         {title}
       </h3>
-      <div className="grid grid-cols-6 gap-0">
+      <div className="grid grid-cols-6 gap-1">
         {/* Header */}
         <div className="text-xs text-gray-500">Appearance</div>
         <div className="text-xs text-gray-500">Base BG</div>

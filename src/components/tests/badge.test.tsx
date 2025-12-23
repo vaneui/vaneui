@@ -21,7 +21,7 @@ describe('Badge Component Tests', () => {
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveClass('w-fit', 'h-fit', 'whitespace-nowrap');
       expect(badge).toHaveClass('[--fs-unit:8]', 'text-(length:--fs)'); // md size
-      expect(badge).toHaveClass('text-(--color-text-default)'); // default appearance
+      expect(badge).toHaveClass('text-(--color-text-primary)'); // primary appearance
       expect(badge).toHaveClass('font-sans');
       expect(badge).toHaveClass('font-semibold'); // semibold weight
       expect(badge).toHaveClass('inline-flex', 'items-center', 'rounded-full', 'uppercase');

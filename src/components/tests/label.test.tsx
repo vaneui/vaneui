@@ -26,7 +26,7 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('gap-(--ui-gap)'); // default gap
       expect(label).toHaveClass('[--fs-unit:8]'); // md size default (1rem = 8 * 0.125rem)
       expect(label).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(label).not.toHaveClass('text-(--color-text-default)'); // no default appearance
+      expect(label).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
       expect(label).toHaveClass('font-sans');
       expect(label).toHaveClass('font-medium');
       expect(label).toHaveTextContent('Label text');
@@ -133,7 +133,7 @@ describe('Label Component Tests', () => {
     });
 
     it('should support all appearance variants', () => {
-      const appearances = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
+      const appearances = ['primary', 'brand', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
       
       appearances.forEach(appearance => {
         const {container} = render(

@@ -36,12 +36,12 @@ describe('Container Component Tests', () => {
     it('should apply default background correctly', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Container default>Default Container</Container>
+          <Container primary>Primary Container</Container>
         </ThemeProvider>
       );
 
       const containerEl = container.querySelector('div');
-      expect(containerEl).toHaveClass('bg-(--color-bg-layout-default)');
+      expect(containerEl).toHaveClass('bg-(--color-bg-layout-primary)');
     });
 
     it('should support different appearance variants for background', () => {

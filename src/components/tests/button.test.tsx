@@ -22,7 +22,7 @@ describe('Button Component Tests', () => {
       expect(button).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
       expect(button).toHaveClass('[--fs-unit:8]', 'text-(length:--fs)'); // md size
       expect(button).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
-      expect(button).toHaveClass('text-(--color-text-default)'); // default appearance
+      expect(button).toHaveClass('text-(--color-text-primary)'); // primary appearance
       expect(button).toHaveClass('font-sans'); // sans family
       expect(button).toHaveClass('font-semibold'); // semibold weight
       expect(button).toHaveClass('inline-flex', 'items-center', 'justify-center');
@@ -44,7 +44,7 @@ describe('Button Component Tests', () => {
       expect(anchor).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
       expect(anchor).toHaveClass('[--fs-unit:8]', 'text-(length:--fs)'); // md size
       expect(anchor).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
-      expect(anchor).toHaveClass('text-(--color-text-default)'); // default appearance
+      expect(anchor).toHaveClass('text-(--color-text-primary)'); // primary appearance
       expect(anchor).toHaveClass('font-sans'); // sans family
       expect(anchor).toHaveClass('font-semibold'); // semibold weight
       expect(anchor).toHaveClass('inline-flex', 'items-center', 'justify-center');

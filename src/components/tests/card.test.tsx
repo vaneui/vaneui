@@ -20,9 +20,9 @@ describe('Card Component Tests', () => {
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
       expect(card).toHaveClass('px-(--px) [--py-unit:6]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex');
-      expect(card).toHaveClass('text-(--color-text-default)'); // default appearance
-      expect(card).toHaveClass('bg-(--color-bg-layout-default)', 'rounded-(--br)', 'flex-col');
-      expect(card).toHaveClass('border-(--color-border-default)');
+      expect(card).toHaveClass('text-(--color-text-primary)'); // primary appearance
+      expect(card).toHaveClass('bg-(--color-bg-layout-primary)', 'rounded-(--br)', 'flex-col');
+      expect(card).toHaveClass('border-(--color-border-primary)');
     });
   });
 
@@ -379,7 +379,7 @@ describe('Card Component Tests', () => {
 
         const card = container.querySelector('div');
         // Card no longer has ring: true as default
-        expect(card).not.toHaveClass('ring-(--color-border-default)');
+        expect(card).not.toHaveClass('ring-(--color-border-primary)');
         expect(card).not.toHaveClass('ring', 'ring-inset');
       });
 
@@ -446,7 +446,7 @@ describe('Card Component Tests', () => {
         const card = container.querySelector('.size-test');
         // Should have border and ring classes
         expect(card).toHaveClass('border');
-        expect(card).toHaveClass('ring-(--color-border-default)');
+        expect(card).toHaveClass('ring-(--color-border-primary)');
         // Should have size and padding classes
         expect(card).toHaveClass('px-(--px) [--py-unit:8]', 'py-(--py) [--gap-unit:5]'); // lg padding
       });
@@ -461,7 +461,7 @@ describe('Card Component Tests', () => {
         const card = container.querySelector('.responsive-test');
         // Should have border and ring classes
         expect(card).toHaveClass('border');
-        expect(card).toHaveClass('ring-(--color-border-default)');
+        expect(card).toHaveClass('ring-(--color-border-primary)');
         // Should have responsive classes
         expect(card).toHaveClass('max-tablet:flex-col');
       });

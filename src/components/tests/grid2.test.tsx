@@ -65,7 +65,7 @@ describe('Grid2 Component Tests', () => {
     });
 
     it('should support background appearance variants', () => {
-      const appearances = ['default', 'accent', 'primary', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
+      const appearances = ['primary', 'brand', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
       
       appearances.forEach(appearance => {
         const { container } = render(

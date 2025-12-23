@@ -7,9 +7,9 @@ describe('Theme Override Tests', () => {
   describe('CSS Class Application', () => {
     it('should apply overridden CSS classes to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.outline.default.base = 'text-blue-500';
-        theme.button.themes.appearance.text.outline.default.hover = 'hover:text-blue-700';
-        theme.button.themes.appearance.text.outline.default.active = 'active:text-blue-900';
+        theme.button.themes.appearance.text.outline.primary.base = 'text-blue-500';
+        theme.button.themes.appearance.text.outline.primary.hover = 'hover:text-blue-700';
+        theme.button.themes.appearance.text.outline.primary.active = 'active:text-blue-900';
         return theme;
       };
 
@@ -28,9 +28,9 @@ describe('Theme Override Tests', () => {
 
     it('should override background colors and apply to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.background.outline.default.base = 'bg-red-100';
-        theme.button.themes.appearance.background.outline.default.hover = 'hover:bg-red-200';
-        theme.button.themes.appearance.background.outline.default.active = 'active:bg-red-300';
+        theme.button.themes.appearance.background.outline.primary.base = 'bg-red-100';
+        theme.button.themes.appearance.background.outline.primary.hover = 'hover:bg-red-200';
+        theme.button.themes.appearance.background.outline.primary.active = 'active:bg-red-300';
         return theme;
       };
 
@@ -49,9 +49,9 @@ describe('Theme Override Tests', () => {
     it('should override border styles and apply to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
         theme.button.themes.layout.border.border = 'border-2'
-        theme.button.themes.appearance.border.outline.default.base = 'border-green-500';
-        theme.button.themes.appearance.border.outline.default.hover = 'hover:border-green-600';
-        theme.button.themes.appearance.border.outline.default.active = 'active:border-green-700';
+        theme.button.themes.appearance.border.outline.primary.base = 'border-green-500';
+        theme.button.themes.appearance.border.outline.primary.hover = 'hover:border-green-600';
+        theme.button.themes.appearance.border.outline.primary.active = 'active:border-green-700';
         return theme;
       };
 
@@ -89,12 +89,12 @@ describe('Theme Override Tests', () => {
     it('should allow multiple component theme overrides', () => {
       const overrideFunc = (theme: ThemeProps) => {
         // Override button theme
-        theme.button.themes.appearance.text.outline.default.base = 'text-blue-500';
-        theme.button.themes.appearance.background.filled.default.base = 'bg-blue-600';
+        theme.button.themes.appearance.text.outline.primary.base = 'text-blue-500';
+        theme.button.themes.appearance.background.filled.primary.base = 'bg-blue-600';
         
         // Override badge theme
-        theme.badge.themes.appearance.text.outline.default.base = 'text-green-500';
-        theme.badge.themes.appearance.background.filled.default.base = 'bg-green-600';
+        theme.badge.themes.appearance.text.outline.primary.base = 'text-green-500';
+        theme.badge.themes.appearance.background.filled.primary.base = 'bg-green-600';
         
         return theme;
       };
@@ -121,9 +121,9 @@ describe('Theme Override Tests', () => {
 
     it('should override ring and shadow styles correctly', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.ring.outline.default.base = 'ring-orange-500';
-        if (theme.button.themes.appearance.shadow.outline.default) {
-          theme.button.themes.appearance.shadow.outline.default.md.base = 'shadow-lg shadow-orange-500/50';
+        theme.button.themes.appearance.ring.outline.primary.base = 'ring-orange-500';
+        if (theme.button.themes.appearance.shadow.outline.primary) {
+          theme.button.themes.appearance.shadow.outline.primary.md.base = 'shadow-lg shadow-orange-500/50';
         }
         return theme;
       };
@@ -190,7 +190,7 @@ describe('Theme Override Tests', () => {
         theme.button.themes.appearance.border.filled.primary.base = 'border-2 border-indigo-400';
         
         // Also override badge for testing multiple components
-        theme.badge.themes.appearance.text.outline.default.base = 'text-pink-600';
+        theme.badge.themes.appearance.text.outline.primary.base = 'text-pink-600';
         return theme;
       };
 
@@ -229,7 +229,7 @@ describe('Theme Override Tests', () => {
 
     it('should allow nested providers with different override and default combinations', () => {
       const outerOverride = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.outline.default.base = 'text-red-500';
+        theme.button.themes.appearance.text.outline.primary.base = 'text-red-500';
         return theme;
       };
 
@@ -269,9 +269,9 @@ describe('Theme Override Tests', () => {
 
     it('should preserve theme overrides across multiple component instances', () => {
       const persistentOverride = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.outline.default.base = 'text-violet-600';
-        theme.button.themes.appearance.background.filled.default.base = 'bg-violet-600';
-        theme.button.themes.appearance.border.outline.default.base = 'border-violet-400';
+        theme.button.themes.appearance.text.outline.primary.base = 'text-violet-600';
+        theme.button.themes.appearance.background.filled.primary.base = 'bg-violet-600';
+        theme.button.themes.appearance.border.outline.primary.base = 'border-violet-400';
         return theme;
       };
 

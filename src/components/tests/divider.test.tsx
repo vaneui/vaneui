@@ -20,7 +20,7 @@ describe('Divider Component Tests', () => {
       const divider = container.querySelector('div');
       expect(divider).toBeInTheDocument();
       expect(divider).toHaveClass('h-px', 'w-full');
-      expect(divider).toHaveClass('bg-(--color-border-default)');
+      expect(divider).toHaveClass('bg-(--color-border-primary)');
     });
   });
 

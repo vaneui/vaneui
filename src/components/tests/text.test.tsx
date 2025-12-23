@@ -22,7 +22,7 @@ describe('Text Component Tests', () => {
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
       expect(text).toHaveClass('[--fs-unit:8]'); // md size (1rem = 8 * 0.125rem)
       expect(text).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(text).not.toHaveClass('text-(--color-text-default)'); // no default appearance
+      expect(text).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
       expect(text).toHaveClass('font-sans');
       // No default font weight; variants like medium/bold are opt-in
       expect(text).not.toHaveClass('font-normal');

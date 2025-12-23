@@ -9,12 +9,12 @@ import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
 export class ShadowAppearanceTheme extends BaseTheme implements Record<AppearanceKey, Record<SizeKey, Record<ModeKey, string>> | null> {
-  /** Default shadow appearance - neutral shadow styling */
-  default!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Primary shadow appearance - neutral shadow styling */
+  primary!: Record<SizeKey, Record<ModeKey, string>> | null;
   /** Accent shadow appearance - shadow styling for brand secondary elements */
   accent!: Record<SizeKey, Record<ModeKey, string>> | null;
-  /** Primary shadow appearance - shadow styling for main brand elements */
-  primary!: Record<SizeKey, Record<ModeKey, string>> | null;
+  /** Brand shadow appearance - shadow styling for brand elements */
+  brand!: Record<SizeKey, Record<ModeKey, string>> | null;
   /** Secondary shadow appearance - shadow styling for muted elements */
   secondary!: Record<SizeKey, Record<ModeKey, string>> | null;
   /** Tertiary shadow appearance - shadow styling for subtle elements */
@@ -54,7 +54,7 @@ export class ShadowAppearanceTheme extends BaseTheme implements Record<Appearanc
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const appearance = extractedKeys?.appearance ?? 'default';
+    const appearance = extractedKeys?.appearance ?? 'primary';
     const size = extractedKeys?.size ?? 'md';
     const shadow = extractedKeys?.shadow;
 

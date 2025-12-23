@@ -5,7 +5,7 @@ import {
 } from "../props";
 
 export const filledTextAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "text-(--color-text-filled-default)",
+  brand: "text-(--color-text-filled-brand)",
   primary: "text-(--color-text-filled-primary)",
   secondary: "text-(--color-text-filled-secondary)",
   tertiary: "text-(--color-text-filled-tertiary)",
@@ -18,7 +18,7 @@ export const filledTextAppearanceClasses: Record<AppearanceKey | TransparentKey,
 }
 
 export const textAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
-  default: "text-(--color-text-default)",
+  brand: "text-(--color-text-brand)",
   primary: "text-(--color-text-primary)",
   secondary: "text-(--color-text-secondary)",
   tertiary: "text-(--color-text-tertiary)",

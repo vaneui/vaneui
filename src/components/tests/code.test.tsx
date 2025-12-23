@@ -48,8 +48,8 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-(length:--fs)');
       expect(codeElement).toHaveClass('px-(--ui-px)');
       expect(codeElement).toHaveClass('py-(--ui-py)');
-      expect(codeElement).toHaveClass('bg-(--color-bg-default)');
-      expect(codeElement).toHaveClass('text-(--color-text-default)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-primary)');
+      expect(codeElement).toHaveClass('text-(--color-text-primary)');
       expect(codeElement).toHaveClass('rounded-(--ui-br)');
       expect(codeElement).toHaveClass('font-mono');
     });
@@ -152,16 +152,16 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-default)');
-      expect(codeElement).not.toHaveClass('bg-(--color-bg-filled-default)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-primary)');
+      expect(codeElement).not.toHaveClass('bg-(--color-bg-filled-primary)');
     });
 
     it('should apply filled variant when specified', () => {
       const { container } = render(<Code filled>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-filled-default)');
-      expect(codeElement).toHaveClass('text-(--color-text-filled-default)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-filled-primary)');
+      expect(codeElement).toHaveClass('text-(--color-text-filled-primary)');
     });
 
     it('should apply filled variant with primary appearance', () => {
@@ -360,8 +360,8 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-default)');
-      expect(codeElement).toHaveClass('text-(--color-text-default)');
+      expect(codeElement).toHaveClass('bg-(--color-bg-primary)');
+      expect(codeElement).toHaveClass('text-(--color-text-primary)');
     });
 
     it('should show ring by default', () => {

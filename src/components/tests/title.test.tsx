@@ -24,7 +24,7 @@ describe('Title Components Tests', () => {
       expect(title).toHaveClass('text-balance', 'w-fit');
       expect(title).toHaveClass('[--fs-unit:12] max-laptop:[--fs-unit:11] max-tablet:[--fs-unit:10]'); // md size for title with responsive scaling
       expect(title).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(title).not.toHaveClass('text-(--color-text-default)'); // no default appearance
+      expect(title).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
       expect(title).toHaveClass('font-sans');
       expect(title).toHaveClass('font-semibold');
     });
@@ -175,7 +175,7 @@ describe('Title Components Tests', () => {
       expect(pageTitle).toHaveClass('text-balance', 'tracking-tight', 'w-fit');
       expect(pageTitle).toHaveClass('[--fs-unit:24] max-laptop:[--fs-unit:21] max-tablet:[--fs-unit:18]'); // md size for page title with responsive scaling
       expect(pageTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(pageTitle).not.toHaveClass('text-(--color-text-default)'); // no default appearance
+      expect(pageTitle).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
       expect(pageTitle).toHaveClass('font-sans');
       expect(pageTitle).toHaveClass('font-semibold');
     });
@@ -297,7 +297,7 @@ describe('Title Components Tests', () => {
       expect(sectionTitle).toHaveClass('text-balance', 'w-fit');
       expect(sectionTitle).toHaveClass('[--fs-unit:18] max-laptop:[--fs-unit:16] max-tablet:[--fs-unit:14]'); // md size for section title with responsive scaling
       expect(sectionTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(sectionTitle).not.toHaveClass('text-(--color-text-default)'); // no default appearance
+      expect(sectionTitle).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
       expect(sectionTitle).toHaveClass('font-sans');
       expect(sectionTitle).toHaveClass('font-semibold');
     });

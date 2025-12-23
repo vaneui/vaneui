@@ -110,7 +110,7 @@ class ComponentThemeTester {
   themeHandlesKey(theme: BaseTheme, key: string, category: keyof ComponentKeysType): boolean {
     // Create base context that provides commonly needed properties for themes to work
     const baseContext = {
-      appearance: 'default',
+      appearance: 'primary',
       size: 'md',
       variant: 'outline',
       padding: 'padding',

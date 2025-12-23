@@ -87,7 +87,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       // Size props
       xs, sm, md, lg, xl,
       // Appearance props
-      default: defaultProp, accent, primary, secondary, tertiary, success, danger, warning, info, transparent,
+      primary, brand, accent, secondary, tertiary, success, danger, warning, info, transparent,
       // Variant props
       filled, outline,
       // Shape props
@@ -101,7 +101,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
 
     const themeProps = {
       xs, sm, md, lg, xl,
-      default: defaultProp, accent, primary, secondary, tertiary, success, danger, warning, info, transparent,
+      primary, brand, accent, secondary, tertiary, success, danger, warning, info, transparent,
       filled, outline,
       pill, sharp, rounded
     };
