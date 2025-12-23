@@ -5,7 +5,7 @@ import { BadgeTheme, defaultBadgeTheme } from './ui/theme/badgeTheme';
 import { ChipTheme, defaultChipTheme } from './ui/theme/chipTheme';
 import { CodeTheme, defaultCodeTheme } from './ui/theme/codeTheme';
 import {
-  linkTheme, ListTheme,
+  linkTheme, LinkTheme, ListTheme,
   listItemTheme,
   listTheme,
   pageTitleTheme,
@@ -67,7 +67,7 @@ export interface ThemeProps {
   sectionTitle: ComponentTheme<TypographyProps, TypographyTheme>;
   title: ComponentTheme<TypographyProps, TypographyTheme>;
   text: ComponentTheme<TypographyProps, TypographyTheme>;
-  link: ComponentTheme<TypographyProps, TypographyTheme>;
+  link: ComponentTheme<TypographyProps, LinkTheme>;
   listItem: ComponentTheme<TypographyProps, TypographyTheme>;
   list: ComponentTheme<ListProps, ListTheme>;
   checkbox: {

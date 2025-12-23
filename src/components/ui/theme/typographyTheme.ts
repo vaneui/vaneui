@@ -9,6 +9,7 @@ import {
 } from "./common/ComponentTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { LinkVariantTheme } from "./appearance/linkVariantTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
 import { PlTheme } from "./size/plTheme";
 import { ListStyleTheme } from "./list/listStyleTheme";
@@ -23,6 +24,17 @@ export interface TypographyTheme extends BaseTypographyComponentTheme {
   };
   appearance: {
     text: GenericVariantTheme<AppearanceTheme>;
+  };
+  layout: DefaultLayoutThemes;
+}
+
+export interface LinkTheme extends BaseTypographyComponentTheme {
+  size: {
+    text: FontSizeTheme;
+    lineHeight: LineHeightTheme;
+  };
+  appearance: {
+    text: LinkVariantTheme;
   };
   layout: DefaultLayoutThemes;
 }
@@ -91,8 +103,8 @@ export const textTheme: ComponentTheme<TypographyProps, TypographyTheme> = creat
   themeDefaults.text as Partial<TypographyProps>
 );
 
-// Link specific theme
-export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new ComponentTheme<TypographyProps, TypographyTheme>(
+// Link specific theme - uses LinkVariantTheme for link-specific colors
+export const linkTheme: ComponentTheme<TypographyProps, LinkTheme> = new ComponentTheme<TypographyProps, LinkTheme>(
   "a",
   "hover:underline w-fit cursor-pointer",
   {
@@ -101,7 +113,7 @@ export const linkTheme: ComponentTheme<TypographyProps, TypographyTheme> = new C
       lineHeight: LineHeightTheme.createDefault(),
     },
     appearance: {
-      text: GenericVariantTheme.createTypographyTextTheme(),
+      text: new LinkVariantTheme(),
     },
     typography: defaultTypographyThemes,
     layout: defaultLayoutsThemes,

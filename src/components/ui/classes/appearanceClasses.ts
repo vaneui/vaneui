@@ -11,7 +11,6 @@ export const filledBackgroundAppearanceClasses: Record<AppearanceKey | Transpare
   warning: "bg-(--color-bg-filled-warning)",
   info: "bg-(--color-bg-filled-info)",
   transparent: "bg-transparent",
-  link: "bg-(--color-bg-filled-link)",
 }
 
 export const filledHoverBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -25,7 +24,6 @@ export const filledHoverBackgroundAppearanceClasses: Record<AppearanceKey | Tran
   warning: "hover:bg-(--color-bg-filled-hover-warning)",
   info: "hover:bg-(--color-bg-filled-hover-info)",
   transparent: "hover:bg-transparent",
-  link: "hover:bg-(--color-bg-filled-hover-link)",
 }
 
 export const filledActiveBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -39,7 +37,6 @@ export const filledActiveBackgroundAppearanceClasses: Record<AppearanceKey | Tra
   warning: "active:bg-(--color-bg-filled-active-warning)",
   info: "active:bg-(--color-bg-filled-active-info)",
   transparent: "active:bg-transparent",
-  link: "active:bg-(--color-bg-filled-active-link)",
 }
 
 export const backgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -53,7 +50,6 @@ export const backgroundAppearanceClasses: Record<AppearanceKey | TransparentKey,
   warning: "bg-(--color-bg-warning)",
   info: "bg-(--color-bg-info)",
   transparent: "bg-transparent",
-  link: "bg-(--color-bg-link)",
 }
 
 export const hoverBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -67,7 +63,6 @@ export const hoverBackgroundAppearanceClasses: Record<AppearanceKey | Transparen
   warning: "hover:bg-(--color-bg-hover-warning)",
   info: "hover:bg-(--color-bg-hover-info)",
   transparent: "hover:bg-transparent",
-  link: "hover:bg-(--color-bg-hover-link)",
 }
 
 export const activeBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -81,7 +76,6 @@ export const activeBackgroundAppearanceClasses: Record<AppearanceKey | Transpare
   warning: "active:bg-(--color-bg-active-warning)",
   info: "active:bg-(--color-bg-active-info)",
   transparent: "active:bg-transparent",
-  link: "active:bg-(--color-bg-active-link)",
 }
 
 export const layoutBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -95,7 +89,6 @@ export const layoutBackgroundAppearanceClasses: Record<AppearanceKey | Transpare
   warning: "bg-(--color-bg-layout-warning)",
   info: "bg-(--color-bg-layout-info)",
   transparent: "bg-transparent",
-  link: "bg-(--color-bg-layout-link)",
 }
 
 export const layoutFilledBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -109,7 +102,6 @@ export const layoutFilledBackgroundAppearanceClasses: Record<AppearanceKey | Tra
   warning: "bg-(--color-bg-filled-layout-warning)",
   info: "bg-(--color-bg-filled-layout-info)",
   transparent: "bg-transparent",
-  link: "bg-(--color-bg-filled-layout-link)",
 }
 
 export const bgBorderAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -122,7 +114,6 @@ export const bgBorderAppearanceClasses: Record<AppearanceKey | TransparentKey, s
   danger: "bg-(--color-border-danger)",
   warning: "bg-(--color-border-warning)",
   info: "bg-(--color-border-info)",
-  link: "bg-(--color-border-link)",
   transparent: "bg-transparent",
 }
 
@@ -136,7 +127,6 @@ export const borderAppearanceClasses: Record<AppearanceKey | TransparentKey, str
   danger: "border-(--color-border-danger)",
   warning: "border-(--color-border-warning)",
   info: "border-(--color-border-info)",
-  link: "border-(--color-border-link)",
   transparent: "border-transparent",
 }
 
@@ -150,7 +140,6 @@ export const filledBorderAppearanceClasses: Record<AppearanceKey | TransparentKe
   danger: "border-(--color-border-filled-danger)",
   warning: "border-(--color-border-filled-warning)",
   info: "border-(--color-border-filled-info)",
-  link: "border-(--color-border-filled-link)",
   transparent: "border-transparent",
 }
 
@@ -164,7 +153,6 @@ export const ringAppearanceClasses: Record<AppearanceKey | TransparentKey, strin
   danger: "ring-(--color-border-danger)",
   warning: "ring-(--color-border-warning)",
   info: "ring-(--color-border-info)",
-  link: "ring-(--color-border-link)",
   transparent: "ring-transparent",
 }
 
@@ -178,7 +166,6 @@ export const filledRingAppearanceClasses: Record<AppearanceKey | TransparentKey,
   danger: "ring-(--color-border-filled-danger)",
   warning: "ring-(--color-border-filled-warning)",
   info: "ring-(--color-border-filled-info)",
-  link: "ring-(--color-border-filled-link)",
   transparent: "ring-transparent",
 }
 
@@ -192,7 +179,6 @@ export const focusVisibleOutlineAppearanceClasses: Record<AppearanceKey | Transp
   danger: "focus-visible:outline-(--color-border-danger)",
   warning: "focus-visible:outline-(--color-border-warning)",
   info: "focus-visible:outline-(--color-border-info)",
-  link: "focus-visible:outline-(--color-border-link)",
   transparent: "focus-visible:outline-transparent",
 }
 
@@ -206,7 +192,6 @@ export const filledFocusVisibleOutlineAppearanceClasses: Record<AppearanceKey | 
   danger: "focus-visible:outline-(--color-border-filled-danger)",
   warning: "focus-visible:outline-(--color-border-filled-warning)",
   info: "focus-visible:outline-(--color-border-filled-info)",
-  link: "focus-visible:outline-(--color-border-filled-link)",
   transparent: "focus-visible:outline-transparent",
 }
 
@@ -221,7 +206,6 @@ export const accentColorAppearanceClasses: Record<AppearanceKey | TransparentKey
   warning: "accent-(--color-bg-warning)",
   info: "accent-(--color-bg-info)",
   transparent: "accent-transparent",
-  link: "accent-(--color-bg-link)",
 }
 
 export const filledAccentColorAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -235,7 +219,6 @@ export const filledAccentColorAppearanceClasses: Record<AppearanceKey | Transpar
   warning: "accent-(--color-bg-filled-warning)",
   info: "accent-(--color-bg-filled-info)",
   transparent: "accent-transparent",
-  link: "accent-(--color-bg-filled-link)",
 }
 
 export const checkedBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -249,7 +232,6 @@ export const checkedBackgroundAppearanceClasses: Record<AppearanceKey | Transpar
   warning: "checked:bg-(--color-bg-warning)",
   info: "checked:bg-(--color-bg-info)",
   transparent: "checked:bg-transparent",
-  link: "checked:bg-(--color-bg-link)",
 }
 
 export const filledCheckedBackgroundAppearanceClasses: Record<AppearanceKey | TransparentKey, string> = {
@@ -263,5 +245,4 @@ export const filledCheckedBackgroundAppearanceClasses: Record<AppearanceKey | Tr
   warning: "checked:bg-(--color-bg-filled-warning)",
   info: "checked:bg-(--color-bg-filled-info)",
   transparent: "checked:bg-transparent",
-  link: "checked:bg-(--color-bg-filled-link)",
 }

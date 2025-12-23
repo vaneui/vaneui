@@ -263,17 +263,6 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('text-transparent');
     });
 
-    it('should support link styling', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Label link>Link Label</Label>
-        </ThemeProvider>
-      );
-
-      const label = container.querySelector('label');
-      expect(label).toHaveClass('text-(--color-text-link)');
-    });
-
     it('should support custom className', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

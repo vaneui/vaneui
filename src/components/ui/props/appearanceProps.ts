@@ -21,6 +21,4 @@ export interface AppearanceProps {
   warning?: boolean;
   /** Info color appearance (cyan) */
   info?: boolean;
-  /** Link color appearance */
-  link?: boolean;
 }

@@ -240,17 +240,6 @@ describe('Text Component Tests', () => {
       expect(text).toHaveClass('text-transparent');
     });
 
-    it('should support link appearance', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Text link>Link-styled text</Text>
-        </ThemeProvider>
-      );
-
-      const text = container.querySelector('p');
-      expect(text).toHaveClass('text-(--color-text-link)');
-    });
-
     it('should support display variants', () => {
       const displays = [
         { prop: 'inline', class: 'inline' },

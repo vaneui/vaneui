@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
 import {
+  ThemeProps,
   Link,
   ThemeProvider,
   defaultTheme
@@ -74,7 +75,7 @@ describe('Link Component Tests', () => {
       });
     });
 
-    it('should apply appearance props to change text color', () => {
+    it('should always use link color regardless of appearance props', () => {
       const appearances = ['primary', 'secondary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
       
       appearances.forEach(appearance => {
@@ -85,33 +86,33 @@ describe('Link Component Tests', () => {
         );
 
         const link = container.querySelector('a');
-        // Link should use the specified appearance color
-        expect(link).toHaveClass(`text-(--color-text-${appearance})`);
-        expect(link).not.toHaveClass('text-(--color-text-link)');
+        // Link always uses link color, not the appearance color
+        expect(link).toHaveClass('text-(--color-text-link)');
       });
     });
 
     it('should support filled and outline variants', () => {
       const {container: outlineContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Link href="#test" primary outline>Outline link</Link>
+          <Link href="#test" outline>Outline link</Link>
         </ThemeProvider>
       );
 
       const {container: filledContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Link href="#test" primary filled>Filled link</Link>
+          <Link href="#test" filled>Filled link</Link>
         </ThemeProvider>
       );
 
       const outlineLink = outlineContainer.querySelector('a');
       const filledLink = filledContainer.querySelector('a');
 
-      expect(outlineLink).toHaveClass('text-(--color-text-primary)');
-      expect(filledLink).toHaveClass('text-(--color-text-filled-primary)');
+      // Link uses link-specific text colors only (no background colors)
+      expect(outlineLink).toHaveClass('text-(--color-text-link)');
+      expect(filledLink).toHaveClass('text-(--color-text-filled-link)');
     });
 
-    it('should use link appearance by default when no appearance prop is provided', () => {
+    it('should use link color by default when no appearance prop is provided', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Link href="#test">Default link</Link>
@@ -119,7 +120,7 @@ describe('Link Component Tests', () => {
       );
 
       const link = container.querySelector('a');
-      // Link without appearance props should use link appearance by default
+      // Link uses link color by default
       expect(link).toHaveClass('text-(--color-text-link)');
     });
 
@@ -340,5 +341,61 @@ describe('Link Component Tests', () => {
       expect(link).toBeInTheDocument();
       expect(link).not.toHaveAttribute('href');
     });
+  });
+});
+describe('Link Theme Override Tests', () => {
+  it('should allow overriding outline text class via themeOverride', () => {
+    const overrideFunc = (theme: ThemeProps) => {
+      theme.link.themes.appearance.text.outline = 'text-custom-link-color';
+      return theme;
+    };
+
+    const { container } = render(
+      <ThemeProvider themeOverride={overrideFunc}>
+        <Link href="#test">Custom Link</Link>
+      </ThemeProvider>
+    );
+
+    const link = container.querySelector('a');
+    expect(link).toHaveClass('text-custom-link-color');
+    expect(link).not.toHaveClass('text-(--color-text-link)');
+  });
+
+  it('should allow overriding filled text class via themeOverride', () => {
+    const overrideFunc = (theme: ThemeProps) => {
+      theme.link.themes.appearance.text.filled = 'text-custom-filled-link';
+      return theme;
+    };
+
+    const { container } = render(
+      <ThemeProvider themeOverride={overrideFunc}>
+        <Link href="#test" filled>Custom Filled Link</Link>
+      </ThemeProvider>
+    );
+
+    const link = container.querySelector('a');
+    expect(link).toHaveClass('text-custom-filled-link');
+    expect(link).not.toHaveClass('text-(--color-text-filled-link)');
+  });
+
+  it('should allow overriding both outline and filled classes', () => {
+    const overrideFunc = (theme: ThemeProps) => {
+      theme.link.themes.appearance.text.outline = 'text-purple-600';
+      theme.link.themes.appearance.text.filled = 'text-purple-100';
+      return theme;
+    };
+
+    const { container } = render(
+      <ThemeProvider themeOverride={overrideFunc}>
+        <Link href="#outline" className="outline-link">Outline</Link>
+        <Link href="#filled" filled className="filled-link">Filled</Link>
+      </ThemeProvider>
+    );
+
+    const outlineLink = container.querySelector('.outline-link');
+    const filledLink = container.querySelector('.filled-link');
+
+    expect(outlineLink).toHaveClass('text-purple-600');
+    expect(filledLink).toHaveClass('text-purple-100');
   });
 });

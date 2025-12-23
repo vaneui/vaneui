@@ -206,7 +206,6 @@ export const themeDefaults: ThemeDefaults = {
 
   link: {
     underline: true,
-    link: true,
     sans: true,
   },
 

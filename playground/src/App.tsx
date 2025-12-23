@@ -9,14 +9,16 @@ import {
   Card, Checkbox, Label, Link, Input, Button,
   Container, Badge, Divider, Chip, Code, PageTitle
 } from '../../src';
+import { ColorTable } from './ColorTable';
 
 function App() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Section className="max-w-mobile">
-        <Container itemsCenter>
+      <Section className="w-full">
+        <Container itemsCenter className="w-full">
           <PageTitle>VaneUI Component Library Examples</PageTitle>
+          <ColorTable />
           <Text xs className="max-w-sm">
             Every component adapts to screen size automatically.
             Use responsive props like <Code xs primary>xs</Code>, <Code xs primary>sm</Code>,
@@ -54,11 +56,18 @@ function App() {
           <Card>
             <Title>Button</Title>
             <Row flexWrap>
-              <Button xs>Button XS</Button>
-              <Button sm>Button SM</Button>
+              <Button primary xs>Button XS</Button>
+              <Button success sm>Button SM</Button>
               <Button>Button MD</Button>
-              <Button lg>Button LG</Button>
-              <Button xl>Button XL</Button>
+              <Button danger lg>Button LG</Button>
+              <Button warning xl>Button XL</Button>
+            </Row>
+            <Row flexWrap>
+              <Button filled  primary xs>Button XS</Button>
+              <Button filled  success sm>Button SM</Button>
+              <Button filled>Button MD</Button>
+              <Button filled  danger lg>Button LG</Button>
+              <Button filled  warning xl>Button XL</Button>
             </Row>
           </Card>
 

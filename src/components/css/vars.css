@@ -2,12 +2,21 @@
     /* Lightness Adjustment Variables for Hover/Active States */
     /* These control how much darker elements become on interaction */
     /* Outline/Default variants (light backgrounds - darken on interaction) */
-    --lightness-hover-outline: 0.05;
-    --lightness-active-outline: 0.10;
+    --lightness-hover-outline: 0.02;
+    --lightness-active-outline: 0.04;
 
     /* Filled variants (dark backgrounds - darken on interaction) */
-    --lightness-hover-filled: 0.05;
-    --lightness-active-filled: 0.10;
+    --lightness-hover-filled: 0.03;
+    --lightness-active-filled: 0.06;
+
+    /* Chroma Boost Variables - increase saturation to maintain vibrancy when darkening */
+    /* Outline/Default variants */
+    --chroma-boost-hover-outline: 3.2;
+    --chroma-boost-active-outline: 5.2;
+
+    /* Filled variants */
+    --chroma-boost-hover-filled: 1.1;
+    --chroma-boost-active-filled: 1.15;
 
     /* Text Colors */
     --color-text-default: var(--color-gray-900);
@@ -44,31 +53,28 @@
     --color-bg-danger: var(--color-red-50);
     --color-bg-warning: var(--color-amber-50);
     --color-bg-info: var(--color-cyan-50);
-    --color-bg-link: var(--color-blue-50);
 
-    /* UI Background Hover Colors - Calculated from base using oklch */
-    --color-bg-hover-default: oklch(from var(--color-bg-default) calc(l - var(--lightness-hover-outline)) c h);
-    --color-bg-hover-primary: oklch(from var(--color-bg-primary) calc(l - var(--lightness-hover-outline)) c h);
-    --color-bg-hover-secondary: oklch(from var(--color-bg-secondary) calc(l - var(--lightness-hover-outline)) c h);
-    --color-bg-hover-tertiary: oklch(from var(--color-bg-tertiary) calc(l - var(--lightness-hover-outline)) c h);
-    --color-bg-hover-accent: oklch(from var(--color-bg-accent) calc(l - var(--lightness-hover-outline)) c h);
-    --color-bg-hover-success: oklch(from var(--color-bg-success) calc(l - var(--lightness-hover-outline)) c h);
-    --color-bg-hover-danger: oklch(from var(--color-bg-danger) calc(l - var(--lightness-hover-outline)) c h);
-    --color-bg-hover-warning: oklch(from var(--color-bg-warning) calc(l - var(--lightness-hover-outline)) c h);
-    --color-bg-hover-info: oklch(from var(--color-bg-info) calc(l - var(--lightness-hover-outline)) c h);
-    --color-bg-hover-link: oklch(from var(--color-bg-link) calc(l - var(--lightness-hover-outline)) c h);
+    /* UI Background Hover Colors - Calculated from base using oklch with chroma boost */
+    --color-bg-hover-default: oklch(from var(--color-bg-default) calc(l - var(--lightness-hover-outline)) calc(c * var(--chroma-boost-hover-outline)) h);
+    --color-bg-hover-primary: oklch(from var(--color-bg-primary) calc(l - var(--lightness-hover-outline)) calc(c * var(--chroma-boost-hover-outline)) h);
+    --color-bg-hover-secondary: oklch(from var(--color-bg-secondary) calc(l - var(--lightness-hover-outline)) calc(c * var(--chroma-boost-hover-outline)) h);
+    --color-bg-hover-tertiary: oklch(from var(--color-bg-tertiary) calc(l - var(--lightness-hover-outline)) calc(c * var(--chroma-boost-hover-outline)) h);
+    --color-bg-hover-accent: oklch(from var(--color-bg-accent) calc(l - var(--lightness-hover-outline)) calc(c * var(--chroma-boost-hover-outline)) h);
+    --color-bg-hover-success: oklch(from var(--color-bg-success) calc(l - var(--lightness-hover-outline)) calc(c * var(--chroma-boost-hover-outline)) h);
+    --color-bg-hover-danger: oklch(from var(--color-bg-danger) calc(l - var(--lightness-hover-outline)) calc(c * var(--chroma-boost-hover-outline)) h);
+    --color-bg-hover-warning: oklch(from var(--color-bg-warning) calc(l - var(--lightness-hover-outline)) calc(c * var(--chroma-boost-hover-outline)) h);
+    --color-bg-hover-info: oklch(from var(--color-bg-info) calc(l - var(--lightness-hover-outline)) calc(c * var(--chroma-boost-hover-outline)) h);
 
-    /* UI Background Active Colors - Calculated from base using oklch */
-    --color-bg-active-default: oklch(from var(--color-bg-default) calc(l - var(--lightness-active-outline)) c h);
-    --color-bg-active-primary: oklch(from var(--color-bg-primary) calc(l - var(--lightness-active-outline)) c h);
-    --color-bg-active-secondary: oklch(from var(--color-bg-secondary) calc(l - var(--lightness-active-outline)) c h);
-    --color-bg-active-tertiary: oklch(from var(--color-bg-tertiary) calc(l - var(--lightness-active-outline)) c h);
-    --color-bg-active-accent: oklch(from var(--color-bg-accent) calc(l - var(--lightness-active-outline)) c h);
-    --color-bg-active-success: oklch(from var(--color-bg-success) calc(l - var(--lightness-active-outline)) c h);
-    --color-bg-active-danger: oklch(from var(--color-bg-danger) calc(l - var(--lightness-active-outline)) c h);
-    --color-bg-active-warning: oklch(from var(--color-bg-warning) calc(l - var(--lightness-active-outline)) c h);
-    --color-bg-active-info: oklch(from var(--color-bg-info) calc(l - var(--lightness-active-outline)) c h);
-    --color-bg-active-link: oklch(from var(--color-bg-link) calc(l - var(--lightness-active-outline)) c h);
+    /* UI Background Active Colors - Calculated from base using oklch with chroma boost */
+    --color-bg-active-default: oklch(from var(--color-bg-default) calc(l - var(--lightness-active-outline)) calc(c * var(--chroma-boost-active-outline)) h);
+    --color-bg-active-primary: oklch(from var(--color-bg-primary) calc(l - var(--lightness-active-outline)) calc(c * var(--chroma-boost-active-outline)) h);
+    --color-bg-active-secondary: oklch(from var(--color-bg-secondary) calc(l - var(--lightness-active-outline)) calc(c * var(--chroma-boost-active-outline)) h);
+    --color-bg-active-tertiary: oklch(from var(--color-bg-tertiary) calc(l - var(--lightness-active-outline)) calc(c * var(--chroma-boost-active-outline)) h);
+    --color-bg-active-accent: oklch(from var(--color-bg-accent) calc(l - var(--lightness-active-outline)) calc(c * var(--chroma-boost-active-outline)) h);
+    --color-bg-active-success: oklch(from var(--color-bg-success) calc(l - var(--lightness-active-outline)) calc(c * var(--chroma-boost-active-outline)) h);
+    --color-bg-active-danger: oklch(from var(--color-bg-danger) calc(l - var(--lightness-active-outline)) calc(c * var(--chroma-boost-active-outline)) h);
+    --color-bg-active-warning: oklch(from var(--color-bg-warning) calc(l - var(--lightness-active-outline)) calc(c * var(--chroma-boost-active-outline)) h);
+    --color-bg-active-info: oklch(from var(--color-bg-info) calc(l - var(--lightness-active-outline)) calc(c * var(--chroma-boost-active-outline)) h);
 
     /* Filled UI Background Colors */
     --color-bg-filled-default: var(--color-gray-800);
@@ -80,31 +86,28 @@
     --color-bg-filled-danger: var(--color-red-600);
     --color-bg-filled-warning: var(--color-amber-600);
     --color-bg-filled-info: var(--color-cyan-600);
-    --color-bg-filled-link: var(--color-blue-600);
 
-    /* Filled UI Hover Background Colors - Calculated from base using oklch */
-    --color-bg-filled-hover-default: oklch(from var(--color-bg-filled-default) calc(l - var(--lightness-hover-filled)) c h);
-    --color-bg-filled-hover-primary: oklch(from var(--color-bg-filled-primary) calc(l - var(--lightness-hover-filled)) c h);
-    --color-bg-filled-hover-secondary: oklch(from var(--color-bg-filled-secondary) calc(l - var(--lightness-hover-filled)) c h);
-    --color-bg-filled-hover-tertiary: oklch(from var(--color-bg-filled-tertiary) calc(l - var(--lightness-hover-filled)) c h);
-    --color-bg-filled-hover-accent: oklch(from var(--color-bg-filled-accent) calc(l - var(--lightness-hover-filled)) c h);
-    --color-bg-filled-hover-success: oklch(from var(--color-bg-filled-success) calc(l - var(--lightness-hover-filled)) c h);
-    --color-bg-filled-hover-danger: oklch(from var(--color-bg-filled-danger) calc(l - var(--lightness-hover-filled)) c h);
-    --color-bg-filled-hover-warning: oklch(from var(--color-bg-filled-warning) calc(l - var(--lightness-hover-filled)) c h);
-    --color-bg-filled-hover-info: oklch(from var(--color-bg-filled-info) calc(l - var(--lightness-hover-filled)) c h);
-    --color-bg-filled-hover-link: oklch(from var(--color-bg-filled-link) calc(l - var(--lightness-hover-filled)) c h);
+    /* Filled UI Hover Background Colors - Calculated from base using oklch with chroma boost */
+    --color-bg-filled-hover-default: oklch(from var(--color-bg-filled-default) calc(l - var(--lightness-hover-filled)) calc(c * var(--chroma-boost-hover-filled)) h);
+    --color-bg-filled-hover-primary: oklch(from var(--color-bg-filled-primary) calc(l - var(--lightness-hover-filled)) calc(c * var(--chroma-boost-hover-filled)) h);
+    --color-bg-filled-hover-secondary: oklch(from var(--color-bg-filled-secondary) calc(l - var(--lightness-hover-filled)) calc(c * var(--chroma-boost-hover-filled)) h);
+    --color-bg-filled-hover-tertiary: oklch(from var(--color-bg-filled-tertiary) calc(l - var(--lightness-hover-filled)) calc(c * var(--chroma-boost-hover-filled)) h);
+    --color-bg-filled-hover-accent: oklch(from var(--color-bg-filled-accent) calc(l - var(--lightness-hover-filled)) calc(c * var(--chroma-boost-hover-filled)) h);
+    --color-bg-filled-hover-success: oklch(from var(--color-bg-filled-success) calc(l - var(--lightness-hover-filled)) calc(c * var(--chroma-boost-hover-filled)) h);
+    --color-bg-filled-hover-danger: oklch(from var(--color-bg-filled-danger) calc(l - var(--lightness-hover-filled)) calc(c * var(--chroma-boost-hover-filled)) h);
+    --color-bg-filled-hover-warning: oklch(from var(--color-bg-filled-warning) calc(l - var(--lightness-hover-filled)) calc(c * var(--chroma-boost-hover-filled)) h);
+    --color-bg-filled-hover-info: oklch(from var(--color-bg-filled-info) calc(l - var(--lightness-hover-filled)) calc(c * var(--chroma-boost-hover-filled)) h);
 
-    /* Filled UI Active Background Colors - Calculated from base using oklch */
-    --color-bg-filled-active-default: oklch(from var(--color-bg-filled-default) calc(l - var(--lightness-active-filled)) c h);
-    --color-bg-filled-active-primary: oklch(from var(--color-bg-filled-primary) calc(l - var(--lightness-active-filled)) c h);
-    --color-bg-filled-active-secondary: oklch(from var(--color-bg-filled-secondary) calc(l - var(--lightness-active-filled)) c h);
-    --color-bg-filled-active-tertiary: oklch(from var(--color-bg-filled-tertiary) calc(l - var(--lightness-active-filled)) c h);
-    --color-bg-filled-active-accent: oklch(from var(--color-bg-filled-accent) calc(l - var(--lightness-active-filled)) c h);
-    --color-bg-filled-active-success: oklch(from var(--color-bg-filled-success) calc(l - var(--lightness-active-filled)) c h);
-    --color-bg-filled-active-danger: oklch(from var(--color-bg-filled-danger) calc(l - var(--lightness-active-filled)) c h);
-    --color-bg-filled-active-warning: oklch(from var(--color-bg-filled-warning) calc(l - var(--lightness-active-filled)) c h);
-    --color-bg-filled-active-info: oklch(from var(--color-bg-filled-info) calc(l - var(--lightness-active-filled)) c h);
-    --color-bg-filled-active-link: oklch(from var(--color-bg-filled-link) calc(l - var(--lightness-active-filled)) c h);
+    /* Filled UI Active Background Colors - Calculated from base using oklch with chroma boost */
+    --color-bg-filled-active-default: oklch(from var(--color-bg-filled-default) calc(l - var(--lightness-active-filled)) calc(c * var(--chroma-boost-active-filled)) h);
+    --color-bg-filled-active-primary: oklch(from var(--color-bg-filled-primary) calc(l - var(--lightness-active-filled)) calc(c * var(--chroma-boost-active-filled)) h);
+    --color-bg-filled-active-secondary: oklch(from var(--color-bg-filled-secondary) calc(l - var(--lightness-active-filled)) calc(c * var(--chroma-boost-active-filled)) h);
+    --color-bg-filled-active-tertiary: oklch(from var(--color-bg-filled-tertiary) calc(l - var(--lightness-active-filled)) calc(c * var(--chroma-boost-active-filled)) h);
+    --color-bg-filled-active-accent: oklch(from var(--color-bg-filled-accent) calc(l - var(--lightness-active-filled)) calc(c * var(--chroma-boost-active-filled)) h);
+    --color-bg-filled-active-success: oklch(from var(--color-bg-filled-success) calc(l - var(--lightness-active-filled)) calc(c * var(--chroma-boost-active-filled)) h);
+    --color-bg-filled-active-danger: oklch(from var(--color-bg-filled-danger) calc(l - var(--lightness-active-filled)) calc(c * var(--chroma-boost-active-filled)) h);
+    --color-bg-filled-active-warning: oklch(from var(--color-bg-filled-warning) calc(l - var(--lightness-active-filled)) calc(c * var(--chroma-boost-active-filled)) h);
+    --color-bg-filled-active-info: oklch(from var(--color-bg-filled-info) calc(l - var(--lightness-active-filled)) calc(c * var(--chroma-boost-active-filled)) h);
 
     /* Layout Background Colors */
     --color-bg-layout-default: var(--color-white);
@@ -117,7 +120,6 @@
     --color-bg-layout-warning: var(--color-yellow-50);
     --color-bg-layout-info: var(--color-blue-50);
     --color-bg-layout-transparent: transparent;
-    --color-bg-layout-link: var(--color-blue-50);
 
     /* Layout Filled Background Colors */
     --color-bg-filled-layout-default: var(--color-gray-700);
@@ -130,14 +132,12 @@
     --color-bg-filled-layout-warning: var(--color-yellow-800);
     --color-bg-filled-layout-info: var(--color-blue-700);
     --color-bg-filled-layout-transparent: transparent;
-    --color-bg-filled-layout-link: var(--color-blue-700);
 
     /* Border Colors */
     --color-border-default: var(--color-gray-200);
     --color-border-primary: var(--color-blue-200);
     --color-border-secondary: var(--color-gray-200);
     --color-border-tertiary: var(--color-gray-300);
-    --color-border-link: var(--color-blue-200);
     --color-border-accent: var(--color-rose-200);
     --color-border-success: var(--color-green-200);
     --color-border-danger: var(--color-red-200);
@@ -154,7 +154,6 @@
     --color-border-filled-danger: var(--color-red-600);
     --color-border-filled-warning: var(--color-yellow-600);
     --color-border-filled-info: var(--color-blue-600);
-    --color-border-filled-link: var(--color-blue-600);
 
     --layout-spacing: var(--spacing);
     --ui-spacing: var(--spacing);
