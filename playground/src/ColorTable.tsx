@@ -23,7 +23,7 @@ interface ColorSwatchProps {
 function ColorSwatch({ cssVar, label }: ColorSwatchProps) {
   return (
     <div
-      className="h-10 rounded flex items-center justify-center"
+      className="h-10 flex items-center justify-center"
       style={{ backgroundColor: `var(${cssVar})` }}
       title={`${cssVar}${label ? ` (${label})` : ''}`}
     />
