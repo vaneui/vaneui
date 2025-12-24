@@ -42,6 +42,7 @@
     }
   },
   "scripts": {
+    "props:generate": "tsx scripts/generatePropDescriptions.ts",
     "clean": "rimraf dist",
     "type-check": "tsc --noEmit",
     "lint": "eslint src playground --ext .ts,.tsx",
@@ -49,7 +50,7 @@
     "build:js": "npm run type-check && npm run lint && npm run clean && rollup -c --bundleConfigAsCjs && npm run build:declarations",
     "build:css:vars": "npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css",
     "build:css:ui": "npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css",
-    "build": "npm run clean && npm run build:js && npm run build:css:ui && npm run build:css:vars",
+    "build": "npm run props:generate && npm run clean && npm run build:js && npm run build:css:ui && npm run build:css:vars",
     "test": "tsc --noEmit && node node_modules/jest/bin/jest.js",
     "playground": "npm run build:css:ui && npm run build:css:vars && concurrently --kill-others --raw \"npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css --watch\" \"npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css --watch\" \"cd playground && npm run dev\""
   },
