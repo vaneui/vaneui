@@ -23,7 +23,7 @@ import type {
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
 
-/** Typography component props (for Text, PageTitle, SectionTitle, Title, Link, ListItem) */
+/** Typography component props (for Text, PageTitle, SectionTitle, Title, ListItem) */
 export type TypographyProps = BaseProps &
   FontWeightProps &
   FontStyleProps &
@@ -44,6 +44,31 @@ export type TypographyProps = BaseProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */
+  href?: string;
+  /** Custom HTML tag or React component to render as */
+  tag?: React.ElementType;
+};
+
+/** Link component props (no appearance props - Link uses fixed link color) */
+export type LinkProps = BaseProps &
+  FontWeightProps &
+  FontStyleProps &
+  TextDecorationProps &
+  TextTransformProps &
+  FontFamilyProps &
+  TextAlignProps &
+  SizeProps &
+  HideProps &
+  ItemsProps &
+  JustifyProps &
+  PositionProps &
+  DisplayProps &
+  OverflowProps &
+  TransparentProps &
+  VariantProps &
+  Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
+  Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
+  /** URL to navigate to */
   href?: string;
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
@@ -226,9 +251,8 @@ Text.displayName = 'Text';
 /**
  * An anchor link component (a).
  *
- * Renders a hyperlink with hover underline effect. Inherits text styling
- * from parent or can be customized with typography props. Use for
- * navigation links and clickable text.
+ * Renders a hyperlink with hover underline effect. Link uses a fixed link color
+ * and does not support appearance props. Use for navigation links and clickable text.
  *
  * @example
  * ```tsx
@@ -238,8 +262,8 @@ Text.displayName = 'Text';
  *
  * @example
  * ```tsx
- * // Styled link
- * <Link href="/contact" primary semibold>Contact</Link>
+ * // Styled link with size and font weight
+ * <Link href="/contact" lg semibold>Contact</Link>
  * ```
  *
  * @example
@@ -250,9 +274,9 @@ Text.displayName = 'Text';
  * </Link>
  * ```
  *
- * @see {@link TypographyProps} for all available props
+ * @see {@link LinkProps} for all available props
  */
-export const Link = forwardRef<HTMLAnchorElement, TypographyProps>(
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   function Link(props, ref) {
     const theme = useTheme();
     return <ThemedComponent ref={ref} theme={theme.link} {...props} />

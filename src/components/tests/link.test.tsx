@@ -75,22 +75,6 @@ describe('Link Component Tests', () => {
       });
     });
 
-    it('should always use link color regardless of appearance props', () => {
-      const appearances = ['primary', 'secondary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
-      
-      appearances.forEach(appearance => {
-        const {container} = render(
-          <ThemeProvider theme={defaultTheme}>
-            <Link href="#test" {...{[appearance]: true}}>{appearance} link</Link>
-          </ThemeProvider>
-        );
-
-        const link = container.querySelector('a');
-        // Link always uses link color, not the appearance color
-        expect(link).toHaveClass('text-(--color-text-link)');
-      });
-    });
-
     it('should support filled and outline variants', () => {
       const {container: outlineContainer} = render(
         <ThemeProvider theme={defaultTheme}>
@@ -110,18 +94,6 @@ describe('Link Component Tests', () => {
       // Link uses link-specific text colors only (no background colors)
       expect(outlineLink).toHaveClass('text-(--color-text-link)');
       expect(filledLink).toHaveClass('text-(--color-text-filled-link)');
-    });
-
-    it('should use link color by default when no appearance prop is provided', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Link href="#test">Default link</Link>
-        </ThemeProvider>
-      );
-
-      const link = container.querySelector('a');
-      // Link uses link color by default
-      expect(link).toHaveClass('text-(--color-text-link)');
     });
 
     it('should support all overflow variants', () => {
