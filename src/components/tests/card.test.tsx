@@ -21,7 +21,7 @@ describe('Card Component Tests', () => {
       expect(card).toBeInTheDocument();
       expect(card).toHaveClass('px-(--px) [--py-unit:6]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex');
       expect(card).toHaveClass('text-(--color-text-primary)'); // primary appearance
-      expect(card).toHaveClass('bg-(--color-bg-layout-primary)', 'rounded-(--br)', 'flex-col');
+      expect(card).toHaveClass('[background:var(--color-bg-layout-primary)]', 'rounded-(--br)', 'flex-col');
       expect(card).toHaveClass('border-(--color-border-primary)');
     });
   });
@@ -37,7 +37,7 @@ describe('Card Component Tests', () => {
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
       expect(card).toHaveClass('text-(--color-text-primary)'); // primary text color
-      expect(card).toHaveClass('bg-(--color-bg-layout-primary)'); // primary background
+      expect(card).toHaveClass('[background:var(--color-bg-layout-primary)]'); // primary background
     });
 
     it('Card with secondary variant should have secondary classes', () => {
@@ -50,7 +50,7 @@ describe('Card Component Tests', () => {
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
       expect(card).toHaveClass('text-(--color-text-secondary)'); // secondary text color
-      expect(card).toHaveClass('bg-(--color-bg-layout-secondary)'); // secondary background
+      expect(card).toHaveClass('[background:var(--color-bg-layout-secondary)]'); // secondary background
     });
 
     it('Card with transparent background should have transparent classes', () => {
@@ -62,7 +62,7 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('bg-transparent'); // transparent background
+      expect(card).toHaveClass('[background:transparent]'); // transparent background
     });
   });
 
@@ -242,8 +242,8 @@ describe('Card Component Tests', () => {
       expect(filledCard).toHaveClass('text-(--color-text-filled-primary)');
       
       // Background colors
-      expect(outlineCard).toHaveClass('bg-(--color-bg-layout-primary)');
-      expect(filledCard).toHaveClass('bg-(--color-bg-filled-layout-primary)');
+      expect(outlineCard).toHaveClass('[background:var(--color-bg-layout-primary)]');
+      expect(filledCard).toHaveClass('[background:var(--color-bg-filled-layout-primary)]');
       
       // Border colors
       expect(outlineCard).toHaveClass('border-(--color-border-primary)');

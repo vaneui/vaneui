@@ -59,7 +59,7 @@ describe('Transparent Key Behavior', () => {
       const element = container.firstChild as HTMLElement;
       
       // Background should be transparent
-      expect(element).toHaveClass('bg-transparent');
+      expect(element).toHaveClass('[background:transparent]');
       
       // Text should still use appearance-based color (not transparent)
       expect(element).toHaveClass('text-(--color-text-primary)');
@@ -75,7 +75,7 @@ describe('Transparent Key Behavior', () => {
       const element = container.firstChild as HTMLElement;
       
       // Background should be transparent
-      expect(element).toHaveClass('bg-transparent');
+      expect(element).toHaveClass('[background:transparent]');
       
       // Text should still use appearance-based color (not transparent)
       expect(element).toHaveClass('text-(--color-text-primary)');
@@ -91,7 +91,7 @@ describe('Transparent Key Behavior', () => {
       const element = container.firstChild as HTMLElement;
       
       // Background should be transparent
-      expect(element).toHaveClass('bg-transparent');
+      expect(element).toHaveClass('[background:transparent]');
       
       // Text should still use appearance-based color (not transparent)
       expect(element).toHaveClass('text-(--color-text-primary)');
@@ -107,10 +107,10 @@ describe('Transparent Key Behavior', () => {
       const element = container.firstChild as HTMLElement;
       
       // Background should use primary color
-      expect(element).toHaveClass('bg-(--color-bg-primary)');
+      expect(element).toHaveClass('[background:var(--color-bg-primary)]');
       
       // Should not have transparent background
-      expect(element).not.toHaveClass('bg-transparent');
+      expect(element).not.toHaveClass('[background:transparent]');
     });
   });
 
@@ -124,7 +124,7 @@ describe('Transparent Key Behavior', () => {
       const element = container.firstChild as HTMLElement;
       
       // Background should be transparent
-      expect(element).toHaveClass('bg-transparent');
+      expect(element).toHaveClass('[background:transparent]');
       
       // Border should still use appearance-based color (not transparent)
       expect(element).toHaveClass('border-(--color-border-primary)');
@@ -157,7 +157,7 @@ describe('Transparent Key Behavior', () => {
       const element = container.firstChild as HTMLElement;
       
       // Background should be transparent
-      expect(element).toHaveClass('bg-transparent');
+      expect(element).toHaveClass('[background:transparent]');
       
       // Text should still use filled appearance-based color
       expect(element).toHaveClass('text-(--color-text-filled-primary)');

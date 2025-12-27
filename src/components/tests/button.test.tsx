@@ -99,7 +99,7 @@ describe('Button Component Tests', () => {
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
       expect(button).toHaveClass('text-(--color-text-primary)'); // primary color
-      expect(button).toHaveClass('bg-(--color-bg-primary)'); // primary background
+      expect(button).toHaveClass('[background:var(--color-bg-primary)]'); // primary background
       expect(button).toHaveClass('px-(--ui-px)', 'py-(--ui-py)'); // padding
     });
 
@@ -113,7 +113,7 @@ describe('Button Component Tests', () => {
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
       expect(button).toHaveClass('text-(--color-text-secondary)'); // secondary color
-      expect(button).toHaveClass('bg-(--color-bg-secondary)'); // secondary background
+      expect(button).toHaveClass('[background:var(--color-bg-secondary)]'); // secondary background
     });
   });
 

@@ -106,7 +106,7 @@ describe('Simple Nested ThemeProvider Test', () => {
     const innerMerged = container.querySelector('.inner-merged');
 
     // Outer button should have primary and lg
-    expect(outerButton).toHaveClass('bg-(--color-bg-primary)');
+    expect(outerButton).toHaveClass('[background:var(--color-bg-primary)]');
     expect(outerButton).toHaveClass('[--fs-unit:9]');
     expect(outerButton).toHaveClass('outer-primary-class');
 
@@ -114,7 +114,7 @@ describe('Simple Nested ThemeProvider Test', () => {
     // - Have secondary (from inner provider)
     // - Keep lg (inherited from outer provider)
     // - Have both extra classes available
-    expect(innerMerged).toHaveClass('bg-(--color-bg-secondary)');
+    expect(innerMerged).toHaveClass('[background:var(--color-bg-secondary)]');
     expect(innerMerged).toHaveClass('[--fs-unit:9]'); // inherited from outer
     expect(innerMerged).toHaveClass('inner-secondary-class');
   });
@@ -145,7 +145,7 @@ describe('Simple Nested ThemeProvider Test', () => {
     const innerReplaced = container.querySelector('.inner-replaced');
 
     // Outer button should have primary and lg
-    expect(outerButton).toHaveClass('bg-(--color-bg-primary)');
+    expect(outerButton).toHaveClass('[background:var(--color-bg-primary)]');
     expect(outerButton).toHaveClass('[--fs-unit:9]');
     expect(outerButton).toHaveClass('outer-primary-class');
 
@@ -153,7 +153,7 @@ describe('Simple Nested ThemeProvider Test', () => {
     // - Have secondary (from inner provider)
     // - NOT have lg (not inherited due to replace)
     // - Only have inner extra classes
-    expect(innerReplaced).toHaveClass('bg-(--color-bg-secondary)');
+    expect(innerReplaced).toHaveClass('[background:var(--color-bg-secondary)]');
     expect(innerReplaced).not.toHaveClass('[--fs-unit:9]'); // NOT inherited
     expect(innerReplaced).toHaveClass('inner-secondary-class');
     expect(innerReplaced).not.toHaveClass('outer-primary-class'); // NOT inherited
@@ -247,18 +247,18 @@ describe('Simple Nested ThemeProvider Test', () => {
     const level4 = container.querySelector('.level-4-merged-after-replace');
 
     // Level 1: Has primary and lg
-    expect(level1).toHaveClass('bg-(--color-bg-primary)');
+    expect(level1).toHaveClass('[background:var(--color-bg-primary)]');
     expect(level1).toHaveClass('[--fs-unit:9]');
     expect(level1).toHaveClass('level-1-class');
 
     // Level 2: Inherits from level 1 and adds filled
-    expect(level2).toHaveClass('bg-(--color-bg-filled-primary)'); // filled variant
+    expect(level2).toHaveClass('[background:var(--color-bg-filled-primary)]'); // filled variant
     expect(level2).toHaveClass('[--fs-unit:9]'); // inherited
     expect(level2).toHaveClass('shadow-md'); // filled
     expect(level2).toHaveClass('level-2-class');
 
     // Level 3: Replace strategy - starts fresh from defaultTheme
-    expect(level3).toHaveClass('bg-(--color-bg-secondary)');
+    expect(level3).toHaveClass('[background:var(--color-bg-secondary)]');
     expect(level3).toHaveClass('[--fs-unit:7]', 'text-(length:--fs)'); // sm, not lg
     expect(level3).not.toHaveClass('[--fs-unit:9]'); // NOT inherited
     expect(level3).not.toHaveClass('shadow-md'); // NOT inherited
@@ -267,7 +267,7 @@ describe('Simple Nested ThemeProvider Test', () => {
     expect(level3).not.toHaveClass('level-2-class'); // NOT inherited
 
     // Level 4: Merges with level 3 (not level 1 or 2)
-    expect(level4).toHaveClass('bg-(--color-bg-secondary)'); // inherited from level 3
+    expect(level4).toHaveClass('[background:var(--color-bg-secondary)]'); // inherited from level 3
     expect(level4).toHaveClass('[--fs-unit:7]', 'text-(length:--fs)'); // sm inherited from level 3
     expect(level4).toHaveClass('level-4-class');
     expect(level4).not.toHaveClass('level-1-class'); // NOT inherited (blocked by replace)

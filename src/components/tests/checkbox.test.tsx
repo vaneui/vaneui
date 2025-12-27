@@ -114,7 +114,7 @@ describe('Checkbox Component Tests', () => {
         const checkbox = container.querySelector('input[type="checkbox"]');
         expect(checkbox).toBeInTheDocument();
         // Check for checked state classes using filled theme (default)
-        expect(checkbox).toHaveClass(`checked:bg-(--color-bg-filled-${appearance})`);
+        expect(checkbox).toHaveClass(`checked:[background:var(--color-bg-filled-${appearance})]`);
         // Border appearance is separate from checked state
         expect(checkbox).toHaveClass(`border-(--color-border-filled-${appearance})`);
       });
@@ -203,7 +203,7 @@ describe('Checkbox Component Tests', () => {
 
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
-      expect(checkbox).toHaveClass('checked:bg-(--color-bg-filled-primary)');
+      expect(checkbox).toHaveClass('checked:[background:var(--color-bg-filled-primary)]');
       // Border is not tied to checked state but to regular border appearance
       expect(checkbox).toHaveClass('border-(--color-border-filled-primary)');
       
@@ -224,7 +224,7 @@ describe('Checkbox Component Tests', () => {
 
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
-      expect(checkbox).toHaveClass('checked:bg-(--color-bg-secondary)');
+      expect(checkbox).toHaveClass('checked:[background:var(--color-bg-secondary)]');
       // Outline variant uses regular border colors
       expect(checkbox).toHaveClass('border-(--color-border-secondary)');
     });
@@ -239,7 +239,7 @@ describe('Checkbox Component Tests', () => {
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
       // Based on the theme defaults showing filled: true
-      expect(checkbox).toHaveClass('checked:bg-(--color-bg-filled-accent)');
+      expect(checkbox).toHaveClass('checked:[background:var(--color-bg-filled-accent)]');
       // Border is separate from checked state
       expect(checkbox).toHaveClass('border-(--color-border-filled-accent)');
     });

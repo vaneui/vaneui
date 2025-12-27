@@ -146,7 +146,7 @@ describe('Nested ThemeProvider Tests', () => {
       const innerButton = container.querySelector('.inner-button');
 
       // Outer button should have primary appearance and its extra classes
-      expect(outerButton).toHaveClass('bg-(--color-bg-primary)');
+      expect(outerButton).toHaveClass('[background:var(--color-bg-primary)]');
       expect(outerButton).toHaveClass('transform', 'hover:scale-105');
 
       // Inner button should have lg size and its extra classes from inner override
@@ -240,12 +240,12 @@ describe('Nested ThemeProvider Tests', () => {
       const outerBadge2 = container.querySelector('.outer-badge-2');
 
       // Outer badges should have success appearance
-      expect(outerBadge1).toHaveClass('bg-(--color-bg-success)');
-      expect(outerBadge2).toHaveClass('bg-(--color-bg-success)');
+      expect(outerBadge1).toHaveClass('[background:var(--color-bg-success)]');
+      expect(outerBadge2).toHaveClass('[background:var(--color-bg-success)]');
 
       // Inner badge should have danger appearance
-      expect(innerBadge).toHaveClass('bg-(--color-bg-danger)');
-      expect(innerBadge).not.toHaveClass('bg-(--color-bg-success)');
+      expect(innerBadge).toHaveClass('[background:var(--color-bg-danger)]');
+      expect(innerBadge).not.toHaveClass('[background:var(--color-bg-success)]');
     });
   });
 
@@ -313,15 +313,15 @@ describe('Nested ThemeProvider Tests', () => {
 
       // Outer button checks
       // outline variant = true from themeOverride + primary & lg from themeDefaults
-      expect(outerButton).toHaveClass('bg-(--color-bg-primary)'); // outline variant with primary appearance
+      expect(outerButton).toHaveClass('[background:var(--color-bg-primary)]'); // outline variant with primary appearance
       expect(outerButton).toHaveClass('border-(--color-border-primary)'); // primary from defaults
       expect(outerButton).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)'); // lg from defaults
       expect(outerButton).toHaveClass('outer-primary-class', 'outer-lg-class'); // extra classes
 
       // Inner button checks
       // filled variant = true from themeOverride + secondary & sm from themeDefaults
-      expect(innerButton).toHaveClass('bg-(--color-bg-filled-secondary)'); // filled variant with secondary appearance
-      expect(innerButton).not.toHaveClass('bg-(--color-bg-secondary)'); // not outline variant
+      expect(innerButton).toHaveClass('[background:var(--color-bg-filled-secondary)]'); // filled variant with secondary appearance
+      expect(innerButton).not.toHaveClass('[background:var(--color-bg-secondary)]'); // not outline variant
       expect(innerButton).toHaveClass('[--fs-unit:7]', 'text-(length:--fs)'); // sm from defaults
       expect(innerButton).toHaveClass('inner-secondary-class', 'inner-sm-class'); // extra classes
       

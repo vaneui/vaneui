@@ -48,7 +48,7 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-(length:--fs)');
       expect(codeElement).toHaveClass('px-(--ui-px)');
       expect(codeElement).toHaveClass('py-(--ui-py)');
-      expect(codeElement).toHaveClass('bg-(--color-bg-primary)');
+      expect(codeElement).toHaveClass('[background:var(--color-bg-primary)]');
       expect(codeElement).toHaveClass('text-(--color-text-primary)');
       expect(codeElement).toHaveClass('rounded-(--ui-br)');
       expect(codeElement).toHaveClass('font-mono');
@@ -114,7 +114,7 @@ describe('Code Component', () => {
       const { container } = render(<Code primary>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-primary)');
+      expect(codeElement).toHaveClass('[background:var(--color-bg-primary)]');
       expect(codeElement).toHaveClass('text-(--color-text-primary)');
       expect(codeElement).toHaveClass('ring-(--color-border-primary)');
     });
@@ -123,7 +123,7 @@ describe('Code Component', () => {
       const { container } = render(<Code secondary>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-secondary)');
+      expect(codeElement).toHaveClass('[background:var(--color-bg-secondary)]');
       expect(codeElement).toHaveClass('text-(--color-text-secondary)');
       expect(codeElement).toHaveClass('ring-(--color-border-secondary)');
     });
@@ -132,7 +132,7 @@ describe('Code Component', () => {
       const { container } = render(<Code success>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-success)');
+      expect(codeElement).toHaveClass('[background:var(--color-bg-success)]');
       expect(codeElement).toHaveClass('text-(--color-text-success)');
       expect(codeElement).toHaveClass('ring-(--color-border-success)');
     });
@@ -141,7 +141,7 @@ describe('Code Component', () => {
       const { container } = render(<Code danger>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-danger)');
+      expect(codeElement).toHaveClass('[background:var(--color-bg-danger)]');
       expect(codeElement).toHaveClass('text-(--color-text-danger)');
       expect(codeElement).toHaveClass('ring-(--color-border-danger)');
     });
@@ -152,15 +152,15 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-primary)');
-      expect(codeElement).not.toHaveClass('bg-(--color-bg-filled-primary)');
+      expect(codeElement).toHaveClass('[background:var(--color-bg-primary)]');
+      expect(codeElement).not.toHaveClass('[background:var(--color-bg-filled-primary)]');
     });
 
     it('should apply filled variant when specified', () => {
       const { container } = render(<Code filled>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-filled-primary)');
+      expect(codeElement).toHaveClass('[background:var(--color-bg-filled-primary)]');
       expect(codeElement).toHaveClass('text-(--color-text-filled-primary)');
     });
 
@@ -168,7 +168,7 @@ describe('Code Component', () => {
       const { container } = render(<Code filled primary>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-filled-primary)');
+      expect(codeElement).toHaveClass('[background:var(--color-bg-filled-primary)]');
       expect(codeElement).toHaveClass('text-(--color-text-filled-primary)');
     });
   });
@@ -347,7 +347,7 @@ describe('Code Component', () => {
 
       expect(codeElement).toHaveClass('[--fs-unit:5]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
-      expect(codeElement).toHaveClass('bg-(--color-bg-filled-primary)');
+      expect(codeElement).toHaveClass('[background:var(--color-bg-filled-primary)]');
       expect(codeElement).toHaveClass('rounded-full');
       expect(codeElement).toHaveClass('font-mono');
       expect(codeElement).toHaveClass('font-bold');
@@ -360,7 +360,7 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('bg-(--color-bg-primary)');
+      expect(codeElement).toHaveClass('[background:var(--color-bg-primary)]');
       expect(codeElement).toHaveClass('text-(--color-text-primary)');
     });
 

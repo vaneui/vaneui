@@ -168,7 +168,7 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('bg-(--color-bg-layout-accent)');
+      expect(stack).toHaveClass('[background:var(--color-bg-layout-accent)]');
     });
 
     it('should support appearance variants for text color', () => {
@@ -209,8 +209,8 @@ describe('Stack Component Tests', () => {
       expect(filledStack).toHaveClass('text-(--color-text-filled-primary)');
       
       // Background colors
-      expect(outlineStack).toHaveClass('bg-(--color-bg-layout-primary)');
-      expect(filledStack).toHaveClass('bg-(--color-bg-filled-layout-primary)');
+      expect(outlineStack).toHaveClass('[background:var(--color-bg-layout-primary)]');
+      expect(filledStack).toHaveClass('[background:var(--color-bg-filled-layout-primary)]');
       
       // Border colors
       expect(outlineStack).toHaveClass('border-(--color-border-primary)');
@@ -231,7 +231,7 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('bg-transparent');
+      expect(stack).toHaveClass('[background:transparent]');
     });
 
     it('should support layout positioning', () => {

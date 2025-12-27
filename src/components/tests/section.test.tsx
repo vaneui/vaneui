@@ -90,8 +90,8 @@ describe('Section Component Tests', () => {
       expect(filledSection).toHaveClass('text-(--color-text-filled-primary)');
       
       // Background colors
-      expect(outlineSection).toHaveClass('bg-(--color-bg-layout-primary)');
-      expect(filledSection).toHaveClass('bg-(--color-bg-filled-layout-primary)');
+      expect(outlineSection).toHaveClass('[background:var(--color-bg-layout-primary)]');
+      expect(filledSection).toHaveClass('[background:var(--color-bg-filled-layout-primary)]');
       
       // Border colors
       expect(outlineSection).toHaveClass('border-(--color-border-primary)');

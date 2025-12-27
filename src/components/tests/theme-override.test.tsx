@@ -168,7 +168,7 @@ describe('Theme Override Tests', () => {
       const primaryOutline = container.querySelector('.combined-test-3');
 
       // Primary button should have default primary styling + size defaults
-      expect(primaryDefault).toHaveClass('bg-(--color-bg-primary)');
+      expect(primaryDefault).toHaveClass('[background:var(--color-bg-primary)]');
       expect(primaryDefault).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)'); // lg from themeDefaults
       expect(primaryDefault).toHaveClass('rounded-(--ui-br)'); // lg is the actual size being applied
 
