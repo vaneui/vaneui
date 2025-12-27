@@ -216,7 +216,7 @@ describe('Theme Override Tests', () => {
       expect(button).toHaveClass('bg-gradient-to-r');
       expect(button).toHaveClass('from-indigo-500');
       expect(button).toHaveClass('to-purple-600');
-      expect(button).toHaveClass('border'); // border width from BorderTheme  
+      expect(button).toHaveClass('border-[length:var(--bw)]'); // border width from BorderTheme  
       expect(button).toHaveClass('border-indigo-400');
       expect(button).toHaveClass('font-semibold'); // from themeDefaults
       expect(button).toHaveClass('[--fs-unit:10]', 'text-(length:--fs)'); // xl from themeDefaults

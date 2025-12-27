@@ -199,7 +199,7 @@ describe('Row Component Tests', () => {
       );
 
       const row = container.querySelector('div');
-      expect(row).toHaveClass('border');
+      expect(row).toHaveClass('border-[length:var(--bw)]');
       expect(row).toHaveClass('border-(--color-border-primary)');
       expect(row).toHaveClass('ring');
       expect(row).toHaveClass('ring-(--color-border-primary)');

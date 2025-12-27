@@ -182,7 +182,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('border');
+        expect(button).toHaveClass('border-[length:var(--bw)]');
       });
 
       it('should not apply border classes when noBorder prop is true', () => {
@@ -193,7 +193,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).not.toHaveClass('border');
+        expect(button).not.toHaveClass('border-[length:var(--bw)]');
         // Should not have any border-related classes
         expect(button!.className).not.toMatch(/\bborder\b(?!-)/);
       });
@@ -206,7 +206,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).not.toHaveClass('border');
+        expect(button).not.toHaveClass('border-[length:var(--bw)]');
       });
 
       it('should apply border classes for different appearance variants when border is enabled', () => {
@@ -223,7 +223,7 @@ describe('Button Component Tests', () => {
         const dangerButton = container.querySelector('.border-danger');
 
         [primaryButton, secondaryButton, dangerButton].forEach(button => {
-          expect(button).toHaveClass('border');
+          expect(button).toHaveClass('border-[length:var(--bw)]');
         });
       });
     });
@@ -305,7 +305,7 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         // Should have border classes
-        expect(button).toHaveClass('border');
+        expect(button).toHaveClass('border-[length:var(--bw)]');
         // Should have ring classes
         expect(button).toHaveClass('ring', 'ring-inset');
         // RingTheme now has empty hover and active defaults
@@ -322,7 +322,7 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         // Should not have border classes
-        expect(button).not.toHaveClass('border');
+        expect(button).not.toHaveClass('border-[length:var(--bw)]');
         expect(button!.className).not.toMatch(/\bborder\b(?!-)/);
         // Should not have ring classes
         expect(button).not.toHaveClass('ring');
@@ -338,7 +338,7 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         // Should have border classes
-        expect(button).toHaveClass('border');
+        expect(button).toHaveClass('border-[length:var(--bw)]');
         // Should not have ring classes
         expect(button).not.toHaveClass('ring');
         expect(button!.className).not.toMatch(/\bring\b(?!-)/);
@@ -357,7 +357,7 @@ describe('Button Component Tests', () => {
         // RingTheme now has empty hover and active defaults
         expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
         // Should not have border classes
-        expect(button).not.toHaveClass('border');
+        expect(button).not.toHaveClass('border-[length:var(--bw)]');
         expect(button!.className).not.toMatch(/\bborder\b(?!-)/);
       });
     });

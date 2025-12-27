@@ -4,19 +4,19 @@ import { BorderKey, BORDER_KEYS } from "../../props";
 
 export class BorderTheme extends BaseTheme implements Record<BorderKey, string> {
   /** Show border - adds appearance-based border styling */
-  border: string = "border";
+  border: string = "border-[length:var(--bw)]";
   /** Show top border */
-  borderT: string = "border-t";
+  borderT: string = "border-t-[length:var(--bw)]";
   /** Show bottom border */
-  borderB: string = "border-b";
+  borderB: string = "border-b-[length:var(--bw)]";
   /** Show left border */
-  borderL: string = "border-l";
+  borderL: string = "border-l-[length:var(--bw)]";
   /** Show right border */
-  borderR: string = "border-r";
+  borderR: string = "border-r-[length:var(--bw)]";
   /** Show horizontal borders (left and right) */
-  borderX: string = "border-x";
+  borderX: string = "border-x-[length:var(--bw)]";
   /** Show vertical borders (top and bottom) */
-  borderY: string = "border-y";
+  borderY: string = "border-y-[length:var(--bw)]";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const classes: string[] = [];

@@ -154,6 +154,7 @@
     --py-unit: 1;
     --br-unit: 1;
     --size-unit: 1;
+    --bw: 1px; /* Border width */
 }
 
 @layer base {

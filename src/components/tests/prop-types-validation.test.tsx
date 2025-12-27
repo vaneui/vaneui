@@ -120,7 +120,7 @@ describe('Component Prop Type Validation', () => {
       
       // Component props should be filtered out from DOM attributes
       expect(rowElement.hasAttribute('rounded')).toBe(false);
-      expect(rowElement.hasAttribute('border')).toBe(false);
+      expect(rowElement.hasAttribute('border-[length:var(--bw)]')).toBe(false);
       expect(rowElement.hasAttribute('primary')).toBe(false);
       
       // But styling should be applied (check for rounded classes)

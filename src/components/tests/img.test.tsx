@@ -57,7 +57,7 @@ describe('Img Component Tests', () => {
 
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
-      expect(img).toHaveClass('border');
+      expect(img).toHaveClass('border-[length:var(--bw)]');
       expect(img).toHaveClass('border-(--color-border-primary)');
     });
 

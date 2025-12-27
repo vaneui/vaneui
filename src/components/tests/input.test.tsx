@@ -51,7 +51,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       // Border is not enabled by default based on current theme defaults
-      expect(input).not.toHaveClass('border');
+      expect(input).not.toHaveClass('border-[length:var(--bw)]');
       // Ring is enabled by default
       expect(input).toHaveClass('ring', 'ring-inset'); // ring enabled
       expect(input).toHaveClass('ring-(--color-border-primary)'); // ring color
@@ -249,7 +249,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('border'); // border enabled
+      expect(input).toHaveClass('border-[length:var(--bw)]'); // border enabled
       expect(input).toHaveClass('border-(--color-border-primary)'); // border color
     });
 
