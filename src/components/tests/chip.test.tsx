@@ -211,7 +211,7 @@ describe('Chip Component Tests', () => {
 
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
-      expect(chip).toHaveClass('ring', 'ring-inset'); // outline variant shows ring
+      expect(chip).toHaveClass('ring-[length:var(--rw)]', 'ring-inset'); // outline variant shows ring
     });
   });
 

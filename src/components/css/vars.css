@@ -155,6 +155,7 @@
     --br-unit: 1;
     --size-unit: 1;
     --bw: 1px; /* Border width */
+    --rw: 1px; /* Ring width */
 }
 
 @layer base {

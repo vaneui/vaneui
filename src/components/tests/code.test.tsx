@@ -59,7 +59,7 @@ describe('Code Component', () => {
       const codeElement = container.querySelector('code');
       
       expect(codeElement).not.toHaveClass('shadow-sm');
-      expect(codeElement).toHaveClass('ring');
+      expect(codeElement).toHaveClass('ring-[length:var(--rw)]');
     });
   });
 
@@ -309,7 +309,7 @@ describe('Code Component', () => {
       const codeElement = container.querySelector('code');
       
       expect(codeElement).not.toHaveClass('shadow-sm');
-      expect(codeElement).toHaveClass('ring');
+      expect(codeElement).toHaveClass('ring-[length:var(--rw)]');
     });
   });
 
@@ -368,7 +368,7 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('ring');
+      expect(codeElement).toHaveClass('ring-[length:var(--rw)]');
       expect(codeElement).toHaveClass('ring-inset');
     });
 

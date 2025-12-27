@@ -5,7 +5,7 @@ import { ModeKeys } from "../../props/mode";
 
 export class RingTheme extends BaseTheme implements Record<ModeKey, string> {
   /** Base ring styling - ring with inset positioning */
-  base: string = "ring ring-inset";
+  base: string = "ring-[length:var(--rw)] ring-inset";
   /** Ring styling on hover state */
   hover: string = "";
   /** Ring styling on active state */

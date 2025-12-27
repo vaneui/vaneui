@@ -53,7 +53,7 @@ describe('Input Component Tests', () => {
       // Border is not enabled by default based on current theme defaults
       expect(input).not.toHaveClass('border-[length:var(--bw)]');
       // Ring is enabled by default
-      expect(input).toHaveClass('ring', 'ring-inset'); // ring enabled
+      expect(input).toHaveClass('ring-[length:var(--rw)]', 'ring-inset'); // ring enabled
       expect(input).toHaveClass('ring-(--color-border-primary)'); // ring color
     });
 
@@ -263,7 +263,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       // Should not have ring classes when noRing is true
-      expect(input).not.toHaveClass('ring', 'ring-inset');
+      expect(input).not.toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
       expect(input).not.toHaveClass('ring-(--color-border-primary)');
     });
 

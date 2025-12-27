@@ -348,7 +348,7 @@ describe('Card Component Tests', () => {
         );
 
         const card = container.querySelector('div');
-        expect(card).toHaveClass('ring', 'ring-inset');
+        expect(card).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
         // RingTheme now has empty hover and active defaults
         expect(card).not.toHaveClass('hover:ring', 'hover:ring-inset');
         expect(card).not.toHaveClass('active:ring', 'active:ring-inset');
@@ -362,7 +362,7 @@ describe('Card Component Tests', () => {
         );
 
         const card = container.querySelector('div');
-        expect(card).not.toHaveClass('ring');
+        expect(card).not.toHaveClass('ring-[length:var(--rw)]');
         expect(card).not.toHaveClass('ring-inset');
         expect(card).not.toHaveClass('hover:ring');
         expect(card).not.toHaveClass('active:ring');
@@ -380,7 +380,7 @@ describe('Card Component Tests', () => {
         const card = container.querySelector('div');
         // Card no longer has ring: true as default
         expect(card).not.toHaveClass('ring-(--color-border-primary)');
-        expect(card).not.toHaveClass('ring', 'ring-inset');
+        expect(card).not.toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
       });
 
       it('should apply ring classes for different appearance variants when ring is enabled', () => {
@@ -397,7 +397,7 @@ describe('Card Component Tests', () => {
         const warningCard = container.querySelector('.ring-warning');
 
         [primaryCard, infoCard, warningCard].forEach(card => {
-          expect(card).toHaveClass('ring', 'ring-inset');
+          expect(card).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
           // RingTheme now has empty hover and active defaults
           expect(card).not.toHaveClass('hover:ring', 'hover:ring-inset');
           expect(card).not.toHaveClass('active:ring', 'active:ring-inset');
@@ -432,7 +432,7 @@ describe('Card Component Tests', () => {
         expect(card).not.toHaveClass('border-[length:var(--bw)]');
         expect(card!.className).not.toMatch(/\bborder\b(?!-)/);
         // Should not have ring classes
-        expect(card).not.toHaveClass('ring');
+        expect(card).not.toHaveClass('ring-[length:var(--rw)]');
         expect(card!.className).not.toMatch(/\bring\b(?!-)/);
       });
 

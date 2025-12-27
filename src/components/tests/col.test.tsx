@@ -174,7 +174,7 @@ describe('Col Component Tests', () => {
       const col = container.querySelector('div');
       expect(col).toHaveClass('border-[length:var(--bw)]');
       expect(col).toHaveClass('border-(--color-border-danger)');
-      expect(col).toHaveClass('ring');
+      expect(col).toHaveClass('ring-[length:var(--rw)]');
       expect(col).toHaveClass('ring-(--color-border-danger)');
       expect(col).toHaveClass('rounded-full');
     });

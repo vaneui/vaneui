@@ -153,7 +153,7 @@ describe('Stack Component Tests', () => {
       const stack = container.querySelector('div');
       expect(stack).toHaveClass('border-[length:var(--bw)]');
       expect(stack).toHaveClass('border-(--color-border-warning)');
-      expect(stack).toHaveClass('ring');
+      expect(stack).toHaveClass('ring-[length:var(--rw)]');
       expect(stack).toHaveClass('ring-(--color-border-warning)');
       expect(stack).toHaveClass('rounded-(--br)');
     });
