@@ -117,8 +117,8 @@
     /* Border Colors */
     --color-border-primary: var(--color-gray-200);
     --color-border-brand: var(--color-blue-300);
-    --color-border-secondary: var(--color-gray-300);
-    --color-border-tertiary: var(--color-gray-400);
+    --color-border-secondary: var(--color-gray-200);
+    --color-border-tertiary: var(--color-gray-200);
     --color-border-accent: var(--color-rose-300);
     --color-border-success: var(--color-emerald-300);
     --color-border-danger: var(--color-red-300);
