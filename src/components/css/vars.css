@@ -136,10 +136,7 @@
     --color-border-filled-warning: var(--color-amber-600);
     --color-border-filled-info: var(--color-cyan-600);
 
-    --layout-spacing: var(--spacing);
-    --ui-spacing: var(--spacing);
     --br-base: var(--spacing);
-    --ui-br-base: calc(var(--spacing) * 0.5);
     --fs-base: calc(var(--spacing) * 0.5);
 
     --breakpoint-mobile: 40rem;
@@ -160,18 +157,11 @@
 
 @layer base {
     :where(*) {
-        --gap: calc(var(--gap-unit) * var(--layout-spacing));
-        --ui-gap: calc(var(--gap-unit) * var(--ui-spacing));
-
-        --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--layout-spacing));
-        --ui-px: calc(var(--aspect-ratio) * var(--py-unit) * var(--ui-spacing));
-        --py: calc(var(--py-unit) * var(--layout-spacing));
-        --ui-py: calc(var(--py-unit) * var(--ui-spacing));
-        --ui-size: calc(var(--size-unit) * var(--ui-spacing));
-
+        --gap: calc(var(--gap-unit) * var(--spacing));
+        --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
+        --py: calc(var(--py-unit) * var(--spacing));
+        --size: calc(var(--size-unit) * var(--spacing));
         --br: calc(var(--br-unit) * var(--br-base));
-        --ui-br: calc(var(--br-unit) * var(--ui-br-base));
-
         --fs: calc(var(--fs-unit) * var(--fs-base));
     }
 }

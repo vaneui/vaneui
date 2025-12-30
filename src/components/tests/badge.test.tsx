@@ -91,7 +91,7 @@ describe('Badge Component Tests', () => {
       );
 
       const badge = container.querySelector('span');
-      expect(badge).toHaveClass('[--fs-unit:6]', 'text-(length:--fs)', 'px-(--ui-px)', 'py-(--ui-py)');
+      expect(badge).toHaveClass('[--fs-unit:6]', 'text-(length:--fs)', 'px-(--px)', 'py-(--py)');
     });
 
     it('should render with lg size classes', () => {
@@ -102,7 +102,7 @@ describe('Badge Component Tests', () => {
       );
 
       const badge = container.querySelector('span');
-      expect(badge).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)', 'px-(--ui-px)', 'py-(--ui-py)');
+      expect(badge).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)', 'px-(--px)', 'py-(--py)');
     });
   });
 

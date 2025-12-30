@@ -170,7 +170,7 @@ describe('Theme Override Tests', () => {
       // Primary button should have default primary styling + size defaults
       expect(primaryDefault).toHaveClass('[background:var(--color-bg-primary)]');
       expect(primaryDefault).toHaveClass('[--fs-unit:9]', 'text-(length:--fs)'); // lg from themeDefaults
-      expect(primaryDefault).toHaveClass('rounded-(--ui-br)'); // lg is the actual size being applied
+      expect(primaryDefault).toHaveClass('rounded-(--br)'); // lg is the actual size being applied
 
       // Secondary filled should use custom background
       expect(secondaryFilled).toHaveClass('bg-custom-secondary'); // from themeOverride
@@ -309,8 +309,8 @@ describe('Theme Override Tests', () => {
         theme.button.themes.size.text.md = 'text-lg';
         theme.button.themes.size.text.lg = 'text-2xl';
         // Override padding size classes directly
-        theme.button.themes.size.px.md = 'px-(--ui-px)';
-        theme.button.themes.size.py.md = 'py-(--ui-py)';
+        theme.button.themes.size.px.md = 'px-(--px)';
+        theme.button.themes.size.py.md = 'py-(--py)';
 
         // Override appearance
         theme.button.themes.appearance.background.filled.primary.base = 'bg-emerald-500';
@@ -334,8 +334,8 @@ describe('Theme Override Tests', () => {
 
       // MD button should use overridden size classes
       expect(mdButton).toHaveClass('text-(length:--fs)'); // FontSizeTheme CSS variable
-      expect(mdButton).toHaveClass('px-(--ui-px)'); // overridden size
-      expect(mdButton).toHaveClass('py-(--ui-py)'); // overridden size
+      expect(mdButton).toHaveClass('px-(--px)'); // overridden size
+      expect(mdButton).toHaveClass('py-(--py)'); // overridden size
       expect(mdButton).toHaveClass('bg-emerald-500'); // overridden background
 
       // LG button should use overridden text size but default padding (since lg size wasn't defaulted)
@@ -366,15 +366,15 @@ describe('Theme Override Tests', () => {
 
       // SM button should use overridden aspect ratio
       expect(smButton).toHaveClass('[--aspect-ratio:3]');
-      expect(smButton).toHaveClass('px-(--ui-px)');
+      expect(smButton).toHaveClass('px-(--px)');
 
       // MD button should use overridden aspect ratio
       expect(mdButton).toHaveClass('[--aspect-ratio:4]');
-      expect(mdButton).toHaveClass('px-(--ui-px)');
+      expect(mdButton).toHaveClass('px-(--px)');
 
       // LG button should use default aspect ratio (not overridden)
       expect(lgButton).toHaveClass('[--aspect-ratio:2]'); // default button aspect ratio
-      expect(lgButton).toHaveClass('px-(--ui-px)');
+      expect(lgButton).toHaveClass('px-(--px)');
     });
 
     it('should override PyTheme py-unit via direct property access', () => {
@@ -396,11 +396,11 @@ describe('Theme Override Tests', () => {
 
       // SM button should use overridden py-unit
       expect(smButton).toHaveClass('[--py-unit:5]');
-      expect(smButton).toHaveClass('py-(--ui-py)');
+      expect(smButton).toHaveClass('py-(--py)');
 
       // MD button should use default py-unit
       expect(mdButton).toHaveClass('[--py-unit:2]'); // default UI py-unit for md
-      expect(mdButton).toHaveClass('py-(--ui-py)');
+      expect(mdButton).toHaveClass('py-(--py)');
     });
   });
 });

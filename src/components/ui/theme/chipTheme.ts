@@ -60,14 +60,14 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
         md: "[--aspect-ratio:2]",
         lg: "[--aspect-ratio:2]",
         xl: "[--aspect-ratio:2]",
-      }, true),
+      }),
       py: new PyTheme({
         xs: "[--py-unit:0.5]",
         sm: "[--py-unit:1]",
         md: "[--py-unit:1.5]",
         lg: "[--py-unit:2]",
         xl: "[--py-unit:2.5]",
-      }, true),
+      }),
       text: new FontSizeTheme(),
       lineHeight: new LineHeightTheme(
         {

@@ -58,7 +58,7 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
         md: "[--aspect-ratio:2]",
         lg: "[--aspect-ratio:2]",
         xl: "[--aspect-ratio:2]",
-      }, true),
+      }),
       py: PyTheme.createForUI(),
       gap: GapTheme.createForUI(),
       text: new FontSizeTheme(),

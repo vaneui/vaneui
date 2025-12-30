@@ -61,7 +61,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   "w-fit h-fit cursor-pointer transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new PxTheme(buttonAspectRatioClasses, true),
+      px: new PxTheme(buttonAspectRatioClasses),
       py: PyTheme.createForUI(),
       gap: GapTheme.createForUI(),
       text: new FontSizeTheme(),

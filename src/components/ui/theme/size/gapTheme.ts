@@ -14,12 +14,8 @@ export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
   /** Extra-large gap */
   xl: string;
 
-  private readonly gapVarClass: string;
-
-  constructor(gapClasses: Record<SizeKey, string>, isUIComponent: boolean = false) {
+  constructor(gapClasses: Record<SizeKey, string>) {
     super();
-    this.gapVarClass = isUIComponent ? "gap-(--ui-gap)" : "gap-(--gap)";
-
     this.xs = gapClasses.xs;
     this.sm = gapClasses.sm;
     this.md = gapClasses.md;
@@ -30,7 +26,7 @@ export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.gap === 'gap') {
       const gapClass = this[extractedKeys?.size ?? 'md'];
-      return gapClass ? [gapClass, this.gapVarClass] : [];
+      return gapClass ? [gapClass, "gap-(--gap)"] : [];
     }
     return [];
   }
@@ -42,7 +38,7 @@ export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
       md: "[--gap-unit:2]",
       lg: "[--gap-unit:2.5]",
       xl: "[--gap-unit:3]",
-    }, true);
+    });
   }
 
   static createForLayout(): GapTheme {
@@ -52,6 +48,6 @@ export class GapTheme extends BaseTheme implements Record<SizeKey, string> {
       md: "[--gap-unit:4]",
       lg: "[--gap-unit:5]",
       xl: "[--gap-unit:6]",
-    }, false);
+    });
   }
 }

@@ -60,14 +60,14 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
         md: "[--aspect-ratio:1.8]",
         lg: "[--aspect-ratio:1.8]",
         xl: "[--aspect-ratio:1.8]",
-      }, true),
+      }),
       py: new PyTheme({
         xs: "[--py-unit:0.4]",
         sm: "[--py-unit:0.6]",
         md: "[--py-unit:0.8]",
         lg: "[--py-unit:1]",
         xl: "[--py-unit:1.2]",
-      }, true),
+      }),
       text: new FontSizeTheme({
         xs: "[--fs-unit:5]",
         sm: "[--fs-unit:6]",
@@ -102,7 +102,7 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
         md: '[--br-unit:3]',
         lg: '[--br-unit:4]',
         xl: '[--br-unit:5]'
-      }, true),
+      }),
       border: new BorderTheme(),
       ring: new RingTheme(),
       focusVisible: new FocusVisibleTheme(),

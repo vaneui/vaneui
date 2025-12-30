@@ -46,11 +46,11 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('inline');
       expect(codeElement).toHaveClass('[--fs-unit:7]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
-      expect(codeElement).toHaveClass('px-(--ui-px)');
-      expect(codeElement).toHaveClass('py-(--ui-py)');
+      expect(codeElement).toHaveClass('px-(--px)');
+      expect(codeElement).toHaveClass('py-(--py)');
       expect(codeElement).toHaveClass('[background:var(--color-bg-primary)]');
       expect(codeElement).toHaveClass('text-(--color-text-primary)');
-      expect(codeElement).toHaveClass('rounded-(--ui-br)');
+      expect(codeElement).toHaveClass('rounded-(--br)');
       expect(codeElement).toHaveClass('font-mono');
     });
 
@@ -70,9 +70,9 @@ describe('Code Component', () => {
 
       expect(codeElement).toHaveClass('[--fs-unit:5]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
-      expect(codeElement).toHaveClass('px-(--ui-px)');
-      expect(codeElement).toHaveClass('py-(--ui-py)');
-      expect(codeElement).toHaveClass('rounded-(--ui-br)');
+      expect(codeElement).toHaveClass('px-(--px)');
+      expect(codeElement).toHaveClass('py-(--py)');
+      expect(codeElement).toHaveClass('rounded-(--br)');
     });
 
     it('should apply md size classes', () => {
@@ -81,9 +81,9 @@ describe('Code Component', () => {
 
       expect(codeElement).toHaveClass('[--fs-unit:7]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
-      expect(codeElement).toHaveClass('px-(--ui-px)');
-      expect(codeElement).toHaveClass('py-(--ui-py)');
-      expect(codeElement).toHaveClass('rounded-(--ui-br)');
+      expect(codeElement).toHaveClass('px-(--px)');
+      expect(codeElement).toHaveClass('py-(--py)');
+      expect(codeElement).toHaveClass('rounded-(--br)');
     });
 
     it('should apply lg size classes', () => {
@@ -92,9 +92,9 @@ describe('Code Component', () => {
 
       expect(codeElement).toHaveClass('[--fs-unit:8]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
-      expect(codeElement).toHaveClass('px-(--ui-px)');
-      expect(codeElement).toHaveClass('py-(--ui-py)');
-      expect(codeElement).toHaveClass('rounded-(--ui-br)');
+      expect(codeElement).toHaveClass('px-(--px)');
+      expect(codeElement).toHaveClass('py-(--py)');
+      expect(codeElement).toHaveClass('rounded-(--br)');
     });
 
     it('should apply xl size classes', () => {
@@ -103,9 +103,9 @@ describe('Code Component', () => {
 
       expect(codeElement).toHaveClass('[--fs-unit:9]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
-      expect(codeElement).toHaveClass('px-(--ui-px)');
-      expect(codeElement).toHaveClass('py-(--ui-py)');
-      expect(codeElement).toHaveClass('rounded-(--ui-br)');
+      expect(codeElement).toHaveClass('px-(--px)');
+      expect(codeElement).toHaveClass('py-(--py)');
+      expect(codeElement).toHaveClass('rounded-(--br)');
     });
   });
 
@@ -239,7 +239,7 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('rounded-(--ui-br)');
+      expect(codeElement).toHaveClass('rounded-(--br)');
     });
 
     it('should apply pill shape', () => {
@@ -284,8 +284,8 @@ describe('Code Component', () => {
       const { container: codeContainer } = render(<Code md>test</Code>);
       const codeElement = codeContainer.querySelector('code');
       
-      expect(codeElement).toHaveClass('px-(--ui-px)');
-      expect(codeElement).toHaveClass('py-(--ui-py)');
+      expect(codeElement).toHaveClass('px-(--px)');
+      expect(codeElement).toHaveClass('py-(--py)');
     });
 
     it('should have same default size as Chip now', () => {
@@ -385,8 +385,8 @@ describe('Code Component', () => {
 
       expect(codeElement).toHaveClass('[--fs-unit:6]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
-      expect(codeElement).toHaveClass('px-(--ui-px)');
-      expect(codeElement).toHaveClass('py-(--ui-py)');
+      expect(codeElement).toHaveClass('px-(--px)');
+      expect(codeElement).toHaveClass('py-(--py)');
     });
   });
 });

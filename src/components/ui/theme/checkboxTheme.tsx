@@ -42,7 +42,7 @@ export interface CheckboxTheme extends BaseComponentTheme {
 
 export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTheme>(
   "input",
-  "peer col-start-1 row-start-1 cursor-pointer appearance-none ring-transparent size-(--ui-size)",
+  "peer col-start-1 row-start-1 cursor-pointer appearance-none ring-transparent size-(--size)",
   {
     size: {
       size: new SizeTheme({
@@ -65,7 +65,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
         md: '[--br-unit:2]',
         lg: '[--br-unit:2.5]',
         xl: '[--br-unit:3]'
-      }, true),
+      }),
     },
     appearance: {
       accent: GenericVariantTheme.createAccentColorAppearanceTheme(),

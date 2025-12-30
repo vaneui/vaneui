@@ -50,8 +50,8 @@ describe('Checkbox Component Tests', () => {
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('cursor-pointer');
-      expect(checkbox).toHaveClass('size-(--ui-size)', '[--size-unit:4]'); // md size default
-      expect(checkbox).toHaveClass('rounded-(--ui-br)'); // rounded default for md size
+      expect(checkbox).toHaveClass('size-(--size)', '[--size-unit:4]'); // md size default
+      expect(checkbox).toHaveClass('rounded-(--br)'); // rounded default for md size
       // Note: Ring is disabled by default (noRing: true in defaults), so no ring classes expected
     });
 
@@ -79,11 +79,11 @@ describe('Checkbox Component Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', classes: ['size-(--ui-size)', '[--size-unit:3]'] },
-        { prop: 'sm', classes: ['size-(--ui-size)', '[--size-unit:3.5]'] },
-        { prop: 'md', classes: ['size-(--ui-size)', '[--size-unit:4]'] },
-        { prop: 'lg', classes: ['size-(--ui-size)', '[--size-unit:4.5]'] },
-        { prop: 'xl', classes: ['size-(--ui-size)', '[--size-unit:5]'] }
+        { prop: 'xs', classes: ['size-(--size)', '[--size-unit:3]'] },
+        { prop: 'sm', classes: ['size-(--size)', '[--size-unit:3.5]'] },
+        { prop: 'md', classes: ['size-(--size)', '[--size-unit:4]'] },
+        { prop: 'lg', classes: ['size-(--size)', '[--size-unit:4.5]'] },
+        { prop: 'xl', classes: ['size-(--size)', '[--size-unit:5]'] }
       ] as const;
 
       sizes.forEach(({prop, classes}) => {
@@ -140,7 +140,7 @@ describe('Checkbox Component Tests', () => {
       const shapes = [
         { prop: 'pill', class: 'rounded-full' },
         { prop: 'sharp', class: 'rounded-none' },
-        { prop: 'rounded', class: 'rounded-(--ui-br)' }
+        { prop: 'rounded', class: 'rounded-(--br)' }
       ] as const;
 
       shapes.forEach(({prop, class: expectedClass}) => {

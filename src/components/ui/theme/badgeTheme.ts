@@ -62,7 +62,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
   "w-fit h-fit transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new PxTheme(badgeAspectRatioClasses, true),
+      px: new PxTheme(badgeAspectRatioClasses),
       py: PyTheme.createForUI(),
       gap: GapTheme.createForUI(),
       text: new FontSizeTheme(),

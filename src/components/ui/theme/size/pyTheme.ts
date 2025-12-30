@@ -4,11 +4,8 @@ import type { CategoryProps } from "../../props";
 
 /** Vertical padding theme - controls top and bottom padding */
 export class PyTheme extends PaddingTheme {
-  private isUIComponent?: boolean;
-
-  constructor(sizeMap?: Record<SizeKey, string>, isUIComponent = false) {
+  constructor(sizeMap?: Record<SizeKey, string>) {
     super(sizeMap);
-    this.isUIComponent = isUIComponent;
     // Override with PyTheme's default classes if no custom sizeMap provided
     if (!sizeMap) {
       ComponentKeys.size.forEach((key) => {
@@ -27,10 +24,7 @@ export class PyTheme extends PaddingTheme {
     if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
       const paddingClass = this[extractedKeys?.size ?? 'md'];
       if (!paddingClass) return [];
-      
-      // Use UI or layout CSS variables based on component type
-      const cssVar = this.isUIComponent ? "py-(--ui-py)" : "py-(--py)";
-      return [paddingClass, cssVar];
+      return [paddingClass, "py-(--py)"];
     }
     return [];
   }
@@ -42,6 +36,6 @@ export class PyTheme extends PaddingTheme {
       md: "[--py-unit:2]",
       lg: "[--py-unit:2.5]",
       xl: "[--py-unit:3]",
-    }, true);
+    });
   }
 }

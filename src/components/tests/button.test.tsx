@@ -100,7 +100,7 @@ describe('Button Component Tests', () => {
       expect(button).toBeInTheDocument();
       expect(button).toHaveClass('text-(--color-text-primary)'); // primary color
       expect(button).toHaveClass('[background:var(--color-bg-primary)]'); // primary background
-      expect(button).toHaveClass('px-(--ui-px)', 'py-(--ui-py)'); // padding
+      expect(button).toHaveClass('px-(--px)', 'py-(--py)'); // padding
     });
 
     it('Button with secondary variant should have secondary classes', () => {
@@ -374,7 +374,7 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('[--br-unit:2]');
-        expect(button).toHaveClass('rounded-(--ui-br)');
+        expect(button).toHaveClass('rounded-(--br)');
       });
 
       it('should apply correct --br-unit for sm size', () => {
@@ -386,7 +386,7 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('[--br-unit:3]');
-        expect(button).toHaveClass('rounded-(--ui-br)');
+        expect(button).toHaveClass('rounded-(--br)');
       });
 
       it('should apply correct --br-unit for md size (default)', () => {
@@ -398,7 +398,7 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('[--br-unit:4]');
-        expect(button).toHaveClass('rounded-(--ui-br)');
+        expect(button).toHaveClass('rounded-(--br)');
       });
 
       it('should apply correct --br-unit for lg size', () => {
@@ -410,7 +410,7 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('[--br-unit:5]');
-        expect(button).toHaveClass('rounded-(--ui-br)');
+        expect(button).toHaveClass('rounded-(--br)');
       });
 
       it('should apply correct --br-unit for xl size', () => {
@@ -422,7 +422,7 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('[--br-unit:6]');
-        expect(button).toHaveClass('rounded-(--ui-br)');
+        expect(button).toHaveClass('rounded-(--br)');
       });
     });
 
@@ -437,8 +437,8 @@ describe('Button Component Tests', () => {
         const button = container.querySelector('button');
         expect(button).toHaveClass('[--aspect-ratio:2]');
         expect(button).toHaveClass('[--py-unit:1]');
-        expect(button).toHaveClass('px-(--ui-px)');
-        expect(button).toHaveClass('py-(--ui-py)');
+        expect(button).toHaveClass('px-(--px)');
+        expect(button).toHaveClass('py-(--py)');
       });
 
       it('should apply correct aspect-ratio and --py-unit for lg size', () => {
@@ -451,8 +451,8 @@ describe('Button Component Tests', () => {
         const button = container.querySelector('button');
         expect(button).toHaveClass('[--aspect-ratio:2]');
         expect(button).toHaveClass('[--py-unit:2.5]');
-        expect(button).toHaveClass('px-(--ui-px)');
-        expect(button).toHaveClass('py-(--ui-py)');
+        expect(button).toHaveClass('px-(--px)');
+        expect(button).toHaveClass('py-(--py)');
       });
     });
 
@@ -474,10 +474,10 @@ describe('Button Component Tests', () => {
         const lgButton = lgContainer.querySelector('button');
 
         expect(xsButton).toHaveClass('[--gap-unit:1]');
-        expect(xsButton).toHaveClass('gap-(--ui-gap)');
+        expect(xsButton).toHaveClass('gap-(--gap)');
 
         expect(lgButton).toHaveClass('[--gap-unit:2.5]');
-        expect(lgButton).toHaveClass('gap-(--ui-gap)');
+        expect(lgButton).toHaveClass('gap-(--gap)');
       });
     });
   });

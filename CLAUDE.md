@@ -550,8 +550,6 @@ Computed variables are calculated from unit variables in `@layer base`:
 /* From src/components/css/vars.css */
 @theme {
   --fs-base: calc(var(--spacing) * 0.5);  /* 0.5rem when spacing is 1rem */
-  --ui-spacing: var(--spacing);
-  --layout-spacing: var(--spacing);
 
   /* Responsive breakpoints for custom Tailwind modifiers */
   --breakpoint-mobile: 40rem;   /* 640px */
@@ -566,20 +564,19 @@ Computed variables are calculated from unit variables in `@layer base`:
     --fs: calc(var(--fs-unit) * var(--fs-base));
 
     /* Padding Y: unit * spacing */
-    --py: calc(var(--py-unit) * var(--layout-spacing));
-    --ui-py: calc(var(--py-unit) * var(--ui-spacing));
+    --py: calc(var(--py-unit) * var(--spacing));
 
     /* Padding X: aspect-ratio * py-unit * spacing */
-    --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--layout-spacing));
-    --ui-px: calc(var(--aspect-ratio) * var(--py-unit) * var(--ui-spacing));
+    --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
 
     /* Gap: gap-unit * spacing */
-    --gap: calc(var(--gap-unit) * var(--layout-spacing));
-    --ui-gap: calc(var(--gap-unit) * var(--ui-spacing));
+    --gap: calc(var(--gap-unit) * var(--spacing));
+
+    /* Size: size-unit * spacing (for checkboxes, etc.) */
+    --size: calc(var(--size-unit) * var(--spacing));
 
     /* Border radius: br-unit * base */
     --br: calc(var(--br-unit) * var(--br-base));
-    --ui-br: calc(var(--br-unit) * var(--ui-br-base));
   }
 }
 ```
@@ -617,10 +614,12 @@ Theme classes and appearance classes use Tailwind's arbitrary value syntax to co
 ```typescript
 // Size themes return both setter and consumer
 ["[--fs-unit:8]", "text-(length:--fs)"]           // Font size
-["[--py-unit:2]", "py-(--ui-py)"]                  // Padding Y
-["[--aspect-ratio:2]", "px-(--ui-px)"]             // Padding X (with aspect ratio)
-["[--br-unit:4]", "rounded-(--ui-br)"]             // Border radius
+["[--py-unit:2]", "py-(--py)"]                     // Padding Y
+["[--aspect-ratio:2]", "px-(--px)"]                // Padding X (with aspect ratio)
+["[--br-unit:4]", "rounded-(--br)"]                // Border radius
 ["[--lh:1.6]", "leading-(--lh)"]                   // Line height
+["[--gap-unit:2]", "gap-(--gap)"]                  // Gap
+["[--size-unit:4]", "size-(--size)"]               // Size (for checkboxes)
 
 // Appearance classes consume pre-defined color variables
 "bg-(--color-bg-filled-primary)"                   // Background color
@@ -629,17 +628,14 @@ Theme classes and appearance classes use Tailwind's arbitrary value syntax to co
 "ring-(--color-border-primary)"                    // Ring color
 ```
 
-#### UI vs Layout Component Distinction
+#### Unified CSS Variables
 
-Components use different variable namespaces for different scaling:
-
-- **UI Components** (Button, Badge, Chip, Code, Input): Use `--ui-*` variables
-  - `px-(--ui-px)`, `py-(--ui-py)`, `gap-(--ui-gap)`, `rounded-(--ui-br)`
-  - Smaller, tighter spacing appropriate for interactive elements
-
-- **Layout Components** (Container, Section, Stack, Grid): Use regular `--*` variables
-  - `px-(--px)`, `py-(--py)`, `gap-(--gap)`, `rounded-(--br)`
-  - Larger spacing for page layout and structure
+All components use the same CSS variable names. The computed values are controlled by unit variables:
+- `--py` - Padding Y, computed from `--py-unit * --spacing`
+- `--px` - Padding X, computed from `--aspect-ratio * --py-unit * --spacing`
+- `--gap` - Gap, computed from `--gap-unit * --spacing`
+- `--br` - Border radius, computed from `--br-unit * --br-base`
+- `--size` - Size (for checkboxes), computed from `--size-unit * --spacing`
 
 #### Complete Example: Button Component
 
@@ -651,17 +647,17 @@ Components use different variable namespaces for different scaling:
 // From FontSizeTheme:
 ["[--fs-unit:8]", "text-(length:--fs)"]
 
-// From PyTheme (UI component):
-["[--py-unit:2]", "py-(--ui-py)"]
+// From PyTheme:
+["[--py-unit:2]", "py-(--py)"]
 
-// From PxTheme (UI component with aspect ratio):
-["[--aspect-ratio:2]", "px-(--ui-px)"]
+// From PxTheme (with aspect ratio):
+["[--aspect-ratio:2]", "px-(--px)"]
 
 // From LineHeightTheme:
 ["[--lh:1.3]", "leading-(--lh)"]
 
-// From RadiusTheme (UI component):
-["[--br-unit:4]", "rounded-(--ui-br)"]
+// From RadiusTheme:
+["[--br-unit:4]", "rounded-(--br)"]
 
 // From GenericVariantTheme (appearance):
 ["bg-(--color-bg-filled-primary)"]
@@ -669,7 +665,7 @@ Components use different variable namespaces for different scaling:
 ["ring-(--color-border-filled-primary)"]
 
 // Final merged classes:
-"[--fs-unit:8] text-(length:--fs) [--py-unit:2] py-(--ui-py) [--aspect-ratio:2] px-(--ui-px) [--lh:1.3] leading-(--lh) [--br-unit:4] rounded-(--ui-br) bg-(--color-bg-filled-primary) text-(--color-text-filled-primary) ring-(--color-border-filled-primary)"
+"[--fs-unit:8] text-(length:--fs) [--py-unit:2] py-(--py) [--aspect-ratio:2] px-(--px) [--lh:1.3] leading-(--lh) [--br-unit:4] rounded-(--br) bg-(--color-bg-filled-primary) text-(--color-text-filled-primary) ring-(--color-border-filled-primary)"
 
 // CSS execution:
 // 1. [--fs-unit:8] sets --fs-unit=8
@@ -677,12 +673,12 @@ Components use different variable namespaces for different scaling:
 // 3. text-(length:--fs) applies font-size: var(--fs) = 0.5rem
 
 // 4. [--py-unit:2] sets --py-unit=2
-// 5. --ui-py = calc(2 * 0.5rem) = 1rem
-// 6. py-(--ui-py) applies padding-top/bottom: 1rem
+// 5. --py = calc(2 * 0.5rem) = 1rem
+// 6. py-(--py) applies padding-top/bottom: 1rem
 
 // 7. [--aspect-ratio:2] sets --aspect-ratio=2
-// 8. --ui-px = calc(2 * 2 * 0.5rem) = 2rem
-// 9. px-(--ui-px) applies padding-left/right: 2rem
+// 8. --px = calc(2 * 2 * 0.5rem) = 2rem
+// 9. px-(--px) applies padding-left/right: 2rem
 
 // 10. bg-(--color-bg-filled-primary) applies background: var(--color-blue-600)
 ```
@@ -734,12 +730,9 @@ export class FontSizeTheme extends BaseTheme implements Record<SizeKey, string> 
 
 // Example: PyTheme (src/components/ui/theme/size/pyTheme.ts)
 export class PyTheme extends PaddingTheme {
-  private isUIComponent: boolean;
-
   getClasses(extractedKeys: CategoryProps): string[] {
     const paddingClass = this[extractedKeys?.size ?? 'md'];
-    const cssVar = this.isUIComponent ? "py-(--ui-py)" : "py-(--py)";
-    return [paddingClass, cssVar];
+    return [paddingClass, "py-(--py)"];
   }
 
   static createForUI(): PyTheme {
@@ -749,7 +742,7 @@ export class PyTheme extends PaddingTheme {
       md: "[--py-unit:2]",
       lg: "[--py-unit:2.5]",
       xl: "[--py-unit:3]",
-    }, true);
+    });
   }
 }
 ```
@@ -896,9 +889,9 @@ describe('MyComponent', () => {
    - `["[--fs-unit:8]", "text-(length:--fs)"]`
    - Unit variable sets the value, consumer class applies it
 
-2. **UI vs Layout**: Choose the right variable namespace
-   - UI components: `PyTheme.createForUI()` → uses `py-(--ui-py)`
-   - Layout components: `new PyTheme()` → uses `py-(--py)`
+2. **Unified Variables**: All components use the same CSS variable names
+   - All components use `py-(--py)`, `px-(--px)`, `gap-(--gap)`, `rounded-(--br)`
+   - Static factory methods like `PyTheme.createForUI()` provide appropriate unit values
 
 3. **Responsive Support**: Use Tailwind's responsive syntax in CSS variable classes
    - `"[--fs-unit:15] max-laptop:[--fs-unit:12] max-tablet:[--fs-unit:9]"`
@@ -933,9 +926,9 @@ describe('MyComponent', () => {
    - ❌ `["text-(length:--fs)"]` without setting `--fs-unit` first
    - ✅ `["[--fs-unit:8]", "text-(length:--fs)"]`
 
-2. **Don't forget UI vs layout distinction**
-   - ❌ Using `py-(--py)` for a Button (should use `py-(--ui-py)`)
-   - ✅ Use `PyTheme.createForUI()` for UI components
+2. **Use factory methods for appropriate unit values**
+   - Use `PyTheme.createForUI()` for UI components (smaller spacing)
+   - Use `new PyTheme()` for layout components (larger spacing)
 
 3. **Don't hardcode sizes in theme classes**
    - ❌ `base: "p-4 text-base"`
