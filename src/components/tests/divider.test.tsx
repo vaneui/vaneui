@@ -19,7 +19,7 @@ describe('Divider Component Tests', () => {
 
       const divider = container.querySelector('div');
       expect(divider).toBeInTheDocument();
-      expect(divider).toHaveClass('h-px', 'w-full');
+      expect(divider).toHaveClass('h-(--bw)', 'w-full');
       expect(divider).toHaveClass('[background:var(--color-border-primary)]');
     });
   });
@@ -84,7 +84,7 @@ describe('Divider Component Tests', () => {
 
       const divider = container.querySelector('div');
       expect(divider).toBeInTheDocument();
-      expect(divider).toHaveClass('h-px', 'w-full'); // theme classes
+      expect(divider).toHaveClass('h-(--bw)', 'w-full'); // theme classes
       expect(divider).toHaveClass('custom-divider-class'); // custom class
     });
   });
