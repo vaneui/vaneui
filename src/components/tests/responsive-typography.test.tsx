@@ -169,4 +169,96 @@ describe('Responsive Typography and Layout Tests', () => {
       expect(title).toHaveAttribute('data-size', 'sm');
     });
   });
+
+  describe('Responsive CSS Variable Switching Classes', () => {
+    describe('Typography Components', () => {
+      it('should have responsive font size switching classes on Title', () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Title md>Responsive Title</Title>
+          </ThemeProvider>
+        );
+
+        const title = container.querySelector('h3');
+        expect(title).toHaveClass('[--fs-unit:var(--fs-unit-desktop)]');
+        expect(title).toHaveClass('max-laptop:[--fs-unit:var(--fs-unit-laptop)]');
+        expect(title).toHaveClass('max-tablet:[--fs-unit:var(--fs-unit-tablet)]');
+        expect(title).toHaveClass('text-(length:--fs)');
+      });
+
+      it('should have responsive font size switching classes on PageTitle', () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <PageTitle md>Responsive Page Title</PageTitle>
+          </ThemeProvider>
+        );
+
+        const pageTitle = container.querySelector('h1');
+        expect(pageTitle).toHaveClass('[--fs-unit:var(--fs-unit-desktop)]');
+        expect(pageTitle).toHaveClass('max-laptop:[--fs-unit:var(--fs-unit-laptop)]');
+        expect(pageTitle).toHaveClass('max-tablet:[--fs-unit:var(--fs-unit-tablet)]');
+        expect(pageTitle).toHaveClass('text-(length:--fs)');
+      });
+
+      it('should have responsive font size switching classes on SectionTitle', () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <SectionTitle md>Responsive Section Title</SectionTitle>
+          </ThemeProvider>
+        );
+
+        const sectionTitle = container.querySelector('h2');
+        expect(sectionTitle).toHaveClass('[--fs-unit:var(--fs-unit-desktop)]');
+        expect(sectionTitle).toHaveClass('max-laptop:[--fs-unit:var(--fs-unit-laptop)]');
+        expect(sectionTitle).toHaveClass('max-tablet:[--fs-unit:var(--fs-unit-tablet)]');
+        expect(sectionTitle).toHaveClass('text-(length:--fs)');
+      });
+    });
+
+    describe('Section Component', () => {
+      it('should have responsive py switching classes on Section', () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Section md>Responsive Section Padding</Section>
+          </ThemeProvider>
+        );
+
+        const section = container.querySelector('div');
+        expect(section).toHaveClass('[--py-unit:var(--py-unit-desktop)]');
+        expect(section).toHaveClass('max-laptop:[--py-unit:var(--py-unit-laptop)]');
+        expect(section).toHaveClass('max-tablet:[--py-unit:var(--py-unit-tablet)]');
+        expect(section).toHaveClass('py-(--py)');
+      });
+
+      it('should have responsive gap switching classes on Section with gap', () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Section md gap>Responsive Section Gap</Section>
+          </ThemeProvider>
+        );
+
+        const section = container.querySelector('div');
+        expect(section).toHaveClass('[--gap-unit:var(--gap-unit-desktop)]');
+        expect(section).toHaveClass('max-laptop:[--gap-unit:var(--gap-unit-laptop)]');
+        expect(section).toHaveClass('max-tablet:[--gap-unit:var(--gap-unit-tablet)]');
+        expect(section).toHaveClass('gap-(--gap)');
+      });
+
+      it('should have both responsive py and gap classes when gap is enabled', () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Section lg gap>Section with Gap</Section>
+          </ThemeProvider>
+        );
+
+        const section = container.querySelector('div');
+        // Should have responsive py classes
+        expect(section).toHaveClass('[--py-unit:var(--py-unit-desktop)]');
+        expect(section).toHaveClass('py-(--py)');
+        // Should have responsive gap classes
+        expect(section).toHaveClass('[--gap-unit:var(--gap-unit-desktop)]');
+        expect(section).toHaveClass('gap-(--gap)');
+      });
+    });
+  });
 });
