@@ -40,12 +40,12 @@ export interface SectionTheme extends BaseComponentTheme {
 
 export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme>(
   "div",
-  `vane-section w-full [--py-unit:var(--py-unit-desktop)] max-laptop:[--py-unit:var(--py-unit-laptop)] max-tablet:[--py-unit:var(--py-unit-tablet)] [--gap-unit:var(--gap-unit-desktop)] max-laptop:[--gap-unit:var(--gap-unit-laptop)] max-tablet:[--gap-unit:var(--gap-unit-tablet)]`,
+  "vane-section w-full",
   {
     size: {
       px: new PxTheme(),
-      py: new PyTheme(),
-      gap: new GapTheme(),
+      py: PyTheme.createResponsive(),
+      gap: GapTheme.createResponsive(),
       breakpoint: new BreakpointTheme(),
     },
     appearance: {

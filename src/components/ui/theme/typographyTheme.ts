@@ -68,29 +68,29 @@ export const createTypographyComponentTheme = (
     });
 };
 
-// Page title specific theme
+// Page title specific theme - uses responsive font size
 export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h1",
-  `vane-page-title text-balance tracking-tight w-fit [--fs-unit:var(--fs-unit-desktop)] max-laptop:[--fs-unit:var(--fs-unit-laptop)] max-tablet:[--fs-unit:var(--fs-unit-tablet)]`,
-  new FontSizeTheme(),
+  "vane-page-title text-balance tracking-tight w-fit",
+  FontSizeTheme.createResponsive(),
   mergeDefaults(themeDefaults.pageTitle as Record<string, boolean>, {semibold: true}),
   new LineHeightTheme()
 );
 
-// Section title specific theme
+// Section title specific theme - uses responsive font size
 export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h2",
-  `vane-section-title text-balance w-fit [--fs-unit:var(--fs-unit-desktop)] max-laptop:[--fs-unit:var(--fs-unit-laptop)] max-tablet:[--fs-unit:var(--fs-unit-tablet)]`,
-  new FontSizeTheme(),
+  "vane-section-title text-balance w-fit",
+  FontSizeTheme.createResponsive(),
   mergeDefaults(themeDefaults.sectionTitle as Record<string, boolean>, {semibold: true}),
   new LineHeightTheme()
 );
 
-// Title specific theme
+// Title specific theme - uses responsive font size
 export const titleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h3",
-  `vane-title text-balance w-fit [--fs-unit:var(--fs-unit-desktop)] max-laptop:[--fs-unit:var(--fs-unit-laptop)] max-tablet:[--fs-unit:var(--fs-unit-tablet)]`,
-  new FontSizeTheme(),
+  "vane-title text-balance w-fit",
+  FontSizeTheme.createResponsive(),
   mergeDefaults(themeDefaults.title as Record<string, boolean>, {semibold: true}),
   new LineHeightTheme()
 );
