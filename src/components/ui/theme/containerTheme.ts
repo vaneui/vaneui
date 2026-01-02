@@ -36,11 +36,11 @@ export interface ContainerTheme extends BaseComponentTheme {
 
 export const defaultContainerTheme = new ComponentTheme<ContainerProps, ContainerTheme>(
   "div",
-  "mx-auto w-full",
+  "vane-container mx-auto w-full",
   {
     size: {
-      gap: GapTheme.createForLayout(),
-      maxWidth: new SizeTheme({xs: 'max-w-3xl', sm: 'max-w-4xl', md: 'max-w-5xl', lg: 'max-w-6xl', xl: 'max-w-7xl'}),
+      gap: new GapTheme(),
+      maxWidth: new SizeTheme({xs: 'max-w-3xl', sm: 'max-w-4xl', md: 'max-w-5xl', lg: 'max-w-6xl', xl: 'max-w-7xl'}), // Uses custom mode for max-width
     },
     layout: {
       ...defaultLayoutsThemes,
@@ -48,7 +48,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       ring: new RingTheme(),
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
-      radius: RadiusTheme.createLayoutTheme(),
+      radius: new RadiusTheme(),
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),

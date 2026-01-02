@@ -1,17 +1,13 @@
-import { SizeKey, ComponentKeys } from "../../props";
-import { PaddingTheme } from "./paddingTheme";
+import { BaseTheme } from "../common/baseTheme";
+import type { CategoryProps } from "../../props";
 
-/** Left padding theme - controls left padding only */
-export class PlTheme extends PaddingTheme {
-  constructor(sizeMap?: Record<SizeKey, string>) {
-    super(sizeMap);
-    // Override with PlTheme's default classes if no custom sizeMap provided
-    if (!sizeMap) {
-      ComponentKeys.size.forEach((key) => {
-        this[key] = {
-          xs: "pl-2", sm: "pl-4", md: "pl-6", lg: "pl-8", xl: "pl-10"
-        }[key];
-      });
-    }
+/**
+ * Left padding theme - only outputs the consumer class pl-(--pl).
+ * CSS variable values (--pl-unit) are now set via CSS rules
+ * in vars.css using semantic classes and data attributes.
+ */
+export class PlTheme extends BaseTheme {
+  getClasses(_extractedKeys: CategoryProps): string[] {
+    return ["pl-(--pl)"];
   }
 }

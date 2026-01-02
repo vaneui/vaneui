@@ -36,10 +36,10 @@ export interface RowTheme extends BaseComponentTheme {
 
 export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
   "div",
-  "",
+  "vane-row",
   {
     size: {
-      gap: GapTheme.createForLayout(),
+      gap: new GapTheme(),
       breakpoint: new BreakpointTheme(),
     },
     layout: {
@@ -48,7 +48,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
       direction: new DirectionTheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: RadiusTheme.createLayoutTheme(),
+      radius: new RadiusTheme(),
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),

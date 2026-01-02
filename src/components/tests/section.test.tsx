@@ -124,19 +124,19 @@ describe('Section Component Tests', () => {
       );
 
       const section = container.querySelector('div');
-      expect(section).toHaveClass('[--py-unit:12] max-laptop:[--py-unit:6] max-tablet:[--py-unit:2]', 'py-(--py)');
+      expect(section).toHaveClass('py-(--py)');
     });
 
     it('should support all responsive padding sizes', () => {
       const paddingSizes = [
-        { prop: 'xs', pyClass: '[--py-unit:4] max-laptop:[--py-unit:3] max-tablet:[--py-unit:2]' },
-        { prop: 'sm', pyClass: '[--py-unit:8] max-laptop:[--py-unit:4] max-tablet:[--py-unit:2]' },
-        { prop: 'md', pyClass: '[--py-unit:12] max-laptop:[--py-unit:6] max-tablet:[--py-unit:2]' },
-        { prop: 'lg', pyClass: '[--py-unit:16] max-laptop:[--py-unit:8] max-tablet:[--py-unit:2]' },
-        { prop: 'xl', pyClass: '[--py-unit:20] max-laptop:[--py-unit:10] max-tablet:[--py-unit:4]' }
+        { prop: 'xs' },
+        { prop: 'sm' },
+        { prop: 'md' },
+        { prop: 'lg' },
+        { prop: 'xl' }
       ] as const;
 
-      paddingSizes.forEach(({prop, pyClass}) => {
+      paddingSizes.forEach(({prop}) => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <Section {...{[prop]: true}}>{prop} section</Section>
@@ -144,7 +144,8 @@ describe('Section Component Tests', () => {
         );
 
         const section = container.querySelector('div');
-        expect(section).toHaveClass(pyClass, 'py-(--py)');
+        expect(section).toHaveClass('py-(--py)');
+        expect(section).toHaveAttribute('data-size', prop);
       });
     });
   });

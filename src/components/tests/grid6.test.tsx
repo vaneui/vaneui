@@ -23,17 +23,17 @@ describe('Grid6 Component Tests', () => {
       expect(grid).toHaveClass('md:grid-cols-4'); // medium screens: 4 columns
       expect(grid).toHaveClass('lg:grid-cols-6'); // large screens and up: 6 columns
       expect(grid).toHaveClass('grid'); // grid display
-      expect(grid).toHaveClass('gap-(--gap) [--gap-unit:4]'); // default md gap
+      expect(grid).toHaveClass('gap-(--gap)'); // default md gap
       expect(grid).toHaveTextContent('Grid6 content');
     });
 
     it('should support different gap sizes', () => {
       const gaps = [
-        { prop: 'xs', class: 'gap-(--gap) [--gap-unit:2]' },
-        { prop: 'sm', class: 'gap-(--gap) [--gap-unit:3]' },
-        { prop: 'md', class: 'gap-(--gap) [--gap-unit:4]' },
-        { prop: 'lg', class: 'gap-(--gap) [--gap-unit:5]' },
-        { prop: 'xl', class: 'gap-(--gap) [--gap-unit:6]' }
+        { prop: 'xs', class: 'gap-(--gap)' },
+        { prop: 'sm', class: 'gap-(--gap)' },
+        { prop: 'md', class: 'gap-(--gap)' },
+        { prop: 'lg', class: 'gap-(--gap)' },
+        { prop: 'xl', class: 'gap-(--gap)' }
       ] as const;
 
       gaps.forEach(({ prop, class: expectedClass }) => {
@@ -71,7 +71,7 @@ describe('Grid6 Component Tests', () => {
 
       const grid = container.querySelector('div');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(grid).not.toHaveClass('gap-(--gap) [--gap-unit:2]', 'gap-(--gap) [--gap-unit:3]', 'gap-(--gap) [--gap-unit:4]', 'gap-(--gap) [--gap-unit:5]', 'gap-(--gap) [--gap-unit:6]');
+      expect(grid).not.toHaveClass('gap-(--gap)', 'gap-(--gap)', 'gap-(--gap)', 'gap-(--gap)', 'gap-(--gap)');
     });
 
     it('should support background appearance variants', () => {
@@ -369,7 +369,7 @@ describe('Grid6 Component Tests', () => {
         'sm:grid-cols-2', // small screens
         'md:grid-cols-4', // medium screens
         'lg:grid-cols-6', // large screens and up
-        'gap-(--gap) [--gap-unit:5]', // lg gap
+        'gap-(--gap)', // lg gap
         'max-mobile:hidden' // hidden on mobile screens
       );
     });

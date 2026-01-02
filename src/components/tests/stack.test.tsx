@@ -19,7 +19,7 @@ describe('Stack Component Tests', () => {
 
       const stack = container.querySelector('div');
       expect(stack).toBeInTheDocument();
-      expect(stack).toHaveClass('px-(--px) [--py-unit:4]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col');
+      expect(stack).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col');
     });
 
     it('should apply row direction when row prop is true', () => {
@@ -257,7 +257,7 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('px-(--px) [--py-unit:4]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
+      expect(stack).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
       expect(stack).toHaveClass('custom-stack-class'); // custom class
     });
 
@@ -286,8 +286,8 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('[--br-unit:3]');
         expect(stack).toHaveClass('rounded-(--br)');
+        expect(stack).toHaveAttribute('data-size', 'xs');
       });
 
       it('should apply correct --br-unit for lg size', () => {
@@ -298,8 +298,8 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('[--br-unit:6]');
         expect(stack).toHaveClass('rounded-(--br)');
+        expect(stack).toHaveAttribute('data-size', 'lg');
       });
 
       it('should apply correct --br-unit for xl size', () => {
@@ -310,8 +310,8 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('[--br-unit:7]');
         expect(stack).toHaveClass('rounded-(--br)');
+        expect(stack).toHaveAttribute('data-size', 'xl');
       });
     });
 
@@ -324,9 +324,9 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('[--py-unit:2]');
         expect(stack).toHaveClass('px-(--px)');
         expect(stack).toHaveClass('py-(--py)');
+        expect(stack).toHaveAttribute('data-size', 'xs');
       });
 
       it('should apply correct --py-unit for lg size', () => {
@@ -337,9 +337,9 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('[--py-unit:5]');
         expect(stack).toHaveClass('px-(--px)');
         expect(stack).toHaveClass('py-(--py)');
+        expect(stack).toHaveAttribute('data-size', 'lg');
       });
     });
 
@@ -352,8 +352,8 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('[--gap-unit:2]');
         expect(stack).toHaveClass('gap-(--gap)');
+        expect(stack).toHaveAttribute('data-size', 'xs');
       });
 
       it('should apply correct --gap-unit for xl size', () => {
@@ -364,8 +364,8 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('[--gap-unit:6]');
         expect(stack).toHaveClass('gap-(--gap)');
+        expect(stack).toHaveAttribute('data-size', 'xl');
       });
     });
   });

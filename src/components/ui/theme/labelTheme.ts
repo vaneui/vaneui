@@ -33,12 +33,12 @@ export interface LabelTheme extends BaseTypographyComponentTheme {
 
 export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
   "label",
-  "has-[input]:cursor-pointer cursor-default",
+  "vane-label has-[input]:cursor-pointer cursor-default",
   {
     size: {
       text: new FontSizeTheme(),
-      lineHeight: LineHeightTheme.createDefault(),
-      gap: GapTheme.createForUI(),
+      lineHeight: new LineHeightTheme(),
+      gap: new GapTheme(),
     },
     appearance: {
       text: GenericVariantTheme.createTypographyTextTheme(),

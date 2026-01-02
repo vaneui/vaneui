@@ -154,6 +154,17 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
 
   getComponentConfig(props: P) {
     const cleanProps: Record<string, unknown> = {...props};
+    const componentProps = props as unknown as Record<string, boolean>;
+    const defaults = this.defaults as Record<string, boolean>;
+
+    // Extract keys for data attributes
+    const extractedKeys: Record<string, string> = {};
+    for (const category of this.categories) {
+      const key = pickFirstTruthyKeyByCategory(componentProps, defaults, category);
+      if (key !== undefined) {
+        extractedKeys[category] = key;
+      }
+    }
 
     const keysToOmit =
       this.categories.flatMap(category => ComponentKeys[category]);
@@ -170,10 +181,22 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     const themeGeneratedClasses = this.getClasses(originalProps);
     const finalClasses = twMerge(...themeGeneratedClasses, className);
 
+    // Build data attributes for key categories
+    const dataAttributes: Record<string, string> = {};
+    if (extractedKeys.size) {
+      dataAttributes['data-size'] = extractedKeys.size;
+    }
+    if (extractedKeys.appearance) {
+      dataAttributes['data-appearance'] = extractedKeys.appearance;
+    }
+    if (extractedKeys.variant) {
+      dataAttributes['data-variant'] = extractedKeys.variant;
+    }
+
     return {
       Tag: componentTag,
       finalClasses,
-      finalProps: other,
+      finalProps: { ...other, ...dataAttributes },
     };
   }
 }

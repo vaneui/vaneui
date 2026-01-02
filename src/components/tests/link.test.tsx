@@ -23,7 +23,6 @@ describe('Link Component Tests', () => {
       expect(link).toHaveClass('hover:underline', 'w-fit');
       expect(link).not.toHaveClass('text-base'); // no default size
       expect(link).toHaveClass('text-(--color-text-link)'); // link appearance by default
-      expect(link).toHaveClass('[--lh:1.6]'); // md line height
       expect(link).toHaveClass('leading-(--lh)'); // CSS variable line height
       expect(link).toHaveClass('font-sans');
       expect(link).toHaveAttribute('href', '#test');
@@ -53,14 +52,14 @@ describe('Link Component Tests', () => {
 
     it('should support different sizes with correct line heights', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:6]', lhClass: '[--lh:1.4]' },
-        { prop: 'sm', unitClass: '[--fs-unit:7]', lhClass: '[--lh:1.6]' },
-        { prop: 'md', unitClass: '[--fs-unit:8]', lhClass: '[--lh:1.6]' },
-        { prop: 'lg', unitClass: '[--fs-unit:9]', lhClass: '[--lh:1.6]' },
-        { prop: 'xl', unitClass: '[--fs-unit:10]', lhClass: '[--lh:1.6]' }
+        { prop: 'xs' },
+        { prop: 'sm' },
+        { prop: 'md' },
+        { prop: 'lg' },
+        { prop: 'xl' }
       ] as const;
 
-      sizes.forEach(({prop, unitClass, lhClass}) => {
+      sizes.forEach(({prop}) => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <Link href="#test" {...{[prop]: true}}>{prop} link</Link>
@@ -68,8 +67,8 @@ describe('Link Component Tests', () => {
         );
 
         const link = container.querySelector('a');
-        expect(link).toHaveClass(unitClass);
-        expect(link).toHaveClass(lhClass, 'leading-(--lh)'); // line height classes
+        expect(link).toHaveAttribute('data-size', prop);
+        expect(link).toHaveClass('leading-(--lh)'); // line height classes
         // Note: text-(length:--fs) class conflicts with text-(--color-text-link) for Link components
         // The font size is still applied via the CSS variable, but the utility class is not present
       });

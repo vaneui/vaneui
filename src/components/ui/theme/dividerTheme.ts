@@ -18,7 +18,7 @@ export interface DividerTheme extends BaseComponentTheme {
 
 export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme>(
   "div",
-  "h-(--bw) w-full",
+  "vane-divider h-(--bw) w-full",
   {
     size: {
       py: new PyTheme(), // Uses layout spacing by default

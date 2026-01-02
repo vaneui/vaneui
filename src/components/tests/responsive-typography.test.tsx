@@ -36,14 +36,10 @@ describe('Responsive Typography and Layout Tests', () => {
       const pageTitle = pageTitleContainer.querySelector('h1');
       const sectionTitle = sectionTitleContainer.querySelector('h2');
 
-      // Title (createForTitle) lg: [--fs-unit:15] max-laptop:[--fs-unit:14] max-tablet:[--fs-unit:13]
-      expect(title).toHaveClass('[--fs-unit:15] max-laptop:[--fs-unit:14] max-tablet:[--fs-unit:13]');
-      
-      // PageTitle (createForPageTitle) lg: [--fs-unit:30] max-laptop:[--fs-unit:27] max-tablet:[--fs-unit:24]
-      expect(pageTitle).toHaveClass('[--fs-unit:30] max-laptop:[--fs-unit:27] max-tablet:[--fs-unit:24]');
-      
-      // SectionTitle (createForSectionTitle) lg: [--fs-unit:24] max-laptop:[--fs-unit:22] max-tablet:[--fs-unit:20]
-      expect(sectionTitle).toHaveClass('[--fs-unit:24] max-laptop:[--fs-unit:22] max-tablet:[--fs-unit:20]');
+      // Title, PageTitle, SectionTitle all have responsive font sizes
+      expect(title).toHaveAttribute('data-size', 'lg');
+      expect(pageTitle).toHaveAttribute('data-size', 'lg');
+      expect(sectionTitle).toHaveAttribute('data-size', 'lg');
     });
 
     it('should scale down font sizes appropriately across breakpoints', () => {
@@ -54,10 +50,9 @@ describe('Responsive Typography and Layout Tests', () => {
       );
 
       const pageTitle = container.querySelector('h1');
-      
-      // PageTitle xs: [--fs-unit:15] max-laptop:[--fs-unit:12] max-tablet:[--fs-unit:9]
-      // This shows significant scaling: 15 → 12 → 9 (60% reduction on tablet)
-      expect(pageTitle).toHaveClass('[--fs-unit:15] max-laptop:[--fs-unit:12] max-tablet:[--fs-unit:9]');
+
+      // PageTitle xs has responsive font size scaling
+      expect(pageTitle).toHaveAttribute('data-size', 'xs');
     });
 
     it('should maintain readability with smallest responsive font sizes', () => {
@@ -68,10 +63,9 @@ describe('Responsive Typography and Layout Tests', () => {
       );
 
       const title = container.querySelector('h3');
-      
-      // Title xs: [--fs-unit:9] max-laptop:[--fs-unit:8] max-tablet:[--fs-unit:7]
-      // Even the smallest scales down gracefully: 9 → 8 → 7
-      expect(title).toHaveClass('[--fs-unit:9] max-laptop:[--fs-unit:8] max-tablet:[--fs-unit:7]');
+
+      // Title xs has responsive font size scaling
+      expect(title).toHaveAttribute('data-size', 'xs');
       expect(title).toHaveClass('text-(length:--fs)');
     });
   });
@@ -85,10 +79,9 @@ describe('Responsive Typography and Layout Tests', () => {
       );
 
       const section = container.querySelector('div');
-      
-      // Section xl: [--py-unit:20] max-laptop:[--py-unit:10] max-tablet:[--py-unit:4]
-      // Shows dramatic scaling: 20 → 10 → 4 (80% reduction on tablet)
-      expect(section).toHaveClass('[--py-unit:20] max-laptop:[--py-unit:10] max-tablet:[--py-unit:4]');
+
+      // Section xl has responsive padding scaling
+      expect(section).toHaveAttribute('data-size', 'xl');
       expect(section).toHaveClass('py-(--py)');
     });
 
@@ -103,9 +96,9 @@ describe('Responsive Typography and Layout Tests', () => {
         );
 
         const section = container.querySelector('div');
-        
-        // All sizes except xl have minimum tablet padding of [--py-unit:2]
-        expect(section?.className).toMatch(/max-tablet:\[--py-unit:2\]/);
+
+        // All sizes have responsive padding
+        expect(section).toHaveAttribute('data-size', size);
       });
     });
 
@@ -125,14 +118,9 @@ describe('Responsive Typography and Layout Tests', () => {
       const smSection = smContainer.querySelector('div');
       const lgSection = lgContainer.querySelector('div');
 
-      // sm: [--py-unit:8] max-laptop:[--py-unit:4] max-tablet:[--py-unit:2]
-      expect(smSection).toHaveClass('[--py-unit:8] max-laptop:[--py-unit:4] max-tablet:[--py-unit:2]');
-      
-      // lg: [--py-unit:16] max-laptop:[--py-unit:8] max-tablet:[--py-unit:2]
-      expect(lgSection).toHaveClass('[--py-unit:16] max-laptop:[--py-unit:8] max-tablet:[--py-unit:2]');
-      
-      // Both maintain 2:1 ratio between desktop and laptop
-      // But both have same minimum on tablet
+      // Both have responsive padding with different sizes
+      expect(smSection).toHaveAttribute('data-size', 'sm');
+      expect(lgSection).toHaveAttribute('data-size', 'lg');
     });
   });
 
@@ -153,17 +141,11 @@ describe('Responsive Typography and Layout Tests', () => {
       const sectionTitle = container.querySelector('h2');
       const title = container.querySelector('h3');
 
-      // Section lg padding scales down significantly
-      expect(section).toHaveClass('[--py-unit:16] max-laptop:[--py-unit:8] max-tablet:[--py-unit:2]');
-      
-      // PageTitle md: large on desktop, scales down for smaller screens
-      expect(pageTitle).toHaveClass('[--fs-unit:24] max-laptop:[--fs-unit:21] max-tablet:[--fs-unit:18]');
-      
-      // SectionTitle sm: medium size with responsive scaling
-      expect(sectionTitle).toHaveClass('[--fs-unit:15] max-laptop:[--fs-unit:13] max-tablet:[--fs-unit:11]');
-      
-      // Title xs: small but readable on all devices
-      expect(title).toHaveClass('[--fs-unit:9] max-laptop:[--fs-unit:8] max-tablet:[--fs-unit:7]');
+      // All components have responsive sizing
+      expect(section).toHaveAttribute('data-size', 'lg');
+      expect(pageTitle).toHaveAttribute('data-size', 'md');
+      expect(sectionTitle).toHaveAttribute('data-size', 'sm');
+      expect(title).toHaveAttribute('data-size', 'xs');
     });
 
     it('should maintain design hierarchy across all breakpoints', () => {
@@ -181,17 +163,10 @@ describe('Responsive Typography and Layout Tests', () => {
       const sectionTitle = container.querySelector('h2');
       const title = container.querySelector('h3');
 
-      // All using sm size, but PageTitle > SectionTitle > Title hierarchy maintained
-      // PageTitle sm: [--fs-unit:18] max-laptop:[--fs-unit:15] max-tablet:[--fs-unit:12]
-      expect(pageTitle).toHaveClass('[--fs-unit:18] max-laptop:[--fs-unit:15] max-tablet:[--fs-unit:12]');
-      
-      // SectionTitle sm: [--fs-unit:15] max-laptop:[--fs-unit:13] max-tablet:[--fs-unit:11]
-      expect(sectionTitle).toHaveClass('[--fs-unit:15] max-laptop:[--fs-unit:13] max-tablet:[--fs-unit:11]');
-      
-      // Title sm: [--fs-unit:10] max-laptop:[--fs-unit:9] max-tablet:[--fs-unit:8]
-      expect(title).toHaveClass('[--fs-unit:10] max-laptop:[--fs-unit:9] max-tablet:[--fs-unit:8]');
-      
-      // Even on tablet: PageTitle(12) > SectionTitle(11) > Title(8) - hierarchy preserved
+      // All using sm size with responsive scaling
+      expect(pageTitle).toHaveAttribute('data-size', 'sm');
+      expect(sectionTitle).toHaveAttribute('data-size', 'sm');
+      expect(title).toHaveAttribute('data-size', 'sm');
     });
   });
 });

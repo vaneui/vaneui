@@ -22,7 +22,6 @@ describe('Title Components Tests', () => {
       const title = container.querySelector('h3');
       expect(title).toBeInTheDocument();
       expect(title).toHaveClass('text-balance', 'w-fit');
-      expect(title).toHaveClass('[--fs-unit:12] max-laptop:[--fs-unit:11] max-tablet:[--fs-unit:10]'); // md size for title with responsive scaling
       expect(title).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(title).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
       expect(title).toHaveClass('font-sans');
@@ -69,14 +68,14 @@ describe('Title Components Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:9] max-laptop:[--fs-unit:8] max-tablet:[--fs-unit:7]', textClass: 'text-(length:--fs)' },  // text-lg with responsive scaling
-        { prop: 'sm', unitClass: '[--fs-unit:10] max-laptop:[--fs-unit:9] max-tablet:[--fs-unit:8]', textClass: 'text-(length:--fs)' }, // text-xl with responsive scaling
-        { prop: 'md', unitClass: '[--fs-unit:12] max-laptop:[--fs-unit:11] max-tablet:[--fs-unit:10]', textClass: 'text-(length:--fs)' }, // text-2xl with responsive scaling
-        { prop: 'lg', unitClass: '[--fs-unit:15] max-laptop:[--fs-unit:14] max-tablet:[--fs-unit:13]', textClass: 'text-(length:--fs)' }, // text-3xl with responsive scaling
-        { prop: 'xl', unitClass: '[--fs-unit:18] max-laptop:[--fs-unit:17] max-tablet:[--fs-unit:16]', textClass: 'text-(length:--fs)' }  // text-4xl with responsive scaling
+        { prop: 'xs', textClass: 'text-(length:--fs)' },
+        { prop: 'sm', textClass: 'text-(length:--fs)' },
+        { prop: 'md', textClass: 'text-(length:--fs)' },
+        { prop: 'lg', textClass: 'text-(length:--fs)' },
+        { prop: 'xl', textClass: 'text-(length:--fs)' }
       ] as const;
 
-      sizes.forEach(({prop, unitClass, textClass}) => {
+      sizes.forEach(({prop, textClass}) => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <Title {...{[prop]: true}}>{prop} title</Title>
@@ -84,8 +83,8 @@ describe('Title Components Tests', () => {
         );
 
         const title = container.querySelector('h3');
-        expect(title).toHaveClass(unitClass);
         expect(title).toHaveClass(textClass);
+        expect(title).toHaveAttribute('data-size', prop);
       });
     });
 
@@ -145,7 +144,7 @@ describe('Title Components Tests', () => {
       );
 
       const title = container.querySelector('h3');
-      expect(title).toHaveClass('[--fs-unit:12] max-laptop:[--fs-unit:11] max-tablet:[--fs-unit:10]', 'text-(length:--fs)', 'font-semibold'); // theme classes with responsive sizing
+      expect(title).toHaveClass('text-(length:--fs)', 'font-semibold'); // theme classes with responsive sizing
       expect(title).toHaveClass('custom-title-class'); // custom class
     });
 
@@ -173,7 +172,6 @@ describe('Title Components Tests', () => {
       const pageTitle = container.querySelector('h1');
       expect(pageTitle).toBeInTheDocument();
       expect(pageTitle).toHaveClass('text-balance', 'tracking-tight', 'w-fit');
-      expect(pageTitle).toHaveClass('[--fs-unit:24] max-laptop:[--fs-unit:21] max-tablet:[--fs-unit:18]'); // md size for page title with responsive scaling
       expect(pageTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(pageTitle).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
       expect(pageTitle).toHaveClass('font-sans');
@@ -193,14 +191,14 @@ describe('Title Components Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:15] max-laptop:[--fs-unit:12] max-tablet:[--fs-unit:9]', textClass: 'text-(length:--fs)' }, // text-3xl with responsive scaling
-        { prop: 'sm', unitClass: '[--fs-unit:18] max-laptop:[--fs-unit:15] max-tablet:[--fs-unit:12]', textClass: 'text-(length:--fs)' }, // text-4xl with responsive scaling
-        { prop: 'md', unitClass: '[--fs-unit:24] max-laptop:[--fs-unit:21] max-tablet:[--fs-unit:18]', textClass: 'text-(length:--fs)' }, // text-5xl with responsive scaling
-        { prop: 'lg', unitClass: '[--fs-unit:30] max-laptop:[--fs-unit:27] max-tablet:[--fs-unit:24]', textClass: 'text-(length:--fs)' }, // text-6xl with responsive scaling
-        { prop: 'xl', unitClass: '[--fs-unit:36] max-laptop:[--fs-unit:33] max-tablet:[--fs-unit:30]', textClass: 'text-(length:--fs)' }  // text-7xl with responsive scaling
+        { prop: 'xs', textClass: 'text-(length:--fs)' },
+        { prop: 'sm', textClass: 'text-(length:--fs)' },
+        { prop: 'md', textClass: 'text-(length:--fs)' },
+        { prop: 'lg', textClass: 'text-(length:--fs)' },
+        { prop: 'xl', textClass: 'text-(length:--fs)' }
       ] as const;
 
-      sizes.forEach(({prop, unitClass, textClass}) => {
+      sizes.forEach(({prop, textClass}) => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <PageTitle {...{[prop]: true}}>{prop} page title</PageTitle>
@@ -208,8 +206,8 @@ describe('Title Components Tests', () => {
         );
 
         const pageTitle = container.querySelector('h1');
-        expect(pageTitle).toHaveClass(unitClass);
         expect(pageTitle).toHaveClass(textClass);
+        expect(pageTitle).toHaveAttribute('data-size', prop);
       });
     });
 
@@ -267,7 +265,7 @@ describe('Title Components Tests', () => {
       );
 
       const pageTitle = container.querySelector('h1');
-      expect(pageTitle).toHaveClass('[--fs-unit:24] max-laptop:[--fs-unit:21] max-tablet:[--fs-unit:18]', 'text-(length:--fs)', 'font-semibold', 'tracking-tight'); // theme classes with responsive sizing
+      expect(pageTitle).toHaveClass('text-(length:--fs)', 'font-semibold', 'tracking-tight'); // theme classes with responsive sizing
       expect(pageTitle).toHaveClass('custom-page-title-class'); // custom class
     });
 
@@ -295,7 +293,6 @@ describe('Title Components Tests', () => {
       const sectionTitle = container.querySelector('h2');
       expect(sectionTitle).toBeInTheDocument();
       expect(sectionTitle).toHaveClass('text-balance', 'w-fit');
-      expect(sectionTitle).toHaveClass('[--fs-unit:18] max-laptop:[--fs-unit:16] max-tablet:[--fs-unit:14]'); // md size for section title with responsive scaling
       expect(sectionTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(sectionTitle).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
       expect(sectionTitle).toHaveClass('font-sans');
@@ -315,14 +312,14 @@ describe('Title Components Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:12] max-laptop:[--fs-unit:10] max-tablet:[--fs-unit:8]', textClass: 'text-(length:--fs)' }, // text-2xl with responsive scaling
-        { prop: 'sm', unitClass: '[--fs-unit:15] max-laptop:[--fs-unit:13] max-tablet:[--fs-unit:11]', textClass: 'text-(length:--fs)' }, // text-3xl with responsive scaling
-        { prop: 'md', unitClass: '[--fs-unit:18] max-laptop:[--fs-unit:16] max-tablet:[--fs-unit:14]', textClass: 'text-(length:--fs)' }, // text-4xl with responsive scaling
-        { prop: 'lg', unitClass: '[--fs-unit:24] max-laptop:[--fs-unit:22] max-tablet:[--fs-unit:20]', textClass: 'text-(length:--fs)' }, // text-5xl with responsive scaling
-        { prop: 'xl', unitClass: '[--fs-unit:30] max-laptop:[--fs-unit:28] max-tablet:[--fs-unit:26]', textClass: 'text-(length:--fs)' }  // text-6xl with responsive scaling
+        { prop: 'xs', textClass: 'text-(length:--fs)' },
+        { prop: 'sm', textClass: 'text-(length:--fs)' },
+        { prop: 'md', textClass: 'text-(length:--fs)' },
+        { prop: 'lg', textClass: 'text-(length:--fs)' },
+        { prop: 'xl', textClass: 'text-(length:--fs)' }
       ] as const;
 
-      sizes.forEach(({prop, unitClass, textClass}) => {
+      sizes.forEach(({prop, textClass}) => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <SectionTitle {...{[prop]: true}}>{prop} section title</SectionTitle>
@@ -330,8 +327,8 @@ describe('Title Components Tests', () => {
         );
 
         const sectionTitle = container.querySelector('h2');
-        expect(sectionTitle).toHaveClass(unitClass);
         expect(sectionTitle).toHaveClass(textClass);
+        expect(sectionTitle).toHaveAttribute('data-size', prop);
       });
     });
 
@@ -411,7 +408,7 @@ describe('Title Components Tests', () => {
       );
 
       const sectionTitle = container.querySelector('h2');
-      expect(sectionTitle).toHaveClass('[--fs-unit:18] max-laptop:[--fs-unit:16] max-tablet:[--fs-unit:14]', 'text-(length:--fs)', 'font-semibold'); // theme classes with responsive sizing
+      expect(sectionTitle).toHaveClass('text-(length:--fs)', 'font-semibold'); // theme classes with responsive sizing
       expect(sectionTitle).toHaveClass('custom-section-title-class'); // custom class
     });
 
@@ -429,14 +426,14 @@ describe('Title Components Tests', () => {
 
     it('should apply correct line height based on text size for Title', () => {
       const sizes = [
-        { prop: 'xs', fontSizeUnit: '[--fs-unit:9] max-laptop:[--fs-unit:8] max-tablet:[--fs-unit:7]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh:1.556]', lineHeightClass: 'leading-(--lh)' },  // text-lg with responsive scaling
-        { prop: 'sm', fontSizeUnit: '[--fs-unit:10] max-laptop:[--fs-unit:9] max-tablet:[--fs-unit:8]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh:1.4]', lineHeightClass: 'leading-(--lh)' }, // text-xl with responsive scaling
-        { prop: 'md', fontSizeUnit: '[--fs-unit:12] max-laptop:[--fs-unit:11] max-tablet:[--fs-unit:10]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh:1.333]', lineHeightClass: 'leading-(--lh)' }, // text-2xl with responsive scaling
-        { prop: 'lg', fontSizeUnit: '[--fs-unit:15] max-laptop:[--fs-unit:14] max-tablet:[--fs-unit:13]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh:1.2]', lineHeightClass: 'leading-(--lh)' }, // text-3xl with responsive scaling
-        { prop: 'xl', fontSizeUnit: '[--fs-unit:18] max-laptop:[--fs-unit:17] max-tablet:[--fs-unit:16]', fontSizeClass: 'text-(length:--fs)', lhUnitClass: '[--lh:1.111]', lineHeightClass: 'leading-(--lh)' } // text-4xl with responsive scaling
+        { prop: 'xs', fontSizeClass: 'text-(length:--fs)', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'sm', fontSizeClass: 'text-(length:--fs)', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'md', fontSizeClass: 'text-(length:--fs)', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'lg', fontSizeClass: 'text-(length:--fs)', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'xl', fontSizeClass: 'text-(length:--fs)', lineHeightClass: 'leading-(--lh)' }
       ] as const;
 
-      sizes.forEach(({prop, fontSizeUnit, fontSizeClass, lhUnitClass, lineHeightClass}) => {
+      sizes.forEach(({prop, fontSizeClass, lineHeightClass}) => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <Title {...(prop === 'md' ? {} : {[prop]: true})}>
@@ -446,9 +443,7 @@ describe('Title Components Tests', () => {
         );
 
         const title = container.querySelector('h3');
-        expect(title).toHaveClass(fontSizeUnit);
         expect(title).toHaveClass(fontSizeClass);
-        expect(title).toHaveClass(lhUnitClass);
         expect(title).toHaveClass(lineHeightClass);
       });
     });

@@ -42,16 +42,10 @@ export interface CheckboxTheme extends BaseComponentTheme {
 
 export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTheme>(
   "input",
-  "peer col-start-1 row-start-1 cursor-pointer appearance-none ring-transparent size-(--size)",
+  "vane-checkbox peer col-start-1 row-start-1 cursor-pointer appearance-none ring-transparent size-(--size)",
   {
     size: {
-      size: new SizeTheme({
-        xs: '[--size-unit:3]',
-        sm: '[--size-unit:3.5]',
-        md: '[--size-unit:4]',
-        lg: '[--size-unit:4.5]',
-        xl: '[--size-unit:5]'
-      }),
+      size: new SizeTheme(),
       text: new FontSizeTheme()
     },
     layout: {
@@ -59,13 +53,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       border: new BorderTheme(),
       ring: new RingTheme(),
       focusVisible: new FocusVisibleTheme(),
-      radius: new RadiusTheme({
-        xs: '[--br-unit:1]',
-        sm: '[--br-unit:1.5]',
-        md: '[--br-unit:2]',
-        lg: '[--br-unit:2.5]',
-        xl: '[--br-unit:3]'
-      }),
+      radius: new RadiusTheme(),
     },
     appearance: {
       accent: GenericVariantTheme.createAccentColorAppearanceTheme(),
@@ -144,7 +132,7 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
         md: 'h-[calc(var(--lh)*var(--fs))]',
         lg: 'h-[calc(var(--lh)*var(--fs))]',
         xl: 'h-[calc(var(--lh)*var(--fs))]'
-      })
+      }) // Uses custom mode for calculated height
     },
     layout: {
       ...defaultLayoutsThemes,

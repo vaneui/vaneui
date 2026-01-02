@@ -24,7 +24,6 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('has-[input]:cursor-pointer'); // will be cursor-pointer with input
       expect(label).toHaveClass('flex'); // flex by default
       expect(label).toHaveClass('gap-(--gap)'); // default gap
-      expect(label).toHaveClass('[--fs-unit:8]'); // md size default (1rem = 8 * 0.125rem)
       expect(label).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(label).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
       expect(label).toHaveClass('font-sans');
@@ -72,14 +71,14 @@ describe('Label Component Tests', () => {
 
     it('should support different gap sizes', () => {
       const gaps = [
-        { prop: 'xs', gapClass: 'gap-(--gap)', unitClass: '[--gap-unit:1]' },
-        { prop: 'sm', gapClass: 'gap-(--gap)', unitClass: '[--gap-unit:1.5]' },
-        { prop: 'md', gapClass: 'gap-(--gap)', unitClass: '[--gap-unit:2]' },
-        { prop: 'lg', gapClass: 'gap-(--gap)', unitClass: '[--gap-unit:2.5]' },
-        { prop: 'xl', gapClass: 'gap-(--gap)', unitClass: '[--gap-unit:3]' }
+        { prop: 'xs', gapClass: 'gap-(--gap)' },
+        { prop: 'sm', gapClass: 'gap-(--gap)' },
+        { prop: 'md', gapClass: 'gap-(--gap)' },
+        { prop: 'lg', gapClass: 'gap-(--gap)' },
+        { prop: 'xl', gapClass: 'gap-(--gap)' }
       ] as const;
 
-      gaps.forEach(({prop, gapClass, unitClass}) => {
+      gaps.forEach(({prop, gapClass}) => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <Label {...{[prop]: true}} gap>
@@ -91,7 +90,7 @@ describe('Label Component Tests', () => {
 
         const label = container.querySelector('label');
         expect(label).toHaveClass(gapClass);
-        expect(label).toHaveClass(unitClass);
+        expect(label).toHaveAttribute('data-size', prop);
       });
     });
 
@@ -112,14 +111,14 @@ describe('Label Component Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', unitClass: '[--fs-unit:6]', textClass: 'text-(length:--fs)' }, // 0.75rem = 6 * 0.125rem
-        { prop: 'sm', unitClass: '[--fs-unit:7]', textClass: 'text-(length:--fs)' }, // 0.875rem = 7 * 0.125rem
-        { prop: 'md', unitClass: '[--fs-unit:8]', textClass: 'text-(length:--fs)' }, // 1rem = 8 * 0.125rem
-        { prop: 'lg', unitClass: '[--fs-unit:9]', textClass: 'text-(length:--fs)' }, // 1.125rem = 9 * 0.125rem
-        { prop: 'xl', unitClass: '[--fs-unit:10]', textClass: 'text-(length:--fs)' } // 1.25rem = 10 * 0.125rem
+        { prop: 'xs', textClass: 'text-(length:--fs)' },
+        { prop: 'sm', textClass: 'text-(length:--fs)' },
+        { prop: 'md', textClass: 'text-(length:--fs)' },
+        { prop: 'lg', textClass: 'text-(length:--fs)' },
+        { prop: 'xl', textClass: 'text-(length:--fs)' }
       ] as const;
 
-      sizes.forEach(({prop, unitClass, textClass}) => {
+      sizes.forEach(({prop, textClass}) => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <Label {...{[prop]: true}}>{prop} label</Label>
@@ -127,8 +126,8 @@ describe('Label Component Tests', () => {
         );
 
         const label = container.querySelector('label');
-        expect(label).toHaveClass(unitClass);
         expect(label).toHaveClass(textClass);
+        expect(label).toHaveAttribute('data-size', prop);
       });
     });
 

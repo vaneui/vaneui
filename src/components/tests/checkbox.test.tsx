@@ -50,7 +50,7 @@ describe('Checkbox Component Tests', () => {
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('cursor-pointer');
-      expect(checkbox).toHaveClass('size-(--size)', '[--size-unit:4]'); // md size default
+      expect(checkbox).toHaveClass('size-(--size)'); // md size default
       expect(checkbox).toHaveClass('rounded-(--br)'); // rounded default for md size
       // Note: Ring is disabled by default (noRing: true in defaults), so no ring classes expected
     });
@@ -78,15 +78,9 @@ describe('Checkbox Component Tests', () => {
     });
 
     it('should support different sizes', () => {
-      const sizes = [
-        { prop: 'xs', classes: ['size-(--size)', '[--size-unit:3]'] },
-        { prop: 'sm', classes: ['size-(--size)', '[--size-unit:3.5]'] },
-        { prop: 'md', classes: ['size-(--size)', '[--size-unit:4]'] },
-        { prop: 'lg', classes: ['size-(--size)', '[--size-unit:4.5]'] },
-        { prop: 'xl', classes: ['size-(--size)', '[--size-unit:5]'] }
-      ] as const;
+      const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
-      sizes.forEach(({prop, classes}) => {
+      sizes.forEach((prop) => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
             <Checkbox {...{[prop]: true}} />
@@ -95,9 +89,8 @@ describe('Checkbox Component Tests', () => {
 
         const checkbox = container.querySelector('input[type="checkbox"]');
         expect(checkbox).toBeInTheDocument();
-        classes.forEach(cls => {
-          expect(checkbox).toHaveClass(cls);
-        });
+        expect(checkbox).toHaveClass('size-(--size)');
+        expect(checkbox).toHaveAttribute('data-size', prop);
       });
     });
 

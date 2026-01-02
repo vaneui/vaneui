@@ -51,40 +51,14 @@ export interface CodeTheme extends BaseTypographyComponentTheme {
 
 export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
   "code",
-  "",
+  "vane-code",
   {
     size: {
-      px: new PxTheme({
-        xs: "[--aspect-ratio:1.8]",
-        sm: "[--aspect-ratio:1.8]",
-        md: "[--aspect-ratio:1.8]",
-        lg: "[--aspect-ratio:1.8]",
-        xl: "[--aspect-ratio:1.8]",
-      }),
-      py: new PyTheme({
-        xs: "[--py-unit:0.4]",
-        sm: "[--py-unit:0.6]",
-        md: "[--py-unit:0.8]",
-        lg: "[--py-unit:1]",
-        xl: "[--py-unit:1.2]",
-      }),
-      text: new FontSizeTheme({
-        xs: "[--fs-unit:5]",
-        sm: "[--fs-unit:6]",
-        md: "[--fs-unit:7]",
-        lg: "[--fs-unit:8]",
-        xl: "[--fs-unit:9]",
-      }),
-      lineHeight: new LineHeightTheme(
-        {
-          xs: "[--lh:1]",
-          sm: "[--lh:1]",
-          md: "[--lh:1]",
-          lg: "[--lh:1]",
-          xl: "[--lh:1]"
-        }
-      ),
-      gap: GapTheme.createForUI()
+      px: new PxTheme(),
+      py: new PyTheme(),
+      text: new FontSizeTheme(),
+      lineHeight: new LineHeightTheme(),
+      gap: new GapTheme()
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
@@ -96,13 +70,7 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
     },
     layout: {
       ...defaultLayoutsThemes,
-      radius: new RadiusTheme({
-        xs: '[--br-unit:1]',
-        sm: '[--br-unit:2]',
-        md: '[--br-unit:3]',
-        lg: '[--br-unit:4]',
-        xl: '[--br-unit:5]'
-      }),
+      radius: new RadiusTheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
       focusVisible: new FocusVisibleTheme(),

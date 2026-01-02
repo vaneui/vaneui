@@ -1,24 +1,15 @@
-import { SizeKey, ComponentKeys } from "../../props";
-import { PaddingTheme } from "./paddingTheme";
+import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 
-/** Horizontal padding theme - controls left and right padding via aspect ratio */
-export class PxTheme extends PaddingTheme {
-  constructor(aspectRatio: Record<SizeKey, string>) {
-    super(aspectRatio);
-    // Override with PxTheme's default aspect ratio classes if no custom map provided
-    if (!aspectRatio) {
-      ComponentKeys.size.forEach((key) => {
-        this[key] = "[--aspect-ratio:1]";
-      });
-    }
-  }
-
+/**
+ * Horizontal padding theme - only outputs the consumer class px-(--px).
+ * CSS variable values (--aspect-ratio, --py-unit) are now set via CSS rules
+ * in vars.css using semantic classes and data attributes.
+ */
+export class PxTheme extends BaseTheme {
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
-      const size = extractedKeys?.size ?? 'md';
-      const aspectRatioClass = this[size];
-      return [aspectRatioClass, "px-(--px)"];
+      return ["px-(--px)"];
     }
     return [];
   }

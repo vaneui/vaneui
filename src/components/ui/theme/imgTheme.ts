@@ -33,14 +33,14 @@ export interface ImgTheme extends BaseComponentTheme {
 
 export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
   "img",
-  "object-cover", // Default to cover for better image display
+  "vane-img object-cover", // Default to cover for better image display
   {
     layout: {
       ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
       focusVisible: new FocusVisibleTheme(),
-      radius: RadiusTheme.createLayoutTheme(),
+      radius: new RadiusTheme(),
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),

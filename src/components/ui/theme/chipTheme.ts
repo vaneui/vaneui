@@ -51,34 +51,14 @@ export interface ChipTheme extends BaseTypographyComponentTheme {
 
 export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   "span",
-  "w-fit h-fit transition-all duration-200 whitespace-nowrap",
+  "vane-chip w-fit h-fit transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new PxTheme({
-        xs: "[--aspect-ratio:2]",
-        sm: "[--aspect-ratio:2]",
-        md: "[--aspect-ratio:2]",
-        lg: "[--aspect-ratio:2]",
-        xl: "[--aspect-ratio:2]",
-      }),
-      py: new PyTheme({
-        xs: "[--py-unit:0.5]",
-        sm: "[--py-unit:1]",
-        md: "[--py-unit:1.5]",
-        lg: "[--py-unit:2]",
-        xl: "[--py-unit:2.5]",
-      }),
+      px: new PxTheme(),
+      py: new PyTheme(),
       text: new FontSizeTheme(),
-      lineHeight: new LineHeightTheme(
-        {
-          xs: "[--lh:1.2]",
-          sm: "[--lh:1.2]",
-          md: "[--lh:1.2]",
-          lg: "[--lh:1.2]",
-          xl: "[--lh:1.2]"
-        }
-      ),
-      gap: GapTheme.createForUI()
+      lineHeight: new LineHeightTheme(),
+      gap: new GapTheme()
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
@@ -90,7 +70,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
     },
     layout: {
       ...defaultLayoutsThemes,
-      radius: RadiusTheme.createUITheme(),
+      radius: new RadiusTheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
       focusVisible: new FocusVisibleTheme(),

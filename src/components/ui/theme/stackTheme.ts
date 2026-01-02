@@ -40,18 +40,12 @@ export interface StackTheme extends BaseComponentTheme {
 
 export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
   "div",
-  "",
+  "vane-stack",
   {
     size: {
-      px: new PxTheme({
-        xs: "[--aspect-ratio:1]",
-        sm: "[--aspect-ratio:1]",
-        md: "[--aspect-ratio:1]",
-        lg: "[--aspect-ratio:1]",
-        xl: "[--aspect-ratio:1]",
-      }),
+      px: new PxTheme(),
       py: new PyTheme(),
-      gap: GapTheme.createForLayout(),
+      gap: new GapTheme(),
       breakpoint: new BreakpointTheme(),
     },
     layout: {
@@ -60,7 +54,7 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
       direction: new DirectionTheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: RadiusTheme.createLayoutTheme(),
+      radius: new RadiusTheme(),
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),

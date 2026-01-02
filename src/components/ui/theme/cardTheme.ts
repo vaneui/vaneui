@@ -48,31 +48,19 @@ export interface CardTheme extends BaseTypographyComponentTheme {
 
 export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   "div",
-  "",
+  "vane-card",
   {
     size: {
-      px: new PxTheme({
-        xs: "[--aspect-ratio:1]",
-        sm: "[--aspect-ratio:1]",
-        md: "[--aspect-ratio:1]",
-        lg: "[--aspect-ratio:1]",
-        xl: "[--aspect-ratio:1]",
-      }),
-      py: new PyTheme({
-        xs: "[--py-unit:2]",
-        sm: "[--py-unit:4]",
-        md: "[--py-unit:6]",
-        lg: "[--py-unit:8]",
-        xl: "[--py-unit:10]",
-      }),
-      lineHeight: LineHeightTheme.createDefault(),
-      gap: GapTheme.createForLayout(),
+      px: new PxTheme(),
+      py: new PyTheme(),
+      lineHeight: new LineHeightTheme(),
+      gap: new GapTheme(),
     },
     layout: {
       ...defaultLayoutsThemes,
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: RadiusTheme.createLayoutTheme(),
+      radius: new RadiusTheme(),
       wrap: new WrapTheme(),
       direction: new DirectionTheme(),
       breakpoint: new BreakpointTheme(),

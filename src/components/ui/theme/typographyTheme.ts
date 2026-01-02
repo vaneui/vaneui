@@ -44,7 +44,7 @@ export const createTypographyComponentTheme = (
   base: string = "text-balance",
   fontSizeTheme: FontSizeTheme = new FontSizeTheme(),
   defaults: Partial<TypographyProps> = {},
-  lineHeightTheme: LineHeightTheme = LineHeightTheme.createDefault(),
+  lineHeightTheme: LineHeightTheme = new LineHeightTheme(),
 ): ComponentTheme<TypographyProps, TypographyTheme> => {
   return new ComponentTheme<TypographyProps, TypographyTheme>(
     tag,
@@ -71,34 +71,34 @@ export const createTypographyComponentTheme = (
 // Page title specific theme
 export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h1",
-  "text-balance tracking-tight w-fit",
-  FontSizeTheme.createForPageTitle(),
+  `vane-page-title text-balance tracking-tight w-fit [--fs-unit:var(--fs-unit-desktop)] max-laptop:[--fs-unit:var(--fs-unit-laptop)] max-tablet:[--fs-unit:var(--fs-unit-tablet)]`,
+  new FontSizeTheme(),
   mergeDefaults(themeDefaults.pageTitle as Record<string, boolean>, {semibold: true}),
-  LineHeightTheme.createForPageTitle()
+  new LineHeightTheme()
 );
 
 // Section title specific theme
 export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h2",
-  "text-balance w-fit",
-  FontSizeTheme.createForSectionTitle(),
+  `vane-section-title text-balance w-fit [--fs-unit:var(--fs-unit-desktop)] max-laptop:[--fs-unit:var(--fs-unit-laptop)] max-tablet:[--fs-unit:var(--fs-unit-tablet)]`,
+  new FontSizeTheme(),
   mergeDefaults(themeDefaults.sectionTitle as Record<string, boolean>, {semibold: true}),
-  LineHeightTheme.createForSectionTitle()
+  new LineHeightTheme()
 );
 
 // Title specific theme
 export const titleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h3",
-  "text-balance w-fit",
-  FontSizeTheme.createForTitle(),
+  `vane-title text-balance w-fit [--fs-unit:var(--fs-unit-desktop)] max-laptop:[--fs-unit:var(--fs-unit-laptop)] max-tablet:[--fs-unit:var(--fs-unit-tablet)]`,
+  new FontSizeTheme(),
   mergeDefaults(themeDefaults.title as Record<string, boolean>, {semibold: true}),
-  LineHeightTheme.createForTitle()
+  new LineHeightTheme()
 );
 
 // Text specific theme
 export const textTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "p",
-  "p-0 m-0 w-fit",
+  "vane-text p-0 m-0 w-fit",
   new FontSizeTheme(),
   themeDefaults.text as Partial<TypographyProps>
 );
@@ -106,11 +106,11 @@ export const textTheme: ComponentTheme<TypographyProps, TypographyTheme> = creat
 // Link specific theme - uses LinkVariantTheme for link-specific colors
 export const linkTheme: ComponentTheme<TypographyProps, LinkTheme> = new ComponentTheme<TypographyProps, LinkTheme>(
   "a",
-  "hover:underline w-fit cursor-pointer",
+  "vane-link hover:underline w-fit cursor-pointer",
   {
     size: {
       text: new FontSizeTheme(),
-      lineHeight: LineHeightTheme.createDefault(),
+      lineHeight: new LineHeightTheme(),
     },
     appearance: {
       text: new LinkVariantTheme(),
@@ -125,11 +125,11 @@ export const linkTheme: ComponentTheme<TypographyProps, LinkTheme> = new Compone
 // ListItem specific theme
 export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = new ComponentTheme<TypographyProps, TypographyTheme>(
   "li",
-  "",
+  "vane-list-item",
   {
     size: {
       text: new FontSizeTheme(),
-      lineHeight: LineHeightTheme.createDefault(),
+      lineHeight: new LineHeightTheme(),
     },
     appearance: {
       text: GenericVariantTheme.createTypographyTextTheme(),
@@ -157,11 +157,11 @@ export interface ListTheme extends BaseTypographyComponentTheme {
 // List specific theme
 export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentTheme<ListProps, ListTheme>(
   "ul",
-  "list-inside",
+  "vane-list list-inside",
   {
     size: {
       text: new FontSizeTheme(),
-      lineHeight: LineHeightTheme.createDefault(),
+      lineHeight: new LineHeightTheme(),
       paddingLeft: new PlTheme(),
     },
     appearance: {

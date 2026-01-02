@@ -19,7 +19,7 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('px-(--px) [--py-unit:6]', 'py-(--py) [--gap-unit:4]', 'gap-(--gap)', 'flex');
+      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)', 'flex');
       expect(card).toHaveClass('text-(--color-text-primary)'); // primary appearance
       expect(card).toHaveClass('[background:var(--color-bg-layout-primary)]', 'rounded-(--br)', 'flex-col');
       expect(card).toHaveClass('border-(--color-border-primary)');
@@ -75,8 +75,8 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:2]', 'py-(--py) [--gap-unit:2]', 'gap-(--gap)'); // xs sizing for padding and gap
-      // xs size has no responsive classes
+      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)'); // xs sizing for padding and gap
+      expect(card).toHaveAttribute('data-size', 'xs');
     });
 
     it('should render with sm size classes', () => {
@@ -87,7 +87,8 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:4]', 'py-(--py) [--gap-unit:3]', 'gap-(--gap)'); // sm sizing for padding and gap
+      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)'); // sm sizing for padding and gap
+      expect(card).toHaveAttribute('data-size', 'sm');
     });
 
     it('should render with lg size classes', () => {
@@ -98,7 +99,8 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:8]', 'py-(--py) [--gap-unit:5]', 'gap-(--gap)'); // lg sizing
+      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)'); // lg sizing
+      expect(card).toHaveAttribute('data-size', 'lg');
     });
 
     it('should render with xl size classes', () => {
@@ -109,7 +111,8 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px) [--py-unit:10]', 'py-(--py) [--gap-unit:6]', 'gap-(--gap)'); // xl sizing
+      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)'); // xl sizing
+      expect(card).toHaveAttribute('data-size', 'xl');
     });
   });
 
@@ -448,7 +451,8 @@ describe('Card Component Tests', () => {
         expect(card).toHaveClass('border-[length:var(--bw)]');
         expect(card).toHaveClass('ring-(--color-border-primary)');
         // Should have size and padding classes
-        expect(card).toHaveClass('px-(--px) [--py-unit:8]', 'py-(--py) [--gap-unit:5]'); // lg padding
+        expect(card).toHaveClass('px-(--px)', 'py-(--py)'); // lg padding
+        expect(card).toHaveAttribute('data-size', 'lg');
       });
 
       it('should work with responsive breakpoints', () => {

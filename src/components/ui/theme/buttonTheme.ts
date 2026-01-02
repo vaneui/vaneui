@@ -13,7 +13,6 @@ import { RingTheme } from "./layout/ringTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { SizeKey } from "../props";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
@@ -21,14 +20,6 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { BUTTON_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
-
-const buttonAspectRatioClasses: Record<SizeKey, string> = {
-  xs: "[--aspect-ratio:2]",
-  sm: "[--aspect-ratio:2]",
-  md: "[--aspect-ratio:2]",
-  lg: "[--aspect-ratio:2]",
-  xl: "[--aspect-ratio:2]",
-};
 
 export interface ButtonTheme extends BaseTypographyComponentTheme {
   size: {
@@ -58,20 +49,14 @@ export interface ButtonTheme extends BaseTypographyComponentTheme {
 
 export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   "button",
-  "w-fit h-fit cursor-pointer transition-all duration-200 whitespace-nowrap",
+  "vane-button w-fit h-fit cursor-pointer transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new PxTheme(buttonAspectRatioClasses),
-      py: PyTheme.createForUI(),
-      gap: GapTheme.createForUI(),
+      px: new PxTheme(),
+      py: new PyTheme(),
+      gap: new GapTheme(),
       text: new FontSizeTheme(),
-      lineHeight: new LineHeightTheme({
-        xs: "[--lh:1.3]",
-        sm: "[--lh:1.3]",
-        md: "[--lh:1.3]",
-        lg: "[--lh:1.3]",
-        xl: "[--lh:1.3]"
-      }),
+      lineHeight: new LineHeightTheme(),
     },
     appearance: {
       background: GenericVariantTheme.createBgAppearanceTheme(),
@@ -86,7 +71,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       border: new BorderTheme(),
       ring: new RingTheme(),
       focusVisible: new FocusVisibleTheme(),
-      radius: RadiusTheme.createUITheme(),
+      radius: new RadiusTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },

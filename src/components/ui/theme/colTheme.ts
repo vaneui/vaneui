@@ -34,10 +34,10 @@ export interface ColTheme extends BaseComponentTheme {
 
 export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   "div",
-  "",
+  "vane-col",
   {
     size: {
-      gap: GapTheme.createForLayout(),
+      gap: new GapTheme(),
     },
     layout: {
       ...defaultLayoutsThemes,
@@ -45,7 +45,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
       direction: new DirectionTheme(),
       border: new BorderTheme(),
       ring: new RingTheme(),
-      radius: RadiusTheme.createLayoutTheme(),
+      radius: new RadiusTheme(),
     },
     appearance: {
       background: GenericVariantTheme.createLayoutBgAppearanceTheme(),

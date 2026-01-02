@@ -44,8 +44,8 @@ describe('Code Component', () => {
       const codeElement = container.querySelector('code');
 
       expect(codeElement).toHaveClass('inline');
-      expect(codeElement).toHaveClass('[--fs-unit:7]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveAttribute('data-size', 'md');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
       expect(codeElement).toHaveClass('[background:var(--color-bg-primary)]');
@@ -68,8 +68,8 @@ describe('Code Component', () => {
       const { container } = render(<Code xs>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('[--fs-unit:5]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveAttribute('data-size', 'xs');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
       expect(codeElement).toHaveClass('rounded-(--br)');
@@ -79,8 +79,8 @@ describe('Code Component', () => {
       const { container } = render(<Code md>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('[--fs-unit:7]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveAttribute('data-size', 'md');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
       expect(codeElement).toHaveClass('rounded-(--br)');
@@ -90,8 +90,8 @@ describe('Code Component', () => {
       const { container } = render(<Code lg>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('[--fs-unit:8]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveAttribute('data-size', 'lg');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
       expect(codeElement).toHaveClass('rounded-(--br)');
@@ -101,8 +101,8 @@ describe('Code Component', () => {
       const { container } = render(<Code xl>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('[--fs-unit:9]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveAttribute('data-size', 'xl');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
       expect(codeElement).toHaveClass('rounded-(--br)');
@@ -292,8 +292,8 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('[--fs-unit:7]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveAttribute('data-size', 'md');
     });
 
     it('should have inline by default now', () => {
@@ -345,8 +345,8 @@ describe('Code Component', () => {
       );
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('[--fs-unit:5]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveAttribute('data-size', 'xs');
       expect(codeElement).toHaveClass('[background:var(--color-bg-filled-primary)]');
       expect(codeElement).toHaveClass('rounded-full');
       expect(codeElement).toHaveClass('font-mono');
@@ -383,8 +383,8 @@ describe('Code Component', () => {
       const { container } = render(<Code sm>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('[--fs-unit:6]');
       expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveAttribute('data-size', 'sm');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
     });

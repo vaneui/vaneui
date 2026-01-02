@@ -14,22 +14,12 @@ import { RingTheme } from "./layout/ringTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { SizeKey } from "../props";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { BADGE_CATEGORIES } from "../props";
-
-// Badge aspect ratios (same as button)
-const badgeAspectRatioClasses: Record<SizeKey, string> = {
-  xs: "[--aspect-ratio:2]",
-  sm: "[--aspect-ratio:2]", 
-  md: "[--aspect-ratio:2]",
-  lg: "[--aspect-ratio:2]",
-  xl: "[--aspect-ratio:2]",
-};
 
 export interface BadgeTheme extends BaseTypographyComponentTheme {
   size: {
@@ -59,14 +49,14 @@ export interface BadgeTheme extends BaseTypographyComponentTheme {
 
 export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
   "span",
-  "w-fit h-fit transition-all duration-200 whitespace-nowrap",
+  "vane-badge w-fit h-fit transition-all duration-200 whitespace-nowrap",
   {
     size: {
-      px: new PxTheme(badgeAspectRatioClasses),
-      py: PyTheme.createForUI(),
-      gap: GapTheme.createForUI(),
+      px: new PxTheme(),
+      py: new PyTheme(),
+      gap: new GapTheme(),
       text: new FontSizeTheme(),
-      lineHeight: LineHeightTheme.createDefault()
+      lineHeight: new LineHeightTheme()
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
@@ -81,7 +71,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
       border: new BorderTheme(),
       ring: new RingTheme(),
       focusVisible: new FocusVisibleTheme(),
-      radius: RadiusTheme.createUITheme(),
+      radius: new RadiusTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },

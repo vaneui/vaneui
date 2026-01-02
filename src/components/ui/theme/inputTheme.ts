@@ -49,20 +49,14 @@ export interface InputTheme extends BaseTypographyComponentTheme {
 
 export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
   "input",
-  "w-full transition-all duration-200",
+  "vane-input w-full transition-all duration-200",
   {
     size: {
-      px: new PxTheme({
-        xs: "[--aspect-ratio:2]",
-        sm: "[--aspect-ratio:2]",
-        md: "[--aspect-ratio:2]",
-        lg: "[--aspect-ratio:2]",
-        xl: "[--aspect-ratio:2]",
-      }),
-      py: PyTheme.createForUI(),
-      gap: GapTheme.createForUI(),
+      px: new PxTheme(),
+      py: new PyTheme(),
+      gap: new GapTheme(),
       text: new FontSizeTheme(),
-      lineHeight: LineHeightTheme.createDefault(),
+      lineHeight: new LineHeightTheme(),
     },
     appearance: {
       background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
@@ -77,7 +71,7 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
       border: new BorderTheme(),
       ring: new RingTheme(),
       focusVisible: new FocusVisibleTheme(),
-      radius: RadiusTheme.createUITheme(),
+      radius: new RadiusTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
     },
