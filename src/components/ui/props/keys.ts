@@ -154,8 +154,6 @@ export type TextTransformKey = typeof ComponentKeys.textTransform[number];
 export type TextAlignKey = typeof ComponentKeys.textAlign[number];
 /** Responsive breakpoint column keys for grid layouts */
 export type BreakpointKey = typeof ComponentKeys.breakpoint[number];
-/** Responsive CSS variable switching key */
-export type ResponsiveKey = typeof ComponentKeys.responsive[number];
 /** Breakpoint-specific hide keys for responsive visibility */
 export type HideKey = typeof ComponentKeys.hide[number];
 /** CSS position keys: relative, absolute, fixed, sticky, static */

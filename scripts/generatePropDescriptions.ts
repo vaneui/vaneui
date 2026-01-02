@@ -24,8 +24,11 @@ interface CategoryDescription {
   props: Record<string, PropDescription>;
 }
 
+// Type for ComponentKeys categories
+type ComponentKeyCategory = keyof typeof ComponentKeys;
+
 // Map from interface name to category key in ComponentKeys
-const interfaceToCategoryMap: Record<string, string> = {
+const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'SizeProps': 'size',
   'AppearanceProps': 'appearance',
   'TransparentProps': 'transparent',
@@ -54,6 +57,7 @@ const interfaceToCategoryMap: Record<string, string> = {
   'TextTransformProps': 'textTransform',
   'TextAlignProps': 'textAlign',
   'ListStyleProps': 'listStyle',
+  'ResponsiveProps': 'responsive',
 };
 
 // Convert category key to display name
