@@ -6,6 +6,8 @@ export const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
 export const PADDING = ['padding'] as const;
 /** Responsive breakpoint properties for different screen sizes */
 export const BREAKPOINT = ['breakpoint'] as const;
+/** Responsive CSS variable switching for automatic breakpoint adaptation */
+export const RESPONSIVE = ['responsive'] as const;
 /** Core visual properties including appearance colors and transparency */
 export const VISUAL_CORE = ['appearance', 'transparent'] as const;
 /** Border properties for visual decoration */
@@ -31,6 +33,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...LIST_STYLE,
   ...LAYOUT_CORE,
   ...BREAKPOINT,
+  ...RESPONSIVE,
   ...PADDING,
   ...BORDER,
   ...VISUAL_DECORATION,
@@ -91,6 +94,8 @@ export const ComponentKeys = {
   padding: ['padding', 'noPadding'] as const,
   /** CSS positioning: relative, absolute, fixed, sticky, static */
   position: ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const,
+  /** Responsive CSS variable switching: responsive (enabled) */
+  responsive: ['responsive'] as const,
   /** Reverse the order of flex items */
   reverse: ['reverse'] as const,
   /** Focus ring visibility: ring (show) or noRing (hide) */
@@ -149,6 +154,8 @@ export type TextTransformKey = typeof ComponentKeys.textTransform[number];
 export type TextAlignKey = typeof ComponentKeys.textAlign[number];
 /** Responsive breakpoint column keys for grid layouts */
 export type BreakpointKey = typeof ComponentKeys.breakpoint[number];
+/** Responsive CSS variable switching key */
+export type ResponsiveKey = typeof ComponentKeys.responsive[number];
 /** Breakpoint-specific hide keys for responsive visibility */
 export type HideKey = typeof ComponentKeys.hide[number];
 /** CSS position keys: relative, absolute, fixed, sticky, static */
@@ -189,7 +196,7 @@ export const CODE_CATEGORIES = INTERACTIVE_CATEGORIES;
 
 /** Typography component categories */
 /** Categories for typography components like Text, Title, Link */
-export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT] as const;
+export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT, ...RESPONSIVE] as const;
 /** Categories for list components with typography and list-specific styling */
 export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LIST_STYLE, ...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT] as const;
 
@@ -209,7 +216,7 @@ export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOIN
 /** Categories for divider components with basic layout and visual properties */
 export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
 /** Categories for section layout components with full responsive support */
-export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...BREAKPOINT, ...VARIANT] as const;
+export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...BREAKPOINT, ...VARIANT, ...RESPONSIVE] as const;
 
 /** Form component categories */
 /** Categories for checkbox form components */

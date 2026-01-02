@@ -86,6 +86,7 @@ export const themeDefaults: ThemeDefaults = {
     noBorder: true,
     noRing: true,
     noShadow: true,
+    responsive: true,
   },
 
   stack: {
@@ -188,6 +189,7 @@ export const themeDefaults: ThemeDefaults = {
     sans: true,
     semibold: true,
     textLeft: true,
+    responsive: true,
   },
 
   pageTitle: {
@@ -195,6 +197,7 @@ export const themeDefaults: ThemeDefaults = {
     sans: true,
     semibold: true,
     textLeft: true,
+    responsive: true,
   },
 
   sectionTitle: {
@@ -202,6 +205,7 @@ export const themeDefaults: ThemeDefaults = {
     sans: true,
     semibold: true,
     textLeft: true,
+    responsive: true,
   },
 
   link: {

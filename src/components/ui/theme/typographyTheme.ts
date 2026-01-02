@@ -72,7 +72,7 @@ export const createTypographyComponentTheme = (
 export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h1",
   "vane-page-title text-balance tracking-tight w-fit",
-  FontSizeTheme.createResponsive(),
+  new FontSizeTheme(),
   mergeDefaults(themeDefaults.pageTitle as Record<string, boolean>, {semibold: true}),
   new LineHeightTheme()
 );
@@ -81,7 +81,7 @@ export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = 
 export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h2",
   "vane-section-title text-balance w-fit",
-  FontSizeTheme.createResponsive(),
+  new FontSizeTheme(),
   mergeDefaults(themeDefaults.sectionTitle as Record<string, boolean>, {semibold: true}),
   new LineHeightTheme()
 );
@@ -90,7 +90,7 @@ export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyTheme>
 export const titleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h3",
   "vane-title text-balance w-fit",
-  FontSizeTheme.createResponsive(),
+  new FontSizeTheme(),
   mergeDefaults(themeDefaults.title as Record<string, boolean>, {semibold: true}),
   new LineHeightTheme()
 );

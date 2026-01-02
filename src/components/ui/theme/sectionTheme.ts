@@ -44,8 +44,8 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   {
     size: {
       px: new PxTheme(),
-      py: PyTheme.createResponsive(),
-      gap: GapTheme.createResponsive(),
+      py: new PyTheme(),
+      gap: new GapTheme(),
       breakpoint: new BreakpointTheme(),
     },
     appearance: {

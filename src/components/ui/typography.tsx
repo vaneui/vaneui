@@ -18,7 +18,8 @@ import type {
   TransparentProps,
   VariantProps,
   ListStyleProps,
-  PaddingProps
+  PaddingProps,
+  ResponsiveProps
 } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
@@ -41,6 +42,7 @@ export type TypographyProps = BaseProps &
   AppearanceProps &
   TransparentProps &
   VariantProps &
+  ResponsiveProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */
