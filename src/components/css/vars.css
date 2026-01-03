@@ -170,28 +170,28 @@
     /* NON-RESPONSIVE COMPONENTS */
 
     /* Button */
-    .vane-button { --lh: 1.3; --br-unit: 2; --py-unit: 2; --aspect-ratio: 2; }
-    .vane-button[data-size="xs"] { --fs-unit: 6; --py-unit: 1; --br-unit: 1; }
-    .vane-button[data-size="sm"] { --fs-unit: 7; --py-unit: 1.5; --br-unit: 1.5; }
-    .vane-button[data-size="md"] { --fs-unit: 8; --py-unit: 2; --br-unit: 2; }
-    .vane-button[data-size="lg"] { --fs-unit: 9; --py-unit: 2.5; --br-unit: 2.5; }
-    .vane-button[data-size="xl"] { --fs-unit: 10; --py-unit: 3; --br-unit: 3; }
+    .vane-button { --lh: 1.3; --br-unit: 2; --py-unit: 2; --aspect-ratio: 2; --gap-unit: 2; }
+    .vane-button[data-size="xs"] { --fs-unit: 6; --py-unit: 1; --br-unit: 1; --gap-unit: 1; }
+    .vane-button[data-size="sm"] { --fs-unit: 7; --py-unit: 1.5; --br-unit: 1.5; --gap-unit: 1.5; }
+    .vane-button[data-size="md"] { --fs-unit: 8; --py-unit: 2; --br-unit: 2; --gap-unit: 2; }
+    .vane-button[data-size="lg"] { --fs-unit: 9; --py-unit: 2.5; --br-unit: 2.5; --gap-unit: 2.5; }
+    .vane-button[data-size="xl"] { --fs-unit: 10; --py-unit: 3; --br-unit: 3; --gap-unit: 3; }
 
     /* Badge */
-    .vane-badge { --lh: 1.6; --br-unit: 2; --py-unit: 1; --aspect-ratio: 2; }
-    .vane-badge[data-size="xs"] { --fs-unit: 5; --py-unit: 0.5; --br-unit: 1; }
-    .vane-badge[data-size="sm"] { --fs-unit: 6; --py-unit: 0.75; --br-unit: 1.5; }
-    .vane-badge[data-size="md"] { --fs-unit: 7; --py-unit: 1; --br-unit: 2; }
-    .vane-badge[data-size="lg"] { --fs-unit: 8; --py-unit: 1.25; --br-unit: 2.5; }
-    .vane-badge[data-size="xl"] { --fs-unit: 9; --py-unit: 1.5; --br-unit: 3; }
+    .vane-badge { --lh: 1.6; --br-unit: 2; --py-unit: 1; --aspect-ratio: 2; --gap-unit: 2; }
+    .vane-badge[data-size="xs"] { --fs-unit: 5; --py-unit: 0.5; --br-unit: 1; --gap-unit: 1; }
+    .vane-badge[data-size="sm"] { --fs-unit: 6; --py-unit: 0.75; --br-unit: 1.5; --gap-unit: 1.5; }
+    .vane-badge[data-size="md"] { --fs-unit: 7; --py-unit: 1; --br-unit: 2; --gap-unit: 2; }
+    .vane-badge[data-size="lg"] { --fs-unit: 8; --py-unit: 1.25; --br-unit: 2.5; --gap-unit: 2.5; }
+    .vane-badge[data-size="xl"] { --fs-unit: 9; --py-unit: 1.5; --br-unit: 3; --gap-unit: 3; }
 
     /* Chip */
-    .vane-chip { --lh: 1.2; --br-unit: 2; --py-unit: 1; --aspect-ratio: 2; }
-    .vane-chip[data-size="xs"] { --fs-unit: 5; --py-unit: 0.5; --br-unit: 1; }
-    .vane-chip[data-size="sm"] { --fs-unit: 6; --py-unit: 0.75; --br-unit: 1.5; }
-    .vane-chip[data-size="md"] { --fs-unit: 7; --py-unit: 1; --br-unit: 2; }
-    .vane-chip[data-size="lg"] { --fs-unit: 8; --py-unit: 1.25; --br-unit: 2.5; }
-    .vane-chip[data-size="xl"] { --fs-unit: 9; --py-unit: 1.5; --br-unit: 3; }
+    .vane-chip { --lh: 1.2; --br-unit: 2; --py-unit: 1; --aspect-ratio: 2; --gap-unit: 2; }
+    .vane-chip[data-size="xs"] { --fs-unit: 5; --py-unit: 0.5; --br-unit: 1; --gap-unit: 1; }
+    .vane-chip[data-size="sm"] { --fs-unit: 6; --py-unit: 0.75; --br-unit: 1.5; --gap-unit: 1.5; }
+    .vane-chip[data-size="md"] { --fs-unit: 7; --py-unit: 1; --br-unit: 2; --gap-unit: 2; }
+    .vane-chip[data-size="lg"] { --fs-unit: 8; --py-unit: 1.25; --br-unit: 2.5; --gap-unit: 2.5; }
+    .vane-chip[data-size="xl"] { --fs-unit: 9; --py-unit: 1.5; --br-unit: 3; --gap-unit: 3; }
 
     /* Code */
     .vane-code { --lh: 1; --br-unit: 1.5; --py-unit: 0.5; --aspect-ratio: 1.8; }
