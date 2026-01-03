@@ -226,36 +226,36 @@
     .vane-label[data-size="xl"] { --fs-unit: 10; }
 
     /* Card */
-    .vane-card { --br-unit: 4; --py-unit: 4; --aspect-ratio: 1; --gap-unit: 4; }
+    .vane-card { --br-unit: 4; --py-unit: 6; --aspect-ratio: 1; --gap-unit: 4; }
     .vane-card[data-size="xs"] { --py-unit: 2; --gap-unit: 2; }
-    .vane-card[data-size="sm"] { --py-unit: 3; --gap-unit: 3; }
-    .vane-card[data-size="md"] { --py-unit: 4; --gap-unit: 4; }
-    .vane-card[data-size="lg"] { --py-unit: 5; --gap-unit: 5; }
-    .vane-card[data-size="xl"] { --py-unit: 6; --gap-unit: 6; }
+    .vane-card[data-size="sm"] { --py-unit: 4; --gap-unit: 3; }
+    .vane-card[data-size="md"] { --py-unit: 6; --gap-unit: 4; }
+    .vane-card[data-size="lg"] { --py-unit: 8; --gap-unit: 5; }
+    .vane-card[data-size="xl"] { --py-unit: 10; --gap-unit: 6; }
 
     /* Stack */
-    .vane-stack { --gap-unit: 2; }
-    .vane-stack[data-size="xs"] { --gap-unit: 1; }
-    .vane-stack[data-size="sm"] { --gap-unit: 1.5; }
-    .vane-stack[data-size="md"] { --gap-unit: 2; }
-    .vane-stack[data-size="lg"] { --gap-unit: 3; }
-    .vane-stack[data-size="xl"] { --gap-unit: 4; }
+    .vane-stack { --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; }
+    .vane-stack[data-size="xs"] { --gap-unit: 2; --py-unit: 2; }
+    .vane-stack[data-size="sm"] { --gap-unit: 3; --py-unit: 3; }
+    .vane-stack[data-size="md"] { --gap-unit: 4; --py-unit: 4; }
+    .vane-stack[data-size="lg"] { --gap-unit: 5; --py-unit: 5; }
+    .vane-stack[data-size="xl"] { --gap-unit: 6; --py-unit: 6; }
 
     /* Row */
-    .vane-row { --gap-unit: 2; }
-    .vane-row[data-size="xs"] { --gap-unit: 1; }
-    .vane-row[data-size="sm"] { --gap-unit: 1.5; }
-    .vane-row[data-size="md"] { --gap-unit: 2; }
-    .vane-row[data-size="lg"] { --gap-unit: 3; }
-    .vane-row[data-size="xl"] { --gap-unit: 4; }
+    .vane-row { --gap-unit: 4; }
+    .vane-row[data-size="xs"] { --gap-unit: 2; }
+    .vane-row[data-size="sm"] { --gap-unit: 3; }
+    .vane-row[data-size="md"] { --gap-unit: 4; }
+    .vane-row[data-size="lg"] { --gap-unit: 5; }
+    .vane-row[data-size="xl"] { --gap-unit: 6; }
 
     /* Col */
-    .vane-col { --gap-unit: 2; }
-    .vane-col[data-size="xs"] { --gap-unit: 1; }
-    .vane-col[data-size="sm"] { --gap-unit: 1.5; }
-    .vane-col[data-size="md"] { --gap-unit: 2; }
-    .vane-col[data-size="lg"] { --gap-unit: 3; }
-    .vane-col[data-size="xl"] { --gap-unit: 4; }
+    .vane-col { --gap-unit: 4; }
+    .vane-col[data-size="xs"] { --gap-unit: 2; }
+    .vane-col[data-size="sm"] { --gap-unit: 3; }
+    .vane-col[data-size="md"] { --gap-unit: 4; }
+    .vane-col[data-size="lg"] { --gap-unit: 5; }
+    .vane-col[data-size="xl"] { --gap-unit: 6; }
 
     /* Container */
     .vane-container { --py-unit: 8; --aspect-ratio: 2; }
