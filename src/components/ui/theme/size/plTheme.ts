@@ -7,7 +7,10 @@ import type { CategoryProps } from "../../props";
  * in vars.css using semantic classes and data attributes.
  */
 export class PlTheme extends BaseTheme {
+  /** Consumer class for left padding */
+  pl: string = "pl-(--pl)";
+
   getClasses(_extractedKeys: CategoryProps): string[] {
-    return ["pl-(--pl)"];
+    return [this.pl];
   }
 }

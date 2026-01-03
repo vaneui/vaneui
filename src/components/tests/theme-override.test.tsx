@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
-import { Button, Badge, ThemeProvider, ThemeProps } from '../../index';
+import { Button, Badge, Stack, Row, ThemeProvider, ThemeProps } from '../../index';
 
 describe('Theme Override Tests', () => {
   describe('CSS Class Application', () => {
@@ -382,4 +382,161 @@ describe('Theme Override Tests', () => {
       expect(mdButton).toHaveClass('text-(length:--fs)');
     });
   });
+  describe('Size and Layout Theme Class Field Overrides', () => {
+    it('should override fontSize consumer class', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.text.fontSize = 'text-xl';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button>Custom Font Size</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('text-xl');
+      expect(button).not.toHaveClass('text-(length:--fs)');
+    });
+
+    it('should override py consumer class', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.py.py = 'py-6';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button>Custom Padding Y</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('py-6');
+      expect(button).not.toHaveClass('py-(--py)');
+    });
+
+    it('should override px consumer class', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.px.px = 'px-10';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button>Custom Padding X</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('px-10');
+      expect(button).not.toHaveClass('px-(--px)');
+    });
+
+    it('should override lineHeight consumer class', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.lineHeight.lineHeight = 'leading-loose';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button>Custom Line Height</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('leading-loose');
+      expect(button).not.toHaveClass('leading-(--lh)');
+    });
+
+    it('should override rounded consumer class', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.layout.radius.rounded = 'rounded-2xl';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button rounded>Custom Rounded</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('rounded-2xl');
+      expect(button).not.toHaveClass('rounded-(--br)');
+    });
+
+    it('should override gap consumer class for layout components', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.stack.themes.size.gap.gap = 'gap-8';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Stack gap className="custom-stack">
+            <div>Item 1</div>
+            <div>Item 2</div>
+          </Stack>
+        </ThemeProvider>
+      );
+
+      const stack = container.querySelector('.custom-stack');
+      expect(stack).toHaveClass('gap-8');
+      expect(stack).not.toHaveClass('gap-(--gap)');
+    });
+
+    it('should override multiple size theme fields simultaneously', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.text.fontSize = 'text-2xl';
+        theme.button.themes.size.py.py = 'py-4';
+        theme.button.themes.size.px.px = 'px-8';
+        theme.button.themes.size.lineHeight.lineHeight = 'leading-relaxed';
+        theme.button.themes.layout.radius.rounded = 'rounded-lg';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button rounded>Fully Customized</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('text-2xl');
+      expect(button).toHaveClass('py-4');
+      expect(button).toHaveClass('px-8');
+      expect(button).toHaveClass('leading-relaxed');
+      expect(button).toHaveClass('rounded-lg');
+      // Should not have default consumer classes
+      expect(button).not.toHaveClass('text-(length:--fs)');
+      expect(button).not.toHaveClass('py-(--py)');
+      expect(button).not.toHaveClass('px-(--px)');
+      expect(button).not.toHaveClass('leading-(--lh)');
+      expect(button).not.toHaveClass('rounded-(--br)');
+    });
+
+    it('should override gap for Row component', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.row.themes.size.gap.gap = 'gap-12';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Row gap className="custom-row">
+            <div>Item 1</div>
+            <div>Item 2</div>
+          </Row>
+        </ThemeProvider>
+      );
+
+      const row = container.querySelector('.custom-row');
+      expect(row).toHaveClass('gap-12');
+      expect(row).not.toHaveClass('gap-(--gap)');
+    });
+  });
+
 });

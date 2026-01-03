@@ -10,15 +10,24 @@ import type { CategoryProps } from "../../props";
  * between breakpoint-specific variables for automatic size adaptation.
  */
 export class FontSizeTheme extends BaseTheme {
+  /** Consumer class for font size */
+  fontSize: string = "text-(length:--fs)";
+  /** Responsive desktop unit class */
+  responsiveDesktop: string = "[--fs-unit:var(--fs-unit-desktop)]";
+  /** Responsive laptop unit class */
+  responsiveLaptop: string = "max-laptop:[--fs-unit:var(--fs-unit-laptop)]";
+  /** Responsive tablet unit class */
+  responsiveTablet: string = "max-tablet:[--fs-unit:var(--fs-unit-tablet)]";
+
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.responsive === 'responsive') {
       return [
-        "[--fs-unit:var(--fs-unit-desktop)]",
-        "max-laptop:[--fs-unit:var(--fs-unit-laptop)]",
-        "max-tablet:[--fs-unit:var(--fs-unit-tablet)]",
-        "text-(length:--fs)"
+        this.responsiveDesktop,
+        this.responsiveLaptop,
+        this.responsiveTablet,
+        this.fontSize
       ];
     }
-    return ["text-(length:--fs)"];
+    return [this.fontSize];
   }
 }

@@ -18,6 +18,8 @@ export class SizeTheme extends BaseTheme implements Record<SizeKey, string> {
   lg: string = "";
   /** Extra-large size variant */
   xl: string = "";
+  /** Consumer class for size (used in default mode) */
+  size: string = "size-(--size)";
 
   private useCustomClasses: boolean;
 
@@ -37,6 +39,6 @@ export class SizeTheme extends BaseTheme implements Record<SizeKey, string> {
       return this[size] ? [this[size]] : [];
     }
     // Default: use CSS variable consumer class
-    return ["size-(--size)"];
+    return [this.size];
   }
 }

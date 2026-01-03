@@ -13,6 +13,8 @@ export class RadiusTheme extends BaseTheme {
   pill: string = "rounded-full";
   /** Sharp shape - no rounded corners */
   sharp: string = "rounded-none";
+  /** Rounded shape - dynamic border radius from CSS variable */
+  rounded: string = "rounded-(--br)";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const shape = extractedKeys.shape;
@@ -24,7 +26,7 @@ export class RadiusTheme extends BaseTheme {
         case 'sharp':
           return [this.sharp];
         case 'rounded':
-          return ["rounded-(--br)"];
+          return [this.rounded];
         default:
           return [];
       }

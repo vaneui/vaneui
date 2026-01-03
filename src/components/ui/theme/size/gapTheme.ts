@@ -10,17 +10,26 @@ import type { CategoryProps } from "../../props";
  * between breakpoint-specific variables for automatic size adaptation.
  */
 export class GapTheme extends BaseTheme {
+  /** Consumer class for gap spacing */
+  gap: string = "gap-(--gap)";
+  /** Responsive desktop unit class */
+  responsiveDesktop: string = "[--gap-unit:var(--gap-unit-desktop)]";
+  /** Responsive laptop unit class */
+  responsiveLaptop: string = "max-laptop:[--gap-unit:var(--gap-unit-laptop)]";
+  /** Responsive tablet unit class */
+  responsiveTablet: string = "max-tablet:[--gap-unit:var(--gap-unit-tablet)]";
+
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.gap === 'gap') {
       if (extractedKeys?.responsive === 'responsive') {
         return [
-          "[--gap-unit:var(--gap-unit-desktop)]",
-          "max-laptop:[--gap-unit:var(--gap-unit-laptop)]",
-          "max-tablet:[--gap-unit:var(--gap-unit-tablet)]",
-          "gap-(--gap)"
+          this.responsiveDesktop,
+          this.responsiveLaptop,
+          this.responsiveTablet,
+          this.gap
         ];
       }
-      return ["gap-(--gap)"];
+      return [this.gap];
     }
     return [];
   }

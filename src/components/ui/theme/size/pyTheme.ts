@@ -10,17 +10,26 @@ import type { CategoryProps } from "../../props";
  * between breakpoint-specific variables for automatic size adaptation.
  */
 export class PyTheme extends BaseTheme {
+  /** Consumer class for vertical padding */
+  py: string = "py-(--py)";
+  /** Responsive desktop unit class */
+  responsiveDesktop: string = "[--py-unit:var(--py-unit-desktop)]";
+  /** Responsive laptop unit class */
+  responsiveLaptop: string = "max-laptop:[--py-unit:var(--py-unit-laptop)]";
+  /** Responsive tablet unit class */
+  responsiveTablet: string = "max-tablet:[--py-unit:var(--py-unit-tablet)]";
+
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
       if (extractedKeys?.responsive === 'responsive') {
         return [
-          "[--py-unit:var(--py-unit-desktop)]",
-          "max-laptop:[--py-unit:var(--py-unit-laptop)]",
-          "max-tablet:[--py-unit:var(--py-unit-tablet)]",
-          "py-(--py)"
+          this.responsiveDesktop,
+          this.responsiveLaptop,
+          this.responsiveTablet,
+          this.py
         ];
       }
-      return ["py-(--py)"];
+      return [this.py];
     }
     return [];
   }

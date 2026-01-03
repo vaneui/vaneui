@@ -7,9 +7,12 @@ import type { CategoryProps } from "../../props";
  * in vars.css using semantic classes and data attributes.
  */
 export class PxTheme extends BaseTheme {
+  /** Consumer class for horizontal padding */
+  px: string = "px-(--px)";
+
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
-      return ["px-(--px)"];
+      return [this.px];
     }
     return [];
   }
