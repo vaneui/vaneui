@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
+import type { CategoryProps, FontSizeClassKey } from "../../props";
 
 /**
  * Font size theme - outputs the consumer class text-(length:--fs).
@@ -9,7 +9,7 @@ import type { CategoryProps } from "../../props";
  * When the 'responsive' prop is set, adds Tailwind classes to switch
  * between breakpoint-specific variables for automatic size adaptation.
  */
-export class FontSizeTheme extends BaseTheme {
+export class FontSizeTheme extends BaseTheme implements Record<FontSizeClassKey, string> {
   /** Consumer class for font size */
   fontSize: string = "text-(length:--fs)";
   /** Responsive desktop unit class */

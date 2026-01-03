@@ -171,6 +171,28 @@ export type DisplayKey = typeof ComponentKeys.display[number];
 /** CSS overflow property keys for content clipping behavior */
 export type OverflowKey = typeof ComponentKeys.overflow[number];
 
+/** Shape keys for border radius: pill, sharp, rounded */
+export type ShapeKey = typeof ComponentKeys.shape[number];
+
+/** Responsive class keys for breakpoint-specific CSS variable switching */
+export const ResponsiveClassKeys = ['responsiveDesktop', 'responsiveLaptop', 'responsiveTablet'] as const;
+/** Type for responsive class keys */
+export type ResponsiveClassKey = typeof ResponsiveClassKeys[number];
+
+/** Consumer class keys for CSS variable themes */
+/** Font size theme class keys: consumer class + responsive variants */
+export type FontSizeClassKey = 'fontSize' | ResponsiveClassKey;
+/** Vertical padding theme class keys: consumer class + responsive variants */
+export type PyClassKey = 'py' | ResponsiveClassKey;
+/** Gap theme class keys: consumer class + responsive variants */
+export type GapClassKey = 'gap' | ResponsiveClassKey;
+/** Horizontal padding theme class key */
+export type PxClassKey = 'px';
+/** Left padding theme class key */
+export type PlClassKey = 'pl';
+/** Line height theme class key */
+export type LineHeightClassKey = 'lineHeight';
+
 /** Composite categories built from core blocks */
 /** Complete layout category including core and flex properties */
 export const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;

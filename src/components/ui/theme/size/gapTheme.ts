@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
+import type { CategoryProps, GapClassKey } from "../../props";
 
 /**
  * Gap theme - outputs the consumer class gap-(--gap).
@@ -9,7 +9,7 @@ import type { CategoryProps } from "../../props";
  * When the 'responsive' prop is set, adds Tailwind classes to switch
  * between breakpoint-specific variables for automatic size adaptation.
  */
-export class GapTheme extends BaseTheme {
+export class GapTheme extends BaseTheme implements Record<GapClassKey, string> {
   /** Consumer class for gap spacing */
   gap: string = "gap-(--gap)";
   /** Responsive desktop unit class */

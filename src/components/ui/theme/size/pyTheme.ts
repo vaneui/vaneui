@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
+import type { CategoryProps, PyClassKey } from "../../props";
 
 /**
  * Vertical padding theme - outputs the consumer class py-(--py).
@@ -9,7 +9,7 @@ import type { CategoryProps } from "../../props";
  * When the 'responsive' prop is set, adds Tailwind classes to switch
  * between breakpoint-specific variables for automatic size adaptation.
  */
-export class PyTheme extends BaseTheme {
+export class PyTheme extends BaseTheme implements Record<PyClassKey, string> {
   /** Consumer class for vertical padding */
   py: string = "py-(--py)";
   /** Responsive desktop unit class */

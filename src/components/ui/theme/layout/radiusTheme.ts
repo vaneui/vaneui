@@ -1,5 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
+import type { CategoryProps, ShapeKey } from "../../props";
 
 /**
  * Border radius theme - outputs consumer class rounded-(--br) for rounded shapes.
@@ -8,7 +8,7 @@ import type { CategoryProps } from "../../props";
  *
  * pill and sharp shapes use fixed Tailwind classes.
  */
-export class RadiusTheme extends BaseTheme {
+export class RadiusTheme extends BaseTheme implements Record<ShapeKey, string> {
   /** Pill shape - fully rounded corners */
   pill: string = "rounded-full";
   /** Sharp shape - no rounded corners */
