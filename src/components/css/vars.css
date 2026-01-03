@@ -267,12 +267,12 @@
     .vane-container[data-size="xl"] { --py-unit: 12; --br-unit: 7; }
 
     /* Grid */
-    .vane-grid { --gap-unit: 4; }
-    .vane-grid[data-size="xs"] { --gap-unit: 2; }
-    .vane-grid[data-size="sm"] { --gap-unit: 3; }
-    .vane-grid[data-size="md"] { --gap-unit: 4; }
-    .vane-grid[data-size="lg"] { --gap-unit: 5; }
-    .vane-grid[data-size="xl"] { --gap-unit: 6; }
+    .vane-grid { --gap-unit: 4; --br-unit: 5; }
+    .vane-grid[data-size="xs"] { --gap-unit: 2; --br-unit: 3; }
+    .vane-grid[data-size="sm"] { --gap-unit: 3; --br-unit: 4; }
+    .vane-grid[data-size="md"] { --gap-unit: 4; --br-unit: 5; }
+    .vane-grid[data-size="lg"] { --gap-unit: 5; --br-unit: 6; }
+    .vane-grid[data-size="xl"] { --gap-unit: 6; --br-unit: 7; }
 
     /* Divider */
     .vane-divider { --py-unit: 4; }

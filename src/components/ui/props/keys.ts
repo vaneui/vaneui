@@ -222,7 +222,7 @@ export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LIST_STYLE, ...LAYOUT_COR
 
 /** Layout component categories */
 /** Categories for grid layout components */
-export const GRID_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_CORE, ...VARIANT] as const;
+export const GRID_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...VARIANT] as const;
 /** Categories for container layout components */
 export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...VARIANT] as const;
 /** Categories for column layout components */

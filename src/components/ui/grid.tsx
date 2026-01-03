@@ -14,7 +14,8 @@ import type {
   ReverseProps,
   AppearanceProps,
   TransparentProps,
-  VariantProps
+  VariantProps,
+  ShapeProps
 } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
@@ -35,6 +36,7 @@ export type GridProps = BaseProps &
   AppearanceProps &
   TransparentProps &
   VariantProps &
+  ShapeProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

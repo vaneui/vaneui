@@ -123,6 +123,34 @@ describe('Grid Components Tests', () => {
       expect(outlineGrid).toHaveClass('[background:var(--color-bg-layout-primary)]');
       expect(filledGrid).toHaveClass('[background:var(--color-bg-filled-layout-primary)]');
     });
+    it('should support shape variants', () => {
+      const {container: roundedContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 rounded>Rounded Grid3</Grid3>
+        </ThemeProvider>
+      );
+      
+      const {container: pillContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 pill>Pill Grid3</Grid3>
+        </ThemeProvider>
+      );
+      
+      const {container: sharpContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 sharp>Sharp Grid3</Grid3>
+        </ThemeProvider>
+      );
+
+      const roundedGrid = roundedContainer.querySelector('div');
+      const pillGrid = pillContainer.querySelector('div');
+      const sharpGrid = sharpContainer.querySelector('div');
+
+      expect(roundedGrid).toHaveClass('rounded-(--br)');
+      expect(pillGrid).toHaveClass('rounded-full');
+      expect(sharpGrid).toHaveClass('rounded-none');
+    });
+
 
     it('should support custom className', () => {
       const {container} = render(

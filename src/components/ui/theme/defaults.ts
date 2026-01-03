@@ -123,30 +123,35 @@ export const themeDefaults: ThemeDefaults = {
     md: true,
     grid: true,
     gap: true,
+    sharp: true,
   },
 
   grid3: {
     md: true,
     grid: true,
     gap: true,
+    sharp: true,
   },
 
   grid4: {
     md: true,
     grid: true,
     gap: true,
+    sharp: true,
   },
 
   grid5: {
     md: true,
     grid: true,
     gap: true,
+    sharp: true,
   },
 
   grid6: {
     md: true,
     grid: true,
     gap: true,
+    sharp: true,
   },
 
   divider: {

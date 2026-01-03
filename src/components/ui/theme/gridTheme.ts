@@ -4,6 +4,7 @@ import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
+import { RadiusTheme } from "./layout/radiusTheme";
 import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { DeepPartial } from "../../utils/deepPartial";
@@ -20,6 +21,7 @@ export interface GridTheme extends BaseComponentTheme {
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
+    radius: RadiusTheme;
   };
 }
 
@@ -35,6 +37,7 @@ const gridSubThemes: DeepPartial<GridTheme> = {
     ...defaultLayoutsThemes,
     wrap: new WrapTheme(),
     flexDirection: new DirectionTheme(),
+    radius: new RadiusTheme(),
   },
 };
 
