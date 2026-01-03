@@ -210,12 +210,12 @@
     .vane-input[data-size="xl"] { --fs-unit: 10; --py-unit: 3; --br-unit: 3; }
 
     /* Checkbox */
-    .vane-checkbox { --br-unit: 0.5; }
-    .vane-checkbox[data-size="xs"] { --size-unit: 3; }
-    .vane-checkbox[data-size="sm"] { --size-unit: 3.5; }
-    .vane-checkbox[data-size="md"] { --size-unit: 4; }
-    .vane-checkbox[data-size="lg"] { --size-unit: 5; }
-    .vane-checkbox[data-size="xl"] { --size-unit: 6; }
+    .vane-checkbox { --br-unit: 1; }
+    .vane-checkbox[data-size="xs"] { --size-unit: 3; --br-unit: 0.5; }
+    .vane-checkbox[data-size="sm"] { --size-unit: 3.5; --br-unit: 0.5; }
+    .vane-checkbox[data-size="md"] { --size-unit: 4; --br-unit: 1; }
+    .vane-checkbox[data-size="lg"] { --size-unit: 5; --br-unit: 1; }
+    .vane-checkbox[data-size="xl"] { --size-unit: 6; --br-unit: 1.5; }
 
     /* Label */
     .vane-label { --lh: 1.6; }
