@@ -75,6 +75,8 @@ export const themeDefaults: ThemeDefaults = {
     itemsCenter: true,
     gap: true,
     outline: true,
+    primary: true,
+    sharp: true,
   },
 
   section: {
@@ -90,6 +92,7 @@ export const themeDefaults: ThemeDefaults = {
     noRing: true,
     noShadow: true,
     responsive: true,
+    sharp: true,
   },
 
   stack: {
@@ -102,6 +105,8 @@ export const themeDefaults: ThemeDefaults = {
     noBorder: true,
     noRing: true,
     outline: true,
+    primary: true,
+    sharp: true,
   },
 
   row: {
@@ -113,6 +118,8 @@ export const themeDefaults: ThemeDefaults = {
     noBorder: true,
     noRing: true,
     outline: true,
+    primary: true,
+    sharp: true,
   },
 
   col: {
@@ -123,6 +130,8 @@ export const themeDefaults: ThemeDefaults = {
     noBorder: true,
     noRing: true,
     outline: true,
+    primary: true,
+    sharp: true,
   },
 
   grid2: {
@@ -131,6 +140,7 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
     sharp: true,
     outline: true,
+    primary: true,
   },
 
   grid3: {
@@ -139,6 +149,7 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
     sharp: true,
     outline: true,
+    primary: true,
   },
 
   grid4: {
@@ -147,6 +158,7 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
     sharp: true,
     outline: true,
+    primary: true,
   },
 
   grid5: {
@@ -155,6 +167,7 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
     sharp: true,
     outline: true,
+    primary: true,
   },
 
   grid6: {
@@ -163,6 +176,7 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
     sharp: true,
     outline: true,
+    primary: true,
   },
 
   divider: {
@@ -179,6 +193,7 @@ export const themeDefaults: ThemeDefaults = {
     sans: true,
     medium: true,
     outline: true,
+    primary: true,
   },
 
   img: {
@@ -203,6 +218,7 @@ export const themeDefaults: ThemeDefaults = {
     sans: true,
     textLeft: true,
     outline: true,
+    primary: true,
   },
 
   title: {
@@ -212,6 +228,7 @@ export const themeDefaults: ThemeDefaults = {
     textLeft: true,
     responsive: true,
     outline: true,
+    primary: true,
   },
 
   pageTitle: {
@@ -221,6 +238,7 @@ export const themeDefaults: ThemeDefaults = {
     textLeft: true,
     responsive: true,
     outline: true,
+    primary: true,
   },
 
   sectionTitle: {
@@ -230,6 +248,7 @@ export const themeDefaults: ThemeDefaults = {
     textLeft: true,
     responsive: true,
     outline: true,
+    primary: true,
   },
 
   link: {
@@ -237,12 +256,14 @@ export const themeDefaults: ThemeDefaults = {
     underline: true,
     sans: true,
     outline: true,
+    primary: true,
   },
 
   listItem: {
     md: true,
     sans: true,
     outline: true,
+    primary: true,
   },
 
   list: {
@@ -252,6 +273,7 @@ export const themeDefaults: ThemeDefaults = {
     padding: true,
     disc: true,
     outline: true,
+    primary: true,
   },
 
   checkbox: {

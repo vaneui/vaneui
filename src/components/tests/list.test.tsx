@@ -26,7 +26,7 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toHaveClass('list-disc', 'list-inside');
       expect(list).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(list).toHaveClass('leading-(--lh)'); // CSS variable line height
-      expect(list).not.toHaveClass('text-(--text-color)'); // no primary appearance
+      expect(list).toHaveClass('text-(--text-color)'); // primary is default
       expect(list).toHaveClass('font-sans');
       expect(list).toHaveClass('font-normal');
     });
@@ -234,10 +234,9 @@ describe('List and ListItem Components Tests', () => {
       
       // Verify ListItems inherit the color through CSS (no explicit text color class)
       listItems.forEach(listItem => {
-        expect(listItem).not.toHaveClass('text-(--text-color)');
-        expect(listItem).not.toHaveClass('text-(--text-color)');
-        expect(listItem).not.toHaveClass('text-(--text-color)');
-        // ListItem should inherit text color from parent List via CSS cascade
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
         // Note: In actual browser, this would inherit the CSS custom property value
         // In test environment, we verify the inheritance pattern by ensuring no explicit color classes
       });
@@ -261,10 +260,9 @@ describe('List and ListItem Components Tests', () => {
       
       // Verify ListItems inherit the color through CSS (no explicit text color class)
       listItems.forEach(listItem => {
-        expect(listItem).not.toHaveClass('text-(--text-color)');
-        expect(listItem).not.toHaveClass('text-(--text-color)');
-        expect(listItem).not.toHaveClass('text-(--text-color)');
-        // ListItem should inherit text color from parent List via CSS cascade
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
       });
     });
 
@@ -287,8 +285,8 @@ describe('List and ListItem Components Tests', () => {
         expect(list).toHaveClass('text-(--text-color)');
         
         // Verify ListItem doesn't have any explicit text color classes (inherits from parent)
-        expect(listItem).not.toHaveClass('text-(--text-color)');
-        expect(listItem).not.toHaveClass('text-(--text-color)');
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
       });
     });
 
@@ -316,9 +314,9 @@ describe('List and ListItem Components Tests', () => {
       
       // All ListItems should inherit from their immediate parent List
       listItems.forEach(listItem => {
-        expect(listItem).not.toHaveClass('text-(--text-color)');
-        expect(listItem).not.toHaveClass('text-(--text-color)');
-        expect(listItem).not.toHaveClass('text-(--text-color)');
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
+        expect(listItem).toHaveClass('text-(--text-color)'); // primary is default
       });
     });
 

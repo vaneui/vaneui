@@ -243,12 +243,12 @@ describe('Visual Decoration Props', () => {
       expect(element.className).toContain('rounded-full');
     });
 
-    it('should not apply any shape classes when no shape prop provided', () => {
+    it('should apply sharp shape by default', () => {
       const { container } = renderWithTheme(
         <Row>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).not.toContain('rounded-none');
+      expect(element.className).toContain('rounded-none'); // sharp is default
       expect(element.className).not.toContain('rounded-full');
       expect(element.className).not.toContain('rounded-(--br)');
     });
@@ -343,44 +343,44 @@ describe('Visual Decoration Props', () => {
   });
 
   describe('Default Behavior', () => {
-    it('Row should maintain original appearance by default', () => {
+    it('Row should have sharp shape by default', () => {
       const { container } = renderWithTheme(
         <Row>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
 
-      // Should not have border, ring, or shape classes by default
+      // Should not have border or ring by default, but should have sharp shape
       expect(element.className).not.toContain('border-[length:var(--bw)]');
       expect(element.className).not.toContain('ring-2');
-      expect(element.className).not.toContain('rounded-none');
+      expect(element.className).toContain('rounded-none'); // sharp is default
       expect(element.className).not.toContain('rounded-full');
       expect(element.className).not.toContain('rounded-(--br)');
     });
 
-    it('Col should maintain original appearance by default', () => {
+    it('Col should have sharp shape by default', () => {
       const { container } = renderWithTheme(
         <Col>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
 
-      // Should not have border, ring, or shape classes by default
+      // Should not have border or ring by default, but should have sharp shape
       expect(element.className).not.toContain('border-[length:var(--bw)]');
       expect(element.className).not.toContain('ring-2');
-      expect(element.className).not.toContain('rounded-none');
+      expect(element.className).toContain('rounded-none'); // sharp is default
       expect(element.className).not.toContain('rounded-full');
       expect(element.className).not.toContain('rounded-(--br)');
     });
 
-    it('Stack should maintain original appearance by default', () => {
+    it('Stack should have sharp shape by default', () => {
       const { container } = renderWithTheme(
         <Stack>Content</Stack>
       );
       const element = container.firstChild as HTMLElement;
 
-      // Should not have border, ring, or shape classes by default
+      // Should not have border or ring by default, but should have sharp shape
       expect(element.className).not.toContain('border-[length:var(--bw)]');
       expect(element.className).not.toContain('ring-2');
-      expect(element.className).not.toContain('rounded-none');
+      expect(element.className).toContain('rounded-none'); // sharp is default
       expect(element.className).not.toContain('rounded-full');
       expect(element.className).not.toContain('rounded-(--br)');
     });

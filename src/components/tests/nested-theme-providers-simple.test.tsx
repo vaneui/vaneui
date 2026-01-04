@@ -30,10 +30,8 @@ describe('Simple Nested ThemeProvider Test', () => {
     const withOverride = container.querySelector('.with-override');
 
     // Without override should have no default text color
-    expect(noOverride).not.toHaveClass('text-(--text-color)');
-    expect(noOverride).not.toHaveClass('text-(--text-color)');
-    
-    // With override should have primary appearance
+    expect(noOverride).toHaveClass('text-(--text-color)'); // primary is default
+    expect(noOverride).toHaveClass('text-(--text-color)'); // primary is default
     expect(withOverride).toHaveClass('text-(--text-color)');
   });
 

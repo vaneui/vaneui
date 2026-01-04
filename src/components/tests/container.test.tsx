@@ -125,16 +125,29 @@ describe('Container Component Tests', () => {
     });
 
     it('should support shape props', () => {
-      const {container} = render(
+      // Test pill shape
+      const {container: pillContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Container pill>
-            Pill Container
-          </Container>
+          <Container pill>Pill Container</Container>
         </ThemeProvider>
       );
+      expect(pillContainer.querySelector('div')).toHaveClass('rounded-full');
 
-      const containerEl = container.querySelector('div');
-      expect(containerEl).toHaveClass('rounded-full');
+      // Test sharp shape
+      const {container: sharpContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container sharp>Sharp Container</Container>
+        </ThemeProvider>
+      );
+      expect(sharpContainer.querySelector('div')).toHaveClass('rounded-none');
+
+      // Test rounded shape
+      const {container: roundedContainer} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container rounded>Rounded Container</Container>
+        </ThemeProvider>
+      );
+      expect(roundedContainer.querySelector('div')).toHaveClass('rounded-(--br)');
     });
 
     it('should support custom className', () => {

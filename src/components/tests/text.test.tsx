@@ -21,7 +21,7 @@ describe('Text Component Tests', () => {
       expect(text).toBeInTheDocument();
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
       expect(text).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(text).not.toHaveClass('text-(--text-color)'); // no primary appearance
+      expect(text).toHaveClass('text-(--text-color)'); // primary is default
       expect(text).toHaveClass('font-sans');
       // No default font weight; variants like medium/bold are opt-in
       expect(text).not.toHaveClass('font-normal');

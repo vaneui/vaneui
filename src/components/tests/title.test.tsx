@@ -23,7 +23,7 @@ describe('Title Components Tests', () => {
       expect(title).toBeInTheDocument();
       expect(title).toHaveClass('text-balance', 'w-fit');
       expect(title).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(title).not.toHaveClass('text-(--text-color)'); // no primary appearance
+      expect(title).toHaveClass('text-(--text-color)'); // primary is default
       expect(title).toHaveClass('font-sans');
       expect(title).toHaveClass('font-semibold');
     });
@@ -175,7 +175,7 @@ describe('Title Components Tests', () => {
       expect(pageTitle).toBeInTheDocument();
       expect(pageTitle).toHaveClass('text-balance', 'tracking-tight', 'w-fit');
       expect(pageTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(pageTitle).not.toHaveClass('text-(--text-color)'); // no primary appearance
+      expect(pageTitle).toHaveClass('text-(--text-color)'); // primary is default
       expect(pageTitle).toHaveClass('font-sans');
       expect(pageTitle).toHaveClass('font-semibold');
     });
@@ -298,7 +298,7 @@ describe('Title Components Tests', () => {
       expect(sectionTitle).toBeInTheDocument();
       expect(sectionTitle).toHaveClass('text-balance', 'w-fit');
       expect(sectionTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(sectionTitle).not.toHaveClass('text-(--text-color)'); // no primary appearance
+      expect(sectionTitle).toHaveClass('text-(--text-color)'); // primary is default
       expect(sectionTitle).toHaveClass('font-sans');
       expect(sectionTitle).toHaveClass('font-semibold');
     });
