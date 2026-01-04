@@ -260,10 +260,9 @@ export const themeDefaults: ThemeDefaults = {
   },
 
   listItem: {
+    outline: true,
     md: true,
     sans: true,
-    outline: true,
-    primary: true,
   },
 
   list: {

@@ -25,6 +25,8 @@ export class SimpleConsumerTheme extends BaseTheme {
   focusVisible: string;
   /** The category this theme applies to (for conditional rendering) */
   readonly category: AppearanceCategoryKey;
+  /** If true, always output consumer classes even without an appearance prop (for CSS inheritance from parent) */
+  readonly alwaysOutput: boolean;
 
   constructor(
     config: {
@@ -32,6 +34,7 @@ export class SimpleConsumerTheme extends BaseTheme {
       hover?: string;
       active?: string;
       focusVisible?: string;
+      alwaysOutput?: boolean;
     },
     category: AppearanceCategoryKey
   ) {
@@ -41,6 +44,7 @@ export class SimpleConsumerTheme extends BaseTheme {
     this.active = config.active || '';
     this.focusVisible = config.focusVisible || '';
     this.category = category;
+    this.alwaysOutput = config.alwaysOutput || false;
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
@@ -67,8 +71,8 @@ export class SimpleConsumerTheme extends BaseTheme {
       return [];
     }
 
-    // Only output classes if an appearance or transparent is set
-    if (!extractedKeys?.appearance && !extractedKeys?.transparent) {
+    // Only output classes if an appearance or transparent is set (unless alwaysOutput is true)
+    if (!this.alwaysOutput && !extractedKeys?.appearance && !extractedKeys?.transparent) {
       return [];
     }
 

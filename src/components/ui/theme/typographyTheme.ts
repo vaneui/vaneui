@@ -132,7 +132,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
       lineHeight: new LineHeightTheme(),
     },
     appearance: {
-      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+      text: new SimpleConsumerTheme({ base: textConsumerClass, alwaysOutput: true }, 'text'),
     },
     typography: defaultTypographyThemes,
     layout: defaultLayoutsThemes,
