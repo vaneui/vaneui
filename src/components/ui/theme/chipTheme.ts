@@ -15,13 +15,13 @@ import { RingTheme } from "./layout/ringTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { CHIP_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
+import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
 
 export interface ChipTheme extends BaseTypographyComponentTheme {
   size: {
@@ -32,12 +32,12 @@ export interface ChipTheme extends BaseTypographyComponentTheme {
     gap: GapTheme;
   };
   appearance: {
-    background: GenericVariantTheme<AppearanceTheme>;
-    text: GenericVariantTheme<AppearanceTheme>;
-    border: GenericVariantTheme<AppearanceTheme>;
-    ring: GenericVariantTheme<AppearanceTheme>;
-    focusVisible: GenericVariantTheme<AppearanceTheme>;
-    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
+    background: SimpleConsumerTheme;
+    text: SimpleConsumerTheme;
+    border: SimpleConsumerTheme;
+    ring: SimpleConsumerTheme;
+    focusVisible: SimpleConsumerTheme;
+    shadow: ShadowAppearanceTheme;
   };
   layout: DefaultLayoutThemes & {
     radius: RadiusTheme;
@@ -61,12 +61,12 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
       gap: new GapTheme()
     },
     appearance: {
-      background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
-      border: GenericVariantTheme.createUIElementBorderTheme(),
-      ring: GenericVariantTheme.createUIElementRingTheme(),
-      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme(),
-      shadow: GenericVariantTheme.createLayoutShadowTheme()
+      background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),
+      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
+      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
+      focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible'),
+      shadow: ShadowAppearanceTheme.createLayoutTheme()
     },
     layout: {
       ...defaultLayoutsThemes,

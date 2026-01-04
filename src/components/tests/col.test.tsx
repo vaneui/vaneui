@@ -91,7 +91,7 @@ describe('Col Component Tests', () => {
       );
 
       const col = container.querySelector('div');
-      expect(col).toHaveClass('[background:var(--color-bg-layout-secondary)]');
+      expect(col).toHaveClass('[background:var(--bg-color)]');
     });
 
     it('should support appearance variants for text color', () => {
@@ -107,7 +107,7 @@ describe('Col Component Tests', () => {
         );
 
         const col = container.querySelector('div');
-        expect(col).toHaveClass(`text-(--color-text-${appearance})`);
+        expect(col).toHaveClass('text-(--text-color)');
       });
     });
 
@@ -128,20 +128,20 @@ describe('Col Component Tests', () => {
       const filledCol = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineCol).toHaveClass('text-(--color-text-primary)');
-      expect(filledCol).toHaveClass('text-(--color-text-filled-primary)');
+      expect(outlineCol).toHaveClass('text-(--text-color)');
+      expect(filledCol).toHaveClass('text-(--text-color)');
       
       // Background colors
-      expect(outlineCol).toHaveClass('[background:var(--color-bg-layout-primary)]');
-      expect(filledCol).toHaveClass('[background:var(--color-bg-filled-layout-primary)]');
+      expect(outlineCol).toHaveClass('[background:var(--bg-color)]');
+      expect(filledCol).toHaveClass('[background:var(--bg-color)]');
       
       // Border colors
-      expect(outlineCol).toHaveClass('border-(--color-border-primary)');
-      expect(filledCol).toHaveClass('border-(--color-border-filled-primary)');
+      expect(outlineCol).toHaveClass('border-(--border-color)');
+      expect(filledCol).toHaveClass('border-(--border-color)');
       
       // Ring colors
-      expect(outlineCol).toHaveClass('ring-(--color-border-primary)');
-      expect(filledCol).toHaveClass('ring-(--color-border-filled-primary)');
+      expect(outlineCol).toHaveClass('ring-(--ring-color)');
+      expect(filledCol).toHaveClass('ring-(--ring-color)');
     });
 
     it('should support transparent background', () => {
@@ -154,7 +154,7 @@ describe('Col Component Tests', () => {
       );
 
       const col = container.querySelector('div');
-      expect(col).toHaveClass('[background:transparent]');
+      expect(col).toHaveClass('[background:var(--bg-color)]');
     });
 
     it('should support visual decoration props', () => {
@@ -173,9 +173,9 @@ describe('Col Component Tests', () => {
 
       const col = container.querySelector('div');
       expect(col).toHaveClass('border-[length:var(--bw)]');
-      expect(col).toHaveClass('border-(--color-border-danger)');
+      expect(col).toHaveClass('border-(--border-color)');
       expect(col).toHaveClass('ring-[length:var(--rw)]');
-      expect(col).toHaveClass('ring-(--color-border-danger)');
+      expect(col).toHaveClass('ring-(--ring-color)');
       expect(col).toHaveClass('rounded-full');
     });
 

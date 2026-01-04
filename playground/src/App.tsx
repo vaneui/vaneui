@@ -7,7 +7,7 @@ import {
   Title,
   Section,
   Card, Checkbox, Label, Link, Input, Button,
-  Container, Badge, Divider, Chip, Code, PageTitle
+  Container, Badge, Divider, Chip, Code, PageTitle, Grid2
 } from '../../src';
 import { ColorTable } from './ColorTable';
 
@@ -18,6 +18,55 @@ function App() {
       <Section className="w-full">
         <Container itemsCenter className="w-full">
           <PageTitle>VaneUI Component Library Examples</PageTitle>
+          
+          {/* Grid with Border Example */}
+          <Card>
+            <Title>Grid with Border</Title>
+            <Grid2 border rounded primary gap>
+              <Card sm secondary>Grid Item 1</Card>
+              <Card sm secondary>Grid Item 2</Card>
+              <Card sm secondary>Grid Item 3</Card>
+              <Card sm secondary>Grid Item 4</Card>
+            </Grid2>
+          </Card>
+          <Row flexWrap>
+            <Label htmlFor="appearance-primary" primary>
+              <Checkbox defaultChecked id="appearance-primary" primary />
+              Enable primary style
+            </Label>
+            <Label brand htmlFor="appearance-brand">
+              <Checkbox brand defaultChecked id="appearance-brand" />
+              Enable brand style
+            </Label>
+            <Label accent htmlFor="appearance-accent">
+              <Checkbox accent defaultChecked id="appearance-accent" />
+              Enable accent style
+            </Label>
+            <Label htmlFor="appearance-secondary" secondary>
+              <Checkbox defaultChecked id="appearance-secondary" secondary />
+              Enable secondary style
+            </Label>
+            <Label htmlFor="appearance-tertiary" tertiary>
+              <Checkbox defaultChecked id="appearance-tertiary" tertiary />
+              Enable tertiary style
+            </Label>
+            <Label htmlFor="appearance-success" success>
+              <Checkbox defaultChecked id="appearance-success" success />
+              Enable success style
+            </Label>
+            <Label danger htmlFor="appearance-danger">
+              <Checkbox danger defaultChecked id="appearance-danger" />
+              Enable danger style
+            </Label>
+            <Label htmlFor="appearance-warning" warning>
+              <Checkbox defaultChecked id="appearance-warning" warning />
+              Enable warning style
+            </Label>
+            <Label htmlFor="appearance-info" info>
+              <Checkbox defaultChecked id="appearance-info" info />
+              Enable info style
+            </Label>
+          </Row>
           <ColorTable />
           <Text xs className="max-w-sm">
             Every component adapts to screen size automatically.
@@ -135,10 +184,10 @@ function App() {
           <Card>
             <Title>Checkbox</Title>
             <Col>
-              <Label xs><Checkbox xs/> Checkbox XS</Label>
+              <Label xs><Checkbox outline xs/> Checkbox XS</Label>
               <Label sm><Checkbox sm/> Checkbox SM</Label>
-              <Label><Checkbox/> Checkbox MD</Label>
-              <Label lg><Checkbox lg/> Checkbox LG</Label>
+              <Label><Checkbox md filled/> Checkbox MD</Label>
+              <Label lg><Checkbox lg outline/> Checkbox LG</Label>
               <Label xl><Checkbox xl/> Checkbox XL</Label>
             </Col>
           </Card>

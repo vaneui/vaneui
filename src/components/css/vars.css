@@ -128,7 +128,7 @@
     /* Filled Button Border Colors */
     --color-border-filled-primary: var(--color-gray-600);
     --color-border-filled-brand: var(--color-blue-600);
-    --color-border-filled-secondary: var(--color-gray-700);
+    --color-border-filled-secondary: var(--color-gray-600);
     --color-border-filled-tertiary: var(--color-gray-600);
     --color-border-filled-accent: var(--color-rose-600);
     --color-border-filled-success: var(--color-emerald-600);
@@ -139,9 +139,8 @@
     --br-base: var(--spacing);
     --fs-base: calc(var(--spacing) * 0.5);
 
-    --breakpoint-mobile: 40rem;
-    --breakpoint-tablet: 48rem;
-    --breakpoint-laptop: 64rem;
+    --breakpoint-mobile: 48rem;
+        --breakpoint-tablet: 64rem;
     --breakpoint-desktop: 80rem;
 
     --lh: 1;
@@ -156,7 +155,7 @@
 }
 
 @layer base {
-    :where(*) {
+    [data-size] {
         --gap: calc(var(--gap-unit) * var(--spacing));
         --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
         --py: calc(var(--py-unit) * var(--spacing));
@@ -219,12 +218,12 @@
     .vane-checkbox[data-size="xl"] { --size-unit: 5; --br-unit: 1.5; }
 
     /* Label */
-    .vane-label { --lh: 1.6; }
-    .vane-label[data-size="xs"] { --fs-unit: 6; }
-    .vane-label[data-size="sm"] { --fs-unit: 7; }
-    .vane-label[data-size="md"] { --fs-unit: 8; }
-    .vane-label[data-size="lg"] { --fs-unit: 9; }
-    .vane-label[data-size="xl"] { --fs-unit: 10; }
+    .vane-label { --lh: 1.6; --gap-unit: 2; }
+    .vane-label[data-size="xs"] { --fs-unit: 6; --gap-unit: 1; }
+    .vane-label[data-size="sm"] { --fs-unit: 7; --gap-unit: 1.5; }
+    .vane-label[data-size="md"] { --fs-unit: 8; --gap-unit: 2; }
+    .vane-label[data-size="lg"] { --fs-unit: 9; --gap-unit: 2.5; }
+    .vane-label[data-size="xl"] { --fs-unit: 10; --gap-unit: 3; }
 
     /* Card */
     .vane-card { --br-unit: 5; --py-unit: 6; --aspect-ratio: 1; --gap-unit: 4; }
@@ -259,12 +258,12 @@
     .vane-col[data-size="xl"] { --gap-unit: 6; --br-unit: 7; }
 
     /* Container */
-    .vane-container { --py-unit: 8; --aspect-ratio: 2; --br-unit: 5; }
-    .vane-container[data-size="xs"] { --py-unit: 4; --br-unit: 3; }
-    .vane-container[data-size="sm"] { --py-unit: 6; --br-unit: 4; }
-    .vane-container[data-size="md"] { --py-unit: 8; --br-unit: 5; }
-    .vane-container[data-size="lg"] { --py-unit: 10; --br-unit: 6; }
-    .vane-container[data-size="xl"] { --py-unit: 12; --br-unit: 7; }
+    .vane-container { --py-unit: 8; --aspect-ratio: 2; --br-unit: 5; --gap-unit: 4; }
+    .vane-container[data-size="xs"] { --py-unit: 4; --br-unit: 3; --gap-unit: 2; }
+    .vane-container[data-size="sm"] { --py-unit: 6; --br-unit: 4; --gap-unit: 3; }
+    .vane-container[data-size="md"] { --py-unit: 8; --br-unit: 5; --gap-unit: 4; }
+    .vane-container[data-size="lg"] { --py-unit: 10; --br-unit: 6; --gap-unit: 5; }
+    .vane-container[data-size="xl"] { --py-unit: 12; --br-unit: 7; --gap-unit: 6; }
 
     /* Grid */
     .vane-grid { --gap-unit: 4; --br-unit: 5; }
@@ -306,69 +305,307 @@
     .vane-text[data-size="lg"] { --fs-unit: 9; }
     .vane-text[data-size="xl"] { --fs-unit: 10; }
 
+    /* Link */
+    .vane-link { --lh: 1.6; }
+    .vane-link[data-size="xs"] { --fs-unit: 6; }
+    .vane-link[data-size="sm"] { --fs-unit: 7; }
+    .vane-link[data-size="md"] { --fs-unit: 8; }
+    .vane-link[data-size="lg"] { --fs-unit: 9; }
+    .vane-link[data-size="xl"] { --fs-unit: 10; }
+
+    /* ListItem */
+    .vane-list-item { --lh: 1.6; }
+    .vane-list-item[data-size="xs"] { --fs-unit: 6; }
+    .vane-list-item[data-size="sm"] { --fs-unit: 7; }
+    .vane-list-item[data-size="md"] { --fs-unit: 8; }
+    .vane-list-item[data-size="lg"] { --fs-unit: 9; }
+    .vane-list-item[data-size="xl"] { --fs-unit: 10; }
+
     /* RESPONSIVE COMPONENTS */
 
     /* Section */
     .vane-section {
         --lh: 1.6;
         --py-unit-desktop: 8;
-        --py-unit-laptop: 6;
-        --py-unit-tablet: 4;
+        --py-unit-tablet: 6;
+        --py-unit-mobile: 4;
         --gap-unit-desktop: 8;
-        --gap-unit-laptop: 6;
-        --gap-unit-tablet: 4;
+        --gap-unit-tablet: 6;
+        --gap-unit-mobile: 4;
     }
     .vane-section[data-size="xs"] {
-        --py-unit-desktop: 4; --py-unit-laptop: 3; --py-unit-tablet: 2;
-        --gap-unit-desktop: 4; --gap-unit-laptop: 3; --gap-unit-tablet: 2;
+        --py-unit-desktop: 4; --py-unit-tablet: 3; --py-unit-mobile: 2;
+        --gap-unit-desktop: 4; --gap-unit-tablet: 3; --gap-unit-mobile: 2;
     }
     .vane-section[data-size="sm"] {
-        --py-unit-desktop: 8; --py-unit-laptop: 4; --py-unit-tablet: 2;
-        --gap-unit-desktop: 6; --gap-unit-laptop: 5; --gap-unit-tablet: 4;
+        --py-unit-desktop: 8; --py-unit-tablet: 4; --py-unit-mobile: 2;
+        --gap-unit-desktop: 6; --gap-unit-tablet: 5; --gap-unit-mobile: 4;
     }
     .vane-section[data-size="md"] {
-        --py-unit-desktop: 12; --py-unit-laptop: 6; --py-unit-tablet: 2;
-        --gap-unit-desktop: 8; --gap-unit-laptop: 6; --gap-unit-tablet: 4;
+        --py-unit-desktop: 12; --py-unit-tablet: 6; --py-unit-mobile: 2;
+        --gap-unit-desktop: 8; --gap-unit-tablet: 6; --gap-unit-mobile: 4;
     }
     .vane-section[data-size="lg"] {
-        --py-unit-desktop: 16; --py-unit-laptop: 8; --py-unit-tablet: 2;
-        --gap-unit-desktop: 10; --gap-unit-laptop: 8; --gap-unit-tablet: 6;
+        --py-unit-desktop: 16; --py-unit-tablet: 8; --py-unit-mobile: 2;
+        --gap-unit-desktop: 10; --gap-unit-tablet: 8; --gap-unit-mobile: 6;
     }
     .vane-section[data-size="xl"] {
-        --py-unit-desktop: 20; --py-unit-laptop: 10; --py-unit-tablet: 4;
-        --gap-unit-desktop: 12; --gap-unit-laptop: 10; --gap-unit-tablet: 8;
+        --py-unit-desktop: 20; --py-unit-tablet: 10; --py-unit-mobile: 4;
+        --gap-unit-desktop: 12; --gap-unit-tablet: 10; --gap-unit-mobile: 8;
     }
 
     /* Title */
     .vane-title {
         --lh: 1.3;
-        --fs-unit-desktop: 12; --fs-unit-laptop: 11; --fs-unit-tablet: 10;
+        --fs-unit-desktop: 12; --fs-unit-tablet: 11; --fs-unit-mobile: 10;
     }
-    .vane-title[data-size="xs"] { --fs-unit-desktop: 9; --fs-unit-laptop: 8; --fs-unit-tablet: 7; --lh: 1.556; }
-    .vane-title[data-size="sm"] { --fs-unit-desktop: 10; --fs-unit-laptop: 9; --fs-unit-tablet: 8; --lh: 1.4; }
-    .vane-title[data-size="md"] { --fs-unit-desktop: 12; --fs-unit-laptop: 11; --fs-unit-tablet: 10; --lh: 1.333; }
-    .vane-title[data-size="lg"] { --fs-unit-desktop: 15; --fs-unit-laptop: 14; --fs-unit-tablet: 13; --lh: 1.2; }
-    .vane-title[data-size="xl"] { --fs-unit-desktop: 18; --fs-unit-laptop: 17; --fs-unit-tablet: 16; --lh: 1.111; }
+    .vane-title[data-size="xs"] { --fs-unit-desktop: 9; --fs-unit-tablet: 8; --fs-unit-mobile: 7; --lh: 1.556; }
+    .vane-title[data-size="sm"] { --fs-unit-desktop: 10; --fs-unit-tablet: 9; --fs-unit-mobile: 8; --lh: 1.4; }
+    .vane-title[data-size="md"] { --fs-unit-desktop: 12; --fs-unit-tablet: 11; --fs-unit-mobile: 10; --lh: 1.333; }
+    .vane-title[data-size="lg"] { --fs-unit-desktop: 15; --fs-unit-tablet: 14; --fs-unit-mobile: 13; --lh: 1.2; }
+    .vane-title[data-size="xl"] { --fs-unit-desktop: 18; --fs-unit-tablet: 17; --fs-unit-mobile: 16; --lh: 1.111; }
 
     /* SectionTitle */
     .vane-section-title {
         --lh: 1.2;
-        --fs-unit-desktop: 18; --fs-unit-laptop: 16; --fs-unit-tablet: 14;
+        --fs-unit-desktop: 18; --fs-unit-tablet: 16; --fs-unit-mobile: 14;
     }
-    .vane-section-title[data-size="xs"] { --fs-unit-desktop: 12; --fs-unit-laptop: 10; --fs-unit-tablet: 8; --lh: 1.333; }
-    .vane-section-title[data-size="sm"] { --fs-unit-desktop: 15; --fs-unit-laptop: 13; --fs-unit-tablet: 11; --lh: 1.2; }
-    .vane-section-title[data-size="md"] { --fs-unit-desktop: 18; --fs-unit-laptop: 16; --fs-unit-tablet: 14; --lh: 1.111; }
-    .vane-section-title[data-size="lg"] { --fs-unit-desktop: 24; --fs-unit-laptop: 22; --fs-unit-tablet: 20; --lh: 1; }
-    .vane-section-title[data-size="xl"] { --fs-unit-desktop: 30; --fs-unit-laptop: 28; --fs-unit-tablet: 26; --lh: 1; }
+    .vane-section-title[data-size="xs"] { --fs-unit-desktop: 12; --fs-unit-tablet: 10; --fs-unit-mobile: 8; --lh: 1.333; }
+    .vane-section-title[data-size="sm"] { --fs-unit-desktop: 15; --fs-unit-tablet: 13; --fs-unit-mobile: 11; --lh: 1.2; }
+    .vane-section-title[data-size="md"] { --fs-unit-desktop: 18; --fs-unit-tablet: 16; --fs-unit-mobile: 14; --lh: 1.111; }
+    .vane-section-title[data-size="lg"] { --fs-unit-desktop: 24; --fs-unit-tablet: 22; --fs-unit-mobile: 20; --lh: 1; }
+    .vane-section-title[data-size="xl"] { --fs-unit-desktop: 30; --fs-unit-tablet: 28; --fs-unit-mobile: 26; --lh: 1; }
 
     /* PageTitle */
     .vane-page-title {
         --lh: 1.1;
-        --fs-unit-desktop: 24; --fs-unit-laptop: 21; --fs-unit-tablet: 18;
+        --fs-unit-desktop: 24; --fs-unit-tablet: 21; --fs-unit-mobile: 18;
     }
-    .vane-page-title[data-size="xs"] { --fs-unit-desktop: 15; --fs-unit-laptop: 12; --fs-unit-tablet: 9; --lh: 1.2; }
-    .vane-page-title[data-size="sm"] { --fs-unit-desktop: 18; --fs-unit-laptop: 15; --fs-unit-tablet: 12; --lh: 1.111; }
-    .vane-page-title[data-size="md"] { --fs-unit-desktop: 24; --fs-unit-laptop: 21; --fs-unit-tablet: 18; --lh: 1; }
-    .vane-page-title[data-size="lg"] { --fs-unit-desktop: 30; --fs-unit-laptop: 27; --fs-unit-tablet: 24; --lh: 1; }
-    .vane-page-title[data-size="xl"] { --fs-unit-desktop: 36; --fs-unit-laptop: 33; --fs-unit-tablet: 30; --lh: 1; }
+    .vane-page-title[data-size="xs"] { --fs-unit-desktop: 15; --fs-unit-tablet: 12; --fs-unit-mobile: 9; --lh: 1.2; }
+    .vane-page-title[data-size="sm"] { --fs-unit-desktop: 18; --fs-unit-tablet: 15; --fs-unit-mobile: 12; --lh: 1.111; }
+    .vane-page-title[data-size="md"] { --fs-unit-desktop: 24; --fs-unit-tablet: 21; --fs-unit-mobile: 18; --lh: 1; }
+    .vane-page-title[data-size="lg"] { --fs-unit-desktop: 30; --fs-unit-tablet: 27; --fs-unit-mobile: 24; --lh: 1; }
+    .vane-page-title[data-size="xl"] { --fs-unit-desktop: 36; --fs-unit-tablet: 33; --fs-unit-mobile: 30; --lh: 1; }
+
+    /* ========================================
+       APPEARANCE & VARIANT RULES
+       Sets component-level color variables based on
+       data-appearance and data-variant attributes.
+
+       These rules apply to ANY element with the
+       data-variant and data-appearance attributes.
+       Components only consume the variables they need.
+       ======================================== */
+
+    /* -----------------------------------------
+       OUTLINE VARIANT
+       ----------------------------------------- */
+    [data-variant="outline"][data-appearance="primary"] {
+        --text-color: var(--color-text-primary);
+        --bg-color: var(--color-bg-primary);
+        --bg-hover-color: var(--color-bg-hover-primary);
+        --bg-active-color: var(--color-bg-active-primary);
+        --border-color: var(--color-border-primary);
+        --ring-color: var(--color-border-primary);
+        --accent-color: var(--color-bg-primary);
+        --checked-bg-color: var(--color-bg-primary);
+    }
+    [data-variant="outline"][data-appearance="brand"] {
+        --text-color: var(--color-text-brand);
+        --bg-color: var(--color-bg-brand);
+        --bg-hover-color: var(--color-bg-hover-brand);
+        --bg-active-color: var(--color-bg-active-brand);
+        --border-color: var(--color-border-brand);
+        --ring-color: var(--color-border-brand);
+        --accent-color: var(--color-bg-brand);
+        --checked-bg-color: var(--color-bg-brand);
+    }
+    [data-variant="outline"][data-appearance="secondary"] {
+        --text-color: var(--color-text-secondary);
+        --bg-color: var(--color-bg-secondary);
+        --bg-hover-color: var(--color-bg-hover-secondary);
+        --bg-active-color: var(--color-bg-active-secondary);
+        --border-color: var(--color-border-secondary);
+        --ring-color: var(--color-border-secondary);
+        --accent-color: var(--color-bg-secondary);
+        --checked-bg-color: var(--color-bg-secondary);
+    }
+    [data-variant="outline"][data-appearance="tertiary"] {
+        --text-color: var(--color-text-tertiary);
+        --bg-color: var(--color-bg-tertiary);
+        --bg-hover-color: var(--color-bg-hover-tertiary);
+        --bg-active-color: var(--color-bg-active-tertiary);
+        --border-color: var(--color-border-tertiary);
+        --ring-color: var(--color-border-tertiary);
+        --accent-color: var(--color-bg-tertiary);
+        --checked-bg-color: var(--color-bg-tertiary);
+    }
+    [data-variant="outline"][data-appearance="accent"] {
+        --text-color: var(--color-text-accent);
+        --bg-color: var(--color-bg-accent);
+        --bg-hover-color: var(--color-bg-hover-accent);
+        --bg-active-color: var(--color-bg-active-accent);
+        --border-color: var(--color-border-accent);
+        --ring-color: var(--color-border-accent);
+        --accent-color: var(--color-bg-accent);
+        --checked-bg-color: var(--color-bg-accent);
+    }
+    [data-variant="outline"][data-appearance="success"] {
+        --text-color: var(--color-text-success);
+        --bg-color: var(--color-bg-success);
+        --bg-hover-color: var(--color-bg-hover-success);
+        --bg-active-color: var(--color-bg-active-success);
+        --border-color: var(--color-border-success);
+        --ring-color: var(--color-border-success);
+        --accent-color: var(--color-bg-success);
+        --checked-bg-color: var(--color-bg-success);
+    }
+    [data-variant="outline"][data-appearance="danger"] {
+        --text-color: var(--color-text-danger);
+        --bg-color: var(--color-bg-danger);
+        --bg-hover-color: var(--color-bg-hover-danger);
+        --bg-active-color: var(--color-bg-active-danger);
+        --border-color: var(--color-border-danger);
+        --ring-color: var(--color-border-danger);
+        --accent-color: var(--color-bg-danger);
+        --checked-bg-color: var(--color-bg-danger);
+    }
+    [data-variant="outline"][data-appearance="warning"] {
+        --text-color: var(--color-text-warning);
+        --bg-color: var(--color-bg-warning);
+        --bg-hover-color: var(--color-bg-hover-warning);
+        --bg-active-color: var(--color-bg-active-warning);
+        --border-color: var(--color-border-warning);
+        --ring-color: var(--color-border-warning);
+        --accent-color: var(--color-bg-warning);
+        --checked-bg-color: var(--color-bg-warning);
+    }
+    [data-variant="outline"][data-appearance="info"] {
+        --text-color: var(--color-text-info);
+        --bg-color: var(--color-bg-info);
+        --bg-hover-color: var(--color-bg-hover-info);
+        --bg-active-color: var(--color-bg-active-info);
+        --border-color: var(--color-border-info);
+        --ring-color: var(--color-border-info);
+        --accent-color: var(--color-bg-info);
+        --checked-bg-color: var(--color-bg-info);
+    }
+
+    /* -----------------------------------------
+       FILLED VARIANT
+       ----------------------------------------- */
+    [data-variant="filled"][data-appearance="primary"] {
+        --text-color: var(--color-text-filled-primary);
+        --bg-color: var(--color-bg-filled-primary);
+        --bg-hover-color: var(--color-bg-filled-hover-primary);
+        --bg-active-color: var(--color-bg-filled-active-primary);
+        --border-color: var(--color-border-filled-primary);
+        --ring-color: var(--color-border-filled-primary);
+        --accent-color: var(--color-bg-filled-primary);
+        --checked-bg-color: var(--color-bg-filled-primary);
+    }
+    [data-variant="filled"][data-appearance="brand"] {
+        --text-color: var(--color-text-filled-brand);
+        --bg-color: var(--color-bg-filled-brand);
+        --bg-hover-color: var(--color-bg-filled-hover-brand);
+        --bg-active-color: var(--color-bg-filled-active-brand);
+        --border-color: var(--color-border-filled-brand);
+        --ring-color: var(--color-border-filled-brand);
+        --accent-color: var(--color-bg-filled-brand);
+        --checked-bg-color: var(--color-bg-filled-brand);
+    }
+    [data-variant="filled"][data-appearance="secondary"] {
+        --text-color: var(--color-text-filled-secondary);
+        --bg-color: var(--color-bg-filled-secondary);
+        --bg-hover-color: var(--color-bg-filled-hover-secondary);
+        --bg-active-color: var(--color-bg-filled-active-secondary);
+        --border-color: var(--color-border-filled-secondary);
+        --ring-color: var(--color-border-filled-secondary);
+        --accent-color: var(--color-bg-filled-secondary);
+        --checked-bg-color: var(--color-bg-filled-secondary);
+    }
+    [data-variant="filled"][data-appearance="tertiary"] {
+        --text-color: var(--color-text-filled-tertiary);
+        --bg-color: var(--color-bg-filled-tertiary);
+        --bg-hover-color: var(--color-bg-filled-hover-tertiary);
+        --bg-active-color: var(--color-bg-filled-active-tertiary);
+        --border-color: var(--color-border-filled-tertiary);
+        --ring-color: var(--color-border-filled-tertiary);
+        --accent-color: var(--color-bg-filled-tertiary);
+        --checked-bg-color: var(--color-bg-filled-tertiary);
+    }
+    [data-variant="filled"][data-appearance="accent"] {
+        --text-color: var(--color-text-filled-accent);
+        --bg-color: var(--color-bg-filled-accent);
+        --bg-hover-color: var(--color-bg-filled-hover-accent);
+        --bg-active-color: var(--color-bg-filled-active-accent);
+        --border-color: var(--color-border-filled-accent);
+        --ring-color: var(--color-border-filled-accent);
+        --accent-color: var(--color-bg-filled-accent);
+        --checked-bg-color: var(--color-bg-filled-accent);
+    }
+    [data-variant="filled"][data-appearance="success"] {
+        --text-color: var(--color-text-filled-success);
+        --bg-color: var(--color-bg-filled-success);
+        --bg-hover-color: var(--color-bg-filled-hover-success);
+        --bg-active-color: var(--color-bg-filled-active-success);
+        --border-color: var(--color-border-filled-success);
+        --ring-color: var(--color-border-filled-success);
+        --accent-color: var(--color-bg-filled-success);
+        --checked-bg-color: var(--color-bg-filled-success);
+    }
+    [data-variant="filled"][data-appearance="danger"] {
+        --text-color: var(--color-text-filled-danger);
+        --bg-color: var(--color-bg-filled-danger);
+        --bg-hover-color: var(--color-bg-filled-hover-danger);
+        --bg-active-color: var(--color-bg-filled-active-danger);
+        --border-color: var(--color-border-filled-danger);
+        --ring-color: var(--color-border-filled-danger);
+        --accent-color: var(--color-bg-filled-danger);
+        --checked-bg-color: var(--color-bg-filled-danger);
+    }
+    [data-variant="filled"][data-appearance="warning"] {
+        --text-color: var(--color-text-filled-warning);
+        --bg-color: var(--color-bg-filled-warning);
+        --bg-hover-color: var(--color-bg-filled-hover-warning);
+        --bg-active-color: var(--color-bg-filled-active-warning);
+        --border-color: var(--color-border-filled-warning);
+        --ring-color: var(--color-border-filled-warning);
+        --accent-color: var(--color-bg-filled-warning);
+        --checked-bg-color: var(--color-bg-filled-warning);
+    }
+    [data-variant="filled"][data-appearance="info"] {
+        --text-color: var(--color-text-filled-info);
+        --bg-color: var(--color-bg-filled-info);
+        --bg-hover-color: var(--color-bg-filled-hover-info);
+        --bg-active-color: var(--color-bg-filled-active-info);
+        --border-color: var(--color-border-filled-info);
+        --ring-color: var(--color-border-filled-info);
+        --accent-color: var(--color-bg-filled-info);
+        --checked-bg-color: var(--color-bg-filled-info);
+    }
+
+    /* -----------------------------------------
+       TRANSPARENT STATE
+       Overrides colors when data-transparent is set
+       ----------------------------------------- */
+    [data-transparent="true"] {
+        --bg-color: transparent;
+        --bg-hover-color: transparent;
+        --bg-active-color: transparent;
+        --accent-color: transparent;
+        --checked-bg-color: transparent;
+    }
+
+    /* Typography components: transparent affects text color */
+    .vane-text[data-transparent="true"],
+    .vane-link[data-transparent="true"],
+    .vane-title[data-transparent="true"],
+    .vane-section-title[data-transparent="true"],
+    .vane-page-title[data-transparent="true"],
+    .vane-label[data-transparent="true"],
+    .vane-list-item[data-transparent="true"] {
+        --text-color: transparent;
+    }
+
 }

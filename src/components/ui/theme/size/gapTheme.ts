@@ -15,17 +15,17 @@ export class GapTheme extends BaseTheme implements Record<GapClassKey, string> {
   /** Responsive desktop unit class */
   responsiveDesktop: string = "[--gap-unit:var(--gap-unit-desktop)]";
   /** Responsive laptop unit class */
-  responsiveLaptop: string = "max-laptop:[--gap-unit:var(--gap-unit-laptop)]";
-  /** Responsive tablet unit class */
   responsiveTablet: string = "max-tablet:[--gap-unit:var(--gap-unit-tablet)]";
+  /** Responsive tablet unit class */
+  responsiveMobile: string = "max-mobile:[--gap-unit:var(--gap-unit-mobile)]";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.gap === 'gap') {
       if (extractedKeys?.responsive === 'responsive') {
         return [
           this.responsiveDesktop,
-          this.responsiveLaptop,
           this.responsiveTablet,
+          this.responsiveMobile,
           this.gap
         ];
       }

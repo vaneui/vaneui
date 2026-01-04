@@ -14,13 +14,13 @@ import { BorderTheme } from "./layout/borderTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { CARD_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
+import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
 
 export interface CardTheme extends BaseTypographyComponentTheme {
   size: {
@@ -39,10 +39,10 @@ export interface CardTheme extends BaseTypographyComponentTheme {
     shadow: ShadowAppearanceTheme;
   };
   appearance: {
-    background: GenericVariantTheme<AppearanceTheme>;
-    text: GenericVariantTheme<AppearanceTheme>;
-    border: GenericVariantTheme<AppearanceTheme>;
-    ring: GenericVariantTheme<AppearanceTheme>;
+    background: SimpleConsumerTheme;
+    text: SimpleConsumerTheme;
+    border: SimpleConsumerTheme;
+    ring: SimpleConsumerTheme;
   };
 }
 
@@ -67,10 +67,10 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
     },
     appearance: {
-      background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
-      border: GenericVariantTheme.createUIElementBorderTheme(),
-      ring: GenericVariantTheme.createUIElementRingTheme(),
+      background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),
+      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
+      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
     },
     typography: defaultTypographyThemes,
   },

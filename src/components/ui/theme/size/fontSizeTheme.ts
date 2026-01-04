@@ -15,16 +15,16 @@ export class FontSizeTheme extends BaseTheme implements Record<FontSizeClassKey,
   /** Responsive desktop unit class */
   responsiveDesktop: string = "[--fs-unit:var(--fs-unit-desktop)]";
   /** Responsive laptop unit class */
-  responsiveLaptop: string = "max-laptop:[--fs-unit:var(--fs-unit-laptop)]";
-  /** Responsive tablet unit class */
   responsiveTablet: string = "max-tablet:[--fs-unit:var(--fs-unit-tablet)]";
+  /** Responsive tablet unit class */
+  responsiveMobile: string = "max-mobile:[--fs-unit:var(--fs-unit-mobile)]";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.responsive === 'responsive') {
       return [
         this.responsiveDesktop,
-        this.responsiveLaptop,
         this.responsiveTablet,
+        this.responsiveMobile,
         this.fontSize
       ];
     }

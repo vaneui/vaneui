@@ -22,7 +22,7 @@ describe('Badge Component Tests', () => {
       expect(badge).toHaveClass('w-fit', 'h-fit', 'whitespace-nowrap');
       expect(badge).toHaveClass('text-(length:--fs)'); // md size
       expect(badge).toHaveAttribute('data-size', 'md');
-      expect(badge).toHaveClass('text-(--color-text-primary)'); // primary appearance
+      expect(badge).toHaveClass('text-(--text-color)'); // primary appearance
       expect(badge).toHaveClass('font-sans');
       expect(badge).toHaveClass('font-semibold'); // semibold weight
       expect(badge).toHaveClass('inline-flex', 'items-center', 'rounded-full', 'uppercase');
@@ -39,8 +39,8 @@ describe('Badge Component Tests', () => {
 
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass('text-(--color-text-primary)'); // primary color
-      expect(badge).toHaveClass('[background:var(--color-bg-primary)]'); // primary background
+      expect(badge).toHaveClass('text-(--text-color)'); // primary color
+      expect(badge).toHaveClass('[background:var(--bg-color)]'); // primary background
     });
 
     it('Badge with secondary variant should have secondary classes', () => {
@@ -52,8 +52,8 @@ describe('Badge Component Tests', () => {
 
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass('text-(--color-text-secondary)'); // secondary color
-      expect(badge).toHaveClass('[background:var(--color-bg-secondary)]'); // secondary background
+      expect(badge).toHaveClass('text-(--text-color)'); // secondary color
+      expect(badge).toHaveClass('[background:var(--bg-color)]'); // secondary background
     });
 
     it('Badge with success variant should have success classes', () => {
@@ -65,8 +65,8 @@ describe('Badge Component Tests', () => {
 
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass('text-(--color-text-success)'); // success color
-      expect(badge).toHaveClass('[background:var(--color-bg-success)]'); // success background
+      expect(badge).toHaveClass('text-(--text-color)'); // success color
+      expect(badge).toHaveClass('[background:var(--bg-color)]'); // success background
     });
 
     it('Badge with danger variant should have danger classes', () => {
@@ -78,8 +78,8 @@ describe('Badge Component Tests', () => {
 
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass('text-(--color-text-danger)'); // danger color
-      expect(badge).toHaveClass('[background:var(--color-bg-danger)]'); // danger background
+      expect(badge).toHaveClass('text-(--text-color)'); // danger color
+      expect(badge).toHaveClass('[background:var(--bg-color)]'); // danger background
     });
   });
 
@@ -141,8 +141,8 @@ describe('Badge Component Tests', () => {
       const badgeSecondaryRing = container.querySelector('#badge-secondary-ring');
 
       // Badges with ring should show ring classes
-      expect(badgeDefaultRing).toHaveClass('ring-(--color-border-primary)');
-      expect(badgeSecondaryRing).toHaveClass('ring-(--color-border-secondary)');
+      expect(badgeDefaultRing).toHaveClass('ring-(--ring-color)');
+      expect(badgeSecondaryRing).toHaveClass('ring-(--ring-color)');
     });
   });
 
@@ -156,7 +156,7 @@ describe('Badge Component Tests', () => {
 
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass('[background:var(--color-bg-filled-primary)]'); // filled variant shows background
+      expect(badge).toHaveClass('[background:var(--bg-color)]'); // filled variant shows background
     });
 
     it('should render with outline variant when specified', () => {
@@ -168,7 +168,7 @@ describe('Badge Component Tests', () => {
 
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass('ring-(--color-border-primary)'); // outline variant shows ring
+      expect(badge).toHaveClass('ring-(--ring-color)'); // outline variant shows ring
     });
   });
 

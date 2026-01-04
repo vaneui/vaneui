@@ -8,13 +8,13 @@ import {
 import type { LabelProps } from "../label";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { FontSizeTheme } from "./size/fontSizeTheme";
 import { LineHeightTheme } from "./size/lineHeightTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { LABEL_CATEGORIES } from "../props";
+import { textConsumerClass } from "../classes/appearanceClasses";
 
 export interface LabelTheme extends BaseTypographyComponentTheme {
   size: {
@@ -23,7 +23,7 @@ export interface LabelTheme extends BaseTypographyComponentTheme {
     gap: GapTheme;
   };
   appearance: {
-    text: GenericVariantTheme<AppearanceTheme>;
+    text: SimpleConsumerTheme;
   };
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
@@ -41,7 +41,7 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       gap: new GapTheme(),
     },
     appearance: {
-      text: GenericVariantTheme.createTypographyTextTheme(),
+      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
     },
     typography: defaultTypographyThemes,
     layout: {

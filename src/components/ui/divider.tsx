@@ -10,7 +10,8 @@ import type {
   OverflowProps,
   AppearanceProps,
   TransparentProps,
-  PaddingProps
+  PaddingProps,
+  VariantProps
 } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
@@ -27,6 +28,7 @@ export type DividerProps = BaseProps &
   AppearanceProps &
   TransparentProps &
   PaddingProps &
+  VariantProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

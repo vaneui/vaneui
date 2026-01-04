@@ -192,6 +192,9 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     if (extractedKeys.variant) {
       dataAttributes['data-variant'] = extractedKeys.variant;
     }
+    if (extractedKeys.transparent) {
+      dataAttributes['data-transparent'] = 'true';
+    }
 
     return {
       Tag: componentTag,

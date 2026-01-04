@@ -26,6 +26,7 @@ export const themeDefaults: ThemeDefaults = {
   card: {
     md: true,
     flex: true,
+    outline: true,
     primary: true,
     rounded: true,
     normal: true,
@@ -67,18 +68,20 @@ export const themeDefaults: ThemeDefaults = {
   },
 
   container: {
+    md: true,
     noRing: true,
     flex: true,
     column: true,
-    md: true,
     itemsCenter: true,
     gap: true,
+    outline: true,
   },
 
   section: {
     md: true,
     flex: true,
     column: true,
+    outline: true,
     primary: true,
     itemsStart: true,
     gap: true,
@@ -98,6 +101,7 @@ export const themeDefaults: ThemeDefaults = {
     padding: true,
     noBorder: true,
     noRing: true,
+    outline: true,
   },
 
   row: {
@@ -108,6 +112,7 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
     noBorder: true,
     noRing: true,
+    outline: true,
   },
 
   col: {
@@ -117,6 +122,7 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
     noBorder: true,
     noRing: true,
+    outline: true,
   },
 
   grid2: {
@@ -124,6 +130,7 @@ export const themeDefaults: ThemeDefaults = {
     grid: true,
     gap: true,
     sharp: true,
+    outline: true,
   },
 
   grid3: {
@@ -131,6 +138,7 @@ export const themeDefaults: ThemeDefaults = {
     grid: true,
     gap: true,
     sharp: true,
+    outline: true,
   },
 
   grid4: {
@@ -138,6 +146,7 @@ export const themeDefaults: ThemeDefaults = {
     grid: true,
     gap: true,
     sharp: true,
+    outline: true,
   },
 
   grid5: {
@@ -145,6 +154,7 @@ export const themeDefaults: ThemeDefaults = {
     grid: true,
     gap: true,
     sharp: true,
+    outline: true,
   },
 
   grid6: {
@@ -152,10 +162,12 @@ export const themeDefaults: ThemeDefaults = {
     grid: true,
     gap: true,
     sharp: true,
+    outline: true,
   },
 
   divider: {
     md: true,
+    outline: true,
     primary: true,
     noPadding: true,
   },
@@ -166,9 +178,11 @@ export const themeDefaults: ThemeDefaults = {
     gap: true,
     sans: true,
     medium: true,
+    outline: true,
   },
 
   img: {
+    md: true,
     rounded: true,
   },
 
@@ -179,6 +193,7 @@ export const themeDefaults: ThemeDefaults = {
     rounded: true,
     inline: true,
     padding: true,
+    outline: true,
     primary: true,
     ring: true,
   },
@@ -187,6 +202,7 @@ export const themeDefaults: ThemeDefaults = {
     md: true,
     sans: true,
     textLeft: true,
+    outline: true,
   },
 
   title: {
@@ -195,6 +211,7 @@ export const themeDefaults: ThemeDefaults = {
     semibold: true,
     textLeft: true,
     responsive: true,
+    outline: true,
   },
 
   pageTitle: {
@@ -203,6 +220,7 @@ export const themeDefaults: ThemeDefaults = {
     semibold: true,
     textLeft: true,
     responsive: true,
+    outline: true,
   },
 
   sectionTitle: {
@@ -211,15 +229,20 @@ export const themeDefaults: ThemeDefaults = {
     semibold: true,
     textLeft: true,
     responsive: true,
+    outline: true,
   },
 
   link: {
+    md: true,
     underline: true,
     sans: true,
+    outline: true,
   },
 
   listItem: {
+    md: true,
     sans: true,
+    outline: true,
   },
 
   list: {
@@ -228,6 +251,7 @@ export const themeDefaults: ThemeDefaults = {
     normal: true,
     padding: true,
     disc: true,
+    outline: true,
   },
 
   checkbox: {

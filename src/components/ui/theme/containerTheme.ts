@@ -7,11 +7,11 @@ import { SizeTheme } from "./size/sizeTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { CONTAINER_CATEGORIES } from "../props";
+import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
 
 export interface ContainerTheme extends BaseComponentTheme {
   size: {
@@ -26,11 +26,11 @@ export interface ContainerTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    background: GenericVariantTheme<AppearanceTheme>;
-    text: GenericVariantTheme<AppearanceTheme>;
-    border: GenericVariantTheme<AppearanceTheme>;
-    ring: GenericVariantTheme<AppearanceTheme>;
-    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
+    background: SimpleConsumerTheme;
+    text: SimpleConsumerTheme;
+    border: SimpleConsumerTheme;
+    ring: SimpleConsumerTheme;
+    shadow: ShadowAppearanceTheme;
   }
 }
 
@@ -51,11 +51,11 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
       radius: new RadiusTheme(),
     },
     appearance: {
-      background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
-      border: GenericVariantTheme.createUIElementBorderTheme(),
-      ring: GenericVariantTheme.createUIElementRingTheme(),
-      shadow: GenericVariantTheme.createLayoutShadowTheme(),
+      background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),
+      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
+      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
+      shadow: ShadowAppearanceTheme.createLayoutTheme(),
     }
   },
   themeDefaults.container as Partial<ContainerProps>,

@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-01-02T17:06:11.603Z
+ * Generated on: 2026-01-04T10:52:28.481Z
  */
 
 export interface PropDescription {
@@ -84,13 +84,10 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "description": "Breakpoint props for responsive layout changes",
     "props": {
       "mobileCol": {
-        "description": "Switch to column layout on mobile and below (max-mobile: 40rem)"
+        "description": "Switch to column layout on mobile and below (max-mobile: 48rem)"
       },
       "tabletCol": {
-        "description": "Switch to column layout on tablet and below (max-tablet: 48rem)"
-      },
-      "laptopCol": {
-        "description": "Switch to column layout on laptop and below (max-laptop: 64rem)"
+        "description": "Switch to column layout on tablet and below (max-tablet: 64rem)"
       },
       "desktopCol": {
         "description": "Switch to column layout on desktop and below (max-desktop: 80rem)"
@@ -243,13 +240,10 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "description": "Hide props for responsive element visibility",
     "props": {
       "mobileHide": {
-        "description": "Hide element on mobile devices and below (max-mobile: 20rem)"
+        "description": "Hide element on mobile devices and below (max-mobile: 48rem)"
       },
       "tabletHide": {
-        "description": "Hide element on tablet devices and below (max-tablet: 40rem)"
-      },
-      "laptopHide": {
-        "description": "Hide element on laptop devices and below (max-laptop: 64rem)"
+        "description": "Hide element on tablet devices and below (max-tablet: 64rem)"
       },
       "desktopHide": {
         "description": "Hide element on desktop devices and below (max-desktop: 80rem)"

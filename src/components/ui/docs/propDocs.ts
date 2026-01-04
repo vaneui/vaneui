@@ -217,9 +217,8 @@ export const JUSTIFY_PROPS = `
  */
 export const BREAKPOINT_PROPS = `
  * RESPONSIVE BREAKPOINT PROPS:
- * @param props.mobileCol - Switch to column layout on mobile and below (max-mobile: 40rem)
- * @param props.tabletCol - Switch to column layout on tablet and below (max-tablet: 48rem)
- * @param props.laptopCol - Switch to column layout on laptop and below (max-laptop: 64rem)
+ * @param props.mobileCol - Switch to column layout on mobile and below (max-mobile: 48rem)
+ * @param props.tabletCol - Switch to column layout on tablet and below (max-tablet: 64rem)
  * @param props.desktopCol - Switch to column layout on desktop and below (max-desktop: 80rem)`;
 
 /**

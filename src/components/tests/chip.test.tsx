@@ -22,7 +22,7 @@ describe('Chip Component Tests', () => {
       expect(chip).toHaveClass('w-fit', 'h-fit', 'whitespace-nowrap');
       expect(chip).toHaveClass('text-(length:--fs)'); // md size
       expect(chip).toHaveAttribute('data-size', 'md');
-      expect(chip).toHaveClass('text-(--color-text-secondary)'); // secondary appearance (default for chip)
+      expect(chip).toHaveClass('text-(--text-color)'); // secondary appearance (default for chip)
       expect(chip).toHaveClass('font-mono'); // mono font for chip
       expect(chip).toHaveClass('font-normal'); // normal weight
       expect(chip).toHaveClass('inline-flex', 'items-center', 'rounded-(--br)');
@@ -39,8 +39,8 @@ describe('Chip Component Tests', () => {
 
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
-      expect(chip).toHaveClass('text-(--color-text-primary)'); // primary color
-      expect(chip).toHaveClass('[background:var(--color-bg-primary)]'); // primary background
+      expect(chip).toHaveClass('text-(--text-color)'); // primary color
+      expect(chip).toHaveClass('[background:var(--bg-color)]'); // primary background
     });
 
     it('Chip with primary variant should have primary classes', () => {
@@ -52,8 +52,8 @@ describe('Chip Component Tests', () => {
 
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
-      expect(chip).toHaveClass('text-(--color-text-primary)'); // primary color
-      expect(chip).toHaveClass('[background:var(--color-bg-primary)]'); // primary background
+      expect(chip).toHaveClass('text-(--text-color)'); // primary color
+      expect(chip).toHaveClass('[background:var(--bg-color)]'); // primary background
     });
 
     it('Chip with success variant should have success classes', () => {
@@ -65,8 +65,8 @@ describe('Chip Component Tests', () => {
 
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
-      expect(chip).toHaveClass('text-(--color-text-success)'); // success color
-      expect(chip).toHaveClass('[background:var(--color-bg-success)]'); // success background
+      expect(chip).toHaveClass('text-(--text-color)'); // success color
+      expect(chip).toHaveClass('[background:var(--bg-color)]'); // success background
     });
 
     it('Chip with danger variant should have danger classes', () => {
@@ -78,8 +78,8 @@ describe('Chip Component Tests', () => {
 
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
-      expect(chip).toHaveClass('text-(--color-text-danger)'); // danger color
-      expect(chip).toHaveClass('[background:var(--color-bg-danger)]'); // danger background
+      expect(chip).toHaveClass('text-(--text-color)'); // danger color
+      expect(chip).toHaveClass('[background:var(--bg-color)]'); // danger background
     });
   });
 
@@ -188,8 +188,8 @@ describe('Chip Component Tests', () => {
       const chipSecondaryRing = container.querySelector('#chip-secondary-ring');
 
       // Chips with ring should show ring classes
-      expect(chipDefaultRing).toHaveClass('ring-(--color-border-primary)');
-      expect(chipSecondaryRing).toHaveClass('ring-(--color-border-secondary)');
+      expect(chipDefaultRing).toHaveClass('ring-(--ring-color)');
+      expect(chipSecondaryRing).toHaveClass('ring-(--ring-color)');
     });
   });
 
@@ -203,7 +203,7 @@ describe('Chip Component Tests', () => {
 
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
-      expect(chip).toHaveClass('text-(--color-text-primary)'); // primary color
+      expect(chip).toHaveClass('text-(--text-color)'); // primary color
     });
 
     it('should render with outline variant correctly', () => {

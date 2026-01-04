@@ -84,14 +84,14 @@ describe('Row Component Tests', () => {
     it('should support responsive breakpoint props', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Row tabletCol>
+          <Row mobileCol>
             Responsive Row
           </Row>
         </ThemeProvider>
       );
 
       const row = container.querySelector('div');
-      expect(row).toHaveClass('max-tablet:flex-col');
+      expect(row).toHaveClass('max-mobile:flex-col');
     });
 
     it('should support appearance variants for background', () => {
@@ -104,7 +104,7 @@ describe('Row Component Tests', () => {
       );
 
       const row = container.querySelector('div');
-      expect(row).toHaveClass('[background:var(--color-bg-layout-primary)]');
+      expect(row).toHaveClass('[background:var(--bg-color)]');
     });
 
     it('should support appearance variants for text color', () => {
@@ -120,7 +120,7 @@ describe('Row Component Tests', () => {
         );
 
         const row = container.querySelector('div');
-        expect(row).toHaveClass(`text-(--color-text-${appearance})`);
+        expect(row).toHaveClass('text-(--text-color)');
       });
     });
 
@@ -141,20 +141,20 @@ describe('Row Component Tests', () => {
       const filledRow = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineRow).toHaveClass('text-(--color-text-primary)');
-      expect(filledRow).toHaveClass('text-(--color-text-filled-primary)');
+      expect(outlineRow).toHaveClass('text-(--text-color)');
+      expect(filledRow).toHaveClass('text-(--text-color)');
       
       // Background colors
-      expect(outlineRow).toHaveClass('[background:var(--color-bg-layout-primary)]');
-      expect(filledRow).toHaveClass('[background:var(--color-bg-filled-layout-primary)]');
+      expect(outlineRow).toHaveClass('[background:var(--bg-color)]');
+      expect(filledRow).toHaveClass('[background:var(--bg-color)]');
       
       // Border colors
-      expect(outlineRow).toHaveClass('border-(--color-border-primary)');
-      expect(filledRow).toHaveClass('border-(--color-border-filled-primary)');
+      expect(outlineRow).toHaveClass('border-(--border-color)');
+      expect(filledRow).toHaveClass('border-(--border-color)');
       
       // Ring colors
-      expect(outlineRow).toHaveClass('ring-(--color-border-primary)');
-      expect(filledRow).toHaveClass('ring-(--color-border-filled-primary)');
+      expect(outlineRow).toHaveClass('ring-(--ring-color)');
+      expect(filledRow).toHaveClass('ring-(--ring-color)');
     });
 
     it('should support transparent background', () => {
@@ -167,7 +167,7 @@ describe('Row Component Tests', () => {
       );
 
       const row = container.querySelector('div');
-      expect(row).toHaveClass('[background:transparent]');
+      expect(row).toHaveClass('[background:var(--bg-color)]');
     });
 
     it('should support custom className', () => {
@@ -200,9 +200,9 @@ describe('Row Component Tests', () => {
 
       const row = container.querySelector('div');
       expect(row).toHaveClass('border-[length:var(--bw)]');
-      expect(row).toHaveClass('border-(--color-border-primary)');
+      expect(row).toHaveClass('border-(--border-color)');
       expect(row).toHaveClass('ring-[length:var(--rw)]');
-      expect(row).toHaveClass('ring-(--color-border-primary)');
+      expect(row).toHaveClass('ring-(--ring-color)');
       expect(row).toHaveClass('rounded-(--br)');
     });
 

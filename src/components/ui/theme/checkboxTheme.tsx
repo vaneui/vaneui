@@ -9,14 +9,14 @@ import { themeDefaults } from "./defaults";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { SizeTheme } from "./size/sizeTheme";
 import { CHECKBOX_CATEGORIES } from "../props";
 import { FontSizeTheme } from "./size/fontSizeTheme";
 import { ReactElement } from "react";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
+import { textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass, accentConsumerClass, checkedBgConsumerClass } from "../classes/appearanceClasses";
 
 export interface CheckboxTheme extends BaseComponentTheme {
   size: {
@@ -30,13 +30,13 @@ export interface CheckboxTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    accent: GenericVariantTheme<AppearanceTheme>;
-    background: GenericVariantTheme<AppearanceTheme>;
-    border: GenericVariantTheme<AppearanceTheme>;
-    ring: GenericVariantTheme<AppearanceTheme>;
-    focusVisible: GenericVariantTheme<AppearanceTheme>;
-    check: GenericVariantTheme<AppearanceTheme>;
-    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
+    accent: SimpleConsumerTheme;
+    background: SimpleConsumerTheme;
+    border: SimpleConsumerTheme;
+    ring: SimpleConsumerTheme;
+    focusVisible: SimpleConsumerTheme;
+    check: SimpleConsumerTheme;
+    shadow: ShadowAppearanceTheme;
   };
 }
 
@@ -56,13 +56,13 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       radius: new RadiusTheme(),
     },
     appearance: {
-      accent: GenericVariantTheme.createAccentColorAppearanceTheme(),
-      border: GenericVariantTheme.createUIElementBorderTheme(),
-      background: GenericVariantTheme.createCheckboxBgAppearanceTheme(),
-      ring: GenericVariantTheme.createUIElementRingTheme(),
-      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme(),
-      check: GenericVariantTheme.createCheckedAppearanceTheme(),
-      shadow: GenericVariantTheme.createUIElementShadowTheme(),
+      accent: new SimpleConsumerTheme({ base: accentConsumerClass }, 'accent'),
+      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
+      background: new SimpleConsumerTheme({ base: 'bg-white' }, 'bg'),
+      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
+      focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible'),
+      check: new SimpleConsumerTheme({ base: checkedBgConsumerClass }, 'bg'),
+      shadow: ShadowAppearanceTheme.createUITheme(),
     }
   },
   themeDefaults.checkbox?.input || {},
@@ -72,8 +72,8 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
 export interface CheckTheme extends BaseComponentTheme {
   checkElement: () => ReactElement;
   appearance: {
-    color: GenericVariantTheme<AppearanceTheme>;
-    focusVisible: GenericVariantTheme<AppearanceTheme>;
+    color: SimpleConsumerTheme;
+    focusVisible: SimpleConsumerTheme;
   };
   layout: DefaultLayoutThemes & {
     focusVisible: FocusVisibleTheme;
@@ -96,8 +96,8 @@ export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
         />
       </svg>,
     appearance: {
-      color: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
-      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme()
+      color: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+      focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible')
     },
     layout: {
       ...defaultLayoutsThemes,
@@ -116,8 +116,8 @@ export interface CheckboxWrapperTheme extends BaseComponentTheme {
     focusVisible: FocusVisibleTheme;
   };
   appearance: {
-    variant: GenericVariantTheme<AppearanceTheme>;
-    focusVisible: GenericVariantTheme<AppearanceTheme>;
+    variant: SimpleConsumerTheme;
+    focusVisible: SimpleConsumerTheme;
   };
 }
 
@@ -139,8 +139,8 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
       focusVisible: new FocusVisibleTheme()
     },
     appearance: {
-      variant: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
-      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme()
+      variant: new SimpleConsumerTheme({ base: '' }, 'bg'),
+      focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible')
     }
   },
   themeDefaults.checkbox?.wrapper || {},

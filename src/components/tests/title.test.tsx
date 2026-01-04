@@ -23,7 +23,7 @@ describe('Title Components Tests', () => {
       expect(title).toBeInTheDocument();
       expect(title).toHaveClass('text-balance', 'w-fit');
       expect(title).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(title).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
+      expect(title).not.toHaveClass('text-(--text-color)'); // no primary appearance
       expect(title).toHaveClass('font-sans');
       expect(title).toHaveClass('font-semibold');
     });
@@ -99,7 +99,9 @@ describe('Title Components Tests', () => {
         );
 
         const title = container.querySelector('h3');
-        expect(title).toHaveClass(`text-(--color-text-${appearance})`);
+        // CSS-based approach: consumer class + data attribute
+        expect(title).toHaveClass('text-(--text-color)');
+        expect(title).toHaveAttribute('data-appearance', appearance);
       });
     });
 
@@ -119,8 +121,8 @@ describe('Title Components Tests', () => {
       const outlineTitle = outlineContainer.querySelector('h3');
       const filledTitle = filledContainer.querySelector('h3');
 
-      expect(outlineTitle).toHaveClass('text-(--color-text-primary)');
-      expect(filledTitle).toHaveClass('text-(--color-text-filled-primary)');
+      expect(outlineTitle).toHaveClass('text-(--text-color)');
+      expect(filledTitle).toHaveClass('text-(--text-color)');
     });
 
     it('should support flex and alignment props', () => {
@@ -173,7 +175,7 @@ describe('Title Components Tests', () => {
       expect(pageTitle).toBeInTheDocument();
       expect(pageTitle).toHaveClass('text-balance', 'tracking-tight', 'w-fit');
       expect(pageTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(pageTitle).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
+      expect(pageTitle).not.toHaveClass('text-(--text-color)'); // no primary appearance
       expect(pageTitle).toHaveClass('font-sans');
       expect(pageTitle).toHaveClass('font-semibold');
     });
@@ -222,7 +224,9 @@ describe('Title Components Tests', () => {
         );
 
         const pageTitle = container.querySelector('h1');
-        expect(pageTitle).toHaveClass(`text-(--color-text-${appearance})`);
+        // CSS-based approach: consumer class + data attribute
+        expect(pageTitle).toHaveClass('text-(--text-color)');
+        expect(pageTitle).toHaveAttribute('data-appearance', appearance);
       });
     });
 
@@ -242,8 +246,8 @@ describe('Title Components Tests', () => {
       const outlineTitle = outlineContainer.querySelector('h1');
       const filledTitle = filledContainer.querySelector('h1');
 
-      expect(outlineTitle).toHaveClass('text-(--color-text-primary)');
-      expect(filledTitle).toHaveClass('text-(--color-text-filled-primary)');
+      expect(outlineTitle).toHaveClass('text-(--text-color)');
+      expect(filledTitle).toHaveClass('text-(--text-color)');
     });
 
     it('should support layout positioning', () => {
@@ -294,7 +298,7 @@ describe('Title Components Tests', () => {
       expect(sectionTitle).toBeInTheDocument();
       expect(sectionTitle).toHaveClass('text-balance', 'w-fit');
       expect(sectionTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(sectionTitle).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
+      expect(sectionTitle).not.toHaveClass('text-(--text-color)'); // no primary appearance
       expect(sectionTitle).toHaveClass('font-sans');
       expect(sectionTitle).toHaveClass('font-semibold');
     });
@@ -343,7 +347,9 @@ describe('Title Components Tests', () => {
         );
 
         const sectionTitle = container.querySelector('h2');
-        expect(sectionTitle).toHaveClass(`text-(--color-text-${appearance})`);
+        // CSS-based approach: consumer class + data attribute
+        expect(sectionTitle).toHaveClass('text-(--text-color)');
+        expect(sectionTitle).toHaveAttribute('data-appearance', appearance);
       });
     });
 
@@ -363,8 +369,8 @@ describe('Title Components Tests', () => {
       const outlineTitle = outlineContainer.querySelector('h2');
       const filledTitle = filledContainer.querySelector('h2');
 
-      expect(outlineTitle).toHaveClass('text-(--color-text-primary)');
-      expect(filledTitle).toHaveClass('text-(--color-text-filled-primary)');
+      expect(outlineTitle).toHaveClass('text-(--text-color)');
+      expect(filledTitle).toHaveClass('text-(--text-color)');
     });
 
     it('should support all justify variants', () => {

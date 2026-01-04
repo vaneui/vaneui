@@ -3,24 +3,21 @@ import type { CategoryProps, VariantKey } from "../../props";
 
 /**
  * Link-specific variant theme that handles text colors
- * using link color variables directly (not through the appearance system).
+ * using CSS consumer class approach.
  *
- * This allows Link component colors to be customized independently
- * from primary/secondary appearance colors.
+ * Link defaults to "link" appearance which provides link-specific colors
+ * via CSS variable rules in vars.css.
  */
 export class LinkVariantTheme extends BaseTheme implements Record<VariantKey, string> {
-  /** Text color for outline/default links (light backgrounds) */
-  outline: string = "text-(--color-text-link)";
+  /** CSS consumer class for outline variant */
+  outline: string = "text-(--text-color)";
 
-  /** Text color for filled links (dark backgrounds) */
-  filled: string = "text-(--color-text-filled-link)";
+  /** CSS consumer class for filled variant */
+  filled: string = "text-(--text-color)";
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    // Handle transparent override
-    if (extractedKeys?.transparent === 'transparent') {
-      return ['text-transparent'];
-    }
-
+    // CSS-based approach: consumer class always outputs
+    // Transparent is handled via data-transparent attribute
     const variant = extractedKeys?.variant ?? 'outline';
     return [this[variant] || ''];
   }

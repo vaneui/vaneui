@@ -62,7 +62,7 @@ export const ComponentKeys = {
   /** Border visibility: includes all border variations and noBorder (border, borderT, borderB, etc., noBorder) */
   border: ['border', 'borderT', 'borderB', 'borderL', 'borderR', 'borderX', 'borderY', 'noBorder'] as const,
   /** Column breakpoints for responsive grid layouts */
-  breakpoint: ['mobileCol', 'tabletCol', 'laptopCol', 'desktopCol'] as const,
+  breakpoint: ['mobileCol', 'tabletCol', 'desktopCol'] as const,
   /** CSS display property values for element layout behavior */
   display: ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const,
   /** Flex direction: row (horizontal), column (vertical), or reversed variants */
@@ -76,7 +76,7 @@ export const ComponentKeys = {
   /** Spacing between flex/grid items: gap (enabled) or noGap (disabled) */
   gap: ['gap', 'noGap'] as const,
   /** Hide elements at specific breakpoint sizes */
-  hide: ['mobileHide', 'tabletHide', 'laptopHide', 'desktopHide'] as const,
+  hide: ['mobileHide', 'tabletHide', 'desktopHide'] as const,
   /** Cross-axis alignment for flex items (align-items) */
   items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const,
   /** Main-axis alignment for flex items (justify-content) */
@@ -175,7 +175,7 @@ export type OverflowKey = typeof ComponentKeys.overflow[number];
 export type ShapeKey = typeof ComponentKeys.shape[number];
 
 /** Responsive class keys for breakpoint-specific CSS variable switching */
-export const ResponsiveClassKeys = ['responsiveDesktop', 'responsiveLaptop', 'responsiveTablet'] as const;
+export const ResponsiveClassKeys = ['responsiveDesktop', 'responsiveTablet', 'responsiveMobile'] as const;
 /** Type for responsive class keys */
 export type ResponsiveClassKey = typeof ResponsiveClassKeys[number];
 
@@ -234,7 +234,7 @@ export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...V
 /** Categories for card components with full typography and layout support */
 export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_LAYOUT, ...PADDING, ...VARIANT] as const;
 /** Categories for divider components with basic layout and visual properties */
-export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING] as const;
+export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT] as const;
 /** Categories for section layout components with full responsive support */
 export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...BREAKPOINT, ...VARIANT, ...RESPONSIVE] as const;
 

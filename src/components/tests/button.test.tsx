@@ -23,7 +23,7 @@ describe('Button Component Tests', () => {
       expect(button).toHaveClass('text-(length:--fs)'); // md size
       expect(button).toHaveAttribute('data-size', 'md');
       expect(button).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
-      expect(button).toHaveClass('text-(--color-text-primary)'); // primary appearance
+      expect(button).toHaveClass('text-(--text-color)'); // primary appearance
       expect(button).toHaveClass('font-sans'); // sans family
       expect(button).toHaveClass('font-semibold'); // semibold weight
       expect(button).toHaveClass('inline-flex', 'items-center', 'justify-center');
@@ -46,7 +46,7 @@ describe('Button Component Tests', () => {
       expect(anchor).toHaveClass('text-(length:--fs)'); // md size
       expect(anchor).toHaveAttribute('data-size', 'md');
       expect(anchor).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
-      expect(anchor).toHaveClass('text-(--color-text-primary)'); // primary appearance
+      expect(anchor).toHaveClass('text-(--text-color)'); // primary appearance
       expect(anchor).toHaveClass('font-sans'); // sans family
       expect(anchor).toHaveClass('font-semibold'); // semibold weight
       expect(anchor).toHaveClass('inline-flex', 'items-center', 'justify-center');
@@ -100,8 +100,8 @@ describe('Button Component Tests', () => {
 
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
-      expect(button).toHaveClass('text-(--color-text-primary)'); // primary color
-      expect(button).toHaveClass('[background:var(--color-bg-primary)]'); // primary background
+      expect(button).toHaveClass('text-(--text-color)'); // primary color
+      expect(button).toHaveClass('[background:var(--bg-color)]'); // primary background
       expect(button).toHaveClass('px-(--px)', 'py-(--py)'); // padding
     });
 
@@ -114,8 +114,8 @@ describe('Button Component Tests', () => {
 
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
-      expect(button).toHaveClass('text-(--color-text-secondary)'); // secondary color
-      expect(button).toHaveClass('[background:var(--color-bg-secondary)]'); // secondary background
+      expect(button).toHaveClass('text-(--text-color)'); // secondary color
+      expect(button).toHaveClass('[background:var(--bg-color)]'); // secondary background
     });
   });
 
@@ -154,8 +154,8 @@ describe('Button Component Tests', () => {
       const btnSecondaryRing = container.querySelector('#btn-secondary-ring');
 
       // Buttons with ring should show ring classes
-      expect(btnDefaultRing).toHaveClass('ring-(--color-border-primary)');
-      expect(btnSecondaryRing).toHaveClass('ring-(--color-border-secondary)');
+      expect(btnDefaultRing).toHaveClass('ring-(--ring-color)');
+      expect(btnSecondaryRing).toHaveClass('ring-(--ring-color)');
     });
   });
 

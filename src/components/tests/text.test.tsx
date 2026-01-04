@@ -21,7 +21,7 @@ describe('Text Component Tests', () => {
       expect(text).toBeInTheDocument();
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
       expect(text).toHaveClass('text-(length:--fs)'); // CSS variable font size
-      expect(text).not.toHaveClass('text-(--color-text-primary)'); // no primary appearance
+      expect(text).not.toHaveClass('text-(--text-color)'); // no primary appearance
       expect(text).toHaveClass('font-sans');
       // No default font weight; variants like medium/bold are opt-in
       expect(text).not.toHaveClass('font-normal');
@@ -63,19 +63,19 @@ describe('Text Component Tests', () => {
     it('should support responsive hide props', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text tabletHide>Text hidden on tablet screens</Text>
+          <Text mobileHide>Text hidden on tablet screens</Text>
         </ThemeProvider>
       );
 
       const text = container.querySelector('p');
-      expect(text).toHaveClass('max-tablet:hidden');
+      expect(text).toHaveClass('max-mobile:hidden');
     });
 
     it('should support all hide breakpoints', () => {
       const hideProps = [
         { prop: 'mobileHide', class: 'max-mobile:hidden' },
+        { prop: 'mobileHide', class: 'max-mobile:hidden' },
         { prop: 'tabletHide', class: 'max-tablet:hidden' },
-        { prop: 'laptopHide', class: 'max-laptop:hidden' },
         { prop: 'desktopHide', class: 'max-desktop:hidden' }
       ] as const;
 
@@ -102,7 +102,9 @@ describe('Text Component Tests', () => {
         );
 
         const text = container.querySelector('p');
-        expect(text).toHaveClass(`text-(--color-text-${appearance})`);
+        // CSS-based approach: consumer class + data attribute
+        expect(text).toHaveClass('text-(--text-color)');
+        expect(text).toHaveAttribute('data-appearance', appearance);
       });
     });
 
@@ -122,8 +124,8 @@ describe('Text Component Tests', () => {
       const outlineText = outlineContainer.querySelector('p');
       const filledText = filledContainer.querySelector('p');
 
-      expect(outlineText).toHaveClass('text-(--color-text-primary)');
-      expect(filledText).toHaveClass('text-(--color-text-filled-primary)');
+      expect(outlineText).toHaveClass('text-(--text-color)');
+      expect(filledText).toHaveClass('text-(--text-color)');
     });
 
     it('should support font weight variants', () => {
@@ -236,7 +238,10 @@ describe('Text Component Tests', () => {
       );
 
       const text = container.querySelector('p');
-      expect(text).toHaveClass('text-transparent');
+      // CSS-based approach: data-transparent attribute + consumer class
+      // CSS sets --text-color: transparent for typography components with data-transparent
+      expect(text).toHaveAttribute('data-transparent', 'true');
+      expect(text).toHaveClass('text-(--text-color)');
     });
 
     it('should support display variants', () => {
@@ -390,10 +395,10 @@ describe('Text Component Tests', () => {
 
       const anchor = container.querySelector('a');
       expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveClass('text-(--color-text-primary)'); // primary color
+      expect(anchor).toHaveClass('text-(--text-color)'); // primary color
       expect(anchor).toHaveClass('font-semibold'); // font weight
       expect(anchor).toHaveAttribute('data-size', 'lg');
-      // Note: text-(length:--fs) class appears to be conflicting with text-(--color-text-primary)
+      // Note: text-(length:--fs) class appears to be conflicting with text-(--text-color)
       // The font size is still applied via the CSS variable, but the utility class is not present
       expect(anchor).toHaveClass('font-sans'); // default font family
       expect(anchor).toHaveClass('leading-(--lh)'); // line height variable

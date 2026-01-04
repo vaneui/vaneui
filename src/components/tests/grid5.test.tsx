@@ -89,7 +89,7 @@ describe('Grid5 Component Tests', () => {
         );
 
         const grid = container.querySelector('div');
-        expect(grid).toHaveClass(`[background:var(--color-bg-layout-${appearance})]`);
+        expect(grid).toHaveClass('[background:var(--bg-color)]');
       });
     });
 
@@ -107,7 +107,7 @@ describe('Grid5 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('[background:transparent]');
+      expect(grid).toHaveClass('[background:var(--bg-color)]');
     });
 
     it('should support position variants', () => {
@@ -165,8 +165,8 @@ describe('Grid5 Component Tests', () => {
     it('should support hide on different breakpoints', () => {
       const hideProps = [
         { prop: 'mobileHide', class: 'max-mobile:hidden' },
+        { prop: 'mobileHide', class: 'max-mobile:hidden' },
         { prop: 'tabletHide', class: 'max-tablet:hidden' },
-        { prop: 'laptopHide', class: 'max-laptop:hidden' },
         { prop: 'desktopHide', class: 'max-desktop:hidden' }
       ] as const;
 

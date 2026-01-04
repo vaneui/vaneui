@@ -9,11 +9,11 @@ import { PyTheme } from "./size/pyTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { SECTION_CATEGORIES } from "../props";
 import { BreakpointTheme } from "./size/breakpointTheme";
+import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
 
 export interface SectionTheme extends BaseComponentTheme {
   size: {
@@ -23,10 +23,10 @@ export interface SectionTheme extends BaseComponentTheme {
     breakpoint: BreakpointTheme;
   };
   appearance: {
-    background: GenericVariantTheme<AppearanceTheme>;
-    text: GenericVariantTheme<AppearanceTheme>;
-    border: GenericVariantTheme<AppearanceTheme>;
-    ring: GenericVariantTheme<AppearanceTheme>;
+    background: SimpleConsumerTheme;
+    text: SimpleConsumerTheme;
+    border: SimpleConsumerTheme;
+    ring: SimpleConsumerTheme;
     shadow: ShadowAppearanceTheme;
   };
   layout: DefaultLayoutThemes & {
@@ -49,10 +49,10 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
       breakpoint: new BreakpointTheme(),
     },
     appearance: {
-      background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
-      border: GenericVariantTheme.createUIElementBorderTheme(),
-      ring: GenericVariantTheme.createUIElementRingTheme(),
+      background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),
+      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
+      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
     },
     layout: {

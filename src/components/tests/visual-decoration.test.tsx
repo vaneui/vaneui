@@ -54,7 +54,7 @@ describe('Visual Decoration Props', () => {
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('border-[length:var(--bw)]');
-      expect(element.className).toContain('border-(--color-border-primary)');
+      expect(element.className).toContain('border-(--border-color)');
     });
   });
 
@@ -121,7 +121,7 @@ describe('Visual Decoration Props', () => {
         <Col primary noBorder>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).not.toContain('border-(--color-border-primary)');
+      expect(element.className).not.toContain('border-(--border-color)');
     });
 
     it('should apply border side appearance classes with variants', () => {
@@ -130,7 +130,7 @@ describe('Visual Decoration Props', () => {
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('border-t');
-      expect(element.className).toContain('border-(--color-border-primary)');
+      expect(element.className).toContain('border-(--border-color)');
     });
 
     it('should handle multiple border sides together (only first one applies)', () => {
@@ -206,7 +206,7 @@ describe('Visual Decoration Props', () => {
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('ring');
-      expect(element.className).toContain('ring-(--color-border-success)');
+      expect(element.className).toContain('ring-(--ring-color)');
     });
   });
 
@@ -315,9 +315,9 @@ describe('Visual Decoration Props', () => {
       const element = container.firstChild as HTMLElement;
       
       expect(element.className).toContain('border-[length:var(--bw)]');
-      expect(element.className).toContain('border-(--color-border-primary)');
+      expect(element.className).toContain('border-(--border-color)');
       expect(element.className).toContain('ring');
-      expect(element.className).toContain('ring-(--color-border-primary)');
+      expect(element.className).toContain('ring-(--ring-color)');
       expect(element.className).toContain('rounded-(--br)');
     });
 
@@ -335,9 +335,9 @@ describe('Visual Decoration Props', () => {
       const element = container.firstChild as HTMLElement;
       
       expect(element.className).toContain('border-[length:var(--bw)]');
-      expect(element.className).toContain('border-(--color-border-primary)');
+      expect(element.className).toContain('border-(--border-color)');
       expect(element.className).toContain('ring');
-      expect(element.className).toContain('ring-(--color-border-primary)');
+      expect(element.className).toContain('ring-(--ring-color)');
       expect(element.className).toContain('rounded-(--br)');
     });
   });

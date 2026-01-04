@@ -4,13 +4,13 @@ import type { ColProps } from "../col";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { COL_CATEGORIES } from "../props";
+import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
 
 export interface ColTheme extends BaseComponentTheme {
   size: {
@@ -24,11 +24,11 @@ export interface ColTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    background: GenericVariantTheme<AppearanceTheme>;
-    text: GenericVariantTheme<AppearanceTheme>;
-    border: GenericVariantTheme<AppearanceTheme>;
-    ring: GenericVariantTheme<AppearanceTheme>;
-    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
+    background: SimpleConsumerTheme;
+    text: SimpleConsumerTheme;
+    border: SimpleConsumerTheme;
+    ring: SimpleConsumerTheme;
+    shadow: ShadowAppearanceTheme;
   }
 }
 
@@ -48,11 +48,11 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
       radius: new RadiusTheme(),
     },
     appearance: {
-      background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
-      border: GenericVariantTheme.createUIElementBorderTheme(),
-      ring: GenericVariantTheme.createUIElementRingTheme(),
-      shadow: GenericVariantTheme.createLayoutShadowTheme(),
+      background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),
+      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
+      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
+      shadow: ShadowAppearanceTheme.createLayoutTheme(),
     }
   },
   themeDefaults.col as Partial<ColProps>,

@@ -5,23 +5,26 @@ import { GapTheme } from "./size/gapTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { BorderTheme } from "./layout/borderTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { DeepPartial } from "../../utils/deepPartial";
 import { GRID_CATEGORIES } from "../props";
+import { bgConsumerClasses, textConsumerClass, borderConsumerClass } from "../classes/appearanceClasses";
 
 export interface GridTheme extends BaseComponentTheme {
   size: {
     gap: GapTheme;
   };
   appearance: {
-    background: GenericVariantTheme<AppearanceTheme>;
-    text: GenericVariantTheme<AppearanceTheme>;
+    background: SimpleConsumerTheme;
+    text: SimpleConsumerTheme;
+    border: SimpleConsumerTheme;
   };
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
     radius: RadiusTheme;
+    border: BorderTheme;
   };
 }
 
@@ -30,14 +33,16 @@ const gridSubThemes: DeepPartial<GridTheme> = {
     gap: new GapTheme(),
   },
   appearance: {
-    background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-    text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
+    background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),
+    text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+    border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
   },
   layout: {
     ...defaultLayoutsThemes,
     wrap: new WrapTheme(),
     flexDirection: new DirectionTheme(),
     radius: new RadiusTheme(),
+    border: new BorderTheme(),
   },
 };
 

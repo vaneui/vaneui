@@ -1,8 +1,7 @@
 import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import type { DividerProps } from "../divider";
 import { themeDefaults } from "./defaults";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { bgBorderAppearanceClasses } from "../classes/appearanceClasses";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { PyTheme } from "./size/pyTheme";
 import { DIVIDER_CATEGORIES } from "../props";
 
@@ -11,7 +10,7 @@ export interface DividerTheme extends BaseComponentTheme {
     py: PyTheme;
   };
   appearance: {
-    background: AppearanceTheme;
+    background: SimpleConsumerTheme;
   };
   layout: DefaultLayoutThemes;
 }
@@ -24,9 +23,8 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
       py: new PyTheme(), // Uses layout spacing by default
     },
     appearance: {
-      background: AppearanceTheme.createTheme({
-        base: bgBorderAppearanceClasses,
-      }, 'bg'),
+      // CSS-based approach: uses --border-color variable for divider background
+      background: new SimpleConsumerTheme({ base: '[background:var(--border-color)]' }, 'bg'),
     },
     layout: defaultLayoutsThemes,
   },

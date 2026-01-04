@@ -58,7 +58,7 @@ describe('Img Component Tests', () => {
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
       expect(img).toHaveClass('border-[length:var(--bw)]');
-      expect(img).toHaveClass('border-(--color-border-primary)');
+      expect(img).toHaveClass('border-(--border-color)');
     });
 
     it('should support shadow prop', () => {
@@ -84,7 +84,7 @@ describe('Img Component Tests', () => {
 
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
-      expect(img).toHaveClass('ring-(--color-border-secondary)');
+      expect(img).toHaveClass('ring-(--ring-color)');
     });
 
     it('should support custom className', () => {
@@ -180,10 +180,10 @@ describe('Img Component Tests', () => {
 
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
-      expect(img).toHaveClass('border-(--color-border-primary)');
+      expect(img).toHaveClass('border-(--border-color)');
       expect(img).toHaveClass('shadow-sm');
       expect(img).not.toHaveClass('hover:shadow-md');
-      expect(img).toHaveClass('ring-(--color-border-primary)');
+      expect(img).toHaveClass('ring-(--ring-color)');
     });
 
     it('should have no visual shadow/border/ring classes by default', () => {

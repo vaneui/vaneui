@@ -9,11 +9,11 @@ import { themeDefaults } from "./defaults";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { IMG_CATEGORIES } from "../props";
+import { bgConsumerClasses, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
 
 export interface ImgTheme extends BaseComponentTheme {
   layout: DefaultLayoutThemes & {
@@ -23,11 +23,11 @@ export interface ImgTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    background: GenericVariantTheme<AppearanceTheme>;
-    border: GenericVariantTheme<AppearanceTheme>;
-    ring: GenericVariantTheme<AppearanceTheme>;
-    focusVisible: GenericVariantTheme<AppearanceTheme>;
-    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
+    background: SimpleConsumerTheme;
+    border: SimpleConsumerTheme;
+    ring: SimpleConsumerTheme;
+    focusVisible: SimpleConsumerTheme;
+    shadow: ShadowAppearanceTheme;
   };
 }
 
@@ -43,11 +43,11 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
       radius: new RadiusTheme(),
     },
     appearance: {
-      background: GenericVariantTheme.createSimpleUIElementBgAppearanceTheme(),
-      border: GenericVariantTheme.createUIElementBorderTheme(),
-      ring: GenericVariantTheme.createUIElementRingTheme(),
-      focusVisible: GenericVariantTheme.createUIElementFocusVisibleTheme(),
-      shadow: GenericVariantTheme.createLayoutShadowTheme()
+      background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),
+      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
+      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
+      focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible'),
+      shadow: ShadowAppearanceTheme.createLayoutTheme()
     }
   },
   themeDefaults.img,

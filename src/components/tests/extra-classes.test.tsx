@@ -60,7 +60,7 @@ describe('Extra Classes Functionality Tests', () => {
 
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
-      expect(button).toHaveClass('[background:var(--color-bg-primary)]'); // Should have normal theme classes
+      expect(button).toHaveClass('[background:var(--bg-color)]'); // Should have normal theme classes
     });
   });
 
@@ -210,7 +210,7 @@ describe('Extra Classes Functionality Tests', () => {
 
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
-      expect(button).toHaveClass('[background:var(--color-bg-primary)]'); // Should still have theme classes
+      expect(button).toHaveClass('[background:var(--bg-color)]'); // Should still have theme classes
     });
 
     it('should handle undefined extra classes', () => {
@@ -222,7 +222,7 @@ describe('Extra Classes Functionality Tests', () => {
 
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
-      expect(button).toHaveClass('[background:var(--color-bg-primary)]'); // Should still have theme classes
+      expect(button).toHaveClass('[background:var(--bg-color)]'); // Should still have theme classes
     });
 
     it('should handle extra classes with empty strings', () => {

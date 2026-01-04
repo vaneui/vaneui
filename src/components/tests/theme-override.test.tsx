@@ -1,15 +1,15 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
-import { Button, Badge, Stack, Row, ThemeProvider, ThemeProps } from '../../index';
+import { Button, Badge, Chip, Card, Input, Stack, Row, ThemeProvider, ThemeProps } from '../../index';
 
 describe('Theme Override Tests', () => {
   describe('CSS Class Application', () => {
     it('should apply overridden CSS classes to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.outline.primary.base = 'text-blue-500';
-        theme.button.themes.appearance.text.outline.primary.hover = 'hover:text-blue-700';
-        theme.button.themes.appearance.text.outline.primary.active = 'active:text-blue-900';
+        theme.button.themes.appearance.text.base = 'text-blue-500';
+        theme.button.themes.appearance.text.hover = 'hover:text-blue-700';
+        theme.button.themes.appearance.text.active = 'active:text-blue-900';
         return theme;
       };
 
@@ -28,9 +28,9 @@ describe('Theme Override Tests', () => {
 
     it('should override background colors and apply to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.background.outline.primary.base = 'bg-red-100';
-        theme.button.themes.appearance.background.outline.primary.hover = 'hover:bg-red-200';
-        theme.button.themes.appearance.background.outline.primary.active = 'active:bg-red-300';
+        theme.button.themes.appearance.background.base = 'bg-red-100';
+        theme.button.themes.appearance.background.hover = 'hover:bg-red-200';
+        theme.button.themes.appearance.background.active = 'active:bg-red-300';
         return theme;
       };
 
@@ -49,9 +49,9 @@ describe('Theme Override Tests', () => {
     it('should override border styles and apply to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
         theme.button.themes.layout.border.border = 'border-2'
-        theme.button.themes.appearance.border.outline.primary.base = 'border-green-500';
-        theme.button.themes.appearance.border.outline.primary.hover = 'hover:border-green-600';
-        theme.button.themes.appearance.border.outline.primary.active = 'active:border-green-700';
+        theme.button.themes.appearance.border.base = 'border-green-500';
+        theme.button.themes.appearance.border.hover = 'hover:border-green-600';
+        theme.button.themes.appearance.border.active = 'active:border-green-700';
         return theme;
       };
 
@@ -70,8 +70,8 @@ describe('Theme Override Tests', () => {
 
     it('should override filled variant styles and apply correctly', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.filled.primary.base = 'text-yellow-100';
-        theme.button.themes.appearance.background.filled.primary.base = 'bg-purple-600';
+        theme.button.themes.appearance.text.base = 'text-yellow-100';
+        theme.button.themes.appearance.background.base = 'bg-purple-600';
         return theme;
       };
 
@@ -89,12 +89,12 @@ describe('Theme Override Tests', () => {
     it('should allow multiple component theme overrides', () => {
       const overrideFunc = (theme: ThemeProps) => {
         // Override button theme
-        theme.button.themes.appearance.text.outline.primary.base = 'text-blue-500';
-        theme.button.themes.appearance.background.filled.primary.base = 'bg-blue-600';
+        theme.button.themes.appearance.text.base = 'text-blue-500';
+        theme.button.themes.appearance.background.base = 'bg-blue-600';
         
         // Override badge theme
-        theme.badge.themes.appearance.text.outline.primary.base = 'text-green-500';
-        theme.badge.themes.appearance.background.filled.primary.base = 'bg-green-600';
+        theme.badge.themes.appearance.text.base = 'text-green-500';
+        theme.badge.themes.appearance.background.base = 'bg-green-600';
         
         return theme;
       };
@@ -121,9 +121,9 @@ describe('Theme Override Tests', () => {
 
     it('should override ring and shadow styles correctly', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.ring.outline.primary.base = 'ring-orange-500';
-        if (theme.button.themes.appearance.shadow.outline.primary) {
-          theme.button.themes.appearance.shadow.outline.primary.md.base = 'shadow-lg shadow-orange-500/50';
+        theme.button.themes.appearance.ring.base = 'ring-orange-500';
+        if (theme.button.themes.appearance.shadow.primary) {
+          theme.button.themes.appearance.shadow.primary.md.base = 'shadow-lg shadow-orange-500/50';
         }
         return theme;
       };
@@ -145,8 +145,8 @@ describe('Theme Override Tests', () => {
     it('should combine themeOverride with themeDefaults for button styling', () => {
       const overrideFunc = (theme: ThemeProps) => {
         // Override specific appearance classes
-        theme.button.themes.appearance.text.outline.primary.base = 'text-custom-primary';
-        theme.button.themes.appearance.background.filled.secondary.base = 'bg-custom-secondary';
+        theme.button.themes.appearance.text.base = 'text-custom-primary';
+        theme.button.themes.appearance.background.base = 'bg-custom-secondary';
         return theme;
       };
 
@@ -167,8 +167,9 @@ describe('Theme Override Tests', () => {
       const secondaryFilled = container.querySelector('.combined-test-2');
       const primaryOutline = container.querySelector('.combined-test-3');
 
-      // Primary button should have default primary styling + size defaults
-      expect(primaryDefault).toHaveClass('[background:var(--color-bg-primary)]');
+      // All buttons get the overridden classes (no variant distinction)
+      expect(primaryDefault).toHaveClass('bg-custom-secondary'); // from themeOverride
+      expect(primaryDefault).toHaveClass('text-custom-primary'); // from themeOverride
       expect(primaryDefault).toHaveClass('text-(length:--fs)'); // font size consumer class
       expect(primaryDefault).toHaveClass('rounded-(--br)'); // rounded shape
 
@@ -184,13 +185,13 @@ describe('Theme Override Tests', () => {
     it('should handle complex theme override and defaults combinations', () => {
       const complexOverrideFunc = (theme: ThemeProps) => {
         // Override multiple aspects of button appearance
-        theme.button.themes.appearance.text.filled.primary.base = 'text-indigo-100';
-        theme.button.themes.appearance.text.filled.primary.hover = 'hover:text-indigo-50';
-        theme.button.themes.appearance.background.filled.primary.base = 'bg-gradient-to-r from-indigo-500 to-purple-600';
-        theme.button.themes.appearance.border.filled.primary.base = 'border-2 border-indigo-400';
+        theme.button.themes.appearance.text.base = 'text-indigo-100';
+        theme.button.themes.appearance.text.hover = 'hover:text-indigo-50';
+        theme.button.themes.appearance.background.base = 'bg-gradient-to-r from-indigo-500 to-purple-600';
+        theme.button.themes.appearance.border.base = 'border-2 border-indigo-400';
         
         // Also override badge for testing multiple components
-        theme.badge.themes.appearance.text.outline.primary.base = 'text-pink-600';
+        theme.badge.themes.appearance.text.base = 'text-pink-600';
         return theme;
       };
 
@@ -229,12 +230,12 @@ describe('Theme Override Tests', () => {
 
     it('should allow nested providers with different override and default combinations', () => {
       const outerOverride = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.outline.primary.base = 'text-red-500';
+        theme.button.themes.appearance.text.base = 'text-red-500';
         return theme;
       };
 
       const innerOverride = (theme: ThemeProps) => {
-        theme.button.themes.appearance.background.filled.primary.base = 'bg-blue-500';
+        theme.button.themes.appearance.background.base = 'bg-blue-500';
         return theme;
       };
 
@@ -269,9 +270,9 @@ describe('Theme Override Tests', () => {
 
     it('should preserve theme overrides across multiple component instances', () => {
       const persistentOverride = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.outline.primary.base = 'text-violet-600';
-        theme.button.themes.appearance.background.filled.primary.base = 'bg-violet-600';
-        theme.button.themes.appearance.border.outline.primary.base = 'border-violet-400';
+        theme.button.themes.appearance.text.base = 'text-violet-600';
+        theme.button.themes.appearance.background.base = 'bg-violet-600';
+        theme.button.themes.appearance.border.base = 'border-violet-400';
         return theme;
       };
 
@@ -306,7 +307,7 @@ describe('Theme Override Tests', () => {
     it('should handle appearance theme overrides with layout customizations', () => {
       const layoutOverride = (theme: ThemeProps) => {
         // Override appearance - size variables are now set via CSS in vars.css
-        theme.button.themes.appearance.background.filled.primary.base = 'bg-emerald-500';
+        theme.button.themes.appearance.background.base = 'bg-emerald-500';
         return theme;
       };
 
@@ -536,6 +537,321 @@ describe('Theme Override Tests', () => {
       const row = container.querySelector('.custom-row');
       expect(row).toHaveClass('gap-12');
       expect(row).not.toHaveClass('gap-(--gap)');
+    });
+  });
+
+
+  describe('SimpleConsumerTheme Override Tests', () => {
+    describe('Text Color Consumer Theme Overrides', () => {
+      it('should override text consumer class base property', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.button.themes.appearance.text.base = 'text-rose-500';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Button>Overridden Text</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('text-rose-500');
+        expect(button).not.toHaveClass('text-(--text-color)');
+      });
+
+      it('should override text consumer class on Badge component', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.badge.themes.appearance.text.base = 'text-amber-600';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Badge>Custom Badge</Badge>
+          </ThemeProvider>
+        );
+
+        const badge = container.querySelector('span');
+        expect(badge).toHaveClass('text-amber-600');
+      });
+
+      it('should override text consumer class on Chip component', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.chip.themes.appearance.text.base = 'text-cyan-700';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Chip>Custom Chip</Chip>
+          </ThemeProvider>
+        );
+
+        const chip = container.querySelector('span');
+        expect(chip).toHaveClass('text-cyan-700');
+      });
+
+      it('should override text consumer class on Card component', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.card.themes.appearance.text.base = 'text-slate-800';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Card>Custom Card</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        expect(card).toHaveClass('text-slate-800');
+      });
+    });
+
+    describe('Background Consumer Theme Overrides', () => {
+      it('should override background consumer class base property', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.button.themes.appearance.background.base = 'bg-teal-500';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Button>Overridden BG</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('bg-teal-500');
+        expect(button).not.toHaveClass('[background:var(--bg-color)]');
+      });
+
+      it('should override background hover consumer class', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.button.themes.appearance.background.hover = 'hover:bg-teal-600';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Button>Hover Override</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('hover:bg-teal-600');
+        expect(button).not.toHaveClass('hover:[background:var(--bg-hover-color)]');
+      });
+
+      it('should override background active consumer class', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.button.themes.appearance.background.active = 'active:bg-teal-700';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Button>Active Override</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('active:bg-teal-700');
+        expect(button).not.toHaveClass('active:[background:var(--bg-active-color)]');
+      });
+
+      it('should override all background consumer states at once', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.button.themes.appearance.background.base = 'bg-gradient-to-r from-pink-500 to-violet-500';
+          theme.button.themes.appearance.background.hover = 'hover:from-pink-600 hover:to-violet-600';
+          theme.button.themes.appearance.background.active = 'active:from-pink-700 active:to-violet-700';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Button>Gradient Button</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('bg-gradient-to-r');
+        expect(button).toHaveClass('from-pink-500');
+        expect(button).toHaveClass('to-violet-500');
+        expect(button).toHaveClass('hover:from-pink-600');
+        expect(button).toHaveClass('active:from-pink-700');
+      });
+
+      it('should override background on Card component (base only)', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.card.themes.appearance.background.base = 'bg-stone-100';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Card>Custom BG Card</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        expect(card).toHaveClass('bg-stone-100');
+      });
+    });
+
+    describe('Border Consumer Theme Overrides', () => {
+      it('should override border consumer class', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.button.themes.appearance.border.base = 'border-purple-500';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Button border>Border Override</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('border-purple-500');
+        expect(button).not.toHaveClass('border-(--border-color)');
+      });
+
+      it('should override border consumer on Card component', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.card.themes.appearance.border.base = 'border-lime-400';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Card border>Bordered Card</Card>
+          </ThemeProvider>
+        );
+
+        const card = container.querySelector('div');
+        expect(card).toHaveClass('border-lime-400');
+      });
+
+      it('should override border consumer on Input component', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.input.themes.appearance.border.base = 'border-sky-400';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Input border placeholder="Custom border" />
+          </ThemeProvider>
+        );
+
+        const input = container.querySelector('input');
+        expect(input).toHaveClass('border-sky-400');
+      });
+    });
+
+    describe('Ring Consumer Theme Overrides', () => {
+      it('should override ring consumer class', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.button.themes.appearance.ring.base = 'ring-fuchsia-500';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Button ring>Ring Override</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('ring-fuchsia-500');
+        expect(button).not.toHaveClass('ring-(--ring-color)');
+      });
+
+      it('should override ring consumer on Badge component', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.badge.themes.appearance.ring.base = 'ring-emerald-400';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Badge ring>Ringed Badge</Badge>
+          </ThemeProvider>
+        );
+
+        const badge = container.querySelector('span');
+        expect(badge).toHaveClass('ring-emerald-400');
+      });
+    });
+
+    describe('Combined Consumer Theme Overrides', () => {
+      it('should override multiple consumer themes on same component', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.button.themes.appearance.text.base = 'text-white';
+          theme.button.themes.appearance.background.base = 'bg-indigo-600';
+          theme.button.themes.appearance.background.hover = 'hover:bg-indigo-700';
+          theme.button.themes.appearance.border.base = 'border-indigo-500';
+          theme.button.themes.appearance.ring.base = 'ring-indigo-300';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Button border ring>Fully Styled</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('text-white');
+        expect(button).toHaveClass('bg-indigo-600');
+        expect(button).toHaveClass('hover:bg-indigo-700');
+        expect(button).toHaveClass('border-indigo-500');
+        expect(button).toHaveClass('ring-indigo-300');
+      });
+
+      it('should override consumer themes across multiple components', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          theme.button.themes.appearance.background.base = 'bg-red-500';
+          theme.badge.themes.appearance.background.base = 'bg-green-500';
+          theme.chip.themes.appearance.background.base = 'bg-blue-500';
+          theme.card.themes.appearance.background.base = 'bg-yellow-100';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Button className="btn">Button</Button>
+            <Badge className="bdg">Badge</Badge>
+            <Chip className="chp">Chip</Chip>
+            <Card className="crd">Card</Card>
+          </ThemeProvider>
+        );
+
+        expect(container.querySelector('.btn')).toHaveClass('bg-red-500');
+        expect(container.querySelector('.bdg')).toHaveClass('bg-green-500');
+        expect(container.querySelector('.chp')).toHaveClass('bg-blue-500');
+        expect(container.querySelector('.crd')).toHaveClass('bg-yellow-100');
+      });
+
+      it('should preserve non-overridden consumer themes', () => {
+        const overrideFunc = (theme: ThemeProps) => {
+          // Only override background, leave text alone
+          theme.button.themes.appearance.background.base = 'bg-orange-500';
+          return theme;
+        };
+
+        const { container } = render(
+          <ThemeProvider themeOverride={overrideFunc}>
+            <Button>Partial Override</Button>
+          </ThemeProvider>
+        );
+
+        const button = container.querySelector('button');
+        expect(button).toHaveClass('bg-orange-500'); // overridden
+        expect(button).toHaveClass('text-(--text-color)'); // preserved default
+      });
     });
   });
 

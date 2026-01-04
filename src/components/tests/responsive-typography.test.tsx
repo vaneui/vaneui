@@ -181,8 +181,8 @@ describe('Responsive Typography and Layout Tests', () => {
 
         const title = container.querySelector('h3');
         expect(title).toHaveClass('[--fs-unit:var(--fs-unit-desktop)]');
-        expect(title).toHaveClass('max-laptop:[--fs-unit:var(--fs-unit-laptop)]');
         expect(title).toHaveClass('max-tablet:[--fs-unit:var(--fs-unit-tablet)]');
+        expect(title).toHaveClass('max-mobile:[--fs-unit:var(--fs-unit-mobile)]');
         expect(title).toHaveClass('text-(length:--fs)');
       });
 
@@ -195,8 +195,8 @@ describe('Responsive Typography and Layout Tests', () => {
 
         const pageTitle = container.querySelector('h1');
         expect(pageTitle).toHaveClass('[--fs-unit:var(--fs-unit-desktop)]');
-        expect(pageTitle).toHaveClass('max-laptop:[--fs-unit:var(--fs-unit-laptop)]');
         expect(pageTitle).toHaveClass('max-tablet:[--fs-unit:var(--fs-unit-tablet)]');
+        expect(pageTitle).toHaveClass('max-mobile:[--fs-unit:var(--fs-unit-mobile)]');
         expect(pageTitle).toHaveClass('text-(length:--fs)');
       });
 
@@ -209,8 +209,8 @@ describe('Responsive Typography and Layout Tests', () => {
 
         const sectionTitle = container.querySelector('h2');
         expect(sectionTitle).toHaveClass('[--fs-unit:var(--fs-unit-desktop)]');
-        expect(sectionTitle).toHaveClass('max-laptop:[--fs-unit:var(--fs-unit-laptop)]');
         expect(sectionTitle).toHaveClass('max-tablet:[--fs-unit:var(--fs-unit-tablet)]');
+        expect(sectionTitle).toHaveClass('max-mobile:[--fs-unit:var(--fs-unit-mobile)]');
         expect(sectionTitle).toHaveClass('text-(length:--fs)');
       });
     });
@@ -225,8 +225,8 @@ describe('Responsive Typography and Layout Tests', () => {
 
         const section = container.querySelector('div');
         expect(section).toHaveClass('[--py-unit:var(--py-unit-desktop)]');
-        expect(section).toHaveClass('max-laptop:[--py-unit:var(--py-unit-laptop)]');
         expect(section).toHaveClass('max-tablet:[--py-unit:var(--py-unit-tablet)]');
+        expect(section).toHaveClass('max-mobile:[--py-unit:var(--py-unit-mobile)]');
         expect(section).toHaveClass('py-(--py)');
       });
 
@@ -239,8 +239,8 @@ describe('Responsive Typography and Layout Tests', () => {
 
         const section = container.querySelector('div');
         expect(section).toHaveClass('[--gap-unit:var(--gap-unit-desktop)]');
-        expect(section).toHaveClass('max-laptop:[--gap-unit:var(--gap-unit-laptop)]');
         expect(section).toHaveClass('max-tablet:[--gap-unit:var(--gap-unit-tablet)]');
+        expect(section).toHaveClass('max-mobile:[--gap-unit:var(--gap-unit-mobile)]');
         expect(section).toHaveClass('gap-(--gap)');
       });
 

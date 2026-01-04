@@ -30,7 +30,7 @@ describe('Container Component Tests', () => {
       );
 
       const containerEl = container.querySelector('div');
-      expect(containerEl).toHaveClass('[background:transparent]');
+      expect(containerEl).toHaveClass('[background:var(--bg-color)]');
     });
 
     it('should apply default background correctly', () => {
@@ -41,7 +41,7 @@ describe('Container Component Tests', () => {
       );
 
       const containerEl = container.querySelector('div');
-      expect(containerEl).toHaveClass('[background:var(--color-bg-layout-primary)]');
+      expect(containerEl).toHaveClass('[background:var(--bg-color)]');
     });
 
     it('should support different appearance variants for background', () => {
@@ -57,7 +57,7 @@ describe('Container Component Tests', () => {
         );
 
         const containerEl = container.querySelector('div');
-        expect(containerEl).toHaveClass(`[background:var(--color-bg-layout-${appearance})]`);
+        expect(containerEl).toHaveClass('[background:var(--bg-color)]');
       });
     });
 
@@ -74,7 +74,7 @@ describe('Container Component Tests', () => {
         );
 
         const containerEl = container.querySelector('div');
-        expect(containerEl).toHaveClass(`text-(--color-text-${appearance})`);
+        expect(containerEl).toHaveClass('text-(--text-color)');
       });
     });
 
@@ -95,20 +95,20 @@ describe('Container Component Tests', () => {
       const filledContainer1 = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineContainer1).toHaveClass('text-(--color-text-primary)');
-      expect(filledContainer1).toHaveClass('text-(--color-text-filled-primary)');
+      expect(outlineContainer1).toHaveClass('text-(--text-color)');
+      expect(filledContainer1).toHaveClass('text-(--text-color)');
       
       // Background colors
-      expect(outlineContainer1).toHaveClass('[background:var(--color-bg-layout-primary)]');
-      expect(filledContainer1).toHaveClass('[background:var(--color-bg-filled-layout-primary)]');
+      expect(outlineContainer1).toHaveClass('[background:var(--bg-color)]');
+      expect(filledContainer1).toHaveClass('[background:var(--bg-color)]');
       
       // Border colors
-      expect(outlineContainer1).toHaveClass('border-(--color-border-primary)');
-      expect(filledContainer1).toHaveClass('border-(--color-border-filled-primary)');
+      expect(outlineContainer1).toHaveClass('border-(--border-color)');
+      expect(filledContainer1).toHaveClass('border-(--border-color)');
       
       // Ring colors
-      expect(outlineContainer1).toHaveClass('ring-(--color-border-primary)');
-      expect(filledContainer1).toHaveClass('ring-(--color-border-filled-primary)');
+      expect(outlineContainer1).toHaveClass('ring-(--ring-color)');
+      expect(filledContainer1).toHaveClass('ring-(--ring-color)');
     });
 
     it('should support layout props', () => {

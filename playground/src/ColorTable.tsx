@@ -2,15 +2,15 @@ import { Title, Card } from '../../src';
 import { colorMappings, getTailwindColor } from './colorMappings';
 
 const appearances = [
-  'default',
   'primary',
   'secondary',
   'tertiary',
+  'brand',
   'accent',
   'success',
-  'danger',
-  'warning',
   'info',
+  'warning',
+  'danger',
   'link',
 ] as const;
 

@@ -287,7 +287,7 @@ describe('Linkable Components Tests', () => {
       expect(anchor).toBeInTheDocument();
       expect(anchor).toHaveAttribute('href', '/chip-link');
       // Should maintain theme classes
-      expect(anchor).toHaveClass('text-(--color-text-primary)');
+      expect(anchor).toHaveClass('text-(--text-color)');
       expect(anchor).toHaveClass('rounded-full');
     });
   });

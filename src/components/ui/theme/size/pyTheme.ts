@@ -15,17 +15,17 @@ export class PyTheme extends BaseTheme implements Record<PyClassKey, string> {
   /** Responsive desktop unit class */
   responsiveDesktop: string = "[--py-unit:var(--py-unit-desktop)]";
   /** Responsive laptop unit class */
-  responsiveLaptop: string = "max-laptop:[--py-unit:var(--py-unit-laptop)]";
-  /** Responsive tablet unit class */
   responsiveTablet: string = "max-tablet:[--py-unit:var(--py-unit-tablet)]";
+  /** Responsive tablet unit class */
+  responsiveMobile: string = "max-mobile:[--py-unit:var(--py-unit-mobile)]";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
       if (extractedKeys?.responsive === 'responsive') {
         return [
           this.responsiveDesktop,
-          this.responsiveLaptop,
           this.responsiveTablet,
+          this.responsiveMobile,
           this.py
         ];
       }

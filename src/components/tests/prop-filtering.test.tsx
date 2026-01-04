@@ -82,7 +82,7 @@ describe('Component Prop Filtering', () => {
         expect(classes).toContain('flex');
         
         // Should have appearance styling
-        expect(classes).toContain('[background:var(--color-bg-layout-primary)]'); // CSS variable for primary
+        expect(classes).toContain('[background:var(--bg-color)]'); // CSS variable for primary
         
         // Should have items-center
         expect(classes).toContain('items-center');

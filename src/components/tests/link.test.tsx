@@ -22,7 +22,7 @@ describe('Link Component Tests', () => {
       expect(link).toBeInTheDocument();
       expect(link).toHaveClass('hover:underline', 'w-fit');
       expect(link).not.toHaveClass('text-base'); // no default size
-      expect(link).toHaveClass('text-(--color-text-link)'); // link appearance by default
+      expect(link).toHaveClass('text-(--text-color)'); // link appearance by default
       expect(link).toHaveClass('leading-(--lh)'); // CSS variable line height
       expect(link).toHaveClass('font-sans');
       expect(link).toHaveAttribute('href', '#test');
@@ -69,7 +69,7 @@ describe('Link Component Tests', () => {
         const link = container.querySelector('a');
         expect(link).toHaveAttribute('data-size', prop);
         expect(link).toHaveClass('leading-(--lh)'); // line height classes
-        // Note: text-(length:--fs) class conflicts with text-(--color-text-link) for Link components
+        // Note: text-(length:--fs) class conflicts with text-(--text-color) for Link components
         // The font size is still applied via the CSS variable, but the utility class is not present
       });
     });
@@ -91,8 +91,8 @@ describe('Link Component Tests', () => {
       const filledLink = filledContainer.querySelector('a');
 
       // Link uses link-specific text colors only (no background colors)
-      expect(outlineLink).toHaveClass('text-(--color-text-link)');
-      expect(filledLink).toHaveClass('text-(--color-text-filled-link)');
+      expect(outlineLink).toHaveClass('text-(--text-color)');
+      expect(filledLink).toHaveClass('text-(--text-color)');
     });
 
     it('should support all overflow variants', () => {
@@ -213,8 +213,8 @@ describe('Link Component Tests', () => {
     it('should support hide breakpoints', () => {
       const hideProps = [
         { prop: 'mobileHide', class: 'max-mobile:hidden' },
+        { prop: 'mobileHide', class: 'max-mobile:hidden' },
         { prop: 'tabletHide', class: 'max-tablet:hidden' },
-        { prop: 'laptopHide', class: 'max-laptop:hidden' },
         { prop: 'desktopHide', class: 'max-desktop:hidden' }
       ] as const;
 
@@ -238,7 +238,9 @@ describe('Link Component Tests', () => {
       );
 
       const link = container.querySelector('a');
-      expect(link).toHaveClass('text-transparent');
+      // CSS-based approach: data-transparent attribute + consumer class
+      expect(link).toHaveAttribute('data-transparent', 'true');
+      expect(link).toHaveClass('text-(--text-color)');
     });
 
     it('should handle external links', () => {
@@ -329,7 +331,7 @@ describe('Link Theme Override Tests', () => {
 
     const link = container.querySelector('a');
     expect(link).toHaveClass('text-custom-link-color');
-    expect(link).not.toHaveClass('text-(--color-text-link)');
+    expect(link).not.toHaveClass('text-(--text-color)');
   });
 
   it('should allow overriding filled text class via themeOverride', () => {
@@ -346,7 +348,7 @@ describe('Link Theme Override Tests', () => {
 
     const link = container.querySelector('a');
     expect(link).toHaveClass('text-custom-filled-link');
-    expect(link).not.toHaveClass('text-(--color-text-filled-link)');
+    expect(link).not.toHaveClass('text-(--text-color)');
   });
 
   it('should allow overriding both outline and filled classes', () => {

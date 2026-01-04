@@ -7,8 +7,7 @@ import {
   DefaultLayoutThemes,
   defaultTypographyThemes
 } from "./common/ComponentTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { LinkVariantTheme } from "./appearance/linkVariantTheme";
 import { mergeDefaults } from "../../utils/deepMerge";
 import { PlTheme } from "./size/plTheme";
@@ -16,6 +15,7 @@ import { ListStyleTheme } from "./list/listStyleTheme";
 import { LineHeightTheme } from "./size/lineHeightTheme";
 import { FontSizeTheme } from "./size/fontSizeTheme";
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from "../props";
+import { textConsumerClass } from "../classes/appearanceClasses";
 
 export interface TypographyTheme extends BaseTypographyComponentTheme {
   size: {
@@ -23,7 +23,7 @@ export interface TypographyTheme extends BaseTypographyComponentTheme {
     lineHeight: LineHeightTheme;
   };
   appearance: {
-    text: GenericVariantTheme<AppearanceTheme>;
+    text: SimpleConsumerTheme;
   };
   layout: DefaultLayoutThemes;
 }
@@ -55,7 +55,7 @@ export const createTypographyComponentTheme = (
         lineHeight: lineHeightTheme,
       },
       appearance: {
-        text: GenericVariantTheme.createTypographyTextTheme(),
+        text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
       },
       typography: defaultTypographyThemes,
       layout: defaultLayoutsThemes,
@@ -132,7 +132,7 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
       lineHeight: new LineHeightTheme(),
     },
     appearance: {
-      text: GenericVariantTheme.createTypographyTextTheme(),
+      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
     },
     typography: defaultTypographyThemes,
     layout: defaultLayoutsThemes,
@@ -148,7 +148,7 @@ export interface ListTheme extends BaseTypographyComponentTheme {
     paddingLeft: PlTheme;
   }
   appearance: {
-    text: GenericVariantTheme<AppearanceTheme>;
+    text: SimpleConsumerTheme;
   };
   layout: DefaultLayoutThemes;
   listStyle: ListStyleTheme;
@@ -165,7 +165,7 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
       paddingLeft: new PlTheme(),
     },
     appearance: {
-      text: GenericVariantTheme.createTypographyTextTheme(),
+      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
     },
     typography: defaultTypographyThemes,
     layout: defaultLayoutsThemes,

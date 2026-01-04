@@ -20,9 +20,9 @@ describe('Card Component Tests', () => {
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
       expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)', 'flex');
-      expect(card).toHaveClass('text-(--color-text-primary)'); // primary appearance
-      expect(card).toHaveClass('[background:var(--color-bg-layout-primary)]', 'rounded-(--br)', 'flex-col');
-      expect(card).toHaveClass('border-(--color-border-primary)');
+      expect(card).toHaveClass('text-(--text-color)'); // primary appearance
+      expect(card).toHaveClass('[background:var(--bg-color)]', 'rounded-(--br)', 'flex-col');
+      expect(card).toHaveClass('border-(--border-color)');
     });
   });
 
@@ -36,8 +36,8 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('text-(--color-text-primary)'); // primary text color
-      expect(card).toHaveClass('[background:var(--color-bg-layout-primary)]'); // primary background
+      expect(card).toHaveClass('text-(--text-color)'); // primary text color
+      expect(card).toHaveClass('[background:var(--bg-color)]'); // primary background
     });
 
     it('Card with secondary variant should have secondary classes', () => {
@@ -49,8 +49,8 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('text-(--color-text-secondary)'); // secondary text color
-      expect(card).toHaveClass('[background:var(--color-bg-layout-secondary)]'); // secondary background
+      expect(card).toHaveClass('text-(--text-color)'); // secondary text color
+      expect(card).toHaveClass('[background:var(--bg-color)]'); // secondary background
     });
 
     it('Card with transparent background should have transparent classes', () => {
@@ -62,7 +62,7 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('[background:transparent]'); // transparent background
+      expect(card).toHaveClass('[background:var(--bg-color)]'); // transparent background
     });
   });
 
@@ -221,7 +221,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('text-(--color-text-primary)');
+      expect(card).toHaveClass('text-(--text-color)');
     });
 
     it('should support filled and outline variants for text, background, border, and ring', () => {
@@ -241,20 +241,20 @@ describe('Card Component Tests', () => {
       const filledCard = filledContainer.querySelector('div');
 
       // Text colors
-      expect(outlineCard).toHaveClass('text-(--color-text-primary)');
-      expect(filledCard).toHaveClass('text-(--color-text-filled-primary)');
+      expect(outlineCard).toHaveClass('text-(--text-color)');
+      expect(filledCard).toHaveClass('text-(--text-color)');
       
       // Background colors
-      expect(outlineCard).toHaveClass('[background:var(--color-bg-layout-primary)]');
-      expect(filledCard).toHaveClass('[background:var(--color-bg-filled-layout-primary)]');
+      expect(outlineCard).toHaveClass('[background:var(--bg-color)]');
+      expect(filledCard).toHaveClass('[background:var(--bg-color)]');
       
       // Border colors
-      expect(outlineCard).toHaveClass('border-(--color-border-primary)');
-      expect(filledCard).toHaveClass('border-(--color-border-filled-primary)');
+      expect(outlineCard).toHaveClass('border-(--border-color)');
+      expect(filledCard).toHaveClass('border-(--border-color)');
       
       // Ring colors
-      expect(outlineCard).toHaveClass('ring-(--color-border-primary)');
-      expect(filledCard).toHaveClass('ring-(--color-border-filled-primary)');
+      expect(outlineCard).toHaveClass('ring-(--ring-color)');
+      expect(filledCard).toHaveClass('ring-(--ring-color)');
     });
   });
 
@@ -262,12 +262,12 @@ describe('Card Component Tests', () => {
     it('should apply responsive classes correctly', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Card tabletCol>Responsive Card</Card>
+          <Card mobileCol>Responsive Card</Card>
         </ThemeProvider>
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('max-tablet:flex-col'); // Card uses max-tablet responsive pattern
+      expect(card).toHaveClass('max-mobile:flex-col'); // Card uses max-tablet responsive pattern
     });
   });
 
@@ -382,7 +382,7 @@ describe('Card Component Tests', () => {
 
         const card = container.querySelector('div');
         // Card no longer has ring: true as default
-        expect(card).not.toHaveClass('ring-(--color-border-primary)');
+        expect(card).not.toHaveClass('ring-(--ring-color)');
         expect(card).not.toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
       });
 
@@ -420,7 +420,7 @@ describe('Card Component Tests', () => {
         // Should have border classes
         expect(card).toHaveClass('border-[length:var(--bw)]');
         // Should have appearance-based ring classes
-        expect(card).toHaveClass('ring-(--color-border-primary)');
+        expect(card).toHaveClass('ring-(--ring-color)');
       });
 
       it('should not apply any border or ring classes when both noBorder and noRing are true', () => {
@@ -449,7 +449,7 @@ describe('Card Component Tests', () => {
         const card = container.querySelector('.size-test');
         // Should have border and ring classes
         expect(card).toHaveClass('border-[length:var(--bw)]');
-        expect(card).toHaveClass('ring-(--color-border-primary)');
+        expect(card).toHaveClass('ring-(--ring-color)');
         // Should have size and padding classes
         expect(card).toHaveClass('px-(--px)', 'py-(--py)'); // lg padding
         expect(card).toHaveAttribute('data-size', 'lg');
@@ -458,16 +458,16 @@ describe('Card Component Tests', () => {
       it('should work with responsive breakpoints', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card border ring tabletCol className="responsive-test">Responsive Card</Card>
+            <Card border ring mobileCol className="responsive-test">Responsive Card</Card>
           </ThemeProvider>
         );
 
         const card = container.querySelector('.responsive-test');
         // Should have border and ring classes
         expect(card).toHaveClass('border-[length:var(--bw)]');
-        expect(card).toHaveClass('ring-(--color-border-primary)');
+        expect(card).toHaveClass('ring-(--ring-color)');
         // Should have responsive classes
-        expect(card).toHaveClass('max-tablet:flex-col');
+        expect(card).toHaveClass('max-mobile:flex-col');
       });
     });
   });

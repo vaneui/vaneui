@@ -7,13 +7,13 @@ import { GapTheme } from "./size/gapTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { BreakpointTheme } from "./size/breakpointTheme";
-import { AppearanceTheme } from "./appearance/appearanceTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
-import { GenericVariantTheme } from "./appearance/genericVariantTheme";
+import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { STACK_CATEGORIES } from "../props";
+import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
 
 export interface StackTheme extends BaseComponentTheme {
   size: {
@@ -30,11 +30,11 @@ export interface StackTheme extends BaseComponentTheme {
     radius: RadiusTheme;
   };
   appearance: {
-    background: GenericVariantTheme<AppearanceTheme>;
-    text: GenericVariantTheme<AppearanceTheme>;
-    border: GenericVariantTheme<AppearanceTheme>;
-    ring: GenericVariantTheme<AppearanceTheme>;
-    shadow: GenericVariantTheme<ShadowAppearanceTheme>;
+    background: SimpleConsumerTheme;
+    text: SimpleConsumerTheme;
+    border: SimpleConsumerTheme;
+    ring: SimpleConsumerTheme;
+    shadow: ShadowAppearanceTheme;
   }
 }
 
@@ -57,11 +57,11 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
       radius: new RadiusTheme(),
     },
     appearance: {
-      background: GenericVariantTheme.createLayoutBgAppearanceTheme(),
-      text: GenericVariantTheme.createUIElementTextThemeIgnoreTransparent(),
-      border: GenericVariantTheme.createUIElementBorderTheme(),
-      ring: GenericVariantTheme.createUIElementRingTheme(),
-      shadow: GenericVariantTheme.createLayoutShadowTheme(),
+      background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),
+      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
+      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
+      shadow: ShadowAppearanceTheme.createLayoutTheme(),
     }
   },
   themeDefaults.stack as Partial<StackProps>,
