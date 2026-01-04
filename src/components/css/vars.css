@@ -490,6 +490,16 @@
         --accent-color: var(--color-bg-info);
         --checked-bg-color: var(--color-bg-info);
     }
+    [data-variant="outline"][data-appearance="link"] {
+        --text-color: var(--color-text-link);
+        --bg-color: var(--color-bg-primary);
+        --bg-hover-color: var(--color-bg-hover-primary);
+        --bg-active-color: var(--color-bg-active-primary);
+        --border-color: var(--color-border-brand);
+        --ring-color: var(--color-border-brand);
+        --accent-color: var(--color-bg-primary);
+        --checked-bg-color: var(--color-bg-primary);
+    }
 
     /* -----------------------------------------
        FILLED VARIANT
@@ -583,6 +593,16 @@
         --ring-color: var(--color-border-filled-info);
         --accent-color: var(--color-bg-filled-info);
         --checked-bg-color: var(--color-bg-filled-info);
+    }
+    [data-variant="filled"][data-appearance="link"] {
+        --text-color: var(--color-text-filled-link);
+        --bg-color: var(--color-bg-filled-brand);
+        --bg-hover-color: var(--color-bg-filled-hover-brand);
+        --bg-active-color: var(--color-bg-filled-active-brand);
+        --border-color: var(--color-border-filled-brand);
+        --ring-color: var(--color-border-filled-brand);
+        --accent-color: var(--color-bg-filled-brand);
+        --checked-bg-color: var(--color-bg-filled-brand);
     }
 
     /* -----------------------------------------

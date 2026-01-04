@@ -46,6 +46,9 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "info": {
         "description": "Info color appearance (cyan)"
+      },
+      "link": {
+        "description": "Link color appearance (blue, for hyperlinks)"
       }
     }
   },

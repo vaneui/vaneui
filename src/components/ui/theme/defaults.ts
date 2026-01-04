@@ -256,7 +256,7 @@ export const themeDefaults: ThemeDefaults = {
     underline: true,
     sans: true,
     outline: true,
-    primary: true,
+    link: true,
   },
 
   listItem: {
