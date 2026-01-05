@@ -7,18 +7,18 @@ import type { CategoryProps, GapClassKey } from "../../props";
  * The formula --gap = --gap-unit * --spacing is computed once in CSS.
  */
 export class GapTheme extends BaseTheme implements Record<GapClassKey, string> {
-  /** Switch to desktop unit */
-  gapDesktop: string = "[--gap-unit:var(--gap-unit-desktop)]";
-  /** Switch to tablet unit */
-  gapTablet: string = "max-tablet:[--gap-unit:var(--gap-unit-tablet)]";
-  /** Switch to mobile unit */
-  gapMobile: string = "max-mobile:[--gap-unit:var(--gap-unit-mobile)]";
+  /** Desktop breakpoint unit switch */
+  desktop: string = "[--gap-unit:var(--gap-unit-desktop)]";
+  /** Tablet breakpoint unit switch */
+  tablet: string = "max-tablet:[--gap-unit:var(--gap-unit-tablet)]";
+  /** Mobile breakpoint unit switch */
+  mobile: string = "max-mobile:[--gap-unit:var(--gap-unit-mobile)]";
   /** Consumer class */
   gap: string = "gap-(--gap)";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.gap === 'gap') {
-      return [this.gapDesktop, this.gapTablet, this.gapMobile, this.gap];
+      return [this.desktop, this.tablet, this.mobile, this.gap];
     }
     return [];
   }

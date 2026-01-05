@@ -161,20 +161,20 @@ export type OverflowKey = typeof ComponentKeys.overflow[number];
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];
 
-/** Responsive class keys for breakpoint-specific CSS variable switching */
-export const ResponsiveClassKeys = ['responsiveDesktop', 'responsiveTablet', 'responsiveMobile'] as const;
-/** Type for responsive class keys */
-export type ResponsiveClassKey = typeof ResponsiveClassKeys[number];
+/** Common responsive breakpoint keys used across all themes */
+export const RESPONSIVE_BREAKPOINT_KEYS = ['desktop', 'tablet', 'mobile'] as const;
+/** Type for common responsive breakpoint keys */
+export type ResponsiveBreakpointClassKey = typeof RESPONSIVE_BREAKPOINT_KEYS[number];
 
 /** Consumer class keys for CSS variable themes */
-/** Font size theme class keys: consumer class + responsive variants */
-export type FontSizeClassKey = 'fsDesktop' | 'fsTablet' | 'fsMobile' | 'fontSize';
-/** Vertical padding theme class keys: consumer class + responsive variants */
-export type PyClassKey = 'pyDesktop' | 'pyTablet' | 'pyMobile' | 'py';
-/** Gap theme class keys: consumer class + responsive variants */
-export type GapClassKey = 'gapDesktop' | 'gapTablet' | 'gapMobile' | 'gap';
-/** Horizontal padding theme class key */
-export type PxClassKey = 'pxDesktop' | 'pxTablet' | 'pxMobile' | 'px';
+/** Font size theme class keys: common breakpoint keys + consumer class */
+export type FontSizeClassKey = ResponsiveBreakpointClassKey | 'fontSize';
+/** Vertical padding theme class keys: common breakpoint keys + consumer class */
+export type PyClassKey = ResponsiveBreakpointClassKey | 'py';
+/** Gap theme class keys: common breakpoint keys + consumer class */
+export type GapClassKey = ResponsiveBreakpointClassKey | 'gap';
+/** Horizontal padding theme class key: common breakpoint keys + consumer class */
+export type PxClassKey = ResponsiveBreakpointClassKey | 'px';
 /** Left padding theme class key */
 export type PlClassKey = 'pl';
 /** Line height theme class key */

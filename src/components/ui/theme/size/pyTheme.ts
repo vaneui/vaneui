@@ -7,18 +7,18 @@ import type { CategoryProps, PyClassKey } from "../../props";
  * The formula --py = --py-unit * --spacing is computed once in CSS.
  */
 export class PyTheme extends BaseTheme implements Record<PyClassKey, string> {
-  /** Switch to desktop unit */
-  pyDesktop: string = "[--py-unit:var(--py-unit-desktop)]";
-  /** Switch to tablet unit */
-  pyTablet: string = "max-tablet:[--py-unit:var(--py-unit-tablet)]";
-  /** Switch to mobile unit */
-  pyMobile: string = "max-mobile:[--py-unit:var(--py-unit-mobile)]";
+  /** Desktop breakpoint unit switch */
+  desktop: string = "[--py-unit:var(--py-unit-desktop)]";
+  /** Tablet breakpoint unit switch */
+  tablet: string = "max-tablet:[--py-unit:var(--py-unit-tablet)]";
+  /** Mobile breakpoint unit switch */
+  mobile: string = "max-mobile:[--py-unit:var(--py-unit-mobile)]";
   /** Consumer class */
   py: string = "py-(--py)";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
-      return [this.pyDesktop, this.pyTablet, this.pyMobile, this.py];
+      return [this.desktop, this.tablet, this.mobile, this.py];
     }
     return [];
   }

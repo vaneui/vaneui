@@ -7,16 +7,16 @@ import type { CategoryProps, FontSizeClassKey } from "../../props";
  * The formula --fs = --fs-unit * --fs-base is computed once in CSS.
  */
 export class FontSizeTheme extends BaseTheme implements Record<FontSizeClassKey, string> {
-  /** Switch to desktop unit */
-  fsDesktop: string = "[--fs-unit:var(--fs-unit-desktop)]";
-  /** Switch to tablet unit */
-  fsTablet: string = "max-tablet:[--fs-unit:var(--fs-unit-tablet)]";
-  /** Switch to mobile unit */
-  fsMobile: string = "max-mobile:[--fs-unit:var(--fs-unit-mobile)]";
+  /** Desktop breakpoint unit switch */
+  desktop: string = "[--fs-unit:var(--fs-unit-desktop)]";
+  /** Tablet breakpoint unit switch */
+  tablet: string = "max-tablet:[--fs-unit:var(--fs-unit-tablet)]";
+  /** Mobile breakpoint unit switch */
+  mobile: string = "max-mobile:[--fs-unit:var(--fs-unit-mobile)]";
   /** Consumer class */
   fontSize: string = "text-(length:--fs)";
 
   getClasses(_extractedKeys: CategoryProps): string[] {
-    return [this.fsDesktop, this.fsTablet, this.fsMobile, this.fontSize];
+    return [this.desktop, this.tablet, this.mobile, this.fontSize];
   }
 }
