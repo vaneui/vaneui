@@ -400,15 +400,6 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
-  "responsive": {
-    "name": "Responsive",
-    "description": "Responsive props for automatic breakpoint-based CSS variable switching",
-    "props": {
-      "responsive": {
-        "description": "Enable responsive CSS variable switching for automatic size adaptation across breakpoints"
-      }
-    }
-  },
   "reverse": {
     "name": "Reverse",
     "description": "Reverse props for reversing child order",

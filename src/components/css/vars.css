@@ -163,12 +163,24 @@
 
 @layer base {
     [data-size] {
-        --gap: calc(var(--gap-unit) * var(--spacing));
-        --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
+        /* Breakpoint vars default to base unit */
+        --py-unit-desktop: var(--py-unit);
+        --py-unit-tablet: var(--py-unit);
+        --py-unit-mobile: var(--py-unit);
+        --gap-unit-desktop: var(--gap-unit);
+        --gap-unit-tablet: var(--gap-unit);
+        --gap-unit-mobile: var(--gap-unit);
+        --fs-unit-desktop: var(--fs-unit);
+        --fs-unit-tablet: var(--fs-unit);
+        --fs-unit-mobile: var(--fs-unit);
+
+        /* Single formulas - unit vars are switched via Tailwind classes */
         --py: calc(var(--py-unit) * var(--spacing));
+        --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
+        --gap: calc(var(--gap-unit) * var(--spacing));
+        --fs: calc(var(--fs-unit) * var(--fs-base));
         --size: calc(var(--size-unit) * var(--spacing));
         --br: calc(var(--br-unit) * var(--br-base));
-        --fs: calc(var(--fs-unit) * var(--fs-base));
         --pl: calc(var(--py-unit) * var(--spacing));
     }
 }

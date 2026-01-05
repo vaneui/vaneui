@@ -45,7 +45,6 @@ export * from './overflowProps';
 
 // Responsive
 export * from './breakpointProps';
-export * from './responsiveProps';
 export * from './hideProps';
 
 // List

@@ -19,8 +19,7 @@ import type {
   ShapeProps,
   PaddingProps,
   BreakpointProps,
-  VariantProps,
-  ResponsiveProps
+  VariantProps
 } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
@@ -46,7 +45,6 @@ export type SectionProps = BaseProps &
   PaddingProps &
   BreakpointProps &
   VariantProps &
-  ResponsiveProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

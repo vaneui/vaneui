@@ -6,8 +6,6 @@ export const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
 export const PADDING = ['padding'] as const;
 /** Responsive breakpoint properties for different screen sizes */
 export const BREAKPOINT = ['breakpoint'] as const;
-/** Responsive CSS variable switching for automatic breakpoint adaptation */
-export const RESPONSIVE = ['responsive'] as const;
 /** Core visual properties including appearance colors and transparency */
 export const VISUAL_CORE = ['appearance'] as const;
 /** Border properties for visual decoration */
@@ -33,7 +31,6 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...LIST_STYLE,
   ...LAYOUT_CORE,
   ...BREAKPOINT,
-  ...RESPONSIVE,
   ...PADDING,
   ...BORDER,
   ...VISUAL_DECORATION,
@@ -94,8 +91,6 @@ export const ComponentKeys = {
   padding: ['padding', 'noPadding'] as const,
   /** CSS positioning: relative, absolute, fixed, sticky, static */
   position: ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const,
-  /** Responsive CSS variable switching: responsive (enabled) */
-  responsive: ['responsive'] as const,
   /** Reverse the order of flex items */
   reverse: ['reverse'] as const,
   /** Focus ring visibility: ring (show) or noRing (hide) */
@@ -173,13 +168,13 @@ export type ResponsiveClassKey = typeof ResponsiveClassKeys[number];
 
 /** Consumer class keys for CSS variable themes */
 /** Font size theme class keys: consumer class + responsive variants */
-export type FontSizeClassKey = 'fontSize' | ResponsiveClassKey;
+export type FontSizeClassKey = 'fsDesktop' | 'fsTablet' | 'fsMobile' | 'fontSize';
 /** Vertical padding theme class keys: consumer class + responsive variants */
-export type PyClassKey = 'py' | ResponsiveClassKey;
+export type PyClassKey = 'pyDesktop' | 'pyTablet' | 'pyMobile' | 'py';
 /** Gap theme class keys: consumer class + responsive variants */
-export type GapClassKey = 'gap' | ResponsiveClassKey;
+export type GapClassKey = 'gapDesktop' | 'gapTablet' | 'gapMobile' | 'gap';
 /** Horizontal padding theme class key */
-export type PxClassKey = 'px';
+export type PxClassKey = 'pxDesktop' | 'pxTablet' | 'pxMobile' | 'px';
 /** Left padding theme class key */
 export type PlClassKey = 'pl';
 /** Line height theme class key */
@@ -208,7 +203,7 @@ export const CODE_CATEGORIES = INTERACTIVE_CATEGORIES;
 
 /** Typography component categories */
 /** Categories for typography components like Text, Title, Link */
-export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT, ...RESPONSIVE] as const;
+export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT] as const;
 /** Categories for list components with typography and list-specific styling */
 export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LIST_STYLE, ...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT] as const;
 
@@ -228,7 +223,7 @@ export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOIN
 /** Categories for divider components with basic layout and visual properties */
 export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT] as const;
 /** Categories for section layout components with full responsive support */
-export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...BREAKPOINT, ...VARIANT, ...RESPONSIVE] as const;
+export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...BREAKPOINT, ...VARIANT] as const;
 
 /** Form component categories */
 /** Categories for checkbox form components */
