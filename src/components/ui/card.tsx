@@ -20,7 +20,6 @@ import type {
   ReverseProps,
   BreakpointProps,
   AppearanceProps,
-  TransparentProps,
   BorderProps,
   ShadowProps,
   RingProps,
@@ -52,7 +51,6 @@ export type CardProps = BaseProps &
   ReverseProps &
   BreakpointProps &
   AppearanceProps &
-  TransparentProps &
   BorderProps &
   ShadowProps &
   RingProps &

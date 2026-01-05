@@ -19,7 +19,6 @@ import type {
   FlexDirectionProps,
   ReverseProps,
   AppearanceProps,
-  TransparentProps,
   VariantProps
 } from './props';
 import { useTheme } from "../themeContext";
@@ -45,7 +44,6 @@ export type LabelProps = BaseProps &
   FlexDirectionProps &
   ReverseProps &
   AppearanceProps &
-  TransparentProps &
   VariantProps &
   Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */

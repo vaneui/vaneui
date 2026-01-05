@@ -15,7 +15,6 @@ import type {
   DisplayProps,
   OverflowProps,
   AppearanceProps,
-  TransparentProps,
   VariantProps,
   ListStyleProps,
   PaddingProps,
@@ -40,7 +39,6 @@ export type TypographyProps = BaseProps &
   DisplayProps &
   OverflowProps &
   AppearanceProps &
-  TransparentProps &
   VariantProps &
   ResponsiveProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
@@ -66,7 +64,6 @@ export type LinkProps = BaseProps &
   PositionProps &
   DisplayProps &
   OverflowProps &
-  TransparentProps &
   VariantProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
@@ -93,7 +90,6 @@ export type ListProps = BaseProps &
   DisplayProps &
   OverflowProps &
   AppearanceProps &
-  TransparentProps &
   PaddingProps &
   VariantProps &
   Omit<React.HTMLAttributes<HTMLElement>, 'className' | 'children'> & {

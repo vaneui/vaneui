@@ -230,17 +230,16 @@ describe('Text Component Tests', () => {
       });
     });
 
-    it('should support transparent text', () => {
+    it('should support text', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text transparent>Transparent text</Text>
+          <Text>Transparent text</Text>
         </ThemeProvider>
       );
 
       const text = container.querySelector('p');
-      // CSS-based approach: data-transparent attribute + consumer class
-      // CSS sets --text-color: transparent for typography components with data-transparent
-      expect(text).toHaveAttribute('data-transparent', 'true');
+      // CSS-based approach: data-attribute + consumer class
+      // CSS sets --text-color: for typography components with data-expect(text).toHaveAttribute('data-', 'true');
       expect(text).toHaveClass('text-(--text-color)');
     });
 

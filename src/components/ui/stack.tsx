@@ -15,7 +15,6 @@ import type {
   BreakpointProps,
   PaddingProps,
   AppearanceProps,
-  TransparentProps,
   BorderProps,
   ShadowProps,
   RingProps,
@@ -41,7 +40,6 @@ export type StackProps = BaseProps &
   BreakpointProps &
   PaddingProps &
   AppearanceProps &
-  TransparentProps &
   BorderProps &
   ShadowProps &
   RingProps &

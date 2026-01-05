@@ -29,5 +29,7 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
     layout: defaultLayoutsThemes,
   },
   themeDefaults.divider,
-  DIVIDER_CATEGORIES
+  DIVIDER_CATEGORIES,
+  undefined,
+  'layout'
 );

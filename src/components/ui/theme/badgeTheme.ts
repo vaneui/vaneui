@@ -81,5 +81,6 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
   BADGE_CATEGORIES,
   (props: BadgeProps) => {
     return props.href ? "a" : "span";
-  }
+  },
+  'ui'
 );

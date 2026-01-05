@@ -13,7 +13,6 @@ import type {
   FlexDirectionProps,
   ReverseProps,
   AppearanceProps,
-  TransparentProps,
   VariantProps,
   ShapeProps,
   BorderProps
@@ -35,7 +34,6 @@ export type GridProps = BaseProps &
   FlexDirectionProps &
   ReverseProps &
   AppearanceProps &
-  TransparentProps &
   VariantProps &
   ShapeProps &
   BorderProps &

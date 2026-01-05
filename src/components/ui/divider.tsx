@@ -9,7 +9,6 @@ import type {
   DisplayProps,
   OverflowProps,
   AppearanceProps,
-  TransparentProps,
   PaddingProps,
   VariantProps
 } from './props';
@@ -26,7 +25,6 @@ export type DividerProps = BaseProps &
   DisplayProps &
   OverflowProps &
   AppearanceProps &
-  TransparentProps &
   PaddingProps &
   VariantProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {

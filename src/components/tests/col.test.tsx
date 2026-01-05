@@ -144,10 +144,10 @@ describe('Col Component Tests', () => {
       expect(filledCol).toHaveClass('ring-(--ring-color)');
     });
 
-    it('should support transparent background', () => {
+    it('should support background', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Col transparent>
+          <Col>
             Transparent Col
           </Col>
         </ThemeProvider>

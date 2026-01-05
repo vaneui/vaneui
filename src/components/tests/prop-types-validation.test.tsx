@@ -41,7 +41,7 @@ describe('Component Prop Type Validation', () => {
       const validRow = (
         <Row 
           primary // appearance
-          transparent // transparent
+          //
           itemsCenter // items
           gap // gap
           md // size
@@ -80,7 +80,7 @@ describe('Component Prop Type Validation', () => {
           gap // gap
           padding // padding
           success // appearance
-          transparent // transparent
+          //
           md // size
         >
           Content
@@ -176,9 +176,8 @@ describe('Category Arrays Validation', () => {
     expect(ROW_CATEGORIES).toContain('shape');
   });
 
-  test('ROW_CATEGORIES should include appearance and transparent', () => {
+  test('ROW_CATEGORIES should include appearance', () => {
     expect(ROW_CATEGORIES).toContain('appearance');
-    expect(ROW_CATEGORIES).toContain('transparent');
   });
 
   test('BUTTON_CATEGORIES should include shape category', () => {

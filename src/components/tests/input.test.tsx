@@ -433,7 +433,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       // Should not have shadow classes since noShadow is default for inputs
-      expect(input).not.toHaveClass('shadow-sm', 'hover:shadow-md');
+      expect(input).not.toHaveClass('shadow-ui');
     });
 
     it('should add shadow classes when shadow prop is enabled', () => {
@@ -445,7 +445,8 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('shadow-sm', 'hover:shadow-md');
+      expect(input).toHaveAttribute('data-vane-type', 'ui'); // UI component type
+      expect(input).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
     });
   });
 });

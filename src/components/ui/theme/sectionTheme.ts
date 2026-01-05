@@ -66,4 +66,6 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   },
   themeDefaults.section as Partial<SectionProps>,
   SECTION_CATEGORIES,
+  undefined,
+  'layout'
 );

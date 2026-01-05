@@ -81,4 +81,5 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
   themeDefaults.input as Partial<InputProps>,
   INPUT_CATEGORIES,
   () => "input"
-);
+,
+  'ui');

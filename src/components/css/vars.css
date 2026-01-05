@@ -22,7 +22,6 @@
     --color-text-filled-danger: var(--color-red-100);
     --color-text-filled-warning: var(--color-amber-100);
     --color-text-filled-info: var(--color-cyan-100);
-    --color-text-filled-transparent: transparent;
 
     /* UI Background Colors */
     --color-bg-primary: var(--color-white);
@@ -100,7 +99,6 @@
     --color-bg-layout-danger: var(--color-red-50);
     --color-bg-layout-warning: var(--color-yellow-50);
     --color-bg-layout-info: var(--color-blue-50);
-    --color-bg-layout-transparent: transparent;
 
     /* Layout Filled Background Colors */
     --color-bg-filled-layout-primary: var(--color-gray-700);
@@ -112,7 +110,6 @@
     --color-bg-filled-layout-danger: var(--color-red-700);
     --color-bg-filled-layout-warning: var(--color-yellow-800);
     --color-bg-filled-layout-info: var(--color-blue-700);
-    --color-bg-filled-layout-transparent: transparent;
 
     /* Border Colors */
     --color-border-primary: var(--color-gray-200);
@@ -140,7 +137,7 @@
     --fs-base: calc(var(--spacing) * 0.5);
 
     --breakpoint-mobile: 48rem;
-        --breakpoint-tablet: 64rem;
+    --breakpoint-tablet: 64rem;
     --breakpoint-desktop: 80rem;
 
     --lh: 1;
@@ -153,52 +150,12 @@
     --bw: 1px; /* Border width */
     --rw: 1px; /* Ring width */
 
-    /* ========================================
-       COMMON SIZE SCALES
-       Reusable scale values for consistent sizing
-       ======================================== */
-
     /* Font size scale (used by Text, Link, ListItem, Label, List, Button, Badge, Chip) */
-    --fs-scale-xs: 6;
-    --fs-scale-sm: 7;
-    --fs-scale-md: 8;
-    --fs-scale-lg: 9;
-    --fs-scale-xl: 10;
-
-    /* UI padding scale (used by Button, Badge, Input) */
-    --py-ui-scale-xs: 1;
-    --py-ui-scale-sm: 1.5;
-    --py-ui-scale-md: 2;
-    --py-ui-scale-lg: 2.5;
-    --py-ui-scale-xl: 3;
-
-    /* UI border radius scale (used by Button, Badge, Chip, Input) */
-    --br-ui-scale-xs: 1;
-    --br-ui-scale-sm: 1.5;
-    --br-ui-scale-md: 2;
-    --br-ui-scale-lg: 2.5;
-    --br-ui-scale-xl: 3;
-
-    /* UI gap scale (used by Button, Badge, Chip, Label) */
-    --gap-ui-scale-xs: 1;
-    --gap-ui-scale-sm: 1.5;
-    --gap-ui-scale-md: 2;
-    --gap-ui-scale-lg: 2.5;
-    --gap-ui-scale-xl: 3;
-
-    /* Layout border radius scale (used by Row, Col, Stack, Card, Grid, Container, Img) */
-    --br-layout-scale-xs: 3;
-    --br-layout-scale-sm: 4;
-    --br-layout-scale-md: 5;
-    --br-layout-scale-lg: 6;
-    --br-layout-scale-xl: 7;
-
-    /* Layout gap scale (used by Row, Col, Stack, Card, Grid, Container) */
-    --gap-layout-scale-xs: 2;
-    --gap-layout-scale-sm: 3;
-    --gap-layout-scale-md: 4;
-    --gap-layout-scale-lg: 5;
-    --gap-layout-scale-xl: 6;
+    --fs-unit-xs: 6;
+    --fs-unit-sm: 7;
+    --fs-unit-md: 8;
+    --fs-unit-lg: 9;
+    --fs-unit-xl: 10;
 
     /* Common line height */
     --lh-base: 1.6;
@@ -217,31 +174,52 @@
 }
 
 @layer components {
+    /* ========================================
+       TYPE-BASED DEFAULTS
+       Sets --br-unit, --gap-unit, --shadow, --shadow-hover
+       based on data-vane-type and data-size attributes.
+       Components inherit these unless they override.
+       ======================================== */
+
+    /* UI type defaults (compact spacing, with hover shadows using Tailwind shadow vars) */
+    [data-vane-type="ui"][data-size="xs"] { --br-unit: 1; --gap-unit: 1;   --shadow-base: var(--shadow-2xs); --shadow-hover: var(--shadow-xs); }
+    [data-vane-type="ui"][data-size="sm"] { --br-unit: 1.5; --gap-unit: 1.5; --shadow-base: var(--shadow-xs);  --shadow-hover: var(--shadow-sm); }
+    [data-vane-type="ui"][data-size="md"] { --br-unit: 2; --gap-unit: 2;   --shadow-base: var(--shadow-sm);  --shadow-hover: var(--shadow); }
+    [data-vane-type="ui"][data-size="lg"] { --br-unit: 2.5; --gap-unit: 2.5; --shadow-base: var(--shadow);     --shadow-hover: var(--shadow-md); }
+    [data-vane-type="ui"][data-size="xl"] { --br-unit: 3; --gap-unit: 3;   --shadow-base: var(--shadow-md);  --shadow-hover: var(--shadow-lg); }
+
+    /* Layout type defaults (generous spacing, static shadows using Tailwind shadow vars) */
+    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --shadow-base: var(--shadow-xs); }
+    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --shadow-base: var(--shadow-sm); }
+    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --shadow-base: var(--shadow); }
+    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 5; --shadow-base: var(--shadow-md); }
+    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 6; --shadow-base: var(--shadow-lg); }
+
     /* NON-RESPONSIVE COMPONENTS */
 
     /* Button */
-    .vane-button { --lh: 1.3; --br-unit: 2; --py-unit: 2; --aspect-ratio: 2; --gap-unit: 2; }
-    .vane-button[data-size="xs"] { --fs-unit: var(--fs-scale-xs); --py-unit: var(--py-ui-scale-xs); --br-unit: var(--br-ui-scale-xs); --gap-unit: var(--gap-ui-scale-xs); }
-    .vane-button[data-size="sm"] { --fs-unit: var(--fs-scale-sm); --py-unit: var(--py-ui-scale-sm); --br-unit: var(--br-ui-scale-sm); --gap-unit: var(--gap-ui-scale-sm); }
-    .vane-button[data-size="md"] { --fs-unit: var(--fs-scale-md); --py-unit: var(--py-ui-scale-md); --br-unit: var(--br-ui-scale-md); --gap-unit: var(--gap-ui-scale-md); }
-    .vane-button[data-size="lg"] { --fs-unit: var(--fs-scale-lg); --py-unit: var(--py-ui-scale-lg); --br-unit: var(--br-ui-scale-lg); --gap-unit: var(--gap-ui-scale-lg); }
-    .vane-button[data-size="xl"] { --fs-unit: var(--fs-scale-xl); --py-unit: var(--py-ui-scale-xl); --br-unit: var(--br-ui-scale-xl); --gap-unit: var(--gap-ui-scale-xl); }
+    .vane-button { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; }
+    .vane-button[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-button[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-button[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-button[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-button[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Badge */
-    .vane-badge { --lh: var(--lh-base); --br-unit: 2; --py-unit: 2; --aspect-ratio: 2; --gap-unit: 2; }
-    .vane-badge[data-size="xs"] { --fs-unit: var(--fs-scale-xs); --py-unit: var(--py-ui-scale-xs); --br-unit: var(--br-ui-scale-xs); --gap-unit: var(--gap-ui-scale-xs); }
-    .vane-badge[data-size="sm"] { --fs-unit: var(--fs-scale-sm); --py-unit: var(--py-ui-scale-sm); --br-unit: var(--br-ui-scale-sm); --gap-unit: var(--gap-ui-scale-sm); }
-    .vane-badge[data-size="md"] { --fs-unit: var(--fs-scale-md); --py-unit: var(--py-ui-scale-md); --br-unit: var(--br-ui-scale-md); --gap-unit: var(--gap-ui-scale-md); }
-    .vane-badge[data-size="lg"] { --fs-unit: var(--fs-scale-lg); --py-unit: var(--py-ui-scale-lg); --br-unit: var(--br-ui-scale-lg); --gap-unit: var(--gap-ui-scale-lg); }
-    .vane-badge[data-size="xl"] { --fs-unit: var(--fs-scale-xl); --py-unit: var(--py-ui-scale-xl); --br-unit: var(--br-ui-scale-xl); --gap-unit: var(--gap-ui-scale-xl); }
+    .vane-badge { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; }
+    .vane-badge[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-badge[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-badge[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-badge[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-badge[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Chip */
-    .vane-chip { --lh: 1.2; --br-unit: 2; --py-unit: 1.5; --aspect-ratio: 2; --gap-unit: 2; }
-    .vane-chip[data-size="xs"] { --fs-unit: var(--fs-scale-xs); --py-unit: 0.5; --br-unit: var(--br-ui-scale-xs); --gap-unit: var(--gap-ui-scale-xs); }
-    .vane-chip[data-size="sm"] { --fs-unit: var(--fs-scale-sm); --py-unit: 1; --br-unit: var(--br-ui-scale-sm); --gap-unit: var(--gap-ui-scale-sm); }
-    .vane-chip[data-size="md"] { --fs-unit: var(--fs-scale-md); --py-unit: 1.5; --br-unit: var(--br-ui-scale-md); --gap-unit: var(--gap-ui-scale-md); }
-    .vane-chip[data-size="lg"] { --fs-unit: var(--fs-scale-lg); --py-unit: 2; --br-unit: var(--br-ui-scale-lg); --gap-unit: var(--gap-ui-scale-lg); }
-    .vane-chip[data-size="xl"] { --fs-unit: var(--fs-scale-xl); --py-unit: 2.5; --br-unit: var(--br-ui-scale-xl); --gap-unit: var(--gap-ui-scale-xl); }
+    .vane-chip { --lh: 1.2; --py-unit: 1.5; --aspect-ratio: 2; }
+    .vane-chip[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5; }
+    .vane-chip[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1; }
+    .vane-chip[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1.5; }
+    .vane-chip[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
+    .vane-chip[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
 
     /* Code */
     .vane-code { --lh: 1; --br-unit: 1.5; --py-unit: 0.8; --aspect-ratio: 1.8; }
@@ -252,12 +230,12 @@
     .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; --br-unit: 2.5; }
 
     /* Input */
-    .vane-input { --lh: var(--lh-base); --br-unit: 2; --py-unit: 2; --aspect-ratio: 2; }
-    .vane-input[data-size="xs"] { --fs-unit: var(--fs-scale-xs); --py-unit: var(--py-ui-scale-xs); --br-unit: var(--br-ui-scale-xs); }
-    .vane-input[data-size="sm"] { --fs-unit: var(--fs-scale-sm); --py-unit: var(--py-ui-scale-sm); --br-unit: var(--br-ui-scale-sm); }
-    .vane-input[data-size="md"] { --fs-unit: var(--fs-scale-md); --py-unit: var(--py-ui-scale-md); --br-unit: var(--br-ui-scale-md); }
-    .vane-input[data-size="lg"] { --fs-unit: var(--fs-scale-lg); --py-unit: var(--py-ui-scale-lg); --br-unit: var(--br-ui-scale-lg); }
-    .vane-input[data-size="xl"] { --fs-unit: var(--fs-scale-xl); --py-unit: var(--py-ui-scale-xl); --br-unit: var(--br-ui-scale-xl); }
+    .vane-input { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; }
+    .vane-input[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-input[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-input[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-input[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-input[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Checkbox */
     .vane-checkbox { --br-unit: 1; }
@@ -268,108 +246,76 @@
     .vane-checkbox[data-size="xl"] { --size-unit: 5; --br-unit: 1.5; }
 
     /* Label */
-    .vane-label { --lh: var(--lh-base); --gap-unit: 2; }
-    .vane-label[data-size="xs"] { --fs-unit: var(--fs-scale-xs); --gap-unit: var(--gap-ui-scale-xs); }
-    .vane-label[data-size="sm"] { --fs-unit: var(--fs-scale-sm); --gap-unit: var(--gap-ui-scale-sm); }
-    .vane-label[data-size="md"] { --fs-unit: var(--fs-scale-md); --gap-unit: var(--gap-ui-scale-md); }
-    .vane-label[data-size="lg"] { --fs-unit: var(--fs-scale-lg); --gap-unit: var(--gap-ui-scale-lg); }
-    .vane-label[data-size="xl"] { --fs-unit: var(--fs-scale-xl); --gap-unit: var(--gap-ui-scale-xl); }
+    .vane-label { --lh: var(--lh-base); }
+    .vane-label[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-label[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-label[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-label[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-label[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
     /* Card */
-    .vane-card { --br-unit: 5; --py-unit: 6; --aspect-ratio: 1; --gap-unit: 4; }
-    .vane-card[data-size="xs"] { --py-unit: 2; --gap-unit: var(--gap-layout-scale-xs); --br-unit: var(--br-layout-scale-xs); }
-    .vane-card[data-size="sm"] { --py-unit: 4; --gap-unit: var(--gap-layout-scale-sm); --br-unit: var(--br-layout-scale-sm); }
-    .vane-card[data-size="md"] { --py-unit: 6; --gap-unit: var(--gap-layout-scale-md); --br-unit: var(--br-layout-scale-md); }
-    .vane-card[data-size="lg"] { --py-unit: 8; --gap-unit: var(--gap-layout-scale-lg); --br-unit: var(--br-layout-scale-lg); }
-    .vane-card[data-size="xl"] { --py-unit: 10; --gap-unit: var(--gap-layout-scale-xl); --br-unit: var(--br-layout-scale-xl); }
+    .vane-card { --py-unit: 6; --aspect-ratio: 1; }
+    .vane-card[data-size="xs"] { --py-unit: 2; }
+    .vane-card[data-size="sm"] { --py-unit: 4; }
+    .vane-card[data-size="md"] { --py-unit: 6; }
+    .vane-card[data-size="lg"] { --py-unit: 8; }
+    .vane-card[data-size="xl"] { --py-unit: 10; }
 
     /* Stack */
-    .vane-stack { --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; --br-unit: 5; }
-    .vane-stack[data-size="xs"] { --gap-unit: var(--gap-layout-scale-xs); --py-unit: 2; --br-unit: var(--br-layout-scale-xs); }
-    .vane-stack[data-size="sm"] { --gap-unit: var(--gap-layout-scale-sm); --py-unit: 3; --br-unit: var(--br-layout-scale-sm); }
-    .vane-stack[data-size="md"] { --gap-unit: var(--gap-layout-scale-md); --py-unit: 4; --br-unit: var(--br-layout-scale-md); }
-    .vane-stack[data-size="lg"] { --gap-unit: var(--gap-layout-scale-lg); --py-unit: 5; --br-unit: var(--br-layout-scale-lg); }
-    .vane-stack[data-size="xl"] { --gap-unit: var(--gap-layout-scale-xl); --py-unit: 6; --br-unit: var(--br-layout-scale-xl); }
-
-    /* Row */
-    .vane-row { --gap-unit: 4; --br-unit: 5; }
-    .vane-row[data-size="xs"] { --gap-unit: var(--gap-layout-scale-xs); --br-unit: var(--br-layout-scale-xs); }
-    .vane-row[data-size="sm"] { --gap-unit: var(--gap-layout-scale-sm); --br-unit: var(--br-layout-scale-sm); }
-    .vane-row[data-size="md"] { --gap-unit: var(--gap-layout-scale-md); --br-unit: var(--br-layout-scale-md); }
-    .vane-row[data-size="lg"] { --gap-unit: var(--gap-layout-scale-lg); --br-unit: var(--br-layout-scale-lg); }
-    .vane-row[data-size="xl"] { --gap-unit: var(--gap-layout-scale-xl); --br-unit: var(--br-layout-scale-xl); }
-
-    /* Col */
-    .vane-col { --gap-unit: 4; --br-unit: 5; }
-    .vane-col[data-size="xs"] { --gap-unit: var(--gap-layout-scale-xs); --br-unit: var(--br-layout-scale-xs); }
-    .vane-col[data-size="sm"] { --gap-unit: var(--gap-layout-scale-sm); --br-unit: var(--br-layout-scale-sm); }
-    .vane-col[data-size="md"] { --gap-unit: var(--gap-layout-scale-md); --br-unit: var(--br-layout-scale-md); }
-    .vane-col[data-size="lg"] { --gap-unit: var(--gap-layout-scale-lg); --br-unit: var(--br-layout-scale-lg); }
-    .vane-col[data-size="xl"] { --gap-unit: var(--gap-layout-scale-xl); --br-unit: var(--br-layout-scale-xl); }
+    .vane-stack { --py-unit: 4; --aspect-ratio: 1; }
+    .vane-stack[data-size="xs"] { --py-unit: 2; }
+    .vane-stack[data-size="sm"] { --py-unit: 3; }
+    .vane-stack[data-size="md"] { --py-unit: 4; }
+    .vane-stack[data-size="lg"] { --py-unit: 5; }
+    .vane-stack[data-size="xl"] { --py-unit: 6; }
 
     /* Container */
-    .vane-container { --py-unit: 8; --aspect-ratio: 2; --br-unit: 5; --gap-unit: 4; }
-    .vane-container[data-size="xs"] { --py-unit: 4; --br-unit: var(--br-layout-scale-xs); --gap-unit: var(--gap-layout-scale-xs); }
-    .vane-container[data-size="sm"] { --py-unit: 6; --br-unit: var(--br-layout-scale-sm); --gap-unit: var(--gap-layout-scale-sm); }
-    .vane-container[data-size="md"] { --py-unit: 8; --br-unit: var(--br-layout-scale-md); --gap-unit: var(--gap-layout-scale-md); }
-    .vane-container[data-size="lg"] { --py-unit: 10; --br-unit: var(--br-layout-scale-lg); --gap-unit: var(--gap-layout-scale-lg); }
-    .vane-container[data-size="xl"] { --py-unit: 12; --br-unit: var(--br-layout-scale-xl); --gap-unit: var(--gap-layout-scale-xl); }
-
-    /* Grid */
-    .vane-grid { --gap-unit: 4; --br-unit: 5; }
-    .vane-grid[data-size="xs"] { --gap-unit: var(--gap-layout-scale-xs); --br-unit: var(--br-layout-scale-xs); }
-    .vane-grid[data-size="sm"] { --gap-unit: var(--gap-layout-scale-sm); --br-unit: var(--br-layout-scale-sm); }
-    .vane-grid[data-size="md"] { --gap-unit: var(--gap-layout-scale-md); --br-unit: var(--br-layout-scale-md); }
-    .vane-grid[data-size="lg"] { --gap-unit: var(--gap-layout-scale-lg); --br-unit: var(--br-layout-scale-lg); }
-    .vane-grid[data-size="xl"] { --gap-unit: var(--gap-layout-scale-xl); --br-unit: var(--br-layout-scale-xl); }
+    .vane-container { --py-unit: 8; --aspect-ratio: 2; }
+    .vane-container[data-size="xs"] { --py-unit: 4; }
+    .vane-container[data-size="sm"] { --py-unit: 6; }
+    .vane-container[data-size="md"] { --py-unit: 8; }
+    .vane-container[data-size="lg"] { --py-unit: 10; }
+    .vane-container[data-size="xl"] { --py-unit: 12; }
 
     /* Divider */
     .vane-divider { --py-unit: 4; }
-    .vane-divider[data-size="xs"] { --py-unit: var(--gap-layout-scale-xs); }
-    .vane-divider[data-size="sm"] { --py-unit: var(--gap-layout-scale-sm); }
-    .vane-divider[data-size="md"] { --py-unit: var(--gap-layout-scale-md); }
-    .vane-divider[data-size="lg"] { --py-unit: var(--gap-layout-scale-lg); }
-    .vane-divider[data-size="xl"] { --py-unit: var(--gap-layout-scale-xl); }
-
-    /* Img */
-    .vane-img { --br-unit: 5; }
-    .vane-img[data-size="xs"] { --br-unit: var(--br-layout-scale-xs); }
-    .vane-img[data-size="sm"] { --br-unit: var(--br-layout-scale-sm); }
-    .vane-img[data-size="md"] { --br-unit: var(--br-layout-scale-md); }
-    .vane-img[data-size="lg"] { --br-unit: var(--br-layout-scale-lg); }
-    .vane-img[data-size="xl"] { --br-unit: var(--br-layout-scale-xl); }
+    .vane-divider[data-size="xs"] { --py-unit: 2; }
+    .vane-divider[data-size="sm"] { --py-unit: 3; }
+    .vane-divider[data-size="md"] { --py-unit: 4; }
+    .vane-divider[data-size="lg"] { --py-unit: 5; }
+    .vane-divider[data-size="xl"] { --py-unit: 6; }
 
     /* List */
     .vane-list { --lh: var(--lh-base); --py-unit: 3; }
-    .vane-list[data-size="xs"] { --fs-unit: var(--fs-scale-xs); --py-unit: 1; }
-    .vane-list[data-size="sm"] { --fs-unit: var(--fs-scale-sm); --py-unit: 2; }
-    .vane-list[data-size="md"] { --fs-unit: var(--fs-scale-md); --py-unit: 3; }
-    .vane-list[data-size="lg"] { --fs-unit: var(--fs-scale-lg); --py-unit: 4; }
-    .vane-list[data-size="xl"] { --fs-unit: var(--fs-scale-xl); --py-unit: 5; }
+    .vane-list[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-list[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 2; }
+    .vane-list[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 3; }
+    .vane-list[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 4; }
+    .vane-list[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 5; }
 
     /* Text */
     .vane-text { --lh: var(--lh-base); }
-    .vane-text[data-size="xs"] { --fs-unit: var(--fs-scale-xs); }
-    .vane-text[data-size="sm"] { --fs-unit: var(--fs-scale-sm); }
-    .vane-text[data-size="md"] { --fs-unit: var(--fs-scale-md); }
-    .vane-text[data-size="lg"] { --fs-unit: var(--fs-scale-lg); }
-    .vane-text[data-size="xl"] { --fs-unit: var(--fs-scale-xl); }
+    .vane-text[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-text[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-text[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-text[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-text[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
     /* Link */
     .vane-link { --lh: var(--lh-base); }
-    .vane-link[data-size="xs"] { --fs-unit: var(--fs-scale-xs); }
-    .vane-link[data-size="sm"] { --fs-unit: var(--fs-scale-sm); }
-    .vane-link[data-size="md"] { --fs-unit: var(--fs-scale-md); }
-    .vane-link[data-size="lg"] { --fs-unit: var(--fs-scale-lg); }
-    .vane-link[data-size="xl"] { --fs-unit: var(--fs-scale-xl); }
+    .vane-link[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-link[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-link[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
     /* ListItem */
     .vane-list-item { --lh: var(--lh-base); }
-    .vane-list-item[data-size="xs"] { --fs-unit: var(--fs-scale-xs); }
-    .vane-list-item[data-size="sm"] { --fs-unit: var(--fs-scale-sm); }
-    .vane-list-item[data-size="md"] { --fs-unit: var(--fs-scale-md); }
-    .vane-list-item[data-size="lg"] { --fs-unit: var(--fs-scale-lg); }
-    .vane-list-item[data-size="xl"] { --fs-unit: var(--fs-scale-xl); }
+    .vane-list-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-list-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-list-item[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-list-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-list-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
     /* RESPONSIVE COMPONENTS */
 
@@ -653,29 +599,6 @@
         --ring-color: var(--color-border-filled-brand);
         --accent-color: var(--color-bg-filled-brand);
         --checked-bg-color: var(--color-bg-filled-brand);
-    }
-
-    /* -----------------------------------------
-       TRANSPARENT STATE
-       Overrides colors when data-transparent is set
-       ----------------------------------------- */
-    [data-transparent="true"] {
-        --bg-color: transparent;
-        --bg-hover-color: transparent;
-        --bg-active-color: transparent;
-        --accent-color: transparent;
-        --checked-bg-color: transparent;
-    }
-
-    /* Typography components: transparent affects text color */
-    .vane-text[data-transparent="true"],
-    .vane-link[data-transparent="true"],
-    .vane-title[data-transparent="true"],
-    .vane-section-title[data-transparent="true"],
-    .vane-page-title[data-transparent="true"],
-    .vane-label[data-transparent="true"],
-    .vane-list-item[data-transparent="true"] {
-        --text-color: transparent;
     }
 
 }

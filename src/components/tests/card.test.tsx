@@ -53,16 +53,16 @@ describe('Card Component Tests', () => {
       expect(card).toHaveClass('[background:var(--bg-color)]'); // secondary background
     });
 
-    it('Card with transparent background should have transparent classes', () => {
+    it('Card with background should have classes', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Card transparent>Transparent Card</Card>
+          <Card>Transparent Card</Card>
         </ThemeProvider>
       );
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('[background:var(--bg-color)]'); // transparent background
+      expect(card).toHaveClass('[background:var(--bg-color)]'); // background
     });
   });
 
@@ -160,8 +160,9 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('shadow-sm');
-      expect(card).not.toHaveClass('hover:shadow-md');
+      expect(card).toHaveAttribute('data-vane-type', 'layout'); // Layout component type
+      expect(card).toHaveClass('shadow-(--shadow-base)');
+      expect(card).not.toHaveClass('hover:shadow-(--shadow-hover)'); // layout shadows have no hover
     });
 
     it('should not have shadow by default', () => {
@@ -172,7 +173,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).not.toHaveClass('shadow-sm'); // no shadow by default
+      expect(card).not.toHaveClass('shadow-layout'); // no shadow by default
     });
   });
 

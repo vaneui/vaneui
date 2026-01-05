@@ -13,7 +13,6 @@ export * from './baseProps';
 export * from './sizeProps';
 export * from './appearanceProps';
 export * from './variantProps';
-export * from './transparentProps';
 export * from './shapeProps';
 
 // Typography

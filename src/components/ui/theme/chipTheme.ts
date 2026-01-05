@@ -83,5 +83,6 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   CHIP_CATEGORIES,
   (props: ChipProps) => {
     return props.href ? "a" : "span";
-  }
+  },
+  'ui'
 );

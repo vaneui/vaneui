@@ -22,7 +22,8 @@ describe('Button Component Tests', () => {
       expect(button).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
       expect(button).toHaveClass('text-(length:--fs)'); // md size
       expect(button).toHaveAttribute('data-size', 'md');
-      expect(button).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
+      expect(button).toHaveAttribute('data-vane-type', 'ui'); // UI component type
+      expect(button).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
       expect(button).toHaveClass('text-(--text-color)'); // primary appearance
       expect(button).toHaveClass('font-sans'); // sans family
       expect(button).toHaveClass('font-semibold'); // semibold weight
@@ -45,7 +46,8 @@ describe('Button Component Tests', () => {
       expect(anchor).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
       expect(anchor).toHaveClass('text-(length:--fs)'); // md size
       expect(anchor).toHaveAttribute('data-size', 'md');
-      expect(anchor).toHaveClass('shadow-sm', 'hover:shadow-md'); // shadow
+      expect(anchor).toHaveAttribute('data-vane-type', 'ui'); // UI component type
+      expect(anchor).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
       expect(anchor).toHaveClass('text-(--text-color)'); // primary appearance
       expect(anchor).toHaveClass('font-sans'); // sans family
       expect(anchor).toHaveClass('font-semibold'); // semibold weight
@@ -133,9 +135,10 @@ describe('Button Component Tests', () => {
       const btnPrimary = container.querySelector('#btn-primary');
       const btnSecondary = container.querySelector('#btn-secondary');
 
-      // These should have shadows (default button behavior)
+      // These should have shadows (default button behavior) via CSS variables
       [btnDefault, btnPrimary, btnSecondary].forEach(btn => {
-        expect(btn).toHaveClass('shadow-sm', 'hover:shadow-md');
+        expect(btn).toHaveAttribute('data-vane-type', 'ui'); // UI component type
+      expect(btn).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
       });
 
       // Note: borders would only be visible when the border prop is enabled

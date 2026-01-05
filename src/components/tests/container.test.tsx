@@ -22,10 +22,10 @@ describe('Container Component Tests', () => {
       expect(containerEl).toHaveClass('mx-auto', 'w-full', 'max-w-5xl');
     });
 
-    it('should apply transparent background correctly', () => {
+    it('should apply background correctly', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Container transparent>Transparent Container</Container>
+          <Container>Transparent Container</Container>
         </ThemeProvider>
       );
 

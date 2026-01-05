@@ -80,5 +80,7 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
     typography: defaultTypographyThemes,
   },
   themeDefaults.code,
-  CODE_CATEGORIES
+  CODE_CATEGORIES,
+  undefined,
+  'ui'
 );

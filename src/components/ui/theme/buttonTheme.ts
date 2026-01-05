@@ -82,5 +82,6 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   (props: ButtonProps) => {
     // Determine tag based on href prop
     return props.href ? "a" : "button";
-  }
+  },
+  'ui'
 );

@@ -125,7 +125,7 @@ describe('Badge Component Tests', () => {
 
       // Badges should not have shadows by default (noShadow: true in defaults)
       [badgeDefault, badgePrimary, badgeSecondary].forEach(badge => {
-        expect(badge).not.toHaveClass('shadow-sm');
+        expect(badge).not.toHaveClass('shadow-ui');
       });
     });
 

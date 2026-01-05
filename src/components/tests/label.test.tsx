@@ -253,18 +253,7 @@ describe('Label Component Tests', () => {
       expect(filledLabel).toHaveClass('text-(--text-color)');
     });
 
-    it('should support transparent appearance', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Label transparent>Transparent Label</Label>
-        </ThemeProvider>
-      );
 
-      const label = container.querySelector('label');
-      // CSS-based approach: transparent uses consumer class with data-transparent
-      expect(label).toHaveClass('text-(--text-color)');
-      expect(label).toHaveAttribute('data-transparent', 'true');
-    });
 
     it('should support custom className', () => {
       const {container} = render(

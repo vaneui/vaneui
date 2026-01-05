@@ -59,5 +59,7 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
     }
   },
   themeDefaults.row as Partial<RowProps>,
-  ROW_CATEGORIES
+  ROW_CATEGORIES,
+  undefined,
+  'layout'
 );

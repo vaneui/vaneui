@@ -295,7 +295,7 @@ export const TAG_PROPS = `
  */
 export const TRANSPARENT_PROPS = `
  * TRANSPARENCY PROPS:
- * @param props.transparent - Transparent background/border`;
+`;
 
 /**
  * List style props

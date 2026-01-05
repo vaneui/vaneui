@@ -93,10 +93,10 @@ describe('Grid5 Component Tests', () => {
       });
     });
 
-    it('should support transparent appearance', () => {
+    it('should support appearance', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Grid5 transparent>
+          <Grid5>
             <div>Item 1</div>
             <div>Item 2</div>
             <div>Item 3</div>

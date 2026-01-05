@@ -76,4 +76,6 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   },
   themeDefaults.card as Partial<CardProps>,
   CARD_CATEGORIES,
+  undefined,
+  'layout'
 );

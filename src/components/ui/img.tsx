@@ -9,7 +9,6 @@ import type {
   DisplayProps,
   OverflowProps,
   AppearanceProps,
-  TransparentProps,
   BorderProps,
   ShadowProps,
   RingProps,
@@ -29,7 +28,6 @@ export type ImgProps = BaseProps &
   DisplayProps &
   OverflowProps &
   AppearanceProps &
-  TransparentProps &
   BorderProps &
   ShadowProps &
   RingProps &

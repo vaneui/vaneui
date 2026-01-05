@@ -51,7 +51,9 @@ export const defaultGrid2Theme = new ComponentTheme<GridProps, GridTheme>(
   "vane-grid vane-grid-2 grid-cols-1 md:grid-cols-2",
   gridSubThemes,
   themeDefaults.grid2 as Partial<GridProps>,
-  GRID_CATEGORIES
+  GRID_CATEGORIES,
+  undefined,
+  'layout'
 );
 
 export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(

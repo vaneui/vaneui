@@ -66,7 +66,9 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
     }
   },
   themeDefaults.checkbox?.input || {},
-  CHECKBOX_CATEGORIES
+  CHECKBOX_CATEGORIES,
+  undefined,
+  'ui'
 );
 
 export interface CheckTheme extends BaseComponentTheme {

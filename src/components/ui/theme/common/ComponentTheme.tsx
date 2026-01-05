@@ -21,6 +21,9 @@ import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 type ThemeNode<P> = BaseTheme | ThemeMap<P>;
 
+/** Component type for CSS variable scoping - UI components have compact spacing, Layout components have generous spacing */
+export type VaneComponentType = 'ui' | 'layout';
+
 export type ThemeMap<P> = {
   [key: string]: ThemeNode<P>;
 };
@@ -73,6 +76,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly tag: React.ElementType;
   readonly base: string;
   readonly themes: TTheme;
+  readonly vaneType?: VaneComponentType;
   defaults: Partial<P>;
   extraClasses: Partial<Record<keyof P, string>>;
   private readonly categories: readonly ComponentCategoryKey[];
@@ -84,7 +88,8 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     themes: DeepPartial<TTheme>,
     defaults: Partial<P> = {},
     categories: readonly ComponentCategoryKey[],
-    tagFunction?: (props: P, defaults: Partial<P>) => React.ElementType
+    tagFunction?: (props: P, defaults: Partial<P>) => React.ElementType,
+    vaneType?: VaneComponentType
   ) {
     this.tag = tag;
     this.base = base;
@@ -92,6 +97,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     this.extraClasses = {};
     this.categories = categories;
     this.tagFunction = tagFunction;
+    this.vaneType = vaneType;
     // Type assertion: we trust that all default themes provide complete objects
     this.themes = themes as TTheme;
   }
@@ -114,7 +120,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     }
 
     // No need for border/noBorder mutual exclusion logic anymore
-    // since noBorder is now part of the border category and 
+    // since noBorder is now part of the border category and
     // pickFirstTruthyKeyByCategory handles the priority naturally
 
     const walk = (map: object) => {
@@ -183,6 +189,9 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
 
     // Build data attributes for key categories
     const dataAttributes: Record<string, string> = {};
+    if (this.vaneType) {
+      dataAttributes['data-vane-type'] = this.vaneType;
+    }
     if (extractedKeys.size) {
       dataAttributes['data-size'] = extractedKeys.size;
     }
@@ -192,9 +201,6 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     if (extractedKeys.variant) {
       dataAttributes['data-variant'] = extractedKeys.variant;
     }
-    if (extractedKeys.transparent) {
-      dataAttributes['data-transparent'] = 'true';
-    }
 
     return {
       Tag: componentTag,
@@ -203,4 +209,3 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     };
   }
 }
-

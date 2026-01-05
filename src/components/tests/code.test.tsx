@@ -58,7 +58,7 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).not.toHaveClass('shadow-sm');
+      expect(codeElement).not.toHaveClass('shadow-ui');
       expect(codeElement).toHaveClass('ring-[length:var(--rw)]');
     });
   });
@@ -309,7 +309,7 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).not.toHaveClass('shadow-sm');
+      expect(codeElement).not.toHaveClass('shadow-ui');
       expect(codeElement).toHaveClass('ring-[length:var(--rw)]');
     });
   });

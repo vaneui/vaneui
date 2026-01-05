@@ -60,4 +60,6 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
   },
   themeDefaults.container as Partial<ContainerProps>,
   CONTAINER_CATEGORIES,
+  undefined,
+  'layout'
 );

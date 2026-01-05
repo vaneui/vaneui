@@ -9,7 +9,7 @@ export const BREAKPOINT = ['breakpoint'] as const;
 /** Responsive CSS variable switching for automatic breakpoint adaptation */
 export const RESPONSIVE = ['responsive'] as const;
 /** Core visual properties including appearance colors and transparency */
-export const VISUAL_CORE = ['appearance', 'transparent'] as const;
+export const VISUAL_CORE = ['appearance'] as const;
 /** Border properties for visual decoration */
 export const BORDER = ['border'] as const;
 /** Visual decoration properties for shadows and focus rings */
@@ -114,8 +114,6 @@ export const ComponentKeys = {
   textDecoration: ['underline', 'lineThrough', 'noUnderline', 'overline'] as const,
   /** Text case transformation: UPPERCASE, lowercase, Capitalize, normalCase */
   textTransform: ['uppercase', 'lowercase', 'capitalize', 'normalCase'] as const,
-  /** Make background (layout/UI) or text (typography) transparent */
-  transparent: ['transparent'] as const,
   /** Style variant: filled (solid background) or outline (border only) */
   variant: ['filled', 'outline'] as const,
   /** Flex item wrapping behavior: wrap, no-wrap, or wrap-reverse */
@@ -128,16 +126,10 @@ export const BORDER_KEYS = ['border', 'borderT', 'borderB', 'borderL', 'borderR'
 /** Type for all border side keys (excluding noBorder) */
 export type BorderKey = typeof BORDER_KEYS[number];
 
-/** Interaction state keys for component styling modes */
-export type ModeKey = typeof import('./mode').ModeKeys.mode[number];
 /** Size scale keys: xs, sm, md, lg, xl */
 export type SizeKey = typeof ComponentKeys.size[number];
 /** Style variant keys: filled or outline */
 export type VariantKey = typeof ComponentKeys.variant[number];
-/** Color appearance keys for semantic styling */
-export type AppearanceKey = typeof ComponentKeys.appearance[number];
-/** Transparency key for making backgrounds or text transparent */
-export type TransparentKey = typeof ComponentKeys.transparent[number];
 /** List style keys for bullet points and numbering */
 export type ListStyleKey = typeof ComponentKeys.listStyle[number];
 /** Font family keys: sans, serif, mono */

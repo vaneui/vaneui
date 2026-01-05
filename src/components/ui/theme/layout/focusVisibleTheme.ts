@@ -1,7 +1,6 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
+import { CategoryProps, ModeKeys } from "../../props";
 import { ModeKey } from "../../props";
-import { ModeKeys } from "../../props/mode";
 
 export class FocusVisibleTheme extends BaseTheme implements Record<ModeKey, string> {
   /** Base focus-visible styling */

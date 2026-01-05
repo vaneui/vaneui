@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-01-05T10:12:08.232Z
+ * Generated on: 2026-01-05T15:27:13.544Z
  */
 
 export interface PropDescription {
@@ -529,15 +529,6 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "normalCase": {
         "description": "Normal text case (no transformation)"
-      }
-    }
-  },
-  "transparent": {
-    "name": "Transparent",
-    "description": "Transparent props for controlling background/border transparency",
-    "props": {
-      "transparent": {
-        "description": "Transparent background/border"
       }
     }
   },

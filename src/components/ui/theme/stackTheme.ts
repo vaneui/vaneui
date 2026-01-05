@@ -66,4 +66,6 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
   },
   themeDefaults.stack as Partial<StackProps>,
   STACK_CATEGORIES,
+  undefined,
+  'layout'
 );

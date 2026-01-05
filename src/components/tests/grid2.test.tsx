@@ -82,10 +82,10 @@ describe('Grid2 Component Tests', () => {
       });
     });
 
-    it('should support transparent appearance', () => {
+    it('should support appearance', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Grid2 transparent>
+          <Grid2>
             <div>Item 1</div>
             <div>Item 2</div>
           </Grid2>

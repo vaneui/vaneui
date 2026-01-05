@@ -172,7 +172,7 @@ describe('Chip Component Tests', () => {
 
       // Chips should not have shadows by default (noShadow: true in defaults)
       [chipDefault, chipPrimary, chipSecondary].forEach(chip => {
-        expect(chip).not.toHaveClass('shadow-sm');
+        expect(chip).not.toHaveClass('shadow-ui');
       });
     });
 

@@ -57,4 +57,6 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   },
   themeDefaults.col as Partial<ColProps>,
   COL_CATEGORIES,
+  undefined,
+  'layout'
 );

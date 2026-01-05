@@ -13,7 +13,6 @@ import type {
   FlexDirectionProps,
   ReverseProps,
   AppearanceProps,
-  TransparentProps,
   BorderProps,
   ShadowProps,
   RingProps,
@@ -37,7 +36,6 @@ export type ColProps = BaseProps &
   FlexDirectionProps &
   ReverseProps &
   AppearanceProps &
-  TransparentProps &
   BorderProps &
   ShadowProps &
   RingProps &

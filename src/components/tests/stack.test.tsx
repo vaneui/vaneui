@@ -221,10 +221,10 @@ describe('Stack Component Tests', () => {
       expect(filledStack).toHaveClass('ring-(--ring-color)');
     });
 
-    it('should support transparent background', () => {
+    it('should support background', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Stack transparent>
+          <Stack>
             Transparent Stack
           </Stack>
         </ThemeProvider>

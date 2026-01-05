@@ -51,5 +51,7 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
     },
   },
   themeDefaults.label,
-  LABEL_CATEGORIES
+  LABEL_CATEGORIES,
+  undefined,
+  'ui'
 );

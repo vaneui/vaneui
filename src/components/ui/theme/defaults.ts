@@ -291,7 +291,6 @@ export const themeDefaults: ThemeDefaults = {
       filled: true,
     },
     wrapper: {
-      transparent: true,
       md: true,
       inlineGrid: true,
       itemsCenter: true,

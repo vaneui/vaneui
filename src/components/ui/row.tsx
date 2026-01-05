@@ -14,7 +14,6 @@ import type {
   ReverseProps,
   BreakpointProps,
   AppearanceProps,
-  TransparentProps,
   BorderProps,
   ShadowProps,
   RingProps,
@@ -39,7 +38,6 @@ export type RowProps = BaseProps &
   ReverseProps &
   BreakpointProps &
   AppearanceProps &
-  TransparentProps &
   BorderProps &
   ShadowProps &
   RingProps &

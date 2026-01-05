@@ -20,6 +20,3 @@ export const ModeKeys = {
 
 /** Type for mode keys */
 export type ModeKey = typeof ModeKeys.mode[number];
-
-/** Type for all mode category keys */
-export type ModeCategoryKey = keyof typeof ModeKeys;

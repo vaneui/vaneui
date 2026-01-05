@@ -230,18 +230,7 @@ describe('Link Component Tests', () => {
       });
     });
 
-    it('should support transparent appearance', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Link href="#test" transparent>Transparent Link</Link>
-        </ThemeProvider>
-      );
 
-      const link = container.querySelector('a');
-      // CSS-based approach: data-transparent attribute + consumer class
-      expect(link).toHaveAttribute('data-transparent', 'true');
-      expect(link).toHaveClass('text-(--text-color)');
-    });
 
     it('should handle external links', () => {
       const {container} = render(

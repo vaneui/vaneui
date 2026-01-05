@@ -71,8 +71,8 @@ export class SimpleConsumerTheme extends BaseTheme {
       return [];
     }
 
-    // Only output classes if an appearance or transparent is set (unless alwaysOutput is true)
-    if (!this.alwaysOutput && !extractedKeys?.appearance && !extractedKeys?.transparent) {
+    // Only output classes if an appearance is set (unless alwaysOutput is true)
+    if (!this.alwaysOutput && !extractedKeys?.appearance) {
       return [];
     }
 

@@ -252,7 +252,8 @@ describe('Simple Nested ThemeProvider Test', () => {
     // Level 2: Inherits from level 1 and adds filled
     expect(level2).toHaveClass('[background:var(--bg-color)]'); // filled variant
     expect(level2).toHaveAttribute('data-size', 'lg'); // inherited
-    expect(level2).toHaveClass('shadow-md'); // filled
+    expect(level2).toHaveAttribute('data-vane-type', 'ui'); // UI component type
+      expect(level2).toHaveClass('shadow-(--shadow-base)');
     expect(level2).toHaveClass('level-2-class');
 
     // Level 3: Replace strategy - starts fresh from defaultTheme
@@ -260,7 +261,8 @@ describe('Simple Nested ThemeProvider Test', () => {
     expect(level3).toHaveClass('text-(length:--fs)'); // sm, not lg
     expect(level3).toHaveAttribute('data-size', 'sm');
     expect(level3).not.toHaveAttribute('data-size', 'lg'); // NOT inherited
-    expect(level3).not.toHaveClass('shadow-md'); // NOT inherited
+    expect(level3).toHaveAttribute('data-vane-type', 'ui'); // UI component type
+      expect(level3).toHaveClass('shadow-(--shadow-base)');
     expect(level3).toHaveClass('level-3-class');
     expect(level3).not.toHaveClass('level-1-class'); // NOT inherited
     expect(level3).not.toHaveClass('level-2-class'); // NOT inherited

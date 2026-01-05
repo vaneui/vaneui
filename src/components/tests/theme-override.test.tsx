@@ -119,25 +119,24 @@ describe('Theme Override Tests', () => {
       expect(filledBadge).toHaveClass('bg-green-600');
     });
 
-    it('should override ring and shadow styles correctly', () => {
+    it('should override ring styles and apply shadow classes correctly', () => {
       const overrideFunc = (theme: ThemeProps) => {
         theme.button.themes.appearance.ring.base = 'ring-orange-500';
-        if (theme.button.themes.appearance.shadow.primary) {
-          theme.button.themes.appearance.shadow.primary.md.base = 'shadow-lg shadow-orange-500/50';
-        }
         return theme;
       };
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Button>Ring & Shadow Test</Button>
+          <Button shadow>Ring & Shadow Test</Button>
         </ThemeProvider>
       );
 
       const button = container.querySelector('button');
       expect(button).toHaveClass('ring-orange-500');
-      expect(button).toHaveClass('shadow-lg');
-      expect(button).toHaveClass('shadow-orange-500/50');
+      // Shadow now uses marker class + CSS variables based on data-size
+      expect(button).toHaveAttribute('data-vane-type', 'ui'); // UI component type
+      expect(button).toHaveClass('shadow-(--shadow-base)');
+      expect(button).toHaveClass('hover:shadow-(--shadow-hover)');
     });
   });
 

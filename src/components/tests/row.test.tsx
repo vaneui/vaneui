@@ -157,10 +157,10 @@ describe('Row Component Tests', () => {
       expect(filledRow).toHaveClass('ring-(--ring-color)');
     });
 
-    it('should support transparent background', () => {
+    it('should support background', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Row transparent>
+          <Row>
             Transparent Row
           </Row>
         </ThemeProvider>

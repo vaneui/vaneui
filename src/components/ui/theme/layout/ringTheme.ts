@@ -1,7 +1,7 @@
 import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps } from "../../props";
 import { ModeKey } from "../../props";
-import { ModeKeys } from "../../props/mode";
+import { ModeKeys } from "../../props";
 
 export class RingTheme extends BaseTheme implements Record<ModeKey, string> {
   /** Base ring styling - ring with inset positioning */

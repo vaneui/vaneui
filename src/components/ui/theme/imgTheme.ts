@@ -51,5 +51,7 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
     }
   },
   themeDefaults.img,
-  IMG_CATEGORIES
+  IMG_CATEGORIES,
+  undefined,
+  'layout'
 );
