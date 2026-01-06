@@ -210,16 +210,16 @@
     /* UI type defaults (compact spacing, with hover shadows using Tailwind shadow vars) */
     [data-vane-type="ui"][data-size="xs"] { --br-unit: 1; --gap-unit: 1;   --shadow-base: var(--shadow-2xs); --shadow-hover: var(--shadow-xs); }
     [data-vane-type="ui"][data-size="sm"] { --br-unit: 1.5; --gap-unit: 1.5; --shadow-base: var(--shadow-xs);  --shadow-hover: var(--shadow-sm); }
-    [data-vane-type="ui"][data-size="md"] { --br-unit: 2; --gap-unit: 2;   --shadow-base: var(--shadow-sm);  --shadow-hover: var(--shadow); }
-    [data-vane-type="ui"][data-size="lg"] { --br-unit: 2.5; --gap-unit: 2.5; --shadow-base: var(--shadow);     --shadow-hover: var(--shadow-md); }
-    [data-vane-type="ui"][data-size="xl"] { --br-unit: 3; --gap-unit: 3;   --shadow-base: var(--shadow-md);  --shadow-hover: var(--shadow-lg); }
+    [data-vane-type="ui"][data-size="md"] { --br-unit: 2; --gap-unit: 2;   --shadow-base: var(--shadow-sm);  --shadow-hover: var(--shadow-md); }
+    [data-vane-type="ui"][data-size="lg"] { --br-unit: 2.5; --gap-unit: 2.5; --shadow-base: var(--shadow-md); --shadow-hover: var(--shadow-lg); }
+    [data-vane-type="ui"][data-size="xl"] { --br-unit: 3; --gap-unit: 3;   --shadow-base: var(--shadow-lg);  --shadow-hover: var(--shadow-xl); }
 
     /* Layout type defaults (generous spacing, static shadows using Tailwind shadow vars) */
     [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --shadow-base: var(--shadow-xs); }
     [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --shadow-base: var(--shadow-sm); }
-    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --shadow-base: var(--shadow); }
-    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 5; --shadow-base: var(--shadow-md); }
-    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 6; --shadow-base: var(--shadow-lg); }
+    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --shadow-base: var(--shadow-md); }
+    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 5; --shadow-base: var(--shadow-lg); }
+    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 6; --shadow-base: var(--shadow-xl); }
 
     /* NON-RESPONSIVE COMPONENTS */
 
