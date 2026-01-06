@@ -30,8 +30,8 @@ function App() {
             </Grid2>
           </Card>
           <Row flexWrap>
-            <Label htmlFor="appearance-primary" primary>
-              <Checkbox defaultChecked id="appearance-primary" primary />
+            <Label sm htmlFor="appearance-primary" primary>
+              <Checkbox sm defaultChecked id="appearance-primary" primary />
               Enable primary style
             </Label>
             <Label brand htmlFor="appearance-brand">
@@ -62,8 +62,8 @@ function App() {
               <Checkbox defaultChecked id="appearance-warning" warning />
               Enable warning style
             </Label>
-            <Label htmlFor="appearance-info" info>
-              <Checkbox defaultChecked id="appearance-info" info />
+            <Label xl htmlFor="appearance-info" info>
+              <Checkbox xl defaultChecked id="appearance-info" info />
               Enable info style
             </Label>
           </Row>

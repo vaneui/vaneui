@@ -20,7 +20,7 @@ describe('Button Component Tests', () => {
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
       expect(button).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
-      expect(button).toHaveClass('text-(length:--fs)'); // md size
+      expect(button).toHaveClass('text-(length:--fs-desktop)'); // md size
       expect(button).toHaveAttribute('data-size', 'md');
       expect(button).toHaveAttribute('data-vane-type', 'ui'); // UI component type
       expect(button).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
@@ -44,7 +44,7 @@ describe('Button Component Tests', () => {
       const anchor = container.querySelector('a');
       expect(anchor).toBeInTheDocument();
       expect(anchor).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
-      expect(anchor).toHaveClass('text-(length:--fs)'); // md size
+      expect(anchor).toHaveClass('text-(length:--fs-desktop)'); // md size
       expect(anchor).toHaveAttribute('data-size', 'md');
       expect(anchor).toHaveAttribute('data-vane-type', 'ui'); // UI component type
       expect(anchor).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
@@ -104,7 +104,7 @@ describe('Button Component Tests', () => {
       expect(button).toBeInTheDocument();
       expect(button).toHaveClass('text-(--text-color)'); // primary color
       expect(button).toHaveClass('[background:var(--bg-color)]'); // primary background
-      expect(button).toHaveClass('px-(--px)', 'py-(--py)'); // padding
+      expect(button).toHaveClass('px-(--px-desktop)', 'py-(--py-desktop)'); // padding
     });
 
     it('Button with secondary variant should have secondary classes', () => {
@@ -440,8 +440,8 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('px-(--px)');
-        expect(button).toHaveClass('py-(--py)');
+        expect(button).toHaveClass('px-(--px-desktop)');
+        expect(button).toHaveClass('py-(--py-desktop)');
         expect(button).toHaveAttribute('data-size', 'xs');
       });
 
@@ -453,8 +453,8 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('px-(--px)');
-        expect(button).toHaveClass('py-(--py)');
+        expect(button).toHaveClass('px-(--px-desktop)');
+        expect(button).toHaveClass('py-(--py-desktop)');
         expect(button).toHaveAttribute('data-size', 'lg');
       });
     });
@@ -476,10 +476,10 @@ describe('Button Component Tests', () => {
         const xsButton = xsContainer.querySelector('button');
         const lgButton = lgContainer.querySelector('button');
 
-        expect(xsButton).toHaveClass('gap-(--gap)');
+        expect(xsButton).toHaveClass('gap-(--gap-desktop)');
         expect(xsButton).toHaveAttribute('data-size', 'xs');
 
-        expect(lgButton).toHaveClass('gap-(--gap)');
+        expect(lgButton).toHaveClass('gap-(--gap-desktop)');
         expect(lgButton).toHaveAttribute('data-size', 'lg');
       });
     });

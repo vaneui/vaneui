@@ -69,7 +69,7 @@ describe('Link Component Tests', () => {
         const link = container.querySelector('a');
         expect(link).toHaveAttribute('data-size', prop);
         expect(link).toHaveClass('leading-(--lh)'); // line height classes
-        // Note: text-(length:--fs) class conflicts with text-(--text-color) for Link components
+        // Note: text-(length:--fs-desktop) class conflicts with text-(--text-color) for Link components
         // The font size is still applied via the CSS variable, but the utility class is not present
       });
     });

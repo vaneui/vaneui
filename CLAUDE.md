@@ -37,7 +37,7 @@ VaneUI provides two categories of components:
 - `Stack` - Vertical stacking layout
 - `Row` - Horizontal layout
 - `Col` - Column layout
-- `Grid` - CSS Grid layouts (2, 5, 6 column variants)
+- `Grid2`, `Grid3`, `Grid4`, `Grid5`, `Grid6` - CSS Grid layouts (2-6 column variants)
 - `Divider` - Visual separators
 
 **Typography Components**:
@@ -135,9 +135,10 @@ All components support a consistent prop API:
 <Button xl>Extra Large</Button>
 ```
 
-**Appearance Props**: `default`, `primary`, `secondary`, `tertiary`, `accent`, `success`, `danger`, `warning`, `info`, `link`
+**Appearance Props**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`
 ```tsx
 <Button primary>Primary</Button>
+<Button brand>Brand</Button>
 <Button secondary>Secondary</Button>
 <Button success>Success</Button>
 <Button danger>Danger</Button>
@@ -163,10 +164,10 @@ All components support a consistent prop API:
 <Title primary textCenter>Centered primary heading</Title>
 ```
 
-**Breakpoint Props** (Layout components): `mobileCol`, `tabletCol`, `laptopCol`, `desktopCol`
+**Breakpoint Props** (Layout components): `mobileCol`, `tabletCol`, `desktopCol`
 ```tsx
 <Row tabletCol>Content switches to column on tablets and below</Row>
-<Stack laptopCol gap>Stacks vertically on laptops and below</Stack>
+<Stack desktopCol gap>Stacks vertically on desktops and below</Stack>
 ```
 
 ### Responsive Design
@@ -175,13 +176,12 @@ VaneUI provides built-in responsive support through two mechanisms:
 
 #### 1. Responsive Breakpoints
 
-The library defines four breakpoints:
-- **Mobile**: `40rem` (640px)
-- **Tablet**: `48rem` (768px)
-- **Laptop**: `64rem` (1024px)
+The library defines three breakpoints:
+- **Mobile**: `48rem` (768px)
+- **Tablet**: `64rem` (1024px)
 - **Desktop**: `80rem` (1280px)
 
-Layout components (`Row`, `Stack`, `Card`) support breakpoint props for responsive layout changes:
+Layout components (`Row`, `Stack`, `Card`, `Section`) support breakpoint props for responsive layout changes:
 
 ```tsx
 // Default: horizontal row layout
@@ -200,9 +200,8 @@ Layout components (`Row`, `Stack`, `Card`) support breakpoint props for responsi
 ```
 
 **Available breakpoint props:**
-- `mobileCol` - Switches to column layout on mobile devices and below (`max-mobile: 40rem`)
-- `tabletCol` - Switches to column layout on tablet devices and below (`max-tablet: 48rem`)
-- `laptopCol` - Switches to column layout on laptop devices and below (`max-laptop: 64rem`)
+- `mobileCol` - Switches to column layout on mobile devices and below (`max-mobile: 48rem`)
+- `tabletCol` - Switches to column layout on tablet devices and below (`max-tablet: 64rem`)
 - `desktopCol` - Switches to column layout on desktop devices and below (`max-desktop: 80rem`)
 
 #### 2. Automatic Responsive Typography
@@ -210,18 +209,19 @@ Layout components (`Row`, `Stack`, `Card`) support breakpoint props for responsi
 Typography components automatically scale down on smaller screens without requiring any props:
 
 ```tsx
-// Automatically scales: 30 units on desktop → 27 on laptop → 24 on tablet
+// Automatically scales: 30 units on desktop → 27 on tablet → 24 on mobile
 <PageTitle lg>My Page</PageTitle>
 
-// Title scales: 15 units → 14 on laptop → 13 on tablet
+// Title scales: 15 units on desktop → 14 on tablet → 13 on mobile
 <Title lg>Section</Title>
 ```
 
 **Responsive scaling behavior:**
-- `PageTitle` - Large scaling range for hero headings (e.g., 36 → 33 → 30 units)
+- `PageTitle` - Large scaling range for hero headings (e.g., 30 → 27 → 24 units across desktop/tablet/mobile)
 - `SectionTitle` - Medium scaling for section headings (e.g., 24 → 22 → 20 units)
 - `Title` - Subtle scaling for smaller headings (e.g., 15 → 14 → 13 units)
 - `Text` - Fixed size by default (no automatic scaling)
+- `Section` - Responsive padding and gap (scales down on smaller screens)
 
 This ensures optimal readability across all device sizes without manual intervention.
 
@@ -530,9 +530,9 @@ md: "[--py-unit:2]"    // Sets --py-unit to 2
 // Example from PxTheme with aspect ratio (src/components/ui/theme/size/pxTheme.ts)
 xs: "[--aspect-ratio:2]"   // Sets --aspect-ratio to 2 (px is 2x py)
 
-// Example with responsive breakpoint modifiers (from FontSizeTheme.createForPageTitle())
-xs: "[--fs-unit:15] max-laptop:[--fs-unit:12] max-tablet:[--fs-unit:9]"
-// Sets different values at different breakpoints: 15 on desktop, 12 on laptop, 9 on tablet
+// Example with responsive breakpoint modifiers
+xs: "[--fs-unit:15] max-tablet:[--fs-unit:12] max-mobile:[--fs-unit:9]"
+// Sets different values at different breakpoints: 15 on desktop, 12 on tablet, 9 on mobile
 ```
 
 **Pattern:** Theme classes return arrays with both the setter and consumer:
@@ -552,9 +552,8 @@ Computed variables are calculated from unit variables in `@layer base`:
   --fs-base: calc(var(--spacing) * 0.5);  /* 0.5rem when spacing is 1rem */
 
   /* Responsive breakpoints for custom Tailwind modifiers */
-  --breakpoint-mobile: 40rem;   /* 640px */
-  --breakpoint-tablet: 48rem;   /* 768px */
-  --breakpoint-laptop: 64rem;   /* 1024px */
+  --breakpoint-mobile: 48rem;   /* 768px */
+  --breakpoint-tablet: 64rem;   /* 1024px */
   --breakpoint-desktop: 80rem;  /* 1280px */
 }
 
@@ -779,7 +778,7 @@ Components use category-based prop organization (defined in `src/components/ui/p
 ```typescript
 export const ComponentKeys = {
   size: ['xs', 'sm', 'md', 'lg', 'xl'],
-  appearance: ['default', 'primary', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info', 'link'],
+  appearance: ['primary', 'brand', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'link'],
   variant: ['filled', 'outline'],
   shape: ['rounded', 'pill', 'sharp'],
   fontFamily: ['sans', 'serif', 'mono'],
@@ -894,8 +893,8 @@ describe('MyComponent', () => {
    - Static factory methods like `PyTheme.createForUI()` provide appropriate unit values
 
 3. **Responsive Support**: Use Tailwind's responsive syntax in CSS variable classes
-   - `"[--fs-unit:15] max-laptop:[--fs-unit:12] max-tablet:[--fs-unit:9]"`
-   - Available breakpoint modifiers: `max-mobile`, `max-tablet`, `max-laptop`, `max-desktop`
+   - `"[--fs-unit:15] max-tablet:[--fs-unit:12] max-mobile:[--fs-unit:9]"`
+   - Available breakpoint modifiers: `max-mobile`, `max-tablet`, `max-desktop`
    - Typography components (PageTitle, SectionTitle, Title) use this for automatic responsive scaling
    - Layout components use BreakpointTheme for responsive flex direction changes
 

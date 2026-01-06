@@ -24,7 +24,7 @@ describe('List and ListItem Components Tests', () => {
       const list = container.querySelector('ul');
       expect(list).toBeInTheDocument();
       expect(list).toHaveClass('list-disc', 'list-inside');
-      expect(list).toHaveClass('text-(length:--fs)'); // CSS variable font size
+      expect(list).toHaveClass('text-(length:--fs-desktop)'); // CSS variable font size
       expect(list).toHaveClass('leading-(--lh)'); // CSS variable line height
       expect(list).toHaveClass('text-(--text-color)'); // primary is default
       expect(list).toHaveClass('font-sans');
@@ -41,7 +41,7 @@ describe('List and ListItem Components Tests', () => {
       );
 
       const list = container.querySelector('ul');
-      expect(list).toHaveClass('text-(length:--fs)', 'pl-(--pl)'); // lg size with CSS variable padding
+      expect(list).toHaveClass('text-(length:--fs-desktop)', 'pl-(--pl)'); // lg size with CSS variable padding
       expect(list).toHaveAttribute('data-size', 'lg');
       expect(list).toHaveClass('leading-(--lh)'); // lg line height
     });

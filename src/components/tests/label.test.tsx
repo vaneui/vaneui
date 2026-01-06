@@ -23,8 +23,8 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('cursor-default'); // cursor-default when no input
       expect(label).toHaveClass('has-[input]:cursor-pointer'); // will be cursor-pointer with input
       expect(label).toHaveClass('flex'); // flex by default
-      expect(label).toHaveClass('gap-(--gap)'); // default gap
-      expect(label).toHaveClass('text-(length:--fs)'); // CSS variable font size
+      expect(label).toHaveClass('gap-(--gap-desktop)'); // default gap
+      expect(label).toHaveClass('text-(length:--fs-desktop)'); // CSS variable font size
       expect(label).toHaveClass('text-(--text-color)'); // primary is default
       expect(label).toHaveClass('font-sans');
       expect(label).toHaveClass('font-medium');
@@ -54,7 +54,7 @@ describe('Label Component Tests', () => {
 
       const label = container.querySelector('label');
       expect(label).toBeInTheDocument();
-      expect(label).toHaveClass('flex', 'gap-(--gap)');
+      expect(label).toHaveClass('flex', 'gap-(--gap-desktop)');
       expect(label).toHaveClass('has-[input]:cursor-pointer'); // has-[input] selector applies
       expect(label).toHaveClass('cursor-default'); // base cursor class
       expect(label).toHaveAttribute('for', 'demo1');
@@ -71,11 +71,11 @@ describe('Label Component Tests', () => {
 
     it('should support different gap sizes', () => {
       const gaps = [
-        { prop: 'xs', gapClass: 'gap-(--gap)' },
-        { prop: 'sm', gapClass: 'gap-(--gap)' },
-        { prop: 'md', gapClass: 'gap-(--gap)' },
-        { prop: 'lg', gapClass: 'gap-(--gap)' },
-        { prop: 'xl', gapClass: 'gap-(--gap)' }
+        { prop: 'xs', gapClass: 'gap-(--gap-desktop)' },
+        { prop: 'sm', gapClass: 'gap-(--gap-desktop)' },
+        { prop: 'md', gapClass: 'gap-(--gap-desktop)' },
+        { prop: 'lg', gapClass: 'gap-(--gap-desktop)' },
+        { prop: 'xl', gapClass: 'gap-(--gap-desktop)' }
       ] as const;
 
       gaps.forEach(({prop, gapClass}) => {
@@ -106,16 +106,16 @@ describe('Label Component Tests', () => {
 
       const label = container.querySelector('label');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(label).not.toHaveClass('gap-(--gap)');
+      expect(label).not.toHaveClass('gap-(--gap-desktop)');
     });
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', textClass: 'text-(length:--fs)' },
-        { prop: 'sm', textClass: 'text-(length:--fs)' },
-        { prop: 'md', textClass: 'text-(length:--fs)' },
-        { prop: 'lg', textClass: 'text-(length:--fs)' },
-        { prop: 'xl', textClass: 'text-(length:--fs)' }
+        { prop: 'xs', textClass: 'text-(length:--fs-desktop)' },
+        { prop: 'sm', textClass: 'text-(length:--fs-desktop)' },
+        { prop: 'md', textClass: 'text-(length:--fs-desktop)' },
+        { prop: 'lg', textClass: 'text-(length:--fs-desktop)' },
+        { prop: 'xl', textClass: 'text-(length:--fs-desktop)' }
       ] as const;
 
       sizes.forEach(({prop, textClass}) => {

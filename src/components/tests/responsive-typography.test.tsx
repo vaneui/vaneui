@@ -66,7 +66,7 @@ describe('Responsive Typography and Layout Tests', () => {
 
       // Title xs has responsive font size scaling
       expect(title).toHaveAttribute('data-size', 'xs');
-      expect(title).toHaveClass('text-(length:--fs)');
+      expect(title).toHaveClass('text-(length:--fs-desktop)');
     });
   });
 
@@ -82,7 +82,7 @@ describe('Responsive Typography and Layout Tests', () => {
 
       // Section xl has responsive padding scaling
       expect(section).toHaveAttribute('data-size', 'xl');
-      expect(section).toHaveClass('py-(--py)');
+      expect(section).toHaveClass('py-(--py-desktop)');
     });
 
     it('should ensure minimum padding on mobile devices', () => {
@@ -180,10 +180,10 @@ describe('Responsive Typography and Layout Tests', () => {
         );
 
         const title = container.querySelector('h3');
-        expect(title).toHaveClass('[--fs-unit:var(--fs-unit-desktop)]');
-        expect(title).toHaveClass('max-tablet:[--fs-unit:var(--fs-unit-tablet)]');
-        expect(title).toHaveClass('max-mobile:[--fs-unit:var(--fs-unit-mobile)]');
-        expect(title).toHaveClass('text-(length:--fs)');
+        // Directly applies breakpoint-specific classes
+        expect(title).toHaveClass('text-(length:--fs-desktop)');
+        expect(title).toHaveClass('max-tablet:text-(length:--fs-tablet)');
+        expect(title).toHaveClass('max-mobile:text-(length:--fs-mobile)');
         });
 
       it('should have responsive font size switching classes on PageTitle', () => {
@@ -194,10 +194,10 @@ describe('Responsive Typography and Layout Tests', () => {
         );
 
         const pageTitle = container.querySelector('h1');
-        expect(pageTitle).toHaveClass('[--fs-unit:var(--fs-unit-desktop)]');
-        expect(pageTitle).toHaveClass('max-tablet:[--fs-unit:var(--fs-unit-tablet)]');
-        expect(pageTitle).toHaveClass('max-mobile:[--fs-unit:var(--fs-unit-mobile)]');
-        expect(pageTitle).toHaveClass('text-(length:--fs)');
+        // Directly applies breakpoint-specific classes
+        expect(pageTitle).toHaveClass('text-(length:--fs-desktop)');
+        expect(pageTitle).toHaveClass('max-tablet:text-(length:--fs-tablet)');
+        expect(pageTitle).toHaveClass('max-mobile:text-(length:--fs-mobile)');
         });
 
       it('should have responsive font size switching classes on SectionTitle', () => {
@@ -208,10 +208,10 @@ describe('Responsive Typography and Layout Tests', () => {
         );
 
         const sectionTitle = container.querySelector('h2');
-        expect(sectionTitle).toHaveClass('[--fs-unit:var(--fs-unit-desktop)]');
-        expect(sectionTitle).toHaveClass('max-tablet:[--fs-unit:var(--fs-unit-tablet)]');
-        expect(sectionTitle).toHaveClass('max-mobile:[--fs-unit:var(--fs-unit-mobile)]');
-        expect(sectionTitle).toHaveClass('text-(length:--fs)');
+        // Directly applies breakpoint-specific classes
+        expect(sectionTitle).toHaveClass('text-(length:--fs-desktop)');
+        expect(sectionTitle).toHaveClass('max-tablet:text-(length:--fs-tablet)');
+        expect(sectionTitle).toHaveClass('max-mobile:text-(length:--fs-mobile)');
         });
     });
 
@@ -224,10 +224,10 @@ describe('Responsive Typography and Layout Tests', () => {
         );
 
         const section = container.querySelector('div');
-        expect(section).toHaveClass('[--py-unit:var(--py-unit-desktop)]');
-        expect(section).toHaveClass('max-tablet:[--py-unit:var(--py-unit-tablet)]');
-        expect(section).toHaveClass('max-mobile:[--py-unit:var(--py-unit-mobile)]');
-        expect(section).toHaveClass('py-(--py)');
+        // Directly applies breakpoint-specific classes
+        expect(section).toHaveClass('py-(--py-desktop)');
+        expect(section).toHaveClass('max-tablet:py-(--py-tablet)');
+        expect(section).toHaveClass('max-mobile:py-(--py-mobile)');
         });
 
       it('should have responsive gap switching classes on Section with gap', () => {
@@ -238,10 +238,10 @@ describe('Responsive Typography and Layout Tests', () => {
         );
 
         const section = container.querySelector('div');
-        expect(section).toHaveClass('[--gap-unit:var(--gap-unit-desktop)]');
-        expect(section).toHaveClass('max-tablet:[--gap-unit:var(--gap-unit-tablet)]');
-        expect(section).toHaveClass('max-mobile:[--gap-unit:var(--gap-unit-mobile)]');
-        expect(section).toHaveClass('gap-(--gap)');
+        // Directly applies breakpoint-specific classes
+        expect(section).toHaveClass('gap-(--gap-desktop)');
+        expect(section).toHaveClass('max-tablet:gap-(--gap-tablet)');
+        expect(section).toHaveClass('max-mobile:gap-(--gap-mobile)');
         });
 
       it('should have both responsive py and gap classes when gap is enabled', () => {
@@ -252,16 +252,14 @@ describe('Responsive Typography and Layout Tests', () => {
         );
 
         const section = container.querySelector('div');
-        // Should have responsive py classes
-        expect(section).toHaveClass('[--py-unit:var(--py-unit-desktop)]');
-        expect(section).toHaveClass('max-tablet:[--py-unit:var(--py-unit-tablet)]');
-        expect(section).toHaveClass('max-mobile:[--py-unit:var(--py-unit-mobile)]');
-        expect(section).toHaveClass('py-(--py)');
-        // Should have responsive gap classes
-        expect(section).toHaveClass('[--gap-unit:var(--gap-unit-desktop)]');
-        expect(section).toHaveClass('max-tablet:[--gap-unit:var(--gap-unit-tablet)]');
-        expect(section).toHaveClass('max-mobile:[--gap-unit:var(--gap-unit-mobile)]');
-        expect(section).toHaveClass('gap-(--gap)');
+        // Should have responsive py classes (directly applied)
+        expect(section).toHaveClass('py-(--py-desktop)');
+        expect(section).toHaveClass('max-tablet:py-(--py-tablet)');
+        expect(section).toHaveClass('max-mobile:py-(--py-mobile)');
+        // Should have responsive gap classes (directly applied)
+        expect(section).toHaveClass('gap-(--gap-desktop)');
+        expect(section).toHaveClass('max-tablet:gap-(--gap-tablet)');
+        expect(section).toHaveClass('max-mobile:gap-(--gap-mobile)');
       });
     });
   });

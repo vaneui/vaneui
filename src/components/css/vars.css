@@ -163,7 +163,8 @@
 
 @layer base {
     [data-size] {
-        /* Breakpoint vars default to base unit */
+        /* Default: breakpoint-specific unit vars inherit from base unit vars.
+           Responsive components override these with specific numeric values. */
         --py-unit-desktop: var(--py-unit);
         --py-unit-tablet: var(--py-unit);
         --py-unit-mobile: var(--py-unit);
@@ -174,14 +175,27 @@
         --fs-unit-tablet: var(--fs-unit);
         --fs-unit-mobile: var(--fs-unit);
 
-        /* Single formulas - unit vars are switched via Tailwind classes */
-        --py: calc(var(--py-unit) * var(--spacing));
-        --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
-        --gap: calc(var(--gap-unit) * var(--spacing));
-        --fs: calc(var(--fs-unit) * var(--fs-base));
+        /* Breakpoint-specific computed variables */
+        --py-desktop: calc(var(--py-unit-desktop) * var(--spacing));
+        --py-tablet: calc(var(--py-unit-tablet) * var(--spacing));
+        --py-mobile: calc(var(--py-unit-mobile) * var(--spacing));
+
+        --px-desktop: calc(var(--aspect-ratio) * var(--py-unit-desktop) * var(--spacing));
+        --px-tablet: calc(var(--aspect-ratio) * var(--py-unit-tablet) * var(--spacing));
+        --px-mobile: calc(var(--aspect-ratio) * var(--py-unit-mobile) * var(--spacing));
+
+        --gap-desktop: calc(var(--gap-unit-desktop) * var(--spacing));
+        --gap-tablet: calc(var(--gap-unit-tablet) * var(--spacing));
+        --gap-mobile: calc(var(--gap-unit-mobile) * var(--spacing));
+
+        --fs-desktop: calc(var(--fs-unit-desktop) * var(--fs-base));
+        --fs-tablet: calc(var(--fs-unit-tablet) * var(--fs-base));
+        --fs-mobile: calc(var(--fs-unit-mobile) * var(--fs-base));
+
+        /* Non-breakpoint computed variables */
+        --pl: calc(var(--py-unit) * var(--spacing));
         --size: calc(var(--size-unit) * var(--spacing));
         --br: calc(var(--br-unit) * var(--br-base));
-        --pl: calc(var(--py-unit) * var(--spacing));
     }
 }
 
@@ -258,7 +272,9 @@
     .vane-checkbox[data-size="xl"] { --size-unit: 5; --br-unit: 1.5; }
 
     /* Label */
-    .vane-label { --lh: var(--lh-base); }
+    .vane-label {
+        --lh: var(--lh-base);
+    }
     .vane-label[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-label[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
     .vane-label[data-size="md"] { --fs-unit: var(--fs-unit-md); }

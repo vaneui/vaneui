@@ -124,7 +124,7 @@ describe('Section Component Tests', () => {
       );
 
       const section = container.querySelector('div');
-      expect(section).toHaveClass('py-(--py)');
+      expect(section).toHaveClass('py-(--py-desktop)');
     });
 
     it('should support all responsive padding sizes', () => {
@@ -144,7 +144,7 @@ describe('Section Component Tests', () => {
         );
 
         const section = container.querySelector('div');
-        expect(section).toHaveClass('py-(--py)');
+        expect(section).toHaveClass('py-(--py-desktop)');
         expect(section).toHaveAttribute('data-size', prop);
       });
     });

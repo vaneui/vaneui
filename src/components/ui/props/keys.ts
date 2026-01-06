@@ -166,15 +166,15 @@ export const RESPONSIVE_BREAKPOINT_KEYS = ['desktop', 'tablet', 'mobile'] as con
 /** Type for common responsive breakpoint keys */
 export type ResponsiveBreakpointClassKey = typeof RESPONSIVE_BREAKPOINT_KEYS[number];
 
-/** Consumer class keys for CSS variable themes */
-/** Font size theme class keys: common breakpoint keys + consumer class */
-export type FontSizeClassKey = ResponsiveBreakpointClassKey | 'fontSize';
-/** Vertical padding theme class keys: common breakpoint keys + consumer class */
-export type PyClassKey = ResponsiveBreakpointClassKey | 'py';
-/** Gap theme class keys: common breakpoint keys + consumer class */
-export type GapClassKey = ResponsiveBreakpointClassKey | 'gap';
-/** Horizontal padding theme class key: common breakpoint keys + consumer class */
-export type PxClassKey = ResponsiveBreakpointClassKey | 'px';
+/** Responsive theme class keys - breakpoint classes apply CSS properties directly */
+/** Font size theme class keys */
+export type FontSizeClassKey = ResponsiveBreakpointClassKey;
+/** Vertical padding theme class keys */
+export type PyClassKey = ResponsiveBreakpointClassKey;
+/** Gap theme class keys */
+export type GapClassKey = ResponsiveBreakpointClassKey;
+/** Horizontal padding theme class keys */
+export type PxClassKey = ResponsiveBreakpointClassKey;
 /** Left padding theme class key */
 export type PlClassKey = 'pl';
 /** Line height theme class key */

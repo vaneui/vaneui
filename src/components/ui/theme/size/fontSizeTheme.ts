@@ -2,21 +2,18 @@ import { BaseTheme } from "../common/baseTheme";
 import type { CategoryProps, FontSizeClassKey } from "../../props";
 
 /**
- * Font size theme - switches --fs-unit via breakpoint classes.
- * CSS variable values (--fs-unit-desktop/tablet/mobile) are set in vars.css.
- * The formula --fs = --fs-unit * --fs-base is computed once in CSS.
+ * Font size theme - applies text size using pre-computed breakpoint variables.
+ * CSS computes --fs-desktop/tablet/mobile from --fs-unit (with fallbacks for responsive overrides).
  */
 export class FontSizeTheme extends BaseTheme implements Record<FontSizeClassKey, string> {
-  /** Desktop breakpoint unit switch */
-  desktop: string = "[--fs-unit:var(--fs-unit-desktop)]";
-  /** Tablet breakpoint unit switch */
-  tablet: string = "max-tablet:[--fs-unit:var(--fs-unit-tablet)]";
-  /** Mobile breakpoint unit switch */
-  mobile: string = "max-mobile:[--fs-unit:var(--fs-unit-mobile)]";
-  /** Consumer class */
-  fontSize: string = "text-(length:--fs)";
+  /** Desktop: apply font size using --fs-desktop */
+  desktop: string = "text-(length:--fs-desktop)";
+  /** Tablet: apply font size using --fs-tablet */
+  tablet: string = "max-tablet:text-(length:--fs-tablet)";
+  /** Mobile: apply font size using --fs-mobile */
+  mobile: string = "max-mobile:text-(length:--fs-mobile)";
 
   getClasses(_extractedKeys: CategoryProps): string[] {
-    return [this.desktop, this.tablet, this.mobile, this.fontSize];
+    return [this.desktop, this.tablet, this.mobile];
   }
 }

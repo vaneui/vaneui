@@ -23,17 +23,17 @@ describe('Grid6 Component Tests', () => {
       expect(grid).toHaveClass('md:grid-cols-4'); // medium screens: 4 columns
       expect(grid).toHaveClass('lg:grid-cols-6'); // large screens and up: 6 columns
       expect(grid).toHaveClass('grid'); // grid display
-      expect(grid).toHaveClass('gap-(--gap)'); // default md gap
+      expect(grid).toHaveClass('gap-(--gap-desktop)'); // default md gap
       expect(grid).toHaveTextContent('Grid6 content');
     });
 
     it('should support different gap sizes', () => {
       const gaps = [
-        { prop: 'xs', class: 'gap-(--gap)' },
-        { prop: 'sm', class: 'gap-(--gap)' },
-        { prop: 'md', class: 'gap-(--gap)' },
-        { prop: 'lg', class: 'gap-(--gap)' },
-        { prop: 'xl', class: 'gap-(--gap)' }
+        { prop: 'xs', class: 'gap-(--gap-desktop)' },
+        { prop: 'sm', class: 'gap-(--gap-desktop)' },
+        { prop: 'md', class: 'gap-(--gap-desktop)' },
+        { prop: 'lg', class: 'gap-(--gap-desktop)' },
+        { prop: 'xl', class: 'gap-(--gap-desktop)' }
       ] as const;
 
       gaps.forEach(({ prop, class: expectedClass }) => {
@@ -71,7 +71,7 @@ describe('Grid6 Component Tests', () => {
 
       const grid = container.querySelector('div');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(grid).not.toHaveClass('gap-(--gap)', 'gap-(--gap)', 'gap-(--gap)', 'gap-(--gap)', 'gap-(--gap)');
+      expect(grid).not.toHaveClass('gap-(--gap-desktop)', 'gap-(--gap-desktop)', 'gap-(--gap-desktop)', 'gap-(--gap-desktop)', 'gap-(--gap-desktop)');
     });
 
     it('should support background appearance variants', () => {
@@ -369,7 +369,7 @@ describe('Grid6 Component Tests', () => {
         'sm:grid-cols-2', // small screens
         'md:grid-cols-4', // medium screens
         'lg:grid-cols-6', // large screens and up
-        'gap-(--gap)', // lg gap
+        'gap-(--gap-desktop)', // lg gap
         'max-mobile:hidden' // hidden on mobile screens
       );
     });
