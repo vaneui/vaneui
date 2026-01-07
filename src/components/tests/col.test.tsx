@@ -91,7 +91,7 @@ describe('Col Component Tests', () => {
       );
 
       const col = container.querySelector('div');
-      expect(col).toHaveClass('[background:var(--bg-color)]');
+      expect(col).toHaveClass('bg-(--bg-color)');
     });
 
     it('should support appearance variants for text color', () => {
@@ -132,8 +132,8 @@ describe('Col Component Tests', () => {
       expect(filledCol).toHaveClass('text-(--text-color)');
       
       // Background colors
-      expect(outlineCol).toHaveClass('[background:var(--bg-color)]');
-      expect(filledCol).toHaveClass('[background:var(--bg-color)]');
+      expect(outlineCol).toHaveClass('bg-(--bg-color)');
+      expect(filledCol).toHaveClass('bg-(--bg-color)');
       
       // Border colors
       expect(outlineCol).toHaveClass('border-(--border-color)');
@@ -154,7 +154,7 @@ describe('Col Component Tests', () => {
       );
 
       const col = container.querySelector('div');
-      expect(col).toHaveClass('[background:var(--bg-color)]');
+      expect(col).toHaveClass('bg-(--bg-color)');
     });
 
     it('should support visual decoration props', () => {

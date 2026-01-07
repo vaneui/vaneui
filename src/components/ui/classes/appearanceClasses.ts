@@ -5,11 +5,14 @@
    data-appearance and data-variant attributes.
    ========================================== */
 
-/** Background consumer classes - consume --bg-color, --bg-hover-color, --bg-active-color */
+/** Background consumer classes - consume --bg-color, --bg-hover-color, --bg-active-color
+ * Uses bg-() syntax (background-color) instead of [background:] shorthand
+ * to allow gradient overrides via className without conflicts.
+ */
 export const bgConsumerClasses = {
-  base: "[background:var(--bg-color)]",
-  hover: "hover:[background:var(--bg-hover-color)]",
-  active: "active:[background:var(--bg-active-color)]",
+  base: "bg-(--bg-color)",
+  hover: "hover:bg-(--bg-hover-color)",
+  active: "active:bg-(--bg-active-color)",
 } as const;
 
 /** Text color consumer class - consumes --text-color */

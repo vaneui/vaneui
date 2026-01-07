@@ -639,7 +639,7 @@ describe('Theme Override Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('bg-teal-500');
-        expect(button).not.toHaveClass('[background:var(--bg-color)]');
+        expect(button).not.toHaveClass('bg-(--bg-color)');
       });
 
       it('should override background hover consumer class', () => {
@@ -656,7 +656,7 @@ describe('Theme Override Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('hover:bg-teal-600');
-        expect(button).not.toHaveClass('hover:[background:var(--bg-hover-color)]');
+        expect(button).not.toHaveClass('hover:bg-(--bg-hover-color)');
       });
 
       it('should override background active consumer class', () => {
@@ -673,7 +673,7 @@ describe('Theme Override Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('active:bg-teal-700');
-        expect(button).not.toHaveClass('active:[background:var(--bg-active-color)]');
+        expect(button).not.toHaveClass('active:bg-(--bg-active-color)');
       });
 
       it('should override all background consumer states at once', () => {

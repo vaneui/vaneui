@@ -89,7 +89,7 @@ describe('Grid5 Component Tests', () => {
         );
 
         const grid = container.querySelector('div');
-        expect(grid).toHaveClass('[background:var(--bg-color)]');
+        expect(grid).toHaveClass('bg-(--bg-color)');
       });
     });
 
@@ -107,7 +107,7 @@ describe('Grid5 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('[background:var(--bg-color)]');
+      expect(grid).toHaveClass('bg-(--bg-color)');
     });
 
     it('should support position variants', () => {

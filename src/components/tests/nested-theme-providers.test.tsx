@@ -150,7 +150,7 @@ describe('Nested ThemeProvider Tests', () => {
       const innerButton = container.querySelector('.inner-button');
 
       // Outer button should have primary appearance and its extra classes
-      expect(outerButton).toHaveClass('[background:var(--bg-color)]');
+      expect(outerButton).toHaveClass('bg-(--bg-color)');
       expect(outerButton).toHaveClass('transform', 'hover:scale-105');
 
       // Inner button should have lg size and its extra classes from inner override
@@ -245,11 +245,11 @@ describe('Nested ThemeProvider Tests', () => {
       const outerBadge2 = container.querySelector('.outer-badge-2');
 
       // Outer badges should have success appearance
-      expect(outerBadge1).toHaveClass('[background:var(--bg-color)]');
-      expect(outerBadge2).toHaveClass('[background:var(--bg-color)]');
+      expect(outerBadge1).toHaveClass('bg-(--bg-color)');
+      expect(outerBadge2).toHaveClass('bg-(--bg-color)');
 
       // Inner badge should have danger appearance
-      expect(innerBadge).toHaveClass('[background:var(--bg-color)]');
+      expect(innerBadge).toHaveClass('bg-(--bg-color)');
       expect(innerBadge).toHaveAttribute('data-appearance', 'danger');
     });
   });
@@ -318,7 +318,7 @@ describe('Nested ThemeProvider Tests', () => {
 
       // Outer button checks
       // outline variant = true from themeOverride + primary & lg from themeDefaults
-      expect(outerButton).toHaveClass('[background:var(--bg-color)]'); // outline variant with primary appearance
+      expect(outerButton).toHaveClass('bg-(--bg-color)'); // outline variant with primary appearance
       expect(outerButton).toHaveClass('border-(--border-color)'); // primary from defaults
       expect(outerButton).toHaveClass('text-(length:--fs-desktop)'); // lg from defaults
       expect(outerButton).toHaveAttribute('data-size', 'lg');
@@ -326,7 +326,7 @@ describe('Nested ThemeProvider Tests', () => {
 
       // Inner button checks
       // filled variant = true from themeOverride + secondary & sm from themeDefaults
-      expect(innerButton).toHaveClass('[background:var(--bg-color)]'); // filled variant with secondary appearance
+      expect(innerButton).toHaveClass('bg-(--bg-color)'); // filled variant with secondary appearance
       expect(innerButton).toHaveAttribute('data-variant', 'filled'); // filled variant from themeOverride
       expect(innerButton).toHaveClass('text-(length:--fs-desktop)'); // sm from defaults
       expect(innerButton).toHaveAttribute('data-size', 'sm');

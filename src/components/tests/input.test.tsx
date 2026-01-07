@@ -36,7 +36,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('[background:var(--bg-color)]'); // primary background
+      expect(input).toHaveClass('bg-(--bg-color)'); // primary background
       expect(input).toHaveClass('text-(--text-color)'); // primary text
       // Note: border classes only appear when border prop is explicitly set
     });
@@ -81,7 +81,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('[background:var(--bg-color)]'); // primary background
+      expect(input).toHaveClass('bg-(--bg-color)'); // primary background
       expect(input).toHaveClass('text-(--text-color)'); // primary text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // primary ring
@@ -97,7 +97,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('[background:var(--bg-color)]'); // secondary background
+      expect(input).toHaveClass('bg-(--bg-color)'); // secondary background
       expect(input).toHaveClass('text-(--text-color)'); // secondary text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // secondary ring
@@ -113,7 +113,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('[background:var(--bg-color)]'); // success background
+      expect(input).toHaveClass('bg-(--bg-color)'); // success background
       expect(input).toHaveClass('text-(--text-color)'); // success text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // success ring
@@ -129,7 +129,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('[background:var(--bg-color)]'); // danger background
+      expect(input).toHaveClass('bg-(--bg-color)'); // danger background
       expect(input).toHaveClass('text-(--text-color)'); // danger text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // danger ring
@@ -145,7 +145,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('[background:var(--bg-color)]'); // warning background
+      expect(input).toHaveClass('bg-(--bg-color)'); // warning background
       expect(input).toHaveClass('text-(--text-color)'); // warning text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // warning ring
@@ -221,7 +221,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('[background:var(--bg-color)]'); // filled background
+      expect(input).toHaveClass('bg-(--bg-color)'); // filled background
       expect(input).toHaveClass('text-(--text-color)'); // filled text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // filled ring
@@ -237,7 +237,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('[background:var(--bg-color)]'); // outline background (not filled)
+      expect(input).toHaveClass('bg-(--bg-color)'); // outline background (not filled)
       expect(input).toHaveClass('text-(--text-color)'); // outline text
       // Border classes only appear when border prop is set
     });
@@ -343,7 +343,7 @@ describe('Input Component Tests', () => {
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('custom-input-class');
       expect(input).toHaveClass('w-full', 'transition-all'); // still has component classes
-      expect(input).toHaveClass('[background:var(--bg-color)]'); // still has primary classes
+      expect(input).toHaveClass('bg-(--bg-color)'); // still has primary classes
     });
 
     it('should support custom tag override', () => {
@@ -385,7 +385,7 @@ describe('Input Component Tests', () => {
       expect(input).toHaveAttribute('data-size', 'lg');
 
       // Success filled appearance classes
-      expect(input).toHaveClass('[background:var(--bg-color)]');
+      expect(input).toHaveClass('bg-(--bg-color)');
       expect(input).toHaveClass('text-(--text-color)');
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)');
@@ -418,7 +418,7 @@ describe('Input Component Tests', () => {
       expect(input).toHaveAttribute('aria-label', 'Username input');
       expect(input).toHaveAttribute('aria-describedby', 'username-help');
       expect(input).toHaveAttribute('required');
-      expect(input).toHaveClass('[background:var(--bg-color)]'); // danger appearance
+      expect(input).toHaveClass('bg-(--bg-color)'); // danger appearance
     });
   });
 

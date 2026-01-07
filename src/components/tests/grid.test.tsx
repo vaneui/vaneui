@@ -120,8 +120,8 @@ describe('Grid Components Tests', () => {
       expect(filledGrid).toHaveClass('text-(--text-color)');
       
       // Background colors
-      expect(outlineGrid).toHaveClass('[background:var(--bg-color)]');
-      expect(filledGrid).toHaveClass('[background:var(--bg-color)]');
+      expect(outlineGrid).toHaveClass('bg-(--bg-color)');
+      expect(filledGrid).toHaveClass('bg-(--bg-color)');
     });
     it('should support shape variants', () => {
       const {container: roundedContainer} = render(
@@ -298,8 +298,8 @@ describe('Grid Components Tests', () => {
       expect(filledGrid).toHaveClass('text-(--text-color)');
       
       // Background colors
-      expect(outlineGrid).toHaveClass('[background:var(--bg-color)]');
-      expect(filledGrid).toHaveClass('[background:var(--bg-color)]');
+      expect(outlineGrid).toHaveClass('bg-(--bg-color)');
+      expect(filledGrid).toHaveClass('bg-(--bg-color)');
     });
 
     it('should support custom className', () => {

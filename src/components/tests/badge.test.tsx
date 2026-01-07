@@ -40,7 +40,7 @@ describe('Badge Component Tests', () => {
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveClass('text-(--text-color)'); // primary color
-      expect(badge).toHaveClass('[background:var(--bg-color)]'); // primary background
+      expect(badge).toHaveClass('bg-(--bg-color)'); // primary background
     });
 
     it('Badge with secondary variant should have secondary classes', () => {
@@ -53,7 +53,7 @@ describe('Badge Component Tests', () => {
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveClass('text-(--text-color)'); // secondary color
-      expect(badge).toHaveClass('[background:var(--bg-color)]'); // secondary background
+      expect(badge).toHaveClass('bg-(--bg-color)'); // secondary background
     });
 
     it('Badge with success variant should have success classes', () => {
@@ -66,7 +66,7 @@ describe('Badge Component Tests', () => {
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveClass('text-(--text-color)'); // success color
-      expect(badge).toHaveClass('[background:var(--bg-color)]'); // success background
+      expect(badge).toHaveClass('bg-(--bg-color)'); // success background
     });
 
     it('Badge with danger variant should have danger classes', () => {
@@ -79,7 +79,7 @@ describe('Badge Component Tests', () => {
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveClass('text-(--text-color)'); // danger color
-      expect(badge).toHaveClass('[background:var(--bg-color)]'); // danger background
+      expect(badge).toHaveClass('bg-(--bg-color)'); // danger background
     });
   });
 
@@ -156,7 +156,7 @@ describe('Badge Component Tests', () => {
 
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
-      expect(badge).toHaveClass('[background:var(--bg-color)]'); // filled variant shows background
+      expect(badge).toHaveClass('bg-(--bg-color)'); // filled variant shows background
     });
 
     it('should render with outline variant when specified', () => {

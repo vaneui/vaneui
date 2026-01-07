@@ -30,7 +30,7 @@ describe('Container Component Tests', () => {
       );
 
       const containerEl = container.querySelector('div');
-      expect(containerEl).toHaveClass('[background:var(--bg-color)]');
+      expect(containerEl).toHaveClass('bg-(--bg-color)');
     });
 
     it('should apply default background correctly', () => {
@@ -41,7 +41,7 @@ describe('Container Component Tests', () => {
       );
 
       const containerEl = container.querySelector('div');
-      expect(containerEl).toHaveClass('[background:var(--bg-color)]');
+      expect(containerEl).toHaveClass('bg-(--bg-color)');
     });
 
     it('should support different appearance variants for background', () => {
@@ -57,7 +57,7 @@ describe('Container Component Tests', () => {
         );
 
         const containerEl = container.querySelector('div');
-        expect(containerEl).toHaveClass('[background:var(--bg-color)]');
+        expect(containerEl).toHaveClass('bg-(--bg-color)');
       });
     });
 
@@ -99,8 +99,8 @@ describe('Container Component Tests', () => {
       expect(filledContainer1).toHaveClass('text-(--text-color)');
       
       // Background colors
-      expect(outlineContainer1).toHaveClass('[background:var(--bg-color)]');
-      expect(filledContainer1).toHaveClass('[background:var(--bg-color)]');
+      expect(outlineContainer1).toHaveClass('bg-(--bg-color)');
+      expect(filledContainer1).toHaveClass('bg-(--bg-color)');
       
       // Border colors
       expect(outlineContainer1).toHaveClass('border-(--border-color)');
