@@ -19,7 +19,7 @@ describe('Stack Component Tests', () => {
 
       const stack = container.querySelector('div');
       expect(stack).toBeInTheDocument();
-      expect(stack).toHaveClass('px-(--px-desktop)', 'py-(--py-desktop)', 'gap-(--gap-desktop)', 'flex', 'flex-wrap', 'flex-col');
+      expect(stack).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col');
     });
 
     it('should apply row direction when row prop is true', () => {
@@ -89,9 +89,9 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).not.toHaveClass('gap-(--gap-desktop)');
+      expect(stack).not.toHaveClass('gap-(--gap)');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(stack).not.toHaveClass('gap-(--gap-desktop)');
+      expect(stack).not.toHaveClass('gap-(--gap)');
     });
 
     it('should support no padding option', () => {
@@ -104,9 +104,9 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).not.toHaveClass('px-(--px-desktop)');
-      expect(stack).not.toHaveClass('px-(--px-desktop)'); // no px padding classes
-      expect(stack).not.toHaveClass('py-(--py-desktop)'); // no py padding classes
+      expect(stack).not.toHaveClass('px-(--px)');
+      expect(stack).not.toHaveClass('px-(--px)'); // no px padding classes
+      expect(stack).not.toHaveClass('py-(--py)'); // no py padding classes
     });
 
     it('should support flex alignment properties', () => {
@@ -257,7 +257,7 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('px-(--px-desktop)', 'py-(--py-desktop)', 'gap-(--gap-desktop)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
+      expect(stack).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
       expect(stack).toHaveClass('custom-stack-class'); // custom class
     });
 
@@ -324,8 +324,8 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('px-(--px-desktop)');
-        expect(stack).toHaveClass('py-(--py-desktop)');
+        expect(stack).toHaveClass('px-(--px)');
+        expect(stack).toHaveClass('py-(--py)');
         expect(stack).toHaveAttribute('data-size', 'xs');
       });
 
@@ -337,8 +337,8 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('px-(--px-desktop)');
-        expect(stack).toHaveClass('py-(--py-desktop)');
+        expect(stack).toHaveClass('px-(--px)');
+        expect(stack).toHaveClass('py-(--py)');
         expect(stack).toHaveAttribute('data-size', 'lg');
       });
     });
@@ -352,7 +352,7 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('gap-(--gap-desktop)');
+        expect(stack).toHaveClass('gap-(--gap)');
         expect(stack).toHaveAttribute('data-size', 'xs');
       });
 
@@ -364,7 +364,7 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('gap-(--gap-desktop)');
+        expect(stack).toHaveClass('gap-(--gap)');
         expect(stack).toHaveAttribute('data-size', 'xl');
       });
     });

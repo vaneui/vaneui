@@ -20,7 +20,7 @@ describe('Text Component Tests', () => {
       const text = container.querySelector('p');
       expect(text).toBeInTheDocument();
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
-      expect(text).toHaveClass('text-(length:--fs-desktop)'); // CSS variable font size
+      expect(text).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(text).toHaveClass('text-(--text-color)'); // primary is default
       expect(text).toHaveClass('font-sans');
       // No default font weight; variants like medium/bold are opt-in
@@ -29,11 +29,11 @@ describe('Text Component Tests', () => {
 
     it('should apply different size classes', () => {
       const sizes = [
-        { prop: 'xs', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'sm', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'md', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'lg', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'xl', textClass: 'text-(length:--fs-desktop)' }
+        { prop: 'xs', textClass: 'text-(length:--fs)' },
+        { prop: 'sm', textClass: 'text-(length:--fs)' },
+        { prop: 'md', textClass: 'text-(length:--fs)' },
+        { prop: 'lg', textClass: 'text-(length:--fs)' },
+        { prop: 'xl', textClass: 'text-(length:--fs)' }
       ] as const;
 
       sizes.forEach(({prop, textClass}) => {
@@ -295,7 +295,7 @@ describe('Text Component Tests', () => {
       );
 
       const text = container.querySelector('p');
-      expect(text).toHaveClass('text-(length:--fs-desktop)', 'font-sans'); // theme classes (no default color)
+      expect(text).toHaveClass('text-(length:--fs)', 'font-sans'); // theme classes (no default color)
       expect(text).toHaveClass('custom-text-class'); // custom class
     });
 
@@ -397,7 +397,7 @@ describe('Text Component Tests', () => {
       expect(anchor).toHaveClass('text-(--text-color)'); // primary color
       expect(anchor).toHaveClass('font-semibold'); // font weight
       expect(anchor).toHaveAttribute('data-size', 'lg');
-      // Note: text-(length:--fs-desktop) class appears to be conflicting with text-(--text-color)
+      // Note: text-(length:--fs) class appears to be conflicting with text-(--text-color)
       // The font size is still applied via the CSS variable, but the utility class is not present
       expect(anchor).toHaveClass('font-sans'); // default font family
       expect(anchor).toHaveClass('leading-(--lh)'); // line height variable

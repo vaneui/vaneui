@@ -1,11 +1,13 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps, PxClassKey } from "../../props";
+import type { CategoryProps, ResponsiveBreakpointClassKey } from "../../props";
 
 /**
- * Horizontal padding theme - applies px using pre-computed breakpoint variables.
- * CSS computes --px-desktop/tablet/mobile from --py-unit and --aspect-ratio.
+ * Horizontal padding theme - applies px using CSS variables.
+ * Uses breakpoint-specific variables when responsive=true, otherwise uses simple --px variable.
  */
-export class PxTheme extends BaseTheme implements Record<PxClassKey, string> {
+export class PxTheme extends BaseTheme implements Record<ResponsiveBreakpointClassKey, string> {
+  /** Base: apply horizontal padding using --px (non-responsive) */
+  base: string = "px-(--px)";
   /** Desktop: apply horizontal padding using --px-desktop */
   desktop: string = "px-(--px-desktop)";
   /** Tablet: apply horizontal padding using --px-tablet */
@@ -15,7 +17,12 @@ export class PxTheme extends BaseTheme implements Record<PxClassKey, string> {
 
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
-      return [this.desktop, this.tablet, this.mobile];
+      // Use breakpoint-specific classes if responsive=true
+      if (extractedKeys?.responsive === 'responsive') {
+        return [this.desktop, this.tablet, this.mobile];
+      }
+      // Otherwise use simple --px variable
+      return [this.base];
     }
     return [];
   }

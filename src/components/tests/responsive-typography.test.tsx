@@ -58,7 +58,7 @@ describe('Responsive Typography and Layout Tests', () => {
     it('should maintain readability with smallest responsive font sizes', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Title xs>Small Title</Title>
+          <Title xs responsive>Small Title</Title>
         </ThemeProvider>
       );
 
@@ -74,7 +74,7 @@ describe('Responsive Typography and Layout Tests', () => {
     it('should apply responsive padding to Section components', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Section xl>Large Section with Responsive Padding</Section>
+          <Section xl responsive>Large Section with Responsive Padding</Section>
         </ThemeProvider>
       );
 
@@ -175,7 +175,7 @@ describe('Responsive Typography and Layout Tests', () => {
       it('should have responsive font size switching classes on Title', () => {
         const { container } = render(
           <ThemeProvider theme={defaultTheme}>
-            <Title md>Responsive Title</Title>
+            <Title md responsive>Responsive Title</Title>
           </ThemeProvider>
         );
 
@@ -189,7 +189,7 @@ describe('Responsive Typography and Layout Tests', () => {
       it('should have responsive font size switching classes on PageTitle', () => {
         const { container } = render(
           <ThemeProvider theme={defaultTheme}>
-            <PageTitle md>Responsive Page Title</PageTitle>
+            <PageTitle md responsive>Responsive Page Title</PageTitle>
           </ThemeProvider>
         );
 
@@ -203,7 +203,7 @@ describe('Responsive Typography and Layout Tests', () => {
       it('should have responsive font size switching classes on SectionTitle', () => {
         const { container } = render(
           <ThemeProvider theme={defaultTheme}>
-            <SectionTitle md>Responsive Section Title</SectionTitle>
+            <SectionTitle md responsive>Responsive Section Title</SectionTitle>
           </ThemeProvider>
         );
 
@@ -219,7 +219,7 @@ describe('Responsive Typography and Layout Tests', () => {
       it('should have responsive py switching classes on Section', () => {
         const { container } = render(
           <ThemeProvider theme={defaultTheme}>
-            <Section md>Responsive Section Padding</Section>
+            <Section md responsive>Responsive Section Padding</Section>
           </ThemeProvider>
         );
 
@@ -233,7 +233,7 @@ describe('Responsive Typography and Layout Tests', () => {
       it('should have responsive gap switching classes on Section with gap', () => {
         const { container } = render(
           <ThemeProvider theme={defaultTheme}>
-            <Section md gap>Responsive Section Gap</Section>
+            <Section md gap responsive>Responsive Section Gap</Section>
           </ThemeProvider>
         );
 
@@ -247,7 +247,7 @@ describe('Responsive Typography and Layout Tests', () => {
       it('should have both responsive py and gap classes when gap is enabled', () => {
         const { container } = render(
           <ThemeProvider theme={defaultTheme}>
-            <Section lg gap>Section with Gap</Section>
+            <Section lg gap responsive>Section with Gap</Section>
           </ThemeProvider>
         );
 

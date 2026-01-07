@@ -22,7 +22,7 @@ describe('Title Components Tests', () => {
       const title = container.querySelector('h3');
       expect(title).toBeInTheDocument();
       expect(title).toHaveClass('text-balance', 'w-fit');
-      expect(title).toHaveClass('text-(length:--fs-desktop)'); // CSS variable font size
+      expect(title).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(title).toHaveClass('text-(--text-color)'); // primary is default
       expect(title).toHaveClass('font-sans');
       expect(title).toHaveClass('font-semibold');
@@ -68,11 +68,11 @@ describe('Title Components Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'sm', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'md', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'lg', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'xl', textClass: 'text-(length:--fs-desktop)' }
+        { prop: 'xs', textClass: 'text-(length:--fs)' },
+        { prop: 'sm', textClass: 'text-(length:--fs)' },
+        { prop: 'md', textClass: 'text-(length:--fs)' },
+        { prop: 'lg', textClass: 'text-(length:--fs)' },
+        { prop: 'xl', textClass: 'text-(length:--fs)' }
       ] as const;
 
       sizes.forEach(({prop, textClass}) => {
@@ -146,7 +146,7 @@ describe('Title Components Tests', () => {
       );
 
       const title = container.querySelector('h3');
-      expect(title).toHaveClass('text-(length:--fs-desktop)', 'font-semibold'); // theme classes with responsive sizing
+      expect(title).toHaveClass('text-(length:--fs)', 'font-semibold'); // theme classes with responsive sizing
       expect(title).toHaveClass('custom-title-class'); // custom class
     });
 
@@ -174,7 +174,7 @@ describe('Title Components Tests', () => {
       const pageTitle = container.querySelector('h1');
       expect(pageTitle).toBeInTheDocument();
       expect(pageTitle).toHaveClass('text-balance', 'tracking-tight', 'w-fit');
-      expect(pageTitle).toHaveClass('text-(length:--fs-desktop)'); // CSS variable font size
+      expect(pageTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(pageTitle).toHaveClass('text-(--text-color)'); // primary is default
       expect(pageTitle).toHaveClass('font-sans');
       expect(pageTitle).toHaveClass('font-semibold');
@@ -193,11 +193,11 @@ describe('Title Components Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'sm', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'md', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'lg', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'xl', textClass: 'text-(length:--fs-desktop)' }
+        { prop: 'xs', textClass: 'text-(length:--fs)' },
+        { prop: 'sm', textClass: 'text-(length:--fs)' },
+        { prop: 'md', textClass: 'text-(length:--fs)' },
+        { prop: 'lg', textClass: 'text-(length:--fs)' },
+        { prop: 'xl', textClass: 'text-(length:--fs)' }
       ] as const;
 
       sizes.forEach(({prop, textClass}) => {
@@ -269,7 +269,7 @@ describe('Title Components Tests', () => {
       );
 
       const pageTitle = container.querySelector('h1');
-      expect(pageTitle).toHaveClass('text-(length:--fs-desktop)', 'font-semibold', 'tracking-tight'); // theme classes with responsive sizing
+      expect(pageTitle).toHaveClass('text-(length:--fs)', 'font-semibold', 'tracking-tight'); // theme classes with responsive sizing
       expect(pageTitle).toHaveClass('custom-page-title-class'); // custom class
     });
 
@@ -297,7 +297,7 @@ describe('Title Components Tests', () => {
       const sectionTitle = container.querySelector('h2');
       expect(sectionTitle).toBeInTheDocument();
       expect(sectionTitle).toHaveClass('text-balance', 'w-fit');
-      expect(sectionTitle).toHaveClass('text-(length:--fs-desktop)'); // CSS variable font size
+      expect(sectionTitle).toHaveClass('text-(length:--fs)'); // CSS variable font size
       expect(sectionTitle).toHaveClass('text-(--text-color)'); // primary is default
       expect(sectionTitle).toHaveClass('font-sans');
       expect(sectionTitle).toHaveClass('font-semibold');
@@ -316,11 +316,11 @@ describe('Title Components Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'sm', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'md', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'lg', textClass: 'text-(length:--fs-desktop)' },
-        { prop: 'xl', textClass: 'text-(length:--fs-desktop)' }
+        { prop: 'xs', textClass: 'text-(length:--fs)' },
+        { prop: 'sm', textClass: 'text-(length:--fs)' },
+        { prop: 'md', textClass: 'text-(length:--fs)' },
+        { prop: 'lg', textClass: 'text-(length:--fs)' },
+        { prop: 'xl', textClass: 'text-(length:--fs)' }
       ] as const;
 
       sizes.forEach(({prop, textClass}) => {
@@ -414,7 +414,7 @@ describe('Title Components Tests', () => {
       );
 
       const sectionTitle = container.querySelector('h2');
-      expect(sectionTitle).toHaveClass('text-(length:--fs-desktop)', 'font-semibold'); // theme classes with responsive sizing
+      expect(sectionTitle).toHaveClass('text-(length:--fs)', 'font-semibold'); // theme classes with responsive sizing
       expect(sectionTitle).toHaveClass('custom-section-title-class'); // custom class
     });
 
@@ -432,11 +432,11 @@ describe('Title Components Tests', () => {
 
     it('should apply correct line height based on text size for Title', () => {
       const sizes = [
-        { prop: 'xs', fontSizeClass: 'text-(length:--fs-desktop)', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'sm', fontSizeClass: 'text-(length:--fs-desktop)', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'md', fontSizeClass: 'text-(length:--fs-desktop)', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'lg', fontSizeClass: 'text-(length:--fs-desktop)', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'xl', fontSizeClass: 'text-(length:--fs-desktop)', lineHeightClass: 'leading-(--lh)' }
+        { prop: 'xs', fontSizeClass: 'text-(length:--fs)', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'sm', fontSizeClass: 'text-(length:--fs)', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'md', fontSizeClass: 'text-(length:--fs)', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'lg', fontSizeClass: 'text-(length:--fs)', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'xl', fontSizeClass: 'text-(length:--fs)', lineHeightClass: 'leading-(--lh)' }
       ] as const;
 
       sizes.forEach(({prop, fontSizeClass, lineHeightClass}) => {

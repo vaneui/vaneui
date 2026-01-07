@@ -25,7 +25,9 @@ import type {
   FontFamilyProps,
   TextAlignProps,
   PaddingProps,
-  VariantProps
+  VariantProps,
+  TransparentProps,
+  ResponsiveProps
 } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
@@ -57,6 +59,8 @@ export type InputProps = BaseProps &
   TextAlignProps &
   PaddingProps &
   VariantProps &
+  TransparentProps &
+    ResponsiveProps &
   Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

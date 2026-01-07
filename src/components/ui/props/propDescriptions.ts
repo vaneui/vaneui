@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-01-06T18:39:10.301Z
+ * Generated on: 2026-01-07T15:25:29.797Z
  */
 
 export interface PropDescription {
@@ -400,6 +400,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "responsive": {
+    "name": "Responsive",
+    "description": "Responsive prop for enabling breakpoint-specific sizing",
+    "props": {
+      "responsive": {
+        "description": "Enable responsive sizing - uses breakpoint-specific classes for font size, padding, and gap"
+      }
+    }
+  },
   "reverse": {
     "name": "Reverse",
     "description": "Reverse props for reversing child order",
@@ -520,6 +529,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "normalCase": {
         "description": "Normal text case (no transformation)"
+      }
+    }
+  },
+  "transparent": {
+    "name": "Transparent",
+    "description": "Transparent prop for disabling background color",
+    "props": {
+      "transparent": {
+        "description": "Disable background color - makes component background transparent"
       }
     }
   },

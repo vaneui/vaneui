@@ -25,7 +25,9 @@ import type {
   FontFamilyProps,
   TextAlignProps,
   PaddingProps,
-  VariantProps
+  VariantProps,
+  TransparentProps,
+  ResponsiveProps
 } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
@@ -59,6 +61,8 @@ export type ButtonProps = BaseProps &
   TextAlignProps &
   PaddingProps &
   VariantProps &
+  TransparentProps &
+    ResponsiveProps &
   Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */

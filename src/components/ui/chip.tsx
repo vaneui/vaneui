@@ -25,7 +25,9 @@ import type {
   FontFamilyProps,
   TextAlignProps,
   PaddingProps,
-  VariantProps
+  VariantProps,
+  TransparentProps,
+  ResponsiveProps
 } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
@@ -57,6 +59,8 @@ export type ChipProps = BaseProps &
   TextAlignProps &
   PaddingProps &
   VariantProps &
+  TransparentProps &
+    ResponsiveProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */

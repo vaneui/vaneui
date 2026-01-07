@@ -18,7 +18,9 @@ import type {
   ShadowProps,
   RingProps,
   ShapeProps,
-  VariantProps
+  VariantProps,
+  TransparentProps,
+  ResponsiveProps
 } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
@@ -43,6 +45,8 @@ export type RowProps = BaseProps &
   RingProps &
   ShapeProps &
   VariantProps &
+  TransparentProps &
+    ResponsiveProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

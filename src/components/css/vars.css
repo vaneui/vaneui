@@ -196,6 +196,10 @@
         --pl: calc(var(--py-unit) * var(--spacing));
         --size: calc(var(--size-unit) * var(--spacing));
         --br: calc(var(--br-unit) * var(--br-base));
+        --py: calc(var(--py-unit) * var(--spacing));
+        --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
+        --gap: calc(var(--gap-unit) * var(--spacing));
+        --fs: calc(var(--fs-unit) * var(--fs-base));
     }
 }
 

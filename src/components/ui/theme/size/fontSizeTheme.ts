@@ -1,11 +1,13 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps, FontSizeClassKey } from "../../props";
+import type { CategoryProps, ResponsiveBreakpointClassKey } from "../../props";
 
 /**
- * Font size theme - applies text size using pre-computed breakpoint variables.
- * CSS computes --fs-desktop/tablet/mobile from --fs-unit (with fallbacks for responsive overrides).
+ * Font size theme - applies text size using CSS variables.
+ * Uses breakpoint-specific variables when responsive=true, otherwise uses simple --fs variable.
  */
-export class FontSizeTheme extends BaseTheme implements Record<FontSizeClassKey, string> {
+export class FontSizeTheme extends BaseTheme implements Record<ResponsiveBreakpointClassKey, string> {
+  /** Base: apply font size using --fs (non-responsive) */
+  base: string = "text-(length:--fs)";
   /** Desktop: apply font size using --fs-desktop */
   desktop: string = "text-(length:--fs-desktop)";
   /** Tablet: apply font size using --fs-tablet */
@@ -13,7 +15,12 @@ export class FontSizeTheme extends BaseTheme implements Record<FontSizeClassKey,
   /** Mobile: apply font size using --fs-mobile */
   mobile: string = "max-mobile:text-(length:--fs-mobile)";
 
-  getClasses(_extractedKeys: CategoryProps): string[] {
-    return [this.desktop, this.tablet, this.mobile];
+  getClasses(extractedKeys: CategoryProps): string[] {
+    // Use breakpoint-specific classes if responsive=true
+    if (extractedKeys?.responsive === 'responsive') {
+      return [this.desktop, this.tablet, this.mobile];
+    }
+    // Otherwise use simple --fs variable
+    return [this.base];
   }
 }

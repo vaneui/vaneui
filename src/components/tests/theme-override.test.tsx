@@ -169,16 +169,16 @@ describe('Theme Override Tests', () => {
       // All buttons get the overridden classes (no variant distinction)
       expect(primaryDefault).toHaveClass('bg-custom-secondary'); // from themeOverride
       expect(primaryDefault).toHaveClass('text-custom-primary'); // from themeOverride
-      expect(primaryDefault).toHaveClass('text-(length:--fs-desktop)'); // font size consumer class
+      expect(primaryDefault).toHaveClass('text-(length:--fs)'); // font size consumer class
       expect(primaryDefault).toHaveClass('rounded-(--br)'); // rounded shape
 
       // Secondary filled should use custom background
       expect(secondaryFilled).toHaveClass('bg-custom-secondary'); // from themeOverride
-      expect(secondaryFilled).toHaveClass('text-(length:--fs-desktop)'); // font size consumer class
+      expect(secondaryFilled).toHaveClass('text-(length:--fs)'); // font size consumer class
 
       // Primary outline should use custom text color
       expect(primaryOutline).toHaveClass('text-custom-primary'); // from themeOverride
-      expect(primaryOutline).toHaveClass('text-(length:--fs-desktop)'); // font size consumer class
+      expect(primaryOutline).toHaveClass('text-(length:--fs)'); // font size consumer class
     });
 
     it('should handle complex theme override and defaults combinations', () => {
@@ -219,11 +219,11 @@ describe('Theme Override Tests', () => {
       expect(button).toHaveClass('border-[length:var(--bw)]'); // border width from BorderTheme
       expect(button).toHaveClass('border-indigo-400');
       expect(button).toHaveClass('font-semibold'); // from themeDefaults
-      expect(button).toHaveClass('text-(length:--fs-desktop)'); // font size consumer class
+      expect(button).toHaveClass('text-(length:--fs)'); // font size consumer class
 
       // Badge should have overridden text and default styling
       expect(badge).toHaveClass('text-pink-600'); // from themeOverride
-      expect(badge).toHaveClass('text-(length:--fs-desktop)'); // font size consumer class
+      expect(badge).toHaveClass('text-(length:--fs)'); // font size consumer class
       expect(badge).toHaveClass('rounded-full'); // pill maps to rounded-full
     });
 
@@ -259,11 +259,11 @@ describe('Theme Override Tests', () => {
 
       // Outer button uses outer theme override and defaults
       expect(outerButton).toHaveClass('text-red-500'); // from outer override
-      expect(outerButton).toHaveClass('text-(length:--fs-desktop)'); // font size consumer class
+      expect(outerButton).toHaveClass('text-(length:--fs)'); // font size consumer class
 
       // Inner button uses inner theme override and defaults
       expect(innerButton).toHaveClass('bg-blue-500'); // from inner override
-      expect(innerButton).toHaveClass('text-(length:--fs-desktop)'); // font size consumer class
+      expect(innerButton).toHaveClass('text-(length:--fs)'); // font size consumer class
       // Note: filled variant uses white text by default, outer text override may not be visible
     });
 
@@ -326,15 +326,15 @@ describe('Theme Override Tests', () => {
       const lgButton = container.querySelector('.size-test-lg');
 
       // Buttons should have consumer classes (CSS variables are set in vars.css)
-      expect(mdButton).toHaveClass('text-(length:--fs-desktop)'); // FontSizeTheme CSS variable consumer
-      expect(mdButton).toHaveClass('px-(--px-desktop)'); // PxTheme CSS variable consumer
-      expect(mdButton).toHaveClass('py-(--py-desktop)'); // PyTheme CSS variable consumer
+      expect(mdButton).toHaveClass('text-(length:--fs)'); // FontSizeTheme CSS variable consumer
+      expect(mdButton).toHaveClass('px-(--px)'); // PxTheme CSS variable consumer
+      expect(mdButton).toHaveClass('py-(--py)'); // PyTheme CSS variable consumer
       expect(mdButton).toHaveClass('bg-emerald-500'); // overridden background
 
       // LG button should have same consumer classes
-      expect(lgButton).toHaveClass('text-(length:--fs-desktop)');
-      expect(lgButton).toHaveClass('px-(--px-desktop)');
-      expect(lgButton).toHaveClass('py-(--py-desktop)');
+      expect(lgButton).toHaveClass('text-(length:--fs)');
+      expect(lgButton).toHaveClass('px-(--px)');
+      expect(lgButton).toHaveClass('py-(--py)');
       expect(lgButton).toHaveClass('bg-emerald-500'); // same background override
     });
 
@@ -357,9 +357,9 @@ describe('Theme Override Tests', () => {
       expect(lgButton).toHaveAttribute('data-size', 'lg');
 
       // All buttons should have consumer classes
-      expect(smButton).toHaveClass('px-(--px-desktop)');
-      expect(mdButton).toHaveClass('px-(--px-desktop)');
-      expect(lgButton).toHaveClass('px-(--px-desktop)');
+      expect(smButton).toHaveClass('px-(--px)');
+      expect(mdButton).toHaveClass('px-(--px)');
+      expect(lgButton).toHaveClass('px-(--px)');
     });
 
     it('should output CSS variable consumer classes consistently', () => {
@@ -374,12 +374,12 @@ describe('Theme Override Tests', () => {
       const mdButton = container.querySelector('.md-button');
 
       // Both buttons should have same consumer classes (values set via CSS)
-      expect(smButton).toHaveClass('py-(--py-desktop)');
-      expect(mdButton).toHaveClass('py-(--py-desktop)');
-      expect(smButton).toHaveClass('px-(--px-desktop)');
-      expect(mdButton).toHaveClass('px-(--px-desktop)');
-      expect(smButton).toHaveClass('text-(length:--fs-desktop)');
-      expect(mdButton).toHaveClass('text-(length:--fs-desktop)');
+      expect(smButton).toHaveClass('py-(--py)');
+      expect(mdButton).toHaveClass('py-(--py)');
+      expect(smButton).toHaveClass('px-(--px)');
+      expect(mdButton).toHaveClass('px-(--px)');
+      expect(smButton).toHaveClass('text-(length:--fs)');
+      expect(mdButton).toHaveClass('text-(length:--fs)');
     });
   });
   describe('Size and Layout Theme Class Field Overrides', () => {
@@ -393,13 +393,13 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Button>Custom Font Size</Button>
+          <Button responsive>Custom Font Size</Button>
         </ThemeProvider>
       );
 
       const button = container.querySelector('button');
       expect(button).toHaveClass('text-xl');
-      expect(button).not.toHaveClass('text-(length:--fs-desktop)');
+      expect(button).not.toHaveClass('text-(length:--fs)');
     });
 
     it('should override py breakpoint class', () => {
@@ -412,13 +412,13 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Button>Custom Padding Y</Button>
+          <Button responsive>Custom Padding Y</Button>
         </ThemeProvider>
       );
 
       const button = container.querySelector('button');
       expect(button).toHaveClass('py-6');
-      expect(button).not.toHaveClass('py-(--py-desktop)');
+      expect(button).not.toHaveClass('py-(--py)');
     });
 
     it('should override px breakpoint class', () => {
@@ -431,13 +431,13 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Button>Custom Padding X</Button>
+          <Button responsive>Custom Padding X</Button>
         </ThemeProvider>
       );
 
       const button = container.querySelector('button');
       expect(button).toHaveClass('px-10');
-      expect(button).not.toHaveClass('px-(--px-desktop)');
+      expect(button).not.toHaveClass('px-(--px)');
     });
 
     it('should override lineHeight consumer class', () => {
@@ -484,7 +484,7 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Stack gap className="custom-stack">
+          <Stack gap responsive className="custom-stack">
             <div>Item 1</div>
             <div>Item 2</div>
           </Stack>
@@ -493,7 +493,7 @@ describe('Theme Override Tests', () => {
 
       const stack = container.querySelector('.custom-stack');
       expect(stack).toHaveClass('gap-8');
-      expect(stack).not.toHaveClass('gap-(--gap-desktop)');
+      expect(stack).not.toHaveClass('gap-(--gap)');
     });
 
     it('should override multiple size theme fields simultaneously', () => {
@@ -514,7 +514,7 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Button rounded>Fully Customized</Button>
+          <Button rounded responsive>Fully Customized</Button>
         </ThemeProvider>
       );
 
@@ -525,9 +525,9 @@ describe('Theme Override Tests', () => {
       expect(button).toHaveClass('leading-relaxed');
       expect(button).toHaveClass('rounded-lg');
       // Should not have default consumer classes
-      expect(button).not.toHaveClass('text-(length:--fs-desktop)');
-      expect(button).not.toHaveClass('py-(--py-desktop)');
-      expect(button).not.toHaveClass('px-(--px-desktop)');
+      expect(button).not.toHaveClass('text-(length:--fs)');
+      expect(button).not.toHaveClass('py-(--py)');
+      expect(button).not.toHaveClass('px-(--px)');
       expect(button).not.toHaveClass('leading-(--lh)');
       expect(button).not.toHaveClass('rounded-(--br)');
     });
@@ -542,7 +542,7 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Row gap className="custom-row">
+          <Row gap responsive className="custom-row">
             <div>Item 1</div>
             <div>Item 2</div>
           </Row>
@@ -551,10 +551,194 @@ describe('Theme Override Tests', () => {
 
       const row = container.querySelector('.custom-row');
       expect(row).toHaveClass('gap-12');
-      expect(row).not.toHaveClass('gap-(--gap-desktop)');
+      expect(row).not.toHaveClass('gap-(--gap)');
     });
   });
 
+
+  describe('Base Field Override Tests (Non-Responsive)', () => {
+    it('should override fontSize base class for non-responsive button', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.text.base = 'text-lg';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button>Custom Font Size</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('text-lg');
+      expect(button).not.toHaveClass('text-(length:--fs)');
+    });
+
+    it('should override py base class for non-responsive button', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.py.base = 'py-4';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button>Custom Padding Y</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('py-4');
+      expect(button).not.toHaveClass('py-(--py)');
+    });
+
+    it('should override px base class for non-responsive button', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.px.base = 'px-8';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button>Custom Padding X</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('px-8');
+      expect(button).not.toHaveClass('px-(--px)');
+    });
+
+    it('should override gap base class for non-responsive Stack', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.stack.themes.size.gap.base = 'gap-6';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Stack gap className="custom-stack">
+            <div>Item 1</div>
+            <div>Item 2</div>
+          </Stack>
+        </ThemeProvider>
+      );
+
+      const stack = container.querySelector('.custom-stack');
+      expect(stack).toHaveClass('gap-6');
+      expect(stack).not.toHaveClass('gap-(--gap)');
+    });
+
+    it('should override gap base class for non-responsive Row', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.row.themes.size.gap.base = 'gap-10';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Row gap className="custom-row">
+            <div>Item 1</div>
+            <div>Item 2</div>
+          </Row>
+        </ThemeProvider>
+      );
+
+      const row = container.querySelector('.custom-row');
+      expect(row).toHaveClass('gap-10');
+      expect(row).not.toHaveClass('gap-(--gap)');
+    });
+
+    it('should override multiple base fields simultaneously for non-responsive button', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.text.base = 'text-xl';
+        theme.button.themes.size.py.base = 'py-3';
+        theme.button.themes.size.px.base = 'px-6';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button>Fully Custom Sizing</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('text-xl');
+      expect(button).toHaveClass('py-3');
+      expect(button).toHaveClass('px-6');
+      expect(button).not.toHaveClass('text-(length:--fs)');
+      expect(button).not.toHaveClass('py-(--py)');
+      expect(button).not.toHaveClass('px-(--px)');
+    });
+
+    it('should use base class when not responsive, breakpoint classes when responsive', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.text.base = 'text-base';
+        theme.button.themes.size.text.desktop = 'text-2xl';
+        theme.button.themes.size.text.tablet = 'max-tablet:text-xl';
+        theme.button.themes.size.text.mobile = 'max-mobile:text-lg';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button className="non-responsive">Non-Responsive</Button>
+          <Button responsive className="responsive">Responsive</Button>
+        </ThemeProvider>
+      );
+
+      const nonResponsive = container.querySelector('.non-responsive');
+      const responsive = container.querySelector('.responsive');
+
+      // Non-responsive should use base
+      expect(nonResponsive).toHaveClass('text-base');
+      expect(nonResponsive).not.toHaveClass('text-2xl');
+      expect(nonResponsive).not.toHaveClass('max-tablet:text-xl');
+      expect(nonResponsive).not.toHaveClass('max-mobile:text-lg');
+
+      // Responsive should use breakpoint classes
+      expect(responsive).toHaveClass('text-2xl');
+      expect(responsive).toHaveClass('max-tablet:text-xl');
+      expect(responsive).toHaveClass('max-mobile:text-lg');
+      expect(responsive).not.toHaveClass('text-base');
+    });
+
+    it('should override base gap for Card component', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.card.themes.size.gap.base = 'gap-4';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Card gap className="custom-card">
+            <div>Item 1</div>
+            <div>Item 2</div>
+          </Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('.custom-card');
+      expect(card).toHaveClass('gap-4');
+      expect(card).not.toHaveClass('gap-(--gap)');
+    });
+
+    it('should allow empty string to disable base class output', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        theme.button.themes.size.text.base = '';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button>No Font Size Class</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).not.toHaveClass('text-(length:--fs)');
+    });
+  });
 
   describe('SimpleConsumerTheme Override Tests', () => {
     describe('Text Color Consumer Theme Overrides', () => {

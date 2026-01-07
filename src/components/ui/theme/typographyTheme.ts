@@ -45,6 +45,7 @@ export const createTypographyComponentTheme = (
   fontSizeTheme: FontSizeTheme = new FontSizeTheme(),
   defaults: Partial<TypographyProps> = {},
   lineHeightTheme: LineHeightTheme = new LineHeightTheme(),
+  categories: typeof TYPOGRAPHY_CATEGORIES = TYPOGRAPHY_CATEGORIES,
 ): ComponentTheme<TypographyProps, TypographyTheme> => {
   return new ComponentTheme<TypographyProps, TypographyTheme>(
     tag,
@@ -61,7 +62,7 @@ export const createTypographyComponentTheme = (
       layout: defaultLayoutsThemes,
     },
     defaults,
-    TYPOGRAPHY_CATEGORIES,
+    categories,
     (props: TypographyProps) => {
       // Determine tag based on href prop
       return props.href ? "a" : tag;
@@ -74,7 +75,8 @@ export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = 
   "vane-page-title text-balance tracking-tight w-fit",
   new FontSizeTheme(),
   mergeDefaults(themeDefaults.pageTitle as Record<string, boolean>, {semibold: true}),
-  new LineHeightTheme()
+  new LineHeightTheme(),
+  TYPOGRAPHY_CATEGORIES
 );
 
 // Section title specific theme - uses responsive font size
@@ -83,7 +85,8 @@ export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyTheme>
   "vane-section-title text-balance w-fit",
   new FontSizeTheme(),
   mergeDefaults(themeDefaults.sectionTitle as Record<string, boolean>, {semibold: true}),
-  new LineHeightTheme()
+  new LineHeightTheme(),
+  TYPOGRAPHY_CATEGORIES
 );
 
 // Title specific theme - uses responsive font size
@@ -92,7 +95,8 @@ export const titleTheme: ComponentTheme<TypographyProps, TypographyTheme> = crea
   "vane-title text-balance w-fit",
   new FontSizeTheme(),
   mergeDefaults(themeDefaults.title as Record<string, boolean>, {semibold: true}),
-  new LineHeightTheme()
+  new LineHeightTheme(),
+  TYPOGRAPHY_CATEGORIES
 );
 
 // Text specific theme

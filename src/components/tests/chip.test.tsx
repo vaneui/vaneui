@@ -20,7 +20,7 @@ describe('Chip Component Tests', () => {
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
       expect(chip).toHaveClass('w-fit', 'h-fit', 'whitespace-nowrap');
-      expect(chip).toHaveClass('text-(length:--fs-desktop)'); // md size
+      expect(chip).toHaveClass('text-(length:--fs)'); // md size
       expect(chip).toHaveAttribute('data-size', 'md');
       expect(chip).toHaveClass('text-(--text-color)'); // secondary appearance (default for chip)
       expect(chip).toHaveClass('font-mono'); // mono font for chip
@@ -92,7 +92,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-(length:--fs-desktop)', 'px-(--px-desktop)', 'py-(--py-desktop)', 'gap-(--gap-desktop)');
+      expect(chip).toHaveClass('text-(length:--fs)', 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
       expect(chip).toHaveAttribute('data-size', 'xs');
     });
 
@@ -104,7 +104,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-(length:--fs-desktop)', 'px-(--px-desktop)', 'py-(--py-desktop)', 'gap-(--gap-desktop)');
+      expect(chip).toHaveClass('text-(length:--fs)', 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
       expect(chip).toHaveAttribute('data-size', 'lg');
     });
 
@@ -116,7 +116,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-(length:--fs-desktop)', 'px-(--px-desktop)', 'py-(--py-desktop)', 'gap-(--gap-desktop)');
+      expect(chip).toHaveClass('text-(length:--fs)', 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
       expect(chip).toHaveAttribute('data-size', 'xl');
     });
   });
@@ -305,8 +305,8 @@ describe('Chip Component Tests', () => {
         );
 
         const chip = container.querySelector('span');
-        expect(chip).toHaveClass('px-(--px-desktop)');
-        expect(chip).toHaveClass('py-(--py-desktop)');
+        expect(chip).toHaveClass('px-(--px)');
+        expect(chip).toHaveClass('py-(--py)');
         expect(chip).toHaveAttribute('data-size', 'xs');
       });
     });
@@ -320,7 +320,7 @@ describe('Chip Component Tests', () => {
         );
 
         const chip = container.querySelector('span');
-        expect(chip).toHaveClass('gap-(--gap-desktop)');
+        expect(chip).toHaveClass('gap-(--gap)');
         expect(chip).toHaveAttribute('data-size', 'xs');
       });
     });

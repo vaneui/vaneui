@@ -1,11 +1,13 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps, GapClassKey } from "../../props";
+import type { CategoryProps, ResponsiveBreakpointClassKey } from "../../props";
 
 /**
- * Gap theme - applies gap using pre-computed breakpoint variables.
- * CSS computes --gap-desktop/tablet/mobile from --gap-unit (with fallbacks for responsive overrides).
+ * Gap theme - applies gap using CSS variables.
+ * Uses breakpoint-specific variables when responsive=true, otherwise uses simple --gap variable.
  */
-export class GapTheme extends BaseTheme implements Record<GapClassKey, string> {
+export class GapTheme extends BaseTheme implements Record<ResponsiveBreakpointClassKey, string> {
+  /** Base: apply gap using --gap (non-responsive) */
+  base: string = "gap-(--gap)";
   /** Desktop: apply gap using --gap-desktop */
   desktop: string = "gap-(--gap-desktop)";
   /** Tablet: apply gap using --gap-tablet */
@@ -15,7 +17,12 @@ export class GapTheme extends BaseTheme implements Record<GapClassKey, string> {
 
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.gap === 'gap') {
-      return [this.desktop, this.tablet, this.mobile];
+      // Use breakpoint-specific classes if responsive=true
+      if (extractedKeys?.responsive === 'responsive') {
+        return [this.desktop, this.tablet, this.mobile];
+      }
+      // Otherwise use simple --gap variable
+      return [this.base];
     }
     return [];
   }

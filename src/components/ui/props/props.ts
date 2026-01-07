@@ -46,6 +46,10 @@ export * from './overflowProps';
 // Responsive
 export * from './breakpointProps';
 export * from './hideProps';
+export * from './responsiveProps';
+
+// Visual modifiers
+export * from './transparentProps';
 
 // List
 export * from './listStyleProps';

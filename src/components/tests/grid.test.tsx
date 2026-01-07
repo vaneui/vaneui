@@ -24,7 +24,7 @@ describe('Grid Components Tests', () => {
       expect(grid).toHaveClass('grid-cols-1'); // mobile and small screens: 1 column
       expect(grid).toHaveClass('md:grid-cols-2'); // medium screens and up: 2 columns
       expect(grid).toHaveClass('grid');
-      expect(grid).toHaveClass('gap-(--gap-desktop)'); // default md gap
+      expect(grid).toHaveClass('gap-(--gap)'); // default md gap
       expect(grid).toHaveTextContent('Grid2 content');
     });
   });
@@ -39,7 +39,7 @@ describe('Grid Components Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--gap-desktop)', 'grid');
+      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--gap)', 'grid');
     });
 
     it('should render consistently', () => {
@@ -64,9 +64,9 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).not.toHaveClass('gap-(--gap-desktop)');
+      expect(grid).not.toHaveClass('gap-(--gap)');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(grid).not.toHaveClass('gap-(--gap-desktop)', 'gap-(--gap-desktop)', 'gap-(--gap-desktop)', 'gap-(--gap-desktop)', 'gap-(--gap-desktop)');
+      expect(grid).not.toHaveClass('gap-(--gap)');
     });
 
     it('should support flex properties for grid items', () => {
@@ -162,7 +162,7 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--gap-desktop)', 'grid'); // theme classes
+      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--gap)', 'grid'); // theme classes
       expect(grid).toHaveClass('custom-grid3-class'); // custom class
     });
 
@@ -191,7 +191,7 @@ describe('Grid Components Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--gap-desktop)', 'grid');
+      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--gap)', 'grid');
     });
 
     it('should render consistently', () => {
@@ -216,9 +216,9 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).not.toHaveClass('gap-(--gap-desktop)');
+      expect(grid).not.toHaveClass('gap-(--gap)');
       // With new GapTheme, noGap applies no gap classes instead of gap-0
-      expect(grid).not.toHaveClass('gap-(--gap-desktop)', 'gap-(--gap-desktop)', 'gap-(--gap-desktop)', 'gap-(--gap-desktop)', 'gap-(--gap-desktop)');
+      expect(grid).not.toHaveClass('gap-(--gap)');
     });
 
     it('should support flex properties for grid items', () => {
@@ -312,7 +312,7 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--gap-desktop)', 'grid'); // theme classes
+      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--gap)', 'grid'); // theme classes
       expect(grid).toHaveClass('custom-grid4-class'); // custom class
     });
 
@@ -352,8 +352,8 @@ describe('Grid Components Tests', () => {
       expect(grid4).toHaveClass('lg:grid-cols-4');
       
       // Both should share common grid properties
-      expect(grid3).toHaveClass('grid', 'gap-(--gap-desktop)');
-      expect(grid4).toHaveClass('grid', 'gap-(--gap-desktop)');
+      expect(grid3).toHaveClass('grid', 'gap-(--gap)');
+      expect(grid4).toHaveClass('grid', 'gap-(--gap)');
     });
   });
 });

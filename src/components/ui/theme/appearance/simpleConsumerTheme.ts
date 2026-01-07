@@ -71,6 +71,11 @@ export class SimpleConsumerTheme extends BaseTheme {
       return [];
     }
 
+    // Handle transparent prop - don't output background classes if transparent is true
+    if (this.category === 'bg' && extractedKeys.transparent === 'transparent') {
+      return [];
+    }
+
     // Only output classes if an appearance is set (unless alwaysOutput is true)
     if (!this.alwaysOutput && !extractedKeys?.appearance) {
       return [];
