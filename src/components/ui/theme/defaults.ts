@@ -92,6 +92,7 @@ export const themeDefaults: ThemeDefaults = {
     noRing: true,
     noShadow: true,
     sharp: true,
+    responsive: true,
   },
 
   stack: {
@@ -227,6 +228,7 @@ export const themeDefaults: ThemeDefaults = {
     textLeft: true,
     outline: true,
     primary: true,
+    responsive: true,
   },
 
   pageTitle: {
@@ -236,6 +238,7 @@ export const themeDefaults: ThemeDefaults = {
     textLeft: true,
     outline: true,
     primary: true,
+    responsive: true,
   },
 
   sectionTitle: {
@@ -245,6 +248,7 @@ export const themeDefaults: ThemeDefaults = {
     textLeft: true,
     outline: true,
     primary: true,
+    responsive: true,
   },
 
   link: {

@@ -124,7 +124,7 @@ describe('Section Component Tests', () => {
       );
 
       const section = container.querySelector('div');
-      expect(section).toHaveClass('py-(--py)');
+      expect(section).toHaveClass('py-(--py-desktop)');
     });
 
     it('should support all responsive padding sizes', () => {
@@ -144,9 +144,79 @@ describe('Section Component Tests', () => {
         );
 
         const section = container.querySelector('div');
-        expect(section).toHaveClass('py-(--py)');
+        expect(section).toHaveClass('py-(--py-desktop)');
         expect(section).toHaveAttribute('data-size', prop);
       });
     });
   });
+  describe('Responsive Breakpoint Classes', () => {
+    it('should have all responsive py breakpoint classes by default', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Section>Responsive Section</Section>
+        </ThemeProvider>
+      );
+
+      const section = container.querySelector('div');
+      // Section is responsive by default, should have all breakpoint classes for py
+      expect(section).toHaveClass('py-(--py-desktop)');
+      expect(section).toHaveClass('max-tablet:py-(--py-tablet)');
+      expect(section).toHaveClass('max-mobile:py-(--py-mobile)');
+    });
+
+    it('should have all responsive gap breakpoint classes by default', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Section>Responsive Section with Gap</Section>
+        </ThemeProvider>
+      );
+
+      const section = container.querySelector('div');
+      // Section is responsive by default, should have all breakpoint classes for gap
+      expect(section).toHaveClass('gap-(--gap-desktop)');
+      expect(section).toHaveClass('max-tablet:gap-(--gap-tablet)');
+      expect(section).toHaveClass('max-mobile:gap-(--gap-mobile)');
+    });
+
+    it('should have all responsive breakpoint classes for all sizes', () => {
+      const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+      sizes.forEach((size) => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Section {...{[size]: true}}>{size} Section</Section>
+          </ThemeProvider>
+        );
+
+        const section = container.querySelector('div');
+
+        // All sizes should have responsive breakpoint classes
+        expect(section).toHaveClass('py-(--py-desktop)');
+        expect(section).toHaveClass('max-tablet:py-(--py-tablet)');
+        expect(section).toHaveClass('max-mobile:py-(--py-mobile)');
+        expect(section).toHaveClass('gap-(--gap-desktop)');
+        expect(section).toHaveClass('max-tablet:gap-(--gap-tablet)');
+        expect(section).toHaveClass('max-mobile:gap-(--gap-mobile)');
+        expect(section).toHaveAttribute('data-size', size);
+      });
+    });
+
+    it('should use base classes when responsive is explicitly disabled', () => {
+      const { container } = render(
+        <ThemeProvider
+          themeDefaults={{ section: { responsive: false } }}
+        >
+          <Section>Non-responsive Section</Section>
+        </ThemeProvider>
+      );
+
+      const section = container.querySelector('div');
+      // When responsive is false, should use base classes
+      expect(section).toHaveClass('py-(--py)');
+      expect(section).toHaveClass('gap-(--gap)');
+      expect(section).not.toHaveClass('py-(--py-desktop)');
+      expect(section).not.toHaveClass('gap-(--gap-desktop)');
+    });
+  });
+
 });
