@@ -66,7 +66,9 @@ export const createTypographyComponentTheme = (
     (props: TypographyProps) => {
       // Determine tag based on href prop
       return props.href ? "a" : tag;
-    });
+    },
+    'ui'
+  );
 };
 
 // Page title specific theme - uses responsive font size
@@ -123,7 +125,9 @@ export const linkTheme: ComponentTheme<TypographyProps, LinkTheme> = new Compone
     layout: defaultLayoutsThemes,
   },
   themeDefaults.link as Partial<TypographyProps>,
-  TYPOGRAPHY_CATEGORIES
+  TYPOGRAPHY_CATEGORIES,
+  undefined,
+  'ui'
 );
 
 // ListItem specific theme
@@ -142,7 +146,9 @@ export const listItemTheme: ComponentTheme<TypographyProps, TypographyTheme> = n
     layout: defaultLayoutsThemes,
   },
   themeDefaults.listItem as Partial<TypographyProps>,
-  TYPOGRAPHY_CATEGORIES
+  TYPOGRAPHY_CATEGORIES,
+  undefined,
+  'ui'
 );
 
 export interface ListTheme extends BaseTypographyComponentTheme {
@@ -185,5 +191,6 @@ export const listTheme: ComponentTheme<ListProps, ListTheme> = new ComponentThem
     const hasDecimal = componentProps?.decimal;
 
     return hasDecimal ? "ol" : "ul";
-  }
+  },
+  'ui'
 );

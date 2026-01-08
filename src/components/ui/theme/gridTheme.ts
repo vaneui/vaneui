@@ -61,7 +61,9 @@ export const defaultGrid3Theme = new ComponentTheme<GridProps, GridTheme>(
   "vane-grid vane-grid-3 grid-cols-1 md:grid-cols-3",
   gridSubThemes,
   themeDefaults.grid3 as Partial<GridProps>,
-  GRID_CATEGORIES
+  GRID_CATEGORIES,
+  undefined,
+  'layout'
 );
 
 export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
@@ -69,7 +71,9 @@ export const defaultGrid4Theme = new ComponentTheme<GridProps, GridTheme>(
   "vane-grid vane-grid-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
   gridSubThemes,
   themeDefaults.grid4 as Partial<GridProps>,
-  GRID_CATEGORIES
+  GRID_CATEGORIES,
+  undefined,
+  'layout'
 );
 
 export const defaultGrid5Theme = new ComponentTheme<GridProps, GridTheme>(
@@ -77,7 +81,9 @@ export const defaultGrid5Theme = new ComponentTheme<GridProps, GridTheme>(
   "vane-grid vane-grid-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5",
   gridSubThemes,
   themeDefaults.grid5 as Partial<GridProps>,
-  GRID_CATEGORIES
+  GRID_CATEGORIES,
+  undefined,
+  'layout'
 );
 
 export const defaultGrid6Theme = new ComponentTheme<GridProps, GridTheme>(
@@ -85,5 +91,7 @@ export const defaultGrid6Theme = new ComponentTheme<GridProps, GridTheme>(
   "vane-grid vane-grid-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6",
   gridSubThemes,
   themeDefaults.grid6 as Partial<GridProps>,
-  GRID_CATEGORIES
+  GRID_CATEGORIES,
+  undefined,
+  'layout'
 );

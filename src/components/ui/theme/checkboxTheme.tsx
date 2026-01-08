@@ -107,7 +107,9 @@ export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
     },
   },
   themeDefaults.checkbox?.check || {},
-  CHECKBOX_CATEGORIES
+  CHECKBOX_CATEGORIES,
+  undefined,
+  'ui'
 );
 
 export interface CheckboxWrapperTheme extends BaseComponentTheme {
@@ -146,5 +148,7 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
     }
   },
   themeDefaults.checkbox?.wrapper || {},
-  CHECKBOX_CATEGORIES
+  CHECKBOX_CATEGORIES,
+  undefined,
+  'ui'
 );
