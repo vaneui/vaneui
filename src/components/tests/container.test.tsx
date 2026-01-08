@@ -22,10 +22,26 @@ describe('Container Component Tests', () => {
       expect(containerEl).toHaveClass('mx-auto', 'w-full', 'max-w-5xl');
     });
 
+    
+    it('should have no default appearance classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container>Container without appearance</Container>
+        </ThemeProvider>
+      );
+
+      const containerEl = container.querySelector('div');
+      // Layout components should not have appearance classes by default
+      expect(containerEl).not.toHaveClass('bg-(--bg-color)');
+      expect(containerEl).not.toHaveClass('text-(--text-color)');
+      expect(containerEl).not.toHaveClass('border-(--border-color)');
+      expect(containerEl).not.toHaveAttribute('data-appearance');
+    });
+
     it('should apply background correctly', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Container>Transparent Container</Container>
+          <Container primary>Container with background</Container>
         </ThemeProvider>
       );
 

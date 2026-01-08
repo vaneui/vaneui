@@ -38,6 +38,22 @@ describe('Section Component Tests', () => {
       expect(section).toHaveClass('w-full');
     });
 
+    
+    it('should have no default appearance classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Section>Section without appearance</Section>
+        </ThemeProvider>
+      );
+
+      const section = container.querySelector('div');
+      // Layout components should not have appearance classes by default
+      expect(section).not.toHaveClass('bg-(--bg-color)');
+      expect(section).not.toHaveClass('text-(--text-color)');
+      expect(section).not.toHaveClass('border-(--border-color)');
+      expect(section).not.toHaveAttribute('data-appearance');
+    });
+
     it('should support custom className', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

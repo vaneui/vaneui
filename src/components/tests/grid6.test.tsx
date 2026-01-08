@@ -96,10 +96,33 @@ describe('Grid6 Component Tests', () => {
       });
     });
 
-    it('should support appearance', () => {
+    
+    it('should have no default appearance classes', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Grid6>
+            <div>Item 1</div>
+            <div>Item 2</div>
+            <div>Item 3</div>
+            <div>Item 4</div>
+            <div>Item 5</div>
+            <div>Item 6</div>
+          </Grid6>
+        </ThemeProvider>
+      );
+
+      const grid = container.querySelector('div');
+      // Layout components should not have appearance classes by default
+      expect(grid).not.toHaveClass('bg-(--bg-color)');
+      expect(grid).not.toHaveClass('text-(--text-color)');
+      expect(grid).not.toHaveClass('border-(--border-color)');
+      expect(grid).not.toHaveAttribute('data-appearance');
+    });
+
+    it('should support appearance', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid6 primary>
             <div>Item 1</div>
             <div>Item 2</div>
             <div>Item 3</div>

@@ -144,11 +144,27 @@ describe('Col Component Tests', () => {
       expect(filledCol).toHaveClass('ring-(--ring-color)');
     });
 
+    
+    it('should have no default appearance classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col>Col without appearance</Col>
+        </ThemeProvider>
+      );
+
+      const col = container.querySelector('div');
+      // Layout components should not have appearance classes by default
+      expect(col).not.toHaveClass('bg-(--bg-color)');
+      expect(col).not.toHaveClass('text-(--text-color)');
+      expect(col).not.toHaveClass('border-(--border-color)');
+      expect(col).not.toHaveAttribute('data-appearance');
+    });
+
     it('should support background', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Col>
-            Transparent Col
+          <Col primary>
+            Col with background
           </Col>
         </ThemeProvider>
       );

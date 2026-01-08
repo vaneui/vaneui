@@ -27,6 +27,21 @@ describe('Grid Components Tests', () => {
       expect(grid).toHaveClass('gap-(--gap)'); // default md gap
       expect(grid).toHaveTextContent('Grid2 content');
     });
+
+    it('should have no default appearance classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid2>Grid2 without appearance</Grid2>
+        </ThemeProvider>
+      );
+
+      const grid = container.querySelector('div');
+      // Layout components should not have appearance classes by default
+      expect(grid).not.toHaveClass('bg-(--bg-color)');
+      expect(grid).not.toHaveClass('text-(--text-color)');
+      expect(grid).not.toHaveClass('border-(--border-color)');
+      expect(grid).not.toHaveAttribute('data-appearance');
+    });
   });
 
   describe('Grid3 Component', () => {
@@ -40,6 +55,21 @@ describe('Grid Components Tests', () => {
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
       expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--gap)', 'grid');
+    });
+
+    it('should have no default appearance classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3>Grid3 without appearance</Grid3>
+        </ThemeProvider>
+      );
+
+      const grid = container.querySelector('div');
+      // Layout components should not have appearance classes by default
+      expect(grid).not.toHaveClass('bg-(--bg-color)');
+      expect(grid).not.toHaveClass('text-(--text-color)');
+      expect(grid).not.toHaveClass('border-(--border-color)');
+      expect(grid).not.toHaveAttribute('data-appearance');
     });
 
     it('should render consistently', () => {
@@ -192,6 +222,21 @@ describe('Grid Components Tests', () => {
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
       expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--gap)', 'grid');
+    });
+
+    it('should have no default appearance classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid4>Grid4 without appearance</Grid4>
+        </ThemeProvider>
+      );
+
+      const grid = container.querySelector('div');
+      // Layout components should not have appearance classes by default
+      expect(grid).not.toHaveClass('bg-(--bg-color)');
+      expect(grid).not.toHaveClass('text-(--text-color)');
+      expect(grid).not.toHaveClass('border-(--border-color)');
+      expect(grid).not.toHaveAttribute('data-appearance');
     });
 
     it('should render consistently', () => {

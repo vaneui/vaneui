@@ -24,7 +24,7 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
     },
     appearance: {
       // CSS-based approach: uses --border-color variable for divider background
-      background: new SimpleConsumerTheme({ base: '[background:var(--border-color)]' }, 'bg'),
+      background: new SimpleConsumerTheme({ base: 'bg-(--border-color)' }, 'bg'),
     },
     layout: defaultLayoutsThemes,
   },

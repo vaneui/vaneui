@@ -157,11 +157,27 @@ describe('Row Component Tests', () => {
       expect(filledRow).toHaveClass('ring-(--ring-color)');
     });
 
+    
+    it('should have no default appearance classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Row>Row without appearance</Row>
+        </ThemeProvider>
+      );
+
+      const row = container.querySelector('div');
+      // Layout components should not have appearance classes by default
+      expect(row).not.toHaveClass('bg-(--bg-color)');
+      expect(row).not.toHaveClass('text-(--text-color)');
+      expect(row).not.toHaveClass('border-(--border-color)');
+      expect(row).not.toHaveAttribute('data-appearance');
+    });
+
     it('should support background', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Row>
-            Transparent Row
+          <Row primary>
+            Row with background
           </Row>
         </ThemeProvider>
       );

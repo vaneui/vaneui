@@ -221,11 +221,27 @@ describe('Stack Component Tests', () => {
       expect(filledStack).toHaveClass('ring-(--ring-color)');
     });
 
+    
+    it('should have no default appearance classes', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Stack>Stack without appearance</Stack>
+        </ThemeProvider>
+      );
+
+      const stack = container.querySelector('div');
+      // Layout components should not have appearance classes by default
+      expect(stack).not.toHaveClass('bg-(--bg-color)');
+      expect(stack).not.toHaveClass('text-(--text-color)');
+      expect(stack).not.toHaveClass('border-(--border-color)');
+      expect(stack).not.toHaveAttribute('data-appearance');
+    });
+
     it('should support background', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Stack>
-            Transparent Stack
+          <Stack primary>
+            Stack with background
           </Stack>
         </ThemeProvider>
       );

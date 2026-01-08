@@ -20,7 +20,9 @@ describe('Divider Component Tests', () => {
       const divider = container.querySelector('div');
       expect(divider).toBeInTheDocument();
       expect(divider).toHaveClass('h-(--bw)', 'w-full');
-      expect(divider).toHaveClass('[background:var(--border-color)]');
+      // Divider has default primary appearance for border color
+      expect(divider).toHaveClass('bg-(--border-color)');
+      expect(divider).toHaveAttribute('data-appearance', 'primary');
     });
   });
 
@@ -58,7 +60,7 @@ describe('Divider Component Tests', () => {
       );
 
       const divider = container.querySelector('div');
-      expect(divider).toHaveClass('[background:var(--border-color)]');
+      expect(divider).toHaveClass('bg-(--border-color)');
     });
 
     it('should apply secondary appearance variant', () => {
@@ -69,7 +71,7 @@ describe('Divider Component Tests', () => {
       );
 
       const divider = container.querySelector('div');
-      expect(divider).toHaveClass('[background:var(--border-color)]');
+      expect(divider).toHaveClass('bg-(--border-color)');
     });
 
   });

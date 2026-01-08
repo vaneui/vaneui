@@ -75,7 +75,6 @@ export const themeDefaults: ThemeDefaults = {
     itemsCenter: true,
     gap: true,
     outline: true,
-    primary: true,
     sharp: true,
   },
 
@@ -84,7 +83,6 @@ export const themeDefaults: ThemeDefaults = {
     flex: true,
     column: true,
     outline: true,
-    primary: true,
     itemsStart: true,
     gap: true,
     padding: true,
@@ -105,7 +103,6 @@ export const themeDefaults: ThemeDefaults = {
     noBorder: true,
     noRing: true,
     outline: true,
-    primary: true,
     sharp: true,
   },
 
@@ -118,7 +115,6 @@ export const themeDefaults: ThemeDefaults = {
     noBorder: true,
     noRing: true,
     outline: true,
-    primary: true,
     sharp: true,
   },
 
@@ -130,7 +126,6 @@ export const themeDefaults: ThemeDefaults = {
     noBorder: true,
     noRing: true,
     outline: true,
-    primary: true,
     sharp: true,
   },
 
@@ -138,45 +133,40 @@ export const themeDefaults: ThemeDefaults = {
     md: true,
     grid: true,
     gap: true,
-    sharp: true,
     outline: true,
-    primary: true,
+    sharp: true,
   },
 
   grid3: {
     md: true,
     grid: true,
     gap: true,
-    sharp: true,
     outline: true,
-    primary: true,
+    sharp: true,
   },
 
   grid4: {
     md: true,
     grid: true,
     gap: true,
-    sharp: true,
     outline: true,
-    primary: true,
+    sharp: true,
   },
 
   grid5: {
     md: true,
     grid: true,
     gap: true,
-    sharp: true,
     outline: true,
-    primary: true,
+    sharp: true,
   },
 
   grid6: {
     md: true,
     grid: true,
     gap: true,
-    sharp: true,
     outline: true,
-    primary: true,
+    sharp: true,
   },
 
   divider: {
