@@ -151,19 +151,22 @@ return (
 );
 ```
 
-You can change default CSS classes of all components by providing `themeOverride` in ThemeProvider:
+You can modify component themes programmatically by providing `themeOverride` in ThemeProvider:
 
 ```tsx
 const overrideFunc = (theme: ThemeProps) => {
-  theme.button.themes.appearance.text.outline.default.base = 'text-blue-200';
-  theme.button.themes.appearance.text.outline.default.hover = 'hover:text-blue-700';
-  theme.button.themes.appearance.text.outline.default.active = 'active:text-blue-900';
+  // Add classes to button's base (always applied)
+  theme.button.base += ' uppercase tracking-wide';
+
+  // Change default props for a component
+  theme.button.defaults = { ...theme.button.defaults, semibold: true };
+
   return theme;
 };
 
 return (
   <ThemeProvider themeOverride={overrideFunc}>
-    <Button>This button has blue colors</Button>
+    <Button>This button is uppercase with tracking</Button>
   </ThemeProvider>
 );
 ```
@@ -207,7 +210,7 @@ export function App() {
 
 Each component exposes optional boolean props generated from category keys. Common examples:
 - Size: `xs`, `sm`, `md`, `lg`, `xl`
-- Appearance: `default`, `primary`, `secondary`, `tertiary`, `accent`, `success`, `danger`, `warning`, `info`, `transparent`
+- Appearance: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link`
 - Variant: `filled`, `outline`
 - Shape: `pill`, `rounded`, `sharp`
 - Typography: `sans`, `serif`, `mono`, `thin`…`black`, `italic`/`notItalic`, `underline`/`lineThrough`/`overline`, `uppercase`/`lowercase`/`capitalize`
@@ -218,16 +221,16 @@ Only the categories relevant to a component are used. The theme maps these boole
 ## Available Components
 
 From the main entry import:
-- Interactive: Button, Badge, Chip, Code, Checkbox, Label
-- Layout: Section, Container, Row, Col, Stack, Grid3, Grid4, Card, Divider
+- Interactive: Button, Badge, Chip, Code, Input, Checkbox, Label
+- Layout: Section, Container, Row, Col, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card, Divider
 - Typography: Text, Title, Link, List, ListItem, SectionTitle, PageTitle
 - Media: Img
 
 ```ts
 import {
   Button, Badge, Chip, Code,
-  Checkbox, Label, Img,
-  Section, Container, Row, Col, Stack, Grid3, Grid4, Card, Divider,
+  Input, Checkbox, Label, Img,
+  Section, Container, Row, Col, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card, Divider,
   Text, Title, Link, List, ListItem, SectionTitle, PageTitle,
 } from '@vaneui/ui';
 ```

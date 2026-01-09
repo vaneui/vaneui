@@ -18,9 +18,9 @@ VaneUI is a **React component library** that provides **customizable, ready-to-u
 
 ### Available Components
 
-VaneUI provides two categories of components:
+VaneUI provides components organized by their `data-vane-type` attribute which controls spacing behavior:
 
-**UI Components** (Interactive elements with compact spacing):
+**UI Components** (`data-vane-type="ui"` - Interactive elements with compact spacing):
 - `Button` - Clickable buttons with multiple variants (filled, outline)
 - `Badge` - Status indicators and labels
 - `Chip` - Compact, removable tags
@@ -28,25 +28,25 @@ VaneUI provides two categories of components:
 - `Input` - Form input fields
 - `Checkbox` - Checkbox inputs with custom styling
 - `Label` - Form labels
-- `Card` - Content containers
-- `Img` - Optimized image component
 
-**Layout Components** (Structural elements with generous spacing):
-- `Container` - Page-level content wrapper
+**Layout Components** (`data-vane-type="layout"` - Structural elements with generous spacing):
+- `Card` - Content containers with flex column layout
+- `Container` - Page-level content wrapper with max-width
 - `Section` - Semantic page sections
 - `Stack` - Vertical stacking layout
 - `Row` - Horizontal layout
 - `Col` - Column layout
 - `Grid2`, `Grid3`, `Grid4`, `Grid5`, `Grid6` - CSS Grid layouts (2-6 column variants)
 - `Divider` - Visual separators
+- `Img` - Image component
 
-**Typography Components**:
-- `Text` - Body text with automatic link conversion
-- `Title` - Heading (h3)
+**Typography Components** (`data-vane-type="ui"`):
+- `Text` - Body text (p tag)
+- `Title` - Subsection heading (h3)
 - `SectionTitle` - Section heading (h2)
 - `PageTitle` - Page heading (h1)
 - `Link` - Anchor links with hover effects
-- `List` - Unordered/ordered lists
+- `List` - Unordered/ordered lists (renders ul or ol based on `decimal` prop)
 - `ListItem` - List items
 
 ## Using VaneUI Components
@@ -168,6 +168,19 @@ All components support a consistent prop API:
 ```tsx
 <Row tabletCol>Content switches to column on tablets and below</Row>
 <Stack desktopCol gap>Stacks vertically on desktops and below</Stack>
+```
+
+**Hide Props**: `mobileHide`, `tabletHide`, `desktopHide`
+```tsx
+<Button mobileHide>Hidden on mobile</Button>
+<Text tabletHide>Hidden on tablet and below</Text>
+```
+
+**Modifier Props**: `transparent`, `responsive`, `reverse`
+```tsx
+<Card transparent>Card without background color</Card>
+<PageTitle responsive>Title that scales down on smaller screens</PageTitle>
+<Row reverse>Row with reversed item order</Row>
 ```
 
 ### Responsive Design
@@ -633,8 +646,26 @@ All components use the same CSS variable names. The computed values are controll
 - `--py` - Padding Y, computed from `--py-unit * --spacing`
 - `--px` - Padding X, computed from `--aspect-ratio * --py-unit * --spacing`
 - `--gap` - Gap, computed from `--gap-unit * --spacing`
+- `--fs` - Font size, computed from `--fs-unit * --fs-base`
 - `--br` - Border radius, computed from `--br-unit * --br-base`
 - `--size` - Size (for checkboxes), computed from `--size-unit * --spacing`
+- `--lh` - Line height (set directly, e.g., `[--lh:1.6]`)
+- `--bw` - Border width (default: 1px)
+- `--rw` - Ring width (default: 1px)
+
+#### Data Attributes
+
+Components emit data attributes used for CSS-driven styling:
+- `data-vane-type` - Component type (`"ui"` or `"layout"`) - controls spacing scales
+- `data-size` - Current size (`"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"`)
+- `data-appearance` - Current appearance (`"primary"`, `"secondary"`, etc.)
+- `data-variant` - Current variant (`"filled"` or `"outline"`)
+
+These attributes are used by CSS rules in `vars.css` to set appearance-specific color variables and component-type-specific spacing.
+
+**UI vs Layout spacing:**
+- UI components (`data-vane-type="ui"`) use compact spacing for interactive elements
+- Layout components (`data-vane-type="layout"`) use generous spacing for structural elements
 
 #### Complete Example: Button Component
 
@@ -692,6 +723,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly tag: React.ElementType;              // Default HTML tag
   readonly base: string;                         // Base classes always applied
   readonly themes: TTheme;                       // Theme tree structure
+  readonly vaneType?: VaneComponentType;         // 'ui' | 'layout' - sets data-vane-type attribute
   defaults: Partial<P>;                          // Default prop values
   extraClasses: Partial<Record<keyof P, string>>; // Additional classes
   private readonly categories: readonly ComponentCategoryKey[];
@@ -704,6 +736,11 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     // 2. Walk theme tree and collect classes from each BaseTheme
     // 3. Each BaseTheme.getClasses() returns CSS variable setting classes
     // 4. Return array of all classes
+  }
+
+  getComponentConfig(props: P): { className: string; tag: ElementType; attrs: Record<string, string> } {
+    // Returns final className, resolved tag, and data attributes
+    // Attributes include: data-vane-type, data-size, data-appearance, data-variant
   }
 }
 ```
