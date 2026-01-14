@@ -61,7 +61,10 @@ export type CardProps = BaseProps &
   VariantProps &
   TransparentProps &
     ResponsiveProps &
-  Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
+  Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> &
+  Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
+  /** URL to navigate to (renders component as anchor tag when used with tag="a") */
+  href?: string;
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
 };

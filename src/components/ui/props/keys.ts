@@ -16,8 +16,12 @@ export const VISUAL_DECORATION = ['shadow', 'ring', 'focusVisible'] as const;
 export const VISUAL_DECORATION_LAYOUT = ['shadow', 'ring'] as const;
 /** Shape properties for border radius and corner rounding */
 export const SHAPE = ['shape'] as const;
+/** Text alignment property for block-level elements */
+export const TEXT_ALIGN = ['textAlign'] as const;
+/** Core typography styling properties (excluding text alignment) */
+export const TYPOGRAPHY_STYLE_CORE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily'] as const;
 /** Typography styling properties for text appearance and formatting */
-export const TYPOGRAPHY_STYLE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily', 'textAlign'] as const;
+export const TYPOGRAPHY_STYLE = [...TYPOGRAPHY_STYLE_CORE, ...TEXT_ALIGN] as const;
 /** List-specific styling properties for bullet points and numbering */
 export const LIST_STYLE = ['listStyle'] as const;
 /** Variant properties for filled/outline styling modes */
@@ -215,11 +219,11 @@ export const GRID_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...VARIANT, ..
 /** Categories for container layout components */
 export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS] as const;
 /** Categories for column layout components */
-export const COL_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const COL_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS, ...TEXT_ALIGN] as const;
 /** Categories for row layout components with responsive breakpoints */
-export const ROW_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const ROW_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS, ...TEXT_ALIGN] as const;
 /** Categories for stack layout components with responsive and padding support */
-export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS, ...TEXT_ALIGN] as const;
 /** Categories for card components with full typography and layout support */
 export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_LAYOUT, ...PADDING, ...VARIANT, ...COMMON_MODIFIERS] as const;
 /** Categories for divider components with basic layout and visual properties */

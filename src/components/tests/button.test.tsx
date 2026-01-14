@@ -23,6 +23,8 @@ describe('Button Component Tests', () => {
       expect(button).toHaveClass('text-(length:--fs)'); // md size
       expect(button).toHaveAttribute('data-size', 'md');
       expect(button).toHaveAttribute('data-vane-type', 'ui'); // UI component type
+      expect(button).toHaveAttribute('data-variant', 'outline'); // outline variant by default
+      expect(button).toHaveAttribute('data-appearance', 'primary'); // primary appearance by default
       expect(button).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
       expect(button).toHaveClass('text-(--text-color)'); // primary appearance
       expect(button).toHaveClass('font-sans'); // sans family

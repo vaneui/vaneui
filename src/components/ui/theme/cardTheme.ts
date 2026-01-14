@@ -76,6 +76,6 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   },
   themeDefaults.card as Partial<CardProps>,
   CARD_CATEGORIES,
-  undefined,
+  (props: CardProps) => props.href ? "a" : "div",
   'layout'
 );

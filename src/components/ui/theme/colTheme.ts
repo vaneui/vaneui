@@ -9,6 +9,7 @@ import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { TextAlignTheme } from "./typography/textAlignTheme";
 import { COL_CATEGORIES } from "../props";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
 
@@ -29,7 +30,10 @@ export interface ColTheme extends BaseComponentTheme {
     border: SimpleConsumerTheme;
     ring: SimpleConsumerTheme;
     shadow: ShadowAppearanceTheme;
-  }
+  };
+  typography: {
+    textAlign: TextAlignTheme;
+  };
 }
 
 export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
@@ -53,7 +57,10 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
       border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
       ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
-    }
+    },
+    typography: {
+      textAlign: new TextAlignTheme(),
+    },
   },
   themeDefaults.col as Partial<ColProps>,
   COL_CATEGORIES,

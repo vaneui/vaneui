@@ -51,7 +51,7 @@ export type TypographyProps = BaseProps &
   tag?: React.ElementType;
 };
 
-/** Link component props (no appearance props - Link uses fixed link color) */
+/** Link component props */
 export type LinkProps = BaseProps &
   FontWeightProps &
   FontStyleProps &
@@ -66,7 +66,10 @@ export type LinkProps = BaseProps &
   PositionProps &
   DisplayProps &
   OverflowProps &
+  AppearanceProps &
   VariantProps &
+  TransparentProps &
+  ResponsiveProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to */
@@ -251,8 +254,8 @@ Text.displayName = 'Text';
 /**
  * An anchor link component (a).
  *
- * Renders a hyperlink with hover underline effect. Link uses a fixed link color
- * and does not support appearance props. Use for navigation links and clickable text.
+ * Renders a hyperlink with hover underline effect. Supports appearance props
+ * for custom color styling. Use for navigation links and clickable text.
  *
  * @example
  * ```tsx

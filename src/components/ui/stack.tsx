@@ -21,7 +21,8 @@ import type {
   ShapeProps,
   VariantProps,
   TransparentProps,
-  ResponsiveProps
+  ResponsiveProps,
+  TextAlignProps
 } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
@@ -48,7 +49,8 @@ export type StackProps = BaseProps &
   ShapeProps &
   VariantProps &
   TransparentProps &
-    ResponsiveProps &
+  ResponsiveProps &
+  TextAlignProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

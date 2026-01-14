@@ -9,6 +9,115 @@ import {
 
 describe('Card Component Tests', () => {
 
+  describe('Card href and Tag Behavior', () => {
+    it('should render as div by default', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card>Card content</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('div.vane-card');
+      expect(card).toBeInTheDocument();
+      expect(card?.tagName.toLowerCase()).toBe('div');
+    });
+
+    it('should render as anchor when href is provided', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card href="/test-page">Link Card</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('a.vane-card');
+      expect(card).toBeInTheDocument();
+      expect(card?.tagName.toLowerCase()).toBe('a');
+      expect(card).toHaveAttribute('href', '/test-page');
+    });
+
+    it('should render as anchor with correct href for hash links', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card href="#section">Section Link</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('a.vane-card');
+      expect(card).toBeInTheDocument();
+      expect(card).toHaveAttribute('href', '#section');
+    });
+
+    it('should render as anchor with correct href for external URLs', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card href="https://example.com">External Link</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('a.vane-card');
+      expect(card).toBeInTheDocument();
+      expect(card).toHaveAttribute('href', 'https://example.com');
+    });
+
+    it('should maintain theme classes when rendered as anchor', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card href="/page" primary filled>Styled Link Card</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('a.vane-card');
+      expect(card).toBeInTheDocument();
+      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'flex', 'flex-col');
+      expect(card).toHaveClass('text-(--text-color)', 'bg-(--bg-color)');
+      expect(card).toHaveAttribute('data-appearance', 'primary');
+      expect(card).toHaveAttribute('data-variant', 'filled');
+    });
+
+    it('should allow manual tag override even with href', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card tag="article" href="/page">Article Card</Card>
+        </ThemeProvider>
+      );
+
+      // When tag is explicitly set, it should use that tag
+      // The tagFunction only applies when tag is not explicitly provided
+      const card = container.querySelector('article.vane-card');
+      expect(card).toBeInTheDocument();
+      expect(card?.tagName.toLowerCase()).toBe('article');
+    });
+
+    it('should support anchor attributes when href is provided', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card href="https://example.com" target="_blank" rel="noopener noreferrer">
+            External Link Card
+          </Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('a.vane-card');
+      expect(card).toBeInTheDocument();
+      expect(card).toHaveAttribute('href', 'https://example.com');
+      expect(card).toHaveAttribute('target', '_blank');
+      expect(card).toHaveAttribute('rel', 'noopener noreferrer');
+    });
+
+    it('should work with responsive props when rendered as anchor', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card href="/page" mobileCol lg>Responsive Link Card</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('a.vane-card');
+      expect(card).toBeInTheDocument();
+      expect(card).toHaveClass('max-mobile:flex-col');
+      expect(card).toHaveAttribute('data-size', 'lg');
+    });
+  });
+
   describe('Card Component', () => {
     it('should render with default theme classes', () => {
       const {container} = render(

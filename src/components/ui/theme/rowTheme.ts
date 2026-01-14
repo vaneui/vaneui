@@ -10,6 +10,7 @@ import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { TextAlignTheme } from "./typography/textAlignTheme";
 import { ROW_CATEGORIES } from "../props";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
 
@@ -31,7 +32,10 @@ export interface RowTheme extends BaseComponentTheme {
     border: SimpleConsumerTheme;
     ring: SimpleConsumerTheme;
     shadow: ShadowAppearanceTheme;
-  }
+  };
+  typography: {
+    textAlign: TextAlignTheme;
+  };
 }
 
 export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
@@ -56,7 +60,10 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
       border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
       ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
-    }
+    },
+    typography: {
+      textAlign: new TextAlignTheme(),
+    },
   },
   themeDefaults.row as Partial<RowProps>,
   ROW_CATEGORIES,

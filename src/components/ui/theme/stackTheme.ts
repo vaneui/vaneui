@@ -12,6 +12,7 @@ import { RingTheme } from "./layout/ringTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
 import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { TextAlignTheme } from "./typography/textAlignTheme";
 import { STACK_CATEGORIES } from "../props";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
 
@@ -35,7 +36,10 @@ export interface StackTheme extends BaseComponentTheme {
     border: SimpleConsumerTheme;
     ring: SimpleConsumerTheme;
     shadow: ShadowAppearanceTheme;
-  }
+  };
+  typography: {
+    textAlign: TextAlignTheme;
+  };
 }
 
 export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
@@ -62,7 +66,10 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
       border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
       ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
-    }
+    },
+    typography: {
+      textAlign: new TextAlignTheme(),
+    },
   },
   themeDefaults.stack as Partial<StackProps>,
   STACK_CATEGORIES,
