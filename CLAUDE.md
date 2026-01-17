@@ -594,33 +594,98 @@ const buttonRef = useRef<HTMLButtonElement>(null);
 
 ### Responsive Design
 
-**Design mobile-first, enhance for larger screens:**
+VaneUI uses a **desktop-first** approach. Components default to their desktop layout, and breakpoint props adapt them for smaller screens.
+
+**Understanding the breakpoint props:**
+- `mobileCol` - Switch to column at mobile and below (≤768px)
+- `tabletCol` - Switch to column at tablet and below (≤1024px)
+- `desktopCol` - Switch to column at desktop and below (≤1280px)
+
 ```tsx
-// Row that stacks on mobile
+// Default: horizontal row on all screens
+<Row gap>
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
+</Row>
+
+// Desktop: horizontal, Tablet and below: vertical
+<Row tabletCol gap>
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
+</Row>
+
+// Desktop/Tablet: horizontal, Mobile only: vertical
 <Row mobileCol gap>
-  <Card>Always visible</Card>
-  <Card mobileHide>Hidden on mobile</Card>
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
 </Row>
 ```
 
-**Use responsive typography for headings:**
+**Design for desktop first, then adapt for smaller screens:**
 ```tsx
-// PageTitle and SectionTitle automatically scale
-// Use 'responsive' prop on Text if needed
-<PageTitle lg>Scales automatically</PageTitle>
-<Text lg responsive>Also scales with responsive prop</Text>
-```
+// Start with your desktop layout
+<Card row gap>
+  <Img src="/product.jpg" />
+  <Col>
+    <Title>Product Name</Title>
+    <Text>Product description.</Text>
+    <Button primary>Buy Now</Button>
+  </Col>
+</Card>
 
-**Leverage breakpoint props for layout changes:**
-```tsx
-// Good: Clear responsive behavior
+// Add tabletCol to stack on smaller screens
 <Card row tabletCol gap>
   <Img src="/product.jpg" />
   <Col>
     <Title>Product Name</Title>
-    <Text>Product description that might be long.</Text>
+    <Text>Product description.</Text>
+    <Button primary>Buy Now</Button>
   </Col>
 </Card>
+```
+
+**Use hide props to remove content on smaller screens:**
+```tsx
+// Hide secondary content on mobile
+<Row tabletCol gap>
+  <Card>Primary content - always visible</Card>
+  <Card mobileHide>Secondary content - hidden on mobile</Card>
+</Row>
+
+// Hide decorative elements on smaller screens
+<Row gap>
+  <Img src="/hero.jpg" tabletHide />
+  <Col>
+    <Title>Welcome</Title>
+    <Text>Content that works on all screens</Text>
+  </Col>
+</Row>
+```
+
+**Typography scales automatically:**
+```tsx
+// PageTitle, SectionTitle, and Title automatically scale down on smaller screens
+// No props needed - this is built-in behavior
+<PageTitle lg>Large on desktop, smaller on mobile</PageTitle>
+<SectionTitle>Scales automatically</SectionTitle>
+
+// Use 'responsive' prop on Text if you want it to scale too
+<Text lg responsive>This text also scales down</Text>
+```
+
+**Choose the right breakpoint:**
+```tsx
+// Two-column layout that needs space - use tabletCol
+<Row tabletCol gap>
+  <Card className="flex-1">Needs horizontal space</Card>
+  <Card className="flex-1">Also needs space</Card>
+</Row>
+
+// Compact items that fit on tablet - use mobileCol
+<Row mobileCol gap>
+  <Button>Action 1</Button>
+  <Button>Action 2</Button>
+</Row>
 ```
 
 ### Accessibility
