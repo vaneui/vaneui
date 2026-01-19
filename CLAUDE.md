@@ -112,10 +112,10 @@ import { Button, Card, Text, Stack } from '@vaneui/ui';
 
 function App() {
   return (
-    <Stack gap>
+    <Stack>
       <Card>
         <Text>Welcome to VaneUI!</Text>
-        <Button primary>Get Started</Button>
+        <Button>Get Started</Button>
       </Card>
     </Stack>
   );
@@ -174,7 +174,7 @@ All components support a consistent prop API:
 **Breakpoint Props** (Layout components): `mobileCol`, `tabletCol`, `desktopCol`
 ```tsx
 <Row tabletCol>Content switches to column on tablets and below</Row>
-<Stack desktopCol gap>Stacks vertically on desktops and below</Stack>
+<Stack desktopCol>Stacks vertically on desktops and below</Stack>
 ```
 
 **Hide Props**: `mobileHide`, `tabletHide`, `desktopHide`
@@ -212,8 +212,8 @@ Layout components (`Row`, `Stack`, `Card`, `Section`) support breakpoint props f
   <Card>Item 3</Card>
 </Row>
 
-// Stack with gap that becomes vertical on mobile
-<Stack mobileCol gap>
+// Stack that becomes vertical on mobile
+<Stack mobileCol>
   <Button>Action 1</Button>
   <Button>Action 2</Button>
 </Stack>
@@ -504,7 +504,7 @@ const buttonRef = useRef<HTMLButtonElement>(null);
 
 ```tsx
 // Good: Stack for responsive hero section
-<Stack row tabletCol gap>
+<Stack row tabletCol>
   <Img src="/hero.jpg" />
   <Col>
     <Title>Welcome</Title>
@@ -513,7 +513,7 @@ const buttonRef = useRef<HTMLButtonElement>(null);
 </Stack>
 
 // Good: Col for simple vertical grouping
-<Col gap>
+<Col>
   <Title>Form</Title>
   <Input placeholder="Name" />
   <Input placeholder="Email" />
@@ -530,7 +530,7 @@ const buttonRef = useRef<HTMLButtonElement>(null);
 <Section>
   <Container>
     <PageTitle>About Us</PageTitle>
-    <Row gap>
+    <Row>
       <Card>Feature 1</Card>
       <Card>Feature 2</Card>
     </Row>
@@ -546,18 +546,53 @@ const buttonRef = useRef<HTMLButtonElement>(null);
 
 ### Props and Styling
 
+**Don't specify props that are already true by default:**
+
+VaneUI components have sensible defaults. Specifying props that are already `true` by default is redundant and adds noise to your code.
+
+Key defaults to know:
+- **Layout components** (`Row`, `Col`, `Stack`, `Card`, `Section`, `Container`, `Grid*`): `gap: true`, `md: true`
+- **Row**: `itemsCenter: true`
+- **Stack/Card**: `padding: true`
+- **Button**: `primary: true`, `outline: true`, `semibold: true`, `rounded: true`
+- **Typography** (`Text`, `Title`, etc.): `md: true`, `primary: true`
+
+```tsx
+// Good: Clean, relies on defaults
+<Row>
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
+</Row>
+
+// Avoid: Redundant gap prop (gap is true by default)
+<Row gap>
+  <Card>Item 1</Card>
+  <Card>Item 2</Card>
+</Row>
+
+// Good: Only specify what differs from defaults
+<Stack noPadding>
+  <Text>No padding needed here</Text>
+</Stack>
+
+// Avoid: Specifying defaults
+<Stack gap padding md>
+  <Text>These props are already true</Text>
+</Stack>
+```
+
 **Use ThemeProvider for consistency, inline props for exceptions:**
 ```tsx
 // Good: ThemeProvider for site-wide defaults
-<ThemeProvider themeDefaults={{ button: { primary: true, filled: true } }}>
+<ThemeProvider themeDefaults={{ button: { filled: true } }}>
   <Button>Primary Action</Button>
   <Button secondary outline>Secondary Action</Button>  {/* Override for this button */}
 </ThemeProvider>
 
 // Avoid: Repeating the same props everywhere
-<Button primary filled>Action 1</Button>
-<Button primary filled>Action 2</Button>
-<Button primary filled>Action 3</Button>
+<Button filled>Action 1</Button>
+<Button filled>Action 2</Button>
+<Button filled>Action 3</Button>
 ```
 
 **Combine appearance with variant for visual hierarchy:**
@@ -578,17 +613,17 @@ const buttonRef = useRef<HTMLButtonElement>(null);
 **Use consistent sizing within contexts:**
 ```tsx
 // Good: Consistent sizing in a form
-<Col gap>
+<Col>
   <Input lg placeholder="Name" />
   <Input lg placeholder="Email" />
-  <Button lg primary filled>Submit</Button>
+  <Button lg filled>Submit</Button>
 </Col>
 
 // Avoid: Mixed sizes without purpose
-<Col gap>
+<Col>
   <Input sm placeholder="Name" />
   <Input lg placeholder="Email" />
-  <Button xl primary>Submit</Button>
+  <Button xl>Submit</Button>
 </Col>
 ```
 
@@ -603,19 +638,19 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 
 ```tsx
 // Default: horizontal row on all screens
-<Row gap>
+<Row>
   <Card>Item 1</Card>
   <Card>Item 2</Card>
 </Row>
 
 // Desktop: horizontal, Tablet and below: vertical
-<Row tabletCol gap>
+<Row tabletCol>
   <Card>Item 1</Card>
   <Card>Item 2</Card>
 </Row>
 
 // Desktop/Tablet: horizontal, Mobile only: vertical
-<Row mobileCol gap>
+<Row mobileCol>
   <Card>Item 1</Card>
   <Card>Item 2</Card>
 </Row>
@@ -624,7 +659,7 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 **Design for desktop first, then adapt for smaller screens:**
 ```tsx
 // Start with your desktop layout
-<Card row gap>
+<Card row>
   <Img src="/product.jpg" />
   <Col>
     <Title>Product Name</Title>
@@ -634,7 +669,7 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 </Card>
 
 // Add tabletCol to stack on smaller screens
-<Card row tabletCol gap>
+<Card row tabletCol>
   <Img src="/product.jpg" />
   <Col>
     <Title>Product Name</Title>
@@ -647,13 +682,13 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 **Use hide props to remove content on smaller screens:**
 ```tsx
 // Hide secondary content on mobile
-<Row tabletCol gap>
+<Row tabletCol>
   <Card>Primary content - always visible</Card>
   <Card mobileHide>Secondary content - hidden on mobile</Card>
 </Row>
 
 // Hide decorative elements on smaller screens
-<Row gap>
+<Row>
   <Img src="/hero.jpg" tabletHide />
   <Col>
     <Title>Welcome</Title>
@@ -676,13 +711,13 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 **Choose the right breakpoint:**
 ```tsx
 // Two-column layout that needs space - use tabletCol
-<Row tabletCol gap>
+<Row tabletCol>
   <Card className="flex-1">Needs horizontal space</Card>
   <Card className="flex-1">Also needs space</Card>
 </Row>
 
 // Compact items that fit on tablet - use mobileCol
-<Row mobileCol gap>
+<Row mobileCol>
   <Button>Action 1</Button>
   <Button>Action 2</Button>
 </Row>
@@ -694,7 +729,7 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 ```tsx
 // Good: Semantic HTML
 <nav>
-  <Row gap>
+  <Row>
     <Link href="/">Home</Link>
     <Link href="/about">About</Link>
   </Row>
@@ -770,7 +805,7 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 
 **Navigation with active states:**
 ```tsx
-<Row gap>
+<Row>
   <Link href="/" primary={isActive('/')}>Home</Link>
   <Link href="/about" primary={isActive('/about')}>About</Link>
   <Link href="/contact" primary={isActive('/contact')}>Contact</Link>
@@ -779,7 +814,7 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 
 **Form with validation states:**
 ```tsx
-<Col gap>
+<Col>
   <Label>Email</Label>
   <Input
     placeholder="email@example.com"
@@ -792,7 +827,7 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 
 **Card grid with consistent spacing:**
 ```tsx
-<Row flexWrap gap>
+<Row flexWrap>
   {items.map(item => (
     <Card key={item.id} href={`/item/${item.id}`} outline className="flex-1 min-w-64">
       <Title>{item.name}</Title>
@@ -806,10 +841,10 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 ```tsx
 <Section primary filled>
   <Container>
-    <Stack textCenter gap>
+    <Stack textCenter>
       <PageTitle xl primary filled>Welcome to Our App</PageTitle>
       <Text lg primary filled>Build something amazing today</Text>
-      <Row justifyCenter gap>
+      <Row justifyCenter>
         <Button xl filled>Get Started</Button>
         <Button xl outline>Learn More</Button>
       </Row>
@@ -847,21 +882,6 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
 
 // Good: Use the right appearance
 <Button danger>Clear intent</Button>
-```
-
-**Don't forget gap on flex containers:**
-```tsx
-// Avoid: No spacing between items
-<Row>
-  <Button>One</Button>
-  <Button>Two</Button>
-</Row>
-
-// Good: Explicit gap
-<Row gap>
-  <Button>One</Button>
-  <Button>Two</Button>
-</Row>
 ```
 
 ---
