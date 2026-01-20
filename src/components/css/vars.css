@@ -206,7 +206,7 @@
 @layer components {
     /* ========================================
        TYPE-BASED DEFAULTS
-       Sets --br-unit, --gap-unit, --shadow, --shadow-hover
+       Sets --br-unit, --gap-unit, --py-unit, --aspect-ratio, --shadow
        based on data-vane-type and data-size attributes.
        Components inherit these unless they override.
        ======================================== */
@@ -219,11 +219,11 @@
     [data-vane-type="ui"][data-size="xl"] { --br-unit: 3; --gap-unit: 3;   --shadow-base: var(--shadow-lg);  --shadow-hover: var(--shadow-xl); }
 
     /* Layout type defaults (generous spacing, static shadows using Tailwind shadow vars) */
-    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --shadow-base: var(--shadow-xs); }
-    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --shadow-base: var(--shadow-sm); }
-    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --shadow-base: var(--shadow-md); }
-    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 5; --shadow-base: var(--shadow-lg); }
-    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 6; --shadow-base: var(--shadow-xl); }
+    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --aspect-ratio: 1; --shadow-base: var(--shadow-xs); }
+    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --aspect-ratio: 1; --shadow-base: var(--shadow-sm); }
+    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; --shadow-base: var(--shadow-md); }
+    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 5; --py-unit: 5; --aspect-ratio: 1; --shadow-base: var(--shadow-lg); }
+    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 6; --py-unit: 6; --aspect-ratio: 1; --shadow-base: var(--shadow-xl); }
 
     /* NON-RESPONSIVE COMPONENTS */
 
@@ -293,13 +293,7 @@
     .vane-card[data-size="lg"] { --py-unit: 8; }
     .vane-card[data-size="xl"] { --py-unit: 10; }
 
-    /* Stack */
-    .vane-stack { --py-unit: 4; --aspect-ratio: 1; }
-    .vane-stack[data-size="xs"] { --py-unit: 2; }
-    .vane-stack[data-size="sm"] { --py-unit: 3; }
-    .vane-stack[data-size="md"] { --py-unit: 4; }
-    .vane-stack[data-size="lg"] { --py-unit: 5; }
-    .vane-stack[data-size="xl"] { --py-unit: 6; }
+    /* Stack - inherits --py-unit and --aspect-ratio from layout type defaults */
 
     /* Container */
     .vane-container { --py-unit: 8; --aspect-ratio: 2; }
