@@ -2,6 +2,8 @@ import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayout
 import type { GridProps } from "../grid";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
+import { PxTheme } from "./size/pxTheme";
+import { PyTheme } from "./size/pyTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { RadiusTheme } from "./layout/radiusTheme";
@@ -13,6 +15,8 @@ import { bgConsumerClasses, textConsumerClass, borderConsumerClass } from "../cl
 
 export interface GridTheme extends BaseComponentTheme {
   size: {
+    px: PxTheme;
+    py: PyTheme;
     gap: GapTheme;
   };
   appearance: {
@@ -30,6 +34,8 @@ export interface GridTheme extends BaseComponentTheme {
 
 const gridSubThemes: DeepPartial<GridTheme> = {
   size: {
+    px: new PxTheme(),
+    py: new PyTheme(),
     gap: new GapTheme(),
   },
   appearance: {

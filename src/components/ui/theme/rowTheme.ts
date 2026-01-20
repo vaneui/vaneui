@@ -1,4 +1,6 @@
 import { GapTheme } from "./size/gapTheme";
+import { PxTheme } from "./size/pxTheme";
+import { PyTheme } from "./size/pyTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayoutThemes } from "./common/ComponentTheme";
 import type { RowProps } from "../row";
@@ -16,6 +18,8 @@ import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumer
 
 export interface RowTheme extends BaseComponentTheme {
   size: {
+    px: PxTheme;
+    py: PyTheme;
     gap: GapTheme;
     breakpoint: BreakpointTheme;
   };
@@ -43,6 +47,8 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
   "vane-row",
   {
     size: {
+      px: new PxTheme(),
+      py: new PyTheme(),
       gap: new GapTheme(),
       breakpoint: new BreakpointTheme(),
     },

@@ -3,6 +3,8 @@ import { BaseComponentTheme, ComponentTheme, defaultLayoutsThemes, DefaultLayout
 import type { ColProps } from "../col";
 import { themeDefaults } from "./defaults";
 import { GapTheme } from "./size/gapTheme";
+import { PxTheme } from "./size/pxTheme";
+import { PyTheme } from "./size/pyTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { BorderTheme } from "./layout/borderTheme";
 import { RingTheme } from "./layout/ringTheme";
@@ -15,6 +17,8 @@ import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumer
 
 export interface ColTheme extends BaseComponentTheme {
   size: {
+    px: PxTheme;
+    py: PyTheme;
     gap: GapTheme;
   };
   layout: DefaultLayoutThemes & {
@@ -41,6 +45,8 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   "vane-col",
   {
     size: {
+      px: new PxTheme(),
+      py: new PyTheme(),
       gap: new GapTheme(),
     },
     layout: {

@@ -193,5 +193,65 @@ describe('Container Component Tests', () => {
       expect(sectionEl).toBeInTheDocument();
       expect(sectionEl).toHaveTextContent('Section Container');
     });
+
+    it('should have no padding by default', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container>Container without padding</Container>
+        </ThemeProvider>
+      );
+
+      const containerEl = container.querySelector('div');
+      // Container should not have padding by default (noPadding: true in defaults)
+      expect(containerEl).not.toHaveClass('px-(--px)');
+      expect(containerEl).not.toHaveClass('py-(--py)');
+    });
+
+    it('should support padding prop', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container padding>
+            Container with padding
+          </Container>
+        </ThemeProvider>
+      );
+
+      const containerEl = container.querySelector('div');
+      expect(containerEl).toHaveClass('px-(--px)');
+      expect(containerEl).toHaveClass('py-(--py)');
+    });
+
+    it('should support noPadding prop to explicitly disable padding', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container noPadding>
+            Container with no padding
+          </Container>
+        </ThemeProvider>
+      );
+
+      const containerEl = container.querySelector('div');
+      expect(containerEl).not.toHaveClass('px-(--px)');
+      expect(containerEl).not.toHaveClass('py-(--py)');
+    });
+
+    it('should apply correct padding classes for different sizes', () => {
+      const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+      sizes.forEach(size => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Container {...{[size]: true}} padding>
+              {size} container with padding
+            </Container>
+          </ThemeProvider>
+        );
+
+        const containerEl = container.querySelector('div');
+        expect(containerEl).toHaveClass('px-(--px)');
+        expect(containerEl).toHaveClass('py-(--py)');
+        expect(containerEl).toHaveAttribute('data-size', size);
+      });
+    });
   });
 });

@@ -17,7 +17,8 @@ import type {
   ShapeProps,
   BorderProps,
   TransparentProps,
-  ResponsiveProps
+  ResponsiveProps,
+  PaddingProps
 } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
@@ -38,9 +39,10 @@ export type GridProps = BaseProps &
   AppearanceProps &
   VariantProps &
   TransparentProps &
-    ResponsiveProps &
+  ResponsiveProps &
   ShapeProps &
   BorderProps &
+  PaddingProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

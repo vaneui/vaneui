@@ -21,7 +21,8 @@ import type {
   VariantProps,
   TransparentProps,
   ResponsiveProps,
-  TextAlignProps
+  TextAlignProps,
+  PaddingProps
 } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
@@ -49,6 +50,7 @@ export type RowProps = BaseProps &
   TransparentProps &
   ResponsiveProps &
   TextAlignProps &
+  PaddingProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

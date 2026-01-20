@@ -5,6 +5,8 @@ import {
   Grid2,
   Grid3,
   Grid4,
+  Grid5,
+  Grid6,
   ThemeProvider,
   defaultTheme
 } from '../../index';
@@ -392,13 +394,93 @@ describe('Grid Components Tests', () => {
 
       const grid3 = container3.querySelector('div');
       const grid4 = container4.querySelector('div');
-      
+
       expect(grid3).toHaveClass('md:grid-cols-3');
       expect(grid4).toHaveClass('lg:grid-cols-4');
-      
+
       // Both should share common grid properties
       expect(grid3).toHaveClass('grid', 'gap-(--gap)');
       expect(grid4).toHaveClass('grid', 'gap-(--gap)');
+    });
+  });
+
+  describe('Grid Padding Tests', () => {
+    it('should have no padding by default for all grid components', () => {
+      const gridComponents = [
+        { Component: Grid2, name: 'Grid2' },
+        { Component: Grid3, name: 'Grid3' },
+        { Component: Grid4, name: 'Grid4' },
+        { Component: Grid5, name: 'Grid5' },
+        { Component: Grid6, name: 'Grid6' },
+      ];
+
+      gridComponents.forEach(({ Component, name }) => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Component>{name} without padding</Component>
+          </ThemeProvider>
+        );
+
+        const grid = container.querySelector('div');
+        // Grid should not have padding by default (noPadding: true in defaults)
+        expect(grid).not.toHaveClass('px-(--px)');
+        expect(grid).not.toHaveClass('py-(--py)');
+      });
+    });
+
+    it('should support padding prop for all grid components', () => {
+      const gridComponents = [
+        { Component: Grid2, name: 'Grid2' },
+        { Component: Grid3, name: 'Grid3' },
+        { Component: Grid4, name: 'Grid4' },
+        { Component: Grid5, name: 'Grid5' },
+        { Component: Grid6, name: 'Grid6' },
+      ];
+
+      gridComponents.forEach(({ Component, name }) => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Component padding>{name} with padding</Component>
+          </ThemeProvider>
+        );
+
+        const grid = container.querySelector('div');
+        expect(grid).toHaveClass('px-(--px)');
+        expect(grid).toHaveClass('py-(--py)');
+      });
+    });
+
+    it('should support noPadding prop to explicitly disable padding', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 noPadding>
+            Grid3 with no padding
+          </Grid3>
+        </ThemeProvider>
+      );
+
+      const grid = container.querySelector('div');
+      expect(grid).not.toHaveClass('px-(--px)');
+      expect(grid).not.toHaveClass('py-(--py)');
+    });
+
+    it('should apply correct padding classes for different sizes', () => {
+      const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+      sizes.forEach(size => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Grid3 {...{[size]: true}} padding>
+              {size} grid with padding
+            </Grid3>
+          </ThemeProvider>
+        );
+
+        const grid = container.querySelector('div');
+        expect(grid).toHaveClass('px-(--px)');
+        expect(grid).toHaveClass('py-(--py)');
+        expect(grid).toHaveAttribute('data-size', size);
+      });
     });
   });
 });

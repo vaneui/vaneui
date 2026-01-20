@@ -235,5 +235,65 @@ describe('Row Component Tests', () => {
       expect(sectionEl).toBeInTheDocument();
       expect(sectionEl).toHaveTextContent('Section Row');
     });
+
+    it('should have no padding by default', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Row>Row without padding</Row>
+        </ThemeProvider>
+      );
+
+      const row = container.querySelector('div');
+      // Row should not have padding by default (noPadding: true in defaults)
+      expect(row).not.toHaveClass('px-(--px)');
+      expect(row).not.toHaveClass('py-(--py)');
+    });
+
+    it('should support padding prop', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Row padding>
+            Row with padding
+          </Row>
+        </ThemeProvider>
+      );
+
+      const row = container.querySelector('div');
+      expect(row).toHaveClass('px-(--px)');
+      expect(row).toHaveClass('py-(--py)');
+    });
+
+    it('should support noPadding prop to explicitly disable padding', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Row noPadding>
+            Row with no padding
+          </Row>
+        </ThemeProvider>
+      );
+
+      const row = container.querySelector('div');
+      expect(row).not.toHaveClass('px-(--px)');
+      expect(row).not.toHaveClass('py-(--py)');
+    });
+
+    it('should apply correct padding classes for different sizes', () => {
+      const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+      sizes.forEach(size => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Row {...{[size]: true}} padding>
+              {size} row with padding
+            </Row>
+          </ThemeProvider>
+        );
+
+        const row = container.querySelector('div');
+        expect(row).toHaveClass('px-(--px)');
+        expect(row).toHaveClass('py-(--py)');
+        expect(row).toHaveAttribute('data-size', size);
+      });
+    });
   });
 });

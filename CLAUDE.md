@@ -144,11 +144,10 @@ All components support a consistent prop API:
 <Button danger>Danger</Button>
 ```
 
-**Variant Props**: `filled`, `outline`
+**Variant Props**: `filled`, `outline` (default)
 ```tsx
 <Button filled>Filled</Button>
-<Button outline>Outline</Button>
-
+<Button>Outline (default)</Button>
 ```
 
 **Shape Props**: `rounded` (default), `pill`, `sharp`
@@ -551,11 +550,15 @@ const buttonRef = useRef<HTMLButtonElement>(null);
 VaneUI components have sensible defaults. Specifying props that are already `true` by default is redundant and adds noise to your code.
 
 Key defaults to know:
-- **Layout components** (`Row`, `Col`, `Stack`, `Card`, `Section`, `Container`, `Grid*`): `gap: true`, `md: true`
+- **Layout components** (`Row`, `Col`, `Stack`, `Card`, `Section`, `Container`, `Grid*`): `gap: true`, `md: true`, `outline: true`
 - **Row**: `itemsCenter: true`
-- **Stack/Card**: `padding: true`
+- **Stack/Card**: `padding: true`, `rounded: true` (Card only)
 - **Button**: `primary: true`, `outline: true`, `semibold: true`, `rounded: true`
-- **Typography** (`Text`, `Title`, etc.): `md: true`, `primary: true`
+- **Input**: `primary: true`, `outline: true`, `rounded: true`
+- **Badge**: `primary: true`, `outline: true`, `pill: true`
+- **Chip**: `secondary: true` (not primary!), `outline: true`, `rounded: true`
+- **Link**: `link: true` (not primary!), `outline: true`, `underline: true`
+- **Typography** (`Text`, `Title`, etc.): `md: true`, `primary: true`, `outline: true`
 
 ```tsx
 // Good: Clean, relies on defaults
@@ -627,6 +630,103 @@ Key defaults to know:
 </Col>
 ```
 
+**Prefer VaneUI props over Tailwind classes:**
+
+VaneUI provides boolean props for most common styling needs. Use these instead of Tailwind classes to ensure consistent theming and proper integration with the size system.
+
+| Instead of Tailwind | Use VaneUI prop |
+|---------------------|-----------------|
+| `className="uppercase"` | `uppercase` |
+| `className="lowercase"` | `lowercase` |
+| `className="capitalize"` | `capitalize` |
+| `className="font-bold"` | `bold` |
+| `className="font-semibold"` | `semibold` |
+| `className="font-mono"` | `mono` |
+| `className="italic"` | `italic` |
+| `className="underline"` | `underline` |
+| `className="line-through"` | `lineThrough` |
+| `className="text-center"` | `textCenter` |
+| `className="text-left"` | `textLeft` |
+| `className="text-right"` | `textRight` |
+| `className="sticky"` | `sticky` |
+| `className="relative"` | `relative` |
+| `className="absolute"` | `absolute` |
+| `className="fixed"` | `fixed` |
+| `className="flex"` | `flex` |
+| `className="inline-flex"` | `inlineFlex` |
+| `className="items-center"` | `itemsCenter` |
+| `className="justify-between"` | `justifyBetween` |
+| `className="flex-wrap"` | `flexWrap` |
+| `className="border-b"` | `borderB` |
+| `className="border-t"` | `borderT` |
+| `className="rounded-full"` | `pill` |
+| `className="rounded-none"` | `sharp` |
+| `className="shadow"` | `shadow` |
+| `className="overflow-hidden"` | `overflowHidden` |
+| `className="overflow-auto"` | `overflowAuto` |
+
+```tsx
+// Good: Using VaneUI props
+<Text uppercase semibold>IMPORTANT</Text>
+<Badge sticky>Pinned</Badge>
+<Card borderB>Card with bottom border</Card>
+<Row itemsCenter justifyBetween>Content</Row>
+
+// Avoid: Tailwind classes that duplicate props
+<Text className="uppercase font-semibold tracking-wider">IMPORTANT</Text>
+<Badge className="sticky top-0">Pinned</Badge>
+<Card className="border-b">Card with bottom border</Card>
+<Row className="items-center justify-between">Content</Row>
+```
+
+**Don't override gap with Tailwind classes:**
+
+Gap is controlled by the size prop system (`xs`, `sm`, `md`, `lg`, `xl`). Don't use Tailwind gap classes.
+
+```tsx
+// Good: Size prop controls gap
+<Row lg>Large gap between items</Row>
+<Stack sm>Small gap between items</Stack>
+
+// Avoid: Tailwind gap classes
+<Row className="gap-10">Don't do this</Row>
+<Stack className="gap-4">Don't do this either</Stack>
+```
+
+**Don't override backgrounds with Tailwind when appearance works:**
+
+Background colors are controlled by appearance + variant props. Only use `bg-*` classes for edge cases not covered by the theme.
+
+```tsx
+// Good: Appearance controls color
+<Card primary filled>Primary background via theme</Card>
+<Button success filled>Success background via theme</Button>
+<Section danger filled>Danger section via theme</Section>
+
+// Avoid: Tailwind bg classes when appearance would work
+<Card className="bg-blue-500">Don't fight the theme</Card>
+<Button className="bg-green-500">Use success instead</Button>
+
+// OK: Tailwind for colors not in the theme
+<div className="bg-gradient-to-r from-purple-500 to-pink-500">
+  Custom gradient (not available as appearance)
+</div>
+```
+
+**Letter spacing (tracking) is built into typography:**
+
+Typography components have appropriate letter spacing built in. Don't add `tracking-*` classes.
+
+```tsx
+// Good: Built-in tracking
+<Badge uppercase>STATUS</Badge>  // Badge has tracking built-in
+<Title>Heading</Title>           // Title has appropriate tracking
+
+// Avoid: Manual tracking
+<Badge uppercase className="tracking-wider">STATUS</Badge>
+<Title className="tracking-tight">Heading</Title>
+```
+
 ### Responsive Design
 
 VaneUI uses a **desktop-first** approach. Components default to their desktop layout, and breakpoint props adapt them for smaller screens.
@@ -664,7 +764,7 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
   <Col>
     <Title>Product Name</Title>
     <Text>Product description.</Text>
-    <Button primary>Buy Now</Button>
+    <Button>Buy Now</Button>
   </Col>
 </Card>
 
@@ -674,7 +774,7 @@ VaneUI uses a **desktop-first** approach. Components default to their desktop la
   <Col>
     <Title>Product Name</Title>
     <Text>Product description.</Text>
-    <Button primary>Buy Now</Button>
+    <Button>Buy Now</Button>
   </Col>
 </Card>
 ```
