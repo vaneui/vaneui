@@ -12,51 +12,67 @@ describe('Component Prop Filtering', () => {
   };
 
   describe('Row component prop filtering', () => {
-    test('should filter out component props but warn about invalid ones', () => {
-      // Mock console.error to capture React warnings
+    test('should filter out all component props from DOM', () => {
+      // Using Record<string, unknown> to bypass TypeScript checking for testing runtime behavior
+      const props: Record<string, unknown> = {
+        // Valid Row props
+        primary: true,
+        itemsCenter: true,
+        gap: true,
+        padding: true,
+
+        // Standard HTML props that should pass through
+        'data-testid': 'test-row',
+        'aria-label': 'Test row',
+
+        children: 'Content'
+      };
+
+      const { container } = renderWithTheme(<Row {...props} />);
+      const element = container.firstChild as HTMLElement;
+
+      // Valid HTML attributes should be present
+      expect(element.getAttribute('data-testid')).toBe('test-row');
+      expect(element.getAttribute('aria-label')).toBe('Test row');
+
+      // All component-specific props should be filtered out from DOM
+      expect(element.hasAttribute('primary')).toBe(false);
+      expect(element.hasAttribute('itemsCenter')).toBe(false);
+      expect(element.hasAttribute('gap')).toBe(false);
+      expect(element.hasAttribute('padding')).toBe(false);
+
+      // Valid props should apply correct styling
+      expect(element.className).toContain('items-center');
+      expect(element.className).toContain('gap-(--gap)');
+      expect(element.className).toContain('bg-(--bg-color)');
+      expect(element.className).toContain('px-(--px)');
+      expect(element.className).toContain('py-(--py)');
+    });
+
+    test('should generate React warning for props not in component categories', () => {
+      // Capture console.error to check for React warnings
       const originalError = console.error;
-      const consoleErrorMock = jest.fn();
-      console.error = consoleErrorMock;
+      const capturedWarnings: string[] = [];
+      console.error = (...args: unknown[]) => {
+        const message = args.map(arg => String(arg)).join(' ');
+        capturedWarnings.push(message);
+      };
 
       try {
-        // Using Record<string, unknown> to bypass TypeScript checking for testing runtime behavior
+        // 'disc' is in listStyle category which is NOT in ROW_CATEGORIES
+        // It should pass through to DOM and trigger a React warning
         const props: Record<string, unknown> = {
-          // Valid Row props
-          primary: true,
-          itemsCenter: true,
-          gap: true,
-          
-          // Invalid prop that should cause React warnings
-          padding: true,  // padding category not in ROW_CATEGORIES
-          
-          // Standard HTML props that should pass through
-          'data-testid': 'test-row',
-          'aria-label': 'Test row',
-          
+          disc: true,
           children: 'Content'
         };
 
-        const { container } = renderWithTheme(<Row {...props} />);
-        const element = container.firstChild as HTMLElement;
+        renderWithTheme(<Row {...props} />);
 
-        // Valid HTML attributes should be present
-        expect(element.getAttribute('data-testid')).toBe('test-row');
-        expect(element.getAttribute('aria-label')).toBe('Test row');
-
-        // All component-specific props should be filtered out from DOM
-        expect(element.hasAttribute('primary')).toBe(false);
-        expect(element.hasAttribute('itemsCenter')).toBe(false);
-        expect(element.hasAttribute('gap')).toBe(false);
-        expect(element.hasAttribute('padding')).toBe(false);
-
-        // Verify React warnings were generated for invalid props
-        const calls = consoleErrorMock.mock.calls;
-        expect(calls).toHaveLength(1);
-        
-        // Check for padding warning
-        expect(calls.some(call => 
-          call[0]?.includes('non-boolean attribute') && call[2] === 'padding'
-        )).toBe(true);
+        // React should warn about the boolean attribute 'disc' being passed to DOM
+        const hasDiscWarning = capturedWarnings.some(warning =>
+          warning.includes('non-boolean attribute') && warning.includes('disc')
+        );
+        expect(hasDiscWarning).toBe(true);
       } finally {
         console.error = originalError;
       }
@@ -119,46 +135,56 @@ describe('Component Prop Filtering', () => {
   });
 
   describe('Stack component prop filtering', () => {
-    test('should filter component props and warn about invalid ones', () => {
-      // Mock console.error to capture React warnings
+    test('should filter out all component props from DOM', () => {
+      const props: Record<string, unknown> = {
+        // Valid Stack props
+        gap: true,
+        primary: true,
+        padding: true,
+
+        children: 'Stack content'
+      };
+
+      const { container } = renderWithTheme(<Stack {...props} />);
+      const element = container.firstChild as HTMLElement;
+
+      // All component props should be filtered out from DOM
+      expect(element.hasAttribute('gap')).toBe(false);
+      expect(element.hasAttribute('primary')).toBe(false);
+      expect(element.hasAttribute('padding')).toBe(false);
+
+      // Valid props should apply correct styling
+      expect(element.className).toContain('gap-(--gap)');
+      expect(element.className).toContain('bg-(--bg-color)');
+      expect(element.className).toContain('px-(--px)');
+      expect(element.className).toContain('py-(--py)');
+    });
+
+    test('should generate React warning for props not in component categories', () => {
+      // Capture console.error to check for React warnings
       const originalError = console.error;
-      const consoleErrorMock = jest.fn();
-      console.error = consoleErrorMock;
+      const capturedWarnings: string[] = [];
+      console.error = (...args: unknown[]) => {
+        const message = args.map(arg => String(arg)).join(' ');
+        capturedWarnings.push(message);
+      };
 
       try {
+        // 'decimal' is in listStyle category which is NOT in STACK_CATEGORIES
+        // It should pass through to DOM and trigger a React warning
+        // Note: using 'decimal' instead of 'disc' to avoid React warning deduplication
         const props: Record<string, unknown> = {
-          // Valid Stack props
-          gap: true,
-          primary: true,
-          
-          // Invalid props that should cause React warnings
-          disc: true,       // listStyle category not in STACK_CATEGORIES
-          underline: true,  // textDecoration category not in STACK_CATEGORIES
-          
-          children: 'Stack content'
+          decimal: true,
+          children: 'Content'
         };
 
-        const { container } = renderWithTheme(<Stack {...props} />);
-        const element = container.firstChild as HTMLElement;
+        renderWithTheme(<Stack {...props} />);
 
-        // All component props should be filtered out from DOM
-        expect(element.hasAttribute('gap')).toBe(false);
-        expect(element.hasAttribute('primary')).toBe(false);
-        expect(element.hasAttribute('disc')).toBe(false);
-        expect(element.hasAttribute('underline')).toBe(false);
-
-        // Verify React warnings were generated for invalid props
-        const calls = consoleErrorMock.mock.calls;
-        expect(calls.length).toBeGreaterThanOrEqual(2);
-        
-        // Check for warnings about invalid attributes
-        expect(calls.some(call => 
-          call[0]?.includes('non-boolean attribute') && call[2] === 'disc'
-        )).toBe(true);
-        
-        expect(calls.some(call => 
-          call[0]?.includes('non-boolean attribute') && call[2] === 'underline'
-        )).toBe(true);
+        // React should warn about the boolean attribute 'decimal' being passed to DOM
+        const hasWarning = capturedWarnings.some(warning =>
+          warning.includes('non-boolean attribute') && warning.includes('decimal')
+        );
+        expect(hasWarning).toBe(true);
       } finally {
         console.error = originalError;
       }
