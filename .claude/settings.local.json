@@ -35,7 +35,10 @@
       "Bash(done)",
       "WebSearch",
       "Bash(timeout 10s npm run playground)",
-      "Bash(timeout 5s npm run playground)"
+      "Bash(timeout 5s npm run playground)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": []
   }
