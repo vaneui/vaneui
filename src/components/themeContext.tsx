@@ -26,6 +26,8 @@ import { CheckboxTheme, CheckTheme, CheckboxWrapperTheme, defaultCheckboxTheme, 
 import { LabelTheme, defaultLabelTheme } from './ui/theme/labelTheme';
 import { ImgTheme, defaultImgTheme } from './ui/theme/imgTheme';
 import { InputTheme, defaultInputTheme } from './ui/theme/inputTheme';
+import { OverlayTheme, defaultOverlayTheme } from './ui/theme/overlayTheme';
+import { ModalTheme, defaultModalTheme } from './ui/theme/modalTheme';
 import type { BadgeProps } from "./ui/badge";
 import type { ButtonProps } from "./ui/button";
 import type { CardProps } from "./ui/card";
@@ -43,6 +45,8 @@ import type { CheckboxProps } from "./ui/checkbox";
 import type { LabelProps } from "./ui/label";
 import type { ImgProps } from "./ui/img";
 import type { InputProps } from "./ui/input";
+import type { OverlayProps } from "./ui/overlay";
+import type { ModalProps } from "./ui/modal";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
@@ -78,6 +82,8 @@ export interface ThemeProps {
   label: ComponentTheme<LabelProps, LabelTheme>;
   img: ComponentTheme<ImgProps, ImgTheme>;
   input: ComponentTheme<InputProps, InputTheme>;
+  overlay: ComponentTheme<OverlayProps, OverlayTheme>;
+  modal: ComponentTheme<ModalProps, ModalTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -114,6 +120,8 @@ export const defaultTheme: ThemeProps = {
   label: defaultLabelTheme,
   img: defaultImgTheme,
   input: defaultInputTheme,
+  overlay: defaultOverlayTheme,
+  modal: defaultModalTheme,
 };
 
 /**
@@ -166,6 +174,8 @@ export type ThemeDefaults = {
   label?: Partial<BooleanKeys<LabelProps>>;
   img?: Partial<BooleanKeys<ImgProps>>;
   input?: Partial<BooleanKeys<InputProps>>;
+  overlay?: Partial<BooleanKeys<OverlayProps>>;
+  modal?: Partial<BooleanKeys<ModalProps>>;
 };
 
 // ThemeExtraClasses mirrors the structure of ThemeProps
@@ -203,6 +213,8 @@ export type ThemeExtraClasses = {
   label?: Partial<StringValueKeys<LabelProps>>;
   img?: Partial<StringValueKeys<ImgProps>>;
   input?: Partial<StringValueKeys<InputProps>>;
+  overlay?: Partial<StringValueKeys<OverlayProps>>;
+  modal?: Partial<StringValueKeys<ModalProps>>;
 };
 
 /**

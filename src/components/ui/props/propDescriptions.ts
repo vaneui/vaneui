@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-01-20T21:47:25.510Z
+ * Generated on: 2026-01-30T21:50:20.462Z
  */
 
 export interface PropDescription {
@@ -52,6 +52,18 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "blur": {
+    "name": "Blur",
+    "description": "Blur props for controlling backdrop blur effect",
+    "props": {
+      "blur": {
+        "description": "Enable backdrop blur effect"
+      },
+      "noBlur": {
+        "description": "Disable backdrop blur effect"
+      }
+    }
+  },
   "border": {
     "name": "Border",
     "description": "Border props for controlling component borders",
@@ -94,6 +106,33 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "desktopCol": {
         "description": "Switch to column layout on desktop and below (max-desktop: 80rem)"
+      }
+    }
+  },
+  "cursor": {
+    "name": "Cursor",
+    "description": "Cursor props for controlling cursor appearance",
+    "props": {
+      "cursorPointer": {
+        "description": "Pointer cursor - indicates clickable element"
+      },
+      "cursorDefault": {
+        "description": "Default cursor - standard arrow"
+      },
+      "cursorNotAllowed": {
+        "description": "Not-allowed cursor - indicates disabled state"
+      },
+      "cursorNone": {
+        "description": "No cursor - hides the cursor"
+      },
+      "cursorText": {
+        "description": "Text cursor - indicates selectable text"
+      },
+      "cursorMove": {
+        "description": "Move cursor - indicates draggable element"
+      },
+      "cursorWait": {
+        "description": "Wait cursor - indicates loading/processing"
       }
     }
   },
@@ -316,6 +355,27 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "objectFit": {
+    "name": "Object Fit",
+    "description": "Object fit props for controlling image/video sizing within container",
+    "props": {
+      "objectCover": {
+        "description": "Cover - image covers container, may be cropped"
+      },
+      "objectContain": {
+        "description": "Contain - image fits inside container, may have letterboxing"
+      },
+      "objectFill": {
+        "description": "Fill - image stretches to fill container"
+      },
+      "objectNone": {
+        "description": "None - image displays at natural size"
+      },
+      "objectScaleDown": {
+        "description": "Scale down - like contain, but never scales up"
+      }
+    }
+  },
   "overflow": {
     "name": "Overflow",
     "description": "Overflow props for controlling content overflow behavior",
@@ -376,6 +436,18 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "noPadding": {
         "description": "Disable internal padding"
+      }
+    }
+  },
+  "pointerEvents": {
+    "name": "Pointer Events",
+    "description": "Pointer events props for controlling element interactivity",
+    "props": {
+      "pointerEventsNone": {
+        "description": "Disable pointer events - clicks pass through the element"
+      },
+      "pointerEventsAuto": {
+        "description": "Enable pointer events (default browser behavior)"
       }
     }
   },
@@ -532,6 +604,18 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "transition": {
+    "name": "Transition",
+    "description": "Transition props for controlling animation effects",
+    "props": {
+      "transition": {
+        "description": "Enable smooth transitions between states"
+      },
+      "noTransition": {
+        "description": "Disable transitions for instant state changes"
+      }
+    }
+  },
   "transparent": {
     "name": "Transparent",
     "description": "Transparent prop for disabling background color",
@@ -550,6 +634,30 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "outline": {
         "description": "Outline variant - transparent background with border and colored text (default)"
+      }
+    }
+  },
+  "whitespace": {
+    "name": "Whitespace",
+    "description": "Whitespace props for controlling text wrapping behavior",
+    "props": {
+      "whitespaceNowrap": {
+        "description": "No wrap - text stays on single line"
+      },
+      "whitespaceNormal": {
+        "description": "Normal wrapping - default browser behavior"
+      },
+      "whitespacePre": {
+        "description": "Preserve whitespace and line breaks"
+      },
+      "whitespacePreWrap": {
+        "description": "Preserve whitespace, wrap text"
+      },
+      "whitespacePreLine": {
+        "description": "Preserve line breaks, collapse spaces, wrap text"
+      },
+      "whitespaceBreakSpaces": {
+        "description": "Break words to prevent overflow"
       }
     }
   },

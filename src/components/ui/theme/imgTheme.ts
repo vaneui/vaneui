@@ -12,6 +12,7 @@ import { RingTheme } from "./layout/ringTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
+import { ObjectFitTheme } from "./layout/objectFitTheme";
 import { IMG_CATEGORIES } from "../props";
 import { bgConsumerClasses, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
 
@@ -21,6 +22,7 @@ export interface ImgTheme extends BaseComponentTheme {
     ring: RingTheme;
     focusVisible: FocusVisibleTheme;
     radius: RadiusTheme;
+    objectFit: ObjectFitTheme;
   };
   appearance: {
     background: SimpleConsumerTheme;
@@ -33,7 +35,7 @@ export interface ImgTheme extends BaseComponentTheme {
 
 export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
   "img",
-  "vane-img object-cover", // Default to cover for better image display
+  "vane-img",
   {
     layout: {
       ...defaultLayoutsThemes,
@@ -41,6 +43,7 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
       ring: new RingTheme(),
       focusVisible: new FocusVisibleTheme(),
       radius: new RadiusTheme(),
+      objectFit: new ObjectFitTheme(),
     },
     appearance: {
       background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),

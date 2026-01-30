@@ -19,6 +19,8 @@ import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
+import { TransitionTheme } from "./layout/transitionTheme";
+import { WhitespaceTheme } from "./layout/whitespaceTheme";
 import { CHIP_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
@@ -46,12 +48,14 @@ export interface ChipTheme extends BaseTypographyComponentTheme {
     focusVisible: FocusVisibleTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
+    transition: TransitionTheme;
+    whitespace: WhitespaceTheme;
   };
 }
 
 export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   "span",
-  "vane-chip w-fit h-fit transition-all duration-200 whitespace-nowrap",
+  "vane-chip w-fit h-fit",
   {
     size: {
       px: new PxTheme(),
@@ -76,6 +80,8 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
       focusVisible: new FocusVisibleTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
+      transition: new TransitionTheme(),
+      whitespace: new WhitespaceTheme(),
     },
     typography: defaultTypographyThemes,
   },

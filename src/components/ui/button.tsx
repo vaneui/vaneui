@@ -27,7 +27,10 @@ import type {
   PaddingProps,
   VariantProps,
   TransparentProps,
-  ResponsiveProps
+  ResponsiveProps,
+  CursorProps,
+  TransitionProps,
+  WhitespaceProps
 } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
@@ -62,7 +65,10 @@ export type ButtonProps = BaseProps &
   PaddingProps &
   VariantProps &
   TransparentProps &
-    ResponsiveProps &
+  ResponsiveProps &
+  CursorProps &
+  TransitionProps &
+  WhitespaceProps &
   Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */

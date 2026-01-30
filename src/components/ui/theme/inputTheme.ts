@@ -14,10 +14,10 @@ import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
 import { PxTheme } from "./size/pxTheme";
 import { PyTheme } from "./size/pyTheme";
 import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
-
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
+import { TransitionTheme } from "./layout/transitionTheme";
 import { INPUT_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
@@ -45,12 +45,13 @@ export interface InputTheme extends BaseTypographyComponentTheme {
     radius: RadiusTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
+    transition: TransitionTheme;
   };
 }
 
 export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
   "input",
-  "vane-input w-full transition-all duration-200",
+  "vane-input w-full",
   {
     size: {
       px: new PxTheme(),
@@ -75,6 +76,7 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
       radius: new RadiusTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
+      transition: new TransitionTheme(),
     },
     typography: defaultTypographyThemes,
   },

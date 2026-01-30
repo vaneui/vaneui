@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -7,11 +8,23 @@ import {
   Title,
   Section,
   Card, Checkbox, Label, Link, Input, Button,
-  Container, Badge, Divider, Chip, Code, PageTitle, Grid2
+  Container, Badge, Divider, Chip, Code, PageTitle, Grid2,
+  Modal, Overlay
 } from '../../src';
 import { ColorTable } from './ColorTable';
 
 function App() {
+  // Modal state
+  const [basicModalOpen, setBasicModalOpen] = useState(false);
+  const [blurModalOpen, setBlurModalOpen] = useState(false);
+  const [largeModalOpen, setLargeModalOpen] = useState(false);
+  const [smallModalOpen, setSmallModalOpen] = useState(false);
+  const [noEscapeModalOpen, setNoEscapeModalOpen] = useState(false);
+
+  // Overlay state
+  const [basicOverlayOpen, setBasicOverlayOpen] = useState(false);
+  const [blurOverlayOpen, setBlurOverlayOpen] = useState(false);
+  const [loadingOverlayOpen, setLoadingOverlayOpen] = useState(false);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -271,6 +284,141 @@ function App() {
               </Card>
             </Row>
           </Card>
+
+          {/* Modal Examples */}
+          <Card>
+            <Title>Modal</Title>
+            <Text>Click buttons to open different modal variations:</Text>
+            <Row flexWrap>
+              <Button onClick={() => setBasicModalOpen(true)}>Basic Modal</Button>
+              <Button success onClick={() => setBlurModalOpen(true)}>Modal with Blur</Button>
+              <Button warning onClick={() => setLargeModalOpen(true)}>Large Modal (lg)</Button>
+              <Button info onClick={() => setSmallModalOpen(true)}>Small Modal (sm)</Button>
+              <Button danger onClick={() => setNoEscapeModalOpen(true)}>No Escape Close</Button>
+            </Row>
+          </Card>
+
+          {/* Basic Modal */}
+          <Modal open={basicModalOpen} onClose={() => setBasicModalOpen(false)}>
+            <Title>Basic Modal</Title>
+            <Text>This is a basic modal with default settings.</Text>
+            <Text secondary>Click outside or press Escape to close.</Text>
+            <Row justifyEnd>
+              <Button secondary onClick={() => setBasicModalOpen(false)}>Cancel</Button>
+              <Button filled onClick={() => setBasicModalOpen(false)}>Confirm</Button>
+            </Row>
+          </Modal>
+
+          {/* Modal with Blur Overlay */}
+          <Modal
+            open={blurModalOpen}
+            onClose={() => setBlurModalOpen(false)}
+            overlayProps={{ blur: true }}
+          >
+            <Title>Modal with Blur</Title>
+            <Text>The overlay behind this modal has a blur effect.</Text>
+            <Input placeholder="Enter something..." />
+            <Row justifyEnd>
+              <Button secondary onClick={() => setBlurModalOpen(false)}>Close</Button>
+              <Button filled success onClick={() => setBlurModalOpen(false)}>Save</Button>
+            </Row>
+          </Modal>
+
+          {/* Large Modal */}
+          <Modal open={largeModalOpen} onClose={() => setLargeModalOpen(false)} lg>
+            <Title lg>Large Modal</Title>
+            <Text>This modal uses the lg size prop for a wider layout.</Text>
+            <Text>Perfect for forms or content that needs more space.</Text>
+            <Col>
+              <Label>
+                Name
+                <Input placeholder="Enter your name" />
+              </Label>
+              <Label>
+                Email
+                <Input type="email" placeholder="Enter your email" />
+              </Label>
+              <Label>
+                Message
+                <Input placeholder="Enter your message" />
+              </Label>
+            </Col>
+            <Row justifyEnd>
+              <Button secondary onClick={() => setLargeModalOpen(false)}>Cancel</Button>
+              <Button filled onClick={() => setLargeModalOpen(false)}>Submit</Button>
+            </Row>
+          </Modal>
+
+          {/* Small Modal */}
+          <Modal open={smallModalOpen} onClose={() => setSmallModalOpen(false)} sm>
+            <Title sm>Confirm Delete</Title>
+            <Text sm>Are you sure you want to delete this item?</Text>
+            <Row justifyEnd>
+              <Button sm secondary onClick={() => setSmallModalOpen(false)}>Cancel</Button>
+              <Button sm filled danger onClick={() => setSmallModalOpen(false)}>Delete</Button>
+            </Row>
+          </Modal>
+
+          {/* Modal with closeOnEscape={false} */}
+          <Modal
+            open={noEscapeModalOpen}
+            onClose={() => setNoEscapeModalOpen(false)}
+            closeOnEscape={false}
+          >
+            <Title>No Escape Close</Title>
+            <Text>This modal does NOT close when pressing Escape key.</Text>
+            <Text secondary>You must click the button or overlay to close.</Text>
+            <Code>closeOnEscape=&#123;false&#125;</Code>
+            <Row justifyEnd>
+              <Button filled onClick={() => setNoEscapeModalOpen(false)}>Close</Button>
+            </Row>
+          </Modal>
+
+          {/* Overlay Examples */}
+          <Card>
+            <Title>Overlay</Title>
+            <Text>Overlays can be used independently for custom layouts:</Text>
+            <Row flexWrap>
+              <Button onClick={() => setBasicOverlayOpen(true)}>Basic Overlay</Button>
+              <Button brand onClick={() => setBlurOverlayOpen(true)}>Overlay with Blur</Button>
+              <Button accent onClick={() => {
+                setLoadingOverlayOpen(true);
+                setTimeout(() => setLoadingOverlayOpen(false), 2000);
+              }}>Loading Overlay (2s)</Button>
+            </Row>
+          </Card>
+
+          {/* Basic Overlay */}
+          <Overlay open={basicOverlayOpen} onClose={() => setBasicOverlayOpen(false)}>
+            <Card className="max-w-md">
+              <Title>Custom Overlay Content</Title>
+              <Text>This uses Overlay directly with a Card inside.</Text>
+              <Text secondary>Click the dark area to close.</Text>
+              <Button filled onClick={() => setBasicOverlayOpen(false)}>Close</Button>
+            </Card>
+          </Overlay>
+
+          {/* Overlay with Blur */}
+          <Overlay open={blurOverlayOpen} onClose={() => setBlurOverlayOpen(false)} blur>
+            <Card className="max-w-md">
+              <Title>Blurred Overlay</Title>
+              <Text>The background has a blur effect applied.</Text>
+              <Row flexWrap>
+                <Badge success filled>Status: Active</Badge>
+                <Chip>Tag</Chip>
+              </Row>
+              <Button filled onClick={() => setBlurOverlayOpen(false)}>Got it</Button>
+            </Card>
+          </Overlay>
+
+          {/* Loading Overlay */}
+          <Overlay open={loadingOverlayOpen} blur pointerEventsNone>
+            <Card className="max-w-xs">
+              <Row>
+                <Text>Loading...</Text>
+              </Row>
+            </Card>
+          </Overlay>
 
         </Container>
       </Section>

@@ -18,6 +18,8 @@ import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
+import { TransitionTheme } from "./layout/transitionTheme";
+import { WhitespaceTheme } from "./layout/whitespaceTheme";
 import { BADGE_CATEGORIES } from "../props";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
 
@@ -44,12 +46,14 @@ export interface BadgeTheme extends BaseTypographyComponentTheme {
     radius: RadiusTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
+    transition: TransitionTheme;
+    whitespace: WhitespaceTheme;
   };
 }
 
 export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
   "span",
-  "vane-badge w-fit h-fit transition-all duration-200 whitespace-nowrap",
+  "vane-badge w-fit h-fit",
   {
     size: {
       px: new PxTheme(),
@@ -74,6 +78,8 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
       radius: new RadiusTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
+      transition: new TransitionTheme(),
+      whitespace: new WhitespaceTheme(),
     },
     typography: defaultTypographyThemes,
   },

@@ -42,6 +42,8 @@ describe('Theme structure consistency', () => {
       label: {},
       img: {},
       input: {},
+      overlay: {},
+      modal: {},
     };
 
     // At runtime, also ensure the keys align with COMPONENT

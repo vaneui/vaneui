@@ -30,6 +30,18 @@ export const VARIANT = ['variant'] as const;
 export const TRANSPARENT = ['transparent'] as const;
 /** Responsive sizing property for breakpoint-specific sizing */
 export const RESPONSIVE = ['responsive'] as const;
+/** Blur effect property for backdrop blur */
+export const BLUR = ['blur'] as const;
+/** Pointer events property for controlling element interactivity */
+export const POINTER_EVENTS = ['pointerEvents'] as const;
+/** Cursor appearance property */
+export const CURSOR = ['cursor'] as const;
+/** Transition/animation property */
+export const TRANSITION = ['transition'] as const;
+/** Whitespace/text wrapping property */
+export const WHITESPACE = ['whitespace'] as const;
+/** Object fit property for images/videos */
+export const OBJECT_FIT = ['objectFit'] as const;
 /** Common modifier properties available to all components */
 export const COMMON_MODIFIERS = [...TRANSPARENT, ...RESPONSIVE] as const;
 
@@ -48,6 +60,12 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...VARIANT,
   ...TRANSPARENT,
   ...RESPONSIVE,
+  ...BLUR,
+  ...POINTER_EVENTS,
+  ...CURSOR,
+  ...TRANSITION,
+  ...WHITESPACE,
+  ...OBJECT_FIT,
 ] as const;
 
 /**
@@ -129,6 +147,18 @@ export const ComponentKeys = {
   transparent: ['transparent'] as const,
   /** Responsive sizing: enables breakpoint-specific py/px/gap/fs when true */
   responsive: ['responsive'] as const,
+  /** Backdrop blur effect: blur (enabled) or noBlur (disabled) */
+  blur: ['blur', 'noBlur'] as const,
+  /** Pointer events: none (clicks pass through) or auto (normal) */
+  pointerEvents: ['pointerEventsNone', 'pointerEventsAuto'] as const,
+  /** Cursor appearance for interactive elements */
+  cursor: ['cursorPointer', 'cursorDefault', 'cursorNotAllowed', 'cursorNone', 'cursorText', 'cursorMove', 'cursorWait'] as const,
+  /** Transition effects for state changes */
+  transition: ['transition', 'noTransition'] as const,
+  /** Whitespace and text wrapping behavior */
+  whitespace: ['whitespaceNowrap', 'whitespaceNormal', 'whitespacePre', 'whitespacePreWrap', 'whitespacePreLine', 'whitespaceBreakSpaces'] as const,
+  /** Object fit for images and videos */
+  objectFit: ['objectCover', 'objectContain', 'objectFill', 'objectNone', 'objectScaleDown'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -173,6 +203,18 @@ export type WrapKey = typeof ComponentKeys.wrap[number];
 export type DisplayKey = typeof ComponentKeys.display[number];
 /** CSS overflow property keys for content clipping behavior */
 export type OverflowKey = typeof ComponentKeys.overflow[number];
+/** Backdrop blur keys: blur or noBlur */
+export type BlurKey = typeof ComponentKeys.blur[number];
+/** Pointer events keys: pointerEventsNone or pointerEventsAuto */
+export type PointerEventsKey = typeof ComponentKeys.pointerEvents[number];
+/** Cursor appearance keys */
+export type CursorKey = typeof ComponentKeys.cursor[number];
+/** Transition effect keys */
+export type TransitionKey = typeof ComponentKeys.transition[number];
+/** Whitespace behavior keys */
+export type WhitespaceKey = typeof ComponentKeys.whitespace[number];
+/** Object fit keys for images/videos */
+export type ObjectFitKey = typeof ComponentKeys.objectFit[number];
 
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];
@@ -197,7 +239,7 @@ export const VISUAL_LAYOUT = [...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION_LA
 export const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE] as const;
 
 /** Categories for interactive components like buttons, badges, chips */
-export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT, ...CURSOR, ...TRANSITION, ...WHITESPACE, ...COMMON_MODIFIERS] as const;
 /** Button component categories */
 export const BUTTON_CATEGORIES = INTERACTIVE_CATEGORIES;
 /** Badge component categories */
@@ -209,7 +251,7 @@ export const CODE_CATEGORIES = INTERACTIVE_CATEGORIES;
 
 /** Typography component categories */
 /** Categories for typography components like Text, Title, Link */
-export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT, ...CURSOR, ...COMMON_MODIFIERS] as const;
 /** Categories for list components with typography and list-specific styling */
 export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LIST_STYLE, ...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT, ...COMMON_MODIFIERS] as const;
 
@@ -235,13 +277,21 @@ export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING,
 /** Categories for checkbox form components */
 export const CHECKBOX_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...COMMON_MODIFIERS] as const;
 /** Categories for label form components with typography support */
-export const LABEL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_CORE, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const LABEL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_CORE, ...VARIANT, ...CURSOR, ...COMMON_MODIFIERS] as const;
 /** Categories for input form components with interactive and form-specific properties */
 export const INPUT_CATEGORIES = [...INTERACTIVE_CATEGORIES] as const;
 
 /** Media component categories */
 /** Categories for image media components */
-export const IMG_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const IMG_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...OBJECT_FIT, ...COMMON_MODIFIERS] as const;
+
+/** Overlay component categories */
+/** Categories for overlay backdrop components */
+export const OVERLAY_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT, ...BLUR, ...POINTER_EVENTS, ...COMMON_MODIFIERS] as const;
+
+/** Modal component categories */
+/** Categories for modal dialog components */
+export const MODAL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...SHAPE, ...VARIANT, ...COMMON_MODIFIERS] as const;
 
 /** Props type mapping category keys to their possible values */
 export type CategoryProps = {
@@ -250,7 +300,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'overlay', 'modal'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -282,5 +332,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   sectionTitle: TYPOGRAPHY_CATEGORIES,
   stack: STACK_CATEGORIES,
   text: TYPOGRAPHY_CATEGORIES,
-  title: TYPOGRAPHY_CATEGORIES
+  title: TYPOGRAPHY_CATEGORIES,
+  overlay: OVERLAY_CATEGORIES,
+  modal: MODAL_CATEGORIES
 }

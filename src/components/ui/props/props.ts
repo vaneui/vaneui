@@ -50,6 +50,12 @@ export * from './responsiveProps';
 
 // Visual modifiers
 export * from './transparentProps';
+export * from './blurProps';
+export * from './pointerEventsProps';
+export * from './cursorProps';
+export * from './transitionProps';
+export * from './whitespaceProps';
+export * from './objectFitProps';
 
 // List
 export * from './listStyleProps';

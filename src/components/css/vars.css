@@ -150,6 +150,18 @@
     --bw: 1px; /* Border width */
     --rw: 1px; /* Ring width */
 
+    /* Overlay variables */
+    --overlay-bg: oklch(0 0 0 / 50%); /* Semi-transparent black */
+    --overlay-blur: 4px; /* Backdrop blur amount */
+
+    /* Modal width scale (used by Modal component) */
+    --modal-width-xs: 20rem; /* 320px */
+    --modal-width-sm: 24rem; /* 384px */
+    --modal-width-md: 28rem; /* 448px */
+    --modal-width-lg: 32rem; /* 512px */
+    --modal-width-xl: 36rem; /* 576px */
+    --modal-width: var(--modal-width-md); /* Default modal width */
+
     /* Font size scale (used by Text, Link, ListItem, Label, List, Button, Badge, Chip) */
     --fs-unit-xs: 6;
     --fs-unit-sm: 7;
@@ -408,6 +420,14 @@
     .vane-page-title[data-size="md"] { --fs-unit-desktop: 24; --fs-unit-tablet: 21; --fs-unit-mobile: 18; --lh: 1; }
     .vane-page-title[data-size="lg"] { --fs-unit-desktop: 30; --fs-unit-tablet: 27; --fs-unit-mobile: 24; --lh: 1; }
     .vane-page-title[data-size="xl"] { --fs-unit-desktop: 36; --fs-unit-tablet: 33; --fs-unit-mobile: 30; --lh: 1; }
+
+    /* Modal - uses same padding as Card */
+    .vane-modal { --py-unit: 6; --aspect-ratio: 1; }
+    .vane-modal[data-size="xs"] { --modal-width: var(--modal-width-xs); --py-unit: 2; }
+    .vane-modal[data-size="sm"] { --modal-width: var(--modal-width-sm); --py-unit: 4; }
+    .vane-modal[data-size="md"] { --modal-width: var(--modal-width-md); --py-unit: 6; }
+    .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8; }
+    .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; }
 
     /* ========================================
        APPEARANCE & VARIANT RULES

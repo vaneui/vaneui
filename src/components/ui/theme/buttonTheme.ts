@@ -17,6 +17,9 @@ import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
+import { CursorTheme } from "./layout/cursorTheme";
+import { TransitionTheme } from "./layout/transitionTheme";
+import { WhitespaceTheme } from "./layout/whitespaceTheme";
 import { BUTTON_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
@@ -44,12 +47,15 @@ export interface ButtonTheme extends BaseTypographyComponentTheme {
     radius: RadiusTheme;
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
+    cursor: CursorTheme;
+    transition: TransitionTheme;
+    whitespace: WhitespaceTheme;
   };
 }
 
 export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   "button",
-  "vane-button w-fit h-fit cursor-pointer transition-all duration-200 whitespace-nowrap",
+  "vane-button w-fit h-fit",
   {
     size: {
       px: new PxTheme(),
@@ -74,6 +80,9 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       radius: new RadiusTheme(),
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
+      cursor: new CursorTheme(),
+      transition: new TransitionTheme(),
+      whitespace: new WhitespaceTheme(),
     },
     typography: defaultTypographyThemes,
   },

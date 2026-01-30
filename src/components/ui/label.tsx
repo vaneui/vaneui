@@ -19,7 +19,8 @@ import type {
   FlexDirectionProps,
   ReverseProps,
   AppearanceProps,
-  VariantProps
+  VariantProps,
+  CursorProps
 } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
@@ -45,6 +46,7 @@ export type LabelProps = BaseProps &
   ReverseProps &
   AppearanceProps &
   VariantProps &
+  CursorProps &
   Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

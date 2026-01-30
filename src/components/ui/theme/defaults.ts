@@ -21,6 +21,9 @@ export const themeDefaults: ThemeDefaults = {
     ring: true,
     shadow: true,
     focusVisible: true,
+    cursorPointer: true,
+    transition: true,
+    whitespaceNowrap: true,
   },
 
   card: {
@@ -49,6 +52,8 @@ export const themeDefaults: ThemeDefaults = {
     padding: true,
     gap: true,
     ring: true,
+    transition: true,
+    whitespaceNowrap: true,
   },
 
   badge: {
@@ -65,6 +70,8 @@ export const themeDefaults: ThemeDefaults = {
     padding: true,
     gap: true,
     ring: true,
+    transition: true,
+    whitespaceNowrap: true,
   },
 
   container: {
@@ -192,11 +199,13 @@ export const themeDefaults: ThemeDefaults = {
     medium: true,
     outline: true,
     primary: true,
+    cursorDefault: true,
   },
 
   img: {
     md: true,
     rounded: true,
+    objectCover: true,
   },
 
   code: {
@@ -308,5 +317,26 @@ export const themeDefaults: ThemeDefaults = {
     ring: true,
     noShadow: true,
     focusVisible: true,
+    transition: true,
+  },
+
+  overlay: {
+    fixed: true,
+    flex: true,
+    itemsCenter: true,
+    justifyCenter: true,
+  },
+
+  modal: {
+    md: true,
+    flex: true,
+    column: true,
+    overflowAuto: true,
+    padding: true,
+    gap: true,
+    rounded: true,
+    shadow: true,
+    primary: true,
+    outline: true,
   },
 };

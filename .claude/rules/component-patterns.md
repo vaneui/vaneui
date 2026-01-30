@@ -32,12 +32,40 @@ Component.displayName = 'Component';
 ```
 
 ## Required Checklist
-- Use `forwardRef` with correct element type generic
-- Use `ThemedComponent` wrapper with theme from `useTheme()`
-- Set `displayName`
-- Export both the component and its props type
-- Add to barrel export in `src/index.ts`
-- Components with `href` must support tag switching (button/div -> `<a>`)
+
+### Component Implementation
+- [ ] Use `forwardRef` with correct element type generic
+- [ ] Use `ThemedComponent` wrapper with theme from `useTheme()`
+- [ ] Set `displayName`
+- [ ] Export both the component and its props type
+- [ ] Add to barrel export in `src/index.ts`
+- [ ] Components with `href` must support tag switching (button/div -> `<a>`)
+
+### Theme Integration
+- [ ] Create theme file in `src/components/ui/theme/{component}Theme.ts`
+- [ ] Update `src/components/themeContext.tsx` with theme import and types
+- [ ] Add categories to `src/components/ui/props/keys.ts` if needed
+
+### Testing (REQUIRED)
+- [ ] Create test file: `src/components/tests/{component}.test.tsx`
+- [ ] Test default rendering and CSS classes
+- [ ] Test all size variants (xs, sm, md, lg, xl)
+- [ ] Test appearance variants (primary, secondary, success, danger, etc.)
+- [ ] Test variant modifiers (filled, outline)
+- [ ] Test shape variants if applicable (rounded, pill, sharp)
+- [ ] Test ref forwarding
+- [ ] Test boolean props don't leak to DOM
+- [ ] Test HTML attributes pass through
+- [ ] Test custom className merging
+- [ ] Test tag switching if component supports `href`
+
+### Verification (ALL must pass)
+- [ ] `npm run type-check` — TypeScript validation
+- [ ] `npm run lint` — ESLint validation
+- [ ] `npm test` — Jest test suite
+- [ ] `npm run build` — Full build
+
+**Work is NOT complete until tests exist and all checks pass.**
 
 ## Prop Categories (Mutually Exclusive Within Category)
 - **size**: xs, sm, md, lg, xl

@@ -58,6 +58,12 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'TextAlignProps': 'textAlign',
   'ListStyleProps': 'listStyle',
   'ResponsiveProps': 'responsive',
+  'BlurProps': 'blur',
+  'PointerEventsProps': 'pointerEvents',
+  'CursorProps': 'cursor',
+  'TransitionProps': 'transition',
+  'WhitespaceProps': 'whitespace',
+  'ObjectFitProps': 'objectFit',
 };
 
 // Convert category key to display name

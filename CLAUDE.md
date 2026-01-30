@@ -4,6 +4,43 @@
 
 VaneUI (`@vaneui/ui`, v0.9.0) is a React component library with 24 customizable UI components. Built with TypeScript, React 19, Tailwind CSS v4, and Rollup. Uses a boolean props API (`<Button primary lg filled>`) and CSS variable-based theming via `ThemeProvider`.
 
+## IMPORTANT: Component Implementation Workflow
+
+When creating or modifying components, **ALL steps below must be completed**. Use the `component-implementation` agent for guidance or `pre-commit-checker` agent to verify.
+
+### Required Steps for New Components
+
+1. **Create Component**
+   - Component file: `src/components/ui/{component}.tsx`
+   - Theme file: `src/components/ui/theme/{component}Theme.ts`
+   - Add categories to `src/components/ui/props/keys.ts` if needed
+
+2. **Integrate with Theme System**
+   - Update `src/components/themeContext.tsx` (import, ThemeProps, defaultTheme, ThemeDefaults, ThemeExtraClasses)
+   - Update `src/index.ts` (export component and props type)
+
+3. **Write Tests (REQUIRED)**
+   - Create `src/components/tests/{component}.test.tsx`
+   - Test: default rendering, size variants, appearance variants, variant modifiers, shape variants, ref forwarding, prop leak prevention, className merging, tag switching (if applicable)
+   - See `.claude/rules/testing.md` for patterns
+
+4. **Verify (ALL must pass)**
+   ```bash
+   npm run type-check    # TypeScript
+   npm run lint          # ESLint
+   npm test              # Jest
+   npm run build         # Full build
+   ```
+
+**Work is NOT complete until tests are written and all verification passes.**
+
+### Subagents
+
+- `component-implementation` — Guides complete implementation workflow
+- `pre-commit-checker` — Verifies all checks pass before commit
+- `test-runner` — Runs tests and reports results
+- `component-auditor` — Audits component for completeness
+
 ## Commands
 
 - `npm run build` — Full build (type-check + lint + rollup + CSS generation to `dist/`)

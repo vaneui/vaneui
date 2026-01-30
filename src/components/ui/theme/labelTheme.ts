@@ -13,6 +13,7 @@ import { FontSizeTheme } from "./size/fontSizeTheme";
 import { LineHeightTheme } from "./size/lineHeightTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
+import { CursorTheme } from "./layout/cursorTheme";
 import { LABEL_CATEGORIES } from "../props";
 import { textConsumerClass } from "../classes/appearanceClasses";
 
@@ -28,12 +29,13 @@ export interface LabelTheme extends BaseTypographyComponentTheme {
   layout: DefaultLayoutThemes & {
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
+    cursor: CursorTheme;
   };
 }
 
 export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
   "label",
-  "vane-label has-[input]:cursor-pointer cursor-default",
+  "vane-label has-[input]:cursor-pointer",
   {
     size: {
       text: new FontSizeTheme(),
@@ -48,6 +50,7 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       ...defaultLayoutsThemes,
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
+      cursor: new CursorTheme(),
     },
   },
   themeDefaults.label,

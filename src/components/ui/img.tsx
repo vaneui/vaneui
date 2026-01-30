@@ -13,7 +13,8 @@ import type {
   ShadowProps,
   RingProps,
   ShapeProps,
-  VariantProps
+  VariantProps,
+  ObjectFitProps
 } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
@@ -33,6 +34,7 @@ export type ImgProps = BaseProps &
   RingProps &
   ShapeProps &
   VariantProps &
+  ObjectFitProps &
   Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
