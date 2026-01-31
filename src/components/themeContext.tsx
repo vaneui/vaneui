@@ -27,7 +27,7 @@ import { LabelTheme, defaultLabelTheme } from './ui/theme/labelTheme';
 import { ImgTheme, defaultImgTheme } from './ui/theme/imgTheme';
 import { InputTheme, defaultInputTheme } from './ui/theme/inputTheme';
 import { OverlayTheme, defaultOverlayTheme } from './ui/theme/overlayTheme';
-import { ModalTheme, defaultModalTheme } from './ui/theme/modalTheme';
+import { ModalContentTheme, defaultModalContentTheme, defaultModalOverlayTheme } from './ui/theme/modalTheme';
 import type { BadgeProps } from "./ui/badge";
 import type { ButtonProps } from "./ui/button";
 import type { CardProps } from "./ui/card";
@@ -83,7 +83,10 @@ export interface ThemeProps {
   img: ComponentTheme<ImgProps, ImgTheme>;
   input: ComponentTheme<InputProps, InputTheme>;
   overlay: ComponentTheme<OverlayProps, OverlayTheme>;
-  modal: ComponentTheme<ModalProps, ModalTheme>;
+  modal: {
+    content: ComponentTheme<ModalProps, ModalContentTheme>;
+    overlay: ComponentTheme<OverlayProps, OverlayTheme>;
+  };
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -121,7 +124,10 @@ export const defaultTheme: ThemeProps = {
   img: defaultImgTheme,
   input: defaultInputTheme,
   overlay: defaultOverlayTheme,
-  modal: defaultModalTheme,
+  modal: {
+    content: defaultModalContentTheme,
+    overlay: defaultModalOverlayTheme,
+  },
 };
 
 /**
@@ -175,7 +181,10 @@ export type ThemeDefaults = {
   img?: Partial<BooleanKeys<ImgProps>>;
   input?: Partial<BooleanKeys<InputProps>>;
   overlay?: Partial<BooleanKeys<OverlayProps>>;
-  modal?: Partial<BooleanKeys<ModalProps>>;
+  modal?: {
+    content?: Partial<BooleanKeys<ModalProps>>;
+    overlay?: Partial<BooleanKeys<OverlayProps>>;
+  };
 };
 
 // ThemeExtraClasses mirrors the structure of ThemeProps
@@ -214,7 +223,10 @@ export type ThemeExtraClasses = {
   img?: Partial<StringValueKeys<ImgProps>>;
   input?: Partial<StringValueKeys<InputProps>>;
   overlay?: Partial<StringValueKeys<OverlayProps>>;
-  modal?: Partial<StringValueKeys<ModalProps>>;
+  modal?: {
+    content?: Partial<StringValueKeys<ModalProps>>;
+    overlay?: Partial<StringValueKeys<OverlayProps>>;
+  };
 };
 
 /**

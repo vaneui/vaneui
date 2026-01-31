@@ -1,5 +1,5 @@
 import React, { forwardRef, useRef, useEffect, useCallback } from 'react';
-import type { ComponentTheme } from '../ui/theme/common/ComponentTheme';
+import { createPortal } from 'react-dom';
 import type {
   BaseProps,
   SizeProps,
@@ -26,9 +26,9 @@ import type {
   TransparentProps,
   ResponsiveProps,
 } from './props';
+import type { OverlayProps } from './overlay';
 import { useTheme } from '../themeContext';
 import { ThemedComponent } from '../themedComponent';
-import { Overlay, OverlayProps } from './overlay';
 import { useScrollLock } from '../utils/scrollLock';
 import { useFocusTrap } from '../utils/focusTrap';
 
@@ -183,17 +183,24 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     }, [open, closeOnEscape, onClose]);
 
     // Handle overlay click
-    const handleOverlayClose = closeOnOverlayClick ? onClose : undefined;
+    const handleOverlayClick = (event: React.MouseEvent) => {
+      if (closeOnOverlayClick && event.target === event.currentTarget) {
+        onClose();
+      }
+    };
 
-    return (
-      <Overlay
-        open={open}
-        onClose={handleOverlayClose}
+    if (!open) return null;
+
+    const content = (
+      <ThemedComponent
+        theme={theme.modal.overlay}
+        onClick={handleOverlayClick}
         {...overlayProps}
       >
         <ThemedComponent
           ref={mergedRef}
-          theme={theme.modal as unknown as ComponentTheme<{className?: string; children?: React.ReactNode; tag?: React.ElementType}, object>}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          theme={theme.modal.content as any}
           role="dialog"
           aria-modal="true"
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
@@ -201,8 +208,15 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
         >
           {children}
         </ThemedComponent>
-      </Overlay>
+      </ThemedComponent>
     );
+
+    // Portal to body
+    if (typeof document !== 'undefined') {
+      return createPortal(content, document.body);
+    }
+
+    return content;
   }
 );
 

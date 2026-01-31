@@ -328,15 +328,23 @@ export const themeDefaults: ThemeDefaults = {
   },
 
   modal: {
-    md: true,
-    flex: true,
-    column: true,
-    overflowAuto: true,
-    padding: true,
-    gap: true,
-    rounded: true,
-    shadow: true,
-    primary: true,
-    outline: true,
+    content: {
+      md: true,
+      flex: true,
+      column: true,
+      overflowAuto: true,
+      padding: true,
+      gap: true,
+      rounded: true,
+      shadow: true,
+      primary: true,
+      outline: true,
+    },
+    overlay: {
+      fixed: true,
+      flex: true,
+      itemsCenter: true,
+      justifyCenter: true,
+    },
   },
 };
