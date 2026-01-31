@@ -28,6 +28,7 @@ import { ImgTheme, defaultImgTheme } from './ui/theme/imgTheme';
 import { InputTheme, defaultInputTheme } from './ui/theme/inputTheme';
 import { OverlayTheme, defaultOverlayTheme } from './ui/theme/overlayTheme';
 import { ModalContentTheme, defaultModalContentTheme, defaultModalOverlayTheme } from './ui/theme/modalTheme';
+import { PopupTheme, defaultPopupTheme } from './ui/theme/popupTheme';
 import type { BadgeProps } from "./ui/badge";
 import type { ButtonProps } from "./ui/button";
 import type { CardProps } from "./ui/card";
@@ -47,6 +48,7 @@ import type { ImgProps } from "./ui/img";
 import type { InputProps } from "./ui/input";
 import type { OverlayProps } from "./ui/overlay";
 import type { ModalProps } from "./ui/modal";
+import type { PopupProps } from "./ui/popup";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
@@ -87,6 +89,7 @@ export interface ThemeProps {
     content: ComponentTheme<ModalProps, ModalContentTheme>;
     overlay: ComponentTheme<OverlayProps, OverlayTheme>;
   };
+  popup: ComponentTheme<PopupProps, PopupTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -128,6 +131,7 @@ export const defaultTheme: ThemeProps = {
     content: defaultModalContentTheme,
     overlay: defaultModalOverlayTheme,
   },
+  popup: defaultPopupTheme,
 };
 
 /**
@@ -185,6 +189,7 @@ export type ThemeDefaults = {
     content?: Partial<BooleanKeys<ModalProps>>;
     overlay?: Partial<BooleanKeys<OverlayProps>>;
   };
+  popup?: Partial<BooleanKeys<PopupProps>>;
 };
 
 // ThemeExtraClasses mirrors the structure of ThemeProps
@@ -227,6 +232,7 @@ export type ThemeExtraClasses = {
     content?: Partial<StringValueKeys<ModalProps>>;
     overlay?: Partial<StringValueKeys<OverlayProps>>;
   };
+  popup?: Partial<StringValueKeys<PopupProps>>;
 };
 
 /**

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -9,7 +9,7 @@ import {
   Section,
   Card, Checkbox, Label, Link, Input, Button,
   Container, Badge, Divider, Chip, Code, PageTitle, Grid2,
-  Modal, Overlay
+  Modal, Overlay, Popup
 } from '../../src';
 import { ColorTable } from './ColorTable';
 
@@ -25,6 +25,14 @@ function App() {
   const [basicOverlayOpen, setBasicOverlayOpen] = useState(false);
   const [blurOverlayOpen, setBlurOverlayOpen] = useState(false);
   const [loadingOverlayOpen, setLoadingOverlayOpen] = useState(false);
+
+  // Popup state
+  const [basicPopupOpen, setBasicPopupOpen] = useState(false);
+  const [topPopupOpen, setTopPopupOpen] = useState(false);
+  const [matchWidthPopupOpen, setMatchWidthPopupOpen] = useState(false);
+  const basicPopupAnchor = useRef<HTMLButtonElement>(null);
+  const topPopupAnchor = useRef<HTMLButtonElement>(null);
+  const matchWidthAnchor = useRef<HTMLDivElement>(null);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -419,6 +427,74 @@ function App() {
               </Row>
             </Card>
           </Overlay>
+
+          {/* Popup Examples */}
+          <Card>
+            <Title>Popup (CSS Anchor Positioning)</Title>
+            <Text>Popups use CSS Anchor Positioning API for modern, performant positioning.</Text>
+            <Text secondary sm>Note: Requires Chrome 125+ or Edge 125+. Other browsers need polyfill.</Text>
+            <Row flexWrap>
+              <Button ref={basicPopupAnchor} onClick={() => setBasicPopupOpen(!basicPopupOpen)}>
+                {basicPopupOpen ? 'Close' : 'Open'} Dropdown
+              </Button>
+              <Button ref={topPopupAnchor} brand onClick={() => setTopPopupOpen(!topPopupOpen)}>
+                {topPopupOpen ? 'Close' : 'Open'} Tooltip (Top)
+              </Button>
+            </Row>
+            <Col ref={matchWidthAnchor} className="w-64">
+              <Label>
+                Select Option
+                <Input
+                  placeholder="Click to see options..."
+                  readOnly
+                  onClick={() => setMatchWidthPopupOpen(!matchWidthPopupOpen)}
+                />
+              </Label>
+            </Col>
+          </Card>
+
+          {/* Basic Popup (Dropdown style) */}
+          <Popup
+            open={basicPopupOpen}
+            onClose={() => setBasicPopupOpen(false)}
+            anchorRef={basicPopupAnchor}
+            placement="bottom-start"
+          >
+            <Col noPadding noGap>
+              <Button secondary transparent noShadow className="justify-start" onClick={() => setBasicPopupOpen(false)}>Option 1</Button>
+              <Button secondary transparent noShadow className="justify-start" onClick={() => setBasicPopupOpen(false)}>Option 2</Button>
+              <Button secondary transparent noShadow className="justify-start" onClick={() => setBasicPopupOpen(false)}>Option 3</Button>
+              <Divider />
+              <Button danger transparent noShadow className="justify-start" onClick={() => setBasicPopupOpen(false)}>Delete</Button>
+            </Col>
+          </Popup>
+
+          {/* Top Popup (Tooltip style) */}
+          <Popup
+            open={topPopupOpen}
+            onClose={() => setTopPopupOpen(false)}
+            anchorRef={topPopupAnchor}
+            placement="top"
+            sm
+          >
+            <Text sm>This is a tooltip-style popup positioned above the anchor.</Text>
+          </Popup>
+
+          {/* Match Width Popup (Select style) */}
+          <Popup
+            open={matchWidthPopupOpen}
+            onClose={() => setMatchWidthPopupOpen(false)}
+            anchorRef={matchWidthAnchor}
+            placement="bottom-start"
+            matchWidth
+          >
+            <Col noPadding noGap>
+              <Button secondary transparent noShadow className="justify-start" onClick={() => setMatchWidthPopupOpen(false)}>Apple</Button>
+              <Button secondary transparent noShadow className="justify-start" onClick={() => setMatchWidthPopupOpen(false)}>Banana</Button>
+              <Button secondary transparent noShadow className="justify-start" onClick={() => setMatchWidthPopupOpen(false)}>Cherry</Button>
+              <Button secondary transparent noShadow className="justify-start" onClick={() => setMatchWidthPopupOpen(false)}>Date</Button>
+            </Col>
+          </Popup>
 
         </Container>
       </Section>

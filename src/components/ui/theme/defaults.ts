@@ -347,4 +347,18 @@ export const themeDefaults: ThemeDefaults = {
       justifyCenter: true,
     },
   },
+
+  popup: {
+    md: true,
+    flex: true,
+    column: true,
+    overflowAuto: true,
+    padding: true,
+    gap: true,
+    rounded: true,
+    shadow: true,
+    border: true,
+    primary: true,
+    outline: true,
+  },
 };

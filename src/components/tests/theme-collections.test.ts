@@ -44,6 +44,7 @@ describe('Theme structure consistency', () => {
       input: {},
       overlay: {},
       modal: {},
+      popup: {},
     };
 
     // At runtime, also ensure the keys align with COMPONENT

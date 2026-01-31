@@ -162,6 +162,9 @@
     --modal-width-xl: 36rem; /* 576px */
     --modal-width: var(--modal-width-md); /* Default modal width */
 
+    /* Popup max height (used by Popup component) */
+    --popup-max-height: 20rem; /* 320px default max height */
+
     /* Font size scale (used by Text, Link, ListItem, Label, List, Button, Badge, Chip) */
     --fs-unit-xs: 6;
     --fs-unit-sm: 7;
@@ -428,6 +431,14 @@
     .vane-modal[data-size="md"] { --modal-width: var(--modal-width-md); --py-unit: 6; }
     .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8; }
     .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; }
+
+    /* Popup - compact padding for floating menus/dropdowns */
+    .vane-popup { --py-unit: 2; --aspect-ratio: 1.5; }
+    .vane-popup[data-size="xs"] { --py-unit: 1; --popup-max-height: 12rem; }
+    .vane-popup[data-size="sm"] { --py-unit: 1.5; --popup-max-height: 16rem; }
+    .vane-popup[data-size="md"] { --py-unit: 2; --popup-max-height: 20rem; }
+    .vane-popup[data-size="lg"] { --py-unit: 2.5; --popup-max-height: 24rem; }
+    .vane-popup[data-size="xl"] { --py-unit: 3; --popup-max-height: 28rem; }
 
     /* ========================================
        APPEARANCE & VARIANT RULES

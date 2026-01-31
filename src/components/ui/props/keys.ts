@@ -293,6 +293,10 @@ export const OVERLAY_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT, .
 /** Categories for modal dialog components */
 export const MODAL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...SHAPE, ...VARIANT, ...COMMON_MODIFIERS] as const;
 
+/** Popup component categories */
+/** Categories for popup floating components (dropdowns, menus, tooltips) */
+export const POPUP_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...SHAPE, ...VARIANT, ...COMMON_MODIFIERS] as const;
+
 /** Props type mapping category keys to their possible values */
 export type CategoryProps = {
   [K in ComponentCategoryKey]?: (typeof ComponentKeys)[K][number];
@@ -300,7 +304,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'overlay', 'modal'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'overlay', 'modal', 'popup'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -334,5 +338,6 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   text: TYPOGRAPHY_CATEGORIES,
   title: TYPOGRAPHY_CATEGORIES,
   overlay: OVERLAY_CATEGORIES,
-  modal: MODAL_CATEGORIES
+  modal: MODAL_CATEGORIES,
+  popup: POPUP_CATEGORIES
 }
