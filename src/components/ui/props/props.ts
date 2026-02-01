@@ -59,3 +59,15 @@ export * from './objectFitProps';
 
 // List
 export * from './listStyleProps';
+
+// Width
+export * from './widthProps';
+
+// Truncate
+export * from './truncateProps';
+
+// Status
+export * from './statusProps';
+
+// Orientation
+export * from './orientationProps';

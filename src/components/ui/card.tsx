@@ -27,7 +27,8 @@ import type {
   PaddingProps,
   VariantProps,
   TransparentProps,
-  ResponsiveProps
+  ResponsiveProps,
+  WidthProps
 } from "./props";
 import { ThemedComponent } from "../themedComponent";
 import { useTheme } from "../themeContext";
@@ -60,7 +61,8 @@ export type CardProps = BaseProps &
   PaddingProps &
   VariantProps &
   TransparentProps &
-    ResponsiveProps &
+  ResponsiveProps &
+  WidthProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag when used with tag="a") */

@@ -21,6 +21,7 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { TransitionTheme } from "./layout/transitionTheme";
 import { WhitespaceTheme } from "./layout/whitespaceTheme";
+import { WidthTheme } from "./layout/widthTheme";
 import { CHIP_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
@@ -50,6 +51,7 @@ export interface ChipTheme extends BaseTypographyComponentTheme {
     flexDirection: DirectionTheme;
     transition: TransitionTheme;
     whitespace: WhitespaceTheme;
+    width: WidthTheme;
   };
 }
 
@@ -82,6 +84,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
       flexDirection: new DirectionTheme(),
       transition: new TransitionTheme(),
       whitespace: new WhitespaceTheme(),
+      width: new WidthTheme(),
     },
     typography: defaultTypographyThemes,
   },

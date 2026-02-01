@@ -20,6 +20,7 @@ import { DirectionTheme } from "./layout/directionTheme";
 import { CursorTheme } from "./layout/cursorTheme";
 import { TransitionTheme } from "./layout/transitionTheme";
 import { WhitespaceTheme } from "./layout/whitespaceTheme";
+import { WidthTheme } from "./layout/widthTheme";
 import { BUTTON_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
@@ -50,6 +51,7 @@ export interface ButtonTheme extends BaseTypographyComponentTheme {
     cursor: CursorTheme;
     transition: TransitionTheme;
     whitespace: WhitespaceTheme;
+    width: WidthTheme;
   };
 }
 
@@ -83,6 +85,7 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
       cursor: new CursorTheme(),
       transition: new TransitionTheme(),
       whitespace: new WhitespaceTheme(),
+      width: new WidthTheme(),
     },
     typography: defaultTypographyThemes,
   },

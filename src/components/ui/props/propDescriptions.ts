@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-01-31T13:25:56.187Z
+ * Generated on: 2026-01-31T20:57:17.920Z
  */
 
 export interface PropDescription {
@@ -376,6 +376,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "orientation": {
+    "name": "Orientation",
+    "description": "Orientation props for horizontal/vertical layout\rUsed by components like Divider that can be oriented in different directions.",
+    "props": {
+      "vertical": {
+        "description": "Display as a vertical line instead of horizontal"
+      }
+    }
+  },
   "overflow": {
     "name": "Overflow",
     "description": "Overflow props for controlling content overflow behavior",
@@ -550,6 +559,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "status": {
+    "name": "Status",
+    "description": "Status props for form validation state\rNote: For success/warning validation states, use the appearance props\r(success, warning) which provide similar visual feedback.",
+    "props": {
+      "error": {
+        "description": "Show error state (red border/ring) for form validation"
+      }
+    }
+  },
   "textAlign": {
     "name": "Text Align",
     "description": "Text alignment props for controlling text position",
@@ -625,6 +643,30 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "truncate": {
+    "name": "Truncate",
+    "description": "Truncate props for controlling text overflow with ellipsis",
+    "props": {
+      "truncate": {
+        "description": "Single line truncation with ellipsis"
+      },
+      "lineClamp2": {
+        "description": "Truncate at 2 lines with ellipsis"
+      },
+      "lineClamp3": {
+        "description": "Truncate at 3 lines with ellipsis"
+      },
+      "lineClamp4": {
+        "description": "Truncate at 4 lines with ellipsis"
+      },
+      "lineClamp5": {
+        "description": "Truncate at 5 lines with ellipsis"
+      },
+      "noTruncate": {
+        "description": "Remove truncation"
+      }
+    }
+  },
   "variant": {
     "name": "Variant",
     "description": "Variant props for controlling component style variations",
@@ -658,6 +700,21 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "whitespaceBreakSpaces": {
         "description": "Break words to prevent overflow"
+      }
+    }
+  },
+  "width": {
+    "name": "Width",
+    "description": "Width props for controlling component width",
+    "props": {
+      "wFull": {
+        "description": "Set width to 100%"
+      },
+      "wFit": {
+        "description": "Set width to fit-content"
+      },
+      "wAuto": {
+        "description": "Set width to auto"
       }
     }
   },

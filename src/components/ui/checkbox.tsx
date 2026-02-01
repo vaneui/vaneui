@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef, useEffect } from 'react';
 import type {
   BaseProps,
   SizeProps,
@@ -14,7 +14,8 @@ import type {
   RingProps,
   FocusVisibleProps,
   ShapeProps,
-  VariantProps
+  VariantProps,
+  StatusProps
 } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
@@ -35,9 +36,12 @@ export type CheckboxProps = BaseProps &
   FocusVisibleProps &
   ShapeProps &
   VariantProps &
+  StatusProps &
   Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
+  /** Show indeterminate state (dash icon) - useful for "select all" when partially selected */
+  indeterminate?: boolean;
 };
 
 /**
@@ -45,7 +49,8 @@ export type CheckboxProps = BaseProps &
  *
  * Provides a custom-styled checkbox with checkmark visualization. Supports
  * all standard HTML checkbox attributes (checked, onChange, disabled, etc.)
- * and can be customized with appearances, sizes, and variants.
+ * and can be customized with appearances, sizes, and variants. Also supports
+ * indeterminate state for "select all" scenarios.
  *
  * @example
  * ```tsx
@@ -60,6 +65,12 @@ export type CheckboxProps = BaseProps &
  *   <Checkbox checked={accepted} onChange={(e) => setAccepted(e.target.checked)} />
  *   I accept the terms
  * </Label>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Indeterminate state (for "select all" when partially selected)
+ * <Checkbox indeterminate />
  * ```
  *
  * @example
@@ -79,6 +90,7 @@ export type CheckboxProps = BaseProps &
 export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
   function Checkbox(props, ref) {
     const theme = useTheme();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     // Extract only theme-relevant props for wrapper and check components
     const {
@@ -90,6 +102,10 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       filled, outline,
       // Shape props
       pill, sharp, rounded,
+      // Status props (for validation)
+      error,
+      // Indeterminate state
+      indeterminate,
       // Extract input HTML attributes
       checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, required, readOnly,
       // Other HTML attributes
@@ -97,11 +113,19 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       ...remainingProps
     } = props;
 
+    // Set the indeterminate property on the input element (can only be done via JS)
+    useEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.indeterminate = !!indeterminate;
+      }
+    }, [indeterminate]);
+
     const themeProps = {
       xs, sm, md, lg, xl,
       primary, brand, accent, secondary, tertiary, success, danger, warning, info,
       filled, outline,
-      pill, sharp, rounded
+      pill, sharp, rounded,
+      error
     };
 
     const inputProps = {
@@ -115,9 +139,12 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
 
     return (
       <ThemedComponent theme={theme.checkbox.wrapper} ref={ref} {...themeProps}>
-        <ThemedComponent theme={theme.checkbox.input} {...inputProps} />
+        <ThemedComponent theme={theme.checkbox.input} ref={inputRef} {...inputProps} />
         <ThemedComponent theme={theme.checkbox.check} {...themeProps}>
           {theme.checkbox.check.themes.checkElement()}
+        </ThemedComponent>
+        <ThemedComponent theme={theme.checkbox.indeterminate} {...themeProps}>
+          {theme.checkbox.indeterminate.themes.indeterminateElement()}
         </ThemedComponent>
       </ThemedComponent>
     );

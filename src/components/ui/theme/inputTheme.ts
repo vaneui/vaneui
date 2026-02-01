@@ -18,6 +18,8 @@ import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { TransitionTheme } from "./layout/transitionTheme";
+import { WidthTheme } from "./layout/widthTheme";
+import { StatusTheme } from "./appearance/statusTheme";
 import { INPUT_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
@@ -37,6 +39,7 @@ export interface InputTheme extends BaseTypographyComponentTheme {
     ring: SimpleConsumerTheme;
     focusVisible: SimpleConsumerTheme;
     shadow: ShadowAppearanceTheme;
+    status: StatusTheme;
   };
   layout: DefaultLayoutThemes & {
     border: BorderTheme;
@@ -46,6 +49,7 @@ export interface InputTheme extends BaseTypographyComponentTheme {
     wrap: WrapTheme;
     flexDirection: DirectionTheme;
     transition: TransitionTheme;
+    width: WidthTheme;
   };
 }
 
@@ -66,7 +70,8 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
       border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
       ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
       focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible'),
-      shadow: ShadowAppearanceTheme.createUITheme()
+      shadow: ShadowAppearanceTheme.createUITheme(),
+      status: new StatusTheme(),
     },
     layout: {
       ...defaultLayoutsThemes,
@@ -77,6 +82,7 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
       wrap: new WrapTheme(),
       flexDirection: new DirectionTheme(),
       transition: new TransitionTheme(),
+      width: new WidthTheme(),
     },
     typography: defaultTypographyThemes,
   },

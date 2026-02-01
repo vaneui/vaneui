@@ -16,6 +16,7 @@ import { FontSizeTheme } from "./size/fontSizeTheme";
 import { ReactElement } from "react";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
 import { FocusVisibleTheme } from "./layout/focusVisibleTheme";
+import { StatusTheme } from "./appearance/statusTheme";
 import { textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass, accentConsumerClass, checkedBgConsumerClass } from "../classes/appearanceClasses";
 
 export interface CheckboxTheme extends BaseComponentTheme {
@@ -37,6 +38,7 @@ export interface CheckboxTheme extends BaseComponentTheme {
     focusVisible: SimpleConsumerTheme;
     check: SimpleConsumerTheme;
     shadow: ShadowAppearanceTheme;
+    status: StatusTheme;
   };
 }
 
@@ -63,6 +65,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible'),
       check: new SimpleConsumerTheme({ base: checkedBgConsumerClass }, 'bg'),
       shadow: ShadowAppearanceTheme.createUITheme(),
+      status: new StatusTheme(),
     }
   },
   themeDefaults.checkbox?.input || {},
@@ -84,7 +87,7 @@ export interface CheckTheme extends BaseComponentTheme {
 
 export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
   "span",
-  "invisible col-start-1 row-start-1 peer-checked:visible",
+  "invisible col-start-1 row-start-1 peer-checked:visible peer-indeterminate:invisible",
   {
     checkElement: () =>
       <svg viewBox="0 0 14 14" fill="none">
@@ -107,6 +110,39 @@ export const defaultCheckTheme = new ComponentTheme<CheckboxProps, CheckTheme>(
     },
   },
   themeDefaults.checkbox?.check || {},
+  CHECKBOX_CATEGORIES,
+  undefined,
+  'ui'
+);
+
+export interface IndeterminateTheme extends BaseComponentTheme {
+  indeterminateElement: () => ReactElement;
+  appearance: {
+    color: SimpleConsumerTheme;
+  };
+  layout: DefaultLayoutThemes;
+}
+
+export const defaultIndeterminateTheme = new ComponentTheme<CheckboxProps, IndeterminateTheme>(
+  "span",
+  "invisible col-start-1 row-start-1 peer-indeterminate:visible",
+  {
+    indeterminateElement: () =>
+      <svg viewBox="0 0 14 14" fill="none">
+        <path
+          d="M3 7H11"
+          strokeWidth="2"
+          strokeLinecap="round"
+          fill="none"
+          stroke="currentColor"
+        />
+      </svg>,
+    appearance: {
+      color: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+    },
+    layout: defaultLayoutsThemes,
+  },
+  themeDefaults.checkbox?.indeterminate || {},
   CHECKBOX_CATEGORIES,
   undefined,
   'ui'

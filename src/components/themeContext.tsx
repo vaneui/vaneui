@@ -22,7 +22,7 @@ import { ColTheme, defaultColTheme } from './ui/theme/colTheme';
 import { defaultStackTheme, StackTheme } from './ui/theme/stackTheme';
 import { defaultSectionTheme, SectionTheme } from "./ui/theme/sectionTheme";
 import { defaultGrid2Theme, defaultGrid3Theme, defaultGrid4Theme, defaultGrid5Theme, defaultGrid6Theme, GridTheme } from "./ui/theme/gridTheme";
-import { CheckboxTheme, CheckTheme, CheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckTheme, defaultCheckboxWrapperTheme } from './ui/theme/checkboxTheme';
+import { CheckboxTheme, CheckTheme, CheckboxWrapperTheme, IndeterminateTheme, defaultCheckboxTheme, defaultCheckTheme, defaultCheckboxWrapperTheme, defaultIndeterminateTheme } from './ui/theme/checkboxTheme';
 import { LabelTheme, defaultLabelTheme } from './ui/theme/labelTheme';
 import { ImgTheme, defaultImgTheme } from './ui/theme/imgTheme';
 import { InputTheme, defaultInputTheme } from './ui/theme/inputTheme';
@@ -79,6 +79,7 @@ export interface ThemeProps {
   checkbox: {
     input: ComponentTheme<CheckboxProps, CheckboxTheme>;
     check: ComponentTheme<CheckboxProps, CheckTheme>;
+    indeterminate: ComponentTheme<CheckboxProps, IndeterminateTheme>;
     wrapper: ComponentTheme<CheckboxProps, CheckboxWrapperTheme>;
   };
   label: ComponentTheme<LabelProps, LabelTheme>;
@@ -121,6 +122,7 @@ export const defaultTheme: ThemeProps = {
   checkbox: {
     input: defaultCheckboxTheme,
     check: defaultCheckTheme,
+    indeterminate: defaultIndeterminateTheme,
     wrapper: defaultCheckboxWrapperTheme,
   },
   label: defaultLabelTheme,
@@ -179,6 +181,7 @@ export type ThemeDefaults = {
   checkbox?: {
     input?: Partial<BooleanKeys<CheckboxProps>>;
     check?: Partial<BooleanKeys<CheckboxProps>>;
+    indeterminate?: Partial<BooleanKeys<CheckboxProps>>;
     wrapper?: Partial<BooleanKeys<CheckboxProps>>;
   };
   label?: Partial<BooleanKeys<LabelProps>>;
@@ -222,6 +225,7 @@ export type ThemeExtraClasses = {
   checkbox?: {
     input?: Partial<StringValueKeys<CheckboxProps>>;
     check?: Partial<StringValueKeys<CheckboxProps>>;
+    indeterminate?: Partial<StringValueKeys<CheckboxProps>>;
     wrapper?: Partial<StringValueKeys<CheckboxProps>>;
   };
   label?: Partial<StringValueKeys<LabelProps>>;

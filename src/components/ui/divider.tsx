@@ -10,7 +10,8 @@ import type {
   OverflowProps,
   AppearanceProps,
   PaddingProps,
-  VariantProps
+  VariantProps,
+  OrientationProps
 } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
@@ -27,6 +28,7 @@ export type DividerProps = BaseProps &
   AppearanceProps &
   PaddingProps &
   VariantProps &
+  OrientationProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
@@ -35,16 +37,26 @@ export type DividerProps = BaseProps &
 /**
  * A visual separator component for dividing content sections.
  *
- * Renders a horizontal line to separate content blocks. Can be styled
- * with different appearances and sizes. Useful for creating visual
- * hierarchy and content organization.
+ * Renders a horizontal line by default to separate content blocks. Can be styled
+ * with different appearances and sizes. Supports vertical orientation for
+ * side-by-side content. Useful for creating visual hierarchy and content organization.
  *
  * @example
  * ```tsx
- * // Basic divider
+ * // Basic divider (horizontal)
  * <Text>Section 1</Text>
  * <Divider />
  * <Text>Section 2</Text>
+ * ```
+ *
+ * @example
+ * ```tsx
+ * // Vertical divider
+ * <Row>
+ *   <Text>Left</Text>
+ *   <Divider vertical />
+ *   <Text>Right</Text>
+ * </Row>
  * ```
  *
  * @example

@@ -18,10 +18,12 @@ export const VISUAL_DECORATION_LAYOUT = ['shadow', 'ring'] as const;
 export const SHAPE = ['shape'] as const;
 /** Text alignment property for block-level elements */
 export const TEXT_ALIGN = ['textAlign'] as const;
+/** Truncate property for text overflow control */
+export const TRUNCATE = ['truncate'] as const;
 /** Core typography styling properties (excluding text alignment) */
 export const TYPOGRAPHY_STYLE_CORE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily'] as const;
 /** Typography styling properties for text appearance and formatting */
-export const TYPOGRAPHY_STYLE = [...TYPOGRAPHY_STYLE_CORE, ...TEXT_ALIGN] as const;
+export const TYPOGRAPHY_STYLE = [...TYPOGRAPHY_STYLE_CORE, ...TEXT_ALIGN, ...TRUNCATE] as const;
 /** List-specific styling properties for bullet points and numbering */
 export const LIST_STYLE = ['listStyle'] as const;
 /** Variant properties for filled/outline styling modes */
@@ -42,6 +44,12 @@ export const TRANSITION = ['transition'] as const;
 export const WHITESPACE = ['whitespace'] as const;
 /** Object fit property for images/videos */
 export const OBJECT_FIT = ['objectFit'] as const;
+/** Width property for controlling element width */
+export const WIDTH = ['width'] as const;
+/** Status property for form validation state */
+export const STATUS = ['status'] as const;
+/** Orientation property for horizontal/vertical layout */
+export const ORIENTATION = ['orientation'] as const;
 /** Common modifier properties available to all components */
 export const COMMON_MODIFIERS = [...TRANSPARENT, ...RESPONSIVE] as const;
 
@@ -66,6 +74,10 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...TRANSITION,
   ...WHITESPACE,
   ...OBJECT_FIT,
+  ...WIDTH,
+  ...TRUNCATE,
+  ...STATUS,
+  ...ORIENTATION,
 ] as const;
 
 /**
@@ -159,6 +171,14 @@ export const ComponentKeys = {
   whitespace: ['whitespaceNowrap', 'whitespaceNormal', 'whitespacePre', 'whitespacePreWrap', 'whitespacePreLine', 'whitespaceBreakSpaces'] as const,
   /** Object fit for images and videos */
   objectFit: ['objectCover', 'objectContain', 'objectFill', 'objectNone', 'objectScaleDown'] as const,
+  /** Width control for element sizing */
+  width: ['wFull', 'wFit', 'wAuto'] as const,
+  /** Truncate control for text overflow */
+  truncate: ['truncate', 'lineClamp2', 'lineClamp3', 'lineClamp4', 'lineClamp5', 'noTruncate'] as const,
+  /** Status for form validation state */
+  status: ['error'] as const,
+  /** Orientation for horizontal/vertical layout */
+  orientation: ['vertical'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -215,6 +235,14 @@ export type TransitionKey = typeof ComponentKeys.transition[number];
 export type WhitespaceKey = typeof ComponentKeys.whitespace[number];
 /** Object fit keys for images/videos */
 export type ObjectFitKey = typeof ComponentKeys.objectFit[number];
+/** Width keys for element sizing */
+export type WidthKey = typeof ComponentKeys.width[number];
+/** Truncate keys for text overflow */
+export type TruncateKey = typeof ComponentKeys.truncate[number];
+/** Status keys for form validation */
+export type StatusKey = typeof ComponentKeys.status[number];
+/** Orientation keys for horizontal/vertical layout */
+export type OrientationKey = typeof ComponentKeys.orientation[number];
 
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];
@@ -239,7 +267,7 @@ export const VISUAL_LAYOUT = [...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION_LA
 export const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE] as const;
 
 /** Categories for interactive components like buttons, badges, chips */
-export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT, ...CURSOR, ...TRANSITION, ...WHITESPACE, ...COMMON_MODIFIERS] as const;
+export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT, ...CURSOR, ...TRANSITION, ...WHITESPACE, ...WIDTH, ...COMMON_MODIFIERS] as const;
 /** Button component categories */
 export const BUTTON_CATEGORIES = INTERACTIVE_CATEGORIES;
 /** Badge component categories */
@@ -267,19 +295,19 @@ export const ROW_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VIS
 /** Categories for stack layout components with responsive and padding support */
 export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS, ...TEXT_ALIGN] as const;
 /** Categories for card components with full typography and layout support */
-export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_LAYOUT, ...PADDING, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_LAYOUT, ...PADDING, ...VARIANT, ...WIDTH, ...COMMON_MODIFIERS] as const;
 /** Categories for divider components with basic layout and visual properties */
-export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT, ...ORIENTATION, ...COMMON_MODIFIERS] as const;
 /** Categories for section layout components with full responsive support */
 export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...BREAKPOINT, ...VARIANT, ...COMMON_MODIFIERS] as const;
 
 /** Form component categories */
 /** Categories for checkbox form components */
-export const CHECKBOX_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const CHECKBOX_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...STATUS, ...COMMON_MODIFIERS] as const;
 /** Categories for label form components with typography support */
 export const LABEL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_CORE, ...VARIANT, ...CURSOR, ...COMMON_MODIFIERS] as const;
 /** Categories for input form components with interactive and form-specific properties */
-export const INPUT_CATEGORIES = [...INTERACTIVE_CATEGORIES] as const;
+export const INPUT_CATEGORIES = [...INTERACTIVE_CATEGORIES, ...STATUS] as const;
 
 /** Media component categories */
 /** Categories for image media components */

@@ -30,7 +30,8 @@ import type {
   ResponsiveProps,
   CursorProps,
   TransitionProps,
-  WhitespaceProps
+  WhitespaceProps,
+  WidthProps
 } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
@@ -69,6 +70,7 @@ export type ButtonProps = BaseProps &
   CursorProps &
   TransitionProps &
   WhitespaceProps &
+  WidthProps &
   Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */

@@ -29,7 +29,8 @@ import type {
   TransparentProps,
   ResponsiveProps,
   TransitionProps,
-  WhitespaceProps
+  WhitespaceProps,
+  WidthProps
 } from './props';
 import { ThemedComponent } from '../themedComponent';
 import { useTheme } from "../themeContext";
@@ -65,6 +66,7 @@ export type BadgeProps = BaseProps &
   ResponsiveProps &
   TransitionProps &
   WhitespaceProps &
+  WidthProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */

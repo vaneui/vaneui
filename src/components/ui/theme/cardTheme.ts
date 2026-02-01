@@ -18,6 +18,7 @@ import { SimpleConsumerTheme } from "./appearance/simpleConsumerTheme";
 import { BreakpointTheme } from "./size/breakpointTheme";
 import { RingTheme } from "./layout/ringTheme";
 import { ShadowAppearanceTheme } from "./appearance/shadowAppearanceTheme";
+import { WidthTheme } from "./layout/widthTheme";
 import { CARD_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
@@ -37,6 +38,7 @@ export interface CardTheme extends BaseTypographyComponentTheme {
     direction: DirectionTheme;
     breakpoint: BreakpointTheme;
     shadow: ShadowAppearanceTheme;
+    width: WidthTheme;
   };
   appearance: {
     background: SimpleConsumerTheme;
@@ -65,6 +67,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       direction: new DirectionTheme(),
       breakpoint: new BreakpointTheme(),
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
+      width: new WidthTheme(),
     },
     appearance: {
       background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),

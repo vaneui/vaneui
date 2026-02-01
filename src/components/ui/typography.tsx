@@ -19,7 +19,8 @@ import type {
   ListStyleProps,
   PaddingProps,
   TransparentProps,
-  ResponsiveProps
+  ResponsiveProps,
+  TruncateProps
 } from './props';
 import { useTheme } from "../themeContext";
 import { ThemedComponent } from "../themedComponent";
@@ -32,6 +33,7 @@ export type TypographyProps = BaseProps &
   TextTransformProps &
   FontFamilyProps &
   TextAlignProps &
+  TruncateProps &
   SizeProps &
   HideProps &
   ItemsProps &
@@ -59,6 +61,7 @@ export type LinkProps = BaseProps &
   TextTransformProps &
   FontFamilyProps &
   TextAlignProps &
+  TruncateProps &
   SizeProps &
   HideProps &
   ItemsProps &
@@ -86,6 +89,7 @@ export type ListProps = BaseProps &
   TextTransformProps &
   FontFamilyProps &
   TextAlignProps &
+  TruncateProps &
   ListStyleProps &
   SizeProps &
   HideProps &

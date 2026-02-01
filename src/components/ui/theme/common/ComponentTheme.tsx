@@ -12,6 +12,7 @@ import { FontWeightTheme } from "../typography/fontWeightTheme";
 import { TextDecorationTheme } from "../typography/textDecorationTheme";
 import { TextTransformTheme } from "../typography/textTransformTheme";
 import { TextAlignTheme } from "../typography/textAlignTheme";
+import { TruncateTheme } from "../typography/truncateTheme";
 import { DeepPartial } from "../../../utils/deepPartial";
 import { DisplayTheme } from "../layout/displayTheme";
 import { twMerge } from "tailwind-merge";
@@ -44,6 +45,7 @@ export interface DefaultTypographyThemes {
   textDecoration: TextDecorationTheme;
   textTransform: TextTransformTheme;
   textAlign: TextAlignTheme;
+  truncate: TruncateTheme;
 }
 
 export interface BaseComponentTheme {
@@ -69,7 +71,8 @@ export const defaultTypographyThemes: DefaultTypographyThemes = {
   fontStyle: new FontStyleTheme(),
   textDecoration: new TextDecorationTheme(),
   textTransform: new TextTransformTheme(),
-  textAlign: new TextAlignTheme()
+  textAlign: new TextAlignTheme(),
+  truncate: new TruncateTheme(),
 };
 
 export class ComponentTheme<P extends ComponentProps, TTheme extends object> {

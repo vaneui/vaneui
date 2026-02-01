@@ -20,6 +20,7 @@ import { WrapTheme } from "./layout/wrapTheme";
 import { DirectionTheme } from "./layout/directionTheme";
 import { TransitionTheme } from "./layout/transitionTheme";
 import { WhitespaceTheme } from "./layout/whitespaceTheme";
+import { WidthTheme } from "./layout/widthTheme";
 import { BADGE_CATEGORIES } from "../props";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
 
@@ -48,6 +49,7 @@ export interface BadgeTheme extends BaseTypographyComponentTheme {
     flexDirection: DirectionTheme;
     transition: TransitionTheme;
     whitespace: WhitespaceTheme;
+    width: WidthTheme;
   };
 }
 
@@ -80,6 +82,7 @@ export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
       flexDirection: new DirectionTheme(),
       transition: new TransitionTheme(),
       whitespace: new WhitespaceTheme(),
+      width: new WidthTheme(),
     },
     typography: defaultTypographyThemes,
   },
