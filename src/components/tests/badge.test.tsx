@@ -186,4 +186,39 @@ describe('Badge Component Tests', () => {
       expect(badge).toHaveClass('custom-badge-class'); // custom class
     });
   });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Badge wFull>Full Width Badge</Badge>
+        </ThemeProvider>
+      );
+
+      const badge = container.querySelector('span');
+      expect(badge).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Badge wFit>Fit Width Badge</Badge>
+        </ThemeProvider>
+      );
+
+      const badge = container.querySelector('span');
+      expect(badge).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Badge wAuto>Auto Width Badge</Badge>
+        </ThemeProvider>
+      );
+
+      const badge = container.querySelector('span');
+      expect(badge).toHaveClass('w-auto');
+    });
+  });
 });

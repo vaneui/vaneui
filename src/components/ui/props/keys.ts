@@ -50,6 +50,10 @@ export const WIDTH = ['width'] as const;
 export const STATUS = ['status'] as const;
 /** Orientation property for horizontal/vertical layout */
 export const ORIENTATION = ['orientation'] as const;
+/** Height property for controlling element height */
+export const HEIGHT = ['height'] as const;
+/** Letter spacing property for text tracking */
+export const LETTER_SPACING = ['letterSpacing'] as const;
 /** Common modifier properties available to all components */
 export const COMMON_MODIFIERS = [...TRANSPARENT, ...RESPONSIVE] as const;
 
@@ -75,9 +79,11 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...WHITESPACE,
   ...OBJECT_FIT,
   ...WIDTH,
+  ...HEIGHT,
   ...TRUNCATE,
   ...STATUS,
   ...ORIENTATION,
+  ...LETTER_SPACING,
 ] as const;
 
 /**
@@ -178,7 +184,11 @@ export const ComponentKeys = {
   /** Status for form validation state */
   status: ['error'] as const,
   /** Orientation for horizontal/vertical layout */
-  orientation: ['vertical'] as const,
+  orientation: ['horizontal', 'vertical'] as const,
+  /** Height control for element sizing */
+  height: ['hFit', 'hFull', 'hAuto'] as const,
+  /** Letter spacing for text tracking */
+  letterSpacing: ['trackingTighter', 'trackingTight', 'trackingNormal', 'trackingWide', 'trackingWider', 'trackingWidest'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -243,6 +253,10 @@ export type TruncateKey = typeof ComponentKeys.truncate[number];
 export type StatusKey = typeof ComponentKeys.status[number];
 /** Orientation keys for horizontal/vertical layout */
 export type OrientationKey = typeof ComponentKeys.orientation[number];
+/** Height keys for element sizing */
+export type HeightKey = typeof ComponentKeys.height[number];
+/** Letter spacing keys for text tracking */
+export type LetterSpacingKey = typeof ComponentKeys.letterSpacing[number];
 
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];
@@ -267,7 +281,7 @@ export const VISUAL_LAYOUT = [...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION_LA
 export const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE] as const;
 
 /** Categories for interactive components like buttons, badges, chips */
-export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT, ...CURSOR, ...TRANSITION, ...WHITESPACE, ...WIDTH, ...COMMON_MODIFIERS] as const;
+export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT, ...CURSOR, ...TRANSITION, ...WHITESPACE, ...WIDTH, ...HEIGHT, ...COMMON_MODIFIERS] as const;
 /** Button component categories */
 export const BUTTON_CATEGORIES = INTERACTIVE_CATEGORIES;
 /** Badge component categories */
@@ -279,7 +293,7 @@ export const CODE_CATEGORIES = INTERACTIVE_CATEGORIES;
 
 /** Typography component categories */
 /** Categories for typography components like Text, Title, Link */
-export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT, ...CURSOR, ...COMMON_MODIFIERS] as const;
+export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT, ...CURSOR, ...LETTER_SPACING, ...COMMON_MODIFIERS] as const;
 /** Categories for list components with typography and list-specific styling */
 export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LIST_STYLE, ...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT, ...COMMON_MODIFIERS] as const;
 
@@ -323,7 +337,7 @@ export const MODAL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_L
 
 /** Popup component categories */
 /** Categories for popup floating components (dropdowns, menus, tooltips) */
-export const POPUP_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...SHAPE, ...VARIANT, ...COMMON_MODIFIERS] as const;
+export const POPUP_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...SHAPE, ...VARIANT, ...WIDTH, ...COMMON_MODIFIERS] as const;
 
 /** Props type mapping category keys to their possible values */
 export type CategoryProps = {

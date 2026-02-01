@@ -24,6 +24,8 @@ export const themeDefaults: ThemeDefaults = {
     cursorPointer: true,
     transition: true,
     whitespaceNowrap: true,
+    wFit: true,
+    hFit: true,
   },
 
   card: {
@@ -54,6 +56,8 @@ export const themeDefaults: ThemeDefaults = {
     ring: true,
     transition: true,
     whitespaceNowrap: true,
+    wFit: true,
+    hFit: true,
   },
 
   badge: {
@@ -72,6 +76,8 @@ export const themeDefaults: ThemeDefaults = {
     ring: true,
     transition: true,
     whitespaceNowrap: true,
+    wFit: true,
+    hFit: true,
   },
 
   container: {
@@ -189,6 +195,7 @@ export const themeDefaults: ThemeDefaults = {
     outline: true,
     primary: true,
     noPadding: true,
+    horizontal: true,
   },
 
   label: {
@@ -360,5 +367,6 @@ export const themeDefaults: ThemeDefaults = {
     border: true,
     primary: true,
     outline: true,
+    wFit: true,
   },
 };

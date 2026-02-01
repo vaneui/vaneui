@@ -581,4 +581,52 @@ describe('Card Component Tests', () => {
       });
     });
   });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card wFull>Full Width Card</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('div');
+      expect(card).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card wFit>Fit Width Card</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('div');
+      expect(card).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card wAuto>Auto Width Card</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('div');
+      expect(card).toHaveClass('w-auto');
+    });
+
+    it('should work with wFull and other layout props', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card wFull shadow border>Full Width Card with Shadow</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('div');
+      expect(card).toHaveClass('w-full');
+      expect(card).toHaveClass('shadow-(--shadow-base)');
+      expect(card).toHaveClass('border-[length:var(--bw)]');
+    });
+  });
 });

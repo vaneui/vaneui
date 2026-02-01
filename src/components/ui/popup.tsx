@@ -20,6 +20,7 @@ import type {
   ResponsiveProps,
   BorderProps,
   RingProps,
+  WidthProps,
 } from './props';
 import { useTheme } from '../themeContext';
 import { ThemedComponent } from '../themedComponent';
@@ -61,6 +62,7 @@ export type PopupProps = BaseProps &
   ResponsiveProps &
   BorderProps &
   RingProps &
+  WidthProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
     /** Whether popup is open */
     open: boolean;

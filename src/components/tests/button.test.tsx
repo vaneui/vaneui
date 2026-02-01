@@ -486,4 +486,53 @@ describe('Button Component Tests', () => {
       });
     });
   });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button wFull>Full Width</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button wFit>Fit Width</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button wAuto>Auto Width</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('w-auto');
+    });
+
+    it('should only apply one width class when multiple are specified (last wins)', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button wFull wFit>Button</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      // Only one width prop should be active
+      const classes = button?.className.split(' ') || [];
+      const widthClasses = classes.filter(c => c === 'w-full' || c === 'w-fit' || c === 'w-auto');
+      expect(widthClasses.length).toBe(1);
+    });
+  });
 });

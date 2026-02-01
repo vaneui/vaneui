@@ -22,6 +22,7 @@ import { DirectionTheme } from "./layout/directionTheme";
 import { TransitionTheme } from "./layout/transitionTheme";
 import { WhitespaceTheme } from "./layout/whitespaceTheme";
 import { WidthTheme } from "./layout/widthTheme";
+import { HeightTheme } from "./layout/heightTheme";
 import { CHIP_CATEGORIES } from "../props";
 import { themeDefaults } from "./defaults";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
@@ -52,12 +53,13 @@ export interface ChipTheme extends BaseTypographyComponentTheme {
     transition: TransitionTheme;
     whitespace: WhitespaceTheme;
     width: WidthTheme;
+    height: HeightTheme;
   };
 }
 
 export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   "span",
-  "vane-chip w-fit h-fit",
+  "vane-chip",
   {
     size: {
       px: new PxTheme(),
@@ -85,6 +87,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
       transition: new TransitionTheme(),
       whitespace: new WhitespaceTheme(),
       width: new WidthTheme(),
+      height: new HeightTheme(),
     },
     typography: defaultTypographyThemes,
   },

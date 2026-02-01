@@ -50,8 +50,8 @@ describe('Modal Component Tests', () => {
       expect(modal).toBeInTheDocument();
       // Flexbox layout from boolean props
       expect(modal).toHaveClass('flex', 'flex-col');
-      // Width from CSS variable, max-height hardcoded
-      expect(modal).toHaveClass('w-full', 'max-w-(--modal-width)', 'max-h-[90vh]');
+      // Width and height from CSS variables
+      expect(modal).toHaveClass('w-full', 'max-w-(--modal-width)', 'max-h-(--modal-max-height)');
       // Overflow from boolean prop
       expect(modal).toHaveClass('overflow-auto');
     });

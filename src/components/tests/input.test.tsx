@@ -449,4 +449,79 @@ describe('Input Component Tests', () => {
       expect(input).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
     });
   });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input wFull placeholder="Full width" />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input wFit placeholder="Fit width" />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input wAuto placeholder="Auto width" />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Status Props (Validation)', () => {
+    it('should apply error state classes when error prop is set', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input error placeholder="Error input" />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).toBeInTheDocument();
+      expect(input).toHaveClass('border-red-500');
+      expect(input).toHaveClass('ring-red-500/30');
+    });
+
+    it('should not apply error classes when error is false', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input placeholder="Normal input" />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).not.toHaveClass('border-red-500');
+      expect(input).not.toHaveClass('ring-red-500/30');
+    });
+
+    it('should work with other props alongside error', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input error lg primary placeholder="Large error input" />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).toHaveClass('border-red-500'); // error state
+      expect(input).toHaveAttribute('data-size', 'lg'); // size prop
+      expect(input).toHaveAttribute('data-appearance', 'primary'); // appearance
+    });
+  });
 });

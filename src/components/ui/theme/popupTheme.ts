@@ -17,6 +17,7 @@ import { ShadowAppearanceTheme } from './appearance/shadowAppearanceTheme';
 import { SimpleConsumerTheme } from './appearance/simpleConsumerTheme';
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from '../classes/appearanceClasses';
 import { themeDefaults } from './defaults';
+import { WidthTheme } from './layout/widthTheme';
 
 export interface PopupTheme extends BaseTypographyComponentTheme {
   size: {
@@ -30,6 +31,7 @@ export interface PopupTheme extends BaseTypographyComponentTheme {
     border: BorderTheme;
     ring: RingTheme;
     shadow: ShadowAppearanceTheme;
+    width: WidthTheme;
   };
   appearance: {
     background: SimpleConsumerTheme;
@@ -54,8 +56,8 @@ export interface PopupTheme extends BaseTypographyComponentTheme {
  */
 export const defaultPopupTheme = new ComponentTheme<PopupProps, PopupTheme>(
   'div',
-  // Base classes - only non-prop-driven styles
-  'vane-popup z-50 w-fit max-h-(--popup-max-height)',
+  // Base classes - CSS variable for max-h allows flexible customization
+  'vane-popup z-50 max-h-(--popup-max-height)',
   {
     size: {
       px: new PxTheme(),
@@ -69,6 +71,7 @@ export const defaultPopupTheme = new ComponentTheme<PopupProps, PopupTheme>(
       border: new BorderTheme(),
       ring: new RingTheme(),
       shadow: ShadowAppearanceTheme.createLayoutTheme(),
+      width: new WidthTheme(),
     },
     appearance: {
       background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),

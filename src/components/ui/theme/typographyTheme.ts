@@ -14,6 +14,7 @@ import { PlTheme } from "./size/plTheme";
 import { ListStyleTheme } from "./list/listStyleTheme";
 import { LineHeightTheme } from "./size/lineHeightTheme";
 import { FontSizeTheme } from "./size/fontSizeTheme";
+import { LetterSpacingTheme } from "./typography/letterSpacingTheme";
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from "../props";
 import { textConsumerClass } from "../classes/appearanceClasses";
 
@@ -21,6 +22,7 @@ export interface TypographyTheme extends BaseTypographyComponentTheme {
   size: {
     text: FontSizeTheme;
     lineHeight: LineHeightTheme;
+    letterSpacing: LetterSpacingTheme;
   };
   appearance: {
     text: SimpleConsumerTheme;
@@ -45,6 +47,7 @@ export const createTypographyComponentTheme = (
   fontSizeTheme: FontSizeTheme = new FontSizeTheme(),
   defaults: Partial<TypographyProps> = {},
   lineHeightTheme: LineHeightTheme = new LineHeightTheme(),
+  letterSpacingTheme: LetterSpacingTheme = new LetterSpacingTheme(),
   categories: typeof TYPOGRAPHY_CATEGORIES = TYPOGRAPHY_CATEGORIES,
 ): ComponentTheme<TypographyProps, TypographyTheme> => {
   return new ComponentTheme<TypographyProps, TypographyTheme>(
@@ -54,6 +57,7 @@ export const createTypographyComponentTheme = (
       size: {
         text: fontSizeTheme,
         lineHeight: lineHeightTheme,
+        letterSpacing: letterSpacingTheme,
       },
       appearance: {
         text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
@@ -74,10 +78,11 @@ export const createTypographyComponentTheme = (
 // Page title specific theme - uses responsive font size
 export const pageTitleTheme: ComponentTheme<TypographyProps, TypographyTheme> = createTypographyComponentTheme(
   "h1",
-  "vane-page-title text-balance tracking-tight w-fit",
+  "vane-page-title text-balance w-fit",
   new FontSizeTheme(),
-  mergeDefaults(themeDefaults.pageTitle as Record<string, boolean>, {semibold: true}),
+  mergeDefaults(themeDefaults.pageTitle as Record<string, boolean>, {semibold: true, trackingTight: true}),
   new LineHeightTheme(),
+  new LetterSpacingTheme(),
   TYPOGRAPHY_CATEGORIES
 );
 
@@ -88,6 +93,7 @@ export const sectionTitleTheme: ComponentTheme<TypographyProps, TypographyTheme>
   new FontSizeTheme(),
   mergeDefaults(themeDefaults.sectionTitle as Record<string, boolean>, {semibold: true}),
   new LineHeightTheme(),
+  new LetterSpacingTheme(),
   TYPOGRAPHY_CATEGORIES
 );
 
@@ -98,6 +104,7 @@ export const titleTheme: ComponentTheme<TypographyProps, TypographyTheme> = crea
   new FontSizeTheme(),
   mergeDefaults(themeDefaults.title as Record<string, boolean>, {semibold: true}),
   new LineHeightTheme(),
+  new LetterSpacingTheme(),
   TYPOGRAPHY_CATEGORIES
 );
 

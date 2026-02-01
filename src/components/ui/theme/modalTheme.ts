@@ -53,8 +53,8 @@ export interface ModalContentTheme extends BaseTypographyComponentTheme {
  */
 export const defaultModalContentTheme = new ComponentTheme<ModalProps, ModalContentTheme>(
   'div',
-  // Base classes - only non-prop-driven styles
-  'vane-modal w-full max-w-(--modal-width) max-h-[90vh]',
+  // Base classes - CSS variables for max-w and max-h allow flexible customization
+  'vane-modal w-full max-w-(--modal-width) max-h-(--modal-max-height)',
   {
     size: {
       px: new PxTheme(),

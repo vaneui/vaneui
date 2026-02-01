@@ -90,4 +90,71 @@ describe('Divider Component Tests', () => {
       expect(divider).toHaveClass('custom-divider-class'); // custom class
     });
   });
+
+  describe('Orientation Props', () => {
+    it('should render horizontal by default', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toBeInTheDocument();
+      expect(divider).toHaveClass('h-(--bw)', 'w-full'); // horizontal classes
+      expect(divider).not.toHaveClass('w-(--bw)', 'h-full'); // not vertical
+    });
+
+    it('should apply horizontal classes when horizontal prop is set', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider horizontal />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveClass('h-(--bw)', 'w-full');
+    });
+
+    it('should apply vertical classes when vertical prop is set', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider vertical />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toBeInTheDocument();
+      expect(divider).toHaveClass('w-(--bw)', 'h-full'); // vertical classes
+      expect(divider).not.toHaveClass('h-(--bw)', 'w-full'); // not horizontal
+    });
+
+    it('should work with vertical and other props', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider vertical primary padding />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveClass('w-(--bw)', 'h-full'); // vertical
+      expect(divider).toHaveClass('py-(--py)'); // padding
+      expect(divider).toHaveAttribute('data-appearance', 'primary');
+    });
+
+    it('should only apply one orientation when multiple are specified', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider horizontal vertical />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      // Only one orientation should be active - check that we don't have conflicting classes
+      const hasHorizontalHeight = divider?.classList.contains('h-(--bw)');
+      const hasVerticalHeight = divider?.classList.contains('h-full');
+      // Should not have both height classes
+      expect(hasHorizontalHeight && hasVerticalHeight).toBe(false);
+    });
+  });
 });

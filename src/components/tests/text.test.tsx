@@ -403,4 +403,101 @@ describe('Text Component Tests', () => {
       expect(anchor).toHaveClass('leading-(--lh)'); // line height variable
     });
   });
+
+  describe('Truncate Props', () => {
+    it('should apply truncate class for single line ellipsis', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text truncate>This is a very long text that should be truncated</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      expect(text).toHaveClass('truncate');
+    });
+
+    it('should apply line-clamp-2 class for 2 line clamp', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text lineClamp2>Multi-line text that should clamp at 2 lines</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      expect(text).toHaveClass('line-clamp-2');
+    });
+
+    it('should apply line-clamp-3 class for 3 line clamp', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text lineClamp3>Multi-line text that should clamp at 3 lines</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      expect(text).toHaveClass('line-clamp-3');
+    });
+
+    it('should apply line-clamp-4 class for 4 line clamp', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text lineClamp4>Multi-line text that should clamp at 4 lines</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      expect(text).toHaveClass('line-clamp-4');
+    });
+
+    it('should apply line-clamp-5 class for 5 line clamp', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text lineClamp5>Multi-line text that should clamp at 5 lines</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      expect(text).toHaveClass('line-clamp-5');
+    });
+
+    it('should apply line-clamp-none class for noTruncate', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text noTruncate>Text without truncation</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      expect(text).toHaveClass('line-clamp-none');
+    });
+
+    it('should work with truncate and other props', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text truncate primary lg bold>Truncated styled text</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      expect(text).toHaveClass('truncate');
+      expect(text).toHaveClass('text-(--text-color)'); // primary
+      expect(text).toHaveAttribute('data-size', 'lg');
+      expect(text).toHaveClass('font-bold');
+    });
+
+    it('should only apply one truncate class when multiple are specified', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Text truncate lineClamp2>Text</Text>
+        </ThemeProvider>
+      );
+
+      const text = container.querySelector('p');
+      const classes = text?.className.split(' ') || [];
+      const truncateClasses = classes.filter(c =>
+        c === 'truncate' || c.startsWith('line-clamp-')
+      );
+      expect(truncateClasses.length).toBe(1);
+    });
+  });
 });

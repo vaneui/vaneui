@@ -5,6 +5,8 @@
  */
 
 export interface OrientationProps {
+  /** Display as a horizontal line (default) */
+  horizontal?: boolean;
   /** Display as a vertical line instead of horizontal */
   vertical?: boolean;
 }

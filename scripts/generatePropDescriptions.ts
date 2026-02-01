@@ -68,6 +68,8 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'TruncateProps': 'truncate',
   'StatusProps': 'status',
   'OrientationProps': 'orientation',
+  'HeightProps': 'height',
+  'LetterSpacingProps': 'letterSpacing',
 };
 
 // Convert category key to display name

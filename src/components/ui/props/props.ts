@@ -71,3 +71,9 @@ export * from './statusProps';
 
 // Orientation
 export * from './orientationProps';
+
+// Height
+export * from './heightProps';
+
+// Letter Spacing
+export * from './letterSpacingProps';

@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-01-31T20:57:17.920Z
+ * Generated on: 2026-02-01T16:04:47.990Z
  */
 
 export interface PropDescription {
@@ -277,6 +277,21 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "height": {
+    "name": "Height",
+    "description": "Height props for controlling component height",
+    "props": {
+      "hFit": {
+        "description": "Set height to fit-content"
+      },
+      "hFull": {
+        "description": "Set height to 100%"
+      },
+      "hAuto": {
+        "description": "Set height to auto"
+      }
+    }
+  },
   "hide": {
     "name": "Hide",
     "description": "Hide props for responsive element visibility",
@@ -343,6 +358,30 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "letterSpacing": {
+    "name": "Letter Spacing",
+    "description": "Letter spacing props for controlling text tracking",
+    "props": {
+      "trackingTighter": {
+        "description": "Tighter letter spacing (-0.05em)"
+      },
+      "trackingTight": {
+        "description": "Tight letter spacing (-0.025em)"
+      },
+      "trackingNormal": {
+        "description": "Normal letter spacing (0)"
+      },
+      "trackingWide": {
+        "description": "Wide letter spacing (0.025em)"
+      },
+      "trackingWider": {
+        "description": "Wider letter spacing (0.05em)"
+      },
+      "trackingWidest": {
+        "description": "Widest letter spacing (0.1em)"
+      }
+    }
+  },
   "listStyle": {
     "name": "List Style",
     "description": "List style props for controlling list markers",
@@ -380,6 +419,9 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "name": "Orientation",
     "description": "Orientation props for horizontal/vertical layout\rUsed by components like Divider that can be oriented in different directions.",
     "props": {
+      "horizontal": {
+        "description": "Display as a horizontal line (default)"
+      },
       "vertical": {
         "description": "Display as a vertical line instead of horizontal"
       }

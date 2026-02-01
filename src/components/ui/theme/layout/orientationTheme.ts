@@ -21,10 +21,8 @@ export class OrientationTheme extends BaseTheme implements Record<OrientationKey
 
     if (orientationValue && orientationValue in this) {
       classes.push(this[orientationValue as OrientationKey]);
-    } else {
-      // Default to horizontal
-      classes.push(this.horizontal);
     }
+    // Note: Default to horizontal is handled by themeDefaults
 
     return classes;
   }

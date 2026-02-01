@@ -325,12 +325,137 @@ describe('Checkbox Component Tests', () => {
         const checkElement = container.querySelector('span.invisible');
         const svg = checkElement?.querySelector('svg');
         const path = svg?.querySelector('path');
-        
+
         // Verify that the SVG path uses currentColor to inherit text color
         expect(path).toHaveAttribute('stroke', 'currentColor');
         // Verify check element has the proper color class
         expect(checkElement).toHaveClass('text-(--text-color)');
       });
+    });
+  });
+
+  describe('Status Props (Validation)', () => {
+    it('should apply error state classes when error prop is set', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox error />
+        </ThemeProvider>
+      );
+
+      const checkbox = container.querySelector('input[type="checkbox"]');
+      expect(checkbox).toBeInTheDocument();
+      expect(checkbox).toHaveClass('border-red-500');
+      expect(checkbox).toHaveClass('ring-red-500/30');
+    });
+
+    it('should not apply error classes when error is false', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox />
+        </ThemeProvider>
+      );
+
+      const checkbox = container.querySelector('input[type="checkbox"]');
+      expect(checkbox).not.toHaveClass('border-red-500');
+      expect(checkbox).not.toHaveClass('ring-red-500/30');
+    });
+
+    it('should work with other props alongside error', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox error lg primary />
+        </ThemeProvider>
+      );
+
+      const checkbox = container.querySelector('input[type="checkbox"]');
+      expect(checkbox).toHaveClass('border-red-500'); // error state
+      expect(checkbox).toHaveAttribute('data-size', 'lg'); // size prop
+      expect(checkbox).toHaveAttribute('data-appearance', 'primary'); // appearance
+    });
+  });
+
+  describe('Indeterminate State', () => {
+    it('should render indeterminate element alongside check element', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox />
+        </ThemeProvider>
+      );
+
+      const wrapper = container.querySelector('span.inline-grid');
+      // Should have two invisible span elements: check and indeterminate
+      const invisibleSpans = wrapper?.querySelectorAll('span.invisible');
+      expect(invisibleSpans?.length).toBe(2);
+    });
+
+    it('should have indeterminate element with dash SVG', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox />
+        </ThemeProvider>
+      );
+
+      const wrapper = container.querySelector('span.inline-grid');
+      const indeterminateElement = wrapper?.querySelector('span.peer-indeterminate\\:visible');
+      expect(indeterminateElement).toBeInTheDocument();
+
+      const svg = indeterminateElement?.querySelector('svg');
+      expect(svg).toBeInTheDocument();
+
+      const path = svg?.querySelector('path');
+      expect(path).toHaveAttribute('d', 'M3 7H11'); // dash line path
+      expect(path).toHaveAttribute('stroke', 'currentColor');
+    });
+
+    it('should have check element that hides when indeterminate', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox />
+        </ThemeProvider>
+      );
+
+      const wrapper = container.querySelector('span.inline-grid');
+      const checkElement = wrapper?.querySelector('span.peer-checked\\:visible');
+      expect(checkElement).toBeInTheDocument();
+      // Check element should be hidden when indeterminate
+      expect(checkElement).toHaveClass('peer-indeterminate:invisible');
+    });
+
+    it('should set indeterminate property on input when indeterminate prop is true', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox indeterminate />
+        </ThemeProvider>
+      );
+
+      const checkbox = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
+      expect(checkbox).toBeInTheDocument();
+      // The indeterminate property is set via useEffect
+      expect(checkbox.indeterminate).toBe(true);
+    });
+
+    it('should not set indeterminate property when indeterminate prop is false', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox indeterminate={false} />
+        </ThemeProvider>
+      );
+
+      const checkbox = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
+      expect(checkbox.indeterminate).toBe(false);
+    });
+
+    it('should work with indeterminate and other props', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox indeterminate primary lg />
+        </ThemeProvider>
+      );
+
+      const checkbox = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
+      expect(checkbox.indeterminate).toBe(true);
+      expect(checkbox).toHaveAttribute('data-size', 'lg');
+      expect(checkbox).toHaveAttribute('data-appearance', 'primary');
     });
   });
 });

@@ -161,6 +161,7 @@
     --modal-width-lg: 32rem; /* 512px */
     --modal-width-xl: 36rem; /* 576px */
     --modal-width: var(--modal-width-md); /* Default modal width */
+    --modal-max-height: 90vh; /* Default modal max height */
 
     /* Popup max height (used by Popup component) */
     --popup-max-height: 20rem; /* 320px default max height */
