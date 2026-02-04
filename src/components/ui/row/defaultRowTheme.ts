@@ -4,8 +4,8 @@ import type { RowTheme } from "./RowTheme";
 import { ROW_CATEGORIES } from "../props/categoryBuilders";
 import { layoutSubThemes } from "../theme/common/layoutSubThemes";
 import { rowDefaults } from "./rowDefaults";
-import { BreakpointTheme } from "../theme/size/breakpointTheme";
-import { TextAlignTheme } from "../theme/typography/textAlignTheme";
+import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
+import { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
 
 export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
   "div",
@@ -14,10 +14,10 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
     ...layoutSubThemes,
     size: {
       ...layoutSubThemes.size,
-      breakpoint: new BreakpointTheme(),
+      breakpoint: new BreakpointClassMapper(),
     },
     typography: {
-      textAlign: new TextAlignTheme(),
+      textAlign: new TextAlignClassMapper(),
     },
   },
   rowDefaults,

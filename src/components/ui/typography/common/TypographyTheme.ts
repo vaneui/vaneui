@@ -2,19 +2,19 @@ import type {
   BaseTypographyComponentTheme,
   DefaultLayoutThemes,
 } from "../../theme/common/ComponentTheme";
-import type { FontSizeTheme } from "../../theme/size/fontSizeTheme";
-import type { LineHeightTheme } from "../../theme/size/lineHeightTheme";
-import type { LetterSpacingTheme } from "../../theme/typography/letterSpacingTheme";
-import type { SimpleConsumerTheme } from "../../theme/appearance/simpleConsumerTheme";
+import type { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
+import type { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
+import type { LetterSpacingClassMapper } from "../../theme/typography/letterSpacingClassMapper";
+import type { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
 
 export interface TextTheme extends BaseTypographyComponentTheme {
   size: {
-    text: FontSizeTheme;
-    lineHeight: LineHeightTheme;
-    letterSpacing: LetterSpacingTheme;
+    text: FontSizeClassMapper;
+    lineHeight: LineHeightClassMapper;
+    letterSpacing: LetterSpacingClassMapper;
   };
   appearance: {
-    text: SimpleConsumerTheme;
+    text: SimpleConsumerClassMapper;
   };
   layout: DefaultLayoutThemes;
 }

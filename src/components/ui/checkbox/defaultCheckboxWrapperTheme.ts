@@ -3,9 +3,9 @@ import {
   defaultLayoutsThemes,
 } from "../theme/common/ComponentTheme";
 import type { CheckboxProps } from "./CheckboxProps";
-import { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import { FocusVisibleTheme } from "../theme/layout/focusVisibleTheme";
-import { SizeTheme } from "../theme/size/sizeTheme";
+import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
+import { SizeClassMapper } from "../theme/size/sizeClassMapper";
 import { focusVisibleConsumerClass } from "../classes/appearanceClasses";
 import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
 import type { CheckboxWrapperTheme } from "./CheckboxWrapperTheme";
@@ -16,7 +16,7 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
   "",
   {
     size: {
-      height: new SizeTheme({
+      height: new SizeClassMapper({
         xs: 'h-[calc(var(--lh)*var(--fs))]',
         sm: 'h-[calc(var(--lh)*var(--fs))]',
         md: 'h-[calc(var(--lh)*var(--fs))]',
@@ -26,11 +26,11 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
     },
     layout: {
       ...defaultLayoutsThemes,
-      focusVisible: new FocusVisibleTheme()
+      focusVisible: new FocusVisibleClassMapper()
     },
     appearance: {
-      variant: new SimpleConsumerTheme({ base: '' }, 'bg'),
-      focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible')
+      variant: new SimpleConsumerClassMapper({ base: '' }, 'bg'),
+      focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible')
     }
   },
   checkboxWrapperDefaults,

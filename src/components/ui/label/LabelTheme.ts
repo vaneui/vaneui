@@ -2,34 +2,34 @@ import type {
   BaseTypographyComponentTheme,
   DefaultLayoutThemes,
 } from "../theme/common/ComponentTheme";
-import type { GapTheme } from "../theme/size/gapTheme";
-import type { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import type { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import type { FontSizeTheme } from "../theme/size/fontSizeTheme";
-import type { LineHeightTheme } from "../theme/size/lineHeightTheme";
-import type { BorderTheme } from "../theme/layout/borderTheme";
-import type { RingTheme } from "../theme/layout/ringTheme";
-import type { WrapTheme } from "../theme/layout/wrapTheme";
-import type { DirectionTheme } from "../theme/layout/directionTheme";
-import type { CursorTheme } from "../theme/layout/cursorTheme";
+import type { GapClassMapper } from "../theme/size/gapClassMapper";
+import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import type { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
+import type { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
+import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
+import type { RingClassMapper } from "../theme/layout/ringClassMapper";
+import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
+import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
+import type { CursorClassMapper } from "../theme/layout/cursorClassMapper";
 
 export interface LabelTheme extends BaseTypographyComponentTheme {
   size: {
-    text: FontSizeTheme;
-    lineHeight: LineHeightTheme;
-    gap: GapTheme;
+    text: FontSizeClassMapper;
+    lineHeight: LineHeightClassMapper;
+    gap: GapClassMapper;
   };
   appearance: {
-    text: SimpleConsumerTheme;
-    border: SimpleConsumerTheme;
-    ring: SimpleConsumerTheme;
-    shadow: ShadowAppearanceTheme;
+    text: SimpleConsumerClassMapper;
+    border: SimpleConsumerClassMapper;
+    ring: SimpleConsumerClassMapper;
+    shadow: ShadowAppearanceClassMapper;
   };
   layout: DefaultLayoutThemes & {
-    border: BorderTheme;
-    ring: RingTheme;
-    wrap: WrapTheme;
-    flexDirection: DirectionTheme;
-    cursor: CursorTheme;
+    border: BorderClassMapper;
+    ring: RingClassMapper;
+    wrap: WrapClassMapper;
+    flexDirection: DirectionClassMapper;
+    cursor: CursorClassMapper;
   };
 }

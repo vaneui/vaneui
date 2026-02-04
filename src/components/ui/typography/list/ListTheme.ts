@@ -2,21 +2,21 @@ import type {
   BaseTypographyComponentTheme,
   DefaultLayoutThemes,
 } from "../../theme/common/ComponentTheme";
-import type { FontSizeTheme } from "../../theme/size/fontSizeTheme";
-import type { LineHeightTheme } from "../../theme/size/lineHeightTheme";
-import type { PlTheme } from "../../theme/size/plTheme";
-import type { SimpleConsumerTheme } from "../../theme/appearance/simpleConsumerTheme";
-import type { ListStyleTheme } from "../../theme/list/listStyleTheme";
+import type { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
+import type { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
+import type { PlClassMapper } from "../../theme/size/plClassMapper";
+import type { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
+import type { ListStyleClassMapper } from "../../theme/list/listStyleClassMapper";
 
 export interface ListTheme extends BaseTypographyComponentTheme {
   size: {
-    text: FontSizeTheme;
-    lineHeight: LineHeightTheme;
-    paddingLeft: PlTheme;
+    text: FontSizeClassMapper;
+    lineHeight: LineHeightClassMapper;
+    paddingLeft: PlClassMapper;
   }
   appearance: {
-    text: SimpleConsumerTheme;
+    text: SimpleConsumerClassMapper;
   };
   layout: DefaultLayoutThemes;
-  listStyle: ListStyleTheme;
+  listStyle: ListStyleClassMapper;
 }

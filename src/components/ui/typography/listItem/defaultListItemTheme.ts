@@ -5,9 +5,9 @@ import {
 } from "../../theme/common/ComponentTheme";
 import type { TypographyProps } from "../common/TypographyProps";
 import type { ListItemTheme } from "./ListItemTheme";
-import { FontSizeTheme } from "../../theme/size/fontSizeTheme";
-import { LineHeightTheme } from "../../theme/size/lineHeightTheme";
-import { SimpleConsumerTheme } from "../../theme/appearance/simpleConsumerTheme";
+import { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
+import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
+import { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
 import { textConsumerClass } from "../../classes/appearanceClasses";
 import { LIST_CATEGORIES } from "../common/TypographyCategories";
 import { listItemDefaults } from "./listItemDefaults";
@@ -18,11 +18,11 @@ export const defaultListItemTheme: ComponentTheme<TypographyProps, ListItemTheme
   "vane-list-item",
   {
     size: {
-      text: new FontSizeTheme(),
-      lineHeight: new LineHeightTheme(),
+      text: new FontSizeClassMapper(),
+      lineHeight: new LineHeightClassMapper(),
     },
     appearance: {
-      text: new SimpleConsumerTheme({ base: textConsumerClass, alwaysOutput: true }, 'text'),
+      text: new SimpleConsumerClassMapper({ base: textConsumerClass, alwaysOutput: true }, 'text'),
     },
     typography: defaultTypographyThemes,
     layout: defaultLayoutsThemes,

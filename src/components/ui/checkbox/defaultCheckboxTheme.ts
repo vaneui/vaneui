@@ -3,17 +3,17 @@ import {
   defaultLayoutsThemes,
 } from "../theme/common/ComponentTheme";
 import type { CheckboxProps } from "./CheckboxProps";
-import { RadiusTheme } from "../theme/layout/radiusTheme";
-import { BorderTheme } from "../theme/layout/borderTheme";
-import { RingTheme } from "../theme/layout/ringTheme";
-import { CursorTheme } from "../theme/layout/cursorTheme";
-import { TransitionTheme } from "../theme/layout/transitionTheme";
-import { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import { SizeTheme } from "../theme/size/sizeTheme";
-import { FontSizeTheme } from "../theme/size/fontSizeTheme";
-import { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import { FocusVisibleTheme } from "../theme/layout/focusVisibleTheme";
-import { StatusTheme } from "../theme/appearance/statusTheme";
+import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
+import { BorderClassMapper } from "../theme/layout/borderClassMapper";
+import { RingClassMapper } from "../theme/layout/ringClassMapper";
+import { CursorClassMapper } from "../theme/layout/cursorClassMapper";
+import { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
+import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import { SizeClassMapper } from "../theme/size/sizeClassMapper";
+import { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
+import { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
+import { StatusClassMapper } from "../theme/appearance/statusClassMapper";
 import {
   borderConsumerClass,
   ringConsumerClass,
@@ -30,27 +30,27 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
   "vane-checkbox peer col-start-1 row-start-1 cursor-pointer appearance-none ring-transparent size-(--size)",
   {
     size: {
-      size: new SizeTheme(),
-      text: new FontSizeTheme()
+      size: new SizeClassMapper(),
+      text: new FontSizeClassMapper()
     },
     layout: {
       ...defaultLayoutsThemes,
-      border: new BorderTheme(),
-      ring: new RingTheme(),
-      focusVisible: new FocusVisibleTheme(),
-      cursor: new CursorTheme(),
-      transition: new TransitionTheme(),
-      radius: new RadiusTheme(),
+      border: new BorderClassMapper(),
+      ring: new RingClassMapper(),
+      focusVisible: new FocusVisibleClassMapper(),
+      cursor: new CursorClassMapper(),
+      transition: new TransitionClassMapper(),
+      radius: new RadiusClassMapper(),
     },
     appearance: {
-      accent: new SimpleConsumerTheme({ base: accentConsumerClass }, 'accent'),
-      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
-      background: new SimpleConsumerTheme({ base: 'bg-white' }, 'bg'),
-      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
-      focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible'),
-      check: new SimpleConsumerTheme({ base: checkedBgConsumerClass }, 'bg'),
-      shadow: ShadowAppearanceTheme.createUITheme(),
-      status: new StatusTheme(),
+      accent: new SimpleConsumerClassMapper({ base: accentConsumerClass }, 'accent'),
+      border: new SimpleConsumerClassMapper({ base: borderConsumerClass }, 'border'),
+      background: new SimpleConsumerClassMapper({ base: 'bg-white' }, 'bg'),
+      ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
+      focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible'),
+      check: new SimpleConsumerClassMapper({ base: checkedBgConsumerClass }, 'bg'),
+      shadow: ShadowAppearanceClassMapper.createUITheme(),
+      status: new StatusClassMapper(),
     }
   },
   checkboxInputDefaults,

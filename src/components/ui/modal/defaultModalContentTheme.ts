@@ -7,15 +7,15 @@ import type { ModalProps } from "./ModalProps";
 import type { ModalContentTheme } from "./ModalContentTheme";
 import { MODAL_CATEGORIES } from "./ModalCategories";
 import { modalContentDefaults } from "./modalContentDefaults";
-import { GapTheme } from "../theme/size/gapTheme";
-import { PxTheme } from "../theme/size/pxTheme";
-import { PyTheme } from "../theme/size/pyTheme";
-import { RadiusTheme } from "../theme/layout/radiusTheme";
-import { DirectionTheme } from "../theme/layout/directionTheme";
-import { BorderTheme } from "../theme/layout/borderTheme";
-import { RingTheme } from "../theme/layout/ringTheme";
-import { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
+import { GapClassMapper } from "../theme/size/gapClassMapper";
+import { PxClassMapper } from "../theme/size/pxClassMapper";
+import { PyClassMapper } from "../theme/size/pyClassMapper";
+import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
+import { DirectionClassMapper } from "../theme/layout/directionClassMapper";
+import { BorderClassMapper } from "../theme/layout/borderClassMapper";
+import { RingClassMapper } from "../theme/layout/ringClassMapper";
+import { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
 
 /**
@@ -37,23 +37,23 @@ export const defaultModalContentTheme = new ComponentTheme<ModalProps, ModalCont
   'vane-modal w-full max-w-(--modal-width) max-h-(--modal-max-height)',
   {
     size: {
-      px: new PxTheme(),
-      py: new PyTheme(),
-      gap: new GapTheme(),
+      px: new PxClassMapper(),
+      py: new PyClassMapper(),
+      gap: new GapClassMapper(),
     },
     layout: {
       ...defaultLayoutsThemes,
-      radius: new RadiusTheme(),
-      direction: new DirectionTheme(),
-      border: new BorderTheme(),
-      ring: new RingTheme(),
-      shadow: ShadowAppearanceTheme.createLayoutTheme(),
+      radius: new RadiusClassMapper(),
+      direction: new DirectionClassMapper(),
+      border: new BorderClassMapper(),
+      ring: new RingClassMapper(),
+      shadow: ShadowAppearanceClassMapper.createLayoutTheme(),
     },
     appearance: {
-      background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),
-      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
-      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
-      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
+      background: new SimpleConsumerClassMapper({ base: bgConsumerClasses.base }, 'bg'),
+      text: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
+      border: new SimpleConsumerClassMapper({ base: borderConsumerClass }, 'border'),
+      ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
     },
     typography: defaultTypographyThemes,
   },

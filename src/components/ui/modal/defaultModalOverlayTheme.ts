@@ -6,11 +6,11 @@ import type { OverlayProps } from "../overlay";
 import type { ModalOverlayTheme } from "./ModalOverlayTheme";
 import { OVERLAY_CATEGORIES } from "../overlay/OverlayCategories";
 import { modalOverlayDefaults } from "./modalOverlayDefaults";
-import { BlurTheme } from "../theme/layout/blurTheme";
-import { PointerEventsTheme } from "../theme/layout/pointerEventsTheme";
-import { RingTheme } from "../theme/layout/ringTheme";
-import { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
+import { BlurClassMapper } from "../theme/layout/blurClassMapper";
+import { PointerEventsClassMapper } from "../theme/layout/pointerEventsClassMapper";
+import { RingClassMapper } from "../theme/layout/ringClassMapper";
+import { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 import { ringConsumerClass } from "../classes/appearanceClasses";
 
 /**
@@ -24,13 +24,13 @@ export const defaultModalOverlayTheme = new ComponentTheme<OverlayProps, ModalOv
   {
     layout: {
       ...defaultLayoutsThemes,
-      blur: new BlurTheme(),
-      pointerEvents: new PointerEventsTheme(),
-      ring: new RingTheme(),
-      shadow: ShadowAppearanceTheme.createLayoutTheme(),
+      blur: new BlurClassMapper(),
+      pointerEvents: new PointerEventsClassMapper(),
+      ring: new RingClassMapper(),
+      shadow: ShadowAppearanceClassMapper.createLayoutTheme(),
     },
     appearance: {
-      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
+      ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
     },
   },
   // Defaults - modal overlay can have different defaults than standalone overlay

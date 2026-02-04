@@ -2,30 +2,30 @@ import type {
   BaseComponentTheme,
   DefaultLayoutThemes,
 } from "../theme/common/ComponentTheme";
-import type { GapTheme } from "../theme/size/gapTheme";
-import type { PxTheme } from "../theme/size/pxTheme";
-import type { PyTheme } from "../theme/size/pyTheme";
-import type { WrapTheme } from "../theme/layout/wrapTheme";
-import type { DirectionTheme } from "../theme/layout/directionTheme";
-import type { RadiusTheme } from "../theme/layout/radiusTheme";
-import type { BorderTheme } from "../theme/layout/borderTheme";
-import type { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
+import type { GapClassMapper } from "../theme/size/gapClassMapper";
+import type { PxClassMapper } from "../theme/size/pxClassMapper";
+import type { PyClassMapper } from "../theme/size/pyClassMapper";
+import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
+import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
+import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
+import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
+import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 
 export interface GridTheme extends BaseComponentTheme {
   size: {
-    px: PxTheme;
-    py: PyTheme;
-    gap: GapTheme;
+    px: PxClassMapper;
+    py: PyClassMapper;
+    gap: GapClassMapper;
   };
   appearance: {
-    background: SimpleConsumerTheme;
-    text: SimpleConsumerTheme;
-    border: SimpleConsumerTheme;
+    background: SimpleConsumerClassMapper;
+    text: SimpleConsumerClassMapper;
+    border: SimpleConsumerClassMapper;
   };
   layout: DefaultLayoutThemes & {
-    wrap: WrapTheme;
-    flexDirection: DirectionTheme;
-    radius: RadiusTheme;
-    border: BorderTheme;
+    wrap: WrapClassMapper;
+    flexDirection: DirectionClassMapper;
+    radius: RadiusClassMapper;
+    border: BorderClassMapper;
   };
 }

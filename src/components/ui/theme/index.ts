@@ -1,64 +1,64 @@
 // Appearance themes
 export {
-  LinkVariantTheme,
-  ShadowAppearanceTheme,
-  SimpleConsumerTheme,
-  StatusTheme,
+  LinkVariantClassMapper,
+  ShadowAppearanceClassMapper,
+  SimpleConsumerClassMapper,
+  StatusClassMapper,
 } from './appearance';
 
 // Layout themes
 export {
-  BlurTheme,
-  BorderTheme,
-  CursorTheme,
-  DirectionTheme,
-  DisplayTheme,
-  FocusVisibleTheme,
-  HeightTheme,
-  HideTheme,
-  ItemsTheme,
-  JustifyTheme,
-  ObjectFitTheme,
-  OrientationTheme,
-  OverflowTheme,
-  PointerEventsTheme,
-  PositionTheme,
-  RadiusTheme,
-  RingTheme,
-  TransitionTheme,
-  WhitespaceTheme,
-  WidthTheme,
-  WrapTheme,
+  BlurClassMapper,
+  BorderClassMapper,
+  CursorClassMapper,
+  DirectionClassMapper,
+  DisplayClassMapper,
+  FocusVisibleClassMapper,
+  HeightClassMapper,
+  HideClassMapper,
+  ItemsClassMapper,
+  JustifyClassMapper,
+  ObjectFitClassMapper,
+  OrientationClassMapper,
+  OverflowClassMapper,
+  PointerEventsClassMapper,
+  PositionClassMapper,
+  RadiusClassMapper,
+  RingClassMapper,
+  TransitionClassMapper,
+  WhitespaceClassMapper,
+  WidthClassMapper,
+  WrapClassMapper,
 } from './layout';
 
 // Size themes
 export {
-  BreakpointTheme,
-  FontSizeTheme,
-  GapTheme,
-  LineHeightTheme,
-  PaddingTheme,
-  PlTheme,
-  PxTheme,
-  PyTheme,
-  SizeTheme,
+  BreakpointClassMapper,
+  FontSizeClassMapper,
+  GapClassMapper,
+  LineHeightClassMapper,
+  PaddingClassMapper,
+  PlClassMapper,
+  PxClassMapper,
+  PyClassMapper,
+  SizeClassMapper,
 } from './size';
 
 // Typography themes
 export {
-  FontFamilyTheme,
-  FontStyleTheme,
-  FontWeightTheme,
-  LetterSpacingTheme,
-  TextAlignTheme,
-  TextDecorationTheme,
-  TextTransformTheme,
-  TruncateTheme,
+  FontFamilyClassMapper,
+  FontStyleClassMapper,
+  FontWeightClassMapper,
+  LetterSpacingClassMapper,
+  TextAlignClassMapper,
+  TextDecorationClassMapper,
+  TextTransformClassMapper,
+  TruncateClassMapper,
 } from './typography';
 
 // Common themes and utilities
 export {
-  BaseTheme,
+  BaseClassMapper,
   ComponentTheme,
   defaultLayoutsThemes,
   defaultTypographyThemes,
@@ -68,12 +68,12 @@ export {
   type BaseTypographyComponentTheme,
   type DefaultLayoutThemes,
   type DefaultTypographyThemes,
-  type InteractiveSizeTheme,
+  type InteractiveSizeClassMapper,
   type InteractiveAppearanceTheme,
   type InteractiveLayoutTheme,
   type InteractiveComponentTheme,
   type ButtonLayoutTheme,
-  type LayoutSizeTheme,
+  type LayoutSizeClassMapper,
   type LayoutAppearanceTheme,
   type LayoutLayoutTheme,
   type BasicFlexLayoutComponentTheme,
@@ -81,7 +81,7 @@ export {
 } from './common';
 
 // List themes
-export { ListStyleTheme } from './list';
+export { ListStyleClassMapper } from './list';
 
 // Defaults
 export { themeDefaults } from './defaults';

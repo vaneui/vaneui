@@ -1,42 +1,42 @@
-import type { DirectionTheme } from "../theme/layout/directionTheme";
+import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import type {
   BaseTypographyComponentTheme,
   DefaultLayoutThemes,
 } from "../theme/common/ComponentTheme";
-import type { LineHeightTheme } from "../theme/size/lineHeightTheme";
-import type { GapTheme } from "../theme/size/gapTheme";
-import type { WrapTheme } from "../theme/layout/wrapTheme";
-import type { BorderTheme } from "../theme/layout/borderTheme";
-import type { RadiusTheme } from "../theme/layout/radiusTheme";
-import type { PxTheme } from "../theme/size/pxTheme";
-import type { PyTheme } from "../theme/size/pyTheme";
-import type { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import type { BreakpointTheme } from "../theme/size/breakpointTheme";
-import type { RingTheme } from "../theme/layout/ringTheme";
-import type { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import type { WidthTheme } from "../theme/layout/widthTheme";
+import type { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
+import type { GapClassMapper } from "../theme/size/gapClassMapper";
+import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
+import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
+import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
+import type { PxClassMapper } from "../theme/size/pxClassMapper";
+import type { PyClassMapper } from "../theme/size/pyClassMapper";
+import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
+import type { RingClassMapper } from "../theme/layout/ringClassMapper";
+import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
 
 export interface CardTheme extends BaseTypographyComponentTheme {
   size: {
-    px: PxTheme;
-    py: PyTheme;
-    lineHeight: LineHeightTheme;
-    gap: GapTheme;
+    px: PxClassMapper;
+    py: PyClassMapper;
+    lineHeight: LineHeightClassMapper;
+    gap: GapClassMapper;
   };
   layout: DefaultLayoutThemes & {
-    border: BorderTheme;
-    radius: RadiusTheme;
-    ring: RingTheme;
-    wrap: WrapTheme;
-    direction: DirectionTheme;
-    breakpoint: BreakpointTheme;
-    shadow: ShadowAppearanceTheme;
-    width: WidthTheme;
+    border: BorderClassMapper;
+    radius: RadiusClassMapper;
+    ring: RingClassMapper;
+    wrap: WrapClassMapper;
+    direction: DirectionClassMapper;
+    breakpoint: BreakpointClassMapper;
+    shadow: ShadowAppearanceClassMapper;
+    width: WidthClassMapper;
   };
   appearance: {
-    background: SimpleConsumerTheme;
-    text: SimpleConsumerTheme;
-    border: SimpleConsumerTheme;
-    ring: SimpleConsumerTheme;
+    background: SimpleConsumerClassMapper;
+    text: SimpleConsumerClassMapper;
+    border: SimpleConsumerClassMapper;
+    ring: SimpleConsumerClassMapper;
   };
 }

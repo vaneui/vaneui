@@ -4,8 +4,8 @@ import type { StackTheme } from "./StackTheme";
 import { STACK_CATEGORIES } from "../props/categoryBuilders";
 import { layoutSubThemes } from "../theme/common/layoutSubThemes";
 import { stackDefaults } from "./stackDefaults";
-import { BreakpointTheme } from "../theme/size/breakpointTheme";
-import { TextAlignTheme } from "../theme/typography/textAlignTheme";
+import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
+import { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
 
 export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
   "div",
@@ -14,10 +14,10 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
     ...layoutSubThemes,
     size: {
       ...layoutSubThemes.size,
-      breakpoint: new BreakpointTheme(),
+      breakpoint: new BreakpointClassMapper(),
     },
     typography: {
-      textAlign: new TextAlignTheme(),
+      textAlign: new TextAlignClassMapper(),
     },
   },
   stackDefaults,

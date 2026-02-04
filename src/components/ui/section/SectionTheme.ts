@@ -1,35 +1,35 @@
 import type { BaseComponentTheme, DefaultLayoutThemes } from "../theme/common/ComponentTheme";
-import type { DirectionTheme } from "../theme/layout/directionTheme";
-import type { GapTheme } from "../theme/size/gapTheme";
-import type { WrapTheme } from "../theme/layout/wrapTheme";
-import type { PxTheme } from "../theme/size/pxTheme";
-import type { PyTheme } from "../theme/size/pyTheme";
-import type { BorderTheme } from "../theme/layout/borderTheme";
-import type { RingTheme } from "../theme/layout/ringTheme";
-import type { RadiusTheme } from "../theme/layout/radiusTheme";
-import type { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import type { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import type { BreakpointTheme } from "../theme/size/breakpointTheme";
+import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
+import type { GapClassMapper } from "../theme/size/gapClassMapper";
+import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
+import type { PxClassMapper } from "../theme/size/pxClassMapper";
+import type { PyClassMapper } from "../theme/size/pyClassMapper";
+import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
+import type { RingClassMapper } from "../theme/layout/ringClassMapper";
+import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
+import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import type { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
 
 export interface SectionTheme extends BaseComponentTheme {
   size: {
-    px: PxTheme;
-    py: PyTheme;
-    gap: GapTheme;
-    breakpoint: BreakpointTheme;
+    px: PxClassMapper;
+    py: PyClassMapper;
+    gap: GapClassMapper;
+    breakpoint: BreakpointClassMapper;
   };
   appearance: {
-    background: SimpleConsumerTheme;
-    text: SimpleConsumerTheme;
-    border: SimpleConsumerTheme;
-    ring: SimpleConsumerTheme;
-    shadow: ShadowAppearanceTheme;
+    background: SimpleConsumerClassMapper;
+    text: SimpleConsumerClassMapper;
+    border: SimpleConsumerClassMapper;
+    ring: SimpleConsumerClassMapper;
+    shadow: ShadowAppearanceClassMapper;
   };
   layout: DefaultLayoutThemes & {
-    wrap: WrapTheme;
-    direction: DirectionTheme;
-    border: BorderTheme;
-    ring: RingTheme;
-    radius: RadiusTheme;
+    wrap: WrapClassMapper;
+    direction: DirectionClassMapper;
+    border: BorderClassMapper;
+    ring: RingClassMapper;
+    radius: RadiusClassMapper;
   };
 }

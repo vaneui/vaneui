@@ -4,9 +4,9 @@ import type { CardTheme } from "./CardTheme";
 import { CARD_CATEGORIES } from "./CardCategories";
 import { layoutSubThemes } from "../theme/common/layoutSubThemes";
 import { cardDefaults } from "./cardDefaults";
-import { LineHeightTheme } from "../theme/size/lineHeightTheme";
-import { BreakpointTheme } from "../theme/size/breakpointTheme";
-import { WidthTheme } from "../theme/layout/widthTheme";
+import { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
+import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
+import { WidthClassMapper } from "../theme/layout/widthClassMapper";
 
 export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   "div",
@@ -15,12 +15,12 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
     ...layoutSubThemes,
     size: {
       ...layoutSubThemes.size,
-      lineHeight: new LineHeightTheme(),
+      lineHeight: new LineHeightClassMapper(),
     },
     layout: {
       ...layoutSubThemes.layout,
-      breakpoint: new BreakpointTheme(),
-      width: new WidthTheme(),
+      breakpoint: new BreakpointClassMapper(),
+      width: new WidthClassMapper(),
     },
     typography: defaultTypographyThemes,
   },

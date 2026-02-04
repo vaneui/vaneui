@@ -1,22 +1,22 @@
 import { defaultLayoutsThemes, defaultTypographyThemes } from "./ComponentTheme";
-import { FontSizeTheme } from "../size/fontSizeTheme";
-import { LineHeightTheme } from "../size/lineHeightTheme";
-import { PxTheme } from "../size/pxTheme";
-import { PyTheme } from "../size/pyTheme";
-import { GapTheme } from "../size/gapTheme";
-import { RadiusTheme } from "../layout/radiusTheme";
-import { BorderTheme } from "../layout/borderTheme";
-import { RingTheme } from "../layout/ringTheme";
-import { FocusVisibleTheme } from "../layout/focusVisibleTheme";
-import { WrapTheme } from "../layout/wrapTheme";
-import { DirectionTheme } from "../layout/directionTheme";
-import { CursorTheme } from "../layout/cursorTheme";
-import { TransitionTheme } from "../layout/transitionTheme";
-import { WhitespaceTheme } from "../layout/whitespaceTheme";
-import { WidthTheme } from "../layout/widthTheme";
-import { HeightTheme } from "../layout/heightTheme";
-import { SimpleConsumerTheme } from "../appearance/simpleConsumerTheme";
-import { ShadowAppearanceTheme } from "../appearance/shadowAppearanceTheme";
+import { FontSizeClassMapper } from "../size/fontSizeClassMapper";
+import { LineHeightClassMapper } from "../size/lineHeightClassMapper";
+import { PxClassMapper } from "../size/pxClassMapper";
+import { PyClassMapper } from "../size/pyClassMapper";
+import { GapClassMapper } from "../size/gapClassMapper";
+import { RadiusClassMapper } from "../layout/radiusClassMapper";
+import { BorderClassMapper } from "../layout/borderClassMapper";
+import { RingClassMapper } from "../layout/ringClassMapper";
+import { FocusVisibleClassMapper } from "../layout/focusVisibleClassMapper";
+import { WrapClassMapper } from "../layout/wrapClassMapper";
+import { DirectionClassMapper } from "../layout/directionClassMapper";
+import { CursorClassMapper } from "../layout/cursorClassMapper";
+import { TransitionClassMapper } from "../layout/transitionClassMapper";
+import { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
+import { WidthClassMapper } from "../layout/widthClassMapper";
+import { HeightClassMapper } from "../layout/heightClassMapper";
+import { SimpleConsumerClassMapper } from "../appearance/simpleConsumerClassMapper";
+import { ShadowAppearanceClassMapper } from "../appearance/shadowAppearanceClassMapper";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../../classes/appearanceClasses";
 
 /**
@@ -25,33 +25,33 @@ import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumer
  */
 export const interactiveSubThemes = {
   size: {
-    px: new PxTheme(),
-    py: new PyTheme(),
-    gap: new GapTheme(),
-    text: new FontSizeTheme(),
-    lineHeight: new LineHeightTheme(),
+    px: new PxClassMapper(),
+    py: new PyClassMapper(),
+    gap: new GapClassMapper(),
+    text: new FontSizeClassMapper(),
+    lineHeight: new LineHeightClassMapper(),
   },
   appearance: {
-    background: new SimpleConsumerTheme({ base: bgConsumerClasses.base }, 'bg'),
-    text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
-    border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
-    ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
-    focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible'),
-    shadow: ShadowAppearanceTheme.createLayoutTheme(),
+    background: new SimpleConsumerClassMapper({ base: bgConsumerClasses.base }, 'bg'),
+    text: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
+    border: new SimpleConsumerClassMapper({ base: borderConsumerClass }, 'border'),
+    ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
+    focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible'),
+    shadow: ShadowAppearanceClassMapper.createLayoutTheme(),
   },
   layout: {
     ...defaultLayoutsThemes,
-    border: new BorderTheme(),
-    ring: new RingTheme(),
-    focusVisible: new FocusVisibleTheme(),
-    radius: new RadiusTheme(),
-    wrap: new WrapTheme(),
-    flexDirection: new DirectionTheme(),
-    cursor: new CursorTheme(),
-    transition: new TransitionTheme(),
-    whitespace: new WhitespaceTheme(),
-    width: new WidthTheme(),
-    height: new HeightTheme(),
+    border: new BorderClassMapper(),
+    ring: new RingClassMapper(),
+    focusVisible: new FocusVisibleClassMapper(),
+    radius: new RadiusClassMapper(),
+    wrap: new WrapClassMapper(),
+    flexDirection: new DirectionClassMapper(),
+    cursor: new CursorClassMapper(),
+    transition: new TransitionClassMapper(),
+    whitespace: new WhitespaceClassMapper(),
+    width: new WidthClassMapper(),
+    height: new HeightClassMapper(),
   },
   typography: defaultTypographyThemes,
 };

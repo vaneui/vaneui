@@ -4,7 +4,7 @@ import type { ContainerTheme } from "./ContainerTheme";
 import { CONTAINER_CATEGORIES } from "../props/categoryBuilders";
 import { layoutSubThemes } from "../theme/common/layoutSubThemes";
 import { containerDefaults } from "./containerDefaults";
-import { SizeTheme } from "../theme/size/sizeTheme";
+import { SizeClassMapper } from "../theme/size/sizeClassMapper";
 
 export const defaultContainerTheme = new ComponentTheme<ContainerProps, ContainerTheme>(
   "div",
@@ -13,7 +13,7 @@ export const defaultContainerTheme = new ComponentTheme<ContainerProps, Containe
     ...layoutSubThemes,
     size: {
       ...layoutSubThemes.size,
-      maxWidth: new SizeTheme({xs: 'max-w-3xl', sm: 'max-w-4xl', md: 'max-w-5xl', lg: 'max-w-6xl', xl: 'max-w-7xl'}),
+      maxWidth: new SizeClassMapper({xs: 'max-w-3xl', sm: 'max-w-4xl', md: 'max-w-5xl', lg: 'max-w-6xl', xl: 'max-w-7xl'}),
     },
   },
   containerDefaults,

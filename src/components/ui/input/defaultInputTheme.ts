@@ -1,26 +1,26 @@
-import { DirectionTheme } from "../theme/layout/directionTheme";
+import { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import {
   ComponentTheme,
   defaultLayoutsThemes,
   defaultTypographyThemes
 } from "../theme/common/ComponentTheme";
-import { FontSizeTheme } from "../theme/size/fontSizeTheme";
-import { LineHeightTheme } from "../theme/size/lineHeightTheme";
+import { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
+import { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
 import type { InputProps } from "./InputProps";
-import { GapTheme } from "../theme/size/gapTheme";
-import { BorderTheme } from "../theme/layout/borderTheme";
-import { RadiusTheme } from "../theme/layout/radiusTheme";
-import { RingTheme } from "../theme/layout/ringTheme";
-import { FocusVisibleTheme } from "../theme/layout/focusVisibleTheme";
-import { CursorTheme } from "../theme/layout/cursorTheme";
-import { PxTheme } from "../theme/size/pxTheme";
-import { PyTheme } from "../theme/size/pyTheme";
-import { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import { WrapTheme } from "../theme/layout/wrapTheme";
-import { TransitionTheme } from "../theme/layout/transitionTheme";
-import { WidthTheme } from "../theme/layout/widthTheme";
-import { StatusTheme } from "../theme/appearance/statusTheme";
+import { GapClassMapper } from "../theme/size/gapClassMapper";
+import { BorderClassMapper } from "../theme/layout/borderClassMapper";
+import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
+import { RingClassMapper } from "../theme/layout/ringClassMapper";
+import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
+import { CursorClassMapper } from "../theme/layout/cursorClassMapper";
+import { PxClassMapper } from "../theme/size/pxClassMapper";
+import { PyClassMapper } from "../theme/size/pyClassMapper";
+import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import { WrapClassMapper } from "../theme/layout/wrapClassMapper";
+import { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
+import { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import { StatusClassMapper } from "../theme/appearance/statusClassMapper";
 import { INPUT_CATEGORIES } from "./InputCategories";
 import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
 import type { InputTheme } from "./InputTheme";
@@ -31,32 +31,32 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
   "vane-input w-full",
   {
     size: {
-      px: new PxTheme(),
-      py: new PyTheme(),
-      gap: new GapTheme(),
-      text: new FontSizeTheme(),
-      lineHeight: new LineHeightTheme(),
+      px: new PxClassMapper(),
+      py: new PyClassMapper(),
+      gap: new GapClassMapper(),
+      text: new FontSizeClassMapper(),
+      lineHeight: new LineHeightClassMapper(),
     },
     appearance: {
-      background: new SimpleConsumerTheme({ base: bgConsumerClasses.base, hover: bgConsumerClasses.hover }, 'bg'),
-      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
-      border: new SimpleConsumerTheme({ base: borderConsumerClass }, 'border'),
-      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
-      focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible'),
-      shadow: ShadowAppearanceTheme.createUITheme(),
-      status: new StatusTheme(),
+      background: new SimpleConsumerClassMapper({ base: bgConsumerClasses.base, hover: bgConsumerClasses.hover }, 'bg'),
+      text: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
+      border: new SimpleConsumerClassMapper({ base: borderConsumerClass }, 'border'),
+      ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
+      focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible'),
+      shadow: ShadowAppearanceClassMapper.createUITheme(),
+      status: new StatusClassMapper(),
     },
     layout: {
       ...defaultLayoutsThemes,
-      border: new BorderTheme(),
-      ring: new RingTheme(),
-      focusVisible: new FocusVisibleTheme(),
-      cursor: new CursorTheme(),
-      radius: new RadiusTheme(),
-      wrap: new WrapTheme(),
-      flexDirection: new DirectionTheme(),
-      transition: new TransitionTheme(),
-      width: new WidthTheme(),
+      border: new BorderClassMapper(),
+      ring: new RingClassMapper(),
+      focusVisible: new FocusVisibleClassMapper(),
+      cursor: new CursorClassMapper(),
+      radius: new RadiusClassMapper(),
+      wrap: new WrapClassMapper(),
+      flexDirection: new DirectionClassMapper(),
+      transition: new TransitionClassMapper(),
+      width: new WidthClassMapper(),
     },
     typography: defaultTypographyThemes,
   },

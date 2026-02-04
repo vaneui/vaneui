@@ -1,4 +1,4 @@
-export { LinkVariantTheme } from './linkVariantTheme';
-export { ShadowAppearanceTheme } from './shadowAppearanceTheme';
-export { SimpleConsumerTheme } from './simpleConsumerTheme';
-export { StatusTheme } from './statusTheme';
+export { LinkVariantClassMapper } from './linkVariantClassMapper';
+export { ShadowAppearanceClassMapper } from './shadowAppearanceClassMapper';
+export { SimpleConsumerClassMapper } from './simpleConsumerClassMapper';
+export { StatusClassMapper } from './statusClassMapper';

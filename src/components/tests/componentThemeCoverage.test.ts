@@ -1,5 +1,5 @@
 import { ComponentKeys } from "../ui/props";
-import { BaseTheme } from "../ui/theme/common/baseTheme";
+import { BaseClassMapper } from "../ui/theme/common/BaseClassMapper";
 
 // Import all component themes
 import { defaultCheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckboxCheckTheme } from "../ui/checkbox";
@@ -57,9 +57,9 @@ class ComponentThemeTester {
     }, {} as Record<string, keyof ComponentKeysType>);
   }
 
-  // Recursively collect all BaseTheme instances from the themes tree
-  collectBaseThemes(node: unknown): BaseTheme[] {
-    const result: BaseTheme[] = [];
+  // Recursively collect all BaseClassMapper instances from the themes tree
+  collectBaseClassMappers(node: unknown): BaseClassMapper[] {
+    const result: BaseClassMapper[] = [];
     const visited = new WeakSet();
     
     const visit = (n: unknown, depth: number = 0) => {
@@ -67,7 +67,7 @@ class ComponentThemeTester {
       if (visited.has(n)) return; // Prevent circular references
       visited.add(n);
       
-      if (n instanceof BaseTheme) {
+      if (n instanceof BaseClassMapper) {
         result.push(n);
       }
       
@@ -89,7 +89,7 @@ class ComponentThemeTester {
   }
 
   // Test if any theme can handle a specific category by testing all keys in that category
-  canHandleCategory(category: keyof ComponentKeysType, baseThemes: BaseTheme[]): boolean {
+  canHandleCategory(category: keyof ComponentKeysType, baseThemes: BaseClassMapper[]): boolean {
     const categoryKeys = ComponentKeys[category] as readonly string[] || [];
     if (categoryKeys.length === 0) return false;
     
@@ -103,12 +103,12 @@ class ComponentThemeTester {
   }
   
   // Test if any theme can handle a specific key for a category
-  canAnyThemeHandleKey(key: string, category: keyof ComponentKeysType, baseThemes: BaseTheme[]): boolean {
+  canAnyThemeHandleKey(key: string, category: keyof ComponentKeysType, baseThemes: BaseClassMapper[]): boolean {
     return baseThemes.some(theme => this.themeHandlesKey(theme, key, category));
   }
   
   // Test if a single theme can handle a specific key for a category
-  themeHandlesKey(theme: BaseTheme, key: string, category: keyof ComponentKeysType): boolean {
+  themeHandlesKey(theme: BaseClassMapper, key: string, category: keyof ComponentKeysType): boolean {
     // Create base context that provides commonly needed properties for themes to work
     const baseContext = {
       appearance: 'primary',
@@ -172,8 +172,8 @@ class ComponentThemeTester {
     const defaults = theme.defaults || {};
     const defaultTrueProps = Object.keys(defaults).filter(key => defaults[key] === true);
     
-    // Collect all BaseTheme instances from this theme
-    const baseThemes = this.collectBaseThemes(theme.themes);
+    // Collect all BaseClassMapper instances from this theme
+    const baseThemes = this.collectBaseClassMappers(theme.themes);
     
     // Debug: show only if there are missing handlers
     // Remove debug logging unless needed
@@ -211,15 +211,15 @@ class ComponentThemeTester {
 
   // Test coverage of component category keys across multiple themes using category-driven approach
   testCategoryCoverage(componentName: string, categories: readonly string[], themes: Array<{name: string, theme: { defaults?: Record<string, unknown>, themes?: unknown }}>): void {
-    // Collect all BaseThemes from all provided themes
-    const allBaseThemes = themes.flatMap(({theme}) => this.collectBaseThemes(theme.themes));
+    // Collect all BaseClassMappers from all provided themes
+    const allBaseClassMappers = themes.flatMap(({theme}) => this.collectBaseClassMappers(theme.themes));
     
     // Check each category to see if any theme can handle it
     const missingCategories: string[] = [];
     
     for (const category of categories) {
       const categoryKey = category as keyof ComponentKeysType;
-      const canHandle = this.canHandleCategory(categoryKey, allBaseThemes);
+      const canHandle = this.canHandleCategory(categoryKey, allBaseClassMappers);
       
       if (!canHandle) {
         missingCategories.push(category);

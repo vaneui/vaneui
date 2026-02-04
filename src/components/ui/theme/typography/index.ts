@@ -1,8 +1,8 @@
-export { FontFamilyTheme } from './fontFamilyTheme';
-export { FontStyleTheme } from './fontStyleTheme';
-export { FontWeightTheme } from './fontWeightTheme';
-export { LetterSpacingTheme } from './letterSpacingTheme';
-export { TextAlignTheme } from './textAlignTheme';
-export { TextDecorationTheme } from './textDecorationTheme';
-export { TextTransformTheme } from './textTransformTheme';
-export { TruncateTheme } from './truncateTheme';
+export { FontFamilyClassMapper } from './fontFamilyClassMapper';
+export { FontStyleClassMapper } from './fontStyleClassMapper';
+export { FontWeightClassMapper } from './fontWeightClassMapper';
+export { LetterSpacingClassMapper } from './letterSpacingClassMapper';
+export { TextAlignClassMapper } from './textAlignClassMapper';
+export { TextDecorationClassMapper } from './textDecorationClassMapper';
+export { TextTransformClassMapper } from './textTransformClassMapper';
+export { TruncateClassMapper } from './truncateClassMapper';

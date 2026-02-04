@@ -5,11 +5,11 @@ import {
 } from "../../theme/common/ComponentTheme";
 import type { ListProps } from "./ListProps";
 import type { ListTheme } from "./ListTheme";
-import { FontSizeTheme } from "../../theme/size/fontSizeTheme";
-import { LineHeightTheme } from "../../theme/size/lineHeightTheme";
-import { PlTheme } from "../../theme/size/plTheme";
-import { SimpleConsumerTheme } from "../../theme/appearance/simpleConsumerTheme";
-import { ListStyleTheme } from "../../theme/list/listStyleTheme";
+import { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
+import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
+import { PlClassMapper } from "../../theme/size/plClassMapper";
+import { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
+import { ListStyleClassMapper } from "../../theme/list/listStyleClassMapper";
 import { textConsumerClass } from "../../classes/appearanceClasses";
 import { LIST_CATEGORIES } from "../common/TypographyCategories";
 import { listDefaults } from "./listDefaults";
@@ -20,16 +20,16 @@ export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new Compon
   "vane-list list-inside",
   {
     size: {
-      text: new FontSizeTheme(),
-      lineHeight: new LineHeightTheme(),
-      paddingLeft: new PlTheme(),
+      text: new FontSizeClassMapper(),
+      lineHeight: new LineHeightClassMapper(),
+      paddingLeft: new PlClassMapper(),
     },
     appearance: {
-      text: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+      text: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
     },
     typography: defaultTypographyThemes,
     layout: defaultLayoutsThemes,
-    listStyle: new ListStyleTheme(),
+    listStyle: new ListStyleClassMapper(),
   },
   listDefaults,
   LIST_CATEGORIES,

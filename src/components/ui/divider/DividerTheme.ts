@@ -2,18 +2,18 @@ import type {
   BaseComponentTheme,
   DefaultLayoutThemes,
 } from "../theme/common/ComponentTheme";
-import type { PyTheme } from "../theme/size/pyTheme";
-import type { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import type { OrientationTheme } from "../theme/layout/orientationTheme";
+import type { PyClassMapper } from "../theme/size/pyClassMapper";
+import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { OrientationClassMapper } from "../theme/layout/orientationClassMapper";
 
 export interface DividerTheme extends BaseComponentTheme {
   size: {
-    py: PyTheme;
+    py: PyClassMapper;
   };
   appearance: {
-    background: SimpleConsumerTheme;
+    background: SimpleConsumerClassMapper;
   };
   layout: DefaultLayoutThemes & {
-    orientation: OrientationTheme;
+    orientation: OrientationClassMapper;
   };
 }

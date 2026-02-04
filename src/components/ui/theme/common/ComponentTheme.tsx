@@ -1,26 +1,26 @@
 import React from "react";
-import { BaseTheme } from "./baseTheme";
+import { BaseClassMapper } from "./BaseClassMapper";
 import { ComponentCategoryKey } from "../../props";
 import { ComponentKeys } from "../../props";
-import { HideTheme } from "../layout/hideTheme";
-import { ItemsTheme } from "../layout/itemsTheme";
-import { JustifyTheme } from "../layout/justifyTheme";
-import { PositionTheme } from "../layout/positionTheme";
-import { FontStyleTheme } from "../typography/fontStyleTheme";
-import { FontFamilyTheme } from "../typography/fontFamilyTheme";
-import { FontWeightTheme } from "../typography/fontWeightTheme";
-import { TextDecorationTheme } from "../typography/textDecorationTheme";
-import { TextTransformTheme } from "../typography/textTransformTheme";
-import { TextAlignTheme } from "../typography/textAlignTheme";
-import { TruncateTheme } from "../typography/truncateTheme";
+import { HideClassMapper } from "../layout/hideClassMapper";
+import { ItemsClassMapper } from "../layout/itemsClassMapper";
+import { JustifyClassMapper } from "../layout/justifyClassMapper";
+import { PositionClassMapper } from "../layout/positionClassMapper";
+import { FontStyleClassMapper } from "../typography/fontStyleClassMapper";
+import { FontFamilyClassMapper } from "../typography/fontFamilyClassMapper";
+import { FontWeightClassMapper } from "../typography/fontWeightClassMapper";
+import { TextDecorationClassMapper } from "../typography/textDecorationClassMapper";
+import { TextTransformClassMapper } from "../typography/textTransformClassMapper";
+import { TextAlignClassMapper } from "../typography/textAlignClassMapper";
+import { TruncateClassMapper } from "../typography/truncateClassMapper";
 import { DeepPartial } from "../../../utils/deepPartial";
-import { DisplayTheme } from "../layout/displayTheme";
+import { DisplayClassMapper } from "../layout/displayClassMapper";
 import { twMerge } from "tailwind-merge";
-import { OverflowTheme } from "../layout/overflowTheme";
+import { OverflowClassMapper } from "../layout/overflowClassMapper";
 import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
 
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
-type ThemeNode<P> = BaseTheme | ThemeMap<P>;
+type ThemeNode<P> = BaseClassMapper | ThemeMap<P>;
 
 /** Component type for CSS variable scoping - UI components have compact spacing, Layout components have generous spacing */
 export type VaneComponentType = 'ui' | 'layout';
@@ -30,22 +30,22 @@ export type ThemeMap<P> = {
 };
 
 export interface DefaultLayoutThemes {
-  hide: HideTheme;
-  items: ItemsTheme;
-  justify: JustifyTheme;
-  position: PositionTheme;
-  display: DisplayTheme;
-  overflow: OverflowTheme;
+  hide: HideClassMapper;
+  items: ItemsClassMapper;
+  justify: JustifyClassMapper;
+  position: PositionClassMapper;
+  display: DisplayClassMapper;
+  overflow: OverflowClassMapper;
 }
 
 export interface DefaultTypographyThemes {
-  fontFamily: FontFamilyTheme;
-  fontWeight: FontWeightTheme;
-  fontStyle: FontStyleTheme;
-  textDecoration: TextDecorationTheme;
-  textTransform: TextTransformTheme;
-  textAlign: TextAlignTheme;
-  truncate: TruncateTheme;
+  fontFamily: FontFamilyClassMapper;
+  fontWeight: FontWeightClassMapper;
+  fontStyle: FontStyleClassMapper;
+  textDecoration: TextDecorationClassMapper;
+  textTransform: TextTransformClassMapper;
+  textAlign: TextAlignClassMapper;
+  truncate: TruncateClassMapper;
 }
 
 export interface BaseComponentTheme {
@@ -57,22 +57,22 @@ export interface BaseTypographyComponentTheme extends BaseComponentTheme {
 }
 
 export const defaultLayoutsThemes: DefaultLayoutThemes = {
-  hide: new HideTheme(),
-  items: new ItemsTheme(),
-  justify: new JustifyTheme(),
-  position: new PositionTheme(),
-  display: new DisplayTheme(),
-  overflow: new OverflowTheme(),
+  hide: new HideClassMapper(),
+  items: new ItemsClassMapper(),
+  justify: new JustifyClassMapper(),
+  position: new PositionClassMapper(),
+  display: new DisplayClassMapper(),
+  overflow: new OverflowClassMapper(),
 };
 
 export const defaultTypographyThemes: DefaultTypographyThemes = {
-  fontFamily: new FontFamilyTheme(),
-  fontWeight: new FontWeightTheme(),
-  fontStyle: new FontStyleTheme(),
-  textDecoration: new TextDecorationTheme(),
-  textTransform: new TextTransformTheme(),
-  textAlign: new TextAlignTheme(),
-  truncate: new TruncateTheme(),
+  fontFamily: new FontFamilyClassMapper(),
+  fontWeight: new FontWeightClassMapper(),
+  fontStyle: new FontStyleClassMapper(),
+  textDecoration: new TextDecorationClassMapper(),
+  textTransform: new TextTransformClassMapper(),
+  textAlign: new TextAlignClassMapper(),
+  truncate: new TruncateClassMapper(),
 };
 
 export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
@@ -130,7 +130,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       for (const key of Object.keys(map)) {
         const node = (map as ThemeMap<P>)[key];
 
-        if (node instanceof BaseTheme) {
+        if (node instanceof BaseClassMapper) {
           classes.push(...node.getClasses(extractedKeys));
         } else if (node && typeof node === "object" && !Array.isArray(node)) {
           walk(node);

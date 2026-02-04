@@ -4,7 +4,7 @@ import type { ColTheme } from "./ColTheme";
 import { COL_CATEGORIES } from "./ColCategories";
 import { layoutSubThemes } from "../theme/common/layoutSubThemes";
 import { colDefaults } from "./colDefaults";
-import { TextAlignTheme } from "../theme/typography/textAlignTheme";
+import { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
 
 export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   "div",
@@ -12,7 +12,7 @@ export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   {
     ...layoutSubThemes,
     typography: {
-      textAlign: new TextAlignTheme(),
+      textAlign: new TextAlignClassMapper(),
     },
   },
   colDefaults,

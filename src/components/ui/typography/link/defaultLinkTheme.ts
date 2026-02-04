@@ -5,23 +5,23 @@ import {
 } from "../../theme/common/ComponentTheme";
 import type { TypographyProps } from "../common/TypographyProps";
 import type { LinkTheme } from "./LinkTheme";
-import { FontSizeTheme } from "../../theme/size/fontSizeTheme";
-import { LineHeightTheme } from "../../theme/size/lineHeightTheme";
-import { LinkVariantTheme } from "../../theme/appearance/linkVariantTheme";
+import { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
+import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
+import { LinkVariantClassMapper } from "../../theme/appearance/linkVariantClassMapper";
 import { TYPOGRAPHY_CATEGORIES } from "../common/TypographyCategories";
 import { linkDefaults } from "./linkDefaults";
 
-/** Link specific theme - uses LinkVariantTheme for link-specific colors */
+/** Link specific theme - uses LinkVariantClassMapper for link-specific colors */
 export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new ComponentTheme<TypographyProps, LinkTheme>(
   "a",
   "vane-link hover:underline w-fit cursor-pointer",
   {
     size: {
-      text: new FontSizeTheme(),
-      lineHeight: new LineHeightTheme(),
+      text: new FontSizeClassMapper(),
+      lineHeight: new LineHeightClassMapper(),
     },
     appearance: {
-      text: new LinkVariantTheme(),
+      text: new LinkVariantClassMapper(),
     },
     typography: defaultTypographyThemes,
     layout: defaultLayoutsThemes,

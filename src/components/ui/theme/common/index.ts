@@ -1,4 +1,4 @@
-export { BaseTheme } from './baseTheme';
+export { BaseClassMapper } from './BaseClassMapper';
 export {
   ComponentTheme,
   defaultLayoutsThemes,
@@ -11,12 +11,12 @@ export {
 export { interactiveSubThemes } from './interactiveSubThemes';
 export { layoutSubThemes } from './layoutSubThemes';
 export type {
-  InteractiveSizeTheme,
+  InteractiveSizeClassMapper,
   InteractiveAppearanceTheme,
   InteractiveLayoutTheme,
   InteractiveComponentTheme,
   ButtonLayoutTheme,
-  LayoutSizeTheme,
+  LayoutSizeClassMapper,
   LayoutAppearanceTheme,
   LayoutLayoutTheme,
   BasicFlexLayoutComponentTheme,

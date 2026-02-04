@@ -3,11 +3,11 @@ import {
   defaultLayoutsThemes,
 } from "../theme/common/ComponentTheme";
 import type { OverlayProps } from "./OverlayProps";
-import { BlurTheme } from "../theme/layout/blurTheme";
-import { PointerEventsTheme } from "../theme/layout/pointerEventsTheme";
-import { RingTheme } from "../theme/layout/ringTheme";
-import { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
+import { BlurClassMapper } from "../theme/layout/blurClassMapper";
+import { PointerEventsClassMapper } from "../theme/layout/pointerEventsClassMapper";
+import { RingClassMapper } from "../theme/layout/ringClassMapper";
+import { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 import { ringConsumerClass } from "../classes/appearanceClasses";
 import { OVERLAY_CATEGORIES } from "./OverlayCategories";
 import type { OverlayTheme } from "./OverlayTheme";
@@ -36,13 +36,13 @@ export const defaultOverlayTheme = new ComponentTheme<OverlayProps, OverlayTheme
   {
     layout: {
       ...defaultLayoutsThemes,
-      blur: new BlurTheme(),
-      pointerEvents: new PointerEventsTheme(),
-      ring: new RingTheme(),
-      shadow: ShadowAppearanceTheme.createLayoutTheme(),
+      blur: new BlurClassMapper(),
+      pointerEvents: new PointerEventsClassMapper(),
+      ring: new RingClassMapper(),
+      shadow: ShadowAppearanceClassMapper.createLayoutTheme(),
     },
     appearance: {
-      ring: new SimpleConsumerTheme({ base: ringConsumerClass }, 'ring'),
+      ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
     },
   },
   // Defaults - use boolean props instead of hardcoded classes

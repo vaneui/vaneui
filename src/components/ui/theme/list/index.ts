@@ -1,1 +1,1 @@
-export { ListStyleTheme } from './listStyleTheme';
+export { ListStyleClassMapper } from './listStyleClassMapper';

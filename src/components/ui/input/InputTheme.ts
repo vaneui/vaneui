@@ -1,51 +1,51 @@
-import type { DirectionTheme } from "../theme/layout/directionTheme";
+import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import type {
   BaseTypographyComponentTheme,
   DefaultLayoutThemes,
 } from "../theme/common/ComponentTheme";
-import type { FontSizeTheme } from "../theme/size/fontSizeTheme";
-import type { LineHeightTheme } from "../theme/size/lineHeightTheme";
-import type { GapTheme } from "../theme/size/gapTheme";
-import type { BorderTheme } from "../theme/layout/borderTheme";
-import type { RadiusTheme } from "../theme/layout/radiusTheme";
-import type { RingTheme } from "../theme/layout/ringTheme";
-import type { FocusVisibleTheme } from "../theme/layout/focusVisibleTheme";
-import type { CursorTheme } from "../theme/layout/cursorTheme";
-import type { PxTheme } from "../theme/size/pxTheme";
-import type { PyTheme } from "../theme/size/pyTheme";
-import type { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import type { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import type { WrapTheme } from "../theme/layout/wrapTheme";
-import type { TransitionTheme } from "../theme/layout/transitionTheme";
-import type { WidthTheme } from "../theme/layout/widthTheme";
-import type { StatusTheme } from "../theme/appearance/statusTheme";
+import type { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
+import type { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
+import type { GapClassMapper } from "../theme/size/gapClassMapper";
+import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
+import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
+import type { RingClassMapper } from "../theme/layout/ringClassMapper";
+import type { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
+import type { CursorClassMapper } from "../theme/layout/cursorClassMapper";
+import type { PxClassMapper } from "../theme/size/pxClassMapper";
+import type { PyClassMapper } from "../theme/size/pyClassMapper";
+import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
+import type { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
+import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import type { StatusClassMapper } from "../theme/appearance/statusClassMapper";
 
 export interface InputTheme extends BaseTypographyComponentTheme {
   size: {
-    px: PxTheme;
-    py: PyTheme;
-    gap: GapTheme;
-    text: FontSizeTheme;
-    lineHeight: LineHeightTheme;
+    px: PxClassMapper;
+    py: PyClassMapper;
+    gap: GapClassMapper;
+    text: FontSizeClassMapper;
+    lineHeight: LineHeightClassMapper;
   };
   appearance: {
-    background: SimpleConsumerTheme;
-    text: SimpleConsumerTheme;
-    border: SimpleConsumerTheme;
-    ring: SimpleConsumerTheme;
-    focusVisible: SimpleConsumerTheme;
-    shadow: ShadowAppearanceTheme;
-    status: StatusTheme;
+    background: SimpleConsumerClassMapper;
+    text: SimpleConsumerClassMapper;
+    border: SimpleConsumerClassMapper;
+    ring: SimpleConsumerClassMapper;
+    focusVisible: SimpleConsumerClassMapper;
+    shadow: ShadowAppearanceClassMapper;
+    status: StatusClassMapper;
   };
   layout: DefaultLayoutThemes & {
-    border: BorderTheme;
-    ring: RingTheme;
-    focusVisible: FocusVisibleTheme;
-    cursor: CursorTheme;
-    radius: RadiusTheme;
-    wrap: WrapTheme;
-    flexDirection: DirectionTheme;
-    transition: TransitionTheme;
-    width: WidthTheme;
+    border: BorderClassMapper;
+    ring: RingClassMapper;
+    focusVisible: FocusVisibleClassMapper;
+    cursor: CursorClassMapper;
+    radius: RadiusClassMapper;
+    wrap: WrapClassMapper;
+    flexDirection: DirectionClassMapper;
+    transition: TransitionClassMapper;
+    width: WidthClassMapper;
   };
 }

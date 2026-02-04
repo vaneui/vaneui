@@ -68,7 +68,7 @@ describe('Grid5 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      // With new GapTheme, noGap applies no gap classes instead of gap-0
+      // With new GapClassMapper, noGap applies no gap classes instead of gap-0
       expect(grid).not.toHaveClass('gap-(--gap)');
     });
 

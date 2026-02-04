@@ -2,17 +2,17 @@ import type {
   BaseTypographyComponentTheme,
   DefaultLayoutThemes,
 } from "../../theme/common/ComponentTheme";
-import type { FontSizeTheme } from "../../theme/size/fontSizeTheme";
-import type { LineHeightTheme } from "../../theme/size/lineHeightTheme";
-import type { LinkVariantTheme } from "../../theme/appearance/linkVariantTheme";
+import type { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
+import type { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
+import type { LinkVariantClassMapper } from "../../theme/appearance/linkVariantClassMapper";
 
 export interface LinkTheme extends BaseTypographyComponentTheme {
   size: {
-    text: FontSizeTheme;
-    lineHeight: LineHeightTheme;
+    text: FontSizeClassMapper;
+    lineHeight: LineHeightClassMapper;
   };
   appearance: {
-    text: LinkVariantTheme;
+    text: LinkVariantClassMapper;
   };
   layout: DefaultLayoutThemes;
 }

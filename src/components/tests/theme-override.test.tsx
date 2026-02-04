@@ -62,7 +62,7 @@ describe('Theme Override Tests', () => {
       );
 
       const button = container.querySelector('button');
-      expect(button).toHaveClass('border-2'); // border width from BorderTheme
+      expect(button).toHaveClass('border-2'); // border width from BorderClassMapper
       expect(button).toHaveClass('border-green-500');
       expect(button).toHaveClass('hover:border-green-600');
       expect(button).toHaveClass('active:border-green-700');
@@ -216,7 +216,7 @@ describe('Theme Override Tests', () => {
       expect(button).toHaveClass('bg-gradient-to-r');
       expect(button).toHaveClass('from-indigo-500');
       expect(button).toHaveClass('to-purple-600');
-      expect(button).toHaveClass('border-[length:var(--bw)]'); // border width from BorderTheme
+      expect(button).toHaveClass('border-[length:var(--bw)]'); // border width from BorderClassMapper
       expect(button).toHaveClass('border-indigo-400');
       expect(button).toHaveClass('font-semibold'); // from themeDefaults
       expect(button).toHaveClass('text-(length:--fs)'); // font size consumer class
@@ -326,9 +326,9 @@ describe('Theme Override Tests', () => {
       const lgButton = container.querySelector('.size-test-lg');
 
       // Buttons should have consumer classes (CSS variables are set in vars.css)
-      expect(mdButton).toHaveClass('text-(length:--fs)'); // FontSizeTheme CSS variable consumer
-      expect(mdButton).toHaveClass('px-(--px)'); // PxTheme CSS variable consumer
-      expect(mdButton).toHaveClass('py-(--py)'); // PyTheme CSS variable consumer
+      expect(mdButton).toHaveClass('text-(length:--fs)'); // FontSizeClassMapper CSS variable consumer
+      expect(mdButton).toHaveClass('px-(--px)'); // PxClassMapper CSS variable consumer
+      expect(mdButton).toHaveClass('py-(--py)'); // PyClassMapper CSS variable consumer
       expect(mdButton).toHaveClass('bg-emerald-500'); // overridden background
 
       // LG button should have same consumer classes
@@ -740,7 +740,7 @@ describe('Theme Override Tests', () => {
     });
   });
 
-  describe('SimpleConsumerTheme Override Tests', () => {
+  describe('SimpleConsumerClassMapper Override Tests', () => {
     describe('Text Color Consumer Theme Overrides', () => {
       it('should override text consumer class base property', () => {
         const overrideFunc = (theme: ThemeProps) => {

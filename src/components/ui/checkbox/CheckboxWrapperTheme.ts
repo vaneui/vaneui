@@ -2,20 +2,20 @@ import type {
   BaseComponentTheme,
   DefaultLayoutThemes
 } from "../theme/common/ComponentTheme";
-import type { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import type { FocusVisibleTheme } from "../theme/layout/focusVisibleTheme";
-import type { SizeTheme } from "../theme/size/sizeTheme";
+import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
+import type { SizeClassMapper } from "../theme/size/sizeClassMapper";
 
 /** Theme interface for checkbox wrapper element */
 export interface CheckboxWrapperTheme extends BaseComponentTheme {
   size: {
-    height: SizeTheme;
+    height: SizeClassMapper;
   };
   layout: DefaultLayoutThemes & {
-    focusVisible: FocusVisibleTheme;
+    focusVisible: FocusVisibleClassMapper;
   };
   appearance: {
-    variant: SimpleConsumerTheme;
-    focusVisible: SimpleConsumerTheme;
+    variant: SimpleConsumerClassMapper;
+    focusVisible: SimpleConsumerClassMapper;
   };
 }

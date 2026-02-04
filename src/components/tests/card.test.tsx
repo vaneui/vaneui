@@ -462,7 +462,7 @@ describe('Card Component Tests', () => {
 
         const card = container.querySelector('div');
         expect(card).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
-        // RingTheme now has empty hover and active defaults
+        // RingClassMapper now has empty hover and active defaults
         expect(card).not.toHaveClass('hover:ring', 'hover:ring-inset');
         expect(card).not.toHaveClass('active:ring', 'active:ring-inset');
       });
@@ -511,7 +511,7 @@ describe('Card Component Tests', () => {
 
         [primaryCard, infoCard, warningCard].forEach(card => {
           expect(card).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
-          // RingTheme now has empty hover and active defaults
+          // RingClassMapper now has empty hover and active defaults
           expect(card).not.toHaveClass('hover:ring', 'hover:ring-inset');
           expect(card).not.toHaveClass('active:ring', 'active:ring-inset');
         });

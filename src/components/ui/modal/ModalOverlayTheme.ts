@@ -2,20 +2,20 @@ import type {
   BaseComponentTheme,
   DefaultLayoutThemes,
 } from "../theme/common/ComponentTheme";
-import type { BlurTheme } from "../theme/layout/blurTheme";
-import type { PointerEventsTheme } from "../theme/layout/pointerEventsTheme";
-import type { RingTheme } from "../theme/layout/ringTheme";
-import type { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import type { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
+import type { BlurClassMapper } from "../theme/layout/blurClassMapper";
+import type { PointerEventsClassMapper } from "../theme/layout/pointerEventsClassMapper";
+import type { RingClassMapper } from "../theme/layout/ringClassMapper";
+import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 
 export interface ModalOverlayTheme extends BaseComponentTheme {
   layout: DefaultLayoutThemes & {
-    blur: BlurTheme;
-    pointerEvents: PointerEventsTheme;
-    ring: RingTheme;
-    shadow: ShadowAppearanceTheme;
+    blur: BlurClassMapper;
+    pointerEvents: PointerEventsClassMapper;
+    ring: RingClassMapper;
+    shadow: ShadowAppearanceClassMapper;
   };
   appearance: {
-    ring: SimpleConsumerTheme;
+    ring: SimpleConsumerClassMapper;
   };
 }

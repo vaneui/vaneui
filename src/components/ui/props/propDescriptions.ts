@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-02-03T19:12:17.929Z
+ * Generated on: 2026-02-04T19:51:27.354Z
  */
 
 export interface PropDescription {
@@ -417,7 +417,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
   },
   "orientation": {
     "name": "Orientation",
-    "description": "Orientation props for horizontal/vertical layout\rUsed by components like Divider that can be oriented in different directions.",
+    "description": "Orientation props for horizontal/vertical layout\nUsed by components like Divider that can be oriented in different directions.",
     "props": {
       "horizontal": {
         "description": "Display as a horizontal line (default)"
@@ -603,7 +603,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
   },
   "status": {
     "name": "Status",
-    "description": "Status props for form validation state\rNote: For success/warning validation states, use the appearance props\r(success, warning) which provide similar visual feedback.",
+    "description": "Status props for form validation state\nNote: For success/warning validation states, use the appearance props\n(success, warning) which provide similar visual feedback.",
     "props": {
       "error": {
         "description": "Show error state (red border/ring) for form validation"

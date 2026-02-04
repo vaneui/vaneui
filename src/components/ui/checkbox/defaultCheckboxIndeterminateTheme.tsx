@@ -3,7 +3,7 @@ import {
   defaultLayoutsThemes,
 } from "../theme/common/ComponentTheme";
 import type { CheckboxProps } from "./CheckboxProps";
-import { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
+import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 import { textConsumerClass } from "../classes/appearanceClasses";
 import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
 import type { CheckboxIndeterminateTheme } from "./CheckboxIndeterminateTheme";
@@ -24,7 +24,7 @@ export const defaultCheckboxIndeterminateTheme = new ComponentTheme<CheckboxProp
         />
       </svg>,
     appearance: {
-      color: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
+      color: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
     },
     layout: defaultLayoutsThemes,
   },

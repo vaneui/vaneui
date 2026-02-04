@@ -3,8 +3,8 @@ import {
   defaultLayoutsThemes,
 } from "../theme/common/ComponentTheme";
 import type { CheckboxProps } from "./CheckboxProps";
-import { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import { FocusVisibleTheme } from "../theme/layout/focusVisibleTheme";
+import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
 import { textConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
 import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
 import type { CheckboxCheckTheme } from "./CheckboxCheckTheme";
@@ -26,12 +26,12 @@ export const defaultCheckboxCheckTheme = new ComponentTheme<CheckboxProps, Check
         />
       </svg>,
     appearance: {
-      color: new SimpleConsumerTheme({ base: textConsumerClass }, 'text'),
-      focusVisible: new SimpleConsumerTheme({ base: focusVisibleConsumerClass }, 'focusVisible')
+      color: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
+      focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible')
     },
     layout: {
       ...defaultLayoutsThemes,
-      focusVisible: new FocusVisibleTheme()
+      focusVisible: new FocusVisibleClassMapper()
     },
   },
   checkboxCheckDefaults,

@@ -354,7 +354,7 @@ export type ModeKey = typeof ModeKeys.mode[number];
 
 /** Common responsive breakpoint keys used across all themes (includes 'base' for non-responsive mode) */
 export const RESPONSIVE_BREAKPOINT_KEYS = ['base', 'desktop', 'tablet', 'mobile'] as const;
-/** Type for responsive breakpoint class keys - used by GapTheme, PyTheme, PxTheme, FontSizeTheme */
+/** Type for responsive breakpoint class keys - used by GapClassMapper, PyClassMapper, PxClassMapper, FontSizeClassMapper */
 export type ResponsiveBreakpointClassKey = typeof RESPONSIVE_BREAKPOINT_KEYS[number];
 /** Left padding theme class key */
 export type PlClassKey = 'pl';

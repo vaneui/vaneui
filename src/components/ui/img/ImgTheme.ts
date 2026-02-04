@@ -2,27 +2,27 @@ import type {
   BaseComponentTheme,
   DefaultLayoutThemes,
 } from "../theme/common/ComponentTheme";
-import type { BorderTheme } from "../theme/layout/borderTheme";
-import type { RingTheme } from "../theme/layout/ringTheme";
-import type { FocusVisibleTheme } from "../theme/layout/focusVisibleTheme";
-import type { RadiusTheme } from "../theme/layout/radiusTheme";
-import type { ObjectFitTheme } from "../theme/layout/objectFitTheme";
-import type { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import type { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
+import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
+import type { RingClassMapper } from "../theme/layout/ringClassMapper";
+import type { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
+import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
+import type { ObjectFitClassMapper } from "../theme/layout/objectFitClassMapper";
+import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 
 export interface ImgTheme extends BaseComponentTheme {
   layout: DefaultLayoutThemes & {
-    border: BorderTheme;
-    ring: RingTheme;
-    focusVisible: FocusVisibleTheme;
-    radius: RadiusTheme;
-    objectFit: ObjectFitTheme;
+    border: BorderClassMapper;
+    ring: RingClassMapper;
+    focusVisible: FocusVisibleClassMapper;
+    radius: RadiusClassMapper;
+    objectFit: ObjectFitClassMapper;
   };
   appearance: {
-    background: SimpleConsumerTheme;
-    border: SimpleConsumerTheme;
-    ring: SimpleConsumerTheme;
-    focusVisible: SimpleConsumerTheme;
-    shadow: ShadowAppearanceTheme;
+    background: SimpleConsumerClassMapper;
+    border: SimpleConsumerClassMapper;
+    ring: SimpleConsumerClassMapper;
+    focusVisible: SimpleConsumerClassMapper;
+    shadow: ShadowAppearanceClassMapper;
   };
 }

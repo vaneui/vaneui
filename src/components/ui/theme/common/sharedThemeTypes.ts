@@ -1,70 +1,70 @@
 import type { BaseTypographyComponentTheme, DefaultLayoutThemes, BaseComponentTheme } from "./ComponentTheme";
-import type { FontSizeTheme } from "../size/fontSizeTheme";
-import type { LineHeightTheme } from "../size/lineHeightTheme";
-import type { GapTheme } from "../size/gapTheme";
-import type { PxTheme } from "../size/pxTheme";
-import type { PyTheme } from "../size/pyTheme";
-import type { BreakpointTheme } from "../size/breakpointTheme";
-import type { RadiusTheme } from "../layout/radiusTheme";
-import type { BorderTheme } from "../layout/borderTheme";
-import type { RingTheme } from "../layout/ringTheme";
-import type { FocusVisibleTheme } from "../layout/focusVisibleTheme";
-import type { WrapTheme } from "../layout/wrapTheme";
-import type { DirectionTheme } from "../layout/directionTheme";
-import type { CursorTheme } from "../layout/cursorTheme";
-import type { TransitionTheme } from "../layout/transitionTheme";
-import type { WhitespaceTheme } from "../layout/whitespaceTheme";
-import type { WidthTheme } from "../layout/widthTheme";
-import type { HeightTheme } from "../layout/heightTheme";
-import type { SimpleConsumerTheme } from "../appearance/simpleConsumerTheme";
-import type { ShadowAppearanceTheme } from "../appearance/shadowAppearanceTheme";
-import type { TextAlignTheme } from "../typography/textAlignTheme";
+import type { FontSizeClassMapper } from "../size/fontSizeClassMapper";
+import type { LineHeightClassMapper } from "../size/lineHeightClassMapper";
+import type { GapClassMapper } from "../size/gapClassMapper";
+import type { PxClassMapper } from "../size/pxClassMapper";
+import type { PyClassMapper } from "../size/pyClassMapper";
+import type { BreakpointClassMapper } from "../size/breakpointClassMapper";
+import type { RadiusClassMapper } from "../layout/radiusClassMapper";
+import type { BorderClassMapper } from "../layout/borderClassMapper";
+import type { RingClassMapper } from "../layout/ringClassMapper";
+import type { FocusVisibleClassMapper } from "../layout/focusVisibleClassMapper";
+import type { WrapClassMapper } from "../layout/wrapClassMapper";
+import type { DirectionClassMapper } from "../layout/directionClassMapper";
+import type { CursorClassMapper } from "../layout/cursorClassMapper";
+import type { TransitionClassMapper } from "../layout/transitionClassMapper";
+import type { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
+import type { WidthClassMapper } from "../layout/widthClassMapper";
+import type { HeightClassMapper } from "../layout/heightClassMapper";
+import type { SimpleConsumerClassMapper } from "../appearance/simpleConsumerClassMapper";
+import type { ShadowAppearanceClassMapper } from "../appearance/shadowAppearanceClassMapper";
+import type { TextAlignClassMapper } from "../typography/textAlignClassMapper";
 
 /**
  * Size theme structure for interactive components (Button, Badge, Chip).
  */
-export interface InteractiveSizeTheme {
-  px: PxTheme;
-  py: PyTheme;
-  text: FontSizeTheme;
-  lineHeight: LineHeightTheme;
-  gap: GapTheme;
+export interface InteractiveSizeClassMapper {
+  px: PxClassMapper;
+  py: PyClassMapper;
+  text: FontSizeClassMapper;
+  lineHeight: LineHeightClassMapper;
+  gap: GapClassMapper;
 }
 
 /**
  * Appearance theme structure for interactive components.
  */
 export interface InteractiveAppearanceTheme {
-  background: SimpleConsumerTheme;
-  text: SimpleConsumerTheme;
-  border: SimpleConsumerTheme;
-  ring: SimpleConsumerTheme;
-  focusVisible: SimpleConsumerTheme;
-  shadow: ShadowAppearanceTheme;
+  background: SimpleConsumerClassMapper;
+  text: SimpleConsumerClassMapper;
+  border: SimpleConsumerClassMapper;
+  ring: SimpleConsumerClassMapper;
+  focusVisible: SimpleConsumerClassMapper;
+  shadow: ShadowAppearanceClassMapper;
 }
 
 /**
  * Layout theme structure for interactive components.
  */
 export interface InteractiveLayoutTheme extends DefaultLayoutThemes {
-  border: BorderTheme;
-  ring: RingTheme;
-  focusVisible: FocusVisibleTheme;
-  radius: RadiusTheme;
-  wrap: WrapTheme;
-  flexDirection: DirectionTheme;
-  cursor: CursorTheme;
-  transition: TransitionTheme;
-  whitespace: WhitespaceTheme;
-  width: WidthTheme;
-  height: HeightTheme;
+  border: BorderClassMapper;
+  ring: RingClassMapper;
+  focusVisible: FocusVisibleClassMapper;
+  radius: RadiusClassMapper;
+  wrap: WrapClassMapper;
+  flexDirection: DirectionClassMapper;
+  cursor: CursorClassMapper;
+  transition: TransitionClassMapper;
+  whitespace: WhitespaceClassMapper;
+  width: WidthClassMapper;
+  height: HeightClassMapper;
 }
 
 /**
  * Shared theme interface for interactive components (Badge, Chip, Code, Button).
  */
 export interface InteractiveComponentTheme extends BaseTypographyComponentTheme {
-  size: InteractiveSizeTheme;
+  size: InteractiveSizeClassMapper;
   appearance: InteractiveAppearanceTheme;
   layout: InteractiveLayoutTheme;
 }
@@ -78,50 +78,50 @@ export type ButtonLayoutTheme = InteractiveLayoutTheme;
 /**
  * Size theme structure for layout components (Card, Section, Container, Stack, Row, Col).
  */
-export interface LayoutSizeTheme {
-  px: PxTheme;
-  py: PyTheme;
-  gap: GapTheme;
+export interface LayoutSizeClassMapper {
+  px: PxClassMapper;
+  py: PyClassMapper;
+  gap: GapClassMapper;
 }
 
 /**
  * Appearance theme structure for layout components.
  */
 export interface LayoutAppearanceTheme {
-  background: SimpleConsumerTheme;
-  text: SimpleConsumerTheme;
-  border: SimpleConsumerTheme;
-  ring: SimpleConsumerTheme;
-  shadow: ShadowAppearanceTheme;
+  background: SimpleConsumerClassMapper;
+  text: SimpleConsumerClassMapper;
+  border: SimpleConsumerClassMapper;
+  ring: SimpleConsumerClassMapper;
+  shadow: ShadowAppearanceClassMapper;
 }
 
 /**
  * Layout theme structure for layout components.
  */
 export interface LayoutLayoutTheme extends DefaultLayoutThemes {
-  wrap: WrapTheme;
-  direction: DirectionTheme;
-  border: BorderTheme;
-  ring: RingTheme;
-  radius: RadiusTheme;
+  wrap: WrapClassMapper;
+  direction: DirectionClassMapper;
+  border: BorderClassMapper;
+  ring: RingClassMapper;
+  radius: RadiusClassMapper;
 }
 
 /**
  * Shared theme interface for basic flex layout components (Col).
  */
 export interface BasicFlexLayoutComponentTheme extends BaseComponentTheme {
-  size: LayoutSizeTheme;
+  size: LayoutSizeClassMapper;
   appearance: LayoutAppearanceTheme;
   layout: LayoutLayoutTheme;
-  typography: { textAlign: TextAlignTheme };
+  typography: { textAlign: TextAlignClassMapper };
 }
 
 /**
  * Shared theme interface for layout components with breakpoint support (Stack, Row).
  */
 export interface FlexLayoutComponentTheme extends BaseComponentTheme {
-  size: LayoutSizeTheme & { breakpoint: BreakpointTheme };
+  size: LayoutSizeClassMapper & { breakpoint: BreakpointClassMapper };
   appearance: LayoutAppearanceTheme;
   layout: LayoutLayoutTheme;
-  typography: { textAlign: TextAlignTheme };
+  typography: { textAlign: TextAlignClassMapper };
 }

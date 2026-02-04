@@ -3,9 +3,9 @@ import {
   defaultLayoutsThemes,
 } from "../theme/common/ComponentTheme";
 import type { DividerProps } from "./DividerProps";
-import { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import { PyTheme } from "../theme/size/pyTheme";
-import { OrientationTheme } from "../theme/layout/orientationTheme";
+import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import { PyClassMapper } from "../theme/size/pyClassMapper";
+import { OrientationClassMapper } from "../theme/layout/orientationClassMapper";
 import { DIVIDER_CATEGORIES } from "./DividerCategories";
 import type { DividerTheme } from "./DividerTheme";
 import { dividerDefaults } from "./dividerDefaults";
@@ -15,15 +15,15 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
   "vane-divider",
   {
     size: {
-      py: new PyTheme(), // Uses layout spacing by default
+      py: new PyClassMapper(), // Uses layout spacing by default
     },
     appearance: {
       // CSS-based approach: uses --border-color variable for divider background
-      background: new SimpleConsumerTheme({ base: 'bg-(--border-color)' }, 'bg'),
+      background: new SimpleConsumerClassMapper({ base: 'bg-(--border-color)' }, 'bg'),
     },
     layout: {
       ...defaultLayoutsThemes,
-      orientation: new OrientationTheme(),
+      orientation: new OrientationClassMapper(),
     },
   },
   dividerDefaults,

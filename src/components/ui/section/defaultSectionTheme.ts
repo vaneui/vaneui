@@ -4,7 +4,7 @@ import type { SectionTheme } from "./SectionTheme";
 import { SECTION_CATEGORIES } from "./SectionCategories";
 import { layoutSubThemes } from "../theme/common/layoutSubThemes";
 import { sectionDefaults } from "./sectionDefaults";
-import { BreakpointTheme } from "../theme/size/breakpointTheme";
+import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
 
 export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme>(
   "div",
@@ -13,7 +13,7 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
     ...layoutSubThemes,
     size: {
       ...layoutSubThemes.size,
-      breakpoint: new BreakpointTheme(),
+      breakpoint: new BreakpointClassMapper(),
     },
   },
   sectionDefaults,

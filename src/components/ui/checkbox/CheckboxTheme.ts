@@ -2,40 +2,40 @@ import type {
   BaseComponentTheme,
   DefaultLayoutThemes
 } from "../theme/common/ComponentTheme";
-import type { RadiusTheme } from "../theme/layout/radiusTheme";
-import type { BorderTheme } from "../theme/layout/borderTheme";
-import type { RingTheme } from "../theme/layout/ringTheme";
-import type { FocusVisibleTheme } from "../theme/layout/focusVisibleTheme";
-import type { CursorTheme } from "../theme/layout/cursorTheme";
-import type { TransitionTheme } from "../theme/layout/transitionTheme";
-import type { SimpleConsumerTheme } from "../theme/appearance/simpleConsumerTheme";
-import type { SizeTheme } from "../theme/size/sizeTheme";
-import type { FontSizeTheme } from "../theme/size/fontSizeTheme";
-import type { ShadowAppearanceTheme } from "../theme/appearance/shadowAppearanceTheme";
-import type { StatusTheme } from "../theme/appearance/statusTheme";
+import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
+import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
+import type { RingClassMapper } from "../theme/layout/ringClassMapper";
+import type { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
+import type { CursorClassMapper } from "../theme/layout/cursorClassMapper";
+import type { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
+import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { SizeClassMapper } from "../theme/size/sizeClassMapper";
+import type { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
+import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import type { StatusClassMapper } from "../theme/appearance/statusClassMapper";
 
 /** Theme interface for checkbox input element */
 export interface CheckboxTheme extends BaseComponentTheme {
   size: {
-    size: SizeTheme;
-    text: FontSizeTheme;
+    size: SizeClassMapper;
+    text: FontSizeClassMapper;
   };
   layout: DefaultLayoutThemes & {
-    border: BorderTheme;
-    ring: RingTheme;
-    focusVisible: FocusVisibleTheme;
-    cursor: CursorTheme;
-    transition: TransitionTheme;
-    radius: RadiusTheme;
+    border: BorderClassMapper;
+    ring: RingClassMapper;
+    focusVisible: FocusVisibleClassMapper;
+    cursor: CursorClassMapper;
+    transition: TransitionClassMapper;
+    radius: RadiusClassMapper;
   };
   appearance: {
-    accent: SimpleConsumerTheme;
-    background: SimpleConsumerTheme;
-    border: SimpleConsumerTheme;
-    ring: SimpleConsumerTheme;
-    focusVisible: SimpleConsumerTheme;
-    check: SimpleConsumerTheme;
-    shadow: ShadowAppearanceTheme;
-    status: StatusTheme;
+    accent: SimpleConsumerClassMapper;
+    background: SimpleConsumerClassMapper;
+    border: SimpleConsumerClassMapper;
+    ring: SimpleConsumerClassMapper;
+    focusVisible: SimpleConsumerClassMapper;
+    check: SimpleConsumerClassMapper;
+    shadow: ShadowAppearanceClassMapper;
+    status: StatusClassMapper;
   };
 }

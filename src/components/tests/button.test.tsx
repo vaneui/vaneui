@@ -245,7 +245,7 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
-        // RingTheme now has empty hover and active defaults
+        // RingClassMapper now has empty hover and active defaults
         expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
         expect(button).not.toHaveClass('active:ring', 'active:ring-inset');
       });
@@ -275,7 +275,7 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('ring-[length:var(--rw)]', 'ring-inset'); // Button has ring: true as default
-        // RingTheme now has empty hover and active defaults
+        // RingClassMapper now has empty hover and active defaults
         expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
         expect(button).not.toHaveClass('active:ring', 'active:ring-inset');
       });
@@ -295,7 +295,7 @@ describe('Button Component Tests', () => {
 
         [primaryButton, secondaryButton, successButton].forEach(button => {
           expect(button).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
-          // RingTheme now has empty hover and active defaults
+          // RingClassMapper now has empty hover and active defaults
           expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
           expect(button).not.toHaveClass('active:ring', 'active:ring-inset');
         });
@@ -315,7 +315,7 @@ describe('Button Component Tests', () => {
         expect(button).toHaveClass('border-[length:var(--bw)]');
         // Should have ring classes
         expect(button).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
-        // RingTheme now has empty hover and active defaults
+        // RingClassMapper now has empty hover and active defaults
         expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
         expect(button).not.toHaveClass('active:ring', 'active:ring-inset');
       });
@@ -361,7 +361,7 @@ describe('Button Component Tests', () => {
         const button = container.querySelector('button');
         // Should have ring classes
         expect(button).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
-        // RingTheme now has empty hover and active defaults
+        // RingClassMapper now has empty hover and active defaults
         expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
         // Should not have border classes
         expect(button).not.toHaveClass('border-[length:var(--bw)]');
