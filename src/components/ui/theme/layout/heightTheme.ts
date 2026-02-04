@@ -1,8 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
-
-/** Height keys for element sizing */
-export type HeightKey = 'hFit' | 'hFull' | 'hAuto';
+import type { CategoryProps, HeightKey } from "../../props";
 
 /**
  * HeightTheme handles height styling for components.

@@ -33,10 +33,26 @@ When implementing a new component, ALL of these steps must be completed:
   - Create ComponentTheme instance with correct categories
   - Set appropriate defaults
   - Set correct `vaneType` ('ui' or 'layout')
+  - **Import Key types from `../../props`** — never define locally
 
 - [ ] Add categories to keys.ts if needed: `src/components/ui/props/keys.ts`
+  - Add values to `ComponentKeys`
+  - Export the Key type: `export type NewCategoryKey = typeof ComponentKeys.newCategory[number];`
   - Define `{COMPONENT}_CATEGORIES` constant
   - Add to `ComponentCategories` object
+
+**Key Type Pattern (REQUIRED):**
+```typescript
+// keys.ts - single source of truth
+export const ComponentKeys = {
+  myCategory: ['optionA', 'optionB'] as const,
+};
+export type MyCategoryKey = typeof ComponentKeys.myCategory[number];
+
+// Theme file - import from props
+import type { CategoryProps, MyCategoryKey } from "../../props";
+// ❌ WRONG: export type MyCategoryKey = 'optionA' | 'optionB';
+```
 
 ### Phase 3: Integration
 

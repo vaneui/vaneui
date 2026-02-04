@@ -1,37 +1,104 @@
-/** Core layout properties for positioning and sizing elements */
-export const LAYOUT_CORE = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
-/** Flexbox-specific layout properties for flex containers */
-export const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
-/** Padding properties for internal spacing control */
-export const PADDING = ['padding'] as const;
-/** Responsive breakpoint properties for different screen sizes */
-export const BREAKPOINT = ['breakpoint'] as const;
-/** Core visual properties including appearance colors and transparency */
-export const VISUAL_CORE = ['appearance'] as const;
-/** Border properties for visual decoration */
-export const BORDER = ['border'] as const;
-/** Visual decoration properties for shadows and focus rings */
-export const VISUAL_DECORATION = ['shadow', 'ring', 'focusVisible'] as const;
-/** Layout-specific visual decoration (excluding focusVisible for non-interactive elements) */
-export const VISUAL_DECORATION_LAYOUT = ['shadow', 'ring'] as const;
-/** Shape properties for border radius and corner rounding */
-export const SHAPE = ['shape'] as const;
-/** Text alignment property for block-level elements */
-export const TEXT_ALIGN = ['textAlign'] as const;
-/** Truncate property for text overflow control */
-export const TRUNCATE = ['truncate'] as const;
-/** Core typography styling properties (excluding text alignment) */
-export const TYPOGRAPHY_STYLE_CORE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily'] as const;
-/** Typography styling properties for text appearance and formatting */
-export const TYPOGRAPHY_STYLE = [...TYPOGRAPHY_STYLE_CORE, ...TEXT_ALIGN, ...TRUNCATE] as const;
-/** List-specific styling properties for bullet points and numbering */
-export const LIST_STYLE = ['listStyle'] as const;
-/** Variant properties for filled/outline styling modes */
-export const VARIANT = ['variant'] as const;
-/** Transparent background property */
-export const TRANSPARENT = ['transparent'] as const;
-/** Responsive sizing property for breakpoint-specific sizing */
-export const RESPONSIVE = ['responsive'] as const;
+// Import shared building blocks from categoryBuilders (no circular dependencies)
+// Import for local use
+import {
+  LAYOUT_CORE,
+  LAYOUT_FLEX,
+  PADDING,
+  BREAKPOINT,
+  VISUAL_CORE,
+  BORDER,
+  VISUAL_DECORATION,
+  VISUAL_DECORATION_LAYOUT,
+  SHAPE,
+  TEXT_ALIGN,
+  TRUNCATE,
+  TYPOGRAPHY_STYLE_CORE,
+  TYPOGRAPHY_STYLE,
+  LIST_STYLE,
+  VARIANT,
+  TRANSPARENT,
+  RESPONSIVE,
+  WIDTH,
+  COMMON_MODIFIERS,
+  LAYOUT_FULL,
+  VISUAL_FULL,
+  VISUAL_LAYOUT,
+  TYPOGRAPHY_FULL,
+} from './categoryBuilders';
+
+// Re-export for backward compatibility
+export {
+  LAYOUT_CORE,
+  LAYOUT_FLEX,
+  PADDING,
+  BREAKPOINT,
+  VISUAL_CORE,
+  BORDER,
+  VISUAL_DECORATION,
+  VISUAL_DECORATION_LAYOUT,
+  SHAPE,
+  TEXT_ALIGN,
+  TRUNCATE,
+  TYPOGRAPHY_STYLE_CORE,
+  TYPOGRAPHY_STYLE,
+  LIST_STYLE,
+  VARIANT,
+  TRANSPARENT,
+  RESPONSIVE,
+  WIDTH,
+  COMMON_MODIFIERS,
+  LAYOUT_FULL,
+  VISUAL_FULL,
+  VISUAL_LAYOUT,
+  TYPOGRAPHY_FULL,
+};
+
+// Import component-specific categories from their folders
+import {
+  BADGE_CATEGORIES,
+  BUTTON_CATEGORIES,
+  CHIP_CATEGORIES,
+  CODE_CATEGORIES,
+  CONTAINER_CATEGORIES,
+  GRID_CATEGORIES,
+  ROW_CATEGORIES,
+  STACK_CATEGORIES,
+} from './categoryBuilders';
+import { CARD_CATEGORIES } from '../card/CardCategories';
+import { COL_CATEGORIES } from '../col/ColCategories';
+import { DIVIDER_CATEGORIES } from '../divider/DividerCategories';
+import { IMG_CATEGORIES } from '../img/ImgCategories';
+import { SECTION_CATEGORIES } from '../section/SectionCategories';
+import { LABEL_CATEGORIES } from '../label/LabelCategories';
+import { INPUT_CATEGORIES } from '../input/InputCategories';
+import { OVERLAY_CATEGORIES } from '../overlay/OverlayCategories';
+import { MODAL_CATEGORIES } from '../modal/ModalCategories';
+import { POPUP_CATEGORIES } from '../popup/PopupCategories';
+import { CHECKBOX_CATEGORIES } from '../checkbox/CheckboxCategories';
+import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from '../typography/common/TypographyCategories';
+
+// Re-export for backward compatibility
+export { BADGE_CATEGORIES };
+export { BUTTON_CATEGORIES };
+export { CARD_CATEGORIES };
+export { CHIP_CATEGORIES };
+export { CODE_CATEGORIES };
+export { COL_CATEGORIES };
+export { CONTAINER_CATEGORIES };
+export { DIVIDER_CATEGORIES };
+export { GRID_CATEGORIES };
+export { ROW_CATEGORIES };
+export { IMG_CATEGORIES };
+export { SECTION_CATEGORIES };
+export { STACK_CATEGORIES };
+export { LABEL_CATEGORIES };
+export { INPUT_CATEGORIES };
+export { OVERLAY_CATEGORIES };
+export { MODAL_CATEGORIES };
+export { POPUP_CATEGORIES };
+export { CHECKBOX_CATEGORIES };
+export { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES };
+
 /** Blur effect property for backdrop blur */
 export const BLUR = ['blur'] as const;
 /** Pointer events property for controlling element interactivity */
@@ -44,8 +111,6 @@ export const TRANSITION = ['transition'] as const;
 export const WHITESPACE = ['whitespace'] as const;
 /** Object fit property for images/videos */
 export const OBJECT_FIT = ['objectFit'] as const;
-/** Width property for controlling element width */
-export const WIDTH = ['width'] as const;
 /** Status property for form validation state */
 export const STATUS = ['status'] as const;
 /** Orientation property for horizontal/vertical layout */
@@ -54,8 +119,6 @@ export const ORIENTATION = ['orientation'] as const;
 export const HEIGHT = ['height'] as const;
 /** Letter spacing property for text tracking */
 export const LETTER_SPACING = ['letterSpacing'] as const;
-/** Common modifier properties available to all components */
-export const COMMON_MODIFIERS = [...TRANSPARENT, ...RESPONSIVE] as const;
 
 /** All available component property categories combined */
 export const COMPONENT_PROPS_CATEGORY = [
@@ -96,9 +159,6 @@ export type AppearanceCategoryKey = typeof APPEARANCE_CATEGORY[number];
 
 /** Type for all component category keys */
 export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
-
-// Re-export mode module
-export * from './mode';
 
 /** Component property keys mapping categories to their available values */
 export const ComponentKeys = {
@@ -261,6 +321,37 @@ export type LetterSpacingKey = typeof ComponentKeys.letterSpacing[number];
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];
 
+// ============================================================================
+// Internal Styling State Keys (for theme implementation, not user-facing props)
+// ============================================================================
+
+/** Base state - default resting appearance */
+export const BASE = 'base' as const;
+/** Hover state - appearance when cursor hovers over element */
+export const HOVER = 'hover' as const;
+/** Active state - appearance when element is being pressed/clicked */
+export const ACTIVE = 'active' as const;
+/** Focus state - appearance when element receives focus */
+export const FOCUS = 'focus' as const;
+/** Focus visible state - appearance when element has visible focus indicator */
+export const FOCUS_VISIBLE = 'focusVisible' as const;
+
+/** All mode property values for internal styling states */
+export const MODE_VALUES = [BASE, HOVER, ACTIVE, FOCUS, FOCUS_VISIBLE] as const;
+
+/** Styling mode keys for different interaction states (internal use by themes) */
+export const ModeKeys = {
+  /** Interaction states for styling: base, hover, active, focus, focusVisible */
+  mode: MODE_VALUES,
+} as const;
+
+/** Type for mode keys - internal styling states */
+export type ModeKey = typeof ModeKeys.mode[number];
+
+// ============================================================================
+// Theme Class Keys (for internal theme implementation)
+// ============================================================================
+
 /** Common responsive breakpoint keys used across all themes (includes 'base' for non-responsive mode) */
 export const RESPONSIVE_BREAKPOINT_KEYS = ['base', 'desktop', 'tablet', 'mobile'] as const;
 /** Type for responsive breakpoint class keys - used by GapTheme, PyTheme, PxTheme, FontSizeTheme */
@@ -270,74 +361,16 @@ export type PlClassKey = 'pl';
 /** Line height theme class key */
 export type LineHeightClassKey = 'lineHeight';
 
-/** Composite categories built from core blocks */
-/** Complete layout category including core and flex properties */
-export const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
-/** Complete visual category including core, decoration, and shape properties */
-export const VISUAL_FULL = [...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE] as const;
-/** Layout-specific visual category (excludes focusVisible for non-interactive elements) */
-export const VISUAL_LAYOUT = [...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION_LAYOUT, ...SHAPE] as const;
-/** Complete typography category for text styling */
-export const TYPOGRAPHY_FULL = [...TYPOGRAPHY_STYLE] as const;
-
 /** Categories for interactive components like buttons, badges, chips */
 export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT, ...CURSOR, ...TRANSITION, ...WHITESPACE, ...WIDTH, ...HEIGHT, ...COMMON_MODIFIERS] as const;
-/** Button component categories */
-export const BUTTON_CATEGORIES = INTERACTIVE_CATEGORIES;
-/** Badge component categories */
-export const BADGE_CATEGORIES = INTERACTIVE_CATEGORIES;
-/** Chip component categories */
-export const CHIP_CATEGORIES = INTERACTIVE_CATEGORIES;
-/** Code component categories */
-export const CODE_CATEGORIES = INTERACTIVE_CATEGORIES;
 
-/** Typography component categories */
-/** Categories for typography components like Text, Title, Link */
-export const TYPOGRAPHY_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT, ...CURSOR, ...LETTER_SPACING, ...COMMON_MODIFIERS] as const;
-/** Categories for list components with typography and list-specific styling */
-export const LIST_CATEGORIES = [...TYPOGRAPHY_FULL, ...LIST_STYLE, ...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT, ...COMMON_MODIFIERS] as const;
+/** Typography component categories are now imported from their component folder */
 
-/** Layout component categories */
-/** Categories for grid layout components */
-export const GRID_CATEGORIES = [...LAYOUT_FULL, ...PADDING, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS] as const;
-/** Categories for container layout components */
-export const CONTAINER_CATEGORIES = [...LAYOUT_FULL, ...PADDING, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS] as const;
-/** Categories for column layout components */
-export const COL_CATEGORIES = [...LAYOUT_FULL, ...PADDING, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS, ...TEXT_ALIGN] as const;
-/** Categories for row layout components with responsive breakpoints */
-export const ROW_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS, ...TEXT_ALIGN] as const;
-/** Categories for stack layout components with responsive and padding support */
-export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS, ...TEXT_ALIGN] as const;
-/** Categories for card components with full typography and layout support */
-export const CARD_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_LAYOUT, ...PADDING, ...VARIANT, ...WIDTH, ...COMMON_MODIFIERS] as const;
-/** Categories for divider components with basic layout and visual properties */
-export const DIVIDER_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...PADDING, ...VARIANT, ...ORIENTATION, ...COMMON_MODIFIERS] as const;
-/** Categories for section layout components with full responsive support */
-export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...BREAKPOINT, ...VARIANT, ...COMMON_MODIFIERS] as const;
+/** Form component categories are now imported from their component folders */
 
-/** Form component categories */
-/** Categories for checkbox form components */
-export const CHECKBOX_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...STATUS, ...COMMON_MODIFIERS] as const;
-/** Categories for label form components with typography support */
-export const LABEL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_CORE, ...VARIANT, ...CURSOR, ...COMMON_MODIFIERS] as const;
-/** Categories for input form components with interactive and form-specific properties */
-export const INPUT_CATEGORIES = [...INTERACTIVE_CATEGORIES, ...STATUS] as const;
+/** Media component categories are now imported from their component folders */
 
-/** Media component categories */
-/** Categories for image media components */
-export const IMG_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...OBJECT_FIT, ...COMMON_MODIFIERS] as const;
-
-/** Overlay component categories */
-/** Categories for overlay backdrop components */
-export const OVERLAY_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...VARIANT, ...BLUR, ...POINTER_EVENTS, ...COMMON_MODIFIERS] as const;
-
-/** Modal component categories */
-/** Categories for modal dialog components */
-export const MODAL_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...SHAPE, ...VARIANT, ...COMMON_MODIFIERS] as const;
-
-/** Popup component categories */
-/** Categories for popup floating components (dropdowns, menus, tooltips) */
-export const POPUP_CATEGORIES = [...TYPOGRAPHY_FULL, ...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...SHAPE, ...VARIANT, ...WIDTH, ...COMMON_MODIFIERS] as const;
+/** Modal component categories are now imported from their component folder */
 
 /** Props type mapping category keys to their possible values */
 export type CategoryProps = {

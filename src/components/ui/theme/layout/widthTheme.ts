@@ -1,8 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
-
-/** Width keys for width control */
-export type WidthKey = 'wFull' | 'wFit' | 'wAuto';
+import type { CategoryProps, WidthKey } from "../../props";
 
 export class WidthTheme extends BaseTheme implements Record<WidthKey, string> {
   /** Full width (100%) */

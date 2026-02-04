@@ -14,6 +14,7 @@ When creating or modifying components, **ALL steps below must be completed**. Us
    - Component file: `src/components/ui/{component}.tsx`
    - Theme file: `src/components/ui/theme/{component}Theme.ts`
    - Add categories to `src/components/ui/props/keys.ts` if needed
+   - **Key Type Pattern**: Define keys in `ComponentKeys`, export Key type from `keys.ts`, theme files import from `../../props`
 
 2. **Integrate with Theme System**
    - Update `src/components/themeContext.tsx` (import, ThemeProps, defaultTheme, ThemeDefaults, ThemeExtraClasses)

@@ -39,9 +39,76 @@ Each component's theme is a `ComponentTheme<P, T>` with:
 - `mergeStrategy` — `"merge"` (default, inherits parent) or `"replace"` (fresh from defaultTheme)
 - Supports nesting: child providers merge with parent settings
 
+## Key Types Pattern
+
+**All Key types must be defined in one place: `keys.ts`**
+
+The pattern for defining and using Key types:
+
+1. **Define keys in `ComponentKeys`** in `src/components/ui/props/keys.ts`:
+   ```typescript
+   export const ComponentKeys = {
+     // ... existing categories
+     myCategory: ['optionA', 'optionB', 'optionC'] as const,
+   };
+   ```
+
+2. **Export the Key type from `keys.ts`**:
+   ```typescript
+   export type MyCategoryKey = typeof ComponentKeys.myCategory[number];
+   // Results in: 'optionA' | 'optionB' | 'optionC'
+   ```
+
+3. **Theme files import from `keys.ts`** — never define their own Key types:
+   ```typescript
+   // CORRECT - import from props (which re-exports from keys.ts)
+   import type { CategoryProps, MyCategoryKey } from "../../props";
+
+   export class MyCategoryTheme extends BaseTheme implements Record<MyCategoryKey, string> {
+     optionA: string = "class-a";
+     optionB: string = "class-b";
+     optionC: string = "class-c";
+     // ...
+   }
+   ```
+
+   ```typescript
+   // WRONG - don't define Key types locally in theme files
+   export type MyCategoryKey = 'optionA' | 'optionB' | 'optionC';  // ❌ Don't do this
+   ```
+
+This ensures:
+- Single source of truth for all keys
+- Type safety across the codebase
+- Easy updates when adding/removing options
+- Consistent prop descriptions generation
+
 ## Adding a New Prop Category
-1. Create prop type in `src/components/ui/props/newPropName.ts`
-2. Add category key and values to `ComponentKeys` in `keys.ts`
-3. Add category to relevant component category arrays (e.g., `INTERACTIVE_CATEGORIES`)
-4. Create theme class in `src/components/ui/theme/`
-5. Wire into component theme's `getClasses()` method
+
+1. **Add category to `ComponentKeys`** in `src/components/ui/props/keys.ts`:
+   ```typescript
+   export const ComponentKeys = {
+     // ... existing
+     newCategory: ['value1', 'value2', 'value3'] as const,
+   };
+   ```
+
+2. **Export the Key type** from `keys.ts`:
+   ```typescript
+   export type NewCategoryKey = typeof ComponentKeys.newCategory[number];
+   ```
+
+3. **Create prop type** in `src/components/ui/props/newCategoryProps.ts` (with JSDoc for each prop)
+
+4. **Add to `interfaceToCategoryMap`** in `scripts/generatePropDescriptions.ts`
+
+5. **Add category to component category arrays** (e.g., `INTERACTIVE_CATEGORIES`)
+
+6. **Create theme class** in `src/components/ui/theme/` — import Key type from props:
+   ```typescript
+   import type { CategoryProps, NewCategoryKey } from "../../props";
+   ```
+
+7. **Wire into component theme's `getClasses()` method**
+
+8. **Run `npm run props:generate`** to update prop descriptions

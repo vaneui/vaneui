@@ -1,45 +1,76 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import { ComponentTheme } from "./ui/theme/common/ComponentTheme";
-import { ButtonTheme, defaultButtonTheme } from './ui/theme/buttonTheme';
-import { BadgeTheme, defaultBadgeTheme } from './ui/theme/badgeTheme';
-import { ChipTheme, defaultChipTheme } from './ui/theme/chipTheme';
-import { CodeTheme, defaultCodeTheme } from './ui/theme/codeTheme';
-import {
-  linkTheme, LinkTheme, ListTheme,
-  listItemTheme,
-  listTheme,
-  pageTitleTheme,
-  sectionTitleTheme,
-  textTheme,
-  titleTheme,
-  TypographyTheme
-} from './ui/theme/typographyTheme';
-import { CardTheme, defaultCardTheme } from "./ui/theme/cardTheme";
-import { defaultRowTheme, RowTheme } from "./ui/theme/rowTheme";
-import { defaultDividerTheme, DividerTheme } from './ui/theme/dividerTheme';
-import { ContainerTheme, defaultContainerTheme } from './ui/theme/containerTheme';
-import { ColTheme, defaultColTheme } from './ui/theme/colTheme';
-import { defaultStackTheme, StackTheme } from './ui/theme/stackTheme';
-import { defaultSectionTheme, SectionTheme } from "./ui/theme/sectionTheme";
-import { defaultGrid2Theme, defaultGrid3Theme, defaultGrid4Theme, defaultGrid5Theme, defaultGrid6Theme, GridTheme } from "./ui/theme/gridTheme";
-import { CheckboxTheme, CheckTheme, CheckboxWrapperTheme, IndeterminateTheme, defaultCheckboxTheme, defaultCheckTheme, defaultCheckboxWrapperTheme, defaultIndeterminateTheme } from './ui/theme/checkboxTheme';
-import { LabelTheme, defaultLabelTheme } from './ui/theme/labelTheme';
-import { ImgTheme, defaultImgTheme } from './ui/theme/imgTheme';
-import { InputTheme, defaultInputTheme } from './ui/theme/inputTheme';
-import { OverlayTheme, defaultOverlayTheme } from './ui/theme/overlayTheme';
-import { ModalContentTheme, defaultModalContentTheme, defaultModalOverlayTheme } from './ui/theme/modalTheme';
-import { PopupTheme, defaultPopupTheme } from './ui/theme/popupTheme';
-import type { BadgeProps } from "./ui/badge";
-import type { ButtonProps } from "./ui/button";
-import type { CardProps } from "./ui/card";
-import type { ChipProps } from "./ui/chip";
-import type { CodeProps } from "./ui/code";
+import type { ButtonTheme } from './ui/button/ButtonTheme';
+import { defaultButtonTheme } from './ui/button/defaultButtonTheme';
+import type { BadgeTheme } from './ui/badge/BadgeTheme';
+import { defaultBadgeTheme } from './ui/badge/defaultBadgeTheme';
+import type { ChipTheme } from './ui/chip/ChipTheme';
+import { defaultChipTheme } from './ui/chip/defaultChipTheme';
+import type { CodeTheme } from './ui/code/CodeTheme';
+import { defaultCodeTheme } from './ui/code/defaultCodeTheme';
+import { textTheme } from './ui/typography/text/defaultTextTheme';
+import { titleTheme } from './ui/typography/title/defaultTitleTheme';
+import { sectionTitleTheme } from './ui/typography/sectionTitle/defaultSectionTitleTheme';
+import { pageTitleTheme } from './ui/typography/pageTitle/defaultPageTitleTheme';
+import { linkTheme } from './ui/typography/link/defaultLinkTheme';
+import { listTheme } from './ui/typography/list/defaultListTheme';
+import { listItemTheme } from './ui/typography/listItem/defaultListItemTheme';
+import type { TypographyTheme } from './ui/typography/common/TypographyTheme';
+import type { LinkTheme } from './ui/typography/link/LinkTheme';
+import type { ListTheme } from './ui/typography/list/ListTheme';
+import type { ListItemTheme } from './ui/typography/listItem/ListItemTheme';
+import type { CardTheme } from "./ui/card/CardTheme";
+import { defaultCardTheme } from "./ui/card/defaultCardTheme";
+import type { RowTheme } from "./ui/row/RowTheme";
+import { defaultRowTheme } from "./ui/row/defaultRowTheme";
+import type { DividerTheme } from './ui/divider/DividerTheme';
+import { defaultDividerTheme } from './ui/divider/defaultDividerTheme';
+import type { ContainerTheme } from './ui/container/ContainerTheme';
+import { defaultContainerTheme } from './ui/container/defaultContainerTheme';
+import type { ColTheme } from './ui/col/ColTheme';
+import { defaultColTheme } from './ui/col/defaultColTheme';
+import type { StackTheme } from './ui/stack/StackTheme';
+import { defaultStackTheme } from './ui/stack/defaultStackTheme';
+import type { SectionTheme } from "./ui/section/SectionTheme";
+import { defaultSectionTheme } from "./ui/section/defaultSectionTheme";
+import type { GridTheme } from "./ui/grid/GridTheme";
+import { defaultGrid2Theme } from "./ui/grid/defaultGrid2Theme";
+import { defaultGrid3Theme } from "./ui/grid/defaultGrid3Theme";
+import { defaultGrid4Theme } from "./ui/grid/defaultGrid4Theme";
+import { defaultGrid5Theme } from "./ui/grid/defaultGrid5Theme";
+import { defaultGrid6Theme } from "./ui/grid/defaultGrid6Theme";
+import type { CheckboxTheme } from './ui/checkbox/CheckboxTheme';
+import type { CheckboxCheckTheme } from './ui/checkbox/CheckboxCheckTheme';
+import type { CheckboxIndeterminateTheme } from './ui/checkbox/CheckboxIndeterminateTheme';
+import type { CheckboxWrapperTheme } from './ui/checkbox/CheckboxWrapperTheme';
+import { defaultCheckboxTheme } from './ui/checkbox/defaultCheckboxTheme';
+import { defaultCheckboxCheckTheme } from './ui/checkbox/defaultCheckboxCheckTheme';
+import { defaultCheckboxIndeterminateTheme } from './ui/checkbox/defaultCheckboxIndeterminateTheme';
+import { defaultCheckboxWrapperTheme } from './ui/checkbox/defaultCheckboxWrapperTheme';
+import type { LabelTheme } from './ui/label/LabelTheme';
+import { defaultLabelTheme } from './ui/label/defaultLabelTheme';
+import type { ImgTheme } from './ui/img/ImgTheme';
+import { defaultImgTheme } from './ui/img/defaultImgTheme';
+import type { InputTheme } from './ui/input/InputTheme';
+import { defaultInputTheme } from './ui/input/defaultInputTheme';
+import type { OverlayTheme } from './ui/overlay/OverlayTheme';
+import { defaultOverlayTheme } from './ui/overlay/defaultOverlayTheme';
+import type { ModalContentTheme } from './ui/modal/ModalContentTheme';
+import { defaultModalContentTheme } from './ui/modal/defaultModalContentTheme';
+import { defaultModalOverlayTheme } from './ui/modal/defaultModalOverlayTheme';
+import type { PopupTheme } from './ui/popup/PopupTheme';
+import { defaultPopupTheme } from './ui/popup/defaultPopupTheme';
+import type { BadgeProps } from "./ui/badge/BadgeProps";
+import type { ButtonProps } from "./ui/button/ButtonProps";
+import type { CardProps } from "./ui/card/CardProps";
+import type { ChipProps } from "./ui/chip/ChipProps";
+import type { CodeProps } from "./ui/code/CodeProps";
 import type { ColProps } from "./ui/col";
 import type { ContainerProps } from "./ui/container";
 import type { DividerProps } from "./ui/divider";
 import type { GridProps } from "./ui/grid";
 import type { ListProps, TypographyProps } from "./ui/typography";
-import type { RowProps } from "./ui/row";
+import type { RowProps } from "./ui/row/RowProps";
 import type { SectionProps } from "./ui/section";
 import type { StackProps } from "./ui/stack";
 import type { CheckboxProps } from "./ui/checkbox";
@@ -74,12 +105,12 @@ export interface ThemeProps {
   title: ComponentTheme<TypographyProps, TypographyTheme>;
   text: ComponentTheme<TypographyProps, TypographyTheme>;
   link: ComponentTheme<TypographyProps, LinkTheme>;
-  listItem: ComponentTheme<TypographyProps, TypographyTheme>;
+  listItem: ComponentTheme<TypographyProps, ListItemTheme>;
   list: ComponentTheme<ListProps, ListTheme>;
   checkbox: {
     input: ComponentTheme<CheckboxProps, CheckboxTheme>;
-    check: ComponentTheme<CheckboxProps, CheckTheme>;
-    indeterminate: ComponentTheme<CheckboxProps, IndeterminateTheme>;
+    check: ComponentTheme<CheckboxProps, CheckboxCheckTheme>;
+    indeterminate: ComponentTheme<CheckboxProps, CheckboxIndeterminateTheme>;
     wrapper: ComponentTheme<CheckboxProps, CheckboxWrapperTheme>;
   };
   label: ComponentTheme<LabelProps, LabelTheme>;
@@ -121,8 +152,8 @@ export const defaultTheme: ThemeProps = {
   list: listTheme,
   checkbox: {
     input: defaultCheckboxTheme,
-    check: defaultCheckTheme,
-    indeterminate: defaultIndeterminateTheme,
+    check: defaultCheckboxCheckTheme,
+    indeterminate: defaultCheckboxIndeterminateTheme,
     wrapper: defaultCheckboxWrapperTheme,
   },
   label: defaultLabelTheme,

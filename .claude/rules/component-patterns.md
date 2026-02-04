@@ -45,6 +45,19 @@ Component.displayName = 'Component';
 - [ ] Create theme file in `src/components/ui/theme/{component}Theme.ts`
 - [ ] Update `src/components/themeContext.tsx` with theme import and types
 - [ ] Add categories to `src/components/ui/props/keys.ts` if needed
+- [ ] **Key types must be imported from `keys.ts`** — never define Key types locally in theme files
+
+**Key Type Pattern:**
+```typescript
+// In keys.ts - define once
+export const ComponentKeys = {
+  myCategory: ['optionA', 'optionB'] as const,
+};
+export type MyCategoryKey = typeof ComponentKeys.myCategory[number];
+
+// In theme file - import, don't redefine
+import type { CategoryProps, MyCategoryKey } from "../../props";
+```
 
 ### Testing (REQUIRED)
 - [ ] Create test file: `src/components/tests/{component}.test.tsx`

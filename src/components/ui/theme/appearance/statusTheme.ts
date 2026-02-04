@@ -1,8 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
-
-/** Status keys for validation state */
-export type StatusKey = 'error';
+import type { CategoryProps, StatusKey } from "../../props";
 
 /**
  * StatusTheme handles validation status styling for form components.

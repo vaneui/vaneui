@@ -2,22 +2,23 @@ import { ComponentKeys } from "../ui/props";
 import { BaseTheme } from "../ui/theme/common/baseTheme";
 
 // Import all component themes
-import { defaultCheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckTheme } from "../ui/theme/checkboxTheme";
-import { defaultButtonTheme } from "../ui/theme/buttonTheme";
-import { defaultBadgeTheme } from "../ui/theme/badgeTheme";
-import { defaultChipTheme } from "../ui/theme/chipTheme";
-import { defaultCodeTheme } from "../ui/theme/codeTheme";
-import { textTheme, titleTheme, pageTitleTheme, sectionTitleTheme } from "../ui/theme/typographyTheme";
-import { defaultGrid3Theme, defaultGrid4Theme } from "../ui/theme/gridTheme";
-import { defaultContainerTheme } from "../ui/theme/containerTheme";
-import { defaultColTheme } from "../ui/theme/colTheme";
-import { defaultRowTheme } from "../ui/theme/rowTheme";
-import { defaultStackTheme } from "../ui/theme/stackTheme";
-import { defaultCardTheme } from "../ui/theme/cardTheme";
-import { defaultDividerTheme } from "../ui/theme/dividerTheme";
-import { defaultSectionTheme } from "../ui/theme/sectionTheme";
-import { defaultLabelTheme } from "../ui/theme/labelTheme";
-import { defaultImgTheme } from "../ui/theme/imgTheme";
+import { defaultCheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckboxCheckTheme } from "../ui/checkbox";
+import { defaultButtonTheme } from "../ui/button/defaultButtonTheme";
+import { defaultBadgeTheme } from "../ui/badge/defaultBadgeTheme";
+import { defaultChipTheme } from "../ui/chip/defaultChipTheme";
+import { defaultCodeTheme } from "../ui/code/defaultCodeTheme";
+import { textTheme, titleTheme, pageTitleTheme, sectionTitleTheme } from "../ui/typography";
+import { defaultGrid3Theme } from "../ui/grid/defaultGrid3Theme";
+import { defaultGrid4Theme } from "../ui/grid/defaultGrid4Theme";
+import { defaultContainerTheme } from "../ui/container/defaultContainerTheme";
+import { defaultColTheme } from "../ui/col/defaultColTheme";
+import { defaultRowTheme } from "../ui/row/defaultRowTheme";
+import { defaultStackTheme } from "../ui/stack/defaultStackTheme";
+import { defaultCardTheme } from "../ui/card";
+import { defaultDividerTheme } from "../ui/divider/defaultDividerTheme";
+import { defaultSectionTheme } from "../ui/section/defaultSectionTheme";
+import { defaultLabelTheme } from "../ui/label/defaultLabelTheme";
+import { defaultImgTheme } from "../ui/img/defaultImgTheme";
 
 // Import all category constants
 import {
@@ -406,7 +407,7 @@ describe("Component theme coverage tests", () => {
       themes: [
         { name: "defaultCheckboxWrapperTheme", theme: defaultCheckboxWrapperTheme },
         { name: "defaultCheckboxTheme", theme: defaultCheckboxTheme },
-        { name: "defaultCheckTheme", theme: defaultCheckTheme }
+        { name: "defaultCheckboxCheckTheme", theme: defaultCheckboxCheckTheme }
       ]
     };
     createThemeTests(checkboxConfig);

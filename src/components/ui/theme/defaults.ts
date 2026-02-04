@@ -1,372 +1,81 @@
-import { ThemeDefaults } from '../../themeContext';
+import type { ThemeDefaults } from '../../themeContext';
+
+// Import defaults from each component theme file
+import { buttonDefaults } from '../button/buttonDefaults';
+import { badgeDefaults } from '../badge/badgeDefaults';
+import { chipDefaults } from '../chip/chipDefaults';
+import { codeDefaults } from '../code/codeDefaults';
+import { cardDefaults } from '../card/cardDefaults';
+import { dividerDefaults } from '../divider/dividerDefaults';
+import { containerDefaults } from '../container/containerDefaults';
+import { rowDefaults } from '../row/rowDefaults';
+import { colDefaults } from '../col/colDefaults';
+import { stackDefaults } from '../stack/stackDefaults';
+import { sectionDefaults } from '../section/sectionDefaults';
+import { gridDefaults } from '../grid/gridDefaults';
+import { checkboxInputDefaults } from '../checkbox/checkboxInputDefaults';
+import { checkboxCheckDefaults } from '../checkbox/checkboxCheckDefaults';
+import { checkboxWrapperDefaults } from '../checkbox/checkboxWrapperDefaults';
+import { checkboxIndeterminateDefaults } from '../checkbox/checkboxIndeterminateDefaults';
+import { labelDefaults } from '../label/labelDefaults';
+import { imgDefaults } from '../img/imgDefaults';
+import { inputDefaults } from '../input/inputDefaults';
+import { overlayDefaults } from '../overlay/overlayDefaults';
+import { modalContentDefaults } from '../modal/modalContentDefaults';
+import { modalOverlayDefaults } from '../modal/modalOverlayDefaults';
+import { popupDefaults } from '../popup/popupDefaults';
+import {
+  pageTitleDefaults,
+  sectionTitleDefaults,
+  titleDefaults,
+  textDefaults,
+  linkDefaults,
+  listItemDefaults,
+  listDefaults,
+} from '../typography';
 
 /**
- * Default props for all components using the existing ThemeDefaults type
+ * Aggregated default props for all components.
+ * Each component's defaults are defined in their respective theme files
+ * and imported here for convenient access.
  */
 export const themeDefaults: ThemeDefaults = {
-  button: {
-    md: true,
-    inlineFlex: true,
-    itemsCenter: true,
-    justifyCenter: true,
-    outline: true,
-    primary: true,
-    rounded: true,
-    sans: true,
-    semibold: true,
-    textCenter: true,
-    noBorder: true,
-    gap: true,
-    padding: true,
-    ring: true,
-    shadow: true,
-    focusVisible: true,
-    cursorPointer: true,
-    transition: true,
-    whitespaceNowrap: true,
-    wFit: true,
-    hFit: true,
-  },
-
-  card: {
-    md: true,
-    flex: true,
-    outline: true,
-    primary: true,
-    rounded: true,
-    normal: true,
-    column: true,
-    border: true,
-    gap: true,
-    padding: true,
-  },
-
-  chip: {
-    md: true,
-    inlineFlex: true,
-    itemsCenter: true,
-    outline: true,
-    secondary: true,
-    rounded: true,
-    mono: true,
-    normal: true,
-    noShadow: true,
-    padding: true,
-    gap: true,
-    ring: true,
-    transition: true,
-    whitespaceNowrap: true,
-    wFit: true,
-    hFit: true,
-  },
-
-  badge: {
-    md: true,
-    primary: true,
-    inlineFlex: true,
-    outline: true,
-    pill: true,
-    sans: true,
-    semibold: true,
-    uppercase: true,
-    noShadow: true,
-    itemsCenter: true,
-    padding: true,
-    gap: true,
-    ring: true,
-    transition: true,
-    whitespaceNowrap: true,
-    wFit: true,
-    hFit: true,
-  },
-
-  container: {
-    md: true,
-    noRing: true,
-    flex: true,
-    column: true,
-    itemsCenter: true,
-    gap: true,
-    noPadding: true,
-    outline: true,
-    sharp: true,
-  },
-
-  section: {
-    md: true,
-    flex: true,
-    column: true,
-    outline: true,
-    itemsStart: true,
-    gap: true,
-    padding: true,
-    noBorder: true,
-    noRing: true,
-    noShadow: true,
-    sharp: true,
-    responsive: true,
-  },
-
-  stack: {
-    md: true,
-    flex: true,
-    column: true,
-    flexWrap: true,
-    gap: true,
-    padding: true,
-    noBorder: true,
-    noRing: true,
-    outline: true,
-    sharp: true,
-  },
-
-  row: {
-    row: true,
-    md: true,
-    flex: true,
-    itemsCenter: true,
-    gap: true,
-    noPadding: true,
-    noBorder: true,
-    noRing: true,
-    outline: true,
-    sharp: true,
-  },
-
-  col: {
-    column: true,
-    md: true,
-    flex: true,
-    gap: true,
-    noPadding: true,
-    noBorder: true,
-    noRing: true,
-    outline: true,
-    sharp: true,
-  },
-
-  grid2: {
-    md: true,
-    grid: true,
-    gap: true,
-    noPadding: true,
-    outline: true,
-    sharp: true,
-  },
-
-  grid3: {
-    md: true,
-    grid: true,
-    gap: true,
-    noPadding: true,
-    outline: true,
-    sharp: true,
-  },
-
-  grid4: {
-    md: true,
-    grid: true,
-    gap: true,
-    noPadding: true,
-    outline: true,
-    sharp: true,
-  },
-
-  grid5: {
-    md: true,
-    grid: true,
-    gap: true,
-    noPadding: true,
-    outline: true,
-    sharp: true,
-  },
-
-  grid6: {
-    md: true,
-    grid: true,
-    gap: true,
-    noPadding: true,
-    outline: true,
-    sharp: true,
-  },
-
-  divider: {
-    md: true,
-    outline: true,
-    primary: true,
-    noPadding: true,
-    horizontal: true,
-  },
-
-  label: {
-    md: true,
-    flex: true,
-    gap: true,
-    sans: true,
-    medium: true,
-    outline: true,
-    primary: true,
-    cursorDefault: true,
-  },
-
-  img: {
-    md: true,
-    rounded: true,
-    objectCover: true,
-  },
-
-  code: {
-    md: true,
-    mono: true,
-    semibold: true,
-    rounded: true,
-    inline: true,
-    padding: true,
-    outline: true,
-    primary: true,
-    ring: true,
-  },
-
-  text: {
-    md: true,
-    sans: true,
-    textLeft: true,
-    outline: true,
-    primary: true,
-  },
-
-  title: {
-    md: true,
-    sans: true,
-    semibold: true,
-    textLeft: true,
-    outline: true,
-    primary: true,
-    responsive: true,
-  },
-
-  pageTitle: {
-    md: true,
-    sans: true,
-    semibold: true,
-    textLeft: true,
-    outline: true,
-    primary: true,
-    responsive: true,
-  },
-
-  sectionTitle: {
-    md: true,
-    sans: true,
-    semibold: true,
-    textLeft: true,
-    outline: true,
-    primary: true,
-    responsive: true,
-  },
-
-  link: {
-    md: true,
-    underline: true,
-    sans: true,
-    outline: true,
-    link: true,
-  },
-
-  listItem: {
-    outline: true,
-    md: true,
-    sans: true,
-  },
-
-  list: {
-    md: true,
-    sans: true,
-    normal: true,
-    padding: true,
-    disc: true,
-    outline: true,
-    primary: true,
-  },
-
+  button: buttonDefaults,
+  badge: badgeDefaults,
+  chip: chipDefaults,
+  code: codeDefaults,
+  card: cardDefaults,
+  divider: dividerDefaults,
+  container: containerDefaults,
+  row: rowDefaults,
+  col: colDefaults,
+  stack: stackDefaults,
+  section: sectionDefaults,
+  grid2: gridDefaults,
+  grid3: gridDefaults,
+  grid4: gridDefaults,
+  grid5: gridDefaults,
+  grid6: gridDefaults,
+  pageTitle: pageTitleDefaults,
+  sectionTitle: sectionTitleDefaults,
+  title: titleDefaults,
+  text: textDefaults,
+  link: linkDefaults,
+  listItem: listItemDefaults,
+  list: listDefaults,
   checkbox: {
-    input: {
-      md: true,
-      primary: true,
-      border: true,
-      rounded: true,
-      noRing: true,
-      noShadow: true,
-      filled: true,
-      focusVisible: true,
-    },
-    check: {
-      primary: true,
-      filled: true,
-    },
-    wrapper: {
-      md: true,
-      inlineGrid: true,
-      itemsCenter: true,
-      justifyCenter: true,
-      filled: true,
-    },
+    input: checkboxInputDefaults,
+    check: checkboxCheckDefaults,
+    indeterminate: checkboxIndeterminateDefaults,
+    wrapper: checkboxWrapperDefaults,
   },
-
-  input: {
-    md: true,
-    primary: true,
-    rounded: true,
-    outline: true,
-    sans: true,
-    normal: true,
-    padding: true,
-    ring: true,
-    noShadow: true,
-    focusVisible: true,
-    transition: true,
-  },
-
-  overlay: {
-    fixed: true,
-    flex: true,
-    itemsCenter: true,
-    justifyCenter: true,
-  },
-
+  label: labelDefaults,
+  img: imgDefaults,
+  input: inputDefaults,
+  overlay: overlayDefaults,
   modal: {
-    content: {
-      md: true,
-      flex: true,
-      column: true,
-      overflowAuto: true,
-      padding: true,
-      gap: true,
-      rounded: true,
-      shadow: true,
-      primary: true,
-      outline: true,
-    },
-    overlay: {
-      fixed: true,
-      flex: true,
-      itemsCenter: true,
-      justifyCenter: true,
-    },
+    content: modalContentDefaults,
+    overlay: modalOverlayDefaults,
   },
-
-  popup: {
-    md: true,
-    flex: true,
-    column: true,
-    overflowAuto: true,
-    padding: true,
-    gap: true,
-    rounded: true,
-    shadow: true,
-    border: true,
-    primary: true,
-    outline: true,
-    wFit: true,
-  },
+  popup: popupDefaults,
 };

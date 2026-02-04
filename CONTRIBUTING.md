@@ -387,6 +387,36 @@ export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...V
 
 The `pickFirstTruthyKeyByCategory` utility selects one prop from each category based on priority (prop > default).
 
+### Key Types Pattern
+
+**All Key types must be defined in `keys.ts` — theme files must import them, not define their own.**
+
+```typescript
+// ✅ CORRECT: Define in keys.ts
+export const ComponentKeys = {
+  myCategory: ['optionA', 'optionB', 'optionC'] as const,
+};
+export type MyCategoryKey = typeof ComponentKeys.myCategory[number];
+
+// ✅ CORRECT: Theme file imports from props
+import type { CategoryProps, MyCategoryKey } from "../../props";
+
+export class MyCategoryTheme extends BaseTheme implements Record<MyCategoryKey, string> {
+  optionA: string = "class-a";
+  optionB: string = "class-b";
+  optionC: string = "class-c";
+}
+
+// ❌ WRONG: Don't define Key types locally in theme files
+export type MyCategoryKey = 'optionA' | 'optionB' | 'optionC';
+```
+
+This pattern ensures:
+- **Single source of truth** — keys defined once in `ComponentKeys`
+- **Type safety** — TypeScript enforces theme properties match keys
+- **Consistent prop descriptions** — `generatePropDescriptions.ts` uses `ComponentKeys` to validate coverage
+- **Easy maintenance** — add/remove options in one place
+
 ## Component Development Guidelines
 
 ### Creating New Components
@@ -398,7 +428,19 @@ The `pickFirstTruthyKeyByCategory` utility selects one prop from each category b
    }
    ```
 
-2. **Create theme** in `src/components/ui/theme/`:
+2. **If adding new prop categories**, update `keys.ts` first:
+   ```typescript
+   // Add to ComponentKeys
+   export const ComponentKeys = {
+     // ... existing
+     myCategory: ['optionA', 'optionB'] as const,
+   };
+
+   // Export the Key type
+   export type MyCategoryKey = typeof ComponentKeys.myCategory[number];
+   ```
+
+3. **Create theme** in `src/components/ui/theme/` — import Key types from props:
    ```typescript
    export const myComponentTheme = new ComponentTheme<MyComponentProps, MyComponentTheme>(
      "div",  // default tag
@@ -423,7 +465,7 @@ The `pickFirstTruthyKeyByCategory` utility selects one prop from each category b
    );
    ```
 
-3. **Create component** in `src/components/ui/`:
+4. **Create component** in `src/components/ui/`:
    ```typescript
    export const MyComponent = forwardRef<HTMLDivElement, MyComponentProps>(
      function MyComponent(props, ref) {
@@ -433,7 +475,7 @@ The `pickFirstTruthyKeyByCategory` utility selects one prop from each category b
    );
    ```
 
-4. **Add to theme interface** in `src/components/themeContext.tsx`:
+5. **Add to theme interface** in `src/components/themeContext.tsx`:
    ```typescript
    export interface ThemeProps {
      // ... existing components
@@ -446,7 +488,7 @@ The `pickFirstTruthyKeyByCategory` utility selects one prop from each category b
    };
    ```
 
-5. **Export component** from `src/index.ts`
+6. **Export component** from `src/index.ts`
 
 ### Testing Components
 

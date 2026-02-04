@@ -1,8 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
-
-/** Letter spacing keys for text tracking */
-export type LetterSpacingKey = 'trackingTighter' | 'trackingTight' | 'trackingNormal' | 'trackingWide' | 'trackingWider' | 'trackingWidest';
+import type { CategoryProps, LetterSpacingKey } from "../../props";
 
 /**
  * LetterSpacingTheme handles letter-spacing/tracking for typography components.

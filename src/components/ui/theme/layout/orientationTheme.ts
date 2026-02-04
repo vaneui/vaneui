@@ -1,8 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
-
-/** Orientation keys for horizontal/vertical layout */
-export type OrientationKey = 'horizontal' | 'vertical';
+import type { CategoryProps, OrientationKey } from "../../props";
 
 /**
  * OrientationTheme handles orientation styling for components like Divider.

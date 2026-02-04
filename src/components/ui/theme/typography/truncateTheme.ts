@@ -1,8 +1,5 @@
 import { BaseTheme } from "../common/baseTheme";
-import type { CategoryProps } from "../../props";
-
-/** Truncate keys for text overflow control */
-export type TruncateKey = 'truncate' | 'lineClamp2' | 'lineClamp3' | 'lineClamp4' | 'lineClamp5' | 'noTruncate';
+import type { CategoryProps, TruncateKey } from "../../props";
 
 export class TruncateTheme extends BaseTheme implements Record<TruncateKey, string> {
   /** Single line truncation with ellipsis */
