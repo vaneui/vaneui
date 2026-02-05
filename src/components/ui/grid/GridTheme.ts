@@ -1,6 +1,6 @@
 import type {
   BaseComponentTheme,
-  DefaultLayoutThemes,
+  DefaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { GapClassMapper } from "../theme/size/gapClassMapper";
 import type { PxClassMapper } from "../theme/size/pxClassMapper";
@@ -22,7 +22,7 @@ export interface GridTheme extends BaseComponentTheme {
     text: SimpleConsumerClassMapper;
     border: SimpleConsumerClassMapper;
   };
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     wrap: WrapClassMapper;
     flexDirection: DirectionClassMapper;
     radius: RadiusClassMapper;

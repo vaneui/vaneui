@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type {
   BaseComponentTheme,
-  DefaultLayoutThemes
+  DefaultLayoutClassMappers
 } from "../theme/common/ComponentTheme";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 
@@ -11,5 +11,5 @@ export interface CheckboxIndeterminateTheme extends BaseComponentTheme {
   appearance: {
     color: SimpleConsumerClassMapper;
   };
-  layout: DefaultLayoutThemes;
+  layout: DefaultLayoutClassMappers;
 }

@@ -1,6 +1,6 @@
 import {
   ComponentTheme,
-  defaultLayoutsThemes,
+  defaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { CheckboxProps } from "./CheckboxProps";
 import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
@@ -26,7 +26,7 @@ export const defaultCheckboxIndeterminateTheme = new ComponentTheme<CheckboxProp
     appearance: {
       color: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
     },
-    layout: defaultLayoutsThemes,
+    layout: defaultLayoutClassMappers,
   },
   checkboxIndeterminateDefaults,
   CHECKBOX_CATEGORIES,

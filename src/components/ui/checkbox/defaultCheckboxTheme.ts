@@ -1,6 +1,6 @@
 import {
   ComponentTheme,
-  defaultLayoutsThemes,
+  defaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { CheckboxProps } from "./CheckboxProps";
 import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
@@ -11,16 +11,9 @@ import { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
 import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 import { SizeClassMapper } from "../theme/size/sizeClassMapper";
 import { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
-import { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
 import { StatusClassMapper } from "../theme/appearance/statusClassMapper";
-import {
-  borderConsumerClass,
-  ringConsumerClass,
-  focusVisibleConsumerClass,
-  accentConsumerClass,
-  checkedBgConsumerClass
-} from "../classes/appearanceClasses";
+import { accentAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, checkedBgAppearance, shadowUIAppearance } from "../theme/common/appearanceClassMappers";
 import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
 import type { CheckboxTheme } from "./CheckboxTheme";
 import { checkboxInputDefaults } from "./checkboxInputDefaults";
@@ -34,7 +27,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       text: new FontSizeClassMapper()
     },
     layout: {
-      ...defaultLayoutsThemes,
+      ...defaultLayoutClassMappers,
       border: new BorderClassMapper(),
       ring: new RingClassMapper(),
       focusVisible: new FocusVisibleClassMapper(),
@@ -43,13 +36,13 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       radius: new RadiusClassMapper(),
     },
     appearance: {
-      accent: new SimpleConsumerClassMapper({ base: accentConsumerClass }, 'accent'),
-      border: new SimpleConsumerClassMapper({ base: borderConsumerClass }, 'border'),
+      accent: accentAppearance,
+      border: borderAppearance,
       background: new SimpleConsumerClassMapper({ base: 'bg-white' }, 'bg'),
-      ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
-      focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible'),
-      check: new SimpleConsumerClassMapper({ base: checkedBgConsumerClass }, 'bg'),
-      shadow: ShadowAppearanceClassMapper.createUITheme(),
+      ring: ringAppearance,
+      focusVisible: focusVisibleAppearance,
+      check: checkedBgAppearance,
+      shadow: shadowUIAppearance,
       status: new StatusClassMapper(),
     }
   },

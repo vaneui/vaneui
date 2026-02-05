@@ -1,4 +1,4 @@
-import type { BaseComponentTheme, DefaultLayoutThemes } from "../theme/common/ComponentTheme";
+import type { BaseComponentTheme, DefaultLayoutClassMappers } from "../theme/common/ComponentTheme";
 import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import type { GapClassMapper } from "../theme/size/gapClassMapper";
 import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
@@ -25,7 +25,7 @@ export interface SectionTheme extends BaseComponentTheme {
     ring: SimpleConsumerClassMapper;
     shadow: ShadowAppearanceClassMapper;
   };
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     wrap: WrapClassMapper;
     direction: DirectionClassMapper;
     border: BorderClassMapper;

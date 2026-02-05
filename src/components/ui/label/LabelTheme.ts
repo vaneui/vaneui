@@ -1,6 +1,6 @@
 import type {
   BaseTypographyComponentTheme,
-  DefaultLayoutThemes,
+  DefaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { GapClassMapper } from "../theme/size/gapClassMapper";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
@@ -25,7 +25,7 @@ export interface LabelTheme extends BaseTypographyComponentTheme {
     ring: SimpleConsumerClassMapper;
     shadow: ShadowAppearanceClassMapper;
   };
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     border: BorderClassMapper;
     ring: RingClassMapper;
     wrap: WrapClassMapper;

@@ -1,24 +1,38 @@
 export { BaseClassMapper } from './BaseClassMapper';
 export {
   ComponentTheme,
-  defaultLayoutsThemes,
-  defaultTypographyThemes,
+  defaultLayoutClassMappers,
+  defaultTypographyClassMappers,
   type BaseComponentTheme,
   type BaseTypographyComponentTheme,
-  type DefaultLayoutThemes,
-  type DefaultTypographyThemes,
+  type DefaultLayoutClassMappers,
+  type DefaultTypographyClassMappers,
 } from './ComponentTheme';
-export { interactiveSubThemes } from './interactiveSubThemes';
-export { layoutSubThemes } from './layoutSubThemes';
+export { interactiveClassMappers } from './interactiveClassMappers';
+export { layoutClassMappers } from './layoutClassMappers';
+export { typographyClassMappers } from './typographyClassMappers';
+export {
+  bgAppearance,
+  bgHoverAppearance,
+  bgActiveAppearance,
+  textAppearance,
+  borderAppearance,
+  ringAppearance,
+  focusVisibleAppearance,
+  accentAppearance,
+  checkedBgAppearance,
+  shadowLayoutAppearance,
+  shadowUIAppearance,
+} from './appearanceClassMappers';
 export type {
   InteractiveSizeClassMapper,
-  InteractiveAppearanceTheme,
-  InteractiveLayoutTheme,
+  InteractiveAppearanceClassMappers,
+  InteractiveLayoutClassMappers,
   InteractiveComponentTheme,
-  ButtonLayoutTheme,
+  ButtonLayoutClassMappers,
   LayoutSizeClassMapper,
-  LayoutAppearanceTheme,
-  LayoutLayoutTheme,
+  LayoutAppearanceClassMappers,
+  LayoutLayoutClassMappers,
   BasicFlexLayoutComponentTheme,
   FlexLayoutComponentTheme,
 } from './sharedThemeTypes';

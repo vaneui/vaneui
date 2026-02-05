@@ -1,7 +1,7 @@
 import {
   ComponentTheme,
-  defaultLayoutsThemes,
-  defaultTypographyThemes
+  defaultLayoutClassMappers,
+  defaultTypographyClassMappers
 } from "../../theme/common/ComponentTheme";
 import type { TypographyProps } from "../common/TypographyProps";
 import type { ListItemTheme } from "./ListItemTheme";
@@ -24,8 +24,8 @@ export const defaultListItemTheme: ComponentTheme<TypographyProps, ListItemTheme
     appearance: {
       text: new SimpleConsumerClassMapper({ base: textConsumerClass, alwaysOutput: true }, 'text'),
     },
-    typography: defaultTypographyThemes,
-    layout: defaultLayoutsThemes,
+    typography: defaultTypographyClassMappers,
+    layout: defaultLayoutClassMappers,
   },
   listItemDefaults,
   LIST_CATEGORIES,

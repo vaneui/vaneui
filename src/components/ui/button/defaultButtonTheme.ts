@@ -1,24 +1,22 @@
-import { ComponentTheme, defaultTypographyThemes } from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultTypographyClassMappers } from "../theme/common/ComponentTheme";
 import type { ButtonProps } from "./ButtonProps";
 import type { ButtonTheme } from "./ButtonTheme";
 import { BUTTON_CATEGORIES } from "../props/categoryBuilders";
-import { interactiveSubThemes } from "../theme/common/interactiveSubThemes";
+import { interactiveClassMappers } from "../theme/common/interactiveClassMappers";
 import { buttonDefaults } from "./buttonDefaults";
-import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
-import { bgConsumerClasses } from "../classes/appearanceClasses";
+import { bgActiveAppearance, shadowUIAppearance } from "../theme/common/appearanceClassMappers";
 
 export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   "button",
   "vane-button",
   {
-    ...interactiveSubThemes,
+    ...interactiveClassMappers,
     appearance: {
-      ...interactiveSubThemes.appearance,
-      background: new SimpleConsumerClassMapper({ base: bgConsumerClasses.base, hover: bgConsumerClasses.hover, active: bgConsumerClasses.active }, 'bg'),
-      shadow: ShadowAppearanceClassMapper.createUITheme(),
+      ...interactiveClassMappers.appearance,
+      background: bgActiveAppearance,
+      shadow: shadowUIAppearance,
     },
-    typography: defaultTypographyThemes,
+    typography: defaultTypographyClassMappers,
   },
   buttonDefaults,
   BUTTON_CATEGORIES,

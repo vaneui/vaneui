@@ -1,6 +1,6 @@
 import {
   ComponentTheme,
-  defaultLayoutsThemes,
+  defaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { CheckboxProps } from "./CheckboxProps";
 import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
@@ -30,7 +30,7 @@ export const defaultCheckboxCheckTheme = new ComponentTheme<CheckboxProps, Check
       focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible')
     },
     layout: {
-      ...defaultLayoutsThemes,
+      ...defaultLayoutClassMappers,
       focusVisible: new FocusVisibleClassMapper()
     },
   },

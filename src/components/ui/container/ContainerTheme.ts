@@ -1,5 +1,5 @@
 import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
-import type { BaseComponentTheme, DefaultLayoutThemes } from "../theme/common/ComponentTheme";
+import type { BaseComponentTheme, DefaultLayoutClassMappers } from "../theme/common/ComponentTheme";
 import type { GapClassMapper } from "../theme/size/gapClassMapper";
 import type { PxClassMapper } from "../theme/size/pxClassMapper";
 import type { PyClassMapper } from "../theme/size/pyClassMapper";
@@ -18,7 +18,7 @@ export interface ContainerTheme extends BaseComponentTheme {
     gap: GapClassMapper;
     maxWidth: SizeClassMapper;
   };
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     wrap: WrapClassMapper;
     direction: DirectionClassMapper;
     border: BorderClassMapper;

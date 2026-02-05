@@ -1,6 +1,6 @@
 import {
   ComponentTheme,
-  defaultLayoutsThemes,
+  defaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { DividerProps } from "./DividerProps";
 import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
@@ -22,7 +22,7 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
       background: new SimpleConsumerClassMapper({ base: 'bg-(--border-color)' }, 'bg'),
     },
     layout: {
-      ...defaultLayoutsThemes,
+      ...defaultLayoutClassMappers,
       orientation: new OrientationClassMapper(),
     },
   },

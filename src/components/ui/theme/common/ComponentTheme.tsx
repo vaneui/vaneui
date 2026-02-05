@@ -29,7 +29,7 @@ export type ThemeMap<P> = {
   [key: string]: ThemeNode<P>;
 };
 
-export interface DefaultLayoutThemes {
+export interface DefaultLayoutClassMappers {
   hide: HideClassMapper;
   items: ItemsClassMapper;
   justify: JustifyClassMapper;
@@ -38,7 +38,7 @@ export interface DefaultLayoutThemes {
   overflow: OverflowClassMapper;
 }
 
-export interface DefaultTypographyThemes {
+export interface DefaultTypographyClassMappers {
   fontFamily: FontFamilyClassMapper;
   fontWeight: FontWeightClassMapper;
   fontStyle: FontStyleClassMapper;
@@ -49,14 +49,14 @@ export interface DefaultTypographyThemes {
 }
 
 export interface BaseComponentTheme {
-  layout: DefaultLayoutThemes;
+  layout: DefaultLayoutClassMappers;
 }
 
 export interface BaseTypographyComponentTheme extends BaseComponentTheme {
-  typography: DefaultTypographyThemes;
+  typography: DefaultTypographyClassMappers;
 }
 
-export const defaultLayoutsThemes: DefaultLayoutThemes = {
+export const defaultLayoutClassMappers: DefaultLayoutClassMappers = {
   hide: new HideClassMapper(),
   items: new ItemsClassMapper(),
   justify: new JustifyClassMapper(),
@@ -65,7 +65,7 @@ export const defaultLayoutsThemes: DefaultLayoutThemes = {
   overflow: new OverflowClassMapper(),
 };
 
-export const defaultTypographyThemes: DefaultTypographyThemes = {
+export const defaultTypographyClassMappers: DefaultTypographyClassMappers = {
   fontFamily: new FontFamilyClassMapper(),
   fontWeight: new FontWeightClassMapper(),
   fontStyle: new FontStyleClassMapper(),

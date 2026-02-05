@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import type {
   BaseComponentTheme,
-  DefaultLayoutThemes
+  DefaultLayoutClassMappers
 } from "../theme/common/ComponentTheme";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 import type { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
@@ -13,7 +13,7 @@ export interface CheckboxCheckTheme extends BaseComponentTheme {
     color: SimpleConsumerClassMapper;
     focusVisible: SimpleConsumerClassMapper;
   };
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     focusVisible: FocusVisibleClassMapper;
   };
 }

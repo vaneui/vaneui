@@ -2,7 +2,7 @@ import { ComponentTheme } from "../theme/common/ComponentTheme";
 import type { SectionProps } from "./SectionProps";
 import type { SectionTheme } from "./SectionTheme";
 import { SECTION_CATEGORIES } from "./SectionCategories";
-import { layoutSubThemes } from "../theme/common/layoutSubThemes";
+import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { sectionDefaults } from "./sectionDefaults";
 import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
 
@@ -10,9 +10,9 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
   "div",
   "vane-section w-full",
   {
-    ...layoutSubThemes,
+    ...layoutClassMappers,
     size: {
-      ...layoutSubThemes.size,
+      ...layoutClassMappers.size,
       breakpoint: new BreakpointClassMapper(),
     },
   },

@@ -2,7 +2,7 @@ import { ComponentTheme } from "../theme/common/ComponentTheme";
 import type { StackProps } from "./StackProps";
 import type { StackTheme } from "./StackTheme";
 import { STACK_CATEGORIES } from "../props/categoryBuilders";
-import { layoutSubThemes } from "../theme/common/layoutSubThemes";
+import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { stackDefaults } from "./stackDefaults";
 import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
 import { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
@@ -11,9 +11,9 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
   "div",
   "vane-stack",
   {
-    ...layoutSubThemes,
+    ...layoutClassMappers,
     size: {
-      ...layoutSubThemes.size,
+      ...layoutClassMappers.size,
       breakpoint: new BreakpointClassMapper(),
     },
     typography: {

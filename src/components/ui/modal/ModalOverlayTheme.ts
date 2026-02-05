@@ -1,6 +1,6 @@
 import type {
   BaseComponentTheme,
-  DefaultLayoutThemes,
+  DefaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { BlurClassMapper } from "../theme/layout/blurClassMapper";
 import type { PointerEventsClassMapper } from "../theme/layout/pointerEventsClassMapper";
@@ -9,7 +9,7 @@ import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppe
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 
 export interface ModalOverlayTheme extends BaseComponentTheme {
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     blur: BlurClassMapper;
     pointerEvents: PointerEventsClassMapper;
     ring: RingClassMapper;

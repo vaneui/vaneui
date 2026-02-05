@@ -1,6 +1,6 @@
 import {
   ComponentTheme,
-  defaultLayoutsThemes,
+  defaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { OverlayProps } from "../overlay";
 import type { ModalOverlayTheme } from "./ModalOverlayTheme";
@@ -23,7 +23,7 @@ export const defaultModalOverlayTheme = new ComponentTheme<OverlayProps, ModalOv
   'vane-overlay inset-0 z-50 bg-(--overlay-bg)',
   {
     layout: {
-      ...defaultLayoutsThemes,
+      ...defaultLayoutClassMappers,
       blur: new BlurClassMapper(),
       pointerEvents: new PointerEventsClassMapper(),
       ring: new RingClassMapper(),

@@ -1,6 +1,6 @@
 import {
   ComponentTheme,
-  defaultLayoutsThemes,
+  defaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { CheckboxProps } from "./CheckboxProps";
 import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
@@ -25,7 +25,7 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
       }) // Uses custom mode for calculated height
     },
     layout: {
-      ...defaultLayoutsThemes,
+      ...defaultLayoutClassMappers,
       focusVisible: new FocusVisibleClassMapper()
     },
     appearance: {

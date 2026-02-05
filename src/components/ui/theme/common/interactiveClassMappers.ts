@@ -1,4 +1,4 @@
-import { defaultLayoutsThemes, defaultTypographyThemes } from "./ComponentTheme";
+import { defaultLayoutClassMappers, defaultTypographyClassMappers } from "./ComponentTheme";
 import { FontSizeClassMapper } from "../size/fontSizeClassMapper";
 import { LineHeightClassMapper } from "../size/lineHeightClassMapper";
 import { PxClassMapper } from "../size/pxClassMapper";
@@ -15,15 +15,13 @@ import { TransitionClassMapper } from "../layout/transitionClassMapper";
 import { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
 import { WidthClassMapper } from "../layout/widthClassMapper";
 import { HeightClassMapper } from "../layout/heightClassMapper";
-import { SimpleConsumerClassMapper } from "../appearance/simpleConsumerClassMapper";
-import { ShadowAppearanceClassMapper } from "../appearance/shadowAppearanceClassMapper";
-import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass, focusVisibleConsumerClass } from "../../classes/appearanceClasses";
+import { bgAppearance, textAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowLayoutAppearance } from "./appearanceClassMappers";
 
 /**
  * Shared sub-themes used by interactive components (Badge, Chip, Code).
  * Button extends this with additional hover/active states.
  */
-export const interactiveSubThemes = {
+export const interactiveClassMappers = {
   size: {
     px: new PxClassMapper(),
     py: new PyClassMapper(),
@@ -32,15 +30,15 @@ export const interactiveSubThemes = {
     lineHeight: new LineHeightClassMapper(),
   },
   appearance: {
-    background: new SimpleConsumerClassMapper({ base: bgConsumerClasses.base }, 'bg'),
-    text: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
-    border: new SimpleConsumerClassMapper({ base: borderConsumerClass }, 'border'),
-    ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
-    focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible'),
-    shadow: ShadowAppearanceClassMapper.createLayoutTheme(),
+    background: bgAppearance,
+    text: textAppearance,
+    border: borderAppearance,
+    ring: ringAppearance,
+    focusVisible: focusVisibleAppearance,
+    shadow: shadowLayoutAppearance,
   },
   layout: {
-    ...defaultLayoutsThemes,
+    ...defaultLayoutClassMappers,
     border: new BorderClassMapper(),
     ring: new RingClassMapper(),
     focusVisible: new FocusVisibleClassMapper(),
@@ -53,5 +51,5 @@ export const interactiveSubThemes = {
     width: new WidthClassMapper(),
     height: new HeightClassMapper(),
   },
-  typography: defaultTypographyThemes,
+  typography: defaultTypographyClassMappers,
 };

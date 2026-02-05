@@ -2,7 +2,7 @@ import { ComponentTheme } from "../../theme/common/ComponentTheme";
 import type { TypographyProps } from "../common/TypographyProps";
 import type { TextTheme } from "../common/TypographyTheme";
 import { TYPOGRAPHY_CATEGORIES } from "../common/TypographyCategories";
-import { typographySubThemes } from "../common/typographySubThemes";
+import { typographyClassMappers } from "../../theme/common/typographyClassMappers";
 import { sectionTitleDefaults } from "./sectionTitleDefaults";
 import { mergeDefaults } from "../../../utils/deepMerge";
 
@@ -10,7 +10,7 @@ import { mergeDefaults } from "../../../utils/deepMerge";
 export const defaultSectionTitleTheme = new ComponentTheme<TypographyProps, TextTheme>(
   "h2",
   "vane-section-title text-balance w-fit",
-  typographySubThemes,
+  typographyClassMappers,
   mergeDefaults(sectionTitleDefaults as Record<string, boolean>, { semibold: true }),
   TYPOGRAPHY_CATEGORIES,
   (props: TypographyProps) => props.href ? "a" : "h2",

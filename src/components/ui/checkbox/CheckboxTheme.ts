@@ -1,6 +1,6 @@
 import type {
   BaseComponentTheme,
-  DefaultLayoutThemes
+  DefaultLayoutClassMappers
 } from "../theme/common/ComponentTheme";
 import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
 import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
@@ -20,7 +20,7 @@ export interface CheckboxTheme extends BaseComponentTheme {
     size: SizeClassMapper;
     text: FontSizeClassMapper;
   };
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     border: BorderClassMapper;
     ring: RingClassMapper;
     focusVisible: FocusVisibleClassMapper;

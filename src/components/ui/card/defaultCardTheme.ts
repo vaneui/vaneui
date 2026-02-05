@@ -1,8 +1,8 @@
-import { ComponentTheme, defaultTypographyThemes } from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultTypographyClassMappers } from "../theme/common/ComponentTheme";
 import type { CardProps } from "./CardProps";
 import type { CardTheme } from "./CardTheme";
 import { CARD_CATEGORIES } from "./CardCategories";
-import { layoutSubThemes } from "../theme/common/layoutSubThemes";
+import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { cardDefaults } from "./cardDefaults";
 import { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
 import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
@@ -12,17 +12,17 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   "div",
   "vane-card",
   {
-    ...layoutSubThemes,
+    ...layoutClassMappers,
     size: {
-      ...layoutSubThemes.size,
+      ...layoutClassMappers.size,
       lineHeight: new LineHeightClassMapper(),
     },
     layout: {
-      ...layoutSubThemes.layout,
+      ...layoutClassMappers.layout,
       breakpoint: new BreakpointClassMapper(),
       width: new WidthClassMapper(),
     },
-    typography: defaultTypographyThemes,
+    typography: defaultTypographyClassMappers,
   },
   cardDefaults,
   CARD_CATEGORIES,

@@ -1,6 +1,6 @@
 import type {
   BaseTypographyComponentTheme,
-  DefaultLayoutThemes,
+  DefaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { GapClassMapper } from "../theme/size/gapClassMapper";
 import type { PxClassMapper } from "../theme/size/pxClassMapper";
@@ -20,7 +20,7 @@ export interface PopupTheme extends BaseTypographyComponentTheme {
     py: PyClassMapper;
     gap: GapClassMapper;
   };
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     radius: RadiusClassMapper;
     direction: DirectionClassMapper;
     border: BorderClassMapper;

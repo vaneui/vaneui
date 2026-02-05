@@ -1,22 +1,13 @@
 import {
   ComponentTheme,
-  defaultLayoutsThemes,
-  defaultTypographyThemes,
+  defaultTypographyClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { ModalProps } from "./ModalProps";
 import type { ModalContentTheme } from "./ModalContentTheme";
 import { MODAL_CATEGORIES } from "./ModalCategories";
 import { modalContentDefaults } from "./modalContentDefaults";
-import { GapClassMapper } from "../theme/size/gapClassMapper";
-import { PxClassMapper } from "../theme/size/pxClassMapper";
-import { PyClassMapper } from "../theme/size/pyClassMapper";
-import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
-import { DirectionClassMapper } from "../theme/layout/directionClassMapper";
-import { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import { RingClassMapper } from "../theme/layout/ringClassMapper";
-import { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
-import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import { bgConsumerClasses, textConsumerClass, borderConsumerClass, ringConsumerClass } from "../classes/appearanceClasses";
+import { layoutClassMappers } from "../theme/common/layoutClassMappers";
+import { bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "../theme/common/appearanceClassMappers";
 
 /**
  * Default theme for Modal content (the dialog box).
@@ -36,26 +27,18 @@ export const defaultModalContentTheme = new ComponentTheme<ModalProps, ModalCont
   // Base classes - CSS variables for max-w and max-h allow flexible customization
   'vane-modal w-full max-w-(--modal-width) max-h-(--modal-max-height)',
   {
-    size: {
-      px: new PxClassMapper(),
-      py: new PyClassMapper(),
-      gap: new GapClassMapper(),
-    },
+    size: layoutClassMappers.size,
     layout: {
-      ...defaultLayoutsThemes,
-      radius: new RadiusClassMapper(),
-      direction: new DirectionClassMapper(),
-      border: new BorderClassMapper(),
-      ring: new RingClassMapper(),
-      shadow: ShadowAppearanceClassMapper.createLayoutTheme(),
+      ...layoutClassMappers.layout,
+      shadow: shadowLayoutAppearance,
     },
     appearance: {
-      background: new SimpleConsumerClassMapper({ base: bgConsumerClasses.base }, 'bg'),
-      text: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
-      border: new SimpleConsumerClassMapper({ base: borderConsumerClass }, 'border'),
-      ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
+      background: bgAppearance,
+      text: textAppearance,
+      border: borderAppearance,
+      ring: ringAppearance,
     },
-    typography: defaultTypographyThemes,
+    typography: defaultTypographyClassMappers,
   },
   // Defaults - use boolean props instead of hardcoded classes
   modalContentDefaults,

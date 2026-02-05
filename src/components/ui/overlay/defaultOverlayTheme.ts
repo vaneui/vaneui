@@ -1,14 +1,12 @@
 import {
   ComponentTheme,
-  defaultLayoutsThemes,
+  defaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { OverlayProps } from "./OverlayProps";
 import { BlurClassMapper } from "../theme/layout/blurClassMapper";
 import { PointerEventsClassMapper } from "../theme/layout/pointerEventsClassMapper";
 import { RingClassMapper } from "../theme/layout/ringClassMapper";
-import { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
-import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import { ringConsumerClass } from "../classes/appearanceClasses";
+import { ringAppearance, shadowLayoutAppearance } from "../theme/common/appearanceClassMappers";
 import { OVERLAY_CATEGORIES } from "./OverlayCategories";
 import type { OverlayTheme } from "./OverlayTheme";
 import { overlayDefaults } from "./overlayDefaults";
@@ -35,14 +33,14 @@ export const defaultOverlayTheme = new ComponentTheme<OverlayProps, OverlayTheme
   'vane-overlay inset-0 z-50 bg-(--overlay-bg)',
   {
     layout: {
-      ...defaultLayoutsThemes,
+      ...defaultLayoutClassMappers,
       blur: new BlurClassMapper(),
       pointerEvents: new PointerEventsClassMapper(),
       ring: new RingClassMapper(),
-      shadow: ShadowAppearanceClassMapper.createLayoutTheme(),
+      shadow: shadowLayoutAppearance,
     },
     appearance: {
-      ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
+      ring: ringAppearance,
     },
   },
   // Defaults - use boolean props instead of hardcoded classes

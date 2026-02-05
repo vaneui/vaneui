@@ -1,4 +1,4 @@
-import type { BaseTypographyComponentTheme, DefaultLayoutThemes, BaseComponentTheme } from "./ComponentTheme";
+import type { BaseTypographyComponentTheme, DefaultLayoutClassMappers, BaseComponentTheme } from "./ComponentTheme";
 import type { FontSizeClassMapper } from "../size/fontSizeClassMapper";
 import type { LineHeightClassMapper } from "../size/lineHeightClassMapper";
 import type { GapClassMapper } from "../size/gapClassMapper";
@@ -34,7 +34,7 @@ export interface InteractiveSizeClassMapper {
 /**
  * Appearance theme structure for interactive components.
  */
-export interface InteractiveAppearanceTheme {
+export interface InteractiveAppearanceClassMappers {
   background: SimpleConsumerClassMapper;
   text: SimpleConsumerClassMapper;
   border: SimpleConsumerClassMapper;
@@ -46,7 +46,7 @@ export interface InteractiveAppearanceTheme {
 /**
  * Layout theme structure for interactive components.
  */
-export interface InteractiveLayoutTheme extends DefaultLayoutThemes {
+export interface InteractiveLayoutClassMappers extends DefaultLayoutClassMappers {
   border: BorderClassMapper;
   ring: RingClassMapper;
   focusVisible: FocusVisibleClassMapper;
@@ -65,15 +65,15 @@ export interface InteractiveLayoutTheme extends DefaultLayoutThemes {
  */
 export interface InteractiveComponentTheme extends BaseTypographyComponentTheme {
   size: InteractiveSizeClassMapper;
-  appearance: InteractiveAppearanceTheme;
-  layout: InteractiveLayoutTheme;
+  appearance: InteractiveAppearanceClassMappers;
+  layout: InteractiveLayoutClassMappers;
 }
 
 /**
  * Layout theme for Button component.
- * @deprecated Use InteractiveLayoutTheme instead - cursor is now included in base theme.
+ * @deprecated Use InteractiveLayoutClassMappers instead - cursor is now included in base theme.
  */
-export type ButtonLayoutTheme = InteractiveLayoutTheme;
+export type ButtonLayoutClassMappers = InteractiveLayoutClassMappers;
 
 /**
  * Size theme structure for layout components (Card, Section, Container, Stack, Row, Col).
@@ -87,7 +87,7 @@ export interface LayoutSizeClassMapper {
 /**
  * Appearance theme structure for layout components.
  */
-export interface LayoutAppearanceTheme {
+export interface LayoutAppearanceClassMappers {
   background: SimpleConsumerClassMapper;
   text: SimpleConsumerClassMapper;
   border: SimpleConsumerClassMapper;
@@ -98,7 +98,7 @@ export interface LayoutAppearanceTheme {
 /**
  * Layout theme structure for layout components.
  */
-export interface LayoutLayoutTheme extends DefaultLayoutThemes {
+export interface LayoutLayoutClassMappers extends DefaultLayoutClassMappers {
   wrap: WrapClassMapper;
   direction: DirectionClassMapper;
   border: BorderClassMapper;
@@ -111,8 +111,8 @@ export interface LayoutLayoutTheme extends DefaultLayoutThemes {
  */
 export interface BasicFlexLayoutComponentTheme extends BaseComponentTheme {
   size: LayoutSizeClassMapper;
-  appearance: LayoutAppearanceTheme;
-  layout: LayoutLayoutTheme;
+  appearance: LayoutAppearanceClassMappers;
+  layout: LayoutLayoutClassMappers;
   typography: { textAlign: TextAlignClassMapper };
 }
 
@@ -121,7 +121,7 @@ export interface BasicFlexLayoutComponentTheme extends BaseComponentTheme {
  */
 export interface FlexLayoutComponentTheme extends BaseComponentTheme {
   size: LayoutSizeClassMapper & { breakpoint: BreakpointClassMapper };
-  appearance: LayoutAppearanceTheme;
-  layout: LayoutLayoutTheme;
+  appearance: LayoutAppearanceClassMappers;
+  layout: LayoutLayoutClassMappers;
   typography: { textAlign: TextAlignClassMapper };
 }

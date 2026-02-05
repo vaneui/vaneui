@@ -1,6 +1,6 @@
 import type {
   BaseComponentTheme,
-  DefaultLayoutThemes,
+  DefaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
 import type { RingClassMapper } from "../theme/layout/ringClassMapper";
@@ -11,7 +11,7 @@ import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsum
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 
 export interface ImgTheme extends BaseComponentTheme {
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     border: BorderClassMapper;
     ring: RingClassMapper;
     focusVisible: FocusVisibleClassMapper;

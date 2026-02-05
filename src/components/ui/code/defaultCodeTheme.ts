@@ -2,13 +2,13 @@ import { ComponentTheme } from "../theme/common/ComponentTheme";
 import type { CodeProps } from "./CodeProps";
 import type { CodeTheme } from "./CodeTheme";
 import { CODE_CATEGORIES } from "../props/categoryBuilders";
-import { interactiveSubThemes } from "../theme/common/interactiveSubThemes";
+import { interactiveClassMappers } from "../theme/common/interactiveClassMappers";
 import { codeDefaults } from "./codeDefaults";
 
 export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
   "code",
   "vane-code",
-  interactiveSubThemes,
+  interactiveClassMappers,
   codeDefaults,
   CODE_CATEGORIES,
   undefined,

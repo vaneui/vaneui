@@ -1,7 +1,7 @@
 import {
   ComponentTheme,
-  defaultLayoutsThemes,
-  defaultTypographyThemes
+  defaultLayoutClassMappers,
+  defaultTypographyClassMappers
 } from "../../theme/common/ComponentTheme";
 import type { TypographyProps } from "../common/TypographyProps";
 import type { LinkTheme } from "./LinkTheme";
@@ -23,8 +23,8 @@ export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new 
     appearance: {
       text: new LinkVariantClassMapper(),
     },
-    typography: defaultTypographyThemes,
-    layout: defaultLayoutsThemes,
+    typography: defaultTypographyClassMappers,
+    layout: defaultLayoutClassMappers,
   },
   linkDefaults,
   TYPOGRAPHY_CATEGORIES,

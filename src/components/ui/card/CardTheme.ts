@@ -1,7 +1,7 @@
 import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import type {
   BaseTypographyComponentTheme,
-  DefaultLayoutThemes,
+  DefaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
 import type { GapClassMapper } from "../theme/size/gapClassMapper";
@@ -23,7 +23,7 @@ export interface CardTheme extends BaseTypographyComponentTheme {
     lineHeight: LineHeightClassMapper;
     gap: GapClassMapper;
   };
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     border: BorderClassMapper;
     radius: RadiusClassMapper;
     ring: RingClassMapper;

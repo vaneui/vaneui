@@ -1,7 +1,7 @@
 import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import type {
   BaseTypographyComponentTheme,
-  DefaultLayoutThemes,
+  DefaultLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
 import type { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
@@ -37,7 +37,7 @@ export interface InputTheme extends BaseTypographyComponentTheme {
     shadow: ShadowAppearanceClassMapper;
     status: StatusClassMapper;
   };
-  layout: DefaultLayoutThemes & {
+  layout: DefaultLayoutClassMappers & {
     border: BorderClassMapper;
     ring: RingClassMapper;
     focusVisible: FocusVisibleClassMapper;
