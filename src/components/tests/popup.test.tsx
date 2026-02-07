@@ -539,6 +539,47 @@ describe('Popup Component Tests', () => {
     });
   });
 
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} hFull>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+      const el = baseElement.querySelector('.vane-popup');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} hFit>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+      const el = baseElement.querySelector('.vane-popup');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} hAuto>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+      const el = baseElement.querySelector('.vane-popup');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
+
   describe('Portal Rendering', () => {
     it('should render in portal by default', () => {
       const anchorRef = createAnchorRef();

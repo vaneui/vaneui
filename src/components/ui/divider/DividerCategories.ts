@@ -3,6 +3,8 @@ import {
   VISUAL_CORE,
   PADDING,
   VARIANT,
+  WIDTH,
+  HEIGHT,
   COMMON_MODIFIERS,
   ORIENTATION,
 } from "../props/categoryBuilders";
@@ -14,5 +16,7 @@ export const DIVIDER_CATEGORIES = [
   ...PADDING,
   ...VARIANT,
   ...ORIENTATION,
+  ...WIDTH,
+  ...HEIGHT,
   ...COMMON_MODIFIERS,
 ] as const;

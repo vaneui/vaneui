@@ -110,6 +110,10 @@ export const CONTAINER_LAYOUT_CATEGORIES = [
   ...PADDING,
   ...VISUAL_LAYOUT,
   ...VARIANT,
+  ...WIDTH,
+  ...HEIGHT,
+  ...BREAKPOINT,
+  ...TEXT_ALIGN,
   ...COMMON_MODIFIERS,
 ] as const;
 
@@ -129,6 +133,8 @@ export const RESPONSIVE_LAYOUT_CATEGORIES = [
   ...PADDING,
   ...VISUAL_LAYOUT,
   ...VARIANT,
+  ...WIDTH,
+  ...HEIGHT,
   ...COMMON_MODIFIERS,
   ...TEXT_ALIGN,
 ] as const;

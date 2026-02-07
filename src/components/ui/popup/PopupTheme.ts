@@ -13,6 +13,7 @@ import type { TransitionClassMapper } from "../theme/layout/transitionClassMappe
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 
 export interface PopupTheme extends BaseTypographyComponentTheme {
   size: {
@@ -28,6 +29,7 @@ export interface PopupTheme extends BaseTypographyComponentTheme {
     transition: TransitionClassMapper;
     shadow: ShadowAppearanceClassMapper;
     width: WidthClassMapper;
+    height: HeightClassMapper;
   };
   appearance: {
     background: SimpleConsumerClassMapper;

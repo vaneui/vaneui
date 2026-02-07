@@ -309,4 +309,80 @@ describe('Col Component Tests', () => {
       });
     });
   });
+
+  describe('Breakpoint Props', () => {
+    it('should apply mobileCol class for responsive direction', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col mobileCol>Responsive Col</Col>
+        </ThemeProvider>
+      );
+      const col = container.querySelector('div');
+      expect(col).toHaveClass('max-mobile:flex-col');
+    });
+  });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col wFull>Content</Col>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col wFit>Content</Col>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col wAuto>Content</Col>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col hFull>Content</Col>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col hFit>Content</Col>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col hAuto>Content</Col>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
 });

@@ -28,7 +28,9 @@ import type {
   VariantProps,
   TransparentProps,
   ResponsiveProps,
-  WidthProps
+  WidthProps,
+  HeightProps,
+  CursorProps
 } from "../props";
 
 /** Card component props */
@@ -61,6 +63,8 @@ export type CardProps = BaseProps &
   TransparentProps &
   ResponsiveProps &
   WidthProps &
+  HeightProps &
+  CursorProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag when used with tag="a") */

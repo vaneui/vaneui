@@ -21,6 +21,7 @@ import type {
   RingProps,
   TransitionProps,
   WidthProps,
+  HeightProps,
 } from '../props';
 
 /** Popup placement relative to anchor */
@@ -62,6 +63,7 @@ export type PopupProps = BaseProps &
   RingProps &
   TransitionProps &
   WidthProps &
+  HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
     /** Whether popup is open */
     open: boolean;

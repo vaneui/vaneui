@@ -254,4 +254,92 @@ describe('Container Component Tests', () => {
       });
     });
   });
+
+  describe('TextAlign Props', () => {
+    it('should apply textCenter class', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container textCenter>Centered content</Container>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('text-center');
+    });
+  });
+
+  describe('Breakpoint Props', () => {
+    it('should apply mobileCol class', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container mobileCol>Responsive container</Container>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('max-mobile:flex-col');
+    });
+  });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container wFull>Content</Container>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container wFit>Content</Container>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container wAuto>Content</Container>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container hFull>Content</Container>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container hFit>Content</Container>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Container hAuto>Content</Container>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
 });

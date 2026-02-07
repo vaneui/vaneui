@@ -22,7 +22,9 @@ import type {
   VariantProps,
   TransparentProps,
   ResponsiveProps,
-  TextAlignProps
+  TextAlignProps,
+  WidthProps,
+  HeightProps
 } from "../props";
 
 /** Stack component props */
@@ -49,6 +51,8 @@ export type StackProps = BaseProps &
   TransparentProps &
   ResponsiveProps &
   TextAlignProps &
+  WidthProps &
+  HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

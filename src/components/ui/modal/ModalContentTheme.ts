@@ -11,6 +11,8 @@ import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
 import type { RingClassMapper } from "../theme/layout/ringClassMapper";
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 
 export interface ModalContentTheme extends BaseTypographyComponentTheme {
   size: {
@@ -24,6 +26,8 @@ export interface ModalContentTheme extends BaseTypographyComponentTheme {
     border: BorderClassMapper;
     ring: RingClassMapper;
     shadow: ShadowAppearanceClassMapper;
+    width: WidthClassMapper;
+    height: HeightClassMapper;
   };
   appearance: {
     background: SimpleConsumerClassMapper;

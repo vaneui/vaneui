@@ -5,12 +5,17 @@ import { COL_CATEGORIES } from "./ColCategories";
 import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { colDefaults } from "./colDefaults";
 import { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
+import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
 
 export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   "div",
   "vane-col",
   {
     ...layoutClassMappers,
+    size: {
+      ...layoutClassMappers.size,
+      breakpoint: new BreakpointClassMapper(),
+    },
     typography: {
       textAlign: new TextAlignClassMapper(),
     },

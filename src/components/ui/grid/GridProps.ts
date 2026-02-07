@@ -18,7 +18,9 @@ import type {
   BorderProps,
   TransparentProps,
   ResponsiveProps,
-  PaddingProps
+  PaddingProps,
+  WidthProps,
+  HeightProps
 } from '../props';
 
 /** Grid component props */
@@ -41,6 +43,8 @@ export type GridProps = BaseProps &
   ShapeProps &
   BorderProps &
   PaddingProps &
+  WidthProps &
+  HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

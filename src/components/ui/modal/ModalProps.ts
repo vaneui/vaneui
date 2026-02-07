@@ -26,6 +26,8 @@ import type {
   VariantProps,
   TransparentProps,
   ResponsiveProps,
+  WidthProps,
+  HeightProps,
 } from "../props";
 import type { OverlayProps } from "../overlay";
 
@@ -58,6 +60,8 @@ export type ModalProps = BaseProps &
   VariantProps &
   TransparentProps &
   ResponsiveProps &
+  WidthProps &
+  HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
     /** Whether modal is open */
     open: boolean;

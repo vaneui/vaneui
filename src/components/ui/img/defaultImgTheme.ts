@@ -8,6 +8,8 @@ import { RingClassMapper } from "../theme/layout/ringClassMapper";
 import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
 import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
 import { ObjectFitClassMapper } from "../theme/layout/objectFitClassMapper";
+import { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import { HeightClassMapper } from "../theme/layout/heightClassMapper";
 import { bgAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowLayoutAppearance } from "../theme/common/appearanceClassMappers";
 import type { ImgTheme } from "./ImgTheme";
 import { imgDefaults } from "./imgDefaults";
@@ -24,6 +26,8 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
       focusVisible: new FocusVisibleClassMapper(),
       radius: new RadiusClassMapper(),
       objectFit: new ObjectFitClassMapper(),
+      width: new WidthClassMapper(),
+      height: new HeightClassMapper(),
     },
     appearance: {
       background: bgAppearance,

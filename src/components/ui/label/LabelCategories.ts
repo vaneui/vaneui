@@ -6,6 +6,8 @@ import {
   VISUAL_DECORATION_LAYOUT,
   VARIANT,
   CURSOR,
+  WIDTH,
+  HEIGHT,
   COMMON_MODIFIERS,
 } from "../props/categoryBuilders";
 
@@ -18,5 +20,7 @@ export const LABEL_CATEGORIES = [
   ...VISUAL_DECORATION_LAYOUT,
   ...VARIANT,
   ...CURSOR,
+  ...WIDTH,
+  ...HEIGHT,
   ...COMMON_MODIFIERS,
 ] as const;

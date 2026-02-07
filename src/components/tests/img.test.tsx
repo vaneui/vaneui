@@ -197,11 +197,75 @@ describe('Img Component Tests', () => {
 
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
-      
+
       // Should not have visual classes since border/ring/shadow are not enabled by default
       expect(img!.className).not.toMatch(/\bborder\b(?!-)/); // No actual border class
-      expect(img!.className).not.toMatch(/\bring\b(?!-)/); // No actual ring class  
+      expect(img!.className).not.toMatch(/\bring\b(?!-)/); // No actual ring class
       expect(img!.className).not.toMatch(/shadow-/); // No shadow classes
+    });
+  });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Img wFull src="test.jpg" alt="Test" />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('img');
+      expect(el).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Img wFit src="test.jpg" alt="Test" />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('img');
+      expect(el).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Img wAuto src="test.jpg" alt="Test" />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('img');
+      expect(el).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Img hFull src="test.jpg" alt="Test" />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('img');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Img hFit src="test.jpg" alt="Test" />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('img');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Img hAuto src="test.jpg" alt="Test" />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('img');
+      expect(el).toHaveClass('h-auto');
     });
   });
 });

@@ -485,6 +485,38 @@ describe('Input Component Tests', () => {
     });
   });
 
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input hFull />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('input');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input hFit />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('input');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input hAuto />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('input');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
+
   describe('Status Props (Validation)', () => {
     it('should apply error state classes when error prop is set', () => {
       const {container} = render(

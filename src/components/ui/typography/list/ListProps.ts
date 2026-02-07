@@ -19,7 +19,9 @@ import type {
   ListStyleProps,
   PaddingProps,
   TruncateProps,
-  LetterSpacingProps
+  LetterSpacingProps,
+  WidthProps,
+  HeightProps
 } from '../../props';
 
 /** List component props */
@@ -43,6 +45,8 @@ export type ListProps = BaseProps &
   AppearanceProps &
   PaddingProps &
   VariantProps &
+  WidthProps &
+  HeightProps &
   Omit<React.HTMLAttributes<HTMLElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

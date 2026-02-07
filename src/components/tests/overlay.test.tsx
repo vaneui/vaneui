@@ -266,6 +266,70 @@ describe('Overlay Component Tests', () => {
     });
   });
 
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false} wFull>Content</Overlay>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('.vane-overlay');
+      expect(el).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false} wFit>Content</Overlay>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('.vane-overlay');
+      expect(el).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false} wAuto>Content</Overlay>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('.vane-overlay');
+      expect(el).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false} hFull>Content</Overlay>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('.vane-overlay');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false} hFit>Content</Overlay>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('.vane-overlay');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false} hAuto>Content</Overlay>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('.vane-overlay');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
+
   describe('Alignment Props', () => {
     it('should allow overriding default centering with itemsStart', () => {
       const { container } = render(

@@ -12,6 +12,8 @@ import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerCla
 import { SizeClassMapper } from "../theme/size/sizeClassMapper";
 import { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
 import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
+import { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import { HeightClassMapper } from "../theme/layout/heightClassMapper";
 import { StatusClassMapper } from "../theme/appearance/statusClassMapper";
 import { accentAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, checkedBgAppearance, shadowUIAppearance } from "../theme/common/appearanceClassMappers";
 import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
@@ -34,6 +36,8 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       cursor: new CursorClassMapper(),
       transition: new TransitionClassMapper(),
       radius: new RadiusClassMapper(),
+      width: new WidthClassMapper(),
+      height: new HeightClassMapper(),
     },
     appearance: {
       accent: accentAppearance,

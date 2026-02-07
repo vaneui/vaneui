@@ -13,6 +13,8 @@ import type { SizeClassMapper } from "../theme/size/sizeClassMapper";
 import type { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 import type { StatusClassMapper } from "../theme/appearance/statusClassMapper";
+import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 
 /** Theme interface for checkbox input element */
 export interface CheckboxTheme extends BaseComponentTheme {
@@ -27,6 +29,8 @@ export interface CheckboxTheme extends BaseComponentTheme {
     cursor: CursorClassMapper;
     transition: TransitionClassMapper;
     radius: RadiusClassMapper;
+    width: WidthClassMapper;
+    height: HeightClassMapper;
   };
   appearance: {
     accent: SimpleConsumerClassMapper;

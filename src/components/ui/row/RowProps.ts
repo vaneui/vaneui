@@ -22,7 +22,9 @@ import type {
   TransparentProps,
   ResponsiveProps,
   TextAlignProps,
-  PaddingProps
+  PaddingProps,
+  WidthProps,
+  HeightProps
 } from "../props";
 
 /** Row component props */
@@ -49,6 +51,8 @@ export type RowProps = BaseProps &
   ResponsiveProps &
   TextAlignProps &
   PaddingProps &
+  WidthProps &
+  HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

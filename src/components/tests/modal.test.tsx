@@ -475,4 +475,80 @@ describe('Modal Component Tests', () => {
       expect(modal).toHaveAttribute('id', 'my-modal');
     });
   });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} wFull>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+      const el = baseElement.querySelector('.vane-modal');
+      expect(el).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} wFit>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+      const el = baseElement.querySelector('.vane-modal');
+      expect(el).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} wAuto>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+      const el = baseElement.querySelector('.vane-modal');
+      expect(el).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} hFull>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+      const el = baseElement.querySelector('.vane-modal');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} hFit>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+      const el = baseElement.querySelector('.vane-modal');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} hAuto>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+      const el = baseElement.querySelector('.vane-modal');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
 });

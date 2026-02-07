@@ -6,6 +6,8 @@ import {
   PADDING,
   VARIANT,
   WIDTH,
+  HEIGHT,
+  CURSOR,
   COMMON_MODIFIERS,
 } from "../props/categoryBuilders";
 
@@ -18,5 +20,7 @@ export const CARD_CATEGORIES = [
   ...PADDING,
   ...VARIANT,
   ...WIDTH,
+  ...HEIGHT,
+  ...CURSOR,
   ...COMMON_MODIFIERS,
 ] as const;

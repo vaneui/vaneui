@@ -304,6 +304,70 @@ describe('Link Component Tests', () => {
       expect(link).not.toHaveAttribute('href');
     });
   });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test" wFull>Content</Link>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('a');
+      expect(el).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test" wFit>Content</Link>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('a');
+      expect(el).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test" wAuto>Content</Link>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('a');
+      expect(el).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test" hFull>Content</Link>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('a');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test" hFit>Content</Link>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('a');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test" hAuto>Content</Link>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('a');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
 });
 describe('Link Theme Override Tests', () => {
   it('should allow overriding outline text class via themeOverride', () => {

@@ -15,6 +15,8 @@ import type { BreakpointClassMapper } from "../theme/size/breakpointClassMapper"
 import type { RingClassMapper } from "../theme/layout/ringClassMapper";
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
+import type { CursorClassMapper } from "../theme/layout/cursorClassMapper";
 
 export interface CardTheme extends BaseTypographyComponentTheme {
   size: {
@@ -32,6 +34,8 @@ export interface CardTheme extends BaseTypographyComponentTheme {
     breakpoint: BreakpointClassMapper;
     shadow: ShadowAppearanceClassMapper;
     width: WidthClassMapper;
+    height: HeightClassMapper;
+    cursor: CursorClassMapper;
   };
   appearance: {
     background: SimpleConsumerClassMapper;

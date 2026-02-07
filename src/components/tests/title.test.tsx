@@ -597,4 +597,68 @@ describe('Title Components Tests', () => {
     });
   });
 
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title wFull>Content</Title>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('h3');
+      expect(el).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title wFit>Content</Title>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('h3');
+      expect(el).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title wAuto>Content</Title>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('h3');
+      expect(el).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title hFull>Content</Title>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('h3');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title hFit>Content</Title>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('h3');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title hAuto>Content</Title>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('h3');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
+
 });

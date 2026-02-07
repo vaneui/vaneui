@@ -31,6 +31,7 @@ import type {
   ResponsiveProps,
   TransitionProps,
   WidthProps,
+  HeightProps,
   StatusProps
 } from '../props';
 
@@ -66,6 +67,7 @@ export type InputProps = BaseProps &
   ResponsiveProps &
   TransitionProps &
   WidthProps &
+  HeightProps &
   StatusProps &
   Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */

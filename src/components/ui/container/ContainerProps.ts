@@ -20,7 +20,11 @@ import type {
   VariantProps,
   TransparentProps,
   ResponsiveProps,
-  PaddingProps
+  PaddingProps,
+  WidthProps,
+  HeightProps,
+  BreakpointProps,
+  TextAlignProps
 } from "../props";
 
 /** Container component props */
@@ -45,6 +49,10 @@ export type ContainerProps = BaseProps &
   TransparentProps &
   ResponsiveProps &
   PaddingProps &
+  WidthProps &
+  HeightProps &
+  BreakpointProps &
+  TextAlignProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

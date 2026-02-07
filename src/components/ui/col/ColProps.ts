@@ -12,6 +12,7 @@ import type {
   GapProps,
   FlexDirectionProps,
   ReverseProps,
+  BreakpointProps,
   AppearanceProps,
   BorderProps,
   ShadowProps,
@@ -21,7 +22,9 @@ import type {
   TransparentProps,
   ResponsiveProps,
   TextAlignProps,
-  PaddingProps
+  PaddingProps,
+  WidthProps,
+  HeightProps
 } from '../props';
 
 /** Col component props */
@@ -37,6 +40,7 @@ export type ColProps = BaseProps &
   GapProps &
   FlexDirectionProps &
   ReverseProps &
+  BreakpointProps &
   AppearanceProps &
   BorderProps &
   ShadowProps &
@@ -47,6 +51,8 @@ export type ColProps = BaseProps &
   ResponsiveProps &
   TextAlignProps &
   PaddingProps &
+  WidthProps &
+  HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

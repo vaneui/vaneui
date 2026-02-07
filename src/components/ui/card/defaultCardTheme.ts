@@ -7,6 +7,7 @@ import { cardDefaults } from "./cardDefaults";
 import { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
 import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
 import { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import { CursorClassMapper } from "../theme/layout/cursorClassMapper";
 
 export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   "div",
@@ -21,6 +22,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       ...layoutClassMappers.layout,
       breakpoint: new BreakpointClassMapper(),
       width: new WidthClassMapper(),
+      cursor: new CursorClassMapper(),
     },
     typography: defaultTypographyClassMappers,
   },

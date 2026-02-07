@@ -11,7 +11,9 @@ import type {
   AppearanceProps,
   PaddingProps,
   VariantProps,
-  OrientationProps
+  OrientationProps,
+  WidthProps,
+  HeightProps
 } from "../props";
 
 /** Divider component props */
@@ -27,6 +29,8 @@ export type DividerProps = BaseProps &
   PaddingProps &
   VariantProps &
   OrientationProps &
+  WidthProps &
+  HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

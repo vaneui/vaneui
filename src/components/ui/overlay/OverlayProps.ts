@@ -16,6 +16,8 @@ import type {
   JustifyProps,
   BlurProps,
   PointerEventsProps,
+  WidthProps,
+  HeightProps,
 } from "../props";
 
 /** Overlay component props */
@@ -35,6 +37,8 @@ export type OverlayProps = BaseProps &
   JustifyProps &
   BlurProps &
   PointerEventsProps &
+  WidthProps &
+  HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
     /** Whether overlay is visible (default: true) */
     open?: boolean;

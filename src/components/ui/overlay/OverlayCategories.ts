@@ -3,6 +3,8 @@ import {
   VISUAL_CORE,
   VISUAL_DECORATION_LAYOUT,
   VARIANT,
+  WIDTH,
+  HEIGHT,
   COMMON_MODIFIERS,
 } from "../props/categoryBuilders";
 
@@ -19,5 +21,7 @@ export const OVERLAY_CATEGORIES = [
   ...VARIANT,
   ...BLUR,
   ...POINTER_EVENTS,
+  ...WIDTH,
+  ...HEIGHT,
   ...COMMON_MODIFIERS,
 ] as const;

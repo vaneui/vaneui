@@ -104,6 +104,8 @@ export interface LayoutLayoutClassMappers extends DefaultLayoutClassMappers {
   border: BorderClassMapper;
   ring: RingClassMapper;
   radius: RadiusClassMapper;
+  width: WidthClassMapper;
+  height: HeightClassMapper;
 }
 
 /**

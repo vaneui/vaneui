@@ -18,6 +18,7 @@ import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppe
 import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
 import type { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
 import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 import type { StatusClassMapper } from "../theme/appearance/statusClassMapper";
 
 export interface InputTheme extends BaseTypographyComponentTheme {
@@ -47,5 +48,6 @@ export interface InputTheme extends BaseTypographyComponentTheme {
     flexDirection: DirectionClassMapper;
     transition: TransitionClassMapper;
     width: WidthClassMapper;
+    height: HeightClassMapper;
   };
 }

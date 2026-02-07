@@ -483,4 +483,68 @@ describe('Grid Components Tests', () => {
       });
     });
   });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 wFull>Content</Grid3>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 wFit>Content</Grid3>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 wAuto>Content</Grid3>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 hFull>Content</Grid3>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 hFit>Content</Grid3>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Grid3 hAuto>Content</Grid3>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
 });

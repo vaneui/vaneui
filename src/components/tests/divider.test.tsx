@@ -157,4 +157,68 @@ describe('Divider Component Tests', () => {
       expect(hasHorizontalHeight && hasVerticalHeight).toBe(false);
     });
   });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider wFull />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider wFit />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider wAuto />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider hFull />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider hFit />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider hAuto />
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
 });

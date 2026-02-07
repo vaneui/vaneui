@@ -3,6 +3,9 @@ import {
   PADDING,
   VISUAL_LAYOUT,
   VARIANT,
+  BREAKPOINT,
+  WIDTH,
+  HEIGHT,
   COMMON_MODIFIERS,
   TEXT_ALIGN,
 } from "../props/categoryBuilders";
@@ -13,6 +16,9 @@ export const COL_CATEGORIES = [
   ...PADDING,
   ...VISUAL_LAYOUT,
   ...VARIANT,
+  ...BREAKPOINT,
+  ...WIDTH,
+  ...HEIGHT,
   ...COMMON_MODIFIERS,
   ...TEXT_ALIGN,
 ] as const;

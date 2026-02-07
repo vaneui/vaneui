@@ -348,4 +348,80 @@ describe('List and ListItem Components Tests', () => {
       expect(listItem).toHaveTextContent('Div list item');
     });
   });
+
+  describe('Width Props', () => {
+    it('should apply wFull class for full width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List wFull>
+            <ListItem>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('ul');
+      expect(el).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class for fit-content width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List wFit>
+            <ListItem>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('ul');
+      expect(el).toHaveClass('w-fit');
+    });
+
+    it('should apply wAuto class for auto width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List wAuto>
+            <ListItem>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('ul');
+      expect(el).toHaveClass('w-auto');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List hFull>
+            <ListItem>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('ul');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List hFit>
+            <ListItem>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('ul');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List hAuto>
+            <ListItem>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('ul');
+      expect(el).toHaveClass('h-auto');
+    });
+  });
 });

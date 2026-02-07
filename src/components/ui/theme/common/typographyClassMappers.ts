@@ -3,6 +3,8 @@ import type { TextTheme } from "../../typography/common/TypographyTheme";
 import { FontSizeClassMapper } from "../size/fontSizeClassMapper";
 import { LineHeightClassMapper } from "../size/lineHeightClassMapper";
 import { LetterSpacingClassMapper } from "../typography/letterSpacingClassMapper";
+import { WidthClassMapper } from "../layout/widthClassMapper";
+import { HeightClassMapper } from "../layout/heightClassMapper";
 import { textAppearance } from "./appearanceClassMappers";
 import type { DeepPartial } from "../../../utils/deepPartial";
 
@@ -17,5 +19,9 @@ export const typographyClassMappers: DeepPartial<TextTheme> = {
     text: textAppearance,
   },
   typography: defaultTypographyClassMappers,
-  layout: defaultLayoutClassMappers,
+  layout: {
+    ...defaultLayoutClassMappers,
+    width: new WidthClassMapper(),
+    height: new HeightClassMapper(),
+  },
 };

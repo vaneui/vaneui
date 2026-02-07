@@ -10,6 +10,10 @@ import type { RingClassMapper } from "../theme/layout/ringClassMapper";
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
+import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
+import type { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
+import type { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
 
 export interface ContainerTheme extends BaseComponentTheme {
   size: {
@@ -17,6 +21,7 @@ export interface ContainerTheme extends BaseComponentTheme {
     py: PyClassMapper;
     gap: GapClassMapper;
     maxWidth: SizeClassMapper;
+    breakpoint: BreakpointClassMapper;
   };
   layout: DefaultLayoutClassMappers & {
     wrap: WrapClassMapper;
@@ -24,6 +29,8 @@ export interface ContainerTheme extends BaseComponentTheme {
     border: BorderClassMapper;
     ring: RingClassMapper;
     radius: RadiusClassMapper;
+    width: WidthClassMapper;
+    height: HeightClassMapper;
   };
   appearance: {
     background: SimpleConsumerClassMapper;
@@ -31,5 +38,8 @@ export interface ContainerTheme extends BaseComponentTheme {
     border: SimpleConsumerClassMapper;
     ring: SimpleConsumerClassMapper;
     shadow: ShadowAppearanceClassMapper;
-  }
+  };
+  typography: {
+    textAlign: TextAlignClassMapper;
+  };
 }

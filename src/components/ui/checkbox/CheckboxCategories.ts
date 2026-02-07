@@ -8,6 +8,8 @@ import {
   CURSOR,
   TRANSITION,
   STATUS,
+  WIDTH,
+  HEIGHT,
   COMMON_MODIFIERS,
 } from "../props/categoryBuilders";
 
@@ -22,5 +24,7 @@ export const CHECKBOX_CATEGORIES = [
   ...CURSOR,
   ...TRANSITION,
   ...STATUS,
+  ...WIDTH,
+  ...HEIGHT,
   ...COMMON_MODIFIERS,
 ] as const;

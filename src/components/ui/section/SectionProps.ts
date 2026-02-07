@@ -21,7 +21,10 @@ import type {
   BreakpointProps,
   VariantProps,
   TransparentProps,
-  ResponsiveProps
+  ResponsiveProps,
+  WidthProps,
+  HeightProps,
+  TextAlignProps
 } from "../props";
 
 /** Section component props */
@@ -47,6 +50,9 @@ export type SectionProps = BaseProps &
   VariantProps &
   TransparentProps &
   ResponsiveProps &
+  WidthProps &
+  HeightProps &
+  TextAlignProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

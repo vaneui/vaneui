@@ -10,6 +10,8 @@ import type { DirectionClassMapper } from "../theme/layout/directionClassMapper"
 import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
 import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 
 export interface GridTheme extends BaseComponentTheme {
   size: {
@@ -27,5 +29,7 @@ export interface GridTheme extends BaseComponentTheme {
     flexDirection: DirectionClassMapper;
     radius: RadiusClassMapper;
     border: BorderClassMapper;
+    width: WidthClassMapper;
+    height: HeightClassMapper;
   };
 }

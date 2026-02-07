@@ -3,6 +3,8 @@ import {
   LAYOUT_CORE,
   VISUAL_CORE,
   VARIANT,
+  WIDTH,
+  HEIGHT,
   COMMON_MODIFIERS,
   LIST_STYLE,
   PADDING,
@@ -21,6 +23,8 @@ export const TYPOGRAPHY_CATEGORIES = [
   ...VARIANT,
   ...CURSOR,
   ...LETTER_SPACING,
+  ...WIDTH,
+  ...HEIGHT,
   ...COMMON_MODIFIERS,
 ] as const;
 
@@ -32,5 +36,7 @@ export const LIST_CATEGORIES = [
   ...VISUAL_CORE,
   ...PADDING,
   ...VARIANT,
+  ...WIDTH,
+  ...HEIGHT,
   ...COMMON_MODIFIERS,
 ] as const;

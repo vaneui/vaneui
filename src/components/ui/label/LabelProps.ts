@@ -23,7 +23,9 @@ import type {
   ShadowProps,
   RingProps,
   VariantProps,
-  CursorProps
+  CursorProps,
+  WidthProps,
+  HeightProps
 } from "../props";
 
 /** Label component props */
@@ -51,6 +53,8 @@ export type LabelProps = BaseProps &
   RingProps &
   VariantProps &
   CursorProps &
+  WidthProps &
+  HeightProps &
   Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

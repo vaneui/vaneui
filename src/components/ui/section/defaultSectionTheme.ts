@@ -5,6 +5,7 @@ import { SECTION_CATEGORIES } from "./SectionCategories";
 import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { sectionDefaults } from "./sectionDefaults";
 import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
+import { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
 
 export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme>(
   "div",
@@ -14,6 +15,9 @@ export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme
     size: {
       ...layoutClassMappers.size,
       breakpoint: new BreakpointClassMapper(),
+    },
+    typography: {
+      textAlign: new TextAlignClassMapper(),
     },
   },
   sectionDefaults,

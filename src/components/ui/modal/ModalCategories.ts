@@ -5,6 +5,8 @@ import {
   PADDING,
   SHAPE,
   VARIANT,
+  WIDTH,
+  HEIGHT,
   COMMON_MODIFIERS,
 } from "../props/categoryBuilders";
 
@@ -16,5 +18,7 @@ export const MODAL_CATEGORIES = [
   ...PADDING,
   ...SHAPE,
   ...VARIANT,
+  ...WIDTH,
+  ...HEIGHT,
   ...COMMON_MODIFIERS,
 ] as const;

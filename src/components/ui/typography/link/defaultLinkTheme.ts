@@ -8,6 +8,8 @@ import type { LinkTheme } from "./LinkTheme";
 import { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
 import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import { LinkVariantClassMapper } from "../../theme/appearance/linkVariantClassMapper";
+import { WidthClassMapper } from "../../theme/layout/widthClassMapper";
+import { HeightClassMapper } from "../../theme/layout/heightClassMapper";
 import { TYPOGRAPHY_CATEGORIES } from "../common/TypographyCategories";
 import { linkDefaults } from "./linkDefaults";
 
@@ -24,7 +26,11 @@ export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new 
       text: new LinkVariantClassMapper(),
     },
     typography: defaultTypographyClassMappers,
-    layout: defaultLayoutClassMappers,
+    layout: {
+      ...defaultLayoutClassMappers,
+      width: new WidthClassMapper(),
+      height: new HeightClassMapper(),
+    },
   },
   linkDefaults,
   TYPOGRAPHY_CATEGORIES,

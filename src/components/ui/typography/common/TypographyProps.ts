@@ -19,7 +19,9 @@ import type {
   TransparentProps,
   ResponsiveProps,
   TruncateProps,
-  LetterSpacingProps
+  LetterSpacingProps,
+  WidthProps,
+  HeightProps
 } from '../../props';
 
 /** Typography component props (for Text, PageTitle, SectionTitle, Title, ListItem) */
@@ -43,6 +45,8 @@ export type TypographyProps = BaseProps &
   VariantProps &
   TransparentProps &
   ResponsiveProps &
+  WidthProps &
+  HeightProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */

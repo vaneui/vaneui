@@ -12,6 +12,8 @@ import { RingClassMapper } from "../theme/layout/ringClassMapper";
 import { WrapClassMapper } from "../theme/layout/wrapClassMapper";
 import { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import { CursorClassMapper } from "../theme/layout/cursorClassMapper";
+import { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import { HeightClassMapper } from "../theme/layout/heightClassMapper";
 import { textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "../theme/common/appearanceClassMappers";
 import { LABEL_CATEGORIES } from "./LabelCategories";
 import type { LabelTheme } from "./LabelTheme";
@@ -40,6 +42,8 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       wrap: new WrapClassMapper(),
       flexDirection: new DirectionClassMapper(),
       cursor: new CursorClassMapper(),
+      width: new WidthClassMapper(),
+      height: new HeightClassMapper(),
     },
   },
   labelDefaults,

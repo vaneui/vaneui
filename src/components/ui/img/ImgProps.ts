@@ -14,7 +14,9 @@ import type {
   RingProps,
   ShapeProps,
   VariantProps,
-  ObjectFitProps
+  ObjectFitProps,
+  WidthProps,
+  HeightProps
 } from '../props';
 
 /** Img component props */
@@ -33,6 +35,8 @@ export type ImgProps = BaseProps &
   ShapeProps &
   VariantProps &
   ObjectFitProps &
+  WidthProps &
+  HeightProps &
   Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

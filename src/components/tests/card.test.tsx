@@ -582,6 +582,18 @@ describe('Card Component Tests', () => {
     });
   });
 
+  describe('Cursor Props', () => {
+    it('should apply cursorPointer class', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card cursorPointer>Clickable card</Card>
+        </ThemeProvider>
+      );
+      const card = container.querySelector('div');
+      expect(card).toHaveClass('cursor-pointer');
+    });
+  });
+
   describe('Width Props', () => {
     it('should apply wFull class for full width', () => {
       const {container} = render(
@@ -627,6 +639,38 @@ describe('Card Component Tests', () => {
       expect(card).toHaveClass('w-full');
       expect(card).toHaveClass('shadow-(--shadow-base)');
       expect(card).toHaveClass('border-[length:var(--bw)]');
+    });
+  });
+
+  describe('Height Props', () => {
+    it('should apply hFull class for full height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card hFull>Content</Card>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class for fit-content height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card hFit>Content</Card>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-fit');
+    });
+
+    it('should apply hAuto class for auto height', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card hAuto>Content</Card>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('div');
+      expect(el).toHaveClass('h-auto');
     });
   });
 });
