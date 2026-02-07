@@ -1,6 +1,6 @@
 import type {
   BaseTypographyComponentTheme,
-  DefaultLayoutClassMappers,
+  DefaultSizedLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { GapClassMapper } from "../theme/size/gapClassMapper";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
@@ -12,8 +12,6 @@ import type { RingClassMapper } from "../theme/layout/ringClassMapper";
 import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
 import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import type { CursorClassMapper } from "../theme/layout/cursorClassMapper";
-import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 
 export interface LabelTheme extends BaseTypographyComponentTheme {
   size: {
@@ -27,13 +25,11 @@ export interface LabelTheme extends BaseTypographyComponentTheme {
     ring: SimpleConsumerClassMapper;
     shadow: ShadowAppearanceClassMapper;
   };
-  layout: DefaultLayoutClassMappers & {
+  layout: DefaultSizedLayoutClassMappers & {
     border: BorderClassMapper;
     ring: RingClassMapper;
     wrap: WrapClassMapper;
     flexDirection: DirectionClassMapper;
     cursor: CursorClassMapper;
-    width: WidthClassMapper;
-    height: HeightClassMapper;
   };
 }

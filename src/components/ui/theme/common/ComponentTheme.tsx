@@ -17,6 +17,8 @@ import { DeepPartial } from "../../../utils/deepPartial";
 import { DisplayClassMapper } from "../layout/displayClassMapper";
 import { twMerge } from "tailwind-merge";
 import { OverflowClassMapper } from "../layout/overflowClassMapper";
+import { WidthClassMapper } from "../layout/widthClassMapper";
+import { HeightClassMapper } from "../layout/heightClassMapper";
 import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
 
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
@@ -63,6 +65,17 @@ export const defaultLayoutClassMappers: DefaultLayoutClassMappers = {
   position: new PositionClassMapper(),
   display: new DisplayClassMapper(),
   overflow: new OverflowClassMapper(),
+};
+
+export interface DefaultSizedLayoutClassMappers extends DefaultLayoutClassMappers {
+  width: WidthClassMapper;
+  height: HeightClassMapper;
+}
+
+export const defaultSizedLayoutClassMappers: DefaultSizedLayoutClassMappers = {
+  ...defaultLayoutClassMappers,
+  width: new WidthClassMapper(),
+  height: new HeightClassMapper(),
 };
 
 export const defaultTypographyClassMappers: DefaultTypographyClassMappers = {

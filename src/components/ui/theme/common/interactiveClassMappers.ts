@@ -1,4 +1,4 @@
-import { defaultLayoutClassMappers, defaultTypographyClassMappers } from "./ComponentTheme";
+import { defaultSizedLayoutClassMappers, defaultTypographyClassMappers } from "./ComponentTheme";
 import { FontSizeClassMapper } from "../size/fontSizeClassMapper";
 import { LineHeightClassMapper } from "../size/lineHeightClassMapper";
 import { PxClassMapper } from "../size/pxClassMapper";
@@ -13,8 +13,6 @@ import { DirectionClassMapper } from "../layout/directionClassMapper";
 import { CursorClassMapper } from "../layout/cursorClassMapper";
 import { TransitionClassMapper } from "../layout/transitionClassMapper";
 import { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
-import { WidthClassMapper } from "../layout/widthClassMapper";
-import { HeightClassMapper } from "../layout/heightClassMapper";
 import { bgAppearance, textAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowLayoutAppearance } from "./appearanceClassMappers";
 
 /**
@@ -38,7 +36,7 @@ export const interactiveClassMappers = {
     shadow: shadowLayoutAppearance,
   },
   layout: {
-    ...defaultLayoutClassMappers,
+    ...defaultSizedLayoutClassMappers,
     border: new BorderClassMapper(),
     ring: new RingClassMapper(),
     focusVisible: new FocusVisibleClassMapper(),
@@ -48,8 +46,6 @@ export const interactiveClassMappers = {
     cursor: new CursorClassMapper(),
     transition: new TransitionClassMapper(),
     whitespace: new WhitespaceClassMapper(),
-    width: new WidthClassMapper(),
-    height: new HeightClassMapper(),
   },
   typography: defaultTypographyClassMappers,
 };

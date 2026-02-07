@@ -1,6 +1,6 @@
 import {
   ComponentTheme,
-  defaultLayoutClassMappers,
+  defaultSizedLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { ImgProps } from "./ImgProps";
 import { BorderClassMapper } from "../theme/layout/borderClassMapper";
@@ -8,8 +8,6 @@ import { RingClassMapper } from "../theme/layout/ringClassMapper";
 import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
 import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
 import { ObjectFitClassMapper } from "../theme/layout/objectFitClassMapper";
-import { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import { HeightClassMapper } from "../theme/layout/heightClassMapper";
 import { bgAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowLayoutAppearance } from "../theme/common/appearanceClassMappers";
 import type { ImgTheme } from "./ImgTheme";
 import { imgDefaults } from "./imgDefaults";
@@ -20,14 +18,12 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
   "vane-img",
   {
     layout: {
-      ...defaultLayoutClassMappers,
+      ...defaultSizedLayoutClassMappers,
       border: new BorderClassMapper(),
       ring: new RingClassMapper(),
       focusVisible: new FocusVisibleClassMapper(),
       radius: new RadiusClassMapper(),
       objectFit: new ObjectFitClassMapper(),
-      width: new WidthClassMapper(),
-      height: new HeightClassMapper(),
     },
     appearance: {
       background: bgAppearance,

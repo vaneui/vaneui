@@ -26,6 +26,8 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
     layout: {
       ...defaultLayoutClassMappers,
       orientation: new OrientationClassMapper(),
+      // width/height must come AFTER orientation so twMerge resolves correctly
+      // (orientation generates w-full/h-full, width/height props should override)
       width: new WidthClassMapper(),
       height: new HeightClassMapper(),
     },

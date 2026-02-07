@@ -1,7 +1,7 @@
 import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import type {
   BaseTypographyComponentTheme,
-  DefaultLayoutClassMappers,
+  DefaultSizedLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
 import type { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
@@ -17,8 +17,6 @@ import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsum
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
 import type { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
-import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 import type { StatusClassMapper } from "../theme/appearance/statusClassMapper";
 
 export interface InputTheme extends BaseTypographyComponentTheme {
@@ -38,7 +36,7 @@ export interface InputTheme extends BaseTypographyComponentTheme {
     shadow: ShadowAppearanceClassMapper;
     status: StatusClassMapper;
   };
-  layout: DefaultLayoutClassMappers & {
+  layout: DefaultSizedLayoutClassMappers & {
     border: BorderClassMapper;
     ring: RingClassMapper;
     focusVisible: FocusVisibleClassMapper;
@@ -47,7 +45,5 @@ export interface InputTheme extends BaseTypographyComponentTheme {
     wrap: WrapClassMapper;
     flexDirection: DirectionClassMapper;
     transition: TransitionClassMapper;
-    width: WidthClassMapper;
-    height: HeightClassMapper;
   };
 }

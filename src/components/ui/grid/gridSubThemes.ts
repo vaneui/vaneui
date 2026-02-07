@@ -1,11 +1,9 @@
-import { defaultLayoutClassMappers } from "../theme/common/ComponentTheme";
+import { defaultSizedLayoutClassMappers } from "../theme/common/ComponentTheme";
 import type { GridTheme } from "./GridTheme";
 import { WrapClassMapper } from "../theme/layout/wrapClassMapper";
 import { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
 import { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import { HeightClassMapper } from "../theme/layout/heightClassMapper";
 import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { bgAppearance, textAppearance, borderAppearance } from "../theme/common/appearanceClassMappers";
 import type { DeepPartial } from "../../utils/deepPartial";
@@ -19,12 +17,10 @@ export const gridSubThemes: DeepPartial<GridTheme> = {
     border: borderAppearance,
   },
   layout: {
-    ...defaultLayoutClassMappers,
+    ...defaultSizedLayoutClassMappers,
     wrap: new WrapClassMapper(),
     flexDirection: new DirectionClassMapper(),
     radius: new RadiusClassMapper(),
     border: new BorderClassMapper(),
-    width: new WidthClassMapper(),
-    height: new HeightClassMapper(),
   },
 };

@@ -1,12 +1,10 @@
 import type {
   BaseComponentTheme,
-  DefaultLayoutClassMappers,
+  DefaultSizedLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { PyClassMapper } from "../theme/size/pyClassMapper";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 import type { OrientationClassMapper } from "../theme/layout/orientationClassMapper";
-import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 
 export interface DividerTheme extends BaseComponentTheme {
   size: {
@@ -15,9 +13,7 @@ export interface DividerTheme extends BaseComponentTheme {
   appearance: {
     background: SimpleConsumerClassMapper;
   };
-  layout: DefaultLayoutClassMappers & {
+  layout: DefaultSizedLayoutClassMappers & {
     orientation: OrientationClassMapper;
-    width: WidthClassMapper;
-    height: HeightClassMapper;
   };
 }

@@ -1,4 +1,4 @@
-import type { BaseComponentTheme, DefaultLayoutClassMappers } from "../theme/common/ComponentTheme";
+import type { BaseComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common/ComponentTheme";
 import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import type { GapClassMapper } from "../theme/size/gapClassMapper";
 import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
@@ -10,8 +10,6 @@ import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 import type { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
-import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 import type { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
 
 export interface SectionTheme extends BaseComponentTheme {
@@ -28,14 +26,12 @@ export interface SectionTheme extends BaseComponentTheme {
     ring: SimpleConsumerClassMapper;
     shadow: ShadowAppearanceClassMapper;
   };
-  layout: DefaultLayoutClassMappers & {
+  layout: DefaultSizedLayoutClassMappers & {
     wrap: WrapClassMapper;
     direction: DirectionClassMapper;
     border: BorderClassMapper;
     ring: RingClassMapper;
     radius: RadiusClassMapper;
-    width: WidthClassMapper;
-    height: HeightClassMapper;
   };
   typography: {
     textAlign: TextAlignClassMapper;

@@ -1,4 +1,4 @@
-import type { BaseTypographyComponentTheme, DefaultLayoutClassMappers, BaseComponentTheme } from "./ComponentTheme";
+import type { BaseTypographyComponentTheme, DefaultSizedLayoutClassMappers, BaseComponentTheme } from "./ComponentTheme";
 import type { FontSizeClassMapper } from "../size/fontSizeClassMapper";
 import type { LineHeightClassMapper } from "../size/lineHeightClassMapper";
 import type { GapClassMapper } from "../size/gapClassMapper";
@@ -14,8 +14,6 @@ import type { DirectionClassMapper } from "../layout/directionClassMapper";
 import type { CursorClassMapper } from "../layout/cursorClassMapper";
 import type { TransitionClassMapper } from "../layout/transitionClassMapper";
 import type { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
-import type { WidthClassMapper } from "../layout/widthClassMapper";
-import type { HeightClassMapper } from "../layout/heightClassMapper";
 import type { SimpleConsumerClassMapper } from "../appearance/simpleConsumerClassMapper";
 import type { ShadowAppearanceClassMapper } from "../appearance/shadowAppearanceClassMapper";
 import type { TextAlignClassMapper } from "../typography/textAlignClassMapper";
@@ -46,7 +44,7 @@ export interface InteractiveAppearanceClassMappers {
 /**
  * Layout theme structure for interactive components.
  */
-export interface InteractiveLayoutClassMappers extends DefaultLayoutClassMappers {
+export interface InteractiveLayoutClassMappers extends DefaultSizedLayoutClassMappers {
   border: BorderClassMapper;
   ring: RingClassMapper;
   focusVisible: FocusVisibleClassMapper;
@@ -56,8 +54,6 @@ export interface InteractiveLayoutClassMappers extends DefaultLayoutClassMappers
   cursor: CursorClassMapper;
   transition: TransitionClassMapper;
   whitespace: WhitespaceClassMapper;
-  width: WidthClassMapper;
-  height: HeightClassMapper;
 }
 
 /**
@@ -98,14 +94,12 @@ export interface LayoutAppearanceClassMappers {
 /**
  * Layout theme structure for layout components.
  */
-export interface LayoutLayoutClassMappers extends DefaultLayoutClassMappers {
+export interface LayoutLayoutClassMappers extends DefaultSizedLayoutClassMappers {
   wrap: WrapClassMapper;
   direction: DirectionClassMapper;
   border: BorderClassMapper;
   ring: RingClassMapper;
   radius: RadiusClassMapper;
-  width: WidthClassMapper;
-  height: HeightClassMapper;
 }
 
 /**

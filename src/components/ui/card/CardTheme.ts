@@ -1,7 +1,7 @@
 import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
 import type {
   BaseTypographyComponentTheme,
-  DefaultLayoutClassMappers,
+  DefaultSizedLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
 import type { GapClassMapper } from "../theme/size/gapClassMapper";
@@ -14,8 +14,6 @@ import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsum
 import type { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
 import type { RingClassMapper } from "../theme/layout/ringClassMapper";
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
-import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 import type { CursorClassMapper } from "../theme/layout/cursorClassMapper";
 
 export interface CardTheme extends BaseTypographyComponentTheme {
@@ -25,7 +23,7 @@ export interface CardTheme extends BaseTypographyComponentTheme {
     lineHeight: LineHeightClassMapper;
     gap: GapClassMapper;
   };
-  layout: DefaultLayoutClassMappers & {
+  layout: DefaultSizedLayoutClassMappers & {
     border: BorderClassMapper;
     radius: RadiusClassMapper;
     ring: RingClassMapper;
@@ -33,8 +31,6 @@ export interface CardTheme extends BaseTypographyComponentTheme {
     direction: DirectionClassMapper;
     breakpoint: BreakpointClassMapper;
     shadow: ShadowAppearanceClassMapper;
-    width: WidthClassMapper;
-    height: HeightClassMapper;
     cursor: CursorClassMapper;
   };
   appearance: {

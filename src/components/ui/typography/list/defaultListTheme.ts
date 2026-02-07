@@ -1,6 +1,6 @@
 import {
   ComponentTheme,
-  defaultLayoutClassMappers,
+  defaultSizedLayoutClassMappers,
   defaultTypographyClassMappers
 } from "../../theme/common/ComponentTheme";
 import type { ListProps } from "./ListProps";
@@ -9,8 +9,6 @@ import { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
 import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import { PlClassMapper } from "../../theme/size/plClassMapper";
 import { ListStyleClassMapper } from "../../theme/list/listStyleClassMapper";
-import { WidthClassMapper } from "../../theme/layout/widthClassMapper";
-import { HeightClassMapper } from "../../theme/layout/heightClassMapper";
 import { textAppearance } from "../../theme/common/appearanceClassMappers";
 import { LIST_CATEGORIES } from "../common/TypographyCategories";
 import { listDefaults } from "./listDefaults";
@@ -29,11 +27,7 @@ export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new Compon
       text: textAppearance,
     },
     typography: defaultTypographyClassMappers,
-    layout: {
-      ...defaultLayoutClassMappers,
-      width: new WidthClassMapper(),
-      height: new HeightClassMapper(),
-    },
+    layout: defaultSizedLayoutClassMappers,
     listStyle: new ListStyleClassMapper(),
   },
   listDefaults,

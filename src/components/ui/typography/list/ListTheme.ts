@@ -1,14 +1,12 @@
 import type {
   BaseTypographyComponentTheme,
-  DefaultLayoutClassMappers,
+  DefaultSizedLayoutClassMappers,
 } from "../../theme/common/ComponentTheme";
 import type { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
 import type { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import type { PlClassMapper } from "../../theme/size/plClassMapper";
 import type { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
 import type { ListStyleClassMapper } from "../../theme/list/listStyleClassMapper";
-import type { WidthClassMapper } from "../../theme/layout/widthClassMapper";
-import type { HeightClassMapper } from "../../theme/layout/heightClassMapper";
 
 export interface ListTheme extends BaseTypographyComponentTheme {
   size: {
@@ -19,9 +17,6 @@ export interface ListTheme extends BaseTypographyComponentTheme {
   appearance: {
     text: SimpleConsumerClassMapper;
   };
-  layout: DefaultLayoutClassMappers & {
-    width: WidthClassMapper;
-    height: HeightClassMapper;
-  };
+  layout: DefaultSizedLayoutClassMappers;
   listStyle: ListStyleClassMapper;
 }

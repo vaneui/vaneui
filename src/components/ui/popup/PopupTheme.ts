@@ -1,6 +1,6 @@
 import type {
   BaseTypographyComponentTheme,
-  DefaultLayoutClassMappers,
+  DefaultSizedLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { GapClassMapper } from "../theme/size/gapClassMapper";
 import type { PxClassMapper } from "../theme/size/pxClassMapper";
@@ -12,8 +12,6 @@ import type { RingClassMapper } from "../theme/layout/ringClassMapper";
 import type { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 
 export interface PopupTheme extends BaseTypographyComponentTheme {
   size: {
@@ -21,15 +19,13 @@ export interface PopupTheme extends BaseTypographyComponentTheme {
     py: PyClassMapper;
     gap: GapClassMapper;
   };
-  layout: DefaultLayoutClassMappers & {
+  layout: DefaultSizedLayoutClassMappers & {
     radius: RadiusClassMapper;
     direction: DirectionClassMapper;
     border: BorderClassMapper;
     ring: RingClassMapper;
     transition: TransitionClassMapper;
     shadow: ShadowAppearanceClassMapper;
-    width: WidthClassMapper;
-    height: HeightClassMapper;
   };
   appearance: {
     background: SimpleConsumerClassMapper;

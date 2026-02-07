@@ -1,13 +1,11 @@
 import {
   ComponentTheme,
-  defaultLayoutClassMappers,
+  defaultSizedLayoutClassMappers,
 } from "../theme/common/ComponentTheme";
 import type { OverlayProps } from "./OverlayProps";
 import { BlurClassMapper } from "../theme/layout/blurClassMapper";
 import { PointerEventsClassMapper } from "../theme/layout/pointerEventsClassMapper";
 import { RingClassMapper } from "../theme/layout/ringClassMapper";
-import { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import { HeightClassMapper } from "../theme/layout/heightClassMapper";
 import { ringAppearance, shadowLayoutAppearance } from "../theme/common/appearanceClassMappers";
 import { OVERLAY_CATEGORIES } from "./OverlayCategories";
 import type { OverlayTheme } from "./OverlayTheme";
@@ -35,13 +33,11 @@ export const defaultOverlayTheme = new ComponentTheme<OverlayProps, OverlayTheme
   'vane-overlay inset-0 z-50 bg-(--overlay-bg)',
   {
     layout: {
-      ...defaultLayoutClassMappers,
+      ...defaultSizedLayoutClassMappers,
       blur: new BlurClassMapper(),
       pointerEvents: new PointerEventsClassMapper(),
       ring: new RingClassMapper(),
       shadow: shadowLayoutAppearance,
-      width: new WidthClassMapper(),
-      height: new HeightClassMapper(),
     },
     appearance: {
       ring: ringAppearance,

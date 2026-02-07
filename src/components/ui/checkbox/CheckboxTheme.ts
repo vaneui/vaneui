@@ -1,6 +1,6 @@
 import type {
   BaseComponentTheme,
-  DefaultLayoutClassMappers
+  DefaultSizedLayoutClassMappers
 } from "../theme/common/ComponentTheme";
 import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
 import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
@@ -13,8 +13,6 @@ import type { SizeClassMapper } from "../theme/size/sizeClassMapper";
 import type { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
 import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
 import type { StatusClassMapper } from "../theme/appearance/statusClassMapper";
-import type { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import type { HeightClassMapper } from "../theme/layout/heightClassMapper";
 
 /** Theme interface for checkbox input element */
 export interface CheckboxTheme extends BaseComponentTheme {
@@ -22,15 +20,13 @@ export interface CheckboxTheme extends BaseComponentTheme {
     size: SizeClassMapper;
     text: FontSizeClassMapper;
   };
-  layout: DefaultLayoutClassMappers & {
+  layout: DefaultSizedLayoutClassMappers & {
     border: BorderClassMapper;
     ring: RingClassMapper;
     focusVisible: FocusVisibleClassMapper;
     cursor: CursorClassMapper;
     transition: TransitionClassMapper;
     radius: RadiusClassMapper;
-    width: WidthClassMapper;
-    height: HeightClassMapper;
   };
   appearance: {
     accent: SimpleConsumerClassMapper;
