@@ -20,17 +20,53 @@
     "typescript"
   ],
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/types/index.d.mts",
+        "default": "./dist/esm/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    },
+    "./layout": {
+      "import": {
+        "types": "./dist/types/components/ui/layout.d.mts",
+        "default": "./dist/esm/components/ui/layout.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/layout.d.ts",
+        "default": "./dist/cjs/components/ui/layout.cjs"
+      }
+    },
+    "./theme": {
+      "import": {
+        "types": "./dist/types/components/themeContext.d.mts",
+        "default": "./dist/esm/components/themeContext.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/themeContext.d.ts",
+        "default": "./dist/cjs/components/themeContext.cjs"
+      }
+    },
+    "./*": {
+      "import": {
+        "types": "./dist/types/components/ui/*/index.d.mts",
+        "default": "./dist/esm/components/ui/*/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/*/index.d.ts",
+        "default": "./dist/cjs/components/ui/*/index.cjs"
+      }
     },
     "./vars": {
       "import": "./dist/vars.css",
@@ -46,13 +82,16 @@
     "clean": "rimraf dist",
     "type-check": "tsc --noEmit",
     "lint": "eslint src playground --ext .ts,.tsx",
-    "build:declarations": "tsc --project tsconfig.build.json --emitDeclarationOnly",
-    "build:js": "npm run type-check && npm run lint && npm run clean && rollup -c --bundleConfigAsCjs && npm run build:declarations",
+    "build:declarations": "tsc --project tsconfig.build.json --emitDeclarationOnly --declarationDir dist/types && tsx scripts/generateDualTypes.ts",
+    "build:js": "npm run type-check && npm run lint && npm run clean && rollup -c && npm run build:declarations",
     "build:css:vars": "npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css",
     "build:css:ui": "npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css",
     "build": "npm run props:generate && npm run clean && npm run build:js && npm run build:css:ui && npm run build:css:vars",
     "test": "tsc --noEmit && node node_modules/jest/bin/jest.js",
     "playground": "npm run build:css:ui && npm run build:css:vars && concurrently --kill-others --raw \"npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css --watch\" \"npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css --watch\" \"cd playground && npm run dev\""
+  },
+  "dependencies": {
+    "tailwind-merge": "^3.0.2"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0",
@@ -82,8 +121,7 @@
     "react-dom": "^19.1.0",
     "rimraf": "^5.0.10",
     "rollup": "^4.34.9",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup-plugin-esbuild": "^6.2.1",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.14",
     "ts-jest": "^29.3.1",
