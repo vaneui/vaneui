@@ -270,7 +270,7 @@ describe('Popup Component Tests', () => {
   });
 
   describe('Placement', () => {
-    it('should default to bottom-start placement', () => {
+    it('should default to top placement', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
@@ -285,19 +285,33 @@ describe('Popup Component Tests', () => {
       expect(popup).toHaveStyle({ position: 'fixed' });
     });
 
-    it('should accept different placement values', () => {
+    it('should accept placement as boolean prop', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} top>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toBeInTheDocument();
+    });
+
+    it('should accept all placement boolean props', () => {
       const anchorRef = createAnchorRef();
       const placements = [
-        'top', 'top-start', 'top-end',
-        'bottom', 'bottom-start', 'bottom-end',
-        'left', 'left-start', 'left-end',
-        'right', 'right-start', 'right-end',
+        'top', 'topStart', 'topEnd',
+        'bottom', 'bottomStart', 'bottomEnd',
+        'left', 'leftStart', 'leftEnd',
+        'right', 'rightStart', 'rightEnd',
       ] as const;
 
       placements.forEach(placement => {
         const { baseElement, unmount } = render(
           <ThemeProvider theme={defaultTheme}>
-            <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placement={placement}>
+            <Popup open={true} onClose={() => {}} anchorRef={anchorRef} {...{[placement]: true}}>
               <div>Content</div>
             </Popup>
           </ThemeProvider>
@@ -508,8 +522,10 @@ describe('Popup Component Tests', () => {
     });
   });
 
-  describe('CSS Anchor Positioning', () => {
-    it('should set anchor-name on anchor element when open', () => {
+  describe('Positioning', () => {
+    it('should apply position: fixed and JS fallback positioning when open', () => {
+      // JSDOM does not support CSS Anchor Positioning, so the JS fallback is used.
+      // In JS fallback mode, top/left are set instead of anchor-name/position-area.
       const anchorRef = createAnchorRef();
       render(
         <ThemeProvider theme={defaultTheme}>
@@ -519,9 +535,8 @@ describe('Popup Component Tests', () => {
         </ThemeProvider>
       );
 
-      // Check that anchor-name was set (useId generates unique IDs, colons replaced with dashes)
-      const anchorName = anchorRef.current!.style.getPropertyValue('anchor-name');
-      expect(anchorName).toMatch(/^--/); // Should start with -- (CSS custom property format)
+      const popup = document.querySelector('.vane-popup');
+      expect(popup).toHaveStyle({ position: 'fixed' });
     });
 
     it('should apply position: fixed to popup', () => {

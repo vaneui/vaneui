@@ -22,22 +22,8 @@ import type {
   TransitionProps,
   WidthProps,
   HeightProps,
+  PlacementProps,
 } from '../props';
-
-/** Popup placement relative to anchor */
-export type PopupPlacement =
-  | 'top'
-  | 'top-start'
-  | 'top-end'
-  | 'bottom'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'left'
-  | 'left-start'
-  | 'left-end'
-  | 'right'
-  | 'right-start'
-  | 'right-end';
 
 /**
  * Popup component props
@@ -64,6 +50,7 @@ export type PopupProps = BaseProps &
   TransitionProps &
   WidthProps &
   HeightProps &
+  PlacementProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
     /** Whether popup is open */
     open: boolean;
@@ -71,8 +58,6 @@ export type PopupProps = BaseProps &
     onClose?: () => void;
     /** Reference to anchor element */
     anchorRef: React.RefObject<HTMLElement | null>;
-    /** Placement relative to anchor (default: 'bottom-start') */
-    placement?: PopupPlacement;
     /** Offset from anchor in pixels (default: 4) */
     offset?: number;
     /** Close when pressing Escape (default: true) */

@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-02-07T17:19:58.602Z
+ * Generated on: 2026-02-08T12:19:29.714Z
  */
 
 export interface PropDescription {
@@ -487,6 +487,48 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "noPadding": {
         "description": "Disable internal padding"
+      }
+    }
+  },
+  "placement": {
+    "name": "Placement",
+    "description": "Placement props for positioning floating elements relative to their anchor",
+    "props": {
+      "top": {
+        "description": "Position above anchor, centered horizontally"
+      },
+      "topStart": {
+        "description": "Position above anchor, aligned to start (left)"
+      },
+      "topEnd": {
+        "description": "Position above anchor, aligned to end (right)"
+      },
+      "bottom": {
+        "description": "Position below anchor, centered horizontally"
+      },
+      "bottomStart": {
+        "description": "Position below anchor, aligned to start (left) (default)"
+      },
+      "bottomEnd": {
+        "description": "Position below anchor, aligned to end (right)"
+      },
+      "left": {
+        "description": "Position to the left of anchor, centered vertically"
+      },
+      "leftStart": {
+        "description": "Position to the left of anchor, aligned to top"
+      },
+      "leftEnd": {
+        "description": "Position to the left of anchor, aligned to bottom"
+      },
+      "right": {
+        "description": "Position to the right of anchor, centered vertically"
+      },
+      "rightStart": {
+        "description": "Position to the right of anchor, aligned to top"
+      },
+      "rightEnd": {
+        "description": "Position to the right of anchor, aligned to bottom"
       }
     }
   },

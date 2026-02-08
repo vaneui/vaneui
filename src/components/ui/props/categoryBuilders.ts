@@ -55,6 +55,8 @@ export const HEIGHT = ['height'] as const;
 export const STATUS = ['status'] as const;
 /** Orientation property for divider direction */
 export const ORIENTATION = ['orientation'] as const;
+/** Placement property for floating element positioning */
+export const PLACEMENT = ['placement'] as const;
 
 /** Composite categories built from core blocks */
 /** Complete layout category including core and flex properties */

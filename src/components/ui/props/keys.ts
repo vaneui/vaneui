@@ -24,6 +24,7 @@ import {
   VISUAL_FULL,
   VISUAL_LAYOUT,
   TYPOGRAPHY_FULL,
+  PLACEMENT,
 } from './categoryBuilders';
 
 // Re-export for backward compatibility
@@ -51,6 +52,7 @@ export {
   VISUAL_FULL,
   VISUAL_LAYOUT,
   TYPOGRAPHY_FULL,
+  PLACEMENT,
 };
 
 // Import component-specific categories from their folders
@@ -147,6 +149,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...STATUS,
   ...ORIENTATION,
   ...LETTER_SPACING,
+  ...PLACEMENT,
 ] as const;
 
 /**
@@ -249,6 +252,8 @@ export const ComponentKeys = {
   height: ['hFit', 'hFull', 'hAuto'] as const,
   /** Letter spacing for text tracking */
   letterSpacing: ['trackingTighter', 'trackingTight', 'trackingNormal', 'trackingWide', 'trackingWider', 'trackingWidest'] as const,
+  /** Placement position for floating elements (popups, tooltips, dropdowns) */
+  placement: ['top', 'topStart', 'topEnd', 'bottom', 'bottomStart', 'bottomEnd', 'left', 'leftStart', 'leftEnd', 'right', 'rightStart', 'rightEnd'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -317,6 +322,8 @@ export type OrientationKey = typeof ComponentKeys.orientation[number];
 export type HeightKey = typeof ComponentKeys.height[number];
 /** Letter spacing keys for text tracking */
 export type LetterSpacingKey = typeof ComponentKeys.letterSpacing[number];
+/** Placement position keys for floating elements */
+export type PlacementKey = typeof ComponentKeys.placement[number];
 
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];

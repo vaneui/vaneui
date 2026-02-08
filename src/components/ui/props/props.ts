@@ -77,3 +77,6 @@ export * from './heightProps';
 
 // Letter Spacing
 export * from './letterSpacingProps';
+
+// Placement
+export * from './placementProps';

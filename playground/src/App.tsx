@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -7,39 +7,322 @@ import {
   Col,
   Title,
   Section,
+  Stack,
   Card, Checkbox, Label, Link, Input, Button,
   Container, Badge, Divider, Chip, Code, PageTitle, Grid2,
   Modal, Overlay, Popup
 } from '../../src';
 import { ColorTable } from './ColorTable';
 
+// ─── Popup Demos (same as vaneui-web docs) ─────────────────────────────────
+
+function BasicPopupDemo() {
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  return (
+    <div>
+      <Button primary ref={anchorRef} onClick={() => setOpen(!open)}>Toggle Popup</Button>
+      <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
+        <Text bold>Popup Content</Text>
+        <Text sm>This popup appears above the button.</Text>
+      </Popup>
+    </div>
+  );
+}
+
+function PlacementPopupDemo() {
+  const [openPlacement, setOpenPlacement] = useState<string | null>(null);
+  const refs = {
+    top: useRef<HTMLButtonElement>(null),
+    topStart: useRef<HTMLButtonElement>(null),
+    topEnd: useRef<HTMLButtonElement>(null),
+    bottom: useRef<HTMLButtonElement>(null),
+    bottomStart: useRef<HTMLButtonElement>(null),
+    bottomEnd: useRef<HTMLButtonElement>(null),
+    left: useRef<HTMLButtonElement>(null),
+    leftStart: useRef<HTMLButtonElement>(null),
+    leftEnd: useRef<HTMLButtonElement>(null),
+    right: useRef<HTMLButtonElement>(null),
+    rightStart: useRef<HTMLButtonElement>(null),
+    rightEnd: useRef<HTMLButtonElement>(null),
+  };
+
+  const groups = [
+    { label: 'Top', placements: ['top', 'topStart', 'topEnd'] as const },
+    { label: 'Bottom', placements: ['bottom', 'bottomStart', 'bottomEnd'] as const },
+    { label: 'Left', placements: ['left', 'leftStart', 'leftEnd'] as const },
+    { label: 'Right', placements: ['right', 'rightStart', 'rightEnd'] as const },
+  ];
+
+  return (
+    <Row flexWrap justifyCenter>
+      {groups.map(({ label, placements }) => (
+        <Card key={label} sm>
+          <Text sm bold>{label}</Text>
+          <Row>
+            {placements.map((key) => (
+              <div key={key}>
+                <Button
+                  ref={refs[key]}
+                  xs
+                  onClick={() => setOpenPlacement(openPlacement === key ? null : key)}
+                >
+                  {key}
+                </Button>
+                <Popup
+                  open={openPlacement === key}
+                  onClose={() => setOpenPlacement(null)}
+                  anchorRef={refs[key]}
+                  {...{[key]: true}}
+                >
+                  <Text sm>{key}</Text>
+                </Popup>
+              </div>
+            ))}
+          </Row>
+        </Card>
+      ))}
+    </Row>
+  );
+}
+
+function MatchWidthPopupDemo() {
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  return (
+    <div>
+      <Button primary ref={anchorRef} onClick={() => setOpen(!open)} style={{ width: 250 }}>
+        Select an option
+      </Button>
+      <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef} matchWidth noGap>
+        <Button sm secondary noShadow noRing justifyStart onClick={() => setOpen(false)}>Option 1</Button>
+        <Button sm secondary noShadow noRing justifyStart onClick={() => setOpen(false)}>Option 2</Button>
+        <Button sm secondary noShadow noRing justifyStart onClick={() => setOpen(false)}>Option 3</Button>
+      </Popup>
+    </div>
+  );
+}
+
+function PopupWithContentDemo() {
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  return (
+    <div>
+      <Button primary ref={anchorRef} onClick={() => {
+        console.log("CLICK")
+        setOpen(!open)}
+      }>User Menu</Button>
+      <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
+        <Text bold>John Doe</Text>
+        <Text sm secondary>john@example.com</Text>
+        <Row sm>
+          <Button sm>Profile</Button>
+          <Button sm>Settings</Button>
+          <Button sm danger onClick={() => setOpen(false)}>Sign Out</Button>
+        </Row>
+      </Popup>
+    </div>
+  );
+}
+
+// ─── Modal Demos (same as vaneui-web docs) ──────────────────────────────────
+
+function BasicModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Open Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <Stack lg>
+          <Text bold lg>Confirm Action</Text>
+          <Text>Are you sure you want to proceed? This action cannot be undone.</Text>
+          <Row justifyEnd>
+            <Button sm onClick={() => setOpen(false)}>Cancel</Button>
+            <Button sm primary filled onClick={() => setOpen(false)}>Confirm</Button>
+          </Row>
+        </Stack>
+      </Modal>
+    </div>
+  );
+}
+
+function ModalSizesDemo() {
+  const [openSm, setOpenSm] = useState(false);
+  const [openLg, setOpenLg] = useState(false);
+  return (
+    <Row>
+      <Button primary onClick={() => setOpenSm(true)}>Small Modal</Button>
+      <Button primary onClick={() => setOpenLg(true)}>Large Modal</Button>
+      <Modal open={openSm} onClose={() => setOpenSm(false)} sm>
+        <Stack>
+          <Text bold>Small Modal</Text>
+          <Text>Compact content area.</Text>
+          <Button sm onClick={() => setOpenSm(false)}>Close</Button>
+        </Stack>
+      </Modal>
+      <Modal open={openLg} onClose={() => setOpenLg(false)} lg>
+        <Stack>
+          <Text bold>Large Modal</Text>
+          <Text>A wider content area for more complex content.</Text>
+          <Button sm onClick={() => setOpenLg(false)}>Close</Button>
+        </Stack>
+      </Modal>
+    </Row>
+  );
+}
+
+function FormModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Open Form Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)}>
+        <Stack lg>
+          <Text bold lg>Create Account</Text>
+          <Stack>
+            <Label>Name</Label>
+            <Input placeholder="Enter your name" />
+          </Stack>
+          <Stack>
+            <Label>Email</Label>
+            <Input placeholder="Enter your email" />
+          </Stack>
+          <Checkbox>I agree to the terms and conditions</Checkbox>
+          <Row justifyEnd>
+            <Button sm onClick={() => setOpen(false)}>Cancel</Button>
+            <Button sm primary filled onClick={() => setOpen(false)}>Create</Button>
+          </Row>
+        </Stack>
+      </Modal>
+    </div>
+  );
+}
+
+function BlurModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Modal with Blur</Button>
+      <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ blur: true }}>
+        <Stack lg>
+          <Text bold lg>Blurred Background</Text>
+          <Text>The overlay behind this modal uses a blur effect.</Text>
+          <Button sm primary filled onClick={() => setOpen(false)}>Close</Button>
+        </Stack>
+      </Modal>
+    </div>
+  );
+}
+
+function NonDismissibleModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Non-dismissible Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} closeOnOverlayClick={false} closeOnEscape={false}>
+        <Stack lg>
+          <Text bold lg>Important Notice</Text>
+          <Text>This modal cannot be closed by clicking outside or pressing Escape. You must use the button below.</Text>
+          <Button sm primary filled onClick={() => setOpen(false)}>I Understand</Button>
+        </Stack>
+      </Modal>
+    </div>
+  );
+}
+
+function AppearanceModalDemo() {
+  const [openPrimary, setOpenPrimary] = useState(false);
+  const [openDanger, setOpenDanger] = useState(false);
+  return (
+    <Row>
+      <Button primary onClick={() => setOpenPrimary(true)}>Primary Modal</Button>
+      <Button danger onClick={() => setOpenDanger(true)}>Danger Modal</Button>
+      <Modal open={openPrimary} onClose={() => setOpenPrimary(false)} primary filled>
+        <Stack lg>
+          <Text bold lg>Primary Modal</Text>
+          <Text>This modal uses the primary appearance with filled variant.</Text>
+          <Button sm onClick={() => setOpenPrimary(false)}>Close</Button>
+        </Stack>
+      </Modal>
+      <Modal open={openDanger} onClose={() => setOpenDanger(false)} danger filled>
+        <Stack lg>
+          <Text bold lg>Danger Modal</Text>
+          <Text>This modal uses the danger appearance for destructive actions.</Text>
+          <Button sm onClick={() => setOpenDanger(false)}>Close</Button>
+        </Stack>
+      </Modal>
+    </Row>
+  );
+}
+
+// ─── Overlay Demos (same as vaneui-web docs) ────────────────────────────────
+
+function BasicOverlayDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Show Overlay</Button>
+      <Overlay open={open} onClose={() => setOpen(false)}>
+        <Text xl bold filled>Click anywhere to close</Text>
+      </Overlay>
+    </div>
+  );
+}
+
+function OverlayWithContentDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Show Overlay with Content</Button>
+      <Overlay open={open} onClose={() => setOpen(false)}>
+        <Card lg onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+          <Stack>
+            <Text bold>Overlay Content</Text>
+            <Text>This card is centered inside the overlay. Click outside the card to close.</Text>
+            <Button primary sm onClick={() => setOpen(false)}>Close</Button>
+          </Stack>
+        </Card>
+      </Overlay>
+    </div>
+  );
+}
+
+function BlurOverlayDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Show Blur Overlay</Button>
+      <Overlay open={open} onClose={() => setOpen(false)} blur>
+        <Text xl bold filled>Blurred Background</Text>
+      </Overlay>
+    </div>
+  );
+}
+
+function NonDismissibleOverlayDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Show Loading Overlay</Button>
+      <Overlay open={open} pointerEventsNone>
+        <Stack itemsCenter>
+          <Text xl bold filled>Loading...</Text>
+          <Button sm danger onClick={() => setOpen(false)} style={{ pointerEvents: 'auto' }}>Cancel</Button>
+        </Stack>
+      </Overlay>
+    </div>
+  );
+}
+
+// ─── Main App ───────────────────────────────────────────────────────────────
+
 function App() {
-  // Modal state
-  const [basicModalOpen, setBasicModalOpen] = useState(false);
-  const [blurModalOpen, setBlurModalOpen] = useState(false);
-  const [largeModalOpen, setLargeModalOpen] = useState(false);
-  const [smallModalOpen, setSmallModalOpen] = useState(false);
-  const [noEscapeModalOpen, setNoEscapeModalOpen] = useState(false);
-
-  // Overlay state
-  const [basicOverlayOpen, setBasicOverlayOpen] = useState(false);
-  const [blurOverlayOpen, setBlurOverlayOpen] = useState(false);
-  const [loadingOverlayOpen, setLoadingOverlayOpen] = useState(false);
-
-  // Popup state
-  const [basicPopupOpen, setBasicPopupOpen] = useState(false);
-  const [topPopupOpen, setTopPopupOpen] = useState(false);
-  const [matchWidthPopupOpen, setMatchWidthPopupOpen] = useState(false);
-  const basicPopupAnchor = useRef<HTMLButtonElement>(null);
-  const topPopupAnchor = useRef<HTMLButtonElement>(null);
-  const matchWidthAnchor = useRef<HTMLDivElement>(null);
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Section className="w-full">
         <Container itemsCenter className="w-full">
           <PageTitle>VaneUI Component Library Examples</PageTitle>
-          
+
           {/* Grid with Border Example */}
           <Card>
             <Title>Grid with Border</Title>
@@ -293,208 +576,47 @@ function App() {
             </Row>
           </Card>
 
-          {/* Modal Examples */}
-          <Card>
-            <Title>Modal</Title>
-            <Text>Click buttons to open different modal variations:</Text>
-            <Row flexWrap>
-              <Button onClick={() => setBasicModalOpen(true)}>Basic Modal</Button>
-              <Button success onClick={() => setBlurModalOpen(true)}>Modal with Blur</Button>
-              <Button warning onClick={() => setLargeModalOpen(true)}>Large Modal (lg)</Button>
-              <Button info onClick={() => setSmallModalOpen(true)}>Small Modal (sm)</Button>
-              <Button danger onClick={() => setNoEscapeModalOpen(true)}>No Escape Close</Button>
-            </Row>
-          </Card>
-
-          {/* Basic Modal */}
-          <Modal open={basicModalOpen} onClose={() => setBasicModalOpen(false)}>
-            <Title>Basic Modal</Title>
-            <Text>This is a basic modal with default settings.</Text>
-            <Text secondary>Click outside or press Escape to close.</Text>
-            <Row justifyEnd>
-              <Button secondary onClick={() => setBasicModalOpen(false)}>Cancel</Button>
-              <Button filled onClick={() => setBasicModalOpen(false)}>Confirm</Button>
-            </Row>
-          </Modal>
-
-          {/* Modal with Blur Overlay */}
-          <Modal
-            open={blurModalOpen}
-            onClose={() => setBlurModalOpen(false)}
-            overlayProps={{ blur: true }}
-          >
-            <Title>Modal with Blur</Title>
-            <Text>The overlay behind this modal has a blur effect.</Text>
-            <Input placeholder="Enter something..." />
-            <Row justifyEnd>
-              <Button secondary onClick={() => setBlurModalOpen(false)}>Close</Button>
-              <Button filled success onClick={() => setBlurModalOpen(false)}>Save</Button>
-            </Row>
-          </Modal>
-
-          {/* Large Modal */}
-          <Modal open={largeModalOpen} onClose={() => setLargeModalOpen(false)} lg>
-            <Title lg>Large Modal</Title>
-            <Text>This modal uses the lg size prop for a wider layout.</Text>
-            <Text>Perfect for forms or content that needs more space.</Text>
-            <Col>
-              <Label>
-                Name
-                <Input placeholder="Enter your name" />
-              </Label>
-              <Label>
-                Email
-                <Input type="email" placeholder="Enter your email" />
-              </Label>
-              <Label>
-                Message
-                <Input placeholder="Enter your message" />
-              </Label>
-            </Col>
-            <Row justifyEnd>
-              <Button secondary onClick={() => setLargeModalOpen(false)}>Cancel</Button>
-              <Button filled onClick={() => setLargeModalOpen(false)}>Submit</Button>
-            </Row>
-          </Modal>
-
-          {/* Small Modal */}
-          <Modal open={smallModalOpen} onClose={() => setSmallModalOpen(false)} sm>
-            <Title sm>Confirm Delete</Title>
-            <Text sm>Are you sure you want to delete this item?</Text>
-            <Row justifyEnd>
-              <Button sm secondary onClick={() => setSmallModalOpen(false)}>Cancel</Button>
-              <Button sm filled danger onClick={() => setSmallModalOpen(false)}>Delete</Button>
-            </Row>
-          </Modal>
-
-          {/* Modal with closeOnEscape={false} */}
-          <Modal
-            open={noEscapeModalOpen}
-            onClose={() => setNoEscapeModalOpen(false)}
-            closeOnEscape={false}
-          >
-            <Title>No Escape Close</Title>
-            <Text>This modal does NOT close when pressing Escape key.</Text>
-            <Text secondary>You must click the button or overlay to close.</Text>
-            <Code>closeOnEscape=&#123;false&#125;</Code>
-            <Row justifyEnd>
-              <Button filled onClick={() => setNoEscapeModalOpen(false)}>Close</Button>
-            </Row>
-          </Modal>
-
-          {/* Overlay Examples */}
+          {/* ─── Overlay Examples ────────────────────────────────────────── */}
           <Card>
             <Title>Overlay</Title>
-            <Text>Overlays can be used independently for custom layouts:</Text>
             <Row flexWrap>
-              <Button onClick={() => setBasicOverlayOpen(true)}>Basic Overlay</Button>
-              <Button brand onClick={() => setBlurOverlayOpen(true)}>Overlay with Blur</Button>
-              <Button accent onClick={() => {
-                setLoadingOverlayOpen(true);
-                setTimeout(() => setLoadingOverlayOpen(false), 2000);
-              }}>Loading Overlay (2s)</Button>
+              <BasicOverlayDemo />
+              <OverlayWithContentDemo />
+              <BlurOverlayDemo />
+              <NonDismissibleOverlayDemo />
             </Row>
           </Card>
 
-          {/* Basic Overlay */}
-          <Overlay open={basicOverlayOpen} onClose={() => setBasicOverlayOpen(false)}>
-            <Card className="max-w-md">
-              <Title>Custom Overlay Content</Title>
-              <Text>This uses Overlay directly with a Card inside.</Text>
-              <Text secondary>Click the dark area to close.</Text>
-              <Button filled onClick={() => setBasicOverlayOpen(false)}>Close</Button>
-            </Card>
-          </Overlay>
-
-          {/* Overlay with Blur */}
-          <Overlay open={blurOverlayOpen} onClose={() => setBlurOverlayOpen(false)} blur>
-            <Card className="max-w-md">
-              <Title>Blurred Overlay</Title>
-              <Text>The background has a blur effect applied.</Text>
-              <Row flexWrap>
-                <Badge success filled>Status: Active</Badge>
-                <Chip>Tag</Chip>
-              </Row>
-              <Button filled onClick={() => setBlurOverlayOpen(false)}>Got it</Button>
-            </Card>
-          </Overlay>
-
-          {/* Loading Overlay */}
-          <Overlay open={loadingOverlayOpen} blur pointerEventsNone>
-            <Card className="max-w-xs">
-              <Row>
-                <Text>Loading...</Text>
-              </Row>
-            </Card>
-          </Overlay>
-
-          {/* Popup Examples */}
+          {/* ─── Modal Examples ──────────────────────────────────────────── */}
           <Card>
-            <Title>Popup (CSS Anchor Positioning)</Title>
-            <Text>Popups use CSS Anchor Positioning API for modern, performant positioning.</Text>
-            <Text secondary sm>Note: Requires Chrome 125+ or Edge 125+. Other browsers need polyfill.</Text>
+            <Title>Modal</Title>
             <Row flexWrap>
-              <Button ref={basicPopupAnchor} onClick={() => setBasicPopupOpen(!basicPopupOpen)}>
-                {basicPopupOpen ? 'Close' : 'Open'} Dropdown
-              </Button>
-              <Button ref={topPopupAnchor} brand onClick={() => setTopPopupOpen(!topPopupOpen)}>
-                {topPopupOpen ? 'Close' : 'Open'} Tooltip (Top)
-              </Button>
+              <BasicModalDemo />
+              <ModalSizesDemo />
+              <FormModalDemo />
+              <BlurModalDemo />
+              <NonDismissibleModalDemo />
+              <AppearanceModalDemo />
             </Row>
-            <Col ref={matchWidthAnchor} className="w-64">
-              <Label>
-                Select Option
-                <Input
-                  placeholder="Click to see options..."
-                  readOnly
-                  onClick={() => setMatchWidthPopupOpen(!matchWidthPopupOpen)}
-                />
-              </Label>
-            </Col>
           </Card>
 
-          {/* Basic Popup (Dropdown style) */}
-          <Popup
-            open={basicPopupOpen}
-            onClose={() => setBasicPopupOpen(false)}
-            anchorRef={basicPopupAnchor}
-            placement="bottom-start"
-          >
-            <Col noPadding noGap>
-              <Button secondary transparent noShadow className="justify-start" onClick={() => setBasicPopupOpen(false)}>Option 1</Button>
-              <Button secondary transparent noShadow className="justify-start" onClick={() => setBasicPopupOpen(false)}>Option 2</Button>
-              <Button secondary transparent noShadow className="justify-start" onClick={() => setBasicPopupOpen(false)}>Option 3</Button>
+          {/* ─── Popup Examples ──────────────────────────────────────────── */}
+          <Card>
+            <Title>Popup</Title>
+            <Col>
+              <Text secondary sm>Basic Popup:</Text>
+              <BasicPopupDemo />
               <Divider />
-              <Button danger transparent noShadow className="justify-start" onClick={() => setBasicPopupOpen(false)}>Delete</Button>
+              <Text secondary sm>Placement Options:</Text>
+              <PlacementPopupDemo />
+              <Divider />
+              <Text secondary sm>Match Anchor Width:</Text>
+              <MatchWidthPopupDemo />
+              <Divider />
+              <Text secondary sm>Rich Content Popup:</Text>
+              <PopupWithContentDemo />
             </Col>
-          </Popup>
-
-          {/* Top Popup (Tooltip style) */}
-          <Popup
-            open={topPopupOpen}
-            onClose={() => setTopPopupOpen(false)}
-            anchorRef={topPopupAnchor}
-            placement="top"
-            sm
-          >
-            <Text sm>This is a tooltip-style popup positioned above the anchor.</Text>
-          </Popup>
-
-          {/* Match Width Popup (Select style) */}
-          <Popup
-            open={matchWidthPopupOpen}
-            onClose={() => setMatchWidthPopupOpen(false)}
-            anchorRef={matchWidthAnchor}
-            placement="bottom-start"
-            matchWidth
-          >
-            <Col noPadding noGap>
-              <Button secondary transparent noShadow className="justify-start" onClick={() => setMatchWidthPopupOpen(false)}>Apple</Button>
-              <Button secondary transparent noShadow className="justify-start" onClick={() => setMatchWidthPopupOpen(false)}>Banana</Button>
-              <Button secondary transparent noShadow className="justify-start" onClick={() => setMatchWidthPopupOpen(false)}>Cherry</Button>
-              <Button secondary transparent noShadow className="justify-start" onClick={() => setMatchWidthPopupOpen(false)}>Date</Button>
-            </Col>
-          </Popup>
+          </Card>
 
         </Container>
       </Section>

@@ -12,7 +12,7 @@ export { Modal } from "./components/ui/modal";
 export { Popup } from "./components/ui/popup";
 export type { OverlayProps } from "./components/ui/overlay";
 export type { ModalProps } from "./components/ui/modal";
-export type { PopupProps, PopupPlacement } from "./components/ui/popup";
+export type { PopupProps } from "./components/ui/popup";
 export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card } from "./components/ui/layout";
 export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle, type TypographyProps, type LinkProps, type ListProps } from "./components/ui/typography";
 export {

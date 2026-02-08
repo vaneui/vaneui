@@ -1,8 +1,25 @@
-import React, { forwardRef, useRef, useEffect, useCallback, useId } from 'react';
+import React, { forwardRef, useRef, useEffect, useLayoutEffect, useCallback, useId } from 'react';
 import { createPortal } from 'react-dom';
-import type { PopupProps, PopupPlacement } from "./PopupProps";
+import type { PopupProps } from "./PopupProps";
 import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
+import { pickFirstTruthyKeyByCategory } from '../../utils/componentUtils';
+import { popupDefaults } from './popupDefaults';
+
+/** Internal placement type used by positioning functions */
+type PopupPlacement =
+  | 'top'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left'
+  | 'left-start'
+  | 'left-end'
+  | 'right'
+  | 'right-start'
+  | 'right-end';
 
 /**
  * Convert placement to CSS position-area value
@@ -10,23 +27,23 @@ import { ThemedComponent } from '../../themedComponent';
 function getPositionArea(placement: PopupPlacement): string {
   const map: Record<PopupPlacement, string> = {
     'top': 'block-start center',
-    'top-start': 'block-start start',
-    'top-end': 'block-start end',
+    'top-start': 'block-start inline-start',
+    'top-end': 'block-start inline-end',
     'bottom': 'block-end center',
-    'bottom-start': 'block-end start',
-    'bottom-end': 'block-end end',
+    'bottom-start': 'block-end inline-start',
+    'bottom-end': 'block-end inline-end',
     'left': 'center inline-start',
-    'left-start': 'start inline-start',
-    'left-end': 'end inline-start',
+    'left-start': 'block-start inline-start',
+    'left-end': 'block-end inline-start',
     'right': 'center inline-end',
-    'right-start': 'start inline-end',
-    'right-end': 'end inline-end',
+    'right-start': 'block-start inline-end',
+    'right-end': 'block-end inline-end',
   };
   return map[placement];
 }
 
 /**
- * Convert placement to margin property for offset
+ * Convert placement to margin property for offset (CSS Anchor Positioning path)
  */
 function getOffsetStyle(placement: PopupPlacement, offset: number): Record<string, string | number> {
   if (placement.startsWith('top')) {
@@ -45,16 +62,148 @@ function getOffsetStyle(placement: PopupPlacement, offset: number): Record<strin
 }
 
 /**
+ * Flip placement on the block axis (top↔bottom) preserving alignment suffix.
+ */
+function flipBlock(placement: PopupPlacement): PopupPlacement {
+  if (placement.startsWith('top')) return placement.replace('top', 'bottom') as PopupPlacement;
+  if (placement.startsWith('bottom')) return placement.replace('bottom', 'top') as PopupPlacement;
+  return placement;
+}
+
+/**
+ * Flip placement on the inline axis (left↔right) preserving alignment suffix.
+ */
+function flipInline(placement: PopupPlacement): PopupPlacement {
+  if (placement.startsWith('left')) return placement.replace('left', 'right') as PopupPlacement;
+  if (placement.startsWith('right')) return placement.replace('right', 'left') as PopupPlacement;
+  return placement;
+}
+
+/**
+ * Calculate raw popup position for a given placement (no clamping).
+ */
+function calcPosition(
+  anchorRect: DOMRect,
+  popupRect: DOMRect,
+  placement: PopupPlacement,
+  offset: number
+): { top: number; left: number } {
+  let top = 0;
+  let left = 0;
+
+  // Vertical position
+  if (placement.startsWith('top')) {
+    top = anchorRect.top - popupRect.height - offset;
+  } else if (placement.startsWith('bottom')) {
+    top = anchorRect.bottom + offset;
+  } else if (placement.startsWith('left') || placement.startsWith('right')) {
+    if (placement.endsWith('-start')) {
+      top = anchorRect.top;
+    } else if (placement.endsWith('-end')) {
+      top = anchorRect.bottom - popupRect.height;
+    } else {
+      top = anchorRect.top + (anchorRect.height - popupRect.height) / 2;
+    }
+  }
+
+  // Horizontal position
+  if (placement.startsWith('left')) {
+    left = anchorRect.left - popupRect.width - offset;
+  } else if (placement.startsWith('right')) {
+    left = anchorRect.right + offset;
+  } else if (placement.startsWith('top') || placement.startsWith('bottom')) {
+    if (placement.endsWith('-start')) {
+      left = anchorRect.left;
+    } else if (placement.endsWith('-end')) {
+      left = anchorRect.right - popupRect.width;
+    } else {
+      left = anchorRect.left + (anchorRect.width - popupRect.width) / 2;
+    }
+  }
+
+  return { top, left };
+}
+
+/**
+ * Check if a position overflows the viewport.
+ */
+function overflows(
+  pos: { top: number; left: number },
+  popupRect: DOMRect,
+): boolean {
+  return (
+    pos.top < 0 ||
+    pos.left < 0 ||
+    pos.top + popupRect.height > window.innerHeight ||
+    pos.left + popupRect.width > window.innerWidth
+  );
+}
+
+/**
+ * Calculate popup position with viewport collision handling.
+ * Mirrors CSS Anchor Positioning's flip-block, flip-inline fallback strategy:
+ * 1. Try original placement
+ * 2. Try flipping the block axis (top↔bottom)
+ * 3. Try flipping the inline axis (left↔right)
+ * 4. Fall back to original and clamp to viewport edges
+ */
+function getJsPosition(
+  anchorRect: DOMRect,
+  popupRect: DOMRect,
+  placement: PopupPlacement,
+  offset: number
+): { top: number; left: number } {
+  // Try original placement
+  const pos = calcPosition(anchorRect, popupRect, placement, offset);
+  if (!overflows(pos, popupRect)) return pos;
+
+  // Try flip-block (top↔bottom)
+  const flippedBlock = flipBlock(placement);
+  if (flippedBlock !== placement) {
+    const posBlock = calcPosition(anchorRect, popupRect, flippedBlock, offset);
+    if (!overflows(posBlock, popupRect)) return posBlock;
+  }
+
+  // Try flip-inline (left↔right)
+  const flippedInline = flipInline(placement);
+  if (flippedInline !== placement) {
+    const posInline = calcPosition(anchorRect, popupRect, flippedInline, offset);
+    if (!overflows(posInline, popupRect)) return posInline;
+  }
+
+  // None fit perfectly — use the best candidate and clamp to viewport
+  // Prefer block-flip for top/bottom placements, inline-flip for left/right
+  const bestPos = (flippedBlock !== placement)
+    ? calcPosition(anchorRect, popupRect, flippedBlock, offset)
+    : pos;
+
+  return {
+    top: Math.max(0, Math.min(bestPos.top, window.innerHeight - popupRect.height)),
+    left: Math.max(0, Math.min(bestPos.left, window.innerWidth - popupRect.width)),
+  };
+}
+
+// Cached feature detection
+let _supportsAnchorPositioning: boolean | null = null;
+function supportsAnchorPositioning(): boolean {
+  if (_supportsAnchorPositioning === null) {
+    _supportsAnchorPositioning = typeof CSS !== 'undefined' &&
+      typeof CSS.supports === 'function' &&
+      CSS.supports('position-area', 'top');
+  }
+  return _supportsAnchorPositioning;
+}
+
+/**
  * Popup component - a floating container anchored to an element.
  *
- * Uses CSS Anchor Positioning API for modern, performant positioning.
- * Ideal base for dropdowns, menus, comboboxes, and tooltips.
- *
- * Browser Support: Chrome 125+, Edge 125+. Other browsers will need
- * a polyfill or fallback positioning strategy.
+ * Uses CSS Anchor Positioning API with `position-try-fallbacks` for
+ * automatic viewport collision handling when supported, with a
+ * JavaScript positioning fallback for cross-browser support.
  *
  * Features:
- * - CSS-based positioning (no JavaScript positioning calculations)
+ * - CSS Anchor Positioning with flip-block/flip-inline fallbacks
+ * - JavaScript positioning fallback with flip + clamp for unsupported browsers
  * - Portal rendering (escapes parent z-index context)
  * - Click outside to close
  * - Escape key to close
@@ -90,7 +239,7 @@ function getOffsetStyle(placement: PopupPlacement, offset: number): Record<strin
  *   onClose={() => setOpen(false)}
  *   anchorRef={inputRef}
  *   matchWidth
- *   placement="bottom-start"
+ *   bottomStart
  * >
  *   <List>
  *     <ListItem>Option A</ListItem>
@@ -105,7 +254,7 @@ function getOffsetStyle(placement: PopupPlacement, offset: number): Record<strin
  * <Popup
  *   open={isHovered}
  *   anchorRef={targetRef}
- *   placement="top"
+ *   top
  *   closeOnClickOutside={false}
  *   sm
  * >
@@ -119,7 +268,6 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       open,
       onClose,
       anchorRef,
-      placement = 'bottom-start',
       offset = 4,
       closeOnEscape = true,
       closeOnClickOutside = true,
@@ -134,6 +282,22 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     const popupRef = useRef<HTMLDivElement>(null);
     const anchorName = useId().replace(/:/g, '-');
 
+    // Extract placement from boolean props (e.g. top, bottomStart, rightEnd)
+    const placementKey = pickFirstTruthyKeyByCategory(
+      props as Record<string, unknown>,
+      popupDefaults as Record<string, unknown>,
+      'placement'
+    ) || 'top';
+
+    // Convert camelCase key to hyphenated format for internal positioning functions
+    const placement = placementKey.replace(/([A-Z])/g, '-$1').toLowerCase() as PopupPlacement;
+
+    // Stable ref for onClose to prevent effect dependency churn
+    const onCloseRef = useRef(onClose);
+    useLayoutEffect(() => {
+      onCloseRef.current = onClose;
+    });
+
     // Merge forwarded ref with internal popupRef
     const mergedRef = useCallback(
       (node: HTMLDivElement | null) => {
@@ -147,60 +311,63 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       [ref]
     );
 
-    // Set anchor-name on anchor element using setProperty for CSS Anchor Positioning
-    useEffect(() => {
-      if (!open || !anchorRef.current) return;
-
-      const anchor = anchorRef.current;
-      const originalAnchorName = anchor.style.getPropertyValue('anchor-name');
-
-      // Set anchor-name CSS property
-      anchor.style.setProperty('anchor-name', `--${anchorName}`);
-
-      return () => {
-        if (originalAnchorName) {
-          anchor.style.setProperty('anchor-name', originalAnchorName);
-        } else {
-          anchor.style.removeProperty('anchor-name');
-        }
-      };
-    }, [open, anchorRef, anchorName]);
-
-    // Apply positioning styles to popup element
-    useEffect(() => {
-      if (!open || !popupRef.current) return;
+    // Combined positioning effect — useLayoutEffect prevents FOUC
+    // Uses CSS Anchor Positioning with flip fallbacks when supported, JS fallback otherwise
+    useLayoutEffect(() => {
+      if (!open || !popupRef.current || !anchorRef.current) return;
 
       const popup = popupRef.current;
+      const anchor = anchorRef.current;
 
-      // Set CSS Anchor Positioning properties
-      popup.style.setProperty('position', 'fixed');
-      popup.style.setProperty('position-anchor', `--${anchorName}`);
-      popup.style.setProperty('position-area', getPositionArea(placement));
+      popup.style.position = 'fixed';
 
-      // Set offset margins
-      const offsetStyles = getOffsetStyle(placement, offset);
-      Object.entries(offsetStyles).forEach(([key, value]) => {
-        popup.style.setProperty(
-          key.replace(/([A-Z])/g, '-$1').toLowerCase(),
-          typeof value === 'number' ? `${value}px` : value
-        );
-      });
+      if (supportsAnchorPositioning()) {
+        // CSS Anchor Positioning path with viewport collision handling
+        anchor.style.setProperty('anchor-name', `--${anchorName}`);
+        popup.style.setProperty('position-anchor', `--${anchorName}`);
+        popup.style.setProperty('position-area', getPositionArea(placement));
+        popup.style.setProperty('position-try-fallbacks', 'flip-block, flip-inline');
 
-      // Match anchor width if requested
-      if (matchWidth) {
-        popup.style.setProperty('width', 'anchor-size(width)');
+        // Offset margins
+        const offsetStyles = getOffsetStyle(placement, offset);
+        Object.entries(offsetStyles).forEach(([key, value]) => {
+          popup.style.setProperty(
+            key.replace(/([A-Z])/g, '-$1').toLowerCase(),
+            typeof value === 'number' ? `${value}px` : value
+          );
+        });
+
+        if (matchWidth) {
+          popup.style.setProperty('width', 'anchor-size(width)');
+        }
+      } else {
+        // JavaScript positioning fallback with flip + clamp
+        const anchorRect = anchor.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+        const pos = getJsPosition(anchorRect, popupRect, placement, offset);
+        popup.style.top = `${pos.top}px`;
+        popup.style.left = `${pos.left}px`;
+
+        if (matchWidth) {
+          popup.style.width = `${anchorRect.width}px`;
+        }
       }
 
       return () => {
+        anchor.style.removeProperty('anchor-name');
         popup.style.removeProperty('position');
         popup.style.removeProperty('position-anchor');
         popup.style.removeProperty('position-area');
+        popup.style.removeProperty('position-try-fallbacks');
+        popup.style.removeProperty('top');
+        popup.style.removeProperty('left');
         popup.style.removeProperty('width');
-        Object.keys(offsetStyles).forEach((key) => {
-          popup.style.removeProperty(key.replace(/([A-Z])/g, '-$1').toLowerCase());
-        });
+        popup.style.removeProperty('margin-top');
+        popup.style.removeProperty('margin-bottom');
+        popup.style.removeProperty('margin-left');
+        popup.style.removeProperty('margin-right');
       };
-    }, [open, anchorName, placement, offset, matchWidth]);
+    }, [open, anchorRef, anchorName, placementKey, offset, matchWidth]);
 
     // Escape key handler
     useEffect(() => {
@@ -209,13 +376,13 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
           event.preventDefault();
-          onClose?.();
+          onCloseRef.current?.();
         }
       };
 
       document.addEventListener('keydown', handleKeyDown);
       return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [open, closeOnEscape, onClose]);
+    }, [open, closeOnEscape]);
 
     // Click outside handler
     useEffect(() => {
@@ -231,7 +398,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
           return;
         }
 
-        onClose?.();
+        onCloseRef.current?.();
       };
 
       // Use setTimeout to avoid closing immediately on the click that opened it
@@ -243,7 +410,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         clearTimeout(timeoutId);
         document.removeEventListener('mousedown', handleClickOutside);
       };
-    }, [open, closeOnClickOutside, onClose, anchorRef]);
+    }, [open, closeOnClickOutside, anchorRef]);
 
     if (!open) return null;
 
