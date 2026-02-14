@@ -3,7 +3,7 @@
   "version": "0.9.0",
   "description": "A simple and lightweight UI component library for React, built with Tailwind CSS.",
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://vaneui.com/",
   "repository": {
     "type": "git",

@@ -1,6 +1,15 @@
 # Contributing to VaneUI
 
-This guide is for developers working on the VaneUI library itself. For information on how to use VaneUI components in your projects, see [CLAUDE.md](./CLAUDE.md).
+This guide is for developers working on the VaneUI library itself. For information on how to use VaneUI components in your projects, see the [README](./README.md) and the [documentation](https://vaneui.com/).
+
+## Getting Started
+
+```bash
+git clone <repo-url>
+cd vaneui
+npm install
+npm run playground   # Build CSS then start the Vite playground with hot reload
+```
 
 ## Common Commands
 
