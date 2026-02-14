@@ -1,7 +1,7 @@
 # VaneUI
 
 [![npm version](https://img.shields.io/npm/v/%40vaneui/ui.svg?style=flat)](https://www.npmjs.com/package/%40vaneui/ui)
-[![license](https://img.shields.io/npm/l/%40vaneui/ui.svg?style=flat)](https://github.com/vaneui/vaneui/blob/main/LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](./LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg?style=flat)](https://www.typescriptlang.org/)
 
 A React component library that turns design decisions into expressive boolean props. Instead of memorizing property names and values, you compose intent: `primary`, `lg`, `outline`, `rounded`.
