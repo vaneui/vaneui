@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useEffect, useLayoutEffect, useCallback, useId } from 'react';
+import { forwardRef, useRef, useEffect, useLayoutEffect, useCallback, useId } from 'react';
 import { createPortal } from 'react-dom';
 import type { PopupProps } from "./PopupProps";
 import { useTheme } from '../../themeContext';
@@ -311,11 +311,11 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     // Merge forwarded ref with internal popupRef
     const mergedRef = useCallback(
       (node: HTMLDivElement | null) => {
-        (popupRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+        popupRef.current = node;
         if (typeof ref === 'function') {
           ref(node);
         } else if (ref) {
-          (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+          ref.current = node;
         }
       },
       [ref]
@@ -429,8 +429,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     const content = (
       <ThemedComponent
         ref={mergedRef}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        theme={theme.popup as any}
+        theme={theme.popup}
         data-state={isHidden ? undefined : state}
         style={{ zIndex, ...(isHidden ? { display: 'none' } : undefined) }}
         aria-hidden={isHidden || undefined}

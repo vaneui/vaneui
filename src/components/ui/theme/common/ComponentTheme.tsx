@@ -96,7 +96,10 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   defaults: Partial<P>;
   extraClasses: Partial<Record<keyof P, string>>;
   private readonly categories: readonly ComponentCategoryKey[];
-  private readonly tagFunction?: (props: P, defaults: Partial<P>) => React.ElementType;
+  // Base type for storage — decoupled from P so that ComponentTheme<SpecificProps, T>
+  // is structurally compatible with ComponentTheme<ComponentProps, object>.
+  // The constructor parameter still uses P for caller type safety.
+  private readonly tagFunction?: (props: ComponentProps, defaults: Partial<ComponentProps>) => React.ElementType;
 
   constructor(
     tag: React.ElementType,
@@ -112,7 +115,9 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     this.defaults = defaults;
     this.extraClasses = {};
     this.categories = categories;
-    this.tagFunction = tagFunction;
+    // Safe: P extends ComponentProps, and getTag() always passes P-typed values.
+    // All existing tagFunctions only access optional props (e.g. href).
+    this.tagFunction = tagFunction as typeof this.tagFunction;
     this.vaneType = vaneType;
     // Type assertion: we trust that all default themes provide complete objects
     this.themes = themes as TTheme;

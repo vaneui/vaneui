@@ -92,11 +92,11 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // Merge forwarded ref with internal contentRef
     const mergedRef = useCallback(
       (node: HTMLDivElement | null) => {
-        (contentRef as React.MutableRefObject<HTMLDivElement | null>).current = node;
+        contentRef.current = node;
         if (typeof ref === 'function') {
           ref(node);
         } else if (ref) {
-          (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+          ref.current = node;
         }
       },
       [ref]
@@ -163,8 +163,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       >
         <ThemedComponent
           ref={mergedRef}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          theme={theme.modal.content as any}
+          theme={theme.modal.content}
           role="dialog"
           aria-modal="true"
           aria-labelledby={ariaLabelledBy ? labelId : undefined}
