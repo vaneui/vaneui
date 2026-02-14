@@ -82,8 +82,6 @@ export type PopupProps = BaseProps &
     role?: string;
     /** Show an arrow/pointer pointing toward the anchor (default: false) */
     arrow?: boolean;
-    /** Arrow size in pixels (default: 8) */
-    arrowSize?: number;
     /** Custom HTML tag to render as */
     tag?: React.ElementType;
   };

@@ -287,7 +287,6 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       transitionDuration = 200,
       role = 'dialog',
       arrow = false,
-      arrowSize = 8,
       children,
       ...props
     },
@@ -457,13 +456,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     const popupId = props.id || `popup-${anchorName}`;
 
     // Merge custom attributes into props spread to satisfy ThemedComponent types
-    // When arrow is enabled, force overflow-visible so the arrow isn't clipped
-    const mergedProps = {
-      ...props,
-      ...(arrow ? { overflowVisible: true, overflowAuto: false } : undefined),
-      id: popupId,
-      role,
-    };
+    const mergedProps = { ...props, id: popupId, role };
 
     const content = (
       <ThemedComponent
@@ -473,7 +466,6 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         data-placement={resolvedPlacement || undefined}
         style={{
           zIndex,
-          ...(arrow ? { '--arrow-size': `${arrowSize}px` } as React.CSSProperties : undefined),
           ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } as React.CSSProperties : undefined),
           ...(isHidden ? { display: 'none' } : undefined),
         }}

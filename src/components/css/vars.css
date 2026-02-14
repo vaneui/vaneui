@@ -455,11 +455,11 @@
 
     /* Popup - equal padding for floating content (matches layout defaults) */
     .vane-popup { --py-unit: 4; --aspect-ratio: 1; }
-    .vane-popup[data-size="xs"] { --br-unit: 1.5; --py-unit: 2; --popup-max-height: 12rem; }
-    .vane-popup[data-size="sm"] { --br-unit: 2; --py-unit: 3; --popup-max-height: 16rem; }
-    .vane-popup[data-size="md"] { --br-unit: 2.5; --py-unit: 4; --popup-max-height: 20rem; }
-    .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --popup-max-height: 24rem; }
-    .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --popup-max-height: 28rem; }
+    .vane-popup[data-size="xs"] { --br-unit: 1.5; --py-unit: 2; --popup-max-height: 12rem; --popup-arrow-size: 5px; }
+    .vane-popup[data-size="sm"] { --br-unit: 2; --py-unit: 3; --popup-max-height: 16rem; --popup-arrow-size: 6px; }
+    .vane-popup[data-size="md"] { --br-unit: 2.5; --py-unit: 4; --popup-max-height: 20rem; --popup-arrow-size: 7px; }
+    .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --popup-max-height: 24rem; --popup-arrow-size: 8px; }
+    .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --popup-max-height: 28rem; --popup-arrow-size: 10px; }
 
     /* ========================================
        ANIMATIONS
@@ -491,11 +491,11 @@
         animation: vane-scale-out var(--transition-duration) var(--transition-timing) forwards;
     }
 
-    /* Popup arrow */
+    /* Popup arrow — size scales with popup size via --popup-arrow-size (set per data-size tier) */
     .vane-popup-arrow {
         position: absolute;
-        width: var(--arrow-size, 8px);
-        height: var(--arrow-size, 8px);
+        width: var(--popup-arrow-size, 7px);
+        height: var(--popup-arrow-size, 7px);
         background: inherit;
         border: inherit;
         border-width: 0;
@@ -504,30 +504,30 @@
     }
     /* Arrow positioning based on data-placement */
     [data-placement^="top"] > .vane-popup-arrow {
-        bottom: calc(var(--arrow-size, 8px) / -2);
+        bottom: calc(var(--popup-arrow-size, 7px) / -2);
         left: 50%;
-        margin-left: calc(var(--arrow-size, 8px) / -2);
+        margin-left: calc(var(--popup-arrow-size, 7px) / -2);
         border-bottom-width: 1px;
         border-right-width: 1px;
     }
     [data-placement^="bottom"] > .vane-popup-arrow {
-        top: calc(var(--arrow-size, 8px) / -2);
+        top: calc(var(--popup-arrow-size, 7px) / -2);
         left: 50%;
-        margin-left: calc(var(--arrow-size, 8px) / -2);
+        margin-left: calc(var(--popup-arrow-size, 7px) / -2);
         border-top-width: 1px;
         border-left-width: 1px;
     }
     [data-placement^="left"] > .vane-popup-arrow {
-        right: calc(var(--arrow-size, 8px) / -2);
+        right: calc(var(--popup-arrow-size, 7px) / -2);
         top: 50%;
-        margin-top: calc(var(--arrow-size, 8px) / -2);
+        margin-top: calc(var(--popup-arrow-size, 7px) / -2);
         border-top-width: 1px;
         border-right-width: 1px;
     }
     [data-placement^="right"] > .vane-popup-arrow {
-        left: calc(var(--arrow-size, 8px) / -2);
+        left: calc(var(--popup-arrow-size, 7px) / -2);
         top: 50%;
-        margin-top: calc(var(--arrow-size, 8px) / -2);
+        margin-top: calc(var(--popup-arrow-size, 7px) / -2);
         border-bottom-width: 1px;
         border-left-width: 1px;
     }

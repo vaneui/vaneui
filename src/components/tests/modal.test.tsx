@@ -602,35 +602,6 @@ describe('Modal Component Tests', () => {
     });
   });
 
-  describe('Centered', () => {
-    it('should have centered overlay by default', () => {
-      const { baseElement } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={() => {}}>
-            <div>Content</div>
-          </Modal>
-        </ThemeProvider>
-      );
-
-      const overlay = baseElement.querySelector('.vane-overlay');
-      expect(overlay).toHaveClass('items-center', 'justify-center');
-    });
-
-    it('should use items-start when centered is false', () => {
-      const { baseElement } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={() => {}} centered={false}>
-            <div>Content</div>
-          </Modal>
-        </ThemeProvider>
-      );
-
-      const overlay = baseElement.querySelector('.vane-overlay');
-      expect(overlay).toHaveClass('items-start');
-      expect(overlay).not.toHaveClass('items-center');
-    });
-  });
-
   describe('Full Screen', () => {
     it('should apply fullscreen styles when fullScreen is true', () => {
       const { baseElement } = render(
@@ -745,47 +716,6 @@ describe('Modal Component Tests', () => {
       expect(modal?.querySelector('.vane-modal-header')).toBeInTheDocument();
       expect(modal?.querySelector('.vane-modal-body')).toBeInTheDocument();
       expect(modal?.querySelector('.vane-modal-footer')).toBeInTheDocument();
-    });
-  });
-
-  describe('ARIA Attributes (Extended)', () => {
-    it('should accept custom ariaLabelledBy', () => {
-      const { baseElement } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={() => {}} ariaLabelledBy="custom-label">
-            <div id="custom-label">Custom Title</div>
-          </Modal>
-        </ThemeProvider>
-      );
-
-      const modal = baseElement.querySelector('.vane-modal');
-      expect(modal).toHaveAttribute('aria-labelledby', 'custom-label');
-    });
-
-    it('should accept custom ariaDescribedBy', () => {
-      const { baseElement } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={() => {}} ariaDescribedBy="custom-desc">
-            <div id="custom-desc">Description</div>
-          </Modal>
-        </ThemeProvider>
-      );
-
-      const modal = baseElement.querySelector('.vane-modal');
-      expect(modal).toHaveAttribute('aria-describedby', 'custom-desc');
-    });
-
-    it('should not set aria-labelledby when not provided', () => {
-      const { baseElement } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={() => {}}>
-            <div>Content</div>
-          </Modal>
-        </ThemeProvider>
-      );
-
-      const modal = baseElement.querySelector('.vane-modal');
-      expect(modal).not.toHaveAttribute('aria-labelledby');
     });
   });
 
@@ -952,7 +882,6 @@ describe('Modal Component Tests', () => {
             keepMounted
             noAnimation
             closeButton
-            centered
             fullScreen
           >
             <div>Content</div>
@@ -964,7 +893,6 @@ describe('Modal Component Tests', () => {
       expect(modal).not.toHaveAttribute('keepMounted');
       expect(modal).not.toHaveAttribute('noAnimation');
       expect(modal).not.toHaveAttribute('closeButton');
-      expect(modal).not.toHaveAttribute('centered');
       expect(modal).not.toHaveAttribute('fullScreen');
     });
   });

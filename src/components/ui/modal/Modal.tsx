@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useEffect, useMemo, useCallback, useId } from 'react';
+import React, { forwardRef, useRef, useEffect, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import type { ModalProps } from './ModalProps';
 import { useTheme } from '../../themeContext';
@@ -16,11 +16,11 @@ import { useStackingContext } from '../../utils/stackingContext';
  * - Scroll lock (prevents body scroll)
  * - Focus trap (Tab cycles within modal)
  * - Escape key to close
- * - ARIA dialog semantics (aria-labelledby, aria-describedby)
+ * - ARIA dialog semantics (role="dialog", aria-modal)
  * - Focus restoration on close
  * - Enter/exit animations (disable with noAnimation)
  * - Dynamic z-index stacking for nested modals
- * - Optional close button, fullScreen, centered control
+ * - Optional close button and fullScreen mode
  * - Compound components: ModalHeader, ModalBody, ModalFooter
  *
  * @example
@@ -77,10 +77,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       noAnimation = false,
       transitionDuration = 200,
       closeButton = false,
-      centered = true,
       fullScreen = false,
-      ariaLabelledBy,
-      ariaDescribedBy,
       children,
       ...props
     },
@@ -88,8 +85,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   ) {
     const theme = useTheme();
     const contentRef = useRef<HTMLDivElement>(null);
-    const generatedId = useId();
-
     // Controllable open state — supports both controlled and uncontrolled modes
     const [open, setOpen] = useControllableState({
       value: openProp,
@@ -152,20 +147,15 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       }
     };
 
-    // ARIA IDs
-    const labelId = ariaLabelledBy || `${generatedId}-label`;
-    const descId = ariaDescribedBy || `${generatedId}-desc`;
-
     // Determine if we should render at all
     const shouldMount = overlayTransition.mounted || keepMounted;
     if (!shouldMount) return null;
 
     const isHidden = !overlayTransition.mounted && keepMounted;
 
-    // Build overlay props for centered/fullScreen
+    // Build overlay props for fullScreen
     const computedOverlayProps = {
       ...overlayProps,
-      ...(centered === false ? { itemsStart: true as const } : {}),
       ...(fullScreen ? { className: [overlayProps?.className, 'bg-transparent'].filter(Boolean).join(' ') } : {}),
     };
 
@@ -192,8 +182,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           theme={theme.modal.content}
           role="dialog"
           aria-modal="true"
-          aria-labelledby={ariaLabelledBy ? labelId : undefined}
-          aria-describedby={ariaDescribedBy ? descId : undefined}
           data-state={isHidden ? undefined : contentTransition.state}
           style={{ ...durationStyle, ...fullScreenStyle }}
           onClick={(e: React.MouseEvent) => e.stopPropagation()}

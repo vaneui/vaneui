@@ -68,8 +68,6 @@ describe('Popup Component Tests', () => {
       expect(popup).toHaveClass('flex', 'flex-col');
       // Width from CSS variable, max-height hardcoded
       expect(popup).toHaveClass('w-fit', 'max-h-(--popup-max-height)');
-      // Overflow from boolean prop
-      expect(popup).toHaveClass('overflow-auto');
     });
 
     it('should render children', () => {
@@ -807,21 +805,7 @@ describe('Popup Component Tests', () => {
       expect(arrow).toHaveAttribute('aria-hidden', 'true');
     });
 
-    it('should set --arrow-size CSS variable', () => {
-      const anchorRef = createAnchorRef();
-      const { baseElement } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} arrow arrowSize={12}>
-            <div>Content</div>
-          </Popup>
-        </ThemeProvider>
-      );
-
-      const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
-      expect(popup.style.getPropertyValue('--arrow-size')).toBe('12px');
-    });
-
-    it('should use overflow-visible when arrow is enabled', () => {
+    it('should not leak arrow to DOM', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
@@ -832,23 +816,7 @@ describe('Popup Component Tests', () => {
       );
 
       const popup = baseElement.querySelector('.vane-popup');
-      expect(popup).toHaveClass('overflow-visible');
-      expect(popup).not.toHaveClass('overflow-auto');
-    });
-
-    it('should not leak arrow/arrowSize to DOM', () => {
-      const anchorRef = createAnchorRef();
-      const { baseElement } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} arrow arrowSize={10}>
-            <div>Content</div>
-          </Popup>
-        </ThemeProvider>
-      );
-
-      const popup = baseElement.querySelector('.vane-popup');
       expect(popup).not.toHaveAttribute('arrow');
-      expect(popup).not.toHaveAttribute('arrowSize');
     });
   });
 

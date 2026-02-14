@@ -93,14 +93,8 @@ export type ModalProps = BaseProps &
     transitionDuration?: number;
     /** Show close "X" button in top-right corner (default: false) */
     closeButton?: boolean;
-    /** Center modal vertically (default: true). Set false for top-aligned. */
-    centered?: boolean;
     /** Full-screen modal with no border-radius and no overlay (default: false) */
     fullScreen?: boolean;
-    /** ID of the element that labels the modal */
-    ariaLabelledBy?: string;
-    /** ID of the element that describes the modal */
-    ariaDescribedBy?: string;
     /** Custom HTML tag to render as */
     tag?: React.ElementType;
   };

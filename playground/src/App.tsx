@@ -132,7 +132,7 @@ function ArrowPopupDemo() {
   return (
     <div>
       <Button primary ref={anchorRef} onClick={() => setOpen(!open)}>Popup with Arrow</Button>
-      <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef} arrow>
+      <Popup danger border open={open} onClose={() => setOpen(false)} anchorRef={anchorRef} arrow>
         <Text bold>Arrow Popup</Text>
         <Text sm>This popup has an arrow pointing toward the trigger.</Text>
       </Popup>
@@ -140,16 +140,35 @@ function ArrowPopupDemo() {
   );
 }
 
-function ArrowSizePopupDemo() {
-  const [open, setOpen] = useState(false);
-  const anchorRef = useRef<HTMLButtonElement>(null);
+function ArrowSizesPopupDemo() {
+  const [openSize, setOpenSize] = useState<string | null>(null);
+  const refs = {
+    xs: useRef<HTMLButtonElement>(null),
+    sm: useRef<HTMLButtonElement>(null),
+    lg: useRef<HTMLButtonElement>(null),
+    xl: useRef<HTMLButtonElement>(null),
+  };
+  const sizes = ['xs', 'sm', 'lg', 'xl'] as const;
   return (
-    <div>
-      <Button secondary ref={anchorRef} onClick={() => setOpen(!open)}>Large Arrow (12px)</Button>
-      <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef} arrow arrowSize={12} bottom>
-        <Text sm>Custom arrow size via <Code sm>arrowSize=&#123;12&#125;</Code></Text>
-      </Popup>
-    </div>
+    <Row flexWrap>
+      {sizes.map((size) => (
+        <div key={size}>
+          <Button secondary ref={refs[size]} onClick={() => setOpenSize(openSize === size ? null : size)}>
+            Arrow ({size})
+          </Button>
+          <Popup
+            open={openSize === size}
+            onClose={() => setOpenSize(null)}
+            anchorRef={refs[size]}
+            arrow
+            bottom
+            {...{ [size]: true }}
+          >
+            <Text sm>Arrow scales with <Code sm>{size}</Code> size.</Text>
+          </Popup>
+        </div>
+      ))}
+    </Row>
   );
 }
 
@@ -490,7 +509,7 @@ function TopAlignedModalDemo() {
   return (
     <div>
       <Button primary onClick={() => setOpen(true)}>Top-Aligned Modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)} centered={false} closeButton>
+      <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ itemsStart: true }} closeButton>
         <ModalHeader>
           <Title>Notifications</Title>
         </ModalHeader>
@@ -758,10 +777,10 @@ function App() {
 
           <Card>
             <Title>Popup — Arrow</Title>
-            <Text sm secondary>Use <Code sm>arrow</Code> to show a pointer toward the anchor. Customize size with <Code sm>arrowSize</Code>.</Text>
+            <Text sm secondary>Use <Code sm>arrow</Code> to show a pointer toward the anchor. Arrow size scales automatically with popup size.</Text>
             <Row flexWrap>
               <ArrowPopupDemo />
-              <ArrowSizePopupDemo />
+              <ArrowSizesPopupDemo />
             </Row>
           </Card>
 
