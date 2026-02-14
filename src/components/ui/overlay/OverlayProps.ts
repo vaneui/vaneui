@@ -50,6 +50,8 @@ export type OverlayProps = BaseProps &
     keepMounted?: boolean;
     /** Disable enter/exit animations (default: false) */
     noAnimation?: boolean;
+    /** Animation duration in ms (default: 200) */
+    transitionDuration?: number;
     /** Custom HTML tag to render as */
     tag?: React.ElementType;
   };

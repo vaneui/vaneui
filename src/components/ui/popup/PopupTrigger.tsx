@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect, cloneElement } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useId, cloneElement } from 'react';
 import type { PopupTriggerProps } from './PopupTriggerProps';
 import { Popup } from './Popup';
 
@@ -51,9 +51,21 @@ export function PopupTrigger({
   openDelay = 0,
   closeDelay = 150,
   popupProps,
+  popupId: popupIdProp,
 }: PopupTriggerProps) {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLElement>(null);
+  const generatedId = useId();
+  const popupId = popupIdProp || `popup-trigger-${generatedId.replace(/:/g, '-')}`;
+  const prevOpenRef = useRef(false);
+
+  // Return focus to trigger element when popup closes (skip for focus trigger to avoid re-open loop)
+  useEffect(() => {
+    if (prevOpenRef.current && !open && trigger !== 'focus' && anchorRef.current) {
+      anchorRef.current.focus();
+    }
+    prevOpenRef.current = open;
+  }, [open, trigger]);
   const openTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -110,9 +122,15 @@ export function PopupTrigger({
     triggerHandlers.onBlur = handleClose;
   }
 
-  // Clone the child element with ref and event handlers
+  // Determine the appropriate aria-haspopup value based on popup role
+  const ariaHaspopup = popupProps?.role || 'dialog';
+
+  // Clone the child element with ref, event handlers, and ARIA attributes
   const triggerElement = cloneElement(children, {
     ref: anchorRef,
+    'aria-expanded': open,
+    'aria-haspopup': ariaHaspopup,
+    'aria-controls': open ? popupId : undefined,
     ...triggerHandlers,
   } as Record<string, unknown>);
 
@@ -123,6 +141,7 @@ export function PopupTrigger({
         open={open}
         onClose={handleClose}
         anchorRef={anchorRef}
+        id={popupId}
         {...(trigger === 'hover' ? {
           onMouseEnter: () => { clearTimers(); },
           onMouseLeave: handleClose,

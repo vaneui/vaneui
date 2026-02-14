@@ -675,6 +675,256 @@ describe('Popup Component Tests', () => {
     });
   });
 
+  describe('ARIA Attributes', () => {
+    it('should have role="dialog" by default', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('role', 'dialog');
+    });
+
+    it('should accept custom role', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} role="menu">
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('role', 'menu');
+    });
+
+    it('should have an id for aria-controls linkage', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('id');
+      expect(popup!.getAttribute('id')).toBeTruthy();
+    });
+
+    it('should use user-provided id over generated one', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} id="custom-popup">
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('id', 'custom-popup');
+    });
+  });
+
+  describe('Custom Animation Duration', () => {
+    it('should use default duration (no custom CSS variable)', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+      expect(popup.style.getPropertyValue('--transition-duration')).toBe('');
+    });
+
+    it('should set custom --transition-duration CSS variable', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} transitionDuration={500}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+      expect(popup.style.getPropertyValue('--transition-duration')).toBe('500ms');
+    });
+
+    it('should not leak transitionDuration to DOM', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} transitionDuration={300}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).not.toHaveAttribute('transitionDuration');
+    });
+  });
+
+  describe('Arrow', () => {
+    it('should not render arrow by default', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelector('.vane-popup-arrow')).not.toBeInTheDocument();
+    });
+
+    it('should render arrow when arrow={true}', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} arrow>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const arrow = baseElement.querySelector('.vane-popup-arrow');
+      expect(arrow).toBeInTheDocument();
+      expect(arrow).toHaveAttribute('aria-hidden', 'true');
+    });
+
+    it('should set --arrow-size CSS variable', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} arrow arrowSize={12}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+      expect(popup.style.getPropertyValue('--arrow-size')).toBe('12px');
+    });
+
+    it('should use overflow-visible when arrow is enabled', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} arrow>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveClass('overflow-visible');
+      expect(popup).not.toHaveClass('overflow-auto');
+    });
+
+    it('should not leak arrow/arrowSize to DOM', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} arrow arrowSize={10}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).not.toHaveAttribute('arrow');
+      expect(popup).not.toHaveAttribute('arrowSize');
+    });
+  });
+
+  describe('Data Placement', () => {
+    it('should set data-placement attribute when open', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottom>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('data-placement');
+    });
+  });
+
+  describe('Uncontrolled Mode', () => {
+    it('should render closed by default without open prop', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelector('.vane-popup')).not.toBeInTheDocument();
+    });
+
+    it('should render open with defaultOpen={true}', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup anchorRef={anchorRef} defaultOpen>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+    });
+
+    it('should fire onOpenChange when state changes', () => {
+      const anchorRef = createAnchorRef();
+      const onOpenChange = jest.fn();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup anchorRef={anchorRef} defaultOpen onOpenChange={onOpenChange} closeOnEscape>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      // Close via Escape
+      fireEvent.keyDown(document, { key: 'Escape' });
+      expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('should still work in controlled mode with open prop', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+    });
+  });
+
   describe('Portal Rendering', () => {
     it('should render in portal by default', () => {
       const anchorRef = createAnchorRef();

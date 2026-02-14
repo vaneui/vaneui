@@ -789,6 +789,159 @@ describe('Modal Component Tests', () => {
     });
   });
 
+  describe('Custom Animation Duration', () => {
+    it('should use default duration (no custom CSS variable)', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const overlay = baseElement.querySelector('.vane-overlay') as HTMLElement;
+      expect(overlay.style.getPropertyValue('--transition-duration')).toBe('');
+    });
+
+    it('should set custom --transition-duration on overlay and content', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} transitionDuration={500}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const overlay = baseElement.querySelector('.vane-overlay') as HTMLElement;
+      const modal = baseElement.querySelector('.vane-modal') as HTMLElement;
+      expect(overlay.style.getPropertyValue('--transition-duration')).toBe('500ms');
+      expect(modal.style.getPropertyValue('--transition-duration')).toBe('500ms');
+    });
+
+    it('should not leak transitionDuration to DOM', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} transitionDuration={300}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).not.toHaveAttribute('transitionDuration');
+    });
+  });
+
+  describe('Return Focus', () => {
+    it('should not leak returnFocus to DOM', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} returnFocus={false}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).not.toHaveAttribute('returnFocus');
+    });
+
+    it('should not leak initialFocus to DOM', () => {
+      const ref = { current: null };
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} initialFocus={ref}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).not.toHaveAttribute('initialFocus');
+    });
+  });
+
+  describe('Uncontrolled Mode', () => {
+    it('should render closed by default without open prop', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelector('.vane-modal')).not.toBeInTheDocument();
+    });
+
+    it('should render open with defaultOpen={true}', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal defaultOpen>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelector('.vane-modal')).toBeInTheDocument();
+    });
+
+    it('should fire onOpenChange when Escape is pressed', () => {
+      const onOpenChange = jest.fn();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal defaultOpen onOpenChange={onOpenChange}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      fireEvent.keyDown(document, { key: 'Escape' });
+      expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('should fire onOpenChange when overlay is clicked', () => {
+      const onOpenChange = jest.fn();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal defaultOpen onOpenChange={onOpenChange}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const overlay = baseElement.querySelector('.vane-overlay');
+      fireEvent.click(overlay!);
+      expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('should still work in controlled mode', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelector('.vane-modal')).toBeInTheDocument();
+    });
+
+    it('should not leak defaultOpen or onOpenChange to DOM', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal defaultOpen onOpenChange={() => {}}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).not.toHaveAttribute('defaultOpen');
+      expect(modal).not.toHaveAttribute('onOpenChange');
+    });
+  });
+
   describe('New Boolean Props Do Not Leak to DOM', () => {
     it('should not leak new boolean props to DOM', () => {
       const { baseElement } = render(

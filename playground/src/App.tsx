@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -8,14 +8,15 @@ import {
   Title,
   Section,
   Stack,
-  Card, Checkbox, Label, Link, Input, Button,
-  Container, Badge, Divider, Chip, Code, PageTitle, Grid2,
+  Card, Checkbox, Label, Input, Button,
+  Container, Divider, Code, PageTitle,
   Modal, ModalHeader, ModalBody, ModalFooter,
   Overlay, Popup, PopupTrigger
 } from '../../src';
-import { ColorTable } from './ColorTable';
 
-// ─── Popup Demos (same as vaneui-web docs) ─────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
+//  POPUP DEMOS
+// ═══════════════════════════════════════════════════════════════════════════════
 
 function BasicPopupDemo() {
   const [open, setOpen] = useState(false);
@@ -109,10 +110,7 @@ function PopupWithContentDemo() {
   const anchorRef = useRef<HTMLButtonElement>(null);
   return (
     <div>
-      <Button primary ref={anchorRef} onClick={() => {
-        console.log("CLICK")
-        setOpen(!open)}
-      }>User Menu</Button>
+      <Button primary ref={anchorRef} onClick={() => setOpen(!open)}>User Menu</Button>
       <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
         <Text bold>John Doe</Text>
         <Text sm secondary>john@example.com</Text>
@@ -126,7 +124,189 @@ function PopupWithContentDemo() {
   );
 }
 
-// ─── Modal Demos (same as vaneui-web docs) ──────────────────────────────────
+// ─── NEW: Arrow Popup ────────────────────────────────────────────────────────
+
+function ArrowPopupDemo() {
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  return (
+    <div>
+      <Button primary ref={anchorRef} onClick={() => setOpen(!open)}>Popup with Arrow</Button>
+      <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef} arrow>
+        <Text bold>Arrow Popup</Text>
+        <Text sm>This popup has an arrow pointing toward the trigger.</Text>
+      </Popup>
+    </div>
+  );
+}
+
+function ArrowSizePopupDemo() {
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  return (
+    <div>
+      <Button secondary ref={anchorRef} onClick={() => setOpen(!open)}>Large Arrow (12px)</Button>
+      <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef} arrow arrowSize={12} bottom>
+        <Text sm>Custom arrow size via <Code sm>arrowSize=&#123;12&#125;</Code></Text>
+      </Popup>
+    </div>
+  );
+}
+
+// ─── NEW: Custom Animation Duration ──────────────────────────────────────────
+
+function SlowPopupDemo() {
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  return (
+    <div>
+      <Button accent ref={anchorRef} onClick={() => setOpen(!open)}>Slow Popup (500ms)</Button>
+      <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef} transitionDuration={500}>
+        <Text sm>This popup uses a 500ms transition instead of the default 200ms.</Text>
+      </Popup>
+    </div>
+  );
+}
+
+// ─── NEW: Uncontrolled Popup ─────────────────────────────────────────────────
+
+function UncontrolledPopupDemo() {
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  const handleOpenChange = useCallback((isOpen: boolean) => {
+    console.log('Popup open state changed:', isOpen);
+  }, []);
+  return (
+    <div>
+      <Button secondary ref={anchorRef} onClick={() => {
+        // For uncontrolled popup, we need to toggle via the anchorRef click
+        // But Popup doesn't auto-toggle on anchor click — use PopupTrigger for that.
+        // This demo shows defaultOpen with onOpenChange callback.
+      }}>Anchor (see PopupTrigger for auto-toggle)</Button>
+      <Popup defaultOpen anchorRef={anchorRef} onOpenChange={handleOpenChange}>
+        <Text sm bold>Uncontrolled Popup</Text>
+        <Text sm>This popup started open via <Code sm>defaultOpen</Code>. Close it and check the console for <Code sm>onOpenChange</Code> logs.</Text>
+      </Popup>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  POPUP TRIGGER DEMOS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function ClickTriggerDemo() {
+  return (
+    <PopupTrigger popup={
+      <Stack sm noPadding>
+        <Text bold sm>Dropdown Menu</Text>
+        <Button sm secondary noShadow noRing justifyStart>Profile</Button>
+        <Button sm secondary noShadow noRing justifyStart>Settings</Button>
+        <Button sm danger noShadow noRing justifyStart>Sign Out</Button>
+      </Stack>
+    }>
+      <Button primary>Click Menu</Button>
+    </PopupTrigger>
+  );
+}
+
+function HoverTriggerDemo() {
+  return (
+    <PopupTrigger
+      trigger="hover"
+      openDelay={200}
+      popup={<Text sm>This is a tooltip that appears on hover with a 200ms delay.</Text>}
+      popupProps={{ sm: true }}
+    >
+      <Button secondary>Hover for Tooltip</Button>
+    </PopupTrigger>
+  );
+}
+
+function FocusTriggerDemo() {
+  return (
+    <PopupTrigger
+      trigger="focus"
+      popup={
+        <Stack sm noPadding>
+          <Text sm bold>Suggestions</Text>
+          <Text sm>React</Text>
+          <Text sm>Vue</Text>
+          <Text sm>Angular</Text>
+          <Text sm>Svelte</Text>
+        </Stack>
+      }
+    >
+      <Input placeholder="Focus me for suggestions..." />
+    </PopupTrigger>
+  );
+}
+
+function PopupTriggerWithPlacementDemo() {
+  return (
+    <Row flexWrap>
+      <PopupTrigger
+        popup={<Text sm>I appear on the right!</Text>}
+        popupProps={{ right: true } as Record<string, unknown>}
+      >
+        <Button secondary sm>Right popup</Button>
+      </PopupTrigger>
+      <PopupTrigger
+        popup={<Text sm>I appear on top!</Text>}
+        popupProps={{ top: true } as Record<string, unknown>}
+      >
+        <Button secondary sm>Top popup</Button>
+      </PopupTrigger>
+      <PopupTrigger
+        popup={<Text sm>I appear on the left!</Text>}
+        popupProps={{ left: true } as Record<string, unknown>}
+      >
+        <Button secondary sm>Left popup</Button>
+      </PopupTrigger>
+    </Row>
+  );
+}
+
+// ─── NEW: PopupTrigger with Arrow ────────────────────────────────────────────
+
+function PopupTriggerArrowDemo() {
+  return (
+    <PopupTrigger
+      trigger="hover"
+      openDelay={100}
+      popup={<Text sm>Tooltip with arrow!</Text>}
+      popupProps={{ arrow: true, sm: true } as Record<string, unknown>}
+    >
+      <Button primary>Hover (with arrow)</Button>
+    </PopupTrigger>
+  );
+}
+
+// ─── NEW: ARIA Attributes Demo ───────────────────────────────────────────────
+
+function AriaAttributesDemo() {
+  return (
+    <div>
+      <Text sm secondary>
+        PopupTrigger automatically sets <Code sm>aria-expanded</Code>, <Code sm>aria-haspopup</Code>, and <Code sm>aria-controls</Code> on the trigger element. Inspect the button in DevTools to see them.
+      </Text>
+      <PopupTrigger
+        popup={
+          <Stack sm noPadding>
+            <Text sm>Inspect the trigger button to see ARIA attributes.</Text>
+            <Text sm secondary>The popup also gets <Code sm>role="dialog"</Code> and a matching <Code sm>id</Code>.</Text>
+          </Stack>
+        }
+        popupProps={{ role: 'menu' } as Record<string, unknown>}
+      >
+        <Button primary>Open (inspect ARIA)</Button>
+      </PopupTrigger>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  MODAL DEMOS
+// ═══════════════════════════════════════════════════════════════════════════════
 
 function BasicModalDemo() {
   const [open, setOpen] = useState(false);
@@ -223,7 +403,7 @@ function NonDismissibleModalDemo() {
       <Modal open={open} onClose={() => setOpen(false)} closeOnOverlayClick={false} closeOnEscape={false}>
         <Stack lg>
           <Text bold lg>Important Notice</Text>
-          <Text>This modal cannot be closed by clicking outside or pressing Escape. You must use the button below.</Text>
+          <Text>This modal cannot be closed by clicking outside or pressing Escape.</Text>
           <Button sm primary filled onClick={() => setOpen(false)}>I Understand</Button>
         </Stack>
       </Modal>
@@ -241,7 +421,7 @@ function AppearanceModalDemo() {
       <Modal primary open={openPrimary} onClose={() => setOpenPrimary(false)}>
         <Stack lg>
           <Text bold lg>Primary Modal</Text>
-          <Text>This modal uses the primary appearance with filled variant.</Text>
+          <Text>This modal uses the primary appearance.</Text>
           <Button sm onClick={() => setOpenPrimary(false)}>Close</Button>
         </Stack>
       </Modal>
@@ -255,67 +435,6 @@ function AppearanceModalDemo() {
     </Row>
   );
 }
-
-// ─── Overlay Demos (same as vaneui-web docs) ────────────────────────────────
-
-function BasicOverlayDemo() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <Button primary onClick={() => setOpen(true)}>Show Overlay</Button>
-      <Overlay open={open} onClose={() => setOpen(false)}>
-        <Text xl bold filled>Click anywhere to close</Text>
-      </Overlay>
-    </div>
-  );
-}
-
-function OverlayWithContentDemo() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <Button primary onClick={() => setOpen(true)}>Show Overlay with Content</Button>
-      <Overlay open={open} onClose={() => setOpen(false)}>
-        <Card lg onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-          <Stack>
-            <Text bold>Overlay Content</Text>
-            <Text>This card is centered inside the overlay. Click outside the card to close.</Text>
-            <Button primary sm onClick={() => setOpen(false)}>Close</Button>
-          </Stack>
-        </Card>
-      </Overlay>
-    </div>
-  );
-}
-
-function BlurOverlayDemo() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <Button primary onClick={() => setOpen(true)}>Show Blur Overlay</Button>
-      <Overlay open={open} onClose={() => setOpen(false)} blur>
-        <Text xl bold filled>Blurred Background</Text>
-      </Overlay>
-    </div>
-  );
-}
-
-function NonDismissibleOverlayDemo() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <Button primary onClick={() => setOpen(true)}>Show Loading Overlay</Button>
-      <Overlay open={open} pointerEventsNone>
-        <Stack itemsCenter>
-          <Text xl bold filled>Loading...</Text>
-          <Button sm danger onClick={() => setOpen(false)} style={{ pointerEvents: 'auto' }}>Cancel</Button>
-        </Stack>
-      </Overlay>
-    </div>
-  );
-}
-
-// ─── NEW: Compound Modal Demos ───────────────────────────────────────────────
 
 function CompoundModalDemo() {
   const [open, setOpen] = useState(false);
@@ -335,28 +454,11 @@ function CompoundModalDemo() {
             <Label>Email</Label>
             <Input placeholder="Enter your email" />
           </Stack>
-          <Stack>
-            <Label>Bio</Label>
-            <Input placeholder="Tell us about yourself" />
-          </Stack>
         </ModalBody>
         <ModalFooter>
           <Button secondary onClick={() => setOpen(false)}>Cancel</Button>
           <Button filled onClick={() => setOpen(false)}>Save Changes</Button>
         </ModalFooter>
-      </Modal>
-    </div>
-  );
-}
-
-function CloseButtonModalDemo() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <Button primary onClick={() => setOpen(true)}>Modal with Close Button</Button>
-      <Modal open={open} onClose={() => setOpen(false)} closeButton>
-        <Title>Notice</Title>
-        <Text>This modal has a close button in the top-right corner. Click it or press Escape to dismiss.</Text>
       </Modal>
     </div>
   );
@@ -372,10 +474,7 @@ function FullScreenModalDemo() {
           <Title>Full-Screen Editor</Title>
         </ModalHeader>
         <ModalBody>
-          <Text>This modal takes up the entire viewport. Useful for immersive editors, media viewers, or complex workflows.</Text>
-          <Card secondary>
-            <Text mono sm>// Your full-screen content goes here</Text>
-          </Card>
+          <Text>This modal takes up the entire viewport.</Text>
         </ModalBody>
         <ModalFooter>
           <Button secondary onClick={() => setOpen(false)}>Close</Button>
@@ -396,7 +495,7 @@ function TopAlignedModalDemo() {
           <Title>Notifications</Title>
         </ModalHeader>
         <ModalBody>
-          <Text>This modal is aligned to the top of the viewport instead of being centered vertically. Useful for notification panels or search dialogs.</Text>
+          <Text>This modal is aligned to the top instead of centered vertically.</Text>
         </ModalBody>
         <ModalFooter>
           <Button filled onClick={() => setOpen(false)}>Dismiss All</Button>
@@ -406,84 +505,18 @@ function TopAlignedModalDemo() {
   );
 }
 
-function NoAnimationModalDemo() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <Button primary onClick={() => setOpen(true)}>No Animation Modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)} noAnimation closeButton>
-        <Title>Instant Open</Title>
-        <Text>This modal appears and disappears instantly with no enter/exit animation. Set <Code sm>noAnimation</Code> to disable transitions.</Text>
-      </Modal>
-    </div>
-  );
-}
-
-function AnimatedModalDemo() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <Button primary onClick={() => setOpen(true)}>Animated Modal (200ms)</Button>
-      <Modal open={open} onClose={() => setOpen(false)} closeButton>
-        <ModalHeader>
-          <Title>Smooth Animation</Title>
-        </ModalHeader>
-        <ModalBody>
-          <Text>This modal uses the default 200ms scale + fade animation. The overlay fades in while the content scales up from 95%.</Text>
-          <Text sm secondary>Open and close this modal to see the enter/exit transitions.</Text>
-        </ModalBody>
-        <ModalFooter>
-          <Button filled onClick={() => setOpen(false)}>Close</Button>
-        </ModalFooter>
-      </Modal>
-    </div>
-  );
-}
-
-function AnimatedPopupDemo() {
-  const [open, setOpen] = useState(false);
-  const anchorRef = useRef<HTMLButtonElement>(null);
-  return (
-    <div>
-      <Button secondary ref={anchorRef} onClick={() => setOpen(!open)}>Animated Popup</Button>
-      <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
-        <Text bold>Popup Animation</Text>
-        <Text sm>Popups use the same 200ms scale + fade transition.</Text>
-      </Popup>
-    </div>
-  );
-}
-
-function AnimatedOverlayDemo() {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <Button accent onClick={() => setOpen(true)}>Animated Overlay</Button>
-      <Overlay open={open} onClose={() => setOpen(false)}>
-        <Card lg onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-          <Stack>
-            <Text bold>Overlay Animation</Text>
-            <Text>The overlay backdrop uses a 200ms fade transition.</Text>
-            <Button filled sm onClick={() => setOpen(false)}>Close</Button>
-          </Stack>
-        </Card>
-      </Overlay>
-    </div>
-  );
-}
-
 function NestedModalsDemo() {
   const [outer, setOuter] = useState(false);
   const [inner, setInner] = useState(false);
   return (
     <div>
-      <Button primary onClick={() => setOuter(true)}>Nested Modals (Z-Index)</Button>
+      <Button primary onClick={() => setOuter(true)}>Nested Modals</Button>
       <Modal open={outer} onClose={() => setOuter(false)} closeButton>
         <ModalHeader>
           <Title>Outer Modal</Title>
         </ModalHeader>
         <ModalBody>
-          <Text>This demonstrates z-index stacking. Each new modal gets a higher z-index automatically.</Text>
+          <Text>Each nested modal gets a higher z-index automatically.</Text>
         </ModalBody>
         <ModalFooter>
           <Button secondary onClick={() => setOuter(false)}>Close</Button>
@@ -492,7 +525,7 @@ function NestedModalsDemo() {
       </Modal>
       <Modal open={inner} onClose={() => setInner(false)} sm closeButton>
         <Title>Inner Modal</Title>
-        <Text>This modal stacks above the outer one with a higher z-index.</Text>
+        <Text>This modal stacks above the outer one.</Text>
         <Button filled onClick={() => setInner(false)}>Close Inner</Button>
       </Modal>
     </div>
@@ -506,378 +539,210 @@ function KeepMountedModalDemo() {
       <Button primary onClick={() => setOpen(!open)}>{open ? 'Close' : 'Open'} keepMounted Modal</Button>
       <Modal open={open} onClose={() => setOpen(false)} keepMounted closeButton>
         <Title>Preserved State</Title>
-        <Text>This modal stays in the DOM when closed (hidden with display:none). Useful when you want to preserve form state or avoid re-mounting expensive content.</Text>
+        <Text>This modal stays in the DOM when closed. Type something, close, then re-open.</Text>
         <Input placeholder="Type something, close, then re-open..." />
       </Modal>
     </div>
   );
 }
 
-// ─── NEW: PopupTrigger Demos ─────────────────────────────────────────────────
+// ─── NEW: Custom Animation Duration ──────────────────────────────────────────
 
-function ClickTriggerDemo() {
+function SlowModalDemo() {
+  const [open, setOpen] = useState(false);
   return (
-    <PopupTrigger popup={
-      <Stack sm noPadding>
-        <Text bold sm>Dropdown Menu</Text>
-        <Button sm secondary noShadow noRing justifyStart>Profile</Button>
-        <Button sm secondary noShadow noRing justifyStart>Settings</Button>
-        <Button sm danger noShadow noRing justifyStart>Sign Out</Button>
-      </Stack>
-    }>
-      <Button primary>Click Menu</Button>
-    </PopupTrigger>
+    <div>
+      <Button accent onClick={() => setOpen(true)}>Slow Modal (500ms)</Button>
+      <Modal open={open} onClose={() => setOpen(false)} transitionDuration={500} closeButton>
+        <Title>Slow Animation</Title>
+        <Text>This modal uses a 500ms transition duration instead of the default 200ms. Both the overlay fade and content scale animation are affected.</Text>
+        <Button filled onClick={() => setOpen(false)}>Close</Button>
+      </Modal>
+    </div>
   );
 }
 
-function HoverTriggerDemo() {
+function NoAnimationModalDemo() {
+  const [open, setOpen] = useState(false);
   return (
-    <PopupTrigger
-      trigger="hover"
-      openDelay={200}
-      popup={<Text sm>This is a tooltip that appears on hover with a 200ms delay.</Text>}
-      popupProps={{ sm: true }}
-    >
-      <Button secondary>Hover for Tooltip</Button>
-    </PopupTrigger>
+    <div>
+      <Button primary onClick={() => setOpen(true)}>No Animation Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} noAnimation closeButton>
+        <Title>Instant Open</Title>
+        <Text>This modal appears and disappears instantly with no transition.</Text>
+      </Modal>
+    </div>
   );
 }
 
-function FocusTriggerDemo() {
+// ─── NEW: Return Focus / Initial Focus ───────────────────────────────────────
+
+function InitialFocusModalDemo() {
+  const [open, setOpen] = useState(false);
+  const emailRef = useRef<HTMLInputElement>(null);
   return (
-    <PopupTrigger
-      trigger="focus"
-      popup={
-        <Stack sm noPadding>
-          <Text sm bold>Suggestions</Text>
-          <Text sm>React</Text>
-          <Text sm>Vue</Text>
-          <Text sm>Angular</Text>
-          <Text sm>Svelte</Text>
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Modal with initialFocus</Button>
+      <Modal open={open} onClose={() => setOpen(false)} initialFocus={emailRef} closeButton>
+        <Title>Initial Focus Demo</Title>
+        <Stack>
+          <Label>Name</Label>
+          <Input placeholder="Name (not focused)" />
         </Stack>
-      }
-    >
-      <Input placeholder="Focus me for suggestions..." />
-    </PopupTrigger>
+        <Stack>
+          <Label>Email (focused on open)</Label>
+          <Input ref={emailRef} placeholder="This input gets focus on open" />
+        </Stack>
+        <Button filled onClick={() => setOpen(false)}>Submit</Button>
+      </Modal>
+    </div>
   );
 }
 
-function PopupTriggerWithPlacementDemo() {
+function NoReturnFocusModalDemo() {
+  const [open, setOpen] = useState(false);
   return (
-    <Row flexWrap>
-      <PopupTrigger
-        popup={<Text sm>I appear on the right!</Text>}
-        popupProps={{ right: true } as Record<string, unknown>}
-      >
-        <Button secondary sm>Right popup</Button>
-      </PopupTrigger>
-      <PopupTrigger
-        popup={<Text sm>I appear on top!</Text>}
-        popupProps={{ top: true } as Record<string, unknown>}
-      >
-        <Button secondary sm>Top popup</Button>
-      </PopupTrigger>
-      <PopupTrigger
-        popup={<Text sm>I appear on the left!</Text>}
-        popupProps={{ left: true } as Record<string, unknown>}
-      >
-        <Button secondary sm>Left popup</Button>
-      </PopupTrigger>
-    </Row>
+    <div>
+      <Button secondary onClick={() => setOpen(true)}>Modal (returnFocus=false)</Button>
+      <Modal open={open} onClose={() => setOpen(false)} returnFocus={false} closeButton>
+        <Title>No Return Focus</Title>
+        <Text>When this modal closes, focus will NOT return to the trigger button. Compare with the normal modal behavior.</Text>
+        <Button filled onClick={() => setOpen(false)}>Close</Button>
+      </Modal>
+    </div>
   );
 }
 
-// ─── Main App ───────────────────────────────────────────────────────────────
+// ─── NEW: Uncontrolled Modal ─────────────────────────────────────────────────
+
+function UncontrolledModalWithTriggerDemo() {
+  // Using a ref-based approach to open the uncontrolled modal
+  const [, forceRender] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <div>
+      <Button primary onClick={() => setShowModal(true)}>Open Uncontrolled Modal</Button>
+      {showModal && (
+        <Modal
+          defaultOpen
+          onOpenChange={(isOpen) => {
+            console.log('Modal onOpenChange:', isOpen);
+            if (!isOpen) {
+              // Remove from DOM after close animation
+              setTimeout(() => {
+                setShowModal(false);
+                forceRender(n => n + 1);
+              }, 250);
+            }
+          }}
+          closeButton
+        >
+          <Title>Uncontrolled Modal</Title>
+          <Text>This modal manages its own open state internally. The parent only knows about changes via <Code sm>onOpenChange</Code>.</Text>
+          <Text sm secondary>Check the console for onOpenChange callbacks.</Text>
+        </Modal>
+      )}
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  OVERLAY DEMOS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function BasicOverlayDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Show Overlay</Button>
+      <Overlay open={open} onClose={() => setOpen(false)}>
+        <Text xl bold filled>Click anywhere to close</Text>
+      </Overlay>
+    </div>
+  );
+}
+
+function OverlayWithContentDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Overlay with Content</Button>
+      <Overlay open={open} onClose={() => setOpen(false)}>
+        <Card lg onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+          <Stack>
+            <Text bold>Overlay Content</Text>
+            <Text>Click outside the card to close.</Text>
+            <Button primary sm onClick={() => setOpen(false)}>Close</Button>
+          </Stack>
+        </Card>
+      </Overlay>
+    </div>
+  );
+}
+
+function BlurOverlayDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Blur Overlay</Button>
+      <Overlay open={open} onClose={() => setOpen(false)} blur>
+        <Text xl bold filled>Blurred Background</Text>
+      </Overlay>
+    </div>
+  );
+}
+
+function NonDismissibleOverlayDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Loading Overlay</Button>
+      <Overlay open={open} pointerEventsNone>
+        <Stack itemsCenter>
+          <Text xl bold filled>Loading...</Text>
+          <Button sm danger onClick={() => setOpen(false)} style={{ pointerEvents: 'auto' }}>Cancel</Button>
+        </Stack>
+      </Overlay>
+    </div>
+  );
+}
+
+// ─── NEW: Custom Animation Duration ──────────────────────────────────────────
+
+function SlowOverlayDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button accent onClick={() => setOpen(true)}>Slow Overlay (500ms)</Button>
+      <Overlay open={open} onClose={() => setOpen(false)} transitionDuration={500}>
+        <Card lg onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+          <Stack>
+            <Text bold>Slow Fade Overlay</Text>
+            <Text>This overlay uses a 500ms fade transition.</Text>
+            <Button filled sm onClick={() => setOpen(false)}>Close</Button>
+          </Stack>
+        </Card>
+      </Overlay>
+    </div>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  MAIN APP
+// ═══════════════════════════════════════════════════════════════════════════════
 
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Section className="w-full">
         <Container itemsCenter className="w-full">
-          <PageTitle>VaneUI Component Library Examples</PageTitle>
+          <PageTitle>VaneUI Overlay Components Playground</PageTitle>
 
-          {/* Grid with Border Example */}
+          {/* ─── Popup ──────────────────────────────────────────────── */}
           <Card>
-            <Title>Grid with Border</Title>
-            <Grid2 border rounded primary gap>
-              <Card sm secondary>Grid Item 1</Card>
-              <Card sm secondary>Grid Item 2</Card>
-              <Card sm secondary>Grid Item 3</Card>
-              <Card sm secondary>Grid Item 4</Card>
-            </Grid2>
-          </Card>
-          <Row flexWrap>
-            <Label sm htmlFor="appearance-primary" primary>
-              <Checkbox sm defaultChecked id="appearance-primary" primary />
-              Enable primary style
-            </Label>
-            <Label brand htmlFor="appearance-brand">
-              <Checkbox brand defaultChecked id="appearance-brand" />
-              Enable brand style
-            </Label>
-            <Label accent htmlFor="appearance-accent">
-              <Checkbox accent defaultChecked id="appearance-accent" />
-              Enable accent style
-            </Label>
-            <Label htmlFor="appearance-secondary" secondary>
-              <Checkbox defaultChecked id="appearance-secondary" secondary />
-              Enable secondary style
-            </Label>
-            <Label htmlFor="appearance-tertiary" tertiary>
-              <Checkbox defaultChecked id="appearance-tertiary" tertiary />
-              Enable tertiary style
-            </Label>
-            <Label htmlFor="appearance-success" success>
-              <Checkbox defaultChecked id="appearance-success" success />
-              Enable success style
-            </Label>
-            <Label danger htmlFor="appearance-danger">
-              <Checkbox danger defaultChecked id="appearance-danger" />
-              Enable danger style
-            </Label>
-            <Label htmlFor="appearance-warning" warning>
-              <Checkbox defaultChecked id="appearance-warning" warning />
-              Enable warning style
-            </Label>
-            <Label xl htmlFor="appearance-info" info>
-              <Checkbox xl defaultChecked id="appearance-info" info />
-              Enable info style
-            </Label>
-          </Row>
-          <ColorTable />
-          <Text xs className="max-w-sm">
-            Every component adapts to screen size automatically.
-            Use responsive props like <Code xs primary>xs</Code>, <Code xs primary>sm</Code>,
-            <Code xs primary>md</Code>, <Code xs primary>lg</Code>, <Code xs primary>xl</Code> to fine-tune layouts for any
-            device.
-          </Text>
-          <Text sm className="max-w-sm">
-            Every component adapts to screen size automatically.
-            Use responsive props like <Code sm primary>xs</Code>, <Code sm primary>sm</Code>,
-            <Code sm primary>md</Code>, <Code sm primary>lg</Code>, <Code sm primary>xl</Code> to fine-tune layouts for any
-            device.
-          </Text>
-          <Text className="max-w-[216px]">
-            Every component adapts to screen size automatically.
-            Use responsive props like <Code secondary>xs</Code>, <Code primary>sm</Code>,
-            <Code primary>xs</Code>, <Code primary>sm</Code>, <Code primary>xs</Code>, <Code>sm</Code>, <Code>xs</Code>, <Code secondary>sm</Code>,
-            <Code secondary>xs</Code>, <Code>sm</Code>,
-            <Code primary>md</Code>, <Code primary>lg</Code>, <Code primary>xl</Code> to fine-tune layouts for any
-            device.
-          </Text>
-          <Text lg className="max-w-lg">
-            Every component adapts to screen size automatically.
-            Use responsive props like <Code lg primary>xs</Code>, <Code lg primary>sm</Code>, <Code lg primary>md</Code>, <Code lg primary>lg</Code>, <Code lg primary>xl</Code> to fine-tune layouts for any device.
-          </Text>
-          <Text xl className="max-w-xl">
-            Every component adapts to screen size automatically.
-            Use responsive props like <Code xl primary>xs</Code>, <Code xl primary>sm</Code>, <Code xl primary>xs</Code>, <Code xl primary>sm</Code>,
-            <Code xl primary>xs</Code>, <Code xl primary>sm</Code>, <Code xl primary>xs</Code>, <Code xl primary>sm</Code>,
-            <Code xl primary>xs</Code>, <Code xl primary>sm</Code>, <Code xl primary>xs</Code>, <Code xl primary>sm</Code>,
-            <Code xl primary>md</Code>, <Code xl primary>lg</Code>, <Code xl primary>xl</Code> to fine-tune layouts for any
-            device.
-          </Text>
-
-          {/* Button Examples */}
-          <Card>
-            <Title>Button</Title>
-            <Row flexWrap>
-              <Button primary xs>Button XS</Button>
-              <Button success sm>Button SM</Button>
-              <Button>Button MD</Button>
-              <Button danger lg>Button LG</Button>
-              <Button warning xl>Button XL</Button>
-            </Row>
-            <Row flexWrap>
-              <Button filled  primary xs>Button XS</Button>
-              <Button filled  success sm>Button SM</Button>
-              <Button filled>Button MD</Button>
-              <Button filled  danger lg>Button LG</Button>
-              <Button filled  warning xl>Button XL</Button>
-            </Row>
-          </Card>
-
-          {/* Badge Examples */}
-          <Card>
-            <Title>Badge</Title>
-            <Row flexWrap>
-              <Badge xs>Badge XS</Badge>
-              <Badge sm>Badge SM</Badge>
-              <Badge>Badge MD</Badge>
-              <Badge lg>Badge LG</Badge>
-              <Badge xl>Badge XL</Badge>
-            </Row>
-          </Card>
-
-          {/* Chip Examples */}
-          <Card>
-            <Title>Chip</Title>
-            <Row flexWrap>
-              <Chip xs>Chip XS</Chip>
-              <Chip sm>Chip SM</Chip>
-              <Chip>Chip MD</Chip>
-              <Chip lg>Chip LG</Chip>
-              <Chip xl>Chip XL</Chip>
-            </Row>
-          </Card>
-
-          {/* Code Examples */}
-          <Card>
-            <Title>Code</Title>
-            <Row flexWrap>
-              <Code xs>const x = 1;</Code>
-              <Code sm>const x = 1;</Code>
-              <Code>const x = 1;</Code>
-              <Code lg>const x = 1;</Code>
-              <Code xl>const x = 1;</Code>
-            </Row>
-          </Card>
-
-          {/* Input Examples */}
-          <Card>
-            <Title>Input</Title>
-            <Row flexWrap>
-              <Input xs placeholder="Input XS"/>
-              <Input sm placeholder="Input SM"/>
-              <Input placeholder="Input MD"/>
-              <Input lg placeholder="Input LG"/>
-              <Input xl placeholder="Input XL"/>
-            </Row>
-          </Card>
-
-          {/* Label Examples */}
-          <Card>
-            <Title>Label</Title>
+            <Title>Popup — Basic</Title>
             <Col>
-              <Label xs>Label XS</Label>
-              <Label sm>Label SM</Label>
-              <Label>Label MD</Label>
-              <Label lg>Label LG</Label>
-              <Label xl>Label XL</Label>
-            </Col>
-          </Card>
-
-          {/* Checkbox Examples */}
-          <Card>
-            <Title>Checkbox</Title>
-            <Col>
-              <Label xs><Checkbox outline xs/> Checkbox XS</Label>
-              <Label sm><Checkbox sm/> Checkbox SM</Label>
-              <Label><Checkbox md filled/> Checkbox MD</Label>
-              <Label lg><Checkbox lg outline/> Checkbox LG</Label>
-              <Label xl><Checkbox xl/> Checkbox XL</Label>
-            </Col>
-          </Card>
-
-          {/* Text Examples */}
-          <Card>
-            <Title>Text</Title>
-            <Col>
-              <Text xs>Text XS - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua</Text>
-              <Text sm>Text SM - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua</Text>
-              <Text>Text MD - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut
-                labore et dolore magna aliqua</Text>
-              <Text lg>Text LG - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua</Text>
-              <Text xl>Text XL - Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua</Text>
-            </Col>
-          </Card>
-
-          {/* Title Examples */}
-          <Card>
-            <Title>Title</Title>
-            <Col>
-              <Title xs>Title XS</Title>
-              <Title sm>Title SM</Title>
-              <Title>Title MD</Title>
-              <Title lg>Title LG</Title>
-              <Title xl>Title XL</Title>
-            </Col>
-          </Card>
-
-          {/* Link Examples */}
-          <Card>
-            <Title>Link</Title>
-            <Col>
-              <Link xs href="#">Link XS</Link>
-              <Link sm href="#">Link SM</Link>
-              <Link href="#">Link MD</Link>
-              <Link lg href="#">Link LG</Link>
-              <Link xl href="#">Link XL</Link>
-            </Col>
-          </Card>
-
-          {/* Divider Examples */}
-          <Card>
-            <Title>Divider</Title>
-            <Col>
-              <Text>Divider XS:</Text>
-              <Divider xs/>
-              <Text>Divider SM:</Text>
-              <Divider sm/>
-              <Text>Divider MD:</Text>
-              <Divider/>
-              <Text>Divider LG:</Text>
-              <Divider lg/>
-              <Text>Divider XL:</Text>
-              <Divider xl/>
-            </Col>
-          </Card>
-
-          {/* Card Examples */}
-          <Card>
-            <Title>Card</Title>
-            <Row flexWrap>
-              <Card xs>
-                <Text xs>Card XS</Text>
-              </Card>
-              <Card sm>
-                <Text sm>Card SM</Text>
-              </Card>
-              <Card>
-                <Text>Card MD</Text>
-              </Card>
-              <Card lg>
-                <Text lg>Card LG</Text>
-              </Card>
-              <Card xl>
-                <Text xl>Card XL</Text>
-              </Card>
-            </Row>
-          </Card>
-
-          {/* ─── Overlay Examples ────────────────────────────────────────── */}
-          <Card>
-            <Title>Overlay</Title>
-            <Row flexWrap>
-              <BasicOverlayDemo />
-              <OverlayWithContentDemo />
-              <BlurOverlayDemo />
-              <NonDismissibleOverlayDemo />
-            </Row>
-          </Card>
-
-          {/* ─── Modal Examples ──────────────────────────────────────────── */}
-          <Card>
-            <Title>Modal</Title>
-            <Row flexWrap>
-              <BasicModalDemo />
-              <ModalSizesDemo />
-              <FormModalDemo />
-              <BlurModalDemo />
-              <NonDismissibleModalDemo />
-              <AppearanceModalDemo />
-            </Row>
-          </Card>
-
-          {/* ─── Popup Examples ──────────────────────────────────────────── */}
-          <Card>
-            <Title>Popup</Title>
-            <Col>
-              <Text secondary sm>Basic Popup:</Text>
               <BasicPopupDemo />
               <Divider />
               <Text secondary sm>Placement Options:</Text>
@@ -886,52 +751,35 @@ function App() {
               <Text secondary sm>Match Anchor Width:</Text>
               <MatchWidthPopupDemo />
               <Divider />
-              <Text secondary sm>Rich Content Popup:</Text>
+              <Text secondary sm>Rich Content:</Text>
               <PopupWithContentDemo />
             </Col>
           </Card>
 
-          {/* ─── NEW: Compound Modal Examples ─────────────────────────────── */}
           <Card>
-            <Title>Compound Modal (ModalHeader / ModalBody / ModalFooter)</Title>
+            <Title>Popup — Arrow</Title>
+            <Text sm secondary>Use <Code sm>arrow</Code> to show a pointer toward the anchor. Customize size with <Code sm>arrowSize</Code>.</Text>
             <Row flexWrap>
-              <CompoundModalDemo />
-              <CloseButtonModalDemo />
+              <ArrowPopupDemo />
+              <ArrowSizePopupDemo />
             </Row>
           </Card>
 
-          {/* ─── Animations ──────────────────────────────────────────────── */}
           <Card>
-            <Title>Animations</Title>
-            <Row flexWrap>
-              <AnimatedModalDemo />
-              <AnimatedPopupDemo />
-              <AnimatedOverlayDemo />
-              <NoAnimationModalDemo />
-            </Row>
+            <Title>Popup — Custom Animation Duration</Title>
+            <Text sm secondary>Override the default 200ms transition with <Code sm>transitionDuration</Code>.</Text>
+            <SlowPopupDemo />
           </Card>
 
-          {/* ─── NEW: Modal Layout Variants ───────────────────────────────── */}
           <Card>
-            <Title>Modal Layout Variants</Title>
-            <Row flexWrap>
-              <FullScreenModalDemo />
-              <TopAlignedModalDemo />
-            </Row>
+            <Title>Popup — Uncontrolled Mode</Title>
+            <Text sm secondary>Use <Code sm>defaultOpen</Code> and <Code sm>onOpenChange</Code> instead of managing <Code sm>open</Code> state yourself.</Text>
+            <UncontrolledPopupDemo />
           </Card>
 
-          {/* ─── NEW: Modal Advanced Features ─────────────────────────────── */}
+          {/* ─── PopupTrigger ───────────────────────────────────────── */}
           <Card>
-            <Title>Modal Advanced Features</Title>
-            <Row flexWrap>
-              <NestedModalsDemo />
-              <KeepMountedModalDemo />
-            </Row>
-          </Card>
-
-          {/* ─── NEW: PopupTrigger Examples ───────────────────────────────── */}
-          <Card>
-            <Title>PopupTrigger</Title>
+            <Title>PopupTrigger — Trigger Modes</Title>
             <Col>
               <Text secondary sm>Click Trigger (default):</Text>
               <ClickTriggerDemo />
@@ -942,9 +790,104 @@ function App() {
               <Text secondary sm>Focus Trigger (autocomplete-like):</Text>
               <FocusTriggerDemo />
               <Divider />
-              <Text secondary sm>PopupTrigger with Placement:</Text>
+              <Text secondary sm>Placement via popupProps:</Text>
               <PopupTriggerWithPlacementDemo />
             </Col>
+          </Card>
+
+          <Card>
+            <Title>PopupTrigger — Arrow + ARIA</Title>
+            <Text sm secondary>PopupTrigger automatically injects ARIA attributes on the trigger element.</Text>
+            <Col>
+              <PopupTriggerArrowDemo />
+              <Divider />
+              <AriaAttributesDemo />
+            </Col>
+          </Card>
+
+          {/* ─── Modal ──────────────────────────────────────────────── */}
+          <Card>
+            <Title>Modal — Basic</Title>
+            <Row flexWrap>
+              <BasicModalDemo />
+              <ModalSizesDemo />
+              <FormModalDemo />
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Modal — Appearance & Options</Title>
+            <Row flexWrap>
+              <BlurModalDemo />
+              <NonDismissibleModalDemo />
+              <AppearanceModalDemo />
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Modal — Compound (Header / Body / Footer)</Title>
+            <Row flexWrap>
+              <CompoundModalDemo />
+              <FullScreenModalDemo />
+              <TopAlignedModalDemo />
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Modal — Advanced</Title>
+            <Row flexWrap>
+              <NestedModalsDemo />
+              <KeepMountedModalDemo />
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Modal — Animation Duration</Title>
+            <Text sm secondary>Control animation speed with <Code sm>transitionDuration</Code> or disable with <Code sm>noAnimation</Code>.</Text>
+            <Row flexWrap>
+              <SlowModalDemo />
+              <NoAnimationModalDemo />
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Modal — Focus Management</Title>
+            <Text sm secondary>
+              Use <Code sm>initialFocus</Code> to focus a specific element on open.
+              Use <Code sm>returnFocus=&#123;false&#125;</Code> to prevent focus from returning to the trigger on close.
+            </Text>
+            <Row flexWrap>
+              <InitialFocusModalDemo />
+              <NoReturnFocusModalDemo />
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Modal — Uncontrolled Mode</Title>
+            <Text sm secondary>
+              Use <Code sm>defaultOpen</Code> and <Code sm>onOpenChange</Code> for uncontrolled state management.
+              No need to pass <Code sm>open</Code> or manage state externally.
+            </Text>
+            <Row flexWrap>
+              <UncontrolledModalWithTriggerDemo />
+            </Row>
+          </Card>
+
+          {/* ─── Overlay ────────────────────────────────────────────── */}
+          <Card>
+            <Title>Overlay — Basic</Title>
+            <Row flexWrap>
+              <BasicOverlayDemo />
+              <OverlayWithContentDemo />
+              <BlurOverlayDemo />
+              <NonDismissibleOverlayDemo />
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Overlay — Custom Animation Duration</Title>
+            <Text sm secondary>Override the default 200ms fade with <Code sm>transitionDuration</Code>.</Text>
+            <SlowOverlayDemo />
           </Card>
 
         </Container>

@@ -491,6 +491,47 @@
         animation: vane-scale-out var(--transition-duration) var(--transition-timing) forwards;
     }
 
+    /* Popup arrow */
+    .vane-popup-arrow {
+        position: absolute;
+        width: var(--arrow-size, 8px);
+        height: var(--arrow-size, 8px);
+        background: inherit;
+        border: inherit;
+        border-width: 0;
+        transform: rotate(45deg);
+        pointer-events: none;
+    }
+    /* Arrow positioning based on data-placement */
+    [data-placement^="top"] > .vane-popup-arrow {
+        bottom: calc(var(--arrow-size, 8px) / -2);
+        left: 50%;
+        margin-left: calc(var(--arrow-size, 8px) / -2);
+        border-bottom-width: 1px;
+        border-right-width: 1px;
+    }
+    [data-placement^="bottom"] > .vane-popup-arrow {
+        top: calc(var(--arrow-size, 8px) / -2);
+        left: 50%;
+        margin-left: calc(var(--arrow-size, 8px) / -2);
+        border-top-width: 1px;
+        border-left-width: 1px;
+    }
+    [data-placement^="left"] > .vane-popup-arrow {
+        right: calc(var(--arrow-size, 8px) / -2);
+        top: 50%;
+        margin-top: calc(var(--arrow-size, 8px) / -2);
+        border-top-width: 1px;
+        border-right-width: 1px;
+    }
+    [data-placement^="right"] > .vane-popup-arrow {
+        left: calc(var(--arrow-size, 8px) / -2);
+        top: 50%;
+        margin-top: calc(var(--arrow-size, 8px) / -2);
+        border-bottom-width: 1px;
+        border-left-width: 1px;
+    }
+
     /* Modal compound sub-components */
     .vane-modal-header {
         flex-shrink: 0;

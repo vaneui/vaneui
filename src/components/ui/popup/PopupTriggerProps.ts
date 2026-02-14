@@ -18,4 +18,6 @@ export interface PopupTriggerProps {
   closeDelay?: number;
   /** Props passed to the internal Popup component */
   popupProps?: Partial<Omit<PopupProps, 'open' | 'onClose' | 'anchorRef' | 'children'>>;
+  /** Override the generated popup id for aria-controls (default: auto-generated) */
+  popupId?: string;
 }

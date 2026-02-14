@@ -52,6 +52,7 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       portal = true,
       keepMounted = false,
       noAnimation = false,
+      transitionDuration = 200,
       pointerEventsNone,
       children,
       ...props
@@ -59,7 +60,7 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     ref
   ) {
     const theme = useTheme();
-    const { mounted, state } = useTransition(open, 200, noAnimation);
+    const { mounted, state } = useTransition(open, transitionDuration, noAnimation);
     const zIndex = useStackingContext(open);
 
     if (!mounted && !keepMounted) return null;
@@ -79,7 +80,11 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
         theme={theme.overlay}
         onClick={handleClick}
         data-state={isHidden ? undefined : state}
-        style={{ zIndex, ...(isHidden ? { display: 'none' } : undefined) }}
+        style={{
+          zIndex,
+          ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } as React.CSSProperties : undefined),
+          ...(isHidden ? { display: 'none' } : undefined),
+        }}
         aria-hidden={isHidden || undefined}
         {...{ ...props, pointerEventsNone }}
       >

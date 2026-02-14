@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useEffect, useLayoutEffect, useCallback, useId } from 'react';
+import { forwardRef, useRef, useState, useEffect, useLayoutEffect, useCallback, useId } from 'react';
 import { createPortal } from 'react-dom';
 import type { PopupProps } from "./PopupProps";
 import { useTheme } from '../../themeContext';
@@ -7,6 +7,7 @@ import { pickFirstTruthyKeyByCategory } from '../../utils/componentUtils';
 import { popupDefaults } from './popupDefaults';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
+import { useControllableState } from '../../utils/controllableState';
 
 /** Internal placement type used by positioning functions */
 type PopupPlacement =
@@ -154,27 +155,28 @@ function getJsPosition(
   popupRect: DOMRect,
   placement: PopupPlacement,
   offset: number
-): { top: number; left: number } {
+): { top: number; left: number; resolvedPlacement: PopupPlacement } {
   // Try original placement
   const pos = calcPosition(anchorRect, popupRect, placement, offset);
-  if (!overflows(pos, popupRect)) return pos;
+  if (!overflows(pos, popupRect)) return { ...pos, resolvedPlacement: placement };
 
   // Try flip-block (top↔bottom)
   const flippedBlock = flipBlock(placement);
   if (flippedBlock !== placement) {
     const posBlock = calcPosition(anchorRect, popupRect, flippedBlock, offset);
-    if (!overflows(posBlock, popupRect)) return posBlock;
+    if (!overflows(posBlock, popupRect)) return { ...posBlock, resolvedPlacement: flippedBlock };
   }
 
   // Try flip-inline (left↔right)
   const flippedInline = flipInline(placement);
   if (flippedInline !== placement) {
     const posInline = calcPosition(anchorRect, popupRect, flippedInline, offset);
-    if (!overflows(posInline, popupRect)) return posInline;
+    if (!overflows(posInline, popupRect)) return { ...posInline, resolvedPlacement: flippedInline };
   }
 
   // None fit perfectly — use the best candidate and clamp to viewport
   // Prefer block-flip for top/bottom placements, inline-flip for left/right
+  const bestPlacement = (flippedBlock !== placement) ? flippedBlock : placement;
   const bestPos = (flippedBlock !== placement)
     ? calcPosition(anchorRect, popupRect, flippedBlock, offset)
     : pos;
@@ -182,6 +184,7 @@ function getJsPosition(
   return {
     top: Math.max(0, Math.min(bestPos.top, window.innerHeight - popupRect.height)),
     left: Math.max(0, Math.min(bestPos.left, window.innerWidth - popupRect.width)),
+    resolvedPlacement: bestPlacement,
   };
 }
 
@@ -269,8 +272,10 @@ function supportsAnchorPositioning(): boolean {
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(
   function Popup(
     {
-      open,
-      onClose,
+      open: openProp,
+      onClose: onCloseProp,
+      defaultOpen = false,
+      onOpenChange,
       anchorRef,
       offset = 4,
       closeOnEscape = true,
@@ -279,6 +284,10 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       matchWidth = false,
       keepMounted = false,
       noAnimation = false,
+      transitionDuration = 200,
+      role = 'dialog',
+      arrow = false,
+      arrowSize = 8,
       children,
       ...props
     },
@@ -287,6 +296,19 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     const theme = useTheme();
     const popupRef = useRef<HTMLDivElement>(null);
     const anchorName = useId().replace(/:/g, '-');
+    const [resolvedPlacement, setResolvedPlacement] = useState<PopupPlacement | null>(null);
+
+    // Controllable open state — supports both controlled and uncontrolled modes
+    const [open, setOpen] = useControllableState({
+      value: openProp,
+      defaultValue: defaultOpen,
+      onChange: onOpenChange,
+    });
+
+    const onClose = useCallback(() => {
+      onCloseProp?.();
+      setOpen(false);
+    }, [onCloseProp, setOpen]);
 
     // Extract placement from boolean props (e.g. top, bottomStart, rightEnd)
     const placementKey = pickFirstTruthyKeyByCategory(
@@ -299,7 +321,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     const placement = placementKey.replace(/([A-Z])/g, '-$1').toLowerCase() as PopupPlacement;
 
     // Transition and z-index
-    const { mounted, state } = useTransition(open, 200, noAnimation);
+    const { mounted, state } = useTransition(open, transitionDuration, noAnimation);
     const zIndex = useStackingContext(open);
 
     // Stable ref for onClose to prevent effect dependency churn
@@ -350,6 +372,9 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         if (matchWidth) {
           popup.style.setProperty('width', 'anchor-size(width)');
         }
+
+        // For CSS path, use the requested placement (browser handles flipping)
+        setResolvedPlacement(placement);
       } else {
         // JavaScript positioning fallback with flip + clamp
         const anchorRect = anchor.getBoundingClientRect();
@@ -361,6 +386,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         if (matchWidth) {
           popup.style.width = `${anchorRect.width}px`;
         }
+
+        setResolvedPlacement(pos.resolvedPlacement);
       }
 
       return () => {
@@ -426,16 +453,37 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const isHidden = !mounted && keepMounted;
 
+    // Generate a stable id for aria-controls linkage
+    const popupId = props.id || `popup-${anchorName}`;
+
+    // Merge custom attributes into props spread to satisfy ThemedComponent types
+    // When arrow is enabled, force overflow-visible so the arrow isn't clipped
+    const mergedProps = {
+      ...props,
+      ...(arrow ? { overflowVisible: true, overflowAuto: false } : undefined),
+      id: popupId,
+      role,
+    };
+
     const content = (
       <ThemedComponent
         ref={mergedRef}
         theme={theme.popup}
         data-state={isHidden ? undefined : state}
-        style={{ zIndex, ...(isHidden ? { display: 'none' } : undefined) }}
+        data-placement={resolvedPlacement || undefined}
+        style={{
+          zIndex,
+          ...(arrow ? { '--arrow-size': `${arrowSize}px` } as React.CSSProperties : undefined),
+          ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } as React.CSSProperties : undefined),
+          ...(isHidden ? { display: 'none' } : undefined),
+        }}
         aria-hidden={isHidden || undefined}
-        {...props}
+        {...mergedProps}
       >
         {children}
+        {arrow && (
+          <div className="vane-popup-arrow" aria-hidden="true" />
+        )}
       </ThemedComponent>
     );
 

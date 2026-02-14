@@ -1,10 +1,11 @@
-import React, { forwardRef, useRef, useEffect, useCallback, useId } from 'react';
+import React, { forwardRef, useRef, useEffect, useMemo, useCallback, useId } from 'react';
 import { createPortal } from 'react-dom';
 import type { ModalProps } from './ModalProps';
 import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
 import { useScrollLock } from '../../utils/scrollLock';
 import { useFocusTrap } from '../../utils/focusTrap';
+import { useControllableState } from '../../utils/controllableState';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 
@@ -61,15 +62,20 @@ import { useStackingContext } from '../../utils/stackingContext';
 export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   function Modal(
     {
-      open,
-      onClose,
+      open: openProp,
+      onClose: onCloseProp,
+      defaultOpen = false,
+      onOpenChange,
       closeOnOverlayClick = true,
       closeOnEscape = true,
       scrollLock = true,
       focusTrap = true,
+      returnFocus = true,
+      initialFocus,
       overlayProps,
       keepMounted = false,
       noAnimation = false,
+      transitionDuration = 200,
       closeButton = false,
       centered = true,
       fullScreen = false,
@@ -84,9 +90,21 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const contentRef = useRef<HTMLDivElement>(null);
     const generatedId = useId();
 
+    // Controllable open state — supports both controlled and uncontrolled modes
+    const [open, setOpen] = useControllableState({
+      value: openProp,
+      defaultValue: defaultOpen,
+      onChange: onOpenChange,
+    });
+
+    const onClose = useCallback(() => {
+      onCloseProp?.();
+      setOpen(false);
+    }, [onCloseProp, setOpen]);
+
     // Transition states for overlay and content
-    const overlayTransition = useTransition(open, 200, noAnimation);
-    const contentTransition = useTransition(open, 200, noAnimation);
+    const overlayTransition = useTransition(open, transitionDuration, noAnimation);
+    const contentTransition = useTransition(open, transitionDuration, noAnimation);
     const zIndex = useStackingContext(open);
 
     // Merge forwarded ref with internal contentRef
@@ -106,7 +124,11 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     useScrollLock(open && scrollLock);
 
     // Focus trap
-    useFocusTrap(contentRef, open && focusTrap);
+    const focusTrapOptions = useMemo(
+      () => ({ returnFocus, initialFocus }),
+      [returnFocus, initialFocus]
+    );
+    useFocusTrap(contentRef, open && focusTrap, focusTrapOptions);
 
     // Escape key handler
     useEffect(() => {
@@ -152,12 +174,16 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       ? { width: '100vw', height: '100vh', maxWidth: 'none', maxHeight: 'none', borderRadius: 0 }
       : undefined;
 
+    const durationStyle = transitionDuration !== 200
+      ? { '--transition-duration': `${transitionDuration}ms` } as React.CSSProperties
+      : undefined;
+
     const content = (
       <ThemedComponent
         theme={theme.modal.overlay}
         onClick={handleOverlayClick}
         data-state={isHidden ? undefined : overlayTransition.state}
-        style={{ zIndex, ...(isHidden ? { display: 'none' } : undefined) }}
+        style={{ zIndex, ...durationStyle, ...(isHidden ? { display: 'none' } : undefined) }}
         aria-hidden={isHidden || undefined}
         {...computedOverlayProps}
       >
@@ -169,7 +195,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           aria-labelledby={ariaLabelledBy ? labelId : undefined}
           aria-describedby={ariaDescribedBy ? descId : undefined}
           data-state={isHidden ? undefined : contentTransition.state}
-          style={fullScreenStyle}
+          style={{ ...durationStyle, ...fullScreenStyle }}
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
           {...props}
         >

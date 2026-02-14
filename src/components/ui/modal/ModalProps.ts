@@ -63,10 +63,14 @@ export type ModalProps = BaseProps &
   WidthProps &
   HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
-    /** Whether modal is open */
-    open: boolean;
+    /** Whether modal is open (controlled mode). If omitted, uses internal state. */
+    open?: boolean;
     /** Called when modal should close (Escape key, overlay click) */
-    onClose: () => void;
+    onClose?: () => void;
+    /** Initial open state for uncontrolled mode (default: false) */
+    defaultOpen?: boolean;
+    /** Called when open state changes (both controlled and uncontrolled modes) */
+    onOpenChange?: (open: boolean) => void;
     /** Close when clicking overlay (default: true) */
     closeOnOverlayClick?: boolean;
     /** Close when pressing Escape (default: true) */
@@ -75,12 +79,18 @@ export type ModalProps = BaseProps &
     scrollLock?: boolean;
     /** Trap focus inside modal (default: true) */
     focusTrap?: boolean;
+    /** Return focus to trigger element on close (default: true) */
+    returnFocus?: boolean;
+    /** Ref to element that should receive focus when modal opens */
+    initialFocus?: React.RefObject<HTMLElement | null>;
     /** Props passed to the internal Overlay component */
     overlayProps?: Partial<OverlayProps>;
     /** Keep DOM mounted when closed (default: false) */
     keepMounted?: boolean;
     /** Disable enter/exit animations (default: false) */
     noAnimation?: boolean;
+    /** Animation duration in ms (default: 200) */
+    transitionDuration?: number;
     /** Show close "X" button in top-right corner (default: false) */
     closeButton?: boolean;
     /** Center modal vertically (default: true). Set false for top-aligned. */

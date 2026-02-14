@@ -52,10 +52,14 @@ export type PopupProps = BaseProps &
   HeightProps &
   PlacementProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
-    /** Whether popup is open */
-    open: boolean;
+    /** Whether popup is open (controlled mode). If omitted, uses internal state. */
+    open?: boolean;
     /** Called when popup should close (Escape key, click outside) */
     onClose?: () => void;
+    /** Initial open state for uncontrolled mode (default: false) */
+    defaultOpen?: boolean;
+    /** Called when open state changes (both controlled and uncontrolled modes) */
+    onOpenChange?: (open: boolean) => void;
     /** Reference to anchor element */
     anchorRef: React.RefObject<HTMLElement | null>;
     /** Offset from anchor in pixels (default: 4) */
@@ -72,6 +76,14 @@ export type PopupProps = BaseProps &
     keepMounted?: boolean;
     /** Disable enter/exit animations (default: false) */
     noAnimation?: boolean;
+    /** Animation duration in ms (default: 200) */
+    transitionDuration?: number;
+    /** ARIA role for the popup (default: "dialog") */
+    role?: string;
+    /** Show an arrow/pointer pointing toward the anchor (default: false) */
+    arrow?: boolean;
+    /** Arrow size in pixels (default: 8) */
+    arrowSize?: number;
     /** Custom HTML tag to render as */
     tag?: React.ElementType;
   };

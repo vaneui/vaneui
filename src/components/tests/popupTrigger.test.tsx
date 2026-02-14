@@ -204,4 +204,104 @@ describe('PopupTrigger Component Tests', () => {
       jest.useRealTimers();
     });
   });
+
+  describe('ARIA Attributes', () => {
+    it('should set aria-expanded on trigger element', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger popup={<div>Content</div>}>
+            <button>Open</button>
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      const trigger = getByText('Open');
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('should set aria-haspopup on trigger element', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger popup={<div>Content</div>}>
+            <button>Open</button>
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      expect(getByText('Open')).toHaveAttribute('aria-haspopup', 'dialog');
+    });
+
+    it('should set aria-controls when popup is open', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger popup={<div>Content</div>}>
+            <button>Open</button>
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      const trigger = getByText('Open');
+      // Not set when closed
+      expect(trigger).not.toHaveAttribute('aria-controls');
+
+      // Set when open
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-controls');
+      // aria-controls should reference the popup id
+      const popupId = trigger.getAttribute('aria-controls');
+      expect(document.getElementById(popupId!)).toBeInTheDocument();
+    });
+
+    it('should use custom popupId for aria-controls', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger popup={<div>Content</div>} popupId="my-popup">
+            <button>Open</button>
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      fireEvent.click(getByText('Open'));
+      expect(getByText('Open')).toHaveAttribute('aria-controls', 'my-popup');
+    });
+
+    it('should set custom aria-haspopup from popupProps.role', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger popup={<div>Content</div>} popupProps={{ role: 'menu' }}>
+            <button>Open</button>
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      expect(getByText('Open')).toHaveAttribute('aria-haspopup', 'menu');
+    });
+  });
+
+  describe('Focus Return', () => {
+    it('should return focus to trigger when click-triggered popup closes', () => {
+      jest.useFakeTimers();
+      const { getByText, baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger popup={<div>Content</div>}>
+            <button>Open</button>
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      const trigger = getByText('Open');
+      fireEvent.click(trigger);
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+
+      // Close via toggle
+      fireEvent.click(trigger);
+      act(() => { jest.advanceTimersByTime(200); });
+
+      expect(document.activeElement).toBe(trigger);
+      jest.useRealTimers();
+    });
+  });
 });

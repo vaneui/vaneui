@@ -417,6 +417,41 @@ describe('Overlay Component Tests', () => {
     });
   });
 
+  describe('Custom Animation Duration', () => {
+    it('should use default duration (no custom CSS variable)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false}>Content</Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay') as HTMLElement;
+      expect(overlay.style.getPropertyValue('--transition-duration')).toBe('');
+    });
+
+    it('should set custom --transition-duration CSS variable', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false} transitionDuration={500}>Content</Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay') as HTMLElement;
+      expect(overlay.style.getPropertyValue('--transition-duration')).toBe('500ms');
+    });
+
+    it('should not leak transitionDuration to DOM', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false} transitionDuration={300}>Content</Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay');
+      expect(overlay).not.toHaveAttribute('transitionDuration');
+    });
+  });
+
   describe('Alignment Props', () => {
     it('should allow overriding default centering with itemsStart', () => {
       const { container } = render(

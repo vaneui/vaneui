@@ -22,27 +22,43 @@ function getFocusableElements(container: HTMLElement): HTMLElement[] {
   );
 }
 
+/** Options for createFocusTrap */
+export interface FocusTrapOptions {
+  /** Whether to return focus to the trigger element on cleanup (default: true) */
+  returnFocus?: boolean;
+  /** Element to focus initially instead of the first focusable element */
+  initialFocus?: RefObject<HTMLElement | null>;
+}
+
 /**
  * Create focus trap for a container element.
  * Traps Tab/Shift+Tab cycling within the container.
  *
  * @param container - The element to trap focus within
  * @param triggerElement - Element to return focus to on cleanup
+ * @param options - Optional configuration for focus behavior
  * @returns Cleanup function that removes event listeners and restores focus
  */
 export function createFocusTrap(
   container: HTMLElement,
-  triggerElement: Element | null
+  triggerElement: Element | null,
+  options?: FocusTrapOptions
 ): () => void {
-  // Focus first focusable element
+  const { returnFocus = true, initialFocus } = options || {};
+
+  // Focus initial element or first focusable element
   requestAnimationFrame(() => {
-    const elements = getFocusableElements(container);
-    if (elements.length > 0) {
-      elements[0].focus();
+    if (initialFocus?.current) {
+      initialFocus.current.focus();
     } else {
-      // Fallback: make container focusable
-      container.setAttribute('tabindex', '-1');
-      container.focus();
+      const elements = getFocusableElements(container);
+      if (elements.length > 0) {
+        elements[0].focus();
+      } else {
+        // Fallback: make container focusable
+        container.setAttribute('tabindex', '-1');
+        container.focus();
+      }
     }
   });
 
@@ -74,7 +90,7 @@ export function createFocusTrap(
   // Cleanup: remove listener and restore focus
   return () => {
     document.removeEventListener('keydown', handleKeyDown);
-    if (triggerElement instanceof HTMLElement) {
+    if (returnFocus && triggerElement instanceof HTMLElement) {
       triggerElement.focus();
     }
   };
@@ -85,10 +101,12 @@ export function createFocusTrap(
  *
  * @param containerRef - Ref to the container element
  * @param enabled - Whether focus trap is active
+ * @param options - Optional configuration for focus behavior
  */
 export function useFocusTrap(
   containerRef: RefObject<HTMLElement | null>,
-  enabled: boolean
+  enabled: boolean,
+  options?: FocusTrapOptions
 ): void {
   const triggerRef = useRef<Element | null>(null);
 
@@ -96,7 +114,7 @@ export function useFocusTrap(
     if (enabled && containerRef.current) {
       // Capture the element that had focus before modal opened
       triggerRef.current = document.activeElement;
-      return createFocusTrap(containerRef.current, triggerRef.current);
+      return createFocusTrap(containerRef.current, triggerRef.current, options);
     }
-  }, [enabled, containerRef]);
+  }, [enabled, containerRef, options?.returnFocus, options?.initialFocus]);
 }
