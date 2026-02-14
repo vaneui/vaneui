@@ -5,6 +5,8 @@ import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
 import { pickFirstTruthyKeyByCategory } from '../../utils/componentUtils';
 import { popupDefaults } from './popupDefaults';
+import { useTransition } from '../../utils/transition';
+import { useStackingContext } from '../../utils/stackingContext';
 
 /** Internal placement type used by positioning functions */
 type PopupPlacement =
@@ -208,6 +210,8 @@ function supportsAnchorPositioning(): boolean {
  * - Click outside to close
  * - Escape key to close
  * - Match anchor width option
+ * - Enter/exit animations (disable with noAnimation)
+ * - Dynamic z-index stacking
  * - Themeable via ThemeProvider
  *
  * @example
@@ -273,6 +277,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       closeOnClickOutside = true,
       portal = true,
       matchWidth = false,
+      keepMounted = false,
+      noAnimation = false,
       children,
       ...props
     },
@@ -291,6 +297,10 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     // Convert camelCase key to hyphenated format for internal positioning functions
     const placement = placementKey.replace(/([A-Z])/g, '-$1').toLowerCase() as PopupPlacement;
+
+    // Transition and z-index
+    const { mounted, state } = useTransition(open, 200, noAnimation);
+    const zIndex = useStackingContext(open);
 
     // Stable ref for onClose to prevent effect dependency churn
     const onCloseRef = useRef(onClose);
@@ -412,13 +422,18 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       };
     }, [open, closeOnClickOutside, anchorRef]);
 
-    if (!open) return null;
+    if (!mounted && !keepMounted) return null;
+
+    const isHidden = !mounted && keepMounted;
 
     const content = (
       <ThemedComponent
         ref={mergedRef}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         theme={theme.popup as any}
+        data-state={isHidden ? undefined : state}
+        style={{ zIndex, ...(isHidden ? { display: 'none' } : undefined) }}
+        aria-hidden={isHidden || undefined}
         {...props}
       >
         {children}

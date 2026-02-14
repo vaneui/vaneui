@@ -46,6 +46,10 @@ export type OverlayProps = BaseProps &
     onClose?: () => void;
     /** Render inside portal to document.body (default: true) */
     portal?: boolean;
+    /** Keep DOM mounted when closed (default: false) */
+    keepMounted?: boolean;
+    /** Disable enter/exit animations (default: false) */
+    noAnimation?: boolean;
     /** Custom HTML tag to render as */
     tag?: React.ElementType;
   };

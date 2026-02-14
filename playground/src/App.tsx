@@ -10,7 +10,8 @@ import {
   Stack,
   Card, Checkbox, Label, Link, Input, Button,
   Container, Badge, Divider, Chip, Code, PageTitle, Grid2,
-  Modal, Overlay, Popup
+  Modal, ModalHeader, ModalBody, ModalFooter,
+  Overlay, Popup, PopupTrigger
 } from '../../src';
 import { ColorTable } from './ColorTable';
 
@@ -237,14 +238,14 @@ function AppearanceModalDemo() {
     <Row>
       <Button primary onClick={() => setOpenPrimary(true)}>Primary Modal</Button>
       <Button danger onClick={() => setOpenDanger(true)}>Danger Modal</Button>
-      <Modal open={openPrimary} onClose={() => setOpenPrimary(false)} primary filled>
+      <Modal primary open={openPrimary} onClose={() => setOpenPrimary(false)}>
         <Stack lg>
           <Text bold lg>Primary Modal</Text>
           <Text>This modal uses the primary appearance with filled variant.</Text>
           <Button sm onClick={() => setOpenPrimary(false)}>Close</Button>
         </Stack>
       </Modal>
-      <Modal open={openDanger} onClose={() => setOpenDanger(false)} danger filled>
+      <Modal danger open={openDanger} onClose={() => setOpenDanger(false)}>
         <Stack lg>
           <Text bold lg>Danger Modal</Text>
           <Text>This modal uses the danger appearance for destructive actions.</Text>
@@ -311,6 +312,278 @@ function NonDismissibleOverlayDemo() {
         </Stack>
       </Overlay>
     </div>
+  );
+}
+
+// ─── NEW: Compound Modal Demos ───────────────────────────────────────────────
+
+function CompoundModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Compound Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} closeButton>
+        <ModalHeader>
+          <Title>Edit Profile</Title>
+        </ModalHeader>
+        <ModalBody>
+          <Stack>
+            <Label>Name</Label>
+            <Input placeholder="Enter your name" />
+          </Stack>
+          <Stack>
+            <Label>Email</Label>
+            <Input placeholder="Enter your email" />
+          </Stack>
+          <Stack>
+            <Label>Bio</Label>
+            <Input placeholder="Tell us about yourself" />
+          </Stack>
+        </ModalBody>
+        <ModalFooter>
+          <Button secondary onClick={() => setOpen(false)}>Cancel</Button>
+          <Button filled onClick={() => setOpen(false)}>Save Changes</Button>
+        </ModalFooter>
+      </Modal>
+    </div>
+  );
+}
+
+function CloseButtonModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Modal with Close Button</Button>
+      <Modal open={open} onClose={() => setOpen(false)} closeButton>
+        <Title>Notice</Title>
+        <Text>This modal has a close button in the top-right corner. Click it or press Escape to dismiss.</Text>
+      </Modal>
+    </div>
+  );
+}
+
+function FullScreenModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Full-Screen Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} fullScreen closeButton>
+        <ModalHeader>
+          <Title>Full-Screen Editor</Title>
+        </ModalHeader>
+        <ModalBody>
+          <Text>This modal takes up the entire viewport. Useful for immersive editors, media viewers, or complex workflows.</Text>
+          <Card secondary>
+            <Text mono sm>// Your full-screen content goes here</Text>
+          </Card>
+        </ModalBody>
+        <ModalFooter>
+          <Button secondary onClick={() => setOpen(false)}>Close</Button>
+          <Button filled onClick={() => setOpen(false)}>Save</Button>
+        </ModalFooter>
+      </Modal>
+    </div>
+  );
+}
+
+function TopAlignedModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Top-Aligned Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} centered={false} closeButton>
+        <ModalHeader>
+          <Title>Notifications</Title>
+        </ModalHeader>
+        <ModalBody>
+          <Text>This modal is aligned to the top of the viewport instead of being centered vertically. Useful for notification panels or search dialogs.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button filled onClick={() => setOpen(false)}>Dismiss All</Button>
+        </ModalFooter>
+      </Modal>
+    </div>
+  );
+}
+
+function NoAnimationModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>No Animation Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} noAnimation closeButton>
+        <Title>Instant Open</Title>
+        <Text>This modal appears and disappears instantly with no enter/exit animation. Set <Code sm>noAnimation</Code> to disable transitions.</Text>
+      </Modal>
+    </div>
+  );
+}
+
+function AnimatedModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(true)}>Animated Modal (200ms)</Button>
+      <Modal open={open} onClose={() => setOpen(false)} closeButton>
+        <ModalHeader>
+          <Title>Smooth Animation</Title>
+        </ModalHeader>
+        <ModalBody>
+          <Text>This modal uses the default 200ms scale + fade animation. The overlay fades in while the content scales up from 95%.</Text>
+          <Text sm secondary>Open and close this modal to see the enter/exit transitions.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button filled onClick={() => setOpen(false)}>Close</Button>
+        </ModalFooter>
+      </Modal>
+    </div>
+  );
+}
+
+function AnimatedPopupDemo() {
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  return (
+    <div>
+      <Button secondary ref={anchorRef} onClick={() => setOpen(!open)}>Animated Popup</Button>
+      <Popup open={open} onClose={() => setOpen(false)} anchorRef={anchorRef}>
+        <Text bold>Popup Animation</Text>
+        <Text sm>Popups use the same 200ms scale + fade transition.</Text>
+      </Popup>
+    </div>
+  );
+}
+
+function AnimatedOverlayDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button accent onClick={() => setOpen(true)}>Animated Overlay</Button>
+      <Overlay open={open} onClose={() => setOpen(false)}>
+        <Card lg onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+          <Stack>
+            <Text bold>Overlay Animation</Text>
+            <Text>The overlay backdrop uses a 200ms fade transition.</Text>
+            <Button filled sm onClick={() => setOpen(false)}>Close</Button>
+          </Stack>
+        </Card>
+      </Overlay>
+    </div>
+  );
+}
+
+function NestedModalsDemo() {
+  const [outer, setOuter] = useState(false);
+  const [inner, setInner] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOuter(true)}>Nested Modals (Z-Index)</Button>
+      <Modal open={outer} onClose={() => setOuter(false)} closeButton>
+        <ModalHeader>
+          <Title>Outer Modal</Title>
+        </ModalHeader>
+        <ModalBody>
+          <Text>This demonstrates z-index stacking. Each new modal gets a higher z-index automatically.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button secondary onClick={() => setOuter(false)}>Close</Button>
+          <Button filled onClick={() => setInner(true)}>Open Inner Modal</Button>
+        </ModalFooter>
+      </Modal>
+      <Modal open={inner} onClose={() => setInner(false)} sm closeButton>
+        <Title>Inner Modal</Title>
+        <Text>This modal stacks above the outer one with a higher z-index.</Text>
+        <Button filled onClick={() => setInner(false)}>Close Inner</Button>
+      </Modal>
+    </div>
+  );
+}
+
+function KeepMountedModalDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div>
+      <Button primary onClick={() => setOpen(!open)}>{open ? 'Close' : 'Open'} keepMounted Modal</Button>
+      <Modal open={open} onClose={() => setOpen(false)} keepMounted closeButton>
+        <Title>Preserved State</Title>
+        <Text>This modal stays in the DOM when closed (hidden with display:none). Useful when you want to preserve form state or avoid re-mounting expensive content.</Text>
+        <Input placeholder="Type something, close, then re-open..." />
+      </Modal>
+    </div>
+  );
+}
+
+// ─── NEW: PopupTrigger Demos ─────────────────────────────────────────────────
+
+function ClickTriggerDemo() {
+  return (
+    <PopupTrigger popup={
+      <Stack sm noPadding>
+        <Text bold sm>Dropdown Menu</Text>
+        <Button sm secondary noShadow noRing justifyStart>Profile</Button>
+        <Button sm secondary noShadow noRing justifyStart>Settings</Button>
+        <Button sm danger noShadow noRing justifyStart>Sign Out</Button>
+      </Stack>
+    }>
+      <Button primary>Click Menu</Button>
+    </PopupTrigger>
+  );
+}
+
+function HoverTriggerDemo() {
+  return (
+    <PopupTrigger
+      trigger="hover"
+      openDelay={200}
+      popup={<Text sm>This is a tooltip that appears on hover with a 200ms delay.</Text>}
+      popupProps={{ sm: true }}
+    >
+      <Button secondary>Hover for Tooltip</Button>
+    </PopupTrigger>
+  );
+}
+
+function FocusTriggerDemo() {
+  return (
+    <PopupTrigger
+      trigger="focus"
+      popup={
+        <Stack sm noPadding>
+          <Text sm bold>Suggestions</Text>
+          <Text sm>React</Text>
+          <Text sm>Vue</Text>
+          <Text sm>Angular</Text>
+          <Text sm>Svelte</Text>
+        </Stack>
+      }
+    >
+      <Input placeholder="Focus me for suggestions..." />
+    </PopupTrigger>
+  );
+}
+
+function PopupTriggerWithPlacementDemo() {
+  return (
+    <Row flexWrap>
+      <PopupTrigger
+        popup={<Text sm>I appear on the right!</Text>}
+        popupProps={{ right: true } as Record<string, unknown>}
+      >
+        <Button secondary sm>Right popup</Button>
+      </PopupTrigger>
+      <PopupTrigger
+        popup={<Text sm>I appear on top!</Text>}
+        popupProps={{ top: true } as Record<string, unknown>}
+      >
+        <Button secondary sm>Top popup</Button>
+      </PopupTrigger>
+      <PopupTrigger
+        popup={<Text sm>I appear on the left!</Text>}
+        popupProps={{ left: true } as Record<string, unknown>}
+      >
+        <Button secondary sm>Left popup</Button>
+      </PopupTrigger>
+    </Row>
   );
 }
 
@@ -615,6 +888,62 @@ function App() {
               <Divider />
               <Text secondary sm>Rich Content Popup:</Text>
               <PopupWithContentDemo />
+            </Col>
+          </Card>
+
+          {/* ─── NEW: Compound Modal Examples ─────────────────────────────── */}
+          <Card>
+            <Title>Compound Modal (ModalHeader / ModalBody / ModalFooter)</Title>
+            <Row flexWrap>
+              <CompoundModalDemo />
+              <CloseButtonModalDemo />
+            </Row>
+          </Card>
+
+          {/* ─── Animations ──────────────────────────────────────────────── */}
+          <Card>
+            <Title>Animations</Title>
+            <Row flexWrap>
+              <AnimatedModalDemo />
+              <AnimatedPopupDemo />
+              <AnimatedOverlayDemo />
+              <NoAnimationModalDemo />
+            </Row>
+          </Card>
+
+          {/* ─── NEW: Modal Layout Variants ───────────────────────────────── */}
+          <Card>
+            <Title>Modal Layout Variants</Title>
+            <Row flexWrap>
+              <FullScreenModalDemo />
+              <TopAlignedModalDemo />
+            </Row>
+          </Card>
+
+          {/* ─── NEW: Modal Advanced Features ─────────────────────────────── */}
+          <Card>
+            <Title>Modal Advanced Features</Title>
+            <Row flexWrap>
+              <NestedModalsDemo />
+              <KeepMountedModalDemo />
+            </Row>
+          </Card>
+
+          {/* ─── NEW: PopupTrigger Examples ───────────────────────────────── */}
+          <Card>
+            <Title>PopupTrigger</Title>
+            <Col>
+              <Text secondary sm>Click Trigger (default):</Text>
+              <ClickTriggerDemo />
+              <Divider />
+              <Text secondary sm>Hover Trigger (tooltip-like):</Text>
+              <HoverTriggerDemo />
+              <Divider />
+              <Text secondary sm>Focus Trigger (autocomplete-like):</Text>
+              <FocusTriggerDemo />
+              <Divider />
+              <Text secondary sm>PopupTrigger with Placement:</Text>
+              <PopupTriggerWithPlacementDemo />
             </Col>
           </Card>
 

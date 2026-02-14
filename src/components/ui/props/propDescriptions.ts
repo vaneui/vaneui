@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-02-08T12:19:29.714Z
+ * Generated on: 2026-02-13T17:26:44.117Z
  */
 
 export interface PropDescription {
@@ -495,7 +495,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "description": "Placement props for positioning floating elements relative to their anchor",
     "props": {
       "top": {
-        "description": "Position above anchor, centered horizontally"
+        "description": "Position above anchor, centered horizontally (default)"
       },
       "topStart": {
         "description": "Position above anchor, aligned to start (left)"
@@ -507,7 +507,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
         "description": "Position below anchor, centered horizontally"
       },
       "bottomStart": {
-        "description": "Position below anchor, aligned to start (left) (default)"
+        "description": "Position below anchor, aligned to start (left)"
       },
       "bottomEnd": {
         "description": "Position below anchor, aligned to end (right)"

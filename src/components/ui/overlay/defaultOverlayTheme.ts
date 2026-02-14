@@ -30,7 +30,7 @@ import { overlayDefaults } from "./overlayDefaults";
 export const defaultOverlayTheme = new ComponentTheme<OverlayProps, OverlayTheme>(
   'div',
   // Base classes - only non-prop-driven styles
-  'vane-overlay inset-0 z-50 bg-(--overlay-bg)',
+  'vane-overlay inset-0 bg-(--overlay-bg)',
   {
     layout: {
       ...defaultSizedLayoutClassMappers,

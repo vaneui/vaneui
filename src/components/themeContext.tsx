@@ -56,8 +56,14 @@ import { defaultInputTheme } from './ui/input/defaultInputTheme';
 import type { OverlayTheme } from './ui/overlay/OverlayTheme';
 import { defaultOverlayTheme } from './ui/overlay/defaultOverlayTheme';
 import type { ModalContentTheme } from './ui/modal/ModalContentTheme';
+import type { ModalHeaderTheme } from './ui/modal/ModalHeaderTheme';
+import type { ModalBodyTheme } from './ui/modal/ModalBodyTheme';
+import type { ModalFooterTheme } from './ui/modal/ModalFooterTheme';
 import { defaultModalContentTheme } from './ui/modal/defaultModalContentTheme';
 import { defaultModalOverlayTheme } from './ui/modal/defaultModalOverlayTheme';
+import { defaultModalHeaderTheme } from './ui/modal/defaultModalHeaderTheme';
+import { defaultModalBodyTheme } from './ui/modal/defaultModalBodyTheme';
+import { defaultModalFooterTheme } from './ui/modal/defaultModalFooterTheme';
 import type { PopupTheme } from './ui/popup/PopupTheme';
 import { defaultPopupTheme } from './ui/popup/defaultPopupTheme';
 import type { BadgeProps } from "./ui/badge/BadgeProps";
@@ -78,7 +84,7 @@ import type { LabelProps } from "./ui/label";
 import type { ImgProps } from "./ui/img";
 import type { InputProps } from "./ui/input";
 import type { OverlayProps } from "./ui/overlay";
-import type { ModalProps } from "./ui/modal";
+import type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./ui/modal";
 import type { PopupProps } from "./ui/popup";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
@@ -120,6 +126,9 @@ export interface ThemeProps {
   modal: {
     content: ComponentTheme<ModalProps, ModalContentTheme>;
     overlay: ComponentTheme<OverlayProps, OverlayTheme>;
+    header: ComponentTheme<ModalHeaderProps, ModalHeaderTheme>;
+    body: ComponentTheme<ModalBodyProps, ModalBodyTheme>;
+    footer: ComponentTheme<ModalFooterProps, ModalFooterTheme>;
   };
   popup: ComponentTheme<PopupProps, PopupTheme>;
 }
@@ -163,6 +172,9 @@ export const defaultTheme: ThemeProps = {
   modal: {
     content: defaultModalContentTheme,
     overlay: defaultModalOverlayTheme,
+    header: defaultModalHeaderTheme,
+    body: defaultModalBodyTheme,
+    footer: defaultModalFooterTheme,
   },
   popup: defaultPopupTheme,
 };
@@ -222,6 +234,9 @@ export type ThemeDefaults = {
   modal?: {
     content?: Partial<BooleanKeys<ModalProps>>;
     overlay?: Partial<BooleanKeys<OverlayProps>>;
+    header?: Partial<BooleanKeys<ModalHeaderProps>>;
+    body?: Partial<BooleanKeys<ModalBodyProps>>;
+    footer?: Partial<BooleanKeys<ModalFooterProps>>;
   };
   popup?: Partial<BooleanKeys<PopupProps>>;
 };
@@ -266,6 +281,9 @@ export type ThemeExtraClasses = {
   modal?: {
     content?: Partial<StringValueKeys<ModalProps>>;
     overlay?: Partial<StringValueKeys<OverlayProps>>;
+    header?: Partial<StringValueKeys<ModalHeaderProps>>;
+    body?: Partial<StringValueKeys<ModalBodyProps>>;
+    footer?: Partial<StringValueKeys<ModalFooterProps>>;
   };
   popup?: Partial<StringValueKeys<PopupProps>>;
 };

@@ -4,11 +4,16 @@ import { render, fireEvent } from '@testing-library/react';
 
 import {
   Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { resetStackCount } from '../utils/stackingContext';
 
 describe('Modal Component Tests', () => {
+  beforeEach(() => { resetStackCount(); });
 
   describe('Basic Rendering', () => {
     it('should render when open is true', () => {
@@ -549,6 +554,265 @@ describe('Modal Component Tests', () => {
       );
       const el = baseElement.querySelector('.vane-modal');
       expect(el).toHaveClass('h-auto');
+    });
+  });
+
+  describe('Close Button', () => {
+    it('should not render close button by default', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const closeBtn = baseElement.querySelector('.vane-modal-close');
+      expect(closeBtn).not.toBeInTheDocument();
+    });
+
+    it('should render close button when closeButton is true', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} closeButton>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const closeBtn = baseElement.querySelector('.vane-modal-close');
+      expect(closeBtn).toBeInTheDocument();
+      expect(closeBtn).toHaveAttribute('aria-label', 'Close');
+      expect(closeBtn).toHaveAttribute('type', 'button');
+    });
+
+    it('should call onClose when close button is clicked', () => {
+      const onClose = jest.fn();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={onClose} closeButton>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const closeBtn = baseElement.querySelector('.vane-modal-close');
+      fireEvent.click(closeBtn!);
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('Centered', () => {
+    it('should have centered overlay by default', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const overlay = baseElement.querySelector('.vane-overlay');
+      expect(overlay).toHaveClass('items-center', 'justify-center');
+    });
+
+    it('should use items-start when centered is false', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} centered={false}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const overlay = baseElement.querySelector('.vane-overlay');
+      expect(overlay).toHaveClass('items-start');
+      expect(overlay).not.toHaveClass('items-center');
+    });
+  });
+
+  describe('Full Screen', () => {
+    it('should apply fullscreen styles when fullScreen is true', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} fullScreen>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).toHaveStyle({
+        width: '100vw',
+        height: '100vh',
+        maxWidth: 'none',
+        maxHeight: 'none',
+        borderRadius: 0,
+      });
+    });
+
+    it('should add bg-transparent to overlay when fullScreen', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} fullScreen>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const overlay = baseElement.querySelector('.vane-overlay');
+      expect(overlay).toHaveClass('bg-transparent');
+    });
+  });
+
+  describe('keepMounted', () => {
+    it('should keep DOM mounted when keepMounted is true and open is false', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={false} onClose={() => {}} keepMounted>
+            <div>Hidden Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const overlay = baseElement.querySelector('.vane-overlay');
+      expect(overlay).toBeInTheDocument();
+      expect(overlay).toHaveStyle({ display: 'none' });
+    });
+
+    it('should be visible when keepMounted is true and open is true', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} keepMounted>
+            <div>Visible Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const overlay = baseElement.querySelector('.vane-overlay') as HTMLElement;
+      expect(overlay).toBeInTheDocument();
+      // Should not have display:none
+      expect(overlay?.style.display).not.toBe('none');
+    });
+  });
+
+  describe('Dynamic Z-Index', () => {
+    it('should have z-index as inline style', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const overlay = baseElement.querySelector('.vane-overlay');
+      expect(overlay).toHaveStyle({ zIndex: 51 });
+    });
+  });
+
+  describe('Data State (Transitions)', () => {
+    it('should have data-state attribute on overlay and content', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const overlay = baseElement.querySelector('.vane-overlay');
+      const modal = baseElement.querySelector('.vane-modal');
+      // Initial mount: state is 'entered' (since open=true from start)
+      expect(overlay).toHaveAttribute('data-state', 'entered');
+      expect(modal).toHaveAttribute('data-state', 'entered');
+    });
+  });
+
+  describe('Compound Components', () => {
+    it('should render ModalHeader, ModalBody, ModalFooter inside Modal', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <ModalHeader>Header</ModalHeader>
+            <ModalBody>Body</ModalBody>
+            <ModalFooter>Footer</ModalFooter>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal?.querySelector('.vane-modal-header')).toBeInTheDocument();
+      expect(modal?.querySelector('.vane-modal-body')).toBeInTheDocument();
+      expect(modal?.querySelector('.vane-modal-footer')).toBeInTheDocument();
+    });
+  });
+
+  describe('ARIA Attributes (Extended)', () => {
+    it('should accept custom ariaLabelledBy', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} ariaLabelledBy="custom-label">
+            <div id="custom-label">Custom Title</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).toHaveAttribute('aria-labelledby', 'custom-label');
+    });
+
+    it('should accept custom ariaDescribedBy', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} ariaDescribedBy="custom-desc">
+            <div id="custom-desc">Description</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).toHaveAttribute('aria-describedby', 'custom-desc');
+    });
+
+    it('should not set aria-labelledby when not provided', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).not.toHaveAttribute('aria-labelledby');
+    });
+  });
+
+  describe('New Boolean Props Do Not Leak to DOM', () => {
+    it('should not leak new boolean props to DOM', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal
+            open={true}
+            onClose={() => {}}
+            keepMounted
+            noAnimation
+            closeButton
+            centered
+            fullScreen
+          >
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).not.toHaveAttribute('keepMounted');
+      expect(modal).not.toHaveAttribute('noAnimation');
+      expect(modal).not.toHaveAttribute('closeButton');
+      expect(modal).not.toHaveAttribute('centered');
+      expect(modal).not.toHaveAttribute('fullScreen');
     });
   });
 });

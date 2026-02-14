@@ -7,8 +7,10 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { resetStackCount } from '../utils/stackingContext';
 
 describe('Popup Component Tests', () => {
+  beforeEach(() => { resetStackCount(); });
   // Helper to create an anchor element
   const createAnchorRef = () => {
     const ref = { current: document.createElement('button') };
@@ -592,6 +594,84 @@ describe('Popup Component Tests', () => {
       );
       const el = baseElement.querySelector('.vane-popup');
       expect(el).toHaveClass('h-auto');
+    });
+  });
+
+  describe('keepMounted', () => {
+    it('should keep DOM mounted when keepMounted is true and open is false', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={false} onClose={() => {}} anchorRef={anchorRef} keepMounted>
+            <div>Hidden Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toBeInTheDocument();
+      expect(popup).toHaveStyle({ display: 'none' });
+    });
+
+    it('should be visible when keepMounted is true and open is true', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} keepMounted>
+            <div>Visible Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+      expect(popup).toBeInTheDocument();
+      expect(popup?.style.display).not.toBe('none');
+    });
+
+    it('should have aria-hidden when keepMounted and closed', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={false} onClose={() => {}} anchorRef={anchorRef} keepMounted>
+            <div>Hidden</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('aria-hidden', 'true');
+    });
+  });
+
+  describe('Dynamic Z-Index', () => {
+    it('should have z-index as inline style', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveStyle({ zIndex: 51 });
+    });
+  });
+
+  describe('Data State (Transitions)', () => {
+    it('should have data-state attribute when open', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('data-state', 'entered');
     });
   });
 

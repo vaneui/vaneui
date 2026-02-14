@@ -196,7 +196,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
 
     delete cleanProps.theme;
 
-    const {className, tag, ...other} = cleanProps as P;
+    const {className, tag, children, ...other} = cleanProps as P;
     const componentTag: React.ElementType = tag ?? this.getTag(props) ?? "div";
     // Use original props for theme generation, but cleanProps for final DOM props
     const originalProps = props as P;

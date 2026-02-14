@@ -8,8 +8,10 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { resetStackCount } from '../utils/stackingContext';
 
 describe('Overlay Component Tests', () => {
+  beforeEach(() => { resetStackCount(); });
 
   describe('Basic Rendering', () => {
     it('should render when open is true (default)', () => {
@@ -44,9 +46,11 @@ describe('Overlay Component Tests', () => {
 
       const overlay = container.querySelector('.vane-overlay');
       expect(overlay).toBeInTheDocument();
-      expect(overlay).toHaveClass('fixed', 'inset-0', 'z-50');
+      expect(overlay).toHaveClass('fixed', 'inset-0');
       // Uses CSS variable for background
       expect(overlay).toHaveClass('bg-(--overlay-bg)');
+      // z-index is dynamic via inline style (useStackingContext)
+      expect(overlay).toHaveStyle({ zIndex: 51 });
     });
 
     it('should be centered by default via flex props', () => {
@@ -327,6 +331,89 @@ describe('Overlay Component Tests', () => {
       );
       const el = container.querySelector('.vane-overlay');
       expect(el).toHaveClass('h-auto');
+    });
+  });
+
+  describe('keepMounted', () => {
+    it('should keep DOM mounted when keepMounted is true and open is false', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay open={false} portal={false} keepMounted>
+            Hidden Content
+          </Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay');
+      expect(overlay).toBeInTheDocument();
+      expect(overlay).toHaveStyle({ display: 'none' });
+    });
+
+    it('should be visible when keepMounted is true and open is true', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false} keepMounted>
+            Visible Content
+          </Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay') as HTMLElement;
+      expect(overlay).toBeInTheDocument();
+      expect(overlay?.style.display).not.toBe('none');
+    });
+
+    it('should have aria-hidden when keepMounted and closed', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay open={false} portal={false} keepMounted>
+            Hidden
+          </Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay');
+      expect(overlay).toHaveAttribute('aria-hidden', 'true');
+    });
+  });
+
+  describe('Dynamic Z-Index', () => {
+    it('should have z-index as inline style', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false}>Content</Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay');
+      expect(overlay).toHaveStyle({ zIndex: 51 });
+    });
+  });
+
+  describe('Data State (Transitions)', () => {
+    it('should have data-state attribute when open', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false}>Content</Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay');
+      // Initial mount: state is 'entered' (since open=true from start)
+      expect(overlay).toHaveAttribute('data-state', 'entered');
+    });
+
+    it('should not have data-state when keepMounted and closed', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay open={false} portal={false} keepMounted>
+            Content
+          </Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay');
+      expect(overlay).not.toHaveAttribute('data-state');
     });
   });
 

@@ -1,8 +1,10 @@
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { createPortal } from 'react-dom';
 import type { OverlayProps } from "./OverlayProps";
 import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
+import { useTransition } from '../../utils/transition';
+import { useStackingContext } from '../../utils/stackingContext';
 
 /**
  * Overlay component - a fullscreen backdrop for modals, drawers, lightboxes, etc.
@@ -12,6 +14,8 @@ import { ThemedComponent } from "../../themedComponent";
  * - Click-to-close behavior
  * - Optional blur effect
  * - Centered by default (use itemsStart/justifyStart to override)
+ * - Enter/exit animations (disable with noAnimation)
+ * - Dynamic z-index stacking for nested overlays
  * - Themeable via ThemeProvider
  *
  * @example
@@ -46,6 +50,8 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       open = true,
       onClose,
       portal = true,
+      keepMounted = false,
+      noAnimation = false,
       pointerEventsNone,
       children,
       ...props
@@ -53,8 +59,10 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     ref
   ) {
     const theme = useTheme();
+    const { mounted, state } = useTransition(open, 200, noAnimation);
+    const zIndex = useStackingContext(open);
 
-    if (!open) return null;
+    if (!mounted && !keepMounted) return null;
 
     // Handle click on overlay background (not children)
     const handleClick = (event: React.MouseEvent) => {
@@ -63,11 +71,16 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       }
     };
 
+    const isHidden = !mounted && keepMounted;
+
     const content = (
       <ThemedComponent
         ref={ref}
         theme={theme.overlay}
         onClick={handleClick}
+        data-state={isHidden ? undefined : state}
+        style={{ zIndex, ...(isHidden ? { display: 'none' } : undefined) }}
+        aria-hidden={isHidden || undefined}
         {...{ ...props, pointerEventsNone }}
       >
         {children}

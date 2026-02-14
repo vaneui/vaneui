@@ -26,7 +26,7 @@ import { WidthClassMapper } from "../theme/layout/widthClassMapper";
 export const defaultPopupTheme = new ComponentTheme<PopupProps, PopupTheme>(
   'div',
   // Base classes - CSS variable for max-h allows flexible customization
-  'vane-popup z-50 max-h-(--popup-max-height)',
+  'vane-popup max-h-(--popup-max-height)',
   {
     size: layoutClassMappers.size,
     layout: {
