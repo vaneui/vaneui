@@ -1,20 +1,7 @@
-import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
-import type {
-  BaseTypographyComponentTheme,
-  DefaultSizedLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
-import type { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
-import type { GapClassMapper } from "../theme/size/gapClassMapper";
-import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
-import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
-import type { PxClassMapper } from "../theme/size/pxClassMapper";
-import type { PyClassMapper } from "../theme/size/pyClassMapper";
-import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import type { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
-import type { RingClassMapper } from "../theme/layout/ringClassMapper";
-import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
-import type { CursorClassMapper } from "../theme/layout/cursorClassMapper";
+import type { BaseTypographyComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
+import type { DirectionClassMapper, WrapClassMapper, BorderClassMapper, RadiusClassMapper, RingClassMapper, CursorClassMapper } from "../theme/layout";
+import type { LineHeightClassMapper, GapClassMapper, PxClassMapper, PyClassMapper, BreakpointClassMapper } from "../theme/size";
+import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
 
 export interface CardTheme extends BaseTypographyComponentTheme {
   size: {

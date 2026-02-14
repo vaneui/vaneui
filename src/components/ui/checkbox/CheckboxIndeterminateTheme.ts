@@ -1,9 +1,6 @@
 import type { ReactElement } from "react";
-import type {
-  BaseComponentTheme,
-  DefaultLayoutClassMappers
-} from "../theme/common/ComponentTheme";
-import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import type { BaseComponentTheme, DefaultLayoutClassMappers } from "../theme/common";
+import type { SimpleConsumerClassMapper } from "../theme/appearance";
 
 /** Theme interface for checkbox indeterminate mark element */
 export interface CheckboxIndeterminateTheme extends BaseComponentTheme {

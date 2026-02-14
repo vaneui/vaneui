@@ -1,10 +1,6 @@
-import {
-  ComponentTheme,
-} from "../theme/common/ComponentTheme";
+import { ComponentTheme, interactiveClassMappers, bgHoverAppearance, shadowUIAppearance } from "../theme/common";
 import type { InputProps } from "./InputProps";
-import { interactiveClassMappers } from "../theme/common/interactiveClassMappers";
-import { bgHoverAppearance, shadowUIAppearance } from "../theme/common/appearanceClassMappers";
-import { StatusClassMapper } from "../theme/appearance/statusClassMapper";
+import { StatusClassMapper } from "../theme/appearance";
 import { INPUT_CATEGORIES } from "./InputCategories";
 import type { InputTheme } from "./InputTheme";
 import { inputDefaults } from "./inputDefaults";

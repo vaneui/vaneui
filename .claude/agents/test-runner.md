@@ -29,3 +29,12 @@ You are a test runner for the VaneUI project. Your job is to run tests and repor
 - Do NOT include passing test details
 - Do NOT include full stack traces — just the relevant assertion line
 - Keep your response under 20 lines for passing suites, under 50 lines for failures
+
+## Important: Tests alone are not sufficient
+
+After tests pass, **lint and build must also pass**. Remind the caller to run:
+```bash
+npm run lint    # Zero lint errors required
+npm run build   # Full build (includes type-check + lint + rollup + CSS)
+```
+Tests passing does NOT guarantee the code is ready — lint errors or build failures must also be resolved.

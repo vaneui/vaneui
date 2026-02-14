@@ -1,10 +1,7 @@
-import type {
-  BaseComponentTheme,
-  DefaultSizedLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
-import type { PyClassMapper } from "../theme/size/pyClassMapper";
-import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import type { OrientationClassMapper } from "../theme/layout/orientationClassMapper";
+import type { BaseComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
+import type { PyClassMapper } from "../theme/size";
+import type { SimpleConsumerClassMapper } from "../theme/appearance";
+import type { OrientationClassMapper } from "../theme/layout";
 
 export interface DividerTheme extends BaseComponentTheme {
   size: {

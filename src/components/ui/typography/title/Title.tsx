@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import type { TypographyProps } from "../common/TypographyProps";
+import type { TypographyProps } from "../common";
 import { useTheme } from "../../../themeContext";
 import { ThemedComponent } from "../../../themedComponent";
 

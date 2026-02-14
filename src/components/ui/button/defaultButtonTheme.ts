@@ -1,10 +1,8 @@
-import { ComponentTheme, defaultTypographyClassMappers } from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultTypographyClassMappers, interactiveClassMappers, bgActiveAppearance, shadowUIAppearance } from "../theme/common";
 import type { ButtonProps } from "./ButtonProps";
 import type { ButtonTheme } from "./ButtonTheme";
 import { BUTTON_CATEGORIES } from "../props/categoryBuilders";
-import { interactiveClassMappers } from "../theme/common/interactiveClassMappers";
 import { buttonDefaults } from "./buttonDefaults";
-import { bgActiveAppearance, shadowUIAppearance } from "../theme/common/appearanceClassMappers";
 
 export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   "button",

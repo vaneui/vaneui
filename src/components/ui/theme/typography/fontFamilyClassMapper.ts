@@ -1,5 +1,5 @@
 import { FontFamilyKey, CategoryProps } from "../../props";
-import { BaseClassMapper } from "../common/BaseClassMapper";
+import { BaseClassMapper } from "../common";
 
 export class FontFamilyClassMapper extends BaseClassMapper implements Record<FontFamilyKey, string> {
   /** Sans-serif font family - clean, modern fonts without serifs */

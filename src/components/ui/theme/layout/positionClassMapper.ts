@@ -1,5 +1,5 @@
 import { PositionKey } from "../../props";
-import { BaseClassMapper } from "../common/BaseClassMapper";
+import { BaseClassMapper } from "../common";
 import type { CategoryProps } from "../../props";
 
 export class PositionClassMapper extends BaseClassMapper implements Record<PositionKey, string> {

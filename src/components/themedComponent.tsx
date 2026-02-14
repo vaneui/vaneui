@@ -1,5 +1,5 @@
 import React, { useMemo, forwardRef } from "react";
-import { ComponentTheme } from "./ui/theme/common/ComponentTheme";
+import { ComponentTheme } from "./ui/theme/common";
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 
 export type ThemedComponentProps<P extends ComponentProps, T extends object> = P & {

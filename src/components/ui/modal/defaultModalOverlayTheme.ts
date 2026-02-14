@@ -1,16 +1,10 @@
-import {
-  ComponentTheme,
-  defaultSizedLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultSizedLayoutClassMappers } from "../theme/common";
 import type { OverlayProps } from "../overlay";
 import type { ModalOverlayTheme } from "./ModalOverlayTheme";
 import { OVERLAY_CATEGORIES } from "../overlay/OverlayCategories";
 import { modalOverlayDefaults } from "./modalOverlayDefaults";
-import { BlurClassMapper } from "../theme/layout/blurClassMapper";
-import { PointerEventsClassMapper } from "../theme/layout/pointerEventsClassMapper";
-import { RingClassMapper } from "../theme/layout/ringClassMapper";
-import { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
-import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import { BlurClassMapper, PointerEventsClassMapper, RingClassMapper } from "../theme/layout";
+import { ShadowAppearanceClassMapper, SimpleConsumerClassMapper } from "../theme/appearance";
 import { ringConsumerClass } from "../classes/appearanceClasses";
 
 /**

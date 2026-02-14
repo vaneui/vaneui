@@ -1,16 +1,8 @@
-import type { BaseComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common/ComponentTheme";
-import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
-import type { GapClassMapper } from "../theme/size/gapClassMapper";
-import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
-import type { PxClassMapper } from "../theme/size/pxClassMapper";
-import type { PyClassMapper } from "../theme/size/pyClassMapper";
-import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import type { RingClassMapper } from "../theme/layout/ringClassMapper";
-import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
-import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
-import type { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
-import type { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
+import type { BaseComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
+import type { DirectionClassMapper, WrapClassMapper, BorderClassMapper, RingClassMapper, RadiusClassMapper } from "../theme/layout";
+import type { GapClassMapper, PxClassMapper, PyClassMapper, BreakpointClassMapper } from "../theme/size";
+import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
+import type { TextAlignClassMapper } from "../theme/typography";
 
 export interface SectionTheme extends BaseComponentTheme {
   size: {

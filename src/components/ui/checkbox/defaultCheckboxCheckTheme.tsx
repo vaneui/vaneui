@@ -1,10 +1,7 @@
-import {
-  ComponentTheme,
-  defaultLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultLayoutClassMappers } from "../theme/common";
 import type { CheckboxProps } from "./CheckboxProps";
-import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
+import { SimpleConsumerClassMapper } from "../theme/appearance";
+import { FocusVisibleClassMapper } from "../theme/layout";
 import { textConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
 import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
 import type { CheckboxCheckTheme } from "./CheckboxCheckTheme";

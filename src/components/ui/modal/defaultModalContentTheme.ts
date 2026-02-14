@@ -1,13 +1,8 @@
-import {
-  ComponentTheme,
-  defaultTypographyClassMappers,
-} from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultTypographyClassMappers, layoutClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "../theme/common";
 import type { ModalProps } from "./ModalProps";
 import type { ModalContentTheme } from "./ModalContentTheme";
 import { MODAL_CATEGORIES } from "./ModalCategories";
 import { modalContentDefaults } from "./modalContentDefaults";
-import { layoutClassMappers } from "../theme/common/layoutClassMappers";
-import { bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "../theme/common/appearanceClassMappers";
 
 /**
  * Default theme for Modal content (the dialog box).

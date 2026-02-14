@@ -3,13 +3,13 @@ import {
   defaultLayoutClassMappers,
   defaultTypographyClassMappers
 } from "../../theme/common/ComponentTheme";
-import type { TypographyProps } from "../common/TypographyProps";
+import type { TypographyProps } from "../common";
 import type { ListItemTheme } from "./ListItemTheme";
 import { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
 import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
 import { textConsumerClass } from "../../classes/appearanceClasses";
-import { LIST_CATEGORIES } from "../common/TypographyCategories";
+import { LIST_CATEGORIES } from "../common";
 import { listItemDefaults } from "./listItemDefaults";
 
 /** ListItem specific theme */

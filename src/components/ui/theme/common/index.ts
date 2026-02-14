@@ -2,10 +2,12 @@ export { BaseClassMapper } from './BaseClassMapper';
 export {
   ComponentTheme,
   defaultLayoutClassMappers,
+  defaultSizedLayoutClassMappers,
   defaultTypographyClassMappers,
   type BaseComponentTheme,
   type BaseTypographyComponentTheme,
   type DefaultLayoutClassMappers,
+  type DefaultSizedLayoutClassMappers,
   type DefaultTypographyClassMappers,
 } from './ComponentTheme';
 export { interactiveClassMappers } from './interactiveClassMappers';

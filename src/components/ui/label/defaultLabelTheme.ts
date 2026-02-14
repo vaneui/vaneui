@@ -1,18 +1,7 @@
-import {
-  ComponentTheme,
-  defaultSizedLayoutClassMappers,
-  defaultTypographyClassMappers
-} from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultSizedLayoutClassMappers, defaultTypographyClassMappers, textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "../theme/common";
 import type { LabelProps } from "./LabelProps";
-import { GapClassMapper } from "../theme/size/gapClassMapper";
-import { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
-import { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
-import { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import { RingClassMapper } from "../theme/layout/ringClassMapper";
-import { WrapClassMapper } from "../theme/layout/wrapClassMapper";
-import { DirectionClassMapper } from "../theme/layout/directionClassMapper";
-import { CursorClassMapper } from "../theme/layout/cursorClassMapper";
-import { textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "../theme/common/appearanceClassMappers";
+import { GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
+import { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper } from "../theme/layout";
 import { LABEL_CATEGORIES } from "./LabelCategories";
 import type { LabelTheme } from "./LabelTheme";
 import { labelDefaults } from "./labelDefaults";

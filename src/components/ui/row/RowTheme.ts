@@ -1,3 +1,3 @@
-import type { FlexLayoutComponentTheme } from "../theme/common/sharedThemeTypes";
+import type { FlexLayoutComponentTheme } from "../theme/common";
 
 export type RowTheme = FlexLayoutComponentTheme;

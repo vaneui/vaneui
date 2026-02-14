@@ -1,23 +1,7 @@
-import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
-import type {
-  BaseTypographyComponentTheme,
-  DefaultSizedLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
-import type { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
-import type { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
-import type { GapClassMapper } from "../theme/size/gapClassMapper";
-import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
-import type { RingClassMapper } from "../theme/layout/ringClassMapper";
-import type { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
-import type { CursorClassMapper } from "../theme/layout/cursorClassMapper";
-import type { PxClassMapper } from "../theme/size/pxClassMapper";
-import type { PyClassMapper } from "../theme/size/pyClassMapper";
-import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
-import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
-import type { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
-import type { StatusClassMapper } from "../theme/appearance/statusClassMapper";
+import type { BaseTypographyComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
+import type { DirectionClassMapper, BorderClassMapper, RadiusClassMapper, RingClassMapper, FocusVisibleClassMapper, CursorClassMapper, WrapClassMapper, TransitionClassMapper } from "../theme/layout";
+import type { FontSizeClassMapper, LineHeightClassMapper, GapClassMapper, PxClassMapper, PyClassMapper } from "../theme/size";
+import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper, StatusClassMapper } from "../theme/appearance";
 
 export interface InputTheme extends BaseTypographyComponentTheme {
   size: {

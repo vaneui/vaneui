@@ -1,17 +1,7 @@
-import type {
-  BaseTypographyComponentTheme,
-  DefaultSizedLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
-import type { GapClassMapper } from "../theme/size/gapClassMapper";
-import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
-import type { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
-import type { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
-import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import type { RingClassMapper } from "../theme/layout/ringClassMapper";
-import type { WrapClassMapper } from "../theme/layout/wrapClassMapper";
-import type { DirectionClassMapper } from "../theme/layout/directionClassMapper";
-import type { CursorClassMapper } from "../theme/layout/cursorClassMapper";
+import type { BaseTypographyComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
+import type { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper } from "../theme/layout";
+import type { GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
+import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
 
 export interface LabelTheme extends BaseTypographyComponentTheme {
   size: {

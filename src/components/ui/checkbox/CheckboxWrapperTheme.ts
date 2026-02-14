@@ -1,10 +1,7 @@
-import type {
-  BaseComponentTheme,
-  DefaultLayoutClassMappers
-} from "../theme/common/ComponentTheme";
-import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import type { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
-import type { SizeClassMapper } from "../theme/size/sizeClassMapper";
+import type { BaseComponentTheme, DefaultLayoutClassMappers } from "../theme/common";
+import type { SimpleConsumerClassMapper } from "../theme/appearance";
+import type { FocusVisibleClassMapper } from "../theme/layout";
+import type { SizeClassMapper } from "../theme/size";
 
 /** Theme interface for checkbox wrapper element */
 export interface CheckboxWrapperTheme extends BaseComponentTheme {

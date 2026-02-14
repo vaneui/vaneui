@@ -1,8 +1,7 @@
-import { ComponentTheme } from "../theme/common/ComponentTheme";
+import { ComponentTheme, interactiveClassMappers } from "../theme/common";
 import type { BadgeProps } from "./BadgeProps";
 import type { BadgeTheme } from "./BadgeTheme";
 import { BADGE_CATEGORIES } from "../props/categoryBuilders";
-import { interactiveClassMappers } from "../theme/common/interactiveClassMappers";
 import { badgeDefaults } from "./badgeDefaults";
 
 export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(

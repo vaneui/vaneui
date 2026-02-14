@@ -1,5 +1,5 @@
 import { WrapKey } from "../../props";
-import { BaseClassMapper } from "../common/BaseClassMapper";
+import { BaseClassMapper } from "../common";
 import type { CategoryProps } from "../../props";
 
 export class WrapClassMapper extends BaseClassMapper implements Record<WrapKey, string> {

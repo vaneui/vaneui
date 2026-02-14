@@ -1,14 +1,6 @@
-import {
-  ComponentTheme,
-  defaultSizedLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultSizedLayoutClassMappers, bgAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowLayoutAppearance } from "../theme/common";
 import type { ImgProps } from "./ImgProps";
-import { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import { RingClassMapper } from "../theme/layout/ringClassMapper";
-import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
-import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
-import { ObjectFitClassMapper } from "../theme/layout/objectFitClassMapper";
-import { bgAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowLayoutAppearance } from "../theme/common/appearanceClassMappers";
+import { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, ObjectFitClassMapper } from "../theme/layout";
 import type { ImgTheme } from "./ImgTheme";
 import { imgDefaults } from "./imgDefaults";
 import { IMG_CATEGORIES } from "./ImgCategories";

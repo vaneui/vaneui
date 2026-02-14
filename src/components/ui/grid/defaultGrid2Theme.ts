@@ -1,4 +1,4 @@
-import { ComponentTheme } from "../theme/common/ComponentTheme";
+import { ComponentTheme } from "../theme/common";
 import type { GridProps } from "./GridProps";
 import type { GridTheme } from "./GridTheme";
 import { GRID_CATEGORIES } from "../props/categoryBuilders";

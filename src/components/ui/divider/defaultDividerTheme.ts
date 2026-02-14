@@ -1,13 +1,8 @@
-import {
-  ComponentTheme,
-  defaultLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultLayoutClassMappers } from "../theme/common";
 import type { DividerProps } from "./DividerProps";
-import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import { PyClassMapper } from "../theme/size/pyClassMapper";
-import { OrientationClassMapper } from "../theme/layout/orientationClassMapper";
-import { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import { HeightClassMapper } from "../theme/layout/heightClassMapper";
+import { SimpleConsumerClassMapper } from "../theme/appearance";
+import { PyClassMapper } from "../theme/size";
+import { OrientationClassMapper, WidthClassMapper, HeightClassMapper } from "../theme/layout";
 import { DIVIDER_CATEGORIES } from "./DividerCategories";
 import type { DividerTheme } from "./DividerTheme";
 import { dividerDefaults } from "./dividerDefaults";

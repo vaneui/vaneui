@@ -1,12 +1,10 @@
-import { ComponentTheme } from "../theme/common/ComponentTheme";
+import { ComponentTheme, layoutClassMappers } from "../theme/common";
 import type { ContainerProps } from "./ContainerProps";
 import type { ContainerTheme } from "./ContainerTheme";
 import { CONTAINER_CATEGORIES } from "../props/categoryBuilders";
-import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { containerDefaults } from "./containerDefaults";
-import { SizeClassMapper } from "../theme/size/sizeClassMapper";
-import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
-import { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
+import { SizeClassMapper, BreakpointClassMapper } from "../theme/size";
+import { TextAlignClassMapper } from "../theme/typography";
 
 export const defaultContainerTheme = new ComponentTheme<ContainerProps, ContainerTheme>(
   "div",

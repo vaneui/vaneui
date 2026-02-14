@@ -1,3 +1,3 @@
-import type { BasicFlexLayoutComponentTheme } from "../theme/common/sharedThemeTypes";
+import type { BasicFlexLayoutComponentTheme } from "../theme/common";
 
 export type ModalFooterTheme = Omit<BasicFlexLayoutComponentTheme, 'typography'>;

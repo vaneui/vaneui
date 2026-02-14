@@ -1,11 +1,10 @@
-import { ComponentTheme } from "../theme/common/ComponentTheme";
+import { ComponentTheme, layoutClassMappers } from "../theme/common";
 import type { SectionProps } from "./SectionProps";
 import type { SectionTheme } from "./SectionTheme";
 import { SECTION_CATEGORIES } from "./SectionCategories";
-import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { sectionDefaults } from "./sectionDefaults";
-import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
-import { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
+import { BreakpointClassMapper } from "../theme/size";
+import { TextAlignClassMapper } from "../theme/typography";
 
 export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme>(
   "div",

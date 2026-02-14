@@ -1,10 +1,7 @@
 import type { ReactElement } from "react";
-import type {
-  BaseComponentTheme,
-  DefaultLayoutClassMappers
-} from "../theme/common/ComponentTheme";
-import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import type { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
+import type { BaseComponentTheme, DefaultLayoutClassMappers } from "../theme/common";
+import type { SimpleConsumerClassMapper } from "../theme/appearance";
+import type { FocusVisibleClassMapper } from "../theme/layout";
 
 /** Theme interface for checkbox check mark element */
 export interface CheckboxCheckTheme extends BaseComponentTheme {

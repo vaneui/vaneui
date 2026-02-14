@@ -4,7 +4,24 @@
 
 VaneUI (`@vaneui/ui`, v0.9.0) is a React component library with 24 customizable UI components. Built with TypeScript, React 19, Tailwind CSS v4, and Rollup. Uses a boolean props API (`<Button primary lg filled>`) and CSS variable-based theming via `ThemeProvider`.
 
-## IMPORTANT: Component Implementation Workflow
+## CRITICAL: Verification After ANY Code Change
+
+**After making ANY code changes** (new features, bug fixes, refactoring, import changes, theme updates, etc.), you MUST run the full verification pipeline. Do NOT report work as complete until all checks pass.
+
+```bash
+cd C:/GitHub/vaneui
+
+npm run type-check    # TypeScript type validation
+npm run lint          # ESLint — zero errors required
+npm test              # Jest — all tests must pass
+npm run build         # Full build (includes type-check + lint + rollup + CSS)
+```
+
+**`npm run build` is the most comprehensive check** — it runs type-check, lint, rollup bundling, and CSS generation. If build passes, type-check and lint also passed. However, it does NOT run tests, so always run `npm test` separately.
+
+**Common pitfall**: `tsc --noEmit` (type-check) can pass while runtime tests fail due to circular dependencies. Always run BOTH type-check AND tests.
+
+## Component Implementation Workflow
 
 When creating or modifying components, **ALL steps below must be completed**. Use the `component-implementation` agent for guidance or `pre-commit-checker` agent to verify.
 
@@ -28,8 +45,8 @@ When creating or modifying components, **ALL steps below must be completed**. Us
 4. **Verify (ALL must pass)**
    ```bash
    npm run type-check    # TypeScript
-   npm run lint          # ESLint
-   npm test              # Jest
+   npm run lint          # ESLint — zero errors required
+   npm test              # Jest — all tests must pass
    npm run build         # Full build
    ```
 

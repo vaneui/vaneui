@@ -1,9 +1,6 @@
-import {
-  ComponentTheme,
-  defaultLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultLayoutClassMappers } from "../theme/common";
 import type { CheckboxProps } from "./CheckboxProps";
-import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
+import { SimpleConsumerClassMapper } from "../theme/appearance";
 import { textConsumerClass } from "../classes/appearanceClasses";
 import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
 import type { CheckboxIndeterminateTheme } from "./CheckboxIndeterminateTheme";

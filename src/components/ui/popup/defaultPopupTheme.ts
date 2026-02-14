@@ -1,14 +1,9 @@
-import {
-  ComponentTheme,
-} from "../theme/common/ComponentTheme";
+import { ComponentTheme, layoutClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "../theme/common";
 import type { PopupProps } from "./PopupProps";
 import type { PopupTheme } from "./PopupTheme";
 import { POPUP_CATEGORIES } from "./PopupCategories";
 import { popupDefaults } from "./popupDefaults";
-import { layoutClassMappers } from "../theme/common/layoutClassMappers";
-import { bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "../theme/common/appearanceClassMappers";
-import { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
-import { WidthClassMapper } from "../theme/layout/widthClassMapper";
+import { TransitionClassMapper, WidthClassMapper } from "../theme/layout";
 
 /**
  * Default theme for Popup component.

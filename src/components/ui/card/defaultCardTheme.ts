@@ -1,13 +1,10 @@
-import { ComponentTheme, defaultTypographyClassMappers } from "../theme/common/ComponentTheme";
+import { ComponentTheme, defaultTypographyClassMappers, layoutClassMappers } from "../theme/common";
 import type { CardProps } from "./CardProps";
 import type { CardTheme } from "./CardTheme";
 import { CARD_CATEGORIES } from "./CardCategories";
-import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { cardDefaults } from "./cardDefaults";
-import { LineHeightClassMapper } from "../theme/size/lineHeightClassMapper";
-import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
-import { WidthClassMapper } from "../theme/layout/widthClassMapper";
-import { CursorClassMapper } from "../theme/layout/cursorClassMapper";
+import { LineHeightClassMapper, BreakpointClassMapper } from "../theme/size";
+import { WidthClassMapper, CursorClassMapper } from "../theme/layout";
 
 export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   "div",

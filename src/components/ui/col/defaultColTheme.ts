@@ -1,11 +1,10 @@
-import { ComponentTheme } from "../theme/common/ComponentTheme";
+import { ComponentTheme, layoutClassMappers } from "../theme/common";
 import type { ColProps } from "./ColProps";
 import type { ColTheme } from "./ColTheme";
 import { COL_CATEGORIES } from "./ColCategories";
-import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { colDefaults } from "./colDefaults";
-import { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
-import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
+import { TextAlignClassMapper } from "../theme/typography";
+import { BreakpointClassMapper } from "../theme/size";
 
 export const defaultColTheme = new ComponentTheme<ColProps, ColTheme>(
   "div",

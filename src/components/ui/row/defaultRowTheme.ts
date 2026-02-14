@@ -1,11 +1,10 @@
-import { ComponentTheme } from "../theme/common/ComponentTheme";
+import { ComponentTheme, layoutClassMappers } from "../theme/common";
 import type { RowProps } from "./RowProps";
 import type { RowTheme } from "./RowTheme";
 import { ROW_CATEGORIES } from "../props/categoryBuilders";
-import { layoutClassMappers } from "../theme/common/layoutClassMappers";
 import { rowDefaults } from "./rowDefaults";
-import { BreakpointClassMapper } from "../theme/size/breakpointClassMapper";
-import { TextAlignClassMapper } from "../theme/typography/textAlignClassMapper";
+import { BreakpointClassMapper } from "../theme/size";
+import { TextAlignClassMapper } from "../theme/typography";
 
 export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
   "div",

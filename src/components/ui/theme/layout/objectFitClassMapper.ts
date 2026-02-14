@@ -1,4 +1,4 @@
-import { BaseClassMapper } from "../common/BaseClassMapper";
+import { BaseClassMapper } from "../common";
 import type { CategoryProps, ObjectFitKey } from "../../props";
 
 /**

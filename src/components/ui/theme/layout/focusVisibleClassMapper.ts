@@ -1,4 +1,4 @@
-import { BaseClassMapper } from "../common/BaseClassMapper";
+import { BaseClassMapper } from "../common";
 import { CategoryProps, ModeKeys } from "../../props";
 import { ModeKey } from "../../props";
 

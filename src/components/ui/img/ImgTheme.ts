@@ -1,14 +1,6 @@
-import type {
-  BaseComponentTheme,
-  DefaultSizedLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
-import type { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import type { RingClassMapper } from "../theme/layout/ringClassMapper";
-import type { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
-import type { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
-import type { ObjectFitClassMapper } from "../theme/layout/objectFitClassMapper";
-import type { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import type { ShadowAppearanceClassMapper } from "../theme/appearance/shadowAppearanceClassMapper";
+import type { BaseComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
+import type { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, ObjectFitClassMapper } from "../theme/layout";
+import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
 
 export interface ImgTheme extends BaseComponentTheme {
   layout: DefaultSizedLayoutClassMappers & {

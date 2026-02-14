@@ -1,4 +1,4 @@
-import type { TypographyProps } from "../common/TypographyProps";
+import type { TypographyProps } from "../common";
 
 /** Default props for Text component */
 export const textDefaults: Partial<TypographyProps> = {

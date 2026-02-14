@@ -1,5 +1,5 @@
 import React from 'react';
-import type { TypographyProps } from "../common/TypographyProps";
+import type { TypographyProps } from "../common";
 
 /** Link component props - extends TypographyProps with anchor-specific attributes */
 export type LinkProps = TypographyProps &

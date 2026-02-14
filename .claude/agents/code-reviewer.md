@@ -39,4 +39,13 @@ You are a code reviewer for the VaneUI React component library. Review code chan
 - Use `twMerge` for className composition (user className takes precedence)
 - Export component and its props type from the barrel `index.ts`
 
+## Verification
+
+After reviewing and applying any suggested changes, the full verification pipeline must pass:
+```bash
+npm run lint          # Zero lint errors required
+npm test              # All tests must pass
+npm run build         # Full build (type-check + lint + rollup + CSS)
+```
+
 Return a concise review with specific file:line references and severity (error/warning/info).

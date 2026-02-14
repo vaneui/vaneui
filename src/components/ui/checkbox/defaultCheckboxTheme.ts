@@ -1,19 +1,9 @@
-import {
-  ComponentTheme,
-  defaultSizedLayoutClassMappers,
-} from "../theme/common/ComponentTheme";
+import { defaultSizedLayoutClassMappers } from "../theme/common/ComponentTheme";
+import { ComponentTheme, accentAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, checkedBgAppearance, shadowUIAppearance } from "../theme/common";
 import type { CheckboxProps } from "./CheckboxProps";
-import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
-import { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import { RingClassMapper } from "../theme/layout/ringClassMapper";
-import { CursorClassMapper } from "../theme/layout/cursorClassMapper";
-import { TransitionClassMapper } from "../theme/layout/transitionClassMapper";
-import { SimpleConsumerClassMapper } from "../theme/appearance/simpleConsumerClassMapper";
-import { SizeClassMapper } from "../theme/size/sizeClassMapper";
-import { FontSizeClassMapper } from "../theme/size/fontSizeClassMapper";
-import { FocusVisibleClassMapper } from "../theme/layout/focusVisibleClassMapper";
-import { StatusClassMapper } from "../theme/appearance/statusClassMapper";
-import { accentAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, checkedBgAppearance, shadowUIAppearance } from "../theme/common/appearanceClassMappers";
+import { RadiusClassMapper, BorderClassMapper, RingClassMapper, CursorClassMapper, TransitionClassMapper, FocusVisibleClassMapper } from "../theme/layout";
+import { SimpleConsumerClassMapper, StatusClassMapper } from "../theme/appearance";
+import { SizeClassMapper, FontSizeClassMapper } from "../theme/size";
 import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
 import type { CheckboxTheme } from "./CheckboxTheme";
 import { checkboxInputDefaults } from "./checkboxInputDefaults";

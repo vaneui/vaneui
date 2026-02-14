@@ -1,7 +1,6 @@
 import { ComponentTheme } from "../../theme/common/ComponentTheme";
-import type { TypographyProps } from "../common/TypographyProps";
-import type { TextTheme } from "../common/TypographyTheme";
-import { TYPOGRAPHY_CATEGORIES } from "../common/TypographyCategories";
+import type { TypographyProps, TextTheme } from "../common";
+import { TYPOGRAPHY_CATEGORIES } from "../common";
 import { typographyClassMappers } from "../../theme/common/typographyClassMappers";
 import { textDefaults } from "./textDefaults";
 

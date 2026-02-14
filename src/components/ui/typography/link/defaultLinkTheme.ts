@@ -3,12 +3,12 @@ import {
   defaultSizedLayoutClassMappers,
   defaultTypographyClassMappers
 } from "../../theme/common/ComponentTheme";
-import type { TypographyProps } from "../common/TypographyProps";
+import type { TypographyProps } from "../common";
 import type { LinkTheme } from "./LinkTheme";
 import { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
 import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import { LinkVariantClassMapper } from "../../theme/appearance/linkVariantClassMapper";
-import { TYPOGRAPHY_CATEGORIES } from "../common/TypographyCategories";
+import { TYPOGRAPHY_CATEGORIES } from "../common";
 import { linkDefaults } from "./linkDefaults";
 
 /** Link specific theme - uses LinkVariantClassMapper for link-specific colors */

@@ -1,5 +1,5 @@
 import { HideKey } from "../../props";
-import { BaseClassMapper } from "../common/BaseClassMapper";
+import { BaseClassMapper } from "../common";
 import type { CategoryProps } from "../../props";
 
 export class HideClassMapper extends BaseClassMapper implements Record<HideKey, string> {

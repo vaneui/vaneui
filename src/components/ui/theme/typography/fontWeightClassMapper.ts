@@ -1,5 +1,5 @@
 import { FontWeightKey } from "../../props";
-import { BaseClassMapper } from "../common/BaseClassMapper";
+import { BaseClassMapper } from "../common";
 import type { CategoryProps } from "../../props";
 
 export class FontWeightClassMapper extends BaseClassMapper implements Record<FontWeightKey, string> {

@@ -49,7 +49,23 @@ Key files:
 - **Grid2-6**: CSS Grid components with column-count variants
 - **Typography (PageTitle, SectionTitle, Title)**: Responsive font scaling via breakpoint-specific `--fs-unit` values
 
+## Verification (REQUIRED after any fix)
+
+After applying a fix, run the full verification pipeline:
+
+```bash
+cd C:/GitHub/vaneui
+npm run type-check    # TypeScript
+npm run lint          # ESLint — zero errors required
+npm test              # Jest — all tests must pass
+npm run build         # Full build (type-check + lint + rollup + CSS)
+```
+
+**Do NOT report a fix as complete until all checks pass.** A fix that introduces lint errors or breaks the build is not a fix.
+
+**Common pitfall**: `tsc --noEmit` can pass while tests fail due to circular dependencies. Always run BOTH.
+
 ## Output
 - State the root cause with file:line reference
 - Show the minimal fix (diff)
-- Confirm verification passed
+- Confirm ALL verification steps passed (type-check, lint, tests, build)

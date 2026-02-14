@@ -10,7 +10,7 @@ import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import { PlClassMapper } from "../../theme/size/plClassMapper";
 import { ListStyleClassMapper } from "../../theme/list/listStyleClassMapper";
 import { textAppearance } from "../../theme/common/appearanceClassMappers";
-import { LIST_CATEGORIES } from "../common/TypographyCategories";
+import { LIST_CATEGORIES } from "../common";
 import { listDefaults } from "./listDefaults";
 
 /** List specific theme */

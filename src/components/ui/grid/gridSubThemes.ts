@@ -1,11 +1,6 @@
-import { defaultSizedLayoutClassMappers } from "../theme/common/ComponentTheme";
+import { defaultSizedLayoutClassMappers, layoutClassMappers, bgAppearance, textAppearance, borderAppearance } from "../theme/common";
 import type { GridTheme } from "./GridTheme";
-import { WrapClassMapper } from "../theme/layout/wrapClassMapper";
-import { DirectionClassMapper } from "../theme/layout/directionClassMapper";
-import { RadiusClassMapper } from "../theme/layout/radiusClassMapper";
-import { BorderClassMapper } from "../theme/layout/borderClassMapper";
-import { layoutClassMappers } from "../theme/common/layoutClassMappers";
-import { bgAppearance, textAppearance, borderAppearance } from "../theme/common/appearanceClassMappers";
+import { WrapClassMapper, DirectionClassMapper, RadiusClassMapper, BorderClassMapper } from "../theme/layout";
 import type { DeepPartial } from "../../utils/deepPartial";
 
 /** Shared sub-themes used by all Grid components (Grid2-Grid6) */
