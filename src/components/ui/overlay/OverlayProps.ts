@@ -52,6 +52,10 @@ export type OverlayProps = BaseProps &
     noAnimation?: boolean;
     /** Animation duration in ms (default: 200) */
     transitionDuration?: number;
+    /** Called when enter transition completes */
+    onEnterComplete?: () => void;
+    /** Called when exit transition completes */
+    onExitComplete?: () => void;
     /** Custom HTML tag to render as */
     tag?: React.ElementType;
   };

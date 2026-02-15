@@ -52,6 +52,7 @@ export function PopupTrigger({
   closeDelay = 150,
   popupProps,
   popupId: popupIdProp,
+  disabled = false,
 }: PopupTriggerProps) {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLElement>(null);
@@ -102,24 +103,26 @@ export function PopupTrigger({
     }
   }, [open, handleOpen, handleClose]);
 
-  // Build event handlers based on trigger mode
+  // Build event handlers based on trigger mode (skip when disabled)
   const triggerHandlers: Record<string, React.EventHandler<React.SyntheticEvent>> = {};
 
-  if (trigger === 'click') {
-    triggerHandlers.onClick = (e: React.SyntheticEvent) => {
-      // Call original handler if present
-      const originalOnClick = (children as React.ReactElement<Record<string, unknown>>).props?.onClick;
-      if (typeof originalOnClick === 'function') {
-        (originalOnClick as (e: React.SyntheticEvent) => void)(e);
-      }
-      handleToggle();
-    };
-  } else if (trigger === 'hover') {
-    triggerHandlers.onMouseEnter = handleOpen;
-    triggerHandlers.onMouseLeave = handleClose;
-  } else if (trigger === 'focus') {
-    triggerHandlers.onFocus = handleOpen;
-    triggerHandlers.onBlur = handleClose;
+  if (!disabled) {
+    if (trigger === 'click') {
+      triggerHandlers.onClick = (e: React.SyntheticEvent) => {
+        // Call original handler if present
+        const originalOnClick = (children as React.ReactElement<Record<string, unknown>>).props?.onClick;
+        if (typeof originalOnClick === 'function') {
+          (originalOnClick as (e: React.SyntheticEvent) => void)(e);
+        }
+        handleToggle();
+      };
+    } else if (trigger === 'hover') {
+      triggerHandlers.onMouseEnter = handleOpen;
+      triggerHandlers.onMouseLeave = handleClose;
+    } else if (trigger === 'focus') {
+      triggerHandlers.onFocus = handleOpen;
+      triggerHandlers.onBlur = handleClose;
+    }
   }
 
   // Determine the appropriate aria-haspopup value based on popup role
@@ -128,9 +131,9 @@ export function PopupTrigger({
   // Clone the child element with ref, event handlers, and ARIA attributes
   const triggerElement = cloneElement(children, {
     ref: anchorRef,
-    'aria-expanded': open,
-    'aria-haspopup': ariaHaspopup,
-    'aria-controls': open ? popupId : undefined,
+    'aria-expanded': disabled ? undefined : open,
+    'aria-haspopup': disabled ? undefined : ariaHaspopup,
+    'aria-controls': !disabled && open ? popupId : undefined,
     ...triggerHandlers,
   } as Record<string, unknown>);
 
@@ -142,6 +145,7 @@ export function PopupTrigger({
         onClose={handleClose}
         anchorRef={anchorRef}
         id={popupId}
+        disabled={disabled}
         {...(trigger === 'hover' ? {
           onMouseEnter: () => { clearTimers(); },
           onMouseLeave: handleClose,

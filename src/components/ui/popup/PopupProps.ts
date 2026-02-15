@@ -5,6 +5,7 @@ import type {
   HideProps,
   ItemsProps,
   JustifyProps,
+  PositionProps,
   DisplayProps,
   OverflowProps,
   WrapProps,
@@ -33,6 +34,7 @@ export type PopupProps = BaseProps &
   HideProps &
   ItemsProps &
   JustifyProps &
+  PositionProps &
   DisplayProps &
   OverflowProps &
   WrapProps &
@@ -82,6 +84,14 @@ export type PopupProps = BaseProps &
     role?: string;
     /** Show an arrow/pointer pointing toward the anchor (default: false) */
     arrow?: boolean;
+    /** Prevent popup from opening (default: false) */
+    disabled?: boolean;
+    /** Called when enter transition completes */
+    onEnterComplete?: () => void;
+    /** Called when exit transition completes */
+    onExitComplete?: () => void;
+    /** Hide popup when anchor scrolls out of view (default: false) */
+    hideWhenDetached?: boolean;
     /** Custom HTML tag to render as */
     tag?: React.ElementType;
   };

@@ -2,6 +2,13 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 
 export type TransitionState = 'entering' | 'entered' | 'exiting' | 'exited';
 
+export interface TransitionCallbacks {
+  /** Called when enter transition completes (state becomes 'entered') */
+  onEnterComplete?: () => void;
+  /** Called when exit transition completes (state becomes 'exited') */
+  onExitComplete?: () => void;
+}
+
 interface UseTransitionResult {
   /** Whether the component should be in the DOM */
   mounted: boolean;
@@ -19,15 +26,22 @@ interface UseTransitionResult {
  * @param open - Whether the element should be visible
  * @param duration - Transition duration in ms (default: 150)
  * @param disabled - Skip transitions entirely (for noAnimation prop)
+ * @param callbacks - Optional lifecycle callbacks (onEnterComplete, onExitComplete)
  */
 export function useTransition(
   open: boolean,
   duration = 200,
-  disabled = false
+  disabled = false,
+  callbacks?: TransitionCallbacks
 ): UseTransitionResult {
   const [state, setState] = useState<TransitionState>(open ? 'entered' : 'exited');
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const prevOpenRef = useRef(open);
+  // Use refs for callbacks so we always call the latest version
+  const onEnterCompleteRef = useRef(callbacks?.onEnterComplete);
+  const onExitCompleteRef = useRef(callbacks?.onExitComplete);
+  onEnterCompleteRef.current = callbacks?.onEnterComplete;
+  onExitCompleteRef.current = callbacks?.onExitComplete;
 
   const cleanup = useCallback(() => {
     if (timeoutRef.current) {
@@ -48,7 +62,13 @@ export function useTransition(
     cleanup();
 
     if (disabled) {
-      setState(open ? 'entered' : 'exited');
+      if (open) {
+        setState('entered');
+        onEnterCompleteRef.current?.();
+      } else {
+        setState('exited');
+        onExitCompleteRef.current?.();
+      }
       return cleanup;
     }
 
@@ -56,11 +76,13 @@ export function useTransition(
       setState('entering');
       timeoutRef.current = setTimeout(() => {
         setState('entered');
+        onEnterCompleteRef.current?.();
       }, duration);
     } else {
       setState('exiting');
       timeoutRef.current = setTimeout(() => {
         setState('exited');
+        onExitCompleteRef.current?.();
       }, duration);
     }
 

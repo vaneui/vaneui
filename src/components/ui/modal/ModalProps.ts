@@ -91,10 +91,14 @@ export type ModalProps = BaseProps &
     noAnimation?: boolean;
     /** Animation duration in ms (default: 200) */
     transitionDuration?: number;
-    /** Show close "X" button in top-right corner (default: false) */
-    closeButton?: boolean;
     /** Full-screen modal with no border-radius and no overlay (default: false) */
     fullScreen?: boolean;
+    /** Render inside portal to document.body (default: true) */
+    portal?: boolean;
+    /** Called when enter transition completes */
+    onEnterComplete?: () => void;
+    /** Called when exit transition completes */
+    onExitComplete?: () => void;
     /** Custom HTML tag to render as */
     tag?: React.ElementType;
   };

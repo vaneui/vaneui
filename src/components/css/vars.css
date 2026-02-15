@@ -557,12 +557,6 @@
     .vane-modal-close:hover {
         background: var(--color-bg-hover-secondary);
     }
-    /* Absolute fallback — when close button is direct child of modal content (simple modal, no ModalHeader) */
-    .vane-modal > .vane-modal-close {
-        position: absolute;
-        top: var(--py);
-        inset-inline-end: var(--px);
-    }
 
     /* ========================================
        APPEARANCE & VARIANT RULES

@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useEffect, useMemo, useCallback } from 'react';
+import React, { forwardRef, useRef, useEffect, useId, useState, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import type { ModalProps } from './ModalProps';
 import { useTheme } from '../../themeContext';
@@ -21,8 +21,7 @@ import { ModalContext } from './ModalContext';
  * - Focus restoration on close
  * - Enter/exit animations (disable with noAnimation)
  * - Dynamic z-index stacking for nested modals
- * - Optional close button and fullScreen mode
- * - Compound components: ModalHeader, ModalBody, ModalFooter
+ * - Compound components: ModalHeader, ModalBody, ModalFooter, ModalCloseButton
  *
  * @example
  * ```tsx
@@ -40,8 +39,8 @@ import { ModalContext } from './ModalContext';
  * @example
  * ```tsx
  * // Modal with compound components and close button
- * <Modal open={isOpen} onClose={close} closeButton>
- *   <ModalHeader><Title>Edit Profile</Title></ModalHeader>
+ * <Modal open={isOpen} onClose={close}>
+ *   <ModalHeader><Title>Edit Profile</Title><ModalCloseButton /></ModalHeader>
  *   <ModalBody>
  *     <Input placeholder="Name" />
  *   </ModalBody>
@@ -77,8 +76,10 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       keepMounted = false,
       noAnimation = false,
       transitionDuration = 200,
-      closeButton = false,
       fullScreen = false,
+      portal = true,
+      onEnterComplete,
+      onExitComplete,
       children,
       ...props
     },
@@ -98,8 +99,15 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       setOpen(false);
     }, [onCloseProp, setOpen]);
 
+    // ARIA auto-connection: generate stable IDs and track mount state
+    const uniqueId = useId();
+    const titleId = `modal-title-${uniqueId.replace(/:/g, '-')}`;
+    const bodyId = `modal-body-${uniqueId.replace(/:/g, '-')}`;
+    const [titleMounted, setTitleMounted] = useState(false);
+    const [bodyMounted, setBodyMounted] = useState(false);
+
     // Transition states for overlay and content
-    const overlayTransition = useTransition(open, transitionDuration, noAnimation);
+    const overlayTransition = useTransition(open, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
     const contentTransition = useTransition(open, transitionDuration, noAnimation);
     const zIndex = useStackingContext(open);
 
@@ -148,6 +156,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       }
     };
 
+    // Must be before early return — hooks must run unconditionally
+    const contextValue = useMemo(
+      () => ({ onClose, titleId, bodyId, setTitleMounted, setBodyMounted }),
+      [onClose, titleId, bodyId]
+    );
+
     // Determine if we should render at all
     const shouldMount = overlayTransition.mounted || keepMounted;
     if (!shouldMount) return null;
@@ -183,42 +197,22 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           theme={theme.modal.content}
           role="dialog"
           aria-modal="true"
+          aria-labelledby={titleMounted ? titleId : undefined}
+          aria-describedby={bodyMounted ? bodyId : undefined}
           data-state={isHidden ? undefined : contentTransition.state}
           style={{ ...durationStyle, ...fullScreenStyle }}
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
           {...props}
         >
-          <ModalContext.Provider value={{ closeButton: !!closeButton, onClose }}>
+          <ModalContext.Provider value={contextValue}>
             {children}
           </ModalContext.Provider>
-          {closeButton && !React.Children.toArray(children).some(
-            child => React.isValidElement(child) && (child.type as { displayName?: string })?.displayName === 'ModalHeader'
-          ) && (
-            <ThemedComponent
-              theme={theme.button}
-              tag="button"
-              className="vane-modal-close"
-              {...{
-                type: 'button',
-                secondary: true,
-                transparent: true,
-                noShadow: true,
-                noRing: true,
-                onClick: onClose,
-                'aria-label': 'Close',
-              }}
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <path d="M4 4l8 8M12 4l-8 8" />
-              </svg>
-            </ThemedComponent>
-          )}
         </ThemedComponent>
       </ThemedComponent>
     );
 
-    // Portal to body
-    if (typeof document !== 'undefined') {
+    // Portal to body or render in place
+    if (portal && typeof document !== 'undefined') {
       return createPortal(content, document.body);
     }
 

@@ -53,6 +53,8 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       keepMounted = false,
       noAnimation = false,
       transitionDuration = 200,
+      onEnterComplete,
+      onExitComplete,
       pointerEventsNone,
       children,
       ...props
@@ -60,7 +62,7 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     ref
   ) {
     const theme = useTheme();
-    const { mounted, state } = useTransition(open, transitionDuration, noAnimation);
+    const { mounted, state } = useTransition(open, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
     const zIndex = useStackingContext(open);
 
     if (!mounted && !keepMounted) return null;

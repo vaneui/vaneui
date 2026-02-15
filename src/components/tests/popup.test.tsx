@@ -281,8 +281,8 @@ describe('Popup Component Tests', () => {
       );
 
       const popup = baseElement.querySelector('.vane-popup');
-      // CSS Anchor Positioning properties are set via style.setProperty
-      expect(popup).toHaveStyle({ position: 'fixed' });
+      // position: fixed is applied via the theme system (fixed boolean default)
+      expect(popup).toHaveClass('fixed');
     });
 
     it('should accept placement as boolean prop', () => {
@@ -536,7 +536,7 @@ describe('Popup Component Tests', () => {
       );
 
       const popup = document.querySelector('.vane-popup');
-      expect(popup).toHaveStyle({ position: 'fixed' });
+      expect(popup).toHaveClass('fixed');
     });
 
     it('should apply position: fixed to popup', () => {
@@ -550,7 +550,7 @@ describe('Popup Component Tests', () => {
       );
 
       const popup = baseElement.querySelector('.vane-popup');
-      expect(popup).toHaveStyle({ position: 'fixed' });
+      expect(popup).toHaveClass('fixed');
     });
   });
 

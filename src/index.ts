@@ -8,7 +8,7 @@ export { Label } from "./components/ui/label";
 export { Img, type ImgProps } from "./components/ui/img";
 export { Input, type InputProps } from "./components/ui/input";
 export { Overlay } from "./components/ui/overlay";
-export { Modal, ModalHeader, ModalBody, ModalFooter } from "./components/ui/modal";
+export { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton } from "./components/ui/modal";
 export { Popup, PopupTrigger } from "./components/ui/popup";
 export type { OverlayProps } from "./components/ui/overlay";
 export type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./components/ui/modal";

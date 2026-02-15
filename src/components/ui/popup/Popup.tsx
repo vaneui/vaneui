@@ -287,6 +287,10 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       transitionDuration = 200,
       role = 'dialog',
       arrow = false,
+      disabled = false,
+      onEnterComplete,
+      onExitComplete,
+      hideWhenDetached = false,
       children,
       ...props
     },
@@ -309,6 +313,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       setOpen(false);
     }, [onCloseProp, setOpen]);
 
+    const effectiveOpen = open && !disabled;
+
     // Extract placement from boolean props (e.g. top, bottomStart, rightEnd)
     const placementKey = pickFirstTruthyKeyByCategory(
       props as Record<string, unknown>,
@@ -320,8 +326,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     const placement = placementKey.replace(/([A-Z])/g, '-$1').toLowerCase() as PopupPlacement;
 
     // Transition and z-index
-    const { mounted, state } = useTransition(open, transitionDuration, noAnimation);
-    const zIndex = useStackingContext(open);
+    const { mounted, state } = useTransition(effectiveOpen, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
+    const zIndex = useStackingContext(effectiveOpen);
 
     // Stable ref for onClose to prevent effect dependency churn
     const onCloseRef = useRef(onClose);
@@ -345,12 +351,10 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     // Combined positioning effect — useLayoutEffect prevents FOUC
     // Uses CSS Anchor Positioning with flip fallbacks when supported, JS fallback otherwise
     useLayoutEffect(() => {
-      if (!open || !popupRef.current || !anchorRef.current) return;
+      if (!effectiveOpen || !popupRef.current || !anchorRef.current) return;
 
       const popup = popupRef.current;
       const anchor = anchorRef.current;
-
-      popup.style.position = 'fixed';
 
       if (supportsAnchorPositioning()) {
         // CSS Anchor Positioning path with viewport collision handling
@@ -391,7 +395,6 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
       return () => {
         anchor.style.removeProperty('anchor-name');
-        popup.style.removeProperty('position');
         popup.style.removeProperty('position-anchor');
         popup.style.removeProperty('position-area');
         popup.style.removeProperty('position-try-fallbacks');
@@ -403,11 +406,11 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         popup.style.removeProperty('margin-left');
         popup.style.removeProperty('margin-right');
       };
-    }, [open, anchorRef, anchorName, placementKey, offset, matchWidth]);
+    }, [effectiveOpen, anchorRef, anchorName, placementKey, offset, matchWidth]);
 
     // Escape key handler
     useEffect(() => {
-      if (!open || !closeOnEscape) return;
+      if (!effectiveOpen || !closeOnEscape) return;
 
       const handleKeyDown = (event: KeyboardEvent) => {
         if (event.key === 'Escape') {
@@ -418,11 +421,11 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
       document.addEventListener('keydown', handleKeyDown);
       return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [open, closeOnEscape]);
+    }, [effectiveOpen, closeOnEscape]);
 
     // Click outside handler
     useEffect(() => {
-      if (!open || !closeOnClickOutside) return;
+      if (!effectiveOpen || !closeOnClickOutside) return;
 
       const handleClickOutside = (event: MouseEvent) => {
         const target = event.target as Node;
@@ -446,7 +449,29 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         clearTimeout(timeoutId);
         document.removeEventListener('mousedown', handleClickOutside);
       };
-    }, [open, closeOnClickOutside, anchorRef]);
+    }, [effectiveOpen, closeOnClickOutside, anchorRef]);
+
+    // Hide when anchor scrolls out of view
+    const [isDetached, setIsDetached] = useState(false);
+    useEffect(() => {
+      if (!hideWhenDetached || !effectiveOpen || typeof IntersectionObserver === 'undefined') {
+        setIsDetached(false);
+        return;
+      }
+
+      const anchor = anchorRef.current;
+      if (!anchor) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setIsDetached(!entry.isIntersecting);
+        },
+        { threshold: 0 }
+      );
+
+      observer.observe(anchor);
+      return () => observer.disconnect();
+    }, [hideWhenDetached, effectiveOpen, anchorRef]);
 
     if (!mounted && !keepMounted) return null;
 
@@ -468,6 +493,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
           zIndex,
           ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } as React.CSSProperties : undefined),
           ...(isHidden ? { display: 'none' } : undefined),
+          ...(isDetached ? { visibility: 'hidden' as const, pointerEvents: 'none' as const } : undefined),
         }}
         aria-hidden={isHidden || undefined}
         {...mergedProps}

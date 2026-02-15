@@ -10,7 +10,7 @@ import {
   Stack,
   Card, Checkbox, Label, Input, Button,
   Container, Divider, Code, PageTitle,
-  Modal, ModalHeader, ModalBody, ModalFooter,
+  Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton,
   Overlay, Popup, PopupTrigger
 } from '../../src';
 
@@ -24,9 +24,10 @@ function ModalQuickDemo() {
     <Card>
       <Title>Modal</Title>
       <Button primary onClick={() => setOpen(true)}>Open Modal</Button>
-      <Modal noPadding noGap open={open} onClose={() => setOpen(false)} closeButton>
+      <Modal noPadding noGap open={open} onClose={() => setOpen(false)}>
         <ModalHeader borderB>
           <Title>Create New Project</Title>
+          <ModalCloseButton />
         </ModalHeader>
         <ModalBody borderB>
           <Stack>
@@ -497,9 +498,10 @@ function CompoundModalDemo() {
   return (
     <div>
       <Button primary onClick={() => setOpen(true)}>Compound Modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)} closeButton>
+      <Modal open={open} onClose={() => setOpen(false)}>
         <ModalHeader>
           <Title>Edit Profile</Title>
+          <ModalCloseButton />
         </ModalHeader>
         <ModalBody>
           <Stack>
@@ -525,9 +527,10 @@ function FullScreenModalDemo() {
   return (
     <div>
       <Button primary onClick={() => setOpen(true)}>Full-Screen Modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)} fullScreen closeButton>
+      <Modal open={open} onClose={() => setOpen(false)} fullScreen>
         <ModalHeader>
           <Title>Full-Screen Editor</Title>
+          <ModalCloseButton />
         </ModalHeader>
         <ModalBody>
           <Text>This modal takes up the entire viewport.</Text>
@@ -546,9 +549,10 @@ function TopAlignedModalDemo() {
   return (
     <div>
       <Button primary onClick={() => setOpen(true)}>Top-Aligned Modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ itemsStart: true }} closeButton>
+      <Modal open={open} onClose={() => setOpen(false)} overlayProps={{ itemsStart: true }}>
         <ModalHeader>
           <Title>Notifications</Title>
+          <ModalCloseButton />
         </ModalHeader>
         <ModalBody>
           <Text>This modal is aligned to the top instead of centered vertically.</Text>
@@ -567,9 +571,10 @@ function NestedModalsDemo() {
   return (
     <div>
       <Button primary onClick={() => setOuter(true)}>Nested Modals</Button>
-      <Modal open={outer} onClose={() => setOuter(false)} closeButton>
+      <Modal open={outer} onClose={() => setOuter(false)}>
         <ModalHeader>
           <Title>Outer Modal</Title>
+          <ModalCloseButton />
         </ModalHeader>
         <ModalBody>
           <Text>Each nested modal gets a higher z-index automatically.</Text>
@@ -579,7 +584,8 @@ function NestedModalsDemo() {
           <Button filled onClick={() => setInner(true)}>Open Inner Modal</Button>
         </ModalFooter>
       </Modal>
-      <Modal open={inner} onClose={() => setInner(false)} sm closeButton>
+      <Modal open={inner} onClose={() => setInner(false)} sm>
+        <ModalCloseButton />
         <Title>Inner Modal</Title>
         <Text>This modal stacks above the outer one.</Text>
         <Button filled onClick={() => setInner(false)}>Close Inner</Button>
@@ -593,7 +599,8 @@ function KeepMountedModalDemo() {
   return (
     <div>
       <Button primary onClick={() => setOpen(!open)}>{open ? 'Close' : 'Open'} keepMounted Modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)} keepMounted closeButton>
+      <Modal open={open} onClose={() => setOpen(false)} keepMounted>
+        <ModalCloseButton />
         <Title>Preserved State</Title>
         <Text>This modal stays in the DOM when closed. Type something, close, then re-open.</Text>
         <Input placeholder="Type something, close, then re-open..." />
@@ -609,7 +616,8 @@ function SlowModalDemo() {
   return (
     <div>
       <Button accent onClick={() => setOpen(true)}>Slow Modal (500ms)</Button>
-      <Modal open={open} onClose={() => setOpen(false)} transitionDuration={500} closeButton>
+      <Modal open={open} onClose={() => setOpen(false)} transitionDuration={500}>
+        <ModalCloseButton />
         <Title>Slow Animation</Title>
         <Text>This modal uses a 500ms transition duration instead of the default 200ms. Both the overlay fade and content scale animation are affected.</Text>
         <Button filled onClick={() => setOpen(false)}>Close</Button>
@@ -623,7 +631,8 @@ function NoAnimationModalDemo() {
   return (
     <div>
       <Button primary onClick={() => setOpen(true)}>No Animation Modal</Button>
-      <Modal open={open} onClose={() => setOpen(false)} noAnimation closeButton>
+      <Modal open={open} onClose={() => setOpen(false)} noAnimation>
+        <ModalCloseButton />
         <Title>Instant Open</Title>
         <Text>This modal appears and disappears instantly with no transition.</Text>
       </Modal>
@@ -639,7 +648,8 @@ function InitialFocusModalDemo() {
   return (
     <div>
       <Button primary onClick={() => setOpen(true)}>Modal with initialFocus</Button>
-      <Modal open={open} onClose={() => setOpen(false)} initialFocus={emailRef} closeButton>
+      <Modal open={open} onClose={() => setOpen(false)} initialFocus={emailRef}>
+        <ModalCloseButton />
         <Title>Initial Focus Demo</Title>
         <Stack>
           <Label>Name</Label>
@@ -660,7 +670,8 @@ function NoReturnFocusModalDemo() {
   return (
     <div>
       <Button secondary onClick={() => setOpen(true)}>Modal (returnFocus=false)</Button>
-      <Modal open={open} onClose={() => setOpen(false)} returnFocus={false} closeButton>
+      <Modal open={open} onClose={() => setOpen(false)} returnFocus={false}>
+        <ModalCloseButton />
         <Title>No Return Focus</Title>
         <Text>When this modal closes, focus will NOT return to the trigger button. Compare with the normal modal behavior.</Text>
         <Button filled onClick={() => setOpen(false)}>Close</Button>
@@ -692,8 +703,8 @@ function UncontrolledModalWithTriggerDemo() {
               }, 250);
             }
           }}
-          closeButton
         >
+          <ModalCloseButton />
           <Title>Uncontrolled Modal</Title>
           <Text>This modal manages its own open state internally. The parent only knows about changes via <Code sm>onOpenChange</Code>.</Text>
           <Text sm secondary>Check the console for onOpenChange callbacks.</Text>
@@ -785,6 +796,311 @@ function SlowOverlayDemo() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+//  ROUND 2 ENHANCEMENT DEMOS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ─── Feature 1: portal prop on Modal ────────────────────────────────────────
+
+function ModalPortalDemo() {
+  const [portalOpen, setPortalOpen] = useState(false);
+  const [inPlaceOpen, setInPlaceOpen] = useState(false);
+  return (
+    <Col>
+      <Text sm secondary>
+        By default, Modal portals to <Code sm>document.body</Code>.
+        Set <Code sm>portal=&#123;false&#125;</Code> to render in place (useful inside relative containers).
+      </Text>
+      <Row>
+        <Button primary onClick={() => setPortalOpen(true)}>
+          Portaled (default)
+        </Button>
+        <Button secondary onClick={() => setInPlaceOpen(true)}>
+          In-Place (portal=false)
+        </Button>
+      </Row>
+      <Modal open={portalOpen} onClose={() => setPortalOpen(false)}>
+        <ModalHeader>
+          <Title>Portaled Modal</Title>
+          <ModalCloseButton />
+        </ModalHeader>
+        <ModalBody>
+          <Text>This modal is rendered inside <Code sm>document.body</Code> via <Code sm>createPortal</Code>.</Text>
+          <Text sm secondary>Inspect the DOM — this dialog lives outside the React tree root.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button filled onClick={() => setPortalOpen(false)}>Close</Button>
+        </ModalFooter>
+      </Modal>
+      <div style={{ position: 'relative', overflow: 'hidden', border: '2px dashed var(--color-gray-300)', borderRadius: 8, padding: 16 }}>
+        <Text sm secondary>Overflow-hidden container (dashed border):</Text>
+        <Modal open={inPlaceOpen} onClose={() => setInPlaceOpen(false)} portal={false}>
+          <ModalHeader>
+            <Title>In-Place Modal</Title>
+            <ModalCloseButton />
+          </ModalHeader>
+          <ModalBody>
+            <Text>This modal is rendered in-place (no portal).</Text>
+            <Text sm secondary>Inspect the DOM — this dialog is inside the dashed container.</Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button filled onClick={() => setInPlaceOpen(false)}>Close</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    </Col>
+  );
+}
+
+// ─── Feature 2: ARIA auto-connection on Modal ───────────────────────────────
+
+function ModalAriaDemo() {
+  const [fullOpen, setFullOpen] = useState(false);
+  const [headerOnlyOpen, setHeaderOnlyOpen] = useState(false);
+  const [bareOpen, setBareOpen] = useState(false);
+  return (
+    <Col>
+      <Text sm secondary>
+        Modal auto-connects <Code sm>aria-labelledby</Code> to <Code sm>ModalHeader</Code> and{' '}
+        <Code sm>aria-describedby</Code> to <Code sm>ModalBody</Code>. Open each variant and inspect the{' '}
+        <Code sm>role="dialog"</Code> element in DevTools.
+      </Text>
+      <Row flexWrap>
+        <Button primary onClick={() => setFullOpen(true)}>
+          Header + Body (both ARIA)
+        </Button>
+        <Button secondary onClick={() => setHeaderOnlyOpen(true)}>
+          Header only (labelledby)
+        </Button>
+        <Button secondary onClick={() => setBareOpen(true)}>
+          No compound (no ARIA)
+        </Button>
+      </Row>
+
+      {/* Full compound: both aria-labelledby and aria-describedby */}
+      <Modal open={fullOpen} onClose={() => setFullOpen(false)}>
+        <ModalHeader>
+          <Title>Delete Project</Title>
+          <ModalCloseButton />
+        </ModalHeader>
+        <ModalBody>
+          <Text>This action is permanent and cannot be undone. All data will be lost.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button secondary onClick={() => setFullOpen(false)}>Cancel</Button>
+          <Button danger filled onClick={() => setFullOpen(false)}>Delete</Button>
+        </ModalFooter>
+      </Modal>
+
+      {/* Header only: aria-labelledby but no aria-describedby */}
+      <Modal open={headerOnlyOpen} onClose={() => setHeaderOnlyOpen(false)}>
+        <ModalHeader>
+          <Title>Settings</Title>
+          <ModalCloseButton />
+        </ModalHeader>
+        <Stack>
+          <Text sm secondary>Inspect: <Code sm>aria-labelledby</Code> is set, <Code sm>aria-describedby</Code> is absent.</Text>
+          <Label><Checkbox /> Enable notifications</Label>
+          <Label><Checkbox /> Dark mode</Label>
+        </Stack>
+        <ModalFooter>
+          <Button filled onClick={() => setHeaderOnlyOpen(false)}>Save</Button>
+        </ModalFooter>
+      </Modal>
+
+      {/* No compound components: no ARIA connection */}
+      <Modal open={bareOpen} onClose={() => setBareOpen(false)}>
+        <Stack>
+          <Text bold lg>Plain Modal</Text>
+          <Text sm secondary>Inspect: neither <Code sm>aria-labelledby</Code> nor <Code sm>aria-describedby</Code> is set.</Text>
+          <Text>This modal uses no compound components, so no automatic ARIA connection.</Text>
+          <Button filled onClick={() => setBareOpen(false)}>OK</Button>
+        </Stack>
+      </Modal>
+    </Col>
+  );
+}
+
+// ─── Feature 3: disabled prop on Popup / PopupTrigger ───────────────────────
+
+function DisabledPopupDemo() {
+  const [disabled, setDisabled] = useState(true);
+  return (
+    <Col>
+      <Text sm secondary>
+        Set <Code sm>disabled</Code> on <Code sm>PopupTrigger</Code> (or <Code sm>Popup</Code>) to prevent it from opening.
+        Toggle the checkbox below to enable/disable the popup.
+      </Text>
+      <Label>
+        <Checkbox checked={disabled} onChange={() => setDisabled(!disabled)} />
+        Popup disabled
+      </Label>
+      <Row>
+        <PopupTrigger
+          popup={
+            <Stack sm noPadding>
+              <Text bold sm>Menu</Text>
+              <Text sm>Item 1</Text>
+              <Text sm>Item 2</Text>
+            </Stack>
+          }
+          disabled={disabled}
+        >
+          <Button primary>Click Trigger {disabled ? '(disabled)' : '(enabled)'}</Button>
+        </PopupTrigger>
+        <PopupTrigger
+          trigger="hover"
+          popup={<Text sm>Tooltip content</Text>}
+          popupProps={{ sm: true } as Record<string, unknown>}
+          disabled={disabled}
+        >
+          <Button secondary>Hover Trigger {disabled ? '(disabled)' : '(enabled)'}</Button>
+        </PopupTrigger>
+      </Row>
+      <Text xs secondary>
+        When disabled: no ARIA attributes, no event handlers, popup stays closed.
+        Inspect the buttons in DevTools to verify.
+      </Text>
+    </Col>
+  );
+}
+
+// ─── Feature 4: Transition lifecycle callbacks ──────────────────────────────
+
+function TransitionCallbacksDemo() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [overlayOpen, setOverlayOpen] = useState(false);
+  const [log, setLog] = useState<string[]>([]);
+
+  const addLog = useCallback((msg: string) => {
+    setLog(prev => [...prev.slice(-7), `${new Date().toLocaleTimeString()} — ${msg}`]);
+  }, []);
+
+  const popupAnchorRef = useRef<HTMLButtonElement>(null);
+  const [popupOpen, setPopupOpen] = useState(false);
+
+  return (
+    <Col>
+      <Text sm secondary>
+        Use <Code sm>onEnterComplete</Code> and <Code sm>onExitComplete</Code> to run code after animations finish.
+        All three overlay components support these callbacks.
+      </Text>
+      <Row flexWrap>
+        <Button
+          primary
+          onClick={() => setModalOpen(true)}
+        >
+          Modal Callbacks
+        </Button>
+        <Button
+          ref={popupAnchorRef}
+          secondary
+          onClick={() => setPopupOpen(!popupOpen)}
+        >
+          Popup Callbacks
+        </Button>
+        <Button
+          accent
+          onClick={() => setOverlayOpen(true)}
+        >
+          Overlay Callbacks
+        </Button>
+        <Button sm danger onClick={() => setLog([])}>Clear Log</Button>
+      </Row>
+
+      <Popup
+        open={popupOpen}
+        onClose={() => setPopupOpen(false)}
+        anchorRef={popupAnchorRef}
+        onEnterComplete={() => addLog('Popup: onEnterComplete')}
+        onExitComplete={() => addLog('Popup: onExitComplete')}
+      >
+        <Text sm>Popup is open!</Text>
+        <Button sm onClick={() => setPopupOpen(false)}>Close</Button>
+      </Popup>
+
+      <Modal
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onEnterComplete={() => addLog('Modal: onEnterComplete')}
+        onExitComplete={() => addLog('Modal: onExitComplete')}
+      >
+        <ModalHeader>
+          <Title>Callback Demo</Title>
+          <ModalCloseButton />
+        </ModalHeader>
+        <ModalBody>
+          <Text>Open and close this modal to see callbacks fire in the log below.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button filled onClick={() => setModalOpen(false)}>Close</Button>
+        </ModalFooter>
+      </Modal>
+
+      <Overlay
+        open={overlayOpen}
+        onClose={() => setOverlayOpen(false)}
+        onEnterComplete={() => addLog('Overlay: onEnterComplete')}
+        onExitComplete={() => addLog('Overlay: onExitComplete')}
+      >
+        <Card lg onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+          <Text bold>Overlay Callback Demo</Text>
+          <Text sm>Click outside or use the button to close.</Text>
+          <Button filled sm onClick={() => setOverlayOpen(false)}>Close</Button>
+        </Card>
+      </Overlay>
+
+      {log.length > 0 && (
+        <Card sm noPadding noGap>
+          <Text xs bold className="px-3 pt-2">Callback Log:</Text>
+          {log.map((entry, i) => (
+            <Text key={i} xs mono className="px-3 py-0.5">{entry}</Text>
+          ))}
+        </Card>
+      )}
+    </Col>
+  );
+}
+
+// ─── Feature 5: hideWhenDetached on Popup ───────────────────────────────────
+
+function HideWhenDetachedDemo() {
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = useState(false);
+  return (
+    <Col>
+      <Text sm secondary>
+        Set <Code sm>hideWhenDetached</Code> to hide the popup when the anchor scrolls out of view.
+        Open the popup, then scroll this container — the popup hides when the button leaves the viewport.
+      </Text>
+      <Row>
+        <Button primary onClick={() => setOpen(!open)}>
+          {open ? 'Close' : 'Open'} Popup
+        </Button>
+      </Row>
+      <div style={{ height: 200, overflow: 'auto', border: '2px dashed var(--color-gray-300)', borderRadius: 8, padding: 16 }}>
+        <div style={{ height: 100 }} />
+        <Button ref={anchorRef} secondary onClick={() => setOpen(!open)}>
+          Anchor (scroll me out of view)
+        </Button>
+        <div style={{ height: 400 }}>
+          <Text sm secondary className="pt-4">Scroll down to see the popup hide.</Text>
+        </div>
+      </div>
+      <Popup
+        open={open}
+        onClose={() => setOpen(false)}
+        anchorRef={anchorRef}
+        hideWhenDetached
+        bottom
+      >
+        <Text sm bold>I hide when detached!</Text>
+        <Text xs secondary>Scroll the container above to push the anchor out of view.</Text>
+      </Popup>
+    </Col>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 //  MAIN APP
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -797,6 +1113,37 @@ function App() {
 
           {/* ─── Modal Quick Demo ─────────────────────────────────────── */}
           <ModalQuickDemo />
+
+          {/* ═══ ROUND 2 ENHANCEMENTS ═══════════════════════════════════ */}
+          <Divider />
+          <PageTitle sm>Round 2 Enhancements</PageTitle>
+
+          <Card>
+            <Title>Feature 1 — Modal <Code>portal</Code> Prop</Title>
+            <ModalPortalDemo />
+          </Card>
+
+          <Card>
+            <Title>Feature 2 — Modal ARIA Auto-Connection</Title>
+            <ModalAriaDemo />
+          </Card>
+
+          <Card>
+            <Title>Feature 3 — Popup / PopupTrigger <Code>disabled</Code> Prop</Title>
+            <DisabledPopupDemo />
+          </Card>
+
+          <Card>
+            <Title>Feature 4 — Transition Lifecycle Callbacks</Title>
+            <TransitionCallbacksDemo />
+          </Card>
+
+          <Card>
+            <Title>Feature 5 — Popup <Code>hideWhenDetached</Code></Title>
+            <HideWhenDetachedDemo />
+          </Card>
+
+          <Divider />
 
           {/* ─── Popup ──────────────────────────────────────────────── */}
           <Card>

@@ -3,6 +3,7 @@ import type { PopupProps } from "./PopupProps";
 /** Default props for Popup component */
 export const popupDefaults: Partial<PopupProps> = {
   md: true,
+  fixed: true,
   flex: true,
   column: true,
   padding: true,

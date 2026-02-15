@@ -6,6 +6,7 @@ export { ModalBody } from './ModalBody';
 export type { ModalBodyProps } from './ModalBodyProps';
 export { ModalFooter } from './ModalFooter';
 export type { ModalFooterProps } from './ModalFooterProps';
+export { ModalCloseButton } from './ModalCloseButton';
 export { MODAL_CATEGORIES } from './ModalCategories';
 export type { ModalContentTheme } from './ModalContentTheme';
 export type { ModalOverlayTheme } from './ModalOverlayTheme';

@@ -7,6 +7,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  ModalCloseButton,
   ThemeProvider,
   defaultTheme
 } from '../../index';
@@ -557,8 +558,8 @@ describe('Modal Component Tests', () => {
     });
   });
 
-  describe('Close Button', () => {
-    it('should not render close button by default', () => {
+  describe('ModalCloseButton', () => {
+    it('should not render close button when not placed in modal', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
           <Modal open={true} onClose={() => {}}>
@@ -571,10 +572,11 @@ describe('Modal Component Tests', () => {
       expect(closeBtn).not.toBeInTheDocument();
     });
 
-    it('should render close button when closeButton is true', () => {
+    it('should render ModalCloseButton with correct attributes', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={() => {}} closeButton>
+          <Modal open={true} onClose={() => {}}>
+            <ModalCloseButton />
             <div>Content</div>
           </Modal>
         </ThemeProvider>
@@ -586,11 +588,12 @@ describe('Modal Component Tests', () => {
       expect(closeBtn).toHaveAttribute('type', 'button');
     });
 
-    it('should call onClose when close button is clicked', () => {
+    it('should call onClose when ModalCloseButton is clicked', () => {
       const onClose = jest.fn();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={onClose} closeButton>
+          <Modal open={true} onClose={onClose}>
+            <ModalCloseButton />
             <div>Content</div>
           </Modal>
         </ThemeProvider>
@@ -601,12 +604,13 @@ describe('Modal Component Tests', () => {
       expect(onClose).toHaveBeenCalledTimes(1);
     });
 
-    it('should render close button inside ModalHeader when compound layout is used', () => {
+    it('should render inside ModalHeader when placed there', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={() => {}} closeButton>
+          <Modal open={true} onClose={() => {}}>
             <ModalHeader>
               <span>Title</span>
+              <ModalCloseButton />
             </ModalHeader>
             <ModalBody><div>Body</div></ModalBody>
           </Modal>
@@ -619,34 +623,14 @@ describe('Modal Component Tests', () => {
       expect(headerCloseBtn).toHaveAttribute('aria-label', 'Close');
     });
 
-    it('should only render one close button when ModalHeader is present (no fallback)', () => {
-      const { baseElement } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={() => {}} closeButton>
-            <ModalHeader>
-              <span>Title</span>
-            </ModalHeader>
-            <ModalBody><div>Body</div></ModalBody>
-          </Modal>
-        </ThemeProvider>
-      );
-
-      // Only the header's close button — fallback is not rendered
-      const allCloseButtons = baseElement.querySelectorAll('.vane-modal-close');
-      expect(allCloseButtons.length).toBe(1);
-
-      // It's inside the header
-      const header = baseElement.querySelector('.vane-modal-header');
-      expect(header?.querySelector('.vane-modal-close')).toBeInTheDocument();
-    });
-
-    it('should call onClose when header close button is clicked', () => {
+    it('should call onClose when clicked inside ModalHeader', () => {
       const onClose = jest.fn();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={onClose} closeButton>
+          <Modal open={true} onClose={onClose}>
             <ModalHeader>
               <span>Title</span>
+              <ModalCloseButton />
             </ModalHeader>
             <ModalBody><div>Body</div></ModalBody>
           </Modal>
@@ -657,23 +641,6 @@ describe('Modal Component Tests', () => {
       const headerCloseBtn = header?.querySelector('.vane-modal-close');
       fireEvent.click(headerCloseBtn!);
       expect(onClose).toHaveBeenCalledTimes(1);
-    });
-
-    it('should not render close button in ModalHeader when closeButton is false', () => {
-      const { baseElement } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Modal open={true} onClose={() => {}}>
-            <ModalHeader>
-              <span>Title</span>
-            </ModalHeader>
-            <ModalBody><div>Body</div></ModalBody>
-          </Modal>
-        </ThemeProvider>
-      );
-
-      const header = baseElement.querySelector('.vane-modal-header');
-      const headerCloseBtn = header?.querySelector('.vane-modal-close');
-      expect(headerCloseBtn).not.toBeInTheDocument();
     });
   });
 
@@ -956,7 +923,6 @@ describe('Modal Component Tests', () => {
             onClose={() => {}}
             keepMounted
             noAnimation
-            closeButton
             fullScreen
           >
             <div>Content</div>
@@ -967,7 +933,6 @@ describe('Modal Component Tests', () => {
       const modal = baseElement.querySelector('.vane-modal');
       expect(modal).not.toHaveAttribute('keepMounted');
       expect(modal).not.toHaveAttribute('noAnimation');
-      expect(modal).not.toHaveAttribute('closeButton');
       expect(modal).not.toHaveAttribute('fullScreen');
     });
   });
