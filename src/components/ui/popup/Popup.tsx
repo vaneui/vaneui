@@ -481,7 +481,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     const popupId = props.id || `popup-${anchorName}`;
 
     // Merge custom attributes into props spread to satisfy ThemedComponent types
-    const mergedProps = { ...props, id: popupId, role };
+    const mergedProps = { ...props, id: popupId, role, ...(isDetached ? { pointerEventsNone: true } : {}) };
 
     const content = (
       <ThemedComponent
@@ -493,7 +493,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
           zIndex,
           ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } as React.CSSProperties : undefined),
           ...(isHidden ? { display: 'none' } : undefined),
-          ...(isDetached ? { visibility: 'hidden' as const, pointerEvents: 'none' as const } : undefined),
+          ...(isDetached ? { visibility: 'hidden' as const } : undefined),
         }}
         aria-hidden={isHidden || undefined}
         {...mergedProps}

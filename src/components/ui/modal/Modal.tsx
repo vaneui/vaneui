@@ -171,12 +171,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // Build overlay props for fullScreen
     const computedOverlayProps = {
       ...overlayProps,
-      ...(fullScreen ? { className: [overlayProps?.className, 'bg-transparent'].filter(Boolean).join(' ') } : {}),
+      ...(fullScreen ? { transparent: true } : {}),
     };
 
     // Build content style for fullScreen
     const fullScreenStyle: React.CSSProperties | undefined = fullScreen
-      ? { width: '100vw', height: '100vh', maxWidth: 'none', maxHeight: 'none', borderRadius: 0 }
+      ? { width: '100vw', height: '100vh', maxWidth: 'none', maxHeight: 'none' }
       : undefined;
 
     const durationStyle = transitionDuration !== 200
@@ -203,6 +203,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           style={{ ...durationStyle, ...fullScreenStyle }}
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
           {...props}
+          {...(fullScreen ? { sharp: true } : {})}
         >
           <ModalContext.Provider value={contextValue}>
             {children}

@@ -238,7 +238,8 @@ describe('Popup Enhancements', () => {
 
       const popup = baseElement.querySelector('[role="dialog"]') as HTMLElement;
       expect(popup.style.visibility).toBe('hidden');
-      expect(popup.style.pointerEvents).toBe('none');
+      // pointerEvents: 'none' is now handled via the pointerEventsNone boolean prop
+      expect(popup).toHaveClass('pointer-events-none');
     });
 
     it('should show popup when anchor re-enters viewport', () => {

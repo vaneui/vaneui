@@ -10,6 +10,7 @@ export { ItemsClassMapper } from './itemsClassMapper';
 export { JustifyClassMapper } from './justifyClassMapper';
 export { ObjectFitClassMapper } from './objectFitClassMapper';
 export { OrientationClassMapper } from './orientationClassMapper';
+export { OverlayBackgroundClassMapper } from './overlayBackgroundClassMapper';
 export { OverflowClassMapper } from './overflowClassMapper';
 export { PointerEventsClassMapper } from './pointerEventsClassMapper';
 export { PositionClassMapper } from './positionClassMapper';

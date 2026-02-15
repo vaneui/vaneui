@@ -3,7 +3,7 @@ import type { OverlayProps } from "../overlay";
 import type { ModalOverlayTheme } from "./ModalOverlayTheme";
 import { OVERLAY_CATEGORIES } from "../overlay/OverlayCategories";
 import { modalOverlayDefaults } from "./modalOverlayDefaults";
-import { BlurClassMapper, PointerEventsClassMapper, RingClassMapper } from "../theme/layout";
+import { BlurClassMapper, OverlayBackgroundClassMapper, PointerEventsClassMapper, RingClassMapper } from "../theme/layout";
 import { ShadowAppearanceClassMapper, SimpleConsumerClassMapper } from "../theme/appearance";
 import { ringConsumerClass } from "../classes/appearanceClasses";
 
@@ -13,12 +13,13 @@ import { ringConsumerClass } from "../classes/appearanceClasses";
  */
 export const defaultModalOverlayTheme = new ComponentTheme<OverlayProps, ModalOverlayTheme>(
   'div',
-  // Base classes - only non-prop-driven styles
-  'vane-overlay inset-0 bg-(--overlay-bg)',
+  // Base classes - only non-prop-driven styles (bg moved to overlayBackground mapper for transparent support)
+  'vane-overlay inset-0',
   {
     layout: {
       ...defaultSizedLayoutClassMappers,
       blur: new BlurClassMapper(),
+      overlayBackground: new OverlayBackgroundClassMapper(),
       pointerEvents: new PointerEventsClassMapper(),
       ring: new RingClassMapper(),
       shadow: ShadowAppearanceClassMapper.createLayoutTheme(),

@@ -660,11 +660,12 @@ describe('Modal Component Tests', () => {
         height: '100vh',
         maxWidth: 'none',
         maxHeight: 'none',
-        borderRadius: 0,
       });
+      // borderRadius: 0 is now handled via the 'sharp' boolean prop (rounded-none class)
+      expect(modal).toHaveClass('rounded-none');
     });
 
-    it('should add bg-transparent to overlay when fullScreen', () => {
+    it('should make overlay transparent when fullScreen', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
           <Modal open={true} onClose={() => {}} fullScreen>
@@ -674,7 +675,9 @@ describe('Modal Component Tests', () => {
       );
 
       const overlay = baseElement.querySelector('.vane-overlay');
+      // fullScreen passes transparent: true to overlay, which is handled by OverlayBackgroundClassMapper
       expect(overlay).toHaveClass('bg-transparent');
+      expect(overlay).not.toHaveClass('bg-(--overlay-bg)');
     });
   });
 

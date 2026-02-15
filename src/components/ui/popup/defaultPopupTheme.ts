@@ -3,7 +3,7 @@ import type { PopupProps } from "./PopupProps";
 import type { PopupTheme } from "./PopupTheme";
 import { POPUP_CATEGORIES } from "./PopupCategories";
 import { popupDefaults } from "./popupDefaults";
-import { TransitionClassMapper, WidthClassMapper } from "../theme/layout";
+import { PointerEventsClassMapper, TransitionClassMapper, WidthClassMapper } from "../theme/layout";
 
 /**
  * Default theme for Popup component.
@@ -29,6 +29,7 @@ export const defaultPopupTheme = new ComponentTheme<PopupProps, PopupTheme>(
       transition: new TransitionClassMapper(),
       shadow: shadowLayoutAppearance,
       width: new WidthClassMapper(),
+      pointerEvents: new PointerEventsClassMapper(),
     },
     appearance: {
       background: bgAppearance,

@@ -1,6 +1,6 @@
 import { ComponentTheme, defaultSizedLayoutClassMappers, ringAppearance, shadowLayoutAppearance } from "../theme/common";
 import type { OverlayProps } from "./OverlayProps";
-import { BlurClassMapper, PointerEventsClassMapper, RingClassMapper } from "../theme/layout";
+import { BlurClassMapper, OverlayBackgroundClassMapper, PointerEventsClassMapper, RingClassMapper } from "../theme/layout";
 import { OVERLAY_CATEGORIES } from "./OverlayCategories";
 import type { OverlayTheme } from "./OverlayTheme";
 import { overlayDefaults } from "./overlayDefaults";
@@ -23,12 +23,13 @@ import { overlayDefaults } from "./overlayDefaults";
  */
 export const defaultOverlayTheme = new ComponentTheme<OverlayProps, OverlayTheme>(
   'div',
-  // Base classes - only non-prop-driven styles
-  'vane-overlay inset-0 bg-(--overlay-bg)',
+  // Base classes - only non-prop-driven styles (bg moved to overlayBackground mapper for transparent support)
+  'vane-overlay inset-0',
   {
     layout: {
       ...defaultSizedLayoutClassMappers,
       blur: new BlurClassMapper(),
+      overlayBackground: new OverlayBackgroundClassMapper(),
       pointerEvents: new PointerEventsClassMapper(),
       ring: new RingClassMapper(),
       shadow: shadowLayoutAppearance,

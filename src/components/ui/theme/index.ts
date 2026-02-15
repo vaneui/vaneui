@@ -20,6 +20,7 @@ export {
   JustifyClassMapper,
   ObjectFitClassMapper,
   OrientationClassMapper,
+  OverlayBackgroundClassMapper,
   OverflowClassMapper,
   PointerEventsClassMapper,
   PositionClassMapper,
