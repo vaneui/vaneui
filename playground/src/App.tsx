@@ -15,6 +15,43 @@ import {
 } from '../../src';
 
 // ═══════════════════════════════════════════════════════════════════════════════
+//  MODAL QUICK DEMO (top of page)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function ModalQuickDemo() {
+  const [open, setOpen] = useState(false);
+  return (
+    <Card>
+      <Title>Modal</Title>
+      <Button primary onClick={() => setOpen(true)}>Open Modal</Button>
+      <Modal noPadding noGap open={open} onClose={() => setOpen(false)} closeButton>
+        <ModalHeader borderB>
+          <Title>Create New Project</Title>
+        </ModalHeader>
+        <ModalBody borderB>
+          <Stack>
+            <Label>Project Name</Label>
+            <Input placeholder="My Awesome Project" />
+          </Stack>
+          <Stack>
+            <Label>Description</Label>
+            <Input placeholder="A brief description..." />
+          </Stack>
+          <Label>
+            <Checkbox />
+            Make this project public
+          </Label>
+        </ModalBody>
+        <ModalFooter>
+          <Button secondary onClick={() => setOpen(false)}>Cancel</Button>
+          <Button filled onClick={() => setOpen(false)}>Create Project</Button>
+        </ModalFooter>
+      </Modal>
+    </Card>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 //  POPUP DEMOS
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -757,6 +794,9 @@ function App() {
       <Section className="w-full">
         <Container itemsCenter className="w-full">
           <PageTitle>VaneUI Overlay Components Playground</PageTitle>
+
+          {/* ─── Modal Quick Demo ─────────────────────────────────────── */}
+          <ModalQuickDemo />
 
           {/* ─── Popup ──────────────────────────────────────────────── */}
           <Card>

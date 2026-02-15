@@ -188,6 +188,9 @@
 
 @layer base {
     [data-size] {
+        /* Default border color — used when no appearance prop is set.
+           Appearance-specific rules in @layer components override this. */
+        --border-color: var(--color-border-primary);
         /* Default: breakpoint-specific unit vars inherit from base unit vars.
            Responsive components override these with specific numeric values. */
         --py-unit-desktop: var(--py-unit);

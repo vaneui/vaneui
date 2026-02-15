@@ -22,8 +22,8 @@ export const bgActiveAppearance = new SimpleConsumerClassMapper({ base: bgConsum
 /** Text color appearance */
 export const textAppearance = new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text');
 
-/** Border color appearance */
-export const borderAppearance = new SimpleConsumerClassMapper({ base: borderConsumerClass }, 'border');
+/** Border color appearance — alwaysOutput so border has a color even without an explicit appearance prop */
+export const borderAppearance = new SimpleConsumerClassMapper({ base: borderConsumerClass, alwaysOutput: true }, 'border');
 
 /** Ring color appearance */
 export const ringAppearance = new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring');
