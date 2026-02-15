@@ -547,32 +547,21 @@
         flex-shrink: 0;
     }
 
-    /* Modal close button */
+    /* Modal close button — structural overrides only.
+       Display, alignment, cursor, transition, focus-visible come from the button theme.
+       Hover bg is set here because `transparent` prop suppresses all bg theme classes. */
     .vane-modal-close {
-        position: absolute;
-        top: 0.5rem;
-        right: 0.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2rem;
-        height: 2rem;
-        padding: 0;
-        border: none;
-        border-radius: 0.25rem;
-        background: transparent;
-        color: var(--color-text-secondary);
-        cursor: pointer;
-        transition: background-color var(--transition-duration) var(--transition-timing),
-                    color var(--transition-duration) var(--transition-timing);
+        flex-shrink: 0;
+        --aspect-ratio: 1;
     }
     .vane-modal-close:hover {
         background: var(--color-bg-hover-secondary);
-        color: var(--color-text-primary);
     }
-    .vane-modal-close:focus-visible {
-        outline: 2px solid var(--color-border-brand);
-        outline-offset: -2px;
+    /* Absolute fallback — when close button is direct child of modal content (simple modal, no ModalHeader) */
+    .vane-modal > .vane-modal-close {
+        position: absolute;
+        top: var(--py);
+        inset-inline-end: var(--px);
     }
 
     /* ========================================

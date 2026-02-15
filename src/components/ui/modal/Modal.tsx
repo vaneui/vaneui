@@ -8,6 +8,7 @@ import { useFocusTrap } from '../../utils/focusTrap';
 import { useControllableState } from '../../utils/controllableState';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
+import { ModalContext } from './ModalContext';
 
 /**
  * Modal component - an accessible dialog window.
@@ -187,19 +188,31 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
           {...props}
         >
-          {closeButton && (
-            <button
-              type="button"
+          <ModalContext.Provider value={{ closeButton: !!closeButton, onClose }}>
+            {children}
+          </ModalContext.Provider>
+          {closeButton && !React.Children.toArray(children).some(
+            child => React.isValidElement(child) && (child.type as { displayName?: string })?.displayName === 'ModalHeader'
+          ) && (
+            <ThemedComponent
+              theme={theme.button}
+              tag="button"
               className="vane-modal-close"
-              onClick={onClose}
-              aria-label="Close"
+              {...{
+                type: 'button',
+                secondary: true,
+                transparent: true,
+                noShadow: true,
+                noRing: true,
+                onClick: onClose,
+                'aria-label': 'Close',
+              }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <path d="M4 4l8 8M12 4l-8 8" />
               </svg>
-            </button>
+            </ThemedComponent>
           )}
-          {children}
         </ThemedComponent>
       </ThemedComponent>
     );

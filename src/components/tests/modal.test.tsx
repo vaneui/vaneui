@@ -600,6 +600,81 @@ describe('Modal Component Tests', () => {
       fireEvent.click(closeBtn!);
       expect(onClose).toHaveBeenCalledTimes(1);
     });
+
+    it('should render close button inside ModalHeader when compound layout is used', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} closeButton>
+            <ModalHeader>
+              <span>Title</span>
+            </ModalHeader>
+            <ModalBody><div>Body</div></ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const header = baseElement.querySelector('.vane-modal-header');
+      const headerCloseBtn = header?.querySelector('.vane-modal-close');
+      expect(headerCloseBtn).toBeInTheDocument();
+      expect(headerCloseBtn).toHaveAttribute('aria-label', 'Close');
+    });
+
+    it('should only render one close button when ModalHeader is present (no fallback)', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} closeButton>
+            <ModalHeader>
+              <span>Title</span>
+            </ModalHeader>
+            <ModalBody><div>Body</div></ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      // Only the header's close button — fallback is not rendered
+      const allCloseButtons = baseElement.querySelectorAll('.vane-modal-close');
+      expect(allCloseButtons.length).toBe(1);
+
+      // It's inside the header
+      const header = baseElement.querySelector('.vane-modal-header');
+      expect(header?.querySelector('.vane-modal-close')).toBeInTheDocument();
+    });
+
+    it('should call onClose when header close button is clicked', () => {
+      const onClose = jest.fn();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={onClose} closeButton>
+            <ModalHeader>
+              <span>Title</span>
+            </ModalHeader>
+            <ModalBody><div>Body</div></ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const header = baseElement.querySelector('.vane-modal-header');
+      const headerCloseBtn = header?.querySelector('.vane-modal-close');
+      fireEvent.click(headerCloseBtn!);
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not render close button in ModalHeader when closeButton is false', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <ModalHeader>
+              <span>Title</span>
+            </ModalHeader>
+            <ModalBody><div>Body</div></ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const header = baseElement.querySelector('.vane-modal-header');
+      const headerCloseBtn = header?.querySelector('.vane-modal-close');
+      expect(headerCloseBtn).not.toBeInTheDocument();
+    });
   });
 
   describe('Full Screen', () => {
