@@ -216,10 +216,10 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     if (extractedKeys.size) {
       dataAttributes['data-size'] = extractedKeys.size;
     }
-    if (extractedKeys.appearance) {
+    if (extractedKeys.appearance && extractedKeys.appearance !== 'inherit') {
       dataAttributes['data-appearance'] = extractedKeys.appearance;
     }
-    if (extractedKeys.variant) {
+    if (extractedKeys.variant && extractedKeys.appearance !== 'inherit') {
       dataAttributes['data-variant'] = extractedKeys.variant;
     }
 

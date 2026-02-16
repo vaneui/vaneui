@@ -134,7 +134,7 @@ describe('Modal Enhancements', () => {
       expect(dialog).not.toHaveAttribute('aria-describedby');
     });
 
-    it('should not set any ARIA connection when neither is present', () => {
+    it('should set aria-describedby (bare children auto-wrapped in ModalBody) but not aria-labelledby', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
           <Modal open portal={false}>
@@ -145,7 +145,7 @@ describe('Modal Enhancements', () => {
 
       const dialog = baseElement.querySelector('[role="dialog"]');
       expect(dialog).not.toHaveAttribute('aria-labelledby');
-      expect(dialog).not.toHaveAttribute('aria-describedby');
+      expect(dialog).toHaveAttribute('aria-describedby');
     });
 
     it('should allow custom id on ModalHeader', () => {

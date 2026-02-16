@@ -8,6 +8,6 @@ export const labelDefaults: Partial<LabelProps> = {
   sans: true,
   medium: true,
   outline: true,
-  primary: true,
+  inherit: true,
   cursorDefault: true,
 };

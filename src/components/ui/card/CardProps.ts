@@ -1,11 +1,6 @@
 import type React from 'react';
 import type {
   BaseProps,
-  FontWeightProps,
-  FontStyleProps,
-  TextDecorationProps,
-  TextTransformProps,
-  FontFamilyProps,
   TextAlignProps,
   SizeProps,
   HideProps,
@@ -35,11 +30,6 @@ import type {
 
 /** Card component props */
 export type CardProps = BaseProps &
-  FontWeightProps &
-  FontStyleProps &
-  TextDecorationProps &
-  TextTransformProps &
-  FontFamilyProps &
   TextAlignProps &
   SizeProps &
   HideProps &

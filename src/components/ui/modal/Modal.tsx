@@ -9,6 +9,10 @@ import { useControllableState } from '../../utils/controllableState';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { ModalContext } from './ModalContext';
+import { ModalHeader } from './ModalHeader';
+import { ModalBody } from './ModalBody';
+import { ModalFooter } from './ModalFooter';
+import { ModalCloseButton } from './ModalCloseButton';
 
 /**
  * Modal component - an accessible dialog window.
@@ -21,41 +25,34 @@ import { ModalContext } from './ModalContext';
  * - Focus restoration on close
  * - Enter/exit animations (disable with noAnimation)
  * - Dynamic z-index stacking for nested modals
- * - Compound components: ModalHeader, ModalBody, ModalFooter, ModalCloseButton
+ * - Padding on sub-components (header/body/footer), not the wrapper
+ * - Auto-wraps bare children in ModalBody; use ModalHeader/ModalBody/ModalFooter for compound mode
+ * - Convenience props: title, footer, withCloseButton
  *
  * @example
  * ```tsx
- * // Basic modal
- * <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+ * // Simple — children auto-wrapped in ModalBody
+ * <Modal open onClose={close}>
  *   <Title>Confirm</Title>
  *   <Text>Are you sure?</Text>
- *   <Row>
- *     <Button secondary onClick={() => setIsOpen(false)}>Cancel</Button>
- *     <Button filled onClick={handleConfirm}>Confirm</Button>
- *   </Row>
  * </Modal>
  * ```
  *
  * @example
  * ```tsx
- * // Modal with compound components and close button
- * <Modal open={isOpen} onClose={close}>
- *   <ModalHeader><Title>Edit Profile</Title><ModalCloseButton /></ModalHeader>
- *   <ModalBody>
- *     <Input placeholder="Name" />
- *   </ModalBody>
- *   <ModalFooter>
- *     <Button secondary onClick={close}>Cancel</Button>
- *     <Button filled>Save</Button>
- *   </ModalFooter>
+ * // Convenience — title/footer auto-generate header/footer sub-components
+ * <Modal open onClose={close} title={<Title>Edit Profile</Title>} footer={<Button filled>Save</Button>}>
+ *   <Input placeholder="Name" />
  * </Modal>
  * ```
  *
  * @example
  * ```tsx
- * // Full-screen modal
- * <Modal open={isOpen} onClose={close} fullScreen>
- *   Content here
+ * // Compound — explicit sub-components, rendered as-is
+ * <Modal open onClose={close}>
+ *   <ModalHeader><Title>Edit</Title><ModalCloseButton /></ModalHeader>
+ *   <ModalBody><Input /></ModalBody>
+ *   <ModalFooter><Button filled>Save</Button></ModalFooter>
  * </Modal>
  * ```
  */
@@ -80,6 +77,9 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       portal = true,
       onEnterComplete,
       onExitComplete,
+      title,
+      footer,
+      withCloseButton,
       children,
       ...props
     },
@@ -162,6 +162,14 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       [onClose, titleId, bodyId]
     );
 
+    // Detect compound mode: user explicitly passes ModalHeader/ModalBody/ModalFooter as children
+    const childArray = React.Children.toArray(children);
+    const isCompoundMode = childArray.some(
+      child => React.isValidElement(child) &&
+        (child.type === ModalHeader || child.type === ModalBody || child.type === ModalFooter)
+    );
+    const showCloseButton = withCloseButton ?? (title !== undefined);
+
     // Determine if we should render at all
     const shouldMount = overlayTransition.mounted || keepMounted;
     if (!shouldMount) return null;
@@ -206,7 +214,22 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           {...(fullScreen ? { sharp: true } : {})}
         >
           <ModalContext.Provider value={contextValue}>
-            {children}
+            {isCompoundMode ? (
+              children
+            ) : (
+              <>
+                {(title !== undefined || showCloseButton) && (
+                  <ModalHeader>
+                    {title}
+                    {showCloseButton && <ModalCloseButton />}
+                  </ModalHeader>
+                )}
+                <ModalBody>{children}</ModalBody>
+                {footer !== undefined && (
+                  <ModalFooter>{footer}</ModalFooter>
+                )}
+              </>
+            )}
           </ModalContext.Provider>
         </ThemedComponent>
       </ThemedComponent>

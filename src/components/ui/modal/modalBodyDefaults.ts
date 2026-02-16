@@ -6,4 +6,5 @@ export const modalBodyDefaults: Partial<ModalBodyProps> = {
   column: true,
   gap: true,
   overflowAuto: true,
+  padding: true,
 };

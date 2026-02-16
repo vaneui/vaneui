@@ -232,6 +232,14 @@
 }
 
 @layer components {
+    /* Root-level defaults for CSS variable inheritance.
+       Without these, components using inherit would have undefined
+       --text-color and --border-color when no parent sets appearance. */
+    :root {
+        --text-color: var(--color-text-primary);
+        --border-color: var(--color-border-primary);
+    }
+
     /* ========================================
        TYPE-BASED DEFAULTS
        Sets --gap-unit, --py-unit, --aspect-ratio, --shadow

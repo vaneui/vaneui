@@ -7,4 +7,5 @@ export const modalFooterDefaults: Partial<ModalFooterProps> = {
   itemsCenter: true,
   justifyEnd: true,
   gap: true,
+  padding: true,
 };

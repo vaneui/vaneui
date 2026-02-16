@@ -99,6 +99,12 @@ export type ModalProps = BaseProps &
     onEnterComplete?: () => void;
     /** Called when exit transition completes */
     onExitComplete?: () => void;
+    /** Modal title — renders a ModalHeader with content and optional close button */
+    title?: React.ReactNode;
+    /** Modal footer content — renders a ModalFooter */
+    footer?: React.ReactNode;
+    /** Show close button in header (default: true when title is set, false otherwise) */
+    withCloseButton?: boolean;
     /** Custom HTML tag to render as */
     tag?: React.ElementType;
   };

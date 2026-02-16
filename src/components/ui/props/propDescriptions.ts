@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-02-15T19:01:32.614Z
+ * Generated on: 2026-02-16T19:33:49.862Z
  */
 
 export interface PropDescription {
@@ -49,6 +49,9 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "link": {
         "description": "Link color appearance (blue, for hyperlinks)"
+      },
+      "inherit": {
+        "description": "Inherit appearance from parent — suppresses own data-appearance/data-variant, uses parent's CSS variables"
       }
     }
   },

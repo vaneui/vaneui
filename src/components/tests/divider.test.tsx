@@ -20,9 +20,9 @@ describe('Divider Component Tests', () => {
       const divider = container.querySelector('div');
       expect(divider).toBeInTheDocument();
       expect(divider).toHaveClass('h-(--bw)', 'w-full');
-      // Divider has default primary appearance for border color
+      // Divider defaults to inherit appearance (no data-appearance attribute)
       expect(divider).toHaveClass('bg-(--border-color)');
-      expect(divider).toHaveAttribute('data-appearance', 'primary');
+      expect(divider).not.toHaveAttribute('data-appearance');
     });
   });
 

@@ -8,5 +8,5 @@ export const listDefaults: Partial<ListProps> = {
   padding: true,
   disc: true,
   outline: true,
-  primary: true,
+  inherit: true,
 };

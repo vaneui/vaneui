@@ -7,4 +7,5 @@ export const modalHeaderDefaults: Partial<ModalHeaderProps> = {
   itemsCenter: true,
   justifyBetween: true,
   gap: true,
+  padding: true,
 };

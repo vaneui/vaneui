@@ -7,7 +7,6 @@ export const cardDefaults: Partial<CardProps> = {
   outline: true,
   primary: true,
   rounded: true,
-  normal: true,
   column: true,
   border: true,
   gap: true,

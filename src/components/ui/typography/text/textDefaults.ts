@@ -6,5 +6,5 @@ export const textDefaults: Partial<TypographyProps> = {
   sans: true,
   textLeft: true,
   outline: true,
-  primary: true,
+  inherit: true,
 };

@@ -7,6 +7,6 @@ export const titleDefaults: Partial<TypographyProps> = {
   semibold: true,
   textLeft: true,
   outline: true,
-  primary: true,
+  inherit: true,
   responsive: true,
 };

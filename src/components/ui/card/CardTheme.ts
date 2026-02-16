@@ -1,13 +1,13 @@
-import type { BaseTypographyComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
+import type { BaseComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
 import type { DirectionClassMapper, WrapClassMapper, BorderClassMapper, RadiusClassMapper, RingClassMapper, CursorClassMapper } from "../theme/layout";
-import type { LineHeightClassMapper, GapClassMapper, PxClassMapper, PyClassMapper, BreakpointClassMapper } from "../theme/size";
+import type { GapClassMapper, PxClassMapper, PyClassMapper, BreakpointClassMapper } from "../theme/size";
 import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
+import type { TextAlignClassMapper } from "../theme/typography";
 
-export interface CardTheme extends BaseTypographyComponentTheme {
+export interface CardTheme extends BaseComponentTheme {
   size: {
     px: PxClassMapper;
     py: PyClassMapper;
-    lineHeight: LineHeightClassMapper;
     gap: GapClassMapper;
   };
   layout: DefaultSizedLayoutClassMappers & {
@@ -25,5 +25,8 @@ export interface CardTheme extends BaseTypographyComponentTheme {
     text: SimpleConsumerClassMapper;
     border: SimpleConsumerClassMapper;
     ring: SimpleConsumerClassMapper;
+  };
+  typography: {
+    textAlign: TextAlignClassMapper;
   };
 }

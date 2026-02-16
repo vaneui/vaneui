@@ -1,5 +1,5 @@
 import {
-  TYPOGRAPHY_FULL,
+  TEXT_ALIGN,
   LAYOUT_FULL,
   BREAKPOINT,
   VISUAL_LAYOUT,
@@ -11,9 +11,9 @@ import {
   COMMON_MODIFIERS,
 } from "../props/categoryBuilders";
 
-/** Categories for card components with full typography and layout support */
+/** Categories for card components with layout support and text alignment */
 export const CARD_CATEGORIES = [
-  ...TYPOGRAPHY_FULL,
+  ...TEXT_ALIGN,
   ...LAYOUT_FULL,
   ...BREAKPOINT,
   ...VISUAL_LAYOUT,

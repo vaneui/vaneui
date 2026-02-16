@@ -23,4 +23,6 @@ export interface AppearanceProps {
   info?: boolean;
   /** Link color appearance (blue, for hyperlinks) */
   link?: boolean;
+  /** Inherit appearance from parent — suppresses own data-appearance/data-variant, uses parent's CSS variables */
+  inherit?: boolean;
 }

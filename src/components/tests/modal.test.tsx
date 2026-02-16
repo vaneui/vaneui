@@ -371,7 +371,7 @@ describe('Modal Component Tests', () => {
   });
 
   describe('Padding and Gap', () => {
-    it('should have padding by default', () => {
+    it('should NOT have padding on wrapper (padding lives on sub-components)', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
           <Modal open={true} onClose={() => {}}>
@@ -381,7 +381,8 @@ describe('Modal Component Tests', () => {
       );
 
       const modal = baseElement.querySelector('.vane-modal');
-      expect(modal).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(modal).not.toHaveClass('px-(--px)');
+      expect(modal).not.toHaveClass('py-(--py)');
     });
 
     it('should have gap by default', () => {
@@ -937,6 +938,224 @@ describe('Modal Component Tests', () => {
       expect(modal).not.toHaveAttribute('keepMounted');
       expect(modal).not.toHaveAttribute('noAnimation');
       expect(modal).not.toHaveAttribute('fullScreen');
+    });
+  });
+
+  describe('Sub-component Padding (padding on sub-components, not wrapper)', () => {
+    it('ModalHeader should have padding classes', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <ModalHeader>Header</ModalHeader>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const header = baseElement.querySelector('.vane-modal-header');
+      expect(header).toBeInTheDocument();
+      expect(header).toHaveClass('px-(--px)', 'py-(--py)');
+    });
+
+    it('ModalBody should have padding classes', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <ModalBody>Body</ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const body = baseElement.querySelector('.vane-modal-body');
+      expect(body).toBeInTheDocument();
+      expect(body).toHaveClass('px-(--px)', 'py-(--py)');
+    });
+
+    it('ModalFooter should have padding classes', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <ModalFooter>Footer</ModalFooter>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const footer = baseElement.querySelector('.vane-modal-footer');
+      expect(footer).toBeInTheDocument();
+      expect(footer).toHaveClass('px-(--px)', 'py-(--py)');
+    });
+
+    it('Modal wrapper should NOT have padding classes', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).not.toHaveClass('px-(--px)');
+      expect(modal).not.toHaveClass('py-(--py)');
+    });
+  });
+
+  describe('Convenience Mode', () => {
+    it('title prop renders ModalHeader with given content', () => {
+      const { baseElement, getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} title="My Title">
+            <div>Body content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const header = baseElement.querySelector('.vane-modal-header');
+      expect(header).toBeInTheDocument();
+      expect(getByText('My Title')).toBeInTheDocument();
+    });
+
+    it('title prop auto-renders ModalCloseButton by default', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} title="My Title">
+            <div>Body content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const header = baseElement.querySelector('.vane-modal-header');
+      const closeBtn = header?.querySelector('.vane-modal-close');
+      expect(closeBtn).toBeInTheDocument();
+    });
+
+    it('footer prop renders ModalFooter with given content', () => {
+      const { baseElement, getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} title="Title" footer={<button>Save</button>}>
+            <div>Body content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const footer = baseElement.querySelector('.vane-modal-footer');
+      expect(footer).toBeInTheDocument();
+      expect(getByText('Save')).toBeInTheDocument();
+    });
+
+    it('withCloseButton={false} suppresses close button even with title', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} title="Title" withCloseButton={false}>
+            <div>Body content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const header = baseElement.querySelector('.vane-modal-header');
+      expect(header).toBeInTheDocument();
+      const closeBtn = header?.querySelector('.vane-modal-close');
+      expect(closeBtn).not.toBeInTheDocument();
+    });
+
+    it('withCloseButton={true} renders close button even without title', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} withCloseButton={true}>
+            <div>Body content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const header = baseElement.querySelector('.vane-modal-header');
+      expect(header).toBeInTheDocument();
+      const closeBtn = header?.querySelector('.vane-modal-close');
+      expect(closeBtn).toBeInTheDocument();
+    });
+
+    it('children are wrapped in ModalBody in convenience mode', () => {
+      const { baseElement, getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} title="Title">
+            <div>Body content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const body = baseElement.querySelector('.vane-modal-body');
+      expect(body).toBeInTheDocument();
+      expect(getByText('Body content').closest('.vane-modal-body')).toBeInTheDocument();
+    });
+
+    it('convenience close button calls onClose', () => {
+      const onClose = jest.fn();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={onClose} title="Title">
+            <div>Body</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const closeBtn = baseElement.querySelector('.vane-modal-close');
+      fireEvent.click(closeBtn!);
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('bare children (no compound components) are auto-wrapped in ModalBody', () => {
+      const { baseElement, getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <div>Raw Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      // Auto-wrapped in ModalBody, no header or footer
+      expect(baseElement.querySelector('.vane-modal-body')).toBeInTheDocument();
+      expect(getByText('Raw Content').closest('.vane-modal-body')).toBeInTheDocument();
+      expect(baseElement.querySelector('.vane-modal-header')).not.toBeInTheDocument();
+      expect(baseElement.querySelector('.vane-modal-footer')).not.toBeInTheDocument();
+    });
+
+    it('compound mode: children with ModalHeader/ModalBody/ModalFooter render directly', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <ModalHeader>Header</ModalHeader>
+            <ModalBody>Body</ModalBody>
+            <ModalFooter>Footer</ModalFooter>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      // Compound children rendered directly (not double-wrapped)
+      const bodies = baseElement.querySelectorAll('.vane-modal-body');
+      expect(bodies).toHaveLength(1);
+      const headers = baseElement.querySelectorAll('.vane-modal-header');
+      expect(headers).toHaveLength(1);
+      const footers = baseElement.querySelectorAll('.vane-modal-footer');
+      expect(footers).toHaveLength(1);
+    });
+
+    it('title, footer, and withCloseButton should not leak to DOM', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal
+            open={true}
+            onClose={() => {}}
+            title="Title"
+            footer={<button>OK</button>}
+            withCloseButton={true}
+          >
+            <div>Body</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const modal = baseElement.querySelector('.vane-modal');
+      expect(modal).not.toHaveAttribute('title');
+      expect(modal).not.toHaveAttribute('footer');
+      expect(modal).not.toHaveAttribute('withCloseButton');
     });
   });
 });
