@@ -1,6 +1,13 @@
 import { ComponentKeys, ComponentCategoryKey } from '../../ui/props';
 
 /**
+ * Category keys that are also valid native HTML attributes.
+ * These are intentionally preserved on the DOM element, so they should
+ * NOT be treated as "leaked" props in omission tests.
+ */
+const NATIVE_HTML_ATTRIBUTE_KEYS = new Set(['disabled']);
+
+/**
  * Get all possible boolean props for a given set of component categories
  */
 export function getAllBooleanPropsForCategories(categories: readonly ComponentCategoryKey[]): string[] {
@@ -42,7 +49,9 @@ export function checkForOmittedProps(
   const invalidProps: string[] = [];
 
   // Check for any boolean props that should have been omitted
+  // Skip native HTML attributes (e.g. 'disabled') that are intentionally preserved
   for (const prop of allBooleanProps) {
+    if (NATIVE_HTML_ATTRIBUTE_KEYS.has(prop)) continue;
     if (element.hasAttribute(prop)) {
       invalidProps.push(prop);
     }

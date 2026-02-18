@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-02-16T19:33:49.862Z
+ * Generated on: 2026-02-18T18:32:56.062Z
  */
 
 export interface PropDescription {
@@ -136,6 +136,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "cursorWait": {
         "description": "Wait cursor - indicates loading/processing"
+      }
+    }
+  },
+  "disabled": {
+    "name": "Disabled",
+    "description": "Disabled state for interactive components.\nApplies reduced opacity, not-allowed cursor, and disables pointer events.",
+    "props": {
+      "disabled": {
+        "description": "Disable the component — reduces opacity, changes cursor to not-allowed, and prevents interaction"
       }
     }
   },

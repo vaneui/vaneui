@@ -80,3 +80,6 @@ export * from './letterSpacingProps';
 
 // Placement
 export * from './placementProps';
+
+// Disabled
+export * from './DisabledProps';

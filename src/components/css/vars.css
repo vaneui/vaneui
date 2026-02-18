@@ -184,6 +184,9 @@
 
     /* Common line height */
     --lh-base: 1.6;
+
+    /* Disabled state */
+    --disabled-opacity: 50%;
 }
 
 @layer base {
@@ -567,6 +570,54 @@
     }
 
     /* ========================================
+       DISABLED STATE
+       Neutralizes hover/active color changes on disabled elements.
+       Visual classes (opacity, cursor) come from DisabledClassMapper.
+       ======================================== */
+    [data-disabled="true"] {
+        --bg-hover-color: var(--bg-color);
+        --bg-active-color: var(--bg-color);
+    }
+
+    /* ========================================
+       LOADING STATE
+       Spinner overlay for buttons in loading state.
+       Visual classes applied by Button.tsx component.
+       ======================================== */
+    [data-loading="true"] {
+        position: relative;
+    }
+    .vane-button-spinner {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .vane-button-spinner::after {
+        content: '';
+        width: 1em;
+        height: 1em;
+        border: 2px solid var(--text-color);
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: vane-spin 0.6s linear infinite;
+    }
+
+    /* ========================================
+       READ-ONLY STATE
+       Styles for read-only form elements.
+       readOnly passes through as native HTML attribute.
+       This rule provides visual feedback via data attribute.
+       ======================================== */
+    [data-readonly="true"] {
+        cursor: default;
+        caret-color: transparent;
+        --bg-hover-color: var(--bg-color);
+        --bg-active-color: var(--bg-color);
+    }
+
+    /* ========================================
        APPEARANCE & VARIANT RULES
        Sets component-level color variables based on
        data-appearance and data-variant attributes.
@@ -809,4 +860,8 @@
 @keyframes vane-scale-out {
     from { opacity: 1; transform: scale(1); }
     to { opacity: 0; transform: scale(0.95); }
+}
+
+@keyframes vane-spin {
+    to { transform: rotate(360deg); }
 }

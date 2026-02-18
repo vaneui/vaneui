@@ -77,4 +77,6 @@ export type ButtonProps = BaseProps &
   href?: string;
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
+  /** Show loading spinner and auto-disable the button */
+  loading?: boolean;
 };

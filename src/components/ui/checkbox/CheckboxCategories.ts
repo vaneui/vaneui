@@ -11,6 +11,7 @@ import {
   WIDTH,
   HEIGHT,
   COMMON_MODIFIERS,
+  DISABLED,
 } from "../props/categoryBuilders";
 
 /** Categories for checkbox form components */
@@ -27,4 +28,5 @@ export const CHECKBOX_CATEGORIES = [
   ...WIDTH,
   ...HEIGHT,
   ...COMMON_MODIFIERS,
+  ...DISABLED,
 ] as const;

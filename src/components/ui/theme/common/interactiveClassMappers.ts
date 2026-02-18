@@ -14,6 +14,7 @@ import { CursorClassMapper } from "../layout/cursorClassMapper";
 import { TransitionClassMapper } from "../layout/transitionClassMapper";
 import { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
 import { bgAppearance, textAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowLayoutAppearance } from "./appearanceClassMappers";
+import { DisabledClassMapper } from "../appearance/disabledClassMapper";
 
 /**
  * Shared sub-themes used by interactive components (Badge, Chip, Code).
@@ -34,6 +35,7 @@ export const interactiveClassMappers = {
     ring: ringAppearance,
     focusVisible: focusVisibleAppearance,
     shadow: shadowLayoutAppearance,
+    disabled: new DisabledClassMapper(),
   },
   layout: {
     ...defaultSizedLayoutClassMappers,

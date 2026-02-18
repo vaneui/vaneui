@@ -25,6 +25,7 @@ import {
   VISUAL_LAYOUT,
   TYPOGRAPHY_FULL,
   PLACEMENT,
+  DISABLED,
 } from './categoryBuilders';
 
 // Re-export for backward compatibility
@@ -53,6 +54,7 @@ export {
   VISUAL_LAYOUT,
   TYPOGRAPHY_FULL,
   PLACEMENT,
+  DISABLED,
 };
 
 // Import component-specific categories from their folders
@@ -150,6 +152,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...ORIENTATION,
   ...LETTER_SPACING,
   ...PLACEMENT,
+  ...DISABLED,
 ] as const;
 
 /**
@@ -254,6 +257,8 @@ export const ComponentKeys = {
   letterSpacing: ['trackingTighter', 'trackingTight', 'trackingNormal', 'trackingWide', 'trackingWider', 'trackingWidest'] as const,
   /** Placement position for floating elements (popups, tooltips, dropdowns) */
   placement: ['top', 'topStart', 'topEnd', 'bottom', 'bottomStart', 'bottomEnd', 'left', 'leftStart', 'leftEnd', 'right', 'rightStart', 'rightEnd'] as const,
+  /** Disabled state for interactive elements */
+  disabled: ['disabled'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -324,6 +329,8 @@ export type HeightKey = typeof ComponentKeys.height[number];
 export type LetterSpacingKey = typeof ComponentKeys.letterSpacing[number];
 /** Placement position keys for floating elements */
 export type PlacementKey = typeof ComponentKeys.placement[number];
+/** Disabled state key */
+export type DisabledKey = typeof ComponentKeys.disabled[number];
 
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];
@@ -369,7 +376,7 @@ export type PlClassKey = 'pl';
 export type LineHeightClassKey = 'lineHeight';
 
 /** Categories for interactive components like buttons, badges, chips */
-export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT, ...CURSOR, ...TRANSITION, ...WHITESPACE, ...WIDTH, ...HEIGHT, ...COMMON_MODIFIERS] as const;
+export const INTERACTIVE_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_FULL, ...TYPOGRAPHY_STYLE, ...PADDING, ...VARIANT, ...CURSOR, ...TRANSITION, ...WHITESPACE, ...WIDTH, ...HEIGHT, ...COMMON_MODIFIERS, ...DISABLED] as const;
 
 /** Typography component categories are now imported from their component folder */
 

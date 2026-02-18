@@ -199,6 +199,11 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       delete cleanProps[k];
     }
 
+    // Preserve HTML-native attributes that overlap with category keys
+    if ((props as Record<string, unknown>).disabled !== undefined) {
+      cleanProps.disabled = (props as Record<string, unknown>).disabled;
+    }
+
     delete cleanProps.theme;
 
     const {className, tag, children: _children, ...other} = cleanProps as P;
@@ -221,6 +226,12 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     }
     if (extractedKeys.variant && extractedKeys.appearance !== 'inherit') {
       dataAttributes['data-variant'] = extractedKeys.variant;
+    }
+    if ((props as Record<string, unknown>).disabled) {
+      dataAttributes['data-disabled'] = 'true';
+    }
+    if ((props as Record<string, unknown>).readOnly) {
+      dataAttributes['data-readonly'] = 'true';
     }
 
     return {

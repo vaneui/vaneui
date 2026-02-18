@@ -38,8 +38,20 @@ import { ThemedComponent } from "../../themedComponent";
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(props, ref) {
+    const { loading, ...rest } = props;
     const theme = useTheme();
-    return <ThemedComponent ref={ref} theme={theme.button} {...props} />
+
+    if (loading) {
+      const loadingProps = { ...rest, disabled: true as const, 'data-loading': 'true' };
+      return (
+        <ThemedComponent ref={ref} theme={theme.button} {...loadingProps}>
+          <span className="vane-button-spinner" aria-hidden="true" />
+          <span className="invisible">{rest.children}</span>
+        </ThemedComponent>
+      );
+    }
+
+    return <ThemedComponent ref={ref} theme={theme.button} {...rest} />;
   }
 );
 

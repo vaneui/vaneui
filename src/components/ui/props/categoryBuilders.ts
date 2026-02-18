@@ -53,6 +53,8 @@ export const WHITESPACE = ['whitespace'] as const;
 export const HEIGHT = ['height'] as const;
 /** Status property for form validation states */
 export const STATUS = ['status'] as const;
+/** Disabled property for interactive components */
+export const DISABLED = ['disabled'] as const;
 /** Orientation property for divider direction */
 export const ORIENTATION = ['orientation'] as const;
 /** Placement property for floating element positioning */
@@ -86,6 +88,7 @@ export const UI_ELEMENT_CATEGORIES = [
   ...WIDTH,
   ...HEIGHT,
   ...COMMON_MODIFIERS,
+  ...DISABLED,
 ] as const;
 
 /** Badge component categories */

@@ -16,6 +16,7 @@ import type { TransitionClassMapper } from "../layout/transitionClassMapper";
 import type { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
 import type { SimpleConsumerClassMapper } from "../appearance/simpleConsumerClassMapper";
 import type { ShadowAppearanceClassMapper } from "../appearance/shadowAppearanceClassMapper";
+import type { DisabledClassMapper } from "../appearance/disabledClassMapper";
 import type { TextAlignClassMapper } from "../typography/textAlignClassMapper";
 
 /**
@@ -39,6 +40,7 @@ export interface InteractiveAppearanceClassMappers {
   ring: SimpleConsumerClassMapper;
   focusVisible: SimpleConsumerClassMapper;
   shadow: ShadowAppearanceClassMapper;
+  disabled: DisabledClassMapper;
 }
 
 /**

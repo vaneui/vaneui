@@ -487,6 +487,98 @@ describe('Button Component Tests', () => {
     });
   });
 
+  describe('Loading State', () => {
+    it('should render with data-loading and disabled when loading is true', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button loading>Save</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveAttribute('data-loading', 'true');
+      expect(button).toBeDisabled();
+    });
+
+    it('should contain spinner element when loading', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button loading>Save</Button>
+        </ThemeProvider>
+      );
+
+      const spinner = container.querySelector('.vane-button-spinner');
+      expect(spinner).toBeInTheDocument();
+      expect(spinner).toHaveAttribute('aria-hidden', 'true');
+    });
+
+    it('should render children as invisible to preserve button width', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button loading>Save</Button>
+        </ThemeProvider>
+      );
+
+      const invisibleSpan = container.querySelector('span.invisible');
+      expect(invisibleSpan).toBeInTheDocument();
+      expect(invisibleSpan).toHaveTextContent('Save');
+    });
+
+    it('should not leak loading prop to DOM as HTML attribute', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button loading>Save</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).not.toHaveAttribute('loading');
+    });
+
+    it('should render normally when loading is false', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button loading={false}>Save</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toBeInTheDocument();
+      expect(button).not.toHaveAttribute('data-loading');
+      expect(button).not.toBeDisabled();
+
+      const spinner = container.querySelector('.vane-button-spinner');
+      expect(spinner).not.toBeInTheDocument();
+    });
+
+    it('should not leak loading prop when loading is false', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button loading={false}>Save</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).not.toHaveAttribute('loading');
+    });
+
+    it('should work with appearance and size props while loading', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button loading danger filled lg>Delete</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveAttribute('data-loading', 'true');
+      expect(button).toBeDisabled();
+      expect(button).toHaveAttribute('data-size', 'lg');
+      expect(button).toHaveAttribute('data-appearance', 'danger');
+      expect(button).toHaveAttribute('data-variant', 'filled');
+    });
+  });
+
   describe('Width Props', () => {
     it('should apply wFull class for full width', () => {
       const {container} = render(

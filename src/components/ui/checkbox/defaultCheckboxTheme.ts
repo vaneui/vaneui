@@ -2,7 +2,7 @@ import { defaultSizedLayoutClassMappers } from "../theme/common/ComponentTheme";
 import { ComponentTheme, accentAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, checkedBgAppearance, shadowUIAppearance } from "../theme/common";
 import type { CheckboxProps } from "./CheckboxProps";
 import { RadiusClassMapper, BorderClassMapper, RingClassMapper, CursorClassMapper, TransitionClassMapper, FocusVisibleClassMapper } from "../theme/layout";
-import { SimpleConsumerClassMapper, StatusClassMapper } from "../theme/appearance";
+import { SimpleConsumerClassMapper, StatusClassMapper, DisabledClassMapper } from "../theme/appearance";
 import { SizeClassMapper, FontSizeClassMapper } from "../theme/size";
 import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
 import type { CheckboxTheme } from "./CheckboxTheme";
@@ -34,6 +34,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
       check: checkedBgAppearance,
       shadow: shadowUIAppearance,
       status: new StatusClassMapper(),
+      disabled: new DisabledClassMapper(),
     }
   },
   checkboxInputDefaults,

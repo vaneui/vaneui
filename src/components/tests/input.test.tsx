@@ -422,6 +422,57 @@ describe('Input Component Tests', () => {
     });
   });
 
+  describe('Read-only State', () => {
+    it('should render with data-readonly attribute when readOnly is set', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input readOnly />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).toBeInTheDocument();
+      expect(input).toHaveAttribute('data-readonly', 'true');
+    });
+
+    it('should pass readOnly through to native input element', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input readOnly />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).toHaveAttribute('readOnly');
+    });
+
+    it('should not have data-readonly when readOnly is not set', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).not.toHaveAttribute('data-readonly');
+    });
+
+    it('should work alongside other props', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input readOnly lg primary value="read only value" />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).toHaveAttribute('data-readonly', 'true');
+      expect(input).toHaveAttribute('readOnly');
+      expect(input).toHaveAttribute('data-size', 'lg');
+      expect(input).toHaveAttribute('data-appearance', 'primary');
+      expect(input).toHaveAttribute('value', 'read only value');
+    });
+  });
+
   describe('Input Shadow Behavior', () => {
     it('should not have shadow classes by default (noShadow is default)', () => {
       const {container} = render(
