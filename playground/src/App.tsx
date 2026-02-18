@@ -1101,6 +1101,197 @@ function HideWhenDetachedDemo() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+//  LOADING STATE DEMOS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function LoadingButtonDemo() {
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 2000);
+  };
+
+  return (
+    <Col>
+      <Text sm secondary>
+        Click a button to simulate a 2-second async operation. The button shows a spinner and is
+        auto-disabled while loading.
+      </Text>
+      <Row flexWrap>
+        <Button loading={loading} onClick={handleClick} filled>
+          Save Changes
+        </Button>
+        <Button loading={loading} onClick={handleClick} secondary>
+          Submit
+        </Button>
+        <Button loading={loading} onClick={handleClick} danger filled>
+          Delete
+        </Button>
+      </Row>
+    </Col>
+  );
+}
+
+function LoadingSizesDemo() {
+  return (
+    <Col>
+      <Text sm secondary>
+        The spinner scales with button size via <Code sm>1em</Code> width. Button width is
+        preserved because children are rendered invisibly.
+      </Text>
+      <Row flexWrap itemsEnd>
+        <Button loading xs>Extra Small</Button>
+        <Button loading sm>Small</Button>
+        <Button loading>Medium</Button>
+        <Button loading lg>Large</Button>
+        <Button loading xl>Extra Large</Button>
+      </Row>
+    </Col>
+  );
+}
+
+function LoadingAppearancesDemo() {
+  return (
+    <Col>
+      <Text sm secondary>
+        The spinner inherits <Code sm>--text-color</Code> from the button's appearance and variant.
+      </Text>
+      <Row flexWrap>
+        <Button loading filled>Primary</Button>
+        <Button loading filled brand>Brand</Button>
+        <Button loading filled success>Success</Button>
+        <Button loading filled danger>Danger</Button>
+        <Button loading filled warning>Warning</Button>
+        <Button loading filled info>Info</Button>
+      </Row>
+      <Row flexWrap>
+        <Button loading>Primary</Button>
+        <Button loading brand>Brand</Button>
+        <Button loading success>Success</Button>
+        <Button loading danger>Danger</Button>
+        <Button loading warning>Warning</Button>
+        <Button loading info>Info</Button>
+      </Row>
+    </Col>
+  );
+}
+
+function LoadingToggleDemo() {
+  const [loading, setLoading] = useState(false);
+  return (
+    <Col>
+      <Label>
+        <Checkbox checked={loading} onChange={() => setLoading(!loading)} />
+        Toggle loading state
+      </Label>
+      <Row flexWrap>
+        <Button loading={loading} filled>Save</Button>
+        <Button loading={loading} filled success>Publish</Button>
+        <Button loading={loading} filled danger>Delete Account</Button>
+        <Button loading={loading} href="/somewhere" brand>Navigate</Button>
+      </Row>
+    </Col>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  READ-ONLY STATE DEMOS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+function ReadOnlyInputDemo() {
+  return (
+    <Col>
+      <Text sm secondary>
+        Read-only inputs display the value but prevent editing. The caret is hidden and
+        hover/active color changes are neutralized.
+      </Text>
+      <Stack>
+        <Label>
+          API Key (read-only)
+          <Input readOnly value="sk-1234567890abcdef" />
+        </Label>
+        <Label>
+          Editable field
+          <Input placeholder="You can type here..." />
+        </Label>
+      </Stack>
+    </Col>
+  );
+}
+
+function ReadOnlyAppearancesDemo() {
+  return (
+    <Col>
+      <Text sm secondary>
+        Read-only works with all appearances. The <Code sm>data-readonly</Code> attribute
+        is set for CSS hooks.
+      </Text>
+      <Row flexWrap>
+        <Input readOnly value="Primary" primary className="w-40" />
+        <Input readOnly value="Success" success className="w-40" />
+        <Input readOnly value="Danger" danger className="w-40" />
+        <Input readOnly value="Warning" warning className="w-40" />
+      </Row>
+    </Col>
+  );
+}
+
+function ReadOnlyCheckboxDemo() {
+  return (
+    <Col>
+      <Text sm secondary>
+        Checkboxes also support <Code sm>readOnly</Code>. The user can see the state but cannot
+        change it (no <Code sm>onChange</Code> fires).
+      </Text>
+      <Row>
+        <Label>
+          <Checkbox checked readOnly />
+          Checked (read-only)
+        </Label>
+        <Label>
+          <Checkbox readOnly />
+          Unchecked (read-only)
+        </Label>
+        <Label>
+          <Checkbox indeterminate readOnly />
+          Indeterminate (read-only)
+        </Label>
+      </Row>
+    </Col>
+  );
+}
+
+function ReadOnlyVsDisabledDemo() {
+  return (
+    <Col>
+      <Text sm secondary>
+        Compare read-only vs disabled. Read-only preserves full contrast and allows text selection.
+        Disabled reduces opacity and removes interactivity entirely.
+      </Text>
+      <Row flexWrap>
+        <Stack>
+          <Text sm bold>Read-Only</Text>
+          <Input readOnly value="Can select text" />
+          <Label>
+            <Checkbox checked readOnly />
+            Read-only checkbox
+          </Label>
+        </Stack>
+        <Stack>
+          <Text sm bold>Disabled</Text>
+          <Input disabled value="Cannot interact" />
+          <Label>
+            <Checkbox checked disabled />
+            Disabled checkbox
+          </Label>
+        </Stack>
+      </Row>
+    </Col>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 //  MAIN APP
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -1113,6 +1304,50 @@ function App() {
 
           {/* ─── Modal Quick Demo ─────────────────────────────────────── */}
           <ModalQuickDemo />
+
+          {/* ═══ COMPONENT STATES ════════════════════════════════════════ */}
+          <Divider />
+          <PageTitle sm>Component States</PageTitle>
+
+          <Card>
+            <Title>Loading State — Interactive Demo</Title>
+            <LoadingButtonDemo />
+          </Card>
+
+          <Card>
+            <Title>Loading State — Size Variants</Title>
+            <LoadingSizesDemo />
+          </Card>
+
+          <Card>
+            <Title>Loading State — Appearances</Title>
+            <LoadingAppearancesDemo />
+          </Card>
+
+          <Card>
+            <Title>Loading State — Toggle</Title>
+            <LoadingToggleDemo />
+          </Card>
+
+          <Card>
+            <Title>Read-Only — Input</Title>
+            <ReadOnlyInputDemo />
+          </Card>
+
+          <Card>
+            <Title>Read-Only — Appearances</Title>
+            <ReadOnlyAppearancesDemo />
+          </Card>
+
+          <Card>
+            <Title>Read-Only — Checkbox</Title>
+            <ReadOnlyCheckboxDemo />
+          </Card>
+
+          <Card>
+            <Title>Read-Only vs Disabled</Title>
+            <ReadOnlyVsDisabledDemo />
+          </Card>
 
           {/* ═══ ROUND 2 ENHANCEMENTS ═══════════════════════════════════ */}
           <Divider />
