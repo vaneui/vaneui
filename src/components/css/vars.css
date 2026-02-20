@@ -172,6 +172,23 @@
     --modal-width: var(--modal-width-md); /* Default modal width */
     --modal-max-height: 90vh; /* Default modal max height */
 
+    /* Shadow color (RGB channels — used by all shadow variables) */
+    --shadow-color: 0 0 0;
+
+    /* UI shadows (compact, grounded — for buttons, inputs, checkboxes) */
+    --shadow-ui-xs:  0 1px 2px 0 rgb(var(--shadow-color) / 0.1);
+    --shadow-ui-sm:  0 1px 3px 0 rgb(var(--shadow-color) / 0.1);
+    --shadow-ui-md:  0 2px 4px -1px rgb(var(--shadow-color) / 0.1), 0 1px 2px 0 rgb(var(--shadow-color) / 0.06);
+    --shadow-ui-lg:  0 3px 6px -1px rgb(var(--shadow-color) / 0.1), 0 1px 2px -1px rgb(var(--shadow-color) / 0.06);
+    --shadow-ui-xl:  0 4px 8px -2px rgb(var(--shadow-color) / 0.1), 0 2px 3px -1px rgb(var(--shadow-color) / 0.06);
+
+    /* Layout shadows (elevated, deeper — for cards, modals, popups) */
+    --shadow-layout-xs:  0 2px 4px -1px rgb(var(--shadow-color) / 0.1), 0 1px 2px 0 rgb(var(--shadow-color) / 0.06);
+    --shadow-layout-sm:  0 4px 8px -2px rgb(var(--shadow-color) / 0.1), 0 1px 3px -1px rgb(var(--shadow-color) / 0.06);
+    --shadow-layout-md:  0 6px 12px -3px rgb(var(--shadow-color) / 0.1), 0 2px 4px -1px rgb(var(--shadow-color) / 0.06);
+    --shadow-layout-lg:  0 10px 20px -5px rgb(var(--shadow-color) / 0.1), 0 2px 6px -2px rgb(var(--shadow-color) / 0.06);
+    --shadow-layout-xl:  0 16px 32px -6px rgb(var(--shadow-color) / 0.1), 0 3px 8px -2px rgb(var(--shadow-color) / 0.06);
+
     /* Popup max height (used by Popup component) */
     --popup-max-height: 20rem; /* 320px default max height */
 
@@ -245,19 +262,19 @@
 
     /* ========================================
        TYPE-BASED DEFAULTS
-       Sets --gap-unit, --py-unit, --aspect-ratio, --shadow
+       Sets --gap-unit, --py-unit, --aspect-ratio, --shadow-base
        based on data-vane-type and data-size attributes.
        Components inherit these unless they override.
        UI --br-unit is set per component (height-proportional).
        Layout --br-unit is set per size (fixed scale).
        ======================================== */
 
-    /* UI type defaults (compact spacing, with hover shadows using Tailwind shadow vars) */
-    [data-vane-type="ui"][data-size="xs"] { --gap-unit: 1;   --shadow-base: var(--shadow-2xs); --shadow-hover: var(--shadow-xs); }
-    [data-vane-type="ui"][data-size="sm"] { --gap-unit: 1.5; --shadow-base: var(--shadow-xs);  --shadow-hover: var(--shadow-sm); }
-    [data-vane-type="ui"][data-size="md"] { --gap-unit: 2;   --shadow-base: var(--shadow-sm);  --shadow-hover: var(--shadow-md); }
-    [data-vane-type="ui"][data-size="lg"] { --gap-unit: 2.5; --shadow-base: var(--shadow-md); --shadow-hover: var(--shadow-lg); }
-    [data-vane-type="ui"][data-size="xl"] { --gap-unit: 3;   --shadow-base: var(--shadow-lg);  --shadow-hover: var(--shadow-xl); }
+    /* UI type defaults (compact spacing, static shadows) */
+    [data-vane-type="ui"][data-size="xs"] { --gap-unit: 1;   --shadow-base: var(--shadow-ui-xs); }
+    [data-vane-type="ui"][data-size="sm"] { --gap-unit: 1.5; --shadow-base: var(--shadow-ui-sm); }
+    [data-vane-type="ui"][data-size="md"] { --gap-unit: 2;   --shadow-base: var(--shadow-ui-md); }
+    [data-vane-type="ui"][data-size="lg"] { --gap-unit: 2.5; --shadow-base: var(--shadow-ui-lg); }
+    [data-vane-type="ui"][data-size="xl"] { --gap-unit: 3;   --shadow-base: var(--shadow-ui-xl); }
 
     /* Height-proportional border radius for UI components:
        --br = (fs-unit * 0.5 * lh + 2 * py-unit) * --br-unit * spacing
@@ -268,12 +285,12 @@
         --br: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit)) * var(--br-unit) * var(--spacing));
     }
 
-    /* Layout type defaults (generous spacing, static shadows using Tailwind shadow vars) */
-    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --aspect-ratio: 1; --shadow-base: var(--shadow-xs); }
-    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --aspect-ratio: 1; --shadow-base: var(--shadow-sm); }
-    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; --shadow-base: var(--shadow-md); }
-    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 5; --py-unit: 5; --aspect-ratio: 1; --shadow-base: var(--shadow-lg); }
-    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 6; --py-unit: 6; --aspect-ratio: 1; --shadow-base: var(--shadow-xl); }
+    /* Layout type defaults (generous spacing, static shadows) */
+    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xs); }
+    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-sm); }
+    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-md); }
+    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 5; --py-unit: 5; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-lg); }
+    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 6; --py-unit: 6; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xl); }
 
     /* NON-RESPONSIVE COMPONENTS */
 
@@ -587,18 +604,10 @@
     [data-loading="true"] {
         position: relative;
     }
-    .vane-button-spinner {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .vane-button-spinner::after {
-        content: '';
+    .vane-button-spinner-ring {
         width: 1em;
         height: 1em;
-        border: 2px solid var(--text-color);
+        border: 2px solid currentColor;
         border-right-color: transparent;
         border-radius: 50%;
         animation: vane-spin 0.6s linear infinite;

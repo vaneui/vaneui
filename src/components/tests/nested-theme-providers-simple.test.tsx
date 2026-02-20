@@ -84,15 +84,15 @@ describe('Simple Nested ThemeProvider Test', () => {
       <div>
         {/* Outer provider sets primary and lg */}
         <ThemeProvider 
-          themeDefaults={{ button: { primary: true, lg: true } }}
-          extraClasses={{ button: { primary: 'outer-primary-class' } }}
+          themeDefaults={{ button: { main: { primary: true, lg: true } } }}
+          extraClasses={{ button: { main: { primary: 'outer-primary-class' } } }}
         >
           <Button className="outer-button">Outer Button</Button>
           
           {/* Inner provider with default merge strategy - should inherit from parent */}
           <ThemeProvider 
-            themeDefaults={{ button: { secondary: true } }}
-            extraClasses={{ button: { secondary: 'inner-secondary-class' } }}
+            themeDefaults={{ button: { main: { secondary: true } } }}
+            extraClasses={{ button: { main: { secondary: 'inner-secondary-class' } } }}
           >
             <Button className="inner-merged">Inner Merged</Button>
           </ThemeProvider>
@@ -122,16 +122,16 @@ describe('Simple Nested ThemeProvider Test', () => {
       <div>
         {/* Outer provider sets primary and lg */}
         <ThemeProvider 
-          themeDefaults={{ button: { primary: true, lg: true } }}
-          extraClasses={{ button: { primary: 'outer-primary-class' } }}
+          themeDefaults={{ button: { main: { primary: true, lg: true } } }}
+          extraClasses={{ button: { main: { primary: 'outer-primary-class' } } }}
         >
           <Button className="outer-button">Outer Button</Button>
           
           {/* Inner provider with replace strategy - should NOT inherit from parent */}
           <ThemeProvider 
             mergeStrategy="replace"
-            themeDefaults={{ button: { secondary: true } }}
-            extraClasses={{ button: { secondary: 'inner-secondary-class' } }}
+            themeDefaults={{ button: { main: { secondary: true } } }}
+            extraClasses={{ button: { main: { secondary: 'inner-secondary-class' } } }}
           >
             <Button className="inner-replaced">Inner Replaced</Button>
           </ThemeProvider>
@@ -162,10 +162,10 @@ describe('Simple Nested ThemeProvider Test', () => {
       <div>
         {/* Test 1: Merge mode - extra classes should be inherited */}
         <ThemeProvider 
-          extraClasses={{ button: { primary: 'outer-class-merge' } }}
+          extraClasses={{ button: { main: { primary: 'outer-class-merge' } } }}
         >
           <ThemeProvider 
-            extraClasses={{ button: { secondary: 'inner-class-merge' } }}
+            extraClasses={{ button: { main: { secondary: 'inner-class-merge' } } }}
           >
             <Button primary className="merge-primary">Merge Primary</Button>
             <Button secondary className="merge-secondary">Merge Secondary</Button>
@@ -174,11 +174,11 @@ describe('Simple Nested ThemeProvider Test', () => {
 
         {/* Test 2: Replace mode - extra classes should NOT be inherited */}
         <ThemeProvider 
-          extraClasses={{ button: { primary: 'outer-class-replace' } }}
+          extraClasses={{ button: { main: { primary: 'outer-class-replace' } } }}
         >
           <ThemeProvider 
             mergeStrategy="replace"
-            extraClasses={{ button: { secondary: 'inner-class-replace' } }}
+            extraClasses={{ button: { main: { secondary: 'inner-class-replace' } } }}
           >
             <Button primary className="replace-primary">Replace Primary</Button>
             <Button secondary className="replace-secondary">Replace Secondary</Button>
@@ -206,30 +206,30 @@ describe('Simple Nested ThemeProvider Test', () => {
       <div>
         {/* Level 1: Outer provider */}
         <ThemeProvider 
-          themeDefaults={{ button: { primary: true, lg: true } }}
-          extraClasses={{ button: { primary: 'level-1-class' } }}
+          themeDefaults={{ button: { main: { primary: true, lg: true } } }}
+          extraClasses={{ button: { main: { primary: 'level-1-class' } } }}
         >
           <Button className="level-1">Level 1</Button>
           
           {/* Level 2: Merge strategy (default) */}
           <ThemeProvider 
-            themeDefaults={{ button: { filled: true } }}
-            extraClasses={{ button: { filled: 'level-2-class' } }}
+            themeDefaults={{ button: { main: { filled: true } } }}
+            extraClasses={{ button: { main: { filled: 'level-2-class' } } }}
           >
             <Button className="level-2-merged">Level 2 Merged</Button>
             
             {/* Level 3: Replace strategy */}
             <ThemeProvider 
               mergeStrategy="replace"
-              themeDefaults={{ button: { secondary: true, sm: true } }}
-              extraClasses={{ button: { secondary: 'level-3-class' } }}
+              themeDefaults={{ button: { main: { secondary: true, sm: true } } }}
+              extraClasses={{ button: { main: { secondary: 'level-3-class' } } }}
             >
               <Button className="level-3-replaced">Level 3 Replaced</Button>
               
               {/* Level 4: Merge strategy after replace */}
               <ThemeProvider 
-                themeDefaults={{ button: { outline: true } }}
-                extraClasses={{ button: { outline: 'level-4-class' } }}
+                themeDefaults={{ button: { main: { outline: true } } }}
+                extraClasses={{ button: { main: { outline: 'level-4-class' } } }}
               >
                 <Button className="level-4-merged-after-replace">Level 4</Button>
               </ThemeProvider>
@@ -253,7 +253,6 @@ describe('Simple Nested ThemeProvider Test', () => {
     expect(level2).toHaveClass('bg-(--bg-color)'); // filled variant
     expect(level2).toHaveAttribute('data-size', 'lg'); // inherited
     expect(level2).toHaveAttribute('data-vane-type', 'ui'); // UI component type
-      expect(level2).toHaveClass('shadow-(--shadow-base)');
     expect(level2).toHaveClass('level-2-class');
 
     // Level 3: Replace strategy - starts fresh from defaultTheme
@@ -262,7 +261,6 @@ describe('Simple Nested ThemeProvider Test', () => {
     expect(level3).toHaveAttribute('data-size', 'sm');
     expect(level3).not.toHaveAttribute('data-size', 'lg'); // NOT inherited
     expect(level3).toHaveAttribute('data-vane-type', 'ui'); // UI component type
-      expect(level3).toHaveClass('shadow-(--shadow-base)');
     expect(level3).toHaveClass('level-3-class');
     expect(level3).not.toHaveClass('level-1-class'); // NOT inherited
     expect(level3).not.toHaveClass('level-2-class'); // NOT inherited

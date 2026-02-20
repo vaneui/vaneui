@@ -108,16 +108,16 @@ describe('Nested ThemeProvider Tests', () => {
 
     it('should combine theme overrides and extra classes correctly in nested providers', () => {
       const outerOverride = (theme: ThemeProps) => {
-        theme.button.defaults = mergeDefaults(
-          theme.button.defaults as Record<string, boolean>, 
+        theme.button.main.defaults = mergeDefaults(
+          theme.button.main.defaults as Record<string, boolean>, 
           { primary: true }
         );
         return theme;
       };
 
       const innerOverride = (theme: ThemeProps) => {
-        theme.button.defaults = mergeDefaults(
-          theme.button.defaults as Record<string, boolean>, 
+        theme.button.main.defaults = mergeDefaults(
+          theme.button.main.defaults as Record<string, boolean>, 
           { lg: true }
         );
         return theme;
@@ -125,13 +125,17 @@ describe('Nested ThemeProvider Tests', () => {
 
       const outerExtraClasses = {
         button: {
-          primary: 'transform hover:scale-105'
+          main: {
+            primary: 'transform hover:scale-105'
+          }
         }
       };
 
       const innerExtraClasses = {
         button: {
-          lg: 'font-bold tracking-wide'
+          main: {
+            lg: 'font-bold tracking-wide'
+          }
         }
       };
 
@@ -257,40 +261,44 @@ describe('Nested ThemeProvider Tests', () => {
   describe('Complete Isolation Test', () => {
     it('should isolate all theme modifications (overrides, defaults, and extra classes)', () => {
       const outerOverride = (theme: ThemeProps) => {
-        theme.button.defaults = mergeDefaults(
-          theme.button.defaults as Record<string, boolean>, 
+        theme.button.main.defaults = mergeDefaults(
+          theme.button.main.defaults as Record<string, boolean>, 
           { outline: true }
         );
         return theme;
       };
 
       const innerOverride = (theme: ThemeProps) => {
-        theme.button.defaults = mergeDefaults(
-          theme.button.defaults as Record<string, boolean>, 
+        theme.button.main.defaults = mergeDefaults(
+          theme.button.main.defaults as Record<string, boolean>, 
           { filled: true }
         );
         return theme;
       };
 
       const outerDefaults = {
-        button: { primary: true, lg: true }
+        button: { main: { primary: true, lg: true } }
       };
 
       const innerDefaults = {
-        button: { secondary: true, sm: true }
+        button: { main: { secondary: true, sm: true } }
       };
 
       const outerExtraClasses = {
         button: {
-          primary: 'outer-primary-class',
-          lg: 'outer-lg-class'
+          main: {
+            primary: 'outer-primary-class',
+            lg: 'outer-lg-class'
+          }
         }
       };
 
       const innerExtraClasses = {
         button: {
-          secondary: 'inner-secondary-class',
-          sm: 'inner-sm-class'
+          main: {
+            secondary: 'inner-secondary-class',
+            sm: 'inner-sm-class'
+          }
         }
       };
 

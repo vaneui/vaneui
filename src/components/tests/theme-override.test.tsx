@@ -7,9 +7,9 @@ describe('Theme Override Tests', () => {
   describe('CSS Class Application', () => {
     it('should apply overridden CSS classes to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.base = 'text-blue-500';
-        theme.button.themes.appearance.text.hover = 'hover:text-blue-700';
-        theme.button.themes.appearance.text.active = 'active:text-blue-900';
+        theme.button.main.themes.appearance.text.base = 'text-blue-500';
+        theme.button.main.themes.appearance.text.hover = 'hover:text-blue-700';
+        theme.button.main.themes.appearance.text.active = 'active:text-blue-900';
         return theme;
       };
 
@@ -28,9 +28,9 @@ describe('Theme Override Tests', () => {
 
     it('should override background colors and apply to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.background.base = 'bg-red-100';
-        theme.button.themes.appearance.background.hover = 'hover:bg-red-200';
-        theme.button.themes.appearance.background.active = 'active:bg-red-300';
+        theme.button.main.themes.appearance.background.base = 'bg-red-100';
+        theme.button.main.themes.appearance.background.hover = 'hover:bg-red-200';
+        theme.button.main.themes.appearance.background.active = 'active:bg-red-300';
         return theme;
       };
 
@@ -48,10 +48,10 @@ describe('Theme Override Tests', () => {
 
     it('should override border styles and apply to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.layout.border.border = 'border-2'
-        theme.button.themes.appearance.border.base = 'border-green-500';
-        theme.button.themes.appearance.border.hover = 'hover:border-green-600';
-        theme.button.themes.appearance.border.active = 'active:border-green-700';
+        theme.button.main.themes.layout.border.border = 'border-2'
+        theme.button.main.themes.appearance.border.base = 'border-green-500';
+        theme.button.main.themes.appearance.border.hover = 'hover:border-green-600';
+        theme.button.main.themes.appearance.border.active = 'active:border-green-700';
         return theme;
       };
 
@@ -70,8 +70,8 @@ describe('Theme Override Tests', () => {
 
     it('should override filled variant styles and apply correctly', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.base = 'text-yellow-100';
-        theme.button.themes.appearance.background.base = 'bg-purple-600';
+        theme.button.main.themes.appearance.text.base = 'text-yellow-100';
+        theme.button.main.themes.appearance.background.base = 'bg-purple-600';
         return theme;
       };
 
@@ -89,8 +89,8 @@ describe('Theme Override Tests', () => {
     it('should allow multiple component theme overrides', () => {
       const overrideFunc = (theme: ThemeProps) => {
         // Override button theme
-        theme.button.themes.appearance.text.base = 'text-blue-500';
-        theme.button.themes.appearance.background.base = 'bg-blue-600';
+        theme.button.main.themes.appearance.text.base = 'text-blue-500';
+        theme.button.main.themes.appearance.background.base = 'bg-blue-600';
         
         // Override badge theme
         theme.badge.themes.appearance.text.base = 'text-green-500';
@@ -121,7 +121,7 @@ describe('Theme Override Tests', () => {
 
     it('should override ring styles and apply shadow classes correctly', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.appearance.ring.base = 'ring-orange-500';
+        theme.button.main.themes.appearance.ring.base = 'ring-orange-500';
         return theme;
       };
 
@@ -136,7 +136,6 @@ describe('Theme Override Tests', () => {
       // Shadow now uses marker class + CSS variables based on data-size
       expect(button).toHaveAttribute('data-vane-type', 'ui'); // UI component type
       expect(button).toHaveClass('shadow-(--shadow-base)');
-      expect(button).toHaveClass('hover:shadow-(--shadow-hover)');
     });
   });
 
@@ -144,8 +143,8 @@ describe('Theme Override Tests', () => {
     it('should combine themeOverride with themeDefaults for button styling', () => {
       const overrideFunc = (theme: ThemeProps) => {
         // Override specific appearance classes
-        theme.button.themes.appearance.text.base = 'text-custom-primary';
-        theme.button.themes.appearance.background.base = 'bg-custom-secondary';
+        theme.button.main.themes.appearance.text.base = 'text-custom-primary';
+        theme.button.main.themes.appearance.background.base = 'bg-custom-secondary';
         return theme;
       };
 
@@ -153,7 +152,7 @@ describe('Theme Override Tests', () => {
         <ThemeProvider 
           themeOverride={overrideFunc}
           themeDefaults={{
-            button: { primary: true, lg: true, rounded: true }
+            button: { main: { primary: true, lg: true, rounded: true } }
           }}
         >
           <Button className="combined-test-1">Primary Default</Button>
@@ -184,10 +183,10 @@ describe('Theme Override Tests', () => {
     it('should handle complex theme override and defaults combinations', () => {
       const complexOverrideFunc = (theme: ThemeProps) => {
         // Override multiple aspects of button appearance
-        theme.button.themes.appearance.text.base = 'text-indigo-100';
-        theme.button.themes.appearance.text.hover = 'hover:text-indigo-50';
-        theme.button.themes.appearance.background.base = 'bg-gradient-to-r from-indigo-500 to-purple-600';
-        theme.button.themes.appearance.border.base = 'border-2 border-indigo-400';
+        theme.button.main.themes.appearance.text.base = 'text-indigo-100';
+        theme.button.main.themes.appearance.text.hover = 'hover:text-indigo-50';
+        theme.button.main.themes.appearance.background.base = 'bg-gradient-to-r from-indigo-500 to-purple-600';
+        theme.button.main.themes.appearance.border.base = 'border-2 border-indigo-400';
         
         // Also override badge for testing multiple components
         theme.badge.themes.appearance.text.base = 'text-pink-600';
@@ -198,7 +197,7 @@ describe('Theme Override Tests', () => {
         <ThemeProvider 
           themeOverride={complexOverrideFunc}
           themeDefaults={{
-            button: { filled: true, primary: true, semibold: true, xl: true },
+            button: { main: { filled: true, primary: true, semibold: true, xl: true } },
             badge: { outline: true, pill: true, sm: true }
           }}
         >
@@ -229,25 +228,25 @@ describe('Theme Override Tests', () => {
 
     it('should allow nested providers with different override and default combinations', () => {
       const outerOverride = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.base = 'text-red-500';
+        theme.button.main.themes.appearance.text.base = 'text-red-500';
         return theme;
       };
 
       const innerOverride = (theme: ThemeProps) => {
-        theme.button.themes.appearance.background.base = 'bg-blue-500';
+        theme.button.main.themes.appearance.background.base = 'bg-blue-500';
         return theme;
       };
 
       const { container } = render(
         <ThemeProvider 
           themeOverride={outerOverride}
-          themeDefaults={{ button: { outline: true, lg: true } }}
+          themeDefaults={{ button: { main: { outline: true, lg: true } } }}
         >
           <Button className="outer-button">Outer Button</Button>
           
           <ThemeProvider 
             themeOverride={innerOverride}
-            themeDefaults={{ button: { filled: true, primary: true, sm: true } }}
+            themeDefaults={{ button: { main: { filled: true, primary: true, sm: true } } }}
           >
             <Button className="inner-button">Inner Button</Button>
           </ThemeProvider>
@@ -269,16 +268,16 @@ describe('Theme Override Tests', () => {
 
     it('should preserve theme overrides across multiple component instances', () => {
       const persistentOverride = (theme: ThemeProps) => {
-        theme.button.themes.appearance.text.base = 'text-violet-600';
-        theme.button.themes.appearance.background.base = 'bg-violet-600';
-        theme.button.themes.appearance.border.base = 'border-violet-400';
+        theme.button.main.themes.appearance.text.base = 'text-violet-600';
+        theme.button.main.themes.appearance.background.base = 'bg-violet-600';
+        theme.button.main.themes.appearance.border.base = 'border-violet-400';
         return theme;
       };
 
       const { container } = render(
         <ThemeProvider 
           themeOverride={persistentOverride}
-          themeDefaults={{ button: { medium: true } }}
+          themeDefaults={{ button: { main: { medium: true } } }}
         >
           <div>
             <Button className="instance-1">Button 1</Button>
@@ -306,7 +305,7 @@ describe('Theme Override Tests', () => {
     it('should handle appearance theme overrides with layout customizations', () => {
       const layoutOverride = (theme: ThemeProps) => {
         // Override appearance - size variables are now set via CSS in vars.css
-        theme.button.themes.appearance.background.base = 'bg-emerald-500';
+        theme.button.main.themes.appearance.background.base = 'bg-emerald-500';
         return theme;
       };
 
@@ -314,7 +313,7 @@ describe('Theme Override Tests', () => {
         <ThemeProvider
           themeOverride={layoutOverride}
           themeDefaults={{
-            button: { filled: true, primary: true, md: true, padding: true }
+            button: { main: { filled: true, primary: true, md: true, padding: true } }
           }}
         >
           <Button className="size-test-md">MD Button</Button>
@@ -385,9 +384,9 @@ describe('Theme Override Tests', () => {
   describe('Size and Layout Theme Class Field Overrides', () => {
     it('should override fontSize breakpoint class', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.text.desktop = 'text-xl';
-        theme.button.themes.size.text.tablet = '';
-        theme.button.themes.size.text.mobile = '';
+        theme.button.main.themes.size.text.desktop = 'text-xl';
+        theme.button.main.themes.size.text.tablet = '';
+        theme.button.main.themes.size.text.mobile = '';
         return theme;
       };
 
@@ -404,9 +403,9 @@ describe('Theme Override Tests', () => {
 
     it('should override py breakpoint class', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.py.desktop = 'py-6';
-        theme.button.themes.size.py.tablet = '';
-        theme.button.themes.size.py.mobile = '';
+        theme.button.main.themes.size.py.desktop = 'py-6';
+        theme.button.main.themes.size.py.tablet = '';
+        theme.button.main.themes.size.py.mobile = '';
         return theme;
       };
 
@@ -423,9 +422,9 @@ describe('Theme Override Tests', () => {
 
     it('should override px breakpoint class', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.px.desktop = 'px-10';
-        theme.button.themes.size.px.tablet = '';
-        theme.button.themes.size.px.mobile = '';
+        theme.button.main.themes.size.px.desktop = 'px-10';
+        theme.button.main.themes.size.px.tablet = '';
+        theme.button.main.themes.size.px.mobile = '';
         return theme;
       };
 
@@ -442,7 +441,7 @@ describe('Theme Override Tests', () => {
 
     it('should override lineHeight consumer class', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.lineHeight.lineHeight = 'leading-loose';
+        theme.button.main.themes.size.lineHeight.lineHeight = 'leading-loose';
         return theme;
       };
 
@@ -459,7 +458,7 @@ describe('Theme Override Tests', () => {
 
     it('should override rounded consumer class', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.layout.radius.rounded = 'rounded-2xl';
+        theme.button.main.themes.layout.radius.rounded = 'rounded-2xl';
         return theme;
       };
 
@@ -498,17 +497,17 @@ describe('Theme Override Tests', () => {
 
     it('should override multiple size theme fields simultaneously', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.text.desktop = 'text-2xl';
-        theme.button.themes.size.text.tablet = '';
-        theme.button.themes.size.text.mobile = '';
-        theme.button.themes.size.py.desktop = 'py-4';
-        theme.button.themes.size.py.tablet = '';
-        theme.button.themes.size.py.mobile = '';
-        theme.button.themes.size.px.desktop = 'px-8';
-        theme.button.themes.size.px.tablet = '';
-        theme.button.themes.size.px.mobile = '';
-        theme.button.themes.size.lineHeight.lineHeight = 'leading-relaxed';
-        theme.button.themes.layout.radius.rounded = 'rounded-lg';
+        theme.button.main.themes.size.text.desktop = 'text-2xl';
+        theme.button.main.themes.size.text.tablet = '';
+        theme.button.main.themes.size.text.mobile = '';
+        theme.button.main.themes.size.py.desktop = 'py-4';
+        theme.button.main.themes.size.py.tablet = '';
+        theme.button.main.themes.size.py.mobile = '';
+        theme.button.main.themes.size.px.desktop = 'px-8';
+        theme.button.main.themes.size.px.tablet = '';
+        theme.button.main.themes.size.px.mobile = '';
+        theme.button.main.themes.size.lineHeight.lineHeight = 'leading-relaxed';
+        theme.button.main.themes.layout.radius.rounded = 'rounded-lg';
         return theme;
       };
 
@@ -559,7 +558,7 @@ describe('Theme Override Tests', () => {
   describe('Base Field Override Tests (Non-Responsive)', () => {
     it('should override fontSize base class for non-responsive button', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.text.base = 'text-lg';
+        theme.button.main.themes.size.text.base = 'text-lg';
         return theme;
       };
 
@@ -576,7 +575,7 @@ describe('Theme Override Tests', () => {
 
     it('should override py base class for non-responsive button', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.py.base = 'py-4';
+        theme.button.main.themes.size.py.base = 'py-4';
         return theme;
       };
 
@@ -593,7 +592,7 @@ describe('Theme Override Tests', () => {
 
     it('should override px base class for non-responsive button', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.px.base = 'px-8';
+        theme.button.main.themes.size.px.base = 'px-8';
         return theme;
       };
 
@@ -650,9 +649,9 @@ describe('Theme Override Tests', () => {
 
     it('should override multiple base fields simultaneously for non-responsive button', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.text.base = 'text-xl';
-        theme.button.themes.size.py.base = 'py-3';
-        theme.button.themes.size.px.base = 'px-6';
+        theme.button.main.themes.size.text.base = 'text-xl';
+        theme.button.main.themes.size.py.base = 'py-3';
+        theme.button.main.themes.size.px.base = 'px-6';
         return theme;
       };
 
@@ -673,10 +672,10 @@ describe('Theme Override Tests', () => {
 
     it('should use base class when not responsive, breakpoint classes when responsive', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.text.base = 'text-base';
-        theme.button.themes.size.text.desktop = 'text-2xl';
-        theme.button.themes.size.text.tablet = 'max-tablet:text-xl';
-        theme.button.themes.size.text.mobile = 'max-mobile:text-lg';
+        theme.button.main.themes.size.text.base = 'text-base';
+        theme.button.main.themes.size.text.desktop = 'text-2xl';
+        theme.button.main.themes.size.text.tablet = 'max-tablet:text-xl';
+        theme.button.main.themes.size.text.mobile = 'max-mobile:text-lg';
         return theme;
       };
 
@@ -725,7 +724,7 @@ describe('Theme Override Tests', () => {
 
     it('should allow empty string to disable base class output', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.button.themes.size.text.base = '';
+        theme.button.main.themes.size.text.base = '';
         return theme;
       };
 
@@ -744,7 +743,7 @@ describe('Theme Override Tests', () => {
     describe('Text Color Consumer Theme Overrides', () => {
       it('should override text consumer class base property', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.button.themes.appearance.text.base = 'text-rose-500';
+          theme.button.main.themes.appearance.text.base = 'text-rose-500';
           return theme;
         };
 
@@ -811,7 +810,7 @@ describe('Theme Override Tests', () => {
     describe('Background Consumer Theme Overrides', () => {
       it('should override background consumer class base property', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.button.themes.appearance.background.base = 'bg-teal-500';
+          theme.button.main.themes.appearance.background.base = 'bg-teal-500';
           return theme;
         };
 
@@ -828,7 +827,7 @@ describe('Theme Override Tests', () => {
 
       it('should override background hover consumer class', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.button.themes.appearance.background.hover = 'hover:bg-teal-600';
+          theme.button.main.themes.appearance.background.hover = 'hover:bg-teal-600';
           return theme;
         };
 
@@ -845,7 +844,7 @@ describe('Theme Override Tests', () => {
 
       it('should override background active consumer class', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.button.themes.appearance.background.active = 'active:bg-teal-700';
+          theme.button.main.themes.appearance.background.active = 'active:bg-teal-700';
           return theme;
         };
 
@@ -862,9 +861,9 @@ describe('Theme Override Tests', () => {
 
       it('should override all background consumer states at once', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.button.themes.appearance.background.base = 'bg-gradient-to-r from-pink-500 to-violet-500';
-          theme.button.themes.appearance.background.hover = 'hover:from-pink-600 hover:to-violet-600';
-          theme.button.themes.appearance.background.active = 'active:from-pink-700 active:to-violet-700';
+          theme.button.main.themes.appearance.background.base = 'bg-gradient-to-r from-pink-500 to-violet-500';
+          theme.button.main.themes.appearance.background.hover = 'hover:from-pink-600 hover:to-violet-600';
+          theme.button.main.themes.appearance.background.active = 'active:from-pink-700 active:to-violet-700';
           return theme;
         };
 
@@ -902,7 +901,7 @@ describe('Theme Override Tests', () => {
     describe('Border Consumer Theme Overrides', () => {
       it('should override border consumer class', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.button.themes.appearance.border.base = 'border-purple-500';
+          theme.button.main.themes.appearance.border.base = 'border-purple-500';
           return theme;
         };
 
@@ -953,7 +952,7 @@ describe('Theme Override Tests', () => {
     describe('Ring Consumer Theme Overrides', () => {
       it('should override ring consumer class', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.button.themes.appearance.ring.base = 'ring-fuchsia-500';
+          theme.button.main.themes.appearance.ring.base = 'ring-fuchsia-500';
           return theme;
         };
 
@@ -988,11 +987,11 @@ describe('Theme Override Tests', () => {
     describe('Combined Consumer Theme Overrides', () => {
       it('should override multiple consumer themes on same component', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.button.themes.appearance.text.base = 'text-white';
-          theme.button.themes.appearance.background.base = 'bg-indigo-600';
-          theme.button.themes.appearance.background.hover = 'hover:bg-indigo-700';
-          theme.button.themes.appearance.border.base = 'border-indigo-500';
-          theme.button.themes.appearance.ring.base = 'ring-indigo-300';
+          theme.button.main.themes.appearance.text.base = 'text-white';
+          theme.button.main.themes.appearance.background.base = 'bg-indigo-600';
+          theme.button.main.themes.appearance.background.hover = 'hover:bg-indigo-700';
+          theme.button.main.themes.appearance.border.base = 'border-indigo-500';
+          theme.button.main.themes.appearance.ring.base = 'ring-indigo-300';
           return theme;
         };
 
@@ -1012,7 +1011,7 @@ describe('Theme Override Tests', () => {
 
       it('should override consumer themes across multiple components', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.button.themes.appearance.background.base = 'bg-red-500';
+          theme.button.main.themes.appearance.background.base = 'bg-red-500';
           theme.badge.themes.appearance.background.base = 'bg-green-500';
           theme.chip.themes.appearance.background.base = 'bg-blue-500';
           theme.card.themes.appearance.background.base = 'bg-yellow-100';
@@ -1037,7 +1036,7 @@ describe('Theme Override Tests', () => {
       it('should preserve non-overridden consumer themes', () => {
         const overrideFunc = (theme: ThemeProps) => {
           // Only override background, leave text alone
-          theme.button.themes.appearance.background.base = 'bg-orange-500';
+          theme.button.main.themes.appearance.background.base = 'bg-orange-500';
           return theme;
         };
 

@@ -1,4 +1,4 @@
-import { ComponentTheme, defaultSizedLayoutClassMappers, bgAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowLayoutAppearance } from "../theme/common";
+import { ComponentTheme, defaultSizedLayoutClassMappers, bgAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowAppearance } from "../theme/common";
 import type { ImgProps } from "./ImgProps";
 import { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, ObjectFitClassMapper } from "../theme/layout";
 import type { ImgTheme } from "./ImgTheme";
@@ -22,7 +22,7 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
       border: borderAppearance,
       ring: ringAppearance,
       focusVisible: focusVisibleAppearance,
-      shadow: shadowLayoutAppearance,
+      shadow: shadowAppearance,
     }
   },
   imgDefaults,

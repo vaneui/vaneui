@@ -1,6 +1,6 @@
 import { ComponentTheme, defaultLayoutClassMappers } from "../theme/common";
 import type { CheckboxProps } from "./CheckboxProps";
-import { SimpleConsumerClassMapper } from "../theme/appearance";
+import { SimpleConsumerClassMapper, DisabledOpacityClassMapper } from "../theme/appearance";
 import { FocusVisibleClassMapper } from "../theme/layout";
 import { SizeClassMapper } from "../theme/size";
 import { focusVisibleConsumerClass } from "../classes/appearanceClasses";
@@ -27,7 +27,8 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
     },
     appearance: {
       variant: new SimpleConsumerClassMapper({ base: '' }, 'bg'),
-      focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible')
+      focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible'),
+      disabled: new DisabledOpacityClassMapper(),
     }
   },
   checkboxWrapperDefaults,

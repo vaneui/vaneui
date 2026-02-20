@@ -23,8 +23,7 @@ export {
   focusVisibleAppearance,
   accentAppearance,
   checkedBgAppearance,
-  shadowLayoutAppearance,
-  shadowUIAppearance,
+  shadowAppearance,
 } from './appearanceClassMappers';
 export type {
   InteractiveSizeClassMapper,

@@ -497,7 +497,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveAttribute('data-vane-type', 'ui'); // UI component type
-      expect(input).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
+      expect(input).toHaveClass('shadow-(--shadow-base)');
     });
   });
 

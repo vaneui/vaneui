@@ -40,7 +40,7 @@ export const ModalCloseButton = forwardRef<HTMLButtonElement, React.ComponentPro
 
     return (
       <ThemedComponent
-        theme={theme.button}
+        theme={theme.button.main}
         tag="button"
         className="vane-modal-close"
         {...{

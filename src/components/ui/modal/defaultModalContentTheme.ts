@@ -1,4 +1,4 @@
-import { ComponentTheme, defaultTypographyClassMappers, layoutClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "../theme/common";
+import { ComponentTheme, defaultTypographyClassMappers, layoutClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "../theme/common";
 import type { ModalProps } from "./ModalProps";
 import type { ModalContentTheme } from "./ModalContentTheme";
 import { MODAL_CATEGORIES } from "./ModalCategories";
@@ -25,7 +25,7 @@ export const defaultModalContentTheme = new ComponentTheme<ModalProps, ModalCont
     size: layoutClassMappers.size,
     layout: {
       ...layoutClassMappers.layout,
-      shadow: shadowLayoutAppearance,
+      shadow: shadowAppearance,
     },
     appearance: {
       background: bgAppearance,

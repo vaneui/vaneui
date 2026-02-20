@@ -2,6 +2,8 @@ import React, { createContext, useContext, useMemo } from 'react';
 import { ComponentTheme } from "./ui/theme/common/ComponentTheme";
 import type { ButtonTheme } from './ui/button/ButtonTheme';
 import { defaultButtonTheme } from './ui/button/defaultButtonTheme';
+import type { ButtonSpinnerTheme } from './ui/button/ButtonSpinnerTheme';
+import { defaultButtonSpinnerTheme } from './ui/button/defaultButtonSpinnerTheme';
 import type { BadgeTheme } from './ui/badge/BadgeTheme';
 import { defaultBadgeTheme } from './ui/badge/defaultBadgeTheme';
 import type { ChipTheme } from './ui/chip/ChipTheme';
@@ -90,7 +92,10 @@ import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
 export interface ThemeProps {
-  button: ComponentTheme<ButtonProps, ButtonTheme>;
+  button: {
+    main: ComponentTheme<ButtonProps, ButtonTheme>;
+    spinner: ComponentTheme<ButtonProps, ButtonSpinnerTheme>;
+  };
   badge: ComponentTheme<BadgeProps, BadgeTheme>;
   chip: ComponentTheme<ChipProps, ChipTheme>;
   code: ComponentTheme<CodeProps, CodeTheme>;
@@ -136,7 +141,10 @@ export interface ThemeProps {
 export type PartialTheme = DeepPartial<ThemeProps>;
 
 export const defaultTheme: ThemeProps = {
-  button: defaultButtonTheme,
+  button: {
+    main: defaultButtonTheme,
+    spinner: defaultButtonSpinnerTheme,
+  },
   badge: defaultBadgeTheme,
   chip: defaultChipTheme,
   code: defaultCodeTheme,
@@ -198,7 +206,10 @@ type StringValueKeys<T> = {
 };
 
 export type ThemeDefaults = {
-  button?: Partial<BooleanKeys<ButtonProps>>;
+  button?: {
+    main?: Partial<BooleanKeys<ButtonProps>>;
+    spinner?: Partial<BooleanKeys<ButtonProps>>;
+  };
   badge?: Partial<BooleanKeys<BadgeProps>>;
   chip?: Partial<BooleanKeys<ChipProps>>;
   code?: Partial<BooleanKeys<CodeProps>>;
@@ -245,7 +256,10 @@ export type ThemeDefaults = {
 // For regular components: Record<string, string> for extra classes
 // For checkbox: nested structure with input and wrapper
 export type ThemeExtraClasses = {
-  button?: Partial<StringValueKeys<ButtonProps>>;
+  button?: {
+    main?: Partial<StringValueKeys<ButtonProps>>;
+    spinner?: Partial<StringValueKeys<ButtonProps>>;
+  };
   badge?: Partial<StringValueKeys<BadgeProps>>;
   chip?: Partial<StringValueKeys<ChipProps>>;
   code?: Partial<StringValueKeys<CodeProps>>;

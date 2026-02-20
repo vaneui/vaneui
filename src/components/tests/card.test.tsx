@@ -271,7 +271,6 @@ describe('Card Component Tests', () => {
       const card = container.querySelector('div');
       expect(card).toHaveAttribute('data-vane-type', 'layout'); // Layout component type
       expect(card).toHaveClass('shadow-(--shadow-base)');
-      expect(card).not.toHaveClass('hover:shadow-(--shadow-hover)'); // layout shadows have no hover
     });
 
     it('should not have shadow by default', () => {

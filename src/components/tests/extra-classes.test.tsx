@@ -17,8 +17,10 @@ describe('Extra Classes Functionality Tests', () => {
     it('should apply extra classes when corresponding prop is true', () => {
       const extraClasses = {
         button: {
-          primary: 'shadow-lg border-2',
-          lg: 'font-bold'
+          main: {
+            primary: 'shadow-lg border-2',
+            lg: 'font-bold'
+          }
         }
       };
 
@@ -35,8 +37,10 @@ describe('Extra Classes Functionality Tests', () => {
     it('should not apply extra classes when corresponding prop is false', () => {
       const extraClasses = {
         button: {
-          primary: 'shadow-lg border-2',
-          secondary: 'opacity-50'
+          main: {
+            primary: 'shadow-lg border-2',
+            secondary: 'opacity-50'
+          }
         }
       };
 
@@ -163,7 +167,9 @@ describe('Extra Classes Functionality Tests', () => {
     it('should apply different extra classes to different components', () => {
       const extraClasses = {
         button: {
-          primary: 'transform hover:scale-105'
+          main: {
+            primary: 'transform hover:scale-105'
+          }
         },
         badge: {
           success: 'animate-pulse'
@@ -228,8 +234,10 @@ describe('Extra Classes Functionality Tests', () => {
     it('should handle extra classes with empty strings', () => {
       const extraClasses = {
         button: {
-          primary: '',
-          secondary: 'custom-extra-class'
+          main: {
+            primary: '',
+            secondary: 'custom-extra-class'
+          }
         }
       };
 
@@ -247,12 +255,14 @@ describe('Extra Classes Functionality Tests', () => {
     it('should merge extra classes with existing extraClasses in theme', () => {
       // First set some extra classes in a theme
       const customTheme = { ...defaultTheme };
-      customTheme.button.extraClasses = { primary: 'existing-class' };
+      customTheme.button.main.extraClasses = { primary: 'existing-class' };
 
       const extraClasses = {
         button: {
-          primary: 'new-class',
-          secondary: 'secondary-class'
+          main: {
+            primary: 'new-class',
+            secondary: 'secondary-class'
+          }
         }
       };
 

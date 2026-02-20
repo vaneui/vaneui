@@ -8,8 +8,8 @@ import {
   Title,
   Section,
   Stack,
-  Card, Checkbox, Label, Input, Button,
-  Container, Divider, Code, PageTitle,
+  Card, Checkbox, Label, Input, Button, Badge, Chip,
+  Container, Divider, Code, PageTitle, SectionTitle,
   Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton,
   Overlay, Popup, PopupTrigger
 } from '../../src';
@@ -1301,6 +1301,116 @@ function App() {
       <Section className="w-full">
         <Container itemsCenter className="w-full">
           <PageTitle>VaneUI Overlay Components Playground</PageTitle>
+
+          {/* ═══ SHADOW SHOWCASE ══════════════════════════════════════ */}
+          <Divider />
+          <PageTitle sm>Shadows</PageTitle>
+
+          <Card>
+            <Title>Layout Shadows — Cards at Different Sizes</Title>
+            <Text sm secondary>
+              Layout shadows use <Code sm>--shadow-layout-*</Code> variables.
+              Larger cards get deeper, more elevated shadows.
+            </Text>
+            <Row flexWrap itemsStart>
+              {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+                <Card key={size} shadow {...{[size]: true}} className="w-40">
+                  <Text bold>{size}</Text>
+                  <Text xs secondary>Layout shadow</Text>
+                </Card>
+              ))}
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>UI Shadows — Buttons at Different Sizes</Title>
+            <Text sm secondary>
+              UI shadows use <Code sm>--shadow-ui-*</Code> variables.
+              Tight, compact shadows that stay close to the element.
+            </Text>
+            <Row flexWrap itemsEnd>
+              {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+                <Button key={size} shadow {...{[size]: true}}>{size}</Button>
+              ))}
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>UI Shadows — Inputs at Different Sizes</Title>
+            <Row flexWrap itemsEnd>
+              {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+                <Input key={size} shadow {...{[size]: true}} placeholder={size} className="w-40" />
+              ))}
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Shadow Toggle — Opt-in on Layout Components</Title>
+            <Text sm secondary>
+              Cards don't have shadow by default. Use <Code sm>shadow</Code> to enable.
+            </Text>
+            <Row flexWrap itemsStart>
+              <Card className="w-48">
+                <Text bold>No shadow</Text>
+                <Text xs secondary>Default card</Text>
+              </Card>
+              <Card shadow className="w-48">
+                <Text bold>With shadow</Text>
+                <Text xs secondary>shadow prop enabled</Text>
+              </Card>
+              <Card shadow lg className="w-48">
+                <Text bold>Large + shadow</Text>
+                <Text xs secondary>Deeper shadow at lg</Text>
+              </Card>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>UI vs Layout Shadow Comparison</Title>
+            <Text sm secondary>
+              Same size, different shadow depth. UI shadows are compact, layout shadows create elevation.
+            </Text>
+            <Row flexWrap itemsStart>
+              <Stack noGap noPadding>
+                <SectionTitle>UI (md)</SectionTitle>
+                <Row>
+                  <Button>Button</Button>
+                  <Badge shadow>Badge</Badge>
+                  <Chip shadow>Chip</Chip>
+                </Row>
+              </Stack>
+              <Stack noGap noPadding>
+                <SectionTitle>Layout (md)</SectionTitle>
+                <Row>
+                  <Card shadow className="w-32">
+                    <Text sm>Card</Text>
+                  </Card>
+                  <Stack shadow className="w-32">
+                    <Text sm>Stack</Text>
+                  </Stack>
+                </Row>
+              </Stack>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Filled Buttons with Shadows</Title>
+            <Text sm secondary>Shadows on filled buttons across appearances.</Text>
+            <Row flexWrap itemsEnd>
+              <Button shadow filled>Primary</Button>
+              <Button shadow filled brand>Brand</Button>
+              <Button shadow filled accent>Accent</Button>
+              <Button shadow filled success>Success</Button>
+              <Button shadow filled danger>Danger</Button>
+              <Button shadow filled warning>Warning</Button>
+              <Button shadow filled info>Info</Button>
+            </Row>
+            <Row flexWrap itemsEnd>
+              <Button shadow filled lg>Primary lg</Button>
+              <Button shadow filled lg brand>Brand lg</Button>
+              <Button shadow filled lg danger>Danger lg</Button>
+            </Row>
+          </Card>
 
           {/* ─── Modal Quick Demo ─────────────────────────────────────── */}
           <ModalQuickDemo />

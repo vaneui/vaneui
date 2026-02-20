@@ -15,11 +15,13 @@ describe('Theme Types Strictness Tests', () => {
     // These should compile without errors
     const validDefaults: ThemeDefaults = {
       button: {
-        primary: true,
-        secondary: true,
-        sm: true,
-        lg: true,
-        // All valid ButtonProps boolean keys
+        main: {
+          primary: true,
+          secondary: true,
+          sm: true,
+          lg: true,
+          // All valid ButtonProps boolean keys
+        }
       },
       text: {
         bold: true,
@@ -45,10 +47,12 @@ describe('Theme Types Strictness Tests', () => {
     // These should compile without errors
     const validExtraClasses: ThemeExtraClasses = {
       button: {
-        primary: 'extra-primary-class',
-        secondary: 'extra-secondary-class',
-        filled: 'extra-filled-class',
-        // All valid ButtonProps boolean keys with string values
+        main: {
+          primary: 'extra-primary-class',
+          secondary: 'extra-secondary-class',
+          filled: 'extra-filled-class',
+          // All valid ButtonProps boolean keys with string values
+        }
       },
       text: {
         bold: 'extra-bold-class',
@@ -123,8 +127,10 @@ describe('Theme Types Strictness Tests', () => {
     // Should be able to define only some keys
     const partialDefaults: ThemeDefaults = {
       button: {
-        primary: true,
-        // Don't need to define all possible keys
+        main: {
+          primary: true,
+          // Don't need to define all possible keys
+        }
       }
     };
 

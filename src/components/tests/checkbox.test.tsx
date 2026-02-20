@@ -522,4 +522,81 @@ describe('Checkbox Component Tests', () => {
       expect(checkbox).toHaveAttribute('data-appearance', 'primary');
     });
   });
+
+  describe('Disabled Opacity on Wrapper', () => {
+    it('should apply opacity-50 to wrapper when disabled', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox disabled />
+        </ThemeProvider>
+      );
+
+      const wrapper = container.querySelector('span.inline-grid');
+      expect(wrapper).toHaveClass('opacity-50');
+    });
+
+    it('should apply cursor-not-allowed and pointer-events-none to input but not opacity-50', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox disabled />
+        </ThemeProvider>
+      );
+
+      const checkbox = container.querySelector('input[type="checkbox"]');
+      expect(checkbox).toHaveClass('cursor-not-allowed');
+      expect(checkbox).toHaveClass('pointer-events-none');
+      expect(checkbox).not.toHaveClass('opacity-50');
+    });
+
+    it('should show check element when disabled and checked', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox disabled checked readOnly />
+        </ThemeProvider>
+      );
+
+      const wrapper = container.querySelector('span.inline-grid');
+      expect(wrapper).toHaveClass('opacity-50');
+
+      const checkbox = container.querySelector('input[type="checkbox"]');
+      expect(checkbox).toBeChecked();
+
+      // Check element SVG should still be present
+      const checkElement = wrapper?.querySelector('span.peer-checked\\:visible');
+      expect(checkElement).toBeInTheDocument();
+      const svg = checkElement?.querySelector('svg');
+      expect(svg).toBeInTheDocument();
+    });
+
+    it('should show indeterminate element when disabled and indeterminate', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox disabled indeterminate />
+        </ThemeProvider>
+      );
+
+      const wrapper = container.querySelector('span.inline-grid');
+      expect(wrapper).toHaveClass('opacity-50');
+
+      const checkbox = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
+      expect(checkbox.indeterminate).toBe(true);
+
+      // Indeterminate element should still be present
+      const indeterminateElement = wrapper?.querySelector('span.peer-indeterminate\\:visible');
+      expect(indeterminateElement).toBeInTheDocument();
+      const svg = indeterminateElement?.querySelector('svg');
+      expect(svg).toBeInTheDocument();
+    });
+
+    it('should not apply opacity-50 to wrapper when not disabled', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox />
+        </ThemeProvider>
+      );
+
+      const wrapper = container.querySelector('span.inline-grid');
+      expect(wrapper).not.toHaveClass('opacity-50');
+    });
+  });
 });

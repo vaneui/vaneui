@@ -37,8 +37,5 @@ export const accentAppearance = new SimpleConsumerClassMapper({ base: accentCons
 /** Checked background appearance (Checkbox) */
 export const checkedBgAppearance = new SimpleConsumerClassMapper({ base: checkedBgConsumerClass }, 'bg');
 
-/** Shadow appearance for layout components */
-export const shadowLayoutAppearance = ShadowAppearanceClassMapper.createLayoutTheme();
-
-/** Shadow appearance for UI components */
-export const shadowUIAppearance = ShadowAppearanceClassMapper.createUITheme();
+/** Shadow appearance (static — differentiation between UI/layout happens via CSS variables) */
+export const shadowAppearance = new ShadowAppearanceClassMapper();

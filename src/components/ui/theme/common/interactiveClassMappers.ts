@@ -13,7 +13,7 @@ import { DirectionClassMapper } from "../layout/directionClassMapper";
 import { CursorClassMapper } from "../layout/cursorClassMapper";
 import { TransitionClassMapper } from "../layout/transitionClassMapper";
 import { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
-import { bgAppearance, textAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowLayoutAppearance } from "./appearanceClassMappers";
+import { bgAppearance, textAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowAppearance } from "./appearanceClassMappers";
 import { DisabledClassMapper } from "../appearance/disabledClassMapper";
 
 /**
@@ -34,7 +34,7 @@ export const interactiveClassMappers = {
     border: borderAppearance,
     ring: ringAppearance,
     focusVisible: focusVisibleAppearance,
-    shadow: shadowLayoutAppearance,
+    shadow: shadowAppearance,
     disabled: new DisabledClassMapper(),
   },
   layout: {

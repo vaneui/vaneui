@@ -84,12 +84,13 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       primary, brand, accent, secondary, tertiary, success, danger, warning, info,
       filled, outline,
       pill, sharp, rounded,
-      error
+      error,
+      disabled
     };
 
     const inputProps = {
       type: "checkbox" as const,
-      checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, required, readOnly,
+      checked, defaultChecked, name, value, onChange, onBlur, onFocus, required, readOnly,
       id, tabIndex, 'aria-label': ariaLabel,
       className, // Apply className to the input element
       ...remainingProps,

@@ -25,12 +25,11 @@ describe('Button Component Tests', () => {
       expect(button).toHaveAttribute('data-vane-type', 'ui'); // UI component type
       expect(button).toHaveAttribute('data-variant', 'outline'); // outline variant by default
       expect(button).toHaveAttribute('data-appearance', 'primary'); // primary appearance by default
-      expect(button).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
       expect(button).toHaveClass('text-(--text-color)'); // primary appearance
       expect(button).toHaveClass('font-sans'); // sans family
       expect(button).toHaveClass('font-semibold'); // semibold weight
       expect(button).toHaveClass('inline-flex', 'items-center', 'justify-center');
-      
+
       // Should not render as anchor
       const anchor = container.querySelector('a');
       expect(anchor).not.toBeInTheDocument();
@@ -49,7 +48,6 @@ describe('Button Component Tests', () => {
       expect(anchor).toHaveClass('text-(length:--fs)'); // md size
       expect(anchor).toHaveAttribute('data-size', 'md');
       expect(anchor).toHaveAttribute('data-vane-type', 'ui'); // UI component type
-      expect(anchor).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
       expect(anchor).toHaveClass('text-(--text-color)'); // primary appearance
       expect(anchor).toHaveClass('font-sans'); // sans family
       expect(anchor).toHaveClass('font-semibold'); // semibold weight
@@ -137,10 +135,10 @@ describe('Button Component Tests', () => {
       const btnPrimary = container.querySelector('#btn-primary');
       const btnSecondary = container.querySelector('#btn-secondary');
 
-      // These should have shadows (default button behavior) via CSS variables
+      // Buttons should not have shadows by default (shadow is opt-in)
       [btnDefault, btnPrimary, btnSecondary].forEach(btn => {
         expect(btn).toHaveAttribute('data-vane-type', 'ui'); // UI component type
-      expect(btn).toHaveClass('shadow-(--shadow-base)', 'hover:shadow-(--shadow-hover)');
+        expect(btn).not.toHaveClass('shadow-(--shadow-base)');
       });
 
       // Note: borders would only be visible when the border prop is enabled
@@ -508,9 +506,9 @@ describe('Button Component Tests', () => {
         </ThemeProvider>
       );
 
-      const spinner = container.querySelector('.vane-button-spinner');
-      expect(spinner).toBeInTheDocument();
-      expect(spinner).toHaveAttribute('aria-hidden', 'true');
+      const spinnerRing = container.querySelector('.vane-button-spinner-ring');
+      expect(spinnerRing).toBeInTheDocument();
+      expect(spinnerRing).toHaveAttribute('aria-hidden', 'true');
     });
 
     it('should render children as invisible to preserve button width', () => {
@@ -548,8 +546,8 @@ describe('Button Component Tests', () => {
       expect(button).not.toHaveAttribute('data-loading');
       expect(button).not.toBeDisabled();
 
-      const spinner = container.querySelector('.vane-button-spinner');
-      expect(spinner).not.toBeInTheDocument();
+      const spinnerRing = container.querySelector('.vane-button-spinner-ring');
+      expect(spinnerRing).not.toBeInTheDocument();
     });
 
     it('should not leak loading prop when loading is false', () => {

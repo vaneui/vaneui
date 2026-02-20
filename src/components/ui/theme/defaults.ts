@@ -2,6 +2,7 @@ import type { ThemeDefaults } from '../../themeContext';
 
 // Import defaults from each component theme file
 import { buttonDefaults } from '../button/buttonDefaults';
+import { buttonSpinnerDefaults } from '../button/buttonSpinnerDefaults';
 import { badgeDefaults } from '../badge/badgeDefaults';
 import { chipDefaults } from '../chip/chipDefaults';
 import { codeDefaults } from '../code/codeDefaults';
@@ -40,7 +41,10 @@ import {
  * and imported here for convenient access.
  */
 export const themeDefaults: ThemeDefaults = {
-  button: buttonDefaults,
+  button: {
+    main: buttonDefaults,
+    spinner: buttonSpinnerDefaults,
+  },
   badge: badgeDefaults,
   chip: chipDefaults,
   code: codeDefaults,

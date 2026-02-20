@@ -7,7 +7,7 @@ import { DirectionClassMapper } from "../layout/directionClassMapper";
 import { BorderClassMapper } from "../layout/borderClassMapper";
 import { RingClassMapper } from "../layout/ringClassMapper";
 import { RadiusClassMapper } from "../layout/radiusClassMapper";
-import { bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "./appearanceClassMappers";
+import { bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "./appearanceClassMappers";
 
 /**
  * Shared sub-themes used by layout components (Card, Section, Container, Stack, Row, Col).
@@ -24,7 +24,7 @@ export const layoutClassMappers = {
     text: textAppearance,
     border: borderAppearance,
     ring: ringAppearance,
-    shadow: shadowLayoutAppearance,
+    shadow: shadowAppearance,
   },
   layout: {
     ...defaultSizedLayoutClassMappers,

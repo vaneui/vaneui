@@ -1,4 +1,4 @@
-import { ComponentTheme, layoutClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowLayoutAppearance } from "../theme/common";
+import { ComponentTheme, layoutClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "../theme/common";
 import type { PopupProps } from "./PopupProps";
 import type { PopupTheme } from "./PopupTheme";
 import { POPUP_CATEGORIES } from "./PopupCategories";
@@ -27,7 +27,7 @@ export const defaultPopupTheme = new ComponentTheme<PopupProps, PopupTheme>(
     layout: {
       ...layoutClassMappers.layout,
       transition: new TransitionClassMapper(),
-      shadow: shadowLayoutAppearance,
+      shadow: shadowAppearance,
       width: new WidthClassMapper(),
       pointerEvents: new PointerEventsClassMapper(),
     },

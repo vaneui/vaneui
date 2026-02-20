@@ -16,7 +16,6 @@ export const buttonDefaults: Partial<ButtonProps> = {
   gap: true,
   padding: true,
   ring: true,
-  shadow: true,
   focusVisible: true,
   cursorPointer: true,
   transition: true,

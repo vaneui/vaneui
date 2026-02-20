@@ -44,14 +44,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     if (loading) {
       const loadingProps = { ...rest, disabled: true as const, 'data-loading': 'true' };
       return (
-        <ThemedComponent ref={ref} theme={theme.button} {...loadingProps}>
-          <span className="vane-button-spinner" aria-hidden="true" />
+        <ThemedComponent ref={ref} theme={theme.button.main} {...loadingProps}>
+          <ThemedComponent theme={theme.button.spinner} {...rest}>
+            {theme.button.spinner.themes.spinnerElement()}
+          </ThemedComponent>
           <span className="invisible">{rest.children}</span>
         </ThemedComponent>
       );
     }
 
-    return <ThemedComponent ref={ref} theme={theme.button} {...rest} />;
+    return <ThemedComponent ref={ref} theme={theme.button.main} {...rest} />;
   }
 );
 

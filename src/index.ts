@@ -1,4 +1,4 @@
-export { Button, type ButtonProps } from "./components/ui/button";
+export { Button, type ButtonProps, type ButtonSpinnerTheme } from "./components/ui/button";
 export { Badge, type BadgeProps } from "./components/ui/badge";
 export { Divider, type DividerProps } from "./components/ui/divider";
 export { Chip, type ChipProps } from "./components/ui/chip";
