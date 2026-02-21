@@ -295,7 +295,7 @@
     /* NON-RESPONSIVE COMPONENTS */
 
     /* Button */
-    .vane-button { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.2174; --icon-size: var(--fs); }
+    .vane-button { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.2174; --icon-size: calc(var(--fs) * var(--lh)); }
     .vane-button[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-button[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
     .vane-button[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
@@ -304,7 +304,7 @@
     .vane-button:has(> svg) { --aspect-ratio: 1.5; }
 
     /* IconButton */
-    .vane-icon-button { --lh: 1.3; --py-unit: 2; --aspect-ratio: 1; --br-unit: 0.2174; --icon-size: calc(var(--fs) * 1.25); }
+    .vane-icon-button { --lh: 1.3; --py-unit: 2; --aspect-ratio: 1; --br-unit: 0.2174; --icon-size: calc(var(--fs) * var(--lh)); }
     .vane-icon-button[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-icon-button[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
     .vane-icon-button[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }

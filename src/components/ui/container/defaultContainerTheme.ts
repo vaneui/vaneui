@@ -8,7 +8,7 @@ import { TextAlignClassMapper } from "../theme/typography";
 
 export const defaultContainerTheme = new ComponentTheme<ContainerProps, ContainerTheme>(
   "div",
-  "vane-container mx-auto w-full",
+  "vane-container mx-auto",
   {
     ...layoutClassMappers,
     size: {

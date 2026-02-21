@@ -8,7 +8,7 @@ import { mergeDefaults } from "../../../utils/deepMerge";
 /** Title specific theme - uses responsive font size */
 export const defaultTitleTheme = new ComponentTheme<TypographyProps, TextTheme>(
   "h3",
-  "vane-title text-balance w-fit",
+  "vane-title text-balance",
   typographyClassMappers,
   mergeDefaults(titleDefaults as Record<string, boolean>, { semibold: true }),
   TYPOGRAPHY_CATEGORIES,

@@ -7,7 +7,7 @@ import { textDefaults } from "./textDefaults";
 /** Text specific theme */
 export const defaultTextTheme = new ComponentTheme<TypographyProps, TextTheme>(
   "p",
-  "vane-text p-0 m-0 w-fit",
+  "vane-text p-0 m-0",
   typographyClassMappers,
   textDefaults,
   TYPOGRAPHY_CATEGORIES,

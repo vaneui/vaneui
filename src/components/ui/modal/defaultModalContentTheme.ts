@@ -20,7 +20,7 @@ import { modalContentDefaults } from "./modalContentDefaults";
 export const defaultModalContentTheme = new ComponentTheme<ModalProps, ModalContentTheme>(
   'div',
   // Base classes - CSS variables for max-w and max-h allow flexible customization
-  'vane-modal w-full max-w-(--modal-width) max-h-(--modal-max-height)',
+  'vane-modal max-w-(--modal-width) max-h-(--modal-max-height)',
   {
     size: layoutClassMappers.size,
     layout: {

@@ -7,7 +7,7 @@ import { inputDefaults } from "./inputDefaults";
 
 export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
   "input",
-  "vane-input w-full",
+  "vane-input",
   {
     ...interactiveClassMappers,
     appearance: {

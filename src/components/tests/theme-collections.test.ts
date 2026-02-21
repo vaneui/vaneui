@@ -48,6 +48,10 @@ const REPLACEABLE_CLASSES: Record<string, string> = {
   'underline': 'underline', 'line-through': 'lineThrough', 'no-underline': 'noUnderline',
   // text transform
   'uppercase': 'uppercase', 'lowercase': 'lowercase', 'capitalize': 'capitalize',
+  // width
+  'w-full': 'wFull', 'w-fit': 'wFit', 'w-auto': 'wAuto',
+  // height
+  'h-full': 'hFull', 'h-fit': 'hFit', 'h-auto': 'hAuto',
 };
 
 describe('Theme structure consistency', () => {

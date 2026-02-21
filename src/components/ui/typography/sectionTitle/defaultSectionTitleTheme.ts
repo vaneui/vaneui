@@ -8,7 +8,7 @@ import { mergeDefaults } from "../../../utils/deepMerge";
 /** Section title specific theme - uses responsive font size */
 export const defaultSectionTitleTheme = new ComponentTheme<TypographyProps, TextTheme>(
   "h2",
-  "vane-section-title text-balance w-fit",
+  "vane-section-title text-balance",
   typographyClassMappers,
   mergeDefaults(sectionTitleDefaults as Record<string, boolean>, { semibold: true }),
   TYPOGRAPHY_CATEGORIES,

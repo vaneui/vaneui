@@ -107,12 +107,14 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 | **Badge** | primary, outline, pill |
 | **Chip** | secondary (not primary!), outline, rounded |
 | **Link** | link (not primary!), outline, underline, cursorPointer |
-| **Input** | primary, outline, rounded |
+| **Input** | primary, outline, rounded, wFull |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
-| **Modal** | md, flex, column, overflowAuto, relative, gap, rounded, shadow, primary, outline |
+| **Modal** | md, wFull, flex, column, overflowAuto, relative, gap, rounded, shadow, primary, outline |
+| **Container** | md, wFull, flex, column, itemsCenter, gap, noPadding, outline, sharp |
+| **Section** | md, wFull, flex, column, itemsStart, gap, padding, outline, sharp, responsive |
 | **Typography** (Text, Title, etc.) | md, primary, outline |
-| **Layout** (Row, Col, Stack, Card, Section, Container, Grid*) | gap, md, outline |
+| **Layout** (Row, Col, Stack, Card, Grid*) | gap, md, outline |
 
 ## Architecture
 

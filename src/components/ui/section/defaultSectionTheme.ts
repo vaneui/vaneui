@@ -8,7 +8,7 @@ import { TextAlignClassMapper } from "../theme/typography";
 
 export const defaultSectionTheme = new ComponentTheme<SectionProps, SectionTheme>(
   "div",
-  "vane-section w-full",
+  "vane-section",
   {
     ...layoutClassMappers,
     size: {

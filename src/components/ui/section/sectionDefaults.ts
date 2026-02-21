@@ -3,6 +3,7 @@ import type { SectionProps } from "./SectionProps";
 /** Default props for Section component */
 export const sectionDefaults: Partial<SectionProps> = {
   md: true,
+  wFull: true,
   flex: true,
   column: true,
   outline: true,

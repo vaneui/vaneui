@@ -3,6 +3,7 @@ import type { ModalProps } from "./ModalProps";
 /** Default props for Modal content */
 export const modalContentDefaults: Partial<ModalProps> = {
   md: true,
+  wFull: true,
   flex: true,
   column: true,
   overflowAuto: true,
