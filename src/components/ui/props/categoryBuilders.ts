@@ -106,6 +106,13 @@ export const CODE_CATEGORIES = UI_ELEMENT_CATEGORIES;
 export const BUTTON_CATEGORIES = UI_ELEMENT_CATEGORIES;
 
 // =============================================================================
+// Icon Categories (lightweight SVG wrapper)
+// =============================================================================
+
+/** Categories for Icon component */
+export const ICON_CATEGORIES = ['size', 'appearance', 'variant', 'display', 'hide'] as const;
+
+// =============================================================================
 // Container Layout Categories (Container, Grid)
 // =============================================================================
 

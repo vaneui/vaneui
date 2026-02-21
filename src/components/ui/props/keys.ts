@@ -65,6 +65,7 @@ import {
   CODE_CATEGORIES,
   CONTAINER_CATEGORIES,
   GRID_CATEGORIES,
+  ICON_CATEGORIES,
   ROW_CATEGORIES,
   STACK_CATEGORIES,
 } from './categoryBuilders';
@@ -91,6 +92,7 @@ export { COL_CATEGORIES };
 export { CONTAINER_CATEGORIES };
 export { DIVIDER_CATEGORIES };
 export { GRID_CATEGORIES };
+export { ICON_CATEGORIES };
 export { ROW_CATEGORIES };
 export { IMG_CATEGORIES };
 export { SECTION_CATEGORIES };
@@ -392,7 +394,7 @@ export type CategoryProps = {
 };
 
 /** All available component names in the library */
-export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
+export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
   'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'overlay', 'modal', 'popup'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
@@ -406,6 +408,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   checkbox: CHECKBOX_CATEGORIES,
   chip: CHIP_CATEGORIES,
   code: CODE_CATEGORIES,
+  icon: ICON_CATEGORIES,
   col: COL_CATEGORIES,
   container: CONTAINER_CATEGORIES,
   divider: DIVIDER_CATEGORIES,

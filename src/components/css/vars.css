@@ -311,9 +311,18 @@
     .vane-icon-button[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-icon-button[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
-    /* Icon sizing for Button and IconButton — uses --icon-size CSS variable */
+    /* Icon */
+    .vane-icon { --lh: 1; --icon-size: var(--fs); }
+    .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+
+    /* Icon sizing for Button, IconButton, and Icon — uses --icon-size CSS variable */
     .vane-button :where(svg:not([class*='size-'])),
-    .vane-icon-button :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
+    .vane-icon-button :where(svg:not([class*='size-'])),
+    .vane-icon :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
 
     /* Badge */
     .vane-badge { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; }

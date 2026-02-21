@@ -5,6 +5,7 @@ import { buttonDefaults } from '../button/buttonDefaults';
 import { buttonSpinnerDefaults } from '../button/buttonSpinnerDefaults';
 import { iconButtonDefaults } from '../iconButton/iconButtonDefaults';
 import { badgeDefaults } from '../badge/badgeDefaults';
+import { iconDefaults } from '../icon/iconDefaults';
 import { chipDefaults } from '../chip/chipDefaults';
 import { codeDefaults } from '../code/codeDefaults';
 import { cardDefaults } from '../card/cardDefaults';
@@ -50,6 +51,7 @@ export const themeDefaults: ThemeDefaults = {
     main: iconButtonDefaults,
   },
   badge: badgeDefaults,
+  icon: iconDefaults,
   chip: chipDefaults,
   code: codeDefaults,
   card: cardDefaults,

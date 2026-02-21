@@ -20,6 +20,7 @@ describe('Theme structure consistency', () => {
       badge: {},
       chip: {},
       code: {},
+      icon: {},
       card: {},
       divider: {},
       container: {},
