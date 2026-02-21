@@ -392,7 +392,7 @@ export type CategoryProps = {
 };
 
 /** All available component names in the library */
-export const COMPONENT = ['button', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
+export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
   'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'overlay', 'modal', 'popup'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
@@ -401,6 +401,7 @@ export type ComponentKey = typeof COMPONENT[number];
 export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   badge: BADGE_CATEGORIES,
   button: BUTTON_CATEGORIES,
+  iconButton: BUTTON_CATEGORIES,
   card: CARD_CATEGORIES,
   checkbox: CHECKBOX_CATEGORIES,
   chip: CHIP_CATEGORIES,

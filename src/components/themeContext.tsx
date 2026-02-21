@@ -88,6 +88,9 @@ import type { InputProps } from "./ui/input";
 import type { OverlayProps } from "./ui/overlay";
 import type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./ui/modal";
 import type { PopupProps } from "./ui/popup";
+import type { IconButtonTheme } from './ui/iconButton/IconButtonTheme';
+import { defaultIconButtonTheme } from './ui/iconButton/defaultIconButtonTheme';
+import type { IconButtonProps } from "./ui/iconButton/IconButtonProps";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
@@ -95,6 +98,9 @@ export interface ThemeProps {
   button: {
     main: ComponentTheme<ButtonProps, ButtonTheme>;
     spinner: ComponentTheme<ButtonProps, ButtonSpinnerTheme>;
+  };
+  iconButton: {
+    main: ComponentTheme<IconButtonProps, IconButtonTheme>;
   };
   badge: ComponentTheme<BadgeProps, BadgeTheme>;
   chip: ComponentTheme<ChipProps, ChipTheme>;
@@ -144,6 +150,9 @@ export const defaultTheme: ThemeProps = {
   button: {
     main: defaultButtonTheme,
     spinner: defaultButtonSpinnerTheme,
+  },
+  iconButton: {
+    main: defaultIconButtonTheme,
   },
   badge: defaultBadgeTheme,
   chip: defaultChipTheme,
@@ -210,6 +219,9 @@ export type ThemeDefaults = {
     main?: Partial<BooleanKeys<ButtonProps>>;
     spinner?: Partial<BooleanKeys<ButtonProps>>;
   };
+  iconButton?: {
+    main?: Partial<BooleanKeys<IconButtonProps>>;
+  };
   badge?: Partial<BooleanKeys<BadgeProps>>;
   chip?: Partial<BooleanKeys<ChipProps>>;
   code?: Partial<BooleanKeys<CodeProps>>;
@@ -259,6 +271,9 @@ export type ThemeExtraClasses = {
   button?: {
     main?: Partial<StringValueKeys<ButtonProps>>;
     spinner?: Partial<StringValueKeys<ButtonProps>>;
+  };
+  iconButton?: {
+    main?: Partial<StringValueKeys<IconButtonProps>>;
   };
   badge?: Partial<StringValueKeys<BadgeProps>>;
   chip?: Partial<StringValueKeys<ChipProps>>;

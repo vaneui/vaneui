@@ -16,6 +16,7 @@ describe('Theme structure consistency', () => {
     // is missing any key found in COMPONENT, providing compile-time safety.
     const allExtraClasses: ThemeExtraClasses = {
       button: {},
+      iconButton: {},
       badge: {},
       chip: {},
       code: {},

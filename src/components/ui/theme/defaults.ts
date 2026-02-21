@@ -3,6 +3,7 @@ import type { ThemeDefaults } from '../../themeContext';
 // Import defaults from each component theme file
 import { buttonDefaults } from '../button/buttonDefaults';
 import { buttonSpinnerDefaults } from '../button/buttonSpinnerDefaults';
+import { iconButtonDefaults } from '../iconButton/iconButtonDefaults';
 import { badgeDefaults } from '../badge/badgeDefaults';
 import { chipDefaults } from '../chip/chipDefaults';
 import { codeDefaults } from '../code/codeDefaults';
@@ -44,6 +45,9 @@ export const themeDefaults: ThemeDefaults = {
   button: {
     main: buttonDefaults,
     spinner: buttonSpinnerDefaults,
+  },
+  iconButton: {
+    main: iconButtonDefaults,
   },
   badge: badgeDefaults,
   chip: chipDefaults,

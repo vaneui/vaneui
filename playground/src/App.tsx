@@ -11,8 +11,85 @@ import {
   Card, Checkbox, Label, Input, Button, Badge, Chip,
   Container, Divider, Code, PageTitle, SectionTitle,
   Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton,
-  Overlay, Popup, PopupTrigger
+  Overlay, Popup, PopupTrigger,
+  IconButton
 } from '../../src';
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  INLINE SVG ICONS (for icon demos)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const SearchIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+  </svg>
+);
+
+const PlusIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M5 12h14"/><path d="M12 5v14"/>
+  </svg>
+);
+
+const CheckIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 6 9 17l-5-5"/>
+  </svg>
+);
+
+const TrashIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+  </svg>
+);
+
+const AlertIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>
+  </svg>
+);
+
+const InfoIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+  </svg>
+);
+
+const GearIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>
+  </svg>
+);
+
+const ChevronRightIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m9 18 6-6-6-6"/>
+  </svg>
+);
+
+const ChevronLeftIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m15 18-6-6 6-6"/>
+  </svg>
+);
+
+const BoldIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"/>
+  </svg>
+);
+
+const ItalicIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/>
+  </svg>
+);
+
+const UnderlineIcon = ({ className }: { className?: string }) => (
+  <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/>
+  </svg>
+);
 
 // ═══════════════════════════════════════════════════════════════════════════════
 //  MODAL QUICK DEMO (top of page)
@@ -1414,6 +1491,204 @@ function App() {
 
           {/* ─── Modal Quick Demo ─────────────────────────────────────── */}
           <ModalQuickDemo />
+
+          {/* ═══ ICONS IN BUTTONS ═════════════════════════════════════ */}
+          <Divider />
+          <PageTitle sm>Icons in Buttons</PageTitle>
+
+          <Card>
+            <Title>Button with SVG Icons — Auto-Sizing (1em)</Title>
+            <Text sm secondary>
+              SVGs inside buttons auto-size to <Code sm>1em</Code> (matching font-size per size variant).
+              No need for manual icon sizing. SVGs also get <Code sm>pointer-events-none</Code> and <Code sm>shrink-0</Code>.
+            </Text>
+            <Row flexWrap itemsEnd>
+              <Button xs><SearchIcon /> Search</Button>
+              <Button sm><SearchIcon /> Search</Button>
+              <Button><SearchIcon /> Search</Button>
+              <Button lg><SearchIcon /> Search</Button>
+              <Button xl><SearchIcon /> Search</Button>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Button with Icon — Appearances</Title>
+            <Text sm secondary>Icons inherit button color via <Code sm>currentColor</Code>.</Text>
+            <Row flexWrap>
+              <Button filled><PlusIcon /> Add Item</Button>
+              <Button success filled><CheckIcon /> Saved</Button>
+              <Button danger filled><TrashIcon /> Delete</Button>
+              <Button warning filled><AlertIcon /> Warning</Button>
+              <Button info filled><InfoIcon /> Details</Button>
+              <Button secondary><GearIcon /> Settings</Button>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Button with Icon — Outline Variants</Title>
+            <Row flexWrap>
+              <Button><PlusIcon /> Add Item</Button>
+              <Button success><CheckIcon /> Saved</Button>
+              <Button danger><TrashIcon /> Delete</Button>
+              <Button warning><AlertIcon /> Warning</Button>
+              <Button info><InfoIcon /> Details</Button>
+              <Button secondary><GearIcon /> Settings</Button>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Button with Icon — Trailing Icon</Title>
+            <Text sm secondary>Place icons after text — gap scales automatically per size.</Text>
+            <Row flexWrap>
+              <Button sm>Next <ChevronRightIcon /></Button>
+              <Button>Continue <ChevronRightIcon /></Button>
+              <Button lg>Proceed <ChevronRightIcon /></Button>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Button with Icon — Padding Reduction</Title>
+            <Text sm secondary>
+              Buttons with SVGs get tighter horizontal padding via <Code sm>:has(&gt; svg)</Code> CSS.
+              Compare padding between icon and no-icon buttons.
+            </Text>
+            <Row flexWrap itemsEnd>
+              <Col noGap>
+                <Text xs secondary textCenter>No icon</Text>
+                <Button>Submit</Button>
+              </Col>
+              <Col noGap>
+                <Text xs secondary textCenter>With icon</Text>
+                <Button><CheckIcon /> Submit</Button>
+              </Col>
+              <Col noGap>
+                <Text xs secondary textCenter>No icon</Text>
+                <Button lg>Submit</Button>
+              </Col>
+              <Col noGap>
+                <Text xs secondary textCenter>With icon</Text>
+                <Button lg><CheckIcon /> Submit</Button>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Button with Icon — Explicit Size Override</Title>
+            <Text sm secondary>
+              Add a Tailwind <Code sm>size-*</Code> class to override auto-sizing.
+            </Text>
+            <Row flexWrap itemsEnd>
+              <Button><SearchIcon /> Default (1em)</Button>
+              <Button><SearchIcon className="size-3" /> Smaller (size-3)</Button>
+              <Button><SearchIcon className="size-6" /> Larger (size-6)</Button>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>IconButton — Sizes</Title>
+            <Text sm secondary>
+              Square icon-only buttons. SVG auto-sizes to <Code sm>1.25em</Code> (25% larger than text).
+              Equal padding on all sides via <Code sm>--aspect-ratio: 1</Code>.
+            </Text>
+            <Row flexWrap itemsEnd>
+              <Col noGap itemsCenter>
+                <Text xs secondary>xs</Text>
+                <IconButton xs aria-label="Search"><SearchIcon /></IconButton>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>sm</Text>
+                <IconButton sm aria-label="Search"><SearchIcon /></IconButton>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>md</Text>
+                <IconButton aria-label="Search"><SearchIcon /></IconButton>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>lg</Text>
+                <IconButton lg aria-label="Search"><SearchIcon /></IconButton>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>xl</Text>
+                <IconButton xl aria-label="Search"><SearchIcon /></IconButton>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>IconButton — Appearances</Title>
+            <Row flexWrap>
+              <IconButton aria-label="Add"><PlusIcon /></IconButton>
+              <IconButton success aria-label="Confirm"><CheckIcon /></IconButton>
+              <IconButton danger aria-label="Delete"><TrashIcon /></IconButton>
+              <IconButton warning aria-label="Alert"><AlertIcon /></IconButton>
+              <IconButton info aria-label="Info"><InfoIcon /></IconButton>
+              <IconButton secondary aria-label="Settings"><GearIcon /></IconButton>
+            </Row>
+            <Row flexWrap>
+              <IconButton filled aria-label="Add"><PlusIcon /></IconButton>
+              <IconButton success filled aria-label="Confirm"><CheckIcon /></IconButton>
+              <IconButton danger filled aria-label="Delete"><TrashIcon /></IconButton>
+              <IconButton warning filled aria-label="Alert"><AlertIcon /></IconButton>
+              <IconButton info filled aria-label="Info"><InfoIcon /></IconButton>
+              <IconButton secondary filled aria-label="Settings"><GearIcon /></IconButton>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>IconButton — Shapes</Title>
+            <Row flexWrap>
+              <Col noGap itemsCenter>
+                <Text xs secondary>rounded</Text>
+                <IconButton aria-label="Search"><SearchIcon /></IconButton>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>pill</Text>
+                <IconButton pill aria-label="Search"><SearchIcon /></IconButton>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>sharp</Text>
+                <IconButton sharp aria-label="Search"><SearchIcon /></IconButton>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>IconButton — Loading State</Title>
+            <Row flexWrap>
+              <IconButton loading aria-label="Loading"><SearchIcon /></IconButton>
+              <IconButton loading filled aria-label="Loading"><PlusIcon /></IconButton>
+              <IconButton loading danger aria-label="Loading"><TrashIcon /></IconButton>
+              <IconButton loading lg aria-label="Loading"><GearIcon /></IconButton>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>IconButton — Use Cases</Title>
+            <Text sm secondary>Common patterns: toolbars, close buttons, action menus.</Text>
+            <Row>
+              <Text sm secondary>Toolbar:</Text>
+              <Row noGap>
+                <IconButton sm sharp aria-label="Bold"><BoldIcon /></IconButton>
+                <IconButton sm sharp aria-label="Italic"><ItalicIcon /></IconButton>
+                <IconButton sm sharp aria-label="Underline"><UnderlineIcon /></IconButton>
+              </Row>
+            </Row>
+            <Row>
+              <Text sm secondary>Actions:</Text>
+              <Row>
+                <IconButton sm filled aria-label="Add"><PlusIcon /></IconButton>
+                <IconButton sm filled success aria-label="Confirm"><CheckIcon /></IconButton>
+                <IconButton sm filled danger aria-label="Delete"><TrashIcon /></IconButton>
+              </Row>
+            </Row>
+            <Row>
+              <Text sm secondary>Navigation:</Text>
+              <Row>
+                <IconButton pill secondary aria-label="Previous"><ChevronLeftIcon /></IconButton>
+                <IconButton pill secondary aria-label="Next"><ChevronRightIcon /></IconButton>
+              </Row>
+            </Row>
+          </Card>
 
           {/* ═══ COMPONENT STATES ════════════════════════════════════════ */}
           <Divider />

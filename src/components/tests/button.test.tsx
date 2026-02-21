@@ -625,4 +625,28 @@ describe('Button Component Tests', () => {
       expect(widthClasses.length).toBe(1);
     });
   });
+
+  describe('SVG Protection Classes', () => {
+    it('should include SVG pointer-events-none class', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button>Click me</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('[&_svg]:pointer-events-none');
+    });
+
+    it('should include SVG shrink-0 class', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button>Click me</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveClass('[&_svg]:shrink-0');
+    });
+  });
 });

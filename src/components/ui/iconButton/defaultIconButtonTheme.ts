@@ -1,12 +1,12 @@
 import { ComponentTheme, defaultTypographyClassMappers, interactiveClassMappers, bgActiveAppearance, shadowAppearance } from "../theme/common";
-import type { ButtonProps } from "./ButtonProps";
-import type { ButtonTheme } from "./ButtonTheme";
+import type { IconButtonProps } from "./IconButtonProps";
+import type { IconButtonTheme } from "./IconButtonTheme";
 import { BUTTON_CATEGORIES } from "../props/categoryBuilders";
-import { buttonDefaults } from "./buttonDefaults";
+import { iconButtonDefaults } from "./iconButtonDefaults";
 
-export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
+export const defaultIconButtonTheme = new ComponentTheme<IconButtonProps, IconButtonTheme>(
   "button",
-  "vane-button [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "vane-icon-button aspect-square [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     ...interactiveClassMappers,
     appearance: {
@@ -16,8 +16,8 @@ export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
     },
     typography: defaultTypographyClassMappers,
   },
-  buttonDefaults,
+  iconButtonDefaults,
   BUTTON_CATEGORIES,
-  (props: ButtonProps) => props.href ? "a" : "button",
+  (props: IconButtonProps) => props.href ? "a" : "button",
   'ui'
 );
