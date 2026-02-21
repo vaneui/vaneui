@@ -1,5 +1,5 @@
 import { OverflowKey } from "../../props";
-import { BaseClassMapper } from "../common";
+import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps } from "../../props";
 
 export class OverflowClassMapper extends BaseClassMapper implements Record<OverflowKey, string> {

@@ -14,7 +14,7 @@ import { linkDefaults } from "./linkDefaults";
 /** Link specific theme - uses LinkVariantClassMapper for link-specific colors */
 export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new ComponentTheme<TypographyProps, LinkTheme>(
   "a",
-  "vane-link hover:underline w-fit cursor-pointer",
+  "vane-link hover:underline w-fit",
   {
     size: {
       text: new FontSizeClassMapper(),

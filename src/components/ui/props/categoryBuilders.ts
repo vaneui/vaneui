@@ -110,7 +110,7 @@ export const BUTTON_CATEGORIES = UI_ELEMENT_CATEGORIES;
 // =============================================================================
 
 /** Categories for Icon component */
-export const ICON_CATEGORIES = ['size', 'appearance', 'variant', 'display', 'hide'] as const;
+export const ICON_CATEGORIES = ['size', 'appearance', 'variant', 'display', 'hide', 'items', 'justify'] as const;
 
 // =============================================================================
 // Container Layout Categories (Container, Grid)

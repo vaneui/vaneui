@@ -1,5 +1,5 @@
 import { TextTransformKey } from "../../props";
-import { BaseClassMapper } from "../common";
+import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps } from "../../props";
 
 export class TextTransformClassMapper extends BaseClassMapper implements Record<TextTransformKey, string> {

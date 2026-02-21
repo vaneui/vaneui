@@ -1,5 +1,5 @@
 import { TextAlignKey } from "../../props";
-import { BaseClassMapper } from "../common";
+import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps } from "../../props";
 
 export class TextAlignClassMapper extends BaseClassMapper implements Record<TextAlignKey, string> {

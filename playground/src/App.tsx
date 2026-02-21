@@ -16,7 +16,10 @@ import {
   PageTitle,
   SectionTitle,
   Icon,
-  IconButton
+  IconButton,
+  Chip,
+  List,
+  ListItem
 } from '../../src';
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -94,46 +97,151 @@ function App() {
         <Container itemsCenter className="w-full">
           <PageTitle>Icon Component Playground</PageTitle>
           <Text secondary>
-            Lightweight <Code>{'<span>'}</Code> wrapper for SVG icons. Sizes SVGs via CSS variables,
-            inherits <Code>currentColor</Code> by default.
+            Lightweight <Code>{'<span>'}</Code> wrapper for SVG icons.
+            Sizes to <Code>line-height</Code> of the parent context, inherits <Code>currentColor</Code> by default.
           </Text>
 
-          {/* ═══ DEFAULT BEHAVIOR ══════════════════════════════════════ */}
+          {/* ═══ BUTTON HEIGHT COMPARISON ════════════════════════════════ */}
           <Divider />
-          <SectionTitle>Default Behavior</SectionTitle>
+          <SectionTitle>Button Height Comparison</SectionTitle>
 
           <Card>
-            <Title>currentColor Inheritance</Title>
+            <Title>Same Height — Text vs SVG vs Icon</Title>
             <Text sm secondary>
-              Icon has no appearance by default — it inherits the parent's text color
-              via <Code sm>currentColor</Code>. Wrap in a colored parent to see it.
+              All three buttons have identical height. Bare SVG uses <Code sm>--icon-size: var(--fs)</Code> (16px).
+              Icon uses <Code sm>{'calc(--fs * --lh)'}</Code> = 16px × 1.3 = 20.8px, which exactly
+              equals the text line-height — so no height increase.
+            </Text>
+            {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+              <Row key={size} flexWrap itemsCenter>
+                <Text xs secondary className="w-8">{size}</Text>
+                <Button {...{[size]: true}}>Text Only</Button>
+                <Button {...{[size]: true}}><SearchIcon /> With SVG</Button>
+                <Button {...{[size]: true}}><Icon {...{[size]: true}}><SearchIcon /></Icon> With Icon</Button>
+              </Row>
+            ))}
+          </Card>
+
+          <Card>
+            <Title>Icon Inside Text — vertical-align: middle</Title>
+            <Text sm secondary>
+              Text uses inline formatting (not flexbox). Without <Code sm>align-middle</Code>,
+              an <Code sm>inline-flex</Code> icon would sit on the text baseline and push the line
+              box taller. The <Code sm>align-middle</Code> class centers the icon relative to the
+              x-height, keeping the line height stable.
+            </Text>
+            <Card noPadding className="p-4" sm>
+              <Text>No icon — baseline text height for reference.</Text>
+              <Text><Icon success><CheckIcon /></Icon> Icon with align-middle — line height preserved.</Text>
+              <Text>Another line of text without any icon for comparison.</Text>
+              <Text><Icon danger><AlertIcon /></Icon> Alert icon inline <Icon info><InfoIcon /></Icon> multiple icons in one line.</Text>
+            </Card>
+          </Card>
+
+          {/* ═══ LINE-HEIGHT ADAPTIVE SIZING ════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Line-Height Adaptive Sizing</SectionTitle>
+
+          <Card>
+            <Title>Icon Grows to Fill Parent Line-Height</Title>
+            <Text sm secondary>
+              Icon size is <Code sm>{'calc(--fs * --lh)'}</Code> — it inherits
+              the parent's <Code sm>--lh</Code> and scales proportionally.
+              Each component has a different line-height, so the same Icon adapts automatically.
             </Text>
             <Row flexWrap itemsCenter>
-              <Icon><SearchIcon /></Icon>
-              <Text sm secondary>Inherits body color</Text>
-            </Row>
-            <Row flexWrap itemsCenter>
-              <Text danger>
-                <Icon><AlertIcon /></Icon> Danger context
-              </Text>
-              <Text success>
-                <Icon><CheckIcon /></Icon> Success context
-              </Text>
-              <Text brand>
-                <Icon><StarIcon /></Icon> Brand context
-              </Text>
+              <Col noGap itemsCenter>
+                <Text xs secondary>Standalone</Text>
+                <Text xs secondary>(--lh: 1)</Text>
+                <Icon><StarIcon /></Icon>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>In Chip</Text>
+                <Text xs secondary>(--lh: 1.2)</Text>
+                <Chip><Icon><StarIcon /></Icon> Featured</Chip>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>In Button</Text>
+                <Text xs secondary>(--lh: 1.3)</Text>
+                <Button><Icon><StarIcon /></Icon> Star</Button>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>In Badge</Text>
+                <Text xs secondary>(--lh: 1.6)</Text>
+                <Badge success filled><Icon><StarIcon /></Icon> OK</Badge>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>In Text</Text>
+                <Text xs secondary>(--lh: 1.6)</Text>
+                <Text><Icon><StarIcon /></Icon> inline</Text>
+              </Col>
             </Row>
           </Card>
 
-          {/* ═══ SIZE VARIANTS ═════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Size Variants</SectionTitle>
+          <Card>
+            <Title>Icons in Badges — All Sizes</Title>
+            <Text sm secondary>
+              Just match the Badge's size prop. The icon fills the text line automatically
+              because Badge's <Code sm>--lh: 1.6</Code> makes the icon 60% larger than font-size.
+            </Text>
+            <Stack noGap noPadding>
+              {(['xs', 'sm', 'md', 'lg'] as const).map(size => (
+                <Row key={size} flexWrap itemsCenter>
+                  <Text xs secondary className="w-8">{size}</Text>
+                  <Badge {...{[size]: true}} success filled>
+                    <Icon {...{[size]: true}}><CheckIcon /></Icon> Deployed
+                  </Badge>
+                  <Badge {...{[size]: true}} danger filled>
+                    <Icon {...{[size]: true}}><AlertIcon /></Icon> Failed
+                  </Badge>
+                  <Badge {...{[size]: true}} warning filled>
+                    <Icon {...{[size]: true}}><AlertIcon /></Icon> Pending
+                  </Badge>
+                  <Badge {...{[size]: true}} info filled>
+                    <Icon {...{[size]: true}}><InfoIcon /></Icon> Running
+                  </Badge>
+                </Row>
+              ))}
+            </Stack>
+          </Card>
 
           <Card>
-            <Title>Icon Sizes — xs through xl</Title>
+            <Title>Icons in Buttons — All Sizes</Title>
             <Text sm secondary>
-              Size controls the <Code sm>--fs</Code> CSS variable,
-              which sets the SVG's <Code sm>width</Code> and <Code sm>height</Code> via <Code sm>--icon-size</Code>.
+              Button's <Code sm>--lh: 1.3</Code> makes icons 30% larger than font-size,
+              similar to IconButton's 1.25x multiplier.
+            </Text>
+            <Stack noGap noPadding>
+              {(['xs', 'sm', 'md', 'lg'] as const).map(size => (
+                <Row key={size} flexWrap itemsCenter>
+                  <Text xs secondary className="w-8">{size}</Text>
+                  <Button {...{[size]: true}}><Icon {...{[size]: true}}><SearchIcon /></Icon> Search</Button>
+                  <Button {...{[size]: true}} success filled><Icon {...{[size]: true}}><CheckIcon /></Icon> Approve</Button>
+                  <Button {...{[size]: true}} danger><Icon {...{[size]: true}}><TrashIcon /></Icon> Delete</Button>
+                </Row>
+              ))}
+            </Stack>
+          </Card>
+
+          <Card>
+            <Title>Inline with Text</Title>
+            <Text sm secondary>
+              Text has <Code sm>--lh: 1.6</Code>, so icons match the text's line-height
+              and align naturally without extra sizing.
+            </Text>
+            <Stack noGap noPadding>
+              <Text><Icon success><CheckIcon /></Icon> All systems operational</Text>
+              <Text><Icon danger><AlertIcon /></Icon> 3 critical alerts require attention</Text>
+              <Text><Icon info><InfoIcon /></Icon> New update available — see changelog</Text>
+              <Text><Icon brand><StarIcon /></Icon> You earned a new achievement</Text>
+            </Stack>
+          </Card>
+
+          <Card>
+            <Title>Standalone Size Scale</Title>
+            <Text sm secondary>
+              Outside any component, root <Code sm>--lh: 1</Code> applies.
+              Icons equal font-size — compact for decorative use.
             </Text>
             <Row flexWrap itemsEnd>
               {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
@@ -146,10 +254,10 @@ function App() {
           </Card>
 
           <Card>
-            <Title>Size Comparison — Icon vs IconButton</Title>
+            <Title>Icon vs IconButton</Title>
             <Text sm secondary>
-              Icon is a bare <Code sm>{'<span>'}</Code> with no padding, border, or background.
-              IconButton adds padding, background, border-radius, and interactive states.
+              Icon is a bare <Code sm>{'<span>'}</Code> — no padding, border, or background.
+              IconButton is interactive with padding and border-radius.
             </Text>
             <Row flexWrap itemsEnd>
               {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
@@ -164,16 +272,95 @@ function App() {
             </Row>
           </Card>
 
+          {/* ═══ OVERRIDING ICON SIZE ════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Overriding Icon Size</SectionTitle>
+
+          <Card>
+            <Title>Override via --icon-size CSS Variable</Title>
+            <Text sm secondary>
+              Set <Code sm>--icon-size</Code> directly with Tailwind arbitrary values
+              to use any pixel, rem, or relative value.
+            </Text>
+            <Row flexWrap itemsEnd>
+              <Col noGap itemsCenter>
+                <Text xs secondary>16px</Text>
+                <Icon className="[--icon-size:16px]" primary><StarIcon /></Icon>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>24px</Text>
+                <Icon className="[--icon-size:24px]" primary><StarIcon /></Icon>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>32px</Text>
+                <Icon className="[--icon-size:32px]" primary><StarIcon /></Icon>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>48px</Text>
+                <Icon className="[--icon-size:48px]" primary><StarIcon /></Icon>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>64px</Text>
+                <Icon className="[--icon-size:64px]" primary><StarIcon /></Icon>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Override via style Prop</Title>
+            <Text sm secondary>
+              Use the <Code sm>style</Code> prop for dynamic or computed sizes.
+            </Text>
+            <Row flexWrap itemsEnd>
+              <Col noGap itemsCenter>
+                <Text xs secondary>1.5rem</Text>
+                <Icon style={{ '--icon-size': '1.5rem' } as React.CSSProperties} brand><HeartIcon /></Icon>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>2rem</Text>
+                <Icon style={{ '--icon-size': '2rem' } as React.CSSProperties} brand><HeartIcon /></Icon>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>3rem</Text>
+                <Icon style={{ '--icon-size': '3rem' } as React.CSSProperties} brand><HeartIcon /></Icon>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>4rem</Text>
+                <Icon style={{ '--icon-size': '4rem' } as React.CSSProperties} brand><HeartIcon /></Icon>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Override via Tailwind Size Classes on SVG</Title>
+            <Text sm secondary>
+              Add a Tailwind <Code sm>size-*</Code> class directly on the SVG to bypass
+              the <Code sm>--icon-size</Code> system entirely.
+              The <Code sm>{':where(svg:not([class*=\'size-\']))'}</Code> selector skips
+              SVGs with explicit size classes.
+            </Text>
+            <Row flexWrap itemsEnd>
+              <Col noGap itemsCenter>
+                <Text xs secondary>size-4</Text>
+                <Icon danger><svg className="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></Icon>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>size-8</Text>
+                <Icon danger><svg className="size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></Icon>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>size-12</Text>
+                <Icon danger><svg className="size-12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg></Icon>
+              </Col>
+            </Row>
+          </Card>
+
           {/* ═══ APPEARANCE VARIANTS ═══════════════════════════════════ */}
           <Divider />
           <SectionTitle>Appearance Variants</SectionTitle>
 
           <Card>
-            <Title>Colored Icons — Outline Variant</Title>
-            <Text sm secondary>
-              Pass an appearance prop to apply themed text color. The default variant
-              is <Code sm>outline</Code>, which uses the base text color for each appearance.
-            </Text>
+            <Title>Colored Icons</Title>
             <Row flexWrap itemsCenter>
               <Col noGap itemsCenter>
                 <Icon primary><SearchIcon /></Icon>
@@ -211,11 +398,7 @@ function App() {
           </Card>
 
           <Card>
-            <Title>Colored Icons — Filled Variant</Title>
-            <Text sm secondary>
-              With <Code sm>filled</Code>, the icon uses the filled text color (lighter, for dark backgrounds).
-              Useful when placing icons on colored containers.
-            </Text>
+            <Title>Filled Variant on Dark Backgrounds</Title>
             <Row flexWrap itemsCenter>
               <Card filled primary sm noPadding className="p-3">
                 <Icon filled primary><SearchIcon /></Icon>
@@ -239,15 +422,20 @@ function App() {
           </Card>
 
           <Card>
-            <Title>Large Colored Icons</Title>
+            <Title>currentColor Inheritance</Title>
+            <Text sm secondary>
+              Icon has no appearance by default — it inherits the parent's text color.
+            </Text>
             <Row flexWrap itemsCenter>
-              <Icon xl primary><SearchIcon /></Icon>
-              <Icon xl success><CheckIcon /></Icon>
-              <Icon xl danger><TrashIcon /></Icon>
-              <Icon xl warning><AlertIcon /></Icon>
-              <Icon xl info><InfoIcon /></Icon>
-              <Icon xl brand><StarIcon /></Icon>
-              <Icon xl accent><HeartIcon /></Icon>
+              <Text danger>
+                <Icon><AlertIcon /></Icon> Danger context
+              </Text>
+              <Text success>
+                <Icon><CheckIcon /></Icon> Success context
+              </Text>
+              <Text brand>
+                <Icon><StarIcon /></Icon> Brand context
+              </Text>
             </Row>
           </Card>
 
@@ -257,10 +445,6 @@ function App() {
 
           <Card>
             <Title>Icon + Text — Inline Labels</Title>
-            <Text sm secondary>
-              Icon is <Code sm>inline-flex</Code> by default, so it sits naturally in text flow.
-              It inherits the parent's color without any appearance prop.
-            </Text>
             <Stack noGap noPadding>
               <Row itemsCenter>
                 <Icon sm success><CheckIcon /></Icon>
@@ -282,29 +466,17 @@ function App() {
           </Card>
 
           <Card>
-            <Title>Icon in Badges</Title>
-            <Text sm secondary>
-              Pair icons with Badge for status indicators.
-            </Text>
-            <Row flexWrap>
-              <Badge success filled>
-                <Icon xs><CheckIcon /></Icon> Deployed
-              </Badge>
-              <Badge danger filled>
-                <Icon xs><AlertIcon /></Icon> Failed
-              </Badge>
-              <Badge warning filled>
-                <Icon xs><AlertIcon /></Icon> Pending
-              </Badge>
-              <Badge info filled>
-                <Icon xs><InfoIcon /></Icon> Running
-              </Badge>
-            </Row>
+            <Title>Icon in List Items</Title>
+            <List>
+              <ListItem><Icon success><CheckIcon /></Icon> Authentication module</ListItem>
+              <ListItem><Icon success><CheckIcon /></Icon> Database migrations</ListItem>
+              <ListItem><Icon warning><AlertIcon /></Icon> API rate limiting</ListItem>
+              <ListItem><Icon danger><TrashIcon /></Icon> Legacy endpoints</ListItem>
+            </List>
           </Card>
 
           <Card>
-            <Title>Feature List</Title>
-            <Text sm secondary>Common pattern: icon + title + description in a grid.</Text>
+            <Title>Feature Cards with Large Icons</Title>
             <Row flexWrap>
               <Card sm className="w-56">
                 <Icon lg brand><ShieldIcon /></Icon>
@@ -325,10 +497,22 @@ function App() {
           </Card>
 
           <Card>
-            <Title>Icon vs IconButton — When to Use Each</Title>
+            <Title>Hero Icon with Override</Title>
             <Text sm secondary>
-              Use <Code sm>Icon</Code> for decorative/informational display.
-              Use <Code sm>IconButton</Code> when the icon is clickable.
+              Use a large custom <Code sm>--icon-size</Code> for hero sections or empty states.
+            </Text>
+            <Stack itemsCenter noPadding noGap>
+              <Icon className="[--icon-size:80px]" secondary><MailIcon /></Icon>
+              <Title textCenter>No messages yet</Title>
+              <Text secondary textCenter>When you receive messages, they'll appear here.</Text>
+              <Button filled className="mt-2"><MailIcon /> Compose</Button>
+            </Stack>
+          </Card>
+
+          <Card>
+            <Title>Icon vs IconButton</Title>
+            <Text sm secondary>
+              Use <Code sm>Icon</Code> for display, <Code sm>IconButton</Code> for actions.
             </Text>
             <Row flexWrap itemsCenter>
               <Stack noGap noPadding itemsCenter>
@@ -348,71 +532,6 @@ function App() {
                   <IconButton aria-label="Settings"><GearIcon /></IconButton>
                 </Row>
               </Stack>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Inline with Button</Title>
-            <Text sm secondary>
-              Icons can decorate button labels for visual hierarchy.
-              Compare standalone Icon next to a Button with an embedded SVG.
-            </Text>
-            <Row flexWrap itemsCenter>
-              <Row itemsCenter>
-                <Icon success><CheckIcon /></Icon>
-                <Button success filled><CheckIcon /> Approve</Button>
-              </Row>
-              <Row itemsCenter>
-                <Icon danger><TrashIcon /></Icon>
-                <Button danger filled><TrashIcon /> Delete</Button>
-              </Row>
-              <Row itemsCenter>
-                <Icon><SearchIcon /></Icon>
-                <Button><SearchIcon /> Search</Button>
-              </Row>
-            </Row>
-          </Card>
-
-          {/* ═══ DISPLAY & HIDE ═══════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Display & Hide Props</SectionTitle>
-
-          <Card>
-            <Title>Responsive Visibility</Title>
-            <Text sm secondary>
-              Use <Code sm>mobileHide</Code> / <Code sm>tabletHide</Code> / <Code sm>desktopHide</Code> to
-              control icon visibility at breakpoints. Resize the viewport to test.
-            </Text>
-            <Row flexWrap itemsCenter>
-              <Row itemsCenter>
-                <Icon mobileHide danger><AlertIcon /></Icon>
-                <Text sm>Hidden on mobile</Text>
-              </Row>
-              <Row itemsCenter>
-                <Icon desktopHide success><CheckIcon /></Icon>
-                <Text sm>Hidden on desktop</Text>
-              </Row>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Display Modes</Title>
-            <Text sm secondary>
-              Default is <Code sm>inline-flex</Code>. Switch to <Code sm>block</Code> or <Code sm>hidden</Code> as needed.
-            </Text>
-            <Row flexWrap itemsCenter>
-              <Col noGap>
-                <Text xs secondary>inline-flex (default)</Text>
-                <Text>Text <Icon info><InfoIcon /></Icon> inline with text</Text>
-              </Col>
-              <Col noGap>
-                <Text xs secondary>block</Text>
-                <div>
-                  <Text>Text</Text>
-                  <Icon block info><InfoIcon /></Icon>
-                  <Text>on own line</Text>
-                </div>
-              </Col>
             </Row>
           </Card>
 

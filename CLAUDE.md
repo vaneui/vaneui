@@ -106,8 +106,11 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 | **Stack** | padding, gap, outline |
 | **Badge** | primary, outline, pill |
 | **Chip** | secondary (not primary!), outline, rounded |
-| **Link** | link (not primary!), outline, underline |
+| **Link** | link (not primary!), outline, underline, cursorPointer |
 | **Input** | primary, outline, rounded |
+| **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline |
+| **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
+| **Modal** | md, flex, column, overflowAuto, relative, gap, rounded, shadow, primary, outline |
 | **Typography** (Text, Title, etc.) | md, primary, outline |
 | **Layout** (Row, Col, Stack, Card, Section, Container, Grid*) | gap, md, outline |
 
@@ -147,6 +150,7 @@ src/
 3. **Don't specify default props** — `<Row gap>` is redundant (gap is true by default).
 4. **Boolean props must not leak to DOM** — They are consumed by the theme system and stripped by `getComponentConfig()`.
 5. **Desktop-first responsive** — Breakpoints: mobile (48rem/768px), tablet (64rem/1024px), desktop (80rem/1280px). Use `tabletCol`/`mobileCol` to adapt layouts for smaller screens.
+6. **No replaceable Tailwind classes in base class strings** — When a Tailwind class has an equivalent boolean prop (e.g., `items-center` → `itemsCenter`, `cursor-pointer` → `cursorPointer`, `relative` → `relative`), it MUST go in the component's defaults object, not in the base class string of `new ComponentTheme(...)`. The base class string is only for classes that have NO boolean prop equivalent (e.g., `align-middle`, `aspect-square`, `w-full`, child selectors like `[&_svg]:shrink-0`, conditional selectors like `hover:underline`). This is enforced by the `theme-collections.test.ts` quality check. When adding a boolean prop default, ensure the component's categories include the prop's category, the theme has the corresponding class mapper, and the prop type includes the prop interface.
 
 ## Detailed Conventions
 

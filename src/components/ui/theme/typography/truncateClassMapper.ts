@@ -1,4 +1,4 @@
-import { BaseClassMapper } from "../common";
+import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps, TruncateKey } from "../../props";
 
 export class TruncateClassMapper extends BaseClassMapper implements Record<TruncateKey, string> {

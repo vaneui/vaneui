@@ -10,4 +10,5 @@ export const checkboxInputDefaults: Partial<CheckboxProps> = {
   noShadow: true,
   filled: true,
   focusVisible: true,
+  cursorPointer: true,
 };

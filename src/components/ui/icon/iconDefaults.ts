@@ -4,5 +4,7 @@ import type { IconProps } from "./IconProps";
 export const iconDefaults: Partial<IconProps> = {
   md: true,
   inlineFlex: true,
+  itemsCenter: true,
+  justifyCenter: true,
   outline: true,
 };

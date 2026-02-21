@@ -10,7 +10,7 @@ import { checkboxInputDefaults } from "./checkboxInputDefaults";
 
 export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTheme>(
   "input",
-  "vane-checkbox peer col-start-1 row-start-1 cursor-pointer appearance-none ring-transparent size-(--size)",
+  "vane-checkbox peer col-start-1 row-start-1 appearance-none ring-transparent size-(--size)",
   {
     size: {
       size: new SizeClassMapper(),

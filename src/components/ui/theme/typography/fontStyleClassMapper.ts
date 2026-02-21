@@ -1,5 +1,5 @@
 import { FontStyleKey } from "../../props";
-import { BaseClassMapper } from "../common";
+import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps } from "../../props";
 
 export class FontStyleClassMapper extends BaseClassMapper implements Record<FontStyleKey, string> {

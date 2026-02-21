@@ -1,4 +1,4 @@
-import { BaseClassMapper } from "../common";
+import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps, WidthKey } from "../../props";
 
 export class WidthClassMapper extends BaseClassMapper implements Record<WidthKey, string> {

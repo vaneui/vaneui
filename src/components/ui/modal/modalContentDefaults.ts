@@ -6,6 +6,7 @@ export const modalContentDefaults: Partial<ModalProps> = {
   flex: true,
   column: true,
   overflowAuto: true,
+  relative: true,
   noPadding: true,
   gap: true,
   rounded: true,

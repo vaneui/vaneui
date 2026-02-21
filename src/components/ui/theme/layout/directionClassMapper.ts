@@ -1,7 +1,7 @@
 import {
   FlexDirectionKey,
 } from "../../props";
-import { BaseClassMapper } from "../common";
+import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps } from "../../props";
 
 export class DirectionClassMapper extends BaseClassMapper implements Record<FlexDirectionKey, string> {

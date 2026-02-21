@@ -1,4 +1,4 @@
-import { BaseClassMapper } from "../common";
+import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps, BlurKey } from "../../props";
 
 /**

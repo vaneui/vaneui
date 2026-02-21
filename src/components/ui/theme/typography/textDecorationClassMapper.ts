@@ -1,5 +1,5 @@
 import { TextDecorationKey } from "../../props";
-import { BaseClassMapper } from "../common";
+import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps } from "../../props";
 
 export class TextDecorationClassMapper extends BaseClassMapper implements Record<TextDecorationKey, string> {

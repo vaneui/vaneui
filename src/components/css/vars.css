@@ -312,7 +312,7 @@
     .vane-icon-button[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Icon */
-    .vane-icon { --lh: 1; --icon-size: var(--fs); }
+    .vane-icon { --icon-size: calc(var(--fs) * var(--lh)); }
     .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
     .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); }

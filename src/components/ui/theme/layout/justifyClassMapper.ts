@@ -1,5 +1,5 @@
 import { JustifyKey } from "../../props";
-import { BaseClassMapper } from "../common";
+import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps } from "../../props";
 
 export class JustifyClassMapper extends BaseClassMapper implements Record<JustifyKey, string> {

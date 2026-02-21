@@ -7,4 +7,5 @@ export const linkDefaults: Partial<TypographyProps> = {
   sans: true,
   outline: true,
   link: true,
+  cursorPointer: true,
 };
