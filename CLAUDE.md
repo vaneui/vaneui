@@ -15,9 +15,12 @@ npm run type-check    # TypeScript type validation
 npm run lint          # ESLint — zero errors required
 npm test              # Jest — all tests must pass
 npm run build         # Full build (includes type-check + lint + rollup + CSS)
+npm run test:e2e      # Playwright e2e tests (after visual/CSS/theme changes, new components, or before publishing)
 ```
 
 **`npm run build` is the most comprehensive check** — it runs type-check, lint, rollup bundling, and CSS generation. If build passes, type-check and lint also passed. However, it does NOT run tests, so always run `npm test` separately.
+
+**E2e tests** validate computed CSS styles in a real browser (color inheritance, font-size scaling, border rendering). Run them after any visual/CSS/theme changes, when adding new components, or before publishing.
 
 **Common pitfall**: `tsc --noEmit` (type-check) can pass while runtime tests fail due to circular dependencies. Always run BOTH type-check AND tests.
 
@@ -42,12 +45,17 @@ When creating or modifying components, **ALL steps below must be completed**. Us
    - Test: default rendering, size variants, appearance variants, variant modifiers, shape variants, ref forwarding, prop leak prevention, className merging, tag switching (if applicable)
    - See `.claude/rules/testing.md` for patterns
 
-4. **Verify (ALL must pass)**
+4. **Add E2E Fixtures & Tests**
+   - Add test fixtures to `playground/src/test-harness.tsx` with `data-testid` attributes
+   - Add e2e spec in `e2e/` validating computed CSS styles (see `.claude/rules/e2e-testing.md`)
+
+5. **Verify (ALL must pass)**
    ```bash
    npm run type-check    # TypeScript
    npm run lint          # ESLint — zero errors required
    npm test              # Jest — all tests must pass
    npm run build         # Full build
+   npm run test:e2e      # Playwright e2e tests
    ```
 
 **Work is NOT complete until tests are written and all verification passes.**
@@ -63,6 +71,8 @@ When creating or modifying components, **ALL steps below must be completed**. Us
 
 - `npm run build` — Full build (type-check + lint + rollup + CSS generation to `dist/`)
 - `npm test` — Jest test suite (ts-jest, jsdom)
+- `npm run test:e2e` — Playwright e2e tests (visual & computed style validation)
+- `npm run test:e2e:ui` — Playwright interactive UI mode
 - `npm run playground` — Dev server with CSS hot reload
 - `npm run build:js` — TypeScript/Rollup only
 - `npm run build:css:ui` — Tailwind CLI for component styles

@@ -43,3 +43,7 @@ test('renders with correct data attributes', () => {
 - Test that HTML attributes (onClick, aria-*, data-custom-*) DO pass through
 - Test ref forwarding for every component
 - Use `@testing-library/react` render, not ReactDOM directly
+
+## E2E Tests
+
+For computed CSS validation (color inheritance, font-size scaling, border rendering), see `.claude/rules/e2e-testing.md`. The full verification pipeline includes both unit tests (`npm test`) and e2e tests (`npm run test:e2e`).

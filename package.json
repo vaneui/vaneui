@@ -90,7 +90,8 @@
     "test": "tsc --noEmit && node node_modules/jest/bin/jest.js",
     "playground": "npm run build:css:ui && npm run build:css:vars && concurrently --kill-others --raw \"npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css --watch\" \"npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css --watch\" \"cd playground && npm run dev\"",
     "test:e2e": "npx playwright test",
-    "test:e2e:ui": "npx playwright test --ui"
+    "test:e2e:ui": "npx playwright test --ui",
+    "prepublishOnly": "npm run build && npm test && npm run test:e2e"
   },
   "dependencies": {
     "tailwind-merge": "^3.0.2"

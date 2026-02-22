@@ -8,6 +8,9 @@ import {
   Button,
   Badge,
   Icon,
+  Blockquote,
+  Kbd,
+  Mark,
 } from '../../src';
 
 // Import VaneUI CSS
@@ -103,6 +106,45 @@ function TestHarness() {
             <Text data-testid="explicit-override-inherit">Inherits danger</Text>
             <Text primary data-testid="explicit-override-primary">Explicit primary</Text>
           </Card>
+        </section>
+
+        {/* ── Blockquote ── */}
+
+        <section data-testid="blockquote-section">
+          <Blockquote data-testid="blockquote-default">Default blockquote text</Blockquote>
+          <Card brand>
+            <Blockquote data-testid="blockquote-inherit-brand">Inherits brand from Card</Blockquote>
+            <Text data-testid="blockquote-inherit-brand-text">Brand text for comparison</Text>
+          </Card>
+          <Blockquote brand data-testid="blockquote-brand">Explicit brand blockquote</Blockquote>
+          <Blockquote xs data-testid="blockquote-xs">XS blockquote</Blockquote>
+          <Blockquote sm data-testid="blockquote-sm">SM blockquote</Blockquote>
+          <Blockquote data-testid="blockquote-md">MD blockquote</Blockquote>
+          <Blockquote lg data-testid="blockquote-lg">LG blockquote</Blockquote>
+          <Blockquote xl data-testid="blockquote-xl">XL blockquote</Blockquote>
+        </section>
+
+        {/* ── Kbd ── */}
+
+        <section data-testid="kbd-section">
+          <Kbd data-testid="kbd-default">Ctrl</Kbd>
+          <Kbd xs data-testid="kbd-xs">Ctrl</Kbd>
+          <Kbd sm data-testid="kbd-sm">Ctrl</Kbd>
+          <Kbd data-testid="kbd-md">Ctrl</Kbd>
+          <Kbd lg data-testid="kbd-lg">Ctrl</Kbd>
+          <Kbd xl data-testid="kbd-xl">Ctrl</Kbd>
+        </section>
+
+        {/* ── Mark ── */}
+
+        <section data-testid="mark-section">
+          <Mark data-testid="mark-default">Default highlight</Mark>
+          <Mark danger data-testid="mark-danger">Danger highlight</Mark>
+          <Mark xs data-testid="mark-xs">XS mark</Mark>
+          <Mark sm data-testid="mark-sm">SM mark</Mark>
+          <Mark data-testid="mark-md">MD mark</Mark>
+          <Mark lg data-testid="mark-lg">LG mark</Mark>
+          <Mark xl data-testid="mark-xl">XL mark</Mark>
         </section>
 
       </div>
