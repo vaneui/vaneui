@@ -94,6 +94,13 @@ import type { IconButtonProps } from "./ui/iconButton/IconButtonProps";
 import type { IconTheme } from './ui/icon/IconTheme';
 import { defaultIconTheme } from './ui/icon/defaultIconTheme';
 import type { IconProps } from "./ui/icon/IconProps";
+import { blockquoteTheme } from './ui/typography/blockquote/defaultBlockquoteTheme';
+import type { KbdTheme } from './ui/kbd/KbdTheme';
+import { defaultKbdTheme } from './ui/kbd/defaultKbdTheme';
+import type { KbdProps } from "./ui/kbd/KbdProps";
+import type { MarkTheme } from './ui/mark/MarkTheme';
+import { defaultMarkTheme } from './ui/mark/defaultMarkTheme';
+import type { MarkProps } from "./ui/mark/MarkProps";
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
@@ -109,6 +116,8 @@ export interface ThemeProps {
   icon: ComponentTheme<IconProps, IconTheme>;
   chip: ComponentTheme<ChipProps, ChipTheme>;
   code: ComponentTheme<CodeProps, CodeTheme>;
+  kbd: ComponentTheme<KbdProps, KbdTheme>;
+  mark: ComponentTheme<MarkProps, MarkTheme>;
   card: ComponentTheme<CardProps, CardTheme>;
   divider: ComponentTheme<DividerProps, DividerTheme>;
   container: ComponentTheme<ContainerProps, ContainerTheme>;
@@ -125,6 +134,7 @@ export interface ThemeProps {
   sectionTitle: ComponentTheme<TypographyProps, TypographyTheme>;
   title: ComponentTheme<TypographyProps, TypographyTheme>;
   text: ComponentTheme<TypographyProps, TypographyTheme>;
+  blockquote: ComponentTheme<TypographyProps, TypographyTheme>;
   link: ComponentTheme<TypographyProps, LinkTheme>;
   listItem: ComponentTheme<TypographyProps, ListItemTheme>;
   list: ComponentTheme<ListProps, ListTheme>;
@@ -162,6 +172,8 @@ export const defaultTheme: ThemeProps = {
   icon: defaultIconTheme,
   chip: defaultChipTheme,
   code: defaultCodeTheme,
+  kbd: defaultKbdTheme,
+  mark: defaultMarkTheme,
   card: defaultCardTheme,
   divider: defaultDividerTheme,
   container: defaultContainerTheme,
@@ -178,6 +190,7 @@ export const defaultTheme: ThemeProps = {
   sectionTitle: sectionTitleTheme,
   title: titleTheme,
   text: textTheme,
+  blockquote: blockquoteTheme,
   link: linkTheme,
   listItem: listItemTheme,
   list: listTheme,
@@ -231,6 +244,8 @@ export type ThemeDefaults = {
   icon?: Partial<BooleanKeys<IconProps>>;
   chip?: Partial<BooleanKeys<ChipProps>>;
   code?: Partial<BooleanKeys<CodeProps>>;
+  kbd?: Partial<BooleanKeys<KbdProps>>;
+  mark?: Partial<BooleanKeys<MarkProps>>;
   card?: Partial<BooleanKeys<CardProps>>;
   divider?: Partial<BooleanKeys<DividerProps>>;
   container?: Partial<BooleanKeys<ContainerProps>>;
@@ -247,6 +262,7 @@ export type ThemeDefaults = {
   sectionTitle?: Partial<BooleanKeys<TypographyProps>>;
   title?: Partial<BooleanKeys<TypographyProps>>;
   text?: Partial<BooleanKeys<TypographyProps>>;
+  blockquote?: Partial<BooleanKeys<TypographyProps>>;
   link?: Partial<BooleanKeys<TypographyProps>>;
   list?: Partial<BooleanKeys<ListProps>>;
   listItem?: Partial<BooleanKeys<TypographyProps>>;
@@ -285,6 +301,8 @@ export type ThemeExtraClasses = {
   icon?: Partial<StringValueKeys<IconProps>>;
   chip?: Partial<StringValueKeys<ChipProps>>;
   code?: Partial<StringValueKeys<CodeProps>>;
+  kbd?: Partial<StringValueKeys<KbdProps>>;
+  mark?: Partial<StringValueKeys<MarkProps>>;
   card?: Partial<StringValueKeys<CardProps>>;
   divider?: Partial<StringValueKeys<DividerProps>>;
   container?: Partial<StringValueKeys<ContainerProps>>;
@@ -301,6 +319,7 @@ export type ThemeExtraClasses = {
   sectionTitle?: Partial<StringValueKeys<TypographyProps>>;
   title?: Partial<StringValueKeys<TypographyProps>>;
   text?: Partial<StringValueKeys<TypographyProps>>;
+  blockquote?: Partial<StringValueKeys<TypographyProps>>;
   link?: Partial<StringValueKeys<TypographyProps>>;
   list?: Partial<StringValueKeys<ListProps>>;
   listItem?: Partial<StringValueKeys<TypographyProps>>;

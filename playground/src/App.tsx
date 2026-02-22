@@ -19,7 +19,10 @@ import {
   IconButton,
   Chip,
   List,
-  ListItem
+  ListItem,
+  Blockquote,
+  Kbd,
+  Mark
 } from '../../src';
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -533,6 +536,197 @@ function App() {
                 </Row>
               </Stack>
             </Row>
+          </Card>
+
+          {/* ═══ BLOCKQUOTE ═════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Blockquote</SectionTitle>
+
+          <Card>
+            <Title>Default (inherit appearance)</Title>
+            <Text>Here's a famous quote:</Text>
+            <Blockquote>
+              The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.
+            </Blockquote>
+            <Text sm secondary>— Steve Jobs</Text>
+          </Card>
+
+          <Card>
+            <Title>Appearances</Title>
+            <Stack noPadding noGap>
+              <Blockquote primary>Primary blockquote — stands out with the default palette.</Blockquote>
+              <Blockquote brand>Brand blockquote — matches your brand color.</Blockquote>
+              <Blockquote accent>Accent blockquote — a subtle accent variation.</Blockquote>
+              <Blockquote success>Success blockquote — positive feedback or tips.</Blockquote>
+              <Blockquote danger>Danger blockquote — warnings about destructive actions.</Blockquote>
+              <Blockquote warning>Warning blockquote — caution or important notices.</Blockquote>
+              <Blockquote info>Info blockquote — informational callout.</Blockquote>
+              <Blockquote secondary>Secondary blockquote — muted, less prominent.</Blockquote>
+            </Stack>
+          </Card>
+
+          <Card>
+            <Title>Sizes</Title>
+            <Stack noPadding noGap>
+              <Blockquote xs brand>Extra small blockquote text.</Blockquote>
+              <Blockquote sm brand>Small blockquote text.</Blockquote>
+              <Blockquote md brand>Medium blockquote text (default).</Blockquote>
+              <Blockquote lg brand>Large blockquote text.</Blockquote>
+              <Blockquote xl brand>Extra large blockquote text.</Blockquote>
+            </Stack>
+          </Card>
+
+          <Card>
+            <Title>Styled Variants</Title>
+            <Blockquote brand bold italic>Bold italic brand blockquote — emphasize a key passage.</Blockquote>
+            <Blockquote info mono>Monospace info blockquote — for technical quotes.</Blockquote>
+            <Blockquote danger filled>Filled danger blockquote — high-contrast warning.</Blockquote>
+          </Card>
+
+          {/* ═══ KBD ═══════════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Kbd (Keyboard)</SectionTitle>
+
+          <Card>
+            <Title>Keyboard Shortcuts</Title>
+            <Stack noPadding noGap>
+              <Text>Press <Kbd>Ctrl</Kbd> + <Kbd>C</Kbd> to copy.</Text>
+              <Text>Press <Kbd>Ctrl</Kbd> + <Kbd>V</Kbd> to paste.</Text>
+              <Text>Press <Kbd>Ctrl</Kbd> + <Kbd>Z</Kbd> to undo.</Text>
+              <Text>Press <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>P</Kbd> to open the command palette.</Text>
+              <Text>Press <Kbd>Alt</Kbd> + <Kbd>F4</Kbd> to close the window.</Text>
+            </Stack>
+          </Card>
+
+          <Card>
+            <Title>Sizes</Title>
+            <Row flexWrap itemsCenter>
+              <Kbd xs>Esc</Kbd>
+              <Kbd sm>Tab</Kbd>
+              <Kbd>Enter</Kbd>
+              <Kbd lg>Space</Kbd>
+              <Kbd xl>Backspace</Kbd>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Appearances</Title>
+            <Row flexWrap itemsCenter>
+              <Kbd primary>Ctrl</Kbd>
+              <Kbd brand>Cmd</Kbd>
+              <Kbd accent>Alt</Kbd>
+              <Kbd secondary>Shift</Kbd>
+              <Kbd success>Enter</Kbd>
+              <Kbd danger>Del</Kbd>
+              <Kbd warning>Esc</Kbd>
+              <Kbd info>Tab</Kbd>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Filled Variant</Title>
+            <Row flexWrap itemsCenter>
+              <Kbd filled>Ctrl</Kbd>
+              <Kbd filled brand>Cmd</Kbd>
+              <Kbd filled success>Enter</Kbd>
+              <Kbd filled danger>Del</Kbd>
+              <Kbd filled warning>Esc</Kbd>
+              <Kbd filled info>Tab</Kbd>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Shapes</Title>
+            <Row flexWrap itemsCenter>
+              <Col noGap itemsCenter>
+                <Text xs secondary>rounded</Text>
+                <Kbd>Ctrl</Kbd>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>pill</Text>
+                <Kbd pill>Ctrl</Kbd>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>sharp</Text>
+                <Kbd sharp>Ctrl</Kbd>
+              </Col>
+            </Row>
+          </Card>
+
+          {/* ═══ MARK ══════════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Mark (Highlight)</SectionTitle>
+
+          <Card>
+            <Title>Inline Highlight</Title>
+            <Stack noPadding noGap>
+              <Text>The <Mark>quick brown fox</Mark> jumps over the lazy dog.</Text>
+              <Text>Search results: found <Mark>3 matches</Mark> in this document.</Text>
+              <Text>Remember to <Mark danger>never share your API keys</Mark> publicly.</Text>
+              <Text>The deployment was <Mark success>successful</Mark> with zero errors.</Text>
+            </Stack>
+          </Card>
+
+          <Card>
+            <Title>Sizes</Title>
+            <Row flexWrap itemsCenter>
+              <Mark xs>xs highlight</Mark>
+              <Mark sm>sm highlight</Mark>
+              <Mark>md highlight</Mark>
+              <Mark lg>lg highlight</Mark>
+              <Mark xl>xl highlight</Mark>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Appearances</Title>
+            <Row flexWrap itemsCenter>
+              <Mark primary>primary</Mark>
+              <Mark brand>brand</Mark>
+              <Mark accent>accent</Mark>
+              <Mark secondary>secondary</Mark>
+              <Mark success>success</Mark>
+              <Mark danger>danger</Mark>
+              <Mark warning>warning (default)</Mark>
+              <Mark info>info</Mark>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Filled Variant</Title>
+            <Row flexWrap itemsCenter>
+              <Mark filled>warning filled</Mark>
+              <Mark filled primary>primary filled</Mark>
+              <Mark filled brand>brand filled</Mark>
+              <Mark filled success>success filled</Mark>
+              <Mark filled danger>danger filled</Mark>
+              <Mark filled info>info filled</Mark>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Shapes</Title>
+            <Row flexWrap itemsCenter>
+              <Col noGap itemsCenter>
+                <Text xs secondary>rounded</Text>
+                <Mark>highlight</Mark>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>pill</Text>
+                <Mark pill>highlight</Mark>
+              </Col>
+              <Col noGap itemsCenter>
+                <Text xs secondary>sharp</Text>
+                <Mark sharp>highlight</Mark>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Combined — All Three Components</Title>
+            <Blockquote info>
+              Use <Kbd sm>Ctrl</Kbd> + <Kbd sm>F</Kbd> to find text. The <Mark>matched terms</Mark> will be highlighted in the document.
+            </Blockquote>
           </Card>
 
         </Container>

@@ -394,8 +394,8 @@ export type CategoryProps = {
 };
 
 /** All available component names in the library */
-export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'overlay', 'modal', 'popup'] as const;
+export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'overlay', 'modal', 'popup'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -408,6 +408,8 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   checkbox: CHECKBOX_CATEGORIES,
   chip: CHIP_CATEGORIES,
   code: CODE_CATEGORIES,
+  kbd: CODE_CATEGORIES,
+  mark: CODE_CATEGORIES,
   icon: ICON_CATEGORIES,
   col: COL_CATEGORIES,
   container: CONTAINER_CATEGORIES,
@@ -429,6 +431,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   sectionTitle: TYPOGRAPHY_CATEGORIES,
   stack: STACK_CATEGORIES,
   text: TYPOGRAPHY_CATEGORIES,
+  blockquote: TYPOGRAPHY_CATEGORIES,
   title: TYPOGRAPHY_CATEGORIES,
   overlay: OVERLAY_CATEGORIES,
   modal: MODAL_CATEGORIES,

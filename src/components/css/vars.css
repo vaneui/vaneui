@@ -348,6 +348,22 @@
     .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
     .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
 
+    /* Kbd */
+    .vane-kbd { --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; border-bottom-width: 3px; }
+    .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
+    .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
+    .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }
+    .vane-kbd[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
+    .vane-kbd[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
+
+    /* Mark */
+    .vane-mark { --lh: 1; --py-unit: 0.4; --aspect-ratio: 1.5; --br-unit: 0.3333; }
+    .vane-mark[data-size="xs"] { --fs-unit: 5; --py-unit: 0.2; }
+    .vane-mark[data-size="sm"] { --fs-unit: 6; --py-unit: 0.3; }
+    .vane-mark[data-size="md"] { --fs-unit: 7; --py-unit: 0.4; }
+    .vane-mark[data-size="lg"] { --fs-unit: 8; --py-unit: 0.5; }
+    .vane-mark[data-size="xl"] { --fs-unit: 9; --py-unit: 0.6; }
+
     /* Input */
     .vane-input { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; }
     .vane-input[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
@@ -415,6 +431,14 @@
     .vane-text[data-size="md"] { --fs-unit: var(--fs-unit-md); }
     .vane-text[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-text[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+
+    /* Blockquote */
+    .vane-blockquote { --lh: var(--lh-base); }
+    .vane-blockquote[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-blockquote[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-blockquote[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-blockquote[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-blockquote[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
     /* Link */
     .vane-link { --lh: var(--lh-base); }
