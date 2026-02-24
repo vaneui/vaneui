@@ -15,6 +15,8 @@ import { titleTheme } from './ui/typography/title/defaultTitleTheme';
 import { sectionTitleTheme } from './ui/typography/sectionTitle/defaultSectionTitleTheme';
 import { pageTitleTheme } from './ui/typography/pageTitle/defaultPageTitleTheme';
 import { linkTheme } from './ui/typography/link/defaultLinkTheme';
+import { defaultLinkIconTheme } from './ui/typography/link/defaultLinkIconTheme';
+import type { LinkIconTheme } from './ui/typography/link/LinkIconTheme';
 import { listTheme } from './ui/typography/list/defaultListTheme';
 import { listItemTheme } from './ui/typography/listItem/defaultListItemTheme';
 import type { TypographyTheme } from './ui/typography/common/TypographyTheme';
@@ -135,7 +137,10 @@ export interface ThemeProps {
   title: ComponentTheme<TypographyProps, TypographyTheme>;
   text: ComponentTheme<TypographyProps, TypographyTheme>;
   blockquote: ComponentTheme<TypographyProps, TypographyTheme>;
-  link: ComponentTheme<TypographyProps, LinkTheme>;
+  link: {
+    main: ComponentTheme<TypographyProps, LinkTheme>;
+    icon: ComponentTheme<TypographyProps, LinkIconTheme>;
+  };
   listItem: ComponentTheme<TypographyProps, ListItemTheme>;
   list: ComponentTheme<ListProps, ListTheme>;
   checkbox: {
@@ -191,7 +196,10 @@ export const defaultTheme: ThemeProps = {
   title: titleTheme,
   text: textTheme,
   blockquote: blockquoteTheme,
-  link: linkTheme,
+  link: {
+    main: linkTheme,
+    icon: defaultLinkIconTheme,
+  },
   listItem: listItemTheme,
   list: listTheme,
   checkbox: {
@@ -263,7 +271,10 @@ export type ThemeDefaults = {
   title?: Partial<BooleanKeys<TypographyProps>>;
   text?: Partial<BooleanKeys<TypographyProps>>;
   blockquote?: Partial<BooleanKeys<TypographyProps>>;
-  link?: Partial<BooleanKeys<TypographyProps>>;
+  link?: {
+    main?: Partial<BooleanKeys<TypographyProps>>;
+    icon?: Partial<BooleanKeys<TypographyProps>>;
+  };
   list?: Partial<BooleanKeys<ListProps>>;
   listItem?: Partial<BooleanKeys<TypographyProps>>;
   checkbox?: {
@@ -320,7 +331,10 @@ export type ThemeExtraClasses = {
   title?: Partial<StringValueKeys<TypographyProps>>;
   text?: Partial<StringValueKeys<TypographyProps>>;
   blockquote?: Partial<StringValueKeys<TypographyProps>>;
-  link?: Partial<StringValueKeys<TypographyProps>>;
+  link?: {
+    main?: Partial<StringValueKeys<TypographyProps>>;
+    icon?: Partial<StringValueKeys<TypographyProps>>;
+  };
   list?: Partial<StringValueKeys<ListProps>>;
   listItem?: Partial<StringValueKeys<TypographyProps>>;
   checkbox?: {

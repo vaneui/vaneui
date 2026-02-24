@@ -19,8 +19,8 @@ export { SectionTitle, sectionTitleDefaults, defaultSectionTitleTheme, sectionTi
 export { PageTitle, pageTitleDefaults, defaultPageTitleTheme, pageTitleTheme } from './pageTitle';
 
 // Link component
-export { Link, linkDefaults, defaultLinkTheme, linkTheme } from './link';
-export type { LinkProps, LinkTheme } from './link';
+export { Link, ExternalLinkIcon, linkDefaults, linkIconDefaults, defaultLinkTheme, linkTheme, defaultLinkIconTheme } from './link';
+export type { LinkProps, LinkTheme, LinkIconTheme } from './link';
 
 // List component
 export { List, listDefaults, defaultListTheme, listTheme } from './list';

@@ -441,12 +441,15 @@
     .vane-blockquote[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
     /* Link */
-    .vane-link { --lh: var(--lh-base); }
+    .vane-link { --lh: var(--lh-base); --icon-size: var(--fs); }
     .vane-link[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-link[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
     .vane-link[data-size="md"] { --fs-unit: var(--fs-unit-md); }
     .vane-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    .vane-link :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
+    .vane-link-start-icon { margin-inline-end: calc(var(--gap) * 0.5); }
+    .vane-link-end-icon { margin-inline-start: calc(var(--gap) * 0.5); }
 
     /* ListItem */
     .vane-list-item { --lh: var(--lh-base); }

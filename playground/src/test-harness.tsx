@@ -11,6 +11,7 @@ import {
   Blockquote,
   Kbd,
   Mark,
+  Link,
 } from '../../src';
 
 // Import VaneUI CSS
@@ -145,6 +146,15 @@ function TestHarness() {
           <Mark data-testid="mark-md">MD mark</Mark>
           <Mark lg data-testid="mark-lg">LG mark</Mark>
           <Mark xl data-testid="mark-xl">XL mark</Mark>
+        </section>
+
+        {/* ── Link external ── */}
+
+        <section data-testid="link-section">
+          <Link href="https://example.com" external data-testid="link-external">External link</Link>
+          <Link href="https://example.com" data-testid="link-normal">Normal link</Link>
+          <Link href="https://example.com" external xs data-testid="link-external-xs">XS</Link>
+          <Link href="https://example.com" external xl data-testid="link-external-xl">XL</Link>
         </section>
 
       </div>

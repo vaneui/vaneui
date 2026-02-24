@@ -72,13 +72,21 @@ import type { CategoryProps, MyCategoryKey } from "../../props";
 - [ ] Test custom className merging
 - [ ] Test tag switching if component supports `href`
 
+### Playground Examples (REQUIRED)
+- [ ] Clean up `playground/src/App.tsx` — remove or condense older sections to keep it manageable (~3-5 sections, ~500 lines)
+- [ ] Add examples to `playground/src/App.tsx`
+- [ ] Include a new section: `Divider` + `SectionTitle` + multiple `Card` examples
+- [ ] Show: default usage, size variants, appearance variants, key props, real-world context
+- [ ] Run `npm run playground` to visually verify examples render correctly
+- [ ] See `.claude/rules/playground-examples.md` for detailed patterns
+
 ### Verification (ALL must pass)
 - [ ] `npm run type-check` — TypeScript validation
 - [ ] `npm run lint` — ESLint validation
 - [ ] `npm test` — Jest test suite
 - [ ] `npm run build` — Full build
 
-**Work is NOT complete until tests exist and all checks pass.**
+**Work is NOT complete until tests exist, playground examples are added, and all checks pass.**
 
 ## Prop Categories (Mutually Exclusive Within Category)
 - **size**: xs, sm, md, lg, xl

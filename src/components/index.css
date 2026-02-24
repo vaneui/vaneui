@@ -1,3 +1,14 @@
 @import "tailwindcss";
 
 @import "./css/vars.css" layer(theme);
+
+/* Unlayered: overrides Tailwind base svg { display: block }.
+   Link icon wrappers use display: inline so the parent <a>'s
+   text-decoration underline propagates through them. The SVG
+   inside must also be inline to stay on the same line. */
+:is(.vane-link-start-icon, .vane-link-end-icon) > svg { display: inline; }
+
+/* Prevent underline from rendering on icon wrappers. */
+:is(.vane-link-start-icon, .vane-link-end-icon) {
+  text-decoration: none;
+}

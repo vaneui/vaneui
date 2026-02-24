@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ComponentTheme,
   defaultSizedLayoutClassMappers,
@@ -10,12 +11,14 @@ import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import { LinkVariantClassMapper } from "../../theme/appearance/linkVariantClassMapper";
 import { TYPOGRAPHY_CATEGORIES } from "../common";
 import { linkDefaults } from "./linkDefaults";
+import { ExternalLinkIcon } from './ExternalLinkIcon';
 
 /** Link specific theme - uses LinkVariantClassMapper for link-specific colors */
 export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new ComponentTheme<TypographyProps, LinkTheme>(
   "a",
-  "vane-link hover:underline",
+  "vane-link hover:underline [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
+    externalIcon: () => React.createElement(ExternalLinkIcon),
     size: {
       text: new FontSizeClassMapper(),
       lineHeight: new LineHeightClassMapper(),

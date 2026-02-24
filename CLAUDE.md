@@ -45,11 +45,18 @@ When creating or modifying components, **ALL steps below must be completed**. Us
    - Test: default rendering, size variants, appearance variants, variant modifiers, shape variants, ref forwarding, prop leak prevention, className merging, tag switching (if applicable)
    - See `.claude/rules/testing.md` for patterns
 
-4. **Add E2E Fixtures & Tests**
+4. **Add Playground Examples (REQUIRED)**
+   - Add visual examples to `playground/src/App.tsx` showcasing the new/changed component
+   - Include: default usage, size variants, appearance variants, key props, real-world context
+   - Follow the existing section pattern: `Divider` + `SectionTitle` + multiple `Card` examples
+   - **Cleanup**: Before adding new sections, remove or condense older examples so `App.tsx` stays focused (~3-5 sections, ~500 lines). It is a living showcase, not an append-only log.
+   - See `.claude/rules/playground-examples.md` for patterns
+
+5. **Add E2E Fixtures & Tests**
    - Add test fixtures to `playground/src/test-harness.tsx` with `data-testid` attributes
    - Add e2e spec in `e2e/` validating computed CSS styles (see `.claude/rules/e2e-testing.md`)
 
-5. **Verify (ALL must pass)**
+6. **Verify (ALL must pass)**
    ```bash
    npm run type-check    # TypeScript
    npm run lint          # ESLint — zero errors required
@@ -171,6 +178,7 @@ Path-scoped rules in `.claude/rules/` provide detailed guidance when working wit
 - `css-conventions.md` — CSS variable system, Tailwind v4 patterns (for `**/*.css` and theme files)
 - `testing.md` — Test patterns and conventions (for `**/*.test.*`)
 - `props-and-theme.md` — Theme internals, prop resolution pipeline (for props/ and theme/ files)
+- `playground-examples.md` — Playground example requirements (for `playground/src/App.tsx`)
 
 ## Contributing
 
