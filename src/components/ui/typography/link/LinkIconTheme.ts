@@ -1,8 +1,4 @@
 import type { BaseComponentTheme } from "../../theme/common/ComponentTheme";
-import type { SizeClassMapper } from "../../theme/size/sizeClassMapper";
 
-export interface LinkIconTheme extends BaseComponentTheme {
-  size: {
-    height: SizeClassMapper;
-  };
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface LinkIconTheme extends BaseComponentTheme {}

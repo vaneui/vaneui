@@ -45,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       const loadingProps = { ...rest, disabled: true as const, 'data-loading': 'true' };
       return (
         <ThemedComponent ref={ref} theme={theme.button.main} {...loadingProps}>
-          <ThemedComponent theme={theme.button.spinner} {...rest}>
+          <ThemedComponent theme={theme.button.spinner}>
             {theme.button.spinner.themes.spinnerElement()}
           </ThemedComponent>
           <span className="invisible">{rest.children}</span>

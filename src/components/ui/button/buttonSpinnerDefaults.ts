@@ -1,7 +1,7 @@
-import type { ButtonProps } from "./ButtonProps";
+import type { ButtonSpinnerProps } from "./ButtonSpinnerProps";
 
 /** Default props for Button spinner component */
-export const buttonSpinnerDefaults: Partial<ButtonProps> = {
+export const buttonSpinnerDefaults: Partial<ButtonSpinnerProps> = {
   absolute: true,
   flex: true,
   itemsCenter: true,

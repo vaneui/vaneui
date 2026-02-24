@@ -3,6 +3,8 @@ export type { ButtonProps } from './ButtonProps';
 export { BUTTON_CATEGORIES } from '../props/categoryBuilders';
 export type { ButtonTheme } from './ButtonTheme';
 export type { ButtonSpinnerTheme } from './ButtonSpinnerTheme';
+export type { ButtonSpinnerProps } from './ButtonSpinnerProps';
+export { BUTTON_SPINNER_CATEGORIES } from './ButtonSpinnerCategories';
 export { buttonDefaults } from './buttonDefaults';
 export { defaultButtonTheme } from './defaultButtonTheme';
 export { defaultButtonSpinnerTheme } from './defaultButtonSpinnerTheme';

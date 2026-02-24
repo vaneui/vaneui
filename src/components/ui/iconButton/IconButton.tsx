@@ -39,7 +39,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       const loadingProps = { ...rest, disabled: true as const, 'data-loading': 'true' };
       return (
         <ThemedComponent ref={ref} theme={theme.iconButton.main} {...loadingProps}>
-          <ThemedComponent theme={theme.button.spinner} {...rest}>
+          <ThemedComponent theme={theme.button.spinner}>
             {theme.button.spinner.themes.spinnerElement()}
           </ThemedComponent>
           <span className="invisible">{rest.children}</span>

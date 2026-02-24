@@ -17,6 +17,7 @@ import { pageTitleTheme } from './ui/typography/pageTitle/defaultPageTitleTheme'
 import { linkTheme } from './ui/typography/link/defaultLinkTheme';
 import { defaultLinkIconTheme } from './ui/typography/link/defaultLinkIconTheme';
 import type { LinkIconTheme } from './ui/typography/link/LinkIconTheme';
+import type { LinkIconProps } from './ui/typography/link/LinkIconProps';
 import { listTheme } from './ui/typography/list/defaultListTheme';
 import { listItemTheme } from './ui/typography/listItem/defaultListItemTheme';
 import type { TypographyTheme } from './ui/typography/common/TypographyTheme';
@@ -72,6 +73,7 @@ import type { PopupTheme } from './ui/popup/PopupTheme';
 import { defaultPopupTheme } from './ui/popup/defaultPopupTheme';
 import type { BadgeProps } from "./ui/badge/BadgeProps";
 import type { ButtonProps } from "./ui/button/ButtonProps";
+import type { ButtonSpinnerProps } from "./ui/button/ButtonSpinnerProps";
 import type { CardProps } from "./ui/card/CardProps";
 import type { ChipProps } from "./ui/chip/ChipProps";
 import type { CodeProps } from "./ui/code/CodeProps";
@@ -84,6 +86,8 @@ import type { RowProps } from "./ui/row/RowProps";
 import type { SectionProps } from "./ui/section";
 import type { StackProps } from "./ui/stack";
 import type { CheckboxProps } from "./ui/checkbox";
+import type { CheckboxCheckProps } from "./ui/checkbox/CheckboxCheckProps";
+import type { CheckboxIndeterminateProps } from "./ui/checkbox/CheckboxIndeterminateProps";
 import type { LabelProps } from "./ui/label";
 import type { ImgProps } from "./ui/img";
 import type { InputProps } from "./ui/input";
@@ -109,7 +113,7 @@ import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 export interface ThemeProps {
   button: {
     main: ComponentTheme<ButtonProps, ButtonTheme>;
-    spinner: ComponentTheme<ButtonProps, ButtonSpinnerTheme>;
+    spinner: ComponentTheme<ButtonSpinnerProps, ButtonSpinnerTheme>;
   };
   iconButton: {
     main: ComponentTheme<IconButtonProps, IconButtonTheme>;
@@ -139,14 +143,14 @@ export interface ThemeProps {
   blockquote: ComponentTheme<TypographyProps, TypographyTheme>;
   link: {
     main: ComponentTheme<TypographyProps, LinkTheme>;
-    icon: ComponentTheme<TypographyProps, LinkIconTheme>;
+    icon: ComponentTheme<LinkIconProps, LinkIconTheme>;
   };
   listItem: ComponentTheme<TypographyProps, ListItemTheme>;
   list: ComponentTheme<ListProps, ListTheme>;
   checkbox: {
     input: ComponentTheme<CheckboxProps, CheckboxTheme>;
-    check: ComponentTheme<CheckboxProps, CheckboxCheckTheme>;
-    indeterminate: ComponentTheme<CheckboxProps, CheckboxIndeterminateTheme>;
+    check: ComponentTheme<CheckboxCheckProps, CheckboxCheckTheme>;
+    indeterminate: ComponentTheme<CheckboxIndeterminateProps, CheckboxIndeterminateTheme>;
     wrapper: ComponentTheme<CheckboxProps, CheckboxWrapperTheme>;
   };
   label: ComponentTheme<LabelProps, LabelTheme>;
@@ -243,7 +247,7 @@ type StringValueKeys<T> = {
 export type ThemeDefaults = {
   button?: {
     main?: Partial<BooleanKeys<ButtonProps>>;
-    spinner?: Partial<BooleanKeys<ButtonProps>>;
+    spinner?: Partial<BooleanKeys<ButtonSpinnerProps>>;
   };
   iconButton?: {
     main?: Partial<BooleanKeys<IconButtonProps>>;
@@ -273,14 +277,14 @@ export type ThemeDefaults = {
   blockquote?: Partial<BooleanKeys<TypographyProps>>;
   link?: {
     main?: Partial<BooleanKeys<TypographyProps>>;
-    icon?: Partial<BooleanKeys<TypographyProps>>;
+    icon?: Partial<BooleanKeys<LinkIconProps>>;
   };
   list?: Partial<BooleanKeys<ListProps>>;
   listItem?: Partial<BooleanKeys<TypographyProps>>;
   checkbox?: {
     input?: Partial<BooleanKeys<CheckboxProps>>;
-    check?: Partial<BooleanKeys<CheckboxProps>>;
-    indeterminate?: Partial<BooleanKeys<CheckboxProps>>;
+    check?: Partial<BooleanKeys<CheckboxCheckProps>>;
+    indeterminate?: Partial<BooleanKeys<CheckboxIndeterminateProps>>;
     wrapper?: Partial<BooleanKeys<CheckboxProps>>;
   };
   label?: Partial<BooleanKeys<LabelProps>>;
@@ -303,7 +307,7 @@ export type ThemeDefaults = {
 export type ThemeExtraClasses = {
   button?: {
     main?: Partial<StringValueKeys<ButtonProps>>;
-    spinner?: Partial<StringValueKeys<ButtonProps>>;
+    spinner?: Partial<StringValueKeys<ButtonSpinnerProps>>;
   };
   iconButton?: {
     main?: Partial<StringValueKeys<IconButtonProps>>;
@@ -333,14 +337,14 @@ export type ThemeExtraClasses = {
   blockquote?: Partial<StringValueKeys<TypographyProps>>;
   link?: {
     main?: Partial<StringValueKeys<TypographyProps>>;
-    icon?: Partial<StringValueKeys<TypographyProps>>;
+    icon?: Partial<StringValueKeys<LinkIconProps>>;
   };
   list?: Partial<StringValueKeys<ListProps>>;
   listItem?: Partial<StringValueKeys<TypographyProps>>;
   checkbox?: {
     input?: Partial<StringValueKeys<CheckboxProps>>;
-    check?: Partial<StringValueKeys<CheckboxProps>>;
-    indeterminate?: Partial<StringValueKeys<CheckboxProps>>;
+    check?: Partial<StringValueKeys<CheckboxCheckProps>>;
+    indeterminate?: Partial<StringValueKeys<CheckboxIndeterminateProps>>;
     wrapper?: Partial<StringValueKeys<CheckboxProps>>;
   };
   label?: Partial<StringValueKeys<LabelProps>>;

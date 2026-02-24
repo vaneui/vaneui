@@ -88,7 +88,7 @@ describe('Theme Types Strictness Tests', () => {
           filled: true,
         },
         check: {
-          success: true,
+          flex: true,
         },
         wrapper: {
           rounded: true,
@@ -102,7 +102,7 @@ describe('Theme Types Strictness Tests', () => {
           primary: 'checkbox-primary-override',
         },
         check: {
-          success: 'check-success-override',
+          flex: 'check-flex-override',
         },
         wrapper: {
           rounded: 'wrapper-rounded-override',

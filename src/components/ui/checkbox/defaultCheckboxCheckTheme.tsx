@@ -1,13 +1,13 @@
 import { ComponentTheme, defaultLayoutClassMappers } from "../theme/common";
-import type { CheckboxProps } from "./CheckboxProps";
+import type { CheckboxCheckProps } from "./CheckboxCheckProps";
 import { SimpleConsumerClassMapper } from "../theme/appearance";
 import { FocusVisibleClassMapper } from "../theme/layout";
 import { textConsumerClass, focusVisibleConsumerClass } from "../classes/appearanceClasses";
-import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
+import { CHECKBOX_CHECK_CATEGORIES } from "./CheckboxCheckCategories";
 import type { CheckboxCheckTheme } from "./CheckboxCheckTheme";
 import { checkboxCheckDefaults } from "./checkboxCheckDefaults";
 
-export const defaultCheckboxCheckTheme = new ComponentTheme<CheckboxProps, CheckboxCheckTheme>(
+export const defaultCheckboxCheckTheme = new ComponentTheme<CheckboxCheckProps, CheckboxCheckTheme>(
   "span",
   "invisible col-start-1 row-start-1 peer-checked:visible peer-indeterminate:invisible",
   {
@@ -23,8 +23,8 @@ export const defaultCheckboxCheckTheme = new ComponentTheme<CheckboxProps, Check
         />
       </svg>,
     appearance: {
-      color: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
-      focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible')
+      color: new SimpleConsumerClassMapper({ base: textConsumerClass, alwaysOutput: true }, 'text'),
+      focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass, alwaysOutput: true }, 'focusVisible')
     },
     layout: {
       ...defaultLayoutClassMappers,
@@ -32,7 +32,7 @@ export const defaultCheckboxCheckTheme = new ComponentTheme<CheckboxProps, Check
     },
   },
   checkboxCheckDefaults,
-  CHECKBOX_CATEGORIES,
+  CHECKBOX_CHECK_CATEGORIES,
   undefined,
   'ui'
 );

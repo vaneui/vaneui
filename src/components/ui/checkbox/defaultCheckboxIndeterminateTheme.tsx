@@ -1,12 +1,12 @@
 import { ComponentTheme, defaultLayoutClassMappers } from "../theme/common";
-import type { CheckboxProps } from "./CheckboxProps";
+import type { CheckboxIndeterminateProps } from "./CheckboxIndeterminateProps";
 import { SimpleConsumerClassMapper } from "../theme/appearance";
 import { textConsumerClass } from "../classes/appearanceClasses";
-import { CHECKBOX_CATEGORIES } from "./CheckboxCategories";
+import { CHECKBOX_INDETERMINATE_CATEGORIES } from "./CheckboxIndeterminateCategories";
 import type { CheckboxIndeterminateTheme } from "./CheckboxIndeterminateTheme";
 import { checkboxIndeterminateDefaults } from "./checkboxIndeterminateDefaults";
 
-export const defaultCheckboxIndeterminateTheme = new ComponentTheme<CheckboxProps, CheckboxIndeterminateTheme>(
+export const defaultCheckboxIndeterminateTheme = new ComponentTheme<CheckboxIndeterminateProps, CheckboxIndeterminateTheme>(
   "span",
   "invisible col-start-1 row-start-1 peer-indeterminate:visible",
   {
@@ -21,12 +21,12 @@ export const defaultCheckboxIndeterminateTheme = new ComponentTheme<CheckboxProp
         />
       </svg>,
     appearance: {
-      color: new SimpleConsumerClassMapper({ base: textConsumerClass }, 'text'),
+      color: new SimpleConsumerClassMapper({ base: textConsumerClass, alwaysOutput: true }, 'text'),
     },
     layout: defaultLayoutClassMappers,
   },
   checkboxIndeterminateDefaults,
-  CHECKBOX_CATEGORIES,
+  CHECKBOX_INDETERMINATE_CATEGORIES,
   undefined,
   'ui'
 );

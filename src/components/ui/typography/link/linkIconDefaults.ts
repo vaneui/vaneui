@@ -1,7 +1,6 @@
-import type { TypographyProps } from "../common";
+import type { LinkIconProps } from "./LinkIconProps";
 
-export const linkIconDefaults: Partial<TypographyProps> = {
-  md: true,
+export const linkIconDefaults: Partial<LinkIconProps> = {
   inlineFlex: true,
   itemsCenter: true,
 };

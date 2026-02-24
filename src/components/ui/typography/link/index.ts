@@ -3,6 +3,8 @@ export { ExternalLinkIcon } from './ExternalLinkIcon';
 export type { LinkProps } from './LinkProps';
 export type { LinkTheme } from './LinkTheme';
 export type { LinkIconTheme } from './LinkIconTheme';
+export type { LinkIconProps } from './LinkIconProps';
+export { LINK_ICON_CATEGORIES } from './LinkIconCategories';
 export { linkDefaults } from './linkDefaults';
 export { linkIconDefaults } from './linkIconDefaults';
 export { defaultLinkTheme, linkTheme } from './defaultLinkTheme';
