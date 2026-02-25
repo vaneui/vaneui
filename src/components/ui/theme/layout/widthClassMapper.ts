@@ -8,6 +8,8 @@ export class WidthClassMapper extends BaseClassMapper implements Record<WidthKey
   wFit: string = "w-fit";
   /** Auto width (default browser behavior) */
   wAuto: string = "w-auto";
+  /** Viewport width (100vw), removes max-width constraint */
+  wScreen: string = "w-screen max-w-none";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const classes: string[] = [];

@@ -204,7 +204,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
         <ThemedComponent
           ref={mergedRef}
           theme={theme.modal.content}
-          className={fullScreen ? 'w-screen h-screen max-w-none max-h-none' : undefined}
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleMounted ? titleId : undefined}
@@ -213,7 +212,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           style={contentDurationStyle}
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
           {...props}
-          {...(fullScreen ? { sharp: true } : {})}
+          {...(fullScreen ? { sharp: true, wScreen: true, hScreen: true } : {})}
         >
           <ModalContext.Provider value={contextValue}>
             {isCompoundMode ? (

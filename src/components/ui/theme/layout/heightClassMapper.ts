@@ -11,6 +11,8 @@ export class HeightClassMapper extends BaseClassMapper implements Record<HeightK
   hFull: string = "h-full";
   /** Height auto */
   hAuto: string = "h-auto";
+  /** Viewport height (100vh), removes max-height constraint */
+  hScreen: string = "h-screen max-h-none";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const classes: string[] = [];

@@ -9,4 +9,6 @@ export interface WidthProps {
   wFit?: boolean;
   /** Set width to auto */
   wAuto?: boolean;
+  /** Set width to 100vw (viewport width), removes max-width constraint */
+  wScreen?: boolean;
 }

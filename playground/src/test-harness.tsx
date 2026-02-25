@@ -63,7 +63,7 @@ function ZIndexFixtures() {
         overlayProps={{
           pointerEventsNone: true,
           'data-testid': 'z-modal-overlay',
-        } as any}
+        } as Record<string, unknown>}
         data-testid="z-modal-content"
       >
         <ModalHeader>Modal title</ModalHeader>

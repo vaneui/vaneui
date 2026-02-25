@@ -246,7 +246,7 @@ export const ComponentKeys = {
   /** Object fit for images and videos */
   objectFit: ['objectCover', 'objectContain', 'objectFill', 'objectNone', 'objectScaleDown'] as const,
   /** Width control for element sizing */
-  width: ['wFull', 'wFit', 'wAuto'] as const,
+  width: ['wFull', 'wFit', 'wAuto', 'wScreen'] as const,
   /** Truncate control for text overflow */
   truncate: ['truncate', 'lineClamp2', 'lineClamp3', 'lineClamp4', 'lineClamp5', 'noTruncate'] as const,
   /** Status for form validation state */
@@ -254,7 +254,7 @@ export const ComponentKeys = {
   /** Orientation for horizontal/vertical layout */
   orientation: ['horizontal', 'vertical'] as const,
   /** Height control for element sizing */
-  height: ['hFit', 'hFull', 'hAuto'] as const,
+  height: ['hFit', 'hFull', 'hAuto', 'hScreen'] as const,
   /** Letter spacing for text tracking */
   letterSpacing: ['trackingTighter', 'trackingTight', 'trackingNormal', 'trackingWide', 'trackingWider', 'trackingWidest'] as const,
   /** Placement position for floating elements (popups, tooltips, dropdowns) */

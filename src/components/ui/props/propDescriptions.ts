@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-02-25T15:34:43.878Z
+ * Generated on: 2026-02-25T16:02:54.336Z
  */
 
 export interface PropDescription {
@@ -301,6 +301,9 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "hAuto": {
         "description": "Set height to auto"
+      },
+      "hScreen": {
+        "description": "Set height to 100vh (viewport height), removes max-height constraint"
       }
     }
   },
@@ -811,6 +814,9 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "wAuto": {
         "description": "Set width to auto"
+      },
+      "wScreen": {
+        "description": "Set width to 100vw (viewport width), removes max-width constraint"
       }
     }
   },

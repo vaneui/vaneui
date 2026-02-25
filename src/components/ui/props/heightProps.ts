@@ -9,4 +9,6 @@ export interface HeightProps {
   hFull?: boolean;
   /** Set height to auto */
   hAuto?: boolean;
+  /** Set height to 100vh (viewport height), removes max-height constraint */
+  hScreen?: boolean;
 }
