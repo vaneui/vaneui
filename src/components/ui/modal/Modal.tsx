@@ -109,7 +109,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // Transition states for overlay and content
     const overlayTransition = useTransition(open, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
     const contentTransition = useTransition(open, transitionDuration, noAnimation);
-    const zIndex = useStackingContext(open);
+    const zIndex = useStackingContext(open, 'modal');
 
     // Merge forwarded ref with internal contentRef
     const mergedRef = useCallback(
@@ -182,33 +182,35 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       ...(fullScreen ? { transparent: true } : {}),
     };
 
-    // Build content style for fullScreen
-    const fullScreenStyle: React.CSSProperties | undefined = fullScreen
-      ? { width: '100vw', height: '100vh', maxWidth: 'none', maxHeight: 'none' }
-      : undefined;
+    const cssVars = {
+      '--z-index': zIndex,
+      ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } : undefined),
+    } as React.CSSProperties;
 
-    const durationStyle = transitionDuration !== 200
+    const contentDurationStyle = transitionDuration !== 200
       ? { '--transition-duration': `${transitionDuration}ms` } as React.CSSProperties
       : undefined;
 
     const content = (
       <ThemedComponent
         theme={theme.modal.overlay}
+        className={isHidden ? 'hidden' : undefined}
         onClick={handleOverlayClick}
         data-state={isHidden ? undefined : overlayTransition.state}
-        style={{ zIndex, ...durationStyle, ...(isHidden ? { display: 'none' } : undefined) }}
+        style={cssVars}
         aria-hidden={isHidden || undefined}
         {...computedOverlayProps}
       >
         <ThemedComponent
           ref={mergedRef}
           theme={theme.modal.content}
+          className={fullScreen ? 'w-screen h-screen max-w-none max-h-none' : undefined}
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleMounted ? titleId : undefined}
           aria-describedby={bodyMounted ? bodyId : undefined}
           data-state={isHidden ? undefined : contentTransition.state}
-          style={{ ...durationStyle, ...fullScreenStyle }}
+          style={contentDurationStyle}
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
           {...props}
           {...(fullScreen ? { sharp: true } : {})}

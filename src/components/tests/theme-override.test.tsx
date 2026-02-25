@@ -704,7 +704,7 @@ describe('Theme Override Tests', () => {
 
     it('should override base gap for Card component', () => {
       const overrideFunc = (theme: ThemeProps) => {
-        theme.card.themes.size.gap.base = 'gap-4';
+        theme.card.main.themes.size.gap.base = 'gap-4';
         return theme;
       };
 
@@ -792,7 +792,7 @@ describe('Theme Override Tests', () => {
 
       it('should override text consumer class on Card component', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.card.themes.appearance.text.base = 'text-slate-800';
+          theme.card.main.themes.appearance.text.base = 'text-slate-800';
           return theme;
         };
 
@@ -883,7 +883,7 @@ describe('Theme Override Tests', () => {
 
       it('should override background on Card component (base only)', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.card.themes.appearance.background.base = 'bg-stone-100';
+          theme.card.main.themes.appearance.background.base = 'bg-stone-100';
           return theme;
         };
 
@@ -918,7 +918,7 @@ describe('Theme Override Tests', () => {
 
       it('should override border consumer on Card component', () => {
         const overrideFunc = (theme: ThemeProps) => {
-          theme.card.themes.appearance.border.base = 'border-lime-400';
+          theme.card.main.themes.appearance.border.base = 'border-lime-400';
           return theme;
         };
 
@@ -1014,7 +1014,7 @@ describe('Theme Override Tests', () => {
           theme.button.main.themes.appearance.background.base = 'bg-red-500';
           theme.badge.themes.appearance.background.base = 'bg-green-500';
           theme.chip.themes.appearance.background.base = 'bg-blue-500';
-          theme.card.themes.appearance.background.base = 'bg-yellow-100';
+          theme.card.main.themes.appearance.background.base = 'bg-yellow-100';
           return theme;
         };
 

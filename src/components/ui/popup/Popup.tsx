@@ -327,7 +327,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     // Transition and z-index
     const { mounted, state } = useTransition(effectiveOpen, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
-    const zIndex = useStackingContext(effectiveOpen);
+    const zIndex = useStackingContext(effectiveOpen, 'popup');
 
     // Stable ref for onClose to prevent effect dependency churn
     const onCloseRef = useRef(onClose);
@@ -487,14 +487,13 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       <ThemedComponent
         ref={mergedRef}
         theme={theme.popup}
+        className={isHidden ? 'hidden' : isDetached ? 'invisible' : undefined}
         data-state={isHidden ? undefined : state}
         data-placement={resolvedPlacement || undefined}
         style={{
-          zIndex,
-          ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } as React.CSSProperties : undefined),
-          ...(isHidden ? { display: 'none' } : undefined),
-          ...(isDetached ? { visibility: 'hidden' as const } : undefined),
-        }}
+          '--z-index': zIndex,
+          ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } : undefined),
+        } as React.CSSProperties}
         aria-hidden={isHidden || undefined}
         {...mergedProps}
       >

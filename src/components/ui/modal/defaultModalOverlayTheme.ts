@@ -14,7 +14,7 @@ import { ringConsumerClass } from "../classes/appearanceClasses";
 export const defaultModalOverlayTheme = new ComponentTheme<OverlayProps, ModalOverlayTheme>(
   'div',
   // Base classes - only non-prop-driven styles (bg moved to overlayBackground mapper for transparent support)
-  'vane-overlay inset-0',
+  'vane-overlay inset-0 z-(--z-index)',
   {
     layout: {
       ...defaultSizedLayoutClassMappers,

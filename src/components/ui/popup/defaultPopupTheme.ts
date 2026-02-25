@@ -21,7 +21,7 @@ import { PointerEventsClassMapper, TransitionClassMapper, WidthClassMapper } fro
 export const defaultPopupTheme = new ComponentTheme<PopupProps, PopupTheme>(
   'div',
   // Base classes - CSS variable for max-h allows flexible customization
-  'vane-popup max-h-(--popup-max-height)',
+  'vane-popup max-h-(--popup-max-height) z-(--z-index)',
   {
     size: layoutClassMappers.size,
     layout: {

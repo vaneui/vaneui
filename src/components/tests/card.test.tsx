@@ -1,8 +1,12 @@
 import '@testing-library/jest-dom';
+import React from 'react';
 import { render } from '@testing-library/react';
 
 import {
   Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
   ThemeProvider,
   defaultTheme
 } from '../../index';
@@ -670,6 +674,409 @@ describe('Card Component Tests', () => {
       );
       const el = container.querySelector('div');
       expect(el).toHaveClass('h-auto');
+    });
+  });
+
+  describe('CardHeader Sub-component', () => {
+    it('should render with default classes', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardHeader>Header Content</CardHeader>
+        </ThemeProvider>
+      );
+
+      const header = container.querySelector('.vane-card-header');
+      expect(header).toBeInTheDocument();
+      expect(header).toHaveClass('flex', 'flex-row', 'items-center', 'justify-between');
+      expect(header).toHaveClass('gap-(--gap)');
+      expect(header).toHaveClass('px-(--px)', 'py-(--py)');
+    });
+
+    it('should render children', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardHeader>Title text</CardHeader>
+        </ThemeProvider>
+      );
+      expect(getByText('Title text')).toBeInTheDocument();
+    });
+
+    it('should have data-vane-type="layout"', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardHeader>Header</CardHeader>
+        </ThemeProvider>
+      );
+      const header = container.querySelector('.vane-card-header');
+      expect(header).toHaveAttribute('data-vane-type', 'layout');
+    });
+
+    it('should forward ref', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardHeader ref={ref}>Header</CardHeader>
+        </ThemeProvider>
+      );
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref.current).toHaveClass('vane-card-header');
+    });
+
+    it('should merge custom className', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardHeader className="custom-header">Header</CardHeader>
+        </ThemeProvider>
+      );
+      const header = container.querySelector('.vane-card-header');
+      expect(header).toHaveClass('flex', 'flex-row');
+      expect(header).toHaveClass('custom-header');
+    });
+
+    it('should not leak boolean props to DOM', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardHeader flex row itemsCenter justifyBetween gap padding>
+            Header
+          </CardHeader>
+        </ThemeProvider>
+      );
+      const header = container.querySelector('.vane-card-header');
+      expect(header).not.toHaveAttribute('flex');
+      expect(header).not.toHaveAttribute('row');
+      expect(header).not.toHaveAttribute('itemsCenter');
+      expect(header).not.toHaveAttribute('justifyBetween');
+      expect(header).not.toHaveAttribute('gap');
+      expect(header).not.toHaveAttribute('padding');
+    });
+  });
+
+  describe('CardBody Sub-component', () => {
+    it('should render with default classes', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardBody>Body Content</CardBody>
+        </ThemeProvider>
+      );
+
+      const body = container.querySelector('.vane-card-body');
+      expect(body).toBeInTheDocument();
+      expect(body).toHaveClass('flex', 'flex-col');
+      expect(body).toHaveClass('gap-(--gap)');
+      expect(body).toHaveClass('overflow-auto');
+      expect(body).toHaveClass('px-(--px)', 'py-(--py)');
+    });
+
+    it('should render children', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardBody>Scrollable content</CardBody>
+        </ThemeProvider>
+      );
+      expect(getByText('Scrollable content')).toBeInTheDocument();
+    });
+
+    it('should have data-vane-type="layout"', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardBody>Body</CardBody>
+        </ThemeProvider>
+      );
+      const body = container.querySelector('.vane-card-body');
+      expect(body).toHaveAttribute('data-vane-type', 'layout');
+    });
+
+    it('should forward ref', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardBody ref={ref}>Body</CardBody>
+        </ThemeProvider>
+      );
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref.current).toHaveClass('vane-card-body');
+    });
+
+    it('should merge custom className', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardBody className="custom-body">Body</CardBody>
+        </ThemeProvider>
+      );
+      const body = container.querySelector('.vane-card-body');
+      expect(body).toHaveClass('flex', 'flex-col');
+      expect(body).toHaveClass('custom-body');
+    });
+
+    it('should not leak boolean props to DOM', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardBody flex column gap overflowAuto padding>
+            Body
+          </CardBody>
+        </ThemeProvider>
+      );
+      const body = container.querySelector('.vane-card-body');
+      expect(body).not.toHaveAttribute('flex');
+      expect(body).not.toHaveAttribute('column');
+      expect(body).not.toHaveAttribute('gap');
+      expect(body).not.toHaveAttribute('overflowAuto');
+      expect(body).not.toHaveAttribute('padding');
+    });
+
+    it('should allow overriding direction to row', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardBody row>Body</CardBody>
+        </ThemeProvider>
+      );
+      const body = container.querySelector('.vane-card-body');
+      expect(body).toHaveClass('flex-row');
+      expect(body).not.toHaveClass('flex-col');
+    });
+
+    it('should allow disabling overflow', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardBody overflowHidden>Body</CardBody>
+        </ThemeProvider>
+      );
+      const body = container.querySelector('.vane-card-body');
+      expect(body).toHaveClass('overflow-hidden');
+      expect(body).not.toHaveClass('overflow-auto');
+    });
+  });
+
+  describe('CardFooter Sub-component', () => {
+    it('should render with default classes', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardFooter>Footer Content</CardFooter>
+        </ThemeProvider>
+      );
+
+      const footer = container.querySelector('.vane-card-footer');
+      expect(footer).toBeInTheDocument();
+      expect(footer).toHaveClass('flex', 'flex-row', 'items-center', 'justify-end');
+      expect(footer).toHaveClass('gap-(--gap)');
+      expect(footer).toHaveClass('px-(--px)', 'py-(--py)');
+    });
+
+    it('should render children', () => {
+      const { getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardFooter>Action buttons</CardFooter>
+        </ThemeProvider>
+      );
+      expect(getByText('Action buttons')).toBeInTheDocument();
+    });
+
+    it('should have data-vane-type="layout"', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardFooter>Footer</CardFooter>
+        </ThemeProvider>
+      );
+      const footer = container.querySelector('.vane-card-footer');
+      expect(footer).toHaveAttribute('data-vane-type', 'layout');
+    });
+
+    it('should forward ref', () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardFooter ref={ref}>Footer</CardFooter>
+        </ThemeProvider>
+      );
+      expect(ref.current).toBeInstanceOf(HTMLDivElement);
+      expect(ref.current).toHaveClass('vane-card-footer');
+    });
+
+    it('should merge custom className', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardFooter className="custom-footer">Footer</CardFooter>
+        </ThemeProvider>
+      );
+      const footer = container.querySelector('.vane-card-footer');
+      expect(footer).toHaveClass('flex', 'flex-row');
+      expect(footer).toHaveClass('custom-footer');
+    });
+
+    it('should not leak boolean props to DOM', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <CardFooter flex row itemsCenter justifyEnd gap padding>
+            Footer
+          </CardFooter>
+        </ThemeProvider>
+      );
+      const footer = container.querySelector('.vane-card-footer');
+      expect(footer).not.toHaveAttribute('flex');
+      expect(footer).not.toHaveAttribute('row');
+      expect(footer).not.toHaveAttribute('itemsCenter');
+      expect(footer).not.toHaveAttribute('justifyEnd');
+      expect(footer).not.toHaveAttribute('gap');
+      expect(footer).not.toHaveAttribute('padding');
+    });
+  });
+
+  describe('Compound Mode', () => {
+    it('should remove Card padding when sub-components are used', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card>
+            <CardHeader>Header</CardHeader>
+            <CardBody>Body</CardBody>
+            <CardFooter>Footer</CardFooter>
+          </Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('.vane-card');
+      expect(card).toBeInTheDocument();
+      // In compound mode, Card should NOT have padding classes
+      expect(card).not.toHaveClass('px-(--px)');
+      expect(card).not.toHaveClass('py-(--py)');
+    });
+
+    it('should keep Card padding in simple mode (backwards-compatible)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card>Simple content</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('.vane-card');
+      expect(card).toBeInTheDocument();
+      // In simple mode, Card should have padding classes
+      expect(card).toHaveClass('px-(--px)', 'py-(--py)');
+    });
+
+    it('should detect compound mode with only CardHeader', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card>
+            <CardHeader>Header</CardHeader>
+            <div>Other content</div>
+          </Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('.vane-card');
+      expect(card).not.toHaveClass('px-(--px)');
+      expect(card).not.toHaveClass('py-(--py)');
+    });
+
+    it('should detect compound mode with only CardBody', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card>
+            <CardBody>Body content</CardBody>
+          </Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('.vane-card');
+      expect(card).not.toHaveClass('px-(--px)');
+      expect(card).not.toHaveClass('py-(--py)');
+    });
+
+    it('should detect compound mode with Header + Body (no footer)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card>
+            <CardHeader>Header</CardHeader>
+            <CardBody>Body</CardBody>
+          </Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('.vane-card');
+      expect(card).not.toHaveClass('px-(--px)');
+    });
+
+    it('should render exactly one of each sub-component', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card>
+            <CardHeader>Header</CardHeader>
+            <CardBody>Body</CardBody>
+            <CardFooter>Footer</CardFooter>
+          </Card>
+        </ThemeProvider>
+      );
+
+      expect(container.querySelectorAll('.vane-card-header')).toHaveLength(1);
+      expect(container.querySelectorAll('.vane-card-body')).toHaveLength(1);
+      expect(container.querySelectorAll('.vane-card-footer')).toHaveLength(1);
+    });
+
+    it('should keep Card theme classes (border, rounded) in compound mode', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card>
+            <CardHeader>Header</CardHeader>
+            <CardBody>Body</CardBody>
+          </Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('.vane-card');
+      // Card should still have its visual classes
+      expect(card).toHaveClass('flex', 'flex-col');
+      expect(card).toHaveClass('border-[length:var(--bw)]');
+      expect(card).toHaveClass('rounded-(--br)');
+    });
+
+    it('sub-components should have padding in compound mode', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card>
+            <CardHeader>Header</CardHeader>
+            <CardBody>Body</CardBody>
+            <CardFooter>Footer</CardFooter>
+          </Card>
+        </ThemeProvider>
+      );
+
+      const header = container.querySelector('.vane-card-header');
+      const body = container.querySelector('.vane-card-body');
+      const footer = container.querySelector('.vane-card-footer');
+
+      expect(header).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(body).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(footer).toHaveClass('px-(--px)', 'py-(--py)');
+    });
+
+    it('should preserve Card props like appearance in compound mode', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card danger filled>
+            <CardHeader>Header</CardHeader>
+            <CardBody>Body</CardBody>
+          </Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('.vane-card');
+      expect(card).toHaveAttribute('data-appearance', 'danger');
+      expect(card).toHaveAttribute('data-variant', 'filled');
+    });
+
+    it('should preserve Card href in compound mode', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card href="/details">
+            <CardHeader>Header</CardHeader>
+            <CardBody>Body</CardBody>
+          </Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('a.vane-card');
+      expect(card).toBeInTheDocument();
+      expect(card).toHaveAttribute('href', '/details');
     });
   });
 });

@@ -237,7 +237,7 @@ describe('Popup Enhancements', () => {
       });
 
       const popup = baseElement.querySelector('[role="dialog"]') as HTMLElement;
-      expect(popup.style.visibility).toBe('hidden');
+      expect(popup).toHaveClass('invisible');
       // pointerEvents: 'none' is now handled via the pointerEventsNone boolean prop
       expect(popup).toHaveClass('pointer-events-none');
     });
@@ -271,7 +271,7 @@ describe('Popup Enhancements', () => {
       });
 
       const popup = baseElement.querySelector('[role="dialog"]') as HTMLElement;
-      expect(popup.style.visibility).not.toBe('hidden');
+      expect(popup).not.toHaveClass('invisible');
     });
 
     it('should disconnect observer on unmount', () => {

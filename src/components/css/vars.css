@@ -151,9 +151,10 @@
     --rw: 1px; /* Ring width */
 
     /* Z-index stacking (customizable via CSS) */
-    --z-overlay: 50;
-    --z-modal: 50;
-    --z-popup: 50;
+    --z-overlay: 200;
+    --z-modal: 200;
+    --z-popup: 300;
+    /* --z-toast: 400; (reserved for future Toast/Notification component) */
 
     /* Transition timing */
     --transition-duration: 200ms;
@@ -391,12 +392,12 @@
     .vane-label[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
     /* Card */
-    .vane-card { --py-unit: 6; --aspect-ratio: 1; }
-    .vane-card[data-size="xs"] { --py-unit: 2; }
-    .vane-card[data-size="sm"] { --py-unit: 4; }
-    .vane-card[data-size="md"] { --py-unit: 6; }
-    .vane-card[data-size="lg"] { --py-unit: 8; }
-    .vane-card[data-size="xl"] { --py-unit: 10; }
+    .vane-card { --py-unit: 6; --gap-unit: 3; --aspect-ratio: 1; }
+    .vane-card[data-size="xs"] { --py-unit: 2; --gap-unit: 1; }
+    .vane-card[data-size="sm"] { --py-unit: 4; --gap-unit: 2; }
+    .vane-card[data-size="md"] { --py-unit: 6; --gap-unit: 3; }
+    .vane-card[data-size="lg"] { --py-unit: 8; --gap-unit: 4; }
+    .vane-card[data-size="xl"] { --py-unit: 10; --gap-unit: 5; }
 
     /* Stack - inherits --py-unit and --aspect-ratio from layout type defaults */
 
@@ -610,6 +611,18 @@
         margin-top: calc(var(--popup-arrow-size, 7px) / -2);
         border-bottom-width: 1px;
         border-left-width: 1px;
+    }
+
+    /* Card compound sub-components */
+    .vane-card-header {
+        flex-shrink: 0;
+    }
+    .vane-card-body {
+        flex: 1;
+        min-height: 0;
+    }
+    .vane-card-footer {
+        flex-shrink: 0;
     }
 
     /* Modal compound sub-components */

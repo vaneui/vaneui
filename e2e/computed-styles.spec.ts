@@ -230,3 +230,30 @@ test.describe('Explicit appearance override', () => {
     expect(textColor).not.toBe(cardColor);
   });
 });
+
+// ── 6. Card gap is half of padding across all sizes ──
+
+test.describe('Card gap-to-padding ratio', () => {
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+  // Expected: gap-unit = py-unit / 2, both multiplied by --spacing (4px)
+  const expected: Record<string, { gap: number; paddingTop: number }> = {
+    xs: { gap: 4, paddingTop: 8 },
+    sm: { gap: 8, paddingTop: 16 },
+    md: { gap: 12, paddingTop: 24 },
+    lg: { gap: 16, paddingTop: 32 },
+    xl: { gap: 20, paddingTop: 40 },
+  };
+
+  for (const size of sizes) {
+    test(`Card ${size}: gap is exactly half of padding`, async ({ page }) => {
+      const card = page.locator(`[data-testid="card-gap-${size}"]`);
+      const gap = parseFloat(await getStyle(card, 'row-gap'));
+      const paddingTop = parseFloat(await getStyle(card, 'padding-top'));
+
+      expect(gap).toBe(expected[size].gap);
+      expect(paddingTop).toBe(expected[size].paddingTop);
+      expect(gap).toBe(paddingTop / 2);
+    });
+  }
+});

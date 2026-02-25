@@ -26,6 +26,12 @@ import type { ListTheme } from './ui/typography/list/ListTheme';
 import type { ListItemTheme } from './ui/typography/listItem/ListItemTheme';
 import type { CardTheme } from "./ui/card/CardTheme";
 import { defaultCardTheme } from "./ui/card/defaultCardTheme";
+import type { CardHeaderTheme } from './ui/card/CardHeaderTheme';
+import type { CardBodyTheme } from './ui/card/CardBodyTheme';
+import type { CardFooterTheme } from './ui/card/CardFooterTheme';
+import { defaultCardHeaderTheme } from './ui/card/defaultCardHeaderTheme';
+import { defaultCardBodyTheme } from './ui/card/defaultCardBodyTheme';
+import { defaultCardFooterTheme } from './ui/card/defaultCardFooterTheme';
 import type { RowTheme } from "./ui/row/RowTheme";
 import { defaultRowTheme } from "./ui/row/defaultRowTheme";
 import type { DividerTheme } from './ui/divider/DividerTheme';
@@ -75,6 +81,9 @@ import type { BadgeProps } from "./ui/badge/BadgeProps";
 import type { ButtonProps } from "./ui/button/ButtonProps";
 import type { ButtonSpinnerProps } from "./ui/button/ButtonSpinnerProps";
 import type { CardProps } from "./ui/card/CardProps";
+import type { CardHeaderProps } from "./ui/card/CardHeaderProps";
+import type { CardBodyProps } from "./ui/card/CardBodyProps";
+import type { CardFooterProps } from "./ui/card/CardFooterProps";
 import type { ChipProps } from "./ui/chip/ChipProps";
 import type { CodeProps } from "./ui/code/CodeProps";
 import type { ColProps } from "./ui/col";
@@ -124,7 +133,12 @@ export interface ThemeProps {
   code: ComponentTheme<CodeProps, CodeTheme>;
   kbd: ComponentTheme<KbdProps, KbdTheme>;
   mark: ComponentTheme<MarkProps, MarkTheme>;
-  card: ComponentTheme<CardProps, CardTheme>;
+  card: {
+    main: ComponentTheme<CardProps, CardTheme>;
+    header: ComponentTheme<CardHeaderProps, CardHeaderTheme>;
+    body: ComponentTheme<CardBodyProps, CardBodyTheme>;
+    footer: ComponentTheme<CardFooterProps, CardFooterTheme>;
+  };
   divider: ComponentTheme<DividerProps, DividerTheme>;
   container: ComponentTheme<ContainerProps, ContainerTheme>;
   row: ComponentTheme<RowProps, RowTheme>;
@@ -183,7 +197,12 @@ export const defaultTheme: ThemeProps = {
   code: defaultCodeTheme,
   kbd: defaultKbdTheme,
   mark: defaultMarkTheme,
-  card: defaultCardTheme,
+  card: {
+    main: defaultCardTheme,
+    header: defaultCardHeaderTheme,
+    body: defaultCardBodyTheme,
+    footer: defaultCardFooterTheme,
+  },
   divider: defaultDividerTheme,
   container: defaultContainerTheme,
   row: defaultRowTheme,
@@ -258,7 +277,12 @@ export type ThemeDefaults = {
   code?: Partial<BooleanKeys<CodeProps>>;
   kbd?: Partial<BooleanKeys<KbdProps>>;
   mark?: Partial<BooleanKeys<MarkProps>>;
-  card?: Partial<BooleanKeys<CardProps>>;
+  card?: {
+    main?: Partial<BooleanKeys<CardProps>>;
+    header?: Partial<BooleanKeys<CardHeaderProps>>;
+    body?: Partial<BooleanKeys<CardBodyProps>>;
+    footer?: Partial<BooleanKeys<CardFooterProps>>;
+  };
   divider?: Partial<BooleanKeys<DividerProps>>;
   container?: Partial<BooleanKeys<ContainerProps>>;
   row?: Partial<BooleanKeys<RowProps>>;
@@ -318,7 +342,12 @@ export type ThemeExtraClasses = {
   code?: Partial<StringValueKeys<CodeProps>>;
   kbd?: Partial<StringValueKeys<KbdProps>>;
   mark?: Partial<StringValueKeys<MarkProps>>;
-  card?: Partial<StringValueKeys<CardProps>>;
+  card?: {
+    main?: Partial<StringValueKeys<CardProps>>;
+    header?: Partial<StringValueKeys<CardHeaderProps>>;
+    body?: Partial<StringValueKeys<CardBodyProps>>;
+    footer?: Partial<StringValueKeys<CardFooterProps>>;
+  };
   divider?: Partial<StringValueKeys<DividerProps>>;
   container?: Partial<StringValueKeys<ContainerProps>>;
   row?: Partial<StringValueKeys<RowProps>>;

@@ -49,8 +49,9 @@ describe('Overlay Component Tests', () => {
       expect(overlay).toHaveClass('fixed', 'inset-0');
       // Uses CSS variable for background
       expect(overlay).toHaveClass('bg-(--overlay-bg)');
-      // z-index is dynamic via inline style (useStackingContext)
-      expect(overlay).toHaveStyle({ zIndex: 51 });
+      // z-index is dynamic via CSS variable (useStackingContext)
+      expect(overlay).toHaveClass('z-(--z-index)');
+      expect(overlay).toHaveStyle({ '--z-index': '201' });
     });
 
     it('should be centered by default via flex props', () => {
@@ -346,7 +347,7 @@ describe('Overlay Component Tests', () => {
 
       const overlay = container.querySelector('.vane-overlay');
       expect(overlay).toBeInTheDocument();
-      expect(overlay).toHaveStyle({ display: 'none' });
+      expect(overlay).toHaveClass('hidden');
     });
 
     it('should be visible when keepMounted is true and open is true', () => {
@@ -360,7 +361,7 @@ describe('Overlay Component Tests', () => {
 
       const overlay = container.querySelector('.vane-overlay') as HTMLElement;
       expect(overlay).toBeInTheDocument();
-      expect(overlay?.style.display).not.toBe('none');
+      expect(overlay).not.toHaveClass('hidden');
     });
 
     it('should have aria-hidden when keepMounted and closed', () => {
@@ -378,7 +379,7 @@ describe('Overlay Component Tests', () => {
   });
 
   describe('Dynamic Z-Index', () => {
-    it('should have z-index as inline style', () => {
+    it('should have z-index as CSS variable', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Overlay portal={false}>Content</Overlay>
@@ -386,7 +387,7 @@ describe('Overlay Component Tests', () => {
       );
 
       const overlay = container.querySelector('.vane-overlay');
-      expect(overlay).toHaveStyle({ zIndex: 51 });
+      expect(overlay).toHaveStyle({ '--z-index': '201' });
     });
   });
 

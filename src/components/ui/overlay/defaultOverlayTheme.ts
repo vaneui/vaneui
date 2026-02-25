@@ -24,7 +24,7 @@ import { overlayDefaults } from "./overlayDefaults";
 export const defaultOverlayTheme = new ComponentTheme<OverlayProps, OverlayTheme>(
   'div',
   // Base classes - only non-prop-driven styles (bg moved to overlayBackground mapper for transparent support)
-  'vane-overlay inset-0',
+  'vane-overlay inset-0 z-(--z-index)',
   {
     layout: {
       ...defaultSizedLayoutClassMappers,

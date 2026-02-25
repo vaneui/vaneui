@@ -16,8 +16,10 @@ export { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton } from "./
 export { Popup, PopupTrigger } from "./components/ui/popup";
 export type { OverlayProps } from "./components/ui/overlay";
 export type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./components/ui/modal";
+export type { CardProps, CardHeaderProps, CardBodyProps, CardFooterProps } from "./components/ui/card";
 export type { PopupProps, PopupTriggerProps, PopupTriggerMode } from "./components/ui/popup";
-export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card } from "./components/ui/layout";
+export type { ZLayer } from "./components/utils/stackingContext";
+export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card, CardHeader, CardBody, CardFooter } from "./components/ui/layout";
 export { Text, Title, Link, ExternalLinkIcon, List, ListItem, SectionTitle, PageTitle, Blockquote, type TypographyProps, type LinkProps, type ListProps } from "./components/ui/typography";
 export {
   COMPONENT,

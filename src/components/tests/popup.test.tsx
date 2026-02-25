@@ -608,7 +608,7 @@ describe('Popup Component Tests', () => {
 
       const popup = baseElement.querySelector('.vane-popup');
       expect(popup).toBeInTheDocument();
-      expect(popup).toHaveStyle({ display: 'none' });
+      expect(popup).toHaveClass('hidden');
     });
 
     it('should be visible when keepMounted is true and open is true', () => {
@@ -623,7 +623,7 @@ describe('Popup Component Tests', () => {
 
       const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
       expect(popup).toBeInTheDocument();
-      expect(popup?.style.display).not.toBe('none');
+      expect(popup).not.toHaveClass('hidden');
     });
 
     it('should have aria-hidden when keepMounted and closed', () => {
@@ -642,7 +642,7 @@ describe('Popup Component Tests', () => {
   });
 
   describe('Dynamic Z-Index', () => {
-    it('should have z-index as inline style', () => {
+    it('should have z-index as CSS variable', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
@@ -653,7 +653,7 @@ describe('Popup Component Tests', () => {
       );
 
       const popup = baseElement.querySelector('.vane-popup');
-      expect(popup).toHaveStyle({ zIndex: 51 });
+      expect(popup).toHaveStyle({ '--z-index': '301' });
     });
   });
 

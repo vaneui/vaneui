@@ -9,6 +9,9 @@ import { iconDefaults } from '../icon/iconDefaults';
 import { chipDefaults } from '../chip/chipDefaults';
 import { codeDefaults } from '../code/codeDefaults';
 import { cardDefaults } from '../card/cardDefaults';
+import { cardHeaderDefaults } from '../card/cardHeaderDefaults';
+import { cardBodyDefaults } from '../card/cardBodyDefaults';
+import { cardFooterDefaults } from '../card/cardFooterDefaults';
 import { dividerDefaults } from '../divider/dividerDefaults';
 import { containerDefaults } from '../container/containerDefaults';
 import { rowDefaults } from '../row/rowDefaults';
@@ -55,7 +58,12 @@ export const themeDefaults: ThemeDefaults = {
   icon: iconDefaults,
   chip: chipDefaults,
   code: codeDefaults,
-  card: cardDefaults,
+  card: {
+    main: cardDefaults,
+    header: cardHeaderDefaults,
+    body: cardBodyDefaults,
+    footer: cardFooterDefaults,
+  },
   divider: dividerDefaults,
   container: containerDefaults,
   row: rowDefaults,

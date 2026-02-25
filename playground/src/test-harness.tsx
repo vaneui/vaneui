@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   ThemeProvider,
@@ -12,6 +12,11 @@ import {
   Kbd,
   Mark,
   Link,
+  Overlay,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Popup,
 } from '../../src';
 
 // Import VaneUI CSS
@@ -24,6 +29,84 @@ const StarIcon = () => (
     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
   </svg>
 );
+
+/**
+ * Z-index stacking test fixtures.
+ * All components are always-open so e2e tests can read computed z-index.
+ */
+function ZIndexFixtures() {
+  const popupAnchorRef = useRef<HTMLButtonElement>(null);
+  const nestedPopupAnchorRef = useRef<HTMLButtonElement>(null);
+
+  return (
+    <section data-testid="z-index-section">
+      {/* 1. Standalone Overlay — should get z-index 201 (overlay base 200 + stack 1) */}
+      <Overlay
+        open
+        noAnimation
+        portal={false}
+        pointerEventsNone
+        data-testid="z-overlay-standalone"
+      >
+        <Text>Standalone overlay</Text>
+      </Overlay>
+
+      {/* 2. Modal — overlay gets z-index, content sits inside it */}
+      <Modal
+        open
+        noAnimation
+        portal={false}
+        closeOnOverlayClick={false}
+        closeOnEscape={false}
+        scrollLock={false}
+        focusTrap={false}
+        overlayProps={{
+          pointerEventsNone: true,
+          'data-testid': 'z-modal-overlay',
+        } as any}
+        data-testid="z-modal-content"
+      >
+        <ModalHeader>Modal title</ModalHeader>
+        <ModalBody>
+          <Text>Modal body</Text>
+          {/* Anchor button for a popup nested inside the modal */}
+          <button ref={nestedPopupAnchorRef} data-testid="z-nested-popup-anchor">
+            Nested popup anchor
+          </button>
+        </ModalBody>
+      </Modal>
+
+      {/* 3. Popup nested inside the same stacking context — popup tier (300 + stack) */}
+      <Popup
+        open
+        noAnimation
+        portal={false}
+        anchorRef={nestedPopupAnchorRef}
+        closeOnEscape={false}
+        closeOnClickOutside={false}
+        data-testid="z-popup-nested"
+      >
+        <Text>Popup inside modal</Text>
+      </Popup>
+
+      {/* 4. Standalone popup anchored to its own button */}
+      <button ref={popupAnchorRef} data-testid="z-popup-anchor" style={{ position: 'relative' }}>
+        Popup anchor
+      </button>
+      <Popup
+        open
+        noAnimation
+        portal={false}
+        anchorRef={popupAnchorRef}
+        closeOnEscape={false}
+        closeOnClickOutside={false}
+        data-testid="z-popup-standalone"
+      >
+        <Text>Standalone popup</Text>
+      </Popup>
+    </section>
+  );
+}
 
 function TestHarness() {
   return (
@@ -148,6 +231,31 @@ function TestHarness() {
           <Mark xl data-testid="mark-xl">XL mark</Mark>
         </section>
 
+        {/* ── Card gap vs padding ratio ── */}
+
+        <section data-testid="card-gap-padding">
+          <Card xs data-testid="card-gap-xs">
+            <Text>Item 1</Text>
+            <Text>Item 2</Text>
+          </Card>
+          <Card sm data-testid="card-gap-sm">
+            <Text>Item 1</Text>
+            <Text>Item 2</Text>
+          </Card>
+          <Card data-testid="card-gap-md">
+            <Text>Item 1</Text>
+            <Text>Item 2</Text>
+          </Card>
+          <Card lg data-testid="card-gap-lg">
+            <Text>Item 1</Text>
+            <Text>Item 2</Text>
+          </Card>
+          <Card xl data-testid="card-gap-xl">
+            <Text>Item 1</Text>
+            <Text>Item 2</Text>
+          </Card>
+        </section>
+
         {/* ── Link external ── */}
 
         <section data-testid="link-section">
@@ -156,6 +264,10 @@ function TestHarness() {
           <Link href="https://example.com" external xs data-testid="link-external-xs">XS</Link>
           <Link href="https://example.com" external xl data-testid="link-external-xl">XL</Link>
         </section>
+
+        {/* ── Z-Index stacking ── */}
+
+        <ZIndexFixtures />
 
       </div>
     </ThemeProvider>

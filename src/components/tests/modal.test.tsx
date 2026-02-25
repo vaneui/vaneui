@@ -656,12 +656,7 @@ describe('Modal Component Tests', () => {
       );
 
       const modal = baseElement.querySelector('.vane-modal');
-      expect(modal).toHaveStyle({
-        width: '100vw',
-        height: '100vh',
-        maxWidth: 'none',
-        maxHeight: 'none',
-      });
+      expect(modal).toHaveClass('w-screen', 'h-screen', 'max-w-none', 'max-h-none');
       // borderRadius: 0 is now handled via the 'sharp' boolean prop (rounded-none class)
       expect(modal).toHaveClass('rounded-none');
     });
@@ -694,7 +689,7 @@ describe('Modal Component Tests', () => {
 
       const overlay = baseElement.querySelector('.vane-overlay');
       expect(overlay).toBeInTheDocument();
-      expect(overlay).toHaveStyle({ display: 'none' });
+      expect(overlay).toHaveClass('hidden');
     });
 
     it('should be visible when keepMounted is true and open is true', () => {
@@ -708,13 +703,12 @@ describe('Modal Component Tests', () => {
 
       const overlay = baseElement.querySelector('.vane-overlay') as HTMLElement;
       expect(overlay).toBeInTheDocument();
-      // Should not have display:none
-      expect(overlay?.style.display).not.toBe('none');
+      expect(overlay).not.toHaveClass('hidden');
     });
   });
 
   describe('Dynamic Z-Index', () => {
-    it('should have z-index as inline style', () => {
+    it('should have z-index as CSS variable', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
           <Modal open={true} onClose={() => {}}>
@@ -724,7 +718,7 @@ describe('Modal Component Tests', () => {
       );
 
       const overlay = baseElement.querySelector('.vane-overlay');
-      expect(overlay).toHaveStyle({ zIndex: 51 });
+      expect(overlay).toHaveStyle({ '--z-index': '201' });
     });
   });
 

@@ -4,5 +4,5 @@ export { Container } from './container';
 export { Col } from './col/Col';
 export { Row } from './row/Row';
 export { Grid2, Grid3, Grid4, Grid5, Grid6 } from './grid';
-export { Card } from './card';
+export { Card, CardHeader, CardBody, CardFooter } from './card';
 export { Stack } from './stack';
