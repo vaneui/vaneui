@@ -56,6 +56,14 @@ jobs:
         env:
           CI: true
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E Tests
+        run: npm run test:e2e
+        env:
+          CI: true
+
       - name: Check Build and Test Results
         if: failure()
         run: |
