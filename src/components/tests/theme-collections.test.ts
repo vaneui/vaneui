@@ -101,6 +101,7 @@ describe('Theme structure consistency', () => {
       overlay: {},
       modal: {},
       popup: {},
+      menu: {},
     };
 
     // At runtime, also ensure the keys align with COMPONENT

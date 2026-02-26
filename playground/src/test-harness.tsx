@@ -17,6 +17,11 @@ import {
   ModalHeader,
   ModalBody,
   Popup,
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  Divider,
 } from '../../src';
 
 // Import VaneUI CSS
@@ -268,6 +273,29 @@ function TestHarness() {
         {/* ── Z-Index stacking ── */}
 
         <ZIndexFixtures />
+
+        {/* ── Menu (after z-index fixtures to avoid affecting stacking counts) ── */}
+
+        <section data-testid="menu-section">
+          {/* Size variants - always-open menus for measuring computed styles */}
+          <Menu defaultOpen>
+            <MenuTrigger>
+              <Button data-testid="menu-trigger-default">Menu</Button>
+            </MenuTrigger>
+            <MenuContent noAnimation portal={false} closeOnClickOutside={false} closeOnEscape={false}>
+              <MenuItem xs data-testid="menu-item-xs">XS item</MenuItem>
+              <MenuItem sm data-testid="menu-item-sm">SM item</MenuItem>
+              <MenuItem data-testid="menu-item-md">MD item</MenuItem>
+              <MenuItem lg data-testid="menu-item-lg">LG item</MenuItem>
+              <MenuItem xl data-testid="menu-item-xl">XL item</MenuItem>
+              <Divider />
+              <MenuItem primary data-testid="menu-item-primary">Primary</MenuItem>
+              <MenuItem danger data-testid="menu-item-danger">Danger</MenuItem>
+              <MenuItem success data-testid="menu-item-success">Success</MenuItem>
+              <MenuItem disabled data-testid="menu-item-disabled">Disabled</MenuItem>
+            </MenuContent>
+          </Menu>
+        </section>
 
       </div>
     </ThemeProvider>

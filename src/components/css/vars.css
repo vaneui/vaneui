@@ -534,6 +534,25 @@
     .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8; }
     .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; }
 
+    /* MenuItem - compact interactive items for dropdown menus */
+    .vane-menu-item { --lh: var(--lh-base); --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.15; }
+    .vane-menu-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-menu-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.25; }
+    .vane-menu-item[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1.5; }
+    .vane-menu-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
+    .vane-menu-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
+
+    /* MenuSeparator - compact spacing for menu dividers */
+    .vane-menu-separator { --py-unit: 0.5; }
+
+    /* MenuLabel - compact non-interactive section heading */
+    .vane-menu-label { --lh: var(--lh-base); --py-unit: 1; --aspect-ratio: 2; --br-unit: 0.15; }
+    .vane-menu-label[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.75; }
+    .vane-menu-label[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1; }
+    .vane-menu-label[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1; }
+    .vane-menu-label[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 1.25; }
+    .vane-menu-label[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 1.5; }
+
     /* Popup - equal padding for floating content (matches layout defaults) */
     .vane-popup { --py-unit: 4; --aspect-ratio: 1; }
     .vane-popup[data-size="xs"] { --br-unit: 1.5; --py-unit: 2; --popup-max-height: 12rem; --popup-arrow-size: 5px; }
@@ -541,6 +560,9 @@
     .vane-popup[data-size="md"] { --br-unit: 2.5; --py-unit: 4; --popup-max-height: 20rem; --popup-arrow-size: 7px; }
     .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --popup-max-height: 24rem; --popup-arrow-size: 8px; }
     .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --popup-max-height: 28rem; --popup-arrow-size: 10px; }
+
+    /* Menu dropdown - compact vertical padding (overrides popup size rules) */
+    .vane-popup[data-menu-dropdown] { --py-unit: 1; }
 
     /* ========================================
        ANIMATIONS

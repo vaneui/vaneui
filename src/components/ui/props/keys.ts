@@ -81,6 +81,7 @@ import { MODAL_CATEGORIES } from '../modal/ModalCategories';
 import { POPUP_CATEGORIES } from '../popup/PopupCategories';
 import { CHECKBOX_CATEGORIES } from '../checkbox/CheckboxCategories';
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from '../typography/common/TypographyCategories';
+import { MENU_ITEM_CATEGORIES } from '../menu/MenuItemCategories';
 
 // Re-export for backward compatibility
 export { BADGE_CATEGORIES };
@@ -104,6 +105,7 @@ export { MODAL_CATEGORIES };
 export { POPUP_CATEGORIES };
 export { CHECKBOX_CATEGORIES };
 export { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES };
+export { MENU_ITEM_CATEGORIES };
 
 /** Blur effect property for backdrop blur */
 export const BLUR = ['blur'] as const;
@@ -395,7 +397,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'overlay', 'modal', 'popup'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'overlay', 'modal', 'popup', 'menu'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -435,5 +437,6 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   title: TYPOGRAPHY_CATEGORIES,
   overlay: OVERLAY_CATEGORIES,
   modal: MODAL_CATEGORIES,
-  popup: POPUP_CATEGORIES
+  popup: POPUP_CATEGORIES,
+  menu: MENU_ITEM_CATEGORIES,
 }

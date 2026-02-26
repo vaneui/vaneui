@@ -9,7 +9,12 @@ import { useModalContext } from './ModalContext';
  * Reads `onClose` from Modal's context automatically.
  * Place it wherever you want: inside ModalHeader, ModalBody, or directly in Modal.
  *
- * Uses the button theme with `secondary transparent` appearance.
+ * Renders through `theme.button.main` with appearance controlled by
+ * `theme.modal.closeButton.defaults`. Customizable via ThemeProvider:
+ *
+ * ```tsx
+ * <ThemeProvider themeDefaults={{ modal: { closeButton: { primary: true } } }}>
+ * ```
  *
  * @example
  * ```tsx
@@ -43,17 +48,12 @@ export const ModalCloseButton = forwardRef<HTMLButtonElement, React.ComponentPro
         theme={theme.button.main}
         tag="button"
         className="vane-modal-close"
-        {...{
-          type: 'button',
-          secondary: true,
-          transparent: true,
-          noShadow: true,
-          noRing: true,
-          onClick: modalCtx?.onClose,
-          'aria-label': 'Close',
-          ref,
-          ...props,
-        }}
+        type="button"
+        onClick={modalCtx?.onClose}
+        aria-label="Close"
+        ref={ref}
+        {...theme.modal.closeButton.defaults}
+        {...props}
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="M4 4l8 8M12 4l-8 8" />

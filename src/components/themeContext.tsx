@@ -70,11 +70,13 @@ import type { ModalContentTheme } from './ui/modal/ModalContentTheme';
 import type { ModalHeaderTheme } from './ui/modal/ModalHeaderTheme';
 import type { ModalBodyTheme } from './ui/modal/ModalBodyTheme';
 import type { ModalFooterTheme } from './ui/modal/ModalFooterTheme';
+import type { ModalCloseButtonTheme } from './ui/modal/ModalCloseButtonTheme';
 import { defaultModalContentTheme } from './ui/modal/defaultModalContentTheme';
 import { defaultModalOverlayTheme } from './ui/modal/defaultModalOverlayTheme';
 import { defaultModalHeaderTheme } from './ui/modal/defaultModalHeaderTheme';
 import { defaultModalBodyTheme } from './ui/modal/defaultModalBodyTheme';
 import { defaultModalFooterTheme } from './ui/modal/defaultModalFooterTheme';
+import { defaultModalCloseButtonTheme } from './ui/modal/defaultModalCloseButtonTheme';
 import type { PopupTheme } from './ui/popup/PopupTheme';
 import { defaultPopupTheme } from './ui/popup/defaultPopupTheme';
 import type { BadgeProps } from "./ui/badge/BadgeProps";
@@ -102,6 +104,7 @@ import type { ImgProps } from "./ui/img";
 import type { InputProps } from "./ui/input";
 import type { OverlayProps } from "./ui/overlay";
 import type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./ui/modal";
+import type { ModalCloseButtonProps } from "./ui/modal/ModalCloseButtonProps";
 import type { PopupProps } from "./ui/popup";
 import type { IconButtonTheme } from './ui/iconButton/IconButtonTheme';
 import { defaultIconButtonTheme } from './ui/iconButton/defaultIconButtonTheme';
@@ -116,6 +119,21 @@ import type { KbdProps } from "./ui/kbd/KbdProps";
 import type { MarkTheme } from './ui/mark/MarkTheme';
 import { defaultMarkTheme } from './ui/mark/defaultMarkTheme';
 import type { MarkProps } from "./ui/mark/MarkProps";
+import type { MenuItemTheme } from './ui/menu/MenuItemTheme';
+import { defaultMenuItemTheme } from './ui/menu/defaultMenuItemTheme';
+import type { MenuItemProps } from "./ui/menu/MenuItemProps";
+import type { MenuContentTheme } from './ui/menu/MenuContentTheme';
+import { defaultMenuContentTheme } from './ui/menu/defaultMenuContentTheme';
+import type { MenuContentProps } from './ui/menu/MenuContentProps';
+import type { MenuSeparatorTheme } from './ui/menu/MenuSeparatorTheme';
+import { defaultMenuSeparatorTheme } from './ui/menu/defaultMenuSeparatorTheme';
+import type { MenuSeparatorProps } from './ui/menu/MenuSeparatorProps';
+import type { MenuGroupTheme } from './ui/menu/MenuGroupTheme';
+import { defaultMenuGroupTheme } from './ui/menu/defaultMenuGroupTheme';
+import type { MenuGroupProps } from './ui/menu/MenuGroupProps';
+import type { MenuLabelTheme } from './ui/menu/MenuLabelTheme';
+import { defaultMenuLabelTheme } from './ui/menu/defaultMenuLabelTheme';
+import type { MenuLabelProps } from './ui/menu/MenuLabelProps';
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
@@ -177,8 +195,16 @@ export interface ThemeProps {
     header: ComponentTheme<ModalHeaderProps, ModalHeaderTheme>;
     body: ComponentTheme<ModalBodyProps, ModalBodyTheme>;
     footer: ComponentTheme<ModalFooterProps, ModalFooterTheme>;
+    closeButton: ComponentTheme<ModalCloseButtonProps, ModalCloseButtonTheme>;
   };
   popup: ComponentTheme<PopupProps, PopupTheme>;
+  menu: {
+    content: ComponentTheme<MenuContentProps, MenuContentTheme>;
+    item: ComponentTheme<MenuItemProps, MenuItemTheme>;
+    separator: ComponentTheme<MenuSeparatorProps, MenuSeparatorTheme>;
+    group: ComponentTheme<MenuGroupProps, MenuGroupTheme>;
+    label: ComponentTheme<MenuLabelProps, MenuLabelTheme>;
+  };
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -241,8 +267,16 @@ export const defaultTheme: ThemeProps = {
     header: defaultModalHeaderTheme,
     body: defaultModalBodyTheme,
     footer: defaultModalFooterTheme,
+    closeButton: defaultModalCloseButtonTheme,
   },
   popup: defaultPopupTheme,
+  menu: {
+    content: defaultMenuContentTheme,
+    item: defaultMenuItemTheme,
+    separator: defaultMenuSeparatorTheme,
+    group: defaultMenuGroupTheme,
+    label: defaultMenuLabelTheme,
+  },
 };
 
 /**
@@ -321,8 +355,16 @@ export type ThemeDefaults = {
     header?: Partial<BooleanKeys<ModalHeaderProps>>;
     body?: Partial<BooleanKeys<ModalBodyProps>>;
     footer?: Partial<BooleanKeys<ModalFooterProps>>;
+    closeButton?: Partial<BooleanKeys<ModalCloseButtonProps>>;
   };
   popup?: Partial<BooleanKeys<PopupProps>>;
+  menu?: {
+    content?: Partial<BooleanKeys<MenuContentProps>>;
+    item?: Partial<BooleanKeys<MenuItemProps>>;
+    separator?: Partial<BooleanKeys<MenuSeparatorProps>>;
+    group?: Partial<BooleanKeys<MenuGroupProps>>;
+    label?: Partial<BooleanKeys<MenuLabelProps>>;
+  };
 };
 
 // ThemeExtraClasses mirrors the structure of ThemeProps
@@ -386,8 +428,16 @@ export type ThemeExtraClasses = {
     header?: Partial<StringValueKeys<ModalHeaderProps>>;
     body?: Partial<StringValueKeys<ModalBodyProps>>;
     footer?: Partial<StringValueKeys<ModalFooterProps>>;
+    closeButton?: Partial<StringValueKeys<ModalCloseButtonProps>>;
   };
   popup?: Partial<StringValueKeys<PopupProps>>;
+  menu?: {
+    content?: Partial<StringValueKeys<MenuContentProps>>;
+    item?: Partial<StringValueKeys<MenuItemProps>>;
+    separator?: Partial<StringValueKeys<MenuSeparatorProps>>;
+    group?: Partial<StringValueKeys<MenuGroupProps>>;
+    label?: Partial<StringValueKeys<MenuLabelProps>>;
+  };
 };
 
 /**

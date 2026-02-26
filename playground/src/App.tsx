@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -10,129 +11,131 @@ import {
   Container,
   Divider,
   Code,
+  Button,
+  Badge,
   PageTitle,
   SectionTitle,
-  Link,
-  Blockquote,
-  type ThemeProps
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  MenuGroup,
+  MenuLabel,
 } from '../../src';
 
-// Custom icon for demos
-const ArrowRightIcon = () => (
+// Icons for demos
+const ChevronDownIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
        strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-       aria-hidden="true">
-    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+       width="16" height="16" aria-hidden="true">
+    <path d="m6 9 6 6 6-6" />
   </svg>
 );
 
-const LockIcon = () => (
+const EditIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
        strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-       aria-hidden="true">
-    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+       width="16" height="16" aria-hidden="true">
+    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+  </svg>
+);
+
+const TrashIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+       width="16" height="16" aria-hidden="true">
+    <path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
   </svg>
 );
 
 function App() {
+  const [lastAction, setLastAction] = useState('(none)');
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Section className="w-full">
         <Container itemsCenter className="w-full">
-          <PageTitle>Link — startIcon / endIcon with Sub-Theme</PageTitle>
+          <PageTitle>Menu Component</PageTitle>
           <Text secondary>
-            Icons use a <Code>link.icon</Code> sub-theme (like Checkbox's multi-theme pattern).
-            The <Code>inline-flex</Code> and <Code>items-center</Code> classes come from boolean prop defaults,
-            not hardcoded CSS.
+            Dropdown menu built on top of <Code>Popup</Code> with keyboard navigation,
+            ARIA roles, and focus management.
           </Text>
 
           {/* ═══ BASIC ════════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>Basic External Links</SectionTitle>
+          <SectionTitle>Basic Usage</SectionTitle>
 
           <Card>
-            <Title>Default External Link (endIcon via theme)</Title>
+            <Title>Default Menu</Title>
             <Text sm secondary>
-              The <Code sm>external</Code> prop auto-sets <Code sm>endIcon</Code> from the theme factory,
-              <Code sm>{'target="_blank"'}</Code>, and <Code sm>{'rel="noopener noreferrer"'}</Code>.
+              Click the trigger to open. Items close the menu on click.
+              Arrow keys navigate, Escape closes. Uses <Code sm>MenuSeparator</Code> instead of Divider.
             </Text>
-            <Stack noGap noPadding>
-              <Text><Link href="https://github.com" external>GitHub</Link> — default external link</Text>
-              <Text><Link href="https://react.dev" external>React Documentation</Link> — icon inline with text</Text>
-              <Text>Regular: <Link href="/about">About page</Link> (no icon, same tab)</Text>
-            </Stack>
+            <Row>
+              <Menu>
+                <MenuTrigger>
+                  <Button>Actions <ChevronDownIcon /></Button>
+                </MenuTrigger>
+                <MenuContent>
+                  <MenuItem onClick={() => setLastAction('Edit')}>
+                    <EditIcon /> Edit
+                  </MenuItem>
+                  <MenuItem onClick={() => setLastAction('Duplicate')}>
+                    Duplicate
+                  </MenuItem>
+                  <MenuSeparator />
+                  <MenuItem danger onClick={() => setLastAction('Delete')}>
+                    <TrashIcon /> Delete
+                  </MenuItem>
+                </MenuContent>
+              </Menu>
+              <Text sm secondary>Last action: <Code sm>{lastAction}</Code></Text>
+            </Row>
           </Card>
 
-          {/* ═══ startIcon / endIcon ═══════════════════════════════════════ */}
+          <Card>
+            <Title>Disabled Items</Title>
+            <Text sm secondary>
+              Disabled items are skipped by keyboard navigation and show reduced opacity.
+            </Text>
+            <Menu>
+              <MenuTrigger>
+                <Button secondary>Options</Button>
+              </MenuTrigger>
+              <MenuContent>
+                <MenuItem>Available action</MenuItem>
+                <MenuItem disabled>Locked action</MenuItem>
+                <MenuItem disabled>Another locked</MenuItem>
+                <MenuItem>Available action 2</MenuItem>
+              </MenuContent>
+            </Menu>
+          </Card>
+
+          {/* ═══ SIZES ═════════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>startIcon &amp; endIcon</SectionTitle>
+          <SectionTitle>Size Variants</SectionTitle>
 
           <Card>
-            <Title>startIcon — Icon Before Text</Title>
+            <Title>MenuItem Sizes</Title>
             <Text sm secondary>
-              <Code sm>startIcon</Code> renders before the link text inside a <Code sm>.vane-link-start-icon</Code> wrapper.
+              Menu items support all 5 size variants via boolean props.
             </Text>
-            <Stack noGap noPadding>
-              <Text><Link href="#" startIcon={<LockIcon />}>Secure Link</Link> — lock icon before text</Text>
-              <Text><Link href="#" startIcon={<ArrowRightIcon />}>Navigate Forward</Link> — arrow before text</Text>
-            </Stack>
-          </Card>
-
-          <Card>
-            <Title>endIcon — Icon After Text</Title>
-            <Text sm secondary>
-              <Code sm>endIcon</Code> renders after the link text. When <Code sm>external</Code> is set,
-              <Code sm>endIcon</Code> overrides the theme's default icon.
-            </Text>
-            <Stack noGap noPadding>
-              <Text><Link href="#" endIcon={<ArrowRightIcon />}>Continue Reading</Link> — arrow after text</Text>
-              <Text>
-                <Link href="https://example.com" external endIcon={<ArrowRightIcon />}>
-                  Custom external icon
-                </Link> — overrides theme SVG
-              </Text>
-              <Text>
-                <Link href="https://example.com" external endIcon={null}>
-                  External, no icon
-                </Link> — endIcon=null suppresses icon
-              </Text>
-            </Stack>
-          </Card>
-
-          <Card>
-            <Title>Both startIcon and endIcon</Title>
-            <Stack noGap noPadding>
-              <Text>
-                <Link href="#" startIcon={<LockIcon />} endIcon={<ArrowRightIcon />}>
-                  Secure Navigation
-                </Link>
-              </Text>
-              <Text>
-                <Link href="https://example.com" external startIcon={<LockIcon />}>
-                  Secure External
-                </Link> — startIcon + theme external icon
-              </Text>
-            </Stack>
-          </Card>
-
-          {/* ═══ SIZING ═══════════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Size Scaling</SectionTitle>
-
-          <Card>
-            <Title>Icons Scale with Link Size</Title>
-            <Text sm secondary>
-              Icon wrapper passes size props to the sub-theme. SVG sizing inherits
-              from <Code sm>{'--icon-size: var(--fs)'}</Code>.
-            </Text>
-            <Stack noGap noPadding>
-              <Text xs><Link href="https://example.com" xs external>Extra small external link</Link></Text>
-              <Text sm><Link href="https://example.com" sm external>Small external link</Link></Text>
-              <Text><Link href="https://example.com" external>Medium external link (default)</Link></Text>
-              <Text lg><Link href="https://example.com" lg external>Large external link</Link></Text>
-              <Text xl><Link href="https://example.com" xl external>Extra large external link</Link></Text>
-            </Stack>
+            <Row flexWrap>
+              {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+                <Menu key={size}>
+                  <MenuTrigger>
+                    <Button {...{ [size]: true }}>{size}</Button>
+                  </MenuTrigger>
+                  <MenuContent>
+                    <MenuItem {...{ [size]: true }}>First item</MenuItem>
+                    <MenuItem {...{ [size]: true }}>Second item</MenuItem>
+                    <MenuItem {...{ [size]: true }}>Third item</MenuItem>
+                  </MenuContent>
+                </Menu>
+              ))}
+            </Row>
           </Card>
 
           {/* ═══ APPEARANCES ══════════════════════════════════════════════ */}
@@ -140,72 +143,140 @@ function App() {
           <SectionTitle>Appearance Variants</SectionTitle>
 
           <Card>
-            <Title>Color Inheritance</Title>
+            <Title>Mixed Appearances</Title>
             <Text sm secondary>
-              SVG uses <Code sm>stroke="currentColor"</Code> — inherits the link's text color.
+              Individual items can have different appearance props, useful for
+              highlighting destructive or informational actions.
             </Text>
-            <Row flexWrap>
-              <Link href="#" external>link (default)</Link>
-              <Link href="#" external primary>primary</Link>
-              <Link href="#" external brand>brand</Link>
-              <Link href="#" external accent>accent</Link>
-              <Link href="#" external success>success</Link>
-              <Link href="#" external danger>danger</Link>
-              <Link href="#" external warning>warning</Link>
-              <Link href="#" external info>info</Link>
-              <Link href="#" external secondary>secondary</Link>
-            </Row>
+            <Menu>
+              <MenuTrigger>
+                <Button>File</Button>
+              </MenuTrigger>
+              <MenuContent>
+                <MenuItem>New File</MenuItem>
+                <MenuItem>Open</MenuItem>
+                <MenuItem info>Save As...</MenuItem>
+                <MenuSeparator />
+                <MenuItem warning>Export</MenuItem>
+                <MenuItem danger>Delete Project</MenuItem>
+              </MenuContent>
+            </Menu>
           </Card>
 
-          {/* ═══ OVERRIDE PATTERNS ════════════════════════════════════════ */}
+          {/* ═══ GROUPED MENUS ═════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>Override Patterns</SectionTitle>
+          <SectionTitle>Grouped Menus</SectionTitle>
 
           <Card>
-            <Title>Global Override (ThemeProvider)</Title>
+            <Title>MenuGroup + MenuLabel</Title>
             <Text sm secondary>
-              Override <Code sm>theme.link.main.themes.externalIcon</Code> via <Code sm>themeOverride</Code>.
+              Use <Code sm>MenuGroup</Code> to cluster related items with an
+              optional <Code sm>label</Code> prop. <Code sm>MenuSeparator</Code> divides sections.
             </Text>
-            <ThemeProvider themeOverride={(theme: ThemeProps) => {
-              theme.link.main.themes.externalIcon = () => <ArrowRightIcon />;
-              return theme;
-            }}>
-              <Stack noGap noPadding>
-                <Text>
-                  <Link href="https://example.com" external>All links use arrow icon</Link>
-                </Text>
-                <Text>
-                  <Link href="https://docs.example.com" external>Documentation</Link> — same global icon
-                </Text>
-              </Stack>
-            </ThemeProvider>
+            <Menu>
+              <MenuTrigger>
+                <Button>Account <ChevronDownIcon /></Button>
+              </MenuTrigger>
+              <MenuContent>
+                <MenuGroup label="Actions">
+                  <MenuItem onClick={() => setLastAction('Edit Profile')}>
+                    <EditIcon /> Edit Profile
+                  </MenuItem>
+                  <MenuItem onClick={() => setLastAction('Settings')}>
+                    Settings
+                  </MenuItem>
+                </MenuGroup>
+                <MenuSeparator />
+                <MenuGroup label="Danger Zone">
+                  <MenuItem danger onClick={() => setLastAction('Delete Account')}>
+                    <TrashIcon /> Delete Account
+                  </MenuItem>
+                </MenuGroup>
+              </MenuContent>
+            </Menu>
           </Card>
 
-          {/* ═══ IN CONTEXT ═══════════════════════════════════════════════ */}
+          <Card>
+            <Title>Standalone MenuLabel</Title>
+            <Text sm secondary>
+              <Code sm>MenuLabel</Code> can also be used directly without <Code sm>MenuGroup</Code>.
+            </Text>
+            <Menu>
+              <MenuTrigger>
+                <Button secondary>View <ChevronDownIcon /></Button>
+              </MenuTrigger>
+              <MenuContent>
+                <MenuLabel>Layout</MenuLabel>
+                <MenuItem>Grid</MenuItem>
+                <MenuItem>List</MenuItem>
+                <MenuSeparator />
+                <MenuLabel>Sort By</MenuLabel>
+                <MenuItem>Name</MenuItem>
+                <MenuItem>Date</MenuItem>
+                <MenuItem>Size</MenuItem>
+              </MenuContent>
+            </Menu>
+          </Card>
+
+          {/* ═══ REAL-WORLD ════════════════════════════════════════════════ */}
           <Divider />
           <SectionTitle>Real-World Context</SectionTitle>
 
           <Card>
-            <Title>Inline in Body Text</Title>
-            <Stack noGap noPadding>
-              <Text>
-                Check the source on <Link href="https://github.com" external>GitHub</Link> and
-                read the <Link href="https://docs.example.com" external>documentation</Link> for setup.
-              </Text>
-              <Text>
-                Built with <Link href="https://react.dev" external>React</Link>,{' '}
-                <Link href="https://tailwindcss.com" external>Tailwind CSS</Link>, and{' '}
-                <Link href="https://www.typescriptlang.org" external>TypeScript</Link>.
-              </Text>
-            </Stack>
+            <Title>Card Actions Dropdown</Title>
+            <Text sm secondary>
+              Menu inside a card header — a common pattern for entity actions.
+            </Text>
+            <Card>
+              <Row justifyBetween>
+                <Stack noPadding noGap>
+                  <Title>Project Alpha</Title>
+                  <Row>
+                    <Badge success filled>Active</Badge>
+                    <Text sm secondary>3 members</Text>
+                  </Row>
+                </Stack>
+                <Menu>
+                  <MenuTrigger>
+                    <Button secondary sm>
+                      Manage <ChevronDownIcon />
+                    </Button>
+                  </MenuTrigger>
+                  <MenuContent>
+                    <MenuItem onClick={() => setLastAction('Edit Project')}>
+                      <EditIcon /> Edit Project
+                    </MenuItem>
+                    <MenuItem onClick={() => setLastAction('Archive')}>
+                      Archive
+                    </MenuItem>
+                    <MenuItem onClick={() => setLastAction('Settings')}>
+                      Settings
+                    </MenuItem>
+                    <MenuSeparator />
+                    <MenuItem danger onClick={() => setLastAction('Delete Project')}>
+                      <TrashIcon /> Delete Project
+                    </MenuItem>
+                  </MenuContent>
+                </Menu>
+              </Row>
+            </Card>
           </Card>
 
           <Card>
-            <Title>Inside Blockquote</Title>
-            <Blockquote info>
-              See the <Link href="https://example.com/api" external>API reference</Link> for
-              all available endpoints and <Link href="https://example.com/auth" external>authentication docs</Link> for setup.
-            </Blockquote>
+            <Title>closeOnItemClick={'{false}'}</Title>
+            <Text sm secondary>
+              Menu stays open after clicking items. Useful for multi-select or filter menus.
+            </Text>
+            <Menu closeOnItemClick={false}>
+              <MenuTrigger>
+                <Button>Filters</Button>
+              </MenuTrigger>
+              <MenuContent>
+                <MenuItem onClick={() => setLastAction('Toggle: Active')}>Active</MenuItem>
+                <MenuItem onClick={() => setLastAction('Toggle: Archived')}>Archived</MenuItem>
+                <MenuItem onClick={() => setLastAction('Toggle: Draft')}>Draft</MenuItem>
+              </MenuContent>
+            </Menu>
           </Card>
 
         </Container>

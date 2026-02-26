@@ -1,0 +1,866 @@
+import '@testing-library/jest-dom';
+import { render, fireEvent, act } from '@testing-library/react';
+
+import {
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  MenuGroup,
+  MenuLabel,
+  Button,
+  Divider,
+  ThemeProvider,
+  defaultTheme
+} from '../../index';
+
+// Helper to render menu in a theme provider
+function renderMenu(ui: React.ReactElement) {
+  return render(
+    <ThemeProvider theme={defaultTheme}>
+      {ui}
+    </ThemeProvider>
+  );
+}
+
+// Use fake timers for transition-related tests
+beforeEach(() => {
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  jest.useRealTimers();
+});
+
+describe('Menu Component Tests', () => {
+
+  // =========================================================================
+  // MenuItem rendering
+  // =========================================================================
+  describe('MenuItem', () => {
+    it('should render as a button by default with role="menuitem"', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Edit</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]');
+      expect(item).toBeInTheDocument();
+      expect(item!.tagName).toBe('BUTTON');
+      expect(item).toHaveAttribute('tabindex', '-1');
+      expect(item).toHaveAttribute('data-menu-item', '');
+      expect(item).toHaveAttribute('data-vane-type', 'ui');
+      expect(item).toHaveAttribute('data-size', 'md');
+      expect(item).toHaveAttribute('data-appearance', 'primary');
+      expect(item).toHaveAttribute('data-variant', 'outline');
+    });
+
+    it('should render as anchor tag when href is provided', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem href="/settings">Settings</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]');
+      expect(item).toBeInTheDocument();
+      expect(item!.tagName).toBe('A');
+      expect(item).toHaveAttribute('href', '/settings');
+    });
+
+    it('should support size variants', () => {
+      const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+      sizes.forEach(size => {
+        const sizeProps = { [size]: true };
+        const { unmount } = renderMenu(
+          <Menu defaultOpen>
+            <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+            <MenuContent>
+              <MenuItem {...sizeProps}>Item</MenuItem>
+            </MenuContent>
+          </Menu>
+        );
+
+        const item = document.body.querySelector('[role="menuitem"]');
+        expect(item).toHaveAttribute('data-size', size);
+        unmount();
+      });
+    });
+
+    it('should support appearance variants', () => {
+      const appearances = ['primary', 'secondary', 'success', 'danger', 'warning', 'info'] as const;
+
+      appearances.forEach(appearance => {
+        const appearanceProps = { [appearance]: true };
+        const { unmount } = renderMenu(
+          <Menu defaultOpen>
+            <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+            <MenuContent>
+              <MenuItem {...appearanceProps}>Item</MenuItem>
+            </MenuContent>
+          </Menu>
+        );
+
+        const item = document.body.querySelector('[role="menuitem"]');
+        expect(item).toHaveAttribute('data-appearance', appearance);
+        unmount();
+      });
+    });
+
+    it('should not leak boolean props to DOM', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem danger filled lg>Item</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]');
+      expect(item).toBeInTheDocument();
+      // Boolean props should be consumed by theme, not rendered as HTML attributes
+      expect(item).not.toHaveAttribute('danger');
+      expect(item).not.toHaveAttribute('filled');
+      expect(item).not.toHaveAttribute('lg');
+    });
+
+    it('should pass through HTML attributes', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem data-testid="my-item" aria-label="Edit item">Edit</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[data-testid="my-item"]');
+      expect(item).toBeInTheDocument();
+      expect(item).toHaveAttribute('aria-label', 'Edit item');
+    });
+
+    it('should forward refs', () => {
+      const ref = { current: null as HTMLElement | null };
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem ref={ref}>Edit</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      expect(ref.current).toBeInstanceOf(HTMLElement);
+      expect(ref.current!.tagName).toBe('BUTTON');
+    });
+
+    it('should set disabled attributes when disabled', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem disabled>Disabled Item</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]');
+      // Theme system generates data-disabled="true"
+      expect(item).toHaveAttribute('data-disabled', 'true');
+      expect(item).toHaveAttribute('aria-disabled', 'true');
+    });
+
+    it('should not fire onClick when disabled', () => {
+      const onClick = jest.fn();
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem disabled onClick={onClick}>Disabled</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]') as HTMLElement;
+      fireEvent.click(item);
+      expect(onClick).not.toHaveBeenCalled();
+    });
+  });
+
+  // =========================================================================
+  // Menu open/close
+  // =========================================================================
+  describe('Menu open/close', () => {
+    it('should not render MenuContent when closed', () => {
+      renderMenu(
+        <Menu>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Item</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const menu = document.body.querySelector('[role="menu"]');
+      expect(menu).not.toBeInTheDocument();
+    });
+
+    it('should render MenuContent when defaultOpen is true', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Item</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const menu = document.body.querySelector('[role="menu"]');
+      expect(menu).toBeInTheDocument();
+    });
+
+    it('should toggle menu on trigger click', () => {
+      const { container } = renderMenu(
+        <Menu>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Item</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const trigger = container.querySelector('button') as HTMLElement;
+      expect(document.body.querySelector('[role="menu"]')).not.toBeInTheDocument();
+
+      // Open
+      fireEvent.click(trigger);
+      expect(document.body.querySelector('[role="menu"]')).toBeInTheDocument();
+
+      // Close — trigger sets open=false, Popup transitions out
+      fireEvent.click(trigger);
+      // Advance timers past the transition duration
+      act(() => { jest.advanceTimersByTime(300); });
+      expect(document.body.querySelector('[role="menu"]')).not.toBeInTheDocument();
+    });
+
+    it('should close menu when item is clicked', () => {
+      const onClick = jest.fn();
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem onClick={onClick}>Edit</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]') as HTMLElement;
+      fireEvent.click(item);
+      expect(onClick).toHaveBeenCalled();
+      act(() => { jest.advanceTimersByTime(300); });
+      expect(document.body.querySelector('[role="menu"]')).not.toBeInTheDocument();
+    });
+
+    it('should not close menu when closeOnItemClick is false', () => {
+      renderMenu(
+        <Menu defaultOpen closeOnItemClick={false}>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Edit</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]') as HTMLElement;
+      fireEvent.click(item);
+      expect(document.body.querySelector('[role="menu"]')).toBeInTheDocument();
+    });
+
+    it('should support per-item closeMenuOnClick override', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem closeMenuOnClick={false}>Stay Open</MenuItem>
+            <MenuItem>Close</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      // Click item with closeMenuOnClick=false — menu stays open
+      fireEvent.click(items[0] as HTMLElement);
+      expect(document.body.querySelector('[role="menu"]')).toBeInTheDocument();
+
+      // Click second item — menu closes
+      fireEvent.click(items[1] as HTMLElement);
+      act(() => { jest.advanceTimersByTime(300); });
+      expect(document.body.querySelector('[role="menu"]')).not.toBeInTheDocument();
+    });
+  });
+
+  // =========================================================================
+  // ARIA attributes
+  // =========================================================================
+  describe('ARIA', () => {
+    it('should set aria-haspopup and aria-expanded on trigger', () => {
+      const { container } = renderMenu(
+        <Menu>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Item</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const trigger = container.querySelector('button') as HTMLElement;
+      expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+      fireEvent.click(trigger);
+      expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('should set role="menu" on content', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Item</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const menu = document.body.querySelector('[role="menu"]');
+      expect(menu).toBeInTheDocument();
+      expect(menu).toHaveAttribute('aria-orientation', 'vertical');
+    });
+  });
+
+  // =========================================================================
+  // Keyboard navigation
+  // =========================================================================
+  describe('Keyboard navigation', () => {
+    it('should navigate items with ArrowDown/ArrowUp', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem data-testid="item-1">Item 1</MenuItem>
+            <MenuItem data-testid="item-2">Item 2</MenuItem>
+            <MenuItem data-testid="item-3">Item 3</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      // Focus on first item
+      (items[0] as HTMLElement).focus();
+
+      // Arrow down to second
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'ArrowDown' });
+      expect(document.activeElement).toBe(items[1]);
+
+      // Arrow down to third
+      fireEvent.keyDown(items[1] as HTMLElement, { key: 'ArrowDown' });
+      expect(document.activeElement).toBe(items[2]);
+
+      // Arrow up back to second
+      fireEvent.keyDown(items[2] as HTMLElement, { key: 'ArrowUp' });
+      expect(document.activeElement).toBe(items[1]);
+    });
+
+    it('should loop navigation when loop is true', () => {
+      renderMenu(
+        <Menu defaultOpen loop>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem data-testid="item-1">Item 1</MenuItem>
+            <MenuItem data-testid="item-2">Item 2</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+
+      // Focus last item, ArrowDown should loop to first
+      (items[1] as HTMLElement).focus();
+      fireEvent.keyDown(items[1] as HTMLElement, { key: 'ArrowDown' });
+      expect(document.activeElement).toBe(items[0]);
+
+      // Focus first item, ArrowUp should loop to last
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'ArrowUp' });
+      expect(document.activeElement).toBe(items[1]);
+    });
+
+    it('should jump to first/last with Home/End', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Item 1</MenuItem>
+            <MenuItem>Item 2</MenuItem>
+            <MenuItem>Item 3</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      (items[1] as HTMLElement).focus();
+
+      // Home jumps to first
+      fireEvent.keyDown(items[1] as HTMLElement, { key: 'Home' });
+      expect(document.activeElement).toBe(items[0]);
+
+      // End jumps to last
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'End' });
+      expect(document.activeElement).toBe(items[2]);
+    });
+
+    it('should skip disabled items in navigation', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem data-testid="item-1">Item 1</MenuItem>
+            <MenuItem disabled data-testid="item-2">Item 2 (disabled)</MenuItem>
+            <MenuItem data-testid="item-3">Item 3</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const items = document.body.querySelectorAll('[data-menu-item]:not([data-disabled])');
+      expect(items).toHaveLength(2);
+
+      // Focus first non-disabled, ArrowDown should skip to third
+      (items[0] as HTMLElement).focus();
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'ArrowDown' });
+      expect(document.activeElement).toBe(items[1]);
+    });
+
+    it('should activate item with Enter', () => {
+      const onClick = jest.fn();
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem onClick={onClick}>Edit</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]') as HTMLElement;
+      (item as HTMLElement).focus();
+      fireEvent.keyDown(item, { key: 'Enter' });
+      expect(onClick).toHaveBeenCalled();
+    });
+
+    it('should open menu on ArrowDown from trigger', () => {
+      const { container } = renderMenu(
+        <Menu>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Item</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const trigger = container.querySelector('button') as HTMLElement;
+      fireEvent.keyDown(trigger, { key: 'ArrowDown' });
+      expect(document.body.querySelector('[role="menu"]')).toBeInTheDocument();
+    });
+  });
+
+  // =========================================================================
+  // Integration with Divider
+  // =========================================================================
+  describe('Integration', () => {
+    it('should work with Divider separators', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Edit</MenuItem>
+            <MenuItem>Copy</MenuItem>
+            <Divider />
+            <MenuItem danger>Delete</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      expect(items).toHaveLength(3);
+
+      // Divider renders as a div with vane-divider class
+      const divider = document.body.querySelector('[data-menu-dropdown] .vane-divider');
+      expect(divider).toBeInTheDocument();
+    });
+  });
+
+  // =========================================================================
+  // Controlled mode
+  // =========================================================================
+  describe('Controlled mode', () => {
+    it('should respect controlled open prop', () => {
+      const { rerender } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Menu open={false}>
+            <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+            <MenuContent>
+              <MenuItem>Item</MenuItem>
+            </MenuContent>
+          </Menu>
+        </ThemeProvider>
+      );
+
+      expect(document.body.querySelector('[role="menu"]')).not.toBeInTheDocument();
+
+      rerender(
+        <ThemeProvider theme={defaultTheme}>
+          <Menu open={true}>
+            <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+            <MenuContent>
+              <MenuItem>Item</MenuItem>
+            </MenuContent>
+          </Menu>
+        </ThemeProvider>
+      );
+
+      expect(document.body.querySelector('[role="menu"]')).toBeInTheDocument();
+    });
+  });
+
+  // =========================================================================
+  // MenuSeparator
+  // =========================================================================
+  describe('MenuSeparator', () => {
+    it('should render with role="separator"', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Edit</MenuItem>
+            <MenuSeparator />
+            <MenuItem>Delete</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const separator = document.body.querySelector('[role="separator"]');
+      expect(separator).toBeInTheDocument();
+      expect(separator).toHaveClass('vane-menu-separator');
+      expect(separator).toHaveAttribute('data-vane-type', 'layout');
+    });
+
+    it('should forward refs', () => {
+      const ref = { current: null as HTMLDivElement | null };
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuSeparator ref={ref} />
+          </MenuContent>
+        </Menu>
+      );
+
+      expect(ref.current).toBeInstanceOf(HTMLElement);
+    });
+
+    it('should not leak boolean props to DOM', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuSeparator data-testid="sep" />
+          </MenuContent>
+        </Menu>
+      );
+
+      const sep = document.body.querySelector('[data-testid="sep"]');
+      expect(sep).toBeInTheDocument();
+      // Default boolean props should be consumed, not rendered
+      expect(sep).not.toHaveAttribute('horizontal');
+      expect(sep).not.toHaveAttribute('noPadding');
+    });
+  });
+
+  // =========================================================================
+  // MenuLabel
+  // =========================================================================
+  describe('MenuLabel', () => {
+    it('should render with role="presentation"', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuLabel>Actions</MenuLabel>
+            <MenuItem>Edit</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('[role="presentation"]');
+      expect(label).toBeInTheDocument();
+      expect(label).toHaveClass('vane-menu-label');
+      expect(label).toHaveAttribute('data-vane-type', 'ui');
+      expect(label).toHaveTextContent('Actions');
+    });
+
+    it('should render as div by default (non-interactive)', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuLabel>Section</MenuLabel>
+          </MenuContent>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toBeInTheDocument();
+      expect(label!.tagName).toBe('DIV');
+    });
+
+    it('should default to secondary appearance', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuLabel>Section</MenuLabel>
+          </MenuContent>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toHaveAttribute('data-appearance', 'secondary');
+    });
+
+    it('should default to sm size', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuLabel>Section</MenuLabel>
+          </MenuContent>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toHaveAttribute('data-size', 'sm');
+    });
+
+    it('should forward refs', () => {
+      const ref = { current: null as HTMLElement | null };
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuLabel ref={ref}>Section</MenuLabel>
+          </MenuContent>
+        </Menu>
+      );
+
+      expect(ref.current).toBeInstanceOf(HTMLElement);
+    });
+
+    it('should not leak boolean props to DOM', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuLabel danger lg>Section</MenuLabel>
+          </MenuContent>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toBeInTheDocument();
+      expect(label).not.toHaveAttribute('danger');
+      expect(label).not.toHaveAttribute('lg');
+    });
+  });
+
+  // =========================================================================
+  // MenuGroup
+  // =========================================================================
+  describe('MenuGroup', () => {
+    it('should render with role="group"', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuGroup>
+              <MenuItem>Edit</MenuItem>
+              <MenuItem>Copy</MenuItem>
+            </MenuGroup>
+          </MenuContent>
+        </Menu>
+      );
+
+      const group = document.body.querySelector('[role="group"]');
+      expect(group).toBeInTheDocument();
+      expect(group).toHaveClass('vane-menu-group');
+      expect(group).toHaveAttribute('data-vane-type', 'layout');
+    });
+
+    it('should render MenuLabel when label prop is provided', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuGroup label="Actions">
+              <MenuItem>Edit</MenuItem>
+            </MenuGroup>
+          </MenuContent>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toBeInTheDocument();
+      expect(label).toHaveTextContent('Actions');
+    });
+
+    it('should not render MenuLabel when label is not provided', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuGroup>
+              <MenuItem>Edit</MenuItem>
+            </MenuGroup>
+          </MenuContent>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).not.toBeInTheDocument();
+    });
+
+    it('should forward refs', () => {
+      const ref = { current: null as HTMLDivElement | null };
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuGroup ref={ref}>
+              <MenuItem>Item</MenuItem>
+            </MenuGroup>
+          </MenuContent>
+        </Menu>
+      );
+
+      expect(ref.current).toBeInstanceOf(HTMLElement);
+    });
+
+    it('should not leak boolean props to DOM', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuGroup data-testid="grp">
+              <MenuItem>Item</MenuItem>
+            </MenuGroup>
+          </MenuContent>
+        </Menu>
+      );
+
+      const group = document.body.querySelector('[data-testid="grp"]');
+      expect(group).toBeInTheDocument();
+      expect(group).not.toHaveAttribute('noPadding');
+      expect(group).not.toHaveAttribute('column');
+    });
+  });
+
+  // =========================================================================
+  // MenuContent theme customization
+  // =========================================================================
+  describe('MenuContent theme', () => {
+    it('should render as a popup with data-menu-dropdown attribute', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuItem>Item</MenuItem>
+          </MenuContent>
+        </Menu>
+      );
+
+      const menu = document.body.querySelector('[role="menu"]');
+      expect(menu).toBeInTheDocument();
+      // MenuContent renders as Popup with menu-specific defaults and attribute
+      expect(menu).toHaveClass('vane-popup');
+      expect(menu).toHaveAttribute('data-menu-dropdown');
+    });
+
+    it('should apply customized menu content defaults via ThemeProvider', () => {
+      render(
+        <ThemeProvider
+          themeDefaults={{ menu: { content: { sharp: true } } }}
+        >
+          <Menu defaultOpen>
+            <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+            <MenuContent>
+              <MenuItem>Item</MenuItem>
+            </MenuContent>
+          </Menu>
+        </ThemeProvider>
+      );
+
+      const menu = document.body.querySelector('[role="menu"]');
+      expect(menu).toBeInTheDocument();
+      expect(menu).toHaveClass('vane-popup');
+      expect(menu).toHaveAttribute('data-menu-dropdown');
+    });
+  });
+
+  // =========================================================================
+  // Full menu composition
+  // =========================================================================
+  describe('Full composition', () => {
+    it('should render a complete grouped menu', () => {
+      renderMenu(
+        <Menu defaultOpen>
+          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
+          <MenuContent>
+            <MenuGroup label="Actions">
+              <MenuItem>Edit</MenuItem>
+              <MenuItem>Copy</MenuItem>
+            </MenuGroup>
+            <MenuSeparator />
+            <MenuGroup label="Danger Zone">
+              <MenuItem danger>Delete</MenuItem>
+            </MenuGroup>
+          </MenuContent>
+        </Menu>
+      );
+
+      // Two groups
+      const groups = document.body.querySelectorAll('[role="group"]');
+      expect(groups).toHaveLength(2);
+
+      // Two labels
+      const labels = document.body.querySelectorAll('.vane-menu-label');
+      expect(labels).toHaveLength(2);
+      expect(labels[0]).toHaveTextContent('Actions');
+      expect(labels[1]).toHaveTextContent('Danger Zone');
+
+      // One separator
+      const separators = document.body.querySelectorAll('[role="separator"]');
+      expect(separators).toHaveLength(1);
+
+      // Three menu items
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      expect(items).toHaveLength(3);
+    });
+  });
+});

@@ -270,7 +270,7 @@ describe('Popup Component Tests', () => {
   });
 
   describe('Placement', () => {
-    it('should default to top placement', () => {
+    it('should default to bottom placement', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
