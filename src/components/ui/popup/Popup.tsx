@@ -144,11 +144,12 @@ function overflows(
 
 /**
  * Calculate popup position with viewport collision handling.
- * Mirrors CSS Anchor Positioning's flip-block, flip-inline fallback strategy:
+ * Strategy: flip → shift → clamp
  * 1. Try original placement
  * 2. Try flipping the block axis (top↔bottom)
  * 3. Try flipping the inline axis (left↔right)
- * 4. Fall back to original and clamp to viewport edges
+ * 4. Shift along the cross-axis to keep popup in viewport
+ * 5. Clamp the main axis as a final fallback
  */
 function getJsPosition(
   anchorRect: DOMRect,
@@ -174,18 +175,39 @@ function getJsPosition(
     if (!overflows(posInline, popupRect)) return { ...posInline, resolvedPlacement: flippedInline };
   }
 
-  // None fit perfectly — use the best candidate and clamp to viewport
+  // None fit perfectly — use the best candidate, then shift along cross-axis
   // Prefer block-flip for top/bottom placements, inline-flip for left/right
   const bestPlacement = (flippedBlock !== placement) ? flippedBlock : placement;
   const bestPos = (flippedBlock !== placement)
     ? calcPosition(anchorRect, popupRect, flippedBlock, offset)
     : pos;
 
-  return {
-    top: Math.max(0, Math.min(bestPos.top, window.innerHeight - popupRect.height)),
-    left: Math.max(0, Math.min(bestPos.left, window.innerWidth - popupRect.width)),
-    resolvedPlacement: bestPlacement,
-  };
+  // SHIFT: slide along cross-axis to keep popup in viewport, then clamp main axis
+  if (bestPlacement.startsWith('top') || bestPlacement.startsWith('bottom')) {
+    // Vertical placement → shift horizontally
+    const rightOverflow = bestPos.left + popupRect.width - window.innerWidth;
+    const leftOverflow = -bestPos.left;
+    if (rightOverflow > 0) {
+      bestPos.left = Math.max(0, bestPos.left - rightOverflow);
+    } else if (leftOverflow > 0) {
+      bestPos.left = 0;
+    }
+    // Clamp vertical (main axis) in case popup is taller than viewport
+    bestPos.top = Math.max(0, Math.min(bestPos.top, window.innerHeight - popupRect.height));
+  } else {
+    // Horizontal placement → shift vertically
+    const bottomOverflow = bestPos.top + popupRect.height - window.innerHeight;
+    const topOverflow = -bestPos.top;
+    if (bottomOverflow > 0) {
+      bestPos.top = Math.max(0, bestPos.top - bottomOverflow);
+    } else if (topOverflow > 0) {
+      bestPos.top = 0;
+    }
+    // Clamp horizontal (main axis) in case popup is wider than viewport
+    bestPos.left = Math.max(0, Math.min(bestPos.left, window.innerWidth - popupRect.width));
+  }
+
+  return { ...bestPos, resolvedPlacement: bestPlacement };
 }
 
 // Cached feature detection

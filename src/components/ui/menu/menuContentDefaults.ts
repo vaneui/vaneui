@@ -24,5 +24,5 @@ export const menuContentDefaults: Partial<MenuContentProps> = {
   primary: true,
   outline: true,
   wFit: true,
-  bottomStart: true,
+  bottom: true,
 };

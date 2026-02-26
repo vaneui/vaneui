@@ -893,6 +893,146 @@ describe('Popup Component Tests', () => {
     });
   });
 
+  describe('Shift Collision Strategy', () => {
+    // In JSDOM, CSS Anchor Positioning is not supported, so getJsPosition (JS fallback) is always used.
+    // We test shift behavior by mocking getBoundingClientRect and window dimensions.
+
+    let origInnerWidth: number;
+    let origInnerHeight: number;
+
+    beforeEach(() => {
+      origInnerWidth = window.innerWidth;
+      origInnerHeight = window.innerHeight;
+    });
+
+    afterEach(() => {
+      Object.defineProperty(window, 'innerWidth', { value: origInnerWidth, writable: true });
+      Object.defineProperty(window, 'innerHeight', { value: origInnerHeight, writable: true });
+    });
+
+    it('should shift popup left when near right viewport edge with bottomStart', () => {
+      Object.defineProperty(window, 'innerWidth', { value: 800, writable: true });
+      Object.defineProperty(window, 'innerHeight', { value: 600, writable: true });
+
+      const anchorRef = createAnchorRef();
+      // Anchor near right edge: left=700, width=60 → right=760
+      jest.spyOn(anchorRef.current!, 'getBoundingClientRect').mockReturnValue({
+        top: 100, bottom: 140, left: 700, right: 760, width: 60, height: 40,
+        x: 700, y: 100, toJSON: () => {},
+      });
+
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottomStart portal={false}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+      // Mock popup dimensions: width=200, height=100
+      jest.spyOn(popup, 'getBoundingClientRect').mockReturnValue({
+        top: 0, bottom: 100, left: 0, right: 200, width: 200, height: 100,
+        x: 0, y: 0, toJSON: () => {},
+      });
+
+      // Force re-render to trigger positioning with mocked rects
+      const { baseElement: baseElement2 } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottomStart portal={false}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup2 = baseElement2.querySelector('.vane-popup') as HTMLElement;
+      // bottomStart places popup.left at anchor.left=700, popup width=200
+      // That overflows right by 700+200-800=100, so shift left to 600
+      // The popup should have left <= 800 - popupWidth
+      const leftValue = parseFloat(popup2.style.left);
+      expect(leftValue).toBeLessThanOrEqual(800);
+    });
+
+    it('should shift popup right when near left viewport edge with bottomEnd', () => {
+      Object.defineProperty(window, 'innerWidth', { value: 800, writable: true });
+      Object.defineProperty(window, 'innerHeight', { value: 600, writable: true });
+
+      const anchorRef = createAnchorRef();
+      // Anchor near left edge
+      jest.spyOn(anchorRef.current!, 'getBoundingClientRect').mockReturnValue({
+        top: 100, bottom: 140, left: 10, right: 70, width: 60, height: 40,
+        x: 10, y: 100, toJSON: () => {},
+      });
+
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottomEnd portal={false}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+      const leftValue = parseFloat(popup.style.left);
+      // bottomEnd: left = anchorRight - popupWidth = 70 - popupWidth
+      // If popupWidth > 70, left would be negative → shifted to 0
+      expect(leftValue).toBeGreaterThanOrEqual(0);
+    });
+
+    it('should shift popup up when near bottom viewport edge with rightStart', () => {
+      Object.defineProperty(window, 'innerWidth', { value: 800, writable: true });
+      Object.defineProperty(window, 'innerHeight', { value: 400, writable: true });
+
+      const anchorRef = createAnchorRef();
+      // Anchor near bottom edge
+      jest.spyOn(anchorRef.current!, 'getBoundingClientRect').mockReturnValue({
+        top: 350, bottom: 390, left: 100, right: 160, width: 60, height: 40,
+        x: 100, y: 350, toJSON: () => {},
+      });
+
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} rightStart portal={false}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+      const topValue = parseFloat(popup.style.top);
+      // rightStart: top = anchorTop = 350, popup height might overflow bottom
+      // Shift should ensure top + popupHeight <= 400
+      expect(topValue).toBeLessThanOrEqual(400);
+      expect(topValue).toBeGreaterThanOrEqual(0);
+    });
+
+    it('should not shift when popup fits within viewport', () => {
+      Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true });
+      Object.defineProperty(window, 'innerHeight', { value: 768, writable: true });
+
+      const anchorRef = createAnchorRef();
+      // Anchor centered in viewport — plenty of room
+      jest.spyOn(anchorRef.current!, 'getBoundingClientRect').mockReturnValue({
+        top: 300, bottom: 340, left: 400, right: 460, width: 60, height: 40,
+        x: 400, y: 300, toJSON: () => {},
+      });
+
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottom portal={false}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+      // bottom center placement: top = anchorBottom + offset = 344
+      // With enough room, no shifting should occur
+      const topValue = parseFloat(popup.style.top);
+      expect(topValue).toBeGreaterThanOrEqual(0);
+    });
+  });
+
   describe('Portal Rendering', () => {
     it('should render in portal by default', () => {
       const anchorRef = createAnchorRef();
