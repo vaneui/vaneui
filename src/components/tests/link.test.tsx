@@ -6,7 +6,6 @@ import {
   Link,
   ThemeProvider,
   defaultTheme,
-  ExternalLinkIcon
 } from '../../index';
 
 describe('Link Component Tests', () => {
@@ -373,7 +372,7 @@ describe('Link Component Tests', () => {
 describe('Link Theme Override Tests', () => {
   it('should allow overriding outline text class via themeOverride', () => {
     const overrideFunc = (theme: ThemeProps) => {
-      theme.link.main.themes.appearance.text.outline = 'text-custom-link-color';
+      theme.link.themes.appearance.text.outline = 'text-custom-link-color';
       return theme;
     };
 
@@ -390,7 +389,7 @@ describe('Link Theme Override Tests', () => {
 
   it('should allow overriding filled text class via themeOverride', () => {
     const overrideFunc = (theme: ThemeProps) => {
-      theme.link.main.themes.appearance.text.filled = 'text-custom-filled-link';
+      theme.link.themes.appearance.text.filled = 'text-custom-filled-link';
       return theme;
     };
 
@@ -407,8 +406,8 @@ describe('Link Theme Override Tests', () => {
 
   it('should allow overriding both outline and filled classes', () => {
     const overrideFunc = (theme: ThemeProps) => {
-      theme.link.main.themes.appearance.text.outline = 'text-purple-600';
-      theme.link.main.themes.appearance.text.filled = 'text-purple-100';
+      theme.link.themes.appearance.text.outline = 'text-purple-600';
+      theme.link.themes.appearance.text.filled = 'text-purple-100';
       return theme;
     };
 
@@ -438,47 +437,6 @@ describe('External Link Behavior', () => {
     const link = container.querySelector('a');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-  });
-
-  it('external renders SVG icon inside .vane-link-end-icon wrapper', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link href="https://example.com" external>External</Link>
-      </ThemeProvider>
-    );
-
-    const wrapper = container.querySelector('a > .vane-link-end-icon');
-    expect(wrapper).toBeInTheDocument();
-
-    const svg = wrapper?.querySelector('svg');
-    expect(svg).toBeInTheDocument();
-    expect(svg).toHaveAttribute('aria-hidden', 'true');
-  });
-
-  it('icon wrapper is inline (not inline-flex) so parent underline propagates', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link href="https://example.com" external>External</Link>
-      </ThemeProvider>
-    );
-
-    const wrapper = container.querySelector('a > .vane-link-end-icon');
-    expect(wrapper).toBeInTheDocument();
-    // inline-flex + items-center for vertical centering, height matched to line-height
-    expect(wrapper).toHaveClass('inline-flex');
-    expect(wrapper).toHaveClass('items-center');
-    expect(wrapper).toHaveClass('h-[calc(var(--lh)*var(--fs))]');
-  });
-
-  it('does not render icon without external', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link href="https://example.com">Normal</Link>
-      </ThemeProvider>
-    );
-
-    const svg = container.querySelector('a svg');
-    expect(svg).toBeNull();
   });
 
   it('preserves explicit target over external default', () => {
@@ -538,147 +496,5 @@ describe('External Link Behavior', () => {
 
     const link = container.querySelector('a');
     expect(link).not.toHaveAttribute('external');
-  });
-
-  it('does not leak startIcon or endIcon props to DOM', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link href="https://example.com" startIcon={<span>s</span>} endIcon={<span>e</span>}>
-          Link
-        </Link>
-      </ThemeProvider>
-    );
-
-    const link = container.querySelector('a');
-    expect(link).not.toHaveAttribute('startIcon');
-    expect(link).not.toHaveAttribute('starticon');
-    expect(link).not.toHaveAttribute('endIcon');
-    expect(link).not.toHaveAttribute('endicon');
-  });
-
-  it('ExternalLinkIcon is exported and renders bare SVG', () => {
-    const { container } = render(
-      <ExternalLinkIcon />
-    );
-
-    const svg = container.querySelector('svg');
-    expect(svg).toBeInTheDocument();
-    expect(svg).toHaveAttribute('aria-hidden', 'true');
-    // No span wrapper — bare SVG
-    expect(container.querySelector('span')).toBeNull();
-  });
-});
-
-describe('startIcon and endIcon', () => {
-  it('renders startIcon before link text', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link href="#test" startIcon={<span data-testid="start">S</span>}>
-          Link text
-        </Link>
-      </ThemeProvider>
-    );
-
-    const wrapper = container.querySelector('a > .vane-link-start-icon');
-    expect(wrapper).toBeInTheDocument();
-    expect(wrapper?.querySelector('[data-testid="start"]')).toBeInTheDocument();
-
-    // Start icon should come before the text
-    const link = container.querySelector('a')!;
-    const children = Array.from(link.childNodes);
-    const startIdx = children.findIndex(n => (n as Element).classList?.contains('vane-link-start-icon'));
-    const textIdx = children.findIndex(n => n.textContent?.includes('Link text') && !(n as Element).classList);
-    expect(startIdx).toBeLessThan(textIdx);
-  });
-
-  it('renders endIcon after link text', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link href="#test" endIcon={<span data-testid="end">E</span>}>
-          Link text
-        </Link>
-      </ThemeProvider>
-    );
-
-    const wrapper = container.querySelector('a > .vane-link-end-icon');
-    expect(wrapper).toBeInTheDocument();
-    expect(wrapper?.querySelector('[data-testid="end"]')).toBeInTheDocument();
-  });
-
-  it('renders both startIcon and endIcon simultaneously', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link
-          href="#test"
-          startIcon={<span data-testid="start">S</span>}
-          endIcon={<span data-testid="end">E</span>}
-        >
-          Link text
-        </Link>
-      </ThemeProvider>
-    );
-
-    expect(container.querySelector('.vane-link-start-icon')).toBeInTheDocument();
-    expect(container.querySelector('.vane-link-end-icon')).toBeInTheDocument();
-
-    // Ordering: startIcon, text, endIcon
-    const link = container.querySelector('a')!;
-    const html = link.innerHTML;
-    const startPos = html.indexOf('vane-link-start-icon');
-    const endPos = html.indexOf('vane-link-end-icon');
-    expect(startPos).toBeLessThan(endPos);
-  });
-
-  it('endIcon overrides external default icon', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link href="https://example.com" external endIcon={<span data-testid="custom-end">custom</span>}>
-          External
-        </Link>
-      </ThemeProvider>
-    );
-
-    const wrapper = container.querySelector('a > .vane-link-end-icon');
-    expect(wrapper).toBeInTheDocument();
-    expect(wrapper?.querySelector('[data-testid="custom-end"]')).toBeInTheDocument();
-    // Should NOT have the default SVG icon
-    expect(wrapper?.querySelector('svg')).toBeNull();
-  });
-
-  it('endIcon={null} suppresses external icon', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link href="https://example.com" external endIcon={null}>
-          External no icon
-        </Link>
-      </ThemeProvider>
-    );
-
-    // No icon wrappers at all
-    expect(container.querySelector('.vane-link-end-icon')).toBeNull();
-    expect(container.querySelector('.vane-link-start-icon')).toBeNull();
-  });
-
-  it('does not render icon wrappers when no icons provided', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link href="#test">Plain link</Link>
-      </ThemeProvider>
-    );
-
-    expect(container.querySelector('.vane-link-start-icon')).toBeNull();
-    expect(container.querySelector('.vane-link-end-icon')).toBeNull();
-  });
-
-  it('icon wrapper renders as span element', () => {
-    const { container } = render(
-      <ThemeProvider theme={defaultTheme}>
-        <Link href="#test" startIcon={<span>icon</span>}>Link</Link>
-      </ThemeProvider>
-    );
-
-    const wrapper = container.querySelector('.vane-link-start-icon');
-    expect(wrapper).toBeInTheDocument();
-    expect(wrapper?.tagName).toBe('SPAN');
   });
 });

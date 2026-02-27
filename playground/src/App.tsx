@@ -16,11 +16,8 @@ import {
   PageTitle,
   SectionTitle,
   Menu,
-  MenuTrigger,
-  MenuContent,
   MenuItem,
   MenuSeparator,
-  MenuGroup,
   MenuLabel,
 } from '../../src';
 
@@ -60,7 +57,7 @@ function App() {
           <PageTitle>Menu Component</PageTitle>
           <Text secondary>
             Dropdown menu built on top of <Code>Popup</Code> with keyboard navigation,
-            ARIA roles, and focus management.
+            ARIA roles, and focus management. Single-component API via <Code>trigger</Code> prop.
           </Text>
 
           {/* ═══ BASIC ════════════════════════════════════════════════════ */}
@@ -71,25 +68,20 @@ function App() {
             <Title>Default Menu</Title>
             <Text sm secondary>
               Click the trigger to open. Items close the menu on click.
-              Arrow keys navigate, Escape closes. Uses <Code sm>MenuSeparator</Code> instead of Divider.
+              Arrow keys navigate, Escape closes. Uses <Code sm>MenuSeparator</Code> between sections.
             </Text>
             <Row>
-              <Menu>
-                <MenuTrigger>
-                  <Button>Actions <ChevronDownIcon /></Button>
-                </MenuTrigger>
-                <MenuContent>
-                  <MenuItem onClick={() => setLastAction('Edit')}>
-                    <EditIcon /> Edit
-                  </MenuItem>
-                  <MenuItem onClick={() => setLastAction('Duplicate')}>
-                    Duplicate
-                  </MenuItem>
-                  <MenuSeparator />
-                  <MenuItem danger onClick={() => setLastAction('Delete')}>
-                    <TrashIcon /> Delete
-                  </MenuItem>
-                </MenuContent>
+              <Menu trigger={<Button>Actions <ChevronDownIcon /></Button>}>
+                <MenuItem onClick={() => setLastAction('Edit')}>
+                  <EditIcon /> Edit
+                </MenuItem>
+                <MenuItem onClick={() => setLastAction('Duplicate')}>
+                  Duplicate
+                </MenuItem>
+                <MenuSeparator />
+                <MenuItem danger onClick={() => setLastAction('Delete')}>
+                  <TrashIcon /> Delete
+                </MenuItem>
               </Menu>
               <Text sm secondary>Last action: <Code sm>{lastAction}</Code></Text>
             </Row>
@@ -100,16 +92,11 @@ function App() {
             <Text sm secondary>
               Disabled items are skipped by keyboard navigation and show reduced opacity.
             </Text>
-            <Menu>
-              <MenuTrigger>
-                <Button secondary>Options</Button>
-              </MenuTrigger>
-              <MenuContent>
-                <MenuItem>Available action</MenuItem>
-                <MenuItem disabled>Locked action</MenuItem>
-                <MenuItem disabled>Another locked</MenuItem>
-                <MenuItem>Available action 2</MenuItem>
-              </MenuContent>
+            <Menu trigger={<Button secondary>Options</Button>}>
+              <MenuItem>Available action</MenuItem>
+              <MenuItem disabled>Locked action</MenuItem>
+              <MenuItem disabled>Another locked</MenuItem>
+              <MenuItem>Available action 2</MenuItem>
             </Menu>
           </Card>
 
@@ -124,15 +111,10 @@ function App() {
             </Text>
             <Row flexWrap>
               {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
-                <Menu key={size}>
-                  <MenuTrigger>
-                    <Button {...{ [size]: true }}>{size}</Button>
-                  </MenuTrigger>
-                  <MenuContent>
-                    <MenuItem {...{ [size]: true }}>First item</MenuItem>
-                    <MenuItem {...{ [size]: true }}>Second item</MenuItem>
-                    <MenuItem {...{ [size]: true }}>Third item</MenuItem>
-                  </MenuContent>
+                <Menu key={size} trigger={<Button {...{ [size]: true }}>{size}</Button>}>
+                  <MenuItem {...{ [size]: true }}>First item</MenuItem>
+                  <MenuItem {...{ [size]: true }}>Second item</MenuItem>
+                  <MenuItem {...{ [size]: true }}>Third item</MenuItem>
                 </Menu>
               ))}
             </Row>
@@ -148,73 +130,56 @@ function App() {
               Individual items can have different appearance props, useful for
               highlighting destructive or informational actions.
             </Text>
-            <Menu>
-              <MenuTrigger>
-                <Button>File</Button>
-              </MenuTrigger>
-              <MenuContent>
-                <MenuItem>New File</MenuItem>
-                <MenuItem>Open</MenuItem>
-                <MenuItem info>Save As...</MenuItem>
-                <MenuSeparator />
-                <MenuItem warning>Export</MenuItem>
-                <MenuItem danger>Delete Project</MenuItem>
-              </MenuContent>
+            <Menu trigger={<Button>File</Button>}>
+              <MenuItem>New File</MenuItem>
+              <MenuItem>Open</MenuItem>
+              <MenuItem info>Save As...</MenuItem>
+              <MenuSeparator />
+              <MenuItem warning>Export</MenuItem>
+              <MenuItem danger>Delete Project</MenuItem>
             </Menu>
           </Card>
 
-          {/* ═══ GROUPED MENUS ═════════════════════════════════════════════ */}
+          {/* ═══ LABELED MENUS ══════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>Grouped Menus</SectionTitle>
+          <SectionTitle>Labeled Sections</SectionTitle>
 
           <Card>
-            <Title>MenuGroup + MenuLabel</Title>
+            <Title>MenuLabel Sections</Title>
             <Text sm secondary>
-              Use <Code sm>MenuGroup</Code> to cluster related items with an
-              optional <Code sm>label</Code> prop. <Code sm>MenuSeparator</Code> divides sections.
+              Use <Code sm>MenuLabel</Code> to label groups of items.
+              <Code sm>MenuSeparator</Code> divides sections visually.
             </Text>
-            <Menu>
-              <MenuTrigger>
-                <Button>Account <ChevronDownIcon /></Button>
-              </MenuTrigger>
-              <MenuContent>
-                <MenuGroup label="Actions">
-                  <MenuItem onClick={() => setLastAction('Edit Profile')}>
-                    <EditIcon /> Edit Profile
-                  </MenuItem>
-                  <MenuItem onClick={() => setLastAction('Settings')}>
-                    Settings
-                  </MenuItem>
-                </MenuGroup>
-                <MenuSeparator />
-                <MenuGroup label="Danger Zone">
-                  <MenuItem danger onClick={() => setLastAction('Delete Account')}>
-                    <TrashIcon /> Delete Account
-                  </MenuItem>
-                </MenuGroup>
-              </MenuContent>
+            <Menu trigger={<Button>Account <ChevronDownIcon /></Button>}>
+              <MenuLabel>Actions</MenuLabel>
+              <MenuItem onClick={() => setLastAction('Edit Profile')}>
+                <EditIcon /> Edit Profile
+              </MenuItem>
+              <MenuItem onClick={() => setLastAction('Settings')}>
+                Settings
+              </MenuItem>
+              <MenuSeparator />
+              <MenuLabel>Danger Zone</MenuLabel>
+              <MenuItem danger onClick={() => setLastAction('Delete Account')}>
+                <TrashIcon /> Delete Account
+              </MenuItem>
             </Menu>
           </Card>
 
           <Card>
-            <Title>Standalone MenuLabel</Title>
+            <Title>Multiple Label Sections</Title>
             <Text sm secondary>
-              <Code sm>MenuLabel</Code> can also be used directly without <Code sm>MenuGroup</Code>.
+              Multiple <Code sm>MenuLabel</Code> headings with <Code sm>MenuSeparator</Code> between them.
             </Text>
-            <Menu>
-              <MenuTrigger>
-                <Button secondary>View <ChevronDownIcon /></Button>
-              </MenuTrigger>
-              <MenuContent>
-                <MenuLabel>Layout</MenuLabel>
-                <MenuItem>Grid</MenuItem>
-                <MenuItem>List</MenuItem>
-                <MenuSeparator />
-                <MenuLabel>Sort By</MenuLabel>
-                <MenuItem>Name</MenuItem>
-                <MenuItem>Date</MenuItem>
-                <MenuItem>Size</MenuItem>
-              </MenuContent>
+            <Menu trigger={<Button secondary>View <ChevronDownIcon /></Button>}>
+              <MenuLabel>Layout</MenuLabel>
+              <MenuItem>Grid</MenuItem>
+              <MenuItem>List</MenuItem>
+              <MenuSeparator />
+              <MenuLabel>Sort By</MenuLabel>
+              <MenuItem>Name</MenuItem>
+              <MenuItem>Date</MenuItem>
+              <MenuItem>Size</MenuItem>
             </Menu>
           </Card>
 
@@ -236,27 +201,24 @@ function App() {
                     <Text sm secondary>3 members</Text>
                   </Row>
                 </Stack>
-                <Menu>
-                  <MenuTrigger>
-                    <Button secondary sm>
-                      Manage <ChevronDownIcon />
-                    </Button>
-                  </MenuTrigger>
-                  <MenuContent>
-                    <MenuItem onClick={() => setLastAction('Edit Project')}>
-                      <EditIcon /> Edit Project
-                    </MenuItem>
-                    <MenuItem onClick={() => setLastAction('Archive')}>
-                      Archive
-                    </MenuItem>
-                    <MenuItem onClick={() => setLastAction('Settings')}>
-                      Settings
-                    </MenuItem>
-                    <MenuSeparator />
-                    <MenuItem danger onClick={() => setLastAction('Delete Project')}>
-                      <TrashIcon /> Delete Project
-                    </MenuItem>
-                  </MenuContent>
+                <Menu trigger={
+                  <Button secondary sm>
+                    Manage <ChevronDownIcon />
+                  </Button>
+                }>
+                  <MenuItem onClick={() => setLastAction('Edit Project')}>
+                    <EditIcon /> Edit Project
+                  </MenuItem>
+                  <MenuItem onClick={() => setLastAction('Archive')}>
+                    Archive
+                  </MenuItem>
+                  <MenuItem onClick={() => setLastAction('Settings')}>
+                    Settings
+                  </MenuItem>
+                  <MenuSeparator />
+                  <MenuItem danger onClick={() => setLastAction('Delete Project')}>
+                    <TrashIcon /> Delete Project
+                  </MenuItem>
                 </Menu>
               </Row>
             </Card>
@@ -267,15 +229,10 @@ function App() {
             <Text sm secondary>
               Menu stays open after clicking items. Useful for multi-select or filter menus.
             </Text>
-            <Menu closeOnItemClick={false}>
-              <MenuTrigger>
-                <Button>Filters</Button>
-              </MenuTrigger>
-              <MenuContent>
-                <MenuItem onClick={() => setLastAction('Toggle: Active')}>Active</MenuItem>
-                <MenuItem onClick={() => setLastAction('Toggle: Archived')}>Archived</MenuItem>
-                <MenuItem onClick={() => setLastAction('Toggle: Draft')}>Draft</MenuItem>
-              </MenuContent>
+            <Menu closeOnItemClick={false} trigger={<Button>Filters</Button>}>
+              <MenuItem onClick={() => setLastAction('Toggle: Active')}>Active</MenuItem>
+              <MenuItem onClick={() => setLastAction('Toggle: Archived')}>Archived</MenuItem>
+              <MenuItem onClick={() => setLastAction('Toggle: Draft')}>Draft</MenuItem>
             </Menu>
           </Card>
 

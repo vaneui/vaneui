@@ -1,9 +1,19 @@
+import type { PopupProps } from '../popup/PopupProps';
+
 /**
- * Root Menu component props.
- * Menu is a renderless provider — it emits no DOM element.
+ * Menu component props.
+ *
+ * Menu renders a trigger element and a dropdown popup with menu items.
+ * Pass the trigger as a React element via the `trigger` prop; children
+ * are the menu contents (MenuItem, MenuSeparator, MenuLabel).
  */
-export interface MenuProps {
-  children: React.ReactNode;
+export type MenuProps = Omit<
+  PopupProps,
+  'anchorRef' | 'open' | 'onClose' | 'defaultOpen' | 'onOpenChange' | 'disabled' | 'children'
+> & {
+  children?: React.ReactNode;
+  /** React element cloned as the menu trigger (receives ref, ARIA, click/keyboard handlers) */
+  trigger: React.ReactElement;
   /** Controlled open state */
   open?: boolean;
   /** Initial open state for uncontrolled mode (default: false) */
@@ -16,12 +26,6 @@ export interface MenuProps {
   closeOnItemClick?: boolean;
   /** Loop keyboard navigation from last to first (default: true) */
   loop?: boolean;
-  /** Trigger mode for MenuTrigger (default: 'click') */
-  trigger?: 'click' | 'hover';
   /** Prevent menu from opening (default: false) */
   disabled?: boolean;
-  /** Delay before opening on hover in ms (default: 0) */
-  openDelay?: number;
-  /** Delay before closing on hover in ms (default: 150) */
-  closeDelay?: number;
-}
+};

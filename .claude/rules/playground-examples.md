@@ -83,7 +83,7 @@ When adding examples for a component, ensure it is imported at the top of `App.t
 import {
   // ... existing imports
   NewComponent,       // Add component
-  HelperExport,       // Add any related exports (e.g., ExternalLinkIcon)
+  HelperExport,       // Add any related exports
 } from '../../src';
 ```
 

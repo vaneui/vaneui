@@ -23,18 +23,9 @@ import { ThemedComponent } from "../../../themedComponent";
  *
  * @example
  * ```tsx
- * // External link with auto target, rel, and icon
+ * // External link with auto target and rel
  * <Link href="https://example.com" external>
  *   Visit Example
- * </Link>
- * ```
- *
- * @example
- * ```tsx
- * // Custom start and end icons
- * <Link href="/docs" startIcon={<MyIcon />}>Docs</Link>
- * <Link href="https://example.com" external endIcon={<CustomArrow />}>
- *   Custom end icon (overrides external icon)
  * </Link>
  * ```
  *
@@ -42,7 +33,7 @@ import { ThemedComponent } from "../../../themedComponent";
  */
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   function Link(props, ref) {
-    const { external, startIcon, endIcon, ...rest } = props;
+    const { external, ...rest } = props;
     const theme = useTheme();
 
     // Auto target="_blank" when external
@@ -56,32 +47,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       ...(finalRel !== undefined && { rel: finalRel }),
     };
 
-    // Resolve end icon: explicit endIcon > theme factory (when external) > nothing
-    const resolvedEndIcon = endIcon !== undefined
-      ? endIcon
-      : (external ? theme.link.main.themes.externalIcon() : null);
-
-    const hasIcons = startIcon != null || resolvedEndIcon != null;
-
-    if (hasIcons) {
-      return (
-        <ThemedComponent ref={ref} theme={theme.link.main} {...derivedProps}>
-          {startIcon != null && (
-            <ThemedComponent theme={theme.link.icon} className="vane-link-start-icon">
-              {startIcon}
-            </ThemedComponent>
-          )}
-          {rest.children}
-          {resolvedEndIcon != null && (
-            <ThemedComponent theme={theme.link.icon} className="vane-link-end-icon">
-              {resolvedEndIcon}
-            </ThemedComponent>
-          )}
-        </ThemedComponent>
-      );
-    }
-
-    return <ThemedComponent ref={ref} theme={theme.link.main} {...derivedProps} />;
+    return <ThemedComponent ref={ref} theme={theme.link} {...derivedProps} />;
   }
 );
 

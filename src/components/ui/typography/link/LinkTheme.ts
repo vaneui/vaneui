@@ -1,4 +1,3 @@
-import type { ReactElement } from 'react';
 import type {
   BaseTypographyComponentTheme,
   DefaultSizedLayoutClassMappers,
@@ -16,6 +15,4 @@ export interface LinkTheme extends BaseTypographyComponentTheme {
     text: LinkVariantClassMapper;
   };
   layout: DefaultSizedLayoutClassMappers;
-  /** Factory for external link icon. Overridable via ThemeProvider's themeOverride. */
-  externalIcon: () => ReactElement;
 }

@@ -18,8 +18,6 @@ import {
   ModalBody,
   Popup,
   Menu,
-  MenuTrigger,
-  MenuContent,
   MenuItem,
   Divider,
 } from '../../src';
@@ -266,8 +264,6 @@ function TestHarness() {
         <section data-testid="link-section">
           <Link href="https://example.com" external data-testid="link-external">External link</Link>
           <Link href="https://example.com" data-testid="link-normal">Normal link</Link>
-          <Link href="https://example.com" external xs data-testid="link-external-xs">XS</Link>
-          <Link href="https://example.com" external xl data-testid="link-external-xl">XL</Link>
         </section>
 
         {/* ── Z-Index stacking ── */}
@@ -278,22 +274,24 @@ function TestHarness() {
 
         <section data-testid="menu-section">
           {/* Size variants - always-open menus for measuring computed styles */}
-          <Menu defaultOpen>
-            <MenuTrigger>
-              <Button data-testid="menu-trigger-default">Menu</Button>
-            </MenuTrigger>
-            <MenuContent noAnimation portal={false} closeOnClickOutside={false} closeOnEscape={false}>
-              <MenuItem xs data-testid="menu-item-xs">XS item</MenuItem>
-              <MenuItem sm data-testid="menu-item-sm">SM item</MenuItem>
-              <MenuItem data-testid="menu-item-md">MD item</MenuItem>
-              <MenuItem lg data-testid="menu-item-lg">LG item</MenuItem>
-              <MenuItem xl data-testid="menu-item-xl">XL item</MenuItem>
-              <Divider />
-              <MenuItem primary data-testid="menu-item-primary">Primary</MenuItem>
-              <MenuItem danger data-testid="menu-item-danger">Danger</MenuItem>
-              <MenuItem success data-testid="menu-item-success">Success</MenuItem>
-              <MenuItem disabled data-testid="menu-item-disabled">Disabled</MenuItem>
-            </MenuContent>
+          <Menu
+            defaultOpen
+            trigger={<Button data-testid="menu-trigger-default">Menu</Button>}
+            noAnimation
+            portal={false}
+            closeOnClickOutside={false}
+            closeOnEscape={false}
+          >
+            <MenuItem xs data-testid="menu-item-xs">XS item</MenuItem>
+            <MenuItem sm data-testid="menu-item-sm">SM item</MenuItem>
+            <MenuItem data-testid="menu-item-md">MD item</MenuItem>
+            <MenuItem lg data-testid="menu-item-lg">LG item</MenuItem>
+            <MenuItem xl data-testid="menu-item-xl">XL item</MenuItem>
+            <Divider />
+            <MenuItem primary data-testid="menu-item-primary">Primary</MenuItem>
+            <MenuItem danger data-testid="menu-item-danger">Danger</MenuItem>
+            <MenuItem success data-testid="menu-item-success">Success</MenuItem>
+            <MenuItem disabled data-testid="menu-item-disabled">Disabled</MenuItem>
           </Menu>
         </section>
 

@@ -36,7 +36,6 @@ import {
   titleDefaults,
   textDefaults,
   linkDefaults,
-  linkIconDefaults,
   listItemDefaults,
   listDefaults,
 } from '../typography';
@@ -79,10 +78,7 @@ export const themeDefaults: ThemeDefaults = {
   sectionTitle: sectionTitleDefaults,
   title: titleDefaults,
   text: textDefaults,
-  link: {
-    main: linkDefaults,
-    icon: linkIconDefaults,
-  },
+  link: linkDefaults,
   listItem: listItemDefaults,
   list: listDefaults,
   checkbox: {

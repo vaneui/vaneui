@@ -8,10 +8,6 @@ export type LinkProps = TypographyProps &
   href?: string;
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
-  /** Mark as external link. Auto-sets target="_blank", rel="noopener noreferrer", and appends icon. */
+  /** Mark as external link. Auto-sets target="_blank" and rel="noopener noreferrer". */
   external?: boolean;
-  /** Icon element rendered before the link text */
-  startIcon?: React.ReactNode;
-  /** Icon element rendered after the link text. When `external` is set, defaults to the theme's external icon. */
-  endIcon?: React.ReactNode;
 };

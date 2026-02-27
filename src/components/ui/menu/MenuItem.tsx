@@ -6,7 +6,7 @@ import { useMenuContext } from './MenuContext';
 import { createScopedKeydownHandler } from '../../utils/scopedKeydownHandler';
 
 /**
- * MenuItem — a focusable item inside a MenuContent dropdown.
+ * MenuItem — a focusable item inside a Menu dropdown.
  *
  * Uses role="menuitem", tabIndex=-1 (roving focus managed by keyboard handler).
  * Closes the parent menu on click by default (override with closeMenuOnClick).

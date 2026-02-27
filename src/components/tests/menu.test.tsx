@@ -3,11 +3,8 @@ import { render, fireEvent, act } from '@testing-library/react';
 
 import {
   Menu,
-  MenuTrigger,
-  MenuContent,
   MenuItem,
   MenuSeparator,
-  MenuGroup,
   MenuLabel,
   Button,
   Divider,
@@ -41,11 +38,8 @@ describe('Menu Component Tests', () => {
   describe('MenuItem', () => {
     it('should render as a button by default with role="menuitem"', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Edit</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Edit</MenuItem>
         </Menu>
       );
 
@@ -62,11 +56,8 @@ describe('Menu Component Tests', () => {
 
     it('should render as anchor tag when href is provided', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem href="/settings">Settings</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem href="/settings">Settings</MenuItem>
         </Menu>
       );
 
@@ -82,11 +73,8 @@ describe('Menu Component Tests', () => {
       sizes.forEach(size => {
         const sizeProps = { [size]: true };
         const { unmount } = renderMenu(
-          <Menu defaultOpen>
-            <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-            <MenuContent>
-              <MenuItem {...sizeProps}>Item</MenuItem>
-            </MenuContent>
+          <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+            <MenuItem {...sizeProps}>Item</MenuItem>
           </Menu>
         );
 
@@ -102,11 +90,8 @@ describe('Menu Component Tests', () => {
       appearances.forEach(appearance => {
         const appearanceProps = { [appearance]: true };
         const { unmount } = renderMenu(
-          <Menu defaultOpen>
-            <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-            <MenuContent>
-              <MenuItem {...appearanceProps}>Item</MenuItem>
-            </MenuContent>
+          <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+            <MenuItem {...appearanceProps}>Item</MenuItem>
           </Menu>
         );
 
@@ -118,11 +103,8 @@ describe('Menu Component Tests', () => {
 
     it('should not leak boolean props to DOM', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem danger filled lg>Item</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem danger filled lg>Item</MenuItem>
         </Menu>
       );
 
@@ -136,11 +118,8 @@ describe('Menu Component Tests', () => {
 
     it('should pass through HTML attributes', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem data-testid="my-item" aria-label="Edit item">Edit</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem data-testid="my-item" aria-label="Edit item">Edit</MenuItem>
         </Menu>
       );
 
@@ -152,11 +131,8 @@ describe('Menu Component Tests', () => {
     it('should forward refs', () => {
       const ref = { current: null as HTMLElement | null };
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem ref={ref}>Edit</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem ref={ref}>Edit</MenuItem>
         </Menu>
       );
 
@@ -166,11 +142,8 @@ describe('Menu Component Tests', () => {
 
     it('should set disabled attributes when disabled', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem disabled>Disabled Item</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem disabled>Disabled Item</MenuItem>
         </Menu>
       );
 
@@ -183,11 +156,8 @@ describe('Menu Component Tests', () => {
     it('should not fire onClick when disabled', () => {
       const onClick = jest.fn();
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem disabled onClick={onClick}>Disabled</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem disabled onClick={onClick}>Disabled</MenuItem>
         </Menu>
       );
 
@@ -201,13 +171,10 @@ describe('Menu Component Tests', () => {
   // Menu open/close
   // =========================================================================
   describe('Menu open/close', () => {
-    it('should not render MenuContent when closed', () => {
+    it('should not render menu dropdown when closed', () => {
       renderMenu(
-        <Menu>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Item</MenuItem>
-          </MenuContent>
+        <Menu trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
         </Menu>
       );
 
@@ -215,13 +182,10 @@ describe('Menu Component Tests', () => {
       expect(menu).not.toBeInTheDocument();
     });
 
-    it('should render MenuContent when defaultOpen is true', () => {
+    it('should render menu dropdown when defaultOpen is true', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Item</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
         </Menu>
       );
 
@@ -231,11 +195,8 @@ describe('Menu Component Tests', () => {
 
     it('should toggle menu on trigger click', () => {
       const { container } = renderMenu(
-        <Menu>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Item</MenuItem>
-          </MenuContent>
+        <Menu trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
         </Menu>
       );
 
@@ -256,11 +217,8 @@ describe('Menu Component Tests', () => {
     it('should close menu when item is clicked', () => {
       const onClick = jest.fn();
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem onClick={onClick}>Edit</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem onClick={onClick}>Edit</MenuItem>
         </Menu>
       );
 
@@ -273,11 +231,8 @@ describe('Menu Component Tests', () => {
 
     it('should not close menu when closeOnItemClick is false', () => {
       renderMenu(
-        <Menu defaultOpen closeOnItemClick={false}>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Edit</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen closeOnItemClick={false} trigger={<Button>Trigger</Button>}>
+          <MenuItem>Edit</MenuItem>
         </Menu>
       );
 
@@ -288,12 +243,9 @@ describe('Menu Component Tests', () => {
 
     it('should support per-item closeMenuOnClick override', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem closeMenuOnClick={false}>Stay Open</MenuItem>
-            <MenuItem>Close</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem closeMenuOnClick={false}>Stay Open</MenuItem>
+          <MenuItem>Close</MenuItem>
         </Menu>
       );
 
@@ -315,11 +267,8 @@ describe('Menu Component Tests', () => {
   describe('ARIA', () => {
     it('should set aria-haspopup and aria-expanded on trigger', () => {
       const { container } = renderMenu(
-        <Menu>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Item</MenuItem>
-          </MenuContent>
+        <Menu trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
         </Menu>
       );
 
@@ -331,13 +280,10 @@ describe('Menu Component Tests', () => {
       expect(trigger).toHaveAttribute('aria-expanded', 'true');
     });
 
-    it('should set role="menu" on content', () => {
+    it('should set role="menu" on dropdown', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Item</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
         </Menu>
       );
 
@@ -353,13 +299,10 @@ describe('Menu Component Tests', () => {
   describe('Keyboard navigation', () => {
     it('should navigate items with ArrowDown/ArrowUp', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem data-testid="item-1">Item 1</MenuItem>
-            <MenuItem data-testid="item-2">Item 2</MenuItem>
-            <MenuItem data-testid="item-3">Item 3</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem data-testid="item-1">Item 1</MenuItem>
+          <MenuItem data-testid="item-2">Item 2</MenuItem>
+          <MenuItem data-testid="item-3">Item 3</MenuItem>
         </Menu>
       );
 
@@ -382,12 +325,9 @@ describe('Menu Component Tests', () => {
 
     it('should loop navigation when loop is true', () => {
       renderMenu(
-        <Menu defaultOpen loop>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem data-testid="item-1">Item 1</MenuItem>
-            <MenuItem data-testid="item-2">Item 2</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen loop trigger={<Button>Trigger</Button>}>
+          <MenuItem data-testid="item-1">Item 1</MenuItem>
+          <MenuItem data-testid="item-2">Item 2</MenuItem>
         </Menu>
       );
 
@@ -405,13 +345,10 @@ describe('Menu Component Tests', () => {
 
     it('should jump to first/last with Home/End', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Item 1</MenuItem>
-            <MenuItem>Item 2</MenuItem>
-            <MenuItem>Item 3</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+          <MenuItem>Item 3</MenuItem>
         </Menu>
       );
 
@@ -429,13 +366,10 @@ describe('Menu Component Tests', () => {
 
     it('should skip disabled items in navigation', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem data-testid="item-1">Item 1</MenuItem>
-            <MenuItem disabled data-testid="item-2">Item 2 (disabled)</MenuItem>
-            <MenuItem data-testid="item-3">Item 3</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem data-testid="item-1">Item 1</MenuItem>
+          <MenuItem disabled data-testid="item-2">Item 2 (disabled)</MenuItem>
+          <MenuItem data-testid="item-3">Item 3</MenuItem>
         </Menu>
       );
 
@@ -451,11 +385,8 @@ describe('Menu Component Tests', () => {
     it('should activate item with Enter', () => {
       const onClick = jest.fn();
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem onClick={onClick}>Edit</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem onClick={onClick}>Edit</MenuItem>
         </Menu>
       );
 
@@ -467,11 +398,8 @@ describe('Menu Component Tests', () => {
 
     it('should open menu on ArrowDown from trigger', () => {
       const { container } = renderMenu(
-        <Menu>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Item</MenuItem>
-          </MenuContent>
+        <Menu trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
         </Menu>
       );
 
@@ -487,14 +415,11 @@ describe('Menu Component Tests', () => {
   describe('Integration', () => {
     it('should work with Divider separators', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Edit</MenuItem>
-            <MenuItem>Copy</MenuItem>
-            <Divider />
-            <MenuItem danger>Delete</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Edit</MenuItem>
+          <MenuItem>Copy</MenuItem>
+          <Divider />
+          <MenuItem danger>Delete</MenuItem>
         </Menu>
       );
 
@@ -514,11 +439,8 @@ describe('Menu Component Tests', () => {
     it('should respect controlled open prop', () => {
       const { rerender } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Menu open={false}>
-            <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-            <MenuContent>
-              <MenuItem>Item</MenuItem>
-            </MenuContent>
+          <Menu open={false} trigger={<Button>Trigger</Button>}>
+            <MenuItem>Item</MenuItem>
           </Menu>
         </ThemeProvider>
       );
@@ -527,11 +449,8 @@ describe('Menu Component Tests', () => {
 
       rerender(
         <ThemeProvider theme={defaultTheme}>
-          <Menu open={true}>
-            <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-            <MenuContent>
-              <MenuItem>Item</MenuItem>
-            </MenuContent>
+          <Menu open={true} trigger={<Button>Trigger</Button>}>
+            <MenuItem>Item</MenuItem>
           </Menu>
         </ThemeProvider>
       );
@@ -546,13 +465,10 @@ describe('Menu Component Tests', () => {
   describe('MenuSeparator', () => {
     it('should render with role="separator"', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Edit</MenuItem>
-            <MenuSeparator />
-            <MenuItem>Delete</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Edit</MenuItem>
+          <MenuSeparator />
+          <MenuItem>Delete</MenuItem>
         </Menu>
       );
 
@@ -565,11 +481,8 @@ describe('Menu Component Tests', () => {
     it('should forward refs', () => {
       const ref = { current: null as HTMLDivElement | null };
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuSeparator ref={ref} />
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuSeparator ref={ref} />
         </Menu>
       );
 
@@ -578,11 +491,8 @@ describe('Menu Component Tests', () => {
 
     it('should not leak boolean props to DOM', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuSeparator data-testid="sep" />
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuSeparator data-testid="sep" />
         </Menu>
       );
 
@@ -600,12 +510,9 @@ describe('Menu Component Tests', () => {
   describe('MenuLabel', () => {
     it('should render with role="presentation"', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuLabel>Actions</MenuLabel>
-            <MenuItem>Edit</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel>Actions</MenuLabel>
+          <MenuItem>Edit</MenuItem>
         </Menu>
       );
 
@@ -618,11 +525,8 @@ describe('Menu Component Tests', () => {
 
     it('should render as div by default (non-interactive)', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuLabel>Section</MenuLabel>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel>Section</MenuLabel>
         </Menu>
       );
 
@@ -633,11 +537,8 @@ describe('Menu Component Tests', () => {
 
     it('should default to secondary appearance', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuLabel>Section</MenuLabel>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel>Section</MenuLabel>
         </Menu>
       );
 
@@ -647,11 +548,8 @@ describe('Menu Component Tests', () => {
 
     it('should default to sm size', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuLabel>Section</MenuLabel>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel>Section</MenuLabel>
         </Menu>
       );
 
@@ -662,11 +560,8 @@ describe('Menu Component Tests', () => {
     it('should forward refs', () => {
       const ref = { current: null as HTMLElement | null };
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuLabel ref={ref}>Section</MenuLabel>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel ref={ref}>Section</MenuLabel>
         </Menu>
       );
 
@@ -675,11 +570,8 @@ describe('Menu Component Tests', () => {
 
     it('should not leak boolean props to DOM', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuLabel danger lg>Section</MenuLabel>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel danger lg>Section</MenuLabel>
         </Menu>
       );
 
@@ -691,133 +583,19 @@ describe('Menu Component Tests', () => {
   });
 
   // =========================================================================
-  // MenuGroup
+  // Menu dropdown rendering
   // =========================================================================
-  describe('MenuGroup', () => {
-    it('should render with role="group"', () => {
-      renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuGroup>
-              <MenuItem>Edit</MenuItem>
-              <MenuItem>Copy</MenuItem>
-            </MenuGroup>
-          </MenuContent>
-        </Menu>
-      );
-
-      const group = document.body.querySelector('[role="group"]');
-      expect(group).toBeInTheDocument();
-      expect(group).toHaveClass('vane-menu-group');
-      expect(group).toHaveAttribute('data-vane-type', 'layout');
-    });
-
-    it('should render MenuLabel when label prop is provided', () => {
-      renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuGroup label="Actions">
-              <MenuItem>Edit</MenuItem>
-            </MenuGroup>
-          </MenuContent>
-        </Menu>
-      );
-
-      const label = document.body.querySelector('.vane-menu-label');
-      expect(label).toBeInTheDocument();
-      expect(label).toHaveTextContent('Actions');
-    });
-
-    it('should not render MenuLabel when label is not provided', () => {
-      renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuGroup>
-              <MenuItem>Edit</MenuItem>
-            </MenuGroup>
-          </MenuContent>
-        </Menu>
-      );
-
-      const label = document.body.querySelector('.vane-menu-label');
-      expect(label).not.toBeInTheDocument();
-    });
-
-    it('should forward refs', () => {
-      const ref = { current: null as HTMLDivElement | null };
-      renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuGroup ref={ref}>
-              <MenuItem>Item</MenuItem>
-            </MenuGroup>
-          </MenuContent>
-        </Menu>
-      );
-
-      expect(ref.current).toBeInstanceOf(HTMLElement);
-    });
-
-    it('should not leak boolean props to DOM', () => {
-      renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuGroup data-testid="grp">
-              <MenuItem>Item</MenuItem>
-            </MenuGroup>
-          </MenuContent>
-        </Menu>
-      );
-
-      const group = document.body.querySelector('[data-testid="grp"]');
-      expect(group).toBeInTheDocument();
-      expect(group).not.toHaveAttribute('noPadding');
-      expect(group).not.toHaveAttribute('column');
-    });
-  });
-
-  // =========================================================================
-  // MenuContent theme customization
-  // =========================================================================
-  describe('MenuContent theme', () => {
+  describe('Menu dropdown', () => {
     it('should render as a popup with data-menu-dropdown attribute', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuItem>Item</MenuItem>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
         </Menu>
       );
 
       const menu = document.body.querySelector('[role="menu"]');
       expect(menu).toBeInTheDocument();
-      // MenuContent renders as Popup with menu-specific defaults and attribute
-      expect(menu).toHaveClass('vane-popup');
-      expect(menu).toHaveAttribute('data-menu-dropdown');
-    });
-
-    it('should apply customized menu content defaults via ThemeProvider', () => {
-      render(
-        <ThemeProvider
-          themeDefaults={{ menu: { content: { sharp: true } } }}
-        >
-          <Menu defaultOpen>
-            <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-            <MenuContent>
-              <MenuItem>Item</MenuItem>
-            </MenuContent>
-          </Menu>
-        </ThemeProvider>
-      );
-
-      const menu = document.body.querySelector('[role="menu"]');
-      expect(menu).toBeInTheDocument();
+      // Menu renders as Popup with menu-specific defaults and attribute
       expect(menu).toHaveClass('vane-popup');
       expect(menu).toHaveAttribute('data-menu-dropdown');
     });
@@ -827,26 +605,17 @@ describe('Menu Component Tests', () => {
   // Full menu composition
   // =========================================================================
   describe('Full composition', () => {
-    it('should render a complete grouped menu', () => {
+    it('should render a complete labeled menu', () => {
       renderMenu(
-        <Menu defaultOpen>
-          <MenuTrigger><Button>Trigger</Button></MenuTrigger>
-          <MenuContent>
-            <MenuGroup label="Actions">
-              <MenuItem>Edit</MenuItem>
-              <MenuItem>Copy</MenuItem>
-            </MenuGroup>
-            <MenuSeparator />
-            <MenuGroup label="Danger Zone">
-              <MenuItem danger>Delete</MenuItem>
-            </MenuGroup>
-          </MenuContent>
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel>Actions</MenuLabel>
+          <MenuItem>Edit</MenuItem>
+          <MenuItem>Copy</MenuItem>
+          <MenuSeparator />
+          <MenuLabel>Danger Zone</MenuLabel>
+          <MenuItem danger>Delete</MenuItem>
         </Menu>
       );
-
-      // Two groups
-      const groups = document.body.querySelectorAll('[role="group"]');
-      expect(groups).toHaveLength(2);
 
       // Two labels
       const labels = document.body.querySelectorAll('.vane-menu-label');

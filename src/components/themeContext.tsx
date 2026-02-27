@@ -15,9 +15,6 @@ import { titleTheme } from './ui/typography/title/defaultTitleTheme';
 import { sectionTitleTheme } from './ui/typography/sectionTitle/defaultSectionTitleTheme';
 import { pageTitleTheme } from './ui/typography/pageTitle/defaultPageTitleTheme';
 import { linkTheme } from './ui/typography/link/defaultLinkTheme';
-import { defaultLinkIconTheme } from './ui/typography/link/defaultLinkIconTheme';
-import type { LinkIconTheme } from './ui/typography/link/LinkIconTheme';
-import type { LinkIconProps } from './ui/typography/link/LinkIconProps';
 import { listTheme } from './ui/typography/list/defaultListTheme';
 import { listItemTheme } from './ui/typography/listItem/defaultListItemTheme';
 import type { TypographyTheme } from './ui/typography/common/TypographyTheme';
@@ -122,15 +119,9 @@ import type { MarkProps } from "./ui/mark/MarkProps";
 import type { MenuItemTheme } from './ui/menu/MenuItemTheme';
 import { defaultMenuItemTheme } from './ui/menu/defaultMenuItemTheme';
 import type { MenuItemProps } from "./ui/menu/MenuItemProps";
-import type { MenuContentTheme } from './ui/menu/MenuContentTheme';
-import { defaultMenuContentTheme } from './ui/menu/defaultMenuContentTheme';
-import type { MenuContentProps } from './ui/menu/MenuContentProps';
 import type { MenuSeparatorTheme } from './ui/menu/MenuSeparatorTheme';
 import { defaultMenuSeparatorTheme } from './ui/menu/defaultMenuSeparatorTheme';
 import type { MenuSeparatorProps } from './ui/menu/MenuSeparatorProps';
-import type { MenuGroupTheme } from './ui/menu/MenuGroupTheme';
-import { defaultMenuGroupTheme } from './ui/menu/defaultMenuGroupTheme';
-import type { MenuGroupProps } from './ui/menu/MenuGroupProps';
 import type { MenuLabelTheme } from './ui/menu/MenuLabelTheme';
 import { defaultMenuLabelTheme } from './ui/menu/defaultMenuLabelTheme';
 import type { MenuLabelProps } from './ui/menu/MenuLabelProps';
@@ -173,10 +164,7 @@ export interface ThemeProps {
   title: ComponentTheme<TypographyProps, TypographyTheme>;
   text: ComponentTheme<TypographyProps, TypographyTheme>;
   blockquote: ComponentTheme<TypographyProps, TypographyTheme>;
-  link: {
-    main: ComponentTheme<TypographyProps, LinkTheme>;
-    icon: ComponentTheme<LinkIconProps, LinkIconTheme>;
-  };
+  link: ComponentTheme<TypographyProps, LinkTheme>;
   listItem: ComponentTheme<TypographyProps, ListItemTheme>;
   list: ComponentTheme<ListProps, ListTheme>;
   checkbox: {
@@ -199,10 +187,8 @@ export interface ThemeProps {
   };
   popup: ComponentTheme<PopupProps, PopupTheme>;
   menu: {
-    content: ComponentTheme<MenuContentProps, MenuContentTheme>;
     item: ComponentTheme<MenuItemProps, MenuItemTheme>;
     separator: ComponentTheme<MenuSeparatorProps, MenuSeparatorTheme>;
-    group: ComponentTheme<MenuGroupProps, MenuGroupTheme>;
     label: ComponentTheme<MenuLabelProps, MenuLabelTheme>;
   };
 }
@@ -245,10 +231,7 @@ export const defaultTheme: ThemeProps = {
   title: titleTheme,
   text: textTheme,
   blockquote: blockquoteTheme,
-  link: {
-    main: linkTheme,
-    icon: defaultLinkIconTheme,
-  },
+  link: linkTheme,
   listItem: listItemTheme,
   list: listTheme,
   checkbox: {
@@ -271,10 +254,8 @@ export const defaultTheme: ThemeProps = {
   },
   popup: defaultPopupTheme,
   menu: {
-    content: defaultMenuContentTheme,
     item: defaultMenuItemTheme,
     separator: defaultMenuSeparatorTheme,
-    group: defaultMenuGroupTheme,
     label: defaultMenuLabelTheme,
   },
 };
@@ -333,10 +314,7 @@ export type ThemeDefaults = {
   title?: Partial<BooleanKeys<TypographyProps>>;
   text?: Partial<BooleanKeys<TypographyProps>>;
   blockquote?: Partial<BooleanKeys<TypographyProps>>;
-  link?: {
-    main?: Partial<BooleanKeys<TypographyProps>>;
-    icon?: Partial<BooleanKeys<LinkIconProps>>;
-  };
+  link?: Partial<BooleanKeys<TypographyProps>>;
   list?: Partial<BooleanKeys<ListProps>>;
   listItem?: Partial<BooleanKeys<TypographyProps>>;
   checkbox?: {
@@ -359,10 +337,8 @@ export type ThemeDefaults = {
   };
   popup?: Partial<BooleanKeys<PopupProps>>;
   menu?: {
-    content?: Partial<BooleanKeys<MenuContentProps>>;
     item?: Partial<BooleanKeys<MenuItemProps>>;
     separator?: Partial<BooleanKeys<MenuSeparatorProps>>;
-    group?: Partial<BooleanKeys<MenuGroupProps>>;
     label?: Partial<BooleanKeys<MenuLabelProps>>;
   };
 };
@@ -406,10 +382,7 @@ export type ThemeExtraClasses = {
   title?: Partial<StringValueKeys<TypographyProps>>;
   text?: Partial<StringValueKeys<TypographyProps>>;
   blockquote?: Partial<StringValueKeys<TypographyProps>>;
-  link?: {
-    main?: Partial<StringValueKeys<TypographyProps>>;
-    icon?: Partial<StringValueKeys<LinkIconProps>>;
-  };
+  link?: Partial<StringValueKeys<TypographyProps>>;
   list?: Partial<StringValueKeys<ListProps>>;
   listItem?: Partial<StringValueKeys<TypographyProps>>;
   checkbox?: {
@@ -432,10 +405,8 @@ export type ThemeExtraClasses = {
   };
   popup?: Partial<StringValueKeys<PopupProps>>;
   menu?: {
-    content?: Partial<StringValueKeys<MenuContentProps>>;
     item?: Partial<StringValueKeys<MenuItemProps>>;
     separator?: Partial<StringValueKeys<MenuSeparatorProps>>;
-    group?: Partial<StringValueKeys<MenuGroupProps>>;
     label?: Partial<StringValueKeys<MenuLabelProps>>;
   };
 };

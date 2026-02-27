@@ -11,12 +11,12 @@ import { useTheme } from "../../themeContext";
  *
  * @example
  * ```tsx
- * <MenuContent>
+ * <Menu trigger={<Button>Actions</Button>}>
  *   <MenuItem>Edit</MenuItem>
  *   <MenuItem>Copy</MenuItem>
  *   <MenuSeparator />
  *   <MenuItem danger>Delete</MenuItem>
- * </MenuContent>
+ * </Menu>
  * ```
  */
 export const MenuSeparator = forwardRef<HTMLDivElement, MenuSeparatorProps>(

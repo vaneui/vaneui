@@ -217,30 +217,8 @@ Nested providers inherit from parent (`mergeStrategy="merge"`, default) or reset
 ### External links
 
 ```tsx
-{/* External link — auto target, rel, and icon */}
+{/* External link — auto target="_blank" and rel="noopener noreferrer" */}
 <Link href="https://github.com" external>GitHub</Link>
-
-{/* Custom end icon per-instance (overrides external default) */}
-<Link href="https://docs.example.com" external endIcon={<Icon><MyIcon /></Icon>}>
-  Docs
-</Link>
-
-{/* Start icon before text */}
-<Link href="/secure" startIcon={<Icon><LockIcon /></Icon>}>Secure Page</Link>
-
-{/* Both start and end icons */}
-<Link href="#" startIcon={<LockIcon />} endIcon={<ArrowIcon />}>Navigate</Link>
-
-{/* Suppress external icon */}
-<Link href="https://example.com" external endIcon={null}>No icon</Link>
-
-{/* Global custom icon via ThemeProvider */}
-<ThemeProvider themeOverride={(theme) => {
-  theme.link.main.themes.externalIcon = () => <Icon><MyIcon /></Icon>;
-  return theme;
-}}>
-  <Link href="https://example.com" external>All use custom icon</Link>
-</ThemeProvider>
 
 {/* Manual target="_blank" — auto rel="noopener noreferrer" */}
 <Link href="https://github.com" target="_blank">GitHub</Link>
