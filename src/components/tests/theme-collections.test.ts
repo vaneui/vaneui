@@ -1,4 +1,4 @@
-import { COMPONENT, defaultTheme, type ThemeExtraClasses } from '../../';
+import { COMPONENT, defaultTheme, themeDefaults, type ThemeExtraClasses } from '../../';
 
 // Utility to compare sets irrespective of order
 const toSorted = (arr: string[]) => [...arr].sort();
@@ -155,5 +155,50 @@ describe('Theme structure consistency', () => {
     }
 
     expect(violations).toEqual([]);
+  });
+
+  test('themeDefaults aggregator covers every component in defaultTheme', () => {
+    // Every leaf ComponentTheme in defaultTheme must have a corresponding entry
+    // in the themeDefaults aggregator (theme/defaults.ts). This ensures all
+    // component defaults are customizable via ThemeProvider's themeDefaults prop.
+    const missing: string[] = [];
+
+    for (const key of Object.keys(defaultTheme)) {
+      const themeValue = (defaultTheme as unknown as Record<string, unknown>)[key];
+      const defaultsValue = (themeDefaults as unknown as Record<string, unknown>)[key];
+
+      if (themeValue && typeof themeValue === 'object' && 'defaults' in themeValue) {
+        // Flat component (e.g., badge, divider, iconButton)
+        if (defaultsValue === undefined) {
+          missing.push(key);
+        }
+      } else if (themeValue && typeof themeValue === 'object') {
+        // Nested component group (e.g., button.main, modal.content, menu.item)
+        if (defaultsValue === undefined) {
+          // Entire group missing
+          for (const subKey of Object.keys(themeValue)) {
+            missing.push(`${key}.${subKey}`);
+          }
+        } else if (typeof defaultsValue === 'object') {
+          for (const subKey of Object.keys(themeValue)) {
+            if ((defaultsValue as Record<string, unknown>)[subKey] === undefined) {
+              missing.push(`${key}.${subKey}`);
+            }
+          }
+        }
+      }
+    }
+
+    if (missing.length > 0) {
+      throw new Error(
+        `The following components are in defaultTheme but missing from themeDefaults aggregator ` +
+        `(src/components/ui/theme/defaults.ts):\n` +
+        missing.map(k => `  - ${k}`).join('\n') +
+        `\n\nEvery component must have its defaults in the aggregator ` +
+        `so they are customizable via ThemeProvider.`
+      );
+    }
+
+    expect(missing).toEqual([]);
   });
 });

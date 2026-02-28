@@ -27,18 +27,26 @@ import { labelDefaults } from '../label/labelDefaults';
 import { imgDefaults } from '../img/imgDefaults';
 import { inputDefaults } from '../input/inputDefaults';
 import { overlayDefaults } from '../overlay/overlayDefaults';
+import { kbdDefaults } from '../kbd/kbdDefaults';
+import { markDefaults } from '../mark/markDefaults';
 import { modalContentDefaults } from '../modal/modalContentDefaults';
 import { modalOverlayDefaults } from '../modal/modalOverlayDefaults';
+import { modalHeaderDefaults } from '../modal/modalHeaderDefaults';
+import { modalBodyDefaults } from '../modal/modalBodyDefaults';
+import { modalFooterDefaults } from '../modal/modalFooterDefaults';
+import { modalCloseButtonDefaults } from '../modal/modalCloseButtonDefaults';
 import { popupDefaults } from '../popup/popupDefaults';
 import { menuItemDefaults } from '../menu/menuItemDefaults';
 import { menuPopupDefaults } from '../menu/menuPopupDefaults';
 import { menuDividerDefaults } from '../divider/menuDividerDefaults';
 import { menuLabelDefaults } from '../menu/menuLabelDefaults';
+import { navLinkDefaults } from '../navLink/navLinkDefaults';
 import {
   pageTitleDefaults,
   sectionTitleDefaults,
   titleDefaults,
   textDefaults,
+  blockquoteDefaults,
   linkDefaults,
   listItemDefaults,
   listDefaults,
@@ -59,6 +67,8 @@ export const themeDefaults: ThemeDefaults = {
   icon: iconDefaults,
   chip: chipDefaults,
   code: codeDefaults,
+  kbd: kbdDefaults,
+  mark: markDefaults,
   card: {
     main: cardDefaults,
     header: cardHeaderDefaults,
@@ -80,6 +90,7 @@ export const themeDefaults: ThemeDefaults = {
   sectionTitle: sectionTitleDefaults,
   title: titleDefaults,
   text: textDefaults,
+  blockquote: blockquoteDefaults,
   link: linkDefaults,
   listItem: listItemDefaults,
   list: listDefaults,
@@ -96,6 +107,10 @@ export const themeDefaults: ThemeDefaults = {
   modal: {
     content: modalContentDefaults,
     overlay: modalOverlayDefaults,
+    header: modalHeaderDefaults,
+    body: modalBodyDefaults,
+    footer: modalFooterDefaults,
+    closeButton: modalCloseButtonDefaults,
   },
   popup: popupDefaults,
   menu: {
@@ -104,4 +119,5 @@ export const themeDefaults: ThemeDefaults = {
     divider: menuDividerDefaults,
     label: menuLabelDefaults,
   },
+  navLink: navLinkDefaults,
 };

@@ -123,6 +123,19 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     this.themes = themes as TTheme;
   }
 
+  /** Create a variant of this theme with different defaults (e.g., menu divider from divider) */
+  withDefaults(defaults: Partial<P>): ComponentTheme<P, TTheme> {
+    return new ComponentTheme<P, TTheme>(
+      this.tag,
+      this.base,
+      this.themes,
+      defaults,
+      this.categories,
+      this.tagFunction as ((props: P, defaults: Partial<P>) => React.ElementType) | undefined,
+      this.vaneType
+    );
+  }
+
   getClasses(props: P): string[] {
     const componentProps = props as unknown as Record<string, boolean>;
     const classes: string[] = [];
