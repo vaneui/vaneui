@@ -24,31 +24,50 @@ type PopupPlacement =
   | 'right-start'
   | 'right-end';
 
+/** CSS Anchor Positioning styles for a given placement */
+interface AnchorStyles {
+  positionArea: string;
+  justifySelf?: string;
+  alignSelf?: string;
+}
+
 /**
- * Convert placement to CSS position-area value
+ * Convert placement to CSS Anchor Positioning styles.
+ *
+ * The position-area property uses a 3×3 grid with the anchor in the center cell.
+ * Single-cell values like `bottom left` place the popup in that cell (to the
+ * bottom-left OF the anchor), NOT below with left edges aligned.
+ *
+ * For -start/-end alignment we use `span-*` keywords so the popup area extends
+ * from the center cell outward, giving a containing block whose edge aligns with
+ * the anchor's edge. For -end variants we also set justify-self/align-self so
+ * the popup sits at the far edge of the spanned area.
  */
-function getPositionArea(placement: PopupPlacement): string {
-  const map: Record<PopupPlacement, string> = {
-    'top': 'block-start center',
-    'top-start': 'block-start inline-start',
-    'top-end': 'block-start inline-end',
-    'bottom': 'block-end center',
-    'bottom-start': 'block-end inline-start',
-    'bottom-end': 'block-end inline-end',
-    'left': 'center inline-start',
-    'left-start': 'block-start inline-start',
-    'left-end': 'block-end inline-start',
-    'right': 'center inline-end',
-    'right-start': 'block-start inline-end',
-    'right-end': 'block-end inline-end',
+function getAnchorStyles(placement: PopupPlacement): AnchorStyles {
+  const map: Record<PopupPlacement, AnchorStyles> = {
+    // Center variants: single center cell on the relevant side
+    'top':    { positionArea: 'top center' },
+    'bottom': { positionArea: 'bottom center' },
+    'left':   { positionArea: 'center left',  justifySelf: 'end' },
+    'right':  { positionArea: 'center right' },
+
+    // -start: span from center toward end so the start edge aligns with the anchor
+    'top-start':    { positionArea: 'top span-right' },
+    'top-end':      { positionArea: 'top span-left',    justifySelf: 'end' },
+    'bottom-start': { positionArea: 'bottom span-right' },
+    'bottom-end':   { positionArea: 'bottom span-left', justifySelf: 'end' },
+    'left-start':   { positionArea: 'left span-bottom', justifySelf: 'end' },
+    'left-end':     { positionArea: 'left span-top',    justifySelf: 'end', alignSelf: 'end' },
+    'right-start':  { positionArea: 'right span-bottom' },
+    'right-end':    { positionArea: 'right span-top',   alignSelf: 'end' },
   };
   return map[placement];
 }
 
 /**
- * Convert placement to margin property for offset (CSS Anchor Positioning path)
+ * Convert placement to offset margin styles.
  */
-function getOffsetStyle(placement: PopupPlacement, offset: number): Record<string, string | number> {
+function getOffsetStyle(placement: PopupPlacement, offset: number): React.CSSProperties {
   if (placement.startsWith('top')) {
     return { marginBottom: offset };
   }
@@ -222,6 +241,27 @@ function supportsAnchorPositioning(): boolean {
 }
 
 /**
+ * Build the CSS Anchor Positioning style object for the popup element.
+ */
+function buildCssAnchorStyles(
+  anchorName: string,
+  placement: PopupPlacement,
+  offset: number,
+  matchWidth: boolean,
+): React.CSSProperties {
+  const anchor = getAnchorStyles(placement);
+  return {
+    positionAnchor: `--${anchorName}`,
+    positionArea: anchor.positionArea,
+    positionTryFallbacks: 'flip-block, flip-inline',
+    ...(anchor.justifySelf ? { justifySelf: anchor.justifySelf } : undefined),
+    ...(anchor.alignSelf ? { alignSelf: anchor.alignSelf } : undefined),
+    ...getOffsetStyle(placement, offset),
+    ...(matchWidth ? { width: 'anchor-size(width)' } : undefined),
+  } as React.CSSProperties;
+}
+
+/**
  * Popup component - a floating container anchored to an element.
  *
  * Uses CSS Anchor Positioning API with `position-try-fallbacks` for
@@ -322,6 +362,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     const popupRef = useRef<HTMLDivElement>(null);
     const anchorName = useId().replace(/:/g, '-');
     const [resolvedPlacement, setResolvedPlacement] = useState<PopupPlacement | null>(null);
+    const [positionStyles, setPositionStyles] = useState<React.CSSProperties>({});
 
     // Controllable open state — supports both controlled and uncontrolled modes
     const [open, setOpen] = useControllableState({
@@ -370,64 +411,45 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       [ref]
     );
 
-    // Combined positioning effect — useLayoutEffect prevents FOUC
-    // Uses CSS Anchor Positioning with flip fallbacks when supported, JS fallback otherwise
+    // Set anchor-name on the external anchor element (CSS Anchor Positioning only).
+    // This is the only imperative DOM access needed — the anchor element is not
+    // rendered by Popup, so we can't pass styles to it declaratively.
     useLayoutEffect(() => {
-      if (!effectiveOpen || !popupRef.current || !anchorRef.current) return;
+      if (!effectiveOpen || !supportsAnchorPositioning() || !anchorRef.current) return;
 
-      const popup = popupRef.current;
       const anchor = anchorRef.current;
-
-      if (supportsAnchorPositioning()) {
-        // CSS Anchor Positioning path with viewport collision handling
-        anchor.style.setProperty('anchor-name', `--${anchorName}`);
-        popup.style.setProperty('position-anchor', `--${anchorName}`);
-        popup.style.setProperty('position-area', getPositionArea(placement));
-        popup.style.setProperty('position-try-fallbacks', 'flip-block, flip-inline');
-
-        // Offset margins
-        const offsetStyles = getOffsetStyle(placement, offset);
-        Object.entries(offsetStyles).forEach(([key, value]) => {
-          popup.style.setProperty(
-            key.replace(/([A-Z])/g, '-$1').toLowerCase(),
-            typeof value === 'number' ? `${value}px` : value
-          );
-        });
-
-        if (matchWidth) {
-          popup.style.setProperty('width', 'anchor-size(width)');
-        }
-
-        // For CSS path, use the requested placement (browser handles flipping)
-        setResolvedPlacement(placement);
-      } else {
-        // JavaScript positioning fallback with flip + clamp
-        const anchorRect = anchor.getBoundingClientRect();
-        const popupRect = popup.getBoundingClientRect();
-        const pos = getJsPosition(anchorRect, popupRect, placement, offset);
-        popup.style.top = `${pos.top}px`;
-        popup.style.left = `${pos.left}px`;
-
-        if (matchWidth) {
-          popup.style.width = `${anchorRect.width}px`;
-        }
-
-        setResolvedPlacement(pos.resolvedPlacement);
-      }
+      anchor.style.setProperty('anchor-name', `--${anchorName}`);
 
       return () => {
         anchor.style.removeProperty('anchor-name');
-        popup.style.removeProperty('position-anchor');
-        popup.style.removeProperty('position-area');
-        popup.style.removeProperty('position-try-fallbacks');
-        popup.style.removeProperty('top');
-        popup.style.removeProperty('left');
-        popup.style.removeProperty('width');
-        popup.style.removeProperty('margin-top');
-        popup.style.removeProperty('margin-bottom');
-        popup.style.removeProperty('margin-left');
-        popup.style.removeProperty('margin-right');
       };
+    }, [effectiveOpen, anchorRef, anchorName]);
+
+    // Compute positioning styles declaratively.
+    // CSS path: builds style object from placement (no DOM measurement needed).
+    // JS path: measures anchor + popup rects, computes top/left with flip/shift.
+    // Both paths store the result in state; React applies it via the style prop.
+    useLayoutEffect(() => {
+      if (!effectiveOpen || !anchorRef.current) return;
+
+      if (supportsAnchorPositioning()) {
+        setPositionStyles(buildCssAnchorStyles(anchorName, placement, offset, matchWidth));
+        setResolvedPlacement(placement);
+      } else {
+        const popup = popupRef.current;
+        if (!popup) return;
+
+        const anchorRect = anchorRef.current.getBoundingClientRect();
+        const popupRect = popup.getBoundingClientRect();
+        const pos = getJsPosition(anchorRect, popupRect, placement, offset);
+
+        setPositionStyles({
+          top: pos.top,
+          left: pos.left,
+          ...(matchWidth ? { width: anchorRect.width } : undefined),
+        });
+        setResolvedPlacement(pos.resolvedPlacement);
+      }
     }, [effectiveOpen, anchorRef, anchorName, placementKey, offset, matchWidth]);
 
     // Escape key handler
@@ -515,6 +537,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         style={{
           '--z-index': zIndex,
           ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } : undefined),
+          ...positionStyles,
         } as React.CSSProperties}
         aria-hidden={isHidden || undefined}
         {...mergedProps}

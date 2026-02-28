@@ -119,7 +119,7 @@ function App() {
               Arrow keys navigate, Escape closes. Uses <Code sm>Divider</Code> between sections.
             </Text>
             <Row>
-              <Menu className="min-w-[180px]" trigger={<Button>Actions <ChevronDownIcon /></Button>}>
+              <Menu className="min-w-[180px]" bottomStart trigger={<Button>Actions <ChevronDownIcon /></Button>}>
                 <MenuItem onClick={() => setLastAction('Edit')}>
                   <EditIcon /> Edit
                 </MenuItem>
