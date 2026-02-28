@@ -19,11 +19,12 @@ import {
   Popup,
   Menu,
   MenuItem,
+  MenuLabel,
+  NavLink,
   Divider,
 } from '../../src';
 
 // Import VaneUI CSS
-import '../../dist/vars.css';
 import '../../dist/ui.css';
 
 // Simple SVG icon for testing
@@ -294,6 +295,22 @@ function TestHarness() {
 
         <ZIndexFixtures />
 
+        {/* ── NavLink icon sizing ── */}
+
+        <section data-testid="navlink-icon-section">
+          <NavLink xs data-testid="navlink-icon-xs"><StarIcon /> XS NavLink</NavLink>
+          <NavLink sm data-testid="navlink-icon-sm"><StarIcon /> SM NavLink</NavLink>
+          <NavLink md data-testid="navlink-icon-md"><StarIcon /> MD NavLink</NavLink>
+          <NavLink lg data-testid="navlink-icon-lg"><StarIcon /> LG NavLink</NavLink>
+          <NavLink xl data-testid="navlink-icon-xl"><StarIcon /> XL NavLink</NavLink>
+        </section>
+
+        {/* ── MenuLabel icon sizing ── */}
+
+        <section data-testid="menulabel-icon-section">
+          <MenuLabel md data-testid="menulabel-icon-md"><StarIcon /> Label</MenuLabel>
+        </section>
+
         {/* ── Menu (after z-index fixtures to avoid affecting stacking counts) ── */}
 
         <section data-testid="menu-section">
@@ -316,6 +333,12 @@ function TestHarness() {
             <MenuItem danger data-testid="menu-item-danger">Danger</MenuItem>
             <MenuItem success data-testid="menu-item-success">Success</MenuItem>
             <MenuItem disabled data-testid="menu-item-disabled">Disabled</MenuItem>
+            <Divider />
+            <MenuItem xs data-testid="menu-item-icon-xs"><StarIcon /> XS Icon</MenuItem>
+            <MenuItem sm data-testid="menu-item-icon-sm"><StarIcon /> SM Icon</MenuItem>
+            <MenuItem md data-testid="menu-item-icon-md"><StarIcon /> MD Icon</MenuItem>
+            <MenuItem lg data-testid="menu-item-icon-lg"><StarIcon /> LG Icon</MenuItem>
+            <MenuItem xl data-testid="menu-item-icon-xl"><StarIcon /> XL Icon</MenuItem>
           </Menu>
         </section>
 

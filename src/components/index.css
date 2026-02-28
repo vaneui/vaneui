@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-@import "./css/vars.css" layer(theme);
+@import "./css/tokens.css" layer(theme);
+@import "./css/rules.css";
 
 /* Unlayered: overrides Tailwind base svg { display: block }.
    Link icon wrappers use display: inline so the parent <a>'s

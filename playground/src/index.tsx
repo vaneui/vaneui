@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 
 // Import VaneUI CSS
-import '../../dist/vars.css';
 import '../../dist/ui.css';
 
 const root = ReactDOM.createRoot(

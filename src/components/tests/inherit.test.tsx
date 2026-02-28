@@ -21,9 +21,9 @@ import {
   defaultTheme
 } from '../../index';
 
-// Load vars.css for CSS rule verification tests
+// Load rules.css for CSS rule verification tests (vars.css is now a barrel import)
 const varsCSS = fs.readFileSync(
-  path.resolve(__dirname, '../css/vars.css'),
+  path.resolve(__dirname, '../css/rules.css'),
   'utf-8'
 );
 

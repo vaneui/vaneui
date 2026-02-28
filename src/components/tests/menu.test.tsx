@@ -152,6 +152,29 @@ describe('Menu Component Tests', () => {
       expect(item).toHaveAttribute('aria-disabled', 'true');
     });
 
+    it('should include SVG protection classes', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Edit</MenuItem>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]');
+      expect(item).toHaveClass('[&_svg]:pointer-events-none');
+      expect(item).toHaveClass('[&_svg]:shrink-0');
+    });
+
+    it('should include vane-menu-item class for CSS icon sizing', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Edit</MenuItem>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]');
+      expect(item).toHaveClass('vane-menu-item');
+    });
+
     it('should not fire onClick when disabled', () => {
       const onClick = jest.fn();
       renderMenu(
@@ -573,6 +596,29 @@ describe('Menu Component Tests', () => {
       expect(label).toBeInTheDocument();
       expect(label).not.toHaveAttribute('danger');
       expect(label).not.toHaveAttribute('lg');
+    });
+
+    it('should include SVG protection classes', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel>Section</MenuLabel>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toHaveClass('[&_svg]:pointer-events-none');
+      expect(label).toHaveClass('[&_svg]:shrink-0');
+    });
+
+    it('should include vane-menu-label class for CSS icon sizing', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel>Section</MenuLabel>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toHaveClass('vane-menu-label');
     });
   });
 

@@ -234,6 +234,9 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     if (extractedKeys.size) {
       dataAttributes['data-size'] = extractedKeys.size;
     }
+    if (extractedKeys.responsive === 'responsive') {
+      dataAttributes['data-responsive'] = '';
+    }
     if (extractedKeys.appearance && extractedKeys.appearance !== 'inherit') {
       dataAttributes['data-appearance'] = extractedKeys.appearance;
     }

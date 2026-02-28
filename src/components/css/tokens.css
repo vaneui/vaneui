@@ -1,0 +1,208 @@
+@theme {
+    /* Text Colors */
+    --color-text-primary: var(--color-gray-900);
+    --color-text-brand: var(--color-blue-600);
+    --color-text-secondary: var(--color-gray-600);
+    --color-text-tertiary: var(--color-gray-500);
+    --color-text-link: var(--color-blue-600);
+    --color-text-accent: var(--color-rose-700);
+    --color-text-success: var(--color-emerald-600);
+    --color-text-danger: var(--color-red-600);
+    --color-text-warning: var(--color-amber-600);
+    --color-text-info: var(--color-cyan-600);
+
+    /* Filled Text Colors */
+    --color-text-filled-primary: var(--color-white);
+    --color-text-filled-brand: var(--color-blue-100);
+    --color-text-filled-secondary: var(--color-gray-200);
+    --color-text-filled-tertiary: var(--color-gray-300);
+    --color-text-filled-link: var(--color-blue-100);
+    --color-text-filled-accent: var(--color-rose-100);
+    --color-text-filled-success: var(--color-emerald-100);
+    --color-text-filled-danger: var(--color-red-100);
+    --color-text-filled-warning: var(--color-amber-100);
+    --color-text-filled-info: var(--color-cyan-100);
+
+    /* UI Background Colors */
+    --color-bg-primary: var(--color-white);
+    --color-bg-brand: var(--color-blue-50);
+    --color-bg-secondary: var(--color-gray-50);
+    --color-bg-tertiary: var(--color-gray-100);
+    --color-bg-accent: var(--color-rose-50);
+    --color-bg-success: var(--color-emerald-50);
+    --color-bg-danger: var(--color-red-50);
+    --color-bg-warning: var(--color-amber-50);
+    --color-bg-info: var(--color-cyan-50);
+
+    /* UI Background Hover Colors */
+    --color-bg-hover-primary: var(--color-gray-50);
+    --color-bg-hover-brand: var(--color-blue-100);
+    --color-bg-hover-secondary: var(--color-gray-100);
+    --color-bg-hover-tertiary: var(--color-gray-200);
+    --color-bg-hover-accent: var(--color-rose-100);
+    --color-bg-hover-success: var(--color-emerald-100);
+    --color-bg-hover-danger: var(--color-red-100);
+    --color-bg-hover-warning: var(--color-amber-100);
+    --color-bg-hover-info: var(--color-cyan-100);
+
+    /* UI Background Active Colors */
+    --color-bg-active-primary: var(--color-gray-100);
+    --color-bg-active-brand: var(--color-blue-200);
+    --color-bg-active-secondary: var(--color-gray-200);
+    --color-bg-active-tertiary: var(--color-gray-300);
+    --color-bg-active-accent: var(--color-rose-200);
+    --color-bg-active-success: var(--color-emerald-200);
+    --color-bg-active-danger: var(--color-red-200);
+    --color-bg-active-warning: var(--color-amber-200);
+    --color-bg-active-info: var(--color-cyan-200);
+
+    /* Filled UI Background Colors */
+    --color-bg-filled-primary: var(--color-gray-800);
+    --color-bg-filled-brand: var(--color-blue-600);
+    --color-bg-filled-secondary: var(--color-gray-600);
+    --color-bg-filled-tertiary: var(--color-gray-500);
+    --color-bg-filled-accent: var(--color-rose-600);
+    --color-bg-filled-success: var(--color-emerald-600);
+    --color-bg-filled-danger: var(--color-red-600);
+    --color-bg-filled-warning: var(--color-amber-600);
+    --color-bg-filled-info: var(--color-cyan-600);
+
+    /* Filled UI Hover Background Colors */
+    --color-bg-filled-hover-primary: var(--color-gray-900);
+    --color-bg-filled-hover-brand: var(--color-blue-700);
+    --color-bg-filled-hover-secondary: var(--color-gray-700);
+    --color-bg-filled-hover-tertiary: var(--color-gray-600);
+    --color-bg-filled-hover-accent: var(--color-rose-700);
+    --color-bg-filled-hover-success: var(--color-emerald-700);
+    --color-bg-filled-hover-danger: var(--color-red-700);
+    --color-bg-filled-hover-warning: var(--color-amber-700);
+    --color-bg-filled-hover-info: var(--color-cyan-700);
+
+    /* Filled UI Active Background Colors */
+    --color-bg-filled-active-primary: var(--color-gray-950);
+    --color-bg-filled-active-brand: var(--color-blue-800);
+    --color-bg-filled-active-secondary: var(--color-gray-800);
+    --color-bg-filled-active-tertiary: var(--color-gray-700);
+    --color-bg-filled-active-accent: var(--color-rose-800);
+    --color-bg-filled-active-success: var(--color-emerald-800);
+    --color-bg-filled-active-danger: var(--color-red-800);
+    --color-bg-filled-active-warning: var(--color-amber-800);
+    --color-bg-filled-active-info: var(--color-cyan-800);
+
+    /* Layout Background Colors */
+    --color-bg-layout-primary: var(--color-white);
+    --color-bg-layout-brand: var(--color-blue-50);
+    --color-bg-layout-secondary: var(--color-gray-50);
+    --color-bg-layout-tertiary: var(--color-gray-100);
+    --color-bg-layout-accent: var(--color-indigo-50);
+    --color-bg-layout-success: var(--color-green-50);
+    --color-bg-layout-danger: var(--color-red-50);
+    --color-bg-layout-warning: var(--color-yellow-50);
+    --color-bg-layout-info: var(--color-blue-50);
+
+    /* Layout Filled Background Colors */
+    --color-bg-filled-layout-primary: var(--color-gray-700);
+    --color-bg-filled-layout-brand: var(--color-blue-800);
+    --color-bg-filled-layout-secondary: var(--color-gray-800);
+    --color-bg-filled-layout-tertiary: var(--color-gray-900);
+    --color-bg-filled-layout-accent: var(--color-indigo-700);
+    --color-bg-filled-layout-success: var(--color-green-700);
+    --color-bg-filled-layout-danger: var(--color-red-700);
+    --color-bg-filled-layout-warning: var(--color-yellow-800);
+    --color-bg-filled-layout-info: var(--color-blue-700);
+
+    /* Border Colors */
+    --color-border-primary: var(--color-gray-200);
+    --color-border-brand: var(--color-blue-300);
+    --color-border-secondary: var(--color-gray-200);
+    --color-border-tertiary: var(--color-gray-200);
+    --color-border-accent: var(--color-rose-300);
+    --color-border-success: var(--color-emerald-300);
+    --color-border-danger: var(--color-red-300);
+    --color-border-warning: var(--color-amber-300);
+    --color-border-info: var(--color-cyan-300);
+
+    /* Filled Button Border Colors */
+    --color-border-filled-primary: var(--color-gray-600);
+    --color-border-filled-brand: var(--color-blue-600);
+    --color-border-filled-secondary: var(--color-gray-600);
+    --color-border-filled-tertiary: var(--color-gray-600);
+    --color-border-filled-accent: var(--color-rose-600);
+    --color-border-filled-success: var(--color-emerald-600);
+    --color-border-filled-danger: var(--color-red-600);
+    --color-border-filled-warning: var(--color-amber-600);
+    --color-border-filled-info: var(--color-cyan-600);
+
+    --br-base: var(--spacing);
+    --fs-base: calc(var(--spacing) * 0.5);
+
+    --breakpoint-mobile: 48rem;
+    --breakpoint-tablet: 64rem;
+    --breakpoint-desktop: 80rem;
+
+    --lh: 1;
+    --fs-unit: 8; /* Default to text-base (1rem = 8 * 0.125rem) */
+    --gap-unit: 1;
+    --aspect-ratio: 1;
+    --py-unit: 1;
+    --br-unit: 1;
+    --size-unit: 1;
+    --bw: 1px; /* Border width */
+    --rw: 1px; /* Ring width */
+
+    /* Z-index stacking (customizable via CSS) */
+    --z-overlay: 200;
+    --z-modal: 200;
+    --z-popup: 300;
+    /* --z-toast: 400; (reserved for future Toast/Notification component) */
+
+    /* Transition timing */
+    --transition-duration: 200ms;
+    --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Overlay variables */
+    --overlay-bg: oklch(0 0 0 / 50%); /* Semi-transparent black */
+    --overlay-blur: 4px; /* Backdrop blur amount */
+
+    /* Modal width scale (used by Modal component) */
+    --modal-width-xs: 20rem; /* 320px */
+    --modal-width-sm: 24rem; /* 384px */
+    --modal-width-md: 28rem; /* 448px */
+    --modal-width-lg: 32rem; /* 512px */
+    --modal-width-xl: 36rem; /* 576px */
+    --modal-width: var(--modal-width-md); /* Default modal width */
+    --modal-max-height: 90vh; /* Default modal max height */
+
+    /* Shadow color (RGB channels — used by all shadow variables) */
+    --shadow-color: 0 0 0;
+
+    /* UI shadows (compact, grounded — for buttons, inputs, checkboxes) */
+    --shadow-ui-xs:  0 1px 2px 0 rgb(var(--shadow-color) / 0.1);
+    --shadow-ui-sm:  0 1px 3px 0 rgb(var(--shadow-color) / 0.1);
+    --shadow-ui-md:  0 2px 4px -1px rgb(var(--shadow-color) / 0.1), 0 1px 2px 0 rgb(var(--shadow-color) / 0.06);
+    --shadow-ui-lg:  0 3px 6px -1px rgb(var(--shadow-color) / 0.1), 0 1px 2px -1px rgb(var(--shadow-color) / 0.06);
+    --shadow-ui-xl:  0 4px 8px -2px rgb(var(--shadow-color) / 0.1), 0 2px 3px -1px rgb(var(--shadow-color) / 0.06);
+
+    /* Layout shadows (elevated, deeper — for cards, modals, popups) */
+    --shadow-layout-xs:  0 2px 4px -1px rgb(var(--shadow-color) / 0.1), 0 1px 2px 0 rgb(var(--shadow-color) / 0.06);
+    --shadow-layout-sm:  0 4px 8px -2px rgb(var(--shadow-color) / 0.1), 0 1px 3px -1px rgb(var(--shadow-color) / 0.06);
+    --shadow-layout-md:  0 6px 12px -3px rgb(var(--shadow-color) / 0.1), 0 2px 4px -1px rgb(var(--shadow-color) / 0.06);
+    --shadow-layout-lg:  0 10px 20px -5px rgb(var(--shadow-color) / 0.1), 0 2px 6px -2px rgb(var(--shadow-color) / 0.06);
+    --shadow-layout-xl:  0 16px 32px -6px rgb(var(--shadow-color) / 0.1), 0 3px 8px -2px rgb(var(--shadow-color) / 0.06);
+
+    /* Popup max height (used by Popup component) */
+    --popup-max-height: 20rem; /* 320px default max height */
+
+    /* Font size scale (used by Text, Link, ListItem, Label, List, Button, Badge, Chip) */
+    --fs-unit-xs: 6;
+    --fs-unit-sm: 7;
+    --fs-unit-md: 8;
+    --fs-unit-lg: 9;
+    --fs-unit-xl: 10;
+
+    /* Common line height */
+    --lh-base: 1.6;
+
+    /* Disabled state */
+    --disabled-opacity: 50%;
+}

@@ -249,6 +249,18 @@ describe('NavLink Component Tests', () => {
     });
   });
 
+  describe('Icon Sizing Base Class', () => {
+    it('should include vane-nav-link class for CSS icon sizing', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test">Item</NavLink>
+        </ThemeProvider>
+      );
+
+      expect(container.querySelector('a')).toHaveClass('vane-nav-link');
+    });
+  });
+
   describe('SVG Protection Classes', () => {
     it('should include SVG pointer-events-none class', () => {
       const { container } = render(

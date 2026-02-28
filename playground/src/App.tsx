@@ -214,6 +214,34 @@ function App() {
             </Menu>
           </Card>
 
+          {/* ═══ ICON SIZING ═══════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Icon Sizing</SectionTitle>
+
+          <Card>
+            <Title>MenuItem Icons Scale with Size</Title>
+            <Text sm secondary>
+              SVG icons inside <Code sm>MenuItem</Code> automatically scale with the size prop
+              via the <Code sm>--icon-size</Code> CSS variable. No wrapper needed.
+            </Text>
+            <Menu className="min-w-[220px]" bottomStart trigger={<Button>Icon Sizes <ChevronDownIcon /></Button>}>
+              <MenuLabel xs><SettingsIcon /> Extra Small Label</MenuLabel>
+              <MenuItem xs><EditIcon /> Extra Small (xs)</MenuItem>
+              <Divider />
+              <MenuLabel sm><SettingsIcon /> Small Label</MenuLabel>
+              <MenuItem sm><EditIcon /> Small (sm)</MenuItem>
+              <Divider />
+              <MenuLabel md><SettingsIcon /> Medium Label</MenuLabel>
+              <MenuItem md><EditIcon /> Medium (md)</MenuItem>
+              <Divider />
+              <MenuLabel lg><SettingsIcon /> Large Label</MenuLabel>
+              <MenuItem lg><EditIcon /> Large (lg)</MenuItem>
+              <Divider />
+              <MenuLabel xl><SettingsIcon /> Extra Large Label</MenuLabel>
+              <MenuItem xl><EditIcon /> Extra Large (xl)</MenuItem>
+            </Menu>
+          </Card>
+
           {/* ═══ REAL-WORLD ════════════════════════════════════════════════ */}
           <Divider />
           <SectionTitle>Real-World Context</SectionTitle>
@@ -307,6 +335,25 @@ function App() {
             <Stack noPadding noGap className="w-72">
               <NavLink href="#" xs><HomeIcon /> Extra Small (xs)</NavLink>
               <NavLink href="#" sm><HomeIcon /> Small (sm, default)</NavLink>
+              <NavLink href="#" md><HomeIcon /> Medium (md)</NavLink>
+              <NavLink href="#" lg><HomeIcon /> Large (lg)</NavLink>
+              <NavLink href="#" xl><HomeIcon /> Extra Large (xl)</NavLink>
+            </Stack>
+          </Card>
+
+          {/* ═══ ICON SIZING ═══════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Icon Sizing</SectionTitle>
+
+          <Card>
+            <Title>Icons Scale with Size</Title>
+            <Text sm secondary>
+              SVG icons inside <Code sm>NavLink</Code> automatically scale with the size prop
+              via the <Code sm>--icon-size</Code> CSS variable. Compare icon sizes across variants.
+            </Text>
+            <Stack noPadding noGap className="w-72">
+              <NavLink href="#" xs><HomeIcon /> Extra Small (xs)</NavLink>
+              <NavLink href="#" sm><HomeIcon /> Small (sm)</NavLink>
               <NavLink href="#" md><HomeIcon /> Medium (md)</NavLink>
               <NavLink href="#" lg><HomeIcon /> Large (lg)</NavLink>
               <NavLink href="#" xl><HomeIcon /> Extra Large (xl)</NavLink>

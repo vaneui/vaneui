@@ -1,0 +1,777 @@
+@layer base {
+    [data-size] {
+        /* Non-breakpoint computed variables */
+        --pl: calc(var(--py-unit) * var(--spacing));
+        --size: calc(var(--size-unit) * var(--spacing));
+        --br: calc(var(--br-unit) * var(--br-base));
+        --py: calc(var(--py-unit) * var(--spacing));
+        --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
+        --gap: calc(var(--gap-unit) * var(--spacing));
+        --fs: calc(var(--fs-unit) * var(--fs-base));
+    }
+
+    [data-responsive] {
+        /* Default: breakpoint-specific unit vars inherit from base unit vars.
+           Responsive components override these with specific numeric values. */
+        --py-unit-desktop: var(--py-unit);
+        --py-unit-tablet: var(--py-unit);
+        --py-unit-mobile: var(--py-unit);
+        --gap-unit-desktop: var(--gap-unit);
+        --gap-unit-tablet: var(--gap-unit);
+        --gap-unit-mobile: var(--gap-unit);
+        --fs-unit-desktop: var(--fs-unit);
+        --fs-unit-tablet: var(--fs-unit);
+        --fs-unit-mobile: var(--fs-unit);
+
+        /* Breakpoint-specific computed variables */
+        --py-desktop: calc(var(--py-unit-desktop) * var(--spacing));
+        --py-tablet: calc(var(--py-unit-tablet) * var(--spacing));
+        --py-mobile: calc(var(--py-unit-mobile) * var(--spacing));
+
+        --px-desktop: calc(var(--aspect-ratio) * var(--py-unit-desktop) * var(--spacing));
+        --px-tablet: calc(var(--aspect-ratio) * var(--py-unit-tablet) * var(--spacing));
+        --px-mobile: calc(var(--aspect-ratio) * var(--py-unit-mobile) * var(--spacing));
+
+        --gap-desktop: calc(var(--gap-unit-desktop) * var(--spacing));
+        --gap-tablet: calc(var(--gap-unit-tablet) * var(--spacing));
+        --gap-mobile: calc(var(--gap-unit-mobile) * var(--spacing));
+
+        --fs-desktop: calc(var(--fs-unit-desktop) * var(--fs-base));
+        --fs-tablet: calc(var(--fs-unit-tablet) * var(--fs-base));
+        --fs-mobile: calc(var(--fs-unit-mobile) * var(--fs-base));
+    }
+}
+
+@layer components {
+    /* Root-level defaults for CSS variable inheritance.
+       Without these, components using inherit would have undefined
+       --text-color and --border-color when no parent sets appearance. */
+    :root {
+        --text-color: var(--color-text-primary);
+        --border-color: var(--color-border-primary);
+    }
+
+    /* ========================================
+       TYPE-BASED DEFAULTS
+       Sets --gap-unit, --py-unit, --aspect-ratio, --shadow-base
+       based on data-vane-type and data-size attributes.
+       Components inherit these unless they override.
+       UI --br-unit is set per component (height-proportional).
+       Layout --br-unit is set per size (fixed scale).
+       ======================================== */
+
+    /* UI type defaults (compact spacing, static shadows) */
+    [data-vane-type="ui"][data-size="xs"] { --gap-unit: 1;   --shadow-base: var(--shadow-ui-xs); }
+    [data-vane-type="ui"][data-size="sm"] { --gap-unit: 1.5; --shadow-base: var(--shadow-ui-sm); }
+    [data-vane-type="ui"][data-size="md"] { --gap-unit: 2;   --shadow-base: var(--shadow-ui-md); }
+    [data-vane-type="ui"][data-size="lg"] { --gap-unit: 2.5; --shadow-base: var(--shadow-ui-lg); }
+    [data-vane-type="ui"][data-size="xl"] { --gap-unit: 3;   --shadow-base: var(--shadow-ui-xl); }
+
+    /* Height-proportional border radius for UI components:
+       --br = (fs-unit * 0.5 * lh + 2 * py-unit) * --br-unit * spacing
+       where --br-unit is a constant ratio per component (radius / height),
+       calibrated so md matches the design spec. Size adaptation comes naturally
+       from fs-unit and py-unit changing per size. */
+    [data-vane-type="ui"][data-size] {
+        --br: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit)) * var(--br-unit) * var(--spacing));
+    }
+
+    /* Layout type defaults (generous spacing, static shadows) */
+    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xs); }
+    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-sm); }
+    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-md); }
+    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 5; --py-unit: 5; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-lg); }
+    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 6; --py-unit: 6; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xl); }
+
+    /* NON-RESPONSIVE COMPONENTS */
+
+    /* Button */
+    .vane-button { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.2174; --icon-size: calc(var(--fs) * var(--lh)); }
+    .vane-button[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-button[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-button[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-button[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-button[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+    .vane-button:has(> svg) { --aspect-ratio: 1.5; }
+
+    /* IconButton */
+    .vane-icon-button { --lh: 1.3; --py-unit: 2; --aspect-ratio: 1; --br-unit: 0.2174; --icon-size: calc(var(--fs) * var(--lh)); }
+    .vane-icon-button[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-icon-button[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-icon-button[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-icon-button[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-icon-button[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+
+    /* Icon */
+    .vane-icon { --icon-size: calc(var(--fs) * var(--lh)); }
+    .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+
+    /* Icon sizing for Button, IconButton, and Icon — uses --icon-size CSS variable */
+    .vane-button :where(svg:not([class*='size-'])),
+    .vane-icon-button :where(svg:not([class*='size-'])),
+    .vane-icon :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
+
+    /* Badge */
+    .vane-badge { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; }
+    .vane-badge[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-badge[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-badge[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-badge[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-badge[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+
+    /* Chip */
+    .vane-chip { --lh: 1.2; --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.2564; }
+    .vane-chip[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5; }
+    .vane-chip[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1; }
+    .vane-chip[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1.5; }
+    .vane-chip[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
+    .vane-chip[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
+
+    /* Code */
+    .vane-code { --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; }
+    .vane-code[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
+    .vane-code[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
+    .vane-code[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }
+    .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
+    .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
+
+    /* Kbd */
+    .vane-kbd { --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; border-bottom-width: 3px; }
+    .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
+    .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
+    .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }
+    .vane-kbd[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
+    .vane-kbd[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
+
+    /* Mark */
+    .vane-mark { --lh: 1; --py-unit: 0.4; --aspect-ratio: 1.5; --br-unit: 0.3333; }
+    .vane-mark[data-size="xs"] { --fs-unit: 5; --py-unit: 0.2; }
+    .vane-mark[data-size="sm"] { --fs-unit: 6; --py-unit: 0.3; }
+    .vane-mark[data-size="md"] { --fs-unit: 7; --py-unit: 0.4; }
+    .vane-mark[data-size="lg"] { --fs-unit: 8; --py-unit: 0.5; }
+    .vane-mark[data-size="xl"] { --fs-unit: 9; --py-unit: 0.6; }
+
+    /* Input */
+    .vane-input { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; }
+    .vane-input[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-input[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-input[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-input[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-input[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+
+    /* Checkbox (height = size-unit * spacing, not text-based) */
+    .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
+    .vane-checkbox[data-size="xs"] { --size-unit: 3; }
+    .vane-checkbox[data-size="sm"] { --size-unit: 3.5; }
+    .vane-checkbox[data-size="md"] { --size-unit: 4; }
+    .vane-checkbox[data-size="lg"] { --size-unit: 4.5; }
+    .vane-checkbox[data-size="xl"] { --size-unit: 5; }
+
+    /* Label */
+    .vane-label {
+        --lh: var(--lh-base);
+    }
+    .vane-label[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-label[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-label[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-label[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-label[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+
+    /* Card */
+    .vane-card { --py-unit: 6; --gap-unit: 3; --aspect-ratio: 1; }
+    .vane-card[data-size="xs"] { --py-unit: 2; --gap-unit: 1; }
+    .vane-card[data-size="sm"] { --py-unit: 4; --gap-unit: 2; }
+    .vane-card[data-size="md"] { --py-unit: 6; --gap-unit: 3; }
+    .vane-card[data-size="lg"] { --py-unit: 8; --gap-unit: 4; }
+    .vane-card[data-size="xl"] { --py-unit: 10; --gap-unit: 5; }
+
+    /* Stack - inherits --py-unit and --aspect-ratio from layout type defaults */
+
+    /* Container */
+    .vane-container { --py-unit: 8; --aspect-ratio: 2; }
+    .vane-container[data-size="xs"] { --py-unit: 4; }
+    .vane-container[data-size="sm"] { --py-unit: 6; }
+    .vane-container[data-size="md"] { --py-unit: 8; }
+    .vane-container[data-size="lg"] { --py-unit: 10; }
+    .vane-container[data-size="xl"] { --py-unit: 12; }
+
+    /* Divider */
+    .vane-divider { --py-unit: 4; --aspect-ratio: 2; }
+    .vane-divider[data-size="xs"] { --py-unit: 2; }
+    .vane-divider[data-size="sm"] { --py-unit: 3; }
+    .vane-divider[data-size="md"] { --py-unit: 4; }
+    .vane-divider[data-size="lg"] { --py-unit: 5; }
+    .vane-divider[data-size="xl"] { --py-unit: 6; }
+
+    /* List */
+    .vane-list { --lh: var(--lh-base); --py-unit: 3; }
+    .vane-list[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-list[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 2; }
+    .vane-list[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 3; }
+    .vane-list[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 4; }
+    .vane-list[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 5; }
+
+    /* Text */
+    .vane-text { --lh: var(--lh-base); }
+    .vane-text[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-text[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-text[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-text[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-text[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+
+    /* Blockquote */
+    .vane-blockquote { --lh: var(--lh-base); }
+    .vane-blockquote[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-blockquote[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-blockquote[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-blockquote[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-blockquote[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+
+    /* Link */
+    .vane-link { --lh: var(--lh-base); --icon-size: var(--fs); }
+    .vane-link[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-link[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-link[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    .vane-link :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
+    .vane-link-start-icon { margin-inline-end: calc(var(--gap) * 0.5); }
+    .vane-link-end-icon { margin-inline-start: calc(var(--gap) * 0.5); }
+
+    /* ListItem */
+    .vane-list-item { --lh: var(--lh-base); }
+    .vane-list-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-list-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-list-item[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-list-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-list-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+
+    /* RESPONSIVE COMPONENTS */
+
+    /* Section */
+    .vane-section {
+        --lh: var(--lh-base);
+        --py-unit-desktop: 8;
+        --py-unit-tablet: 6;
+        --py-unit-mobile: 4;
+        --gap-unit-desktop: 8;
+        --gap-unit-tablet: 6;
+        --gap-unit-mobile: 4;
+    }
+    .vane-section[data-size="xs"] {
+        --py-unit-desktop: 4; --py-unit-tablet: 3; --py-unit-mobile: 2;
+        --gap-unit-desktop: 4; --gap-unit-tablet: 3; --gap-unit-mobile: 2;
+    }
+    .vane-section[data-size="sm"] {
+        --py-unit-desktop: 8; --py-unit-tablet: 4; --py-unit-mobile: 2;
+        --gap-unit-desktop: 6; --gap-unit-tablet: 5; --gap-unit-mobile: 4;
+    }
+    .vane-section[data-size="md"] {
+        --py-unit-desktop: 12; --py-unit-tablet: 6; --py-unit-mobile: 2;
+        --gap-unit-desktop: 8; --gap-unit-tablet: 6; --gap-unit-mobile: 4;
+    }
+    .vane-section[data-size="lg"] {
+        --py-unit-desktop: 16; --py-unit-tablet: 8; --py-unit-mobile: 2;
+        --gap-unit-desktop: 10; --gap-unit-tablet: 8; --gap-unit-mobile: 6;
+    }
+    .vane-section[data-size="xl"] {
+        --py-unit-desktop: 20; --py-unit-tablet: 10; --py-unit-mobile: 4;
+        --gap-unit-desktop: 12; --gap-unit-tablet: 10; --gap-unit-mobile: 8;
+    }
+
+    /* Title */
+    .vane-title {
+        --lh: 1.3;
+        --fs-unit-desktop: 12; --fs-unit-tablet: 11; --fs-unit-mobile: 10;
+    }
+    .vane-title[data-size="xs"] { --fs-unit-desktop: 9; --fs-unit-tablet: 8; --fs-unit-mobile: 7; --lh: 1.556; }
+    .vane-title[data-size="sm"] { --fs-unit-desktop: 10; --fs-unit-tablet: 9; --fs-unit-mobile: 8; --lh: 1.4; }
+    .vane-title[data-size="md"] { --fs-unit-desktop: 12; --fs-unit-tablet: 11; --fs-unit-mobile: 10; --lh: 1.333; }
+    .vane-title[data-size="lg"] { --fs-unit-desktop: 15; --fs-unit-tablet: 14; --fs-unit-mobile: 13; --lh: 1.2; }
+    .vane-title[data-size="xl"] { --fs-unit-desktop: 18; --fs-unit-tablet: 17; --fs-unit-mobile: 16; --lh: 1.111; }
+
+    /* SectionTitle */
+    .vane-section-title {
+        --lh: 1.2;
+        --fs-unit-desktop: 18; --fs-unit-tablet: 16; --fs-unit-mobile: 14;
+    }
+    .vane-section-title[data-size="xs"] { --fs-unit-desktop: 12; --fs-unit-tablet: 10; --fs-unit-mobile: 8; --lh: 1.333; }
+    .vane-section-title[data-size="sm"] { --fs-unit-desktop: 15; --fs-unit-tablet: 13; --fs-unit-mobile: 11; --lh: 1.2; }
+    .vane-section-title[data-size="md"] { --fs-unit-desktop: 18; --fs-unit-tablet: 16; --fs-unit-mobile: 14; --lh: 1.111; }
+    .vane-section-title[data-size="lg"] { --fs-unit-desktop: 24; --fs-unit-tablet: 22; --fs-unit-mobile: 20; --lh: 1; }
+    .vane-section-title[data-size="xl"] { --fs-unit-desktop: 30; --fs-unit-tablet: 28; --fs-unit-mobile: 26; --lh: 1; }
+
+    /* PageTitle */
+    .vane-page-title {
+        --lh: 1.1;
+        --fs-unit-desktop: 24; --fs-unit-tablet: 21; --fs-unit-mobile: 18;
+    }
+    .vane-page-title[data-size="xs"] { --fs-unit-desktop: 15; --fs-unit-tablet: 12; --fs-unit-mobile: 9; --lh: 1.2; }
+    .vane-page-title[data-size="sm"] { --fs-unit-desktop: 18; --fs-unit-tablet: 15; --fs-unit-mobile: 12; --lh: 1.111; }
+    .vane-page-title[data-size="md"] { --fs-unit-desktop: 24; --fs-unit-tablet: 21; --fs-unit-mobile: 18; --lh: 1; }
+    .vane-page-title[data-size="lg"] { --fs-unit-desktop: 30; --fs-unit-tablet: 27; --fs-unit-mobile: 24; --lh: 1; }
+    .vane-page-title[data-size="xl"] { --fs-unit-desktop: 36; --fs-unit-tablet: 33; --fs-unit-mobile: 30; --lh: 1; }
+
+    /* Modal - uses same padding as Card */
+    .vane-modal { --py-unit: 6; --aspect-ratio: 1; }
+    .vane-modal[data-size="xs"] { --modal-width: var(--modal-width-xs); --py-unit: 2; }
+    .vane-modal[data-size="sm"] { --modal-width: var(--modal-width-sm); --py-unit: 4; }
+    .vane-modal[data-size="md"] { --modal-width: var(--modal-width-md); --py-unit: 6; }
+    .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8; }
+    .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; }
+
+    /* MenuItem - compact interactive items for dropdown menus */
+    .vane-menu-item { --lh: var(--lh-base); --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.15; --icon-size: var(--fs); }
+    .vane-menu-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-menu-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.25; }
+    .vane-menu-item[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1.5; }
+    .vane-menu-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
+    .vane-menu-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
+
+    /* Menu Divider - vertical spacing matches menu popup padding per size */
+    [data-menu-dropdown][data-size="xs"] .vane-divider { --py-unit: 0.5; }
+    [data-menu-dropdown][data-size="sm"] .vane-divider { --py-unit: 0.75; }
+    [data-menu-dropdown][data-size="md"] .vane-divider { --py-unit: 1; }
+    [data-menu-dropdown][data-size="lg"] .vane-divider { --py-unit: 1.25; }
+    [data-menu-dropdown][data-size="xl"] .vane-divider { --py-unit: 1.5; }
+
+    /* NavLink - navigation links for sidebars, nav menus, headers */
+    .vane-nav-link { --lh: var(--lh-base); --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.15; --icon-size: var(--fs); }
+    .vane-nav-link[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-nav-link[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.25; }
+    .vane-nav-link[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1.5; }
+    .vane-nav-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
+    .vane-nav-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
+
+    /* NavLink active state: shift colors so bg shows hover color, hover shows active color */
+    .vane-nav-link[data-active] {
+        --bg-color: var(--bg-hover-color);
+        --bg-hover-color: var(--bg-active-color);
+    }
+
+    /* MenuLabel - compact non-interactive section heading */
+    .vane-menu-label { --lh: var(--lh-base); --py-unit: 1; --aspect-ratio: 2; --br-unit: 0.15; --icon-size: var(--fs); }
+    .vane-menu-label[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.75; }
+    .vane-menu-label[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1; }
+    .vane-menu-label[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1; }
+    .vane-menu-label[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 1.25; }
+    .vane-menu-label[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 1.5; }
+
+    /* Icon sizing for MenuItem, NavLink, and MenuLabel — uses --icon-size CSS variable */
+    .vane-menu-item :where(svg:not([class*='size-'])),
+    .vane-nav-link :where(svg:not([class*='size-'])),
+    .vane-menu-label :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
+
+    /* Popup - equal padding for floating content (matches layout defaults) */
+    .vane-popup { --py-unit: 4; --aspect-ratio: 1; }
+    .vane-popup[data-size="xs"] { --br-unit: 1.5; --py-unit: 2; --popup-max-height: 12rem; --popup-arrow-size: 5px; }
+    .vane-popup[data-size="sm"] { --br-unit: 2; --py-unit: 3; --popup-max-height: 16rem; --popup-arrow-size: 6px; }
+    .vane-popup[data-size="md"] { --br-unit: 2.5; --py-unit: 4; --popup-max-height: 20rem; --popup-arrow-size: 7px; }
+    .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --popup-max-height: 24rem; --popup-arrow-size: 8px; }
+    .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --popup-max-height: 28rem; --popup-arrow-size: 10px; }
+
+    /* Menu dropdown - compact padding that scales with size */
+    .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 0.5; }
+    .vane-popup[data-menu-dropdown][data-size="sm"] { --py-unit: 0.75; }
+    .vane-popup[data-menu-dropdown][data-size="md"] { --py-unit: 1; }
+    .vane-popup[data-menu-dropdown][data-size="lg"] { --py-unit: 1.25; }
+    .vane-popup[data-menu-dropdown][data-size="xl"] { --py-unit: 1.5; }
+
+    /* ========================================
+       ANIMATIONS
+       Enter/exit animations for floating components.
+       Controlled via data-state attribute set by useTransition hook.
+       ======================================== */
+
+    /* Overlay fade in/out */
+    .vane-overlay[data-state="entering"] {
+        animation: vane-fade-in var(--transition-duration) var(--transition-timing) forwards;
+    }
+    .vane-overlay[data-state="exiting"] {
+        animation: vane-fade-out var(--transition-duration) var(--transition-timing) forwards;
+    }
+
+    /* Modal scale + fade */
+    .vane-modal[data-state="entering"] {
+        animation: vane-scale-in var(--transition-duration) var(--transition-timing) forwards;
+    }
+    .vane-modal[data-state="exiting"] {
+        animation: vane-scale-out var(--transition-duration) var(--transition-timing) forwards;
+    }
+
+    /* Popup scale + fade */
+    .vane-popup[data-state="entering"] {
+        animation: vane-scale-in var(--transition-duration) var(--transition-timing) forwards;
+    }
+    .vane-popup[data-state="exiting"] {
+        animation: vane-scale-out var(--transition-duration) var(--transition-timing) forwards;
+    }
+
+    /* Popup arrow — size scales with popup size via --popup-arrow-size (set per data-size tier) */
+    .vane-popup-arrow {
+        position: absolute;
+        width: var(--popup-arrow-size, 7px);
+        height: var(--popup-arrow-size, 7px);
+        background: inherit;
+        border: inherit;
+        border-width: 0;
+        transform: rotate(45deg);
+        pointer-events: none;
+    }
+    /* Arrow positioning based on data-placement */
+    [data-placement^="top"] > .vane-popup-arrow {
+        bottom: calc(var(--popup-arrow-size, 7px) / -2);
+        left: 50%;
+        margin-left: calc(var(--popup-arrow-size, 7px) / -2);
+        border-bottom-width: 1px;
+        border-right-width: 1px;
+    }
+    [data-placement^="bottom"] > .vane-popup-arrow {
+        top: calc(var(--popup-arrow-size, 7px) / -2);
+        left: 50%;
+        margin-left: calc(var(--popup-arrow-size, 7px) / -2);
+        border-top-width: 1px;
+        border-left-width: 1px;
+    }
+    [data-placement^="left"] > .vane-popup-arrow {
+        right: calc(var(--popup-arrow-size, 7px) / -2);
+        top: 50%;
+        margin-top: calc(var(--popup-arrow-size, 7px) / -2);
+        border-top-width: 1px;
+        border-right-width: 1px;
+    }
+    [data-placement^="right"] > .vane-popup-arrow {
+        left: calc(var(--popup-arrow-size, 7px) / -2);
+        top: 50%;
+        margin-top: calc(var(--popup-arrow-size, 7px) / -2);
+        border-bottom-width: 1px;
+        border-left-width: 1px;
+    }
+
+    /* Card compound sub-components */
+    .vane-card-header {
+        flex-shrink: 0;
+    }
+    .vane-card-body {
+        flex: 1;
+        min-height: 0;
+    }
+    .vane-card-footer {
+        flex-shrink: 0;
+    }
+
+    /* Modal compound sub-components */
+    .vane-modal-header {
+        flex-shrink: 0;
+    }
+    .vane-modal-body {
+        flex: 1;
+        min-height: 0;
+    }
+    .vane-modal-footer {
+        flex-shrink: 0;
+    }
+
+    /* Modal close button — structural overrides only.
+       Display, alignment, cursor, transition, focus-visible come from the button theme.
+       Hover bg is set here because `transparent` prop suppresses all bg theme classes. */
+    .vane-modal-close {
+        flex-shrink: 0;
+        --aspect-ratio: 1;
+    }
+    .vane-modal-close:hover {
+        background: var(--color-bg-hover-secondary);
+    }
+
+    /* ========================================
+       DISABLED STATE
+       Neutralizes hover/active color changes on disabled elements.
+       Visual classes (opacity, cursor) come from DisabledClassMapper.
+       ======================================== */
+    [data-disabled="true"] {
+        --bg-hover-color: var(--bg-color);
+        --bg-active-color: var(--bg-color);
+    }
+
+    /* ========================================
+       LOADING STATE
+       Spinner overlay for buttons in loading state.
+       Visual classes applied by Button.tsx component.
+       ======================================== */
+    [data-loading="true"] {
+        position: relative;
+    }
+    .vane-button-spinner-ring {
+        width: 1em;
+        height: 1em;
+        border: 2px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: vane-spin 0.6s linear infinite;
+    }
+
+    /* ========================================
+       READ-ONLY STATE
+       Styles for read-only form elements.
+       readOnly passes through as native HTML attribute.
+       This rule provides visual feedback via data attribute.
+       ======================================== */
+    [data-readonly="true"] {
+        cursor: default;
+        caret-color: transparent;
+        --bg-hover-color: var(--bg-color);
+        --bg-active-color: var(--bg-color);
+    }
+
+    /* ========================================
+       APPEARANCE & VARIANT RULES
+       Sets component-level color variables based on
+       data-appearance and data-variant attributes.
+
+       These rules apply to ANY element with the
+       data-variant and data-appearance attributes.
+       Components only consume the variables they need.
+       ======================================== */
+
+    /* -----------------------------------------
+       OUTLINE VARIANT
+       ----------------------------------------- */
+    [data-variant="outline"][data-appearance="primary"] {
+        --text-color: var(--color-text-primary);
+        --bg-color: var(--color-bg-primary);
+        --bg-hover-color: var(--color-bg-hover-primary);
+        --bg-active-color: var(--color-bg-active-primary);
+        --border-color: var(--color-border-primary);
+        --ring-color: var(--color-border-primary);
+        --accent-color: var(--color-bg-primary);
+        --checked-bg-color: var(--color-bg-primary);
+    }
+    [data-variant="outline"][data-appearance="brand"] {
+        --text-color: var(--color-text-brand);
+        --bg-color: var(--color-bg-brand);
+        --bg-hover-color: var(--color-bg-hover-brand);
+        --bg-active-color: var(--color-bg-active-brand);
+        --border-color: var(--color-border-brand);
+        --ring-color: var(--color-border-brand);
+        --accent-color: var(--color-bg-brand);
+        --checked-bg-color: var(--color-bg-brand);
+    }
+    [data-variant="outline"][data-appearance="secondary"] {
+        --text-color: var(--color-text-secondary);
+        --bg-color: var(--color-bg-secondary);
+        --bg-hover-color: var(--color-bg-hover-secondary);
+        --bg-active-color: var(--color-bg-active-secondary);
+        --border-color: var(--color-border-secondary);
+        --ring-color: var(--color-border-secondary);
+        --accent-color: var(--color-bg-secondary);
+        --checked-bg-color: var(--color-bg-secondary);
+    }
+    [data-variant="outline"][data-appearance="tertiary"] {
+        --text-color: var(--color-text-tertiary);
+        --bg-color: var(--color-bg-tertiary);
+        --bg-hover-color: var(--color-bg-hover-tertiary);
+        --bg-active-color: var(--color-bg-active-tertiary);
+        --border-color: var(--color-border-tertiary);
+        --ring-color: var(--color-border-tertiary);
+        --accent-color: var(--color-bg-tertiary);
+        --checked-bg-color: var(--color-bg-tertiary);
+    }
+    [data-variant="outline"][data-appearance="accent"] {
+        --text-color: var(--color-text-accent);
+        --bg-color: var(--color-bg-accent);
+        --bg-hover-color: var(--color-bg-hover-accent);
+        --bg-active-color: var(--color-bg-active-accent);
+        --border-color: var(--color-border-accent);
+        --ring-color: var(--color-border-accent);
+        --accent-color: var(--color-bg-accent);
+        --checked-bg-color: var(--color-bg-accent);
+    }
+    [data-variant="outline"][data-appearance="success"] {
+        --text-color: var(--color-text-success);
+        --bg-color: var(--color-bg-success);
+        --bg-hover-color: var(--color-bg-hover-success);
+        --bg-active-color: var(--color-bg-active-success);
+        --border-color: var(--color-border-success);
+        --ring-color: var(--color-border-success);
+        --accent-color: var(--color-bg-success);
+        --checked-bg-color: var(--color-bg-success);
+    }
+    [data-variant="outline"][data-appearance="danger"] {
+        --text-color: var(--color-text-danger);
+        --bg-color: var(--color-bg-danger);
+        --bg-hover-color: var(--color-bg-hover-danger);
+        --bg-active-color: var(--color-bg-active-danger);
+        --border-color: var(--color-border-danger);
+        --ring-color: var(--color-border-danger);
+        --accent-color: var(--color-bg-danger);
+        --checked-bg-color: var(--color-bg-danger);
+    }
+    [data-variant="outline"][data-appearance="warning"] {
+        --text-color: var(--color-text-warning);
+        --bg-color: var(--color-bg-warning);
+        --bg-hover-color: var(--color-bg-hover-warning);
+        --bg-active-color: var(--color-bg-active-warning);
+        --border-color: var(--color-border-warning);
+        --ring-color: var(--color-border-warning);
+        --accent-color: var(--color-bg-warning);
+        --checked-bg-color: var(--color-bg-warning);
+    }
+    [data-variant="outline"][data-appearance="info"] {
+        --text-color: var(--color-text-info);
+        --bg-color: var(--color-bg-info);
+        --bg-hover-color: var(--color-bg-hover-info);
+        --bg-active-color: var(--color-bg-active-info);
+        --border-color: var(--color-border-info);
+        --ring-color: var(--color-border-info);
+        --accent-color: var(--color-bg-info);
+        --checked-bg-color: var(--color-bg-info);
+    }
+    [data-variant="outline"][data-appearance="link"] {
+        --text-color: var(--color-text-link);
+        --bg-color: var(--color-bg-primary);
+        --bg-hover-color: var(--color-bg-hover-primary);
+        --bg-active-color: var(--color-bg-active-primary);
+        --border-color: var(--color-border-brand);
+        --ring-color: var(--color-border-brand);
+        --accent-color: var(--color-bg-primary);
+        --checked-bg-color: var(--color-bg-primary);
+    }
+
+    /* -----------------------------------------
+       FILLED VARIANT
+       ----------------------------------------- */
+    [data-variant="filled"][data-appearance="primary"] {
+        --text-color: var(--color-text-filled-primary);
+        --bg-color: var(--color-bg-filled-primary);
+        --bg-hover-color: var(--color-bg-filled-hover-primary);
+        --bg-active-color: var(--color-bg-filled-active-primary);
+        --border-color: var(--color-border-filled-primary);
+        --ring-color: var(--color-border-filled-primary);
+        --accent-color: var(--color-bg-filled-primary);
+        --checked-bg-color: var(--color-bg-filled-primary);
+    }
+    [data-variant="filled"][data-appearance="brand"] {
+        --text-color: var(--color-text-filled-brand);
+        --bg-color: var(--color-bg-filled-brand);
+        --bg-hover-color: var(--color-bg-filled-hover-brand);
+        --bg-active-color: var(--color-bg-filled-active-brand);
+        --border-color: var(--color-border-filled-brand);
+        --ring-color: var(--color-border-filled-brand);
+        --accent-color: var(--color-bg-filled-brand);
+        --checked-bg-color: var(--color-bg-filled-brand);
+    }
+    [data-variant="filled"][data-appearance="secondary"] {
+        --text-color: var(--color-text-filled-secondary);
+        --bg-color: var(--color-bg-filled-secondary);
+        --bg-hover-color: var(--color-bg-filled-hover-secondary);
+        --bg-active-color: var(--color-bg-filled-active-secondary);
+        --border-color: var(--color-border-filled-secondary);
+        --ring-color: var(--color-border-filled-secondary);
+        --accent-color: var(--color-bg-filled-secondary);
+        --checked-bg-color: var(--color-bg-filled-secondary);
+    }
+    [data-variant="filled"][data-appearance="tertiary"] {
+        --text-color: var(--color-text-filled-tertiary);
+        --bg-color: var(--color-bg-filled-tertiary);
+        --bg-hover-color: var(--color-bg-filled-hover-tertiary);
+        --bg-active-color: var(--color-bg-filled-active-tertiary);
+        --border-color: var(--color-border-filled-tertiary);
+        --ring-color: var(--color-border-filled-tertiary);
+        --accent-color: var(--color-bg-filled-tertiary);
+        --checked-bg-color: var(--color-bg-filled-tertiary);
+    }
+    [data-variant="filled"][data-appearance="accent"] {
+        --text-color: var(--color-text-filled-accent);
+        --bg-color: var(--color-bg-filled-accent);
+        --bg-hover-color: var(--color-bg-filled-hover-accent);
+        --bg-active-color: var(--color-bg-filled-active-accent);
+        --border-color: var(--color-border-filled-accent);
+        --ring-color: var(--color-border-filled-accent);
+        --accent-color: var(--color-bg-filled-accent);
+        --checked-bg-color: var(--color-bg-filled-accent);
+    }
+    [data-variant="filled"][data-appearance="success"] {
+        --text-color: var(--color-text-filled-success);
+        --bg-color: var(--color-bg-filled-success);
+        --bg-hover-color: var(--color-bg-filled-hover-success);
+        --bg-active-color: var(--color-bg-filled-active-success);
+        --border-color: var(--color-border-filled-success);
+        --ring-color: var(--color-border-filled-success);
+        --accent-color: var(--color-bg-filled-success);
+        --checked-bg-color: var(--color-bg-filled-success);
+    }
+    [data-variant="filled"][data-appearance="danger"] {
+        --text-color: var(--color-text-filled-danger);
+        --bg-color: var(--color-bg-filled-danger);
+        --bg-hover-color: var(--color-bg-filled-hover-danger);
+        --bg-active-color: var(--color-bg-filled-active-danger);
+        --border-color: var(--color-border-filled-danger);
+        --ring-color: var(--color-border-filled-danger);
+        --accent-color: var(--color-bg-filled-danger);
+        --checked-bg-color: var(--color-bg-filled-danger);
+    }
+    [data-variant="filled"][data-appearance="warning"] {
+        --text-color: var(--color-text-filled-warning);
+        --bg-color: var(--color-bg-filled-warning);
+        --bg-hover-color: var(--color-bg-filled-hover-warning);
+        --bg-active-color: var(--color-bg-filled-active-warning);
+        --border-color: var(--color-border-filled-warning);
+        --ring-color: var(--color-border-filled-warning);
+        --accent-color: var(--color-bg-filled-warning);
+        --checked-bg-color: var(--color-bg-filled-warning);
+    }
+    [data-variant="filled"][data-appearance="info"] {
+        --text-color: var(--color-text-filled-info);
+        --bg-color: var(--color-bg-filled-info);
+        --bg-hover-color: var(--color-bg-filled-hover-info);
+        --bg-active-color: var(--color-bg-filled-active-info);
+        --border-color: var(--color-border-filled-info);
+        --ring-color: var(--color-border-filled-info);
+        --accent-color: var(--color-bg-filled-info);
+        --checked-bg-color: var(--color-bg-filled-info);
+    }
+    [data-variant="filled"][data-appearance="link"] {
+        --text-color: var(--color-text-filled-link);
+        --bg-color: var(--color-bg-filled-brand);
+        --bg-hover-color: var(--color-bg-filled-hover-brand);
+        --bg-active-color: var(--color-bg-filled-active-brand);
+        --border-color: var(--color-border-filled-brand);
+        --ring-color: var(--color-border-filled-brand);
+        --accent-color: var(--color-bg-filled-brand);
+        --checked-bg-color: var(--color-bg-filled-brand);
+    }
+
+}
+
+/* ========================================
+   KEYFRAMES
+   Defined outside @layer so they're globally available.
+   ======================================== */
+
+@keyframes vane-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes vane-fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes vane-scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes vane-scale-out {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.95); }
+}
+
+@keyframes vane-spin {
+    to { transform: rotate(360deg); }
+}

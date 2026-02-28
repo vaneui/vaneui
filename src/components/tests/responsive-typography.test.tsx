@@ -38,8 +38,11 @@ describe('Responsive Typography and Layout Tests', () => {
 
       // Title, PageTitle, SectionTitle all have responsive font sizes
       expect(title).toHaveAttribute('data-size', 'lg');
+      expect(title).toHaveAttribute('data-responsive', '');
       expect(pageTitle).toHaveAttribute('data-size', 'lg');
+      expect(pageTitle).toHaveAttribute('data-responsive', '');
       expect(sectionTitle).toHaveAttribute('data-size', 'lg');
+      expect(sectionTitle).toHaveAttribute('data-responsive', '');
     });
 
     it('should scale down font sizes appropriately across breakpoints', () => {
@@ -53,6 +56,7 @@ describe('Responsive Typography and Layout Tests', () => {
 
       // PageTitle xs has responsive font size scaling
       expect(pageTitle).toHaveAttribute('data-size', 'xs');
+      expect(pageTitle).toHaveAttribute('data-responsive', '');
     });
 
     it('should maintain readability with smallest responsive font sizes', () => {
@@ -66,6 +70,7 @@ describe('Responsive Typography and Layout Tests', () => {
 
       // Title xs has responsive font size scaling
       expect(title).toHaveAttribute('data-size', 'xs');
+      expect(title).toHaveAttribute('data-responsive', '');
       expect(title).toHaveClass('text-(length:--fs-desktop)');
     });
   });
@@ -82,6 +87,7 @@ describe('Responsive Typography and Layout Tests', () => {
 
       // Section xl has responsive padding scaling
       expect(section).toHaveAttribute('data-size', 'xl');
+      expect(section).toHaveAttribute('data-responsive', '');
       expect(section).toHaveClass('py-(--py-desktop)');
     });
 
