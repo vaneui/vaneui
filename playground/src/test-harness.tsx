@@ -160,7 +160,7 @@ function TestHarness() {
         <section data-testid="size-variants-button">
           <Button xs data-testid="button-xs">XS</Button>
           <Button sm data-testid="button-sm">SM</Button>
-          <Button data-testid="button-md">MD</Button>
+          <Button md data-testid="button-md">MD</Button>
           <Button lg data-testid="button-lg">LG</Button>
           <Button xl data-testid="button-xl">XL</Button>
         </section>
@@ -180,8 +180,8 @@ function TestHarness() {
         <section data-testid="icon-sizing">
           <Button xs data-testid="icon-bare-xs"><StarIcon /></Button>
           <Button xs data-testid="icon-wrapped-xs"><Icon xs><StarIcon /></Icon></Button>
-          <Button data-testid="icon-bare-md"><StarIcon /></Button>
-          <Button data-testid="icon-wrapped-md"><Icon><StarIcon /></Icon></Button>
+          <Button md data-testid="icon-bare-md"><StarIcon /></Button>
+          <Button md data-testid="icon-wrapped-md"><Icon md><StarIcon /></Icon></Button>
           <Button xl data-testid="icon-bare-xl"><StarIcon /></Button>
           <Button xl data-testid="icon-wrapped-xl"><Icon xl><StarIcon /></Icon></Button>
         </section>
@@ -259,6 +259,30 @@ function TestHarness() {
           </Card>
         </section>
 
+        {/* ── Border-color inheritance: Divider inside appearance parent ── */}
+
+        <section data-testid="border-color-inherit">
+          {/* Standalone Divider — should use default primary border color */}
+          <Divider data-testid="divider-standalone" />
+
+          {/* Divider inside Card danger filled — should inherit danger border color */}
+          <Card danger filled>
+            <Text data-testid="border-inherit-danger-text">Danger card text</Text>
+            <Divider data-testid="divider-inherit-danger" />
+          </Card>
+
+          {/* Divider inside Card brand outline — should inherit brand border color */}
+          <Card brand>
+            <Text data-testid="border-inherit-brand-text">Brand card text</Text>
+            <Divider data-testid="divider-inherit-brand" />
+          </Card>
+
+          {/* Divider inside Card success filled — should inherit success border color */}
+          <Card success filled>
+            <Divider data-testid="divider-inherit-success" />
+          </Card>
+        </section>
+
         {/* ── Link external ── */}
 
         <section data-testid="link-section">
@@ -284,7 +308,7 @@ function TestHarness() {
           >
             <MenuItem xs data-testid="menu-item-xs">XS item</MenuItem>
             <MenuItem sm data-testid="menu-item-sm">SM item</MenuItem>
-            <MenuItem data-testid="menu-item-md">MD item</MenuItem>
+            <MenuItem md data-testid="menu-item-md">MD item</MenuItem>
             <MenuItem lg data-testid="menu-item-lg">LG item</MenuItem>
             <MenuItem xl data-testid="menu-item-xl">XL item</MenuItem>
             <Divider />
