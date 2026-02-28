@@ -33,6 +33,7 @@ import type { RowTheme } from "./ui/row/RowTheme";
 import { defaultRowTheme } from "./ui/row/defaultRowTheme";
 import type { DividerTheme } from './ui/divider/DividerTheme';
 import { defaultDividerTheme } from './ui/divider/defaultDividerTheme';
+import { defaultMenuDividerTheme } from './ui/divider/defaultMenuDividerTheme';
 import type { ContainerTheme } from './ui/container/ContainerTheme';
 import { defaultContainerTheme } from './ui/container/defaultContainerTheme';
 import type { ColTheme } from './ui/col/ColTheme';
@@ -119,12 +120,13 @@ import type { MarkProps } from "./ui/mark/MarkProps";
 import type { MenuItemTheme } from './ui/menu/MenuItemTheme';
 import { defaultMenuItemTheme } from './ui/menu/defaultMenuItemTheme';
 import type { MenuItemProps } from "./ui/menu/MenuItemProps";
-import type { MenuSeparatorTheme } from './ui/menu/MenuSeparatorTheme';
-import { defaultMenuSeparatorTheme } from './ui/menu/defaultMenuSeparatorTheme';
-import type { MenuSeparatorProps } from './ui/menu/MenuSeparatorProps';
 import type { MenuLabelTheme } from './ui/menu/MenuLabelTheme';
 import { defaultMenuLabelTheme } from './ui/menu/defaultMenuLabelTheme';
 import type { MenuLabelProps } from './ui/menu/MenuLabelProps';
+import { defaultMenuPopupTheme } from './ui/menu/defaultMenuPopupTheme';
+import type { NavLinkTheme } from './ui/navLink/NavLinkTheme';
+import { defaultNavLinkTheme } from './ui/navLink/defaultNavLinkTheme';
+import type { NavLinkProps } from './ui/navLink/NavLinkProps';
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
@@ -188,9 +190,11 @@ export interface ThemeProps {
   popup: ComponentTheme<PopupProps, PopupTheme>;
   menu: {
     item: ComponentTheme<MenuItemProps, MenuItemTheme>;
-    separator: ComponentTheme<MenuSeparatorProps, MenuSeparatorTheme>;
+    popup: ComponentTheme<PopupProps, PopupTheme>;
+    divider: ComponentTheme<DividerProps, DividerTheme>;
     label: ComponentTheme<MenuLabelProps, MenuLabelTheme>;
   };
+  navLink: ComponentTheme<NavLinkProps, NavLinkTheme>;
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -255,9 +259,11 @@ export const defaultTheme: ThemeProps = {
   popup: defaultPopupTheme,
   menu: {
     item: defaultMenuItemTheme,
-    separator: defaultMenuSeparatorTheme,
+    popup: defaultMenuPopupTheme,
+    divider: defaultMenuDividerTheme,
     label: defaultMenuLabelTheme,
   },
+  navLink: defaultNavLinkTheme,
 };
 
 /**
@@ -338,9 +344,11 @@ export type ThemeDefaults = {
   popup?: Partial<BooleanKeys<PopupProps>>;
   menu?: {
     item?: Partial<BooleanKeys<MenuItemProps>>;
-    separator?: Partial<BooleanKeys<MenuSeparatorProps>>;
+    popup?: Partial<BooleanKeys<PopupProps>>;
+    divider?: Partial<BooleanKeys<DividerProps>>;
     label?: Partial<BooleanKeys<MenuLabelProps>>;
   };
+  navLink?: Partial<BooleanKeys<NavLinkProps>>;
 };
 
 // ThemeExtraClasses mirrors the structure of ThemeProps
@@ -406,9 +414,11 @@ export type ThemeExtraClasses = {
   popup?: Partial<StringValueKeys<PopupProps>>;
   menu?: {
     item?: Partial<StringValueKeys<MenuItemProps>>;
-    separator?: Partial<StringValueKeys<MenuSeparatorProps>>;
+    popup?: Partial<StringValueKeys<PopupProps>>;
+    divider?: Partial<StringValueKeys<DividerProps>>;
     label?: Partial<StringValueKeys<MenuLabelProps>>;
   };
+  navLink?: Partial<StringValueKeys<NavLinkProps>>;
 };
 
 /**

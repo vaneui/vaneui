@@ -102,6 +102,7 @@ describe('Theme structure consistency', () => {
       modal: {},
       popup: {},
       menu: {},
+      navLink: {},
     };
 
     // At runtime, also ensure the keys align with COMPONENT

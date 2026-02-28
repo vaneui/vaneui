@@ -15,7 +15,7 @@ import { useTheme } from "../../themeContext";
  *   <MenuLabel>Actions</MenuLabel>
  *   <MenuItem>Edit</MenuItem>
  *   <MenuItem>Copy</MenuItem>
- *   <MenuSeparator />
+ *   <Divider />
  *   <MenuLabel>Account</MenuLabel>
  *   <MenuItem>Settings</MenuItem>
  *   <MenuItem>Logout</MenuItem>

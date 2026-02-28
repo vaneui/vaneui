@@ -3,19 +3,20 @@ import type { MenuProps } from './MenuProps';
 import { MenuContext, type MenuContextValue } from './MenuContext';
 import { useControllableState } from '../../utils/controllableState';
 import { Popup } from '../popup/Popup';
+import { useTheme, ThemeProvider } from '../../themeContext';
 
 /**
  * Menu — a dropdown menu triggered by a single element.
  *
  * Renders the `trigger` element with ref + ARIA + click/keyboard handlers,
- * and a Popup containing `children` (MenuItem, MenuSeparator, MenuLabel).
+ * and a Popup containing `children` (MenuItem, Divider, MenuLabel).
  *
  * @example
  * ```tsx
  * <Menu trigger={<Button>Actions</Button>}>
  *   <MenuItem onClick={handleEdit}>Edit</MenuItem>
  *   <MenuItem onClick={handleCopy}>Copy</MenuItem>
- *   <MenuSeparator />
+ *   <Divider />
  *   <MenuItem danger onClick={handleDelete}>Delete</MenuItem>
  * </Menu>
  * ```
@@ -132,6 +133,8 @@ export function Menu({
     onKeyDown: handleKeyDown,
   } as Record<string, unknown>);
 
+  const theme = useTheme();
+
   const ctx: MenuContextValue = {
     closeMenu,
     closeOnItemClick,
@@ -141,32 +144,25 @@ export function Menu({
   return (
     <MenuContext.Provider value={ctx}>
       {triggerElement}
-      <Popup
-        ref={contentRef}
-        open={effectiveOpen}
-        onClose={closeMenu}
-        anchorRef={anchorRef}
-        id={menuId}
-        role="menu"
-        aria-orientation="vertical"
-        data-menu-dropdown=""
-        transitionDuration={transitionDuration}
-        md
-        flex
-        column
-        noGap
-        rounded
-        shadow
-        border
-        noRing
-        primary
-        outline
-        wFit
-        bottom
-        {...popupProps}
-      >
-        {children}
-      </Popup>
+      <ThemeProvider themeDefaults={{
+        popup: theme.menu.popup.defaults,
+        divider: theme.menu.divider.defaults,
+      }}>
+        <Popup
+          ref={contentRef}
+          open={effectiveOpen}
+          onClose={closeMenu}
+          anchorRef={anchorRef}
+          id={menuId}
+          role="menu"
+          aria-orientation="vertical"
+          data-menu-dropdown=""
+          transitionDuration={transitionDuration}
+          {...popupProps}
+        >
+          {children}
+        </Popup>
+      </ThemeProvider>
     </MenuContext.Provider>
   );
 }

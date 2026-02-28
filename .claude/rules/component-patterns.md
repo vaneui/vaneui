@@ -116,3 +116,21 @@ Categories are defined in `src/components/ui/props/keys.ts`. Each component spec
 
 ## Boolean Props Must Not Leak to DOM
 All boolean props (size, appearance, variant, shape, typography, layout) are consumed by the theme system via `getComponentConfig()` and must be stripped before rendering to the DOM element. Only HTML-valid attributes should pass through.
+
+## No Hardcoded Visual Props on Child Components
+When a parent component renders a child VaneUI component (e.g., Menu renders Popup), visual defaults must come from the theme system, not from hardcoded boolean props on the JSX element.
+
+**Wrong:**
+```tsx
+<Popup md flex column rounded shadow border primary outline {...popupProps}>
+```
+
+**Right:**
+```tsx
+// Create a sub-theme with defaults (e.g., defaultMenuPopupTheme)
+// Inject via ThemeProvider wrapping the child component
+<ThemeProvider themeDefaults={{ popup: theme.menu.popup.defaults }}>
+  <Popup {...popupProps}>
+```
+
+This ensures users can customize all visual aspects via ThemeProvider. Only functional/ARIA props (open, onClose, role, id, anchorRef, etc.) should be set directly on the child element.

@@ -4,7 +4,6 @@ import { render, fireEvent, act } from '@testing-library/react';
 import {
   Menu,
   MenuItem,
-  MenuSeparator,
   MenuLabel,
   Button,
   Divider,
@@ -49,7 +48,7 @@ describe('Menu Component Tests', () => {
       expect(item).toHaveAttribute('tabindex', '-1');
       expect(item).toHaveAttribute('data-menu-item', '');
       expect(item).toHaveAttribute('data-vane-type', 'ui');
-      expect(item).toHaveAttribute('data-size', 'md');
+      expect(item).toHaveAttribute('data-size', 'sm');
       expect(item).toHaveAttribute('data-appearance', 'primary');
       expect(item).toHaveAttribute('data-variant', 'outline');
     });
@@ -426,7 +425,7 @@ describe('Menu Component Tests', () => {
       const items = document.body.querySelectorAll('[role="menuitem"]');
       expect(items).toHaveLength(3);
 
-      // Divider renders as a div with vane-divider class
+      // Divider renders with vane-divider class, menu context applies compact styling
       const divider = document.body.querySelector('[data-menu-dropdown] .vane-divider');
       expect(divider).toBeInTheDocument();
     });
@@ -460,47 +459,42 @@ describe('Menu Component Tests', () => {
   });
 
   // =========================================================================
-  // MenuSeparator
+  // Divider in Menu
   // =========================================================================
-  describe('MenuSeparator', () => {
-    it('should render with role="separator"', () => {
+  describe('Divider in Menu', () => {
+    it('should render a Divider between menu items', () => {
       renderMenu(
         <Menu defaultOpen trigger={<Button>Trigger</Button>}>
           <MenuItem>Edit</MenuItem>
-          <MenuSeparator />
+          <Divider role="separator" />
           <MenuItem>Delete</MenuItem>
         </Menu>
       );
 
       const separator = document.body.querySelector('[role="separator"]');
       expect(separator).toBeInTheDocument();
-      expect(separator).toHaveClass('vane-menu-separator');
+      expect(separator).toHaveClass('vane-divider');
       expect(separator).toHaveAttribute('data-vane-type', 'layout');
     });
+  });
 
-    it('should forward refs', () => {
-      const ref = { current: null as HTMLDivElement | null };
+  // =========================================================================
+  // Divider scoped theme
+  // =========================================================================
+  describe('Divider scoped theme', () => {
+    it('should apply menu divider theme automatically (sm size, padding)', () => {
       renderMenu(
         <Menu defaultOpen trigger={<Button>Trigger</Button>}>
-          <MenuSeparator ref={ref} />
+          <MenuItem>Edit</MenuItem>
+          <Divider />
+          <MenuItem>Delete</MenuItem>
         </Menu>
       );
 
-      expect(ref.current).toBeInstanceOf(HTMLElement);
-    });
-
-    it('should not leak boolean props to DOM', () => {
-      renderMenu(
-        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
-          <MenuSeparator data-testid="sep" />
-        </Menu>
-      );
-
-      const sep = document.body.querySelector('[data-testid="sep"]');
-      expect(sep).toBeInTheDocument();
-      // Default boolean props should be consumed, not rendered
-      expect(sep).not.toHaveAttribute('horizontal');
-      expect(sep).not.toHaveAttribute('noPadding');
+      const divider = document.body.querySelector('[data-menu-dropdown] .vane-divider');
+      expect(divider).toBeInTheDocument();
+      // Menu divider defaults: sm size, padding enabled
+      expect(divider).toHaveAttribute('data-size', 'sm');
     });
   });
 
@@ -599,6 +593,39 @@ describe('Menu Component Tests', () => {
       expect(menu).toHaveClass('vane-popup');
       expect(menu).toHaveAttribute('data-menu-dropdown');
     });
+
+    it('should apply menu popup defaults from theme (not hardcoded props)', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
+        </Menu>
+      );
+
+      const menu = document.body.querySelector('[role="menu"]');
+      expect(menu).toBeInTheDocument();
+      // These defaults come from defaultMenuPopupTheme via ThemeProvider,
+      // NOT from hardcoded boolean props on the Popup element
+      expect(menu).toHaveAttribute('data-size', 'md');
+      expect(menu).toHaveAttribute('data-appearance', 'primary');
+      expect(menu).toHaveAttribute('data-variant', 'outline');
+    });
+
+    it('should allow overriding menu popup defaults via ThemeProvider', () => {
+      render(
+        <ThemeProvider theme={defaultTheme} themeDefaults={{
+          menu: { popup: { lg: true, secondary: true } }
+        }}>
+          <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+            <MenuItem>Item</MenuItem>
+          </Menu>
+        </ThemeProvider>
+      );
+
+      const menu = document.body.querySelector('[role="menu"]');
+      expect(menu).toBeInTheDocument();
+      expect(menu).toHaveAttribute('data-size', 'lg');
+      expect(menu).toHaveAttribute('data-appearance', 'secondary');
+    });
   });
 
   // =========================================================================
@@ -611,7 +638,7 @@ describe('Menu Component Tests', () => {
           <MenuLabel>Actions</MenuLabel>
           <MenuItem>Edit</MenuItem>
           <MenuItem>Copy</MenuItem>
-          <MenuSeparator />
+          <Divider role="separator" />
           <MenuLabel>Danger Zone</MenuLabel>
           <MenuItem danger>Delete</MenuItem>
         </Menu>

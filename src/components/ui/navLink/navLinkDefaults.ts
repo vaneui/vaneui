@@ -1,7 +1,7 @@
-import type { MenuItemProps } from "./MenuItemProps";
+import type { NavLinkProps } from "./NavLinkProps";
 
-/** Default props for MenuItem component */
-export const menuItemDefaults: Partial<MenuItemProps> = {
+/** Default props for NavLink component */
+export const navLinkDefaults: Partial<NavLinkProps> = {
   sm: true,
   flex: true,
   itemsCenter: true,

@@ -5,7 +5,7 @@ import type { PopupProps } from '../popup/PopupProps';
  *
  * Menu renders a trigger element and a dropdown popup with menu items.
  * Pass the trigger as a React element via the `trigger` prop; children
- * are the menu contents (MenuItem, MenuSeparator, MenuLabel).
+ * are the menu contents (MenuItem, Divider, MenuLabel).
  */
 export type MenuProps = Omit<
   PopupProps,

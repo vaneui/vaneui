@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-02-27T17:17:25.790Z
+ * Generated on: 2026-02-28T11:43:57.429Z
  */
 
 export interface PropDescription {
@@ -499,6 +499,12 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "props": {
       "padding": {
         "description": "Enable internal padding"
+      },
+      "paddingX": {
+        "description": "Enable only horizontal padding"
+      },
+      "paddingY": {
+        "description": "Enable only vertical padding"
       },
       "noPadding": {
         "description": "Disable internal padding"

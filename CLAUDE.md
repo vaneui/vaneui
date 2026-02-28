@@ -99,7 +99,7 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 
 | Category | Values |
 |----------|--------|
-| **size** | `xs`, `sm`, `md` (default), `lg`, `xl` |
+| **size** | `xs`, `sm` (default for Button, MenuItem, Label), `md` (default for others), `lg`, `xl` |
 | **appearance** | `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link` |
 | **variant** | `filled`, `outline` (default) |
 | **shape** | `pill`, `rounded` (default), `sharp` |
@@ -117,7 +117,7 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 
 | Component | Defaults |
 |-----------|----------|
-| **Button** | primary, outline, semibold, rounded, padding, gap, shadow, ring, focusVisible |
+| **Button** | sm, primary, outline, semibold, rounded, padding, gap, shadow, ring, focusVisible |
 | **Card** | padding, rounded, outline, gap |
 | **Row** | itemsCenter, gap, outline |
 | **Stack** | padding, gap, outline |
@@ -170,6 +170,7 @@ src/
 4. **Boolean props must not leak to DOM** — They are consumed by the theme system and stripped by `getComponentConfig()`.
 5. **Desktop-first responsive** — Breakpoints: mobile (48rem/768px), tablet (64rem/1024px), desktop (80rem/1280px). Use `tabletCol`/`mobileCol` to adapt layouts for smaller screens.
 6. **No replaceable Tailwind classes in base class strings** — When a Tailwind class has an equivalent boolean prop (e.g., `items-center` → `itemsCenter`, `cursor-pointer` → `cursorPointer`, `relative` → `relative`), it MUST go in the component's defaults object, not in the base class string of `new ComponentTheme(...)`. The base class string is only for classes that have NO boolean prop equivalent (e.g., `align-middle`, `aspect-square`, `w-full`, child selectors like `[&_svg]:shrink-0`, conditional selectors like `hover:underline`). This is enforced by the `theme-collections.test.ts` quality check. When adding a boolean prop default, ensure the component's categories include the prop's category, the theme has the corresponding class mapper, and the prop type includes the prop interface.
+7. **No hardcoded visual props on child components** — When a parent component renders a child VaneUI component (e.g., Menu renders Popup), visual defaults (size, appearance, variant, shape, layout) must come from the theme system via a sub-theme + ThemeProvider `themeDefaults`, NOT from hardcoded boolean props on the JSX element. Only functional/ARIA props (open, onClose, role, id, ref, anchorRef, etc.) should be set directly. This ensures all visual aspects are customizable via ThemeProvider.
 
 ## Detailed Conventions
 

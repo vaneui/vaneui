@@ -26,8 +26,45 @@ describe('Divider Component Tests', () => {
     });
   });
 
+  describe('Divider box-sizing and background clip', () => {
+    it('should have box-content class by default for correct padding behavior', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveClass('box-content');
+    });
+
+    it('should have bg-clip-content class so padding area stays transparent', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveClass('bg-clip-content');
+    });
+
+    it('should have both box-content and bg-clip-content when padding is enabled', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider padding />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveClass('box-content');
+      expect(divider).toHaveClass('bg-clip-content');
+      expect(divider).toHaveClass('py-(--py)');
+    });
+  });
+
   describe('Divider Padding', () => {
-    it('should apply padding when padding prop is true', () => {
+    it('should apply both py and px when padding prop is true', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Divider padding/>
@@ -36,10 +73,35 @@ describe('Divider Component Tests', () => {
 
       const divider = container.querySelector('div');
       expect(divider).toBeInTheDocument();
-      expect(divider).toHaveClass('py-(--py)'); // md size padding
+      expect(divider).toHaveClass('py-(--py)');
+      expect(divider).toHaveClass('px-(--px)');
     });
 
-    it('should apply no padding by default', () => {
+    it('should apply only py when paddingY prop is true', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider paddingY/>
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveClass('py-(--py)');
+      expect(divider).not.toHaveClass('px-(--px)');
+    });
+
+    it('should apply only px when paddingX prop is true', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider paddingX/>
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveClass('px-(--px)');
+      expect(divider).not.toHaveClass('py-(--py)');
+    });
+
+    it('should apply no padding by default (noPadding)', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Divider/>
@@ -47,7 +109,8 @@ describe('Divider Component Tests', () => {
       );
 
       const divider = container.querySelector('div');
-      expect(divider).not.toHaveClass('py-2', 'py-4', 'py-6', 'py-8', 'py-10'); // no padding classes applied
+      expect(divider).not.toHaveClass('py-(--py)');
+      expect(divider).not.toHaveClass('px-(--px)');
     });
   });
 
@@ -138,7 +201,8 @@ describe('Divider Component Tests', () => {
 
       const divider = container.querySelector('div');
       expect(divider).toHaveClass('w-(--bw)', 'h-full'); // vertical
-      expect(divider).toHaveClass('py-(--py)'); // padding
+      expect(divider).toHaveClass('py-(--py)'); // padding (both axes)
+      expect(divider).toHaveClass('px-(--px)');
       expect(divider).toHaveAttribute('data-appearance', 'primary');
     });
 

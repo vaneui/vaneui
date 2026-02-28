@@ -410,7 +410,7 @@
     .vane-container[data-size="xl"] { --py-unit: 12; }
 
     /* Divider */
-    .vane-divider { --py-unit: 4; }
+    .vane-divider { --py-unit: 4; --aspect-ratio: 2; }
     .vane-divider[data-size="xs"] { --py-unit: 2; }
     .vane-divider[data-size="sm"] { --py-unit: 3; }
     .vane-divider[data-size="md"] { --py-unit: 4; }
@@ -542,8 +542,22 @@
     .vane-menu-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
     .vane-menu-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
 
-    /* MenuSeparator - compact spacing for menu dividers */
-    .vane-menu-separator { --py-unit: 0.5; }
+    /* Menu Divider - compact spacing for dividers inside menu dropdowns */
+    [data-menu-dropdown] .vane-divider { --py-unit: 0.5; }
+
+    /* NavLink - navigation links for sidebars, nav menus, headers */
+    .vane-nav-link { --lh: var(--lh-base); --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.15; }
+    .vane-nav-link[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-nav-link[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.25; }
+    .vane-nav-link[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1.5; }
+    .vane-nav-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
+    .vane-nav-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
+
+    /* NavLink active state: shift colors so bg shows hover color, hover shows active color */
+    .vane-nav-link[data-active] {
+        --bg-color: var(--bg-hover-color);
+        --bg-hover-color: var(--bg-active-color);
+    }
 
     /* MenuLabel - compact non-interactive section heading */
     .vane-menu-label { --lh: var(--lh-base); --py-unit: 1; --aspect-ratio: 2; --br-unit: 0.15; }

@@ -2,7 +2,7 @@ import type { ButtonProps } from "./ButtonProps";
 
 /** Default props for Button component */
 export const buttonDefaults: Partial<ButtonProps> = {
-  md: true,
+  sm: true,
   inlineFlex: true,
   itemsCenter: true,
   justifyCenter: true,

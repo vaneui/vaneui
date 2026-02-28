@@ -20,8 +20,8 @@ describe('Button Component Tests', () => {
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
       expect(button).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
-      expect(button).toHaveClass('text-(length:--fs)'); // md size
-      expect(button).toHaveAttribute('data-size', 'md');
+      expect(button).toHaveClass('text-(length:--fs)'); // sm size
+      expect(button).toHaveAttribute('data-size', 'sm');
       expect(button).toHaveAttribute('data-vane-type', 'ui'); // UI component type
       expect(button).toHaveAttribute('data-variant', 'outline'); // outline variant by default
       expect(button).toHaveAttribute('data-appearance', 'primary'); // primary appearance by default
@@ -45,8 +45,8 @@ describe('Button Component Tests', () => {
       const anchor = container.querySelector('a');
       expect(anchor).toBeInTheDocument();
       expect(anchor).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
-      expect(anchor).toHaveClass('text-(length:--fs)'); // md size
-      expect(anchor).toHaveAttribute('data-size', 'md');
+      expect(anchor).toHaveClass('text-(length:--fs)'); // sm size
+      expect(anchor).toHaveAttribute('data-size', 'sm');
       expect(anchor).toHaveAttribute('data-vane-type', 'ui'); // UI component type
       expect(anchor).toHaveClass('text-(--text-color)'); // primary appearance
       expect(anchor).toHaveClass('font-sans'); // sans family
@@ -394,16 +394,16 @@ describe('Button Component Tests', () => {
         expect(button).toHaveAttribute('data-size', 'sm');
       });
 
-      it('should apply correct --br-unit for md size (default)', () => {
+      it('should apply correct --br-unit for sm size (default)', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Button>MD Button</Button>
+            <Button>SM Button</Button>
           </ThemeProvider>
         );
 
         const button = container.querySelector('button');
         expect(button).toHaveClass('rounded-(--br)');
-        expect(button).toHaveAttribute('data-size', 'md');
+        expect(button).toHaveAttribute('data-size', 'sm');
       });
 
       it('should apply correct --br-unit for lg size', () => {

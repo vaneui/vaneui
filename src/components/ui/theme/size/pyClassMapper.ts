@@ -16,7 +16,8 @@ export class PyClassMapper extends BaseClassMapper implements Record<ResponsiveB
   mobile: string = "max-mobile:py-(--py-mobile)";
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
+    const p = extractedKeys?.padding;
+    if (p === 'padding' || p === 'paddingY' || p === undefined) {
       // Use breakpoint-specific classes if responsive=true
       if (extractedKeys?.responsive === 'responsive') {
         return [this.desktop, this.tablet, this.mobile];

@@ -16,7 +16,8 @@ export class PxClassMapper extends BaseClassMapper implements Record<ResponsiveB
   mobile: string = "max-mobile:px-(--px-mobile)";
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    if (extractedKeys?.padding === 'padding' || extractedKeys?.padding === undefined) {
+    const p = extractedKeys?.padding;
+    if (p === 'padding' || p === 'paddingX' || p === undefined) {
       // Use breakpoint-specific classes if responsive=true
       if (extractedKeys?.responsive === 'responsive') {
         return [this.desktop, this.tablet, this.mobile];

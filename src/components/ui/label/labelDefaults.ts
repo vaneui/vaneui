@@ -2,7 +2,7 @@ import type { LabelProps } from "./LabelProps";
 
 /** Default props for Label component */
 export const labelDefaults: Partial<LabelProps> = {
-  md: true,
+  sm: true,
   flex: true,
   gap: true,
   sans: true,
