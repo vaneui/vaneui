@@ -134,3 +134,13 @@ When a parent component renders a child VaneUI component (e.g., Menu renders Pop
 ```
 
 This ensures users can customize all visual aspects via ThemeProvider. Only functional/ARIA props (open, onClose, role, id, anchorRef, etc.) should be set directly on the child element.
+
+## No Inline Defaults in ComponentTheme Constructors
+
+Every component's defaults MUST be extracted to a separate `{component}Defaults.ts` file. Never pass inline object literals to `new ComponentTheme(...)`. This applies to sub-theme variants too (e.g., `menuDividerDefaults.ts`, `menuPopupDefaults.ts`). Each defaults file must be:
+1. Exported from the component's barrel `index.ts`
+2. Included in `src/components/ui/theme/defaults.ts` aggregator
+
+## Size-Dependent Padding and Border-Radius
+
+Padding and border-radius MUST scale with the component's size prop (`xs`/`sm`/`md`/`lg`/`xl`). A component cannot have the same padding or border-radius across different sizes — use size-aware CSS variable mappers (`PyClassMapper`, `PxClassMapper`) rather than fixed Tailwind classes.

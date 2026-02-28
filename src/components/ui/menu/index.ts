@@ -10,6 +10,7 @@ export { MENU_ITEM_CATEGORIES } from './MenuItemCategories';
 export { MENU_LABEL_CATEGORIES } from './MenuLabelCategories';
 export { menuItemDefaults } from './menuItemDefaults';
 export { menuLabelDefaults } from './menuLabelDefaults';
+export { menuPopupDefaults } from './menuPopupDefaults';
 export { defaultMenuItemTheme } from './defaultMenuItemTheme';
 export { defaultMenuLabelTheme } from './defaultMenuLabelTheme';
 export { defaultMenuPopupTheme } from './defaultMenuPopupTheme';

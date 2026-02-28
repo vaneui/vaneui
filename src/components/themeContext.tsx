@@ -135,9 +135,7 @@ export interface ThemeProps {
     main: ComponentTheme<ButtonProps, ButtonTheme>;
     spinner: ComponentTheme<ButtonSpinnerProps, ButtonSpinnerTheme>;
   };
-  iconButton: {
-    main: ComponentTheme<IconButtonProps, IconButtonTheme>;
-  };
+  iconButton: ComponentTheme<IconButtonProps, IconButtonTheme>;
   badge: ComponentTheme<BadgeProps, BadgeTheme>;
   icon: ComponentTheme<IconProps, IconTheme>;
   chip: ComponentTheme<ChipProps, ChipTheme>;
@@ -204,9 +202,7 @@ export const defaultTheme: ThemeProps = {
     main: defaultButtonTheme,
     spinner: defaultButtonSpinnerTheme,
   },
-  iconButton: {
-    main: defaultIconButtonTheme,
-  },
+  iconButton: defaultIconButtonTheme,
   badge: defaultBadgeTheme,
   icon: defaultIconTheme,
   chip: defaultChipTheme,
@@ -289,9 +285,7 @@ export type ThemeDefaults = {
     main?: Partial<BooleanKeys<ButtonProps>>;
     spinner?: Partial<BooleanKeys<ButtonSpinnerProps>>;
   };
-  iconButton?: {
-    main?: Partial<BooleanKeys<IconButtonProps>>;
-  };
+  iconButton?: Partial<BooleanKeys<IconButtonProps>>;
   badge?: Partial<BooleanKeys<BadgeProps>>;
   icon?: Partial<BooleanKeys<IconProps>>;
   chip?: Partial<BooleanKeys<ChipProps>>;
@@ -359,9 +353,7 @@ export type ThemeExtraClasses = {
     main?: Partial<StringValueKeys<ButtonProps>>;
     spinner?: Partial<StringValueKeys<ButtonSpinnerProps>>;
   };
-  iconButton?: {
-    main?: Partial<StringValueKeys<IconButtonProps>>;
-  };
+  iconButton?: Partial<StringValueKeys<IconButtonProps>>;
   badge?: Partial<StringValueKeys<BadgeProps>>;
   icon?: Partial<StringValueKeys<IconProps>>;
   chip?: Partial<StringValueKeys<ChipProps>>;

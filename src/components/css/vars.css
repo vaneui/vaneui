@@ -542,8 +542,12 @@
     .vane-menu-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
     .vane-menu-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
 
-    /* Menu Divider - compact spacing for dividers inside menu dropdowns */
-    [data-menu-dropdown] .vane-divider { --py-unit: 0.5; }
+    /* Menu Divider - vertical spacing matches menu popup padding per size */
+    [data-menu-dropdown][data-size="xs"] .vane-divider { --py-unit: 0.5; }
+    [data-menu-dropdown][data-size="sm"] .vane-divider { --py-unit: 0.75; }
+    [data-menu-dropdown][data-size="md"] .vane-divider { --py-unit: 1; }
+    [data-menu-dropdown][data-size="lg"] .vane-divider { --py-unit: 1.25; }
+    [data-menu-dropdown][data-size="xl"] .vane-divider { --py-unit: 1.5; }
 
     /* NavLink - navigation links for sidebars, nav menus, headers */
     .vane-nav-link { --lh: var(--lh-base); --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.15; }
@@ -575,8 +579,12 @@
     .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --popup-max-height: 24rem; --popup-arrow-size: 8px; }
     .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --popup-max-height: 28rem; --popup-arrow-size: 10px; }
 
-    /* Menu dropdown - compact vertical padding (overrides popup size rules) */
-    .vane-popup[data-menu-dropdown] { --py-unit: 1; }
+    /* Menu dropdown - compact padding that scales with size */
+    .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 0.5; }
+    .vane-popup[data-menu-dropdown][data-size="sm"] { --py-unit: 0.75; }
+    .vane-popup[data-menu-dropdown][data-size="md"] { --py-unit: 1; }
+    .vane-popup[data-menu-dropdown][data-size="lg"] { --py-unit: 1.25; }
+    .vane-popup[data-menu-dropdown][data-size="xl"] { --py-unit: 1.5; }
 
     /* ========================================
        ANIMATIONS

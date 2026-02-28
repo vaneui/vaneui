@@ -38,7 +38,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     if (loading) {
       const loadingProps = { ...rest, disabled: true as const, 'data-loading': 'true' };
       return (
-        <ThemedComponent ref={ref} theme={theme.iconButton.main} {...loadingProps}>
+        <ThemedComponent ref={ref} theme={theme.iconButton} {...loadingProps}>
           <ThemedComponent theme={theme.button.spinner}>
             {theme.button.spinner.themes.spinnerElement()}
           </ThemedComponent>
@@ -47,7 +47,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       );
     }
 
-    return <ThemedComponent ref={ref} theme={theme.iconButton.main} {...rest} />;
+    return <ThemedComponent ref={ref} theme={theme.iconButton} {...rest} />;
   }
 );
 

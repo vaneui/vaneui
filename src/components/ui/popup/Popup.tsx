@@ -229,13 +229,14 @@ function getJsPosition(
   return { ...bestPos, resolvedPlacement: bestPlacement };
 }
 
-// Cached feature detection
+// Cached feature detection — tests for span-* values which require
+// Chrome/Edge 129+, not just basic position-area (Chrome 125+)
 let _supportsAnchorPositioning: boolean | null = null;
 function supportsAnchorPositioning(): boolean {
   if (_supportsAnchorPositioning === null) {
     _supportsAnchorPositioning = typeof CSS !== 'undefined' &&
       typeof CSS.supports === 'function' &&
-      CSS.supports('position-area', 'top');
+      CSS.supports('position-area', 'bottom span-right');
   }
   return _supportsAnchorPositioning;
 }

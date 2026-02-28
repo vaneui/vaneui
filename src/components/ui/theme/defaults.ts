@@ -30,6 +30,10 @@ import { overlayDefaults } from '../overlay/overlayDefaults';
 import { modalContentDefaults } from '../modal/modalContentDefaults';
 import { modalOverlayDefaults } from '../modal/modalOverlayDefaults';
 import { popupDefaults } from '../popup/popupDefaults';
+import { menuItemDefaults } from '../menu/menuItemDefaults';
+import { menuPopupDefaults } from '../menu/menuPopupDefaults';
+import { menuDividerDefaults } from '../divider/menuDividerDefaults';
+import { menuLabelDefaults } from '../menu/menuLabelDefaults';
 import {
   pageTitleDefaults,
   sectionTitleDefaults,
@@ -50,9 +54,7 @@ export const themeDefaults: ThemeDefaults = {
     main: buttonDefaults,
     spinner: buttonSpinnerDefaults,
   },
-  iconButton: {
-    main: iconButtonDefaults,
-  },
+  iconButton: iconButtonDefaults,
   badge: badgeDefaults,
   icon: iconDefaults,
   chip: chipDefaults,
@@ -96,4 +98,10 @@ export const themeDefaults: ThemeDefaults = {
     overlay: modalOverlayDefaults,
   },
   popup: popupDefaults,
+  menu: {
+    item: menuItemDefaults,
+    popup: menuPopupDefaults,
+    divider: menuDividerDefaults,
+    label: menuLabelDefaults,
+  },
 };

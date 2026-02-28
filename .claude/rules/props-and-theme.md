@@ -112,3 +112,44 @@ This ensures:
 7. **Wire into component theme's `getClasses()` method**
 
 8. **Run `npm run props:generate`** to update prop descriptions
+
+## Defaults Must Be Extracted (Never Inline)
+
+**Every component's defaults MUST live in a separate `{component}Defaults.ts` file.**
+
+Never pass inline object literals as the defaults argument to `new ComponentTheme(...)`:
+
+```typescript
+// WRONG — hardcoded inline defaults, not customizable
+export const defaultMenuDividerTheme = new ComponentTheme<DividerProps, DividerTheme>(
+  defaultDividerTheme.tag,
+  defaultDividerTheme.base,
+  defaultDividerTheme.themes,
+  { sm: true, outline: true, inherit: true, paddingY: true, horizontal: true },  // ❌
+  DIVIDER_CATEGORIES,
+);
+
+// RIGHT — extracted to a file, customizable via ThemeProvider
+import { menuDividerDefaults } from "./menuDividerDefaults";
+export const defaultMenuDividerTheme = new ComponentTheme<DividerProps, DividerTheme>(
+  defaultDividerTheme.tag,
+  defaultDividerTheme.base,
+  defaultDividerTheme.themes,
+  menuDividerDefaults,  // ✅
+  DIVIDER_CATEGORIES,
+);
+```
+
+This applies to sub-theme variants too (e.g., `menuPopupDefaults`, `menuDividerDefaults`, `modalHeaderDefaults`). Each must:
+1. Be defined in a `{name}Defaults.ts` file
+2. Be exported from the component's barrel `index.ts`
+3. Be included in `src/components/ui/theme/defaults.ts` aggregator
+
+## Size-Dependent Padding and Border-Radius
+
+Padding and border-radius values MUST scale with the component's size prop. A component cannot use the same padding or border-radius when `xs` vs `xl` is applied — these are driven by CSS variables that change per size (`--pd-unit`, `--rounded`, etc.).
+
+When reviewing or creating themes, verify that:
+- Padding class mappers use size-aware CSS variables (e.g., `PyClassMapper`, `PxClassMapper`)
+- Border-radius comes from the shape system which respects size
+- No fixed Tailwind padding/radius classes are used that would ignore the size prop
