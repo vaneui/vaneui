@@ -175,6 +175,28 @@ describe('Menu Component Tests', () => {
       expect(item).toHaveClass('vane-menu-item');
     });
 
+    it('should NOT include bg-(--bg-color) class (transparent idle background)', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Edit</MenuItem>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]');
+      expect(item).not.toHaveClass('bg-(--bg-color)');
+    });
+
+    it('should include hover:bg-(--bg-hover-color) class', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Edit</MenuItem>
+        </Menu>
+      );
+
+      const item = document.body.querySelector('[role="menuitem"]');
+      expect(item).toHaveClass('hover:bg-(--bg-hover-color)');
+    });
+
     it('should not fire onClick when disabled', () => {
       const onClick = jest.fn();
       renderMenu(
@@ -619,6 +641,28 @@ describe('Menu Component Tests', () => {
 
       const label = document.body.querySelector('.vane-menu-label');
       expect(label).toHaveClass('vane-menu-label');
+    });
+
+    it('should NOT include bg-(--bg-color) class (transparent idle background)', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel>Section</MenuLabel>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).not.toHaveClass('bg-(--bg-color)');
+    });
+
+    it('should include hover:bg-(--bg-hover-color) class', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel>Section</MenuLabel>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toHaveClass('hover:bg-(--bg-hover-color)');
     });
   });
 

@@ -311,6 +311,15 @@ function TestHarness() {
           <MenuLabel md data-testid="menulabel-icon-md"><StarIcon /> Label</MenuLabel>
         </section>
 
+        {/* ── NavLink/MenuItem idle background — should be transparent ── */}
+
+        <section data-testid="idle-bg-section">
+          <NavLink danger data-testid="navlink-idle-danger">Danger NavLink (idle)</NavLink>
+          <NavLink danger filled data-testid="navlink-idle-danger-filled">Danger Filled NavLink (idle)</NavLink>
+          <NavLink danger active data-testid="navlink-active-danger">Danger NavLink (active)</NavLink>
+          <NavLink danger filled active data-testid="navlink-active-danger-filled">Danger Filled NavLink (active)</NavLink>
+        </section>
+
         {/* ── Menu (after z-index fixtures to avoid affecting stacking counts) ── */}
 
         <section data-testid="menu-section">

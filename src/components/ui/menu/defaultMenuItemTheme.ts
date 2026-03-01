@@ -1,4 +1,4 @@
-import { ComponentTheme, defaultTypographyClassMappers, interactiveClassMappers, bgHoverAppearance } from "../theme/common";
+import { ComponentTheme, defaultTypographyClassMappers, interactiveClassMappers, bgHoverOnlyAppearance } from "../theme/common";
 import type { MenuItemProps } from "./MenuItemProps";
 import type { MenuItemTheme } from "./MenuItemTheme";
 import { MENU_ITEM_CATEGORIES } from "./MenuItemCategories";
@@ -11,7 +11,7 @@ export const defaultMenuItemTheme = new ComponentTheme<MenuItemProps, MenuItemTh
     ...interactiveClassMappers,
     appearance: {
       ...interactiveClassMappers.appearance,
-      background: bgHoverAppearance,
+      background: bgHoverOnlyAppearance,
     },
     typography: defaultTypographyClassMappers,
   },

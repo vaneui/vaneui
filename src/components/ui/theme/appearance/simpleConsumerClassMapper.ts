@@ -30,7 +30,7 @@ export class SimpleConsumerClassMapper extends BaseClassMapper {
 
   constructor(
     config: {
-      base: string;
+      base?: string;
       hover?: string;
       active?: string;
       focusVisible?: string;
@@ -39,7 +39,7 @@ export class SimpleConsumerClassMapper extends BaseClassMapper {
     category: AppearanceCategoryKey
   ) {
     super();
-    this.base = config.base;
+    this.base = config.base || '';
     this.hover = config.hover || '';
     this.active = config.active || '';
     this.focusVisible = config.focusVisible || '';

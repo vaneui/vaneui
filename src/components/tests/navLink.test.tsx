@@ -261,6 +261,54 @@ describe('NavLink Component Tests', () => {
     });
   });
 
+  describe('Transparent Idle Background', () => {
+    it('should NOT include bg-(--bg-color) class (no idle background)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test">Item</NavLink>
+        </ThemeProvider>
+      );
+
+      const el = container.querySelector('a');
+      expect(el).not.toHaveClass('bg-(--bg-color)');
+    });
+
+    it('should include hover:bg-(--bg-hover-color) class', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test">Item</NavLink>
+        </ThemeProvider>
+      );
+
+      const el = container.querySelector('a');
+      expect(el).toHaveClass('hover:bg-(--bg-hover-color)');
+    });
+
+    it('should NOT include bg-(--bg-color) even with danger appearance', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test" danger>Danger</NavLink>
+        </ThemeProvider>
+      );
+
+      const el = container.querySelector('a');
+      expect(el).not.toHaveClass('bg-(--bg-color)');
+      expect(el).toHaveClass('hover:bg-(--bg-hover-color)');
+    });
+
+    it('should NOT include bg-(--bg-color) with filled variant', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test" filled>Filled</NavLink>
+        </ThemeProvider>
+      );
+
+      const el = container.querySelector('a');
+      expect(el).not.toHaveClass('bg-(--bg-color)');
+      expect(el).toHaveClass('hover:bg-(--bg-hover-color)');
+    });
+  });
+
   describe('SVG Protection Classes', () => {
     it('should include SVG pointer-events-none class', () => {
       const { container } = render(

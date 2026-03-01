@@ -306,7 +306,7 @@ function App() {
               <NavLink href="/dashboard" active><HomeIcon /> Dashboard</NavLink>
               <NavLink href="/analytics"><ChartIcon /> Analytics</NavLink>
               <NavLink href="/users"><UserIcon /> Users</NavLink>
-              <NavLink href="/settings"><SettingsIcon /> Settings</NavLink>
+              <NavLink href="/settings"><SettingsIcon /> Settings with a really really really really really really really long name</NavLink>
             </Stack>
           </Card>
 
@@ -379,7 +379,7 @@ function App() {
             </Stack>
           </Card>
 
-          <Card>
+          <Card filled>
             <Title>Filled Variant</Title>
             <Text sm secondary>
               <Code sm>filled</Code> gives nav links a solid background color.

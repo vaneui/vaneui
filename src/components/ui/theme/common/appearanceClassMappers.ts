@@ -16,6 +16,9 @@ export const bgAppearance = new SimpleConsumerClassMapper({ base: bgConsumerClas
 /** Background appearance — base + hover */
 export const bgHoverAppearance = new SimpleConsumerClassMapper({ base: bgConsumerClasses.base, hover: bgConsumerClasses.hover }, 'bg');
 
+/** Background appearance — hover only, no idle bg (MenuItem, NavLink, MenuLabel) */
+export const bgHoverOnlyAppearance = new SimpleConsumerClassMapper({ hover: bgConsumerClasses.hover }, 'bg');
+
 /** Background appearance — base + hover + active (Button) */
 export const bgActiveAppearance = new SimpleConsumerClassMapper({ base: bgConsumerClasses.base, hover: bgConsumerClasses.hover, active: bgConsumerClasses.active }, 'bg');
 

@@ -1,4 +1,4 @@
-import { ComponentTheme, defaultTypographyClassMappers, interactiveClassMappers, bgHoverAppearance } from "../theme/common";
+import { ComponentTheme, defaultTypographyClassMappers, interactiveClassMappers, bgHoverOnlyAppearance } from "../theme/common";
 import type { NavLinkProps } from "./NavLinkProps";
 import type { NavLinkTheme } from "./NavLinkTheme";
 import { NAV_LINK_CATEGORIES } from "./NavLinkCategories";
@@ -11,7 +11,7 @@ export const defaultNavLinkTheme = new ComponentTheme<NavLinkProps, NavLinkTheme
     ...interactiveClassMappers,
     appearance: {
       ...interactiveClassMappers.appearance,
-      background: bgHoverAppearance,
+      background: bgHoverOnlyAppearance,
     },
     typography: defaultTypographyClassMappers,
   },

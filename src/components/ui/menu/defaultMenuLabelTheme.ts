@@ -1,4 +1,4 @@
-import { ComponentTheme, defaultTypographyClassMappers, interactiveClassMappers, bgAppearance } from "../theme/common";
+import { ComponentTheme, defaultTypographyClassMappers, interactiveClassMappers, bgHoverOnlyAppearance } from "../theme/common";
 import type { MenuLabelProps } from "./MenuLabelProps";
 import type { MenuLabelTheme } from "./MenuLabelTheme";
 import { MENU_LABEL_CATEGORIES } from "./MenuLabelCategories";
@@ -11,8 +11,8 @@ export const defaultMenuLabelTheme = new ComponentTheme<MenuLabelProps, MenuLabe
     ...interactiveClassMappers,
     appearance: {
       ...interactiveClassMappers.appearance,
-      // Non-interactive: use static bg, not hover bg
-      background: bgAppearance,
+      // No idle bg — transparent until hovered (consistent with industry standard)
+      background: bgHoverOnlyAppearance,
     },
     typography: defaultTypographyClassMappers,
   },

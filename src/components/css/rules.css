@@ -347,10 +347,20 @@
     .vane-nav-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
     .vane-nav-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
 
-    /* NavLink active state: shift colors so bg shows hover color, hover shows active color */
-    .vane-nav-link[data-active] {
-        --bg-color: var(--bg-hover-color);
-        --bg-hover-color: var(--bg-active-color);
+    /* NavLink active state: use direct background-color at higher specificity (0,3,0)
+       to beat appearance rules (0,2,0). Variable shifting doesn't work because appearance
+       rules override the variables at the same specificity. */
+    .vane-nav-link[data-active][data-variant="outline"] {
+        background-color: var(--bg-hover-color);
+    }
+    .vane-nav-link[data-active][data-variant="outline"]:hover {
+        background-color: var(--bg-active-color);
+    }
+    .vane-nav-link[data-active][data-variant="filled"] {
+        background-color: var(--bg-hover-color);
+    }
+    .vane-nav-link[data-active][data-variant="filled"]:hover {
+        background-color: var(--bg-active-color);
     }
 
     /* MenuLabel - compact non-interactive section heading */

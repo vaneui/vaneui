@@ -16,6 +16,7 @@ export { typographyClassMappers } from './typographyClassMappers';
 export {
   bgAppearance,
   bgHoverAppearance,
+  bgHoverOnlyAppearance,
   bgActiveAppearance,
   textAppearance,
   borderAppearance,
