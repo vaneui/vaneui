@@ -24,8 +24,11 @@ export const borderConsumerClass = "border-(--border-color)";
 /** Ring consumer class - consumes --ring-color */
 export const ringConsumerClass = "ring-(--ring-color)";
 
-/** Focus visible outline consumer class - consumes --ring-color */
-export const focusVisibleConsumerClass = "focus-visible:outline-(--ring-color)";
+/** Focus visible outline consumer class - consumes --focus-color (decoupled from --ring-color) */
+export const focusVisibleConsumerClass = "focus-visible:outline-(--focus-color)";
+
+/** Divider background consumer class - consumes --divider-color */
+export const dividerBgConsumerClass = "bg-(--divider-color)";
 
 /** Accent color consumer class - consumes --accent-color */
 export const accentConsumerClass = "accent-(--accent-color)";

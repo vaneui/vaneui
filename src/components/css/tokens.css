@@ -122,16 +122,16 @@
     --color-border-warning: var(--color-amber-300);
     --color-border-info: var(--color-cyan-300);
 
-    /* Filled Button Border Colors */
-    --color-border-filled-primary: var(--color-gray-600);
-    --color-border-filled-brand: var(--color-blue-600);
-    --color-border-filled-secondary: var(--color-gray-600);
-    --color-border-filled-tertiary: var(--color-gray-600);
-    --color-border-filled-accent: var(--color-rose-600);
-    --color-border-filled-success: var(--color-emerald-600);
-    --color-border-filled-danger: var(--color-red-600);
-    --color-border-filled-warning: var(--color-amber-600);
-    --color-border-filled-info: var(--color-cyan-600);
+    /* Focus Ring Colors (used for focus-visible outline on all variants) */
+    --color-focus-primary: var(--color-gray-600);
+    --color-focus-brand: var(--color-blue-600);
+    --color-focus-secondary: var(--color-gray-600);
+    --color-focus-tertiary: var(--color-gray-600);
+    --color-focus-accent: var(--color-rose-600);
+    --color-focus-success: var(--color-emerald-600);
+    --color-focus-danger: var(--color-red-600);
+    --color-focus-warning: var(--color-amber-600);
+    --color-focus-info: var(--color-cyan-600);
 
     --br-base: var(--spacing);
     --fs-base: calc(var(--spacing) * 0.5);

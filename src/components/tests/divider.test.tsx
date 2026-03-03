@@ -21,7 +21,7 @@ describe('Divider Component Tests', () => {
       expect(divider).toBeInTheDocument();
       expect(divider).toHaveClass('h-(--bw)', 'w-full');
       // Divider defaults to inherit appearance (no data-appearance attribute)
-      expect(divider).toHaveClass('bg-(--border-color)');
+      expect(divider).toHaveClass('bg-(--divider-color)');
       expect(divider).not.toHaveAttribute('data-appearance');
     });
   });
@@ -123,7 +123,7 @@ describe('Divider Component Tests', () => {
       );
 
       const divider = container.querySelector('div');
-      expect(divider).toHaveClass('bg-(--border-color)');
+      expect(divider).toHaveClass('bg-(--divider-color)');
     });
 
     it('should apply secondary appearance variant', () => {
@@ -134,7 +134,7 @@ describe('Divider Component Tests', () => {
       );
 
       const divider = container.querySelector('div');
-      expect(divider).toHaveClass('bg-(--border-color)');
+      expect(divider).toHaveClass('bg-(--divider-color)');
     });
 
   });

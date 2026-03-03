@@ -67,7 +67,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('focus-visible:outline-2', 'focus-visible:outline-offset-2');
-      expect(input).toHaveClass('focus-visible:outline-(--ring-color)');
+      expect(input).toHaveClass('focus-visible:outline-(--focus-color)');
     });
   });
 
@@ -85,7 +85,7 @@ describe('Input Component Tests', () => {
       expect(input).toHaveClass('text-(--text-color)'); // primary text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // primary ring
-      expect(input).toHaveClass('focus-visible:outline-(--ring-color)'); // primary focus-visible
+      expect(input).toHaveClass('focus-visible:outline-(--focus-color)'); // primary focus-visible
     });
 
     it('should render with secondary appearance classes', () => {
@@ -101,7 +101,7 @@ describe('Input Component Tests', () => {
       expect(input).toHaveClass('text-(--text-color)'); // secondary text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // secondary ring
-      expect(input).toHaveClass('focus-visible:outline-(--ring-color)'); // secondary focus-visible
+      expect(input).toHaveClass('focus-visible:outline-(--focus-color)'); // secondary focus-visible
     });
 
     it('should render with success appearance classes', () => {
@@ -117,7 +117,7 @@ describe('Input Component Tests', () => {
       expect(input).toHaveClass('text-(--text-color)'); // success text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // success ring
-      expect(input).toHaveClass('focus-visible:outline-(--ring-color)'); // success focus-visible
+      expect(input).toHaveClass('focus-visible:outline-(--focus-color)'); // success focus-visible
     });
 
     it('should render with danger appearance classes', () => {
@@ -133,7 +133,7 @@ describe('Input Component Tests', () => {
       expect(input).toHaveClass('text-(--text-color)'); // danger text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // danger ring
-      expect(input).toHaveClass('focus-visible:outline-(--ring-color)'); // danger focus-visible
+      expect(input).toHaveClass('focus-visible:outline-(--focus-color)'); // danger focus-visible
     });
 
     it('should render with warning appearance classes', () => {
@@ -149,7 +149,7 @@ describe('Input Component Tests', () => {
       expect(input).toHaveClass('text-(--text-color)'); // warning text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // warning ring
-      expect(input).toHaveClass('focus-visible:outline-(--ring-color)'); // warning focus-visible
+      expect(input).toHaveClass('focus-visible:outline-(--focus-color)'); // warning focus-visible
     });
   });
 
@@ -225,7 +225,7 @@ describe('Input Component Tests', () => {
       expect(input).toHaveClass('text-(--text-color)'); // filled text
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)'); // filled ring
-      expect(input).toHaveClass('focus-visible:outline-(--ring-color)'); // filled focus-visible
+      expect(input).toHaveClass('focus-visible:outline-(--focus-color)'); // filled focus-visible
     });
 
     it('should render outline variant as default', () => {
@@ -389,7 +389,7 @@ describe('Input Component Tests', () => {
       expect(input).toHaveClass('text-(--text-color)');
       // Border classes only appear when border prop is set
       expect(input).toHaveClass('ring-(--ring-color)');
-      expect(input).toHaveClass('focus-visible:outline-(--ring-color)');
+      expect(input).toHaveClass('focus-visible:outline-(--focus-color)');
       
       // Custom class
       expect(input).toHaveClass('combination-test');

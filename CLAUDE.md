@@ -53,7 +53,7 @@ When creating or modifying components, **ALL steps below must be completed**. Us
    - See `.claude/rules/playground-examples.md` for patterns
 
 5. **Add E2E Fixtures & Tests**
-   - Add test fixtures to `playground/src/test-harness.tsx` with `data-testid` attributes
+   - Add test fixtures to `e2e/fixtures/test-harness.tsx` with `data-testid` attributes
    - Add e2e spec in `e2e/` validating computed CSS styles (see `.claude/rules/e2e-testing.md`)
 
 6. **Verify (ALL must pass)**

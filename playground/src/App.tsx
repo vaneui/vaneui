@@ -19,6 +19,7 @@ import {
   MenuItem,
   MenuLabel,
   NavLink,
+  Chip,
 } from '../../src';
 
 // Icons for demos
@@ -380,7 +381,7 @@ function App() {
           </Card>
 
           <Card filled>
-            <Title>Filled Variant</Title>
+            <Title secondary>Filled Variant</Title>
             <Text sm secondary>
               <Code sm>filled</Code> gives nav links a solid background color.
               Combined with <Code sm>active</Code> for emphasis.
@@ -388,8 +389,8 @@ function App() {
             <Row>
               <Stack noPadding noGap className="w-56">
                 <NavLink href="#" filled active><HomeIcon /> Active</NavLink>
-                <NavLink href="#" filled><ChartIcon /> Analytics</NavLink>
-                <NavLink href="#" filled><UserIcon /> Users</NavLink>
+                <NavLink href="#"><ChartIcon /> Analytics</NavLink>
+                <NavLink href="#" secondary><UserIcon /> Users</NavLink>
               </Stack>
               <Stack noPadding noGap className="w-56">
                 <NavLink href="#" success filled active><ShieldIcon /> Active</NavLink>
@@ -447,6 +448,149 @@ function App() {
                 <NavLink href="/api/utils">Utilities</NavLink>
               </Stack>
             </Stack>
+          </Card>
+
+          {/* ═══════════════════════════════════════════════════════════════
+              COLOR INHERITANCE
+              ═══════════════════════════════════════════════════════════════ */}
+          <Divider xl />
+          <PageTitle>Color Inheritance</PageTitle>
+          <Text secondary>
+            VaneUI components inherit appearance colors from their parent container.
+            A <Code>Card</Code> with an appearance prop propagates its colors to child
+            <Code>Text</Code>, <Code>Title</Code>, <Code>Badge</Code>, and other components.
+          </Text>
+
+          {/* ═══ BASIC INHERITANCE ═══════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Basic Inheritance (Outline)</SectionTitle>
+
+          <Card>
+            <Title>Children inherit parent appearance</Title>
+            <Text sm secondary>
+              <Code sm>Text</Code> and <Code sm>Title</Code> inside a colored <Code sm>Card</Code> automatically
+              pick up the card's text color — no need to repeat the appearance prop.
+            </Text>
+            <Row mobileCol>
+              <Card primary>
+                <Title>Primary Card</Title>
+                <Text>Text inherits primary color</Text>
+              </Card>
+              <Card brand>
+                <Title>Brand Card</Title>
+                <Text>Text inherits brand color</Text>
+              </Card>
+              <Card success>
+                <Title>Success Card</Title>
+                <Text>Text inherits success color</Text>
+              </Card>
+              <Card danger>
+                <Title>Danger Card</Title>
+                <Text>Text inherits danger color</Text>
+              </Card>
+            </Row>
+          </Card>
+
+          {/* ═══ FILLED INHERITANCE ═══════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Filled Inheritance</SectionTitle>
+
+          <Card>
+            <Title>Filled cards pass filled colors to children</Title>
+            <Text sm secondary>
+              When a <Code sm>Card</Code> is <Code sm>filled</Code>, children receive the
+              filled-variant text color (typically white or light).
+            </Text>
+            <Row mobileCol>
+              <Card primary filled>
+                <Title>Primary Filled</Title>
+                <Text>Light text on primary background</Text>
+              </Card>
+              <Card danger filled>
+                <Title>Danger Filled</Title>
+                <Text>Light text on danger background</Text>
+              </Card>
+              <Card success filled>
+                <Title>Success Filled</Title>
+                <Text>Light text on success background</Text>
+              </Card>
+              <Card warning filled>
+                <Title>Warning Filled</Title>
+                <Text>Light text on warning background</Text>
+              </Card>
+            </Row>
+          </Card>
+
+          {/* ═══ NESTED OVERRIDE ═══════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Nested Override</SectionTitle>
+
+          <Card>
+            <Title>Children can override the inherited appearance</Title>
+            <Text sm secondary>
+              An explicit appearance prop on a child takes priority over the inherited one.
+            </Text>
+            <Card danger>
+              <Text>This text inherits danger</Text>
+              <Text primary>This text explicitly overrides to primary</Text>
+              <Badge success>Success badge overrides danger</Badge>
+            </Card>
+          </Card>
+
+          {/* ═══ VARIANT INHERITANCE ═══════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Variant Inheritance (Filled → Children)</SectionTitle>
+
+          <Card>
+            <Title>Interactive children inside filled Card</Title>
+            <Text sm secondary>
+              When a layout component is <Code sm>filled</Code>, interactive children
+              (<Code sm>Button</Code>, <Code sm>Badge</Code>, <Code sm>Code</Code>, <Code sm>Chip</Code>)
+              also become filled, matching the parent's visual weight.
+            </Text>
+            <Row mobileCol>
+              <Card filled>
+                <Title>Filled Card</Title>
+                <Row flexWrap>
+                  <Button>Button</Button>
+                  <Badge>Badge</Badge>
+                  <Code>code</Code>
+                  <Chip>Chip</Chip>
+                </Row>
+              </Card>
+              <Card filled danger>
+                <Title>Filled Danger Card</Title>
+                <Row flexWrap>
+                  <Button>Button</Button>
+                  <Button success>Success</Button>
+                  <Badge>Badge</Badge>
+                </Row>
+              </Card>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Divider inherits border color</Title>
+            <Text sm secondary>
+              <Code sm>Divider</Code> inside an appearance container matches the parent's border color.
+            </Text>
+            <Row mobileCol>
+              <Card brand>
+                <Text>Brand card</Text>
+                <Divider />
+                <Text>After divider</Text>
+              </Card>
+              <Card danger filled>
+                <Text>Danger filled card</Text>
+                <Divider />
+                <Text>After divider</Text>
+              </Card>
+              <Card success filled>
+                <Text>Success filled card</Text>
+                <Divider />
+                <Text>After divider</Text>
+              </Card>
+            </Row>
           </Card>
 
         </Container>

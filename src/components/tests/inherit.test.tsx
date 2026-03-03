@@ -297,7 +297,7 @@ describe('Inherit Appearance Prop', () => {
       expect(divider).not.toHaveAttribute('data-variant');
     });
 
-    it('Divider should have bg-(--border-color) class by default', () => {
+    it('Divider should have bg-(--divider-color) class by default', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Divider />
@@ -305,7 +305,7 @@ describe('Inherit Appearance Prop', () => {
       );
 
       const divider = container.querySelector('div.vane-divider');
-      expect(divider).toHaveClass('bg-(--border-color)');
+      expect(divider).toHaveClass('bg-(--divider-color)');
     });
 
     it('Divider with explicit danger should have data-appearance="danger"', () => {
@@ -489,7 +489,7 @@ describe('Inherit Appearance Prop', () => {
 
         expect(card).toHaveAttribute('data-appearance', 'brand');
         expect(card).toHaveAttribute('data-variant', 'filled');
-        expect(divider).toHaveClass('bg-(--border-color)');
+        expect(divider).toHaveClass('bg-(--divider-color)');
         expect(divider).not.toHaveAttribute('data-appearance');
       });
 
@@ -551,7 +551,7 @@ describe('Inherit Appearance Prop', () => {
           expect(el).toHaveClass('text-(--text-color)');
           expect(el).not.toHaveAttribute('data-appearance');
         }
-        expect(divider).toHaveClass('bg-(--border-color)');
+        expect(divider).toHaveClass('bg-(--divider-color)');
         expect(divider).not.toHaveAttribute('data-appearance');
 
         // PageTitle outside Card: also inherits (no appearance parent → root default)
@@ -589,13 +589,13 @@ describe('Inherit Appearance Prop', () => {
 
     it('filled+primary rule should set --text-color to filled value', () => {
       expect(varsCSS).toMatch(
-        /\[data-variant="filled"\]\[data-appearance="primary"\]\s*\{[^}]*--text-color:\s*var\(--color-text-filled-primary\)/
+        /\[data-variant="filled"\]\[data-appearance="primary"\][^{]*\{[^}]*--text-color:\s*var\(--color-text-filled-primary\)/
       );
     });
 
     it('filled+danger rule should set --text-color to filled-danger value', () => {
       expect(varsCSS).toMatch(
-        /\[data-variant="filled"\]\[data-appearance="danger"\]\s*\{[^}]*--text-color:\s*var\(--color-text-filled-danger\)/
+        /\[data-variant="filled"\]\[data-appearance="danger"\][^{]*\{[^}]*--text-color:\s*var\(--color-text-filled-danger\)/
       );
     });
 
@@ -604,6 +604,15 @@ describe('Inherit Appearance Prop', () => {
       for (const appearance of appearances) {
         expect(varsCSS).toContain(`[data-variant="outline"][data-appearance="${appearance}"]`);
         expect(varsCSS).toContain(`[data-variant="filled"][data-appearance="${appearance}"]`);
+      }
+    });
+
+    it('filled rules should include variant inheritance selector for outline children', () => {
+      const appearances = ['primary', 'brand', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info', 'link'];
+      for (const appearance of appearances) {
+        expect(varsCSS).toContain(
+          `[data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="${appearance}"]`
+        );
       }
     });
 

@@ -3,6 +3,7 @@ import type { DividerProps } from "./DividerProps";
 import { SimpleConsumerClassMapper } from "../theme/appearance";
 import { PyClassMapper, PxClassMapper } from "../theme/size";
 import { OrientationClassMapper, WidthClassMapper, HeightClassMapper } from "../theme/layout";
+import { dividerBgConsumerClass } from "../classes/appearanceClasses";
 import { DIVIDER_CATEGORIES } from "./DividerCategories";
 import type { DividerTheme } from "./DividerTheme";
 import { dividerDefaults } from "./dividerDefaults";
@@ -16,8 +17,8 @@ export const defaultDividerTheme = new ComponentTheme<DividerProps, DividerTheme
       px: new PxClassMapper(),
     },
     appearance: {
-      // CSS-based approach: uses --border-color variable for divider background
-      background: new SimpleConsumerClassMapper({ base: 'bg-(--border-color)' }, 'bg'),
+      // Uses --divider-color variable (separate from --border-color for filled variant visibility)
+      background: new SimpleConsumerClassMapper({ base: dividerBgConsumerClass }, 'bg'),
     },
     layout: {
       ...defaultLayoutClassMappers,

@@ -1,7 +1,7 @@
 ---
 paths:
   - "e2e/**"
-  - "**/test-harness*"
+  - "e2e/**"
   - "playwright.config.*"
 ---
 
@@ -10,7 +10,7 @@ paths:
 ## Setup
 - Framework: Playwright (`@playwright/test`)
 - Config: `playwright.config.ts`
-- Test harness: `playground/src/test-harness.tsx` (served at `/test.html` via Vite)
+- Test harness: `e2e/fixtures/test-harness.tsx` (served at `/test.html` via Vite from `e2e/fixtures/`)
 - Run headless: `npm run test:e2e`
 - Run interactive: `npm run test:e2e:ui`
 
@@ -29,7 +29,7 @@ E2e tests validate **computed CSS styles in a real browser**. They complement Je
 
 ## Pattern: Adding Tests for a New Component
 
-1. **Add fixtures to `playground/src/test-harness.tsx`**
+1. **Add fixtures to `e2e/fixtures/test-harness.tsx`**
    - Import the component from `../../src`
    - Add a `<section data-testid="{component}-section">` with test elements
    - Tag each element with `data-testid="{component}-{variant}"` (e.g., `blockquote-default`, `kbd-xs`)

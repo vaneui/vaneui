@@ -22,6 +22,8 @@ import {
   MenuLabel,
   NavLink,
   Divider,
+  Row,
+  Code,
 } from '../../src';
 
 // Import VaneUI CSS
@@ -318,6 +320,50 @@ function TestHarness() {
           <NavLink danger filled data-testid="navlink-idle-danger-filled">Danger Filled NavLink (idle)</NavLink>
           <NavLink danger active data-testid="navlink-active-danger">Danger NavLink (active)</NavLink>
           <NavLink danger filled active data-testid="navlink-active-danger-filled">Danger Filled NavLink (active)</NavLink>
+        </section>
+
+        {/* ── Variant inheritance: filled layout → outline children ── */}
+
+        <section data-testid="variant-inherit">
+          {/* Standalone Button — stays outline (control) */}
+          <Button data-testid="vi-standalone-button">Standalone</Button>
+
+          {/* Filled Card → Button inherits filled */}
+          <Card filled data-testid="vi-filled-card">
+            <Button data-testid="vi-button-in-filled">Button</Button>
+            <Code data-testid="vi-code-in-filled">code</Code>
+            <Badge data-testid="vi-badge-in-filled">Badge</Badge>
+          </Card>
+
+          {/* Filled danger Card → Button (default primary) gets filled-primary colors */}
+          <Card filled danger data-testid="vi-filled-danger-card">
+            <Button data-testid="vi-button-in-danger">Button</Button>
+            <Button success data-testid="vi-button-success-in-danger">Success</Button>
+          </Card>
+
+          {/* Row transparency: filled Card → Row → Button */}
+          <Card filled data-testid="vi-row-transparency">
+            <Row>
+              <Button data-testid="vi-button-through-row">Through Row</Button>
+            </Row>
+          </Card>
+
+          {/* Divider inside filled Card */}
+          <Card filled data-testid="vi-divider-in-filled">
+            <Divider data-testid="vi-divider-filled" />
+          </Card>
+
+          {/* Nested Cards: filled Card → outline Card → Button */}
+          <Card filled data-testid="vi-nested-outer">
+            <Card data-testid="vi-nested-inner">
+              <Button data-testid="vi-button-nested">Nested</Button>
+            </Card>
+          </Card>
+
+          {/* Explicit filled on child — should still work normally */}
+          <Card filled>
+            <Button filled data-testid="vi-button-explicit-filled">Explicit filled</Button>
+          </Card>
         </section>
 
         {/* ── Menu (after z-index fixtures to avoid affecting stacking counts) ── */}

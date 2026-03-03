@@ -9,7 +9,7 @@ export default defineConfig({
     baseURL: 'http://localhost:3000',
   },
   webServer: {
-    command: 'npm run build:css:ui && npm run build:css:vars && cd playground && npx vite --port 3000',
+    command: 'npm run build:css:ui && npm run build:css:vars && cd e2e/fixtures && npx vite --port 3000',
     port: 3000,
     reuseExistingServer: !process.env.CI,
   },
