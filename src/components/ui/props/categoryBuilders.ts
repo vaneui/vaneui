@@ -59,6 +59,8 @@ export const DISABLED = ['disabled'] as const;
 export const ORIENTATION = ['orientation'] as const;
 /** Placement property for floating element positioning */
 export const PLACEMENT = ['placement'] as const;
+/** Min-width property for popup/floating components */
+export const MIN_WIDTH = ['minWidth'] as const;
 
 /** Composite categories built from core blocks */
 /** Complete layout category including core and flex properties */

@@ -72,6 +72,7 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'LetterSpacingProps': 'letterSpacing',
   'PlacementProps': 'placement',
   'DisabledProps': 'disabled',
+  'MinWidthProps': 'minWidth',
 };
 
 // Convert category key to display name

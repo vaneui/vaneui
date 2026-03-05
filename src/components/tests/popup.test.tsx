@@ -66,8 +66,8 @@ describe('Popup Component Tests', () => {
       expect(popup).toBeInTheDocument();
       // Flexbox layout from boolean props
       expect(popup).toHaveClass('flex', 'flex-col');
-      // Width from CSS variable, max-height hardcoded
-      expect(popup).toHaveClass('w-fit', 'max-h-(--popup-max-height)');
+      // Width from CSS variable, max-height from overflowAuto default
+      expect(popup).toHaveClass('w-fit', 'overflow-auto', 'max-h-(--popup-max-height)');
     });
 
     it('should render children', () => {
@@ -834,6 +834,62 @@ describe('Popup Component Tests', () => {
       const popup = baseElement.querySelector('.vane-popup');
       expect(popup).toHaveAttribute('data-placement');
     });
+
+    it('should default to bottom placement from theme defaults', () => {
+      const anchorRef = createAnchorRef();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = document.body.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('data-placement', 'bottom');
+    });
+
+    it('should reflect explicit placement prop in data-placement', () => {
+      const anchorRef = createAnchorRef();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottomEnd>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = document.body.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('data-placement', 'bottom-end');
+    });
+
+    it('should respect placement from ThemeProvider themeDefaults', () => {
+      const anchorRef = createAnchorRef();
+      render(
+        <ThemeProvider theme={defaultTheme} themeDefaults={{ popup: { bottomStart: true } }}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = document.body.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('data-placement', 'bottom-start');
+    });
+
+    it('should let explicit prop override ThemeProvider placement default', () => {
+      const anchorRef = createAnchorRef();
+      render(
+        <ThemeProvider theme={defaultTheme} themeDefaults={{ popup: { bottomStart: true } }}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} rightEnd>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = document.body.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('data-placement', 'right-end');
+    });
   });
 
   describe('Uncontrolled Mode', () => {
@@ -1072,6 +1128,50 @@ describe('Popup Component Tests', () => {
 
       // Popup should be inside the container (no portal)
       expect(container?.contains(popup!)).toBe(true);
+    });
+  });
+
+  describe('Min Width', () => {
+    it('should not apply min-width class by default', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).not.toHaveClass('min-w-(--popup-min-w)');
+    });
+
+    it('should apply min-width class when minWidth is true', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} minWidth>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveClass('min-w-(--popup-min-w)');
+    });
+
+    it('should not leak minWidth to DOM', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} minWidth>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).not.toHaveAttribute('minWidth');
     });
   });
 });

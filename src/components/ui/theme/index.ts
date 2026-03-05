@@ -22,6 +22,7 @@ export {
   OrientationClassMapper,
   OverlayBackgroundClassMapper,
   OverflowClassMapper,
+  MinWidthClassMapper,
   PointerEventsClassMapper,
   PositionClassMapper,
   RadiusClassMapper,

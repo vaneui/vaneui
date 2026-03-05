@@ -15,7 +15,7 @@ export { Overlay } from "./components/ui/overlay";
 export { Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton } from "./components/ui/modal";
 export { Popup, PopupTrigger } from "./components/ui/popup";
 export { Menu, MenuItem, MenuLabel } from "./components/ui/menu";
-export { NavLink, type NavLinkProps } from "./components/ui/navLink";
+export { NavLink, type NavLinkProps, type NavLinkLabelProps } from "./components/ui/navLink";
 export type { OverlayProps } from "./components/ui/overlay";
 export type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./components/ui/modal";
 export type { CardProps, CardHeaderProps, CardBodyProps, CardFooterProps } from "./components/ui/card";

@@ -43,6 +43,7 @@ When creating or modifying components, **ALL steps below must be completed**. Us
 3. **Write Tests (REQUIRED)**
    - Create `src/components/tests/{component}.test.tsx`
    - Test: default rendering, size variants, appearance variants, variant modifiers, shape variants, ref forwarding, prop leak prevention, className merging, tag switching (if applicable)
+   - **Add to `componentThemeCoverage.test.ts`** — every component with categories + theme must have an entry in this test file to validate that all category keys have theme mappers and all boolean defaults have handlers. See `.claude/rules/testing.md` for details.
    - See `.claude/rules/testing.md` for patterns
 
 4. **Add Playground Examples (REQUIRED)**

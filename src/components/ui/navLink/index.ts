@@ -4,3 +4,8 @@ export type { NavLinkTheme } from './NavLinkTheme';
 export { NAV_LINK_CATEGORIES } from './NavLinkCategories';
 export { navLinkDefaults } from './navLinkDefaults';
 export { defaultNavLinkTheme } from './defaultNavLinkTheme';
+export type { NavLinkLabelProps } from './NavLinkLabelProps';
+export type { NavLinkLabelTheme } from './NavLinkLabelTheme';
+export { NAV_LINK_LABEL_CATEGORIES } from './NavLinkLabelCategories';
+export { navLinkLabelDefaults } from './navLinkLabelDefaults';
+export { defaultNavLinkLabelTheme } from './defaultNavLinkLabelTheme';

@@ -5,18 +5,22 @@ import type {
   HideProps,
   ItemsProps,
   JustifyProps,
+  PositionProps,
   DisplayProps,
   OverflowProps,
   WrapProps,
   GapProps,
   FlexDirectionProps,
+  ReverseProps,
   AppearanceProps,
   BorderProps,
   ShadowProps,
   RingProps,
+  ShapeProps,
   PaddingProps,
   VariantProps,
   TransparentProps,
+  ResponsiveProps,
   WidthProps,
   HeightProps,
 } from "../props";
@@ -27,18 +31,22 @@ export type CardBodyProps = BaseProps &
   HideProps &
   ItemsProps &
   JustifyProps &
+  PositionProps &
   DisplayProps &
   OverflowProps &
   WrapProps &
   GapProps &
   FlexDirectionProps &
+  ReverseProps &
   AppearanceProps &
   BorderProps &
   ShadowProps &
   RingProps &
+  ShapeProps &
   PaddingProps &
   VariantProps &
   TransparentProps &
+  ResponsiveProps &
   WidthProps &
   HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {

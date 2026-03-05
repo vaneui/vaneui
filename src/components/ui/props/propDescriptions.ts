@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-03-02T18:12:25.244Z
+ * Generated on: 2026-03-05T14:55:43.418Z
  */
 
 export interface PropDescription {
@@ -406,6 +406,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "decimal": {
         "description": "Numbered list style"
+      }
+    }
+  },
+  "minWidth": {
+    "name": "Min Width",
+    "description": "Min-width props for popup/floating components.\rWhen enabled, applies a size-dependent minimum width via --popup-min-w CSS variable.",
+    "props": {
+      "minWidth": {
+        "description": "Apply size-dependent minimum width (uses --popup-min-w CSS variable)"
       }
     }
   },

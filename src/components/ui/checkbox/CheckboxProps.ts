@@ -19,7 +19,9 @@ import type {
   TransitionProps,
   StatusProps,
   WidthProps,
-  HeightProps
+  HeightProps,
+  TransparentProps,
+  ResponsiveProps
 } from '../props';
 
 /** Checkbox component props */
@@ -43,6 +45,8 @@ export type CheckboxProps = BaseProps &
   StatusProps &
   WidthProps &
   HeightProps &
+  TransparentProps &
+  ResponsiveProps &
   Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

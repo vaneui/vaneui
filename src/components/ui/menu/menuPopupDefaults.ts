@@ -14,5 +14,6 @@ export const menuPopupDefaults: Partial<PopupProps> = {
   primary: true,
   outline: true,
   wFit: true,
-  bottom: true,
+  minWidth: true,
+  bottomStart: true,
 };

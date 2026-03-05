@@ -26,6 +26,7 @@ import {
   TYPOGRAPHY_FULL,
   PLACEMENT,
   DISABLED,
+  MIN_WIDTH,
 } from './categoryBuilders';
 
 // Re-export for backward compatibility
@@ -55,6 +56,7 @@ export {
   TYPOGRAPHY_FULL,
   PLACEMENT,
   DISABLED,
+  MIN_WIDTH,
 };
 
 // Import component-specific categories from their folders
@@ -159,6 +161,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...LETTER_SPACING,
   ...PLACEMENT,
   ...DISABLED,
+  ...MIN_WIDTH,
 ] as const;
 
 /**
@@ -265,6 +268,8 @@ export const ComponentKeys = {
   placement: ['top', 'topStart', 'topEnd', 'bottom', 'bottomStart', 'bottomEnd', 'left', 'leftStart', 'leftEnd', 'right', 'rightStart', 'rightEnd'] as const,
   /** Disabled state for interactive elements */
   disabled: ['disabled'] as const,
+  /** Min-width for popup/floating components */
+  minWidth: ['minWidth'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -337,6 +342,8 @@ export type LetterSpacingKey = typeof ComponentKeys.letterSpacing[number];
 export type PlacementKey = typeof ComponentKeys.placement[number];
 /** Disabled state key */
 export type DisabledKey = typeof ComponentKeys.disabled[number];
+/** Min-width key for popup/floating components */
+export type MinWidthKey = typeof ComponentKeys.minWidth[number];
 
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];

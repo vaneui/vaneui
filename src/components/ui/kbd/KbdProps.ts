@@ -32,7 +32,8 @@ import type {
   TransitionProps,
   WhitespaceProps,
   WidthProps,
-  HeightProps
+  HeightProps,
+  DisabledProps
 } from "../props";
 
 /** Kbd component props */
@@ -69,6 +70,7 @@ export type KbdProps = BaseProps &
   WhitespaceProps &
   WidthProps &
   HeightProps &
+  DisabledProps &
   Omit<React.HTMLAttributes<HTMLElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

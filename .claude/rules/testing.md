@@ -44,6 +44,52 @@ test('renders with correct data attributes', () => {
 - Test ref forwarding for every component
 - Use `@testing-library/react` render, not ReactDOM directly
 
+## Theme Coverage Test (REQUIRED for every component)
+
+Every component/sub-component that has its own categories array + theme must be registered in `src/components/tests/componentThemeCoverage.test.ts`. This test validates:
+- **Category coverage** (`testCategoryCoverage`): every category key in the component's `*_CATEGORIES` array has a corresponding class mapper that produces CSS output
+- **Defaults coverage** (`testThemeDefaults`): every boolean default prop (`defaults.prop = true`) has a theme handler
+
+### How to add a new component
+
+1. Import the theme and categories at the top of the file:
+   ```ts
+   import { defaultMyComponentTheme } from "../ui/myComponent";
+   import { MY_COMPONENT_CATEGORIES } from "../ui/myComponent";
+   // OR from "../ui/props" if re-exported there
+   ```
+
+2. Add a config in the appropriate `describe` block (Interactive, Typography, Layout, Form, Media, Overlay/Popup/Icon, Modal, Menu, Sub-components):
+   ```ts
+   const myComponentConfig: ComponentTestConfig = {
+     propsType: "MyComponentProps",
+     categories: MY_COMPONENT_CATEGORIES,
+     themes: [
+       { name: "defaultMyComponentTheme", theme: defaultMyComponentTheme }
+     ]
+   };
+   createThemeTests(myComponentConfig);
+   ```
+
+3. If the component shares categories with an existing config (e.g., uses `BUTTON_CATEGORIES` like IconButton, or `CODE_CATEGORIES` like Kbd), add its theme to the existing config's `themes[]` array instead of creating a new config.
+
+4. For `.withDefaults()` variants (themes that reuse a parent's mappers with different defaults), only add a standalone defaults test — category coverage is already tested by the parent:
+   ```ts
+   it("should ensure defaultMyVariantTheme has handlers for all its default props", () => {
+     tester.testThemeDefaults("defaultMyVariantTheme", defaultMyVariantTheme);
+   });
+   ```
+
+### Import rules
+- Import themes from specific files (e.g., `../ui/button/defaultButtonTheme`) to avoid circular dependency issues, OR from the component barrel if it's safe (most barrels are safe for `default*Theme` imports in test files)
+- Categories can be imported from `../ui/props` if re-exported there, or from the component barrel, or from the direct file (e.g., `../ui/modal/ModalHeaderCategories`)
+
+### What this catches
+- A new prop added to categories but no class mapper → `testCategoryCoverage` fails
+- A new boolean default with no mapper → `testThemeDefaults` fails
+- A mapper removed or broken → tests fail
+- Without this test, such mismatches are **silent** — the user passes a prop, nothing happens
+
 ## E2E Tests
 
 For computed CSS validation (color inheritance, font-size scaling, border rendering), see `.claude/rules/e2e-testing.md`. The full verification pipeline includes both unit tests (`npm test`) and e2e tests (`npm run test:e2e`).

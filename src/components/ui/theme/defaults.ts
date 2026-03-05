@@ -41,6 +41,7 @@ import { menuPopupDefaults } from '../menu/menuPopupDefaults';
 import { menuDividerDefaults } from '../divider/menuDividerDefaults';
 import { menuLabelDefaults } from '../menu/menuLabelDefaults';
 import { navLinkDefaults } from '../navLink/navLinkDefaults';
+import { navLinkLabelDefaults } from '../navLink/navLinkLabelDefaults';
 import {
   pageTitleDefaults,
   sectionTitleDefaults,
@@ -119,5 +120,8 @@ export const themeDefaults: ThemeDefaults = {
     divider: menuDividerDefaults,
     label: menuLabelDefaults,
   },
-  navLink: navLinkDefaults,
+  navLink: {
+    root: navLinkDefaults,
+    label: navLinkLabelDefaults,
+  },
 };

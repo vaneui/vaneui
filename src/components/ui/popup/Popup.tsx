@@ -4,7 +4,6 @@ import type { PopupProps } from "./PopupProps";
 import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
 import { pickFirstTruthyKeyByCategory } from '../../utils/componentUtils';
-import { popupDefaults } from './popupDefaults';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { useControllableState } from '../../utils/controllableState';
@@ -379,10 +378,10 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const effectiveOpen = open && !disabled;
 
-    // Extract placement from boolean props (e.g. top, bottomStart, rightEnd)
+    // Extract placement from boolean props via theme defaults
     const placementKey = pickFirstTruthyKeyByCategory(
       props as Record<string, unknown>,
-      popupDefaults as Record<string, unknown>,
+      theme.popup.defaults as Record<string, unknown>,
       'placement'
     ) || 'top';
 

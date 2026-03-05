@@ -127,6 +127,9 @@ import { defaultMenuPopupTheme } from './ui/menu/defaultMenuPopupTheme';
 import type { NavLinkTheme } from './ui/navLink/NavLinkTheme';
 import { defaultNavLinkTheme } from './ui/navLink/defaultNavLinkTheme';
 import type { NavLinkProps } from './ui/navLink/NavLinkProps';
+import type { NavLinkLabelTheme } from './ui/navLink/NavLinkLabelTheme';
+import { defaultNavLinkLabelTheme } from './ui/navLink/defaultNavLinkLabelTheme';
+import type { NavLinkLabelProps } from './ui/navLink/NavLinkLabelProps';
 import { DeepPartial } from "./utils/deepPartial";
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
@@ -192,7 +195,10 @@ export interface ThemeProps {
     divider: ComponentTheme<DividerProps, DividerTheme>;
     label: ComponentTheme<MenuLabelProps, MenuLabelTheme>;
   };
-  navLink: ComponentTheme<NavLinkProps, NavLinkTheme>;
+  navLink: {
+    root: ComponentTheme<NavLinkProps, NavLinkTheme>;
+    label: ComponentTheme<NavLinkLabelProps, NavLinkLabelTheme>;
+  };
 }
 
 export type PartialTheme = DeepPartial<ThemeProps>;
@@ -259,7 +265,10 @@ export const defaultTheme: ThemeProps = {
     divider: defaultMenuDividerTheme,
     label: defaultMenuLabelTheme,
   },
-  navLink: defaultNavLinkTheme,
+  navLink: {
+    root: defaultNavLinkTheme,
+    label: defaultNavLinkLabelTheme,
+  },
 };
 
 /**
@@ -342,7 +351,10 @@ export type ThemeDefaults = {
     divider?: Partial<BooleanKeys<DividerProps>>;
     label?: Partial<BooleanKeys<MenuLabelProps>>;
   };
-  navLink?: Partial<BooleanKeys<NavLinkProps>>;
+  navLink?: {
+    root?: Partial<BooleanKeys<NavLinkProps>>;
+    label?: Partial<BooleanKeys<NavLinkLabelProps>>;
+  };
 };
 
 // ThemeExtraClasses mirrors the structure of ThemeProps
@@ -410,7 +422,10 @@ export type ThemeExtraClasses = {
     divider?: Partial<StringValueKeys<DividerProps>>;
     label?: Partial<StringValueKeys<MenuLabelProps>>;
   };
-  navLink?: Partial<StringValueKeys<NavLinkProps>>;
+  navLink?: {
+    root?: Partial<StringValueKeys<NavLinkProps>>;
+    label?: Partial<StringValueKeys<NavLinkLabelProps>>;
+  };
 };
 
 /**

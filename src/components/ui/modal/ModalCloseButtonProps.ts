@@ -10,6 +10,7 @@ import type {
   PaddingProps,
   VariantProps,
   TransparentProps,
+  ResponsiveProps,
   CursorProps,
 } from "../props";
 
@@ -25,4 +26,5 @@ export type ModalCloseButtonProps = BaseProps &
   PaddingProps &
   VariantProps &
   TransparentProps &
+  ResponsiveProps &
   CursorProps;

@@ -30,7 +30,10 @@ import type {
   TransitionProps,
   WhitespaceProps,
   WidthProps,
-  HeightProps
+  HeightProps,
+  ResponsiveProps,
+  FocusVisibleProps,
+  DisabledProps
 } from "../props";
 
 /**
@@ -67,6 +70,9 @@ export type MenuLabelProps = BaseProps &
   WhitespaceProps &
   WidthProps &
   HeightProps &
+  ResponsiveProps &
+  FocusVisibleProps &
+  DisabledProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

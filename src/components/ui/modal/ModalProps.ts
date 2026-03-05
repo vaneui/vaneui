@@ -11,6 +11,7 @@ import type {
   WrapProps,
   GapProps,
   FlexDirectionProps,
+  ReverseProps,
   AppearanceProps,
   BorderProps,
   ShadowProps,
@@ -22,6 +23,7 @@ import type {
   TextTransformProps,
   FontFamilyProps,
   TextAlignProps,
+  TruncateProps,
   PaddingProps,
   VariantProps,
   TransparentProps,
@@ -45,6 +47,7 @@ export type ModalProps = BaseProps &
   WrapProps &
   GapProps &
   FlexDirectionProps &
+  ReverseProps &
   AppearanceProps &
   BorderProps &
   ShadowProps &
@@ -56,6 +59,7 @@ export type ModalProps = BaseProps &
   TextTransformProps &
   FontFamilyProps &
   TextAlignProps &
+  TruncateProps &
   PaddingProps &
   VariantProps &
   TransparentProps &

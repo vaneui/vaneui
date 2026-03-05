@@ -8,6 +8,7 @@ import { ThemedComponent } from '../../themedComponent';
  *
  * Renders as `<a>` when `href` is provided, `<button>` otherwise.
  * Supports `active` prop for current-page state (sets `data-active` and `aria-current="page"`).
+ * Text content is wrapped in a themed `<span>` (navLink.label) for truncation in flex layout.
  *
  * @example
  * ```tsx
@@ -18,7 +19,7 @@ import { ThemedComponent } from '../../themedComponent';
  */
 export const NavLink = forwardRef<HTMLElement, NavLinkProps>(
   function NavLink(props, ref) {
-    const { active, ...rest } = props;
+    const { active, children, ...rest } = props;
     const theme = useTheme();
 
     const mergedProps = {
@@ -28,11 +29,9 @@ export const NavLink = forwardRef<HTMLElement, NavLinkProps>(
     };
 
     return (
-      <ThemedComponent
-        ref={ref}
-        theme={theme.navLink}
-        {...mergedProps}
-      />
+      <ThemedComponent ref={ref} theme={theme.navLink.root} {...mergedProps}>
+        <ThemedComponent theme={theme.navLink.label}>{children}</ThemedComponent>
+      </ThemedComponent>
     );
   }
 );

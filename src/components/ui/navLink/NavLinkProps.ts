@@ -32,7 +32,7 @@ import type {
   TransitionProps,
   WhitespaceProps,
   WidthProps,
-  HeightProps
+  HeightProps,
 } from "../props";
 
 /**

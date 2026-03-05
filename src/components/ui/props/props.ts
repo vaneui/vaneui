@@ -83,3 +83,6 @@ export * from './placementProps';
 
 // Disabled
 export * from './DisabledProps';
+
+// Min Width
+export * from './minWidthProps';

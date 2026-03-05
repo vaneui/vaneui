@@ -643,7 +643,7 @@ describe('Menu Component Tests', () => {
       expect(label).toHaveClass('vane-menu-label');
     });
 
-    it('should NOT include bg-(--bg-color) class (transparent idle background)', () => {
+    it('should have no background classes (base, hover, or active)', () => {
       renderMenu(
         <Menu defaultOpen trigger={<Button>Trigger</Button>}>
           <MenuLabel>Section</MenuLabel>
@@ -652,9 +652,11 @@ describe('Menu Component Tests', () => {
 
       const label = document.body.querySelector('.vane-menu-label');
       expect(label).not.toHaveClass('bg-(--bg-color)');
+      expect(label).not.toHaveClass('hover:bg-(--bg-hover-color)');
+      expect(label).not.toHaveClass('active:bg-(--bg-active-color)');
     });
 
-    it('should include hover:bg-(--bg-hover-color) class', () => {
+    it('should still apply text color from appearance', () => {
       renderMenu(
         <Menu defaultOpen trigger={<Button>Trigger</Button>}>
           <MenuLabel>Section</MenuLabel>
@@ -662,7 +664,45 @@ describe('Menu Component Tests', () => {
       );
 
       const label = document.body.querySelector('.vane-menu-label');
-      expect(label).toHaveClass('hover:bg-(--bg-hover-color)');
+      expect(label).toHaveClass('text-(--text-color)');
+    });
+
+    it('should accept size override', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel lg>Section</MenuLabel>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toHaveAttribute('data-size', 'lg');
+    });
+
+    it('should accept appearance override', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel danger>Section</MenuLabel>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toHaveAttribute('data-appearance', 'danger');
+    });
+
+    it('should differ from MenuItem which has hover background', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuLabel>Label</MenuLabel>
+          <MenuItem>Item</MenuItem>
+        </Menu>
+      );
+
+      const label = document.body.querySelector('.vane-menu-label');
+      const item = document.body.querySelector('[role="menuitem"]');
+
+      // MenuItem has hover bg, MenuLabel does not
+      expect(item).toHaveClass('hover:bg-(--bg-hover-color)');
+      expect(label).not.toHaveClass('hover:bg-(--bg-hover-color)');
     });
   });
 
@@ -700,6 +740,17 @@ describe('Menu Component Tests', () => {
       expect(menu).toHaveAttribute('data-variant', 'outline');
     });
 
+    it('should apply min-width class by default (from menuPopupDefaults)', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
+        </Menu>
+      );
+
+      const menu = document.body.querySelector('[role="menu"]');
+      expect(menu).toHaveClass('min-w-(--popup-min-w)');
+    });
+
     it('should allow overriding menu popup defaults via ThemeProvider', () => {
       render(
         <ThemeProvider theme={defaultTheme} themeDefaults={{
@@ -715,6 +766,32 @@ describe('Menu Component Tests', () => {
       expect(menu).toBeInTheDocument();
       expect(menu).toHaveAttribute('data-size', 'lg');
       expect(menu).toHaveAttribute('data-appearance', 'secondary');
+    });
+
+    it('should default to bottomStart placement (from menuPopupDefaults)', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
+        </Menu>
+      );
+
+      const menu = document.body.querySelector('[role="menu"]');
+      expect(menu).toHaveAttribute('data-placement', 'bottom-start');
+    });
+
+    it('should allow overriding menu placement via ThemeProvider', () => {
+      render(
+        <ThemeProvider theme={defaultTheme} themeDefaults={{
+          menu: { popup: { rightStart: true } }
+        }}>
+          <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+            <MenuItem>Item</MenuItem>
+          </Menu>
+        </ThemeProvider>
+      );
+
+      const menu = document.body.querySelector('[role="menu"]');
+      expect(menu).toHaveAttribute('data-placement', 'right-start');
     });
   });
 

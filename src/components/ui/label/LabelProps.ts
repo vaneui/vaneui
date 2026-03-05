@@ -25,7 +25,10 @@ import type {
   VariantProps,
   CursorProps,
   WidthProps,
-  HeightProps
+  HeightProps,
+  TransparentProps,
+  ResponsiveProps,
+  TruncateProps
 } from "../props";
 
 /** Label component props */
@@ -55,6 +58,9 @@ export type LabelProps = BaseProps &
   CursorProps &
   WidthProps &
   HeightProps &
+  TransparentProps &
+  ResponsiveProps &
+  TruncateProps &
   Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

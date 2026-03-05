@@ -55,6 +55,43 @@ describe('NavLink Component Tests', () => {
     });
   });
 
+  describe('Label Sub-Theme', () => {
+    it('should wrap children in a themed span with vane-nav-link-label class', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test">Dashboard</NavLink>
+        </ThemeProvider>
+      );
+
+      const label = container.querySelector('span.vane-nav-link-label');
+      expect(label).toBeInTheDocument();
+      expect(label).toHaveTextContent('Dashboard');
+    });
+
+    it('should apply truncate class to the label span by default', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test">Dashboard</NavLink>
+        </ThemeProvider>
+      );
+
+      const label = container.querySelector('span.vane-nav-link-label');
+      expect(label).toHaveClass('truncate');
+    });
+
+    it('should render label span inside the root element', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test">Dashboard</NavLink>
+        </ThemeProvider>
+      );
+
+      const root = container.querySelector('a');
+      const label = root?.querySelector('span.vane-nav-link-label');
+      expect(label).toBeInTheDocument();
+    });
+  });
+
   describe('Size Variants', () => {
     it.each(['xs', 'sm', 'md', 'lg', 'xl'] as const)('should render with %s size', (size) => {
       const { container } = render(
@@ -306,6 +343,39 @@ describe('NavLink Component Tests', () => {
       const el = container.querySelector('a');
       expect(el).not.toHaveClass('bg-(--bg-color)');
       expect(el).toHaveClass('hover:bg-(--bg-hover-color)');
+    });
+  });
+
+  describe('Text Truncation', () => {
+    it('should apply truncate class to the label span by default', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test">Dashboard</NavLink>
+        </ThemeProvider>
+      );
+
+      const label = container.querySelector('span.vane-nav-link-label');
+      expect(label).toHaveClass('truncate');
+    });
+
+    it('should NOT apply truncate class to the root element', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test">Dashboard</NavLink>
+        </ThemeProvider>
+      );
+
+      expect(container.querySelector('a')).not.toHaveClass('truncate');
+    });
+
+    it('should not leak truncate prop to DOM', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/test">Item</NavLink>
+        </ThemeProvider>
+      );
+
+      expect(container.querySelector('a')).not.toHaveAttribute('truncate');
     });
   });
 

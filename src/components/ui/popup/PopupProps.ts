@@ -11,6 +11,7 @@ import type {
   WrapProps,
   GapProps,
   FlexDirectionProps,
+  ReverseProps,
   AppearanceProps,
   ShadowProps,
   ShapeProps,
@@ -25,6 +26,7 @@ import type {
   HeightProps,
   PlacementProps,
   PointerEventsProps,
+  MinWidthProps,
 } from '../props';
 
 /**
@@ -41,6 +43,7 @@ export type PopupProps = BaseProps &
   WrapProps &
   GapProps &
   FlexDirectionProps &
+  ReverseProps &
   AppearanceProps &
   ShadowProps &
   ShapeProps &
@@ -55,6 +58,7 @@ export type PopupProps = BaseProps &
   HeightProps &
   PlacementProps &
   PointerEventsProps &
+  MinWidthProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
     /** Whether popup is open (controlled mode). If omitted, uses internal state. */
     open?: boolean;

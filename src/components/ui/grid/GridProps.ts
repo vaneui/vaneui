@@ -20,7 +20,11 @@ import type {
   ResponsiveProps,
   PaddingProps,
   WidthProps,
-  HeightProps
+  HeightProps,
+  ShadowProps,
+  RingProps,
+  BreakpointProps,
+  TextAlignProps
 } from '../props';
 
 /** Grid component props */
@@ -45,6 +49,10 @@ export type GridProps = BaseProps &
   PaddingProps &
   WidthProps &
   HeightProps &
+  ShadowProps &
+  RingProps &
+  BreakpointProps &
+  TextAlignProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

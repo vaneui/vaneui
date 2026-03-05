@@ -1,24 +1,42 @@
 import { ComponentKeys } from "../ui/props";
 import { BaseClassMapper } from "../ui/theme/common/BaseClassMapper";
 
-// Import all component themes
-import { defaultCheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckboxCheckTheme } from "../ui/checkbox";
+// Import all component themes — existing
+import { defaultCheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckboxCheckTheme, defaultCheckboxIndeterminateTheme, CHECKBOX_INDETERMINATE_CATEGORIES } from "../ui/checkbox";
 import { defaultButtonTheme } from "../ui/button/defaultButtonTheme";
+import { defaultButtonSpinnerTheme, BUTTON_SPINNER_CATEGORIES } from "../ui/button";
+import { defaultIconButtonTheme } from "../ui/iconButton";
 import { defaultBadgeTheme } from "../ui/badge/defaultBadgeTheme";
 import { defaultChipTheme } from "../ui/chip/defaultChipTheme";
 import { defaultCodeTheme } from "../ui/code/defaultCodeTheme";
-import { textTheme, titleTheme, pageTitleTheme, sectionTitleTheme } from "../ui/typography";
+import { defaultKbdTheme } from "../ui/kbd";
+import { defaultMarkTheme } from "../ui/mark";
+import { textTheme, titleTheme, pageTitleTheme, sectionTitleTheme, blockquoteTheme, linkTheme, listTheme, listItemTheme, LIST_CATEGORIES } from "../ui/typography";
+import { defaultGrid2Theme } from "../ui/grid/defaultGrid2Theme";
 import { defaultGrid3Theme } from "../ui/grid/defaultGrid3Theme";
 import { defaultGrid4Theme } from "../ui/grid/defaultGrid4Theme";
+import { defaultGrid5Theme } from "../ui/grid/defaultGrid5Theme";
+import { defaultGrid6Theme } from "../ui/grid/defaultGrid6Theme";
 import { defaultContainerTheme } from "../ui/container/defaultContainerTheme";
 import { defaultColTheme } from "../ui/col/defaultColTheme";
 import { defaultRowTheme } from "../ui/row/defaultRowTheme";
 import { defaultStackTheme } from "../ui/stack/defaultStackTheme";
-import { defaultCardTheme } from "../ui/card";
+import { defaultCardTheme, defaultCardHeaderTheme, defaultCardBodyTheme, defaultCardFooterTheme, CARD_HEADER_CATEGORIES, CARD_BODY_CATEGORIES, CARD_FOOTER_CATEGORIES } from "../ui/card";
 import { defaultDividerTheme } from "../ui/divider/defaultDividerTheme";
+import { defaultMenuDividerTheme } from "../ui/divider/defaultMenuDividerTheme";
 import { defaultSectionTheme } from "../ui/section/defaultSectionTheme";
 import { defaultLabelTheme } from "../ui/label/defaultLabelTheme";
 import { defaultImgTheme } from "../ui/img/defaultImgTheme";
+import { defaultInputTheme } from "../ui/input";
+import { defaultNavLinkTheme, NAV_LINK_CATEGORIES, defaultNavLinkLabelTheme, NAV_LINK_LABEL_CATEGORIES } from "../ui/navLink";
+import { defaultOverlayTheme } from "../ui/overlay";
+import { defaultPopupTheme } from "../ui/popup";
+import { defaultIconTheme } from "../ui/icon";
+import { defaultModalContentTheme, defaultModalOverlayTheme, defaultModalHeaderTheme, defaultModalBodyTheme, defaultModalFooterTheme, defaultModalCloseButtonTheme, MODAL_CATEGORIES, MODAL_CLOSE_BUTTON_CATEGORIES } from "../ui/modal";
+import { MODAL_HEADER_CATEGORIES } from "../ui/modal/ModalHeaderCategories";
+import { MODAL_BODY_CATEGORIES } from "../ui/modal/ModalBodyCategories";
+import { MODAL_FOOTER_CATEGORIES } from "../ui/modal/ModalFooterCategories";
+import { defaultMenuItemTheme, defaultMenuLabelTheme, defaultMenuPopupTheme, MENU_ITEM_CATEGORIES, MENU_LABEL_CATEGORIES } from "../ui/menu";
 
 // Import all category constants
 import {
@@ -37,7 +55,11 @@ import {
   SECTION_CATEGORIES,
   CHECKBOX_CATEGORIES,
   LABEL_CATEGORIES,
-  IMG_CATEGORIES
+  IMG_CATEGORIES,
+  INPUT_CATEGORIES,
+  POPUP_CATEGORIES,
+  OVERLAY_CATEGORIES,
+  ICON_CATEGORIES
 } from "../ui/props";
 
 type ComponentKeysType = typeof ComponentKeys;
@@ -269,13 +291,14 @@ describe("Component theme coverage tests", () => {
     });
   };
 
-  // Interactive Components (Button, Badge, Chip, Code)
+  // Interactive Components (Button, IconButton, Badge, Chip, Code, Kbd, Mark, Input, NavLink)
   describe("Interactive component themes", () => {
     const buttonConfig: ComponentTestConfig = {
       propsType: "ButtonProps",
       categories: BUTTON_CATEGORIES,
       themes: [
-        { name: "defaultButtonTheme", theme: defaultButtonTheme }
+        { name: "defaultButtonTheme", theme: defaultButtonTheme },
+        { name: "defaultIconButtonTheme", theme: defaultIconButtonTheme }
       ]
     };
     createThemeTests(buttonConfig);
@@ -291,7 +314,7 @@ describe("Component theme coverage tests", () => {
 
     const chipConfig: ComponentTestConfig = {
       propsType: "ChipProps",
-      categories: CHIP_CATEGORIES, 
+      categories: CHIP_CATEGORIES,
       themes: [
         { name: "defaultChipTheme", theme: defaultChipTheme }
       ]
@@ -302,10 +325,30 @@ describe("Component theme coverage tests", () => {
       propsType: "CodeProps",
       categories: CODE_CATEGORIES,
       themes: [
-        { name: "defaultCodeTheme", theme: defaultCodeTheme }
+        { name: "defaultCodeTheme", theme: defaultCodeTheme },
+        { name: "defaultKbdTheme", theme: defaultKbdTheme },
+        { name: "defaultMarkTheme", theme: defaultMarkTheme }
       ]
     };
     createThemeTests(codeConfig);
+
+    const inputConfig: ComponentTestConfig = {
+      propsType: "InputProps",
+      categories: INPUT_CATEGORIES,
+      themes: [
+        { name: "defaultInputTheme", theme: defaultInputTheme }
+      ]
+    };
+    createThemeTests(inputConfig);
+
+    const navLinkConfig: ComponentTestConfig = {
+      propsType: "NavLinkProps",
+      categories: NAV_LINK_CATEGORIES,
+      themes: [
+        { name: "defaultNavLinkTheme", theme: defaultNavLinkTheme }
+      ]
+    };
+    createThemeTests(navLinkConfig);
   });
 
   // Typography Components
@@ -317,10 +360,32 @@ describe("Component theme coverage tests", () => {
         { name: "textTheme", theme: textTheme },
         { name: "titleTheme", theme: titleTheme },
         { name: "pageTitleTheme", theme: pageTitleTheme },
-        { name: "sectionTitleTheme", theme: sectionTitleTheme }
+        { name: "sectionTitleTheme", theme: sectionTitleTheme },
+        { name: "blockquoteTheme", theme: blockquoteTheme }
       ]
     };
     createThemeTests(typographyConfig);
+
+    // Link has its own theme (not typographyClassMappers) but uses TYPOGRAPHY_CATEGORIES
+    const linkConfig: ComponentTestConfig = {
+      propsType: "LinkProps",
+      categories: TYPOGRAPHY_CATEGORIES,
+      themes: [
+        { name: "linkTheme", theme: linkTheme }
+      ]
+    };
+    createThemeTests(linkConfig);
+
+    // List and ListItem use LIST_CATEGORIES (different from TYPOGRAPHY_CATEGORIES)
+    const listConfig: ComponentTestConfig = {
+      propsType: "ListProps",
+      categories: LIST_CATEGORIES,
+      themes: [
+        { name: "listTheme", theme: listTheme },
+        { name: "listItemTheme", theme: listItemTheme }
+      ]
+    };
+    createThemeTests(listConfig);
   });
 
   // Layout Components
@@ -329,8 +394,11 @@ describe("Component theme coverage tests", () => {
       propsType: "GridProps",
       categories: GRID_CATEGORIES,
       themes: [
+        { name: "defaultGrid2Theme", theme: defaultGrid2Theme },
         { name: "defaultGrid3Theme", theme: defaultGrid3Theme },
-        { name: "defaultGrid4Theme", theme: defaultGrid4Theme }
+        { name: "defaultGrid4Theme", theme: defaultGrid4Theme },
+        { name: "defaultGrid5Theme", theme: defaultGrid5Theme },
+        { name: "defaultGrid6Theme", theme: defaultGrid6Theme }
       ]
     };
     createThemeTests(gridConfig);
@@ -379,6 +447,33 @@ describe("Component theme coverage tests", () => {
       ]
     };
     createThemeTests(cardConfig);
+
+    const cardHeaderConfig: ComponentTestConfig = {
+      propsType: "CardHeaderProps",
+      categories: CARD_HEADER_CATEGORIES,
+      themes: [
+        { name: "defaultCardHeaderTheme", theme: defaultCardHeaderTheme }
+      ]
+    };
+    createThemeTests(cardHeaderConfig);
+
+    const cardBodyConfig: ComponentTestConfig = {
+      propsType: "CardBodyProps",
+      categories: CARD_BODY_CATEGORIES,
+      themes: [
+        { name: "defaultCardBodyTheme", theme: defaultCardBodyTheme }
+      ]
+    };
+    createThemeTests(cardBodyConfig);
+
+    const cardFooterConfig: ComponentTestConfig = {
+      propsType: "CardFooterProps",
+      categories: CARD_FOOTER_CATEGORIES,
+      themes: [
+        { name: "defaultCardFooterTheme", theme: defaultCardFooterTheme }
+      ]
+    };
+    createThemeTests(cardFooterConfig);
 
     const dividerConfig: ComponentTestConfig = {
       propsType: "DividerProps",
@@ -432,5 +527,146 @@ describe("Component theme coverage tests", () => {
       ]
     };
     createThemeTests(imgConfig);
+  });
+
+  // Overlay, Popup, Icon
+  describe("Overlay/Popup/Icon component themes", () => {
+    const overlayConfig: ComponentTestConfig = {
+      propsType: "OverlayProps",
+      categories: OVERLAY_CATEGORIES,
+      themes: [
+        { name: "defaultOverlayTheme", theme: defaultOverlayTheme }
+      ]
+    };
+    createThemeTests(overlayConfig);
+
+    const popupConfig: ComponentTestConfig = {
+      propsType: "PopupProps",
+      categories: POPUP_CATEGORIES,
+      themes: [
+        { name: "defaultPopupTheme", theme: defaultPopupTheme }
+      ]
+    };
+    createThemeTests(popupConfig);
+
+    const iconConfig: ComponentTestConfig = {
+      propsType: "IconProps",
+      categories: ICON_CATEGORIES,
+      themes: [
+        { name: "defaultIconTheme", theme: defaultIconTheme }
+      ]
+    };
+    createThemeTests(iconConfig);
+  });
+
+  // Modal Components
+  describe("Modal component themes", () => {
+    const modalConfig: ComponentTestConfig = {
+      propsType: "ModalProps",
+      categories: MODAL_CATEGORIES,
+      themes: [
+        { name: "defaultModalContentTheme", theme: defaultModalContentTheme },
+        { name: "defaultModalOverlayTheme", theme: defaultModalOverlayTheme }
+      ]
+    };
+    createThemeTests(modalConfig);
+
+    const modalHeaderConfig: ComponentTestConfig = {
+      propsType: "ModalHeaderProps",
+      categories: MODAL_HEADER_CATEGORIES,
+      themes: [
+        { name: "defaultModalHeaderTheme", theme: defaultModalHeaderTheme }
+      ]
+    };
+    createThemeTests(modalHeaderConfig);
+
+    const modalBodyConfig: ComponentTestConfig = {
+      propsType: "ModalBodyProps",
+      categories: MODAL_BODY_CATEGORIES,
+      themes: [
+        { name: "defaultModalBodyTheme", theme: defaultModalBodyTheme }
+      ]
+    };
+    createThemeTests(modalBodyConfig);
+
+    const modalFooterConfig: ComponentTestConfig = {
+      propsType: "ModalFooterProps",
+      categories: MODAL_FOOTER_CATEGORIES,
+      themes: [
+        { name: "defaultModalFooterTheme", theme: defaultModalFooterTheme }
+      ]
+    };
+    createThemeTests(modalFooterConfig);
+
+    const modalCloseButtonConfig: ComponentTestConfig = {
+      propsType: "ModalCloseButtonProps",
+      categories: MODAL_CLOSE_BUTTON_CATEGORIES,
+      themes: [
+        { name: "defaultModalCloseButtonTheme", theme: defaultModalCloseButtonTheme }
+      ]
+    };
+    createThemeTests(modalCloseButtonConfig);
+  });
+
+  // Menu Components
+  describe("Menu component themes", () => {
+    const menuItemConfig: ComponentTestConfig = {
+      propsType: "MenuItemProps",
+      categories: MENU_ITEM_CATEGORIES,
+      themes: [
+        { name: "defaultMenuItemTheme", theme: defaultMenuItemTheme }
+      ]
+    };
+    createThemeTests(menuItemConfig);
+
+    const menuLabelConfig: ComponentTestConfig = {
+      propsType: "MenuLabelProps",
+      categories: MENU_LABEL_CATEGORIES,
+      themes: [
+        { name: "defaultMenuLabelTheme", theme: defaultMenuLabelTheme }
+      ]
+    };
+    createThemeTests(menuLabelConfig);
+  });
+
+  // Sub-component themes (ButtonSpinner, CheckboxIndeterminate)
+  describe("Sub-component themes", () => {
+    const buttonSpinnerConfig: ComponentTestConfig = {
+      propsType: "ButtonSpinnerProps",
+      categories: BUTTON_SPINNER_CATEGORIES,
+      themes: [
+        { name: "defaultButtonSpinnerTheme", theme: defaultButtonSpinnerTheme }
+      ]
+    };
+    createThemeTests(buttonSpinnerConfig);
+
+    const navLinkLabelConfig: ComponentTestConfig = {
+      propsType: "NavLinkLabelProps",
+      categories: NAV_LINK_LABEL_CATEGORIES,
+      themes: [
+        { name: "defaultNavLinkLabelTheme", theme: defaultNavLinkLabelTheme }
+      ]
+    };
+    createThemeTests(navLinkLabelConfig);
+
+    const checkboxIndeterminateConfig: ComponentTestConfig = {
+      propsType: "CheckboxIndeterminateProps",
+      categories: CHECKBOX_INDETERMINATE_CATEGORIES,
+      themes: [
+        { name: "defaultCheckboxIndeterminateTheme", theme: defaultCheckboxIndeterminateTheme }
+      ]
+    };
+    createThemeTests(checkboxIndeterminateConfig);
+  });
+
+  // .withDefaults() variants — only need defaults tests (category coverage tested by parent)
+  describe("withDefaults variant themes", () => {
+    it("should ensure defaultMenuPopupTheme has handlers for all its default props", () => {
+      tester.testThemeDefaults("defaultMenuPopupTheme", defaultMenuPopupTheme);
+    });
+
+    it("should ensure defaultMenuDividerTheme has handlers for all its default props", () => {
+      tester.testThemeDefaults("defaultMenuDividerTheme", defaultMenuDividerTheme);
+    });
   });
 });

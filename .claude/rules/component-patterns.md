@@ -71,6 +71,7 @@ import type { CategoryProps, MyCategoryKey } from "../../props";
 - [ ] Test HTML attributes pass through
 - [ ] Test custom className merging
 - [ ] Test tag switching if component supports `href`
+- [ ] **Add to `componentThemeCoverage.test.ts`** — register the component's theme + categories so category/defaults coverage is validated automatically (see `.claude/rules/testing.md` for details)
 
 ### Playground Examples (REQUIRED)
 - [ ] Clean up `playground/src/App.tsx` — remove or condense older sections to keep it manageable (~3-5 sections, ~500 lines)
