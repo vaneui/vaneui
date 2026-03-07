@@ -204,15 +204,62 @@ describe('NavLink Component Tests', () => {
   });
 
   describe('Disabled State', () => {
-    it('should set data-disabled when disabled prop is true', () => {
+    it('should render as button (not anchor) when both href and disabled are present', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <NavLink href="/locked" disabled>Locked</NavLink>
         </ThemeProvider>
       );
 
-      const el = container.querySelector('a');
+      // Should render as <button>, not <a>, because href is stripped
+      const button = container.querySelector('button');
+      expect(button).toBeInTheDocument();
+      expect(button).not.toHaveAttribute('href');
+
+      const anchor = container.querySelector('a');
+      expect(anchor).not.toBeInTheDocument();
+    });
+
+    it('should add aria-disabled, role="link", and tabIndex=-1 when href and disabled are both present', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/locked" disabled>Locked</NavLink>
+        </ThemeProvider>
+      );
+
+      const el = container.querySelector('button');
+      expect(el).toHaveAttribute('aria-disabled', 'true');
+      expect(el).toHaveAttribute('role', 'link');
+      expect(el).toHaveAttribute('tabindex', '-1');
       expect(el).toHaveAttribute('data-disabled', 'true');
+    });
+
+    it('should set data-disabled when disabled prop is true without href', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink disabled>Locked</NavLink>
+        </ThemeProvider>
+      );
+
+      const el = container.querySelector('button');
+      expect(el).toHaveAttribute('data-disabled', 'true');
+      // Should NOT have aria-disabled or role="link" when no href
+      expect(el).not.toHaveAttribute('aria-disabled');
+      expect(el).not.toHaveAttribute('role');
+    });
+
+    it('should render as normal anchor when href is present without disabled', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/settings">Settings</NavLink>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', '/settings');
+      expect(anchor).not.toHaveAttribute('aria-disabled');
+      expect(anchor).not.toHaveAttribute('role');
     });
   });
 

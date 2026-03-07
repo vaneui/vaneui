@@ -18,6 +18,7 @@ export { RadiusClassMapper } from './radiusClassMapper';
 export { RingClassMapper } from './ringClassMapper';
 export { TransitionClassMapper } from './transitionClassMapper';
 export { WhitespaceClassMapper } from './whitespaceClassMapper';
+export { MaxHeightClassMapper } from './maxHeightClassMapper';
 export { MinWidthClassMapper } from './minWidthClassMapper';
 export { WidthClassMapper } from './widthClassMapper';
 export { WrapClassMapper } from './wrapClassMapper';

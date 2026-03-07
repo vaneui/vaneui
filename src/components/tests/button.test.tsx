@@ -75,6 +75,65 @@ describe('Button Component Tests', () => {
       expect(anchor).toHaveAttribute('rel', 'noopener noreferrer');
     });
 
+    it('should render as button (not anchor) when both href and disabled are present', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button href="/test-link" disabled>Disabled Link</Button>
+        </ThemeProvider>
+      );
+
+      // Should render as <button>, not <a>, because href is stripped
+      const button = container.querySelector('button');
+      expect(button).toBeInTheDocument();
+      expect(button).not.toHaveAttribute('href');
+
+      const anchor = container.querySelector('a');
+      expect(anchor).not.toBeInTheDocument();
+    });
+
+    it('should add aria-disabled, role="link", and tabIndex=-1 when href and disabled are both present', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button href="/test-link" disabled>Disabled Link</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveAttribute('aria-disabled', 'true');
+      expect(button).toHaveAttribute('role', 'link');
+      expect(button).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('should render as normal anchor when href is present without disabled', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button href="/test-link">Active Link</Button>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', '/test-link');
+      expect(anchor).not.toHaveAttribute('aria-disabled');
+      expect(anchor).not.toHaveAttribute('role');
+    });
+
+    it('should handle loading + href correctly (disabled link)', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button href="/test-link" loading>Loading Link</Button>
+        </ThemeProvider>
+      );
+
+      // Loading sets disabled=true, which combined with href should strip href
+      const button = container.querySelector('button');
+      expect(button).toBeInTheDocument();
+      expect(button).not.toHaveAttribute('href');
+      expect(button).toHaveAttribute('aria-disabled', 'true');
+      expect(button).toHaveAttribute('role', 'link');
+      expect(button).toHaveAttribute('data-loading', 'true');
+    });
+
     it('should support button-specific attributes when href is not present', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

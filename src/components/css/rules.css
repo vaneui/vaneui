@@ -380,11 +380,11 @@
 
     /* Popup - equal padding for floating content (matches layout defaults) */
     .vane-popup { --py-unit: 4; --aspect-ratio: 1; }
-    .vane-popup[data-size="xs"] { --br-unit: 1.5; --py-unit: 2; --popup-max-height: 12rem; --popup-min-w: 6rem; --popup-arrow-size: 5px; }
-    .vane-popup[data-size="sm"] { --br-unit: 2; --py-unit: 3; --popup-max-height: 16rem; --popup-min-w: 7rem; --popup-arrow-size: 6px; }
-    .vane-popup[data-size="md"] { --br-unit: 2.5; --py-unit: 4; --popup-max-height: 20rem; --popup-min-w: 8rem; --popup-arrow-size: 7px; }
-    .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --popup-max-height: 24rem; --popup-min-w: 9rem; --popup-arrow-size: 8px; }
-    .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --popup-max-height: 28rem; --popup-min-w: 10rem; --popup-arrow-size: 10px; }
+    .vane-popup[data-size="xs"] { --br-unit: 1.5; --py-unit: 2; --max-height: 12rem; --popup-min-w: 6rem; --popup-arrow-size: 5px; }
+    .vane-popup[data-size="sm"] { --br-unit: 2; --py-unit: 3; --max-height: 16rem; --popup-min-w: 7rem; --popup-arrow-size: 6px; }
+    .vane-popup[data-size="md"] { --br-unit: 2.5; --py-unit: 4; --max-height: 20rem; --popup-min-w: 8rem; --popup-arrow-size: 7px; }
+    .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --max-height: 24rem; --popup-min-w: 9rem; --popup-arrow-size: 8px; }
+    .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --max-height: 28rem; --popup-min-w: 10rem; --popup-arrow-size: 10px; }
 
     /* Menu dropdown - compact padding that scales with size */
     .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 0.5; }

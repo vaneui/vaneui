@@ -3,8 +3,7 @@ import type { PopupProps } from "./PopupProps";
 import type { PopupTheme } from "./PopupTheme";
 import { POPUP_CATEGORIES } from "./PopupCategories";
 import { popupDefaults } from "./popupDefaults";
-import { MinWidthClassMapper, PointerEventsClassMapper, TransitionClassMapper, WidthClassMapper } from "../theme/layout";
-import { PopupOverflowClassMapper } from "./popupOverflowClassMapper";
+import { MaxHeightClassMapper, MinWidthClassMapper, PointerEventsClassMapper, TransitionClassMapper, WidthClassMapper } from "../theme/layout";
 
 /**
  * Default theme for Popup component.
@@ -15,11 +14,11 @@ import { PopupOverflowClassMapper } from "./popupOverflowClassMapper";
  * Props control:
  * - flex: Flexbox display (default: true)
  * - column: Column direction (default: true)
- * - overflowAuto: Scrollable content + max-height constraint (default: true)
+ * - overflowAuto: Scrollable content (default: true)
+ * - maxHeight: Size-dependent max-height via --max-height (default: true)
  * - padding, gap, rounded, shadow: Visual styling (default: true)
  *
- * Max-height is tied to overflowAuto via PopupOverflowClassMapper.
- * Menu popups omit overflowAuto, so they grow to fit content (matching Mantine/Chakra/shadcn).
+ * Menu popups omit maxHeight + overflowAuto, so they grow to fit content (matching Mantine/Chakra/shadcn).
  */
 export const defaultPopupTheme = new ComponentTheme<PopupProps, PopupTheme>(
   'div',
@@ -28,12 +27,12 @@ export const defaultPopupTheme = new ComponentTheme<PopupProps, PopupTheme>(
     size: layoutClassMappers.size,
     layout: {
       ...layoutClassMappers.layout,
-      overflow: new PopupOverflowClassMapper(),
       transition: new TransitionClassMapper(),
       shadow: shadowAppearance,
       width: new WidthClassMapper(),
       pointerEvents: new PointerEventsClassMapper(),
       minWidth: new MinWidthClassMapper(),
+      maxHeight: new MaxHeightClassMapper(),
     },
     appearance: {
       background: bgAppearance,

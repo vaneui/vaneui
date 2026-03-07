@@ -9,7 +9,7 @@ import { WhitespaceClassMapper } from "../theme/layout/whitespaceClassMapper";
 
 export const defaultNavLinkLabelTheme = new ComponentTheme<NavLinkLabelProps, NavLinkLabelTheme>(
   "span",
-  "vane-nav-link-label",
+  "vane-nav-link-label min-w-0",
   {
     layout: {
       overflow: new OverflowClassMapper(),

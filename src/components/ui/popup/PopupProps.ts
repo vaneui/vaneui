@@ -27,6 +27,7 @@ import type {
   PlacementProps,
   PointerEventsProps,
   MinWidthProps,
+  MaxHeightProps,
 } from '../props';
 
 /**
@@ -59,6 +60,7 @@ export type PopupProps = BaseProps &
   PlacementProps &
   PointerEventsProps &
   MinWidthProps &
+  MaxHeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
     /** Whether popup is open (controlled mode). If omitted, uses internal state. */
     open?: boolean;

@@ -61,6 +61,8 @@ export const ORIENTATION = ['orientation'] as const;
 export const PLACEMENT = ['placement'] as const;
 /** Min-width property for popup/floating components */
 export const MIN_WIDTH = ['minWidth'] as const;
+/** Max-height property for popup/floating components */
+export const MAX_HEIGHT = ['maxHeight'] as const;
 
 /** Composite categories built from core blocks */
 /** Complete layout category including core and flex properties */

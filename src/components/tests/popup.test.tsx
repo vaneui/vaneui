@@ -66,8 +66,8 @@ describe('Popup Component Tests', () => {
       expect(popup).toBeInTheDocument();
       // Flexbox layout from boolean props
       expect(popup).toHaveClass('flex', 'flex-col');
-      // Width from CSS variable, max-height from overflowAuto default
-      expect(popup).toHaveClass('w-fit', 'overflow-auto', 'max-h-(--popup-max-height)');
+      // Width, overflow, and max-height from boolean prop defaults
+      expect(popup).toHaveClass('w-fit', 'overflow-auto', 'max-h-(--max-height)');
     });
 
     it('should render children', () => {
@@ -1128,6 +1128,50 @@ describe('Popup Component Tests', () => {
 
       // Popup should be inside the container (no portal)
       expect(container?.contains(popup!)).toBe(true);
+    });
+  });
+
+  describe('Max Height', () => {
+    it('should apply max-height class by default', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveClass('max-h-(--max-height)');
+    });
+
+    it('should not apply max-height when maxHeight is explicitly false', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} maxHeight={false}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).not.toHaveClass('max-h-(--max-height)');
+    });
+
+    it('should not leak maxHeight to DOM', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).not.toHaveAttribute('maxHeight');
     });
   });
 

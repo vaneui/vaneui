@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-03-05T14:55:43.418Z
+ * Generated on: 2026-03-07T12:26:33.287Z
  */
 
 export interface PropDescription {
@@ -406,6 +406,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "decimal": {
         "description": "Numbered list style"
+      }
+    }
+  },
+  "maxHeight": {
+    "name": "Max Height",
+    "description": "Max-height props for components.\rWhen enabled, applies a size-dependent maximum height via --max-height CSS variable.",
+    "props": {
+      "maxHeight": {
+        "description": "Apply size-dependent maximum height (uses --max-height CSS variable)"
       }
     }
   },

@@ -190,8 +190,8 @@
     --shadow-layout-lg:  0 10px 20px -5px rgb(var(--shadow-color) / 0.1), 0 2px 6px -2px rgb(var(--shadow-color) / 0.06);
     --shadow-layout-xl:  0 16px 32px -6px rgb(var(--shadow-color) / 0.1), 0 3px 8px -2px rgb(var(--shadow-color) / 0.06);
 
-    /* Popup max height (used by Popup component) */
-    --popup-max-height: 20rem; /* 320px default max height */
+    /* Max height (used by Popup and other components) */
+    --max-height: 20rem; /* 320px default max height */
 
     /* Font size scale (used by Text, Link, ListItem, Label, List, Button, Badge, Chip) */
     --fs-unit-xs: 6;

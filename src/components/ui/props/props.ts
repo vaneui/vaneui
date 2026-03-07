@@ -86,3 +86,6 @@ export * from './DisabledProps';
 
 // Min Width
 export * from './minWidthProps';
+
+// Max Height
+export * from './maxHeightProps';

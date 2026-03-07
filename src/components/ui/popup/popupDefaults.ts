@@ -14,6 +14,7 @@ export const popupDefaults: Partial<PopupProps> = {
   primary: true,
   outline: true,
   overflowAuto: true,
+  maxHeight: true,
   wFit: true,
   bottom: true,
 };
