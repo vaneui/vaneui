@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './base';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -13,8 +13,8 @@ const TRANSPARENT = 'rgba(0, 0, 0, 0)';
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('/test.html');
+test.beforeEach(async ({ page, testPage }) => {
+  await page.goto(testPage);
   await page.waitForSelector('[data-testid]');
 });
 

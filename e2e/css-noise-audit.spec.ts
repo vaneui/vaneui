@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './base';
 
 /**
  * CSS Noise Audit — inspects which CSS rules match VaneUI elements and
@@ -41,8 +41,8 @@ interface NoiseReport {
   cssVarRules: { selector: string; varCount: number; inherited: boolean }[];
 }
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('/test.html');
+test.beforeEach(async ({ page, testPage }) => {
+  await page.goto(testPage);
   await page.waitForSelector('[data-testid="border-color-inherit"]');
 });
 

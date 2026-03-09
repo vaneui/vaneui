@@ -147,8 +147,6 @@
     --py-unit: 1;
     --br-unit: 1;
     --size-unit: 1;
-    --bw: 1px; /* Border width */
-    --rw: 1px; /* Ring width */
 
     /* Z-index stacking (customizable via CSS) */
     --z-overlay: 200;

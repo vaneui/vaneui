@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { TestHarness } from './test-fixtures';
 
-// Import VaneUI pre-built CSS
-import '../../dist/ui.css';
+// Import Tailwind-consumer CSS (pre-built by @tailwindcss/cli before tests run)
+import './tailwind-output.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

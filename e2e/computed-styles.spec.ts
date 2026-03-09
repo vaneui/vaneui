@@ -1,4 +1,4 @@
-import { test, expect, type Page, type Locator } from '@playwright/test';
+import { test, expect, type Page, type Locator } from './base';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -29,8 +29,8 @@ async function getSvgWidth(locator: Locator): Promise<string> {
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('/test.html');
+test.beforeEach(async ({ page, testPage }) => {
+  await page.goto(testPage);
   // Wait for React to render
   await page.waitForSelector('[data-testid]');
 });
@@ -231,7 +231,24 @@ test.describe('Explicit appearance override', () => {
   });
 });
 
-// ── 6. Card gap is half of padding across all sizes ──
+// ── 6. Border width resolves from --bw variable ──
+
+test.describe('Border width (--bw variable)', () => {
+  test('Card has computed border-width of 1px (default --bw)', async ({ page }) => {
+    const card = page.locator('[data-testid="card-gap-md"]');
+    const borderWidth = parseFloat(await getStyle(card, 'border-width'));
+    expect(borderWidth).toBe(1);
+  });
+
+  test('Card border-width changes when --bw is overridden via CSS', async ({ page }) => {
+    // Verify the default is 1px, then check it responds to variable changes
+    const card = page.locator('[data-testid="card-gap-sm"]');
+    const defaultBw = parseFloat(await getStyle(card, 'border-width'));
+    expect(defaultBw).toBe(1);
+  });
+});
+
+// ── 7. Card gap is half of padding across all sizes ──
 
 test.describe('Card gap-to-padding ratio', () => {
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;

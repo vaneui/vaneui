@@ -139,3 +139,4 @@ playground/node_modules
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+e2e/fixtures/tailwind-output.css

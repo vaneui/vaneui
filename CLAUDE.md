@@ -118,20 +118,23 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 
 | Component | Defaults |
 |-----------|----------|
-| **Button** | sm, primary, outline, semibold, rounded, padding, gap, shadow, ring, focusVisible |
-| **Card** | padding, rounded, outline, gap |
-| **Row** | itemsCenter, gap, outline |
-| **Stack** | padding, gap, outline |
-| **Badge** | primary, outline, pill |
-| **Chip** | secondary (not primary!), outline, rounded |
+| **Button** | sm, primary, outline, semibold, rounded, padding, gap, ring, focusVisible, cursorPointer |
+| **Card** | padding, rounded, outline, gap, border |
+| **Row** | itemsCenter, gap, noPadding, outline, sharp |
+| **Col** | gap, noPadding, outline, sharp |
+| **Stack** | padding, gap, flexWrap, outline, sharp |
+| **Badge** | md, primary, outline, pill, semibold, uppercase |
+| **Chip** | md, secondary (not primary!), outline, rounded, mono |
+| **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noRing, wFull, textLeft |
 | **Link** | link (not primary!), outline, underline, cursorPointer |
-| **Input** | primary, outline, rounded, wFull |
+| **Input** | primary, outline, rounded, wFull, ring, focusVisible |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
-| **Modal** | md, wFull, flex, column, overflowAuto, relative, gap, rounded, shadow, primary, outline |
+| **Label** | sm, flex, gap, inherit, medium |
+| **Modal** | md, wFull, flex, column, overflowAuto, relative, noPadding, gap, rounded, shadow, primary, outline |
 | **Container** | md, wFull, flex, column, itemsCenter, gap, noPadding, outline, sharp |
 | **Section** | md, wFull, flex, column, itemsStart, gap, padding, outline, sharp, responsive |
-| **Typography** (Text, Title, etc.) | md, primary, outline |
+| **Typography** (Text, Title, etc.) | md, inherit (not primary!), outline |
 | **Layout** (Row, Col, Stack, Card, Grid*) | gap, md, outline |
 
 ## Architecture

@@ -55,27 +55,36 @@ Nested providers inherit from parent (`mergeStrategy="merge"`, default) or reset
 | Need | Component | Notes |
 |------|-----------|-------|
 | Clickable action | `Button` | Renders `<button>`, or `<a>` with `href` |
-| Content container with border | `Card` | Renders `<div>`, or `<a>` with `href` |
+| Icon-only button | `IconButton` | Square button, renders `<button>` or `<a>` with `href` |
+| Navigation link | `NavLink` | For sidebars/nav menus. Has `active` prop with `aria-current="page"`. Renders `<a>` with `href`, `<button>` without |
+| Content container with border | `Card` | Renders `<div>`, or `<a>` with `href`. Sub-components: `CardHeader`, `CardBody`, `CardFooter` |
 | Horizontal layout | `Row` | Flexbox row, `itemsCenter` by default |
 | Vertical layout | `Stack` | Flexbox column with padding |
 | Vertical layout (no padding) | `Col` | Flexbox column, no padding |
 | Page-width wrapper | `Container` | Centered, max-width, no padding |
 | Semantic page section | `Section` | Flex column with padding, responsive |
 | Equal-column grid | `Grid2`-`Grid6` | CSS Grid with N columns |
-| Page heading | `PageTitle` | Renders `<h1>` |
-| Section heading | `SectionTitle` | Renders `<h2>` |
-| Subsection heading | `Title` | Renders `<h3>` |
+| Page heading | `PageTitle` | Renders `<h1>`, responsive |
+| Section heading | `SectionTitle` | Renders `<h2>`, responsive |
+| Subsection heading | `Title` | Renders `<h3>`, responsive |
 | Body text | `Text` | Renders `<p>` |
-| Hyperlink | `Link` | Renders `<a>`, underline by default |
-| Status indicator | `Badge` | Pill-shaped, uppercase, small |
+| Hyperlink | `Link` | Renders `<a>`, underline by default, `link` appearance (blue) |
+| Status indicator | `Badge` | Pill-shaped, uppercase, semibold |
 | Tag / filter token | `Chip` | Rounded, monospace, secondary by default |
 | Inline code | `Code` | Monospace, rounded, with padding |
+| Keyboard shortcut | `Kbd` | Monospace, bordered, 3D effect |
+| Text highlight | `Mark` | Background highlight, defaults to warning (yellow) |
+| Quoted content | `Blockquote` | Left border accent, inherits parent appearance |
 | Text input | `Input` | Renders `<input>`, all HTML input attrs |
 | Toggle | `Checkbox` | Custom styled, use inside `Label` |
-| Input label | `Label` | Flex row with gap |
+| Input label | `Label` | Flex row with gap, sm size, inherit appearance |
 | Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `decimal` |
 | Horizontal rule | `Divider` | Thin line separator |
 | Image | `Img` | Rounded by default |
+| Fullscreen backdrop | `Overlay` | Portal-rendered, click-to-close, optional blur |
+| Dialog | `Modal` | Accessible dialog with focus trap, scroll lock. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton` |
+| Floating element | `Popup` + `PopupTrigger` | CSS Anchor Positioning, 12 placement options |
+| Dropdown menu | `Menu` + `MenuItem` + `MenuLabel` | Button-triggered dropdown with keyboard navigation. Use `Divider` between groups |
 
 ## Common Patterns
 
@@ -224,6 +233,67 @@ Nested providers inherit from parent (`mergeStrategy="merge"`, default) or reset
 <Link href="https://github.com" target="_blank">GitHub</Link>
 ```
 
+### Sidebar navigation
+
+```tsx
+<Col>
+  <NavLink href="/dashboard" active><Home size={16} /> Dashboard</NavLink>
+  <NavLink href="/settings"><Settings size={16} /> Settings</NavLink>
+  <NavLink href="/profile"><User size={16} /> Profile</NavLink>
+  <NavLink href="/help" disabled><HelpCircle size={16} /> Help</NavLink>
+</Col>
+```
+
+### Modal dialog
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>Open Dialog</Button>
+<Modal open={open} onClose={() => setOpen(false)}>
+  <ModalHeader>
+    <Title>Confirm Action</Title>
+    <ModalCloseButton />
+  </ModalHeader>
+  <ModalBody>
+    <Text>Are you sure you want to proceed?</Text>
+  </ModalBody>
+  <ModalFooter>
+    <Button secondary onClick={() => setOpen(false)}>Cancel</Button>
+    <Button filled onClick={() => setOpen(false)}>Confirm</Button>
+  </ModalFooter>
+</Modal>
+```
+
+### Dropdown menu
+
+```tsx
+<Menu trigger={<Button>Actions <ChevronDown size={14} /></Button>}>
+  <MenuItem>Edit</MenuItem>
+  <MenuItem>Duplicate</MenuItem>
+  <Divider />
+  <MenuItem danger>Delete</MenuItem>
+</Menu>
+```
+
+### Card with sub-components
+
+```tsx
+<Card>
+  <CardHeader>
+    <Title>Settings</Title>
+    <Badge success>Active</Badge>
+  </CardHeader>
+  <CardBody>
+    <Text>Configure your preferences below.</Text>
+  </CardBody>
+  <CardFooter>
+    <Button secondary>Cancel</Button>
+    <Button filled>Save</Button>
+  </CardFooter>
+</Card>
+```
+
 ## Responsive Layout
 
 VaneUI is **desktop-first**. Base styles target desktop. Use breakpoint props to adapt for smaller screens.
@@ -284,7 +354,7 @@ One appearance per component. Controls text, background, and border colors.
 <Button info>Info</Button>
 ```
 
-Note: `Link` defaults to `link` appearance (not `primary`). `Chip` defaults to `secondary` (not `primary`).
+Note: `Link` defaults to `link` appearance (not `primary`). `Chip` defaults to `secondary` (not `primary`). Typography components (`Text`, `Title`, etc.) default to `inherit` (not `primary`).
 
 ## Variant Props
 
@@ -353,9 +423,9 @@ These are on/off switches. Check defaults before using — many are already true
 ```tsx
 // WRONG - redundant (these are already true by default)
 <Row gap itemsCenter>
-<Button primary outline semibold rounded padding shadow ring>
-<Card padding rounded gap>
-<Badge primary pill uppercase>
+<Button primary outline semibold rounded padding ring>
+<Card padding rounded gap border>
+<Badge primary pill uppercase semibold>
 <Stack column gap padding>
 <Link underline>
 
@@ -366,6 +436,47 @@ These are on/off switches. Check defaults before using — many are already true
 <Badge>
 <Stack>
 <Link>
+```
+
+### Don't wrap Button or NavLink in Link for navigation
+
+```tsx
+// WRONG - nested interactive elements (accessibility violation)
+<Link href="/docs">
+  <Button>Documentation</Button>
+</Link>
+
+// RIGHT - Button supports href and tag props
+<Button href="/docs" tag={Link}>Documentation</Button>
+
+// RIGHT - or use NavLink for sidebar/header navigation
+<NavLink href="/docs" tag={Link}>Documentation</NavLink>
+```
+
+### Don't use Text or span as anchor — use Link
+
+```tsx
+// WRONG - Text is not a link component
+<Text tag="a" href="/about">About</Text>
+<span><a href="/about">About</a></span>
+
+// RIGHT - Link component with proper semantics and theming
+<Link href="/about">About</Link>
+```
+
+### Don't use Button for navigation items — use NavLink
+
+```tsx
+// WRONG - Button is for actions, not navigation
+<Button sm noShadow noRing sharp justifyStart tag={Link} href="/settings"
+        className="w-full border-l-2">
+  Settings
+</Button>
+
+// RIGHT - NavLink is purpose-built for navigation
+<NavLink href="/settings" tag={Link} active={isCurrentPage}>
+  <Settings size={16} /> Settings
+</NavLink>
 ```
 
 ### Don't use div wrappers when a VaneUI component exists

@@ -51,6 +51,8 @@
         --border-color: var(--color-border-primary);
         --divider-color: var(--color-border-primary);
         --focus-color: var(--color-focus-primary);
+        --bw: 1px; /* Border width */
+        --rw: 1px; /* Ring width */
     }
 
     /* ========================================

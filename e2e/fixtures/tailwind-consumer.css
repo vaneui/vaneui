@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@import "../../dist/vars.css";
+@source "../../src";
+
+/* Unlayered overrides from index.css (not included in vars.css) */
+:is(.vane-link-start-icon, .vane-link-end-icon) > svg { display: inline; }
+:is(.vane-link-start-icon, .vane-link-end-icon) { text-decoration: none; }

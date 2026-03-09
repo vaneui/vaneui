@@ -1,4 +1,4 @@
-import { test, expect, type Locator } from '@playwright/test';
+import { test, expect, type Locator } from './base';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -26,8 +26,8 @@ async function getCSSVar(locator: Locator, varName: string): Promise<string> {
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 
-test.beforeEach(async ({ page }) => {
-  await page.goto('/test.html');
+test.beforeEach(async ({ page, testPage }) => {
+  await page.goto(testPage);
   await page.waitForSelector('[data-testid="z-index-section"]');
 });
 
