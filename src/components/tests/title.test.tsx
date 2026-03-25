@@ -24,7 +24,7 @@ describe('Title Components Tests', () => {
       expect(title).toHaveClass('text-balance', 'w-fit');
       expect(title).toHaveClass('text-(length:--fs-desktop)'); // CSS variable font size
       expect(title).toHaveClass('text-(--text-color)'); // primary is default
-      expect(title).toHaveClass('font-sans');
+      expect(title).toHaveClass('font-heading');
       expect(title).toHaveClass('font-semibold');
     });
 
@@ -176,7 +176,7 @@ describe('Title Components Tests', () => {
       expect(pageTitle).toHaveClass('text-balance', 'tracking-tight', 'w-fit');
       expect(pageTitle).toHaveClass('text-(length:--fs-desktop)'); // CSS variable font size
       expect(pageTitle).toHaveClass('text-(--text-color)'); // primary is default
-      expect(pageTitle).toHaveClass('font-sans');
+      expect(pageTitle).toHaveClass('font-heading');
       expect(pageTitle).toHaveClass('font-semibold');
     });
 
@@ -299,7 +299,7 @@ describe('Title Components Tests', () => {
       expect(sectionTitle).toHaveClass('text-balance', 'w-fit');
       expect(sectionTitle).toHaveClass('text-(length:--fs-desktop)'); // CSS variable font size
       expect(sectionTitle).toHaveClass('text-(--text-color)'); // primary is default
-      expect(sectionTitle).toHaveClass('font-sans');
+      expect(sectionTitle).toHaveClass('font-heading');
       expect(sectionTitle).toHaveClass('font-semibold');
     });
 
@@ -594,6 +594,85 @@ describe('Title Components Tests', () => {
       const sectionTitle = container.querySelector('h2');
       expect(sectionTitle).toHaveClass('text-(length:--fs)');
       expect(sectionTitle).not.toHaveClass('text-(length:--fs-desktop)');
+    });
+  });
+
+  describe('Heading Font Family', () => {
+    it('Title should default to font-heading', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title>Heading font title</Title>
+        </ThemeProvider>
+      );
+      const title = container.querySelector('h3');
+      expect(title).toHaveClass('font-heading');
+      expect(title).not.toHaveClass('font-sans');
+    });
+
+    it('PageTitle should default to font-heading', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PageTitle>Heading font page title</PageTitle>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('h1');
+      expect(el).toHaveClass('font-heading');
+      expect(el).not.toHaveClass('font-sans');
+    });
+
+    it('SectionTitle should default to font-heading', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <SectionTitle>Heading font section title</SectionTitle>
+        </ThemeProvider>
+      );
+      const el = container.querySelector('h2');
+      expect(el).toHaveClass('font-heading');
+      expect(el).not.toHaveClass('font-sans');
+    });
+
+    it('Title should allow overriding font-heading with sans', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title sans>Sans title</Title>
+        </ThemeProvider>
+      );
+      const title = container.querySelector('h3');
+      expect(title).toHaveClass('font-sans');
+      expect(title).not.toHaveClass('font-heading');
+    });
+
+    it('Title should allow overriding font-heading with serif', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title serif>Serif title</Title>
+        </ThemeProvider>
+      );
+      const title = container.querySelector('h3');
+      expect(title).toHaveClass('font-serif');
+      expect(title).not.toHaveClass('font-heading');
+    });
+
+    it('Title should allow overriding font-heading with mono', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Title mono>Mono title</Title>
+        </ThemeProvider>
+      );
+      const title = container.querySelector('h3');
+      expect(title).toHaveClass('font-mono');
+      expect(title).not.toHaveClass('font-heading');
+    });
+
+    it('should allow overriding heading font via ThemeProvider themeDefaults', () => {
+      const { container } = render(
+        <ThemeProvider themeDefaults={{ title: { heading: false, serif: true } }}>
+          <Title>Serif title via theme</Title>
+        </ThemeProvider>
+      );
+      const title = container.querySelector('h3');
+      expect(title).toHaveClass('font-serif');
+      expect(title).not.toHaveClass('font-heading');
     });
   });
 

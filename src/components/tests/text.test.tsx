@@ -155,7 +155,8 @@ describe('Text Component Tests', () => {
       const families = [
         { prop: 'sans', class: 'font-sans' },
         { prop: 'serif', class: 'font-serif' },
-        { prop: 'mono', class: 'font-mono' }
+        { prop: 'mono', class: 'font-mono' },
+        { prop: 'heading', class: 'font-heading' }
       ] as const;
 
       families.forEach(({prop, class: expectedClass}) => {

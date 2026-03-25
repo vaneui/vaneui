@@ -190,8 +190,8 @@ export const ComponentKeys = {
   display: ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const,
   /** Flex direction: row (horizontal), column (vertical), or reversed variants */
   flexDirection: ['row', 'column', 'rowReverse', 'columnReverse'] as const,
-  /** Font family types: sans-serif, serif, or monospace */
-  fontFamily: ['sans', 'serif', 'mono'] as const,
+  /** Font family types: sans-serif, serif, monospace, or heading */
+  fontFamily: ['sans', 'serif', 'mono', 'heading'] as const,
   /** Font style: italic or notItalic (normal) */
   fontStyle: ['italic', 'notItalic'] as const,
   /** Font weight from thin (100) to black (900) */

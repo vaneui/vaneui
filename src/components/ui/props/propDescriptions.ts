@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-03-07T19:59:43.973Z
+ * Generated on: 2026-03-16T20:41:50.383Z
  */
 
 export interface PropDescription {
@@ -229,6 +229,9 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "mono": {
         "description": "Monospace font family"
+      },
+      "heading": {
+        "description": "Heading font family (defaults to sans, independently customizable via --font-heading CSS variable)"
       }
     }
   },

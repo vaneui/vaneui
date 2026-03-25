@@ -9,4 +9,6 @@ export interface FontFamilyProps {
   serif?: boolean;
   /** Monospace font family */
   mono?: boolean;
+  /** Heading font family (defaults to sans, independently customizable via --font-heading CSS variable) */
+  heading?: boolean;
 }

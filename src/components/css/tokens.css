@@ -133,6 +133,9 @@
     --color-focus-warning: var(--color-amber-600);
     --color-focus-info: var(--color-cyan-600);
 
+    /* Font family for headings (defaults to sans, independently customizable) */
+    --font-heading: var(--font-sans);
+
     --br-base: var(--spacing);
     --fs-base: calc(var(--spacing) * 0.5);
 

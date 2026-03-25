@@ -4,7 +4,7 @@ import type { TypographyProps } from "../common";
 export const titleDefaults: Partial<TypographyProps> = {
   md: true,
   wFit: true,
-  sans: true,
+  heading: true,
   semibold: true,
   textLeft: true,
   outline: true,

@@ -8,6 +8,8 @@ export class FontFamilyClassMapper extends BaseClassMapper implements Record<Fon
   serif: string = "font-serif";
   /** Monospace font family - fixed-width fonts for code and data */
   mono: string = "font-mono";
+  /** Heading font family - customizable via --font-heading CSS variable, defaults to sans */
+  heading: string = "font-heading";
 
 
   getClasses(extractedKeys: CategoryProps): string[] {
