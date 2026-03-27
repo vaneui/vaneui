@@ -100,10 +100,10 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
     return (
       <ThemedComponent theme={theme.checkbox.wrapper} ref={ref} {...themeProps}>
         <ThemedComponent theme={theme.checkbox.input} ref={inputRef} {...inputProps} />
-        <ThemedComponent theme={theme.checkbox.check}>
+        <ThemedComponent theme={theme.checkbox.check} {...themeProps}>
           {theme.checkbox.check.themes.checkElement()}
         </ThemedComponent>
-        <ThemedComponent theme={theme.checkbox.indeterminate}>
+        <ThemedComponent theme={theme.checkbox.indeterminate} {...themeProps}>
           {theme.checkbox.indeterminate.themes.indeterminateElement()}
         </ThemedComponent>
       </ThemedComponent>
