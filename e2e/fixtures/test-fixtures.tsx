@@ -23,6 +23,9 @@ import {
   Divider,
   Row,
   Code,
+  Checkbox,
+  Label,
+  Col,
 } from '../../src';
 
 // Simple SVG icon for testing
@@ -391,6 +394,51 @@ export function TestHarness() {
             <MenuItem lg data-testid="menu-item-icon-lg"><StarIcon /> LG Icon</MenuItem>
             <MenuItem xl data-testid="menu-item-icon-xl"><StarIcon /> XL Icon</MenuItem>
           </Menu>
+        </section>
+
+        {/* ── Checkbox: border visibility and variant behavior ── */}
+
+        <section data-testid="checkbox-section">
+          {/* Default unchecked checkboxes (filled variant) — must show visible border */}
+          <Checkbox data-testid="checkbox-default" />
+          <Checkbox primary data-testid="checkbox-primary" />
+          <Checkbox success data-testid="checkbox-success" />
+          <Checkbox danger data-testid="checkbox-danger" />
+
+          {/* Explicit outline variant */}
+          <Checkbox outline data-testid="checkbox-outline" />
+          <Checkbox outline success data-testid="checkbox-outline-success" />
+
+          {/* Checked checkboxes — filled should fill with color */}
+          <Checkbox defaultChecked data-testid="checkbox-checked-filled" />
+          <Checkbox outline defaultChecked data-testid="checkbox-checked-outline" />
+
+          {/* Checkbox on dark background — must be visible */}
+          <Card filled primary data-testid="checkbox-dark-bg">
+            <Label>
+              <Checkbox data-testid="checkbox-on-dark" />
+              Visible on dark
+            </Label>
+          </Card>
+        </section>
+
+        {/* ── Overlay: visual appearance and computed styles ── */}
+
+        <section data-testid="overlay-visual-section">
+          {/* Default overlay — fixed, full viewport, semi-transparent backdrop */}
+          <Overlay open noAnimation portal={false} pointerEventsNone data-testid="overlay-default">
+            <Card data-testid="overlay-default-content">Content</Card>
+          </Overlay>
+
+          {/* Overlay with blur */}
+          <Overlay open noAnimation portal={false} pointerEventsNone blur data-testid="overlay-blur">
+            <Card data-testid="overlay-blur-content">Blurred</Card>
+          </Overlay>
+
+          {/* Overlay with custom alignment (drawer-style: top-left) */}
+          <Overlay open noAnimation portal={false} pointerEventsNone itemsStart justifyStart data-testid="overlay-aligned">
+            <Card data-testid="overlay-aligned-content">Drawer</Card>
+          </Overlay>
         </section>
 
       </div>

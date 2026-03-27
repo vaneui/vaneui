@@ -811,6 +811,28 @@
         --checked-bg-color: var(--color-bg-filled-brand);
     }
 
+    /* -----------------------------------------
+       CHECKBOX OVERRIDES
+       Checkboxes must always show a visible border when unchecked,
+       regardless of filled/outline variant. The global filled rules
+       set --border-color: transparent which hides the checkbox border.
+       ----------------------------------------- */
+
+    /* Unchecked: always neutral border (overrides filled transparent + outline colored) */
+    .vane-checkbox[data-variant] {
+        --border-color: var(--color-border-secondary);
+    }
+
+    /* Checked + filled: border matches background (hidden into the fill color) */
+    .vane-checkbox[data-variant="filled"]:checked {
+        --border-color: transparent;
+    }
+
+    /* Checked + outline: border becomes the appearance color */
+    .vane-checkbox[data-variant="outline"]:checked {
+        --border-color: var(--checked-bg-color);
+    }
+
 }
 
 /* ========================================
