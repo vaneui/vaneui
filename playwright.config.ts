@@ -24,6 +24,7 @@ export default defineConfig<TestOptions>({
   webServer: {
     command:
       'npm run build:css:ui && npm run build:css:vars && ' +
+      'cp src/components/css/tokens.css dist/tokens.css && ' +
       'npx @tailwindcss/cli -i e2e/fixtures/tailwind-consumer.css -o e2e/fixtures/tailwind-output.css && ' +
       'cd e2e/fixtures && npx vite --port 3000',
     port: 3000,

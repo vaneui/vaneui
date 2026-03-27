@@ -26,6 +26,10 @@ import {
   Checkbox,
   Label,
   Col,
+  Stack,
+  Section,
+  SectionTitle,
+  PageTitle,
 } from '../../src';
 
 // Simple SVG icon for testing
@@ -439,6 +443,42 @@ export function TestHarness() {
           <Overlay open noAnimation portal={false} pointerEventsNone itemsStart justifyStart data-testid="overlay-aligned">
             <Card data-testid="overlay-aligned-content">Drawer</Card>
           </Overlay>
+        </section>
+
+        {/* ── Responsive: breakpoint props ── */}
+
+        <section data-testid="responsive-section">
+          {/* mobileCol: row on desktop, column on mobile (<768px) */}
+          <Row data-testid="responsive-mobileCol" mobileCol>
+            <Text data-testid="responsive-mobileCol-child1">A</Text>
+            <Text data-testid="responsive-mobileCol-child2">B</Text>
+          </Row>
+
+          {/* tabletCol: row on desktop, column on tablet (<1024px) */}
+          <Row data-testid="responsive-tabletCol" tabletCol>
+            <Text data-testid="responsive-tabletCol-child1">C</Text>
+            <Text data-testid="responsive-tabletCol-child2">D</Text>
+          </Row>
+
+          {/* mobileHide: visible on desktop, hidden on mobile (<768px) */}
+          <Col data-testid="responsive-mobileHide" mobileHide>
+            <Text>Visible on desktop</Text>
+          </Col>
+
+          {/* tabletHide: visible on desktop, hidden on tablet (<1024px) */}
+          <Col data-testid="responsive-tabletHide" tabletHide>
+            <Text>Visible on desktop</Text>
+          </Col>
+
+          {/* desktopHide: visible on wide screens, hidden on desktop (<1280px) */}
+          <Col data-testid="responsive-desktopHide" desktopHide>
+            <Text>Visible on wide screens</Text>
+          </Col>
+
+          {/* Responsive typography: font-size scales down at breakpoints */}
+          <PageTitle responsive data-testid="responsive-pagetitle">Page Title</PageTitle>
+          <SectionTitle responsive data-testid="responsive-sectiontitle">Section Title</SectionTitle>
+          <Title responsive data-testid="responsive-title">Title</Title>
         </section>
 
       </div>
