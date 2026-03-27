@@ -72,6 +72,10 @@
       "import": "./dist/vars.css",
       "default": "./dist/vars.css"
     },
+    "./tokens": {
+      "import": "./dist/tokens.css",
+      "default": "./dist/tokens.css"
+    },
     "./css": {
       "import": "./dist/ui.css",
       "default": "./dist/ui.css"
@@ -82,7 +86,7 @@
     "lint": "eslint src playground --ext .ts,.tsx",
     "build:css:vars": "npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css",
     "build:css:ui": "npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css",
-    "build": "tsx scripts/generatePropDescriptions.ts && rimraf dist && tsc --noEmit && eslint src playground --ext .ts,.tsx && rollup -c && tsc --project tsconfig.build.json --emitDeclarationOnly --declarationDir dist/types && tsx scripts/generateDualTypes.ts && npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css && npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css",
+    "build": "tsx scripts/generatePropDescriptions.ts && rimraf dist && tsc --noEmit && eslint src playground --ext .ts,.tsx && rollup -c && tsc --project tsconfig.build.json --emitDeclarationOnly --declarationDir dist/types && tsx scripts/generateDualTypes.ts && npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css && npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css && cp src/components/css/tokens.css dist/tokens.css",
     "test": "tsc --noEmit && node node_modules/jest/bin/jest.js",
     "playground": "npm run build:css:ui && npm run build:css:vars && concurrently --kill-others --raw \"npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css --watch\" \"npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css --watch\" \"cd playground && npx vite\"",
     "test:e2e": "npx playwright test",
