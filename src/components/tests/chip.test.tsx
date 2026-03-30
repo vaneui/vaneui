@@ -360,4 +360,28 @@ describe('Chip Component Tests', () => {
       expect(chip).toHaveClass('w-auto');
     });
   });
+
+  describe('SVG Protection Classes', () => {
+    it('should include SVG pointer-events-none class', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Chip>Chip</Chip>
+        </ThemeProvider>
+      );
+
+      const chip = container.querySelector('span');
+      expect(chip).toHaveClass('[&_svg]:pointer-events-none');
+    });
+
+    it('should include SVG shrink-0 class', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Chip>Chip</Chip>
+        </ThemeProvider>
+      );
+
+      const chip = container.querySelector('span');
+      expect(chip).toHaveClass('[&_svg]:shrink-0');
+    });
+  });
 });

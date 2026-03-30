@@ -6,7 +6,7 @@ import { chipDefaults } from "./chipDefaults";
 
 export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   "span",
-  "vane-chip",
+  "vane-chip [&_svg]:pointer-events-none [&_svg]:shrink-0",
   interactiveClassMappers,
   chipDefaults,
   CHIP_CATEGORIES,

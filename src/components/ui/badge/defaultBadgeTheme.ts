@@ -6,7 +6,7 @@ import { badgeDefaults } from "./badgeDefaults";
 
 export const defaultBadgeTheme = new ComponentTheme<BadgeProps, BadgeTheme>(
   "span",
-  "vane-badge",
+  "vane-badge [&_svg]:pointer-events-none [&_svg]:shrink-0",
   interactiveClassMappers,
   badgeDefaults,
   BADGE_CATEGORIES,

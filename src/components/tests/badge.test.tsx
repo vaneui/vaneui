@@ -221,4 +221,28 @@ describe('Badge Component Tests', () => {
       expect(badge).toHaveClass('w-auto');
     });
   });
+
+  describe('SVG Protection Classes', () => {
+    it('should include SVG pointer-events-none class', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Badge>Badge</Badge>
+        </ThemeProvider>
+      );
+
+      const badge = container.querySelector('span');
+      expect(badge).toHaveClass('[&_svg]:pointer-events-none');
+    });
+
+    it('should include SVG shrink-0 class', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Badge>Badge</Badge>
+        </ThemeProvider>
+      );
+
+      const badge = container.querySelector('span');
+      expect(badge).toHaveClass('[&_svg]:shrink-0');
+    });
+  });
 });
