@@ -92,13 +92,12 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       type: "checkbox" as const,
       checked, defaultChecked, name, value, onChange, onBlur, onFocus, required, readOnly,
       id, tabIndex, 'aria-label': ariaLabel,
-      className, // Apply className to the input element
       ...remainingProps,
       ...themeProps
     };
 
     return (
-      <ThemedComponent theme={theme.checkbox.wrapper} ref={ref} {...themeProps}>
+      <ThemedComponent theme={theme.checkbox.wrapper} ref={ref} className={className} {...themeProps}>
         <ThemedComponent theme={theme.checkbox.input} ref={inputRef} {...inputProps} />
         <ThemedComponent theme={theme.checkbox.check}>
           {theme.checkbox.check.themes.checkElement()}

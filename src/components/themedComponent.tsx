@@ -1,4 +1,4 @@
-import React, { useMemo, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import { ComponentTheme } from "./ui/theme/common";
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 
@@ -14,10 +14,9 @@ const VOID_ELEMENTS = new Set([
 export const ThemedComponent = forwardRef<HTMLElement, ThemedComponentProps<ComponentProps, object>>(
   function ThemedComponent(allProps, ref) {
     const { theme, ...props } = allProps;
-    const {Tag, finalClasses, finalProps} = useMemo(() => {
-      // Pass the full allProps and let getComponentConfig handle filtering
-      return theme.getComponentConfig(allProps);
-    }, [theme, allProps]);
+    // Computed inline — allProps is a new reference every render so useMemo
+    // would never cache, adding overhead with no benefit.
+    const { Tag, finalClasses, finalProps } = theme.getComponentConfig(allProps);
 
     const isVoid = typeof Tag === 'string' && VOID_ELEMENTS.has(Tag);
 

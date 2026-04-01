@@ -148,16 +148,19 @@ describe('Checkbox Component Tests', () => {
       });
     });
 
-    it('should support custom className', () => {
+    it('should support custom className on wrapper (not input)', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Checkbox className="custom-checkbox-class" />
         </ThemeProvider>
       );
 
+      // className goes to the visible wrapper, not the hidden input
+      const wrapper = container.firstChild as HTMLElement;
+      expect(wrapper).toHaveClass('custom-checkbox-class');
+
       const checkbox = container.querySelector('input[type="checkbox"]');
-      expect(checkbox).toHaveClass('cursor-pointer'); // theme classes
-      expect(checkbox).toHaveClass('custom-checkbox-class'); // custom class
+      expect(checkbox).not.toHaveClass('custom-checkbox-class');
     });
 
     it('should handle form attributes', () => {

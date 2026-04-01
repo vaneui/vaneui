@@ -94,27 +94,23 @@ export function ThemeProvider(
         ? defaultTheme
         : parentTheme;
 
-      // Always start with a deep clone to ensure isolation
+      // Deep clone once for isolation, then merge overrides into it
       let finalTheme = themeObject
         ? deepMerge(deepClone(baseTheme), themeObject)
         : deepClone(baseTheme);
 
+      // themeOverride receives a fresh clone so the callback can't corrupt our copy
       if (typeof themeOverride === 'function') {
-        const themeToModify = deepClone(finalTheme);
-        finalTheme = themeOverride(themeToModify);
+        finalTheme = themeOverride(deepClone(finalTheme));
       }
 
+      // Apply defaults and extra classes in-place — finalTheme is already
+      // a unique copy not shared with any other provider or consumer
       if (themeDefaults !== undefined) {
-        // Clone before modifying to ensure isolation
-        finalTheme = deepClone(finalTheme);
-        // Apply defaults recursively, preserving the structure
         applyDefaultsRecursively(finalTheme, themeDefaults);
       }
 
       if (extraClasses !== undefined) {
-        // Clone before modifying to ensure isolation
-        finalTheme = deepClone(finalTheme);
-        // Apply extra classes recursively, preserving the structure
         applyExtraClassesRecursively(finalTheme, extraClasses);
       }
 

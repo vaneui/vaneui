@@ -13,7 +13,7 @@ import { defaultChipTheme } from "../ui/chip/defaultChipTheme";
 import { defaultCodeTheme } from "../ui/code/defaultCodeTheme";
 import { defaultKbdTheme } from "../ui/kbd";
 import { defaultMarkTheme } from "../ui/mark";
-import { textTheme, titleTheme, pageTitleTheme, sectionTitleTheme, blockquoteTheme, linkTheme, listTheme, listItemTheme, LIST_CATEGORIES } from "../ui/typography";
+import { defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultLinkTheme, defaultListTheme, defaultListItemTheme, LIST_CATEGORIES } from "../ui/typography";
 import { defaultGrid2Theme } from "../ui/grid/defaultGrid2Theme";
 import { defaultGrid3Theme } from "../ui/grid/defaultGrid3Theme";
 import { defaultGrid4Theme } from "../ui/grid/defaultGrid4Theme";
@@ -359,11 +359,11 @@ describe("Component theme coverage tests", () => {
       propsType: "TypographyProps",
       categories: TYPOGRAPHY_CATEGORIES,
       themes: [
-        { name: "textTheme", theme: textTheme },
-        { name: "titleTheme", theme: titleTheme },
-        { name: "pageTitleTheme", theme: pageTitleTheme },
-        { name: "sectionTitleTheme", theme: sectionTitleTheme },
-        { name: "blockquoteTheme", theme: blockquoteTheme }
+        { name: "defaultTextTheme", theme: defaultTextTheme },
+        { name: "defaultTitleTheme", theme: defaultTitleTheme },
+        { name: "defaultPageTitleTheme", theme: defaultPageTitleTheme },
+        { name: "defaultSectionTitleTheme", theme: defaultSectionTitleTheme },
+        { name: "defaultBlockquoteTheme", theme: defaultBlockquoteTheme }
       ]
     };
     createThemeTests(typographyConfig);
@@ -373,7 +373,7 @@ describe("Component theme coverage tests", () => {
       propsType: "LinkProps",
       categories: TYPOGRAPHY_CATEGORIES,
       themes: [
-        { name: "linkTheme", theme: linkTheme }
+        { name: "defaultLinkTheme", theme: defaultLinkTheme }
       ]
     };
     createThemeTests(linkConfig);
@@ -383,8 +383,8 @@ describe("Component theme coverage tests", () => {
       propsType: "ListProps",
       categories: LIST_CATEGORIES,
       themes: [
-        { name: "listTheme", theme: listTheme },
-        { name: "listItemTheme", theme: listItemTheme }
+        { name: "defaultListTheme", theme: defaultListTheme },
+        { name: "defaultListItemTheme", theme: defaultListItemTheme }
       ]
     };
     createThemeTests(listConfig);
@@ -701,9 +701,9 @@ describe("Component theme coverage tests", () => {
       defaultInputTheme,
       defaultNavLinkTheme,
       // Typography
-      textTheme, titleTheme, pageTitleTheme, sectionTitleTheme, blockquoteTheme,
-      linkTheme,
-      listTheme, listItemTheme,
+      defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme,
+      defaultLinkTheme,
+      defaultListTheme, defaultListItemTheme,
       // Layout
       defaultGrid2Theme, defaultGrid3Theme, defaultGrid4Theme, defaultGrid5Theme, defaultGrid6Theme,
       defaultContainerTheme, defaultColTheme, defaultRowTheme, defaultStackTheme,

@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import type { ButtonProps } from "./ButtonProps";
 import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
+import { resolveDisabledLink } from "../../utils/disabledLink";
 
 /**
  * A clickable button component with customizable appearance, size, and behavior.
@@ -41,20 +42,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const { loading, ...rest } = props;
     const theme = useTheme();
 
-    // When disabled (or loading) + href, strip href and add accessibility attrs
-    // so the link is not clickable and assistive tech knows it's disabled
     const isDisabled = rest.disabled || loading;
-    const resolvedProps = isDisabled && rest.href
-      ? (() => {
-          const { href: _href, ...withoutHref } = rest;
-          return {
-            ...withoutHref,
-            'aria-disabled': true as const,
-            role: 'link' as const,
-            tabIndex: -1,
-          };
-        })()
-      : rest;
+    const resolvedProps = resolveDisabledLink(rest, !!isDisabled);
 
     if (loading) {
       const loadingProps = { ...resolvedProps, disabled: true as const, 'data-loading': 'true' };

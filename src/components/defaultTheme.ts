@@ -4,13 +4,13 @@ import { defaultButtonSpinnerTheme } from './ui/button/defaultButtonSpinnerTheme
 import { defaultBadgeTheme } from './ui/badge/defaultBadgeTheme';
 import { defaultChipTheme } from './ui/chip/defaultChipTheme';
 import { defaultCodeTheme } from './ui/code/defaultCodeTheme';
-import { textTheme } from './ui/typography/text/defaultTextTheme';
-import { titleTheme } from './ui/typography/title/defaultTitleTheme';
-import { sectionTitleTheme } from './ui/typography/sectionTitle/defaultSectionTitleTheme';
-import { pageTitleTheme } from './ui/typography/pageTitle/defaultPageTitleTheme';
-import { linkTheme } from './ui/typography/link/defaultLinkTheme';
-import { listTheme } from './ui/typography/list/defaultListTheme';
-import { listItemTheme } from './ui/typography/listItem/defaultListItemTheme';
+import { defaultTextTheme } from './ui/typography/text/defaultTextTheme';
+import { defaultTitleTheme } from './ui/typography/title/defaultTitleTheme';
+import { defaultSectionTitleTheme } from './ui/typography/sectionTitle/defaultSectionTitleTheme';
+import { defaultPageTitleTheme } from './ui/typography/pageTitle/defaultPageTitleTheme';
+import { defaultLinkTheme } from './ui/typography/link/defaultLinkTheme';
+import { defaultListTheme } from './ui/typography/list/defaultListTheme';
+import { defaultListItemTheme } from './ui/typography/listItem/defaultListItemTheme';
 import { defaultCardTheme } from "./ui/card/defaultCardTheme";
 import { defaultCardHeaderTheme } from './ui/card/defaultCardHeaderTheme';
 import { defaultCardBodyTheme } from './ui/card/defaultCardBodyTheme';
@@ -44,7 +44,7 @@ import { defaultModalCloseButtonTheme } from './ui/modal/defaultModalCloseButton
 import { defaultPopupTheme } from './ui/popup/defaultPopupTheme';
 import { defaultIconButtonTheme } from './ui/iconButton/defaultIconButtonTheme';
 import { defaultIconTheme } from './ui/icon/defaultIconTheme';
-import { blockquoteTheme } from './ui/typography/blockquote/defaultBlockquoteTheme';
+import { defaultBlockquoteTheme } from './ui/typography/blockquote/defaultBlockquoteTheme';
 import { defaultKbdTheme } from './ui/kbd/defaultKbdTheme';
 import { defaultMarkTheme } from './ui/mark/defaultMarkTheme';
 import { defaultMenuItemTheme } from './ui/menu/defaultMenuItemTheme';
@@ -82,14 +82,14 @@ export const defaultTheme: ThemeProps = {
   grid4: defaultGrid4Theme,
   grid5: defaultGrid5Theme,
   grid6: defaultGrid6Theme,
-  pageTitle: pageTitleTheme,
-  sectionTitle: sectionTitleTheme,
-  title: titleTheme,
-  text: textTheme,
-  blockquote: blockquoteTheme,
-  link: linkTheme,
-  listItem: listItemTheme,
-  list: listTheme,
+  pageTitle: defaultPageTitleTheme,
+  sectionTitle: defaultSectionTitleTheme,
+  title: defaultTitleTheme,
+  text: defaultTextTheme,
+  blockquote: defaultBlockquoteTheme,
+  link: defaultLinkTheme,
+  listItem: defaultListItemTheme,
+  list: defaultListTheme,
   checkbox: {
     input: defaultCheckboxTheme,
     check: defaultCheckboxCheckTheme,

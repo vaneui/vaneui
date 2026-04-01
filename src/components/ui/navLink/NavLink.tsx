@@ -2,6 +2,7 @@ import { forwardRef, Children, isValidElement } from 'react';
 import type { NavLinkProps } from './NavLinkProps';
 import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
+import { resolveDisabledLink } from '../../utils/disabledLink';
 
 /**
  * NavLink — a navigation-oriented interactive link for sidebars, nav menus, and headers.
@@ -23,19 +24,7 @@ export const NavLink = forwardRef<HTMLElement, NavLinkProps>(
     const { active, children, ...rest } = props;
     const theme = useTheme();
 
-    // When disabled + href, strip href and add accessibility attrs
-    // so the link is not clickable and assistive tech knows it's disabled
-    const resolvedRest = rest.disabled && rest.href
-      ? (() => {
-          const { href: _href, ...withoutHref } = rest;
-          return {
-            ...withoutHref,
-            'aria-disabled': true as const,
-            role: 'link' as const,
-            tabIndex: -1,
-          };
-        })()
-      : rest;
+    const resolvedRest = resolveDisabledLink(rest, !!rest.disabled);
 
     const mergedProps = {
       ...resolvedRest,

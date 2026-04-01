@@ -7,6 +7,8 @@ import { pickFirstTruthyKeyByCategory } from '../../utils/componentUtils';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { useControllableState } from '../../utils/controllableState';
+import { useMergedRef } from '../../utils/mergedRef';
+import { pushEscapeHandler } from '../../utils/escapeStack';
 
 /** Internal placement type used by positioning functions */
 type PopupPlacement =
@@ -398,18 +400,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       onCloseRef.current = onClose;
     });
 
-    // Merge forwarded ref with internal popupRef
-    const mergedRef = useCallback(
-      (node: HTMLDivElement | null) => {
-        popupRef.current = node;
-        if (typeof ref === 'function') {
-          ref(node);
-        } else if (ref) {
-          ref.current = node;
-        }
-      },
-      [ref]
-    );
+    const mergedRef = useMergedRef(ref, popupRef);
 
     // Set anchor-name on the external anchor element (CSS Anchor Positioning only).
     // This is the only imperative DOM access needed — the anchor element is not
@@ -452,19 +443,10 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       }
     }, [effectiveOpen, anchorRef, anchorName, placementKey, offset, matchWidth]);
 
-    // Escape key handler
+    // Escape key — only the topmost floating element (modal/popup) closes
     useEffect(() => {
       if (!effectiveOpen || !closeOnEscape) return;
-
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
-          event.preventDefault();
-          onCloseRef.current?.();
-        }
-      };
-
-      document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
+      return pushEscapeHandler(() => onCloseRef.current?.());
     }, [effectiveOpen, closeOnEscape]);
 
     // Click outside handler

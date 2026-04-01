@@ -64,15 +64,16 @@ export const deepClone = <T extends object>(source: T): T => {
   return output;
 }
 
-const findGroup = (key: string) => {
-  // Check each group in ComponentKeys to find which one contains this key
-  for (const [, group] of Object.entries(ComponentKeys)) {
-    if ((group as readonly string[]).includes(key)) {
-      return group;
-    }
+// Precomputed reverse-lookup: key → its exclusive group.
+// Built once at module load instead of scanning all ComponentKeys per lookup.
+const keyToGroup = new Map<string, readonly string[]>();
+for (const group of Object.values(ComponentKeys)) {
+  for (const key of group as readonly string[]) {
+    keyToGroup.set(key, group as readonly string[]);
   }
-  return undefined;
-};
+}
+
+const findGroup = (key: string) => keyToGroup.get(key);
 
 export const mergeDefaults = (
   baseDefaults: Record<string, boolean>,

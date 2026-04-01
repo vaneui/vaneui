@@ -8,6 +8,8 @@ import { useFocusTrap } from '../../utils/focusTrap';
 import { useControllableState } from '../../utils/controllableState';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
+import { useMergedRef } from '../../utils/mergedRef';
+import { pushEscapeHandler } from '../../utils/escapeStack';
 import { ModalContext } from './ModalContext';
 import { ModalHeader } from './ModalHeader';
 import { ModalBody } from './ModalBody';
@@ -111,18 +113,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const contentTransition = useTransition(open, transitionDuration, noAnimation);
     const zIndex = useStackingContext(open, 'modal');
 
-    // Merge forwarded ref with internal contentRef
-    const mergedRef = useCallback(
-      (node: HTMLDivElement | null) => {
-        contentRef.current = node;
-        if (typeof ref === 'function') {
-          ref(node);
-        } else if (ref) {
-          ref.current = node;
-        }
-      },
-      [ref]
-    );
+    const mergedRef = useMergedRef(ref, contentRef);
 
     // Scroll lock
     useScrollLock(open && scrollLock);
@@ -134,19 +125,10 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     );
     useFocusTrap(contentRef, open && focusTrap, focusTrapOptions);
 
-    // Escape key handler
+    // Escape key — only the topmost floating element (modal/popup) closes
     useEffect(() => {
       if (!open || !closeOnEscape) return;
-
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
-          event.preventDefault();
-          onClose();
-        }
-      };
-
-      document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
+      return pushEscapeHandler(onClose);
     }, [open, closeOnEscape, onClose]);
 
     // Handle overlay click
