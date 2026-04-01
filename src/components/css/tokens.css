@@ -6,22 +6,22 @@
     --color-text-tertiary: var(--color-gray-500);
     --color-text-link: var(--color-blue-600);
     --color-text-accent: var(--color-rose-700);
-    --color-text-success: var(--color-emerald-600);
-    --color-text-danger: var(--color-red-600);
-    --color-text-warning: var(--color-amber-600);
-    --color-text-info: var(--color-cyan-600);
+    --color-text-success: var(--color-emerald-700);
+    --color-text-danger: var(--color-red-700);
+    --color-text-warning: var(--color-amber-700);
+    --color-text-info: var(--color-cyan-700);
 
-    /* Filled Text Colors */
+    /* Filled Text Colors (all white for WCAG AA 4.5:1 contrast compliance) */
     --color-text-filled-primary: var(--color-white);
-    --color-text-filled-brand: var(--color-blue-100);
-    --color-text-filled-secondary: var(--color-gray-200);
-    --color-text-filled-tertiary: var(--color-gray-300);
-    --color-text-filled-link: var(--color-blue-100);
-    --color-text-filled-accent: var(--color-rose-100);
-    --color-text-filled-success: var(--color-emerald-100);
-    --color-text-filled-danger: var(--color-red-100);
-    --color-text-filled-warning: var(--color-amber-100);
-    --color-text-filled-info: var(--color-cyan-100);
+    --color-text-filled-brand: var(--color-white);
+    --color-text-filled-secondary: var(--color-white);
+    --color-text-filled-tertiary: var(--color-white);
+    --color-text-filled-link: var(--color-white);
+    --color-text-filled-accent: var(--color-white);
+    --color-text-filled-success: var(--color-white);
+    --color-text-filled-danger: var(--color-white);
+    --color-text-filled-warning: var(--color-white);
+    --color-text-filled-info: var(--color-white);
 
     /* UI Background Colors */
     --color-bg-primary: var(--color-white);
@@ -62,10 +62,10 @@
     --color-bg-filled-secondary: var(--color-gray-600);
     --color-bg-filled-tertiary: var(--color-gray-500);
     --color-bg-filled-accent: var(--color-rose-600);
-    --color-bg-filled-success: var(--color-emerald-600);
+    --color-bg-filled-success: var(--color-emerald-700);
     --color-bg-filled-danger: var(--color-red-600);
-    --color-bg-filled-warning: var(--color-amber-600);
-    --color-bg-filled-info: var(--color-cyan-600);
+    --color-bg-filled-warning: var(--color-amber-700);
+    --color-bg-filled-info: var(--color-cyan-700);
 
     /* Filled UI Hover Background Colors */
     --color-bg-filled-hover-primary: var(--color-gray-900);
@@ -73,10 +73,10 @@
     --color-bg-filled-hover-secondary: var(--color-gray-700);
     --color-bg-filled-hover-tertiary: var(--color-gray-600);
     --color-bg-filled-hover-accent: var(--color-rose-700);
-    --color-bg-filled-hover-success: var(--color-emerald-700);
+    --color-bg-filled-hover-success: var(--color-emerald-800);
     --color-bg-filled-hover-danger: var(--color-red-700);
-    --color-bg-filled-hover-warning: var(--color-amber-700);
-    --color-bg-filled-hover-info: var(--color-cyan-700);
+    --color-bg-filled-hover-warning: var(--color-amber-800);
+    --color-bg-filled-hover-info: var(--color-cyan-800);
 
     /* Filled UI Active Background Colors */
     --color-bg-filled-active-primary: var(--color-gray-950);
@@ -84,10 +84,10 @@
     --color-bg-filled-active-secondary: var(--color-gray-800);
     --color-bg-filled-active-tertiary: var(--color-gray-700);
     --color-bg-filled-active-accent: var(--color-rose-800);
-    --color-bg-filled-active-success: var(--color-emerald-800);
+    --color-bg-filled-active-success: var(--color-emerald-900);
     --color-bg-filled-active-danger: var(--color-red-800);
-    --color-bg-filled-active-warning: var(--color-amber-800);
-    --color-bg-filled-active-info: var(--color-cyan-800);
+    --color-bg-filled-active-warning: var(--color-amber-900);
+    --color-bg-filled-active-info: var(--color-cyan-900);
 
     /* Layout Background Colors */
     --color-bg-layout-primary: var(--color-white);
@@ -111,16 +111,16 @@
     --color-bg-filled-layout-warning: var(--color-yellow-800);
     --color-bg-filled-layout-info: var(--color-blue-700);
 
-    /* Border Colors */
-    --color-border-primary: var(--color-gray-200);
-    --color-border-brand: var(--color-blue-300);
-    --color-border-secondary: var(--color-gray-200);
-    --color-border-tertiary: var(--color-gray-200);
-    --color-border-accent: var(--color-rose-300);
-    --color-border-success: var(--color-emerald-300);
-    --color-border-danger: var(--color-red-300);
-    --color-border-warning: var(--color-amber-300);
-    --color-border-info: var(--color-cyan-300);
+    /* Border Colors (darkened to meet WCAG 1.4.11 non-text contrast 3:1) */
+    --color-border-primary: var(--color-gray-400);
+    --color-border-brand: var(--color-blue-400);
+    --color-border-secondary: var(--color-gray-400);
+    --color-border-tertiary: var(--color-gray-400);
+    --color-border-accent: var(--color-rose-400);
+    --color-border-success: var(--color-emerald-500);
+    --color-border-danger: var(--color-red-400);
+    --color-border-warning: var(--color-amber-500);
+    --color-border-info: var(--color-cyan-500);
 
     /* Focus Ring Colors (used for focus-visible outline on all variants) */
     --color-focus-primary: var(--color-gray-600);

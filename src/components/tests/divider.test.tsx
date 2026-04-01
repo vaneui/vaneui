@@ -154,6 +154,53 @@ describe('Divider Component Tests', () => {
     });
   });
 
+  describe('Accessibility (role="separator")', () => {
+    it('should have role="separator" by default', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveAttribute('role', 'separator');
+    });
+
+    it('should have aria-orientation="horizontal" by default', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveAttribute('aria-orientation', 'horizontal');
+    });
+
+    it('should have aria-orientation="vertical" when vertical prop is set', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider vertical />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveAttribute('role', 'separator');
+      expect(divider).toHaveAttribute('aria-orientation', 'vertical');
+    });
+
+    it('should allow role override for decorative dividers', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Divider role="presentation" />
+        </ThemeProvider>
+      );
+
+      const divider = container.querySelector('div');
+      expect(divider).toHaveAttribute('role', 'presentation');
+    });
+  });
+
   describe('Orientation Props', () => {
     it('should render horizontal by default', () => {
       const {container} = render(

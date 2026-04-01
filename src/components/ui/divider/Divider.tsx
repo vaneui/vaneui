@@ -45,7 +45,16 @@ import { useTheme } from "../../themeContext";
 export const Divider = forwardRef<HTMLDivElement, DividerProps>(
   function Divider(props, ref) {
     const theme = useTheme();
-    return <ThemedComponent theme={theme.divider} ref={ref} {...props} />
+    const ariaOrientation = props.vertical ? 'vertical' as const : 'horizontal' as const;
+    return (
+      <ThemedComponent
+        theme={theme.divider}
+        ref={ref}
+        role="separator"
+        aria-orientation={ariaOrientation}
+        {...props}
+      />
+    );
   }
 );
 
