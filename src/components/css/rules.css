@@ -120,7 +120,7 @@
     .vane-icon :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
 
     /* Badge */
-    .vane-badge { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; --icon-size: var(--fs); }
+    .vane-badge { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; --icon-size: calc(var(--fs) * var(--lh)); }
     .vane-badge[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-badge[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
     .vane-badge[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
@@ -128,7 +128,7 @@
     .vane-badge[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Chip */
-    .vane-chip { --lh: 1.2; --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.2564; --icon-size: var(--fs); }
+    .vane-chip { --lh: 1.2; --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.2564; --icon-size: calc(var(--fs) * var(--lh)); }
     .vane-chip[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5; }
     .vane-chip[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1; }
     .vane-chip[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1.5; }

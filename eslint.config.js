@@ -48,7 +48,10 @@ export default tseslint.config(
       'no-unused-labels': 'error',
       
       // Make unused expressions an error
-      'no-unused-expressions': 'error'
+      'no-unused-expressions': 'error',
+
+      // Detect circular dependencies at lint time
+      'import/no-cycle': ['error', { maxDepth: 5, ignoreExternal: true }]
     },
     languageOptions: {
       parser: tseslint.parser,

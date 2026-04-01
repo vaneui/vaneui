@@ -6,6 +6,7 @@ import {
   Title,
   Button,
   Badge,
+  Chip,
   Icon,
   Blockquote,
   Kbd,
@@ -190,6 +191,29 @@ export function TestHarness() {
           <Button md data-testid="icon-wrapped-md"><Icon md><StarIcon /></Icon></Button>
           <Button xl data-testid="icon-bare-xl"><StarIcon /></Button>
           <Button xl data-testid="icon-wrapped-xl"><Icon xl><StarIcon /></Icon></Button>
+        </section>
+
+        {/* ── Icon sizing: Badge and Chip ── */}
+
+        <section data-testid="icon-sizing-badge-chip">
+          <Badge xs data-testid="badge-icon-xs"><StarIcon /> Badge</Badge>
+          <Badge sm data-testid="badge-icon-sm"><StarIcon /> Badge</Badge>
+          <Badge md data-testid="badge-icon-md"><StarIcon /> Badge</Badge>
+          <Badge lg data-testid="badge-icon-lg"><StarIcon /> Badge</Badge>
+          <Badge xl data-testid="badge-icon-xl"><StarIcon /> Badge</Badge>
+
+          <Chip xs data-testid="chip-icon-xs"><StarIcon /> Chip</Chip>
+          <Chip sm data-testid="chip-icon-sm"><StarIcon /> Chip</Chip>
+          <Chip md data-testid="chip-icon-md"><StarIcon /> Chip</Chip>
+          <Chip lg data-testid="chip-icon-lg"><StarIcon /> Chip</Chip>
+          <Chip xl data-testid="chip-icon-xl"><StarIcon /> Chip</Chip>
+
+          {/* Button icons at same sizes for cross-component comparison */}
+          <Button xs data-testid="button-icon-xs"><StarIcon /> Button</Button>
+          <Button sm data-testid="button-icon-sm"><StarIcon /> Button</Button>
+          <Button md data-testid="button-icon-md"><StarIcon /> Button</Button>
+          <Button lg data-testid="button-icon-lg"><StarIcon /> Button</Button>
+          <Button xl data-testid="button-icon-xl"><StarIcon /> Button</Button>
         </section>
 
         {/* ── Typography inherit vs explicit ── */}

@@ -1,5 +1,7 @@
 import { ComponentKeys } from "../ui/props";
 import { BaseClassMapper } from "../ui/theme/common/BaseClassMapper";
+import { ComponentTheme } from "../ui/theme/common/ComponentTheme";
+import { defaultTheme } from "../defaultTheme";
 
 // Import all component themes — existing
 import { defaultCheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckboxCheckTheme, defaultCheckboxIndeterminateTheme, CHECKBOX_INDETERMINATE_CATEGORIES } from "../ui/checkbox";
@@ -667,6 +669,79 @@ describe("Component theme coverage tests", () => {
 
     it("should ensure defaultMenuDividerTheme has handlers for all its default props", () => {
       tester.testThemeDefaults("defaultMenuDividerTheme", defaultMenuDividerTheme);
+    });
+  });
+
+  // Completeness check — ensures every ComponentTheme in defaultTheme is tested above.
+  // If you add a new component and forget to register it here, this test will fail.
+  describe("Theme coverage completeness", () => {
+    // Collect all ComponentTheme instances from defaultTheme with their paths
+    function collectThemeInstances(obj: unknown, path: string = ""): Array<{ path: string; theme: object }> {
+      const results: Array<{ path: string; theme: object }> = [];
+      if (!obj || typeof obj !== "object") return results;
+
+      if (obj instanceof ComponentTheme) {
+        results.push({ path, theme: obj });
+      } else {
+        for (const [key, value] of Object.entries(obj)) {
+          const childPath = path ? `${path}.${key}` : key;
+          results.push(...collectThemeInstances(value, childPath));
+        }
+      }
+      return results;
+    }
+
+    // Collect all themes that are tested in the configs above
+    const allTestedThemes = new Set<object>([
+      // Interactive
+      defaultButtonTheme, defaultIconButtonTheme,
+      defaultBadgeTheme,
+      defaultChipTheme,
+      defaultCodeTheme, defaultKbdTheme, defaultMarkTheme,
+      defaultInputTheme,
+      defaultNavLinkTheme,
+      // Typography
+      textTheme, titleTheme, pageTitleTheme, sectionTitleTheme, blockquoteTheme,
+      linkTheme,
+      listTheme, listItemTheme,
+      // Layout
+      defaultGrid2Theme, defaultGrid3Theme, defaultGrid4Theme, defaultGrid5Theme, defaultGrid6Theme,
+      defaultContainerTheme, defaultColTheme, defaultRowTheme, defaultStackTheme,
+      defaultCardTheme, defaultCardHeaderTheme, defaultCardBodyTheme, defaultCardFooterTheme,
+      defaultDividerTheme,
+      defaultSectionTheme,
+      // Form
+      defaultCheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckboxCheckTheme,
+      defaultLabelTheme,
+      // Media
+      defaultImgTheme,
+      // Overlay/Popup/Icon
+      defaultOverlayTheme, defaultPopupTheme, defaultIconTheme,
+      // Modal
+      defaultModalContentTheme, defaultModalOverlayTheme,
+      defaultModalHeaderTheme, defaultModalBodyTheme, defaultModalFooterTheme, defaultModalCloseButtonTheme,
+      // Menu
+      defaultMenuItemTheme, defaultMenuLabelTheme,
+      // Sub-components
+      defaultButtonSpinnerTheme, defaultNavLinkLabelTheme, defaultCheckboxIndeterminateTheme,
+      // withDefaults variants
+      defaultMenuPopupTheme, defaultMenuDividerTheme,
+    ]);
+
+    it("should cover every ComponentTheme instance in defaultTheme", () => {
+      const allInstances = collectThemeInstances(defaultTheme);
+      const untested = allInstances.filter(({ theme }) => !allTestedThemes.has(theme));
+
+      if (untested.length > 0) {
+        const paths = untested.map(({ path }) => `  - defaultTheme.${path}`).join("\n");
+        throw new Error(
+          `The following ComponentTheme instances in defaultTheme are NOT registered in componentThemeCoverage.test.ts:\n` +
+          paths +
+          `\n\nAdd them to the appropriate ComponentTestConfig or withDefaults test section.`
+        );
+      }
+
+      expect(untested.length).toBe(0);
     });
   });
 });
