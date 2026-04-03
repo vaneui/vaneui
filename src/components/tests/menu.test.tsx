@@ -335,6 +335,19 @@ describe('Menu Component Tests', () => {
       expect(menu).toBeInTheDocument();
       expect(menu).toHaveAttribute('aria-orientation', 'vertical');
     });
+
+    it('should have aria-controls on trigger matching menu popup id', () => {
+      const { container } = renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item</MenuItem>
+        </Menu>
+      );
+
+      const trigger = container.querySelector('[aria-haspopup="menu"]') as HTMLElement;
+      const menu = document.body.querySelector('[role="menu"]') as HTMLElement;
+
+      expect(trigger).toHaveAttribute('aria-controls', menu.id);
+    });
   });
 
   // =========================================================================

@@ -91,7 +91,7 @@ describe('Button Component Tests', () => {
       expect(anchor).not.toBeInTheDocument();
     });
 
-    it('should add aria-disabled, role="link", and tabIndex=-1 when href and disabled are both present', () => {
+    it('should add aria-disabled and role="link" when href and disabled are both present, staying in tab order', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Button href="/test-link" disabled>Disabled Link</Button>
@@ -101,7 +101,7 @@ describe('Button Component Tests', () => {
       const button = container.querySelector('button');
       expect(button).toHaveAttribute('aria-disabled', 'true');
       expect(button).toHaveAttribute('role', 'link');
-      expect(button).toHaveAttribute('tabindex', '-1');
+      expect(button).not.toHaveAttribute('tabindex', '-1');
     });
 
     it('should render as normal anchor when href is present without disabled', () => {

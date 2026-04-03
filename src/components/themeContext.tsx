@@ -9,9 +9,6 @@ export type {
   ThemeExtraClasses,
   ThemeProviderProps,
   MergeStrategy,
-  CompositeTheme,
-  CompositeDefaults,
-  CompositeExtraClasses,
 } from './themeTypes';
 
 export { defaultTheme } from './defaultTheme';

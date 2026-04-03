@@ -136,7 +136,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     );
   }
 
-  getClasses(props: P): string[] {
+  getClasses(props: P, precomputedKeys?: Record<string, string>): string[] {
     const componentProps = props as unknown as Record<string, boolean>;
     const classes: string[] = [];
 
@@ -145,11 +145,16 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     }
 
     const defaults = this.defaults as Record<string, boolean>;
-    const extractedKeys: Record<string, string> = {};
-    for (const category of this.categories) {
-      const key = pickFirstTruthyKeyByCategory(componentProps, defaults, category);
-      if (key !== undefined) {
-        extractedKeys[category] = key;
+    let extractedKeys: Record<string, string>;
+    if (precomputedKeys) {
+      extractedKeys = precomputedKeys;
+    } else {
+      extractedKeys = {};
+      for (const category of this.categories) {
+        const key = pickFirstTruthyKeyByCategory(componentProps, defaults, category);
+        if (key !== undefined) {
+          extractedKeys[category] = key;
+        }
       }
     }
 
@@ -223,7 +228,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     const componentTag: React.ElementType = tag ?? this.getTag(props) ?? "div";
     // Use original props for theme generation, but cleanProps for final DOM props
     const originalProps = props as P;
-    const themeGeneratedClasses = this.getClasses(originalProps);
+    const themeGeneratedClasses = this.getClasses(originalProps, extractedKeys);
     const finalClasses = twMerge(...themeGeneratedClasses, className);
 
     // Build data attributes for key categories

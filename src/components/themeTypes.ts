@@ -165,31 +165,6 @@ type StringValueKeys<T> = {
   [K in keyof T as T[K] extends boolean | undefined ? K : never]: string;
 };
 
-/**
- * Helper types for composite (multi-sub-theme) components.
- * Use these to reduce type repetition when defining components with sub-themes.
- *
- * Example:
- *   type CardSubs = {
- *     main: { props: CardProps; theme: CardTheme };
- *     header: { props: CardHeaderProps; theme: CardHeaderTheme };
- *   };
- *   // In ThemeProps:     card: CompositeTheme<CardSubs>;
- *   // In ThemeDefaults:  card?: CompositeDefaults<CardSubs>;
- *   // In ThemeExtraClasses: card?: CompositeExtraClasses<CardSubs>;
- */
-export type CompositeTheme<T extends Record<string, { props: { className?: string; children?: React.ReactNode; tag?: React.ElementType }; theme: object }>> = {
-  [K in keyof T]: ComponentTheme<T[K]['props'], T[K]['theme']>;
-};
-
-export type CompositeDefaults<T extends Record<string, { props: object; theme: object }>> = {
-  [K in keyof T]?: Partial<BooleanKeys<T[K]['props']>>;
-};
-
-export type CompositeExtraClasses<T extends Record<string, { props: object; theme: object }>> = {
-  [K in keyof T]?: Partial<StringValueKeys<T[K]['props']>>;
-};
-
 export type ThemeDefaults = {
   button?: {
     main?: Partial<BooleanKeys<ButtonProps>>;

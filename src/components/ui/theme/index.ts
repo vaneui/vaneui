@@ -39,7 +39,6 @@ export {
   FontSizeClassMapper,
   GapClassMapper,
   LineHeightClassMapper,
-  PaddingClassMapper,
   PlClassMapper,
   PxClassMapper,
   PyClassMapper,

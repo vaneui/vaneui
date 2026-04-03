@@ -7,23 +7,24 @@ import {
   Stack,
   ThemeProvider,
   defaultTheme,
+  ComponentKeys,
+  type ComponentCategoryKey
+} from '../../index';
+import {
   BUTTON_CATEGORIES,
   BADGE_CATEGORIES,
   CHIP_CATEGORIES,
-  CARD_CATEGORIES,
-  ROW_CATEGORIES,
-  COL_CATEGORIES,
-  STACK_CATEGORIES,
-  GRID_CATEGORIES,
   CONTAINER_CATEGORIES,
-  SECTION_CATEGORIES,
-  DIVIDER_CATEGORIES,
-  TYPOGRAPHY_CATEGORIES,
-  LIST_CATEGORIES,
-  COMPONENT_PROPS_CATEGORY,
-  ComponentKeys,
-  ComponentCategoryKey
-} from '../../index';
+  GRID_CATEGORIES,
+  STACK_CATEGORIES,
+  ROW_CATEGORIES,
+} from '../ui/props/categoryBuilders';
+import { CARD_CATEGORIES } from '../ui/card/CardCategories';
+import { COL_CATEGORIES } from '../ui/col/ColCategories';
+import { SECTION_CATEGORIES } from '../ui/section/SectionCategories';
+import { DIVIDER_CATEGORIES } from '../ui/divider/DividerCategories';
+import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from '../ui/typography/common/TypographyCategories';
+import { COMPONENT_PROPS_CATEGORY } from '../ui/props/keys';
 
 describe('Component Prop Type Validation', () => {
   // Helper to render components with theme

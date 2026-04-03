@@ -60,9 +60,9 @@ export function PopupTrigger({
   const popupId = popupIdProp || `popup-trigger-${generatedId.replace(/:/g, '-')}`;
   const prevOpenRef = useRef(false);
 
-  // Return focus to trigger element when popup closes (skip for focus trigger to avoid re-open loop)
+  // Return focus to trigger element when popup closes (skip for focus/hover triggers to avoid re-open loop)
   useEffect(() => {
-    if (prevOpenRef.current && !open && trigger !== 'focus' && anchorRef.current) {
+    if (prevOpenRef.current && !open && trigger === 'click' && anchorRef.current) {
       anchorRef.current.focus();
     }
     prevOpenRef.current = open;
@@ -119,6 +119,8 @@ export function PopupTrigger({
     } else if (trigger === 'hover') {
       triggerHandlers.onMouseEnter = handleOpen;
       triggerHandlers.onMouseLeave = handleClose;
+      triggerHandlers.onFocus = handleOpen;
+      triggerHandlers.onBlur = handleClose;
     } else if (trigger === 'focus') {
       triggerHandlers.onFocus = handleOpen;
       triggerHandlers.onBlur = handleClose;
@@ -149,6 +151,8 @@ export function PopupTrigger({
         {...(trigger === 'hover' ? {
           onMouseEnter: () => { clearTimers(); },
           onMouseLeave: handleClose,
+          onFocus: () => { clearTimers(); },
+          onBlur: handleClose,
         } : {})}
         {...popupProps}
       >

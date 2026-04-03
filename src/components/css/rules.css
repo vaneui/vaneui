@@ -837,6 +837,34 @@
         --border-color: var(--checked-bg-color);
     }
 
+    /* ========================================
+       REDUCED MOTION
+       Respects user OS-level preference for reduced motion.
+       Uses 0.01ms (not 0s) to avoid breaking JS animationend/transitionend listeners.
+       Independent of the programmatic noAnimation prop on Modal/Popup/Overlay.
+       ======================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+        /* Disable enter/exit animations on floating components */
+        .vane-overlay[data-state],
+        .vane-modal[data-state],
+        .vane-popup[data-state] {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+        }
+
+        /* Disable spinner animation */
+        .vane-button-spinner-ring {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+        }
+
+        /* Disable transitions on all VaneUI components */
+        [data-vane-type] {
+            transition-duration: 0.01ms !important;
+        }
+    }
+
 }
 
 /* ========================================

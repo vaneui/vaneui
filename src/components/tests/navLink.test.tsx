@@ -220,7 +220,7 @@ describe('NavLink Component Tests', () => {
       expect(anchor).not.toBeInTheDocument();
     });
 
-    it('should add aria-disabled, role="link", and tabIndex=-1 when href and disabled are both present', () => {
+    it('should add aria-disabled and role="link" when href and disabled are both present, staying in tab order', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <NavLink href="/locked" disabled>Locked</NavLink>
@@ -230,7 +230,7 @@ describe('NavLink Component Tests', () => {
       const el = container.querySelector('button');
       expect(el).toHaveAttribute('aria-disabled', 'true');
       expect(el).toHaveAttribute('role', 'link');
-      expect(el).toHaveAttribute('tabindex', '-1');
+      expect(el).not.toHaveAttribute('tabindex', '-1');
       expect(el).toHaveAttribute('data-disabled', 'true');
     });
 
