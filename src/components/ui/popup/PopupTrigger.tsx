@@ -107,23 +107,34 @@ export function PopupTrigger({
   const triggerHandlers: Record<string, React.EventHandler<React.SyntheticEvent>> = {};
 
   if (!disabled) {
+    const childProps = (children as React.ReactElement<Record<string, unknown>>).props;
+
+    const composeHandler = (name: string, handler: () => void) => {
+      return (e: React.SyntheticEvent) => {
+        const original = childProps?.[name];
+        if (typeof original === 'function') {
+          (original as (e: React.SyntheticEvent) => void)(e);
+        }
+        handler();
+      };
+    };
+
     if (trigger === 'click') {
       triggerHandlers.onClick = (e: React.SyntheticEvent) => {
-        // Call original handler if present
-        const originalOnClick = (children as React.ReactElement<Record<string, unknown>>).props?.onClick;
+        const originalOnClick = childProps?.onClick;
         if (typeof originalOnClick === 'function') {
           (originalOnClick as (e: React.SyntheticEvent) => void)(e);
         }
         handleToggle();
       };
     } else if (trigger === 'hover') {
-      triggerHandlers.onMouseEnter = handleOpen;
-      triggerHandlers.onMouseLeave = handleClose;
-      triggerHandlers.onFocus = handleOpen;
-      triggerHandlers.onBlur = handleClose;
+      triggerHandlers.onMouseEnter = composeHandler('onMouseEnter', handleOpen);
+      triggerHandlers.onMouseLeave = composeHandler('onMouseLeave', handleClose);
+      triggerHandlers.onFocus = composeHandler('onFocus', handleOpen);
+      triggerHandlers.onBlur = composeHandler('onBlur', handleClose);
     } else if (trigger === 'focus') {
-      triggerHandlers.onFocus = handleOpen;
-      triggerHandlers.onBlur = handleClose;
+      triggerHandlers.onFocus = composeHandler('onFocus', handleOpen);
+      triggerHandlers.onBlur = composeHandler('onBlur', handleClose);
     }
   }
 

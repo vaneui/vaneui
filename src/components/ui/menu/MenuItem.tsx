@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useMemo } from 'react';
+import { forwardRef, useCallback, useMemo, useRef } from 'react';
 import type { MenuItemProps } from './MenuItemProps';
 import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
@@ -28,11 +28,18 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
     const loop = ctx?.loop ?? true;
     const disabled = props.disabled;
 
+    // Store consumer handlers in refs to stabilize callback dependencies
+    const onClickRef = useRef(rest.onClick);
+    onClickRef.current = rest.onClick;
+    const onKeyDownRef = useRef(rest.onKeyDown);
+    onKeyDownRef.current = rest.onKeyDown;
+    const onMouseDownRef = useRef(rest.onMouseDown);
+    onMouseDownRef.current = rest.onMouseDown;
+
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLElement>) => {
         if (disabled) return;
-        // Call original onClick from rest
-        const origClick = rest.onClick;
+        const origClick = onClickRef.current;
         if (typeof origClick === 'function') {
           (origClick as (e: React.MouseEvent<HTMLButtonElement>) => void)(e as React.MouseEvent<HTMLButtonElement>);
         }
@@ -40,7 +47,7 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
           ctx?.closeMenu();
         }
       },
-      [disabled, rest.onClick, shouldClose, ctx]
+      [disabled, shouldClose, ctx]
     );
 
     const handleKeyDown = useMemo(() => createScopedKeydownHandler({
@@ -49,8 +56,7 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
       loop,
       orientation: 'vertical',
       onKeyDown: (event) => {
-        // Call original onKeyDown
-        const origKeyDown = rest.onKeyDown;
+        const origKeyDown = onKeyDownRef.current;
         if (typeof origKeyDown === 'function') {
           (origKeyDown as (e: React.KeyboardEvent<HTMLButtonElement>) => void)(event as React.KeyboardEvent<HTMLButtonElement>);
         }
@@ -74,18 +80,18 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
           ctx?.closeMenu();
         }
       },
-    }), [loop, rest.onKeyDown, disabled, ctx]);
+    }), [loop, disabled, ctx]);
 
     // Prevent mousedown from stealing focus — menu items manage focus via keyboard
     const handleMouseDown = useCallback(
       (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
-        const origMouseDown = rest.onMouseDown;
+        const origMouseDown = onMouseDownRef.current;
         if (typeof origMouseDown === 'function') {
           (origMouseDown as (e: React.MouseEvent<HTMLButtonElement>) => void)(e as React.MouseEvent<HTMLButtonElement>);
         }
       },
-      [rest.onMouseDown]
+      []
     );
 
     // When hovering a menu item, focus it

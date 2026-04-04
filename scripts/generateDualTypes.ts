@@ -5,7 +5,7 @@ import glob from "fast-glob";
 /**
  * Copies .d.ts → .d.mts for entry points referenced in the package.json exports map.
  * Only entry-point files need .d.mts — TypeScript resolves their relative imports
- * to .d.ts files automatically. This matches Mantine's and Chakra UI's approach.
+ * to .d.ts files automatically.
  */
 const entryPoints = await glob([
   "dist/types/index.d.ts",

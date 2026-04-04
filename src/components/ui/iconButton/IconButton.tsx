@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import type { IconButtonProps } from "./IconButtonProps";
 import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
+import { resolveDisabledLink } from "../../utils/disabledLink";
 
 /**
  * A square icon-only button component with customizable appearance, size, and behavior.
@@ -35,19 +36,22 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     const { loading, ...rest } = props;
     const theme = useTheme();
 
+    const isDisabled = rest.disabled || loading;
+    const resolvedProps = resolveDisabledLink(rest, !!isDisabled);
+
     if (loading) {
-      const loadingProps = { ...rest, disabled: true as const, 'data-loading': 'true' };
+      const loadingProps = { ...resolvedProps, disabled: true as const, 'data-loading': 'true' };
       return (
         <ThemedComponent ref={ref} theme={theme.iconButton} {...loadingProps}>
           <ThemedComponent theme={theme.button.spinner}>
             {theme.button.spinner.themes.spinnerElement()}
           </ThemedComponent>
-          <span className="invisible">{rest.children}</span>
+          <span className="invisible">{resolvedProps.children}</span>
         </ThemedComponent>
       );
     }
 
-    return <ThemedComponent ref={ref} theme={theme.iconButton} {...rest} />;
+    return <ThemedComponent ref={ref} theme={theme.iconButton} {...resolvedProps} />;
   }
 );
 

@@ -1,6 +1,5 @@
 /**
  * Options for creating a scoped keyboard navigation handler.
- * Adapted from Mantine's createScopedKeydownHandler pattern.
  */
 export interface ScopedKeydownHandlerOptions {
   /** Parent container to scope navigation within */

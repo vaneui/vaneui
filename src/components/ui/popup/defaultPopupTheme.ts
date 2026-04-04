@@ -18,7 +18,7 @@ import { MaxHeightClassMapper, MinWidthClassMapper, PointerEventsClassMapper, Tr
  * - maxHeight: Size-dependent max-height via --max-height (default: true)
  * - padding, gap, rounded, shadow: Visual styling (default: true)
  *
- * Menu popups omit maxHeight + overflowAuto, so they grow to fit content (matching Mantine/Chakra/shadcn).
+ * Menu popups omit maxHeight + overflowAuto, so they grow to fit content.
  */
 export const defaultPopupTheme = new ComponentTheme<PopupProps, PopupTheme>(
   'div',

@@ -49,6 +49,10 @@ export const deepMerge = <T extends object>(
 };
 
 export const deepClone = <T extends object>(source: T): T => {
+  if (Array.isArray(source)) {
+    return source.map(item => (isObject(item) ? deepClone(item) : item)) as unknown as T;
+  }
+
   if (!isObject(source)) {
     return source;
   }

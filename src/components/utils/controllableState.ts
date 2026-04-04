@@ -17,7 +17,6 @@ interface UseControllableStateOptions<T> {
  *   initialized to `defaultValue`.
  * - `onChange` fires in both modes when the setter is called.
  *
- * Pattern from Radix UI / Chakra UI.
  */
 export function useControllableState<T>({
   value,

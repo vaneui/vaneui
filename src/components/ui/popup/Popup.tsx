@@ -420,6 +420,24 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     // CSS path: builds style object from placement (no DOM measurement needed).
     // JS path: measures anchor + popup rects, computes top/left with flip/shift.
     // Both paths store the result in state; React applies it via the style prop.
+    // Recompute JS fallback position (extracted for reuse in scroll/resize listener)
+    const updateJsPosition = useCallback(() => {
+      const anchor = anchorRef.current;
+      const popup = popupRef.current;
+      if (!anchor || !popup) return;
+
+      const anchorRect = anchor.getBoundingClientRect();
+      const popupRect = popup.getBoundingClientRect();
+      const pos = getJsPosition(anchorRect, popupRect, placement, offset);
+
+      setPositionStyles({
+        top: pos.top,
+        left: pos.left,
+        ...(matchWidth ? { width: anchorRect.width } : undefined),
+      });
+      setResolvedPlacement(pos.resolvedPlacement);
+    }, [anchorRef, placement, offset, matchWidth]);
+
     useLayoutEffect(() => {
       if (!effectiveOpen || !anchorRef.current) return;
 
@@ -427,21 +445,24 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         setPositionStyles(buildCssAnchorStyles(anchorName, placement, offset, matchWidth));
         setResolvedPlacement(placement);
       } else {
-        const popup = popupRef.current;
-        if (!popup) return;
-
-        const anchorRect = anchorRef.current.getBoundingClientRect();
-        const popupRect = popup.getBoundingClientRect();
-        const pos = getJsPosition(anchorRect, popupRect, placement, offset);
-
-        setPositionStyles({
-          top: pos.top,
-          left: pos.left,
-          ...(matchWidth ? { width: anchorRect.width } : undefined),
-        });
-        setResolvedPlacement(pos.resolvedPlacement);
+        updateJsPosition();
       }
-    }, [effectiveOpen, anchorRef, anchorName, placementKey, offset, matchWidth]);
+    }, [effectiveOpen, anchorRef, anchorName, placementKey, offset, matchWidth, updateJsPosition]);
+
+    // Reposition on scroll/resize when using JS fallback
+    useEffect(() => {
+      if (!effectiveOpen || supportsAnchorPositioning()) return;
+
+      const handleReposition = () => updateJsPosition();
+
+      window.addEventListener('scroll', handleReposition, true);
+      window.addEventListener('resize', handleReposition);
+
+      return () => {
+        window.removeEventListener('scroll', handleReposition, true);
+        window.removeEventListener('resize', handleReposition);
+      };
+    }, [effectiveOpen, updateJsPosition]);
 
     // Escape key — only the topmost floating element (modal/popup) closes
     useEffect(() => {

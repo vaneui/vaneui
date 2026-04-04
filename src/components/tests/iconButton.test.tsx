@@ -237,6 +237,49 @@ describe('IconButton Component Tests', () => {
     });
   });
 
+  describe('Disabled Link Handling', () => {
+    it('should strip href and add aria-disabled when disabled with href', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <IconButton href="/settings" disabled aria-label="Settings"><TestIcon /></IconButton>
+        </ThemeProvider>
+      );
+
+      const el = container.firstChild as HTMLElement;
+      expect(el).not.toHaveAttribute('href');
+      expect(el).toHaveAttribute('aria-disabled', 'true');
+      expect(el).toHaveAttribute('role', 'link');
+    });
+
+    it('should NOT strip href when not disabled', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <IconButton href="/settings" aria-label="Settings"><TestIcon /></IconButton>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', '/settings');
+      expect(anchor).not.toHaveAttribute('aria-disabled');
+      expect(anchor).not.toHaveAttribute('role');
+    });
+
+    it('should strip href when loading with href', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <IconButton href="/settings" loading aria-label="Settings"><TestIcon /></IconButton>
+        </ThemeProvider>
+      );
+
+      const el = container.firstChild as HTMLElement;
+      expect(el).not.toHaveAttribute('href');
+      expect(el).toHaveAttribute('aria-disabled', 'true');
+      expect(el).toHaveAttribute('role', 'link');
+      expect(el).toHaveAttribute('data-loading', 'true');
+    });
+  });
+
   describe('Loading State', () => {
     it('should show spinner when loading', () => {
       const { container } = render(

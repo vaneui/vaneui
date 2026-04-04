@@ -18,7 +18,7 @@ export default {
   testPathIgnorePatterns: [
     '/node_modules/',
     '/dist/',
-    'utils/',
+    'tests/utils/',
     '\\.d\\.ts$'
   ],
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
