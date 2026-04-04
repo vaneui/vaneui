@@ -13,18 +13,14 @@ export function resolveDisabledLink<T extends Record<string, unknown> & { href?:
 ): T {
   if (!isDisabled || !props.href) return props;
   const { href: _href, ...withoutHref } = props;
-  const origOnClick = (withoutHref as Record<string, unknown>).onClick;
-  const origOnKeyDown = (withoutHref as Record<string, unknown>).onKeyDown;
   return {
     ...withoutHref,
     'aria-disabled': true,
     role: 'link',
     onClick: (e: React.MouseEvent) => {
-      if (typeof origOnClick === 'function') origOnClick(e);
       e.preventDefault();
     },
     onKeyDown: (e: React.KeyboardEvent) => {
-      if (typeof origOnKeyDown === 'function') origOnKeyDown(e);
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
       }

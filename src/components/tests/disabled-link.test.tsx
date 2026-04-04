@@ -83,52 +83,28 @@ describe('resolveDisabledLink', () => {
     expect(result['data-testid']).toBe('link');
   });
 
-  it('should call consumer onClick handler before preventDefault when disabled', () => {
-    const callOrder: string[] = [];
-    const consumerOnClick = jest.fn(() => callOrder.push('consumer'));
+  it('should drop consumer onClick when disabled (Ant Design pattern)', () => {
+    const consumerOnClick = jest.fn();
     const props = { href: '/test', onClick: consumerOnClick };
     const result = resolveDisabledLink(props, true) as Record<string, unknown>;
 
-    const mockEvent = {
-      preventDefault: jest.fn(() => callOrder.push('preventDefault')),
-    } as unknown as React.MouseEvent;
+    const mockEvent = { preventDefault: jest.fn() } as unknown as React.MouseEvent;
     (result.onClick as (e: React.MouseEvent) => void)(mockEvent);
 
-    expect(consumerOnClick).toHaveBeenCalledWith(mockEvent);
+    expect(consumerOnClick).not.toHaveBeenCalled();
     expect(mockEvent.preventDefault).toHaveBeenCalled();
-    expect(callOrder).toEqual(['consumer', 'preventDefault']);
   });
 
-  it('should call consumer onKeyDown handler before preventDefault when disabled', () => {
-    const callOrder: string[] = [];
-    const consumerOnKeyDown = jest.fn(() => callOrder.push('consumer'));
-    const props = { href: '/test', onKeyDown: consumerOnKeyDown };
-    const result = resolveDisabledLink(props, true) as Record<string, unknown>;
-
-    const enterEvent = {
-      key: 'Enter',
-      preventDefault: jest.fn(() => callOrder.push('preventDefault')),
-    } as unknown as React.KeyboardEvent;
-    (result.onKeyDown as (e: React.KeyboardEvent) => void)(enterEvent);
-
-    expect(consumerOnKeyDown).toHaveBeenCalledWith(enterEvent);
-    expect(enterEvent.preventDefault).toHaveBeenCalled();
-    expect(callOrder).toEqual(['consumer', 'preventDefault']);
-  });
-
-  it('should call consumer onKeyDown handler even for non-activation keys', () => {
+  it('should drop consumer onKeyDown when disabled on activation keys', () => {
     const consumerOnKeyDown = jest.fn();
     const props = { href: '/test', onKeyDown: consumerOnKeyDown };
     const result = resolveDisabledLink(props, true) as Record<string, unknown>;
 
-    const tabEvent = {
-      key: 'Tab',
-      preventDefault: jest.fn(),
-    } as unknown as React.KeyboardEvent;
-    (result.onKeyDown as (e: React.KeyboardEvent) => void)(tabEvent);
+    const enterEvent = { key: 'Enter', preventDefault: jest.fn() } as unknown as React.KeyboardEvent;
+    (result.onKeyDown as (e: React.KeyboardEvent) => void)(enterEvent);
 
-    expect(consumerOnKeyDown).toHaveBeenCalledWith(tabEvent);
-    expect(tabEvent.preventDefault).not.toHaveBeenCalled();
+    expect(consumerOnKeyDown).not.toHaveBeenCalled();
+    expect(enterEvent.preventDefault).toHaveBeenCalled();
   });
 
   it('should work without consumer handlers (no onClick/onKeyDown on props)', () => {
