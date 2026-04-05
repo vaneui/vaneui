@@ -56,6 +56,11 @@ d. **Prop Leak Check**
    - Verify boolean props don't leak to DOM
    - Check tests cover prop leak prevention
 
+## Effort scaling
+- Quick review (single file or focused check): 2-5 tool calls, inline findings
+- Standard review (feature/PR scope, 3-10 files): 5-15 tool calls, structured report with severity
+- Full audit (module or codebase-wide): 15-30 tool calls, prioritized findings with fix suggestions
+
 ## Output Format
 
 ```

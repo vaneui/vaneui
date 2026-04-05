@@ -68,12 +68,21 @@ When creating or modifying components, **ALL steps below must be completed**. Us
 
 **Work is NOT complete until tests are written and all verification passes.**
 
-### Subagents
+### Agent Delegation (REQUIRED)
 
-- `component-implementation` — Guides complete implementation workflow
-- `pre-commit-checker` — Verifies all checks pass before commit
-- `test-runner` — Runs tests and reports results
-- `component-auditor` — Audits component for completeness
+When a task matches an agent's trigger below, you **MUST** delegate to that agent. Do not perform the work inline when a matching agent exists.
+
+| Task Pattern | Agent | Why |
+|-------------|-------|-----|
+| Creating new components or full implementation workflow | `component-implementation` | Guides all required steps end-to-end |
+| Before committing any code changes | `pre-commit-checker` | Runs type-check → lint → test → build gate |
+| After writing or modifying tests | `test-runner` | Runs Jest + reports results efficiently (haiku) |
+| Auditing component completeness (theme, tests, exports) | `component-auditor` | Validates all layers are wired correctly |
+| Debugging component rendering, prop, or styling issues | `debugger` | Traces 3-layer prop system end-to-end |
+| Debugging theme/CSS variable issues specifically | `theme-debugger` | Specializes in CSS variable chain and theme inheritance |
+| Reviewing code quality, patterns, security | `code-reviewer` | Cross-layer review with VaneUI conventions |
+
+**Exception:** Do not delegate tasks completable in 1-2 tool calls (reading a file, checking a type, small inline edit).
 
 ## Commands
 

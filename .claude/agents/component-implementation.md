@@ -216,3 +216,8 @@ vaneType: ui | layout
 3. **Missing index.ts export** — Component won't be part of public API
 4. **Boolean props leaking to DOM** — Ensure getComponentConfig filters them
 5. **Wrong vaneType** — UI components have compact spacing, layout has generous spacing
+
+## Effort scaling
+- Quick fix (single file, isolated change): 3-8 tool calls, implement + verify
+- Standard feature (multi-file, tests needed): 8-25 tool calls, implement + test + verify
+- Large feature (cross-module, architecture decisions): 25-50 tool calls, plan → implement → test → verify

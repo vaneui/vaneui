@@ -49,3 +49,8 @@ npm run build         # Full build (type-check + lint + rollup + CSS)
 ```
 
 Return a concise review with specific file:line references and severity (error/warning/info).
+
+## Effort scaling
+- Quick review (single file or focused check): 2-5 tool calls, inline findings
+- Standard review (feature/PR scope, 3-10 files): 5-15 tool calls, structured report with severity
+- Full audit (module or codebase-wide): 15-30 tool calls, prioritized findings with fix suggestions

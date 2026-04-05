@@ -65,6 +65,11 @@ npm run build         # Full build (type-check + lint + rollup + CSS)
 
 **Common pitfall**: `tsc --noEmit` can pass while tests fail due to circular dependencies. Always run BOTH.
 
+## Effort scaling
+- Quick lookup (single fact, specific file): 2-5 tool calls, 1-paragraph answer
+- Standard research (topic, comparison, investigation): 5-15 tool calls, structured findings with evidence
+- Deep investigation (root cause, multi-system audit): 15-30 tool calls, comprehensive report with recommendations
+
 ## Output
 - State the root cause with file:line reference
 - Show the minimal fix (diff)

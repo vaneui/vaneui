@@ -111,16 +111,16 @@
     --color-bg-filled-layout-warning: var(--color-yellow-800);
     --color-bg-filled-layout-info: var(--color-blue-700);
 
-    /* Border Colors (darkened to meet WCAG 1.4.11 non-text contrast 3:1) */
-    --color-border-primary: var(--color-gray-400);
-    --color-border-brand: var(--color-blue-400);
-    --color-border-secondary: var(--color-gray-400);
-    --color-border-tertiary: var(--color-gray-400);
-    --color-border-accent: var(--color-rose-400);
-    --color-border-success: var(--color-emerald-500);
-    --color-border-danger: var(--color-red-400);
-    --color-border-warning: var(--color-amber-500);
-    --color-border-info: var(--color-cyan-500);
+    /* Border Colors */
+    --color-border-primary: var(--color-gray-200);
+    --color-border-brand: var(--color-blue-300);
+    --color-border-secondary: var(--color-gray-200);
+    --color-border-tertiary: var(--color-gray-200);
+    --color-border-accent: var(--color-rose-300);
+    --color-border-success: var(--color-emerald-300);
+    --color-border-danger: var(--color-red-300);
+    --color-border-warning: var(--color-amber-300);
+    --color-border-info: var(--color-cyan-300);
 
     /* Focus Ring Colors (used for focus-visible outline on all variants) */
     --color-focus-primary: var(--color-gray-600);
