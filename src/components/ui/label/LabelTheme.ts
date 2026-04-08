@@ -10,6 +10,7 @@ export interface LabelTheme extends BaseTypographyComponentTheme {
     gap: GapClassMapper;
   };
   appearance: {
+    background: SimpleConsumerClassMapper;
     text: SimpleConsumerClassMapper;
     border: SimpleConsumerClassMapper;
     ring: SimpleConsumerClassMapper;

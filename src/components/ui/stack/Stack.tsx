@@ -4,16 +4,16 @@ import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 
 /**
- * A vertical flex container for stacking elements.
+ * A vertical flex container for stacking elements with built-in padding.
  *
- * Arranges children vertically with consistent spacing. Supports responsive
- * breakpoints to switch to horizontal layout on larger screens. Uses layout
- * spacing for structural organization.
+ * Arranges children vertically with consistent spacing. Differs from `Col`
+ * by including default padding and `flexWrap`. Use for padded sections of
+ * content that should stack vertically.
  *
  * @example
  * ```tsx
  * // Basic vertical stack
- * <Stack gap>
+ * <Stack>
  *   <Button>Button 1</Button>
  *   <Button>Button 2</Button>
  *   <Button>Button 3</Button>
@@ -22,19 +22,10 @@ import { useTheme } from "../../themeContext";
  *
  * @example
  * ```tsx
- * // Stack with padding and alignment
- * <Stack padding gap itemsCenter>
+ * // Stack with centered alignment
+ * <Stack itemsCenter>
  *   <Title>Centered Content</Title>
  *   <Text>All items are centered</Text>
- * </Stack>
- * ```
- *
- * @example
- * ```tsx
- * // Responsive stack (becomes horizontal on desktop)
- * <Stack desktopCol gap>
- *   <Card>Item 1</Card>
- *   <Card>Item 2</Card>
  * </Stack>
  * ```
  *

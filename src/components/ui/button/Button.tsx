@@ -19,8 +19,8 @@ import { resolveDisabledLink } from "../../utils/disabledLink";
  *
  * @example
  * ```tsx
- * // Primary filled button with large size
- * <Button primary lg filled>Submit</Button>
+ * // Filled button with large size
+ * <Button lg filled>Submit</Button>
  * ```
  *
  * @example
@@ -31,8 +31,8 @@ import { resolveDisabledLink } from "../../utils/disabledLink";
  *
  * @example
  * ```tsx
- * // Danger button with custom styling
- * <Button danger outline className="w-full">Delete</Button>
+ * // Full-width danger button
+ * <Button danger className="w-full">Delete</Button>
  * ```
  *
  * @see {@link ButtonProps} for all available props

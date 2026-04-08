@@ -296,8 +296,8 @@ function buildCssAnchorStyles(
  *   anchorRef={anchorRef}
  * >
  *   <Stack noPadding>
- *     <Button ghost>Option 1</Button>
- *     <Button ghost>Option 2</Button>
+ *     <Button secondary>Option 1</Button>
+ *     <Button secondary>Option 2</Button>
  *   </Stack>
  * </Popup>
  * ```

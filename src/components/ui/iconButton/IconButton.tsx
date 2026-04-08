@@ -19,8 +19,8 @@ import { resolveDisabledLink } from "../../utils/disabledLink";
  *
  * @example
  * ```tsx
- * // Primary filled icon button with large size
- * <IconButton primary lg filled aria-label="Add"><PlusIcon /></IconButton>
+ * // Filled icon button with large size
+ * <IconButton lg filled aria-label="Add"><PlusIcon /></IconButton>
  * ```
  *
  * @example

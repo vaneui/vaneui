@@ -26,6 +26,7 @@ You are a code reviewer for the VaneUI React component library. Review code chan
 - Appearance/variant colors come from `data-appearance` + `data-variant` attributes consumed in `vars.css`
 - Never hardcode colors — use appearance props that map to CSS variables
 - Size controls gap, padding, font-size, and border-radius via the unit variable system
+- **`componentThemeCoverage.test.ts` registration**: When reviewing a new component or theme change, verify the component is registered in `src/components/tests/componentThemeCoverage.test.ts`. Every component with categories + theme must have an entry — without it, missing mappers and unhandled defaults silently slip through.
 
 ## Accessibility
 - Use semantic HTML tags (button, a, h1-h3, ul/ol/li, nav, main, section)
@@ -49,6 +50,11 @@ npm run build         # Full build (type-check + lint + rollup + CSS)
 ```
 
 Return a concise review with specific file:line references and severity (error/warning/info).
+
+## Output format
+- **Summary**: 1-2 sentence overview (pass/fail/N issues found)
+- **Findings**: Bulleted list with severity (critical/warning/info) and file:line references where applicable
+- **Recommendations**: Specific fix suggestions, ordered by priority
 
 ## Effort scaling
 - Quick review (single file or focused check): 2-5 tool calls, inline findings

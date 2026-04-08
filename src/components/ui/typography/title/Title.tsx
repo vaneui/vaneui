@@ -18,7 +18,7 @@ import { ThemedComponent } from "../../../themedComponent";
  * @example
  * ```tsx
  * // Title with custom appearance
- * <Title primary semibold>Installation</Title>
+ * <Title primary>Installation</Title>
  * ```
  *
  * @example

@@ -25,7 +25,6 @@ import type {
   TextAlignProps,
   PaddingProps,
   VariantProps,
-  TransparentProps,
   CursorProps,
   TransitionProps,
   WhitespaceProps,
@@ -38,6 +37,11 @@ import type {
 
 /**
  * MenuLabel component props — non-interactive section heading for menu groups.
+ *
+ * Intentionally does NOT include `TransparentProps`. MenuLabel is
+ * background-less by design (see `defaultMenuLabelTheme.ts` and the
+ * `menu.test.tsx` "should have no background classes" assertion), so the
+ * `transparent` prop has no effect and is excluded from the type.
  */
 export type MenuLabelProps = BaseProps &
   SizeProps &
@@ -64,7 +68,6 @@ export type MenuLabelProps = BaseProps &
   TextAlignProps &
   PaddingProps &
   VariantProps &
-  TransparentProps &
   CursorProps &
   TransitionProps &
   WhitespaceProps &

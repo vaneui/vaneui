@@ -12,6 +12,7 @@ export interface ListItemTheme extends BaseTypographyComponentTheme {
     lineHeight: LineHeightClassMapper;
   };
   appearance: {
+    background: SimpleConsumerClassMapper;
     text: SimpleConsumerClassMapper;
   };
   layout: DefaultLayoutClassMappers;

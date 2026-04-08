@@ -4,11 +4,11 @@ import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 
 /**
- * A semantic section container for grouping related content.
+ * A section container for grouping related content with generous spacing.
  *
- * Renders as a semantic HTML section element with generous layout spacing.
- * Use to organize page content into logical sections. Supports responsive
- * flex direction with breakpoint props (mobileCol, tabletCol, etc.).
+ * A vertical flex container with built-in padding and `responsive: true`,
+ * intended to organize page content into logical sections. Renders as a
+ * `<div>` by default — pass `tag="section"` for semantic HTML.
  *
  * @example
  * ```tsx
@@ -21,8 +21,8 @@ import { useTheme } from "../../themeContext";
  *
  * @example
  * ```tsx
- * // Section with padding and gap
- * <Section padding gap>
+ * // Semantic <section> element
+ * <Section tag="section">
  *   <Title>Features</Title>
  *   <Text>Feature descriptions...</Text>
  * </Section>
@@ -30,11 +30,11 @@ import { useTheme } from "../../themeContext";
  *
  * @example
  * ```tsx
- * // Responsive section that stacks on tablets
- * <Section tabletCol gap>
+ * // Two-column row that stacks on tablets — use Row, not Section
+ * <Row tabletCol>
  *   <Card>Card 1</Card>
  *   <Card>Card 2</Card>
- * </Section>
+ * </Row>
  * ```
  *
  * @see {@link SectionProps} for all available props

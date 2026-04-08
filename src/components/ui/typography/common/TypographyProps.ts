@@ -16,7 +16,6 @@ import type {
   OverflowProps,
   AppearanceProps,
   VariantProps,
-  TransparentProps,
   ResponsiveProps,
   TruncateProps,
   LetterSpacingProps,
@@ -25,7 +24,14 @@ import type {
   CursorProps
 } from '../../props';
 
-/** Typography component props (for Text, PageTitle, SectionTitle, Title, ListItem) */
+/**
+ * Typography component props (for Text, PageTitle, SectionTitle, Title, Link, Blockquote).
+ *
+ * Intentionally does NOT include `TransparentProps`. Typography components
+ * are background-less by design — see `typographyClassMappers.ts` — so the
+ * `transparent` prop has no effect and is excluded from the type. For a
+ * highlighted-text effect, use the `Mark` component.
+ */
 export type TypographyProps = BaseProps &
   FontWeightProps &
   FontStyleProps &
@@ -44,7 +50,6 @@ export type TypographyProps = BaseProps &
   OverflowProps &
   AppearanceProps &
   VariantProps &
-  TransparentProps &
   ResponsiveProps &
   WidthProps &
   HeightProps &

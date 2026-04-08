@@ -148,11 +148,11 @@ class ComponentThemeTester {
       shape: 'rounded',
       ring: 'ring'
     };
-    
+
     // Test by setting the category to the key value vs a different value
     const extractedWithKey: Record<string, unknown> = { ...baseContext };
     extractedWithKey[category] = key;
-    
+
     const extractedWithDifferent: Record<string, unknown> = { ...baseContext };
     // Use a different value for the category that should produce different output
     if (category === 'shape') {
@@ -172,19 +172,19 @@ class ComponentThemeTester {
     } else {
       extractedWithDifferent[category] = 'INVALID_TEST_VALUE_DIFFERENT_FROM_KEY';
     }
-    
+
     try {
       const classesWithKey = theme.getClasses(extractedWithKey as Parameters<typeof theme.getClasses>[0]);
       const classesWithDifferent = theme.getClasses(extractedWithDifferent as Parameters<typeof theme.getClasses>[0]);
-      
+
       const keyContent = Array.isArray(classesWithKey) ? classesWithKey.filter(s => s && s.trim()).join(' ') : '';
       const differentContent = Array.isArray(classesWithDifferent) ? classesWithDifferent.filter(s => s && s.trim()).join(' ') : '';
-      
+
       // A theme handles a category if it produces different output for different category values
       // OR if it produces any non-empty output for the key (handles uniform values)
       const hasOutput = keyContent.length > 0;
       const hasDifferentOutput = keyContent !== differentContent;
-      
+
       return hasDifferentOutput || hasOutput;
     } catch {
       return false;
@@ -273,6 +273,101 @@ interface ComponentTestConfig {
     name: string;
     theme: { defaults?: Record<string, unknown>, themes?: unknown };
   }>;
+  /**
+   * Categories that are NOT read by any class mapper because the component
+   * itself extracts them at runtime (e.g., Popup extracts `placement` via
+   * `pickFirstTruthyKeyByCategory` in its render function and uses it for
+   * inline anchor positioning styles, not class names). These count as
+   * "handled" by the dead-category check and avoid false positives.
+   */
+  componentExtractedCategories?: readonly string[];
+  /**
+   * Categories that the dead-category check has flagged as inert — props the
+   * *Props type accepts but with zero runtime effect (no mapper reads them,
+   * no data attribute, no component-level extraction).
+   *
+   * Each entry is a TODO that should be resolved by either:
+   *   (a) removing the prop interface from the *Props type AND removing the
+   *       category from the *_CATEGORIES array, OR
+   *   (b) adding the missing class mapper to the component's theme tree.
+   *
+   * The test validates `actual dead set === knownDeadCategories set` — adding
+   * a NEW dead category fails the test, and removing one (i.e., actually
+   * fixing it) ALSO fails the test until you remove the entry here. This
+   * forces explicit acknowledgment of every dead prop and prevents silent
+   * regressions.
+   */
+  knownDeadCategories?: readonly string[];
+}
+
+/**
+ * Categories that are intentionally NOT handled by class mappers and instead
+ * flow through to DOM data attributes (`data-size`, `data-appearance`,
+ * `data-variant`, `data-responsive`, `data-disabled`). The CSS uses these
+ * attribute selectors to apply styling, so the corresponding class mappers
+ * either don't exist or emit a static class that consumes a CSS variable
+ * (e.g., `text-(length:--fs)`) without branching on the category key.
+ *
+ * `getComponentConfig()` in `ComponentTheme.tsx` is the source of truth for
+ * which categories get a data attribute — keep this set in sync with it.
+ */
+const DATA_ATTRIBUTE_ONLY_CATEGORIES = new Set<string>([
+  'size',
+  'appearance',
+  'variant',
+  'responsive',
+  'disabled',
+]);
+
+/**
+ * Run a mapper's `getClasses` against a Proxy that records which
+ * `extractedKeys` properties were touched. Returns the set of property
+ * names the mapper actually reads — i.e., the categories it handles.
+ */
+function detectMapperReadCategories(mapper: BaseClassMapper): Set<string> {
+  const accessed = new Set<string>();
+  // Provide every known category key so any branch the mapper takes can run.
+  const target: Record<string, string> = {};
+  for (const cat of Object.keys(ComponentKeys) as Array<keyof ComponentKeysType>) {
+    const keys = ComponentKeys[cat] as readonly string[];
+    if (keys.length > 0) {
+      target[cat] = keys[0];
+    }
+  }
+  const probe = new Proxy(target, {
+    get(t, prop: string | symbol) {
+      if (typeof prop === 'string') {
+        accessed.add(prop);
+      }
+      return (t as Record<string | symbol, unknown>)[prop];
+    },
+    has(t, prop) {
+      if (typeof prop === 'string') {
+        accessed.add(prop);
+      }
+      return prop in t;
+    },
+  });
+  try {
+    mapper.getClasses(probe as Parameters<typeof mapper.getClasses>[0]);
+  } catch {
+    // Some mappers may throw on the probe context — fall through with whatever
+    // keys they touched before throwing. The set is still informative.
+  }
+  return accessed;
+}
+
+/**
+ * For a list of mappers, return the union of all categories any of them reads.
+ */
+function collectReadCategories(mappers: BaseClassMapper[]): Set<string> {
+  const all = new Set<string>();
+  for (const m of mappers) {
+    for (const k of detectMapperReadCategories(m)) {
+      all.add(k);
+    }
+  }
+  return all;
 }
 
 describe("Component theme coverage tests", () => {
@@ -290,6 +385,69 @@ describe("Component theme coverage tests", () => {
     // Test overall coverage across all themes
     it(`should ensure all ${config.propsType} keys have theme mappings across all ${config.propsType.toLowerCase()} themes`, () => {
       tester.testCategoryCoverage(config.propsType, config.categories, config.themes);
+    });
+
+    // STRICT: every category in the component's categories array must be one
+    // of:
+    //   (a) read by at least one class mapper in the theme tree
+    //   (b) a data-attribute-only category (size/appearance/variant/...)
+    //   (c) a component-level extracted category (e.g., Popup `placement`)
+    //   (d) listed in `knownDeadCategories` as a documented TODO
+    //
+    // The check is `actual dead set === knownDeadCategories set` — both
+    // adding NEW dead categories and SILENTLY FIXING listed ones will fail
+    // the test, forcing explicit acknowledgment of every change.
+    //
+    // This catches cases where a category is declared on the component but
+    // no mapper actually responds to it — e.g., GridProps used to include
+    // BreakpointProps even though gridSubThemes had no BreakpointClassMapper,
+    // making `<Grid2 mobileCol>` a silent no-op. The previous coverage check
+    // missed this because it only verified "does any mapper produce
+    // non-empty output", not "does any mapper actually read this category".
+    it(`should ensure every ${config.propsType} category is read by a mapper, marked as data-attribute, component-extracted, or known-dead`, () => {
+      const allMappers = config.themes.flatMap(({theme}) => tester.collectBaseClassMappers(theme.themes));
+      const readCategories = collectReadCategories(allMappers);
+      const componentExtracted = new Set(config.componentExtractedCategories ?? []);
+      const knownDead = new Set(config.knownDeadCategories ?? []);
+
+      // Compute the actual set of dead categories — those not handled anywhere.
+      const actualDead = new Set(
+        config.categories.filter(cat =>
+          !readCategories.has(cat) &&
+          !DATA_ATTRIBUTE_ONLY_CATEGORIES.has(cat) &&
+          !componentExtracted.has(cat)
+        )
+      );
+
+      // Diff: anything in actualDead but not in knownDead is a NEW dead prop.
+      const newlyDead = [...actualDead].filter(cat => !knownDead.has(cat));
+      // Diff: anything in knownDead but not in actualDead is something that
+      // got silently fixed and should be removed from the allowlist.
+      const noLongerDead = [...knownDead].filter(cat => !actualDead.has(cat));
+
+      const errors: string[] = [];
+      if (newlyDead.length > 0) {
+        const themeNames = config.themes.map(t => t.name).join(', ');
+        errors.push(
+          `${config.propsType} declares the following NEW dead categories that no mapper in [${themeNames}] reads from extractedKeys:\n` +
+          newlyDead.map(cat => `  - ${cat}`).join('\n') +
+          `\n\nThese props are silently dead. Either remove them from the *_CATEGORIES array and the *Props type, ` +
+          `or add a class mapper that reads extractedKeys.${newlyDead[0]}.`
+        );
+      }
+      if (noLongerDead.length > 0) {
+        errors.push(
+          `${config.propsType} lists the following categories in knownDeadCategories that are no longer dead:\n` +
+          noLongerDead.map(cat => `  - ${cat}`).join('\n') +
+          `\n\nNice! Remove them from knownDeadCategories so the test stays accurate.`
+        );
+      }
+      if (errors.length > 0) {
+        throw new Error(errors.join('\n\n'));
+      }
+
+      expect(newlyDead.length).toBe(0);
+      expect(noLongerDead.length).toBe(0);
     });
   };
 
@@ -364,7 +522,7 @@ describe("Component theme coverage tests", () => {
         { name: "defaultPageTitleTheme", theme: defaultPageTitleTheme },
         { name: "defaultSectionTitleTheme", theme: defaultSectionTitleTheme },
         { name: "defaultBlockquoteTheme", theme: defaultBlockquoteTheme }
-      ]
+      ],
     };
     createThemeTests(typographyConfig);
 
@@ -374,7 +532,7 @@ describe("Component theme coverage tests", () => {
       categories: TYPOGRAPHY_CATEGORIES,
       themes: [
         { name: "defaultLinkTheme", theme: defaultLinkTheme }
-      ]
+      ],
     };
     createThemeTests(linkConfig);
 
@@ -385,7 +543,7 @@ describe("Component theme coverage tests", () => {
       themes: [
         { name: "defaultListTheme", theme: defaultListTheme },
         { name: "defaultListItemTheme", theme: defaultListItemTheme }
-      ]
+      ],
     };
     createThemeTests(listConfig);
   });
@@ -514,7 +672,7 @@ describe("Component theme coverage tests", () => {
       categories: LABEL_CATEGORIES,
       themes: [
         { name: "defaultLabelTheme", theme: defaultLabelTheme }
-      ]
+      ],
     };
     createThemeTests(labelConfig);
   });
@@ -547,7 +705,12 @@ describe("Component theme coverage tests", () => {
       categories: POPUP_CATEGORIES,
       themes: [
         { name: "defaultPopupTheme", theme: defaultPopupTheme }
-      ]
+      ],
+      // Popup extracts `placement` itself in Popup.tsx via
+      // `pickFirstTruthyKeyByCategory(props, theme.popup.defaults, 'placement')`
+      // and uses the result for inline anchor positioning styles, not classes.
+      // It is genuinely handled, just not by a class mapper.
+      componentExtractedCategories: ['placement'],
     };
     createThemeTests(popupConfig);
 
@@ -626,7 +789,7 @@ describe("Component theme coverage tests", () => {
       categories: MENU_LABEL_CATEGORIES,
       themes: [
         { name: "defaultMenuLabelTheme", theme: defaultMenuLabelTheme }
-      ]
+      ],
     };
     createThemeTests(menuLabelConfig);
   });

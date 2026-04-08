@@ -117,26 +117,51 @@ export const BUTTON_CATEGORIES = UI_ELEMENT_CATEGORIES;
 export const ICON_CATEGORIES = ['size', 'appearance', 'variant', 'display', 'hide', 'items', 'justify'] as const;
 
 // =============================================================================
-// Container Layout Categories (Container, Grid)
+// Grid Categories (Grid2-Grid6)
 // =============================================================================
 
-/** Categories for container layout components (Container, Grid) */
-export const CONTAINER_LAYOUT_CATEGORIES = [
+/**
+ * Categories for Grid components.
+ *
+ * Grid uses CSS `display: grid`, so several props that exist on Container are
+ * intentionally excluded:
+ *   - `breakpoint` (mobileCol/tabletCol/desktopCol) applies `flex-direction:
+ *     column`, which has no effect on a grid container.
+ *   - `shadow` and `ring` — gridSubThemes has no shadow/ring mappers, so
+ *     these props would be silently inert.
+ *   - `textAlign` — Grid is a layout primitive, not a text container; it has
+ *     no typography mappers wired up.
+ *
+ * If you need any of the above, wrap the Grid in a Card/Section instead.
+ */
+export const GRID_CATEGORIES = [
   ...LAYOUT_FULL,
   ...PADDING,
-  ...VISUAL_LAYOUT,
+  ...VISUAL_CORE,
+  ...BORDER,
+  ...SHAPE,
   ...VARIANT,
   ...WIDTH,
   ...HEIGHT,
-  ...BREAKPOINT,
-  ...TEXT_ALIGN,
   ...COMMON_MODIFIERS,
 ] as const;
 
-/** Container component categories */
-export const CONTAINER_CATEGORIES = CONTAINER_LAYOUT_CATEGORIES;
-/** Grid component categories */
-export const GRID_CATEGORIES = CONTAINER_LAYOUT_CATEGORIES;
+// =============================================================================
+// Container Categories
+// =============================================================================
+
+/**
+ * Container component categories. Container is a flex column wrapper, so
+ * unlike Grid it supports `breakpoint` (direction switching), `shadow`,
+ * `ring`, and `textAlign` — defaultContainerTheme has the corresponding
+ * class mappers wired up.
+ */
+export const CONTAINER_CATEGORIES = [
+  ...GRID_CATEGORIES,
+  ...BREAKPOINT,
+  ...VISUAL_DECORATION_LAYOUT,  // shadow + ring
+  ...TEXT_ALIGN,
+] as const;
 
 // =============================================================================
 // Responsive Layout Categories (Stack, Row)
@@ -166,7 +191,7 @@ export const ROW_CATEGORIES = RESPONSIVE_LAYOUT_CATEGORIES;
 
 /** @deprecated Use UI_ELEMENT_CATEGORIES instead */
 export const INTERACTIVE_CATEGORIES = UI_ELEMENT_CATEGORIES;
-/** @deprecated Use CONTAINER_LAYOUT_CATEGORIES instead */
-export const BASIC_LAYOUT_CATEGORIES = CONTAINER_LAYOUT_CATEGORIES;
+/** @deprecated Use CONTAINER_CATEGORIES instead */
+export const BASIC_LAYOUT_CATEGORIES = CONTAINER_CATEGORIES;
 /** @deprecated Use RESPONSIVE_LAYOUT_CATEGORIES instead */
 export const FLEX_LAYOUT_CATEGORIES = RESPONSIVE_LAYOUT_CATEGORIES;

@@ -36,7 +36,13 @@ npm run build
 ```
 If build fails, report the error and stop.
 
-### 5. New Component Verification
+### 5. E2E Tests
+```bash
+npm run test:e2e
+```
+Required after visual/CSS/theme changes, new components, or before publishing. Validates computed CSS styles in a real browser (color inheritance, font-size scaling, border rendering) which Jest can't check. If e2e fails, report the failures and stop.
+
+### 6. New Component Verification
 
 For any new or modified components in `src/components/ui/`, verify:
 
@@ -70,7 +76,8 @@ Pre-commit Verification: PASS | FAIL
 2. Lint:        PASS/FAIL
 3. Tests:       PASS/FAIL (X passed, Y failed)
 4. Build:       PASS/FAIL
-5. Components:
+5. E2E:         PASS/FAIL (X passed, Y failed)
+6. Components:
    - Test files: PASS/FAIL (missing: ComponentName)
    - Exports:    PASS/FAIL (missing: ComponentName)
    - Themes:     PASS/FAIL (missing: ComponentName)

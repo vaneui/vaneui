@@ -6,9 +6,10 @@ import { useTheme } from "../../themeContext";
 /**
  * A page-level content wrapper with maximum width constraints.
  *
- * Provides consistent horizontal padding and centers content on the page.
- * Typically the outermost wrapper for page content. Uses layout spacing
- * (larger gaps) for structural organization.
+ * Centers content horizontally on the page (`mx-auto`) and constrains it
+ * to a max-width that scales with the size prop. Has no padding by default —
+ * use `padding` prop or wrap children in `Section` for spacing. Typically
+ * the outermost wrapper for page content.
  *
  * @example
  * ```tsx
@@ -21,8 +22,8 @@ import { useTheme } from "../../themeContext";
  *
  * @example
  * ```tsx
- * // Container with custom spacing
- * <Container lg gap>
+ * // Larger max-width
+ * <Container lg>
  *   <Section>Section 1</Section>
  *   <Section>Section 2</Section>
  * </Container>

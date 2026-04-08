@@ -1,4 +1,4 @@
-import { ComponentTheme, defaultSizedLayoutClassMappers, defaultTypographyClassMappers, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "../theme/common";
+import { ComponentTheme, defaultSizedLayoutClassMappers, defaultTypographyClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "../theme/common";
 import type { LabelProps } from "./LabelProps";
 import { GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
 import { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper } from "../theme/layout";
@@ -16,6 +16,7 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       gap: new GapClassMapper(),
     },
     appearance: {
+      background: bgAppearance,
       text: textAppearance,
       border: borderAppearance,
       ring: ringAppearance,

@@ -18,8 +18,8 @@ import { useTheme } from "../../themeContext";
  *
  * @example
  * ```tsx
- * // Email input with primary styling
- * <Input type="email" primary outline placeholder="Email address" />
+ * // Email input
+ * <Input type="email" placeholder="Email address" />
  * ```
  *
  * @example

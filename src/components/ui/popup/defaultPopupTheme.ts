@@ -1,4 +1,4 @@
-import { ComponentTheme, layoutClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "../theme/common";
+import { ComponentTheme, defaultTypographyClassMappers, layoutClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "../theme/common";
 import type { PopupProps } from "./PopupProps";
 import type { PopupTheme } from "./PopupTheme";
 import { POPUP_CATEGORIES } from "./PopupCategories";
@@ -17,6 +17,12 @@ import { MaxHeightClassMapper, MinWidthClassMapper, PointerEventsClassMapper, Tr
  * - overflowAuto: Scrollable content (default: true)
  * - maxHeight: Size-dependent max-height via --max-height (default: true)
  * - padding, gap, rounded, shadow: Visual styling (default: true)
+ *
+ * Includes `typography: defaultTypographyClassMappers` to mirror Modal —
+ * Popup is also a wrapper around arbitrary children, and its categories
+ * include `TYPOGRAPHY_FULL` (`fontWeight`, `fontStyle`, `textDecoration`,
+ * `textTransform`, `fontFamily`, `textAlign`, `truncate`). Without these
+ * mappers wired up those props would be silently dead.
  *
  * Menu popups omit maxHeight + overflowAuto, so they grow to fit content.
  */
@@ -40,6 +46,7 @@ export const defaultPopupTheme = new ComponentTheme<PopupProps, PopupTheme>(
       border: borderAppearance,
       ring: ringAppearance,
     },
+    typography: defaultTypographyClassMappers,
   },
   popupDefaults,
   POPUP_CATEGORIES,

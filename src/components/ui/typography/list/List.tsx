@@ -31,7 +31,7 @@ import { ThemedComponent } from "../../../themedComponent";
  * @example
  * ```tsx
  * // Styled list
- * <List primary lg padding>
+ * <List primary lg>
  *   <ListItem>Feature A</ListItem>
  *   <ListItem>Feature B</ListItem>
  * </List>

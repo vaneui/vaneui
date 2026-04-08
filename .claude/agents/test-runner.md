@@ -13,6 +13,9 @@ You are a test runner for the VaneUI project. Your job is to run tests and repor
 - Full suite: `npm test` (from project root)
 - Single file: `npx jest --no-coverage path/to/test.tsx`
 - Pattern: `npx jest --no-coverage -t "test name pattern"`
+- E2E suite: `npm run test:e2e` (Playwright — validates computed CSS styles in a real browser)
+
+**When to also run e2e:** If the changes are visual/CSS/theme related OR if a new component was added, also run `npm run test:e2e` for computed style validation. Jest can't verify color inheritance, font-size scaling, or border rendering in a real browser.
 
 ## Environment
 - Framework: Jest with ts-jest preset

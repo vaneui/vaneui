@@ -5,6 +5,7 @@ import {
   VARIANT,
   WIDTH,
   HEIGHT,
+  RESPONSIVE,
   COMMON_MODIFIERS,
   LIST_STYLE,
   PADDING,
@@ -15,7 +16,14 @@ const CURSOR = ['cursor'] as const;
 /** Letter spacing property for text tracking */
 const LETTER_SPACING = ['letterSpacing'] as const;
 
-/** Categories for typography components like Text, Title, Link */
+/**
+ * Categories for typography components like Text, Title, Link.
+ *
+ * Intentionally uses `RESPONSIVE` instead of the broader `COMMON_MODIFIERS`
+ * (which would also pull in `transparent`). Typography components are
+ * background-less by design — see `typographyClassMappers.ts` and
+ * `defaultLinkTheme.ts` — so the `transparent` prop has no meaning here.
+ */
 export const TYPOGRAPHY_CATEGORIES = [
   ...TYPOGRAPHY_FULL,
   ...LAYOUT_CORE,
@@ -25,7 +33,7 @@ export const TYPOGRAPHY_CATEGORIES = [
   ...LETTER_SPACING,
   ...WIDTH,
   ...HEIGHT,
-  ...COMMON_MODIFIERS,
+  ...RESPONSIVE,
 ] as const;
 
 /** Categories for list components with typography and list-specific styling */

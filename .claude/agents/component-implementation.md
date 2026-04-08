@@ -67,9 +67,22 @@ import type { CategoryProps, MyCategoryKey } from "../../props";
   - Export component
   - Export component props type (if public API)
 
+- [ ] Add playground examples to `playground/src/App.tsx`:
+  - Follow the existing section pattern: `Divider` + `SectionTitle` + multiple `Card` examples
+  - Show: default usage, size variants, appearance variants, key props, real-world context
+  - Cleanup: condense or remove older examples so `App.tsx` stays focused (~3-5 sections)
+  - See `.claude/rules/playground-examples.md` for patterns
+
 ### Phase 4: Testing (REQUIRED)
 
 Create test file: `src/components/tests/{component}.test.tsx`
+
+**Also REQUIRED**: Register the component in `src/components/tests/componentThemeCoverage.test.ts`. Every component with categories + theme must be entered here so the test validates that all category keys have theme mappers and all boolean defaults have handlers. Components sharing categories (e.g., IconButton shares `BUTTON_CATEGORIES` with Button) add their theme to the existing config's `themes[]` array. `.withDefaults()` variants only need a standalone `testThemeDefaults()` call. **Without this entry, prop/mapper mismatches are silent.**
+
+**Also REQUIRED**: Add e2e fixtures and spec:
+- Add fixtures for the component to `e2e/fixtures/test-harness.tsx` with `data-testid` attributes
+- Create `e2e/{component}.spec.ts` validating computed CSS styles in a real browser (color inheritance, font-size scaling, border rendering)
+- See `.claude/rules/e2e-testing.md` for patterns
 
 Required test coverage:
 
@@ -181,6 +194,9 @@ npm test
 
 # 4. Full build
 npm run build
+
+# 5. E2E tests (Playwright — validates computed CSS in a real browser)
+npm run test:e2e
 ```
 
 ## Reporting
@@ -193,16 +209,23 @@ Component Implementation Complete: {ComponentName}
 Files Created/Modified:
 - src/components/ui/{component}.tsx ✓
 - src/components/ui/theme/{component}Theme.ts ✓
+- src/components/ui/{component}/{component}Defaults.ts ✓
 - src/components/ui/props/keys.ts (if modified) ✓
 - src/components/themeContext.tsx ✓
+- src/components/ui/theme/defaults.ts ✓
 - src/index.ts ✓
 - src/components/tests/{component}.test.tsx ✓
+- src/components/tests/componentThemeCoverage.test.ts ✓
+- playground/src/App.tsx ✓
+- e2e/fixtures/test-harness.tsx ✓
+- e2e/{component}.spec.ts ✓
 
 Verification:
 - TypeScript: PASS
 - Lint: PASS
 - Tests: PASS (X tests)
 - Build: PASS
+- E2E: PASS (X tests)
 
 Prop Categories: size, appearance, variant, shape, ...
 Defaults: md, primary, outline, rounded, ...

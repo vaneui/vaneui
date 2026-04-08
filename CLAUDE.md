@@ -199,3 +199,43 @@ Path-scoped rules in `.claude/rules/` provide detailed guidance when working wit
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for architecture details, CSS variable system internals, and development workflows.
+
+---
+
+## Superpowers Overrides for VaneUI
+
+### The Component Implementation Workflow IS the plan
+For component work, the "Component Implementation Workflow" section in this file IS the authoritative plan. The `superpowers:writing-plans` skill should NOT generate an alternative plan that conflicts with it. When adding a new component, the plan is:
+1. Follow the 6-step workflow in this CLAUDE.md (Create → Integrate → Test → Playground → E2E → Verify)
+2. Use `pre-commit-checker` agent at the end
+3. Done — do not invent additional steps
+
+### Do not use Superpowers' code-reviewer for component structure
+Component structure validation is done by:
+- `component-auditor` agent (structure compliance, 3-layer prop system)
+- `pre-commit-checker` agent (type-check → lint → test → build gate)
+- `componentThemeCoverage.test.ts` (automated category/mapper coverage)
+
+Superpowers' generic code-reviewer does not understand the 3-layer prop system, barrel export circular dependency traps, or the shared mapper collections. Do not use it for VaneUI component reviews — use the project-specific `code-reviewer` or `component-auditor` instead.
+
+### TDD for VaneUI components
+VaneUI already requires tests per the Component Implementation Workflow. Superpowers' TDD Iron Law aligns with this, BUT the test file is created alongside the component per the workflow order:
+1. Component file → 2. Theme integration → 3. Tests → 4. Playground → 5. E2E → 6. Verify
+
+Do not rearrange this order to satisfy strict test-first TDD. Tests written before the component file would fail to compile due to missing imports. The workflow order is authoritative.
+
+### Brainstorming scope for VaneUI
+New components DO need brainstorming, but brainstorm the **API** (which props, which variants, which defaults), not the file structure. The file structure is already defined by the workflow above.
+
+Skip brainstorming entirely for:
+- Adding a new prop to an existing component
+- Fixing a theme/CSS variable issue (use `theme-debugger` agent)
+- Updating defaults for an existing component
+- Playground tweaks
+
+### Debugging skills
+For VaneUI-specific debugging, prefer the project agents:
+- Rendering/prop/styling issues → `debugger` agent
+- Theme/CSS variable issues → `theme-debugger` agent
+
+Fall back to `superpowers:systematic-debugging` only when the issue is not VaneUI-specific (e.g., a Rollup or Tailwind v4 config bug).

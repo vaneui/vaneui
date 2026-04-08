@@ -45,8 +45,8 @@ import { CardFooter } from './CardFooter';
  *
  * @example
  * ```tsx
- * // Card with styling
- * <Card primary outline shadow padding gap>
+ * // Card with shadow
+ * <Card shadow>
  *   <Title>Feature</Title>
  *   <Text>Description of the feature</Text>
  *   <Button>Learn More</Button>

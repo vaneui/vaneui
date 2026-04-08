@@ -15,6 +15,7 @@ export interface ListTheme extends BaseTypographyComponentTheme {
     paddingLeft: PlClassMapper;
   }
   appearance: {
+    background: SimpleConsumerClassMapper;
     text: SimpleConsumerClassMapper;
   };
   layout: DefaultSizedLayoutClassMappers;

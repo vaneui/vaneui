@@ -34,8 +34,8 @@ import { ThemedComponent } from "../../themedComponent";
  *
  * @example
  * ```tsx
- * // Primary checkbox with custom size
- * <Checkbox primary lg defaultChecked />
+ * // Large checkbox, checked by default
+ * <Checkbox lg defaultChecked />
  * ```
  *
  * @example

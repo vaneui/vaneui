@@ -1,4 +1,4 @@
-import type { BaseTypographyComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
+import type { BaseTypographyComponentTheme, DefaultSizedLayoutClassMappers, DefaultTypographyClassMappers } from "../theme/common";
 import type { RadiusClassMapper, DirectionClassMapper, BorderClassMapper, RingClassMapper, TransitionClassMapper, PointerEventsClassMapper, MinWidthClassMapper, MaxHeightClassMapper } from "../theme/layout";
 import type { GapClassMapper, PxClassMapper, PyClassMapper } from "../theme/size";
 import type { ShadowAppearanceClassMapper, SimpleConsumerClassMapper } from "../theme/appearance";
@@ -26,4 +26,5 @@ export interface PopupTheme extends BaseTypographyComponentTheme {
     border: SimpleConsumerClassMapper;
     ring: SimpleConsumerClassMapper;
   };
+  typography: DefaultTypographyClassMappers;
 }
