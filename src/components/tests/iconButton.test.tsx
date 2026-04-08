@@ -33,8 +33,9 @@ describe('IconButton Component Tests', () => {
       expect(button).toHaveClass('cursor-pointer');
       expect(button).toHaveAttribute('data-size', 'md');
       expect(button).toHaveAttribute('data-vane-type', 'ui');
-      expect(button).toHaveAttribute('data-variant', 'outline');
-      expect(button).toHaveAttribute('data-appearance', 'primary');
+      // Default IconButton inherits via :root — no explicit data-variant/appearance
+      expect(button).not.toHaveAttribute('data-variant');
+      expect(button).not.toHaveAttribute('data-appearance');
     });
 
     it('should render as anchor tag when href is provided', () => {
@@ -132,7 +133,7 @@ describe('IconButton Component Tests', () => {
       expect(button).toHaveAttribute('data-variant', 'filled');
     });
 
-    it('should render with outline variant by default', () => {
+    it('should NOT emit data-variant by default (inherits via :root)', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <IconButton aria-label="Test"><TestIcon /></IconButton>
@@ -140,7 +141,7 @@ describe('IconButton Component Tests', () => {
       );
 
       const button = container.querySelector('button');
-      expect(button).toHaveAttribute('data-variant', 'outline');
+      expect(button).not.toHaveAttribute('data-variant');
     });
   });
 

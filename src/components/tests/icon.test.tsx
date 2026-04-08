@@ -54,7 +54,9 @@ describe('Icon Component Tests', () => {
       );
 
       const icon = container.querySelector('span');
-      expect(icon).toHaveAttribute('data-variant', 'outline');
+      // Default Icon inherits via :root — no explicit data-variant
+      expect(icon).not.toHaveAttribute('data-variant');
+      expect(icon).not.toHaveAttribute('data-appearance');
     });
   });
 

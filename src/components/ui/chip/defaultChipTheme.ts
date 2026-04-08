@@ -13,3 +13,7 @@ export const defaultChipTheme = new ComponentTheme<ChipProps, ChipTheme>(
   (props: ChipProps) => props.href ? "a" : "span",
   'ui'
 );
+// `secondary outline` from chipDefaults is Chip's semantic identity — a
+// muted tag-style token whose appearance should not be inherited from a
+// filled ancestor.
+defaultChipTheme.hasIdentity = true;

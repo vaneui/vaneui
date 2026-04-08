@@ -70,18 +70,18 @@ describe('Kbd Component', () => {
       expect(el).toHaveClass('border-[length:var(--bw)]');
     });
 
-    it('should have primary appearance by default', () => {
+    it('should NOT emit data-appearance by default (inherits via :root)', () => {
       const { container } = render(<Kbd>Ctrl</Kbd>);
       const el = container.querySelector('kbd');
 
-      expect(el).toHaveAttribute('data-appearance', 'primary');
+      expect(el).not.toHaveAttribute('data-appearance');
     });
 
-    it('should have outline variant by default', () => {
+    it('should NOT emit data-variant by default (inherits via :root)', () => {
       const { container } = render(<Kbd>Ctrl</Kbd>);
       const el = container.querySelector('kbd');
 
-      expect(el).toHaveAttribute('data-variant', 'outline');
+      expect(el).not.toHaveAttribute('data-variant');
     });
   });
 
@@ -130,13 +130,15 @@ describe('Kbd Component', () => {
   });
 
   describe('Variant Styles', () => {
-    it('should apply outline variant by default', () => {
+    it('should emit consumer classes but NOT data attributes by default', () => {
       const { container } = render(<Kbd>Key</Kbd>);
       const el = container.querySelector('kbd');
 
+      // Default Kbd reads its colors from :root via CSS variable cascade.
+      // Consumer classes are still emitted; data attributes are not.
       expect(el).toHaveClass('bg-(--bg-color)');
-      expect(el).toHaveAttribute('data-appearance', 'primary');
-      expect(el).toHaveAttribute('data-variant', 'outline');
+      expect(el).not.toHaveAttribute('data-appearance');
+      expect(el).not.toHaveAttribute('data-variant');
     });
 
     it('should apply filled variant when specified', () => {

@@ -15,19 +15,22 @@ describe('Nested ThemeProvider Tests', () => {
   
   describe('Theme Override Isolation', () => {
     it('should apply theme overrides only to inner elements', () => {
+      // Writing to `userDefaults` (not `defaults`) is the correct target for
+      // themeOverride callbacks that want to participate in data-attribute
+      // emission. `defaults` is the library baseline (soft fallback, no data
+      // attributes); `userDefaults` represents user intent and is merged
+      // into effective props at render time.
       const outerOverride = (theme: ThemeProps) => {
-        console.log('Before override:', theme.title.defaults);
-        theme.title.defaults = mergeDefaults(
-          theme.title.defaults as Record<string, boolean>, 
+        theme.title.userDefaults = mergeDefaults(
+          theme.title.userDefaults as Record<string, boolean>,
           { primary: true }
         );
-        console.log('After override:', theme.title.defaults);
         return theme;
       };
 
       const innerOverride = (theme: ThemeProps) => {
-        theme.title.defaults = mergeDefaults(
-          theme.title.defaults as Record<string, boolean>, 
+        theme.title.userDefaults = mergeDefaults(
+          theme.title.userDefaults as Record<string, boolean>,
           { secondary: true }
         );
         return theme;
@@ -108,16 +111,16 @@ describe('Nested ThemeProvider Tests', () => {
 
     it('should combine theme overrides and extra classes correctly in nested providers', () => {
       const outerOverride = (theme: ThemeProps) => {
-        theme.button.main.defaults = mergeDefaults(
-          theme.button.main.defaults as Record<string, boolean>, 
+        theme.button.main.userDefaults = mergeDefaults(
+          theme.button.main.userDefaults as Record<string, boolean>,
           { primary: true }
         );
         return theme;
       };
 
       const innerOverride = (theme: ThemeProps) => {
-        theme.button.main.defaults = mergeDefaults(
-          theme.button.main.defaults as Record<string, boolean>, 
+        theme.button.main.userDefaults = mergeDefaults(
+          theme.button.main.userDefaults as Record<string, boolean>,
           { lg: true }
         );
         return theme;
@@ -260,17 +263,20 @@ describe('Nested ThemeProvider Tests', () => {
 
   describe('Complete Isolation Test', () => {
     it('should isolate all theme modifications (overrides, defaults, and extra classes)', () => {
+      // themeOverride writes to `userDefaults` (not `defaults`) so values
+      // participate in data-attribute emission; see comment in the first
+      // "Theme Override Isolation" test above for rationale.
       const outerOverride = (theme: ThemeProps) => {
-        theme.button.main.defaults = mergeDefaults(
-          theme.button.main.defaults as Record<string, boolean>, 
+        theme.button.main.userDefaults = mergeDefaults(
+          theme.button.main.userDefaults as Record<string, boolean>,
           { outline: true }
         );
         return theme;
       };
 
       const innerOverride = (theme: ThemeProps) => {
-        theme.button.main.defaults = mergeDefaults(
-          theme.button.main.defaults as Record<string, boolean>, 
+        theme.button.main.userDefaults = mergeDefaults(
+          theme.button.main.userDefaults as Record<string, boolean>,
           { filled: true }
         );
         return theme;

@@ -45,5 +45,10 @@ export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new 
   'ui'
 );
 
+// `link outline` from linkDefaults is Link's semantic identity — a
+// hyperlink should render in the link palette (typically blue) regardless
+// of the ancestor appearance context.
+defaultLinkTheme.hasIdentity = true;
+
 /** Alias for backward compatibility */
 export const linkTheme = defaultLinkTheme;

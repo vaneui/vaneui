@@ -52,3 +52,7 @@ export const defaultMenuLabelTheme = new ComponentTheme<MenuLabelProps, MenuLabe
   undefined,
   'ui'
 );
+// `secondary outline` from menuLabelDefaults is MenuLabel's semantic
+// identity — a muted section heading color that should not inherit from
+// any ancestor appearance context.
+defaultMenuLabelTheme.hasIdentity = true;

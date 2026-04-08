@@ -148,13 +148,14 @@ describe('Code Component', () => {
   });
 
   describe('Variant Styles', () => {
-    it('should apply outline variant by default', () => {
+    it('should emit consumer classes but NOT data attributes by default', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
-      
-      // CSS-based approach: consumer class with data-appearance for styling
+
+      // Default Code reads its colors from :root via CSS variable cascade.
       expect(codeElement).toHaveClass('bg-(--bg-color)');
-      expect(codeElement).toHaveAttribute('data-appearance', 'primary');
+      expect(codeElement).not.toHaveAttribute('data-appearance');
+      expect(codeElement).not.toHaveAttribute('data-variant');
     });
 
     it('should apply filled variant when specified', () => {

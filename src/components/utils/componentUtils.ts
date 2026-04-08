@@ -1,4 +1,4 @@
-import { 
+import {
   ComponentKeys,
   ComponentCategoryKey,
 } from '../ui/props';
@@ -14,7 +14,7 @@ export function pickFirstTruthyKeyByCategory<T extends ComponentCategoryKey>(
   category: T
 ): typeof ComponentKeys[T][number] | undefined {
   const keys = ComponentKeys[category];
-  
+
   const falsyKeys: string[] = [];
 
   for (const k of keys) {

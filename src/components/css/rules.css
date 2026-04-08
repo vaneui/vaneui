@@ -44,13 +44,22 @@
 
 @layer components {
     /* Root-level defaults for CSS variable inheritance.
-       Without these, components using inherit would have undefined
-       --text-color and --border-color when no parent sets appearance. */
+       Mirrors [data-variant="outline"][data-appearance="primary"] so that any
+       component rendering in inherit mode (no data-variant / data-appearance
+       attributes) visually matches a standalone outline primary element.
+       Components with explicit variant/appearance override these on themselves
+       and their descendants via the direct selectors below. */
     :root {
         --text-color: var(--color-text-primary);
+        --bg-color: var(--color-bg-primary);
+        --bg-hover-color: var(--color-bg-hover-primary);
+        --bg-active-color: var(--color-bg-active-primary);
         --border-color: var(--color-border-primary);
+        --ring-color: var(--color-border-primary);
         --divider-color: var(--color-border-primary);
         --focus-color: var(--color-focus-primary);
+        --accent-color: var(--color-bg-primary);
+        --checked-bg-color: var(--color-bg-primary);
         --bw: 1px; /* Border width */
         --rw: 1px; /* Ring width */
     }
@@ -681,11 +690,14 @@
 
     /* -----------------------------------------
        FILLED VARIANT
-       Also applies to outline children inside a filled layout parent
-       via the descendant selector (variant inheritance).
+       Each rule sets palette CSS variables on the element itself.
+       Children inherit those variables via native CSS custom-property cascade
+       whenever they don't set their own variant/appearance (see contract in
+       ComponentTheme.tsx — data-variant/data-appearance are emitted only when
+       the user explicitly provides a prop). This makes explicit props on a
+       child always win over an inherited filled context.
        ----------------------------------------- */
-    [data-variant="filled"][data-appearance="primary"],
-    [data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="primary"] {
+    [data-variant="filled"][data-appearance="primary"] {
         --text-color: var(--color-text-filled-primary);
         --bg-color: var(--color-bg-filled-primary);
         --bg-hover-color: var(--color-bg-filled-hover-primary);
@@ -697,8 +709,7 @@
         --accent-color: var(--color-bg-filled-primary);
         --checked-bg-color: var(--color-bg-filled-primary);
     }
-    [data-variant="filled"][data-appearance="brand"],
-    [data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="brand"] {
+    [data-variant="filled"][data-appearance="brand"] {
         --text-color: var(--color-text-filled-brand);
         --bg-color: var(--color-bg-filled-brand);
         --bg-hover-color: var(--color-bg-filled-hover-brand);
@@ -710,8 +721,7 @@
         --accent-color: var(--color-bg-filled-brand);
         --checked-bg-color: var(--color-bg-filled-brand);
     }
-    [data-variant="filled"][data-appearance="secondary"],
-    [data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="secondary"] {
+    [data-variant="filled"][data-appearance="secondary"] {
         --text-color: var(--color-text-filled-secondary);
         --bg-color: var(--color-bg-filled-secondary);
         --bg-hover-color: var(--color-bg-filled-hover-secondary);
@@ -723,8 +733,7 @@
         --accent-color: var(--color-bg-filled-secondary);
         --checked-bg-color: var(--color-bg-filled-secondary);
     }
-    [data-variant="filled"][data-appearance="tertiary"],
-    [data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="tertiary"] {
+    [data-variant="filled"][data-appearance="tertiary"] {
         --text-color: var(--color-text-filled-tertiary);
         --bg-color: var(--color-bg-filled-tertiary);
         --bg-hover-color: var(--color-bg-filled-hover-tertiary);
@@ -736,8 +745,7 @@
         --accent-color: var(--color-bg-filled-tertiary);
         --checked-bg-color: var(--color-bg-filled-tertiary);
     }
-    [data-variant="filled"][data-appearance="accent"],
-    [data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="accent"] {
+    [data-variant="filled"][data-appearance="accent"] {
         --text-color: var(--color-text-filled-accent);
         --bg-color: var(--color-bg-filled-accent);
         --bg-hover-color: var(--color-bg-filled-hover-accent);
@@ -749,8 +757,7 @@
         --accent-color: var(--color-bg-filled-accent);
         --checked-bg-color: var(--color-bg-filled-accent);
     }
-    [data-variant="filled"][data-appearance="success"],
-    [data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="success"] {
+    [data-variant="filled"][data-appearance="success"] {
         --text-color: var(--color-text-filled-success);
         --bg-color: var(--color-bg-filled-success);
         --bg-hover-color: var(--color-bg-filled-hover-success);
@@ -762,8 +769,7 @@
         --accent-color: var(--color-bg-filled-success);
         --checked-bg-color: var(--color-bg-filled-success);
     }
-    [data-variant="filled"][data-appearance="danger"],
-    [data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="danger"] {
+    [data-variant="filled"][data-appearance="danger"] {
         --text-color: var(--color-text-filled-danger);
         --bg-color: var(--color-bg-filled-danger);
         --bg-hover-color: var(--color-bg-filled-hover-danger);
@@ -775,8 +781,7 @@
         --accent-color: var(--color-bg-filled-danger);
         --checked-bg-color: var(--color-bg-filled-danger);
     }
-    [data-variant="filled"][data-appearance="warning"],
-    [data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="warning"] {
+    [data-variant="filled"][data-appearance="warning"] {
         --text-color: var(--color-text-filled-warning);
         --bg-color: var(--color-bg-filled-warning);
         --bg-hover-color: var(--color-bg-filled-hover-warning);
@@ -788,8 +793,7 @@
         --accent-color: var(--color-bg-filled-warning);
         --checked-bg-color: var(--color-bg-filled-warning);
     }
-    [data-variant="filled"][data-appearance="info"],
-    [data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="info"] {
+    [data-variant="filled"][data-appearance="info"] {
         --text-color: var(--color-text-filled-info);
         --bg-color: var(--color-bg-filled-info);
         --bg-hover-color: var(--color-bg-filled-hover-info);
@@ -801,8 +805,7 @@
         --accent-color: var(--color-bg-filled-info);
         --checked-bg-color: var(--color-bg-filled-info);
     }
-    [data-variant="filled"][data-appearance="link"],
-    [data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="link"] {
+    [data-variant="filled"][data-appearance="link"] {
         --text-color: var(--color-text-filled-link);
         --bg-color: var(--color-bg-filled-brand);
         --bg-hover-color: var(--color-bg-filled-hover-brand);

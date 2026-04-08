@@ -24,8 +24,9 @@ describe('NavLink Component Tests', () => {
       expect(el).toHaveClass('text-(length:--fs)');
       expect(el).toHaveAttribute('data-size', 'sm');
       expect(el).toHaveAttribute('data-vane-type', 'ui');
-      expect(el).toHaveAttribute('data-variant', 'outline');
-      expect(el).toHaveAttribute('data-appearance', 'primary');
+      // Default NavLink inherits via :root — no explicit data-variant/appearance
+      expect(el).not.toHaveAttribute('data-variant');
+      expect(el).not.toHaveAttribute('data-appearance');
       expect(el).toHaveClass('text-(--text-color)');
       expect(el).toHaveClass('font-sans');
       expect(el).toHaveClass('flex', 'items-center');
@@ -106,14 +107,14 @@ describe('NavLink Component Tests', () => {
   });
 
   describe('Appearance Variants', () => {
-    it('should have primary appearance by default', () => {
+    it('should NOT emit data-appearance by default (inherits via :root)', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <NavLink href="/test">Item</NavLink>
         </ThemeProvider>
       );
 
-      expect(container.querySelector('a')).toHaveAttribute('data-appearance', 'primary');
+      expect(container.querySelector('a')).not.toHaveAttribute('data-appearance');
     });
 
     it.each(['secondary', 'success', 'danger', 'warning', 'info'] as const)(
@@ -131,14 +132,14 @@ describe('NavLink Component Tests', () => {
   });
 
   describe('Variant Modifiers', () => {
-    it('should default to outline variant', () => {
+    it('should NOT emit data-variant by default (inherits via :root)', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <NavLink href="/test">Item</NavLink>
         </ThemeProvider>
       );
 
-      expect(container.querySelector('a')).toHaveAttribute('data-variant', 'outline');
+      expect(container.querySelector('a')).not.toHaveAttribute('data-variant');
     });
 
     it('should support filled variant', () => {

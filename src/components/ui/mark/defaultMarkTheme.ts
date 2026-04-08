@@ -13,3 +13,8 @@ export const defaultMarkTheme = new ComponentTheme<MarkProps, MarkTheme>(
   undefined,
   'ui'
 );
+// `warning outline` from markDefaults is Mark's semantic identity — Mark is
+// a highlighted yellow span that must render its warning palette regardless
+// of ancestor filled context. Setting hasIdentity=true promotes those keys
+// through the data-attribute gate in ComponentTheme.getComponentConfig.
+defaultMarkTheme.hasIdentity = true;

@@ -4,6 +4,7 @@ import { MenuContext, type MenuContextValue } from './MenuContext';
 import { useControllableState } from '../../utils/controllableState';
 import { Popup } from '../popup/Popup';
 import { useTheme, ThemeProvider } from '../../themeContext';
+import { mergeDefaults } from '../../utils/deepMerge';
 
 /**
  * Menu — a dropdown menu triggered by a single element.
@@ -141,12 +142,27 @@ export function Menu({
     loop,
   };
 
+  // Merge library baseline (theme.menu.popup.defaults, e.g. bottomStart) with
+  // any user overrides from ThemeProvider (theme.menu.popup.userDefaults).
+  // mergeDefaults correctly handles mutually-exclusive categories — a user
+  // override like `{lg: true}` flips the library's `md: true` to false so
+  // pickFirstTruthyKeyByCategory returns `lg`. Without this merge, menu's
+  // sub-theme would silently override user-provided popup themeDefaults.
+  const mergedPopupDefaults = mergeDefaults(
+    theme.menu.popup.defaults as Record<string, boolean>,
+    theme.menu.popup.userDefaults as Record<string, boolean>,
+  );
+  const mergedDividerDefaults = mergeDefaults(
+    theme.menu.divider.defaults as Record<string, boolean>,
+    theme.menu.divider.userDefaults as Record<string, boolean>,
+  );
+
   return (
     <MenuContext.Provider value={ctx}>
       {triggerElement}
       <ThemeProvider themeDefaults={{
-        popup: theme.menu.popup.defaults,
-        divider: theme.menu.divider.defaults,
+        popup: mergedPopupDefaults,
+        divider: mergedDividerDefaults,
       }}>
         <Popup
           ref={contentRef}

@@ -23,9 +23,10 @@ describe('Button Component Tests', () => {
       expect(button).toHaveClass('text-(length:--fs)'); // sm size
       expect(button).toHaveAttribute('data-size', 'sm');
       expect(button).toHaveAttribute('data-vane-type', 'ui'); // UI component type
-      expect(button).toHaveAttribute('data-variant', 'outline'); // outline variant by default
-      expect(button).toHaveAttribute('data-appearance', 'primary'); // primary appearance by default
-      expect(button).toHaveClass('text-(--text-color)'); // primary appearance
+      // Default Button inherits via :root — no explicit data-variant/appearance
+      expect(button).not.toHaveAttribute('data-variant');
+      expect(button).not.toHaveAttribute('data-appearance');
+      expect(button).toHaveClass('text-(--text-color)'); // reads --text-color from :root
       expect(button).toHaveClass('font-sans'); // sans family
       expect(button).toHaveClass('font-semibold'); // semibold weight
       expect(button).toHaveClass('inline-flex', 'items-center', 'justify-center');

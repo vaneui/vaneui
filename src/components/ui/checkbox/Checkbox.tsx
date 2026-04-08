@@ -79,13 +79,16 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       }
     }, [indeterminate]);
 
+    // Identity promotion (primary + filled for a default <Checkbox>) is
+    // handled by ComponentTheme via `defaultCheckboxTheme.hasIdentity=true`,
+    // so we just forward the user's theme-relevant props unchanged.
     const themeProps = {
       xs, sm, md, lg, xl,
       primary, brand, accent, secondary, tertiary, success, danger, warning, info,
       filled, outline,
       pill, sharp, rounded,
       error,
-      disabled
+      disabled,
     };
 
     const inputProps = {

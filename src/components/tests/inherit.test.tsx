@@ -174,8 +174,14 @@ describe('Inherit Appearance Prop', () => {
     });
   });
 
-  describe('Card behavior (unchanged)', () => {
-    it('Card should still have data-appearance="primary" (not inherit)', () => {
+  describe('Card behavior', () => {
+    // Post-refactor: a default <Card> inherits from :root (which mirrors the
+    // outline-primary palette) rather than stamping its own data-appearance
+    // attributes. Card still renders primary-outline colors standalone because
+    // its consumer classes read the root variables, but any ancestor that DOES
+    // set an explicit variant/appearance now cascades correctly into Card via
+    // CSS custom-property inheritance.
+    it('Card should NOT have data-appearance by default', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Card>Default card</Card>
@@ -183,7 +189,32 @@ describe('Inherit Appearance Prop', () => {
       );
 
       const card = container.querySelector('div.vane-card');
+      expect(card).not.toHaveAttribute('data-appearance');
+      expect(card).not.toHaveAttribute('data-variant');
+    });
+
+    it('Card should have consumer classes by default (reads :root vars)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card>Default card</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('div.vane-card');
+      expect(card).toHaveClass('text-(--text-color)');
+      expect(card).toHaveClass('bg-(--bg-color)');
+    });
+
+    it('Card with explicit primary filled should emit data attributes', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Card primary filled>Explicit card</Card>
+        </ThemeProvider>
+      );
+
+      const card = container.querySelector('div.vane-card');
       expect(card).toHaveAttribute('data-appearance', 'primary');
+      expect(card).toHaveAttribute('data-variant', 'filled');
     });
 
     it('Card with explicit inherit should NOT have data-appearance', () => {
@@ -408,6 +439,79 @@ describe('Inherit Appearance Prop', () => {
         expect(text).toHaveAttribute('data-variant', 'outline');
         expect(text).toHaveClass('text-(--text-color)');
       });
+
+      // Regression tests for the Pixels Hero.tsx bug: explicit variant/appearance
+      // on descendants of a filled layout must stamp their own data attributes
+      // (which trigger the direct CSS rule), not be silently overridden by a
+      // descendant inheritance selector. Computed-color verification lives in
+      // e2e/variant-inheritance.spec.ts — here we just prove the DOM contract.
+      it('Text primary outline inside filled Card keeps its outline attributes', () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card filled primary>
+              <Text primary outline>t1</Text>
+            </Card>
+          </ThemeProvider>
+        );
+
+        const text = container.querySelector('p');
+        expect(text).toHaveAttribute('data-appearance', 'primary');
+        expect(text).toHaveAttribute('data-variant', 'outline');
+      });
+
+      it('Text primary filled inside filled Card keeps its filled attributes', () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card filled primary>
+              <Text primary filled>t2</Text>
+            </Card>
+          </ThemeProvider>
+        );
+
+        const text = container.querySelector('p');
+        expect(text).toHaveAttribute('data-appearance', 'primary');
+        expect(text).toHaveAttribute('data-variant', 'filled');
+      });
+
+      it('Stack outline primary inside filled Card keeps its outline attributes', () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card filled primary>
+              <Stack outline primary>
+                <Text>t3</Text>
+              </Stack>
+            </Card>
+          </ThemeProvider>
+        );
+
+        const stack = container.querySelector('div.vane-stack');
+        expect(stack).toHaveAttribute('data-appearance', 'primary');
+        expect(stack).toHaveAttribute('data-variant', 'outline');
+        // inherit-mode Text inside Stack has no attributes of its own — its
+        // computed color inherits from the Stack via CSS custom properties.
+        const text = container.querySelector('p');
+        expect(text).not.toHaveAttribute('data-appearance');
+        expect(text).not.toHaveAttribute('data-variant');
+      });
+
+      it('Stack filled primary inside filled Card keeps its filled attributes', () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Card filled primary>
+              <Stack filled primary>
+                <Text>t4</Text>
+              </Stack>
+            </Card>
+          </ThemeProvider>
+        );
+
+        const stack = container.querySelector('div.vane-stack');
+        expect(stack).toHaveAttribute('data-appearance', 'primary');
+        expect(stack).toHaveAttribute('data-variant', 'filled');
+        const text = container.querySelector('p');
+        expect(text).not.toHaveAttribute('data-appearance');
+        expect(text).not.toHaveAttribute('data-variant');
+      });
     });
 
     describe('Text inside Row/Stack', () => {
@@ -607,13 +711,29 @@ describe('Inherit Appearance Prop', () => {
       }
     });
 
-    it('filled rules should include variant inheritance selector for outline children', () => {
+    it('filled rules should NOT include a descendant inheritance selector', () => {
+      // The old "variant inheritance" descendant selector was removed because
+      // it silently overrode explicit variant/appearance on child elements
+      // (specificity war with the direct [data-variant][data-appearance] rule).
+      // Inheritance is now done via CSS custom-property cascade: filled parents
+      // set vars on themselves, inherit-mode children read them. Explicit props
+      // on a child always win.
       const appearances = ['primary', 'brand', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info', 'link'];
       for (const appearance of appearances) {
-        expect(varsCSS).toContain(
+        expect(varsCSS).not.toContain(
           `[data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="${appearance}"]`
         );
       }
+    });
+
+    it('root should define the full outline-primary palette for inherit-mode fallback', () => {
+      // Components that render in inherit mode (no data-variant / data-appearance)
+      // read their colors from :root. :root must mirror outline-primary so that
+      // e.g. a standalone <Button> looks identical to <Button primary outline>.
+      expect(varsCSS).toMatch(/:root\s*\{[^}]*--text-color:\s*var\(--color-text-primary\)/);
+      expect(varsCSS).toMatch(/:root\s*\{[^}]*--bg-color:\s*var\(--color-bg-primary\)/);
+      expect(varsCSS).toMatch(/:root\s*\{[^}]*--border-color:\s*var\(--color-border-primary\)/);
+      expect(varsCSS).toMatch(/:root\s*\{[^}]*--ring-color:\s*var\(--color-border-primary\)/);
     });
 
     it('no CSS rule should reference data-appearance="inherit"', () => {
