@@ -40,10 +40,10 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
   checkboxInputDefaults,
   CHECKBOX_CATEGORIES,
   undefined,
-  'ui'
+  'ui',
+  // `primary filled` from checkboxInputDefaults is Checkbox's semantic
+  // identity — the input needs its own direct CSS rule so (a) its border
+  // is visible when placed inside a filled Card ancestor and (b) the
+  // checked state paints the correct filled background via --checked-bg-color.
+  true,
 );
-// `primary filled` from checkboxInputDefaults is Checkbox's semantic
-// identity — the input needs its own direct CSS rule so (a) its border is
-// visible when placed inside a filled Card ancestor and (b) the checked
-// state paints the correct filled background via --checked-bg-color.
-defaultCheckboxTheme.hasIdentity = true;

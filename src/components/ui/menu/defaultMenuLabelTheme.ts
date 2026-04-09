@@ -50,9 +50,9 @@ export const defaultMenuLabelTheme = new ComponentTheme<MenuLabelProps, MenuLabe
   menuLabelDefaults,
   MENU_LABEL_CATEGORIES,
   undefined,
-  'ui'
+  'ui',
+  // `secondary outline` from menuLabelDefaults is MenuLabel's semantic
+  // identity — a muted section heading color that should not inherit from
+  // any ancestor appearance context.
+  true,
 );
-// `secondary outline` from menuLabelDefaults is MenuLabel's semantic
-// identity — a muted section heading color that should not inherit from
-// any ancestor appearance context.
-defaultMenuLabelTheme.hasIdentity = true;

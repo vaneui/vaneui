@@ -115,7 +115,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
    *  etc., which are expected to inherit from a filled ancestor via CSS
    *  custom-property cascade. Per-instance user props and ThemeProvider
    *  `themeDefaults` still override the identity in the usual way. */
-  hasIdentity: boolean = false;
+  readonly hasIdentity: boolean;
   extraClasses: Partial<Record<keyof P, string>>;
   private readonly categories: readonly ComponentCategoryKey[];
   // Base type for storage — decoupled from P so that ComponentTheme<SpecificProps, T>
@@ -130,7 +130,8 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     defaults: Partial<P> = {},
     categories: readonly ComponentCategoryKey[],
     tagFunction?: (props: P, defaults: Partial<P>) => React.ElementType,
-    vaneType?: VaneComponentType
+    vaneType?: VaneComponentType,
+    hasIdentity: boolean = false
   ) {
     this.tag = tag;
     this.base = base;
@@ -142,23 +143,23 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     // All existing tagFunctions only access optional props (e.g. href).
     this.tagFunction = tagFunction as typeof this.tagFunction;
     this.vaneType = vaneType;
+    this.hasIdentity = hasIdentity;
     // Type assertion: we trust that all default themes provide complete objects
     this.themes = themes as TTheme;
   }
 
   /** Create a variant of this theme with different defaults (e.g., menu divider from divider) */
   withDefaults(defaults: Partial<P>): ComponentTheme<P, TTheme> {
-    const variant = new ComponentTheme<P, TTheme>(
+    return new ComponentTheme<P, TTheme>(
       this.tag,
       this.base,
       this.themes,
       defaults,
       this.categories,
       this.tagFunction as ((props: P, defaults: Partial<P>) => React.ElementType) | undefined,
-      this.vaneType
+      this.vaneType,
+      this.hasIdentity,
     );
-    variant.hasIdentity = this.hasIdentity;
-    return variant;
   }
 
   getClasses(props: P, precomputedKeys?: Record<string, string>): string[] {
