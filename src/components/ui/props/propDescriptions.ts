@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-04-08T20:44:43.778Z
+ * Generated on: 2026-04-10T19:45:47.173Z
  */
 
 export interface PropDescription {
