@@ -391,6 +391,58 @@ export function TestHarness() {
           <Card filled>
             <Button filled data-testid="vi-button-explicit-filled">Explicit filled</Button>
           </Card>
+
+          {/* Stack/Col transparency: filled Card → Stack/Col → Button */}
+          <Card filled data-testid="vi-stack-transparency">
+            <Stack>
+              <Button data-testid="vi-button-through-stack">Through Stack</Button>
+            </Stack>
+          </Card>
+          <Card filled data-testid="vi-col-transparency">
+            <Col>
+              <Button data-testid="vi-button-through-col">Through Col</Button>
+            </Col>
+          </Card>
+
+          {/* Identity components inside filled Card — should keep own colors */}
+          <Card filled data-testid="vi-identity-card">
+            <Mark data-testid="vi-mark-in-filled">Highlighted</Mark>
+            <Chip data-testid="vi-chip-in-filled">Tag</Chip>
+            <Link href="#" data-testid="vi-link-in-filled">Link</Link>
+          </Card>
+
+          {/* Nested layout inheritance: filled Card → explicit Stack → Text inherits */}
+          <Card filled primary data-testid="vi-nested-stack-card">
+            <Stack outline primary data-testid="vi-nested-stack-outline">
+              <Text data-testid="vi-text-inherits-stack">Inherits from Stack</Text>
+            </Stack>
+            <Stack filled danger data-testid="vi-nested-stack-danger">
+              <Text data-testid="vi-text-inherits-danger-stack">Inherits from danger Stack</Text>
+            </Stack>
+          </Card>
+
+          {/* Filled text contrast: text on filled backgrounds for each appearance */}
+          <Card filled primary data-testid="vi-contrast-primary">
+            <Text data-testid="vi-contrast-text-primary">Primary filled</Text>
+          </Card>
+          <Card filled brand data-testid="vi-contrast-brand">
+            <Text data-testid="vi-contrast-text-brand">Brand filled</Text>
+          </Card>
+          <Card filled secondary data-testid="vi-contrast-secondary">
+            <Text data-testid="vi-contrast-text-secondary">Secondary filled</Text>
+          </Card>
+          <Card filled success data-testid="vi-contrast-success">
+            <Text data-testid="vi-contrast-text-success">Success filled</Text>
+          </Card>
+          <Card filled danger data-testid="vi-contrast-danger">
+            <Text data-testid="vi-contrast-text-danger">Danger filled</Text>
+          </Card>
+          <Card filled warning data-testid="vi-contrast-warning">
+            <Text data-testid="vi-contrast-text-warning">Warning filled</Text>
+          </Card>
+          <Card filled info data-testid="vi-contrast-info">
+            <Text data-testid="vi-contrast-text-info">Info filled</Text>
+          </Card>
         </section>
 
         {/* ── Menu (after z-index fixtures to avoid affecting stacking counts) ── */}

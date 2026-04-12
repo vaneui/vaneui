@@ -11,17 +11,19 @@
     --color-text-warning: var(--color-amber-700);
     --color-text-info: var(--color-cyan-700);
 
-    /* Filled Text Colors (all white for WCAG AA 4.5:1 contrast compliance) */
+    /* Filled Text Colors — white for primary, very light tints per
+       appearance for contrast against filled (dark) backgrounds.
+       Customizable per project. */
     --color-text-filled-primary: var(--color-white);
-    --color-text-filled-brand: var(--color-white);
-    --color-text-filled-secondary: var(--color-white);
-    --color-text-filled-tertiary: var(--color-white);
-    --color-text-filled-link: var(--color-white);
-    --color-text-filled-accent: var(--color-white);
-    --color-text-filled-success: var(--color-white);
-    --color-text-filled-danger: var(--color-white);
-    --color-text-filled-warning: var(--color-white);
-    --color-text-filled-info: var(--color-white);
+    --color-text-filled-brand: var(--color-blue-100);
+    --color-text-filled-secondary: var(--color-gray-100);
+    --color-text-filled-tertiary: var(--color-gray-200);
+    --color-text-filled-link: var(--color-blue-100);
+    --color-text-filled-accent: var(--color-rose-100);
+    --color-text-filled-success: var(--color-emerald-100);
+    --color-text-filled-danger: var(--color-red-100);
+    --color-text-filled-warning: var(--color-amber-100);
+    --color-text-filled-info: var(--color-cyan-100);
 
     /* UI Background Colors */
     --color-bg-primary: var(--color-white);
