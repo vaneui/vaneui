@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -15,580 +14,197 @@ import {
   Badge,
   PageTitle,
   SectionTitle,
-  Menu,
-  MenuItem,
-  MenuLabel,
-  NavLink,
   Chip,
+  Kbd,
+  Mark,
+  Link,
 } from '../../src';
 
-// Icons for demos
-const ChevronDownIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-       width="16" height="16" aria-hidden="true">
-    <path d="m6 9 6 6 6-6" />
-  </svg>
-);
-
-const EditIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-       width="16" height="16" aria-hidden="true">
-    <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-  </svg>
-);
-
-const TrashIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-       width="16" height="16" aria-hidden="true">
-    <path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-  </svg>
-);
-
-const HomeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-       width="16" height="16" aria-hidden="true">
-    <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
-    <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-  </svg>
-);
-
-const SettingsIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-       width="16" height="16" aria-hidden="true">
-    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-    <circle cx="12" cy="12" r="3" />
-  </svg>
-);
-
-const UserIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-       width="16" height="16" aria-hidden="true">
-    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-    <circle cx="12" cy="7" r="4" />
-  </svg>
-);
-
-const ChartIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-       width="16" height="16" aria-hidden="true">
-    <path d="M3 3v16a2 2 0 0 0 2 2h16" />
-    <path d="m19 9-5 5-4-4-3 3" />
-  </svg>
-);
-
-const ShieldIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-       strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-       width="16" height="16" aria-hidden="true">
-    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
-  </svg>
-);
-
 function App() {
-  const [lastAction, setLastAction] = useState('(none)');
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <Section className="w-full">
         <Container itemsCenter className="w-full">
 
           {/* ═══════════════════════════════════════════════════════════════
-              MENU COMPONENT
+              VARIANT & APPEARANCE INHERITANCE
               ═══════════════════════════════════════════════════════════════ */}
-          <PageTitle>Menu Component</PageTitle>
+          <PageTitle>Variant & Appearance Inheritance</PageTitle>
           <Text secondary>
-            Dropdown menu built on top of <Code>Popup</Code> with keyboard navigation,
-            ARIA roles, and focus management. Single-component API via <Code>trigger</Code> prop.
+            Components inherit colors from their nearest ancestor via CSS custom
+            properties. Explicit props always override inherited values.
           </Text>
 
           {/* ═══ BASIC ════════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>Basic Usage</SectionTitle>
+          <SectionTitle>Default Components Inherit</SectionTitle>
 
           <Card>
-            <Title>Default Menu</Title>
+            <Title>Children inherit from filled parent</Title>
             <Text sm secondary>
-              Click the trigger to open. Items close the menu on click.
-              Arrow keys navigate, Escape closes. Uses <Code sm>Divider</Code> between sections.
+              <Code sm>Button</Code>, <Code sm>Text</Code>, and <Code sm>Badge</Code> inside
+              a <Code sm>{'<Card filled primary>'}</Code> automatically get the filled palette.
             </Text>
-            <Row>
-              <Menu className="min-w-[180px]" bottomStart trigger={<Button>Actions <ChevronDownIcon /></Button>}>
-                <MenuItem onClick={() => setLastAction('Edit')}>
-                  <EditIcon /> Edit
-                </MenuItem>
-                <MenuItem onClick={() => setLastAction('Duplicate')}>
-                  Duplicate
-                </MenuItem>
-                <Divider />
-                <MenuItem danger onClick={() => setLastAction('Delete')}>
-                  <TrashIcon /> Delete
-                </MenuItem>
-              </Menu>
-              <Text sm secondary>Last action: <Code sm>{lastAction}</Code></Text>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Disabled Items</Title>
-            <Text sm secondary>
-              Disabled items are skipped by keyboard navigation and show reduced opacity.
-            </Text>
-            <Menu trigger={<Button secondary>Options</Button>}>
-              <MenuItem>Available action</MenuItem>
-              <MenuItem disabled>Locked action</MenuItem>
-              <MenuItem disabled>Another locked</MenuItem>
-              <MenuItem>Available action 2</MenuItem>
-            </Menu>
-          </Card>
-
-          {/* ═══ SIZES ═════════════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Size Variants</SectionTitle>
-
-          <Card>
-            <Title>MenuItem Sizes</Title>
-            <Text sm secondary>
-              Menu items support all 5 size variants via boolean props.
-            </Text>
-            <Row flexWrap>
-              {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
-                <Menu key={size} trigger={<Button {...{ [size]: true }}>{size}</Button>}>
-                  <MenuItem {...{ [size]: true }}>First item</MenuItem>
-                  <MenuItem {...{ [size]: true }}>Second item</MenuItem>
-                  <MenuItem {...{ [size]: true }}>Third item</MenuItem>
-                </Menu>
-              ))}
-            </Row>
-          </Card>
-
-          {/* ═══ APPEARANCES ══════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Appearance Variants</SectionTitle>
-
-          <Card>
-            <Title>Mixed Appearances</Title>
-            <Text sm secondary>
-              Individual items can have different appearance props, useful for
-              highlighting destructive or informational actions.
-            </Text>
-            <Menu trigger={<Button>File</Button>}>
-              <MenuItem>New File</MenuItem>
-              <MenuItem>Open</MenuItem>
-              <MenuItem info>Save As...</MenuItem>
-              <Divider />
-              <MenuItem warning>Export</MenuItem>
-              <MenuItem danger>Delete Project</MenuItem>
-            </Menu>
-          </Card>
-
-          {/* ═══ LABELED MENUS ══════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Labeled Sections</SectionTitle>
-
-          <Card>
-            <Title>MenuLabel Sections</Title>
-            <Text sm secondary>
-              Use <Code sm>MenuLabel</Code> to label groups of items.
-              <Code sm>Divider</Code> divides sections visually.
-            </Text>
-            <Menu trigger={<Button>Account <ChevronDownIcon /></Button>}>
-              <MenuLabel>Actions</MenuLabel>
-              <MenuItem onClick={() => setLastAction('Edit Profile')}>
-                <EditIcon /> Edit Profile
-              </MenuItem>
-              <MenuItem onClick={() => setLastAction('Settings')}>
-                Settings
-              </MenuItem>
-              <Divider />
-              <MenuLabel>Danger Zone</MenuLabel>
-              <MenuItem danger onClick={() => setLastAction('Delete Account')}>
-                <TrashIcon /> Delete Account
-              </MenuItem>
-            </Menu>
-          </Card>
-
-          {/* ═══ ICON SIZING ═══════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Icon Sizing</SectionTitle>
-
-          <Card>
-            <Title>MenuItem Icons Scale with Size</Title>
-            <Text sm secondary>
-              SVG icons inside <Code sm>MenuItem</Code> automatically scale with the size prop
-              via the <Code sm>--icon-size</Code> CSS variable. No wrapper needed.
-            </Text>
-            <Menu className="min-w-[220px]" bottomStart trigger={<Button>Icon Sizes <ChevronDownIcon /></Button>}>
-              <MenuLabel xs><SettingsIcon /> Extra Small Label</MenuLabel>
-              <MenuItem xs><EditIcon /> Extra Small (xs)</MenuItem>
-              <Divider />
-              <MenuLabel sm><SettingsIcon /> Small Label</MenuLabel>
-              <MenuItem sm><EditIcon /> Small (sm)</MenuItem>
-              <Divider />
-              <MenuLabel md><SettingsIcon /> Medium Label</MenuLabel>
-              <MenuItem md><EditIcon /> Medium (md)</MenuItem>
-              <Divider />
-              <MenuLabel lg><SettingsIcon /> Large Label</MenuLabel>
-              <MenuItem lg><EditIcon /> Large (lg)</MenuItem>
-              <Divider />
-              <MenuLabel xl><SettingsIcon /> Extra Large Label</MenuLabel>
-              <MenuItem xl><EditIcon /> Extra Large (xl)</MenuItem>
-            </Menu>
-          </Card>
-
-          {/* ═══ REAL-WORLD ════════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Real-World Context</SectionTitle>
-
-          <Card>
-            <Title>Card Actions Dropdown</Title>
-            <Text sm secondary>
-              Menu inside a card header — a common pattern for entity actions.
-            </Text>
-            <Card>
-              <Row justifyBetween>
-                <Stack noPadding noGap>
-                  <Title>Project Alpha</Title>
-                  <Row>
-                    <Badge success filled>Active</Badge>
-                    <Text sm secondary>3 members</Text>
-                  </Row>
-                </Stack>
-                <Menu trigger={
-                  <Button secondary sm>
-                    Manage <ChevronDownIcon />
-                  </Button>
-                }>
-                  <MenuItem onClick={() => setLastAction('Edit Project')}>
-                    <EditIcon /> Edit Project
-                  </MenuItem>
-                  <MenuItem onClick={() => setLastAction('Archive')}>
-                    Archive
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem danger onClick={() => setLastAction('Delete Project')}>
-                    <TrashIcon /> Delete Project
-                  </MenuItem>
-                </Menu>
+            <Card filled primary>
+              <Text>White text (inherited)</Text>
+              <Row>
+                <Button>Inherited button</Button>
+                <Button primary>Inherited button</Button>
+                <Button secondary>Inherited button</Button>
+                <Badge primary filled>Inherited badge</Badge>
+                <Badge primary outline>Inherited badge</Badge>
+                <Code>inherited code</Code>
               </Row>
             </Card>
           </Card>
 
-          {/* ═══════════════════════════════════════════════════════════════
-              NAVLINK COMPONENT
-              ═══════════════════════════════════════════════════════════════ */}
-          <Divider xl />
-          <PageTitle>NavLink Component</PageTitle>
-          <Text secondary>
-            Navigation link for sidebars, nav menus, and headers.
-            Renders as <Code>{'<a>'}</Code> with <Code>href</Code>,
-            or <Code>{'<button>'}</Code> without. Supports <Code>active</Code> state
-            for current-page indication.
-          </Text>
-
-          {/* ═══ BASIC ════════════════════════════════════════════════════ */}
+          {/* ═══ EXPLICIT OVERRIDE ════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>Basic Usage</SectionTitle>
+          <SectionTitle>Explicit Props Override</SectionTitle>
 
           <Card>
-            <Title>Sidebar Navigation</Title>
+            <Title>Explicit appearance wins over inherited</Title>
             <Text sm secondary>
-              Basic nav links with icons. The <Code sm>active</Code> prop highlights the current page
-              and sets <Code sm>aria-current="page"</Code>.
+              Setting an appearance or variant prop on a child makes it use its own
+              CSS rule instead of inheriting.
             </Text>
-            <Stack noPadding noGap className="w-64">
-              <NavLink href="/dashboard" active><HomeIcon /> Dashboard</NavLink>
-              <NavLink href="/analytics"><ChartIcon /> Analytics</NavLink>
-              <NavLink href="/users"><UserIcon /> Users</NavLink>
-              <NavLink href="/settings"><SettingsIcon /> Settings with a really really really really really really really long name</NavLink>
-            </Stack>
+            <Card filled primary>
+              <Text>Inherited (white)</Text>
+              <Text danger>Explicit danger (red)</Text>
+              <Text success>Explicit success (green)</Text>
+              <Row>
+                <Button>Inherited</Button>
+                <Button danger>Danger override</Button>
+                <Button success filled>Success filled override</Button>
+              </Row>
+            </Card>
           </Card>
 
-          <Card>
-            <Title>Disabled Links</Title>
-            <Text sm secondary>
-              Disabled nav links show reduced opacity and are not interactive.
-            </Text>
-            <Stack noPadding noGap className="w-64">
-              <NavLink href="/available">Available</NavLink>
-              <NavLink href="/locked" disabled>Locked Section</NavLink>
-              <NavLink href="/premium" disabled>Premium Only</NavLink>
-              <NavLink href="/open">Open Section</NavLink>
-            </Stack>
-          </Card>
-
-          {/* ═══ SIZES ═════════════════════════════════════════════════════ */}
+          {/* ═══ NEAREST ANCESTOR ═════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>Size Variants</SectionTitle>
+          <SectionTitle>Nearest Ancestor Wins</SectionTitle>
 
           <Card>
-            <Title>All Sizes</Title>
+            <Title>Nested layouts: child inherits from closest parent</Title>
             <Text sm secondary>
-              NavLink supports all 5 size variants. Default is <Code sm>sm</Code>.
+              <Code sm>Text</Code> inside a nested <Code sm>Stack</Code> inherits from the
+              Stack, not from the outer Card.
             </Text>
-            <Stack noPadding noGap className="w-72">
-              <NavLink href="#" xs><HomeIcon /> Extra Small (xs)</NavLink>
-              <NavLink href="#" sm><HomeIcon /> Small (sm, default)</NavLink>
-              <NavLink href="#" md><HomeIcon /> Medium (md)</NavLink>
-              <NavLink href="#" lg><HomeIcon /> Large (lg)</NavLink>
-              <NavLink href="#" xl><HomeIcon /> Extra Large (xl)</NavLink>
-            </Stack>
-          </Card>
-
-          {/* ═══ ICON SIZING ═══════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Icon Sizing</SectionTitle>
-
-          <Card>
-            <Title>Icons Scale with Size</Title>
-            <Text sm secondary>
-              SVG icons inside <Code sm>NavLink</Code> automatically scale with the size prop
-              via the <Code sm>--icon-size</Code> CSS variable. Compare icon sizes across variants.
-            </Text>
-            <Stack noPadding noGap className="w-72">
-              <NavLink href="#" xs><HomeIcon /> Extra Small (xs)</NavLink>
-              <NavLink href="#" sm><HomeIcon /> Small (sm)</NavLink>
-              <NavLink href="#" md><HomeIcon /> Medium (md)</NavLink>
-              <NavLink href="#" lg><HomeIcon /> Large (lg)</NavLink>
-              <NavLink href="#" xl><HomeIcon /> Extra Large (xl)</NavLink>
-            </Stack>
-          </Card>
-
-          {/* ═══ APPEARANCES ══════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Appearance Variants</SectionTitle>
-
-          <Card>
-            <Title>Colored Nav Links</Title>
-            <Text sm secondary>
-              Appearance props control text and hover background colors.
-            </Text>
-            <Stack noPadding noGap className="w-64">
-              <NavLink href="#" primary active><HomeIcon /> Primary (active)</NavLink>
-              <NavLink href="#" secondary><ChartIcon /> Secondary</NavLink>
-              <NavLink href="#" success><ShieldIcon /> Success</NavLink>
-              <NavLink href="#" danger><UserIcon /> Danger</NavLink>
-              <NavLink href="#" warning><SettingsIcon /> Warning</NavLink>
-              <NavLink href="#" info><ChartIcon /> Info</NavLink>
-            </Stack>
-          </Card>
-
-          <Card filled>
-            <Title secondary>Filled Variant</Title>
-            <Text sm secondary>
-              <Code sm>filled</Code> gives nav links a solid background color.
-              Combined with <Code sm>active</Code> for emphasis.
-            </Text>
-            <Row>
-              <Stack noPadding noGap className="w-56">
-                <NavLink href="#" filled active><HomeIcon /> Active</NavLink>
-                <NavLink href="#"><ChartIcon /> Analytics</NavLink>
-                <NavLink href="#" secondary><UserIcon /> Users</NavLink>
+            <Card filled primary>
+              <Text>White text (from Card)</Text>
+              <Stack outline primary>
+                <Text>Dark text (from outline Stack, not from Card)</Text>
               </Stack>
-              <Stack noPadding noGap className="w-56">
-                <NavLink href="#" success filled active><ShieldIcon /> Active</NavLink>
-                <NavLink href="#" success filled><ChartIcon /> Reports</NavLink>
-                <NavLink href="#" success filled><UserIcon /> Team</NavLink>
-              </Stack>
-            </Row>
-          </Card>
-
-          {/* ═══ REAL-WORLD ════════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Real-World Context</SectionTitle>
-
-          <Card>
-            <Title>App Sidebar</Title>
-            <Text sm secondary>
-              A realistic sidebar layout combining NavLink with badges and nested groups.
-            </Text>
-            <Card className="w-64" noPadding>
-              <Stack noGap>
-                <Text sm bold className="px-3 pt-3 pb-1 opacity-50">Main</Text>
-                <NavLink href="/dashboard" active><HomeIcon /> Dashboard</NavLink>
-                <NavLink href="/analytics">
-                  <ChartIcon /> Analytics
-                  <Badge sm success filled className="ml-auto">New</Badge>
-                </NavLink>
-                <NavLink href="/users"><UserIcon /> Users</NavLink>
-
-                <Divider />
-
-                <Text sm bold className="px-3 pb-1 opacity-50">System</Text>
-                <NavLink href="/settings"><SettingsIcon /> Settings</NavLink>
-                <NavLink href="/security"><ShieldIcon /> Security</NavLink>
-                <NavLink href="/audit" disabled>Audit Log</NavLink>
+              <Stack filled danger>
+                <Text>Light text (from danger Stack, not from Card)</Text>
               </Stack>
             </Card>
           </Card>
 
+          {/* ═══ SUBTLE: Button vs Button primary ═════════════════════════ */}
+          <Divider />
+          <SectionTitle>Subtle: Default vs Explicit Primary</SectionTitle>
+
           <Card>
-            <Title>Nested Navigation</Title>
+            <Title>{'<Button>'} vs {'<Button primary>'} inside filled Card</Title>
             <Text sm secondary>
-              Compose nesting with <Code sm>Stack</Code> and left padding.
-              No built-in nesting — users have full control.
+              Both look identical standalone. Inside a filled Card, the default
+              inherits while the explicit one overrides. Writing <Code sm>primary</Code> (the
+              default value) changes behavior because the framework detects the
+              user explicitly provided a prop.
             </Text>
-            <Stack noPadding noGap className="w-64">
-              <NavLink href="/docs" active><HomeIcon /> Documentation</NavLink>
-              <Stack noPadding noGap className="pl-4">
-                <NavLink href="/docs/getting-started">Getting Started</NavLink>
-                <NavLink href="/docs/components">Components</NavLink>
-                <NavLink href="/docs/theming">Theming</NavLink>
-              </Stack>
-              <NavLink href="/api"><ChartIcon /> API Reference</NavLink>
-              <Stack noPadding noGap className="pl-4">
-                <NavLink href="/api/hooks">Hooks</NavLink>
-                <NavLink href="/api/utils">Utilities</NavLink>
-              </Stack>
-            </Stack>
+            <Card filled primary>
+              <Row>
+                <Button>{'<Button>'} — inherits</Button>
+                <Button primary>{'<Button primary>'} — overrides</Button>
+              </Row>
+            </Card>
           </Card>
 
-          {/* ═══════════════════════════════════════════════════════════════
-              COLOR INHERITANCE
-              ═══════════════════════════════════════════════════════════════ */}
-          <Divider xl />
-          <PageTitle>Color Inheritance</PageTitle>
-          <Text secondary>
-            VaneUI components inherit appearance colors from their parent container.
-            A <Code>Card</Code> with an appearance prop propagates its colors to child
-            <Code>Text</Code>, <Code>Title</Code>, <Code>Badge</Code>, and other components.
-          </Text>
-
-          {/* ═══ BASIC INHERITANCE ═══════════════════════════════════════════ */}
+          {/* ═══ SUBTLE: Row filled does nothing ══════════════════════════ */}
           <Divider />
-          <SectionTitle>Basic Inheritance (Outline)</SectionTitle>
+          <SectionTitle>Subtle: Variant Without Appearance</SectionTitle>
 
           <Card>
-            <Title>Children inherit parent appearance</Title>
+            <Title>{'<Row filled>'} has no effect</Title>
             <Text sm secondary>
-              <Code sm>Text</Code> and <Code sm>Title</Code> inside a colored <Code sm>Card</Code> automatically
-              pick up the card's text color — no need to repeat the appearance prop.
+              <Code sm>filled</Code> needs an appearance to pair with. Row has no appearance
+              default, so there is no CSS rule to fire. Compare with Card which
+              defaults to <Code sm>primary</Code>.
             </Text>
             <Row mobileCol>
-              <Card primary>
-                <Title>Primary Card</Title>
-                <Text>Text inherits primary color</Text>
+              <Card>
+                <Text sm bold>Row filled (no appearance)</Text>
+                <Row filled>
+                  <Text>Still dark — filled was ignored</Text>
+                </Row>
               </Card>
-              <Card brand>
-                <Title>Brand Card</Title>
-                <Text>Text inherits brand color</Text>
+              <Card>
+                <Text sm bold>Row primary filled (works)</Text>
+                <Row primary filled>
+                  <Text>White text — both variant and appearance set</Text>
+                </Row>
               </Card>
-              <Card success>
-                <Title>Success Card</Title>
-                <Text>Text inherits success color</Text>
+              <Card>
+                <Text sm bold>Card filled (works — Card defaults to primary)</Text>
+                <Card filled>
+                  <Text>White text — Card has primary in defaults</Text>
+                </Card>
+              </Card>
+            </Row>
+          </Card>
+
+          {/* ═══ SUBTLE: Badge vs Chip ════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Subtle: Badge Inherits, Chip Doesn't</SectionTitle>
+
+          <Card>
+            <Title>Identity components keep their own colors</Title>
+            <Text sm secondary>
+              <Code sm>Badge</Code> defaults to <Code sm>primary</Code> (= baseline) so it
+              inherits. <Code sm>Chip</Code> defaults to <Code sm>secondary</Code> (non-baseline)
+              so it keeps its own palette. Same for <Code sm>Mark</Code> (warning)
+              and <Code sm>Link</Code> (blue).
+            </Text>
+            <Card filled primary>
+              <Row flexWrap itemsCenter>
+                <Badge>Badge (inherits)</Badge>
+                <Chip>Chip (keeps secondary)</Chip>
+                <Code>Code (inherits)</Code>
+                <Kbd>Kbd (inherits)</Kbd>
+                <Mark>Mark (keeps warning)</Mark>
+                <Link href="#">Link (keeps blue)</Link>
+              </Row>
+            </Card>
+          </Card>
+
+          {/* ═══ SUBTLE: Default Card context ═════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Subtle: Default Card is Transparent</SectionTitle>
+
+          <Card>
+            <Title>Default Card doesn't establish a color context</Title>
+            <Text sm secondary>
+              A plain <Code sm>{'<Card>'}</Code> resolves to <Code sm>primary + outline</Code> which
+              matches the <Code sm>:root</Code> baseline — so it emits no data attributes and
+              children just read from <Code sm>:root</Code>. Only <Code sm>{'<Card filled>'}</Code> or
+              <Code sm>{'<Card danger>'}</Code> etc. shift the palette and affect children.
+            </Text>
+            <Row mobileCol>
+              <Card>
+                <Text sm bold>Default Card</Text>
+                <Text>Text reads from :root (dark)</Text>
+                <Button>Button reads from :root</Button>
               </Card>
               <Card danger>
-                <Title>Danger Card</Title>
-                <Text>Text inherits danger color</Text>
+                <Text sm bold>Danger Card (explicit)</Text>
+                <Text>Text inherits danger</Text>
+                <Button>Button inherits danger</Button>
               </Card>
-            </Row>
-          </Card>
-
-          {/* ═══ FILLED INHERITANCE ═══════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Filled Inheritance</SectionTitle>
-
-          <Card>
-            <Title>Filled cards pass filled colors to children</Title>
-            <Text sm secondary>
-              When a <Code sm>Card</Code> is <Code sm>filled</Code>, children receive the
-              filled-variant text color (typically white or light).
-            </Text>
-            <Row mobileCol>
-              <Card primary filled>
-                <Title>Primary Filled</Title>
-                <Text>Light text on primary background</Text>
-              </Card>
-              <Card danger filled>
-                <Title>Danger Filled</Title>
-                <Text>Light text on danger background</Text>
-              </Card>
-              <Card success filled>
-                <Title>Success Filled</Title>
-                <Text>Light text on success background</Text>
-              </Card>
-              <Card warning filled>
-                <Title>Warning Filled</Title>
-                <Text>Light text on warning background</Text>
-              </Card>
-            </Row>
-          </Card>
-
-          {/* ═══ NESTED OVERRIDE ═══════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Nested Override</SectionTitle>
-
-          <Card>
-            <Title>Children can override the inherited appearance</Title>
-            <Text sm secondary>
-              An explicit appearance prop on a child takes priority over the inherited one.
-            </Text>
-            <Card danger>
-              <Text>This text inherits danger</Text>
-              <Text primary>This text explicitly overrides to primary</Text>
-              <Badge success>Success badge overrides danger</Badge>
-            </Card>
-          </Card>
-
-          {/* ═══ VARIANT INHERITANCE ═══════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Variant Inheritance (Filled → Children)</SectionTitle>
-
-          <Card>
-            <Title>Interactive children inside filled Card</Title>
-            <Text sm secondary>
-              When a layout component is <Code sm>filled</Code>, interactive children
-              (<Code sm>Button</Code>, <Code sm>Badge</Code>, <Code sm>Code</Code>, <Code sm>Chip</Code>)
-              also become filled, matching the parent's visual weight.
-            </Text>
-            <Row mobileCol>
               <Card filled>
-                <Title>Filled Card</Title>
-                <Row flexWrap>
-                  <Button>Button</Button>
-                  <Badge>Badge</Badge>
-                  <Code>code</Code>
-                  <Chip>Chip</Chip>
-                </Row>
-              </Card>
-              <Card filled danger>
-                <Title>Filled Danger Card</Title>
-                <Row flexWrap>
-                  <Button>Button</Button>
-                  <Button success>Success</Button>
-                  <Badge>Badge</Badge>
-                </Row>
-              </Card>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Divider inherits border color</Title>
-            <Text sm secondary>
-              <Code sm>Divider</Code> inside an appearance container matches the parent's border color.
-            </Text>
-            <Row mobileCol>
-              <Card brand>
-                <Text>Brand card</Text>
-                <Divider />
-                <Text>After divider</Text>
-              </Card>
-              <Card danger filled>
-                <Text>Danger filled card</Text>
-                <Divider />
-                <Text>After divider</Text>
-              </Card>
-              <Card success filled>
-                <Text>Success filled card</Text>
-                <Divider />
-                <Text>After divider</Text>
+                <Text sm bold>Filled Card</Text>
+                <Text>Text inherits filled</Text>
+                <Button>Button inherits filled</Button>
               </Card>
             </Row>
           </Card>

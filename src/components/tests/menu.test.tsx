@@ -49,9 +49,9 @@ describe('Menu Component Tests', () => {
       expect(item).toHaveAttribute('data-menu-item', '');
       expect(item).toHaveAttribute('data-vane-type', 'ui');
       expect(item).toHaveAttribute('data-size', 'sm');
-      // Default MenuItem inherits via :root — no explicit data-variant/appearance
-      expect(item).not.toHaveAttribute('data-appearance');
-      expect(item).not.toHaveAttribute('data-variant');
+      // Default MenuItem has non-inherit appearance → emits data attributes
+      expect(item).toHaveAttribute('data-appearance', 'primary');
+      expect(item).toHaveAttribute('data-variant', 'outline');
     });
 
     it('should render as anchor tag when href is provided', () => {

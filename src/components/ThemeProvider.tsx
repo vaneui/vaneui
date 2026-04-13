@@ -4,21 +4,8 @@ import { defaultTheme } from './defaultTheme';
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
 /**
- * Recursively applies themeDefaults from ThemeProvider into each matched
- * ComponentTheme's `userDefaults` field (NOT its library-baseline `defaults`).
- *
- * This split is load-bearing: values that come from ThemeProvider represent
- * user intent (the app owner configured them) and must cause data-appearance
- * / data-variant attributes to be emitted at render time. Values that come
- * from the library baseline (e.g. buttonDefaults.ts) are soft fallbacks for
- * pickFirstTruthyKeyByCategory only — they fill in missing props but do not
- * emit data attributes, which is what allows a default `<Button>` inside a
- * `<Card primary filled>` to inherit its colors via CSS custom-property
- * cascade.
- *
- * We detect a ComponentTheme node by looking for BOTH `defaults` and
- * `userDefaults` — every ComponentTheme constructor now seeds `userDefaults`
- * to an empty object, so this is a reliable marker.
+ * Recursively applies defaults to theme objects while preserving structure.
+ * Navigates both theme and defaults objects in parallel.
  */
 function applyDefaultsRecursively(
   themeObject: Record<string, unknown> | object,
@@ -28,16 +15,14 @@ function applyDefaultsRecursively(
     return;
   }
 
-  // If this theme object is a ComponentTheme (has both defaults AND
-  // userDefaults) and defaultsObject does not itself look like a nested
-  // theme bag, merge into userDefaults.
+  // If this theme object has a 'defaults' property and defaultsObject looks like defaults
   if ('defaults' in themeObject &&
-      'userDefaults' in themeObject &&
       typeof themeObject.defaults === 'object' &&
       themeObject.defaults !== null &&
       !('defaults' in defaultsObject)) {
-    (themeObject as Record<string, unknown>).userDefaults = mergeDefaults(
-      (themeObject.userDefaults ?? {}) as Record<string, boolean>,
+    // defaultsObject is the actual defaults to apply
+    themeObject.defaults = mergeDefaults(
+      themeObject.defaults as Record<string, boolean>,
       defaultsObject as Record<string, boolean>
     );
   } else {

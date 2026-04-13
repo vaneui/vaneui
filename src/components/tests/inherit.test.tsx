@@ -175,13 +175,10 @@ describe('Inherit Appearance Prop', () => {
   });
 
   describe('Card behavior', () => {
-    // Post-refactor: a default <Card> inherits from :root (which mirrors the
-    // outline-primary palette) rather than stamping its own data-appearance
-    // attributes. Card still renders primary-outline colors standalone because
-    // its consumer classes read the root variables, but any ancestor that DOES
-    // set an explicit variant/appearance now cascades correctly into Card via
-    // CSS custom-property inheritance.
-    it('Card should NOT have data-appearance by default', () => {
+    // Post-simplification: ALL components with a non-inherit appearance now
+    // emit data-appearance/data-variant. Card defaults to primary/outline,
+    // so it emits those data attributes.
+    it('Card should have data-appearance="primary" by default', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Card>Default card</Card>
@@ -189,11 +186,11 @@ describe('Inherit Appearance Prop', () => {
       );
 
       const card = container.querySelector('div.vane-card');
-      expect(card).not.toHaveAttribute('data-appearance');
-      expect(card).not.toHaveAttribute('data-variant');
+      expect(card).toHaveAttribute('data-appearance', 'primary');
+      expect(card).toHaveAttribute('data-variant', 'outline');
     });
 
-    it('Card should have consumer classes by default (reads :root vars)', () => {
+    it('Card should have consumer classes and data attributes by default', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Card>Default card</Card>
@@ -203,6 +200,8 @@ describe('Inherit Appearance Prop', () => {
       const card = container.querySelector('div.vane-card');
       expect(card).toHaveClass('text-(--text-color)');
       expect(card).toHaveClass('bg-(--bg-color)');
+      expect(card).toHaveAttribute('data-appearance', 'primary');
+      expect(card).toHaveAttribute('data-variant', 'outline');
     });
 
     it('Card with explicit primary filled should emit data attributes', () => {

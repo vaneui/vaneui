@@ -24,9 +24,9 @@ describe('NavLink Component Tests', () => {
       expect(el).toHaveClass('text-(length:--fs)');
       expect(el).toHaveAttribute('data-size', 'sm');
       expect(el).toHaveAttribute('data-vane-type', 'ui');
-      // Default NavLink inherits via :root — no explicit data-variant/appearance
-      expect(el).not.toHaveAttribute('data-variant');
-      expect(el).not.toHaveAttribute('data-appearance');
+      // Default NavLink has non-inherit appearance → emits data attributes
+      expect(el).toHaveAttribute('data-variant', 'outline');
+      expect(el).toHaveAttribute('data-appearance', 'primary');
       expect(el).toHaveClass('text-(--text-color)');
       expect(el).toHaveClass('font-sans');
       expect(el).toHaveClass('flex', 'items-center');
@@ -107,14 +107,14 @@ describe('NavLink Component Tests', () => {
   });
 
   describe('Appearance Variants', () => {
-    it('should NOT emit data-appearance by default (inherits via :root)', () => {
+    it('should emit data-appearance="primary" by default', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <NavLink href="/test">Item</NavLink>
         </ThemeProvider>
       );
 
-      expect(container.querySelector('a')).not.toHaveAttribute('data-appearance');
+      expect(container.querySelector('a')).toHaveAttribute('data-appearance', 'primary');
     });
 
     it.each(['secondary', 'success', 'danger', 'warning', 'info'] as const)(
@@ -132,14 +132,14 @@ describe('NavLink Component Tests', () => {
   });
 
   describe('Variant Modifiers', () => {
-    it('should NOT emit data-variant by default (inherits via :root)', () => {
+    it('should emit data-variant="outline" by default', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <NavLink href="/test">Item</NavLink>
         </ThemeProvider>
       );
 
-      expect(container.querySelector('a')).not.toHaveAttribute('data-variant');
+      expect(container.querySelector('a')).toHaveAttribute('data-variant', 'outline');
     });
 
     it('should support filled variant', () => {

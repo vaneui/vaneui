@@ -4,7 +4,6 @@ import type { PopupProps } from "./PopupProps";
 import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
 import { pickFirstTruthyKeyByCategory } from '../../utils/componentUtils';
-import { mergeDefaults } from '../../utils/deepMerge';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { useControllableState } from '../../utils/controllableState';
@@ -381,20 +380,10 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const effectiveOpen = open && !disabled;
 
-    // Extract placement from boolean props via theme defaults.
-    // Merge the library baseline (theme.popup.defaults) with any user
-    // overrides from ThemeProvider (theme.popup.userDefaults) via
-    // mergeDefaults — this handles category exclusion correctly so that
-    // `themeDefaults.popup.bottomStart` flips the library's default
-    // placement instead of both staying truthy. Direct JSX props
-    // (checked first by pickFirstTruthyKeyByCategory) still override.
-    const mergedPopupDefaults = mergeDefaults(
-      theme.popup.defaults as Record<string, boolean>,
-      theme.popup.userDefaults as Record<string, boolean>,
-    );
+    // Extract placement from boolean props via theme defaults
     const placementKey = pickFirstTruthyKeyByCategory(
       props as Record<string, unknown>,
-      mergedPopupDefaults,
+      theme.popup.defaults as Record<string, unknown>,
       'placement'
     ) || 'top';
 
