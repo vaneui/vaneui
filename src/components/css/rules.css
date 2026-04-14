@@ -60,6 +60,7 @@
         --focus-color: var(--color-focus-primary);
         --accent-color: var(--color-bg-primary);
         --checked-bg-color: var(--color-bg-primary);
+        --link-text: var(--color-text-link);
         --bw: 1px; /* Border width */
         --rw: 1px; /* Ring width */
     }
@@ -714,6 +715,7 @@
         --focus-color: var(--app-focus);
         --accent-color: var(--app-bg);
         --checked-bg-color: var(--app-bg);
+        --link-text: var(--color-text-link);
     }
     [data-variant="filled"] {
         --text-color: var(--app-text-filled);
@@ -726,6 +728,7 @@
         --focus-color: var(--app-focus);
         --accent-color: var(--app-bg-filled);
         --checked-bg-color: var(--app-bg-filled);
+        --link-text: var(--color-text-filled-link);
     }
     [data-variant="ghost"] {
         --text-color: var(--app-text);
@@ -738,7 +741,9 @@
         --focus-color: var(--app-focus);
         --accent-color: var(--app-bg);
         --checked-bg-color: var(--app-bg);
+        --link-text: var(--color-text-link);
     }
+
 
     /* -----------------------------------------
        CHECKBOX OVERRIDES

@@ -6,7 +6,6 @@ export const linkDefaults: Partial<TypographyProps> = {
   wFit: true,
   underline: true,
   sans: true,
-  outline: true,
   link: true,
   cursorPointer: true,
 };

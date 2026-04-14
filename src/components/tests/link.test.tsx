@@ -22,7 +22,7 @@ describe('Link Component Tests', () => {
       expect(link).toBeInTheDocument();
       expect(link).toHaveClass('hover:underline', 'w-fit');
       expect(link).not.toHaveClass('text-base'); // no default size
-      expect(link).toHaveClass('text-(--text-color)'); // link appearance by default
+      expect(link).toHaveClass('text-(--link-text)'); // link appearance by default
       expect(link).toHaveClass('text-(length:--fs)'); // font size - NOT conflicting with text color
       expect(link).toHaveClass('leading-(--lh)'); // CSS variable line height
       expect(link).toHaveClass('font-sans');
@@ -91,8 +91,8 @@ describe('Link Component Tests', () => {
       const filledLink = filledContainer.querySelector('a');
 
       // Link uses link-specific text colors only (no background colors)
-      expect(outlineLink).toHaveClass('text-(--text-color)');
-      expect(filledLink).toHaveClass('text-(--text-color)');
+      expect(outlineLink).toHaveClass('text-(--link-text)');
+      expect(filledLink).toHaveClass('text-(--link-text)');
     });
 
     it('should support all overflow variants', () => {
@@ -384,7 +384,7 @@ describe('Link Theme Override Tests', () => {
 
     const link = container.querySelector('a');
     expect(link).toHaveClass('text-custom-link-color');
-    expect(link).not.toHaveClass('text-(--text-color)');
+    expect(link).not.toHaveClass('text-(--link-text)');
   });
 
   it('should allow overriding filled text class via themeOverride', () => {
@@ -401,7 +401,7 @@ describe('Link Theme Override Tests', () => {
 
     const link = container.querySelector('a');
     expect(link).toHaveClass('text-custom-filled-link');
-    expect(link).not.toHaveClass('text-(--text-color)');
+    expect(link).not.toHaveClass('text-(--link-text)');
   });
 
   it('should allow overriding both outline and filled classes', () => {

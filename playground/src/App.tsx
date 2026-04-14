@@ -106,11 +106,13 @@ function App() {
               own palette — regardless of parent context.
             </Text>
             <Card filled primary>
-              <Row flexWrap itemsCenter>
-                <Mark>Mark (warning)</Mark>
-                <Chip>Chip (secondary)</Chip>
-                <Link href="#">Link (blue)</Link>
-                <Badge>Badge (primary)</Badge>
+              <Row filled flexWrap itemsCenter>
+                <Mark filled>Mark filled (warning)</Mark>
+                <Chip filled>Chip filled (secondary)</Chip>
+                <Link href="#">Link default (blue)</Link>
+                <Link filled href="#">Link filled (blue)</Link>
+                <Link outline href="#">Link outline (blue)</Link>
+                <Badge filled>Badge (primary)</Badge>
               </Row>
             </Card>
           </Card>
@@ -211,36 +213,49 @@ function App() {
             </Card>
           </Card>
 
-          {/* ═══ 8. VARIANT WITHOUT APPEARANCE DOES NOTHING ══════════════ */}
+          {/* ═══ 8. VARIANT INHERITS APPEARANCE FROM PARENT ════════════ */}
           <Divider />
-          <SectionTitle>8. Variant Without Appearance Does Nothing</SectionTitle>
+          <SectionTitle>8. Variant Inherits Appearance From Parent</SectionTitle>
 
           <Card>
-            <Title>{'<Row filled>'} has no effect — variant needs an appearance</Title>
+            <Title>{'<Row filled>'} inherits palette from parent</Title>
             <Text sm secondary>
-              <Code sm>filled</Code> modifies an appearance palette. Row has no appearance
-              default, so there is no palette to modify. Card works because it defaults
-              to <Code sm>primary</Code>.
+              A component with a variant (<Code sm>filled</Code> or <Code sm>ghost</Code>) but
+              no explicit appearance reads <Code sm>--app-*</Code> intermediates from the
+              nearest ancestor that set them. The variant determines HOW those
+              colors are applied.
             </Text>
             <Row mobileCol>
-              <Card>
-                <Text sm bold>Row filled (ignored)</Text>
+              <Card primary>
+                <Text sm bold>Row filled inside primary Card</Text>
                 <Row filled>
-                  <Text>Still dark text</Text>
+                  <Text>Inherits primary palette, applies filled</Text>
                 </Row>
               </Card>
-              <Card>
-                <Text sm bold>Row primary filled (works)</Text>
-                <Row primary filled>
-                  <Text>White text</Text>
+              <Card danger>
+                <Text sm bold>Row filled inside danger Card</Text>
+                <Row filled>
+                  <Text>Inherits danger palette, applies filled</Text>
                 </Row>
               </Card>
-              <Card>
-                <Text sm bold>Card filled (works)</Text>
-                <Card filled>
-                  <Text>White text</Text>
-                </Card>
+              <Card success>
+                <Text sm bold>Row ghost inside success Card</Text>
+                <Row ghost>
+                  <Text>Inherits success palette, applies ghost</Text>
+                </Row>
               </Card>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Standalone variant without parent appearance</Title>
+            <Text sm secondary>
+              Without a parent that sets an appearance, the <Code sm>--app-*</Code> intermediates
+              are undefined. The variant rule falls back to inheriting from <Code sm>:root</Code>,
+              which matches the default outline-primary look.
+            </Text>
+            <Row filled>
+              <Text>Row filled standalone — falls back to :root (dark text)</Text>
             </Row>
           </Card>
 
@@ -292,6 +307,62 @@ function App() {
                 <Text>Adapts to context</Text>
               </Card>
             </Row>
+          </Card>
+
+          {/* ═══ 11. LINK ADAPTS TO SURFACE ════════════════════════════ */}
+          <Divider />
+          <SectionTitle>11. Link Adapts to Surface</SectionTitle>
+
+          <Card>
+            <Title>Link uses darker blue on light surfaces, lighter blue on dark</Title>
+            <Text sm secondary>
+              The <Code sm>link</Code> appearance automatically adapts: <Code sm>blue-600</Code> on
+              outline/light backgrounds, <Code sm>blue-400</Code> inside filled parents.
+              This matches how GitHub, Google, and Mantine handle dark-mode links.
+            </Text>
+            <Row mobileCol>
+              <Card>
+                <Text>Light surface with a <Link href="#">dark blue link</Link> inside</Text>
+              </Card>
+              <Card filled>
+                <Text>Dark surface with a <Link href="#">lighter blue link</Link> inside</Text>
+                <Text>Dark surface with a <Link filled href="#">filled link</Link> inside</Text>
+                <Text>Dark surface with a <Link outline href="#">outline link</Link> inside</Text>
+              </Card>
+              <Card filled danger>
+                <Text>Danger surface with a <Link href="#">lighter blue link</Link> inside</Text>
+              </Card>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Links in different filled contexts</Title>
+            <Text sm secondary>
+              Link color stays readable across all filled appearances.
+            </Text>
+            <Row mobileCol>
+              <Card filled brand>
+                <Text>Brand: <Link href="#">link text</Link></Text>
+              </Card>
+              <Card filled success>
+                <Text>Success: <Link href="#">link text</Link></Text>
+              </Card>
+              <Card filled warning>
+                <Text>Warning: <Link href="#">link text</Link></Text>
+              </Card>
+              <Card filled secondary>
+                <Text>Secondary: <Link href="#">link text</Link></Text>
+              </Card>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Standalone links (no filled parent)</Title>
+            <Text sm secondary>
+              Without a filled ancestor, links use the standard dark blue.
+            </Text>
+            <Text>Here is a <Link href="#">standard link</Link> in body text.</Text>
+            <Text>And <Link href="#">another one</Link> next to <Link href="#" danger>a danger link</Link> and <Link href="#" success>a success link</Link>.</Text>
           </Card>
 
           {/* ═══════════════════════════════════════════════════════════════

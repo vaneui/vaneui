@@ -251,17 +251,23 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     if (extractedKeys.responsive === 'responsive') {
       dataAttributes['data-responsive'] = '';
     }
-    // Data-attribute gate: emit data-appearance / data-variant for every
-    // component whose resolved appearance is NOT `inherit`. Components with
-    // `inherit` (Text, Title, Label, Divider, etc.) skip emission and
-    // inherit colors from their nearest ancestor via CSS custom-property
-    // cascade. Everything else (Button, Card, Badge, Mark, Chip, etc.)
-    // gets its own data attributes so its direct CSS rule fires.
-    if (extractedKeys.appearance && extractedKeys.appearance !== 'inherit') {
+    // Data-attribute gate:
+    // - Appearance is emitted when resolved value is not `inherit`. Components
+    //   with `inherit` (Text, Title, Label, etc.) skip and inherit via CSS
+    //   custom-property cascade from their nearest ancestor.
+    // - Variant is emitted when EITHER:
+    //   (a) appearance is present — needed for the two-axis CSS architecture
+    //       (appearance sets --app-* intermediates, variant maps them to
+    //       final --*-color variables; both rules must fire), OR
+    //   (b) variant deviates from `outline` — lets `<Row filled>` or
+    //       `<Button ghost>` work without an explicit appearance; the variant
+    //       rule reads --app-* inherited from the nearest ancestor.
+    const hasAppearance = extractedKeys.appearance && extractedKeys.appearance !== 'inherit';
+    if (hasAppearance) {
       dataAttributes['data-appearance'] = extractedKeys.appearance;
-      if (extractedKeys.variant) {
-        dataAttributes['data-variant'] = extractedKeys.variant;
-      }
+    }
+    if (extractedKeys.variant && (hasAppearance || extractedKeys.variant !== 'outline')) {
+      dataAttributes['data-variant'] = extractedKeys.variant;
     }
     if ((props as Record<string, unknown>).disabled) {
       dataAttributes['data-disabled'] = 'true';
