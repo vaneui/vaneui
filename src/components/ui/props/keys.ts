@@ -235,8 +235,8 @@ export const ComponentKeys = {
   textDecoration: ['underline', 'lineThrough', 'noUnderline', 'overline'] as const,
   /** Text case transformation: UPPERCASE, lowercase, Capitalize, normalCase */
   textTransform: ['uppercase', 'lowercase', 'capitalize', 'normalCase'] as const,
-  /** Style variant: filled (solid background) or outline (border only) */
-  variant: ['filled', 'outline'] as const,
+  /** Style variant: filled (solid background), outline (border only), or ghost (minimal chrome) */
+  variant: ['filled', 'outline', 'ghost'] as const,
   /** Flex item wrapping behavior: wrap, no-wrap, or wrap-reverse */
   wrap: ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const,
   /** Transparent background: disables background color when true */

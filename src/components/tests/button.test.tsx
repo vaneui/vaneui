@@ -637,6 +637,32 @@ describe('Button Component Tests', () => {
     });
   });
 
+  describe('Ghost Variant', () => {
+    it('should emit data-variant="ghost" when ghost prop is passed', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button ghost>Ghost</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveAttribute('data-variant', 'ghost');
+      expect(button).toHaveAttribute('data-appearance', 'primary');
+    });
+
+    it('should support ghost with different appearances', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button ghost danger>Ghost Danger</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toHaveAttribute('data-variant', 'ghost');
+      expect(button).toHaveAttribute('data-appearance', 'danger');
+    });
+  });
+
   describe('Width Props', () => {
     it('should apply wFull class for full width', () => {
       const {container} = render(

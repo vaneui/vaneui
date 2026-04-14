@@ -819,6 +819,133 @@
     }
 
     /* -----------------------------------------
+       GHOST VARIANT
+       Transparent idle background, no border/ring, appearance-colored text.
+       Hover/active use the same tinted backgrounds as outline. Designed
+       for toolbars, inline actions, and contexts where outline is too heavy.
+       ----------------------------------------- */
+    [data-variant="ghost"][data-appearance="primary"] {
+        --text-color: var(--color-text-primary);
+        --bg-color: transparent;
+        --bg-hover-color: var(--color-bg-hover-primary);
+        --bg-active-color: var(--color-bg-active-primary);
+        --border-color: transparent;
+        --ring-color: transparent;
+        --divider-color: var(--color-border-primary);
+        --focus-color: var(--color-focus-primary);
+        --accent-color: var(--color-bg-primary);
+        --checked-bg-color: var(--color-bg-primary);
+    }
+    [data-variant="ghost"][data-appearance="brand"] {
+        --text-color: var(--color-text-brand);
+        --bg-color: transparent;
+        --bg-hover-color: var(--color-bg-hover-brand);
+        --bg-active-color: var(--color-bg-active-brand);
+        --border-color: transparent;
+        --ring-color: transparent;
+        --divider-color: var(--color-border-brand);
+        --focus-color: var(--color-focus-brand);
+        --accent-color: var(--color-bg-brand);
+        --checked-bg-color: var(--color-bg-brand);
+    }
+    [data-variant="ghost"][data-appearance="secondary"] {
+        --text-color: var(--color-text-secondary);
+        --bg-color: transparent;
+        --bg-hover-color: var(--color-bg-hover-secondary);
+        --bg-active-color: var(--color-bg-active-secondary);
+        --border-color: transparent;
+        --ring-color: transparent;
+        --divider-color: var(--color-border-secondary);
+        --focus-color: var(--color-focus-secondary);
+        --accent-color: var(--color-bg-secondary);
+        --checked-bg-color: var(--color-bg-secondary);
+    }
+    [data-variant="ghost"][data-appearance="tertiary"] {
+        --text-color: var(--color-text-tertiary);
+        --bg-color: transparent;
+        --bg-hover-color: var(--color-bg-hover-tertiary);
+        --bg-active-color: var(--color-bg-active-tertiary);
+        --border-color: transparent;
+        --ring-color: transparent;
+        --divider-color: var(--color-border-tertiary);
+        --focus-color: var(--color-focus-tertiary);
+        --accent-color: var(--color-bg-tertiary);
+        --checked-bg-color: var(--color-bg-tertiary);
+    }
+    [data-variant="ghost"][data-appearance="accent"] {
+        --text-color: var(--color-text-accent);
+        --bg-color: transparent;
+        --bg-hover-color: var(--color-bg-hover-accent);
+        --bg-active-color: var(--color-bg-active-accent);
+        --border-color: transparent;
+        --ring-color: transparent;
+        --divider-color: var(--color-border-accent);
+        --focus-color: var(--color-focus-accent);
+        --accent-color: var(--color-bg-accent);
+        --checked-bg-color: var(--color-bg-accent);
+    }
+    [data-variant="ghost"][data-appearance="success"] {
+        --text-color: var(--color-text-success);
+        --bg-color: transparent;
+        --bg-hover-color: var(--color-bg-hover-success);
+        --bg-active-color: var(--color-bg-active-success);
+        --border-color: transparent;
+        --ring-color: transparent;
+        --divider-color: var(--color-border-success);
+        --focus-color: var(--color-focus-success);
+        --accent-color: var(--color-bg-success);
+        --checked-bg-color: var(--color-bg-success);
+    }
+    [data-variant="ghost"][data-appearance="danger"] {
+        --text-color: var(--color-text-danger);
+        --bg-color: transparent;
+        --bg-hover-color: var(--color-bg-hover-danger);
+        --bg-active-color: var(--color-bg-active-danger);
+        --border-color: transparent;
+        --ring-color: transparent;
+        --divider-color: var(--color-border-danger);
+        --focus-color: var(--color-focus-danger);
+        --accent-color: var(--color-bg-danger);
+        --checked-bg-color: var(--color-bg-danger);
+    }
+    [data-variant="ghost"][data-appearance="warning"] {
+        --text-color: var(--color-text-warning);
+        --bg-color: transparent;
+        --bg-hover-color: var(--color-bg-hover-warning);
+        --bg-active-color: var(--color-bg-active-warning);
+        --border-color: transparent;
+        --ring-color: transparent;
+        --divider-color: var(--color-border-warning);
+        --focus-color: var(--color-focus-warning);
+        --accent-color: var(--color-bg-warning);
+        --checked-bg-color: var(--color-bg-warning);
+    }
+    [data-variant="ghost"][data-appearance="info"] {
+        --text-color: var(--color-text-info);
+        --bg-color: transparent;
+        --bg-hover-color: var(--color-bg-hover-info);
+        --bg-active-color: var(--color-bg-active-info);
+        --border-color: transparent;
+        --ring-color: transparent;
+        --divider-color: var(--color-border-info);
+        --focus-color: var(--color-focus-info);
+        --accent-color: var(--color-bg-info);
+        --checked-bg-color: var(--color-bg-info);
+    }
+    [data-variant="ghost"][data-appearance="link"] {
+        --text-color: var(--color-text-link);
+        --bg-color: transparent;
+        --bg-hover-color: var(--color-bg-hover-primary);
+        --bg-active-color: var(--color-bg-active-primary);
+        --border-color: transparent;
+        --ring-color: transparent;
+        --divider-color: var(--color-border-brand);
+        --focus-color: var(--color-focus-brand);
+        --accent-color: var(--color-bg-primary);
+        --checked-bg-color: var(--color-bg-primary);
+    }
+
+    /* -----------------------------------------
        CHECKBOX OVERRIDES
        Checkboxes must always show a visible border when unchecked,
        regardless of filled/outline variant. The global filled rules
@@ -837,6 +964,11 @@
 
     /* Checked + outline: border becomes the appearance color */
     .vane-checkbox[data-variant="outline"]:checked {
+        --border-color: var(--checked-bg-color);
+    }
+
+    /* Checked + ghost: border becomes the appearance color (same as outline) */
+    .vane-checkbox[data-variant="ghost"]:checked {
         --border-color: var(--checked-bg-color);
     }
 

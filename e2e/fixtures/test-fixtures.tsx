@@ -445,6 +445,33 @@ export function TestHarness() {
           </Card>
         </section>
 
+        {/* ── Ghost variant: computed styles ── */}
+
+        <section data-testid="ghost-variant">
+          {/* Ghost buttons for appearance comparison */}
+          <Button ghost data-testid="ghost-primary">Primary Ghost</Button>
+          <Button ghost danger data-testid="ghost-danger">Danger Ghost</Button>
+          <Button ghost success data-testid="ghost-success">Success Ghost</Button>
+          <Button ghost brand data-testid="ghost-brand">Brand Ghost</Button>
+
+          {/* Outline control for color comparison */}
+          <Button data-testid="outline-primary-control">Outline Primary</Button>
+          <Button danger data-testid="outline-danger-control">Outline Danger</Button>
+
+          {/* Ghost badge */}
+          <Badge ghost data-testid="ghost-badge">Ghost Badge</Badge>
+
+          {/* Ghost Card with Text inside — Text inherits from ghost */}
+          <Card ghost primary data-testid="ghost-card">
+            <Text data-testid="ghost-card-text">Text inside ghost card</Text>
+          </Card>
+
+          {/* Ghost inside filled parent — ghost uses its own rule */}
+          <Card filled danger data-testid="ghost-in-filled-parent">
+            <Button ghost data-testid="ghost-button-in-filled">Ghost in Filled</Button>
+          </Card>
+        </section>
+
         {/* ── Menu (after z-index fixtures to avoid affecting stacking counts) ── */}
 
         <section data-testid="menu-section">

@@ -15,6 +15,9 @@ export class LinkVariantClassMapper extends BaseClassMapper implements Record<Va
   /** CSS consumer class for filled variant */
   filled: string = "text-(--text-color)";
 
+  /** CSS consumer class for ghost variant */
+  ghost: string = "text-(--text-color)";
+
   getClasses(extractedKeys: CategoryProps): string[] {
     // CSS-based approach: consumer class always outputs
     // Transparent is handled via data-transparent attribute

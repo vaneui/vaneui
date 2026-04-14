@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-04-12T18:13:32.966Z
+ * Generated on: 2026-04-14T09:02:22.884Z
  */
 
 export interface PropDescription {
@@ -802,6 +802,9 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "outline": {
         "description": "Outline variant - transparent background with border and colored text (default)"
+      },
+      "ghost": {
+        "description": "Ghost variant - transparent background, no border, appearance-colored text, tinted hover background"
       }
     }
   },
