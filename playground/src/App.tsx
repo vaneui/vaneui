@@ -108,6 +108,8 @@ function App() {
             <Card filled primary>
               <Row filled flexWrap itemsCenter>
                 <Mark filled>Mark filled (warning)</Mark>
+                <Mark outline>Mark outline (warning)</Mark>
+                <Mark>Mark default (warning)</Mark>
                 <Chip filled>Chip filled (secondary)</Chip>
                 <Link href="#">Link default (blue)</Link>
                 <Link filled href="#">Link filled (blue)</Link>
