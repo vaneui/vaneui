@@ -683,30 +683,37 @@ describe('Inherit Appearance Prop', () => {
       expect(varsCSS).toMatch(/:root\s*\{[^}]*--border-color:\s*var\(--color-border-primary\)/);
     });
 
-    it('outline+primary rule should set --text-color', () => {
-      // The CSS rule that fires when data-variant="outline" data-appearance="primary"
+    it('appearance rules should set --app-text intermediates', () => {
+      // Two-axis architecture: appearance rules set --app-* intermediates,
+      // variant rules map them to final --text-color etc.
       expect(varsCSS).toMatch(
-        /\[data-variant="outline"\]\[data-appearance="primary"\]\s*\{[^}]*--text-color:/
+        /\[data-appearance="primary"\]\s*\{[^}]*--app-text:\s*var\(--color-text-primary\)/
       );
     });
 
-    it('filled+primary rule should set --text-color to filled value', () => {
+    it('variant outline rule should map --app-text to --text-color', () => {
       expect(varsCSS).toMatch(
-        /\[data-variant="filled"\]\[data-appearance="primary"\][^{]*\{[^}]*--text-color:\s*var\(--color-text-filled-primary\)/
+        /\[data-variant="outline"\]\s*\{[^}]*--text-color:\s*var\(--app-text\)/
       );
     });
 
-    it('filled+danger rule should set --text-color to filled-danger value', () => {
+    it('variant filled rule should map --app-text-filled to --text-color', () => {
       expect(varsCSS).toMatch(
-        /\[data-variant="filled"\]\[data-appearance="danger"\][^{]*\{[^}]*--text-color:\s*var\(--color-text-filled-danger\)/
+        /\[data-variant="filled"\]\s*\{[^}]*--text-color:\s*var\(--app-text-filled\)/
       );
     });
 
-    it('every appearance should have both outline and filled rules', () => {
+    it('every appearance should have its own [data-appearance] rule', () => {
       const appearances = ['primary', 'brand', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info', 'link'];
       for (const appearance of appearances) {
-        expect(varsCSS).toContain(`[data-variant="outline"][data-appearance="${appearance}"]`);
-        expect(varsCSS).toContain(`[data-variant="filled"][data-appearance="${appearance}"]`);
+        expect(varsCSS).toContain(`[data-appearance="${appearance}"]`);
+      }
+    });
+
+    it('every variant should have its own [data-variant] rule', () => {
+      const variants = ['outline', 'filled', 'ghost'];
+      for (const variant of variants) {
+        expect(varsCSS).toContain(`[data-variant="${variant}"]`);
       }
     });
 

@@ -564,385 +564,180 @@
        Components only consume the variables they need.
        ======================================== */
 
+    /* =========================================
+       APPEARANCE × VARIANT SYSTEM
+       Two independent axes that compose on the same element:
+       1. Appearance rules set intermediate --app-* variables (the palette)
+       2. Variant rules map --app-* to final --*-color variables (the strategy)
+       Adding a new appearance = 1 block. Adding a new variant = 1 block.
+       ========================================= */
+
     /* -----------------------------------------
-       OUTLINE VARIANT
+       AXIS 1: APPEARANCE — defines the color palette
+       Each rule sets both outline and filled token families as intermediates.
        ----------------------------------------- */
-    [data-variant="outline"][data-appearance="primary"] {
-        --text-color: var(--color-text-primary);
-        --bg-color: var(--color-bg-primary);
-        --bg-hover-color: var(--color-bg-hover-primary);
-        --bg-active-color: var(--color-bg-active-primary);
-        --border-color: var(--color-border-primary);
-        --ring-color: var(--color-border-primary);
-        --divider-color: var(--color-border-primary);
-        --focus-color: var(--color-focus-primary);
-        --accent-color: var(--color-bg-primary);
-        --checked-bg-color: var(--color-bg-primary);
+    [data-appearance="primary"] {
+        --app-text: var(--color-text-primary);
+        --app-text-filled: var(--color-text-filled-primary);
+        --app-bg: var(--color-bg-primary);
+        --app-bg-filled: var(--color-bg-filled-primary);
+        --app-bg-hover: var(--color-bg-hover-primary);
+        --app-bg-hover-filled: var(--color-bg-filled-hover-primary);
+        --app-bg-active: var(--color-bg-active-primary);
+        --app-bg-active-filled: var(--color-bg-filled-active-primary);
+        --app-border: var(--color-border-primary);
+        --app-focus: var(--color-focus-primary);
     }
-    [data-variant="outline"][data-appearance="brand"] {
-        --text-color: var(--color-text-brand);
-        --bg-color: var(--color-bg-brand);
-        --bg-hover-color: var(--color-bg-hover-brand);
-        --bg-active-color: var(--color-bg-active-brand);
-        --border-color: var(--color-border-brand);
-        --ring-color: var(--color-border-brand);
-        --divider-color: var(--color-border-brand);
-        --focus-color: var(--color-focus-brand);
-        --accent-color: var(--color-bg-brand);
-        --checked-bg-color: var(--color-bg-brand);
+    [data-appearance="brand"] {
+        --app-text: var(--color-text-brand);
+        --app-text-filled: var(--color-text-filled-brand);
+        --app-bg: var(--color-bg-brand);
+        --app-bg-filled: var(--color-bg-filled-brand);
+        --app-bg-hover: var(--color-bg-hover-brand);
+        --app-bg-hover-filled: var(--color-bg-filled-hover-brand);
+        --app-bg-active: var(--color-bg-active-brand);
+        --app-bg-active-filled: var(--color-bg-filled-active-brand);
+        --app-border: var(--color-border-brand);
+        --app-focus: var(--color-focus-brand);
     }
-    [data-variant="outline"][data-appearance="secondary"] {
-        --text-color: var(--color-text-secondary);
-        --bg-color: var(--color-bg-secondary);
-        --bg-hover-color: var(--color-bg-hover-secondary);
-        --bg-active-color: var(--color-bg-active-secondary);
-        --border-color: var(--color-border-secondary);
-        --ring-color: var(--color-border-secondary);
-        --divider-color: var(--color-border-secondary);
-        --focus-color: var(--color-focus-secondary);
-        --accent-color: var(--color-bg-secondary);
-        --checked-bg-color: var(--color-bg-secondary);
+    [data-appearance="secondary"] {
+        --app-text: var(--color-text-secondary);
+        --app-text-filled: var(--color-text-filled-secondary);
+        --app-bg: var(--color-bg-secondary);
+        --app-bg-filled: var(--color-bg-filled-secondary);
+        --app-bg-hover: var(--color-bg-hover-secondary);
+        --app-bg-hover-filled: var(--color-bg-filled-hover-secondary);
+        --app-bg-active: var(--color-bg-active-secondary);
+        --app-bg-active-filled: var(--color-bg-filled-active-secondary);
+        --app-border: var(--color-border-secondary);
+        --app-focus: var(--color-focus-secondary);
     }
-    [data-variant="outline"][data-appearance="tertiary"] {
-        --text-color: var(--color-text-tertiary);
-        --bg-color: var(--color-bg-tertiary);
-        --bg-hover-color: var(--color-bg-hover-tertiary);
-        --bg-active-color: var(--color-bg-active-tertiary);
-        --border-color: var(--color-border-tertiary);
-        --ring-color: var(--color-border-tertiary);
-        --divider-color: var(--color-border-tertiary);
-        --focus-color: var(--color-focus-tertiary);
-        --accent-color: var(--color-bg-tertiary);
-        --checked-bg-color: var(--color-bg-tertiary);
+    [data-appearance="tertiary"] {
+        --app-text: var(--color-text-tertiary);
+        --app-text-filled: var(--color-text-filled-tertiary);
+        --app-bg: var(--color-bg-tertiary);
+        --app-bg-filled: var(--color-bg-filled-tertiary);
+        --app-bg-hover: var(--color-bg-hover-tertiary);
+        --app-bg-hover-filled: var(--color-bg-filled-hover-tertiary);
+        --app-bg-active: var(--color-bg-active-tertiary);
+        --app-bg-active-filled: var(--color-bg-filled-active-tertiary);
+        --app-border: var(--color-border-tertiary);
+        --app-focus: var(--color-focus-tertiary);
     }
-    [data-variant="outline"][data-appearance="accent"] {
-        --text-color: var(--color-text-accent);
-        --bg-color: var(--color-bg-accent);
-        --bg-hover-color: var(--color-bg-hover-accent);
-        --bg-active-color: var(--color-bg-active-accent);
-        --border-color: var(--color-border-accent);
-        --ring-color: var(--color-border-accent);
-        --divider-color: var(--color-border-accent);
-        --focus-color: var(--color-focus-accent);
-        --accent-color: var(--color-bg-accent);
-        --checked-bg-color: var(--color-bg-accent);
+    [data-appearance="accent"] {
+        --app-text: var(--color-text-accent);
+        --app-text-filled: var(--color-text-filled-accent);
+        --app-bg: var(--color-bg-accent);
+        --app-bg-filled: var(--color-bg-filled-accent);
+        --app-bg-hover: var(--color-bg-hover-accent);
+        --app-bg-hover-filled: var(--color-bg-filled-hover-accent);
+        --app-bg-active: var(--color-bg-active-accent);
+        --app-bg-active-filled: var(--color-bg-filled-active-accent);
+        --app-border: var(--color-border-accent);
+        --app-focus: var(--color-focus-accent);
     }
-    [data-variant="outline"][data-appearance="success"] {
-        --text-color: var(--color-text-success);
-        --bg-color: var(--color-bg-success);
-        --bg-hover-color: var(--color-bg-hover-success);
-        --bg-active-color: var(--color-bg-active-success);
-        --border-color: var(--color-border-success);
-        --ring-color: var(--color-border-success);
-        --divider-color: var(--color-border-success);
-        --focus-color: var(--color-focus-success);
-        --accent-color: var(--color-bg-success);
-        --checked-bg-color: var(--color-bg-success);
+    [data-appearance="success"] {
+        --app-text: var(--color-text-success);
+        --app-text-filled: var(--color-text-filled-success);
+        --app-bg: var(--color-bg-success);
+        --app-bg-filled: var(--color-bg-filled-success);
+        --app-bg-hover: var(--color-bg-hover-success);
+        --app-bg-hover-filled: var(--color-bg-filled-hover-success);
+        --app-bg-active: var(--color-bg-active-success);
+        --app-bg-active-filled: var(--color-bg-filled-active-success);
+        --app-border: var(--color-border-success);
+        --app-focus: var(--color-focus-success);
     }
-    [data-variant="outline"][data-appearance="danger"] {
-        --text-color: var(--color-text-danger);
-        --bg-color: var(--color-bg-danger);
-        --bg-hover-color: var(--color-bg-hover-danger);
-        --bg-active-color: var(--color-bg-active-danger);
-        --border-color: var(--color-border-danger);
-        --ring-color: var(--color-border-danger);
-        --divider-color: var(--color-border-danger);
-        --focus-color: var(--color-focus-danger);
-        --accent-color: var(--color-bg-danger);
-        --checked-bg-color: var(--color-bg-danger);
+    [data-appearance="danger"] {
+        --app-text: var(--color-text-danger);
+        --app-text-filled: var(--color-text-filled-danger);
+        --app-bg: var(--color-bg-danger);
+        --app-bg-filled: var(--color-bg-filled-danger);
+        --app-bg-hover: var(--color-bg-hover-danger);
+        --app-bg-hover-filled: var(--color-bg-filled-hover-danger);
+        --app-bg-active: var(--color-bg-active-danger);
+        --app-bg-active-filled: var(--color-bg-filled-active-danger);
+        --app-border: var(--color-border-danger);
+        --app-focus: var(--color-focus-danger);
     }
-    [data-variant="outline"][data-appearance="warning"] {
-        --text-color: var(--color-text-warning);
-        --bg-color: var(--color-bg-warning);
-        --bg-hover-color: var(--color-bg-hover-warning);
-        --bg-active-color: var(--color-bg-active-warning);
-        --border-color: var(--color-border-warning);
-        --ring-color: var(--color-border-warning);
-        --divider-color: var(--color-border-warning);
-        --focus-color: var(--color-focus-warning);
-        --accent-color: var(--color-bg-warning);
-        --checked-bg-color: var(--color-bg-warning);
+    [data-appearance="warning"] {
+        --app-text: var(--color-text-warning);
+        --app-text-filled: var(--color-text-filled-warning);
+        --app-bg: var(--color-bg-warning);
+        --app-bg-filled: var(--color-bg-filled-warning);
+        --app-bg-hover: var(--color-bg-hover-warning);
+        --app-bg-hover-filled: var(--color-bg-filled-hover-warning);
+        --app-bg-active: var(--color-bg-active-warning);
+        --app-bg-active-filled: var(--color-bg-filled-active-warning);
+        --app-border: var(--color-border-warning);
+        --app-focus: var(--color-focus-warning);
     }
-    [data-variant="outline"][data-appearance="info"] {
-        --text-color: var(--color-text-info);
-        --bg-color: var(--color-bg-info);
-        --bg-hover-color: var(--color-bg-hover-info);
-        --bg-active-color: var(--color-bg-active-info);
-        --border-color: var(--color-border-info);
-        --ring-color: var(--color-border-info);
-        --divider-color: var(--color-border-info);
-        --focus-color: var(--color-focus-info);
-        --accent-color: var(--color-bg-info);
-        --checked-bg-color: var(--color-bg-info);
+    [data-appearance="info"] {
+        --app-text: var(--color-text-info);
+        --app-text-filled: var(--color-text-filled-info);
+        --app-bg: var(--color-bg-info);
+        --app-bg-filled: var(--color-bg-filled-info);
+        --app-bg-hover: var(--color-bg-hover-info);
+        --app-bg-hover-filled: var(--color-bg-filled-hover-info);
+        --app-bg-active: var(--color-bg-active-info);
+        --app-bg-active-filled: var(--color-bg-filled-active-info);
+        --app-border: var(--color-border-info);
+        --app-focus: var(--color-focus-info);
     }
-    [data-variant="outline"][data-appearance="link"] {
-        --text-color: var(--color-text-link);
-        --bg-color: var(--color-bg-primary);
-        --bg-hover-color: var(--color-bg-hover-primary);
-        --bg-active-color: var(--color-bg-active-primary);
-        --border-color: var(--color-border-brand);
-        --ring-color: var(--color-border-brand);
-        --divider-color: var(--color-border-brand);
-        --focus-color: var(--color-focus-brand);
-        --accent-color: var(--color-bg-primary);
-        --checked-bg-color: var(--color-bg-primary);
+    /* Link appearance: text=link, bg/hover/active=primary, border/focus=brand */
+    [data-appearance="link"] {
+        --app-text: var(--color-text-link);
+        --app-text-filled: var(--color-text-filled-link);
+        --app-bg: var(--color-bg-primary);
+        --app-bg-filled: var(--color-bg-filled-brand);
+        --app-bg-hover: var(--color-bg-hover-primary);
+        --app-bg-hover-filled: var(--color-bg-filled-hover-brand);
+        --app-bg-active: var(--color-bg-active-primary);
+        --app-bg-active-filled: var(--color-bg-filled-active-brand);
+        --app-border: var(--color-border-brand);
+        --app-focus: var(--color-focus-brand);
     }
 
     /* -----------------------------------------
-       FILLED VARIANT
-       Each rule sets palette CSS variables on the element itself.
-       Children inherit those variables via native CSS custom-property cascade
-       whenever they don't set their own variant/appearance (see contract in
-       ComponentTheme.tsx — data-variant/data-appearance are emitted only when
-       the user explicitly provides a prop). This makes explicit props on a
-       child always win over an inherited filled context.
+       AXIS 2: VARIANT — maps palette to final variables
+       Each rule reads --app-* intermediates set by the appearance rule
+       on the same element and assigns the final consumer variables.
        ----------------------------------------- */
-    [data-variant="filled"][data-appearance="primary"] {
-        --text-color: var(--color-text-filled-primary);
-        --bg-color: var(--color-bg-filled-primary);
-        --bg-hover-color: var(--color-bg-filled-hover-primary);
-        --bg-active-color: var(--color-bg-filled-active-primary);
+    [data-variant="outline"] {
+        --text-color: var(--app-text);
+        --bg-color: var(--app-bg);
+        --bg-hover-color: var(--app-bg-hover);
+        --bg-active-color: var(--app-bg-active);
+        --border-color: var(--app-border);
+        --ring-color: var(--app-border);
+        --divider-color: var(--app-border);
+        --focus-color: var(--app-focus);
+        --accent-color: var(--app-bg);
+        --checked-bg-color: var(--app-bg);
+    }
+    [data-variant="filled"] {
+        --text-color: var(--app-text-filled);
+        --bg-color: var(--app-bg-filled);
+        --bg-hover-color: var(--app-bg-hover-filled);
+        --bg-active-color: var(--app-bg-active-filled);
         --border-color: transparent;
         --ring-color: transparent;
         --divider-color: oklch(1 0 0 / 15%);
-        --focus-color: var(--color-focus-primary);
-        --accent-color: var(--color-bg-filled-primary);
-        --checked-bg-color: var(--color-bg-filled-primary);
+        --focus-color: var(--app-focus);
+        --accent-color: var(--app-bg-filled);
+        --checked-bg-color: var(--app-bg-filled);
     }
-    [data-variant="filled"][data-appearance="brand"] {
-        --text-color: var(--color-text-filled-brand);
-        --bg-color: var(--color-bg-filled-brand);
-        --bg-hover-color: var(--color-bg-filled-hover-brand);
-        --bg-active-color: var(--color-bg-filled-active-brand);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: oklch(1 0 0 / 15%);
-        --focus-color: var(--color-focus-brand);
-        --accent-color: var(--color-bg-filled-brand);
-        --checked-bg-color: var(--color-bg-filled-brand);
-    }
-    [data-variant="filled"][data-appearance="secondary"] {
-        --text-color: var(--color-text-filled-secondary);
-        --bg-color: var(--color-bg-filled-secondary);
-        --bg-hover-color: var(--color-bg-filled-hover-secondary);
-        --bg-active-color: var(--color-bg-filled-active-secondary);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: oklch(1 0 0 / 15%);
-        --focus-color: var(--color-focus-secondary);
-        --accent-color: var(--color-bg-filled-secondary);
-        --checked-bg-color: var(--color-bg-filled-secondary);
-    }
-    [data-variant="filled"][data-appearance="tertiary"] {
-        --text-color: var(--color-text-filled-tertiary);
-        --bg-color: var(--color-bg-filled-tertiary);
-        --bg-hover-color: var(--color-bg-filled-hover-tertiary);
-        --bg-active-color: var(--color-bg-filled-active-tertiary);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: oklch(1 0 0 / 15%);
-        --focus-color: var(--color-focus-tertiary);
-        --accent-color: var(--color-bg-filled-tertiary);
-        --checked-bg-color: var(--color-bg-filled-tertiary);
-    }
-    [data-variant="filled"][data-appearance="accent"] {
-        --text-color: var(--color-text-filled-accent);
-        --bg-color: var(--color-bg-filled-accent);
-        --bg-hover-color: var(--color-bg-filled-hover-accent);
-        --bg-active-color: var(--color-bg-filled-active-accent);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: oklch(1 0 0 / 15%);
-        --focus-color: var(--color-focus-accent);
-        --accent-color: var(--color-bg-filled-accent);
-        --checked-bg-color: var(--color-bg-filled-accent);
-    }
-    [data-variant="filled"][data-appearance="success"] {
-        --text-color: var(--color-text-filled-success);
-        --bg-color: var(--color-bg-filled-success);
-        --bg-hover-color: var(--color-bg-filled-hover-success);
-        --bg-active-color: var(--color-bg-filled-active-success);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: oklch(1 0 0 / 15%);
-        --focus-color: var(--color-focus-success);
-        --accent-color: var(--color-bg-filled-success);
-        --checked-bg-color: var(--color-bg-filled-success);
-    }
-    [data-variant="filled"][data-appearance="danger"] {
-        --text-color: var(--color-text-filled-danger);
-        --bg-color: var(--color-bg-filled-danger);
-        --bg-hover-color: var(--color-bg-filled-hover-danger);
-        --bg-active-color: var(--color-bg-filled-active-danger);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: oklch(1 0 0 / 15%);
-        --focus-color: var(--color-focus-danger);
-        --accent-color: var(--color-bg-filled-danger);
-        --checked-bg-color: var(--color-bg-filled-danger);
-    }
-    [data-variant="filled"][data-appearance="warning"] {
-        --text-color: var(--color-text-filled-warning);
-        --bg-color: var(--color-bg-filled-warning);
-        --bg-hover-color: var(--color-bg-filled-hover-warning);
-        --bg-active-color: var(--color-bg-filled-active-warning);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: oklch(1 0 0 / 15%);
-        --focus-color: var(--color-focus-warning);
-        --accent-color: var(--color-bg-filled-warning);
-        --checked-bg-color: var(--color-bg-filled-warning);
-    }
-    [data-variant="filled"][data-appearance="info"] {
-        --text-color: var(--color-text-filled-info);
-        --bg-color: var(--color-bg-filled-info);
-        --bg-hover-color: var(--color-bg-filled-hover-info);
-        --bg-active-color: var(--color-bg-filled-active-info);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: oklch(1 0 0 / 15%);
-        --focus-color: var(--color-focus-info);
-        --accent-color: var(--color-bg-filled-info);
-        --checked-bg-color: var(--color-bg-filled-info);
-    }
-    [data-variant="filled"][data-appearance="link"] {
-        --text-color: var(--color-text-filled-link);
-        --bg-color: var(--color-bg-filled-brand);
-        --bg-hover-color: var(--color-bg-filled-hover-brand);
-        --bg-active-color: var(--color-bg-filled-active-brand);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: oklch(1 0 0 / 15%);
-        --focus-color: var(--color-focus-brand);
-        --accent-color: var(--color-bg-filled-brand);
-        --checked-bg-color: var(--color-bg-filled-brand);
-    }
-
-    /* -----------------------------------------
-       GHOST VARIANT
-       Transparent idle background, no border/ring, appearance-colored text.
-       Hover/active use the same tinted backgrounds as outline. Designed
-       for toolbars, inline actions, and contexts where outline is too heavy.
-       ----------------------------------------- */
-    [data-variant="ghost"][data-appearance="primary"] {
-        --text-color: var(--color-text-primary);
+    [data-variant="ghost"] {
+        --text-color: var(--app-text);
         --bg-color: transparent;
-        --bg-hover-color: var(--color-bg-hover-primary);
-        --bg-active-color: var(--color-bg-active-primary);
+        --bg-hover-color: var(--app-bg-hover);
+        --bg-active-color: var(--app-bg-active);
         --border-color: transparent;
         --ring-color: transparent;
-        --divider-color: var(--color-border-primary);
-        --focus-color: var(--color-focus-primary);
-        --accent-color: var(--color-bg-primary);
-        --checked-bg-color: var(--color-bg-primary);
-    }
-    [data-variant="ghost"][data-appearance="brand"] {
-        --text-color: var(--color-text-brand);
-        --bg-color: transparent;
-        --bg-hover-color: var(--color-bg-hover-brand);
-        --bg-active-color: var(--color-bg-active-brand);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: var(--color-border-brand);
-        --focus-color: var(--color-focus-brand);
-        --accent-color: var(--color-bg-brand);
-        --checked-bg-color: var(--color-bg-brand);
-    }
-    [data-variant="ghost"][data-appearance="secondary"] {
-        --text-color: var(--color-text-secondary);
-        --bg-color: transparent;
-        --bg-hover-color: var(--color-bg-hover-secondary);
-        --bg-active-color: var(--color-bg-active-secondary);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: var(--color-border-secondary);
-        --focus-color: var(--color-focus-secondary);
-        --accent-color: var(--color-bg-secondary);
-        --checked-bg-color: var(--color-bg-secondary);
-    }
-    [data-variant="ghost"][data-appearance="tertiary"] {
-        --text-color: var(--color-text-tertiary);
-        --bg-color: transparent;
-        --bg-hover-color: var(--color-bg-hover-tertiary);
-        --bg-active-color: var(--color-bg-active-tertiary);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: var(--color-border-tertiary);
-        --focus-color: var(--color-focus-tertiary);
-        --accent-color: var(--color-bg-tertiary);
-        --checked-bg-color: var(--color-bg-tertiary);
-    }
-    [data-variant="ghost"][data-appearance="accent"] {
-        --text-color: var(--color-text-accent);
-        --bg-color: transparent;
-        --bg-hover-color: var(--color-bg-hover-accent);
-        --bg-active-color: var(--color-bg-active-accent);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: var(--color-border-accent);
-        --focus-color: var(--color-focus-accent);
-        --accent-color: var(--color-bg-accent);
-        --checked-bg-color: var(--color-bg-accent);
-    }
-    [data-variant="ghost"][data-appearance="success"] {
-        --text-color: var(--color-text-success);
-        --bg-color: transparent;
-        --bg-hover-color: var(--color-bg-hover-success);
-        --bg-active-color: var(--color-bg-active-success);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: var(--color-border-success);
-        --focus-color: var(--color-focus-success);
-        --accent-color: var(--color-bg-success);
-        --checked-bg-color: var(--color-bg-success);
-    }
-    [data-variant="ghost"][data-appearance="danger"] {
-        --text-color: var(--color-text-danger);
-        --bg-color: transparent;
-        --bg-hover-color: var(--color-bg-hover-danger);
-        --bg-active-color: var(--color-bg-active-danger);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: var(--color-border-danger);
-        --focus-color: var(--color-focus-danger);
-        --accent-color: var(--color-bg-danger);
-        --checked-bg-color: var(--color-bg-danger);
-    }
-    [data-variant="ghost"][data-appearance="warning"] {
-        --text-color: var(--color-text-warning);
-        --bg-color: transparent;
-        --bg-hover-color: var(--color-bg-hover-warning);
-        --bg-active-color: var(--color-bg-active-warning);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: var(--color-border-warning);
-        --focus-color: var(--color-focus-warning);
-        --accent-color: var(--color-bg-warning);
-        --checked-bg-color: var(--color-bg-warning);
-    }
-    [data-variant="ghost"][data-appearance="info"] {
-        --text-color: var(--color-text-info);
-        --bg-color: transparent;
-        --bg-hover-color: var(--color-bg-hover-info);
-        --bg-active-color: var(--color-bg-active-info);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: var(--color-border-info);
-        --focus-color: var(--color-focus-info);
-        --accent-color: var(--color-bg-info);
-        --checked-bg-color: var(--color-bg-info);
-    }
-    [data-variant="ghost"][data-appearance="link"] {
-        --text-color: var(--color-text-link);
-        --bg-color: transparent;
-        --bg-hover-color: var(--color-bg-hover-primary);
-        --bg-active-color: var(--color-bg-active-primary);
-        --border-color: transparent;
-        --ring-color: transparent;
-        --divider-color: var(--color-border-brand);
-        --focus-color: var(--color-focus-brand);
-        --accent-color: var(--color-bg-primary);
-        --checked-bg-color: var(--color-bg-primary);
+        --divider-color: var(--app-border);
+        --focus-color: var(--app-focus);
+        --accent-color: var(--app-bg);
+        --checked-bg-color: var(--app-bg);
     }
 
     /* -----------------------------------------
