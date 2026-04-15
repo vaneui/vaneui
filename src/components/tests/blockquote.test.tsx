@@ -53,7 +53,7 @@ describe('Blockquote Component', () => {
       const { container } = render(<Blockquote>Quote</Blockquote>);
       const el = container.querySelector('blockquote');
 
-      expect(el).toHaveClass('text-(length:--fs)');
+      expect(el).toHaveClass('text-[length:inherit]'); // inherit appearance cascades font-size
       expect(el).toHaveAttribute('data-size', 'md');
       expect(el).toHaveClass('w-full');
       expect(el).toHaveClass('font-sans');
@@ -79,7 +79,8 @@ describe('Blockquote Component', () => {
         const { container } = render(<Blockquote {...{ [size]: true }}>Quote</Blockquote>);
         const el = container.querySelector('blockquote');
 
-        expect(el).toHaveClass('text-(length:--fs)');
+        // Blockquote defaults to inherit appearance; font-size cascades from parent
+        expect(el).toHaveClass('text-[length:inherit]');
         expect(el).toHaveAttribute('data-size', size);
       });
     });

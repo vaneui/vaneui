@@ -20,7 +20,7 @@ describe('Text Component Tests', () => {
       const text = container.querySelector('p');
       expect(text).toBeInTheDocument();
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
-      expect(text).toHaveClass('text-(length:--fs)'); // CSS variable font size
+      expect(text).toHaveClass('text-[length:inherit]'); // inherit appearance -> cascade font-size from parent
       expect(text).toHaveClass('text-(--text-color)'); // primary is default
       expect(text).toHaveClass('font-sans');
       // No default font weight; variants like medium/bold are opt-in
@@ -29,11 +29,11 @@ describe('Text Component Tests', () => {
 
     it('should apply different size classes', () => {
       const sizes = [
-        { prop: 'xs', textClass: 'text-(length:--fs)' },
-        { prop: 'sm', textClass: 'text-(length:--fs)' },
-        { prop: 'md', textClass: 'text-(length:--fs)' },
-        { prop: 'lg', textClass: 'text-(length:--fs)' },
-        { prop: 'xl', textClass: 'text-(length:--fs)' }
+        { prop: 'xs', textClass: 'text-[length:inherit]' },
+        { prop: 'sm', textClass: 'text-[length:inherit]' },
+        { prop: 'md', textClass: 'text-[length:inherit]' },
+        { prop: 'lg', textClass: 'text-[length:inherit]' },
+        { prop: 'xl', textClass: 'text-[length:inherit]' }
       ] as const;
 
       sizes.forEach(({prop, textClass}) => {
@@ -296,7 +296,7 @@ describe('Text Component Tests', () => {
       );
 
       const text = container.querySelector('p');
-      expect(text).toHaveClass('text-(length:--fs)', 'font-sans'); // theme classes (no default color)
+      expect(text).toHaveClass('text-[length:inherit]', 'font-sans'); // theme classes (no default color)
       expect(text).toHaveClass('custom-text-class'); // custom class
     });
 

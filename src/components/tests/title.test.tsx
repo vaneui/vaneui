@@ -561,14 +561,15 @@ describe('Title Components Tests', () => {
       );
 
       const title = container.querySelector('h3');
-      // When responsive is false, should use base class
-      expect(title).toHaveClass('text-(length:--fs)');
+      // Title defaults to `inherit` appearance. With responsive=false, font-size
+      // now cascades from parent via text-[length:inherit] (see FontSizeClassMapper).
+      expect(title).toHaveClass('text-[length:inherit]');
       expect(title).not.toHaveClass('text-(length:--fs-desktop)');
       expect(title).not.toHaveClass('max-tablet:text-(length:--fs-tablet)');
       expect(title).not.toHaveClass('max-mobile:text-(length:--fs-mobile)');
     });
 
-    it('PageTitle should use base class when responsive is explicitly disabled', () => {
+    it('PageTitle should inherit font-size when responsive is explicitly disabled', () => {
       const { container } = render(
         <ThemeProvider
           themeDefaults={{ pageTitle: { responsive: false } }}
@@ -578,11 +579,11 @@ describe('Title Components Tests', () => {
       );
 
       const pageTitle = container.querySelector('h1');
-      expect(pageTitle).toHaveClass('text-(length:--fs)');
+      expect(pageTitle).toHaveClass('text-[length:inherit]');
       expect(pageTitle).not.toHaveClass('text-(length:--fs-desktop)');
     });
 
-    it('SectionTitle should use base class when responsive is explicitly disabled', () => {
+    it('SectionTitle should inherit font-size when responsive is explicitly disabled', () => {
       const { container } = render(
         <ThemeProvider
           themeDefaults={{ sectionTitle: { responsive: false } }}
@@ -592,7 +593,7 @@ describe('Title Components Tests', () => {
       );
 
       const sectionTitle = container.querySelector('h2');
-      expect(sectionTitle).toHaveClass('text-(length:--fs)');
+      expect(sectionTitle).toHaveClass('text-[length:inherit]');
       expect(sectionTitle).not.toHaveClass('text-(length:--fs-desktop)');
     });
   });
