@@ -143,7 +143,10 @@ test.describe('Size variants', () => {
     }
   });
 
-  test('Text sizes produce strictly increasing font-size', async ({ page }) => {
+  test('Text sizes all inherit the same font-size from parent', async ({ page }) => {
+    // Text defaults to `inherit` appearance (non-responsive) and now cascades
+    // font-size from its nearest typography ancestor via text-[length:inherit].
+    // The size prop does not change the rendered font-size.
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
     const fontSizes: number[] = [];
 
@@ -152,8 +155,9 @@ test.describe('Size variants', () => {
       fontSizes.push(parseFloat(fs));
     }
 
+    // All variants should resolve to the same inherited font-size
     for (let i = 1; i < fontSizes.length; i++) {
-      expect(fontSizes[i]).toBeGreaterThan(fontSizes[i - 1]);
+      expect(fontSizes[i]).toBe(fontSizes[0]);
     }
   });
 
