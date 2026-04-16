@@ -782,28 +782,32 @@ describe('Inherit Appearance Prop', () => {
       expect(link).toHaveClass('leading-(--lh)');
     });
 
-    it('inherit appearance sets all four flags (inheritSize, inheritColor, inheritBg, inheritBorder)', () => {
+    it('inherit appearance expands to inheritColor/Bg/Border but NOT inheritSize', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Text inherit>Text</Text>
         </ThemeProvider>
       );
       const text = container.querySelector('p');
+      // inheritColor suppresses data-appearance
       expect(text).not.toHaveAttribute('data-appearance');
-      expect(text).toHaveClass('text-[length:inherit]');
-      expect(text).toHaveClass('leading-[inherit]');
+      // inherit does NOT expand to inheritSize — size uses own --fs variable
+      expect(text).toHaveClass('text-(length:--fs)');
+      expect(text).toHaveClass('leading-(--lh)');
     });
 
-    it('inherit appearance + noInheritSize keeps own size but inherits color', () => {
+    it('inherit appearance + explicit inheritSize enables size inheritance', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text inherit noInheritSize>Text</Text>
+          <Text inherit inheritSize>Text</Text>
         </ThemeProvider>
       );
       const text = container.querySelector('p');
+      // inheritColor from inherit expansion
       expect(text).not.toHaveAttribute('data-appearance');
-      expect(text).toHaveClass('text-(length:--fs)');
-      expect(text).toHaveClass('leading-(--lh)');
+      // explicit inheritSize enables size inheritance
+      expect(text).toHaveClass('text-[length:inherit]');
+      expect(text).toHaveClass('leading-[inherit]');
     });
 
     it('Code with inheritSize default inherits font-size but keeps primary appearance', () => {

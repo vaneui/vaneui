@@ -24,7 +24,7 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('has-[input]:cursor-pointer'); // will be cursor-pointer with input
       expect(label).toHaveClass('flex'); // flex by default
       expect(label).toHaveClass('gap-(--gap)'); // default gap
-      expect(label).toHaveClass('text-[length:inherit]'); // inherit appearance cascades font-size
+      expect(label).toHaveClass('text-(length:--fs)'); // inherit appearance cascades font-size
       expect(label).toHaveClass('text-(--text-color)'); // primary is default
       expect(label).toHaveClass('font-sans');
       expect(label).toHaveClass('font-medium');
@@ -111,11 +111,11 @@ describe('Label Component Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', textClass: 'text-[length:inherit]' },
-        { prop: 'sm', textClass: 'text-[length:inherit]' },
-        { prop: 'md', textClass: 'text-[length:inherit]' },
-        { prop: 'lg', textClass: 'text-[length:inherit]' },
-        { prop: 'xl', textClass: 'text-[length:inherit]' }
+        { prop: 'xs', textClass: 'text-(length:--fs)' },
+        { prop: 'sm', textClass: 'text-(length:--fs)' },
+        { prop: 'md', textClass: 'text-(length:--fs)' },
+        { prop: 'lg', textClass: 'text-(length:--fs)' },
+        { prop: 'xl', textClass: 'text-(length:--fs)' }
       ] as const;
 
       sizes.forEach(({prop, textClass}) => {

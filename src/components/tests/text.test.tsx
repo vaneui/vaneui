@@ -20,7 +20,7 @@ describe('Text Component Tests', () => {
       const text = container.querySelector('p');
       expect(text).toBeInTheDocument();
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
-      expect(text).toHaveClass('text-[length:inherit]'); // inherit appearance -> cascade font-size from parent
+      expect(text).toHaveClass('text-(length:--fs)'); // inherit appearance -> cascade font-size from parent
       expect(text).toHaveClass('text-(--text-color)'); // primary is default
       expect(text).toHaveClass('font-sans');
       // No default font weight; variants like medium/bold are opt-in
@@ -29,11 +29,11 @@ describe('Text Component Tests', () => {
 
     it('should apply different size classes', () => {
       const sizes = [
-        { prop: 'xs', textClass: 'text-[length:inherit]' },
-        { prop: 'sm', textClass: 'text-[length:inherit]' },
-        { prop: 'md', textClass: 'text-[length:inherit]' },
-        { prop: 'lg', textClass: 'text-[length:inherit]' },
-        { prop: 'xl', textClass: 'text-[length:inherit]' }
+        { prop: 'xs', textClass: 'text-(length:--fs)' },
+        { prop: 'sm', textClass: 'text-(length:--fs)' },
+        { prop: 'md', textClass: 'text-(length:--fs)' },
+        { prop: 'lg', textClass: 'text-(length:--fs)' },
+        { prop: 'xl', textClass: 'text-(length:--fs)' }
       ] as const;
 
       sizes.forEach(({prop, textClass}) => {
@@ -296,7 +296,7 @@ describe('Text Component Tests', () => {
       );
 
       const text = container.querySelector('p');
-      expect(text).toHaveClass('text-[length:inherit]', 'font-sans'); // theme classes (no default color)
+      expect(text).toHaveClass('text-(length:--fs)', 'font-sans'); // theme classes (no default color)
       expect(text).toHaveClass('custom-text-class'); // custom class
     });
 
@@ -363,11 +363,11 @@ describe('Text Component Tests', () => {
 
     it('should apply inherited line height (inheritSize default from inherit appearance)', () => {
       const sizes = [
-        { prop: 'xs', lineHeightClass: 'leading-[inherit]' },
-        { prop: 'sm', lineHeightClass: 'leading-[inherit]' },
-        { prop: 'md', lineHeightClass: 'leading-[inherit]' },
-        { prop: 'lg', lineHeightClass: 'leading-[inherit]' },
-        { prop: 'xl', lineHeightClass: 'leading-[inherit]' }
+        { prop: 'xs', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'sm', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'md', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'lg', lineHeightClass: 'leading-(--lh)' },
+        { prop: 'xl', lineHeightClass: 'leading-(--lh)' }
       ] as const;
 
       sizes.forEach(({prop, lineHeightClass}) => {

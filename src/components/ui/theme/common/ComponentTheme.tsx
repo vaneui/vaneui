@@ -221,12 +221,12 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     }
 
     // Expand 'inherit' appearance shorthand into granular inherit flags.
-    // Each flag is set only if not already explicitly provided by the user
-    // (e.g., <Link inherit noInheritSize> keeps own size but inherits color).
+    // Only expands COLOR, BG, and BORDER — not SIZE. Size inheritance is a
+    // separate concern: components that need it (Link, Code, Kbd, Mark) set
+    // `inheritSize: true` explicitly in their defaults. If `inherit` also
+    // expanded into `inheritSize`, then `<Text sm>` would ignore the explicit
+    // `sm` prop and inherit from parent instead — breaking user intent.
     if (extractedKeys.appearance === 'inherit') {
-      if (!extractedKeys.inheritSize) {
-        extractedKeys.inheritSize = 'inheritSize';
-      }
       if (!extractedKeys.inheritColor) {
         extractedKeys.inheritColor = 'inheritColor';
       }

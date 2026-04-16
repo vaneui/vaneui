@@ -63,11 +63,7 @@ test.describe('Blockquote', () => {
     expect(blockquoteColor).toBe(textColor);
   });
 
-  test('size variants all inherit the same font-size from parent', async ({ page }) => {
-    // Blockquote defaults to `inherit` appearance (non-responsive) and now
-    // cascades font-size from its nearest typography ancestor via
-    // text-[length:inherit]. The size prop therefore does not change the
-    // rendered font-size; it only tags `data-size` for downstream styling.
+  test('size variants xs→xl produce strictly increasing font-sizes', async ({ page }) => {
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
     const fontSizes: number[] = [];
 
@@ -75,9 +71,8 @@ test.describe('Blockquote', () => {
       fontSizes.push(await getFontSize(page.locator(`[data-testid="blockquote-${size}"]`)));
     }
 
-    // All variants should resolve to the same inherited font-size
     for (let i = 1; i < fontSizes.length; i++) {
-      expect(fontSizes[i]).toBe(fontSizes[0]);
+      expect(fontSizes[i]).toBeGreaterThan(fontSizes[i - 1]);
     }
   });
 });
