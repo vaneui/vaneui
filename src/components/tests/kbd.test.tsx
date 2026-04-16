@@ -51,7 +51,7 @@ describe('Kbd Component', () => {
       const el = container.querySelector('kbd');
 
       expect(el).toHaveClass('inline');
-      expect(el).toHaveClass('text-(length:--fs)');
+      expect(el).toHaveClass('text-[length:inherit]');
       expect(el).toHaveAttribute('data-size', 'md');
       expect(el).toHaveClass('px-(--px)');
       expect(el).toHaveClass('py-(--py)');
@@ -93,7 +93,7 @@ describe('Kbd Component', () => {
         const { container } = render(<Kbd {...{ [size]: true }}>Key</Kbd>);
         const el = container.querySelector('kbd');
 
-        expect(el).toHaveClass('text-(length:--fs)');
+        expect(el).toHaveClass('text-[length:inherit]');
         expect(el).toHaveAttribute('data-size', size);
         expect(el).toHaveClass('px-(--px)');
         expect(el).toHaveClass('py-(--py)');

@@ -23,8 +23,8 @@ describe('Link Component Tests', () => {
       expect(link).toHaveClass('hover:underline', 'w-fit');
       expect(link).not.toHaveClass('text-base'); // no default size
       expect(link).toHaveClass('text-(--link-text)'); // link appearance by default
-      expect(link).toHaveClass('text-(length:--fs)'); // font size - NOT conflicting with text color
-      expect(link).toHaveClass('leading-(--lh)'); // CSS variable line height
+      expect(link).toHaveClass('text-[length:inherit]'); // inherited font size (inheritSize default)
+      expect(link).toHaveClass('leading-[inherit]'); // inherited line height (inheritSize default)
       expect(link).toHaveClass('font-sans');
       expect(link).toHaveAttribute('href', '#test');
     });
@@ -69,8 +69,8 @@ describe('Link Component Tests', () => {
 
         const link = container.querySelector('a');
         expect(link).toHaveAttribute('data-size', prop);
-        expect(link).toHaveClass('leading-(--lh)'); // line height classes
-        expect(link).toHaveClass('text-(length:--fs)'); // font size - NOT conflicting with text color
+        expect(link).toHaveClass('leading-[inherit]'); // inherited line height (inheritSize default)
+        expect(link).toHaveClass('text-[length:inherit]'); // inherited font size (inheritSize default)
       });
     });
 

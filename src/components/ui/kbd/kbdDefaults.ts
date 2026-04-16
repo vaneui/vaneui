@@ -15,4 +15,5 @@ export const kbdDefaults: Partial<KbdProps> = {
   whitespaceNowrap: true,
   wFit: true,
   hFit: true,
+  inheritSize: true,
 };

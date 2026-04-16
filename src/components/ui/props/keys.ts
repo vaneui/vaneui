@@ -28,6 +28,10 @@ import {
   DISABLED,
   MIN_WIDTH,
   MAX_HEIGHT,
+  INHERIT_SIZE,
+  INHERIT_COLOR,
+  INHERIT_BG,
+  INHERIT_BORDER,
 } from './categoryBuilders';
 
 // Re-export for backward compatibility
@@ -59,6 +63,10 @@ export {
   DISABLED,
   MIN_WIDTH,
   MAX_HEIGHT,
+  INHERIT_SIZE,
+  INHERIT_COLOR,
+  INHERIT_BG,
+  INHERIT_BORDER,
 };
 
 // Import component-specific categories from their folders
@@ -165,6 +173,10 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...DISABLED,
   ...MIN_WIDTH,
   ...MAX_HEIGHT,
+  ...INHERIT_SIZE,
+  ...INHERIT_COLOR,
+  ...INHERIT_BG,
+  ...INHERIT_BORDER,
 ] as const;
 
 /**
@@ -275,6 +287,14 @@ export const ComponentKeys = {
   minWidth: ['minWidth'] as const,
   /** Max-height for popup/floating components */
   maxHeight: ['maxHeight'] as const,
+  /** Inherit font-size and line-height from parent typography ancestor */
+  inheritSize: ['inheritSize', 'noInheritSize'] as const,
+  /** Inherit text color from parent via CSS variable cascade (suppresses data-appearance) */
+  inheritColor: ['inheritColor', 'noInheritColor'] as const,
+  /** Inherit background color from parent via CSS variable cascade */
+  inheritBg: ['inheritBg', 'noInheritBg'] as const,
+  /** Inherit border color from parent via CSS variable cascade */
+  inheritBorder: ['inheritBorder', 'noInheritBorder'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -351,6 +371,14 @@ export type DisabledKey = typeof ComponentKeys.disabled[number];
 export type MinWidthKey = typeof ComponentKeys.minWidth[number];
 /** Max-height key for popup/floating components */
 export type MaxHeightKey = typeof ComponentKeys.maxHeight[number];
+/** Inherit font-size/line-height toggle keys */
+export type InheritSizeKey = typeof ComponentKeys.inheritSize[number];
+/** Inherit text color toggle keys */
+export type InheritColorKey = typeof ComponentKeys.inheritColor[number];
+/** Inherit background color toggle keys */
+export type InheritBgKey = typeof ComponentKeys.inheritBg[number];
+/** Inherit border color toggle keys */
+export type InheritBorderKey = typeof ComponentKeys.inheritBorder[number];
 
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];

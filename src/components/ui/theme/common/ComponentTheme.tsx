@@ -220,6 +220,24 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       }
     }
 
+    // Expand 'inherit' appearance shorthand into granular inherit flags.
+    // Each flag is set only if not already explicitly provided by the user
+    // (e.g., <Link inherit noInheritSize> keeps own size but inherits color).
+    if (extractedKeys.appearance === 'inherit') {
+      if (!extractedKeys.inheritSize) {
+        extractedKeys.inheritSize = 'inheritSize';
+      }
+      if (!extractedKeys.inheritColor) {
+        extractedKeys.inheritColor = 'inheritColor';
+      }
+      if (!extractedKeys.inheritBg) {
+        extractedKeys.inheritBg = 'inheritBg';
+      }
+      if (!extractedKeys.inheritBorder) {
+        extractedKeys.inheritBorder = 'inheritBorder';
+      }
+    }
+
     const keysToOmit =
       this.categories.flatMap(category => ComponentKeys[category]);
     for (const k of keysToOmit) {
@@ -252,9 +270,10 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       dataAttributes['data-responsive'] = '';
     }
     // Data-attribute gate:
-    // - Appearance is emitted when resolved value is not `inherit`. Components
-    //   with `inherit` (Text, Title, Label, etc.) skip and inherit via CSS
-    //   custom-property cascade from their nearest ancestor.
+    // - Appearance is emitted when present AND inheritColor is not active.
+    //   When inheritColor is set (either explicitly or via `inherit` appearance
+    //   expansion), data-appearance is suppressed so colors cascade from the
+    //   nearest ancestor via CSS custom-property inheritance.
     // - Variant is emitted when EITHER:
     //   (a) appearance is present — needed for the two-axis CSS architecture
     //       (appearance sets --app-* intermediates, variant maps them to
@@ -262,7 +281,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     //   (b) variant deviates from `outline` — lets `<Row filled>` or
     //       `<Button ghost>` work without an explicit appearance; the variant
     //       rule reads --app-* inherited from the nearest ancestor.
-    const hasAppearance = extractedKeys.appearance && extractedKeys.appearance !== 'inherit';
+    const hasAppearance = extractedKeys.appearance && extractedKeys.inheritColor !== 'inheritColor';
     if (hasAppearance) {
       dataAttributes['data-appearance'] = extractedKeys.appearance;
     }

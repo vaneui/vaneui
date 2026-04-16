@@ -33,11 +33,13 @@ import type {
   WhitespaceProps,
   WidthProps,
   HeightProps,
-  DisabledProps
+  DisabledProps,
+  InheritProps
 } from "../props";
 
 /** Mark component props */
 export type MarkProps = BaseProps &
+  InheritProps &
   SizeProps &
   HideProps &
   ItemsProps &

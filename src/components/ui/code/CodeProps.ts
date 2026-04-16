@@ -33,11 +33,13 @@ import type {
   WhitespaceProps,
   WidthProps,
   HeightProps,
-  DisabledProps
+  DisabledProps,
+  InheritProps
 } from "../props";
 
 /** Code component props */
 export type CodeProps = BaseProps &
+  InheritProps &
   SizeProps &
   HideProps &
   ItemsProps &

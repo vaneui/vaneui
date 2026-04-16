@@ -25,7 +25,7 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toBeInTheDocument();
       expect(list).toHaveClass('list-disc', 'list-inside');
       expect(list).toHaveClass('text-[length:inherit]'); // inherit appearance cascades font-size
-      expect(list).toHaveClass('leading-(--lh)'); // CSS variable line height
+      expect(list).toHaveClass('leading-[inherit]'); // inherited line height (inherit appearance expands to inheritSize)
       expect(list).toHaveClass('text-(--text-color)'); // primary is default
       expect(list).toHaveClass('font-sans');
       expect(list).toHaveClass('font-normal');
@@ -43,7 +43,7 @@ describe('List and ListItem Components Tests', () => {
       const list = container.querySelector('ul');
       expect(list).toHaveClass('text-[length:inherit]', 'pl-(--pl)'); // inherit appearance cascades font-size; lg padding
       expect(list).toHaveAttribute('data-size', 'lg');
-      expect(list).toHaveClass('leading-(--lh)'); // lg line height
+      expect(list).toHaveClass('leading-[inherit]'); // inherited line height (inherit appearance)
     });
 
     it('should apply layout props correctly', () => {

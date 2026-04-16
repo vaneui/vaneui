@@ -523,6 +523,8 @@ describe("Component theme coverage tests", () => {
         { name: "defaultSectionTitleTheme", theme: defaultSectionTitleTheme },
         { name: "defaultBlockquoteTheme", theme: defaultBlockquoteTheme }
       ],
+      // inheritColor is handled by ComponentTheme.tsx (gates data-appearance emission), not by a class mapper
+      componentExtractedCategories: ['inheritColor'],
     };
     createThemeTests(typographyConfig);
 
@@ -533,6 +535,8 @@ describe("Component theme coverage tests", () => {
       themes: [
         { name: "defaultLinkTheme", theme: defaultLinkTheme }
       ],
+      // inheritColor is handled by ComponentTheme.tsx (gates data-appearance emission), not by a class mapper
+      componentExtractedCategories: ['inheritColor'],
     };
     createThemeTests(linkConfig);
 
@@ -544,6 +548,8 @@ describe("Component theme coverage tests", () => {
         { name: "defaultListTheme", theme: defaultListTheme },
         { name: "defaultListItemTheme", theme: defaultListItemTheme }
       ],
+      // inheritColor and inheritBg are handled by ComponentTheme.tsx (gates data-appearance emission), not by class mappers
+      componentExtractedCategories: ['inheritColor', 'inheritBg'],
     };
     createThemeTests(listConfig);
   });

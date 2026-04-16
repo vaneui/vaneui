@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-04-15T16:22:31.864Z
+ * Generated on: 2026-04-16T07:41:56.931Z
  */
 
 export interface PropDescription {
@@ -322,6 +322,54 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "desktopHide": {
         "description": "Hide element on desktop devices and below (max-desktop: 80rem)"
+      }
+    }
+  },
+  "inheritBg": {
+    "name": "Inherit Bg",
+    "description": "Inherit background props for controlling background color inheritance\nfrom a parent typography ancestor via CSS variable cascade.",
+    "props": {
+      "inheritBg": {
+        "description": "Inherit background color from parent via CSS variable cascade"
+      },
+      "noInheritBg": {
+        "description": "Keep own background; do not inherit from parent"
+      }
+    }
+  },
+  "inheritBorder": {
+    "name": "Inherit Border",
+    "description": "Inherit border props for controlling border color inheritance\nfrom a parent typography ancestor via CSS variable cascade.",
+    "props": {
+      "inheritBorder": {
+        "description": "Inherit border color from parent via CSS variable cascade"
+      },
+      "noInheritBorder": {
+        "description": "Keep own border color; do not inherit from parent"
+      }
+    }
+  },
+  "inheritColor": {
+    "name": "Inherit Color",
+    "description": "Inherit color props for controlling text color inheritance\nfrom a parent typography ancestor via CSS variable cascade.",
+    "props": {
+      "inheritColor": {
+        "description": "Inherit text color from parent via CSS variable cascade (suppresses data-appearance emission)"
+      },
+      "noInheritColor": {
+        "description": "Keep own text color; do not inherit from parent"
+      }
+    }
+  },
+  "inheritSize": {
+    "name": "Inherit Size",
+    "description": "Inherit size props for controlling font-size and line-height inheritance\nfrom a parent typography ancestor.",
+    "props": {
+      "inheritSize": {
+        "description": "Inherit font-size and line-height from the nearest parent typography element"
+      },
+      "noInheritSize": {
+        "description": "Keep own font-size; do not inherit from parent"
       }
     }
   },

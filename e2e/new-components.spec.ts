@@ -103,7 +103,8 @@ test.describe('Kbd', () => {
     expect(fontFamily.toLowerCase()).toContain('mono');
   });
 
-  test('size variants xs→xl produce strictly increasing font-sizes', async ({ page }) => {
+  test('size variants all inherit the same font-size from parent', async ({ page }) => {
+    // Kbd defaults to inheritSize: true — font-size cascades from parent
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
     const fontSizes: number[] = [];
 
@@ -112,7 +113,7 @@ test.describe('Kbd', () => {
     }
 
     for (let i = 1; i < fontSizes.length; i++) {
-      expect(fontSizes[i]).toBeGreaterThan(fontSizes[i - 1]);
+      expect(fontSizes[i]).toBe(fontSizes[0]);
     }
   });
 });
@@ -144,7 +145,8 @@ test.describe('Mark', () => {
     expect(defaultBg).not.toBe(dangerBg);
   });
 
-  test('size variants xs→xl produce strictly increasing font-sizes', async ({ page }) => {
+  test('size variants all inherit the same font-size from parent', async ({ page }) => {
+    // Mark defaults to inheritSize: true — font-size cascades from parent
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
     const fontSizes: number[] = [];
 
@@ -153,7 +155,7 @@ test.describe('Mark', () => {
     }
 
     for (let i = 1; i < fontSizes.length; i++) {
-      expect(fontSizes[i]).toBeGreaterThan(fontSizes[i - 1]);
+      expect(fontSizes[i]).toBe(fontSizes[0]);
     }
   });
 });

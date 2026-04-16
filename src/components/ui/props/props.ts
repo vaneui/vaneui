@@ -89,3 +89,6 @@ export * from './minWidthProps';
 
 // Max Height
 export * from './maxHeightProps';
+
+// Inherit
+export * from './inheritProps';

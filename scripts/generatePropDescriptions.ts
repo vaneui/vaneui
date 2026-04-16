@@ -74,6 +74,10 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'DisabledProps': 'disabled',
   'MinWidthProps': 'minWidth',
   'MaxHeightProps': 'maxHeight',
+  'InheritSizeProps': 'inheritSize',
+  'InheritColorProps': 'inheritColor',
+  'InheritBgProps': 'inheritBg',
+  'InheritBorderProps': 'inheritBorder',
 };
 
 // Convert category key to display name

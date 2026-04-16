@@ -15,4 +15,5 @@ export const codeDefaults: Partial<CodeProps> = {
   whitespaceNowrap: true,
   wFit: true,
   hFit: true,
+  inheritSize: true,
 };

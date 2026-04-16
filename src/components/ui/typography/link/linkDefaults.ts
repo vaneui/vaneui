@@ -8,4 +8,5 @@ export const linkDefaults: Partial<TypographyProps> = {
   sans: true,
   link: true,
   cursorPointer: true,
+  inheritSize: true,
 };

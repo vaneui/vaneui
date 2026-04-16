@@ -9,6 +9,9 @@ import {
   COMMON_MODIFIERS,
   LIST_STYLE,
   PADDING,
+  INHERIT_SIZE,
+  INHERIT_COLOR,
+  INHERIT_BG,
 } from "../../props/categoryBuilders";
 
 /** Cursor appearance property */
@@ -34,6 +37,8 @@ export const TYPOGRAPHY_CATEGORIES = [
   ...WIDTH,
   ...HEIGHT,
   ...RESPONSIVE,
+  ...INHERIT_SIZE,
+  ...INHERIT_COLOR,
 ] as const;
 
 /** Categories for list components with typography and list-specific styling */
@@ -47,4 +52,7 @@ export const LIST_CATEGORIES = [
   ...WIDTH,
   ...HEIGHT,
   ...COMMON_MODIFIERS,
+  ...INHERIT_SIZE,
+  ...INHERIT_COLOR,
+  ...INHERIT_BG,
 ] as const;

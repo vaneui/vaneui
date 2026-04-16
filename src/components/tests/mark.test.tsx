@@ -51,7 +51,7 @@ describe('Mark Component', () => {
       const el = container.querySelector('mark');
 
       expect(el).toHaveClass('inline');
-      expect(el).toHaveClass('text-(length:--fs)');
+      expect(el).toHaveClass('text-[length:inherit]');
       expect(el).toHaveAttribute('data-size', 'md');
       expect(el).toHaveClass('px-(--px)');
       expect(el).toHaveClass('py-(--py)');
@@ -91,7 +91,7 @@ describe('Mark Component', () => {
         const { container } = render(<Mark {...{ [size]: true }}>text</Mark>);
         const el = container.querySelector('mark');
 
-        expect(el).toHaveClass('text-(length:--fs)');
+        expect(el).toHaveClass('text-[length:inherit]');
         expect(el).toHaveAttribute('data-size', size);
         expect(el).toHaveClass('px-(--px)');
         expect(el).toHaveClass('py-(--py)');

@@ -361,13 +361,13 @@ describe('Text Component Tests', () => {
       expect(anchor).toHaveAttribute('rel', 'noopener');
     });
 
-    it('should apply correct line height based on size', () => {
+    it('should apply inherited line height (inheritSize default from inherit appearance)', () => {
       const sizes = [
-        { prop: 'xs', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'sm', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'md', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'lg', lineHeightClass: 'leading-(--lh)' },
-        { prop: 'xl', lineHeightClass: 'leading-(--lh)' }
+        { prop: 'xs', lineHeightClass: 'leading-[inherit]' },
+        { prop: 'sm', lineHeightClass: 'leading-[inherit]' },
+        { prop: 'md', lineHeightClass: 'leading-[inherit]' },
+        { prop: 'lg', lineHeightClass: 'leading-[inherit]' },
+        { prop: 'xl', lineHeightClass: 'leading-[inherit]' }
       ] as const;
 
       sizes.forEach(({prop, lineHeightClass}) => {
@@ -401,7 +401,7 @@ describe('Text Component Tests', () => {
       // Note: text-(length:--fs) class appears to be conflicting with text-(--text-color)
       // The font size is still applied via the CSS variable, but the utility class is not present
       expect(anchor).toHaveClass('font-sans'); // default font family
-      expect(anchor).toHaveClass('leading-(--lh)'); // line height variable
+      expect(anchor).toHaveClass('leading-(--lh)'); // CSS variable line height (primary overrides inherit appearance, so no inheritSize)
     });
   });
 

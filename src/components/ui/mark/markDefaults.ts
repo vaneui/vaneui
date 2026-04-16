@@ -11,4 +11,5 @@ export const markDefaults: Partial<MarkProps> = {
   transition: true,
   wFit: true,
   hFit: true,
+  inheritSize: true,
 };

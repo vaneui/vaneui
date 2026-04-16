@@ -63,6 +63,14 @@ export const PLACEMENT = ['placement'] as const;
 export const MIN_WIDTH = ['minWidth'] as const;
 /** Max-height property for popup/floating components */
 export const MAX_HEIGHT = ['maxHeight'] as const;
+/** Inherit font-size/line-height from parent typography ancestor */
+export const INHERIT_SIZE = ['inheritSize'] as const;
+/** Inherit text color from parent via CSS variable cascade */
+export const INHERIT_COLOR = ['inheritColor'] as const;
+/** Inherit background color from parent via CSS variable cascade */
+export const INHERIT_BG = ['inheritBg'] as const;
+/** Inherit border color from parent via CSS variable cascade */
+export const INHERIT_BORDER = ['inheritBorder'] as const;
 
 /** Composite categories built from core blocks */
 /** Complete layout category including core and flex properties */
@@ -93,6 +101,7 @@ export const UI_ELEMENT_CATEGORIES = [
   ...HEIGHT,
   ...COMMON_MODIFIERS,
   ...DISABLED,
+  ...INHERIT_SIZE,
 ] as const;
 
 /** Badge component categories */

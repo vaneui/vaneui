@@ -21,7 +21,8 @@ import type {
   LetterSpacingProps,
   WidthProps,
   HeightProps,
-  CursorProps
+  CursorProps,
+  InheritProps
 } from '../../props';
 
 /**
@@ -33,6 +34,7 @@ import type {
  * highlighted-text effect, use the `Mark` component.
  */
 export type TypographyProps = BaseProps &
+  InheritProps &
   FontWeightProps &
   FontStyleProps &
   TextDecorationProps &

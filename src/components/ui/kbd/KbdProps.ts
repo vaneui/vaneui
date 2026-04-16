@@ -33,11 +33,13 @@ import type {
   WhitespaceProps,
   WidthProps,
   HeightProps,
-  DisabledProps
+  DisabledProps,
+  InheritProps
 } from "../props";
 
 /** Kbd component props */
 export type KbdProps = BaseProps &
+  InheritProps &
   SizeProps &
   HideProps &
   ItemsProps &

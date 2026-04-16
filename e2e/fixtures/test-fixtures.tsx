@@ -584,6 +584,17 @@ export function TestHarness() {
           <Title responsive data-testid="responsive-title">Title</Title>
         </section>
 
+        {/* ── Inherit-size: Link and Code inside headings ── */}
+
+        <section data-testid="inherit-size-section">
+          <Title lg data-testid="inherit-size-title">
+            Title with <Link href="#" data-testid="inherit-size-link">link</Link> inside
+          </Title>
+          <SectionTitle data-testid="inherit-size-section-title">
+            Section with <Code data-testid="inherit-size-code">code</Code> inside
+          </SectionTitle>
+        </section>
+
       </div>
     </ThemeProvider>
   );
