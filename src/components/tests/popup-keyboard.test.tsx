@@ -13,7 +13,7 @@ describe('PopupTrigger Keyboard Accessibility (REC-A11Y-15)', () => {
     it('should open popup when hover-triggered element receives focus', () => {
       const { getByText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="hover" popup={<div>Tooltip Content</div>}>
+          <PopupTrigger triggerOnHover popup={<div>Tooltip Content</div>}>
             <button>Hover Target</button>
           </PopupTrigger>
         </ThemeProvider>
@@ -32,7 +32,7 @@ describe('PopupTrigger Keyboard Accessibility (REC-A11Y-15)', () => {
       jest.useFakeTimers();
       const { getByText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="hover" openDelay={200} popup={<div>Delayed Tooltip</div>}>
+          <PopupTrigger triggerOnHover openDelay={200} popup={<div>Delayed Tooltip</div>}>
             <button>Hover Target</button>
           </PopupTrigger>
         </ThemeProvider>
@@ -55,7 +55,7 @@ describe('PopupTrigger Keyboard Accessibility (REC-A11Y-15)', () => {
       jest.useFakeTimers();
       const { getByText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="hover" closeDelay={100} popup={<div>Tooltip Content</div>}>
+          <PopupTrigger triggerOnHover closeDelay={100} popup={<div>Tooltip Content</div>}>
             <button>Hover Target</button>
           </PopupTrigger>
         </ThemeProvider>
@@ -84,7 +84,7 @@ describe('PopupTrigger Keyboard Accessibility (REC-A11Y-15)', () => {
     it('should not open on focus when trigger is click', () => {
       const { getByText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="click" popup={<div>Click Popup</div>}>
+          <PopupTrigger triggerOnClick popup={<div>Click Popup</div>}>
             <button>Click Target</button>
           </PopupTrigger>
         </ThemeProvider>
@@ -102,7 +102,7 @@ describe('PopupTrigger Keyboard Accessibility (REC-A11Y-15)', () => {
     it('should not close on blur when trigger is click', () => {
       const { getByText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="click" popup={<div>Click Popup</div>}>
+          <PopupTrigger triggerOnClick popup={<div>Click Popup</div>}>
             <button>Click Target</button>
           </PopupTrigger>
         </ThemeProvider>
@@ -122,7 +122,7 @@ describe('PopupTrigger Keyboard Accessibility (REC-A11Y-15)', () => {
     it('should open on focus when trigger is focus', () => {
       const { getByPlaceholderText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="focus" popup={<div>Suggestions</div>}>
+          <PopupTrigger triggerOnFocus popup={<div>Suggestions</div>}>
             <input placeholder="Search..." />
           </PopupTrigger>
         </ThemeProvider>
@@ -136,7 +136,7 @@ describe('PopupTrigger Keyboard Accessibility (REC-A11Y-15)', () => {
       jest.useFakeTimers();
       const { getByPlaceholderText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="focus" popup={<div>Suggestions</div>}>
+          <PopupTrigger triggerOnFocus popup={<div>Suggestions</div>}>
             <input placeholder="Search..." />
           </PopupTrigger>
         </ThemeProvider>
@@ -158,7 +158,7 @@ describe('PopupTrigger Keyboard Accessibility (REC-A11Y-15)', () => {
     it('should not open on focus when disabled', () => {
       const { getByText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="hover" disabled popup={<div>Tooltip</div>}>
+          <PopupTrigger triggerOnHover disabled popup={<div>Tooltip</div>}>
             <button>Disabled Target</button>
           </PopupTrigger>
         </ThemeProvider>
@@ -172,7 +172,7 @@ describe('PopupTrigger Keyboard Accessibility (REC-A11Y-15)', () => {
     it('should not open on mouseEnter when disabled', () => {
       const { getByText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="hover" disabled popup={<div>Tooltip</div>}>
+          <PopupTrigger triggerOnHover disabled popup={<div>Tooltip</div>}>
             <button>Disabled Target</button>
           </PopupTrigger>
         </ThemeProvider>
@@ -186,7 +186,7 @@ describe('PopupTrigger Keyboard Accessibility (REC-A11Y-15)', () => {
     it('should not set aria-expanded when disabled', () => {
       const { getByText } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="hover" disabled popup={<div>Tooltip</div>}>
+          <PopupTrigger triggerOnHover disabled popup={<div>Tooltip</div>}>
             <button>Disabled Target</button>
           </PopupTrigger>
         </ThemeProvider>

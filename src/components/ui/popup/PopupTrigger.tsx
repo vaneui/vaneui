@@ -23,7 +23,7 @@ import { Popup } from './Popup';
  * ```tsx
  * // Hover-triggered popup with delay
  * <PopupTrigger
- *   trigger="hover"
+ *   triggerOnHover
  *   openDelay={200}
  *   popup={<Text sm>Tooltip text</Text>}
  *   popupProps={{ top: true, sm: true, noPadding: false }}
@@ -36,7 +36,7 @@ import { Popup } from './Popup';
  * ```tsx
  * // Focus-triggered popup (for inputs)
  * <PopupTrigger
- *   trigger="focus"
+ *   triggerOnFocus
  *   popup={<List><ListItem>Suggestion 1</ListItem></List>}
  *   popupProps={{ bottomStart: true, matchWidth: true }}
  * >
@@ -47,13 +47,19 @@ import { Popup } from './Popup';
 export function PopupTrigger({
   children,
   popup,
-  trigger = 'click',
+  triggerOnClick,
+  triggerOnHover,
+  triggerOnFocus,
   openDelay = 0,
   closeDelay = 150,
   popupProps,
   popupId: popupIdProp,
   disabled = false,
 }: PopupTriggerProps) {
+  // Default to click when no trigger boolean is set
+  const isHover = triggerOnHover ?? false;
+  const isFocus = triggerOnFocus ?? false;
+  const useClick = triggerOnClick ?? (!isHover && !isFocus);
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLElement>(null);
   const generatedId = useId();
@@ -62,11 +68,11 @@ export function PopupTrigger({
 
   // Return focus to trigger element when popup closes (skip for focus/hover triggers to avoid re-open loop)
   useEffect(() => {
-    if (prevOpenRef.current && !open && trigger === 'click' && anchorRef.current) {
+    if (prevOpenRef.current && !open && useClick && anchorRef.current) {
       anchorRef.current.focus();
     }
     prevOpenRef.current = open;
-  }, [open, trigger]);
+  }, [open, useClick]);
   const openTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -88,12 +94,12 @@ export function PopupTrigger({
 
   const handleClose = useCallback(() => {
     clearTimers();
-    if (trigger === 'hover' && closeDelay > 0) {
+    if (isHover && closeDelay > 0) {
       closeTimeoutRef.current = setTimeout(() => setOpen(false), closeDelay);
     } else {
       setOpen(false);
     }
-  }, [trigger, closeDelay, clearTimers]);
+  }, [isHover, closeDelay, clearTimers]);
 
   const handleToggle = useCallback(() => {
     if (open) {
@@ -119,7 +125,7 @@ export function PopupTrigger({
       };
     };
 
-    if (trigger === 'click') {
+    if (useClick) {
       triggerHandlers.onClick = (e: React.SyntheticEvent) => {
         const originalOnClick = childProps?.onClick;
         if (typeof originalOnClick === 'function') {
@@ -127,12 +133,16 @@ export function PopupTrigger({
         }
         handleToggle();
       };
-    } else if (trigger === 'hover') {
+    }
+    if (isHover) {
       triggerHandlers.onMouseEnter = composeHandler('onMouseEnter', handleOpen);
       triggerHandlers.onMouseLeave = composeHandler('onMouseLeave', handleClose);
+      // Accessibility: keyboard focus/blur also opens/closes in hover mode
       triggerHandlers.onFocus = composeHandler('onFocus', handleOpen);
       triggerHandlers.onBlur = composeHandler('onBlur', handleClose);
-    } else if (trigger === 'focus') {
+    }
+    if (isFocus && !isHover) {
+      // Focus-only mode (hover already handles focus/blur above)
       triggerHandlers.onFocus = composeHandler('onFocus', handleOpen);
       triggerHandlers.onBlur = composeHandler('onBlur', handleClose);
     }
@@ -159,7 +169,7 @@ export function PopupTrigger({
         anchorRef={anchorRef}
         id={popupId}
         disabled={disabled}
-        {...(trigger === 'hover' ? {
+        {...(isHover ? {
           onMouseEnter: () => { clearTimers(); },
           onMouseLeave: handleClose,
           onFocus: () => { clearTimers(); },

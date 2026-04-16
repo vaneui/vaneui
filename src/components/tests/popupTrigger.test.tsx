@@ -70,7 +70,7 @@ describe('PopupTrigger Component Tests', () => {
     it('should open popup on mouse enter', () => {
       const { getByText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="hover" popup={<div>Tooltip</div>}>
+          <PopupTrigger triggerOnHover popup={<div>Tooltip</div>}>
             <button>Hover me</button>
           </PopupTrigger>
         </ThemeProvider>
@@ -84,7 +84,7 @@ describe('PopupTrigger Component Tests', () => {
       jest.useFakeTimers();
       const { getByText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="hover" closeDelay={100} popup={<div>Tooltip</div>}>
+          <PopupTrigger triggerOnHover closeDelay={100} popup={<div>Tooltip</div>}>
             <button>Hover me</button>
           </PopupTrigger>
         </ThemeProvider>
@@ -110,7 +110,7 @@ describe('PopupTrigger Component Tests', () => {
       jest.useFakeTimers();
       const { getByText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="hover" openDelay={200} popup={<div>Tooltip</div>}>
+          <PopupTrigger triggerOnHover openDelay={200} popup={<div>Tooltip</div>}>
             <button>Hover me</button>
           </PopupTrigger>
         </ThemeProvider>
@@ -132,7 +132,7 @@ describe('PopupTrigger Component Tests', () => {
     it('should open popup on focus', () => {
       const { getByPlaceholderText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="focus" popup={<div>Suggestions</div>}>
+          <PopupTrigger triggerOnFocus popup={<div>Suggestions</div>}>
             <input placeholder="Search..." />
           </PopupTrigger>
         </ThemeProvider>
@@ -146,7 +146,7 @@ describe('PopupTrigger Component Tests', () => {
       jest.useFakeTimers();
       const { getByPlaceholderText, baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="focus" popup={<div>Suggestions</div>}>
+          <PopupTrigger triggerOnFocus popup={<div>Suggestions</div>}>
             <input placeholder="Search..." />
           </PopupTrigger>
         </ThemeProvider>
@@ -188,7 +188,7 @@ describe('PopupTrigger Component Tests', () => {
       jest.useFakeTimers();
       const { getByText, unmount } = render(
         <ThemeProvider theme={defaultTheme}>
-          <PopupTrigger trigger="hover" openDelay={200} popup={<div>Tooltip</div>}>
+          <PopupTrigger triggerOnHover openDelay={200} popup={<div>Tooltip</div>}>
             <button>Hover me</button>
           </PopupTrigger>
         </ThemeProvider>

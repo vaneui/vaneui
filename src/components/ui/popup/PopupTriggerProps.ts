@@ -1,17 +1,18 @@
 import type React from 'react';
 import type { PopupProps } from './PopupProps';
 
-/** Trigger interaction mode */
-export type PopupTriggerMode = 'click' | 'hover' | 'focus';
-
 /** PopupTrigger component props */
 export interface PopupTriggerProps {
   /** The trigger element (must accept ref) */
   children: React.ReactElement;
   /** Content to render inside the popup */
   popup: React.ReactNode;
-  /** How the popup is triggered (default: "click") */
-  trigger?: PopupTriggerMode;
+  /** Open popup on click (default: true when no other trigger is set) */
+  triggerOnClick?: boolean;
+  /** Open popup on mouse hover with optional delay */
+  triggerOnHover?: boolean;
+  /** Open popup on focus (for inputs with autocomplete/suggestions) */
+  triggerOnFocus?: boolean;
   /** Delay before showing on hover in ms (default: 0) */
   openDelay?: number;
   /** Delay before hiding on hover in ms (default: 150) */

@@ -19,7 +19,7 @@ export { NavLink, type NavLinkProps, type NavLinkLabelProps } from "./components
 export type { OverlayProps } from "./components/ui/overlay";
 export type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./components/ui/modal";
 export type { CardProps, CardHeaderProps, CardBodyProps, CardFooterProps } from "./components/ui/card";
-export type { PopupProps, PopupTriggerProps, PopupTriggerMode } from "./components/ui/popup";
+export type { PopupProps, PopupTriggerProps } from "./components/ui/popup";
 export type { MenuProps, MenuItemProps, MenuLabelProps } from "./components/ui/menu";
 export type { ZLayer } from "./components/utils/stackingContext";
 export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card, CardHeader, CardBody, CardFooter } from "./components/ui/layout";
