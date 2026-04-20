@@ -28,8 +28,8 @@ export const textAppearance = new SimpleConsumerClassMapper({ base: textConsumer
 /** Border color appearance — alwaysOutput so border has a color even without an explicit appearance prop */
 export const borderAppearance = new SimpleConsumerClassMapper({ base: borderConsumerClass, alwaysOutput: true }, 'border');
 
-/** Ring color appearance */
-export const ringAppearance = new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring');
+/** Ring color appearance — alwaysOutput so ring has a color even without an explicit appearance prop (symmetric with border) */
+export const ringAppearance = new SimpleConsumerClassMapper({ base: ringConsumerClass, alwaysOutput: true }, 'ring');
 
 /** Focus-visible outline appearance */
 export const focusVisibleAppearance = new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible');

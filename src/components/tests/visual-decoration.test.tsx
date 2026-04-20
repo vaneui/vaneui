@@ -208,6 +208,61 @@ describe('Visual Decoration Props', () => {
       expect(element.className).toContain('ring');
       expect(element.className).toContain('ring-(--ring-color)');
     });
+
+    // Regression tests for the ring-color emission bug: before the fix,
+    // `ringAppearance` only emitted `ring-(--ring-color)` when an appearance
+    // prop was also set. Since Row/Col/Stack defaults don't set an appearance,
+    // `<Col ring>` produced width + inset but no color, falling back to
+    // Tailwind's `currentcolor` default. The fix makes `ringAppearance`
+    // symmetric with `borderAppearance` (both use `alwaysOutput: true`).
+
+    it('should apply ring-(--ring-color) on Row without an appearance prop', () => {
+      const { container } = renderWithTheme(
+        <Row ring>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('ring-[length:var(--rw)]');
+      expect(element.className).toContain('ring-(--ring-color)');
+    });
+
+    it('should apply ring-(--ring-color) on Col without an appearance prop', () => {
+      const { container } = renderWithTheme(
+        <Col ring>Content</Col>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('ring-[length:var(--rw)]');
+      expect(element.className).toContain('ring-(--ring-color)');
+    });
+
+    it('should apply ring-(--ring-color) on Stack without an appearance prop', () => {
+      const { container } = renderWithTheme(
+        <Stack ring>Content</Stack>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).toContain('ring-[length:var(--rw)]');
+      expect(element.className).toContain('ring-(--ring-color)');
+    });
+
+    it('should not apply ring-(--ring-color) when noRing is set with an appearance prop', () => {
+      const { container } = renderWithTheme(
+        <Col primary noRing>Content</Col>
+      );
+      const element = container.firstChild as HTMLElement;
+      expect(element.className).not.toContain('ring-(--ring-color)');
+    });
+
+    it('should treat ring symmetrically with border — both emit color class without an appearance prop', () => {
+      const { container } = renderWithTheme(
+        <Row ring border>Content</Row>
+      );
+      const element = container.firstChild as HTMLElement;
+      // Border
+      expect(element.className).toContain('border-[length:var(--bw)]');
+      expect(element.className).toContain('border-(--border-color)');
+      // Ring — should now match border's behavior
+      expect(element.className).toContain('ring-[length:var(--rw)]');
+      expect(element.className).toContain('ring-(--ring-color)');
+    });
   });
 
   describe('Radius/Shape Props', () => {
