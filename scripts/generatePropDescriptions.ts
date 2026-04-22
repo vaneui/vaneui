@@ -57,6 +57,7 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'TextTransformProps': 'textTransform',
   'TextAlignProps': 'textAlign',
   'ListStyleProps': 'listStyle',
+  'ListPositionProps': 'listPosition',
   'ResponsiveProps': 'responsive',
   'BlurProps': 'blur',
   'PointerEventsProps': 'pointerEvents',

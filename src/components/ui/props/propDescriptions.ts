@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-04-20T18:42:57.889Z
+ * Generated on: 2026-04-22T13:16:50.648Z
  */
 
 export interface PropDescription {
@@ -445,6 +445,18 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "trackingWidest": {
         "description": "Widest letter spacing (0.1em)"
+      }
+    }
+  },
+  "listPosition": {
+    "name": "List Position",
+    "description": "List position props for controlling list-style-position.\n`inside` places markers inline with content (compact, wraps with text).\n`outside` hangs markers outside the content box (traditional, aligns\nmulti-line text under the first character). Mutually exclusive.",
+    "props": {
+      "inside": {
+        "description": "Place list markers inside the content area (list-style-position: inside)"
+      },
+      "outside": {
+        "description": "Hang list markers outside the content area (list-style-position: outside)"
       }
     }
   },
