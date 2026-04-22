@@ -219,7 +219,7 @@ export const ComponentKeys = {
   items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const,
   /** Main-axis alignment for flex items (justify-content) */
   justify: ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const,
-  /** List bullet/numbering style: disc (bullets) or decimal (numbers) */
+  /** List marker style: disc, decimal, circle, square, lowerAlpha, or lowerRoman */
   listStyle: ['disc', 'decimal', 'circle', 'square', 'lowerAlpha', 'lowerRoman'] as const,
   /** List marker position: inside (inline with text) or outside (hanging, traditional) */
   listPosition: ['inside', 'outside'] as const,

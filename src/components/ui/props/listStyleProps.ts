@@ -1,6 +1,8 @@
 /**
  * List style props for choosing the marker type on <List>.
- * All six are mutually exclusive — first truthy per JSX declaration wins.
+ * All six are mutually exclusive. When more than one is set to true,
+ * tuple order in ComponentKeys.listStyle determines which wins
+ * (disc → decimal → circle → square → lowerAlpha → lowerRoman).
  */
 export interface ListStyleProps {
   /** Filled bullet — default for unordered lists */
