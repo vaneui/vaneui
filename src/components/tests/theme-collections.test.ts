@@ -12,7 +12,7 @@ const toSorted = (arr: string[]) => [...arr].sort();
  * - Child selectors: [&_svg]:pointer-events-none (applies to children, not self)
  * - Conditional selectors: hover:underline, has-[input]:cursor-pointer
  * - CSS resets: appearance-none, ring-transparent
- * - Structural classes with no prop: align-middle, aspect-square, list-inside
+ * - Structural classes with no prop: align-middle, aspect-square
  */
 const REPLACEABLE_CLASSES: Record<string, string> = {
   // items

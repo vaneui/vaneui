@@ -5,6 +5,7 @@ export const listDefaults: Partial<ListProps> = {
   md: true,
   sans: true,
   normal: true,
+  outside: true,
   padding: true,
   disc: true,
   outline: true,

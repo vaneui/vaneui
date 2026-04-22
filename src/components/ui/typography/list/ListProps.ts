@@ -17,6 +17,7 @@ import type {
   AppearanceProps,
   VariantProps,
   ListStyleProps,
+  ListPositionProps,
   PaddingProps,
   TruncateProps,
   WidthProps,
@@ -35,6 +36,7 @@ export type ListProps = BaseProps &
   TextAlignProps &
   TruncateProps &
   ListStyleProps &
+  ListPositionProps &
   SizeProps &
   HideProps &
   ItemsProps &

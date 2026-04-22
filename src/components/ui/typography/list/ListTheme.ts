@@ -7,6 +7,7 @@ import type { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapp
 import type { PlClassMapper } from "../../theme/size/plClassMapper";
 import type { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
 import type { ListStyleClassMapper } from "../../theme/list/listStyleClassMapper";
+import type { ListPositionClassMapper } from "../../theme/list/listPositionClassMapper";
 
 export interface ListTheme extends BaseTypographyComponentTheme {
   size: {
@@ -20,4 +21,5 @@ export interface ListTheme extends BaseTypographyComponentTheme {
   };
   layout: DefaultSizedLayoutClassMappers;
   listStyle: ListStyleClassMapper;
+  listPosition: ListPositionClassMapper;
 }

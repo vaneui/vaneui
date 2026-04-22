@@ -9,6 +9,7 @@ import { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
 import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import { PlClassMapper } from "../../theme/size/plClassMapper";
 import { ListStyleClassMapper } from "../../theme/list/listStyleClassMapper";
+import { ListPositionClassMapper } from "../../theme/list/listPositionClassMapper";
 import { bgAppearance, textAppearance } from "../../theme/common/appearanceClassMappers";
 import { LIST_CATEGORIES } from "../common";
 import { listDefaults } from "./listDefaults";
@@ -17,7 +18,7 @@ import { listDefaults } from "./listDefaults";
  *  produces a colored background and `<List transparent>` toggles it off. */
 export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new ComponentTheme<ListProps, ListTheme>(
   "ul",
-  "vane-list list-inside",
+  "vane-list",
   {
     size: {
       text: new FontSizeClassMapper(),
@@ -31,6 +32,7 @@ export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new Compon
     typography: defaultTypographyClassMappers,
     layout: defaultSizedLayoutClassMappers,
     listStyle: new ListStyleClassMapper(),
+    listPosition: new ListPositionClassMapper(),
   },
   listDefaults,
   LIST_CATEGORIES,

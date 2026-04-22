@@ -23,7 +23,8 @@ describe('List and ListItem Components Tests', () => {
 
       const list = container.querySelector('ul');
       expect(list).toBeInTheDocument();
-      expect(list).toHaveClass('list-disc', 'list-inside');
+      expect(list).toHaveClass('list-disc', 'list-outside');
+      expect(list).not.toHaveClass('list-inside');
       expect(list).toHaveClass('text-(length:--fs)'); // inherit appearance cascades font-size
       expect(list).toHaveClass('leading-(--lh)'); // inherited line height (inherit appearance expands to inheritSize)
       expect(list).toHaveClass('text-(--text-color)'); // primary is default
@@ -112,7 +113,7 @@ describe('List and ListItem Components Tests', () => {
 
       const list = container.querySelector('ol');
       expect(list).toBeInTheDocument();
-      expect(list).toHaveClass('list-decimal', 'list-inside');
+      expect(list).toHaveClass('list-decimal', 'list-outside');
       expect(list).not.toHaveClass('list-disc');
       
       // Verify no ul tag exists
@@ -132,9 +133,9 @@ describe('List and ListItem Components Tests', () => {
 
       const list = container.querySelector('ul');
       expect(list).toBeInTheDocument();
-      expect(list).toHaveClass('list-disc', 'list-inside');
+      expect(list).toHaveClass('list-disc', 'list-outside');
       expect(list).not.toHaveClass('list-decimal');
-      
+
       // Verify no ol tag exists
       const olList = container.querySelector('ol');
       expect(olList).not.toBeInTheDocument();
@@ -152,9 +153,9 @@ describe('List and ListItem Components Tests', () => {
 
       const list = container.querySelector('ul');
       expect(list).toBeInTheDocument();
-      expect(list).toHaveClass('list-disc', 'list-inside');
+      expect(list).toHaveClass('list-disc', 'list-outside');
       expect(list).not.toHaveClass('list-decimal');
-      
+
       // Verify no ol tag exists
       const olList = container.querySelector('ol');
       expect(olList).not.toBeInTheDocument();
@@ -194,8 +195,35 @@ describe('List and ListItem Components Tests', () => {
       );
 
       const list = container.querySelector('ul');
-      expect(list).toHaveClass('list-disc', 'list-inside'); // theme classes
+      expect(list).toHaveClass('list-disc', 'list-outside'); // theme classes
       expect(list).toHaveClass('custom-list-class'); // custom class
+    });
+
+    it('emits list-inside when inside prop is set', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List inside>
+            <ListItem>a</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const list = container.querySelector('ul')!;
+      expect(list).toHaveClass('list-inside');
+      expect(list).not.toHaveClass('list-outside');
+    });
+
+    it('inside wins over outside when both are set (first-key-wins-per-category)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List inside outside>
+            <ListItem>a</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const list = container.querySelector('ul')!;
+      // `inside` is declared first in ComponentKeys.listPosition => first-truthy wins
+      expect(list).toHaveClass('list-inside');
+      expect(list).not.toHaveClass('list-outside');
     });
   });
 
