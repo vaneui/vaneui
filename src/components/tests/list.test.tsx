@@ -552,4 +552,21 @@ describe('List and ListItem Components Tests', () => {
       expect(nested).toHaveClass('list-decimal');
     });
   });
+
+  describe('ListGapClassMapper', () => {
+    it('emits [&>li:not(:first-child)]:mt-(--gap) when gap is set', async () => {
+      const { ListGapClassMapper } = await import('../ui/theme/list/listGapClassMapper');
+      const mapper = new ListGapClassMapper();
+      expect(mapper.getClasses({ gap: 'gap' } as never)).toEqual([
+        '[&>li:not(:first-child)]:mt-(--gap)'
+      ]);
+    });
+
+    it('returns [] when gap is off', async () => {
+      const { ListGapClassMapper } = await import('../ui/theme/list/listGapClassMapper');
+      const mapper = new ListGapClassMapper();
+      expect(mapper.getClasses({ gap: 'noGap' } as never)).toEqual([]);
+      expect(mapper.getClasses({} as never)).toEqual([]);
+    });
+  });
 });
