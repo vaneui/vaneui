@@ -37,13 +37,9 @@ export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new Compon
   listDefaults,
   LIST_CATEGORIES,
   (props: ListProps) => {
-    // Determine tag based on list style from props
     const componentProps = props as unknown as Record<string, boolean>;
-
-    // Check if decimal is set in props
-    const hasDecimal = componentProps?.decimal;
-
-    return hasDecimal ? "ol" : "ul";
+    const isOrdered = componentProps?.decimal || componentProps?.lowerAlpha || componentProps?.lowerRoman;
+    return isOrdered ? "ol" : "ul";
   },
   'ui'
 );

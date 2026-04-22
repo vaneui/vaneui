@@ -475,14 +475,14 @@ describe('List and ListItem Components Tests', () => {
   });
 
   describe('Extended list markers', () => {
-    const markerCases: Array<[keyof ListProps, string]> = [
-      ['circle', 'list-[circle]'],
-      ['square', 'list-[square]'],
-      ['lowerAlpha', 'list-[lower-alpha]'],
-      ['lowerRoman', 'list-[lower-roman]'],
+    const markerCases: Array<[keyof ListProps, string, 'ul' | 'ol']> = [
+      ['circle', 'list-[circle]', 'ul'],
+      ['square', 'list-[square]', 'ul'],
+      ['lowerAlpha', 'list-[lower-alpha]', 'ol'],
+      ['lowerRoman', 'list-[lower-roman]', 'ol'],
     ];
 
-    it.each(markerCases)('emits the right class for %s', (prop, expected) => {
+    it.each(markerCases)('emits the right class and tag for %s', (prop, expected, tag) => {
       const props = { [prop]: true };
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
@@ -491,7 +491,8 @@ describe('List and ListItem Components Tests', () => {
           </List>
         </ThemeProvider>
       );
-      const list = container.querySelector('ul, ol')!;
+      const list = container.querySelector(tag)!;
+      expect(list).toBeInTheDocument();
       expect(list).toHaveClass(expected);
       expect(list).not.toHaveClass('list-disc');
     });

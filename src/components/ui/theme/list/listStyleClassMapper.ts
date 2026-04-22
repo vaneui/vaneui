@@ -7,13 +7,13 @@ export class ListStyleClassMapper extends BaseClassMapper implements Record<List
   disc: string = 'list-disc';
   /** Arabic numerals — default for ordered lists */
   decimal: string = 'list-decimal';
-  /** Hollow circle (Tailwind v4 arbitrary utility) */
+  /** Hollow circle */
   circle: string = 'list-[circle]';
-  /** Filled square (Tailwind v4 arbitrary utility) */
+  /** Filled square */
   square: string = 'list-[square]';
-  /** Lowercase letters */
+  /** Lowercase letters (a, b, c) */
   lowerAlpha: string = 'list-[lower-alpha]';
-  /** Lowercase roman numerals */
+  /** Lowercase roman numerals (i, ii, iii) */
   lowerRoman: string = 'list-[lower-roman]';
 
   getClasses(extractedKeys: CategoryProps): string[] {
