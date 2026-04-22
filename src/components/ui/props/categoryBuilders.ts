@@ -34,6 +34,8 @@ export const TYPOGRAPHY_STYLE = [...TYPOGRAPHY_STYLE_CORE, ...TEXT_ALIGN, ...TRU
 export const LIST_STYLE = ['listStyle'] as const;
 /** List marker position property (inside or outside content flow) */
 export const LIST_POSITION = ['listPosition'] as const;
+/** Gap property for per-item spacing control */
+export const GAP = ['gap'] as const;
 /** Variant properties for filled/outline styling modes */
 export const VARIANT = ['variant'] as const;
 /** Transparent background property */

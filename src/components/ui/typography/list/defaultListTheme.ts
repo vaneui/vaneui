@@ -10,6 +10,7 @@ import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import { PlClassMapper } from "../../theme/size/plClassMapper";
 import { ListStyleClassMapper } from "../../theme/list/listStyleClassMapper";
 import { ListPositionClassMapper } from "../../theme/list/listPositionClassMapper";
+import { ListGapClassMapper } from "../../theme/list/listGapClassMapper";
 import { bgAppearance, textAppearance } from "../../theme/common/appearanceClassMappers";
 import { LIST_CATEGORIES } from "../common";
 import { listDefaults } from "./listDefaults";
@@ -33,6 +34,7 @@ export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new Compon
     layout: defaultSizedLayoutClassMappers,
     listStyle: new ListStyleClassMapper(),
     listPosition: new ListPositionClassMapper(),
+    listGap: new ListGapClassMapper(),
   },
   listDefaults,
   LIST_CATEGORIES,

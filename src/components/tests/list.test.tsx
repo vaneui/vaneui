@@ -553,6 +553,34 @@ describe('List and ListItem Components Tests', () => {
     });
   });
 
+  describe('List gap spacing', () => {
+    it('default list applies sibling margin utility', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem>a</ListItem>
+            <ListItem>b</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const list = container.querySelector('ul')!;
+      expect(list.className).toContain('[&>li:not(:first-child)]:mt-(--gap)');
+    });
+
+    it('noGap removes sibling margin utility', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List noGap>
+            <ListItem>a</ListItem>
+            <ListItem>b</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const list = container.querySelector('ul')!;
+      expect(list.className).not.toContain('[&>li:not(:first-child)]:mt-(--gap)');
+    });
+  });
+
   describe('ListGapClassMapper', () => {
     it('emits [&>li:not(:first-child)]:mt-(--gap) when gap is set', async () => {
       const { ListGapClassMapper } = await import('../ui/theme/list/listGapClassMapper');
