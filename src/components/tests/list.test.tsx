@@ -526,5 +526,30 @@ describe('List and ListItem Components Tests', () => {
       expect(root.className).toContain('[&_ol]:list-[lower-alpha]');
       expect(root.className).toContain('[&_ol_ol]:list-[lower-roman]');
     });
+
+    it('nested ol structure carries the ordered-family progression selectors', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List decimal>
+            <ListItem>L0</ListItem>
+            <ListItem>
+              <List decimal>
+                <ListItem>L1</ListItem>
+              </List>
+            </ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const root = container.querySelector('ol')!;
+      expect(root).toBeInTheDocument();
+      expect(root).toHaveClass('list-decimal');
+      // The root <ol> carries the descendant-selector utilities just like a <ul> root
+      expect(root.className).toContain('[&_ol]:list-[lower-alpha]');
+      expect(root.className).toContain('[&_ol_ol]:list-[lower-roman]');
+      // And the nested <ol> exists and inherits the same base class (every <List> gets it)
+      const nested = root.querySelector('ol');
+      expect(nested).toBeInTheDocument();
+      expect(nested).toHaveClass('list-decimal');
+    });
   });
 });
