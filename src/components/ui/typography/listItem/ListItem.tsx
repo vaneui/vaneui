@@ -24,7 +24,7 @@ export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
     const dataAttr = icon ? { 'data-has-icon': 'true' as const } : {};
     return (
       <ThemedComponent ref={ref} theme={theme.listItem} {...rest} {...dataAttr}>
-        {icon ? <span className="vane-list-item-icon mr-2 inline-block align-middle">{icon}</span> : null}
+        {icon ? <span className="vane-list-item-icon mr-(--gap) inline-block align-middle">{icon}</span> : null}
         {children}
       </ThemedComponent>
     );
