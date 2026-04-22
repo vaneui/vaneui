@@ -31,6 +31,7 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toHaveClass('text-(--text-color)'); // primary is default
       expect(list).toHaveClass('font-sans');
       expect(list).toHaveClass('font-normal');
+      expect(list!.className).toContain('[&>li:not(:first-child)]:mt-(--gap)');
     });
 
     it('should render with different size and padding', () => {
