@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-04-22T13:32:37.503Z
+ * Generated on: 2026-04-22T13:46:44.251Z
  */
 
 export interface PropDescription {
@@ -462,13 +462,25 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
   },
   "listStyle": {
     "name": "List Style",
-    "description": "List style props for controlling list markers",
+    "description": "List style props for choosing the marker type on <List>.\nAll six are mutually exclusive. When more than one is set to true,\ntuple order in ComponentKeys.listStyle determines which wins\n(disc → decimal → circle → square → lowerAlpha → lowerRoman).",
     "props": {
       "disc": {
-        "description": "Bullet point list style"
+        "description": "Filled bullet — default for unordered lists"
       },
       "decimal": {
-        "description": "Numbered list style"
+        "description": "Arabic numerals — default for ordered lists"
+      },
+      "circle": {
+        "description": "Hollow circle — typically 2nd-depth unordered marker"
+      },
+      "square": {
+        "description": "Filled square — typically 3rd-depth unordered marker"
+      },
+      "lowerAlpha": {
+        "description": "Lowercase letters a, b, c — typically 2nd-depth ordered marker"
+      },
+      "lowerRoman": {
+        "description": "Lowercase roman i, ii, iii — typically 3rd-depth ordered marker"
       }
     }
   },

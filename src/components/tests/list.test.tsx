@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
+import type { ListProps } from '../ui/typography/list/ListProps';
 
 import {
   List,
@@ -470,6 +471,29 @@ describe('List and ListItem Components Tests', () => {
       const { ListPositionClassMapper } = await import('../ui/theme/list/listPositionClassMapper');
       const mapper = new ListPositionClassMapper();
       expect(mapper.getClasses({} as never)).toEqual([]);
+    });
+  });
+
+  describe('Extended list markers', () => {
+    const markerCases: Array<[keyof ListProps, string]> = [
+      ['circle', 'list-[circle]'],
+      ['square', 'list-[square]'],
+      ['lowerAlpha', 'list-[lower-alpha]'],
+      ['lowerRoman', 'list-[lower-roman]'],
+    ];
+
+    it.each(markerCases)('emits the right class for %s', (prop, expected) => {
+      const props = { [prop]: true };
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List {...props}>
+            <ListItem>a</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const list = container.querySelector('ul, ol')!;
+      expect(list).toHaveClass(expected);
+      expect(list).not.toHaveClass('list-disc');
     });
   });
 });

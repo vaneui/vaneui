@@ -3,18 +3,24 @@ import type { CategoryProps } from "../../props";
 import { ListStyleKey } from "../../props";
 
 export class ListStyleClassMapper extends BaseClassMapper implements Record<ListStyleKey, string> {
-  /** Disc list style - bullet points for unordered lists */
+  /** Filled bullet — default for unordered lists */
   disc: string = 'list-disc';
-  /** Decimal list style - numbers for ordered lists */
+  /** Arabic numerals — default for ordered lists */
   decimal: string = 'list-decimal';
-
+  /** Hollow circle (Tailwind v4 arbitrary utility) */
+  circle: string = 'list-[circle]';
+  /** Filled square (Tailwind v4 arbitrary utility) */
+  square: string = 'list-[square]';
+  /** Lowercase letters */
+  lowerAlpha: string = 'list-[lower-alpha]';
+  /** Lowercase roman numerals */
+  lowerRoman: string = 'list-[lower-roman]';
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const listStyle = extractedKeys?.listStyle;
     if (listStyle !== undefined) {
       return [this[listStyle]];
     }
-    // Default to disc if no list style is specified
     return [this.disc];
   }
 }
