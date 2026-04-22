@@ -18,7 +18,7 @@ import { listDefaults } from "./listDefaults";
  *  produces a colored background and `<List transparent>` toggles it off. */
 export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new ComponentTheme<ListProps, ListTheme>(
   "ul",
-  "vane-list",
+  "vane-list [&_ul]:list-[circle] [&_ul_ul]:list-[square] [&_ol]:list-[lower-alpha] [&_ol_ol]:list-[lower-roman]",
   {
     size: {
       text: new FontSizeClassMapper(),

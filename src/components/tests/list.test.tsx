@@ -497,4 +497,34 @@ describe('List and ListItem Components Tests', () => {
       expect(list).not.toHaveClass('list-disc');
     });
   });
+
+  describe('Nested marker progression', () => {
+    it('nested ul gets list-[circle] and ul>ul gets list-[square]', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem>L0</ListItem>
+            <ListItem>
+              <List>
+                <ListItem>L1</ListItem>
+                <ListItem>
+                  <List>
+                    <ListItem>L2</ListItem>
+                  </List>
+                </ListItem>
+              </List>
+            </ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const root = container.querySelector('ul')!;
+      // Root stays `list-disc`
+      expect(root).toHaveClass('list-disc');
+      // The root's class string must include the descendant-selector utilities
+      expect(root.className).toContain('[&_ul]:list-[circle]');
+      expect(root.className).toContain('[&_ul_ul]:list-[square]');
+      expect(root.className).toContain('[&_ol]:list-[lower-alpha]');
+      expect(root.className).toContain('[&_ol_ol]:list-[lower-roman]');
+    });
+  });
 });
