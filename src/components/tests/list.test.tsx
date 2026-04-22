@@ -562,10 +562,15 @@ describe('List and ListItem Components Tests', () => {
       ]);
     });
 
-    it('returns [] when gap is off', async () => {
+    it('returns [] when gap is explicitly noGap', async () => {
       const { ListGapClassMapper } = await import('../ui/theme/list/listGapClassMapper');
       const mapper = new ListGapClassMapper();
       expect(mapper.getClasses({ gap: 'noGap' } as never)).toEqual([]);
+    });
+
+    it('returns [] when gap is undefined', async () => {
+      const { ListGapClassMapper } = await import('../ui/theme/list/listGapClassMapper');
+      const mapper = new ListGapClassMapper();
       expect(mapper.getClasses({} as never)).toEqual([]);
     });
   });
