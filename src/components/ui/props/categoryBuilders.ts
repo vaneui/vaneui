@@ -32,6 +32,8 @@ export const TYPOGRAPHY_STYLE_CORE = ['fontWeight', 'fontStyle', 'textDecoration
 export const TYPOGRAPHY_STYLE = [...TYPOGRAPHY_STYLE_CORE, ...TEXT_ALIGN, ...TRUNCATE] as const;
 /** List-specific styling properties for bullet points and numbering */
 export const LIST_STYLE = ['listStyle'] as const;
+/** List marker position property (inside or outside content flow) */
+export const LIST_POSITION = ['listPosition'] as const;
 /** Variant properties for filled/outline styling modes */
 export const VARIANT = ['variant'] as const;
 /** Transparent background property */

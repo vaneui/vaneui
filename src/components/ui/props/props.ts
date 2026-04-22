@@ -59,6 +59,7 @@ export * from './objectFitProps';
 
 // List
 export * from './listStyleProps';
+export * from './listPositionProps';
 
 // Width
 export * from './widthProps';

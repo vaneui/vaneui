@@ -218,6 +218,8 @@ export const ComponentKeys = {
   justify: ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const,
   /** List bullet/numbering style: disc (bullets) or decimal (numbers) */
   listStyle: ['disc', 'decimal'] as const,
+  /** List marker position: inside (inline with text) or outside (hanging, traditional) */
+  listPosition: ['inside', 'outside'] as const,
   /** Overflow behavior for content that exceeds container bounds */
   overflow: [
     'overflowAuto', 'overflowHidden', 'overflowClip', 'overflowVisible', 'overflowScroll',
@@ -309,6 +311,8 @@ export type SizeKey = typeof ComponentKeys.size[number];
 export type VariantKey = typeof ComponentKeys.variant[number];
 /** List style keys for bullet points and numbering */
 export type ListStyleKey = typeof ComponentKeys.listStyle[number];
+/** List position keys: inside (inline with text) or outside (hanging, traditional) */
+export type ListPositionKey = typeof ComponentKeys.listPosition[number];
 /** Font family keys: sans, serif, mono */
 export type FontFamilyKey = typeof ComponentKeys.fontFamily[number];
 /** Font weight keys from thin to black */
