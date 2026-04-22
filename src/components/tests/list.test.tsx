@@ -424,4 +424,24 @@ describe('List and ListItem Components Tests', () => {
       expect(el).toHaveClass('h-auto');
     });
   });
+
+  describe('ListPositionClassMapper', () => {
+    it('emits list-outside when outside is resolved', async () => {
+      const { ListPositionClassMapper } = await import('../ui/theme/list/listPositionClassMapper');
+      const mapper = new ListPositionClassMapper();
+      expect(mapper.getClasses({ listPosition: 'outside' } as never)).toEqual(['list-outside']);
+    });
+
+    it('emits list-inside when inside is resolved', async () => {
+      const { ListPositionClassMapper } = await import('../ui/theme/list/listPositionClassMapper');
+      const mapper = new ListPositionClassMapper();
+      expect(mapper.getClasses({ listPosition: 'inside' } as never)).toEqual(['list-inside']);
+    });
+
+    it('returns empty array when listPosition is undefined', async () => {
+      const { ListPositionClassMapper } = await import('../ui/theme/list/listPositionClassMapper');
+      const mapper = new ListPositionClassMapper();
+      expect(mapper.getClasses({} as never)).toEqual([]);
+    });
+  });
 });
