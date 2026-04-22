@@ -603,4 +603,58 @@ describe('List and ListItem Components Tests', () => {
       expect(mapper.getClasses({} as never)).toEqual([]);
     });
   });
+
+  describe('ListItem icon prop', () => {
+    it('renders the icon node before children', () => {
+      const { container, getByTestId } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem icon={<span data-testid="check">✓</span>}>Task done</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li')!;
+      expect(getByTestId('check')).toBeInTheDocument();
+      // Icon must appear BEFORE the text content in the DOM
+      const iconEl = getByTestId('check');
+      expect(li.firstElementChild).toBe(iconEl.parentElement); // icon wrapper is first
+      expect(li.textContent).toBe('✓Task done');
+    });
+
+    it('sets data-has-icon="true" on the li when icon is provided', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem icon={<span>✓</span>}>a</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li')!;
+      expect(li).toHaveAttribute('data-has-icon', 'true');
+    });
+
+    it('does not set data-has-icon when no icon is provided', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem>a</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li')!;
+      expect(li).not.toHaveAttribute('data-has-icon');
+    });
+
+    it('base class includes marker-suppression selector', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem>a</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li')!;
+      expect(li.className).toContain("[&[data-has-icon='true']]:list-none");
+    });
+  });
 });

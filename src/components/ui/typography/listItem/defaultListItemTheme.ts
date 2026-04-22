@@ -17,7 +17,7 @@ import { listItemDefaults } from "./listItemDefaults";
  *  produces a colored background and `<ListItem transparent>` toggles it off. */
 export const defaultListItemTheme: ComponentTheme<TypographyProps, ListItemTheme> = new ComponentTheme<TypographyProps, ListItemTheme>(
   "li",
-  "vane-list-item",
+  "vane-list-item [&[data-has-icon='true']]:list-none",
   {
     size: {
       text: new FontSizeClassMapper(),

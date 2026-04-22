@@ -1,42 +1,33 @@
 import { forwardRef } from 'react';
-import type { TypographyProps } from "../common";
+import type { ListItemProps } from './ListItemProps';
 import { useTheme } from "../../../themeContext";
 import { ThemedComponent } from "../../../themedComponent";
 
 /**
- * A list item component (li).
+ * A list item component (<li>).
  *
- * Renders an individual list item within a List component. Supports
- * typography styling and can be rendered as a link when href is provided.
- * Use within List for bullet points or numbered lists.
+ * Supports typography styling. When `icon` is provided the native list
+ * marker is replaced by the icon node and `data-has-icon="true"` is set
+ * so the base-class selector suppresses `list-style`.
  *
  * @example
  * ```tsx
- * // Basic list item
  * <List>
- *   <ListItem>First item</ListItem>
- *   <ListItem>Second item</ListItem>
+ *   <ListItem>Plain item</ListItem>
+ *   <ListItem icon={<CheckIcon />}>Done</ListItem>
  * </List>
  * ```
- *
- * @example
- * ```tsx
- * // Styled list item
- * <ListItem primary semibold>Important item</ListItem>
- * ```
- *
- * @example
- * ```tsx
- * // List item as a link
- * <ListItem href="/item/1">Click to view details</ListItem>
- * ```
- *
- * @see {@link TypographyProps} for all available props
  */
-export const ListItem = forwardRef<HTMLLIElement, TypographyProps>(
-  function ListItem(props, ref) {
+export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
+  function ListItem({ icon, children, ...rest }, ref) {
     const theme = useTheme();
-    return <ThemedComponent ref={ref} theme={theme.listItem} {...props} />
+    const dataAttr = icon ? { 'data-has-icon': 'true' as const } : {};
+    return (
+      <ThemedComponent ref={ref} theme={theme.listItem} {...rest} {...dataAttr}>
+        {icon ? <span className="vane-list-item-icon mr-2 inline-block align-middle">{icon}</span> : null}
+        {children}
+      </ThemedComponent>
+    );
   }
 );
 
