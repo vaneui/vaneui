@@ -220,7 +220,7 @@ export const ComponentKeys = {
   /** Main-axis alignment for flex items (justify-content) */
   justify: ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const,
   /** List bullet/numbering style: disc (bullets) or decimal (numbers) */
-  listStyle: ['disc', 'decimal'] as const,
+  listStyle: ['disc', 'decimal', 'circle', 'square', 'lowerAlpha', 'lowerRoman'] as const,
   /** List marker position: inside (inline with text) or outside (hanging, traditional) */
   listPosition: ['inside', 'outside'] as const,
   /** Overflow behavior for content that exceeds container bounds */
