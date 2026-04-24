@@ -306,6 +306,56 @@ These do not map 1:1 to Tailwind utilities — they drive the CSS variable syste
 
 ---
 
+## Size-Driven Gap and Padding (Never Use Arbitrary Values)
+
+Gap and padding are **controlled by the size prop**, not by Tailwind utility classes. Do not write `className="gap-[10px]"`, `className="gap-4"`, `className="p-[24px]"`, or any similar arbitrary-value class when a size prop will do the job.
+
+### Layout components (`data-vane-type="layout"` — Col, Row, Stack, Card, Section, Container, Grid*, Divider, Img)
+
+| Prop | `--gap-unit` | `--py-unit` | `--br-unit` |
+|------|-------------:|------------:|------------:|
+| `xs` | 2 | 2 | 3 |
+| `sm` | 3 | 3 | 4 |
+| `md` (default) | 4 | 4 | 5 |
+| `lg` | 5 | 5 | 6 |
+| `xl` | 6 | 6 | 7 |
+
+### UI components (`data-vane-type="ui"` — Button, Badge, Chip, Text, Title, etc.)
+
+| Prop | `--gap-unit` |
+|------|-------------:|
+| `xs` | 1 |
+| `sm` | 1.5 |
+| `md` (default) | 2 |
+| `lg` | 2.5 |
+| `xl` | 3 |
+
+### Rendered pixels
+
+Actual pixel gap = `gap-unit × spacing`. The value of `spacing` depends on where your component is mounted — outside any scaled container, `--spacing` is 1rem (≈ 4px at the default Tailwind base), so layout `md` renders at `4 × 4px = 16px`. In a consumer that overrides `--spacing` (e.g., a template system that sets `--spacing: calc(--th / 300)`), the same prop re-scales automatically. **This is the point.** Hardcoding `gap-[10px]` locks in one pixel value and breaks every other context.
+
+### Anti-pattern → recommended
+
+```tsx
+// ❌ Fixed pixel — bypasses --gap-unit, doesn't scale with --spacing overrides
+<Col className="gap-[10px]">
+<Row className="gap-[8px]">
+<Card className="gap-4">       // Tailwind scale also bypasses the system
+<Stack className="p-[24px]">
+
+// ✅ Size prop — flows through the --gap-unit × --spacing pipeline
+<Col lg>                        // 10.5px at spacing=2.1, 20px at spacing=4, etc.
+<Row>                           // md is the default; no prop needed
+<Card>                          // md default
+<Stack xl>                      // padding scales with the same size prop
+```
+
+### Escape hatches
+
+Asymmetric padding (`px-*` only, `py-*` only) has no VaneUI prop — `className="px-[14px]"` / `className="py-[20px]"` is acceptable. The same applies when a design genuinely requires a pixel value no size prop can hit (e.g., matching a third-party embed's exact dimensions); in that case, prefer a Tailwind scale class (`gap-14`) over an arbitrary value (`gap-[56px]`) so it at least participates in the spacing scale.
+
+---
+
 ## When to Use `className` Anyway
 
 `className` is still appropriate for things VaneUI props don't cover:

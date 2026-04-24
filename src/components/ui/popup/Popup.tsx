@@ -402,11 +402,12 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const mergedRef = useMergedRef(ref, popupRef);
 
-    // Set anchor-name on the external anchor element (CSS Anchor Positioning only).
-    // This is the only imperative DOM access needed — the anchor element is not
-    // rendered by Popup, so we can't pass styles to it declaratively.
+    // Set anchor-name on the anchor element (imperative — the anchor isn't
+    // rendered here). Gated on `mounted` so the name survives the exit
+    // transition; removing it when `open` flips false would orphan the
+    // popup's position-anchor mid-fade and snap it to a fallback position.
     useLayoutEffect(() => {
-      if (!effectiveOpen || !supportsAnchorPositioning() || !anchorRef.current) return;
+      if (!mounted || !supportsAnchorPositioning() || !anchorRef.current) return;
 
       const anchor = anchorRef.current;
       anchor.style.setProperty('anchor-name', `--${anchorName}`);
@@ -414,7 +415,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       return () => {
         anchor.style.removeProperty('anchor-name');
       };
-    }, [effectiveOpen, anchorRef, anchorName]);
+    }, [mounted, anchorRef, anchorName]);
 
     // Compute positioning styles declaratively.
     // CSS path: builds style object from placement (no DOM measurement needed).

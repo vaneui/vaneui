@@ -202,6 +202,87 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for architecture details, CSS variable 
 
 ---
 
+## Reference UI Framework Repositories
+
+When working on VaneUI, **ALWAYS check how similar features are implemented in the reference UI frameworks** before making changes. These are local clones in sibling directories at `C:\GitHub\`.
+
+### When to Check
+
+| Task Type | What to Check | Where to Look |
+|-----------|---------------|---------------|
+| **Adding a new component** | Similar component implementations, props API, accessibility patterns | All 4 frameworks' component folders |
+| **Adding new props** | How other frameworks name similar props, what values they accept | Component source files in each framework |
+| **Refactoring components** | Architecture patterns, file organization, internal utilities | Framework source structure |
+| **Theming/styling changes** | Token systems, CSS variable patterns, theme provider implementations | Chakra's styled-system, Mantine's core, Ant's theme |
+| **Accessibility** | ARIA attributes, keyboard handling, focus management | Chakra (best), shadcn (Radix-based), Mantine |
+| **TypeScript patterns** | Prop types, generics, utility types, ref forwarding | All frameworks use TypeScript |
+| **Responsive design** | Breakpoint systems, responsive prop patterns | Chakra's breakpoints, Mantine's responsive props |
+| **Testing patterns** | Test structure, what to test, testing utilities | Mantine's @mantine-tests, Chakra's tests |
+
+### Quick Reference Paths
+
+```
+Component implementations:
+  ant-design/components/{component}/        # e.g., ant-design/components/button/
+  shadcn-ui-ui/apps/v4/registry/default/ui/ # shadcn component registry
+  mantine/packages/@mantine/core/src/components/{Component}/
+  chakra-ui/packages/react/src/components/{component}/
+
+Props/Types:
+  ant-design/components/{component}/index.tsx
+  mantine/packages/@mantine/core/src/components/{Component}/{Component}.tsx
+  chakra-ui/packages/react/src/components/{component}/{component}.tsx
+
+Theming:
+  ant-design/components/theme/
+  mantine/packages/@mantine/core/src/core/MantineProvider/
+  chakra-ui/packages/react/src/styled-system/
+
+Hooks:
+  mantine/packages/@mantine/hooks/src/     # 50+ hooks
+  chakra-ui/packages/react/src/hooks/
+```
+
+### Framework Strengths
+
+| Framework | Best For Learning |
+|-----------|-------------------|
+| **Ant Design** | Enterprise patterns, complex components (Table, Tree, Form), i18n, prop naming conventions (see `AGENTS.md`) |
+| **shadcn/ui** | Tailwind CSS patterns (closest to VaneUI), Radix primitives, copy-paste architecture, minimal abstraction |
+| **Mantine** | Comprehensive API design, hooks collection, modular package architecture, CSS Modules patterns |
+| **Chakra UI** | Styled-system (CVA/SVA), accessibility best practices, style props API, design tokens (see `CLAUDE.md`) |
+
+### Workflow Example
+
+When asked to "add a Tooltip component to VaneUI":
+
+1. **First**, check implementations in reference frameworks:
+   - `ant-design/components/tooltip/` — enterprise features, placement options
+   - `mantine/packages/@mantine/core/src/components/Tooltip/` — API design, props
+   - `chakra-ui/packages/react/src/components/tooltip/` — accessibility, style props
+   - `shadcn-ui-ui/` (uses Radix Tooltip) — Tailwind styling approach
+
+2. **Extract patterns**:
+   - Common props across frameworks (content, placement, trigger, delay)
+   - Accessibility requirements (role, aria-describedby)
+   - How each handles positioning (Popper.js, Floating UI, CSS)
+
+3. **Then implement** in VaneUI following VaneUI's conventions:
+   - Boolean props API where appropriate
+   - Tailwind CSS v4 styling
+   - ThemeProvider integration
+   - TypeScript strict mode
+
+### Reporting Findings
+
+When checking reference frameworks, briefly summarize what you found:
+- Which frameworks have the component/feature
+- Key differences in their approaches
+- Which patterns are most suitable for VaneUI's architecture
+- Any accessibility or edge cases to consider
+
+---
+
 ## Superpowers Overrides for VaneUI
 
 ### The Component Implementation Workflow IS the plan

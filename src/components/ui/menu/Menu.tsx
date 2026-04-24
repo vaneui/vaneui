@@ -4,6 +4,7 @@ import { MenuContext, type MenuContextValue } from './MenuContext';
 import { useControllableState } from '../../utils/controllableState';
 import { Popup } from '../popup/Popup';
 import { useTheme, ThemeProvider } from '../../themeContext';
+import { ComponentKeys } from '../props';
 
 /**
  * Menu — a dropdown menu triggered by a single element.
@@ -141,12 +142,29 @@ export function Menu({
     loop,
   };
 
+  // When the user explicitly sizes the Menu (e.g. `<Menu lg>`), propagate that
+  // size to MenuItem / MenuLabel / nested Divider so the whole dropdown scales
+  // uniformly. When no explicit size is passed we leave each sub-component's
+  // own default alone — preserving the compact-by-default design intent.
+  const explicitSize = ComponentKeys.size.find(
+    (k) => (popupProps as Record<string, unknown>)[k]
+  );
+  const childSizeDefaults = explicitSize ? { [explicitSize]: true } : undefined;
+
   return (
     <MenuContext.Provider value={ctx}>
       {triggerElement}
       <ThemeProvider themeDefaults={{
         popup: theme.menu.popup.defaults,
-        divider: theme.menu.divider.defaults,
+        divider: childSizeDefaults
+          ? { ...theme.menu.divider.defaults, ...childSizeDefaults }
+          : theme.menu.divider.defaults,
+        ...(childSizeDefaults && {
+          menu: {
+            item: childSizeDefaults,
+            label: childSizeDefaults,
+          },
+        }),
       }}>
         <Popup
           ref={contentRef}

@@ -554,6 +554,61 @@ describe('List and ListItem Components Tests', () => {
     });
   });
 
+  describe('Size inheritance (ListItem inherits from List)', () => {
+    it('ListItem with no explicit size emits no data-size attribute', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem>a</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li')!;
+      expect(li).not.toHaveAttribute('data-size');
+    });
+
+    it('ListItem inside <List lg> still emits no data-size (inherits via CSS cascade)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List lg>
+            <ListItem>a</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const list = container.querySelector('ul')!;
+      const li = container.querySelector('li')!;
+      expect(list).toHaveAttribute('data-size', 'lg');
+      expect(li).not.toHaveAttribute('data-size');
+    });
+
+    it('ListItem with explicit size override emits data-size', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List lg>
+            <ListItem xl>a</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const list = container.querySelector('ul')!;
+      const li = container.querySelector('li')!;
+      expect(list).toHaveAttribute('data-size', 'lg');
+      expect(li).toHaveAttribute('data-size', 'xl');
+    });
+
+    it('ListItem still emits font-size consumer class so --fs cascade can resolve', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List lg>
+            <ListItem>a</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li')!;
+      expect(li).toHaveClass('text-(length:--fs)');
+      expect(li).toHaveClass('leading-(--lh)');
+    });
+  });
+
   describe('List gap spacing', () => {
     it('default list applies sibling margin utility', () => {
       const { container } = render(
@@ -583,12 +638,14 @@ describe('List and ListItem Components Tests', () => {
   });
 
   describe('ListGapClassMapper', () => {
-    it('emits [&>li:not(:first-child)]:mt-(--gap) when gap is set', async () => {
+    it('emits sibling + nested-list margin utilities when gap is set', async () => {
       const { ListGapClassMapper } = await import('../ui/theme/list/listGapClassMapper');
       const mapper = new ListGapClassMapper();
-      expect(mapper.getClasses({ gap: 'gap' } as never)).toEqual([
-        '[&>li:not(:first-child)]:mt-(--gap)'
-      ]);
+      const classes = mapper.getClasses({ gap: 'gap' } as never);
+      expect(classes).toHaveLength(1);
+      expect(classes[0]).toContain('[&>li:not(:first-child)]:mt-(--gap)');
+      expect(classes[0]).toContain('[&>li>ul]:mt-(--gap)');
+      expect(classes[0]).toContain('[&>li>ol]:mt-(--gap)');
     });
 
     it('returns [] when gap is explicitly noGap', async () => {
@@ -601,6 +658,44 @@ describe('List and ListItem Components Tests', () => {
       const { ListGapClassMapper } = await import('../ui/theme/list/listGapClassMapper');
       const mapper = new ListGapClassMapper();
       expect(mapper.getClasses({} as never)).toEqual([]);
+    });
+  });
+
+  describe('Nested list spacing', () => {
+    it('outer list emits nested-ul margin selector so Parent text + nested list do not collapse', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem>L0</ListItem>
+            <ListItem>
+              Parent
+              <List>
+                <ListItem>L1</ListItem>
+              </List>
+            </ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const outer = container.querySelector('ul')!;
+      expect(outer.className).toContain('[&>li>ul]:mt-(--gap)');
+      expect(outer.className).toContain('[&>li>ol]:mt-(--gap)');
+    });
+
+    it('noGap on outer list also suppresses nested-list margin', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List noGap>
+            <ListItem>
+              Parent
+              <List>
+                <ListItem>L1</ListItem>
+              </List>
+            </ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const outer = container.querySelector('ul')!;
+      expect(outer.className).not.toContain('[&>li>ul]:mt-(--gap)');
     });
   });
 
@@ -655,6 +750,24 @@ describe('List and ListItem Components Tests', () => {
       );
       const li = container.querySelector('li')!;
       expect(li.className).toContain("[&[data-has-icon='true']]:list-none");
+    });
+
+    it('icon wrapper sizes itself to text line-height (--icon-size) and centers content', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem icon={<span>✓</span>}>Done</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const iconWrapper = container.querySelector('.vane-list-item-icon')!;
+      expect(iconWrapper).toHaveClass('inline-flex');
+      expect(iconWrapper).toHaveClass('items-center');
+      expect(iconWrapper).toHaveClass('justify-center');
+      expect(iconWrapper).toHaveClass('align-middle');
+      expect(iconWrapper).toHaveClass('h-(--icon-size)');
+      expect(iconWrapper).toHaveClass('min-w-(--icon-size)');
+      expect(iconWrapper).toHaveClass('mr-(--gap)');
     });
   });
 });

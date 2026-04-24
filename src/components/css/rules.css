@@ -261,7 +261,8 @@
     .vane-link-end-icon { margin-inline-start: calc(var(--gap) * 0.5); }
 
     /* ListItem */
-    .vane-list-item { --lh: var(--lh-base); }
+    .vane-list-item { --lh: var(--lh-base); --icon-size: calc(var(--fs) * var(--lh)); }
+    .vane-list-item :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
     .vane-list-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-list-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
     .vane-list-item[data-size="md"] { --fs-unit: var(--fs-unit-md); }
@@ -342,13 +343,15 @@
     .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8; }
     .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; }
 
-    /* MenuItem - compact interactive items for dropdown menus */
-    .vane-menu-item { --lh: var(--lh-base); --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.15; --icon-size: var(--fs); }
+    /* MenuItem - interactive items for dropdown menus. Padding scale matches
+       Button's so <Menu lg> / <Menu xl> produce visibly larger items, not just
+       larger text. */
+    .vane-menu-item { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.15; --icon-size: var(--fs); }
     .vane-menu-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
-    .vane-menu-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.25; }
-    .vane-menu-item[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1.5; }
-    .vane-menu-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
-    .vane-menu-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
+    .vane-menu-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-menu-item[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-menu-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-menu-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Menu Divider - vertical spacing matches menu popup padding per size */
     [data-menu-dropdown][data-size="xs"] .vane-divider { --py-unit: 0.5; }
@@ -357,13 +360,14 @@
     [data-menu-dropdown][data-size="lg"] .vane-divider { --py-unit: 1.25; }
     [data-menu-dropdown][data-size="xl"] .vane-divider { --py-unit: 1.5; }
 
-    /* NavLink - navigation links for sidebars, nav menus, headers */
-    .vane-nav-link { --lh: var(--lh-base); --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.15; --icon-size: var(--fs); }
+    /* NavLink - navigation links for sidebars, nav menus, headers. Padding
+       scale matches Button's and MenuItem's so sizes are visibly distinct. */
+    .vane-nav-link { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.15; --icon-size: var(--fs); }
     .vane-nav-link[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
-    .vane-nav-link[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.25; }
-    .vane-nav-link[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1.5; }
-    .vane-nav-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
-    .vane-nav-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
+    .vane-nav-link[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-nav-link[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-nav-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-nav-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* NavLink active state: use direct background-color at higher specificity (0,3,0)
        to beat appearance rules (0,2,0). Variable shifting doesn't work because appearance

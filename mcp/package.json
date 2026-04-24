@@ -1,0 +1,29 @@
+{
+  "name": "@vaneui/mcp",
+  "version": "0.1.0",
+  "description": "Model Context Protocol server that exposes VaneUI component documentation as resources for MCP-aware clients.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "vaneui-mcp": "dist/server.js"
+  },
+  "files": [
+    "dist",
+    "resources",
+    "README.md"
+  ],
+  "scripts": {
+    "sync": "node scripts/sync-docs.mjs && node scripts/sync-component-docs.mjs",
+    "sync:strict": "node scripts/sync-docs.mjs --strict && node scripts/sync-component-docs.mjs --strict",
+    "build": "npm run sync && tsc",
+    "start": "node dist/server.js",
+    "prepublishOnly": "npm run sync:strict && tsc"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.8.2"
+  }
+}

@@ -840,4 +840,62 @@ describe('Menu Component Tests', () => {
       expect(items).toHaveLength(3);
     });
   });
+
+  // =========================================================================
+  // Size propagation from Menu to children
+  // =========================================================================
+  describe('Size propagation from Menu to MenuItem / MenuLabel / Divider', () => {
+    it('<Menu lg> propagates lg to MenuItem', () => {
+      renderMenu(
+        <Menu lg defaultOpen trigger={<Button>T</Button>}>
+          <MenuItem>Edit</MenuItem>
+        </Menu>
+      );
+      const item = document.body.querySelector('[role="menuitem"]');
+      expect(item).toHaveAttribute('data-size', 'lg');
+    });
+
+    it('<Menu lg> propagates lg to MenuLabel', () => {
+      renderMenu(
+        <Menu lg defaultOpen trigger={<Button>T</Button>}>
+          <MenuLabel>Section</MenuLabel>
+          <MenuItem>Edit</MenuItem>
+        </Menu>
+      );
+      const label = document.body.querySelector('.vane-menu-label');
+      expect(label).toHaveAttribute('data-size', 'lg');
+    });
+
+    it('<Menu lg> propagates lg to nested Divider', () => {
+      renderMenu(
+        <Menu lg defaultOpen trigger={<Button>T</Button>}>
+          <MenuItem>A</MenuItem>
+          <Divider />
+          <MenuItem>B</MenuItem>
+        </Menu>
+      );
+      const divider = document.body.querySelector('[role="separator"]');
+      expect(divider).toHaveAttribute('data-size', 'lg');
+    });
+
+    it('default <Menu> preserves MenuItem sm default (no explicit Menu size → no propagation)', () => {
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>T</Button>}>
+          <MenuItem>Edit</MenuItem>
+        </Menu>
+      );
+      const item = document.body.querySelector('[role="menuitem"]');
+      expect(item).toHaveAttribute('data-size', 'sm');
+    });
+
+    it('explicit <MenuItem xs/> overrides <Menu lg>', () => {
+      renderMenu(
+        <Menu lg defaultOpen trigger={<Button>T</Button>}>
+          <MenuItem xs>Edit</MenuItem>
+        </Menu>
+      );
+      const item = document.body.querySelector('[role="menuitem"]');
+      expect(item).toHaveAttribute('data-size', 'xs');
+    });
+  });
 });

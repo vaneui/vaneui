@@ -420,4 +420,106 @@ describe('Label Component Tests', () => {
       expect(el).toHaveClass('h-auto');
     });
   });
+
+  describe('Size propagation to nested Input / Checkbox', () => {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { Input } = require('../../index');
+
+    it('Input inside default <Label> picks up Label default size (sm)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label>
+            Email
+            <Input />
+          </Label>
+        </ThemeProvider>
+      );
+      const label = container.querySelector('label')!;
+      const input = container.querySelector('input')!;
+      expect(label).toHaveAttribute('data-size', 'sm');
+      expect(input).toHaveAttribute('data-size', 'sm');
+    });
+
+    it('Input inside <Label lg> becomes lg', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label lg>
+            Email
+            <Input />
+          </Label>
+        </ThemeProvider>
+      );
+      const label = container.querySelector('label')!;
+      const input = container.querySelector('input')!;
+      expect(label).toHaveAttribute('data-size', 'lg');
+      expect(input).toHaveAttribute('data-size', 'lg');
+    });
+
+    it('explicit <Input xs/> overrides <Label lg>', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label lg>
+            Email
+            <Input xs />
+          </Label>
+        </ThemeProvider>
+      );
+      const label = container.querySelector('label')!;
+      const input = container.querySelector('input')!;
+      expect(label).toHaveAttribute('data-size', 'lg');
+      expect(input).toHaveAttribute('data-size', 'xs');
+    });
+
+    it('standalone Input (no Label ancestor) keeps its md default', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input />
+        </ThemeProvider>
+      );
+      const input = container.querySelector('input')!;
+      expect(input).toHaveAttribute('data-size', 'md');
+    });
+
+    it('Checkbox input inside <Label lg> becomes lg', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label lg>
+            <Checkbox />
+            Accept terms
+          </Label>
+        </ThemeProvider>
+      );
+      const label = container.querySelector('label')!;
+      const checkboxInput = container.querySelector('input[type="checkbox"]')!;
+      const checkboxWrapper = label.querySelector('span.inline-grid')!;
+      expect(label).toHaveAttribute('data-size', 'lg');
+      expect(checkboxInput).toHaveAttribute('data-size', 'lg');
+      expect(checkboxWrapper).toHaveAttribute('data-size', 'lg');
+    });
+
+    it('explicit <Checkbox xs/> overrides <Label lg>', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label lg>
+            <Checkbox xs />
+            Accept terms
+          </Label>
+        </ThemeProvider>
+      );
+      const label = container.querySelector('label')!;
+      const checkboxInput = container.querySelector('input[type="checkbox"]')!;
+      expect(label).toHaveAttribute('data-size', 'lg');
+      expect(checkboxInput).toHaveAttribute('data-size', 'xs');
+    });
+
+    it('standalone Checkbox keeps its md default', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox />
+        </ThemeProvider>
+      );
+      const checkboxInput = container.querySelector('input[type="checkbox"]')!;
+      expect(checkboxInput).toHaveAttribute('data-size', 'md');
+    });
+  });
 });
