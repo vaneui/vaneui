@@ -501,6 +501,71 @@ export function TestHarness() {
             <MenuItem lg data-testid="menu-item-icon-lg"><StarIcon /> LG Icon</MenuItem>
             <MenuItem xl data-testid="menu-item-icon-xl"><StarIcon /> XL Icon</MenuItem>
           </Menu>
+
+          {/* Menu size variants — always-open for measuring popup frame +
+              MenuItem inherited padding at each size. Each contains a single
+              item with no explicit size so it inherits the Menu's size via
+              the ThemeProvider propagation in Menu.tsx. */}
+          <Menu
+            xs
+            defaultOpen
+            noAnimation
+            portal={false}
+            closeOnClickOutside={false}
+            closeOnEscape={false}
+            trigger={<Button data-testid="menu-trigger-size-xs">T</Button>}
+            data-testid="menu-frame-xs"
+          >
+            <MenuItem data-testid="menu-inherit-xs">Item</MenuItem>
+          </Menu>
+          <Menu
+            sm
+            defaultOpen
+            noAnimation
+            portal={false}
+            closeOnClickOutside={false}
+            closeOnEscape={false}
+            trigger={<Button data-testid="menu-trigger-size-sm">T</Button>}
+            data-testid="menu-frame-sm"
+          >
+            <MenuItem data-testid="menu-inherit-sm">Item</MenuItem>
+          </Menu>
+          <Menu
+            md
+            defaultOpen
+            noAnimation
+            portal={false}
+            closeOnClickOutside={false}
+            closeOnEscape={false}
+            trigger={<Button data-testid="menu-trigger-size-md">T</Button>}
+            data-testid="menu-frame-md"
+          >
+            <MenuItem data-testid="menu-inherit-md">Item</MenuItem>
+          </Menu>
+          <Menu
+            lg
+            defaultOpen
+            noAnimation
+            portal={false}
+            closeOnClickOutside={false}
+            closeOnEscape={false}
+            trigger={<Button data-testid="menu-trigger-size-lg">T</Button>}
+            data-testid="menu-frame-lg"
+          >
+            <MenuItem data-testid="menu-inherit-lg">Item</MenuItem>
+          </Menu>
+          <Menu
+            xl
+            defaultOpen
+            noAnimation
+            portal={false}
+            closeOnClickOutside={false}
+            closeOnEscape={false}
+            trigger={<Button data-testid="menu-trigger-size-xl">T</Button>}
+            data-testid="menu-frame-xl"
+          >
+            <MenuItem data-testid="menu-inherit-xl">Item</MenuItem>
+          </Menu>
         </section>
 
         {/* ── Checkbox: border visibility and variant behavior ── */}

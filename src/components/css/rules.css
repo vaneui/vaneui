@@ -407,11 +407,16 @@
     .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --max-height: 28rem; --popup-min-w: 10rem; --popup-arrow-size: 10px; }
 
     /* Menu dropdown - compact padding that scales with size */
-    .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 0.5; }
-    .vane-popup[data-menu-dropdown][data-size="sm"] { --py-unit: 0.75; }
-    .vane-popup[data-menu-dropdown][data-size="md"] { --py-unit: 1; }
-    .vane-popup[data-menu-dropdown][data-size="lg"] { --py-unit: 1.25; }
-    .vane-popup[data-menu-dropdown][data-size="xl"] { --py-unit: 1.5; }
+    /* Menu dropdown frame padding. Kept distinctly tighter than a generic
+       Popup (~3-4× smaller across reference frameworks: Ant/Chakra/Mantine/
+       shadcn all land around 4px flat), but we keep a size curve so the frame
+       still scales with the Menu prop. Floor lifted to 4px so no size renders
+       below the industry minimum. */
+    .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 1; }
+    .vane-popup[data-menu-dropdown][data-size="sm"] { --py-unit: 1.25; }
+    .vane-popup[data-menu-dropdown][data-size="md"] { --py-unit: 1.5; }
+    .vane-popup[data-menu-dropdown][data-size="lg"] { --py-unit: 1.75; }
+    .vane-popup[data-menu-dropdown][data-size="xl"] { --py-unit: 2; }
 
     /* ========================================
        ANIMATIONS
