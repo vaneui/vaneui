@@ -140,3 +140,6 @@ playground/node_modules
 /blob-report/
 /playwright/.cache/
 e2e/fixtures/tailwind-output.css
+
+# Superpowers (local-only plans, notes, scratch work — not shared across machines)
+docs/superpowers/
