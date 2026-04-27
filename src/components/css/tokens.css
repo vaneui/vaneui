@@ -160,8 +160,10 @@
     /* --z-toast: 400; (reserved for future Toast/Notification component) */
 
     /* Transition timing */
+    --transition-duration-fast: 100ms;
     --transition-duration: 200ms;
-    --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-duration-regular: 250ms;
+    --transition-timing: cubic-bezier(0.215, 0.61, 0.355, 1);
 
     /* Overlay variables */
     --overlay-bg: oklch(0 0 0 / 50%); /* Semi-transparent black */
