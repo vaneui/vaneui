@@ -154,8 +154,14 @@
        --py, --px, --br, --gap) resolves in em rather than rem — proportional
        to Code's own font-size, which itself scales with the parent context.
        The existing --fs-unit / --py-unit / --br-unit ladders keep working
-       unchanged; only the multiplier shifts from rem to em. */
-    .vane-code { --spacing: 0.25em; --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; }
+       unchanged; only the multiplier shifts from rem to em.
+
+       --fs-base must be re-declared here: CSS inherits the computed value of
+       custom properties, so :root's --fs-base = calc(0.25rem * 0.5) bakes in
+       at :root and our local --spacing override never reaches it via
+       inheritance. Re-declaring with the same expression forces a fresh
+       computation at this element, picking up our em --spacing. */
+    .vane-code { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; }
     .vane-code[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
     .vane-code[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
     .vane-code[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }
@@ -163,8 +169,9 @@
     .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
 
     /* Kbd */
-    /* Kbd: same em-relative geometry pattern as Code (via --spacing override). */
-    .vane-kbd { --spacing: 0.25em; --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; border-bottom-width: 3px; }
+    /* Kbd: same em-relative geometry pattern as Code (via --spacing override).
+       --fs-base re-declared for the same reason — see Code comment above. */
+    .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; border-bottom-width: 3px; }
     .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
     .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
     .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }

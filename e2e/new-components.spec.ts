@@ -98,8 +98,10 @@ test.describe('Kbd', () => {
     expect(fontFamily.toLowerCase()).toContain('mono');
   });
 
-  test('size variants all inherit the same font-size from parent', async ({ page }) => {
-    // Kbd defaults to inheritSize: true — font-size cascades from parent
+  test('size variants xs→xl produce strictly increasing font-sizes', async ({ page }) => {
+    // Kbd no longer defaults to inheritSize — its --spacing: 0.25em override
+    // makes --fs resolve in em (xs=0.625em → xl=1.125em), so the size prop
+    // controls font-size relative to parent context.
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
     const fontSizes: number[] = [];
 
@@ -108,7 +110,7 @@ test.describe('Kbd', () => {
     }
 
     for (let i = 1; i < fontSizes.length; i++) {
-      expect(fontSizes[i]).toBe(fontSizes[0]);
+      expect(fontSizes[i]).toBeGreaterThan(fontSizes[i - 1]);
     }
   });
 });
