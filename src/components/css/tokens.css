@@ -208,6 +208,10 @@
     /* Common line height */
     --lh-base: 1.6;
 
+    /* Letter spacing defaults (consumed by typography components in rules.css) */
+    --ls-base: -0.011em;     /* body, link, Title — compact tracking */
+    --ls-display: -0.022em;  /* SectionTitle, PageTitle — display tracking */
+
     /* Disabled state */
     --disabled-opacity: 50%;
 }
