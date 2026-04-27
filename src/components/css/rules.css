@@ -150,24 +150,26 @@
     .vane-chip :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
 
     /* Code */
-    /* Code uses inheritSize → font-size = --fs-ratio * 1em (parent-relative).
-       Per-size --fs-ratio matches the absolute --fs-unit ladder when parent is
-       at default body size (16 px), but scales with parent in headings. */
-    .vane-code { --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; --fs-ratio: 0.875; }
-    .vane-code[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; --fs-ratio: 0.625; }
-    .vane-code[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; --fs-ratio: 0.75; }
-    .vane-code[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; --fs-ratio: 0.875; }
-    .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 1;   --fs-ratio: 1; }
-    .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; --fs-ratio: 1.125; }
+    /* Code overrides --spacing locally so the entire geometry system (--fs,
+       --py, --px, --br, --gap) resolves in em rather than rem — proportional
+       to Code's own font-size, which itself scales with the parent context.
+       The existing --fs-unit / --py-unit / --br-unit ladders keep working
+       unchanged; only the multiplier shifts from rem to em. */
+    .vane-code { --spacing: 0.25em; --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; }
+    .vane-code[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
+    .vane-code[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
+    .vane-code[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }
+    .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
+    .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
 
     /* Kbd */
-    /* Kbd: same em-relative pattern as Code. */
-    .vane-kbd { --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; --fs-ratio: 0.875; border-bottom-width: 3px; }
-    .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; --fs-ratio: 0.625; }
-    .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; --fs-ratio: 0.75; }
-    .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; --fs-ratio: 0.875; }
-    .vane-kbd[data-size="lg"] { --fs-unit: 8; --py-unit: 1;   --fs-ratio: 1; }
-    .vane-kbd[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; --fs-ratio: 1.125; }
+    /* Kbd: same em-relative geometry pattern as Code (via --spacing override). */
+    .vane-kbd { --spacing: 0.25em; --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; border-bottom-width: 3px; }
+    .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
+    .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
+    .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }
+    .vane-kbd[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
+    .vane-kbd[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
 
     /* Mark */
     .vane-mark { --lh: 1; --py-unit: 0.4; --aspect-ratio: 1.5; --br-unit: 0.3333; }
