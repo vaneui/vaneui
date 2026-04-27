@@ -141,6 +141,13 @@
     --br-base: var(--spacing);
     --fs-base: calc(var(--spacing) * 0.5);
 
+    /* Em-relative font-size — used by inline components (Code, Kbd, Mark, Link)
+       that opt into inheritSize. --fs-ratio defaults to 1 (= 1em = same as
+       parent); inline components override it to scale relative to parent
+       (e.g. Code sets 0.875 so it renders at 87.5% of the surrounding text
+       size, scaling correctly inside both body text and headings). */
+    --fs-em: calc(var(--fs-ratio, 1) * 1em);
+
     --breakpoint-mobile: 48rem;
     --breakpoint-tablet: 64rem;
     --breakpoint-desktop: 80rem;

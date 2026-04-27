@@ -759,7 +759,7 @@ describe('Inherit Appearance Prop', () => {
   // ==========================================================================
 
   describe('Granular inherit flags', () => {
-    it('Link with inheritSize emits text-[length:inherit] while keeping link appearance', () => {
+    it('Link with inheritSize emits text-(length:--fs-em) while keeping link appearance', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Link href="/test">Link text</Link>
@@ -767,7 +767,7 @@ describe('Inherit Appearance Prop', () => {
       );
       const link = container.querySelector('a');
       expect(link).toHaveAttribute('data-appearance', 'link');
-      expect(link).toHaveClass('text-[length:inherit]');
+      expect(link).toHaveClass('text-(length:--fs-em)');
       expect(link).toHaveClass('leading-[inherit]');
     });
 
@@ -806,7 +806,7 @@ describe('Inherit Appearance Prop', () => {
       // inheritColor from inherit expansion
       expect(text).not.toHaveAttribute('data-appearance');
       // explicit inheritSize enables size inheritance
-      expect(text).toHaveClass('text-[length:inherit]');
+      expect(text).toHaveClass('text-(length:--fs-em)');
       expect(text).toHaveClass('leading-[inherit]');
     });
 
@@ -818,7 +818,7 @@ describe('Inherit Appearance Prop', () => {
       );
       const code = container.querySelector('code');
       expect(code).toHaveAttribute('data-appearance', 'primary');
-      expect(code).toHaveClass('text-[length:inherit]');
+      expect(code).toHaveClass('text-(length:--fs-em)');
     });
 
     it('Title (responsive) keeps own size — responsive overrides inheritSize', () => {
@@ -830,7 +830,7 @@ describe('Inherit Appearance Prop', () => {
       const title = container.querySelector('h3');
       expect(title).not.toHaveAttribute('data-appearance');
       expect(title).toHaveClass('text-(length:--fs-desktop)');
-      expect(title).not.toHaveClass('text-[length:inherit]');
+      expect(title).not.toHaveClass('text-(length:--fs-em)');
     });
 
     it('inheritColor suppresses data-appearance even with explicit appearance', () => {
@@ -852,7 +852,7 @@ describe('Inherit Appearance Prop', () => {
       );
       const kbd = container.querySelector('kbd');
       expect(kbd).toHaveAttribute('data-appearance', 'primary');
-      expect(kbd).toHaveClass('text-[length:inherit]');
+      expect(kbd).toHaveClass('text-(length:--fs-em)');
     });
 
     it('Mark with inheritSize default inherits font-size but keeps warning appearance', () => {
@@ -863,7 +863,7 @@ describe('Inherit Appearance Prop', () => {
       );
       const mark = container.querySelector('mark');
       expect(mark).toHaveAttribute('data-appearance', 'warning');
-      expect(mark).toHaveClass('text-[length:inherit]');
+      expect(mark).toHaveClass('text-(length:--fs-em)');
     });
   });
 });
