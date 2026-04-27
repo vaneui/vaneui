@@ -234,7 +234,7 @@
     .vane-list[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 5; }
 
     /* Text */
-    .vane-text { --lh: var(--lh-base); letter-spacing: var(--ls-base); }
+    .vane-text { --lh: var(--lh-base); --ls: var(--ls-base); }
     .vane-text[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-text[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
     .vane-text[data-size="md"] { --fs-unit: var(--fs-unit-md); }
@@ -242,7 +242,7 @@
     .vane-text[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
     /* Blockquote */
-    .vane-blockquote { --lh: var(--lh-base); }
+    .vane-blockquote { --lh: var(--lh-base); --ls: var(--ls-base); }
     .vane-blockquote[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-blockquote[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
     .vane-blockquote[data-size="md"] { --fs-unit: var(--fs-unit-md); }
@@ -250,7 +250,7 @@
     .vane-blockquote[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
     /* Link */
-    .vane-link { --lh: var(--lh-base); --icon-size: var(--fs); letter-spacing: var(--ls-base); }
+    .vane-link { --lh: var(--lh-base); --icon-size: var(--fs); --ls: var(--ls-base); }
     .vane-link[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-link[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
     .vane-link[data-size="md"] { --fs-unit: var(--fs-unit-md); }
@@ -306,7 +306,7 @@
     .vane-title {
         --lh: 1.3;
         --fs-unit-desktop: 12; --fs-unit-tablet: 11; --fs-unit-mobile: 10;
-        letter-spacing: var(--ls-base);
+        --ls: var(--ls-base);
     }
     .vane-title[data-size="xs"] { --fs-unit-desktop: 9; --fs-unit-tablet: 8; --fs-unit-mobile: 7; --lh: 1.556; }
     .vane-title[data-size="sm"] { --fs-unit-desktop: 10; --fs-unit-tablet: 9; --fs-unit-mobile: 8; --lh: 1.4; }
@@ -318,7 +318,7 @@
     .vane-section-title {
         --lh: 1.2;
         --fs-unit-desktop: 18; --fs-unit-tablet: 16; --fs-unit-mobile: 14;
-        letter-spacing: var(--ls-display);
+        --ls: var(--ls-display);
     }
     .vane-section-title[data-size="xs"] { --fs-unit-desktop: 12; --fs-unit-tablet: 10; --fs-unit-mobile: 8; --lh: 1.333; }
     .vane-section-title[data-size="sm"] { --fs-unit-desktop: 15; --fs-unit-tablet: 13; --fs-unit-mobile: 11; --lh: 1.2; }
@@ -330,7 +330,7 @@
     .vane-page-title {
         --lh: 1.1;
         --fs-unit-desktop: 24; --fs-unit-tablet: 21; --fs-unit-mobile: 18;
-        letter-spacing: var(--ls-display);
+        --ls: var(--ls-display);
     }
     .vane-page-title[data-size="xs"] { --fs-unit-desktop: 15; --fs-unit-tablet: 12; --fs-unit-mobile: 9; --lh: 1.2; }
     .vane-page-title[data-size="sm"] { --fs-unit-desktop: 18; --fs-unit-tablet: 15; --fs-unit-mobile: 12; --lh: 1.111; }
