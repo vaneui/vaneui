@@ -4,7 +4,7 @@ export { Icon, type IconProps } from "./components/ui/icon";
 export { Badge, type BadgeProps } from "./components/ui/badge";
 export { Divider, type DividerProps } from "./components/ui/divider";
 export { Chip, type ChipProps } from "./components/ui/chip";
-export { Code } from "./components/ui/code/Code";
+export { Code, type CodeProps } from "./components/ui/code";
 export { Kbd, type KbdProps } from "./components/ui/kbd";
 export { Mark, type MarkProps } from "./components/ui/mark";
 export { Checkbox, type CheckboxProps } from "./components/ui/checkbox";
@@ -19,11 +19,12 @@ export { NavLink, type NavLinkProps, type NavLinkLabelProps } from "./components
 export type { OverlayProps } from "./components/ui/overlay";
 export type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./components/ui/modal";
 export type { CardProps, CardHeaderProps, CardBodyProps, CardFooterProps } from "./components/ui/card";
+export type { ColProps } from "./components/ui/col";
 export type { PopupProps, PopupTriggerProps } from "./components/ui/popup";
 export type { MenuProps, MenuItemProps, MenuLabelProps } from "./components/ui/menu";
 export type { ZLayer } from "./components/utils/stackingContext";
 export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card, CardHeader, CardBody, CardFooter } from "./components/ui/layout";
-export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle, Blockquote, type TypographyProps, type LinkProps, type ListProps } from "./components/ui/typography";
+export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle, Blockquote, type TypographyProps, type TitleProps, type LinkProps, type ListProps, type ListItemProps } from "./components/ui/typography";
 export {
   COMPONENT,
   ComponentKeys,
