@@ -14,6 +14,8 @@ import type { DirectionClassMapper } from "../layout/directionClassMapper";
 import type { CursorClassMapper } from "../layout/cursorClassMapper";
 import type { TransitionClassMapper } from "../layout/transitionClassMapper";
 import type { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
+import type { FlexClassMapper } from "../layout/flexClassMapper";
+import type { ShrinkClassMapper } from "../layout/shrinkClassMapper";
 import type { SimpleConsumerClassMapper } from "../appearance/simpleConsumerClassMapper";
 import type { ShadowAppearanceClassMapper } from "../appearance/shadowAppearanceClassMapper";
 import type { DisabledClassMapper } from "../appearance/disabledClassMapper";
@@ -56,6 +58,8 @@ export interface InteractiveLayoutClassMappers extends DefaultSizedLayoutClassMa
   cursor: CursorClassMapper;
   transition: TransitionClassMapper;
   whitespace: WhitespaceClassMapper;
+  flex: FlexClassMapper;
+  shrink: ShrinkClassMapper;
 }
 
 /**
@@ -102,6 +106,8 @@ export interface LayoutLayoutClassMappers extends DefaultSizedLayoutClassMappers
   border: BorderClassMapper;
   ring: RingClassMapper;
   radius: RadiusClassMapper;
+  flex: FlexClassMapper;
+  shrink: ShrinkClassMapper;
 }
 
 /**

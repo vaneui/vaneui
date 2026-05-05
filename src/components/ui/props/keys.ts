@@ -256,6 +256,10 @@ export const ComponentKeys = {
   variant: ['filled', 'outline', 'ghost'] as const,
   /** Flex item wrapping behavior: wrap, no-wrap, or wrap-reverse */
   wrap: ['flexWrap', 'flexNoWrap', 'flexWrapReverse'] as const,
+  /** Flex-grow/shrink shorthand: flex1 (1 1 0%), flexAuto (1 1 auto), or flexNone (none) */
+  flex: ['flex1', 'flexAuto', 'flexNone'] as const,
+  /** Flex-shrink override: noShrink (= shrink-0) prevents the item from shrinking below its content size */
+  shrink: ['noShrink'] as const,
   /** Transparent background: disables background color when true */
   transparent: ['transparent'] as const,
   /** Responsive sizing: enables breakpoint-specific py/px/gap/fs when true */
@@ -342,6 +346,10 @@ export type ItemsKey = typeof ComponentKeys.items[number];
 export type JustifyKey = typeof ComponentKeys.justify[number];
 /** Flex wrap keys: flexWrap, flexNoWrap, flexWrapReverse */
 export type WrapKey = typeof ComponentKeys.wrap[number];
+/** Flex grow/shrink shorthand keys: flex1, flexAuto, flexNone */
+export type FlexKey = typeof ComponentKeys.flex[number];
+/** Flex shrink override keys: noShrink */
+export type ShrinkKey = typeof ComponentKeys.shrink[number];
 /** CSS display property keys for layout behavior */
 export type DisplayKey = typeof ComponentKeys.display[number];
 /** CSS overflow property keys for content clipping behavior */

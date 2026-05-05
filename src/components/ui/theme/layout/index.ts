@@ -22,3 +22,5 @@ export { MaxHeightClassMapper } from './maxHeightClassMapper';
 export { MinWidthClassMapper } from './minWidthClassMapper';
 export { WidthClassMapper } from './widthClassMapper';
 export { WrapClassMapper } from './wrapClassMapper';
+export { FlexClassMapper } from './flexClassMapper';
+export { ShrinkClassMapper } from './shrinkClassMapper';

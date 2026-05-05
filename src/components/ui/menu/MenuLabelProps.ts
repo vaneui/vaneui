@@ -9,6 +9,8 @@ import type {
   DisplayProps,
   OverflowProps,
   WrapProps,
+  FlexProps,
+  ShrinkProps,
   GapProps,
   FlexDirectionProps,
   ReverseProps,
@@ -52,6 +54,8 @@ export type MenuLabelProps = BaseProps &
   DisplayProps &
   OverflowProps &
   WrapProps &
+  FlexProps &
+  ShrinkProps &
   GapProps &
   FlexDirectionProps &
   ReverseProps &

@@ -1,7 +1,7 @@
 import { ComponentTheme, defaultSizedLayoutClassMappers, defaultTypographyClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "../theme/common";
 import type { LabelProps } from "./LabelProps";
 import { GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
-import { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper } from "../theme/layout";
+import { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper, FlexClassMapper, ShrinkClassMapper } from "../theme/layout";
 import { LABEL_CATEGORIES } from "./LabelCategories";
 import type { LabelTheme } from "./LabelTheme";
 import { labelDefaults } from "./labelDefaults";
@@ -30,6 +30,8 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       wrap: new WrapClassMapper(),
       flexDirection: new DirectionClassMapper(),
       cursor: new CursorClassMapper(),
+      flex: new FlexClassMapper(),
+      shrink: new ShrinkClassMapper(),
     },
   },
   labelDefaults,

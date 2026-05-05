@@ -37,6 +37,8 @@ export * from './justifyProps';
 export * from './flexDirectionProps';
 export * from './reverseProps';
 export * from './wrapProps';
+export * from './flexProps';
+export * from './shrinkProps';
 
 // Display and positioning
 export * from './displayProps';

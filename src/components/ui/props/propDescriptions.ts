@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-05-03T10:21:22.167Z
+ * Generated on: 2026-05-05T10:20:36.232Z
  */
 
 export interface PropDescription {
@@ -202,6 +202,21 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "columnReverse": {
         "description": "Flex direction column-reverse"
+      }
+    }
+  },
+  "flex": {
+    "name": "Flex",
+    "description": "Flex-grow/shrink shorthand props for controlling how a flex item\ndistributes free space along its parent's main axis.\nThese map to Tailwind's `flex` shorthand utilities and are mutually\nexclusive — only one value is active at a time.",
+    "props": {
+      "flex1": {
+        "description": "Take up remaining space (= `flex-1`, i.e. `flex: 1 1 0%`)"
+      },
+      "flexAuto": {
+        "description": "Grow but respect intrinsic size (= `flex-auto`, i.e. `flex: 1 1 auto`)"
+      },
+      "flexNone": {
+        "description": "Don't grow and don't shrink (= `flex-none`, i.e. `flex: none`)"
       }
     }
   },
@@ -733,6 +748,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "sharp": {
         "description": "No rounded corners (square)"
+      }
+    }
+  },
+  "shrink": {
+    "name": "Shrink",
+    "description": "Flex-shrink override prop. Independent toggle (not part of the `flex`\nshorthand) so it can be combined with `flex1`/`flexAuto`/explicit grow.",
+    "props": {
+      "noShrink": {
+        "description": "Prevent the flex item from shrinking below its content size (= `shrink-0`)"
       }
     }
   },

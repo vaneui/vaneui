@@ -7,7 +7,7 @@
 /** Core layout properties for positioning and sizing elements */
 export const LAYOUT_CORE = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
 /** Flexbox-specific layout properties for flex containers */
-export const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse'] as const;
+export const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse', 'flex', 'shrink'] as const;
 /** Padding properties for internal spacing control */
 export const PADDING = ['padding'] as const;
 /** Responsive breakpoint properties for different screen sizes */

@@ -7,6 +7,8 @@ import { DirectionClassMapper } from "../layout/directionClassMapper";
 import { BorderClassMapper } from "../layout/borderClassMapper";
 import { RingClassMapper } from "../layout/ringClassMapper";
 import { RadiusClassMapper } from "../layout/radiusClassMapper";
+import { FlexClassMapper } from "../layout/flexClassMapper";
+import { ShrinkClassMapper } from "../layout/shrinkClassMapper";
 import { bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "./appearanceClassMappers";
 
 /**
@@ -33,5 +35,7 @@ export const layoutClassMappers = {
     border: new BorderClassMapper(),
     ring: new RingClassMapper(),
     radius: new RadiusClassMapper(),
+    flex: new FlexClassMapper(),
+    shrink: new ShrinkClassMapper(),
   },
 };

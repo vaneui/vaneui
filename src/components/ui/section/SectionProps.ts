@@ -9,6 +9,8 @@ import type {
   DisplayProps,
   OverflowProps,
   WrapProps,
+  FlexProps,
+  ShrinkProps,
   GapProps,
   FlexDirectionProps,
   ReverseProps,
@@ -37,6 +39,8 @@ export type SectionProps = BaseProps &
   DisplayProps &
   OverflowProps &
   WrapProps &
+  FlexProps &
+  ShrinkProps &
   GapProps &
   FlexDirectionProps &
   ReverseProps &

@@ -494,6 +494,47 @@ function App() {
             </Row>
           </Card>
 
+          {/* ═══ FLEX & SHRINK PROPS ═══════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>Flex & Shrink Props</SectionTitle>
+
+          <Card>
+            <Title>flex1 — split row evenly</Title>
+            <Text sm secondary>
+              <Code sm>flex1</Code> on each Col makes them share the row's width
+              (= Tailwind <Code sm>flex-1</Code>, i.e. <Code sm>flex: 1 1 0%</Code>).
+            </Text>
+            <Row className="w-full">
+              <Col flex1 padding outline brand>Left</Col>
+              <Col flex1 padding outline accent>Middle</Col>
+              <Col flex1 padding outline success>Right</Col>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>noShrink — fixed sidebar + flex1 content</Title>
+            <Text sm secondary>
+              The sidebar keeps its intrinsic width (<Code sm>noShrink</Code> = <Code sm>shrink-0</Code>),
+              while the content takes the rest with <Code sm>flex1</Code>.
+            </Text>
+            <Row className="w-full">
+              <Col noShrink padding outline secondary className="w-40">Sidebar (40)</Col>
+              <Col flex1 padding outline primary>Main content fills the rest</Col>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>flexAuto vs flexNone</Title>
+            <Text sm secondary>
+              <Code sm>flexAuto</Code> grows but respects intrinsic size; <Code sm>flexNone</Code> never grows or shrinks.
+            </Text>
+            <Row className="w-full">
+              <Col flexAuto padding outline brand>flexAuto — long enough to push others</Col>
+              <Col flexNone padding outline danger>flexNone</Col>
+              <Col flexAuto padding outline accent>flexAuto</Col>
+            </Row>
+          </Card>
+
         </Container>
       </Section>
     </ThemeProvider>

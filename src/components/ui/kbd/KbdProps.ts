@@ -9,6 +9,8 @@ import type {
   DisplayProps,
   OverflowProps,
   WrapProps,
+  FlexProps,
+  ShrinkProps,
   GapProps,
   FlexDirectionProps,
   ReverseProps,
@@ -48,6 +50,8 @@ export type KbdProps = BaseProps &
   DisplayProps &
   OverflowProps &
   WrapProps &
+  FlexProps &
+  ShrinkProps &
   GapProps &
   FlexDirectionProps &
   ReverseProps &

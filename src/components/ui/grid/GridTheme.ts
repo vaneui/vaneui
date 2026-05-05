@@ -1,6 +1,6 @@
 import type { BaseComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
 import type { GapClassMapper, PxClassMapper, PyClassMapper } from "../theme/size";
-import type { WrapClassMapper, DirectionClassMapper, RadiusClassMapper, BorderClassMapper } from "../theme/layout";
+import type { WrapClassMapper, DirectionClassMapper, RadiusClassMapper, BorderClassMapper, FlexClassMapper, ShrinkClassMapper } from "../theme/layout";
 import type { SimpleConsumerClassMapper } from "../theme/appearance";
 
 export interface GridTheme extends BaseComponentTheme {
@@ -19,5 +19,7 @@ export interface GridTheme extends BaseComponentTheme {
     flexDirection: DirectionClassMapper;
     radius: RadiusClassMapper;
     border: BorderClassMapper;
+    flex: FlexClassMapper;
+    shrink: ShrinkClassMapper;
   };
 }

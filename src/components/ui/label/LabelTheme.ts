@@ -1,5 +1,5 @@
 import type { BaseTypographyComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
-import type { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper } from "../theme/layout";
+import type { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper, FlexClassMapper, ShrinkClassMapper } from "../theme/layout";
 import type { GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
 import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
 
@@ -22,5 +22,7 @@ export interface LabelTheme extends BaseTypographyComponentTheme {
     wrap: WrapClassMapper;
     flexDirection: DirectionClassMapper;
     cursor: CursorClassMapper;
+    flex: FlexClassMapper;
+    shrink: ShrinkClassMapper;
   };
 }

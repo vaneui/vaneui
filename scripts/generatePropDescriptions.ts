@@ -41,6 +41,8 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'PaddingProps': 'padding',
   'GapProps': 'gap',
   'WrapProps': 'wrap',
+  'FlexProps': 'flex',
+  'ShrinkProps': 'shrink',
   'FlexDirectionProps': 'flexDirection',
   'ReverseProps': 'reverse',
   'ItemsProps': 'items',

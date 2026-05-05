@@ -1,5 +1,5 @@
 import type { BaseTypographyComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
-import type { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper, TransitionClassMapper, WhitespaceClassMapper } from "../theme/layout";
+import type { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper, TransitionClassMapper, WhitespaceClassMapper, FlexClassMapper, ShrinkClassMapper } from "../theme/layout";
 import type { PxClassMapper, PyClassMapper, GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
 import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
 
@@ -39,5 +39,7 @@ export interface MenuLabelTheme extends BaseTypographyComponentTheme {
     cursor: CursorClassMapper;
     transition: TransitionClassMapper;
     whitespace: WhitespaceClassMapper;
+    flex: FlexClassMapper;
+    shrink: ShrinkClassMapper;
   };
 }

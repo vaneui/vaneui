@@ -13,6 +13,8 @@ import { DirectionClassMapper } from "../layout/directionClassMapper";
 import { CursorClassMapper } from "../layout/cursorClassMapper";
 import { TransitionClassMapper } from "../layout/transitionClassMapper";
 import { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
+import { FlexClassMapper } from "../layout/flexClassMapper";
+import { ShrinkClassMapper } from "../layout/shrinkClassMapper";
 import { bgAppearance, textAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowAppearance } from "./appearanceClassMappers";
 import { DisabledClassMapper } from "../appearance/disabledClassMapper";
 
@@ -48,6 +50,8 @@ export const interactiveClassMappers = {
     cursor: new CursorClassMapper(),
     transition: new TransitionClassMapper(),
     whitespace: new WhitespaceClassMapper(),
+    flex: new FlexClassMapper(),
+    shrink: new ShrinkClassMapper(),
   },
   typography: defaultTypographyClassMappers,
 };
