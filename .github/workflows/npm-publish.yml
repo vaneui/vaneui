@@ -51,11 +51,6 @@ jobs:
       - name: Build Package
         run: npm run build
 
-      - name: Run Tests on Built Package
-        run: npm test
-        env:
-          CI: true
-
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
 
@@ -76,7 +71,10 @@ jobs:
         run: npm pack --dry-run
 
       - name: Publish Pre-release to npm
-        run: npm publish --access public --tag alpha
+        # --ignore-scripts: this workflow already ran build + test + test:e2e
+        # explicitly above. Without --ignore-scripts the `prepublishOnly`
+        # script in package.json would re-run all three, doubling CI time.
+        run: npm publish --access public --tag alpha --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

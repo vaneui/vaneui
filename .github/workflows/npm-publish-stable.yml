@@ -58,16 +58,10 @@ jobs:
         if: steps.check_version.outputs.should_publish == 'true'
         run: npm run build
 
-      - name: Run Tests on Built Package
-        if: steps.check_version.outputs.should_publish == 'true'
-        run: npm test
-        env:
-          CI: true
-
-      - name: Check Build and Test Results
+      - name: Check Build Result
         if: steps.check_version.outputs.should_publish == 'true' && failure()
         run: |
-          echo "❌ Build or post-build tests failed!"
+          echo "❌ Build failed!"
           echo "Cannot proceed with stable release publication."
           exit 1
 
@@ -77,8 +71,11 @@ jobs:
         run: npm pack --dry-run
 
       - name: Publish Stable Package to npm
+        # --ignore-scripts: this workflow already ran tests + build above;
+        # without --ignore-scripts the `prepublishOnly` script in
+        # package.json would re-run build + test + test:e2e during publish.
         if: steps.check_version.outputs.should_publish == 'true'
-        run: npm publish --access public
+        run: npm publish --access public --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

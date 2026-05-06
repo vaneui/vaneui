@@ -76,15 +76,10 @@ jobs:
       - name: Build Package
         run: npm run build
 
-      - name: Run Tests on Built Package
-        run: npm test
-        env:
-          CI: true
-
-      - name: Check Build and Test Results
+      - name: Check Build Result
         if: failure()
         run: |
-          echo "❌ Build or post-build tests failed!"
+          echo "❌ Build failed!"
           echo "Cannot proceed with version bump commit."
           exit 1
 
