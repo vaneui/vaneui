@@ -90,9 +90,43 @@ describe('Link Component Tests', () => {
       const outlineLink = outlineContainer.querySelector('a');
       const filledLink = filledContainer.querySelector('a');
 
-      // Link uses link-specific text colors only (no background colors)
+      // Default `link` appearance — both variants use the cascading --link-text
+      // variable, which is set per-variant by CSS rules.
       expect(outlineLink).toHaveClass('text-(--link-text)');
       expect(filledLink).toHaveClass('text-(--link-text)');
+    });
+
+    it('explicit non-link appearance switches to direct --app-text', () => {
+      const appearances = ['primary', 'brand', 'accent', 'secondary', 'tertiary',
+        'success', 'danger', 'warning', 'info'] as const;
+
+      for (const appearance of appearances) {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Link href="#test" {...{[appearance]: true}}>{appearance} link</Link>
+          </ThemeProvider>
+        );
+        const link = container.querySelector('a')!;
+        // Explicit appearance overrides the default `link` cascade. Link uses
+        // --app-text directly (set by [data-appearance="..."] rules) — Link
+        // has no data-variant default, so the standard --text-color path
+        // (which the variant rule binds) wouldn't fire on the element.
+        expect(link).toHaveClass('text-(--app-text)');
+        expect(link).not.toHaveClass('text-(--link-text)');
+        expect(link).toHaveAttribute('data-appearance', appearance);
+      }
+    });
+
+    it('default Link keeps the cascading --link-text class', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="#test">Default link</Link>
+        </ThemeProvider>
+      );
+      const link = container.querySelector('a')!;
+      expect(link).toHaveClass('text-(--link-text)');
+      expect(link).not.toHaveClass('text-(--app-text)');
+      expect(link).toHaveAttribute('data-appearance', 'link');
     });
 
     it('should support all overflow variants', () => {
@@ -370,9 +404,9 @@ describe('Link Component Tests', () => {
   });
 });
 describe('Link Theme Override Tests', () => {
-  it('should allow overriding outline text class via themeOverride', () => {
+  it('should allow overriding the default link-appearance class via themeOverride', () => {
     const overrideFunc = (theme: ThemeProps) => {
-      theme.link.themes.appearance.text.outline = 'text-custom-link-color';
+      theme.link.themes.appearance.text.linkClass = 'text-custom-link-color';
       return theme;
     };
 
@@ -387,42 +421,42 @@ describe('Link Theme Override Tests', () => {
     expect(link).not.toHaveClass('text-(--link-text)');
   });
 
-  it('should allow overriding filled text class via themeOverride', () => {
+  it('should allow overriding the explicit-appearance class via themeOverride', () => {
     const overrideFunc = (theme: ThemeProps) => {
-      theme.link.themes.appearance.text.filled = 'text-custom-filled-link';
+      theme.link.themes.appearance.text.standardClass = 'text-custom-explicit-link';
       return theme;
     };
 
     const { container } = render(
       <ThemeProvider themeOverride={overrideFunc}>
-        <Link href="#test" filled>Custom Filled Link</Link>
+        <Link href="#test" success>Custom Success Link</Link>
       </ThemeProvider>
     );
 
     const link = container.querySelector('a');
-    expect(link).toHaveClass('text-custom-filled-link');
-    expect(link).not.toHaveClass('text-(--link-text)');
+    expect(link).toHaveClass('text-custom-explicit-link');
+    expect(link).not.toHaveClass('text-(--app-text)');
   });
 
-  it('should allow overriding both outline and filled classes', () => {
+  it('should allow overriding both link-default and explicit-appearance classes', () => {
     const overrideFunc = (theme: ThemeProps) => {
-      theme.link.themes.appearance.text.outline = 'text-purple-600';
-      theme.link.themes.appearance.text.filled = 'text-purple-100';
+      theme.link.themes.appearance.text.linkClass = 'text-purple-600';
+      theme.link.themes.appearance.text.standardClass = 'text-purple-100';
       return theme;
     };
 
     const { container } = render(
       <ThemeProvider themeOverride={overrideFunc}>
-        <Link href="#outline" className="outline-link">Outline</Link>
-        <Link href="#filled" filled className="filled-link">Filled</Link>
+        <Link href="#default" className="default-link">Default</Link>
+        <Link href="#explicit" danger className="explicit-link">Explicit</Link>
       </ThemeProvider>
     );
 
-    const outlineLink = container.querySelector('.outline-link');
-    const filledLink = container.querySelector('.filled-link');
+    const defaultLink = container.querySelector('.default-link');
+    const explicitLink = container.querySelector('.explicit-link');
 
-    expect(outlineLink).toHaveClass('text-purple-600');
-    expect(filledLink).toHaveClass('text-purple-100');
+    expect(defaultLink).toHaveClass('text-purple-600');
+    expect(explicitLink).toHaveClass('text-purple-100');
   });
 });
 

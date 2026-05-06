@@ -81,6 +81,9 @@
       "default": "./dist/ui.css"
     }
   },
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "type-check": "tsc --noEmit",
     "lint": "eslint src playground --ext .ts,.tsx",

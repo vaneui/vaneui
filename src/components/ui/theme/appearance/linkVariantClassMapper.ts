@@ -1,30 +1,36 @@
 import { BaseClassMapper } from "../common/BaseClassMapper";
-import type { CategoryProps, VariantKey } from "../../props";
+import type { CategoryProps } from "../../props";
 
 /**
- * Link-specific variant theme that reads --link-text instead of --text-color.
+ * Link-specific appearance mapper.
  *
- * --link-text is set by each variant rule (outline=blue-600, filled=blue-400,
- * ghost=blue-600) and inherits via CSS cascade. This lets a default Link
- * (no data-variant) inherit the surface-appropriate link color from the
- * nearest ancestor's variant rule. When the user explicitly sets a variant
- * (<Link filled>), the variant rule fires on Link itself and sets --link-text
- * directly — explicit always wins.
+ * When the resolved appearance is `'link'` (the default), emits
+ * `text-(--link-text)` so the link color comes from the cascading
+ * `--link-text` CSS variable. That variable is set per-variant by
+ * CSS rules and can also be overridden by ancestor variant rules —
+ * this is what lets a default `<Link>` inside a `<Card filled>` pick
+ * up a surface-appropriate link color via cascade.
+ *
+ * When the consumer sets any other appearance (`primary`, `success`,
+ * `danger`, …), emits `text-(--app-text)` — the variable is set
+ * directly by `[data-appearance="..."]` CSS rules, so it does not
+ * require `data-variant` to be present on the element. (Link has no
+ * default variant, so the standard `--text-color` path — which is
+ * mapped from `--app-text` only by the variant rule — would leave
+ * the link inheriting the `:root` baseline color.)
  */
-export class LinkVariantClassMapper extends BaseClassMapper implements Record<VariantKey, string> {
-  /** CSS consumer class for outline variant */
-  outline: string = "text-(--link-text)";
-
-  /** CSS consumer class for filled variant */
-  filled: string = "text-(--link-text)";
-
-  /** CSS consumer class for ghost variant */
-  ghost: string = "text-(--link-text)";
+export class LinkVariantClassMapper extends BaseClassMapper {
+  /** Cascade-aware link color for the default `link` appearance */
+  linkClass: string = "text-(--link-text)";
+  /**
+   * Direct appearance-text variable for explicit appearance overrides.
+   * Bypasses `--text-color`, which requires `data-variant` to be set on
+   * the element (Link has none) for the variant rule to assign it.
+   */
+  standardClass: string = "text-(--app-text)";
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    // CSS-based approach: consumer class always outputs
-    // Transparent is handled via data-transparent attribute
-    const variant = extractedKeys?.variant ?? 'outline';
-    return [this[variant] || ''];
+    const appearance = extractedKeys?.appearance ?? 'link';
+    return [appearance === 'link' ? this.linkClass : this.standardClass];
   }
 }

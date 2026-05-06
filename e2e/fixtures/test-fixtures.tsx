@@ -318,6 +318,25 @@ export function TestHarness() {
         <section data-testid="link-section">
           <Link href="https://example.com" external data-testid="link-external">External link</Link>
           <Link href="https://example.com" data-testid="link-normal">Normal link</Link>
+          {/* Default `link` appearance — uses cascading --link-text */}
+          <Link href="#" data-testid="link-appearance-default">Default link</Link>
+          {/* Explicit appearances — each must produce a distinct computed color */}
+          <Link href="#" primary data-testid="link-appearance-primary">primary</Link>
+          <Link href="#" brand data-testid="link-appearance-brand">brand</Link>
+          <Link href="#" accent data-testid="link-appearance-accent">accent</Link>
+          <Link href="#" secondary data-testid="link-appearance-secondary">secondary</Link>
+          <Link href="#" tertiary data-testid="link-appearance-tertiary">tertiary</Link>
+          <Link href="#" success data-testid="link-appearance-success">success</Link>
+          <Link href="#" danger data-testid="link-appearance-danger">danger</Link>
+          <Link href="#" warning data-testid="link-appearance-warning">warning</Link>
+          <Link href="#" info data-testid="link-appearance-info">info</Link>
+          {/* Cascade test: default Link inside a filled Card should pick up
+              --link-text from the Card's [data-variant="filled"] rule, which
+              binds it to --color-text-filled-link instead of --color-text-link.
+              The two should render visibly different colors. */}
+          <Card filled primary>
+            <Link href="#" data-testid="link-cascade-in-filled-card">cascade link</Link>
+          </Card>
         </section>
 
         {/* ── Z-Index stacking ── */}
