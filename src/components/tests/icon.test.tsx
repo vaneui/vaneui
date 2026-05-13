@@ -162,4 +162,102 @@ describe('Icon Component Tests', () => {
       expect(icon).toHaveClass('max-mobile:hidden');
     });
   });
+
+  describe('Container Mode — defaults round-trip', () => {
+    it('renders identical DOM for <Icon> and <Icon noPadding noBorder noRing>', () => {
+      const { container: bare } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const { container: explicit } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon noPadding noBorder noRing><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+
+      const bareSpan = bare.querySelector('span') as HTMLElement;
+      const explicitSpan = explicit.querySelector('span') as HTMLElement;
+
+      expect(explicitSpan.className).toBe(bareSpan.className);
+      expect(explicitSpan.getAttributeNames().sort()).toEqual(bareSpan.getAttributeNames().sort());
+    });
+
+    it('does not paint a background when filled is set without an appearance', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon filled><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).not.toHaveAttribute('data-appearance');
+    });
+  });
+
+  describe('Container Mode — filled pill', () => {
+    it('emits data-appearance, data-variant=filled, and bg/radius classes', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon padding pill primary filled><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span') as HTMLElement;
+
+      expect(icon).toHaveAttribute('data-appearance', 'primary');
+      expect(icon).toHaveAttribute('data-variant', 'filled');
+      expect(icon).toHaveClass('bg-(--bg-color)');
+      expect(icon).toHaveClass('rounded-full');
+      expect(icon).toHaveClass('px-(--px)');
+      expect(icon).toHaveClass('py-(--py)');
+    });
+  });
+
+  describe('Container Mode — bordered rounded (no fill)', () => {
+    it('emits data-appearance, border/radius classes, but no bg fill', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon padding rounded primary border><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span') as HTMLElement;
+
+      expect(icon).toHaveAttribute('data-appearance', 'primary');
+      // outline is the default variant — paired with `border`, this paints
+      // the border color but not a fill.
+      expect(icon).toHaveAttribute('data-variant', 'outline');
+      expect(icon).toHaveClass('border-(--border-color)');
+      expect(icon).toHaveClass('rounded-(--br)');
+    });
+  });
+
+  describe('Container Mode — ring', () => {
+    it('emits ring classes when ring prop is set with an appearance', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon padding pill primary ring><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span') as HTMLElement;
+
+      expect(icon).toHaveAttribute('data-appearance', 'primary');
+      expect(icon).toHaveClass('ring-(--ring-color)');
+    });
+  });
+
+  describe('Container Mode — new boolean props do not leak to DOM', () => {
+    it('strips padding/pill/sharp/rounded/border/ring/noPadding/noBorder/noRing', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon padding pill primary filled border ring><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span') as HTMLElement;
+
+      const leakedAttrs = ['padding', 'noPadding', 'pill', 'rounded', 'sharp',
+                           'border', 'noBorder', 'ring', 'noRing', 'filled'];
+      for (const attr of leakedAttrs) {
+        expect(icon).not.toHaveAttribute(attr);
+      }
+    });
+  });
 });
