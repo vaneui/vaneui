@@ -3,26 +3,34 @@ import {
   defaultTheme,
   Row,
   Col,
+  Stack,
   Text,
   Title,
   Section,
   Card,
+  CardHeader,
+  CardBody,
   Container,
   Divider,
   Code,
   PageTitle,
   SectionTitle,
-  List,
-  ListItem,
-  Label,
-  Input,
-  Checkbox,
-  Menu,
-  MenuItem,
-  MenuLabel,
   Button,
   Icon,
 } from '../../src';
+
+/**
+ * Reusable sample SVG. Uses currentColor + fixed 20x20 viewport so it inherits
+ * color from the Icon wrapper. The parent <Icon> controls the rendered size.
+ */
+const TestSvg = () => (
+  <svg viewBox="0 0 24 24" width={20} height={20} aria-hidden="true">
+    <path
+      d="M12 2.5l2.95 5.98 6.6.96-4.78 4.66 1.13 6.58L12 17.6l-5.9 3.1 1.13-6.58-4.78-4.66 6.6-.96L12 2.5z"
+      fill="currentColor"
+    />
+  </svg>
+);
 
 function App() {
   return (
@@ -30,554 +38,395 @@ function App() {
       <Section className="w-full">
         <Container itemsCenter className="w-full">
 
-          <PageTitle>VaneUI Playground</PageTitle>
+          <PageTitle>Icon Showcase</PageTitle>
           <Text secondary>
-            Exploring <Code sm>List</Code> with <Code sm>inside</Code>/<Code sm>outside</Code> position,
-            extended markers, nested progression, <Code sm>gap</Code> control, and custom icons.
+            Inline default behaviour plus the new container mode —{' '}
+            <Code sm>padding</Code> + <Code sm>filled</Code>/<Code sm>border</Code>/
+            <Code sm>ring</Code> + <Code sm>shape</Code> + <Code sm>appearance</Code>{' '}
+            produce a self-contained icon badge.
           </Text>
 
-          {/* ═══ 1. MARKER TYPES ═════════════════════════════════════════════ */}
+          {/* ═══ 1. INLINE (UNCHANGED DEFAULT) ════════════════════════════════ */}
           <Divider />
-          <SectionTitle>1. Marker Types</SectionTitle>
+          <SectionTitle>1. Inline (Unchanged Default)</SectionTitle>
 
           <Card>
-            <Title>Six list-style markers</Title>
+            <Title>Bare Icon inherits parent color</Title>
             <Text sm secondary>
-              <Code sm>disc</Code>, <Code sm>circle</Code>, <Code sm>square</Code>,{' '}
-              <Code sm>decimal</Code>, <Code sm>lowerAlpha</Code>, <Code sm>lowerRoman</Code>.
-              The last two render as <Code sm>{'<ol>'}</Code>.
+              With no appearance prop, <Code sm>Icon</Code> uses <Code sm>currentColor</Code>{' '}
+              and adopts whatever color its parent renders in.
             </Text>
-            <Row flexWrap itemsStart>
-              <Col>
-                <Text sm bold>disc (default)</Text>
-                <List>
-                  <ListItem>First</ListItem>
-                  <ListItem>Second</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>circle</Text>
-                <List circle>
-                  <ListItem>First</ListItem>
-                  <ListItem>Second</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>square</Text>
-                <List square>
-                  <ListItem>First</ListItem>
-                  <ListItem>Second</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>decimal</Text>
-                <List decimal>
-                  <ListItem>First</ListItem>
-                  <ListItem>Second</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>lowerAlpha</Text>
-                <List lowerAlpha>
-                  <ListItem>First</ListItem>
-                  <ListItem>Second</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>lowerRoman</Text>
-                <List lowerRoman>
-                  <ListItem>First</ListItem>
-                  <ListItem>Second</ListItem>
-                </List>
-              </Col>
-            </Row>
+            <Stack noPadding>
+              <Text>
+                Default text color — <Icon><TestSvg /></Icon> inherits.
+              </Text>
+              <Text primary>
+                Primary text — <Icon><TestSvg /></Icon> inherits.
+              </Text>
+              <Text danger>
+                Danger text — <Icon><TestSvg /></Icon> inherits.
+              </Text>
+              <Text success>
+                Success text — <Icon><TestSvg /></Icon> inherits.
+              </Text>
+              <Text secondary>
+                Secondary text — <Icon><TestSvg /></Icon> inherits.
+              </Text>
+            </Stack>
           </Card>
 
-          {/* ═══ 2. MARKER POSITION ══════════════════════════════════════════ */}
+          {/* ═══ 2. SIZE VARIANTS (INLINE) ═══════════════════════════════════ */}
           <Divider />
-          <SectionTitle>2. Marker Position</SectionTitle>
+          <SectionTitle>2. Size Variants (Inline)</SectionTitle>
 
           <Card>
-            <Title>outside (default) vs inside</Title>
+            <Title>xs / sm / md / lg / xl</Title>
             <Text sm secondary>
-              <Code sm>outside</Code> hangs markers outside the content box so wrapped text aligns
-              under the first character. <Code sm>inside</Code> keeps markers inline with text —
-              compact, but wrapped lines flow under the marker.
+              The size prop scales the rendered SVG via the shared font-size pipeline.
             </Text>
-            <Row mobileCol itemsStart>
-              <Col>
-                <Text sm bold>outside (default)</Text>
-                <List className="w-64">
-                  <ListItem>A short item.</ListItem>
-                  <ListItem>A much longer item that wraps onto a second line so the hanging marker is visible.</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>inside</Text>
-                <List inside className="w-64">
-                  <ListItem>A short item.</ListItem>
-                  <ListItem>A much longer item that wraps onto a second line — markers flow inline with text.</ListItem>
-                </List>
-              </Col>
-            </Row>
-          </Card>
-
-          {/* ═══ 3. NESTED MARKER PROGRESSION ════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>3. Nested Marker Progression</SectionTitle>
-
-          <Card>
-            <Title>disc → circle → square &nbsp;&middot;&nbsp; decimal → lowerAlpha → lowerRoman</Title>
-            <Text sm secondary>
-              Nested lists progress marker style automatically. Override a single nested list with
-              inline <Code sm>{'style={{ listStyleType: "..." }}'}</Code>. Progression caps at 3 levels.
-            </Text>
-            <Row mobileCol itemsStart>
-              <Col>
-                <Text sm bold>Unordered (ul)</Text>
-                <List>
-                  <ListItem>Level 0 — disc</ListItem>
-                  <ListItem>
-                    Parent
-                    <List>
-                      <ListItem>Level 1 — circle</ListItem>
-                      <ListItem>
-                        Parent
-                        <List>
-                          <ListItem>Level 2 — square</ListItem>
-                        </List>
-                      </ListItem>
-                    </List>
-                  </ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>Ordered (ol)</Text>
-                <List decimal>
-                  <ListItem>Level 0 — decimal</ListItem>
-                  <ListItem>
-                    Parent
-                    <List decimal>
-                      <ListItem>Level 1 — lowerAlpha</ListItem>
-                      <ListItem>
-                        Parent
-                        <List decimal>
-                          <ListItem>Level 2 — lowerRoman</ListItem>
-                        </List>
-                      </ListItem>
-                    </List>
-                  </ListItem>
-                </List>
-              </Col>
-            </Row>
-          </Card>
-
-          {/* ═══ 4. ITEM SPACING ═════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>4. Item Spacing</SectionTitle>
-
-          <Card>
-            <Title>gap (default) vs noGap</Title>
-            <Text sm secondary>
-              Lists apply sibling margin driven by <Code sm>--gap</Code>. Use <Code sm>noGap</Code>
-              to remove the spacing entirely.
-            </Text>
-            <Row mobileCol itemsStart>
-              <Col>
-                <Text sm bold>default gap</Text>
-                <List>
-                  <ListItem>Item one</ListItem>
-                  <ListItem>Item two</ListItem>
-                  <ListItem>Item three</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>noGap</Text>
-                <List noGap>
-                  <ListItem>Item one</ListItem>
-                  <ListItem>Item two</ListItem>
-                  <ListItem>Item three</ListItem>
-                </List>
-              </Col>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Gap + font-size scale with size (now correctly inherited)</Title>
-            <Text sm secondary>
-              Same two items at every size — <Code sm>xs</Code> → <Code sm>xl</Code>.
-              <Code sm>ListItem</Code> has no size default, so font-size and gap cascade
-              from the parent <Code sm>List</Code>. Set a size on a specific item to opt out.
-            </Text>
-            <Row flexWrap itemsStart>
+            <Row itemsEnd flexWrap>
               <Col>
                 <Text sm bold>xs</Text>
-                <List xs>
-                  <ListItem>Item one</ListItem>
-                  <ListItem>Item two</ListItem>
-                </List>
+                <Icon xs><TestSvg /></Icon>
               </Col>
               <Col>
                 <Text sm bold>sm</Text>
-                <List sm>
-                  <ListItem>Item one</ListItem>
-                  <ListItem>Item two</ListItem>
-                </List>
+                <Icon sm><TestSvg /></Icon>
               </Col>
               <Col>
                 <Text sm bold>md</Text>
-                <List>
-                  <ListItem>Item one</ListItem>
-                  <ListItem>Item two</ListItem>
-                </List>
+                <Icon><TestSvg /></Icon>
               </Col>
               <Col>
                 <Text sm bold>lg</Text>
-                <List lg>
-                  <ListItem>Item one</ListItem>
-                  <ListItem>Item two</ListItem>
-                </List>
+                <Icon lg><TestSvg /></Icon>
               </Col>
               <Col>
                 <Text sm bold>xl</Text>
-                <List xl>
-                  <ListItem>Item one</ListItem>
-                  <ListItem>Item two</ListItem>
-                </List>
+                <Icon xl><TestSvg /></Icon>
               </Col>
             </Row>
           </Card>
 
-          {/* ═══ 5. CUSTOM ICON MARKERS ══════════════════════════════════════ */}
+          {/* ═══ 3. APPEARANCE VARIANTS (INLINE) ═════════════════════════════ */}
           <Divider />
-          <SectionTitle>5. Custom Icon Markers</SectionTitle>
+          <SectionTitle>3. Appearance Variants (Inline)</SectionTitle>
 
           <Card>
-            <Title>Per-item icon via <Code sm>icon</Code> prop</Title>
+            <Title>Color only, no container</Title>
             <Text sm secondary>
-              Pass any React node as the <Code sm>icon</Code> prop on a <Code sm>ListItem</Code>.
-              The native marker is suppressed on that item via <Code sm>data-has-icon="true"</Code>.
-              For decorative glyphs, pass <Code sm>aria-hidden="true"</Code> on the icon node.
+              Appearance props tint the SVG via <Code sm>currentColor</Code> — no box,
+              no padding, no border.
             </Text>
-            <List>
-              <ListItem icon={<span aria-hidden="true">✓</span>}>Ship the feature</ListItem>
-              <ListItem icon={<span aria-hidden="true">✓</span>}>Write the tests</ListItem>
-              <ListItem icon={<span aria-hidden="true">→</span>}>Update the docs</ListItem>
-              <ListItem>Plain item keeps the native marker</ListItem>
-            </List>
+            <Row flexWrap>
+              <Col>
+                <Text sm bold>primary</Text>
+                <Icon primary><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>brand</Text>
+                <Icon brand><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>accent</Text>
+                <Icon accent><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>secondary</Text>
+                <Icon secondary><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>success</Text>
+                <Icon success><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>danger</Text>
+                <Icon danger><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>warning</Text>
+                <Icon warning><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>info</Text>
+                <Icon info><TestSvg /></Icon>
+              </Col>
+            </Row>
           </Card>
 
+          {/* ═══ 4. FILLED CONTAINERS — SHAPE VARIANTS ═══════════════════════ */}
+          <Divider />
+          <SectionTitle>4. Filled Containers — Shape</SectionTitle>
+
           <Card>
-            <Title>Icon gap scales with size</Title>
+            <Title>sharp / rounded / pill</Title>
             <Text sm secondary>
-              The icon wrapper uses <Code sm>mr-(--gap)</Code>, so icon-to-text spacing matches
-              everything else driven by size.
+              Add <Code sm>padding</Code> + <Code sm>filled</Code> + an appearance to
+              produce a colored badge. Shape controls the border-radius.
             </Text>
-            <Row flexWrap itemsStart>
+            <Row flexWrap>
+              <Col>
+                <Text sm bold>sharp</Text>
+                <Icon padding sharp primary filled><TestSvg /></Icon>
+                <Code sm>padding sharp primary filled</Code>
+              </Col>
+              <Col>
+                <Text sm bold>rounded (default)</Text>
+                <Icon padding primary filled><TestSvg /></Icon>
+                <Code sm>padding primary filled</Code>
+              </Col>
+              <Col>
+                <Text sm bold>pill</Text>
+                <Icon padding pill primary filled><TestSvg /></Icon>
+                <Code sm>padding pill primary filled</Code>
+              </Col>
+            </Row>
+          </Card>
+
+          {/* ═══ 5. FILLED CONTAINERS — APPEARANCE VARIANTS ══════════════════ */}
+          <Divider />
+          <SectionTitle>5. Filled Containers — Appearance</SectionTitle>
+
+          <Card>
+            <Title>Same shape (pill), every appearance</Title>
+            <Text sm secondary>
+              Filled appearance variants render as solid colored badges using the
+              theme's appearance color tokens.
+            </Text>
+            <Row flexWrap>
+              <Col>
+                <Text sm bold>primary</Text>
+                <Icon padding pill primary filled><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>brand</Text>
+                <Icon padding pill brand filled><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>accent</Text>
+                <Icon padding pill accent filled><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>secondary</Text>
+                <Icon padding pill secondary filled><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>success</Text>
+                <Icon padding pill success filled><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>danger</Text>
+                <Icon padding pill danger filled><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>warning</Text>
+                <Icon padding pill warning filled><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>info</Text>
+                <Icon padding pill info filled><TestSvg /></Icon>
+              </Col>
+            </Row>
+          </Card>
+
+          {/* ═══ 6. BORDERED CONTAINERS ══════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>6. Bordered Containers</SectionTitle>
+
+          <Card>
+            <Title>Outlined box, no fill</Title>
+            <Text sm secondary>
+              Swap <Code sm>filled</Code> for <Code sm>border</Code> to get an outlined
+              badge — the SVG keeps the appearance's text color and the border picks up
+              the same hue.
+            </Text>
+            <Row flexWrap>
+              <Col>
+                <Text sm bold>rounded</Text>
+                <Icon padding primary border><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>pill</Text>
+                <Icon padding pill primary border><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>sharp</Text>
+                <Icon padding sharp primary border><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>success border</Text>
+                <Icon padding pill success border><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>danger border</Text>
+                <Icon padding pill danger border><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>warning border</Text>
+                <Icon padding pill warning border><TestSvg /></Icon>
+              </Col>
+            </Row>
+          </Card>
+
+          {/* ═══ 7. RING ═════════════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>7. Ring</SectionTitle>
+
+          <Card>
+            <Title>Inset ring — alone or combined with border</Title>
+            <Text sm secondary>
+              <Code sm>ring</Code> draws an inset outline. It can stand on its own or be
+              layered with <Code sm>border</Code> for a two-tone badge.
+            </Text>
+            <Row flexWrap>
+              <Col>
+                <Text sm bold>ring only</Text>
+                <Icon padding pill primary ring><TestSvg /></Icon>
+                <Code sm>padding pill primary ring</Code>
+              </Col>
+              <Col>
+                <Text sm bold>ring + border</Text>
+                <Icon padding pill primary ring border><TestSvg /></Icon>
+                <Code sm>padding pill primary ring border</Code>
+              </Col>
+              <Col>
+                <Text sm bold>ring + filled</Text>
+                <Icon padding pill primary filled ring><TestSvg /></Icon>
+                <Code sm>padding pill primary filled ring</Code>
+              </Col>
+              <Col>
+                <Text sm bold>success ring</Text>
+                <Icon padding pill success ring><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>danger ring</Text>
+                <Icon padding pill danger ring><TestSvg /></Icon>
+              </Col>
+            </Row>
+          </Card>
+
+          {/* ═══ 8. CONTAINER SIZE SCALING ═══════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>8. Container Size Scaling</SectionTitle>
+
+          <Card>
+            <Title>Padding + radius scale with size prop</Title>
+            <Text sm secondary>
+              Same <Code sm>padding pill primary filled</Code> recipe at every size —
+              padding and SVG both scale through the shared CSS variable pipeline.
+            </Text>
+            <Row flexWrap itemsEnd>
               <Col>
                 <Text sm bold>xs</Text>
-                <List xs>
-                  <ListItem icon={<span aria-hidden="true">✓</span>}>Small checklist</ListItem>
-                </List>
+                <Icon xs padding pill primary filled><TestSvg /></Icon>
+              </Col>
+              <Col>
+                <Text sm bold>sm</Text>
+                <Icon sm padding pill primary filled><TestSvg /></Icon>
               </Col>
               <Col>
                 <Text sm bold>md</Text>
-                <List>
-                  <ListItem icon={<span aria-hidden="true">✓</span>}>Default checklist</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>xl</Text>
-                <List xl>
-                  <ListItem icon={<span aria-hidden="true">✓</span>}>Large checklist</ListItem>
-                </List>
-              </Col>
-            </Row>
-          </Card>
-
-          {/* ═══ 6. FILLED APPEARANCE VARIANTS ═══════════════════════════════ */}
-          <Divider />
-          <SectionTitle>6. Filled Appearance Variants</SectionTitle>
-
-          <Card>
-            <Title>Outline vs filled</Title>
-            <Text sm secondary>
-              Lists default to <Code sm>outline</Code>. Pass <Code sm>filled</Code> to get a
-              colored background. Pair with any appearance.
-            </Text>
-            <Row flexWrap itemsStart>
-              <Col>
-                <Text sm bold>primary outline</Text>
-                <List primary>
-                  <ListItem>Docs</ListItem>
-                  <ListItem>Guides</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>primary filled</Text>
-                <List primary filled>
-                  <ListItem>Docs</ListItem>
-                  <ListItem>Guides</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>success filled</Text>
-                <List success filled>
-                  <ListItem>Shipped</ListItem>
-                  <ListItem>Tested</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>danger filled</Text>
-                <List danger filled>
-                  <ListItem>Breaking</ListItem>
-                  <ListItem>Security</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>warning filled</Text>
-                <List warning filled>
-                  <ListItem>Deprecated</ListItem>
-                  <ListItem>Flaky</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>info filled</Text>
-                <List info filled>
-                  <ListItem>FYI</ListItem>
-                  <ListItem>Notes</ListItem>
-                </List>
-              </Col>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Filled at every size</Title>
-            <Text sm secondary>
-              Size scales padding, border-radius, font-size, and the sibling gap — all via
-              the shared CSS variable pipeline.
-            </Text>
-            <Row flexWrap itemsStart>
-              <Col>
-                <Text sm bold>xs</Text>
-                <List xs primary filled>
-                  <ListItem>Item one</ListItem>
-                  <ListItem>Item two</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>md</Text>
-                <List primary filled>
-                  <ListItem>Item one</ListItem>
-                  <ListItem>Item two</ListItem>
-                </List>
-              </Col>
-              <Col>
-                <Text sm bold>xl</Text>
-                <List xl primary filled>
-                  <ListItem>Item one</ListItem>
-                  <ListItem>Item two</ListItem>
-                </List>
-              </Col>
-            </Row>
-          </Card>
-
-          {/* ═══ 7. PARENT→CHILD SIZE INHERITANCE ════════════════════════════ */}
-          <Divider />
-          <SectionTitle>7. Parent → Child Size Inheritance</SectionTitle>
-
-          <Card>
-            <Title>Label → Input / Checkbox</Title>
-            <Text sm secondary>
-              <Code sm>Label</Code> propagates its size to nested <Code sm>Input</Code> and{' '}
-              <Code sm>Checkbox</Code>. The form control scales with the label without having
-              to repeat the size. Set a size on the child to opt out.
-            </Text>
-            <Row flexWrap itemsStart>
-              <Col>
-                <Text sm bold>default (sm)</Text>
-                <Label>
-                  Email
-                  <Input placeholder="you@example.com" />
-                </Label>
-                <Label>
-                  <Checkbox />
-                  I agree
-                </Label>
+                <Icon padding pill primary filled><TestSvg /></Icon>
               </Col>
               <Col>
                 <Text sm bold>lg</Text>
-                <Label lg>
-                  Email
-                  <Input placeholder="you@example.com" />
-                </Label>
-                <Label lg>
-                  <Checkbox />
-                  I agree
-                </Label>
+                <Icon lg padding pill primary filled><TestSvg /></Icon>
               </Col>
               <Col>
                 <Text sm bold>xl</Text>
-                <Label xl>
-                  Email
-                  <Input placeholder="you@example.com" />
-                </Label>
-                <Label xl>
-                  <Checkbox />
-                  I agree
-                </Label>
+                <Icon xl padding pill primary filled><TestSvg /></Icon>
               </Col>
             </Row>
           </Card>
 
-          <Card>
-            <Title>Explicit child override wins</Title>
-            <Text sm secondary>
-              A size prop on the child always beats the label's propagation.
-              Here both labels are <Code sm>xl</Code>, but the right input is explicitly{' '}
-              <Code sm>xs</Code>.
-            </Text>
-            <Row flexWrap itemsStart>
-              <Col>
-                <Text sm bold>Label xl → input xl</Text>
-                <Label xl>
-                  Big field
-                  <Input placeholder="auto-inherits xl" />
-                </Label>
-              </Col>
-              <Col>
-                <Text sm bold>Label xl → Input xs (override)</Text>
-                <Label xl>
-                  Big label, small field
-                  <Input xs placeholder="explicit xs" />
-                </Label>
-              </Col>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Menu → MenuItem / MenuLabel / Divider</Title>
-            <Text sm secondary>
-              When you explicitly size a <Code sm>Menu</Code>, every menu item, label, and
-              divider inside the dropdown inherits that size.
-            </Text>
-            <Row flexWrap itemsStart>
-              <Col>
-                <Text sm bold>default</Text>
-                <Menu trigger={<Button>Actions</Button>}>
-                  <MenuLabel>Actions</MenuLabel>
-                  <MenuItem>Edit</MenuItem>
-                  <MenuItem>Duplicate</MenuItem>
-                  <Divider />
-                  <MenuItem danger>Delete</MenuItem>
-                </Menu>
-              </Col>
-              <Col>
-                <Text sm bold>lg</Text>
-                <Menu lg trigger={<Button lg>Actions</Button>}>
-                  <MenuLabel>Actions</MenuLabel>
-                  <MenuItem>Edit</MenuItem>
-                  <MenuItem>Duplicate</MenuItem>
-                  <Divider />
-                  <MenuItem danger>Delete</MenuItem>
-                </Menu>
-              </Col>
-              <Col>
-                <Text sm bold>xl</Text>
-                <Menu xl trigger={<Button xl>Actions</Button>}>
-                  <MenuLabel>Actions</MenuLabel>
-                  <MenuItem>Edit</MenuItem>
-                  <MenuItem>Duplicate</MenuItem>
-                  <Divider />
-                  <MenuItem danger>Delete</MenuItem>
-                </Menu>
-              </Col>
-            </Row>
-          </Card>
-
-          {/* ═══ FLEX & SHRINK PROPS ═══════════════════════════════════════ */}
+          {/* ═══ 9. COMPOSITIONS ═════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>Flex & Shrink Props</SectionTitle>
+          <SectionTitle>9. Compositions</SectionTitle>
 
           <Card>
-            <Title>flex1 — split row evenly</Title>
+            <Title>Icon inside Text</Title>
             <Text sm secondary>
-              <Code sm>flex1</Code> on each Col makes them share the row's width
-              (= Tailwind <Code sm>flex-1</Code>, i.e. <Code sm>flex: 1 1 0%</Code>).
+              Inline icons flow naturally inside paragraphs — useful for inline status
+              hints or trailing decoration.
             </Text>
-            <Row className="w-full">
-              <Col flex1 padding outline brand>Left</Col>
-              <Col flex1 padding outline accent>Middle</Col>
-              <Col flex1 padding outline success>Right</Col>
-            </Row>
+            <Stack noPadding>
+              <Text>
+                <Icon success><TestSvg /></Icon> Deployment succeeded — all checks passed.
+              </Text>
+              <Text>
+                <Icon danger><TestSvg /></Icon> Build failed — see the logs for details.
+              </Text>
+              <Text>
+                <Icon warning><TestSvg /></Icon> 3 dependencies have known vulnerabilities.
+              </Text>
+            </Stack>
           </Card>
 
           <Card>
-            <Title>noShrink — fixed sidebar + flex1 content</Title>
+            <Title>Icon alongside Button</Title>
             <Text sm secondary>
-              The sidebar keeps its intrinsic width (<Code sm>noShrink</Code> = <Code sm>shrink-0</Code>),
-              while the content takes the rest with <Code sm>flex1</Code>.
+              Pair a container-mode icon with a button to draw attention to a row's
+              primary action.
             </Text>
-            <Row className="w-full">
-              <Col noShrink padding outline secondary className="w-40">Sidebar (40)</Col>
-              <Col flex1 padding outline primary>Main content fills the rest</Col>
+            <Row itemsCenter>
+              <Icon padding pill primary filled><TestSvg /></Icon>
+              <Col gap noPadding>
+                <Text bold>Upgrade to Pro</Text>
+                <Text sm secondary>Unlock advanced analytics and priority support.</Text>
+              </Col>
+              <Button filled>Upgrade</Button>
+            </Row>
+            <Row itemsCenter>
+              <Icon padding pill success filled><TestSvg /></Icon>
+              <Col gap noPadding>
+                <Text bold>Account verified</Text>
+                <Text sm secondary>You're ready to invite teammates.</Text>
+              </Col>
+              <Button success>Invite</Button>
+            </Row>
+            <Row itemsCenter>
+              <Icon padding pill danger border><TestSvg /></Icon>
+              <Col gap noPadding>
+                <Text bold>Payment failed</Text>
+                <Text sm secondary>Update your card to keep your subscription active.</Text>
+              </Col>
+              <Button danger filled>Update card</Button>
             </Row>
           </Card>
 
           <Card>
-            <Title>flexAuto vs flexNone</Title>
+            <Title>Icon as Card header indicator</Title>
             <Text sm secondary>
-              <Code sm>flexAuto</Code> grows but respects intrinsic size; <Code sm>flexNone</Code> never grows or shrinks.
+              Container-mode icons work as status anchors inside a CardHeader.
             </Text>
-            <Row className="w-full">
-              <Col flexAuto padding outline brand>flexAuto — long enough to push others</Col>
-              <Col flexNone padding outline danger>flexNone</Col>
-              <Col flexAuto padding outline accent>flexAuto</Col>
-            </Row>
-          </Card>
-
-          {/* ═══ ICON — CONTAINER MODE ═════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>Icon — Container Mode</SectionTitle>
-
-          <Card>
-            <Title>Inline (unchanged default)</Title>
-            <Text>Bare Icon inherits color from its parent.</Text>
-            <Row>
-              <Icon><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon primary><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon danger><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Filled containers (square / rounded / pill)</Title>
-            <Row>
-              <Icon padding sharp primary filled><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon padding rounded primary filled><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon padding pill primary filled><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon padding pill danger filled><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon padding pill success filled><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Bordered containers (no fill)</Title>
-            <Row>
-              <Icon padding rounded primary border><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon padding pill primary border><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon padding pill primary border ring><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Sizes (padding scales with size prop)</Title>
-            <Row>
-              <Icon xs padding pill primary filled><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon sm padding pill primary filled><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon md padding pill primary filled><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon lg padding pill primary filled><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
-              <Icon xl padding pill primary filled><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg></Icon>
+            <Row mobileCol itemsStart>
+              <Card className="w-72">
+                <CardHeader>
+                  <Icon padding pill success filled><TestSvg /></Icon>
+                  <Title>All systems normal</Title>
+                </CardHeader>
+                <CardBody>
+                  <Text sm>Last incident: 14 days ago.</Text>
+                </CardBody>
+              </Card>
+              <Card className="w-72">
+                <CardHeader>
+                  <Icon padding pill warning filled><TestSvg /></Icon>
+                  <Title>Degraded performance</Title>
+                </CardHeader>
+                <CardBody>
+                  <Text sm>API latency 2x normal in EU region.</Text>
+                </CardBody>
+              </Card>
+              <Card className="w-72">
+                <CardHeader>
+                  <Icon padding pill danger filled><TestSvg /></Icon>
+                  <Title>Outage</Title>
+                </CardHeader>
+                <CardBody>
+                  <Text sm>Auth provider unreachable — investigating.</Text>
+                </CardBody>
+              </Card>
             </Row>
           </Card>
 
