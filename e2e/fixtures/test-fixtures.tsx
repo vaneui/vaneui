@@ -679,6 +679,34 @@ export function TestHarness() {
           </SectionTitle>
         </section>
 
+        {/* ── Icon container mode ── */}
+
+        <section data-testid="icon-container-section">
+          <Title>Icon container mode</Title>
+
+          {/* Inline reference — should inherit currentColor, no box */}
+          <span style={{ color: 'rgb(255, 0, 0)' }}>
+            <Icon data-testid="icon-inline-inherit">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+            </Icon>
+          </span>
+
+          {/* Filled pill, primary — should paint a background */}
+          <Icon padding pill primary filled data-testid="icon-filled-primary">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+
+          {/* Bordered rounded, primary — should paint a border, no background */}
+          <Icon padding rounded primary border data-testid="icon-bordered-primary">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+
+          {/* Reference: real VaneUI Button with primary+filled. Used to assert
+              Icon's filled bg resolves to the same primary background token
+              as Button's filled bg (token-agnostic equality). */}
+          <Button primary filled data-testid="icon-bg-reference">ref</Button>
+        </section>
+
       </div>
     </ThemeProvider>
   );
