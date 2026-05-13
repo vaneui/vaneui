@@ -6,7 +6,7 @@ import { codeDefaults } from "./codeDefaults";
 
 export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
   "code",
-  "vane-code",
+  "vane-code align-middle",
   interactiveClassMappers,
   codeDefaults,
   CODE_CATEGORIES,
