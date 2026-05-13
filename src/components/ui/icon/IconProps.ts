@@ -12,6 +12,7 @@ import type {
   PaddingProps,
   BorderProps,
   RingProps,
+  WidthProps,
 } from "../props";
 
 /** Icon component props — SVG wrapper that supports opt-in container mode
@@ -30,6 +31,7 @@ export type IconProps = BaseProps &
   PaddingProps &
   BorderProps &
   RingProps &
+  WidthProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
