@@ -117,12 +117,12 @@
     .vane-icon-button[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Icon */
-    .vane-icon { --icon-size: calc(var(--fs) * var(--lh)); }
-    .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
-    .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
-    .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); }
-    .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
-    .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    .vane-icon { --lh: 1.3; --py-unit: 2; --aspect-ratio: 1; --br-unit: 0.2174; --icon-size: calc(var(--fs) * var(--lh)); }
+    .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Icon sizing for Button, IconButton, and Icon — uses --icon-size CSS variable */
     .vane-button :where(svg:not([class*='size-'])),

@@ -67,22 +67,21 @@ test.describe('Icon container mode — computed styles', () => {
     expect(bg).not.toBe(filledBg);
   });
 
-  test('size scaling: icon-size (SVG width) strictly increases xs → xl in container mode', async ({ page }) => {
-    // Note: Icon's CSS rule (.vane-icon[data-size="*"]) only sets --fs-unit
-    // per size — it deliberately does NOT set --py-unit per size like Button,
-    // Badge, Chip, etc. This is by design: Icon's container padding is a fixed
-    // ratio of --spacing (--py-unit stays at the inherited default of 1), and
-    // size scales the SVG (via --icon-size = calc(--fs * --lh)) instead of the
-    // padding box. So padding-top is identical across sizes; the inner SVG is
-    // what visibly scales.
+  test('size scaling: both padding and SVG width strictly increase xs → xl in container mode', async ({ page }) => {
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+    const paddings: number[] = [];
     const iconSizes: number[] = [];
     for (const size of sizes) {
-      const svg = page.locator(`[data-testid="icon-size-${size}"] svg`);
-      const width = await svg.evaluate(el => getComputedStyle(el).getPropertyValue('width'));
+      const container = page.locator(`[data-testid="icon-size-${size}"]`);
+      paddings.push(parseFloat(await getStyle(container, 'padding-top')));
+      const width = await container.locator('svg').evaluate(el => getComputedStyle(el).getPropertyValue('width'));
       iconSizes.push(parseFloat(width));
     }
-    for (let i = 1; i < iconSizes.length; i++) {
+    for (let i = 1; i < sizes.length; i++) {
+      expect(
+        paddings[i],
+        `padding for ${sizes[i]} (${paddings[i]}px) should exceed ${sizes[i-1]} (${paddings[i-1]}px)`
+      ).toBeGreaterThan(paddings[i - 1]);
       expect(
         iconSizes[i],
         `icon-size for ${sizes[i]} (${iconSizes[i]}px) should exceed ${sizes[i-1]} (${iconSizes[i-1]}px)`
