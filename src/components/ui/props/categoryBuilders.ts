@@ -127,7 +127,10 @@ export const BUTTON_CATEGORIES = UI_ELEMENT_CATEGORIES;
 // =============================================================================
 
 /** Categories for Icon component */
-export const ICON_CATEGORIES = ['size', 'appearance', 'variant', 'display', 'hide', 'items', 'justify'] as const;
+export const ICON_CATEGORIES = [
+  'size', 'appearance', 'variant', 'display', 'hide', 'items', 'justify',
+  'shape', 'padding', 'border', 'ring',
+] as const;
 
 // =============================================================================
 // Grid Categories (Grid2-Grid6)
