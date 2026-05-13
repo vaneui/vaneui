@@ -129,4 +129,17 @@ test.describe('Icon container mode — computed styles', () => {
     const padding = await getStyle(page.locator('[data-testid="icon-inline-inherit"]'), 'padding-top');
     expect(parseFloat(padding)).toBe(0);
   });
+
+  test('shadow: box-shadow differs when shadow prop is set vs not', async ({ page }) => {
+    const withShadow = await getStyle(page.locator('[data-testid="icon-with-shadow"]'), 'box-shadow');
+    const noShadow = await getStyle(page.locator('[data-testid="icon-no-shadow"]'), 'box-shadow');
+
+    expect(withShadow, `Icon with shadow should have a non-empty box-shadow (got "${withShadow}")`).not.toBe('none');
+    expect(withShadow).not.toBe(noShadow);
+  });
+
+  test('position: absolute prop sets position: absolute', async ({ page }) => {
+    const position = await getStyle(page.locator('[data-testid="icon-absolute"]'), 'position');
+    expect(position).toBe('absolute');
+  });
 });

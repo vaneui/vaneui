@@ -260,4 +260,157 @@ describe('Icon Component Tests', () => {
       }
     });
   });
+
+  describe('Shrink', () => {
+    it('emits shrink-0 class by default (noShrink default)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveClass('shrink-0');
+    });
+
+    it('still emits shrink-0 when noShrink is set explicitly', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon noShrink><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveClass('shrink-0');
+    });
+  });
+
+  describe('Shadow', () => {
+    it('does not emit a shadow class by default (noShadow)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span') as HTMLElement;
+      expect(icon.className).not.toMatch(/shadow-\(/);
+    });
+
+    it('emits a shadow class when shadow is set', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon shadow><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span') as HTMLElement;
+      expect(icon.className).toMatch(/shadow-\(/);
+    });
+  });
+
+  describe('Height', () => {
+    it('emits h-full when hFull is set', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon hFull><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveClass('h-full');
+    });
+
+    it('emits h-fit when hFit is set', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon hFit><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveClass('h-fit');
+    });
+  });
+
+  describe('Position', () => {
+    it('emits absolute class when absolute is set', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon absolute><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveClass('absolute');
+    });
+
+    it('emits relative class when relative is set', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon relative><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveClass('relative');
+    });
+  });
+
+  describe('Transition', () => {
+    it('emits transition-none by default (noTransition default)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveClass('transition-none');
+    });
+
+    it('emits transition-all when transition is set', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon transition><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveClass('transition-all');
+    });
+  });
+
+  describe('Transparent', () => {
+    it('suppresses the bg-(--bg-color) class when transparent is set with an appearance', () => {
+      // The transparent prop is consumed by SimpleConsumerClassMapper in the
+      // background category — when set, it causes the bg consumer class to
+      // be omitted (rather than emitting an explicit bg-transparent class).
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon primary filled transparent><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span') as HTMLElement;
+      expect(icon.className).not.toMatch(/bg-\(--bg-color\)/);
+    });
+
+    it('emits bg-(--bg-color) when transparent is NOT set (control)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon primary filled><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span') as HTMLElement;
+      expect(icon.className).toMatch(/bg-\(--bg-color\)/);
+    });
+  });
+
+  describe('New props do not leak to DOM', () => {
+    it('strips noShrink/shadow/noShadow/hFull/hFit/absolute/relative/transition/noTransition/transparent', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon noShrink shadow hFull absolute transition transparent><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span') as HTMLElement;
+      const leakedAttrs = ['noShrink', 'shadow', 'noShadow',
+                           'hFull', 'hFit', 'hAuto', 'hScreen',
+                           'absolute', 'relative', 'fixed', 'sticky', 'static',
+                           'transition', 'noTransition', 'transparent'];
+      for (const attr of leakedAttrs) {
+        expect(icon).not.toHaveAttribute(attr);
+      }
+    });
+  });
 });

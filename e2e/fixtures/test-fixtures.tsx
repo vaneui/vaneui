@@ -751,6 +751,21 @@ export function TestHarness() {
           <Icon md padding pill primary filled data-testid="icon-no-ring">
             <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
           </Icon>
+
+          {/* Shadow — Icon with shadow vs without (both filled to make box-shadow comparable) */}
+          <Icon padding pill primary filled shadow data-testid="icon-with-shadow">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+          <Icon padding pill primary filled data-testid="icon-no-shadow">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+
+          {/* Position absolute */}
+          <div style={{ position: 'relative', width: 100, height: 40 }}>
+            <Icon absolute padding pill danger filled data-testid="icon-absolute" className="top-0 right-0">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+            </Icon>
+          </div>
         </section>
 
       </div>

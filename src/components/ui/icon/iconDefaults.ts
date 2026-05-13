@@ -9,7 +9,13 @@ import type { IconProps } from "./IconProps";
  *  (no fill or border to reveal corners), visible in container mode.
  *  wFit prevents the inline-flex span from being stretched by flex-column
  *  ancestors (e.g., a parent Col with default itemsStretch) — Icon should
- *  size to its content (SVG + symmetric padding), not to the parent's width. */
+ *  size to its content (SVG + symmetric padding), not to the parent's width.
+ *  noShrink keeps Icon's intrinsic size when placed in a flex row alongside
+ *  text (e.g., a Button label) — without it, the Icon would be squashed by
+ *  the parent's flex distribution. Opt out with `<Icon shrink={false} />`
+ *  is not needed; pass no override to keep noShrink.
+ *  noShadow / noTransition keep the inline render lightweight by default;
+ *  users opt in with `shadow` / `transition`. */
 export const iconDefaults: Partial<IconProps> = {
   md: true,
   inlineFlex: true,
@@ -20,5 +26,8 @@ export const iconDefaults: Partial<IconProps> = {
   noPadding: true,
   noBorder: true,
   noRing: true,
+  noShadow: true,
+  noShrink: true,
+  noTransition: true,
   wFit: true,
 };

@@ -8,11 +8,17 @@ import type {
   VariantProps,
   ItemsProps,
   JustifyProps,
+  PositionProps,
   ShapeProps,
   PaddingProps,
   BorderProps,
   RingProps,
+  ShadowProps,
   WidthProps,
+  HeightProps,
+  ShrinkProps,
+  TransitionProps,
+  TransparentProps,
 } from "../props";
 
 /** Icon component props — SVG wrapper that supports opt-in container mode
@@ -25,13 +31,19 @@ export type IconProps = BaseProps &
   DisplayProps &
   ItemsProps &
   JustifyProps &
+  PositionProps &
   AppearanceProps &
   VariantProps &
   ShapeProps &
   PaddingProps &
   BorderProps &
   RingProps &
+  ShadowProps &
   WidthProps &
+  HeightProps &
+  ShrinkProps &
+  TransitionProps &
+  TransparentProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
