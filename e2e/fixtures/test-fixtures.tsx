@@ -705,6 +705,52 @@ export function TestHarness() {
               Icon's filled bg resolves to the same primary background token
               as Button's filled bg (token-agnostic equality). */}
           <Button primary filled data-testid="icon-bg-reference">ref</Button>
+
+          {/* Size scaling — filled pill primary at each size for padding measurement */}
+          <Icon xs padding pill primary filled data-testid="icon-size-xs">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+          <Icon sm padding pill primary filled data-testid="icon-size-sm">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+          <Icon md padding pill primary filled data-testid="icon-size-md">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+          <Icon lg padding pill primary filled data-testid="icon-size-lg">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+          <Icon xl padding pill primary filled data-testid="icon-size-xl">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+
+          {/* Shape comparison — same size + appearance, different shapes */}
+          <Icon md padding sharp primary filled data-testid="icon-shape-sharp">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+          <Icon md padding rounded primary filled data-testid="icon-shape-rounded">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+          <Icon md padding pill primary filled data-testid="icon-shape-pill">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+
+          {/* Appearance variety — same size + shape, different appearance */}
+          <Icon md padding pill danger filled data-testid="icon-app-danger">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+          <Icon md padding pill success filled data-testid="icon-app-success">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+
+          {/* Ring — Icon with ring + appearance (ring should produce a box-shadow) */}
+          <Icon md padding pill primary ring data-testid="icon-with-ring">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+
+          {/* No-ring control — same Icon without ring (for box-shadow comparison) */}
+          <Icon md padding pill primary filled data-testid="icon-no-ring">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
         </section>
 
       </div>
