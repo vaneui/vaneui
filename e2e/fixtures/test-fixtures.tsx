@@ -182,15 +182,12 @@ export function TestHarness() {
           <Text xl data-testid="text-xl">XL text</Text>
         </section>
 
-        {/* ── Icon sizing: bare SVG vs Icon component ── */}
+        {/* ── Button SVG sizing across size variants ── */}
 
         <section data-testid="icon-sizing">
           <Button xs data-testid="icon-bare-xs"><StarIcon /></Button>
-          <Button xs data-testid="icon-wrapped-xs"><Icon xs><StarIcon /></Icon></Button>
           <Button md data-testid="icon-bare-md"><StarIcon /></Button>
-          <Button md data-testid="icon-wrapped-md"><Icon md><StarIcon /></Icon></Button>
           <Button xl data-testid="icon-bare-xl"><StarIcon /></Button>
-          <Button xl data-testid="icon-wrapped-xl"><Icon xl><StarIcon /></Icon></Button>
         </section>
 
         {/* ── Icon sizing: Badge and Chip ── */}
