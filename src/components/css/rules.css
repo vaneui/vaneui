@@ -117,17 +117,20 @@
     .vane-icon-button[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Icon
-       --lh: 1.5 (vs 1.3 elsewhere) makes the SVG glyph 50% taller than its
-       text-size unit. At md (--fs-unit=8 → --fs=16px), this resolves to a
-       24px glyph — matching the de-facto industry default (Lucide, Material,
-       Heroicons). Other components keep --lh: 1.3 since their `--icon-size`
-       is for SVGs adjacent to text, where 1.3 looks aligned with cap height. */
-    .vane-icon { --lh: 1.5; --py-unit: 2; --aspect-ratio: 1; --br-unit: 0.2174; --icon-size: calc(var(--fs) * var(--lh)); }
-    .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
-    .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
-    .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
-    .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
-    .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+       --icon-size is set directly per data-size as --spacing × N, decoupled
+       from text font-size. Icon is a standalone visual component, not a
+       typography element — its size should not be tied to --fs (the way
+       Button/Badge/etc. tie their inner SVG to text cap-height for inline
+       alignment with adjacent text). Glyph pixels at default --spacing of
+       4px: xs=16, sm=24, md=32, lg=48, xl=64. Matches Tailwind size-4/6/8/
+       12/16 utilities and common Lucide / Heroicons render sizes. The xl/xs
+       ratio is 4× for strong visual hierarchy across sizes. */
+    .vane-icon { --py-unit: 2; --aspect-ratio: 1; --br-unit: 0.2174; }
+    .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --icon-size: calc(var(--spacing) * 4);  --py-unit: 1;   }
+    .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --icon-size: calc(var(--spacing) * 6);  --py-unit: 1.5; }
+    .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --icon-size: calc(var(--spacing) * 8);  --py-unit: 2;   }
+    .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --icon-size: calc(var(--spacing) * 12); --py-unit: 2.5; }
+    .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --icon-size: calc(var(--spacing) * 16); --py-unit: 3;   }
     /* Icon-specific: outline variant should not paint the appearance surface.
        The global [data-variant="outline"] rule sets --bg-color to the
        appearance's surface color (used by Card/Button/Badge to render as a
