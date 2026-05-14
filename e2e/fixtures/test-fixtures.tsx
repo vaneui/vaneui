@@ -691,6 +691,14 @@ export function TestHarness() {
             </Icon>
           </span>
 
+          {/* Inline with appearance — should color the SVG via --text-color
+              but NOT paint a surface background. Regression guard for the
+              outline-variant bg-surface paint that was leaking into inline
+              icons before .vane-icon[data-variant=outline] override. */}
+          <Icon primary data-testid="icon-inline-primary">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
+          </Icon>
+
           {/* Filled pill, primary — should paint a background */}
           <Icon padding pill primary filled data-testid="icon-filled-primary">
             <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>

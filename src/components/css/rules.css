@@ -123,6 +123,16 @@
     .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
     .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+    /* Icon-specific: outline variant should not paint the appearance surface.
+       The global [data-variant="outline"] rule sets --bg-color to the
+       appearance's surface color (used by Card/Button/Badge to render as a
+       visible bordered box). For Icon — used inline alongside text — that
+       surface would paint a white-ish box around the SVG whenever an
+       appearance prop is set. Override --bg-color to transparent for outline
+       Icons so border/ring/text colors still resolve (for container mode with
+       `border` or `ring`) but no background paints. Filled variant is
+       unaffected — users opt into bg paint by passing `filled` explicitly. */
+    .vane-icon[data-variant="outline"] { --bg-color: transparent; }
 
     /* Icon sizing for Button, IconButton, and Icon — uses --icon-size CSS variable */
     .vane-button :where(svg:not([class*='size-'])),

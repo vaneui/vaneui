@@ -51,20 +51,34 @@ test.describe('Icon container mode — computed styles', () => {
     expect(iconBg).toBe(refBg);
   });
 
-  test('bordered primary rounded paints a border color (outline surface, not filled)', async ({ page }) => {
+  test('bordered primary rounded paints a border color, no background paint', async ({ page }) => {
     const icon = page.locator('[data-testid="icon-bordered-primary"]');
-    const filled = page.locator('[data-testid="icon-filled-primary"]');
 
     // Border color must be painted (primary token).
     const borderColor = await getBorderColor(icon);
     expect(borderColor).not.toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
 
-    // Outline variant paints the outline surface, not the filled-primary token.
-    // Assert bg differs from the filled-primary icon's bg to prove the variant
-    // is "outline" (border-only emphasis), not "filled".
+    // Outline-variant Icons must NOT paint the appearance surface (the
+    // global [data-variant="outline"] rule sets --bg-color to the surface
+    // token, but .vane-icon[data-variant="outline"] overrides it to
+    // transparent so inline + bordered Icons stay un-boxed).
     const bg = await getBg(icon);
-    const filledBg = await getBg(filled);
-    expect(bg).not.toBe(filledBg);
+    expect(bg).toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
+  });
+
+  test('inline Icon with appearance: bg stays transparent (no surface paint)', async ({ page }) => {
+    const icon = page.locator('[data-testid="icon-inline-primary"]');
+
+    // <Icon primary> has data-variant="outline" (default) + data-appearance.
+    // Without the .vane-icon outline override, the global outline rule would
+    // set --bg-color to the primary surface and paint a white box. With the
+    // override, bg stays transparent and only the SVG color comes through.
+    const bg = await getBg(icon);
+    expect(bg).toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
+
+    // Text color (consumed by SVG's fill="currentColor") IS painted.
+    const color = await getColor(icon);
+    expect(color).not.toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
   });
 
   test('size scaling: both padding and SVG width strictly increase xs → xl in container mode', async ({ page }) => {
