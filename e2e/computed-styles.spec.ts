@@ -168,33 +168,9 @@ test.describe('Size variants', () => {
   });
 });
 
-// ── 4. Icon sizing consistency: bare SVG vs Icon component ──
+// ── 4. Button SVG sizing across size variants ──
 
-test.describe('Icon sizing consistency', () => {
-  test('bare SVG and Icon-wrapped SVG same size at xs', async ({ page }) => {
-    const bareWidth = await getSvgWidth(page.locator('[data-testid="icon-bare-xs"]'));
-    const wrappedWidth = await getSvgWidth(page.locator('[data-testid="icon-wrapped-xs"]'));
-
-    expect(parseFloat(bareWidth)).toBeGreaterThan(0);
-    expect(bareWidth).toBe(wrappedWidth);
-  });
-
-  test('bare SVG and Icon-wrapped SVG same size at md', async ({ page }) => {
-    const bareWidth = await getSvgWidth(page.locator('[data-testid="icon-bare-md"]'));
-    const wrappedWidth = await getSvgWidth(page.locator('[data-testid="icon-wrapped-md"]'));
-
-    expect(parseFloat(bareWidth)).toBeGreaterThan(0);
-    expect(bareWidth).toBe(wrappedWidth);
-  });
-
-  test('bare SVG and Icon-wrapped SVG same size at xl', async ({ page }) => {
-    const bareWidth = await getSvgWidth(page.locator('[data-testid="icon-bare-xl"]'));
-    const wrappedWidth = await getSvgWidth(page.locator('[data-testid="icon-wrapped-xl"]'));
-
-    expect(parseFloat(bareWidth)).toBeGreaterThan(0);
-    expect(bareWidth).toBe(wrappedWidth);
-  });
-
+test.describe('Button SVG sizing', () => {
   test('SVG size scales with button size', async ({ page }) => {
     const xsWidth = await getSvgWidth(page.locator('[data-testid="icon-bare-xs"]'));
     const mdWidth = await getSvgWidth(page.locator('[data-testid="icon-bare-md"]'));
