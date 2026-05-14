@@ -149,18 +149,10 @@ export interface ThemeProps {
 
 export type PartialTheme = DeepPartial<ThemeProps>;
 
-/**
- * Helper type to extract boolean keys from component props.
- * This ensures only valid component prop keys can be used in ThemeDefaults.
- */
 type BooleanKeys<T> = {
   [K in keyof T as T[K] extends boolean | undefined ? K : never]: boolean;
 };
 
-/**
- * Helper type to get all boolean keys from component props as string-valued keys.
- * This ensures only valid component prop keys can be used in ThemeExtraClasses.
- */
 type StringValueKeys<T> = {
   [K in keyof T as T[K] extends boolean | undefined ? K : never]: string;
 };

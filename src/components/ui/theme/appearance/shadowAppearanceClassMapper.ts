@@ -1,15 +1,7 @@
 import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps } from "../../props";
 
-/**
- * Shadow theme using CSS variables for customizable shadows.
- *
- * Shadow variable (--shadow-base) is set via CSS rules in vars.css
- * based on data-vane-type and data-size attributes.
- * UI components use --shadow-ui-* values (tight, compact).
- * Layout components use --shadow-layout-* values (elevated, deeper).
- * This theme only outputs the consumer class that uses --shadow-base.
- */
+// --shadow-base is set per data-vane-type + data-size in vars.css (UI compact, Layout deeper)
 export class ShadowAppearanceClassMapper extends BaseClassMapper {
   private static readonly shadowClasses: string[] = [
     "shadow-(--shadow-base)"

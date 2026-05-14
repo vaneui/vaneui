@@ -11,10 +11,7 @@ import { FlexClassMapper } from "../layout/flexClassMapper";
 import { ShrinkClassMapper } from "../layout/shrinkClassMapper";
 import { bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "./appearanceClassMappers";
 
-/**
- * Shared sub-themes used by layout components (Card, Section, Container, Stack, Row, Col).
- * Individual components may extend or override specific themes as needed.
- */
+// shared by Card, Section, Container, Stack, Row, Col; individual components may extend/override
 export const layoutClassMappers = {
   size: {
     px: new PxClassMapper(),

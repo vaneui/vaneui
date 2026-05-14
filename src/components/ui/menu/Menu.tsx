@@ -6,22 +6,6 @@ import { Popup } from '../popup/Popup';
 import { useTheme, ThemeProvider } from '../../themeContext';
 import { ComponentKeys } from '../props';
 
-/**
- * Menu — a dropdown menu triggered by a single element.
- *
- * Renders the `trigger` element with ref + ARIA + click/keyboard handlers,
- * and a Popup containing `children` (MenuItem, Divider, MenuLabel).
- *
- * @example
- * ```tsx
- * <Menu trigger={<Button>Actions</Button>}>
- *   <MenuItem onClick={handleEdit}>Edit</MenuItem>
- *   <MenuItem onClick={handleCopy}>Copy</MenuItem>
- *   <Divider />
- *   <MenuItem danger onClick={handleDelete}>Delete</MenuItem>
- * </Menu>
- * ```
- */
 export function Menu({
   children,
   trigger,
@@ -32,7 +16,6 @@ export function Menu({
   closeOnItemClick = true,
   loop = true,
   disabled = false,
-  // Popup props (forwarded)
   transitionDuration = 150,
   ...popupProps
 }: MenuProps) {
@@ -70,7 +53,7 @@ export function Menu({
     }
   }, [effectiveOpen, closeMenu, openMenu]);
 
-  // Return focus to trigger when menu closes
+  // return focus to trigger when menu closes
   const prevOpenRef = useRef(false);
   useEffect(() => {
     if (prevOpenRef.current && !effectiveOpen && anchorRef.current) {
@@ -79,7 +62,7 @@ export function Menu({
     prevOpenRef.current = effectiveOpen;
   }, [effectiveOpen]);
 
-  // Focus first menu item on open
+  // focus first menu item on open
   useEffect(() => {
     if (!effectiveOpen || !contentRef.current) return;
 
@@ -93,7 +76,6 @@ export function Menu({
     return () => cancelAnimationFrame(raf);
   }, [effectiveOpen]);
 
-  // Clone trigger with ARIA + handlers
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       const original = (trigger as React.ReactElement<Record<string, unknown>>).props?.onClick;
@@ -142,10 +124,7 @@ export function Menu({
     loop,
   };
 
-  // When the user explicitly sizes the Menu (e.g. `<Menu lg>`), propagate that
-  // size to MenuItem / MenuLabel / nested Divider so the whole dropdown scales
-  // uniformly. When no explicit size is passed we leave each sub-component's
-  // own default alone — preserving the compact-by-default design intent.
+  // explicit size on Menu propagates to MenuItem / MenuLabel / Divider; no explicit size keeps each sub-component's default
   const explicitSize = ComponentKeys.size.find(
     (k) => (popupProps as Record<string, unknown>)[k]
   );

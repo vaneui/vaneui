@@ -3,10 +3,6 @@ import type { ThemeProps, ThemeProviderProps } from './themeTypes';
 import { defaultTheme } from './defaultTheme';
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
-/**
- * Recursively applies defaults to theme objects while preserving structure.
- * Navigates both theme and defaults objects in parallel.
- */
 function applyDefaultsRecursively(
   themeObject: Record<string, unknown> | object,
   defaultsObject: Record<string, unknown> | object
@@ -15,18 +11,15 @@ function applyDefaultsRecursively(
     return;
   }
 
-  // If this theme object has a 'defaults' property and defaultsObject looks like defaults
   if ('defaults' in themeObject &&
       typeof themeObject.defaults === 'object' &&
       themeObject.defaults !== null &&
       !('defaults' in defaultsObject)) {
-    // defaultsObject is the actual defaults to apply
     themeObject.defaults = mergeDefaults(
       themeObject.defaults as Record<string, boolean>,
       defaultsObject as Record<string, boolean>
     );
   } else {
-    // Recursively navigate matching structure
     for (const key in defaultsObject) {
       if (key in themeObject &&
           typeof (themeObject as Record<string, unknown>)[key] === 'object' &&
@@ -39,10 +32,6 @@ function applyDefaultsRecursively(
   }
 }
 
-/**
- * Recursively applies extra classes to theme objects while preserving structure.
- * Navigates both theme and extraClasses objects in parallel.
- */
 function applyExtraClassesRecursively(
   themeObject: Record<string, unknown> | object,
   extraClassesObject: Record<string, unknown> | object
@@ -51,18 +40,15 @@ function applyExtraClassesRecursively(
     return;
   }
 
-  // If this theme object has an 'extraClasses' property and extraClassesObject looks like extra classes
   if ('extraClasses' in themeObject &&
       typeof themeObject.extraClasses === 'object' &&
       themeObject.extraClasses !== null &&
       !('extraClasses' in extraClassesObject)) {
-    // extraClassesObject is the actual extra classes to apply
     themeObject.extraClasses = {
       ...themeObject.extraClasses,
       ...extraClassesObject as Record<string, string>
     };
   } else {
-    // Recursively navigate matching structure
     for (const key in extraClassesObject) {
       if (key in themeObject &&
           typeof (themeObject as Record<string, unknown>)[key] === 'object' &&
@@ -89,23 +75,21 @@ export function ThemeProvider(
   const parentTheme = useContext(ThemeContext);
 
   const mergedTheme = useMemo(() => {
-      // Determine the base theme based on merge strategy
       const baseTheme = mergeStrategy === 'replace'
         ? defaultTheme
         : parentTheme;
 
-      // Deep clone once for isolation, then merge overrides into it
+      // clone for isolation before merging
       let finalTheme = themeObject
         ? deepMerge(deepClone(baseTheme), themeObject)
         : deepClone(baseTheme);
 
-      // themeOverride receives a fresh clone so the callback can't corrupt our copy
+      // themeOverride gets a fresh clone so the callback can't corrupt our copy
       if (typeof themeOverride === 'function') {
         finalTheme = themeOverride(deepClone(finalTheme));
       }
 
-      // Apply defaults and extra classes in-place — finalTheme is already
-      // a unique copy not shared with any other provider or consumer
+      // in-place mutation is safe — finalTheme is already a unique copy
       if (themeDefaults !== undefined) {
         applyDefaultsRecursively(finalTheme, themeDefaults);
       }

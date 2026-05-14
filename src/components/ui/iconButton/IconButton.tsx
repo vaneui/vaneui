@@ -4,33 +4,6 @@ import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
 import { resolveDisabledLink } from "../../utils/disabledLink";
 
-/**
- * A square icon-only button component with customizable appearance, size, and behavior.
- *
- * Designed for buttons that contain only an icon (SVG). Renders as a square with
- * equal padding and slightly larger icon sizing (1.25em) compared to regular Button (1em).
- * Supports rendering as a button element or anchor tag when href is provided.
- *
- * @example
- * ```tsx
- * // Basic icon button
- * <IconButton aria-label="Search"><SearchIcon /></IconButton>
- * ```
- *
- * @example
- * ```tsx
- * // Filled icon button with large size
- * <IconButton lg filled aria-label="Add"><PlusIcon /></IconButton>
- * ```
- *
- * @example
- * ```tsx
- * // Icon button as a link
- * <IconButton href="/settings" secondary aria-label="Settings"><GearIcon /></IconButton>
- * ```
- *
- * @see {@link IconButtonProps} for all available props
- */
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   function IconButton(props, ref) {
     const { loading, ...rest } = props;

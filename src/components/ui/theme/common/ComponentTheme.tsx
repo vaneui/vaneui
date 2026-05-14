@@ -24,7 +24,6 @@ import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 type ThemeNode<P> = BaseClassMapper | ThemeMap<P>;
 
-/** Component type for CSS variable scoping - UI components have compact spacing, Layout components have generous spacing */
 export type VaneComponentType = 'ui' | 'layout';
 
 export type ThemeMap<P> = {
@@ -93,21 +92,11 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly base: string;
   readonly themes: TTheme;
   readonly vaneType?: VaneComponentType;
-  /** Component defaults — used by pickFirstTruthyKeyByCategory as a
-   *  fallback when JSX props don't specify a value for a category.
-   *  ThemeProvider.themeDefaults merges into this via applyDefaultsRecursively.
-   *
-   *  Data-attribute gate: every component whose resolved appearance is NOT
-   *  `inherit` emits data-appearance + data-variant so its own CSS rule
-   *  fires. Only components that default to `inherit` (Text, Title, Label,
-   *  etc.) skip emission and inherit colors from their nearest ancestor
-   *  via CSS custom-property cascade. */
+  // fallback for pickFirstTruthyKeyByCategory when props omit a category; merged via ThemeProvider
   defaults: Partial<P>;
   extraClasses: Partial<Record<keyof P, string>>;
   private readonly categories: readonly ComponentCategoryKey[];
-  // Base type for storage — decoupled from P so that ComponentTheme<SpecificProps, T>
-  // is structurally compatible with ComponentTheme<ComponentProps, object>.
-  // The constructor parameter still uses P for caller type safety.
+  // base type decoupled from P so ComponentTheme<SpecificProps, T> stays structurally compatible
   private readonly tagFunction?: (props: ComponentProps, defaults: Partial<ComponentProps>) => React.ElementType;
 
   constructor(
@@ -124,15 +113,12 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     this.defaults = defaults;
     this.extraClasses = {};
     this.categories = categories;
-    // Safe: P extends ComponentProps, and getTag() always passes P-typed values.
-    // All existing tagFunctions only access optional props (e.g. href).
+    // safe: existing tagFunctions only access optional props (e.g. href)
     this.tagFunction = tagFunction as typeof this.tagFunction;
     this.vaneType = vaneType;
-    // Type assertion: we trust that all default themes provide complete objects
     this.themes = themes as TTheme;
   }
 
-  /** Create a variant of this theme with different defaults (e.g., menu divider from divider) */
   withDefaults(defaults: Partial<P>): ComponentTheme<P, TTheme> {
     return new ComponentTheme<P, TTheme>(
       this.tag,
@@ -167,10 +153,6 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       }
     }
 
-    // No need for border/noBorder mutual exclusion logic anymore
-    // since noBorder is now part of the border category and
-    // pickFirstTruthyKeyByCategory handles the priority naturally
-
     const walk = (map: object) => {
       for (const key of Object.keys(map)) {
         const node = (map as ThemeMap<P>)[key];
@@ -185,7 +167,6 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
 
     walk(this.themes);
 
-    // Apply extra classes based on extracted keys
     for (const [, value] of Object.entries(extractedKeys)) {
       if (value && this.extraClasses[value as keyof P]) {
         const existingClasses = this.extraClasses[value as keyof P];
@@ -211,7 +192,6 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     const componentProps = props as unknown as Record<string, boolean>;
     const defaults = this.defaults as Record<string, boolean>;
 
-    // Extract keys for data attributes
     const extractedKeys: Record<string, string> = {};
     for (const category of this.categories) {
       const key = pickFirstTruthyKeyByCategory(componentProps, defaults, category);
@@ -220,12 +200,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       }
     }
 
-    // Expand 'inherit' appearance shorthand into granular inherit flags.
-    // Only expands COLOR, BG, and BORDER — not SIZE. Size inheritance is a
-    // separate concern: components that need it (Link, Code, Kbd, Mark) set
-    // `inheritSize: true` explicitly in their defaults. If `inherit` also
-    // expanded into `inheritSize`, then `<Text sm>` would ignore the explicit
-    // `sm` prop and inherit from parent instead — breaking user intent.
+    // expand `inherit` shorthand into COLOR/BG/BORDER only (size inheritance is opt-in via inheritSize)
     if (extractedKeys.appearance === 'inherit') {
       if (!extractedKeys.inheritColor) {
         extractedKeys.inheritColor = 'inheritColor';
@@ -244,7 +219,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       delete cleanProps[k];
     }
 
-    // Preserve HTML-native attributes that overlap with category keys
+    // preserve HTML-native attrs that overlap with category keys
     if ((props as Record<string, unknown>).disabled !== undefined) {
       cleanProps.disabled = (props as Record<string, unknown>).disabled;
     }
@@ -253,12 +228,10 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
 
     const {className, tag, children: _children, ...other} = cleanProps as P;
     const componentTag: React.ElementType = tag ?? this.getTag(props) ?? "div";
-    // Use original props for theme generation, but cleanProps for final DOM props
     const originalProps = props as P;
     const themeGeneratedClasses = this.getClasses(originalProps, extractedKeys);
     const finalClasses = twMerge(...themeGeneratedClasses, className);
 
-    // Build data attributes for key categories
     const dataAttributes: Record<string, string> = {};
     if (this.vaneType) {
       dataAttributes['data-vane-type'] = this.vaneType;
@@ -269,18 +242,8 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     if (extractedKeys.responsive === 'responsive') {
       dataAttributes['data-responsive'] = '';
     }
-    // Data-attribute gate:
-    // - Appearance is emitted when present AND inheritColor is not active.
-    //   When inheritColor is set (either explicitly or via `inherit` appearance
-    //   expansion), data-appearance is suppressed so colors cascade from the
-    //   nearest ancestor via CSS custom-property inheritance.
-    // - Variant is emitted when EITHER:
-    //   (a) appearance is present — needed for the two-axis CSS architecture
-    //       (appearance sets --app-* intermediates, variant maps them to
-    //       final --*-color variables; both rules must fire), OR
-    //   (b) variant deviates from `outline` — lets `<Row filled>` or
-    //       `<Button ghost>` work without an explicit appearance; the variant
-    //       rule reads --app-* inherited from the nearest ancestor.
+    // data-appearance suppressed when inheritColor is active (lets colors cascade from ancestor).
+    // data-variant emitted when appearance is present OR variant != outline (so `<Row filled>` works without explicit appearance).
     const hasAppearance = extractedKeys.appearance && extractedKeys.inheritColor !== 'inheritColor';
     if (hasAppearance) {
       dataAttributes['data-appearance'] = extractedKeys.appearance;

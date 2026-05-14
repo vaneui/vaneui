@@ -273,44 +273,15 @@ interface ComponentTestConfig {
     name: string;
     theme: { defaults?: Record<string, unknown>, themes?: unknown };
   }>;
-  /**
-   * Categories that are NOT read by any class mapper because the component
-   * itself extracts them at runtime (e.g., Popup extracts `placement` via
-   * `pickFirstTruthyKeyByCategory` in its render function and uses it for
-   * inline anchor positioning styles, not class names). These count as
-   * "handled" by the dead-category check and avoid false positives.
-   */
+  // Categories the component extracts at runtime (not via mappers), e.g. Popup's `placement`.
   componentExtractedCategories?: readonly string[];
-  /**
-   * Categories that the dead-category check has flagged as inert — props the
-   * *Props type accepts but with zero runtime effect (no mapper reads them,
-   * no data attribute, no component-level extraction).
-   *
-   * Each entry is a TODO that should be resolved by either:
-   *   (a) removing the prop interface from the *Props type AND removing the
-   *       category from the *_CATEGORIES array, OR
-   *   (b) adding the missing class mapper to the component's theme tree.
-   *
-   * The test validates `actual dead set === knownDeadCategories set` — adding
-   * a NEW dead category fails the test, and removing one (i.e., actually
-   * fixing it) ALSO fails the test until you remove the entry here. This
-   * forces explicit acknowledgment of every dead prop and prevents silent
-   * regressions.
-   */
+  // Known-inert categories. Test validates actual dead set === knownDeadCategories,
+  // so both adding a NEW dead category AND fixing one (without removing the entry) fail.
   knownDeadCategories?: readonly string[];
 }
 
-/**
- * Categories that are intentionally NOT handled by class mappers and instead
- * flow through to DOM data attributes (`data-size`, `data-appearance`,
- * `data-variant`, `data-responsive`, `data-disabled`). The CSS uses these
- * attribute selectors to apply styling, so the corresponding class mappers
- * either don't exist or emit a static class that consumes a CSS variable
- * (e.g., `text-(length:--fs)`) without branching on the category key.
- *
- * `getComponentConfig()` in `ComponentTheme.tsx` is the source of truth for
- * which categories get a data attribute — keep this set in sync with it.
- */
+// Categories that flow through to DOM data attributes instead of class mappers.
+// Keep in sync with getComponentConfig() in ComponentTheme.tsx.
 const DATA_ATTRIBUTE_ONLY_CATEGORIES = new Set<string>([
   'size',
   'appearance',

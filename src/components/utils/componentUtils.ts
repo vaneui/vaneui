@@ -3,11 +3,6 @@ import {
   ComponentCategoryKey,
 } from '../ui/props';
 
-/**
- * Pick the first truthy key from props using a ComponentKeys category name.
- * This function looks up the keys array internally using the category name.
- * Returns the specific key type for the given category.
- */
 export function pickFirstTruthyKeyByCategory<T extends ComponentCategoryKey>(
   props: Record<string, unknown>,
   defaults: Record<string, unknown>,

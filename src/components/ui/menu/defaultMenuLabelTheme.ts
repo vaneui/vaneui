@@ -6,15 +6,7 @@ import type { MenuLabelTheme } from "./MenuLabelTheme";
 import { MENU_LABEL_CATEGORIES } from "./MenuLabelCategories";
 import { menuLabelDefaults } from "./menuLabelDefaults";
 
-/**
- * MenuLabel theme — presentational heading inside a menu.
- *
- * Intentionally has NO `bgAppearance` mapper. MenuLabel inherits its
- * background from the parent menu and never emits its own bg-* classes —
- * see `menu.test.tsx` "should have no background classes" for the
- * design assertion. Because there's no background, `transparent` is also
- * NOT in `MENU_LABEL_CATEGORIES`.
- */
+// No bgAppearance mapper or `transparent` category — MenuLabel inherits its bg from the parent menu.
 export const defaultMenuLabelTheme = new ComponentTheme<MenuLabelProps, MenuLabelTheme>(
   "div",
   "vane-menu-label [&_svg]:pointer-events-none [&_svg]:shrink-0",

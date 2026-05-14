@@ -7,13 +7,9 @@ import { BlurClassMapper, OverlayBackgroundClassMapper, PointerEventsClassMapper
 import { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
 import { ringConsumerClass } from "../classes/appearanceClasses";
 
-/**
- * Default theme for Modal overlay (the backdrop).
- * Same structure as standalone Overlay but with modal-specific defaults.
- */
 export const defaultModalOverlayTheme = new ComponentTheme<OverlayProps, ModalOverlayTheme>(
   'div',
-  // Base classes - only non-prop-driven styles (bg moved to overlayBackground mapper for transparent support)
+  // bg lives in overlayBackground mapper so the transparent prop can suppress it
   'vane-overlay inset-0 z-(--z-index)',
   {
     layout: {
@@ -28,7 +24,6 @@ export const defaultModalOverlayTheme = new ComponentTheme<OverlayProps, ModalOv
       ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
     },
   },
-  // Defaults - modal overlay can have different defaults than standalone overlay
   modalOverlayDefaults,
   OVERLAY_CATEGORIES,
   undefined,

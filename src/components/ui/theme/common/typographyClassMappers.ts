@@ -7,19 +7,8 @@ import { CursorClassMapper } from "../layout/cursorClassMapper";
 import { textAppearance } from "./appearanceClassMappers";
 import type { DeepPartial } from "../../../utils/deepPartial";
 
-/**
- * Shared sub-themes used by all typography components (Text, Title,
- * SectionTitle, PageTitle, Blockquote).
- *
- * Typography components are intentionally background-less — they render
- * inline-style text that inherits its container's background. Therefore
- * `bgAppearance` is NOT included, and `transparent` is excluded from
- * `TYPOGRAPHY_CATEGORIES` since it has no meaning here. For a highlighted
- * text effect, use the `Mark` component instead.
- *
- * Includes `CursorClassMapper` so `<Text cursorPointer>` works on
- * clickable inline text.
- */
+// Typography components are background-less by design; no bgAppearance, no `transparent` category.
+// CursorClassMapper enables `<Text cursorPointer>` for clickable inline text.
 export const typographyClassMappers: DeepPartial<TextTheme> = {
   size: {
     text: new FontSizeClassMapper(),

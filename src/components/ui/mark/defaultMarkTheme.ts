@@ -6,7 +6,7 @@ import { markDefaults } from "./markDefaults";
 
 export const defaultMarkTheme = new ComponentTheme<MarkProps, MarkTheme>(
   "mark",
-  "vane-mark",
+  "vane-mark align-middle",
   interactiveClassMappers,
   markDefaults,
   CODE_CATEGORIES,

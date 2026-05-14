@@ -20,7 +20,7 @@ export const deepMerge = <T extends object>(
         continue;
       }
 
-      // Special case: If the key is 'defaults', use the contextual mergeDefaults function.
+      // 'defaults' uses mergeDefaults so exclusive groups (size, appearance, ...) are reset correctly
       if (
         key === 'defaults' &&
         isObject(targetValue) &&
@@ -31,14 +31,12 @@ export const deepMerge = <T extends object>(
           sourceValue as Record<string, boolean>
         );
       }
-      // For all other objects, use the standard recursive deep merge.
       else if (isObject(targetValue) && isObject(sourceValue)) {
         output[key] = deepMerge(
           targetValue,
           sourceValue as DeepPartial<typeof targetValue>
         );
       }
-      // For non-object values, just assign the value from the source.
       else {
         output[key] = sourceValue;
       }
@@ -68,8 +66,7 @@ export const deepClone = <T extends object>(source: T): T => {
   return output;
 }
 
-// Precomputed reverse-lookup: key → its exclusive group.
-// Built once at module load instead of scanning all ComponentKeys per lookup.
+// reverse-lookup built once at module load (key → its exclusive group)
 const keyToGroup = new Map<string, readonly string[]>();
 for (const group of Object.values(ComponentKeys)) {
   for (const key of group as readonly string[]) {
@@ -85,19 +82,14 @@ export const mergeDefaults = (
 ): Record<string, boolean> => {
   const finalDefaults = {...baseDefaults};
 
-  // Iterate over the override keys to apply them.
   for (const key in overrideDefaults) {
     if (Object.prototype.hasOwnProperty.call(overrideDefaults, key)) {
       const overrideValue = overrideDefaults[key];
 
-      // If the override is setting a key to true...
+      // setting one exclusive-group key to true resets the others to false
       if (overrideValue) {
-        // Find the exclusive group this key belongs to (e.g., SIZE_KEYS).
         const group = findGroup(key);
-
-        // If the key is part of an exclusive group...
         if (group) {
-          // ...set all other keys in that group to false.
           group.forEach(groupKey => {
             if (groupKey !== key) {
               finalDefaults[groupKey] = false;

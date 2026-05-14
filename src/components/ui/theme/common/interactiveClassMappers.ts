@@ -18,10 +18,7 @@ import { ShrinkClassMapper } from "../layout/shrinkClassMapper";
 import { bgAppearance, textAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowAppearance } from "./appearanceClassMappers";
 import { DisabledClassMapper } from "../appearance/disabledClassMapper";
 
-/**
- * Shared sub-themes used by interactive components (Badge, Chip, Code).
- * Button extends this with additional hover/active states.
- */
+// shared by Badge, Chip, Code; Button extends with additional hover/active states
 export const interactiveClassMappers = {
   size: {
     px: new PxClassMapper(),

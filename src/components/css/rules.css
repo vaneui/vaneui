@@ -11,8 +11,7 @@
     }
 
     [data-responsive] {
-        /* Default: breakpoint-specific unit vars inherit from base unit vars.
-           Responsive components override these with specific numeric values. */
+        /* breakpoint-specific unit vars inherit from base; responsive components override per breakpoint */
         --py-unit-desktop: var(--py-unit);
         --py-unit-tablet: var(--py-unit);
         --py-unit-mobile: var(--py-unit);
@@ -43,12 +42,7 @@
 }
 
 @layer components {
-    /* Root-level defaults for CSS variable inheritance.
-       Mirrors [data-variant="outline"][data-appearance="primary"] so that any
-       component rendering in inherit mode (no data-variant / data-appearance
-       attributes) visually matches a standalone outline primary element.
-       Components with explicit variant/appearance override these on themselves
-       and their descendants via the direct selectors below. */
+    /* Root defaults mirror outline+primary so inherit-mode components match a standalone outline primary. */
     :root {
         --text-color: var(--color-text-primary);
         --bg-color: var(--color-bg-primary);
@@ -65,32 +59,22 @@
         --rw: 1px; /* Ring width */
     }
 
-    /* ========================================
-       TYPE-BASED DEFAULTS
-       Sets --gap-unit, --py-unit, --aspect-ratio, --shadow-base
-       based on data-vane-type and data-size attributes.
-       Components inherit these unless they override.
-       UI --br-unit is set per component (height-proportional).
-       Layout --br-unit is set per size (fixed scale).
-       ======================================== */
+    /* TYPE-BASED DEFAULTS: --gap-unit/--py-unit/--aspect-ratio/--shadow-base per data-vane-type + data-size.
+       UI --br-unit is set per component (height-proportional); Layout --br-unit is set per size. */
 
-    /* UI type defaults (compact spacing, static shadows) */
+    /* UI type defaults */
     [data-vane-type="ui"][data-size="xs"] { --gap-unit: 1;   --shadow-base: var(--shadow-ui-xs); }
     [data-vane-type="ui"][data-size="sm"] { --gap-unit: 1.5; --shadow-base: var(--shadow-ui-sm); }
     [data-vane-type="ui"][data-size="md"] { --gap-unit: 2;   --shadow-base: var(--shadow-ui-md); }
     [data-vane-type="ui"][data-size="lg"] { --gap-unit: 2.5; --shadow-base: var(--shadow-ui-lg); }
     [data-vane-type="ui"][data-size="xl"] { --gap-unit: 3;   --shadow-base: var(--shadow-ui-xl); }
 
-    /* Height-proportional border radius for UI components:
-       --br = (fs-unit * 0.5 * lh + 2 * py-unit) * --br-unit * spacing
-       where --br-unit is a constant ratio per component (radius / height),
-       calibrated so md matches the design spec. Size adaptation comes naturally
-       from fs-unit and py-unit changing per size. */
+    /* UI border-radius: ratio (--br-unit) of element height (fs-unit*0.5*lh + 2*py-unit) * spacing. */
     [data-vane-type="ui"][data-size] {
         --br: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit)) * var(--br-unit) * var(--spacing));
     }
 
-    /* Layout type defaults (generous spacing, static shadows) */
+    /* Layout type defaults */
     [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xs); }
     [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-sm); }
     [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-md); }
@@ -116,13 +100,15 @@
     .vane-icon-button[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-icon-button[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
-    /* Icon */
-    .vane-icon { --icon-size: calc(var(--fs) * var(--lh)); }
-    .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
-    .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
-    .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); }
-    .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
-    .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    /* Icon: --icon-size is set per data-size as --spacing × N, decoupled from text font-size. */
+    .vane-icon { --py-unit: 2; --aspect-ratio: 1; --br-unit: 0.2174; }
+    .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --icon-size: calc(var(--spacing) * 4);  --py-unit: 1;   }
+    .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --icon-size: calc(var(--spacing) * 6);  --py-unit: 1.5; }
+    .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --icon-size: calc(var(--spacing) * 8);  --py-unit: 2;   }
+    .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --icon-size: calc(var(--spacing) * 12); --py-unit: 2.5; }
+    .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --icon-size: calc(var(--spacing) * 16); --py-unit: 3;   }
+    /* Outline Icons override --bg-color to transparent so inline use stays un-boxed; filled opts into bg paint. */
+    .vane-icon[data-variant="outline"] { --bg-color: transparent; }
 
     /* Icon sizing for Button, IconButton, and Icon — uses --icon-size CSS variable */
     .vane-button :where(svg:not([class*='size-'])),
@@ -149,18 +135,8 @@
     .vane-badge :where(svg:not([class*='size-'])),
     .vane-chip :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
 
-    /* Code */
-    /* Code overrides --spacing locally so the entire geometry system (--fs,
-       --py, --px, --br, --gap) resolves in em rather than rem — proportional
-       to Code's own font-size, which itself scales with the parent context.
-       The existing --fs-unit / --py-unit / --br-unit ladders keep working
-       unchanged; only the multiplier shifts from rem to em.
-
-       --fs-base must be re-declared here: CSS inherits the computed value of
-       custom properties, so :root's --fs-base = calc(0.25rem * 0.5) bakes in
-       at :root and our local --spacing override never reaches it via
-       inheritance. Re-declaring with the same expression forces a fresh
-       computation at this element, picking up our em --spacing. */
+    /* Code: --spacing overridden to em so geometry scales with parent font-size; --fs-base re-declared
+       because custom properties inherit computed values (root's rem-based --fs-base wouldn't pick up em --spacing). */
     .vane-code { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; }
     .vane-code[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
     .vane-code[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
@@ -168,9 +144,7 @@
     .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
     .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
 
-    /* Kbd */
-    /* Kbd: same em-relative geometry pattern as Code (via --spacing override).
-       --fs-base re-declared for the same reason — see Code comment above. */
+    /* Kbd: em-relative geometry like Code (see comment above). */
     .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; border-bottom-width: 3px; }
     .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
     .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
@@ -359,9 +333,7 @@
     .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8; }
     .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; }
 
-    /* MenuItem - interactive items for dropdown menus. Padding scale matches
-       Button's so <Menu lg> / <Menu xl> produce visibly larger items, not just
-       larger text. */
+    /* MenuItem: padding scale matches Button's so larger sizes render visibly larger items. */
     .vane-menu-item { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.15; --icon-size: var(--fs); }
     .vane-menu-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-menu-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
@@ -376,8 +348,7 @@
     [data-menu-dropdown][data-size="lg"] .vane-divider { --py-unit: 1.25; }
     [data-menu-dropdown][data-size="xl"] .vane-divider { --py-unit: 1.5; }
 
-    /* NavLink - navigation links for sidebars, nav menus, headers. Padding
-       scale matches Button's and MenuItem's so sizes are visibly distinct. */
+    /* NavLink: padding scale matches Button's and MenuItem's. */
     .vane-nav-link { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.15; --icon-size: var(--fs); }
     .vane-nav-link[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-nav-link[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
@@ -385,9 +356,7 @@
     .vane-nav-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-nav-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
-    /* NavLink active state: use direct background-color at higher specificity (0,3,0)
-       to beat appearance rules (0,2,0). Variable shifting doesn't work because appearance
-       rules override the variables at the same specificity. */
+    /* NavLink active uses direct background-color at higher specificity to beat appearance rules. */
     .vane-nav-link[data-active][data-variant="outline"] {
         background-color: var(--bg-hover-color);
     }
@@ -422,25 +391,16 @@
     .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --max-height: 24rem; --popup-min-w: 9rem; --popup-arrow-size: 8px; }
     .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --max-height: 28rem; --popup-min-w: 10rem; --popup-arrow-size: 10px; }
 
-    /* Menu dropdown - compact padding that scales with size */
-    /* Menu dropdown frame padding. Kept distinctly tighter than a generic
-       Popup (~3-4× smaller across reference frameworks: Ant/Chakra/Mantine/
-       shadcn all land around 4px flat), but we keep a size curve so the frame
-       still scales with the Menu prop. Floor lifted to 4px so no size renders
-       below the industry minimum. */
+    /* Menu dropdown: tighter than generic Popup; floor lifted to 4px so no size renders below the minimum. */
     .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 1; }
     .vane-popup[data-menu-dropdown][data-size="sm"] { --py-unit: 1.25; }
     .vane-popup[data-menu-dropdown][data-size="md"] { --py-unit: 1.5; }
     .vane-popup[data-menu-dropdown][data-size="lg"] { --py-unit: 1.75; }
     .vane-popup[data-menu-dropdown][data-size="xl"] { --py-unit: 2; }
 
-    /* ========================================
-       ANIMATIONS
-       Enter/exit animations for floating components.
-       Controlled via data-state attribute set by useTransition hook.
-       ======================================== */
+    /* ANIMATIONS — driven by data-state from useTransition */
 
-    /* Overlay fade in/out */
+    /* Overlay fade */
     .vane-overlay[data-state="entering"] {
         animation: vane-fade-in var(--transition-duration) var(--transition-timing) forwards;
     }
@@ -464,7 +424,7 @@
         animation: vane-scale-out var(--transition-duration) var(--transition-timing) forwards;
     }
 
-    /* Popup arrow — size scales with popup size via --popup-arrow-size (set per data-size tier) */
+    /* Popup arrow — size via --popup-arrow-size per data-size tier */
     .vane-popup-arrow {
         position: absolute;
         width: var(--popup-arrow-size, 7px);
@@ -529,9 +489,7 @@
         flex-shrink: 0;
     }
 
-    /* Modal close button — structural overrides only.
-       Display, alignment, cursor, transition, focus-visible come from the button theme.
-       Hover bg is set here because `transparent` prop suppresses all bg theme classes. */
+    /* Hover bg is set here because `transparent` prop suppresses all bg theme classes. */
     .vane-modal-close {
         flex-shrink: 0;
         --aspect-ratio: 1;
@@ -540,21 +498,13 @@
         background: var(--color-bg-hover-secondary);
     }
 
-    /* ========================================
-       DISABLED STATE
-       Neutralizes hover/active color changes on disabled elements.
-       Visual classes (opacity, cursor) come from DisabledClassMapper.
-       ======================================== */
+    /* DISABLED STATE — neutralizes hover/active color changes; opacity/cursor come from DisabledClassMapper. */
     [data-disabled="true"] {
         --bg-hover-color: var(--bg-color);
         --bg-active-color: var(--bg-color);
     }
 
-    /* ========================================
-       LOADING STATE
-       Spinner overlay for buttons in loading state.
-       Visual classes applied by Button.tsx component.
-       ======================================== */
+    /* LOADING STATE — visual classes applied by Button.tsx */
     [data-loading="true"] {
         position: relative;
     }
@@ -567,12 +517,7 @@
         animation: vane-spin 0.6s linear infinite;
     }
 
-    /* ========================================
-       READ-ONLY STATE
-       Styles for read-only form elements.
-       readOnly passes through as native HTML attribute.
-       This rule provides visual feedback via data attribute.
-       ======================================== */
+    /* READ-ONLY STATE — visual feedback via data attribute (readOnly itself passes through as HTML attr) */
     [data-readonly="true"] {
         cursor: default;
         caret-color: transparent;
@@ -580,28 +525,10 @@
         --bg-active-color: var(--bg-color);
     }
 
-    /* ========================================
-       APPEARANCE & VARIANT RULES
-       Sets component-level color variables based on
-       data-appearance and data-variant attributes.
+    /* APPEARANCE × VARIANT — two independent axes that compose:
+       appearance rules set intermediate --app-* (palette); variant rules map them to final --*-color. */
 
-       These rules apply to ANY element with the
-       data-variant and data-appearance attributes.
-       Components only consume the variables they need.
-       ======================================== */
-
-    /* =========================================
-       APPEARANCE × VARIANT SYSTEM
-       Two independent axes that compose on the same element:
-       1. Appearance rules set intermediate --app-* variables (the palette)
-       2. Variant rules map --app-* to final --*-color variables (the strategy)
-       Adding a new appearance = 1 block. Adding a new variant = 1 block.
-       ========================================= */
-
-    /* -----------------------------------------
-       AXIS 1: APPEARANCE — defines the color palette
-       Each rule sets both outline and filled token families as intermediates.
-       ----------------------------------------- */
+    /* AXIS 1: APPEARANCE — palette */
     [data-appearance="primary"] {
         --app-text: var(--color-text-primary);
         --app-text-filled: var(--color-text-filled-primary);
@@ -724,11 +651,7 @@
         --app-focus: var(--color-focus-brand);
     }
 
-    /* -----------------------------------------
-       AXIS 2: VARIANT — maps palette to final variables
-       Each rule reads --app-* intermediates set by the appearance rule
-       on the same element and assigns the final consumer variables.
-       ----------------------------------------- */
+    /* AXIS 2: VARIANT — maps --app-* palette to final consumer variables */
     [data-variant="outline"] {
         --text-color: var(--app-text);
         --bg-color: var(--app-bg);
@@ -770,14 +693,10 @@
     }
 
 
-    /* -----------------------------------------
-       CHECKBOX OVERRIDES
-       Checkboxes must always show a visible border when unchecked,
-       regardless of filled/outline variant. The global filled rules
-       set --border-color: transparent which hides the checkbox border.
-       ----------------------------------------- */
+    /* CHECKBOX OVERRIDES — checkboxes always need a visible border when unchecked,
+       but the global filled rule sets --border-color: transparent. */
 
-    /* Unchecked: always neutral border (overrides filled transparent + outline colored) */
+    /* Unchecked: neutral border (overrides filled transparent + outline colored) */
     .vane-checkbox[data-variant] {
         --border-color: var(--color-border-secondary);
     }
@@ -797,15 +716,9 @@
         --border-color: var(--checked-bg-color);
     }
 
-    /* ========================================
-       REDUCED MOTION
-       Respects user OS-level preference for reduced motion.
-       Uses 0.01ms (not 0s) to avoid breaking JS animationend/transitionend listeners.
-       Independent of the programmatic noAnimation prop on Modal/Popup/Overlay.
-       ======================================== */
+    /* REDUCED MOTION — uses 0.01ms (not 0s) so JS animationend/transitionend listeners still fire. */
 
     @media (prefers-reduced-motion: reduce) {
-        /* Disable enter/exit animations on floating components */
         .vane-overlay[data-state],
         .vane-modal[data-state],
         .vane-popup[data-state] {
@@ -813,13 +726,11 @@
             animation-iteration-count: 1 !important;
         }
 
-        /* Disable spinner animation */
         .vane-button-spinner-ring {
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
         }
 
-        /* Disable transitions on all VaneUI components */
         [data-vane-type] {
             transition-duration: 0.01ms !important;
         }
@@ -827,10 +738,7 @@
 
 }
 
-/* ========================================
-   KEYFRAMES
-   Defined outside @layer so they're globally available.
-   ======================================== */
+/* KEYFRAMES — defined outside @layer so they're globally available. */
 
 @keyframes vane-fade-in {
     from { opacity: 0; }
