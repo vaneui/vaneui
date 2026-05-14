@@ -116,8 +116,13 @@
     .vane-icon-button[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-icon-button[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
-    /* Icon */
-    .vane-icon { --lh: 1.3; --py-unit: 2; --aspect-ratio: 1; --br-unit: 0.2174; --icon-size: calc(var(--fs) * var(--lh)); }
+    /* Icon
+       --lh: 1.5 (vs 1.3 elsewhere) makes the SVG glyph 50% taller than its
+       text-size unit. At md (--fs-unit=8 → --fs=16px), this resolves to a
+       24px glyph — matching the de-facto industry default (Lucide, Material,
+       Heroicons). Other components keep --lh: 1.3 since their `--icon-size`
+       is for SVGs adjacent to text, where 1.3 looks aligned with cap height. */
+    .vane-icon { --lh: 1.5; --py-unit: 2; --aspect-ratio: 1; --br-unit: 0.2174; --icon-size: calc(var(--fs) * var(--lh)); }
     .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
     .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
