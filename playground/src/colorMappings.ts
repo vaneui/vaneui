@@ -6,14 +6,10 @@ export interface ColorMapping {
   tailwindColor: string;
 }
 
-/**
- * Parses vars.css and extracts the Tailwind color name for each CSS variable.
- * For example: `--color-bg-primary: var(--color-blue-50)` -> { cssVar: '--color-bg-primary', tailwindColor: 'blue-50' }
- */
+// Extracts Tailwind color name for each --color-* CSS var (e.g. '--color-bg-primary' -> 'blue-50')
 export function parseColorMappings(): Map<string, string> {
   const mappings = new Map<string, string>();
 
-  // Match lines like: --color-bg-primary: var(--color-blue-50);
   const regex = /^\s*(--color-[a-z-]+):\s*var\(--color-([a-z]+-\d+)\)/gm;
 
   let match;
@@ -22,7 +18,7 @@ export function parseColorMappings(): Map<string, string> {
     mappings.set(cssVar, tailwindColor);
   }
 
-  // Also handle special values like 'white', 'transparent'
+  // special values: white/black/transparent
   const specialRegex = /^\s*(--color-[a-z-]+):\s*var\(--color-(white|black|transparent)\)/gm;
   while ((match = specialRegex.exec(varsCSS)) !== null) {
     const [, cssVar, tailwindColor] = match;

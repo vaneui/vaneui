@@ -4,21 +4,6 @@ import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
 import { resolveDisabledLink } from '../../utils/disabledLink';
 
-/**
- * NavLink — a navigation-oriented interactive link for sidebars, nav menus, and headers.
- *
- * Renders as `<a>` when `href` is provided, `<button>` otherwise.
- * Supports `active` prop for current-page state (sets `data-active` and `aria-current="page"`).
- * React element children (icons, badges) are rendered directly in the root flex container,
- * while text content is wrapped in a themed `<span>` (navLink.label) for truncation.
- *
- * @example
- * ```tsx
- * <NavLink href="/dashboard" active><HomeIcon /> Dashboard</NavLink>
- * <NavLink href="/settings">Settings</NavLink>
- * <NavLink onClick={handleLogout}>Log out</NavLink>
- * ```
- */
 export const NavLink = forwardRef<HTMLElement, NavLinkProps>(
   function NavLink(props, ref) {
     const { active, children, ...rest } = props;
@@ -32,9 +17,7 @@ export const NavLink = forwardRef<HTMLElement, NavLinkProps>(
       'aria-current': active ? ('page' as const) : undefined,
     };
 
-    // Separate React elements (icons, badges) from text content.
-    // Elements render directly in the root flex container; text is wrapped
-    // in the label span for truncation.
+    // text wraps in the label span for truncation; elements render directly in the flex container
     const leading: React.ReactNode[] = [];
     const textParts: React.ReactNode[] = [];
     const trailing: React.ReactNode[] = [];

@@ -1,6 +1,5 @@
 import type { ThemeDefaults } from '../../themeContext';
 
-// Import defaults from each component theme file
 import { buttonDefaults } from '../button/buttonDefaults';
 import { buttonSpinnerDefaults } from '../button/buttonSpinnerDefaults';
 import { iconButtonDefaults } from '../iconButton/iconButtonDefaults';
@@ -53,11 +52,6 @@ import {
   listDefaults,
 } from '../typography';
 
-/**
- * Aggregated default props for all components.
- * Each component's defaults are defined in their respective theme files
- * and imported here for convenient access.
- */
 export const themeDefaults: ThemeDefaults = {
   button: {
     main: buttonDefaults,

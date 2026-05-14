@@ -19,10 +19,6 @@ import {
   Icon,
 } from '../../src';
 
-/**
- * Reusable sample SVG. Uses currentColor + fixed 20x20 viewport so it inherits
- * color from the Icon wrapper. The parent <Icon> controls the rendered size.
- */
 const TestSvg = () => (
   <svg viewBox="0 0 24 24" width={20} height={20} aria-hidden="true">
     <path

@@ -3,21 +3,7 @@ import type { ListItemProps } from './ListItemProps';
 import { useTheme } from "../../../themeContext";
 import { ThemedComponent } from "../../../themedComponent";
 
-/**
- * A list item component (<li>).
- *
- * Supports typography styling. When `icon` is provided the native list
- * marker is replaced by the icon node and `data-has-icon="true"` is set
- * so the base-class selector suppresses `list-style`.
- *
- * @example
- * ```tsx
- * <List>
- *   <ListItem>Plain item</ListItem>
- *   <ListItem icon={<CheckIcon />}>Done</ListItem>
- * </List>
- * ```
- */
+// `icon` replaces the native list marker; data-has-icon suppresses list-style via base selector
 export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
   function ListItem({ icon, children, ...rest }, ref) {
     const theme = useTheme();

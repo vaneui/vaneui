@@ -2,48 +2,6 @@ import React, { useState, useRef, useCallback, useEffect, useId, cloneElement } 
 import type { PopupTriggerProps } from './PopupTriggerProps';
 import { Popup } from './Popup';
 
-/**
- * PopupTrigger - convenience wrapper that manages open state and ref wiring.
- *
- * Simplifies the common pattern of anchor + popup by handling:
- * - Ref management (auto-wires anchorRef to the trigger element)
- * - Open/close state management
- * - Click, hover, and focus trigger modes
- * - Hover delays for tooltip-like behavior
- *
- * @example
- * ```tsx
- * // Click-triggered popup (default)
- * <PopupTrigger popup={<Text>Dropdown content</Text>}>
- *   <Button>Open Menu</Button>
- * </PopupTrigger>
- * ```
- *
- * @example
- * ```tsx
- * // Hover-triggered popup with delay
- * <PopupTrigger
- *   triggerOnHover
- *   openDelay={200}
- *   popup={<Text sm>Tooltip text</Text>}
- *   popupProps={{ top: true, sm: true, noPadding: false }}
- * >
- *   <Button>Hover me</Button>
- * </PopupTrigger>
- * ```
- *
- * @example
- * ```tsx
- * // Focus-triggered popup (for inputs)
- * <PopupTrigger
- *   triggerOnFocus
- *   popup={<List><ListItem>Suggestion 1</ListItem></List>}
- *   popupProps={{ bottomStart: true, matchWidth: true }}
- * >
- *   <Input placeholder="Search..." />
- * </PopupTrigger>
- * ```
- */
 export function PopupTrigger({
   children,
   popup,
@@ -56,7 +14,6 @@ export function PopupTrigger({
   popupId: popupIdProp,
   disabled = false,
 }: PopupTriggerProps) {
-  // Default to click when no trigger boolean is set
   const isHover = triggerOnHover ?? false;
   const isFocus = triggerOnFocus ?? false;
   const useClick = triggerOnClick ?? (!isHover && !isFocus);
@@ -66,7 +23,7 @@ export function PopupTrigger({
   const popupId = popupIdProp || `popup-trigger-${generatedId.replace(/:/g, '-')}`;
   const prevOpenRef = useRef(false);
 
-  // Return focus to trigger element when popup closes (skip for focus/hover triggers to avoid re-open loop)
+  // return focus to trigger on close; skip for focus/hover to avoid re-open loop
   useEffect(() => {
     if (prevOpenRef.current && !open && useClick && anchorRef.current) {
       anchorRef.current.focus();
@@ -109,7 +66,6 @@ export function PopupTrigger({
     }
   }, [open, handleOpen, handleClose]);
 
-  // Build event handlers based on trigger mode (skip when disabled)
   const triggerHandlers: Record<string, React.EventHandler<React.SyntheticEvent>> = {};
 
   if (!disabled) {
@@ -137,21 +93,18 @@ export function PopupTrigger({
     if (isHover) {
       triggerHandlers.onMouseEnter = composeHandler('onMouseEnter', handleOpen);
       triggerHandlers.onMouseLeave = composeHandler('onMouseLeave', handleClose);
-      // Accessibility: keyboard focus/blur also opens/closes in hover mode
+      // a11y: keyboard focus/blur opens/closes in hover mode too
       triggerHandlers.onFocus = composeHandler('onFocus', handleOpen);
       triggerHandlers.onBlur = composeHandler('onBlur', handleClose);
     }
     if (isFocus && !isHover) {
-      // Focus-only mode (hover already handles focus/blur above)
       triggerHandlers.onFocus = composeHandler('onFocus', handleOpen);
       triggerHandlers.onBlur = composeHandler('onBlur', handleClose);
     }
   }
 
-  // Determine the appropriate aria-haspopup value based on popup role
   const ariaHaspopup = popupProps?.role || 'dialog';
 
-  // Clone the child element with ref, event handlers, and ARIA attributes
   const triggerElement = cloneElement(children, {
     ref: anchorRef,
     'aria-expanded': disabled ? undefined : open,

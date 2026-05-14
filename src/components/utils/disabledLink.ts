@@ -1,12 +1,6 @@
 import React from 'react';
 
-/**
- * When a link-capable component (Button, NavLink) is disabled and has an href,
- * strip the href and add accessibility attributes so assistive tech announces
- * the element as a disabled link. The element remains focusable (no tabIndex: -1)
- * per WCAG best practices for aria-disabled elements, but click and Enter key
- * activation are blocked (Enter and Space keys).
- */
+// Element stays focusable per WCAG aria-disabled best practice; Enter/Space activation is blocked.
 export function resolveDisabledLink<T extends Record<string, unknown> & { href?: string }>(
   props: T,
   isDisabled: boolean

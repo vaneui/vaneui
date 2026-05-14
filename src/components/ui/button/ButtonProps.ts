@@ -37,9 +37,6 @@ import type {
   HeightProps
 } from "../props";
 
-/**
- * Button component props
- */
 export type ButtonProps = BaseProps &
   SizeProps &
   HideProps &

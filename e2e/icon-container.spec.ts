@@ -30,11 +30,10 @@ test.describe('Icon container mode — computed styles', () => {
   test('inline Icon inherits parent color (no background paint)', async ({ page }) => {
     const icon = page.locator('[data-testid="icon-inline-inherit"]');
 
-    // Parent wrapper sets color: rgb(255, 0, 0); inline Icon should inherit.
+    // parent wrapper sets color: rgb(255, 0, 0); inline Icon should inherit
     const color = await getColor(icon);
     expect(color).toBe('rgb(255, 0, 0)');
 
-    // No background painted on inline Icon.
     const bg = await getBg(icon);
     expect(bg).toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
   });
@@ -46,7 +45,6 @@ test.describe('Icon container mode — computed styles', () => {
     const iconBg = await getBg(icon);
     const refBg = await getBg(reference);
 
-    // Both should resolve to the same primary-filled token; assert non-transparent.
     expect(iconBg).not.toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
     expect(iconBg).toBe(refBg);
   });
@@ -54,14 +52,10 @@ test.describe('Icon container mode — computed styles', () => {
   test('bordered primary rounded paints a border color, no background paint', async ({ page }) => {
     const icon = page.locator('[data-testid="icon-bordered-primary"]');
 
-    // Border color must be painted (primary token).
     const borderColor = await getBorderColor(icon);
     expect(borderColor).not.toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
 
-    // Outline-variant Icons must NOT paint the appearance surface (the
-    // global [data-variant="outline"] rule sets --bg-color to the surface
-    // token, but .vane-icon[data-variant="outline"] overrides it to
-    // transparent so inline + bordered Icons stay un-boxed).
+    // outline-variant Icons override --bg-color to transparent so bordered Icons stay un-boxed
     const bg = await getBg(icon);
     expect(bg).toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
   });
@@ -69,14 +63,9 @@ test.describe('Icon container mode — computed styles', () => {
   test('inline Icon with appearance: bg stays transparent (no surface paint)', async ({ page }) => {
     const icon = page.locator('[data-testid="icon-inline-primary"]');
 
-    // <Icon primary> has data-variant="outline" (default) + data-appearance.
-    // Without the .vane-icon outline override, the global outline rule would
-    // set --bg-color to the primary surface and paint a white box. With the
-    // override, bg stays transparent and only the SVG color comes through.
     const bg = await getBg(icon);
     expect(bg).toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
 
-    // Text color (consumed by SVG's fill="currentColor") IS painted.
     const color = await getColor(icon);
     expect(color).not.toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
   });
@@ -118,7 +107,6 @@ test.describe('Icon container mode — computed styles', () => {
     const primary = await getBg(page.locator('[data-testid="icon-filled-primary"]'));
     const danger = await getBg(page.locator('[data-testid="icon-app-danger"]'));
     const success = await getBg(page.locator('[data-testid="icon-app-success"]'));
-    // All three should be non-transparent and pairwise distinct.
     for (const [name, color] of [['primary', primary], ['danger', danger], ['success', success]] as const) {
       expect(color, `${name} filled bg should not be transparent`).not.toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
     }
@@ -131,9 +119,7 @@ test.describe('Icon container mode — computed styles', () => {
     const withRing = await getStyle(page.locator('[data-testid="icon-with-ring"]'), 'box-shadow');
     const noRing = await getStyle(page.locator('[data-testid="icon-no-ring"]'), 'box-shadow');
 
-    // Ring uses Tailwind's ring-* utility which compiles to box-shadow.
-    // With ring: box-shadow is non-empty / non-"none".
-    // Without ring: box-shadow is either "none" or empty.
+    // ring compiles to box-shadow
     expect(withRing, `Icon with ring should have a non-empty box-shadow (got "${withRing}")`).not.toBe('none');
     expect(withRing).not.toBe('');
     expect(withRing).not.toBe(noRing);

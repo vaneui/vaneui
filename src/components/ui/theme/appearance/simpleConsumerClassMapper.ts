@@ -1,31 +1,15 @@
 import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { AppearanceCategoryKey, CategoryProps } from "../../props";
 
-/**
- * A simplified appearance theme that outputs consumer classes
- * referencing component-level CSS variables (like --bg-color, --text-color).
- *
- * Used for components that have CSS rules in vars.css that set these
- * variables based on data-appearance and data-variant attributes.
- *
- * Unlike AppearanceTheme which outputs different classes for each appearance,
- * this theme outputs the same consumer classes regardless of appearance,
- * since the CSS rules handle the appearance-specific logic.
- *
- * Properties are public to allow theme overrides via ThemeProvider.
- */
+// Emits consumer classes referencing CSS variables (--bg-color etc.) — the variables themselves
+// are set by data-appearance/data-variant CSS rules, so the same classes work for any appearance.
 export class SimpleConsumerClassMapper extends BaseClassMapper {
-  /** Base class applied to the element */
   base: string;
-  /** Class applied on hover state */
   hover: string;
-  /** Class applied on active state */
   active: string;
-  /** Class applied on focus-visible state */
   focusVisible: string;
-  /** The category this theme applies to (for conditional rendering) */
   readonly category: AppearanceCategoryKey;
-  /** If true, always output consumer classes even without an appearance prop (for CSS inheritance from parent) */
+  // emit classes even without an appearance prop (for cascade-based inheritance)
   readonly alwaysOutput: boolean;
 
   constructor(
@@ -48,7 +32,6 @@ export class SimpleConsumerClassMapper extends BaseClassMapper {
   }
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    // Handle conditional categories - only output if the feature is enabled
     if (this.category === 'border') {
       if ((extractedKeys.border as string) === 'noBorder') {
         return [];
@@ -71,12 +54,10 @@ export class SimpleConsumerClassMapper extends BaseClassMapper {
       return [];
     }
 
-    // Handle transparent prop - don't output background classes if transparent is true
     if (this.category === 'bg' && extractedKeys.transparent === 'transparent') {
       return [];
     }
 
-    // Only output classes if an appearance is set (unless alwaysOutput is true)
     if (!this.alwaysOutput && !extractedKeys?.appearance) {
       return [];
     }

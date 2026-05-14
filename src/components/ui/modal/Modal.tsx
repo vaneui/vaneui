@@ -16,48 +16,6 @@ import { ModalBody } from './ModalBody';
 import { ModalFooter } from './ModalFooter';
 import { ModalCloseButton } from './ModalCloseButton';
 
-/**
- * Modal component - an accessible dialog window.
- *
- * Features:
- * - Scroll lock (prevents body scroll)
- * - Focus trap (Tab cycles within modal)
- * - Escape key to close
- * - ARIA dialog semantics (role="dialog", aria-modal)
- * - Focus restoration on close
- * - Enter/exit animations (disable with noAnimation)
- * - Dynamic z-index stacking for nested modals
- * - Padding on sub-components (header/body/footer), not the wrapper
- * - Auto-wraps bare children in ModalBody; use ModalHeader/ModalBody/ModalFooter for compound mode
- * - Convenience props: title, footer, withCloseButton
- *
- * @example
- * ```tsx
- * // Simple — children auto-wrapped in ModalBody
- * <Modal open onClose={close}>
- *   <Title>Confirm</Title>
- *   <Text>Are you sure?</Text>
- * </Modal>
- * ```
- *
- * @example
- * ```tsx
- * // Convenience — title/footer auto-generate header/footer sub-components
- * <Modal open onClose={close} title={<Title>Edit Profile</Title>} footer={<Button filled>Save</Button>}>
- *   <Input placeholder="Name" />
- * </Modal>
- * ```
- *
- * @example
- * ```tsx
- * // Compound — explicit sub-components, rendered as-is
- * <Modal open onClose={close}>
- *   <ModalHeader><Title>Edit</Title><ModalCloseButton /></ModalHeader>
- *   <ModalBody><Input /></ModalBody>
- *   <ModalFooter><Button filled>Save</Button></ModalFooter>
- * </Modal>
- * ```
- */
 export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   function Modal(
     {
@@ -89,7 +47,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   ) {
     const theme = useTheme();
     const contentRef = useRef<HTMLDivElement>(null);
-    // Controllable open state — supports both controlled and uncontrolled modes
     const [open, setOpen] = useControllableState({
       value: openProp,
       defaultValue: defaultOpen,
@@ -101,50 +58,44 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       setOpen(false);
     }, [onCloseProp, setOpen]);
 
-    // ARIA auto-connection: generate stable IDs and track mount state
     const uniqueId = useId();
     const titleId = `modal-title-${uniqueId.replace(/:/g, '-')}`;
     const bodyId = `modal-body-${uniqueId.replace(/:/g, '-')}`;
     const [titleMounted, setTitleMounted] = useState(false);
     const [bodyMounted, setBodyMounted] = useState(false);
 
-    // Transition states for overlay and content
     const overlayTransition = useTransition(open, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
     const contentTransition = useTransition(open, transitionDuration, noAnimation);
     const zIndex = useStackingContext(open, 'modal');
 
     const mergedRef = useMergedRef(ref, contentRef);
 
-    // Scroll lock
     useScrollLock(open && scrollLock);
 
-    // Focus trap
     const focusTrapOptions = useMemo(
       () => ({ returnFocus, initialFocus }),
       [returnFocus, initialFocus]
     );
     useFocusTrap(contentRef, open && focusTrap, focusTrapOptions);
 
-    // Escape key — only the topmost floating element (modal/popup) closes
+    // only the topmost floating element closes on Escape
     useEffect(() => {
       if (!open || !closeOnEscape) return;
       return pushEscapeHandler(onClose);
     }, [open, closeOnEscape, onClose]);
 
-    // Handle overlay click
     const handleOverlayClick = (event: React.MouseEvent) => {
       if (closeOnOverlayClick && event.target === event.currentTarget) {
         onClose();
       }
     };
 
-    // Must be before early return — hooks must run unconditionally
+    // must run unconditionally before early return
     const contextValue = useMemo(
       () => ({ onClose, titleId, bodyId, setTitleMounted, setBodyMounted }),
       [onClose, titleId, bodyId]
     );
 
-    // Detect compound mode: user explicitly passes ModalHeader/ModalBody/ModalFooter as children
     const childArray = React.Children.toArray(children);
     const isCompoundMode = childArray.some(
       child => React.isValidElement(child) &&
@@ -152,13 +103,11 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     );
     const showCloseButton = withCloseButton ?? (title !== undefined);
 
-    // Determine if we should render at all
     const shouldMount = overlayTransition.mounted || keepMounted;
     if (!shouldMount) return null;
 
     const isHidden = !overlayTransition.mounted && keepMounted;
 
-    // Build overlay props for fullScreen
     const computedOverlayProps = {
       ...overlayProps,
       ...(fullScreen ? { transparent: true } : {}),
@@ -218,7 +167,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       </ThemedComponent>
     );
 
-    // Portal to body or render in place
     if (portal && typeof document !== 'undefined') {
       return createPortal(content, document.body);
     }

@@ -21,9 +21,6 @@ import type { ShadowAppearanceClassMapper } from "../appearance/shadowAppearance
 import type { DisabledClassMapper } from "../appearance/disabledClassMapper";
 import type { TextAlignClassMapper } from "../typography/textAlignClassMapper";
 
-/**
- * Size theme structure for interactive components (Button, Badge, Chip).
- */
 export interface InteractiveSizeClassMapper {
   px: PxClassMapper;
   py: PyClassMapper;
@@ -32,9 +29,6 @@ export interface InteractiveSizeClassMapper {
   gap: GapClassMapper;
 }
 
-/**
- * Appearance theme structure for interactive components.
- */
 export interface InteractiveAppearanceClassMappers {
   background: SimpleConsumerClassMapper;
   text: SimpleConsumerClassMapper;
@@ -45,9 +39,6 @@ export interface InteractiveAppearanceClassMappers {
   disabled: DisabledClassMapper;
 }
 
-/**
- * Layout theme structure for interactive components.
- */
 export interface InteractiveLayoutClassMappers extends DefaultSizedLayoutClassMappers {
   border: BorderClassMapper;
   ring: RingClassMapper;
@@ -62,33 +53,21 @@ export interface InteractiveLayoutClassMappers extends DefaultSizedLayoutClassMa
   shrink: ShrinkClassMapper;
 }
 
-/**
- * Shared theme interface for interactive components (Badge, Chip, Code, Button).
- */
 export interface InteractiveComponentTheme extends BaseTypographyComponentTheme {
   size: InteractiveSizeClassMapper;
   appearance: InteractiveAppearanceClassMappers;
   layout: InteractiveLayoutClassMappers;
 }
 
-/**
- * Layout theme for Button component.
- * @deprecated Use InteractiveLayoutClassMappers instead - cursor is now included in base theme.
- */
+/** @deprecated Use InteractiveLayoutClassMappers — cursor now included in base. */
 export type ButtonLayoutClassMappers = InteractiveLayoutClassMappers;
 
-/**
- * Size theme structure for layout components (Card, Section, Container, Stack, Row, Col).
- */
 export interface LayoutSizeClassMapper {
   px: PxClassMapper;
   py: PyClassMapper;
   gap: GapClassMapper;
 }
 
-/**
- * Appearance theme structure for layout components.
- */
 export interface LayoutAppearanceClassMappers {
   background: SimpleConsumerClassMapper;
   text: SimpleConsumerClassMapper;
@@ -97,9 +76,6 @@ export interface LayoutAppearanceClassMappers {
   shadow: ShadowAppearanceClassMapper;
 }
 
-/**
- * Layout theme structure for layout components.
- */
 export interface LayoutLayoutClassMappers extends DefaultSizedLayoutClassMappers {
   wrap: WrapClassMapper;
   direction: DirectionClassMapper;
@@ -110,9 +86,6 @@ export interface LayoutLayoutClassMappers extends DefaultSizedLayoutClassMappers
   shrink: ShrinkClassMapper;
 }
 
-/**
- * Shared theme interface for basic flex layout components (Col).
- */
 export interface BasicFlexLayoutComponentTheme extends BaseComponentTheme {
   size: LayoutSizeClassMapper;
   appearance: LayoutAppearanceClassMappers;
@@ -120,9 +93,7 @@ export interface BasicFlexLayoutComponentTheme extends BaseComponentTheme {
   typography: { textAlign: TextAlignClassMapper };
 }
 
-/**
- * Shared theme interface for layout components with breakpoint support (Stack, Row).
- */
+// breakpoint support adds responsive flex-direction switching (Stack, Row)
 export interface FlexLayoutComponentTheme extends BaseComponentTheme {
   size: LayoutSizeClassMapper & { breakpoint: BreakpointClassMapper };
   appearance: LayoutAppearanceClassMappers;

@@ -1,45 +1,11 @@
-/**
- * Options for creating a scoped keyboard navigation handler.
- */
 export interface ScopedKeydownHandlerOptions {
-  /** Parent container to scope navigation within */
   parentSelector: string;
-  /** Selector for navigable items within the parent */
   siblingSelector: string;
-  /** Whether to loop from last to first / first to last (default: true) */
   loop?: boolean;
-  /** Orientation for arrow key mapping (default: 'vertical') */
   orientation?: 'vertical' | 'horizontal';
-  /** Called when Enter or Space is pressed on an item */
   onKeyDown?: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
 
-/**
- * Creates a keyboard event handler for navigating between sibling elements
- * within a scoped parent container using arrow keys, Home, End, Enter, Space.
- *
- * This is a pure function (not a hook) — suitable for use in event handlers.
- *
- * Supports:
- * - ArrowDown/ArrowUp (vertical) or ArrowRight/ArrowLeft (horizontal) navigation
- * - Home/End jump to first/last
- * - Skips disabled items ([data-disabled])
- * - Loop wrapping (configurable)
- *
- * @example
- * ```tsx
- * <div
- *   role="menuitem"
- *   data-menu-item
- *   onKeyDown={createScopedKeydownHandler({
- *     parentSelector: '[data-menu-dropdown]',
- *     siblingSelector: '[data-menu-item]:not([data-disabled])',
- *     loop: true,
- *     orientation: 'vertical',
- *   })}
- * />
- * ```
- */
 export function createScopedKeydownHandler(
   options: ScopedKeydownHandlerOptions
 ): (event: React.KeyboardEvent<HTMLElement>) => void {
