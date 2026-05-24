@@ -104,16 +104,22 @@ Categories are defined in `src/components/ui/props/keys.ts`. Each component spec
 - `"layout"` — Structural elements (Card, Row, Col, Stack, Section, Container, Grid*, Divider). Generous spacing.
 
 ## Key Defaults (Don't Redundantly Specify)
-- **Button**: primary, outline, semibold, rounded, padding, gap, shadow, ring, focusVisible
-- **Card**: padding, rounded, outline, gap
-- **Row**: itemsCenter, gap, outline
-- **Stack**: padding, gap, outline
-- **Badge**: primary, outline, pill
-- **Chip**: secondary (not primary!), outline, rounded
-- **Link**: link (not primary!), outline, underline
-- **Input**: primary, outline, rounded
-- **Typography** (Text, Title, etc.): md, primary, outline
-- **Layout** (Row, Col, Stack, Card, Section, Container, Grid*): gap, md, outline
+
+> **Source of truth:** `src/components/ui/{component}/{component}Defaults.ts` (and the `typography/{component}/{component}Defaults.ts` mirror). The list below covers the defaults that are most commonly forgotten or surprising. Check the defaults file when in doubt — these lists drift faster than the source.
+
+- **Button**: sm, primary, outline, semibold, rounded, padding, gap, ring, focusVisible, cursorPointer, transition (note: no `shadow` by default — `ring`, not shadow)
+- **Card**: md, primary, outline, rounded, border, padding, gap, flex, column
+- **Row**: md, row, flex, itemsCenter, gap, noPadding, noBorder, noRing, outline, sharp
+- **Col**: md, column, flex, gap, noPadding, noBorder, noRing, outline, sharp
+- **Stack**: md, flex, column, flexWrap, gap, padding, noBorder, noRing, outline, sharp
+- **Section**: md, wFull, flex, column, itemsStart, gap, padding, noBorder, noRing, noShadow, outline, sharp, responsive
+- **Badge**: md, primary, outline, pill, semibold, uppercase
+- **Chip**: md, secondary (not primary!), outline, rounded, mono
+- **NavLink**: sm, primary, outline, rounded, noBorder, noShadow, noRing, wFull, textLeft
+- **Link**: link (not primary!), outline, underline, cursorPointer
+- **Input**: md, primary, outline, rounded, wFull, ring, focusVisible
+- **Icon**: md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noRing, noShadow, noShrink, noTransition, wFit (container-mode props default off; appearance not applied until set)
+- **Typography** (Text, Title, etc.): md, inherit (not primary!), outline
 
 ## Boolean Props Must Not Leak to DOM
 All boolean props (size, appearance, variant, shape, typography, layout) are consumed by the theme system via `getComponentConfig()` and must be stripped before rendering to the DOM element. Only HTML-valid attributes should pass through.

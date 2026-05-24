@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-VaneUI (`@vaneui/ui`, v0.9.0) is a React component library with 24 customizable UI components. Built with TypeScript, React 19, Tailwind CSS v4, and Rollup. Uses a boolean props API (`<Button primary lg filled>`) and CSS variable-based theming via `ThemeProvider`.
+VaneUI (`@vaneui/ui`, v0.9.0) is a React component library with 40+ customizable React components (50+ named exports including sub-components). Built with TypeScript, React 19, Tailwind CSS v4, and Rollup. Uses a boolean props API (`<Button primary lg filled>`) and CSS variable-based theming via `ThemeProvider`.
 
 ## CRITICAL: Verification After ANY Code Change
 
@@ -54,7 +54,7 @@ When creating or modifying components, **ALL steps below must be completed**. Us
    - See `.claude/rules/playground-examples.md` for patterns
 
 5. **Add E2E Fixtures & Tests**
-   - Add test fixtures to `e2e/fixtures/test-harness.tsx` with `data-testid` attributes
+   - Add test fixtures to `e2e/fixtures/test-fixtures.tsx` with `data-testid` attributes
    - Add e2e spec in `e2e/` validating computed CSS styles (see `.claude/rules/e2e-testing.md`)
 
 6. **Verify (ALL must pass)**
@@ -99,9 +99,10 @@ When a task matches an agent's trigger below, you **MUST** delegate to that agen
 
 | Category | Components | `data-vane-type` |
 |----------|-----------|-----------------|
-| **Interactive** | Button, Badge, Chip, Code, Input, Checkbox, Label | `ui` |
-| **Layout** | Card, Section, Container, Row, Col, Stack, Grid2-6, Divider, Img | `layout` |
-| **Typography** | Text, Title, SectionTitle, PageTitle, Link, List, ListItem | `ui` |
+| **Interactive** | Button, IconButton, Badge, Chip, Code, Kbd, Mark, Input, Checkbox, Label, Icon | `ui` |
+| **Overlay / Floating** | Overlay, Modal (+ Header/Body/Footer/CloseButton), Popup, PopupTrigger, Menu (+ Item/Label), NavLink | `ui` |
+| **Layout** | Card (+ Header/Body/Footer), Section, Container, Row, Col, Stack, Grid2–6, Divider, Img | `layout` |
+| **Typography** | Text, Title, SectionTitle, PageTitle, Link, List, ListItem, Blockquote | `ui` |
 
 ## Prop System (Boolean Flags)
 
@@ -125,24 +126,26 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 
 ## Key Defaults (Do NOT Redundantly Specify)
 
+> **Source of truth:** each component's `src/components/ui/{component}/{component}Defaults.ts` (typography components mirror under `ui/typography/{component}/{component}Defaults.ts`). The table below is curated for the defaults that are most commonly forgotten — it drifts faster than the source. When in doubt, read the defaults file.
+
 | Component | Defaults |
 |-----------|----------|
-| **Button** | sm, primary, outline, semibold, rounded, padding, gap, ring, focusVisible, cursorPointer |
-| **Card** | padding, rounded, outline, gap, border |
-| **Row** | itemsCenter, gap, noPadding, outline, sharp |
-| **Col** | gap, noPadding, outline, sharp |
-| **Stack** | padding, gap, flexWrap, outline, sharp |
+| **Button** | sm, primary, outline, semibold, rounded, padding, gap, ring, focusVisible, cursorPointer, transition (no `shadow`) |
+| **Card** | md, primary, outline, rounded, border, padding, gap, flex, column |
+| **Row** | md, row, flex, itemsCenter, gap, noPadding, noBorder, noRing, outline, sharp |
+| **Col** | md, column, flex, gap, noPadding, noBorder, noRing, outline, sharp |
+| **Stack** | md, flex, column, flexWrap, gap, padding, noBorder, noRing, outline, sharp |
 | **Badge** | md, primary, outline, pill, semibold, uppercase |
 | **Chip** | md, secondary (not primary!), outline, rounded, mono |
 | **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noRing, wFull, textLeft |
 | **Link** | link (not primary!), outline, underline, cursorPointer |
-| **Input** | primary, outline, rounded, wFull, ring, focusVisible |
-| **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline |
+| **Input** | md, primary, outline, rounded, wFull, ring, focusVisible |
+| **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noRing, noShadow, noShrink, noTransition, wFit |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
 | **Label** | sm, flex, gap, inherit, medium |
 | **Modal** | md, wFull, flex, column, overflowAuto, relative, noPadding, gap, rounded, shadow, primary, outline |
 | **Container** | md, wFull, flex, column, itemsCenter, gap, noPadding, outline, sharp |
-| **Section** | md, wFull, flex, column, itemsStart, gap, padding, outline, sharp, responsive |
+| **Section** | md, wFull, flex, column, itemsStart, gap, padding, noBorder, noRing, noShadow, outline, sharp, responsive |
 | **Typography** (Text, Title, etc.) | md, inherit (not primary!), outline |
 | **Layout** (Row, Col, Stack, Card, Grid*) | gap, md, outline |
 
@@ -151,16 +154,25 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 ```
 src/
 ├── components/
-│   ├── ui/              # Component files (button.tsx, card.tsx, etc.)
-│   │   ├── props/       # 30+ prop type definition files + keys.ts (category system)
-│   │   ├── theme/       # Theme implementations (appearance/, size/, layout/, typography/)
-│   │   ├── classes/     # CSS class mappings
-│   │   └── css/         # vars.css (CSS variables), index.css
-│   ├── tests/           # 40+ test files (Jest + Testing Library)
-│   ├── utils/           # deepMerge, componentUtils
-│   ├── themeContext.tsx  # ThemeProvider & useTheme
-│   └── themedComponent.tsx  # Generic themed component wrapper
-└── index.ts             # Barrel exports
+│   ├── ui/                      # One subdirectory per component; layout.tsx is the only flat file
+│   │   ├── {component}/         # button/, card/, badge/, icon/, kbd/, mark/, modal/, menu/,
+│   │   │                        # popup/, navLink/, etc. — each contains {C}.tsx, {C}Props.ts,
+│   │   │                        # {C}Categories.ts, default{C}Theme.ts, {component}Defaults.ts,
+│   │   │                        # index.ts
+│   │   ├── typography/          # text/, title/, sectionTitle/, pageTitle/, link/, list/,
+│   │   │                        # listItem/, blockquote/ — sibling of theme/, not under it
+│   │   ├── props/               # Shared prop type files + keys.ts + categoryBuilders.ts
+│   │   ├── theme/               # Shared theme modules: common.ts (interactiveClassMappers),
+│   │   │                        # layout.ts, defaults.ts aggregator
+│   │   ├── classes/             # CSS class mappings
+│   │   ├── css/                 # vars.css, tokens.css, rules.css, index.css
+│   │   └── layout.tsx           # Re-exports layout components (Card, Row, Col, Stack, Grid*,
+│   │                            # Section, Container, Divider)
+│   ├── tests/                   # 68 test files (Jest + Testing Library)
+│   ├── utils/                   # deepMerge, componentUtils, stackingContext
+│   ├── themeContext.tsx         # ThemeProvider & useTheme
+│   └── themedComponent.tsx      # Generic themed component wrapper
+└── index.ts                     # Barrel exports
 ```
 
 **Component pattern**: `forwardRef` + `useTheme()` + `ThemedComponent` wrapper. All components support `className` (merged via `twMerge`), `ref`, `tag` prop, and `href` for tag switching (renders as `<a>`).
