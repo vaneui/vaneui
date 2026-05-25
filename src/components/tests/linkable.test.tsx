@@ -249,12 +249,109 @@ describe('Linkable Components Tests', () => {
       const div = container.querySelector('div');
       expect(div).toBeInTheDocument();
       expect(div).toHaveTextContent('Section Content');
-      
+
       const anchor = container.querySelector('a');
       expect(anchor).not.toBeInTheDocument();
     });
 
 
+  });
+
+  describe('Row / Col / Stack — href tag-switching', () => {
+    // Row/Col/Stack gained href support so they can act as click targets
+    // (feature tiles, clickable list rows, etc.). Negative cases above cover
+    // the no-href path; these cover the positive path + attribute pass-through.
+
+    it('should render Row as anchor when href is provided', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Row href="/dashboard">Dashboard Row</Row>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a.vane-row');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', '/dashboard');
+      expect(anchor).toHaveTextContent('Dashboard Row');
+
+      // Should not render as div
+      const div = container.querySelector('div.vane-row');
+      expect(div).not.toBeInTheDocument();
+    });
+
+    it('should render Col as anchor when href is provided', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Col href="/feature/billing">Billing Feature</Col>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a.vane-col');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', '/feature/billing');
+      expect(anchor).toHaveTextContent('Billing Feature');
+
+      const div = container.querySelector('div.vane-col');
+      expect(div).not.toBeInTheDocument();
+    });
+
+    it('should render Stack as anchor when href is provided', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Stack href="/tile/auth">Auth Tile</Stack>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a.vane-stack');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', '/tile/auth');
+      expect(anchor).toHaveTextContent('Auth Tile');
+
+      const div = container.querySelector('div.vane-stack');
+      expect(div).not.toBeInTheDocument();
+    });
+
+    it('should pass anchor HTML attributes through (target, rel, download)', () => {
+      // Single representative case — all three share the same Anchor attr
+      // surface via Partial<AnchorHTMLAttributes>.
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Row
+            href="https://example.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            download="file.pdf"
+          >
+            External
+          </Row>
+        </ThemeProvider>
+      );
+
+      const anchor = container.querySelector('a.vane-row');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).toHaveAttribute('href', 'https://example.com');
+      expect(anchor).toHaveAttribute('target', '_blank');
+      expect(anchor).toHaveAttribute('rel', 'noopener noreferrer');
+      expect(anchor).toHaveAttribute('download', 'file.pdf');
+    });
+
+    it('should support tag prop to override anchor rendering (e.g. for Next.js Link)', () => {
+      // Users wrapping with Next.js Link via tag={Link} — the custom tag
+      // wins over the href-driven tagFunction default. We can't import
+      // next/link in tests, so use a fake component as the tag override.
+      const FakeLink = ({ href, children, ...props }: { href?: string; children?: React.ReactNode }) => (
+        <a data-testid="fake-link" href={href} {...props}>{children}</a>
+      );
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Stack href="/internal" tag={FakeLink}>Tile</Stack>
+        </ThemeProvider>
+      );
+
+      const fakeLink = container.querySelector('[data-testid="fake-link"]');
+      expect(fakeLink).toBeInTheDocument();
+      expect(fakeLink).toHaveAttribute('href', '/internal');
+    });
   });
 
   describe('Anchor-specific attributes', () => {
