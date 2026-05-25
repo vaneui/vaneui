@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
 import {
+  Badge,
   Card,
   Chip,
   Code,
@@ -20,8 +21,8 @@ import {
  *
  * 1. **Always-on**: NavLink / MenuItem / Link default to `focusVisible: true`
  *    because they are always interactive (button or anchor).
- * 2. **Conditional**: Card / Chip / Code only inject `focusVisible: true`
- *    when `href` is set, since their default tag (`div`/`span`/`code`) is
+ * 2. **Conditional**: Badge / Card / Chip / Code only inject `focusVisible: true`
+ *    when `href` is set, since their default tag (`span`/`div`/`code`) is
  *    not focusable and the class would be dead.
  *
  * Users can opt out anywhere via `noFocusVisible`.
@@ -87,7 +88,33 @@ describe('Focus ring defaults — always-on (NavLink, MenuItem, Link)', () => {
   });
 });
 
-describe('Focus ring defaults — conditional on href (Card, Chip, Code)', () => {
+describe('Focus ring defaults — conditional on href (Badge, Card, Chip, Code)', () => {
+  describe('Badge', () => {
+    it('without href (rendered as span) has NO focus-visible classes', () => {
+      const { container } = render(wrap(<Badge>Active</Badge>));
+      const span = container.querySelector('span');
+      expect(span).toBeInTheDocument();
+      expect(span).not.toHaveClass(...FOCUS_RING_CLASSES);
+    });
+
+    it('with href (rendered as anchor) has focus-visible classes', () => {
+      const { container } = render(
+        wrap(<Badge href="/filter?status=active">Active</Badge>)
+      );
+      const a = container.querySelector('a');
+      expect(a).toBeInTheDocument();
+      expect(a).toHaveClass(...FOCUS_RING_CLASSES);
+    });
+
+    it('with href + noFocusVisible opt-out removes the classes', () => {
+      const { container } = render(
+        wrap(<Badge href="/filter" noFocusVisible>Active</Badge>)
+      );
+      const a = container.querySelector('a');
+      expect(a).not.toHaveClass(...FOCUS_RING_CLASSES);
+    });
+  });
+
   describe('Card', () => {
     it('without href (rendered as div) has NO focus-visible classes', () => {
       const { container } = render(wrap(<Card>Content</Card>));

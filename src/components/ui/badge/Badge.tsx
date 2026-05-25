@@ -6,7 +6,10 @@ import { useTheme } from "../../themeContext";
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
   function Badge(props, ref) {
     const theme = useTheme();
-    return <ThemedComponent theme={theme.badge} ref={ref} {...props} />
+    // Focus ring only when href turns the rendered tag into <a>; skip when
+    // user opts out with noFocusVisible.
+    const focusInjection = props.href && !props.noFocusVisible ? { focusVisible: true as const } : undefined;
+    return <ThemedComponent theme={theme.badge} ref={ref} {...focusInjection} {...props} />
   }
 );
 
