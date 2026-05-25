@@ -137,8 +137,8 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 | **Stack** | md, flex, column, flexWrap, gap, padding, noBorder, noRing, outline, sharp |
 | **Badge** | md, primary, outline, pill, semibold, uppercase |
 | **Chip** | md, secondary (not primary!), outline, rounded, mono |
-| **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noRing, wFull, textLeft |
-| **Link** | md, link (not primary!), underline, sans, cursorPointer, inheritSize, wFit (no variant default) |
+| **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noRing, wFull, textLeft, focusVisible |
+| **Link** | md, link (not primary!), underline, sans, cursorPointer, inheritSize, wFit, focusVisible (no variant default) |
 | **Input** | md, primary, outline, rounded, wFull, ring, focusVisible |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noRing, noShadow, noShrink, noTransition, wFit |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |

@@ -115,8 +115,8 @@ Categories are defined in `src/components/ui/props/keys.ts`. Each component spec
 - **Section**: md, wFull, flex, column, itemsStart, gap, padding, noBorder, noRing, noShadow, outline, sharp, responsive
 - **Badge**: md, primary, outline, pill, semibold, uppercase
 - **Chip**: md, secondary (not primary!), outline, rounded, mono
-- **NavLink**: sm, primary, outline, rounded, noBorder, noShadow, noRing, wFull, textLeft
-- **Link**: md, link (not primary!), underline, sans, cursorPointer, inheritSize, wFit (no variant default)
+- **NavLink**: sm, primary, outline, rounded, noBorder, noShadow, noRing, wFull, textLeft, focusVisible
+- **Link**: md, link (not primary!), underline, sans, cursorPointer, inheritSize, wFit, focusVisible (no variant default)
 - **Input**: md, primary, outline, rounded, wFull, ring, focusVisible
 - **Icon**: md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noRing, noShadow, noShrink, noTransition, wFit (container-mode props default off; appearance not applied until set)
 - **Typography** (Text, Title, etc.): md, inherit (not primary!), outline
