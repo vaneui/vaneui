@@ -93,10 +93,11 @@ export interface BasicFlexLayoutComponentTheme extends BaseComponentTheme {
   typography: { textAlign: TextAlignClassMapper };
 }
 
-// breakpoint support adds responsive flex-direction switching (Stack, Row)
+// breakpoint support adds responsive flex-direction switching (Stack, Row, Col);
+// focusVisible is wired so href tag-switches to <a> render a keyboard ring.
 export interface FlexLayoutComponentTheme extends BaseComponentTheme {
   size: LayoutSizeClassMapper & { breakpoint: BreakpointClassMapper };
   appearance: LayoutAppearanceClassMappers;
-  layout: LayoutLayoutClassMappers;
+  layout: LayoutLayoutClassMappers & { focusVisible: FocusVisibleClassMapper };
   typography: { textAlign: TextAlignClassMapper };
 }

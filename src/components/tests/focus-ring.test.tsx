@@ -6,9 +6,12 @@ import {
   Card,
   Chip,
   Code,
+  Col,
   Link,
   NavLink,
   MenuItem,
+  Row,
+  Stack,
   ThemeProvider,
   defaultTheme,
 } from '../../index';
@@ -21,9 +24,9 @@ import {
  *
  * 1. **Always-on**: NavLink / MenuItem / Link default to `focusVisible: true`
  *    because they are always interactive (button or anchor).
- * 2. **Conditional**: Badge / Card / Chip / Code only inject `focusVisible: true`
- *    when `href` is set, since their default tag (`span`/`div`/`code`) is
- *    not focusable and the class would be dead.
+ * 2. **Conditional**: Badge / Card / Chip / Code / Row / Col / Stack only
+ *    inject `focusVisible: true` when `href` is set, since their default
+ *    tag (`span`/`div`/`code`) is not focusable and the class would be dead.
  *
  * Users can opt out anywhere via `noFocusVisible`.
  */
@@ -88,7 +91,7 @@ describe('Focus ring defaults — always-on (NavLink, MenuItem, Link)', () => {
   });
 });
 
-describe('Focus ring defaults — conditional on href (Badge, Card, Chip, Code)', () => {
+describe('Focus ring defaults — conditional on href (Badge, Card, Chip, Code, Row, Col, Stack)', () => {
   describe('Badge', () => {
     it('without href (rendered as span) has NO focus-visible classes', () => {
       const { container } = render(wrap(<Badge>Active</Badge>));
@@ -198,6 +201,84 @@ describe('Focus ring defaults — conditional on href (Badge, Card, Chip, Code)'
         wrap(<Code href="https://example.com" noFocusVisible>code</Code>)
       );
       const a = container.querySelector('a');
+      expect(a).not.toHaveClass(...FOCUS_RING_CLASSES);
+    });
+  });
+
+  describe('Row', () => {
+    it('without href (rendered as div) has NO focus-visible classes', () => {
+      const { container } = render(wrap(<Row>content</Row>));
+      const div = container.querySelector('div.vane-row');
+      expect(div).toBeInTheDocument();
+      expect(div).not.toHaveClass(...FOCUS_RING_CLASSES);
+    });
+
+    it('with href (rendered as anchor) has focus-visible classes', () => {
+      const { container } = render(
+        wrap(<Row href="/dashboard">Dashboard</Row>)
+      );
+      const a = container.querySelector('a.vane-row');
+      expect(a).toBeInTheDocument();
+      expect(a).toHaveClass(...FOCUS_RING_CLASSES);
+    });
+
+    it('with href + noFocusVisible opt-out removes the classes', () => {
+      const { container } = render(
+        wrap(<Row href="/dashboard" noFocusVisible>Dashboard</Row>)
+      );
+      const a = container.querySelector('a.vane-row');
+      expect(a).not.toHaveClass(...FOCUS_RING_CLASSES);
+    });
+  });
+
+  describe('Col', () => {
+    it('without href (rendered as div) has NO focus-visible classes', () => {
+      const { container } = render(wrap(<Col>content</Col>));
+      const div = container.querySelector('div.vane-col');
+      expect(div).toBeInTheDocument();
+      expect(div).not.toHaveClass(...FOCUS_RING_CLASSES);
+    });
+
+    it('with href (rendered as anchor) has focus-visible classes', () => {
+      const { container } = render(
+        wrap(<Col href="/feature/auth">Feature</Col>)
+      );
+      const a = container.querySelector('a.vane-col');
+      expect(a).toBeInTheDocument();
+      expect(a).toHaveClass(...FOCUS_RING_CLASSES);
+    });
+
+    it('with href + noFocusVisible opt-out removes the classes', () => {
+      const { container } = render(
+        wrap(<Col href="/feature/auth" noFocusVisible>Feature</Col>)
+      );
+      const a = container.querySelector('a.vane-col');
+      expect(a).not.toHaveClass(...FOCUS_RING_CLASSES);
+    });
+  });
+
+  describe('Stack', () => {
+    it('without href (rendered as div) has NO focus-visible classes', () => {
+      const { container } = render(wrap(<Stack>content</Stack>));
+      const div = container.querySelector('div.vane-stack');
+      expect(div).toBeInTheDocument();
+      expect(div).not.toHaveClass(...FOCUS_RING_CLASSES);
+    });
+
+    it('with href (rendered as anchor) has focus-visible classes', () => {
+      const { container } = render(
+        wrap(<Stack href="/tile/billing">Tile</Stack>)
+      );
+      const a = container.querySelector('a.vane-stack');
+      expect(a).toBeInTheDocument();
+      expect(a).toHaveClass(...FOCUS_RING_CLASSES);
+    });
+
+    it('with href + noFocusVisible opt-out removes the classes', () => {
+      const { container } = render(
+        wrap(<Stack href="/tile/billing" noFocusVisible>Tile</Stack>)
+      );
+      const a = container.querySelector('a.vane-stack');
       expect(a).not.toHaveClass(...FOCUS_RING_CLASSES);
     });
   });

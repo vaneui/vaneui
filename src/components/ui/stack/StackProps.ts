@@ -20,6 +20,7 @@ import type {
   BorderProps,
   ShadowProps,
   RingProps,
+  FocusVisibleProps,
   ShapeProps,
   VariantProps,
   TransparentProps,
@@ -50,6 +51,7 @@ export type StackProps = BaseProps &
   BorderProps &
   ShadowProps &
   RingProps &
+  FocusVisibleProps &
   ShapeProps &
   VariantProps &
   TransparentProps &
@@ -57,7 +59,10 @@ export type StackProps = BaseProps &
   TextAlignProps &
   WidthProps &
   HeightProps &
-  Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
+  Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> &
+  Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
+  /** URL to navigate to (renders component as anchor tag) */
+  href?: string;
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
 };

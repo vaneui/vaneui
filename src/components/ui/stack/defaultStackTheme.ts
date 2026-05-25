@@ -4,6 +4,7 @@ import type { StackTheme } from "./StackTheme";
 import { STACK_CATEGORIES } from "../props/categoryBuilders";
 import { stackDefaults } from "./stackDefaults";
 import { BreakpointClassMapper } from "../theme/size";
+import { FocusVisibleClassMapper } from "../theme/layout";
 import { TextAlignClassMapper } from "../theme/typography";
 
 export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
@@ -15,12 +16,16 @@ export const defaultStackTheme = new ComponentTheme<StackProps, StackTheme>(
       ...layoutClassMappers.size,
       breakpoint: new BreakpointClassMapper(),
     },
+    layout: {
+      ...layoutClassMappers.layout,
+      focusVisible: new FocusVisibleClassMapper(),
+    },
     typography: {
       textAlign: new TextAlignClassMapper(),
     },
   },
   stackDefaults,
   STACK_CATEGORIES,
-  undefined,
+  (props: StackProps) => props.href ? "a" : "div",
   'layout'
 );

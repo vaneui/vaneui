@@ -95,6 +95,9 @@ export const CONTAINER_CATEGORIES = [
   ...TEXT_ALIGN,
 ] as const;
 
+// Adds `focusVisible` (excluded from VISUAL_DECORATION_LAYOUT by default) so
+// Row/Stack can render a keyboard focus ring when href turns the tag into <a>.
+// Col mirrors this in its own COL_CATEGORIES.
 export const RESPONSIVE_LAYOUT_CATEGORIES = [
   ...LAYOUT_FULL,
   ...BREAKPOINT,
@@ -105,6 +108,7 @@ export const RESPONSIVE_LAYOUT_CATEGORIES = [
   ...HEIGHT,
   ...COMMON_MODIFIERS,
   ...TEXT_ALIGN,
+  'focusVisible',
 ] as const;
 
 export const STACK_CATEGORIES = RESPONSIVE_LAYOUT_CATEGORIES;

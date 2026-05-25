@@ -10,7 +10,8 @@ import {
   TEXT_ALIGN,
 } from "../props/categoryBuilders";
 
-/** Categories for column layout components */
+/** Categories for column layout components. Adds `focusVisible` so Col can
+ * render a keyboard focus ring when href turns the tag into <a>. */
 export const COL_CATEGORIES = [
   ...LAYOUT_FULL,
   ...PADDING,
@@ -21,4 +22,5 @@ export const COL_CATEGORIES = [
   ...HEIGHT,
   ...COMMON_MODIFIERS,
   ...TEXT_ALIGN,
+  'focusVisible',
 ] as const;

@@ -4,6 +4,7 @@ import type { RowTheme } from "./RowTheme";
 import { ROW_CATEGORIES } from "../props/categoryBuilders";
 import { rowDefaults } from "./rowDefaults";
 import { BreakpointClassMapper } from "../theme/size";
+import { FocusVisibleClassMapper } from "../theme/layout";
 import { TextAlignClassMapper } from "../theme/typography";
 
 export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
@@ -15,12 +16,16 @@ export const defaultRowTheme = new ComponentTheme<RowProps, RowTheme>(
       ...layoutClassMappers.size,
       breakpoint: new BreakpointClassMapper(),
     },
+    layout: {
+      ...layoutClassMappers.layout,
+      focusVisible: new FocusVisibleClassMapper(),
+    },
     typography: {
       textAlign: new TextAlignClassMapper(),
     },
   },
   rowDefaults,
   ROW_CATEGORIES,
-  undefined,
+  (props: RowProps) => props.href ? "a" : "div",
   'layout'
 );

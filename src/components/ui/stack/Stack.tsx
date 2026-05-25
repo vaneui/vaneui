@@ -6,7 +6,10 @@ import { useTheme } from "../../themeContext";
 export const Stack = forwardRef<HTMLDivElement, StackProps>(
   function Stack(props, ref) {
     const theme = useTheme();
-    return <ThemedComponent ref={ref} theme={theme.stack} {...props} />
+    // Focus ring only when href turns the rendered tag into <a>; skip when
+    // user opts out with noFocusVisible.
+    const focusInjection = props.href && !props.noFocusVisible ? { focusVisible: true as const } : undefined;
+    return <ThemedComponent ref={ref} theme={theme.stack} {...focusInjection} {...props} />
   }
 );
 
