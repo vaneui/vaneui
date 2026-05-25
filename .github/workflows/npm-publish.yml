@@ -23,6 +23,17 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      # Fail fast if the npm token is missing/expired/lacks publish rights for
+      # @vaneui/ui — otherwise we'd waste ~10 min on build + e2e only to fail
+      # at the publish step with a misleading 404. npm whoami exits non-zero
+      # with EAUTHUNKNOWN on bad tokens.
+      - name: Verify npm Auth
+        run: |
+          npm whoami
+          echo "✅ npm auth OK"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Run Tests
         run: npm test
         env:

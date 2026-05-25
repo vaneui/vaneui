@@ -53,6 +53,17 @@ jobs:
             echo "version=$VERSION" >> $GITHUB_OUTPUT
           fi
 
+      # Fail fast if the npm token is missing/expired/lacks publish rights for
+      # @vaneui/ui — npm publish on a bad token returns a misleading 404
+      # instead of 401, which is hard to diagnose. npm whoami fails clearly.
+      - name: Verify npm Auth
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: |
+          npm whoami
+          echo "✅ npm auth OK"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       # Proceed only if the version is new
       - name: Build Package
         if: steps.check_version.outputs.should_publish == 'true'
