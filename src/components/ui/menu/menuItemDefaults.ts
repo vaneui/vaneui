@@ -18,4 +18,5 @@ export const menuItemDefaults: Partial<MenuItemProps> = {
   cursorPointer: true,
   transition: true,
   sans: true,
+  focusVisible: true,
 };

@@ -36,7 +36,7 @@ import type {
   WidthProps,
   HeightProps,
   DisabledProps,
-  InheritProps
+  InheritProps,
 } from "../props";
 
 /** Code component props */
@@ -77,7 +77,10 @@ export type CodeProps = BaseProps &
   WidthProps &
   HeightProps &
   DisabledProps &
-  Omit<React.HTMLAttributes<HTMLElement>, 'className' | 'children'> & {
+  Omit<React.HTMLAttributes<HTMLElement>, 'className' | 'children'> &
+  Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
+  /** URL to navigate to (renders component as anchor tag) */
+  href?: string;
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
 };

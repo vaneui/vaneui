@@ -10,6 +10,6 @@ export const defaultCodeTheme = new ComponentTheme<CodeProps, CodeTheme>(
   interactiveClassMappers,
   codeDefaults,
   CODE_CATEGORIES,
-  undefined,
+  (props: CodeProps) => props.href ? "a" : "code",
   'ui'
 );

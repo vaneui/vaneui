@@ -6,7 +6,11 @@ import { useTheme } from "../../themeContext";
 export const Chip = forwardRef<HTMLSpanElement, ChipProps>(
   function Chip(props, ref) {
     const theme = useTheme();
-    return <ThemedComponent theme={theme.chip} ref={ref} {...props} />
+    // Focus ring only when href turns the rendered tag into <a>; skip when
+    // user opts out with noFocusVisible (otherwise both end up in props and
+    // first-in-enum focusVisible wins).
+    const focusInjection = props.href && !props.noFocusVisible ? { focusVisible: true as const } : undefined;
+    return <ThemedComponent theme={theme.chip} ref={ref} {...focusInjection} {...props} />
   }
 );
 

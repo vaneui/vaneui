@@ -4,7 +4,7 @@ import type { CardTheme } from "./CardTheme";
 import { CARD_CATEGORIES } from "./CardCategories";
 import { cardDefaults } from "./cardDefaults";
 import { BreakpointClassMapper } from "../theme/size";
-import { WidthClassMapper, CursorClassMapper } from "../theme/layout";
+import { WidthClassMapper, CursorClassMapper, FocusVisibleClassMapper } from "../theme/layout";
 import { TextAlignClassMapper } from "../theme/typography";
 
 export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
@@ -17,6 +17,7 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       breakpoint: new BreakpointClassMapper(),
       width: new WidthClassMapper(),
       cursor: new CursorClassMapper(),
+      focusVisible: new FocusVisibleClassMapper(),
     },
     typography: {
       textAlign: new TextAlignClassMapper(),

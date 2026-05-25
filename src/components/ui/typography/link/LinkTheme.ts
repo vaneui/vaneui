@@ -6,6 +6,7 @@ import type { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
 import type { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import type { LetterSpacingClassMapper } from "../../theme/typography/letterSpacingClassMapper";
 import type { CursorClassMapper } from "../../theme/layout/cursorClassMapper";
+import type { FocusVisibleClassMapper } from "../../theme/layout/focusVisibleClassMapper";
 import type { LinkVariantClassMapper } from "../../theme/appearance/linkVariantClassMapper";
 
 export interface LinkTheme extends BaseTypographyComponentTheme {
@@ -19,5 +20,6 @@ export interface LinkTheme extends BaseTypographyComponentTheme {
   };
   layout: DefaultSizedLayoutClassMappers & {
     cursor: CursorClassMapper;
+    focusVisible: FocusVisibleClassMapper;
   };
 }

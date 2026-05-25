@@ -9,8 +9,9 @@ import { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
 import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import { LetterSpacingClassMapper } from "../../theme/typography/letterSpacingClassMapper";
 import { CursorClassMapper } from "../../theme/layout/cursorClassMapper";
+import { FocusVisibleClassMapper } from "../../theme/layout/focusVisibleClassMapper";
 import { LinkVariantClassMapper } from "../../theme/appearance/linkVariantClassMapper";
-import { TYPOGRAPHY_CATEGORIES } from "../common";
+import { LINK_CATEGORIES } from "./LinkCategories";
 import { linkDefaults } from "./linkDefaults";
 
 /**
@@ -37,10 +38,11 @@ export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new 
     layout: {
       ...defaultSizedLayoutClassMappers,
       cursor: new CursorClassMapper(),
+      focusVisible: new FocusVisibleClassMapper(),
     },
   },
   linkDefaults,
-  TYPOGRAPHY_CATEGORIES,
+  LINK_CATEGORIES,
   undefined,
   'ui'
 );

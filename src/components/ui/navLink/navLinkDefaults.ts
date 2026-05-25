@@ -18,4 +18,5 @@ export const navLinkDefaults: Partial<NavLinkProps> = {
   cursorPointer: true,
   transition: true,
   sans: true,
+  focusVisible: true,
 };

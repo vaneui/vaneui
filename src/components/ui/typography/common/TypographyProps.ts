@@ -22,6 +22,7 @@ import type {
   WidthProps,
   HeightProps,
   CursorProps,
+  FocusVisibleProps,
   InheritProps
 } from '../../props';
 
@@ -56,6 +57,7 @@ export type TypographyProps = BaseProps &
   WidthProps &
   HeightProps &
   CursorProps &
+  FocusVisibleProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */

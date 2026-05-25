@@ -1,5 +1,5 @@
 import type { BaseComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
-import type { DirectionClassMapper, WrapClassMapper, BorderClassMapper, RadiusClassMapper, RingClassMapper, CursorClassMapper } from "../theme/layout";
+import type { DirectionClassMapper, WrapClassMapper, BorderClassMapper, RadiusClassMapper, RingClassMapper, CursorClassMapper, FocusVisibleClassMapper } from "../theme/layout";
 import type { GapClassMapper, PxClassMapper, PyClassMapper, BreakpointClassMapper } from "../theme/size";
 import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
 import type { TextAlignClassMapper } from "../theme/typography";
@@ -19,6 +19,7 @@ export interface CardTheme extends BaseComponentTheme {
     breakpoint: BreakpointClassMapper;
     shadow: ShadowAppearanceClassMapper;
     cursor: CursorClassMapper;
+    focusVisible: FocusVisibleClassMapper;
   };
   appearance: {
     background: SimpleConsumerClassMapper;

@@ -20,6 +20,7 @@ import type {
   BorderProps,
   ShadowProps,
   RingProps,
+  FocusVisibleProps,
   ShapeProps,
   PaddingProps,
   VariantProps,
@@ -51,6 +52,7 @@ export type CardProps = BaseProps &
   BorderProps &
   ShadowProps &
   RingProps &
+  FocusVisibleProps &
   ShapeProps &
   PaddingProps &
   VariantProps &

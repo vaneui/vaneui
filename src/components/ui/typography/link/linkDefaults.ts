@@ -9,4 +9,5 @@ export const linkDefaults: Partial<TypographyProps> = {
   link: true,
   cursorPointer: true,
   inheritSize: true,
+  focusVisible: true,
 };
