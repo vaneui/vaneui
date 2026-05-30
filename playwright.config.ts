@@ -3,13 +3,31 @@ import { defineConfig } from '@playwright/test';
 // Declare the custom fixture option used by e2e/base.ts
 type TestOptions = { testPage: string };
 
+// Specs that need to run against BOTH pipelines (prebuilt dist/ui.css AND the
+// Tailwind-consumer-compiled output). Everything else runs once on prebuilt.
+//
+// What belongs here: tests that would surface differences between the two CSS
+// build paths — broad computed-style coverage (computed-styles), CSS rule
+// auditing (css-noise-audit), and color/contrast checks that depend on the
+// exact resolved tokens (filled-contrast).
+//
+// What does NOT belong here: behaviour tests (focus, keyboard, z-index,
+// menu/popup mechanics) — they exercise component logic, not CSS pipelines.
+const DUAL_PIPELINE_SPECS = /(css-noise-audit|computed-styles|filled-contrast)\.spec\.ts$/;
+
 export default defineConfig<TestOptions>({
   testDir: './e2e',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
+  // Local dev: saturate the box. CI (GitHub-hosted ubuntu-latest is 2 vCPU /
+  // 7 GB) — keep modest; sharding in the workflow does the real CI parallelism.
+  workers: process.env.CI ? '50%' : '100%',
+  reporter: process.env.CI ? 'github' : 'list',
   use: {
-    baseURL: 'http://localhost:3000',
+    // Port 4173 (vite preview default) — avoids collision with Next.js / CRA
+    // dev servers that commonly grab 3000 on dev machines. Was 3000.
+    baseURL: 'http://localhost:4173',
   },
   projects: [
     {
@@ -19,15 +37,16 @@ export default defineConfig<TestOptions>({
     {
       name: 'tailwind',
       use: { testPage: '/test-tailwind.html' },
+      testMatch: DUAL_PIPELINE_SPECS,
     },
   ],
   webServer: {
-    command:
-      'npm run build:css:ui && npm run build:css:vars && ' +
-      'cp src/components/css/tokens.css dist/tokens.css && ' +
-      'npx @tailwindcss/cli -i e2e/fixtures/tailwind-consumer.css -o e2e/fixtures/tailwind-output.css && ' +
-      'cd e2e/fixtures && npx vite --port 3000',
-    port: 3000,
+    command: 'npm run e2e:serve',
+    // Validate the server actually serves our fixture, not whatever else may
+    // happen to be listening on this port. `port` alone only checks for an
+    // open socket, which let an unrelated Next.js dev server be reused.
+    url: 'http://localhost:4173/test.html',
     reuseExistingServer: !process.env.CI,
+    timeout: 180_000,
   },
 });

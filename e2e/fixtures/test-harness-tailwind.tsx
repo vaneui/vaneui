@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { TestHarness } from './test-fixtures';
 
@@ -8,8 +7,4 @@ import './tailwind-output.css';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-root.render(
-  <React.StrictMode>
-    <TestHarness />
-  </React.StrictMode>
-);
+root.render(<TestHarness />);

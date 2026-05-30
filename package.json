@@ -94,6 +94,12 @@
     "playground": "npm run build:css:ui && npm run build:css:vars && concurrently --kill-others --raw \"npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css --watch\" \"npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css --watch\" \"cd playground && npx vite\"",
     "test:e2e": "npx playwright test",
     "test:e2e:ui": "npx playwright test --ui",
+    "e2e:build:css:tokens": "node -e \"const fs=require('fs');fs.mkdirSync('dist',{recursive:true});fs.copyFileSync('src/components/css/tokens.css','dist/tokens.css')\"",
+    "e2e:build:css:tw": "npx @tailwindcss/cli -i e2e/fixtures/tailwind-consumer.css -o e2e/fixtures/tailwind-output.css",
+    "e2e:build:css": "concurrently --names ui,vars,tw,tokens --kill-others-on-fail \"npm:build:css:ui\" \"npm:build:css:vars\" \"npm:e2e:build:css:tw\" \"npm:e2e:build:css:tokens\"",
+    "e2e:build:harness": "cd e2e/fixtures && npx vite build",
+    "e2e:build": "npm run e2e:build:css && npm run e2e:build:harness",
+    "e2e:serve": "npm run e2e:build && cd e2e/fixtures && npx vite preview --port 4173 --strictPort",
     "prepublishOnly": "npm run build && npm test && npm run test:e2e"
   },
   "dependencies": {
