@@ -4,6 +4,7 @@ import type { LabelProps } from "./LabelProps";
 export const labelDefaults: Partial<LabelProps> = {
   sm: true,
   flex: true,
+  itemsCenter: true,
   gap: true,
   sans: true,
   medium: true,
