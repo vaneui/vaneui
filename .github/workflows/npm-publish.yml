@@ -9,16 +9,6 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-    # Run the entire job inside Microsoft's official Playwright container.
-    # Image has the matching Chromium pre-installed at /ms-playwright, so
-    # there is no `playwright install` step to hang on (the previous in-place
-    # installer was hanging silently after download for the full timeout).
-    # Pinned to the same version as @playwright/test in package.json.
-    container:
-      image: mcr.microsoft.com/playwright:v1.58.2-noble
-      # Run as root: avoids cross-user permission issues between the runner's
-      # workspace owner (uid 1001) and the image's default `pwuser` (uid 1000).
-      options: --user 0
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -72,15 +62,14 @@ jobs:
       - name: Build Package
         run: npm run build
 
-      # Browsers are pre-installed in the container at /ms-playwright by
-      # Microsoft's Playwright image. Point Playwright at them via env so
-      # the test runner doesn't try to install anything itself.
-      - name: Run E2E Tests
+      - name: Install Playwright Browsers
         timeout-minutes: 15
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E Tests
+        run: npm run test:e2e
         env:
           CI: true
-          PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
-        run: npm run test:e2e
 
       - name: Check Build and Test Results
         if: failure()

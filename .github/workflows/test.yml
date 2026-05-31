@@ -58,21 +58,6 @@ jobs:
 
   e2e:
     runs-on: ubuntu-latest
-    # Run each shard inside Microsoft's official Playwright container so the
-    # browsers are pre-installed at /ms-playwright. The in-place `playwright
-    # install` step was hanging silently after the Chromium download
-    # completed (see npm-publish.yml history for the failing runs that drove
-    # this switch). Pinned to the same version as @playwright/test.
-    container:
-      image: mcr.microsoft.com/playwright:v1.58.2-noble
-      # Run as root — avoids cross-user permission issues between the runner
-      # workspace owner (uid 1001) and the image's default pwuser (uid 1000).
-      options: --user 0
-    strategy:
-      fail-fast: false
-      matrix:
-        # 4 shards in parallel — Playwright splits tests evenly across them.
-        shard: [1, 2, 3, 4]
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -89,17 +74,11 @@ jobs:
       - name: Build Package
         run: npm run build
 
-      - name: Run E2E Tests (shard ${{ matrix.shard }}/4)
+      - name: Install Playwright Browsers
         timeout-minutes: 15
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E Tests
+        run: npm run test:e2e
         env:
           CI: true
-          PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
-        run: npx playwright test --shard=${{ matrix.shard }}/4
-
-      - name: Upload Playwright Report
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report-shard-${{ matrix.shard }}
-          path: playwright-report/
-          retention-days: 7
