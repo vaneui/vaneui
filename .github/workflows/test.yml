@@ -89,7 +89,9 @@ jobs:
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+          # `-shell` suffix keeps the key isolated from any cache layer that
+          # might still hold a partial full-chromium install from earlier runs.
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}-shell
 
       # Always install OS deps (apt). Idempotent — packages already present
       # on ubuntu-latest are skipped; only a few small font packages are added.
@@ -97,13 +99,18 @@ jobs:
         timeout-minutes: 5
         run: npx playwright install-deps chromium
 
-      # Install the browser binary only on cache miss. Note: NOT --with-deps —
-      # OS deps are handled above. Bundling them into this step previously
-      # hung silently after the Chromium download until the 6h job timeout.
-      - name: Install Playwright Browser (chromium)
+      # Install ONLY chromium-headless-shell on cache miss. The full `chromium`
+      # target downloads two binaries (Chrome-for-Testing + headless-shell);
+      # the prior dual-download hung silently for the entire timeout after
+      # the first binary reported 100%. Headless-shell is what Playwright
+      # actually uses in CI's default headless mode — full Chrome isn't
+      # needed for e2e here.
+      - name: Install Playwright Browser (chromium-headless-shell)
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         timeout-minutes: 10
-        run: npx playwright install chromium
+        run: |
+          rm -rf ~/.cache/ms-playwright
+          ./node_modules/.bin/playwright install chromium-headless-shell
 
       - name: Build Package
         run: npm run build
