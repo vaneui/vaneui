@@ -64,7 +64,9 @@ jobs:
 
       - name: Get Playwright Version
         id: playwright-version
-        run: echo "version=$(node -p "require('./package.json').devDependencies['@playwright/test']")" >> $GITHUB_OUTPUT
+        # Read the actually-installed version, not the caret-ranged spec
+        # from package.json (^1.58.2 is a bad cache key).
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> $GITHUB_OUTPUT
 
       - name: Cache Playwright Browsers
         uses: actions/cache@v4
@@ -73,13 +75,18 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
 
-      - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
-
-      - name: Install Playwright OS Deps Only (cache hit)
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
+      # Always install OS deps. Idempotent on ubuntu-latest.
+      - name: Install Playwright OS Deps
+        timeout-minutes: 5
         run: npx playwright install-deps chromium
+
+      # Install the browser only on cache miss. Note: NOT --with-deps — bundling
+      # OS deps + browser install previously hung silently after the Chromium
+      # download until the 6h job timeout. Splitting them avoids that.
+      - name: Install Playwright Browser (chromium)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        timeout-minutes: 10
+        run: npx playwright install chromium
 
       - name: Run E2E Tests
         run: npm run test:e2e
