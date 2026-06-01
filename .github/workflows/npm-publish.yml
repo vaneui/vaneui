@@ -16,11 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          # Pinned to 24.15.0: Playwright 1.58.2's installer hangs forever at
-          # "100% of <size> MiB" on Node 24.16.0+ (bug fixed in Playwright
-          # 1.60.0). Bump this pin only when @playwright/test is upgraded.
-          # See https://github.com/microsoft/playwright/issues/* (Node 24.16 hang).
-          node-version: '24.15.0'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org' # Set registry for all npm commands
           cache: 'npm'
 
