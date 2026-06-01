@@ -25,9 +25,10 @@ export default defineConfig<TestOptions>({
   workers: process.env.CI ? '50%' : '100%',
   reporter: process.env.CI ? 'github' : 'list',
   use: {
-    // Port 4173 (vite preview default) — avoids collision with Next.js / CRA
-    // dev servers that commonly grab 3000 on dev machines. Was 3000.
+    // 4173 = vite preview default; avoids local Next.js/CRA :3000 collisions.
     baseURL: 'http://localhost:4173',
+    // Use full Chromium — headless-shell (1.49+ default) breaks :hover on Linux CI.
+    channel: 'chromium',
   },
   projects: [
     {

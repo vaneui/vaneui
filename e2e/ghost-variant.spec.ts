@@ -75,10 +75,10 @@ test.describe('Ghost variant: computed styles', () => {
     const bgBefore = await getBg(button);
     expect(isTransparent(bgBefore)).toBe(true);
 
-    // Hover, then poll until the hover bg transition has settled. A single
-    // read right after `hover()` raced the ~200ms transition on CI runners.
+    // Hover and check
     await button.hover();
-    await expect.poll(async () => isTransparent(await getBg(button))).toBe(false);
+    const bgAfter = await getBg(button);
+    expect(isTransparent(bgAfter)).toBe(false);
   });
 
   test('ghost badge has transparent background', async ({ page }) => {
