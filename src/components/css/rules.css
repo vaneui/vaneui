@@ -699,10 +699,13 @@
        `ring` get the matching stroke (Checkbox default is `noRing: true`,
        so the ring color is dormant by default). */
 
-    /* Unchecked: neutral border (overrides filled transparent + outline colored) */
+    /* Unchecked: neutral form-control border (overrides filled transparent
+       + outline appearance-colored). Uses --color-border-form, NOT the
+       appearance border tokens, so secondary/tertiary-appearance Card,
+       Button, Chip, etc. keep their lighter layout-grade border. */
     .vane-checkbox[data-variant] {
-        --border-color: var(--color-border-secondary);
-        --ring-color: var(--color-border-secondary);
+        --border-color: var(--color-border-form);
+        --ring-color: var(--color-border-form);
     }
 
     /* Checked + filled: border matches background (hidden into the fill color) */
