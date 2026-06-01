@@ -608,6 +608,18 @@ export function TestHarness() {
               Visible on dark
             </Label>
           </Card>
+
+          {/* Reference: a primary-outline Card whose border is --color-border-primary
+              (gray-200). Used in checkbox.spec.ts to assert that the Checkbox
+              unchecked border (gray-300 via --color-border-secondary) is
+              distinguishably darker than the layout default. */}
+          <Card primary outline data-testid="checkbox-ref-card-primary-outline" />
+
+          {/* Checkbox with `ring` enabled — used to verify the override sets
+              --ring-color (not just --border-color). Default Checkbox has
+              `noRing: true`, so ring color stays dormant unless opted in. */}
+          <Checkbox ring data-testid="checkbox-with-ring-unchecked" />
+          <Checkbox outline ring defaultChecked data-testid="checkbox-with-ring-checked-outline" />
         </section>
 
         {/* ── Overlay: visual appearance and computed styles ── */}

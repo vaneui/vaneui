@@ -694,26 +694,33 @@
 
 
     /* CHECKBOX OVERRIDES — checkboxes always need a visible border when unchecked,
-       but the global filled rule sets --border-color: transparent. */
+       but the global filled rule sets --border-color: transparent. Both
+       --border-color and --ring-color are set so consumers that enable
+       `ring` get the matching stroke (Checkbox default is `noRing: true`,
+       so the ring color is dormant by default). */
 
     /* Unchecked: neutral border (overrides filled transparent + outline colored) */
     .vane-checkbox[data-variant] {
         --border-color: var(--color-border-secondary);
+        --ring-color: var(--color-border-secondary);
     }
 
     /* Checked + filled: border matches background (hidden into the fill color) */
     .vane-checkbox[data-variant="filled"]:checked {
         --border-color: transparent;
+        --ring-color: transparent;
     }
 
     /* Checked + outline: border becomes the appearance color */
     .vane-checkbox[data-variant="outline"]:checked {
         --border-color: var(--checked-bg-color);
+        --ring-color: var(--checked-bg-color);
     }
 
     /* Checked + ghost: border becomes the appearance color (same as outline) */
     .vane-checkbox[data-variant="ghost"]:checked {
         --border-color: var(--checked-bg-color);
+        --ring-color: var(--checked-bg-color);
     }
 
     /* REDUCED MOTION — uses 0.01ms (not 0s) so JS animationend/transitionend listeners still fire. */
