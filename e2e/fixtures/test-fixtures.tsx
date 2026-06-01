@@ -211,6 +211,14 @@ export function TestHarness() {
           <Button md data-testid="button-icon-md"><StarIcon /> Button</Button>
           <Button lg data-testid="button-icon-lg"><StarIcon /> Button</Button>
           <Button xl data-testid="button-icon-xl"><StarIcon /> Button</Button>
+
+          {/* Text-only counterparts at the same sizes — used by computed-styles.spec to
+              assert padding stays the same whether or not a direct-child SVG is present. */}
+          <Button xs data-testid="button-text-xs">Button</Button>
+          <Button sm data-testid="button-text-sm">Button</Button>
+          <Button md data-testid="button-text-md">Button</Button>
+          <Button lg data-testid="button-text-lg">Button</Button>
+          <Button xl data-testid="button-text-xl">Button</Button>
         </section>
 
         {/* ── Typography inherit vs explicit ── */}

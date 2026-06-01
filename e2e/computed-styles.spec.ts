@@ -250,3 +250,32 @@ test.describe('Card gap-to-padding ratio', () => {
     });
   }
 });
+
+test.describe('Button padding does not depend on icon presence', () => {
+  // The previous `.vane-button:has(> svg) { --aspect-ratio: 1.5 }` rule shrank
+  // horizontal padding by ~25% whenever a direct-child SVG was present. That
+  // diverged from Chakra, Ant Design, and GitHub's new Primer, and created a
+  // cramping effect on the text-trailing edge when text was the second child.
+  // Removing it makes Button padding depend on `size` only.
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+  for (const size of sizes) {
+    test(`Button ${size}: padding-left matches between text-only and text-with-icon`, async ({ page }) => {
+      const withIcon = page.locator(`[data-testid="button-icon-${size}"]`);
+      const textOnly = page.locator(`[data-testid="button-text-${size}"]`);
+
+      const iconPadL = parseFloat(await getStyle(withIcon, 'padding-left'));
+      const textPadL = parseFloat(await getStyle(textOnly, 'padding-left'));
+      expect(iconPadL).toBeCloseTo(textPadL, 1);
+    });
+
+    test(`Button ${size}: padding-right matches between text-only and text-with-icon`, async ({ page }) => {
+      const withIcon = page.locator(`[data-testid="button-icon-${size}"]`);
+      const textOnly = page.locator(`[data-testid="button-text-${size}"]`);
+
+      const iconPadR = parseFloat(await getStyle(withIcon, 'padding-right'));
+      const textPadR = parseFloat(await getStyle(textOnly, 'padding-right'));
+      expect(iconPadR).toBeCloseTo(textPadR, 1);
+    });
+  }
+});
