@@ -229,13 +229,14 @@ test.describe('Border width (--bw variable)', () => {
 test.describe('Card gap-to-padding ratio', () => {
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
-  // Expected: gap-unit = py-unit / 2, both multiplied by --spacing (4px)
+  // Expected: gap-unit = py-unit / 2, both multiplied by --spacing (4px).
+  // Padding follows the shared layout curve (.5/.75/1/1.5/2 × md=24px).
   const expected: Record<string, { gap: number; paddingTop: number }> = {
-    xs: { gap: 4, paddingTop: 8 },
-    sm: { gap: 8, paddingTop: 16 },
+    xs: { gap: 6, paddingTop: 12 },
+    sm: { gap: 9, paddingTop: 18 },
     md: { gap: 12, paddingTop: 24 },
-    lg: { gap: 16, paddingTop: 32 },
-    xl: { gap: 20, paddingTop: 40 },
+    lg: { gap: 18, paddingTop: 36 },
+    xl: { gap: 24, paddingTop: 48 },
   };
 
   for (const size of sizes) {
@@ -249,6 +250,86 @@ test.describe('Card gap-to-padding ratio', () => {
       expect(gap).toBe(paddingTop / 2);
     });
   }
+});
+
+// ── 8. Layout spacing curve: md→xl doubles, gap == padding for primitives ──
+
+test.describe('Layout primitive (Stack) spacing curve', () => {
+  // Stack inherits the layout-type defaults where gap-unit == py-unit, so gap
+  // equals padding at every size. The shared curve is .5/.75/1/1.5/2 × md, so
+  // gap/padding = 8/12/16/24/32px and xl is exactly double md.
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  const expectedGap: Record<string, number> = { xs: 8, sm: 12, md: 16, lg: 24, xl: 32 };
+
+  for (const size of sizes) {
+    test(`Stack ${size}: gap equals vertical padding (1:1)`, async ({ page }) => {
+      const stack = page.locator(`[data-testid="stack-spacing-${size}"]`);
+      const gap = parseFloat(await getStyle(stack, 'row-gap'));
+      const paddingTop = parseFloat(await getStyle(stack, 'padding-top'));
+      expect(gap).toBeCloseTo(paddingTop, 1);
+    });
+
+    test(`Stack ${size}: gap matches expected curve value`, async ({ page }) => {
+      const stack = page.locator(`[data-testid="stack-spacing-${size}"]`);
+      const gap = parseFloat(await getStyle(stack, 'row-gap'));
+      expect(gap).toBeCloseTo(expectedGap[size], 1);
+    });
+  }
+
+  test('Stack gap is strictly increasing xs→xl', async ({ page }) => {
+    const gaps: number[] = [];
+    for (const size of sizes) {
+      gaps.push(parseFloat(await getStyle(page.locator(`[data-testid="stack-spacing-${size}"]`), 'row-gap')));
+    }
+    for (let i = 1; i < gaps.length; i++) {
+      expect(gaps[i]).toBeGreaterThan(gaps[i - 1]);
+    }
+  });
+
+  test('Stack xl gap is exactly double md gap (accelerating curve)', async ({ page }) => {
+    const md = parseFloat(await getStyle(page.locator('[data-testid="stack-spacing-md"]'), 'row-gap'));
+    const xl = parseFloat(await getStyle(page.locator('[data-testid="stack-spacing-xl"]'), 'row-gap'));
+    expect(xl).toBeCloseTo(md * 2, 1);
+  });
+});
+
+test.describe('Section spacing curve (desktop track)', () => {
+  // At the default 1280px viewport the desktop track applies. Section gap rides
+  // the shared curve (16/24/32/48/64px) keeping its ~2:3 gap:padding ratio, so
+  // xl gap doubles md gap and gap stays below padding at every size.
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  const expectedGap: Record<string, number> = { xs: 16, sm: 24, md: 32, lg: 48, xl: 64 };
+
+  for (const size of sizes) {
+    test(`Section ${size}: gap matches expected desktop curve value`, async ({ page }) => {
+      const section = page.locator(`[data-testid="section-spacing-${size}"]`);
+      const gap = parseFloat(await getStyle(section, 'row-gap'));
+      expect(gap).toBeCloseTo(expectedGap[size], 1);
+    });
+
+    test(`Section ${size}: gap is two-thirds of vertical padding (2:3)`, async ({ page }) => {
+      const section = page.locator(`[data-testid="section-spacing-${size}"]`);
+      const gap = parseFloat(await getStyle(section, 'row-gap'));
+      const paddingTop = parseFloat(await getStyle(section, 'padding-top'));
+      expect(gap).toBeCloseTo(paddingTop * (2 / 3), 1);
+    });
+  }
+
+  test('Section gap is strictly increasing xs→xl', async ({ page }) => {
+    const gaps: number[] = [];
+    for (const size of sizes) {
+      gaps.push(parseFloat(await getStyle(page.locator(`[data-testid="section-spacing-${size}"]`), 'row-gap')));
+    }
+    for (let i = 1; i < gaps.length; i++) {
+      expect(gaps[i]).toBeGreaterThan(gaps[i - 1]);
+    }
+  });
+
+  test('Section xl gap is exactly double md gap (accelerating curve)', async ({ page }) => {
+    const md = parseFloat(await getStyle(page.locator('[data-testid="section-spacing-md"]'), 'row-gap'));
+    const xl = parseFloat(await getStyle(page.locator('[data-testid="section-spacing-xl"]'), 'row-gap'));
+    expect(xl).toBeCloseTo(md * 2, 1);
+  });
 });
 
 test.describe('Button padding does not depend on icon presence', () => {

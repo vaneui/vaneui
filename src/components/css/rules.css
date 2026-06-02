@@ -74,12 +74,14 @@
         --br: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit)) * var(--br-unit) * var(--spacing));
     }
 
-    /* Layout type defaults */
+    /* Layout type defaults. gap/py units follow a shared curve anchored at md:
+       xs .5× / sm .75× / md 1× / lg 1.5× / xl 2× — so large sizes open up
+       (md→xl doubles) instead of the old flat +1/step ramp. */
     [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xs); }
     [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-sm); }
     [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-md); }
-    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 5; --py-unit: 5; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-lg); }
-    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 6; --py-unit: 6; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xl); }
+    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 6; --py-unit: 6; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-lg); }
+    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 8; --py-unit: 8; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xl); }
 
     /* NON-RESPONSIVE COMPONENTS */
 
@@ -185,23 +187,26 @@
     .vane-label[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-label[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
-    /* Card */
+    /* Card — padding on the shared layout curve (.5/.75/1/1.5/2 × md=6),
+       gap kept at half the padding. md unchanged (24px pad / 12px gap). */
     .vane-card { --py-unit: 6; --gap-unit: 3; --aspect-ratio: 1; }
-    .vane-card[data-size="xs"] { --py-unit: 2; --gap-unit: 1; }
-    .vane-card[data-size="sm"] { --py-unit: 4; --gap-unit: 2; }
+    .vane-card[data-size="xs"] { --py-unit: 3; --gap-unit: 1.5; }
+    .vane-card[data-size="sm"] { --py-unit: 4.5; --gap-unit: 2.25; }
     .vane-card[data-size="md"] { --py-unit: 6; --gap-unit: 3; }
-    .vane-card[data-size="lg"] { --py-unit: 8; --gap-unit: 4; }
-    .vane-card[data-size="xl"] { --py-unit: 10; --gap-unit: 5; }
+    .vane-card[data-size="lg"] { --py-unit: 9; --gap-unit: 4.5; }
+    .vane-card[data-size="xl"] { --py-unit: 12; --gap-unit: 6; }
 
     /* Stack - inherits --py-unit and --aspect-ratio from layout type defaults */
 
-    /* Container */
+    /* Container — py on the shared curve (.5/.75/1/1.5/2 × md=8). gap inherits
+       the layout-type defaults (8/12/16/24/32). Default is noPadding, so py
+       only applies when padding is opted in; aspect-ratio 2 → px = 2 × py. */
     .vane-container { --py-unit: 8; --aspect-ratio: 2; }
     .vane-container[data-size="xs"] { --py-unit: 4; }
     .vane-container[data-size="sm"] { --py-unit: 6; }
     .vane-container[data-size="md"] { --py-unit: 8; }
-    .vane-container[data-size="lg"] { --py-unit: 10; }
-    .vane-container[data-size="xl"] { --py-unit: 12; }
+    .vane-container[data-size="lg"] { --py-unit: 12; }
+    .vane-container[data-size="xl"] { --py-unit: 16; }
 
     /* Divider */
     .vane-divider { --py-unit: 4; --aspect-ratio: 2; }
@@ -257,10 +262,13 @@
 
     /* RESPONSIVE COMPONENTS */
 
-    /* Section */
+    /* Section — desktop py/gap on the shared curve (.5/.75/1/1.5/2), keeping
+       the existing ~2:3 gap:padding ratio. Tablet ≈ 0.5× desktop py and
+       mobile ≈ 0.33× desktop py compress consistently across all sizes
+       (replacing the old near-flat mobile padding). md desktop unchanged. */
     .vane-section {
         --lh: var(--lh-base);
-        --py-unit-desktop: 8;
+        --py-unit-desktop: 12;
         --py-unit-tablet: 6;
         --py-unit-mobile: 4;
         --gap-unit-desktop: 8;
@@ -268,24 +276,24 @@
         --gap-unit-mobile: 4;
     }
     .vane-section[data-size="xs"] {
-        --py-unit-desktop: 4; --py-unit-tablet: 3; --py-unit-mobile: 2;
+        --py-unit-desktop: 6; --py-unit-tablet: 3; --py-unit-mobile: 2;
         --gap-unit-desktop: 4; --gap-unit-tablet: 3; --gap-unit-mobile: 2;
     }
     .vane-section[data-size="sm"] {
-        --py-unit-desktop: 8; --py-unit-tablet: 4; --py-unit-mobile: 2;
-        --gap-unit-desktop: 6; --gap-unit-tablet: 5; --gap-unit-mobile: 4;
+        --py-unit-desktop: 9; --py-unit-tablet: 4.5; --py-unit-mobile: 3;
+        --gap-unit-desktop: 6; --gap-unit-tablet: 4.5; --gap-unit-mobile: 3;
     }
     .vane-section[data-size="md"] {
-        --py-unit-desktop: 12; --py-unit-tablet: 6; --py-unit-mobile: 2;
+        --py-unit-desktop: 12; --py-unit-tablet: 6; --py-unit-mobile: 4;
         --gap-unit-desktop: 8; --gap-unit-tablet: 6; --gap-unit-mobile: 4;
     }
     .vane-section[data-size="lg"] {
-        --py-unit-desktop: 16; --py-unit-tablet: 8; --py-unit-mobile: 2;
-        --gap-unit-desktop: 10; --gap-unit-tablet: 8; --gap-unit-mobile: 6;
+        --py-unit-desktop: 18; --py-unit-tablet: 9; --py-unit-mobile: 6;
+        --gap-unit-desktop: 12; --gap-unit-tablet: 9; --gap-unit-mobile: 6;
     }
     .vane-section[data-size="xl"] {
-        --py-unit-desktop: 20; --py-unit-tablet: 10; --py-unit-mobile: 4;
-        --gap-unit-desktop: 12; --gap-unit-tablet: 10; --gap-unit-mobile: 8;
+        --py-unit-desktop: 24; --py-unit-tablet: 12; --py-unit-mobile: 8;
+        --gap-unit-desktop: 16; --gap-unit-tablet: 12; --gap-unit-mobile: 8;
     }
 
     /* Title */

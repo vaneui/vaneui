@@ -317,8 +317,10 @@ Gap and padding are **controlled by the size prop**, not by Tailwind utility cla
 | `xs` | 2 | 2 | 3 |
 | `sm` | 3 | 3 | 4 |
 | `md` (default) | 4 | 4 | 5 |
-| `lg` | 5 | 5 | 6 |
-| `xl` | 6 | 6 | 7 |
+| `lg` | 6 | 6 | 6 |
+| `xl` | 8 | 8 | 7 |
+
+`gap`/`py` units follow a shared curve anchored at `md` (`.5 / .75 / 1 / 1.5 / 2` ×), so `md`→`xl` doubles. Card, Section and Container override these with their own per-size values on the same curve (e.g. Card padding `12/18/24/36/48`px, Section desktop padding `24/36/48/72/96`px).
 
 ### UI components (`data-vane-type="ui"` — Button, Badge, Chip, Text, Title, etc.)
 

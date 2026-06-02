@@ -294,6 +294,26 @@ export function TestHarness() {
           </Card>
         </section>
 
+        {/* ── Layout primitive (Stack) spacing curve: gap == padding, md→xl doubles ── */}
+
+        <section data-testid="stack-spacing-curve">
+          <Stack xs data-testid="stack-spacing-xs"><Text>A</Text><Text>B</Text></Stack>
+          <Stack sm data-testid="stack-spacing-sm"><Text>A</Text><Text>B</Text></Stack>
+          <Stack data-testid="stack-spacing-md"><Text>A</Text><Text>B</Text></Stack>
+          <Stack lg data-testid="stack-spacing-lg"><Text>A</Text><Text>B</Text></Stack>
+          <Stack xl data-testid="stack-spacing-xl"><Text>A</Text><Text>B</Text></Stack>
+        </section>
+
+        {/* ── Section spacing curve (desktop track at wide viewport): md→xl doubles ── */}
+
+        <section data-testid="section-spacing-curve">
+          <Section xs data-testid="section-spacing-xs"><Text>A</Text><Text>B</Text></Section>
+          <Section sm data-testid="section-spacing-sm"><Text>A</Text><Text>B</Text></Section>
+          <Section data-testid="section-spacing-md"><Text>A</Text><Text>B</Text></Section>
+          <Section lg data-testid="section-spacing-lg"><Text>A</Text><Text>B</Text></Section>
+          <Section xl data-testid="section-spacing-xl"><Text>A</Text><Text>B</Text></Section>
+        </section>
+
         {/* ── Border-color inheritance: Divider inside appearance parent ── */}
 
         <section data-testid="border-color-inherit">
