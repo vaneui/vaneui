@@ -95,6 +95,14 @@ When a task matches an agent's trigger below, you **MUST** delegate to that agen
 - `npm run build:css:ui` — Tailwind CLI for component styles
 - `npm run build:css:vars` — Tailwind CLI for CSS variables
 
+## Repository Hygiene
+
+**Never commit one-off / throwaway scripts.** Codemods, migration scripts, ad-hoc test rewriters, and debug helpers (e.g. files like `update-tests.js` or `fix-*.js` at the repo root) must NOT be committed. They run once, then become misleading dead clutter that looks like real tooling.
+
+- Run such scripts from a scratch location outside the repo, or delete them in the same change once they've done their job.
+- If a script is genuinely reusable, it belongs in `scripts/`, follows the repo's `tsx` ESM style, and is wired into `package.json` — otherwise it doesn't get committed.
+- Before committing, check `git status` for stray root-level `.js`/`.mjs` files and remove them. Only intended source, tests, config, and `scripts/` entries should be staged.
+
 ## Component Inventory
 
 | Category | Components | `data-vane-type` |
