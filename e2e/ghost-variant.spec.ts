@@ -75,10 +75,13 @@ test.describe('Ghost variant: computed styles', () => {
     const bgBefore = await getBg(button);
     expect(isTransparent(bgBefore)).toBe(true);
 
-    // Hover and check
+    // Hover and check. The appearance background transitions (~200ms), so the
+    // first frame after hover() can still report the pre-hover transparent
+    // value. Poll until the transition settles instead of reading once.
     await button.hover();
-    const bgAfter = await getBg(button);
-    expect(isTransparent(bgAfter)).toBe(false);
+    await expect
+      .poll(async () => isTransparent(await getBg(button)), { timeout: 2000 })
+      .toBe(false);
   });
 
   test('ghost badge has transparent background', async ({ page }) => {
