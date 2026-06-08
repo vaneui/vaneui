@@ -2,6 +2,7 @@
 // Import for local use
 import {
   LAYOUT_CORE,
+  ALIGN_SELF,
   LAYOUT_FLEX,
   PADDING,
   BREAKPOINT,
@@ -152,6 +153,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...LIST_STYLE,
   ...LIST_POSITION,
   ...LAYOUT_CORE,
+  ...ALIGN_SELF,
   ...BREAKPOINT,
   ...PADDING,
   ...BORDER,
@@ -217,6 +219,8 @@ export const ComponentKeys = {
   hide: ['mobileHide', 'tabletHide', 'desktopHide'] as const,
   /** Cross-axis alignment for flex items (align-items) */
   items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const,
+  /** Per-item cross-axis alignment, overriding the parent's align-items (align-self) */
+  alignSelf: ['selfAuto', 'selfStart', 'selfEnd', 'selfCenter', 'selfStretch', 'selfBaseline'] as const,
   /** Main-axis alignment for flex items (justify-content) */
   justify: ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const,
   /** List marker style: disc, decimal, circle, square, lowerAlpha, or lowerRoman */
@@ -342,6 +346,8 @@ export type PositionKey = typeof ComponentKeys.position[number];
 export type FlexDirectionKey = typeof ComponentKeys.flexDirection[number];
 /** Flex align-items keys for cross-axis alignment */
 export type ItemsKey = typeof ComponentKeys.items[number];
+/** Flex align-self keys for per-item cross-axis alignment */
+export type AlignSelfKey = typeof ComponentKeys.alignSelf[number];
 /** Flex justify-content keys for main-axis alignment */
 export type JustifyKey = typeof ComponentKeys.justify[number];
 /** Flex wrap keys: flexWrap, flexNoWrap, flexWrapReverse */

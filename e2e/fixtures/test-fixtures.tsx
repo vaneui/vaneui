@@ -26,6 +26,7 @@ import {
   Code,
   Checkbox,
   Label,
+  Input,
   List,
   ListItem,
   Col,
@@ -832,6 +833,40 @@ export function TestHarness() {
           <List>
             <ListItem tertiary data-testid="list-item-outline-tertiary">outline item</ListItem>
           </List>
+        </section>
+
+        {/* ── Label control alignment (checkbox vs input) ──
+            Checkbox must sit centered on the FIRST text row even with
+            multi-line content (via the wrapper's selfStart default); an Input
+            label stays vertically centered. Uses the exact reported samples. */}
+        <section data-testid="label-align-section" style={{ width: 320 }}>
+          {/* Sample 1: checkbox + wrapping single-paragraph text */}
+          <Col>
+            <Label htmlFor="terms">
+              <Checkbox id="terms" data-testid="s1-checkbox" />
+              <span data-testid="s1-text">
+                I agree to the <Link href="#">Terms of Service</Link> and{' '}
+                <Link href="#">Privacy Policy</Link>.
+              </span>
+            </Label>
+
+            {/* Sample 2: checkbox + two stacked Text rows */}
+            <Label htmlFor="emails">
+              <Checkbox defaultChecked id="emails" data-testid="s2-checkbox" />
+              <Col noGap tag="span">
+                <Text data-testid="s2-text-first">Receive product updates</Text>
+                <Text xs secondary>Occasional emails about new features</Text>
+              </Col>
+            </Label>
+          </Col>
+
+          {/* Sample 3: text label + input — must stay vertically centered */}
+          <Col noGap>
+            <Label>
+              <span data-testid="s3-label-text">Email</span>
+              <Input placeholder="you@example.com" data-testid="s3-input" />
+            </Label>
+          </Col>
         </section>
 
       </div>

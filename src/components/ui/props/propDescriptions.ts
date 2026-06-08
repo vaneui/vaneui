@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-06-01T17:47:28.590Z
+ * Generated on: 2026-06-08T10:05:48.683Z
  */
 
 export interface PropDescription {
@@ -16,6 +16,30 @@ export interface CategoryDescription {
 }
 
 export const PropDescriptions: Record<string, CategoryDescription> = {
+  "alignSelf": {
+    "name": "Align Self",
+    "description": "AlignSelf props for overriding a single flex/grid item's cross-axis\nalignment (align-self), independent of the parent's align-items.",
+    "props": {
+      "selfAuto": {
+        "description": "Use the parent's align-items value (align-self: auto)"
+      },
+      "selfStart": {
+        "description": "Align this item to the start of the cross axis (align-self: flex-start)"
+      },
+      "selfEnd": {
+        "description": "Align this item to the end of the cross axis (align-self: flex-end)"
+      },
+      "selfCenter": {
+        "description": "Center this item on the cross axis (align-self: center)"
+      },
+      "selfStretch": {
+        "description": "Stretch this item to fill the cross axis (align-self: stretch)"
+      },
+      "selfBaseline": {
+        "description": "Align this item to its baseline (align-self: baseline)"
+      }
+    }
+  },
   "appearance": {
     "name": "Appearance",
     "description": "Appearance props for controlling component colors",

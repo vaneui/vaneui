@@ -33,6 +33,7 @@ export * from './focusVisibleProps';
 
 // Flexbox
 export * from './itemsProps';
+export * from './alignSelfProps';
 export * from './justifyProps';
 export * from './flexDirectionProps';
 export * from './reverseProps';

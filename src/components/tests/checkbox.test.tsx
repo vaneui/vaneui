@@ -20,7 +20,11 @@ describe('Checkbox Component Tests', () => {
       const wrapper = container.querySelector('span.inline-grid');
       expect(wrapper).toBeInTheDocument();
       expect(wrapper).toHaveClass('inline-grid', 'items-center', 'justify-center');
-      
+      // self-start (align-self) pins the one-line-tall wrapper to the top of the
+      // flex line so the checkbox stays centered on the FIRST text row inside a
+      // multi-line Label. See alignSelf prop + checkboxWrapperDefaults.
+      expect(wrapper).toHaveClass('self-start');
+
       const checkbox = wrapper?.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
       expect(checkbox).toHaveClass('peer', 'col-start-1', 'row-start-1', 'cursor-pointer', 'appearance-none');

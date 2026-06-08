@@ -7,6 +7,7 @@ export { FocusVisibleClassMapper } from './focusVisibleClassMapper';
 export { HeightClassMapper } from './heightClassMapper';
 export { HideClassMapper } from './hideClassMapper';
 export { ItemsClassMapper } from './itemsClassMapper';
+export { AlignSelfClassMapper } from './alignSelfClassMapper';
 export { JustifyClassMapper } from './justifyClassMapper';
 export { ObjectFitClassMapper } from './objectFitClassMapper';
 export { OrientationClassMapper } from './orientationClassMapper';

@@ -4,6 +4,7 @@ import type {
   SizeProps,
   HideProps,
   ItemsProps,
+  AlignSelfProps,
   JustifyProps,
   PositionProps,
   DisplayProps,
@@ -29,6 +30,7 @@ export type CheckboxProps = BaseProps &
   SizeProps &
   HideProps &
   ItemsProps &
+  AlignSelfProps &
   JustifyProps &
   PositionProps &
   DisplayProps &

@@ -46,6 +46,7 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'FlexDirectionProps': 'flexDirection',
   'ReverseProps': 'reverse',
   'ItemsProps': 'items',
+  'AlignSelfProps': 'alignSelf',
   'JustifyProps': 'justify',
   'PositionProps': 'position',
   'DisplayProps': 'display',
