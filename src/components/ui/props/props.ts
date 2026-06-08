@@ -35,6 +35,7 @@ export * from './focusVisibleProps';
 export * from './itemsProps';
 export * from './alignSelfProps';
 export * from './justifyProps';
+export * from './justifySelfProps';
 export * from './flexDirectionProps';
 export * from './reverseProps';
 export * from './wrapProps';

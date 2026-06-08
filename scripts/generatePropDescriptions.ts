@@ -48,6 +48,7 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'ItemsProps': 'items',
   'AlignSelfProps': 'alignSelf',
   'JustifyProps': 'justify',
+  'JustifySelfProps': 'justifySelf',
   'PositionProps': 'position',
   'DisplayProps': 'display',
   'OverflowProps': 'overflow',

@@ -9,6 +9,7 @@ export { HideClassMapper } from './hideClassMapper';
 export { ItemsClassMapper } from './itemsClassMapper';
 export { AlignSelfClassMapper } from './alignSelfClassMapper';
 export { JustifyClassMapper } from './justifyClassMapper';
+export { JustifySelfClassMapper } from './justifySelfClassMapper';
 export { ObjectFitClassMapper } from './objectFitClassMapper';
 export { OrientationClassMapper } from './orientationClassMapper';
 export { OverlayBackgroundClassMapper } from './overlayBackgroundClassMapper';

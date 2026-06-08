@@ -322,6 +322,52 @@ describe('Popup Component Tests', () => {
         unmount();
       });
     });
+
+    // -end placements pin the popup to the far edge of the spanned anchor area
+    // via alignSelf/justifySelf props (replacing the old inline styles).
+    it('applies justify-self-end for *-end inline placements', () => {
+      const anchorRef = createAnchorRef();
+      (['topEnd', 'bottomEnd'] as const).forEach(placement => {
+        const { baseElement, unmount } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Popup open={true} onClose={() => {}} anchorRef={anchorRef} {...{[placement]: true}}>
+              <div>Content</div>
+            </Popup>
+          </ThemeProvider>
+        );
+        expect(baseElement.querySelector('.vane-popup')).toHaveClass('justify-self-end');
+        unmount();
+      });
+    });
+
+    it('applies self-end for *-end block placements (left-end / right-end)', () => {
+      const anchorRef = createAnchorRef();
+      (['leftEnd', 'rightEnd'] as const).forEach(placement => {
+        const { baseElement, unmount } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Popup open={true} onClose={() => {}} anchorRef={anchorRef} {...{[placement]: true}}>
+              <div>Content</div>
+            </Popup>
+          </ThemeProvider>
+        );
+        expect(baseElement.querySelector('.vane-popup')).toHaveClass('self-end');
+        unmount();
+      });
+    });
+
+    it('does not apply self/justify-self classes for plain placements', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottom>
+            <div>Content</div>
+          </Popup>
+        </ThemeProvider>
+      );
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).not.toHaveClass('justify-self-end');
+      expect(popup).not.toHaveClass('self-end');
+    });
   });
 
   describe('Ref Forwarding', () => {

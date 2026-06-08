@@ -4,7 +4,9 @@ import type {
   SizeProps,
   HideProps,
   ItemsProps,
+  AlignSelfProps,
   JustifyProps,
+  JustifySelfProps,
   PositionProps,
   DisplayProps,
   OverflowProps,
@@ -39,7 +41,9 @@ export type PopupProps = BaseProps &
   SizeProps &
   HideProps &
   ItemsProps &
+  AlignSelfProps &
   JustifyProps &
+  JustifySelfProps &
   PositionProps &
   DisplayProps &
   OverflowProps &

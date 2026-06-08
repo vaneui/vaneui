@@ -2,7 +2,7 @@
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
  *
- * Generated on: 2026-06-08T10:05:48.683Z
+ * Generated on: 2026-06-08T11:26:44.828Z
  */
 
 export interface PropDescription {
@@ -460,6 +460,27 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "justifyBaseline": {
         "description": "Align items along their baseline on main axis"
+      }
+    }
+  },
+  "justifySelf": {
+    "name": "Justify Self",
+    "description": "JustifySelf props for overriding a single grid item's inline-axis alignment\nwithin its grid area (justify-self). Useful with CSS anchor positioning.",
+    "props": {
+      "justifySelfAuto": {
+        "description": "Use the parent's justify-items value (justify-self: auto)"
+      },
+      "justifySelfStart": {
+        "description": "Align this item to the start of the inline axis (justify-self: start)"
+      },
+      "justifySelfEnd": {
+        "description": "Align this item to the end of the inline axis (justify-self: end)"
+      },
+      "justifySelfCenter": {
+        "description": "Center this item on the inline axis (justify-self: center)"
+      },
+      "justifySelfStretch": {
+        "description": "Stretch this item to fill the inline axis (justify-self: stretch)"
       }
     }
   },

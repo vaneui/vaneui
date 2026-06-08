@@ -193,6 +193,8 @@ function supportsAnchorPositioning(): boolean {
   return _supportsAnchorPositioning;
 }
 
+// align-self / justify-self are applied as VaneUI props (see anchorSelfProps),
+// not inline styles, so only the position-area + offset + width stay here.
 function buildCssAnchorStyles(
   anchorName: string,
   placement: PopupPlacement,
@@ -204,11 +206,26 @@ function buildCssAnchorStyles(
     positionAnchor: `--${anchorName}`,
     positionArea: anchor.positionArea,
     positionTryFallbacks: 'flip-block, flip-inline',
-    ...(anchor.justifySelf ? { justifySelf: anchor.justifySelf } : undefined),
-    ...(anchor.alignSelf ? { alignSelf: anchor.alignSelf } : undefined),
     ...getOffsetStyle(placement, offset),
     ...(matchWidth ? { width: 'anchor-size(width)' } : undefined),
   } as React.CSSProperties;
+}
+
+// Map a placement's anchor-grid edge alignment to VaneUI alignSelf/justifySelf
+// boolean props. Inert on the JS-fallback path (absolute top/left positioning),
+// so they can be applied unconditionally.
+function anchorSelfProps(placement: PopupPlacement): Record<string, boolean> {
+  const anchor = getAnchorStyles(placement);
+  const justifyMap: Record<string, string> = {
+    start: 'justifySelfStart', end: 'justifySelfEnd', center: 'justifySelfCenter', stretch: 'justifySelfStretch',
+  };
+  const alignMap: Record<string, string> = {
+    start: 'selfStart', end: 'selfEnd', center: 'selfCenter', stretch: 'selfStretch',
+  };
+  const out: Record<string, boolean> = {};
+  if (anchor.justifySelf && justifyMap[anchor.justifySelf]) out[justifyMap[anchor.justifySelf]] = true;
+  if (anchor.alignSelf && alignMap[anchor.alignSelf]) out[alignMap[anchor.alignSelf]] = true;
+  return out;
 }
 
 export const Popup = forwardRef<HTMLDivElement, PopupProps>(
@@ -390,7 +407,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const popupId = props.id || `popup-${anchorName}`;
 
-    const mergedProps = { ...props, id: popupId, role, ...(isDetached ? { pointerEventsNone: true } : {}) };
+    const mergedProps = { ...props, id: popupId, role, ...anchorSelfProps(placement), ...(isDetached ? { pointerEventsNone: true } : {}) };
 
     const content = (
       <ThemedComponent

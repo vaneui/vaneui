@@ -5,6 +5,8 @@ export const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'reverse', 'flex', '
 // Per-item cross-axis alignment (align-self). Opt-in per component (not part of
 // LAYOUT_CORE) so a child can override its parent's align-items.
 export const ALIGN_SELF = ['alignSelf'] as const;
+// Per-item inline-axis alignment within a grid area (justify-self). Opt-in.
+export const JUSTIFY_SELF = ['justifySelf'] as const;
 export const PADDING = ['padding'] as const;
 export const BREAKPOINT = ['breakpoint'] as const;
 export const VISUAL_CORE = ['appearance'] as const;
