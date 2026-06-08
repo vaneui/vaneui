@@ -1,4 +1,4 @@
-import { ComponentTheme, defaultSizedLayoutClassMappers, defaultTypographyClassMappers, bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "../theme/common";
+import { ComponentTheme, defaultSizedLayoutClassMappers, defaultTypographyClassMappers, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "../theme/common";
 import type { LabelProps } from "./LabelProps";
 import { GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
 import { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper, FlexClassMapper, ShrinkClassMapper } from "../theme/layout";
@@ -15,8 +15,11 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       lineHeight: new LineHeightClassMapper(),
       gap: new GapClassMapper(),
     },
+    // No `background` mapper: Label is a form label, not a filled surface, so
+    // an appearance (e.g. `tertiary`) colors the text/border only and never
+    // paints a background box. Matches MenuLabel; use Badge/Chip for filled
+    // pill-style labels.
     appearance: {
-      background: bgAppearance,
       text: textAppearance,
       border: borderAppearance,
       ring: ringAppearance,

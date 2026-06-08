@@ -26,6 +26,8 @@ import {
   Code,
   Checkbox,
   Label,
+  List,
+  ListItem,
   Col,
   Stack,
   Section,
@@ -811,6 +813,25 @@ export function TestHarness() {
               <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
             </Icon>
           </div>
+        </section>
+
+        {/* ── Text-component appearance backgrounds ──
+            Label/List/ListItem are text components: applying an appearance
+            (e.g. tertiary) colors the text only and must not paint a background
+            box. Label has no bg mapper at all; List/ListItem default to
+            `transparent`. */}
+        <section data-testid="text-appearance-bg-section">
+          {/* Label never paints a background, not even when `filled` */}
+          <Label tertiary data-testid="label-outline-tertiary">tertiary label</Label>
+          <Label success filled data-testid="label-filled-success">filled label</Label>
+
+          {/* List / ListItem: an appearance colors text only by default */}
+          <List tertiary data-testid="list-outline-tertiary">
+            <ListItem>outline list item</ListItem>
+          </List>
+          <List>
+            <ListItem tertiary data-testid="list-item-outline-tertiary">outline item</ListItem>
+          </List>
         </section>
 
       </div>

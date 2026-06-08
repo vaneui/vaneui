@@ -28,7 +28,6 @@ import type {
   CursorProps,
   WidthProps,
   HeightProps,
-  TransparentProps,
   ResponsiveProps,
   TruncateProps
 } from "../props";
@@ -62,7 +61,6 @@ export type LabelProps = BaseProps &
   CursorProps &
   WidthProps &
   HeightProps &
-  TransparentProps &
   ResponsiveProps &
   TruncateProps &
   Omit<React.LabelHTMLAttributes<HTMLLabelElement>, 'className' | 'children'> & {

@@ -259,6 +259,11 @@
     .vane-list-item[data-size="md"] { --fs-unit: var(--fs-unit-md); }
     .vane-list-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-list-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    /* Outline appearance colors the text only; a background needs `filled`
+       (the Icon pattern). List suppresses this via a `transparent` default, but
+       ListItem's typography props don't expose `transparent`, so the tint
+       (e.g. tertiary -> gray-100) is cleared here instead. */
+    .vane-list-item[data-variant="outline"] { --bg-color: transparent; }
 
     /* RESPONSIVE COMPONENTS */
 

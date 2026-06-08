@@ -253,6 +253,32 @@ describe('Label Component Tests', () => {
       expect(filledLabel).toHaveClass('text-(--text-color)');
     });
 
+    it('should not paint a background for any appearance (color-only label)', () => {
+      // Label is a form label, not a filled surface: an appearance colors the
+      // text only and must never emit the background consumer class. Regression
+      // guard for the outline `tertiary` gray-box bug.
+      const appearances = ['tertiary', 'secondary', 'success', 'danger'] as const;
+
+      appearances.forEach(appearance => {
+        const {container} = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Label {...{[appearance]: true}}>{appearance} label</Label>
+          </ThemeProvider>
+        );
+        const label = container.querySelector('label');
+        expect(label).toHaveClass('text-(--text-color)');
+        expect(label).not.toHaveClass('bg-(--bg-color)');
+      });
+
+      // Even an explicit `filled` must not paint a background on a Label.
+      const {container: filled} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label success filled>Filled label</Label>
+        </ThemeProvider>
+      );
+      expect(filled.querySelector('label')).not.toHaveClass('bg-(--bg-color)');
+    });
+
 
 
     it('should support custom className', () => {
