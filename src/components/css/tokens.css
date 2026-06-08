@@ -120,8 +120,8 @@
     --color-border-tertiary: var(--color-gray-200);
     /* Dedicated form-control border. One shade darker than the layout
        border so unchecked Checkboxes/Inputs read as distinct controls
-       on light surfaces — matches Mantine's gray-4 vs gray-3 split and
-       Ant Design's colorBorder vs colorBorderSecondary roles. Kept off
+       on light surfaces — a dedicated form-control border one shade
+       darker than the layout border. Kept off
        the appearance system so secondary-appearance Card/Button/Chip do
        not pick up the darker shade. */
     --color-border-form: var(--color-gray-300);

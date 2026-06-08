@@ -83,7 +83,7 @@ describe('resolveDisabledLink', () => {
     expect(result['data-testid']).toBe('link');
   });
 
-  it('should drop consumer onClick when disabled (Ant Design pattern)', () => {
+  it('should drop consumer onClick when disabled', () => {
     const consumerOnClick = jest.fn();
     const props = { href: '/test', onClick: consumerOnClick };
     const result = resolveDisabledLink(props, true) as Record<string, unknown>;

@@ -34,7 +34,7 @@ test.describe('Font-size inheritance via inheritSize flag', () => {
   test('Code inside SectionTitle scales relative to parent at ~0.875× ratio', async ({ page }) => {
     // Code uses local --spacing: 0.25em override so its font-size resolves
     // in em (0.875em at md), proportional to the surrounding heading rather
-    // than identical to it. Matches AntD's `fontSize: 85%` for inline <code>.
+    // than identical to it, landing at ~85% (0.875em) for inline <code>.
     const titleFs = await getFontSize(page.locator('[data-testid="inherit-size-section-title"]'));
     const codeFs = await getFontSize(page.locator('[data-testid="inherit-size-code"]'));
     expect(codeFs).toBeLessThan(titleFs);

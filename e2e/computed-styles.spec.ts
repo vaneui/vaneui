@@ -335,7 +335,7 @@ test.describe('Section spacing curve (desktop track)', () => {
 test.describe('Button padding does not depend on icon presence', () => {
   // The previous `.vane-button:has(> svg) { --aspect-ratio: 1.5 }` rule shrank
   // horizontal padding by ~25% whenever a direct-child SVG was present. That
-  // diverged from Chakra, Ant Design, and GitHub's new Primer, and created a
+  // diverged from common design-system conventions, and created a
   // cramping effect on the text-trailing edge when text was the second child.
   // Removing it makes Button padding depend on `size` only.
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
