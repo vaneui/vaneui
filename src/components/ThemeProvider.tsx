@@ -66,7 +66,7 @@ const ThemeContext = createContext<ThemeProps>(defaultTheme);
 export function ThemeProvider(
   {
     children,
-    theme: themeObject = {},
+    theme: themeObject,
     themeDefaults,
     extraClasses,
     themeOverride,
@@ -78,6 +78,17 @@ export function ThemeProvider(
       const baseTheme = mergeStrategy === 'replace'
         ? defaultTheme
         : parentTheme;
+
+      // fast path: nothing to customize — reuse the base theme by reference.
+      // Keeps context identity stable across re-renders and skips the
+      // whole-tree clone (the clone below exists only to isolate mutations,
+      // and this path performs none).
+      if (themeObject === undefined &&
+          themeDefaults === undefined &&
+          extraClasses === undefined &&
+          typeof themeOverride !== 'function') {
+        return baseTheme;
+      }
 
       // clone for isolation before merging
       let finalTheme = themeObject

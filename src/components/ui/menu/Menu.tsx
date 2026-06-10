@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useId, useEffect, cloneElement } from 'react';
+import React, { useRef, useCallback, useId, useEffect, useMemo, cloneElement } from 'react';
 import type { MenuProps } from './MenuProps';
 import { MenuContext, type MenuContextValue } from './MenuContext';
 import { useControllableState } from '../../utils/controllableState';
@@ -118,33 +118,41 @@ export function Menu({
 
   const theme = useTheme();
 
-  const ctx: MenuContextValue = {
+  // memoized so MenuItems don't re-render on every Menu render
+  const ctx: MenuContextValue = useMemo(() => ({
     closeMenu,
     closeOnItemClick,
     loop,
-  };
+  }), [closeMenu, closeOnItemClick, loop]);
 
   // explicit size on Menu propagates to MenuItem / MenuLabel / Divider; no explicit size keeps each sub-component's default
   const explicitSize = ComponentKeys.size.find(
     (k) => (popupProps as Record<string, unknown>)[k]
   );
-  const childSizeDefaults = explicitSize ? { [explicitSize]: true } : undefined;
+
+  // memoized so the nested ThemeProvider's memo stays valid across
+  // re-renders (open/close toggles) — an inline literal here would re-clone
+  // the theme tree on every Menu render
+  const childThemeDefaults = useMemo(() => {
+    const childSizeDefaults = explicitSize ? { [explicitSize]: true } : undefined;
+    return {
+      popup: theme.menu.popup.defaults,
+      divider: childSizeDefaults
+        ? { ...theme.menu.divider.defaults, ...childSizeDefaults }
+        : theme.menu.divider.defaults,
+      ...(childSizeDefaults && {
+        menu: {
+          item: childSizeDefaults,
+          label: childSizeDefaults,
+        },
+      }),
+    };
+  }, [theme, explicitSize]);
 
   return (
     <MenuContext.Provider value={ctx}>
       {triggerElement}
-      <ThemeProvider themeDefaults={{
-        popup: theme.menu.popup.defaults,
-        divider: childSizeDefaults
-          ? { ...theme.menu.divider.defaults, ...childSizeDefaults }
-          : theme.menu.divider.defaults,
-        ...(childSizeDefaults && {
-          menu: {
-            item: childSizeDefaults,
-            label: childSizeDefaults,
-          },
-        }),
-      }}>
+      <ThemeProvider themeDefaults={childThemeDefaults}>
         <Popup
           ref={contentRef}
           open={effectiveOpen}
