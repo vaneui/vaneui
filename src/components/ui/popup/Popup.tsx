@@ -1,4 +1,5 @@
-import { forwardRef, useRef, useState, useEffect, useLayoutEffect, useCallback, useId } from 'react';
+import { forwardRef, useRef, useState, useEffect, useCallback, useId } from 'react';
+import { useIsomorphicLayoutEffect } from '../../utils/isomorphicLayoutEffect';
 import { createPortal } from 'react-dom';
 import type { PopupProps } from "./PopupProps";
 import { useTheme } from '../../themeContext';
@@ -287,14 +288,14 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     // stable ref to prevent effect dependency churn
     const onCloseRef = useRef(onClose);
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       onCloseRef.current = onClose;
     });
 
     const mergedRef = useMergedRef(ref, popupRef);
 
     // gated on `mounted` (not `open`) so anchor-name survives the exit transition
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (!mounted || !supportsAnchorPositioning() || !anchorRef.current) return;
 
       const anchor = anchorRef.current;
@@ -322,7 +323,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       setResolvedPlacement(pos.resolvedPlacement);
     }, [anchorRef, placement, offset, matchWidth]);
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
       if (!effectiveOpen || !anchorRef.current) return;
 
       if (supportsAnchorPositioning()) {
@@ -431,7 +432,14 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       </ThemedComponent>
     );
 
-    if (portal && typeof document !== 'undefined') {
+    if (portal) {
+      // SSR: the portal target can't exist server-side, and rendering the
+      // content inline would hydrate differently than the client (which
+      // portals to document.body) - render nothing; portaled content
+      // appears after hydration
+      if (typeof document === 'undefined') {
+        return null;
+      }
       return createPortal(content, document.body);
     }
 

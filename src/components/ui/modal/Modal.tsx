@@ -188,7 +188,14 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       </ThemedComponent>
     );
 
-    if (portal && typeof document !== 'undefined') {
+    if (portal) {
+      // SSR: the portal target can't exist server-side, and rendering the
+      // content inline would hydrate differently than the client (which
+      // portals to document.body) - render nothing; portaled content
+      // appears after hydration
+      if (typeof document === 'undefined') {
+        return null;
+      }
       return createPortal(content, document.body);
     }
 

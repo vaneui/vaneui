@@ -1,4 +1,5 @@
-import { useState, useLayoutEffect } from 'react';
+import { useState } from 'react';
+import { useIsomorphicLayoutEffect } from './isomorphicLayoutEffect';
 
 export type ZLayer = 'overlay' | 'modal' | 'popup';
 
@@ -27,12 +28,18 @@ export function resetStackCount() {
   stackCount = 0;
 }
 
-// useLayoutEffect prevents a flash where nested elements paint behind parents
+// The layout effect prevents a flash where nested elements paint behind
+// parents. The getComputedStyle read lives INSIDE the effect: reading it
+// during render is impure, and a consumer-customized --z-* value would make
+// the server-rendered style attribute (static fallback) differ from the
+// client render — a hydration mismatch. Render-time value is always the
+// static fallback; the effect corrects it before paint.
 export function useStackingContext(open: boolean, layer: ZLayer = 'overlay'): number {
-  const baseZ = getLayerBaseZ(layer);
-  const [zIndex, setZIndex] = useState(baseZ);
+  const [zIndex, setZIndex] = useState(LAYER_DEFAULTS[layer]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
+    const baseZ = getLayerBaseZ(layer);
+
     if (!open) {
       setZIndex(baseZ);
       return;
@@ -44,7 +51,7 @@ export function useStackingContext(open: boolean, layer: ZLayer = 'overlay'): nu
     return () => {
       stackCount--;
     };
-  }, [open, baseZ]);
+  }, [open, layer]);
 
   return zIndex;
 }
