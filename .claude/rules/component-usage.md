@@ -22,19 +22,21 @@ Wrap your app in `ThemeProvider`. It is required for theming to work.
 </ThemeProvider>
 ```
 
-Customize defaults globally:
+Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox) need the nested form — Button's main element lives at `button.main`:
 
 ```tsx
-<ThemeProvider themeDefaults={{ button: { filled: true, lg: true } }}>
+<ThemeProvider themeDefaults={{ button: { main: { filled: true, lg: true } } }}>
   {/* All buttons are now filled + large by default */}
   <Button>Save</Button>
 </ThemeProvider>
 ```
 
+Components without sub-themes (Badge, Chip, Text, Row, ...) use the flat form: `themeDefaults={{ badge: { success: true } }}`. A path that matches no theme node does nothing (a dev-mode console warning calls it out).
+
 Add extra CSS classes per prop:
 
 ```tsx
-<ThemeProvider extraClasses={{ button: { primary: "custom-primary-class" } }}>
+<ThemeProvider extraClasses={{ button: { main: { primary: "custom-primary-class" } } }}>
   <Button>Styled</Button>
 </ThemeProvider>
 ```
@@ -42,9 +44,9 @@ Add extra CSS classes per prop:
 Nested providers inherit from parent (`mergeStrategy="merge"`, default) or reset (`mergeStrategy="replace"`):
 
 ```tsx
-<ThemeProvider themeDefaults={{ button: { filled: true } }}>
+<ThemeProvider themeDefaults={{ button: { main: { filled: true } } }}>
   <Button>Filled (inherited)</Button>
-  <ThemeProvider themeDefaults={{ button: { danger: true } }} mergeStrategy="replace">
+  <ThemeProvider themeDefaults={{ button: { main: { danger: true } } }} mergeStrategy="replace">
     <Button>Danger outline (reset, not filled)</Button>
   </ThemeProvider>
 </ThemeProvider>

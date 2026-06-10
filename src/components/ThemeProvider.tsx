@@ -3,9 +3,24 @@ import type { ThemeProps, ThemeProviderProps } from './themeTypes';
 import { defaultTheme } from './defaultTheme';
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
+// dev-only: a customization key that matches no theme node is silently
+// discarded by the duck-typed descent below — the #1 trap is the flat form
+// `{ button: { filled: true } }` for components with sub-themes, which need
+// `{ button: { main: { filled: true } } }`
+const warnDeadCustomization = (option: string, path: string, hint: string): void => {
+  if (process.env.NODE_ENV !== 'production') {
+    console.warn(
+      `VaneUI ThemeProvider: ${option} path "${path}" does not match any theme node and will have no effect. ${hint}`
+    );
+  }
+};
+
+const SUB_THEME_HINT = 'Components with sub-themes need the nested form, e.g. { button: { main: { filled: true } } }.';
+
 function applyDefaultsRecursively(
   themeObject: Record<string, unknown> | object,
-  defaultsObject: Record<string, unknown> | object
+  defaultsObject: Record<string, unknown> | object,
+  path: string = ''
 ): void {
   if (!themeObject || typeof themeObject !== 'object' || !defaultsObject || typeof defaultsObject !== 'object') {
     return;
@@ -21,12 +36,15 @@ function applyDefaultsRecursively(
     );
   } else {
     for (const key in defaultsObject) {
+      const keyPath = path ? `${path}.${key}` : key;
       if (key in themeObject &&
           typeof (themeObject as Record<string, unknown>)[key] === 'object' &&
           (themeObject as Record<string, unknown>)[key] !== null &&
           typeof (defaultsObject as Record<string, unknown>)[key] === 'object' &&
           (defaultsObject as Record<string, unknown>)[key] !== null) {
-        applyDefaultsRecursively((themeObject as Record<string, unknown>)[key] as Record<string, unknown>, (defaultsObject as Record<string, unknown>)[key] as Record<string, unknown>);
+        applyDefaultsRecursively((themeObject as Record<string, unknown>)[key] as Record<string, unknown>, (defaultsObject as Record<string, unknown>)[key] as Record<string, unknown>, keyPath);
+      } else {
+        warnDeadCustomization('themeDefaults', keyPath, SUB_THEME_HINT);
       }
     }
   }
@@ -34,7 +52,8 @@ function applyDefaultsRecursively(
 
 function applyExtraClassesRecursively(
   themeObject: Record<string, unknown> | object,
-  extraClassesObject: Record<string, unknown> | object
+  extraClassesObject: Record<string, unknown> | object,
+  path: string = ''
 ): void {
   if (!themeObject || typeof themeObject !== 'object' || !extraClassesObject || typeof extraClassesObject !== 'object') {
     return;
@@ -50,12 +69,15 @@ function applyExtraClassesRecursively(
     };
   } else {
     for (const key in extraClassesObject) {
+      const keyPath = path ? `${path}.${key}` : key;
       if (key in themeObject &&
           typeof (themeObject as Record<string, unknown>)[key] === 'object' &&
           (themeObject as Record<string, unknown>)[key] !== null &&
           typeof (extraClassesObject as Record<string, unknown>)[key] === 'object' &&
           (extraClassesObject as Record<string, unknown>)[key] !== null) {
-        applyExtraClassesRecursively((themeObject as Record<string, unknown>)[key] as Record<string, unknown>, (extraClassesObject as Record<string, unknown>)[key] as Record<string, unknown>);
+        applyExtraClassesRecursively((themeObject as Record<string, unknown>)[key] as Record<string, unknown>, (extraClassesObject as Record<string, unknown>)[key] as Record<string, unknown>, keyPath);
+      } else {
+        warnDeadCustomization('extraClasses', keyPath, SUB_THEME_HINT);
       }
     }
   }

@@ -127,6 +127,53 @@ describe('ThemeProvider identity stability', () => {
   });
 });
 
+describe('ThemeProvider dead-customization warning', () => {
+  let warnSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+  });
+
+  afterEach(() => {
+    warnSpy.mockRestore();
+  });
+
+  it('should warn in dev when themeDefaults uses the flat form on a sub-themed component', () => {
+    render(
+      // wrong: button has sub-themes, so this path dead-ends at {main, spinner}
+      <ThemeProvider themeDefaults={{ button: { filled: true } } as never}>
+        <div />
+      </ThemeProvider>
+    );
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('themeDefaults path "button.filled" does not match any theme node')
+    );
+  });
+
+  it('should not warn for correctly nested themeDefaults', () => {
+    render(
+      <ThemeProvider themeDefaults={{ button: { main: { filled: true } } }}>
+        <div />
+      </ThemeProvider>
+    );
+
+    expect(warnSpy).not.toHaveBeenCalled();
+  });
+
+  it('should warn in dev when extraClasses uses the flat form on a sub-themed component', () => {
+    render(
+      <ThemeProvider extraClasses={{ button: { primary: 'custom' } } as never}>
+        <div />
+      </ThemeProvider>
+    );
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('extraClasses path "button.primary" does not match any theme node')
+    );
+  });
+});
+
 describe('deepClone per-occurrence isolation', () => {
   it('should fork shared objects per occurrence so in-place themeOverride mutations stay component-local', async () => {
     const { deepClone } = await import('../utils/deepMerge');
