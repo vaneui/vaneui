@@ -24,6 +24,11 @@ import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 type ThemeNode<P> = BaseClassMapper | ThemeMap<P>;
 
+// HTML tags where the native disabled attribute is valid and desired
+const NATIVE_DISABLED_TAGS = new Set([
+  'button', 'input', 'select', 'textarea', 'fieldset', 'optgroup', 'option',
+]);
+
 export type VaneComponentType = 'ui' | 'layout';
 
 export type ThemeMap<P> = {
@@ -235,15 +240,20 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       delete cleanProps[k];
     }
 
-    // preserve HTML-native attrs that overlap with category keys
-    if ((props as Record<string, unknown>).disabled !== undefined) {
-      cleanProps.disabled = (props as Record<string, unknown>).disabled;
-    }
-
     delete cleanProps.theme;
 
     const {className, tag, children: _children, ...other} = cleanProps as P;
     const componentTag: React.ElementType = tag ?? this.getTag(props) ?? "div";
+
+    // preserve the HTML-native disabled attr (it overlaps with a category
+    // key), but only on tags that support it — a placeholder link rendered
+    // for disabled href-switching must stay focusable per the aria-disabled
+    // pattern, and native disabled would pull it out of the tab order
+    const supportsNativeDisabled =
+      typeof componentTag !== 'string' || NATIVE_DISABLED_TAGS.has(componentTag);
+    if ((props as Record<string, unknown>).disabled !== undefined && supportsNativeDisabled) {
+      (other as Record<string, unknown>).disabled = (props as Record<string, unknown>).disabled;
+    }
     const originalProps = props as P;
     const themeGeneratedClasses = this.getClasses(originalProps, extractedKeys);
     const finalClasses = twMerge(...themeGeneratedClasses, className);

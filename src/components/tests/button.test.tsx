@@ -76,20 +76,20 @@ describe('Button Component Tests', () => {
       expect(anchor).toHaveAttribute('rel', 'noopener noreferrer');
     });
 
-    it('should render as button (not anchor) when both href and disabled are present', () => {
+    it('should render as a placeholder anchor (no href) when both href and disabled are present', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Button href="/test-link" disabled>Disabled Link</Button>
         </ThemeProvider>
       );
 
-      // Should render as <button>, not <a>, because href is stripped
-      const button = container.querySelector('button');
-      expect(button).toBeInTheDocument();
-      expect(button).not.toHaveAttribute('href');
-
+      // aria-disabled pattern: an <a> WITHOUT href — never a natively
+      // disabled <button>, which would leave the tab order
       const anchor = container.querySelector('a');
-      expect(anchor).not.toBeInTheDocument();
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).not.toHaveAttribute('href');
+      expect(anchor).not.toHaveAttribute('disabled');
+      expect(container.querySelector('button')).not.toBeInTheDocument();
     });
 
     it('should add aria-disabled and role="link" when href and disabled are both present, staying in tab order', () => {
@@ -99,10 +99,13 @@ describe('Button Component Tests', () => {
         </ThemeProvider>
       );
 
-      const button = container.querySelector('button');
-      expect(button).toHaveAttribute('aria-disabled', 'true');
-      expect(button).toHaveAttribute('role', 'link');
-      expect(button).not.toHaveAttribute('tabindex', '-1');
+      const anchor = container.querySelector('a') as HTMLElement;
+      expect(anchor).toHaveAttribute('aria-disabled', 'true');
+      expect(anchor).toHaveAttribute('role', 'link');
+      // genuinely focusable, not just "no tabindex=-1"
+      expect(anchor).toHaveAttribute('tabindex', '0');
+      anchor.focus();
+      expect(document.activeElement).toBe(anchor);
     });
 
     it('should render as normal anchor when href is present without disabled', () => {
@@ -119,20 +122,22 @@ describe('Button Component Tests', () => {
       expect(anchor).not.toHaveAttribute('role');
     });
 
-    it('should handle loading + href correctly (disabled link)', () => {
+    it('should handle loading + href correctly (disabled placeholder link)', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Button href="/test-link" loading>Loading Link</Button>
         </ThemeProvider>
       );
 
-      // Loading sets disabled=true, which combined with href should strip href
-      const button = container.querySelector('button');
-      expect(button).toBeInTheDocument();
-      expect(button).not.toHaveAttribute('href');
-      expect(button).toHaveAttribute('aria-disabled', 'true');
-      expect(button).toHaveAttribute('role', 'link');
-      expect(button).toHaveAttribute('data-loading', 'true');
+      // Loading sets disabled=true, which combined with href renders the
+      // placeholder anchor (no href, no native disabled, stays focusable)
+      const anchor = container.querySelector('a');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).not.toHaveAttribute('href');
+      expect(anchor).not.toHaveAttribute('disabled');
+      expect(anchor).toHaveAttribute('aria-disabled', 'true');
+      expect(anchor).toHaveAttribute('role', 'link');
+      expect(anchor).toHaveAttribute('data-loading', 'true');
     });
 
     it('should support button-specific attributes when href is not present', () => {
