@@ -14,7 +14,7 @@ A React component library that turns design decisions into expressive boolean pr
 - **Tailwind CSS v4** — CSS variable-based theming, utility classes for performance and composability
 - **ThemeProvider** — customize defaults, override classes, and nest themes with merge or replace strategies
 - **30+ components** — interactive, layout, typography, media, and overlay components
-- **React 16.8–19** — works with hooks-era React through React 19
+- **React 18–19** — built for modern React, including React 19
 
 ## Traditional approach vs VaneUI
 
