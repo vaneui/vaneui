@@ -4,12 +4,29 @@ This guide is for consuming projects that use `@vaneui/ui`. It covers correct co
 
 ## Setup
 
-### Required Imports
+### Required CSS — import exactly ONE of the two stylesheets
+
+`@vaneui/ui/css` is fully self-contained (it embeds everything `@vaneui/ui/vars` contains). Importing both ships ~40 KB of duplicate rules at two different cascade strengths — never do it.
+
+**Option A — no Tailwind setup (prebuilt styles):**
 
 ```tsx
-import '@vaneui/ui/vars';  // CSS variables (required)
-import '@vaneui/ui/css';   // Component styles (required)
+import '@vaneui/ui/css';   // self-contained: tokens + rules + utilities
 import { ThemeProvider, Button, Card, Row, Stack, Text, Title } from '@vaneui/ui';
+```
+
+**Option B — your own Tailwind v4 build:**
+
+```tsx
+import '@vaneui/ui/vars';  // tokens + component rules (no utilities)
+```
+
+and let your Tailwind build emit the utilities VaneUI's components use by scanning the library:
+
+```css
+/* your app.css */
+@import "tailwindcss";
+@source "../node_modules/@vaneui/ui/dist";
 ```
 
 ### ThemeProvider
