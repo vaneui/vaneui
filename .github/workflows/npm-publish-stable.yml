@@ -9,6 +9,9 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    permissions:
+      # contents: write — required to push the version tag and create the GitHub release
+      contents: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -76,19 +79,50 @@ jobs:
           echo "Cannot proceed with stable release publication."
           exit 1
 
+      - name: Install Playwright Browsers
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E Tests
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: npm run test:e2e
+        env:
+          CI: true
+
       # Best Practice: Verify what will be in the package before publishing
       - name: Verify Package Contents
         if: steps.check_version.outputs.should_publish == 'true'
         run: npm pack --dry-run
 
+      # Validate the published package shape: exports map targets must exist
+      # (publint) and the shipped types must resolve under every TypeScript
+      # moduleResolution mode, including node16/nodenext (attw).
+      - name: Validate Package Exports and Types
+        if: steps.check_version.outputs.should_publish == 'true'
+        run: |
+          npx publint
+          npx --yes @arethetypeswrong/cli --pack .
+
       - name: Publish Stable Package to npm
-        # --ignore-scripts: this workflow already ran tests + build above;
-        # without --ignore-scripts the `prepublishOnly` script in
-        # package.json would re-run build + test + test:e2e during publish.
+        # --ignore-scripts: this workflow already ran build + test + test:e2e
+        # above (the same gate as the `prepublishOnly` script in package.json),
+        # so re-running it during publish would only duplicate work.
         if: steps.check_version.outputs.should_publish == 'true'
         run: npm publish --access public --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # Tag the published commit and create a GitHub release so every npm
+      # version maps to a commit (RELEASE_PROCESS.md documents this step).
+      - name: Create Git Tag and GitHub Release
+        if: steps.check_version.outputs.should_publish == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=${{ steps.check_version.outputs.version }}
+          git tag "v$VERSION" "$GITHUB_SHA"
+          git push origin "v$VERSION"
+          gh release create "v$VERSION" --title "v$VERSION" --generate-notes
 
       - name: Report Success
         if: steps.check_version.outputs.should_publish == 'true'

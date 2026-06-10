@@ -81,6 +81,14 @@ jobs:
       - name: Verify Package Contents
         run: npm pack --dry-run
 
+      # Validate the published package shape: exports map targets must exist
+      # (publint) and the shipped types must resolve under every TypeScript
+      # moduleResolution mode, including node16/nodenext (attw).
+      - name: Validate Package Exports and Types
+        run: |
+          npx publint
+          npx --yes @arethetypeswrong/cli --pack .
+
       - name: Publish Pre-release to npm
         # --ignore-scripts: this workflow already ran build + test + test:e2e
         # explicitly above. Without --ignore-scripts the `prepublishOnly`
