@@ -10,6 +10,7 @@ import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { useMergedRef } from '../../utils/mergedRef';
 import { pushEscapeHandler } from '../../utils/escapeStack';
+import { composeEventHandlers } from '../../utils/composeEventHandlers';
 import { ModalContext } from './ModalContext';
 import { ModalHeader } from './ModalHeader';
 import { ModalBody } from './ModalBody';
@@ -85,7 +86,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     }, [open, closeOnEscape, onClose]);
 
     const handleOverlayClick = (event: React.MouseEvent) => {
-      if (closeOnOverlayClick && event.target === event.currentTarget) {
+      // defaultPrevented lets a composed consumer onClick veto the close
+      if (closeOnOverlayClick && !event.defaultPrevented && event.target === event.currentTarget) {
         onClose();
       }
     };
@@ -108,10 +110,25 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
     const isHidden = !overlayTransition.mounted && keepMounted;
 
-    const computedOverlayProps = {
+    // consumer onClick/style/className must COMPOSE with the internal
+    // handlers and CSS variables, never replace them (a consumer onClick
+    // would otherwise kill click-to-close; a consumer style would wipe
+    // --z-index)
+    const {
+      onClick: overlayOnClick,
+      style: overlayStyle,
+      className: overlayClassName,
+      ...restOverlayProps
+    } = {
       ...overlayProps,
       ...(fullScreen ? { transparent: true } : {}),
     };
+
+    const {
+      onClick: contentOnClick,
+      style: contentStyle,
+      ...restProps
+    } = props;
 
     const cssVars = {
       '--z-index': zIndex,
@@ -125,12 +142,14 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const content = (
       <ThemedComponent
         theme={theme.modal.overlay}
-        className={isHidden ? 'hidden' : undefined}
-        onClick={handleOverlayClick}
         data-state={isHidden ? undefined : overlayTransition.state}
-        style={cssVars}
         aria-hidden={isHidden || undefined}
-        {...computedOverlayProps}
+        {...{
+          ...restOverlayProps,
+          className: [isHidden ? 'hidden' : undefined, overlayClassName].filter(Boolean).join(' ') || undefined,
+          onClick: composeEventHandlers(overlayOnClick, handleOverlayClick),
+          style: { ...cssVars, ...overlayStyle },
+        }}
       >
         <ThemedComponent
           ref={mergedRef}
@@ -140,10 +159,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           aria-labelledby={titleMounted ? titleId : undefined}
           aria-describedby={bodyMounted ? bodyId : undefined}
           data-state={isHidden ? undefined : contentTransition.state}
-          style={contentDurationStyle}
-          onClick={(e: React.MouseEvent) => e.stopPropagation()}
-          {...props}
-          {...(fullScreen ? { sharp: true, wScreen: true, hScreen: true } : {})}
+          {...{
+            ...restProps,
+            ...(fullScreen ? { sharp: true, wScreen: true, hScreen: true } : {}),
+            onClick: composeEventHandlers(contentOnClick, (e: React.MouseEvent) => e.stopPropagation()),
+            style: { ...contentDurationStyle, ...contentStyle },
+          }}
         >
           <ModalContext.Provider value={contextValue}>
             {isCompoundMode ? (

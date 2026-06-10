@@ -5,6 +5,7 @@ import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
+import { composeEventHandlers } from '../../utils/composeEventHandlers';
 
 export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
   function Overlay(
@@ -19,6 +20,9 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       onExitComplete,
       pointerEventsNone,
       children,
+      onClick: consumerOnClick,
+      style: consumerStyle,
+      className: consumerClassName,
       ...props
     },
     ref
@@ -30,7 +34,8 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     if (!mounted && !keepMounted) return null;
 
     const handleClick = (event: React.MouseEvent) => {
-      if (!pointerEventsNone && event.target === event.currentTarget && onClose) {
+      // defaultPrevented lets a composed consumer onClick veto the close
+      if (!pointerEventsNone && !event.defaultPrevented && event.target === event.currentTarget && onClose) {
         onClose();
       }
     };
@@ -41,15 +46,19 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       <ThemedComponent
         ref={ref}
         theme={theme.overlay}
-        className={isHidden ? 'hidden' : undefined}
-        onClick={handleClick}
         data-state={isHidden ? undefined : state}
-        style={{
-          '--z-index': zIndex,
-          ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } : undefined),
-        } as React.CSSProperties}
         aria-hidden={isHidden || undefined}
-        {...{ ...props, pointerEventsNone }}
+        {...{
+          ...props,
+          pointerEventsNone,
+          className: [isHidden ? 'hidden' : undefined, consumerClassName].filter(Boolean).join(' ') || undefined,
+          onClick: composeEventHandlers(consumerOnClick, handleClick),
+          style: {
+            '--z-index': zIndex,
+            ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } : undefined),
+            ...consumerStyle,
+          } as React.CSSProperties,
+        }}
       >
         {children}
       </ThemedComponent>
