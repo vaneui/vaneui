@@ -32,6 +32,13 @@ import type {
   PointerEventsProps,
   MinWidthProps,
   MaxHeightProps,
+  FontWeightProps,
+  FontStyleProps,
+  TextDecorationProps,
+  TextTransformProps,
+  FontFamilyProps,
+  TextAlignProps,
+  TruncateProps,
 } from '../props';
 
 /**
@@ -63,6 +70,13 @@ export type PopupProps = BaseProps &
   BorderProps &
   RingProps &
   TransitionProps &
+  FontWeightProps &
+  FontStyleProps &
+  TextDecorationProps &
+  TextTransformProps &
+  FontFamilyProps &
+  TextAlignProps &
+  TruncateProps &
   WidthProps &
   HeightProps &
   PlacementProps &

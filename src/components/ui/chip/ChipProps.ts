@@ -1,5 +1,6 @@
 import type React from 'react';
 import type {
+  InheritSizeProps,
   BaseProps,
   SizeProps,
   HideProps,
@@ -41,6 +42,7 @@ import type {
 /** Chip component props */
 export type ChipProps = BaseProps &
   SizeProps &
+  InheritSizeProps &
   HideProps &
   ItemsProps &
   JustifyProps &

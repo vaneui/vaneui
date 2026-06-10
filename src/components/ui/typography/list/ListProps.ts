@@ -24,7 +24,10 @@ import type {
   WidthProps,
   HeightProps,
   TransparentProps,
-  ResponsiveProps
+  ResponsiveProps,
+  InheritSizeProps,
+  InheritColorProps,
+  InheritBgProps
 } from '../../props';
 
 /** List component props */
@@ -53,6 +56,9 @@ export type ListProps = BaseProps &
   HeightProps &
   TransparentProps &
   ResponsiveProps &
+  InheritSizeProps &
+  InheritColorProps &
+  InheritBgProps &
   Omit<React.HTMLAttributes<HTMLElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
