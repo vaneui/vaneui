@@ -426,6 +426,7 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
+    "props:generate": "tsx scripts/generatePropDescriptions.ts",
     "lint": "eslint src playground --ext .ts,.tsx",
     "build:css:vars": "npx @tailwindcss/cli -i src/components/css/vars.css -o ./dist/vars.css --minify",
     "build:css:ui": "tsx scripts/scopePreflight.ts && npx @tailwindcss/cli -i src/components/index.css -o ./dist/ui.css --minify",

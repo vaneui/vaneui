@@ -1,8 +1,8 @@
 /**
  * Script to generate propDescriptions.ts from JSDoc comments in prop interface files.
  *
- * Run with: npx ts-node scripts/generatePropDescriptions.ts
- * Or add to package.json: "props:generate": "ts-node scripts/generatePropDescriptions.ts"
+ * Run with: npm run props:generate
+ * Also runs automatically as the first step of `npm run build`.
  */
 
 import * as ts from 'typescript';
@@ -268,11 +268,11 @@ function generatePropDescriptions(): void {
   }
 
   // Generate the output file
+  // No timestamp in the header: output must be deterministic so the committed
+  // file stays clean across rebuilds (CI guards this with `git diff --exit-code`).
   const output = `/**
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
- *
- * Generated on: ${new Date().toISOString()}
  */
 
 export interface PropDescription {

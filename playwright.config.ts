@@ -21,7 +21,7 @@ export default defineConfig<TestOptions>({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   // Local dev: saturate the box. CI (GitHub-hosted ubuntu-latest is 2 vCPU /
-  // 7 GB) — keep modest; sharding in the workflow does the real CI parallelism.
+  // 7 GB) — keep modest so the vite preview server isn't starved.
   workers: process.env.CI ? '50%' : '100%',
   reporter: process.env.CI ? 'github' : 'list',
   use: {
