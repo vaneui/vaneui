@@ -200,6 +200,22 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       }
     }
 
+    // dev-only: categories are mutually exclusive, but the boolean-props API
+    // can't express that in types — when 2+ props of one category are
+    // explicitly true, the winner is ComponentKeys array order (NOT JSX
+    // order), which is undiscoverable without a warning
+    if (process.env.NODE_ENV !== 'production') {
+      for (const category of this.categories) {
+        const truthyKeys = ComponentKeys[category].filter(k => componentProps[k] === true);
+        if (truthyKeys.length > 1) {
+          const tagName = typeof this.tag === 'string' ? `<${this.tag}>` : 'component';
+          console.warn(
+            `VaneUI: conflicting ${category} props on ${tagName}: ${truthyKeys.join(', ')} — "${truthyKeys[0]}" wins (canonical key order, not JSX order). Pass only one prop per category.`
+          );
+        }
+      }
+    }
+
     // expand `inherit` shorthand into COLOR/BG/BORDER only (size inheritance is opt-in via inheritSize)
     if (extractedKeys.appearance === 'inherit') {
       if (!extractedKeys.inheritColor) {

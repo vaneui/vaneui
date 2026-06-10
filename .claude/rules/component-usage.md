@@ -328,7 +328,7 @@ Breakpoints (max-width): mobile = 768px, tablet = 1024px, desktop = 1280px.
 
 ## Size Props
 
-All components support size props. Only one is active at a time.
+All components support size props. Only one is active at a time. If two props of the same category are both set (e.g. `<Button xs lg>`, or `md` colliding with a spread), the canonical key order decides the winner — NOT JSX order — and dev builds log a console warning. Pass only one prop per category.
 
 ```tsx
 <Button xs>Extra small</Button>
