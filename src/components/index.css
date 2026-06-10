@@ -1,4 +1,12 @@
-@import "tailwindcss";
+/* Expanded form of `@import "tailwindcss"` WITHOUT the global preflight:
+   importing a component library must not reset the consumer's page. The
+   preflight normalizations VaneUI's components rely on are applied scoped
+   to [data-vane-type] subtrees via the generated file below (regenerated
+   by scripts/scopePreflight.ts as part of the CSS build). */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "./css/generated-scoped-preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities);
 
 @import "./css/tokens.css" layer(theme);
 @import "./css/rules.css";

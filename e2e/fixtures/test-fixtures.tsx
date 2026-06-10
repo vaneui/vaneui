@@ -126,6 +126,15 @@ export function TestHarness() {
     <ThemeProvider>
       <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 32 }}>
 
+        {/* ── No-global-reset guard: BARE elements outside any VaneUI
+            component must keep their user-agent styles — the shipped CSS
+            must never reset the consumer's page ── */}
+        <section data-testid="no-global-reset">
+          <h1 data-testid="bare-h1">Bare heading</h1>
+          <button data-testid="bare-button">Bare button</button>
+          <ul data-testid="bare-ul"><li>item</li></ul>
+        </section>
+
         {/* ── Appearance inheritance: Card → Text/Title ── */}
 
         <section data-testid="inherit-primary-outline">
