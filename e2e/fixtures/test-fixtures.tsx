@@ -97,7 +97,7 @@ function ZIndexFixtures() {
         anchorRef={nestedPopupAnchorRef}
         closeOnEscape={false}
         closeOnClickOutside={false}
-        data-testid="z-popup-nested"
+        aria-label="Nested popup" data-testid="z-popup-nested"
       >
         <Text>Popup inside modal</Text>
       </Popup>
@@ -113,7 +113,7 @@ function ZIndexFixtures() {
         anchorRef={popupAnchorRef}
         closeOnEscape={false}
         closeOnClickOutside={false}
-        data-testid="z-popup-standalone"
+        aria-label="Standalone popup" data-testid="z-popup-standalone"
       >
         <Text>Standalone popup</Text>
       </Popup>
@@ -188,9 +188,9 @@ export function TestHarness() {
         {/* ── Button SVG sizing across size variants ── */}
 
         <section data-testid="icon-sizing">
-          <Button xs data-testid="icon-bare-xs"><StarIcon /></Button>
-          <Button md data-testid="icon-bare-md"><StarIcon /></Button>
-          <Button xl data-testid="icon-bare-xl"><StarIcon /></Button>
+          <Button xs aria-label="star xs" data-testid="icon-bare-xs"><StarIcon /></Button>
+          <Button md aria-label="star md" data-testid="icon-bare-md"><StarIcon /></Button>
+          <Button xl aria-label="star xl" data-testid="icon-bare-xl"><StarIcon /></Button>
         </section>
 
         {/* ── Icon sizing: Badge and Chip ── */}
@@ -539,6 +539,11 @@ export function TestHarness() {
             portal={false}
             closeOnClickOutside={false}
             closeOnEscape={false}
+            // axe: this menu is artificially long for size measurements; the
+            // default max-height would make it a scrollable region whose
+            // roving-tabindex items (tabIndex=-1) trip
+            // scrollable-region-focusable
+            className="max-h-none"
           >
             <MenuItem xs data-testid="menu-item-xs">XS item</MenuItem>
             <MenuItem sm data-testid="menu-item-sm">SM item</MenuItem>
@@ -628,23 +633,23 @@ export function TestHarness() {
 
         <section data-testid="checkbox-section">
           {/* Default unchecked checkboxes (filled variant) — must show visible border */}
-          <Checkbox data-testid="checkbox-default" />
-          <Checkbox primary data-testid="checkbox-primary" />
-          <Checkbox success data-testid="checkbox-success" />
-          <Checkbox danger data-testid="checkbox-danger" />
+          <Checkbox aria-label="checkbox default" data-testid="checkbox-default" />
+          <Checkbox primary aria-label="checkbox primary" data-testid="checkbox-primary" />
+          <Checkbox success aria-label="checkbox success" data-testid="checkbox-success" />
+          <Checkbox danger aria-label="checkbox danger" data-testid="checkbox-danger" />
 
           {/* Explicit outline variant */}
-          <Checkbox outline data-testid="checkbox-outline" />
-          <Checkbox outline success data-testid="checkbox-outline-success" />
+          <Checkbox outline aria-label="checkbox outline" data-testid="checkbox-outline" />
+          <Checkbox outline success aria-label="checkbox outline-success" data-testid="checkbox-outline-success" />
 
           {/* Checked checkboxes — filled should fill with color */}
-          <Checkbox defaultChecked data-testid="checkbox-checked-filled" />
-          <Checkbox outline defaultChecked data-testid="checkbox-checked-outline" />
+          <Checkbox defaultChecked aria-label="checkbox checked-filled" data-testid="checkbox-checked-filled" />
+          <Checkbox outline defaultChecked aria-label="checkbox checked-outline" data-testid="checkbox-checked-outline" />
 
           {/* Checkbox on dark background — must be visible */}
           <Card filled primary data-testid="checkbox-dark-bg">
             <Label>
-              <Checkbox data-testid="checkbox-on-dark" />
+              <Checkbox aria-label="checkbox on-dark" data-testid="checkbox-on-dark" />
               Visible on dark
             </Label>
           </Card>
@@ -658,8 +663,8 @@ export function TestHarness() {
           {/* Checkbox with `ring` enabled — used to verify the override sets
               --ring-color (not just --border-color). Default Checkbox has
               `noRing: true`, so ring color stays dormant unless opted in. */}
-          <Checkbox ring data-testid="checkbox-with-ring-unchecked" />
-          <Checkbox outline ring defaultChecked data-testid="checkbox-with-ring-checked-outline" />
+          <Checkbox ring aria-label="checkbox with-ring-unchecked" data-testid="checkbox-with-ring-unchecked" />
+          <Checkbox outline ring defaultChecked aria-label="checkbox with-ring-checked-outline" data-testid="checkbox-with-ring-checked-outline" />
         </section>
 
         {/* ── Overlay: visual appearance and computed styles ── */}
