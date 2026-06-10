@@ -490,6 +490,15 @@ export function TestHarness() {
           <Card filled info data-testid="vi-contrast-info">
             <Text data-testid="vi-contrast-text-info">Info filled</Text>
           </Card>
+          <Card filled accent data-testid="vi-contrast-accent">
+            <Text data-testid="vi-contrast-text-accent">Accent filled</Text>
+          </Card>
+          <Card filled tertiary data-testid="vi-contrast-tertiary">
+            <Text data-testid="vi-contrast-text-tertiary">Tertiary filled</Text>
+          </Card>
+          <Card filled link data-testid="vi-contrast-link">
+            <Text data-testid="vi-contrast-text-link">Link filled</Text>
+          </Card>
         </section>
 
         {/* ── Ghost variant: computed styles ── */}
