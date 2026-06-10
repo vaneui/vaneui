@@ -36,7 +36,7 @@
         "default": "./dist/esm/index.mjs"
       },
       "require": {
-        "types": "./dist/types/index.d.ts",
+        "types": "./dist/types/index.d.cts",
         "default": "./dist/cjs/index.cjs"
       }
     },
@@ -46,7 +46,7 @@
         "default": "./dist/esm/components/ui/layout.mjs"
       },
       "require": {
-        "types": "./dist/types/components/ui/layout.d.ts",
+        "types": "./dist/types/components/ui/layout.d.cts",
         "default": "./dist/cjs/components/ui/layout.cjs"
       }
     },
@@ -56,7 +56,7 @@
         "default": "./dist/esm/components/themeContext.mjs"
       },
       "require": {
-        "types": "./dist/types/components/themeContext.d.ts",
+        "types": "./dist/types/components/themeContext.d.cts",
         "default": "./dist/cjs/components/themeContext.cjs"
       }
     },
@@ -66,7 +66,7 @@
         "default": "./dist/esm/components/ui/*/index.mjs"
       },
       "require": {
-        "types": "./dist/types/components/ui/*/index.d.ts",
+        "types": "./dist/types/components/ui/*/index.d.cts",
         "default": "./dist/cjs/components/ui/*/index.cjs"
       }
     },
