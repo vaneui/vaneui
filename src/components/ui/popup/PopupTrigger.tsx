@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect, useId, cloneElement } from 'react';
 import type { PopupTriggerProps } from './PopupTriggerProps';
 import { Popup } from './Popup';
+import { composeRefs, getElementRef } from '../../utils/composeRefs';
 
 export function PopupTrigger({
   children,
@@ -105,8 +106,10 @@ export function PopupTrigger({
 
   const ariaHaspopup = popupProps?.role || 'dialog';
 
+  // compose with the trigger's own ref — cloneElement would silently
+  // replace a ref the consumer attached to their trigger element
   const triggerElement = cloneElement(children, {
-    ref: anchorRef,
+    ref: composeRefs(getElementRef(children), anchorRef),
     'aria-expanded': disabled ? undefined : open,
     'aria-haspopup': disabled ? undefined : ariaHaspopup,
     'aria-controls': !disabled && open ? popupId : undefined,

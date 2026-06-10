@@ -5,6 +5,7 @@ import { useControllableState } from '../../utils/controllableState';
 import { Popup } from '../popup/Popup';
 import { useTheme, ThemeProvider } from '../../themeContext';
 import { ComponentKeys } from '../props';
+import { composeRefs, getElementRef } from '../../utils/composeRefs';
 
 export function Menu({
   children,
@@ -107,8 +108,10 @@ export function Menu({
     [trigger, openMenu, closeMenu, effectiveOpen]
   );
 
+  // compose with the trigger's own ref — cloneElement would silently
+  // replace a ref the consumer attached to their trigger element
   const triggerElement = cloneElement(trigger, {
-    ref: anchorRef,
+    ref: composeRefs(getElementRef(trigger), anchorRef),
     'aria-haspopup': 'menu',
     'aria-expanded': effectiveOpen,
     'aria-controls': effectiveOpen ? menuId : undefined,
