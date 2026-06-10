@@ -273,6 +273,14 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     if ((props as Record<string, unknown>).readOnly) {
       dataAttributes['data-readonly'] = 'true';
     }
+    // error state must be AT-perceivable, not color-only: emit aria-invalid
+    // (unless the consumer set it explicitly) alongside a data-status hook
+    if (extractedKeys.status === 'error') {
+      dataAttributes['data-status'] = 'error';
+      if ((props as Record<string, unknown>)['aria-invalid'] === undefined) {
+        dataAttributes['aria-invalid'] = 'true';
+      }
+    }
 
     return {
       Tag: componentTag,

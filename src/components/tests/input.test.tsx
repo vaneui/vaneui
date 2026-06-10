@@ -606,5 +606,41 @@ describe('Input Component Tests', () => {
       expect(input).toHaveAttribute('data-size', 'lg'); // size prop
       expect(input).toHaveAttribute('data-appearance', 'primary'); // appearance
     });
+
+    it('should emit aria-invalid and data-status when error is set (not color-only)', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input error placeholder="Error input" />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+      expect(input).toHaveAttribute('data-status', 'error');
+    });
+
+    it('should not emit aria-invalid or data-status without error', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input placeholder="Normal input" />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).not.toHaveAttribute('aria-invalid');
+      expect(input).not.toHaveAttribute('data-status');
+    });
+
+    it('should respect a consumer-supplied aria-invalid value', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input error aria-invalid="grammar" placeholder="Custom aria-invalid" />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input');
+      expect(input).toHaveAttribute('aria-invalid', 'grammar');
+      expect(input).toHaveAttribute('data-status', 'error');
+    });
   });
 });
