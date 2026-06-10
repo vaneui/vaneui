@@ -571,16 +571,31 @@ describe('Button Component Tests', () => {
       expect(spinnerRing).toHaveAttribute('aria-hidden', 'true');
     });
 
-    it('should render children as invisible to preserve button width', () => {
+    it('should render children with opacity-0 to preserve button width and accessible name', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Button loading>Save</Button>
         </ThemeProvider>
       );
 
-      const invisibleSpan = container.querySelector('span.invisible');
-      expect(invisibleSpan).toBeInTheDocument();
-      expect(invisibleSpan).toHaveTextContent('Save');
+      // opacity-0 (not invisible/visibility:hidden) keeps the text in the
+      // accessibility tree so the button is still announced as "Save"
+      const hiddenSpan = container.querySelector('span.opacity-0');
+      expect(hiddenSpan).toBeInTheDocument();
+      expect(hiddenSpan).toHaveTextContent('Save');
+      expect(container.querySelector('span.invisible')).not.toBeInTheDocument();
+    });
+
+    it('should keep its accessible name and announce busy state while loading', () => {
+      const {getByRole} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button loading>Save</Button>
+        </ThemeProvider>
+      );
+
+      const button = getByRole('button', {name: 'Save'});
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveAttribute('aria-busy', 'true');
     });
 
     it('should not leak loading prop to DOM as HTML attribute', () => {

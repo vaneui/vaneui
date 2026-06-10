@@ -13,13 +13,15 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     const resolvedProps = resolveDisabledLink(rest, !!isDisabled);
 
     if (loading) {
-      const loadingProps = { ...resolvedProps, disabled: true as const, 'data-loading': 'true' };
+      const loadingProps = { ...resolvedProps, disabled: true as const, 'data-loading': 'true', 'aria-busy': true as const };
       return (
         <ThemedComponent ref={ref} theme={theme.iconButton} {...loadingProps}>
           <ThemedComponent theme={theme.button.spinner}>
             {theme.button.spinner.themes.spinnerElement()}
           </ThemedComponent>
-          <span className="invisible">{resolvedProps.children}</span>
+          {/* opacity-0 (not invisible) — keeps the children in the accessibility
+              tree so the button retains its accessible name while loading */}
+          <span className="opacity-0">{resolvedProps.children}</span>
         </ThemedComponent>
       );
     }
