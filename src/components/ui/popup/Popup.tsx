@@ -10,6 +10,7 @@ import { useStackingContext } from '../../utils/stackingContext';
 import { useControllableState } from '../../utils/controllableState';
 import { useMergedRef } from '../../utils/mergedRef';
 import { pushEscapeHandler } from '../../utils/escapeStack';
+import { getFocusableElements } from '../../utils/focusTrap';
 
 type PopupPlacement =
   | 'top'
@@ -248,6 +249,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       role = 'dialog',
       arrow = false,
       disabled = false,
+      autoFocus = false,
       onEnterComplete,
       onExitComplete,
       hideWhenDetached = false,
@@ -291,6 +293,29 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     useIsomorphicLayoutEffect(() => {
       onCloseRef.current = onClose;
     });
+
+    // dialog-style popups portal to document.body, which breaks sequential
+    // focus order — when autoFocus is set (click-opened dialogs), move focus
+    // into the popup on open so keyboard users can reach its content;
+    // focus-return on close is the opener's responsibility
+    useEffect(() => {
+      if (!effectiveOpen || !autoFocus) return;
+
+      const raf = requestAnimationFrame(() => {
+        const popup = popupRef.current;
+        if (!popup || popup.contains(document.activeElement)) return;
+
+        const focusable = getFocusableElements(popup);
+        if (focusable.length > 0) {
+          focusable[0].focus();
+        } else {
+          popup.setAttribute('tabindex', '-1');
+          popup.focus();
+        }
+      });
+
+      return () => cancelAnimationFrame(raf);
+    }, [effectiveOpen, autoFocus]);
 
     const mergedRef = useMergedRef(ref, popupRef);
 

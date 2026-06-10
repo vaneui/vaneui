@@ -98,6 +98,10 @@ export type PopupProps = BaseProps &
     transitionDuration?: number;
     /** ARIA role for the popup (default: "dialog") */
     role?: string;
+    /** Move focus into the popup when it opens — set for click-opened
+     *  dialog popups so keyboard users can reach the portaled content
+     *  (default: false; PopupTrigger sets it for click mode) */
+    autoFocus?: boolean;
     /** Show an arrow/pointer pointing toward the anchor (default: false) */
     arrow?: boolean;
     /** Prevent popup from opening (default: false) */

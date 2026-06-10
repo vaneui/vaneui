@@ -104,15 +104,25 @@ export function PopupTrigger({
     }
   }
 
-  const ariaHaspopup = popupProps?.role || 'dialog';
+  const popupRole = popupProps?.role || 'dialog';
+  // tooltip semantics differ from disclosure semantics: the trigger is
+  // DESCRIBED BY the tooltip, and aria-haspopup/aria-expanded do not apply
+  // (haspopup has no "tooltip" value)
+  const isTooltip = popupRole === 'tooltip';
+
+  const triggerAria: Record<string, unknown> = isTooltip
+    ? { 'aria-describedby': !disabled && open ? popupId : undefined }
+    : {
+        'aria-expanded': disabled ? undefined : open,
+        'aria-haspopup': disabled ? undefined : popupRole,
+        'aria-controls': !disabled && open ? popupId : undefined,
+      };
 
   // compose with the trigger's own ref — cloneElement would silently
   // replace a ref the consumer attached to their trigger element
   const triggerElement = cloneElement(children, {
     ref: composeRefs(getElementRef(children), anchorRef),
-    'aria-expanded': disabled ? undefined : open,
-    'aria-haspopup': disabled ? undefined : ariaHaspopup,
-    'aria-controls': !disabled && open ? popupId : undefined,
+    ...triggerAria,
     ...triggerHandlers,
   } as Record<string, unknown>);
 
@@ -125,6 +135,10 @@ export function PopupTrigger({
         anchorRef={anchorRef}
         id={popupId}
         disabled={disabled}
+        // click-opened dialogs portal to document.body, breaking Tab order —
+        // move focus in on open; never steal focus for hover/focus modes or
+        // tooltips (consumer popupProps can override)
+        autoFocus={useClick && !isTooltip}
         {...(isHover ? {
           onMouseEnter: () => { clearTimers(); },
           onMouseLeave: handleClose,
