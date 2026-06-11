@@ -2,6 +2,7 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 import { ThemeProvider, useTheme, defaultTheme } from '../themeContext';
 import type { ThemeProps } from '../themeContext';
+import { Label } from '../ui/label';
 
 // Regression tests for the ThemeProvider memoization fix:
 // a provider with nothing to customize must reuse the base theme by
@@ -124,6 +125,40 @@ describe('ThemeProvider identity stability', () => {
     expect((capturedTheme!.button.main.defaults as Record<string, boolean>).lg).toBe(true);
     // exclusive-group reset: built-in sm default must be cleared
     expect((capturedTheme!.button.main.defaults as Record<string, boolean>).sm).toBe(false);
+  });
+});
+
+// P2-10: Label communicates its resolved size to nested Input/Checkbox via
+// the scalar LabelSizeContext — it must NOT fork the theme graph the way its
+// old nested-ThemeProvider mechanism did (one full theme clone retained per
+// mounted Label).
+describe('Label subtree theme identity (no per-Label theme fork)', () => {
+  it('useTheme() inside a Label subtree returns the same theme object as outside', () => {
+    const captured: ThemeProps[] = [];
+
+    function Capture() {
+      captured.push(useTheme());
+      return null;
+    }
+
+    const makeTree = () => (
+      <ThemeProvider>
+        <Capture />
+        <Label>
+          <Capture />
+        </Label>
+      </ThemeProvider>
+    );
+
+    const { rerender } = render(makeTree());
+    rerender(makeTree());
+
+    expect(captured.length).toBe(4);
+    // inside the Label === outside the Label — no fork on mount...
+    expect(captured[1]).toBe(captured[0]);
+    // ...and the identity also stays stable across re-renders
+    expect(captured[2]).toBe(captured[0]);
+    expect(captured[3]).toBe(captured[0]);
   });
 });
 

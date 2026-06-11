@@ -1,36 +1,28 @@
-import { forwardRef, useMemo } from 'react';
+import { forwardRef } from 'react';
 import type { LabelProps } from "./LabelProps";
 import { ThemedComponent } from "../../themedComponent";
-import { useTheme, ThemeProvider } from "../../themeContext";
+import { useTheme } from "../../themeContext";
 import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
+import { LabelSizeContext } from "./LabelSizeContext";
 
 export const Label = forwardRef<HTMLLabelElement, LabelProps>(
   function Label(props, ref) {
     const theme = useTheme();
 
-    // propagate resolved size to nested Input/Checkbox via ThemeProvider; mergeDefaults zeroes other size keys
+    // propagate resolved size to nested Input/Checkbox via LabelSizeContext —
+    // a scalar value, so no theme fork and no memo needed (context compares
+    // the string by value)
     const resolvedSize = pickFirstTruthyKeyByCategory(
       props as Record<string, unknown>,
       theme.label.defaults as Record<string, unknown>,
       'size'
     ) ?? 'md';
 
-    // memoized so the nested ThemeProvider's memo stays valid across
-    // re-renders — an inline literal here would re-clone the theme tree on
-    // every render of every Label
-    const childThemeDefaults = useMemo(() => ({
-      input: { [resolvedSize]: true },
-      checkbox: {
-        wrapper: { [resolvedSize]: true },
-        input: { [resolvedSize]: true },
-      },
-    }), [resolvedSize]);
-
     return (
       <ThemedComponent theme={theme.label} ref={ref} {...props}>
-        <ThemeProvider themeDefaults={childThemeDefaults}>
+        <LabelSizeContext.Provider value={resolvedSize}>
           {props.children}
-        </ThemeProvider>
+        </LabelSizeContext.Provider>
       </ThemedComponent>
     );
   }
