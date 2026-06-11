@@ -45,7 +45,7 @@ describe('List and ListItem Components Tests', () => {
       );
 
       const list = container.querySelector('ul');
-      expect(list).toHaveClass(FONT_SIZE_CLASS, 'pl-(--pl)'); // inherit appearance cascades font-size; lg padding
+      expect(list).toHaveClass(FONT_SIZE_CLASS, 'ps-(--pl)'); // inherit appearance cascades font-size; lg logical start padding
       expect(list).toHaveAttribute('data-size', 'lg');
       expect(list).toHaveClass('leading-(--lh)'); // inherited line height (inherit appearance)
     });
@@ -837,7 +837,7 @@ describe('List and ListItem Components Tests', () => {
       expect(iconWrapper).toHaveClass('align-middle');
       expect(iconWrapper).toHaveClass('h-(--icon-size)');
       expect(iconWrapper).toHaveClass('min-w-(--icon-size)');
-      expect(iconWrapper).toHaveClass('mr-(--gap)');
+      expect(iconWrapper).toHaveClass('me-(--gap)'); // logical margin: flips to the correct side under RTL
     });
   });
 });

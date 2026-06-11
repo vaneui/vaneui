@@ -460,6 +460,21 @@ These are on/off switches. Check defaults before using — many are already true
 <Text textRight>Right-aligned</Text>
 ```
 
+## Text Alignment & RTL
+
+Start/end-intent styling is logical by default: the List marker indent, the Blockquote accent border, and the ListItem icon margin use CSS logical properties, so they render identically in LTR and flip automatically under `dir="rtl"`.
+
+Text alignment offers both modes:
+
+- `textStart` / `textEnd` — direction-aware: start is left in LTR, right in RTL
+- `textLeft` / `textRight` — physical: always that side, never flip
+
+```tsx
+<Text textStart>Aligns to the reading-direction start</Text>
+<Text textEnd>Aligns to the reading-direction end</Text>
+<Text textLeft>Always physically left, even under dir="rtl"</Text>
+```
+
 ## Anti-Patterns
 
 ### Don't use Tailwind classes for things VaneUI props handle

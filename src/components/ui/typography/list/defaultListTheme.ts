@@ -25,7 +25,7 @@ export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new Compon
       // `letterSpacing` is not in LIST_CATEGORIES, and LetterSpacingClassMapper
       // emits a default `tracking-(--ls)` class even when the prop is absent,
       // which would change every List's class output.
-      // delta: size-scaled left padding reserves indent space for list markers
+      // delta: size-scaled logical start padding reserves indent space for list markers
       paddingLeft: new PlClassMapper(),
     },
     appearance: {

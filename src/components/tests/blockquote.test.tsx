@@ -40,14 +40,16 @@ describe('Blockquote Component', () => {
   });
 
   describe('Default Theme Application', () => {
-    it('should have vane-blockquote class and border-l styling', () => {
+    it('should have vane-blockquote class and logical (border-s) accent styling', () => {
       const { container } = render(<Blockquote>Quote</Blockquote>);
       const el = container.querySelector('blockquote');
 
       expect(el).toHaveClass('vane-blockquote');
-      expect(el).toHaveClass('border-l-3');
+      // Logical utilities: accent border + indent sit on the reading-direction
+      // start side (left in LTR, right in RTL)
+      expect(el).toHaveClass('border-s-3');
       expect(el).toHaveClass('border-(--border-color)');
-      expect(el).toHaveClass('pl-(--pl)');
+      expect(el).toHaveClass('ps-(--pl)');
     });
 
     it('should have default theme classes applied', () => {

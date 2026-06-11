@@ -254,8 +254,8 @@ export const ComponentKeys = {
   shape: ['pill', 'sharp', 'rounded'] as const,
   /** Size scale from extra-small to extra-large */
   size: ['xs', 'sm', 'md', 'lg', 'xl'] as const,
-  /** Text alignment: left, center, right, justify */
-  textAlign: ['textLeft', 'textCenter', 'textRight', 'textJustify'] as const,
+  /** Text alignment: left, center, right, justify (physical), start, end (direction-aware, flip under RTL) */
+  textAlign: ['textLeft', 'textCenter', 'textRight', 'textJustify', 'textStart', 'textEnd'] as const,
   /** Text decoration: underline, strikethrough (lineThrough), none (noUnderline), overline */
   textDecoration: ['underline', 'lineThrough', 'noUnderline', 'overline'] as const,
   /** Text case transformation: UPPERCASE, lowercase, Capitalize, normalCase */
@@ -338,7 +338,7 @@ export type FontStyleKey = typeof ComponentKeys.fontStyle[number];
 export type TextDecorationKey = typeof ComponentKeys.textDecoration[number];
 /** Text case transformation keys: uppercase, lowercase, capitalize, normalCase */
 export type TextTransformKey = typeof ComponentKeys.textTransform[number];
-/** Text alignment keys: textLeft, textCenter, textRight, textJustify */
+/** Text alignment keys: textLeft, textCenter, textRight, textJustify, textStart, textEnd */
 export type TextAlignKey = typeof ComponentKeys.textAlign[number];
 /** Responsive breakpoint column keys for grid layouts */
 export type BreakpointKey = typeof ComponentKeys.breakpoint[number];

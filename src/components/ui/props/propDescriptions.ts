@@ -838,16 +838,22 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "description": "Text alignment props for controlling text position",
     "props": {
       "textLeft": {
-        "description": "Align text to left"
+        "description": "Align text to left (physical side, does not flip under RTL)"
       },
       "textCenter": {
         "description": "Align text to center"
       },
       "textRight": {
-        "description": "Align text to right"
+        "description": "Align text to right (physical side, does not flip under RTL)"
       },
       "textJustify": {
         "description": "Justify text"
+      },
+      "textStart": {
+        "description": "Align text to the reading-direction start (left in LTR, right in RTL)"
+      },
+      "textEnd": {
+        "description": "Align text to the reading-direction end (right in LTR, left in RTL)"
       }
     }
   },

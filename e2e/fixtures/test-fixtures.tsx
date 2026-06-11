@@ -964,6 +964,41 @@ export function TestHarness() {
           </div>
         </section>
 
+        {/* ── RTL: logical utilities under dir="rtl" ──
+            The theme layer emits logical utilities for start/end-intent styling
+            (List indent ps-(--pl), Blockquote accent border-s-3 + ps-(--pl),
+            ListItem icon margin me-(--gap), text-start / text-end) so it flips
+            correctly under RTL, while textLeft/textRight stay physical by
+            policy. The SAME elements render once in LTR (controls) and once
+            inside a dir="rtl" wrapper so rtl.spec.ts can assert computed styles
+            for both directions side by side. Alignment Texts are wFull because
+            the Text default is wFit (a fit-width box makes text-align moot). */}
+        <section data-testid="rtl-section">
+          {/* LTR controls */}
+          <div data-testid="rtl-ltr-controls">
+            <List data-testid="ltr-list">
+              <ListItem>First item</ListItem>
+              <ListItem icon={<StarIcon />} data-testid="ltr-list-item-icon">Icon item</ListItem>
+            </List>
+            <Blockquote data-testid="ltr-blockquote">Quoted content</Blockquote>
+            <Text wFull textStart data-testid="ltr-text-start">Start-aligned text</Text>
+            <Text wFull textEnd data-testid="ltr-text-end">End-aligned text</Text>
+            <Text wFull textLeft data-testid="ltr-text-left">Left-aligned text</Text>
+          </div>
+
+          {/* Same elements under dir="rtl" */}
+          <div dir="rtl" data-testid="rtl-wrapper">
+            <List data-testid="rtl-list">
+              <ListItem>First item</ListItem>
+              <ListItem icon={<StarIcon />} data-testid="rtl-list-item-icon">Icon item</ListItem>
+            </List>
+            <Blockquote data-testid="rtl-blockquote">Quoted content</Blockquote>
+            <Text wFull textStart data-testid="rtl-text-start">Start-aligned text</Text>
+            <Text wFull textEnd data-testid="rtl-text-end">End-aligned text</Text>
+            <Text wFull textLeft data-testid="rtl-text-left">Left-aligned text</Text>
+          </div>
+        </section>
+
       </div>
     </ThemeProvider>
   );

@@ -11,7 +11,9 @@ export const ListItem = forwardRef<HTMLLIElement, ListItemProps>(
     return (
       <ThemedComponent ref={ref} theme={theme.listItem} {...rest} {...dataAttr}>
         {icon ? (
-          <span className="vane-list-item-icon mr-(--gap) inline-flex items-center justify-center align-middle h-(--icon-size) min-w-(--icon-size)">
+          // me- (margin-inline-end) keeps the icon-to-text gap on the correct side under RTL,
+          // matching the logical margins of .vane-link-start-icon / .vane-link-end-icon in rules.css
+          <span className="vane-list-item-icon me-(--gap) inline-flex items-center justify-center align-middle h-(--icon-size) min-w-(--icon-size)">
             {icon}
           </span>
         ) : null}

@@ -214,10 +214,14 @@ describe('Text Component Tests', () => {
 
     it('should support text alignment variants', () => {
       const alignments = [
+        // textLeft/textRight stay physical by policy (do not flip under RTL)
         { prop: 'textLeft', class: 'text-left' },
         { prop: 'textCenter', class: 'text-center' },
         { prop: 'textRight', class: 'text-right' },
-        { prop: 'textJustify', class: 'text-justify' }
+        { prop: 'textJustify', class: 'text-justify' },
+        // textStart/textEnd are direction-aware (flip under RTL)
+        { prop: 'textStart', class: 'text-start' },
+        { prop: 'textEnd', class: 'text-end' }
       ] as const;
 
       alignments.forEach(({prop, class: expectedClass}) => {
