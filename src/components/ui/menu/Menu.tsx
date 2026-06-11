@@ -63,15 +63,21 @@ export function Menu({
     prevOpenRef.current = effectiveOpen;
   }, [effectiveOpen]);
 
-  // focus first menu item on open
+  // ArrowUp on the closed trigger opens with focus on the LAST enabled item
+  const focusLastOnOpenRef = useRef(false);
+
+  // focus first (or last, when opened via ArrowUp) menu item on open
   useEffect(() => {
     if (!effectiveOpen || !contentRef.current) return;
 
     const raf = requestAnimationFrame(() => {
-      const firstItem = contentRef.current?.querySelector<HTMLElement>(
+      const items = contentRef.current?.querySelectorAll<HTMLElement>(
         '[data-menu-item]:not([data-disabled])'
       );
-      firstItem?.focus();
+      if (!items || items.length === 0) return;
+      const target = focusLastOnOpenRef.current ? items[items.length - 1] : items[0];
+      focusLastOnOpenRef.current = false;
+      target.focus();
     });
 
     return () => cancelAnimationFrame(raf);
@@ -97,6 +103,9 @@ export function Menu({
 
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         e.preventDefault();
+        if (!disabled && !effectiveOpen) {
+          focusLastOnOpenRef.current = e.key === 'ArrowUp';
+        }
         openMenu();
       }
 
@@ -105,7 +114,7 @@ export function Menu({
         closeMenu();
       }
     },
-    [trigger, openMenu, closeMenu, effectiveOpen]
+    [trigger, openMenu, closeMenu, effectiveOpen, disabled]
   );
 
   // compose with the trigger's own ref — cloneElement would silently

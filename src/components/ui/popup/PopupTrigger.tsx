@@ -1,11 +1,15 @@
-import React, { useState, useRef, useCallback, useEffect, useId, cloneElement } from 'react';
+import React, { useRef, useCallback, useEffect, useId, cloneElement } from 'react';
 import type { PopupTriggerProps } from './PopupTriggerProps';
 import { Popup } from './Popup';
+import { useControllableState } from '../../utils/controllableState';
 import { composeRefs, getElementRef } from '../../utils/composeRefs';
 
 export function PopupTrigger({
   children,
   popup,
+  open: openProp,
+  defaultOpen = false,
+  onOpenChange,
   triggerOnClick,
   triggerOnHover,
   triggerOnFocus,
@@ -18,7 +22,12 @@ export function PopupTrigger({
   const isHover = triggerOnHover ?? false;
   const isFocus = triggerOnFocus ?? false;
   const useClick = triggerOnClick ?? (!isHover && !isFocus);
-  const [open, setOpen] = useState(false);
+
+  const [open, setOpen] = useControllableState({
+    value: openProp,
+    defaultValue: defaultOpen,
+    onChange: onOpenChange,
+  });
   const anchorRef = useRef<HTMLElement>(null);
   const generatedId = useId();
   const popupId = popupIdProp || `popup-trigger-${generatedId.replace(/:/g, '-')}`;
@@ -48,7 +57,7 @@ export function PopupTrigger({
     } else {
       setOpen(true);
     }
-  }, [openDelay, clearTimers]);
+  }, [openDelay, clearTimers, setOpen]);
 
   const handleClose = useCallback(() => {
     clearTimers();
@@ -57,7 +66,7 @@ export function PopupTrigger({
     } else {
       setOpen(false);
     }
-  }, [isHover, closeDelay, clearTimers]);
+  }, [isHover, closeDelay, clearTimers, setOpen]);
 
   const handleToggle = useCallback(() => {
     if (open) {

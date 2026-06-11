@@ -21,11 +21,18 @@ function getLayerBaseZ(layer: ZLayer): number {
   return LAYER_DEFAULTS[layer];
 }
 
-let stackCount = 0;
+// Monotonic acquisition counter: every newly opened element gets a strictly
+// higher offset than any element opened before it. Decrementing on close
+// would hand a new element the same z-index as a still-open one (open A →
+// open B → close A → open C left C colliding with B). The counter only
+// resets when nothing is open, so values don't grow unbounded.
+let stackCounter = 0;
+let openCount = 0;
 
 // test cleanup
 export function resetStackCount() {
-  stackCount = 0;
+  stackCounter = 0;
+  openCount = 0;
 }
 
 // The layout effect prevents a flash where nested elements paint behind
@@ -45,11 +52,15 @@ export function useStackingContext(open: boolean, layer: ZLayer = 'overlay'): nu
       return;
     }
 
-    stackCount++;
-    setZIndex(baseZ + stackCount);
+    openCount++;
+    stackCounter++;
+    setZIndex(baseZ + stackCounter);
 
     return () => {
-      stackCount--;
+      openCount--;
+      if (openCount === 0) {
+        stackCounter = 0;
+      }
     };
   }, [open, layer]);
 
