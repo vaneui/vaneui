@@ -97,6 +97,8 @@ import { MODAL_CATEGORIES } from '../modal/ModalCategories';
 import { POPUP_CATEGORIES } from '../popup/PopupCategories';
 import { CHECKBOX_CATEGORIES } from '../checkbox/CheckboxCategories';
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from '../typography/common/TypographyCategories';
+import { LIST_ITEM_CATEGORIES } from '../typography/listItem/ListItemCategories';
+import { LINK_CATEGORIES } from '../typography/link/LinkCategories';
 import { MENU_ITEM_CATEGORIES } from '../menu/MenuItemCategories';
 import { NAV_LINK_CATEGORIES } from '../navLink/NavLinkCategories';
 
@@ -495,9 +497,9 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   img: IMG_CATEGORIES,
   input: INPUT_CATEGORIES,
   label: LABEL_CATEGORIES,
-  link: TYPOGRAPHY_CATEGORIES,
+  link: LINK_CATEGORIES,
   list: LIST_CATEGORIES,
-  listItem: TYPOGRAPHY_CATEGORIES,
+  listItem: LIST_ITEM_CATEGORIES,
   pageTitle: TYPOGRAPHY_CATEGORIES,
   row: ROW_CATEGORIES,
   section: SECTION_CATEGORIES,

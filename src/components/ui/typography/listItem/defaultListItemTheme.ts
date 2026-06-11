@@ -4,13 +4,13 @@ import type { ListItemTheme } from "./ListItemTheme";
 import { typographyClassMappers } from "../../theme/common/typographyClassMappers";
 import { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
 import { textConsumerClass } from "../../classes/appearanceClasses";
-import { LIST_CATEGORIES } from "../common";
+import { LIST_ITEM_CATEGORIES } from "./ListItemCategories";
 import { listItemDefaults } from "./listItemDefaults";
 
 /** ListItem theme — composed over the shared `typographyClassMappers`
  *  collection so changes to the shared collection automatically reach
  *  ListItem. Includes `bgAppearance` so `<ListItem danger filled>` produces a
- *  colored background and `<ListItem transparent>` toggles it off. */
+ *  colored background. */
 export const defaultListItemTheme: ComponentTheme<TypographyProps, ListItemTheme> = new ComponentTheme<TypographyProps, ListItemTheme>(
   "li",
   "vane-list-item [&[data-has-icon='true']]:list-none",
@@ -19,7 +19,7 @@ export const defaultListItemTheme: ComponentTheme<TypographyProps, ListItemTheme
       text: typographyClassMappers.size.text,
       lineHeight: typographyClassMappers.size.lineHeight,
       // delta: the shared `letterSpacing` mapper is deliberately NOT inherited —
-      // `letterSpacing` is not in LIST_CATEGORIES, and LetterSpacingClassMapper
+      // `letterSpacing` is not in LIST_ITEM_CATEGORIES, and LetterSpacingClassMapper
       // emits a default `tracking-(--ls)` class even when the prop is absent,
       // which would change every ListItem's class output.
     },
@@ -34,13 +34,13 @@ export const defaultListItemTheme: ComponentTheme<TypographyProps, ListItemTheme
     },
     typography: typographyClassMappers.typography,
     // whole group inherited by reference. This also FIXES a former silent gap:
-    // LIST_CATEGORIES registers `width`/`height`, but the old unsized layout
+    // LIST_ITEM_CATEGORIES registers `width`/`height`, but the old unsized layout
     // collection had no mappers for them, so `<ListItem wFull>` was a no-op.
-    // The shared group's `cursor` mapper stays inert (`cursor` is not in LIST_CATEGORIES).
+    // The shared group's `cursor` mapper stays inert (`cursor` is not in LIST_ITEM_CATEGORIES).
     layout: typographyClassMappers.layout,
   },
   listItemDefaults,
-  LIST_CATEGORIES,
+  LIST_ITEM_CATEGORIES,
   undefined,
   'ui'
 );

@@ -27,5 +27,5 @@ export { List, listDefaults, defaultListTheme, listTheme } from './list';
 export type { ListProps, ListTheme } from './list';
 
 // ListItem component
-export { ListItem, listItemDefaults, defaultListItemTheme, listItemTheme } from './listItem';
+export { ListItem, LIST_ITEM_CATEGORIES, listItemDefaults, defaultListItemTheme, listItemTheme } from './listItem';
 export type { ListItemProps, ListItemTheme } from './listItem';

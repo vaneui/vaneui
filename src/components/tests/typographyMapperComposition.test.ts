@@ -90,7 +90,7 @@ describe("typography mapper composition (Link/List/ListItem reuse typographyClas
       expect(defaultListItemTheme.themes.size.lineHeight).toBe(typographyClassMappers.size.lineHeight);
     });
 
-    it("omission: no letterSpacing mapper (not in LIST_CATEGORIES; mapper emits a default class)", () => {
+    it("omission: no letterSpacing mapper (not in LIST_ITEM_CATEGORIES; mapper emits a default class)", () => {
       expect("letterSpacing" in defaultListItemTheme.themes.size).toBe(false);
     });
 
@@ -112,7 +112,7 @@ describe("typography mapper composition (Link/List/ListItem reuse typographyClas
       expect(defaultListItemTheme.themes.typography).toBe(typographyClassMappers.typography);
     });
 
-    it("inherits the whole shared layout group by reference (activates width/height for LIST_CATEGORIES)", () => {
+    it("inherits the whole shared layout group by reference (activates width/height for LIST_ITEM_CATEGORIES)", () => {
       expect(defaultListItemTheme.themes.layout).toBe(typographyClassMappers.layout);
       // the sized mappers must be present — `<ListItem wFull>` was a silent no-op
       // when the layout group lacked them

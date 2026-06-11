@@ -43,7 +43,16 @@ export const TYPOGRAPHY_CATEGORIES = [
   ...INHERIT_COLOR,
 ] as const;
 
-/** Categories for list components with typography and list-specific styling */
+/**
+ * Categories for the List component — typography plus list-specific styling
+ * (marker style/position, inter-item gap, marker-indent padding) and the
+ * filled/transparent background pair.
+ *
+ * ListItem does NOT use this array — it registers the narrower
+ * `LIST_ITEM_CATEGORIES` (see `../listItem/ListItemCategories.ts`), because
+ * its theme has no mappers for the List-only deltas and `ListItemProps`
+ * cannot express them.
+ */
 export const LIST_CATEGORIES = [
   ...TYPOGRAPHY_FULL,
   ...LIST_STYLE,

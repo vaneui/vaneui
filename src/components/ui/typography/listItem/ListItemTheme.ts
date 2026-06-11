@@ -15,7 +15,7 @@ export interface ListItemTheme extends BaseTypographyComponentTheme {
     background: SimpleConsumerClassMapper;
     text: SimpleConsumerClassMapper;
   };
-  // sized variant: LIST_CATEGORIES registers `width`/`height`, so the layout
+  // sized variant: LIST_ITEM_CATEGORIES registers `width`/`height`, so the layout
   // group must carry their mappers (inherited from typographyClassMappers)
   layout: DefaultSizedLayoutClassMappers;
 }
