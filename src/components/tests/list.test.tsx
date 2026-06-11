@@ -8,6 +8,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('List and ListItem Components Tests', () => {
 
@@ -26,7 +27,7 @@ describe('List and ListItem Components Tests', () => {
       expect(list).toBeInTheDocument();
       expect(list).toHaveClass('list-disc', 'list-outside');
       expect(list).not.toHaveClass('list-inside');
-      expect(list).toHaveClass('text-(length:--fs)'); // inherit appearance cascades font-size
+      expect(list).toHaveClass(FONT_SIZE_CLASS); // inherit appearance cascades font-size
       expect(list).toHaveClass('leading-(--lh)'); // inherited line height (inherit appearance expands to inheritSize)
       expect(list).toHaveClass('text-(--text-color)'); // primary is default
       expect(list).toHaveClass('font-sans');
@@ -44,7 +45,7 @@ describe('List and ListItem Components Tests', () => {
       );
 
       const list = container.querySelector('ul');
-      expect(list).toHaveClass('text-(length:--fs)', 'pl-(--pl)'); // inherit appearance cascades font-size; lg padding
+      expect(list).toHaveClass(FONT_SIZE_CLASS, 'pl-(--pl)'); // inherit appearance cascades font-size; lg padding
       expect(list).toHaveAttribute('data-size', 'lg');
       expect(list).toHaveClass('leading-(--lh)'); // inherited line height (inherit appearance)
     });
@@ -673,7 +674,7 @@ describe('List and ListItem Components Tests', () => {
         </ThemeProvider>
       );
       const li = container.querySelector('li')!;
-      expect(li).toHaveClass('text-(length:--fs)');
+      expect(li).toHaveClass(FONT_SIZE_CLASS);
       expect(li).toHaveClass('leading-(--lh)');
     });
   });

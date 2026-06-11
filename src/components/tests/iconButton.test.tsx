@@ -7,6 +7,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 // Simple SVG icon for testing
 const TestIcon = () => (
@@ -95,7 +96,7 @@ describe('IconButton Component Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveAttribute('data-size', size);
-        expect(button).toHaveClass('text-(length:--fs)');
+        expect(button).toHaveClass(FONT_SIZE_CLASS);
         expect(button).toHaveClass('aspect-square');
       });
     });

@@ -7,6 +7,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('NavLink Component Tests', () => {
 
@@ -21,7 +22,7 @@ describe('NavLink Component Tests', () => {
       const el = container.querySelector('a');
       expect(el).toBeInTheDocument();
       expect(el).toHaveClass('w-full', 'cursor-pointer');
-      expect(el).toHaveClass('text-(length:--fs)');
+      expect(el).toHaveClass(FONT_SIZE_CLASS);
       expect(el).toHaveAttribute('data-size', 'sm');
       expect(el).toHaveAttribute('data-vane-type', 'ui');
       // Default NavLink has non-inherit appearance → emits data attributes

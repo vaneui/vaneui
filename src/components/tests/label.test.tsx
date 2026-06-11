@@ -7,6 +7,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Label Component Tests', () => {
 
@@ -24,7 +25,7 @@ describe('Label Component Tests', () => {
       expect(label).toHaveClass('has-[input]:cursor-pointer'); // will be cursor-pointer with input
       expect(label).toHaveClass('flex'); // flex by default
       expect(label).toHaveClass('gap-(--gap)'); // default gap
-      expect(label).toHaveClass('text-(length:--fs)'); // inherit appearance cascades font-size
+      expect(label).toHaveClass(FONT_SIZE_CLASS); // inherit appearance cascades font-size
       expect(label).toHaveClass('text-(--text-color)'); // primary is default
       expect(label).toHaveClass('font-sans');
       expect(label).toHaveClass('font-medium');
@@ -111,11 +112,11 @@ describe('Label Component Tests', () => {
 
     it('should support different sizes', () => {
       const sizes = [
-        { prop: 'xs', textClass: 'text-(length:--fs)' },
-        { prop: 'sm', textClass: 'text-(length:--fs)' },
-        { prop: 'md', textClass: 'text-(length:--fs)' },
-        { prop: 'lg', textClass: 'text-(length:--fs)' },
-        { prop: 'xl', textClass: 'text-(length:--fs)' }
+        { prop: 'xs', textClass: FONT_SIZE_CLASS },
+        { prop: 'sm', textClass: FONT_SIZE_CLASS },
+        { prop: 'md', textClass: FONT_SIZE_CLASS },
+        { prop: 'lg', textClass: FONT_SIZE_CLASS },
+        { prop: 'xl', textClass: FONT_SIZE_CLASS }
       ] as const;
 
       sizes.forEach(({prop, textClass}) => {

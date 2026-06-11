@@ -25,6 +25,7 @@ import { SECTION_CATEGORIES } from '../ui/section/SectionCategories';
 import { DIVIDER_CATEGORIES } from '../ui/divider/DividerCategories';
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from '../ui/typography/common/TypographyCategories';
 import { COMPONENT_PROPS_CATEGORY } from '../ui/props/keys';
+import { BORDER_WIDTH_CLASS } from './utils/classAssertions';
 
 describe('Component Prop Type Validation', () => {
   // Helper to render components with theme
@@ -121,7 +122,7 @@ describe('Component Prop Type Validation', () => {
       
       // Component props should be filtered out from DOM attributes
       expect(rowElement.hasAttribute('rounded')).toBe(false);
-      expect(rowElement.hasAttribute('border-[length:var(--bw)]')).toBe(false);
+      expect(rowElement.hasAttribute(BORDER_WIDTH_CLASS)).toBe(false);
       expect(rowElement.hasAttribute('primary')).toBe(false);
       
       // But styling should be applied (check for rounded classes)

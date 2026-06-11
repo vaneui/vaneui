@@ -1,6 +1,7 @@
 
 import { render } from '@testing-library/react';
 import { Row, Col, Stack, ThemeProvider } from '../..';
+import { RING_WIDTH_CLASS, BORDER_WIDTH_CLASS } from './utils/classAssertions';
 
 const renderWithTheme = (ui: React.ReactElement) => {
   return render(<ThemeProvider>{ui}</ThemeProvider>);
@@ -13,7 +14,7 @@ describe('Visual Decoration Props', () => {
         <Row border>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('border-[length:var(--bw)]');
+      expect(element.className).toContain(BORDER_WIDTH_CLASS);
     });
 
     it('should apply border classes to Col component', () => {
@@ -21,7 +22,7 @@ describe('Visual Decoration Props', () => {
         <Col border>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('border-[length:var(--bw)]');
+      expect(element.className).toContain(BORDER_WIDTH_CLASS);
     });
 
     it('should apply border classes to Stack component', () => {
@@ -29,7 +30,7 @@ describe('Visual Decoration Props', () => {
         <Stack border>Content</Stack>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('border-[length:var(--bw)]');
+      expect(element.className).toContain(BORDER_WIDTH_CLASS);
     });
 
     it('should not apply border when noBorder is true', () => {
@@ -37,7 +38,7 @@ describe('Visual Decoration Props', () => {
         <Row noBorder>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).not.toContain('border-[length:var(--bw)]');
+      expect(element.className).not.toContain(BORDER_WIDTH_CLASS);
     });
 
     it('should not apply border by default (when no border props are set)', () => {
@@ -45,7 +46,7 @@ describe('Visual Decoration Props', () => {
         <Row>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).not.toContain('border-[length:var(--bw)]');
+      expect(element.className).not.toContain(BORDER_WIDTH_CLASS);
     });
 
     it('should apply border appearance classes with variants', () => {
@@ -53,7 +54,7 @@ describe('Visual Decoration Props', () => {
         <Row primary border>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('border-[length:var(--bw)]');
+      expect(element.className).toContain(BORDER_WIDTH_CLASS);
       expect(element.className).toContain('border-(--border-color)');
     });
   });
@@ -112,7 +113,7 @@ describe('Visual Decoration Props', () => {
         <Row noBorder>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).not.toContain('border-[length:var(--bw)]');
+      expect(element.className).not.toContain(BORDER_WIDTH_CLASS);
       expect(element.className).not.toContain('border-t');
     });
 
@@ -153,8 +154,8 @@ describe('Visual Decoration Props', () => {
       const element = container.firstChild as HTMLElement;
       // With the new border structure, only the first border prop in BORDER_VALUES order is applied
       // Order in BORDER_VALUES: border, borderT, borderB, borderL, borderR, borderX, borderY
-      // Since 'border-[length:var(--bw)]' comes first, only 'border-[length:var(--bw)]' should be applied
-      expect(element.className).toContain('border-[length:var(--bw)]');
+      // Since BORDER_WIDTH_CLASS comes first, only BORDER_WIDTH_CLASS should be applied
+      expect(element.className).toContain(BORDER_WIDTH_CLASS);
       expect(element.className).not.toContain('border-t');
     });
   });
@@ -221,7 +222,7 @@ describe('Visual Decoration Props', () => {
         <Row ring>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('ring-[length:var(--rw)]');
+      expect(element.className).toContain(RING_WIDTH_CLASS);
       expect(element.className).toContain('ring-(--ring-color)');
     });
 
@@ -230,7 +231,7 @@ describe('Visual Decoration Props', () => {
         <Col ring>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('ring-[length:var(--rw)]');
+      expect(element.className).toContain(RING_WIDTH_CLASS);
       expect(element.className).toContain('ring-(--ring-color)');
     });
 
@@ -239,7 +240,7 @@ describe('Visual Decoration Props', () => {
         <Stack ring>Content</Stack>
       );
       const element = container.firstChild as HTMLElement;
-      expect(element.className).toContain('ring-[length:var(--rw)]');
+      expect(element.className).toContain(RING_WIDTH_CLASS);
       expect(element.className).toContain('ring-(--ring-color)');
     });
 
@@ -257,10 +258,10 @@ describe('Visual Decoration Props', () => {
       );
       const element = container.firstChild as HTMLElement;
       // Border
-      expect(element.className).toContain('border-[length:var(--bw)]');
+      expect(element.className).toContain(BORDER_WIDTH_CLASS);
       expect(element.className).toContain('border-(--border-color)');
       // Ring — should now match border's behavior
-      expect(element.className).toContain('ring-[length:var(--rw)]');
+      expect(element.className).toContain(RING_WIDTH_CLASS);
       expect(element.className).toContain('ring-(--ring-color)');
     });
   });
@@ -369,7 +370,7 @@ describe('Visual Decoration Props', () => {
       );
       const element = container.firstChild as HTMLElement;
       
-      expect(element.className).toContain('border-[length:var(--bw)]');
+      expect(element.className).toContain(BORDER_WIDTH_CLASS);
       expect(element.className).toContain('border-(--border-color)');
       expect(element.className).toContain('ring');
       expect(element.className).toContain('ring-(--ring-color)');
@@ -389,7 +390,7 @@ describe('Visual Decoration Props', () => {
       );
       const element = container.firstChild as HTMLElement;
       
-      expect(element.className).toContain('border-[length:var(--bw)]');
+      expect(element.className).toContain(BORDER_WIDTH_CLASS);
       expect(element.className).toContain('border-(--border-color)');
       expect(element.className).toContain('ring');
       expect(element.className).toContain('ring-(--ring-color)');
@@ -405,7 +406,7 @@ describe('Visual Decoration Props', () => {
       const element = container.firstChild as HTMLElement;
 
       // Should not have border or ring by default, but should have sharp shape
-      expect(element.className).not.toContain('border-[length:var(--bw)]');
+      expect(element.className).not.toContain(BORDER_WIDTH_CLASS);
       expect(element.className).not.toContain('ring-2');
       expect(element.className).toContain('rounded-none'); // sharp is default
       expect(element.className).not.toContain('rounded-full');
@@ -419,7 +420,7 @@ describe('Visual Decoration Props', () => {
       const element = container.firstChild as HTMLElement;
 
       // Should not have border or ring by default, but should have sharp shape
-      expect(element.className).not.toContain('border-[length:var(--bw)]');
+      expect(element.className).not.toContain(BORDER_WIDTH_CLASS);
       expect(element.className).not.toContain('ring-2');
       expect(element.className).toContain('rounded-none'); // sharp is default
       expect(element.className).not.toContain('rounded-full');
@@ -433,7 +434,7 @@ describe('Visual Decoration Props', () => {
       const element = container.firstChild as HTMLElement;
 
       // Should not have border or ring by default, but should have sharp shape
-      expect(element.className).not.toContain('border-[length:var(--bw)]');
+      expect(element.className).not.toContain(BORDER_WIDTH_CLASS);
       expect(element.className).not.toContain('ring-2');
       expect(element.className).toContain('rounded-none'); // sharp is default
       expect(element.className).not.toContain('rounded-full');

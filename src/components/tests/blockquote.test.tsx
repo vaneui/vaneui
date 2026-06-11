@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
 import { Blockquote } from '../ui/typography/blockquote';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Blockquote Component', () => {
 
@@ -53,7 +54,7 @@ describe('Blockquote Component', () => {
       const { container } = render(<Blockquote>Quote</Blockquote>);
       const el = container.querySelector('blockquote');
 
-      expect(el).toHaveClass('text-(length:--fs)'); // inherit appearance cascades font-size
+      expect(el).toHaveClass(FONT_SIZE_CLASS); // inherit appearance cascades font-size
       expect(el).toHaveAttribute('data-size', 'md');
       expect(el).toHaveClass('w-full');
       expect(el).toHaveClass('font-sans');
@@ -80,7 +81,7 @@ describe('Blockquote Component', () => {
         const el = container.querySelector('blockquote');
 
         // Blockquote defaults to inherit appearance; font-size cascades from parent
-        expect(el).toHaveClass('text-(length:--fs)');
+        expect(el).toHaveClass(FONT_SIZE_CLASS);
         expect(el).toHaveAttribute('data-size', size);
       });
     });

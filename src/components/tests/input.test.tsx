@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { RING_WIDTH_CLASS, RING_INSET_CLASS, BORDER_WIDTH_CLASS, FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Input Component Tests', () => {
 
@@ -20,7 +21,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('w-full', 'transition-all', 'duration-(--transition-duration)', 'ease-(--transition-timing)');
-      expect(input).toHaveClass('text-(length:--fs)'); // md size
+      expect(input).toHaveClass(FONT_SIZE_CLASS); // md size
       expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // padding
       expect(input).toHaveClass('font-sans', 'font-normal'); // typography
       expect(input).toHaveClass('rounded-(--br)'); // rounded
@@ -51,9 +52,9 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       // Border is not enabled by default based on current theme defaults
-      expect(input).not.toHaveClass('border-[length:var(--bw)]');
+      expect(input).not.toHaveClass(BORDER_WIDTH_CLASS);
       // Ring is enabled by default
-      expect(input).toHaveClass('ring-[length:var(--rw)]', 'ring-inset'); // ring enabled
+      expect(input).toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS); // ring enabled
       expect(input).toHaveClass('ring-(--ring-color)'); // ring color
     });
 
@@ -163,7 +164,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('text-(length:--fs)'); // xs text size
+      expect(input).toHaveClass(FONT_SIZE_CLASS); // xs text size
       expect(input).toHaveAttribute('data-size', 'xs');
       expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // xs padding
     });
@@ -177,7 +178,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('text-(length:--fs)'); // sm text size
+      expect(input).toHaveClass(FONT_SIZE_CLASS); // sm text size
       expect(input).toHaveAttribute('data-size', 'sm');
       expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // sm padding
     });
@@ -191,7 +192,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('text-(length:--fs)'); // lg text size
+      expect(input).toHaveClass(FONT_SIZE_CLASS); // lg text size
       expect(input).toHaveAttribute('data-size', 'lg');
       expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // lg padding
     });
@@ -205,7 +206,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('text-(length:--fs)'); // xl text size
+      expect(input).toHaveClass(FONT_SIZE_CLASS); // xl text size
       expect(input).toHaveAttribute('data-size', 'xl');
       expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // xl padding
     });
@@ -253,7 +254,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('border-[length:var(--bw)]'); // border enabled
+      expect(input).toHaveClass(BORDER_WIDTH_CLASS); // border enabled
       expect(input).toHaveClass('border-(--border-color)'); // border color
     });
 
@@ -267,7 +268,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       // Should not have ring classes when noRing is true
-      expect(input).not.toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
+      expect(input).not.toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS);
       expect(input).not.toHaveClass('ring-(--ring-color)');
     });
 
@@ -381,7 +382,7 @@ describe('Input Component Tests', () => {
       expect(input).toBeInTheDocument();
 
       // Size classes
-      expect(input).toHaveClass('text-(length:--fs)', 'px-(--px)', 'py-(--py)');
+      expect(input).toHaveClass(FONT_SIZE_CLASS, 'px-(--px)', 'py-(--py)');
       expect(input).toHaveAttribute('data-size', 'lg');
 
       // Success filled appearance classes

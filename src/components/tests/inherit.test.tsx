@@ -24,6 +24,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 // Load rules.css for CSS rule verification tests (vars.css is now a barrel import)
 const varsCSS = fs.readFileSync(
@@ -778,7 +779,7 @@ describe('Inherit Appearance Prop', () => {
         </ThemeProvider>
       );
       const link = container.querySelector('a');
-      expect(link).toHaveClass('text-(length:--fs)');
+      expect(link).toHaveClass(FONT_SIZE_CLASS);
       expect(link).toHaveClass('leading-(--lh)');
     });
 
@@ -792,7 +793,7 @@ describe('Inherit Appearance Prop', () => {
       // inheritColor suppresses data-appearance
       expect(text).not.toHaveAttribute('data-appearance');
       // inherit does NOT expand to inheritSize — size uses own --fs variable
-      expect(text).toHaveClass('text-(length:--fs)');
+      expect(text).toHaveClass(FONT_SIZE_CLASS);
       expect(text).toHaveClass('leading-(--lh)');
     });
 
@@ -821,7 +822,7 @@ describe('Inherit Appearance Prop', () => {
       // Code uses the regular --fs path (no inheritSize default); the
       // .vane-code rule overrides --spacing locally to 0.25em, so --fs / --py
       // / --br all resolve in em — proportional to parent context.
-      expect(code).toHaveClass('text-(length:--fs)');
+      expect(code).toHaveClass(FONT_SIZE_CLASS);
     });
 
     it('Title (responsive) keeps own size — responsive overrides inheritSize', () => {
@@ -834,7 +835,7 @@ describe('Inherit Appearance Prop', () => {
       expect(title).not.toHaveAttribute('data-appearance');
       expect(title).toHaveClass('text-(length:--fs-desktop)');
       expect(title).not.toHaveClass('text-(length:--fs-em)');
-      expect(title).not.toHaveClass('text-(length:--fs)');
+      expect(title).not.toHaveClass(FONT_SIZE_CLASS);
     });
 
     it('inheritColor suppresses data-appearance even with explicit appearance', () => {
@@ -857,7 +858,7 @@ describe('Inherit Appearance Prop', () => {
       const kbd = container.querySelector('kbd');
       expect(kbd).toHaveAttribute('data-appearance', 'primary');
       // Same em-relative geometry pattern as Code.
-      expect(kbd).toHaveClass('text-(length:--fs)');
+      expect(kbd).toHaveClass(FONT_SIZE_CLASS);
     });
 
     it('Mark with inheritSize default inherits font-size but keeps warning appearance', () => {
