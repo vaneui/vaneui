@@ -637,6 +637,24 @@ describe('Menu Component Tests', () => {
       fireEvent.keyDown(items[1] as HTMLElement, { key: 'e' });
       expect(document.activeElement).toBe(items[0]); // 'e' → Edit (not 'de')
     });
+
+    it('should activate the focused item on Space instead of entering the typeahead buffer', () => {
+      const onClick = jest.fn();
+      renderOpenMenu(
+        <>
+          <MenuItem onClick={onClick}>Edit</MenuItem>
+          <MenuItem>Duplicate</MenuItem>
+          <MenuItem>Delete</MenuItem>
+        </>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      expect(document.activeElement).toBe(items[0]);
+
+      // Space is excluded from typeahead (isTypeaheadKey) — it activates the item
+      fireEvent.keyDown(items[0] as HTMLElement, { key: ' ' });
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
   });
 
   // =========================================================================
