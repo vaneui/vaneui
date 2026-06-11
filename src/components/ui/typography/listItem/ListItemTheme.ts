@@ -1,6 +1,6 @@
 import type {
   BaseTypographyComponentTheme,
-  DefaultLayoutClassMappers,
+  DefaultSizedLayoutClassMappers,
 } from "../../theme/common/ComponentTheme";
 import type { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
 import type { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
@@ -15,5 +15,7 @@ export interface ListItemTheme extends BaseTypographyComponentTheme {
     background: SimpleConsumerClassMapper;
     text: SimpleConsumerClassMapper;
   };
-  layout: DefaultLayoutClassMappers;
+  // sized variant: LIST_CATEGORIES registers `width`/`height`, so the layout
+  // group must carry their mappers (inherited from typographyClassMappers)
+  layout: DefaultSizedLayoutClassMappers;
 }

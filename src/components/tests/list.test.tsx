@@ -455,6 +455,75 @@ describe('List and ListItem Components Tests', () => {
     });
   });
 
+  // Regression: LIST_CATEGORIES registers width/height, but ListItem's old
+  // unsized layout collection had no mappers for them — `<ListItem wFull>` was
+  // accepted and silently emitted nothing. Fixed by inheriting the shared
+  // typographyClassMappers layout group (which carries the sized mappers).
+  describe('ListItem Width/Height Props (former silent no-op)', () => {
+    it('should apply wFull class on the list item', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem wFull>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li');
+      expect(li).toHaveClass('w-full');
+    });
+
+    it('should apply wFit class on the list item', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem wFit>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li');
+      expect(li).toHaveClass('w-fit');
+    });
+
+    it('should apply hFull class on the list item', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem hFull>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li');
+      expect(li).toHaveClass('h-full');
+    });
+
+    it('should apply hFit class on the list item', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem hFit>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li');
+      expect(li).toHaveClass('h-fit');
+    });
+
+    it('emits no width/height classes when the props are not set', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List>
+            <ListItem>Content</ListItem>
+          </List>
+        </ThemeProvider>
+      );
+      const li = container.querySelector('li')!;
+      expect(li).not.toHaveClass('w-full');
+      expect(li).not.toHaveClass('w-fit');
+      expect(li).not.toHaveClass('h-full');
+      expect(li).not.toHaveClass('h-fit');
+    });
+  });
+
   describe('ListPositionClassMapper', () => {
     it('emits list-outside when outside is resolved', async () => {
       const { ListPositionClassMapper } = await import('../ui/theme/list/listPositionClassMapper');
