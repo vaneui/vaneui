@@ -1,5 +1,6 @@
-import { createContext, useContext, useMemo } from 'react';
-import type { ThemeProps, ThemeProviderProps } from './themeTypes';
+import { useContext, useMemo } from 'react';
+import type { ThemeProviderProps } from './themeTypes';
+import { ThemeContext } from './themeContext';
 import { defaultTheme } from './defaultTheme';
 import { deepClone, deepMerge, mergeDefaults } from "./utils/deepMerge";
 
@@ -83,8 +84,6 @@ function applyExtraClassesRecursively(
   }
 }
 
-const ThemeContext = createContext<ThemeProps>(defaultTheme);
-
 export function ThemeProvider(
   {
     children,
@@ -94,12 +93,13 @@ export function ThemeProvider(
     themeOverride,
     mergeStrategy = 'merge'
   }: ThemeProviderProps) {
+  // null when this is the root provider (context default is null — P2-3)
   const parentTheme = useContext(ThemeContext);
 
   const mergedTheme = useMemo(() => {
       const baseTheme = mergeStrategy === 'replace'
         ? defaultTheme
-        : parentTheme;
+        : parentTheme ?? defaultTheme;
 
       // fast path: nothing to customize — reuse the base theme by reference.
       // Keeps context identity stable across re-renders and skips the
@@ -141,8 +141,4 @@ export function ThemeProvider(
       {children}
     </ThemeContext.Provider>
   );
-}
-
-export function useTheme(): ThemeProps {
-  return useContext(ThemeContext);
 }

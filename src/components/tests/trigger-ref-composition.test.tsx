@@ -1,6 +1,6 @@
 import { createRef } from 'react';
 import { render } from '@testing-library/react';
-import { ThemeProvider } from '../themeContext';
+import { ThemeProvider } from '../ThemeProvider';
 import { Menu, MenuItem } from '../ui/menu';
 import { PopupTrigger } from '../ui/popup';
 import { Button } from '../ui/button';

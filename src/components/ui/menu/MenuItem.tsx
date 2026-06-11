@@ -4,6 +4,7 @@ import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
 import { useMenuContext } from './MenuContext';
 import { createScopedKeydownHandler } from '../../utils/scopedKeydownHandler';
+import { defaultMenuItemTheme } from './defaultMenuItemTheme';
 
 export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
   function MenuItem(props, ref) {
@@ -94,7 +95,7 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
     return (
       <ThemedComponent
         ref={ref}
-        theme={theme.menu.item}
+        theme={theme?.menu.item ?? defaultMenuItemTheme}
         {...mergedProps}
       />
     );

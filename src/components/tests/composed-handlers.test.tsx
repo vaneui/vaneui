@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import { ThemeProvider } from '../themeContext';
+import { ThemeProvider } from '../ThemeProvider';
 import { Overlay } from '../ui/overlay';
 import { Modal } from '../ui/modal';
 

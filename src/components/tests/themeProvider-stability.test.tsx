@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { render } from '@testing-library/react';
-import { ThemeProvider, useTheme, defaultTheme } from '../themeContext';
+import { ThemeProvider } from '../ThemeProvider';
+import { useTheme } from '../themeContext';
+import { defaultTheme } from '../defaultTheme';
 import type { ThemeProps } from '../themeContext';
 import { Label } from '../ui/label';
 
@@ -10,7 +12,7 @@ import { Label } from '../ui/label';
 // useTheme consumers are not cascaded on every provider render.
 describe('ThemeProvider identity stability', () => {
   it('should keep the same theme identity across re-renders when no props are given', () => {
-    const captured: ThemeProps[] = [];
+    const captured: (ThemeProps | null)[] = [];
 
     function Capture() {
       captured.push(useTheme());
@@ -35,7 +37,7 @@ describe('ThemeProvider identity stability', () => {
   });
 
   it('should reuse the parent theme by reference when a nested provider has nothing to customize', () => {
-    const captured: ThemeProps[] = [];
+    const captured: (ThemeProps | null)[] = [];
 
     function Capture() {
       captured.push(useTheme());
@@ -83,7 +85,7 @@ describe('ThemeProvider identity stability', () => {
   });
 
   it('should keep a stable identity for a customized provider when its inputs are referentially stable', () => {
-    const captured: ThemeProps[] = [];
+    const captured: (ThemeProps | null)[] = [];
     const stableDefaults = { button: { main: { filled: true } } };
 
     function Capture() {
@@ -108,7 +110,7 @@ describe('ThemeProvider identity stability', () => {
   });
 
   it('should still apply customizations through the non-fast path', () => {
-    let capturedTheme: ThemeProps | undefined;
+    let capturedTheme: ThemeProps | null | undefined;
 
     function Capture() {
       capturedTheme = useTheme();
@@ -134,7 +136,7 @@ describe('ThemeProvider identity stability', () => {
 // mounted Label).
 describe('Label subtree theme identity (no per-Label theme fork)', () => {
   it('useTheme() inside a Label subtree returns the same theme object as outside', () => {
-    const captured: ThemeProps[] = [];
+    const captured: (ThemeProps | null)[] = [];
 
     function Capture() {
       captured.push(useTheme());
@@ -206,6 +208,44 @@ describe('ThemeProvider dead-customization warning', () => {
     expect(warnSpy).toHaveBeenCalledWith(
       expect.stringContaining('extraClasses path "button.primary" does not match any theme node')
     );
+  });
+});
+
+// P2-3: the context default is null — useTheme is honestly typed
+// `ThemeProps | null`. Without a provider components fall back to their own
+// default themes; direct useTheme consumers must handle null.
+describe('useTheme contract (P2-3)', () => {
+  it('returns null when no ThemeProvider is mounted', () => {
+    let captured: ThemeProps | null | undefined;
+
+    function Capture() {
+      captured = useTheme();
+      return null;
+    }
+
+    render(<Capture />);
+
+    expect(captured).toBeNull();
+  });
+
+  it('returns the full merged theme tree inside a ThemeProvider', () => {
+    let captured: ThemeProps | null | undefined;
+
+    function Capture() {
+      captured = useTheme();
+      return null;
+    }
+
+    render(
+      <ThemeProvider>
+        <Capture />
+      </ThemeProvider>
+    );
+
+    expect(captured).not.toBeNull();
+    // a bare provider serves the default registry by reference (fast path)
+    expect(captured).toBe(defaultTheme);
+    expect(captured!.button.main).toBe(defaultTheme.button.main);
   });
 });
 

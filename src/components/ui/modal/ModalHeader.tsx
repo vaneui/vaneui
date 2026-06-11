@@ -5,6 +5,7 @@ import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { useModalContext } from './ModalContext';
 import { getModalPart, markModalPart } from './modalParts';
+import { defaultModalHeaderTheme } from './defaultModalHeaderTheme';
 
 export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
   function ModalHeader(props, ref) {
@@ -35,7 +36,7 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
     });
 
     return (
-      <ThemedComponent theme={theme.modal.header} ref={ref} {...rest}>
+      <ThemedComponent theme={theme?.modal.header ?? defaultModalHeaderTheme} ref={ref} {...rest}>
         <span id={ctx?.titleId} className="contents">{titleChildren}</span>
         {actionChildren}
       </ThemedComponent>

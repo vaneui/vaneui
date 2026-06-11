@@ -5,10 +5,12 @@ import { useTheme } from "../../themeContext";
 import { CardHeader } from './CardHeader';
 import { CardBody } from './CardBody';
 import { CardFooter } from './CardFooter';
+import { defaultCardTheme } from "./defaultCardTheme";
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   function Card({ children, ...props }, ref) {
     const theme = useTheme();
+    const cardTheme = theme?.card.main ?? defaultCardTheme;
 
     // compound mode: sub-components own padding when present in children
     const childArray = React.Children.toArray(children);
@@ -25,10 +27,10 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     const focusInjection = props.href && !props.noFocusVisible ? { focusVisible: true as const } : undefined;
 
     if (isCompoundMode) {
-      return <ThemedComponent ref={ref} theme={theme.card.main} noPadding {...focusInjection} {...props}>{children}</ThemedComponent>;
+      return <ThemedComponent ref={ref} theme={cardTheme} noPadding {...focusInjection} {...props}>{children}</ThemedComponent>;
     }
 
-    return <ThemedComponent ref={ref} theme={theme.card.main} {...focusInjection} {...props}>{children}</ThemedComponent>;
+    return <ThemedComponent ref={ref} theme={cardTheme} {...focusInjection} {...props}>{children}</ThemedComponent>;
   }
 );
 

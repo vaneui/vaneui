@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import type { PopupProps } from "./PopupProps";
 import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
+import { defaultPopupTheme } from './defaultPopupTheme';
 import { pickFirstTruthyKeyByCategory } from '../../utils/componentUtils';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
@@ -259,6 +260,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     ref
   ) {
     const theme = useTheme();
+    const popupTheme = theme?.popup ?? defaultPopupTheme;
     const popupRef = useRef<HTMLDivElement>(null);
     const anchorName = useId().replace(/:/g, '-');
     const [resolvedPlacement, setResolvedPlacement] = useState<PopupPlacement | null>(null);
@@ -279,7 +281,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const placementKey = pickFirstTruthyKeyByCategory(
       props as Record<string, unknown>,
-      theme.popup.defaults as Record<string, unknown>,
+      popupTheme.defaults as Record<string, unknown>,
       'placement'
     ) || 'top';
 
@@ -438,7 +440,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     const content = (
       <ThemedComponent
         ref={mergedRef}
-        theme={theme.popup}
+        theme={popupTheme}
         className={isHidden ? 'hidden' : isDetached ? 'invisible' : undefined}
         data-state={isHidden ? undefined : state}
         data-placement={resolvedPlacement || undefined}

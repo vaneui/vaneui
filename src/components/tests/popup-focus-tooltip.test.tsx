@@ -1,5 +1,5 @@
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import { ThemeProvider } from '../themeContext';
+import { ThemeProvider } from '../ThemeProvider';
 import { PopupTrigger } from '../ui/popup';
 import { Button } from '../ui/button';
 

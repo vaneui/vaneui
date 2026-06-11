@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { ThemeProvider } from '../themeContext';
+import { ThemeProvider } from '../ThemeProvider';
 import { Modal } from '../ui/modal';
 import { Title } from '../ui/typography';
 import type { ModalProps } from '../ui/modal';

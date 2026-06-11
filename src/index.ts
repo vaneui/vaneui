@@ -49,10 +49,10 @@ export {
   type VariantKey,
 } from "./components/ui/props/keys";
 
+export { ThemeProvider } from './components/ThemeProvider';
+export { defaultTheme } from './components/defaultTheme';
 export {
-  ThemeProvider,
   useTheme,
-  defaultTheme,
   type ThemeProps,
   type ThemeDefaults,
   type ThemeExtraClasses,

@@ -1,7 +1,9 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import { twMerge } from 'tailwind-merge';
-import { ThemeProvider, useTheme, defaultTheme } from '../themeContext';
+import { ThemeProvider } from '../ThemeProvider';
+import { useTheme } from '../themeContext';
+import { defaultTheme } from '../defaultTheme';
 import type { ThemeProps } from '../themeContext';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
@@ -63,7 +65,7 @@ describe('getClasses / getComponentConfig agreement', () => {
   });
 
   it('public getClasses applies extraClasses keyed on expanded inherit flags', () => {
-    let captured: ThemeProps | undefined;
+    let captured: ThemeProps | null | undefined;
 
     function Capture() {
       captured = useTheme();

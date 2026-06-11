@@ -4,6 +4,7 @@ import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { useModalContext } from './ModalContext';
 import { markModalPart } from './modalParts';
+import { defaultModalBodyTheme } from './defaultModalBodyTheme';
 
 export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
   function ModalBody(props, ref) {
@@ -16,7 +17,7 @@ export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
     }, [ctx]);
 
     const mergedProps = { ...props, id: props.id ?? ctx?.bodyId };
-    return <ThemedComponent theme={theme.modal.body} ref={ref} {...mergedProps} />;
+    return <ThemedComponent theme={theme?.modal.body ?? defaultModalBodyTheme} ref={ref} {...mergedProps} />;
   }
 );
 

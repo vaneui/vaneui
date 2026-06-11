@@ -3,6 +3,8 @@ import type { NavLinkProps } from './NavLinkProps';
 import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
 import { resolveDisabledLink } from '../../utils/disabledLink';
+import { defaultNavLinkTheme } from './defaultNavLinkTheme';
+import { defaultNavLinkLabelTheme } from './defaultNavLinkLabelTheme';
 
 export const NavLink = forwardRef<HTMLElement, NavLinkProps>(
   function NavLink(props, ref) {
@@ -37,10 +39,10 @@ export const NavLink = forwardRef<HTMLElement, NavLinkProps>(
     });
 
     return (
-      <ThemedComponent ref={ref} theme={theme.navLink.root} {...mergedProps}>
+      <ThemedComponent ref={ref} theme={theme?.navLink.root ?? defaultNavLinkTheme} {...mergedProps}>
         {leading}
         {textParts.length > 0 && (
-          <ThemedComponent theme={theme.navLink.label}>{textParts}</ThemedComponent>
+          <ThemedComponent theme={theme?.navLink.label ?? defaultNavLinkLabelTheme}>{textParts}</ThemedComponent>
         )}
         {trailing}
       </ThemedComponent>

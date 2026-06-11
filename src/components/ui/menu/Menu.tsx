@@ -3,7 +3,13 @@ import type { MenuProps } from './MenuProps';
 import { MenuContext, type MenuContextValue } from './MenuContext';
 import { useControllableState } from '../../utils/controllableState';
 import { Popup } from '../popup/Popup';
-import { useTheme, ThemeProvider } from '../../themeContext';
+import { useTheme } from '../../themeContext';
+// Menu renders a nested ThemeProvider to push its sub-theme defaults onto
+// Popup/Divider children — this is a deliberate opt-in to the full theme
+// registry (ThemeProvider imports defaultTheme as its merge base)
+import { ThemeProvider } from '../../ThemeProvider';
+import { defaultMenuPopupTheme } from './defaultMenuPopupTheme';
+import { defaultMenuDividerTheme } from '../divider/defaultMenuDividerTheme';
 import { ComponentKeys } from '../props';
 import { composeRefs, getElementRef } from '../../utils/composeRefs';
 
@@ -129,6 +135,8 @@ export function Menu({
   } as Record<string, unknown>);
 
   const theme = useTheme();
+  const menuPopupTheme = theme?.menu.popup ?? defaultMenuPopupTheme;
+  const menuDividerTheme = theme?.menu.divider ?? defaultMenuDividerTheme;
 
   // memoized so MenuItems don't re-render on every Menu render
   const ctx: MenuContextValue = useMemo(() => ({
@@ -148,10 +156,10 @@ export function Menu({
   const childThemeDefaults = useMemo(() => {
     const childSizeDefaults = explicitSize ? { [explicitSize]: true } : undefined;
     return {
-      popup: theme.menu.popup.defaults,
+      popup: menuPopupTheme.defaults,
       divider: childSizeDefaults
-        ? { ...theme.menu.divider.defaults, ...childSizeDefaults }
-        : theme.menu.divider.defaults,
+        ? { ...menuDividerTheme.defaults, ...childSizeDefaults }
+        : menuDividerTheme.defaults,
       ...(childSizeDefaults && {
         menu: {
           item: childSizeDefaults,
@@ -159,7 +167,7 @@ export function Menu({
         },
       }),
     };
-  }, [theme, explicitSize]);
+  }, [menuPopupTheme, menuDividerTheme, explicitSize]);
 
   return (
     <MenuContext.Provider value={ctx}>

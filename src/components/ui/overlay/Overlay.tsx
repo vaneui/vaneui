@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import type { OverlayProps } from "./OverlayProps";
 import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
+import { defaultOverlayTheme } from "./defaultOverlayTheme";
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { composeEventHandlers } from '../../utils/composeEventHandlers';
@@ -45,7 +46,7 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     const content = (
       <ThemedComponent
         ref={ref}
-        theme={theme.overlay}
+        theme={theme?.overlay ?? defaultOverlayTheme}
         data-state={isHidden ? undefined : state}
         aria-hidden={isHidden || undefined}
         {...{

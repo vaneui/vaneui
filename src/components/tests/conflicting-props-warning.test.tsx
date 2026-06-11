@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { ThemeProvider } from '../themeContext';
+import { ThemeProvider } from '../ThemeProvider';
 import { Button } from '../ui/button';
 
 // Categories are mutually exclusive but the boolean-props API cannot express

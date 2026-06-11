@@ -3,6 +3,8 @@ import { createPortal } from 'react-dom';
 import type { ModalProps } from './ModalProps';
 import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
+import { defaultModalContentTheme } from './defaultModalContentTheme';
+import { defaultModalOverlayTheme } from './defaultModalOverlayTheme';
 import { useScrollLock } from '../../utils/scrollLock';
 import { useFocusTrap } from '../../utils/focusTrap';
 import { useControllableState } from '../../utils/controllableState';
@@ -155,7 +157,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
     const content = (
       <ThemedComponent
-        theme={theme.modal.overlay}
+        theme={theme?.modal.overlay ?? defaultModalOverlayTheme}
         data-state={isHidden ? undefined : overlayTransition.state}
         aria-hidden={isHidden || undefined}
         {...{
@@ -167,7 +169,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       >
         <ThemedComponent
           ref={mergedRef}
-          theme={theme.modal.content}
+          theme={theme?.modal.content ?? defaultModalContentTheme}
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleMounted ? titleId : undefined}
