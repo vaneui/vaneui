@@ -1,17 +1,4 @@
-import { test, expect, type Locator } from './base';
-
-async function getFontSize(locator: Locator): Promise<number> {
-  const fs = await locator.evaluate(
-    (el) => getComputedStyle(el).getPropertyValue('font-size'),
-  );
-  return parseFloat(fs);
-}
-
-async function getColor(locator: Locator): Promise<string> {
-  return locator.evaluate(
-    (el) => getComputedStyle(el).getPropertyValue('color'),
-  );
-}
+import { test, expect, getFontSize, getColor } from './base';
 
 test.beforeEach(async ({ page, testPage }) => {
   await page.goto(testPage);

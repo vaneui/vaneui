@@ -1,11 +1,4 @@
-import { test, expect, type Locator } from './base';
-
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
+import { test, expect, getStyle } from './base';
 
 // The shipped stylesheet must not globally reset the consumer's page: the
 // preflight is scoped to [data-vane-type] subtrees (scripts/scopePreflight.ts).

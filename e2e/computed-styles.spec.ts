@@ -1,31 +1,4 @@
-import { test, expect, type Page, type Locator } from './base';
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-/** Get a resolved computed style property from an element */
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
-
-/** Get computed color (resolved to rgb) */
-async function getColor(locator: Locator): Promise<string> {
-  return getStyle(locator, 'color');
-}
-
-/** Get computed font-size in px */
-async function getFontSize(locator: Locator): Promise<string> {
-  return getStyle(locator, 'font-size');
-}
-
-/** Get the first SVG's computed width inside a locator */
-async function getSvgWidth(locator: Locator): Promise<string> {
-  return locator.locator('svg').first().evaluate(
-    (el) => getComputedStyle(el).getPropertyValue('width'),
-  );
-}
+import { test, expect, getStyle, getColor, getFontSize, getSvgWidth } from './base';
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 
@@ -133,8 +106,7 @@ test.describe('Size variants', () => {
     const fontSizes: number[] = [];
 
     for (const size of sizes) {
-      const fs = await getFontSize(page.locator(`[data-testid="button-${size}"]`));
-      fontSizes.push(parseFloat(fs));
+      fontSizes.push(await getFontSize(page.locator(`[data-testid="button-${size}"]`)));
     }
 
     // Each size must be strictly larger than the previous
@@ -148,8 +120,7 @@ test.describe('Size variants', () => {
     const fontSizes: number[] = [];
 
     for (const size of sizes) {
-      const fs = await getFontSize(page.locator(`[data-testid="text-${size}"]`));
-      fontSizes.push(parseFloat(fs));
+      fontSizes.push(await getFontSize(page.locator(`[data-testid="text-${size}"]`)));
     }
 
     for (let i = 1; i < fontSizes.length; i++) {
@@ -159,12 +130,12 @@ test.describe('Size variants', () => {
 
   test('Button md font-size matches expected 16px (1rem)', async ({ page }) => {
     const fs = await getFontSize(page.locator('[data-testid="button-md"]'));
-    expect(parseFloat(fs)).toBe(16);
+    expect(fs).toBe(16);
   });
 
   test('Text md font-size matches expected 16px (1rem)', async ({ page }) => {
     const fs = await getFontSize(page.locator('[data-testid="text-md"]'));
-    expect(parseFloat(fs)).toBe(16);
+    expect(fs).toBe(16);
   });
 });
 
@@ -176,8 +147,8 @@ test.describe('Button SVG sizing', () => {
     const mdWidth = await getSvgWidth(page.locator('[data-testid="icon-bare-md"]'));
     const xlWidth = await getSvgWidth(page.locator('[data-testid="icon-bare-xl"]'));
 
-    expect(parseFloat(mdWidth)).toBeGreaterThan(parseFloat(xsWidth));
-    expect(parseFloat(xlWidth)).toBeGreaterThan(parseFloat(mdWidth));
+    expect(mdWidth).toBeGreaterThan(xsWidth);
+    expect(xlWidth).toBeGreaterThan(mdWidth);
   });
 });
 

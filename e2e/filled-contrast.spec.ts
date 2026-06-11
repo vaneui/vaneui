@@ -1,21 +1,6 @@
-import { test, expect, type Locator } from './base';
+import { test, expect, getColor, type Locator } from './base';
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
-
-async function getColor(locator: Locator): Promise<string> {
-  return getStyle(locator, 'color');
-}
-
-async function getBg(locator: Locator): Promise<string> {
-  return getStyle(locator, 'background-color');
-}
+// ── Helpers (single-spec) ─────────────────────────────────────────────────────
 
 /** Compute WCAG contrast ratio between two elements in the browser.
  *  Uses a canvas to resolve any color format (oklch, rgb, etc.) to sRGB. */
