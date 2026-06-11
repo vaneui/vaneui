@@ -81,7 +81,8 @@ jobs:
 
       - name: Install Playwright Browsers
         if: steps.check_version.outputs.should_publish == 'true'
-        run: npx playwright install --with-deps chromium
+        # All three engines: test:e2e runs the firefox/webkit behavior projects too
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: Run E2E Tests
         if: steps.check_version.outputs.should_publish == 'true'

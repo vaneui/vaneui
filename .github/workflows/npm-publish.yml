@@ -63,7 +63,8 @@ jobs:
         run: npm run build
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
+        # All three engines: test:e2e runs the firefox/webkit behavior projects too
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: Run E2E Tests
         run: npm run test:e2e
