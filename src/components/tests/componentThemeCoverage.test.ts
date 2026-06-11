@@ -31,6 +31,7 @@ import { defaultLabelTheme } from "../ui/label/defaultLabelTheme";
 import { defaultImgTheme } from "../ui/img/defaultImgTheme";
 import { defaultInputTheme } from "../ui/input";
 import { defaultNavLinkTheme, NAV_LINK_CATEGORIES, defaultNavLinkLabelTheme, NAV_LINK_LABEL_CATEGORIES } from "../ui/navLink";
+import { LINK_CATEGORIES } from "../ui/typography/link/LinkCategories";
 import { defaultOverlayTheme } from "../ui/overlay";
 import { defaultPopupTheme } from "../ui/popup";
 import { defaultIconTheme } from "../ui/icon";
@@ -499,10 +500,11 @@ describe("Component theme coverage tests", () => {
     };
     createThemeTests(typographyConfig);
 
-    // Link has its own theme (not typographyClassMappers) but uses TYPOGRAPHY_CATEGORIES
+    // Link composes over typographyClassMappers with deltas (link-variant colors,
+    // focusVisible) — LINK_CATEGORIES = TYPOGRAPHY_CATEGORIES + focusVisible
     const linkConfig: ComponentTestConfig = {
       propsType: "LinkProps",
-      categories: TYPOGRAPHY_CATEGORIES,
+      categories: LINK_CATEGORIES,
       themes: [
         { name: "defaultLinkTheme", theme: defaultLinkTheme }
       ],

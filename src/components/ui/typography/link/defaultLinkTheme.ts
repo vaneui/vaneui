@@ -22,6 +22,7 @@ export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new 
   {
     ...typographyClassMappers,
     appearance: {
+      ...typographyClassMappers.appearance,
       // delta: link-variant colors (cascading --link-text / --app-text) instead
       // of the generic text appearance — Link has no data-variant to drive --text-color
       text: new LinkVariantClassMapper(),
