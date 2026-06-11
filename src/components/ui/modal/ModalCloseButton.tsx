@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import { ThemedComponent } from '../../themedComponent';
 import { useTheme } from '../../themeContext';
 import { useModalContext } from './ModalContext';
+import { markModalPart } from './modalParts';
 
 export const ModalCloseButton = forwardRef<HTMLButtonElement, React.ComponentPropsWithRef<'button'>>(
   function ModalCloseButton(props, ref) {
@@ -29,3 +30,4 @@ export const ModalCloseButton = forwardRef<HTMLButtonElement, React.ComponentPro
 );
 
 ModalCloseButton.displayName = 'ModalCloseButton';
+markModalPart(ModalCloseButton, 'closeButton');

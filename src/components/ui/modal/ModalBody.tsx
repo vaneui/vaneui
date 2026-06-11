@@ -3,6 +3,7 @@ import type { ModalBodyProps } from "./ModalBodyProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { useModalContext } from './ModalContext';
+import { markModalPart } from './modalParts';
 
 export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
   function ModalBody(props, ref) {
@@ -20,3 +21,4 @@ export const ModalBody = forwardRef<HTMLDivElement, ModalBodyProps>(
 );
 
 ModalBody.displayName = 'ModalBody';
+markModalPart(ModalBody, 'body');

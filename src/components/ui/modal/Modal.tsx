@@ -16,6 +16,24 @@ import { ModalHeader } from './ModalHeader';
 import { ModalBody } from './ModalBody';
 import { ModalFooter } from './ModalFooter';
 import { ModalCloseButton } from './ModalCloseButton';
+import { getModalPart } from './modalParts';
+
+// Any ModalHeader/ModalBody/ModalFooter among the children switches Modal
+// from convenience mode (auto ModalBody wrapping) to compound mode (children
+// rendered as-is). Children.toArray does not flatten Fragments, so the scan
+// recurses through them; sub-components are identified by their static
+// modal-part marker (survives memo()-style wrappers) instead of reference
+// equality. A consumer component that merely renders a ModalHeader cannot be
+// detected without rendering it — it falls back to convenience mode.
+const containsModalSection = (nodes: React.ReactNode): boolean =>
+  React.Children.toArray(nodes).some(child => {
+    if (!React.isValidElement(child)) return false;
+    if (child.type === React.Fragment) {
+      return containsModalSection((child.props as { children?: React.ReactNode }).children);
+    }
+    const part = getModalPart(child.type);
+    return part === 'header' || part === 'body' || part === 'footer';
+  });
 
 export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   function Modal(
@@ -98,11 +116,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       [onClose, titleId, bodyId]
     );
 
-    const childArray = React.Children.toArray(children);
-    const isCompoundMode = childArray.some(
-      child => React.isValidElement(child) &&
-        (child.type === ModalHeader || child.type === ModalBody || child.type === ModalFooter)
-    );
+    const isCompoundMode = containsModalSection(children);
     const showCloseButton = withCloseButton ?? (title !== undefined);
 
     const shouldMount = overlayTransition.mounted || keepMounted;

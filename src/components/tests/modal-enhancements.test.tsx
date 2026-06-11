@@ -4,6 +4,8 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
+  ModalCloseButton,
+  Title,
   ThemeProvider,
   defaultTheme,
 } from '../../index';
@@ -197,6 +199,77 @@ describe('Modal Enhancements', () => {
 
       dialog = baseElement.querySelector('[role="dialog"]');
       expect(dialog).not.toHaveAttribute('aria-labelledby');
+    });
+  });
+
+  describe('dialog accessible name excludes the close button', () => {
+    it('resolves the dialog name from the title only in compound mode', () => {
+      const { getByRole } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>
+            <ModalHeader>
+              <Title>Settings</Title>
+              <ModalCloseButton />
+            </ModalHeader>
+            <ModalBody>Body</ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      // before the fix titleId sat on the whole header, so the dialog's
+      // accessible name concatenated the close button label: "Settings Close"
+      const dialog = getByRole('dialog', { name: 'Settings' });
+      expect(dialog).toHaveAccessibleName('Settings');
+      expect(dialog).not.toHaveAccessibleName(/Close/);
+    });
+
+    it('convenience mode (title prop) also excludes the auto close button from the name', () => {
+      const { getByRole } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false} title="Settings">
+            Body
+          </Modal>
+        </ThemeProvider>
+      );
+
+      expect(getByRole('dialog', { name: 'Settings' })).toBeInTheDocument();
+    });
+
+    it('the close button keeps its own accessible name', () => {
+      const { getByRole } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>
+            <ModalHeader>
+              <Title>Settings</Title>
+              <ModalCloseButton />
+            </ModalHeader>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      expect(getByRole('button', { name: 'Close' })).toBeInTheDocument();
+    });
+
+    it('aria-labelledby resolves to the title content, not the whole header', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>
+            <ModalHeader>
+              <Title>Settings</Title>
+              <ModalCloseButton />
+            </ModalHeader>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const dialog = baseElement.querySelector('[role="dialog"]')!;
+      const labelledBy = dialog.getAttribute('aria-labelledby')!;
+      const labelTarget = baseElement.querySelector(`#${CSS.escape(labelledBy)}`)!;
+      // the labelled element must contain the title but NOT the close button
+      expect(labelTarget).toHaveTextContent('Settings');
+      expect(labelTarget.querySelector('.vane-modal-close')).toBeNull();
+      // the header itself still renders the close button
+      expect(baseElement.querySelector('.vane-modal-header .vane-modal-close')).toBeInTheDocument();
     });
   });
 

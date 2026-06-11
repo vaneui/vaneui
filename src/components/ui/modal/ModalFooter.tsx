@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import type { ModalFooterProps } from "./ModalFooterProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
+import { markModalPart } from './modalParts';
 
 export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
   function ModalFooter(props, ref) {
@@ -11,3 +12,4 @@ export const ModalFooter = forwardRef<HTMLDivElement, ModalFooterProps>(
 );
 
 ModalFooter.displayName = 'ModalFooter';
+markModalPart(ModalFooter, 'footer');

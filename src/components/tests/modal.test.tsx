@@ -1152,4 +1152,99 @@ describe('Modal Component Tests', () => {
       expect(modal).not.toHaveAttribute('withCloseButton');
     });
   });
+
+  describe('Compound Mode Detection (Fragments and Wrappers)', () => {
+    const structure = (root: Element) => ({
+      bodies: root.querySelectorAll('.vane-modal-body').length,
+      headers: root.querySelectorAll('.vane-modal-header').length,
+      headerInsideBody: root.querySelector('.vane-modal-body .vane-modal-header') !== null,
+    });
+
+    it('fragment-wrapped sub-components produce the same structure as unwrapped', () => {
+      const unwrapped = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <ModalHeader>Header</ModalHeader>
+            <ModalBody>Body</ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+      const expected = structure(unwrapped.baseElement);
+      unwrapped.unmount();
+
+      const wrapped = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <>
+              <ModalHeader>Header</ModalHeader>
+              <ModalBody>Body</ModalBody>
+            </>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      // pinned: before the fix the Fragment was not traversed, so the whole
+      // Fragment was auto-wrapped in an extra ModalBody — a nested
+      // .vane-modal-body with the header sitting INSIDE the body padding
+      expect(structure(wrapped.baseElement)).toEqual(expected);
+      expect(expected).toEqual({ bodies: 1, headers: 1, headerInsideBody: false });
+    });
+
+    it('nested fragments are traversed when detecting compound mode', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <>
+              <>
+                <ModalHeader>Header</ModalHeader>
+              </>
+              <ModalBody>Body</ModalBody>
+            </>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelectorAll('.vane-modal-body')).toHaveLength(1);
+      const header = baseElement.querySelector('.vane-modal-header');
+      expect(header).toBeInTheDocument();
+      expect(header!.closest('.vane-modal-body')).toBeNull();
+    });
+
+    it('memo-wrapped sub-components are still detected as compound mode', () => {
+      const MemoHeader = React.memo(ModalHeader);
+      const MemoBody = React.memo(ModalBody);
+
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <MemoHeader>Header</MemoHeader>
+            <MemoBody>Body</MemoBody>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelectorAll('.vane-modal-body')).toHaveLength(1);
+      const header = baseElement.querySelector('.vane-modal-header');
+      expect(header).toBeInTheDocument();
+      expect(header!.closest('.vane-modal-body')).toBeNull();
+    });
+
+    it('a fragment of plain children still auto-wraps in ModalBody (convenience mode)', () => {
+      const { baseElement, getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}}>
+            <>
+              <div>First</div>
+              <div>Second</div>
+            </>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelectorAll('.vane-modal-body')).toHaveLength(1);
+      expect(getByText('First').closest('.vane-modal-body')).toBeInTheDocument();
+      expect(getByText('Second').closest('.vane-modal-body')).toBeInTheDocument();
+      expect(baseElement.querySelector('.vane-modal-header')).not.toBeInTheDocument();
+    });
+  });
 });
