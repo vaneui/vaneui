@@ -7,8 +7,14 @@ import { test, expect } from './base';
 // test-writing burden. Fails on serious/critical violations.
 //
 // The color-contrast rule is excluded here: contrast is gated by the
-// dedicated filled-contrast.spec.ts, which owns the threshold policy for
-// the appearance matrix.
+// dedicated filled-contrast.spec.ts (plus the dark grid in dark-mode.spec.ts),
+// which owns the threshold policy for the appearance matrix. Be aware of what
+// that policy currently is: a 3:1 floor (the WCAG large-text/UI bar) over a
+// curated component grid — NOT the 4.5:1 normal-text bar, and NOT every text
+// node on the page. Raising the light palette to 4.5:1 needs design decisions
+// (tertiary filled sits ≈3.9:1) and is tracked in the architecture-review
+// tracker's follow-ups; axe's color-contrast rule stays disabled so the gate
+// doesn't double-report the same curated pairs at a different threshold.
 
 type Violation = {
   id: string;

@@ -962,6 +962,15 @@ export function TestHarness() {
           <div data-theme="dark" data-testid="dm-dark-bare">
             <Text data-testid="dm-dark-bare-text">Bare dark text</Text>
           </div>
+
+          {/* Explicit light marker semantics: data-theme="light" re-declares
+              NO tokens — under <html data-theme="dark"> it must pin
+              color-scheme: light (native controls) while the dark token
+              values still inherit from html. A no-op in the default light
+              page, exercised by the html-level dark tests. */}
+          <div data-theme="light" data-testid="dm-light-pin">
+            <Text data-testid="dm-light-pin-text">Pinned light region</Text>
+          </div>
         </section>
 
         {/* ── RTL: logical utilities under dir="rtl" ──
@@ -997,6 +1006,50 @@ export function TestHarness() {
             <Text wFull textEnd data-testid="rtl-text-end">End-aligned text</Text>
             <Text wFull textLeft data-testid="rtl-text-left">Left-aligned text</Text>
           </div>
+        </section>
+
+        {/* ── Dark portal: PORTALED floating content for the html-level dark
+            tests ──
+            Modal and Menu here keep portal ENABLED (the component default) so
+            their content really lives at the end of document.body, OUTSIDE
+            any in-flow [data-theme] wrapper — only <html data-theme="dark">
+            (the primary documented mode) can theme it. Every other open
+            fixture on this page uses portal={false}. Mounted LAST so the
+            stacking-counter z-index values of the earlier always-open
+            fixtures stay stable. The overlay is pointerEventsNone and the
+            content inherits it, so hit-testing in other specs passes through;
+            scrollLock/focusTrap/Escape handling are off so this fixture never
+            captures page-level interactions from other tests. */}
+        <section data-testid="dark-portal-section">
+          <Modal
+            open
+            noAnimation
+            closeOnOverlayClick={false}
+            closeOnEscape={false}
+            scrollLock={false}
+            focusTrap={false}
+            overlayProps={{
+              pointerEventsNone: true,
+              'data-testid': 'dark-portal-modal-overlay',
+            } as Record<string, unknown>}
+            data-testid="dark-portal-modal-content"
+          >
+            <ModalHeader>Portal dialog</ModalHeader>
+            <ModalBody>
+              <Text data-testid="dark-portal-modal-text">Portaled modal text</Text>
+            </ModalBody>
+          </Modal>
+
+          <Menu
+            defaultOpen
+            noAnimation
+            closeOnClickOutside={false}
+            closeOnEscape={false}
+            trigger={<Button data-testid="dark-portal-menu-trigger">Menu</Button>}
+            data-testid="dark-portal-menu-popup"
+          >
+            <MenuItem data-testid="dark-portal-menu-item">Portaled item</MenuItem>
+          </Menu>
         </section>
 
       </div>

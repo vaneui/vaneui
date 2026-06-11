@@ -1,4 +1,4 @@
-import { test, expect, getBg, getColor, getContrastRatio, type Locator } from './base';
+import { test, expect, getBg, getColor, getContrastRatio, getStyle, type Locator, type Page } from './base';
 
 // Dark mode contract (P2-1): the [data-theme="dark"] block in tokens.css
 // re-declares the color tokens; components re-resolve against them through
@@ -11,6 +11,18 @@ import { test, expect, getBg, getColor, getContrastRatio, type Locator } from '.
 /** Dark-scheme page surface / primary bg token (gray-950) — must match the
  *  --color-bg-primary literal in the tokens.css dark block. */
 const DARK_BG_PRIMARY = 'oklch(13% 0.028 261.692)';
+
+/** Dark-scheme overlay scrim — must match the --overlay-bg literal in the
+ *  tokens.css dark block (stronger veil than the light 50% scrim). */
+const DARK_OVERLAY_BG = 'oklch(0 0 0 / 70%)';
+
+/** Flip the page into the PRIMARY documented dark mode: data-theme="dark"
+ *  on <html>. Each test runs in a fresh page, so the flip never leaks. */
+async function enableHtmlDark(page: Page): Promise<void> {
+  await page.evaluate(() => {
+    document.documentElement.dataset.theme = 'dark';
+  });
+}
 
 /** Assert an element's computed property renders as the given CSS color.
  *  A probe element is styled with the expected color in the same document,
@@ -136,4 +148,101 @@ test.describe('Dark outline text contrast (WCAG)', () => {
       expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_LARGE_TEXT);
     });
   }
+});
+
+// =========================================================================
+// html-level dark mode — the PRIMARY documented mode (<html data-theme="dark">).
+// Unlike the subtree wrappers above, this is the only mode that themes
+// PORTALED floating content: Modal/Popup/Overlay render at the end of
+// <body>, so they resolve the theme of <html>/<body>, never an in-flow
+// wrapper's (the documented portal caveat). The dark-portal-section fixtures
+// keep portal ENABLED for exactly this reason. Every test captures the light
+// value first, then flips the live page via enableHtmlDark — fresh page per
+// test, so the order within a test is the only sequencing that matters.
+// =========================================================================
+
+test.describe('html-level dark mode (primary documented mode)', () => {
+  test('flipping html re-themes in-flow content outside any data-theme wrapper', async ({ page }) => {
+    const surface = page.locator('[data-testid="dm-light-surface"]');
+    const text = page.locator('[data-testid="dm-light-text"]');
+    const html = page.locator('html');
+
+    const lightBg = await getBg(surface);
+    const lightColor = await getColor(text);
+    expect(await getStyle(html, 'color-scheme')).not.toBe('dark');
+
+    await enableHtmlDark(page);
+
+    // native controls (scrollbars, form fields) switch scheme...
+    expect(await getStyle(html, 'color-scheme')).toBe('dark');
+    // ...and the light-column fixtures — OUTSIDE any data-theme wrapper —
+    // now resolve the dark tokens declared at :root[data-theme="dark"]
+    expect(await getBg(surface)).not.toBe(lightBg);
+    expect(await rendersAs(surface, 'background-color', DARK_BG_PRIMARY)).toBe(true);
+    expect(await getColor(text)).not.toBe(lightColor);
+  });
+
+  test('portaled Modal content paints the dark surface', async ({ page }) => {
+    const content = page.locator('[data-testid="dark-portal-modal-content"]');
+    const text = page.locator('[data-testid="dark-portal-modal-text"]');
+
+    const lightBg = await getBg(content);
+    const lightColor = await getColor(text);
+
+    await enableHtmlDark(page);
+
+    // the modal lives in a portal at the end of <body> — only the html-level
+    // attribute can reach it (a subtree wrapper never could)
+    expect(await getBg(content)).not.toBe(lightBg);
+    expect(await rendersAs(content, 'background-color', DARK_BG_PRIMARY)).toBe(true);
+    expect(await getColor(text)).not.toBe(lightColor);
+  });
+
+  test('portaled Menu popup frame and item flip to dark values', async ({ page }) => {
+    const popup = page.locator('[data-testid="dark-portal-menu-popup"]');
+    const item = page.locator('[data-testid="dark-portal-menu-item"]');
+
+    const lightBg = await getBg(popup);
+    const lightColor = await getColor(item);
+
+    await enableHtmlDark(page);
+
+    // menu popup defaults are primary+outline, so its surface consumes the
+    // same --color-bg-primary token as the page surface (gray-950 in dark)
+    expect(await getBg(popup)).not.toBe(lightBg);
+    expect(await rendersAs(popup, 'background-color', DARK_BG_PRIMARY)).toBe(true);
+    expect(await getColor(item)).not.toBe(lightColor);
+  });
+
+  test('open Modal overlay scrim deepens to the dark --overlay-bg', async ({ page }) => {
+    const overlay = page.locator('[data-testid="dark-portal-modal-overlay"]');
+
+    const lightScrim = await getBg(overlay);
+
+    await enableHtmlDark(page);
+
+    // dark block re-declares --overlay-bg (50% → 70% black): a dark modal
+    // over a dark page needs a stronger veil
+    const darkScrim = await getBg(overlay);
+    expect(darkScrim).not.toBe(lightScrim);
+    expect(await rendersAs(overlay, 'background-color', DARK_OVERLAY_BG)).toBe(true);
+  });
+
+  test('data-theme="light" under html-dark pins color-scheme light but still inherits dark tokens', async ({ page }) => {
+    const pin = page.locator('[data-testid="dm-light-pin"]');
+    const pinText = page.locator('[data-testid="dm-light-pin-text"]');
+    const darkBareText = page.locator('[data-testid="dm-dark-bare-text"]');
+
+    const lightColor = await getColor(pinText);
+
+    await enableHtmlDark(page);
+
+    // explicit light marker: native-control scheme is pinned back to light...
+    expect(await getStyle(pin, 'color-scheme')).toBe('light');
+    // ...but [data-theme="light"] re-declares NO tokens (documented), so the
+    // dark values inherited from <html> still apply — same computed color as
+    // a bare Text inside an actual dark wrapper
+    expect(await getColor(pinText)).not.toBe(lightColor);
+    expect(await getColor(pinText)).toBe(await getColor(darkBareText));
+  });
 });
