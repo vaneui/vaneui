@@ -78,6 +78,9 @@ import type { MenuLabelProps } from './ui/menu/MenuLabelProps';
 import type { NavLinkProps } from './ui/navLink/NavLinkProps';
 import type { NavLinkLabelProps } from './ui/navLink/NavLinkLabelProps';
 import type { DeepPartial } from "./utils/deepPartial";
+// type-only import: ComponentKeys is referenced exclusively in `typeof` type
+// queries below, so nothing is emitted at runtime
+import type { ComponentKeys, ComponentCategoryKey } from "./ui/props/keys";
 
 export interface ThemeProps {
   button: {
@@ -149,149 +152,86 @@ export interface ThemeProps {
 
 export type PartialTheme = DeepPartial<ThemeProps>;
 
+// ---------------------------------------------------------------------------
+// Derived customization types
+//
+// ThemeProps above is the single source of truth for the theme tree shape.
+// ThemeDefaults and ThemeExtraClasses are DERIVED from it with the recursive
+// mapped types below: every ComponentTheme<P, T> leaf maps to its
+// customization payload, and nested sub-theme records (button.main,
+// modal.content, ...) recurse. A component or sub-theme added to (or removed
+// from) ThemeProps is reflected in both types by construction — there is no
+// hand-written mirror left to drift out of sync.
+// ---------------------------------------------------------------------------
+
+/** Boolean prop flags of a component's props type, as an all-boolean bag. */
 type BooleanKeys<T> = {
   [K in keyof T as T[K] extends boolean | undefined ? K : never]: boolean;
 };
 
-type StringValueKeys<T> = {
-  [K in keyof T as T[K] extends boolean | undefined ? K : never]: string;
+/**
+ * Every flag the category engine can extract: the union of all values of all
+ * categories in ComponentKeys ('primary', 'md', 'filled', 'disabled', ...).
+ */
+type CategoryFlagKey = (typeof ComponentKeys)[ComponentCategoryKey][number];
+
+/**
+ * themeDefaults payload for one component: any of its boolean props. This is
+ * intentionally the full boolean key space of P (category flags plus boolean
+ * props like Button's `loading`) — defaults merge into
+ * ComponentTheme.defaults, which is consulted by the category extractor and
+ * passed to tagFunction.
+ */
+type ThemeDefaultsLeaf<P> = Partial<BooleanKeys<P>>;
+
+/**
+ * extraClasses payload for one component: extra CSS classes keyed by prop
+ * flag. Keys are narrowed to the component's boolean props that some category
+ * can actually extract, because the runtime applies extraClasses only to
+ * extracted category values (see ComponentTheme.getClasses) — a key no
+ * category can produce (e.g. Button's `loading`, NavLink's `active`) is dead
+ * configuration, so it is rejected at compile time.
+ *
+ * Precision note: this narrows to `keys of P ∩ global category-flag union`,
+ * not to the flags of the component's exact categories array. ComponentTheme's
+ * type parameters do not carry the categories tuple (the constructor argument
+ * is widened to `readonly ComponentCategoryKey[]` and stored privately), so
+ * per-component category narrowing would require either a third ComponentTheme
+ * type parameter threaded through every theme file or a hand-written
+ * path→categories type map — the kind of mirror this derivation exists to
+ * delete. In practice each Props type mirrors its categories array (the
+ * categories⊆props direction is compile-time enforced by
+ * propsCategoriesAlignment.test.ts), so the residual over-acceptance is
+ * limited to flags whose prop interface is on P while the category is absent
+ * from the component's categories array.
+ */
+type ThemeExtraClassesLeaf<P> = Partial<Record<Extract<keyof BooleanKeys<P>, CategoryFlagKey>, string>>;
+
+/** Recursive walk of a ThemeProps subtree mapping every theme leaf to its themeDefaults payload. */
+type DeriveThemeDefaults<T> = {
+  [K in keyof T]?: T[K] extends ComponentTheme<infer P, object>
+    ? ThemeDefaultsLeaf<P>
+    : DeriveThemeDefaults<T[K]>;
 };
 
-export type ThemeDefaults = {
-  button?: {
-    main?: Partial<BooleanKeys<ButtonProps>>;
-    spinner?: Partial<BooleanKeys<ButtonSpinnerProps>>;
-  };
-  iconButton?: Partial<BooleanKeys<IconButtonProps>>;
-  badge?: Partial<BooleanKeys<BadgeProps>>;
-  icon?: Partial<BooleanKeys<IconProps>>;
-  chip?: Partial<BooleanKeys<ChipProps>>;
-  code?: Partial<BooleanKeys<CodeProps>>;
-  kbd?: Partial<BooleanKeys<KbdProps>>;
-  mark?: Partial<BooleanKeys<MarkProps>>;
-  card?: {
-    main?: Partial<BooleanKeys<CardProps>>;
-    header?: Partial<BooleanKeys<CardHeaderProps>>;
-    body?: Partial<BooleanKeys<CardBodyProps>>;
-    footer?: Partial<BooleanKeys<CardFooterProps>>;
-  };
-  divider?: Partial<BooleanKeys<DividerProps>>;
-  container?: Partial<BooleanKeys<ContainerProps>>;
-  row?: Partial<BooleanKeys<RowProps>>;
-  col?: Partial<BooleanKeys<ColProps>>;
-  stack?: Partial<BooleanKeys<StackProps>>;
-  section?: Partial<BooleanKeys<SectionProps>>;
-  grid2?: Partial<BooleanKeys<GridProps>>;
-  grid3?: Partial<BooleanKeys<GridProps>>;
-  grid4?: Partial<BooleanKeys<GridProps>>;
-  grid5?: Partial<BooleanKeys<GridProps>>;
-  grid6?: Partial<BooleanKeys<GridProps>>;
-  pageTitle?: Partial<BooleanKeys<TypographyProps>>;
-  sectionTitle?: Partial<BooleanKeys<TypographyProps>>;
-  title?: Partial<BooleanKeys<TypographyProps>>;
-  text?: Partial<BooleanKeys<TypographyProps>>;
-  blockquote?: Partial<BooleanKeys<TypographyProps>>;
-  link?: Partial<BooleanKeys<TypographyProps>>;
-  list?: Partial<BooleanKeys<ListProps>>;
-  listItem?: Partial<BooleanKeys<TypographyProps>>;
-  checkbox?: {
-    input?: Partial<BooleanKeys<CheckboxProps>>;
-    check?: Partial<BooleanKeys<CheckboxCheckProps>>;
-    indeterminate?: Partial<BooleanKeys<CheckboxIndeterminateProps>>;
-    wrapper?: Partial<BooleanKeys<CheckboxProps>>;
-  };
-  label?: Partial<BooleanKeys<LabelProps>>;
-  img?: Partial<BooleanKeys<ImgProps>>;
-  input?: Partial<BooleanKeys<InputProps>>;
-  overlay?: Partial<BooleanKeys<OverlayProps>>;
-  modal?: {
-    content?: Partial<BooleanKeys<ModalProps>>;
-    overlay?: Partial<BooleanKeys<OverlayProps>>;
-    header?: Partial<BooleanKeys<ModalHeaderProps>>;
-    body?: Partial<BooleanKeys<ModalBodyProps>>;
-    footer?: Partial<BooleanKeys<ModalFooterProps>>;
-    closeButton?: Partial<BooleanKeys<ModalCloseButtonProps>>;
-  };
-  popup?: Partial<BooleanKeys<PopupProps>>;
-  menu?: {
-    item?: Partial<BooleanKeys<MenuItemProps>>;
-    popup?: Partial<BooleanKeys<PopupProps>>;
-    divider?: Partial<BooleanKeys<DividerProps>>;
-    label?: Partial<BooleanKeys<MenuLabelProps>>;
-  };
-  navLink?: {
-    root?: Partial<BooleanKeys<NavLinkProps>>;
-    label?: Partial<BooleanKeys<NavLinkLabelProps>>;
-  };
+/** Recursive walk of a ThemeProps subtree mapping every theme leaf to its extraClasses payload. */
+type DeriveThemeExtraClasses<T> = {
+  [K in keyof T]?: T[K] extends ComponentTheme<infer P, object>
+    ? ThemeExtraClassesLeaf<P>
+    : DeriveThemeExtraClasses<T[K]>;
 };
 
-export type ThemeExtraClasses = {
-  button?: {
-    main?: Partial<StringValueKeys<ButtonProps>>;
-    spinner?: Partial<StringValueKeys<ButtonSpinnerProps>>;
-  };
-  iconButton?: Partial<StringValueKeys<IconButtonProps>>;
-  badge?: Partial<StringValueKeys<BadgeProps>>;
-  icon?: Partial<StringValueKeys<IconProps>>;
-  chip?: Partial<StringValueKeys<ChipProps>>;
-  code?: Partial<StringValueKeys<CodeProps>>;
-  kbd?: Partial<StringValueKeys<KbdProps>>;
-  mark?: Partial<StringValueKeys<MarkProps>>;
-  card?: {
-    main?: Partial<StringValueKeys<CardProps>>;
-    header?: Partial<StringValueKeys<CardHeaderProps>>;
-    body?: Partial<StringValueKeys<CardBodyProps>>;
-    footer?: Partial<StringValueKeys<CardFooterProps>>;
-  };
-  divider?: Partial<StringValueKeys<DividerProps>>;
-  container?: Partial<StringValueKeys<ContainerProps>>;
-  row?: Partial<StringValueKeys<RowProps>>;
-  col?: Partial<StringValueKeys<ColProps>>;
-  stack?: Partial<StringValueKeys<StackProps>>;
-  section?: Partial<StringValueKeys<SectionProps>>;
-  grid2?: Partial<StringValueKeys<GridProps>>;
-  grid3?: Partial<StringValueKeys<GridProps>>;
-  grid4?: Partial<StringValueKeys<GridProps>>;
-  grid5?: Partial<StringValueKeys<GridProps>>;
-  grid6?: Partial<StringValueKeys<GridProps>>;
-  pageTitle?: Partial<StringValueKeys<TypographyProps>>;
-  sectionTitle?: Partial<StringValueKeys<TypographyProps>>;
-  title?: Partial<StringValueKeys<TypographyProps>>;
-  text?: Partial<StringValueKeys<TypographyProps>>;
-  blockquote?: Partial<StringValueKeys<TypographyProps>>;
-  link?: Partial<StringValueKeys<TypographyProps>>;
-  list?: Partial<StringValueKeys<ListProps>>;
-  listItem?: Partial<StringValueKeys<TypographyProps>>;
-  checkbox?: {
-    input?: Partial<StringValueKeys<CheckboxProps>>;
-    check?: Partial<StringValueKeys<CheckboxCheckProps>>;
-    indeterminate?: Partial<StringValueKeys<CheckboxIndeterminateProps>>;
-    wrapper?: Partial<StringValueKeys<CheckboxProps>>;
-  };
-  label?: Partial<StringValueKeys<LabelProps>>;
-  img?: Partial<StringValueKeys<ImgProps>>;
-  input?: Partial<StringValueKeys<InputProps>>;
-  overlay?: Partial<StringValueKeys<OverlayProps>>;
-  modal?: {
-    content?: Partial<StringValueKeys<ModalProps>>;
-    overlay?: Partial<StringValueKeys<OverlayProps>>;
-    header?: Partial<StringValueKeys<ModalHeaderProps>>;
-    body?: Partial<StringValueKeys<ModalBodyProps>>;
-    footer?: Partial<StringValueKeys<ModalFooterProps>>;
-    closeButton?: Partial<StringValueKeys<ModalCloseButtonProps>>;
-  };
-  popup?: Partial<StringValueKeys<PopupProps>>;
-  menu?: {
-    item?: Partial<StringValueKeys<MenuItemProps>>;
-    popup?: Partial<StringValueKeys<PopupProps>>;
-    divider?: Partial<StringValueKeys<DividerProps>>;
-    label?: Partial<StringValueKeys<MenuLabelProps>>;
-  };
-  navLink?: {
-    root?: Partial<StringValueKeys<NavLinkProps>>;
-    label?: Partial<StringValueKeys<NavLinkLabelProps>>;
-  };
-};
+/**
+ * Per-component default boolean props, applied via ThemeProvider's
+ * `themeDefaults` prop. Derived from ThemeProps (see above).
+ */
+export type ThemeDefaults = DeriveThemeDefaults<ThemeProps>;
+
+/**
+ * Per-component extra CSS classes keyed by category flag, applied via
+ * ThemeProvider's `extraClasses` prop. Derived from ThemeProps (see above).
+ */
+export type ThemeExtraClasses = DeriveThemeExtraClasses<ThemeProps>;
 
 export type MergeStrategy = 'merge' | 'replace';
 
