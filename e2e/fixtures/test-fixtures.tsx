@@ -892,6 +892,78 @@ export function TestHarness() {
           </Col>
         </section>
 
+        {/* ── Dark mode: [data-theme="dark"] token flip ──
+            The dark block in tokens.css re-declares the color tokens under
+            [data-theme="dark"]. Light references render the SAME elements
+            outside the dark wrapper so dark-mode.spec.ts can assert the
+            computed colors actually flip. */}
+        <section data-testid="dark-mode-section">
+          {/* Light reference column */}
+          <div data-testid="dm-light">
+            <Card data-testid="dm-light-surface">
+              <Button data-testid="dm-light-button-primary">Primary</Button>
+              <Text data-testid="dm-light-text">Inherited text</Text>
+            </Card>
+            {/* Light control for the bare inherit-mode regression case below */}
+            <Text data-testid="dm-light-bare-text">Bare light text</Text>
+          </div>
+
+          {/* Dark column — representative components under a data-theme="dark"
+              subtree. The root surface is a primary-bg Card, painting the
+              dark page surface (gray-950). */}
+          <div data-theme="dark" data-testid="dm-dark">
+            <Card data-testid="dm-dark-surface">
+              <Button data-testid="dm-dark-button-primary">Primary</Button>
+              <Button filled data-testid="dm-dark-button-primary-filled">Primary filled</Button>
+              <Button danger data-testid="dm-dark-button-danger">Danger</Button>
+              <Text data-testid="dm-dark-text">Inherited text</Text>
+              <Badge data-testid="dm-dark-badge">Badge</Badge>
+              <Chip data-testid="dm-dark-chip">Chip</Chip>
+              <Label>
+                <Checkbox aria-label="dark checkbox" data-testid="dm-dark-checkbox" />
+                Dark checkbox
+              </Label>
+              <Label>
+                <span>Email</span>
+                <Input placeholder="you@example.com" aria-label="dark input" data-testid="dm-dark-input" />
+              </Label>
+              <Link href="#" data-testid="dm-dark-link">Dark link</Link>
+            </Card>
+
+            {/* Contrast gate fixtures: all 10 appearances × filled + outline */}
+            <Card filled primary data-testid="dm-contrast-filled-primary"><Text data-testid="dm-contrast-filled-text-primary">Primary filled</Text></Card>
+            <Card filled brand data-testid="dm-contrast-filled-brand"><Text data-testid="dm-contrast-filled-text-brand">Brand filled</Text></Card>
+            <Card filled accent data-testid="dm-contrast-filled-accent"><Text data-testid="dm-contrast-filled-text-accent">Accent filled</Text></Card>
+            <Card filled secondary data-testid="dm-contrast-filled-secondary"><Text data-testid="dm-contrast-filled-text-secondary">Secondary filled</Text></Card>
+            <Card filled tertiary data-testid="dm-contrast-filled-tertiary"><Text data-testid="dm-contrast-filled-text-tertiary">Tertiary filled</Text></Card>
+            <Card filled link data-testid="dm-contrast-filled-link"><Text data-testid="dm-contrast-filled-text-link">Link filled</Text></Card>
+            <Card filled success data-testid="dm-contrast-filled-success"><Text data-testid="dm-contrast-filled-text-success">Success filled</Text></Card>
+            <Card filled danger data-testid="dm-contrast-filled-danger"><Text data-testid="dm-contrast-filled-text-danger">Danger filled</Text></Card>
+            <Card filled warning data-testid="dm-contrast-filled-warning"><Text data-testid="dm-contrast-filled-text-warning">Warning filled</Text></Card>
+            <Card filled info data-testid="dm-contrast-filled-info"><Text data-testid="dm-contrast-filled-text-info">Info filled</Text></Card>
+
+            <Card primary data-testid="dm-contrast-outline-primary"><Text data-testid="dm-contrast-outline-text-primary">Primary outline</Text></Card>
+            <Card brand data-testid="dm-contrast-outline-brand"><Text data-testid="dm-contrast-outline-text-brand">Brand outline</Text></Card>
+            <Card accent data-testid="dm-contrast-outline-accent"><Text data-testid="dm-contrast-outline-text-accent">Accent outline</Text></Card>
+            <Card secondary data-testid="dm-contrast-outline-secondary"><Text data-testid="dm-contrast-outline-text-secondary">Secondary outline</Text></Card>
+            <Card tertiary data-testid="dm-contrast-outline-tertiary"><Text data-testid="dm-contrast-outline-text-tertiary">Tertiary outline</Text></Card>
+            <Card link data-testid="dm-contrast-outline-link"><Text data-testid="dm-contrast-outline-text-link">Link outline</Text></Card>
+            <Card success data-testid="dm-contrast-outline-success"><Text data-testid="dm-contrast-outline-text-success">Success outline</Text></Card>
+            <Card danger data-testid="dm-contrast-outline-danger"><Text data-testid="dm-contrast-outline-text-danger">Danger outline</Text></Card>
+            <Card warning data-testid="dm-contrast-outline-warning"><Text data-testid="dm-contrast-outline-text-warning">Warning outline</Text></Card>
+            <Card info data-testid="dm-contrast-outline-info"><Text data-testid="dm-contrast-outline-text-info">Info outline</Text></Card>
+          </div>
+
+          {/* Architect's regression case: bare inherit-mode Text inside a
+              data-theme="dark" div with NO appearance-bearing wrapper. The
+              :root, [data-theme] defaults block must re-resolve --text-color
+              against the dark tokens at this element — without it, this Text
+              renders the root-resolved LIGHT color. */}
+          <div data-theme="dark" data-testid="dm-dark-bare">
+            <Text data-testid="dm-dark-bare-text">Bare dark text</Text>
+          </div>
+        </section>
+
       </div>
     </ThemeProvider>
   );

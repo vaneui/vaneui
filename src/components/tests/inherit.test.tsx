@@ -681,11 +681,11 @@ describe('Inherit Appearance Prop', () => {
   describe('CSS rule verification (vars.css)', () => {
 
     it('root should define --text-color fallback', () => {
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--text-color:\s*var\(--color-text-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--text-color:\s*var\(--color-text-primary\)/);
     });
 
     it('root should define --border-color fallback', () => {
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--border-color:\s*var\(--color-border-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--border-color:\s*var\(--color-border-primary\)/);
     });
 
     it('appearance rules should set --app-text intermediates', () => {
@@ -741,10 +741,19 @@ describe('Inherit Appearance Prop', () => {
       // Components that render in inherit mode (no data-variant / data-appearance)
       // read their colors from :root. :root must mirror outline-primary so that
       // e.g. a standalone <Button> looks identical to <Button primary outline>.
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--text-color:\s*var\(--color-text-primary\)/);
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--bg-color:\s*var\(--color-bg-primary\)/);
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--border-color:\s*var\(--color-border-primary\)/);
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--ring-color:\s*var\(--color-border-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--text-color:\s*var\(--color-text-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--bg-color:\s*var\(--color-bg-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--border-color:\s*var\(--color-border-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--ring-color:\s*var\(--color-border-primary\)/);
+    });
+
+    it('root defaults also re-resolve at [data-theme] subtree roots', () => {
+      // Dark-mode contract: custom properties substitute at the declaring
+      // element, so the consumer-variable defaults must be re-declared on
+      // [data-theme] wrappers. Without this, a bare inherit-mode <Text>
+      // inside <div data-theme="dark"> would render the root-resolved LIGHT
+      // color. Computed-color verification lives in e2e/dark-mode.spec.ts.
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{/);
     });
 
     it('no CSS rule should reference data-appearance="inherit"', () => {

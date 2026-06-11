@@ -53,6 +53,48 @@ export async function getSvgWidth(locator: Locator): Promise<number> {
   );
 }
 
+/** Compute WCAG contrast ratio between two elements in the browser.
+ *  fg contributes its computed `color`, bg its computed `background-color`.
+ *  Uses a canvas to resolve any color format (oklch, rgb, etc.) to sRGB,
+ *  then applies the WCAG relative-luminance formula (0.03928 linearization
+ *  threshold). Shared by filled-contrast.spec.ts and dark-mode.spec.ts. */
+export async function getContrastRatio(fgLocator: Locator, bgLocator: Locator): Promise<number> {
+  return bgLocator.evaluate((bgEl, fgSelector) => {
+    const fgEl = document.querySelector(fgSelector) as HTMLElement;
+    if (!fgEl) throw new Error(`Element not found: ${fgSelector}`);
+
+    const fgColor = getComputedStyle(fgEl).color;
+    const bgColor = getComputedStyle(bgEl).backgroundColor;
+
+    // Use a canvas to convert any CSS color to sRGB values
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 1;
+    const ctx = canvas.getContext('2d')!;
+
+    function toRgb(color: string): [number, number, number] {
+      ctx.clearRect(0, 0, 1, 1);
+      ctx.fillStyle = color;
+      ctx.fillRect(0, 0, 1, 1);
+      const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+      return [r, g, b];
+    }
+
+    function luminance([r, g, b]: [number, number, number]): number {
+      const srgb = [r, g, b].map(c => {
+        c /= 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+    }
+
+    const lFg = luminance(toRgb(fgColor));
+    const lBg = luminance(toRgb(bgColor));
+    const lighter = Math.max(lFg, lBg);
+    const darker = Math.min(lFg, lBg);
+    return (lighter + 0.05) / (darker + 0.05);
+  }, `[data-testid="${await fgLocator.getAttribute('data-testid')}"]`);
+}
+
 /** Fully-transparent background-color serialization */
 export const TRANSPARENT = 'rgba(0, 0, 0, 0)';
 

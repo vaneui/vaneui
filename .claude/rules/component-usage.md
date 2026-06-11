@@ -69,6 +69,47 @@ Nested providers inherit from parent (`mergeStrategy="merge"`, default) or reset
 </ThemeProvider>
 ```
 
+## Dark Mode
+
+`data-theme="dark"` is the official dark-mode extension point. The shipped CSS re-declares every color token under it; no component code changes.
+
+**Primary mode — `<html data-theme="dark">`:**
+
+```html
+<html data-theme="dark">
+```
+
+This themes the whole page, including portaled content and native controls (`color-scheme: dark` gives dark scrollbars and form fields). To avoid a light-mode flash with SSR, the attribute must already be present in the server-rendered markup, or be set by an inline script in `<head>` that runs before first paint:
+
+```html
+<script>
+  if (localStorage.theme === 'dark') document.documentElement.dataset.theme = 'dark';
+</script>
+```
+
+**Subtree mode — for in-flow content:**
+
+```tsx
+<div data-theme="dark">
+  <Card>...</Card>  {/* primary Card paints the dark page surface */}
+</div>
+```
+
+Tokens are CSS custom properties, so the dark values inherit down the wrapper's subtree. Give the subtree a surface (e.g. a primary `Card` or `Section`) — the wrapper div itself paints nothing.
+
+**Portal caveat:** `Modal`, `Popup`, and `Overlay` render into a portal at the end of `<body>`, so they resolve the theme of `<html>`/`<body>`, not an inner wrapper's. `<html data-theme="dark">` is the primary supported mode; subtree theming covers in-flow content.
+
+**Forcing light:** `data-theme="light"` marks an explicit light region and restores `color-scheme: light` for native controls. The light token values are the `:root` defaults, so inside a dark *subtree* the inherited dark tokens still apply — to render a fully light island within `data-theme="dark"`, re-declare the tokens you need under your own `[data-theme="light"]` selector (see below).
+
+**Custom themes:** consumers can re-declare any `--color-*` token under their own selectors — the same mechanism the dark block uses:
+
+```css
+[data-theme="ocean"] {
+  --color-bg-brand: oklch(95% 0.02 220);
+  --color-text-brand: oklch(45% 0.12 220);
+}
+```
+
 ## Component Selection Guide
 
 | Need | Component | Notes |

@@ -1,45 +1,4 @@
-import { test, expect, getColor, type Locator } from './base';
-
-// ── Helpers (single-spec) ─────────────────────────────────────────────────────
-
-/** Compute WCAG contrast ratio between two elements in the browser.
- *  Uses a canvas to resolve any color format (oklch, rgb, etc.) to sRGB. */
-async function getContrastRatio(fgLocator: Locator, bgLocator: Locator): Promise<number> {
-  return bgLocator.evaluate((bgEl, fgSelector) => {
-    const fgEl = document.querySelector(fgSelector) as HTMLElement;
-    if (!fgEl) throw new Error(`Element not found: ${fgSelector}`);
-
-    const fgColor = getComputedStyle(fgEl).color;
-    const bgColor = getComputedStyle(bgEl).backgroundColor;
-
-    // Use a canvas to convert any CSS color to sRGB values
-    const canvas = document.createElement('canvas');
-    canvas.width = canvas.height = 1;
-    const ctx = canvas.getContext('2d')!;
-
-    function toRgb(color: string): [number, number, number] {
-      ctx.clearRect(0, 0, 1, 1);
-      ctx.fillStyle = color;
-      ctx.fillRect(0, 0, 1, 1);
-      const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
-      return [r, g, b];
-    }
-
-    function luminance([r, g, b]: [number, number, number]): number {
-      const srgb = [r, g, b].map(c => {
-        c /= 255;
-        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-      });
-      return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
-    }
-
-    const lFg = luminance(toRgb(fgColor));
-    const lBg = luminance(toRgb(bgColor));
-    const lighter = Math.max(lFg, lBg);
-    const darker = Math.min(lFg, lBg);
-    return (lighter + 0.05) / (darker + 0.05);
-  }, `[data-testid="${await fgLocator.getAttribute('data-testid')}"]`);
-}
+import { test, expect, getColor, getContrastRatio } from './base';
 
 // WCAG AA requires 4.5:1 for normal text, 3:1 for large text.
 // VaneUI filled text is typically large-ish (button labels, card headings),

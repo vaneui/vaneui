@@ -16,11 +16,14 @@ type TestOptions = { testPage: string };
 // What belongs here: tests that would surface differences between the two CSS
 // build paths — broad computed-style coverage (computed-styles), CSS rule
 // auditing (css-noise-audit), and color/contrast checks that depend on the
-// exact resolved tokens (filled-contrast).
+// exact resolved tokens (filled-contrast, dark-mode). dark-mode in
+// particular validates that the plain [data-theme="dark"] rule in tokens.css
+// survives both the raw dist/tokens.css passthrough (imported by the
+// tailwind consumer) and the Tailwind-compiled dist/ui.css.
 //
 // What does NOT belong here: behaviour tests (focus, keyboard, z-index,
 // menu/popup mechanics) — they exercise component logic, not CSS pipelines.
-const DUAL_PIPELINE_SPECS = /(css-noise-audit|computed-styles|filled-contrast)\.spec\.ts$/;
+const DUAL_PIPELINE_SPECS = /(css-noise-audit|computed-styles|filled-contrast|dark-mode)\.spec\.ts$/;
 
 // Behavior-critical specs that ALSO run on Firefox and WebKit. These cover
 // component mechanics where engines genuinely differ — most importantly the
