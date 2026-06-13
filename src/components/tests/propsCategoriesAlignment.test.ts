@@ -83,6 +83,19 @@ type AssertCategoriesCovered<P, C extends readonly ComponentCategoryKey[]> =
     ? true
     : Exclude<CategoryFlagKeys<C>, keyof P>;
 
+// Reverse direction: a category-driven flag exposed on the Props type that is
+// NOT backed by one of the component's categories. Such a prop type-checks but
+// emits no class AND leaks to the DOM (omitKeys is derived from `categories`),
+// so it is a silent 3-layer mismatch. `Extract<keyof P, AllCategoryFlags>`
+// restricts the check to category-flag keys, so legitimate non-category props
+// (href, loading, active, HTML attrs) are ignored. Resolves to the offending
+// keys (compile error) or `true`.
+type AllCategoryFlags = (typeof ComponentKeys)[ComponentCategoryKey][number];
+type AssertNoExtraCategoryFlags<P, C extends readonly ComponentCategoryKey[]> =
+  [Exclude<Extract<keyof P, AllCategoryFlags>, CategoryFlagKeys<C>>] extends [never]
+    ? true
+    : Exclude<Extract<keyof P, AllCategoryFlags>, CategoryFlagKeys<C>>;
+
 // each line fails to COMPILE (naming the missing keys) when a component's
 // categories declare a flag its Props type doesn't expose
 const assertions: true[] = [
@@ -130,8 +143,19 @@ const assertions: true[] = [
   true as AssertCategoriesCovered<CheckboxIndeterminateProps, typeof CHECKBOX_INDETERMINATE_CATEGORIES>,
 ];
 
+// reverse-direction guards: a Props type must not expose a category-flag its
+// Categories omit (silent no-op + DOM leak). Scoped to ListItem, the component
+// where this drift was found; extend per component as the surface is audited.
+const reverseAssertions: true[] = [
+  true as AssertNoExtraCategoryFlags<ListItemProps, typeof LIST_ITEM_CATEGORIES>,
+];
+
 describe('Props/Categories alignment', () => {
   it('should expose every category-driven flag on the corresponding Props type (compile-time)', () => {
     expect(assertions.every(Boolean)).toBe(true);
+  });
+
+  it('should not expose category-driven flags a component omits from its categories (compile-time)', () => {
+    expect(reverseAssertions.every(Boolean)).toBe(true);
   });
 });
