@@ -98,28 +98,6 @@
     --color-bg-filled-active-warning: var(--color-amber-900);
     --color-bg-filled-active-info: var(--color-cyan-900);
 
-    /* Layout Background Colors */
-    --color-bg-layout-primary: var(--color-white);
-    --color-bg-layout-brand: var(--color-blue-50);
-    --color-bg-layout-secondary: var(--color-gray-50);
-    --color-bg-layout-tertiary: var(--color-gray-100);
-    --color-bg-layout-accent: var(--color-indigo-50);
-    --color-bg-layout-success: var(--color-green-50);
-    --color-bg-layout-danger: var(--color-red-50);
-    --color-bg-layout-warning: var(--color-yellow-50);
-    --color-bg-layout-info: var(--color-blue-50);
-
-    /* Layout Filled Background Colors */
-    --color-bg-filled-layout-primary: var(--color-gray-700);
-    --color-bg-filled-layout-brand: var(--color-blue-800);
-    --color-bg-filled-layout-secondary: var(--color-gray-800);
-    --color-bg-filled-layout-tertiary: var(--color-gray-900);
-    --color-bg-filled-layout-accent: var(--color-indigo-700);
-    --color-bg-filled-layout-success: var(--color-green-700);
-    --color-bg-filled-layout-danger: var(--color-red-700);
-    --color-bg-filled-layout-warning: var(--color-yellow-800);
-    --color-bg-filled-layout-info: var(--color-blue-700);
-
     /* Border Colors */
     --color-border-primary: var(--color-gray-200);
     --color-border-brand: var(--color-blue-300);
@@ -355,23 +333,6 @@
     --color-bg-filled-active-primary: oklch(87.2% 0.01 258.338); /* gray-300 */
     --color-bg-filled-active-accent: oklch(41% 0.159 10.272);    /* rose-900 */
     --color-bg-filled-active-danger: oklch(39.6% 0.141 25.723);  /* red-900 */
-
-    /* Layout Background Colors */
-    --color-bg-layout-primary: oklch(13% 0.028 261.692);    /* gray-950 */
-    --color-bg-layout-brand: oklch(28.2% 0.091 267.935);    /* blue-950 */
-    --color-bg-layout-secondary: oklch(21% 0.034 264.665);  /* gray-900 */
-    --color-bg-layout-tertiary: oklch(27.8% 0.033 256.848); /* gray-800 */
-    --color-bg-layout-accent: oklch(25.7% 0.09 281.288);    /* indigo-950 */
-    --color-bg-layout-success: oklch(26.6% 0.065 152.934);  /* green-950 */
-    --color-bg-layout-danger: oklch(25.8% 0.092 26.042);    /* red-950 */
-    --color-bg-layout-warning: oklch(28.6% 0.066 53.813);   /* yellow-950 */
-    --color-bg-layout-info: oklch(28.2% 0.091 267.935);     /* blue-950 */
-
-    /* Layout Filled Background Colors — primary inverts polarity like the ui
-       fill. KEEP light values: brand (blue-800), secondary (gray-800),
-       tertiary (gray-900), accent (indigo-700), success (green-700),
-       danger (red-700), warning (yellow-800), info (blue-700). */
-    --color-bg-filled-layout-primary: oklch(96.7% 0.003 264.542); /* gray-100 */
 
     /* Border Colors — neutral layout borders sit at gray-800 (raised surfaces
        on the gray-950 page); the form border stays one step lighter so form
