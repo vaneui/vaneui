@@ -892,6 +892,28 @@ export function TestHarness() {
           </Col>
         </section>
 
+        {/* ── Label size propagation: a sized Label flows its size to a nested
+            Input/Checkbox via LabelSizeContext. The standalone controls at the
+            same sizes are the reference the propagated size must match. ── */}
+        {/* aria-label on each control: the Labels carry no text (they exist only
+            to provide the size context), so an explicit name keeps the page free
+            of axe "form elements must have labels" violations. */}
+        <section data-testid="label-size-section">
+          <Label lg>
+            <Checkbox data-testid="lbl-lg-checkbox" aria-label="large checkbox in label" />
+            <Input data-testid="lbl-lg-input" aria-label="large input in label" />
+          </Label>
+          <Label sm>
+            <Checkbox data-testid="lbl-sm-checkbox" aria-label="small checkbox in label" />
+            <Input data-testid="lbl-sm-input" aria-label="small input in label" />
+          </Label>
+          {/* explicit-size references */}
+          <Input lg data-testid="std-lg-input" aria-label="large input" />
+          <Input sm data-testid="std-sm-input" aria-label="small input" />
+          <Checkbox lg data-testid="std-lg-checkbox" aria-label="large checkbox" />
+          <Checkbox sm data-testid="std-sm-checkbox" aria-label="small checkbox" />
+        </section>
+
         {/* ── Dark mode: [data-theme="dark"] token flip ──
             The dark block in tokens.css re-declares the color tokens under
             [data-theme="dark"]. Light references render the SAME elements
