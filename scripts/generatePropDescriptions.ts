@@ -114,7 +114,12 @@ function getJsDocComment(node: ts.Node, sourceFile: ts.SourceFile): string {
 }
 
 function extractPropsFromFile(filePath: string): CategoryDescription | null {
-  const sourceText = fs.readFileSync(filePath, 'utf-8');
+  // Normalize CRLF -> LF so extracted JSDoc text (and thus the generated
+  // descriptions) is byte-identical regardless of the checkout's line endings.
+  // Without this a Windows (CRLF) checkout emits \r inside descriptions while
+  // CI (LF) emits \n, dirtying the committed file and failing the build's
+  // git-diff drift guard.
+  const sourceText = fs.readFileSync(filePath, 'utf-8').replace(/\r\n/g, '\n');
   const sourceFile = ts.createSourceFile(
     path.basename(filePath),
     sourceText,
@@ -167,10 +172,13 @@ function generatePropDescriptions(): void {
 
   const descriptions: Record<string, CategoryDescription> = {};
 
-  // Read all *Props.ts files
+  // Read all *Props.ts files. Sort for deterministic ordering: readdirSync
+  // order is filesystem-dependent (NTFS returns sorted entries, ext4 does not),
+  // which would otherwise reorder the generated categories between a local
+  // Windows run and CI and fail the build's git-diff drift guard.
   const files = fs.readdirSync(propsDir).filter(f =>
     f.endsWith('Props.ts') && f !== 'propDescriptions.ts'
-  );
+  ).sort();
 
   for (const file of files) {
     const filePath = path.join(propsDir, file);
