@@ -273,6 +273,84 @@ describe('Modal Enhancements', () => {
     });
   });
 
+  describe('nameless dialog: no broken aria-labelledby, dev warning', () => {
+    it('convenience withCloseButton + no title does not label the dialog with an empty node', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false} withCloseButton>Body content</Modal>
+        </ThemeProvider>
+      );
+      const dialog = baseElement.querySelector('[role="dialog"]')!;
+      // a header holding only the auto close button must NOT point the dialog
+      // name at the (empty) title span
+      expect(dialog).not.toHaveAttribute('aria-labelledby');
+      expect(dialog).not.toHaveAccessibleName();
+      // the close button still renders with its own name
+      expect(baseElement.querySelector('.vane-modal-close')).toBeInTheDocument();
+    });
+
+    it('compound header with only a close button does not set aria-labelledby', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>
+            <ModalHeader><ModalCloseButton /></ModalHeader>
+            <ModalBody>Body</ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+      const dialog = baseElement.querySelector('[role="dialog"]')!;
+      expect(dialog).not.toHaveAttribute('aria-labelledby');
+      expect(dialog).not.toHaveAccessibleName();
+    });
+
+    it('warns in dev when a dialog has no accessible name', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>Just body text</Modal>
+        </ThemeProvider>
+      );
+      expect(warn.mock.calls.some(c => String(c[0]).includes('Modal has no accessible name'))).toBe(true);
+      warn.mockRestore();
+    });
+
+    it('does NOT warn when named via the title prop', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false} title="Settings">Body</Modal>
+        </ThemeProvider>
+      );
+      expect(warn.mock.calls.some(c => String(c[0]).includes('Modal has no accessible name'))).toBe(false);
+      warn.mockRestore();
+    });
+
+    it('does NOT warn when named via aria-label', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false} aria-label="Settings dialog">Body</Modal>
+        </ThemeProvider>
+      );
+      expect(warn.mock.calls.some(c => String(c[0]).includes('Modal has no accessible name'))).toBe(false);
+      warn.mockRestore();
+    });
+
+    it('does NOT warn when a compound ModalHeader provides a title', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>
+            <ModalHeader><Title>Settings</Title><ModalCloseButton /></ModalHeader>
+            <ModalBody>Body</ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+      expect(warn.mock.calls.some(c => String(c[0]).includes('Modal has no accessible name'))).toBe(false);
+      warn.mockRestore();
+    });
+  });
+
   describe('transition lifecycle callbacks', () => {
     beforeEach(() => {
       jest.useFakeTimers();

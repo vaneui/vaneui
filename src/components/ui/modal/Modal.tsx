@@ -37,6 +37,22 @@ const containsModalSection = (nodes: React.ReactNode): boolean =>
     return part === 'header' || part === 'body' || part === 'footer';
   });
 
+// A dialog's accessible name comes (in compound mode) from a ModalHeader that
+// carries real title content — anything other than a close button. Mirror
+// ModalHeader's own title/close split so the dev no-name warning agrees with
+// how aria-labelledby is actually wired (a header with only a close button
+// names nothing).
+const compoundHeaderHasTitle = (nodes: React.ReactNode): boolean =>
+  React.Children.toArray(nodes).some(child => {
+    if (!React.isValidElement(child)) return false;
+    if (child.type === React.Fragment) {
+      return compoundHeaderHasTitle((child.props as { children?: React.ReactNode }).children);
+    }
+    if (getModalPart(child.type) !== 'header') return false;
+    return React.Children.toArray((child.props as { children?: React.ReactNode }).children)
+      .some(c => !(React.isValidElement(c) && getModalPart(c.type) === 'closeButton'));
+  });
+
 export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   function Modal(
     {
@@ -120,6 +136,23 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
     const isCompoundMode = containsModalSection(children);
     const showCloseButton = withCloseButton ?? (title !== undefined);
+
+    // dev-only: a dialog with no accessible name is an ARIA violation
+    // (mirrors IconButton). Computed synchronously so it never false-fires —
+    // an explicit aria-label/aria-labelledby, the convenience `title`, or a
+    // compound ModalHeader carrying title content.
+    const hasAccessibleName =
+      title !== undefined
+      || Boolean((props as Record<string, unknown>)['aria-label'])
+      || Boolean((props as Record<string, unknown>)['aria-labelledby'])
+      || (isCompoundMode && compoundHeaderHasTitle(children));
+    useEffect(() => {
+      if (process.env.NODE_ENV !== 'production' && open && !hasAccessibleName) {
+        console.warn(
+          'VaneUI: Modal has no accessible name — pass a `title`, render a ModalHeader, or set aria-label/aria-labelledby so screen readers can announce the dialog.'
+        );
+      }
+    }, [open, hasAccessibleName]);
 
     const shouldMount = overlayTransition.mounted || keepMounted;
     if (!shouldMount) return null;

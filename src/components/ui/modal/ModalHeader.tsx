@@ -12,11 +12,6 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
     const theme = useTheme();
     const ctx = useModalContext();
 
-    useEffect(() => {
-      ctx?.setTitleMounted(true);
-      return () => { ctx?.setTitleMounted(false); };
-    }, [ctx]);
-
     const { children, ...rest } = props;
 
     // titleId must label the title content ONLY: if it sat on the header
@@ -34,6 +29,18 @@ export const ModalHeader = forwardRef<HTMLDivElement, ModalHeaderProps>(
         titleChildren.push(child);
       }
     });
+
+    // Only claim the dialog's accessible name when there is real title
+    // content. A header holding only a close button (the convenience
+    // `withCloseButton` path with no `title`, or `<ModalHeader><ModalCloseButton/>`)
+    // must NOT register a title — otherwise the dialog's aria-labelledby
+    // would point at an empty span, leaving it with no accessible name.
+    const hasTitle = titleChildren.length > 0;
+    useEffect(() => {
+      if (!hasTitle) return;
+      ctx?.setTitleMounted(true);
+      return () => { ctx?.setTitleMounted(false); };
+    }, [ctx, hasTitle]);
 
     return (
       <ThemedComponent theme={theme?.modal.header ?? defaultModalHeaderTheme} ref={ref} {...rest}>
