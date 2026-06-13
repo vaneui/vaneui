@@ -144,11 +144,69 @@ export const scopeSelector = (sel: string): string => {
 export const scopeSelectorList = (selectorList: string): string =>
   splitSelectorList(selectorList).map(scopeSelector).join(",\n");
 
+/** Matches `@keyframes` and vendor-prefixed `@-webkit-keyframes` etc. */
+const KEYFRAMES_RE = /^@(-[\w-]+-)?keyframes\b/i;
+
+/**
+ * Returns the index just PAST the `}` matching the `{` at `open`, counting
+ * braces only outside quoted strings (and skipping backslash escapes). A
+ * declaration value such as `content: "}"` must not be mistaken for the end
+ * of the rule. Returns `css.length` if the block is unterminated.
+ */
+const matchBraceEnd = (css: string, open: number): number => {
+  let depth = 1;
+  let j = open + 1;
+  let quote: '"' | "'" | null = null;
+  while (j < css.length && depth > 0) {
+    const ch = css[j];
+    if (ch === "\\") { j += 2; continue; }
+    if (quote !== null) {
+      if (ch === quote) quote = null;
+      j++;
+      continue;
+    }
+    if (ch === '"' || ch === "'") { quote = ch; j++; continue; }
+    if (ch === "{") depth++;
+    else if (ch === "}") depth--;
+    j++;
+  }
+  return j;
+};
+
+/**
+ * Index of the first `;` in `css[i..limit)` that sits outside a quoted string,
+ * or -1. Used to peel off block-less statement at-rules (`@layer base;`,
+ * `@import "x";`, `@charset "UTF-8";`) that end in `;` before the next `{` —
+ * otherwise they would glue to the following rule's selector and pass through
+ * unscoped as part of an at-rule prelude.
+ */
+const findStatementEnd = (css: string, i: number, limit: number): number => {
+  let quote: '"' | "'" | null = null;
+  let k = i;
+  while (k < limit) {
+    const ch = css[k];
+    if (ch === "\\") { k += 2; continue; }
+    if (quote !== null) {
+      if (ch === quote) quote = null;
+      k++;
+      continue;
+    }
+    if (ch === '"' || ch === "'") { quote = ch; k++; continue; }
+    if (ch === ";") return k;
+    k++;
+  }
+  return -1;
+};
+
 /**
  * Recursive prelude{body} walker shared by `transform` and
- * `collectStyleRulePreludes` so both traverse rules identically: at-rule
- * preludes pass through with their bodies recursed; style rules are handed
- * to the visitor; declaration bodies copy verbatim.
+ * `collectStyleRulePreludes` so both traverse rules identically: block-less
+ * statement at-rules pass through verbatim; `@keyframes` bodies copy verbatim
+ * (their step selectors `from`/`to`/`0%` are NOT style-rule selectors and must
+ * never be scoped); other at-rule preludes pass through with their bodies
+ * recursed; style rules are handed to the visitor; declaration bodies copy
+ * verbatim. Brace matching is quote-aware so a `}` inside a declaration string
+ * cannot desync rule boundaries.
  */
 const walkRules = (css: string, visitStyleRule: (prelude: string, body: string) => string): string => {
   let out = "";
@@ -159,17 +217,23 @@ const walkRules = (css: string, visitStyleRule: (prelude: string, body: string) 
       out += css.slice(i);
       break;
     }
-    const prelude = css.slice(i, open).trim();
-    let depth = 1;
-    let j = open + 1;
-    while (j < css.length && depth > 0) {
-      if (css[j] === "{") depth++;
-      else if (css[j] === "}") depth--;
-      j++;
+    // block-less statement at-rule (ends in `;` before the next `{`)
+    const semi = findStatementEnd(css, i, open);
+    if (semi !== -1) {
+      const stmt = css.slice(i, semi + 1).trim();
+      if (stmt) out += `${stmt.replace(/\s+/g, " ")}\n`;
+      i = semi + 1;
+      continue;
     }
+    const prelude = css.slice(i, open).trim();
+    const j = matchBraceEnd(css, open);
     const body = css.slice(open + 1, j - 1);
     if (prelude.startsWith("@")) {
-      out += `${prelude.replace(/\s+/g, " ")} {\n${walkRules(body, visitStyleRule)}}\n`;
+      if (KEYFRAMES_RE.test(prelude)) {
+        out += `${prelude.replace(/\s+/g, " ")} {${body}}\n`;
+      } else {
+        out += `${prelude.replace(/\s+/g, " ")} {\n${walkRules(body, visitStyleRule)}}\n`;
+      }
     } else {
       out += visitStyleRule(prelude, body);
     }

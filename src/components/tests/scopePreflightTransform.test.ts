@@ -131,4 +131,66 @@ describe('scopePreflightTransform', () => {
       expect(() => verifyScopedOutput(input, bad)).toThrow(/integrity violation/);
     });
   });
+
+  describe('at-rule bodies and string-in-value edge cases (regression)', () => {
+    it('does NOT scope keyframe step selectors inside @keyframes', () => {
+      const out = transform('@keyframes spin {\n  from { opacity: 0; }\n  50%, 100% { opacity: 1; }\n}\n');
+      expect(out).toContain('@keyframes spin');
+      expect(out).not.toContain(`from${SCOPE}`);
+      expect(out).not.toContain(`50%${SCOPE}`);
+      expect(out).not.toContain(`100%${SCOPE}`);
+      // step selectors are copied through verbatim
+      expect(out).toContain('from {');
+    });
+
+    it('does NOT scope vendor-prefixed @-webkit-keyframes steps', () => {
+      const out = transform('@-webkit-keyframes spin { to { opacity: 1; } }');
+      expect(out).not.toContain(`to${SCOPE}`);
+    });
+
+    it('keeps the rule after a block-less @layer statement scoped', () => {
+      const out = transform('@layer theme, base, components, utilities;\nh1 { margin: 0; }');
+      expect(out).toContain('@layer theme, base, components, utilities;');
+      expect(out).toContain(`h1${SCOPE}`);
+    });
+
+    it('does not glue @charset / @import statement at-rules to the next rule', () => {
+      const out = transform('@charset "UTF-8";\n@import "x.css";\nh1 { margin: 0; }');
+      expect(out).toContain('@charset "UTF-8";');
+      expect(out).toContain('@import "x.css";');
+      expect(out).toContain(`h1${SCOPE}`);
+      // statement at-rules have no selector, so the scope appears only on h1
+      expect(out.split(SCOPE).length - 1).toBe(1);
+    });
+
+    it('scopes style rules inside @media and preserves the at-rule prelude', () => {
+      const css = '@media (min-width: 600px) { h1, h2 { margin: 0; } }';
+      const out = transform(css);
+      expect(out).toContain('@media (min-width: 600px)');
+      expect(out).toContain(`h1${SCOPE}`);
+      expect(out).toContain(`h2${SCOPE}`);
+      expect(() => verifyScopedOutput(css, out)).not.toThrow();
+    });
+
+    it('passes the @supports prelude through and scopes its inner rule', () => {
+      const css = '@supports (color: red) { ::placeholder { color: red; } }';
+      const out = transform(css);
+      expect(out).toContain('@supports (color: red)');
+      expect(out).toContain(`${SCOPE}::placeholder`);
+      expect(() => verifyScopedOutput(css, out)).not.toThrow();
+    });
+
+    it('does not desync rule boundaries on a brace inside a declaration string', () => {
+      const css = `a { content: "}"; color: red; }\nb { color: blue; }`;
+      const out = transform(css);
+      expect(out).toContain(`a${SCOPE}`);
+      expect(out).toContain(`b${SCOPE}`);
+      // the declaration body (including the brace-in-string) survives intact
+      expect(out).toContain('content: "}"');
+      expect(out).toContain('color: red');
+      // exactly two rules scoped; the scope never lands inside a declaration body
+      expect(out.split(SCOPE).length - 1).toBe(2);
+      expect(() => verifyScopedOutput(css, out)).not.toThrow();
+    });
+  });
 });
