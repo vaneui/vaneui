@@ -1,6 +1,7 @@
 import type React from 'react';
 import type {
   BaseProps,
+  CleanHTMLProps,
   SizeProps,
   HideProps,
   ItemsProps,
@@ -70,7 +71,9 @@ export type ModalProps = BaseProps &
   ResponsiveProps &
   WidthProps &
   HeightProps &
-  Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {
+  // 'title' must be omitted: the native title attribute (string) would
+  // otherwise intersect with the custom title prop and collapse it to string
+  CleanHTMLProps<React.HTMLAttributes<HTMLDivElement>, 'title'> & {
     /** Whether modal is open (controlled mode). If omitted, uses internal state. */
     open?: boolean;
     /** Called when modal should close (Escape key, overlay click) */

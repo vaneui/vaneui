@@ -1,14 +1,4 @@
-import { test, expect, type Locator } from './base';
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-/** Get a resolved computed style property from an element */
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
+import { test, expect, getStyle } from './base';
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 

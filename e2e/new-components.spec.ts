@@ -1,25 +1,4 @@
-import { test, expect, type Locator } from './base';
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-/** Get a resolved computed style property from an element */
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
-
-/** Get computed color (resolved to rgb) */
-async function getColor(locator: Locator): Promise<string> {
-  return getStyle(locator, 'color');
-}
-
-/** Get computed font-size in px */
-async function getFontSize(locator: Locator): Promise<number> {
-  const fs = await getStyle(locator, 'font-size');
-  return parseFloat(fs);
-}
+import { test, expect, getStyle, getColor, getFontSize } from './base';
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 

@@ -1,14 +1,6 @@
-import { test, expect, type Locator } from './base';
+import { test, expect, getStyle, type Locator } from './base';
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-/** Get a resolved computed style property from an element */
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
+// ── Helpers (single-spec — z-index machinery only used here) ─────────────────
 
 /** Get computed z-index as a number */
 async function getZIndex(locator: Locator): Promise<number> {

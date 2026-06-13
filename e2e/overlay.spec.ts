@@ -1,20 +1,4 @@
-import { test, expect, type Locator } from './base';
-
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
-
-function isVisible(color: string): boolean {
-  if (color === 'transparent' || color === 'rgba(0, 0, 0, 0)') return false;
-  const rgbaMatch = color.match(/rgba\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/);
-  if (rgbaMatch && parseFloat(rgbaMatch[1]) === 0) return false;
-  return true;
-}
+import { test, expect, getStyle, isVisibleColor } from './base';
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 
@@ -65,7 +49,7 @@ test.describe('Overlay: backdrop appearance', () => {
     // (Tailwind consumer mode may not generate the utility, but prebuilt CSS does)
     const hasClass = await overlay.evaluate(el => el.classList.contains('bg-(--overlay-bg)'));
     const bgColor = await getStyle(overlay, 'background-color');
-    const hasBg = isVisible(bgColor);
+    const hasBg = isVisibleColor(bgColor);
     expect(hasClass || hasBg).toBe(true);
   });
 
@@ -74,7 +58,7 @@ test.describe('Overlay: backdrop appearance', () => {
     if (testPage.includes('tailwind')) return;
     const overlay = page.locator('[data-testid="overlay-default"]');
     const bgColor = await getStyle(overlay, 'background-color');
-    expect(isVisible(bgColor)).toBe(true);
+    expect(isVisibleColor(bgColor)).toBe(true);
     // Should contain alpha < 1
     const isTranslucent = bgColor.includes('/')
       || (bgColor.match(/rgba\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/) !== null

@@ -465,6 +465,207 @@ describe('Menu Component Tests', () => {
       fireEvent.keyDown(trigger, { key: 'ArrowDown' });
       expect(document.body.querySelector('[role="menu"]')).toBeInTheDocument();
     });
+
+    it('should focus first enabled item when opened with ArrowDown', () => {
+      const { container } = renderMenu(
+        <Menu trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+          <MenuItem>Item 3</MenuItem>
+        </Menu>
+      );
+
+      const trigger = container.querySelector('button') as HTMLElement;
+      fireEvent.keyDown(trigger, { key: 'ArrowDown' });
+
+      // focus is applied in a requestAnimationFrame
+      act(() => { jest.advanceTimersByTime(50); });
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      expect(document.activeElement).toBe(items[0]);
+    });
+
+    it('should open menu and focus last enabled item on ArrowUp from trigger', () => {
+      const { container } = renderMenu(
+        <Menu trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+          <MenuItem>Item 3</MenuItem>
+        </Menu>
+      );
+
+      const trigger = container.querySelector('button') as HTMLElement;
+      fireEvent.keyDown(trigger, { key: 'ArrowUp' });
+      expect(document.body.querySelector('[role="menu"]')).toBeInTheDocument();
+
+      act(() => { jest.advanceTimersByTime(50); });
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      expect(document.activeElement).toBe(items[2]);
+    });
+
+    it('should skip a disabled last item when opening with ArrowUp', () => {
+      const { container } = renderMenu(
+        <Menu trigger={<Button>Trigger</Button>}>
+          <MenuItem>Item 1</MenuItem>
+          <MenuItem>Item 2</MenuItem>
+          <MenuItem disabled>Item 3 (disabled)</MenuItem>
+        </Menu>
+      );
+
+      const trigger = container.querySelector('button') as HTMLElement;
+      fireEvent.keyDown(trigger, { key: 'ArrowUp' });
+
+      act(() => { jest.advanceTimersByTime(50); });
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      expect(document.activeElement).toBe(items[1]);
+    });
+  });
+
+  // =========================================================================
+  // Typeahead
+  // =========================================================================
+  describe('Typeahead', () => {
+    // flush the focus-on-open requestAnimationFrame so focus starts on item 0
+    function renderOpenMenu(items: React.ReactNode) {
+      const result = renderMenu(
+        <Menu defaultOpen trigger={<Button>Trigger</Button>}>
+          {items}
+        </Menu>
+      );
+      act(() => { jest.advanceTimersByTime(50); });
+      return result;
+    }
+
+    it('should focus the next item starting with the typed character', () => {
+      renderOpenMenu(
+        <>
+          <MenuItem>Edit</MenuItem>
+          <MenuItem>Duplicate</MenuItem>
+          <MenuItem>Delete</MenuItem>
+        </>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      expect(document.activeElement).toBe(items[0]);
+
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'd' });
+      expect(document.activeElement).toBe(items[1]);
+    });
+
+    it('should advance and wrap on repeated presses of the same character', () => {
+      renderOpenMenu(
+        <>
+          <MenuItem>Edit</MenuItem>
+          <MenuItem>Duplicate</MenuItem>
+          <MenuItem>Delete</MenuItem>
+        </>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'd' });
+      expect(document.activeElement).toBe(items[1]); // Duplicate
+
+      fireEvent.keyDown(items[1] as HTMLElement, { key: 'd' });
+      expect(document.activeElement).toBe(items[2]); // Delete
+
+      // wraps back past non-matching Edit
+      fireEvent.keyDown(items[2] as HTMLElement, { key: 'd' });
+      expect(document.activeElement).toBe(items[1]); // Duplicate again
+    });
+
+    it('should be case-insensitive', () => {
+      renderOpenMenu(
+        <>
+          <MenuItem>Edit</MenuItem>
+          <MenuItem>Delete</MenuItem>
+        </>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'D' });
+      expect(document.activeElement).toBe(items[1]);
+    });
+
+    it('should skip disabled items', () => {
+      renderOpenMenu(
+        <>
+          <MenuItem>Edit</MenuItem>
+          <MenuItem disabled>Disabled match</MenuItem>
+          <MenuItem>Delete</MenuItem>
+        </>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'd' });
+      expect(document.activeElement).toBe(items[2]);
+    });
+
+    it('should accumulate a multi-character prefix', () => {
+      renderOpenMenu(
+        <>
+          <MenuItem>Edit</MenuItem>
+          <MenuItem>Duplicate</MenuItem>
+          <MenuItem>Delete</MenuItem>
+        </>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'd' });
+      expect(document.activeElement).toBe(items[1]); // 'd' → Duplicate
+
+      fireEvent.keyDown(items[1] as HTMLElement, { key: 'e' });
+      expect(document.activeElement).toBe(items[2]); // 'de' → Delete
+    });
+
+    it('should reset the buffer after the typeahead timeout', () => {
+      renderOpenMenu(
+        <>
+          <MenuItem>Edit</MenuItem>
+          <MenuItem>Duplicate</MenuItem>
+          <MenuItem>Delete</MenuItem>
+        </>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'd' });
+      expect(document.activeElement).toBe(items[1]);
+
+      // buffer expires — next key starts a fresh prefix
+      act(() => { jest.advanceTimersByTime(600); });
+      fireEvent.keyDown(items[1] as HTMLElement, { key: 'e' });
+      expect(document.activeElement).toBe(items[0]); // 'e' → Edit (not 'de')
+    });
+
+    it('should activate the focused item on Space without entering the typeahead buffer', () => {
+      const onClick = jest.fn();
+      // closeMenuOnClick={false} keeps the menu open after Space activates the
+      // item, so the follow-up keypress can observe the typeahead buffer state.
+      renderOpenMenu(
+        <>
+          <MenuItem closeMenuOnClick={false} onClick={onClick}>Edit</MenuItem>
+          <MenuItem closeMenuOnClick={false}>Duplicate</MenuItem>
+          <MenuItem closeMenuOnClick={false}>Delete</MenuItem>
+        </>
+      );
+
+      const items = document.body.querySelectorAll('[role="menuitem"]');
+      expect(document.activeElement).toBe(items[0]);
+
+      // Space activates the focused item (isTypeaheadKey excludes ' ')...
+      fireEvent.keyDown(items[0] as HTMLElement, { key: ' ' });
+      expect(onClick).toHaveBeenCalledTimes(1);
+      // ...without moving focus via typeahead
+      expect(document.activeElement).toBe(items[0]);
+
+      // ...and without polluting the typeahead buffer: the next character starts
+      // a clean query, so 'd' matches "Duplicate". If Space leaked into the
+      // buffer the query would be " d", match nothing, and focus would stay on
+      // Edit — so this assertion fails if the Space exclusion is ever removed.
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'd' });
+      expect(document.activeElement).toBe(items[1]);
+    });
   });
 
   // =========================================================================

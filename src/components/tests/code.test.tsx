@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
 import { Code } from '../ui/code';
+import { RING_WIDTH_CLASS, RING_INSET_CLASS, FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Code Component', () => {
   
@@ -44,7 +45,7 @@ describe('Code Component', () => {
       const codeElement = container.querySelector('code');
 
       expect(codeElement).toHaveClass('inline');
-      expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveClass(FONT_SIZE_CLASS);
       expect(codeElement).toHaveAttribute('data-size', 'md');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
@@ -59,7 +60,7 @@ describe('Code Component', () => {
       const codeElement = container.querySelector('code');
       
       expect(codeElement).not.toHaveClass('shadow-ui');
-      expect(codeElement).toHaveClass('ring-[length:var(--rw)]');
+      expect(codeElement).toHaveClass(RING_WIDTH_CLASS);
     });
   });
 
@@ -68,7 +69,7 @@ describe('Code Component', () => {
       const { container } = render(<Code xs>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveClass(FONT_SIZE_CLASS);
       expect(codeElement).toHaveAttribute('data-size', 'xs');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
@@ -79,7 +80,7 @@ describe('Code Component', () => {
       const { container } = render(<Code md>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveClass(FONT_SIZE_CLASS);
       expect(codeElement).toHaveAttribute('data-size', 'md');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
@@ -90,7 +91,7 @@ describe('Code Component', () => {
       const { container } = render(<Code lg>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveClass(FONT_SIZE_CLASS);
       expect(codeElement).toHaveAttribute('data-size', 'lg');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
@@ -101,7 +102,7 @@ describe('Code Component', () => {
       const { container } = render(<Code xl>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveClass(FONT_SIZE_CLASS);
       expect(codeElement).toHaveAttribute('data-size', 'xl');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');
@@ -294,7 +295,7 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveClass(FONT_SIZE_CLASS);
       expect(codeElement).toHaveAttribute('data-size', 'md');
     });
 
@@ -311,7 +312,7 @@ describe('Code Component', () => {
       const codeElement = container.querySelector('code');
       
       expect(codeElement).not.toHaveClass('shadow-ui');
-      expect(codeElement).toHaveClass('ring-[length:var(--rw)]');
+      expect(codeElement).toHaveClass(RING_WIDTH_CLASS);
     });
   });
 
@@ -347,7 +348,7 @@ describe('Code Component', () => {
       );
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveClass(FONT_SIZE_CLASS);
       expect(codeElement).toHaveAttribute('data-size', 'xs');
       expect(codeElement).toHaveClass('bg-(--bg-color)');
       expect(codeElement).toHaveClass('rounded-full');
@@ -370,8 +371,8 @@ describe('Code Component', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
       
-      expect(codeElement).toHaveClass('ring-[length:var(--rw)]');
-      expect(codeElement).toHaveClass('ring-inset');
+      expect(codeElement).toHaveClass(RING_WIDTH_CLASS);
+      expect(codeElement).toHaveClass(RING_INSET_CLASS);
     });
 
     it('should allow explicit inline prop', () => {
@@ -385,7 +386,7 @@ describe('Code Component', () => {
       const { container } = render(<Code sm>test</Code>);
       const codeElement = container.querySelector('code');
 
-      expect(codeElement).toHaveClass('text-(length:--fs)');
+      expect(codeElement).toHaveClass(FONT_SIZE_CLASS);
       expect(codeElement).toHaveAttribute('data-size', 'sm');
       expect(codeElement).toHaveClass('px-(--px)');
       expect(codeElement).toHaveClass('py-(--py)');

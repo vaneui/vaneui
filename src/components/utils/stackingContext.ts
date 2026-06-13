@@ -1,4 +1,5 @@
-import { useState, useLayoutEffect } from 'react';
+import { useState } from 'react';
+import { useIsomorphicLayoutEffect } from './isomorphicLayoutEffect';
 
 export type ZLayer = 'overlay' | 'modal' | 'popup';
 
@@ -20,31 +21,48 @@ function getLayerBaseZ(layer: ZLayer): number {
   return LAYER_DEFAULTS[layer];
 }
 
-let stackCount = 0;
+// Monotonic acquisition counter: every newly opened element gets a strictly
+// higher offset than any element opened before it. Decrementing on close
+// would hand a new element the same z-index as a still-open one (open A →
+// open B → close A → open C left C colliding with B). The counter only
+// resets when nothing is open, so values don't grow unbounded.
+let stackCounter = 0;
+let openCount = 0;
 
 // test cleanup
 export function resetStackCount() {
-  stackCount = 0;
+  stackCounter = 0;
+  openCount = 0;
 }
 
-// useLayoutEffect prevents a flash where nested elements paint behind parents
+// The layout effect prevents a flash where nested elements paint behind
+// parents. The getComputedStyle read lives INSIDE the effect: reading it
+// during render is impure, and a consumer-customized --z-* value would make
+// the server-rendered style attribute (static fallback) differ from the
+// client render — a hydration mismatch. Render-time value is always the
+// static fallback; the effect corrects it before paint.
 export function useStackingContext(open: boolean, layer: ZLayer = 'overlay'): number {
-  const baseZ = getLayerBaseZ(layer);
-  const [zIndex, setZIndex] = useState(baseZ);
+  const [zIndex, setZIndex] = useState(LAYER_DEFAULTS[layer]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
+    const baseZ = getLayerBaseZ(layer);
+
     if (!open) {
       setZIndex(baseZ);
       return;
     }
 
-    stackCount++;
-    setZIndex(baseZ + stackCount);
+    openCount++;
+    stackCounter++;
+    setZIndex(baseZ + stackCounter);
 
     return () => {
-      stackCount--;
+      openCount--;
+      if (openCount === 0) {
+        stackCounter = 0;
+      }
     };
-  }, [open, baseZ]);
+  }, [open, layer]);
 
   return zIndex;
 }

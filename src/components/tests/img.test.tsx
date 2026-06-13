@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { BORDER_WIDTH_CLASS } from './utils/classAssertions';
 
 describe('Img Component Tests', () => {
 
@@ -57,7 +58,7 @@ describe('Img Component Tests', () => {
 
       const img = container.querySelector('img');
       expect(img).toBeInTheDocument();
-      expect(img).toHaveClass('border-[length:var(--bw)]');
+      expect(img).toHaveClass(BORDER_WIDTH_CLASS);
       expect(img).toHaveClass('border-(--border-color)');
     });
 

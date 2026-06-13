@@ -4,12 +4,29 @@ This guide is for consuming projects that use `@vaneui/ui`. It covers correct co
 
 ## Setup
 
-### Required Imports
+### Required CSS — import exactly ONE of the two stylesheets
+
+`@vaneui/ui/css` is fully self-contained (it embeds everything `@vaneui/ui/vars` contains). Importing both ships ~40 KB of duplicate rules at two different cascade strengths — never do it.
+
+**Option A — no Tailwind setup (prebuilt styles):**
 
 ```tsx
-import '@vaneui/ui/vars';  // CSS variables (required)
-import '@vaneui/ui/css';   // Component styles (required)
+import '@vaneui/ui/css';   // self-contained: tokens + rules + utilities
 import { ThemeProvider, Button, Card, Row, Stack, Text, Title } from '@vaneui/ui';
+```
+
+**Option B — your own Tailwind v4 build:**
+
+```tsx
+import '@vaneui/ui/vars';  // tokens + component rules (no utilities)
+```
+
+and let your Tailwind build emit the utilities VaneUI's components use by scanning the library:
+
+```css
+/* your app.css */
+@import "tailwindcss";
+@source "../node_modules/@vaneui/ui/dist";
 ```
 
 ### ThemeProvider
@@ -22,19 +39,21 @@ Wrap your app in `ThemeProvider`. It is required for theming to work.
 </ThemeProvider>
 ```
 
-Customize defaults globally:
+Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox) need the nested form — Button's main element lives at `button.main`:
 
 ```tsx
-<ThemeProvider themeDefaults={{ button: { filled: true, lg: true } }}>
+<ThemeProvider themeDefaults={{ button: { main: { filled: true, lg: true } } }}>
   {/* All buttons are now filled + large by default */}
   <Button>Save</Button>
 </ThemeProvider>
 ```
 
+Components without sub-themes (Badge, Chip, Text, Row, ...) use the flat form: `themeDefaults={{ badge: { success: true } }}`. A path that matches no theme node does nothing (a dev-mode console warning calls it out).
+
 Add extra CSS classes per prop:
 
 ```tsx
-<ThemeProvider extraClasses={{ button: { primary: "custom-primary-class" } }}>
+<ThemeProvider extraClasses={{ button: { main: { primary: "custom-primary-class" } } }}>
   <Button>Styled</Button>
 </ThemeProvider>
 ```
@@ -42,12 +61,53 @@ Add extra CSS classes per prop:
 Nested providers inherit from parent (`mergeStrategy="merge"`, default) or reset (`mergeStrategy="replace"`):
 
 ```tsx
-<ThemeProvider themeDefaults={{ button: { filled: true } }}>
+<ThemeProvider themeDefaults={{ button: { main: { filled: true } } }}>
   <Button>Filled (inherited)</Button>
-  <ThemeProvider themeDefaults={{ button: { danger: true } }} mergeStrategy="replace">
+  <ThemeProvider themeDefaults={{ button: { main: { danger: true } } }} mergeStrategy="replace">
     <Button>Danger outline (reset, not filled)</Button>
   </ThemeProvider>
 </ThemeProvider>
+```
+
+## Dark Mode
+
+`data-theme="dark"` is the official dark-mode extension point. The shipped CSS re-declares every color token under it; no component code changes.
+
+**Primary mode — `<html data-theme="dark">`:**
+
+```html
+<html data-theme="dark">
+```
+
+This themes the whole page, including portaled content and native controls (`color-scheme: dark` gives dark scrollbars and form fields). To avoid a light-mode flash with SSR, the attribute must already be present in the server-rendered markup, or be set by an inline script in `<head>` that runs before first paint:
+
+```html
+<script>
+  if (localStorage.theme === 'dark') document.documentElement.dataset.theme = 'dark';
+</script>
+```
+
+**Subtree mode — for in-flow content:**
+
+```tsx
+<div data-theme="dark">
+  <Card>...</Card>  {/* primary Card paints the dark page surface */}
+</div>
+```
+
+Tokens are CSS custom properties, so the dark values inherit down the wrapper's subtree. Give the subtree a surface (e.g. a primary `Card` or `Section`) — the wrapper div itself paints nothing.
+
+**Portal caveat:** `Modal`, `Popup`, and `Overlay` render into a portal at the end of `<body>`, so they resolve the theme of `<html>`/`<body>`, not an inner wrapper's. `<html data-theme="dark">` is the primary supported mode; subtree theming covers in-flow content.
+
+**Forcing light:** `data-theme="light"` marks an explicit light region and restores `color-scheme: light` for native controls. The light token values are the `:root` defaults, so inside a dark *subtree* the inherited dark tokens still apply — to render a fully light island within `data-theme="dark"`, re-declare the tokens you need under your own `[data-theme="light"]` selector (see below).
+
+**Custom themes:** consumers can re-declare any `--color-*` token under their own selectors — the same mechanism the dark block uses:
+
+```css
+[data-theme="ocean"] {
+  --color-bg-brand: oklch(95% 0.02 220);
+  --color-text-brand: oklch(45% 0.12 220);
+}
 ```
 
 ## Component Selection Guide
@@ -326,7 +386,7 @@ Breakpoints (max-width): mobile = 768px, tablet = 1024px, desktop = 1280px.
 
 ## Size Props
 
-All components support size props. Only one is active at a time.
+All components support size props. Only one is active at a time. If two props of the same category are both set (e.g. `<Button xs lg>`, or `md` colliding with a spread), the canonical key order decides the winner — NOT JSX order — and dev builds log a console warning. Pass only one prop per category.
 
 ```tsx
 <Button xs>Extra small</Button>
@@ -398,6 +458,21 @@ These are on/off switches. Check defaults before using — many are already true
 <Text mono>Monospace text</Text>
 <Text textCenter>Centered</Text>
 <Text textRight>Right-aligned</Text>
+```
+
+## Text Alignment & RTL
+
+Start/end-intent styling is logical by default: the List marker indent, the Blockquote accent border, and the ListItem icon margin use CSS logical properties, so they render identically in LTR and flip automatically under `dir="rtl"`.
+
+Text alignment offers both modes:
+
+- `textStart` / `textEnd` — direction-aware: start is left in LTR, right in RTL
+- `textLeft` / `textRight` — physical: always that side, never flip
+
+```tsx
+<Text textStart>Aligns to the reading-direction start</Text>
+<Text textEnd>Aligns to the reading-direction end</Text>
+<Text textLeft>Always physically left, even under dir="rtl"</Text>
 ```
 
 ## Anti-Patterns

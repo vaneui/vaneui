@@ -1,12 +1,34 @@
-import { forwardRef, useRef, useEffect } from 'react';
+import { forwardRef, useRef, useEffect, useMemo } from 'react';
 import type { CheckboxProps } from './CheckboxProps';
 import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
+import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
+import { defaultCheckboxTheme } from "./defaultCheckboxTheme";
+import { defaultCheckboxCheckTheme } from "./defaultCheckboxCheckTheme";
+import { defaultCheckboxIndeterminateTheme } from "./defaultCheckboxIndeterminateTheme";
+import { defaultCheckboxWrapperTheme } from "./defaultCheckboxWrapperTheme";
 
 export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
   function Checkbox(props, ref) {
     const theme = useTheme();
+    const wrapperThemeBase = theme?.checkbox.wrapper ?? defaultCheckboxWrapperTheme;
+    const inputThemeBase = theme?.checkbox.input ?? defaultCheckboxTheme;
+    const checkTheme = theme?.checkbox.check ?? defaultCheckboxCheckTheme;
+    const indeterminateTheme = theme?.checkbox.indeterminate ?? defaultCheckboxIndeterminateTheme;
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // inside a Label, the Label's resolved size becomes the size default for
+    // the sized sub-themes (wrapper + input; check/indeterminate have no size
+    // category — they scale via CSS variables). Explicit size props still win.
+    const labelSize = useLabelSizeContext();
+    const wrapperTheme = useMemo(
+      () => withLabelSizeDefault(wrapperThemeBase, labelSize),
+      [wrapperThemeBase, labelSize]
+    );
+    const checkboxInputTheme = useMemo(
+      () => withLabelSizeDefault(inputThemeBase, labelSize),
+      [inputThemeBase, labelSize]
+    );
 
     const {
       xs, sm, md, lg, xl,
@@ -45,13 +67,13 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
     };
 
     return (
-      <ThemedComponent theme={theme.checkbox.wrapper} ref={ref} className={className} {...themeProps}>
-        <ThemedComponent theme={theme.checkbox.input} ref={inputRef} {...inputProps} />
-        <ThemedComponent theme={theme.checkbox.check}>
-          {theme.checkbox.check.themes.checkElement()}
+      <ThemedComponent theme={wrapperTheme} ref={ref} className={className} {...themeProps}>
+        <ThemedComponent theme={checkboxInputTheme} ref={inputRef} {...inputProps} />
+        <ThemedComponent theme={checkTheme}>
+          {checkTheme.themes.checkElement()}
         </ThemedComponent>
-        <ThemedComponent theme={theme.checkbox.indeterminate}>
-          {theme.checkbox.indeterminate.themes.indeterminateElement()}
+        <ThemedComponent theme={indeterminateTheme}>
+          {indeterminateTheme.themes.indeterminateElement()}
         </ThemedComponent>
       </ThemedComponent>
     );

@@ -1,30 +1,6 @@
-import { test, expect, type Locator } from './base';
+import { test, expect, getBorderColor, getBg, isVisibleColor, type Locator } from './base';
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
-
-async function getBorderColor(locator: Locator): Promise<string> {
-  return getStyle(locator, 'border-color');
-}
-
-async function getBgColor(locator: Locator): Promise<string> {
-  return getStyle(locator, 'background-color');
-}
-
-/** Check if a color is "visible" (not transparent, not fully transparent) */
-function isVisible(color: string): boolean {
-  if (color === 'transparent' || color === 'rgba(0, 0, 0, 0)') return false;
-  // Check for rgba with 0 alpha
-  const rgbaMatch = color.match(/rgba\(\d+,\s*\d+,\s*\d+,\s*([\d.]+)\)/);
-  if (rgbaMatch && parseFloat(rgbaMatch[1]) === 0) return false;
-  return true;
-}
+// ── Helpers (single-spec) ─────────────────────────────────────────────────────
 
 /** Check if a background is white or near-white */
 function isWhiteish(color: string): boolean {
@@ -45,44 +21,44 @@ test.describe('Checkbox: unchecked border visibility', () => {
   test('default unchecked checkbox has a visible border color', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-default"]');
     const borderColor = await getBorderColor(input);
-    expect(isVisible(borderColor)).toBe(true);
+    expect(isVisibleColor(borderColor)).toBe(true);
   });
 
   test('filled primary unchecked checkbox has visible border', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-primary"]');
     const borderColor = await getBorderColor(input);
-    expect(isVisible(borderColor)).toBe(true);
+    expect(isVisibleColor(borderColor)).toBe(true);
   });
 
   test('filled success unchecked checkbox has visible border', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-success"]');
     const borderColor = await getBorderColor(input);
-    expect(isVisible(borderColor)).toBe(true);
+    expect(isVisibleColor(borderColor)).toBe(true);
   });
 
   test('filled danger unchecked checkbox has visible border', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-danger"]');
     const borderColor = await getBorderColor(input);
-    expect(isVisible(borderColor)).toBe(true);
+    expect(isVisibleColor(borderColor)).toBe(true);
   });
 
   test('outline unchecked checkbox has visible border', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-outline"]');
     const borderColor = await getBorderColor(input);
-    expect(isVisible(borderColor)).toBe(true);
+    expect(isVisibleColor(borderColor)).toBe(true);
   });
 });
 
 test.describe('Checkbox: unchecked background', () => {
   test('unchecked checkbox has white/light background', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-default"]');
-    const bgColor = await getBgColor(input);
+    const bgColor = await getBg(input);
     expect(isWhiteish(bgColor)).toBe(true);
   });
 
   test('outline unchecked checkbox has white/light background', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-outline"]');
-    const bgColor = await getBgColor(input);
+    const bgColor = await getBg(input);
     expect(isWhiteish(bgColor)).toBe(true);
   });
 });
@@ -90,16 +66,16 @@ test.describe('Checkbox: unchecked background', () => {
 test.describe('Checkbox: checked state', () => {
   test('filled checked checkbox has colored (non-white) background', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-checked-filled"]');
-    const bgColor = await getBgColor(input);
+    const bgColor = await getBg(input);
     // Checked filled should NOT be white — it should fill with the appearance color
     expect(isWhiteish(bgColor)).toBe(false);
-    expect(isVisible(bgColor)).toBe(true);
+    expect(isVisibleColor(bgColor)).toBe(true);
   });
 
   test('outline checked checkbox has colored border', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-checked-outline"]');
     const borderColor = await getBorderColor(input);
-    expect(isVisible(borderColor)).toBe(true);
+    expect(isVisibleColor(borderColor)).toBe(true);
   });
 });
 
@@ -107,12 +83,12 @@ test.describe('Checkbox: visibility on dark backgrounds', () => {
   test('checkbox inside filled primary Card has visible border', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-on-dark"]');
     const borderColor = await getBorderColor(input);
-    expect(isVisible(borderColor)).toBe(true);
+    expect(isVisibleColor(borderColor)).toBe(true);
   });
 
   test('checkbox inside filled primary Card has white background', async ({ page }) => {
     const input = page.locator('[data-testid="checkbox-on-dark"]');
-    const bgColor = await getBgColor(input);
+    const bgColor = await getBg(input);
     expect(isWhiteish(bgColor)).toBe(true);
   });
 });
@@ -131,8 +107,8 @@ test.describe('Checkbox: border darker than layout components', () => {
     const cardColor = await getBorderColor(card);
 
     // Both should be visible neutrals
-    expect(isVisible(cbColor)).toBe(true);
-    expect(isVisible(cardColor)).toBe(true);
+    expect(isVisibleColor(cbColor)).toBe(true);
+    expect(isVisibleColor(cardColor)).toBe(true);
 
     // And the checkbox should NOT match the layout color
     expect(cbColor).not.toBe(cardColor);
@@ -177,7 +153,7 @@ test.describe('Checkbox: ring color tracks border color', () => {
     const border = await getBorderColor(input);
 
     expect(ring).not.toBe('');
-    expect(isVisible(ring)).toBe(true);
+    expect(isVisibleColor(ring)).toBe(true);
     // Both resolve through --color-border-secondary, so they must agree.
     // The browser may serialize them differently (oklch vs computed rgb),
     // so this test simply asserts ring isn't blank/inherited-default.
@@ -189,7 +165,7 @@ test.describe('Checkbox: ring color tracks border color', () => {
     const border = await getBorderColor(input);
 
     expect(ring).not.toBe('');
-    expect(isVisible(ring)).toBe(true);
+    expect(isVisibleColor(ring)).toBe(true);
     // Both should pull from --checked-bg-color, so they should resolve to
     // the same appearance color.
     expect(border).not.toBe('rgba(0, 0, 0, 0)');

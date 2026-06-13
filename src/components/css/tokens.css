@@ -18,7 +18,9 @@
     --color-text-filled-brand: var(--color-blue-100);
     --color-text-filled-secondary: var(--color-gray-100);
     --color-text-filled-tertiary: var(--color-gray-200);
-    --color-text-filled-link: var(--color-blue-400);
+    /* link maps to the brand filled background (blue-600) — text must be a
+       light tint like every other filled text token, never a mid blue */
+    --color-text-filled-link: var(--color-blue-100);
     --color-text-filled-accent: var(--color-rose-100);
     --color-text-filled-success: var(--color-emerald-100);
     --color-text-filled-danger: var(--color-red-100);
@@ -35,6 +37,11 @@
     --color-bg-danger: var(--color-red-50);
     --color-bg-warning: var(--color-amber-50);
     --color-bg-info: var(--color-cyan-50);
+    /* Dedicated form-control background (unchecked Checkbox field color).
+       Mirrors the --color-border-form precedent: kept off the appearance
+       system so it can flip per color scheme without touching appearance
+       backgrounds. */
+    --color-bg-form: var(--color-white);
 
     /* UI Background Hover Colors */
     --color-bg-hover-primary: var(--color-gray-50);
@@ -91,28 +98,6 @@
     --color-bg-filled-active-warning: var(--color-amber-900);
     --color-bg-filled-active-info: var(--color-cyan-900);
 
-    /* Layout Background Colors */
-    --color-bg-layout-primary: var(--color-white);
-    --color-bg-layout-brand: var(--color-blue-50);
-    --color-bg-layout-secondary: var(--color-gray-50);
-    --color-bg-layout-tertiary: var(--color-gray-100);
-    --color-bg-layout-accent: var(--color-indigo-50);
-    --color-bg-layout-success: var(--color-green-50);
-    --color-bg-layout-danger: var(--color-red-50);
-    --color-bg-layout-warning: var(--color-yellow-50);
-    --color-bg-layout-info: var(--color-blue-50);
-
-    /* Layout Filled Background Colors */
-    --color-bg-filled-layout-primary: var(--color-gray-700);
-    --color-bg-filled-layout-brand: var(--color-blue-800);
-    --color-bg-filled-layout-secondary: var(--color-gray-800);
-    --color-bg-filled-layout-tertiary: var(--color-gray-900);
-    --color-bg-filled-layout-accent: var(--color-indigo-700);
-    --color-bg-filled-layout-success: var(--color-green-700);
-    --color-bg-filled-layout-danger: var(--color-red-700);
-    --color-bg-filled-layout-warning: var(--color-yellow-800);
-    --color-bg-filled-layout-info: var(--color-blue-700);
-
     /* Border Colors */
     --color-border-primary: var(--color-gray-200);
     --color-border-brand: var(--color-blue-300);
@@ -130,6 +115,10 @@
     --color-border-danger: var(--color-red-300);
     --color-border-warning: var(--color-amber-300);
     --color-border-info: var(--color-cyan-300);
+    /* Divider scrim on filled surfaces (consumed by the
+       [data-variant="filled"] rule as --divider-color). Translucent so it
+       reads on every filled appearance fill. */
+    --color-divider-filled: oklch(1 0 0 / 15%);
 
     /* Focus Ring Colors (used for focus-visible outline on all variants) */
     --color-focus-primary: var(--color-gray-600);
@@ -195,19 +184,24 @@
     /* Shadow color (RGB channels — used by all shadow variables) */
     --shadow-color: 0 0 0;
 
+    /* Shadow alphas — extracted so the dark scheme can deepen shadow
+       intensity without re-declaring all ten shadow strings. */
+    --shadow-alpha: 0.1;
+    --shadow-alpha-soft: 0.06;
+
     /* UI shadows (compact, grounded — for buttons, inputs, checkboxes) */
-    --shadow-ui-xs:  0 1px 2px 0 rgb(var(--shadow-color) / 0.1);
-    --shadow-ui-sm:  0 1px 3px 0 rgb(var(--shadow-color) / 0.1);
-    --shadow-ui-md:  0 2px 4px -1px rgb(var(--shadow-color) / 0.1), 0 1px 2px 0 rgb(var(--shadow-color) / 0.06);
-    --shadow-ui-lg:  0 3px 6px -1px rgb(var(--shadow-color) / 0.1), 0 1px 2px -1px rgb(var(--shadow-color) / 0.06);
-    --shadow-ui-xl:  0 4px 8px -2px rgb(var(--shadow-color) / 0.1), 0 2px 3px -1px rgb(var(--shadow-color) / 0.06);
+    --shadow-ui-xs:  0 1px 2px 0 rgb(var(--shadow-color) / var(--shadow-alpha));
+    --shadow-ui-sm:  0 1px 3px 0 rgb(var(--shadow-color) / var(--shadow-alpha));
+    --shadow-ui-md:  0 2px 4px -1px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 1px 2px 0 rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-ui-lg:  0 3px 6px -1px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 1px 2px -1px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-ui-xl:  0 4px 8px -2px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 2px 3px -1px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
 
     /* Layout shadows (elevated, deeper — for cards, modals, popups) */
-    --shadow-layout-xs:  0 2px 4px -1px rgb(var(--shadow-color) / 0.1), 0 1px 2px 0 rgb(var(--shadow-color) / 0.06);
-    --shadow-layout-sm:  0 4px 8px -2px rgb(var(--shadow-color) / 0.1), 0 1px 3px -1px rgb(var(--shadow-color) / 0.06);
-    --shadow-layout-md:  0 6px 12px -3px rgb(var(--shadow-color) / 0.1), 0 2px 4px -1px rgb(var(--shadow-color) / 0.06);
-    --shadow-layout-lg:  0 10px 20px -5px rgb(var(--shadow-color) / 0.1), 0 2px 6px -2px rgb(var(--shadow-color) / 0.06);
-    --shadow-layout-xl:  0 16px 32px -6px rgb(var(--shadow-color) / 0.1), 0 3px 8px -2px rgb(var(--shadow-color) / 0.06);
+    --shadow-layout-xs:  0 2px 4px -1px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 1px 2px 0 rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-layout-sm:  0 4px 8px -2px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 1px 3px -1px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-layout-md:  0 6px 12px -3px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 2px 4px -1px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-layout-lg:  0 10px 20px -5px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 2px 6px -2px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-layout-xl:  0 16px 32px -6px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 3px 8px -2px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
 
     /* Max height (used by Popup and other components) */
     --max-height: 20rem; /* 320px default max height */
@@ -228,4 +222,160 @@
 
     /* Disabled state */
     --disabled-opacity: 50%;
+}
+
+/* ============================================================================
+   DARK SCHEME — the official dark-mode extension point.
+
+   Usage: set data-theme="dark" on <html> (primary mode) or on any in-flow
+   wrapper element to theme a subtree. data-theme="light" restores the light
+   color-scheme for native controls.
+
+   This is a plain rule, NOT an @theme block: Tailwind v4 cannot nest @theme
+   under a selector, and a plain rule is valid both as Tailwind input and as
+   raw CSS — tokens.css ships raw-copied as dist/tokens.css AND compiled into
+   dist/ui.css and dist/vars.css, and the block must survive all three.
+
+   Selector contract:
+   - :root[data-theme="dark"] is (0,2,0) — beats the :root/:host light-token
+     emission of the @theme block regardless of layer or source order.
+   - [data-theme="dark"] covers subtree wrappers (custom properties inherit
+     down from the wrapper).
+   - :host([data-theme="dark"]) keeps shadow-DOM parity, since the light
+     tokens also emit on :host.
+
+   Every value is a SELF-CONTAINED literal (Tailwind palette step named per
+   line) — never a var() reference a usage-based emission could drop. Tokens
+   not re-declared here intentionally KEEP their light value (noted per
+   group). Scheme-neutral tokens (spacing, type scale, z-index, timing, modal
+   widths, ...) are not re-declared. */
+:root[data-theme="dark"],
+[data-theme="dark"],
+:host([data-theme="dark"]) {
+    color-scheme: dark;
+
+    /* Text Colors */
+    --color-text-primary: oklch(98.5% 0.002 247.839);    /* gray-50 */
+    --color-text-brand: oklch(70.7% 0.165 254.624);      /* blue-400 */
+    --color-text-secondary: oklch(87.2% 0.01 258.338);   /* gray-300 */
+    --color-text-tertiary: oklch(70.7% 0.022 261.325);   /* gray-400 */
+    --color-text-link: oklch(70.7% 0.165 254.624);       /* blue-400 */
+    --color-text-accent: oklch(71.2% 0.194 13.428);      /* rose-400 */
+    --color-text-success: oklch(76.5% 0.177 163.223);    /* emerald-400 */
+    --color-text-danger: oklch(70.4% 0.191 22.216);      /* red-400 */
+    --color-text-warning: oklch(82.8% 0.189 84.429);     /* amber-400 */
+    --color-text-info: oklch(78.9% 0.154 211.53);        /* cyan-400 */
+
+    /* Filled Text Colors — primary inverts polarity (light CTA on dark
+       pages); brand/link/tertiary lighten one tint. KEEP light values:
+       secondary, accent, success, danger, warning, info (100-level tints). */
+    --color-text-filled-primary: oklch(21% 0.034 264.665);  /* gray-900 */
+    --color-text-filled-brand: oklch(97% 0.014 254.604);    /* blue-50 */
+    --color-text-filled-tertiary: oklch(98.5% 0.002 247.839); /* gray-50 */
+    /* link tracks --color-text-filled-brand (link's filled bg is the brand fill) */
+    --color-text-filled-link: oklch(97% 0.014 254.604);     /* blue-50 */
+
+    /* UI Background Colors — page surface ladder: page bg = gray-950 */
+    --color-bg-primary: oklch(13% 0.028 261.692);        /* gray-950 */
+    --color-bg-brand: oklch(28.2% 0.091 267.935);        /* blue-950 */
+    --color-bg-secondary: oklch(21% 0.034 264.665);      /* gray-900 */
+    --color-bg-tertiary: oklch(27.8% 0.033 256.848);     /* gray-800 */
+    --color-bg-accent: oklch(27.1% 0.105 12.094);        /* rose-950 */
+    --color-bg-success: oklch(26.2% 0.051 172.552);      /* emerald-950 */
+    --color-bg-danger: oklch(25.8% 0.092 26.042);        /* red-950 */
+    --color-bg-warning: oklch(27.9% 0.077 45.635);       /* amber-950 */
+    --color-bg-info: oklch(30.2% 0.056 229.695);         /* cyan-950 */
+    /* Form-control field matches the page surface; the gray-700 form border
+       carries the affordance. */
+    --color-bg-form: oklch(13% 0.028 261.692);           /* gray-950 */
+
+    /* UI Background Hover Colors */
+    --color-bg-hover-primary: oklch(21% 0.034 264.665);  /* gray-900 */
+    --color-bg-hover-brand: oklch(37.9% 0.146 265.522);  /* blue-900 */
+    --color-bg-hover-secondary: oklch(27.8% 0.033 256.848); /* gray-800 */
+    --color-bg-hover-tertiary: oklch(37.3% 0.034 259.733);  /* gray-700 */
+    --color-bg-hover-accent: oklch(41% 0.159 10.272);    /* rose-900 */
+    --color-bg-hover-success: oklch(37.8% 0.077 168.94); /* emerald-900 */
+    --color-bg-hover-danger: oklch(39.6% 0.141 25.723);  /* red-900 */
+    --color-bg-hover-warning: oklch(41.4% 0.112 45.904); /* amber-900 */
+    --color-bg-hover-info: oklch(39.8% 0.07 227.392);    /* cyan-900 */
+
+    /* UI Background Active Colors — tertiary/accent/danger use a press-dim
+       bounce back toward the bg step (a second lightening step would fall
+       below 3:1 against their 400-level text). */
+    --color-bg-active-primary: oklch(27.8% 0.033 256.848);  /* gray-800 */
+    --color-bg-active-brand: oklch(42.4% 0.199 265.638);    /* blue-800 */
+    --color-bg-active-secondary: oklch(37.3% 0.034 259.733); /* gray-700 */
+    --color-bg-active-tertiary: oklch(27.8% 0.033 256.848); /* gray-800 — press-dim bounce */
+    --color-bg-active-accent: oklch(27.1% 0.105 12.094);    /* rose-950 — press-dim bounce */
+    --color-bg-active-success: oklch(43.2% 0.095 166.913);  /* emerald-800 */
+    --color-bg-active-danger: oklch(25.8% 0.092 26.042);    /* red-950 — press-dim bounce */
+    --color-bg-active-warning: oklch(47.3% 0.137 46.201);   /* amber-800 */
+    --color-bg-active-info: oklch(45% 0.085 224.283);       /* cyan-800 */
+
+    /* Filled UI Background Colors — primary inverts to a light CTA;
+       accent/danger deepen 600 → 700 to lift their filled pairs to ≥ 4.5:1.
+       KEEP light values: brand (blue-600), secondary (gray-600),
+       tertiary (gray-500), success (emerald-700), warning (amber-700),
+       info (cyan-700). */
+    --color-bg-filled-primary: oklch(96.7% 0.003 264.542);  /* gray-100 */
+    --color-bg-filled-accent: oklch(51.4% 0.222 16.935);    /* rose-700 */
+    --color-bg-filled-danger: oklch(50.5% 0.213 27.518);    /* red-700 */
+
+    /* Filled UI Hover Background Colors — one step away from the filled bg.
+       KEEP light values: brand, secondary, tertiary, success, warning, info. */
+    --color-bg-filled-hover-primary: oklch(92.8% 0.006 264.531); /* gray-200 */
+    --color-bg-filled-hover-accent: oklch(45.5% 0.188 13.697);   /* rose-800 */
+    --color-bg-filled-hover-danger: oklch(44.4% 0.177 26.899);   /* red-800 */
+
+    /* Filled UI Active Background Colors — two steps away from the filled bg.
+       KEEP light values: brand, secondary, tertiary, success, warning, info. */
+    --color-bg-filled-active-primary: oklch(87.2% 0.01 258.338); /* gray-300 */
+    --color-bg-filled-active-accent: oklch(41% 0.159 10.272);    /* rose-900 */
+    --color-bg-filled-active-danger: oklch(39.6% 0.141 25.723);  /* red-900 */
+
+    /* Border Colors — neutral layout borders sit at gray-800 (raised surfaces
+       on the gray-950 page); the form border stays one step lighter so form
+       controls read more distinct, mirroring the light-scheme relationship. */
+    --color-border-primary: oklch(27.8% 0.033 256.848);  /* gray-800 */
+    --color-border-brand: oklch(48.8% 0.243 264.376);    /* blue-700 */
+    --color-border-secondary: oklch(27.8% 0.033 256.848); /* gray-800 */
+    --color-border-tertiary: oklch(27.8% 0.033 256.848); /* gray-800 */
+    --color-border-form: oklch(37.3% 0.034 259.733);     /* gray-700 */
+    --color-border-accent: oklch(51.4% 0.222 16.935);    /* rose-700 */
+    --color-border-success: oklch(50.8% 0.118 165.612);  /* emerald-700 */
+    --color-border-danger: oklch(50.5% 0.213 27.518);    /* red-700 */
+    --color-border-warning: oklch(55.5% 0.163 48.998);   /* amber-700 */
+    --color-border-info: oklch(52% 0.105 223.128);       /* cyan-700 */
+
+    /* Divider scrim on filled surfaces — white-at-15% vanishes on the dark
+       scheme's inverted near-white primary fill; a translucent mid-gray
+       reads on every dark-scheme fill. */
+    --color-divider-filled: oklch(0.708 0 0 / 35%);
+
+    /* Focus Ring Colors — 400-level: 7.9–10+:1 against the gray-950 page */
+    --color-focus-primary: oklch(70.7% 0.022 261.325);   /* gray-400 */
+    --color-focus-brand: oklch(70.7% 0.165 254.624);     /* blue-400 */
+    --color-focus-secondary: oklch(70.7% 0.022 261.325); /* gray-400 */
+    --color-focus-tertiary: oklch(70.7% 0.022 261.325);  /* gray-400 */
+    --color-focus-accent: oklch(71.2% 0.194 13.428);     /* rose-400 */
+    --color-focus-success: oklch(76.5% 0.177 163.223);   /* emerald-400 */
+    --color-focus-danger: oklch(70.4% 0.191 22.216);     /* red-400 */
+    --color-focus-warning: oklch(82.8% 0.189 84.429);    /* amber-400 */
+    --color-focus-info: oklch(78.9% 0.154 211.53);       /* cyan-400 */
+
+    /* Overlay — deeper scrim; a dark modal over a dark page needs a
+       stronger veil. */
+    --overlay-bg: oklch(0 0 0 / 70%);
+
+    /* Shadows stay black; intensity moves via the alpha tokens (~4x). */
+    --shadow-alpha: 0.4;
+    --shadow-alpha-soft: 0.25;
+}
+
+/* Explicit light marker — restores the light color-scheme for native
+   controls (form fields, scrollbars). The light token values themselves are
+   the :root defaults emitted from the @theme block above. */
+[data-theme="light"] {
+    color-scheme: light;
 }

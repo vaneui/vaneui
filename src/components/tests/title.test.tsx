@@ -8,6 +8,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Title Components Tests', () => {
 
@@ -562,7 +563,7 @@ describe('Title Components Tests', () => {
 
       const title = container.querySelector('h3');
       // With responsive=false and no explicit inheritSize, Title uses base font-size class
-      expect(title).toHaveClass('text-(length:--fs)');
+      expect(title).toHaveClass(FONT_SIZE_CLASS);
       expect(title).not.toHaveClass('text-(length:--fs-desktop)');
       expect(title).not.toHaveClass('max-tablet:text-(length:--fs-tablet)');
       expect(title).not.toHaveClass('max-mobile:text-(length:--fs-mobile)');
@@ -578,7 +579,7 @@ describe('Title Components Tests', () => {
       );
 
       const pageTitle = container.querySelector('h1');
-      expect(pageTitle).toHaveClass('text-(length:--fs)');
+      expect(pageTitle).toHaveClass(FONT_SIZE_CLASS);
       expect(pageTitle).not.toHaveClass('text-(length:--fs-desktop)');
     });
 
@@ -592,7 +593,7 @@ describe('Title Components Tests', () => {
       );
 
       const sectionTitle = container.querySelector('h2');
-      expect(sectionTitle).toHaveClass('text-(length:--fs)');
+      expect(sectionTitle).toHaveClass(FONT_SIZE_CLASS);
       expect(sectionTitle).not.toHaveClass('text-(length:--fs-desktop)');
     });
   });

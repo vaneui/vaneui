@@ -13,7 +13,7 @@ import { defaultChipTheme } from "../ui/chip/defaultChipTheme";
 import { defaultCodeTheme } from "../ui/code/defaultCodeTheme";
 import { defaultKbdTheme } from "../ui/kbd";
 import { defaultMarkTheme } from "../ui/mark";
-import { defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultLinkTheme, defaultListTheme, defaultListItemTheme, LIST_CATEGORIES } from "../ui/typography";
+import { defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultLinkTheme, defaultListTheme, defaultListItemTheme, LIST_CATEGORIES, LIST_ITEM_CATEGORIES } from "../ui/typography";
 import { defaultGrid2Theme } from "../ui/grid/defaultGrid2Theme";
 import { defaultGrid3Theme } from "../ui/grid/defaultGrid3Theme";
 import { defaultGrid4Theme } from "../ui/grid/defaultGrid4Theme";
@@ -31,6 +31,7 @@ import { defaultLabelTheme } from "../ui/label/defaultLabelTheme";
 import { defaultImgTheme } from "../ui/img/defaultImgTheme";
 import { defaultInputTheme } from "../ui/input";
 import { defaultNavLinkTheme, NAV_LINK_CATEGORIES, defaultNavLinkLabelTheme, NAV_LINK_LABEL_CATEGORIES } from "../ui/navLink";
+import { LINK_CATEGORIES } from "../ui/typography/link/LinkCategories";
 import { defaultOverlayTheme } from "../ui/overlay";
 import { defaultPopupTheme } from "../ui/popup";
 import { defaultIconTheme } from "../ui/icon";
@@ -499,10 +500,11 @@ describe("Component theme coverage tests", () => {
     };
     createThemeTests(typographyConfig);
 
-    // Link has its own theme (not typographyClassMappers) but uses TYPOGRAPHY_CATEGORIES
+    // Link composes over typographyClassMappers with deltas (link-variant colors,
+    // focusVisible) — LINK_CATEGORIES = TYPOGRAPHY_CATEGORIES + focusVisible
     const linkConfig: ComponentTestConfig = {
       propsType: "LinkProps",
-      categories: TYPOGRAPHY_CATEGORIES,
+      categories: LINK_CATEGORIES,
       themes: [
         { name: "defaultLinkTheme", theme: defaultLinkTheme }
       ],
@@ -511,18 +513,33 @@ describe("Component theme coverage tests", () => {
     };
     createThemeTests(linkConfig);
 
-    // List and ListItem use LIST_CATEGORIES (different from TYPOGRAPHY_CATEGORIES)
+    // List uses LIST_CATEGORIES (typography plus list marker/position/gap/padding deltas)
     const listConfig: ComponentTestConfig = {
       propsType: "ListProps",
       categories: LIST_CATEGORIES,
       themes: [
-        { name: "defaultListTheme", theme: defaultListTheme },
-        { name: "defaultListItemTheme", theme: defaultListItemTheme }
+        { name: "defaultListTheme", theme: defaultListTheme }
       ],
       // inheritColor and inheritBg are handled by ComponentTheme.tsx (gates data-appearance emission), not by class mappers
       componentExtractedCategories: ['inheritColor', 'inheritBg'],
     };
     createThemeTests(listConfig);
+
+    // ListItem uses its own LIST_ITEM_CATEGORIES — narrower than LIST_CATEGORIES:
+    // no listStyle/listPosition/gap/padding (List-only mappers) and no
+    // transparent/inheritBg (not expressible via ListItemProps). Testing it
+    // standalone (not unioned with List) keeps the coverage honest: a category
+    // only counts as handled if ListItem's OWN theme handles it.
+    const listItemConfig: ComponentTestConfig = {
+      propsType: "ListItemProps",
+      categories: LIST_ITEM_CATEGORIES,
+      themes: [
+        { name: "defaultListItemTheme", theme: defaultListItemTheme }
+      ],
+      // inheritColor is handled by ComponentTheme.tsx (gates data-appearance emission), not by a class mapper
+      componentExtractedCategories: ['inheritColor'],
+    };
+    createThemeTests(listItemConfig);
   });
 
   // Layout Components

@@ -7,6 +7,12 @@ export interface PopupTriggerProps {
   children: React.ReactElement;
   /** Content to render inside the popup */
   popup: React.ReactNode;
+  /** Controlled open state */
+  open?: boolean;
+  /** Initial open state for uncontrolled mode (default: false) */
+  defaultOpen?: boolean;
+  /** Called when open state changes */
+  onOpenChange?: (open: boolean) => void;
   /** Open popup on click (default: true when no other trigger is set) */
   triggerOnClick?: boolean;
   /** Open popup on mouse hover with optional delay */

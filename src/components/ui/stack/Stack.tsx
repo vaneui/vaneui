@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import type { StackProps } from "./StackProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
+import { defaultStackTheme } from "./defaultStackTheme";
 
 export const Stack = forwardRef<HTMLDivElement, StackProps>(
   function Stack(props, ref) {
@@ -9,7 +10,7 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>(
     // Focus ring only when href turns the rendered tag into <a>; skip when
     // user opts out with noFocusVisible.
     const focusInjection = props.href && !props.noFocusVisible ? { focusVisible: true as const } : undefined;
-    return <ThemedComponent ref={ref} theme={theme.stack} {...focusInjection} {...props} />
+    return <ThemedComponent ref={ref} theme={theme?.stack ?? defaultStackTheme} {...focusInjection} {...props} />
   }
 );
 

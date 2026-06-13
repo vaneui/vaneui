@@ -1,13 +1,6 @@
-import { test, expect, type Locator } from './base';
+import { test, expect, getStyle, getFontSize, type Locator } from './base';
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
+// ── Helpers (single-spec) ─────────────────────────────────────────────────────
 
 async function getDisplay(locator: Locator): Promise<string> {
   return getStyle(locator, 'display');
@@ -15,11 +8,6 @@ async function getDisplay(locator: Locator): Promise<string> {
 
 async function getFlexDirection(locator: Locator): Promise<string> {
   return getStyle(locator, 'flex-direction');
-}
-
-async function getFontSize(locator: Locator): Promise<number> {
-  const fs = await getStyle(locator, 'font-size');
-  return parseFloat(fs);
 }
 
 // Breakpoints from tokens.css:

@@ -8,7 +8,7 @@ export { Code, type CodeProps } from "./components/ui/code";
 export { Kbd, type KbdProps } from "./components/ui/kbd";
 export { Mark, type MarkProps } from "./components/ui/mark";
 export { Checkbox, type CheckboxProps } from "./components/ui/checkbox";
-export { Label } from "./components/ui/label";
+export { Label, type LabelProps } from "./components/ui/label";
 export { Img, type ImgProps } from "./components/ui/img";
 export { Input, type InputProps } from "./components/ui/input";
 export { Overlay } from "./components/ui/overlay";
@@ -17,14 +17,26 @@ export { Popup, PopupTrigger } from "./components/ui/popup";
 export { Menu, MenuItem, MenuLabel } from "./components/ui/menu";
 export { NavLink, type NavLinkProps, type NavLinkLabelProps } from "./components/ui/navLink";
 export type { OverlayProps } from "./components/ui/overlay";
-export type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./components/ui/modal";
+export type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps, ModalCloseButtonProps } from "./components/ui/modal";
 export type { CardProps, CardHeaderProps, CardBodyProps, CardFooterProps } from "./components/ui/card";
 export type { ColProps } from "./components/ui/col";
 export type { PopupProps, PopupTriggerProps } from "./components/ui/popup";
 export type { MenuProps, MenuItemProps, MenuLabelProps } from "./components/ui/menu";
 export type { ZLayer } from "./components/utils/stackingContext";
 export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card, CardHeader, CardBody, CardFooter } from "./components/ui/layout";
+export type { SectionProps } from "./components/ui/section";
+export type { ContainerProps } from "./components/ui/container";
+export type { RowProps } from "./components/ui/row";
+export type { StackProps } from "./components/ui/stack";
+export type { GridProps } from "./components/ui/grid";
 export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle, Blockquote, type TypographyProps, type TitleProps, type LinkProps, type ListProps, type ListItemProps } from "./components/ui/typography";
+// per-component aliases so every rendered component has a same-named props type
+export type {
+  TypographyProps as TextProps,
+  TypographyProps as SectionTitleProps,
+  TypographyProps as PageTitleProps,
+  TypographyProps as BlockquoteProps,
+} from "./components/ui/typography";
 export {
   COMPONENT,
   ComponentKeys,
@@ -37,10 +49,10 @@ export {
   type VariantKey,
 } from "./components/ui/props/keys";
 
+export { ThemeProvider } from './components/ThemeProvider';
+export { defaultTheme } from './components/defaultTheme';
 export {
-  ThemeProvider,
   useTheme,
-  defaultTheme,
   type ThemeProps,
   type ThemeDefaults,
   type ThemeExtraClasses,

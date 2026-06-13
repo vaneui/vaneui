@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import type { LinkProps } from "./LinkProps";
 import { useTheme } from "../../../themeContext";
 import { ThemedComponent } from "../../../themedComponent";
+import { defaultLinkTheme } from "./defaultLinkTheme";
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
   function Link(props, ref) {
@@ -17,7 +18,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       ...(finalRel !== undefined && { rel: finalRel }),
     };
 
-    return <ThemedComponent ref={ref} theme={theme.link} {...derivedProps} />;
+    return <ThemedComponent ref={ref} theme={theme?.link ?? defaultLinkTheme} {...derivedProps} />;
   }
 );
 

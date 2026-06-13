@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { defaultTheme } from '../themeContext';
+import { defaultTheme } from '../defaultTheme';
 
 describe('ComponentTheme extractedKeys optimization', () => {
   it('should produce identical classes with and without precomputedKeys', () => {

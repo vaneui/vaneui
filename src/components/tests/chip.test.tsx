@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { RING_WIDTH_CLASS, RING_INSET_CLASS, FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Chip Component Tests', () => {
 
@@ -20,7 +21,7 @@ describe('Chip Component Tests', () => {
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
       expect(chip).toHaveClass('w-fit', 'h-fit', 'whitespace-nowrap');
-      expect(chip).toHaveClass('text-(length:--fs)'); // md size
+      expect(chip).toHaveClass(FONT_SIZE_CLASS); // md size
       expect(chip).toHaveAttribute('data-size', 'md');
       expect(chip).toHaveClass('text-(--text-color)'); // secondary appearance (default for chip)
       expect(chip).toHaveClass('font-mono'); // mono font for chip
@@ -92,7 +93,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-(length:--fs)', 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
+      expect(chip).toHaveClass(FONT_SIZE_CLASS, 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
       expect(chip).toHaveAttribute('data-size', 'xs');
     });
 
@@ -104,7 +105,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-(length:--fs)', 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
+      expect(chip).toHaveClass(FONT_SIZE_CLASS, 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
       expect(chip).toHaveAttribute('data-size', 'lg');
     });
 
@@ -116,7 +117,7 @@ describe('Chip Component Tests', () => {
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('text-(length:--fs)', 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
+      expect(chip).toHaveClass(FONT_SIZE_CLASS, 'px-(--px)', 'py-(--py)', 'gap-(--gap)');
       expect(chip).toHaveAttribute('data-size', 'xl');
     });
   });
@@ -215,7 +216,7 @@ describe('Chip Component Tests', () => {
 
       const chip = container.querySelector('span');
       expect(chip).toBeInTheDocument();
-      expect(chip).toHaveClass('ring-[length:var(--rw)]', 'ring-inset'); // outline variant shows ring
+      expect(chip).toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS); // outline variant shows ring
     });
   });
 

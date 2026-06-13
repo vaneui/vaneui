@@ -17,6 +17,12 @@ import {
   SectionTitle,
   Button,
   Icon,
+  Badge,
+  Chip,
+  Input,
+  Checkbox,
+  Label,
+  Link,
 } from '../../src';
 
 const TestSvg = () => (
@@ -28,42 +34,86 @@ const TestSvg = () => (
   </svg>
 );
 
+/* Identical composition rendered once per color scheme — Buttons across
+   appearances/variants, a nested Card with Badge + Chip, form controls,
+   and a Link. Rendered inside the light wrapper and inside the
+   data-theme="dark" wrapper for a one-to-one comparison. */
+function ThemeShowcase() {
+  return (
+    <Card className="flex-1">
+      <Title>Project settings</Title>
+      <Text sm secondary>
+        Buttons, badges, forms and links under the active scheme.
+      </Text>
+
+      <Row flexWrap>
+        <Button>Primary</Button>
+        <Button filled>Primary filled</Button>
+        <Button danger>Danger</Button>
+        <Button danger filled>Danger filled</Button>
+        <Button brand filled>Brand filled</Button>
+        <Button success>Success</Button>
+      </Row>
+
+      <Card sm>
+        <CardHeader>
+          <Title sm>Deployment</Title>
+          <Badge success filled>Live</Badge>
+        </CardHeader>
+        <CardBody>
+          <Text sm>Build 412 shipped to production 12 minutes ago.</Text>
+          <Row flexWrap>
+            <Chip sm>v2.4.0</Chip>
+            <Chip sm info>europe-west</Chip>
+          </Row>
+        </CardBody>
+      </Card>
+
+      <Label>
+        Email
+        <Input placeholder="you@example.com" />
+      </Label>
+      <Label>
+        <Checkbox defaultChecked />
+        Email me release notes
+      </Label>
+
+      <Text sm>
+        Need help? Read the <Link href="https://vaneui.com">documentation</Link>.
+      </Text>
+    </Card>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <Section className="w-full">
         <Container itemsCenter className="w-full">
 
-          <PageTitle>Icon Showcase</PageTitle>
+          <PageTitle>VaneUI Playground</PageTitle>
           <Text secondary>
-            Inline default behaviour plus the new container mode —{' '}
-            <Code sm>padding</Code> + <Code sm>filled</Code>/<Code sm>border</Code>/
-            <Code sm>ring</Code> + <Code sm>shape</Code> + <Code sm>appearance</Code>{' '}
-            produce a self-contained icon badge.
+            Icon inline + container modes, and the <Code sm>data-theme="dark"</Code>{' '}
+            color-scheme comparison.
           </Text>
 
-          {/* ═══ 1. INLINE (UNCHANGED DEFAULT) ════════════════════════════════ */}
+          {/* ═══ 1. ICON — INLINE ════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>1. Inline (Unchanged Default)</SectionTitle>
+          <SectionTitle>1. Icon — Inline</SectionTitle>
 
           <Card>
             <Title>Bare Icon inherits parent color</Title>
             <Text sm secondary>
-              With no appearance prop, <Code sm>Icon</Code> uses <Code sm>currentColor</Code>{' '}
-              and adopts whatever color its parent renders in.
+              With no appearance prop, <Code sm>Icon</Code> uses{' '}
+              <Code sm>currentColor</Code> and adopts whatever color its parent
+              renders in.
             </Text>
             <Stack noPadding>
               <Text>
                 Default text color — <Icon><TestSvg /></Icon> inherits.
               </Text>
-              <Text primary>
-                Primary text — <Icon><TestSvg /></Icon> inherits.
-              </Text>
               <Text danger>
                 Danger text — <Icon><TestSvg /></Icon> inherits.
-              </Text>
-              <Text success>
-                Success text — <Icon><TestSvg /></Icon> inherits.
               </Text>
               <Text secondary>
                 Secondary text — <Icon><TestSvg /></Icon> inherits.
@@ -71,14 +121,12 @@ function App() {
             </Stack>
           </Card>
 
-          {/* ═══ 2. SIZE VARIANTS (INLINE) ═══════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>2. Size Variants (Inline)</SectionTitle>
-
           <Card>
-            <Title>xs / sm / md / lg / xl</Title>
+            <Title>Sizes and appearances</Title>
             <Text sm secondary>
-              The size prop scales the rendered SVG via the shared font-size pipeline.
+              The size prop scales the SVG via the shared font-size pipeline;
+              appearance props tint it via <Code sm>currentColor</Code> — no box,
+              no padding.
             </Text>
             <Row itemsEnd flexWrap>
               <Col>
@@ -86,50 +134,18 @@ function App() {
                 <Icon xs><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>sm</Text>
-                <Icon sm><TestSvg /></Icon>
-              </Col>
-              <Col>
                 <Text sm bold>md</Text>
                 <Icon><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>lg</Text>
-                <Icon lg><TestSvg /></Icon>
               </Col>
               <Col>
                 <Text sm bold>xl</Text>
                 <Icon xl><TestSvg /></Icon>
               </Col>
             </Row>
-          </Card>
-
-          {/* ═══ 3. APPEARANCE VARIANTS (INLINE) ═════════════════════════════ */}
-          <Divider />
-          <SectionTitle>3. Appearance Variants (Inline)</SectionTitle>
-
-          <Card>
-            <Title>Color only, no container</Title>
-            <Text sm secondary>
-              Appearance props tint the SVG via <Code sm>currentColor</Code> — no box,
-              no padding, no border.
-            </Text>
             <Row flexWrap>
-              <Col>
-                <Text sm bold>primary</Text>
-                <Icon primary><TestSvg /></Icon>
-              </Col>
               <Col>
                 <Text sm bold>brand</Text>
                 <Icon brand><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>accent</Text>
-                <Icon accent><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>secondary</Text>
-                <Icon secondary><TestSvg /></Icon>
               </Col>
               <Col>
                 <Text sm bold>success</Text>
@@ -143,173 +159,54 @@ function App() {
                 <Text sm bold>warning</Text>
                 <Icon warning><TestSvg /></Icon>
               </Col>
-              <Col>
-                <Text sm bold>info</Text>
-                <Icon info><TestSvg /></Icon>
-              </Col>
             </Row>
           </Card>
 
-          {/* ═══ 4. FILLED CONTAINERS — SHAPE VARIANTS ═══════════════════════ */}
+          {/* ═══ 2. ICON — CONTAINER MODE ════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>4. Filled Containers — Shape</SectionTitle>
+          <SectionTitle>2. Icon — Container Mode</SectionTitle>
 
           <Card>
-            <Title>sharp / rounded / pill</Title>
+            <Title>Badge recipes</Title>
             <Text sm secondary>
-              Add <Code sm>padding</Code> + <Code sm>filled</Code> + an appearance to
-              produce a colored badge. Shape controls the border-radius.
+              <Code sm>padding</Code> + <Code sm>filled</Code>/<Code sm>border</Code>/
+              <Code sm>ring</Code> + shape + appearance produce a self-contained
+              icon badge.
             </Text>
             <Row flexWrap>
               <Col>
-                <Text sm bold>sharp</Text>
-                <Icon padding sharp primary filled><TestSvg /></Icon>
-                <Code sm>padding sharp primary filled</Code>
-              </Col>
-              <Col>
-                <Text sm bold>rounded (default)</Text>
+                <Text sm bold>filled rounded</Text>
                 <Icon padding primary filled><TestSvg /></Icon>
-                <Code sm>padding primary filled</Code>
               </Col>
               <Col>
-                <Text sm bold>pill</Text>
-                <Icon padding pill primary filled><TestSvg /></Icon>
-                <Code sm>padding pill primary filled</Code>
-              </Col>
-            </Row>
-          </Card>
-
-          {/* ═══ 5. FILLED CONTAINERS — APPEARANCE VARIANTS ══════════════════ */}
-          <Divider />
-          <SectionTitle>5. Filled Containers — Appearance</SectionTitle>
-
-          <Card>
-            <Title>Same shape (pill), every appearance</Title>
-            <Text sm secondary>
-              Filled appearance variants render as solid colored badges using the
-              theme's appearance color tokens.
-            </Text>
-            <Row flexWrap>
-              <Col>
-                <Text sm bold>primary</Text>
-                <Icon padding pill primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>brand</Text>
-                <Icon padding pill brand filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>accent</Text>
-                <Icon padding pill accent filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>secondary</Text>
-                <Icon padding pill secondary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>success</Text>
+                <Text sm bold>filled pill</Text>
                 <Icon padding pill success filled><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>danger</Text>
-                <Icon padding pill danger filled><TestSvg /></Icon>
+                <Text sm bold>filled sharp</Text>
+                <Icon padding sharp danger filled><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>warning</Text>
-                <Icon padding pill warning filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>info</Text>
-                <Icon padding pill info filled><TestSvg /></Icon>
-              </Col>
-            </Row>
-          </Card>
-
-          {/* ═══ 6. BORDERED CONTAINERS ══════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>6. Bordered Containers</SectionTitle>
-
-          <Card>
-            <Title>Outlined box, no fill</Title>
-            <Text sm secondary>
-              Swap <Code sm>filled</Code> for <Code sm>border</Code> to get an outlined
-              badge — the SVG keeps the appearance's text color and the border picks up
-              the same hue.
-            </Text>
-            <Row flexWrap>
-              <Col>
-                <Text sm bold>rounded</Text>
-                <Icon padding primary border><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>pill</Text>
-                <Icon padding pill primary border><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>sharp</Text>
-                <Icon padding sharp primary border><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>success border</Text>
-                <Icon padding pill success border><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>danger border</Text>
-                <Icon padding pill danger border><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>warning border</Text>
+                <Text sm bold>border pill</Text>
                 <Icon padding pill warning border><TestSvg /></Icon>
               </Col>
-            </Row>
-          </Card>
-
-          {/* ═══ 7. RING ═════════════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>7. Ring</SectionTitle>
-
-          <Card>
-            <Title>Inset ring — alone or combined with border</Title>
-            <Text sm secondary>
-              <Code sm>ring</Code> draws an inset outline. It can stand on its own or be
-              layered with <Code sm>border</Code> for a two-tone badge.
-            </Text>
-            <Row flexWrap>
               <Col>
-                <Text sm bold>ring only</Text>
+                <Text sm bold>ring pill</Text>
                 <Icon padding pill primary ring><TestSvg /></Icon>
-                <Code sm>padding pill primary ring</Code>
-              </Col>
-              <Col>
-                <Text sm bold>ring + border</Text>
-                <Icon padding pill primary ring border><TestSvg /></Icon>
-                <Code sm>padding pill primary ring border</Code>
               </Col>
               <Col>
                 <Text sm bold>ring + filled</Text>
                 <Icon padding pill primary filled ring><TestSvg /></Icon>
-                <Code sm>padding pill primary filled ring</Code>
-              </Col>
-              <Col>
-                <Text sm bold>success ring</Text>
-                <Icon padding pill success ring><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm bold>danger ring</Text>
-                <Icon padding pill danger ring><TestSvg /></Icon>
               </Col>
             </Row>
           </Card>
 
-          {/* ═══ 8. CONTAINER SIZE SCALING ═══════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>8. Container Size Scaling</SectionTitle>
-
           <Card>
-            <Title>Padding + radius scale with size prop</Title>
+            <Title>Container size scaling</Title>
             <Text sm secondary>
-              Same <Code sm>padding pill primary filled</Code> recipe at every size —
-              padding and SVG both scale through the shared CSS variable pipeline.
+              Same <Code sm>padding pill primary filled</Code> recipe at every
+              size — padding and SVG scale together through the CSS variable
+              pipeline.
             </Text>
             <Row flexWrap itemsEnd>
               <Col>
@@ -335,95 +232,46 @@ function App() {
             </Row>
           </Card>
 
-          {/* ═══ 9. COMPOSITIONS ═════════════════════════════════════════════ */}
+          {/* ═══ 3. DARK MODE ════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>9. Compositions</SectionTitle>
+          <SectionTitle>3. Dark Mode</SectionTitle>
 
           <Card>
-            <Title>Icon inside Text</Title>
+            <Title>Light vs data-theme="dark"</Title>
             <Text sm secondary>
-              Inline icons flow naturally inside paragraphs — useful for inline status
-              hints or trailing decoration.
+              The same composition rendered side by side. The right column is
+              wrapped in <Code sm>{'<div data-theme="dark">'}</Code> — the dark
+              block in <Code sm>tokens.css</Code> re-declares the color tokens
+              and every component re-resolves against them. The dark column's
+              root surface is a primary-bg <Code sm>Card</Code>, which paints
+              the dark page surface.
             </Text>
-            <Stack noPadding>
-              <Text>
-                <Icon success><TestSvg /></Icon> Deployment succeeded — all checks passed.
-              </Text>
-              <Text>
-                <Icon danger><TestSvg /></Icon> Build failed — see the logs for details.
-              </Text>
-              <Text>
-                <Icon warning><TestSvg /></Icon> 3 dependencies have known vulnerabilities.
-              </Text>
-            </Stack>
-          </Card>
-
-          <Card>
-            <Title>Icon alongside Button</Title>
-            <Text sm secondary>
-              Pair a container-mode icon with a button to draw attention to a row's
-              primary action.
-            </Text>
-            <Row itemsCenter>
-              <Icon padding pill primary filled><TestSvg /></Icon>
-              <Col gap noPadding>
-                <Text bold>Upgrade to Pro</Text>
-                <Text sm secondary>Unlock advanced analytics and priority support.</Text>
-              </Col>
-              <Button filled>Upgrade</Button>
-            </Row>
-            <Row itemsCenter>
-              <Icon padding pill success filled><TestSvg /></Icon>
-              <Col gap noPadding>
-                <Text bold>Account verified</Text>
-                <Text sm secondary>You're ready to invite teammates.</Text>
-              </Col>
-              <Button success>Invite</Button>
-            </Row>
-            <Row itemsCenter>
-              <Icon padding pill danger border><TestSvg /></Icon>
-              <Col gap noPadding>
-                <Text bold>Payment failed</Text>
-                <Text sm secondary>Update your card to keep your subscription active.</Text>
-              </Col>
-              <Button danger filled>Update card</Button>
+            <Row itemsStretch tabletCol>
+              <div className="flex flex-1">
+                <ThemeShowcase />
+              </div>
+              <div data-theme="dark" className="flex flex-1">
+                <ThemeShowcase />
+              </div>
             </Row>
           </Card>
 
           <Card>
-            <Title>Icon as Card header indicator</Title>
+            <Title>Inherit-mode text inside a dark subtree</Title>
             <Text sm secondary>
-              Container-mode icons work as status anchors inside a CardHeader.
+              A bare <Code sm>Text</Code> (default <Code sm>inherit</Code>{' '}
+              appearance) inside <Code sm>{'<div data-theme="dark">'}</Code> with
+              no appearance-bearing wrapper must re-resolve to the dark scheme's
+              light-on-dark text — not keep the root-resolved light color.
             </Text>
-            <Row mobileCol itemsStart>
-              <Card className="w-72">
-                <CardHeader>
-                  <Icon padding pill success filled><TestSvg /></Icon>
-                  <Title>All systems normal</Title>
-                </CardHeader>
-                <CardBody>
-                  <Text sm>Last incident: 14 days ago.</Text>
-                </CardBody>
+            <div data-theme="dark">
+              <Card>
+                <Text>
+                  This paragraph re-resolves <Code sm>--text-color</Code> against
+                  the dark tokens at the theme boundary.
+                </Text>
               </Card>
-              <Card className="w-72">
-                <CardHeader>
-                  <Icon padding pill warning filled><TestSvg /></Icon>
-                  <Title>Degraded performance</Title>
-                </CardHeader>
-                <CardBody>
-                  <Text sm>API latency 2x normal in EU region.</Text>
-                </CardBody>
-              </Card>
-              <Card className="w-72">
-                <CardHeader>
-                  <Icon padding pill danger filled><TestSvg /></Icon>
-                  <Title>Outage</Title>
-                </CardHeader>
-                <CardBody>
-                  <Text sm>Auth provider unreachable — investigating.</Text>
-                </CardBody>
-              </Card>
-            </Row>
+            </div>
           </Card>
 
         </Container>

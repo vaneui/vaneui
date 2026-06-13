@@ -21,6 +21,10 @@ const entries = await glob([
   "src/index.ts",
   "src/components/ui/*/index.ts",
   "src/components/ui/typography/index.ts",
+  // per-component typography entries back the explicit ./text, ./title, ...
+  // subpath exports; common/ is internal shared machinery, not an entry
+  "src/components/ui/typography/*/index.ts",
+  "!src/components/ui/typography/common/index.ts",
   "src/components/ui/props/index.ts",
   "src/components/themeContext.tsx",
   "src/components/ui/layout.tsx",

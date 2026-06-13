@@ -154,10 +154,12 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 
 | Prop | Tailwind Class |
 |------|---------------|
-| `textLeft` | `text-left` |
+| `textLeft` | `text-left` (physical) |
 | `textCenter` | `text-center` |
-| `textRight` | `text-right` |
+| `textRight` | `text-right` (physical) |
 | `textJustify` | `text-justify` |
+| `textStart` | `text-start` (logical — flips under `dir="rtl"`) |
+| `textEnd` | `text-end` (logical — flips under `dir="rtl"`) |
 
 ## Font Weight
 

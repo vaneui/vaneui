@@ -1,5 +1,6 @@
 import type React from 'react';
 import type {
+  InheritSizeProps,
   BaseProps,
   SizeProps,
   HideProps,
@@ -43,6 +44,7 @@ import type {
  */
 export type IconButtonProps = BaseProps &
   SizeProps &
+  InheritSizeProps &
   HideProps &
   ItemsProps &
   JustifyProps &

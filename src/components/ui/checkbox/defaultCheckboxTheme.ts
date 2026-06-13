@@ -28,7 +28,7 @@ export const defaultCheckboxTheme = new ComponentTheme<CheckboxProps, CheckboxTh
     appearance: {
       accent: accentAppearance,
       border: borderAppearance,
-      background: new SimpleConsumerClassMapper({ base: 'bg-white' }, 'bg'),
+      background: new SimpleConsumerClassMapper({ base: 'bg-(--color-bg-form)' }, 'bg'),
       ring: ringAppearance,
       focusVisible: focusVisibleAppearance,
       check: checkedBgAppearance,

@@ -1,43 +1,35 @@
-import {
-  ComponentTheme,
-  defaultSizedLayoutClassMappers,
-  defaultTypographyClassMappers,
-} from "../../theme/common";
+import { ComponentTheme } from "../../theme/common";
 import type { TypographyProps } from "../common";
 import type { LinkTheme } from "./LinkTheme";
-import { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
-import { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
-import { LetterSpacingClassMapper } from "../../theme/typography/letterSpacingClassMapper";
-import { CursorClassMapper } from "../../theme/layout/cursorClassMapper";
+import { typographyClassMappers } from "../../theme/common/typographyClassMappers";
 import { FocusVisibleClassMapper } from "../../theme/layout/focusVisibleClassMapper";
 import { LinkVariantClassMapper } from "../../theme/appearance/linkVariantClassMapper";
 import { LINK_CATEGORIES } from "./LinkCategories";
 import { linkDefaults } from "./linkDefaults";
 
 /**
- * Link theme — uses LinkVariantClassMapper for link-specific colors.
+ * Link theme — composed over the shared `typographyClassMappers` collection
+ * (size, typography, and layout mappers are inherited from it), so changes to
+ * the shared collection automatically reach Link. Only the deltas below
+ * diverge, each with a documented reason.
  *
- * Link is intentionally background-less (an inline anchor that inherits
- * its container's background). Wires up `LetterSpacingClassMapper` and
- * `CursorClassMapper` so `letterSpacing` and `cursor*` props from
- * `TYPOGRAPHY_CATEGORIES` actually take effect.
+ * Link stays background-less like all typography components (an inline anchor
+ * inherits its container's background).
  */
 export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new ComponentTheme<TypographyProps, LinkTheme>(
   "a",
   "vane-link hover:underline",
   {
-    size: {
-      text: new FontSizeClassMapper(),
-      lineHeight: new LineHeightClassMapper(),
-      letterSpacing: new LetterSpacingClassMapper(),
-    },
+    ...typographyClassMappers,
     appearance: {
+      ...typographyClassMappers.appearance,
+      // delta: link-variant colors (cascading --link-text / --app-text) instead
+      // of the generic text appearance — Link has no data-variant to drive --text-color
       text: new LinkVariantClassMapper(),
     },
-    typography: defaultTypographyClassMappers,
     layout: {
-      ...defaultSizedLayoutClassMappers,
-      cursor: new CursorClassMapper(),
+      ...typographyClassMappers.layout,
+      // delta: LINK_CATEGORIES adds `focusVisible` so the rendered <a> can show a keyboard focus ring
       focusVisible: new FocusVisibleClassMapper(),
     },
   },

@@ -1,23 +1,4 @@
-import { test, expect, type Locator } from './base';
-
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
-
-async function getBg(locator: Locator): Promise<string> {
-  return getStyle(locator, 'background-color');
-}
-
-async function getBorderColor(locator: Locator): Promise<string> {
-  return getStyle(locator, 'border-top-color');
-}
-
-async function getColor(locator: Locator): Promise<string> {
-  return getStyle(locator, 'color');
-}
+import { test, expect, getStyle, getBg, getBorderTopColor, getColor } from './base';
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 
@@ -52,7 +33,7 @@ test.describe('Icon container mode — computed styles', () => {
   test('bordered primary rounded paints a border color, no background paint', async ({ page }) => {
     const icon = page.locator('[data-testid="icon-bordered-primary"]');
 
-    const borderColor = await getBorderColor(icon);
+    const borderColor = await getBorderTopColor(icon);
     expect(borderColor).not.toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
 
     // outline-variant Icons override --bg-color to transparent so bordered Icons stay un-boxed

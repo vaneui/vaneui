@@ -36,12 +36,12 @@ import type {
   WidthProps,
   HeightProps,
   DisabledProps,
-  InheritProps,
+  InheritSizeProps,
 } from "../props";
 
 /** Code component props */
 export type CodeProps = BaseProps &
-  InheritProps &
+  InheritSizeProps &
   SizeProps &
   HideProps &
   ItemsProps &

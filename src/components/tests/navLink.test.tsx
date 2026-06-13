@@ -7,6 +7,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('NavLink Component Tests', () => {
 
@@ -21,7 +22,7 @@ describe('NavLink Component Tests', () => {
       const el = container.querySelector('a');
       expect(el).toBeInTheDocument();
       expect(el).toHaveClass('w-full', 'cursor-pointer');
-      expect(el).toHaveClass('text-(length:--fs)');
+      expect(el).toHaveClass(FONT_SIZE_CLASS);
       expect(el).toHaveAttribute('data-size', 'sm');
       expect(el).toHaveAttribute('data-vane-type', 'ui');
       // Default NavLink has non-inherit appearance → emits data attributes
@@ -205,20 +206,20 @@ describe('NavLink Component Tests', () => {
   });
 
   describe('Disabled State', () => {
-    it('should render as button (not anchor) when both href and disabled are present', () => {
+    it('should render as a placeholder anchor (no href) when both href and disabled are present', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <NavLink href="/locked" disabled>Locked</NavLink>
         </ThemeProvider>
       );
 
-      // Should render as <button>, not <a>, because href is stripped
-      const button = container.querySelector('button');
-      expect(button).toBeInTheDocument();
-      expect(button).not.toHaveAttribute('href');
-
+      // aria-disabled pattern: an <a> WITHOUT href — never a natively
+      // disabled <button>, which would leave the tab order
       const anchor = container.querySelector('a');
-      expect(anchor).not.toBeInTheDocument();
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).not.toHaveAttribute('href');
+      expect(anchor).not.toHaveAttribute('disabled');
+      expect(container.querySelector('button')).not.toBeInTheDocument();
     });
 
     it('should add aria-disabled and role="link" when href and disabled are both present, staying in tab order', () => {
@@ -228,11 +229,14 @@ describe('NavLink Component Tests', () => {
         </ThemeProvider>
       );
 
-      const el = container.querySelector('button');
+      const el = container.querySelector('a') as HTMLElement;
       expect(el).toHaveAttribute('aria-disabled', 'true');
       expect(el).toHaveAttribute('role', 'link');
-      expect(el).not.toHaveAttribute('tabindex', '-1');
       expect(el).toHaveAttribute('data-disabled', 'true');
+      // genuinely focusable, not just "no tabindex=-1"
+      expect(el).toHaveAttribute('tabindex', '0');
+      el.focus();
+      expect(document.activeElement).toBe(el);
     });
 
     it('should set data-disabled when disabled prop is true without href', () => {

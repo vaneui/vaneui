@@ -10,6 +10,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { RING_WIDTH_CLASS, RING_INSET_CLASS, BORDER_WIDTH_CLASS } from './utils/classAssertions';
 
 describe('Card Component Tests', () => {
 
@@ -249,7 +250,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('border-[length:var(--bw)]');
+      expect(card).toHaveClass(BORDER_WIDTH_CLASS);
     });
 
     it('should render with no border when noBorder prop is true', () => {
@@ -260,7 +261,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).not.toHaveClass('border-[length:var(--bw)]'); // noBorder removes border classes
+      expect(card).not.toHaveClass(BORDER_WIDTH_CLASS); // noBorder removes border classes
     });
   });
 
@@ -409,7 +410,7 @@ describe('Card Component Tests', () => {
         );
 
         const card = container.querySelector('div');
-        expect(card).toHaveClass('border-[length:var(--bw)]');
+        expect(card).toHaveClass(BORDER_WIDTH_CLASS);
       });
 
       it('should not apply border classes when noBorder prop is true', () => {
@@ -420,7 +421,7 @@ describe('Card Component Tests', () => {
         );
 
         const card = container.querySelector('div');
-        expect(card).not.toHaveClass('border-[length:var(--bw)]');
+        expect(card).not.toHaveClass(BORDER_WIDTH_CLASS);
         // Should not have any border-related classes
         expect(card!.className).not.toMatch(/\bborder\b(?!-)/);
       });
@@ -433,7 +434,7 @@ describe('Card Component Tests', () => {
         );
 
         const card = container.querySelector('div');
-        expect(card).toHaveClass('border-[length:var(--bw)]'); // Card has border: true as default
+        expect(card).toHaveClass(BORDER_WIDTH_CLASS); // Card has border: true as default
       });
 
       it('should apply border classes for different appearance variants when border is enabled', () => {
@@ -450,7 +451,7 @@ describe('Card Component Tests', () => {
         const accentCard = container.querySelector('.border-accent');
 
         [primaryCard, secondaryCard, accentCard].forEach(card => {
-          expect(card).toHaveClass('border-[length:var(--bw)]');
+          expect(card).toHaveClass(BORDER_WIDTH_CLASS);
         });
       });
     });
@@ -464,7 +465,7 @@ describe('Card Component Tests', () => {
         );
 
         const card = container.querySelector('div');
-        expect(card).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
+        expect(card).toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS);
         // RingClassMapper now has empty hover and active defaults
         expect(card).not.toHaveClass('hover:ring', 'hover:ring-inset');
         expect(card).not.toHaveClass('active:ring', 'active:ring-inset');
@@ -478,8 +479,8 @@ describe('Card Component Tests', () => {
         );
 
         const card = container.querySelector('div');
-        expect(card).not.toHaveClass('ring-[length:var(--rw)]');
-        expect(card).not.toHaveClass('ring-inset');
+        expect(card).not.toHaveClass(RING_WIDTH_CLASS);
+        expect(card).not.toHaveClass(RING_INSET_CLASS);
         expect(card).not.toHaveClass('hover:ring');
         expect(card).not.toHaveClass('active:ring');
         // Should not have any ring-related classes
@@ -496,7 +497,7 @@ describe('Card Component Tests', () => {
         const card = container.querySelector('div');
         // Card no longer has ring: true as default
         expect(card).not.toHaveClass('ring-(--ring-color)');
-        expect(card).not.toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
+        expect(card).not.toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS);
       });
 
       it('should apply ring classes for different appearance variants when ring is enabled', () => {
@@ -513,7 +514,7 @@ describe('Card Component Tests', () => {
         const warningCard = container.querySelector('.ring-warning');
 
         [primaryCard, infoCard, warningCard].forEach(card => {
-          expect(card).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
+          expect(card).toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS);
           // RingClassMapper now has empty hover and active defaults
           expect(card).not.toHaveClass('hover:ring', 'hover:ring-inset');
           expect(card).not.toHaveClass('active:ring', 'active:ring-inset');
@@ -531,7 +532,7 @@ describe('Card Component Tests', () => {
 
         const card = container.querySelector('div');
         // Should have border classes
-        expect(card).toHaveClass('border-[length:var(--bw)]');
+        expect(card).toHaveClass(BORDER_WIDTH_CLASS);
         // Should have appearance-based ring classes
         expect(card).toHaveClass('ring-(--ring-color)');
       });
@@ -545,10 +546,10 @@ describe('Card Component Tests', () => {
 
         const card = container.querySelector('div');
         // Should not have border classes
-        expect(card).not.toHaveClass('border-[length:var(--bw)]');
+        expect(card).not.toHaveClass(BORDER_WIDTH_CLASS);
         expect(card!.className).not.toMatch(/\bborder\b(?!-)/);
         // Should not have ring classes
-        expect(card).not.toHaveClass('ring-[length:var(--rw)]');
+        expect(card).not.toHaveClass(RING_WIDTH_CLASS);
         expect(card!.className).not.toMatch(/\bring\b(?!-)/);
       });
 
@@ -561,7 +562,7 @@ describe('Card Component Tests', () => {
 
         const card = container.querySelector('.size-test');
         // Should have border and ring classes
-        expect(card).toHaveClass('border-[length:var(--bw)]');
+        expect(card).toHaveClass(BORDER_WIDTH_CLASS);
         expect(card).toHaveClass('ring-(--ring-color)');
         // Should have size and padding classes
         expect(card).toHaveClass('px-(--px)', 'py-(--py)'); // lg padding
@@ -577,7 +578,7 @@ describe('Card Component Tests', () => {
 
         const card = container.querySelector('.responsive-test');
         // Should have border and ring classes
-        expect(card).toHaveClass('border-[length:var(--bw)]');
+        expect(card).toHaveClass(BORDER_WIDTH_CLASS);
         expect(card).toHaveClass('ring-(--ring-color)');
         // Should have responsive classes
         expect(card).toHaveClass('max-mobile:flex-col');
@@ -641,7 +642,7 @@ describe('Card Component Tests', () => {
       const card = container.querySelector('div');
       expect(card).toHaveClass('w-full');
       expect(card).toHaveClass('shadow-(--shadow-base)');
-      expect(card).toHaveClass('border-[length:var(--bw)]');
+      expect(card).toHaveClass(BORDER_WIDTH_CLASS);
     });
   });
 
@@ -1025,7 +1026,7 @@ describe('Card Component Tests', () => {
       const card = container.querySelector('.vane-card');
       // Card should still have its visual classes
       expect(card).toHaveClass('flex', 'flex-col');
-      expect(card).toHaveClass('border-[length:var(--bw)]');
+      expect(card).toHaveClass(BORDER_WIDTH_CLASS);
       expect(card).toHaveClass('rounded-(--br)');
     });
 

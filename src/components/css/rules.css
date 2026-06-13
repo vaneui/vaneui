@@ -42,8 +42,14 @@
 }
 
 @layer components {
-    /* Root defaults mirror outline+primary so inherit-mode components match a standalone outline primary. */
-    :root {
+    /* Root defaults mirror outline+primary so inherit-mode components match a
+       standalone outline primary. The selector also targets [data-theme]
+       subtree roots: custom properties substitute at the declaring element,
+       so without re-declaring here, an inherit-mode component inside a
+       data-theme wrapper would keep the root-RESOLVED (light) consumer
+       values instead of re-resolving them against the wrapper's overridden
+       tokens. */
+    :root, [data-theme] {
         --text-color: var(--color-text-primary);
         --bg-color: var(--color-bg-primary);
         --bg-hover-color: var(--color-bg-hover-primary);
@@ -684,7 +690,7 @@
         --bg-active-color: var(--app-bg-active-filled);
         --border-color: transparent;
         --ring-color: transparent;
-        --divider-color: oklch(1 0 0 / 15%);
+        --divider-color: var(--color-divider-filled);
         --focus-color: var(--app-focus);
         --accent-color: var(--app-bg-filled);
         --checked-bg-color: var(--app-bg-filled);

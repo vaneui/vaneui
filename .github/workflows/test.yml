@@ -14,7 +14,9 @@ jobs:
     strategy:
       matrix:
         node-version: [24]
-    
+        # Test against every React major in the declared peer range (^18 || ^19)
+        react-version: [18, 19]
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -28,33 +30,29 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Run Type Check
-        run: npm run type-check
+      - name: Install React ${{ matrix.react-version }}
+        if: matrix.react-version != 19
+        run: npm install --no-save react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }}
 
+      # No standalone type-check step: `npm test` runs `tsc --noEmit` first,
+      # and `npm run build` runs it again as part of its own pipeline.
+      # Coverage (with the thresholds in jest.config.js) is collected on the
+      # React 19 leg only — the React 18 leg runs the same tests without it.
       - name: Run Tests
-        run: npm test
+        run: npm test ${{ matrix.react-version == 19 && '-- --coverage' || '' }}
         env:
           CI: true
 
       - name: Build Package
         run: npm run build
 
+      # Generated-but-committed files (e.g. propDescriptions.ts) must be
+      # regenerated deterministically — fail if the build dirtied the tree.
+      - name: Verify Build Did Not Dirty Tracked Files
+        run: git diff --exit-code
+
       - name: Verify Package Contents
         run: npm pack --dry-run
-
-      - name: Test Results Summary
-        if: always()
-        run: |
-          if [ $? -eq 0 ]; then
-            echo "✅ All tests passed successfully!"
-            echo "📦 Package builds correctly"
-            echo "🔍 Type checking passed"
-            echo "🧪 Test suite completed"
-          else
-            echo "❌ Some tests failed"
-            echo "Please fix the failing tests before merging"
-            exit 1
-          fi
 
   e2e:
     runs-on: ubuntu-latest
@@ -75,7 +73,7 @@ jobs:
         run: npm run build
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: Run E2E Tests
         run: npm run test:e2e

@@ -304,4 +304,85 @@ describe('PopupTrigger Component Tests', () => {
       jest.useRealTimers();
     });
   });
+
+  describe('Controlled Mode', () => {
+    it('should render popup when controlled open is true', () => {
+      const { getByText, baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger open popup={<div>Popup Content</div>}>
+            <button>Open</button>
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+      expect(getByText('Popup Content')).toBeInTheDocument();
+    });
+
+    it('should ignore internal toggle attempts in controlled mode but fire onOpenChange', () => {
+      jest.useFakeTimers();
+      const onOpenChange = jest.fn();
+      const { getByText, baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger open onOpenChange={onOpenChange} popup={<div>Content</div>}>
+            <button>Toggle</button>
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+
+      // click would close in uncontrolled mode — controlled value wins
+      fireEvent.click(getByText('Toggle'));
+      expect(onOpenChange).toHaveBeenCalledWith(false);
+      act(() => { jest.advanceTimersByTime(300); });
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+
+      jest.useRealTimers();
+    });
+
+    it('should start open with defaultOpen and toggle uncontrolled', () => {
+      jest.useFakeTimers();
+      const { getByText, baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger defaultOpen popup={<div>Content</div>}>
+            <button>Toggle</button>
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      // starts open without any interaction
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+
+      // toggles closed (uncontrolled)
+      fireEvent.click(getByText('Toggle'));
+      act(() => { jest.advanceTimersByTime(300); });
+      expect(baseElement.querySelector('.vane-popup')).not.toBeInTheDocument();
+
+      // and back open
+      fireEvent.click(getByText('Toggle'));
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+
+      jest.useRealTimers();
+    });
+
+    it('should fire onOpenChange on trigger click in uncontrolled mode', () => {
+      const onOpenChange = jest.fn();
+      const { getByText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger onOpenChange={onOpenChange} popup={<div>Content</div>}>
+            <button>Open</button>
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      fireEvent.click(getByText('Open'));
+      expect(onOpenChange).toHaveBeenCalledTimes(1);
+      expect(onOpenChange).toHaveBeenLastCalledWith(true);
+
+      fireEvent.click(getByText('Open'));
+      expect(onOpenChange).toHaveBeenCalledTimes(2);
+      expect(onOpenChange).toHaveBeenLastCalledWith(false);
+    });
+  });
 });

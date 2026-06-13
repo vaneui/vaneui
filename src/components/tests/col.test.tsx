@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { RING_WIDTH_CLASS, BORDER_WIDTH_CLASS } from './utils/classAssertions';
 
 describe('Col Component Tests', () => {
 
@@ -188,9 +189,9 @@ describe('Col Component Tests', () => {
       );
 
       const col = container.querySelector('div');
-      expect(col).toHaveClass('border-[length:var(--bw)]');
+      expect(col).toHaveClass(BORDER_WIDTH_CLASS);
       expect(col).toHaveClass('border-(--border-color)');
-      expect(col).toHaveClass('ring-[length:var(--rw)]');
+      expect(col).toHaveClass(RING_WIDTH_CLASS);
       expect(col).toHaveClass('ring-(--ring-color)');
       expect(col).toHaveClass('rounded-full');
     });
