@@ -638,22 +638,33 @@ describe('Menu Component Tests', () => {
       expect(document.activeElement).toBe(items[0]); // 'e' → Edit (not 'de')
     });
 
-    it('should activate the focused item on Space instead of entering the typeahead buffer', () => {
+    it('should activate the focused item on Space without entering the typeahead buffer', () => {
       const onClick = jest.fn();
+      // closeMenuOnClick={false} keeps the menu open after Space activates the
+      // item, so the follow-up keypress can observe the typeahead buffer state.
       renderOpenMenu(
         <>
-          <MenuItem onClick={onClick}>Edit</MenuItem>
-          <MenuItem>Duplicate</MenuItem>
-          <MenuItem>Delete</MenuItem>
+          <MenuItem closeMenuOnClick={false} onClick={onClick}>Edit</MenuItem>
+          <MenuItem closeMenuOnClick={false}>Duplicate</MenuItem>
+          <MenuItem closeMenuOnClick={false}>Delete</MenuItem>
         </>
       );
 
       const items = document.body.querySelectorAll('[role="menuitem"]');
       expect(document.activeElement).toBe(items[0]);
 
-      // Space is excluded from typeahead (isTypeaheadKey) — it activates the item
+      // Space activates the focused item (isTypeaheadKey excludes ' ')...
       fireEvent.keyDown(items[0] as HTMLElement, { key: ' ' });
       expect(onClick).toHaveBeenCalledTimes(1);
+      // ...without moving focus via typeahead
+      expect(document.activeElement).toBe(items[0]);
+
+      // ...and without polluting the typeahead buffer: the next character starts
+      // a clean query, so 'd' matches "Duplicate". If Space leaked into the
+      // buffer the query would be " d", match nothing, and focus would stay on
+      // Edit — so this assertion fails if the Space exclusion is ever removed.
+      fireEvent.keyDown(items[0] as HTMLElement, { key: 'd' });
+      expect(document.activeElement).toBe(items[1]);
     });
   });
 

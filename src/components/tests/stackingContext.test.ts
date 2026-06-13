@@ -34,12 +34,12 @@ describe('useStackingContext', () => {
     expect(second.current).toBe(302);
   });
 
-  it('should decrement counter on unmount', () => {
+  it('should reset the counter when the last open element unmounts', () => {
     const { unmount: unmountFirst } = renderHook(() => useStackingContext(true, 'overlay'));
-    // stackCount is now 1
+    // openCount is 1, stackCounter is 1
 
     unmountFirst();
-    // stackCount should be back to 0
+    // last open element closed, so stackCounter resets to 0
 
     const { result } = renderHook(() => useStackingContext(true, 'overlay'));
     // Should be 200 + 1 = 201 (counter reset to 0, then incremented)
