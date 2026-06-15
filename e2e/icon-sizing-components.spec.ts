@@ -1,12 +1,6 @@
-import { test, expect, type Locator } from './base';
+import { test, expect, getSvgWidth, type Locator } from './base';
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-async function getSvgWidth(locator: Locator): Promise<number> {
-  return locator.locator('svg').first().evaluate(
-    (el) => parseFloat(getComputedStyle(el).getPropertyValue('width')),
-  );
-}
+// ── Helpers (single-spec) ─────────────────────────────────────────────────────
 
 async function getSvgHeight(locator: Locator): Promise<number> {
   return locator.locator('svg').first().evaluate(

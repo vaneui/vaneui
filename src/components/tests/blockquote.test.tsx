@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
 import { Blockquote } from '../ui/typography/blockquote';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Blockquote Component', () => {
 
@@ -39,21 +40,23 @@ describe('Blockquote Component', () => {
   });
 
   describe('Default Theme Application', () => {
-    it('should have vane-blockquote class and border-l styling', () => {
+    it('should have vane-blockquote class and logical (border-s) accent styling', () => {
       const { container } = render(<Blockquote>Quote</Blockquote>);
       const el = container.querySelector('blockquote');
 
       expect(el).toHaveClass('vane-blockquote');
-      expect(el).toHaveClass('border-l-3');
+      // Logical utilities: accent border + indent sit on the reading-direction
+      // start side (left in LTR, right in RTL)
+      expect(el).toHaveClass('border-s-3');
       expect(el).toHaveClass('border-(--border-color)');
-      expect(el).toHaveClass('pl-(--pl)');
+      expect(el).toHaveClass('ps-(--pl)');
     });
 
     it('should have default theme classes applied', () => {
       const { container } = render(<Blockquote>Quote</Blockquote>);
       const el = container.querySelector('blockquote');
 
-      expect(el).toHaveClass('text-(length:--fs)'); // inherit appearance cascades font-size
+      expect(el).toHaveClass(FONT_SIZE_CLASS); // inherit appearance cascades font-size
       expect(el).toHaveAttribute('data-size', 'md');
       expect(el).toHaveClass('w-full');
       expect(el).toHaveClass('font-sans');
@@ -80,7 +83,7 @@ describe('Blockquote Component', () => {
         const el = container.querySelector('blockquote');
 
         // Blockquote defaults to inherit appearance; font-size cascades from parent
-        expect(el).toHaveClass('text-(length:--fs)');
+        expect(el).toHaveClass(FONT_SIZE_CLASS);
         expect(el).toHaveAttribute('data-size', size);
       });
     });

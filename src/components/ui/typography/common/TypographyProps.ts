@@ -23,7 +23,8 @@ import type {
   HeightProps,
   CursorProps,
   FocusVisibleProps,
-  InheritProps
+  InheritSizeProps,
+  InheritColorProps
 } from '../../props';
 
 /**
@@ -35,7 +36,11 @@ import type {
  * highlighted-text effect, use the `Mark` component.
  */
 export type TypographyProps = BaseProps &
-  InheritProps &
+  // category-backed inherit dimensions only (TYPOGRAPHY_CATEGORIES has
+  // inheritSize + inheritColor) — typing the full InheritProps here made
+  // inheritBg/inheritBorder dead props that leaked toward the DOM
+  InheritSizeProps &
+  InheritColorProps &
   FontWeightProps &
   FontStyleProps &
   TextDecorationProps &

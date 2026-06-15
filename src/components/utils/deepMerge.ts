@@ -46,6 +46,10 @@ export const deepMerge = <T extends object>(
   return output;
 };
 
+// NOTE: deliberately NO visited/identity map — theme nodes shared between
+// components (e.g. a mapper tree used by several ComponentThemes) MUST be
+// forked per occurrence, because themeOverride callbacks mutate cloned nodes
+// in place and rely on per-component isolation.
 export const deepClone = <T extends object>(source: T): T => {
   if (Array.isArray(source)) {
     return source.map(item => (isObject(item) ? deepClone(item) : item)) as unknown as T;

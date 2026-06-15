@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Text Component Tests', () => {
 
@@ -20,7 +21,7 @@ describe('Text Component Tests', () => {
       const text = container.querySelector('p');
       expect(text).toBeInTheDocument();
       expect(text).toHaveClass('p-0', 'm-0', 'w-fit');
-      expect(text).toHaveClass('text-(length:--fs)'); // inherit appearance -> cascade font-size from parent
+      expect(text).toHaveClass(FONT_SIZE_CLASS); // inherit appearance -> cascade font-size from parent
       expect(text).toHaveClass('text-(--text-color)'); // primary is default
       expect(text).toHaveClass('font-sans');
       // No default font weight; variants like medium/bold are opt-in
@@ -29,11 +30,11 @@ describe('Text Component Tests', () => {
 
     it('should apply different size classes', () => {
       const sizes = [
-        { prop: 'xs', textClass: 'text-(length:--fs)' },
-        { prop: 'sm', textClass: 'text-(length:--fs)' },
-        { prop: 'md', textClass: 'text-(length:--fs)' },
-        { prop: 'lg', textClass: 'text-(length:--fs)' },
-        { prop: 'xl', textClass: 'text-(length:--fs)' }
+        { prop: 'xs', textClass: FONT_SIZE_CLASS },
+        { prop: 'sm', textClass: FONT_SIZE_CLASS },
+        { prop: 'md', textClass: FONT_SIZE_CLASS },
+        { prop: 'lg', textClass: FONT_SIZE_CLASS },
+        { prop: 'xl', textClass: FONT_SIZE_CLASS }
       ] as const;
 
       sizes.forEach(({prop, textClass}) => {
@@ -213,10 +214,14 @@ describe('Text Component Tests', () => {
 
     it('should support text alignment variants', () => {
       const alignments = [
+        // textLeft/textRight stay physical by policy (do not flip under RTL)
         { prop: 'textLeft', class: 'text-left' },
         { prop: 'textCenter', class: 'text-center' },
         { prop: 'textRight', class: 'text-right' },
-        { prop: 'textJustify', class: 'text-justify' }
+        { prop: 'textJustify', class: 'text-justify' },
+        // textStart/textEnd are direction-aware (flip under RTL)
+        { prop: 'textStart', class: 'text-start' },
+        { prop: 'textEnd', class: 'text-end' }
       ] as const;
 
       alignments.forEach(({prop, class: expectedClass}) => {
@@ -296,7 +301,7 @@ describe('Text Component Tests', () => {
       );
 
       const text = container.querySelector('p');
-      expect(text).toHaveClass('text-(length:--fs)', 'font-sans'); // theme classes (no default color)
+      expect(text).toHaveClass(FONT_SIZE_CLASS, 'font-sans'); // theme classes (no default color)
       expect(text).toHaveClass('custom-text-class'); // custom class
     });
 
@@ -398,7 +403,7 @@ describe('Text Component Tests', () => {
       expect(anchor).toHaveClass('text-(--text-color)'); // primary color
       expect(anchor).toHaveClass('font-semibold'); // font weight
       expect(anchor).toHaveAttribute('data-size', 'lg');
-      // Note: text-(length:--fs) class appears to be conflicting with text-(--text-color)
+      // Note: the FONT_SIZE_CLASS utility appears to be conflicting with text-(--text-color)
       // The font size is still applied via the CSS variable, but the utility class is not present
       expect(anchor).toHaveClass('font-sans'); // default font family
       expect(anchor).toHaveClass('leading-(--lh)'); // CSS variable line height (primary overrides inherit appearance, so no inheritSize)

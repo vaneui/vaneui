@@ -10,6 +10,7 @@ import {
   ThemeProps
 } from '../../index';
 import { mergeDefaults } from '../utils/deepMerge';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Nested ThemeProvider Tests', () => {
   
@@ -158,7 +159,7 @@ describe('Nested ThemeProvider Tests', () => {
 
       // Inner button should have lg size and its extra classes from inner override
       // Note: inner override sets lg: true as default
-      expect(innerButton).toHaveClass('text-(length:--fs)'); // lg from defaults
+      expect(innerButton).toHaveClass(FONT_SIZE_CLASS); // lg from defaults
       expect(innerButton).toHaveAttribute('data-size', 'lg');
       expect(innerButton).toHaveClass('font-bold', 'tracking-wide');
       
@@ -328,7 +329,7 @@ describe('Nested ThemeProvider Tests', () => {
       // outline variant = true from themeOverride + primary & lg from themeDefaults
       expect(outerButton).toHaveClass('bg-(--bg-color)'); // outline variant with primary appearance
       expect(outerButton).toHaveClass('border-(--border-color)'); // primary from defaults
-      expect(outerButton).toHaveClass('text-(length:--fs)'); // lg from defaults
+      expect(outerButton).toHaveClass(FONT_SIZE_CLASS); // lg from defaults
       expect(outerButton).toHaveAttribute('data-size', 'lg');
       expect(outerButton).toHaveClass('outer-primary-class', 'outer-lg-class'); // extra classes
 
@@ -336,7 +337,7 @@ describe('Nested ThemeProvider Tests', () => {
       // filled variant = true from themeOverride + secondary & sm from themeDefaults
       expect(innerButton).toHaveClass('bg-(--bg-color)'); // filled variant with secondary appearance
       expect(innerButton).toHaveAttribute('data-variant', 'filled'); // filled variant from themeOverride
-      expect(innerButton).toHaveClass('text-(length:--fs)'); // sm from defaults
+      expect(innerButton).toHaveClass(FONT_SIZE_CLASS); // sm from defaults
       expect(innerButton).toHaveAttribute('data-size', 'sm');
       expect(innerButton).toHaveClass('inner-secondary-class', 'inner-sm-class'); // extra classes
 

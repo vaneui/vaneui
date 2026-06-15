@@ -7,6 +7,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 const TestSvg = () => (
   <svg data-testid="test-svg" viewBox="0 0 24 24">
@@ -73,7 +74,7 @@ describe('Icon Component Tests', () => {
 
         const icon = container.querySelector('span');
         expect(icon).toHaveAttribute('data-size', size);
-        expect(icon).toHaveClass('text-(length:--fs)');
+        expect(icon).toHaveClass(FONT_SIZE_CLASS);
       });
     });
   });

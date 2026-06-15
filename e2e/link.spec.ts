@@ -1,22 +1,9 @@
-import { test, expect, type Locator } from './base';
+import { test, expect, getColor } from './base';
 
 test.beforeEach(async ({ page, testPage }) => {
   await page.goto(testPage);
   await page.waitForSelector('[data-testid="link-section"]');
 });
-
-/** Get a resolved computed style property from an element */
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
-
-/** Get computed color (resolved to rgb) */
-async function getColor(locator: Locator): Promise<string> {
-  return getStyle(locator, 'color');
-}
 
 test.describe('Link external', () => {
   test('external link has target="_blank" and rel="noopener noreferrer"', async ({ page }) => {

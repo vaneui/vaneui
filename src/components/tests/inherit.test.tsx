@@ -24,6 +24,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 // Load rules.css for CSS rule verification tests (vars.css is now a barrel import)
 const varsCSS = fs.readFileSync(
@@ -680,11 +681,11 @@ describe('Inherit Appearance Prop', () => {
   describe('CSS rule verification (vars.css)', () => {
 
     it('root should define --text-color fallback', () => {
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--text-color:\s*var\(--color-text-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--text-color:\s*var\(--color-text-primary\)/);
     });
 
     it('root should define --border-color fallback', () => {
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--border-color:\s*var\(--color-border-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--border-color:\s*var\(--color-border-primary\)/);
     });
 
     it('appearance rules should set --app-text intermediates', () => {
@@ -740,10 +741,19 @@ describe('Inherit Appearance Prop', () => {
       // Components that render in inherit mode (no data-variant / data-appearance)
       // read their colors from :root. :root must mirror outline-primary so that
       // e.g. a standalone <Button> looks identical to <Button primary outline>.
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--text-color:\s*var\(--color-text-primary\)/);
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--bg-color:\s*var\(--color-bg-primary\)/);
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--border-color:\s*var\(--color-border-primary\)/);
-      expect(varsCSS).toMatch(/:root\s*\{[^}]*--ring-color:\s*var\(--color-border-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--text-color:\s*var\(--color-text-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--bg-color:\s*var\(--color-bg-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--border-color:\s*var\(--color-border-primary\)/);
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{[^}]*--ring-color:\s*var\(--color-border-primary\)/);
+    });
+
+    it('root defaults also re-resolve at [data-theme] subtree roots', () => {
+      // Dark-mode contract: custom properties substitute at the declaring
+      // element, so the consumer-variable defaults must be re-declared on
+      // [data-theme] wrappers. Without this, a bare inherit-mode <Text>
+      // inside <div data-theme="dark"> would render the root-resolved LIGHT
+      // color. Computed-color verification lives in e2e/dark-mode.spec.ts.
+      expect(varsCSS).toMatch(/:root,\s*\[data-theme\]\s*\{/);
     });
 
     it('no CSS rule should reference data-appearance="inherit"', () => {
@@ -778,7 +788,7 @@ describe('Inherit Appearance Prop', () => {
         </ThemeProvider>
       );
       const link = container.querySelector('a');
-      expect(link).toHaveClass('text-(length:--fs)');
+      expect(link).toHaveClass(FONT_SIZE_CLASS);
       expect(link).toHaveClass('leading-(--lh)');
     });
 
@@ -792,7 +802,7 @@ describe('Inherit Appearance Prop', () => {
       // inheritColor suppresses data-appearance
       expect(text).not.toHaveAttribute('data-appearance');
       // inherit does NOT expand to inheritSize — size uses own --fs variable
-      expect(text).toHaveClass('text-(length:--fs)');
+      expect(text).toHaveClass(FONT_SIZE_CLASS);
       expect(text).toHaveClass('leading-(--lh)');
     });
 
@@ -821,7 +831,7 @@ describe('Inherit Appearance Prop', () => {
       // Code uses the regular --fs path (no inheritSize default); the
       // .vane-code rule overrides --spacing locally to 0.25em, so --fs / --py
       // / --br all resolve in em — proportional to parent context.
-      expect(code).toHaveClass('text-(length:--fs)');
+      expect(code).toHaveClass(FONT_SIZE_CLASS);
     });
 
     it('Title (responsive) keeps own size — responsive overrides inheritSize', () => {
@@ -834,7 +844,7 @@ describe('Inherit Appearance Prop', () => {
       expect(title).not.toHaveAttribute('data-appearance');
       expect(title).toHaveClass('text-(length:--fs-desktop)');
       expect(title).not.toHaveClass('text-(length:--fs-em)');
-      expect(title).not.toHaveClass('text-(length:--fs)');
+      expect(title).not.toHaveClass(FONT_SIZE_CLASS);
     });
 
     it('inheritColor suppresses data-appearance even with explicit appearance', () => {
@@ -857,7 +867,7 @@ describe('Inherit Appearance Prop', () => {
       const kbd = container.querySelector('kbd');
       expect(kbd).toHaveAttribute('data-appearance', 'primary');
       // Same em-relative geometry pattern as Code.
-      expect(kbd).toHaveClass('text-(length:--fs)');
+      expect(kbd).toHaveClass(FONT_SIZE_CLASS);
     });
 
     it('Mark with inheritSize default inherits font-size but keeps warning appearance', () => {

@@ -4,6 +4,8 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
+  ModalCloseButton,
+  Title,
   ThemeProvider,
   defaultTheme,
 } from '../../index';
@@ -197,6 +199,155 @@ describe('Modal Enhancements', () => {
 
       dialog = baseElement.querySelector('[role="dialog"]');
       expect(dialog).not.toHaveAttribute('aria-labelledby');
+    });
+  });
+
+  describe('dialog accessible name excludes the close button', () => {
+    it('resolves the dialog name from the title only in compound mode', () => {
+      const { getByRole } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>
+            <ModalHeader>
+              <Title>Settings</Title>
+              <ModalCloseButton />
+            </ModalHeader>
+            <ModalBody>Body</ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      // before the fix titleId sat on the whole header, so the dialog's
+      // accessible name concatenated the close button label: "Settings Close"
+      const dialog = getByRole('dialog', { name: 'Settings' });
+      expect(dialog).toHaveAccessibleName('Settings');
+      expect(dialog).not.toHaveAccessibleName(/Close/);
+    });
+
+    it('convenience mode (title prop) also excludes the auto close button from the name', () => {
+      const { getByRole } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false} title="Settings">
+            Body
+          </Modal>
+        </ThemeProvider>
+      );
+
+      expect(getByRole('dialog', { name: 'Settings' })).toBeInTheDocument();
+    });
+
+    it('the close button keeps its own accessible name', () => {
+      const { getByRole } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>
+            <ModalHeader>
+              <Title>Settings</Title>
+              <ModalCloseButton />
+            </ModalHeader>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      expect(getByRole('button', { name: 'Close' })).toBeInTheDocument();
+    });
+
+    it('aria-labelledby resolves to the title content, not the whole header', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>
+            <ModalHeader>
+              <Title>Settings</Title>
+              <ModalCloseButton />
+            </ModalHeader>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      const dialog = baseElement.querySelector('[role="dialog"]')!;
+      const labelledBy = dialog.getAttribute('aria-labelledby')!;
+      const labelTarget = baseElement.querySelector(`#${CSS.escape(labelledBy)}`)!;
+      // the labelled element must contain the title but NOT the close button
+      expect(labelTarget).toHaveTextContent('Settings');
+      expect(labelTarget.querySelector('.vane-modal-close')).toBeNull();
+      // the header itself still renders the close button
+      expect(baseElement.querySelector('.vane-modal-header .vane-modal-close')).toBeInTheDocument();
+    });
+  });
+
+  describe('nameless dialog: no broken aria-labelledby, dev warning', () => {
+    it('convenience withCloseButton + no title does not label the dialog with an empty node', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false} withCloseButton>Body content</Modal>
+        </ThemeProvider>
+      );
+      const dialog = baseElement.querySelector('[role="dialog"]')!;
+      // a header holding only the auto close button must NOT point the dialog
+      // name at the (empty) title span
+      expect(dialog).not.toHaveAttribute('aria-labelledby');
+      expect(dialog).not.toHaveAccessibleName();
+      // the close button still renders with its own name
+      expect(baseElement.querySelector('.vane-modal-close')).toBeInTheDocument();
+    });
+
+    it('compound header with only a close button does not set aria-labelledby', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>
+            <ModalHeader><ModalCloseButton /></ModalHeader>
+            <ModalBody>Body</ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+      const dialog = baseElement.querySelector('[role="dialog"]')!;
+      expect(dialog).not.toHaveAttribute('aria-labelledby');
+      expect(dialog).not.toHaveAccessibleName();
+    });
+
+    it('warns in dev when a dialog has no accessible name', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>Just body text</Modal>
+        </ThemeProvider>
+      );
+      expect(warn.mock.calls.some(c => String(c[0]).includes('Modal has no accessible name'))).toBe(true);
+      warn.mockRestore();
+    });
+
+    it('does NOT warn when named via the title prop', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false} title="Settings">Body</Modal>
+        </ThemeProvider>
+      );
+      expect(warn.mock.calls.some(c => String(c[0]).includes('Modal has no accessible name'))).toBe(false);
+      warn.mockRestore();
+    });
+
+    it('does NOT warn when named via aria-label', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false} aria-label="Settings dialog">Body</Modal>
+        </ThemeProvider>
+      );
+      expect(warn.mock.calls.some(c => String(c[0]).includes('Modal has no accessible name'))).toBe(false);
+      warn.mockRestore();
+    });
+
+    it('does NOT warn when a compound ModalHeader provides a title', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open portal={false}>
+            <ModalHeader><Title>Settings</Title><ModalCloseButton /></ModalHeader>
+            <ModalBody>Body</ModalBody>
+          </Modal>
+        </ThemeProvider>
+      );
+      expect(warn.mock.calls.some(c => String(c[0]).includes('Modal has no accessible name'))).toBe(false);
+      warn.mockRestore();
     });
   });
 

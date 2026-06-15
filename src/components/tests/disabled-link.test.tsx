@@ -32,10 +32,22 @@ describe('resolveDisabledLink', () => {
     expect(result['role']).toBe('link');
   });
 
-  it('should NOT add tabIndex: -1 (element stays in tab order)', () => {
+  it('should force tag "a" so the element renders as a placeholder link, not a <button>', () => {
     const props = { href: '/test' };
-    const result = resolveDisabledLink(props, true);
-    expect(result).not.toHaveProperty('tabIndex');
+    const result = resolveDisabledLink(props, true) as Record<string, unknown>;
+    expect(result.tag).toBe('a');
+  });
+
+  it('should add tabIndex 0 (an anchor without href is not focusable by default)', () => {
+    const props = { href: '/test' };
+    const result = resolveDisabledLink(props, true) as Record<string, unknown>;
+    expect(result.tabIndex).toBe(0);
+  });
+
+  it('should respect a consumer-supplied tabIndex', () => {
+    const props = { href: '/test', tabIndex: -1 };
+    const result = resolveDisabledLink(props, true) as Record<string, unknown>;
+    expect(result.tabIndex).toBe(-1);
   });
 
   it('should add onClick handler that calls preventDefault', () => {

@@ -1,5 +1,6 @@
 import type React from 'react';
 import type {
+  InheritSizeProps,
   BaseProps,
   SizeProps,
   HideProps,
@@ -40,6 +41,7 @@ import type {
 // MenuLabel is background-less by design, so TransparentProps is intentionally excluded
 export type MenuLabelProps = BaseProps &
   SizeProps &
+  InheritSizeProps &
   HideProps &
   ItemsProps &
   JustifyProps &

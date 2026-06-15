@@ -42,35 +42,28 @@ E2e tests validate **computed CSS styles in a real browser**. They complement Je
 
 ## Available Helpers
 
-Copy these into each spec file (they are not shared across files to keep specs self-contained):
+Shared helpers are exported from `e2e/base.ts`. **Import them — do NOT redefine them locally in spec files** (local copies drift apart):
 
 ```ts
-/** Get a resolved computed style property from an element */
-async function getStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el).getPropertyValue(prop),
-    property,
-  );
-}
-
-/** Get computed color (resolved to rgb) */
-async function getColor(locator: Locator): Promise<string> {
-  return getStyle(locator, 'color');
-}
-
-/** Get computed font-size in px */
-async function getFontSize(locator: Locator): Promise<number> {
-  const fs = await getStyle(locator, 'font-size');
-  return parseFloat(fs);
-}
-
-/** Get the first SVG's computed width inside a locator */
-async function getSvgWidth(locator: Locator): Promise<string> {
-  return locator.locator('svg').first().evaluate(
-    (el) => getComputedStyle(el).getPropertyValue('width'),
-  );
-}
+import { test, expect, getStyle, getColor, getFontSize } from './base';
 ```
+
+| Helper | Returns | Description |
+|--------|---------|-------------|
+| `getStyle(locator, property)` | `Promise<string>` | Resolved computed style property |
+| `getColor(locator)` | `Promise<string>` | Computed `color` |
+| `getBg(locator)` | `Promise<string>` | Computed `background-color` |
+| `getBorderColor(locator)` | `Promise<string>` | Computed `border-color` (shorthand, all four sides) |
+| `getBorderTopColor(locator)` | `Promise<string>` | Computed `border-top-color` (longhand — use when sides may differ) |
+| `getFontSize(locator)` | `Promise<number>` | Computed font-size in px |
+| `getSvgWidth(locator)` | `Promise<number>` | First descendant SVG's computed width in px |
+| `isVisibleColor(color)` | `boolean` | Whether a color string is non-transparent (not `transparent` / zero-alpha) |
+| `TRANSPARENT` | `string` | `'rgba(0, 0, 0, 0)'` — fully-transparent background serialization |
+
+Rules:
+- New specs import these from `./base` rather than redefining them.
+- A helper needed by only ONE spec stays local to that spec; promote it to `e2e/base.ts` (exported, with a doc comment) as soon as a second spec needs it.
+- Do not change a shared helper's contract (e.g. its return type or the CSS property it reads) — add a new clearly-named helper instead if a different contract is needed.
 
 ## Common Test Patterns
 

@@ -44,6 +44,7 @@ const REPLACEABLE_CLASSES: Record<string, string> = {
   // text align
   'text-left': 'textLeft', 'text-center': 'textCenter',
   'text-right': 'textRight', 'text-justify': 'textJustify',
+  'text-start': 'textStart', 'text-end': 'textEnd',
   // text decoration
   'underline': 'underline', 'line-through': 'lineThrough', 'no-underline': 'noUnderline',
   // text transform

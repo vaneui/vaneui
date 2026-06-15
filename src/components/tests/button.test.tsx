@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { RING_WIDTH_CLASS, RING_INSET_CLASS, BORDER_WIDTH_CLASS, FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Button Component Tests', () => {
 
@@ -20,7 +21,7 @@ describe('Button Component Tests', () => {
       const button = container.querySelector('button');
       expect(button).toBeInTheDocument();
       expect(button).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
-      expect(button).toHaveClass('text-(length:--fs)'); // sm size
+      expect(button).toHaveClass(FONT_SIZE_CLASS); // sm size
       expect(button).toHaveAttribute('data-size', 'sm');
       expect(button).toHaveAttribute('data-vane-type', 'ui'); // UI component type
       // Default Button has non-inherit appearance → emits data attributes
@@ -46,7 +47,7 @@ describe('Button Component Tests', () => {
       const anchor = container.querySelector('a');
       expect(anchor).toBeInTheDocument();
       expect(anchor).toHaveClass('w-fit', 'h-fit', 'cursor-pointer');
-      expect(anchor).toHaveClass('text-(length:--fs)'); // sm size
+      expect(anchor).toHaveClass(FONT_SIZE_CLASS); // sm size
       expect(anchor).toHaveAttribute('data-size', 'sm');
       expect(anchor).toHaveAttribute('data-vane-type', 'ui'); // UI component type
       expect(anchor).toHaveClass('text-(--text-color)'); // primary appearance
@@ -76,20 +77,20 @@ describe('Button Component Tests', () => {
       expect(anchor).toHaveAttribute('rel', 'noopener noreferrer');
     });
 
-    it('should render as button (not anchor) when both href and disabled are present', () => {
+    it('should render as a placeholder anchor (no href) when both href and disabled are present', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Button href="/test-link" disabled>Disabled Link</Button>
         </ThemeProvider>
       );
 
-      // Should render as <button>, not <a>, because href is stripped
-      const button = container.querySelector('button');
-      expect(button).toBeInTheDocument();
-      expect(button).not.toHaveAttribute('href');
-
+      // aria-disabled pattern: an <a> WITHOUT href — never a natively
+      // disabled <button>, which would leave the tab order
       const anchor = container.querySelector('a');
-      expect(anchor).not.toBeInTheDocument();
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).not.toHaveAttribute('href');
+      expect(anchor).not.toHaveAttribute('disabled');
+      expect(container.querySelector('button')).not.toBeInTheDocument();
     });
 
     it('should add aria-disabled and role="link" when href and disabled are both present, staying in tab order', () => {
@@ -99,10 +100,13 @@ describe('Button Component Tests', () => {
         </ThemeProvider>
       );
 
-      const button = container.querySelector('button');
-      expect(button).toHaveAttribute('aria-disabled', 'true');
-      expect(button).toHaveAttribute('role', 'link');
-      expect(button).not.toHaveAttribute('tabindex', '-1');
+      const anchor = container.querySelector('a') as HTMLElement;
+      expect(anchor).toHaveAttribute('aria-disabled', 'true');
+      expect(anchor).toHaveAttribute('role', 'link');
+      // genuinely focusable, not just "no tabindex=-1"
+      expect(anchor).toHaveAttribute('tabindex', '0');
+      anchor.focus();
+      expect(document.activeElement).toBe(anchor);
     });
 
     it('should render as normal anchor when href is present without disabled', () => {
@@ -119,20 +123,22 @@ describe('Button Component Tests', () => {
       expect(anchor).not.toHaveAttribute('role');
     });
 
-    it('should handle loading + href correctly (disabled link)', () => {
+    it('should handle loading + href correctly (disabled placeholder link)', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Button href="/test-link" loading>Loading Link</Button>
         </ThemeProvider>
       );
 
-      // Loading sets disabled=true, which combined with href should strip href
-      const button = container.querySelector('button');
-      expect(button).toBeInTheDocument();
-      expect(button).not.toHaveAttribute('href');
-      expect(button).toHaveAttribute('aria-disabled', 'true');
-      expect(button).toHaveAttribute('role', 'link');
-      expect(button).toHaveAttribute('data-loading', 'true');
+      // Loading sets disabled=true, which combined with href renders the
+      // placeholder anchor (no href, no native disabled, stays focusable)
+      const anchor = container.querySelector('a');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).not.toHaveAttribute('href');
+      expect(anchor).not.toHaveAttribute('disabled');
+      expect(anchor).toHaveAttribute('aria-disabled', 'true');
+      expect(anchor).toHaveAttribute('role', 'link');
+      expect(anchor).toHaveAttribute('data-loading', 'true');
     });
 
     it('should support button-specific attributes when href is not present', () => {
@@ -247,7 +253,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('border-[length:var(--bw)]');
+        expect(button).toHaveClass(BORDER_WIDTH_CLASS);
       });
 
       it('should not apply border classes when noBorder prop is true', () => {
@@ -258,7 +264,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).not.toHaveClass('border-[length:var(--bw)]');
+        expect(button).not.toHaveClass(BORDER_WIDTH_CLASS);
         // Should not have any border-related classes
         expect(button!.className).not.toMatch(/\bborder\b(?!-)/);
       });
@@ -271,7 +277,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).not.toHaveClass('border-[length:var(--bw)]');
+        expect(button).not.toHaveClass(BORDER_WIDTH_CLASS);
       });
 
       it('should apply border classes for different appearance variants when border is enabled', () => {
@@ -288,7 +294,7 @@ describe('Button Component Tests', () => {
         const dangerButton = container.querySelector('.border-danger');
 
         [primaryButton, secondaryButton, dangerButton].forEach(button => {
-          expect(button).toHaveClass('border-[length:var(--bw)]');
+          expect(button).toHaveClass(BORDER_WIDTH_CLASS);
         });
       });
     });
@@ -302,7 +308,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
+        expect(button).toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS);
         // RingClassMapper now has empty hover and active defaults
         expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
         expect(button).not.toHaveClass('active:ring', 'active:ring-inset');
@@ -316,8 +322,8 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).not.toHaveClass('ring-[length:var(--rw)]');
-        expect(button).not.toHaveClass('ring-inset');
+        expect(button).not.toHaveClass(RING_WIDTH_CLASS);
+        expect(button).not.toHaveClass(RING_INSET_CLASS);
         expect(button).not.toHaveClass('hover:ring');
         expect(button).not.toHaveClass('active:ring');
         // Should not have any ring-related classes
@@ -332,7 +338,7 @@ describe('Button Component Tests', () => {
         );
 
         const button = container.querySelector('button');
-        expect(button).toHaveClass('ring-[length:var(--rw)]', 'ring-inset'); // Button has ring: true as default
+        expect(button).toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS); // Button has ring: true as default
         // RingClassMapper now has empty hover and active defaults
         expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
         expect(button).not.toHaveClass('active:ring', 'active:ring-inset');
@@ -352,7 +358,7 @@ describe('Button Component Tests', () => {
         const successButton = container.querySelector('.ring-success');
 
         [primaryButton, secondaryButton, successButton].forEach(button => {
-          expect(button).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
+          expect(button).toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS);
           // RingClassMapper now has empty hover and active defaults
           expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
           expect(button).not.toHaveClass('active:ring', 'active:ring-inset');
@@ -370,9 +376,9 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         // Should have border classes
-        expect(button).toHaveClass('border-[length:var(--bw)]');
+        expect(button).toHaveClass(BORDER_WIDTH_CLASS);
         // Should have ring classes
-        expect(button).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
+        expect(button).toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS);
         // RingClassMapper now has empty hover and active defaults
         expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
         expect(button).not.toHaveClass('active:ring', 'active:ring-inset');
@@ -387,10 +393,10 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         // Should not have border classes
-        expect(button).not.toHaveClass('border-[length:var(--bw)]');
+        expect(button).not.toHaveClass(BORDER_WIDTH_CLASS);
         expect(button!.className).not.toMatch(/\bborder\b(?!-)/);
         // Should not have ring classes
-        expect(button).not.toHaveClass('ring-[length:var(--rw)]');
+        expect(button).not.toHaveClass(RING_WIDTH_CLASS);
         expect(button!.className).not.toMatch(/\bring\b(?!-)/);
       });
 
@@ -403,9 +409,9 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         // Should have border classes
-        expect(button).toHaveClass('border-[length:var(--bw)]');
+        expect(button).toHaveClass(BORDER_WIDTH_CLASS);
         // Should not have ring classes
-        expect(button).not.toHaveClass('ring-[length:var(--rw)]');
+        expect(button).not.toHaveClass(RING_WIDTH_CLASS);
         expect(button!.className).not.toMatch(/\bring\b(?!-)/);
       });
 
@@ -418,11 +424,11 @@ describe('Button Component Tests', () => {
 
         const button = container.querySelector('button');
         // Should have ring classes
-        expect(button).toHaveClass('ring-[length:var(--rw)]', 'ring-inset');
+        expect(button).toHaveClass(RING_WIDTH_CLASS, RING_INSET_CLASS);
         // RingClassMapper now has empty hover and active defaults
         expect(button).not.toHaveClass('hover:ring', 'hover:ring-inset');
         // Should not have border classes
-        expect(button).not.toHaveClass('border-[length:var(--bw)]');
+        expect(button).not.toHaveClass(BORDER_WIDTH_CLASS);
         expect(button!.className).not.toMatch(/\bborder\b(?!-)/);
       });
     });
@@ -571,16 +577,31 @@ describe('Button Component Tests', () => {
       expect(spinnerRing).toHaveAttribute('aria-hidden', 'true');
     });
 
-    it('should render children as invisible to preserve button width', () => {
+    it('should render children with opacity-0 to preserve button width and accessible name', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Button loading>Save</Button>
         </ThemeProvider>
       );
 
-      const invisibleSpan = container.querySelector('span.invisible');
-      expect(invisibleSpan).toBeInTheDocument();
-      expect(invisibleSpan).toHaveTextContent('Save');
+      // opacity-0 (not invisible/visibility:hidden) keeps the text in the
+      // accessibility tree so the button is still announced as "Save"
+      const hiddenSpan = container.querySelector('span.opacity-0');
+      expect(hiddenSpan).toBeInTheDocument();
+      expect(hiddenSpan).toHaveTextContent('Save');
+      expect(container.querySelector('span.invisible')).not.toBeInTheDocument();
+    });
+
+    it('should keep its accessible name and announce busy state while loading', () => {
+      const {getByRole} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button loading>Save</Button>
+        </ThemeProvider>
+      );
+
+      const button = getByRole('button', {name: 'Save'});
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveAttribute('aria-busy', 'true');
     });
 
     it('should not leak loading prop to DOM as HTML attribute', () => {

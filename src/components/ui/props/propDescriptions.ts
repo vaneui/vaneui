@@ -1,8 +1,6 @@
 /**
  * Auto-generated prop descriptions from JSDoc comments.
  * DO NOT EDIT MANUALLY - Run 'npm run props:generate' to regenerate.
- *
- * Generated on: 2026-06-08T11:26:44.828Z
  */
 
 export interface PropDescription {
@@ -16,6 +14,15 @@ export interface CategoryDescription {
 }
 
 export const PropDescriptions: Record<string, CategoryDescription> = {
+  "disabled": {
+    "name": "Disabled",
+    "description": "Disabled state for interactive components.\nApplies reduced opacity, not-allowed cursor, and disables pointer events.",
+    "props": {
+      "disabled": {
+        "description": "Disable the component — reduces opacity, changes cursor to not-allowed, and prevents interaction"
+      }
+    }
+  },
   "alignSelf": {
     "name": "Align Self",
     "description": "AlignSelf props for overriding a single flex/grid item's cross-axis\nalignment (align-self), independent of the parent's align-items.",
@@ -160,15 +167,6 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "cursorWait": {
         "description": "Wait cursor - indicates loading/processing"
-      }
-    }
-  },
-  "disabled": {
-    "name": "Disabled",
-    "description": "Disabled state for interactive components.\nApplies reduced opacity, not-allowed cursor, and disables pointer events.",
-    "props": {
-      "disabled": {
-        "description": "Disable the component — reduces opacity, changes cursor to not-allowed, and prevents interaction"
       }
     }
   },
@@ -546,7 +544,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
   },
   "maxHeight": {
     "name": "Max Height",
-    "description": "Max-height props for components.\rWhen enabled, applies a size-dependent maximum height via --max-height CSS variable.",
+    "description": "Max-height props for components.\nWhen enabled, applies a size-dependent maximum height via --max-height CSS variable.",
     "props": {
       "maxHeight": {
         "description": "Apply size-dependent maximum height (uses --max-height CSS variable)"
@@ -555,7 +553,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
   },
   "minWidth": {
     "name": "Min Width",
-    "description": "Min-width props for popup/floating components.\rWhen enabled, applies a size-dependent minimum width via --popup-min-w CSS variable.",
+    "description": "Min-width props for popup/floating components.\nWhen enabled, applies a size-dependent minimum width via --popup-min-w CSS variable.",
     "props": {
       "minWidth": {
         "description": "Apply size-dependent minimum width (uses --popup-min-w CSS variable)"
@@ -840,16 +838,22 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "description": "Text alignment props for controlling text position",
     "props": {
       "textLeft": {
-        "description": "Align text to left"
+        "description": "Align text to left (physical side, does not flip under RTL)"
       },
       "textCenter": {
         "description": "Align text to center"
       },
       "textRight": {
-        "description": "Align text to right"
+        "description": "Align text to right (physical side, does not flip under RTL)"
       },
       "textJustify": {
         "description": "Justify text"
+      },
+      "textStart": {
+        "description": "Align text to the reading-direction start (left in LTR, right in RTL)"
+      },
+      "textEnd": {
+        "description": "Align text to the reading-direction end (right in LTR, left in RTL)"
       }
     }
   },

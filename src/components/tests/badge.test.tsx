@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Badge Component Tests', () => {
 
@@ -20,7 +21,7 @@ describe('Badge Component Tests', () => {
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveClass('w-fit', 'h-fit', 'whitespace-nowrap');
-      expect(badge).toHaveClass('text-(length:--fs)'); // md size
+      expect(badge).toHaveClass(FONT_SIZE_CLASS); // md size
       expect(badge).toHaveAttribute('data-size', 'md');
       expect(badge).toHaveClass('text-(--text-color)'); // primary appearance
       expect(badge).toHaveClass('font-sans');
@@ -92,7 +93,7 @@ describe('Badge Component Tests', () => {
       );
 
       const badge = container.querySelector('span');
-      expect(badge).toHaveClass('text-(length:--fs)', 'px-(--px)', 'py-(--py)');
+      expect(badge).toHaveClass(FONT_SIZE_CLASS, 'px-(--px)', 'py-(--py)');
       expect(badge).toHaveAttribute('data-size', 'xs');
     });
 
@@ -104,7 +105,7 @@ describe('Badge Component Tests', () => {
       );
 
       const badge = container.querySelector('span');
-      expect(badge).toHaveClass('text-(length:--fs)', 'px-(--px)', 'py-(--py)');
+      expect(badge).toHaveClass(FONT_SIZE_CLASS, 'px-(--px)', 'py-(--py)');
       expect(badge).toHaveAttribute('data-size', 'lg');
     });
   });

@@ -97,7 +97,7 @@ function ZIndexFixtures() {
         anchorRef={nestedPopupAnchorRef}
         closeOnEscape={false}
         closeOnClickOutside={false}
-        data-testid="z-popup-nested"
+        aria-label="Nested popup" data-testid="z-popup-nested"
       >
         <Text>Popup inside modal</Text>
       </Popup>
@@ -113,7 +113,7 @@ function ZIndexFixtures() {
         anchorRef={popupAnchorRef}
         closeOnEscape={false}
         closeOnClickOutside={false}
-        data-testid="z-popup-standalone"
+        aria-label="Standalone popup" data-testid="z-popup-standalone"
       >
         <Text>Standalone popup</Text>
       </Popup>
@@ -125,6 +125,15 @@ export function TestHarness() {
   return (
     <ThemeProvider>
       <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 32 }}>
+
+        {/* ── No-global-reset guard: BARE elements outside any VaneUI
+            component must keep their user-agent styles — the shipped CSS
+            must never reset the consumer's page ── */}
+        <section data-testid="no-global-reset">
+          <h1 data-testid="bare-h1">Bare heading</h1>
+          <button data-testid="bare-button">Bare button</button>
+          <ul data-testid="bare-ul"><li>item</li></ul>
+        </section>
 
         {/* ── Appearance inheritance: Card → Text/Title ── */}
 
@@ -188,9 +197,9 @@ export function TestHarness() {
         {/* ── Button SVG sizing across size variants ── */}
 
         <section data-testid="icon-sizing">
-          <Button xs data-testid="icon-bare-xs"><StarIcon /></Button>
-          <Button md data-testid="icon-bare-md"><StarIcon /></Button>
-          <Button xl data-testid="icon-bare-xl"><StarIcon /></Button>
+          <Button xs aria-label="star xs" data-testid="icon-bare-xs"><StarIcon /></Button>
+          <Button md aria-label="star md" data-testid="icon-bare-md"><StarIcon /></Button>
+          <Button xl aria-label="star xl" data-testid="icon-bare-xl"><StarIcon /></Button>
         </section>
 
         {/* ── Icon sizing: Badge and Chip ── */}
@@ -490,6 +499,15 @@ export function TestHarness() {
           <Card filled info data-testid="vi-contrast-info">
             <Text data-testid="vi-contrast-text-info">Info filled</Text>
           </Card>
+          <Card filled accent data-testid="vi-contrast-accent">
+            <Text data-testid="vi-contrast-text-accent">Accent filled</Text>
+          </Card>
+          <Card filled tertiary data-testid="vi-contrast-tertiary">
+            <Text data-testid="vi-contrast-text-tertiary">Tertiary filled</Text>
+          </Card>
+          <Card filled link data-testid="vi-contrast-link">
+            <Text data-testid="vi-contrast-text-link">Link filled</Text>
+          </Card>
         </section>
 
         {/* ── Ghost variant: computed styles ── */}
@@ -530,6 +548,11 @@ export function TestHarness() {
             portal={false}
             closeOnClickOutside={false}
             closeOnEscape={false}
+            // axe: this menu is artificially long for size measurements; the
+            // default max-height would make it a scrollable region whose
+            // roving-tabindex items (tabIndex=-1) trip
+            // scrollable-region-focusable
+            className="max-h-none"
           >
             <MenuItem xs data-testid="menu-item-xs">XS item</MenuItem>
             <MenuItem sm data-testid="menu-item-sm">SM item</MenuItem>
@@ -619,23 +642,23 @@ export function TestHarness() {
 
         <section data-testid="checkbox-section">
           {/* Default unchecked checkboxes (filled variant) — must show visible border */}
-          <Checkbox data-testid="checkbox-default" />
-          <Checkbox primary data-testid="checkbox-primary" />
-          <Checkbox success data-testid="checkbox-success" />
-          <Checkbox danger data-testid="checkbox-danger" />
+          <Checkbox aria-label="checkbox default" data-testid="checkbox-default" />
+          <Checkbox primary aria-label="checkbox primary" data-testid="checkbox-primary" />
+          <Checkbox success aria-label="checkbox success" data-testid="checkbox-success" />
+          <Checkbox danger aria-label="checkbox danger" data-testid="checkbox-danger" />
 
           {/* Explicit outline variant */}
-          <Checkbox outline data-testid="checkbox-outline" />
-          <Checkbox outline success data-testid="checkbox-outline-success" />
+          <Checkbox outline aria-label="checkbox outline" data-testid="checkbox-outline" />
+          <Checkbox outline success aria-label="checkbox outline-success" data-testid="checkbox-outline-success" />
 
           {/* Checked checkboxes — filled should fill with color */}
-          <Checkbox defaultChecked data-testid="checkbox-checked-filled" />
-          <Checkbox outline defaultChecked data-testid="checkbox-checked-outline" />
+          <Checkbox defaultChecked aria-label="checkbox checked-filled" data-testid="checkbox-checked-filled" />
+          <Checkbox outline defaultChecked aria-label="checkbox checked-outline" data-testid="checkbox-checked-outline" />
 
           {/* Checkbox on dark background — must be visible */}
           <Card filled primary data-testid="checkbox-dark-bg">
             <Label>
-              <Checkbox data-testid="checkbox-on-dark" />
+              <Checkbox aria-label="checkbox on-dark" data-testid="checkbox-on-dark" />
               Visible on dark
             </Label>
           </Card>
@@ -649,8 +672,8 @@ export function TestHarness() {
           {/* Checkbox with `ring` enabled — used to verify the override sets
               --ring-color (not just --border-color). Default Checkbox has
               `noRing: true`, so ring color stays dormant unless opted in. */}
-          <Checkbox ring data-testid="checkbox-with-ring-unchecked" />
-          <Checkbox outline ring defaultChecked data-testid="checkbox-with-ring-checked-outline" />
+          <Checkbox ring aria-label="checkbox with-ring-unchecked" data-testid="checkbox-with-ring-unchecked" />
+          <Checkbox outline ring defaultChecked aria-label="checkbox with-ring-checked-outline" data-testid="checkbox-with-ring-checked-outline" />
         </section>
 
         {/* ── Overlay: visual appearance and computed styles ── */}
@@ -867,6 +890,188 @@ export function TestHarness() {
               <Input placeholder="you@example.com" data-testid="s3-input" />
             </Label>
           </Col>
+        </section>
+
+        {/* ── Label size propagation: a sized Label flows its size to a nested
+            Input/Checkbox via LabelSizeContext. The standalone controls at the
+            same sizes are the reference the propagated size must match. ── */}
+        {/* aria-label on each control: the Labels carry no text (they exist only
+            to provide the size context), so an explicit name keeps the page free
+            of axe "form elements must have labels" violations. */}
+        <section data-testid="label-size-section">
+          <Label lg>
+            <Checkbox data-testid="lbl-lg-checkbox" aria-label="large checkbox in label" />
+            <Input data-testid="lbl-lg-input" aria-label="large input in label" />
+          </Label>
+          <Label sm>
+            <Checkbox data-testid="lbl-sm-checkbox" aria-label="small checkbox in label" />
+            <Input data-testid="lbl-sm-input" aria-label="small input in label" />
+          </Label>
+          {/* explicit-size references */}
+          <Input lg data-testid="std-lg-input" aria-label="large input" />
+          <Input sm data-testid="std-sm-input" aria-label="small input" />
+          <Checkbox lg data-testid="std-lg-checkbox" aria-label="large checkbox" />
+          <Checkbox sm data-testid="std-sm-checkbox" aria-label="small checkbox" />
+        </section>
+
+        {/* ── Dark mode: [data-theme="dark"] token flip ──
+            The dark block in tokens.css re-declares the color tokens under
+            [data-theme="dark"]. Light references render the SAME elements
+            outside the dark wrapper so dark-mode.spec.ts can assert the
+            computed colors actually flip. */}
+        <section data-testid="dark-mode-section">
+          {/* Light reference column */}
+          <div data-testid="dm-light">
+            <Card data-testid="dm-light-surface">
+              <Button data-testid="dm-light-button-primary">Primary</Button>
+              <Text data-testid="dm-light-text">Inherited text</Text>
+            </Card>
+            {/* Light control for the bare inherit-mode regression case below */}
+            <Text data-testid="dm-light-bare-text">Bare light text</Text>
+          </div>
+
+          {/* Dark column — representative components under a data-theme="dark"
+              subtree. The root surface is a primary-bg Card, painting the
+              dark page surface (gray-950). */}
+          <div data-theme="dark" data-testid="dm-dark">
+            <Card data-testid="dm-dark-surface">
+              <Button data-testid="dm-dark-button-primary">Primary</Button>
+              <Button filled data-testid="dm-dark-button-primary-filled">Primary filled</Button>
+              <Button danger data-testid="dm-dark-button-danger">Danger</Button>
+              <Text data-testid="dm-dark-text">Inherited text</Text>
+              <Badge data-testid="dm-dark-badge">Badge</Badge>
+              <Chip data-testid="dm-dark-chip">Chip</Chip>
+              <Label>
+                <Checkbox aria-label="dark checkbox" data-testid="dm-dark-checkbox" />
+                Dark checkbox
+              </Label>
+              <Label>
+                <span>Email</span>
+                <Input placeholder="you@example.com" aria-label="dark input" data-testid="dm-dark-input" />
+              </Label>
+              <Link href="#" data-testid="dm-dark-link">Dark link</Link>
+            </Card>
+
+            {/* Contrast gate fixtures: all 10 appearances × filled + outline */}
+            <Card filled primary data-testid="dm-contrast-filled-primary"><Text data-testid="dm-contrast-filled-text-primary">Primary filled</Text></Card>
+            <Card filled brand data-testid="dm-contrast-filled-brand"><Text data-testid="dm-contrast-filled-text-brand">Brand filled</Text></Card>
+            <Card filled accent data-testid="dm-contrast-filled-accent"><Text data-testid="dm-contrast-filled-text-accent">Accent filled</Text></Card>
+            <Card filled secondary data-testid="dm-contrast-filled-secondary"><Text data-testid="dm-contrast-filled-text-secondary">Secondary filled</Text></Card>
+            <Card filled tertiary data-testid="dm-contrast-filled-tertiary"><Text data-testid="dm-contrast-filled-text-tertiary">Tertiary filled</Text></Card>
+            <Card filled link data-testid="dm-contrast-filled-link"><Text data-testid="dm-contrast-filled-text-link">Link filled</Text></Card>
+            <Card filled success data-testid="dm-contrast-filled-success"><Text data-testid="dm-contrast-filled-text-success">Success filled</Text></Card>
+            <Card filled danger data-testid="dm-contrast-filled-danger"><Text data-testid="dm-contrast-filled-text-danger">Danger filled</Text></Card>
+            <Card filled warning data-testid="dm-contrast-filled-warning"><Text data-testid="dm-contrast-filled-text-warning">Warning filled</Text></Card>
+            <Card filled info data-testid="dm-contrast-filled-info"><Text data-testid="dm-contrast-filled-text-info">Info filled</Text></Card>
+
+            <Card primary data-testid="dm-contrast-outline-primary"><Text data-testid="dm-contrast-outline-text-primary">Primary outline</Text></Card>
+            <Card brand data-testid="dm-contrast-outline-brand"><Text data-testid="dm-contrast-outline-text-brand">Brand outline</Text></Card>
+            <Card accent data-testid="dm-contrast-outline-accent"><Text data-testid="dm-contrast-outline-text-accent">Accent outline</Text></Card>
+            <Card secondary data-testid="dm-contrast-outline-secondary"><Text data-testid="dm-contrast-outline-text-secondary">Secondary outline</Text></Card>
+            <Card tertiary data-testid="dm-contrast-outline-tertiary"><Text data-testid="dm-contrast-outline-text-tertiary">Tertiary outline</Text></Card>
+            <Card link data-testid="dm-contrast-outline-link"><Text data-testid="dm-contrast-outline-text-link">Link outline</Text></Card>
+            <Card success data-testid="dm-contrast-outline-success"><Text data-testid="dm-contrast-outline-text-success">Success outline</Text></Card>
+            <Card danger data-testid="dm-contrast-outline-danger"><Text data-testid="dm-contrast-outline-text-danger">Danger outline</Text></Card>
+            <Card warning data-testid="dm-contrast-outline-warning"><Text data-testid="dm-contrast-outline-text-warning">Warning outline</Text></Card>
+            <Card info data-testid="dm-contrast-outline-info"><Text data-testid="dm-contrast-outline-text-info">Info outline</Text></Card>
+          </div>
+
+          {/* Architect's regression case: bare inherit-mode Text inside a
+              data-theme="dark" div with NO appearance-bearing wrapper. The
+              :root, [data-theme] defaults block must re-resolve --text-color
+              against the dark tokens at this element — without it, this Text
+              renders the root-resolved LIGHT color. */}
+          <div data-theme="dark" data-testid="dm-dark-bare">
+            <Text data-testid="dm-dark-bare-text">Bare dark text</Text>
+          </div>
+
+          {/* Explicit light marker semantics: data-theme="light" re-declares
+              NO tokens — under <html data-theme="dark"> it must pin
+              color-scheme: light (native controls) while the dark token
+              values still inherit from html. A no-op in the default light
+              page, exercised by the html-level dark tests. */}
+          <div data-theme="light" data-testid="dm-light-pin">
+            <Text data-testid="dm-light-pin-text">Pinned light region</Text>
+          </div>
+        </section>
+
+        {/* ── RTL: logical utilities under dir="rtl" ──
+            The theme layer emits logical utilities for start/end-intent styling
+            (List indent ps-(--pl), Blockquote accent border-s-3 + ps-(--pl),
+            ListItem icon margin me-(--gap), text-start / text-end) so it flips
+            correctly under RTL, while textLeft/textRight stay physical by
+            policy. The SAME elements render once in LTR (controls) and once
+            inside a dir="rtl" wrapper so rtl.spec.ts can assert computed styles
+            for both directions side by side. Alignment Texts are wFull because
+            the Text default is wFit (a fit-width box makes text-align moot). */}
+        <section data-testid="rtl-section">
+          {/* LTR controls */}
+          <div data-testid="rtl-ltr-controls">
+            <List data-testid="ltr-list">
+              <ListItem>First item</ListItem>
+              <ListItem icon={<StarIcon />} data-testid="ltr-list-item-icon">Icon item</ListItem>
+            </List>
+            <Blockquote data-testid="ltr-blockquote">Quoted content</Blockquote>
+            <Text wFull textStart data-testid="ltr-text-start">Start-aligned text</Text>
+            <Text wFull textEnd data-testid="ltr-text-end">End-aligned text</Text>
+            <Text wFull textLeft data-testid="ltr-text-left">Left-aligned text</Text>
+          </div>
+
+          {/* Same elements under dir="rtl" */}
+          <div dir="rtl" data-testid="rtl-wrapper">
+            <List data-testid="rtl-list">
+              <ListItem>First item</ListItem>
+              <ListItem icon={<StarIcon />} data-testid="rtl-list-item-icon">Icon item</ListItem>
+            </List>
+            <Blockquote data-testid="rtl-blockquote">Quoted content</Blockquote>
+            <Text wFull textStart data-testid="rtl-text-start">Start-aligned text</Text>
+            <Text wFull textEnd data-testid="rtl-text-end">End-aligned text</Text>
+            <Text wFull textLeft data-testid="rtl-text-left">Left-aligned text</Text>
+          </div>
+        </section>
+
+        {/* ── Dark portal: PORTALED floating content for the html-level dark
+            tests ──
+            Modal and Menu here keep portal ENABLED (the component default) so
+            their content really lives at the end of document.body, OUTSIDE
+            any in-flow [data-theme] wrapper — only <html data-theme="dark">
+            (the primary documented mode) can theme it. Every other open
+            fixture on this page uses portal={false}. Mounted LAST so the
+            stacking-counter z-index values of the earlier always-open
+            fixtures stay stable. The overlay is pointerEventsNone and the
+            content inherits it, so hit-testing in other specs passes through;
+            scrollLock/focusTrap/Escape handling are off so this fixture never
+            captures page-level interactions from other tests. */}
+        <section data-testid="dark-portal-section">
+          <Modal
+            open
+            noAnimation
+            closeOnOverlayClick={false}
+            closeOnEscape={false}
+            scrollLock={false}
+            focusTrap={false}
+            overlayProps={{
+              pointerEventsNone: true,
+              'data-testid': 'dark-portal-modal-overlay',
+            } as Record<string, unknown>}
+            data-testid="dark-portal-modal-content"
+          >
+            <ModalHeader>Portal dialog</ModalHeader>
+            <ModalBody>
+              <Text data-testid="dark-portal-modal-text">Portaled modal text</Text>
+            </ModalBody>
+          </Modal>
+
+          <Menu
+            defaultOpen
+            noAnimation
+            closeOnClickOutside={false}
+            closeOnEscape={false}
+            trigger={<Button data-testid="dark-portal-menu-trigger">Menu</Button>}
+            data-testid="dark-portal-menu-popup"
+          >
+            <MenuItem data-testid="dark-portal-menu-item">Portaled item</MenuItem>
+          </Menu>
         </section>
 
       </div>

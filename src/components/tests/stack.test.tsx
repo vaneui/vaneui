@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { RING_WIDTH_CLASS, BORDER_WIDTH_CLASS } from './utils/classAssertions';
 
 describe('Stack Component Tests', () => {
 
@@ -151,9 +152,9 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('border-[length:var(--bw)]');
+      expect(stack).toHaveClass(BORDER_WIDTH_CLASS);
       expect(stack).toHaveClass('border-(--border-color)');
-      expect(stack).toHaveClass('ring-[length:var(--rw)]');
+      expect(stack).toHaveClass(RING_WIDTH_CLASS);
       expect(stack).toHaveClass('ring-(--ring-color)');
       expect(stack).toHaveClass('rounded-(--br)');
     });

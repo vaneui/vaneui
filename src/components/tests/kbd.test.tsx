@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
 import { Kbd } from '../ui/kbd';
+import { BORDER_WIDTH_CLASS, FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Kbd Component', () => {
 
@@ -51,7 +52,7 @@ describe('Kbd Component', () => {
       const el = container.querySelector('kbd');
 
       expect(el).toHaveClass('inline');
-      expect(el).toHaveClass('text-(length:--fs)');
+      expect(el).toHaveClass(FONT_SIZE_CLASS);
       expect(el).toHaveAttribute('data-size', 'md');
       expect(el).toHaveClass('px-(--px)');
       expect(el).toHaveClass('py-(--py)');
@@ -67,7 +68,7 @@ describe('Kbd Component', () => {
       const el = container.querySelector('kbd');
 
       expect(el).toHaveClass('border-(--border-color)');
-      expect(el).toHaveClass('border-[length:var(--bw)]');
+      expect(el).toHaveClass(BORDER_WIDTH_CLASS);
     });
 
     it('should emit data-appearance="primary" by default', () => {
@@ -93,7 +94,7 @@ describe('Kbd Component', () => {
         const { container } = render(<Kbd {...{ [size]: true }}>Key</Kbd>);
         const el = container.querySelector('kbd');
 
-        expect(el).toHaveClass('text-(length:--fs)');
+        expect(el).toHaveClass(FONT_SIZE_CLASS);
         expect(el).toHaveAttribute('data-size', size);
         expect(el).toHaveClass('px-(--px)');
         expect(el).toHaveClass('py-(--py)');

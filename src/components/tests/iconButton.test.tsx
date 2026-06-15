@@ -7,6 +7,7 @@ import {
   ThemeProvider,
   defaultTheme
 } from '../../index';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 // Simple SVG icon for testing
 const TestIcon = () => (
@@ -95,7 +96,7 @@ describe('IconButton Component Tests', () => {
 
         const button = container.querySelector('button');
         expect(button).toHaveAttribute('data-size', size);
-        expect(button).toHaveClass('text-(length:--fs)');
+        expect(button).toHaveClass(FONT_SIZE_CLASS);
         expect(button).toHaveClass('aspect-square');
       });
     });
@@ -360,6 +361,80 @@ describe('IconButton Component Tests', () => {
       expect(button).toHaveClass('custom-class');
       expect(button).toHaveClass('aspect-square');
       expect(button).toHaveClass('vane-icon-button');
+    });
+  });
+
+  // Icon-only content gives the button no accessible name — dev builds must
+  // warn when none of aria-label / aria-labelledby / title is set.
+  describe('Accessible Name Dev Warning', () => {
+    let warnSpy: jest.SpyInstance;
+
+    beforeEach(() => {
+      warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    });
+
+    afterEach(() => {
+      warnSpy.mockRestore();
+    });
+
+    it('should warn when mounted without any accessible name', () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <IconButton><TestIcon /></IconButton>
+        </ThemeProvider>
+      );
+
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('IconButton has no accessible name')
+      );
+    });
+
+    it('should not warn when aria-label is set', () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <IconButton aria-label="Settings"><TestIcon /></IconButton>
+        </ThemeProvider>
+      );
+
+      expect(warnSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not warn when aria-labelledby is set', () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <>
+            <span id="icon-button-label">Settings</span>
+            <IconButton aria-labelledby="icon-button-label"><TestIcon /></IconButton>
+          </>
+        </ThemeProvider>
+      );
+
+      expect(warnSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not warn when title is set', () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <IconButton title="Settings"><TestIcon /></IconButton>
+        </ThemeProvider>
+      );
+
+      expect(warnSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not warn in production mode', () => {
+      const previousEnv = process.env.NODE_ENV;
+      process.env.NODE_ENV = 'production';
+      try {
+        render(
+          <ThemeProvider theme={defaultTheme}>
+            <IconButton><TestIcon /></IconButton>
+          </ThemeProvider>
+        );
+        expect(warnSpy).not.toHaveBeenCalled();
+      } finally {
+        process.env.NODE_ENV = previousEnv;
+      }
     });
   });
 });
