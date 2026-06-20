@@ -72,10 +72,11 @@ test.describe('Chip icon sizing', () => {
 // ── Cross-component icon size consistency ────────────────────────────────────
 
 test.describe('Cross-component icon sizing', () => {
-  test('Button and Badge icons use the same sizing formula (fs * lh)', async ({ page }) => {
-    // At the same size prop, Button (lh=1.3) and Badge (lh=lh-base=1.6) have
-    // different line-heights, so exact match isn't expected. But both should
-    // produce icons larger than font-size alone.
+  test('Button and Badge icons both scale with font-size', async ({ page }) => {
+    // Icon size now tracks the component's font-size (icon = fs). Button and
+    // Badge use different font scales at the same size prop (Badge is shifted
+    // down), so exact match isn't expected — but both should produce non-zero
+    // icons.
     for (const size of ['xs', 'md', 'xl'] as const) {
       const badgeIcon = await getSvgWidth(page.locator(`[data-testid="badge-icon-${size}"]`));
       const buttonIcon = await getSvgWidth(page.locator(`[data-testid="button-icon-${size}"]`));
