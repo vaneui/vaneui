@@ -186,6 +186,28 @@ function getJsPosition(
   return { ...bestPos, resolvedPlacement: bestPlacement };
 }
 
+// Derive the popup's ACTUAL placement side from its rendered geometry. On the
+// CSS-anchor path the browser can silently flip via position-try-fallbacks, so
+// the requested placement is stale; comparing the rendered rects recovers the
+// real side — which drives the arrow direction and the public data-placement
+// (B1/B4). The alignment suffix (-start/-end) is preserved from the request.
+function measurePlacement(
+  anchorRect: DOMRect,
+  popupRect: DOMRect,
+  requested: PopupPlacement,
+): PopupPlacement {
+  const isBlockAxis = requested.startsWith('top') || requested.startsWith('bottom');
+  const suffix = requested.endsWith('-start') ? '-start' : requested.endsWith('-end') ? '-end' : '';
+  const anchorCenterX = anchorRect.left + anchorRect.width / 2;
+  const anchorCenterY = anchorRect.top + anchorRect.height / 2;
+  const popupCenterX = popupRect.left + popupRect.width / 2;
+  const popupCenterY = popupRect.top + popupRect.height / 2;
+  const side = isBlockAxis
+    ? (popupCenterY < anchorCenterY ? 'top' : 'bottom')
+    : (popupCenterX < anchorCenterX ? 'left' : 'right');
+  return (side + suffix) as PopupPlacement;
+}
+
 // tests for span-* values (Chrome/Edge 129+), not just basic position-area (Chrome 125+)
 let _supportsAnchorPositioning: boolean | null = null;
 function supportsAnchorPositioning(): boolean {
@@ -369,12 +391,24 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       setResolvedPlacement(pos.resolvedPlacement);
     }, [anchorRef, placement, offset, matchWidth]);
 
+    // CSS-anchor path: read the rendered geometry to recover the side the
+    // browser actually placed the popup on (it may have flipped via
+    // position-try after our styles were applied).
+    const measureCssPlacement = useCallback(() => {
+      const anchor = anchorRef.current;
+      const popup = popupRef.current;
+      if (!anchor || !popup) return;
+      setResolvedPlacement(
+        measurePlacement(anchor.getBoundingClientRect(), popup.getBoundingClientRect(), placement)
+      );
+    }, [anchorRef, placement]);
+
     useIsomorphicLayoutEffect(() => {
       if (!effectiveOpen || !anchorRef.current) return;
 
       if (supportsAnchorPositioning()) {
         setPositionStyles(buildCssAnchorStyles(anchorName, placement, offset, matchWidth));
-        setResolvedPlacement(placement);
+        setResolvedPlacement(placement); // optimistic; corrected post-layout by measureCssPlacement
       } else {
         updateJsPosition();
       }
@@ -394,6 +428,22 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         window.removeEventListener('resize', handleReposition);
       };
     }, [effectiveOpen, updateJsPosition]);
+
+    // CSS-anchor path: correct data-placement (and thus the arrow) from the
+    // browser's actual flip, after layout and on every reposition (B1/B4)
+    useEffect(() => {
+      if (!effectiveOpen || !supportsAnchorPositioning()) return;
+
+      const raf = requestAnimationFrame(measureCssPlacement);
+      window.addEventListener('scroll', measureCssPlacement, true);
+      window.addEventListener('resize', measureCssPlacement);
+
+      return () => {
+        cancelAnimationFrame(raf);
+        window.removeEventListener('scroll', measureCssPlacement, true);
+        window.removeEventListener('resize', measureCssPlacement);
+      };
+    }, [effectiveOpen, measureCssPlacement]);
 
     // only the topmost floating element closes on Escape
     useEffect(() => {

@@ -121,6 +121,40 @@ function ZIndexFixtures() {
   );
 }
 
+/**
+ * Popup arrow / data-placement flip fixture (B1/B4). The anchor is pinned to
+ * the viewport bottom, so a bottom-placed popup has no room below and the
+ * browser flips it to the top via position-try; data-placement must follow the
+ * actual rendered side (which drives the arrow), not the requested one.
+ */
+function ArrowFlipFixtures() {
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  return (
+    <section data-testid="arrow-flip-section">
+      <button
+        ref={anchorRef}
+        data-testid="arrow-flip-anchor"
+        style={{ position: 'fixed', bottom: 4, left: 40, zIndex: 1 }}
+      >
+        anchor
+      </button>
+      <Popup
+        open
+        noAnimation
+        arrow
+        bottomStart
+        anchorRef={anchorRef}
+        closeOnEscape={false}
+        closeOnClickOutside={false}
+        aria-label="flip popup"
+        data-testid="arrow-flip-popup"
+      >
+        <Text>flips up</Text>
+      </Popup>
+    </section>
+  );
+}
+
 export function TestHarness() {
   return (
     <ThemeProvider>
@@ -379,6 +413,10 @@ export function TestHarness() {
         {/* ── Z-Index stacking ── */}
 
         <ZIndexFixtures />
+
+        {/* ── Popup arrow / data-placement flip (B1/B4) ── */}
+
+        <ArrowFlipFixtures />
 
         {/* ── NavLink icon sizing ── */}
 
