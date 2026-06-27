@@ -756,4 +756,42 @@ describe('Button Component Tests', () => {
       expect(button).toHaveClass('[&_svg]:shrink-0');
     });
   });
+
+  describe('Attribute hygiene (U2)', () => {
+    it('strips button-only attrs (type) from a rendered <a>', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button href="/x" type="submit">Link</Button>
+        </ThemeProvider>
+      );
+      const anchor = container.querySelector('a');
+      expect(anchor).toBeInTheDocument();
+      expect(anchor).not.toHaveAttribute('type');
+    });
+
+    it('strips anchor-only attrs (download/target/rel) from a rendered <button>', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Button download="file.pdf" target="_blank" rel="noopener">Save</Button>
+        </ThemeProvider>
+      );
+      const button = container.querySelector('button');
+      expect(button).toBeInTheDocument();
+      expect(button).not.toHaveAttribute('download');
+      expect(button).not.toHaveAttribute('target');
+      expect(button).not.toHaveAttribute('rel');
+    });
+
+    it('keeps valid attrs on each tag (href on <a>, type on <button>)', () => {
+      const { container: a } = render(
+        <ThemeProvider theme={defaultTheme}><Button href="/x">L</Button></ThemeProvider>
+      );
+      expect(a.querySelector('a')).toHaveAttribute('href', '/x');
+
+      const { container: b } = render(
+        <ThemeProvider theme={defaultTheme}><Button type="submit">S</Button></ThemeProvider>
+      );
+      expect(b.querySelector('button')).toHaveAttribute('type', 'submit');
+    });
+  });
 });
