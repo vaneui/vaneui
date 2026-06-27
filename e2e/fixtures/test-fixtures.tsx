@@ -31,6 +31,8 @@ import {
   ListItem,
   Col,
   Stack,
+  Grid4,
+  Grid6,
   Section,
   SectionTitle,
   PageTitle,
@@ -151,6 +153,36 @@ function ArrowFlipFixtures() {
       >
         <Text>flips up</Text>
       </Popup>
+    </section>
+  );
+}
+
+/** Grid column-count fixtures (B10): desktop-first ramps measured at viewports. */
+function GridFixtures() {
+  return (
+    <section data-testid="grid-section">
+      <Grid4 data-testid="grid4">
+        <div>1</div><div>2</div><div>3</div><div>4</div>
+      </Grid4>
+      <Grid6 data-testid="grid6">
+        <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
+      </Grid6>
+    </section>
+  );
+}
+
+/** Interactive nested-submenu fixture (B2): opened via click/keyboard in e2e. */
+function SubmenuFixtures() {
+  return (
+    <section data-testid="submenu-section">
+      <Menu trigger={<Button data-testid="sm-root-trigger">File</Button>} noAnimation>
+        <MenuItem data-testid="sm-new">New</MenuItem>
+        <Menu trigger={<MenuItem data-testid="sm-submenu-trigger">Open Recent</MenuItem>} noAnimation>
+          <MenuItem data-testid="sm-doc1">doc1</MenuItem>
+          <MenuItem data-testid="sm-doc2">doc2</MenuItem>
+        </Menu>
+        <MenuItem data-testid="sm-save">Save</MenuItem>
+      </Menu>
     </section>
   );
 }
@@ -417,6 +449,14 @@ export function TestHarness() {
         {/* ── Popup arrow / data-placement flip (B1/B4) ── */}
 
         <ArrowFlipFixtures />
+
+        {/* ── Grid column counts (B10) ── */}
+
+        <GridFixtures />
+
+        {/* ── Nested submenu (B2) ── */}
+
+        <SubmenuFixtures />
 
         {/* ── NavLink icon sizing ── */}
 
