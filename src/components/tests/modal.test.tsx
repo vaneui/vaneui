@@ -587,6 +587,10 @@ describe('Modal Component Tests', () => {
       expect(closeBtn).toBeInTheDocument();
       expect(closeBtn).toHaveAttribute('aria-label', 'Close');
       expect(closeBtn).toHaveAttribute('type', 'button');
+      // the decorative X is hidden from AT (the button already names itself)
+      const svg = closeBtn!.querySelector('svg');
+      expect(svg).toHaveAttribute('aria-hidden', 'true');
+      expect(svg).toHaveAttribute('focusable', 'false');
     });
 
     it('should call onClose when ModalCloseButton is clicked', () => {
