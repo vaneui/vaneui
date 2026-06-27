@@ -48,9 +48,21 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
           }
         }
 
+        // ArrowLeft inside a submenu closes just that submenu and returns
+        // focus to its trigger (APG submenu pattern); a no-op in a root menu.
+        if (event.key === 'ArrowLeft' && ctx?.isSubmenu && ctx.closeSubmenu) {
+          event.preventDefault();
+          ctx.closeSubmenu();
+        }
+
         if (event.key === 'Escape') {
           event.preventDefault();
-          ctx?.closeMenu();
+          // in a submenu, close only this level; in a root menu, close it
+          if (ctx?.isSubmenu && ctx.closeSubmenu) {
+            ctx.closeSubmenu();
+          } else {
+            ctx?.closeMenu();
+          }
         }
 
         if (event.key === 'Tab') {
@@ -76,8 +88,13 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
         if (!disabled) {
           e.currentTarget.focus();
         }
+        // forward to a composed handler (e.g. a submenu trigger opening on hover)
+        const origMouseEnter = rest.onMouseEnter;
+        if (typeof origMouseEnter === 'function') {
+          (origMouseEnter as (e: React.MouseEvent<HTMLButtonElement>) => void)(e as React.MouseEvent<HTMLButtonElement>);
+        }
       },
-      [disabled]
+      [disabled, rest.onMouseEnter]
     );
 
     const mergedProps = {
