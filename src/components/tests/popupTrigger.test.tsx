@@ -279,6 +279,24 @@ describe('PopupTrigger Component Tests', () => {
 
       expect(getByText('Open')).toHaveAttribute('aria-haspopup', 'menu');
     });
+
+    it('omits aria-haspopup/aria-expanded on a non-button (input) trigger', () => {
+      const { getByPlaceholderText } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger triggerOnFocus popup={<div>Suggestions</div>}>
+            <input placeholder="Search..." />
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      const input = getByPlaceholderText('Search...');
+      // aria-haspopup/aria-expanded are invalid on a textbox role
+      expect(input).not.toHaveAttribute('aria-haspopup');
+      expect(input).not.toHaveAttribute('aria-expanded');
+      // the global aria-controls is still emitted while open
+      fireEvent.focus(input);
+      expect(input).toHaveAttribute('aria-controls');
+    });
   });
 
   describe('Focus Return', () => {

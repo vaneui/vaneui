@@ -181,7 +181,7 @@ function PopupTriggerFixtures() {
         popup={<button data-testid="pt-popup-btn">Inside</button>}
         popupProps={{ 'aria-label': 'focus popup', 'data-testid': 'pt-popup' } as Record<string, unknown>}
       >
-        <button data-testid="pt-trigger">Focus me</button>
+        <input data-testid="pt-trigger" aria-label="Focus me" placeholder="Focus me" />
       </PopupTrigger>
       <button data-testid="pt-outside">outside</button>
     </section>

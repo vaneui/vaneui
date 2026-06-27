@@ -137,13 +137,27 @@ export function PopupTrigger({
   // absent). aria-haspopup + aria-expanded already advertise the relationship.
   const isTooltip = popupRole === 'tooltip';
 
+  // aria-haspopup / aria-expanded are only valid on button-like roles, not on a
+  // plain <input> textbox or generic div/span (axe aria-allowed-attr). When the
+  // trigger is a known non-button element, expose only aria-controls (a global
+  // attribute, valid anywhere); a consumer wanting the combobox pattern can set
+  // role="combobox" on the trigger themselves. Component triggers (e.g. Button)
+  // are assumed button-like.
+  const triggerType = (children as React.ReactElement).type;
+  const triggerSupportsDisclosureAria =
+    typeof triggerType !== 'string' || ['button', 'a', 'summary'].includes(triggerType);
+
   const triggerAria: Record<string, unknown> = isTooltip
     ? { 'aria-describedby': !disabled && open ? popupId : undefined }
-    : {
-        'aria-expanded': disabled ? undefined : open,
-        'aria-haspopup': disabled ? undefined : popupRole,
-        'aria-controls': !disabled && open ? popupId : undefined,
-      };
+    : triggerSupportsDisclosureAria
+      ? {
+          'aria-expanded': disabled ? undefined : open,
+          'aria-haspopup': disabled ? undefined : popupRole,
+          'aria-controls': !disabled && open ? popupId : undefined,
+        }
+      : {
+          'aria-controls': !disabled && open ? popupId : undefined,
+        };
 
   // compose with the trigger's own ref — cloneElement would silently
   // replace a ref the consumer attached to their trigger element
