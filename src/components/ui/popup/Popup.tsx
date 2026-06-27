@@ -11,7 +11,7 @@ import { useStackingContext } from '../../utils/stackingContext';
 import { useControllableState } from '../../utils/controllableState';
 import { useMergedRef } from '../../utils/mergedRef';
 import { pushEscapeHandler } from '../../utils/escapeStack';
-import { getFocusableElements } from '../../utils/focusTrap';
+import { getFocusableElements, useFocusTrap } from '../../utils/focusTrap';
 import { registerOverlay, findOverlayContaining, isInOverlayFamily } from '../../utils/overlayStack';
 
 type PopupPlacement =
@@ -251,6 +251,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       role = 'dialog',
       arrow = false,
       disabled = false,
+      modal = false,
       autoFocus = false,
       onEnterComplete,
       onExitComplete,
@@ -302,7 +303,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     // into the popup on open so keyboard users can reach its content;
     // focus-return on close is the opener's responsibility
     useEffect(() => {
-      if (!effectiveOpen || !autoFocus) return;
+      // when modal, useFocusTrap below owns focus-in / trap / return
+      if (!effectiveOpen || !autoFocus || modal) return;
 
       const raf = requestAnimationFrame(() => {
         const popup = popupRef.current;
@@ -318,7 +320,23 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       });
 
       return () => cancelAnimationFrame(raf);
-    }, [effectiveOpen, autoFocus]);
+    }, [effectiveOpen, autoFocus, modal]);
+
+    // modal Popup-as-dialog: trap Tab focus, move focus in on open, return it
+    // on close (mirrors Modal). A non-modal Popup keeps its lightweight autoFocus.
+    useFocusTrap(popupRef, effectiveOpen && modal, { returnFocus: true });
+
+    // dev-only: a modal dialog with no accessible name is an ARIA violation
+    useEffect(() => {
+      if (process.env.NODE_ENV !== 'production' && effectiveOpen && modal) {
+        const p = props as Record<string, unknown>;
+        if (!p['aria-label'] && !p['aria-labelledby']) {
+          console.warn(
+            'VaneUI: a modal Popup has no accessible name — set aria-label or aria-labelledby so screen readers can announce the dialog.'
+          );
+        }
+      }
+    }, [effectiveOpen, modal]);
 
     const mergedRef = useMergedRef(ref, popupRef);
 
@@ -450,7 +468,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const popupId = props.id || `popup-${anchorName}`;
 
-    const mergedProps = { ...props, id: popupId, role, ...anchorSelfProps(placement), ...(isDetached ? { pointerEventsNone: true } : {}) };
+    const mergedProps = { ...props, id: popupId, role, ...(modal ? { 'aria-modal': true } : {}), ...anchorSelfProps(placement), ...(isDetached ? { pointerEventsNone: true } : {}) };
 
     const content = (
       <ThemedComponent

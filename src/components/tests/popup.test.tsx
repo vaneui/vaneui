@@ -1264,4 +1264,33 @@ describe('Popup Component Tests', () => {
       expect(popup).not.toHaveAttribute('minWidth');
     });
   });
+
+  describe('Modal dialog (A3)', () => {
+    it('emits aria-modal="true" when modal', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open modal role="dialog" aria-label="Settings" anchorRef={anchorRef}>
+            <button>Inside</button>
+          </Popup>
+        </ThemeProvider>
+      );
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('aria-modal', 'true');
+      expect(popup).toHaveAttribute('role', 'dialog');
+      expect(popup).toHaveAttribute('aria-label', 'Settings');
+    });
+
+    it('does not emit aria-modal for a non-modal popup', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open anchorRef={anchorRef}>
+            <div>Plain</div>
+          </Popup>
+        </ThemeProvider>
+      );
+      expect(baseElement.querySelector('.vane-popup')).not.toHaveAttribute('aria-modal');
+    });
+  });
 });
