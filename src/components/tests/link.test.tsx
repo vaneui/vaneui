@@ -531,4 +531,36 @@ describe('External Link Behavior', () => {
     const link = container.querySelector('a');
     expect(link).not.toHaveAttribute('external');
   });
+
+  describe('Disabled (R1)', () => {
+    it('applies the aria-disabled pattern: focusable, no href, navigation blocked', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="/locked" disabled>Locked</Link>
+        </ThemeProvider>
+      );
+      const link = container.querySelector('a') as HTMLElement;
+      expect(link).toBeInTheDocument();
+      // href removed (an <a> ignores native disabled), aria-disabled set
+      expect(link).not.toHaveAttribute('href');
+      expect(link).toHaveAttribute('aria-disabled', 'true');
+      expect(link).toHaveAttribute('role', 'link');
+      // stays in the tab order per the aria-disabled pattern
+      expect(link).toHaveAttribute('tabindex', '0');
+      expect(link).not.toHaveAttribute('disabled');
+      // click/keydown suppression is wired by resolveDisabledLink (covered in
+      // disabled-link.test.tsx); the dropped href already prevents navigation
+    });
+
+    it('renders a normal link when not disabled', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="/x">Go</Link>
+        </ThemeProvider>
+      );
+      const link = container.querySelector('a');
+      expect(link).toHaveAttribute('href', '/x');
+      expect(link).not.toHaveAttribute('aria-disabled');
+    });
+  });
 });

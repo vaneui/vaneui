@@ -370,6 +370,11 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       typeof componentTag !== 'string' || NATIVE_DISABLED_TAGS.has(componentTag);
     if (rawProps.disabled !== undefined && supportsNativeDisabled) {
       other.disabled = rawProps.disabled;
+    } else if (!supportsNativeDisabled && 'disabled' in other) {
+      // a tag that doesn't support native disabled (e.g. <a>, <span>) must not
+      // carry a leaked `disabled` attribute — the state is exposed via
+      // data-disabled / aria-disabled instead
+      delete other.disabled;
     }
 
     // drop attributes that don't belong on the resolved tag
