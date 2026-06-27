@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, type ReactNode } from 'react';
 import type { LinkProps } from "./LinkProps";
 import { useTheme } from "../../../themeContext";
 import { ThemedComponent } from "../../../themedComponent";
@@ -23,7 +23,20 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
     // (aria-disabled pattern); a no-op when not disabled
     const resolvedProps = resolveDisabledLink(derivedProps, !!rest.disabled);
 
-    return <ThemedComponent ref={ref} theme={theme?.link ?? defaultLinkTheme} {...resolvedProps} />;
+    // a link opening a new tab needs a programmatically-available advisory
+    // (SC 3.2.2). Append a visually-hidden note so AT announces it with no
+    // visual change; skipped for disabled links (no navigation happens) and
+    // when the consumer already provided an aria-label.
+    const opensNewWindow =
+      finalTarget === '_blank' && !rest.disabled && !(rest as { 'aria-label'?: string })['aria-label'];
+    const { children, ...linkProps } = resolvedProps as typeof resolvedProps & { children?: ReactNode };
+
+    return (
+      <ThemedComponent ref={ref} theme={theme?.link ?? defaultLinkTheme} {...linkProps}>
+        {children}
+        {opensNewWindow && <span className="sr-only"> (opens in new window)</span>}
+      </ThemedComponent>
+    );
   }
 );
 

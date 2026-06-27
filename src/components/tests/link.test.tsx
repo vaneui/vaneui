@@ -563,4 +563,36 @@ describe('External Link Behavior', () => {
       expect(link).not.toHaveAttribute('aria-disabled');
     });
   });
+
+  describe('New-window advisory (R8)', () => {
+    it('appends a visually-hidden advisory to an external link', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="https://example.com" external>GitHub</Link>
+        </ThemeProvider>
+      );
+      const link = container.querySelector('a') as HTMLElement;
+      const advisory = link.querySelector('.sr-only');
+      expect(advisory).toBeInTheDocument();
+      expect(advisory).toHaveTextContent('opens in new window');
+    });
+
+    it('does not append the advisory to a same-tab link', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="/internal">Docs</Link>
+        </ThemeProvider>
+      );
+      expect(container.querySelector('a .sr-only')).not.toBeInTheDocument();
+    });
+
+    it('defers to a consumer-provided aria-label', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Link href="https://example.com" external aria-label="GitHub (new window)">GitHub</Link>
+        </ThemeProvider>
+      );
+      expect(container.querySelector('a .sr-only')).not.toBeInTheDocument();
+    });
+  });
 });
