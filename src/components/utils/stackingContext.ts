@@ -21,18 +21,18 @@ function getLayerBaseZ(layer: ZLayer): number {
   return LAYER_DEFAULTS[layer];
 }
 
-// Monotonic acquisition counter: every newly opened element gets a strictly
-// higher offset than any element opened before it. Decrementing on close
-// would hand a new element the same z-index as a still-open one (open A →
-// open B → close A → open C left C colliding with B). The counter only
-// resets when nothing is open, so values don't grow unbounded.
-let stackCounter = 0;
-let openCount = 0;
+// Currently-open z-indexes. A newly opened element always sits one above the
+// highest element already open (max + 1), while never dropping below its own
+// layer floor. This keeps the NEWEST overlay on top regardless of layer —
+// fixing the inversion where a popup (floor 300) opened before a modal
+// (floor 200) stayed visually above the later modal. Decrementing/reusing
+// values on close would let a new element collide with a still-open one, so
+// closed entries are simply removed and the next element still takes max + 1.
+let openZIndexes: number[] = [];
 
 // test cleanup
 export function resetStackCount() {
-  stackCounter = 0;
-  openCount = 0;
+  openZIndexes = [];
 }
 
 // The layout effect prevents a flash where nested elements paint behind
@@ -52,15 +52,14 @@ export function useStackingContext(open: boolean, layer: ZLayer = 'overlay'): nu
       return;
     }
 
-    openCount++;
-    stackCounter++;
-    setZIndex(baseZ + stackCounter);
+    const currentMax = openZIndexes.length ? Math.max(...openZIndexes) : 0;
+    const z = Math.max(baseZ + 1, currentMax + 1);
+    openZIndexes.push(z);
+    setZIndex(z);
 
     return () => {
-      openCount--;
-      if (openCount === 0) {
-        stackCounter = 0;
-      }
+      const idx = openZIndexes.indexOf(z);
+      if (idx !== -1) openZIndexes.splice(idx, 1);
     };
   }, [open, layer]);
 

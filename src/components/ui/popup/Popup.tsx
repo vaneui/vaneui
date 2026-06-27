@@ -12,6 +12,7 @@ import { useControllableState } from '../../utils/controllableState';
 import { useMergedRef } from '../../utils/mergedRef';
 import { pushEscapeHandler } from '../../utils/escapeStack';
 import { getFocusableElements } from '../../utils/focusTrap';
+import { registerOverlay, findOverlayContaining, isInOverlayFamily } from '../../utils/overlayStack';
 
 type PopupPlacement =
   | 'top'
@@ -382,6 +383,18 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       return pushEscapeHandler(() => onCloseRef.current?.());
     }, [effectiveOpen, closeOnEscape]);
 
+    // register in the shared overlay stack so nested popups know their lineage:
+    // the parent is resolved from the anchor (a child popup's trigger lives
+    // inside its parent's content). DOM ancestry can't establish this because
+    // each popup portals to document.body as a sibling.
+    useEffect(() => {
+      if (!effectiveOpen) return;
+      const popup = popupRef.current;
+      if (!popup) return;
+      const parent = findOverlayContaining(anchorRef.current);
+      return registerOverlay(popup, parent);
+    }, [effectiveOpen, anchorRef]);
+
     useEffect(() => {
       if (!effectiveOpen || !closeOnClickOutside) return;
 
@@ -390,7 +403,9 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         const popup = popupRef.current;
         const anchor = anchorRef.current;
 
-        if (popup?.contains(target) || anchor?.contains(target)) {
+        // "inside" includes any portaled child popup in this popup's family —
+        // interacting with a submenu/nested popup must not close its parent.
+        if ((popup && isInOverlayFamily(target, popup)) || anchor?.contains(target)) {
           return;
         }
 
