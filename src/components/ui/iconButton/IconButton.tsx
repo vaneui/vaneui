@@ -39,7 +39,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       const loadingProps = { ...resolvedProps, disabled: true as const, 'data-loading': 'true', 'aria-busy': true as const };
       return (
         <ThemedComponent ref={ref} theme={iconButtonTheme} {...loadingProps}>
-          <ThemedComponent theme={spinnerTheme}>
+          {/* decorative spinner — aria-busy on the button already conveys the loading state */}
+          <ThemedComponent theme={spinnerTheme} aria-hidden="true">
             {spinnerTheme.themes.spinnerElement()}
           </ThemedComponent>
           {/* opacity-0 (not invisible) — keeps the children in the accessibility

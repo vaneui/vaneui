@@ -69,10 +69,11 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
     return (
       <ThemedComponent theme={wrapperTheme} ref={ref} className={className} {...themeProps}>
         <ThemedComponent theme={checkboxInputTheme} ref={inputRef} {...inputProps} />
-        <ThemedComponent theme={checkTheme}>
+        {/* decorative overlays — the real state lives on the <input>; hide them from AT */}
+        <ThemedComponent theme={checkTheme} aria-hidden="true">
           {checkTheme.themes.checkElement()}
         </ThemedComponent>
-        <ThemedComponent theme={indeterminateTheme}>
+        <ThemedComponent theme={indeterminateTheme} aria-hidden="true">
           {indeterminateTheme.themes.indeterminateElement()}
         </ThemedComponent>
       </ThemedComponent>

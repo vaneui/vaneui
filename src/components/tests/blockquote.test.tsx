@@ -60,7 +60,7 @@ describe('Blockquote Component', () => {
       expect(el).toHaveAttribute('data-size', 'md');
       expect(el).toHaveClass('w-full');
       expect(el).toHaveClass('font-sans');
-      expect(el).toHaveClass('text-left');
+      expect(el).toHaveClass('text-start');
       expect(el).toHaveClass('text-(--text-color)');
     });
 

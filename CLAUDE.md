@@ -108,7 +108,8 @@ When a task matches an agent's trigger below, you **MUST** delegate to that agen
 | Category | Components | `data-vane-type` |
 |----------|-----------|-----------------|
 | **Interactive** | Button, IconButton, Badge, Chip, Code, Kbd, Mark, Input, Checkbox, Label, Icon | `ui` |
-| **Overlay / Floating** | Overlay, Modal (+ Header/Body/Footer/CloseButton), Popup, PopupTrigger, Menu (+ Item/Label), NavLink | `ui` |
+| **Overlay / Floating** | Overlay, Modal (+ Header/Body/Footer), Popup | `layout` |
+| **Menu / Nav** | Menu (+ Item/Label), NavLink, ModalCloseButton, PopupTrigger | `ui` |
 | **Layout** | Card (+ Header/Body/Footer), Section, Container, Row, Col, Stack, Grid2–6, Divider, Img | `layout` |
 | **Typography** | Text, Title, SectionTitle, PageTitle, Link, List, ListItem, Blockquote | `ui` |
 

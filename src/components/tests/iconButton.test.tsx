@@ -32,7 +32,7 @@ describe('IconButton Component Tests', () => {
       expect(button).toHaveClass('vane-icon-button');
       expect(button).toHaveClass('inline-flex', 'items-center', 'justify-center');
       expect(button).toHaveClass('cursor-pointer');
-      expect(button).toHaveAttribute('data-size', 'md');
+      expect(button).toHaveAttribute('data-size', 'sm');
       expect(button).toHaveAttribute('data-vane-type', 'ui');
       // Default IconButton has non-inherit appearance → emits data attributes
       expect(button).toHaveAttribute('data-variant', 'outline');
