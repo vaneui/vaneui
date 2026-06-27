@@ -17,6 +17,7 @@ import {
   ModalHeader,
   ModalBody,
   Popup,
+  PopupTrigger,
   Menu,
   MenuItem,
   MenuLabel,
@@ -167,6 +168,22 @@ function GridFixtures() {
       <Grid6 data-testid="grid6">
         <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
       </Grid6>
+    </section>
+  );
+}
+
+/** Focus-group fixture (R9): a focus-triggered popup with a focusable inside. */
+function PopupTriggerFixtures() {
+  return (
+    <section data-testid="popuptrigger-section">
+      <PopupTrigger
+        triggerOnFocus
+        popup={<button data-testid="pt-popup-btn">Inside</button>}
+        popupProps={{ 'aria-label': 'focus popup', 'data-testid': 'pt-popup' } as Record<string, unknown>}
+      >
+        <button data-testid="pt-trigger">Focus me</button>
+      </PopupTrigger>
+      <button data-testid="pt-outside">outside</button>
     </section>
   );
 }
@@ -457,6 +474,10 @@ export function TestHarness() {
         {/* ── Nested submenu (B2) ── */}
 
         <SubmenuFixtures />
+
+        {/* ── PopupTrigger focus group (R9) ── */}
+
+        <PopupTriggerFixtures />
 
         {/* ── NavLink icon sizing ── */}
 

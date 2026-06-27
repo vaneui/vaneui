@@ -385,4 +385,48 @@ describe('PopupTrigger Component Tests', () => {
       expect(onOpenChange).toHaveBeenLastCalledWith(false);
     });
   });
+
+  describe('Focus group (R9)', () => {
+    it('stays open when focus moves from the trigger into the popup', () => {
+      const { getByPlaceholderText, baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger triggerOnFocus popup={<button>Inside</button>}>
+            <input placeholder="Search..." />
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      fireEvent.focus(getByPlaceholderText('Search...'));
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+
+      // focus moves INTO the popup — relatedTarget is within the group
+      const insideBtn = baseElement.querySelector('.vane-popup button') as HTMLElement;
+      fireEvent.blur(getByPlaceholderText('Search...'), { relatedTarget: insideBtn });
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+    });
+
+    it('closes when focus leaves both the trigger and the popup', () => {
+      jest.useFakeTimers();
+      const outside = document.createElement('button');
+      document.body.appendChild(outside);
+      const { getByPlaceholderText, baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <PopupTrigger triggerOnFocus popup={<button>Inside</button>}>
+            <input placeholder="Search..." />
+          </PopupTrigger>
+        </ThemeProvider>
+      );
+
+      fireEvent.focus(getByPlaceholderText('Search...'));
+      expect(baseElement.querySelector('.vane-popup')).toBeInTheDocument();
+
+      // focus leaves the group entirely
+      fireEvent.blur(getByPlaceholderText('Search...'), { relatedTarget: outside });
+      act(() => { jest.advanceTimersByTime(200); });
+      expect(baseElement.querySelector('.vane-popup')).not.toBeInTheDocument();
+
+      document.body.removeChild(outside);
+      jest.useRealTimers();
+    });
+  });
 });
