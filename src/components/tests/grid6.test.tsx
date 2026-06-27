@@ -18,10 +18,8 @@ describe('Grid6 Component Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-1'); // mobile screens: 1 column
-      expect(grid).toHaveClass('sm:grid-cols-2'); // small screens: 2 columns
-      expect(grid).toHaveClass('md:grid-cols-4'); // medium screens: 4 columns
-      expect(grid).toHaveClass('lg:grid-cols-6'); // large screens and up: 6 columns
+      expect(grid).toHaveClass('grid-cols-6'); // desktop/laptop: 6 columns
+      expect(grid).toHaveClass('max-mobile:grid-cols-3'); // collapses to 3 columns on mobile (≤768px)
       expect(grid).toHaveClass('grid'); // grid display
       expect(grid).toHaveClass('gap-(--gap)'); // default md gap
       expect(grid).toHaveTextContent('Grid6 content');
@@ -269,7 +267,7 @@ describe('Grid6 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-4', 'lg:grid-cols-6'); // theme classes
+      expect(grid).toHaveClass('grid-cols-6', 'max-mobile:grid-cols-3'); // theme classes
       expect(grid).toHaveClass('custom-grid-class'); // custom class
     });
 
@@ -289,7 +287,7 @@ describe('Grid6 Component Tests', () => {
 
       const section = container.querySelector('section');
       expect(section).toBeInTheDocument();
-      expect(section).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-4', 'lg:grid-cols-6');
+      expect(section).toHaveClass('grid-cols-6', 'max-mobile:grid-cols-3');
     });
 
 
@@ -364,7 +362,7 @@ describe('Grid6 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-4', 'lg:grid-cols-6');
+      expect(grid).toHaveClass('grid-cols-6', 'max-mobile:grid-cols-3');
       
       // All children should be present
       for (let i = 1; i <= 12; i++) {
@@ -388,10 +386,8 @@ describe('Grid6 Component Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toHaveClass(
-        'grid-cols-1', // mobile screens
-        'sm:grid-cols-2', // small screens
-        'md:grid-cols-4', // medium screens
-        'lg:grid-cols-6', // large screens and up
+        'grid-cols-6', // desktop/laptop
+        'max-mobile:grid-cols-3', // collapses on mobile
         'gap-(--gap)', // lg gap
         'max-mobile:hidden' // hidden on mobile screens
       );

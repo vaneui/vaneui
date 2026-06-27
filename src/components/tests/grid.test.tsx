@@ -23,8 +23,8 @@ describe('Grid Components Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-1'); // mobile and small screens: 1 column
-      expect(grid).toHaveClass('md:grid-cols-2'); // medium screens and up: 2 columns
+      expect(grid).toHaveClass('grid-cols-2'); // desktop/laptop: 2 columns
+      expect(grid).toHaveClass('max-mobile:grid-cols-1'); // collapses to 1 column on mobile (≤768px)
       expect(grid).toHaveClass('grid');
       expect(grid).toHaveClass('gap-(--gap)'); // default md gap
       expect(grid).toHaveTextContent('Grid2 content');
@@ -56,7 +56,7 @@ describe('Grid Components Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--gap)', 'grid');
+      expect(grid).toHaveClass('grid-cols-3', 'max-mobile:grid-cols-1', 'gap-(--gap)', 'grid');
     });
 
     it('should have no default appearance classes', () => {
@@ -194,7 +194,7 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-3', 'gap-(--gap)', 'grid'); // theme classes
+      expect(grid).toHaveClass('grid-cols-3', 'max-mobile:grid-cols-1', 'gap-(--gap)', 'grid'); // theme classes
       expect(grid).toHaveClass('custom-grid3-class'); // custom class
     });
 
@@ -223,7 +223,7 @@ describe('Grid Components Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--gap)', 'grid');
+      expect(grid).toHaveClass('grid-cols-4', 'max-mobile:grid-cols-2', 'gap-(--gap)', 'grid');
     });
 
     it('should have no default appearance classes', () => {
@@ -359,7 +359,7 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-4', 'gap-(--gap)', 'grid'); // theme classes
+      expect(grid).toHaveClass('grid-cols-4', 'max-mobile:grid-cols-2', 'gap-(--gap)', 'grid'); // theme classes
       expect(grid).toHaveClass('custom-grid4-class'); // custom class
     });
 
@@ -395,8 +395,8 @@ describe('Grid Components Tests', () => {
       const grid3 = container3.querySelector('div');
       const grid4 = container4.querySelector('div');
 
-      expect(grid3).toHaveClass('md:grid-cols-3');
-      expect(grid4).toHaveClass('lg:grid-cols-4');
+      expect(grid3).toHaveClass('grid-cols-3');
+      expect(grid4).toHaveClass('grid-cols-4');
 
       // Both should share common grid properties
       expect(grid3).toHaveClass('grid', 'gap-(--gap)');
