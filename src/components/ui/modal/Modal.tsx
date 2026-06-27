@@ -7,6 +7,7 @@ import { defaultModalContentTheme } from './defaultModalContentTheme';
 import { defaultModalOverlayTheme } from './defaultModalOverlayTheme';
 import { useScrollLock } from '../../utils/scrollLock';
 import { useFocusTrap } from '../../utils/focusTrap';
+import { useInertBackground } from '../../utils/inertBackground';
 import { useControllableState } from '../../utils/controllableState';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
@@ -84,6 +85,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   ) {
     const theme = useTheme();
     const contentRef = useRef<HTMLDivElement>(null);
+    const overlayRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useControllableState({
       value: openProp,
       defaultValue: defaultOpen,
@@ -114,6 +116,11 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       [returnFocus, initialFocus]
     );
     useFocusTrap(contentRef, open && focusTrap, focusTrapOptions);
+
+    // neutralize the page behind the dialog for AT/focus (the focus trap only
+    // guards the Tab boundary); skips the dialog's own portal and any overlay
+    // portaled out of it (e.g. an in-modal menu).
+    useInertBackground(open, overlayRef);
 
     // only the topmost floating element closes on Escape
     useEffect(() => {
@@ -190,6 +197,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
     const content = (
       <ThemedComponent
+        ref={overlayRef}
         theme={theme?.modal.overlay ?? defaultModalOverlayTheme}
         data-state={isHidden ? undefined : overlayTransition.state}
         aria-hidden={isHidden || undefined}

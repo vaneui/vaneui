@@ -1247,4 +1247,48 @@ describe('Modal Component Tests', () => {
       expect(baseElement.querySelector('.vane-modal-header')).not.toBeInTheDocument();
     });
   });
+
+  describe('Background inert (B3)', () => {
+    it('inerts background body children while open and restores them on close', () => {
+      const bg = document.createElement('div');
+      document.body.appendChild(bg);
+
+      const { rerender } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={false} onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+      expect(bg).not.toHaveAttribute('inert');
+
+      rerender(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+      expect(bg).toHaveAttribute('inert');
+      expect(bg).toHaveAttribute('aria-hidden', 'true');
+
+      rerender(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={false} onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+      expect(bg).not.toHaveAttribute('inert');
+      expect(bg).not.toHaveAttribute('aria-hidden');
+
+      document.body.removeChild(bg);
+    });
+
+    it('does not inert the dialog’s own portal', () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+      const dialog = document.querySelector('[role="dialog"]') as HTMLElement;
+      const overlayChild = Array.from(document.body.children).find((c) => c.contains(dialog)) as HTMLElement;
+      expect(overlayChild).toBeTruthy();
+      expect(overlayChild).not.toHaveAttribute('inert');
+    });
+  });
 });
