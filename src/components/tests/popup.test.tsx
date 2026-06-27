@@ -1293,4 +1293,45 @@ describe('Popup Component Tests', () => {
       expect(baseElement.querySelector('.vane-popup')).not.toHaveAttribute('aria-modal');
     });
   });
+
+  describe('Detached (hideWhenDetached)', () => {
+    it('hides a detached popup from AT (aria-hidden) when the anchor scrolls away', () => {
+      let trigger: ((entries: { isIntersecting: boolean }[]) => void) | null = null;
+      const OriginalIO = global.IntersectionObserver;
+      // minimal IntersectionObserver mock that lets the test drive intersection
+      class MockIO {
+        constructor(cb: (entries: { isIntersecting: boolean }[]) => void) { trigger = cb; }
+        observe() {}
+        disconnect() {}
+        unobserve() {}
+        takeRecords() { return []; }
+        root = null;
+        rootMargin = '';
+        thresholds = [];
+      }
+      global.IntersectionObserver = MockIO as unknown as typeof IntersectionObserver;
+
+      try {
+        const anchorRef = createAnchorRef();
+        const { baseElement } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Popup open hideWhenDetached anchorRef={anchorRef} aria-label="p">
+              <div>content</div>
+            </Popup>
+          </ThemeProvider>
+        );
+
+        const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+        // intersecting → visible, not hidden from AT
+        expect(popup).not.toHaveAttribute('aria-hidden');
+
+        // anchor scrolled out of view → detached
+        act(() => { trigger?.([{ isIntersecting: false }]); });
+        expect(popup).toHaveAttribute('aria-hidden', 'true');
+        expect(popup).toHaveClass('invisible');
+      } finally {
+        global.IntersectionObserver = OriginalIO;
+      }
+    });
+  });
 });

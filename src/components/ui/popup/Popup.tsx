@@ -532,7 +532,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
           ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } : undefined),
           ...positionStyles,
         } as React.CSSProperties}
-        aria-hidden={isHidden || undefined}
+        aria-hidden={(isHidden || isDetached) || undefined}
         {...mergedProps}
       >
         {children}
