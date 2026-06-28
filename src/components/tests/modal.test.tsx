@@ -560,7 +560,7 @@ describe('Modal Component Tests', () => {
   });
 
   describe('ModalCloseButton', () => {
-    it('should not render close button when not placed in modal', () => {
+    it('shows a close button by default even without a title (floating, not in a header)', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
           <Modal open={true} onClose={() => {}}>
@@ -570,7 +570,21 @@ describe('Modal Component Tests', () => {
       );
 
       const closeBtn = baseElement.querySelector('.vane-modal-close');
-      expect(closeBtn).not.toBeInTheDocument();
+      expect(closeBtn).toBeInTheDocument();
+      // no title → no ModalHeader; the close button floats top-right instead
+      expect(baseElement.querySelector('.vane-modal-header')).not.toBeInTheDocument();
+      expect(closeBtn!.closest('.vane-modal-header')).toBeNull();
+    });
+
+    it('omits the close button when withCloseButton={false}', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} withCloseButton={false}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+      expect(baseElement.querySelector('.vane-modal-close')).not.toBeInTheDocument();
     });
 
     it('should render ModalCloseButton with correct attributes', () => {
@@ -1055,7 +1069,7 @@ describe('Modal Component Tests', () => {
       expect(closeBtn).not.toBeInTheDocument();
     });
 
-    it('withCloseButton={true} renders close button even without title', () => {
+    it('renders a close button without a title (floating, not in a header)', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
           <Modal open={true} onClose={() => {}} withCloseButton={true}>
@@ -1064,10 +1078,9 @@ describe('Modal Component Tests', () => {
         </ThemeProvider>
       );
 
-      const header = baseElement.querySelector('.vane-modal-header');
-      expect(header).toBeInTheDocument();
-      const closeBtn = header?.querySelector('.vane-modal-close');
-      expect(closeBtn).toBeInTheDocument();
+      // no title → no ModalHeader; the close button still renders (floating)
+      expect(baseElement.querySelector('.vane-modal-header')).not.toBeInTheDocument();
+      expect(baseElement.querySelector('.vane-modal-close')).toBeInTheDocument();
     });
 
     it('children are wrapped in ModalBody in convenience mode', () => {

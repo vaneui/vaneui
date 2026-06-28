@@ -19,6 +19,7 @@ import { ModalHeader } from './ModalHeader';
 import { ModalBody } from './ModalBody';
 import { ModalFooter } from './ModalFooter';
 import { ModalCloseButton } from './ModalCloseButton';
+import { Row } from '../row/Row';
 import { getModalPart } from './modalParts';
 
 // Any ModalHeader/ModalBody/ModalFooter among the children switches Modal
@@ -142,7 +143,11 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     );
 
     const isCompoundMode = containsModalSection(children);
-    const showCloseButton = withCloseButton ?? (title !== undefined);
+    // a dismissible dialog always offers a close affordance (decoupled from
+    // `title`); opt out with withCloseButton={false}. With a title it sits in
+    // the header; without one it floats in the dialog's top-right corner so
+    // there's no empty header.
+    const showCloseButton = withCloseButton ?? true;
 
     // dev-only: a dialog with no accessible name is an ARIA violation
     // (mirrors IconButton). Computed synchronously so it never false-fires —
@@ -228,11 +233,16 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
               children
             ) : (
               <>
-                {(title !== undefined || showCloseButton) && (
+                {title !== undefined && (
                   <ModalHeader>
                     {title}
                     {showCloseButton && <ModalCloseButton />}
                   </ModalHeader>
+                )}
+                {title === undefined && showCloseButton && (
+                  <Row justifyEnd>
+                    <ModalCloseButton />
+                  </Row>
                 )}
                 <ModalBody>{children}</ModalBody>
                 {footer !== undefined && (
