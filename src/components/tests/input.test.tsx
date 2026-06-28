@@ -434,6 +434,8 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveAttribute('data-readonly', 'true');
+      // S5: also expose aria-readonly explicitly
+      expect(input).toHaveAttribute('aria-readonly', 'true');
     });
 
     it('should pass readOnly through to native input element', () => {

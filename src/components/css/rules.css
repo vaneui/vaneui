@@ -551,6 +551,9 @@
         caret-color: transparent;
         --bg-hover-color: var(--bg-color);
         --bg-active-color: var(--bg-color);
+        /* muted so it reads as non-editable; lighter than disabled (0.5) since
+           a read-only field is still selectable/submittable */
+        opacity: 0.7;
     }
 
     /* APPEARANCE × VARIANT — two independent axes that compose:

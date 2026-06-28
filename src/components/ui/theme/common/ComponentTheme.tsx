@@ -414,6 +414,9 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     }
     if (rawProps.readOnly) {
       dataAttributes['data-readonly'] = 'true';
+      if (rawProps['aria-readonly'] === undefined) {
+        dataAttributes['aria-readonly'] = 'true';
+      }
     }
     // error state must be AT-perceivable, not color-only: emit aria-invalid
     // (unless the consumer set it explicitly) alongside a data-status hook

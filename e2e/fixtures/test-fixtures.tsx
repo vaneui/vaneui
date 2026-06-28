@@ -1011,6 +1011,9 @@ export function TestHarness() {
           <Input sm data-testid="std-sm-input" aria-label="small input" />
           <Checkbox lg data-testid="std-lg-checkbox" aria-label="large checkbox" />
           <Checkbox sm data-testid="std-sm-checkbox" aria-label="small checkbox" />
+          {/* read-only vs editable (S5: muted look) */}
+          <Input readOnly value="read only" aria-label="readonly input" data-testid="ro-input" />
+          <Input value="editable" onChange={() => {}} aria-label="editable input" data-testid="rw-input" />
         </section>
 
         {/* ── Dark mode: [data-theme="dark"] token flip ──
