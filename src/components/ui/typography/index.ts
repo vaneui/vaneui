@@ -7,6 +7,7 @@ export { Text, textDefaults, defaultTextTheme, textTheme } from './text';
 
 // Blockquote component
 export { Blockquote, blockquoteDefaults, defaultBlockquoteTheme, blockquoteTheme } from './blockquote';
+export type { BlockquoteProps } from './blockquote';
 
 // Title component
 export { Title, titleDefaults, defaultTitleTheme, titleTheme } from './title';

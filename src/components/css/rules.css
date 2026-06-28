@@ -255,6 +255,15 @@
     .vane-blockquote[data-size="md"] { --fs-unit: var(--fs-unit-md); }
     .vane-blockquote[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-blockquote[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    /* visible source line rendered by the Blockquote `cite` prop — em-relative
+       so it scales with the quote, muted, and not italic */
+    .vane-blockquote-cite {
+        display: block;
+        margin-block-start: 0.5em;
+        font-size: 0.875em;
+        font-style: normal;
+        opacity: 0.75;
+    }
 
     /* Link */
     .vane-link { --lh: var(--lh-base); --icon-size: var(--fs-em); --ls: var(--ls-base); }

@@ -163,4 +163,24 @@ describe('Blockquote Component', () => {
       expect(el).toHaveClass('vane-blockquote');
     });
   });
+
+  describe('cite (R11)', () => {
+    it('sets the cite attribute and renders a visible <cite> source', () => {
+      const { container } = render(
+        <Blockquote cite="https://example.com/source">Quoted text</Blockquote>
+      );
+      const el = container.querySelector('blockquote') as HTMLElement;
+      expect(el).toHaveAttribute('cite', 'https://example.com/source');
+      const source = el.querySelector('cite.vane-blockquote-cite');
+      expect(source).toBeInTheDocument();
+      expect(source).toHaveTextContent('https://example.com/source');
+    });
+
+    it('renders no <cite> when cite is omitted', () => {
+      const { container } = render(<Blockquote>Quoted text</Blockquote>);
+      const el = container.querySelector('blockquote') as HTMLElement;
+      expect(el).not.toHaveAttribute('cite');
+      expect(el.querySelector('cite')).toBeNull();
+    });
+  });
 });
