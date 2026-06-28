@@ -646,4 +646,57 @@ describe('Input Component Tests', () => {
       expect(input).toHaveAttribute('data-status', 'error');
     });
   });
+
+  describe('Error icon (A5 — themed element, not a CSS background-image)', () => {
+    it('renders a decorative, aria-hidden error-icon element when error is set', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input error placeholder="Error input" />
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('.vane-input-error-icon');
+      expect(icon).toBeInTheDocument();
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+      expect(icon!.querySelector('svg')).toBeInTheDocument();
+      // the void <input> is wrapped so the icon can overlay its trailing edge
+      const wrapper = container.querySelector('.vane-input-wrapper');
+      expect(wrapper).toBeInTheDocument();
+      expect(wrapper!.querySelector('input.vane-input')).toBeInTheDocument();
+    });
+
+    it('does not render the error icon (or wrapper) without error', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input placeholder="OK input" />
+        </ThemeProvider>
+      );
+      expect(container.querySelector('.vane-input-error-icon')).not.toBeInTheDocument();
+      expect(container.querySelector('.vane-input-wrapper')).not.toBeInTheDocument();
+    });
+
+    it('forwards ref to the <input>, not the wrapper, in the error state', () => {
+      let node: HTMLInputElement | null = null;
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input error ref={(el) => { node = el; }} placeholder="Error input" />
+        </ThemeProvider>
+      );
+      expect(node).toBeInstanceOf(HTMLInputElement);
+    });
+
+    it('lets a consumer swap the icon via themeOverride (customizable)', () => {
+      const { container } = render(
+        <ThemeProvider
+          theme={defaultTheme}
+          themeOverride={(t) => {
+            t.inputErrorIcon.themes.errorIconElement = () => <svg data-testid="custom-error-icon" />;
+            return t;
+          }}
+        >
+          <Input error placeholder="Error input" />
+        </ThemeProvider>
+      );
+      expect(container.querySelector('[data-testid="custom-error-icon"]')).toBeInTheDocument();
+    });
+  });
 });

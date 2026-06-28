@@ -99,6 +99,7 @@ describe('Theme structure consistency', () => {
       label: {},
       img: {},
       input: {},
+      inputErrorIcon: {},
       overlay: {},
       modal: {},
       popup: {},

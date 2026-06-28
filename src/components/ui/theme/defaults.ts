@@ -25,6 +25,7 @@ import { checkboxIndeterminateDefaults } from '../checkbox/checkboxIndeterminate
 import { labelDefaults } from '../label/labelDefaults';
 import { imgDefaults } from '../img/imgDefaults';
 import { inputDefaults } from '../input/inputDefaults';
+import { inputErrorIconDefaults } from '../input/inputErrorIconDefaults';
 import { overlayDefaults } from '../overlay/overlayDefaults';
 import { kbdDefaults } from '../kbd/kbdDefaults';
 import { markDefaults } from '../mark/markDefaults';
@@ -98,6 +99,7 @@ export const themeDefaults: ThemeDefaults = {
   label: labelDefaults,
   img: imgDefaults,
   input: inputDefaults,
+  inputErrorIcon: inputErrorIconDefaults,
   overlay: overlayDefaults,
   modal: {
     content: modalContentDefaults,

@@ -4,3 +4,8 @@ export { INPUT_CATEGORIES } from './InputCategories';
 export type { InputTheme } from './InputTheme';
 export { inputDefaults } from './inputDefaults';
 export { defaultInputTheme } from './defaultInputTheme';
+export type { InputErrorIconProps } from './InputErrorIconProps';
+export { INPUT_ERROR_ICON_CATEGORIES } from './InputErrorIconCategories';
+export type { InputErrorIconTheme } from './InputErrorIconTheme';
+export { inputErrorIconDefaults } from './inputErrorIconDefaults';
+export { defaultInputErrorIconTheme } from './defaultInputErrorIconTheme';

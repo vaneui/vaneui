@@ -184,13 +184,11 @@
     .vane-input[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
     .vane-input[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-input[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
-    /* ERROR STATE — a non-color cue (alert icon) so the error isn't conveyed by
-       the red border alone (SC 1.4.1); sits on the trailing edge, em-scaled. */
+    /* ERROR STATE — the non-color cue (SC 1.4.1) is a themed element rendered by
+       <Input> (the inputErrorIcon sub-theme), not a CSS background-image, so it
+       stays customizable. Here we only reserve trailing room so the value text
+       doesn't run under the overlaid icon. */
     .vane-input[data-status="error"] {
-        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23ef4444'><path d='M10 2a8 8 0 100 16 8 8 0 000-16zm0 4a1 1 0 011 1v4a1 1 0 11-2 0V7a1 1 0 011-1zm0 8a1.25 1.25 0 100-2.5 1.25 1.25 0 000 2.5z'/></svg>");
-        background-repeat: no-repeat;
-        background-position: right 0.625em center;
-        background-size: 1.125em;
         padding-inline-end: calc(var(--px) + 1.5em);
     }
 

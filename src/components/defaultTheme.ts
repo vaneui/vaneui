@@ -34,6 +34,7 @@ import { defaultCheckboxWrapperTheme } from './ui/checkbox/defaultCheckboxWrappe
 import { defaultLabelTheme } from './ui/label/defaultLabelTheme';
 import { defaultImgTheme } from './ui/img/defaultImgTheme';
 import { defaultInputTheme } from './ui/input/defaultInputTheme';
+import { defaultInputErrorIconTheme } from './ui/input/defaultInputErrorIconTheme';
 import { defaultOverlayTheme } from './ui/overlay/defaultOverlayTheme';
 import { defaultModalContentTheme } from './ui/modal/defaultModalContentTheme';
 import { defaultModalOverlayTheme } from './ui/modal/defaultModalOverlayTheme';
@@ -99,6 +100,7 @@ export const defaultTheme: ThemeProps = {
   label: defaultLabelTheme,
   img: defaultImgTheme,
   input: defaultInputTheme,
+  inputErrorIcon: defaultInputErrorIconTheme,
   overlay: defaultOverlayTheme,
   modal: {
     content: defaultModalContentTheme,
