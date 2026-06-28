@@ -606,4 +606,19 @@ describe('Checkbox Component Tests', () => {
       expect(wrapper).not.toHaveClass('opacity-50');
     });
   });
+
+  describe('Decorative overlays hidden from AT (S4)', () => {
+    it('marks the check and indeterminate overlay spans aria-hidden (state lives on the <input>)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Checkbox /></ThemeProvider>
+      );
+      const wrapper = container.firstElementChild as HTMLElement;
+      // wrapper children = the real <input> + the two decorative overlays
+      const decorative = Array.from(wrapper.children).filter((c) => c.tagName !== 'INPUT');
+      expect(decorative).toHaveLength(2);
+      decorative.forEach((el) => expect(el).toHaveAttribute('aria-hidden', 'true'));
+      // the input itself must NOT be hidden — it carries the actual checkbox state
+      expect(wrapper.querySelector('input')).not.toHaveAttribute('aria-hidden');
+    });
+  });
 });

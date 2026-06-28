@@ -297,6 +297,11 @@ describe('IconButton Component Tests', () => {
 
       const spinnerRing = container.querySelector('.vane-button-spinner-ring');
       expect(spinnerRing).toBeInTheDocument();
+
+      // S4: the spinner is decorative — aria-busy on the button already conveys
+      // the loading state, so the spinner wrapper must be hidden from AT
+      expect(button).toHaveAttribute('aria-busy', 'true');
+      expect(spinnerRing!.closest('[aria-hidden="true"]')).toBeInTheDocument();
     });
 
     it('should not leak loading prop to DOM', () => {

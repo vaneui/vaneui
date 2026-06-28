@@ -12,6 +12,7 @@ import {
   defaultTheme
 } from '../../index';
 import { resetStackCount } from '../utils/stackingContext';
+import { registerOverlay, resetOverlayStack } from '../utils/overlayStack';
 
 describe('Modal Component Tests', () => {
   beforeEach(() => { resetStackCount(); });
@@ -1306,6 +1307,33 @@ describe('Modal Component Tests', () => {
       const overlayChild = Array.from(document.body.children).find((c) => c.contains(dialog)) as HTMLElement;
       expect(overlayChild).toBeTruthy();
       expect(overlayChild).not.toHaveAttribute('inert');
+    });
+
+    it('does not inert an in-modal overlay portaled to body (C6)', () => {
+      // an overlay (e.g. an in-modal menu) portals its content to body as a
+      // sibling of the dialog and registers itself in the overlay stack
+      const inModalOverlay = document.createElement('div');
+      inModalOverlay.textContent = 'in-modal menu';
+      document.body.appendChild(inModalOverlay);
+      const unregister = registerOverlay(inModalOverlay, null);
+
+      // an unrelated background sibling that SHOULD be neutralized
+      const bg = document.createElement('div');
+      document.body.appendChild(bg);
+
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+
+      expect(bg).toHaveAttribute('inert');                 // unrelated background is inert
+      expect(inModalOverlay).not.toHaveAttribute('inert'); // the in-modal overlay stays reachable
+
+      unregister();
+      resetOverlayStack();
+      inModalOverlay.remove();
+      bg.remove();
     });
   });
 });
