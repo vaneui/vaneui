@@ -542,6 +542,24 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "margin": {
+    "name": "Margin",
+    "description": "Margin props for controlling external spacing.\nThe value is size-driven (scales with the component's size prop, like gap).",
+    "props": {
+      "margin": {
+        "description": "Enable margin on all sides"
+      },
+      "marginX": {
+        "description": "Enable only horizontal (inline) margin"
+      },
+      "marginY": {
+        "description": "Enable only vertical (block) margin"
+      },
+      "noMargin": {
+        "description": "Disable margin (reset to 0)"
+      }
+    }
+  },
   "maxHeight": {
     "name": "Max Height",
     "description": "Max-height props for components.\nWhen enabled, applies a size-dependent maximum height via --max-height CSS variable.",

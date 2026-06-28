@@ -25,6 +25,7 @@ export * from './textAlignProps';
 
 // Layout and spacing
 export * from './paddingProps';
+export * from './marginProps';
 export * from './gapProps';
 export * from './borderProps';
 export * from './shadowProps';

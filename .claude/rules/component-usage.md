@@ -598,6 +598,29 @@ Text alignment offers both modes:
 <Button sm>
 ```
 
+## Margins (layout components)
+
+Layout components (`Card`, `Row`, `Col`, `Stack`, `Section`, `Container`, `Grid*`) have size-driven external-spacing props — the margin scales with the size prop, like `gap`/`padding`:
+
+```tsx
+<Card margin>All-sides margin</Card>
+<Section marginY>Vertical margin only</Section>
+<Row marginX>Horizontal margin only</Row>
+<Col noMargin>Reset margin</Col>
+```
+
+For a **single side** (`mt-4`) or an **exact value**, use `className` — there is no per-side margin prop.
+
+## Full-width children (Container / Section)
+
+`Container` and `Section` align children on the cross axis (`itemsCenter` / `itemsStart`), so a child shrinks to its content width. To make a child fill the column, add `itemsStretch` on the parent (or `wFull` on the child):
+
+```tsx
+<Container itemsStretch>
+  <Card>Fills the container width</Card>
+</Container>
+```
+
 ## className Usage
 
 `className` is for things VaneUI props don't cover (width, height, custom positioning, etc.):

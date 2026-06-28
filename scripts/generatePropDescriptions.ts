@@ -39,6 +39,7 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'RingProps': 'ring',
   'FocusVisibleProps': 'focusVisible',
   'PaddingProps': 'padding',
+  'MarginProps': 'margin',
   'GapProps': 'gap',
   'WrapProps': 'wrap',
   'FlexProps': 'flex',

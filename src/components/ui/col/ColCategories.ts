@@ -1,6 +1,7 @@
 import {
   LAYOUT_FULL,
   PADDING,
+  MARGIN,
   VISUAL_LAYOUT,
   VARIANT,
   BREAKPOINT,
@@ -15,6 +16,7 @@ import {
 export const COL_CATEGORIES = [
   ...LAYOUT_FULL,
   ...PADDING,
+  ...MARGIN,
   ...VISUAL_LAYOUT,
   ...VARIANT,
   ...BREAKPOINT,

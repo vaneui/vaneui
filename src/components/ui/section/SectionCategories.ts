@@ -2,6 +2,7 @@ import {
   LAYOUT_FULL,
   VISUAL_LAYOUT,
   PADDING,
+  MARGIN,
   BREAKPOINT,
   VARIANT,
   WIDTH,
@@ -11,4 +12,4 @@ import {
 } from "../props/categoryBuilders";
 
 /** Categories for section layout components with full responsive support */
-export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...BREAKPOINT, ...VARIANT, ...WIDTH, ...HEIGHT, ...TEXT_ALIGN, ...COMMON_MODIFIERS] as const;
+export const SECTION_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...PADDING, ...MARGIN, ...BREAKPOINT, ...VARIANT, ...WIDTH, ...HEIGHT, ...TEXT_ALIGN, ...COMMON_MODIFIERS] as const;
