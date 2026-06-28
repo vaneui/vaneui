@@ -1014,6 +1014,9 @@ export function TestHarness() {
           {/* read-only vs editable (S5: muted look) */}
           <Input readOnly value="read only" aria-label="readonly input" data-testid="ro-input" />
           <Input value="editable" onChange={() => {}} aria-label="editable input" data-testid="rw-input" />
+          {/* error vs normal (A5: non-color alert-icon cue) */}
+          <Input error aria-label="error input" data-testid="err-input" />
+          <Input aria-label="normal input" data-testid="ok-input" />
         </section>
 
         {/* ── Dark mode: [data-theme="dark"] token flip ──
