@@ -59,10 +59,11 @@ test.describe('Checkbox aligns to the first text row', () => {
   });
 });
 
-test.describe('Input label stays vertically centered', () => {
-  test('sample 3: input and its label text share a vertical center', async ({ page }) => {
+test.describe('Input label stacks above the input (U1)', () => {
+  test('sample 3: the input sits below its label text (Label defaults to column)', async ({ page }) => {
     const input = await centerY(page, 's3-input');
     const labelText = await centerY(page, 's3-label-text');
-    expect(Math.abs(input - labelText)).toBeLessThanOrEqual(CENTER_TOLERANCE);
+    // default <Label> now stacks label-above-input, so the input is lower
+    expect(input).toBeGreaterThan(labelText);
   });
 });

@@ -962,9 +962,9 @@ export function TestHarness() {
             multi-line content (via the wrapper's selfStart default); an Input
             label stays vertically centered. Uses the exact reported samples. */}
         <section data-testid="label-align-section" style={{ width: 320 }}>
-          {/* Sample 1: checkbox + wrapping single-paragraph text */}
+          {/* Sample 1: checkbox + wrapping single-paragraph text (inline → row) */}
           <Col>
-            <Label htmlFor="terms">
+            <Label htmlFor="terms" row>
               <Checkbox id="terms" data-testid="s1-checkbox" />
               <span data-testid="s1-text">
                 I agree to the <Link href="#">Terms of Service</Link> and{' '}
@@ -972,8 +972,8 @@ export function TestHarness() {
               </span>
             </Label>
 
-            {/* Sample 2: checkbox + two stacked Text rows */}
-            <Label htmlFor="emails">
+            {/* Sample 2: checkbox + two stacked Text rows (inline → row) */}
+            <Label htmlFor="emails" row>
               <Checkbox defaultChecked id="emails" data-testid="s2-checkbox" />
               <Col noGap tag="span">
                 <Text data-testid="s2-text-first">Receive product updates</Text>
@@ -982,7 +982,7 @@ export function TestHarness() {
             </Label>
           </Col>
 
-          {/* Sample 3: text label + input — must stay vertically centered */}
+          {/* Sample 3: text label + input — default Label now stacks (U1) */}
           <Col noGap>
             <Label>
               <span data-testid="s3-label-text">Email</span>

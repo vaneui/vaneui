@@ -151,7 +151,7 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 | **Input** | md, primary, outline, rounded, wFull, ring, focusVisible |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noRing, noShadow, noShrink, noTransition, wFit |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
-| **Label** | sm, flex, gap, inherit, medium |
+| **Label** | sm, flex, column, itemsStart, gap, inherit, medium (use `row` for inline controls like Checkbox) |
 | **Modal** | md, wFull, flex, column, overflowAuto, relative, noPadding, gap, rounded, shadow, primary, outline |
 | **Container** | md, wFull, flex, column, itemsCenter, gap, noPadding, outline, sharp |
 | **Section** | md, wFull, flex, column, itemsStart, gap, padding, noBorder, noRing, noShadow, outline, sharp, responsive |

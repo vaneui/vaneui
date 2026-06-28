@@ -137,7 +137,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Quoted content | `Blockquote` | Left border accent, inherits parent appearance |
 | Text input | `Input` | Renders `<input>`, all HTML input attrs |
 | Toggle | `Checkbox` | Custom styled, use inside `Label` |
-| Input label | `Label` | Flex row with gap, sm size, inherit appearance |
+| Input label | `Label` | Flex **column** (label above field) with gap, sm size, inherit appearance. Use `row` for inline controls (e.g. Checkbox) |
 | Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `decimal` |
 | Horizontal rule | `Divider` | Thin line separator |
 | Image | `Img` | Rounded by default |
@@ -178,6 +178,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 <Card>
   <Stack>
     <Title>Sign Up</Title>
+    {/* Label stacks label-above-field by default (flex column) */}
     <Label>
       Email
       <Input type="email" placeholder="you@example.com" />
@@ -186,7 +187,8 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
       Password
       <Input type="password" placeholder="********" />
     </Label>
-    <Label>
+    {/* inline control + text: use `row` (optionally `itemsCenter`) */}
+    <Label row>
       <Checkbox />
       I agree to the terms
     </Label>
