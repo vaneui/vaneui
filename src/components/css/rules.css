@@ -7,10 +7,7 @@
         --py: calc(var(--py-unit) * var(--spacing));
         --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
         --gap: calc(var(--gap-unit) * var(--spacing));
-        /* External margin (the `margin` props) is its own token so it can be
-           overridden independently, but defaults to the gap rhythm — external
-           and internal inter-element spacing share one scale by design, with no
-           separate per-size ladder to keep in sync. */
+        /* margin props get their own token, defaulting to the gap rhythm (overridable) */
         --margin: var(--gap);
         --fs: calc(var(--fs-unit) * var(--fs-base));
         /* Icon defaults to the element's own font-size (1em), giving a single
@@ -189,13 +186,7 @@
     .vane-input[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
     .vane-input[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-input[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
-    /* ERROR STATE — the non-color cue (SC 1.4.1) is a themed element rendered by
-       <Input> (the inputErrorIcon sub-theme), not a CSS background-image. Reserve
-       trailing room for the overlaid icon from size variables only: normal
-       padding + a generous icon budget (--icon-size) + a gap. The icon itself
-       sizes to half the overlay height ([&>svg]:h-1/2, which tracks the input
-       height) and offsets by --gap from the shared size ladder, so it needs no
-       per-size block of its own — no duplication of the input's --fs-unit scale. */
+    /* reserve trailing room for the overlaid alert icon (the inputErrorIcon sub-theme) */
     .vane-input[data-status="error"] {
         padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
     }
@@ -270,9 +261,6 @@
     .vane-blockquote[data-size="md"] { --fs-unit: var(--fs-unit-md); }
     .vane-blockquote[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-blockquote[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
-    /* The visible source line for <Blockquote cite> is a themed <cite>
-       (defaultBlockquoteCiteTheme): block + not-italic + tertiary color + a
-       --gap top margin all come from the theme, so no CSS rule is needed here. */
 
     /* Link */
     .vane-link { --lh: var(--lh-base); --icon-size: var(--fs-em); --ls: var(--ls-base); }
@@ -563,9 +551,7 @@
         animation: vane-spin 0.6s linear infinite;
     }
 
-    /* READ-ONLY STATE — only the bits with no class/prop equivalent live here;
-       opacity + cursor come from ReadOnlyClassMapper (opacity-70 cursor-default),
-       mirroring how [data-disabled] leaves opacity/cursor to DisabledClassMapper. */
+    /* read-only: only the bits with no class equivalent — opacity/cursor are in ReadOnlyClassMapper */
     [data-readonly="true"] {
         caret-color: transparent;
         --bg-hover-color: var(--bg-color);
