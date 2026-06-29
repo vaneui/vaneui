@@ -117,6 +117,7 @@ export interface ThemeProps {
   title: ComponentTheme<TypographyProps, TypographyTheme>;
   text: ComponentTheme<TypographyProps, TypographyTheme>;
   blockquote: ComponentTheme<TypographyProps, TypographyTheme>;
+  blockquoteCite: ComponentTheme<TypographyProps, TypographyTheme>;
   link: ComponentTheme<TypographyProps, LinkTheme>;
   listItem: ComponentTheme<TypographyProps, ListItemTheme>;
   list: ComponentTheme<ListProps, ListTheme>;

@@ -46,6 +46,7 @@ import { defaultPopupTheme } from './ui/popup/defaultPopupTheme';
 import { defaultIconButtonTheme } from './ui/iconButton/defaultIconButtonTheme';
 import { defaultIconTheme } from './ui/icon/defaultIconTheme';
 import { defaultBlockquoteTheme } from './ui/typography/blockquote/defaultBlockquoteTheme';
+import { defaultBlockquoteCiteTheme } from './ui/typography/blockquote/defaultBlockquoteCiteTheme';
 import { defaultKbdTheme } from './ui/kbd/defaultKbdTheme';
 import { defaultMarkTheme } from './ui/mark/defaultMarkTheme';
 import { defaultMenuItemTheme } from './ui/menu/defaultMenuItemTheme';
@@ -88,6 +89,7 @@ export const defaultTheme: ThemeProps = {
   title: defaultTitleTheme,
   text: defaultTextTheme,
   blockquote: defaultBlockquoteTheme,
+  blockquoteCite: defaultBlockquoteCiteTheme,
   link: defaultLinkTheme,
   listItem: defaultListItemTheme,
   list: defaultListTheme,

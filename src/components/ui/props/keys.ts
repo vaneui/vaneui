@@ -479,7 +479,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'overlay', 'modal', 'popup', 'menu', 'navLink'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'overlay', 'modal', 'popup', 'menu', 'navLink'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -517,6 +517,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   stack: STACK_CATEGORIES,
   text: TYPOGRAPHY_CATEGORIES,
   blockquote: TYPOGRAPHY_CATEGORIES,
+  blockquoteCite: TYPOGRAPHY_CATEGORIES,
   title: TYPOGRAPHY_CATEGORIES,
   overlay: OVERLAY_CATEGORIES,
   modal: MODAL_CATEGORIES,

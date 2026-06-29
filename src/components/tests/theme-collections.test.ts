@@ -92,6 +92,7 @@ describe('Theme structure consistency', () => {
       title: {},
       text: {},
       blockquote: {},
+      blockquoteCite: {},
       link: {},
       list: {},
       listItem: {},

@@ -339,6 +339,8 @@ export function TestHarness() {
           <Blockquote data-testid="blockquote-md">MD blockquote</Blockquote>
           <Blockquote lg data-testid="blockquote-lg">LG blockquote</Blockquote>
           <Blockquote xl data-testid="blockquote-xl">XL blockquote</Blockquote>
+          {/* cite source line — themed <cite>, muted via tertiary token (not opacity) */}
+          <Blockquote cite="Ada Lovelace" data-testid="blockquote-cited">Quoted text</Blockquote>
         </section>
 
         {/* ── Kbd ── */}

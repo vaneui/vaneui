@@ -4,6 +4,7 @@ import { useTheme } from "../../../themeContext";
 import { ThemedComponent } from "../../../themedComponent";
 import { warnSemanticTagOverride } from "../../../utils/warnSemanticTag";
 import { defaultBlockquoteTheme } from "./defaultBlockquoteTheme";
+import { defaultBlockquoteCiteTheme } from "./defaultBlockquoteCiteTheme";
 
 export type BlockquoteProps = TypographyProps & {
   /** Source of the quote: sets the `<blockquote cite>` attribute and renders a
@@ -16,10 +17,13 @@ export const Blockquote = forwardRef<HTMLQuoteElement, BlockquoteProps>(
     const theme = useTheme();
     warnSemanticTagOverride('Blockquote', rest.tag, ['blockquote']);
     const { cite } = rest;
+    // the source line is a themed <cite> (see defaultBlockquoteCiteTheme) — no
+    // raw CSS literals; muted color, spacing and font all come from the theme
+    const citeTheme = theme?.blockquoteCite ?? defaultBlockquoteCiteTheme;
     return (
       <ThemedComponent ref={ref} theme={theme?.blockquote ?? defaultBlockquoteTheme} {...rest}>
         {children}
-        {cite && <cite className="vane-blockquote-cite">{cite}</cite>}
+        {cite && <ThemedComponent theme={citeTheme}>{cite}</ThemedComponent>}
       </ThemedComponent>
     );
   }

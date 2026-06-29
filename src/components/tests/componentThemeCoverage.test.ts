@@ -13,7 +13,7 @@ import { defaultChipTheme } from "../ui/chip/defaultChipTheme";
 import { defaultCodeTheme } from "../ui/code/defaultCodeTheme";
 import { defaultKbdTheme } from "../ui/kbd";
 import { defaultMarkTheme } from "../ui/mark";
-import { defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultLinkTheme, defaultListTheme, defaultListItemTheme, LIST_CATEGORIES, LIST_ITEM_CATEGORIES } from "../ui/typography";
+import { defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultBlockquoteCiteTheme, defaultLinkTheme, defaultListTheme, defaultListItemTheme, LIST_CATEGORIES, LIST_ITEM_CATEGORIES } from "../ui/typography";
 import { defaultGrid2Theme } from "../ui/grid/defaultGrid2Theme";
 import { defaultGrid3Theme } from "../ui/grid/defaultGrid3Theme";
 import { defaultGrid4Theme } from "../ui/grid/defaultGrid4Theme";
@@ -836,6 +836,10 @@ describe("Component theme coverage tests", () => {
     it("should ensure defaultMenuDividerTheme has handlers for all its default props", () => {
       tester.testThemeDefaults("defaultMenuDividerTheme", defaultMenuDividerTheme);
     });
+
+    it("should ensure defaultBlockquoteCiteTheme has handlers for all its default props", () => {
+      tester.testThemeDefaults("defaultBlockquoteCiteTheme", defaultBlockquoteCiteTheme);
+    });
   });
 
   // Completeness check — ensures every ComponentTheme in defaultTheme is tested above.
@@ -867,7 +871,7 @@ describe("Component theme coverage tests", () => {
       defaultInputTheme,
       defaultNavLinkTheme,
       // Typography
-      defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme,
+      defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultBlockquoteCiteTheme,
       defaultLinkTheme,
       defaultListTheme, defaultListItemTheme,
       // Layout
