@@ -1035,6 +1035,7 @@ export function TestHarness() {
             <Card data-testid="dm-light-surface">
               <Button data-testid="dm-light-button-primary">Primary</Button>
               <Text data-testid="dm-light-text">Inherited text</Text>
+              <Input error aria-label="light error input" data-testid="dm-light-error-input" />
             </Card>
             {/* Light control for the bare inherit-mode regression case below */}
             <Text data-testid="dm-light-bare-text">Bare light text</Text>
@@ -1059,6 +1060,8 @@ export function TestHarness() {
                 <span>Email</span>
                 <Input placeholder="you@example.com" aria-label="dark input" data-testid="dm-dark-input" />
               </Label>
+              {/* error input — border + icon must use the danger TOKEN, which flips under dark */}
+              <Input error aria-label="dark error input" data-testid="dm-dark-error-input" />
               <Link href="#" data-testid="dm-dark-link">Dark link</Link>
             </Card>
 

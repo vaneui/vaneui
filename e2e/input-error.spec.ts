@@ -22,15 +22,14 @@ test.describe('Error input cue (A5)', () => {
     ).toHaveCount(0);
   });
 
-  test('the error icon is decorative (aria-hidden) and shares the error color', async ({ page }) => {
+  test('the error icon is decorative (aria-hidden) and uses the danger color token', async ({ page }) => {
     const icon = page.locator('.vane-input-error-icon').first();
     await expect(icon).toHaveAttribute('aria-hidden', 'true');
-    // the icon color (text-red-500, inherited by the svg via fill=currentColor)
-    // matches the input's error border — a cue that tracks the error styling
-    // rather than a hardcoded hex
+    // the icon color is text-(--color-text-danger) (svg follows via fill=currentColor):
+    // a distinct danger color, NOT the normal input text color — token-driven, not hardcoded
     const iconColor = await getStyle(icon, 'color');
-    const borderColor = await getStyle(page.locator('[data-testid="err-input"]'), 'border-top-color');
-    expect(iconColor).toBe(borderColor);
+    const normalText = await getStyle(page.locator('[data-testid="ok-input"]'), 'color');
+    expect(iconColor).not.toBe(normalText);
   });
 
   test('error input is marked aria-invalid', async ({ page }) => {

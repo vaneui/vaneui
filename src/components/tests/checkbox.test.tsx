@@ -415,8 +415,8 @@ describe('Checkbox Component Tests', () => {
 
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
-      expect(checkbox).toHaveClass('border-red-500');
-      expect(checkbox).toHaveClass('ring-red-500/30');
+      expect(checkbox).toHaveClass('border-(--color-border-danger)');
+      expect(checkbox).toHaveClass('ring-(--color-border-danger)/30');
     });
 
     it('should not apply error classes when error is false', () => {
@@ -427,8 +427,8 @@ describe('Checkbox Component Tests', () => {
       );
 
       const checkbox = container.querySelector('input[type="checkbox"]');
-      expect(checkbox).not.toHaveClass('border-red-500');
-      expect(checkbox).not.toHaveClass('ring-red-500/30');
+      expect(checkbox).not.toHaveClass('border-(--color-border-danger)');
+      expect(checkbox).not.toHaveClass('ring-(--color-border-danger)/30');
     });
 
     it('should work with other props alongside error', () => {
@@ -439,7 +439,7 @@ describe('Checkbox Component Tests', () => {
       );
 
       const checkbox = container.querySelector('input[type="checkbox"]');
-      expect(checkbox).toHaveClass('border-red-500'); // error state
+      expect(checkbox).toHaveClass('border-(--color-border-danger)'); // error state
       expect(checkbox).toHaveAttribute('data-size', 'lg'); // size prop
       expect(checkbox).toHaveAttribute('data-appearance', 'primary'); // appearance
     });

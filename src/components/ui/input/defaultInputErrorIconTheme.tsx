@@ -27,7 +27,7 @@ export const defaultInputErrorIconTheme = new ComponentTheme<InputErrorIconProps
       text: new FontSizeClassMapper(),
     },
     appearance: {
-      color: new SimpleConsumerClassMapper({ base: "text-red-500", alwaysOutput: true }, 'text'),
+      color: new SimpleConsumerClassMapper({ base: "text-(--color-text-danger)", alwaysOutput: true }, 'text'),
     },
     layout: {
       ...defaultLayoutClassMappers,

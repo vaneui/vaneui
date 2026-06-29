@@ -600,8 +600,8 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('border-red-500');
-      expect(input).toHaveClass('ring-red-500/30');
+      expect(input).toHaveClass('border-(--color-border-danger)');
+      expect(input).toHaveClass('ring-(--color-border-danger)/30');
     });
 
     it('should not apply error classes when error is false', () => {
@@ -612,8 +612,8 @@ describe('Input Component Tests', () => {
       );
 
       const input = container.querySelector('input');
-      expect(input).not.toHaveClass('border-red-500');
-      expect(input).not.toHaveClass('ring-red-500/30');
+      expect(input).not.toHaveClass('border-(--color-border-danger)');
+      expect(input).not.toHaveClass('ring-(--color-border-danger)/30');
     });
 
     it('should work with other props alongside error', () => {
@@ -624,7 +624,7 @@ describe('Input Component Tests', () => {
       );
 
       const input = container.querySelector('input');
-      expect(input).toHaveClass('border-red-500'); // error state
+      expect(input).toHaveClass('border-(--color-border-danger)'); // error state
       expect(input).toHaveAttribute('data-size', 'lg'); // size prop
       expect(input).toHaveAttribute('data-appearance', 'primary'); // appearance
     });
