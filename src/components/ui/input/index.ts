@@ -9,3 +9,8 @@ export { INPUT_ERROR_ICON_CATEGORIES } from './InputErrorIconCategories';
 export type { InputErrorIconTheme } from './InputErrorIconTheme';
 export { inputErrorIconDefaults } from './inputErrorIconDefaults';
 export { defaultInputErrorIconTheme } from './defaultInputErrorIconTheme';
+export type { InputWrapperProps } from './InputWrapperProps';
+export { INPUT_WRAPPER_CATEGORIES } from './InputWrapperCategories';
+export type { InputWrapperTheme } from './InputWrapperTheme';
+export { inputWrapperDefaults } from './inputWrapperDefaults';
+export { defaultInputWrapperTheme } from './defaultInputWrapperTheme';

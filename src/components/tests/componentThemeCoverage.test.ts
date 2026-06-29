@@ -29,7 +29,7 @@ import { defaultMenuDividerTheme } from "../ui/divider/defaultMenuDividerTheme";
 import { defaultSectionTheme } from "../ui/section/defaultSectionTheme";
 import { defaultLabelTheme } from "../ui/label/defaultLabelTheme";
 import { defaultImgTheme } from "../ui/img/defaultImgTheme";
-import { defaultInputTheme, defaultInputErrorIconTheme, INPUT_ERROR_ICON_CATEGORIES } from "../ui/input";
+import { defaultInputTheme, defaultInputErrorIconTheme, INPUT_ERROR_ICON_CATEGORIES, defaultInputWrapperTheme, INPUT_WRAPPER_CATEGORIES } from "../ui/input";
 import { defaultNavLinkTheme, NAV_LINK_CATEGORIES, defaultNavLinkLabelTheme, NAV_LINK_LABEL_CATEGORIES } from "../ui/navLink";
 import { LINK_CATEGORIES } from "../ui/typography/link/LinkCategories";
 import { defaultOverlayTheme } from "../ui/overlay";
@@ -817,6 +817,15 @@ describe("Component theme coverage tests", () => {
     };
     createThemeTests(checkboxIndeterminateConfig);
 
+    const inputWrapperConfig: ComponentTestConfig = {
+      propsType: "InputWrapperProps",
+      categories: INPUT_WRAPPER_CATEGORIES,
+      themes: [
+        { name: "defaultInputWrapperTheme", theme: defaultInputWrapperTheme }
+      ]
+    };
+    createThemeTests(inputWrapperConfig);
+
     const inputErrorIconConfig: ComponentTestConfig = {
       propsType: "InputErrorIconProps",
       categories: INPUT_ERROR_ICON_CATEGORIES,
@@ -895,6 +904,7 @@ describe("Component theme coverage tests", () => {
       // Sub-components
       defaultButtonSpinnerTheme, defaultNavLinkLabelTheme, defaultCheckboxIndeterminateTheme,
       defaultInputErrorIconTheme,
+      defaultInputWrapperTheme,
       // withDefaults variants
       defaultMenuPopupTheme, defaultMenuDividerTheme,
     ]);

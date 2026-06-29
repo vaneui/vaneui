@@ -28,6 +28,7 @@ import type { LabelTheme } from './ui/label/LabelTheme';
 import type { ImgTheme } from './ui/img/ImgTheme';
 import type { InputTheme } from './ui/input/InputTheme';
 import type { InputErrorIconTheme } from './ui/input/InputErrorIconTheme';
+import type { InputWrapperTheme } from './ui/input/InputWrapperTheme';
 import type { OverlayTheme } from './ui/overlay/OverlayTheme';
 import type { ModalContentTheme } from './ui/modal/ModalContentTheme';
 import type { ModalHeaderTheme } from './ui/modal/ModalHeaderTheme';
@@ -65,7 +66,7 @@ import type { CheckboxCheckProps } from "./ui/checkbox/CheckboxCheckProps";
 import type { CheckboxIndeterminateProps } from "./ui/checkbox/CheckboxIndeterminateProps";
 import type { LabelProps } from "./ui/label";
 import type { ImgProps } from "./ui/img";
-import type { InputProps, InputErrorIconProps } from "./ui/input";
+import type { InputProps, InputErrorIconProps, InputWrapperProps } from "./ui/input";
 import type { OverlayProps } from "./ui/overlay";
 import type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./ui/modal";
 import type { ModalCloseButtonProps } from "./ui/modal/ModalCloseButtonProps";
@@ -131,6 +132,7 @@ export interface ThemeProps {
   img: ComponentTheme<ImgProps, ImgTheme>;
   input: ComponentTheme<InputProps, InputTheme>;
   inputErrorIcon: ComponentTheme<InputErrorIconProps, InputErrorIconTheme>;
+  inputWrapper: ComponentTheme<InputWrapperProps, InputWrapperTheme>;
   overlay: ComponentTheme<OverlayProps, OverlayTheme>;
   modal: {
     content: ComponentTheme<ModalProps, ModalContentTheme>;

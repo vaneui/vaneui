@@ -5,12 +5,14 @@ import { useTheme } from "../../themeContext";
 import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
 import { defaultInputTheme } from "./defaultInputTheme";
 import { defaultInputErrorIconTheme } from "./defaultInputErrorIconTheme";
+import { defaultInputWrapperTheme } from "./defaultInputWrapperTheme";
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   function Input(props, ref) {
     const theme = useTheme();
     const inputThemeBase = theme?.input ?? defaultInputTheme;
     const errorIconThemeBase = theme?.inputErrorIcon ?? defaultInputErrorIconTheme;
+    const wrapperTheme = theme?.inputWrapper ?? defaultInputWrapperTheme;
     // inside a Label, the Label's resolved size becomes this input's size
     // default; explicit size props on the Input still win at extraction
     const labelSize = useLabelSizeContext();
@@ -32,12 +34,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       const { xs, sm, md, lg, xl } = props;
       const iconSize = { xs, sm, md, lg, xl };
       return (
-        <span className="vane-input-wrapper relative flex w-full">
+        <ThemedComponent theme={wrapperTheme}>
           <ThemedComponent ref={ref} theme={inputTheme} {...props} />
           <ThemedComponent theme={errorIconTheme} aria-hidden="true" {...iconSize}>
             {errorIconTheme.themes.errorIconElement()}
           </ThemedComponent>
-        </span>
+        </ThemedComponent>
       );
     }
 

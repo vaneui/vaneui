@@ -717,5 +717,33 @@ describe('Input Component Tests', () => {
       );
       expect(container.querySelector('[data-testid="custom-error-icon"]')).toBeInTheDocument();
     });
+
+    it('renders the wrapper as a themed element (relative/flex/w-full from props, not raw className)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Input error placeholder="Error input" /></ThemeProvider>
+      );
+      const wrapper = container.querySelector('.vane-input-wrapper') as HTMLElement;
+      expect(wrapper).toHaveClass('relative');
+      expect(wrapper).toHaveClass('flex');
+      expect(wrapper).toHaveClass('w-full');
+      // it's a real ComponentTheme, so it emits data-vane-type like the others
+      expect(wrapper).toHaveAttribute('data-vane-type', 'ui');
+    });
+
+    it('lets the wrapper be customized via theme.inputWrapper', () => {
+      const { container } = render(
+        <ThemeProvider
+          theme={defaultTheme}
+          themeOverride={(t) => {
+            t.inputWrapper.defaults = { ...t.inputWrapper.defaults, wFull: false, wFit: true };
+            return t;
+          }}
+        >
+          <Input error placeholder="Error input" />
+        </ThemeProvider>
+      );
+      const wrapper = container.querySelector('.vane-input-wrapper') as HTMLElement;
+      expect(wrapper).toHaveClass('w-fit');
+    });
   });
 });

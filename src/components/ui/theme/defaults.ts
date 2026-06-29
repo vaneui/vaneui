@@ -26,6 +26,7 @@ import { labelDefaults } from '../label/labelDefaults';
 import { imgDefaults } from '../img/imgDefaults';
 import { inputDefaults } from '../input/inputDefaults';
 import { inputErrorIconDefaults } from '../input/inputErrorIconDefaults';
+import { inputWrapperDefaults } from '../input/inputWrapperDefaults';
 import { overlayDefaults } from '../overlay/overlayDefaults';
 import { kbdDefaults } from '../kbd/kbdDefaults';
 import { markDefaults } from '../mark/markDefaults';
@@ -102,6 +103,7 @@ export const themeDefaults: ThemeDefaults = {
   img: imgDefaults,
   input: inputDefaults,
   inputErrorIcon: inputErrorIconDefaults,
+  inputWrapper: inputWrapperDefaults,
   overlay: overlayDefaults,
   modal: {
     content: modalContentDefaults,

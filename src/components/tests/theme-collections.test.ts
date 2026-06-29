@@ -101,6 +101,7 @@ describe('Theme structure consistency', () => {
       img: {},
       input: {},
       inputErrorIcon: {},
+      inputWrapper: {},
       overlay: {},
       modal: {},
       popup: {},

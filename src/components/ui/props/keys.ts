@@ -97,6 +97,7 @@ import { SECTION_CATEGORIES } from '../section/SectionCategories';
 import { LABEL_CATEGORIES } from '../label/LabelCategories';
 import { INPUT_CATEGORIES } from '../input/InputCategories';
 import { INPUT_ERROR_ICON_CATEGORIES } from '../input/InputErrorIconCategories';
+import { INPUT_WRAPPER_CATEGORIES } from '../input/InputWrapperCategories';
 import { OVERLAY_CATEGORIES } from '../overlay/OverlayCategories';
 import { MODAL_CATEGORIES } from '../modal/ModalCategories';
 import { POPUP_CATEGORIES } from '../popup/PopupCategories';
@@ -125,6 +126,7 @@ export { STACK_CATEGORIES };
 export { LABEL_CATEGORIES };
 export { INPUT_CATEGORIES };
 export { INPUT_ERROR_ICON_CATEGORIES };
+export { INPUT_WRAPPER_CATEGORIES };
 export { OVERLAY_CATEGORIES };
 export { MODAL_CATEGORIES };
 export { POPUP_CATEGORIES };
@@ -486,7 +488,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'overlay', 'modal', 'popup', 'menu', 'navLink'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'overlay', 'modal', 'popup', 'menu', 'navLink'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -513,6 +515,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   img: IMG_CATEGORIES,
   input: INPUT_CATEGORIES,
   inputErrorIcon: INPUT_ERROR_ICON_CATEGORIES,
+  inputWrapper: INPUT_WRAPPER_CATEGORIES,
   label: LABEL_CATEGORIES,
   link: LINK_CATEGORIES,
   list: LIST_CATEGORIES,
