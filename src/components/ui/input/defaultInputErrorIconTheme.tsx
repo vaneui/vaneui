@@ -10,13 +10,14 @@ import { inputErrorIconDefaults } from "./inputErrorIconDefaults";
 // Decorative trailing alert icon for an error-state <Input>. Rendered as a real
 // themed element (not a CSS background-image), so it goes through the theme
 // system like every other VaneUI part: the SVG is swappable via `themeOverride`
-// (errorIconElement), its color via the `color` mapper / `extraClasses`. The
-// size prop drives the icon's own --fs/--px scale (see rules.css), so both the
-// svg size (--icon-size) and its trailing inset (--px) track the input's size —
-// no fixed values. fill="currentColor" makes it follow the color mapper.
+// (errorIconElement), its color via the `color` mapper / `extraClasses`. The svg
+// sizes to half the overlay box ([&>svg]:h-1/2 of the inset-y-0 span, which
+// equals the input height → scales with size) and offsets by --gap — both come
+// from the shared size ladder via the icon's data-size, so the icon needs NO
+// per-size CSS block (no duplication). fill="currentColor" follows the color mapper.
 export const defaultInputErrorIconTheme = new ComponentTheme<InputErrorIconProps, InputErrorIconTheme>(
   "span",
-  "vane-input-error-icon inset-y-0 end-(--px)",
+  "vane-input-error-icon inset-y-0 end-(--gap) [&>svg]:h-1/2 [&>svg]:w-auto",
   {
     errorIconElement: () =>
       <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

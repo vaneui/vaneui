@@ -185,21 +185,15 @@
     .vane-input[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-input[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
     /* ERROR STATE — the non-color cue (SC 1.4.1) is a themed element rendered by
-       <Input> (the inputErrorIcon sub-theme), not a CSS background-image, so it
-       stays customizable. Reserve trailing room for the overlaid icon entirely
-       from size variables: normal padding + the icon (--icon-size) + a gap. */
+       <Input> (the inputErrorIcon sub-theme), not a CSS background-image. Reserve
+       trailing room for the overlaid icon from size variables only: normal
+       padding + a generous icon budget (--icon-size) + a gap. The icon itself
+       sizes to half the overlay height ([&>svg]:h-1/2, which tracks the input
+       height) and offsets by --gap from the shared size ladder, so it needs no
+       per-size block of its own — no duplication of the input's --fs-unit scale. */
     .vane-input[data-status="error"] {
         padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
     }
-    /* the error-icon overlay carries its own size scale (mirrors .vane-input) so
-       its svg (--icon-size) and trailing inset (--px) track the input's size prop */
-    .vane-input-error-icon { --aspect-ratio: 2; --py-unit: 2; }
-    .vane-input-error-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
-    .vane-input-error-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
-    .vane-input-error-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
-    .vane-input-error-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
-    .vane-input-error-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
-    .vane-input-error-icon :where(svg) { width: var(--icon-size); height: var(--icon-size); }
 
     /* Checkbox (height = size-unit * spacing, not text-based) */
     .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }

@@ -39,7 +39,8 @@ test.describe('Error input cue (A5)', () => {
   });
 
   test('the error icon scales with the input size prop (no fixed size)', async ({ page }) => {
-    // the icon sizes to --icon-size, which tracks the input's size scale
+    // the icon svg sizes to h-1/2 of the input-height overlay box, so it scales
+    // with the input's size (no per-size CSS block, no fixed value)
     const xsWidth = await getSvgWidth(page.locator('.vane-input-wrapper', { has: page.locator('[data-testid="err-input-xs"]') }));
     const xlWidth = await getSvgWidth(page.locator('.vane-input-wrapper', { has: page.locator('[data-testid="err-input-xl"]') }));
     expect(xlWidth).toBeGreaterThan(xsWidth);
