@@ -30,6 +30,17 @@ describe('useControllableState', () => {
     expect(warnSpy).not.toHaveBeenCalled();
   });
 
+  it('does not warn when controlled with an external handler (the onClose pattern)', () => {
+    // the common `open` + `onClose` overlay pattern: no onOpenChange/onChange is
+    // wired, but the close is propagated through a separate channel, so the
+    // setter no-op is expected and must not warn
+    const { result } = renderHook(() =>
+      useControllableState({ value: true, defaultValue: false, hasExternalHandler: true })
+    );
+    act(() => { result.current[1](false); });
+    expect(warnSpy).not.toHaveBeenCalled();
+  });
+
   it('updates internal value and does not warn in uncontrolled mode', () => {
     const { result } = renderHook(() =>
       useControllableState<boolean>({ defaultValue: false })

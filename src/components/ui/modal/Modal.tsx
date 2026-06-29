@@ -8,6 +8,7 @@ import { defaultModalOverlayTheme } from './defaultModalOverlayTheme';
 import { useScrollLock } from '../../utils/scrollLock';
 import { useFocusTrap } from '../../utils/focusTrap';
 import { useInertBackground } from '../../utils/inertBackground';
+import { registerOverlay } from '../../utils/overlayStack';
 import { useControllableState } from '../../utils/controllableState';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
@@ -91,6 +92,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       value: openProp,
       defaultValue: defaultOpen,
       onChange: onOpenChange,
+      hasExternalHandler: !!onCloseProp,
     });
 
     const onClose = useCallback(() => {
@@ -122,6 +124,16 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // guards the Tab boundary); skips the dialog's own portal and any overlay
     // portaled out of it (e.g. an in-modal menu).
     useInertBackground(open, overlayRef);
+
+    // join the shared overlay stack while open, so any OTHER open dialog's
+    // background-inert pass spares this modal's portal (without this, two
+    // simultaneously-open modals would inert each other's dialog)
+    useEffect(() => {
+      if (!open) return;
+      const el = overlayRef.current;
+      if (!el) return;
+      return registerOverlay(el, null);
+    }, [open]);
 
     // only the topmost floating element closes on Escape
     useEffect(() => {

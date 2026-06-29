@@ -34,6 +34,7 @@ export function Menu({
     value: openProp,
     defaultValue: defaultOpen,
     onChange: onOpenChange,
+    hasExternalHandler: !!onCloseProp,
   });
 
   // a Menu rendered inside another Menu's MenuContext is a submenu

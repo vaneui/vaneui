@@ -294,6 +294,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       value: openProp,
       defaultValue: defaultOpen,
       onChange: onOpenChange,
+      hasExternalHandler: !!onCloseProp,
     });
 
     const onClose = useCallback(() => {
