@@ -5,6 +5,7 @@ import {
   findOverlayContaining,
   isInOverlayFamily,
   getDescendantOverlays,
+  subscribeOverlayStack,
   resetOverlayStack,
 } from '../utils/overlayStack';
 
@@ -37,6 +38,26 @@ describe('overlayStack', () => {
     expect(getActiveOverlayPortals()).toEqual([b]);
     unregisterOverlay(b);
     expect(getActiveOverlayPortals()).toEqual([]);
+  });
+
+  it('notifies subscribers on register and unregister, and stops after unsubscribe', () => {
+    const listener = jest.fn();
+    const unsubscribe = subscribeOverlayStack(listener);
+
+    const a = div();
+    const dispose = registerOverlay(a);
+    expect(listener).toHaveBeenCalledTimes(1); // register
+
+    dispose();
+    expect(listener).toHaveBeenCalledTimes(2); // unregister
+
+    // a no-op unregister (element not in the stack) must not notify
+    unregisterOverlay(a);
+    expect(listener).toHaveBeenCalledTimes(2);
+
+    unsubscribe();
+    registerOverlay(div());
+    expect(listener).toHaveBeenCalledTimes(2); // no longer subscribed
   });
 
   it('findOverlayContaining returns the innermost overlay holding a node', () => {

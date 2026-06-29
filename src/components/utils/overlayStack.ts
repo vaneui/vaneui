@@ -23,6 +23,24 @@ export interface OverlayStackEntry {
 }
 
 const entries: OverlayStackEntry[] = [];
+const listeners = new Set<() => void>();
+
+/**
+ * Subscribe to register/unregister changes. Used by the background-inert pass
+ * so an open dialog re-reconciles when a sibling overlay (e.g. a stacked modal
+ * or an in-modal popup) opens or closes, and is never left inert.
+ * Returns an unsubscribe function.
+ */
+export function subscribeOverlayStack(listener: () => void): () => void {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
+}
+
+function notifyOverlayStackChange(): void {
+  for (const listener of listeners) listener();
+}
 
 /**
  * Register an open overlay. Returns an unregister function.
@@ -32,12 +50,16 @@ const entries: OverlayStackEntry[] = [];
  */
 export function registerOverlay(el: HTMLElement, parent: HTMLElement | null = null): () => void {
   entries.push({ el, parent });
+  notifyOverlayStackChange();
   return () => unregisterOverlay(el);
 }
 
 export function unregisterOverlay(el: HTMLElement): void {
   const idx = entries.findIndex((e) => e.el === el);
-  if (idx !== -1) entries.splice(idx, 1);
+  if (idx !== -1) {
+    entries.splice(idx, 1);
+    notifyOverlayStackChange();
+  }
 }
 
 /** Every currently-open overlay root element. Used to exclude them from background inert. */

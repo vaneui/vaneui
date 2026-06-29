@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 
 import {
   Modal,
@@ -1334,6 +1334,41 @@ describe('Modal Component Tests', () => {
       resetOverlayStack();
       inModalOverlay.remove();
       bg.remove();
+    });
+
+    it('does not inert a second open modal — stacked dialogs stay reachable', () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="First"><div>first</div></Modal>
+          <Modal open onClose={() => {}} title="Second"><div>second</div></Modal>
+        </ThemeProvider>
+      );
+
+      // both dialogs must remain in the accessibility tree: an aria-hidden /
+      // inert dialog would be excluded from the role query and drop the count
+      const dialogs = screen.getAllByRole('dialog');
+      expect(dialogs).toHaveLength(2);
+      for (const dialog of dialogs) {
+        const overlayChild = Array.from(document.body.children).find((c) => c.contains(dialog)) as HTMLElement;
+        expect(overlayChild).not.toHaveAttribute('inert');
+        expect(overlayChild).not.toHaveAttribute('aria-hidden');
+      }
+    });
+
+    it('neutralizes a background body child added AFTER the modal opens', async () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+
+      const late = document.createElement('div');
+      document.body.appendChild(late);
+      // the MutationObserver fires asynchronously
+      await waitFor(() => expect(late).toHaveAttribute('inert'));
+      expect(late).toHaveAttribute('aria-hidden', 'true');
+
+      late.remove();
     });
   });
 });
