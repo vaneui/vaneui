@@ -1083,9 +1083,9 @@ describe('Card Component Tests', () => {
 
   describe('Margin (U7)', () => {
     const cases = [
-      ['margin', 'm-(--gap)'],
-      ['marginX', 'mx-(--gap)'],
-      ['marginY', 'my-(--gap)'],
+      ['margin', 'm-(--margin)'],
+      ['marginX', 'mx-(--margin)'],
+      ['marginY', 'my-(--margin)'],
       ['noMargin', 'm-0'],
     ] as const;
 

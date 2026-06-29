@@ -2,16 +2,17 @@ import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps, MarginKey } from "../../props";
 
 /**
- * Margin theme — external spacing driven by the size-aware --gap value, so
- * margins scale with the component's size prop (like gap/padding).
+ * Margin theme — external spacing driven by the size-aware `--margin` token
+ * (which defaults to `--gap`), so margins scale with the component's size prop
+ * like gap/padding, and can be overridden independently of the gap.
  */
 export class MarginClassMapper extends BaseClassMapper implements Record<MarginKey, string> {
   /** All sides */
-  margin: string = "m-(--gap)";
+  margin: string = "m-(--margin)";
   /** Horizontal (inline) only */
-  marginX: string = "mx-(--gap)";
+  marginX: string = "mx-(--margin)";
   /** Vertical (block) only */
-  marginY: string = "my-(--gap)";
+  marginY: string = "my-(--margin)";
   /** Reset to 0 */
   noMargin: string = "m-0";
 

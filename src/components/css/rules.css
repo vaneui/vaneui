@@ -7,6 +7,11 @@
         --py: calc(var(--py-unit) * var(--spacing));
         --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
         --gap: calc(var(--gap-unit) * var(--spacing));
+        /* External margin (the `margin` props) is its own token so it can be
+           overridden independently, but defaults to the gap rhythm — external
+           and internal inter-element spacing share one scale by design, with no
+           separate per-size ladder to keep in sync. */
+        --margin: var(--gap);
         --fs: calc(var(--fs-unit) * var(--fs-base));
         /* Icon defaults to the element's own font-size (1em), giving a single
            constant icon-to-text ratio across text-bearing components. The
