@@ -7,7 +7,7 @@ import { gridSubThemes } from "./gridSubThemes";
 
 export const defaultGrid6Theme = new ComponentTheme<GridProps, GridTheme>(
   "div",
-  "vane-grid vane-grid-6 grid-cols-6 max-mobile:grid-cols-3",
+  "vane-grid vane-grid-6 grid-cols-6 max-tablet:grid-cols-4 max-mobile:grid-cols-2",
   gridSubThemes,
   gridDefaults,
   GRID_CATEGORIES,

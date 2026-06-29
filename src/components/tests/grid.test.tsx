@@ -56,7 +56,7 @@ describe('Grid Components Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-3', 'max-mobile:grid-cols-1', 'gap-(--gap)', 'grid');
+      expect(grid).toHaveClass('grid-cols-3', 'max-tablet:grid-cols-2', 'max-mobile:grid-cols-1', 'gap-(--gap)', 'grid');
     });
 
     it('should have no default appearance classes', () => {
@@ -194,7 +194,7 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-3', 'max-mobile:grid-cols-1', 'gap-(--gap)', 'grid'); // theme classes
+      expect(grid).toHaveClass('grid-cols-3', 'max-tablet:grid-cols-2', 'max-mobile:grid-cols-1', 'gap-(--gap)', 'grid'); // theme classes
       expect(grid).toHaveClass('custom-grid3-class'); // custom class
     });
 
@@ -223,7 +223,7 @@ describe('Grid Components Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-4', 'max-mobile:grid-cols-2', 'gap-(--gap)', 'grid');
+      expect(grid).toHaveClass('grid-cols-4', 'max-tablet:grid-cols-3', 'max-mobile:grid-cols-2', 'gap-(--gap)', 'grid');
     });
 
     it('should have no default appearance classes', () => {
@@ -359,7 +359,7 @@ describe('Grid Components Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-4', 'max-mobile:grid-cols-2', 'gap-(--gap)', 'grid'); // theme classes
+      expect(grid).toHaveClass('grid-cols-4', 'max-tablet:grid-cols-3', 'max-mobile:grid-cols-2', 'gap-(--gap)', 'grid'); // theme classes
       expect(grid).toHaveClass('custom-grid4-class'); // custom class
     });
 

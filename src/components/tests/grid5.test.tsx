@@ -19,6 +19,7 @@ describe('Grid5 Component Tests', () => {
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
       expect(grid).toHaveClass('grid-cols-5'); // desktop/laptop: 5 columns
+      expect(grid).toHaveClass('max-tablet:grid-cols-3'); // intermediate: 3 columns on tablet (≤1024px)
       expect(grid).toHaveClass('max-mobile:grid-cols-2'); // collapses to 2 columns on mobile (≤768px)
       expect(grid).toHaveClass('grid'); // grid display
       expect(grid).toHaveClass('gap-(--gap)'); // default md gap
@@ -256,7 +257,7 @@ describe('Grid5 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-5', 'max-mobile:grid-cols-2'); // theme classes
+      expect(grid).toHaveClass('grid-cols-5', 'max-tablet:grid-cols-3', 'max-mobile:grid-cols-2'); // theme classes
       expect(grid).toHaveClass('custom-grid-class'); // custom class
     });
 
@@ -275,7 +276,7 @@ describe('Grid5 Component Tests', () => {
 
       const section = container.querySelector('section');
       expect(section).toBeInTheDocument();
-      expect(section).toHaveClass('grid-cols-5', 'max-mobile:grid-cols-2');
+      expect(section).toHaveClass('grid-cols-5', 'max-tablet:grid-cols-3', 'max-mobile:grid-cols-2');
     });
 
 
@@ -346,7 +347,7 @@ describe('Grid5 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-5', 'max-mobile:grid-cols-2');
+      expect(grid).toHaveClass('grid-cols-5', 'max-tablet:grid-cols-3', 'max-mobile:grid-cols-2');
       
       // All children should be present
       for (let i = 1; i <= 10; i++) {
@@ -370,6 +371,7 @@ describe('Grid5 Component Tests', () => {
       const grid = container.querySelector('div');
       expect(grid).toHaveClass(
         'grid-cols-5', // desktop/laptop
+        'max-tablet:grid-cols-3', // intermediate on tablet
         'max-mobile:grid-cols-2', // collapses on mobile
         'gap-(--gap)', // lg gap
         'max-mobile:hidden' // hidden on mobile screens

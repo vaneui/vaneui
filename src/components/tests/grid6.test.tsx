@@ -19,7 +19,8 @@ describe('Grid6 Component Tests', () => {
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
       expect(grid).toHaveClass('grid-cols-6'); // desktop/laptop: 6 columns
-      expect(grid).toHaveClass('max-mobile:grid-cols-3'); // collapses to 3 columns on mobile (≤768px)
+      expect(grid).toHaveClass('max-tablet:grid-cols-4'); // intermediate: 4 columns on tablet (≤1024px)
+      expect(grid).toHaveClass('max-mobile:grid-cols-2'); // collapses to 2 columns on mobile (≤768px)
       expect(grid).toHaveClass('grid'); // grid display
       expect(grid).toHaveClass('gap-(--gap)'); // default md gap
       expect(grid).toHaveTextContent('Grid6 content');
@@ -267,7 +268,7 @@ describe('Grid6 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-6', 'max-mobile:grid-cols-3'); // theme classes
+      expect(grid).toHaveClass('grid-cols-6', 'max-tablet:grid-cols-4', 'max-mobile:grid-cols-2'); // theme classes
       expect(grid).toHaveClass('custom-grid-class'); // custom class
     });
 
@@ -287,7 +288,7 @@ describe('Grid6 Component Tests', () => {
 
       const section = container.querySelector('section');
       expect(section).toBeInTheDocument();
-      expect(section).toHaveClass('grid-cols-6', 'max-mobile:grid-cols-3');
+      expect(section).toHaveClass('grid-cols-6', 'max-tablet:grid-cols-4', 'max-mobile:grid-cols-2');
     });
 
 
@@ -362,7 +363,7 @@ describe('Grid6 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-6', 'max-mobile:grid-cols-3');
+      expect(grid).toHaveClass('grid-cols-6', 'max-tablet:grid-cols-4', 'max-mobile:grid-cols-2');
       
       // All children should be present
       for (let i = 1; i <= 12; i++) {
@@ -387,7 +388,8 @@ describe('Grid6 Component Tests', () => {
       const grid = container.querySelector('div');
       expect(grid).toHaveClass(
         'grid-cols-6', // desktop/laptop
-        'max-mobile:grid-cols-3', // collapses on mobile
+        'max-tablet:grid-cols-4', // intermediate on tablet
+        'max-mobile:grid-cols-2', // collapses on mobile
         'gap-(--gap)', // lg gap
         'max-mobile:hidden' // hidden on mobile screens
       );
