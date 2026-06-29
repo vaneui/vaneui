@@ -18,16 +18,24 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       () => withLabelSizeDefault(inputThemeBase, labelSize),
       [inputThemeBase, labelSize]
     );
+    // the icon resolves the same size as the input (explicit prop > Label size >
+    // default), so its --fs/--px scale tracks the field
+    const errorIconTheme = useMemo(
+      () => withLabelSizeDefault(errorIconThemeBase, labelSize),
+      [errorIconThemeBase, labelSize]
+    );
 
     // The error cue is a real themed element, not a CSS background-image, so the
     // <input> (a void element that can't hold children) is wrapped in a relative
     // span and the icon overlays its trailing edge — see defaultInputErrorIconTheme.
     if (props.error) {
+      const { xs, sm, md, lg, xl } = props;
+      const iconSize = { xs, sm, md, lg, xl };
       return (
         <span className="vane-input-wrapper relative flex w-full">
           <ThemedComponent ref={ref} theme={inputTheme} {...props} />
-          <ThemedComponent theme={errorIconThemeBase} aria-hidden="true">
-            {errorIconThemeBase.themes.errorIconElement()}
+          <ThemedComponent theme={errorIconTheme} aria-hidden="true" {...iconSize}>
+            {errorIconTheme.themes.errorIconElement()}
           </ThemedComponent>
         </span>
       );

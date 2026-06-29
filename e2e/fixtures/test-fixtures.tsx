@@ -1017,6 +1017,9 @@ export function TestHarness() {
           {/* error vs normal (A5: non-color alert-icon cue) */}
           <Input error aria-label="error input" data-testid="err-input" />
           <Input aria-label="normal input" data-testid="ok-input" />
+          {/* sized error inputs — the icon must scale with the size prop */}
+          <Input xs error aria-label="xs error input" data-testid="err-input-xs" />
+          <Input xl error aria-label="xl error input" data-testid="err-input-xl" />
         </section>
 
         {/* ── Dark mode: [data-theme="dark"] token flip ──

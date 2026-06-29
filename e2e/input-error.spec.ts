@@ -1,4 +1,4 @@
-import { test, expect, getStyle } from './base';
+import { test, expect, getStyle, getSvgWidth } from './base';
 
 // A5: an error-state input shows a non-color cue (an alert-icon ELEMENT, not a
 // CSS background-image) in addition to the red border (SC 1.4.1), and is marked
@@ -36,5 +36,12 @@ test.describe('Error input cue (A5)', () => {
   test('error input is marked aria-invalid', async ({ page }) => {
     await expect(page.locator('[data-testid="err-input"]')).toHaveAttribute('aria-invalid', 'true');
     await expect(page.locator('[data-testid="ok-input"]')).not.toHaveAttribute('aria-invalid');
+  });
+
+  test('the error icon scales with the input size prop (no fixed size)', async ({ page }) => {
+    // the icon sizes to --icon-size, which tracks the input's size scale
+    const xsWidth = await getSvgWidth(page.locator('.vane-input-wrapper', { has: page.locator('[data-testid="err-input-xs"]') }));
+    const xlWidth = await getSvgWidth(page.locator('.vane-input-wrapper', { has: page.locator('[data-testid="err-input-xl"]') }));
+    expect(xlWidth).toBeGreaterThan(xsWidth);
   });
 });
