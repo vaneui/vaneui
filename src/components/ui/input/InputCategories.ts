@@ -12,6 +12,7 @@ import {
   COMMON_MODIFIERS,
   STATUS,
   DISABLED,
+  READONLY,
 } from "../props/categoryBuilders";
 
 /** Categories for input form components with interactive and form-specific properties */
@@ -29,4 +30,5 @@ export const INPUT_CATEGORIES = [
   ...COMMON_MODIFIERS,
   ...STATUS,
   ...DISABLED,
+  ...READONLY,
 ] as const;

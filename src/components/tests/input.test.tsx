@@ -474,6 +474,25 @@ describe('Input Component Tests', () => {
       expect(input).toHaveAttribute('data-appearance', 'primary');
       expect(input).toHaveAttribute('value', 'read only value');
     });
+
+    it('applies the muted look via theme classes (opacity-70 cursor-default), not a raw CSS literal', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Input readOnly /></ThemeProvider>
+      );
+      const input = container.querySelector('input') as HTMLElement;
+      // the read-only visual now comes from ReadOnlyClassMapper, mirroring how
+      // disabled uses DisabledClassMapper — not a hardcoded opacity in rules.css
+      expect(input).toHaveClass('opacity-70');
+      expect(input).toHaveClass('cursor-default');
+    });
+
+    it('has no read-only visual classes when not read-only', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Input /></ThemeProvider>
+      );
+      const input = container.querySelector('input') as HTMLElement;
+      expect(input).not.toHaveClass('opacity-70');
+    });
   });
 
   describe('Input Shadow Behavior', () => {

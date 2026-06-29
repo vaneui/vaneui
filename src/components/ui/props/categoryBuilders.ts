@@ -35,6 +35,7 @@ export const WHITESPACE = ['whitespace'] as const;
 export const HEIGHT = ['height'] as const;
 export const STATUS = ['status'] as const;
 export const DISABLED = ['disabled'] as const;
+export const READONLY = ['readOnly'] as const;
 export const ORIENTATION = ['orientation'] as const;
 export const PLACEMENT = ['placement'] as const;
 export const MIN_WIDTH = ['minWidth'] as const;

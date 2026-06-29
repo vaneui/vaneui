@@ -564,15 +564,13 @@
         animation: vane-spin 0.6s linear infinite;
     }
 
-    /* READ-ONLY STATE — visual feedback via data attribute (readOnly itself passes through as HTML attr) */
+    /* READ-ONLY STATE — only the bits with no class/prop equivalent live here;
+       opacity + cursor come from ReadOnlyClassMapper (opacity-70 cursor-default),
+       mirroring how [data-disabled] leaves opacity/cursor to DisabledClassMapper. */
     [data-readonly="true"] {
-        cursor: default;
         caret-color: transparent;
         --bg-hover-color: var(--bg-color);
         --bg-active-color: var(--bg-color);
-        /* muted so it reads as non-editable; lighter than disabled (0.5) since
-           a read-only field is still selectable/submittable */
-        opacity: 0.7;
     }
 
     /* APPEARANCE × VARIANT — two independent axes that compose:

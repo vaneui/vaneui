@@ -78,6 +78,7 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'LetterSpacingProps': 'letterSpacing',
   'PlacementProps': 'placement',
   'DisabledProps': 'disabled',
+  'ReadOnlyProps': 'readOnly',
   'MinWidthProps': 'minWidth',
   'MaxHeightProps': 'maxHeight',
   'InheritSizeProps': 'inheritSize',

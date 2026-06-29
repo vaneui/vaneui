@@ -23,6 +23,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "readOnly": {
+    "name": "Read Only",
+    "description": "Read-only state for form components.\nMutes the field and sets a default cursor; the value stays selectable and submittable.",
+    "props": {
+      "readOnly": {
+        "description": "Render the field read-only — mutes it (lighter than disabled) and sets a default cursor; the value stays selectable and submittable"
+      }
+    }
+  },
   "alignSelf": {
     "name": "Align Self",
     "description": "AlignSelf props for overriding a single flex/grid item's cross-axis\nalignment (align-self), independent of the parent's align-items.",

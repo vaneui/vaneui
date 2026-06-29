@@ -377,6 +377,15 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       delete other.disabled;
     }
 
+    // `readOnly` is now a category (so the ReadOnlyClassMapper can style it),
+    // which means omitKeys strips it. Re-add the native attribute on the tags
+    // that support it so the field stays read-only; data-readonly (below)
+    // carries the non-class CSS bits (caret-color / hover neutralization).
+    if (rawProps.readOnly !== undefined &&
+        (typeof componentTag !== 'string' || componentTag === 'input' || componentTag === 'textarea')) {
+      other.readOnly = rawProps.readOnly;
+    }
+
     // drop attributes that don't belong on the resolved tag
     if (typeof componentTag === 'string') {
       const invalidAttrs = TAG_INVALID_ATTRS[componentTag];

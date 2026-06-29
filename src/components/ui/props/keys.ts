@@ -30,6 +30,7 @@ import {
   TYPOGRAPHY_FULL,
   PLACEMENT,
   DISABLED,
+  READONLY,
   MIN_WIDTH,
   MAX_HEIGHT,
   INHERIT_SIZE,
@@ -67,6 +68,7 @@ export {
   TYPOGRAPHY_FULL,
   PLACEMENT,
   DISABLED,
+  READONLY,
   MIN_WIDTH,
   MAX_HEIGHT,
   INHERIT_SIZE,
@@ -185,6 +187,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...LETTER_SPACING,
   ...PLACEMENT,
   ...DISABLED,
+  ...READONLY,
   ...MIN_WIDTH,
   ...MAX_HEIGHT,
   ...INHERIT_SIZE,
@@ -309,6 +312,8 @@ export const ComponentKeys = {
   placement: ['top', 'topStart', 'topEnd', 'bottom', 'bottomStart', 'bottomEnd', 'left', 'leftStart', 'leftEnd', 'right', 'rightStart', 'rightEnd'] as const,
   /** Disabled state for interactive elements */
   disabled: ['disabled'] as const,
+  /** Read-only state for form components */
+  readOnly: ['readOnly'] as const,
   /** Min-width for popup/floating components */
   minWidth: ['minWidth'] as const,
   /** Max-height for popup/floating components */
@@ -405,6 +410,8 @@ export type LetterSpacingKey = typeof ComponentKeys.letterSpacing[number];
 export type PlacementKey = typeof ComponentKeys.placement[number];
 /** Disabled state key */
 export type DisabledKey = typeof ComponentKeys.disabled[number];
+/** Read-only state key */
+export type ReadOnlyKey = typeof ComponentKeys.readOnly[number];
 /** Min-width key for popup/floating components */
 export type MinWidthKey = typeof ComponentKeys.minWidth[number];
 /** Max-height key for popup/floating components */
