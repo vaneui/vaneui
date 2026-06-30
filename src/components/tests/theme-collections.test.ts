@@ -50,9 +50,54 @@ const REPLACEABLE_CLASSES: Record<string, string> = {
   // text transform
   'uppercase': 'uppercase', 'lowercase': 'lowercase', 'capitalize': 'capitalize',
   // width
-  'w-full': 'wFull', 'w-fit': 'wFit', 'w-auto': 'wAuto',
+  'w-full': 'wFull', 'w-fit': 'wFit', 'w-auto': 'wAuto', 'w-screen': 'wScreen',
   // height
-  'h-full': 'hFull', 'h-fit': 'hFit', 'h-auto': 'hAuto',
+  'h-full': 'hFull', 'h-fit': 'hFit', 'h-auto': 'hAuto', 'h-screen': 'hScreen',
+  // display (stragglers)
+  'inline-grid': 'inlineGrid', 'table': 'table', 'table-cell': 'tableCell',
+  // position (straggler)
+  'static': 'static',
+  // justify (stragglers)
+  'justify-stretch': 'justifyStretch', 'justify-baseline': 'justifyBaseline',
+  // wrap (straggler)
+  'flex-wrap-reverse': 'flexWrapReverse',
+  // cursor (stragglers)
+  'cursor-text': 'cursorText', 'cursor-move': 'cursorMove', 'cursor-wait': 'cursorWait',
+  // pointer events
+  'pointer-events-none': 'pointerEventsNone', 'pointer-events-auto': 'pointerEventsAuto',
+  // font style / family
+  'italic': 'italic', 'not-italic': 'notItalic',
+  'font-sans': 'sans', 'font-serif': 'serif', 'font-mono': 'mono', 'font-heading': 'heading',
+  'font-extralight': 'extralight',
+  // text decoration / transform (stragglers)
+  'overline': 'overline', 'normal-case': 'normalCase',
+  // shape (border radius)
+  'rounded-full': 'pill', 'rounded-none': 'sharp',
+  // transition
+  'transition-all': 'transition', 'transition-none': 'noTransition',
+  // background / list style
+  'bg-transparent': 'transparent', 'list-disc': 'disc', 'list-decimal': 'decimal',
+  // truncation / line clamp
+  'truncate': 'truncate', 'line-clamp-2': 'lineClamp2', 'line-clamp-3': 'lineClamp3',
+  'line-clamp-4': 'lineClamp4', 'line-clamp-5': 'lineClamp5', 'line-clamp-none': 'noTruncate',
+  // letter spacing
+  'tracking-tighter': 'trackingTighter', 'tracking-tight': 'trackingTight',
+  'tracking-normal': 'trackingNormal', 'tracking-wide': 'trackingWide',
+  'tracking-wider': 'trackingWider', 'tracking-widest': 'trackingWidest',
+  // whitespace
+  'whitespace-nowrap': 'whitespaceNowrap', 'whitespace-normal': 'whitespaceNormal',
+  'whitespace-pre': 'whitespacePre', 'whitespace-pre-wrap': 'whitespacePreWrap',
+  'whitespace-pre-line': 'whitespacePreLine', 'whitespace-break-spaces': 'whitespaceBreakSpaces',
+  // object fit
+  'object-cover': 'objectCover', 'object-contain': 'objectContain', 'object-fill': 'objectFill',
+  'object-none': 'objectNone', 'object-scale-down': 'objectScaleDown',
+  // overflow (stragglers — axis + clip)
+  'overflow-clip': 'overflowClip',
+  'overflow-x-auto': 'overflowXAuto', 'overflow-y-auto': 'overflowYAuto',
+  'overflow-x-hidden': 'overflowXHidden', 'overflow-y-hidden': 'overflowYHidden',
+  'overflow-x-clip': 'overflowXClip', 'overflow-y-clip': 'overflowYClip',
+  'overflow-x-visible': 'overflowXVisible', 'overflow-y-visible': 'overflowYVisible',
+  'overflow-x-scroll': 'overflowXScroll', 'overflow-y-scroll': 'overflowYScroll',
 };
 
 describe('Theme structure consistency', () => {
