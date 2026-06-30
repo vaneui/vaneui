@@ -1,4 +1,4 @@
-import { ComponentTheme, interactiveClassMappers, bgHoverAppearance, shadowAppearance } from "../theme/common";
+import { ComponentTheme, interactiveClassMappers, bgHoverAppearance } from "../theme/common";
 import type { InputProps } from "./InputProps";
 import { StatusClassMapper, DisabledClassMapper, ReadOnlyClassMapper } from "../theme/appearance";
 import { INPUT_CATEGORIES } from "./InputCategories";
@@ -13,7 +13,6 @@ export const defaultInputTheme = new ComponentTheme<InputProps, InputTheme>(
     appearance: {
       ...interactiveClassMappers.appearance,
       background: bgHoverAppearance,
-      shadow: shadowAppearance,
       status: new StatusClassMapper(),
       disabled: new DisabledClassMapper(),
       readOnly: new ReadOnlyClassMapper(),
