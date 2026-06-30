@@ -55,6 +55,19 @@ test.describe('Blockquote', () => {
     }
   });
 
+  test('size variants xs→xl produce strictly increasing start-indent (--py-unit scales)', async ({ page }) => {
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+    const indents: number[] = [];
+
+    for (const size of sizes) {
+      indents.push(parseFloat(await getStyle(page.locator(`[data-testid="blockquote-${size}"]`), 'padding-inline-start')));
+    }
+
+    for (let i = 1; i < indents.length; i++) {
+      expect(indents[i]).toBeGreaterThan(indents[i - 1]);
+    }
+  });
+
   test('cite source line is a themed <cite>: muted (tertiary token, opacity 1), block, not italic', async ({ page }) => {
     const quote = page.locator('[data-testid="blockquote-cited"]');
     const cite = quote.locator('.vane-blockquote-cite');

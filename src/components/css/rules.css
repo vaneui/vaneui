@@ -254,13 +254,15 @@
     .vane-text[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-text[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
-    /* Blockquote */
-    .vane-blockquote { --lh: var(--lh-base); --ls: var(--ls-base); }
-    .vane-blockquote[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
-    .vane-blockquote[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
-    .vane-blockquote[data-size="md"] { --fs-unit: var(--fs-unit-md); }
-    .vane-blockquote[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
-    .vane-blockquote[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    /* Blockquote — --py-unit drives the ps-(--pl) start indent, so it must scale
+       per size (and be set in every size block so it can't inherit a padded
+       ancestor's value), mirroring List which uses the same ps-(--pl) indent. */
+    .vane-blockquote { --lh: var(--lh-base); --ls: var(--ls-base); --py-unit: 3; }
+    .vane-blockquote[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-blockquote[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 2; }
+    .vane-blockquote[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 3; }
+    .vane-blockquote[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 4; }
+    .vane-blockquote[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 5; }
 
     /* Link */
     .vane-link { --lh: var(--lh-base); --icon-size: var(--fs-em); --ls: var(--ls-base); }
