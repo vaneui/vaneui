@@ -144,10 +144,12 @@ const assertions: true[] = [
 ];
 
 // reverse-direction guards: a Props type must not expose a category-flag its
-// Categories omit (silent no-op + DOM leak). Scoped to ListItem, the component
-// where this drift was found; extend per component as the surface is audited.
+// Categories omit (silent no-op). Extend per component as the surface is
+// audited. TypographyProps is guarded after dropping its dead `focusVisible`
+// (only Link has that category, so it lives on LinkProps now).
 const reverseAssertions: true[] = [
   true as AssertNoExtraCategoryFlags<ListItemProps, typeof LIST_ITEM_CATEGORIES>,
+  true as AssertNoExtraCategoryFlags<TypographyProps, typeof TYPOGRAPHY_CATEGORIES>,
 ];
 
 describe('Props/Categories alignment', () => {
