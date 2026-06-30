@@ -17,7 +17,6 @@ export interface CardTheme extends BaseComponentTheme {
     wrap: WrapClassMapper;
     direction: DirectionClassMapper;
     breakpoint: BreakpointClassMapper;
-    shadow: ShadowAppearanceClassMapper;
     cursor: CursorClassMapper;
     focusVisible: FocusVisibleClassMapper;
   };
@@ -26,6 +25,7 @@ export interface CardTheme extends BaseComponentTheme {
     text: SimpleConsumerClassMapper;
     border: SimpleConsumerClassMapper;
     ring: SimpleConsumerClassMapper;
+    shadow: ShadowAppearanceClassMapper;
   };
   typography: {
     textAlign: TextAlignClassMapper;
