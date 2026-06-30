@@ -6,6 +6,7 @@ export const pageTitleDefaults: Partial<TypographyProps> = {
   wFit: true,
   heading: true,
   semibold: true,
+  trackingTight: true,
   textLeft: true,
   outline: true,
   inherit: true,

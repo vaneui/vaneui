@@ -3,14 +3,13 @@ import type { TypographyProps, TextTheme } from "../common";
 import { TYPOGRAPHY_CATEGORIES } from "../common";
 import { typographyClassMappers } from "../../theme/common/typographyClassMappers";
 import { titleDefaults } from "./titleDefaults";
-import { mergeDefaults } from "../../../utils/deepMerge";
 
 /** Title specific theme - uses responsive font size */
 export const defaultTitleTheme = new ComponentTheme<TypographyProps, TextTheme>(
   "h3",
   "vane-title text-balance",
   typographyClassMappers,
-  mergeDefaults(titleDefaults as Record<string, boolean>, { semibold: true }),
+  titleDefaults,
   TYPOGRAPHY_CATEGORIES,
   (props: TypographyProps) => props.href ? "a" : "h3",
   'ui'
