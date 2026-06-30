@@ -5,6 +5,7 @@ import type { GapClassMapper } from "../size/gapClassMapper";
 import type { PxClassMapper } from "../size/pxClassMapper";
 import type { PyClassMapper } from "../size/pyClassMapper";
 import type { BreakpointClassMapper } from "../size/breakpointClassMapper";
+import type { MarginClassMapper } from "../size/marginClassMapper";
 import type { RadiusClassMapper } from "../layout/radiusClassMapper";
 import type { BorderClassMapper } from "../layout/borderClassMapper";
 import type { RingClassMapper } from "../layout/ringClassMapper";
@@ -66,6 +67,7 @@ export interface LayoutSizeClassMapper {
   px: PxClassMapper;
   py: PyClassMapper;
   gap: GapClassMapper;
+  margin: MarginClassMapper;
 }
 
 export interface LayoutAppearanceClassMappers {
