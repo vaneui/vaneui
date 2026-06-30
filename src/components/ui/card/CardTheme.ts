@@ -10,6 +10,7 @@ export interface CardTheme extends BaseComponentTheme {
     py: PyClassMapper;
     gap: GapClassMapper;
     margin: MarginClassMapper;
+    breakpoint: BreakpointClassMapper;
   };
   layout: DefaultSizedLayoutClassMappers & {
     border: BorderClassMapper;
@@ -17,7 +18,6 @@ export interface CardTheme extends BaseComponentTheme {
     ring: RingClassMapper;
     wrap: WrapClassMapper;
     direction: DirectionClassMapper;
-    breakpoint: BreakpointClassMapper;
     cursor: CursorClassMapper;
     focusVisible: FocusVisibleClassMapper;
   };

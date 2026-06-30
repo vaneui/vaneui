@@ -12,9 +12,12 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
   "vane-card",
   {
     ...layoutClassMappers,
+    size: {
+      ...layoutClassMappers.size,
+      breakpoint: new BreakpointClassMapper(),
+    },
     layout: {
       ...layoutClassMappers.layout,
-      breakpoint: new BreakpointClassMapper(),
       width: new WidthClassMapper(),
       cursor: new CursorClassMapper(),
       focusVisible: new FocusVisibleClassMapper(),
