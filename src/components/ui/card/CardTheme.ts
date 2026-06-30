@@ -17,7 +17,7 @@ export interface CardTheme extends BaseComponentTheme {
     radius: RadiusClassMapper;
     ring: RingClassMapper;
     wrap: WrapClassMapper;
-    direction: DirectionClassMapper;
+    flexDirection: DirectionClassMapper;
     cursor: CursorClassMapper;
     focusVisible: FocusVisibleClassMapper;
   };

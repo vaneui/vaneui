@@ -30,7 +30,7 @@ export const layoutClassMappers = {
   layout: {
     ...defaultSizedLayoutClassMappers,
     wrap: new WrapClassMapper(),
-    direction: new DirectionClassMapper(),
+    flexDirection: new DirectionClassMapper(),
     border: new BorderClassMapper(),
     ring: new RingClassMapper(),
     radius: new RadiusClassMapper(),

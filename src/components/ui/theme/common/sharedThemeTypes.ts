@@ -80,7 +80,7 @@ export interface LayoutAppearanceClassMappers {
 
 export interface LayoutLayoutClassMappers extends DefaultSizedLayoutClassMappers {
   wrap: WrapClassMapper;
-  direction: DirectionClassMapper;
+  flexDirection: DirectionClassMapper;
   border: BorderClassMapper;
   ring: RingClassMapper;
   radius: RadiusClassMapper;
