@@ -13,6 +13,10 @@ export class MarginClassMapper extends BaseClassMapper implements Record<MarginK
   marginX: string = "mx-(--margin)";
   /** Vertical (block) only */
   marginY: string = "my-(--margin)";
+  /** Top only */
+  marginT: string = "mt-(--margin)";
+  /** Bottom only */
+  marginB: string = "mb-(--margin)";
   /** Reset to 0 */
   noMargin: string = "m-0";
 
@@ -21,6 +25,8 @@ export class MarginClassMapper extends BaseClassMapper implements Record<MarginK
     if (key === 'margin') return [this.margin];
     if (key === 'marginX') return [this.marginX];
     if (key === 'marginY') return [this.marginY];
+    if (key === 'marginT') return [this.marginT];
+    if (key === 'marginB') return [this.marginB];
     if (key === 'noMargin') return [this.noMargin];
     return [];
   }

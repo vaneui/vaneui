@@ -10,4 +10,7 @@ export const blockquoteDefaults: Partial<TypographyProps> = {
   textStart: true,
   outline: true,
   inherit: true,
+  // reset the UA <blockquote> margin (was the base-string `m-0`); consumers can
+  // opt into margin/marginY/marginT/etc. now that the margin category is present
+  noMargin: true,
 };

@@ -10,6 +10,10 @@ export interface MarginProps {
   marginX?: boolean;
   /** Enable only vertical (block) margin */
   marginY?: boolean;
+  /** Enable only top margin */
+  marginT?: boolean;
+  /** Enable only bottom margin */
+  marginB?: boolean;
   /** Disable margin (reset to 0) */
   noMargin?: boolean;
 }

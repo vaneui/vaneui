@@ -25,6 +25,8 @@ import {
  *   express them. The icon-to-text gap is a base-string class, not a category.
  * - `transparent` / `inheritBg` — not expressible via ListItemProps:
  *   TypographyProps excludes TransparentProps and InheritBgProps by design.
+ * - `margin` — items use the list's inter-item gap, not per-item margins;
+ *   ListItemProps omits MarginProps to stay aligned.
  *
  * Like LIST_CATEGORIES, this also omits typography's `cursor` and
  * `letterSpacing` (LetterSpacingClassMapper emits a default `tracking-(--ls)`

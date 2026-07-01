@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import type { TypographyProps } from '../common';
-import type { CursorProps, LetterSpacingProps, FocusVisibleProps } from '../../props';
+import type { CursorProps, LetterSpacingProps, FocusVisibleProps, MarginProps } from '../../props';
 
 /**
  * ListItem component props.
@@ -14,7 +14,7 @@ import type { CursorProps, LetterSpacingProps, FocusVisibleProps } from '../../p
  */
 export type ListItemProps = Omit<
   TypographyProps,
-  keyof CursorProps | keyof LetterSpacingProps | keyof FocusVisibleProps
+  keyof CursorProps | keyof LetterSpacingProps | keyof FocusVisibleProps | keyof MarginProps
 > & {
   /**
    * Optional custom marker content rendered before the item text.

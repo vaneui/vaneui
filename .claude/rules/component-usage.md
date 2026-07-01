@@ -598,18 +598,20 @@ Text alignment offers both modes:
 <Button sm>
 ```
 
-## Margins (layout components)
+## Margins
 
-Layout components (`Card`, `Row`, `Col`, `Stack`, `Section`, `Container`, `Grid*`) have size-driven external-spacing props — the margin scales with the size prop, like `gap`/`padding`:
+Layout components (`Card`, `Row`, `Col`, `Stack`, `Section`, `Container`, `Grid*`) **and block typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`, `Link`) have size-driven external-spacing props — the margin scales with the size prop, like `gap`/`padding`. Block typography defaults to `noMargin` (it resets the browser's default block margin); opt in per element for document/prose rhythm:
 
 ```tsx
 <Card margin>All-sides margin</Card>
 <Section marginY>Vertical margin only</Section>
 <Row marginX>Horizontal margin only</Row>
+<SectionTitle marginT>Space above a heading</SectionTitle>
+<Text marginB>Space below a paragraph</Text>
 <Col noMargin>Reset margin</Col>
 ```
 
-For a **single side** (`mt-4`) or an **exact value**, use `className` — there is no per-side margin prop.
+`marginT`/`marginB` cover top/bottom individually. Like the border-side props they share the one mutually-exclusive `margin` category — so it's `marginT` **or** `marginB` (use `marginY` for both). `Link` is inline, so its vertical margins are ignored by CSS (only `marginX` takes effect). For the **inline sides** (`ml-4`/`mr-4`) or an **exact value**, use `className`.
 
 ## Full-width children (Container / Section)
 

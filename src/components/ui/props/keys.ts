@@ -252,8 +252,8 @@ export const ComponentKeys = {
   ] as const,
   /** Internal spacing: padding (enabled) or noPadding (disabled) */
   padding: ['padding', 'paddingX', 'paddingY', 'noPadding'] as const,
-  /** External spacing: margin (all sides), marginX/marginY, or noMargin */
-  margin: ['margin', 'marginX', 'marginY', 'noMargin'] as const,
+  /** External spacing: margin (all sides), marginX/marginY, marginT/marginB, or noMargin */
+  margin: ['margin', 'marginX', 'marginY', 'marginT', 'marginB', 'noMargin'] as const,
   /** CSS positioning: relative, absolute, fixed, sticky, static */
   position: ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const,
   /** Reverse the order of flex items */
@@ -356,7 +356,7 @@ export type TextDecorationKey = typeof ComponentKeys.textDecoration[number];
 export type TextTransformKey = typeof ComponentKeys.textTransform[number];
 /** Text alignment keys: textLeft, textCenter, textRight, textJustify, textStart, textEnd */
 export type TextAlignKey = typeof ComponentKeys.textAlign[number];
-/** Margin keys: margin, marginX, marginY, noMargin */
+/** Margin keys: margin, marginX, marginY, marginT, marginB, noMargin */
 export type MarginKey = typeof ComponentKeys.margin[number];
 /** Responsive breakpoint column keys for grid layouts */
 export type BreakpointKey = typeof ComponentKeys.breakpoint[number];

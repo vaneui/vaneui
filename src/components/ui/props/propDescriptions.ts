@@ -564,6 +564,12 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       "marginY": {
         "description": "Enable only vertical (block) margin"
       },
+      "marginT": {
+        "description": "Enable only top margin"
+      },
+      "marginB": {
+        "description": "Enable only bottom margin"
+      },
       "noMargin": {
         "description": "Disable margin (reset to 0)"
       }

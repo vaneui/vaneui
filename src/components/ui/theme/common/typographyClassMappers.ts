@@ -3,6 +3,7 @@ import type { TextTheme } from "../../typography/common/TypographyTheme";
 import { FontSizeClassMapper } from "../size/fontSizeClassMapper";
 import { LineHeightClassMapper } from "../size/lineHeightClassMapper";
 import { LetterSpacingClassMapper } from "../typography/letterSpacingClassMapper";
+import { MarginClassMapper } from "../size/marginClassMapper";
 import { CursorClassMapper } from "../layout/cursorClassMapper";
 import { textAppearance } from "./appearanceClassMappers";
 
@@ -19,6 +20,7 @@ export const typographyClassMappers: TextTheme = {
     text: new FontSizeClassMapper(),
     lineHeight: new LineHeightClassMapper(),
     letterSpacing: new LetterSpacingClassMapper(),
+    margin: new MarginClassMapper(),
   },
   appearance: {
     text: textAppearance,
