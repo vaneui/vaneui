@@ -25,6 +25,7 @@ export * from './textAlignProps';
 
 // Layout and spacing
 export * from './paddingProps';
+export * from './marginProps';
 export * from './gapProps';
 export * from './borderProps';
 export * from './shadowProps';
@@ -88,6 +89,7 @@ export * from './placementProps';
 
 // Disabled
 export * from './DisabledProps';
+export * from './ReadOnlyProps';
 
 // Min Width
 export * from './minWidthProps';

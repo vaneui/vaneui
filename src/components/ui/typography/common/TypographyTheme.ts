@@ -5,6 +5,7 @@ import type {
 import type { FontSizeClassMapper } from "../../theme/size/fontSizeClassMapper";
 import type { LineHeightClassMapper } from "../../theme/size/lineHeightClassMapper";
 import type { LetterSpacingClassMapper } from "../../theme/typography/letterSpacingClassMapper";
+import type { MarginClassMapper } from "../../theme/size/marginClassMapper";
 import type { CursorClassMapper } from "../../theme/layout/cursorClassMapper";
 import type { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
 
@@ -13,6 +14,7 @@ export interface TextTheme extends BaseTypographyComponentTheme {
     text: FontSizeClassMapper;
     lineHeight: LineHeightClassMapper;
     letterSpacing: LetterSpacingClassMapper;
+    margin: MarginClassMapper;
   };
   appearance: {
     text: SimpleConsumerClassMapper;

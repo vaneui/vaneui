@@ -25,6 +25,8 @@ import { checkboxIndeterminateDefaults } from '../checkbox/checkboxIndeterminate
 import { labelDefaults } from '../label/labelDefaults';
 import { imgDefaults } from '../img/imgDefaults';
 import { inputDefaults } from '../input/inputDefaults';
+import { inputErrorIconDefaults } from '../input/inputErrorIconDefaults';
+import { inputWrapperDefaults } from '../input/inputWrapperDefaults';
 import { overlayDefaults } from '../overlay/overlayDefaults';
 import { kbdDefaults } from '../kbd/kbdDefaults';
 import { markDefaults } from '../mark/markDefaults';
@@ -47,6 +49,7 @@ import {
   titleDefaults,
   textDefaults,
   blockquoteDefaults,
+  blockquoteCiteDefaults,
   linkDefaults,
   listItemDefaults,
   listDefaults,
@@ -86,6 +89,7 @@ export const themeDefaults: ThemeDefaults = {
   title: titleDefaults,
   text: textDefaults,
   blockquote: blockquoteDefaults,
+  blockquoteCite: blockquoteCiteDefaults,
   link: linkDefaults,
   listItem: listItemDefaults,
   list: listDefaults,
@@ -98,6 +102,8 @@ export const themeDefaults: ThemeDefaults = {
   label: labelDefaults,
   img: imgDefaults,
   input: inputDefaults,
+  inputErrorIcon: inputErrorIconDefaults,
+  inputWrapper: inputWrapperDefaults,
   overlay: overlayDefaults,
   modal: {
     content: modalContentDefaults,

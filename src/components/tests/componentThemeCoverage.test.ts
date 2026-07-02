@@ -13,7 +13,7 @@ import { defaultChipTheme } from "../ui/chip/defaultChipTheme";
 import { defaultCodeTheme } from "../ui/code/defaultCodeTheme";
 import { defaultKbdTheme } from "../ui/kbd";
 import { defaultMarkTheme } from "../ui/mark";
-import { defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultLinkTheme, defaultListTheme, defaultListItemTheme, LIST_CATEGORIES, LIST_ITEM_CATEGORIES } from "../ui/typography";
+import { defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultBlockquoteCiteTheme, defaultLinkTheme, defaultListTheme, defaultListItemTheme, LIST_CATEGORIES, LIST_ITEM_CATEGORIES } from "../ui/typography";
 import { defaultGrid2Theme } from "../ui/grid/defaultGrid2Theme";
 import { defaultGrid3Theme } from "../ui/grid/defaultGrid3Theme";
 import { defaultGrid4Theme } from "../ui/grid/defaultGrid4Theme";
@@ -29,7 +29,7 @@ import { defaultMenuDividerTheme } from "../ui/divider/defaultMenuDividerTheme";
 import { defaultSectionTheme } from "../ui/section/defaultSectionTheme";
 import { defaultLabelTheme } from "../ui/label/defaultLabelTheme";
 import { defaultImgTheme } from "../ui/img/defaultImgTheme";
-import { defaultInputTheme } from "../ui/input";
+import { defaultInputTheme, defaultInputErrorIconTheme, INPUT_ERROR_ICON_CATEGORIES, defaultInputWrapperTheme, INPUT_WRAPPER_CATEGORIES } from "../ui/input";
 import { defaultNavLinkTheme, NAV_LINK_CATEGORIES, defaultNavLinkLabelTheme, NAV_LINK_LABEL_CATEGORIES } from "../ui/navLink";
 import { LINK_CATEGORIES } from "../ui/typography/link/LinkCategories";
 import { defaultOverlayTheme } from "../ui/overlay";
@@ -816,6 +816,24 @@ describe("Component theme coverage tests", () => {
       ]
     };
     createThemeTests(checkboxIndeterminateConfig);
+
+    const inputWrapperConfig: ComponentTestConfig = {
+      propsType: "InputWrapperProps",
+      categories: INPUT_WRAPPER_CATEGORIES,
+      themes: [
+        { name: "defaultInputWrapperTheme", theme: defaultInputWrapperTheme }
+      ]
+    };
+    createThemeTests(inputWrapperConfig);
+
+    const inputErrorIconConfig: ComponentTestConfig = {
+      propsType: "InputErrorIconProps",
+      categories: INPUT_ERROR_ICON_CATEGORIES,
+      themes: [
+        { name: "defaultInputErrorIconTheme", theme: defaultInputErrorIconTheme }
+      ]
+    };
+    createThemeTests(inputErrorIconConfig);
   });
 
   // .withDefaults() variants — only need defaults tests (category coverage tested by parent)
@@ -826,6 +844,10 @@ describe("Component theme coverage tests", () => {
 
     it("should ensure defaultMenuDividerTheme has handlers for all its default props", () => {
       tester.testThemeDefaults("defaultMenuDividerTheme", defaultMenuDividerTheme);
+    });
+
+    it("should ensure defaultBlockquoteCiteTheme has handlers for all its default props", () => {
+      tester.testThemeDefaults("defaultBlockquoteCiteTheme", defaultBlockquoteCiteTheme);
     });
   });
 
@@ -858,7 +880,7 @@ describe("Component theme coverage tests", () => {
       defaultInputTheme,
       defaultNavLinkTheme,
       // Typography
-      defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme,
+      defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultBlockquoteCiteTheme,
       defaultLinkTheme,
       defaultListTheme, defaultListItemTheme,
       // Layout
@@ -881,6 +903,8 @@ describe("Component theme coverage tests", () => {
       defaultMenuItemTheme, defaultMenuLabelTheme,
       // Sub-components
       defaultButtonSpinnerTheme, defaultNavLinkLabelTheme, defaultCheckboxIndeterminateTheme,
+      defaultInputErrorIconTheme,
+      defaultInputWrapperTheme,
       // withDefaults variants
       defaultMenuPopupTheme, defaultMenuDividerTheme,
     ]);

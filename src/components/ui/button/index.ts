@@ -6,5 +6,6 @@ export type { ButtonSpinnerTheme } from './ButtonSpinnerTheme';
 export type { ButtonSpinnerProps } from './ButtonSpinnerProps';
 export { BUTTON_SPINNER_CATEGORIES } from './ButtonSpinnerCategories';
 export { buttonDefaults } from './buttonDefaults';
+export { buttonSpinnerDefaults } from './buttonSpinnerDefaults';
 export { defaultButtonTheme } from './defaultButtonTheme';
 export { defaultButtonSpinnerTheme } from './defaultButtonSpinnerTheme';

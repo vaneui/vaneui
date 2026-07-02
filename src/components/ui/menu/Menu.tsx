@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, useId, useEffect, useMemo, cloneElement } from 'react';
 import type { MenuProps } from './MenuProps';
-import { MenuContext, type MenuContextValue } from './MenuContext';
+import { MenuContext, useMenuContext, type MenuContextValue } from './MenuContext';
 import { useControllableState } from '../../utils/controllableState';
 import { Popup } from '../popup/Popup';
 import { useTheme } from '../../themeContext';
@@ -34,7 +34,12 @@ export function Menu({
     value: openProp,
     defaultValue: defaultOpen,
     onChange: onOpenChange,
+    hasExternalHandler: !!onCloseProp,
   });
+
+  // a Menu rendered inside another Menu's MenuContext is a submenu
+  const parentCtx = useMenuContext();
+  const isSubmenu = parentCtx !== null;
 
   const effectiveOpen = open && !disabled;
 
@@ -43,10 +48,20 @@ export function Menu({
     onCloseRef.current = onCloseProp;
   });
 
-  const closeMenu = useCallback(() => {
+  // close only this menu level — used for dismissal (Escape / ArrowLeft /
+  // click-outside). In a submenu, focus returns to its trigger via the
+  // return-focus effect below.
+  const closeSelf = useCallback(() => {
     setOpen(false);
     onCloseRef.current?.();
   }, [setOpen]);
+
+  // selecting a leaf item closes this level and, for a submenu, bubbles up so
+  // the whole tree closes
+  const closeMenu = useCallback(() => {
+    closeSelf();
+    if (isSubmenu) parentCtx?.closeMenu();
+  }, [closeSelf, isSubmenu, parentCtx]);
 
   const openMenu = useCallback(() => {
     if (!disabled) setOpen(true);
@@ -107,6 +122,21 @@ export function Menu({
         (original as (e: React.KeyboardEvent) => void)(e);
       }
 
+      if (isSubmenu) {
+        // submenu trigger: ArrowRight opens (the open effect focuses the first
+        // item), ArrowLeft / Escape close just this submenu. ArrowUp/Down and
+        // Enter/Space are left to the trigger MenuItem's own handler (parent
+        // navigation + click-to-open).
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          openMenu();
+        } else if ((e.key === 'ArrowLeft' || e.key === 'Escape') && effectiveOpen) {
+          e.preventDefault();
+          closeSelf();
+        }
+        return;
+      }
+
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         e.preventDefault();
         if (!disabled && !effectiveOpen) {
@@ -120,8 +150,13 @@ export function Menu({
         closeMenu();
       }
     },
-    [trigger, openMenu, closeMenu, effectiveOpen, disabled]
+    [trigger, openMenu, closeMenu, closeSelf, effectiveOpen, disabled, isSubmenu]
   );
+
+  // hover opens a submenu (mouse parity with the keyboard ArrowRight)
+  const handleTriggerMouseEnter = useCallback(() => {
+    if (isSubmenu) openMenu();
+  }, [isSubmenu, openMenu]);
 
   // compose with the trigger's own ref — cloneElement would silently
   // replace a ref the consumer attached to their trigger element
@@ -132,6 +167,14 @@ export function Menu({
     'aria-controls': effectiveOpen ? menuId : undefined,
     onClick: handleClick,
     onKeyDown: handleKeyDown,
+    ...(isSubmenu
+      ? {
+          // the submenu trigger is itself an item of the parent menu, so
+          // activating it must NOT close the parent; hovering it opens the submenu
+          closeMenuOnClick: false,
+          onMouseEnter: handleTriggerMouseEnter,
+        }
+      : {}),
   } as Record<string, unknown>);
 
   const theme = useTheme();
@@ -143,7 +186,15 @@ export function Menu({
     closeMenu,
     closeOnItemClick,
     loop,
-  }), [closeMenu, closeOnItemClick, loop]);
+    isSubmenu,
+    closeSubmenu: isSubmenu ? closeSelf : undefined,
+  }), [closeMenu, closeOnItemClick, loop, isSubmenu, closeSelf]);
+
+  // a submenu defaults to opening on the inline-end side (flips if no room)
+  const hasExplicitPlacement = ComponentKeys.placement.some(
+    (k) => (popupProps as Record<string, unknown>)[k]
+  );
+  const submenuPlacementProps = isSubmenu && !hasExplicitPlacement ? { rightStart: true } : {};
 
   // explicit size on Menu propagates to MenuItem / MenuLabel / Divider; no explicit size keeps each sub-component's default
   const explicitSize = ComponentKeys.size.find(
@@ -176,13 +227,14 @@ export function Menu({
         <Popup
           ref={contentRef}
           open={effectiveOpen}
-          onClose={closeMenu}
+          onClose={closeSelf}
           anchorRef={anchorRef}
           id={menuId}
           role="menu"
           aria-orientation="vertical"
           data-menu-dropdown=""
           transitionDuration={transitionDuration}
+          {...submenuPlacementProps}
           {...popupProps}
         >
           {children}

@@ -9,7 +9,7 @@ export const defaultBlockquoteTheme = new ComponentTheme<TypographyProps, TextTh
   "blockquote",
   // Logical accent border + indent (border-inline-start / padding-inline-start):
   // renders on the left in LTR, flips to the right under dir="rtl".
-  "vane-blockquote p-0 m-0 border-s-3 border-(--border-color) ps-(--pl)",
+  "vane-blockquote p-0 border-s-3 border-(--border-color) ps-(--pl)",
   typographyClassMappers,
   blockquoteDefaults,
   TYPOGRAPHY_CATEGORIES,

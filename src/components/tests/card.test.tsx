@@ -1080,4 +1080,32 @@ describe('Card Component Tests', () => {
       expect(card).toHaveAttribute('href', '/details');
     });
   });
+
+  describe('Margin (U7)', () => {
+    const cases = [
+      ['margin', 'm-(--margin)'],
+      ['marginX', 'mx-(--margin)'],
+      ['marginY', 'my-(--margin)'],
+      ['noMargin', 'm-0'],
+    ] as const;
+
+    cases.forEach(([prop, cls]) => {
+      it(`applies ${cls} for <Card ${prop}>`, () => {
+        const { container } = render(
+          <ThemeProvider theme={defaultTheme}>
+            {React.createElement(Card, { [prop]: true }, 'x')}
+          </ThemeProvider>
+        );
+        expect(container.querySelector('.vane-card')).toHaveClass(cls);
+      });
+    });
+
+    it('applies no margin class by default', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Card>x</Card></ThemeProvider>
+      );
+      const card = container.querySelector('.vane-card') as HTMLElement;
+      expect(card.className).not.toMatch(/(^|\s)m[xy]?-/);
+    });
+  });
 });

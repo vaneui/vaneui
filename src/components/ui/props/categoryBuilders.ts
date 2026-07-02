@@ -8,6 +8,7 @@ export const ALIGN_SELF = ['alignSelf'] as const;
 // Per-item inline-axis alignment within a grid area (justify-self). Opt-in.
 export const JUSTIFY_SELF = ['justifySelf'] as const;
 export const PADDING = ['padding'] as const;
+export const MARGIN = ['margin'] as const;
 export const BREAKPOINT = ['breakpoint'] as const;
 export const VISUAL_CORE = ['appearance'] as const;
 export const BORDER = ['border'] as const;
@@ -34,6 +35,7 @@ export const WHITESPACE = ['whitespace'] as const;
 export const HEIGHT = ['height'] as const;
 export const STATUS = ['status'] as const;
 export const DISABLED = ['disabled'] as const;
+export const READONLY = ['readOnly'] as const;
 export const ORIENTATION = ['orientation'] as const;
 export const PLACEMENT = ['placement'] as const;
 export const MIN_WIDTH = ['minWidth'] as const;
@@ -83,6 +85,7 @@ export const ICON_CATEGORIES = [
 export const GRID_CATEGORIES = [
   ...LAYOUT_FULL,
   ...PADDING,
+  ...MARGIN,
   ...VISUAL_CORE,
   ...BORDER,
   ...SHAPE,
@@ -107,6 +110,7 @@ export const RESPONSIVE_LAYOUT_CATEGORIES = [
   ...LAYOUT_FULL,
   ...BREAKPOINT,
   ...PADDING,
+  ...MARGIN,
   ...VISUAL_LAYOUT,
   ...VARIANT,
   ...WIDTH,

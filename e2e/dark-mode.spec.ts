@@ -88,6 +88,21 @@ test.describe('Dark mode token flip', () => {
     expect(await getBg(checkbox)).not.toBe('rgb(255, 255, 255)');
     expect(await rendersAs(checkbox, 'background-color', DARK_BG_PRIMARY)).toBe(true);
   });
+
+  test('error input border + alert icon use the danger token (both flip under dark)', async ({ page }) => {
+    const lightInput = page.locator('[data-testid="dm-light-error-input"]');
+    const darkInput = page.locator('[data-testid="dm-dark-error-input"]');
+
+    // the error border is border-(--color-border-danger) — frozen red-500 would NOT flip
+    const lightBorder = await getStyle(lightInput, 'border-top-color');
+    const darkBorder = await getStyle(darkInput, 'border-top-color');
+    expect(darkBorder).not.toBe(lightBorder);
+
+    // the alert icon is text-(--color-text-danger) — also token-driven, so it flips too
+    const lightIcon = page.locator('.vane-input-wrapper', { has: lightInput }).locator('.vane-input-error-icon');
+    const darkIcon = page.locator('.vane-input-wrapper', { has: darkInput }).locator('.vane-input-error-icon');
+    expect(await getColor(darkIcon)).not.toBe(await getColor(lightIcon));
+  });
 });
 
 // =========================================================================

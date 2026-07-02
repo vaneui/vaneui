@@ -34,6 +34,8 @@ import { defaultCheckboxWrapperTheme } from './ui/checkbox/defaultCheckboxWrappe
 import { defaultLabelTheme } from './ui/label/defaultLabelTheme';
 import { defaultImgTheme } from './ui/img/defaultImgTheme';
 import { defaultInputTheme } from './ui/input/defaultInputTheme';
+import { defaultInputErrorIconTheme } from './ui/input/defaultInputErrorIconTheme';
+import { defaultInputWrapperTheme } from './ui/input/defaultInputWrapperTheme';
 import { defaultOverlayTheme } from './ui/overlay/defaultOverlayTheme';
 import { defaultModalContentTheme } from './ui/modal/defaultModalContentTheme';
 import { defaultModalOverlayTheme } from './ui/modal/defaultModalOverlayTheme';
@@ -45,6 +47,7 @@ import { defaultPopupTheme } from './ui/popup/defaultPopupTheme';
 import { defaultIconButtonTheme } from './ui/iconButton/defaultIconButtonTheme';
 import { defaultIconTheme } from './ui/icon/defaultIconTheme';
 import { defaultBlockquoteTheme } from './ui/typography/blockquote/defaultBlockquoteTheme';
+import { defaultBlockquoteCiteTheme } from './ui/typography/blockquote/defaultBlockquoteCiteTheme';
 import { defaultKbdTheme } from './ui/kbd/defaultKbdTheme';
 import { defaultMarkTheme } from './ui/mark/defaultMarkTheme';
 import { defaultMenuItemTheme } from './ui/menu/defaultMenuItemTheme';
@@ -87,6 +90,7 @@ export const defaultTheme: ThemeProps = {
   title: defaultTitleTheme,
   text: defaultTextTheme,
   blockquote: defaultBlockquoteTheme,
+  blockquoteCite: defaultBlockquoteCiteTheme,
   link: defaultLinkTheme,
   listItem: defaultListItemTheme,
   list: defaultListTheme,
@@ -99,6 +103,8 @@ export const defaultTheme: ThemeProps = {
   label: defaultLabelTheme,
   img: defaultImgTheme,
   input: defaultInputTheme,
+  inputErrorIcon: defaultInputErrorIconTheme,
+  inputWrapper: defaultInputWrapperTheme,
   overlay: defaultOverlayTheme,
   modal: {
     content: defaultModalContentTheme,

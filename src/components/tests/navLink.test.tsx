@@ -203,6 +203,49 @@ describe('NavLink Component Tests', () => {
       expect(el).not.toHaveAttribute('data-active');
       expect(el).not.toHaveAttribute('aria-current');
     });
+
+    it('does not set aria-current when active but rendered as a <button> (no href)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink active>Current section</NavLink>
+        </ThemeProvider>
+      );
+      const btn = container.querySelector('button');
+      expect(btn).toBeInTheDocument();
+      expect(btn).toHaveAttribute('data-active', 'true');
+      // aria-current="page" is page-navigation semantics — wrong on an action <button>
+      expect(btn).not.toHaveAttribute('aria-current');
+    });
+  });
+
+  describe('Button form (no href)', () => {
+    it('defaults to type="button" so a NavLink inside a <form> does not submit it', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink>Action</NavLink>
+        </ThemeProvider>
+      );
+      const btn = container.querySelector('button');
+      expect(btn).toHaveAttribute('type', 'button');
+    });
+
+    it('respects a consumer-supplied type on the button form', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink type="submit">Submit</NavLink>
+        </ThemeProvider>
+      );
+      expect(container.querySelector('button')).toHaveAttribute('type', 'submit');
+    });
+
+    it('does not put a type attribute on the <a> form', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/x">Link</NavLink>
+        </ThemeProvider>
+      );
+      expect(container.querySelector('a')).not.toHaveAttribute('type');
+    });
   });
 
   describe('Disabled State', () => {

@@ -16,6 +16,7 @@ import type {
   ReverseProps,
   BreakpointProps,
   PaddingProps,
+  MarginProps,
   AppearanceProps,
   BorderProps,
   ShadowProps,
@@ -47,6 +48,7 @@ export type StackProps = BaseProps &
   ReverseProps &
   BreakpointProps &
   PaddingProps &
+  MarginProps &
   AppearanceProps &
   BorderProps &
   ShadowProps &

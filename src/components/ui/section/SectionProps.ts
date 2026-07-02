@@ -20,6 +20,7 @@ import type {
   RingProps,
   ShapeProps,
   PaddingProps,
+  MarginProps,
   BreakpointProps,
   VariantProps,
   TransparentProps,
@@ -50,6 +51,7 @@ export type SectionProps = BaseProps &
   RingProps &
   ShapeProps &
   PaddingProps &
+  MarginProps &
   BreakpointProps &
   VariantProps &
   TransparentProps &

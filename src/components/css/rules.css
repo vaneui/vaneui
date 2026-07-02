@@ -7,6 +7,8 @@
         --py: calc(var(--py-unit) * var(--spacing));
         --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
         --gap: calc(var(--gap-unit) * var(--spacing));
+        /* margin props get their own token, defaulting to the gap rhythm (overridable) */
+        --margin: var(--gap);
         --fs: calc(var(--fs-unit) * var(--fs-base));
         /* Icon defaults to the element's own font-size (1em), giving a single
            constant icon-to-text ratio across text-bearing components. The
@@ -184,6 +186,10 @@
     .vane-input[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
     .vane-input[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-input[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+    /* reserve trailing room for the overlaid alert icon (the inputErrorIcon sub-theme) */
+    .vane-input[data-status="error"] {
+        padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
+    }
 
     /* Checkbox (height = size-unit * spacing, not text-based) */
     .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
@@ -248,13 +254,15 @@
     .vane-text[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-text[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
-    /* Blockquote */
-    .vane-blockquote { --lh: var(--lh-base); --ls: var(--ls-base); }
-    .vane-blockquote[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
-    .vane-blockquote[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
-    .vane-blockquote[data-size="md"] { --fs-unit: var(--fs-unit-md); }
-    .vane-blockquote[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
-    .vane-blockquote[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    /* Blockquote — --py-unit drives the ps-(--pl) start indent, so it must scale
+       per size (and be set in every size block so it can't inherit a padded
+       ancestor's value), mirroring List which uses the same ps-(--pl) indent. */
+    .vane-blockquote { --lh: var(--lh-base); --ls: var(--ls-base); --py-unit: 3; }
+    .vane-blockquote[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-blockquote[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 2; }
+    .vane-blockquote[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 3; }
+    .vane-blockquote[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 4; }
+    .vane-blockquote[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 5; }
 
     /* Link */
     .vane-link { --lh: var(--lh-base); --icon-size: var(--fs-em); --ls: var(--ls-base); }
@@ -545,9 +553,8 @@
         animation: vane-spin 0.6s linear infinite;
     }
 
-    /* READ-ONLY STATE — visual feedback via data attribute (readOnly itself passes through as HTML attr) */
+    /* read-only: only the bits with no class equivalent — opacity/cursor are in ReadOnlyClassMapper */
     [data-readonly="true"] {
-        cursor: default;
         caret-color: transparent;
         --bg-hover-color: var(--bg-color);
         --bg-active-color: var(--bg-color);

@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
 import { Blockquote } from '../ui/typography/blockquote';
+import { ThemeProvider, defaultTheme } from '../../index';
 import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Blockquote Component', () => {
@@ -60,7 +61,7 @@ describe('Blockquote Component', () => {
       expect(el).toHaveAttribute('data-size', 'md');
       expect(el).toHaveClass('w-full');
       expect(el).toHaveClass('font-sans');
-      expect(el).toHaveClass('text-left');
+      expect(el).toHaveClass('text-start');
       expect(el).toHaveClass('text-(--text-color)');
     });
 
@@ -161,6 +162,53 @@ describe('Blockquote Component', () => {
       expect(el).toHaveClass('font-bold');
       expect(el).toHaveClass('custom');
       expect(el).toHaveClass('vane-blockquote');
+    });
+  });
+
+  describe('cite (R11)', () => {
+    it('sets the cite attribute and renders a visible <cite> source', () => {
+      const { container } = render(
+        <Blockquote cite="https://example.com/source">Quoted text</Blockquote>
+      );
+      const el = container.querySelector('blockquote') as HTMLElement;
+      expect(el).toHaveAttribute('cite', 'https://example.com/source');
+      const source = el.querySelector('cite.vane-blockquote-cite');
+      expect(source).toBeInTheDocument();
+      expect(source).toHaveTextContent('https://example.com/source');
+    });
+
+    it('renders no <cite> when cite is omitted', () => {
+      const { container } = render(<Blockquote>Quoted text</Blockquote>);
+      const el = container.querySelector('blockquote') as HTMLElement;
+      expect(el).not.toHaveAttribute('cite');
+      expect(el.querySelector('cite')).toBeNull();
+    });
+
+    it('renders the source as a themed <cite>: tertiary token + block + not-italic (no CSS literals)', () => {
+      const { container } = render(<Blockquote cite="Author">Quoted text</Blockquote>);
+      const source = container.querySelector('cite.vane-blockquote-cite') as HTMLElement;
+      // muted via the tertiary appearance token, not an opacity literal
+      expect(source).toHaveAttribute('data-appearance', 'tertiary');
+      expect(source.style.opacity).toBe('');
+      // display + font-style come from props (theme classes), not a raw CSS rule
+      expect(source).toHaveClass('block');
+      expect(source).toHaveClass('not-italic');
+    });
+
+    it('lets the cite line be customized via theme.blockquoteCite', () => {
+      const { container } = render(
+        <ThemeProvider
+          theme={defaultTheme}
+          themeOverride={(t) => {
+            t.blockquoteCite.defaults = { ...t.blockquoteCite.defaults, danger: true, tertiary: false };
+            return t;
+          }}
+        >
+          <Blockquote cite="Author">Quoted text</Blockquote>
+        </ThemeProvider>
+      );
+      const source = container.querySelector('cite.vane-blockquote-cite') as HTMLElement;
+      expect(source).toHaveAttribute('data-appearance', 'danger');
     });
   });
 });

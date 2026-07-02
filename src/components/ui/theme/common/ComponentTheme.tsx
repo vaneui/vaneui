@@ -33,6 +33,15 @@ const NATIVE_DISABLED_TAGS = new Set([
 // (boolean category props are stripped separately via ResolutionState.omitKeys)
 const INTERNAL_PROPS = new Set(['className', 'tag', 'children', 'theme']);
 
+// attributes that are invalid on a given resolved tag — stripped so a wrong-tag
+// HTML attribute can't leak through a tag-switching component (e.g. type/form
+// reaching a rendered <a>, or href/target/download/rel reaching a rendered
+// <button>). Components like Button/NavLink/Badge union button + anchor attrs.
+const TAG_INVALID_ATTRS: Record<string, readonly string[]> = {
+  a: ['type', 'form', 'formAction', 'formEncType', 'formMethod', 'formNoValidate', 'formTarget'],
+  button: ['href', 'target', 'download', 'rel', 'hrefLang', 'ping'],
+};
+
 export type VaneComponentType = 'ui' | 'layout';
 
 export type ThemeMap<P> = {
@@ -361,7 +370,32 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       typeof componentTag !== 'string' || NATIVE_DISABLED_TAGS.has(componentTag);
     if (rawProps.disabled !== undefined && supportsNativeDisabled) {
       other.disabled = rawProps.disabled;
+    } else if (!supportsNativeDisabled && 'disabled' in other) {
+      // a tag that doesn't support native disabled (e.g. <a>, <span>) must not
+      // carry a leaked `disabled` attribute — the state is exposed via
+      // data-disabled / aria-disabled instead
+      delete other.disabled;
     }
+
+    // `readOnly` is now a category (so the ReadOnlyClassMapper can style it),
+    // which means omitKeys strips it. Re-add the native attribute on the tags
+    // that support it so the field stays read-only; data-readonly (below)
+    // carries the non-class CSS bits (caret-color / hover neutralization).
+    if (rawProps.readOnly !== undefined &&
+        (typeof componentTag !== 'string' || componentTag === 'input' || componentTag === 'textarea')) {
+      other.readOnly = rawProps.readOnly;
+    }
+
+    // drop attributes that don't belong on the resolved tag
+    if (typeof componentTag === 'string') {
+      const invalidAttrs = TAG_INVALID_ATTRS[componentTag];
+      if (invalidAttrs) {
+        for (const attr of invalidAttrs) {
+          if (attr in other) delete other[attr];
+        }
+      }
+    }
+
     const themeGeneratedClasses = this.getClasses(props, extractedKeys);
     const finalClasses = twMerge(...themeGeneratedClasses, className);
 
@@ -389,6 +423,9 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     }
     if (rawProps.readOnly) {
       dataAttributes['data-readonly'] = 'true';
+      if (rawProps['aria-readonly'] === undefined) {
+        dataAttributes['aria-readonly'] = 'true';
+      }
     }
     // error state must be AT-perceivable, not color-only: emit aria-invalid
     // (unless the consumer set it explicitly) alongside a data-status hook

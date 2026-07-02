@@ -23,6 +23,7 @@ import type {
   FocusVisibleProps,
   ShapeProps,
   PaddingProps,
+  MarginProps,
   VariantProps,
   TransparentProps,
   ResponsiveProps,
@@ -55,6 +56,7 @@ export type CardProps = BaseProps &
   FocusVisibleProps &
   ShapeProps &
   PaddingProps &
+  MarginProps &
   VariantProps &
   TransparentProps &
   ResponsiveProps &

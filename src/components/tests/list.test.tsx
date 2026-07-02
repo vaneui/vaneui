@@ -839,5 +839,15 @@ describe('List and ListItem Components Tests', () => {
       expect(iconWrapper).toHaveClass('min-w-(--icon-size)');
       expect(iconWrapper).toHaveClass('me-(--gap)'); // logical margin: flips to the correct side under RTL
     });
+
+    it('hides the decorative icon wrapper from assistive tech (R5)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <List><ListItem icon={<span>✓</span>}>Done</ListItem></List>
+        </ThemeProvider>
+      );
+      // the icon repeats what the item text already conveys → must be aria-hidden
+      expect(container.querySelector('.vane-list-item-icon')).toHaveAttribute('aria-hidden', 'true');
+    });
   });
 });

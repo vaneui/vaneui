@@ -6,6 +6,7 @@ import {
   JUSTIFY_SELF,
   LAYOUT_FLEX,
   PADDING,
+  MARGIN,
   BREAKPOINT,
   VISUAL_CORE,
   BORDER,
@@ -29,6 +30,7 @@ import {
   TYPOGRAPHY_FULL,
   PLACEMENT,
   DISABLED,
+  READONLY,
   MIN_WIDTH,
   MAX_HEIGHT,
   INHERIT_SIZE,
@@ -42,6 +44,7 @@ export {
   LAYOUT_CORE,
   LAYOUT_FLEX,
   PADDING,
+  MARGIN,
   BREAKPOINT,
   VISUAL_CORE,
   BORDER,
@@ -65,6 +68,7 @@ export {
   TYPOGRAPHY_FULL,
   PLACEMENT,
   DISABLED,
+  READONLY,
   MIN_WIDTH,
   MAX_HEIGHT,
   INHERIT_SIZE,
@@ -92,6 +96,8 @@ import { IMG_CATEGORIES } from '../img/ImgCategories';
 import { SECTION_CATEGORIES } from '../section/SectionCategories';
 import { LABEL_CATEGORIES } from '../label/LabelCategories';
 import { INPUT_CATEGORIES } from '../input/InputCategories';
+import { INPUT_ERROR_ICON_CATEGORIES } from '../input/InputErrorIconCategories';
+import { INPUT_WRAPPER_CATEGORIES } from '../input/InputWrapperCategories';
 import { OVERLAY_CATEGORIES } from '../overlay/OverlayCategories';
 import { MODAL_CATEGORIES } from '../modal/ModalCategories';
 import { POPUP_CATEGORIES } from '../popup/PopupCategories';
@@ -119,6 +125,8 @@ export { SECTION_CATEGORIES };
 export { STACK_CATEGORIES };
 export { LABEL_CATEGORIES };
 export { INPUT_CATEGORIES };
+export { INPUT_ERROR_ICON_CATEGORIES };
+export { INPUT_WRAPPER_CATEGORIES };
 export { OVERLAY_CATEGORIES };
 export { MODAL_CATEGORIES };
 export { POPUP_CATEGORIES };
@@ -160,6 +168,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...JUSTIFY_SELF,
   ...BREAKPOINT,
   ...PADDING,
+  ...MARGIN,
   ...BORDER,
   ...VISUAL_DECORATION,
   ...SHAPE,
@@ -180,6 +189,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...LETTER_SPACING,
   ...PLACEMENT,
   ...DISABLED,
+  ...READONLY,
   ...MIN_WIDTH,
   ...MAX_HEIGHT,
   ...INHERIT_SIZE,
@@ -242,6 +252,8 @@ export const ComponentKeys = {
   ] as const,
   /** Internal spacing: padding (enabled) or noPadding (disabled) */
   padding: ['padding', 'paddingX', 'paddingY', 'noPadding'] as const,
+  /** External spacing: margin (all sides), marginX/marginY, marginT/marginB, or noMargin */
+  margin: ['margin', 'marginX', 'marginY', 'marginT', 'marginB', 'noMargin'] as const,
   /** CSS positioning: relative, absolute, fixed, sticky, static */
   position: ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const,
   /** Reverse the order of flex items */
@@ -302,6 +314,8 @@ export const ComponentKeys = {
   placement: ['top', 'topStart', 'topEnd', 'bottom', 'bottomStart', 'bottomEnd', 'left', 'leftStart', 'leftEnd', 'right', 'rightStart', 'rightEnd'] as const,
   /** Disabled state for interactive elements */
   disabled: ['disabled'] as const,
+  /** Read-only state for form components */
+  readOnly: ['readOnly'] as const,
   /** Min-width for popup/floating components */
   minWidth: ['minWidth'] as const,
   /** Max-height for popup/floating components */
@@ -342,6 +356,8 @@ export type TextDecorationKey = typeof ComponentKeys.textDecoration[number];
 export type TextTransformKey = typeof ComponentKeys.textTransform[number];
 /** Text alignment keys: textLeft, textCenter, textRight, textJustify, textStart, textEnd */
 export type TextAlignKey = typeof ComponentKeys.textAlign[number];
+/** Margin keys: margin, marginX, marginY, marginT, marginB, noMargin */
+export type MarginKey = typeof ComponentKeys.margin[number];
 /** Responsive breakpoint column keys for grid layouts */
 export type BreakpointKey = typeof ComponentKeys.breakpoint[number];
 /** Breakpoint-specific hide keys for responsive visibility */
@@ -396,6 +412,8 @@ export type LetterSpacingKey = typeof ComponentKeys.letterSpacing[number];
 export type PlacementKey = typeof ComponentKeys.placement[number];
 /** Disabled state key */
 export type DisabledKey = typeof ComponentKeys.disabled[number];
+/** Read-only state key */
+export type ReadOnlyKey = typeof ComponentKeys.readOnly[number];
 /** Min-width key for popup/floating components */
 export type MinWidthKey = typeof ComponentKeys.minWidth[number];
 /** Max-height key for popup/floating components */
@@ -470,7 +488,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'overlay', 'modal', 'popup', 'menu', 'navLink'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'overlay', 'modal', 'popup', 'menu', 'navLink'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -496,6 +514,8 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   grid6: GRID_CATEGORIES,
   img: IMG_CATEGORIES,
   input: INPUT_CATEGORIES,
+  inputErrorIcon: INPUT_ERROR_ICON_CATEGORIES,
+  inputWrapper: INPUT_WRAPPER_CATEGORIES,
   label: LABEL_CATEGORIES,
   link: LINK_CATEGORIES,
   list: LIST_CATEGORIES,
@@ -507,6 +527,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   stack: STACK_CATEGORIES,
   text: TYPOGRAPHY_CATEGORIES,
   blockquote: TYPOGRAPHY_CATEGORIES,
+  blockquoteCite: TYPOGRAPHY_CATEGORIES,
   title: TYPOGRAPHY_CATEGORIES,
   overlay: OVERLAY_CATEGORIES,
   modal: MODAL_CATEGORIES,

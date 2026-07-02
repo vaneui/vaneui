@@ -35,6 +35,40 @@ describe('Icon Component Tests', () => {
       expect(icon).toHaveAttribute('data-vane-type', 'ui');
     });
 
+    it('is decorative by default (aria-hidden, no role) when it has no accessible name', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+      expect(icon).not.toHaveAttribute('role');
+    });
+
+    it('exposes role="img" (not aria-hidden) when given an accessible name', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon aria-label="Warning"><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveAttribute('role', 'img');
+      expect(icon).toHaveAttribute('aria-label', 'Warning');
+      expect(icon).not.toHaveAttribute('aria-hidden');
+    });
+
+    it('honors a consumer-set aria-hidden over the default policy', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Icon aria-label="X" aria-hidden="true"><TestSvg /></Icon>
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('span');
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+      expect(icon).not.toHaveAttribute('role');
+    });
+
     it('should have no appearance by default (currentColor inheritance)', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>

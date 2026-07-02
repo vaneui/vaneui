@@ -8,6 +8,7 @@ import {
   defaultTheme
 } from '../../index';
 import { resetStackCount } from '../utils/stackingContext';
+import { resetOverlayStack } from '../utils/overlayStack';
 
 describe('Popup Component Tests', () => {
   beforeEach(() => { resetStackCount(); });
@@ -1262,6 +1263,122 @@ describe('Popup Component Tests', () => {
 
       const popup = baseElement.querySelector('.vane-popup');
       expect(popup).not.toHaveAttribute('minWidth');
+    });
+  });
+
+  describe('Modal dialog (A3)', () => {
+    it('emits aria-modal="true" when modal', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open modal role="dialog" aria-label="Settings" anchorRef={anchorRef}>
+            <button>Inside</button>
+          </Popup>
+        </ThemeProvider>
+      );
+      const popup = baseElement.querySelector('.vane-popup');
+      expect(popup).toHaveAttribute('aria-modal', 'true');
+      expect(popup).toHaveAttribute('role', 'dialog');
+      expect(popup).toHaveAttribute('aria-label', 'Settings');
+    });
+
+    it('does not emit aria-modal for a non-modal popup', () => {
+      const anchorRef = createAnchorRef();
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Popup open anchorRef={anchorRef}>
+            <div>Plain</div>
+          </Popup>
+        </ThemeProvider>
+      );
+      expect(baseElement.querySelector('.vane-popup')).not.toHaveAttribute('aria-modal');
+    });
+  });
+
+  describe('Detached (hideWhenDetached)', () => {
+    it('hides a detached popup from AT (aria-hidden) when the anchor scrolls away', () => {
+      let trigger: ((entries: { isIntersecting: boolean }[]) => void) | null = null;
+      const OriginalIO = global.IntersectionObserver;
+      // minimal IntersectionObserver mock that lets the test drive intersection
+      class MockIO {
+        constructor(cb: (entries: { isIntersecting: boolean }[]) => void) { trigger = cb; }
+        observe() {}
+        disconnect() {}
+        unobserve() {}
+        takeRecords() { return []; }
+        root = null;
+        rootMargin = '';
+        thresholds = [];
+      }
+      global.IntersectionObserver = MockIO as unknown as typeof IntersectionObserver;
+
+      try {
+        const anchorRef = createAnchorRef();
+        const { baseElement } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Popup open hideWhenDetached anchorRef={anchorRef} aria-label="p">
+              <div>content</div>
+            </Popup>
+          </ThemeProvider>
+        );
+
+        const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+        // intersecting → visible, not hidden from AT
+        expect(popup).not.toHaveAttribute('aria-hidden');
+
+        // anchor scrolled out of view → detached
+        act(() => { trigger?.([{ isIntersecting: false }]); });
+        expect(popup).toHaveAttribute('aria-hidden', 'true');
+        expect(popup).toHaveClass('invisible');
+      } finally {
+        global.IntersectionObserver = OriginalIO;
+      }
+    });
+  });
+
+  describe('Nested popup click-outside (A4)', () => {
+    afterEach(() => { resetOverlayStack(); });
+
+    it('does not close a parent popup when interacting inside a nested child popup', async () => {
+      const parentAnchor = { current: document.createElement('button') };
+      document.body.appendChild(parentAnchor.current);
+      const childAnchor = React.createRef<HTMLButtonElement>();
+      const onParentClose = jest.fn();
+
+      function Tree({ childOpen }: { childOpen: boolean }) {
+        return (
+          <ThemeProvider theme={defaultTheme}>
+            <Popup open={true} onClose={onParentClose} anchorRef={parentAnchor}>
+              <div data-testid="parent-body">
+                <button ref={childAnchor}>child anchor</button>
+                <Popup open={childOpen} onClose={() => {}} anchorRef={childAnchor}>
+                  <div data-testid="child-body">child popup</div>
+                </Popup>
+              </div>
+            </Popup>
+          </ThemeProvider>
+        );
+      }
+
+      // mount with the child closed so the parent registers in the overlay stack
+      // FIRST; only then can the child resolve the parent as its lineage.
+      const { rerender, getByTestId } = render(<Tree childOpen={false} />);
+      rerender(<Tree childOpen={true} />);
+
+      // the click-outside handler attaches on a setTimeout(0) — flush it so the
+      // family check is actually exercised (otherwise the assertion is vacuous)
+      await act(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      });
+
+      // a mousedown inside the portaled child popup is "inside the family" of the
+      // parent → the parent must NOT close
+      fireEvent.mouseDown(getByTestId('child-body'));
+      expect(onParentClose).not.toHaveBeenCalled();
+
+      // control: a click genuinely outside both DOES close the parent
+      fireEvent.mouseDown(document.body);
+      expect(onParentClose).toHaveBeenCalledTimes(1);
     });
   });
 });

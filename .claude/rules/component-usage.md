@@ -137,7 +137,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Quoted content | `Blockquote` | Left border accent, inherits parent appearance |
 | Text input | `Input` | Renders `<input>`, all HTML input attrs |
 | Toggle | `Checkbox` | Custom styled, use inside `Label` |
-| Input label | `Label` | Flex row with gap, sm size, inherit appearance |
+| Input label | `Label` | Flex **column** (label above field) with gap, sm size, inherit appearance. Use `row` for inline controls (e.g. Checkbox) |
 | Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `decimal` |
 | Horizontal rule | `Divider` | Thin line separator |
 | Image | `Img` | Rounded by default |
@@ -178,6 +178,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 <Card>
   <Stack>
     <Title>Sign Up</Title>
+    {/* Label stacks label-above-field by default (flex column) */}
     <Label>
       Email
       <Input type="email" placeholder="you@example.com" />
@@ -186,7 +187,8 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
       Password
       <Input type="password" placeholder="********" />
     </Label>
-    <Label>
+    {/* inline control + text: use `row` (optionally `itemsCenter`) */}
+    <Label row>
       <Checkbox />
       I agree to the terms
     </Label>
@@ -594,6 +596,31 @@ Text alignment offers both modes:
 
 // RIGHT - pick one size
 <Button sm>
+```
+
+## Margins
+
+Layout components (`Card`, `Row`, `Col`, `Stack`, `Section`, `Container`, `Grid*`) **and block typography** (`Text`, `Title`, `SectionTitle`, `PageTitle`, `Blockquote`, `Link`) have size-driven external-spacing props — the margin scales with the size prop, like `gap`/`padding`. Block typography defaults to `noMargin` (it resets the browser's default block margin); opt in per element for document/prose rhythm:
+
+```tsx
+<Card margin>All-sides margin</Card>
+<Section marginY>Vertical margin only</Section>
+<Row marginX>Horizontal margin only</Row>
+<SectionTitle marginT>Space above a heading</SectionTitle>
+<Text marginB>Space below a paragraph</Text>
+<Col noMargin>Reset margin</Col>
+```
+
+`marginT`/`marginB` cover top/bottom individually. Like the border-side props they share the one mutually-exclusive `margin` category — so it's `marginT` **or** `marginB` (use `marginY` for both). `Link` is inline, so its vertical margins are ignored by CSS (only `marginX` takes effect). For the **inline sides** (`ml-4`/`mr-4`) or an **exact value**, use `className`.
+
+## Full-width children (Container / Section)
+
+`Container` and `Section` align children on the cross axis (`itemsCenter` / `itemsStart`), so a child shrinks to its content width. To make a child fill the column, add `itemsStretch` on the parent (or `wFull` on the child):
+
+```tsx
+<Container itemsStretch>
+  <Card>Fills the container width</Card>
+</Container>
 ```
 
 ## className Usage

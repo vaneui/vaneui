@@ -112,9 +112,13 @@ export type PopupProps = BaseProps &
     transitionDuration?: number;
     /** ARIA role for the popup (default: "dialog") */
     role?: string;
+    /** Treat the popup as a modal dialog: traps Tab focus inside it, moves
+     *  focus in on open and returns it on close, and emits aria-modal="true".
+     *  Use for a Popup used directly as a dialog. (default: false) */
+    modal?: boolean;
     /** Move focus into the popup when it opens — set for click-opened
      *  dialog popups so keyboard users can reach the portaled content
-     *  (default: false; PopupTrigger sets it for click mode) */
+     *  (default: false; PopupTrigger sets it for click mode). Implied by `modal`. */
     autoFocus?: boolean;
     /** Show an arrow/pointer pointing toward the anchor (default: false) */
     arrow?: boolean;

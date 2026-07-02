@@ -415,8 +415,8 @@ describe('Checkbox Component Tests', () => {
 
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
-      expect(checkbox).toHaveClass('border-red-500');
-      expect(checkbox).toHaveClass('ring-red-500/30');
+      expect(checkbox).toHaveClass('border-(--color-border-danger)');
+      expect(checkbox).toHaveClass('ring-(--color-border-danger)/30');
     });
 
     it('should not apply error classes when error is false', () => {
@@ -427,8 +427,8 @@ describe('Checkbox Component Tests', () => {
       );
 
       const checkbox = container.querySelector('input[type="checkbox"]');
-      expect(checkbox).not.toHaveClass('border-red-500');
-      expect(checkbox).not.toHaveClass('ring-red-500/30');
+      expect(checkbox).not.toHaveClass('border-(--color-border-danger)');
+      expect(checkbox).not.toHaveClass('ring-(--color-border-danger)/30');
     });
 
     it('should work with other props alongside error', () => {
@@ -439,7 +439,7 @@ describe('Checkbox Component Tests', () => {
       );
 
       const checkbox = container.querySelector('input[type="checkbox"]');
-      expect(checkbox).toHaveClass('border-red-500'); // error state
+      expect(checkbox).toHaveClass('border-(--color-border-danger)'); // error state
       expect(checkbox).toHaveAttribute('data-size', 'lg'); // size prop
       expect(checkbox).toHaveAttribute('data-appearance', 'primary'); // appearance
     });
@@ -604,6 +604,21 @@ describe('Checkbox Component Tests', () => {
 
       const wrapper = container.querySelector('span.inline-grid');
       expect(wrapper).not.toHaveClass('opacity-50');
+    });
+  });
+
+  describe('Decorative overlays hidden from AT (S4)', () => {
+    it('marks the check and indeterminate overlay spans aria-hidden (state lives on the <input>)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Checkbox /></ThemeProvider>
+      );
+      const wrapper = container.firstElementChild as HTMLElement;
+      // wrapper children = the real <input> + the two decorative overlays
+      const decorative = Array.from(wrapper.children).filter((c) => c.tagName !== 'INPUT');
+      expect(decorative).toHaveLength(2);
+      decorative.forEach((el) => expect(el).toHaveAttribute('aria-hidden', 'true'));
+      // the input itself must NOT be hidden — it carries the actual checkbox state
+      expect(wrapper.querySelector('input')).not.toHaveAttribute('aria-hidden');
     });
   });
 });

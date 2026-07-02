@@ -47,13 +47,23 @@ export function createFocusTrap(
     if (event.key !== 'Tab') return;
 
     const elements = getFocusableElements(container);
-    if (elements.length === 0) return;
+    // a dialog with no focusable content still traps Tab on itself rather than
+    // leaking focus to the background
+    if (elements.length === 0) {
+      event.preventDefault();
+      return;
+    }
 
     const first = elements[0];
     const last = elements[elements.length - 1];
     const active = document.activeElement;
 
-    if (event.shiftKey && active === first) {
+    // when the container itself holds focus (the no-initial-target fallback),
+    // Tab wraps to the first focusable and Shift-Tab to the last
+    if (active === container) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && active === first) {
       event.preventDefault();
       last.focus();
     } else if (!event.shiftKey && active === last) {

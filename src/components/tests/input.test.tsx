@@ -434,6 +434,8 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveAttribute('data-readonly', 'true');
+      // S5: also expose aria-readonly explicitly
+      expect(input).toHaveAttribute('aria-readonly', 'true');
     });
 
     it('should pass readOnly through to native input element', () => {
@@ -471,6 +473,25 @@ describe('Input Component Tests', () => {
       expect(input).toHaveAttribute('data-size', 'lg');
       expect(input).toHaveAttribute('data-appearance', 'primary');
       expect(input).toHaveAttribute('value', 'read only value');
+    });
+
+    it('applies the muted look via theme classes (opacity-70 cursor-default), not a raw CSS literal', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Input readOnly /></ThemeProvider>
+      );
+      const input = container.querySelector('input') as HTMLElement;
+      // the read-only visual now comes from ReadOnlyClassMapper, mirroring how
+      // disabled uses DisabledClassMapper — not a hardcoded opacity in rules.css
+      expect(input).toHaveClass('opacity-70');
+      expect(input).toHaveClass('cursor-default');
+    });
+
+    it('has no read-only visual classes when not read-only', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Input /></ThemeProvider>
+      );
+      const input = container.querySelector('input') as HTMLElement;
+      expect(input).not.toHaveClass('opacity-70');
     });
   });
 
@@ -579,8 +600,8 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('border-red-500');
-      expect(input).toHaveClass('ring-red-500/30');
+      expect(input).toHaveClass('border-(--color-border-danger)');
+      expect(input).toHaveClass('ring-(--color-border-danger)/30');
     });
 
     it('should not apply error classes when error is false', () => {
@@ -591,8 +612,8 @@ describe('Input Component Tests', () => {
       );
 
       const input = container.querySelector('input');
-      expect(input).not.toHaveClass('border-red-500');
-      expect(input).not.toHaveClass('ring-red-500/30');
+      expect(input).not.toHaveClass('border-(--color-border-danger)');
+      expect(input).not.toHaveClass('ring-(--color-border-danger)/30');
     });
 
     it('should work with other props alongside error', () => {
@@ -603,7 +624,7 @@ describe('Input Component Tests', () => {
       );
 
       const input = container.querySelector('input');
-      expect(input).toHaveClass('border-red-500'); // error state
+      expect(input).toHaveClass('border-(--color-border-danger)'); // error state
       expect(input).toHaveAttribute('data-size', 'lg'); // size prop
       expect(input).toHaveAttribute('data-appearance', 'primary'); // appearance
     });
@@ -642,6 +663,87 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toHaveAttribute('aria-invalid', 'grammar');
       expect(input).toHaveAttribute('data-status', 'error');
+    });
+  });
+
+  describe('Error icon (A5 — themed element, not a CSS background-image)', () => {
+    it('renders a decorative, aria-hidden error-icon element when error is set', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input error placeholder="Error input" />
+        </ThemeProvider>
+      );
+      const icon = container.querySelector('.vane-input-error-icon');
+      expect(icon).toBeInTheDocument();
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+      expect(icon!.querySelector('svg')).toBeInTheDocument();
+      // the void <input> is wrapped so the icon can overlay its trailing edge
+      const wrapper = container.querySelector('.vane-input-wrapper');
+      expect(wrapper).toBeInTheDocument();
+      expect(wrapper!.querySelector('input.vane-input')).toBeInTheDocument();
+    });
+
+    it('does not render the error icon (or wrapper) without error', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input placeholder="OK input" />
+        </ThemeProvider>
+      );
+      expect(container.querySelector('.vane-input-error-icon')).not.toBeInTheDocument();
+      expect(container.querySelector('.vane-input-wrapper')).not.toBeInTheDocument();
+    });
+
+    it('forwards ref to the <input>, not the wrapper, in the error state', () => {
+      let node: HTMLInputElement | null = null;
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input error ref={(el) => { node = el; }} placeholder="Error input" />
+        </ThemeProvider>
+      );
+      expect(node).toBeInstanceOf(HTMLInputElement);
+    });
+
+    it('lets a consumer swap the icon via themeOverride (customizable)', () => {
+      const { container } = render(
+        <ThemeProvider
+          theme={defaultTheme}
+          themeOverride={(t) => {
+            t.inputErrorIcon.themes.errorIconElement = () => <svg data-testid="custom-error-icon" />;
+            return t;
+          }}
+        >
+          <Input error placeholder="Error input" />
+        </ThemeProvider>
+      );
+      expect(container.querySelector('[data-testid="custom-error-icon"]')).toBeInTheDocument();
+    });
+
+    it('renders the wrapper as a themed element (relative/flex/w-full from props, not raw className)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Input error placeholder="Error input" /></ThemeProvider>
+      );
+      const wrapper = container.querySelector('.vane-input-wrapper') as HTMLElement;
+      expect(wrapper).toHaveClass('relative');
+      expect(wrapper).toHaveClass('flex');
+      expect(wrapper).toHaveClass('w-full');
+      // it's a real ComponentTheme, so it emits data-vane-type like the others
+      expect(wrapper).toHaveAttribute('data-vane-type', 'ui');
+    });
+
+    it('lets the wrapper be customized via theme.inputWrapper', () => {
+      const { container } = render(
+        <ThemeProvider
+          theme={defaultTheme}
+          themeOverride={(t) => {
+            t.inputWrapper.defaults = { ...t.inputWrapper.defaults, wFull: false, wFit: true };
+            return t;
+          }}
+        >
+          <Input error placeholder="Error input" />
+        </ThemeProvider>
+      );
+      const wrapper = container.querySelector('.vane-input-wrapper') as HTMLElement;
+      expect(wrapper).toHaveClass('w-fit');
     });
   });
 });

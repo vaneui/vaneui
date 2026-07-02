@@ -1,7 +1,7 @@
-import type { TypographyProps } from "../common";
+import type { LinkProps } from "./LinkProps";
 
 /** Default props for Link component */
-export const linkDefaults: Partial<TypographyProps> = {
+export const linkDefaults: Partial<LinkProps> = {
   md: true,
   wFit: true,
   underline: true,

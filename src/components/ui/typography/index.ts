@@ -6,7 +6,8 @@ export { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from './common';
 export { Text, textDefaults, defaultTextTheme, textTheme } from './text';
 
 // Blockquote component
-export { Blockquote, blockquoteDefaults, defaultBlockquoteTheme, blockquoteTheme } from './blockquote';
+export { Blockquote, blockquoteDefaults, defaultBlockquoteTheme, blockquoteTheme, blockquoteCiteDefaults, defaultBlockquoteCiteTheme } from './blockquote';
+export type { BlockquoteProps } from './blockquote';
 
 // Title component
 export { Title, titleDefaults, defaultTitleTheme, titleTheme } from './title';

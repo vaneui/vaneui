@@ -23,6 +23,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "readOnly": {
+    "name": "Read Only",
+    "description": "Read-only state for form components.\nMutes the field and sets a default cursor; the value stays selectable and submittable.",
+    "props": {
+      "readOnly": {
+        "description": "Render the field read-only — mutes it (lighter than disabled) and sets a default cursor; the value stays selectable and submittable"
+      }
+    }
+  },
   "alignSelf": {
     "name": "Align Self",
     "description": "AlignSelf props for overriding a single flex/grid item's cross-axis\nalignment (align-self), independent of the parent's align-items.",
@@ -539,6 +548,30 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "lowerRoman": {
         "description": "Lowercase roman i, ii, iii — typically 3rd-depth ordered marker"
+      }
+    }
+  },
+  "margin": {
+    "name": "Margin",
+    "description": "Margin props for controlling external spacing.\nThe value is size-driven (scales with the component's size prop, like gap).",
+    "props": {
+      "margin": {
+        "description": "Enable margin on all sides"
+      },
+      "marginX": {
+        "description": "Enable only horizontal (inline) margin"
+      },
+      "marginY": {
+        "description": "Enable only vertical (block) margin"
+      },
+      "marginT": {
+        "description": "Enable only top margin"
+      },
+      "marginB": {
+        "description": "Enable only bottom margin"
+      },
+      "noMargin": {
+        "description": "Disable margin (reset to 0)"
       }
     }
   },

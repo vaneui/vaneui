@@ -18,8 +18,8 @@ describe('Grid2 Component Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toBeInTheDocument();
-      expect(grid).toHaveClass('grid-cols-1'); // mobile and small screens: 1 column
-      expect(grid).toHaveClass('md:grid-cols-2'); // medium screens and up: 2 columns
+      expect(grid).toHaveClass('grid-cols-2'); // desktop/laptop: 2 columns
+      expect(grid).toHaveClass('max-mobile:grid-cols-1'); // collapses to 1 column on mobile (≤768px)
       expect(grid).toHaveClass('grid'); // grid display
       expect(grid).toHaveClass('gap-(--gap)'); // default md gap
       expect(grid).toHaveTextContent('Grid2 content');
@@ -225,7 +225,7 @@ describe('Grid2 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-2'); // theme classes
+      expect(grid).toHaveClass('grid-cols-2', 'max-mobile:grid-cols-1'); // theme classes
       expect(grid).toHaveClass('custom-grid-class'); // custom class
     });
 
@@ -241,7 +241,7 @@ describe('Grid2 Component Tests', () => {
 
       const section = container.querySelector('section');
       expect(section).toBeInTheDocument();
-      expect(section).toHaveClass('grid-cols-1', 'md:grid-cols-2');
+      expect(section).toHaveClass('grid-cols-2', 'max-mobile:grid-cols-1');
     });
 
 
@@ -300,7 +300,7 @@ describe('Grid2 Component Tests', () => {
       );
 
       const grid = container.querySelector('div');
-      expect(grid).toHaveClass('grid-cols-1', 'md:grid-cols-2');
+      expect(grid).toHaveClass('grid-cols-2', 'max-mobile:grid-cols-1');
       
       // All children should be present
       expect(container.querySelector('[data-testid="item-1"]')).toBeInTheDocument();
@@ -321,8 +321,8 @@ describe('Grid2 Component Tests', () => {
 
       const grid = container.querySelector('div');
       expect(grid).toHaveClass(
-        'grid-cols-1', // mobile and small screens
-        'md:grid-cols-2', // medium screens and up
+        'grid-cols-2', // desktop/laptop
+        'max-mobile:grid-cols-1', // collapses on mobile
         'gap-(--gap)', // lg gap
         'max-mobile:hidden' // hidden on mobile screens
       );

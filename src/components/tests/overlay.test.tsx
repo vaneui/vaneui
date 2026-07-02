@@ -478,4 +478,26 @@ describe('Overlay Component Tests', () => {
       expect(overlay).not.toHaveClass('justify-center');
     });
   });
+
+  describe('Keyboard close (Escape)', () => {
+    it('closes a dismissible overlay (onClose) on Escape', () => {
+      const onClose = jest.fn();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay open onClose={onClose}><div>x</div></Overlay>
+        </ThemeProvider>
+      );
+      fireEvent.keyDown(document, { key: 'Escape' });
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('is a no-op on Escape when no onClose is provided', () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay open><div>x</div></Overlay>
+        </ThemeProvider>
+      );
+      expect(() => fireEvent.keyDown(document, { key: 'Escape' })).not.toThrow();
+    });
+  });
 });

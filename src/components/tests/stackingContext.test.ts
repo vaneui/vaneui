@@ -24,14 +24,24 @@ describe('useStackingContext', () => {
     expect(result.current).toBe(201);
   });
 
-  it('should increment global counter across different layers', () => {
+  it('should keep a later element above an earlier one across layers (newest on top)', () => {
     const { result: first } = renderHook(() => useStackingContext(true, 'overlay'));
     const { result: second } = renderHook(() => useStackingContext(true, 'popup'));
 
-    // First: overlay base (200) + 1 = 201
+    // First: overlay floor (200) + 1 = 201
     expect(first.current).toBe(201);
-    // Second: popup base (300) + 2 = 302
-    expect(second.current).toBe(302);
+    // Second: popup floor (300) wins over (prev max 201 + 1) → 301, still above first
+    expect(second.current).toBe(301);
+    expect(second.current).toBeGreaterThan(first.current);
+  });
+
+  it('B9: a modal opened AFTER a popup sits above it (no layer-floor inversion)', () => {
+    // popup opens first — would historically pin to its higher floor (300) and
+    // stay above any later modal (floor 200). Newest-on-top must win instead.
+    const { result: popup } = renderHook(() => useStackingContext(true, 'popup'));
+    const { result: modal } = renderHook(() => useStackingContext(true, 'modal'));
+
+    expect(modal.current).toBeGreaterThan(popup.current);
   });
 
   it('should reset the counter when the last open element unmounts', () => {

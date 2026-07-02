@@ -367,7 +367,7 @@ Asymmetric padding (`px-*` only, `py-*` only) has no VaneUI prop — `className=
 - Custom widths/heights beyond `full/fit/auto/screen` (e.g., `w-64`, `max-w-3xl`, `min-h-screen`)
 - Positioning offsets (`top-0`, `left-4`, `inset-0`, `z-10`)
 - Grid-specific utilities (`col-span-2`, `grid-cols-[...]`)
-- Margin (VaneUI has no margin props — use `className="mt-4"` etc.)
+- Inline-side margins or specific values — layout components and block typography have size-driven `margin`/`marginX`/`marginY`/`marginT`/`marginB`/`noMargin` props; for the inline sides (`ml-*`/`mr-*`) or an exact value use `className="ml-4"`
 - Gradients, backgrounds beyond appearance system
 - Hover/focus variants not covered by component state
 - `sr-only`, accessibility utilities

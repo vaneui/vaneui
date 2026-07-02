@@ -2,6 +2,7 @@ import { defaultSizedLayoutClassMappers } from "./ComponentTheme";
 import { PxClassMapper } from "../size/pxClassMapper";
 import { PyClassMapper } from "../size/pyClassMapper";
 import { GapClassMapper } from "../size/gapClassMapper";
+import { MarginClassMapper } from "../size/marginClassMapper";
 import { WrapClassMapper } from "../layout/wrapClassMapper";
 import { DirectionClassMapper } from "../layout/directionClassMapper";
 import { BorderClassMapper } from "../layout/borderClassMapper";
@@ -17,6 +18,7 @@ export const layoutClassMappers = {
     px: new PxClassMapper(),
     py: new PyClassMapper(),
     gap: new GapClassMapper(),
+    margin: new MarginClassMapper(),
   },
   appearance: {
     background: bgAppearance,
@@ -28,7 +30,7 @@ export const layoutClassMappers = {
   layout: {
     ...defaultSizedLayoutClassMappers,
     wrap: new WrapClassMapper(),
-    direction: new DirectionClassMapper(),
+    flexDirection: new DirectionClassMapper(),
     border: new BorderClassMapper(),
     ring: new RingClassMapper(),
     radius: new RadiusClassMapper(),

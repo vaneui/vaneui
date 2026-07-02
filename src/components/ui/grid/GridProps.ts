@@ -21,6 +21,7 @@ import type {
   TransparentProps,
   ResponsiveProps,
   PaddingProps,
+  MarginProps,
   WidthProps,
   HeightProps,
 } from '../props';
@@ -60,6 +61,7 @@ export type GridProps = BaseProps &
   ShapeProps &
   BorderProps &
   PaddingProps &
+  MarginProps &
   WidthProps &
   HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> & {

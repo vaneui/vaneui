@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 
 import {
   Modal,
@@ -12,6 +12,7 @@ import {
   defaultTheme
 } from '../../index';
 import { resetStackCount } from '../utils/stackingContext';
+import { registerOverlay, resetOverlayStack } from '../utils/overlayStack';
 
 describe('Modal Component Tests', () => {
   beforeEach(() => { resetStackCount(); });
@@ -560,7 +561,7 @@ describe('Modal Component Tests', () => {
   });
 
   describe('ModalCloseButton', () => {
-    it('should not render close button when not placed in modal', () => {
+    it('shows a close button by default even without a title (floating, not in a header)', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
           <Modal open={true} onClose={() => {}}>
@@ -570,7 +571,21 @@ describe('Modal Component Tests', () => {
       );
 
       const closeBtn = baseElement.querySelector('.vane-modal-close');
-      expect(closeBtn).not.toBeInTheDocument();
+      expect(closeBtn).toBeInTheDocument();
+      // no title → no ModalHeader; the close button floats top-right instead
+      expect(baseElement.querySelector('.vane-modal-header')).not.toBeInTheDocument();
+      expect(closeBtn!.closest('.vane-modal-header')).toBeNull();
+    });
+
+    it('omits the close button when withCloseButton={false}', () => {
+      const { baseElement } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} onClose={() => {}} withCloseButton={false}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+      expect(baseElement.querySelector('.vane-modal-close')).not.toBeInTheDocument();
     });
 
     it('should render ModalCloseButton with correct attributes', () => {
@@ -587,6 +602,10 @@ describe('Modal Component Tests', () => {
       expect(closeBtn).toBeInTheDocument();
       expect(closeBtn).toHaveAttribute('aria-label', 'Close');
       expect(closeBtn).toHaveAttribute('type', 'button');
+      // the decorative X is hidden from AT (the button already names itself)
+      const svg = closeBtn!.querySelector('svg');
+      expect(svg).toHaveAttribute('aria-hidden', 'true');
+      expect(svg).toHaveAttribute('focusable', 'false');
     });
 
     it('should call onClose when ModalCloseButton is clicked', () => {
@@ -1051,7 +1070,7 @@ describe('Modal Component Tests', () => {
       expect(closeBtn).not.toBeInTheDocument();
     });
 
-    it('withCloseButton={true} renders close button even without title', () => {
+    it('renders a close button without a title (floating, not in a header)', () => {
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
           <Modal open={true} onClose={() => {}} withCloseButton={true}>
@@ -1060,10 +1079,9 @@ describe('Modal Component Tests', () => {
         </ThemeProvider>
       );
 
-      const header = baseElement.querySelector('.vane-modal-header');
-      expect(header).toBeInTheDocument();
-      const closeBtn = header?.querySelector('.vane-modal-close');
-      expect(closeBtn).toBeInTheDocument();
+      // no title → no ModalHeader; the close button still renders (floating)
+      expect(baseElement.querySelector('.vane-modal-header')).not.toBeInTheDocument();
+      expect(baseElement.querySelector('.vane-modal-close')).toBeInTheDocument();
     });
 
     it('children are wrapped in ModalBody in convenience mode', () => {
@@ -1245,6 +1263,112 @@ describe('Modal Component Tests', () => {
       expect(getByText('First').closest('.vane-modal-body')).toBeInTheDocument();
       expect(getByText('Second').closest('.vane-modal-body')).toBeInTheDocument();
       expect(baseElement.querySelector('.vane-modal-header')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('Background inert (B3)', () => {
+    it('inerts background body children while open and restores them on close', () => {
+      const bg = document.createElement('div');
+      document.body.appendChild(bg);
+
+      const { rerender } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={false} onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+      expect(bg).not.toHaveAttribute('inert');
+
+      rerender(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+      expect(bg).toHaveAttribute('inert');
+      expect(bg).toHaveAttribute('aria-hidden', 'true');
+
+      rerender(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={false} onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+      expect(bg).not.toHaveAttribute('inert');
+      expect(bg).not.toHaveAttribute('aria-hidden');
+
+      document.body.removeChild(bg);
+    });
+
+    it('does not inert the dialog’s own portal', () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+      const dialog = document.querySelector('[role="dialog"]') as HTMLElement;
+      const overlayChild = Array.from(document.body.children).find((c) => c.contains(dialog)) as HTMLElement;
+      expect(overlayChild).toBeTruthy();
+      expect(overlayChild).not.toHaveAttribute('inert');
+    });
+
+    it('does not inert an in-modal overlay portaled to body (C6)', () => {
+      // an overlay (e.g. an in-modal menu) portals its content to body as a
+      // sibling of the dialog and registers itself in the overlay stack
+      const inModalOverlay = document.createElement('div');
+      inModalOverlay.textContent = 'in-modal menu';
+      document.body.appendChild(inModalOverlay);
+      const unregister = registerOverlay(inModalOverlay, null);
+
+      // an unrelated background sibling that SHOULD be neutralized
+      const bg = document.createElement('div');
+      document.body.appendChild(bg);
+
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+
+      expect(bg).toHaveAttribute('inert');                 // unrelated background is inert
+      expect(inModalOverlay).not.toHaveAttribute('inert'); // the in-modal overlay stays reachable
+
+      unregister();
+      resetOverlayStack();
+      inModalOverlay.remove();
+      bg.remove();
+    });
+
+    it('does not inert a second open modal — stacked dialogs stay reachable', () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="First"><div>first</div></Modal>
+          <Modal open onClose={() => {}} title="Second"><div>second</div></Modal>
+        </ThemeProvider>
+      );
+
+      // both dialogs must remain in the accessibility tree: an aria-hidden /
+      // inert dialog would be excluded from the role query and drop the count
+      const dialogs = screen.getAllByRole('dialog');
+      expect(dialogs).toHaveLength(2);
+      for (const dialog of dialogs) {
+        const overlayChild = Array.from(document.body.children).find((c) => c.contains(dialog)) as HTMLElement;
+        expect(overlayChild).not.toHaveAttribute('inert');
+        expect(overlayChild).not.toHaveAttribute('aria-hidden');
+      }
+    });
+
+    it('neutralizes a background body child added AFTER the modal opens', async () => {
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="Hi"><div>content</div></Modal>
+        </ThemeProvider>
+      );
+
+      const late = document.createElement('div');
+      document.body.appendChild(late);
+      // the MutationObserver fires asynchronously
+      await waitFor(() => expect(late).toHaveAttribute('inert'));
+      expect(late).toHaveAttribute('aria-hidden', 'true');
+
+      late.remove();
     });
   });
 });

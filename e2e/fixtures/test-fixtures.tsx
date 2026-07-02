@@ -17,6 +17,7 @@ import {
   ModalHeader,
   ModalBody,
   Popup,
+  PopupTrigger,
   Menu,
   MenuItem,
   MenuLabel,
@@ -31,6 +32,8 @@ import {
   ListItem,
   Col,
   Stack,
+  Grid4,
+  Grid6,
   Section,
   SectionTitle,
   PageTitle,
@@ -117,6 +120,86 @@ function ZIndexFixtures() {
       >
         <Text>Standalone popup</Text>
       </Popup>
+    </section>
+  );
+}
+
+/**
+ * Popup arrow / data-placement flip fixture (B1/B4). The anchor is pinned to
+ * the viewport bottom, so a bottom-placed popup has no room below and the
+ * browser flips it to the top via position-try; data-placement must follow the
+ * actual rendered side (which drives the arrow), not the requested one.
+ */
+function ArrowFlipFixtures() {
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  return (
+    <section data-testid="arrow-flip-section">
+      <button
+        ref={anchorRef}
+        data-testid="arrow-flip-anchor"
+        style={{ position: 'fixed', bottom: 4, left: 40, zIndex: 1 }}
+      >
+        anchor
+      </button>
+      <Popup
+        open
+        noAnimation
+        arrow
+        bottomStart
+        anchorRef={anchorRef}
+        closeOnEscape={false}
+        closeOnClickOutside={false}
+        aria-label="flip popup"
+        data-testid="arrow-flip-popup"
+      >
+        <Text>flips up</Text>
+      </Popup>
+    </section>
+  );
+}
+
+/** Grid column-count fixtures (B10): desktop-first ramps measured at viewports. */
+function GridFixtures() {
+  return (
+    <section data-testid="grid-section">
+      <Grid4 data-testid="grid4">
+        <div>1</div><div>2</div><div>3</div><div>4</div>
+      </Grid4>
+      <Grid6 data-testid="grid6">
+        <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
+      </Grid6>
+    </section>
+  );
+}
+
+/** Focus-group fixture (R9): a focus-triggered popup with a focusable inside. */
+function PopupTriggerFixtures() {
+  return (
+    <section data-testid="popuptrigger-section">
+      <PopupTrigger
+        triggerOnFocus
+        popup={<button data-testid="pt-popup-btn">Inside</button>}
+        popupProps={{ 'aria-label': 'focus popup', 'data-testid': 'pt-popup' } as Record<string, unknown>}
+      >
+        <input data-testid="pt-trigger" aria-label="Focus me" placeholder="Focus me" />
+      </PopupTrigger>
+      <button data-testid="pt-outside">outside</button>
+    </section>
+  );
+}
+
+/** Interactive nested-submenu fixture (B2): opened via click/keyboard in e2e. */
+function SubmenuFixtures() {
+  return (
+    <section data-testid="submenu-section">
+      <Menu trigger={<Button data-testid="sm-root-trigger">File</Button>} noAnimation>
+        <MenuItem data-testid="sm-new">New</MenuItem>
+        <Menu trigger={<MenuItem data-testid="sm-submenu-trigger">Open Recent</MenuItem>} noAnimation>
+          <MenuItem data-testid="sm-doc1">doc1</MenuItem>
+          <MenuItem data-testid="sm-doc2">doc2</MenuItem>
+        </Menu>
+        <MenuItem data-testid="sm-save">Save</MenuItem>
+      </Menu>
     </section>
   );
 }
@@ -256,6 +339,8 @@ export function TestHarness() {
           <Blockquote data-testid="blockquote-md">MD blockquote</Blockquote>
           <Blockquote lg data-testid="blockquote-lg">LG blockquote</Blockquote>
           <Blockquote xl data-testid="blockquote-xl">XL blockquote</Blockquote>
+          {/* cite source line — themed <cite>, muted via tertiary token (not opacity) */}
+          <Blockquote cite="Ada Lovelace" data-testid="blockquote-cited">Quoted text</Blockquote>
         </section>
 
         {/* ── Kbd ── */}
@@ -379,6 +464,22 @@ export function TestHarness() {
         {/* ── Z-Index stacking ── */}
 
         <ZIndexFixtures />
+
+        {/* ── Popup arrow / data-placement flip (B1/B4) ── */}
+
+        <ArrowFlipFixtures />
+
+        {/* ── Grid column counts (B10) ── */}
+
+        <GridFixtures />
+
+        {/* ── Nested submenu (B2) ── */}
+
+        <SubmenuFixtures />
+
+        {/* ── PopupTrigger focus group (R9) ── */}
+
+        <PopupTriggerFixtures />
 
         {/* ── NavLink icon sizing ── */}
 
@@ -863,9 +964,9 @@ export function TestHarness() {
             multi-line content (via the wrapper's selfStart default); an Input
             label stays vertically centered. Uses the exact reported samples. */}
         <section data-testid="label-align-section" style={{ width: 320 }}>
-          {/* Sample 1: checkbox + wrapping single-paragraph text */}
+          {/* Sample 1: checkbox + wrapping single-paragraph text (inline → row) */}
           <Col>
-            <Label htmlFor="terms">
+            <Label htmlFor="terms" row>
               <Checkbox id="terms" data-testid="s1-checkbox" />
               <span data-testid="s1-text">
                 I agree to the <Link href="#">Terms of Service</Link> and{' '}
@@ -873,8 +974,8 @@ export function TestHarness() {
               </span>
             </Label>
 
-            {/* Sample 2: checkbox + two stacked Text rows */}
-            <Label htmlFor="emails">
+            {/* Sample 2: checkbox + two stacked Text rows (inline → row) */}
+            <Label htmlFor="emails" row>
               <Checkbox defaultChecked id="emails" data-testid="s2-checkbox" />
               <Col noGap tag="span">
                 <Text data-testid="s2-text-first">Receive product updates</Text>
@@ -883,7 +984,7 @@ export function TestHarness() {
             </Label>
           </Col>
 
-          {/* Sample 3: text label + input — must stay vertically centered */}
+          {/* Sample 3: text label + input — default Label now stacks (U1) */}
           <Col noGap>
             <Label>
               <span data-testid="s3-label-text">Email</span>
@@ -912,6 +1013,15 @@ export function TestHarness() {
           <Input sm data-testid="std-sm-input" aria-label="small input" />
           <Checkbox lg data-testid="std-lg-checkbox" aria-label="large checkbox" />
           <Checkbox sm data-testid="std-sm-checkbox" aria-label="small checkbox" />
+          {/* read-only vs editable (S5: muted look) */}
+          <Input readOnly value="read only" aria-label="readonly input" data-testid="ro-input" />
+          <Input value="editable" onChange={() => {}} aria-label="editable input" data-testid="rw-input" />
+          {/* error vs normal (A5: non-color alert-icon cue) */}
+          <Input error aria-label="error input" data-testid="err-input" />
+          <Input aria-label="normal input" data-testid="ok-input" />
+          {/* sized error inputs — the icon must scale with the size prop */}
+          <Input xs error aria-label="xs error input" data-testid="err-input-xs" />
+          <Input xl error aria-label="xl error input" data-testid="err-input-xl" />
         </section>
 
         {/* ── Dark mode: [data-theme="dark"] token flip ──
@@ -925,6 +1035,7 @@ export function TestHarness() {
             <Card data-testid="dm-light-surface">
               <Button data-testid="dm-light-button-primary">Primary</Button>
               <Text data-testid="dm-light-text">Inherited text</Text>
+              <Input error aria-label="light error input" data-testid="dm-light-error-input" />
             </Card>
             {/* Light control for the bare inherit-mode regression case below */}
             <Text data-testid="dm-light-bare-text">Bare light text</Text>
@@ -949,6 +1060,8 @@ export function TestHarness() {
                 <span>Email</span>
                 <Input placeholder="you@example.com" aria-label="dark input" data-testid="dm-dark-input" />
               </Label>
+              {/* error input — border + icon must use the danger TOKEN, which flips under dark */}
+              <Input error aria-label="dark error input" data-testid="dm-dark-error-input" />
               <Link href="#" data-testid="dm-dark-link">Dark link</Link>
             </Card>
 

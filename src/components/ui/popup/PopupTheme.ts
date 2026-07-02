@@ -11,7 +11,7 @@ export interface PopupTheme extends BaseTypographyComponentTheme {
   };
   layout: DefaultSizedLayoutClassMappers & {
     radius: RadiusClassMapper;
-    direction: DirectionClassMapper;
+    flexDirection: DirectionClassMapper;
     border: BorderClassMapper;
     ring: RingClassMapper;
     transition: TransitionClassMapper;

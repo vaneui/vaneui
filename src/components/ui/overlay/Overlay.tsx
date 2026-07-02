@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import type { OverlayProps } from "./OverlayProps";
 import { useTheme } from "../../themeContext";
@@ -6,6 +6,7 @@ import { ThemedComponent } from "../../themedComponent";
 import { defaultOverlayTheme } from "./defaultOverlayTheme";
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
+import { pushEscapeHandler } from '../../utils/escapeStack';
 import { composeEventHandlers } from '../../utils/composeEventHandlers';
 
 export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
@@ -31,6 +32,13 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     const theme = useTheme();
     const { mounted, state } = useTransition(open, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
     const zIndex = useStackingContext(open, 'overlay');
+
+    // keyboard parity with backdrop click-to-close: Escape dismisses a
+    // dismissible (onClose) overlay — only the topmost one, via the shared stack
+    useEffect(() => {
+      if (!open || !onClose) return;
+      return pushEscapeHandler(() => onClose());
+    }, [open, onClose]);
 
     if (!mounted && !keepMounted) return null;
 

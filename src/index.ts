@@ -29,13 +29,12 @@ export type { ContainerProps } from "./components/ui/container";
 export type { RowProps } from "./components/ui/row";
 export type { StackProps } from "./components/ui/stack";
 export type { GridProps } from "./components/ui/grid";
-export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle, Blockquote, type TypographyProps, type TitleProps, type LinkProps, type ListProps, type ListItemProps } from "./components/ui/typography";
+export { Text, Title, Link, List, ListItem, SectionTitle, PageTitle, Blockquote, type TypographyProps, type TitleProps, type LinkProps, type ListProps, type ListItemProps, type BlockquoteProps } from "./components/ui/typography";
 // per-component aliases so every rendered component has a same-named props type
 export type {
   TypographyProps as TextProps,
   TypographyProps as SectionTitleProps,
   TypographyProps as PageTitleProps,
-  TypographyProps as BlockquoteProps,
 } from "./components/ui/typography";
 export {
   COMPONENT,
@@ -109,4 +108,16 @@ export type {
   DisabledProps,
   MinWidthProps,
   MaxHeightProps,
+  MarginProps,
+  ReadOnlyProps,
+  AlignSelfProps,
+  JustifySelfProps,
+  FlexProps,
+  ShrinkProps,
+  ListPositionProps,
+  InheritSizeProps,
+  InheritColorProps,
+  InheritBgProps,
+  InheritBorderProps,
+  InheritProps,
 } from "./components/ui/props/props";

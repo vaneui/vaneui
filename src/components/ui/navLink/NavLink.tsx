@@ -12,11 +12,20 @@ export const NavLink = forwardRef<HTMLElement, NavLinkProps>(
     const theme = useTheme();
 
     const resolvedRest = resolveDisabledLink(rest, !!rest.disabled);
+    // NavLink renders as <a> when it has an href, otherwise as <button> (see defaultNavLinkTheme).
+    const rendersAsButton = !props.href;
 
     const mergedProps = {
       ...resolvedRest,
+      // A bare <button> defaults to type="submit" and would submit an enclosing <form> on click —
+      // default the no-href (button) form to type="button" unless the consumer set one.
+      ...(rendersAsButton && (resolvedRest as { type?: string }).type === undefined
+        ? { type: 'button' as const }
+        : {}),
       'data-active': active || undefined,
-      'aria-current': active ? ('page' as const) : undefined,
+      // aria-current="page" is page-navigation semantics, valid only on the <a> form; omit it on the
+      // <button> form so an action trigger isn't announced as the current page.
+      'aria-current': active && !rendersAsButton ? ('page' as const) : undefined,
     };
 
     // text wraps in the label span for truncation; elements render directly in the flex container

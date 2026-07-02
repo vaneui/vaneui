@@ -23,6 +23,7 @@ import type {
   TransparentProps,
   ResponsiveProps,
   PaddingProps,
+  MarginProps,
   WidthProps,
   HeightProps,
   BreakpointProps,
@@ -53,6 +54,7 @@ export type ContainerProps = BaseProps &
   TransparentProps &
   ResponsiveProps &
   PaddingProps &
+  MarginProps &
   WidthProps &
   HeightProps &
   BreakpointProps &

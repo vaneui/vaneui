@@ -1099,4 +1099,76 @@ describe('Menu Component Tests', () => {
       expect(item).toHaveAttribute('data-size', 'xs');
     });
   });
+
+  // =========================================================================
+  // Submenu (nested Menu) — B2
+  // =========================================================================
+  describe('Submenu (nested Menu)', () => {
+    const renderWithSubmenu = (leafClick = () => {}) =>
+      renderMenu(
+        <Menu defaultOpen trigger={<Button>File</Button>}>
+          <MenuItem>New</MenuItem>
+          <Menu trigger={<MenuItem>Open Recent</MenuItem>}>
+            <MenuItem onClick={leafClick}>doc1</MenuItem>
+            <MenuItem>doc2</MenuItem>
+          </Menu>
+          <MenuItem>Save</MenuItem>
+        </Menu>
+      );
+
+    const byText = (text: string) =>
+      Array.from(document.body.querySelectorAll('[role="menuitem"]')).find(
+        (el) => el.textContent === text
+      ) as HTMLElement | undefined;
+
+    it('marks the submenu trigger with aria-haspopup="menu"', () => {
+      renderWithSubmenu();
+      const trigger = byText('Open Recent')!;
+      expect(trigger).toHaveAttribute('aria-haspopup', 'menu');
+      expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('opens the submenu on trigger click WITHOUT closing the parent menu', () => {
+      renderWithSubmenu();
+      // only the root menu is open initially
+      expect(document.body.querySelectorAll('[role="menu"]')).toHaveLength(1);
+      expect(byText('doc1')).toBeUndefined();
+
+      fireEvent.click(byText('Open Recent')!);
+
+      // submenu opened → two menus; parent items still present
+      expect(document.body.querySelectorAll('[role="menu"]')).toHaveLength(2);
+      expect(byText('doc1')).toBeDefined();
+      expect(byText('New')).toBeDefined();
+      expect(byText('Save')).toBeDefined();
+      expect(byText('Open Recent')).toHaveAttribute('aria-expanded', 'true');
+    });
+
+    it('selecting a submenu leaf item closes the WHOLE tree', () => {
+      const leafClick = jest.fn();
+      renderWithSubmenu(leafClick);
+      fireEvent.click(byText('Open Recent')!);
+      expect(byText('doc1')).toBeDefined();
+
+      fireEvent.click(byText('doc1')!);
+      expect(leafClick).toHaveBeenCalled();
+
+      act(() => { jest.advanceTimersByTime(300); });
+      // both root and submenu gone
+      expect(document.body.querySelector('[role="menu"]')).not.toBeInTheDocument();
+    });
+
+    it('keeps the parent open when the submenu is dismissed (Escape closes only the submenu)', () => {
+      renderWithSubmenu();
+      fireEvent.click(byText('Open Recent')!);
+      expect(document.body.querySelectorAll('[role="menu"]')).toHaveLength(2);
+
+      // Escape on a submenu item closes only the submenu
+      fireEvent.keyDown(byText('doc1')!, { key: 'Escape' });
+      act(() => { jest.advanceTimersByTime(300); });
+
+      expect(document.body.querySelectorAll('[role="menu"]')).toHaveLength(1);
+      expect(byText('New')).toBeDefined(); // parent still open
+    });
+  });
 });

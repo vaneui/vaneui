@@ -3,6 +3,7 @@ import type { LabelProps } from "./LabelProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
+import { warnSemanticTagOverride } from "../../utils/warnSemanticTag";
 import { LabelSizeContext } from "./LabelSizeContext";
 import { defaultLabelTheme } from "./defaultLabelTheme";
 
@@ -10,6 +11,7 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
   function Label(props, ref) {
     const theme = useTheme();
     const labelTheme = theme?.label ?? defaultLabelTheme;
+    warnSemanticTagOverride('Label', props.tag, ['label']);
 
     // propagate resolved size to nested Input/Checkbox via LabelSizeContext —
     // a scalar value, so no theme fork and no memo needed (context compares

@@ -26,6 +26,7 @@ import type {
   ResponsiveProps,
   TextAlignProps,
   PaddingProps,
+  MarginProps,
   WidthProps,
   HeightProps
 } from "../props";
@@ -57,6 +58,7 @@ export type RowProps = BaseProps &
   ResponsiveProps &
   TextAlignProps &
   PaddingProps &
+  MarginProps &
   WidthProps &
   HeightProps &
   Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> &

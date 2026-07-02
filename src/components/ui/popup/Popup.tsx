@@ -11,7 +11,8 @@ import { useStackingContext } from '../../utils/stackingContext';
 import { useControllableState } from '../../utils/controllableState';
 import { useMergedRef } from '../../utils/mergedRef';
 import { pushEscapeHandler } from '../../utils/escapeStack';
-import { getFocusableElements } from '../../utils/focusTrap';
+import { getFocusableElements, useFocusTrap } from '../../utils/focusTrap';
+import { registerOverlay, findOverlayContaining, isInOverlayFamily } from '../../utils/overlayStack';
 
 type PopupPlacement =
   | 'top'
@@ -185,6 +186,28 @@ function getJsPosition(
   return { ...bestPos, resolvedPlacement: bestPlacement };
 }
 
+// Derive the popup's ACTUAL placement side from its rendered geometry. On the
+// CSS-anchor path the browser can silently flip via position-try-fallbacks, so
+// the requested placement is stale; comparing the rendered rects recovers the
+// real side — which drives the arrow direction and the public data-placement
+// (B1/B4). The alignment suffix (-start/-end) is preserved from the request.
+function measurePlacement(
+  anchorRect: DOMRect,
+  popupRect: DOMRect,
+  requested: PopupPlacement,
+): PopupPlacement {
+  const isBlockAxis = requested.startsWith('top') || requested.startsWith('bottom');
+  const suffix = requested.endsWith('-start') ? '-start' : requested.endsWith('-end') ? '-end' : '';
+  const anchorCenterX = anchorRect.left + anchorRect.width / 2;
+  const anchorCenterY = anchorRect.top + anchorRect.height / 2;
+  const popupCenterX = popupRect.left + popupRect.width / 2;
+  const popupCenterY = popupRect.top + popupRect.height / 2;
+  const side = isBlockAxis
+    ? (popupCenterY < anchorCenterY ? 'top' : 'bottom')
+    : (popupCenterX < anchorCenterX ? 'left' : 'right');
+  return (side + suffix) as PopupPlacement;
+}
+
 // tests for span-* values (Chrome/Edge 129+), not just basic position-area (Chrome 125+)
 let _supportsAnchorPositioning: boolean | null = null;
 function supportsAnchorPositioning(): boolean {
@@ -250,6 +273,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       role = 'dialog',
       arrow = false,
       disabled = false,
+      modal = false,
       autoFocus = false,
       onEnterComplete,
       onExitComplete,
@@ -270,6 +294,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       value: openProp,
       defaultValue: defaultOpen,
       onChange: onOpenChange,
+      hasExternalHandler: !!onCloseProp,
     });
 
     const onClose = useCallback(() => {
@@ -301,7 +326,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     // into the popup on open so keyboard users can reach its content;
     // focus-return on close is the opener's responsibility
     useEffect(() => {
-      if (!effectiveOpen || !autoFocus) return;
+      // when modal, useFocusTrap below owns focus-in / trap / return
+      if (!effectiveOpen || !autoFocus || modal) return;
 
       const raf = requestAnimationFrame(() => {
         const popup = popupRef.current;
@@ -317,7 +343,23 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       });
 
       return () => cancelAnimationFrame(raf);
-    }, [effectiveOpen, autoFocus]);
+    }, [effectiveOpen, autoFocus, modal]);
+
+    // modal Popup-as-dialog: trap Tab focus, move focus in on open, return it
+    // on close (mirrors Modal). A non-modal Popup keeps its lightweight autoFocus.
+    useFocusTrap(popupRef, effectiveOpen && modal, { returnFocus: true });
+
+    // dev-only: a modal dialog with no accessible name is an ARIA violation
+    useEffect(() => {
+      if (process.env.NODE_ENV !== 'production' && effectiveOpen && modal) {
+        const p = props as Record<string, unknown>;
+        if (!p['aria-label'] && !p['aria-labelledby']) {
+          console.warn(
+            'VaneUI: a modal Popup has no accessible name — set aria-label or aria-labelledby so screen readers can announce the dialog.'
+          );
+        }
+      }
+    }, [effectiveOpen, modal]);
 
     const mergedRef = useMergedRef(ref, popupRef);
 
@@ -350,12 +392,24 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       setResolvedPlacement(pos.resolvedPlacement);
     }, [anchorRef, placement, offset, matchWidth]);
 
+    // CSS-anchor path: read the rendered geometry to recover the side the
+    // browser actually placed the popup on (it may have flipped via
+    // position-try after our styles were applied).
+    const measureCssPlacement = useCallback(() => {
+      const anchor = anchorRef.current;
+      const popup = popupRef.current;
+      if (!anchor || !popup) return;
+      setResolvedPlacement(
+        measurePlacement(anchor.getBoundingClientRect(), popup.getBoundingClientRect(), placement)
+      );
+    }, [anchorRef, placement]);
+
     useIsomorphicLayoutEffect(() => {
       if (!effectiveOpen || !anchorRef.current) return;
 
       if (supportsAnchorPositioning()) {
         setPositionStyles(buildCssAnchorStyles(anchorName, placement, offset, matchWidth));
-        setResolvedPlacement(placement);
+        setResolvedPlacement(placement); // optimistic; corrected post-layout by measureCssPlacement
       } else {
         updateJsPosition();
       }
@@ -376,11 +430,39 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       };
     }, [effectiveOpen, updateJsPosition]);
 
+    // CSS-anchor path: correct data-placement (and thus the arrow) from the
+    // browser's actual flip, after layout and on every reposition (B1/B4)
+    useEffect(() => {
+      if (!effectiveOpen || !supportsAnchorPositioning()) return;
+
+      const raf = requestAnimationFrame(measureCssPlacement);
+      window.addEventListener('scroll', measureCssPlacement, true);
+      window.addEventListener('resize', measureCssPlacement);
+
+      return () => {
+        cancelAnimationFrame(raf);
+        window.removeEventListener('scroll', measureCssPlacement, true);
+        window.removeEventListener('resize', measureCssPlacement);
+      };
+    }, [effectiveOpen, measureCssPlacement]);
+
     // only the topmost floating element closes on Escape
     useEffect(() => {
       if (!effectiveOpen || !closeOnEscape) return;
       return pushEscapeHandler(() => onCloseRef.current?.());
     }, [effectiveOpen, closeOnEscape]);
+
+    // register in the shared overlay stack so nested popups know their lineage:
+    // the parent is resolved from the anchor (a child popup's trigger lives
+    // inside its parent's content). DOM ancestry can't establish this because
+    // each popup portals to document.body as a sibling.
+    useEffect(() => {
+      if (!effectiveOpen) return;
+      const popup = popupRef.current;
+      if (!popup) return;
+      const parent = findOverlayContaining(anchorRef.current);
+      return registerOverlay(popup, parent);
+    }, [effectiveOpen, anchorRef]);
 
     useEffect(() => {
       if (!effectiveOpen || !closeOnClickOutside) return;
@@ -390,7 +472,9 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         const popup = popupRef.current;
         const anchor = anchorRef.current;
 
-        if (popup?.contains(target) || anchor?.contains(target)) {
+        // "inside" includes any portaled child popup in this popup's family —
+        // interacting with a submenu/nested popup must not close its parent.
+        if ((popup && isInOverlayFamily(target, popup)) || anchor?.contains(target)) {
           return;
         }
 
@@ -435,7 +519,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const popupId = props.id || `popup-${anchorName}`;
 
-    const mergedProps = { ...props, id: popupId, role, ...anchorSelfProps(placement), ...(isDetached ? { pointerEventsNone: true } : {}) };
+    const mergedProps = { ...props, id: popupId, role, ...(modal ? { 'aria-modal': true } : {}), ...anchorSelfProps(placement), ...(isDetached ? { pointerEventsNone: true } : {}) };
 
     const content = (
       <ThemedComponent
@@ -449,7 +533,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
           ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } : undefined),
           ...positionStyles,
         } as React.CSSProperties}
-        aria-hidden={isHidden || undefined}
+        aria-hidden={(isHidden || isDetached) || undefined}
         {...mergedProps}
       >
         {children}

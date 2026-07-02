@@ -7,6 +7,8 @@ import { defaultModalContentTheme } from './defaultModalContentTheme';
 import { defaultModalOverlayTheme } from './defaultModalOverlayTheme';
 import { useScrollLock } from '../../utils/scrollLock';
 import { useFocusTrap } from '../../utils/focusTrap';
+import { useInertBackground } from '../../utils/inertBackground';
+import { registerOverlay } from '../../utils/overlayStack';
 import { useControllableState } from '../../utils/controllableState';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
@@ -18,6 +20,7 @@ import { ModalHeader } from './ModalHeader';
 import { ModalBody } from './ModalBody';
 import { ModalFooter } from './ModalFooter';
 import { ModalCloseButton } from './ModalCloseButton';
+import { Row } from '../row/Row';
 import { getModalPart } from './modalParts';
 
 // Any ModalHeader/ModalBody/ModalFooter among the children switches Modal
@@ -84,10 +87,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   ) {
     const theme = useTheme();
     const contentRef = useRef<HTMLDivElement>(null);
+    const overlayRef = useRef<HTMLDivElement>(null);
     const [open, setOpen] = useControllableState({
       value: openProp,
       defaultValue: defaultOpen,
       onChange: onOpenChange,
+      hasExternalHandler: !!onCloseProp,
     });
 
     const onClose = useCallback(() => {
@@ -115,6 +120,21 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     );
     useFocusTrap(contentRef, open && focusTrap, focusTrapOptions);
 
+    // neutralize the page behind the dialog for AT/focus (the focus trap only
+    // guards the Tab boundary); skips the dialog's own portal and any overlay
+    // portaled out of it (e.g. an in-modal menu).
+    useInertBackground(open, overlayRef);
+
+    // join the shared overlay stack while open, so any OTHER open dialog's
+    // background-inert pass spares this modal's portal (without this, two
+    // simultaneously-open modals would inert each other's dialog)
+    useEffect(() => {
+      if (!open) return;
+      const el = overlayRef.current;
+      if (!el) return;
+      return registerOverlay(el, null);
+    }, [open]);
+
     // only the topmost floating element closes on Escape
     useEffect(() => {
       if (!open || !closeOnEscape) return;
@@ -135,7 +155,11 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     );
 
     const isCompoundMode = containsModalSection(children);
-    const showCloseButton = withCloseButton ?? (title !== undefined);
+    // a dismissible dialog always offers a close affordance (decoupled from
+    // `title`); opt out with withCloseButton={false}. With a title it sits in
+    // the header; without one it floats in the dialog's top-right corner so
+    // there's no empty header.
+    const showCloseButton = withCloseButton ?? true;
 
     // dev-only: a dialog with no accessible name is an ARIA violation
     // (mirrors IconButton). Computed synchronously so it never false-fires —
@@ -190,6 +214,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
     const content = (
       <ThemedComponent
+        ref={overlayRef}
         theme={theme?.modal.overlay ?? defaultModalOverlayTheme}
         data-state={isHidden ? undefined : overlayTransition.state}
         aria-hidden={isHidden || undefined}
@@ -220,11 +245,16 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
               children
             ) : (
               <>
-                {(title !== undefined || showCloseButton) && (
+                {title !== undefined && (
                   <ModalHeader>
                     {title}
                     {showCloseButton && <ModalCloseButton />}
                   </ModalHeader>
+                )}
+                {title === undefined && showCloseButton && (
+                  <Row justifyEnd>
+                    <ModalCloseButton />
+                  </Row>
                 )}
                 <ModalBody>{children}</ModalBody>
                 {footer !== undefined && (

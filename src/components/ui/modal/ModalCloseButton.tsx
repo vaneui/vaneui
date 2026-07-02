@@ -9,7 +9,7 @@ import { defaultButtonTheme } from '../button/defaultButtonTheme';
 import { defaultModalCloseButtonTheme } from './defaultModalCloseButtonTheme';
 
 export const ModalCloseButton = forwardRef<HTMLButtonElement, React.ComponentPropsWithRef<'button'>>(
-  function ModalCloseButton(props, ref) {
+  function ModalCloseButton({ className, ...props }, ref) {
     const theme = useTheme();
     const modalCtx = useModalContext();
 
@@ -17,7 +17,9 @@ export const ModalCloseButton = forwardRef<HTMLButtonElement, React.ComponentPro
       <ThemedComponent
         theme={theme?.button.main ?? defaultButtonTheme}
         tag="button"
-        className="vane-modal-close"
+        // merge a consumer className with the identity class (a plain
+        // className prop would otherwise replace vane-modal-close)
+        className={['vane-modal-close', className].filter(Boolean).join(' ')}
         type="button"
         onClick={modalCtx?.onClose}
         aria-label="Close"
@@ -25,7 +27,7 @@ export const ModalCloseButton = forwardRef<HTMLButtonElement, React.ComponentPro
         {...(theme?.modal.closeButton ?? defaultModalCloseButtonTheme).defaults}
         {...props}
       >
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
           <path d="M4 4l8 8M12 4l-8 8" />
         </svg>
       </ThemedComponent>

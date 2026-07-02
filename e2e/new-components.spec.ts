@@ -54,6 +54,34 @@ test.describe('Blockquote', () => {
       expect(fontSizes[i]).toBeGreaterThan(fontSizes[i - 1]);
     }
   });
+
+  test('size variants xs→xl produce strictly increasing start-indent (--py-unit scales)', async ({ page }) => {
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+    const indents: number[] = [];
+
+    for (const size of sizes) {
+      indents.push(parseFloat(await getStyle(page.locator(`[data-testid="blockquote-${size}"]`), 'padding-inline-start')));
+    }
+
+    for (let i = 1; i < indents.length; i++) {
+      expect(indents[i]).toBeGreaterThan(indents[i - 1]);
+    }
+  });
+
+  test('cite source line is a themed <cite>: muted (tertiary token, opacity 1), block, not italic', async ({ page }) => {
+    const quote = page.locator('[data-testid="blockquote-cited"]');
+    const cite = quote.locator('.vane-blockquote-cite');
+
+    expect(await (await cite.elementHandle())!.evaluate((e) => e.tagName.toLowerCase())).toBe('cite');
+    // muted via the tertiary color token — NOT an opacity literal
+    expect(await getStyle(cite, 'opacity')).toBe('1');
+    const citeColor = await getColor(cite);
+    const quoteColor = await getColor(quote);
+    expect(citeColor).not.toBe(quoteColor);              // distinct muted color
+    // block + not-italic come from props
+    expect(await getStyle(cite, 'display')).toBe('block');
+    expect(await getStyle(cite, 'font-style')).toBe('normal');
+  });
 });
 
 // ── Kbd ─────────────────────────────────────────────────────────────────────
