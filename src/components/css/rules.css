@@ -130,11 +130,13 @@
     .vane-icon-button :where(svg:not([class*='size-'])),
     .vane-icon :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
 
-    /* Badge — compact status pill. Uses the shifted-down font scale (md = 14px,
-       same as Code/Kbd/Mark), a tight 1.2 line-height, and halved vertical
-       padding so a Badge renders smaller than a Chip and sits in the compact
-       range expected of a status indicator (~24px tall at md) instead of the
-       former button-grade ~42px. */
+    /* Inline-annotation family (Badge, Chip, Code, Kbd, Mark): all use the
+       shifted-down font scale (--fs-unit 5-9, one step below body text) so
+       they annotate surrounding text instead of competing with it.
+
+       Badge — status pill: the tightest of the family (~27px tall at md),
+       the compact range expected of a status indicator rather than the
+       button-grade ~42px it once had. */
     .vane-badge { --lh: 1.2; --py-unit: 1; --aspect-ratio: 2; --br-unit: 0.1923; }
     .vane-badge[data-size="xs"] { --fs-unit: 5; --py-unit: 0.5; }
     .vane-badge[data-size="sm"] { --fs-unit: 6; --py-unit: 0.75; }
@@ -142,13 +144,15 @@
     .vane-badge[data-size="lg"] { --fs-unit: 8; --py-unit: 1.25; }
     .vane-badge[data-size="xl"] { --fs-unit: 9; --py-unit: 1.5; }
 
-    /* Chip */
-    .vane-chip { --lh: 1.2; --py-unit: 1.5; --aspect-ratio: 2; --br-unit: 0.2564; }
-    .vane-chip[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5; }
-    .vane-chip[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1; }
-    .vane-chip[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1.5; }
-    .vane-chip[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2; }
-    .vane-chip[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 2.5; }
+    /* Chip — tag/label: same shifted-down font scale as Badge but one padding
+       notch more generous, so a tag reads slightly larger than a status pill
+       (~29px vs ~27px tall at md) instead of a full size-class larger. */
+    .vane-chip { --lh: 1.2; --py-unit: 1.25; --aspect-ratio: 2; --br-unit: 0.2564; }
+    .vane-chip[data-size="xs"] { --fs-unit: 5; --py-unit: 0.75; }
+    .vane-chip[data-size="sm"] { --fs-unit: 6; --py-unit: 1; }
+    .vane-chip[data-size="md"] { --fs-unit: 7; --py-unit: 1.25; }
+    .vane-chip[data-size="lg"] { --fs-unit: 8; --py-unit: 1.5; }
+    .vane-chip[data-size="xl"] { --fs-unit: 9; --py-unit: 1.75; }
 
     /* Icon sizing for Badge and Chip */
     .vane-badge :where(svg:not([class*='size-'])),
