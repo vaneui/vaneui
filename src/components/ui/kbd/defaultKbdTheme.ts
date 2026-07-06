@@ -6,7 +6,7 @@ import { kbdDefaults } from "./kbdDefaults";
 
 export const defaultKbdTheme = new ComponentTheme<KbdProps, KbdTheme>(
   "kbd",
-  "vane-kbd align-middle",
+  "vane-kbd",
   interactiveClassMappers,
   kbdDefaults,
   CODE_CATEGORIES,

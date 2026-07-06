@@ -366,6 +366,35 @@ export function TestHarness() {
           <Mark xl data-testid="mark-xl">XL mark</Mark>
         </section>
 
+        {/* ── Inline baseline alignment (Code / Kbd / Mark in running text) ──
+           Each row inlines the component inside a Text and carries two zero-size
+           baseline struts: one in the parent line, one inside the component. The
+           spec compares their top edges — a baseline-aligned inline element must
+           share the surrounding text's baseline (regression guard: `align-middle`
+           on the padded box used to sink the text below the line). */}
+
+        <section data-testid="inline-align-section">
+          {(() => {
+            const strut: React.CSSProperties = { display: 'inline-block', width: 0, height: 0, verticalAlign: 'baseline' };
+            return (
+              <>
+                <Text data-testid="align-code-line">
+                  press <span style={strut} data-testid="align-code-parentbl" />
+                  <Code data-testid="align-code"><span style={strut} data-testid="align-code-innerbl" />const x = 1</Code> now
+                </Text>
+                <Text data-testid="align-kbd-line">
+                  press <span style={strut} data-testid="align-kbd-parentbl" />
+                  <Kbd data-testid="align-kbd"><span style={strut} data-testid="align-kbd-innerbl" />Ctrl</Kbd> now
+                </Text>
+                <Text data-testid="align-mark-line">
+                  the <span style={strut} data-testid="align-mark-parentbl" />
+                  <Mark data-testid="align-mark"><span style={strut} data-testid="align-mark-innerbl" />important</Mark> word
+                </Text>
+              </>
+            );
+          })()}
+        </section>
+
         {/* ── Card gap vs padding ratio ── */}
 
         <section data-testid="card-gap-padding">
