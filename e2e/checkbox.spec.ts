@@ -77,6 +77,16 @@ test.describe('Checkbox: checked state', () => {
     const borderColor = await getBorderColor(input);
     expect(isVisibleColor(borderColor)).toBe(true);
   });
+
+  // Regression: an indeterminate checkbox must fill with the appearance color
+  // (like checked) so its white dash overlay is visible instead of white-on-white.
+  test('indeterminate checkbox fills with color so its dash is visible', async ({ page }) => {
+    const input = page.locator('[data-testid="checkbox-indeterminate"]');
+    await expect(input).toHaveJSProperty('indeterminate', true);
+    const bgColor = await getBg(input);
+    expect(isWhiteish(bgColor)).toBe(false);
+    expect(isVisibleColor(bgColor)).toBe(true);
+  });
 });
 
 test.describe('Checkbox: visibility on dark backgrounds', () => {

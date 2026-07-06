@@ -785,6 +785,9 @@ export function TestHarness() {
           <Checkbox defaultChecked aria-label="checkbox checked-filled" data-testid="checkbox-checked-filled" />
           <Checkbox outline defaultChecked aria-label="checkbox checked-outline" data-testid="checkbox-checked-outline" />
 
+          {/* Indeterminate checkbox — must fill like checked so its (white) dash is visible */}
+          <Checkbox indeterminate aria-label="checkbox indeterminate" data-testid="checkbox-indeterminate" />
+
           {/* Checkbox on dark background — must be visible */}
           <Card filled primary data-testid="checkbox-dark-bg">
             <Label>

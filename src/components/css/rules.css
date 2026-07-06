@@ -747,20 +747,20 @@
         --ring-color: var(--color-border-form);
     }
 
-    /* Checked + filled: border matches background (hidden into the fill color) */
-    .vane-checkbox[data-variant="filled"]:checked {
+    /* Checked/indeterminate + filled: border matches background (hidden into the fill color) */
+    .vane-checkbox[data-variant="filled"]:is(:checked, :indeterminate) {
         --border-color: transparent;
         --ring-color: transparent;
     }
 
-    /* Checked + outline: border becomes the appearance color */
-    .vane-checkbox[data-variant="outline"]:checked {
+    /* Checked/indeterminate + outline: border becomes the appearance color */
+    .vane-checkbox[data-variant="outline"]:is(:checked, :indeterminate) {
         --border-color: var(--checked-bg-color);
         --ring-color: var(--checked-bg-color);
     }
 
-    /* Checked + ghost: border becomes the appearance color (same as outline) */
-    .vane-checkbox[data-variant="ghost"]:checked {
+    /* Checked/indeterminate + ghost: border becomes the appearance color (same as outline) */
+    .vane-checkbox[data-variant="ghost"]:is(:checked, :indeterminate) {
         --border-color: var(--checked-bg-color);
         --ring-color: var(--checked-bg-color);
     }

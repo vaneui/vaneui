@@ -33,5 +33,7 @@ export const dividerBgConsumerClass = "bg-(--divider-color)";
 /** Accent color consumer class - consumes --accent-color */
 export const accentConsumerClass = "accent-(--accent-color)";
 
-/** Checked background consumer class - consumes --checked-bg-color */
-export const checkedBgConsumerClass = "checked:[background:var(--checked-bg-color)]";
+/** Checked background consumer class - consumes --checked-bg-color.
+ *  Applies on :indeterminate too, so an indeterminate checkbox is filled like a
+ *  checked one and its (white) dash overlay stays visible. */
+export const checkedBgConsumerClass = "checked:[background:var(--checked-bg-color)] indeterminate:[background:var(--checked-bg-color)]";
