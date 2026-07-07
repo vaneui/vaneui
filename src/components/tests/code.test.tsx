@@ -155,7 +155,7 @@ describe('Code Component', () => {
 
       // Default Code has non-inherit appearance → emits data attributes
       expect(codeElement).toHaveClass('bg-(--bg-color)');
-      expect(codeElement).toHaveAttribute('data-appearance', 'primary');
+      expect(codeElement).toHaveAttribute('data-appearance', 'secondary');
       expect(codeElement).toHaveAttribute('data-variant', 'outline');
     });
 

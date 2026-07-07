@@ -8,7 +8,7 @@ export const chipDefaults: Partial<ChipProps> = {
   outline: true,
   secondary: true,
   rounded: true,
-  mono: true,
+  sans: true,
   normal: true,
   noShadow: true,
   padding: true,

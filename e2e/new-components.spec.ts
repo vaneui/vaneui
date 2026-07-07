@@ -93,10 +93,15 @@ test.describe('Kbd', () => {
     expect(tagName).toBe('kbd');
   });
 
-  test('has border', async ({ page }) => {
+  test('has a 3px keycap bottom border thicker than its other sides', async ({ page }) => {
+    // The keycap effect: border-b-[3px] must beat the `border` shorthand
+    // (border-width: var(--bw)) utility. If the cascade regresses, the bottom
+    // collapses to var(--bw) and equals the top — this guards against that.
     const el = page.locator('[data-testid="kbd-default"]');
+    const borderTop = parseFloat(await getStyle(el, 'border-top-width'));
     const borderBottom = parseFloat(await getStyle(el, 'border-bottom-width'));
-    expect(borderBottom).toBeGreaterThanOrEqual(1);
+    expect(borderBottom).toBe(3);
+    expect(borderBottom).toBeGreaterThan(borderTop);
   });
 
   test('uses monospace font', async ({ page }) => {

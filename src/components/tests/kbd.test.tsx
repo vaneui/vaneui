@@ -71,11 +71,11 @@ describe('Kbd Component', () => {
       expect(el).toHaveClass(BORDER_WIDTH_CLASS);
     });
 
-    it('should emit data-appearance="primary" by default', () => {
+    it('should emit data-appearance="secondary" by default', () => {
       const { container } = render(<Kbd>Ctrl</Kbd>);
       const el = container.querySelector('kbd');
 
-      expect(el).toHaveAttribute('data-appearance', 'primary');
+      expect(el).toHaveAttribute('data-appearance', 'secondary');
     });
 
     it('should emit data-variant="outline" by default', () => {
@@ -137,7 +137,7 @@ describe('Kbd Component', () => {
 
       // Default Kbd has non-inherit appearance → emits data attributes
       expect(el).toHaveClass('bg-(--bg-color)');
-      expect(el).toHaveAttribute('data-appearance', 'primary');
+      expect(el).toHaveAttribute('data-appearance', 'secondary');
       expect(el).toHaveAttribute('data-variant', 'outline');
     });
 

@@ -24,7 +24,7 @@ describe('Chip Component Tests', () => {
       expect(chip).toHaveClass(FONT_SIZE_CLASS); // md size
       expect(chip).toHaveAttribute('data-size', 'md');
       expect(chip).toHaveClass('text-(--text-color)'); // secondary appearance (default for chip)
-      expect(chip).toHaveClass('font-mono'); // mono font for chip
+      expect(chip).toHaveClass('font-sans'); // sans font — tags read as labels, not code
       expect(chip).toHaveClass('font-normal'); // normal weight
       expect(chip).toHaveClass('inline-flex', 'items-center', 'rounded-(--br)');
     });
@@ -221,15 +221,26 @@ describe('Chip Component Tests', () => {
   });
 
   describe('Chip Font Properties', () => {
-    it('should render with mono font by default', () => {
+    it('should render with sans font by default', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Chip>Mono Chip</Chip>
+          <Chip>Sans Chip</Chip>
         </ThemeProvider>
       );
 
       const chip = container.querySelector('span');
-      expect(chip).toHaveClass('font-mono'); // mono font family
+      expect(chip).toHaveClass('font-sans'); // sans font family — tags read as labels
+    });
+
+    it('should allow mono font override', () => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Chip mono>Mono Chip</Chip>
+        </ThemeProvider>
+      );
+
+      const chip = container.querySelector('span');
+      expect(chip).toHaveClass('font-mono');
     });
 
     it('should render with different font weights', () => {

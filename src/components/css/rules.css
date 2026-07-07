@@ -167,8 +167,11 @@
     .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
     .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
 
-    /* Kbd: em-relative geometry like Code (see comment above). */
-    .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; border-bottom-width: 3px; }
+    /* Kbd: em-relative geometry like Code (see comment above). The 3px keycap
+       bottom border is applied by a separate UNLAYERED `.vane-kbd` rule at the
+       end of this file — placing it here (in @layer components) would let the
+       `border` default's `border-width` utility flatten it. */
+    .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; }
     .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
     .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
     .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }
@@ -786,6 +789,16 @@
     }
 
 }
+
+/* Kbd keycap — UNLAYERED so it wins. The 3px bottom border must beat the
+   `border` default's `border-width: var(--bw)` utility (in @layer utilities);
+   a rule in @layer components loses to any utility regardless of specificity,
+   and a `border-b-[3px]` utility class is stripped by tailwind-merge (the later
+   `border` shorthand supersedes it). Unlayered normal declarations outrank all
+   @layer rules and bypass class-merging entirely, so the keycap survives in
+   both the prebuilt (@vaneui/ui/css) and Tailwind-consumer (@vaneui/ui/vars)
+   setups. */
+.vane-kbd { border-bottom-width: 3px; }
 
 /* KEYFRAMES — defined outside @layer so they're globally available. */
 

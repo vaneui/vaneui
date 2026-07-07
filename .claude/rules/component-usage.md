@@ -130,7 +130,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Body text | `Text` | Renders `<p>` |
 | Hyperlink | `Link` | Renders `<a>`, underline by default, `link` appearance (blue) |
 | Status indicator | `Badge` | Pill-shaped, uppercase, semibold |
-| Tag / filter token | `Chip` | Rounded, monospace, secondary by default |
+| Tag / filter token | `Chip` | Rounded, sans-serif, secondary by default |
 | Inline code | `Code` | Monospace, rounded, with padding |
 | Keyboard shortcut | `Kbd` | Monospace, bordered, 3D effect |
 | Text highlight | `Mark` | Background highlight, defaults to warning (yellow) |
@@ -502,7 +502,7 @@ Text alignment offers both modes:
 <Row gap itemsCenter>
 <Button primary outline semibold rounded padding ring>
 <Card padding rounded gap border>
-<Badge primary pill uppercase semibold>
+<Badge secondary pill uppercase semibold>
 <Stack column gap padding>
 <Link underline>
 

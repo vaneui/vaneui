@@ -820,14 +820,14 @@ describe('Inherit Appearance Prop', () => {
       expect(text).toHaveClass('leading-[inherit]');
     });
 
-    it('Code uses em-based geometry via local --spacing override and keeps primary appearance', () => {
+    it('Code uses em-based geometry via local --spacing override and keeps secondary appearance', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Code>code</Code>
         </ThemeProvider>
       );
       const code = container.querySelector('code');
-      expect(code).toHaveAttribute('data-appearance', 'primary');
+      expect(code).toHaveAttribute('data-appearance', 'secondary');
       // Code uses the regular --fs path (no inheritSize default); the
       // .vane-code rule overrides --spacing locally to 0.25em, so --fs / --py
       // / --br all resolve in em — proportional to parent context.
@@ -858,14 +858,14 @@ describe('Inherit Appearance Prop', () => {
       expect(text).not.toHaveAttribute('data-appearance');
     });
 
-    it('Kbd uses em-based geometry via local --spacing override and keeps primary appearance', () => {
+    it('Kbd uses em-based geometry via local --spacing override and keeps secondary appearance', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Kbd>Ctrl+C</Kbd>
         </ThemeProvider>
       );
       const kbd = container.querySelector('kbd');
-      expect(kbd).toHaveAttribute('data-appearance', 'primary');
+      expect(kbd).toHaveAttribute('data-appearance', 'secondary');
       // Same em-relative geometry pattern as Code.
       expect(kbd).toHaveClass(FONT_SIZE_CLASS);
     });

@@ -9,7 +9,7 @@ export const kbdDefaults: Partial<KbdProps> = {
   inline: true,
   padding: true,
   outline: true,
-  primary: true,
+  secondary: true,
   border: true,
   transition: true,
   whitespaceNowrap: true,

@@ -3,7 +3,7 @@ import type { BadgeProps } from "./BadgeProps";
 /** Default props for Badge component */
 export const badgeDefaults: Partial<BadgeProps> = {
   md: true,
-  primary: true,
+  secondary: true,
   inlineFlex: true,
   outline: true,
   pill: true,
