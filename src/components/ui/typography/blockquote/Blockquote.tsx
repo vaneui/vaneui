@@ -1,12 +1,13 @@
 import { forwardRef } from 'react';
 import type { TypographyProps } from "../common";
+import type { BorderProps } from "../../props";
 import { useTheme } from "../../../themeContext";
 import { ThemedComponent } from "../../../themedComponent";
 import { warnSemanticTagOverride } from "../../../utils/warnSemanticTag";
 import { defaultBlockquoteTheme } from "./defaultBlockquoteTheme";
 import { defaultBlockquoteCiteTheme } from "./defaultBlockquoteCiteTheme";
 
-export type BlockquoteProps = TypographyProps & {
+export type BlockquoteProps = TypographyProps & BorderProps & {
   /** Source of the quote: sets the `<blockquote cite>` attribute and renders a
    *  visible `<cite>` source line below the quote. */
   cite?: string;

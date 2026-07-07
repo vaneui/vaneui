@@ -13,7 +13,7 @@ import { defaultChipTheme } from "../ui/chip/defaultChipTheme";
 import { defaultCodeTheme } from "../ui/code/defaultCodeTheme";
 import { defaultKbdTheme } from "../ui/kbd";
 import { defaultMarkTheme } from "../ui/mark";
-import { defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultBlockquoteCiteTheme, defaultLinkTheme, defaultListTheme, defaultListItemTheme, LIST_CATEGORIES, LIST_ITEM_CATEGORIES } from "../ui/typography";
+import { defaultTextTheme, defaultTitleTheme, defaultPageTitleTheme, defaultSectionTitleTheme, defaultBlockquoteTheme, defaultBlockquoteCiteTheme, defaultLinkTheme, defaultListTheme, defaultListItemTheme, LIST_CATEGORIES, LIST_ITEM_CATEGORIES, BLOCKQUOTE_CATEGORIES } from "../ui/typography";
 import { defaultGrid2Theme } from "../ui/grid/defaultGrid2Theme";
 import { defaultGrid3Theme } from "../ui/grid/defaultGrid3Theme";
 import { defaultGrid4Theme } from "../ui/grid/defaultGrid4Theme";
@@ -492,13 +492,25 @@ describe("Component theme coverage tests", () => {
         { name: "defaultTextTheme", theme: defaultTextTheme },
         { name: "defaultTitleTheme", theme: defaultTitleTheme },
         { name: "defaultPageTitleTheme", theme: defaultPageTitleTheme },
-        { name: "defaultSectionTitleTheme", theme: defaultSectionTitleTheme },
-        { name: "defaultBlockquoteTheme", theme: defaultBlockquoteTheme }
+        { name: "defaultSectionTitleTheme", theme: defaultSectionTitleTheme }
       ],
       // inheritColor is handled by ComponentTheme.tsx (gates data-appearance emission), not by a class mapper
       componentExtractedCategories: ['inheritColor'],
     };
     createThemeTests(typographyConfig);
+
+    // Blockquote extends typography with the `border` category (its inline-start
+    // accent is a prop-driven borderS via the per-side border mapper), so it
+    // uses BLOCKQUOTE_CATEGORIES and carries the width + color border mappers.
+    const blockquoteConfig: ComponentTestConfig = {
+      propsType: "BlockquoteProps",
+      categories: BLOCKQUOTE_CATEGORIES,
+      themes: [
+        { name: "defaultBlockquoteTheme", theme: defaultBlockquoteTheme }
+      ],
+      componentExtractedCategories: ['inheritColor'],
+    };
+    createThemeTests(blockquoteConfig);
 
     // Link composes over typographyClassMappers with deltas (link-variant colors,
     // focusVisible) — LINK_CATEGORIES = TYPOGRAPHY_CATEGORIES + focusVisible

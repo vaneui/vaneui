@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 
 import { Kbd } from '../ui/kbd';
-import { BORDER_WIDTH_CLASS, FONT_SIZE_CLASS } from './utils/classAssertions';
+import { FONT_SIZE_CLASS } from './utils/classAssertions';
 
 describe('Kbd Component', () => {
 
@@ -63,12 +63,26 @@ describe('Kbd Component', () => {
       expect(el).toHaveClass('font-semibold');
     });
 
-    it('should have border by default (not ring)', () => {
+    it('should have a full border with a per-side keycap bottom (not ring)', () => {
+      // `border: true` is prop-driven via the per-side mapper: every side reads
+      // its own --bw-* variable, and .vane-kbd sets --bw-b to 3× --bw for the
+      // keycap. Color comes from the appearance system, like any bordered element.
       const { container } = render(<Kbd>Ctrl</Kbd>);
       const el = container.querySelector('kbd');
 
       expect(el).toHaveClass('border-(--border-color)');
-      expect(el).toHaveClass(BORDER_WIDTH_CLASS);
+      expect(el).toHaveClass('border-t-[length:var(--bw-t)]');
+      expect(el).toHaveClass('border-b-[length:var(--bw-b)]');
+      expect(el).toHaveClass('border-l-[length:var(--bw-l)]');
+      expect(el).toHaveClass('border-r-[length:var(--bw-r)]');
+    });
+
+    it('should drop the border entirely with noBorder', () => {
+      const { container } = render(<Kbd noBorder>Ctrl</Kbd>);
+      const el = container.querySelector('kbd');
+
+      expect(el).not.toHaveClass('border-b-[length:var(--bw-b)]');
+      expect(el).not.toHaveClass('border-(--border-color)');
     });
 
     it('should emit data-appearance="secondary" by default', () => {

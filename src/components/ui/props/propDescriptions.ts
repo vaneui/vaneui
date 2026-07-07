@@ -132,6 +132,12 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       "borderY": {
         "description": "Enable border on top and bottom"
       },
+      "borderS": {
+        "description": "Enable border on the inline-start side (left in LTR, right in RTL)"
+      },
+      "borderE": {
+        "description": "Enable border on the inline-end side (right in LTR, left in RTL)"
+      },
       "noBorder": {
         "description": "Disable all borders"
       }

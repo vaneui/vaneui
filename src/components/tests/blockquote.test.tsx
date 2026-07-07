@@ -46,11 +46,20 @@ describe('Blockquote Component', () => {
       const el = container.querySelector('blockquote');
 
       expect(el).toHaveClass('vane-blockquote');
-      // Logical utilities: accent border + indent sit on the reading-direction
-      // start side (left in LTR, right in RTL)
-      expect(el).toHaveClass('border-s-3');
+      // Accent is the prop-driven `borderS`: width from --bw-s (3px on
+      // .vane-blockquote), color from the appearance system — both logical, so
+      // they sit on the reading-direction start (left in LTR, right in RTL).
+      expect(el).toHaveClass('border-s-[length:var(--bw-s)]');
       expect(el).toHaveClass('border-(--border-color)');
       expect(el).toHaveClass('ps-(--pl)');
+    });
+
+    it('should drop the accent border with noBorder', () => {
+      const { container } = render(<Blockquote noBorder>Quote</Blockquote>);
+      const el = container.querySelector('blockquote');
+
+      expect(el).not.toHaveClass('border-s-[length:var(--bw-s)]');
+      expect(el).not.toHaveClass('border-(--border-color)');
     });
 
     it('should have default theme classes applied', () => {

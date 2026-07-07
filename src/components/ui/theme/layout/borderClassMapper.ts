@@ -17,6 +17,10 @@ export class BorderClassMapper extends BaseClassMapper implements Record<BorderK
   borderX: string = "border-x-[length:var(--bw)]";
   /** Show vertical borders (top and bottom) */
   borderY: string = "border-y-[length:var(--bw)]";
+  /** Show inline-start border (left in LTR, right in RTL) */
+  borderS: string = "border-s-[length:var(--bw)]";
+  /** Show inline-end border (right in LTR, left in RTL) */
+  borderE: string = "border-e-[length:var(--bw)]";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const classes: string[] = [];

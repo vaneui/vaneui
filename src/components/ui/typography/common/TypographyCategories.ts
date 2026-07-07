@@ -15,6 +15,7 @@ import {
   INHERIT_SIZE,
   INHERIT_COLOR,
   INHERIT_BG,
+  BORDER,
 } from "../../props/categoryBuilders";
 
 /** Cursor appearance property */
@@ -43,6 +44,17 @@ export const TYPOGRAPHY_CATEGORIES = [
   ...RESPONSIVE,
   ...INHERIT_SIZE,
   ...INHERIT_COLOR,
+] as const;
+
+/**
+ * Blockquote = typography categories plus the `border` category, so its
+ * inline-start accent is a real, prop-driven `borderS` (toggleable via
+ * `noBorder`, colored by the appearance system) rather than a hardcoded base
+ * class. Paired with the per-side border mapper in defaultBlockquoteTheme.
+ */
+export const BLOCKQUOTE_CATEGORIES = [
+  ...TYPOGRAPHY_CATEGORIES,
+  ...BORDER,
 ] as const;
 
 /**

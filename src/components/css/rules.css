@@ -70,6 +70,11 @@
         --checked-bg-color: var(--color-bg-primary);
         --link-text: var(--color-text-link);
         --bw: 1px; /* Border width */
+        /* Per-side border widths — default to the uniform --bw. A component
+           overrides one (e.g. Kbd --bw-b, Blockquote --bw-s) to thicken a
+           single edge; consumed by PerSideBorderClassMapper. */
+        --bw-t: var(--bw); --bw-r: var(--bw); --bw-b: var(--bw); --bw-l: var(--bw);
+        --bw-s: var(--bw); --bw-e: var(--bw);
         --rw: 1px; /* Ring width */
     }
 
@@ -167,11 +172,10 @@
     .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
     .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
 
-    /* Kbd: em-relative geometry like Code (see comment above). The 3px keycap
-       bottom border is applied by a separate UNLAYERED `.vane-kbd` rule at the
-       end of this file — placing it here (in @layer components) would let the
-       `border` default's `border-width` utility flatten it. */
-    .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; }
+    /* Kbd: em-relative geometry like Code (see comment above). --bw-b thickens
+       the bottom edge into the 3px keycap; the `border` prop's per-side mapper
+       reads it (see defaultKbdTheme / PerSideBorderClassMapper). */
+    .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; --bw-b: calc(var(--bw) * 3); }
     .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
     .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
     .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }
@@ -264,7 +268,9 @@
     /* Blockquote — --py-unit drives the ps-(--pl) start indent, so it must scale
        per size (and be set in every size block so it can't inherit a padded
        ancestor's value), mirroring List which uses the same ps-(--pl) indent. */
-    .vane-blockquote { --lh: var(--lh-base); --ls: var(--ls-base); --py-unit: 3; }
+    /* --bw-s thickens the inline-start edge into the 3px accent border; the
+       `borderS` prop's per-side mapper reads it (see defaultBlockquoteTheme). */
+    .vane-blockquote { --lh: var(--lh-base); --ls: var(--ls-base); --py-unit: 3; --bw-s: calc(var(--bw) * 3); }
     .vane-blockquote[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-blockquote[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 2; }
     .vane-blockquote[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 3; }
@@ -789,16 +795,6 @@
     }
 
 }
-
-/* Kbd keycap — UNLAYERED so it wins. The 3px bottom border must beat the
-   `border` default's `border-width: var(--bw)` utility (in @layer utilities);
-   a rule in @layer components loses to any utility regardless of specificity,
-   and a `border-b-[3px]` utility class is stripped by tailwind-merge (the later
-   `border` shorthand supersedes it). Unlayered normal declarations outrank all
-   @layer rules and bypass class-merging entirely, so the keycap survives in
-   both the prebuilt (@vaneui/ui/css) and Tailwind-consumer (@vaneui/ui/vars)
-   setups. */
-.vane-kbd { border-bottom-width: 3px; }
 
 /* KEYFRAMES — defined outside @layer so they're globally available. */
 

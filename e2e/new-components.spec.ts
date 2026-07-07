@@ -94,9 +94,8 @@ test.describe('Kbd', () => {
   });
 
   test('has a 3px keycap bottom border thicker than its other sides', async ({ page }) => {
-    // The keycap effect: border-b-[3px] must beat the `border` shorthand
-    // (border-width: var(--bw)) utility. If the cascade regresses, the bottom
-    // collapses to var(--bw) and equals the top — this guards against that.
+    // Keycap: the bottom edge is thicker than the other three sides. Guards
+    // against the bottom regressing to the --bw sides (a flat, keyless border).
     const el = page.locator('[data-testid="kbd-default"]');
     const borderTop = parseFloat(await getStyle(el, 'border-top-width'));
     const borderBottom = parseFloat(await getStyle(el, 'border-bottom-width'));

@@ -1,13 +1,13 @@
 // Common types and categories
 export type { TypographyProps, TypographyTheme, TextTheme } from './common';
-export { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from './common';
+export { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES, BLOCKQUOTE_CATEGORIES } from './common';
 
 // Text component
 export { Text, textDefaults, defaultTextTheme, textTheme } from './text';
 
 // Blockquote component
 export { Blockquote, blockquoteDefaults, defaultBlockquoteTheme, blockquoteTheme, blockquoteCiteDefaults, defaultBlockquoteCiteTheme } from './blockquote';
-export type { BlockquoteProps } from './blockquote';
+export type { BlockquoteProps, BlockquoteTheme } from './blockquote';
 
 // Title component
 export { Title, titleDefaults, defaultTitleTheme, titleTheme } from './title';

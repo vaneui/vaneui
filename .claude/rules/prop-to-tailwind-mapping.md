@@ -248,6 +248,8 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 | `borderR` | `border-r-[length:var(--bw)]` |
 | `borderX` | `border-x-[length:var(--bw)]` |
 | `borderY` | `border-y-[length:var(--bw)]` |
+| `borderS` | `border-s-[length:var(--bw)]` (logical inline-start — flips under `dir="rtl"`) |
+| `borderE` | `border-e-[length:var(--bw)]` (logical inline-end — flips under `dir="rtl"`) |
 | `noBorder` | (removes border) |
 
 ## Shape (Border Radius)
