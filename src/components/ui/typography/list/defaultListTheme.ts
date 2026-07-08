@@ -10,10 +10,11 @@ import { bgAppearance } from "../../theme/common/appearanceClassMappers";
 import { LIST_CATEGORIES } from "../common";
 import { listDefaults } from "./listDefaults";
 
-/** List theme — composed over the shared `typographyClassMappers` collection
- *  so changes to the shared collection automatically reach List. Includes
- *  `bgAppearance` so `<List danger filled>` produces a colored background and
- *  `<List transparent>` toggles it off. */
+/** List theme composed over the shared `typographyClassMappers` collection
+ *  so changes to the shared collection automatically reach List. Wires
+ *  `bgAppearance`, but the `transparent: true` default (see listDefaults)
+ *  suppresses it, so a List paints a background only when `transparent` is
+ *  explicitly cleared (e.g. `filled transparent={false}`). */
 export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new ComponentTheme<ListProps, ListTheme>(
   "ul",
   "vane-list [&_ul]:list-[circle] [&_ul_ul]:list-[square] [&_ol]:list-[lower-alpha] [&_ol_ol]:list-[lower-roman]",
@@ -30,7 +31,7 @@ export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new Compon
     },
     appearance: {
       ...typographyClassMappers.appearance,
-      // delta: lists support `filled`/`transparent` backgrounds, unlike background-less typography
+      // delta: List wires a background mapper (dormant under the transparent default), unlike background-less typography
       background: bgAppearance,
     },
     typography: typographyClassMappers.typography,
