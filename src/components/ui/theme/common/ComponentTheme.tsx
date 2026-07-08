@@ -159,7 +159,11 @@ const resolutionStateMap = new WeakMap<object, ResolutionState>();
 
 export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly tag: React.ElementType;
-  readonly base: string;
+  // writable so `themeOverride` can append always-on classes on the cloned tree
+  // (e.g. `theme.button.main.base += ' uppercase'`), matching the writable
+  // `defaults`/`extraClasses` and the mapper-node `base` fields. Mutation is
+  // safe only on ThemeProvider's pre-render clone (see the class doc-comment).
+  base: string;
   readonly themes: TTheme;
   readonly vaneType?: VaneComponentType;
   // fallback for pickFirstTruthyKeyByCategory when props omit a category; merged via ThemeProvider

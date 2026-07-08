@@ -27,6 +27,27 @@ describe('Theme Override Tests', () => {
       expect(button).toHaveClass('active:text-blue-900');
     });
 
+    it('should apply classes appended to the top-level component base via themeOverride', () => {
+      const overrideFunc = (theme: ThemeProps) => {
+        // Appending to the component's top-level `base` is the documented
+        // themeOverride pattern for always-on classes; `base` must be writable
+        // for this to type-check (regression for a readonly `base`).
+        theme.button.main.base += ' uppercase tracking-wide';
+        return theme;
+      };
+
+      const { container } = render(
+        <ThemeProvider themeOverride={overrideFunc}>
+          <Button>Uppercase</Button>
+        </ThemeProvider>
+      );
+
+      const button = container.querySelector('button');
+      expect(button).toBeInTheDocument();
+      expect(button).toHaveClass('uppercase');
+      expect(button).toHaveClass('tracking-wide');
+    });
+
     it('should override background colors and apply to button elements', () => {
       const overrideFunc = (theme: ThemeProps) => {
         theme.button.main.themes.appearance.background.base = 'bg-red-100';
