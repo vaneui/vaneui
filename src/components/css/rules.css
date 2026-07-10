@@ -441,10 +441,11 @@
         background-color: var(--bg-active-color);
     }
 
-    /* MenuLabel - compact non-interactive section heading */
+    /* MenuLabel - compact non-interactive section heading. Vertical padding runs a
+       strictly-increasing ramp (3/3.5/4/5/6px) so sm no longer collides with md. */
     .vane-menu-label { --lh: var(--lh-base); --py-unit: 1; --aspect-ratio: 2; --br-unit: 0.15; }
     .vane-menu-label[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.75; }
-    .vane-menu-label[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1; }
+    .vane-menu-label[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 0.875; }
     .vane-menu-label[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1; }
     .vane-menu-label[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 1.25; }
     .vane-menu-label[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 1.5; }

@@ -464,6 +464,16 @@ export function TestHarness() {
           <Chip data-testid="chip-gap-default"><StarIcon />Chip</Chip>
         </section>
 
+        {/* ── MenuLabel vertical padding: strictly-increasing ramp (3/3.5/4/5/6px) ── */}
+
+        <section data-testid="menulabel-pad-section">
+          <MenuLabel xs data-testid="menulabel-pad-xs">XS</MenuLabel>
+          <MenuLabel sm data-testid="menulabel-pad-sm">SM</MenuLabel>
+          <MenuLabel md data-testid="menulabel-pad-md">MD</MenuLabel>
+          <MenuLabel lg data-testid="menulabel-pad-lg">LG</MenuLabel>
+          <MenuLabel xl data-testid="menulabel-pad-xl">XL</MenuLabel>
+        </section>
+
         {/* ── Border-color inheritance: Divider inside appearance parent ── */}
 
         <section data-testid="border-color-inherit">

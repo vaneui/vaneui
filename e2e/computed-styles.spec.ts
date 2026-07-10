@@ -357,6 +357,31 @@ test.describe('Icon-to-label gap (role-aware)', () => {
   });
 });
 
+// ── 10. MenuLabel vertical padding scales on a strictly-increasing ramp ──
+
+test.describe('MenuLabel padding ramp', () => {
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  // py = py-unit × 4px, py-unit 0.75/0.875/1/1.25/1.5 → 3/3.5/4/5/6px (no sm/md flat spot).
+  const expected: Record<string, number> = { xs: 3, sm: 3.5, md: 4, lg: 5, xl: 6 };
+
+  for (const size of sizes) {
+    test(`MenuLabel ${size}: vertical padding is ${expected[size]}px`, async ({ page }) => {
+      const py = parseFloat(await getStyle(page.locator(`[data-testid="menulabel-pad-${size}"]`), 'padding-top'));
+      expect(py).toBeCloseTo(expected[size], 1);
+    });
+  }
+
+  test('MenuLabel padding is strictly increasing xs→xl (no sm/md flat spot)', async ({ page }) => {
+    const pads: number[] = [];
+    for (const size of sizes) {
+      pads.push(parseFloat(await getStyle(page.locator(`[data-testid="menulabel-pad-${size}"]`), 'padding-top')));
+    }
+    for (let i = 1; i < pads.length; i++) {
+      expect(pads[i]).toBeGreaterThan(pads[i - 1]);
+    }
+  });
+});
+
 test.describe('Button padding does not depend on icon presence', () => {
   // The previous `.vane-button:has(> svg) { --aspect-ratio: 1.5 }` rule shrank
   // horizontal padding by ~25% whenever a direct-child SVG was present. That
