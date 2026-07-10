@@ -328,6 +328,8 @@ Gap and padding are **controlled by the size prop**, not by Tailwind utility cla
 
 ### UI components (`data-vane-type="ui"` — Button, Badge, Chip, Text, Title, etc.)
 
+Base curve (the fallback for any `ui` component that doesn't override it):
+
 | Prop | `--gap-unit` |
 |------|-------------:|
 | `xs` | 1 |
@@ -335,6 +337,18 @@ Gap and padding are **controlled by the size prop**, not by Tailwind utility cla
 | `md` (default) | 2 |
 | `lg` | 2.5 |
 | `xl` | 3 |
+
+**Role-aware icon gap.** The icon-to-label gap tracks component ROLE, not size alone (matching mainstream design systems), so two tiers override the base curve in `rules.css`. Controls run one notch looser (so the `sm` default lands at 8px instead of 6px); compact pills run about half the control gap (so the icon stays close to the label rather than a gap as wide as the pill's own padding):
+
+| Prop | Controls (Button, NavLink, MenuItem, MenuLabel) | Pills (Badge, Chip) |
+|------|-------------:|-------------:|
+| `xs` | 1.5 (6px) | 0.5 (2px) |
+| `sm` | 2 (8px) | 0.75 (3px) |
+| `md` | 2.5 (10px) | 1 (4px) |
+| `lg` | 3 (12px) | 1.25 (5px) |
+| `xl` | 3.5 (14px) | 1.5 (6px) |
+
+`Link` is a further exception: its inline start/end icons use `--gap × 0.5` (via margin) for tighter inline runs. `ListItem` uses the full base `--gap`.
 
 ### Rendered pixels
 

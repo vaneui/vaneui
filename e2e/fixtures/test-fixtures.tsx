@@ -440,6 +440,30 @@ export function TestHarness() {
           <Section xl data-testid="section-spacing-xl"><Text>A</Text><Text>B</Text></Section>
         </section>
 
+        {/* ── Icon-to-label gap: role-aware curve (controls looser, pills tighter) ── */}
+
+        <section data-testid="icon-gap-curve">
+          {/* Control tier (NavLink representative): gap 6/8/10/12/14px */}
+          <NavLink xs data-testid="navlink-gap-xs"><StarIcon />XS</NavLink>
+          <NavLink sm data-testid="navlink-gap-sm"><StarIcon />SM</NavLink>
+          <NavLink md data-testid="navlink-gap-md"><StarIcon />MD</NavLink>
+          <NavLink lg data-testid="navlink-gap-lg"><StarIcon />LG</NavLink>
+          <NavLink xl data-testid="navlink-gap-xl"><StarIcon />XL</NavLink>
+          {/* Pill tier (Badge representative): gap 2/3/4/5/6px */}
+          <Badge xs data-testid="badge-gap-xs"><StarIcon />XS</Badge>
+          <Badge sm data-testid="badge-gap-sm"><StarIcon />SM</Badge>
+          <Badge md data-testid="badge-gap-md"><StarIcon />MD</Badge>
+          <Badge lg data-testid="badge-gap-lg"><StarIcon />LG</Badge>
+          <Badge xl data-testid="badge-gap-xl"><StarIcon />XL</Badge>
+          {/* Default-size spot checks that each component is wired into its tier.
+              MenuItem (role="menuitem") needs a role="menu" parent to satisfy ARIA. */}
+          <Button data-testid="button-gap-default"><StarIcon />Button</Button>
+          <div role="menu" aria-label="gap spot check">
+            <MenuItem data-testid="menuitem-gap-default"><StarIcon />Item</MenuItem>
+          </div>
+          <Chip data-testid="chip-gap-default"><StarIcon />Chip</Chip>
+        </section>
+
         {/* ── Border-color inheritance: Divider inside appearance parent ── */}
 
         <section data-testid="border-color-inherit">

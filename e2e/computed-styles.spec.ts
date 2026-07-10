@@ -303,6 +303,60 @@ test.describe('Section spacing curve (desktop track)', () => {
   });
 });
 
+// ── 9. Icon-to-label gap: role-aware curve (controls looser, pills tighter) ──
+
+test.describe('Icon-to-label gap (role-aware)', () => {
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+  // Control tier (Button, NavLink, MenuItem, MenuLabel): base ui gap + one notch,
+  // gap-unit 1.5/2/2.5/3/3.5 × 4px, so the sm default lands at 8px (not a cramped 6px).
+  const controlGap: Record<string, number> = { xs: 6, sm: 8, md: 10, lg: 12, xl: 14 };
+  // Pill tier (Badge, Chip): ~half the control gap, gap-unit 0.5/0.75/1/1.25/1.5 × 4px.
+  const pillGap: Record<string, number> = { xs: 2, sm: 3, md: 4, lg: 5, xl: 6 };
+
+  for (const size of sizes) {
+    test(`NavLink ${size}: icon gap is ${controlGap[size]}px (control tier)`, async ({ page }) => {
+      const gap = parseFloat(await getStyle(page.locator(`[data-testid="navlink-gap-${size}"]`), 'column-gap'));
+      expect(gap).toBeCloseTo(controlGap[size], 1);
+    });
+
+    test(`Badge ${size}: icon gap is ${pillGap[size]}px (pill tier)`, async ({ page }) => {
+      const gap = parseFloat(await getStyle(page.locator(`[data-testid="badge-gap-${size}"]`), 'column-gap'));
+      expect(gap).toBeCloseTo(pillGap[size], 1);
+    });
+  }
+
+  test('control-tier defaults (Button sm, MenuItem sm) gap is 8px', async ({ page }) => {
+    const button = parseFloat(await getStyle(page.locator('[data-testid="button-gap-default"]'), 'column-gap'));
+    const menuitem = parseFloat(await getStyle(page.locator('[data-testid="menuitem-gap-default"]'), 'column-gap'));
+    expect(button).toBeCloseTo(8, 1);
+    expect(menuitem).toBeCloseTo(8, 1);
+  });
+
+  test('pill-tier default (Chip md) gap is 4px', async ({ page }) => {
+    const chip = parseFloat(await getStyle(page.locator('[data-testid="chip-gap-default"]'), 'column-gap'));
+    expect(chip).toBeCloseTo(4, 1);
+  });
+
+  test('at the same size, a control gap is looser than a pill gap', async ({ page }) => {
+    const control = parseFloat(await getStyle(page.locator('[data-testid="navlink-gap-md"]'), 'column-gap'));
+    const pill = parseFloat(await getStyle(page.locator('[data-testid="badge-gap-md"]'), 'column-gap'));
+    expect(control).toBeGreaterThan(pill);
+  });
+
+  test('both tiers are strictly increasing xs→xl', async ({ page }) => {
+    for (const prefix of ['navlink-gap', 'badge-gap']) {
+      const gaps: number[] = [];
+      for (const size of sizes) {
+        gaps.push(parseFloat(await getStyle(page.locator(`[data-testid="${prefix}-${size}"]`), 'column-gap')));
+      }
+      for (let i = 1; i < gaps.length; i++) {
+        expect(gaps[i]).toBeGreaterThan(gaps[i - 1]);
+      }
+    }
+  });
+});
+
 test.describe('Button padding does not depend on icon presence', () => {
   // The previous `.vane-button:has(> svg) { --aspect-ratio: 1.5 }` rule shrank
   // horizontal padding by ~25% whenever a direct-child SVG was present. That

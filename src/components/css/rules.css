@@ -88,6 +88,28 @@
     [data-vane-type="ui"][data-size="lg"] { --gap-unit: 2.5; --shadow-base: var(--shadow-ui-lg); }
     [data-vane-type="ui"][data-size="xl"] { --gap-unit: 3;   --shadow-base: var(--shadow-ui-xl); }
 
+    /* ROLE-AWARE ICON GAP — the icon-to-label gap tracks component ROLE, not size
+       alone. These override the flat ui gap curve above (equal specificity, later
+       source order wins). The base curve stays the fallback for every other ui
+       component.
+         Controls (Button, NavLink, MenuItem, MenuLabel): one notch looser than the
+         base curve, so the sm default sits at 8px instead of a cramped 6px, matching
+         button/nav conventions across mainstream design systems.
+         Pills (Badge, Chip): tighter — about half the control gap — so a compact
+         status/tag keeps its icon close to the label, instead of an icon gap as wide
+         as the pill's own horizontal padding. */
+    :is(.vane-button, .vane-nav-link, .vane-menu-item, .vane-menu-label)[data-size="xs"] { --gap-unit: 1.5; }
+    :is(.vane-button, .vane-nav-link, .vane-menu-item, .vane-menu-label)[data-size="sm"] { --gap-unit: 2;   }
+    :is(.vane-button, .vane-nav-link, .vane-menu-item, .vane-menu-label)[data-size="md"] { --gap-unit: 2.5; }
+    :is(.vane-button, .vane-nav-link, .vane-menu-item, .vane-menu-label)[data-size="lg"] { --gap-unit: 3;   }
+    :is(.vane-button, .vane-nav-link, .vane-menu-item, .vane-menu-label)[data-size="xl"] { --gap-unit: 3.5; }
+
+    :is(.vane-badge, .vane-chip)[data-size="xs"] { --gap-unit: 0.5;  }
+    :is(.vane-badge, .vane-chip)[data-size="sm"] { --gap-unit: 0.75; }
+    :is(.vane-badge, .vane-chip)[data-size="md"] { --gap-unit: 1;    }
+    :is(.vane-badge, .vane-chip)[data-size="lg"] { --gap-unit: 1.25; }
+    :is(.vane-badge, .vane-chip)[data-size="xl"] { --gap-unit: 1.5;  }
+
     /* UI border-radius: ratio (--br-unit) of element height (fs-unit*0.5*lh + 2*py-unit) * spacing. */
     [data-vane-type="ui"][data-size] {
         --br: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit)) * var(--br-unit) * var(--spacing));
