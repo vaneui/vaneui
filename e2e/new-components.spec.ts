@@ -93,13 +93,13 @@ test.describe('Kbd', () => {
     expect(tagName).toBe('kbd');
   });
 
-  test('has a 3px keycap bottom border thicker than its other sides', async ({ page }) => {
+  test('has a 2px keycap bottom border thicker than its other sides', async ({ page }) => {
     // Keycap: the bottom edge is thicker than the other three sides. Guards
     // against the bottom regressing to the --bw sides (a flat, keyless border).
     const el = page.locator('[data-testid="kbd-default"]');
     const borderTop = parseFloat(await getStyle(el, 'border-top-width'));
     const borderBottom = parseFloat(await getStyle(el, 'border-bottom-width'));
-    expect(borderBottom).toBe(3);
+    expect(borderBottom).toBe(2);
     expect(borderBottom).toBeGreaterThan(borderTop);
   });
 

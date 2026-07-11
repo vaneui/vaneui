@@ -171,15 +171,15 @@
     .vane-badge[data-size="lg"] { --fs-unit: 8; --py-unit: 1.25; }
     .vane-badge[data-size="xl"] { --fs-unit: 9; --py-unit: 1.5; }
 
-    /* Chip — tag/label: same shifted-down font scale as Badge but one padding
-       notch more generous, so a tag reads slightly larger than a status pill
-       (~29px vs ~27px tall at md) instead of a full size-class larger. */
-    .vane-chip { --lh: 1.2; --py-unit: 1.25; --aspect-ratio: 2; --br-unit: 0.2564; }
-    .vane-chip[data-size="xs"] { --fs-unit: 5; --py-unit: 0.75; }
-    .vane-chip[data-size="sm"] { --fs-unit: 6; --py-unit: 1; }
-    .vane-chip[data-size="md"] { --fs-unit: 7; --py-unit: 1.25; }
-    .vane-chip[data-size="lg"] { --fs-unit: 8; --py-unit: 1.5; }
-    .vane-chip[data-size="xl"] { --fs-unit: 9; --py-unit: 1.75; }
+    /* Chip — tag/label: same shifted-down font scale as Badge. Tightened line-height
+       (1.1) and padding so it sits ~1.6x its own font (≈22px tall at md) instead of
+       ~1.9x — in line with reference tag/chip components, which cluster around 1.7x. */
+    .vane-chip { --lh: 1.1; --py-unit: 0.875; --aspect-ratio: 2; --br-unit: 0.2564; }
+    .vane-chip[data-size="xs"] { --fs-unit: 5; --py-unit: 0.375; }
+    .vane-chip[data-size="sm"] { --fs-unit: 6; --py-unit: 0.625; }
+    .vane-chip[data-size="md"] { --fs-unit: 7; --py-unit: 0.875; }
+    .vane-chip[data-size="lg"] { --fs-unit: 8; --py-unit: 1.125; }
+    .vane-chip[data-size="xl"] { --fs-unit: 9; --py-unit: 1.375; }
 
     /* Icon sizing for Badge and Chip */
     .vane-badge :where(svg:not([class*='size-'])),
@@ -194,23 +194,27 @@
     .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
     .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
 
-    /* Kbd: em-relative geometry like Code (see comment above). --bw-b thickens
-       the bottom edge into the 3px keycap; the `border` prop's per-side mapper
-       reads it (see defaultKbdTheme / PerSideBorderClassMapper). */
-    .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; --bw-b: calc(var(--bw) * 3); }
-    .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
-    .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
-    .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }
-    .vane-kbd[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
-    .vane-kbd[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
+    /* Kbd: em-relative geometry like Code. Runs half of Code's vertical padding and
+       a 2px keycap bottom edge (--bw-b) so it sits ~1.5x its own font (≈21px at md)
+       rather than ~1.75x — Code's full padding plus a 3px border made it the tallest
+       inline element. The `border` prop's per-side mapper reads --bw-b (see
+       defaultKbdTheme / PerSideBorderClassMapper). */
+    .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.5; --aspect-ratio: 1.8; --br-unit: 0.2941; --bw-b: calc(var(--bw) * 2); }
+    .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.3; }
+    .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.4; }
+    .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.5; }
+    .vane-kbd[data-size="lg"] { --fs-unit: 8; --py-unit: 0.6; }
+    .vane-kbd[data-size="xl"] { --fs-unit: 9; --py-unit: 0.7; }
 
-    /* Mark */
-    .vane-mark { --lh: 1; --py-unit: 0.4; --aspect-ratio: 1.5; --br-unit: 0.3333; }
-    .vane-mark[data-size="xs"] { --fs-unit: 5; --py-unit: 0.2; }
-    .vane-mark[data-size="sm"] { --fs-unit: 6; --py-unit: 0.3; }
-    .vane-mark[data-size="md"] { --fs-unit: 7; --py-unit: 0.4; }
-    .vane-mark[data-size="lg"] { --fs-unit: 8; --py-unit: 0.5; }
-    .vane-mark[data-size="xl"] { --fs-unit: 9; --py-unit: 0.6; }
+    /* Mark — text highlight: near-flush vertical padding so the highlight hugs the
+       glyphs like a highlighter pen (reference marks use zero), instead of lifting
+       the box above the text line. */
+    .vane-mark { --lh: 1; --py-unit: 0.1; --aspect-ratio: 1.5; --br-unit: 0.3333; }
+    .vane-mark[data-size="xs"] { --fs-unit: 5; --py-unit: 0.05; }
+    .vane-mark[data-size="sm"] { --fs-unit: 6; --py-unit: 0.075; }
+    .vane-mark[data-size="md"] { --fs-unit: 7; --py-unit: 0.1; }
+    .vane-mark[data-size="lg"] { --fs-unit: 8; --py-unit: 0.125; }
+    .vane-mark[data-size="xl"] { --fs-unit: 9; --py-unit: 0.15; }
 
     /* Input */
     .vane-input { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; }

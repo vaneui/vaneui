@@ -382,6 +382,32 @@ test.describe('MenuLabel padding ramp', () => {
   });
 });
 
+// ── 11. Inline element vertical trim: Kbd / Chip / Mark sit tighter in a line ──
+
+test.describe('Inline element vertical trim', () => {
+  test('Kbd keycap bottom border is 2px, top stays 1px', async ({ page }) => {
+    const kbd = page.locator('[data-testid="kbd-md"]');
+    // --bw-b trimmed from 3px to 2px; the top edge keeps the base 1px so the
+    // raised-key look survives without the extra height.
+    expect(await getStyle(kbd, 'border-bottom-width')).toBe('2px');
+    expect(await getStyle(kbd, 'border-top-width')).toBe('1px');
+  });
+
+  test('Chip runs a tighter line-height and padding than a status pill', async ({ page }) => {
+    const chip = page.locator('[data-testid="chip-icon-md"]');
+    // py-unit 0.875 × 4px = 3.5px (was 5px)
+    expect(parseFloat(await getStyle(chip, 'padding-top'))).toBeCloseTo(3.5, 1);
+    // line-height 1.1 × 14px = 15.4px (was 1.2 → 16.8px)
+    expect(parseFloat(await getStyle(chip, 'line-height'))).toBeLessThan(16);
+  });
+
+  test('Mark padding is near-flush with the text (highlighter style)', async ({ page }) => {
+    const mark = page.locator('[data-testid="mark-md"]');
+    // py-unit 0.1 × 4px = 0.4px, was 1.6px — hugs the glyphs
+    expect(parseFloat(await getStyle(mark, 'padding-top'))).toBeLessThanOrEqual(0.5);
+  });
+});
+
 test.describe('Button padding does not depend on icon presence', () => {
   // The previous `.vane-button:has(> svg) { --aspect-ratio: 1.5 }` rule shrank
   // horizontal padding by ~25% whenever a direct-child SVG was present. That
