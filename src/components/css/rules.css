@@ -228,10 +228,13 @@
         padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
     }
 
-    /* Checkbox (height = size-unit * spacing, not text-based) */
+    /* Checkbox (height = size-unit * spacing, not text-based). xs floor lifted
+       off 12px: a 12px box is half the 24px minimum target size and the smallest
+       checkbox of any mainstream system. xs now 14px / sm 15px, keeping md at the
+       16px size the field converges on. */
     .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
-    .vane-checkbox[data-size="xs"] { --size-unit: 3; }
-    .vane-checkbox[data-size="sm"] { --size-unit: 3.5; }
+    .vane-checkbox[data-size="xs"] { --size-unit: 3.5; }
+    .vane-checkbox[data-size="sm"] { --size-unit: 3.75; }
     .vane-checkbox[data-size="md"] { --size-unit: 4; }
     .vane-checkbox[data-size="lg"] { --size-unit: 4.5; }
     .vane-checkbox[data-size="xl"] { --size-unit: 5; }

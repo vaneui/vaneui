@@ -5,6 +5,7 @@ import {
   Text,
   Title,
   Button,
+  IconButton,
   Badge,
   Chip,
   Icon,
@@ -283,6 +284,16 @@ export function TestHarness() {
           <Button xs aria-label="star xs" data-testid="icon-bare-xs"><StarIcon /></Button>
           <Button md aria-label="star md" data-testid="icon-bare-md"><StarIcon /></Button>
           <Button xl aria-label="star xl" data-testid="icon-bare-xl"><StarIcon /></Button>
+        </section>
+
+        {/* ── IconButton: square footprint + height across sizes (parity with Button) ── */}
+
+        <section data-testid="icon-button-section">
+          <IconButton xs aria-label="icon-button xs" data-testid="icon-button-xs"><StarIcon /></IconButton>
+          <IconButton sm aria-label="icon-button sm" data-testid="icon-button-sm"><StarIcon /></IconButton>
+          <IconButton md aria-label="icon-button md" data-testid="icon-button-md"><StarIcon /></IconButton>
+          <IconButton lg aria-label="icon-button lg" data-testid="icon-button-lg"><StarIcon /></IconButton>
+          <IconButton xl aria-label="icon-button xl" data-testid="icon-button-xl"><StarIcon /></IconButton>
         </section>
 
         {/* ── Icon sizing: Badge and Chip ── */}
@@ -807,6 +818,8 @@ export function TestHarness() {
         <section data-testid="checkbox-section">
           {/* Default unchecked checkboxes (filled variant) — must show visible border */}
           <Checkbox aria-label="checkbox default" data-testid="checkbox-default" />
+          {/* xs — smallest size; its box must clear the 14px floor (was 12px) */}
+          <Checkbox xs aria-label="checkbox xs" data-testid="checkbox-xs" />
           <Checkbox primary aria-label="checkbox primary" data-testid="checkbox-primary" />
           <Checkbox success aria-label="checkbox success" data-testid="checkbox-success" />
           <Checkbox danger aria-label="checkbox danger" data-testid="checkbox-danger" />

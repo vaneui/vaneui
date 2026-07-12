@@ -144,6 +144,32 @@ test.describe('Checkbox: border darker than layout components', () => {
   });
 });
 
+test.describe('Checkbox: xs size floor', () => {
+  // The xs box was lifted from 12px to 14px: a 12px control is half the 24px
+  // minimum target size and the smallest checkbox of any mainstream system.
+  // md stays at 16px (the size the field converges on).
+  async function boxWidth(page: import('@playwright/test').Page, testid: string): Promise<number> {
+    const box = await page.locator(`[data-testid="${testid}"]`).boundingBox();
+    return box?.width ?? 0;
+  }
+
+  test('xs checkbox box clears the 14px floor and stays under md (16px)', async ({ page }) => {
+    const xs = await boxWidth(page, 'checkbox-xs');
+    expect(xs).toBeGreaterThanOrEqual(14);
+    expect(xs).toBeLessThan(16);
+  });
+
+  test('checkbox box sizes are strictly increasing xs < sm < md < lg', async ({ page }) => {
+    const xs = await boxWidth(page, 'checkbox-xs');
+    const sm = await boxWidth(page, 'std-sm-checkbox');
+    const md = await boxWidth(page, 'checkbox-default');
+    const lg = await boxWidth(page, 'std-lg-checkbox');
+    expect(sm).toBeGreaterThan(xs);
+    expect(md).toBeGreaterThan(sm);
+    expect(lg).toBeGreaterThan(md);
+  });
+});
+
 test.describe('Checkbox: ring color tracks border color', () => {
   // The Checkbox CSS override sets --ring-color alongside --border-color, so
   // when consumers enable `ring` the stroke matches its border across both
