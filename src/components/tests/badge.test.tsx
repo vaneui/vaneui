@@ -26,7 +26,8 @@ describe('Badge Component Tests', () => {
       expect(badge).toHaveClass('text-(--text-color)'); // secondary appearance (neutral default; colored via success/danger/…)
       expect(badge).toHaveClass('font-sans');
       expect(badge).toHaveClass('font-semibold'); // semibold weight
-      expect(badge).toHaveClass('inline-flex', 'items-center', 'rounded-full', 'uppercase');
+      expect(badge).toHaveClass('inline-flex', 'items-center', 'rounded-full');
+      expect(badge).not.toHaveClass('uppercase'); // normal-case by default; opt in with `uppercase`
     });
   });
 

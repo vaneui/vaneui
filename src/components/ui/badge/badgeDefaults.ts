@@ -9,7 +9,6 @@ export const badgeDefaults: Partial<BadgeProps> = {
   pill: true,
   sans: true,
   semibold: true,
-  uppercase: true,
   noShadow: true,
   itemsCenter: true,
   padding: true,

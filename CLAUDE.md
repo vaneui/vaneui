@@ -144,7 +144,7 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 | **Row** | md, row, flex, itemsCenter, gap, noPadding, noBorder, noRing, outline, sharp |
 | **Col** | md, column, flex, gap, noPadding, noBorder, noRing, outline, sharp |
 | **Stack** | md, flex, column, flexWrap, gap, padding, noBorder, noRing, outline, sharp |
-| **Badge** | md, secondary (neutral default; color via success/danger/…), outline, pill, semibold, uppercase |
+| **Badge** | md, secondary (neutral default; color via success/danger/…), outline, pill, semibold |
 | **Chip** | md, secondary (not primary!), outline, rounded, sans |
 | **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noRing, wFull, textLeft, focusVisible |
 | **Link** | md, link (not primary!), underline, sans, cursorPointer, inheritSize, wFit, focusVisible (no variant default) |
