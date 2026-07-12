@@ -30,18 +30,18 @@ test.describe('IconButton: square footprint + size scaling', () => {
   });
 });
 
-test.describe('IconButton vs Button height (xs)', () => {
-  // IconButton height is driven by its icon + square constraint, while Button
-  // height is driven by its text line-box. They are NOT equal at xs: the
-  // icon-only square is shorter than the text button. This test documents the
-  // current relationship (see the size investigation report).
-  test('iconbutton xs is shorter than a text button xs', async ({ page }) => {
-    const ib = await box(page, 'icon-button-xs');
-    const btn = await box(page, 'button-xs');
-    // eslint-disable-next-line no-console
-    console.log(`[height-check] IconButton xs = ${ib.width}x${ib.height}, Button xs = ${btn.width}x${btn.height}`);
-    expect(ib.height).toBeGreaterThan(0);
-    expect(btn.height).toBeGreaterThan(0);
-    expect(ib.height).toBeLessThan(btn.height);
+test.describe('IconButton and Button height parity (per size)', () => {
+  // Both Button and IconButton pin min-height to the shared --min-h control
+  // height, so an icon-only IconButton lines up with a text Button of the same
+  // size when mixed in a row. (Before this, IconButton was icon-driven and ran
+  // ~0.3*fs shorter than the text-line-driven Button at every size.)
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+  test('iconbutton height equals button height at every size', async ({ page }) => {
+    for (const size of sizes) {
+      const ib = await box(page, `icon-button-${size}`);
+      const btn = await box(page, `button-${size}`);
+      expect(Math.abs(ib.height - btn.height)).toBeLessThanOrEqual(1);
+    }
   });
 });

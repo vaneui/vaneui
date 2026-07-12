@@ -110,9 +110,15 @@
     :is(.vane-badge, .vane-chip)[data-size="lg"] { --gap-unit: 1.25; }
     :is(.vane-badge, .vane-chip)[data-size="xl"] { --gap-unit: 1.5;  }
 
-    /* UI border-radius: ratio (--br-unit) of element height (fs-unit*0.5*lh + 2*py-unit) * spacing. */
+    /* UI control height (--min-h) — the border-box height a single-line text
+       control computes: (fs-unit*0.5*lh + 2*py-unit) * spacing. Extracted so the
+       button family can pin min-height to it, aligning icon-only Buttons and
+       IconButton with text Buttons per size (an SVG-only flex box gets no
+       line-box strut, so its height would otherwise track the icon, not the
+       text line). --br stays the same value: that height * --br-unit. */
     [data-vane-type="ui"][data-size] {
-        --br: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit)) * var(--br-unit) * var(--spacing));
+        --min-h: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit)) * var(--spacing));
+        --br: calc(var(--min-h) * var(--br-unit));
     }
 
     /* Layout type defaults. gap/py units follow a shared curve anchored at md:

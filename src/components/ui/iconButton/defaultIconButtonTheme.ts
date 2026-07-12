@@ -6,7 +6,7 @@ import { iconButtonDefaults } from "./iconButtonDefaults";
 
 export const defaultIconButtonTheme = new ComponentTheme<IconButtonProps, IconButtonTheme>(
   "button",
-  "vane-icon-button aspect-square [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "vane-icon-button aspect-square min-h-(--min-h) min-w-(--min-h) [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     ...interactiveClassMappers,
     appearance: {

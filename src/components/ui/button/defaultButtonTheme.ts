@@ -6,7 +6,7 @@ import { buttonDefaults } from "./buttonDefaults";
 
 export const defaultButtonTheme = new ComponentTheme<ButtonProps, ButtonTheme>(
   "button",
-  "vane-button [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "vane-button min-h-(--min-h) [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     ...interactiveClassMappers,
     appearance: {
