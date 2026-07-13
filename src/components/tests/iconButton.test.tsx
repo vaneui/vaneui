@@ -182,7 +182,7 @@ describe('IconButton Component Tests', () => {
   });
 
   describe('Differences from Button', () => {
-    it('should NOT have w-fit class (Button has it)', () => {
+    it('should have w-fit class (definite square width, immune to flex-stretch parents)', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <IconButton aria-label="Test"><TestIcon /></IconButton>
@@ -190,7 +190,7 @@ describe('IconButton Component Tests', () => {
       );
 
       const button = container.querySelector('button');
-      expect(button).not.toHaveClass('w-fit');
+      expect(button).toHaveClass('w-fit');
     });
 
     it('should have h-fit class', () => {

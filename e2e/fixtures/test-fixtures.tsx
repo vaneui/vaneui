@@ -296,6 +296,21 @@ export function TestHarness() {
           <IconButton xl aria-label="icon-button xl" data-testid="icon-button-xl"><StarIcon /></IconButton>
         </section>
 
+        {/* ── IconButton inside a flex-column align-items:stretch parent (the demo
+             harness shape). wFit must keep the width definite so the button stays
+             square instead of stretching to the container width. ── */}
+
+        <section
+          data-testid="icon-button-stretch-section"
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', width: '320px' }}
+        >
+          <IconButton xs aria-label="icon-button stretch xs" data-testid="icon-button-stretch-xs"><StarIcon /></IconButton>
+          <IconButton sm aria-label="icon-button stretch sm" data-testid="icon-button-stretch-sm"><StarIcon /></IconButton>
+          <IconButton md aria-label="icon-button stretch md" data-testid="icon-button-stretch-md"><StarIcon /></IconButton>
+          <IconButton lg aria-label="icon-button stretch lg" data-testid="icon-button-stretch-lg"><StarIcon /></IconButton>
+          <IconButton xl aria-label="icon-button stretch xl" data-testid="icon-button-stretch-xl"><StarIcon /></IconButton>
+        </section>
+
         {/* ── Icon sizing: Badge and Chip ── */}
 
         <section data-testid="icon-sizing-badge-chip">
