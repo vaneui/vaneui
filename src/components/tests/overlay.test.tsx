@@ -500,4 +500,33 @@ describe('Overlay Component Tests', () => {
       expect(() => fireEvent.keyDown(document, { key: 'Escape' })).not.toThrow();
     });
   });
+
+  describe('Plain scrim (no decorative props)', () => {
+    // Overlay is a fixed full-viewport backdrop: appearance/variant/shadow/ring
+    // were removed because a scrim can't render them meaningfully. Guard against
+    // a decorative mapper being re-added that would emit those on the backdrop.
+    it('renders only the scrim background, no appearance/variant/shadow/ring classes', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false}>Content</Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay') as HTMLElement;
+      expect(overlay).toHaveClass('bg-(--overlay-bg)');
+      expect(overlay.className).not.toMatch(/\bshadow-|\bring-|bg-\(--bg-color\)|border-\(--border-color\)|text-\(--text-color\)/);
+    });
+
+    it('emits no data-appearance or data-variant attributes', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Overlay portal={false}>Content</Overlay>
+        </ThemeProvider>
+      );
+
+      const overlay = container.querySelector('.vane-overlay');
+      expect(overlay).not.toHaveAttribute('data-appearance');
+      expect(overlay).not.toHaveAttribute('data-variant');
+    });
+  });
 });

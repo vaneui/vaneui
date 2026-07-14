@@ -3,9 +3,7 @@ import type { OverlayProps } from "../overlay";
 import type { ModalOverlayTheme } from "./ModalOverlayTheme";
 import { OVERLAY_CATEGORIES } from "../overlay/OverlayCategories";
 import { modalOverlayDefaults } from "./modalOverlayDefaults";
-import { BlurClassMapper, OverlayBackgroundClassMapper, PointerEventsClassMapper, RingClassMapper } from "../theme/layout";
-import { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
-import { ringConsumerClass } from "../classes/appearanceClasses";
+import { BlurClassMapper, OverlayBackgroundClassMapper, PointerEventsClassMapper } from "../theme/layout";
 
 export const defaultModalOverlayTheme = new ComponentTheme<OverlayProps, ModalOverlayTheme>(
   'div',
@@ -17,11 +15,6 @@ export const defaultModalOverlayTheme = new ComponentTheme<OverlayProps, ModalOv
       blur: new BlurClassMapper(),
       overlayBackground: new OverlayBackgroundClassMapper(),
       pointerEvents: new PointerEventsClassMapper(),
-      ring: new RingClassMapper(),
-      shadow: new ShadowAppearanceClassMapper(),
-    },
-    appearance: {
-      ring: new SimpleConsumerClassMapper({ base: ringConsumerClass }, 'ring'),
     },
   },
   modalOverlayDefaults,

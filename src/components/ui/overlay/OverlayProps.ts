@@ -6,10 +6,6 @@ import type {
   DisplayProps,
   PositionProps,
   OverflowProps,
-  AppearanceProps,
-  ShadowProps,
-  RingProps,
-  VariantProps,
   TransparentProps,
   ResponsiveProps,
   ItemsProps,
@@ -20,17 +16,21 @@ import type {
   HeightProps,
 } from "../props";
 
-/** Overlay component props */
+/**
+ * Overlay component props.
+ *
+ * Overlay is a plain backdrop scrim: it renders a fixed, full-viewport layer
+ * with a semi-transparent background (--overlay-bg). It intentionally does NOT
+ * take appearance/variant/shadow/ring — a fullscreen inset-0 scrim can't show a
+ * box-shadow or a filled/appearance background, so those props would be inert.
+ * Use `transparent` to suppress the scrim, `blur` for a backdrop blur.
+ */
 export type OverlayProps = BaseProps &
   SizeProps &
   HideProps &
   DisplayProps &
   PositionProps &
   OverflowProps &
-  AppearanceProps &
-  ShadowProps &
-  RingProps &
-  VariantProps &
   TransparentProps &
   ResponsiveProps &
   ItemsProps &

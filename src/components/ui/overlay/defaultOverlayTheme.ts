@@ -1,6 +1,6 @@
-import { ComponentTheme, defaultSizedLayoutClassMappers, ringAppearance, shadowAppearance } from "../theme/common";
+import { ComponentTheme, defaultSizedLayoutClassMappers } from "../theme/common";
 import type { OverlayProps } from "./OverlayProps";
-import { BlurClassMapper, OverlayBackgroundClassMapper, PointerEventsClassMapper, RingClassMapper } from "../theme/layout";
+import { BlurClassMapper, OverlayBackgroundClassMapper, PointerEventsClassMapper } from "../theme/layout";
 import { OVERLAY_CATEGORIES } from "./OverlayCategories";
 import type { OverlayTheme } from "./OverlayTheme";
 import { overlayDefaults } from "./overlayDefaults";
@@ -15,11 +15,6 @@ export const defaultOverlayTheme = new ComponentTheme<OverlayProps, OverlayTheme
       blur: new BlurClassMapper(),
       overlayBackground: new OverlayBackgroundClassMapper(),
       pointerEvents: new PointerEventsClassMapper(),
-      ring: new RingClassMapper(),
-      shadow: shadowAppearance,
-    },
-    appearance: {
-      ring: ringAppearance,
     },
   },
   overlayDefaults,
