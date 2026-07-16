@@ -3,7 +3,7 @@ import type { TdProps } from "./TdProps";
 import type { TdTheme } from "./TdTheme";
 import { TD_CATEGORIES } from "./TdCategories";
 import { tdDefaults } from "./tdDefaults";
-import { PxClassMapper, PyClassMapper } from "../theme/size";
+import { PxClassMapper, PyClassMapper, FontSizeClassMapper } from "../theme/size";
 import { BorderClassMapper, WidthClassMapper, HeightClassMapper } from "../theme/layout";
 import { TextAlignClassMapper } from "../theme/typography";
 
@@ -14,6 +14,7 @@ export const defaultTdTheme = new ComponentTheme<TdProps, TdTheme>(
     size: {
       px: new PxClassMapper(),
       py: new PyClassMapper(),
+      fontSize: new FontSizeClassMapper(),
     },
     appearance: {
       border: borderAppearance,

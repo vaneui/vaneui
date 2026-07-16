@@ -5,7 +5,6 @@ export const tableDefaults: Partial<TableProps> = {
   md: true,
   secondary: true,
   outline: true,
-  rounded: true,
   wFull: true,
   noBorder: true,
 };

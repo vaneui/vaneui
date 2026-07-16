@@ -98,12 +98,18 @@ describe('Table Component Tests', () => {
     });
 
     it('does not leak boolean props to the DOM', () => {
-      const { container } = renderTable({ secondary: true, outline: true, rounded: true, wFull: true });
+      const { container } = renderTable({ secondary: true, outline: true, wFull: true, noBorder: true });
       const table = container.querySelector('.vane-table');
       expect(table).not.toHaveAttribute('secondary');
       expect(table).not.toHaveAttribute('outline');
-      expect(table).not.toHaveAttribute('rounded');
       expect(table).not.toHaveAttribute('wFull');
+      expect(table).not.toHaveAttribute('noBorder');
+    });
+
+    it('emits no border-radius class (shape dropped — inert under border-collapse)', () => {
+      const { container } = renderTable();
+      const table = container.querySelector('.vane-table') as HTMLElement;
+      expect(table.className).not.toMatch(/rounded/);
     });
   });
 
@@ -182,6 +188,7 @@ describe('Table Component Tests', () => {
       expect(th).toHaveClass('text-(--text-color)'); // secondary muted header text
       expect(th).toHaveClass('text-left');
       expect(th).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(th).toHaveClass('text-(length:--fs)'); // font-size scales with size
     });
 
     it('has data-vane-type="layout" and secondary appearance', () => {
@@ -249,6 +256,7 @@ describe('Table Component Tests', () => {
       expect(td).toHaveClass('border-(--border-color)');
       expect(td).toHaveClass('text-left');
       expect(td).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(td).toHaveClass('text-(length:--fs)'); // font-size scales with size
       // Td omits the text-color mapper so body text stays uncolored
       expect(td).not.toHaveClass('text-(--text-color)');
       expect(td).not.toHaveClass('font-semibold');
@@ -285,6 +293,7 @@ describe('Table Component Tests', () => {
       expect(caption).toBeInTheDocument();
       expect(caption?.tagName.toLowerCase()).toBe('caption');
       expect(caption).toHaveClass('text-(--text-color)', 'text-left');
+      expect(caption).toHaveClass('text-(length:--fs)'); // font-size scales with size
       expect(caption).toHaveAttribute('data-vane-type', 'layout');
     });
   });

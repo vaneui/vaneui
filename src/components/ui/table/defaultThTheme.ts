@@ -3,7 +3,7 @@ import type { ThProps } from "./ThProps";
 import type { ThTheme } from "./ThTheme";
 import { TH_CATEGORIES } from "./ThCategories";
 import { thDefaults } from "./thDefaults";
-import { PxClassMapper, PyClassMapper } from "../theme/size";
+import { PxClassMapper, PyClassMapper, FontSizeClassMapper } from "../theme/size";
 import { BorderClassMapper, WidthClassMapper, HeightClassMapper } from "../theme/layout";
 import { TextAlignClassMapper, FontWeightClassMapper } from "../theme/typography";
 
@@ -14,6 +14,7 @@ export const defaultThTheme = new ComponentTheme<ThProps, ThTheme>(
     size: {
       px: new PxClassMapper(),
       py: new PyClassMapper(),
+      fontSize: new FontSizeClassMapper(),
     },
     appearance: {
       text: textAppearance,

@@ -4,7 +4,7 @@ import type { TableTheme } from "./TableTheme";
 import { TABLE_CATEGORIES } from "./TableCategories";
 import { tableDefaults } from "./tableDefaults";
 import { MarginClassMapper } from "../theme/size";
-import { BorderClassMapper, RadiusClassMapper, WidthClassMapper } from "../theme/layout";
+import { BorderClassMapper, WidthClassMapper } from "../theme/layout";
 import { TextAlignClassMapper } from "../theme/typography";
 
 export const defaultTableTheme = new ComponentTheme<TableProps, TableTheme>(
@@ -20,7 +20,6 @@ export const defaultTableTheme = new ComponentTheme<TableProps, TableTheme>(
     layout: {
       ...defaultLayoutClassMappers,
       border: new BorderClassMapper(),
-      radius: new RadiusClassMapper(),
       width: new WidthClassMapper(),
     },
     typography: {

@@ -1,4 +1,4 @@
-import { test, expect, getStyle, getColor } from './base';
+import { test, expect, getStyle, getColor, getFontSize } from './base';
 
 test.beforeEach(async ({ page, testPage }) => {
   await page.goto(testPage);
@@ -49,6 +49,17 @@ test.describe('Table', () => {
     }
     for (let i = 1; i < paddings.length; i++) {
       expect(paddings[i]).toBeGreaterThan(paddings[i - 1]);
+    }
+  });
+
+  test('cell font-size grows strictly from xs to xl', async ({ page }) => {
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+    const fontSizes: number[] = [];
+    for (const size of sizes) {
+      fontSizes.push(await getFontSize(page.locator(`[data-testid="table-cell-${size}"]`)));
+    }
+    for (let i = 1; i < fontSizes.length; i++) {
+      expect(fontSizes[i]).toBeGreaterThan(fontSizes[i - 1]);
     }
   });
 

@@ -351,11 +351,11 @@ function App() {
           </Card>
 
           <Card>
-            <Title>Cell padding scales with size</Title>
+            <Title>Cell text + padding scale with size</Title>
             <Text sm secondary>
               The same table at <Code sm>sm</Code>, <Code sm>md</Code>, and{' '}
-              <Code sm>lg</Code> — cell <Code sm>--py-unit</Code> scales on the
-              size ramp.
+              <Code sm>lg</Code> — cell <Code sm>--fs-unit</Code> and{' '}
+              <Code sm>--py-unit</Code> scale on the size ramp.
             </Text>
             {(['sm', 'md', 'lg'] as const).map(size => (
               <Table key={size}>

@@ -4,7 +4,6 @@ import type {
   SizeProps,
   AppearanceProps,
   VariantProps,
-  ShapeProps,
   BorderProps,
   WidthProps,
   MarginProps,
@@ -18,7 +17,6 @@ export type TableProps = BaseProps &
   SizeProps &
   AppearanceProps &
   VariantProps &
-  ShapeProps &
   BorderProps &
   WidthProps &
   MarginProps &
