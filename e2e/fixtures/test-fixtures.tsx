@@ -38,6 +38,12 @@ import {
   Section,
   SectionTitle,
   PageTitle,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
 } from '../../src';
 
 // Simple SVG icon for testing
@@ -1279,6 +1285,32 @@ export function TestHarness() {
           >
             <MenuItem data-testid="dark-portal-menu-item">Portaled item</MenuItem>
           </Menu>
+        </section>
+
+        {/* ── Table: row-rule borders, muted semibold header, size-scaled
+            cell padding. Cells at xs..xl let e2e assert padding growth. ── */}
+        <section data-testid="table-section">
+          <Table data-testid="table-el">
+            <Thead>
+              <Tr>
+                <Th data-testid="table-th">Header</Th>
+                <Th data-testid="table-th-2" textRight>Value</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td data-testid="table-td">Body</Td>
+                <Td data-testid="table-td-2" textRight>42</Td>
+              </Tr>
+              <Tr>
+                <Td xs data-testid="table-cell-xs">xs</Td>
+                <Td sm data-testid="table-cell-sm">sm</Td>
+                <Td md data-testid="table-cell-md">md</Td>
+                <Td lg data-testid="table-cell-lg">lg</Td>
+                <Td xl data-testid="table-cell-xl">xl</Td>
+              </Tr>
+            </Tbody>
+          </Table>
         </section>
 
       </div>

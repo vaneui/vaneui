@@ -23,6 +23,12 @@ import {
   Checkbox,
   Label,
   Link,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
 } from '../../src';
 
 const TestSvg = () => (
@@ -272,6 +278,101 @@ function App() {
                 </Text>
               </Card>
             </div>
+          </Card>
+
+          {/* ═══ 4. TABLE ════════════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>4. Table</SectionTitle>
+
+          <Card>
+            <Title>Row-rule table (light and dark)</Title>
+            <Text sm secondary>
+              <Code sm>Table</Code> + <Code sm>Thead/Tbody/Tr/Th/Td</Code> render
+              a clean, dark-mode-correct table — <Code sm>secondary</Code> cell
+              borders give the 1px row rule and a muted semibold header, with
+              size-scaled cell padding. Wrap in <Code sm>{'<Col overflowXAuto>'}</Code>{' '}
+              for horizontal scroll.
+            </Text>
+            <Row itemsStretch tabletCol>
+              <Col overflowXAuto className="flex-1">
+                <Table>
+                  <Thead>
+                    <Tr>
+                      <Th>Service</Th>
+                      <Th>Region</Th>
+                      <Th textRight>Latency</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td>api-gateway</Td>
+                      <Td>europe-west</Td>
+                      <Td textRight>42 ms</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>auth</Td>
+                      <Td>us-east</Td>
+                      <Td textRight>88 ms</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>billing</Td>
+                      <Td>us-east</Td>
+                      <Td textRight>17 ms</Td>
+                    </Tr>
+                  </Tbody>
+                </Table>
+              </Col>
+              <div data-theme="dark" className="flex flex-1">
+                <Col overflowXAuto className="flex-1">
+                  <Table>
+                    <Thead>
+                      <Tr>
+                        <Th>Service</Th>
+                        <Th>Region</Th>
+                        <Th textRight>Latency</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      <Tr>
+                        <Td>api-gateway</Td>
+                        <Td>europe-west</Td>
+                        <Td textRight>42 ms</Td>
+                      </Tr>
+                      <Tr>
+                        <Td>auth</Td>
+                        <Td>us-east</Td>
+                        <Td textRight>88 ms</Td>
+                      </Tr>
+                    </Tbody>
+                  </Table>
+                </Col>
+              </div>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Cell padding scales with size</Title>
+            <Text sm secondary>
+              The same table at <Code sm>sm</Code>, <Code sm>md</Code>, and{' '}
+              <Code sm>lg</Code> — cell <Code sm>--py-unit</Code> scales on the
+              size ramp.
+            </Text>
+            {(['sm', 'md', 'lg'] as const).map(size => (
+              <Table key={size}>
+                <Thead>
+                  <Tr>
+                    <Th {...{ [size]: true }}>Size {size}</Th>
+                    <Th {...{ [size]: true }} textRight>Value</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td {...{ [size]: true }}>padding</Td>
+                    <Td {...{ [size]: true }} textRight>scales</Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            ))}
           </Card>
 
         </Container>

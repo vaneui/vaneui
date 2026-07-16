@@ -55,6 +55,14 @@ import { defaultMenuLabelTheme } from './ui/menu/defaultMenuLabelTheme';
 import { defaultMenuPopupTheme } from './ui/menu/defaultMenuPopupTheme';
 import { defaultNavLinkTheme } from './ui/navLink/defaultNavLinkTheme';
 import { defaultNavLinkLabelTheme } from './ui/navLink/defaultNavLinkLabelTheme';
+import { defaultTableTheme } from './ui/table/defaultTableTheme';
+import { defaultTheadTheme } from './ui/table/defaultTheadTheme';
+import { defaultTbodyTheme } from './ui/table/defaultTbodyTheme';
+import { defaultTfootTheme } from './ui/table/defaultTfootTheme';
+import { defaultTrTheme } from './ui/table/defaultTrTheme';
+import { defaultThTheme } from './ui/table/defaultThTheme';
+import { defaultTdTheme } from './ui/table/defaultTdTheme';
+import { defaultCaptionTheme } from './ui/table/defaultCaptionTheme';
 
 export const defaultTheme: ThemeProps = {
   button: {
@@ -124,5 +132,15 @@ export const defaultTheme: ThemeProps = {
   navLink: {
     root: defaultNavLinkTheme,
     label: defaultNavLinkLabelTheme,
+  },
+  table: {
+    main: defaultTableTheme,
+    thead: defaultTheadTheme,
+    tbody: defaultTbodyTheme,
+    tfoot: defaultTfootTheme,
+    tr: defaultTrTheme,
+    th: defaultThTheme,
+    td: defaultTdTheme,
+    caption: defaultCaptionTheme,
   },
 };

@@ -40,6 +40,12 @@ import { MODAL_HEADER_CATEGORIES } from "../ui/modal/ModalHeaderCategories";
 import { MODAL_BODY_CATEGORIES } from "../ui/modal/ModalBodyCategories";
 import { MODAL_FOOTER_CATEGORIES } from "../ui/modal/ModalFooterCategories";
 import { defaultMenuItemTheme, defaultMenuLabelTheme, defaultMenuPopupTheme, MENU_ITEM_CATEGORIES, MENU_LABEL_CATEGORIES } from "../ui/menu";
+import {
+  defaultTableTheme, defaultTheadTheme, defaultTbodyTheme, defaultTfootTheme,
+  defaultTrTheme, defaultThTheme, defaultTdTheme, defaultCaptionTheme,
+  TABLE_CATEGORIES, THEAD_CATEGORIES, TBODY_CATEGORIES, TFOOT_CATEGORIES,
+  TR_CATEGORIES, TH_CATEGORIES, TD_CATEGORIES, CAPTION_CATEGORIES,
+} from "../ui/table";
 
 // Import all category constants
 import {
@@ -658,6 +664,81 @@ describe("Component theme coverage tests", () => {
       ]
     };
     createThemeTests(sectionConfig);
+
+    // Table family — cells/table (Table/Th/Td/Caption) omit a background mapper,
+    // so they don't declare the `transparent` category (it would be inert). The
+    // Thead/Tbody/Tfoot/Tr grouping parts do carry a background, so they keep it.
+    const tableConfig: ComponentTestConfig = {
+      propsType: "TableProps",
+      categories: TABLE_CATEGORIES,
+      themes: [
+        { name: "defaultTableTheme", theme: defaultTableTheme }
+      ]
+    };
+    createThemeTests(tableConfig);
+
+    const theadConfig: ComponentTestConfig = {
+      propsType: "TheadProps",
+      categories: THEAD_CATEGORIES,
+      themes: [
+        { name: "defaultTheadTheme", theme: defaultTheadTheme }
+      ]
+    };
+    createThemeTests(theadConfig);
+
+    const tbodyConfig: ComponentTestConfig = {
+      propsType: "TbodyProps",
+      categories: TBODY_CATEGORIES,
+      themes: [
+        { name: "defaultTbodyTheme", theme: defaultTbodyTheme }
+      ]
+    };
+    createThemeTests(tbodyConfig);
+
+    const tfootConfig: ComponentTestConfig = {
+      propsType: "TfootProps",
+      categories: TFOOT_CATEGORIES,
+      themes: [
+        { name: "defaultTfootTheme", theme: defaultTfootTheme }
+      ]
+    };
+    createThemeTests(tfootConfig);
+
+    const trConfig: ComponentTestConfig = {
+      propsType: "TrProps",
+      categories: TR_CATEGORIES,
+      themes: [
+        { name: "defaultTrTheme", theme: defaultTrTheme }
+      ]
+    };
+    createThemeTests(trConfig);
+
+    const thConfig: ComponentTestConfig = {
+      propsType: "ThProps",
+      categories: TH_CATEGORIES,
+      themes: [
+        { name: "defaultThTheme", theme: defaultThTheme }
+      ]
+    };
+    createThemeTests(thConfig);
+
+    const tdConfig: ComponentTestConfig = {
+      propsType: "TdProps",
+      categories: TD_CATEGORIES,
+      themes: [
+        { name: "defaultTdTheme", theme: defaultTdTheme }
+      ]
+    };
+    createThemeTests(tdConfig);
+
+    const captionConfig: ComponentTestConfig = {
+      propsType: "CaptionProps",
+      categories: CAPTION_CATEGORIES,
+      themes: [
+        { name: "defaultCaptionTheme", theme: defaultCaptionTheme }
+      ]
+    };
+    createThemeTests(captionConfig);
   });
 
   // Form Components
@@ -913,6 +994,9 @@ describe("Component theme coverage tests", () => {
       defaultModalHeaderTheme, defaultModalBodyTheme, defaultModalFooterTheme, defaultModalCloseButtonTheme,
       // Menu
       defaultMenuItemTheme, defaultMenuLabelTheme,
+      // Table
+      defaultTableTheme, defaultTheadTheme, defaultTbodyTheme, defaultTfootTheme,
+      defaultTrTheme, defaultThTheme, defaultTdTheme, defaultCaptionTheme,
       // Sub-components
       defaultButtonSpinnerTheme, defaultNavLinkLabelTheme, defaultCheckboxIndeterminateTheme,
       defaultInputErrorIconTheme,

@@ -24,6 +24,8 @@ export type { PopupProps, PopupTriggerProps } from "./components/ui/popup";
 export type { MenuProps, MenuItemProps, MenuLabelProps } from "./components/ui/menu";
 export type { ZLayer } from "./components/utils/stackingContext";
 export { Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6, Card, CardHeader, CardBody, CardFooter } from "./components/ui/layout";
+export { Table, Thead, Tbody, Tfoot, Tr, Th, Td, Caption } from "./components/ui/table";
+export type { TableProps, TheadProps, TbodyProps, TfootProps, TrProps, ThProps, TdProps, CaptionProps } from "./components/ui/table";
 export type { SectionProps } from "./components/ui/section";
 export type { ContainerProps } from "./components/ui/container";
 export type { RowProps } from "./components/ui/row";

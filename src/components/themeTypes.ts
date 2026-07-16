@@ -44,6 +44,14 @@ import type { MenuItemTheme } from './ui/menu/MenuItemTheme';
 import type { MenuLabelTheme } from './ui/menu/MenuLabelTheme';
 import type { NavLinkTheme } from './ui/navLink/NavLinkTheme';
 import type { NavLinkLabelTheme } from './ui/navLink/NavLinkLabelTheme';
+import type { TableTheme } from './ui/table/TableTheme';
+import type { TheadTheme } from './ui/table/TheadTheme';
+import type { TbodyTheme } from './ui/table/TbodyTheme';
+import type { TfootTheme } from './ui/table/TfootTheme';
+import type { TrTheme } from './ui/table/TrTheme';
+import type { ThTheme } from './ui/table/ThTheme';
+import type { TdTheme } from './ui/table/TdTheme';
+import type { CaptionTheme } from './ui/table/CaptionTheme';
 import type { BadgeProps } from "./ui/badge/BadgeProps";
 import type { ButtonProps } from "./ui/button/ButtonProps";
 import type { ButtonSpinnerProps } from "./ui/button/ButtonSpinnerProps";
@@ -79,6 +87,14 @@ import type { MenuItemProps } from "./ui/menu/MenuItemProps";
 import type { MenuLabelProps } from './ui/menu/MenuLabelProps';
 import type { NavLinkProps } from './ui/navLink/NavLinkProps';
 import type { NavLinkLabelProps } from './ui/navLink/NavLinkLabelProps';
+import type { TableProps } from './ui/table/TableProps';
+import type { TheadProps } from './ui/table/TheadProps';
+import type { TbodyProps } from './ui/table/TbodyProps';
+import type { TfootProps } from './ui/table/TfootProps';
+import type { TrProps } from './ui/table/TrProps';
+import type { ThProps } from './ui/table/ThProps';
+import type { TdProps } from './ui/table/TdProps';
+import type { CaptionProps } from './ui/table/CaptionProps';
 import type { DeepPartial } from "./utils/deepPartial";
 // type-only import: ComponentKeys is referenced exclusively in `typeof` type
 // queries below, so nothing is emitted at runtime
@@ -152,6 +168,16 @@ export interface ThemeProps {
   navLink: {
     root: ComponentTheme<NavLinkProps, NavLinkTheme>;
     label: ComponentTheme<NavLinkLabelProps, NavLinkLabelTheme>;
+  };
+  table: {
+    main: ComponentTheme<TableProps, TableTheme>;
+    thead: ComponentTheme<TheadProps, TheadTheme>;
+    tbody: ComponentTheme<TbodyProps, TbodyTheme>;
+    tfoot: ComponentTheme<TfootProps, TfootTheme>;
+    tr: ComponentTheme<TrProps, TrTheme>;
+    th: ComponentTheme<ThProps, ThTheme>;
+    td: ComponentTheme<TdProps, TdTheme>;
+    caption: ComponentTheme<CaptionProps, CaptionTheme>;
   };
 }
 

@@ -107,6 +107,7 @@ import { LIST_ITEM_CATEGORIES } from '../typography/listItem/ListItemCategories'
 import { LINK_CATEGORIES } from '../typography/link/LinkCategories';
 import { MENU_ITEM_CATEGORIES } from '../menu/MenuItemCategories';
 import { NAV_LINK_CATEGORIES } from '../navLink/NavLinkCategories';
+import { TABLE_CATEGORIES } from '../table/TableCategories';
 
 // Re-export for backward compatibility
 export { BADGE_CATEGORIES };
@@ -134,6 +135,7 @@ export { CHECKBOX_CATEGORIES };
 export { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES };
 export { MENU_ITEM_CATEGORIES };
 export { NAV_LINK_CATEGORIES };
+export { TABLE_CATEGORIES };
 
 /** Blur effect property for backdrop blur */
 export const BLUR = ['blur'] as const;
@@ -488,7 +490,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'overlay', 'modal', 'popup', 'menu', 'navLink'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'overlay', 'modal', 'popup', 'menu', 'navLink', 'table'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -534,4 +536,5 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   popup: POPUP_CATEGORIES,
   menu: MENU_ITEM_CATEGORIES,
   navLink: NAV_LINK_CATEGORIES,
+  table: TABLE_CATEGORIES,
 }

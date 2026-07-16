@@ -43,6 +43,14 @@ import { menuDividerDefaults } from '../divider/menuDividerDefaults';
 import { menuLabelDefaults } from '../menu/menuLabelDefaults';
 import { navLinkDefaults } from '../navLink/navLinkDefaults';
 import { navLinkLabelDefaults } from '../navLink/navLinkLabelDefaults';
+import { tableDefaults } from '../table/tableDefaults';
+import { theadDefaults } from '../table/theadDefaults';
+import { tbodyDefaults } from '../table/tbodyDefaults';
+import { tfootDefaults } from '../table/tfootDefaults';
+import { trDefaults } from '../table/trDefaults';
+import { thDefaults } from '../table/thDefaults';
+import { tdDefaults } from '../table/tdDefaults';
+import { captionDefaults } from '../table/captionDefaults';
 import {
   pageTitleDefaults,
   sectionTitleDefaults,
@@ -123,5 +131,15 @@ export const themeDefaults: ThemeDefaults = {
   navLink: {
     root: navLinkDefaults,
     label: navLinkLabelDefaults,
+  },
+  table: {
+    main: tableDefaults,
+    thead: theadDefaults,
+    tbody: tbodyDefaults,
+    tfoot: tfootDefaults,
+    tr: trDefaults,
+    th: thDefaults,
+    td: tdDefaults,
+    caption: captionDefaults,
   },
 };

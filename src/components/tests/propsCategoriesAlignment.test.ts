@@ -74,6 +74,11 @@ import { NAV_LINK_LABEL_CATEGORIES } from '../ui/navLink/NavLinkLabelCategories'
 import { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES } from '../ui/typography/common/TypographyCategories';
 import { LINK_CATEGORIES } from '../ui/typography/link/LinkCategories';
 import { LIST_ITEM_CATEGORIES } from '../ui/typography/listItem/ListItemCategories';
+import type { TableProps, TheadProps, TbodyProps, TfootProps, TrProps, ThProps, TdProps, CaptionProps } from '../ui/table';
+import {
+  TABLE_CATEGORIES, THEAD_CATEGORIES, TBODY_CATEGORIES, TFOOT_CATEGORIES,
+  TR_CATEGORIES, TH_CATEGORIES, TD_CATEGORIES, CAPTION_CATEGORIES,
+} from '../ui/table';
 
 type CategoryFlagKeys<C extends readonly ComponentCategoryKey[]> =
   (typeof ComponentKeys)[C[number]][number];
@@ -141,6 +146,15 @@ const assertions: true[] = [
   true as AssertCategoriesCovered<NavLinkLabelProps, typeof NAV_LINK_LABEL_CATEGORIES>,
   true as AssertCategoriesCovered<CheckboxCheckProps, typeof CHECKBOX_CHECK_CATEGORIES>,
   true as AssertCategoriesCovered<CheckboxIndeterminateProps, typeof CHECKBOX_INDETERMINATE_CATEGORIES>,
+  // Table family
+  true as AssertCategoriesCovered<TableProps, typeof TABLE_CATEGORIES>,
+  true as AssertCategoriesCovered<TheadProps, typeof THEAD_CATEGORIES>,
+  true as AssertCategoriesCovered<TbodyProps, typeof TBODY_CATEGORIES>,
+  true as AssertCategoriesCovered<TfootProps, typeof TFOOT_CATEGORIES>,
+  true as AssertCategoriesCovered<TrProps, typeof TR_CATEGORIES>,
+  true as AssertCategoriesCovered<ThProps, typeof TH_CATEGORIES>,
+  true as AssertCategoriesCovered<TdProps, typeof TD_CATEGORIES>,
+  true as AssertCategoriesCovered<CaptionProps, typeof CAPTION_CATEGORIES>,
 ];
 
 // reverse-direction guards: a Props type must not expose a category-flag its

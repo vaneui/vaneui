@@ -17,6 +17,7 @@ import {
   Popup, PopupTrigger, Menu, MenuItem, MenuLabel, NavLink,
   Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6,
   Card, CardHeader, CardBody, CardFooter,
+  Table, Thead, Tbody, Tfoot, Tr, Th, Td, Caption,
   Text, Title, Link, List, ListItem, SectionTitle, PageTitle, Blockquote,
 } from '../../index';
 
@@ -70,6 +71,12 @@ describe('SSR rendering', () => {
           <Grid4><div /></Grid4>
           <Grid5><div /></Grid5>
           <Grid6><div /></Grid6>
+          <Table>
+            <Caption>Cap</Caption>
+            <Thead><Tr><Th>H</Th></Tr></Thead>
+            <Tbody><Tr><Td>D</Td></Tr></Tbody>
+            <Tfoot><Tr><Td>F</Td></Tr></Tfoot>
+          </Table>
           <Divider />
           <Img src="/x.png" alt="img" />
         </Section>
@@ -143,6 +150,7 @@ describe('SSR rendering', () => {
       'NavLink', 'Section', 'Container', 'Col', 'Row', 'Stack', 'Grid2', 'Grid3', 'Grid4', 'Grid5',
       'Grid6', 'Card', 'CardHeader', 'CardBody', 'CardFooter', 'Text', 'Title', 'Link', 'List',
       'ListItem', 'SectionTitle', 'PageTitle', 'Blockquote',
+      'Table', 'Thead', 'Tbody', 'Tfoot', 'Tr', 'Th', 'Td', 'Caption',
     ]);
 
     const componentExports = Object.entries(VaneUI)
