@@ -75,6 +75,15 @@ describe('Table Component Tests', () => {
       expect(table.className).not.toMatch(/\bborder\b(?!-)/);
     });
 
+    it('renders an appearance-colored outer border when `border` is set', () => {
+      // Guards the TableProps `border` field: the deprecated native <table border>
+      // attr must stay omitted, or `border` collapses to `never` and this breaks.
+      const { container } = renderTable({ border: true });
+      const table = container.querySelector('.vane-table');
+      expect(table).toHaveClass('border-[length:var(--bw)]');
+      expect(table).toHaveClass('border-(--border-color)');
+    });
+
     it('forwards ref', () => {
       const ref = React.createRef<HTMLTableElement>();
       renderTable({}, ref);

@@ -25,7 +25,9 @@ export type TableProps = BaseProps &
   TextAlignProps &
   HideProps &
   ResponsiveProps &
-  Omit<React.TableHTMLAttributes<HTMLTableElement>, 'className' | 'children'> & {
+  // Omit the deprecated native `border` attr (number) so it doesn't collide with
+  // VaneUI's boolean `border` prop and collapse the field to `never`.
+  Omit<React.TableHTMLAttributes<HTMLTableElement>, 'className' | 'children' | 'border'> & {
     /** Custom HTML tag to render as */
     tag?: React.ElementType;
   };
