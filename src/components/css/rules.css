@@ -284,22 +284,31 @@
     .vane-divider[data-size="lg"] { --py-unit: 5; }
     .vane-divider[data-size="xl"] { --py-unit: 6; }
 
+    /* Size cascade: Table/Thead/Tbody/Tfoot/Tr publish cell units that inherit down
+       to the cells; nearest ancestor wins. A cell's own explicit size overrides. */
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="xs"] { --tbl-py-unit: 1;   --tbl-fs-unit: var(--fs-unit-xs); }
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="sm"] { --tbl-py-unit: 1.5; --tbl-fs-unit: var(--fs-unit-sm); }
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="md"] { --tbl-py-unit: 2;   --tbl-fs-unit: var(--fs-unit-md); }
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="lg"] { --tbl-py-unit: 2.5; --tbl-fs-unit: var(--fs-unit-lg); }
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="xl"] { --tbl-py-unit: 3;   --tbl-fs-unit: var(--fs-unit-xl); }
+
     /* Table cell (Th + Td share .vane-table-cell) — size-scaled cell text + padding,
        wider horizontal than vertical (px = 2 * py). The aspect-ratio rule needs a
        [data-size] selector to beat the layout-default aspect-ratio (equal
-       specificity, later source order wins). */
-    .vane-table-cell { --py-unit: 2; }
+       specificity, later source order wins). The md rule is the cascade sink: an
+       un-sized cell follows --tbl-*-unit (the table/row size), else falls back to md. */
+    .vane-table-cell { --py-unit: var(--tbl-py-unit, 2); }
     .vane-table-cell[data-size] { --aspect-ratio: 2; }
     .vane-table-cell[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-table-cell[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
-    .vane-table-cell[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-table-cell[data-size="md"] { --fs-unit: var(--tbl-fs-unit, var(--fs-unit-md)); --py-unit: var(--tbl-py-unit, 2); }
     .vane-table-cell[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-table-cell[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Table caption — size-scaled text (mirrors the cell font-size curve) */
     .vane-table-caption[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-table-caption[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
-    .vane-table-caption[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-table-caption[data-size="md"] { --fs-unit: var(--tbl-fs-unit, var(--fs-unit-md)); }
     .vane-table-caption[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-table-caption[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 

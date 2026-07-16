@@ -1311,6 +1311,20 @@ export function TestHarness() {
               </Tr>
             </Tbody>
           </Table>
+
+          {/* Size cascade: container size sizes its cells; an explicit cell/row size overrides. */}
+          <Table sm data-testid="tbl-sm">
+            <Tbody><Tr><Td data-testid="tbl-cascade-sm">sm table cell</Td></Tr></Tbody>
+          </Table>
+          <Table lg data-testid="tbl-lg">
+            <Tbody>
+              <Tr><Td data-testid="tbl-cascade-lg">lg table cell</Td></Tr>
+              <Tr sm><Td data-testid="tbl-row-override">row-sm cell</Td></Tr>
+            </Tbody>
+          </Table>
+          <Table xs data-testid="tbl-xs">
+            <Tbody><Tr><Td xl data-testid="tbl-override">xs table, xl cell</Td></Tr></Tbody>
+          </Table>
         </section>
 
       </div>

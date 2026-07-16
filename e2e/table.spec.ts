@@ -68,4 +68,28 @@ test.describe('Table', () => {
     const bodyColor = await getColor(page.locator('[data-testid="table-td"]'));
     expect(headerColor).not.toBe(bodyColor);
   });
+
+  test('container size cascades to default cells (Table lg cell > Table sm cell)', async ({ page }) => {
+    const sm = page.locator('[data-testid="tbl-cascade-sm"]');
+    const lg = page.locator('[data-testid="tbl-cascade-lg"]');
+    expect(parseFloat(await getStyle(lg, 'padding-top'))).toBeGreaterThan(parseFloat(await getStyle(sm, 'padding-top')));
+    expect(await getFontSize(lg)).toBeGreaterThan(await getFontSize(sm));
+  });
+
+  test('an explicit cell size overrides the container cascade', async ({ page }) => {
+    // <Td xl> inside <Table xs>: a cascade would make it the smallest cell; the
+    // explicit xl must instead make it larger than the lg-table default cell.
+    const overrideXl = page.locator('[data-testid="tbl-override"]');
+    const lg = page.locator('[data-testid="tbl-cascade-lg"]');
+    expect(await getFontSize(overrideXl)).toBeGreaterThan(await getFontSize(lg));
+    expect(parseFloat(await getStyle(overrideXl, 'padding-top'))).toBeGreaterThan(parseFloat(await getStyle(lg, 'padding-top')));
+  });
+
+  test('a row size overrides the table cascade for that row', async ({ page }) => {
+    // <Tr sm> inside <Table lg>: its cell must be smaller than the table-lg cell.
+    const rowSm = page.locator('[data-testid="tbl-row-override"]');
+    const lg = page.locator('[data-testid="tbl-cascade-lg"]');
+    expect(parseFloat(await getStyle(rowSm, 'padding-top'))).toBeLessThan(parseFloat(await getStyle(lg, 'padding-top')));
+    expect(await getFontSize(rowSm)).toBeLessThan(await getFontSize(lg));
+  });
 });

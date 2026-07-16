@@ -351,28 +351,33 @@ function App() {
           </Card>
 
           <Card>
-            <Title>Cell text + padding scale with size</Title>
+            <Title>One size prop sizes the whole table</Title>
             <Text sm secondary>
-              The same table at <Code sm>sm</Code>, <Code sm>md</Code>, and{' '}
-              <Code sm>lg</Code> — cell <Code sm>--fs-unit</Code> and{' '}
-              <Code sm>--py-unit</Code> scale on the size ramp.
+              <Code sm>{'<Table sm>'}</Code> / <Code sm>{'<Table md>'}</Code> /{' '}
+              <Code sm>{'<Table lg>'}</Code> cascade text + padding to every cell. A
+              size on a <Code sm>Th</Code>/<Code sm>Td</Code> or <Code sm>Tr</Code>{' '}
+              overrides for that cell/row.
             </Text>
             {(['sm', 'md', 'lg'] as const).map(size => (
-              <Table key={size}>
+              <Table key={size} {...{ [size]: true }}>
                 <Thead>
-                  <Tr>
-                    <Th {...{ [size]: true }}>Size {size}</Th>
-                    <Th {...{ [size]: true }} textRight>Value</Th>
-                  </Tr>
+                  <Tr><Th>Size {size}</Th><Th textRight>Value</Th></Tr>
                 </Thead>
                 <Tbody>
-                  <Tr>
-                    <Td {...{ [size]: true }}>padding</Td>
-                    <Td {...{ [size]: true }} textRight>scales</Td>
-                  </Tr>
+                  <Tr><Td>text + padding</Td><Td textRight>cascade</Td></Tr>
                 </Tbody>
               </Table>
             ))}
+            {/* Override: xs table, but an xl cell and an lg row stay large */}
+            <Table xs>
+              <Thead>
+                <Tr><Th>xs table</Th><Th xl textRight>xl cell</Th></Tr>
+              </Thead>
+              <Tbody>
+                <Tr><Td>tiny</Td><Td xl textRight>large</Td></Tr>
+                <Tr lg><Td>lg row</Td><Td textRight>lg row</Td></Tr>
+              </Tbody>
+            </Table>
           </Card>
 
         </Container>
