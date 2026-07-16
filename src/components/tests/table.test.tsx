@@ -198,6 +198,11 @@ describe('Table Component Tests', () => {
       expect(th).toHaveAttribute('data-appearance', 'secondary');
     });
 
+    it('un-sized cell emits no data-size (so it follows the table/row size cascade)', () => {
+      const { container } = renderInRow(<Th>H</Th>);
+      expect(container.querySelector('th')).not.toHaveAttribute('data-size');
+    });
+
     it('forwards colSpan / rowSpan / scope to the DOM', () => {
       const { container } = renderInRow(<Th colSpan={2} rowSpan={3} scope="col">H</Th>);
       const th = container.querySelector('th');
@@ -272,6 +277,11 @@ describe('Table Component Tests', () => {
     it('has data-vane-type="layout"', () => {
       const { container } = renderInRow(<Td>B</Td>);
       expect(container.querySelector('td')).toHaveAttribute('data-vane-type', 'layout');
+    });
+
+    it('un-sized cell emits no data-size (so it follows the table/row size cascade)', () => {
+      const { container } = renderInRow(<Td>B</Td>);
+      expect(container.querySelector('td')).not.toHaveAttribute('data-size');
     });
 
     it('forwards ref', () => {

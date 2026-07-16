@@ -1320,6 +1320,7 @@ export function TestHarness() {
             <Tbody>
               <Tr><Td data-testid="tbl-cascade-lg">lg table cell</Td></Tr>
               <Tr sm><Td data-testid="tbl-row-override">row-sm cell</Td></Tr>
+              <Tr><Td md data-testid="tbl-md-in-lg">md cell in lg table</Td></Tr>
             </Tbody>
           </Table>
           <Table xs data-testid="tbl-xs">

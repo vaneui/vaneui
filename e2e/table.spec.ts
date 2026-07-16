@@ -92,4 +92,12 @@ test.describe('Table', () => {
     expect(parseFloat(await getStyle(rowSm, 'padding-top'))).toBeLessThan(parseFloat(await getStyle(lg, 'padding-top')));
     expect(await getFontSize(rowSm)).toBeLessThan(await getFontSize(lg));
   });
+
+  test('an explicit md cell forces md even inside a sized table', async ({ page }) => {
+    // <Td md> inside <Table lg> must stay md — smaller than the un-sized lg cell.
+    const mdCell = page.locator('[data-testid="tbl-md-in-lg"]');
+    const lg = page.locator('[data-testid="tbl-cascade-lg"]');
+    expect(await getFontSize(mdCell)).toBeLessThan(await getFontSize(lg));
+    expect(parseFloat(await getStyle(mdCell, 'padding-top'))).toBeLessThan(parseFloat(await getStyle(lg, 'padding-top')));
+  });
 });
