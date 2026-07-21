@@ -193,12 +193,14 @@
 
     /* Code: --spacing overridden to em so geometry scales with parent font-size; --fs-base re-declared
        because custom properties inherit computed values (root's rem-based --fs-base wouldn't pick up em --spacing). */
-    .vane-code { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.8; --aspect-ratio: 1.8; --br-unit: 0.2941; }
-    .vane-code[data-size="xs"] { --fs-unit: 5; --py-unit: 0.4; }
-    .vane-code[data-size="sm"] { --fs-unit: 6; --py-unit: 0.6; }
-    .vane-code[data-size="md"] { --fs-unit: 7; --py-unit: 0.8; }
-    .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 1; }
-    .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 1.2; }
+    /* Vertical padding runs 0.625x the old curve so the chip sits ~84% of a 1.6 prose line box, not ~92%;
+       --aspect-ratio rises to keep horizontal padding at ~0.375em (px = aspect x py-unit x spacing). */
+    .vane-code { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.5; --aspect-ratio: 3; --br-unit: 0.2941; }
+    .vane-code[data-size="xs"] { --fs-unit: 5; --py-unit: 0.25; }
+    .vane-code[data-size="sm"] { --fs-unit: 6; --py-unit: 0.375; }
+    .vane-code[data-size="md"] { --fs-unit: 7; --py-unit: 0.5; }
+    .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 0.625; }
+    .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 0.75; }
 
     /* Kbd: em-relative geometry like Code. Runs half of Code's vertical padding and
        a 2px keycap bottom edge (--bw-b) so it sits ~1.5x its own font (≈21px at md)
