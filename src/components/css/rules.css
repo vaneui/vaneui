@@ -202,17 +202,18 @@
     .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 0.625; }
     .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 0.75; }
 
-    /* Kbd: em-relative geometry like Code. Runs half of Code's vertical padding and
-       a 2px keycap bottom edge (--bw-b) so it sits ~1.5x its own font (≈21px at md)
-       rather than ~1.75x — Code's full padding plus a 3px border made it the tallest
-       inline element. The `border` prop's per-side mapper reads --bw-b (see
-       defaultKbdTheme / PerSideBorderClassMapper). */
-    .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.5; --aspect-ratio: 1.8; --br-unit: 0.2941; --bw-b: calc(var(--bw) * 2); }
-    .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.3; }
-    .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.4; }
-    .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.5; }
-    .vane-kbd[data-size="lg"] { --fs-unit: 8; --py-unit: 0.6; }
-    .vane-kbd[data-size="xl"] { --fs-unit: 9; --py-unit: 0.7; }
+    /* Kbd: em-relative geometry like Code, but wider (keycaps read wide, not tall) and shorter.
+       Borders are em-based with a 1px floor so the keycap lip keeps its weight inside large headings;
+       --bw-b doubles it into the bottom edge. The `border` prop's per-side mapper reads --bw-b
+       (see defaultKbdTheme / PerSideBorderClassMapper). */
+    /* Per-side widths must be re-declared here: the [data-size] block resolves --bw-t/-r/-l against
+       its own --bw, so they'd stay 1px while only --bw-b scaled. */
+    .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.3; --aspect-ratio: 5; --br-unit: 0.2941; --bw: max(1px, 0.07em); --bw-t: var(--bw); --bw-r: var(--bw); --bw-l: var(--bw); --bw-b: calc(var(--bw) * 2); }
+    .vane-kbd[data-size="xs"] { --fs-unit: 5; --py-unit: 0.18; }
+    .vane-kbd[data-size="sm"] { --fs-unit: 6; --py-unit: 0.24; }
+    .vane-kbd[data-size="md"] { --fs-unit: 7; --py-unit: 0.3; }
+    .vane-kbd[data-size="lg"] { --fs-unit: 8; --py-unit: 0.36; }
+    .vane-kbd[data-size="xl"] { --fs-unit: 9; --py-unit: 0.42; }
 
     /* Mark — text highlight: near-flush vertical padding so the highlight hugs the
        glyphs like a highlighter pen (reference marks use zero), instead of lifting
