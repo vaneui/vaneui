@@ -53,11 +53,11 @@ describe('Mark Component', () => {
       expect(el).toHaveClass('inline');
       expect(el).toHaveClass('text-(length:--fs-em)');
       expect(el).toHaveAttribute('data-size', 'md');
-      expect(el).toHaveClass('px-(--px)');
-      expect(el).toHaveClass('py-(--py)');
+      expect(el).not.toHaveClass('px-(--px)');
+      expect(el).not.toHaveClass('py-(--py)');
       expect(el).toHaveClass('bg-(--bg-color)');
       expect(el).toHaveClass('text-(--text-color)');
-      expect(el).toHaveClass('rounded-(--br)');
+      expect(el).toHaveClass('rounded-none');
     });
 
     it('should have warning appearance by default', () => {
@@ -93,9 +93,9 @@ describe('Mark Component', () => {
 
         expect(el).toHaveClass('text-(length:--fs-em)');
         expect(el).toHaveAttribute('data-size', size);
-        expect(el).toHaveClass('px-(--px)');
-        expect(el).toHaveClass('py-(--py)');
-        expect(el).toHaveClass('rounded-(--br)');
+        expect(el).not.toHaveClass('px-(--px)');
+        expect(el).not.toHaveClass('py-(--py)');
+        expect(el).toHaveClass('rounded-none');
       });
     });
   });
@@ -136,11 +136,11 @@ describe('Mark Component', () => {
   });
 
   describe('Shape Variants', () => {
-    it('should apply rounded shape by default', () => {
+    it('should apply sharp shape by default', () => {
       const { container } = render(<Mark>text</Mark>);
       const el = container.querySelector('mark');
 
-      expect(el).toHaveClass('rounded-(--br)');
+      expect(el).toHaveClass('rounded-none');
     });
 
     it('should apply pill shape', () => {

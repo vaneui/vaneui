@@ -4,10 +4,10 @@ import type { MarkProps } from "./MarkProps";
 export const markDefaults: Partial<MarkProps> = {
   md: true,
   inline: true,
-  padding: true,
+  noPadding: true,
   outline: true,
   warning: true,
-  rounded: true,
+  sharp: true,
   transition: true,
   wFit: true,
   hFit: true,

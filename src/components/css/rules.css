@@ -217,15 +217,10 @@
     .vane-kbd[data-size="lg"] { --fs-unit: 7; --py-unit: 0.36; }
     .vane-kbd[data-size="xl"] { --fs-unit: 8; --py-unit: 0.42; }
 
-    /* Mark — text highlight: near-flush vertical padding so the highlight hugs the
-       glyphs like a highlighter pen (reference marks use zero), instead of lifting
-       the box above the text line. */
-    .vane-mark { --lh: 1; --py-unit: 0.1; --aspect-ratio: 1.5; --br-unit: 0.3333; }
-    .vane-mark[data-size="xs"] { --fs-unit: 5; --py-unit: 0.05; }
-    .vane-mark[data-size="sm"] { --fs-unit: 6; --py-unit: 0.075; }
-    .vane-mark[data-size="md"] { --fs-unit: 7; --py-unit: 0.1; }
-    .vane-mark[data-size="lg"] { --fs-unit: 8; --py-unit: 0.125; }
-    .vane-mark[data-size="xl"] { --fs-unit: 9; --py-unit: 0.15; }
+    /* Mark — flush text highlight: no padding, square corners, tight to the glyphs like
+       reference highlights (which use padding:0). Font + color inherit; --lh:1 keeps the
+       highlight box hugging the text rather than the full line box. */
+    .vane-mark { --lh: 1; }
 
     /* Input */
     .vane-input { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; }
