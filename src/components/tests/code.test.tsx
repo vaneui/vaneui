@@ -55,12 +55,12 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('font-mono');
     });
 
-    it('should have ring by default now', () => {
+    it('should have no ring or shadow by default', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
-      
+
       expect(codeElement).not.toHaveClass('shadow-ui');
-      expect(codeElement).toHaveClass(RING_WIDTH_CLASS);
+      expect(codeElement).not.toHaveClass(RING_WIDTH_CLASS);
     });
   });
 
@@ -117,7 +117,7 @@ describe('Code Component', () => {
       
       expect(codeElement).toHaveClass('bg-(--bg-color)');
       expect(codeElement).toHaveClass('text-(--text-color)');
-      expect(codeElement).toHaveClass('ring-(--ring-color)');
+      expect(codeElement).not.toHaveClass('ring-(--ring-color)');
     });
 
     it('should apply secondary appearance', () => {
@@ -126,7 +126,7 @@ describe('Code Component', () => {
       
       expect(codeElement).toHaveClass('bg-(--bg-color)');
       expect(codeElement).toHaveClass('text-(--text-color)');
-      expect(codeElement).toHaveClass('ring-(--ring-color)');
+      expect(codeElement).not.toHaveClass('ring-(--ring-color)');
     });
 
     it('should apply success appearance', () => {
@@ -135,7 +135,7 @@ describe('Code Component', () => {
       
       expect(codeElement).toHaveClass('bg-(--bg-color)');
       expect(codeElement).toHaveClass('text-(--text-color)');
-      expect(codeElement).toHaveClass('ring-(--ring-color)');
+      expect(codeElement).not.toHaveClass('ring-(--ring-color)');
     });
 
     it('should apply danger appearance', () => {
@@ -144,7 +144,7 @@ describe('Code Component', () => {
       
       expect(codeElement).toHaveClass('bg-(--bg-color)');
       expect(codeElement).toHaveClass('text-(--text-color)');
-      expect(codeElement).toHaveClass('ring-(--ring-color)');
+      expect(codeElement).not.toHaveClass('ring-(--ring-color)');
     });
   });
 
@@ -307,12 +307,12 @@ describe('Code Component', () => {
       expect(codeElement).not.toHaveClass('inline-flex');
     });
 
-    it('should have ring by default now but no shadow', () => {
+    it('should have no ring or shadow by default', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
-      
+
       expect(codeElement).not.toHaveClass('shadow-ui');
-      expect(codeElement).toHaveClass(RING_WIDTH_CLASS);
+      expect(codeElement).not.toHaveClass(RING_WIDTH_CLASS);
     });
   });
 
@@ -367,12 +367,12 @@ describe('Code Component', () => {
       expect(codeElement).toHaveClass('text-(--text-color)');
     });
 
-    it('should show ring by default', () => {
+    it('should have no ring by default', () => {
       const { container } = render(<Code>test</Code>);
       const codeElement = container.querySelector('code');
-      
-      expect(codeElement).toHaveClass(RING_WIDTH_CLASS);
-      expect(codeElement).toHaveClass(RING_INSET_CLASS);
+
+      expect(codeElement).not.toHaveClass(RING_WIDTH_CLASS);
+      expect(codeElement).not.toHaveClass(RING_INSET_CLASS);
     });
 
     it('should allow explicit inline prop', () => {

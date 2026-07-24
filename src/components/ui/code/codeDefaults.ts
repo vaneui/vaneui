@@ -10,7 +10,7 @@ export const codeDefaults: Partial<CodeProps> = {
   padding: true,
   outline: true,
   secondary: true,
-  ring: true,
+  noRing: true,
   transition: true,
   whitespaceNowrap: true,
   wFit: true,

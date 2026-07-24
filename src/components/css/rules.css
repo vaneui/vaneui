@@ -202,6 +202,14 @@
     .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 0.625; }
     .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 0.75; }
 
+    /* Default chip look: near-body text on a gray-100 fill (reference consensus). Scoped to the
+       default secondary+outline combo — which is what both codeDefaults and md's mdCode emit — so
+       explicit colored code (success/danger/...) keeps its own appearance. */
+    .vane-code[data-appearance="secondary"][data-variant="outline"] {
+        --text-color: var(--color-text-primary);
+        --bg-color: var(--color-bg-tertiary);
+    }
+
     /* Kbd: em-relative geometry like Code, but wider (keycaps read wide, not tall) and shorter.
        Borders are em-based with a 1px floor so the keycap lip keeps its weight inside large headings;
        --bw-b doubles it into the bottom edge. The `border` prop's per-side mapper reads --bw-b
