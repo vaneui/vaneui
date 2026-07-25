@@ -326,12 +326,14 @@
     .vane-list[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 5; }
 
     /* Text */
+    /* Body line-height tightens as text grows (like Title/SectionTitle), prose-leaning so md stays 1.6.
+       Flat 1.6 left large body too loose (20px -> 32px) vs references (~1.4-1.5 at that size). */
     .vane-text { --lh: var(--lh-base); --ls: var(--ls-base); }
-    .vane-text[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
-    .vane-text[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
-    .vane-text[data-size="md"] { --fs-unit: var(--fs-unit-md); }
-    .vane-text[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
-    .vane-text[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    .vane-text[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --lh: 1.7; }
+    .vane-text[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --lh: 1.65; }
+    .vane-text[data-size="md"] { --fs-unit: var(--fs-unit-md); --lh: 1.6; }
+    .vane-text[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --lh: 1.55; }
+    .vane-text[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --lh: 1.5; }
 
     /* Blockquote — --py-unit drives the ps-(--pl) start indent, so it must scale
        per size (and be set in every size block so it can't inherit a padded
