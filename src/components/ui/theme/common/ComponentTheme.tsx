@@ -105,18 +105,7 @@ export const defaultTypographyClassMappers: DefaultTypographyClassMappers = {
   truncate: new TruncateClassMapper(),
 };
 
-/**
- * Per-instance derived resolution state:
- * - omitKeys / baseClasses are constants derived from `categories` / `base`,
- *   previously recomputed on every getComponentConfig / getClasses call.
- * - walkCache memoizes the theme-tree walk per extracted-keys signature. The
- *   walk output is a pure function of (themes tree, extractedKeys): mappers
- *   are stateless class-string holders (see BaseClassMapper subclasses), and
- *   the tree is walked in stable Object.keys order. `defaults` deliberately
- *   does NOT invalidate the cache — it only influences which keys get
- *   extracted (the cache KEY) — and `extraClasses` are applied per call in
- *   getClasses, never cached.
- */
+/* Per-instance derived state: constant omitKeys/baseClasses + walkCache (memoizes the tree walk per extracted-keys signature; defaults only affect the cache key, extraClasses applied per call). */
 interface ResolutionState {
   /** boolean prop names consumed by the theme system (union of all category keys) — stripped from DOM props */
   omitKeys: ReadonlySet<string>;
@@ -126,35 +115,7 @@ interface ResolutionState {
   walkCache: Map<string, readonly string[]>;
 }
 
-/**
- * Resolution state is keyed by instance IDENTITY in a module-level WeakMap —
- * deliberately NOT stored on the instance. Both deepClone and deepMerge copy
- * ComponentTheme instances generically (prototype-preserving Object.assign of
- * enumerable own properties), so state stored on the instance would either
- * travel into clones — serving class strings computed BEFORE ThemeProvider
- * applied that clone's themeOverride / themeDefaults / extraClasses
- * customizations — or break outright (Set/Map internal slots do not survive a
- * generic property copy). Keying by identity guarantees every clone / merged
- * copy / withDefaults() instance starts cold and derives state from its OWN
- * base / categories / themes.
- *
- * Safety invariant (matches ThemeProvider's contract): all theme
- * customization — themeOverride mutating mapper nodes in place,
- * applyDefaultsRecursively replacing `defaults`, applyExtraClassesRecursively
- * replacing `extraClasses` — happens inside ThemeProvider's useMemo on a
- * freshly deep-cloned tree, strictly BEFORE children can render and resolve
- * classes against it. A fresh clone is never warm, so no cache entry can
- * predate a customization. Mutating a theme instance AFTER it has rendered is
- * unsupported (it already produced torn output before this cache existed —
- * only re-rendered components would pick the mutation up).
- *
- * NOTE: this is unrelated to the reverted P0-4 "WeakMap visited cache" inside
- * deepClone — cloning still forks every node per occurrence; this map never
- * affects clone identity or sharing, it only memoizes pure per-instance
- * derivations. Growth is bounded: at most one entry per live theme instance
- * (WeakMap-keyed, GC-friendly), each holding one walk result per distinct
- * category-value combination actually rendered with that instance.
- */
+/* Resolution state keyed by instance identity in a module-level WeakMap, not on the instance: deepClone/deepMerge copy instances generically, so instance state would leak into clones or break (Set/Map slots don't survive). Every clone/withDefaults() starts cold. */
 const resolutionStateMap = new WeakMap<object, ResolutionState>();
 
 export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
@@ -218,19 +179,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     return state;
   }
 
-  /**
-   * Resolve the active key for every category (explicit props win over
-   * defaults) and expand the `inherit` appearance shorthand into the granular
-   * inheritColor / inheritBg / inheritBorder flags (size inheritance stays
-   * opt-in via inheritSize).
-   *
-   * Single source of truth for key resolution: getClasses and
-   * getComponentConfig both resolve through here, so the public getClasses
-   * sees the exact same expanded key set the render path uses. (Previously
-   * the expansion lived only in getComponentConfig, so the two entry points
-   * could disagree — e.g. extraClasses keyed on `inheritColor` applied when
-   * rendering but not via a direct getClasses call.)
-   */
+  /* Resolve the active key per category (props win over defaults) and expand `inherit` into inheritColor/Bg/Border. Shared by getClasses + getComponentConfig so both see the same key set. */
   private resolveExtractedKeys(props: P): Record<string, string> {
     const componentProps = props as unknown as Record<string, boolean>;
     const defaults = this.defaults as Record<string, boolean>;

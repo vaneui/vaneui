@@ -1,14 +1,4 @@
-/**
- * Static markers that identify Modal's structural sub-components
- * (ModalHeader / ModalBody / ModalFooter / ModalCloseButton) from a React
- * element type WITHOUT rendering it. Modal uses them to decide compound vs
- * convenience mode; ModalHeader uses them to keep the close button out of
- * the dialog's accessible name. A marker property (instead of reference
- * equality) keeps identification working for memo()-style wrappers, where
- * the original component stays reachable via the wrapper's `type` field.
- * A consumer component that merely RENDERS a sub-component cannot be
- * identified without rendering it — such children take the non-marked path.
- */
+/* Static markers identifying Modal's sub-components from an element type without rendering it (compound-vs-convenience mode, close-button exclusion); a marker prop survives memo() wrappers where reference equality wouldn't. */
 export type ModalPart = 'header' | 'body' | 'footer' | 'closeButton';
 
 // Symbol.for: a registry symbol survives duplicate copies of the library in

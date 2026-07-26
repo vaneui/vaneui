@@ -3,17 +3,7 @@ import type { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, Radiu
 import type { PxClassMapper, PyClassMapper, GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
 import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
 
-/**
- * MenuLabel theme — non-interactive presentational heading.
- *
- * Intentionally has NO `background` mapper. MenuLabel renders a section
- * heading inside a menu and inherits the menu's background. Adding a
- * background classes here would conflict with the existing design tests
- * that assert MenuLabel never emits `bg-*` classes.
- *
- * Because there's no background, `transparent` has no meaning here and is
- * NOT in `MENU_LABEL_CATEGORIES`.
- */
+/* MenuLabel: non-interactive heading with NO background mapper — it inherits the menu's background (tests assert no bg-*); `transparent` is therefore absent from its categories. */
 export interface MenuLabelTheme extends BaseTypographyComponentTheme {
   size: {
     px: PxClassMapper;

@@ -4,14 +4,7 @@ interface UseControllableStateOptions<T> {
   value?: T;
   defaultValue: T;
   onChange?: (value: T) => void;
-  /**
-   * Set when the component also propagates changes through a separate channel
-   * this hook can't observe — e.g. an `onClose` callback that the component
-   * invokes alongside the setter. Suppresses the dev "controlled but no handler"
-   * warning, which would otherwise false-fire on the common controlled
-   * `open` + `onClose` pattern (the setter genuinely no-ops, but the close was
-   * already handled via onClose).
-   */
+  /* Set when the component propagates changes through a separate channel (e.g. onClose) this hook can't observe; suppresses the false "controlled but no handler" warning for the open+onClose pattern. */
   hasExternalHandler?: boolean;
 }
 

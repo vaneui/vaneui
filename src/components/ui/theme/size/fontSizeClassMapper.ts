@@ -1,16 +1,7 @@
 import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps, ResponsiveBreakpointClassKey } from "../../props";
 
-/**
- * Font size theme - applies text size using CSS variables.
- * Uses breakpoint-specific variables when responsive=true, otherwise uses simple --fs variable.
- * When inheritSize flag is active (and not overridden by responsive), emits
- * `text-(length:--fs-em)` which resolves to `calc(var(--fs-ratio, 1) * 1em)` —
- * so the element scales relative to its nearest typography ancestor. Default
- * --fs-ratio is 1 (same as parent); inline components like Code / Kbd override
- * it (e.g. 0.875) to render proportionally smaller inside whatever surrounds
- * them — body text, Title, SectionTitle, PageTitle.
- */
+/* Font size via CSS vars (--fs, or breakpoint vars when responsive); inheritSize scales via --fs-em (--fs-ratio × 1em) relative to the typography ancestor — Code/Kbd override --fs-ratio to render smaller. */
 export class FontSizeClassMapper extends BaseClassMapper implements Record<ResponsiveBreakpointClassKey, string> {
   /** Base: apply font size using --fs (non-responsive) */
   base: string = "text-(length:--fs)";

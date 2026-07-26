@@ -6,13 +6,7 @@ import { resolveDisabledLink } from "../../utils/disabledLink";
 import { defaultIconButtonTheme } from "./defaultIconButtonTheme";
 import { defaultButtonSpinnerTheme } from "../button/defaultButtonSpinnerTheme";
 
-/**
- * Icon-only button with a square aspect ratio.
- *
- * Accessibility: icon-only content gives the button no accessible name —
- * always pass `aria-label`, `aria-labelledby`, or `title` so screen readers
- * can announce it. Dev builds log a console warning when none is set.
- */
+/** Icon-only square button. Pass aria-label/aria-labelledby/title for an accessible name (dev warns if none). */
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   function IconButton(props, ref) {
     const { loading, ...rest } = props;

@@ -10,11 +10,7 @@
         /* margin props get their own token, defaulting to the gap rhythm (overridable) */
         --margin: var(--gap);
         --fs: calc(var(--fs-unit) * var(--fs-base));
-        /* Icon defaults to the element's own font-size (1em), giving a single
-           constant icon-to-text ratio across text-bearing components. The
-           standalone Icon component overrides this per size with an explicit
-           spacing scale; inheritSize components (Link) override it with --fs-em
-           so the icon tracks the surrounding text rather than the size prop. */
+        /* Icon size = the element's font-size (1em); standalone Icon and inheritSize (Link, via --fs-em) override it. */
         --icon-size: var(--fs);
     }
 
@@ -50,13 +46,7 @@
 }
 
 @layer components {
-    /* Root defaults mirror outline+primary so inherit-mode components match a
-       standalone outline primary. The selector also targets [data-theme]
-       subtree roots: custom properties substitute at the declaring element,
-       so without re-declaring here, an inherit-mode component inside a
-       data-theme wrapper would keep the root-RESOLVED (light) consumer
-       values instead of re-resolving them against the wrapper's overridden
-       tokens. */
+    /* Root defaults mirror outline+primary; re-declared on [data-theme] roots too so inherit-mode re-resolves against the wrapper's tokens. */
     :root, [data-theme] {
         --text-color: var(--color-text-primary);
         --bg-color: var(--color-bg-primary);
@@ -70,16 +60,13 @@
         --checked-bg-color: var(--color-bg-primary);
         --link-text: var(--color-text-link);
         --bw: 1px; /* Border width */
-        /* Per-side border widths — default to the uniform --bw. A component
-           overrides one (e.g. Kbd --bw-b, Blockquote --bw-s) to thicken a
-           single edge; consumed by PerSideBorderClassMapper. */
+        /* Per-side border widths default to --bw; a component thickens one edge (Kbd --bw-b, Blockquote --bw-s) via PerSideBorderClassMapper. */
         --bw-t: var(--bw); --bw-r: var(--bw); --bw-b: var(--bw); --bw-l: var(--bw);
         --bw-s: var(--bw); --bw-e: var(--bw);
         --rw: 1px; /* Ring width */
     }
 
-    /* TYPE-BASED DEFAULTS: --gap-unit/--py-unit/--aspect-ratio/--shadow-base per data-vane-type + data-size.
-       UI --br-unit is set per component (height-proportional); Layout --br-unit is set per size. */
+    /* Type-based defaults per data-vane-type + data-size. UI --br-unit per component, Layout per size. */
 
     /* UI type defaults */
     [data-vane-type="ui"][data-size="xs"] { --gap-unit: 1;   --shadow-base: var(--shadow-ui-xs); }
@@ -88,16 +75,7 @@
     [data-vane-type="ui"][data-size="lg"] { --gap-unit: 2.5; --shadow-base: var(--shadow-ui-lg); }
     [data-vane-type="ui"][data-size="xl"] { --gap-unit: 3;   --shadow-base: var(--shadow-ui-xl); }
 
-    /* ROLE-AWARE ICON GAP — the icon-to-label gap tracks component ROLE, not size
-       alone. These override the flat ui gap curve above (equal specificity, later
-       source order wins). The base curve stays the fallback for every other ui
-       component.
-         Controls (Button, NavLink, MenuItem, MenuLabel): one notch looser than the
-         base curve, so the sm default sits at 8px instead of a cramped 6px, matching
-         button/nav conventions across mainstream design systems.
-         Pills (Badge, Chip): tighter — about half the control gap — so a compact
-         status/tag keeps its icon close to the label, instead of an icon gap as wide
-         as the pill's own horizontal padding. */
+    /* Role-aware icon-to-label gap (overrides the base ui curve): controls (Button/NavLink/MenuItem) run looser, pills (Badge/Chip) about half. */
     :is(.vane-button, .vane-nav-link, .vane-menu-item, .vane-menu-label)[data-size="xs"] { --gap-unit: 1.5; }
     :is(.vane-button, .vane-nav-link, .vane-menu-item, .vane-menu-label)[data-size="sm"] { --gap-unit: 2;   }
     :is(.vane-button, .vane-nav-link, .vane-menu-item, .vane-menu-label)[data-size="md"] { --gap-unit: 2.5; }
@@ -110,20 +88,13 @@
     :is(.vane-badge, .vane-chip)[data-size="lg"] { --gap-unit: 1.25; }
     :is(.vane-badge, .vane-chip)[data-size="xl"] { --gap-unit: 1.5;  }
 
-    /* UI control height (--min-h) — the border-box height a single-line text
-       control computes: (fs-unit*0.5*lh + 2*py-unit) * spacing. Extracted so the
-       button family can pin min-height to it, aligning icon-only Buttons and
-       IconButton with text Buttons per size (an SVG-only flex box gets no
-       line-box strut, so its height would otherwise track the icon, not the
-       text line). --br stays the same value: that height * --br-unit. */
+    /* --min-h: single-line control border-box height, so icon-only Buttons/IconButton match text Buttons per size. --br = that height * --br-unit. */
     [data-vane-type="ui"][data-size] {
         --min-h: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit)) * var(--spacing));
         --br: calc(var(--min-h) * var(--br-unit));
     }
 
-    /* Layout type defaults. gap/py units follow a shared curve anchored at md:
-       xs .5× / sm .75× / md 1× / lg 1.5× / xl 2× — so large sizes open up
-       (md→xl doubles) instead of the old flat +1/step ramp. */
+    /* Layout gap/py units on the md-anchored curve (.5/.75/1/1.5/2x), so large sizes open up (md->xl doubles). */
     [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xs); }
     [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-sm); }
     [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-md); }
@@ -163,13 +134,7 @@
     .vane-icon-button :where(svg:not([class*='size-'])),
     .vane-icon :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
 
-    /* Inline-annotation family (Badge, Chip, Code, Kbd, Mark): all use the
-       shifted-down font scale (--fs-unit 5-9, one step below body text) so
-       they annotate surrounding text instead of competing with it.
-
-       Badge — status pill: the tightest of the family (~27px tall at md),
-       the compact range expected of a status indicator rather than the
-       button-grade ~42px it once had. */
+    /* Inline-annotation family (Badge/Chip/Code/Kbd/Mark): font one step below body text. Badge is the tightest (~27px at md). */
     .vane-badge { --lh: 1.2; --py-unit: 1; --aspect-ratio: 2; --br-unit: 0.1923; }
     .vane-badge[data-size="xs"] { --fs-unit: 5; --py-unit: 0.5; }
     .vane-badge[data-size="sm"] { --fs-unit: 6; --py-unit: 0.75; }
@@ -177,9 +142,7 @@
     .vane-badge[data-size="lg"] { --fs-unit: 8; --py-unit: 1.25; }
     .vane-badge[data-size="xl"] { --fs-unit: 9; --py-unit: 1.5; }
 
-    /* Chip — tag/label: same shifted-down font scale as Badge. Tightened line-height
-       (1.1) and padding so it sits ~1.6x its own font (≈22px tall at md) instead of
-       ~1.9x — in line with reference tag/chip components, which cluster around 1.7x. */
+    /* Chip: same font scale as Badge, tighter line-height (1.1) so it sits ~1.6x its font (~22px at md). */
     .vane-chip { --lh: 1.1; --py-unit: 0.875; --aspect-ratio: 2; --br-unit: 0.2564; }
     .vane-chip[data-size="xs"] { --fs-unit: 5; --py-unit: 0.375; }
     .vane-chip[data-size="sm"] { --fs-unit: 6; --py-unit: 0.625; }
@@ -191,10 +154,8 @@
     .vane-badge :where(svg:not([class*='size-'])),
     .vane-chip :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
 
-    /* Code: --spacing overridden to em so geometry scales with parent font-size; --fs-base re-declared
-       because custom properties inherit computed values (root's rem-based --fs-base wouldn't pick up em --spacing). */
-    /* Vertical padding runs 0.625x the old curve so the chip sits ~84% of a 1.6 prose line box, not ~92%;
-       --aspect-ratio rises to keep horizontal padding at ~0.375em (px = aspect x py-unit x spacing). */
+    /* Code: --spacing set to em so geometry scales with parent font-size; --fs-base re-declared to pick up the em --spacing. */
+    /* Vertical padding 0.625x the old curve (chip ~84% of a 1.6 line box); --aspect-ratio raised to hold horizontal padding ~0.375em. */
     .vane-code { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.5; --aspect-ratio: 3; --br-unit: 0.2941; }
     .vane-code[data-size="xs"] { --fs-unit: 5; --py-unit: 0.25; }
     .vane-code[data-size="sm"] { --fs-unit: 6; --py-unit: 0.375; }
@@ -202,32 +163,23 @@
     .vane-code[data-size="lg"] { --fs-unit: 8; --py-unit: 0.625; }
     .vane-code[data-size="xl"] { --fs-unit: 9; --py-unit: 0.75; }
 
-    /* Default chip look: near-body text on a gray-100 fill (reference consensus). Scoped to the
-       default secondary+outline combo — which is what both codeDefaults and md's mdCode emit — so
-       explicit colored code (success/danger/...) keeps its own appearance. */
+    /* Default chip: near-body text on gray-100, scoped to secondary+outline (what codeDefaults + md's mdCode emit) so colored code keeps its appearance. */
     .vane-code[data-appearance="secondary"][data-variant="outline"] {
         --text-color: var(--color-text-primary);
         --bg-color: var(--color-bg-tertiary);
     }
 
-    /* Kbd: em-relative geometry like Code, but wider (keycaps read wide, not tall) and shorter.
-       Borders are em-based with a 1px floor so the keycap lip keeps its weight inside large headings;
-       --bw-b doubles it into the bottom edge. The `border` prop's per-side mapper reads --bw-b
-       (see defaultKbdTheme / PerSideBorderClassMapper). */
-    /* Per-side widths must be re-declared here: the [data-size] block resolves --bw-t/-r/-l against
-       its own --bw, so they'd stay 1px while only --bw-b scaled. */
+    /* Kbd: em geometry like Code but wider and shorter; em borders (1px floor) keep the keycap lip visible at large sizes. */
+    /* Per-side widths re-declared here: the [data-size] block resolves --bw-t/-r/-l against its own --bw, so they'd stay 1px otherwise. */
     .vane-kbd { --spacing: 0.25em; --fs-base: calc(var(--spacing) * 0.5); --lh: 1; --py-unit: 0.3; --aspect-ratio: 5; --br-unit: 0.2941; --bw: max(1px, 0.07em); --bw-t: var(--bw); --bw-r: var(--bw); --bw-l: var(--bw); --bw-b: calc(var(--bw) * 2); }
-    /* Font runs one step below Code (kbd reads smaller than inline code, per reference keycaps);
-       xs bumped off the full-step 4 to 4.5 so the smallest cap keeps a ~9px floor in body text. */
+    /* Font one step below Code (keycaps read smaller); xs bumped 4->4.5 for a ~9px floor in body text. */
     .vane-kbd[data-size="xs"] { --fs-unit: 4.5; --py-unit: 0.18; }
     .vane-kbd[data-size="sm"] { --fs-unit: 5; --py-unit: 0.24; }
     .vane-kbd[data-size="md"] { --fs-unit: 6; --py-unit: 0.3; }
     .vane-kbd[data-size="lg"] { --fs-unit: 7; --py-unit: 0.36; }
     .vane-kbd[data-size="xl"] { --fs-unit: 8; --py-unit: 0.42; }
 
-    /* Mark — flush text highlight: no padding, square corners, tight to the glyphs like
-       reference highlights (which use padding:0). Font + color inherit; --lh:1 keeps the
-       highlight box hugging the text rather than the full line box. */
+    /* Mark: flush highlight — no padding, square, --lh:1 hugs the glyphs (reference highlights use padding:0). */
     .vane-mark { --lh: 1; }
 
     /* Input */
@@ -242,10 +194,7 @@
         padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
     }
 
-    /* Checkbox (height = size-unit * spacing, not text-based). xs floor lifted
-       off 12px: a 12px box is half the 24px minimum target size and the smallest
-       checkbox of any mainstream system. xs now 14px / sm 15px, keeping md at the
-       16px size the field converges on. */
+    /* Checkbox height = size-unit * spacing. xs lifted off 12px (too small) to 14px, sm 15px; md stays 16px. */
     .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
     .vane-checkbox[data-size="xs"] { --size-unit: 3.5; }
     .vane-checkbox[data-size="sm"] { --size-unit: 3.75; }
@@ -263,8 +212,7 @@
     .vane-label[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-label[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
-    /* Card — padding on the shared layout curve (.5/.75/1/1.5/2 × md=6),
-       gap kept at half the padding. md unchanged (24px pad / 12px gap). */
+    /* Card padding on the shared layout curve (.5/.75/1/1.5/2x, md=6), gap half the padding (md 24px pad / 12px gap). */
     .vane-card { --py-unit: 6; --gap-unit: 3; --aspect-ratio: 1; }
     .vane-card[data-size="xs"] { --py-unit: 3; --gap-unit: 1.5; }
     .vane-card[data-size="sm"] { --py-unit: 4.5; --gap-unit: 2.25; }
@@ -274,9 +222,7 @@
 
     /* Stack - inherits --py-unit and --aspect-ratio from layout type defaults */
 
-    /* Container — py on the shared curve (.5/.75/1/1.5/2 × md=8). gap inherits
-       the layout-type defaults (8/12/16/24/32). Default is noPadding, so py
-       only applies when padding is opted in; aspect-ratio 2 → px = 2 × py. */
+    /* Container py on the shared curve (.5/.75/1/1.5/2x, md=8); noPadding default, so py applies only when opted in. */
     .vane-container { --py-unit: 8; --aspect-ratio: 2; }
     .vane-container[data-size="xs"] { --py-unit: 4; }
     .vane-container[data-size="sm"] { --py-unit: 6; }
@@ -292,15 +238,14 @@
     .vane-divider[data-size="lg"] { --py-unit: 5; }
     .vane-divider[data-size="xl"] { --py-unit: 6; }
 
-    /* Size cascade: Table/Thead/Tbody/Tfoot/Tr publish cell units that inherit down
-       to the cells; nearest ancestor wins. A cell's own explicit size overrides. */
+    /* Size cascade: Table/Thead/Tbody/Tfoot/Tr publish cell units that inherit down; nearest ancestor wins, explicit cell size overrides. */
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="xs"] { --tbl-py-unit: 1;   --tbl-fs-unit: var(--fs-unit-xs); }
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="sm"] { --tbl-py-unit: 1.5; --tbl-fs-unit: var(--fs-unit-sm); }
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="md"] { --tbl-py-unit: 2;   --tbl-fs-unit: var(--fs-unit-md); }
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="lg"] { --tbl-py-unit: 2.5; --tbl-fs-unit: var(--fs-unit-lg); }
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="xl"] { --tbl-py-unit: 3;   --tbl-fs-unit: var(--fs-unit-xl); }
 
-    /* No cell size default: un-sized cells carry no [data-size] and follow the table/row cascade via this base rule; an explicit size (below) carries [data-size] and overrides. */
+    /* No cell size default: un-sized cells carry no [data-size] and follow the table/row cascade; an explicit size (below) overrides. */
     .vane-table-cell { --aspect-ratio: 2; --py-unit: var(--tbl-py-unit, 2); --fs-unit: var(--tbl-fs-unit, var(--fs-unit-md)); --py: calc(var(--py-unit) * var(--spacing)); --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing)); --fs: calc(var(--fs-unit) * var(--fs-base)); }
     .vane-table-cell[data-size] { --aspect-ratio: 2; }
     .vane-table-cell[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
@@ -326,8 +271,7 @@
     .vane-list[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 5; }
 
     /* Text */
-    /* Body line-height tightens as text grows (like Title/SectionTitle), prose-leaning so md stays 1.6.
-       Flat 1.6 left large body too loose (20px -> 32px) vs references (~1.4-1.5 at that size). */
+    /* Body line-height tightens as text grows (prose-leaning, md stays 1.6); flat 1.6 left large body too loose vs references. */
     .vane-text { --lh: var(--lh-base); --ls: var(--ls-base); }
     .vane-text[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --lh: 1.7; }
     .vane-text[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --lh: 1.65; }
@@ -335,11 +279,8 @@
     .vane-text[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --lh: 1.55; }
     .vane-text[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --lh: 1.5; }
 
-    /* Blockquote — --py-unit drives the ps-(--pl) start indent, so it must scale
-       per size (and be set in every size block so it can't inherit a padded
-       ancestor's value), mirroring List which uses the same ps-(--pl) indent. */
-    /* --bw-s thickens the inline-start edge into the 3px accent border; the
-       `borderS` prop's per-side mapper reads it (see defaultBlockquoteTheme). */
+    /* Blockquote --py-unit drives the ps-(--pl) start indent; set per size in every block so it can't inherit an ancestor's (like List). */
+    /* --bw-s thickens the inline-start edge into the 3px accent border; borderS's per-side mapper reads it. */
     .vane-blockquote { --lh: var(--lh-base); --ls: var(--ls-base); --py-unit: 3; --bw-s: calc(var(--bw) * 3); }
     .vane-blockquote[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-blockquote[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 2; }
@@ -366,18 +307,12 @@
     .vane-list-item[data-size="md"] { --fs-unit: var(--fs-unit-md); }
     .vane-list-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-list-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
-    /* Outline appearance colors the text only; a background needs `filled`
-       (the Icon pattern). List suppresses this via a `transparent` default, but
-       ListItem's typography props don't expose `transparent`, so the tint
-       (e.g. tertiary -> gray-100) is cleared here instead. */
+    /* Outline colors text only; ListItem can't use List's `transparent` default, so the appearance bg tint is cleared here. */
     .vane-list-item[data-variant="outline"] { --bg-color: transparent; }
 
     /* RESPONSIVE COMPONENTS */
 
-    /* Section — desktop py/gap on the shared curve (.5/.75/1/1.5/2), keeping
-       the existing ~2:3 gap:padding ratio. Tablet ≈ 0.5× desktop py and
-       mobile ≈ 0.33× desktop py compress consistently across all sizes
-       (replacing the old near-flat mobile padding). md desktop unchanged. */
+    /* Section desktop py/gap on the shared curve; tablet ~0.5x and mobile ~0.33x desktop py. */
     .vane-section {
         --lh: var(--lh-base);
         --py-unit-desktop: 12;
@@ -489,8 +424,7 @@
         background-color: var(--bg-active-color);
     }
 
-    /* MenuLabel - compact non-interactive section heading. Vertical padding runs a
-       strictly-increasing ramp (3/3.5/4/5/6px) so sm no longer collides with md. */
+    /* MenuLabel: compact non-interactive heading; vertical padding ramps 3/3.5/4/5/6px so sm doesn't collide with md. */
     .vane-menu-label { --lh: var(--lh-base); --py-unit: 1; --aspect-ratio: 2; --br-unit: 0.15; }
     .vane-menu-label[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.75; }
     .vane-menu-label[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 0.875; }
@@ -644,8 +578,7 @@
         --bg-active-color: var(--bg-color);
     }
 
-    /* APPEARANCE × VARIANT — two independent axes that compose:
-       appearance rules set intermediate --app-* (palette); variant rules map them to final --*-color. */
+    /* Appearance x variant compose: appearance sets intermediate --app-* (palette), variant maps them to final --*-color. */
 
     /* AXIS 1: APPEARANCE — palette */
     [data-appearance="primary"] {
@@ -812,16 +745,9 @@
     }
 
 
-    /* CHECKBOX OVERRIDES — checkboxes always need a visible border when unchecked,
-       but the global filled rule sets --border-color: transparent. Both
-       --border-color and --ring-color are set so consumers that enable
-       `ring` get the matching stroke (Checkbox default is `noRing: true`,
-       so the ring color is dormant by default). */
+    /* Checkboxes need a visible unchecked border despite filled's transparent; set border+ring color (ring dormant, noRing default). */
 
-    /* Unchecked: neutral form-control border (overrides filled transparent
-       + outline appearance-colored). Uses --color-border-form, NOT the
-       appearance border tokens, so secondary/tertiary-appearance Card,
-       Button, Chip, etc. keep their lighter layout-grade border. */
+    /* Unchecked: neutral --color-border-form (not appearance tokens), so other components keep their lighter border. */
     .vane-checkbox[data-variant] {
         --border-color: var(--color-border-form);
         --ring-color: var(--color-border-form);

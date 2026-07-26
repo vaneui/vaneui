@@ -19,18 +19,7 @@ export function useLabelSizeContext(): SizeKey | null {
 // mirrors ComponentTheme's own (unexported) props constraint
 type ThemeableProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType };
 
-/**
- * Derives a theme whose size DEFAULT is the propagated Label size. The merge
- * happens at the defaults level — exactly what the old nested ThemeProvider's
- * mergeDefaults did — so:
- * - the exclusive size group is fully reset (only the Label size stays true),
- * - explicit size props on the child still win at extraction, and
- * - the injected size is never an explicit prop, so it cannot trip the
- *   conflicting-props dev warning.
- *
- * Cheap by construction: `withDefaults` shares `themes`/`base` by reference,
- * so this allocates one small head object instead of cloning the theme tree.
- */
+/* Derives a theme whose size default is the propagated Label size (merged at defaults level, so explicit child size still wins); withDefaults shares themes/base by reference, so it's cheap. */
 export function withLabelSizeDefault<P extends ThemeableProps, T extends object>(
   theme: ComponentTheme<P, T>,
   size: SizeKey | null

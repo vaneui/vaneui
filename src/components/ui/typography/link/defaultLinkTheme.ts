@@ -7,15 +7,7 @@ import { LinkVariantClassMapper } from "../../theme/appearance/linkVariantClassM
 import { LINK_CATEGORIES } from "./LinkCategories";
 import { linkDefaults } from "./linkDefaults";
 
-/**
- * Link theme — composed over the shared `typographyClassMappers` collection
- * (size, typography, and layout mappers are inherited from it), so changes to
- * the shared collection automatically reach Link. Only the deltas below
- * diverge, each with a documented reason.
- *
- * Link stays background-less like all typography components (an inline anchor
- * inherits its container's background).
- */
+/* Link theme composed over the shared typographyClassMappers (inherits size/typography/layout); only the deltas below diverge. Background-less like all typography. */
 export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new ComponentTheme<TypographyProps, LinkTheme>(
   "a",
   "vane-link hover:underline",
