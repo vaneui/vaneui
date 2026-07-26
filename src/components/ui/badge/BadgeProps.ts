@@ -33,7 +33,7 @@ import type {
   TransparentProps,
   ResponsiveProps,
   TransitionProps,
-  WhitespaceProps,
+  WhitespaceProps, WordBreakProps,
   WidthProps,
   HeightProps,
   DisabledProps
@@ -74,6 +74,7 @@ export type BadgeProps = BaseProps &
   ResponsiveProps &
   TransitionProps &
   WhitespaceProps &
+  WordBreakProps &
   WidthProps &
   HeightProps &
   DisabledProps &

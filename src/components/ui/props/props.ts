@@ -60,6 +60,7 @@ export * from './pointerEventsProps';
 export * from './cursorProps';
 export * from './transitionProps';
 export * from './whitespaceProps';
+export * from './wordBreakProps';
 export * from './objectFitProps';
 
 // List

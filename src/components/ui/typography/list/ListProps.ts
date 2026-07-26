@@ -25,6 +25,8 @@ import type {
   HeightProps,
   TransparentProps,
   ResponsiveProps,
+  WhitespaceProps,
+  WordBreakProps,
   InheritSizeProps,
   InheritColorProps,
   InheritBgProps
@@ -56,6 +58,8 @@ export type ListProps = BaseProps &
   HeightProps &
   TransparentProps &
   ResponsiveProps &
+  WhitespaceProps &
+  WordBreakProps &
   InheritSizeProps &
   InheritColorProps &
   InheritBgProps &

@@ -1,6 +1,6 @@
 import { ComponentTheme, defaultSizedLayoutClassMappers, defaultTypographyClassMappers, textAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowAppearance } from "../theme/common";
 import { PxClassMapper, PyClassMapper, GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
-import { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper, TransitionClassMapper, WhitespaceClassMapper, FlexClassMapper, ShrinkClassMapper } from "../theme/layout";
+import { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper, TransitionClassMapper, WhitespaceClassMapper, WordBreakClassMapper, FlexClassMapper, ShrinkClassMapper } from "../theme/layout";
 import type { MenuLabelProps } from "./MenuLabelProps";
 import type { MenuLabelTheme } from "./MenuLabelTheme";
 import { MENU_LABEL_CATEGORIES } from "./MenuLabelCategories";
@@ -36,6 +36,7 @@ export const defaultMenuLabelTheme = new ComponentTheme<MenuLabelProps, MenuLabe
       cursor: new CursorClassMapper(),
       transition: new TransitionClassMapper(),
       whitespace: new WhitespaceClassMapper(),
+      wordBreak: new WordBreakClassMapper(),
       flex: new FlexClassMapper(),
       shrink: new ShrinkClassMapper(),
     },

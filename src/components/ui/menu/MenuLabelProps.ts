@@ -30,7 +30,7 @@ import type {
   VariantProps,
   CursorProps,
   TransitionProps,
-  WhitespaceProps,
+  WhitespaceProps, WordBreakProps,
   WidthProps,
   HeightProps,
   ResponsiveProps,
@@ -70,6 +70,7 @@ export type MenuLabelProps = BaseProps &
   CursorProps &
   TransitionProps &
   WhitespaceProps &
+  WordBreakProps &
   WidthProps &
   HeightProps &
   ResponsiveProps &

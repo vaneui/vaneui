@@ -147,6 +147,8 @@ export const CURSOR = ['cursor'] as const;
 export const TRANSITION = ['transition'] as const;
 /** Whitespace/text wrapping property */
 export const WHITESPACE = ['whitespace'] as const;
+/** Word break / overflow-wrap property */
+export const WORD_BREAK = ['wordBreak'] as const;
 /** Object fit property for images/videos */
 export const OBJECT_FIT = ['objectFit'] as const;
 /** Status property for form validation state */
@@ -182,6 +184,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...CURSOR,
   ...TRANSITION,
   ...WHITESPACE,
+  ...WORD_BREAK,
   ...OBJECT_FIT,
   ...WIDTH,
   ...HEIGHT,
@@ -298,6 +301,8 @@ export const ComponentKeys = {
   transition: ['transition', 'noTransition'] as const,
   /** Whitespace and text wrapping behavior */
   whitespace: ['whitespaceNowrap', 'whitespaceNormal', 'whitespacePre', 'whitespacePreWrap', 'whitespacePreLine', 'whitespaceBreakSpaces'] as const,
+  /** Word break / overflow-wrap behavior */
+  wordBreak: ['breakNormal', 'breakWords', 'breakAll', 'breakKeep'] as const,
   /** Object fit for images and videos */
   objectFit: ['objectCover', 'objectContain', 'objectFill', 'objectNone', 'objectScaleDown'] as const,
   /** Width control for element sizing */
@@ -396,6 +401,8 @@ export type CursorKey = typeof ComponentKeys.cursor[number];
 export type TransitionKey = typeof ComponentKeys.transition[number];
 /** Whitespace behavior keys */
 export type WhitespaceKey = typeof ComponentKeys.whitespace[number];
+/** Word break behavior keys */
+export type WordBreakKey = typeof ComponentKeys.wordBreak[number];
 /** Object fit keys for images/videos */
 export type ObjectFitKey = typeof ComponentKeys.objectFit[number];
 /** Width keys for element sizing */

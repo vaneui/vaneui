@@ -69,6 +69,7 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'CursorProps': 'cursor',
   'TransitionProps': 'transition',
   'WhitespaceProps': 'whitespace',
+  'WordBreakProps': 'wordBreak',
   'ObjectFitProps': 'objectFit',
   'WidthProps': 'width',
   'TruncateProps': 'truncate',

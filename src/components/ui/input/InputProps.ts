@@ -36,7 +36,8 @@ import type {
   HeightProps,
   StatusProps,
   TruncateProps,
-  WhitespaceProps
+  WhitespaceProps,
+  WordBreakProps
 } from '../props';
 
 /** Input component props */
@@ -77,6 +78,7 @@ export type InputProps = BaseProps &
   StatusProps &
   TruncateProps &
   WhitespaceProps &
+  WordBreakProps &
   Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

@@ -33,7 +33,7 @@ import type {
   ResponsiveProps,
   CursorProps,
   TransitionProps,
-  WhitespaceProps,
+  WhitespaceProps, WordBreakProps,
   WidthProps,
   HeightProps
 } from "../props";
@@ -72,6 +72,7 @@ export type ButtonProps = BaseProps &
   CursorProps &
   TransitionProps &
   WhitespaceProps &
+  WordBreakProps &
   WidthProps &
   HeightProps &
   Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children'> &

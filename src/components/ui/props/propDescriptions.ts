@@ -1034,6 +1034,24 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "wordBreak": {
+    "name": "Word Break",
+    "description": "Word break props for controlling how text breaks to prevent overflow",
+    "props": {
+      "breakNormal": {
+        "description": "Reset breaking - overflow-wrap and word-break normal"
+      },
+      "breakWords": {
+        "description": "Break long words to prevent overflow - overflow-wrap: break-word"
+      },
+      "breakAll": {
+        "description": "Break between any two characters - word-break: break-all"
+      },
+      "breakKeep": {
+        "description": "Do not break CJK text - word-break: keep-all"
+      }
+    }
+  },
   "wrap": {
     "name": "Wrap",
     "description": "Wrap props for controlling flex wrapping behavior",

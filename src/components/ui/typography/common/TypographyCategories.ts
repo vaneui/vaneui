@@ -16,6 +16,8 @@ import {
   INHERIT_COLOR,
   INHERIT_BG,
   BORDER,
+  WHITESPACE,
+  WORD_BREAK,
 } from "../../props/categoryBuilders";
 
 /** Cursor appearance property */
@@ -39,6 +41,8 @@ export const TYPOGRAPHY_CATEGORIES = [
   ...VARIANT,
   ...CURSOR,
   ...LETTER_SPACING,
+  ...WHITESPACE,
+  ...WORD_BREAK,
   ...WIDTH,
   ...HEIGHT,
   ...RESPONSIVE,
@@ -76,6 +80,8 @@ export const LIST_CATEGORIES = [
   ...VISUAL_CORE,
   ...PADDING,
   ...VARIANT,
+  ...WHITESPACE,
+  ...WORD_BREAK,
   ...WIDTH,
   ...HEIGHT,
   ...COMMON_MODIFIERS,

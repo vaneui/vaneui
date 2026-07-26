@@ -32,6 +32,7 @@ export const COMMON_MODIFIERS = [...TRANSPARENT, ...RESPONSIVE] as const;
 export const CURSOR = ['cursor'] as const;
 export const TRANSITION = ['transition'] as const;
 export const WHITESPACE = ['whitespace'] as const;
+export const WORD_BREAK = ['wordBreak'] as const;
 export const HEIGHT = ['height'] as const;
 export const STATUS = ['status'] as const;
 export const DISABLED = ['disabled'] as const;
@@ -62,6 +63,7 @@ export const UI_ELEMENT_CATEGORIES = [
   ...CURSOR,
   ...TRANSITION,
   ...WHITESPACE,
+  ...WORD_BREAK,
   ...WIDTH,
   ...HEIGHT,
   ...COMMON_MODIFIERS,

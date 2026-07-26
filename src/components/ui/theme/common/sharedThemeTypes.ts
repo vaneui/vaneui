@@ -15,6 +15,7 @@ import type { DirectionClassMapper } from "../layout/directionClassMapper";
 import type { CursorClassMapper } from "../layout/cursorClassMapper";
 import type { TransitionClassMapper } from "../layout/transitionClassMapper";
 import type { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
+import type { WordBreakClassMapper } from "../layout/wordBreakClassMapper";
 import type { FlexClassMapper } from "../layout/flexClassMapper";
 import type { ShrinkClassMapper } from "../layout/shrinkClassMapper";
 import type { SimpleConsumerClassMapper } from "../appearance/simpleConsumerClassMapper";
@@ -50,6 +51,7 @@ export interface InteractiveLayoutClassMappers extends DefaultSizedLayoutClassMa
   cursor: CursorClassMapper;
   transition: TransitionClassMapper;
   whitespace: WhitespaceClassMapper;
+  wordBreak: WordBreakClassMapper;
   flex: FlexClassMapper;
   shrink: ShrinkClassMapper;
 }
