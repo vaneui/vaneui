@@ -138,7 +138,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Text input | `Input` | Renders `<input>`, all HTML input attrs |
 | Toggle | `Checkbox` | Custom styled, use inside `Label` |
 | Input label | `Label` | Flex **column** (label above field) with gap, sm size, inherit appearance. Use `row` for inline controls (e.g. Checkbox) |
-| Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `decimal` |
+| Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `listDecimal` |
 | Horizontal rule | `Divider` | Thin line separator |
 | Image | `Img` | Rounded by default |
 | Fullscreen backdrop | `Overlay` | Portal-rendered, click-to-close, optional blur |
@@ -265,7 +265,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
   <ListItem>Second item</ListItem>
 </List>
 
-<List decimal>
+<List listDecimal>
   <ListItem>Step one</ListItem>
   <ListItem>Step two</ListItem>
 </List>
@@ -452,12 +452,12 @@ These are on/off switches. Check defaults before using — many are already true
 <Row flexWrap>Allow wrapping</Row>
 
 {/* Typography toggles */}
-<Text bold>Bold text</Text>
-<Text semibold>Semibold text</Text>
+<Text fontBold>Bold text</Text>
+<Text fontSemibold>Semibold text</Text>
 <Text italic>Italic text</Text>
 <Text underline>Underlined text</Text>
 <Text uppercase>UPPERCASE TEXT</Text>
-<Text mono>Monospace text</Text>
+<Text fontMono>Monospace text</Text>
 <Text textCenter>Centered</Text>
 <Text textRight>Right-aligned</Text>
 ```
@@ -490,9 +490,9 @@ Text alignment offers both modes:
 
 // RIGHT - VaneUI props
 <Row>
-<Button danger filled pill bold>
+<Button danger filled pill fontBold>
 <Card>
-<Text bold textCenter>
+<Text fontBold textCenter>
 ```
 
 ### Don't specify props that are already defaults
@@ -500,9 +500,9 @@ Text alignment offers both modes:
 ```tsx
 // WRONG - redundant (these are already true by default)
 <Row gap itemsCenter>
-<Button primary outline semibold rounded padding ring>
+<Button primary outline fontSemibold rounded padding insetRing>
 <Card padding rounded gap border>
-<Badge secondary pill semibold>
+<Badge secondary pill fontSemibold>
 <Stack column gap padding>
 <Link underline>
 
@@ -545,7 +545,7 @@ Text alignment offers both modes:
 
 ```tsx
 // WRONG - Button is for actions, not navigation
-<Button sm noShadow noRing sharp justifyStart tag={Link} href="/settings"
+<Button sm noShadow noInsetRing sharp justifyStart tag={Link} href="/settings"
         className="w-full border-l-2">
   Settings
 </Button>

@@ -125,10 +125,10 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 | **shape** | `pill`, `rounded` (default), `sharp` |
 | **display** | `flex`, `inlineFlex`, `block`, `inline`, `grid`, etc. |
 | **flexDirection** | `row`, `column`, `rowReverse`, `columnReverse` |
-| **fontWeight** | `thin` through `black` |
+| **fontWeight** | `fontThin` through `fontBlack` |
 | **textAlign** | `textLeft`, `textCenter`, `textRight`, `textJustify` |
 
-Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShadow`, `ring`/`noRing`, `border`/`noBorder`, `underline`, `uppercase`, `italic`, `bold`, `semibold`, `mono`, `reverse`, `transparent`, `responsive`, `sticky`, `flexWrap`, `itemsCenter`, `justifyBetween`, etc.
+Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShadow`, `insetRing`/`noInsetRing`, `border`/`noBorder`, `underline`, `uppercase`, `italic`, `fontBold`, `fontSemibold`, `fontMono`, `transparent`, `responsive`, `sticky`, `flexWrap`, `itemsCenter`, `justifyBetween`, etc.
 
 **Breakpoints** (layout components): `mobileCol`, `tabletCol`, `desktopCol`
 **Hide**: `mobileHide`, `tabletHide`, `desktopHide`
@@ -139,22 +139,22 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 
 | Component | Defaults |
 |-----------|----------|
-| **Button** | sm, primary, outline, semibold, rounded, padding, gap, ring, focusVisible, cursorPointer, transition (no `shadow`) |
+| **Button** | sm, primary, outline, fontSemibold, rounded, padding, gap, insetRing, focusVisible, cursorPointer, transition (no `shadow`) |
 | **Card** | md, primary, outline, rounded, border, padding, gap, flex, column |
-| **Row** | md, row, flex, itemsCenter, gap, noPadding, noBorder, noRing, outline, sharp |
-| **Col** | md, column, flex, gap, noPadding, noBorder, noRing, outline, sharp |
-| **Stack** | md, flex, column, flexWrap, gap, padding, noBorder, noRing, outline, sharp |
-| **Badge** | md, secondary (neutral default; color via success/danger/…), outline, pill, semibold |
-| **Chip** | md, secondary (not primary!), outline, rounded, sans |
-| **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noRing, wFull, textLeft, focusVisible |
-| **Link** | md, link (not primary!), underline, sans, cursorPointer, inheritSize, wFit, focusVisible (no variant default) |
-| **Input** | md, primary, outline, rounded, wFull, ring, focusVisible |
-| **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noRing, noShadow, noShrink, noTransition, wFit |
+| **Row** | md, row, flex, itemsCenter, gap, noPadding, noBorder, noInsetRing, outline, sharp |
+| **Col** | md, column, flex, gap, noPadding, noBorder, noInsetRing, outline, sharp |
+| **Stack** | md, flex, column, flexWrap, gap, padding, noBorder, noInsetRing, outline, sharp |
+| **Badge** | md, secondary (neutral default; color via success/danger/…), outline, pill, fontSemibold |
+| **Chip** | md, secondary (not primary!), outline, rounded, fontSans |
+| **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noInsetRing, wFull, textLeft, focusVisible |
+| **Link** | md, link (not primary!), underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (no variant default) |
+| **Input** | md, primary, outline, rounded, wFull, insetRing, focusVisible |
+| **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
-| **Label** | sm, flex, column, itemsStart, gap, inherit, medium (use `row` for inline controls like Checkbox) |
+| **Label** | sm, flex, column, itemsStart, gap, inherit, fontMedium (use `row` for inline controls like Checkbox) |
 | **Modal** | md, wFull, flex, column, overflowAuto, relative, noPadding, gap, rounded, shadow, primary, outline |
 | **Container** | md, wFull, flex, column, itemsCenter, gap, noPadding, outline, sharp |
-| **Section** | md, wFull, flex, column, itemsStart, gap, padding, noBorder, noRing, noShadow, outline, sharp, responsive |
+| **Section** | md, wFull, flex, column, itemsStart, gap, padding, noBorder, noInsetRing, noShadow, outline, sharp, responsive |
 | **Typography** (Text, Title, etc.) | md, inherit (not primary!), outline |
 | **Layout** (Row, Col, Stack, Card, Grid*) | gap, md, outline |
 
@@ -198,7 +198,7 @@ src/
 
 ## Critical Rules
 
-1. **Prefer VaneUI props over Tailwind classes** — Use `bold` not `className="font-bold"`, `textCenter` not `className="text-center"`, `pill` not `className="rounded-full"`, etc.
+1. **Prefer VaneUI props over Tailwind classes** — Use `fontBold` not `className="font-bold"`, `textCenter` not `className="text-center"`, `pill` not `className="rounded-full"`, etc.
 2. **Don't override themed properties with className** — Use `danger` not `className="bg-red-500"`. Use size props not `className="gap-*"`.
 3. **Don't specify default props** — `<Row gap>` is redundant (gap is true by default).
 4. **Boolean props must not leak to DOM** — They are consumed by the theme system and stripped by `getComponentConfig()`.

@@ -165,15 +165,15 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 
 | Prop | Tailwind Class |
 |------|---------------|
-| `thin` | `font-thin` |
-| `extralight` | `font-extralight` |
-| `light` | `font-light` |
-| `normal` | `font-normal` |
-| `medium` | `font-medium` |
-| `semibold` | `font-semibold` |
-| `bold` | `font-bold` |
-| `extrabold` | `font-extrabold` |
-| `black` | `font-black` |
+| `fontThin` | `font-thin` |
+| `fontExtralight` | `font-extralight` |
+| `fontLight` | `font-light` |
+| `fontNormal` | `font-normal` |
+| `fontMedium` | `font-medium` |
+| `fontSemibold` | `font-semibold` |
+| `fontBold` | `font-bold` |
+| `fontExtrabold` | `font-extrabold` |
+| `fontBlack` | `font-black` |
 
 ## Font Style / Family
 
@@ -181,10 +181,10 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 |------|---------------|
 | `italic` | `italic` |
 | `notItalic` | `not-italic` |
-| `sans` | `font-sans` |
-| `serif` | `font-serif` |
-| `mono` | `font-mono` |
-| `heading` | `font-heading` |
+| `fontSans` | `font-sans` |
+| `fontSerif` | `font-serif` |
+| `fontMono` | `font-mono` |
+| `fontHeading` | `font-heading` |
 
 ## Text Decoration
 
@@ -266,8 +266,8 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 |------|---------------|
 | `shadow` | `shadow-(--shadow-base)` |
 | `noShadow` | (removes shadow) |
-| `ring` | `ring-[length:var(--rw)] ring-inset` |
-| `noRing` | (removes ring) |
+| `insetRing` | `ring-[length:var(--rw)] ring-inset` |
+| `noInsetRing` | (removes ring) |
 | `focusVisible` | `focus-visible:outline-2 focus-visible:outline-offset-2` |
 | `noFocusVisible` | (removes focus outline) |
 
@@ -288,10 +288,10 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 |------|---------------|
 | `transition` | `transition-all duration-200` |
 | `noTransition` | `transition-none` |
-| `blur` | `backdrop-blur-(--overlay-blur)` |
-| `noBlur` | (removes blur) |
-| `disc` | `list-disc` |
-| `decimal` | `list-decimal` |
+| `backdropBlur` | `backdrop-blur-(--overlay-blur)` |
+| `noBackdropBlur` | (removes blur) |
+| `listDisc` | `list-disc` |
+| `listDecimal` | `list-decimal` |
 | `horizontal` | `h-(--bw) w-full` |
 | `vertical` | `w-(--bw) h-full` |
 | `transparent` | `bg-transparent` |

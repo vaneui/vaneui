@@ -107,18 +107,18 @@ Categories are defined in `src/components/ui/props/keys.ts`. Each component spec
 
 > **Source of truth:** `src/components/ui/{component}/{component}Defaults.ts` (and the `typography/{component}/{component}Defaults.ts` mirror). The list below covers the defaults that are most commonly forgotten or surprising. Check the defaults file when in doubt — these lists drift faster than the source.
 
-- **Button**: sm, primary, outline, semibold, rounded, padding, gap, ring, focusVisible, cursorPointer, transition (note: no `shadow` by default — `ring`, not shadow)
+- **Button**: sm, primary, outline, fontSemibold, rounded, padding, gap, insetRing, focusVisible, cursorPointer, transition (note: no `shadow` by default — `insetRing`, not shadow)
 - **Card**: md, primary, outline, rounded, border, padding, gap, flex, column
-- **Row**: md, row, flex, itemsCenter, gap, noPadding, noBorder, noRing, outline, sharp
-- **Col**: md, column, flex, gap, noPadding, noBorder, noRing, outline, sharp
-- **Stack**: md, flex, column, flexWrap, gap, padding, noBorder, noRing, outline, sharp
-- **Section**: md, wFull, flex, column, itemsStart, gap, padding, noBorder, noRing, noShadow, outline, sharp, responsive
-- **Badge**: md, secondary (neutral default; color via success/danger/…), outline, pill, semibold
-- **Chip**: md, secondary (not primary!), outline, rounded, sans
-- **NavLink**: sm, primary, outline, rounded, noBorder, noShadow, noRing, wFull, textLeft, focusVisible
-- **Link**: md, link (not primary!), underline, sans, cursorPointer, inheritSize, wFit, focusVisible (no variant default)
-- **Input**: md, primary, outline, rounded, wFull, ring, focusVisible
-- **Icon**: md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noRing, noShadow, noShrink, noTransition, wFit (container-mode props default off; appearance not applied until set)
+- **Row**: md, row, flex, itemsCenter, gap, noPadding, noBorder, noInsetRing, outline, sharp
+- **Col**: md, column, flex, gap, noPadding, noBorder, noInsetRing, outline, sharp
+- **Stack**: md, flex, column, flexWrap, gap, padding, noBorder, noInsetRing, outline, sharp
+- **Section**: md, wFull, flex, column, itemsStart, gap, padding, noBorder, noInsetRing, noShadow, outline, sharp, responsive
+- **Badge**: md, secondary (neutral default; color via success/danger/…), outline, pill, fontSemibold
+- **Chip**: md, secondary (not primary!), outline, rounded, fontSans
+- **NavLink**: sm, primary, outline, rounded, noBorder, noShadow, noInsetRing, wFull, textLeft, focusVisible
+- **Link**: md, link (not primary!), underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (no variant default)
+- **Input**: md, primary, outline, rounded, wFull, insetRing, focusVisible
+- **Icon**: md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit (container-mode props default off; appearance not applied until set)
 - **Typography** (Text, Title, etc.): md, inherit (not primary!), outline
 
 ## Boolean Props Must Not Leak to DOM
