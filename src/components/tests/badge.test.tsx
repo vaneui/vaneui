@@ -134,8 +134,8 @@ describe('Badge Component Tests', () => {
     it('should demonstrate ring functionality works for badges when ring prop is enabled', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Badge id="badge-default-ring" ring primary>Default with Ring</Badge>
-          <Badge id="badge-secondary-ring" ring secondary>Secondary with Ring</Badge>
+          <Badge id="badge-default-ring" insetRing primary>Default with Ring</Badge>
+          <Badge id="badge-secondary-ring" insetRing secondary>Secondary with Ring</Badge>
         </ThemeProvider>
       );
 

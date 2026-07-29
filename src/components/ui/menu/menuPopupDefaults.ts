@@ -10,7 +10,7 @@ export const menuPopupDefaults: Partial<PopupProps> = {
   rounded: true,
   shadow: true,
   border: true,
-  noRing: true,
+  noInsetRing: true,
   primary: true,
   outline: true,
   wFit: true,

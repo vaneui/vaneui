@@ -38,7 +38,6 @@ export * from './alignSelfProps';
 export * from './justifyProps';
 export * from './justifySelfProps';
 export * from './flexDirectionProps';
-export * from './reverseProps';
 export * from './wrapProps';
 export * from './flexProps';
 export * from './shrinkProps';

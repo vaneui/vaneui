@@ -16,12 +16,7 @@ export class DirectionClassMapper extends BaseClassMapper implements Record<Flex
 
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const direction = extractedKeys?.reverse === 'reverse'
-      ? (extractedKeys?.flexDirection === "column" ? "columnReverse"
-         : extractedKeys?.flexDirection === "row" ? "rowReverse"
-         : extractedKeys?.flexDirection)
-      : extractedKeys?.flexDirection;
-
+    const direction = extractedKeys?.flexDirection;
     return direction ? [this[direction]] : [];
   }
 }

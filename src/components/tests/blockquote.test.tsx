@@ -132,7 +132,7 @@ describe('Blockquote Component', () => {
     });
 
     it('should allow mono font override', () => {
-      const { container } = render(<Blockquote mono>Quote</Blockquote>);
+      const { container } = render(<Blockquote fontMono>Quote</Blockquote>);
       const el = container.querySelector('blockquote');
 
       expect(el).toHaveClass('font-mono');
@@ -140,8 +140,8 @@ describe('Blockquote Component', () => {
     });
 
     it('should apply font weight variants', () => {
-      const { container: boldContainer } = render(<Blockquote bold>Quote</Blockquote>);
-      const { container: semiboldContainer } = render(<Blockquote semibold>Quote</Blockquote>);
+      const { container: boldContainer } = render(<Blockquote fontBold>Quote</Blockquote>);
+      const { container: semiboldContainer } = render(<Blockquote fontSemibold>Quote</Blockquote>);
 
       expect(boldContainer.querySelector('blockquote')).toHaveClass('font-bold');
       expect(semiboldContainer.querySelector('blockquote')).toHaveClass('font-semibold');
@@ -159,7 +159,7 @@ describe('Blockquote Component', () => {
 
     it('should handle multiple props correctly', () => {
       const { container } = render(
-        <Blockquote lg brand filled bold className="custom">
+        <Blockquote lg brand filled fontBold className="custom">
           Quote
         </Blockquote>
       );

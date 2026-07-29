@@ -261,7 +261,7 @@ describe('Input Component Tests', () => {
     it('should handle ring disabled state', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Input noRing primary placeholder="No ring input" />
+          <Input noInsetRing primary placeholder="No ring input" />
         </ThemeProvider>
       );
 

@@ -207,7 +207,7 @@ describe('Icon Component Tests', () => {
       );
       const { container: explicit } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Icon noPadding noBorder noRing><TestSvg /></Icon>
+          <Icon noPadding noBorder noInsetRing><TestSvg /></Icon>
         </ThemeProvider>
       );
 
@@ -269,7 +269,7 @@ describe('Icon Component Tests', () => {
     it('emits ring classes when ring prop is set with an appearance', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Icon padding pill primary ring><TestSvg /></Icon>
+          <Icon padding pill primary insetRing><TestSvg /></Icon>
         </ThemeProvider>
       );
       const icon = container.querySelector('span') as HTMLElement;
@@ -283,7 +283,7 @@ describe('Icon Component Tests', () => {
     it('strips padding/pill/sharp/rounded/border/ring/noPadding/noBorder/noRing', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Icon padding pill primary filled border ring><TestSvg /></Icon>
+          <Icon padding pill primary filled border insetRing><TestSvg /></Icon>
         </ThemeProvider>
       );
       const icon = container.querySelector('span') as HTMLElement;

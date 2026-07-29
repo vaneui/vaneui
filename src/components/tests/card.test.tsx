@@ -341,13 +341,13 @@ describe('Card Component Tests', () => {
     it('should support filled and outline variants for text, background, border, and ring', () => {
       const {container: outlineContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Card primary outline border ring>Outline card</Card>
+          <Card primary outline border insetRing>Outline card</Card>
         </ThemeProvider>
       );
 
       const {container: filledContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Card primary filled border ring>Filled card</Card>
+          <Card primary filled border insetRing>Filled card</Card>
         </ThemeProvider>
       );
 
@@ -460,7 +460,7 @@ describe('Card Component Tests', () => {
       it('should apply ring classes when ring prop is true', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card ring>Card with Ring</Card>
+            <Card insetRing>Card with Ring</Card>
           </ThemeProvider>
         );
 
@@ -474,7 +474,7 @@ describe('Card Component Tests', () => {
       it('should not apply ring classes when noRing prop is true', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card noRing>Card without Ring</Card>
+            <Card noInsetRing>Card without Ring</Card>
           </ThemeProvider>
         );
 
@@ -503,9 +503,9 @@ describe('Card Component Tests', () => {
       it('should apply ring classes for different appearance variants when ring is enabled', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card ring primary className="ring-primary">Primary Card with Ring</Card>
-            <Card ring info className="ring-info">Info Card with Ring</Card>
-            <Card ring warning className="ring-warning">Warning Card with Ring</Card>
+            <Card insetRing primary className="ring-primary">Primary Card with Ring</Card>
+            <Card insetRing info className="ring-info">Info Card with Ring</Card>
+            <Card insetRing warning className="ring-warning">Warning Card with Ring</Card>
           </ThemeProvider>
         );
 
@@ -526,7 +526,7 @@ describe('Card Component Tests', () => {
       it('should apply both border and ring classes when both props are true', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card border ring primary>Card with Border and Ring</Card>
+            <Card border insetRing primary>Card with Border and Ring</Card>
           </ThemeProvider>
         );
 
@@ -540,7 +540,7 @@ describe('Card Component Tests', () => {
       it('should not apply any border or ring classes when both noBorder and noRing are true', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card noBorder noRing>Card without Border or Ring</Card>
+            <Card noBorder noInsetRing>Card without Border or Ring</Card>
           </ThemeProvider>
         );
 
@@ -556,7 +556,7 @@ describe('Card Component Tests', () => {
       it('should work with different sizes and padding combinations', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card border ring lg padding className="size-test">Large Card with Border, Ring, and Padding</Card>
+            <Card border insetRing lg padding className="size-test">Large Card with Border, Ring, and Padding</Card>
           </ThemeProvider>
         );
 
@@ -572,7 +572,7 @@ describe('Card Component Tests', () => {
       it('should work with responsive breakpoints', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card border ring mobileCol className="responsive-test">Responsive Card</Card>
+            <Card border insetRing mobileCol className="responsive-test">Responsive Card</Card>
           </ThemeProvider>
         );
 

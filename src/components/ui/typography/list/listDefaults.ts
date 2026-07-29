@@ -3,12 +3,12 @@ import type { ListProps } from "./ListProps";
 /** Default props for List component */
 export const listDefaults: Partial<ListProps> = {
   md: true,
-  sans: true,
-  normal: true,
+  fontSans: true,
+  fontNormal: true,
   padding: true,
   gap: true,
-  disc: true,
-  outside: true,
+  listDisc: true,
+  listOutside: true,
   outline: true,
   inherit: true,
   // List is a content-bearing typography component, so it stays transparent by

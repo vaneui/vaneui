@@ -13,7 +13,7 @@ export const iconButtonDefaults: Partial<IconButtonProps> = {
   rounded: true,
   noBorder: true,
   padding: true,
-  ring: true,
+  insetRing: true,
   focusVisible: true,
   cursorPointer: true,
   transition: true,

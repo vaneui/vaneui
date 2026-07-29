@@ -43,11 +43,11 @@ describe('Simple Nested ThemeProvider Test', () => {
         <Title className="no-provider">No Provider</Title>
         
         {/* Outer provider with extra classes */}
-        <ThemeProvider extraClasses={{ title: { primary: 'outer-class' } }} themeDefaults={{ title: {bold: true } }}>
+        <ThemeProvider extraClasses={{ title: { primary: 'outer-class' } }} themeDefaults={{ title: {fontBold: true } }}>
           <Title primary className="outer-title">Outer Title</Title>
           
           {/* Inner provider without extra classes */}
-          <ThemeProvider themeDefaults={{ title: {semibold: true } }}>
+          <ThemeProvider themeDefaults={{ title: {fontSemibold: true } }}>
             <Title primary className="inner-title">Inner Title</Title>
           </ThemeProvider>
         </ThemeProvider>

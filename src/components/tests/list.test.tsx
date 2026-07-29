@@ -107,7 +107,7 @@ describe('List and ListItem Components Tests', () => {
     it('should render with decimal list style using ol tag', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <List decimal>
+          <List listDecimal>
             <ListItem>Item 1</ListItem>
             <ListItem>Item 2</ListItem>
           </List>
@@ -147,7 +147,7 @@ describe('List and ListItem Components Tests', () => {
     it('should render with explicit disc list style using ul tag', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <List disc>
+          <List listDisc>
             <ListItem>Item 1</ListItem>
             <ListItem>Item 2</ListItem>
           </List>
@@ -169,7 +169,7 @@ describe('List and ListItem Components Tests', () => {
         <ThemeProvider theme={defaultTheme}>
           <List primary>
             <ListItem>Disc parent item</ListItem>
-            <List decimal secondary>
+            <List listDecimal secondary>
               <ListItem>Decimal nested item</ListItem>
             </List>
           </List>
@@ -205,7 +205,7 @@ describe('List and ListItem Components Tests', () => {
     it('emits list-inside when inside prop is set', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <List inside>
+          <List listInside>
             <ListItem>a</ListItem>
           </List>
         </ThemeProvider>
@@ -218,7 +218,7 @@ describe('List and ListItem Components Tests', () => {
     it('inside wins over outside when both are set (first-key-wins-per-category)', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <List inside outside>
+          <List listInside listOutside>
             <ListItem>a</ListItem>
           </List>
         </ThemeProvider>
@@ -529,13 +529,13 @@ describe('List and ListItem Components Tests', () => {
     it('emits list-outside when outside is resolved', async () => {
       const { ListPositionClassMapper } = await import('../ui/theme/list/listPositionClassMapper');
       const mapper = new ListPositionClassMapper();
-      expect(mapper.getClasses({ listPosition: 'outside' } as never)).toEqual(['list-outside']);
+      expect(mapper.getClasses({ listPosition: 'listOutside' } as never)).toEqual(['list-outside']);
     });
 
     it('emits list-inside when inside is resolved', async () => {
       const { ListPositionClassMapper } = await import('../ui/theme/list/listPositionClassMapper');
       const mapper = new ListPositionClassMapper();
-      expect(mapper.getClasses({ listPosition: 'inside' } as never)).toEqual(['list-inside']);
+      expect(mapper.getClasses({ listPosition: 'listInside' } as never)).toEqual(['list-inside']);
     });
 
     it('returns empty array when listPosition is undefined', async () => {
@@ -547,10 +547,10 @@ describe('List and ListItem Components Tests', () => {
 
   describe('Extended list markers', () => {
     const markerCases: Array<[keyof ListProps, string, 'ul' | 'ol']> = [
-      ['circle', 'list-[circle]', 'ul'],
-      ['square', 'list-[square]', 'ul'],
-      ['lowerAlpha', 'list-[lower-alpha]', 'ol'],
-      ['lowerRoman', 'list-[lower-roman]', 'ol'],
+      ['listCircle', 'list-[circle]', 'ul'],
+      ['listSquare', 'list-[square]', 'ul'],
+      ['listLowerAlpha', 'list-[lower-alpha]', 'ol'],
+      ['listLowerRoman', 'list-[lower-roman]', 'ol'],
     ];
 
     it.each(markerCases)('emits the right class and tag for %s', (prop, expected, tag) => {
@@ -601,10 +601,10 @@ describe('List and ListItem Components Tests', () => {
     it('nested ol structure carries the ordered-family progression selectors', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <List decimal>
+          <List listDecimal>
             <ListItem>L0</ListItem>
             <ListItem>
-              <List decimal>
+              <List listDecimal>
                 <ListItem>L1</ListItem>
               </List>
             </ListItem>

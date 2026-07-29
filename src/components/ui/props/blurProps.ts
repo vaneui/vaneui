@@ -3,8 +3,8 @@
  */
 
 export interface BlurProps {
-  /** Enable backdrop blur effect */
-  blur?: boolean;
+  /** Enable backdrop blur effect — emits backdrop-blur */
+  backdropBlur?: boolean;
   /** Disable backdrop blur effect */
-  noBlur?: boolean;
+  noBackdropBlur?: boolean;
 }

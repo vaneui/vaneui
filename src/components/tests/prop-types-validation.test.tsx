@@ -50,7 +50,7 @@ describe('Component Prop Type Validation', () => {
           flexWrap // wrap
           rounded // shape - now valid for Row
           border // border - now valid for Row
-          ring // ring - now valid for Row
+          insetRing // ring - now valid for Row
         >
           Content
         </Row>

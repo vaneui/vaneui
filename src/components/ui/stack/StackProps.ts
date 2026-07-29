@@ -13,7 +13,6 @@ import type {
   ShrinkProps,
   GapProps,
   FlexDirectionProps,
-  ReverseProps,
   BreakpointProps,
   PaddingProps,
   MarginProps,
@@ -45,7 +44,6 @@ export type StackProps = BaseProps &
   ShrinkProps &
   GapProps &
   FlexDirectionProps &
-  ReverseProps &
   BreakpointProps &
   PaddingProps &
   MarginProps &

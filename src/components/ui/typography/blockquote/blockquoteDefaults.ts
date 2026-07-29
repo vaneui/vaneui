@@ -5,7 +5,7 @@ import type { BorderProps } from "../../props";
 export const blockquoteDefaults: Partial<TypographyProps & BorderProps> = {
   md: true,
   wFull: true,
-  sans: true,
+  fontSans: true,
   // logical alignment: start = left in LTR, right in RTL — matches the accent border, which already
   // flips to the inline-start side under dir="rtl". (Physical textLeft would contradict it.)
   textStart: true,

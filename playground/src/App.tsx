@@ -136,33 +136,33 @@ function App() {
             </Text>
             <Row itemsEnd flexWrap>
               <Col>
-                <Text sm bold>xs</Text>
+                <Text sm fontBold>xs</Text>
                 <Icon xs><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>md</Text>
+                <Text sm fontBold>md</Text>
                 <Icon><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>xl</Text>
+                <Text sm fontBold>xl</Text>
                 <Icon xl><TestSvg /></Icon>
               </Col>
             </Row>
             <Row flexWrap>
               <Col>
-                <Text sm bold>brand</Text>
+                <Text sm fontBold>brand</Text>
                 <Icon brand><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>success</Text>
+                <Text sm fontBold>success</Text>
                 <Icon success><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>danger</Text>
+                <Text sm fontBold>danger</Text>
                 <Icon danger><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>warning</Text>
+                <Text sm fontBold>warning</Text>
                 <Icon warning><TestSvg /></Icon>
               </Col>
             </Row>
@@ -181,28 +181,28 @@ function App() {
             </Text>
             <Row flexWrap>
               <Col>
-                <Text sm bold>filled rounded</Text>
+                <Text sm fontBold>filled rounded</Text>
                 <Icon padding primary filled><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>filled pill</Text>
+                <Text sm fontBold>filled pill</Text>
                 <Icon padding pill success filled><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>filled sharp</Text>
+                <Text sm fontBold>filled sharp</Text>
                 <Icon padding sharp danger filled><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>border pill</Text>
+                <Text sm fontBold>border pill</Text>
                 <Icon padding pill warning border><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>ring pill</Text>
-                <Icon padding pill primary ring><TestSvg /></Icon>
+                <Text sm fontBold>ring pill</Text>
+                <Icon padding pill primary insetRing><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>ring + filled</Text>
-                <Icon padding pill primary filled ring><TestSvg /></Icon>
+                <Text sm fontBold>ring + filled</Text>
+                <Icon padding pill primary filled insetRing><TestSvg /></Icon>
               </Col>
             </Row>
           </Card>
@@ -216,23 +216,23 @@ function App() {
             </Text>
             <Row flexWrap itemsEnd>
               <Col>
-                <Text sm bold>xs</Text>
+                <Text sm fontBold>xs</Text>
                 <Icon xs padding pill primary filled><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>sm</Text>
+                <Text sm fontBold>sm</Text>
                 <Icon sm padding pill primary filled><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>md</Text>
+                <Text sm fontBold>md</Text>
                 <Icon padding pill primary filled><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>lg</Text>
+                <Text sm fontBold>lg</Text>
                 <Icon lg padding pill primary filled><TestSvg /></Icon>
               </Col>
               <Col>
-                <Text sm bold>xl</Text>
+                <Text sm fontBold>xl</Text>
                 <Icon xl padding pill primary filled><TestSvg /></Icon>
               </Col>
             </Row>

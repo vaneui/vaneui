@@ -873,8 +873,8 @@ export function TestHarness() {
           {/* Checkbox with `ring` enabled — used to verify the override sets
               --ring-color (not just --border-color). Default Checkbox has
               `noRing: true`, so ring color stays dormant unless opted in. */}
-          <Checkbox ring aria-label="checkbox with-ring-unchecked" data-testid="checkbox-with-ring-unchecked" />
-          <Checkbox outline ring defaultChecked aria-label="checkbox with-ring-checked-outline" data-testid="checkbox-with-ring-checked-outline" />
+          <Checkbox insetRing aria-label="checkbox with-ring-unchecked" data-testid="checkbox-with-ring-unchecked" />
+          <Checkbox outline insetRing defaultChecked aria-label="checkbox with-ring-checked-outline" data-testid="checkbox-with-ring-checked-outline" />
         </section>
 
         {/* ── Overlay: visual appearance and computed styles ── */}
@@ -886,7 +886,7 @@ export function TestHarness() {
           </Overlay>
 
           {/* Overlay with blur */}
-          <Overlay open noAnimation portal={false} pointerEventsNone blur data-testid="overlay-blur">
+          <Overlay open noAnimation portal={false} pointerEventsNone backdropBlur data-testid="overlay-blur">
             <Card data-testid="overlay-blur-content">Blurred</Card>
           </Overlay>
 
@@ -1015,7 +1015,7 @@ export function TestHarness() {
           </Icon>
 
           {/* Ring — Icon with ring + appearance (ring should produce a box-shadow) */}
-          <Icon md padding pill primary ring data-testid="icon-with-ring">
+          <Icon md padding pill primary insetRing data-testid="icon-with-ring">
             <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2L2 22h20L12 2z" fill="currentColor" /></svg>
           </Icon>
 

@@ -6,7 +6,7 @@ export const checkboxInputDefaults: Partial<CheckboxProps> = {
   primary: true,
   border: true,
   rounded: true,
-  noRing: true,
+  noInsetRing: true,
   noShadow: true,
   filled: true,
   focusVisible: true,

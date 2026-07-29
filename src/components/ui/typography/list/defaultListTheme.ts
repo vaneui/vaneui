@@ -47,7 +47,7 @@ export const defaultListTheme: ComponentTheme<ListProps, ListTheme> = new Compon
   LIST_CATEGORIES,
   (props: ListProps) => {
     const componentProps = props as unknown as Record<string, boolean>;
-    const isOrdered = componentProps?.decimal || componentProps?.lowerAlpha || componentProps?.lowerRoman;
+    const isOrdered = componentProps?.listDecimal || componentProps?.listLowerAlpha || componentProps?.listLowerRoman;
     return isOrdered ? "ol" : "ul";
   },
   'ui'

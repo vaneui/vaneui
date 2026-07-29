@@ -4,7 +4,7 @@ import type { TypographyProps } from "../common";
 export const textDefaults: Partial<TypographyProps> = {
   md: true,
   wFit: true,
-  sans: true,
+  fontSans: true,
   textLeft: true,
   outline: true,
   inherit: true,

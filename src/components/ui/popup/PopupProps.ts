@@ -15,7 +15,6 @@ import type {
   ShrinkProps,
   GapProps,
   FlexDirectionProps,
-  ReverseProps,
   AppearanceProps,
   ShadowProps,
   ShapeProps,
@@ -59,7 +58,6 @@ export type PopupProps = BaseProps &
   ShrinkProps &
   GapProps &
   FlexDirectionProps &
-  ReverseProps &
   AppearanceProps &
   ShadowProps &
   ShapeProps &

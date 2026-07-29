@@ -4,7 +4,7 @@ import { ModeKey } from "../../props";
 import { ModeKeys } from "../../props";
 
 export class RingClassMapper extends BaseClassMapper implements Record<ModeKey, string> {
-  /** Base ring styling - ring with inset positioning */
+  /** Base ring styling - always-on inset ring */
   base: string = "ring-[length:var(--rw)] ring-inset";
   /** Ring styling on hover state */
   hover: string = "";
@@ -16,7 +16,7 @@ export class RingClassMapper extends BaseClassMapper implements Record<ModeKey, 
   focusVisible: string = "";
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    return extractedKeys?.ring === 'ring'
+    return extractedKeys?.ring === 'insetRing'
       ? ModeKeys.mode.map(mode => this[mode] || '').filter(Boolean)
       : [];
   }

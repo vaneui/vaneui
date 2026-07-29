@@ -84,7 +84,6 @@ export type {
   ItemsProps,
   JustifyProps,
   FlexDirectionProps,
-  ReverseProps,
   WrapProps,
   DisplayProps,
   PositionProps,

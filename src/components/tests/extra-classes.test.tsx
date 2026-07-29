@@ -110,15 +110,15 @@ describe('Extra Classes Functionality Tests', () => {
     it('should apply extra classes based on list style', () => {
       const extraClasses = {
         list: {
-          disc: 'pl-6 space-y-2',
-          decimal: 'pl-8 space-y-4'
+          listDisc: 'pl-6 space-y-2',
+          listDecimal: 'pl-8 space-y-4'
         }
       };
 
       // Test disc list
       const { container: discContainer } = render(
         <ThemeProvider theme={defaultTheme} extraClasses={extraClasses}>
-          <List disc>
+          <List listDisc>
             <ListItem>Item 1</ListItem>
           </List>
         </ThemeProvider>
@@ -131,7 +131,7 @@ describe('Extra Classes Functionality Tests', () => {
       // Test decimal list
       const { container: decimalContainer } = render(
         <ThemeProvider theme={defaultTheme} extraClasses={extraClasses}>
-          <List decimal>
+          <List listDecimal>
             <ListItem>Item 1</ListItem>
           </List>
         </ThemeProvider>

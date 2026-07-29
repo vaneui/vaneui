@@ -11,7 +11,7 @@ export const sectionDefaults: Partial<SectionProps> = {
   gap: true,
   padding: true,
   noBorder: true,
-  noRing: true,
+  noInsetRing: true,
   noShadow: true,
   sharp: true,
   responsive: true,

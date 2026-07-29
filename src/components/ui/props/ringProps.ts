@@ -1,10 +1,11 @@
 /**
- * Ring props for controlling focus rings
+ * Ring props for the always-on inset ring (emits ring-inset). Not the focus
+ * indicator — that is focusVisible.
  */
 
 export interface RingProps {
-  /** Enable focus ring */
-  ring?: boolean;
-  /** Disable focus ring */
-  noRing?: boolean;
+  /** Enable the inset ring — emits ring-inset */
+  insetRing?: boolean;
+  /** Disable the inset ring */
+  noInsetRing?: boolean;
 }

@@ -52,7 +52,7 @@ describe('getClasses / getComponentConfig agreement', () => {
     // Text/Label resolve appearance=inherit by default — the path where the
     // two entry points historically diverged (expansion in config only)
     expectAgreement(defaultTheme.text, {});
-    expectAgreement(defaultTheme.text, { inherit: true, bold: true });
+    expectAgreement(defaultTheme.text, { inherit: true, fontBold: true });
     expectAgreement(defaultTheme.text, { primary: true });
     expectAgreement(defaultTheme.label, {});
     expectAgreement(defaultTheme.link, {});

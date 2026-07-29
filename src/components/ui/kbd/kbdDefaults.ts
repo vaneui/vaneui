@@ -3,8 +3,8 @@ import type { KbdProps } from "./KbdProps";
 /** Default props for Kbd component */
 export const kbdDefaults: Partial<KbdProps> = {
   md: true,
-  mono: true,
-  semibold: true,
+  fontMono: true,
+  fontSemibold: true,
   rounded: true,
   inline: true,
   padding: true,

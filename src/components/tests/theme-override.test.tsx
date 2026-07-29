@@ -219,7 +219,7 @@ describe('Theme Override Tests', () => {
         <ThemeProvider 
           themeOverride={complexOverrideFunc}
           themeDefaults={{
-            button: { main: { filled: true, primary: true, semibold: true, xl: true } },
+            button: { main: { filled: true, primary: true, fontSemibold: true, xl: true } },
             badge: { outline: true, pill: true, sm: true }
           }}
         >
@@ -299,7 +299,7 @@ describe('Theme Override Tests', () => {
       const { container } = render(
         <ThemeProvider 
           themeOverride={persistentOverride}
-          themeDefaults={{ button: { main: { medium: true } } }}
+          themeDefaults={{ button: { main: { fontMedium: true } } }}
         >
           <div>
             <Button className="instance-1">Button 1</Button>
@@ -980,7 +980,7 @@ describe('Theme Override Tests', () => {
 
         const { container } = render(
           <ThemeProvider themeOverride={overrideFunc}>
-            <Button ring>Ring Override</Button>
+            <Button insetRing>Ring Override</Button>
           </ThemeProvider>
         );
 
@@ -997,7 +997,7 @@ describe('Theme Override Tests', () => {
 
         const { container } = render(
           <ThemeProvider themeOverride={overrideFunc}>
-            <Badge ring>Ringed Badge</Badge>
+            <Badge insetRing>Ringed Badge</Badge>
           </ThemeProvider>
         );
 
@@ -1019,7 +1019,7 @@ describe('Theme Override Tests', () => {
 
         const { container } = render(
           <ThemeProvider themeOverride={overrideFunc}>
-            <Button border ring>Fully Styled</Button>
+            <Button border insetRing>Fully Styled</Button>
           </ThemeProvider>
         );
 

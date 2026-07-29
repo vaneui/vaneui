@@ -5,7 +5,7 @@ export const linkDefaults: Partial<LinkProps> = {
   md: true,
   wFit: true,
   underline: true,
-  sans: true,
+  fontSans: true,
   link: true,
   cursorPointer: true,
   inheritSize: true,

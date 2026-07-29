@@ -7,12 +7,12 @@ import type { CategoryProps, BlurKey } from "../../props";
  */
 export class BlurClassMapper extends BaseClassMapper implements Record<BlurKey, string> {
   /** Backdrop blur effect using CSS variable */
-  blur: string = "backdrop-blur-(--overlay-blur)";
+  backdropBlur: string = "backdrop-blur-(--overlay-blur)";
   /** No blur effect */
-  noBlur: string = "";
+  noBackdropBlur: string = "";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const blur = extractedKeys?.blur;
-    return blur === 'blur' ? [this.blur] : [];
+    return blur === 'backdropBlur' ? [this.backdropBlur] : [];
   }
 }

@@ -6,6 +6,6 @@ export const thDefaults: Partial<ThProps> = {
   outline: true,
   borderB: true,
   padding: true,
-  semibold: true,
+  fontSemibold: true,
   textLeft: true,
 };

@@ -197,7 +197,7 @@ describe('Kbd Component', () => {
     });
 
     it('should allow sans font override', () => {
-      const { container } = render(<Kbd sans>Key</Kbd>);
+      const { container } = render(<Kbd fontSans>Key</Kbd>);
       const el = container.querySelector('kbd');
 
       expect(el).toHaveClass('font-sans');
@@ -216,7 +216,7 @@ describe('Kbd Component', () => {
 
     it('should handle multiple props correctly', () => {
       const { container } = render(
-        <Kbd xs secondary filled pill bold className="custom">
+        <Kbd xs secondary filled pill fontBold className="custom">
           Key
         </Kbd>
       );

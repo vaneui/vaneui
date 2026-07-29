@@ -42,7 +42,7 @@ export class SimpleConsumerClassMapper extends BaseClassMapper {
       }
     }
 
-    if (this.category === 'ring' && (extractedKeys.ring === 'noRing' || extractedKeys.ring === undefined)) {
+    if (this.category === 'ring' && (extractedKeys.ring === 'noInsetRing' || extractedKeys.ring === undefined)) {
       return [];
     }
 

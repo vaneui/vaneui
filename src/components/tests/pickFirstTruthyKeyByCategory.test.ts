@@ -84,31 +84,31 @@ describe('pickFirstTruthyKeyByCategory', () => {
   });
 
   describe('Ring Category Tests', () => {
-    it('should handle ring vs noRing priority', () => {
-      const props = { ring: true, noRing: false };
+    it('should handle insetRing vs noInsetRing priority', () => {
+      const props = { insetRing: true, noInsetRing: false };
       const defaults = {};
-      
+
       const result = pickFirstTruthyKeyByCategory(props, defaults, 'ring');
-      
-      expect(result).toBe('ring');
+
+      expect(result).toBe('insetRing');
     });
 
-    it('should handle checkbox defaults (noRing: true)', () => {
+    it('should handle checkbox defaults (noInsetRing: true)', () => {
       const props = {}; // No explicit ring props
-      const defaults = { noRing: true }; // Checkbox defaults
-      
+      const defaults = { noInsetRing: true }; // Checkbox defaults
+
       const result = pickFirstTruthyKeyByCategory(props, defaults, 'ring');
-      
-      expect(result).toBe('noRing');
+
+      expect(result).toBe('noInsetRing');
     });
 
-    it('should allow overriding noRing default with explicit ring', () => {
-      const props = { ring: true }; // Explicit ring prop
-      const defaults = { noRing: true }; // Checkbox defaults
-      
+    it('should allow overriding noInsetRing default with explicit insetRing', () => {
+      const props = { insetRing: true }; // Explicit ring prop
+      const defaults = { noInsetRing: true }; // Checkbox defaults
+
       const result = pickFirstTruthyKeyByCategory(props, defaults, 'ring');
-      
-      expect(result).toBe('ring'); // Explicit prop wins
+
+      expect(result).toBe('insetRing'); // Explicit prop wins
     });
   });
 

@@ -99,10 +99,10 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "name": "Blur",
     "description": "Blur props for controlling backdrop blur effect",
     "props": {
-      "blur": {
-        "description": "Enable backdrop blur effect"
+      "backdropBlur": {
+        "description": "Enable backdrop blur effect — emits backdrop-blur"
       },
-      "noBlur": {
+      "noBackdropBlur": {
         "description": "Disable backdrop blur effect"
       }
     }
@@ -273,17 +273,17 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "name": "Font Family",
     "description": "Font family props for controlling text font",
     "props": {
-      "sans": {
-        "description": "Sans-serif font family (default)"
+      "fontSans": {
+        "description": "Sans-serif font family (default) — emits font-sans"
       },
-      "serif": {
-        "description": "Serif font family"
+      "fontSerif": {
+        "description": "Serif font family — emits font-serif"
       },
-      "mono": {
-        "description": "Monospace font family"
+      "fontMono": {
+        "description": "Monospace font family — emits font-mono"
       },
-      "heading": {
-        "description": "Heading font family (defaults to sans, independently customizable via --font-heading CSS variable)"
+      "fontHeading": {
+        "description": "Heading font family (defaults to sans, customizable via --font-heading) — emits font-heading"
       }
     }
   },
@@ -303,32 +303,32 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "name": "Font Weight",
     "description": "Font weight props for controlling text weight",
     "props": {
-      "thin": {
-        "description": "Thin font weight (100)"
+      "fontThin": {
+        "description": "Thin font weight (100) — emits font-thin"
       },
-      "extralight": {
-        "description": "Extra light font weight (200)"
+      "fontExtralight": {
+        "description": "Extra light font weight (200) — emits font-extralight"
       },
-      "light": {
-        "description": "Light font weight (300)"
+      "fontLight": {
+        "description": "Light font weight (300) — emits font-light"
       },
-      "normal": {
-        "description": "Normal font weight (400)"
+      "fontNormal": {
+        "description": "Normal font weight (400) — emits font-normal"
       },
-      "medium": {
-        "description": "Medium font weight (500)"
+      "fontMedium": {
+        "description": "Medium font weight (500) — emits font-medium"
       },
-      "semibold": {
-        "description": "Semibold font weight (600)"
+      "fontSemibold": {
+        "description": "Semibold font weight (600) — emits font-semibold"
       },
-      "bold": {
-        "description": "Bold font weight (700)"
+      "fontBold": {
+        "description": "Bold font weight (700) — emits font-bold"
       },
-      "extrabold": {
-        "description": "Extra bold font weight (800)"
+      "fontExtrabold": {
+        "description": "Extra bold font weight (800) — emits font-extrabold"
       },
-      "black": {
-        "description": "Black font weight (900)"
+      "fontBlack": {
+        "description": "Black font weight (900) — emits font-black"
       }
     }
   },
@@ -523,37 +523,37 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
   },
   "listPosition": {
     "name": "List Position",
-    "description": "List position props for controlling list-style-position.\n`inside` places markers inline with content (compact, wraps with text).\n`outside` hangs markers outside the content box (traditional, aligns\nmulti-line text under the first character). Mutually exclusive.",
+    "description": "List position props for controlling list-style-position.\n`listInside` places markers inline with content (compact, wraps with text).\n`listOutside` hangs markers outside the content box (traditional, aligns\nmulti-line text under the first character). Mutually exclusive.",
     "props": {
-      "inside": {
-        "description": "Place list markers inside the content area (list-style-position: inside)"
+      "listInside": {
+        "description": "Place list markers inside the content area — emits list-inside"
       },
-      "outside": {
-        "description": "Hang list markers outside the content area (list-style-position: outside)"
+      "listOutside": {
+        "description": "Hang list markers outside the content area — emits list-outside"
       }
     }
   },
   "listStyle": {
     "name": "List Style",
-    "description": "List style props for choosing the marker type on <List>.\nAll six are mutually exclusive. When more than one is set to true,\ntuple order in ComponentKeys.listStyle determines which wins\n(disc → decimal → circle → square → lowerAlpha → lowerRoman).",
+    "description": "List style props for choosing the marker type on <List>.\nAll six are mutually exclusive. When more than one is set to true,\ntuple order in ComponentKeys.listStyle determines which wins\n(listDisc → listDecimal → listCircle → listSquare → listLowerAlpha → listLowerRoman).",
     "props": {
-      "disc": {
-        "description": "Filled bullet — default for unordered lists"
+      "listDisc": {
+        "description": "Filled bullet — default for unordered lists — emits list-disc"
       },
-      "decimal": {
-        "description": "Arabic numerals — default for ordered lists"
+      "listDecimal": {
+        "description": "Arabic numerals — default for ordered lists — emits list-decimal"
       },
-      "circle": {
-        "description": "Hollow circle — typically 2nd-depth unordered marker"
+      "listCircle": {
+        "description": "Hollow circle — typically 2nd-depth unordered marker — emits list-[circle]"
       },
-      "square": {
-        "description": "Filled square — typically 3rd-depth unordered marker"
+      "listSquare": {
+        "description": "Filled square — typically 3rd-depth unordered marker — emits list-[square]"
       },
-      "lowerAlpha": {
-        "description": "Lowercase letters a, b, c — typically 2nd-depth ordered marker"
+      "listLowerAlpha": {
+        "description": "Lowercase letters a, b, c — typically 2nd-depth ordered marker — emits list-[lower-alpha]"
       },
-      "lowerRoman": {
-        "description": "Lowercase roman i, ii, iii — typically 3rd-depth ordered marker"
+      "listLowerRoman": {
+        "description": "Lowercase roman i, ii, iii — typically 3rd-depth ordered marker — emits list-[lower-roman]"
       }
     }
   },
@@ -785,24 +785,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
-  "reverse": {
-    "name": "Reverse",
-    "description": "Reverse props for reversing child order",
-    "props": {
-      "reverse": {
-        "description": "Reverse the order of children"
-      }
-    }
-  },
   "ring": {
     "name": "Ring",
-    "description": "Ring props for controlling focus rings",
+    "description": "Ring props for the always-on inset ring (emits ring-inset). Not the focus\nindicator — that is focusVisible.",
     "props": {
-      "ring": {
-        "description": "Enable focus ring"
+      "insetRing": {
+        "description": "Enable the inset ring — emits ring-inset"
       },
-      "noRing": {
-        "description": "Disable focus ring"
+      "noInsetRing": {
+        "description": "Disable the inset ring"
       }
     }
   },
@@ -907,7 +898,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
         "description": "Add strikethrough/line-through decoration across text"
       },
       "noUnderline": {
-        "description": "Remove text decoration (no underline, strikethrough, etc.)"
+        "description": "Remove ALL text-decoration — underline, line-through, and overline (text-decoration: none)"
       },
       "overline": {
         "description": "Add overline decoration above text"
@@ -1012,7 +1003,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
         "description": "Preserve line breaks, collapse spaces, wrap text"
       },
       "whitespaceBreakSpaces": {
-        "description": "Break words to prevent overflow"
+        "description": "Preserve whitespace incl. trailing spaces, wrap text (white-space: break-spaces)"
       }
     }
   },

@@ -635,7 +635,7 @@ describe('Title Components Tests', () => {
     it('Title should allow overriding font-heading with sans', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Title sans>Sans title</Title>
+          <Title fontSans>Sans title</Title>
         </ThemeProvider>
       );
       const title = container.querySelector('h3');
@@ -646,7 +646,7 @@ describe('Title Components Tests', () => {
     it('Title should allow overriding font-heading with serif', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Title serif>Serif title</Title>
+          <Title fontSerif>Serif title</Title>
         </ThemeProvider>
       );
       const title = container.querySelector('h3');
@@ -657,7 +657,7 @@ describe('Title Components Tests', () => {
     it('Title should allow overriding font-heading with mono', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Title mono>Mono title</Title>
+          <Title fontMono>Mono title</Title>
         </ThemeProvider>
       );
       const title = container.querySelector('h3');
@@ -667,7 +667,7 @@ describe('Title Components Tests', () => {
 
     it('should allow overriding heading font via ThemeProvider themeDefaults', () => {
       const { container } = render(
-        <ThemeProvider themeDefaults={{ title: { heading: false, serif: true } }}>
+        <ThemeProvider themeDefaults={{ title: { fontHeading: false, fontSerif: true } }}>
           <Title>Serif title via theme</Title>
         </ThemeProvider>
       );

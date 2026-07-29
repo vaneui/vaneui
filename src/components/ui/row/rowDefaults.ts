@@ -9,7 +9,7 @@ export const rowDefaults: Partial<RowProps> = {
   gap: true,
   noPadding: true,
   noBorder: true,
-  noRing: true,
+  noInsetRing: true,
   outline: true,
   sharp: true,
 };

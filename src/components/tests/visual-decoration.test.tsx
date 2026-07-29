@@ -163,7 +163,7 @@ describe('Visual Decoration Props', () => {
   describe('Ring Props', () => {
     it('should apply ring classes to Row component', () => {
       const { container } = renderWithTheme(
-        <Row ring>Content</Row>
+        <Row insetRing>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('ring');
@@ -171,7 +171,7 @@ describe('Visual Decoration Props', () => {
 
     it('should apply ring classes to Col component', () => {
       const { container } = renderWithTheme(
-        <Col ring>Content</Col>
+        <Col insetRing>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('ring');
@@ -179,7 +179,7 @@ describe('Visual Decoration Props', () => {
 
     it('should apply ring classes to Stack component', () => {
       const { container } = renderWithTheme(
-        <Stack ring>Content</Stack>
+        <Stack insetRing>Content</Stack>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('ring');
@@ -187,7 +187,7 @@ describe('Visual Decoration Props', () => {
 
     it('should not apply ring when noRing is true', () => {
       const { container } = renderWithTheme(
-        <Row noRing>Content</Row>
+        <Row noInsetRing>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).not.toContain('ring');
@@ -203,7 +203,7 @@ describe('Visual Decoration Props', () => {
 
     it('should apply ring appearance classes with variants', () => {
       const { container } = renderWithTheme(
-        <Row success ring>Content</Row>
+        <Row success insetRing>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain('ring');
@@ -219,7 +219,7 @@ describe('Visual Decoration Props', () => {
 
     it('should apply ring-(--ring-color) on Row without an appearance prop', () => {
       const { container } = renderWithTheme(
-        <Row ring>Content</Row>
+        <Row insetRing>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain(RING_WIDTH_CLASS);
@@ -228,7 +228,7 @@ describe('Visual Decoration Props', () => {
 
     it('should apply ring-(--ring-color) on Col without an appearance prop', () => {
       const { container } = renderWithTheme(
-        <Col ring>Content</Col>
+        <Col insetRing>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain(RING_WIDTH_CLASS);
@@ -237,7 +237,7 @@ describe('Visual Decoration Props', () => {
 
     it('should apply ring-(--ring-color) on Stack without an appearance prop', () => {
       const { container } = renderWithTheme(
-        <Stack ring>Content</Stack>
+        <Stack insetRing>Content</Stack>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).toContain(RING_WIDTH_CLASS);
@@ -246,7 +246,7 @@ describe('Visual Decoration Props', () => {
 
     it('should not apply ring-(--ring-color) when noRing is set with an appearance prop', () => {
       const { container } = renderWithTheme(
-        <Col primary noRing>Content</Col>
+        <Col primary noInsetRing>Content</Col>
       );
       const element = container.firstChild as HTMLElement;
       expect(element.className).not.toContain('ring-(--ring-color)');
@@ -254,7 +254,7 @@ describe('Visual Decoration Props', () => {
 
     it('should treat ring symmetrically with border — both emit color class without an appearance prop', () => {
       const { container } = renderWithTheme(
-        <Row ring border>Content</Row>
+        <Row insetRing border>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
       // Border
@@ -362,7 +362,7 @@ describe('Visual Decoration Props', () => {
         <Row 
           primary
           border 
-          ring 
+          insetRing
           rounded
         >
           Content
@@ -382,7 +382,7 @@ describe('Visual Decoration Props', () => {
         <Row 
           primary
           border 
-          ring
+          insetRing
           rounded
         >
           Content

@@ -131,13 +131,13 @@ describe('Text Component Tests', () => {
 
     it('should support font weight variants', () => {
       const weights = [
-        { prop: 'thin', class: 'font-thin' },
-        { prop: 'light', class: 'font-light' },
-        { prop: 'normal', class: 'font-normal' },
-        { prop: 'medium', class: 'font-medium' },
-        { prop: 'semibold', class: 'font-semibold' },
-        { prop: 'bold', class: 'font-bold' },
-        { prop: 'extrabold', class: 'font-extrabold' }
+        { prop: 'fontThin', class: 'font-thin' },
+        { prop: 'fontLight', class: 'font-light' },
+        { prop: 'fontNormal', class: 'font-normal' },
+        { prop: 'fontMedium', class: 'font-medium' },
+        { prop: 'fontSemibold', class: 'font-semibold' },
+        { prop: 'fontBold', class: 'font-bold' },
+        { prop: 'fontExtrabold', class: 'font-extrabold' }
       ] as const;
 
       weights.forEach(({prop, class: expectedClass}) => {
@@ -154,10 +154,10 @@ describe('Text Component Tests', () => {
 
     it('should support font family variants', () => {
       const families = [
-        { prop: 'sans', class: 'font-sans' },
-        { prop: 'serif', class: 'font-serif' },
-        { prop: 'mono', class: 'font-mono' },
-        { prop: 'heading', class: 'font-heading' }
+        { prop: 'fontSans', class: 'font-sans' },
+        { prop: 'fontSerif', class: 'font-serif' },
+        { prop: 'fontMono', class: 'font-mono' },
+        { prop: 'fontHeading', class: 'font-heading' }
       ] as const;
 
       families.forEach(({prop, class: expectedClass}) => {
@@ -392,7 +392,7 @@ describe('Text Component Tests', () => {
     it('should maintain theme classes when used as link', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text href="/styled-link" primary semibold lg>
+          <Text href="/styled-link" primary fontSemibold lg>
             Styled link text
           </Text>
         </ThemeProvider>
@@ -480,7 +480,7 @@ describe('Text Component Tests', () => {
     it('should work with truncate and other props', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text truncate primary lg bold>Truncated styled text</Text>
+          <Text truncate primary lg fontBold>Truncated styled text</Text>
         </ThemeProvider>
       );
 

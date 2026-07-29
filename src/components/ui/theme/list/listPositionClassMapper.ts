@@ -12,9 +12,9 @@ import { ListPositionKey } from "../../props";
  */
 export class ListPositionClassMapper extends BaseClassMapper implements Record<ListPositionKey, string> {
   /** Markers rendered inside the content area (wraps with text) */
-  inside: string = 'list-inside';
+  listInside: string = 'list-inside';
   /** Markers hanging outside the content area (traditional) */
-  outside: string = 'list-outside';
+  listOutside: string = 'list-outside';
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const p = extractedKeys?.listPosition;

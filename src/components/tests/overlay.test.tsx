@@ -114,7 +114,7 @@ describe('Overlay Component Tests', () => {
     it('should apply blur class when blur prop is true', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Overlay portal={false} blur>Content</Overlay>
+          <Overlay portal={false} backdropBlur>Content</Overlay>
         </ThemeProvider>
       );
 
@@ -257,7 +257,7 @@ describe('Overlay Component Tests', () => {
     it('should not leak boolean props to DOM', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Overlay portal={false} blur pointerEventsNone>
+          <Overlay portal={false} backdropBlur pointerEventsNone>
             Content
           </Overlay>
         </ThemeProvider>
@@ -265,7 +265,7 @@ describe('Overlay Component Tests', () => {
 
       const overlay = container.querySelector('.vane-overlay');
       // Boolean props should not appear as DOM attributes
-      expect(overlay).not.toHaveAttribute('blur');
+      expect(overlay).not.toHaveAttribute('backdropBlur');
       expect(overlay).not.toHaveAttribute('pointerEventsNone');
       expect(overlay).not.toHaveAttribute('portal');
     });

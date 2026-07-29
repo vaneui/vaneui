@@ -13,6 +13,6 @@ export interface WhitespaceProps {
   whitespacePreWrap?: boolean;
   /** Preserve line breaks, collapse spaces, wrap text */
   whitespacePreLine?: boolean;
-  /** Break words to prevent overflow */
+  /** Preserve whitespace incl. trailing spaces, wrap text (white-space: break-spaces) */
   whitespaceBreakSpaces?: boolean;
 }

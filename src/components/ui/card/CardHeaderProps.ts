@@ -13,7 +13,6 @@ import type {
   ShrinkProps,
   GapProps,
   FlexDirectionProps,
-  ReverseProps,
   AppearanceProps,
   BorderProps,
   ShadowProps,
@@ -41,7 +40,6 @@ export type CardHeaderProps = BaseProps &
   ShrinkProps &
   GapProps &
   FlexDirectionProps &
-  ReverseProps &
   AppearanceProps &
   BorderProps &
   ShadowProps &

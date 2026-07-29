@@ -284,7 +284,7 @@ describe('Modal Component Tests', () => {
           <Modal
             open={true}
             onClose={() => {}}
-            overlayProps={{ blur: true, className: 'custom-overlay' }}
+            overlayProps={{ backdropBlur: true, className: 'custom-overlay' }}
           >
             <div>Content</div>
           </Modal>

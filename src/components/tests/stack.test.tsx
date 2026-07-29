@@ -34,21 +34,10 @@ describe('Stack Component Tests', () => {
       expect(stack).toHaveClass('flex-row');
     });
 
-    it('should apply reverse direction', () => {
-      const {container} = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Stack reverse>Reverse Stack</Stack>
-        </ThemeProvider>
-      );
-
-      const stack = container.querySelector('div');
-      expect(stack).toHaveClass('flex-col-reverse');
-    });
-
     it('should apply row reverse direction', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Stack row reverse>Row Reverse Stack</Stack>
+          <Stack rowReverse>Row Reverse Stack</Stack>
         </ThemeProvider>
       );
 
@@ -142,8 +131,8 @@ describe('Stack Component Tests', () => {
         <ThemeProvider theme={defaultTheme}>
           <Stack 
             warning
-            border 
-            ring 
+            border
+            insetRing
             rounded
           >
             Decorated Stack
@@ -192,13 +181,13 @@ describe('Stack Component Tests', () => {
     it('should support filled and outline variants for text, background, border, and ring', () => {
       const {container: outlineContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Stack primary outline border ring>Outline stack</Stack>
+          <Stack primary outline border insetRing>Outline stack</Stack>
         </ThemeProvider>
       );
 
       const {container: filledContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Stack primary filled border ring>Filled stack</Stack>
+          <Stack primary filled border insetRing>Filled stack</Stack>
         </ThemeProvider>
       );
 

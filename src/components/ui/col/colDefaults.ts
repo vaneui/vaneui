@@ -8,7 +8,7 @@ export const colDefaults: Partial<ColProps> = {
   gap: true,
   noPadding: true,
   noBorder: true,
-  noRing: true,
+  noInsetRing: true,
   outline: true,
   sharp: true,
 };

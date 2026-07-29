@@ -185,7 +185,7 @@ describe('Code Component', () => {
     });
 
     it('should allow sans font override', () => {
-      const { container } = render(<Code sans>test</Code>);
+      const { container } = render(<Code fontSans>test</Code>);
       const codeElement = container.querySelector('code');
       
       expect(codeElement).toHaveClass('font-sans');
@@ -193,7 +193,7 @@ describe('Code Component', () => {
     });
 
     it('should allow serif font', () => {
-      const { container } = render(<Code serif>test</Code>);
+      const { container } = render(<Code fontSerif>test</Code>);
       const codeElement = container.querySelector('code');
       
       expect(codeElement).toHaveClass('font-serif');
@@ -201,8 +201,8 @@ describe('Code Component', () => {
     });
 
     it('should apply font weight variants', () => {
-      const { container: boldContainer } = render(<Code bold>test</Code>);
-      const { container: semiboldContainer } = render(<Code semibold>test</Code>);
+      const { container: boldContainer } = render(<Code fontBold>test</Code>);
+      const { container: semiboldContainer } = render(<Code fontSemibold>test</Code>);
       
       const boldElement = boldContainer.querySelector('code');
       const semiboldElement = semiboldContainer.querySelector('code');
@@ -342,7 +342,7 @@ describe('Code Component', () => {
 
     it('should handle multiple props correctly', () => {
       const { container } = render(
-        <Code xs primary filled pill mono bold className="custom">
+        <Code xs primary filled pill fontMono fontBold className="custom">
           test
         </Code>
       );

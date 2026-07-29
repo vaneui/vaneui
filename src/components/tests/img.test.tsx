@@ -79,7 +79,7 @@ describe('Img Component Tests', () => {
     it('should support ring variants', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Img ring secondary src="test.jpg" alt="Test" />
+          <Img insetRing secondary src="test.jpg" alt="Test" />
         </ThemeProvider>
       );
 
@@ -175,7 +175,7 @@ describe('Img Component Tests', () => {
     it('should combine multiple appearance variants', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Img primary border shadow ring src="test.jpg" alt="Test" />
+          <Img primary border shadow insetRing src="test.jpg" alt="Test" />
         </ThemeProvider>
       );
 

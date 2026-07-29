@@ -4,7 +4,7 @@ import type { ContainerProps } from "./ContainerProps";
 export const containerDefaults: Partial<ContainerProps> = {
   md: true,
   wFull: true,
-  noRing: true,
+  noInsetRing: true,
   flex: true,
   column: true,
   itemsCenter: true,

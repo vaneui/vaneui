@@ -14,7 +14,6 @@ import type {
   ShrinkProps,
   GapProps,
   FlexDirectionProps,
-  ReverseProps,
   AppearanceProps,
   BorderProps,
   ShadowProps,
@@ -54,7 +53,6 @@ export type ChipProps = BaseProps &
   ShrinkProps &
   GapProps &
   FlexDirectionProps &
-  ReverseProps &
   AppearanceProps &
   BorderProps &
   ShadowProps &

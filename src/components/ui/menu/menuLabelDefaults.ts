@@ -10,10 +10,10 @@ export const menuLabelDefaults: Partial<MenuLabelProps> = {
   rounded: true,
   noBorder: true,
   noShadow: true,
-  noRing: true,
+  noInsetRing: true,
   wFull: true,
   textLeft: true,
   secondary: true,
   outline: true,
-  sans: true,
+  fontSans: true,
 };

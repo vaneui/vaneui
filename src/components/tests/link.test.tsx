@@ -214,7 +214,7 @@ describe('Link Component Tests', () => {
     it('should support font properties', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Link href="#test" bold serif uppercase underline>
+          <Link href="#test" fontBold fontSerif uppercase underline>
             Styled Link
           </Link>
         </ThemeProvider>

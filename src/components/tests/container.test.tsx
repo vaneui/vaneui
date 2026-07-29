@@ -97,13 +97,13 @@ describe('Container Component Tests', () => {
     it('should support filled and outline variants for text, background, border, and ring', () => {
       const {container: outlineContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Container primary outline border ring>Outline container</Container>
+          <Container primary outline border insetRing>Outline container</Container>
         </ThemeProvider>
       );
 
       const {container: filledContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Container primary filled border ring>Filled container</Container>
+          <Container primary filled border insetRing>Filled container</Container>
         </ThemeProvider>
       );
 

@@ -204,7 +204,7 @@ describe('Label Component Tests', () => {
     it('should support font properties', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Label bold serif uppercase underline>
+          <Label fontBold fontSerif uppercase underline>
             Styled Label
           </Label>
         </ThemeProvider>

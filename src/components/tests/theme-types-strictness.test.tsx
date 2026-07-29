@@ -25,7 +25,7 @@ describe('Theme Types Strictness Tests', () => {
         }
       },
       text: {
-        bold: true,
+        fontBold: true,
         italic: true,
         underline: true,
         xs: true,
@@ -36,7 +36,7 @@ describe('Theme Types Strictness Tests', () => {
     const { container } = render(
       <ThemeProvider theme={defaultTheme} themeDefaults={validDefaults}>
         <Button primary>Test Button</Button>
-        <Text bold>Test Text</Text>
+        <Text fontBold>Test Text</Text>
       </ThemeProvider>
     );
 
@@ -56,8 +56,8 @@ describe('Theme Types Strictness Tests', () => {
         }
       },
       text: {
-        bold: 'extra-bold-class',
-        semibold: 'extra-semibold-class',
+        fontBold: 'extra-bold-class',
+        fontSemibold: 'extra-semibold-class',
         lg: 'text-lg-override',
         // All valid TypographyProps boolean keys with string values
       }
@@ -66,7 +66,7 @@ describe('Theme Types Strictness Tests', () => {
     const { container } = render(
       <ThemeProvider theme={defaultTheme} extraClasses={validExtraClasses}>
         <Button primary>Test Button</Button>
-        <Text bold lg>Test Text</Text>
+        <Text fontBold lg>Test Text</Text>
       </ThemeProvider>
     );
 
@@ -137,7 +137,7 @@ describe('Theme Types Strictness Tests', () => {
 
     const partialExtraClasses: ThemeExtraClasses = {
       text: {
-        bold: 'my-bold-class',
+        fontBold: 'my-bold-class',
         // Don't need to define all possible keys
       }
     };
@@ -149,7 +149,7 @@ describe('Theme Types Strictness Tests', () => {
         extraClasses={partialExtraClasses}
       >
         <Button primary>Button</Button>
-        <Text bold>Text</Text>
+        <Text fontBold>Text</Text>
       </ThemeProvider>
     );
 

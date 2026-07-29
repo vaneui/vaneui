@@ -5,5 +5,5 @@ export const modalCloseButtonDefaults: Partial<ModalCloseButtonProps> = {
   secondary: true,
   transparent: true,
   noShadow: true,
-  noRing: true,
+  noInsetRing: true,
 };

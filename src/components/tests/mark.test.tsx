@@ -160,14 +160,14 @@ describe('Mark Component', () => {
 
   describe('Typography Options', () => {
     it('should allow mono font', () => {
-      const { container } = render(<Mark mono>text</Mark>);
+      const { container } = render(<Mark fontMono>text</Mark>);
       const el = container.querySelector('mark');
 
       expect(el).toHaveClass('font-mono');
     });
 
     it('should allow font weight override', () => {
-      const { container } = render(<Mark bold>text</Mark>);
+      const { container } = render(<Mark fontBold>text</Mark>);
       const el = container.querySelector('mark');
 
       expect(el).toHaveClass('font-bold');
@@ -185,7 +185,7 @@ describe('Mark Component', () => {
 
     it('should handle multiple props correctly', () => {
       const { container } = render(
-        <Mark xs success filled pill bold className="custom">
+        <Mark xs success filled pill fontBold className="custom">
           text
         </Mark>
       );

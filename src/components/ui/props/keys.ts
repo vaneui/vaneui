@@ -226,12 +226,12 @@ export const ComponentKeys = {
   display: ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const,
   /** Flex direction: row (horizontal), column (vertical), or reversed variants */
   flexDirection: ['row', 'column', 'rowReverse', 'columnReverse'] as const,
-  /** Font family types: sans-serif, serif, monospace, or heading */
-  fontFamily: ['sans', 'serif', 'mono', 'heading'] as const,
+  /** Font family types: sans-serif, serif, monospace, or heading (all emit font-*) */
+  fontFamily: ['fontSans', 'fontSerif', 'fontMono', 'fontHeading'] as const,
   /** Font style: italic or notItalic (normal) */
   fontStyle: ['italic', 'notItalic'] as const,
-  /** Font weight from thin (100) to black (900) */
-  fontWeight: ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'] as const,
+  /** Font weight from thin (100) to black (900), all emit font-* */
+  fontWeight: ['fontThin', 'fontExtralight', 'fontLight', 'fontNormal', 'fontMedium', 'fontSemibold', 'fontBold', 'fontExtrabold', 'fontBlack'] as const,
   /** Spacing between flex/grid items: gap (enabled) or noGap (disabled) */
   gap: ['gap', 'noGap'] as const,
   /** Hide elements at specific breakpoint sizes */
@@ -244,10 +244,10 @@ export const ComponentKeys = {
   justifySelf: ['justifySelfAuto', 'justifySelfStart', 'justifySelfEnd', 'justifySelfCenter', 'justifySelfStretch'] as const,
   /** Main-axis alignment for flex items (justify-content) */
   justify: ['justifyStart', 'justifyEnd', 'justifyCenter', 'justifyBetween', 'justifyAround', 'justifyEvenly', 'justifyStretch', 'justifyBaseline'] as const,
-  /** List marker style: disc, decimal, circle, square, lowerAlpha, or lowerRoman */
-  listStyle: ['disc', 'decimal', 'circle', 'square', 'lowerAlpha', 'lowerRoman'] as const,
-  /** List marker position: inside (inline with text) or outside (hanging, traditional) */
-  listPosition: ['inside', 'outside'] as const,
+  /** List marker style: all emit list-* (disc, decimal, [circle], [square], [lower-alpha], [lower-roman]) */
+  listStyle: ['listDisc', 'listDecimal', 'listCircle', 'listSquare', 'listLowerAlpha', 'listLowerRoman'] as const,
+  /** List marker position: listInside (inline with text) or listOutside (hanging, traditional) */
+  listPosition: ['listInside', 'listOutside'] as const,
   /** Overflow behavior for content that exceeds container bounds */
   overflow: [
     'overflowAuto', 'overflowHidden', 'overflowClip', 'overflowVisible', 'overflowScroll',
@@ -261,10 +261,8 @@ export const ComponentKeys = {
   margin: ['margin', 'marginX', 'marginY', 'marginT', 'marginB', 'noMargin'] as const,
   /** CSS positioning: relative, absolute, fixed, sticky, static */
   position: ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const,
-  /** Reverse the order of flex items */
-  reverse: ['reverse'] as const,
-  /** Focus ring visibility: ring (show) or noRing (hide) */
-  ring: ['ring', 'noRing'] as const,
+  /** Inset ring visibility: insetRing (show) or noInsetRing (hide) — emits ring-inset */
+  ring: ['insetRing', 'noInsetRing'] as const,
   /** Drop shadow visibility: shadow (enabled) or noShadow (disabled) */
   shadow: ['shadow', 'noShadow'] as const,
   /** Focus-visible outline visibility: focusVisible (show) or noFocusVisible (hide) */
@@ -291,8 +289,8 @@ export const ComponentKeys = {
   transparent: ['transparent'] as const,
   /** Responsive sizing: enables breakpoint-specific py/px/gap/fs when true */
   responsive: ['responsive'] as const,
-  /** Backdrop blur effect: blur (enabled) or noBlur (disabled) */
-  blur: ['blur', 'noBlur'] as const,
+  /** Backdrop blur effect: backdropBlur (enabled) or noBackdropBlur (disabled) */
+  blur: ['backdropBlur', 'noBackdropBlur'] as const,
   /** Pointer events: none (clicks pass through) or auto (normal) */
   pointerEvents: ['pointerEventsNone', 'pointerEventsAuto'] as const,
   /** Cursor appearance for interactive elements */

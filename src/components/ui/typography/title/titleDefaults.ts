@@ -4,8 +4,8 @@ import type { TypographyProps } from "../common";
 export const titleDefaults: Partial<TypographyProps> = {
   md: true,
   wFit: true,
-  heading: true,
-  semibold: true,
+  fontHeading: true,
+  fontSemibold: true,
   textLeft: true,
   outline: true,
   inherit: true,

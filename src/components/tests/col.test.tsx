@@ -34,10 +34,10 @@ describe('Col Component Tests', () => {
       expect(col).toHaveClass('flex-row');
     });
 
-    it('should support reverse direction', () => {
+    it('should support column reverse', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Col reverse>Reverse Col</Col>
+          <Col columnReverse>Reverse Col</Col>
         </ThemeProvider>
       );
 
@@ -115,13 +115,13 @@ describe('Col Component Tests', () => {
     it('should support filled and outline variants for text, background, border, and ring', () => {
       const {container: outlineContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Col primary outline border ring>Outline col</Col>
+          <Col primary outline border insetRing>Outline col</Col>
         </ThemeProvider>
       );
 
       const {container: filledContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Col primary filled border ring>Filled col</Col>
+          <Col primary filled border insetRing>Filled col</Col>
         </ThemeProvider>
       );
 
@@ -179,8 +179,8 @@ describe('Col Component Tests', () => {
         <ThemeProvider theme={defaultTheme}>
           <Col 
             danger
-            border 
-            ring 
+            border
+            insetRing
             pill
           >
             Decorated Col

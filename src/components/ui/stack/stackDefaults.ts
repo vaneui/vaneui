@@ -9,7 +9,7 @@ export const stackDefaults: Partial<StackProps> = {
   gap: true,
   padding: true,
   noBorder: true,
-  noRing: true,
+  noInsetRing: true,
   outline: true,
   sharp: true,
 };

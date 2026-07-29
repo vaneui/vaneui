@@ -214,8 +214,8 @@ describe('Button Component Tests', () => {
     it('should demonstrate ring functionality works for buttons when ring prop is enabled', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Button id="btn-default-ring" ring primary>Default with Ring</Button>
-          <Button id="btn-secondary-ring" ring secondary>Secondary with Ring</Button>
+          <Button id="btn-default-ring" insetRing primary>Default with Ring</Button>
+          <Button id="btn-secondary-ring" insetRing secondary>Secondary with Ring</Button>
         </ThemeProvider>
       );
 
@@ -303,7 +303,7 @@ describe('Button Component Tests', () => {
       it('should apply ring classes when ring prop is true', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Button ring>Button with Ring</Button>
+            <Button insetRing>Button with Ring</Button>
           </ThemeProvider>
         );
 
@@ -317,7 +317,7 @@ describe('Button Component Tests', () => {
       it('should not apply ring classes when noRing prop is true', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Button noRing>Button without Ring</Button>
+            <Button noInsetRing>Button without Ring</Button>
           </ThemeProvider>
         );
 
@@ -347,9 +347,9 @@ describe('Button Component Tests', () => {
       it('should apply ring classes for different appearance variants when ring is enabled', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Button ring primary className="ring-primary">Primary with Ring</Button>
-            <Button ring secondary className="ring-secondary">Secondary with Ring</Button>
-            <Button ring success className="ring-success">Success with Ring</Button>
+            <Button insetRing primary className="ring-primary">Primary with Ring</Button>
+            <Button insetRing secondary className="ring-secondary">Secondary with Ring</Button>
+            <Button insetRing success className="ring-success">Success with Ring</Button>
           </ThemeProvider>
         );
 
@@ -370,7 +370,7 @@ describe('Button Component Tests', () => {
       it('should apply both border and ring classes when both props are true', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Button border ring primary>Button with Border and Ring</Button>
+            <Button border insetRing primary>Button with Border and Ring</Button>
           </ThemeProvider>
         );
 
@@ -387,7 +387,7 @@ describe('Button Component Tests', () => {
       it('should not apply any border or ring classes when both noBorder and noRing are true', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Button noBorder noRing>Button without Border or Ring</Button>
+            <Button noBorder noInsetRing>Button without Border or Ring</Button>
           </ThemeProvider>
         );
 
@@ -403,7 +403,7 @@ describe('Button Component Tests', () => {
       it('should apply border but not ring when border=true and noRing=true', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Button border noRing>Button with Border only</Button>
+            <Button border noInsetRing>Button with Border only</Button>
           </ThemeProvider>
         );
 
@@ -418,7 +418,7 @@ describe('Button Component Tests', () => {
       it('should apply ring but not border when ring=true and noBorder=true', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Button ring noBorder>Button with Ring only</Button>
+            <Button insetRing noBorder>Button with Ring only</Button>
           </ThemeProvider>
         );
 

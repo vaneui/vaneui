@@ -228,11 +228,11 @@ describe('Table Component Tests', () => {
     });
 
     it('does not leak boolean props to the DOM', () => {
-      const { container } = renderInRow(<Th secondary outline borderB padding semibold textLeft>H</Th>);
+      const { container } = renderInRow(<Th secondary outline borderB padding fontSemibold textLeft>H</Th>);
       const th = container.querySelector('th');
       expect(th).not.toHaveAttribute('secondary');
       expect(th).not.toHaveAttribute('borderB');
-      expect(th).not.toHaveAttribute('semibold');
+      expect(th).not.toHaveAttribute('fontSemibold');
       expect(th).not.toHaveAttribute('textLeft');
       expect(th).not.toHaveAttribute('padding');
     });

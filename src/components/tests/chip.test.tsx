@@ -180,8 +180,8 @@ describe('Chip Component Tests', () => {
     it('should demonstrate ring functionality works for chips when ring prop is enabled', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Chip id="chip-default-ring" ring primary>Default with Ring</Chip>
-          <Chip id="chip-secondary-ring" ring secondary>Secondary with Ring</Chip>
+          <Chip id="chip-default-ring" insetRing primary>Default with Ring</Chip>
+          <Chip id="chip-secondary-ring" insetRing secondary>Secondary with Ring</Chip>
         </ThemeProvider>
       );
 
@@ -235,7 +235,7 @@ describe('Chip Component Tests', () => {
     it('should allow mono font override', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Chip mono>Mono Chip</Chip>
+          <Chip fontMono>Mono Chip</Chip>
         </ThemeProvider>
       );
 
@@ -246,7 +246,7 @@ describe('Chip Component Tests', () => {
     it('should render with different font weights', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Chip semibold>Semibold Chip</Chip>
+          <Chip fontSemibold>Semibold Chip</Chip>
         </ThemeProvider>
       );
 
@@ -257,7 +257,7 @@ describe('Chip Component Tests', () => {
     it('should render with different font families', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Chip sans>Sans Chip</Chip>
+          <Chip fontSans>Sans Chip</Chip>
         </ThemeProvider>
       );
 

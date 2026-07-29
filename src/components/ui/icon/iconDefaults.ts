@@ -9,7 +9,7 @@ export const iconDefaults: Partial<IconProps> = {
   rounded: true,
   noPadding: true,
   noBorder: true,
-  noRing: true,
+  noInsetRing: true,
   noShadow: true,
   noShrink: true,
   noTransition: true,

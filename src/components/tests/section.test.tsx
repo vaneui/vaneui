@@ -88,13 +88,13 @@ describe('Section Component Tests', () => {
     it('should support filled and outline variants for text, background, border, and ring', () => {
       const {container: outlineContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Section primary outline border ring>Outline section</Section>
+          <Section primary outline border insetRing>Outline section</Section>
         </ThemeProvider>
       );
 
       const {container: filledContainer} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Section primary filled border ring>Filled section</Section>
+          <Section primary filled border insetRing>Filled section</Section>
         </ThemeProvider>
       );
 
