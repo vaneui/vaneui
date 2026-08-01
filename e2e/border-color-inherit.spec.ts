@@ -33,21 +33,21 @@ test.describe('Border-color inheritance via CSS variables', () => {
     expect(dividerBg).not.toBe('transparent');
   });
 
-  test('Divider inside Card brand outline inherits brand border color', async ({ page }) => {
+  test('Divider inside Card info outline inherits info border color', async ({ page }) => {
     const standalone = page.locator('[data-testid="divider-standalone"]');
-    const inherited = page.locator('[data-testid="divider-inherit-brand"]');
+    const inherited = page.locator('[data-testid="divider-inherit-info"]');
 
     const standaloneBg = await getStyle(standalone, 'background-color');
     const inheritedBg = await getStyle(inherited, 'background-color');
 
-    // Brand border color should differ from default primary border color
+    // Info border color should differ from default primary border color
     expect(inheritedBg).not.toBe(standaloneBg);
   });
 
-  test('Divider inside Card brand outline matches Card border-color', async ({ page }) => {
+  test('Divider inside Card info outline matches Card border-color', async ({ page }) => {
     const section = page.locator('[data-testid="border-color-inherit"]');
-    const card = section.locator('[data-appearance="brand"]');
-    const divider = page.locator('[data-testid="divider-inherit-brand"]');
+    const card = section.locator('[data-appearance="info"]');
+    const divider = page.locator('[data-testid="divider-inherit-info"]');
 
     const cardBorderColor = await getStyle(card, 'border-color');
     const dividerBg = await getStyle(divider, 'background-color');
@@ -67,13 +67,13 @@ test.describe('Border-color inheritance via CSS variables', () => {
   });
 
   test('outline appearance produces different Divider bg from filled', async ({ page }) => {
-    const brandOutlineBg = await getStyle(page.locator('[data-testid="divider-inherit-brand"]'), 'background-color');
+    const infoOutlineBg = await getStyle(page.locator('[data-testid="divider-inherit-info"]'), 'background-color');
     const dangerFilledBg = await getStyle(page.locator('[data-testid="divider-inherit-danger"]'), 'background-color');
     const successFilledBg = await getStyle(page.locator('[data-testid="divider-inherit-success"]'), 'background-color');
 
-    // Outline divider (brand) uses --color-border-brand, which differs from
+    // Outline divider (info) uses --color-border-info, which differs from
     // filled dividers that use alpha-white --divider-color.
-    expect(brandOutlineBg).not.toBe(dangerFilledBg);
+    expect(infoOutlineBg).not.toBe(dangerFilledBg);
 
     // Both filled dividers use the same alpha-white --divider-color
     expect(dangerFilledBg).toBe(successFilledBg);

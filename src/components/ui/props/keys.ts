@@ -217,7 +217,7 @@ export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
 /** Component property keys mapping categories to their available values */
 export const ComponentKeys = {
   /** Color appearance options */
-  appearance: ['primary', 'brand', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'link', 'inherit'] as const,
+  appearance: ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'inherit'] as const,
   /** Border visibility: includes all border variations and noBorder. borderS/borderE are logical (inline-start/end, RTL-aware). */
   border: ['border', 'borderT', 'borderB', 'borderL', 'borderR', 'borderX', 'borderY', 'borderS', 'borderE', 'noBorder'] as const,
   /** Column breakpoints for responsive grid layouts */

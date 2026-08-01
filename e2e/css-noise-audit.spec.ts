@@ -60,8 +60,8 @@ test.describe('CSS Noise Audit', () => {
       'border-inherit-danger-text',
       // Nested: Divider inside Card danger filled
       'divider-inherit-danger',
-      // Nested: Divider inside Card brand
-      'divider-inherit-brand',
+      // Nested: Divider inside Card info
+      'divider-inherit-info',
     ];
 
     const reports: NoiseReport[] = [];

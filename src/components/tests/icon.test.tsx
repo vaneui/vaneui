@@ -114,7 +114,7 @@ describe('Icon Component Tests', () => {
   });
 
   describe('Appearance Variants', () => {
-    const appearances = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'brand', 'accent'] as const;
+    const appearances = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'accent'] as const;
 
     appearances.forEach(appearance => {
       it(`should render with ${appearance} appearance`, () => {

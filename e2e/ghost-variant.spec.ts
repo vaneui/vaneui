@@ -44,12 +44,12 @@ test.describe('Ghost variant: computed styles', () => {
     const primary = await getColor(page.locator('[data-testid="ghost-primary"]'));
     const danger = await getColor(page.locator('[data-testid="ghost-danger"]'));
     const success = await getColor(page.locator('[data-testid="ghost-success"]'));
-    const brand = await getColor(page.locator('[data-testid="ghost-brand"]'));
+    const info = await getColor(page.locator('[data-testid="ghost-info"]'));
 
     // At least primary and danger should differ
     expect(primary).not.toBe(danger);
     // At least 3 distinct colors across 4 appearances
-    const unique = new Set([primary, danger, success, brand]);
+    const unique = new Set([primary, danger, success, info]);
     expect(unique.size).toBeGreaterThanOrEqual(3);
   });
 

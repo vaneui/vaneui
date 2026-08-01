@@ -593,18 +593,6 @@
         --app-border: var(--color-border-primary);
         --app-focus: var(--color-focus-primary);
     }
-    [data-appearance="brand"] {
-        --app-text: var(--color-text-brand);
-        --app-text-filled: var(--color-text-filled-brand);
-        --app-bg: var(--color-bg-brand);
-        --app-bg-filled: var(--color-bg-filled-brand);
-        --app-bg-hover: var(--color-bg-hover-brand);
-        --app-bg-hover-filled: var(--color-bg-filled-hover-brand);
-        --app-bg-active: var(--color-bg-active-brand);
-        --app-bg-active-filled: var(--color-bg-filled-active-brand);
-        --app-border: var(--color-border-brand);
-        --app-focus: var(--color-focus-brand);
-    }
     [data-appearance="secondary"] {
         --app-text: var(--color-text-secondary);
         --app-text-filled: var(--color-text-filled-secondary);
@@ -689,20 +677,6 @@
         --app-border: var(--color-border-info);
         --app-focus: var(--color-focus-info);
     }
-    /* Link appearance: text=link, bg/hover/active=primary, border/focus=brand */
-    [data-appearance="link"] {
-        --app-text: var(--color-text-link);
-        --app-text-filled: var(--color-text-filled-link);
-        --app-bg: var(--color-bg-primary);
-        --app-bg-filled: var(--color-bg-filled-brand);
-        --app-bg-hover: var(--color-bg-hover-primary);
-        --app-bg-hover-filled: var(--color-bg-filled-hover-brand);
-        --app-bg-active: var(--color-bg-active-primary);
-        --app-bg-active-filled: var(--color-bg-filled-active-brand);
-        --app-border: var(--color-border-brand);
-        --app-focus: var(--color-focus-brand);
-    }
-
     /* AXIS 2: VARIANT — maps --app-* palette to final consumer variables */
     [data-variant="outline"] {
         --text-color: var(--app-text);

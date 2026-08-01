@@ -137,7 +137,7 @@ test.describe('Inherit-mode re-resolution at the theme boundary', () => {
 // =========================================================================
 
 const WCAG_AA_LARGE_TEXT = 3;
-const appearances = ['primary', 'brand', 'accent', 'secondary', 'tertiary', 'link', 'success', 'danger', 'warning', 'info'] as const;
+const appearances = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
 
 test.describe('Dark filled text contrast (WCAG)', () => {
   for (const appearance of appearances) {

@@ -149,7 +149,7 @@ describe('PropDescriptions', () => {
 
   describe('Specific category validations', () => {
     it('appearance category should have all color appearances', () => {
-      const expectedAppearances = ['primary', 'brand', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'];
+      const expectedAppearances = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'];
       const appearanceProps = Object.keys(PropDescriptions.appearance.props);
 
       expectedAppearances.forEach(appearance => {

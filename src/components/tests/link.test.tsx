@@ -97,7 +97,7 @@ describe('Link Component Tests', () => {
     });
 
     it('explicit non-link appearance switches to direct --app-text', () => {
-      const appearances = ['primary', 'brand', 'accent', 'secondary', 'tertiary',
+      const appearances = ['primary', 'accent', 'secondary', 'tertiary',
         'success', 'danger', 'warning', 'info'] as const;
 
       for (const appearance of appearances) {
@@ -126,7 +126,7 @@ describe('Link Component Tests', () => {
       const link = container.querySelector('a')!;
       expect(link).toHaveClass('text-(--link-text)');
       expect(link).not.toHaveClass('text-(--app-text)');
-      expect(link).toHaveAttribute('data-appearance', 'link');
+      expect(link).not.toHaveAttribute('data-appearance');
     });
 
     it('should support all overflow variants', () => {

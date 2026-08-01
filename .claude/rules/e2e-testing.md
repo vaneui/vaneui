@@ -93,8 +93,8 @@ test('sizes xs→xl produce strictly increasing font-sizes', async ({ page }) =>
 ### Color inheritance
 ```ts
 test('inherits parent color from Card', async ({ page }) => {
-  const child = page.locator('[data-testid="component-inherit-brand"]');
-  const sibling = page.locator('[data-testid="component-inherit-brand-text"]');
+  const child = page.locator('[data-testid="component-inherit-info"]');
+  const sibling = page.locator('[data-testid="component-inherit-info-text"]');
   expect(await getColor(child)).toBe(await getColor(sibling));
 });
 ```

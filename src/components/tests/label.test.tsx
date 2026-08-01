@@ -133,7 +133,7 @@ describe('Label Component Tests', () => {
     });
 
     it('should support all appearance variants', () => {
-      const appearances = ['primary', 'brand', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
+      const appearances = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
       
       appearances.forEach(appearance => {
         const {container} = render(

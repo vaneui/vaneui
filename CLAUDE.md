@@ -120,7 +120,7 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 | Category | Values |
 |----------|--------|
 | **size** | `xs`, `sm` (default for Button, MenuItem, Label), `md` (default for others), `lg`, `xl` |
-| **appearance** | `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link` |
+| **appearance** | `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info` |
 | **variant** | `filled`, `outline` (default) |
 | **shape** | `pill`, `rounded` (default), `sharp` |
 | **display** | `flex`, `inlineFlex`, `block`, `inline`, `grid`, etc. |
@@ -147,7 +147,7 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 | **Badge** | md, secondary (neutral default; color via success/danger/…), outline, pill, fontSemibold |
 | **Chip** | md, secondary (not primary!), outline, rounded, fontSans |
 | **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noInsetRing, wFull, textLeft, focusVisible |
-| **Link** | md, link (not primary!), underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (no variant default) |
+| **Link** | md, underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (link color by default; no appearance or variant default) |
 | **Input** | md, primary, outline, rounded, wFull, insetRing, focusVisible |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |

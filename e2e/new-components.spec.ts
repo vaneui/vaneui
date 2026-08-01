@@ -32,13 +32,13 @@ test.describe('Blockquote', () => {
   });
 
   test('inherits parent color when inside a colored Card', async ({ page }) => {
-    const blockquote = page.locator('[data-testid="blockquote-inherit-brand"]');
-    const text = page.locator('[data-testid="blockquote-inherit-brand-text"]');
+    const blockquote = page.locator('[data-testid="blockquote-inherit-info"]');
+    const text = page.locator('[data-testid="blockquote-inherit-info-text"]');
 
     const blockquoteColor = await getColor(blockquote);
     const textColor = await getColor(text);
 
-    // Both should inherit the same brand color from the Card
+    // Both should inherit the same info color from the Card
     expect(blockquoteColor).toBe(textColor);
   });
 

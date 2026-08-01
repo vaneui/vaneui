@@ -101,7 +101,7 @@ describe('Mark Component', () => {
   });
 
   describe('Appearance Variants', () => {
-    const appearances = ['primary', 'brand', 'secondary', 'success', 'danger', 'warning', 'info'] as const;
+    const appearances = ['primary', 'secondary', 'success', 'danger', 'warning', 'info'] as const;
 
     appearances.forEach(appearance => {
       it(`should apply ${appearance} appearance`, () => {

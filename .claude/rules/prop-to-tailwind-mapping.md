@@ -303,7 +303,7 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 These do not map 1:1 to Tailwind utilities — they drive the CSS variable system:
 
 - **Size**: `xs`, `sm`, `md`, `lg`, `xl` → set `--fs-unit`, `--py-unit`, `--gap-unit`, `--br-unit`
-- **Appearance**: `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link` → set `data-appearance` for color tokens
+- **Appearance**: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info` → set `data-appearance` for color tokens
 - **Variant**: `filled`, `outline` → set `data-variant`
 - **Padding / Gap**: `padding`, `noPadding`, `gap`, `noGap` → use `px-(--px) py-(--py)` and `gap-(--gap)` (size-driven)
 - **Font size**: controlled by size props via `text-(length:--fs)`

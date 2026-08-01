@@ -46,7 +46,7 @@ Each component/feature gets its own section following this pattern:
 
 <Card>
   <Title>Appearance Variants</Title>
-  {/* primary, brand, accent, success, danger, warning, info, secondary */}
+  {/* primary, accent, success, danger, warning, info, secondary */}
 </Card>
 
 <Card>

@@ -5,8 +5,6 @@
 export interface AppearanceProps {
   /** Primary color appearance (gray) */
   primary?: boolean;
-  /** Brand color appearance (blue) */
-  brand?: boolean;
   /** Secondary color appearance (gray) */
   secondary?: boolean;
   /** Tertiary color appearance */
@@ -21,8 +19,6 @@ export interface AppearanceProps {
   warning?: boolean;
   /** Info color appearance (cyan) */
   info?: boolean;
-  /** Link color appearance (blue, for hyperlinks) */
-  link?: boolean;
   /** Inherit appearance from parent — suppresses own data-appearance/data-variant, uses parent's CSS variables */
   inherit?: boolean;
 }

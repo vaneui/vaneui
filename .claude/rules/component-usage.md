@@ -105,8 +105,8 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 
 ```css
 [data-theme="ocean"] {
-  --color-bg-brand: oklch(95% 0.02 220);
-  --color-text-brand: oklch(45% 0.12 220);
+  --color-bg-info: oklch(95% 0.02 220);
+  --color-text-info: oklch(45% 0.12 220);
 }
 ```
 
@@ -128,7 +128,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Section heading | `SectionTitle` | Renders `<h2>`, responsive |
 | Subsection heading | `Title` | Renders `<h3>`, responsive |
 | Body text | `Text` | Renders `<p>` |
-| Hyperlink | `Link` | Renders `<a>`, underline by default, `link` appearance (blue) |
+| Hyperlink | `Link` | Renders `<a>`, underline by default, blue link color by default |
 | Status indicator | `Badge` | Pill-shaped, semibold (normal case; add `uppercase` for status-chip look) |
 | Tag / filter token | `Chip` | Rounded, sans-serif, secondary by default |
 | Inline code | `Code` | Monospace, rounded, with padding |
@@ -406,7 +406,6 @@ One appearance per component. Controls text, background, and border colors.
 
 ```tsx
 <Button>Primary (default)</Button>
-<Button brand>Brand</Button>
 <Button accent>Accent</Button>
 <Button secondary>Secondary</Button>
 <Button tertiary>Tertiary</Button>
@@ -416,7 +415,7 @@ One appearance per component. Controls text, background, and border colors.
 <Button info>Info</Button>
 ```
 
-Note: `Link` defaults to `link` appearance (not `primary`). `Chip` defaults to `secondary` (not `primary`). Typography components (`Text`, `Title`, etc.) default to `inherit` (not `primary`).
+Note: `Link` renders its blue link color by default (no explicit appearance). `Chip` defaults to `secondary` (not `primary`). Typography components (`Text`, `Title`, etc.) default to `inherit` (not `primary`).
 
 ## Variant Props
 

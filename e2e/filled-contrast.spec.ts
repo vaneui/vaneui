@@ -17,9 +17,9 @@ test.beforeEach(async ({ page, testPage }) => {
 // =========================================================================
 
 test.describe('Filled text contrast (WCAG)', () => {
-  // ALL appearances — link/accent/tertiary were previously untested, which is
-  // how a 2:1 filled-link pair shipped
-  const appearances = ['primary', 'brand', 'accent', 'secondary', 'tertiary', 'link', 'success', 'danger', 'warning', 'info'] as const;
+  // ALL appearances — accent/tertiary were previously untested, which is
+  // how a low-contrast filled pair shipped
+  const appearances = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
 
   for (const appearance of appearances) {
     test(`${appearance} filled: text has at least 3:1 contrast against background`, async ({ page }) => {

@@ -91,7 +91,7 @@ import type { CategoryProps, MyCategoryKey } from "../../props";
 
 ## Prop Categories (Mutually Exclusive Within Category)
 - **size**: xs, sm, md, lg, xl
-- **appearance**: primary, brand, accent, secondary, tertiary, success, danger, warning, info, link
+- **appearance**: primary, accent, secondary, tertiary, success, danger, warning, info
 - **variant**: filled, outline
 - **shape**: pill, rounded, sharp
 - **display**: inline, block, flex, inlineFlex, grid, etc.
@@ -116,7 +116,7 @@ Categories are defined in `src/components/ui/props/keys.ts`. Each component spec
 - **Badge**: md, secondary (neutral default; color via success/danger/…), outline, pill, fontSemibold
 - **Chip**: md, secondary (not primary!), outline, rounded, fontSans
 - **NavLink**: sm, primary, outline, rounded, noBorder, noShadow, noInsetRing, wFull, textLeft, focusVisible
-- **Link**: md, link (not primary!), underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (no variant default)
+- **Link**: md, underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (link color by default; no appearance or variant default)
 - **Input**: md, primary, outline, rounded, wFull, insetRing, focusVisible
 - **Icon**: md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit (container-mode props default off; appearance not applied until set)
 - **Typography** (Text, Title, etc.): md, inherit (not primary!), outline

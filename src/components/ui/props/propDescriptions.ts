@@ -63,9 +63,6 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       "primary": {
         "description": "Primary color appearance (gray)"
       },
-      "brand": {
-        "description": "Brand color appearance (blue)"
-      },
       "secondary": {
         "description": "Secondary color appearance (gray)"
       },
@@ -86,9 +83,6 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "info": {
         "description": "Info color appearance (cyan)"
-      },
-      "link": {
-        "description": "Link color appearance (blue, for hyperlinks)"
       },
       "inherit": {
         "description": "Inherit appearance from parent — suppresses own data-appearance/data-variant, uses parent's CSS variables"

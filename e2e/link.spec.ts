@@ -24,7 +24,7 @@ test.describe('Link appearance colors', () => {
   // for the bug where every appearance emitted the same `text-(--link-text)`
   // class, so all links rendered identical blue regardless of the prop.
   const explicitAppearances = [
-    'primary', 'brand', 'accent', 'secondary', 'tertiary',
+    'primary', 'accent', 'secondary', 'tertiary',
     'success', 'danger', 'warning', 'info',
   ] as const;
 
@@ -38,7 +38,7 @@ test.describe('Link appearance colors', () => {
     const unique = new Set(colors.values());
     expect(
       unique.size,
-      `expected 9 distinct colors, got: ${JSON.stringify(Object.fromEntries(colors))}`,
+      `expected 8 distinct colors, got: ${JSON.stringify(Object.fromEntries(colors))}`,
     ).toBe(explicitAppearances.length);
   });
 
@@ -59,7 +59,7 @@ test.describe('Link appearance colors', () => {
   });
 
   test('default Link picks up --link-text via cascade from a filled Card', async ({ page }) => {
-    // The whole point of the default `link` appearance using `text-(--link-text)`
+    // The whole point of the default Link color using `text-(--link-text)`
     // (instead of a hardcoded color) is the cascade story: a default Link inside
     // a filled Card should re-color itself to --color-text-filled-link via the
     // Card's [data-variant="filled"] rule. This test proves that cascade works

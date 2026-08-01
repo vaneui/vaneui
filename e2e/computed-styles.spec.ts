@@ -51,9 +51,9 @@ test.describe('Appearance inheritance', () => {
     expect(titleColor).toBe(cardColor);
   });
 
-  test('Card brand outline → Text inherits brand color', async ({ page }) => {
-    const card = page.locator('[data-testid="inherit-brand-outline"] [data-appearance="brand"]');
-    const text = page.locator('[data-testid="inherit-brand-outline-text"]');
+  test('Card info outline → Text inherits info color', async ({ page }) => {
+    const card = page.locator('[data-testid="inherit-info-outline"] [data-appearance="info"]');
+    const text = page.locator('[data-testid="inherit-info-outline-text"]');
 
     const cardColor = await getColor(card);
     const textColor = await getColor(text);
@@ -72,13 +72,13 @@ test.describe('Appearance inheritance', () => {
   });
 
   test('filled danger text color differs from outline danger', async ({ page }) => {
-    const brandOutlineText = page.locator('[data-testid="inherit-brand-outline-text"]');
+    const infoOutlineText = page.locator('[data-testid="inherit-info-outline-text"]');
     const dangerFilledText = page.locator('[data-testid="inherit-danger-filled-text"]');
 
-    const outlineColor = await getColor(brandOutlineText);
+    const outlineColor = await getColor(infoOutlineText);
     const filledColor = await getColor(dangerFilledText);
 
-    // Outline text (brand-colored) must differ from filled text (light on dark)
+    // Outline text (info-colored) must differ from filled text (light on dark)
     expect(outlineColor).not.toBe(filledColor);
   });
 });

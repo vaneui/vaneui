@@ -538,7 +538,7 @@ describe('Inherit Appearance Prop', () => {
       it('Text inside filled Stack inherits Stack appearance', () => {
         const { container } = render(
           <ThemeProvider theme={defaultTheme}>
-            <Stack brand filled>
+            <Stack info filled>
               <Text>Stacked text</Text>
             </Stack>
           </ThemeProvider>
@@ -547,7 +547,7 @@ describe('Inherit Appearance Prop', () => {
         const stack = container.querySelector('div.vane-stack');
         const text = container.querySelector('p');
 
-        expect(stack).toHaveAttribute('data-appearance', 'brand');
+        expect(stack).toHaveAttribute('data-appearance', 'info');
         expect(stack).toHaveAttribute('data-variant', 'filled');
         expect(text).toHaveClass('text-(--text-color)');
         expect(text).not.toHaveAttribute('data-appearance');
@@ -584,7 +584,7 @@ describe('Inherit Appearance Prop', () => {
       it('Divider inside filled Card inherits border color', () => {
         const { container } = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card brand filled>
+            <Card info filled>
               <Text>Above divider</Text>
               <Divider />
               <Text>Below divider</Text>
@@ -595,7 +595,7 @@ describe('Inherit Appearance Prop', () => {
         const card = container.querySelector('div.vane-card');
         const divider = container.querySelector('div.vane-divider');
 
-        expect(card).toHaveAttribute('data-appearance', 'brand');
+        expect(card).toHaveAttribute('data-appearance', 'info');
         expect(card).toHaveAttribute('data-variant', 'filled');
         expect(divider).toHaveClass('bg-(--divider-color)');
         expect(divider).not.toHaveAttribute('data-appearance');
@@ -709,7 +709,7 @@ describe('Inherit Appearance Prop', () => {
     });
 
     it('every appearance should have its own [data-appearance] rule', () => {
-      const appearances = ['primary', 'brand', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info', 'link'];
+      const appearances = ['primary', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info'];
       for (const appearance of appearances) {
         expect(varsCSS).toContain(`[data-appearance="${appearance}"]`);
       }
@@ -729,7 +729,7 @@ describe('Inherit Appearance Prop', () => {
       // Inheritance is now done via CSS custom-property cascade: filled parents
       // set vars on themselves, inherit-mode children read them. Explicit props
       // on a child always win.
-      const appearances = ['primary', 'brand', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info', 'link'];
+      const appearances = ['primary', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info'];
       for (const appearance of appearances) {
         expect(varsCSS).not.toContain(
           `[data-vane-type="layout"][data-variant="filled"] [data-variant="outline"][data-appearance="${appearance}"]`
@@ -769,14 +769,14 @@ describe('Inherit Appearance Prop', () => {
   // ==========================================================================
 
   describe('Granular inherit flags', () => {
-    it('Link with inheritSize emits text-(length:--fs-em) while keeping link appearance', () => {
+    it('Link with inheritSize emits text-(length:--fs-em) while keeping link color', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Link href="/test">Link text</Link>
         </ThemeProvider>
       );
       const link = container.querySelector('a');
-      expect(link).toHaveAttribute('data-appearance', 'link');
+      expect(link).not.toHaveAttribute('data-appearance');
       expect(link).toHaveClass('text-(length:--fs-em)');
       expect(link).toHaveClass('leading-[inherit]');
     });

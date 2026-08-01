@@ -100,7 +100,7 @@ describe('Blockquote Component', () => {
   });
 
   describe('Appearance Variants', () => {
-    const appearances = ['primary', 'brand', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
+    const appearances = ['primary', 'secondary', 'tertiary', 'accent', 'success', 'danger', 'warning', 'info'] as const;
 
     appearances.forEach(appearance => {
       it(`should apply ${appearance} appearance`, () => {
@@ -159,14 +159,14 @@ describe('Blockquote Component', () => {
 
     it('should handle multiple props correctly', () => {
       const { container } = render(
-        <Blockquote lg brand filled fontBold className="custom">
+        <Blockquote lg info filled fontBold className="custom">
           Quote
         </Blockquote>
       );
       const el = container.querySelector('blockquote');
 
       expect(el).toHaveAttribute('data-size', 'lg');
-      expect(el).toHaveAttribute('data-appearance', 'brand');
+      expect(el).toHaveAttribute('data-appearance', 'info');
       expect(el).toHaveAttribute('data-variant', 'filled');
       expect(el).toHaveClass('font-bold');
       expect(el).toHaveClass('custom');

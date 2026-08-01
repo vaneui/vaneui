@@ -57,7 +57,7 @@ function ThemeShowcase() {
         <Button filled>Primary filled</Button>
         <Button danger>Danger</Button>
         <Button danger filled>Danger filled</Button>
-        <Button brand filled>Brand filled</Button>
+        <Button info filled>Info filled</Button>
         <Button success>Success</Button>
       </Row>
 
@@ -150,8 +150,8 @@ function App() {
             </Row>
             <Row flexWrap>
               <Col>
-                <Text sm fontBold>brand</Text>
-                <Icon brand><TestSvg /></Icon>
+                <Text sm fontBold>info</Text>
+                <Icon info><TestSvg /></Icon>
               </Col>
               <Col>
                 <Text sm fontBold>success</Text>

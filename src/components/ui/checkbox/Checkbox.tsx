@@ -32,7 +32,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
 
     const {
       xs, sm, md, lg, xl,
-      primary, brand, accent, secondary, tertiary, success, danger, warning, info,
+      primary, accent, secondary, tertiary, success, danger, warning, info,
       filled, outline,
       pill, sharp, rounded,
       error,
@@ -51,7 +51,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
 
     const themeProps = {
       xs, sm, md, lg, xl,
-      primary, brand, accent, secondary, tertiary, success, danger, warning, info,
+      primary, accent, secondary, tertiary, success, danger, warning, info,
       filled, outline,
       pill, sharp, rounded,
       error,

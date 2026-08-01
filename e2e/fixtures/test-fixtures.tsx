@@ -241,10 +241,10 @@ export function TestHarness() {
           </Card>
         </section>
 
-        <section data-testid="inherit-brand-outline">
-          <Card brand>
-            <Text data-testid="inherit-brand-outline-text">Brand outline text</Text>
-            <Title data-testid="inherit-brand-outline-title">Brand outline title</Title>
+        <section data-testid="inherit-info-outline">
+          <Card info>
+            <Text data-testid="inherit-info-outline-text">Info outline text</Text>
+            <Title data-testid="inherit-info-outline-title">Info outline title</Title>
           </Card>
         </section>
 
@@ -361,11 +361,11 @@ export function TestHarness() {
 
         <section data-testid="blockquote-section">
           <Blockquote data-testid="blockquote-default">Default blockquote text</Blockquote>
-          <Card brand>
-            <Blockquote data-testid="blockquote-inherit-brand">Inherits brand from Card</Blockquote>
-            <Text data-testid="blockquote-inherit-brand-text">Brand text for comparison</Text>
+          <Card info>
+            <Blockquote data-testid="blockquote-inherit-info">Inherits info from Card</Blockquote>
+            <Text data-testid="blockquote-inherit-info-text">Info text for comparison</Text>
           </Card>
-          <Blockquote brand data-testid="blockquote-brand">Explicit brand blockquote</Blockquote>
+          <Blockquote info data-testid="blockquote-info">Explicit info blockquote</Blockquote>
           <Blockquote xs data-testid="blockquote-xs">XS blockquote</Blockquote>
           <Blockquote sm data-testid="blockquote-sm">SM blockquote</Blockquote>
           <Blockquote data-testid="blockquote-md">MD blockquote</Blockquote>
@@ -518,10 +518,10 @@ export function TestHarness() {
             <Divider data-testid="divider-inherit-danger" />
           </Card>
 
-          {/* Divider inside Card brand outline — should inherit brand border color */}
-          <Card brand>
-            <Text data-testid="border-inherit-brand-text">Brand card text</Text>
-            <Divider data-testid="divider-inherit-brand" />
+          {/* Divider inside Card info outline — should inherit info border color */}
+          <Card info>
+            <Text data-testid="border-inherit-info-text">Info card text</Text>
+            <Divider data-testid="divider-inherit-info" />
           </Card>
 
           {/* Divider inside Card success filled — should inherit success border color */}
@@ -535,11 +535,10 @@ export function TestHarness() {
         <section data-testid="link-section">
           <Link href="https://example.com" external data-testid="link-external">External link</Link>
           <Link href="https://example.com" data-testid="link-normal">Normal link</Link>
-          {/* Default `link` appearance — uses cascading --link-text */}
+          {/* Default Link color — uses cascading --link-text */}
           <Link href="#" data-testid="link-appearance-default">Default link</Link>
           {/* Explicit appearances — each must produce a distinct computed color */}
           <Link href="#" primary data-testid="link-appearance-primary">primary</Link>
-          <Link href="#" brand data-testid="link-appearance-brand">brand</Link>
           <Link href="#" accent data-testid="link-appearance-accent">accent</Link>
           <Link href="#" secondary data-testid="link-appearance-secondary">secondary</Link>
           <Link href="#" tertiary data-testid="link-appearance-tertiary">tertiary</Link>
@@ -677,9 +676,6 @@ export function TestHarness() {
           <Card filled primary data-testid="vi-contrast-primary">
             <Text data-testid="vi-contrast-text-primary">Primary filled</Text>
           </Card>
-          <Card filled brand data-testid="vi-contrast-brand">
-            <Text data-testid="vi-contrast-text-brand">Brand filled</Text>
-          </Card>
           <Card filled secondary data-testid="vi-contrast-secondary">
             <Text data-testid="vi-contrast-text-secondary">Secondary filled</Text>
           </Card>
@@ -701,9 +697,6 @@ export function TestHarness() {
           <Card filled tertiary data-testid="vi-contrast-tertiary">
             <Text data-testid="vi-contrast-text-tertiary">Tertiary filled</Text>
           </Card>
-          <Card filled link data-testid="vi-contrast-link">
-            <Text data-testid="vi-contrast-text-link">Link filled</Text>
-          </Card>
         </section>
 
         {/* ── Ghost variant: computed styles ── */}
@@ -713,7 +706,7 @@ export function TestHarness() {
           <Button ghost data-testid="ghost-primary">Primary Ghost</Button>
           <Button ghost danger data-testid="ghost-danger">Danger Ghost</Button>
           <Button ghost success data-testid="ghost-success">Success Ghost</Button>
-          <Button ghost brand data-testid="ghost-brand">Brand Ghost</Button>
+          <Button ghost info data-testid="ghost-info">Info Ghost</Button>
 
           {/* Outline control for color comparison */}
           <Button data-testid="outline-primary-control">Outline Primary</Button>
@@ -1167,22 +1160,18 @@ export function TestHarness() {
 
             {/* Contrast gate fixtures: all 10 appearances × filled + outline */}
             <Card filled primary data-testid="dm-contrast-filled-primary"><Text data-testid="dm-contrast-filled-text-primary">Primary filled</Text></Card>
-            <Card filled brand data-testid="dm-contrast-filled-brand"><Text data-testid="dm-contrast-filled-text-brand">Brand filled</Text></Card>
             <Card filled accent data-testid="dm-contrast-filled-accent"><Text data-testid="dm-contrast-filled-text-accent">Accent filled</Text></Card>
             <Card filled secondary data-testid="dm-contrast-filled-secondary"><Text data-testid="dm-contrast-filled-text-secondary">Secondary filled</Text></Card>
             <Card filled tertiary data-testid="dm-contrast-filled-tertiary"><Text data-testid="dm-contrast-filled-text-tertiary">Tertiary filled</Text></Card>
-            <Card filled link data-testid="dm-contrast-filled-link"><Text data-testid="dm-contrast-filled-text-link">Link filled</Text></Card>
             <Card filled success data-testid="dm-contrast-filled-success"><Text data-testid="dm-contrast-filled-text-success">Success filled</Text></Card>
             <Card filled danger data-testid="dm-contrast-filled-danger"><Text data-testid="dm-contrast-filled-text-danger">Danger filled</Text></Card>
             <Card filled warning data-testid="dm-contrast-filled-warning"><Text data-testid="dm-contrast-filled-text-warning">Warning filled</Text></Card>
             <Card filled info data-testid="dm-contrast-filled-info"><Text data-testid="dm-contrast-filled-text-info">Info filled</Text></Card>
 
             <Card primary data-testid="dm-contrast-outline-primary"><Text data-testid="dm-contrast-outline-text-primary">Primary outline</Text></Card>
-            <Card brand data-testid="dm-contrast-outline-brand"><Text data-testid="dm-contrast-outline-text-brand">Brand outline</Text></Card>
             <Card accent data-testid="dm-contrast-outline-accent"><Text data-testid="dm-contrast-outline-text-accent">Accent outline</Text></Card>
             <Card secondary data-testid="dm-contrast-outline-secondary"><Text data-testid="dm-contrast-outline-text-secondary">Secondary outline</Text></Card>
             <Card tertiary data-testid="dm-contrast-outline-tertiary"><Text data-testid="dm-contrast-outline-text-tertiary">Tertiary outline</Text></Card>
-            <Card link data-testid="dm-contrast-outline-link"><Text data-testid="dm-contrast-outline-text-link">Link outline</Text></Card>
             <Card success data-testid="dm-contrast-outline-success"><Text data-testid="dm-contrast-outline-text-success">Success outline</Text></Card>
             <Card danger data-testid="dm-contrast-outline-danger"><Text data-testid="dm-contrast-outline-text-danger">Danger outline</Text></Card>
             <Card warning data-testid="dm-contrast-outline-warning"><Text data-testid="dm-contrast-outline-text-warning">Warning outline</Text></Card>
