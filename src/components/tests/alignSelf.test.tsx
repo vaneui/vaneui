@@ -5,12 +5,12 @@ describe('AlignSelfClassMapper', () => {
   const mapper = new AlignSelfClassMapper();
 
   const cases: Array<[NonNullable<CategoryProps['alignSelf']>, string]> = [
-    ['selfAuto', 'self-auto'],
-    ['selfStart', 'self-start'],
-    ['selfEnd', 'self-end'],
-    ['selfCenter', 'self-center'],
-    ['selfStretch', 'self-stretch'],
-    ['selfBaseline', 'self-baseline'],
+    ['alignSelfAuto', 'self-auto'],
+    ['alignSelfStart', 'self-start'],
+    ['alignSelfEnd', 'self-end'],
+    ['alignSelfCenter', 'self-center'],
+    ['alignSelfStretch', 'self-stretch'],
+    ['alignSelfBaseline', 'self-baseline'],
   ];
 
   it.each(cases)('maps %s to %s', (key, cls) => {

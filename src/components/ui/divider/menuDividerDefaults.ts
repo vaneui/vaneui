@@ -4,7 +4,7 @@ import type { DividerProps } from "./DividerProps";
 export const menuDividerDefaults: Partial<DividerProps> = {
   sm: true,
   outline: true,
-  inherit: true,
+  inheritAppearance: true,
   paddingY: true,
   horizontal: true,
 };

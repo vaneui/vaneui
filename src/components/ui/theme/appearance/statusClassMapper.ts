@@ -1,21 +1,21 @@
 import { BaseClassMapper } from "../common/BaseClassMapper";
-import type { CategoryProps, StatusKey } from "../../props";
+import type { CategoryProps, ValidityKey } from "../../props";
 
 /**
- * StatusClassMapper handles validation status styling for form components.
- * Changes border/ring colors to indicate validation state.
+ * Validation-state styling for form components.
+ * Changes border/ring colors to indicate an invalid field.
  */
-export class StatusClassMapper extends BaseClassMapper implements Record<StatusKey, string> {
-  /** Error state - danger border/ring via tokens (adapts to dark mode) */
-  error: string = "border-(--color-border-danger) ring-(--color-border-danger)/30 focus-visible:ring-(--color-border-danger)/30";
+export class StatusClassMapper extends BaseClassMapper implements Record<ValidityKey, string> {
+  /** Invalid state - danger border/ring via tokens (adapts to dark mode) */
+  invalid: string = "border-(--color-border-danger) ring-(--color-border-danger)/30 focus-visible:ring-(--color-border-danger)/30";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const classes: string[] = [];
 
-    const statusValue = extractedKeys?.status;
+    const value = extractedKeys?.validity;
 
-    if (statusValue && statusValue in this) {
-      classes.push(this[statusValue as StatusKey]);
+    if (value && value in this) {
+      classes.push(this[value as ValidityKey]);
     }
 
     return classes;

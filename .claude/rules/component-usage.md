@@ -137,7 +137,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Quoted content | `Blockquote` | Left border accent, inherits parent appearance |
 | Text input | `Input` | Renders `<input>`, all HTML input attrs |
 | Toggle | `Checkbox` | Custom styled, use inside `Label` |
-| Input label | `Label` | Flex **column** (label above field) with gap, sm size, inherit appearance. Use `row` for inline controls (e.g. Checkbox) |
+| Input label | `Label` | Flex **column** (label above field) with gap, sm size, `inheritAppearance`. Use `row` for inline controls (e.g. Checkbox) |
 | Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `listDecimal` |
 | Horizontal rule | `Divider` | Thin line separator |
 | Image | `Img` | Rounded by default |
@@ -158,7 +158,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
   </Section>
   <Section>
     <SectionTitle>Overview</SectionTitle>
-    <Row mobileCol>
+    <Row mobileStack>
       <Card>
         <Title>Revenue</Title>
         <Text>$12,000</Text>
@@ -362,13 +362,13 @@ VaneUI is **desktop-first**. Base styles target desktop. Use breakpoint props to
 
 ```tsx
 {/* Row on desktop, stacks to column on mobile */}
-<Row mobileCol>
+<Row mobileStack>
   <Card>Left</Card>
   <Card>Right</Card>
 </Row>
 
 {/* Row on desktop, stacks to column on tablet and below */}
-<Row tabletCol>
+<Row tabletStack>
   <Card>Left</Card>
   <Card>Right</Card>
 </Row>
@@ -415,7 +415,7 @@ One appearance per component. Controls text, background, and border colors.
 <Button info>Info</Button>
 ```
 
-Note: `Link` renders its blue link color by default (no explicit appearance). `Chip` defaults to `secondary` (not `primary`). Typography components (`Text`, `Title`, etc.) default to `inherit` (not `primary`).
+Note: `Link` renders its blue link color by default (no explicit appearance). `Chip` defaults to `secondary` (not `primary`). Typography components (`Text`, `Title`, etc.) default to `inheritAppearance` (not `primary`).
 
 ## Variant Props
 
@@ -610,7 +610,7 @@ Layout components (`Card`, `Row`, `Col`, `Stack`, `Section`, `Container`, `Grid*
 <Col noMargin>Reset margin</Col>
 ```
 
-`marginT`/`marginB` cover top/bottom individually. Like the border-side props they share the one mutually-exclusive `margin` category — so it's `marginT` **or** `marginB` (use `marginY` for both). `Link` is inline, so its vertical margins are ignored by CSS (only `marginX` takes effect). For the **inline sides** (`ml-4`/`mr-4`) or an **exact value**, use `className`.
+`marginT`/`marginB` cover top/bottom individually and **compose** — `marginT marginB` applies both (or use `marginY`); `noMargin` resets all sides and wins. Border side toggles compose the same way (`borderT borderL` applies both; `noBorder` resets and wins). `Link` is inline, so its vertical margins are ignored by CSS (only `marginX` takes effect). For the **inline sides** (`ml-4`/`mr-4`) or an **exact value**, use `className`.
 
 ## Full-width children (Container / Section)
 

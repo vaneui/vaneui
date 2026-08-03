@@ -34,7 +34,7 @@ export class LetterSpacingClassMapper extends BaseClassMapper implements Record<
       return [this[letterSpacingValue as LetterSpacingKey]];
     }
 
-    if (extractedKeys?.inheritSize === 'inheritSize' && extractedKeys?.responsive !== 'responsive') {
+    if (extractedKeys?.inheritSize === 'inheritSize' && extractedKeys?.responsiveSizing !== 'responsiveSizing') {
       return [this.inherit];
     }
 

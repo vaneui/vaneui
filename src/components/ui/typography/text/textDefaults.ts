@@ -7,7 +7,7 @@ export const textDefaults: Partial<TypographyProps> = {
   fontSans: true,
   textLeft: true,
   outline: true,
-  inherit: true,
+  inheritAppearance: true,
   // reset the UA <p> margin (was the base-string `m-0`); consumers can opt into
   // margin/marginY/marginT/etc. now that Text carries the margin category
   noMargin: true,

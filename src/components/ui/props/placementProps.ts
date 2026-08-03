@@ -1,27 +1,27 @@
 /** Placement props for positioning floating elements relative to their anchor */
 export interface PlacementProps {
   /** Position above anchor, centered horizontally (default) */
-  top?: boolean;
+  placeTop?: boolean;
   /** Position above anchor, aligned to start (left) */
-  topStart?: boolean;
+  placeTopStart?: boolean;
   /** Position above anchor, aligned to end (right) */
-  topEnd?: boolean;
+  placeTopEnd?: boolean;
   /** Position below anchor, centered horizontally */
-  bottom?: boolean;
+  placeBottom?: boolean;
   /** Position below anchor, aligned to start (left) */
-  bottomStart?: boolean;
+  placeBottomStart?: boolean;
   /** Position below anchor, aligned to end (right) */
-  bottomEnd?: boolean;
+  placeBottomEnd?: boolean;
   /** Position to the left of anchor, centered vertically */
-  left?: boolean;
+  placeLeft?: boolean;
   /** Position to the left of anchor, aligned to top */
-  leftStart?: boolean;
+  placeLeftStart?: boolean;
   /** Position to the left of anchor, aligned to bottom */
-  leftEnd?: boolean;
+  placeLeftEnd?: boolean;
   /** Position to the right of anchor, centered vertically */
-  right?: boolean;
+  placeRight?: boolean;
   /** Position to the right of anchor, aligned to top */
-  rightStart?: boolean;
+  placeRightStart?: boolean;
   /** Position to the right of anchor, aligned to bottom */
-  rightEnd?: boolean;
+  placeRightEnd?: boolean;
 }

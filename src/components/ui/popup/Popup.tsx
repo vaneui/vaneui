@@ -246,7 +246,7 @@ function anchorSelfProps(placement: PopupPlacement): Record<string, boolean> {
     start: 'justifySelfStart', end: 'justifySelfEnd', center: 'justifySelfCenter', stretch: 'justifySelfStretch',
   };
   const alignMap: Record<string, string> = {
-    start: 'selfStart', end: 'selfEnd', center: 'selfCenter', stretch: 'selfStretch',
+    start: 'alignSelfStart', end: 'alignSelfEnd', center: 'alignSelfCenter', stretch: 'alignSelfStretch',
   };
   const out: Record<string, boolean> = {};
   if (anchor.justifySelf && justifyMap[anchor.justifySelf]) out[justifyMap[anchor.justifySelf]] = true;
@@ -308,9 +308,10 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       props as Record<string, unknown>,
       popupTheme.defaults as Record<string, unknown>,
       'placement'
-    ) || 'top';
+    ) || 'placeTop';
 
-    const placement = placementKey.replace(/([A-Z])/g, '-$1').toLowerCase() as PopupPlacement;
+    // strip the `place` prefix, then camelCase -> kebab: placeTopStart -> top-start
+    const placement = placementKey.replace(/^place/, '').replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '') as PopupPlacement;
 
     const { mounted, state } = useTransition(effectiveOpen, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
     const zIndex = useStackingContext(effectiveOpen, 'popup');

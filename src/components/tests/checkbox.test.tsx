@@ -408,7 +408,7 @@ describe('Checkbox Component Tests', () => {
     it('should apply error state classes when error prop is set', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Checkbox error />
+          <Checkbox invalid />
         </ThemeProvider>
       );
 
@@ -433,7 +433,7 @@ describe('Checkbox Component Tests', () => {
     it('should work with other props alongside error', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Checkbox error lg primary />
+          <Checkbox invalid lg primary />
         </ThemeProvider>
       );
 

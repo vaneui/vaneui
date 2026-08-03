@@ -31,7 +31,7 @@ import type {
  * Grid uses CSS `display: grid`, so several props that exist on Container
  * are intentionally NOT included because they have no effect on a grid
  * container or are not wired up in `gridSubThemes`:
- *   - `BreakpointProps` (mobileCol/tabletCol/desktopCol) — applies
+ *   - `BreakpointProps` (mobileStack/tabletStack/desktopStack) — applies
  *     `flex-direction: column`, ignored by grid layout.
  *   - `ShadowProps` / `RingProps` — `gridSubThemes` has no shadow/ring
  *     mappers.

@@ -594,7 +594,7 @@ describe('Input Component Tests', () => {
     it('should apply error state classes when error prop is set', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Input error placeholder="Error input" />
+          <Input invalid placeholder="Error input" />
         </ThemeProvider>
       );
 
@@ -619,7 +619,7 @@ describe('Input Component Tests', () => {
     it('should work with other props alongside error', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Input error lg primary placeholder="Large error input" />
+          <Input invalid lg primary placeholder="Large error input" />
         </ThemeProvider>
       );
 
@@ -632,7 +632,7 @@ describe('Input Component Tests', () => {
     it('should emit aria-invalid and data-status when error is set (not color-only)', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Input error placeholder="Error input" />
+          <Input invalid placeholder="Error input" />
         </ThemeProvider>
       );
 
@@ -656,7 +656,7 @@ describe('Input Component Tests', () => {
     it('should respect a consumer-supplied aria-invalid value', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Input error aria-invalid="grammar" placeholder="Custom aria-invalid" />
+          <Input invalid aria-invalid="grammar" placeholder="Custom aria-invalid" />
         </ThemeProvider>
       );
 
@@ -670,7 +670,7 @@ describe('Input Component Tests', () => {
     it('renders a decorative, aria-hidden error-icon element when error is set', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Input error placeholder="Error input" />
+          <Input invalid placeholder="Error input" />
         </ThemeProvider>
       );
       const icon = container.querySelector('.vane-input-error-icon');
@@ -697,7 +697,7 @@ describe('Input Component Tests', () => {
       let node: HTMLInputElement | null = null;
       render(
         <ThemeProvider theme={defaultTheme}>
-          <Input error ref={(el) => { node = el; }} placeholder="Error input" />
+          <Input invalid ref={(el) => { node = el; }} placeholder="Error input" />
         </ThemeProvider>
       );
       expect(node).toBeInstanceOf(HTMLInputElement);
@@ -712,7 +712,7 @@ describe('Input Component Tests', () => {
             return t;
           }}
         >
-          <Input error placeholder="Error input" />
+          <Input invalid placeholder="Error input" />
         </ThemeProvider>
       );
       expect(container.querySelector('[data-testid="custom-error-icon"]')).toBeInTheDocument();
@@ -720,7 +720,7 @@ describe('Input Component Tests', () => {
 
     it('renders the wrapper as a themed element (relative/flex/w-full from props, not raw className)', () => {
       const { container } = render(
-        <ThemeProvider theme={defaultTheme}><Input error placeholder="Error input" /></ThemeProvider>
+        <ThemeProvider theme={defaultTheme}><Input invalid placeholder="Error input" /></ThemeProvider>
       );
       const wrapper = container.querySelector('.vane-input-wrapper') as HTMLElement;
       expect(wrapper).toHaveClass('relative');
@@ -739,7 +739,7 @@ describe('Input Component Tests', () => {
             return t;
           }}
         >
-          <Input error placeholder="Error input" />
+          <Input invalid placeholder="Error input" />
         </ThemeProvider>
       );
       const wrapper = container.querySelector('.vane-input-wrapper') as HTMLElement;

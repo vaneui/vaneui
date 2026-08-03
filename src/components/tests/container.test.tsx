@@ -271,7 +271,7 @@ describe('Container Component Tests', () => {
     it('should apply mobileCol class', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Container mobileCol>Responsive container</Container>
+          <Container mobileStack>Responsive container</Container>
         </ThemeProvider>
       );
       const el = container.querySelector('div');

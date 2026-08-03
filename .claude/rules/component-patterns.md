@@ -112,14 +112,14 @@ Categories are defined in `src/components/ui/props/keys.ts`. Each component spec
 - **Row**: md, row, flex, itemsCenter, gap, noPadding, noBorder, noInsetRing, outline, sharp
 - **Col**: md, column, flex, gap, noPadding, noBorder, noInsetRing, outline, sharp
 - **Stack**: md, flex, column, flexWrap, gap, padding, noBorder, noInsetRing, outline, sharp
-- **Section**: md, wFull, flex, column, itemsStart, gap, padding, noBorder, noInsetRing, noShadow, outline, sharp, responsive
+- **Section**: md, wFull, flex, column, itemsStart, gap, padding, noBorder, noInsetRing, noShadow, outline, sharp, responsiveSizing
 - **Badge**: md, secondary (neutral default; color via success/danger/…), outline, pill, fontSemibold
 - **Chip**: md, secondary (not primary!), outline, rounded, fontSans
 - **NavLink**: sm, primary, outline, rounded, noBorder, noShadow, noInsetRing, wFull, textLeft, focusVisible
 - **Link**: md, underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (link color by default; no appearance or variant default)
 - **Input**: md, primary, outline, rounded, wFull, insetRing, focusVisible
 - **Icon**: md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit (container-mode props default off; appearance not applied until set)
-- **Typography** (Text, Title, etc.): md, inherit (not primary!), outline
+- **Typography** (Text, Title, etc.): md, inheritAppearance (not primary!), outline
 
 ## Boolean Props Must Not Leak to DOM
 All boolean props (size, appearance, variant, shape, typography, layout) are consumed by the theme system via `getComponentConfig()` and must be stripped before rendering to the DOM element. Only HTML-valid attributes should pass through.

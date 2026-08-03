@@ -19,7 +19,7 @@ export class PyClassMapper extends BaseClassMapper implements Record<ResponsiveB
     const p = extractedKeys?.padding;
     if (p === 'padding' || p === 'paddingY' || p === undefined) {
       // Use breakpoint-specific classes if responsive=true
-      if (extractedKeys?.responsive === 'responsive') {
+      if (extractedKeys?.responsiveSizing === 'responsiveSizing') {
         return [this.desktop, this.tablet, this.mobile];
       }
       // Otherwise use simple --py variable

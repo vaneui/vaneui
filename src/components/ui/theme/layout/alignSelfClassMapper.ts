@@ -4,17 +4,17 @@ import type { CategoryProps } from "../../props";
 
 export class AlignSelfClassMapper extends BaseClassMapper implements Record<AlignSelfKey, string> {
   /** Use the parent's align-items value */
-  selfAuto: string = "self-auto";
+  alignSelfAuto: string = "self-auto";
   /** Align this item to the start of the cross axis */
-  selfStart: string = "self-start";
+  alignSelfStart: string = "self-start";
   /** Align this item to the end of the cross axis */
-  selfEnd: string = "self-end";
+  alignSelfEnd: string = "self-end";
   /** Center this item on the cross axis */
-  selfCenter: string = "self-center";
+  alignSelfCenter: string = "self-center";
   /** Stretch this item to fill the cross axis */
-  selfStretch: string = "self-stretch";
+  alignSelfStretch: string = "self-stretch";
   /** Align this item to its baseline */
-  selfBaseline: string = "self-baseline";
+  alignSelfBaseline: string = "self-baseline";
 
 
   getClasses(extractedKeys: CategoryProps): string[] {

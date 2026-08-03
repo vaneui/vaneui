@@ -293,7 +293,7 @@ const DATA_ATTRIBUTE_ONLY_CATEGORIES = new Set<string>([
   'size',
   'appearance',
   'variant',
-  'responsive',
+  'responsiveSizing',
   'disabled',
 ]);
 
@@ -379,7 +379,7 @@ describe("Component theme coverage tests", () => {
     // This catches cases where a category is declared on the component but
     // no mapper actually responds to it — e.g., GridProps used to include
     // BreakpointProps even though gridSubThemes had no BreakpointClassMapper,
-    // making `<Grid2 mobileCol>` a silent no-op. The previous coverage check
+    // making `<Grid2 mobileStack>` a silent no-op. The previous coverage check
     // missed this because it only verified "does any mapper produce
     // non-empty output", not "does any mapper actually read this category".
     it(`should ensure every ${config.propsType} category is read by a mapper, marked as data-attribute, component-extracted, or known-dead`, () => {
@@ -506,7 +506,7 @@ describe("Component theme coverage tests", () => {
     createThemeTests(typographyConfig);
 
     // Blockquote extends typography with the `border` category (its inline-start
-    // accent is a prop-driven borderS via the per-side border mapper), so it
+    // accent is a prop-driven borderStart via the per-side border mapper), so it
     // uses BLOCKQUOTE_CATEGORIES and carries the width + color border mappers.
     const blockquoteConfig: ComponentTestConfig = {
       propsType: "BlockquoteProps",

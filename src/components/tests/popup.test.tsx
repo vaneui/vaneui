@@ -290,7 +290,7 @@ describe('Popup Component Tests', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} top>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placeTop>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -303,10 +303,10 @@ describe('Popup Component Tests', () => {
     it('should accept all placement boolean props', () => {
       const anchorRef = createAnchorRef();
       const placements = [
-        'top', 'topStart', 'topEnd',
-        'bottom', 'bottomStart', 'bottomEnd',
-        'left', 'leftStart', 'leftEnd',
-        'right', 'rightStart', 'rightEnd',
+        'placeTop', 'placeTopStart', 'placeTopEnd',
+        'placeBottom', 'placeBottomStart', 'placeBottomEnd',
+        'placeLeft', 'placeLeftStart', 'placeLeftEnd',
+        'placeRight', 'placeRightStart', 'placeRightEnd',
       ] as const;
 
       placements.forEach(placement => {
@@ -328,7 +328,7 @@ describe('Popup Component Tests', () => {
     // via alignSelf/justifySelf props (replacing the old inline styles).
     it('applies justify-self-end for *-end inline placements', () => {
       const anchorRef = createAnchorRef();
-      (['topEnd', 'bottomEnd'] as const).forEach(placement => {
+      (['placeTopEnd', 'placeBottomEnd'] as const).forEach(placement => {
         const { baseElement, unmount } = render(
           <ThemeProvider theme={defaultTheme}>
             <Popup open={true} onClose={() => {}} anchorRef={anchorRef} {...{[placement]: true}}>
@@ -343,7 +343,7 @@ describe('Popup Component Tests', () => {
 
     it('applies self-end for *-end block placements (left-end / right-end)', () => {
       const anchorRef = createAnchorRef();
-      (['leftEnd', 'rightEnd'] as const).forEach(placement => {
+      (['placeLeftEnd', 'placeRightEnd'] as const).forEach(placement => {
         const { baseElement, unmount } = render(
           <ThemeProvider theme={defaultTheme}>
             <Popup open={true} onClose={() => {}} anchorRef={anchorRef} {...{[placement]: true}}>
@@ -360,7 +360,7 @@ describe('Popup Component Tests', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottom>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placeBottom>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -872,7 +872,7 @@ describe('Popup Component Tests', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottom>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placeBottom>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -900,7 +900,7 @@ describe('Popup Component Tests', () => {
       const anchorRef = createAnchorRef();
       render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottomEnd>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placeBottomEnd>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -913,7 +913,7 @@ describe('Popup Component Tests', () => {
     it('should respect placement from ThemeProvider themeDefaults', () => {
       const anchorRef = createAnchorRef();
       render(
-        <ThemeProvider theme={defaultTheme} themeDefaults={{ popup: { bottomStart: true } }}>
+        <ThemeProvider theme={defaultTheme} themeDefaults={{ popup: { placeBottomStart: true } }}>
           <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
             <div>Content</div>
           </Popup>
@@ -927,8 +927,8 @@ describe('Popup Component Tests', () => {
     it('should let explicit prop override ThemeProvider placement default', () => {
       const anchorRef = createAnchorRef();
       render(
-        <ThemeProvider theme={defaultTheme} themeDefaults={{ popup: { bottomStart: true } }}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} rightEnd>
+        <ThemeProvider theme={defaultTheme} themeDefaults={{ popup: { placeBottomStart: true } }}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placeRightEnd>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -1026,7 +1026,7 @@ describe('Popup Component Tests', () => {
 
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottomStart portal={false}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placeBottomStart portal={false}>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -1042,7 +1042,7 @@ describe('Popup Component Tests', () => {
       // Force re-render to trigger positioning with mocked rects
       const { baseElement: baseElement2 } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottomStart portal={false}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placeBottomStart portal={false}>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -1069,7 +1069,7 @@ describe('Popup Component Tests', () => {
 
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottomEnd portal={false}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placeBottomEnd portal={false}>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -1095,7 +1095,7 @@ describe('Popup Component Tests', () => {
 
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} rightStart portal={false}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placeRightStart portal={false}>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -1122,7 +1122,7 @@ describe('Popup Component Tests', () => {
 
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} bottom portal={false}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} placeBottom portal={false}>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -1197,7 +1197,7 @@ describe('Popup Component Tests', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} maxHeight={false}>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} clampHeight={false}>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -1218,7 +1218,7 @@ describe('Popup Component Tests', () => {
       );
 
       const popup = baseElement.querySelector('.vane-popup');
-      expect(popup).not.toHaveAttribute('maxHeight');
+      expect(popup).not.toHaveAttribute('clampHeight');
     });
   });
 
@@ -1241,7 +1241,7 @@ describe('Popup Component Tests', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} minWidth>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} constrainWidth>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
@@ -1255,14 +1255,14 @@ describe('Popup Component Tests', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} minWidth>
+          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} constrainWidth>
             <div>Content</div>
           </Popup>
         </ThemeProvider>
       );
 
       const popup = baseElement.querySelector('.vane-popup');
-      expect(popup).not.toHaveAttribute('minWidth');
+      expect(popup).not.toHaveAttribute('constrainWidth');
     });
   });
 

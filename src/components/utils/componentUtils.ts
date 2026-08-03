@@ -28,3 +28,27 @@ export function pickFirstTruthyKeyByCategory<T extends ComponentCategoryKey>(
 
   return undefined;
 }
+
+/** Categories whose side toggles compose (union) instead of being one-of. */
+export const MULTI_VALUE_CATEGORIES = new Set<string>(['border', 'margin']);
+
+/**
+ * Collect every active key for a composable category (border/margin). Explicit
+ * truthy props win over defaults as a set; a `no*` reset (noBorder/noMargin) in
+ * the selection overrides all side toggles.
+ */
+export function collectTruthyKeysByCategory<T extends ComponentCategoryKey>(
+  props: Record<string, unknown>,
+  defaults: Record<string, unknown>,
+  category: T
+): string[] {
+  const keys = ComponentKeys[category] as readonly string[];
+
+  const explicitOn = keys.filter(k => props[k] === true);
+  const selected = explicitOn.length > 0
+    ? explicitOn
+    : keys.filter(k => defaults[k] === true && props[k] !== false);
+
+  const reset = selected.find(k => k.startsWith('no'));
+  return reset ? [reset] : selected;
+}

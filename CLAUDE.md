@@ -128,9 +128,9 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 | **fontWeight** | `fontThin` through `fontBlack` |
 | **textAlign** | `textLeft`, `textCenter`, `textRight`, `textJustify` |
 
-Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShadow`, `insetRing`/`noInsetRing`, `border`/`noBorder`, `underline`, `uppercase`, `italic`, `fontBold`, `fontSemibold`, `fontMono`, `transparent`, `responsive`, `sticky`, `flexWrap`, `itemsCenter`, `justifyBetween`, etc.
+Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShadow`, `insetRing`/`noInsetRing`, `border`/`noBorder`, `underline`, `uppercase`, `italic`, `fontBold`, `fontSemibold`, `fontMono`, `transparent`, `responsiveSizing`, `sticky`, `flexWrap`, `itemsCenter`, `justifyBetween`, etc.
 
-**Breakpoints** (layout components): `mobileCol`, `tabletCol`, `desktopCol`
+**Breakpoints** (layout components): `mobileStack`, `tabletStack`, `desktopStack`
 **Hide**: `mobileHide`, `tabletHide`, `desktopHide`
 
 ## Key Defaults (Do NOT Redundantly Specify)
@@ -151,11 +151,11 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 | **Input** | md, primary, outline, rounded, wFull, insetRing, focusVisible |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
-| **Label** | sm, flex, column, itemsStart, gap, inherit, fontMedium (use `row` for inline controls like Checkbox) |
+| **Label** | sm, flex, column, itemsStart, gap, inheritAppearance, fontMedium (use `row` for inline controls like Checkbox) |
 | **Modal** | md, wFull, flex, column, overflowAuto, relative, noPadding, gap, rounded, shadow, primary, outline |
 | **Container** | md, wFull, flex, column, itemsCenter, gap, noPadding, outline, sharp |
-| **Section** | md, wFull, flex, column, itemsStart, gap, padding, noBorder, noInsetRing, noShadow, outline, sharp, responsive |
-| **Typography** (Text, Title, etc.) | md, inherit (not primary!), outline |
+| **Section** | md, wFull, flex, column, itemsStart, gap, padding, noBorder, noInsetRing, noShadow, outline, sharp, responsiveSizing |
+| **Typography** (Text, Title, etc.) | md, inheritAppearance (not primary!), outline |
 | **Layout** (Row, Col, Stack, Card, Grid*) | gap, md, outline |
 
 ## Architecture
@@ -202,7 +202,7 @@ src/
 2. **Don't override themed properties with className** — Use `danger` not `className="bg-red-500"`. Use size props not `className="gap-*"`.
 3. **Don't specify default props** — `<Row gap>` is redundant (gap is true by default).
 4. **Boolean props must not leak to DOM** — They are consumed by the theme system and stripped by `getComponentConfig()`.
-5. **Desktop-first responsive** — Breakpoints: mobile (48rem/768px), tablet (64rem/1024px), desktop (80rem/1280px). Use `tabletCol`/`mobileCol` to adapt layouts for smaller screens.
+5. **Desktop-first responsive** — Breakpoints: mobile (48rem/768px), tablet (64rem/1024px), desktop (80rem/1280px). Use `tabletStack`/`mobileStack` to adapt layouts for smaller screens.
 6. **No replaceable Tailwind classes in base class strings** — When a Tailwind class has an equivalent boolean prop (e.g., `items-center` → `itemsCenter`, `cursor-pointer` → `cursorPointer`, `relative` → `relative`), it MUST go in the component's defaults object, not in the base class string of `new ComponentTheme(...)`. The base class string is only for classes that have NO boolean prop equivalent (e.g., `align-middle`, `aspect-square`, `w-full`, child selectors like `[&_svg]:shrink-0`, conditional selectors like `hover:underline`). This is enforced by the `theme-collections.test.ts` quality check. When adding a boolean prop default, ensure the component's categories include the prop's category, the theme has the corresponding class mapper, and the prop type includes the prop interface.
 7. **No hardcoded visual props on child components** — When a parent component renders a child VaneUI component (e.g., Menu renders Popup), visual defaults (size, appearance, variant, shape, layout) must come from the theme system via a sub-theme + ThemeProvider `themeDefaults`, NOT from hardcoded boolean props on the JSX element. Only functional/ARIA props (open, onClose, role, id, ref, anchorRef, etc.) should be set directly. This ensures all visual aspects are customizable via ThemeProvider.
 8. **No hardcoded inline defaults in ComponentTheme constructors** — Every component's defaults MUST be extracted to a separate `{component}Defaults.ts` file (e.g., `menuDividerDefaults.ts`, `menuPopupDefaults.ts`), never passed as inline object literals in `new ComponentTheme(...)`. This makes ALL defaults customizable via ThemeProvider's `themeDefaults` and discoverable in the `theme/defaults.ts` aggregator. When a sub-theme reuses a parent theme (like MenuDivider reuses DividerTheme), create a separate defaults file for the sub-theme variant.

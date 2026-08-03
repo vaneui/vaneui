@@ -555,7 +555,7 @@ describe('Title Components Tests', () => {
     it('Title should use base class when responsive is explicitly disabled', () => {
       const { container } = render(
         <ThemeProvider
-          themeDefaults={{ title: { responsive: false } }}
+          themeDefaults={{ title: { responsiveSizing: false } }}
         >
           <Title>Non-responsive Title</Title>
         </ThemeProvider>
@@ -572,7 +572,7 @@ describe('Title Components Tests', () => {
     it('PageTitle should use base font-size when responsive is explicitly disabled', () => {
       const { container } = render(
         <ThemeProvider
-          themeDefaults={{ pageTitle: { responsive: false } }}
+          themeDefaults={{ pageTitle: { responsiveSizing: false } }}
         >
           <PageTitle>Non-responsive Page Title</PageTitle>
         </ThemeProvider>
@@ -586,7 +586,7 @@ describe('Title Components Tests', () => {
     it('SectionTitle should use base font-size when responsive is explicitly disabled', () => {
       const { container } = render(
         <ThemeProvider
-          themeDefaults={{ sectionTitle: { responsive: false } }}
+          themeDefaults={{ sectionTitle: { responsiveSizing: false } }}
         >
           <SectionTitle>Non-responsive Section Title</SectionTitle>
         </ThemeProvider>

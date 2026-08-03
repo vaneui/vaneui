@@ -17,7 +17,7 @@ export class LineHeightClassMapper extends BaseClassMapper implements Record<Lin
   getClasses(extractedKeys: CategoryProps): string[] {
     // Follow font-size inheritance: when inheritSize is active AND not
     // overridden by responsive sizing, inherit line-height too.
-    if (extractedKeys?.inheritSize === 'inheritSize' && extractedKeys?.responsive !== 'responsive') {
+    if (extractedKeys?.inheritSize === 'inheritSize' && extractedKeys?.responsiveSizing !== 'responsiveSizing') {
       return [this.inherit];
     }
     return [this.lineHeight];

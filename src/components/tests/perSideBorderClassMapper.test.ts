@@ -11,13 +11,13 @@ describe('PerSideBorderClassMapper', () => {
     expect(classes).toContain('border-l-[length:var(--bw-l)]');
   });
 
-  it('emits the logical start side reading --bw-s for `borderS`', () => {
-    const classes = mapper.getClasses({ border: 'borderS' } as never);
+  it('emits the logical start side reading --bw-s for `borderStart`', () => {
+    const classes = mapper.getClasses({ border: 'borderStart' } as never);
     expect(classes).toEqual(['border-s-[length:var(--bw-s)]']);
   });
 
-  it('emits the logical end side reading --bw-e for `borderE`', () => {
-    const classes = mapper.getClasses({ border: 'borderE' } as never);
+  it('emits the logical end side reading --bw-e for `borderEnd`', () => {
+    const classes = mapper.getClasses({ border: 'borderEnd' } as never);
     expect(classes).toEqual(['border-e-[length:var(--bw-e)]']);
   });
 

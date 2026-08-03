@@ -38,7 +38,7 @@ describe('Inherit Appearance Prop', () => {
     it('component with inherit should NOT have data-appearance attribute', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text inherit>Inherit text</Text>
+          <Text inheritAppearance>Inherit text</Text>
         </ThemeProvider>
       );
 
@@ -49,7 +49,7 @@ describe('Inherit Appearance Prop', () => {
     it('component with inherit should NOT have data-variant attribute', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text inherit>Inherit text</Text>
+          <Text inheritAppearance>Inherit text</Text>
         </ThemeProvider>
       );
 
@@ -60,7 +60,7 @@ describe('Inherit Appearance Prop', () => {
     it('component with inherit should have text-(--text-color) consumer class', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text inherit>Inherit text</Text>
+          <Text inheritAppearance>Inherit text</Text>
         </ThemeProvider>
       );
 
@@ -71,12 +71,12 @@ describe('Inherit Appearance Prop', () => {
     it('inherit prop should not leak to DOM', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text inherit>Inherit text</Text>
+          <Text inheritAppearance>Inherit text</Text>
         </ThemeProvider>
       );
 
       const text = container.querySelector('p');
-      expect(text).not.toHaveAttribute('inherit');
+      expect(text).not.toHaveAttribute('inheritAppearance');
     });
   });
 
@@ -168,7 +168,7 @@ describe('Inherit Appearance Prop', () => {
     it('Text with inherit={false} should NOT have data-appearance or text-(--text-color)', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text inherit={false}>No appearance text</Text>
+          <Text inheritAppearance={false}>No appearance text</Text>
         </ThemeProvider>
       );
 
@@ -224,7 +224,7 @@ describe('Inherit Appearance Prop', () => {
     it('Card with explicit inherit should NOT have data-appearance', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Card inherit>Inherit card</Card>
+          <Card inheritAppearance>Inherit card</Card>
         </ThemeProvider>
       );
 
@@ -236,7 +236,7 @@ describe('Inherit Appearance Prop', () => {
     it('Card with inherit should have consumer classes', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Card inherit>Inherit card</Card>
+          <Card inheritAppearance>Inherit card</Card>
         </ThemeProvider>
       );
 
@@ -359,7 +359,7 @@ describe('Inherit Appearance Prop', () => {
     it('Card with inherit and transparent should have text-(--text-color) but NOT bg-(--bg-color)', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Card inherit transparent>Transparent inherit card</Card>
+          <Card inheritAppearance transparent>Transparent inherit card</Card>
         </ThemeProvider>
       );
 
@@ -795,7 +795,7 @@ describe('Inherit Appearance Prop', () => {
     it('inherit appearance expands to inheritColor/Bg/Border but NOT inheritSize', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text inherit>Text</Text>
+          <Text inheritAppearance>Text</Text>
         </ThemeProvider>
       );
       const text = container.querySelector('p');
@@ -809,7 +809,7 @@ describe('Inherit Appearance Prop', () => {
     it('inherit appearance + explicit inheritSize enables size inheritance', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Text inherit inheritSize>Text</Text>
+          <Text inheritAppearance inheritSize>Text</Text>
         </ThemeProvider>
       );
       const text = container.querySelector('p');

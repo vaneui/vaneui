@@ -152,7 +152,7 @@ function ArrowFlipFixtures() {
         open
         noAnimation
         arrow
-        bottomStart
+        placeBottomStart
         anchorRef={anchorRef}
         closeOnEscape={false}
         closeOnClickOutside={false}
@@ -893,13 +893,13 @@ export function TestHarness() {
 
         <section data-testid="responsive-section">
           {/* mobileCol: row on desktop, column on mobile (<768px) */}
-          <Row data-testid="responsive-mobileCol" mobileCol>
+          <Row data-testid="responsive-mobileCol" mobileStack>
             <Text data-testid="responsive-mobileCol-child1">A</Text>
             <Text data-testid="responsive-mobileCol-child2">B</Text>
           </Row>
 
           {/* tabletCol: row on desktop, column on tablet (<1024px) */}
-          <Row data-testid="responsive-tabletCol" tabletCol>
+          <Row data-testid="responsive-tabletCol" tabletStack>
             <Text data-testid="responsive-tabletCol-child1">C</Text>
             <Text data-testid="responsive-tabletCol-child2">D</Text>
           </Row>
@@ -920,9 +920,9 @@ export function TestHarness() {
           </Col>
 
           {/* Responsive typography: font-size scales down at breakpoints */}
-          <PageTitle responsive data-testid="responsive-pagetitle">Page Title</PageTitle>
-          <SectionTitle responsive data-testid="responsive-sectiontitle">Section Title</SectionTitle>
-          <Title responsive data-testid="responsive-title">Title</Title>
+          <PageTitle responsiveSizing data-testid="responsive-pagetitle">Page Title</PageTitle>
+          <SectionTitle responsiveSizing data-testid="responsive-sectiontitle">Section Title</SectionTitle>
+          <Title responsiveSizing data-testid="responsive-title">Title</Title>
         </section>
 
         {/* ── Inherit-size: Link and Code inside headings ── */}
@@ -1110,11 +1110,11 @@ export function TestHarness() {
           <Input readOnly value="read only" aria-label="readonly input" data-testid="ro-input" />
           <Input value="editable" onChange={() => {}} aria-label="editable input" data-testid="rw-input" />
           {/* error vs normal (A5: non-color alert-icon cue) */}
-          <Input error aria-label="error input" data-testid="err-input" />
+          <Input invalid aria-label="error input" data-testid="err-input" />
           <Input aria-label="normal input" data-testid="ok-input" />
           {/* sized error inputs — the icon must scale with the size prop */}
-          <Input xs error aria-label="xs error input" data-testid="err-input-xs" />
-          <Input xl error aria-label="xl error input" data-testid="err-input-xl" />
+          <Input xs invalid aria-label="xs error input" data-testid="err-input-xs" />
+          <Input xl invalid aria-label="xl error input" data-testid="err-input-xl" />
         </section>
 
         {/* ── Dark mode: [data-theme="dark"] token flip ──
@@ -1128,7 +1128,7 @@ export function TestHarness() {
             <Card data-testid="dm-light-surface">
               <Button data-testid="dm-light-button-primary">Primary</Button>
               <Text data-testid="dm-light-text">Inherited text</Text>
-              <Input error aria-label="light error input" data-testid="dm-light-error-input" />
+              <Input invalid aria-label="light error input" data-testid="dm-light-error-input" />
             </Card>
             {/* Light control for the bare inherit-mode regression case below */}
             <Text data-testid="dm-light-bare-text">Bare light text</Text>
@@ -1154,7 +1154,7 @@ export function TestHarness() {
                 <Input placeholder="you@example.com" aria-label="dark input" data-testid="dm-dark-input" />
               </Label>
               {/* error input — border + icon must use the danger TOKEN, which flips under dark */}
-              <Input error aria-label="dark error input" data-testid="dm-dark-error-input" />
+              <Input invalid aria-label="dark error input" data-testid="dm-dark-error-input" />
               <Link href="#" data-testid="dm-dark-link">Dark link</Link>
             </Card>
 

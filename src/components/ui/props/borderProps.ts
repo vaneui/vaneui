@@ -1,5 +1,6 @@
 /**
- * Border props for controlling component borders
+ * Border props for controlling component borders. Side toggles compose
+ * (borderT+borderL apply both); noBorder resets all.
  */
 
 export interface BorderProps {
@@ -18,9 +19,9 @@ export interface BorderProps {
   /** Enable border on top and bottom */
   borderY?: boolean;
   /** Enable border on the inline-start side (left in LTR, right in RTL) */
-  borderS?: boolean;
+  borderStart?: boolean;
   /** Enable border on the inline-end side (right in LTR, left in RTL) */
-  borderE?: boolean;
+  borderEnd?: boolean;
   /** Disable all borders */
   noBorder?: boolean;
 }

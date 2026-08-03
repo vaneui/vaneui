@@ -112,7 +112,7 @@ describe('Card Component Tests', () => {
     it('should work with responsive props when rendered as anchor', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
-          <Card href="/page" mobileCol lg>Responsive Link Card</Card>
+          <Card href="/page" mobileStack lg>Responsive Link Card</Card>
         </ThemeProvider>
       );
 
@@ -376,7 +376,7 @@ describe('Card Component Tests', () => {
     it('should apply responsive classes correctly', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Card mobileCol>Responsive Card</Card>
+          <Card mobileStack>Responsive Card</Card>
         </ThemeProvider>
       );
 
@@ -572,7 +572,7 @@ describe('Card Component Tests', () => {
       it('should work with responsive breakpoints', () => {
         const {container} = render(
           <ThemeProvider theme={defaultTheme}>
-            <Card border insetRing mobileCol className="responsive-test">Responsive Card</Card>
+            <Card border insetRing mobileStack className="responsive-test">Responsive Card</Card>
           </ThemeProvider>
         );
 

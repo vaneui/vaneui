@@ -36,22 +36,22 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "name": "Align Self",
     "description": "AlignSelf props for overriding a single flex/grid item's cross-axis\nalignment (align-self), independent of the parent's align-items.",
     "props": {
-      "selfAuto": {
+      "alignSelfAuto": {
         "description": "Use the parent's align-items value (align-self: auto)"
       },
-      "selfStart": {
+      "alignSelfStart": {
         "description": "Align this item to the start of the cross axis (align-self: flex-start)"
       },
-      "selfEnd": {
+      "alignSelfEnd": {
         "description": "Align this item to the end of the cross axis (align-self: flex-end)"
       },
-      "selfCenter": {
+      "alignSelfCenter": {
         "description": "Center this item on the cross axis (align-self: center)"
       },
-      "selfStretch": {
+      "alignSelfStretch": {
         "description": "Stretch this item to fill the cross axis (align-self: stretch)"
       },
-      "selfBaseline": {
+      "alignSelfBaseline": {
         "description": "Align this item to its baseline (align-self: baseline)"
       }
     }
@@ -84,7 +84,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       "info": {
         "description": "Info color appearance (cyan)"
       },
-      "inherit": {
+      "inheritAppearance": {
         "description": "Inherit appearance from parent — suppresses own data-appearance/data-variant, uses parent's CSS variables"
       }
     }
@@ -103,7 +103,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
   },
   "border": {
     "name": "Border",
-    "description": "Border props for controlling component borders",
+    "description": "Border props for controlling component borders. Side toggles compose\n(borderT+borderL apply both); noBorder resets all.",
     "props": {
       "border": {
         "description": "Enable border on all sides"
@@ -126,10 +126,10 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       "borderY": {
         "description": "Enable border on top and bottom"
       },
-      "borderS": {
+      "borderStart": {
         "description": "Enable border on the inline-start side (left in LTR, right in RTL)"
       },
-      "borderE": {
+      "borderEnd": {
         "description": "Enable border on the inline-end side (right in LTR, left in RTL)"
       },
       "noBorder": {
@@ -141,14 +141,14 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "name": "Breakpoint",
     "description": "Breakpoint props for responsive layout changes",
     "props": {
-      "mobileCol": {
-        "description": "Switch to column layout on mobile and below (max-mobile: 48rem)"
+      "mobileStack": {
+        "description": "Stack into a column at mobile width and below (max-mobile: 48rem)"
       },
-      "tabletCol": {
-        "description": "Switch to column layout on tablet and below (max-tablet: 64rem)"
+      "tabletStack": {
+        "description": "Stack into a column at tablet width and below (max-tablet: 64rem)"
       },
-      "desktopCol": {
-        "description": "Switch to column layout on desktop and below (max-desktop: 80rem)"
+      "desktopStack": {
+        "description": "Stack into a column at desktop width and below (max-desktop: 80rem)"
       }
     }
   },
@@ -575,21 +575,21 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
-  "maxHeight": {
-    "name": "Max Height",
-    "description": "Max-height props for components.\nWhen enabled, applies a size-dependent maximum height via --max-height CSS variable.",
+  "clampHeight": {
+    "name": "Clamp Height",
+    "description": "Clamp-height props for components.\nWhen enabled, applies a size-dependent maximum height via --max-height CSS variable.",
     "props": {
-      "maxHeight": {
-        "description": "Apply size-dependent maximum height (uses --max-height CSS variable)"
+      "clampHeight": {
+        "description": "Clamp to a size-dependent maximum height (uses --max-height CSS variable)"
       }
     }
   },
-  "minWidth": {
-    "name": "Min Width",
-    "description": "Min-width props for popup/floating components.\nWhen enabled, applies a size-dependent minimum width via --popup-min-w CSS variable.",
+  "constrainWidth": {
+    "name": "Constrain Width",
+    "description": "Constrain-width props for popup/floating components.\nWhen enabled, applies a size-dependent minimum width via --popup-min-w CSS variable.",
     "props": {
-      "minWidth": {
-        "description": "Apply size-dependent minimum width (uses --popup-min-w CSS variable)"
+      "constrainWidth": {
+        "description": "Constrain to a size-dependent minimum width (uses --popup-min-w CSS variable)"
       }
     }
   },
@@ -699,40 +699,40 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "name": "Placement",
     "description": "Placement props for positioning floating elements relative to their anchor",
     "props": {
-      "top": {
+      "placeTop": {
         "description": "Position above anchor, centered horizontally (default)"
       },
-      "topStart": {
+      "placeTopStart": {
         "description": "Position above anchor, aligned to start (left)"
       },
-      "topEnd": {
+      "placeTopEnd": {
         "description": "Position above anchor, aligned to end (right)"
       },
-      "bottom": {
+      "placeBottom": {
         "description": "Position below anchor, centered horizontally"
       },
-      "bottomStart": {
+      "placeBottomStart": {
         "description": "Position below anchor, aligned to start (left)"
       },
-      "bottomEnd": {
+      "placeBottomEnd": {
         "description": "Position below anchor, aligned to end (right)"
       },
-      "left": {
+      "placeLeft": {
         "description": "Position to the left of anchor, centered vertically"
       },
-      "leftStart": {
+      "placeLeftStart": {
         "description": "Position to the left of anchor, aligned to top"
       },
-      "leftEnd": {
+      "placeLeftEnd": {
         "description": "Position to the left of anchor, aligned to bottom"
       },
-      "right": {
+      "placeRight": {
         "description": "Position to the right of anchor, centered vertically"
       },
-      "rightStart": {
+      "placeRightStart": {
         "description": "Position to the right of anchor, aligned to top"
       },
-      "rightEnd": {
+      "placeRightEnd": {
         "description": "Position to the right of anchor, aligned to bottom"
       }
     }
@@ -770,11 +770,11 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
-  "responsive": {
-    "name": "Responsive",
+  "responsiveSizing": {
+    "name": "Responsive Sizing",
     "description": "Responsive prop for enabling breakpoint-specific sizing",
     "props": {
-      "responsive": {
+      "responsiveSizing": {
         "description": "Enable responsive sizing - uses breakpoint-specific classes for font size, padding, and gap"
       }
     }
@@ -848,12 +848,12 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
-  "status": {
-    "name": "Status",
-    "description": "Status props for form validation state\nNote: For success/warning validation states, use the appearance props\n(success, warning) which provide similar visual feedback.",
+  "validity": {
+    "name": "Validity",
+    "description": "Validity props for form validation state\nNote: For success/warning validation states, use the appearance props\n(success, warning) which provide similar visual feedback.",
     "props": {
-      "error": {
-        "description": "Show error state (red border/ring) for form validation"
+      "invalid": {
+        "description": "Mark the field invalid (red border/ring), layered over any appearance"
       }
     }
   },

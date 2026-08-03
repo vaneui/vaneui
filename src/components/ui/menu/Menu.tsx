@@ -194,7 +194,7 @@ export function Menu({
   const hasExplicitPlacement = ComponentKeys.placement.some(
     (k) => (popupProps as Record<string, unknown>)[k]
   );
-  const submenuPlacementProps = isSubmenu && !hasExplicitPlacement ? { rightStart: true } : {};
+  const submenuPlacementProps = isSubmenu && !hasExplicitPlacement ? { placeRightStart: true } : {};
 
   // explicit size on Menu propagates to MenuItem / MenuLabel / Divider; no explicit size keeps each sub-component's default
   const explicitSize = ComponentKeys.size.find(

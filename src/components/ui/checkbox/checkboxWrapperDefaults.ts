@@ -12,5 +12,5 @@ export const checkboxWrapperDefaults: Partial<CheckboxProps> = {
   // cross-axis. Inside a Label with multi-line content, this keeps the checkbox
   // centered on the FIRST text row instead of the middle of all rows, while the
   // Label keeps `itemsCenter` for the single-line Input case.
-  selfStart: true,
+  alignSelfStart: true,
 };

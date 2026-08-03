@@ -248,9 +248,11 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 | `borderR` | `border-r-[length:var(--bw)]` |
 | `borderX` | `border-x-[length:var(--bw)]` |
 | `borderY` | `border-y-[length:var(--bw)]` |
-| `borderS` | `border-s-[length:var(--bw)]` (logical inline-start — flips under `dir="rtl"`) |
-| `borderE` | `border-e-[length:var(--bw)]` (logical inline-end — flips under `dir="rtl"`) |
+| `borderStart` | `border-s-[length:var(--bw)]` (logical inline-start — flips under `dir="rtl"`) |
+| `borderEnd` | `border-e-[length:var(--bw)]` (logical inline-end — flips under `dir="rtl"`) |
 | `noBorder` | (removes border) |
+
+Side toggles **compose**: `borderT borderL` applies both sides; `noBorder` resets all sides and wins. Margin side toggles behave the same way (`marginT marginB`; `noMargin` resets and wins).
 
 ## Shape (Border Radius)
 
@@ -275,9 +277,9 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 
 | Prop | Tailwind Class |
 |------|---------------|
-| `mobileCol` | `max-mobile:flex-col` |
-| `tabletCol` | `max-tablet:flex-col` |
-| `desktopCol` | `max-desktop:flex-col` |
+| `mobileStack` | `max-mobile:flex-col` |
+| `tabletStack` | `max-tablet:flex-col` |
+| `desktopStack` | `max-desktop:flex-col` |
 | `mobileHide` | `max-mobile:hidden` |
 | `tabletHide` | `max-tablet:hidden` |
 | `desktopHide` | `max-desktop:hidden` |

@@ -20,5 +20,5 @@ export interface AppearanceProps {
   /** Info color appearance (cyan) */
   info?: boolean;
   /** Inherit appearance from parent — suppresses own data-appearance/data-variant, uses parent's CSS variables */
-  inherit?: boolean;
+  inheritAppearance?: boolean;
 }

@@ -414,7 +414,7 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Button responsive>Custom Font Size</Button>
+          <Button responsiveSizing>Custom Font Size</Button>
         </ThemeProvider>
       );
 
@@ -433,7 +433,7 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Button responsive>Custom Padding Y</Button>
+          <Button responsiveSizing>Custom Padding Y</Button>
         </ThemeProvider>
       );
 
@@ -452,7 +452,7 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Button responsive>Custom Padding X</Button>
+          <Button responsiveSizing>Custom Padding X</Button>
         </ThemeProvider>
       );
 
@@ -505,7 +505,7 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Stack gap responsive className="custom-stack">
+          <Stack gap responsiveSizing className="custom-stack">
             <div>Item 1</div>
             <div>Item 2</div>
           </Stack>
@@ -535,7 +535,7 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Button rounded responsive>Fully Customized</Button>
+          <Button rounded responsiveSizing>Fully Customized</Button>
         </ThemeProvider>
       );
 
@@ -563,7 +563,7 @@ describe('Theme Override Tests', () => {
 
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
-          <Row gap responsive className="custom-row">
+          <Row gap responsiveSizing className="custom-row">
             <div>Item 1</div>
             <div>Item 2</div>
           </Row>
@@ -704,7 +704,7 @@ describe('Theme Override Tests', () => {
       const { container } = render(
         <ThemeProvider themeOverride={overrideFunc}>
           <Button className="non-responsive">Non-Responsive</Button>
-          <Button responsive className="responsive">Responsive</Button>
+          <Button responsiveSizing className="responsive">Responsive</Button>
         </ThemeProvider>
       );
 

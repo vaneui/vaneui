@@ -151,8 +151,8 @@ export const WHITESPACE = ['whitespace'] as const;
 export const WORD_BREAK = ['wordBreak'] as const;
 /** Object fit property for images/videos */
 export const OBJECT_FIT = ['objectFit'] as const;
-/** Status property for form validation state */
-export const STATUS = ['status'] as const;
+/** Form validation-state property */
+export const STATUS = ['validity'] as const;
 /** Orientation property for horizontal/vertical layout */
 export const ORIENTATION = ['orientation'] as const;
 /** Height property for controlling element height */
@@ -217,11 +217,11 @@ export type ComponentCategoryKey = typeof COMPONENT_PROPS_CATEGORY[number];
 /** Component property keys mapping categories to their available values */
 export const ComponentKeys = {
   /** Color appearance options */
-  appearance: ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'inherit'] as const,
-  /** Border visibility: includes all border variations and noBorder. borderS/borderE are logical (inline-start/end, RTL-aware). */
-  border: ['border', 'borderT', 'borderB', 'borderL', 'borderR', 'borderX', 'borderY', 'borderS', 'borderE', 'noBorder'] as const,
-  /** Column breakpoints for responsive grid layouts */
-  breakpoint: ['mobileCol', 'tabletCol', 'desktopCol'] as const,
+  appearance: ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'inheritAppearance'] as const,
+  /** Border visibility: composable side toggles (borderT+borderL apply both) + noBorder reset. borderStart/borderEnd are logical (inline-start/end, RTL-aware). */
+  border: ['border', 'borderT', 'borderB', 'borderL', 'borderR', 'borderX', 'borderY', 'borderStart', 'borderEnd', 'noBorder'] as const,
+  /** Breakpoint below which Row/Stack stacks into a column (desktop-first: that tier and below) */
+  breakpoint: ['mobileStack', 'tabletStack', 'desktopStack'] as const,
   /** CSS display property values for element layout behavior */
   display: ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const,
   /** Flex direction: row (horizontal), column (vertical), or reversed variants */
@@ -239,7 +239,7 @@ export const ComponentKeys = {
   /** Cross-axis alignment for flex items (align-items) */
   items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const,
   /** Per-item cross-axis alignment, overriding the parent's align-items (align-self) */
-  alignSelf: ['selfAuto', 'selfStart', 'selfEnd', 'selfCenter', 'selfStretch', 'selfBaseline'] as const,
+  alignSelf: ['alignSelfAuto', 'alignSelfStart', 'alignSelfEnd', 'alignSelfCenter', 'alignSelfStretch', 'alignSelfBaseline'] as const,
   /** Per-item inline-axis alignment within a grid area (justify-self) */
   justifySelf: ['justifySelfAuto', 'justifySelfStart', 'justifySelfEnd', 'justifySelfCenter', 'justifySelfStretch'] as const,
   /** Main-axis alignment for flex items (justify-content) */
@@ -257,7 +257,7 @@ export const ComponentKeys = {
   ] as const,
   /** Internal spacing: padding (enabled) or noPadding (disabled) */
   padding: ['padding', 'paddingX', 'paddingY', 'noPadding'] as const,
-  /** External spacing: margin (all sides), marginX/marginY, marginT/marginB, or noMargin */
+  /** External spacing: composable side toggles (marginT+marginB apply both) + noMargin reset */
   margin: ['margin', 'marginX', 'marginY', 'marginT', 'marginB', 'noMargin'] as const,
   /** CSS positioning: relative, absolute, fixed, sticky, static */
   position: ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const,
@@ -288,7 +288,7 @@ export const ComponentKeys = {
   /** Transparent background: disables background color when true */
   transparent: ['transparent'] as const,
   /** Responsive sizing: enables breakpoint-specific py/px/gap/fs when true */
-  responsive: ['responsive'] as const,
+  responsiveSizing: ['responsiveSizing'] as const,
   /** Backdrop blur effect: backdropBlur (enabled) or noBackdropBlur (disabled) */
   blur: ['backdropBlur', 'noBackdropBlur'] as const,
   /** Pointer events: none (clicks pass through) or auto (normal) */
@@ -307,8 +307,8 @@ export const ComponentKeys = {
   width: ['wFull', 'wFit', 'wAuto', 'wScreen'] as const,
   /** Truncate control for text overflow */
   truncate: ['truncate', 'lineClamp2', 'lineClamp3', 'lineClamp4', 'lineClamp5', 'noTruncate'] as const,
-  /** Status for form validation state */
-  status: ['error'] as const,
+  /** Form validation state: invalid (layers danger border/ring over any appearance) */
+  validity: ['invalid'] as const,
   /** Orientation for horizontal/vertical layout */
   orientation: ['horizontal', 'vertical'] as const,
   /** Height control for element sizing */
@@ -316,15 +316,15 @@ export const ComponentKeys = {
   /** Letter spacing for text tracking */
   letterSpacing: ['trackingTighter', 'trackingTight', 'trackingNormal', 'trackingWide', 'trackingWider', 'trackingWidest'] as const,
   /** Placement position for floating elements (popups, tooltips, dropdowns) */
-  placement: ['top', 'topStart', 'topEnd', 'bottom', 'bottomStart', 'bottomEnd', 'left', 'leftStart', 'leftEnd', 'right', 'rightStart', 'rightEnd'] as const,
+  placement: ['placeTop', 'placeTopStart', 'placeTopEnd', 'placeBottom', 'placeBottomStart', 'placeBottomEnd', 'placeLeft', 'placeLeftStart', 'placeLeftEnd', 'placeRight', 'placeRightStart', 'placeRightEnd'] as const,
   /** Disabled state for interactive elements */
   disabled: ['disabled'] as const,
   /** Read-only state for form components */
   readOnly: ['readOnly'] as const,
-  /** Min-width for popup/floating components */
-  minWidth: ['minWidth'] as const,
-  /** Max-height for popup/floating components */
-  maxHeight: ['maxHeight'] as const,
+  /** Constrain popup/floating width to a size-dependent minimum */
+  constrainWidth: ['constrainWidth'] as const,
+  /** Clamp popup/floating height to a size-dependent maximum */
+  clampHeight: ['clampHeight'] as const,
   /** Inherit font-size and line-height from parent typography ancestor */
   inheritSize: ['inheritSize', 'noInheritSize'] as const,
   /** Inherit text color from parent via CSS variable cascade (suppresses data-appearance) */
@@ -336,7 +336,7 @@ export const ComponentKeys = {
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
-export const BORDER_KEYS = ['border', 'borderT', 'borderB', 'borderL', 'borderR', 'borderX', 'borderY', 'borderS', 'borderE'] as const;
+export const BORDER_KEYS = ['border', 'borderT', 'borderB', 'borderL', 'borderR', 'borderX', 'borderY', 'borderStart', 'borderEnd'] as const;
 
 /** Type for all border side keys (excluding noBorder) */
 export type BorderKey = typeof BORDER_KEYS[number];
@@ -407,8 +407,8 @@ export type ObjectFitKey = typeof ComponentKeys.objectFit[number];
 export type WidthKey = typeof ComponentKeys.width[number];
 /** Truncate keys for text overflow */
 export type TruncateKey = typeof ComponentKeys.truncate[number];
-/** Status keys for form validation */
-export type StatusKey = typeof ComponentKeys.status[number];
+/** Validity keys for form validation */
+export type ValidityKey = typeof ComponentKeys.validity[number];
 /** Orientation keys for horizontal/vertical layout */
 export type OrientationKey = typeof ComponentKeys.orientation[number];
 /** Height keys for element sizing */
@@ -421,10 +421,10 @@ export type PlacementKey = typeof ComponentKeys.placement[number];
 export type DisabledKey = typeof ComponentKeys.disabled[number];
 /** Read-only state key */
 export type ReadOnlyKey = typeof ComponentKeys.readOnly[number];
-/** Min-width key for popup/floating components */
-export type MinWidthKey = typeof ComponentKeys.minWidth[number];
-/** Max-height key for popup/floating components */
-export type MaxHeightKey = typeof ComponentKeys.maxHeight[number];
+/** Constrain-width key for popup/floating components */
+export type ConstrainWidthKey = typeof ComponentKeys.constrainWidth[number];
+/** Clamp-height key for popup/floating components */
+export type ClampHeightKey = typeof ComponentKeys.clampHeight[number];
 /** Inherit font-size/line-height toggle keys */
 export type InheritSizeKey = typeof ComponentKeys.inheritSize[number];
 /** Inherit text color toggle keys */

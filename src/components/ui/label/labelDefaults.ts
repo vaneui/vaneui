@@ -12,6 +12,6 @@ export const labelDefaults: Partial<LabelProps> = {
   fontSans: true,
   fontMedium: true,
   outline: true,
-  inherit: true,
+  inheritAppearance: true,
   cursorDefault: true,
 };

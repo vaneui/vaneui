@@ -19,7 +19,7 @@ import { twMerge } from "tailwind-merge";
 import { OverflowClassMapper } from "../layout/overflowClassMapper";
 import { WidthClassMapper } from "../layout/widthClassMapper";
 import { HeightClassMapper } from "../layout/heightClassMapper";
-import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
+import { pickFirstTruthyKeyByCategory, collectTruthyKeysByCategory, MULTI_VALUE_CATEGORIES } from "../../../utils/componentUtils";
 
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 type ThemeNode<P> = BaseClassMapper | ThemeMap<P>;
@@ -186,14 +186,22 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
 
     const extractedKeys: Record<string, string> = {};
     for (const category of this.categories) {
+      if (MULTI_VALUE_CATEGORIES.has(category)) {
+        // border/margin compose: store all active side keys space-joined for the mapper to union
+        const collected = collectTruthyKeysByCategory(componentProps, defaults, category);
+        if (collected.length > 0) {
+          extractedKeys[category] = collected.join(' ');
+        }
+        continue;
+      }
       const key = pickFirstTruthyKeyByCategory(componentProps, defaults, category);
       if (key !== undefined) {
         extractedKeys[category] = key;
       }
     }
 
-    // expand `inherit` shorthand into COLOR/BG/BORDER only (size inheritance is opt-in via inheritSize)
-    if (extractedKeys.appearance === 'inherit') {
+    // expand `inheritAppearance` shorthand into COLOR/BG/BORDER only (size inheritance is opt-in via inheritSize)
+    if (extractedKeys.appearance === 'inheritAppearance') {
       if (!extractedKeys.inheritColor) {
         extractedKeys.inheritColor = 'inheritColor';
       }
@@ -359,7 +367,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     if (extractedKeys.size) {
       dataAttributes['data-size'] = extractedKeys.size;
     }
-    if (extractedKeys.responsive === 'responsive') {
+    if (extractedKeys.responsiveSizing === 'responsiveSizing') {
       dataAttributes['data-responsive'] = '';
     }
     // data-appearance suppressed when inheritColor is active (lets colors cascade from ancestor).
@@ -382,7 +390,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     }
     // error state must be AT-perceivable, not color-only: emit aria-invalid
     // (unless the consumer set it explicitly) alongside a data-status hook
-    if (extractedKeys.status === 'error') {
+    if (extractedKeys.validity === 'invalid') {
       dataAttributes['data-status'] = 'error';
       if (rawProps['aria-invalid'] === undefined) {
         dataAttributes['aria-invalid'] = 'true';

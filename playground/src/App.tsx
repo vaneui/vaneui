@@ -252,7 +252,7 @@ function App() {
               root surface is a primary-bg <Code sm>Card</Code>, which paints
               the dark page surface.
             </Text>
-            <Row itemsStretch tabletCol>
+            <Row itemsStretch tabletStack>
               <div className="flex flex-1">
                 <ThemeShowcase />
               </div>
@@ -293,7 +293,7 @@ function App() {
               size-scaled cell padding. Wrap in <Code sm>{'<Col overflowXAuto>'}</Code>{' '}
               for horizontal scroll.
             </Text>
-            <Row itemsStretch tabletCol>
+            <Row itemsStretch tabletStack>
               <Col overflowXAuto className="flex-1">
                 <Table>
                   <Thead>

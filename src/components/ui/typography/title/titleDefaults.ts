@@ -8,6 +8,6 @@ export const titleDefaults: Partial<TypographyProps> = {
   fontSemibold: true,
   textLeft: true,
   outline: true,
-  inherit: true,
-  responsive: true,
+  inheritAppearance: true,
+  responsiveSizing: true,
 };

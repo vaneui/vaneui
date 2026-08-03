@@ -17,7 +17,7 @@ export class FontSizeClassMapper extends BaseClassMapper implements Record<Respo
   getClasses(extractedKeys: CategoryProps): string[] {
     // Responsive overrides inheritSize: responsive components have deliberate
     // viewport-scaled size intent that should not be collapsed to inherited size.
-    if (extractedKeys?.responsive === 'responsive') {
+    if (extractedKeys?.responsiveSizing === 'responsiveSizing') {
       return [this.desktop, this.tablet, this.mobile];
     }
     // inheritSize flag: cascade font-size from parent (decoupled from appearance)

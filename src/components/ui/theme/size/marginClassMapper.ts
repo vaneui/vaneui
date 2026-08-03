@@ -3,8 +3,8 @@ import type { CategoryProps, MarginKey } from "../../props";
 
 /**
  * Margin theme — external spacing driven by the size-aware `--margin` token
- * (which defaults to `--gap`), so margins scale with the component's size prop
- * like gap/padding, and can be overridden independently of the gap.
+ * (which defaults to `--gap`), so margins scale with the component's size prop.
+ * Composable: several side toggles apply together; noMargin resets to 0.
  */
 export class MarginClassMapper extends BaseClassMapper implements Record<MarginKey, string> {
   /** All sides */
@@ -21,13 +21,9 @@ export class MarginClassMapper extends BaseClassMapper implements Record<MarginK
   noMargin: string = "m-0";
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    const key = extractedKeys?.margin;
-    if (key === 'margin') return [this.margin];
-    if (key === 'marginX') return [this.marginX];
-    if (key === 'marginY') return [this.marginY];
-    if (key === 'marginT') return [this.marginT];
-    if (key === 'marginB') return [this.marginB];
-    if (key === 'noMargin') return [this.noMargin];
-    return [];
+    // Composable: extractedKeys.margin may hold several space-joined side keys (or "noMargin").
+    const value = extractedKeys?.margin;
+    if (!value) return [];
+    return value.split(' ').map(k => this[k as MarginKey]).filter(Boolean);
   }
 }

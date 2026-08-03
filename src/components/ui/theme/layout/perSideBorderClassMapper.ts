@@ -11,6 +11,6 @@ export class PerSideBorderClassMapper extends BorderClassMapper {
   borderR: string = "border-r-[length:var(--bw-r)]";
   borderX: string = "border-l-[length:var(--bw-l)] border-r-[length:var(--bw-r)]";
   borderY: string = "border-t-[length:var(--bw-t)] border-b-[length:var(--bw-b)]";
-  borderS: string = "border-s-[length:var(--bw-s)]";
-  borderE: string = "border-e-[length:var(--bw-e)]";
+  borderStart: string = "border-s-[length:var(--bw-s)]";
+  borderEnd: string = "border-e-[length:var(--bw-e)]";
 }

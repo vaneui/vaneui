@@ -85,7 +85,7 @@ describe('Row Component Tests', () => {
     it('should support responsive breakpoint props', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Row mobileCol>
+          <Row mobileStack>
             Responsive Row
           </Row>
         </ThemeProvider>

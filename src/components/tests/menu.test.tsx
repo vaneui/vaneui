@@ -997,7 +997,7 @@ describe('Menu Component Tests', () => {
     it('should allow overriding menu placement via ThemeProvider', () => {
       render(
         <ThemeProvider theme={defaultTheme} themeDefaults={{
-          menu: { popup: { rightStart: true } }
+          menu: { popup: { placeRightStart: true } }
         }}>
           <Menu defaultOpen trigger={<Button>Trigger</Button>}>
             <MenuItem>Item</MenuItem>

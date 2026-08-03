@@ -52,7 +52,7 @@ describe('getClasses / getComponentConfig agreement', () => {
     // Text/Label resolve appearance=inherit by default — the path where the
     // two entry points historically diverged (expansion in config only)
     expectAgreement(defaultTheme.text, {});
-    expectAgreement(defaultTheme.text, { inherit: true, fontBold: true });
+    expectAgreement(defaultTheme.text, { inheritAppearance: true, fontBold: true });
     expectAgreement(defaultTheme.text, { primary: true });
     expectAgreement(defaultTheme.label, {});
     expectAgreement(defaultTheme.link, {});
@@ -91,8 +91,8 @@ describe('getClasses / getComponentConfig agreement', () => {
   it('explicit noInheritColor blocks the expansion on both entry points', () => {
     const textTheme = defaultTheme.text;
     const config = textTheme.getComponentConfig({ noInheritColor: true });
-    // expansion suppressed => appearance=inherit no longer hides data-appearance
-    expect((config.finalProps as Record<string, unknown>)['data-appearance']).toBe('inherit');
+    // expansion suppressed => appearance=inheritAppearance no longer hides data-appearance
+    expect((config.finalProps as Record<string, unknown>)['data-appearance']).toBe('inheritAppearance');
     expectAgreement(textTheme, { noInheritColor: true });
   });
 });

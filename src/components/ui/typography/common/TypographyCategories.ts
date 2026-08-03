@@ -52,7 +52,7 @@ export const TYPOGRAPHY_CATEGORIES = [
 
 /**
  * Blockquote = typography categories plus the `border` category, so its
- * inline-start accent is a real, prop-driven `borderS` (toggleable via
+ * inline-start accent is a real, prop-driven `borderStart` (toggleable via
  * `noBorder`, colored by the appearance system) rather than a hardcoded base
  * class. Paired with the per-side border mapper in defaultBlockquoteTheme.
  */

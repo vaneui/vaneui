@@ -125,7 +125,7 @@ export const defaultMenuDividerTheme = new ComponentTheme<DividerProps, DividerT
   defaultDividerTheme.tag,
   defaultDividerTheme.base,
   defaultDividerTheme.themes,
-  { sm: true, outline: true, inherit: true, paddingY: true, horizontal: true },  // ❌
+  { sm: true, outline: true, inheritAppearance: true, paddingY: true, horizontal: true },  // ❌
   DIVIDER_CATEGORIES,
 );
 

@@ -220,7 +220,7 @@ describe('Section Component Tests', () => {
     it('should use base classes when responsive is explicitly disabled', () => {
       const { container } = render(
         <ThemeProvider
-          themeDefaults={{ section: { responsive: false } }}
+          themeDefaults={{ section: { responsiveSizing: false } }}
         >
           <Section>Non-responsive Section</Section>
         </ThemeProvider>

@@ -134,29 +134,25 @@ describe('Visual Decoration Props', () => {
       expect(element.className).toContain('border-(--border-color)');
     });
 
-    it('should handle multiple border sides together (only first one applies)', () => {
+    it('should compose multiple border sides together', () => {
       const { container } = renderWithTheme(
         <Row borderT borderB borderL>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      // With the new border structure, only the first border prop in the order is applied
-      // Order in BORDER_VALUES: border, borderT, borderB, borderL, borderR, borderX, borderY
-      // Since borderT is first among the specified props, only borderT should be applied
+      // Composable: every specified side applies together.
       expect(element.className).toContain('border-t');
-      expect(element.className).not.toContain('border-b');
-      expect(element.className).not.toContain('border-l');
+      expect(element.className).toContain('border-b');
+      expect(element.className).toContain('border-l');
     });
 
-    it('should handle border sides with general border (only first one applies)', () => {
+    it('should compose the general border with a side border', () => {
       const { container } = renderWithTheme(
         <Row border borderT>Content</Row>
       );
       const element = container.firstChild as HTMLElement;
-      // With the new border structure, only the first border prop in BORDER_VALUES order is applied
-      // Order in BORDER_VALUES: border, borderT, borderB, borderL, borderR, borderX, borderY
-      // Since BORDER_WIDTH_CLASS comes first, only BORDER_WIDTH_CLASS should be applied
+      // Composable: the all-sides border and the extra top side both apply.
       expect(element.className).toContain(BORDER_WIDTH_CLASS);
-      expect(element.className).not.toContain('border-t');
+      expect(element.className).toContain('border-t');
     });
   });
 

@@ -30,7 +30,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     // The error cue is a real themed element, not a CSS background-image, so the
     // <input> (a void element that can't hold children) is wrapped in a relative
     // span and the icon overlays its trailing edge — see defaultInputErrorIconTheme.
-    if (props.error) {
+    if (props.invalid) {
       const { xs, sm, md, lg, xl } = props;
       const iconSize = { xs, sm, md, lg, xl };
       return (

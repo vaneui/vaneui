@@ -18,7 +18,7 @@ export class GapClassMapper extends BaseClassMapper implements Record<Responsive
   getClasses(extractedKeys: CategoryProps): string[] {
     if (extractedKeys?.gap === 'gap') {
       // Use breakpoint-specific classes if responsive=true
-      if (extractedKeys?.responsive === 'responsive') {
+      if (extractedKeys?.responsiveSizing === 'responsiveSizing') {
         return [this.desktop, this.tablet, this.mobile];
       }
       // Otherwise use simple --gap variable

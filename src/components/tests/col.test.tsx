@@ -315,7 +315,7 @@ describe('Col Component Tests', () => {
     it('should apply mobileCol class for responsive direction', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Col mobileCol>Responsive Col</Col>
+          <Col mobileStack>Responsive Col</Col>
         </ThemeProvider>
       );
       const col = container.querySelector('div');

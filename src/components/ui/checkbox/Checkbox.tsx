@@ -35,7 +35,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       primary, accent, secondary, tertiary, success, danger, warning, info,
       filled, outline,
       pill, sharp, rounded,
-      error,
+      invalid,
       indeterminate,
       checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, required, readOnly,
       id, className, tabIndex, 'aria-label': ariaLabel,
@@ -54,7 +54,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       primary, accent, secondary, tertiary, success, danger, warning, info,
       filled, outline,
       pill, sharp, rounded,
-      error,
+      invalid,
       disabled,
     };
 

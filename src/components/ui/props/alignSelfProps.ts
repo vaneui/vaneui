@@ -5,15 +5,15 @@
 
 export interface AlignSelfProps {
   /** Use the parent's align-items value (align-self: auto) */
-  selfAuto?: boolean;
+  alignSelfAuto?: boolean;
   /** Align this item to the start of the cross axis (align-self: flex-start) */
-  selfStart?: boolean;
+  alignSelfStart?: boolean;
   /** Align this item to the end of the cross axis (align-self: flex-end) */
-  selfEnd?: boolean;
+  alignSelfEnd?: boolean;
   /** Center this item on the cross axis (align-self: center) */
-  selfCenter?: boolean;
+  alignSelfCenter?: boolean;
   /** Stretch this item to fill the cross axis (align-self: stretch) */
-  selfStretch?: boolean;
+  alignSelfStretch?: boolean;
   /** Align this item to its baseline (align-self: baseline) */
-  selfBaseline?: boolean;
+  alignSelfBaseline?: boolean;
 }
