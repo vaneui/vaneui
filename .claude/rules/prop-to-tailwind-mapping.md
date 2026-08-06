@@ -65,6 +65,27 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 | `justifyStretch` | `justify-stretch` |
 | `justifyBaseline` | `justify-baseline` |
 
+## Align Self (Per-Item Cross-Axis)
+
+| Prop | Tailwind Class |
+|------|---------------|
+| `alignSelfAuto` | `self-auto` |
+| `alignSelfStart` | `self-start` |
+| `alignSelfEnd` | `self-end` |
+| `alignSelfCenter` | `self-center` |
+| `alignSelfStretch` | `self-stretch` |
+| `alignSelfBaseline` | `self-baseline` |
+
+## Justify Self (Per-Item Inline-Axis)
+
+| Prop | Tailwind Class |
+|------|---------------|
+| `justifySelfAuto` | `justify-self-auto` |
+| `justifySelfStart` | `justify-self-start` |
+| `justifySelfEnd` | `justify-self-end` |
+| `justifySelfCenter` | `justify-self-center` |
+| `justifySelfStretch` | `justify-self-stretch` |
+
 ## Flex Wrap
 
 | Prop | Tailwind Class |
@@ -72,6 +93,15 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 | `flexWrap` | `flex-wrap` |
 | `flexNoWrap` | `flex-nowrap` |
 | `flexWrapReverse` | `flex-wrap-reverse` |
+
+## Flex Grow / Shrink
+
+| Prop | Tailwind Class |
+|------|---------------|
+| `flex1` | `flex-1` |
+| `flexAuto` | `flex-auto` |
+| `flexNone` | `flex-none` |
+| `noShrink` | `shrink-0` |
 
 ## Width
 
@@ -237,6 +267,33 @@ If a Tailwind class has a prop equivalent, **use the prop**. Never put these cla
 | `whitespacePreLine` | `whitespace-pre-line` |
 | `whitespaceBreakSpaces` | `whitespace-break-spaces` |
 
+## Word Break
+
+| Prop | Tailwind Class |
+|------|---------------|
+| `breakNormal` | `break-normal` |
+| `breakWords` | `break-words` |
+| `breakAll` | `break-all` |
+| `breakKeep` | `break-keep` |
+
+## List Style
+
+| Prop | Tailwind Class |
+|------|---------------|
+| `listDisc` | `list-disc` (default for `<ul>`) |
+| `listDecimal` | `list-decimal` (default for `<ol>`) |
+| `listCircle` | `list-[circle]` |
+| `listSquare` | `list-[square]` |
+| `listLowerAlpha` | `list-[lower-alpha]` |
+| `listLowerRoman` | `list-[lower-roman]` |
+
+## List Position
+
+| Prop | Tailwind Class |
+|------|---------------|
+| `listInside` | `list-inside` |
+| `listOutside` | `list-outside` |
+
 ## Borders
 
 | Prop | Tailwind Class |
@@ -292,8 +349,6 @@ Side toggles **compose**: `borderT borderL` applies both sides; `noBorder` reset
 | `noTransition` | `transition-none` |
 | `backdropBlur` | `backdrop-blur-(--overlay-blur)` |
 | `noBackdropBlur` | (removes blur) |
-| `listDisc` | `list-disc` |
-| `listDecimal` | `list-decimal` |
 | `horizontal` | `h-(--bw) w-full` |
 | `vertical` | `w-(--bw) h-full` |
 | `transparent` | `bg-transparent` |
@@ -306,7 +361,7 @@ These do not map 1:1 to Tailwind utilities — they drive the CSS variable syste
 
 - **Size**: `xs`, `sm`, `md`, `lg`, `xl` → set `--fs-unit`, `--py-unit`, `--gap-unit`, `--br-unit`
 - **Appearance**: `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info` → set `data-appearance` for color tokens
-- **Variant**: `filled`, `outline` → set `data-variant`
+- **Variant**: `filled`, `outline`, `ghost` → set `data-variant`
 - **Padding / Gap**: `padding`, `noPadding`, `gap`, `noGap` → use `px-(--px) py-(--py)` and `gap-(--gap)` (size-driven)
 - **Font size**: controlled by size props via `text-(length:--fs)`
 

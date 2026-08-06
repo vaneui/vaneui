@@ -359,8 +359,8 @@ export interface ThemeProviderProps {
 </ThemeProvider>
 
 // Nested providers merge by default:
-<ThemeProvider themeDefaults={{ button: { primary: true } }}>
-  <ThemeProvider themeDefaults={{ button: { lg: true } }}>
+<ThemeProvider themeDefaults={{ button: { main: { primary: true } } }}>
+  <ThemeProvider themeDefaults={{ button: { main: { lg: true } } }}>
     <Button>I'm both primary and lg</Button>
   </ThemeProvider>
 </ThemeProvider>
@@ -372,11 +372,11 @@ Components use category-based prop organization (defined in `src/components/ui/p
 ```typescript
 export const ComponentKeys = {
   size: ['xs', 'sm', 'md', 'lg', 'xl'],
-  appearance: ['primary', 'brand', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'link'],
-  variant: ['filled', 'outline'],
+  appearance: ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'inheritAppearance'],
+  variant: ['filled', 'outline', 'ghost'],
   shape: ['rounded', 'pill', 'sharp'],
-  fontFamily: ['sans', 'serif', 'mono'],
-  fontWeight: ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'],
+  fontFamily: ['fontSans', 'fontSerif', 'fontMono', 'fontHeading'],
+  fontWeight: ['fontThin', 'fontExtralight', 'fontLight', 'fontNormal', 'fontMedium', 'fontSemibold', 'fontBold', 'fontExtrabold', 'fontBlack'],
   textAlign: ['textLeft', 'textCenter', 'textRight', 'textJustify'],
   padding: ['padding', 'noPadding'],
   gap: ['gap', 'noGap'],

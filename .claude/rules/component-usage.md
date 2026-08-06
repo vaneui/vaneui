@@ -115,7 +115,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Need | Component | Notes |
 |------|-----------|-------|
 | Clickable action | `Button` | Renders `<button>`, or `<a>` with `href` |
-| Icon-only button | `IconButton` | Square button, renders `<button>` or `<a>` with `href` |
+| Icon-only button | `IconButton` | Square button, renders `<button>` or `<a>` with `href`. Give an icon-only `IconButton` (and `ModalCloseButton`) an `aria-label` for an accessible name |
 | Navigation link | `NavLink` | For sidebars/nav menus. Has `active` prop with `aria-current="page"`. Renders `<a>` with `href`, `<button>` without |
 | Content container with border | `Card` | Renders `<div>`, or `<a>` with `href`. Sub-components: `CardHeader`, `CardBody`, `CardFooter` |
 | Horizontal layout | `Row` | Flexbox row, `itemsCenter` by default |
@@ -143,7 +143,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Image | `Img` | Rounded by default |
 | Fullscreen backdrop | `Overlay` | Portal-rendered, click-to-close, optional blur |
 | Dialog | `Modal` | Accessible dialog with focus trap, scroll lock. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton` |
-| Floating element | `Popup` + `PopupTrigger` | CSS Anchor Positioning, 12 placement options |
+| Floating element | `Popup` + `PopupTrigger` | CSS Anchor Positioning; 12 `place*` placement props (see Popup placement below) |
 | Dropdown menu | `Menu` + `MenuItem` + `MenuLabel` | Button-triggered dropdown with keyboard navigation. Use `Divider` between groups |
 
 ## Common Patterns
@@ -196,6 +196,8 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
   </Stack>
 </Card>
 ```
+
+Mark a field's validation state with the `invalid` validity prop — it layers a danger border/ring over the input's current appearance: `<Input invalid />`.
 
 ### Button group
 
@@ -338,6 +340,16 @@ const [open, setOpen] = useState(false);
 </Menu>
 ```
 
+### Popup placement
+
+`Popup` positions itself against its anchor via one of 12 `place*` props: `placeTop`, `placeBottom`, `placeLeft`, `placeRight` plus each side's `*Start`/`*End` alignment (`placeTopStart`, `placeTopEnd`, `placeBottomStart`, `placeBottomEnd`, `placeLeftStart`, `placeLeftEnd`, `placeRightStart`, `placeRightEnd`).
+
+```tsx
+<Popup placeBottomStart>...</Popup>
+```
+
+For size-driven floating dimensions, `constrainWidth` applies a size-dependent minimum width and `clampHeight` a size-dependent maximum height.
+
 ### Card with sub-components
 
 ```tsx
@@ -388,17 +400,17 @@ Breakpoints (max-width): mobile = 768px, tablet = 1024px, desktop = 1280px.
 
 ## Size Props
 
-All components support size props. Only one is active at a time. If two props of the same category are both set (e.g. `<Button xs lg>`, or `md` colliding with a spread), the canonical key order decides the winner — NOT JSX order — and dev builds log a console warning. Pass only one prop per category.
+All components support size props. Only one is active at a time. If two props of the same category are both set (e.g. `<Text xs lg>`, or `md` colliding with a spread), the canonical key order decides the winner — NOT JSX order — and dev builds log a console warning. Pass only one prop per category.
 
 ```tsx
-<Button xs>Extra small</Button>
-<Button sm>Small</Button>
-<Button>Medium (default)</Button>
-<Button lg>Large</Button>
-<Button xl>Extra large</Button>
+<Text xs>Extra small</Text>
+<Text sm>Small</Text>
+<Text>Medium (default)</Text>
+<Text lg>Large</Text>
+<Text xl>Extra large</Text>
 ```
 
-Size controls font-size, padding, gap, and border-radius simultaneously via CSS variables. Do not use Tailwind size classes to override these.
+Defaults vary by component: most default to `md`, but `Button`, `IconButton`, `MenuItem`, `MenuLabel`, `NavLink`, and `Label` default to `sm` (a bare `<Button>` is small). Size controls font-size, padding, gap, and border-radius simultaneously via CSS variables. Do not use Tailwind size classes to override these.
 
 ## Appearance Props
 
@@ -424,7 +436,12 @@ Controls whether colors are applied as background fill or as border/text only.
 ```tsx
 <Button>Outline (default)</Button>
 <Button filled>Filled background</Button>
+<Button ghost>Ghost</Button>
 ```
+
+`ghost` renders a transparent background with no border and appearance-colored text, plus a tinted background on hover — for low-emphasis actions.
+
+`outline` is the default for most components. Exceptions: `Checkbox` defaults to `filled`, and `Link` has no variant default (it renders as a link).
 
 ## Shape Props
 

@@ -49,14 +49,13 @@ pnpm add @vaneui/ui
 ```tsx
 import { ThemeProvider, Button, Card, Text, Stack } from '@vaneui/ui';
 import '@vaneui/ui/css';
-import '@vaneui/ui/vars';
 
 export default function App() {
   return (
     <ThemeProvider>
       <Stack>
         <Card>
-          <Text lg semibold>Welcome</Text>
+          <Text lg fontSemibold>Welcome</Text>
           <Text secondary>Build UIs faster with boolean props.</Text>
         </Card>
         <Button primary lg filled pill>Get started</Button>
@@ -89,8 +88,8 @@ Every component is customizable at three levels:
 
 ```tsx
 <ThemeProvider
-  themeDefaults={{ button: { pill: true, lg: true } }}
-  extraClasses={{ button: { primary: 'shadow-md' } }}
+  themeDefaults={{ button: { main: { pill: true, lg: true } } }}
+  extraClasses={{ button: { main: { primary: 'shadow-md' } } }}
   themeOverride={(t) => {
     t.link.defaults = { ...t.link.defaults, underline: true };
     return t;
@@ -128,10 +127,10 @@ Props are grouped into mutually exclusive categories — only one value per cate
 | Category | Values |
 |---|---|
 | **Size** | `xs`, `sm`, `md` (default), `lg`, `xl` |
-| **Appearance** | `primary`, `brand`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `link` |
-| **Variant** | `filled`, `outline` (default) |
+| **Appearance** | `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info`, `inheritAppearance` |
+| **Variant** | `filled`, `outline` (default), `ghost` |
 | **Shape** | `pill`, `rounded` (default), `sharp` |
-| **Typography** | `sans`, `serif`, `mono`, `bold`, `semibold`, `italic`, `underline`, `uppercase`, `textCenter`, ... |
+| **Typography** | `fontSans`, `fontSerif`, `fontMono`, `fontBold`, `fontSemibold`, `italic`, `underline`, `uppercase`, `textCenter`, ... |
 | **Layout** | `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShadow`, `flex`, `grid`, `itemsCenter`, ... |
 
 Only the categories relevant to a component are available. The theme maps these booleans to Tailwind utility classes.

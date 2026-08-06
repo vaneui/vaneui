@@ -121,7 +121,7 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 |----------|--------|
 | **size** | `xs`, `sm` (default for Button, MenuItem, Label), `md` (default for others), `lg`, `xl` |
 | **appearance** | `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info` |
-| **variant** | `filled`, `outline` (default) |
+| **variant** | `filled`, `outline` (default), `ghost` |
 | **shape** | `pill`, `rounded` (default), `sharp` |
 | **display** | `flex`, `inlineFlex`, `block`, `inline`, `grid`, etc. |
 | **flexDirection** | `row`, `column`, `rowReverse`, `columnReverse` |

@@ -92,7 +92,7 @@ import type { CategoryProps, MyCategoryKey } from "../../props";
 ## Prop Categories (Mutually Exclusive Within Category)
 - **size**: xs, sm, md, lg, xl
 - **appearance**: primary, accent, secondary, tertiary, success, danger, warning, info
-- **variant**: filled, outline
+- **variant**: filled, outline, ghost
 - **shape**: pill, rounded, sharp
 - **display**: inline, block, flex, inlineFlex, grid, etc.
 - **flexDirection**: row, column, rowReverse, columnReverse
