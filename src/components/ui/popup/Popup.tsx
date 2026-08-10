@@ -508,6 +508,12 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const mergedProps = { ...props, id: popupId, role, ...(modal ? { 'aria-modal': true } : {}), ...anchorSelfProps(placement), ...(isDetached ? { pointerEventsNone: true } : {}) };
 
+    // Composite-widget popups (Menu etc.) own their own focusable items, so the
+    // scroll box must NOT be a tab stop (it would break the role's required
+    // children). Plain-content popups make the scroll box keyboard-scrollable.
+    const compositeRoles = ['menu', 'menubar', 'listbox', 'tree', 'treegrid', 'grid', 'tablist', 'radiogroup'];
+    const scrollTabIndex = role && compositeRoles.includes(role) ? undefined : 0;
+
     const content = (
       <ThemedComponent
         ref={mergedRef}
@@ -523,8 +529,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         aria-hidden={(isHidden || isDetached) || undefined}
         {...mergedProps}
       >
-        {/* Inner scroll box so height/width clamping never clips the arrow (which lives on the outer, overflow-visible box). */}
-        <div className="vane-popup-scroll">{children}</div>
+        {/* Inner scroll box so clamping never clips the arrow (on the outer, overflow-visible box); tabindex keeps it keyboard-scrollable. */}
+        <div className="vane-popup-scroll" tabIndex={scrollTabIndex}>{children}</div>
         {arrow && (
           <div className="vane-popup-arrow" aria-hidden="true" />
         )}
