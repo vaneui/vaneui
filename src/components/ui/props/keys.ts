@@ -220,8 +220,9 @@ export const ComponentKeys = {
   appearance: ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'inheritAppearance'] as const,
   /** Border visibility: composable side toggles (borderT+borderL apply both) + noBorder reset. borderStart/borderEnd are logical (inline-start/end, RTL-aware). */
   border: ['border', 'borderT', 'borderB', 'borderL', 'borderR', 'borderX', 'borderY', 'borderStart', 'borderEnd', 'noBorder'] as const,
-  /** Breakpoint below which Row/Stack stacks into a column (desktop-first: that tier and below) */
-  breakpoint: ['mobileStack', 'tabletStack', 'desktopStack'] as const,
+  /** Breakpoint below which Row/Stack stacks into a column (desktop-first: that tier and below).
+      Widest-first so combining several resolves to the widest = their union (desktopStack ⊃ tabletStack ⊃ mobileStack). */
+  breakpoint: ['desktopStack', 'tabletStack', 'mobileStack'] as const,
   /** CSS display property values for element layout behavior */
   display: ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const,
   /** Flex direction: row (horizontal), column (vertical), or reversed variants */
@@ -234,8 +235,8 @@ export const ComponentKeys = {
   fontWeight: ['fontThin', 'fontExtralight', 'fontLight', 'fontNormal', 'fontMedium', 'fontSemibold', 'fontBold', 'fontExtrabold', 'fontBlack'] as const,
   /** Spacing between flex/grid items: gap (enabled) or noGap (disabled) */
   gap: ['gap', 'noGap'] as const,
-  /** Hide elements at specific breakpoint sizes */
-  hide: ['mobileHide', 'tabletHide', 'desktopHide'] as const,
+  /** Hide elements at specific breakpoint sizes. Widest-first so combining several resolves to the widest = their union. */
+  hide: ['desktopHide', 'tabletHide', 'mobileHide'] as const,
   /** Cross-axis alignment for flex items (align-items) */
   items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const,
   /** Per-item cross-axis alignment, overriding the parent's align-items (align-self) */
