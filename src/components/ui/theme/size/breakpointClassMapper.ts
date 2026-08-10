@@ -3,11 +3,11 @@ import type { CategoryProps } from "../../props";
 import { BreakpointKey } from "../../props";
 
 export class BreakpointClassMapper extends BaseClassMapper implements Record<BreakpointKey, string> {
-  /** Stack into a column at mobile width and below (max-mobile: 48rem) */
+  /** Stack into a column below 768px (max-mobile: width < 48rem, exclusive — 768px itself is desktop) */
   mobileStack: string = "max-mobile:flex-col";
-  /** Stack into a column at tablet width and below (max-tablet: 64rem) */
+  /** Stack into a column below 1024px (max-tablet: width < 64rem, exclusive — 1024px itself is desktop) */
   tabletStack: string = "max-tablet:flex-col";
-  /** Stack into a column at desktop width and below (max-desktop: 80rem) */
+  /** Stack into a column below 1280px (max-desktop: width < 80rem, exclusive — 1280px itself is desktop) */
   desktopStack: string = "max-desktop:flex-col";
 
 

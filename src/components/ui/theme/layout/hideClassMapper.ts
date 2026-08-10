@@ -3,11 +3,11 @@ import { BaseClassMapper } from "../common/BaseClassMapper";
 import type { CategoryProps } from "../../props";
 
 export class HideClassMapper extends BaseClassMapper implements Record<HideKey, string> {
-  /** Hide element on mobile devices and below (max-mobile: 48rem) */
+  /** Hide element below 768px (max-mobile: width < 48rem, exclusive — visible at 768px) */
   mobileHide: string = "max-mobile:hidden";
-  /** Hide element on tablet devices and below (max-tablet: 64rem) */
+  /** Hide element below 1024px (max-tablet: width < 64rem, exclusive — visible at 1024px) */
   tabletHide: string = "max-tablet:hidden";
-  /** Hide element on desktop devices and below (max-desktop: 80rem) */
+  /** Hide element below 1280px (max-desktop: width < 80rem, exclusive — visible at 1280px) */
   desktopHide: string = "max-desktop:hidden";
 
 

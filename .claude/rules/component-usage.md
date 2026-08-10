@@ -396,7 +396,7 @@ VaneUI is **desktop-first**. Base styles target desktop. Use breakpoint props to
 </Row>
 ```
 
-Breakpoints (max-width): mobile = 768px, tablet = 1024px, desktop = 1280px.
+Breakpoints stack/hide **below** the width (exclusive): mobile < 768px, tablet < 1024px, desktop < 1280px. The boundary pixel itself (768/1024/1280) is the larger tier. Combining several `*Stack` (or `*Hide`) props resolves to the widest = their union.
 
 ## Size Props
 
