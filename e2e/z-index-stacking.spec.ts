@@ -1,4 +1,4 @@
-import { test, expect, getStyle, type Locator } from './base';
+import { test, expect, getStyle, type Locator, type Page } from './base';
 
 // ── Helpers (single-spec — z-index machinery only used here) ─────────────────
 
@@ -236,5 +236,45 @@ test.describe('Z-Index Stacking', () => {
         expect(directZIndex).toBe('');
       }
     });
+  });
+});
+
+// ── Nested-overlay behavior bug fixes (2026-08-10) ────────────────────────────
+
+async function present(page: Page, id: string): Promise<boolean> {
+  return (await page.locator(`[data-testid="${id}"]`).count()) > 0;
+}
+
+test.describe('Nested-overlay behavior bug fixes (2026-08-10)', () => {
+  // BUG-01: a Popup that is a React child of a Modal renders ABOVE the backdrop.
+  test('a Popup nested inside a Modal outranks the modal backdrop', async ({ page }) => {
+    await page.locator('[data-testid="mb-open"]').click();
+    await page.locator('[data-testid="mb-overlay"]').waitFor({ state: 'visible' });
+    await page.locator('[data-testid="mb-popup"]').waitFor({ state: 'visible' });
+    const modalZ = await getZIndex(page.locator('[data-testid="mb-overlay"]'));
+    const popupZ = await getZIndex(page.locator('[data-testid="mb-popup"]'));
+    expect(popupZ).toBeGreaterThan(modalZ);
+  });
+
+  // BUG-02: Escape closes the inner popup, leaving the modal open.
+  test('Escape closes the inner popup, not the whole Modal', async ({ page }) => {
+    await page.locator('[data-testid="mb-open"]').click();
+    await page.locator('[data-testid="mb-overlay"]').waitFor({ state: 'visible' });
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(80);
+    expect(await present(page, 'mb-overlay')).toBe(true); // modal stays open
+    expect(await present(page, 'mb-popup')).toBe(false); // inner popup closed
+  });
+
+  // BUG-09: closing a Modal opened from a self-removing trigger keeps focus off <body>.
+  test('closing a Modal does not strand focus on <body>', async ({ page }) => {
+    await page.locator('[data-testid="mb-rf-open"]').click();
+    await page.locator('[data-testid="mb-rf-modal"]').waitFor({ state: 'visible' });
+    await page.waitForTimeout(60);
+    await page.keyboard.press('Escape');
+    // Focus is restored on the next frame (see focusTrap cleanup); poll for it.
+    await expect
+      .poll(async () => page.evaluate(() => document.activeElement?.tagName ?? null), { timeout: 2000 })
+      .not.toBe('BODY');
   });
 });

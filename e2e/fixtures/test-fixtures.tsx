@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   ThemeProvider,
   Card,
@@ -191,6 +191,103 @@ function PopupTriggerFixtures() {
         <input data-testid="pt-trigger" aria-label="Focus me" placeholder="Focus me" />
       </PopupTrigger>
       <button data-testid="pt-outside">outside</button>
+    </section>
+  );
+}
+
+/**
+ * Popup positioning regressions (BUG-03/04/05/06/10). Closed until the spec
+ * clicks the trigger, so nothing registers in the stacking counter at load.
+ */
+function PopupPositioningFixtures() {
+  const fixed = (extra: React.CSSProperties): React.CSSProperties => ({ position: 'fixed', zIndex: 1, ...extra });
+  return (
+    <section data-testid="popup-positioning-section">
+      {/* BUG-03: wide content is capped to the viewport (scrolls inside). */}
+      <PopupTrigger
+        triggerOnClick
+        popup={<div style={{ width: 500, whiteSpace: 'nowrap' }}>very wide 500px popup content</div>}
+        popupProps={{ placeBottom: true, 'aria-label': 'pos wide', 'data-testid': 'pos-wide-popup' } as Record<string, unknown>}
+      >
+        <button data-testid="pos-wide-anchor" style={fixed({ left: '50%', top: 200 })}>a</button>
+      </PopupTrigger>
+
+      {/* BUG-04 + BUG-05: start-aligned arrow points at the anchor and isn't clipped. */}
+      <PopupTrigger
+        triggerOnClick
+        popup={<div style={{ width: 240, whiteSpace: 'nowrap' }}>wide start-aligned popup</div>}
+        popupProps={{ placeBottomStart: true, arrow: true, 'aria-label': 'pos arrow', 'data-testid': 'pos-arrow-popup' } as Record<string, unknown>}
+      >
+        <button data-testid="pos-arrow-anchor" style={fixed({ left: 200, top: 200 })}>a</button>
+      </PopupTrigger>
+
+      {/* BUG-10: start-aligned popup near the right edge inline-flips → data-placement follows. */}
+      <PopupTrigger
+        triggerOnClick
+        popup={<div style={{ width: 200, whiteSpace: 'nowrap' }}>edge popup content</div>}
+        popupProps={{ placeBottomStart: true, 'aria-label': 'pos edge', 'data-testid': 'pos-edge-popup' } as Record<string, unknown>}
+      >
+        <button data-testid="pos-edge-anchor" style={fixed({ right: 20, top: 200 })}>a</button>
+      </PopupTrigger>
+
+      {/* BUG-06: forced JS fallback must not vertical-flip on horizontal overflow. */}
+      <PopupTrigger
+        triggerOnClick
+        popup={<div style={{ width: 220, whiteSpace: 'nowrap' }}>right-edge fallback popup</div>}
+        popupProps={{ placeBottom: true, 'aria-label': 'pos fb', 'data-testid': 'pos-fb-popup' } as Record<string, unknown>}
+      >
+        <button data-testid="pos-fb-anchor" style={fixed({ right: 20, top: 320 })}>a</button>
+      </PopupTrigger>
+    </section>
+  );
+}
+
+/**
+ * Modal / nested-overlay behavior regressions (BUG-01/02/09). Closed until the
+ * spec clicks a trigger, so nothing inerts the page or registers z at load.
+ */
+function ModalBehaviorFixtures() {
+  const [mOpen, setMOpen] = useState(false);
+  const [pOpen, setPOpen] = useState(true);
+  const anchor = useRef<HTMLButtonElement>(null);
+  const [rfOpen, setRfOpen] = useState(false);
+  const [rfBtn, setRfBtn] = useState(true);
+  return (
+    <section data-testid="modal-behavior-section">
+      {/* BUG-01 (z) + BUG-02 (escape): a Popup that is a React child of a Modal. */}
+      <button data-testid="mb-open" onClick={() => { setPOpen(true); setMOpen(true); }}>open modal</button>
+      <Modal
+        open={mOpen}
+        onClose={() => setMOpen(false)}
+        noAnimation
+        data-testid="mb-modal"
+        overlayProps={{ 'data-testid': 'mb-overlay' } as Record<string, unknown>}
+      >
+        <ModalHeader>Modal</ModalHeader>
+        <ModalBody>
+          <button ref={anchor} data-testid="mb-anchor">anchor</button>
+          <Popup
+            open={pOpen}
+            onClose={() => setPOpen(false)}
+            anchorRef={anchor}
+            noAnimation
+            closeOnClickOutside={false}
+            aria-label="mb child popup"
+            data-testid="mb-popup"
+          >
+            <button data-testid="mb-popup-btn">popup btn</button>
+          </Popup>
+        </ModalBody>
+      </Modal>
+
+      {/* BUG-09: opened from a trigger that unmounts itself. */}
+      {rfBtn && (
+        <button data-testid="mb-rf-open" onClick={() => { setRfBtn(false); setRfOpen(true); }}>open (self-removing)</button>
+      )}
+      <Modal open={rfOpen} onClose={() => setRfOpen(false)} noAnimation data-testid="mb-rf-modal">
+        <ModalHeader>Return focus</ModalHeader>
+        <ModalBody><button data-testid="mb-rf-inside">inside</button></ModalBody>
+      </Modal>
     </section>
   );
 }
@@ -575,6 +672,10 @@ export function TestHarness() {
 
         <PopupTriggerFixtures />
 
+        {/* ── Popup positioning + Modal behavior regressions (2026-08-10 fixes) ── */}
+        <PopupPositioningFixtures />
+        <ModalBehaviorFixtures />
+
         {/* ── NavLink icon sizing ── */}
 
         <section data-testid="navlink-icon-section">
@@ -923,6 +1024,17 @@ export function TestHarness() {
           <PageTitle responsiveSizing data-testid="responsive-pagetitle">Page Title</PageTitle>
           <SectionTitle responsiveSizing data-testid="responsive-sectiontitle">Section Title</SectionTitle>
           <Title responsiveSizing data-testid="responsive-title">Title</Title>
+
+          {/* BUG-11: mobileStack + tabletStack resolve to the union (column below 1024px) */}
+          <Row data-testid="responsive-combo-stack" mobileStack tabletStack>
+            <Text>G</Text>
+            <Text>H</Text>
+          </Row>
+
+          {/* BUG-07: a long unbreakable token wraps inside its Card (no horizontal overflow) */}
+          <Card data-testid="responsive-longurl-card">
+            <Text data-testid="responsive-longurl-text">https://example.com/very/long/unbreakable/path/token1234567890abcdefghijklmnopqrstuvwxyz</Text>
+          </Card>
         </section>
 
         {/* ── Inherit-size: Link and Code inside headings ── */}

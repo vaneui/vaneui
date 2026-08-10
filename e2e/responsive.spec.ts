@@ -178,3 +178,36 @@ test.describe('Responsive typography scaling', () => {
     expect(tabletFs).toBeGreaterThan(mobileFs);
   });
 });
+
+// ── Bug-fix regressions (2026-08-10) ──────────────────────────────────────────
+
+test.describe('Responsive bug fixes (2026-08-10)', () => {
+  // BUG-08: the breakpoint is exclusive (< N), not inclusive — 768px is desktop.
+  test('mobileStack boundary is exclusive: row at 768px, column at 767px', async ({ page }) => {
+    const el = page.locator('[data-testid="responsive-mobileCol"]');
+    await page.setViewportSize({ width: 768, height: 800 });
+    expect(await getFlexDirection(el)).toBe('row');
+    await page.setViewportSize({ width: 767, height: 800 });
+    expect(await getFlexDirection(el)).toBe('column');
+  });
+
+  // BUG-11: combining mobileStack + tabletStack resolves to the union (< 1024px).
+  test('mobileStack + tabletStack stack as their union (column below 1024px)', async ({ page }) => {
+    const el = page.locator('[data-testid="responsive-combo-stack"]');
+    await page.setViewportSize({ width: 1100, height: 800 });
+    expect(await getFlexDirection(el)).toBe('row');
+    await page.setViewportSize({ width: 900, height: 800 });
+    expect(await getFlexDirection(el)).toBe('column');
+    await page.setViewportSize({ width: 700, height: 800 });
+    expect(await getFlexDirection(el)).toBe('column');
+  });
+
+  // BUG-07: a long unbreakable token wraps inside its Card instead of overflowing.
+  test('long unbreakable text does not overflow its Card at 375px', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    const m = await page
+      .locator('[data-testid="responsive-longurl-card"]')
+      .evaluate((el) => ({ scrollWidth: el.scrollWidth, clientWidth: el.clientWidth }));
+    expect(m.scrollWidth).toBeLessThanOrEqual(m.clientWidth + 2);
+  });
+});
