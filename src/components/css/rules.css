@@ -520,6 +520,15 @@
         border-bottom-width: 1px;
         border-left-width: 1px;
     }
+    /* *Start/*End align the popup EDGE to the anchor edge, so the arrow sits near that edge (over the anchor), not the popup center. */
+    [data-placement="top-start"] > .vane-popup-arrow,
+    [data-placement="bottom-start"] > .vane-popup-arrow { left: 1rem; margin-left: calc(var(--popup-arrow-size, 7px) / -2); }
+    [data-placement="top-end"] > .vane-popup-arrow,
+    [data-placement="bottom-end"] > .vane-popup-arrow { left: auto; right: 1rem; margin-left: 0; margin-right: calc(var(--popup-arrow-size, 7px) / -2); }
+    [data-placement="left-start"] > .vane-popup-arrow,
+    [data-placement="right-start"] > .vane-popup-arrow { top: 1rem; margin-top: calc(var(--popup-arrow-size, 7px) / -2); }
+    [data-placement="left-end"] > .vane-popup-arrow,
+    [data-placement="right-end"] > .vane-popup-arrow { top: auto; bottom: 1rem; margin-top: 0; margin-bottom: calc(var(--popup-arrow-size, 7px) / -2); }
 
     /* Card compound sub-components */
     .vane-card-header {
