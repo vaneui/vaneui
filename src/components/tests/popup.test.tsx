@@ -67,8 +67,9 @@ describe('Popup Component Tests', () => {
       expect(popup).toBeInTheDocument();
       // Flexbox layout from boolean props
       expect(popup).toHaveClass('flex', 'flex-col');
-      // Width, overflow, and max-height from boolean prop defaults
-      expect(popup).toHaveClass('w-fit', 'overflow-auto', 'max-h-(--max-height)');
+      // Width from boolean prop defaults; clamp+scroll live on the inner .vane-popup-scroll (BUG-05).
+      expect(popup).toHaveClass('w-fit');
+      expect(popup!.querySelector('.vane-popup-scroll')).toBeInTheDocument();
     });
 
     it('should render children', () => {
@@ -1179,7 +1180,7 @@ describe('Popup Component Tests', () => {
   });
 
   describe('Max Height', () => {
-    it('should apply max-height class by default', () => {
+    it('should clamp+scroll height via the inner .vane-popup-scroll box by default (BUG-05)', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
@@ -1189,22 +1190,10 @@ describe('Popup Component Tests', () => {
         </ThemeProvider>
       );
 
+      // Clamp+scroll moved off the arrow-hosting .vane-popup onto the inner scroll box.
       const popup = baseElement.querySelector('.vane-popup');
-      expect(popup).toHaveClass('max-h-(--max-height)');
-    });
-
-    it('should not apply max-height when maxHeight is explicitly false', () => {
-      const anchorRef = createAnchorRef();
-      const { baseElement } = render(
-        <ThemeProvider theme={defaultTheme}>
-          <Popup open={true} onClose={() => {}} anchorRef={anchorRef} clampHeight={false}>
-            <div>Content</div>
-          </Popup>
-        </ThemeProvider>
-      );
-
-      const popup = baseElement.querySelector('.vane-popup');
-      expect(popup).not.toHaveClass('max-h-(--max-height)');
+      expect(popup).not.toHaveClass('overflow-auto', 'max-h-(--max-height)');
+      expect(popup!.querySelector('.vane-popup-scroll')).toBeInTheDocument();
     });
 
     it('should not leak maxHeight to DOM', () => {

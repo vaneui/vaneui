@@ -447,6 +447,9 @@
     .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --max-height: 24rem; --popup-min-w: 9rem; --popup-arrow-size: 8px; }
     .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --max-height: 28rem; --popup-min-w: 10rem; --popup-arrow-size: 10px; }
 
+    /* Inner scroll viewport: clamps height/width & scrolls so the outer box (which hosts the arrow) stays overflow:visible. */
+    .vane-popup-scroll { display: flex; flex-direction: column; gap: var(--gap); max-height: var(--max-height); overflow: auto; min-height: 0; }
+
     /* Menu dropdown: tighter than generic Popup; floor lifted to 4px so no size renders below the minimum. */
     .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 1; }
     .vane-popup[data-menu-dropdown][data-size="sm"] { --py-unit: 1.25; }

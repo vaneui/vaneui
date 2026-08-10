@@ -13,8 +13,6 @@ export const popupDefaults: Partial<PopupProps> = {
   border: true,
   primary: true,
   outline: true,
-  overflowAuto: true,
-  clampHeight: true,
   wFit: true,
   placeBottom: true,
 };

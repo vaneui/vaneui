@@ -537,7 +537,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         aria-hidden={(isHidden || isDetached) || undefined}
         {...mergedProps}
       >
-        {children}
+        {/* Inner scroll box so height/width clamping never clips the arrow (which lives on the outer, overflow-visible box). */}
+        <div className="vane-popup-scroll">{children}</div>
         {arrow && (
           <div className="vane-popup-arrow" aria-hidden="true" />
         )}
