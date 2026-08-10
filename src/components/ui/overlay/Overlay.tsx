@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import type { OverlayProps } from "./OverlayProps";
 import { useTheme } from "../../themeContext";
@@ -8,6 +8,7 @@ import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { pushEscapeHandler } from '../../utils/escapeStack';
 import { composeEventHandlers } from '../../utils/composeEventHandlers';
+import { useMergedRef } from '../../utils/mergedRef';
 
 export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
   function Overlay(
@@ -30,14 +31,16 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     ref
   ) {
     const theme = useTheme();
+    const overlayRef = useRef<HTMLDivElement>(null);
+    const mergedRef = useMergedRef(ref, overlayRef);
     const { mounted, state } = useTransition(open, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
-    const zIndex = useStackingContext(open, 'overlay');
+    const zIndex = useStackingContext(open, 'overlay', overlayRef);
 
     // keyboard parity with backdrop click-to-close: Escape dismisses a
     // dismissible (onClose) overlay — only the topmost one, via the shared stack
     useEffect(() => {
       if (!open || !onClose) return;
-      return pushEscapeHandler(() => onClose());
+      return pushEscapeHandler(() => onClose(), overlayRef.current);
     }, [open, onClose]);
 
     if (!mounted && !keepMounted) return null;
@@ -53,7 +56,7 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
 
     const content = (
       <ThemedComponent
-        ref={ref}
+        ref={mergedRef}
         theme={theme?.overlay ?? defaultOverlayTheme}
         data-state={isHidden ? undefined : state}
         aria-hidden={isHidden || undefined}

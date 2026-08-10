@@ -108,7 +108,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
     const overlayTransition = useTransition(open, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
     const contentTransition = useTransition(open, transitionDuration, noAnimation);
-    const zIndex = useStackingContext(open, 'modal');
+    const zIndex = useStackingContext(open, 'modal', overlayRef);
 
     const mergedRef = useMergedRef(ref, contentRef);
 
@@ -138,7 +138,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // only the topmost floating element closes on Escape
     useEffect(() => {
       if (!open || !closeOnEscape) return;
-      return pushEscapeHandler(onClose);
+      return pushEscapeHandler(onClose, overlayRef.current);
     }, [open, closeOnEscape, onClose]);
 
     const handleOverlayClick = (event: React.MouseEvent) => {

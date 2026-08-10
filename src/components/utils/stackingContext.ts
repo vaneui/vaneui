@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type RefObject } from 'react';
 import { useIsomorphicLayoutEffect } from './isomorphicLayoutEffect';
 
 export type ZLayer = 'overlay' | 'modal' | 'popup';
@@ -21,46 +21,90 @@ function getLayerBaseZ(layer: ZLayer): number {
   return LAYER_DEFAULTS[layer];
 }
 
-// Currently-open z-indexes. A newly opened element always sits one above the
-// highest element already open (max + 1), while never dropping below its own
-// layer floor. This keeps the NEWEST overlay on top regardless of layer —
-// fixing the inversion where a popup (floor 300) opened before a modal
-// (floor 200) stayed visually above the later modal. Decrementing/reusing
-// values on close would let a new element collide with a still-open one, so
-// closed entries are simply removed and the next element still takes max + 1.
-let openZIndexes: number[] = [];
+// Every currently-open overlay. `baseZ` is the open-order value (max + 1, keeping
+// the newest overlay on top — see below); `z` is that value after a corrective
+// pass that lifts a NESTED overlay above the ancestor it is opened from. React
+// runs child effects before parent effects, so a popup rendered inside a modal
+// registers FIRST and would otherwise sit UNDER the modal's own backdrop; the
+// pass (re-run reactively whenever the set changes) repairs that regardless of
+// effect order. Closed entries are removed rather than reused so a new element
+// still takes max + 1.
+interface StackEntry {
+  id: number;
+  el: HTMLElement | null;
+  getParent: () => HTMLElement | null;
+  baseZ: number;
+  z: number;
+}
+let entries: StackEntry[] = [];
+let nextId = 1;
+const listeners = new Set<() => void>();
+
+function notify(): void {
+  for (const listener of listeners) listener();
+}
+
+function recompute(): void {
+  for (const e of entries) e.z = e.baseZ;
+  // Fixpoint: a nested overlay must sit above the entry whose element contains
+  // its resolved parent (its opener). Bounded by the entry count.
+  let changed = true;
+  let guard = 0;
+  while (changed && guard++ <= entries.length + 1) {
+    changed = false;
+    for (const e of entries) {
+      const parentEl = e.getParent();
+      if (!parentEl) continue;
+      const p = entries.find((x) => x.el && (x.el === parentEl || x.el.contains(parentEl)));
+      if (p && p.id !== e.id && e.z <= p.z) {
+        e.z = p.z + 1;
+        changed = true;
+      }
+    }
+  }
+}
 
 // test cleanup
 export function resetStackCount() {
-  openZIndexes = [];
+  entries = [];
+  nextId = 1;
 }
 
-// The layout effect prevents a flash where nested elements paint behind
-// parents. The getComputedStyle read lives INSIDE the effect: reading it
-// during render is impure, and a consumer-customized --z-* value would make
-// the server-rendered style attribute (static fallback) differ from the
-// client render — a hydration mismatch. Render-time value is always the
-// static fallback; the effect corrects it before paint.
-export function useStackingContext(open: boolean, layer: ZLayer = 'overlay'): number {
+export function useStackingContext(
+  open: boolean,
+  layer: ZLayer = 'overlay',
+  elRef?: RefObject<HTMLElement | null>,
+  getParent: () => HTMLElement | null = () => null,
+): number {
   const [zIndex, setZIndex] = useState(LAYER_DEFAULTS[layer]);
 
   useIsomorphicLayoutEffect(() => {
-    const baseZ = getLayerBaseZ(layer);
-
     if (!open) {
-      setZIndex(baseZ);
+      setZIndex(getLayerBaseZ(layer));
       return;
     }
 
-    const currentMax = openZIndexes.length ? Math.max(...openZIndexes) : 0;
-    const z = Math.max(baseZ + 1, currentMax + 1);
-    openZIndexes.push(z);
-    setZIndex(z);
+    const currentMax = entries.length ? Math.max(...entries.map((e) => e.z)) : 0;
+    const baseZ = Math.max(getLayerBaseZ(layer) + 1, currentMax + 1);
+    const id = nextId++;
+    entries.push({ id, el: elRef?.current ?? null, getParent, baseZ, z: baseZ });
+    recompute();
+
+    const update = () => {
+      const me = entries.find((e) => e.id === id);
+      if (me) setZIndex(me.z);
+    };
+    listeners.add(update);
+    update();
+    notify();
 
     return () => {
-      const idx = openZIndexes.indexOf(z);
-      if (idx !== -1) openZIndexes.splice(idx, 1);
+      listeners.delete(update);
+      entries = entries.filter((e) => e.id !== id);
+      recompute();
+      notify();
     };
+    // getParent/elRef read stable refs inside the effect; re-run only on open/layer.
   }, [open, layer]);
 
   return zIndex;

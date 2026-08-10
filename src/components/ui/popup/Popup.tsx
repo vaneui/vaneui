@@ -12,7 +12,7 @@ import { useControllableState } from '../../utils/controllableState';
 import { useMergedRef } from '../../utils/mergedRef';
 import { pushEscapeHandler } from '../../utils/escapeStack';
 import { getFocusableElements, useFocusTrap } from '../../utils/focusTrap';
-import { registerOverlay, findOverlayContaining, isInOverlayFamily } from '../../utils/overlayStack';
+import { registerOverlay, isInOverlayFamily } from '../../utils/overlayStack';
 
 type PopupPlacement =
   | 'top'
@@ -300,7 +300,11 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     const placement = placementKey.replace(/^place/, '').replace(/([A-Z])/g, '-$1').toLowerCase().replace(/^-/, '') as PopupPlacement;
 
     const { mounted, state } = useTransition(effectiveOpen, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
-    const zIndex = useStackingContext(effectiveOpen, 'popup');
+    // Resolve the opener overlay from the anchor's DOM ancestry (not the overlay
+    // registry) so nesting is known even before the parent overlay registers.
+    const resolveParentOverlay = (): HTMLElement | null =>
+      (anchorRef.current?.closest('.vane-overlay, .vane-popup') as HTMLElement | null) ?? null;
+    const zIndex = useStackingContext(effectiveOpen, 'popup', popupRef, resolveParentOverlay);
 
     // stable ref to prevent effect dependency churn
     const onCloseRef = useRef(onClose);
@@ -436,19 +440,18 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     // only the topmost floating element closes on Escape
     useEffect(() => {
       if (!effectiveOpen || !closeOnEscape) return;
-      return pushEscapeHandler(() => onCloseRef.current?.());
+      return pushEscapeHandler(() => onCloseRef.current?.(), popupRef.current);
     }, [effectiveOpen, closeOnEscape]);
 
     // register in the shared overlay stack so nested popups know their lineage:
-    // the parent is resolved from the anchor (a child popup's trigger lives
-    // inside its parent's content). DOM ancestry can't establish this because
-    // each popup portals to document.body as a sibling.
+    // the parent is resolved from the anchor's DOM ancestry (a child popup's
+    // trigger lives inside its parent's content), which — unlike the registry —
+    // works even before the parent overlay registers (child effects run first).
     useEffect(() => {
       if (!effectiveOpen) return;
       const popup = popupRef.current;
       if (!popup) return;
-      const parent = findOverlayContaining(anchorRef.current);
-      return registerOverlay(popup, parent);
+      return registerOverlay(popup, resolveParentOverlay());
     }, [effectiveOpen, anchorRef]);
 
     useEffect(() => {
