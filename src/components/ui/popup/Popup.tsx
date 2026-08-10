@@ -123,67 +123,46 @@ function calcPosition(
   return { top, left };
 }
 
-function overflows(
+// Does `pos` overflow the viewport on the placement's MAIN axis only?
+function overflowsMainAxis(
   pos: { top: number; left: number },
   popupRect: DOMRect,
+  isBlockAxis: boolean,
 ): boolean {
-  return (
-    pos.top < 0 ||
-    pos.left < 0 ||
-    pos.top + popupRect.height > window.innerHeight ||
-    pos.left + popupRect.width > window.innerWidth
-  );
+  return isBlockAxis
+    ? pos.top < 0 || pos.top + popupRect.height > window.innerHeight
+    : pos.left < 0 || pos.left + popupRect.width > window.innerWidth;
 }
 
-// Strategy: flip block → flip inline → shift cross-axis → clamp main axis
+// Strategy: flip only along the MAIN axis (and only when it overflows), then
+// shift the cross axis + clamp the main axis. A pure cross-axis overflow
+// (e.g. horizontal for a top/bottom popup) is fixed by shifting, never by a
+// spurious flip to the opposite side.
 function getJsPosition(
   anchorRect: DOMRect,
   popupRect: DOMRect,
   placement: PopupPlacement,
   offset: number
 ): { top: number; left: number; resolvedPlacement: PopupPlacement } {
+  const isBlockAxis = placement.startsWith('top') || placement.startsWith('bottom');
+  let resolved = placement;
   const pos = calcPosition(anchorRect, popupRect, placement, offset);
-  if (!overflows(pos, popupRect)) return { ...pos, resolvedPlacement: placement };
 
-  const flippedBlock = flipBlock(placement);
-  if (flippedBlock !== placement) {
-    const posBlock = calcPosition(anchorRect, popupRect, flippedBlock, offset);
-    if (!overflows(posBlock, popupRect)) return { ...posBlock, resolvedPlacement: flippedBlock };
-  }
-
-  const flippedInline = flipInline(placement);
-  if (flippedInline !== placement) {
-    const posInline = calcPosition(anchorRect, popupRect, flippedInline, offset);
-    if (!overflows(posInline, popupRect)) return { ...posInline, resolvedPlacement: flippedInline };
-  }
-
-  // prefer block-flip for top/bottom placements, inline-flip for left/right
-  const bestPlacement = (flippedBlock !== placement) ? flippedBlock : placement;
-  const bestPos = (flippedBlock !== placement)
-    ? calcPosition(anchorRect, popupRect, flippedBlock, offset)
-    : pos;
-
-  if (bestPlacement.startsWith('top') || bestPlacement.startsWith('bottom')) {
-    const rightOverflow = bestPos.left + popupRect.width - window.innerWidth;
-    const leftOverflow = -bestPos.left;
-    if (rightOverflow > 0) {
-      bestPos.left = Math.max(0, bestPos.left - rightOverflow);
-    } else if (leftOverflow > 0) {
-      bestPos.left = 0;
+  if (overflowsMainAxis(pos, popupRect, isBlockAxis)) {
+    const flipped = isBlockAxis ? flipBlock(placement) : flipInline(placement);
+    if (flipped !== placement) {
+      const flippedPos = calcPosition(anchorRect, popupRect, flipped, offset);
+      if (!overflowsMainAxis(flippedPos, popupRect, isBlockAxis)) {
+        resolved = flipped;
+        pos.top = flippedPos.top;
+        pos.left = flippedPos.left;
+      }
     }
-    bestPos.top = Math.max(0, Math.min(bestPos.top, window.innerHeight - popupRect.height));
-  } else {
-    const bottomOverflow = bestPos.top + popupRect.height - window.innerHeight;
-    const topOverflow = -bestPos.top;
-    if (bottomOverflow > 0) {
-      bestPos.top = Math.max(0, bestPos.top - bottomOverflow);
-    } else if (topOverflow > 0) {
-      bestPos.top = 0;
-    }
-    bestPos.left = Math.max(0, Math.min(bestPos.left, window.innerWidth - popupRect.width));
   }
 
-  return { ...bestPos, resolvedPlacement: bestPlacement };
+  pos.left = Math.max(0, Math.min(pos.left, window.innerWidth - popupRect.width));
+  pos.top = Math.max(0, Math.min(pos.top, window.innerHeight - popupRect.height));
+  return { ...pos, resolvedPlacement: resolved };
 }
 
 // Derive the popup's ACTUAL placement side from its rendered geometry. On the
