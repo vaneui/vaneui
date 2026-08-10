@@ -197,7 +197,6 @@ function measurePlacement(
   requested: PopupPlacement,
 ): PopupPlacement {
   const isBlockAxis = requested.startsWith('top') || requested.startsWith('bottom');
-  const suffix = requested.endsWith('-start') ? '-start' : requested.endsWith('-end') ? '-end' : '';
   const anchorCenterX = anchorRect.left + anchorRect.width / 2;
   const anchorCenterY = anchorRect.top + anchorRect.height / 2;
   const popupCenterX = popupRect.left + popupRect.width / 2;
@@ -205,6 +204,14 @@ function measurePlacement(
   const side = isBlockAxis
     ? (popupCenterY < anchorCenterY ? 'top' : 'bottom')
     : (popupCenterX < anchorCenterX ? 'left' : 'right');
+  // Re-derive the -start/-end suffix from geometry so it stays correct after an
+  // inline flip (a requested -start can render -end near a viewport edge).
+  let suffix = '';
+  if (requested.endsWith('-start') || requested.endsWith('-end')) {
+    const startD = isBlockAxis ? Math.abs(popupRect.left - anchorRect.left) : Math.abs(popupRect.top - anchorRect.top);
+    const endD = isBlockAxis ? Math.abs(popupRect.right - anchorRect.right) : Math.abs(popupRect.bottom - anchorRect.bottom);
+    suffix = startD <= endD ? '-start' : '-end';
+  }
   return (side + suffix) as PopupPlacement;
 }
 
