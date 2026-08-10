@@ -272,7 +272,8 @@
 
     /* Text */
     /* Body line-height tightens as text grows (prose-leaning, md stays 1.6); flat 1.6 left large body too loose vs references. */
-    .vane-text { --lh: var(--lh-base); --ls: var(--ls-base); }
+    /* Long unbreakable tokens (URLs, hashes) wrap instead of overflowing; also shrinks min-content so a flex-item Text can shrink. */
+    .vane-text { --lh: var(--lh-base); --ls: var(--ls-base); overflow-wrap: anywhere; }
     .vane-text[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --lh: 1.7; }
     .vane-text[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --lh: 1.65; }
     .vane-text[data-size="md"] { --fs-unit: var(--fs-unit-md); --lh: 1.6; }
