@@ -76,9 +76,16 @@ export function createFocusTrap(
 
   return () => {
     document.removeEventListener('keydown', handleKeyDown);
-    if (returnFocus && triggerElement instanceof HTMLElement) {
+    if (!returnFocus) return;
+    if (triggerElement instanceof HTMLElement && triggerElement !== document.body && triggerElement.isConnected) {
       triggerElement.focus();
+      return;
     }
+    // Trigger is gone or never existed (opened programmatically / from a control
+    // that unmounts): don't strand focus on <body> — move it to a real element.
+    // Deferred so the background's `inert` (removed during this same unmount) is
+    // gone before we try to focus a background element.
+    requestAnimationFrame(() => getFocusableElements(document.body)[0]?.focus());
   };
 }
 
