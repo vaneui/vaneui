@@ -29,6 +29,14 @@ import type { ImgTheme } from './ui/img/ImgTheme';
 import type { InputTheme } from './ui/input/InputTheme';
 import type { InputErrorIconTheme } from './ui/input/InputErrorIconTheme';
 import type { InputWrapperTheme } from './ui/input/InputWrapperTheme';
+import type { SelectChevronTheme } from './ui/select/SelectChevronTheme';
+import type { SelectWrapperTheme } from './ui/select/SelectWrapperTheme';
+import type { SwitchTheme } from './ui/switch/SwitchTheme';
+import type { SwitchThumbTheme } from './ui/switch/SwitchThumbTheme';
+import type { SwitchWrapperTheme } from './ui/switch/SwitchWrapperTheme';
+import type { RadioTheme } from './ui/radio/RadioTheme';
+import type { RadioDotTheme } from './ui/radio/RadioDotTheme';
+import type { RadioWrapperTheme } from './ui/radio/RadioWrapperTheme';
 import type { OverlayTheme } from './ui/overlay/OverlayTheme';
 import type { ModalContentTheme } from './ui/modal/ModalContentTheme';
 import type { ModalHeaderTheme } from './ui/modal/ModalHeaderTheme';
@@ -75,6 +83,10 @@ import type { CheckboxIndeterminateProps } from "./ui/checkbox/CheckboxIndetermi
 import type { LabelProps } from "./ui/label";
 import type { ImgProps } from "./ui/img";
 import type { InputProps, InputErrorIconProps, InputWrapperProps } from "./ui/input";
+import type { TextareaProps } from "./ui/textarea/TextareaProps";
+import type { SelectProps, SelectChevronProps, SelectWrapperProps } from "./ui/select";
+import type { SwitchProps, SwitchThumbProps } from "./ui/switch";
+import type { RadioProps, RadioDotProps, RadioGroupProps } from "./ui/radio";
 import type { OverlayProps } from "./ui/overlay";
 import type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./ui/modal";
 import type { ModalCloseButtonProps } from "./ui/modal/ModalCloseButtonProps";
@@ -149,6 +161,21 @@ export interface ThemeProps {
   input: ComponentTheme<InputProps, InputTheme>;
   inputErrorIcon: ComponentTheme<InputErrorIconProps, InputErrorIconTheme>;
   inputWrapper: ComponentTheme<InputWrapperProps, InputWrapperTheme>;
+  textarea: ComponentTheme<TextareaProps, InputTheme>;
+  select: ComponentTheme<SelectProps, InputTheme>;
+  selectChevron: ComponentTheme<SelectChevronProps, SelectChevronTheme>;
+  selectWrapper: ComponentTheme<SelectWrapperProps, SelectWrapperTheme>;
+  switch: {
+    input: ComponentTheme<SwitchProps, SwitchTheme>;
+    thumb: ComponentTheme<SwitchThumbProps, SwitchThumbTheme>;
+    wrapper: ComponentTheme<SwitchProps, SwitchWrapperTheme>;
+  };
+  radio: {
+    input: ComponentTheme<RadioProps, RadioTheme>;
+    dot: ComponentTheme<RadioDotProps, RadioDotTheme>;
+    wrapper: ComponentTheme<RadioProps, RadioWrapperTheme>;
+  };
+  radioGroup: ComponentTheme<RadioGroupProps, ColTheme>;
   overlay: ComponentTheme<OverlayProps, OverlayTheme>;
   modal: {
     content: ComponentTheme<ModalProps, ModalContentTheme>;

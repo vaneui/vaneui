@@ -194,6 +194,24 @@
         padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
     }
 
+    /* Textarea: the input ramp on a multi-line box. No trailing-icon reservation —
+       a vertically centred icon reads as misplaced once the box grows. */
+    .vane-textarea { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; min-height: calc(var(--fs) * var(--lh) * 3); resize: vertical; }
+    .vane-textarea[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-textarea[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-textarea[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-textarea[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-textarea[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+
+    /* Select: the input ramp, but the trailing room is reserved unconditionally —
+       unlike the input's error icon, the chevron is always present. */
+    .vane-select { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap)); }
+    .vane-select[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-select[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-select[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-select[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-select[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+
     /* Checkbox height = size-unit * spacing. xs lifted off 12px (too small) to 14px, sm 15px; md stays 16px. */
     .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
     .vane-checkbox[data-size="xs"] { --size-unit: 3.5; }
@@ -201,6 +219,35 @@
     .vane-checkbox[data-size="md"] { --size-unit: 4; }
     .vane-checkbox[data-size="lg"] { --size-unit: 4.5; }
     .vane-checkbox[data-size="xl"] { --size-unit: 5; }
+
+    /* Radio: same size ramp as the checkbox. Circular by default, so --br only applies when a consumer opts into `rounded`. */
+    .vane-radio[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
+    .vane-radio[data-size="xs"] { --size-unit: 3.5; }
+    .vane-radio[data-size="sm"] { --size-unit: 3.75; }
+    .vane-radio[data-size="md"] { --size-unit: 4; }
+    .vane-radio[data-size="lg"] { --size-unit: 4.5; }
+    .vane-radio[data-size="xl"] { --size-unit: 5; }
+
+    /* Switch: track a notch taller than the Checkbox box, 1.75x as wide.
+       Geometry vars sit on the wrapper so the track and the thumb both inherit them. */
+    .vane-switch-wrapper[data-size] {
+        --switch-w: calc(var(--size) * 1.75);
+        --switch-pad: calc(var(--size) * 0.125);
+        --switch-thumb: calc(var(--size) - 2 * var(--switch-pad));
+        --switch-travel: calc(var(--switch-w) - var(--size));
+    }
+    .vane-switch-wrapper[data-size="xs"] { --size-unit: 3.75; }
+    .vane-switch-wrapper[data-size="sm"] { --size-unit: 4; }
+    .vane-switch-wrapper[data-size="md"] { --size-unit: 4.5; }
+    .vane-switch-wrapper[data-size="lg"] { --size-unit: 5; }
+    .vane-switch-wrapper[data-size="xl"] { --size-unit: 6; }
+
+    /* Track radius when `rounded` replaces the pill default; beats the ui-type --min-h formula. */
+    .vane-switch[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
+
+    /* Thumb: a circle inset from the track edge; margin-inline-start + flipped travel keep it correct under RTL. */
+    .vane-switch-thumb { width: var(--switch-thumb); height: var(--switch-thumb); margin-inline-start: var(--switch-pad); }
+    [dir="rtl"] .vane-switch-thumb { --switch-travel: calc(var(--size) - var(--switch-w)); }
 
     /* Label */
     .vane-label {
@@ -758,6 +805,39 @@
 
     /* Checked/indeterminate + ghost: border becomes the appearance color (same as outline) */
     .vane-checkbox[data-variant="ghost"]:is(:checked, :indeterminate) {
+        --border-color: var(--checked-bg-color);
+        --ring-color: var(--checked-bg-color);
+    }
+
+    /* Radio mirrors the checkbox border treatment: neutral unchecked border, appearance color once checked. */
+    .vane-radio[data-variant] {
+        --border-color: var(--color-border-form);
+        --ring-color: var(--color-border-form);
+    }
+
+    .vane-radio[data-variant="filled"]:checked {
+        --border-color: transparent;
+        --ring-color: transparent;
+    }
+
+    .vane-radio:is([data-variant="outline"], [data-variant="ghost"]):checked {
+        --border-color: var(--checked-bg-color);
+        --ring-color: var(--checked-bg-color);
+    }
+
+    /* Switch track needs a visible unchecked border despite filled's transparent — same as Checkbox.
+       Kept as its own block rather than widening the checkbox selectors, so checkbox behavior is untouched. */
+    .vane-switch[data-variant] {
+        --border-color: var(--color-border-form);
+        --ring-color: var(--color-border-form);
+    }
+
+    .vane-switch[data-variant="filled"]:checked {
+        --border-color: transparent;
+        --ring-color: transparent;
+    }
+
+    .vane-switch:is([data-variant="outline"], [data-variant="ghost"]):checked {
         --border-color: var(--checked-bg-color);
         --ring-color: var(--checked-bg-color);
     }

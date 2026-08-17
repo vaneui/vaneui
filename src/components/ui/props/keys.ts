@@ -98,6 +98,10 @@ import { LABEL_CATEGORIES } from '../label/LabelCategories';
 import { INPUT_CATEGORIES } from '../input/InputCategories';
 import { INPUT_ERROR_ICON_CATEGORIES } from '../input/InputErrorIconCategories';
 import { INPUT_WRAPPER_CATEGORIES } from '../input/InputWrapperCategories';
+import { SELECT_CHEVRON_CATEGORIES } from '../select/SelectChevronCategories';
+import { SELECT_WRAPPER_CATEGORIES } from '../select/SelectWrapperCategories';
+import { SWITCH_CATEGORIES } from '../switch/SwitchCategories';
+import { RADIO_CATEGORIES, RADIO_GROUP_CATEGORIES } from '../radio/RadioCategories';
 import { OVERLAY_CATEGORIES } from '../overlay/OverlayCategories';
 import { MODAL_CATEGORIES } from '../modal/ModalCategories';
 import { POPUP_CATEGORIES } from '../popup/PopupCategories';
@@ -128,6 +132,10 @@ export { LABEL_CATEGORIES };
 export { INPUT_CATEGORIES };
 export { INPUT_ERROR_ICON_CATEGORIES };
 export { INPUT_WRAPPER_CATEGORIES };
+export { SELECT_CHEVRON_CATEGORIES };
+export { SELECT_WRAPPER_CATEGORIES };
+export { SWITCH_CATEGORIES };
+export { RADIO_CATEGORIES, RADIO_GROUP_CATEGORIES };
 export { OVERLAY_CATEGORIES };
 export { MODAL_CATEGORIES };
 export { POPUP_CATEGORIES };
@@ -496,7 +504,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'overlay', 'modal', 'popup', 'menu', 'navLink', 'table'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'menu', 'navLink', 'table'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -524,6 +532,13 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   input: INPUT_CATEGORIES,
   inputErrorIcon: INPUT_ERROR_ICON_CATEGORIES,
   inputWrapper: INPUT_WRAPPER_CATEGORIES,
+  textarea: INPUT_CATEGORIES,
+  select: INPUT_CATEGORIES,
+  selectChevron: SELECT_CHEVRON_CATEGORIES,
+  selectWrapper: SELECT_WRAPPER_CATEGORIES,
+  switch: SWITCH_CATEGORIES,
+  radio: RADIO_CATEGORIES,
+  radioGroup: RADIO_GROUP_CATEGORIES,
   label: LABEL_CATEGORIES,
   link: LINK_CATEGORIES,
   list: LIST_CATEGORIES,

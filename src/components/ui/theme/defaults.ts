@@ -27,6 +27,17 @@ import { imgDefaults } from '../img/imgDefaults';
 import { inputDefaults } from '../input/inputDefaults';
 import { inputErrorIconDefaults } from '../input/inputErrorIconDefaults';
 import { inputWrapperDefaults } from '../input/inputWrapperDefaults';
+import { textareaDefaults } from '../textarea/textareaDefaults';
+import { selectDefaults } from '../select/selectDefaults';
+import { selectChevronDefaults } from '../select/selectChevronDefaults';
+import { selectWrapperDefaults } from '../select/selectWrapperDefaults';
+import { switchInputDefaults } from '../switch/switchInputDefaults';
+import { switchThumbDefaults } from '../switch/switchThumbDefaults';
+import { switchWrapperDefaults } from '../switch/switchWrapperDefaults';
+import { radioInputDefaults } from '../radio/radioInputDefaults';
+import { radioDotDefaults } from '../radio/radioDotDefaults';
+import { radioWrapperDefaults } from '../radio/radioWrapperDefaults';
+import { radioGroupDefaults } from '../radio/radioGroupDefaults';
 import { overlayDefaults } from '../overlay/overlayDefaults';
 import { kbdDefaults } from '../kbd/kbdDefaults';
 import { markDefaults } from '../mark/markDefaults';
@@ -112,6 +123,21 @@ export const themeDefaults: ThemeDefaults = {
   input: inputDefaults,
   inputErrorIcon: inputErrorIconDefaults,
   inputWrapper: inputWrapperDefaults,
+  textarea: textareaDefaults,
+  select: selectDefaults,
+  selectChevron: selectChevronDefaults,
+  selectWrapper: selectWrapperDefaults,
+  switch: {
+    input: switchInputDefaults,
+    thumb: switchThumbDefaults,
+    wrapper: switchWrapperDefaults,
+  },
+  radio: {
+    input: radioInputDefaults,
+    dot: radioDotDefaults,
+    wrapper: radioWrapperDefaults,
+  },
+  radioGroup: radioGroupDefaults,
   overlay: overlayDefaults,
   modal: {
     content: modalContentDefaults,

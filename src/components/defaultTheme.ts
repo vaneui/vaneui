@@ -36,6 +36,17 @@ import { defaultImgTheme } from './ui/img/defaultImgTheme';
 import { defaultInputTheme } from './ui/input/defaultInputTheme';
 import { defaultInputErrorIconTheme } from './ui/input/defaultInputErrorIconTheme';
 import { defaultInputWrapperTheme } from './ui/input/defaultInputWrapperTheme';
+import { defaultTextareaTheme } from './ui/textarea/defaultTextareaTheme';
+import { defaultSelectTheme } from './ui/select/defaultSelectTheme';
+import { defaultSelectChevronTheme } from './ui/select/defaultSelectChevronTheme';
+import { defaultSelectWrapperTheme } from './ui/select/defaultSelectWrapperTheme';
+import { defaultSwitchTheme } from './ui/switch/defaultSwitchTheme';
+import { defaultSwitchThumbTheme } from './ui/switch/defaultSwitchThumbTheme';
+import { defaultSwitchWrapperTheme } from './ui/switch/defaultSwitchWrapperTheme';
+import { defaultRadioTheme } from './ui/radio/defaultRadioTheme';
+import { defaultRadioDotTheme } from './ui/radio/defaultRadioDotTheme';
+import { defaultRadioWrapperTheme } from './ui/radio/defaultRadioWrapperTheme';
+import { defaultRadioGroupTheme } from './ui/radio/defaultRadioGroupTheme';
 import { defaultOverlayTheme } from './ui/overlay/defaultOverlayTheme';
 import { defaultModalContentTheme } from './ui/modal/defaultModalContentTheme';
 import { defaultModalOverlayTheme } from './ui/modal/defaultModalOverlayTheme';
@@ -113,6 +124,21 @@ export const defaultTheme: ThemeProps = {
   input: defaultInputTheme,
   inputErrorIcon: defaultInputErrorIconTheme,
   inputWrapper: defaultInputWrapperTheme,
+  textarea: defaultTextareaTheme,
+  select: defaultSelectTheme,
+  selectChevron: defaultSelectChevronTheme,
+  selectWrapper: defaultSelectWrapperTheme,
+  switch: {
+    input: defaultSwitchTheme,
+    thumb: defaultSwitchThumbTheme,
+    wrapper: defaultSwitchWrapperTheme,
+  },
+  radio: {
+    input: defaultRadioTheme,
+    dot: defaultRadioDotTheme,
+    wrapper: defaultRadioWrapperTheme,
+  },
+  radioGroup: defaultRadioGroupTheme,
   overlay: defaultOverlayTheme,
   modal: {
     content: defaultModalContentTheme,
