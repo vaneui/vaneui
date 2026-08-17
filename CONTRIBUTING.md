@@ -612,3 +612,45 @@ runtime-consumable module:
 1. Add the prop key to its category in `src/components/ui/props/keys.ts`.
 2. Add/update the JSDoc comment on the matching interface member in `src/components/ui/props/`.
 3. Run `npm run props:generate` and commit the regenerated `propDescriptions.ts` together with your change.
+
+## Release Notes
+
+`CHANGELOG.md` is the single source of truth for what changed in each version. It is
+hand-written, ships inside the npm package (`files` includes it), and is rendered at
+[vaneui.com/changelog](https://vaneui.com/changelog), which reads it straight out of
+`node_modules/@vaneui/ui`.
+
+GitHub's auto-generated release notes are **not** the record. They only list merged
+pull requests, and this repo commits directly to `main`, so they under-report badly.
+
+### Adding an entry
+
+Every user-visible change adds a bullet under `## Unreleased` in the same commit that
+makes the change. Never batch this up at release time.
+
+- Group bullets under the [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+  headings: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`. This repo
+  also uses `Accessibility`.
+- Write for someone upgrading, not for a reviewer. Say what changed for the consumer
+  and what they must now do differently, not which file moved.
+- Prefix a breaking change with **Breaking:** and name the migration.
+- Internal-only work (refactors, test changes, CI) gets no entry.
+- No em or en dashes. The file renders on vaneui.com and follows the docs style rules.
+
+### Cutting a release
+
+1. Rename `## Unreleased` to `## x.y.z - YYYY-MM-DD` and add a fresh `## Unreleased`
+   above it. Keep version headings as plain text, not `[x.y.z]` link references: the
+   docs site turns every heading into an anchor link, and a link inside a heading would
+   nest one anchor inside another.
+2. `npm version x.y.z --no-git-tag-version`, then commit both files.
+3. Push `main` (publishes an `alpha` smoke-test build through the full gate).
+4. Once green, `git push origin main:prod`. That triggers `npm-publish-stable.yml`,
+   which republishes the same tree to the `latest` dist-tag and creates the git tag
+   plus the GitHub release.
+
+Version choice follows semver: patch for fixes, minor for additive props or components,
+major for anything that breaks an existing prop name, default, or rendered element.
+
+`@vaneui/md` and `@vaneui/mcp` share the same **minor** line (`1.0.x`). Patch releases
+are per-package and do not require bumping the siblings.
