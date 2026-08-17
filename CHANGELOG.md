@@ -48,43 +48,6 @@ architecture is installable with a plain `npm install @vaneui/ui`.
 typography, controls, and overlays, driven by the boolean props API and themed
 through `ThemeProvider`.
 
-### Migrating from 0.x
-
-Every breaking change in this release is a **rename**. The emitted Tailwind classes,
-`data-*` attribute values, and computed styles are unchanged, so upgrading is a
-find-and-replace over prop names with no visual diff.
-
-Prop names now mirror the Tailwind class they emit, keeping the CSS-property prefix.
-The full rule is in `.claude/rules/naming-law.md`.
-
-| Category | Before | After |
-|---|---|---|
-| Font weight | `thin` … `black` | `fontThin` … `fontBlack` |
-| Font family | `sans`, `serif`, `mono`, `heading` | `fontSans`, `fontSerif`, `fontMono`, `fontHeading` |
-| List marker | `disc`, `decimal`, `circle`, `square`, `lowerAlpha`, `lowerRoman` | `listDisc`, `listDecimal`, `listCircle`, `listSquare`, `listLowerAlpha`, `listLowerRoman` |
-| List position | `inside`, `outside` | `listInside`, `listOutside` |
-| Ring | `ring`, `noRing` | `insetRing`, `noInsetRing` |
-| Blur | `blur`, `noBlur` | `backdropBlur`, `noBackdropBlur` |
-| Validity | `error` | `invalid` |
-| Popup sizing | `minWidth`, `maxHeight` | `constrainWidth`, `clampHeight` |
-| Breakpoints | `mobileCol`, `tabletCol`, `desktopCol` | `mobileStack`, `tabletStack`, `desktopStack` |
-| Appearance inherit | `inherit` | `inheritAppearance` |
-| Responsive sizing | `responsive` | `responsiveSizing` |
-| Align self | `selfStart`, `selfCenter`, … | `alignSelfStart`, `alignSelfCenter`, … |
-| Logical borders | `borderS`, `borderE` | `borderStart`, `borderEnd` |
-| Popup placement | `top`, `bottomStart`, … | `placeTop`, `placeBottomStart`, … |
-| Variant | `outlined` | `outline` |
-
-Removed with no direct replacement:
-
-- The `reverse` category. Use `rowReverse` or `columnReverse`.
-- The `brand` appearance. Use `primary`, which keeps the same color.
-- The `link` appearance. [`Link`](https://vaneui.com/docs/typography-components/link)
-  still renders its blue by default through the `--link-text` cascade, so `<Link>`
-  needs no change; only an explicit `link` appearance on another component does.
-
-One default changed: list position now defaults to `listOutside`.
-
 ### Added
 
 - **[Table](https://vaneui.com/docs/layout-components/table) family.** `Table`, `Thead`,
@@ -118,6 +81,11 @@ One default changed: list position now defaults to `listOutside`.
 
 ### Changed
 
+- Prop names now mirror the Tailwind class they emit, keeping the CSS-property prefix:
+  `fontLight`, `listInside`, `insetRing`, `backdropBlur`, `placeTop`, and so on. Emitted
+  classes, `data-*` values, and computed styles are unchanged. The rule is in
+  `.claude/rules/naming-law.md`.
+- List position defaults to `listOutside`.
 - Gaps and padding scale on a shared accelerating curve, and the icon-to-label gap is
   role-aware so controls and compact pills space differently at the same size.
 - [Button](https://vaneui.com/docs/basic-components/button) and `IconButton` share a
@@ -128,6 +96,13 @@ One default changed: list position now defaults to `listOutside`.
   layout, which suits forms. Use `row` for inline controls such as a checkbox.
 - [Modal](https://vaneui.com/docs/overlay-components/modal) always offers a close
   button, floating it when there is no title.
+
+### Removed
+
+- The `brand` and `link` appearance values. `primary` keeps the same color `brand` had,
+  and [Link](https://vaneui.com/docs/typography-components/link) still renders its blue
+  through the `--link-text` cascade, so `<Link>` itself is unchanged.
+- The `reverse` category. Use `rowReverse` or `columnReverse`.
 
 ### Fixed
 

@@ -640,10 +640,10 @@ makes the change. Never batch this up at release time.
 - Internal-only work (refactors, test changes, CI) gets no entry.
 - No em or en dashes. The file renders on vaneui.com and follows the docs style rules.
 
-Breaking changes get a **`### Migrating from <previous major>`** section at the top of
-the release instead of a `Breaking:` bullet, with a before/after table of every rename
-and an explicit list of removals and their replacements. A reader mid-upgrade needs the
-whole mapping in one place, not one line per scattered bullet.
+Breaking changes go under `Changed` or `Removed` like anything else, naming the
+replacement. A dedicated `### Migrating from <previous major>` section with a full
+before/after rename table is worth writing once the package has enough adoption for
+upgrades to be a real cost; until then it is documentation nobody reads.
 
 ### Cutting a release
 
