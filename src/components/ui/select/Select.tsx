@@ -29,9 +29,30 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     const { xs, sm, md, lg, xl } = props;
     const chevronSize = { xs, sm, md, lg, xl };
 
+    // Width, visibility and className size and place the whole control, so they belong on the
+    // wrapper: left on the field they would narrow it while the wrapper stayed full width, and
+    // the absolutely-positioned chevron would detach from the field's edge.
+    const {
+      className,
+      wFull, wFit, wAuto, wScreen,
+      mobileHide, tabletHide, desktopHide,
+      disabled,
+      ...rest
+    } = props;
+
+    // disabled stays on the field too, so the native attribute is still emitted
+    const fieldProps = { ...rest, disabled };
+
+    const wrapperProps = {
+      className,
+      wFull, wFit, wAuto, wScreen,
+      mobileHide, tabletHide, desktopHide,
+      disabled, // dims the chevron with the field; the field also keeps the native attribute
+    };
+
     return (
-      <ThemedComponent theme={wrapperTheme}>
-        <ThemedComponent ref={ref} theme={selectTheme} {...props} />
+      <ThemedComponent theme={wrapperTheme} {...wrapperProps}>
+        <ThemedComponent ref={ref} theme={selectTheme} {...fieldProps} />
         <ThemedComponent theme={chevronTheme} aria-hidden="true" {...chevronSize}>
           {chevronTheme.themes.chevronElement()}
         </ThemedComponent>

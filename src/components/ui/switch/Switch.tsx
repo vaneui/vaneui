@@ -30,7 +30,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
     const {
       xs, sm, md, lg, xl,
       primary, accent, secondary, tertiary, success, danger, warning, info,
-      filled, outline,
+      filled, outline, ghost,
       pill, sharp, rounded,
       invalid,
       checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, required, readOnly,
@@ -41,7 +41,8 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
     const themeProps = {
       xs, sm, md, lg, xl,
       primary, accent, secondary, tertiary, success, danger, warning, info,
-      filled, outline,
+      // ghost must reach the wrapper too: the thumb reads --text-color from it
+      filled, outline, ghost,
       pill, sharp, rounded,
       invalid,
       disabled,

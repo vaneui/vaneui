@@ -21,6 +21,11 @@ import {
   Chip,
   Input,
   Checkbox,
+  Textarea,
+  Select,
+  Switch,
+  Radio,
+  RadioGroup,
   Label,
   Link,
   Table,
@@ -378,6 +383,90 @@ function App() {
                 <Tr lg><Td>lg row</Td><Td textRight>lg row</Td></Tr>
               </Tbody>
             </Table>
+          </Card>
+
+          {/* ═══ 5. FORM CONTROLS ═════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>5. Form controls</SectionTitle>
+
+          <Card>
+            <Title>Sizes</Title>
+            <Text sm secondary>
+              Every control shares the size ramp. <Code sm>Textarea</Code> and{' '}
+              <Code sm>Select</Code> follow the <Code sm>Input</Code> scale;{' '}
+              <Code sm>Switch</Code> and <Code sm>Radio</Code> follow the{' '}
+              <Code sm>Checkbox</Code> scale.
+            </Text>
+            {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+              <Row key={size} itemsCenter flexWrap>
+                <Text sm secondary className="w-8">{size}</Text>
+                <Select {...{ [size]: true }} className="w-40">
+                  <option>Cyprus</option>
+                  <option>Estonia</option>
+                </Select>
+                <Textarea {...{ [size]: true }} className="w-48" placeholder="Notes" />
+                <Switch {...{ [size]: true }} defaultChecked />
+                <Radio {...{ [size]: true }} name={`size-${size}`} defaultChecked />
+              </Row>
+            ))}
+          </Card>
+
+          <Card>
+            <Title>Appearances and states</Title>
+            <Text sm secondary>
+              Controls take the same appearance props as the rest of the library.{' '}
+              <Code sm>invalid</Code> emits <Code sm>aria-invalid</Code> plus a danger
+              border, so the error state is never colour-only.
+            </Text>
+            <Row flexWrap itemsCenter>
+              {(['primary', 'success', 'danger', 'warning', 'info'] as const).map(a => (
+                <Switch key={a} {...{ [a]: true }} defaultChecked />
+              ))}
+              <Switch disabled />
+              <Switch defaultChecked disabled />
+            </Row>
+            <Row flexWrap itemsStart>
+              <Textarea invalid className="w-56" placeholder="Invalid textarea" />
+              <Select invalid className="w-40">
+                <option>Invalid select</option>
+              </Select>
+              <Select disabled className="w-40">
+                <option>Disabled</option>
+              </Select>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>A real form</Title>
+            <Text sm secondary>
+              Controls sit inside <Code sm>Label</Code>, which stacks label above field
+              and propagates its size down. Use <Code sm>{'<Label row>'}</Code> for
+              inline controls.
+            </Text>
+            <Stack noPadding>
+              <Label>
+                Country
+                <Select>
+                  <option>Cyprus</option>
+                  <option>Estonia</option>
+                  <option>Portugal</option>
+                </Select>
+              </Label>
+              <Label>
+                Notes
+                <Textarea placeholder="Anything we should know?" />
+              </Label>
+              <Label>
+                Plan
+                <RadioGroup name="plan" defaultValue="pro">
+                  <Label row><Radio value="free" /> Free</Label>
+                  <Label row><Radio value="pro" /> Pro</Label>
+                  <Label row><Radio value="team" /> Team</Label>
+                </RadioGroup>
+              </Label>
+              <Label row><Switch defaultChecked /> Email notifications</Label>
+              <Label row><Checkbox /> I agree to the terms</Label>
+            </Stack>
           </Card>
 
         </Container>

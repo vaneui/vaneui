@@ -251,12 +251,29 @@ describe('Select Component Tests', () => {
       expect(el).toHaveAttribute('data-custom-attr', 'custom');
     });
 
-    it('should merge a custom className over theme classes', () => {
+    it('should merge a custom className onto the wrapper, not the field', () => {
+      // width sizes the whole control: on the field alone the wrapper would stay
+      // full width and the absolutely-positioned chevron would detach from the field
       const {container} = renderSelect(<Select className="max-w-xs" />);
 
-      const el = container.querySelector('select');
-      expect(el).toHaveClass('max-w-xs');
-      expect(el).toHaveClass('w-full'); // still has component classes
+      const wrapper = container.querySelector('.vane-select-wrapper');
+      expect(wrapper).toHaveClass('max-w-xs');
+      expect(container.querySelector('select')).toHaveClass('w-full');
+    });
+
+    it('should route width and hide props to the wrapper so the chevron tracks the field', () => {
+      const {container} = renderSelect(<Select wFit mobileHide />);
+
+      const wrapper = container.querySelector('.vane-select-wrapper');
+      expect(wrapper).toHaveClass('w-fit');
+      expect(wrapper).toHaveClass('max-mobile:hidden');
+    });
+
+    it('should dim the chevron along with the field when disabled', () => {
+      const {container} = renderSelect(<Select disabled />);
+
+      // the chevron is a sibling of the field, so dimming only the field would leave it bright
+      expect(container.querySelector('.vane-select-wrapper')).toHaveClass('opacity-50');
     });
 
     it('should support disabled', () => {
