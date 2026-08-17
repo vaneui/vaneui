@@ -633,16 +633,27 @@ makes the change. Never batch this up at release time.
   also uses `Accessibility`.
 - Write for someone upgrading, not for a reviewer. Say what changed for the consumer
   and what they must now do differently, not which file moved.
-- Prefix a breaking change with **Breaking:** and name the migration.
+- **Name the component first**, so the file can be scanned by component, and link its
+  docs page on first mention in a release: `[Table](https://vaneui.com/docs/layout-components/table)`.
+  Use absolute URLs so the links also work when the file is read on GitHub or from
+  `node_modules`.
 - Internal-only work (refactors, test changes, CI) gets no entry.
 - No em or en dashes. The file renders on vaneui.com and follows the docs style rules.
 
+Breaking changes get a **`### Migrating from <previous major>`** section at the top of
+the release instead of a `Breaking:` bullet, with a before/after table of every rename
+and an explicit list of removals and their replacements. A reader mid-upgrade needs the
+whole mapping in one place, not one line per scattered bullet.
+
 ### Cutting a release
 
-1. Rename `## Unreleased` to `## x.y.z - YYYY-MM-DD` and add a fresh `## Unreleased`
-   above it. Keep version headings as plain text, not `[x.y.z]` link references: the
-   docs site turns every heading into an anchor link, and a link inside a heading would
-   nest one anchor inside another.
+1. Rename `## Unreleased` to `## x.y.z`, put the date on its own line below it as
+   `` `YYYY-MM-DD` ``, and add a fresh `## Unreleased` above. Close the section with a
+   `[Full diff](…/compare/vA...vB)` link. Two constraints on the heading: keep it plain
+   text (not a `[x.y.z]` link reference), because the docs site turns every heading into
+   an anchor link and a link inside a heading nests one anchor in another; and keep the
+   date out of it, so the generated anchor stays `#id-1-0-2` rather than trailing the
+   whole date.
 2. `npm version x.y.z --no-git-tag-version`, then commit both files.
 3. Push `main` (publishes an `alpha` smoke-test build through the full gate).
 4. Once green, `git push origin main:prod`. That triggers `npm-publish-stable.yml`,
