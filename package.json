@@ -1,6 +1,6 @@
 {
   "name": "@vaneui/ui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple and lightweight UI component library for React, built with Tailwind CSS.",
   "author": "",
   "license": "MIT",
@@ -308,6 +308,16 @@
       "require": {
         "types": "./dist/types/components/ui/stack/index.d.cts",
         "default": "./dist/cjs/components/ui/stack/index.cjs"
+      }
+    },
+    "./table": {
+      "import": {
+        "types": "./dist/types/components/ui/table/index.d.mts",
+        "default": "./dist/esm/components/ui/table/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/table/index.d.cts",
+        "default": "./dist/cjs/components/ui/table/index.cjs"
       }
     },
     "./props": {
