@@ -29,6 +29,11 @@ import {
   Checkbox,
   Label,
   Input,
+  Textarea,
+  Select,
+  Switch,
+  Radio,
+  RadioGroup,
   List,
   ListItem,
   Col,
@@ -1427,6 +1432,58 @@ export function TestHarness() {
           <Table xs data-testid="tbl-xs">
             <Tbody><Tr><Td xl data-testid="tbl-override">xs table, xl cell</Td></Tr></Tbody>
           </Table>
+        </section>
+
+        {/* ── Form controls: Textarea / Select / Switch / Radio(Group) geometry.
+            Sizes xs..xl let form-controls.spec.ts assert the computed CSS ramps
+            (font-size, track/thumb box, trailing-icon reservation). ── */}
+        <section data-testid="form-controls-section">
+          {/* Textarea: default, size ramp, invalid */}
+          <Textarea aria-label="textarea default" data-testid="textarea-default" />
+          <Textarea xs aria-label="textarea xs" data-testid="textarea-xs" />
+          <Textarea sm aria-label="textarea sm" data-testid="textarea-sm" />
+          <Textarea md aria-label="textarea md" data-testid="textarea-md" />
+          <Textarea lg aria-label="textarea lg" data-testid="textarea-lg" />
+          <Textarea xl aria-label="textarea xl" data-testid="textarea-xl" />
+          <Textarea invalid aria-label="textarea invalid" data-testid="textarea-invalid" />
+
+          {/* Select: default, size ramp, invalid. The chevron is always rendered. */}
+          <Select aria-label="select default" data-testid="select-default">
+            <option value="a">A</option>
+            <option value="b">B</option>
+          </Select>
+          <Select xs aria-label="select xs" data-testid="select-xs"><option value="a">A</option></Select>
+          <Select sm aria-label="select sm" data-testid="select-sm"><option value="a">A</option></Select>
+          <Select md aria-label="select md" data-testid="select-md"><option value="a">A</option></Select>
+          <Select lg aria-label="select lg" data-testid="select-lg"><option value="a">A</option></Select>
+          <Select xl aria-label="select xl" data-testid="select-xl"><option value="a">A</option></Select>
+          <Select invalid aria-label="select invalid" data-testid="select-invalid"><option value="a">A</option></Select>
+
+          {/* Switch: default, size ramp, checked/unchecked pair, disabled/enabled pair */}
+          <Switch aria-label="switch default" data-testid="switch-default" />
+          <Switch xs aria-label="switch xs" data-testid="switch-xs" />
+          <Switch sm aria-label="switch sm" data-testid="switch-sm" />
+          <Switch md aria-label="switch md" data-testid="switch-md" />
+          <Switch lg aria-label="switch lg" data-testid="switch-lg" />
+          <Switch xl aria-label="switch xl" data-testid="switch-xl" />
+          <Switch aria-label="switch unchecked" data-testid="switch-unchecked" />
+          <Switch defaultChecked aria-label="switch checked" data-testid="switch-checked" />
+          <Switch aria-label="switch enabled" data-testid="switch-enabled" />
+          <Switch disabled aria-label="switch disabled" data-testid="switch-disabled" />
+
+          {/* Radio: default + size ramp */}
+          <Radio aria-label="radio default" data-testid="radio-default" />
+          <Radio xs aria-label="radio xs" data-testid="radio-xs" />
+          <Radio sm aria-label="radio sm" data-testid="radio-sm" />
+          <Radio md aria-label="radio md" data-testid="radio-md" />
+          <Radio lg aria-label="radio lg" data-testid="radio-lg" />
+          <Radio xl aria-label="radio xl" data-testid="radio-xl" />
+
+          {/* RadioGroup: two Radios sharing a name, second one selected */}
+          <RadioGroup name="fc-group" defaultValue="b" data-testid="radiogroup-default">
+            <Radio value="a" aria-label="radio group a" data-testid="radiogroup-radio-a" />
+            <Radio value="b" aria-label="radio group b" data-testid="radiogroup-radio-b" />
+          </RadioGroup>
         </section>
 
       </div>

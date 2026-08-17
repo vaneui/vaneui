@@ -189,10 +189,8 @@
     .vane-input[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
     .vane-input[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-input[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
-    /* reserve trailing room for the overlaid alert icon (the inputErrorIcon sub-theme) */
-    .vane-input[data-status="error"] {
-        padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
-    }
+    /* trailing-icon room for input/select is declared unlayered at the end of this
+       file: a utilities-layer px-(--px) would otherwise win over it. */
 
     /* Textarea: the input ramp on a multi-line box. No trailing-icon reservation —
        a vertically centred icon reads as misplaced once the box grows. */
@@ -205,7 +203,7 @@
 
     /* Select: the input ramp, but the trailing room is reserved unconditionally —
        unlike the input's error icon, the chevron is always present. */
-    .vane-select { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap)); }
+    .vane-select { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; }
     .vane-select[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-select[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
     .vane-select[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
@@ -862,6 +860,22 @@
         }
     }
 
+}
+
+/* TRAILING-ICON PADDING — deliberately unlayered.
+   Both fields overlay an icon on their trailing edge (the select chevron always, the
+   input's alert icon in the error state) and must reserve room for it. The components
+   layer cannot do that: the size system emits `px-(--px)` from the utilities layer,
+   which beats any layered rule regardless of specificity, so a layered
+   padding-inline-end silently lost and the icon sat on top of the text. Unlayered
+   declarations outrank every layer, so this is the one place the reservation holds. */
+
+.vane-select {
+    padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
+}
+
+.vane-input[data-status="error"] {
+    padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
 }
 
 /* KEYFRAMES — defined outside @layer so they're globally available. */
