@@ -70,10 +70,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
     return (
       <ThemedComponent theme={wrapperTheme} className={className} {...themeProps}>
         <ThemedComponent theme={switchInputTheme} ref={ref} {...inputProps} />
-        {/* decorative knob — the real state lives on the <input>; hide it from AT.
-            Only the shape is forwarded: the knob has no size/appearance category, so
-            anything else would fall through to the DOM. Its radius insets from the
-            track's in rules.css. */}
+        {/* decorative knob — hidden from AT; shape only, since the rest has no category here and would hit the DOM */}
         <ThemedComponent theme={thumbTheme} aria-hidden="true" {...{ pill, sharp, rounded }} />
       </ThemedComponent>
     );
