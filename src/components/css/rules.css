@@ -1012,8 +1012,9 @@
         border-radius: var(--br);
     }
 
-    .vane-select option:hover,
-    .vane-select option:focus {
+    /* a disabled option (a placeholder, typically) must not light up as if it were selectable */
+    .vane-select option:not(:disabled):hover,
+    .vane-select option:not(:disabled):focus {
         background-color: var(--color-bg-hover-primary);
         outline: none;
     }
