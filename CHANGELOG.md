@@ -10,6 +10,10 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.1.0
+
+`2026-08-18`
+
 ### Added
 
 - **`Field`** wires a form control to its label, help text and error message.
@@ -81,6 +85,8 @@ rather than on a fixed calendar.
   `Divider` declared the same ratio and is deliberately left at `1`: it renders with
   `box-sizing: content-box` and `width: 100%`, so inline padding is added outside the
   100% and overflows the parent rather than insetting the rule.
+
+[Full diff](https://github.com/vaneui/vaneui/compare/v1.0.2...v1.1.0)
 
 ## 1.0.2
 
