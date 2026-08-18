@@ -211,3 +211,34 @@ test.describe('Responsive bug fixes (2026-08-10)', () => {
     expect(m.scrollWidth).toBeLessThanOrEqual(m.clientWidth + 2);
   });
 });
+
+// ── Section gutter cap ───────────────────────────────────────────────────────
+// A page gutter is bounded by the viewport, not by the section's vertical rhythm,
+// so --px-unit-* caps independently of --py-unit-* from lg up.
+
+test.describe('Section horizontal gutter', () => {
+  const padX = (l: Locator) => getStyle(l, 'padding-left').then(parseFloat);
+  const padY = (l: Locator) => getStyle(l, 'padding-top').then(parseFloat);
+
+  test('xl section caps its mobile gutter while keeping its vertical rhythm', async ({ page }) => {
+    await page.setViewportSize(MOBILE);
+    const el = page.locator('[data-testid="responsive-gutter-xl"]');
+    expect(await padX(el)).toBe(16);
+    expect(await padY(el)).toBe(32); // vertical still scales with the size prop
+  });
+
+  test('xl and md sections share the same mobile gutter', async ({ page }) => {
+    await page.setViewportSize(MOBILE);
+    const xl = await padX(page.locator('[data-testid="responsive-gutter-xl"]'));
+    const md = await padX(page.locator('[data-testid="responsive-gutter-md"]'));
+    expect(xl).toBe(md);
+  });
+
+  test('the gutter still grows with the size prop on desktop', async ({ page }) => {
+    await page.setViewportSize(WIDE);
+    const xl = await padX(page.locator('[data-testid="responsive-gutter-xl"]'));
+    const md = await padX(page.locator('[data-testid="responsive-gutter-md"]'));
+    expect(xl).toBeGreaterThan(md);
+    expect(xl).toBe(96);
+  });
+});

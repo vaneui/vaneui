@@ -998,6 +998,10 @@ export function TestHarness() {
         {/* ── Responsive: breakpoint props ── */}
 
         <section data-testid="responsive-section">
+          {/* Section gutter cap: vertical rhythm keeps scaling, horizontal stops at 16px on mobile */}
+          <Section data-testid="responsive-gutter-xl" xl>gutter xl</Section>
+          <Section data-testid="responsive-gutter-md" md>gutter md</Section>
+
           {/* mobileCol: row on desktop, column on mobile (<768px) */}
           <Row data-testid="responsive-mobileCol" mobileStack>
             <Text data-testid="responsive-mobileCol-child1">A</Text>

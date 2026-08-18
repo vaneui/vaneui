@@ -19,6 +19,11 @@
         --py-unit-desktop: var(--py-unit);
         --py-unit-tablet: var(--py-unit);
         --py-unit-mobile: var(--py-unit);
+        /* horizontal follows vertical unless a component caps it: narrowing a viewport
+           constrains the inline axis only, so the gutter must not track the block rhythm */
+        --px-unit-desktop: var(--py-unit-desktop);
+        --px-unit-tablet: var(--py-unit-tablet);
+        --px-unit-mobile: var(--py-unit-mobile);
         --gap-unit-desktop: var(--gap-unit);
         --gap-unit-tablet: var(--gap-unit);
         --gap-unit-mobile: var(--gap-unit);
@@ -31,9 +36,9 @@
         --py-tablet: calc(var(--py-unit-tablet) * var(--spacing));
         --py-mobile: calc(var(--py-unit-mobile) * var(--spacing));
 
-        --px-desktop: calc(var(--aspect-ratio) * var(--py-unit-desktop) * var(--spacing));
-        --px-tablet: calc(var(--aspect-ratio) * var(--py-unit-tablet) * var(--spacing));
-        --px-mobile: calc(var(--aspect-ratio) * var(--py-unit-mobile) * var(--spacing));
+        --px-desktop: calc(var(--aspect-ratio) * var(--px-unit-desktop) * var(--spacing));
+        --px-tablet: calc(var(--aspect-ratio) * var(--px-unit-tablet) * var(--spacing));
+        --px-mobile: calc(var(--aspect-ratio) * var(--px-unit-mobile) * var(--spacing));
 
         --gap-desktop: calc(var(--gap-unit-desktop) * var(--spacing));
         --gap-tablet: calc(var(--gap-unit-tablet) * var(--spacing));
@@ -358,7 +363,10 @@
 
     /* RESPONSIVE COMPONENTS */
 
-    /* Section desktop py/gap on the shared curve; tablet ~0.5x and mobile ~0.33x desktop py. */
+    /* Section desktop py/gap on the shared curve; tablet ~0.5x and mobile ~0.33x desktop py.
+       The horizontal gutter is capped separately from lg up (--px-unit-*): a page margin is
+       bounded by the viewport, not by the section's vertical rhythm, so an xl section keeps its
+       96px of breathing room down the page while its gutter stops at 16px on a phone. */
     .vane-section {
         --lh: var(--lh-base);
         --py-unit-desktop: 12;
@@ -382,10 +390,12 @@
     }
     .vane-section[data-size="lg"] {
         --py-unit-desktop: 18; --py-unit-tablet: 9; --py-unit-mobile: 6;
+        --px-unit-tablet: 8; --px-unit-mobile: 4;
         --gap-unit-desktop: 12; --gap-unit-tablet: 9; --gap-unit-mobile: 6;
     }
     .vane-section[data-size="xl"] {
         --py-unit-desktop: 24; --py-unit-tablet: 12; --py-unit-mobile: 8;
+        --px-unit-tablet: 8; --px-unit-mobile: 4;
         --gap-unit-desktop: 16; --gap-unit-tablet: 12; --gap-unit-mobile: 8;
     }
 
