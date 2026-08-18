@@ -3,6 +3,7 @@ import { createRef, useState } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
 import {
+  Label,
   Radio,
   RadioGroup,
   ThemeProvider,
@@ -120,6 +121,14 @@ describe('Radio Component Tests', () => {
       expect(input).toHaveClass('border-(--color-border-danger)');
     });
 
+    it('should keep validity state off the wrapper', () => {
+      const {container} = renderRadio(<Radio invalid />);
+
+      const wrapper = container.firstChild as HTMLElement;
+      expect(wrapper).not.toHaveAttribute('aria-invalid');
+      expect(wrapper).not.toHaveAttribute('data-status');
+    });
+
     it('should not emit aria-invalid or data-status without invalid', () => {
       const {container} = renderRadio(<Radio />);
 
@@ -130,12 +139,12 @@ describe('Radio Component Tests', () => {
   });
 
   describe('Radio DOM Contract', () => {
-    it('should forward ref to the wrapper element', () => {
-      const ref = createRef<HTMLSpanElement>();
+    it('should forward ref to the input element', () => {
+      const ref = createRef<HTMLInputElement>();
       renderRadio(<Radio ref={ref} />);
 
-      expect(ref.current).toBeInstanceOf(HTMLSpanElement);
-      expect(ref.current?.querySelector('input[type="radio"]')).toBeInTheDocument();
+      expect(ref.current).toBeInstanceOf(HTMLInputElement);
+      expect(ref.current?.type).toBe('radio');
     });
 
     it('should not leak boolean props to the DOM', () => {
@@ -185,6 +194,33 @@ describe('Radio Component Tests', () => {
       const {container} = renderRadio(<Radio checked readOnly />);
 
       expect(container.querySelector('input[type="radio"]')).toBeChecked();
+    });
+
+    it('should not select when readOnly is set', () => {
+      const {container} = renderRadio(<Radio value="pro" readOnly />);
+
+      const input = container.querySelector('input[type="radio"]') as HTMLInputElement;
+      expect(input).toHaveAttribute('aria-readonly', 'true');
+      expect(input).toHaveAttribute('data-readonly', 'true');
+
+      fireEvent.click(input);
+      expect(input).not.toBeChecked();
+    });
+
+    it('should select when readOnly is not set', () => {
+      const {container} = renderRadio(<Radio value="pro" />);
+
+      const input = container.querySelector('input[type="radio"]') as HTMLInputElement;
+      fireEvent.click(input);
+      expect(input).toBeChecked();
+    });
+
+    it('should still call a consumer onClick when readOnly is set', () => {
+      const onClick = jest.fn();
+      const {container} = renderRadio(<Radio value="pro" readOnly onClick={onClick} />);
+
+      fireEvent.click(container.querySelector('input[type="radio"]') as HTMLInputElement);
+      expect(onClick).toHaveBeenCalled();
     });
 
     it('should call onChange when the radio is selected', () => {
@@ -327,6 +363,64 @@ describe('Radio Component Tests', () => {
       fireEvent.click(inputsOf(container)[0]);
       expect(radioChange).toHaveBeenCalled();
       expect(groupChange).toHaveBeenCalled();
+    });
+
+    it('should match a numeric Radio value against the group string value', () => {
+      const {container} = renderRadio(
+        <RadioGroup name="plan" value="1" onChange={jest.fn()}>
+          <Radio value={1} aria-label="One" />
+          <Radio value={2} aria-label="Two" />
+        </RadioGroup>
+      );
+
+      const [one, two] = inputsOf(container);
+      expect(one.checked).toBe(true);
+      expect(two.checked).toBe(false);
+    });
+
+    it('should cascade its size to every child Radio', () => {
+      const {container} = renderRadio(
+        <RadioGroup lg>
+          <Radio value="free" />
+          <Radio value="pro" />
+        </RadioGroup>
+      );
+
+      expect(container.firstChild).toHaveAttribute('data-size', 'lg');
+      for (const input of inputsOf(container)) {
+        expect(input).toHaveAttribute('data-size', 'lg');
+        expect(input.parentElement).toHaveAttribute('data-size', 'lg');
+      }
+    });
+
+    it('should let an explicit Radio size win over the group size', () => {
+      const {container} = renderRadio(
+        <RadioGroup lg>
+          <Radio value="free" xs />
+        </RadioGroup>
+      );
+
+      expect(inputsOf(container)[0]).toHaveAttribute('data-size', 'xs');
+    });
+
+    it('should leave an enclosing Label in charge when the group has no explicit size', () => {
+      const {container} = renderRadio(
+        <RadioGroup>
+          <Label row><Radio value="free" /> Free</Label>
+        </RadioGroup>
+      );
+
+      expect(inputsOf(container)[0]).toHaveAttribute('data-size', 'sm');
+    });
+
+    it('should let an explicit group size win over an enclosing Label', () => {
+      const {container} = renderRadio(
+        <RadioGroup lg>
+          <Label row><Radio value="free" /> Free</Label>
+        </RadioGroup>
+      );
+
+      expect(inputsOf(container)[0]).toHaveAttribute('data-size', 'lg');
     });
 
     it('should forward ref to the group element', () => {

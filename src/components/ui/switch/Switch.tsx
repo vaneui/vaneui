@@ -1,4 +1,4 @@
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useCallback, useMemo, type MouseEvent } from 'react';
 import type { SwitchProps } from './SwitchProps';
 import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
@@ -33,10 +33,16 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       filled, outline, ghost,
       pill, sharp, rounded,
       invalid,
-      checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, required, readOnly,
+      checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, onClick, required, readOnly,
       id, className, tabIndex, 'aria-label': ariaLabel,
       ...remainingProps
     } = props;
+
+    // native readOnly is inert on checkbox inputs — cancel activation so aria-readonly stays truthful
+    const handleClick = useCallback((event: MouseEvent<HTMLInputElement>) => {
+      if (readOnly) event.preventDefault();
+      onClick?.(event);
+    }, [readOnly, onClick]);
 
     const themeProps = {
       xs, sm, md, lg, xl,
@@ -44,7 +50,6 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       // ghost must reach the wrapper too: the thumb reads --text-color from it
       filled, outline, ghost,
       pill, sharp, rounded,
-      invalid,
       disabled,
     };
 
@@ -52,9 +57,12 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       type: "checkbox" as const,
       role: "switch",
       checked, defaultChecked, name, value, onChange, onBlur, onFocus, required, readOnly,
+      onClick: handleClick,
       id, tabIndex, 'aria-label': ariaLabel,
       ...remainingProps,
-      ...themeProps
+      ...themeProps,
+      // validity belongs on the input only, never duplicated onto the wrapper
+      invalid,
     };
 
     return (

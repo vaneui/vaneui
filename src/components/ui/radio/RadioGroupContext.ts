@@ -1,8 +1,11 @@
 import { createContext, useContext, type ChangeEventHandler } from 'react';
+import type { SizeKey } from '../props';
 
 export interface RadioGroupContextValue {
   /** Name shared by every Radio in the group, so the browser enforces single selection. */
   name?: string;
+  /** Size explicitly set on the group — the size default for its Radios; an explicit Radio size wins. */
+  size?: SizeKey;
   /** Selected value when the group is controlled. */
   value?: string;
   /** Initially selected value when the group is uncontrolled. */

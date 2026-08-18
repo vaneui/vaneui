@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { createRef } from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import {
   Switch,
@@ -195,6 +195,14 @@ describe('Switch Component Tests', () => {
       expect(el).toHaveClass('border-(--color-border-danger)');
     });
 
+    it('should keep validity state off the wrapper', () => {
+      const {container} = renderSwitch(<Switch invalid />);
+
+      const wrapper = container.querySelector('span.vane-switch-wrapper') as HTMLElement;
+      expect(wrapper).not.toHaveAttribute('aria-invalid');
+      expect(wrapper).not.toHaveAttribute('data-status');
+    });
+
     it('should not emit aria-invalid or data-status without invalid', () => {
       const {container} = renderSwitch(<Switch />);
 
@@ -247,12 +255,32 @@ describe('Switch Component Tests', () => {
       expect(el).toHaveAttribute('data-custom-attr', 'custom');
     });
 
-    it('should support readOnly', () => {
-      const {container} = renderSwitch(<Switch checked readOnly />);
+    it('should not toggle when readOnly is set', () => {
+      const {container} = renderSwitch(<Switch defaultChecked readOnly />);
 
       const el = getInput(container);
       expect(el).toHaveAttribute('aria-readonly', 'true');
+      expect(el).toHaveAttribute('data-readonly', 'true');
+
+      fireEvent.click(el);
       expect(el).toBeChecked();
+    });
+
+    it('should still toggle without readOnly', () => {
+      const {container} = renderSwitch(<Switch defaultChecked />);
+
+      const el = getInput(container);
+      fireEvent.click(el);
+      expect(el).not.toBeChecked();
+    });
+
+    it('should still call a consumer onClick when readOnly is set', () => {
+      const onClick = jest.fn();
+      const {container} = renderSwitch(<Switch readOnly onClick={onClick} />);
+
+      fireEvent.click(getInput(container));
+      expect(onClick).toHaveBeenCalled();
+      expect(getInput(container)).not.toBeChecked();
     });
 
     it('should call onChange when the track is clicked', () => {

@@ -102,12 +102,22 @@ describe('Textarea Component Tests', () => {
       expect(el).toHaveAttribute('data-status', 'error');
     });
 
+    it('should paint the danger ring when invalid is set', () => {
+      // aria-invalid/data-status come from ComponentTheme, so only this pins the status mapper
+      const {container} = renderTextarea(<Textarea invalid />);
+
+      const el = container.querySelector('textarea');
+      expect(el).toHaveClass('ring-(--color-border-danger)/30');
+      expect(el).toHaveClass('focus-visible:ring-(--color-border-danger)/30');
+    });
+
     it('should not emit aria-invalid or data-status without invalid', () => {
       const {container} = renderTextarea(<Textarea />);
 
       const el = container.querySelector('textarea');
       expect(el).not.toHaveAttribute('aria-invalid');
       expect(el).not.toHaveAttribute('data-status');
+      expect(el).not.toHaveClass('ring-(--color-border-danger)/30');
     });
 
     it('should respect a consumer-supplied aria-invalid value', () => {

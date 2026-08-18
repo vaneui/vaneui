@@ -5,6 +5,8 @@ import {
   Label,
   Input,
   Checkbox,
+  Textarea,
+  Select,
   Text,
   Button,
   ThemeProvider,
@@ -233,6 +235,83 @@ describe('Label size propagation semantics', () => {
       const sizedChildren = wrapper.querySelectorAll('[data-size]');
       expect(sizedChildren.length).toBe(1);
       expect(sizedChildren[0].tagName).toBe('INPUT');
+    });
+  });
+
+  describe('(f) Textarea and Select consume the propagated size', () => {
+    it('Textarea under <Label lg> is lg', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label lg>
+            Bio
+            <Textarea />
+          </Label>
+        </ThemeProvider>
+      );
+      expect(container.querySelector('textarea')).toHaveAttribute('data-size', 'lg');
+    });
+
+    it('explicit <Textarea sm/> wins over <Label lg>', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label lg>
+            Bio
+            <Textarea sm />
+          </Label>
+        </ThemeProvider>
+      );
+      expect(container.querySelector('label')).toHaveAttribute('data-size', 'lg');
+      expect(container.querySelector('textarea')).toHaveAttribute('data-size', 'sm');
+    });
+
+    it('Select under <Label lg> is lg', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label lg>
+            Country
+            <Select />
+          </Label>
+        </ThemeProvider>
+      );
+      expect(container.querySelector('select')).toHaveAttribute('data-size', 'lg');
+    });
+
+    it('explicit <Select sm/> wins over <Label lg>', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label lg>
+            Country
+            <Select sm />
+          </Label>
+        </ThemeProvider>
+      );
+      expect(container.querySelector('label')).toHaveAttribute('data-size', 'lg');
+      expect(container.querySelector('select')).toHaveAttribute('data-size', 'sm');
+    });
+
+    it('the Select chevron inherits the Label size along with the field', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label xl>
+            Country
+            <Select />
+          </Label>
+        </ThemeProvider>
+      );
+      expect(container.querySelector('select')).toHaveAttribute('data-size', 'xl');
+      expect(container.querySelector('.vane-select-chevron')).toHaveAttribute('data-size', 'xl');
+    });
+
+    it('the Select chevron follows an explicit field size over the Label size', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label xl>
+            Country
+            <Select sm />
+          </Label>
+        </ThemeProvider>
+      );
+      expect(container.querySelector('.vane-select-chevron')).toHaveAttribute('data-size', 'sm');
     });
   });
 

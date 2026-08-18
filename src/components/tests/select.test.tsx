@@ -93,6 +93,17 @@ describe('Select Component Tests', () => {
 
       expect(container.querySelector('.vane-select-chevron')?.getAttribute('data-size')).toBe('lg');
     });
+
+    it('should size the chevron from themeDefaults, not just explicit size props', () => {
+      const {container} = render(
+        <ThemeProvider themeDefaults={{ select: { lg: true } }}>
+          <Select />
+        </ThemeProvider>
+      );
+
+      expect(container.querySelector('select')?.getAttribute('data-size')).toBe('lg');
+      expect(container.querySelector('.vane-select-chevron')?.getAttribute('data-size')).toBe('lg');
+    });
   });
 
   describe('Select Appearances', () => {

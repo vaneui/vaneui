@@ -1,8 +1,10 @@
 import { forwardRef, useMemo } from 'react';
 import type { SelectProps } from "./SelectProps";
+import type { SelectChevronProps } from "./SelectChevronProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
+import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
 import { defaultSelectTheme } from "./defaultSelectTheme";
 import { defaultSelectChevronTheme } from "./defaultSelectChevronTheme";
 import { defaultSelectWrapperTheme } from "./defaultSelectWrapperTheme";
@@ -11,7 +13,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   function Select(props, ref) {
     const theme = useTheme();
     const selectThemeBase = theme?.select ?? defaultSelectTheme;
-    const chevronThemeBase = theme?.selectChevron ?? defaultSelectChevronTheme;
+    const chevronTheme = theme?.selectChevron ?? defaultSelectChevronTheme;
     const wrapperTheme = theme?.selectWrapper ?? defaultSelectWrapperTheme;
     // inside a Label, the Label's size becomes this control's size default; an explicit prop wins
     const labelSize = useLabelSizeContext();
@@ -19,15 +21,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       () => withLabelSizeDefault(selectThemeBase, labelSize),
       [selectThemeBase, labelSize]
     );
-    // the chevron resolves the same size as the field, so its --fs/--gap scale tracks it
-    const chevronTheme = useMemo(
-      () => withLabelSizeDefault(chevronThemeBase, labelSize),
-      [chevronThemeBase, labelSize]
+    // chevron tracks the field's RESOLVED size (explicit prop > Label size > theme defaults)
+    const fieldSize = pickFirstTruthyKeyByCategory(
+      props as unknown as Record<string, unknown>,
+      selectTheme.defaults as unknown as Record<string, unknown>,
+      'size'
     );
-
-    // the chevron always shows, so the field is always wrapped and the icon overlays its end edge
-    const { xs, sm, md, lg, xl } = props;
-    const chevronSize = { xs, sm, md, lg, xl };
+    const chevronSize = (fieldSize ? { [fieldSize]: true } : {}) as Partial<SelectChevronProps>;
 
     // Width, visibility and className size and place the whole control, so they belong on the
     // wrapper: left on the field they would narrow it while the wrapper stayed full width, and
@@ -50,6 +50,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       disabled, // dims the chevron with the field; the field also keeps the native attribute
     };
 
+    // the chevron always shows, so the field is always wrapped and the icon overlays its end edge
     return (
       <ThemedComponent theme={wrapperTheme} {...wrapperProps}>
         <ThemedComponent ref={ref} theme={selectTheme} {...fieldProps} />
