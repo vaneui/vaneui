@@ -10,6 +10,27 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Changed
+
+- `Card` and `Stack` now scale their padding down on small viewports, matching the
+  behavior `Section` already had. A surface's inset is chrome rather than rhythm: it
+  used to stay at its desktop value while the viewport shrank, so nesting a `Stack`
+  inside a `Card` inside a `Section` left as little as 220px of content on a 390px
+  phone. Both axes step down together so the box stays square.
+
+  | Size | `Card` desktop / tablet / mobile | `Stack` desktop / tablet / mobile |
+  | ---- | ------------------------------- | --------------------------------- |
+  | `xs` | 12 / 12 / 8 | 8 / 8 / 4 |
+  | `sm` | 18 / 16 / 12 | 12 / 10 / 8 |
+  | `md` | 24 / 20 / 16 | 16 / 12 / 8 |
+  | `lg` | 36 / 28 / 20 | 24 / 16 / 12 |
+  | `xl` | 48 / 36 / 24 | 32 / 24 / 16 |
+
+  Desktop values are unchanged, so nothing moves above 1024px. `CardHeader`, `CardBody`
+  and `CardFooter` follow the parent `Card`'s curve. To keep the previous fixed padding,
+  turn the ramp off per component:
+  `<ThemeProvider themeDefaults={{ card: { main: { responsiveSizing: false } } }}>`.
+
 ## 1.0.2
 
 `2026-08-17`

@@ -7,4 +7,5 @@ export const cardBodyDefaults: Partial<CardBodyProps> = {
   gap: true,
   overflowAuto: true,
   padding: true,
+  responsiveSizing: true,
 };

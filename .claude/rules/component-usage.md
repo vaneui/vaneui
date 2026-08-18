@@ -372,6 +372,11 @@ For size-driven floating dimensions, `constrainWidth` applies a size-dependent m
 
 VaneUI is **desktop-first**. Base styles target desktop. Use breakpoint props to adapt for smaller screens.
 
+`Section`, `Card` and `Stack` already scale their padding down on tablet and mobile, so a
+nested stack does not starve content on a phone. `Container`, `Row`, `Col` and `Grid*`
+default to `noPadding` and add nothing. Prefer `Col` over `Stack` inside an already padded
+`Card` when you want no second inset at all.
+
 ```tsx
 {/* Row on desktop, stacks to column on mobile */}
 <Row mobileStack>

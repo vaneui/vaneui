@@ -11,4 +11,5 @@ export const cardDefaults: Partial<CardProps> = {
   border: true,
   gap: true,
   padding: true,
+  responsiveSizing: true,
 };

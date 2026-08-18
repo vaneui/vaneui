@@ -8,4 +8,5 @@ export const cardFooterDefaults: Partial<CardFooterProps> = {
   justifyEnd: true,
   gap: true,
   padding: true,
+  responsiveSizing: true,
 };

@@ -38,6 +38,9 @@ import {
   ListItem,
   Col,
   Stack,
+  CardHeader,
+  CardBody,
+  CardFooter,
   Grid4,
   Grid6,
   Section,
@@ -993,6 +996,26 @@ export function TestHarness() {
           <Overlay open noAnimation portal={false} pointerEventsNone itemsStart justifyStart data-testid="overlay-aligned">
             <Card data-testid="overlay-aligned-content">Drawer</Card>
           </Overlay>
+        </section>
+
+        {/* ── Nesting: a surface's inset is chrome, so it must not starve content on a phone ── */}
+
+        <section data-testid="nesting-section">
+          {/* Worst real-world chain from the docs site: page gutter, then two padded surfaces. */}
+          <Section data-testid="nesting-outer" xl>
+            <Card data-testid="nesting-card" lg wFull>
+              <Stack data-testid="nesting-inner" md wFull>
+                <Text data-testid="nesting-content">deepest content</Text>
+              </Stack>
+            </Card>
+          </Section>
+
+          {/* Compound Card: sub-parts carry no data-size, so they must re-inherit the Card's ramp. */}
+          <Card data-testid="nesting-compound" lg wFull>
+            <CardHeader data-testid="nesting-compound-header">header</CardHeader>
+            <CardBody data-testid="nesting-compound-body">body</CardBody>
+            <CardFooter data-testid="nesting-compound-footer">footer</CardFooter>
+          </Card>
         </section>
 
         {/* ── Responsive: breakpoint props ── */}

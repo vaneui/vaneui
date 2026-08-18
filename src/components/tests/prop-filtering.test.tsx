@@ -154,10 +154,10 @@ describe('Component Prop Filtering', () => {
       expect(element.hasAttribute('padding')).toBe(false);
 
       // Valid props should apply correct styling
-      expect(element.className).toContain('gap-(--gap)');
+      expect(element.className).toContain('gap-(--gap-desktop)');
       expect(element.className).toContain('bg-(--bg-color)');
-      expect(element.className).toContain('px-(--px)');
-      expect(element.className).toContain('py-(--py)');
+      expect(element.className).toContain('px-(--px-desktop)');
+      expect(element.className).toContain('py-(--py-desktop)');
     });
 
     test('should generate React warning for props not in component categories', () => {
