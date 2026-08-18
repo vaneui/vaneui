@@ -10,6 +10,32 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.1.1
+
+`2026-08-18`
+
+### Fixed
+
+- **The `Input` error icon rendered as a solid disc with a slot cut through it**,
+  not an exclamation mark. Its stem and dot are meant to be holes punched in the
+  disc, which under the nonzero fill rule requires them to wind opposite to it.
+  The stem did; the dot did not, so it merged into the disc and vanished. The
+  glyph is now sampled pixel-by-pixel in the e2e suite, because both the class
+  list and the icon's geometry are identical either way.
+
+- **A `Select`'s dropdown list ignored the theme.** `<option>` and `<optgroup>`
+  default to a transparent background, and the browser paints the popup from the
+  option's own colors, so the list fell back to user-agent colors instead of the
+  field's. Both now carry the surface and text tokens, group labels lose the
+  user-agent italic, and a disabled option is muted.
+
+### Changed
+
+- **A `Select`'s chevron turns danger when the field is invalid.** The chevron is
+  a sibling of the field rather than a descendant, so the error state was not
+  reaching it and the control's trailing edge stayed neutral while `Input` and
+  `Textarea` both changed.
+
 ## 1.1.0
 
 `2026-08-18`

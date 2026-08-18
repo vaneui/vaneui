@@ -117,6 +117,27 @@ test.describe('Select', () => {
     expect(chevron.x).toBeGreaterThan(field.x + field.width / 2);
     expect(chevron.x + chevron.width).toBeLessThanOrEqual(field.x + field.width + 1);
   });
+
+  // The browser paints the dropdown list from the option's own colors, so a transparent
+  // default leaves the popup on UA colors instead of the theme's.
+  test('options carry an opaque themed background and text color', async ({ page }) => {
+    const option = page.locator('[data-testid="select-default"] option').first();
+    expect(await getStyle(option, 'background-color')).not.toBe('rgba(0, 0, 0, 0)');
+    expect(await getStyle(option, 'color')).toBe(
+      await getStyle(page.locator('[data-testid="select-default"]'), 'color'),
+    );
+  });
+
+  test('the chevron picks up the danger color when the field is invalid', async ({ page }) => {
+    const wrapper = page.locator('.vane-select-wrapper', { has: page.locator('[data-testid="select-invalid"]') });
+    const invalid = await getStyle(wrapper.locator('.vane-select-chevron'), 'color');
+    const normal = await getStyle(
+      page.locator('.vane-select-wrapper', { has: page.locator('[data-testid="select-default"]') })
+        .locator('.vane-select-chevron'),
+      'color',
+    );
+    expect(invalid).not.toBe(normal);
+  });
 });
 
 test.describe('Switch', () => {

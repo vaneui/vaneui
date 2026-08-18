@@ -19,9 +19,10 @@ export const defaultInputErrorIconTheme = new ComponentTheme<InputErrorIconProps
   "span",
   "vane-input-error-icon inset-y-0 end-(--gap) [&>svg]:h-1/2 [&>svg]:w-auto",
   {
+    // stem and dot must wind OPPOSITE the disc or nonzero fill merges them into it instead of cutting through
     errorIconElement: () =>
       <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 4a1 1 0 011 1v4a1 1 0 11-2 0V7a1 1 0 011-1zm0 8a1.25 1.25 0 100-2.5 1.25 1.25 0 000 2.5z" />
+        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 3a1 1 0 011 1v4.5a1 1 0 11-2 0V6a1 1 0 011-1zm0 7.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z" />
       </svg>,
     size: {
       text: new FontSizeClassMapper(),

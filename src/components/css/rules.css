@@ -220,6 +220,15 @@
     .vane-select[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-select[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
+    /* The dropdown list is painted by the browser from the option's own colors; unset they are transparent + UA text. */
+    .vane-select option, .vane-select optgroup {
+        background-color: var(--color-bg-primary);
+        color: var(--color-text-primary);
+    }
+    /* UA renders group labels bold italic; keep the weight cue, drop the slant. */
+    .vane-select optgroup { font-style: normal; font-weight: 600; }
+    .vane-select option:disabled { color: var(--color-text-secondary); }
+
     /* Checkbox height = size-unit * spacing. xs lifted off 12px (too small) to 14px, sm 15px; md stays 16px. */
     .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
     .vane-checkbox[data-size="xs"] { --size-unit: 3.5; }
@@ -955,6 +964,12 @@
 
 .vane-input[data-status="error"] {
     padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
+}
+
+/* Also unlayered: the chevron is a sibling, so the field's error state has to be
+   forwarded to it, and its own text-(--color-text-secondary) utility would win a layer. */
+.vane-select[data-status="error"] ~ .vane-select-chevron {
+    color: var(--color-text-danger);
 }
 
 /* KEYFRAMES — defined outside @layer so they're globally available. */
