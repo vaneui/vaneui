@@ -24,7 +24,7 @@ describe('ModalHeader Component Tests', () => {
       expect(header).toHaveClass('flex', 'flex-row');
       expect(header).toHaveClass('items-center');
       expect(header).toHaveClass('justify-between');
-      expect(header).toHaveClass('gap-(--gap)');
+      expect(header).toHaveClass('gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)');
     });
 
     it('should render children', () => {
@@ -117,7 +117,7 @@ describe('ModalHeader Component Tests', () => {
       );
 
       const header = container.querySelector('.vane-modal-header');
-      expect(header).not.toHaveClass('gap-(--gap)');
+      expect(header).not.toHaveClass('gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)');
     });
   });
 });

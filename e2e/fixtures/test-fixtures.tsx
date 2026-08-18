@@ -24,6 +24,7 @@ import {
   MenuLabel,
   NavLink,
   Divider,
+  Container,
   Row,
   Code,
   Checkbox,
@@ -996,6 +997,34 @@ export function TestHarness() {
           <Overlay open noAnimation portal={false} pointerEventsNone itemsStart justifyStart data-testid="overlay-aligned">
             <Card data-testid="overlay-aligned-content">Drawer</Card>
           </Overlay>
+        </section>
+
+        {/* ── Aspect ratio: --aspect-ratio is the declared px:py ratio, asserted on computed values ── */}
+
+        <section data-testid="ratio-section">
+          <Button data-testid="ratio-button">btn</Button>
+          <IconButton data-testid="ratio-icon-button" aria-label="icon">x</IconButton>
+          <Badge data-testid="ratio-badge">badge</Badge>
+          <Chip data-testid="ratio-chip">chip</Chip>
+          <Code data-testid="ratio-code">code</Code>
+          <Kbd data-testid="ratio-kbd">K</Kbd>
+          <Input data-testid="ratio-input" aria-label="ratio input" />
+          <NavLink data-testid="ratio-nav-link">nav</NavLink>
+          <Card data-testid="ratio-card">card</Card>
+          <Stack data-testid="ratio-stack">stack</Stack>
+          <Container data-testid="ratio-container" padding>container</Container>
+          <Divider data-testid="ratio-divider" padding />
+          <Table>
+            <Tbody>
+              <Tr><Td data-testid="ratio-td">cell</Td></Tr>
+            </Tbody>
+          </Table>
+        </section>
+
+        {/* Container gutter caps like Section's; its ratio 2 doubles the inline axis. */}
+        <section data-testid="surface-ramp-section">
+          <Container data-testid="surface-container-md" md padding>container md</Container>
+          <Container data-testid="surface-container-xl" xl padding>container xl</Container>
         </section>
 
         {/* ── Nesting: a surface's inset is chrome, so it must not starve content on a phone ── */}

@@ -31,6 +31,25 @@ rather than on a fixed calendar.
   turn the ramp off per component:
   `<ThemeProvider themeDefaults={{ card: { main: { responsiveSizing: false } } }}>`.
 
+- `Container`, `Modal` and `Popup` ramp their padding the same way, so every surface now
+  behaves consistently. `Container` follows `Section` rather than `Card`, capping its
+  gutter independently of its block rhythm because a page margin is bounded by the
+  viewport. `ModalHeader`, `ModalBody` and `ModalFooter` follow the parent `Modal`.
+  Menu dropdowns keep their existing tighter padding at every viewport.
+
+### Fixed
+
+- `Container` now applies the 2:1 inline-to-block padding ratio it has always declared.
+  `--aspect-ratio: 2` sat at a lower specificity than the per-size layout rule that
+  resets it to `1`, so the declaration never reached the computed value and a padded
+  `Container` rendered a square inset. The reset moved to a selector components can
+  override. `Container` is `noPadding` by default, so this only affects callers that
+  opted in, where the inline padding doubles: 32px to 64px at `md` on desktop.
+
+  `Divider` declared the same ratio and is deliberately left at `1`: it renders with
+  `box-sizing: content-box` and `width: 100%`, so inline padding is added outside the
+  100% and overflows the parent rather than insetting the rule.
+
 ## 1.0.2
 
 `2026-08-17`

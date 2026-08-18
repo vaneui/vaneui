@@ -99,12 +99,17 @@
         --br: calc(var(--min-h) * var(--br-unit));
     }
 
+    /* Square by default, and declared here rather than per size so a component rule can override it:
+       an [data-size] selector would outrank .vane-container's own ratio. Still blocks a ratio from
+       leaking in by inheritance (a Stack inside a Td). */
+    [data-vane-type="layout"] { --aspect-ratio: 1; }
+
     /* Layout gap/py units on the md-anchored curve (.5/.75/1/1.5/2x), so large sizes open up (md->xl doubles). */
-    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xs); }
-    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-sm); }
-    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-md); }
-    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 6; --py-unit: 6; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-lg); }
-    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 8; --py-unit: 8; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xl); }
+    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --shadow-base: var(--shadow-layout-xs); }
+    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --shadow-base: var(--shadow-layout-sm); }
+    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --shadow-base: var(--shadow-layout-md); }
+    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 6; --py-unit: 6; --shadow-base: var(--shadow-layout-lg); }
+    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 8; --py-unit: 8; --shadow-base: var(--shadow-layout-xl); }
 
     /* NON-RESPONSIVE COMPONENTS */
 
@@ -262,16 +267,9 @@
     .vane-label[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-label[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
-    /* Container py on the shared curve (.5/.75/1/1.5/2x, md=8); noPadding default, so py applies only when opted in. */
-    .vane-container { --py-unit: 8; --aspect-ratio: 2; }
-    .vane-container[data-size="xs"] { --py-unit: 4; }
-    .vane-container[data-size="sm"] { --py-unit: 6; }
-    .vane-container[data-size="md"] { --py-unit: 8; }
-    .vane-container[data-size="lg"] { --py-unit: 12; }
-    .vane-container[data-size="xl"] { --py-unit: 16; }
-
-    /* Divider */
-    .vane-divider { --py-unit: 4; --aspect-ratio: 2; }
+    /* Divider: ratio stays 1. box-content + w-full puts inline padding OUTSIDE the 100%, so a
+       wider horizontal inset overflows the parent instead of insetting the rule. */
+    .vane-divider { --py-unit: 4; --aspect-ratio: 1; }
     .vane-divider[data-size="xs"] { --py-unit: 2; }
     .vane-divider[data-size="sm"] { --py-unit: 3; }
     .vane-divider[data-size="md"] { --py-unit: 4; }
@@ -367,6 +365,20 @@
     .vane-card[data-size="lg"] { --gap-unit: 4.5;  --py-unit: 9;   --py-unit-desktop: 9;   --py-unit-tablet: 7; --py-unit-mobile: 5; }
     .vane-card[data-size="xl"] { --gap-unit: 6;    --py-unit: 12;  --py-unit-desktop: 12;  --py-unit-tablet: 9; --py-unit-mobile: 6; }
 
+    /* Container is a page wrapper, so it follows Section: the gutter caps independently of the
+       block rhythm (--px-unit-*) because a page margin is bounded by the viewport. --aspect-ratio 2
+       is live here, so --px is twice --px-unit. noPadding default, so this applies only when opted in. */
+    .vane-container {
+        --aspect-ratio: 2;
+        --py-unit: 8; --py-unit-desktop: 8; --py-unit-tablet: 6; --py-unit-mobile: 4;
+        --px-unit-tablet: 4; --px-unit-mobile: 2;
+    }
+    .vane-container[data-size="xs"] { --py-unit: 4;  --py-unit-desktop: 4;  --py-unit-tablet: 3;   --py-unit-mobile: 2; --px-unit-tablet: 3;   --px-unit-mobile: 2; }
+    .vane-container[data-size="sm"] { --py-unit: 6;  --py-unit-desktop: 6;  --py-unit-tablet: 4.5; --py-unit-mobile: 3; --px-unit-tablet: 4;   --px-unit-mobile: 2; }
+    .vane-container[data-size="md"] { --py-unit: 8;  --py-unit-desktop: 8;  --py-unit-tablet: 6;   --py-unit-mobile: 4; --px-unit-tablet: 4;   --px-unit-mobile: 2; }
+    .vane-container[data-size="lg"] { --py-unit: 12; --py-unit-desktop: 12; --py-unit-tablet: 9;   --py-unit-mobile: 6; --px-unit-tablet: 4;   --px-unit-mobile: 2; }
+    .vane-container[data-size="xl"] { --py-unit: 16; --py-unit-desktop: 16; --py-unit-tablet: 12;  --py-unit-mobile: 8; --px-unit-tablet: 4;   --px-unit-mobile: 2; }
+
     /* Stack padding on the layout curve; same reasoning as Card, and it nests inside one. */
     .vane-stack {
         --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3; --py-unit-mobile: 2;
@@ -376,6 +388,26 @@
     .vane-stack[data-size="md"] { --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3;   --py-unit-mobile: 2; }
     .vane-stack[data-size="lg"] { --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 4;   --py-unit-mobile: 3; }
     .vane-stack[data-size="xl"] { --py-unit: 8; --py-unit-desktop: 8; --py-unit-tablet: 6;   --py-unit-mobile: 4; }
+
+    /* Modal and Popup are floating surfaces: the viewport is their whole budget on a phone,
+       so their inset ramps with it. Both stay square. */
+    .vane-modal {
+        --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 5; --py-unit-mobile: 4;
+    }
+    .vane-modal[data-size="xs"] { --modal-width: var(--modal-width-xs); --py-unit: 2;  --py-unit-desktop: 2;  --py-unit-tablet: 2; --py-unit-mobile: 1.5; }
+    .vane-modal[data-size="sm"] { --modal-width: var(--modal-width-sm); --py-unit: 4;  --py-unit-desktop: 4;  --py-unit-tablet: 3; --py-unit-mobile: 2.5; }
+    .vane-modal[data-size="md"] { --modal-width: var(--modal-width-md); --py-unit: 6;  --py-unit-desktop: 6;  --py-unit-tablet: 5; --py-unit-mobile: 4; }
+    .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8;  --py-unit-desktop: 8;  --py-unit-tablet: 6; --py-unit-mobile: 5; }
+    .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; --py-unit-desktop: 10; --py-unit-tablet: 8; --py-unit-mobile: 6; }
+
+    .vane-popup {
+        --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3; --py-unit-mobile: 2.5;
+    }
+    .vane-popup[data-size="xs"] { --py-unit: 2; --py-unit-desktop: 2; --py-unit-tablet: 2;   --py-unit-mobile: 1.5; }
+    .vane-popup[data-size="sm"] { --py-unit: 3; --py-unit-desktop: 3; --py-unit-tablet: 2.5; --py-unit-mobile: 2; }
+    .vane-popup[data-size="md"] { --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3;   --py-unit-mobile: 2.5; }
+    .vane-popup[data-size="lg"] { --py-unit: 5; --py-unit-desktop: 5; --py-unit-tablet: 4;   --py-unit-mobile: 3; }
+    .vane-popup[data-size="xl"] { --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 5;   --py-unit-mobile: 4; }
 
     /* Section desktop py/gap on the shared curve; tablet ~0.5x and mobile ~0.33x desktop py.
        The horizontal gutter is capped separately from lg up (--px-unit-*): a page margin is
@@ -449,14 +481,6 @@
     .vane-page-title[data-size="lg"] { --fs-unit-desktop: 30; --fs-unit-tablet: 27; --fs-unit-mobile: 24; --lh: 1; }
     .vane-page-title[data-size="xl"] { --fs-unit-desktop: 36; --fs-unit-tablet: 33; --fs-unit-mobile: 30; --lh: 1; }
 
-    /* Modal - uses same padding as Card */
-    .vane-modal { --py-unit: 6; --aspect-ratio: 1; }
-    .vane-modal[data-size="xs"] { --modal-width: var(--modal-width-xs); --py-unit: 2; }
-    .vane-modal[data-size="sm"] { --modal-width: var(--modal-width-sm); --py-unit: 4; }
-    .vane-modal[data-size="md"] { --modal-width: var(--modal-width-md); --py-unit: 6; }
-    .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8; }
-    .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; }
-
     /* MenuItem: padding scale matches Button's so larger sizes render visibly larger items. */
     .vane-menu-item { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.15; }
     .vane-menu-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
@@ -509,12 +533,12 @@
 
     /* Popup - equal padding for floating content (matches layout defaults) */
     /* Safety cap: never wider than the viewport (wide content scrolls via overflowAuto). */
-    .vane-popup { --py-unit: 4; --aspect-ratio: 1; max-width: calc(100vw - 1rem); }
-    .vane-popup[data-size="xs"] { --br-unit: 1.5; --py-unit: 2; --max-height: 12rem; --popup-min-w: 6rem; --popup-arrow-size: 5px; }
-    .vane-popup[data-size="sm"] { --br-unit: 2; --py-unit: 3; --max-height: 16rem; --popup-min-w: 7rem; --popup-arrow-size: 6px; }
-    .vane-popup[data-size="md"] { --br-unit: 2.5; --py-unit: 4; --max-height: 20rem; --popup-min-w: 8rem; --popup-arrow-size: 7px; }
-    .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --max-height: 24rem; --popup-min-w: 9rem; --popup-arrow-size: 8px; }
-    .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --max-height: 28rem; --popup-min-w: 10rem; --popup-arrow-size: 10px; }
+    .vane-popup { max-width: calc(100vw - 1rem); }
+    .vane-popup[data-size="xs"] { --br-unit: 1.5; --max-height: 12rem; --popup-min-w: 6rem; --popup-arrow-size: 5px; }
+    .vane-popup[data-size="sm"] { --br-unit: 2; --max-height: 16rem; --popup-min-w: 7rem; --popup-arrow-size: 6px; }
+    .vane-popup[data-size="md"] { --br-unit: 2.5; --max-height: 20rem; --popup-min-w: 8rem; --popup-arrow-size: 7px; }
+    .vane-popup[data-size="lg"] { --br-unit: 3; --max-height: 24rem; --popup-min-w: 9rem; --popup-arrow-size: 8px; }
+    .vane-popup[data-size="xl"] { --br-unit: 3.5; --max-height: 28rem; --popup-min-w: 10rem; --popup-arrow-size: 10px; }
 
     /* Inner scroll viewport: clamps height & scrolls so the outer box (which hosts the arrow) stays overflow:visible.
        tabindex=0 (set in Popup.tsx) keeps the scroll region keyboard-operable (WCAG 2.1.1). */
@@ -523,11 +547,11 @@
     .vane-popup[data-menu-dropdown] > .vane-popup-scroll { max-height: none; overflow: visible; }
 
     /* Menu dropdown: tighter than generic Popup; floor lifted to 4px so no size renders below the minimum. */
-    .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 1; }
-    .vane-popup[data-menu-dropdown][data-size="sm"] { --py-unit: 1.25; }
-    .vane-popup[data-menu-dropdown][data-size="md"] { --py-unit: 1.5; }
-    .vane-popup[data-menu-dropdown][data-size="lg"] { --py-unit: 1.75; }
-    .vane-popup[data-menu-dropdown][data-size="xl"] { --py-unit: 2; }
+    .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 1;    --py-unit-desktop: 1;    --py-unit-tablet: 1;    --py-unit-mobile: 1; }
+    .vane-popup[data-menu-dropdown][data-size="sm"] { --py-unit: 1.25; --py-unit-desktop: 1.25; --py-unit-tablet: 1.25; --py-unit-mobile: 1.25; }
+    .vane-popup[data-menu-dropdown][data-size="md"] { --py-unit: 1.5;  --py-unit-desktop: 1.5;  --py-unit-tablet: 1.5;  --py-unit-mobile: 1.5; }
+    .vane-popup[data-menu-dropdown][data-size="lg"] { --py-unit: 1.75; --py-unit-desktop: 1.75; --py-unit-tablet: 1.75; --py-unit-mobile: 1.75; }
+    .vane-popup[data-menu-dropdown][data-size="xl"] { --py-unit: 2;    --py-unit-desktop: 2;    --py-unit-tablet: 2;    --py-unit-mobile: 2; }
 
     /* ANIMATIONS — driven by data-state from useTransition */
 
@@ -605,10 +629,11 @@
     [data-placement="left-end"] > .vane-popup-arrow,
     [data-placement="right-end"] > .vane-popup-arrow { top: auto; bottom: 1rem; margin-top: 0; margin-bottom: calc(var(--popup-arrow-size, 7px) / -2); }
 
-    /* Card compound sub-components */
+    /* Card and Modal compound sub-components */
     /* Sub-parts carry no data-size, so [data-responsive] (base layer) would reset their breakpoint
-       units to the base --py-unit; components layer wins, re-inheriting the Card's ramp. */
-    :is(.vane-card-header, .vane-card-body, .vane-card-footer) {
+       units to the base --py-unit; components layer wins, re-inheriting the parent surface's ramp. */
+    :is(.vane-card-header, .vane-card-body, .vane-card-footer,
+        .vane-modal-header, .vane-modal-body, .vane-modal-footer) {
         --py-unit-desktop: inherit;
         --py-unit-tablet: inherit;
         --py-unit-mobile: inherit;

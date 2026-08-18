@@ -462,7 +462,7 @@ describe('Popup Component Tests', () => {
       );
 
       const popup = baseElement.querySelector('.vane-popup');
-      expect(popup).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(popup).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('should have gap by default', () => {
@@ -476,7 +476,7 @@ describe('Popup Component Tests', () => {
       );
 
       const popup = baseElement.querySelector('.vane-popup');
-      expect(popup).toHaveClass('gap-(--gap)');
+      expect(popup).toHaveClass('gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)');
     });
   });
 

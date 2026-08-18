@@ -7,4 +7,5 @@ export const modalBodyDefaults: Partial<ModalBodyProps> = {
   gap: true,
   overflowAuto: true,
   padding: true,
+  responsiveSizing: true,
 };

@@ -22,7 +22,7 @@ describe('ModalBody Component Tests', () => {
       expect(body).toBeInTheDocument();
       // Default: flex column, gap, overflow-auto
       expect(body).toHaveClass('flex', 'flex-col');
-      expect(body).toHaveClass('gap-(--gap)');
+      expect(body).toHaveClass('gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)');
       expect(body).toHaveClass('overflow-auto');
     });
 

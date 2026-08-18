@@ -382,8 +382,8 @@ describe('Modal Component Tests', () => {
       );
 
       const modal = baseElement.querySelector('.vane-modal');
-      expect(modal).not.toHaveClass('px-(--px)');
-      expect(modal).not.toHaveClass('py-(--py)');
+      expect(modal).not.toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)');
+      expect(modal).not.toHaveClass('py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('should have gap by default', () => {
@@ -396,7 +396,7 @@ describe('Modal Component Tests', () => {
       );
 
       const modal = baseElement.querySelector('.vane-modal');
-      expect(modal).toHaveClass('gap-(--gap)');
+      expect(modal).toHaveClass('gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)');
     });
   });
 
@@ -966,7 +966,7 @@ describe('Modal Component Tests', () => {
 
       const header = baseElement.querySelector('.vane-modal-header');
       expect(header).toBeInTheDocument();
-      expect(header).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(header).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('ModalBody should have padding classes', () => {
@@ -980,7 +980,7 @@ describe('Modal Component Tests', () => {
 
       const body = baseElement.querySelector('.vane-modal-body');
       expect(body).toBeInTheDocument();
-      expect(body).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(body).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('ModalFooter should have padding classes', () => {
@@ -994,7 +994,7 @@ describe('Modal Component Tests', () => {
 
       const footer = baseElement.querySelector('.vane-modal-footer');
       expect(footer).toBeInTheDocument();
-      expect(footer).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(footer).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('Modal wrapper should NOT have padding classes', () => {
@@ -1007,8 +1007,8 @@ describe('Modal Component Tests', () => {
       );
 
       const modal = baseElement.querySelector('.vane-modal');
-      expect(modal).not.toHaveClass('px-(--px)');
-      expect(modal).not.toHaveClass('py-(--py)');
+      expect(modal).not.toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)');
+      expect(modal).not.toHaveClass('py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
   });
 
