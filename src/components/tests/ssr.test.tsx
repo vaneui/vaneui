@@ -12,7 +12,7 @@ import * as VaneUI from '../../index';
 import {
   ThemeProvider,
   Button, IconButton, Icon, Badge, Divider, Chip, Code, Kbd, Mark,
-  Checkbox, Label, Field, Img, Input, Textarea, Select, Switch, Radio, RadioGroup, Overlay,
+  Checkbox, Label, Field, Alert, Spinner, Tooltip, Img, Input, Textarea, Select, Switch, Radio, RadioGroup, Overlay,
   Modal, ModalHeader, ModalBody, ModalFooter, ModalCloseButton,
   Popup, PopupTrigger, Menu, MenuItem, MenuLabel, NavLink,
   Section, Container, Col, Row, Stack, Grid2, Grid3, Grid4, Grid5, Grid6,
@@ -57,6 +57,9 @@ describe('SSR rendering', () => {
             <Field label="Work email" description="Used for billing" error="Required">
               <Input placeholder="work email" />
             </Field>
+            <Alert>Heads up</Alert>
+            <Spinner aria-label="Loading" />
+            <Tooltip content="Tip text"><button type="button">hover me</button></Tooltip>
             <Label>
               <Checkbox />
               Agree
@@ -168,7 +171,7 @@ describe('SSR rendering', () => {
   it('should cover every component export of the package in this smoke test', () => {
     const covered = new Set([
       'ThemeProvider', 'Button', 'IconButton', 'Icon', 'Badge', 'Divider', 'Chip', 'Code', 'Kbd',
-      'Mark', 'Checkbox', 'Label', 'Field', 'Img', 'Input', 'Textarea', 'Select', 'Switch', 'Radio',
+      'Mark', 'Checkbox', 'Label', 'Field', 'Alert', 'Spinner', 'Tooltip', 'Img', 'Input', 'Textarea', 'Select', 'Switch', 'Radio',
       'RadioGroup', 'Overlay', 'Modal', 'ModalHeader', 'ModalBody',
       'ModalFooter', 'ModalCloseButton', 'Popup', 'PopupTrigger', 'Menu', 'MenuItem', 'MenuLabel',
       'NavLink', 'Section', 'Container', 'Col', 'Row', 'Stack', 'Grid2', 'Grid3', 'Grid4', 'Grid5',

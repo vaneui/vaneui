@@ -387,15 +387,15 @@
     .vane-container[data-size="lg"] { --py-unit: 12; --py-unit-desktop: 12; --py-unit-tablet: 9;   --py-unit-mobile: 6; --px-unit-tablet: 4;   --px-unit-mobile: 2; }
     .vane-container[data-size="xl"] { --py-unit: 16; --py-unit-desktop: 16; --py-unit-tablet: 12;  --py-unit-mobile: 8; --px-unit-tablet: 4;   --px-unit-mobile: 2; }
 
-    /* Stack padding on the layout curve; same reasoning as Card, and it nests inside one. */
-    .vane-stack {
+    /* Stack and Alert padding on the layout curve; same reasoning as Card, and both nest inside one. */
+    :is(.vane-stack, .vane-alert) {
         --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3; --py-unit-mobile: 2;
     }
-    .vane-stack[data-size="xs"] { --py-unit: 2; --py-unit-desktop: 2; --py-unit-tablet: 2;   --py-unit-mobile: 1; }
-    .vane-stack[data-size="sm"] { --py-unit: 3; --py-unit-desktop: 3; --py-unit-tablet: 2.5; --py-unit-mobile: 2; }
-    .vane-stack[data-size="md"] { --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3;   --py-unit-mobile: 2; }
-    .vane-stack[data-size="lg"] { --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 4;   --py-unit-mobile: 3; }
-    .vane-stack[data-size="xl"] { --py-unit: 8; --py-unit-desktop: 8; --py-unit-tablet: 6;   --py-unit-mobile: 4; }
+    :is(.vane-stack, .vane-alert)[data-size="xs"] { --py-unit: 2; --py-unit-desktop: 2; --py-unit-tablet: 2;   --py-unit-mobile: 1; }
+    :is(.vane-stack, .vane-alert)[data-size="sm"] { --py-unit: 3; --py-unit-desktop: 3; --py-unit-tablet: 2.5; --py-unit-mobile: 2; }
+    :is(.vane-stack, .vane-alert)[data-size="md"] { --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3;   --py-unit-mobile: 2; }
+    :is(.vane-stack, .vane-alert)[data-size="lg"] { --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 4;   --py-unit-mobile: 3; }
+    :is(.vane-stack, .vane-alert)[data-size="xl"] { --py-unit: 8; --py-unit-desktop: 8; --py-unit-tablet: 6;   --py-unit-mobile: 4; }
 
     /* Modal and Popup are floating surfaces: the viewport is their whole budget on a phone,
        so their inset ramps with it. Both stay square. */
@@ -688,6 +688,21 @@
     [data-loading="true"] {
         position: relative;
     }
+    /* Ring is 1em square, so the size prop reaches it through --fs. */
+    .vane-spinner[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-spinner[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-spinner[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-spinner[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-spinner[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    .vane-spinner {
+        width: 1em;
+        height: 1em;
+        border: 0.125em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: vane-spin 0.6s linear infinite;
+    }
+
     .vane-button-spinner-ring {
         width: 1em;
         height: 1em;
@@ -914,7 +929,7 @@
             animation-iteration-count: 1 !important;
         }
 
-        .vane-button-spinner-ring {
+        :is(.vane-button-spinner-ring, .vane-spinner) {
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
         }

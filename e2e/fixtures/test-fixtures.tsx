@@ -25,6 +25,10 @@ import {
   NavLink,
   Divider,
   Container,
+  Field,
+  Alert,
+  Spinner,
+  Tooltip,
   Row,
   Code,
   Checkbox,
@@ -997,6 +1001,38 @@ export function TestHarness() {
           <Overlay open noAnimation portal={false} pointerEventsNone itemsStart justifyStart data-testid="overlay-aligned">
             <Card data-testid="overlay-aligned-content">Drawer</Card>
           </Overlay>
+        </section>
+
+        {/* ── Field / Alert / Spinner / Tooltip ── */}
+
+        <section data-testid="tier2-section">
+          {/* Field owns the id and links help + error text to the control it wraps. */}
+          <Field
+            data-testid="tier2-field"
+            label="Work email"
+            description="Used for billing"
+            error="Required"
+          >
+            <Input data-testid="tier2-field-input" />
+          </Field>
+
+          <Field data-testid="tier2-field-plain" label="Plain">
+            <Input data-testid="tier2-field-plain-input" />
+          </Field>
+
+          <Alert data-testid="tier2-alert">assertive alert</Alert>
+          <Alert data-testid="tier2-alert-polite" polite success>polite status</Alert>
+
+          <Spinner data-testid="tier2-spinner" aria-label="Loading" />
+          <Spinner data-testid="tier2-spinner-xl" xl aria-label="Loading large" />
+
+          <Tooltip
+            content="Tip body"
+            openDelay={0}
+            popupProps={{ 'data-testid': 'tier2-tooltip' } as Record<string, unknown>}
+          >
+            <Button data-testid="tier2-tooltip-trigger">tooltip trigger</Button>
+          </Tooltip>
         </section>
 
         {/* ── Aspect ratio: --aspect-ratio is the declared px:py ratio, asserted on computed values ── */}

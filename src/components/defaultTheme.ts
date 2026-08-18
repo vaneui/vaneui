@@ -33,6 +33,9 @@ import { defaultCheckboxIndeterminateTheme } from './ui/checkbox/defaultCheckbox
 import { defaultCheckboxWrapperTheme } from './ui/checkbox/defaultCheckboxWrapperTheme';
 import { defaultLabelTheme } from './ui/label/defaultLabelTheme';
 import { defaultFieldTheme } from './ui/field/defaultFieldTheme';
+import { defaultAlertTheme } from './ui/alert/defaultAlertTheme';
+import { defaultSpinnerTheme } from './ui/spinner/defaultSpinnerTheme';
+import { defaultTooltipTheme } from './ui/tooltip/defaultTooltipTheme';
 import { defaultFieldLabelTheme } from './ui/field/defaultFieldLabelTheme';
 import { defaultFieldDescriptionTheme } from './ui/field/defaultFieldDescriptionTheme';
 import { defaultFieldErrorTheme } from './ui/field/defaultFieldErrorTheme';
@@ -159,6 +162,9 @@ export const defaultTheme: ThemeProps = {
     closeButton: defaultModalCloseButtonTheme,
   },
   popup: defaultPopupTheme,
+  tooltip: defaultTooltipTheme,
+  alert: defaultAlertTheme,
+  spinner: defaultSpinnerTheme,
   menu: {
     item: defaultMenuItemTheme,
     popup: defaultMenuPopupTheme,

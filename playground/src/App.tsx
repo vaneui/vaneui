@@ -15,6 +15,10 @@ import {
   Code,
   PageTitle,
   SectionTitle,
+  Field,
+  Alert,
+  Spinner,
+  Tooltip,
   Button,
   Icon,
   Badge,
@@ -467,6 +471,70 @@ function App() {
               <Label row><Switch defaultChecked /> Email notifications</Label>
               <Label row><Checkbox /> I agree to the terms</Label>
             </Stack>
+          </Card>
+
+          {/* ═══ 6. FIELD, ALERT, SPINNER, TOOLTIP ════════════════════ */}
+          <Divider />
+          <SectionTitle>6. Field, Alert, Spinner, Tooltip</SectionTitle>
+
+          <Card>
+            <Title>Field</Title>
+            <Text sm secondary>
+              <Code sm>Field</Code> owns the id, points the label at the control, and links
+              the help and error text with <Code sm>aria-describedby</Code>. An{' '}
+              <Code sm>error</Code> also marks the control invalid.
+            </Text>
+            <Field label="Work email" description="Used for billing receipts.">
+              <Input type="email" placeholder="you@company.com" />
+            </Field>
+            <Field label="Display name" error="This name is already taken.">
+              <Input defaultValue="evgenii" />
+            </Field>
+            <Field label="Region" description="Sets your default currency.">
+              <Select>
+                <option>Cyprus</option>
+                <option>Estonia</option>
+              </Select>
+            </Field>
+            <Field lg label="Large field" description="Field size cascades to the control.">
+              <Input placeholder="lg" />
+            </Field>
+          </Card>
+
+          <Card>
+            <Title>Alert</Title>
+            <Text sm secondary>
+              A live region: <Code sm>role=&quot;alert&quot;</Code> by default,{' '}
+              <Code sm>role=&quot;status&quot;</Code> with <Code sm>polite</Code>.
+            </Text>
+            <Alert info>Scheduled maintenance starts at 02:00 UTC.</Alert>
+            <Alert success polite>Your changes were saved.</Alert>
+            <Alert warning>Your trial ends in three days.</Alert>
+            <Alert danger filled>Payment failed. Update your card to continue.</Alert>
+          </Card>
+
+          <Card>
+            <Title>Spinner and Tooltip</Title>
+            <Text sm secondary>
+              <Code sm>Spinner</Code> scales with the size ramp and takes its colour from the
+              appearance. <Code sm>Tooltip</Code> describes its trigger on hover and focus.
+            </Text>
+            <Row itemsCenter flexWrap>
+              {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+                <Spinner key={size} {...{ [size]: true }} aria-label={`Loading ${size}`} />
+              ))}
+              <Spinner success aria-label="Loading success" />
+              <Spinner danger aria-label="Loading danger" />
+            </Row>
+            <Row itemsCenter flexWrap>
+              <Tooltip content="Saves without leaving the page">
+                <Button>Hover me</Button>
+              </Tooltip>
+              <Tooltip content="Focus me with the keyboard too">
+                <Button secondary>Tab to me</Button>
+              </Tooltip>
+              <Button loading>Loading button</Button>
+            </Row>
           </Card>
 
         </Container>

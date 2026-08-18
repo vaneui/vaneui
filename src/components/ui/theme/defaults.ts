@@ -24,6 +24,9 @@ import { checkboxWrapperDefaults } from '../checkbox/checkboxWrapperDefaults';
 import { checkboxIndeterminateDefaults } from '../checkbox/checkboxIndeterminateDefaults';
 import { labelDefaults } from '../label/labelDefaults';
 import { fieldDefaults } from '../field/fieldDefaults';
+import { alertDefaults } from '../alert/alertDefaults';
+import { spinnerDefaults } from '../spinner/spinnerDefaults';
+import { tooltipDefaults } from '../tooltip/tooltipDefaults';
 import { fieldLabelDefaults } from '../field/fieldLabelDefaults';
 import { fieldDescriptionDefaults } from '../field/fieldDescriptionDefaults';
 import { fieldErrorDefaults } from '../field/fieldErrorDefaults';
@@ -158,6 +161,9 @@ export const themeDefaults: ThemeDefaults = {
     closeButton: modalCloseButtonDefaults,
   },
   popup: popupDefaults,
+  tooltip: tooltipDefaults,
+  alert: alertDefaults,
+  spinner: spinnerDefaults,
   menu: {
     item: menuItemDefaults,
     popup: menuPopupDefaults,

@@ -25,6 +25,9 @@ import { defaultRowTheme } from "../ui/row/defaultRowTheme";
 import { defaultStackTheme } from "../ui/stack/defaultStackTheme";
 import { defaultCardTheme, defaultCardHeaderTheme, defaultCardBodyTheme, defaultCardFooterTheme, CARD_HEADER_CATEGORIES, CARD_BODY_CATEGORIES, CARD_FOOTER_CATEGORIES } from "../ui/card";
 import { defaultFieldTheme, defaultFieldLabelTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme } from "../ui/field";
+import { defaultAlertTheme, ALERT_CATEGORIES } from "../ui/alert";
+import { defaultSpinnerTheme, SPINNER_CATEGORIES } from "../ui/spinner";
+import { defaultTooltipTheme } from "../ui/tooltip";
 import { defaultDividerTheme } from "../ui/divider/defaultDividerTheme";
 import { defaultMenuDividerTheme } from "../ui/divider/defaultMenuDividerTheme";
 import { defaultSectionTheme } from "../ui/section/defaultSectionTheme";
@@ -694,6 +697,24 @@ describe("Component theme coverage tests", () => {
     };
     createThemeTests(fieldConfig);
 
+    const alertConfig: ComponentTestConfig = {
+      propsType: "AlertProps",
+      categories: ALERT_CATEGORIES,
+      themes: [
+        { name: "defaultAlertTheme", theme: defaultAlertTheme }
+      ]
+    };
+    createThemeTests(alertConfig);
+
+    const spinnerConfig: ComponentTestConfig = {
+      propsType: "SpinnerProps",
+      categories: SPINNER_CATEGORIES,
+      themes: [
+        { name: "defaultSpinnerTheme", theme: defaultSpinnerTheme }
+      ]
+    };
+    createThemeTests(spinnerConfig);
+
     const cardConfig: ComponentTestConfig = {
       propsType: "CardProps",
       categories: CARD_CATEGORIES,
@@ -1091,6 +1112,7 @@ describe("Component theme coverage tests", () => {
       // withDefaults variants
       defaultMenuPopupTheme, defaultMenuDividerTheme,
       defaultFieldTheme, defaultFieldLabelTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme,
+      defaultAlertTheme, defaultSpinnerTheme, defaultTooltipTheme,
     ]);
 
     it("should cover every ComponentTheme instance in defaultTheme", () => {

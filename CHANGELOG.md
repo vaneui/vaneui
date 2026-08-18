@@ -10,6 +10,38 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Added
+
+- **`Field`** wires a form control to its label, help text and error message.
+  `invalid` already emitted `aria-invalid`, but nothing associated an error
+  message, so a screen reader announced that a control was invalid without
+  saying why. `Field` owns one id and publishes it, the label id, the
+  `aria-describedby` list and the validity to whichever control it wraps.
+  `Input`, `Textarea`, `Select`, `Checkbox`, `Radio` and `Switch` all read it,
+  and an explicit prop on the control still wins.
+
+  ```tsx
+  <Field label="Email" description="We never share it." error={errors.email}>
+    <Input type="email" />
+  </Field>
+  ```
+
+  Passing an `error` also marks the control invalid, so the danger cue and the
+  message can never disagree. A `RadioGroup` is not a labelable element, so it
+  takes the label by reference through `aria-labelledby` instead. `Field`'s own
+  size becomes the control's default, the same way `Label` already worked.
+
+- **`Tooltip`** describes its trigger on hover and on keyboard focus. Built on
+  `PopupTrigger`'s tooltip semantics: the trigger gets `aria-describedby` while
+  open and never `aria-haspopup` or `aria-expanded`, which do not apply.
+
+- **`Spinner`** promotes the ring that already existed inside `Button` to a
+  component of its own. `role="status"`, sized by the size prop and coloured by
+  the appearance prop.
+
+- **`Alert`** is a live-region surface: `role="alert"` by default, or
+  `role="status"` with `polite` for messages that should wait for a pause.
+
 ### Changed
 
 - `Card` and `Stack` now scale their padding down on small viewports, matching the

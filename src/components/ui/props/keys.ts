@@ -92,6 +92,8 @@ import {
 import { CARD_CATEGORIES } from '../card/CardCategories';
 import { COL_CATEGORIES } from '../col/ColCategories';
 import { FIELD_CATEGORIES } from '../field/FieldCategories';
+import { ALERT_CATEGORIES } from '../alert/AlertCategories';
+import { SPINNER_CATEGORIES } from '../spinner/SpinnerCategories';
 import { DIVIDER_CATEGORIES } from '../divider/DividerCategories';
 import { IMG_CATEGORIES } from '../img/ImgCategories';
 import { SECTION_CATEGORIES } from '../section/SectionCategories';
@@ -122,6 +124,8 @@ export { CHIP_CATEGORIES };
 export { CODE_CATEGORIES };
 export { COL_CATEGORIES };
 export { FIELD_CATEGORIES };
+export { ALERT_CATEGORIES };
+export { SPINNER_CATEGORIES };
 export { CONTAINER_CATEGORIES };
 export { DIVIDER_CATEGORIES };
 export { GRID_CATEGORIES };
@@ -505,8 +509,8 @@ export type CategoryProps = {
 };
 
 /** All available component names in the library */
-export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'menu', 'navLink', 'table'] as const;
+export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'alert', 'spinner', 'divider', 'container', 'row', 'col', 'stack', 'section',
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'tooltip', 'menu', 'navLink', 'table'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -543,6 +547,8 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   radioGroup: RADIO_GROUP_CATEGORIES,
   label: LABEL_CATEGORIES,
   field: FIELD_CATEGORIES,
+  alert: ALERT_CATEGORIES,
+  spinner: SPINNER_CATEGORIES,
   link: LINK_CATEGORIES,
   list: LIST_CATEGORIES,
   listItem: LIST_ITEM_CATEGORIES,
@@ -558,6 +564,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   overlay: OVERLAY_CATEGORIES,
   modal: MODAL_CATEGORIES,
   popup: POPUP_CATEGORIES,
+  tooltip: POPUP_CATEGORIES,
   menu: MENU_ITEM_CATEGORIES,
   navLink: NAV_LINK_CATEGORIES,
   table: TABLE_CATEGORIES,

@@ -6,15 +6,15 @@ import * as VaneUI from '../../index';
 // over-eager re-export) fail here instead of shipping silently. The exports
 // MAP targets are validated separately by publint/attw in the publish gate.
 const EXPECTED_RUNTIME_EXPORTS = [
-  'Badge', 'Blockquote', 'Button', 'COMPONENT', 'Caption', 'Card', 'CardBody', 'CardFooter', 'CardHeader',
+  'Alert', 'Badge', 'Blockquote', 'Button', 'COMPONENT', 'Caption', 'Card', 'CardBody', 'CardFooter', 'CardHeader',
   'Checkbox', 'Chip', 'Code', 'Col', 'ComponentCategories', 'ComponentKeys', 'Container',
   'Divider', 'Grid2', 'Grid3', 'Grid4', 'Grid5', 'Grid6', 'Icon', 'IconButton', 'Img', 'Input',
   'Field', 'Kbd', 'Label', 'Link', 'List', 'ListItem', 'Mark', 'Menu', 'MenuItem', 'MenuLabel', 'Modal',
   'ModalBody', 'ModalCloseButton', 'ModalFooter', 'ModalHeader', 'NavLink', 'Overlay',
   'PageTitle', 'Popup', 'PopupTrigger', 'Radio', 'RadioGroup', 'Row', 'Section', 'SectionTitle',
-  'Select', 'Stack', 'Switch',
+  'Select', 'Spinner', 'Stack', 'Switch',
   'Table', 'Tbody', 'Td', 'Text', 'Textarea', 'Tfoot', 'Th', 'Thead',
-  'ThemeProvider', 'Title', 'Tr', 'defaultTheme', 'themeDefaults', 'useTheme',
+  'ThemeProvider', 'Title', 'Tooltip', 'Tr', 'defaultTheme', 'themeDefaults', 'useTheme',
 ];
 
 describe('public export surface', () => {
