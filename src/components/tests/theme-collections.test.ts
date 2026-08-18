@@ -121,6 +121,7 @@ describe('Theme structure consistency', () => {
       mark: {},
       icon: {},
       card: {},
+      field: { main: {}, label: {}, description: {}, error: {} },
       divider: {},
       container: {},
       row: {},

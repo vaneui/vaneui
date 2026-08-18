@@ -9,6 +9,7 @@ export { Kbd, type KbdProps } from "./components/ui/kbd";
 export { Mark, type MarkProps } from "./components/ui/mark";
 export { Checkbox, type CheckboxProps } from "./components/ui/checkbox";
 export { Label, type LabelProps } from "./components/ui/label";
+export { Field, type FieldProps } from "./components/ui/field";
 export { Img, type ImgProps } from "./components/ui/img";
 export { Input, type InputProps } from "./components/ui/input";
 export { Textarea, type TextareaProps } from "./components/ui/textarea";

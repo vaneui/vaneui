@@ -1,6 +1,7 @@
 import { forwardRef, useCallback, useMemo, type MouseEvent } from 'react';
 import type { SwitchProps } from './SwitchProps';
 import { useTheme } from "../../themeContext";
+import { useFieldControlProps } from "../field/FieldContext";
 import { ThemedComponent } from "../../themedComponent";
 import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
 import { defaultSwitchTheme } from "./defaultSwitchTheme";
@@ -8,7 +9,8 @@ import { defaultSwitchThumbTheme } from "./defaultSwitchThumbTheme";
 import { defaultSwitchWrapperTheme } from "./defaultSwitchWrapperTheme";
 
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
-  function Switch(props, ref) {
+  function Switch(rawProps, ref) {
+    const props = useFieldControlProps(rawProps);
     const theme = useTheme();
     const wrapperThemeBase = theme?.switch.wrapper ?? defaultSwitchWrapperTheme;
     const inputThemeBase = theme?.switch.input ?? defaultSwitchTheme;

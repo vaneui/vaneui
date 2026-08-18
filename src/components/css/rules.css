@@ -257,6 +257,14 @@
     .vane-switch-thumb { width: var(--switch-thumb); height: var(--switch-thumb); margin-inline-start: var(--switch-pad); }
     [dir="rtl"] .vane-switch-thumb { --switch-travel: calc(var(--size) - var(--switch-w)); }
 
+    /* Field: tighter than the layout gap curve, so label/control/help read as one unit. */
+    .vane-field { --gap-unit: 1.5; }
+    .vane-field[data-size="xs"] { --gap-unit: 1; }
+    .vane-field[data-size="sm"] { --gap-unit: 1.25; }
+    .vane-field[data-size="md"] { --gap-unit: 1.5; }
+    .vane-field[data-size="lg"] { --gap-unit: 2; }
+    .vane-field[data-size="xl"] { --gap-unit: 2.5; }
+
     /* Label */
     .vane-label {
         --lh: var(--lh-base);

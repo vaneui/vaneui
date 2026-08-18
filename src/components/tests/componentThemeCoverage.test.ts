@@ -24,6 +24,7 @@ import { defaultColTheme } from "../ui/col/defaultColTheme";
 import { defaultRowTheme } from "../ui/row/defaultRowTheme";
 import { defaultStackTheme } from "../ui/stack/defaultStackTheme";
 import { defaultCardTheme, defaultCardHeaderTheme, defaultCardBodyTheme, defaultCardFooterTheme, CARD_HEADER_CATEGORIES, CARD_BODY_CATEGORIES, CARD_FOOTER_CATEGORIES } from "../ui/card";
+import { defaultFieldTheme, defaultFieldLabelTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme } from "../ui/field";
 import { defaultDividerTheme } from "../ui/divider/defaultDividerTheme";
 import { defaultMenuDividerTheme } from "../ui/divider/defaultMenuDividerTheme";
 import { defaultSectionTheme } from "../ui/section/defaultSectionTheme";
@@ -64,6 +65,7 @@ import {
   ROW_CATEGORIES,
   STACK_CATEGORIES,
   CARD_CATEGORIES,
+  FIELD_CATEGORIES,
   DIVIDER_CATEGORIES,
   SECTION_CATEGORIES,
   CHECKBOX_CATEGORIES,
@@ -683,6 +685,15 @@ describe("Component theme coverage tests", () => {
     };
     createThemeTests(stackConfig);
 
+    const fieldConfig: ComponentTestConfig = {
+      propsType: "FieldProps",
+      categories: FIELD_CATEGORIES,
+      themes: [
+        { name: "defaultFieldTheme", theme: defaultFieldTheme }
+      ]
+    };
+    createThemeTests(fieldConfig);
+
     const cardConfig: ComponentTestConfig = {
       propsType: "CardProps",
       categories: CARD_CATEGORIES,
@@ -1079,6 +1090,7 @@ describe("Component theme coverage tests", () => {
       defaultInputWrapperTheme,
       // withDefaults variants
       defaultMenuPopupTheme, defaultMenuDividerTheme,
+      defaultFieldTheme, defaultFieldLabelTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme,
     ]);
 
     it("should cover every ComponentTheme instance in defaultTheme", () => {

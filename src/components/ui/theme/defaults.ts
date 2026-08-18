@@ -23,6 +23,10 @@ import { checkboxCheckDefaults } from '../checkbox/checkboxCheckDefaults';
 import { checkboxWrapperDefaults } from '../checkbox/checkboxWrapperDefaults';
 import { checkboxIndeterminateDefaults } from '../checkbox/checkboxIndeterminateDefaults';
 import { labelDefaults } from '../label/labelDefaults';
+import { fieldDefaults } from '../field/fieldDefaults';
+import { fieldLabelDefaults } from '../field/fieldLabelDefaults';
+import { fieldDescriptionDefaults } from '../field/fieldDescriptionDefaults';
+import { fieldErrorDefaults } from '../field/fieldErrorDefaults';
 import { imgDefaults } from '../img/imgDefaults';
 import { inputDefaults } from '../input/inputDefaults';
 import { inputErrorIconDefaults } from '../input/inputErrorIconDefaults';
@@ -119,6 +123,12 @@ export const themeDefaults: ThemeDefaults = {
     wrapper: checkboxWrapperDefaults,
   },
   label: labelDefaults,
+  field: {
+    main: fieldDefaults,
+    label: fieldLabelDefaults,
+    description: fieldDescriptionDefaults,
+    error: fieldErrorDefaults,
+  },
   img: imgDefaults,
   input: inputDefaults,
   inputErrorIcon: inputErrorIconDefaults,

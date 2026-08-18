@@ -32,6 +32,10 @@ import { defaultCheckboxCheckTheme } from './ui/checkbox/defaultCheckboxCheckThe
 import { defaultCheckboxIndeterminateTheme } from './ui/checkbox/defaultCheckboxIndeterminateTheme';
 import { defaultCheckboxWrapperTheme } from './ui/checkbox/defaultCheckboxWrapperTheme';
 import { defaultLabelTheme } from './ui/label/defaultLabelTheme';
+import { defaultFieldTheme } from './ui/field/defaultFieldTheme';
+import { defaultFieldLabelTheme } from './ui/field/defaultFieldLabelTheme';
+import { defaultFieldDescriptionTheme } from './ui/field/defaultFieldDescriptionTheme';
+import { defaultFieldErrorTheme } from './ui/field/defaultFieldErrorTheme';
 import { defaultImgTheme } from './ui/img/defaultImgTheme';
 import { defaultInputTheme } from './ui/input/defaultInputTheme';
 import { defaultInputErrorIconTheme } from './ui/input/defaultInputErrorIconTheme';
@@ -120,6 +124,12 @@ export const defaultTheme: ThemeProps = {
     wrapper: defaultCheckboxWrapperTheme,
   },
   label: defaultLabelTheme,
+  field: {
+    main: defaultFieldTheme,
+    label: defaultFieldLabelTheme,
+    description: defaultFieldDescriptionTheme,
+    error: defaultFieldErrorTheme,
+  },
   img: defaultImgTheme,
   input: defaultInputTheme,
   inputErrorIcon: defaultInputErrorIconTheme,

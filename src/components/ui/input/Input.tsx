@@ -2,13 +2,15 @@ import { forwardRef, useMemo } from 'react';
 import type { InputProps } from "./InputProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
+import { useFieldControlProps } from "../field/FieldContext";
 import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
 import { defaultInputTheme } from "./defaultInputTheme";
 import { defaultInputErrorIconTheme } from "./defaultInputErrorIconTheme";
 import { defaultInputWrapperTheme } from "./defaultInputWrapperTheme";
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  function Input(props, ref) {
+  function Input(rawProps, ref) {
+    const props = useFieldControlProps(rawProps);
     const theme = useTheme();
     const inputThemeBase = theme?.input ?? defaultInputTheme;
     const errorIconThemeBase = theme?.inputErrorIcon ?? defaultInputErrorIconTheme;

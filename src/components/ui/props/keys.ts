@@ -91,6 +91,7 @@ import {
 } from './categoryBuilders';
 import { CARD_CATEGORIES } from '../card/CardCategories';
 import { COL_CATEGORIES } from '../col/ColCategories';
+import { FIELD_CATEGORIES } from '../field/FieldCategories';
 import { DIVIDER_CATEGORIES } from '../divider/DividerCategories';
 import { IMG_CATEGORIES } from '../img/ImgCategories';
 import { SECTION_CATEGORIES } from '../section/SectionCategories';
@@ -120,6 +121,7 @@ export { CARD_CATEGORIES };
 export { CHIP_CATEGORIES };
 export { CODE_CATEGORIES };
 export { COL_CATEGORIES };
+export { FIELD_CATEGORIES };
 export { CONTAINER_CATEGORIES };
 export { DIVIDER_CATEGORIES };
 export { GRID_CATEGORIES };
@@ -503,7 +505,7 @@ export type CategoryProps = {
 };
 
 /** All available component names in the library */
-export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
+export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'divider', 'container', 'row', 'col', 'stack', 'section',
   'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'menu', 'navLink', 'table'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
@@ -540,6 +542,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   radio: RADIO_CATEGORIES,
   radioGroup: RADIO_GROUP_CATEGORIES,
   label: LABEL_CATEGORIES,
+  field: FIELD_CATEGORIES,
   link: LINK_CATEGORIES,
   list: LIST_CATEGORIES,
   listItem: LIST_ITEM_CATEGORIES,

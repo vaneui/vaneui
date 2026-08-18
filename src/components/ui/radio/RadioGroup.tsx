@@ -3,11 +3,14 @@ import type { RadioGroupProps } from './RadioGroupProps';
 import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
 import { RadioGroupContext } from "./RadioGroupContext";
+import { FieldControlContext, useFieldGroupProps } from "../field/FieldContext";
 import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
 import { defaultRadioGroupTheme } from "./defaultRadioGroupTheme";
 
 export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
-  function RadioGroup(props, ref) {
+  function RadioGroup(rawProps, ref) {
+    // the group takes the Field wiring itself, so its Radios must not each claim the id
+    const props = useFieldGroupProps(rawProps);
     const theme = useTheme();
     // name/value/defaultValue/onChange drive the child Radios, not the group element
     const { name, value, defaultValue, onChange, ...rest } = props;
@@ -22,12 +25,14 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
 
     return (
       <RadioGroupContext.Provider value={group}>
-        <ThemedComponent
-          theme={theme?.radioGroup ?? defaultRadioGroupTheme}
-          ref={ref}
-          role="radiogroup"
-          {...rest}
-        />
+        <FieldControlContext.Provider value={null}>
+          <ThemedComponent
+            theme={theme?.radioGroup ?? defaultRadioGroupTheme}
+            ref={ref}
+            role="radiogroup"
+            {...rest}
+          />
+        </FieldControlContext.Provider>
       </RadioGroupContext.Provider>
     );
   }
