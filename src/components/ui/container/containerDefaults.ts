@@ -10,6 +10,7 @@ export const containerDefaults: Partial<ContainerProps> = {
   itemsCenter: true,
   gap: true,
   noPadding: true,
+  responsiveSizing: true,
   outline: true,
   sharp: true,
 };

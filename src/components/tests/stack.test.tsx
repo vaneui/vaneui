@@ -20,7 +20,7 @@ describe('Stack Component Tests', () => {
 
       const stack = container.querySelector('div');
       expect(stack).toBeInTheDocument();
-      expect(stack).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col');
+      expect(stack).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)', 'gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)', 'flex', 'flex-wrap', 'flex-col');
     });
 
     it('should apply row direction when row prop is true', () => {
@@ -263,7 +263,7 @@ describe('Stack Component Tests', () => {
       );
 
       const stack = container.querySelector('div');
-      expect(stack).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
+      expect(stack).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)', 'gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)', 'flex', 'flex-wrap', 'flex-col'); // theme classes
       expect(stack).toHaveClass('custom-stack-class'); // custom class
     });
 
@@ -330,8 +330,8 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('px-(--px)');
-        expect(stack).toHaveClass('py-(--py)');
+        expect(stack).toHaveClass('px-(--px-desktop)', 'max-mobile:px-(--px-mobile)');
+        expect(stack).toHaveClass('py-(--py-desktop)', 'max-mobile:py-(--py-mobile)');
         expect(stack).toHaveAttribute('data-size', 'xs');
       });
 
@@ -343,8 +343,8 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('px-(--px)');
-        expect(stack).toHaveClass('py-(--py)');
+        expect(stack).toHaveClass('px-(--px-desktop)', 'max-mobile:px-(--px-mobile)');
+        expect(stack).toHaveClass('py-(--py-desktop)', 'max-mobile:py-(--py-mobile)');
         expect(stack).toHaveAttribute('data-size', 'lg');
       });
     });
@@ -358,7 +358,7 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('gap-(--gap)');
+        expect(stack).toHaveClass('gap-(--gap-desktop)', 'max-mobile:gap-(--gap-mobile)');
         expect(stack).toHaveAttribute('data-size', 'xs');
       });
 
@@ -370,7 +370,7 @@ describe('Stack Component Tests', () => {
         );
 
         const stack = container.querySelector('div');
-        expect(stack).toHaveClass('gap-(--gap)');
+        expect(stack).toHaveClass('gap-(--gap-desktop)', 'max-mobile:gap-(--gap-mobile)');
         expect(stack).toHaveAttribute('data-size', 'xl');
       });
     });

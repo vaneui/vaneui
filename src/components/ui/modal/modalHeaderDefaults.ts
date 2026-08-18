@@ -8,4 +8,5 @@ export const modalHeaderDefaults: Partial<ModalHeaderProps> = {
   justifyBetween: true,
   gap: true,
   padding: true,
+  responsiveSizing: true,
 };

@@ -10,6 +10,78 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Added
+
+- **`Field`** wires a form control to its label, help text and error message.
+  `invalid` already emitted `aria-invalid`, but nothing associated an error
+  message, so a screen reader announced that a control was invalid without
+  saying why. `Field` owns one id and publishes it, the label id, the
+  `aria-describedby` list and the validity to whichever control it wraps.
+  `Input`, `Textarea`, `Select`, `Checkbox`, `Radio` and `Switch` all read it,
+  and an explicit prop on the control still wins.
+
+  ```tsx
+  <Field label="Email" description="We never share it." error={errors.email}>
+    <Input type="email" />
+  </Field>
+  ```
+
+  Passing an `error` also marks the control invalid, so the danger cue and the
+  message can never disagree. A `RadioGroup` is not a labelable element, so it
+  takes the label by reference through `aria-labelledby` instead. `Field`'s own
+  size becomes the control's default, the same way `Label` already worked.
+
+- **`Tooltip`** describes its trigger on hover and on keyboard focus. Built on
+  `PopupTrigger`'s tooltip semantics: the trigger gets `aria-describedby` while
+  open and never `aria-haspopup` or `aria-expanded`, which do not apply.
+
+- **`Spinner`** promotes the ring that already existed inside `Button` to a
+  component of its own. `role="status"`, sized by the size prop and coloured by
+  the appearance prop.
+
+- **`Alert`** is a live-region surface: `role="alert"` by default, or
+  `role="status"` with `polite` for messages that should wait for a pause.
+
+### Changed
+
+- `Card` and `Stack` now scale their padding down on small viewports, matching the
+  behavior `Section` already had. A surface's inset is chrome rather than rhythm: it
+  used to stay at its desktop value while the viewport shrank, so nesting a `Stack`
+  inside a `Card` inside a `Section` left as little as 220px of content on a 390px
+  phone. Both axes step down together so the box stays square.
+
+  | Size | `Card` desktop / tablet / mobile | `Stack` desktop / tablet / mobile |
+  | ---- | ------------------------------- | --------------------------------- |
+  | `xs` | 12 / 12 / 8 | 8 / 8 / 4 |
+  | `sm` | 18 / 16 / 12 | 12 / 10 / 8 |
+  | `md` | 24 / 20 / 16 | 16 / 12 / 8 |
+  | `lg` | 36 / 28 / 20 | 24 / 16 / 12 |
+  | `xl` | 48 / 36 / 24 | 32 / 24 / 16 |
+
+  Desktop values are unchanged, so nothing moves above 1024px. `CardHeader`, `CardBody`
+  and `CardFooter` follow the parent `Card`'s curve. To keep the previous fixed padding,
+  turn the ramp off per component:
+  `<ThemeProvider themeDefaults={{ card: { main: { responsiveSizing: false } } }}>`.
+
+- `Container`, `Modal` and `Popup` ramp their padding the same way, so every surface now
+  behaves consistently. `Container` follows `Section` rather than `Card`, capping its
+  gutter independently of its block rhythm because a page margin is bounded by the
+  viewport. `ModalHeader`, `ModalBody` and `ModalFooter` follow the parent `Modal`.
+  Menu dropdowns keep their existing tighter padding at every viewport.
+
+### Fixed
+
+- `Container` now applies the 2:1 inline-to-block padding ratio it has always declared.
+  `--aspect-ratio: 2` sat at a lower specificity than the per-size layout rule that
+  resets it to `1`, so the declaration never reached the computed value and a padded
+  `Container` rendered a square inset. The reset moved to a selector components can
+  override. `Container` is `noPadding` by default, so this only affects callers that
+  opted in, where the inline padding doubles: 32px to 64px at `md` on desktop.
+
+  `Divider` declared the same ratio and is deliberately left at `1`: it renders with
+  `box-sizing: content-box` and `width: 100%`, so inline padding is added outside the
+  100% and overflows the parent rather than insetting the rule.
+
 ## 1.0.2
 
 `2026-08-17`

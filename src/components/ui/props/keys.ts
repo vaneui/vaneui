@@ -91,6 +91,9 @@ import {
 } from './categoryBuilders';
 import { CARD_CATEGORIES } from '../card/CardCategories';
 import { COL_CATEGORIES } from '../col/ColCategories';
+import { FIELD_CATEGORIES } from '../field/FieldCategories';
+import { ALERT_CATEGORIES } from '../alert/AlertCategories';
+import { SPINNER_CATEGORIES } from '../spinner/SpinnerCategories';
 import { DIVIDER_CATEGORIES } from '../divider/DividerCategories';
 import { IMG_CATEGORIES } from '../img/ImgCategories';
 import { SECTION_CATEGORIES } from '../section/SectionCategories';
@@ -98,6 +101,10 @@ import { LABEL_CATEGORIES } from '../label/LabelCategories';
 import { INPUT_CATEGORIES } from '../input/InputCategories';
 import { INPUT_ERROR_ICON_CATEGORIES } from '../input/InputErrorIconCategories';
 import { INPUT_WRAPPER_CATEGORIES } from '../input/InputWrapperCategories';
+import { SELECT_CHEVRON_CATEGORIES } from '../select/SelectChevronCategories';
+import { SELECT_WRAPPER_CATEGORIES } from '../select/SelectWrapperCategories';
+import { SWITCH_CATEGORIES } from '../switch/SwitchCategories';
+import { RADIO_CATEGORIES, RADIO_GROUP_CATEGORIES } from '../radio/RadioCategories';
 import { OVERLAY_CATEGORIES } from '../overlay/OverlayCategories';
 import { MODAL_CATEGORIES } from '../modal/ModalCategories';
 import { POPUP_CATEGORIES } from '../popup/PopupCategories';
@@ -116,6 +123,9 @@ export { CARD_CATEGORIES };
 export { CHIP_CATEGORIES };
 export { CODE_CATEGORIES };
 export { COL_CATEGORIES };
+export { FIELD_CATEGORIES };
+export { ALERT_CATEGORIES };
+export { SPINNER_CATEGORIES };
 export { CONTAINER_CATEGORIES };
 export { DIVIDER_CATEGORIES };
 export { GRID_CATEGORIES };
@@ -128,6 +138,10 @@ export { LABEL_CATEGORIES };
 export { INPUT_CATEGORIES };
 export { INPUT_ERROR_ICON_CATEGORIES };
 export { INPUT_WRAPPER_CATEGORIES };
+export { SELECT_CHEVRON_CATEGORIES };
+export { SELECT_WRAPPER_CATEGORIES };
+export { SWITCH_CATEGORIES };
+export { RADIO_CATEGORIES, RADIO_GROUP_CATEGORIES };
 export { OVERLAY_CATEGORIES };
 export { MODAL_CATEGORIES };
 export { POPUP_CATEGORIES };
@@ -495,8 +509,8 @@ export type CategoryProps = {
 };
 
 /** All available component names in the library */
-export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'overlay', 'modal', 'popup', 'menu', 'navLink', 'table'] as const;
+export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'alert', 'spinner', 'divider', 'container', 'row', 'col', 'stack', 'section',
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'tooltip', 'menu', 'navLink', 'table'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -524,7 +538,17 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   input: INPUT_CATEGORIES,
   inputErrorIcon: INPUT_ERROR_ICON_CATEGORIES,
   inputWrapper: INPUT_WRAPPER_CATEGORIES,
+  textarea: INPUT_CATEGORIES,
+  select: INPUT_CATEGORIES,
+  selectChevron: SELECT_CHEVRON_CATEGORIES,
+  selectWrapper: SELECT_WRAPPER_CATEGORIES,
+  switch: SWITCH_CATEGORIES,
+  radio: RADIO_CATEGORIES,
+  radioGroup: RADIO_GROUP_CATEGORIES,
   label: LABEL_CATEGORIES,
+  field: FIELD_CATEGORIES,
+  alert: ALERT_CATEGORIES,
+  spinner: SPINNER_CATEGORIES,
   link: LINK_CATEGORIES,
   list: LIST_CATEGORIES,
   listItem: LIST_ITEM_CATEGORIES,
@@ -540,6 +564,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   overlay: OVERLAY_CATEGORIES,
   modal: MODAL_CATEGORIES,
   popup: POPUP_CATEGORIES,
+  tooltip: POPUP_CATEGORIES,
   menu: MENU_ITEM_CATEGORIES,
   navLink: NAV_LINK_CATEGORIES,
   table: TABLE_CATEGORIES,

@@ -185,8 +185,8 @@ describe('Derived ThemeDefaults / ThemeExtraClasses', () => {
 
   it('should reject keys that are not ThemeProps nodes (compile-time)', () => {
     const unknownComponent: ThemeDefaults = {
-      // @ts-expect-error -- 'tooltip' is not a component node in ThemeProps, so the derived type rejects it
-      tooltip: { rounded: true },
+      // @ts-expect-error -- 'carousel' is not a component node in ThemeProps, so the derived type rejects it
+      carousel: { rounded: true },
     };
 
     const unknownSubTheme: ThemeDefaults = {
@@ -197,8 +197,8 @@ describe('Derived ThemeDefaults / ThemeExtraClasses', () => {
     };
 
     const unknownExtraClassesComponent: ThemeExtraClasses = {
-      // @ts-expect-error -- 'tooltip' is not a component node in ThemeProps, so the derived type rejects it
-      tooltip: { rounded: 'extra' },
+      // @ts-expect-error -- 'carousel' is not a component node in ThemeProps, so the derived type rejects it
+      carousel: { rounded: 'extra' },
     };
 
     expect(unknownComponent).toBeDefined();

@@ -10,6 +10,9 @@ import type { LinkTheme } from './ui/typography/link/LinkTheme';
 import type { ListTheme } from './ui/typography/list/ListTheme';
 import type { ListItemTheme } from './ui/typography/listItem/ListItemTheme';
 import type { CardTheme } from "./ui/card/CardTheme";
+import type { FieldTheme } from "./ui/field/FieldTheme";
+import type { AlertTheme } from "./ui/alert/AlertTheme";
+import type { SpinnerTheme } from "./ui/spinner/SpinnerTheme";
 import type { CardHeaderTheme } from './ui/card/CardHeaderTheme';
 import type { CardBodyTheme } from './ui/card/CardBodyTheme';
 import type { CardFooterTheme } from './ui/card/CardFooterTheme';
@@ -29,6 +32,14 @@ import type { ImgTheme } from './ui/img/ImgTheme';
 import type { InputTheme } from './ui/input/InputTheme';
 import type { InputErrorIconTheme } from './ui/input/InputErrorIconTheme';
 import type { InputWrapperTheme } from './ui/input/InputWrapperTheme';
+import type { SelectChevronTheme } from './ui/select/SelectChevronTheme';
+import type { SelectWrapperTheme } from './ui/select/SelectWrapperTheme';
+import type { SwitchTheme } from './ui/switch/SwitchTheme';
+import type { SwitchThumbTheme } from './ui/switch/SwitchThumbTheme';
+import type { SwitchWrapperTheme } from './ui/switch/SwitchWrapperTheme';
+import type { RadioTheme } from './ui/radio/RadioTheme';
+import type { RadioDotTheme } from './ui/radio/RadioDotTheme';
+import type { RadioWrapperTheme } from './ui/radio/RadioWrapperTheme';
 import type { OverlayTheme } from './ui/overlay/OverlayTheme';
 import type { ModalContentTheme } from './ui/modal/ModalContentTheme';
 import type { ModalHeaderTheme } from './ui/modal/ModalHeaderTheme';
@@ -56,6 +67,9 @@ import type { BadgeProps } from "./ui/badge/BadgeProps";
 import type { ButtonProps } from "./ui/button/ButtonProps";
 import type { ButtonSpinnerProps } from "./ui/button/ButtonSpinnerProps";
 import type { CardProps } from "./ui/card/CardProps";
+import type { FieldProps } from "./ui/field/FieldProps";
+import type { AlertProps } from "./ui/alert/AlertProps";
+import type { SpinnerProps } from "./ui/spinner/SpinnerProps";
 import type { CardHeaderProps } from "./ui/card/CardHeaderProps";
 import type { CardBodyProps } from "./ui/card/CardBodyProps";
 import type { CardFooterProps } from "./ui/card/CardFooterProps";
@@ -75,6 +89,10 @@ import type { CheckboxIndeterminateProps } from "./ui/checkbox/CheckboxIndetermi
 import type { LabelProps } from "./ui/label";
 import type { ImgProps } from "./ui/img";
 import type { InputProps, InputErrorIconProps, InputWrapperProps } from "./ui/input";
+import type { TextareaProps } from "./ui/textarea/TextareaProps";
+import type { SelectProps, SelectChevronProps, SelectWrapperProps } from "./ui/select";
+import type { SwitchProps, SwitchThumbProps } from "./ui/switch";
+import type { RadioProps, RadioDotProps, RadioGroupProps } from "./ui/radio";
 import type { OverlayProps } from "./ui/overlay";
 import type { ModalProps, ModalHeaderProps, ModalBodyProps, ModalFooterProps } from "./ui/modal";
 import type { ModalCloseButtonProps } from "./ui/modal/ModalCloseButtonProps";
@@ -145,10 +163,31 @@ export interface ThemeProps {
     wrapper: ComponentTheme<CheckboxProps, CheckboxWrapperTheme>;
   };
   label: ComponentTheme<LabelProps, LabelTheme>;
+  field: {
+    main: ComponentTheme<FieldProps, FieldTheme>;
+    label: ComponentTheme<LabelProps, LabelTheme>;
+    description: ComponentTheme<TypographyProps, TypographyTheme>;
+    error: ComponentTheme<TypographyProps, TypographyTheme>;
+  };
   img: ComponentTheme<ImgProps, ImgTheme>;
   input: ComponentTheme<InputProps, InputTheme>;
   inputErrorIcon: ComponentTheme<InputErrorIconProps, InputErrorIconTheme>;
   inputWrapper: ComponentTheme<InputWrapperProps, InputWrapperTheme>;
+  textarea: ComponentTheme<TextareaProps, InputTheme>;
+  select: ComponentTheme<SelectProps, InputTheme>;
+  selectChevron: ComponentTheme<SelectChevronProps, SelectChevronTheme>;
+  selectWrapper: ComponentTheme<SelectWrapperProps, SelectWrapperTheme>;
+  switch: {
+    input: ComponentTheme<SwitchProps, SwitchTheme>;
+    thumb: ComponentTheme<SwitchThumbProps, SwitchThumbTheme>;
+    wrapper: ComponentTheme<SwitchProps, SwitchWrapperTheme>;
+  };
+  radio: {
+    input: ComponentTheme<RadioProps, RadioTheme>;
+    dot: ComponentTheme<RadioDotProps, RadioDotTheme>;
+    wrapper: ComponentTheme<RadioProps, RadioWrapperTheme>;
+  };
+  radioGroup: ComponentTheme<RadioGroupProps, ColTheme>;
   overlay: ComponentTheme<OverlayProps, OverlayTheme>;
   modal: {
     content: ComponentTheme<ModalProps, ModalContentTheme>;
@@ -159,6 +198,9 @@ export interface ThemeProps {
     closeButton: ComponentTheme<ModalCloseButtonProps, ModalCloseButtonTheme>;
   };
   popup: ComponentTheme<PopupProps, PopupTheme>;
+  tooltip: ComponentTheme<PopupProps, PopupTheme>;
+  alert: ComponentTheme<AlertProps, AlertTheme>;
+  spinner: ComponentTheme<SpinnerProps, SpinnerTheme>;
   menu: {
     item: ComponentTheme<MenuItemProps, MenuItemTheme>;
     popup: ComponentTheme<PopupProps, PopupTheme>;

@@ -7,6 +7,7 @@ export const popupDefaults: Partial<PopupProps> = {
   flex: true,
   column: true,
   padding: true,
+  responsiveSizing: true,
   gap: true,
   rounded: true,
   shadow: true,

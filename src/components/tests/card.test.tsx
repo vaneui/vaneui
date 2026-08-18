@@ -73,7 +73,7 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('a.vane-card');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'flex', 'flex-col');
+      expect(card).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)', 'flex', 'flex-col');
       expect(card).toHaveClass('text-(--text-color)', 'bg-(--bg-color)');
       expect(card).toHaveAttribute('data-appearance', 'primary');
       expect(card).toHaveAttribute('data-variant', 'filled');
@@ -133,7 +133,7 @@ describe('Card Component Tests', () => {
 
       const card = container.querySelector('div');
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)', 'flex');
+      expect(card).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)', 'gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)', 'flex');
       expect(card).toHaveClass('text-(--text-color)'); // primary appearance
       expect(card).toHaveClass('bg-(--bg-color)', 'rounded-(--br)', 'flex-col');
       expect(card).toHaveClass('border-(--border-color)');
@@ -189,7 +189,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)'); // xs sizing for padding and gap
+      expect(card).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)', 'gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)'); // xs sizing for padding and gap
       expect(card).toHaveAttribute('data-size', 'xs');
     });
 
@@ -201,7 +201,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)'); // sm sizing for padding and gap
+      expect(card).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)', 'gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)'); // sm sizing for padding and gap
       expect(card).toHaveAttribute('data-size', 'sm');
     });
 
@@ -213,7 +213,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)'); // lg sizing
+      expect(card).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)', 'gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)'); // lg sizing
       expect(card).toHaveAttribute('data-size', 'lg');
     });
 
@@ -225,7 +225,7 @@ describe('Card Component Tests', () => {
       );
 
       const card = container.querySelector('div');
-      expect(card).toHaveClass('px-(--px)', 'py-(--py)', 'gap-(--gap)'); // xl sizing
+      expect(card).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)', 'gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)'); // xl sizing
       expect(card).toHaveAttribute('data-size', 'xl');
     });
   });
@@ -565,7 +565,7 @@ describe('Card Component Tests', () => {
         expect(card).toHaveClass(BORDER_WIDTH_CLASS);
         expect(card).toHaveClass('ring-(--ring-color)');
         // Should have size and padding classes
-        expect(card).toHaveClass('px-(--px)', 'py-(--py)'); // lg padding
+        expect(card).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)'); // lg padding
         expect(card).toHaveAttribute('data-size', 'lg');
       });
 
@@ -689,8 +689,8 @@ describe('Card Component Tests', () => {
       const header = container.querySelector('.vane-card-header');
       expect(header).toBeInTheDocument();
       expect(header).toHaveClass('flex', 'flex-row', 'items-center', 'justify-between');
-      expect(header).toHaveClass('gap-(--gap)');
-      expect(header).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(header).toHaveClass('gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)');
+      expect(header).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('should render children', () => {
@@ -763,9 +763,9 @@ describe('Card Component Tests', () => {
       const body = container.querySelector('.vane-card-body');
       expect(body).toBeInTheDocument();
       expect(body).toHaveClass('flex', 'flex-col');
-      expect(body).toHaveClass('gap-(--gap)');
+      expect(body).toHaveClass('gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)');
       expect(body).toHaveClass('overflow-auto');
-      expect(body).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(body).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('should render children', () => {
@@ -859,8 +859,8 @@ describe('Card Component Tests', () => {
       const footer = container.querySelector('.vane-card-footer');
       expect(footer).toBeInTheDocument();
       expect(footer).toHaveClass('flex', 'flex-row', 'items-center', 'justify-end');
-      expect(footer).toHaveClass('gap-(--gap)');
-      expect(footer).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(footer).toHaveClass('gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)');
+      expect(footer).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('should render children', () => {
@@ -951,7 +951,7 @@ describe('Card Component Tests', () => {
       const card = container.querySelector('.vane-card');
       expect(card).toBeInTheDocument();
       // In simple mode, Card should have padding classes
-      expect(card).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(card).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('should detect compound mode with only CardHeader', () => {
@@ -1045,9 +1045,9 @@ describe('Card Component Tests', () => {
       const body = container.querySelector('.vane-card-body');
       const footer = container.querySelector('.vane-card-footer');
 
-      expect(header).toHaveClass('px-(--px)', 'py-(--py)');
-      expect(body).toHaveClass('px-(--px)', 'py-(--py)');
-      expect(footer).toHaveClass('px-(--px)', 'py-(--py)');
+      expect(header).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
+      expect(body).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
+      expect(footer).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)', 'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('should preserve Card props like appearance in compound mode', () => {

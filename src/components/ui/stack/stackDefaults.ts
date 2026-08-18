@@ -8,6 +8,7 @@ export const stackDefaults: Partial<StackProps> = {
   flexWrap: true,
   gap: true,
   padding: true,
+  responsiveSizing: true,
   noBorder: true,
   noInsetRing: true,
   outline: true,

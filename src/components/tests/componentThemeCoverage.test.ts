@@ -24,12 +24,20 @@ import { defaultColTheme } from "../ui/col/defaultColTheme";
 import { defaultRowTheme } from "../ui/row/defaultRowTheme";
 import { defaultStackTheme } from "../ui/stack/defaultStackTheme";
 import { defaultCardTheme, defaultCardHeaderTheme, defaultCardBodyTheme, defaultCardFooterTheme, CARD_HEADER_CATEGORIES, CARD_BODY_CATEGORIES, CARD_FOOTER_CATEGORIES } from "../ui/card";
+import { defaultFieldTheme, defaultFieldLabelTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme } from "../ui/field";
+import { defaultAlertTheme, ALERT_CATEGORIES } from "../ui/alert";
+import { defaultSpinnerTheme, SPINNER_CATEGORIES } from "../ui/spinner";
+import { defaultTooltipTheme } from "../ui/tooltip";
 import { defaultDividerTheme } from "../ui/divider/defaultDividerTheme";
 import { defaultMenuDividerTheme } from "../ui/divider/defaultMenuDividerTheme";
 import { defaultSectionTheme } from "../ui/section/defaultSectionTheme";
 import { defaultLabelTheme } from "../ui/label/defaultLabelTheme";
 import { defaultImgTheme } from "../ui/img/defaultImgTheme";
 import { defaultInputTheme, defaultInputErrorIconTheme, INPUT_ERROR_ICON_CATEGORIES, defaultInputWrapperTheme, INPUT_WRAPPER_CATEGORIES } from "../ui/input";
+import { defaultTextareaTheme } from "../ui/textarea";
+import { defaultSelectTheme, defaultSelectChevronTheme, SELECT_CHEVRON_CATEGORIES, defaultSelectWrapperTheme, SELECT_WRAPPER_CATEGORIES } from "../ui/select";
+import { defaultSwitchTheme, defaultSwitchThumbTheme, defaultSwitchWrapperTheme, SWITCH_CATEGORIES, SWITCH_THUMB_CATEGORIES } from "../ui/switch";
+import { defaultRadioTheme, defaultRadioDotTheme, defaultRadioWrapperTheme, defaultRadioGroupTheme, RADIO_CATEGORIES, RADIO_DOT_CATEGORIES, RADIO_GROUP_CATEGORIES } from "../ui/radio";
 import { defaultNavLinkTheme, NAV_LINK_CATEGORIES, defaultNavLinkLabelTheme, NAV_LINK_LABEL_CATEGORIES } from "../ui/navLink";
 import { LINK_CATEGORIES } from "../ui/typography/link/LinkCategories";
 import { defaultOverlayTheme } from "../ui/overlay";
@@ -60,6 +68,7 @@ import {
   ROW_CATEGORIES,
   STACK_CATEGORIES,
   CARD_CATEGORIES,
+  FIELD_CATEGORIES,
   DIVIDER_CATEGORIES,
   SECTION_CATEGORIES,
   CHECKBOX_CATEGORIES,
@@ -474,10 +483,78 @@ describe("Component theme coverage tests", () => {
       propsType: "InputProps",
       categories: INPUT_CATEGORIES,
       themes: [
-        { name: "defaultInputTheme", theme: defaultInputTheme }
+        { name: "defaultInputTheme", theme: defaultInputTheme },
+        // Textarea and Select share InputTheme + INPUT_CATEGORIES, so they ride this config
+        { name: "defaultTextareaTheme", theme: defaultTextareaTheme },
+        { name: "defaultSelectTheme", theme: defaultSelectTheme }
       ]
     };
     createThemeTests(inputConfig);
+
+    const selectChevronConfig: ComponentTestConfig = {
+      propsType: "SelectChevronProps",
+      categories: SELECT_CHEVRON_CATEGORIES,
+      themes: [
+        { name: "defaultSelectChevronTheme", theme: defaultSelectChevronTheme }
+      ]
+    };
+    createThemeTests(selectChevronConfig);
+
+    const selectWrapperConfig: ComponentTestConfig = {
+      propsType: "SelectWrapperProps",
+      categories: SELECT_WRAPPER_CATEGORIES,
+      themes: [
+        { name: "defaultSelectWrapperTheme", theme: defaultSelectWrapperTheme }
+      ]
+    };
+    createThemeTests(selectWrapperConfig);
+
+    const switchConfig: ComponentTestConfig = {
+      propsType: "SwitchProps",
+      categories: SWITCH_CATEGORIES,
+      themes: [
+        { name: "defaultSwitchTheme", theme: defaultSwitchTheme },
+        { name: "defaultSwitchWrapperTheme", theme: defaultSwitchWrapperTheme }
+      ]
+    };
+    createThemeTests(switchConfig);
+
+    const switchThumbConfig: ComponentTestConfig = {
+      propsType: "SwitchThumbProps",
+      categories: SWITCH_THUMB_CATEGORIES,
+      themes: [
+        { name: "defaultSwitchThumbTheme", theme: defaultSwitchThumbTheme }
+      ]
+    };
+    createThemeTests(switchThumbConfig);
+
+    const radioConfig: ComponentTestConfig = {
+      propsType: "RadioProps",
+      categories: RADIO_CATEGORIES,
+      themes: [
+        { name: "defaultRadioTheme", theme: defaultRadioTheme },
+        { name: "defaultRadioWrapperTheme", theme: defaultRadioWrapperTheme }
+      ]
+    };
+    createThemeTests(radioConfig);
+
+    const radioDotConfig: ComponentTestConfig = {
+      propsType: "RadioDotProps",
+      categories: RADIO_DOT_CATEGORIES,
+      themes: [
+        { name: "defaultRadioDotTheme", theme: defaultRadioDotTheme }
+      ]
+    };
+    createThemeTests(radioDotConfig);
+
+    const radioGroupConfig: ComponentTestConfig = {
+      propsType: "RadioGroupProps",
+      categories: RADIO_GROUP_CATEGORIES,
+      themes: [
+        { name: "defaultRadioGroupTheme", theme: defaultRadioGroupTheme }
+      ]
+    };
+    createThemeTests(radioGroupConfig);
 
     const navLinkConfig: ComponentTestConfig = {
       propsType: "NavLinkProps",
@@ -610,6 +687,33 @@ describe("Component theme coverage tests", () => {
       ]
     };
     createThemeTests(stackConfig);
+
+    const fieldConfig: ComponentTestConfig = {
+      propsType: "FieldProps",
+      categories: FIELD_CATEGORIES,
+      themes: [
+        { name: "defaultFieldTheme", theme: defaultFieldTheme }
+      ]
+    };
+    createThemeTests(fieldConfig);
+
+    const alertConfig: ComponentTestConfig = {
+      propsType: "AlertProps",
+      categories: ALERT_CATEGORIES,
+      themes: [
+        { name: "defaultAlertTheme", theme: defaultAlertTheme }
+      ]
+    };
+    createThemeTests(alertConfig);
+
+    const spinnerConfig: ComponentTestConfig = {
+      propsType: "SpinnerProps",
+      categories: SPINNER_CATEGORIES,
+      themes: [
+        { name: "defaultSpinnerTheme", theme: defaultSpinnerTheme }
+      ]
+    };
+    createThemeTests(spinnerConfig);
 
     const cardConfig: ComponentTestConfig = {
       propsType: "CardProps",
@@ -985,6 +1089,10 @@ describe("Component theme coverage tests", () => {
       // Form
       defaultCheckboxWrapperTheme, defaultCheckboxTheme, defaultCheckboxCheckTheme,
       defaultLabelTheme,
+      defaultTextareaTheme,
+      defaultSelectTheme, defaultSelectChevronTheme, defaultSelectWrapperTheme,
+      defaultSwitchTheme, defaultSwitchThumbTheme, defaultSwitchWrapperTheme,
+      defaultRadioTheme, defaultRadioDotTheme, defaultRadioWrapperTheme, defaultRadioGroupTheme,
       // Media
       defaultImgTheme,
       // Overlay/Popup/Icon
@@ -1003,6 +1111,8 @@ describe("Component theme coverage tests", () => {
       defaultInputWrapperTheme,
       // withDefaults variants
       defaultMenuPopupTheme, defaultMenuDividerTheme,
+      defaultFieldTheme, defaultFieldLabelTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme,
+      defaultAlertTheme, defaultSpinnerTheme, defaultTooltipTheme,
     ]);
 
     it("should cover every ComponentTheme instance in defaultTheme", () => {

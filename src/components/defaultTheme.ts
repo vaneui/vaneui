@@ -32,10 +32,28 @@ import { defaultCheckboxCheckTheme } from './ui/checkbox/defaultCheckboxCheckThe
 import { defaultCheckboxIndeterminateTheme } from './ui/checkbox/defaultCheckboxIndeterminateTheme';
 import { defaultCheckboxWrapperTheme } from './ui/checkbox/defaultCheckboxWrapperTheme';
 import { defaultLabelTheme } from './ui/label/defaultLabelTheme';
+import { defaultFieldTheme } from './ui/field/defaultFieldTheme';
+import { defaultAlertTheme } from './ui/alert/defaultAlertTheme';
+import { defaultSpinnerTheme } from './ui/spinner/defaultSpinnerTheme';
+import { defaultTooltipTheme } from './ui/tooltip/defaultTooltipTheme';
+import { defaultFieldLabelTheme } from './ui/field/defaultFieldLabelTheme';
+import { defaultFieldDescriptionTheme } from './ui/field/defaultFieldDescriptionTheme';
+import { defaultFieldErrorTheme } from './ui/field/defaultFieldErrorTheme';
 import { defaultImgTheme } from './ui/img/defaultImgTheme';
 import { defaultInputTheme } from './ui/input/defaultInputTheme';
 import { defaultInputErrorIconTheme } from './ui/input/defaultInputErrorIconTheme';
 import { defaultInputWrapperTheme } from './ui/input/defaultInputWrapperTheme';
+import { defaultTextareaTheme } from './ui/textarea/defaultTextareaTheme';
+import { defaultSelectTheme } from './ui/select/defaultSelectTheme';
+import { defaultSelectChevronTheme } from './ui/select/defaultSelectChevronTheme';
+import { defaultSelectWrapperTheme } from './ui/select/defaultSelectWrapperTheme';
+import { defaultSwitchTheme } from './ui/switch/defaultSwitchTheme';
+import { defaultSwitchThumbTheme } from './ui/switch/defaultSwitchThumbTheme';
+import { defaultSwitchWrapperTheme } from './ui/switch/defaultSwitchWrapperTheme';
+import { defaultRadioTheme } from './ui/radio/defaultRadioTheme';
+import { defaultRadioDotTheme } from './ui/radio/defaultRadioDotTheme';
+import { defaultRadioWrapperTheme } from './ui/radio/defaultRadioWrapperTheme';
+import { defaultRadioGroupTheme } from './ui/radio/defaultRadioGroupTheme';
 import { defaultOverlayTheme } from './ui/overlay/defaultOverlayTheme';
 import { defaultModalContentTheme } from './ui/modal/defaultModalContentTheme';
 import { defaultModalOverlayTheme } from './ui/modal/defaultModalOverlayTheme';
@@ -109,10 +127,31 @@ export const defaultTheme: ThemeProps = {
     wrapper: defaultCheckboxWrapperTheme,
   },
   label: defaultLabelTheme,
+  field: {
+    main: defaultFieldTheme,
+    label: defaultFieldLabelTheme,
+    description: defaultFieldDescriptionTheme,
+    error: defaultFieldErrorTheme,
+  },
   img: defaultImgTheme,
   input: defaultInputTheme,
   inputErrorIcon: defaultInputErrorIconTheme,
   inputWrapper: defaultInputWrapperTheme,
+  textarea: defaultTextareaTheme,
+  select: defaultSelectTheme,
+  selectChevron: defaultSelectChevronTheme,
+  selectWrapper: defaultSelectWrapperTheme,
+  switch: {
+    input: defaultSwitchTheme,
+    thumb: defaultSwitchThumbTheme,
+    wrapper: defaultSwitchWrapperTheme,
+  },
+  radio: {
+    input: defaultRadioTheme,
+    dot: defaultRadioDotTheme,
+    wrapper: defaultRadioWrapperTheme,
+  },
+  radioGroup: defaultRadioGroupTheme,
   overlay: defaultOverlayTheme,
   modal: {
     content: defaultModalContentTheme,
@@ -123,6 +162,9 @@ export const defaultTheme: ThemeProps = {
     closeButton: defaultModalCloseButtonTheme,
   },
   popup: defaultPopupTheme,
+  tooltip: defaultTooltipTheme,
+  alert: defaultAlertTheme,
+  spinner: defaultSpinnerTheme,
   menu: {
     item: defaultMenuItemTheme,
     popup: defaultMenuPopupTheme,

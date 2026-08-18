@@ -203,8 +203,8 @@ describe('Container Component Tests', () => {
 
       const containerEl = container.querySelector('div');
       // Container should not have padding by default (noPadding: true in defaults)
-      expect(containerEl).not.toHaveClass('px-(--px)');
-      expect(containerEl).not.toHaveClass('py-(--py)');
+      expect(containerEl).not.toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)');
+      expect(containerEl).not.toHaveClass('py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('should support padding prop', () => {
@@ -217,8 +217,8 @@ describe('Container Component Tests', () => {
       );
 
       const containerEl = container.querySelector('div');
-      expect(containerEl).toHaveClass('px-(--px)');
-      expect(containerEl).toHaveClass('py-(--py)');
+      expect(containerEl).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)');
+      expect(containerEl).toHaveClass('py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('should support noPadding prop to explicitly disable padding', () => {
@@ -231,8 +231,8 @@ describe('Container Component Tests', () => {
       );
 
       const containerEl = container.querySelector('div');
-      expect(containerEl).not.toHaveClass('px-(--px)');
-      expect(containerEl).not.toHaveClass('py-(--py)');
+      expect(containerEl).not.toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)');
+      expect(containerEl).not.toHaveClass('py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
     });
 
     it('should apply correct padding classes for different sizes', () => {
@@ -248,8 +248,8 @@ describe('Container Component Tests', () => {
         );
 
         const containerEl = container.querySelector('div');
-        expect(containerEl).toHaveClass('px-(--px)');
-        expect(containerEl).toHaveClass('py-(--py)');
+        expect(containerEl).toHaveClass('px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)');
+        expect(containerEl).toHaveClass('py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)');
         expect(containerEl).toHaveAttribute('data-size', size);
       });
     });

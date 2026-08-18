@@ -9,6 +9,7 @@ export const modalContentDefaults: Partial<ModalProps> = {
   overflowAuto: true,
   relative: true,
   noPadding: true,
+  responsiveSizing: true,
   gap: true,
   rounded: true,
   shadow: true,

@@ -8,4 +8,5 @@ export const modalFooterDefaults: Partial<ModalFooterProps> = {
   justifyEnd: true,
   gap: true,
   padding: true,
+  responsiveSizing: true,
 };

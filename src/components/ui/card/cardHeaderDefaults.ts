@@ -8,4 +8,5 @@ export const cardHeaderDefaults: Partial<CardHeaderProps> = {
   justifyBetween: true,
   gap: true,
   padding: true,
+  responsiveSizing: true,
 };

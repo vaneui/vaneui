@@ -24,7 +24,7 @@ describe('ModalFooter Component Tests', () => {
       expect(footer).toHaveClass('flex', 'flex-row');
       expect(footer).toHaveClass('items-center');
       expect(footer).toHaveClass('justify-end');
-      expect(footer).toHaveClass('gap-(--gap)');
+      expect(footer).toHaveClass('gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)');
     });
 
     it('should render children', () => {
@@ -117,7 +117,7 @@ describe('ModalFooter Component Tests', () => {
       );
 
       const footer = container.querySelector('.vane-modal-footer');
-      expect(footer).not.toHaveClass('gap-(--gap)');
+      expect(footer).not.toHaveClass('gap-(--gap-desktop)', 'max-tablet:gap-(--gap-tablet)', 'max-mobile:gap-(--gap-mobile)');
     });
   });
 });

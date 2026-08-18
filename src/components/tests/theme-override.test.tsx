@@ -636,7 +636,7 @@ describe('Theme Override Tests', () => {
       };
 
       const { container } = render(
-        <ThemeProvider themeOverride={overrideFunc}>
+        <ThemeProvider themeOverride={overrideFunc} themeDefaults={{ stack: { responsiveSizing: false } }}>
           <Stack gap className="custom-stack">
             <div>Item 1</div>
             <div>Item 2</div>
@@ -731,7 +731,7 @@ describe('Theme Override Tests', () => {
       };
 
       const { container } = render(
-        <ThemeProvider themeOverride={overrideFunc}>
+        <ThemeProvider themeOverride={overrideFunc} themeDefaults={{ card: { main: { responsiveSizing: false } } }}>
           <Card gap className="custom-card">
             <div>Item 1</div>
             <div>Item 2</div>

@@ -19,6 +19,11 @@
         --py-unit-desktop: var(--py-unit);
         --py-unit-tablet: var(--py-unit);
         --py-unit-mobile: var(--py-unit);
+        /* horizontal follows vertical unless a component caps it: narrowing a viewport
+           constrains the inline axis only, so the gutter must not track the block rhythm */
+        --px-unit-desktop: var(--py-unit-desktop);
+        --px-unit-tablet: var(--py-unit-tablet);
+        --px-unit-mobile: var(--py-unit-mobile);
         --gap-unit-desktop: var(--gap-unit);
         --gap-unit-tablet: var(--gap-unit);
         --gap-unit-mobile: var(--gap-unit);
@@ -31,9 +36,9 @@
         --py-tablet: calc(var(--py-unit-tablet) * var(--spacing));
         --py-mobile: calc(var(--py-unit-mobile) * var(--spacing));
 
-        --px-desktop: calc(var(--aspect-ratio) * var(--py-unit-desktop) * var(--spacing));
-        --px-tablet: calc(var(--aspect-ratio) * var(--py-unit-tablet) * var(--spacing));
-        --px-mobile: calc(var(--aspect-ratio) * var(--py-unit-mobile) * var(--spacing));
+        --px-desktop: calc(var(--aspect-ratio) * var(--px-unit-desktop) * var(--spacing));
+        --px-tablet: calc(var(--aspect-ratio) * var(--px-unit-tablet) * var(--spacing));
+        --px-mobile: calc(var(--aspect-ratio) * var(--px-unit-mobile) * var(--spacing));
 
         --gap-desktop: calc(var(--gap-unit-desktop) * var(--spacing));
         --gap-tablet: calc(var(--gap-unit-tablet) * var(--spacing));
@@ -94,12 +99,17 @@
         --br: calc(var(--min-h) * var(--br-unit));
     }
 
+    /* Square by default, and declared here rather than per size so a component rule can override it:
+       an [data-size] selector would outrank .vane-container's own ratio. Still blocks a ratio from
+       leaking in by inheritance (a Stack inside a Td). */
+    [data-vane-type="layout"] { --aspect-ratio: 1; }
+
     /* Layout gap/py units on the md-anchored curve (.5/.75/1/1.5/2x), so large sizes open up (md->xl doubles). */
-    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xs); }
-    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-sm); }
-    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-md); }
-    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 6; --py-unit: 6; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-lg); }
-    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 8; --py-unit: 8; --aspect-ratio: 1; --shadow-base: var(--shadow-layout-xl); }
+    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --shadow-base: var(--shadow-layout-xs); }
+    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --shadow-base: var(--shadow-layout-sm); }
+    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --shadow-base: var(--shadow-layout-md); }
+    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 6; --py-unit: 6; --shadow-base: var(--shadow-layout-lg); }
+    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 8; --py-unit: 8; --shadow-base: var(--shadow-layout-xl); }
 
     /* NON-RESPONSIVE COMPONENTS */
 
@@ -189,10 +199,26 @@
     .vane-input[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
     .vane-input[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-input[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
-    /* reserve trailing room for the overlaid alert icon (the inputErrorIcon sub-theme) */
-    .vane-input[data-status="error"] {
-        padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
-    }
+    /* trailing-icon room for input/select is declared unlayered at the end of this
+       file: a utilities-layer px-(--px) would otherwise win over it. */
+
+    /* Textarea: the input ramp on a multi-line box. No trailing-icon reservation —
+       a vertically centred icon reads as misplaced once the box grows. */
+    .vane-textarea { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; min-height: calc(var(--fs) * var(--lh) * 3); resize: vertical; }
+    .vane-textarea[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-textarea[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-textarea[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-textarea[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-textarea[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+
+    /* Select: the input ramp, but the trailing room is reserved unconditionally —
+       unlike the input's error icon, the chevron is always present. */
+    .vane-select { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; }
+    .vane-select[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    .vane-select[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    .vane-select[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    .vane-select[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    .vane-select[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Checkbox height = size-unit * spacing. xs lifted off 12px (too small) to 14px, sm 15px; md stays 16px. */
     .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
@@ -201,6 +227,43 @@
     .vane-checkbox[data-size="md"] { --size-unit: 4; }
     .vane-checkbox[data-size="lg"] { --size-unit: 4.5; }
     .vane-checkbox[data-size="xl"] { --size-unit: 5; }
+
+    /* Radio: same size ramp as the checkbox. Circular by default, so --br only applies when a consumer opts into `rounded`. */
+    .vane-radio[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
+    .vane-radio[data-size="xs"] { --size-unit: 3.5; }
+    .vane-radio[data-size="sm"] { --size-unit: 3.75; }
+    .vane-radio[data-size="md"] { --size-unit: 4; }
+    .vane-radio[data-size="lg"] { --size-unit: 4.5; }
+    .vane-radio[data-size="xl"] { --size-unit: 5; }
+
+    /* Switch: track a notch taller than the Checkbox box, 1.75x as wide.
+       Geometry vars sit on the wrapper so the track and the thumb both inherit them. */
+    .vane-switch-wrapper[data-size] {
+        --switch-w: calc(var(--size) * 1.75);
+        --switch-pad: calc(var(--size) * 0.125);
+        --switch-thumb: calc(var(--size) - 2 * var(--switch-pad));
+        --switch-travel: calc(var(--switch-w) - var(--size));
+    }
+    .vane-switch-wrapper[data-size="xs"] { --size-unit: 3.75; }
+    .vane-switch-wrapper[data-size="sm"] { --size-unit: 4; }
+    .vane-switch-wrapper[data-size="md"] { --size-unit: 4.5; }
+    .vane-switch-wrapper[data-size="lg"] { --size-unit: 5; }
+    .vane-switch-wrapper[data-size="xl"] { --size-unit: 6; }
+
+    /* Track radius when `rounded` replaces the pill default; beats the ui-type --min-h formula. */
+    .vane-switch[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
+
+    /* Thumb: a circle inset from the track edge; margin-inline-start + flipped travel keep it correct under RTL. */
+    .vane-switch-thumb { width: var(--switch-thumb); height: var(--switch-thumb); margin-inline-start: var(--switch-pad); }
+    [dir="rtl"] .vane-switch-thumb { --switch-travel: calc(var(--size) - var(--switch-w)); }
+
+    /* Field: tighter than the layout gap curve, so label/control/help read as one unit. */
+    .vane-field { --gap-unit: 1.5; }
+    .vane-field[data-size="xs"] { --gap-unit: 1; }
+    .vane-field[data-size="sm"] { --gap-unit: 1.25; }
+    .vane-field[data-size="md"] { --gap-unit: 1.5; }
+    .vane-field[data-size="lg"] { --gap-unit: 2; }
+    .vane-field[data-size="xl"] { --gap-unit: 2.5; }
 
     /* Label */
     .vane-label {
@@ -212,26 +275,9 @@
     .vane-label[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-label[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
-    /* Card padding on the shared layout curve (.5/.75/1/1.5/2x, md=6), gap half the padding (md 24px pad / 12px gap). */
-    .vane-card { --py-unit: 6; --gap-unit: 3; --aspect-ratio: 1; }
-    .vane-card[data-size="xs"] { --py-unit: 3; --gap-unit: 1.5; }
-    .vane-card[data-size="sm"] { --py-unit: 4.5; --gap-unit: 2.25; }
-    .vane-card[data-size="md"] { --py-unit: 6; --gap-unit: 3; }
-    .vane-card[data-size="lg"] { --py-unit: 9; --gap-unit: 4.5; }
-    .vane-card[data-size="xl"] { --py-unit: 12; --gap-unit: 6; }
-
-    /* Stack - inherits --py-unit and --aspect-ratio from layout type defaults */
-
-    /* Container py on the shared curve (.5/.75/1/1.5/2x, md=8); noPadding default, so py applies only when opted in. */
-    .vane-container { --py-unit: 8; --aspect-ratio: 2; }
-    .vane-container[data-size="xs"] { --py-unit: 4; }
-    .vane-container[data-size="sm"] { --py-unit: 6; }
-    .vane-container[data-size="md"] { --py-unit: 8; }
-    .vane-container[data-size="lg"] { --py-unit: 12; }
-    .vane-container[data-size="xl"] { --py-unit: 16; }
-
-    /* Divider */
-    .vane-divider { --py-unit: 4; --aspect-ratio: 2; }
+    /* Divider: ratio stays 1. box-content + w-full puts inline padding OUTSIDE the 100%, so a
+       wider horizontal inset overflows the parent instead of insetting the rule. */
+    .vane-divider { --py-unit: 4; --aspect-ratio: 1; }
     .vane-divider[data-size="xs"] { --py-unit: 2; }
     .vane-divider[data-size="sm"] { --py-unit: 3; }
     .vane-divider[data-size="md"] { --py-unit: 4; }
@@ -313,7 +359,68 @@
 
     /* RESPONSIVE COMPONENTS */
 
-    /* Section desktop py/gap on the shared curve; tablet ~0.5x and mobile ~0.33x desktop py. */
+    /* Card padding on the shared layout curve (.5/.75/1/1.5/2x, md=6), gap half the padding.
+       A surface's inset is chrome, not rhythm: it stays constant as the viewport shrinks, so a
+       nested stack starves the content. Both axes step down together to keep the box square. */
+    /* --py-unit stays the desktop value so disabling responsiveSizing keeps the component's own curve. */
+    .vane-card {
+        --gap-unit: 3; --aspect-ratio: 1;
+        --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 5; --py-unit-mobile: 4;
+    }
+    .vane-card[data-size="xs"] { --gap-unit: 1.5;  --py-unit: 3;   --py-unit-desktop: 3;   --py-unit-tablet: 3; --py-unit-mobile: 2; }
+    .vane-card[data-size="sm"] { --gap-unit: 2.25; --py-unit: 4.5; --py-unit-desktop: 4.5; --py-unit-tablet: 4; --py-unit-mobile: 3; }
+    .vane-card[data-size="md"] { --gap-unit: 3;    --py-unit: 6;   --py-unit-desktop: 6;   --py-unit-tablet: 5; --py-unit-mobile: 4; }
+    .vane-card[data-size="lg"] { --gap-unit: 4.5;  --py-unit: 9;   --py-unit-desktop: 9;   --py-unit-tablet: 7; --py-unit-mobile: 5; }
+    .vane-card[data-size="xl"] { --gap-unit: 6;    --py-unit: 12;  --py-unit-desktop: 12;  --py-unit-tablet: 9; --py-unit-mobile: 6; }
+
+    /* Container is a page wrapper, so it follows Section: the gutter caps independently of the
+       block rhythm (--px-unit-*) because a page margin is bounded by the viewport. --aspect-ratio 2
+       is live here, so --px is twice --px-unit. noPadding default, so this applies only when opted in. */
+    .vane-container {
+        --aspect-ratio: 2;
+        --py-unit: 8; --py-unit-desktop: 8; --py-unit-tablet: 6; --py-unit-mobile: 4;
+        --px-unit-tablet: 4; --px-unit-mobile: 2;
+    }
+    .vane-container[data-size="xs"] { --py-unit: 4;  --py-unit-desktop: 4;  --py-unit-tablet: 3;   --py-unit-mobile: 2; --px-unit-tablet: 3;   --px-unit-mobile: 2; }
+    .vane-container[data-size="sm"] { --py-unit: 6;  --py-unit-desktop: 6;  --py-unit-tablet: 4.5; --py-unit-mobile: 3; --px-unit-tablet: 4;   --px-unit-mobile: 2; }
+    .vane-container[data-size="md"] { --py-unit: 8;  --py-unit-desktop: 8;  --py-unit-tablet: 6;   --py-unit-mobile: 4; --px-unit-tablet: 4;   --px-unit-mobile: 2; }
+    .vane-container[data-size="lg"] { --py-unit: 12; --py-unit-desktop: 12; --py-unit-tablet: 9;   --py-unit-mobile: 6; --px-unit-tablet: 4;   --px-unit-mobile: 2; }
+    .vane-container[data-size="xl"] { --py-unit: 16; --py-unit-desktop: 16; --py-unit-tablet: 12;  --py-unit-mobile: 8; --px-unit-tablet: 4;   --px-unit-mobile: 2; }
+
+    /* Stack and Alert padding on the layout curve; same reasoning as Card, and both nest inside one. */
+    :is(.vane-stack, .vane-alert) {
+        --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3; --py-unit-mobile: 2;
+    }
+    :is(.vane-stack, .vane-alert)[data-size="xs"] { --py-unit: 2; --py-unit-desktop: 2; --py-unit-tablet: 2;   --py-unit-mobile: 1; }
+    :is(.vane-stack, .vane-alert)[data-size="sm"] { --py-unit: 3; --py-unit-desktop: 3; --py-unit-tablet: 2.5; --py-unit-mobile: 2; }
+    :is(.vane-stack, .vane-alert)[data-size="md"] { --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3;   --py-unit-mobile: 2; }
+    :is(.vane-stack, .vane-alert)[data-size="lg"] { --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 4;   --py-unit-mobile: 3; }
+    :is(.vane-stack, .vane-alert)[data-size="xl"] { --py-unit: 8; --py-unit-desktop: 8; --py-unit-tablet: 6;   --py-unit-mobile: 4; }
+
+    /* Modal and Popup are floating surfaces: the viewport is their whole budget on a phone,
+       so their inset ramps with it. Both stay square. */
+    .vane-modal {
+        --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 5; --py-unit-mobile: 4;
+    }
+    .vane-modal[data-size="xs"] { --modal-width: var(--modal-width-xs); --py-unit: 2;  --py-unit-desktop: 2;  --py-unit-tablet: 2; --py-unit-mobile: 1.5; }
+    .vane-modal[data-size="sm"] { --modal-width: var(--modal-width-sm); --py-unit: 4;  --py-unit-desktop: 4;  --py-unit-tablet: 3; --py-unit-mobile: 2.5; }
+    .vane-modal[data-size="md"] { --modal-width: var(--modal-width-md); --py-unit: 6;  --py-unit-desktop: 6;  --py-unit-tablet: 5; --py-unit-mobile: 4; }
+    .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8;  --py-unit-desktop: 8;  --py-unit-tablet: 6; --py-unit-mobile: 5; }
+    .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; --py-unit-desktop: 10; --py-unit-tablet: 8; --py-unit-mobile: 6; }
+
+    .vane-popup {
+        --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3; --py-unit-mobile: 2.5;
+    }
+    .vane-popup[data-size="xs"] { --py-unit: 2; --py-unit-desktop: 2; --py-unit-tablet: 2;   --py-unit-mobile: 1.5; }
+    .vane-popup[data-size="sm"] { --py-unit: 3; --py-unit-desktop: 3; --py-unit-tablet: 2.5; --py-unit-mobile: 2; }
+    .vane-popup[data-size="md"] { --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3;   --py-unit-mobile: 2.5; }
+    .vane-popup[data-size="lg"] { --py-unit: 5; --py-unit-desktop: 5; --py-unit-tablet: 4;   --py-unit-mobile: 3; }
+    .vane-popup[data-size="xl"] { --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 5;   --py-unit-mobile: 4; }
+
+    /* Section desktop py/gap on the shared curve; tablet ~0.5x and mobile ~0.33x desktop py.
+       The horizontal gutter is capped separately from lg up (--px-unit-*): a page margin is
+       bounded by the viewport, not by the section's vertical rhythm, so an xl section keeps its
+       96px of breathing room down the page while its gutter stops at 16px on a phone. */
     .vane-section {
         --lh: var(--lh-base);
         --py-unit-desktop: 12;
@@ -337,10 +444,12 @@
     }
     .vane-section[data-size="lg"] {
         --py-unit-desktop: 18; --py-unit-tablet: 9; --py-unit-mobile: 6;
+        --px-unit-tablet: 8; --px-unit-mobile: 4;
         --gap-unit-desktop: 12; --gap-unit-tablet: 9; --gap-unit-mobile: 6;
     }
     .vane-section[data-size="xl"] {
         --py-unit-desktop: 24; --py-unit-tablet: 12; --py-unit-mobile: 8;
+        --px-unit-tablet: 8; --px-unit-mobile: 4;
         --gap-unit-desktop: 16; --gap-unit-tablet: 12; --gap-unit-mobile: 8;
     }
 
@@ -379,14 +488,6 @@
     .vane-page-title[data-size="md"] { --fs-unit-desktop: 24; --fs-unit-tablet: 21; --fs-unit-mobile: 18; --lh: 1; }
     .vane-page-title[data-size="lg"] { --fs-unit-desktop: 30; --fs-unit-tablet: 27; --fs-unit-mobile: 24; --lh: 1; }
     .vane-page-title[data-size="xl"] { --fs-unit-desktop: 36; --fs-unit-tablet: 33; --fs-unit-mobile: 30; --lh: 1; }
-
-    /* Modal - uses same padding as Card */
-    .vane-modal { --py-unit: 6; --aspect-ratio: 1; }
-    .vane-modal[data-size="xs"] { --modal-width: var(--modal-width-xs); --py-unit: 2; }
-    .vane-modal[data-size="sm"] { --modal-width: var(--modal-width-sm); --py-unit: 4; }
-    .vane-modal[data-size="md"] { --modal-width: var(--modal-width-md); --py-unit: 6; }
-    .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8; }
-    .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; }
 
     /* MenuItem: padding scale matches Button's so larger sizes render visibly larger items. */
     .vane-menu-item { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.15; }
@@ -440,12 +541,12 @@
 
     /* Popup - equal padding for floating content (matches layout defaults) */
     /* Safety cap: never wider than the viewport (wide content scrolls via overflowAuto). */
-    .vane-popup { --py-unit: 4; --aspect-ratio: 1; max-width: calc(100vw - 1rem); }
-    .vane-popup[data-size="xs"] { --br-unit: 1.5; --py-unit: 2; --max-height: 12rem; --popup-min-w: 6rem; --popup-arrow-size: 5px; }
-    .vane-popup[data-size="sm"] { --br-unit: 2; --py-unit: 3; --max-height: 16rem; --popup-min-w: 7rem; --popup-arrow-size: 6px; }
-    .vane-popup[data-size="md"] { --br-unit: 2.5; --py-unit: 4; --max-height: 20rem; --popup-min-w: 8rem; --popup-arrow-size: 7px; }
-    .vane-popup[data-size="lg"] { --br-unit: 3; --py-unit: 5; --max-height: 24rem; --popup-min-w: 9rem; --popup-arrow-size: 8px; }
-    .vane-popup[data-size="xl"] { --br-unit: 3.5; --py-unit: 6; --max-height: 28rem; --popup-min-w: 10rem; --popup-arrow-size: 10px; }
+    .vane-popup { max-width: calc(100vw - 1rem); }
+    .vane-popup[data-size="xs"] { --br-unit: 1.5; --max-height: 12rem; --popup-min-w: 6rem; --popup-arrow-size: 5px; }
+    .vane-popup[data-size="sm"] { --br-unit: 2; --max-height: 16rem; --popup-min-w: 7rem; --popup-arrow-size: 6px; }
+    .vane-popup[data-size="md"] { --br-unit: 2.5; --max-height: 20rem; --popup-min-w: 8rem; --popup-arrow-size: 7px; }
+    .vane-popup[data-size="lg"] { --br-unit: 3; --max-height: 24rem; --popup-min-w: 9rem; --popup-arrow-size: 8px; }
+    .vane-popup[data-size="xl"] { --br-unit: 3.5; --max-height: 28rem; --popup-min-w: 10rem; --popup-arrow-size: 10px; }
 
     /* Inner scroll viewport: clamps height & scrolls so the outer box (which hosts the arrow) stays overflow:visible.
        tabindex=0 (set in Popup.tsx) keeps the scroll region keyboard-operable (WCAG 2.1.1). */
@@ -454,11 +555,11 @@
     .vane-popup[data-menu-dropdown] > .vane-popup-scroll { max-height: none; overflow: visible; }
 
     /* Menu dropdown: tighter than generic Popup; floor lifted to 4px so no size renders below the minimum. */
-    .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 1; }
-    .vane-popup[data-menu-dropdown][data-size="sm"] { --py-unit: 1.25; }
-    .vane-popup[data-menu-dropdown][data-size="md"] { --py-unit: 1.5; }
-    .vane-popup[data-menu-dropdown][data-size="lg"] { --py-unit: 1.75; }
-    .vane-popup[data-menu-dropdown][data-size="xl"] { --py-unit: 2; }
+    .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 1;    --py-unit-desktop: 1;    --py-unit-tablet: 1;    --py-unit-mobile: 1; }
+    .vane-popup[data-menu-dropdown][data-size="sm"] { --py-unit: 1.25; --py-unit-desktop: 1.25; --py-unit-tablet: 1.25; --py-unit-mobile: 1.25; }
+    .vane-popup[data-menu-dropdown][data-size="md"] { --py-unit: 1.5;  --py-unit-desktop: 1.5;  --py-unit-tablet: 1.5;  --py-unit-mobile: 1.5; }
+    .vane-popup[data-menu-dropdown][data-size="lg"] { --py-unit: 1.75; --py-unit-desktop: 1.75; --py-unit-tablet: 1.75; --py-unit-mobile: 1.75; }
+    .vane-popup[data-menu-dropdown][data-size="xl"] { --py-unit: 2;    --py-unit-desktop: 2;    --py-unit-tablet: 2;    --py-unit-mobile: 2; }
 
     /* ANIMATIONS — driven by data-state from useTransition */
 
@@ -536,7 +637,15 @@
     [data-placement="left-end"] > .vane-popup-arrow,
     [data-placement="right-end"] > .vane-popup-arrow { top: auto; bottom: 1rem; margin-top: 0; margin-bottom: calc(var(--popup-arrow-size, 7px) / -2); }
 
-    /* Card compound sub-components */
+    /* Card and Modal compound sub-components */
+    /* Sub-parts carry no data-size, so [data-responsive] (base layer) would reset their breakpoint
+       units to the base --py-unit; components layer wins, re-inheriting the parent surface's ramp. */
+    :is(.vane-card-header, .vane-card-body, .vane-card-footer,
+        .vane-modal-header, .vane-modal-body, .vane-modal-footer) {
+        --py-unit-desktop: inherit;
+        --py-unit-tablet: inherit;
+        --py-unit-mobile: inherit;
+    }
     .vane-card-header {
         flex-shrink: 0;
     }
@@ -579,6 +688,21 @@
     [data-loading="true"] {
         position: relative;
     }
+    /* Ring is 1em square, so the size prop reaches it through --fs. */
+    .vane-spinner[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-spinner[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-spinner[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-spinner[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-spinner[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+    .vane-spinner {
+        width: 1em;
+        height: 1em;
+        border: 0.125em solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        animation: vane-spin 0.6s linear infinite;
+    }
+
     .vane-button-spinner-ring {
         width: 1em;
         height: 1em;
@@ -762,6 +886,39 @@
         --ring-color: var(--checked-bg-color);
     }
 
+    /* Radio mirrors the checkbox border treatment: neutral unchecked border, appearance color once checked. */
+    .vane-radio[data-variant] {
+        --border-color: var(--color-border-form);
+        --ring-color: var(--color-border-form);
+    }
+
+    .vane-radio[data-variant="filled"]:checked {
+        --border-color: transparent;
+        --ring-color: transparent;
+    }
+
+    .vane-radio:is([data-variant="outline"], [data-variant="ghost"]):checked {
+        --border-color: var(--checked-bg-color);
+        --ring-color: var(--checked-bg-color);
+    }
+
+    /* Switch track needs a visible unchecked border despite filled's transparent — same as Checkbox.
+       Kept as its own block rather than widening the checkbox selectors, so checkbox behavior is untouched. */
+    .vane-switch[data-variant] {
+        --border-color: var(--color-border-form);
+        --ring-color: var(--color-border-form);
+    }
+
+    .vane-switch[data-variant="filled"]:checked {
+        --border-color: transparent;
+        --ring-color: transparent;
+    }
+
+    .vane-switch:is([data-variant="outline"], [data-variant="ghost"]):checked {
+        --border-color: var(--checked-bg-color);
+        --ring-color: var(--checked-bg-color);
+    }
+
     /* REDUCED MOTION — uses 0.01ms (not 0s) so JS animationend/transitionend listeners still fire. */
 
     @media (prefers-reduced-motion: reduce) {
@@ -772,7 +929,7 @@
             animation-iteration-count: 1 !important;
         }
 
-        .vane-button-spinner-ring {
+        :is(.vane-button-spinner-ring, .vane-spinner) {
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
         }
@@ -782,6 +939,22 @@
         }
     }
 
+}
+
+/* TRAILING-ICON PADDING — deliberately unlayered.
+   Both fields overlay an icon on their trailing edge (the select chevron always, the
+   input's alert icon in the error state) and must reserve room for it. The components
+   layer cannot do that: the size system emits `px-(--px)` from the utilities layer,
+   which beats any layered rule regardless of specificity, so a layered
+   padding-inline-end silently lost and the icon sat on top of the text. Unlayered
+   declarations outrank every layer, so this is the one place the reservation holds. */
+
+.vane-select {
+    padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
+}
+
+.vane-input[data-status="error"] {
+    padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
 }
 
 /* KEYFRAMES — defined outside @layer so they're globally available. */

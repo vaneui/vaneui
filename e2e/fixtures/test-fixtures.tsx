@@ -24,15 +24,28 @@ import {
   MenuLabel,
   NavLink,
   Divider,
+  Container,
+  Field,
+  Alert,
+  Spinner,
+  Tooltip,
   Row,
   Code,
   Checkbox,
   Label,
   Input,
+  Textarea,
+  Select,
+  Switch,
+  Radio,
+  RadioGroup,
   List,
   ListItem,
   Col,
   Stack,
+  CardHeader,
+  CardBody,
+  CardFooter,
   Grid4,
   Grid6,
   Section,
@@ -990,9 +1003,93 @@ export function TestHarness() {
           </Overlay>
         </section>
 
+        {/* ── Field / Alert / Spinner / Tooltip ── */}
+
+        <section data-testid="tier2-section">
+          {/* Field owns the id and links help + error text to the control it wraps. */}
+          <Field
+            data-testid="tier2-field"
+            label="Work email"
+            description="Used for billing"
+            error="Required"
+          >
+            <Input data-testid="tier2-field-input" />
+          </Field>
+
+          <Field data-testid="tier2-field-plain" label="Plain">
+            <Input data-testid="tier2-field-plain-input" />
+          </Field>
+
+          <Alert data-testid="tier2-alert">assertive alert</Alert>
+          <Alert data-testid="tier2-alert-polite" polite success>polite status</Alert>
+
+          <Spinner data-testid="tier2-spinner" aria-label="Loading" />
+          <Spinner data-testid="tier2-spinner-xl" xl aria-label="Loading large" />
+
+          <Tooltip
+            content="Tip body"
+            openDelay={0}
+            popupProps={{ 'data-testid': 'tier2-tooltip' } as Record<string, unknown>}
+          >
+            <Button data-testid="tier2-tooltip-trigger">tooltip trigger</Button>
+          </Tooltip>
+        </section>
+
+        {/* ── Aspect ratio: --aspect-ratio is the declared px:py ratio, asserted on computed values ── */}
+
+        <section data-testid="ratio-section">
+          <Button data-testid="ratio-button">btn</Button>
+          <IconButton data-testid="ratio-icon-button" aria-label="icon">x</IconButton>
+          <Badge data-testid="ratio-badge">badge</Badge>
+          <Chip data-testid="ratio-chip">chip</Chip>
+          <Code data-testid="ratio-code">code</Code>
+          <Kbd data-testid="ratio-kbd">K</Kbd>
+          <Input data-testid="ratio-input" aria-label="ratio input" />
+          <NavLink data-testid="ratio-nav-link">nav</NavLink>
+          <Card data-testid="ratio-card">card</Card>
+          <Stack data-testid="ratio-stack">stack</Stack>
+          <Container data-testid="ratio-container" padding>container</Container>
+          <Divider data-testid="ratio-divider" padding />
+          <Table>
+            <Tbody>
+              <Tr><Td data-testid="ratio-td">cell</Td></Tr>
+            </Tbody>
+          </Table>
+        </section>
+
+        {/* Container gutter caps like Section's; its ratio 2 doubles the inline axis. */}
+        <section data-testid="surface-ramp-section">
+          <Container data-testid="surface-container-md" md padding>container md</Container>
+          <Container data-testid="surface-container-xl" xl padding>container xl</Container>
+        </section>
+
+        {/* ── Nesting: a surface's inset is chrome, so it must not starve content on a phone ── */}
+
+        <section data-testid="nesting-section">
+          {/* Worst real-world chain from the docs site: page gutter, then two padded surfaces. */}
+          <Section data-testid="nesting-outer" xl>
+            <Card data-testid="nesting-card" lg wFull>
+              <Stack data-testid="nesting-inner" md wFull>
+                <Text data-testid="nesting-content">deepest content</Text>
+              </Stack>
+            </Card>
+          </Section>
+
+          {/* Compound Card: sub-parts carry no data-size, so they must re-inherit the Card's ramp. */}
+          <Card data-testid="nesting-compound" lg wFull>
+            <CardHeader data-testid="nesting-compound-header">header</CardHeader>
+            <CardBody data-testid="nesting-compound-body">body</CardBody>
+            <CardFooter data-testid="nesting-compound-footer">footer</CardFooter>
+          </Card>
+        </section>
+
         {/* ── Responsive: breakpoint props ── */}
 
         <section data-testid="responsive-section">
+          {/* Section gutter cap: vertical rhythm keeps scaling, horizontal stops at 16px on mobile */}
+          <Section data-testid="responsive-gutter-xl" xl>gutter xl</Section>
+          <Section data-testid="responsive-gutter-md" md>gutter md</Section>
+
           {/* mobileCol: row on desktop, column on mobile (<768px) */}
           <Row data-testid="responsive-mobileCol" mobileStack>
             <Text data-testid="responsive-mobileCol-child1">A</Text>
@@ -1427,6 +1524,58 @@ export function TestHarness() {
           <Table xs data-testid="tbl-xs">
             <Tbody><Tr><Td xl data-testid="tbl-override">xs table, xl cell</Td></Tr></Tbody>
           </Table>
+        </section>
+
+        {/* ── Form controls: Textarea / Select / Switch / Radio(Group) geometry.
+            Sizes xs..xl let form-controls.spec.ts assert the computed CSS ramps
+            (font-size, track/thumb box, trailing-icon reservation). ── */}
+        <section data-testid="form-controls-section">
+          {/* Textarea: default, size ramp, invalid */}
+          <Textarea aria-label="textarea default" data-testid="textarea-default" />
+          <Textarea xs aria-label="textarea xs" data-testid="textarea-xs" />
+          <Textarea sm aria-label="textarea sm" data-testid="textarea-sm" />
+          <Textarea md aria-label="textarea md" data-testid="textarea-md" />
+          <Textarea lg aria-label="textarea lg" data-testid="textarea-lg" />
+          <Textarea xl aria-label="textarea xl" data-testid="textarea-xl" />
+          <Textarea invalid aria-label="textarea invalid" data-testid="textarea-invalid" />
+
+          {/* Select: default, size ramp, invalid. The chevron is always rendered. */}
+          <Select aria-label="select default" data-testid="select-default">
+            <option value="a">A</option>
+            <option value="b">B</option>
+          </Select>
+          <Select xs aria-label="select xs" data-testid="select-xs"><option value="a">A</option></Select>
+          <Select sm aria-label="select sm" data-testid="select-sm"><option value="a">A</option></Select>
+          <Select md aria-label="select md" data-testid="select-md"><option value="a">A</option></Select>
+          <Select lg aria-label="select lg" data-testid="select-lg"><option value="a">A</option></Select>
+          <Select xl aria-label="select xl" data-testid="select-xl"><option value="a">A</option></Select>
+          <Select invalid aria-label="select invalid" data-testid="select-invalid"><option value="a">A</option></Select>
+
+          {/* Switch: default, size ramp, checked/unchecked pair, disabled/enabled pair */}
+          <Switch aria-label="switch default" data-testid="switch-default" />
+          <Switch xs aria-label="switch xs" data-testid="switch-xs" />
+          <Switch sm aria-label="switch sm" data-testid="switch-sm" />
+          <Switch md aria-label="switch md" data-testid="switch-md" />
+          <Switch lg aria-label="switch lg" data-testid="switch-lg" />
+          <Switch xl aria-label="switch xl" data-testid="switch-xl" />
+          <Switch aria-label="switch unchecked" data-testid="switch-unchecked" />
+          <Switch defaultChecked aria-label="switch checked" data-testid="switch-checked" />
+          <Switch aria-label="switch enabled" data-testid="switch-enabled" />
+          <Switch disabled aria-label="switch disabled" data-testid="switch-disabled" />
+
+          {/* Radio: default + size ramp */}
+          <Radio aria-label="radio default" data-testid="radio-default" />
+          <Radio xs aria-label="radio xs" data-testid="radio-xs" />
+          <Radio sm aria-label="radio sm" data-testid="radio-sm" />
+          <Radio md aria-label="radio md" data-testid="radio-md" />
+          <Radio lg aria-label="radio lg" data-testid="radio-lg" />
+          <Radio xl aria-label="radio xl" data-testid="radio-xl" />
+
+          {/* RadioGroup: two Radios sharing a name, second one selected */}
+          <RadioGroup name="fc-group" defaultValue="b" data-testid="radiogroup-default">
+            <Radio value="a" aria-label="radio group a" data-testid="radiogroup-radio-a" />
+            <Radio value="b" aria-label="radio group b" data-testid="radiogroup-radio-b" />
+          </RadioGroup>
         </section>
 
       </div>

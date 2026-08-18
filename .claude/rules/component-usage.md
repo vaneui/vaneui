@@ -137,6 +137,10 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Quoted content | `Blockquote` | Left border accent, inherits parent appearance |
 | Text input | `Input` | Renders `<input>`, all HTML input attrs |
 | Toggle | `Checkbox` | Custom styled, use inside `Label` |
+| Form field (label + help + error) | `Field` | Owns the id, points the label at the control, links help/error with `aria-describedby`. An `error` also marks the control invalid |
+| Inline status message | `Alert` | Live region: `role="alert"`, or `role="status"` with `polite` |
+| Busy indicator | `Spinner` | `role="status"`; give it an `aria-label` |
+| Hover/focus hint | `Tooltip` + trigger | Describes its trigger; no `aria-haspopup`/`aria-expanded` |
 | Input label | `Label` | Flex **column** (label above field) with gap, sm size, `inheritAppearance`. Use `row` for inline controls (e.g. Checkbox) |
 | Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `listDecimal` |
 | Horizontal rule | `Divider` | Thin line separator |
@@ -195,6 +199,16 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
     <Button filled>Create Account</Button>
   </Stack>
 </Card>
+```
+
+Prefer `Field` when a control needs help text or an error message: it generates the
+id, points the label at the control and links both messages with `aria-describedby`,
+which `Label` alone does not do.
+
+```tsx
+<Field label="Email" description="We never share it." error={errors.email}>
+  <Input type="email" />
+</Field>
 ```
 
 Mark a field's validation state with the `invalid` validity prop — it layers a danger border/ring over the input's current appearance: `<Input invalid />`.
@@ -371,6 +385,11 @@ For size-driven floating dimensions, `constrainWidth` applies a size-dependent m
 ## Responsive Layout
 
 VaneUI is **desktop-first**. Base styles target desktop. Use breakpoint props to adapt for smaller screens.
+
+Every padded surface (`Section`, `Card`, `Stack`, `Container`, `Modal`, `Popup`) scales its
+padding down on tablet and mobile, so a nested stack does not starve content on a phone.
+`Row`, `Col`, `Grid*` and `Container` default to `noPadding` and add nothing unless you opt
+in. Prefer `Col` over `Stack` inside an already padded `Card` when you want no second inset.
 
 ```tsx
 {/* Row on desktop, stacks to column on mobile */}

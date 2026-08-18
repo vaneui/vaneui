@@ -1,6 +1,7 @@
 import { forwardRef, useRef, useEffect, useMemo } from 'react';
 import type { CheckboxProps } from './CheckboxProps';
 import { useTheme } from "../../themeContext";
+import { useFieldControlProps } from "../field/FieldContext";
 import { ThemedComponent } from "../../themedComponent";
 import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
 import { defaultCheckboxTheme } from "./defaultCheckboxTheme";
@@ -9,7 +10,8 @@ import { defaultCheckboxIndeterminateTheme } from "./defaultCheckboxIndeterminat
 import { defaultCheckboxWrapperTheme } from "./defaultCheckboxWrapperTheme";
 
 export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
-  function Checkbox(props, ref) {
+  function Checkbox(rawProps, ref) {
+    const props = useFieldControlProps(rawProps);
     const theme = useTheme();
     const wrapperThemeBase = theme?.checkbox.wrapper ?? defaultCheckboxWrapperTheme;
     const inputThemeBase = theme?.checkbox.input ?? defaultCheckboxTheme;
