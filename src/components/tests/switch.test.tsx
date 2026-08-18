@@ -136,6 +136,31 @@ describe('Switch Component Tests', () => {
 
       expect(getInput(container)).toHaveClass(expected);
     });
+
+    it.each([
+      { prop: 'pill', expected: 'rounded-full' },
+      { prop: 'sharp', expected: 'rounded-none' },
+      { prop: 'rounded', expected: 'rounded-(--br)' },
+    ] as const)('should give the thumb the $prop shape too, not just the track', ({prop, expected}) => {
+      const {container} = renderSwitch(<Switch {...{[prop]: true}} />);
+
+      expect(container.querySelector('span.vane-switch-thumb')).toHaveClass(expected);
+    });
+
+    it('should leave the thumb on its pill default when no shape is set', () => {
+      const {container} = renderSwitch(<Switch />);
+
+      expect(container.querySelector('span.vane-switch-thumb')).toHaveClass('rounded-full');
+    });
+
+    it('should not leak the forwarded shape props onto the thumb element', () => {
+      const {container} = renderSwitch(<Switch sharp />);
+
+      const thumb = container.querySelector('span.vane-switch-thumb') as HTMLElement;
+      for (const leaked of ['pill', 'sharp', 'rounded']) {
+        expect(thumb.hasAttribute(leaked)).toBe(false);
+      }
+    });
   });
 
   describe('Switch Checked State', () => {

@@ -1562,6 +1562,9 @@ export function TestHarness() {
           <Switch defaultChecked aria-label="switch checked" data-testid="switch-checked" />
           <Switch aria-label="switch enabled" data-testid="switch-enabled" />
           <Switch disabled aria-label="switch disabled" data-testid="switch-disabled" />
+          {/* shapes: the thumb has to follow the track, inset by the track padding */}
+          <Switch rounded aria-label="switch rounded" data-testid="switch-rounded" />
+          <Switch sharp aria-label="switch sharp" data-testid="switch-sharp" />
 
           {/* Radio: default + size ramp */}
           <Radio aria-label="radio default" data-testid="radio-default" />

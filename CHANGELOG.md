@@ -10,7 +10,28 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
-## 1.1.1
+## 1.1.2
+
+`2026-08-18`
+
+### Added
+
+- **A `Select`'s dropdown list is now styled where the engine allows it.** A native
+  `<select>` hands its option list to the operating system, which draws a flat,
+  square, unpadded menu: the options get no layout box at all, so padding, radius
+  and shadow were inert and only their colors landed. Behind
+  `@supports (appearance: base-select)` the list becomes real DOM and is themed to
+  match a `Menu` (surface, border, radius, shadow, padded rows, hover, and a
+  checkmark on the selected option). Engines without it keep the OS picker
+  unchanged, and the control is the same `<select>` either way.
+
+### Fixed
+
+- **A `sharp` or `rounded` `Switch` reshaped only its track.** The knob was
+  rendered with no props and its theme pins `pill`, so a square track kept a
+  circular knob. The shape now reaches the knob, and its radius insets from the
+  track's by the track padding, so the two corners stay concentric rather than
+  sharing one radius across boxes of different sizes.
 
 `2026-08-18`
 

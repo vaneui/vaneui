@@ -128,6 +128,40 @@ test.describe('Select', () => {
     );
   });
 
+  // The OS-drawn picker gives its options NO layout box, so padding/radius/shadow are inert
+  // there and only text/background color land. base-select makes the list real DOM.
+  test('the dropdown list is real, themed DOM on engines that support base-select', async ({ page }) => {
+    const supported = await page.evaluate(() => CSS.supports('appearance', 'base-select'));
+    test.skip(!supported, 'engine keeps the OS-drawn picker; the @supports block never applies');
+
+    const select = page.locator('[data-testid="select-default"]');
+    expect(await getStyle(select, 'appearance')).toBe('base-select');
+
+    await select.click();
+    const option = select.locator('option').first();
+    const box = await option.boundingBox();
+    expect(box, 'an OS-drawn option has no box at all').not.toBeNull();
+    expect(box!.height).toBeGreaterThan(0);
+    expect(await getPx(option, 'padding-inline-start')).toBeGreaterThan(0);
+    expect(await getPx(option, 'border-top-left-radius')).toBeGreaterThan(0);
+    await page.keyboard.press('Escape');
+  });
+
+  // base-select swaps in a built-in ::picker-icon, which would sit on top of the themed chevron
+  test('hides the built-in picker icon so only the themed chevron shows', async ({ page }) => {
+    const supported = await page.evaluate(() => CSS.supports('appearance', 'base-select'));
+    test.skip(!supported, 'no built-in picker icon on this engine');
+
+    const display = await page.locator('[data-testid="select-default"]').evaluate(
+      (el) => getComputedStyle(el, '::picker-icon').display,
+    );
+    expect(display).toBe('none');
+    await expect(
+      page.locator('.vane-select-wrapper', { has: page.locator('[data-testid="select-default"]') })
+        .locator('.vane-select-chevron'),
+    ).toBeVisible();
+  });
+
   test('the chevron picks up the danger color when the field is invalid', async ({ page }) => {
     const wrapper = page.locator('.vane-select-wrapper', { has: page.locator('[data-testid="select-invalid"]') });
     const invalid = await getStyle(wrapper.locator('.vane-select-chevron'), 'color');
@@ -195,6 +229,44 @@ test.describe('Switch', () => {
     const enabled = await getPx(switchWrapper(page, 'switch-enabled'), 'opacity');
     const disabled = await getPx(switchWrapper(page, 'switch-disabled'), 'opacity');
     expect(disabled).toBeLessThan(enabled);
+  });
+});
+
+test.describe('Switch shape', () => {
+  const thumbOf = (page: Page, testid: string) =>
+    switchWrapper(page, testid).locator('.vane-switch-thumb');
+
+  test('pill (the default) rounds both the track and the knob fully', async ({ page }) => {
+    const track = await getPx(page.locator('[data-testid="switch-default"]'), 'border-top-left-radius');
+    const thumb = await getPx(thumbOf(page, 'switch-default'), 'border-top-left-radius');
+    // a pill resolves to an effectively unbounded radius on both boxes
+    expect(track).toBeGreaterThan(1000);
+    expect(thumb).toBeGreaterThan(1000);
+  });
+
+  test('sharp squares the knob too, instead of leaving a circle in a square track', async ({ page }) => {
+    expect(await getPx(page.locator('[data-testid="switch-sharp"]'), 'border-top-left-radius')).toBe(0);
+    expect(await getPx(thumbOf(page, 'switch-sharp'), 'border-top-left-radius')).toBe(0);
+  });
+
+  // concentric corners: the knob sits --switch-pad inside the track, so its radius is the
+  // track's less that inset. Equal radii would read as a rounder knob in a squarer track.
+  test('rounded insets the knob radius from the track radius by the track padding', async ({ page }) => {
+    const wrapper = switchWrapper(page, 'switch-rounded');
+    const track = await getPx(page.locator('[data-testid="switch-rounded"]'), 'border-top-left-radius');
+    const thumb = await getPx(thumbOf(page, 'switch-rounded'), 'border-top-left-radius');
+    const pad = parseFloat(await wrapper.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      const probe = document.createElement('div');
+      probe.style.width = cs.getPropertyValue('--switch-pad');
+      el.appendChild(probe);
+      const w = getComputedStyle(probe).width;
+      probe.remove();
+      return w;
+    }));
+    expect(track).toBeGreaterThan(0);
+    expect(thumb).toBeGreaterThan(0);
+    expect(thumb).toBeCloseTo(track - pad, 1);
   });
 });
 

@@ -252,6 +252,8 @@
         --switch-pad: calc(var(--size) * 0.125);
         --switch-thumb: calc(var(--size) - 2 * var(--switch-pad));
         --switch-travel: calc(var(--switch-w) - var(--size));
+        /* `rounded` radius for the track; the thumb insets from this one value so the two stay concentric. */
+        --switch-br: calc(var(--size) * 0.25);
     }
     .vane-switch-wrapper[data-size="xs"] { --size-unit: 3.75; }
     .vane-switch-wrapper[data-size="sm"] { --size-unit: 4; }
@@ -260,10 +262,16 @@
     .vane-switch-wrapper[data-size="xl"] { --size-unit: 6; }
 
     /* Track radius when `rounded` replaces the pill default; beats the ui-type --min-h formula. */
-    .vane-switch[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
+    .vane-switch[data-size] { --br: var(--switch-br); }
 
-    /* Thumb: a circle inset from the track edge; margin-inline-start + flipped travel keep it correct under RTL. */
-    .vane-switch-thumb { width: var(--switch-thumb); height: var(--switch-thumb); margin-inline-start: var(--switch-pad); }
+    /* Thumb: a knob inset from the track edge; margin-inline-start + flipped travel keep it correct under RTL. */
+    /* Its radius is the track's less that inset, so a `rounded` knob nests inside a `rounded` track. */
+    .vane-switch-thumb {
+        width: var(--switch-thumb);
+        height: var(--switch-thumb);
+        margin-inline-start: var(--switch-pad);
+        --br: calc(var(--switch-br) - var(--switch-pad));
+    }
     [dir="rtl"] .vane-switch-thumb { --switch-travel: calc(var(--size) - var(--switch-w)); }
 
     /* Field: tighter than the layout gap curve, so label/control/help read as one unit. */
@@ -970,6 +978,47 @@
    forwarded to it, and its own text-(--color-text-secondary) utility would win a layer. */
 .vane-select[data-status="error"] ~ .vane-select-chevron {
     color: var(--color-text-danger);
+}
+
+/* STYLEABLE DROPDOWN — also unlayered, because `appearance-none` is a utility class and a
+   layered `appearance: base-select` would lose to it no matter the specificity.
+   Without this the option list is an OS surface: the options get no layout box at all, so
+   padding, radius and shadow are inert and only their text/background colors land. Browsers
+   that lack base-select keep the native picker and the @supports block simply never applies. */
+@supports (appearance: base-select) {
+    .vane-select,
+    .vane-select::picker(select) { appearance: base-select; }
+
+    /* the themed chevron already occupies the trailing edge */
+    .vane-select::picker-icon { display: none; }
+
+    .vane-select::picker(select) {
+        background-color: var(--color-bg-primary);
+        color: var(--color-text-primary);
+        border: 1px solid var(--color-border-primary);
+        border-radius: var(--br);
+        box-shadow: var(--shadow-base);
+        padding: calc(var(--py) * 0.5);
+        margin-block-start: calc(var(--gap) * 0.5);
+    }
+
+    /* min-block-size resets the UA's fixed row height so the option's own padding drives it */
+    .vane-select option {
+        display: flex;
+        align-items: center;
+        gap: var(--gap);
+        min-block-size: 0;
+        padding: calc(var(--py) * 0.75) var(--px);
+        border-radius: var(--br);
+    }
+
+    .vane-select option:hover,
+    .vane-select option:focus {
+        background-color: var(--color-bg-hover-primary);
+        outline: none;
+    }
+
+    .vane-select optgroup { padding: calc(var(--py) * 0.5) var(--px); }
 }
 
 /* KEYFRAMES — defined outside @layer so they're globally available. */
