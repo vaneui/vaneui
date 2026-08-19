@@ -572,9 +572,12 @@ describe('Button Component Tests', () => {
         </ThemeProvider>
       );
 
-      const spinnerRing = container.querySelector('.vane-button-spinner-ring');
+      // the loading state renders the Spinner component, not a private button-only ring
+      const spinnerRing = container.querySelector('.vane-spinner');
       expect(spinnerRing).toBeInTheDocument();
-      expect(spinnerRing).toHaveAttribute('aria-hidden', 'true');
+      expect(spinnerRing!.closest('[aria-hidden="true"]')).toBeInTheDocument();
+      // aria-busy on the button conveys the state, so the ring keeps no role of its own
+      expect(spinnerRing).not.toHaveAttribute('role');
     });
 
     it('should render children with opacity-0 to preserve button width and accessible name', () => {
@@ -627,7 +630,7 @@ describe('Button Component Tests', () => {
       expect(button).not.toHaveAttribute('data-loading');
       expect(button).not.toBeDisabled();
 
-      const spinnerRing = container.querySelector('.vane-button-spinner-ring');
+      const spinnerRing = container.querySelector('.vane-spinner');
       expect(spinnerRing).not.toBeInTheDocument();
     });
 

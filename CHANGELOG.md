@@ -10,6 +10,36 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.2.0
+
+`2026-08-19`
+
+### Changed
+
+- **`Button` and `IconButton` now render the `Spinner` component for their
+  loading state**, instead of a private ring the library maintained separately.
+  There was one ring drawn two ways: `.vane-button-spinner-ring` and
+  `.vane-spinner` had already drifted to different stroke rules once, and every
+  future change to the spinner had to be made in both places.
+
+  The button forwards its own size, so the ring still matches the button rather
+  than falling back to `Spinner`'s `md` default, and the ring still inherits the
+  button's text color, so a filled button gets a light ring. It stays decorative:
+  `aria-busy` on the button already conveys the state, so the `Spinner`'s
+  `role="status"` is suppressed and the wrapper is `aria-hidden`.
+
+  Two things change for consumers who reach into the theme:
+
+  - The `.vane-button-spinner-ring` class no longer exists. The element a
+    loading button renders is now `.vane-spinner`.
+  - `theme.button.spinner.spinnerElement` is gone. Restyle the ring through
+    `theme.spinner` instead, which now covers standalone spinners and buttons
+    at once:
+
+    ```tsx
+    <ThemeProvider extraClasses={{ spinner: { primary: 'border-4' } }}>
+    ```
+
 ## 1.1.3
 
 `2026-08-19`

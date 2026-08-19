@@ -3,6 +3,9 @@ import type { IconButtonProps } from "./IconButtonProps";
 import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
 import { resolveDisabledLink } from "../../utils/disabledLink";
+import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
+// file path, not the barrel: the barrel would pull the whole ui index into this module
+import { Spinner } from "../spinner/Spinner";
 import { defaultIconButtonTheme } from "./defaultIconButtonTheme";
 import { defaultButtonSpinnerTheme } from "../button/defaultButtonSpinnerTheme";
 
@@ -31,11 +34,17 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
     if (loading) {
       const loadingProps = { ...resolvedProps, disabled: true as const, 'data-loading': 'true', 'aria-busy': true as const };
+      // the Spinner would otherwise fall back to its own md default
+      const size = pickFirstTruthyKeyByCategory(
+        resolvedProps as unknown as Record<string, unknown>,
+        iconButtonTheme.defaults as unknown as Record<string, unknown>,
+        'size'
+      );
       return (
         <ThemedComponent ref={ref} theme={iconButtonTheme} {...loadingProps}>
           {/* decorative spinner — aria-busy on the button already conveys the loading state */}
           <ThemedComponent theme={spinnerTheme} aria-hidden="true">
-            {spinnerTheme.themes.spinnerElement()}
+            <Spinner role={undefined} {...(size ? { [size]: true } : {})} />
           </ThemedComponent>
           {/* opacity-0 (not invisible) — keeps the children in the accessibility
               tree so the button retains its accessible name while loading */}

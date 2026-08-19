@@ -711,10 +711,10 @@
     .vane-spinner[data-size="md"] { --fs-unit: var(--fs-unit-md); }
     .vane-spinner[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-spinner[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
-    /* One ring for the standalone Spinner and for Button's loading state; they had
-       drifted to different stroke rules. The 2px floor is load-bearing: browsers floor
-       border-width to whole pixels, so a bare 0.125em paints a 1px hairline at xs and sm. */
-    :is(.vane-spinner, .vane-button-spinner-ring) {
+    /* Button's loading state renders this same Spinner, so there is one ring in the library.
+       The 2px floor is load-bearing: browsers floor border-width to whole pixels, so a bare
+       0.125em paints a 1px hairline at xs and sm. */
+    .vane-spinner {
         width: 1em;
         height: 1em;
         border: max(2px, 0.125em) solid currentColor;
@@ -940,7 +940,7 @@
             animation-iteration-count: 1 !important;
         }
 
-        :is(.vane-button-spinner-ring, .vane-spinner) {
+        .vane-spinner {
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
         }

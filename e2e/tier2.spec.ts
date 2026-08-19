@@ -110,16 +110,25 @@ test.describe('Spinner', () => {
     expect(await getStyle(spinner, 'border-top-color')).toBe(await getStyle(badge, 'color'));
   });
 
-  // Button draws its own ring rather than rendering a Spinner, so the two can drift apart.
-  // They did: the button pinned a 2px stroke while the Spinner scaled by em.
-  test('Button loading paints the same ring as a same-size Spinner', async ({ page }) => {
-    const ring = page.locator('[data-testid="tier2-button-loading"] .vane-button-spinner-ring');
+  // Button renders the Spinner component now, so the two cannot drift apart in CSS.
+  // What can still drift is the size: Spinner defaults to md, so the button has to
+  // forward its own size or a sm button gets an oversized ring.
+  test('Button loading renders a Spinner at the button size', async ({ page }) => {
+    const ring = page.locator('[data-testid="tier2-button-loading"] .vane-spinner');
     const spinner = page.locator('[data-testid="tier2-spinner-sm"]');
 
+    await expect(ring).toHaveAttribute('data-size', 'sm');
     expect(await getStyle(ring, 'font-size')).toBe(await getStyle(spinner, 'font-size'));
     expect(await getStyle(ring, 'border-top-width')).toBe(await getStyle(spinner, 'border-top-width'));
     expect(await getStyle(ring, 'width')).toBe(await getStyle(spinner, 'width'));
-    expect(await getStyle(ring, 'border-top-left-radius')).toBe('50%');
+  });
+
+  test('the loading Spinner stays decorative inside the button', async ({ page }) => {
+    const ring = page.locator('[data-testid="tier2-button-loading"] .vane-spinner');
+    // aria-busy on the button already announces the state; a second live region would double up
+    await expect(ring).not.toHaveAttribute('role', /.+/);
+    expect(await ring.evaluate((el) => !!el.closest('[aria-hidden="true"]'))).toBe(true);
+    await expect(page.locator('[data-testid="tier2-button-loading"]')).toHaveAttribute('aria-busy', 'true');
   });
 
   test('no size paints the ring as a sub-2px hairline', async ({ page }) => {
@@ -130,8 +139,8 @@ test.describe('Spinner', () => {
   });
 
   test('the loading ring follows the button it sits in', async ({ page }) => {
-    const outlineRing = page.locator('[data-testid="tier2-button-loading"] .vane-button-spinner-ring');
-    const filledRing = page.locator('[data-testid="tier2-button-loading-filled"] .vane-button-spinner-ring');
+    const outlineRing = page.locator('[data-testid="tier2-button-loading"] .vane-spinner');
+    const filledRing = page.locator('[data-testid="tier2-button-loading-filled"] .vane-spinner');
     expect(await getStyle(filledRing, 'border-top-color')).not.toBe(await getStyle(outlineRing, 'border-top-color'));
   });
 });

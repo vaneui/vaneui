@@ -295,7 +295,7 @@ describe('IconButton Component Tests', () => {
       expect(button).toHaveAttribute('data-loading', 'true');
       expect(button).toBeDisabled();
 
-      const spinnerRing = container.querySelector('.vane-button-spinner-ring');
+      const spinnerRing = container.querySelector('.vane-spinner');
       expect(spinnerRing).toBeInTheDocument();
 
       // S4: the spinner is decorative — aria-busy on the button already conveys

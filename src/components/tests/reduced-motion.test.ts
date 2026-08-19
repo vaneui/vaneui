@@ -41,7 +41,7 @@ describe('prefers-reduced-motion support', () => {
 
   it('should target spinner animation', () => {
     const mediaBlock = extractReducedMotionBlock(cssContent);
-    expect(mediaBlock).toContain('.vane-button-spinner-ring');
+    expect(mediaBlock).toContain('.vane-spinner');
   });
 
   it('should use 0.01ms duration (not 0s) to preserve JS event listeners', () => {

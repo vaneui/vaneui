@@ -10,8 +10,6 @@ export const defaultButtonSpinnerTheme = new ComponentTheme<ButtonSpinnerProps, 
   "span",
   "inset-0",
   {
-    spinnerElement: () =>
-      <span className="vane-button-spinner-ring" aria-hidden="true" />,
     appearance: {
       text: new SimpleConsumerClassMapper({ base: textConsumerClass, alwaysOutput: true }, 'text'),
     },
