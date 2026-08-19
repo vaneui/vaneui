@@ -96,3 +96,7 @@ jobs:
         run: npm run test:e2e
         env:
           CI: true
+          # Actions sets HOME=/github/home, which the image owns as pwuser while the job
+          # runs as root. Chromium and WebKit do not care; Firefox refuses to launch.
+          # Scoped to this step so npm's cache keeps using the runner's HOME.
+          HOME: /root
