@@ -7,7 +7,54 @@ on:
       - prod
 
 jobs:
+  # E2E runs in the Playwright image, which ships the browsers and their system deps.
+  # `playwright install --with-deps` fetched 114MB of WebKit's GStreamer/GTK tree on
+  # every run at an Ubuntu mirror speed that swung between 49s and 17min, and dominated
+  # this workflow's wall clock. Publishing stays on a plain runner: the image has no
+  # `gh` CLI, and the release step needs it.
+  # The matrix is a single value so the image tag and the version guard cannot drift.
+  e2e:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        playwright: ['1.60.0']
+    container: mcr.microsoft.com/playwright:v${{ matrix.playwright }}-noble
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # The image carries browsers for exactly one Playwright version; a dependency bump
+      # without a tag bump otherwise fails deep in the run with "Executable doesn't exist".
+      - name: Verify Playwright Matches the Container Image
+        run: |
+          actual=$(node -p "require('@playwright/test/package.json').version")
+          if [ "$actual" != "${{ matrix.playwright }}" ]; then
+            echo "::error::Playwright is $actual but this job runs in the v${{ matrix.playwright }} image. Bump the matrix value in this workflow."
+            exit 1
+          fi
+
+      - name: Build Package
+        run: npm run build
+
+      - name: Run E2E Tests
+        run: npm run test:e2e
+        env:
+          CI: true
+          # Actions sets HOME=/github/home, owned by the image's pwuser while the job runs
+          # as root. Chromium and WebKit do not care; Firefox refuses to launch.
+          HOME: /root
+
   build-and-publish:
+    needs: e2e
     runs-on: ubuntu-latest
     permissions:
       # contents: write — required to push the version tag and create the GitHub release
@@ -79,17 +126,6 @@ jobs:
           echo "Cannot proceed with stable release publication."
           exit 1
 
-      - name: Install Playwright Browsers
-        if: steps.check_version.outputs.should_publish == 'true'
-        # All three engines: test:e2e runs the firefox/webkit behavior projects too
-        run: npx playwright install --with-deps chromium firefox webkit
-
-      - name: Run E2E Tests
-        if: steps.check_version.outputs.should_publish == 'true'
-        run: npm run test:e2e
-        env:
-          CI: true
-
       # Best Practice: Verify what will be in the package before publishing
       - name: Verify Package Contents
         if: steps.check_version.outputs.should_publish == 'true'
@@ -105,9 +141,9 @@ jobs:
           npx --yes @arethetypeswrong/cli --pack .
 
       - name: Publish Stable Package to npm
-        # --ignore-scripts: this workflow already ran build + test + test:e2e
-        # above (the same gate as the `prepublishOnly` script in package.json),
-        # so re-running it during publish would only duplicate work.
+        # --ignore-scripts: build + test ran above and e2e ran in the gating job
+        # (the same gate as the `prepublishOnly` script in package.json), so
+        # re-running it during publish would only duplicate work.
         if: steps.check_version.outputs.should_publish == 'true'
         run: npm publish --access public --ignore-scripts
         env:
