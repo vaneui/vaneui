@@ -1025,6 +1025,17 @@ export function TestHarness() {
 
           <Spinner data-testid="tier2-spinner" aria-label="Loading" />
           <Spinner data-testid="tier2-spinner-xl" xl aria-label="Loading large" />
+          {/* appearance only reaches the ring through a variant, so both are exercised */}
+          <Spinner data-testid="tier2-spinner-sm" sm aria-label="Loading small" />
+          <Spinner data-testid="tier2-spinner-danger" danger aria-label="Loading danger" />
+          <Spinner data-testid="tier2-spinner-success" success aria-label="Loading success" />
+          <Spinner data-testid="tier2-spinner-filled-danger" danger filled aria-label="Loading on a danger fill" />
+          {/* a bare Spinner has to keep inheriting, or it disappears on a filled surface */}
+          <Badge filled info data-testid="tier2-spinner-badge">
+            <Spinner xs data-testid="tier2-spinner-on-fill" aria-label="Loading on fill" /> Syncing
+          </Badge>
+          <Button loading sm data-testid="tier2-button-loading">Saving</Button>
+          <Button loading sm filled danger data-testid="tier2-button-loading-filled">Deleting</Button>
 
           <Tooltip
             content="Tip body"

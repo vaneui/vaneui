@@ -55,6 +55,32 @@ describe('Spinner Component Tests', () => {
       const { container } = renderSpinner(<Spinner {...{ [appearance]: true }} aria-label="Loading" />);
       expect(container.querySelector('.vane-spinner')).toHaveAttribute('data-appearance', appearance);
     });
+
+    // data-appearance alone is inert: the appearance palette only reaches --text-color
+    // through the variant axis, so an appearance without data-variant renders no color.
+    it('should emit a variant alongside an appearance so the color resolves', () => {
+      const { container } = renderSpinner(<Spinner danger aria-label="Loading" />);
+      const spinner = container.querySelector('.vane-spinner');
+      expect(spinner).toHaveAttribute('data-appearance', 'danger');
+      expect(spinner).toHaveAttribute('data-variant', 'outline');
+    });
+
+    it('should take the on-fill color when filled', () => {
+      const { container } = renderSpinner(<Spinner danger filled aria-label="Loading" />);
+      expect(container.querySelector('.vane-spinner')).toHaveAttribute('data-variant', 'filled');
+    });
+
+    it('should emit neither attribute by default, so it inherits its surface', () => {
+      const { container } = renderSpinner(<Spinner aria-label="Loading" />);
+      const spinner = container.querySelector('.vane-spinner') as HTMLElement;
+      expect(spinner.hasAttribute('data-appearance')).toBe(false);
+      expect(spinner.hasAttribute('data-variant')).toBe(false);
+    });
+
+    it('should always emit the text-color consumer class the ring paints with', () => {
+      const { container } = renderSpinner(<Spinner aria-label="Loading" />);
+      expect(container.querySelector('.vane-spinner')).toHaveClass('text-(--text-color)');
+    });
   });
 
   describe('Prop leaking', () => {

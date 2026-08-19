@@ -79,6 +79,61 @@ test.describe('Spinner', () => {
     const radius = await getStyle(spinner, 'border-top-left-radius');
     expect(radius).toBe('50%');
   });
+
+  // The ring paints in currentColor, and appearance only reaches --text-color through a
+  // variant. Without one every appearance rendered the same inherited color, and the class
+  // list was identical either way, so only the computed color catches it.
+  test('paints each appearance in a different color', async ({ page }) => {
+    const ringColor = (testid: string) =>
+      getStyle(page.locator(`[data-testid="${testid}"]`), 'border-top-color');
+
+    const [base, danger, success] = await Promise.all([
+      ringColor('tier2-spinner'),
+      ringColor('tier2-spinner-danger'),
+      ringColor('tier2-spinner-success'),
+    ]);
+    expect(danger).not.toBe(base);
+    expect(success).not.toBe(base);
+    expect(danger).not.toBe(success);
+  });
+
+  test('filled swaps in the on-fill color rather than the outline one', async ({ page }) => {
+    const outline = await getStyle(page.locator('[data-testid="tier2-spinner-danger"]'), 'border-top-color');
+    const filled = await getStyle(page.locator('[data-testid="tier2-spinner-filled-danger"]'), 'border-top-color');
+    expect(filled).not.toBe(outline);
+  });
+
+  // the reason a bare Spinner must NOT resolve an appearance of its own
+  test('a bare Spinner inherits the surface it sits on', async ({ page }) => {
+    const spinner = page.locator('[data-testid="tier2-spinner-on-fill"]');
+    const badge = page.locator('[data-testid="tier2-spinner-badge"]');
+    expect(await getStyle(spinner, 'border-top-color')).toBe(await getStyle(badge, 'color'));
+  });
+
+  // Button draws its own ring rather than rendering a Spinner, so the two can drift apart.
+  // They did: the button pinned a 2px stroke while the Spinner scaled by em.
+  test('Button loading paints the same ring as a same-size Spinner', async ({ page }) => {
+    const ring = page.locator('[data-testid="tier2-button-loading"] .vane-button-spinner-ring');
+    const spinner = page.locator('[data-testid="tier2-spinner-sm"]');
+
+    expect(await getStyle(ring, 'font-size')).toBe(await getStyle(spinner, 'font-size'));
+    expect(await getStyle(ring, 'border-top-width')).toBe(await getStyle(spinner, 'border-top-width'));
+    expect(await getStyle(ring, 'width')).toBe(await getStyle(spinner, 'width'));
+    expect(await getStyle(ring, 'border-top-left-radius')).toBe('50%');
+  });
+
+  test('no size paints the ring as a sub-2px hairline', async ({ page }) => {
+    for (const id of ['tier2-spinner-sm', 'tier2-spinner', 'tier2-spinner-xl']) {
+      const stroke = parseFloat(await getStyle(page.locator(`[data-testid="${id}"]`), 'border-top-width'));
+      expect(stroke, `${id} stroke`).toBeGreaterThanOrEqual(2);
+    }
+  });
+
+  test('the loading ring follows the button it sits in', async ({ page }) => {
+    const outlineRing = page.locator('[data-testid="tier2-button-loading"] .vane-button-spinner-ring');
+    const filledRing = page.locator('[data-testid="tier2-button-loading-filled"] .vane-button-spinner-ring');
+    expect(await getStyle(filledRing, 'border-top-color')).not.toBe(await getStyle(outlineRing, 'border-top-color'));
+  });
 });
 
 test.describe('Tooltip', () => {

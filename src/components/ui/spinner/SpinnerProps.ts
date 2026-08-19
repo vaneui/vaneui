@@ -3,6 +3,7 @@ import type {
   BaseProps,
   SizeProps,
   AppearanceProps,
+  VariantProps,
   DisplayProps,
   HideProps,
   MarginProps
@@ -12,6 +13,7 @@ import type {
 export type SpinnerProps = BaseProps &
   SizeProps &
   AppearanceProps &
+  VariantProps &
   DisplayProps &
   HideProps &
   MarginProps &

@@ -10,6 +10,38 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.1.3
+
+`2026-08-19`
+
+### Fixed
+
+- **`Spinner`'s appearance props did nothing.** `<Spinner danger>` emitted
+  `data-appearance="danger"` and resolved the danger palette, but an appearance
+  only reaches `--text-color` through the variant axis, and `Spinner` had no
+  `variant` category, so no `data-variant` was emitted and the mapping never
+  fired. Every appearance rendered the same inherited color. `Spinner` now
+  carries `variant` (defaulting to `outline`, with `inheritAppearance`), so:
+
+  ```tsx
+  <Spinner danger />               {/* the danger color */}
+  <Spinner danger filled />        {/* the on-danger-fill color */}
+  <Spinner />                      {/* still inherits its surface */}
+  ```
+
+  A bare `Spinner` is unchanged: it emits neither attribute and keeps inheriting,
+  which is what makes it readable inside a filled `Button`, `Badge` or `Card`.
+  The variant carries no background here, since a ring has nothing to fill; it
+  only selects which color of the appearance the ring paints in.
+
+- **The spinner ring was a 1px hairline at `xs` and `sm`.** Its stroke was
+  `0.125em`, and browsers floor `border-width` to whole pixels, so 1.5px and
+  1.75px both painted as 1px. The stroke now floors at 2px.
+
+- **`Button`'s loading ring and `Spinner` had drifted to different strokes**
+  (a pinned 2px against the scaling `0.125em`), so the same ring rendered at two
+  weights depending on where it came from. Both now share one rule.
+
 ## 1.1.2
 
 `2026-08-18`
