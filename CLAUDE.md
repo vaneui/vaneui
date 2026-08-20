@@ -95,6 +95,26 @@ When a task matches an agent's trigger below, you **MUST** delegate to that agen
 - `npm run build:css:ui` — Tailwind CLI for component styles
 - `npm run build:css:vars` — Tailwind CLI for CSS variables
 
+## Release Policy
+
+Releases run off branch pushes, so the branch you push decides what ships:
+
+- `git push origin main` — publishes a **pre-release (alpha)** and runs the full CI gate.
+- `git push origin main:prod` — publishes the **stable** release, tags it, and cuts the GitHub release.
+
+**Only a patch bump may be released without asking.** In `X.Y.Z`, that is `Z` — the third
+number. Bumping `Y` (minor) or `X` (major) requires explicit approval from the maintainer
+first.
+
+When a change warrants a minor or major under the versioning rules at the top of
+[CHANGELOG.md](./CHANGELOG.md) — additive props/components, or a change to an existing prop
+name, default, or rendered element — implement it, verify it, and push `main` as normal, then
+**stop and ask** before bumping the version and pushing `main:prod`. State what the change is
+and why it is not a patch, and let the maintainer choose the number.
+
+Do not reclassify a genuine minor as a patch to avoid the question. The CHANGELOG's rules
+still decide what the bump should be; this policy only decides who authorises it.
+
 ## Repository Hygiene
 
 **Never commit one-off / throwaway scripts.** Codemods, migration scripts, ad-hoc test rewriters, and debug helpers (e.g. files like `update-tests.js` or `fix-*.js` at the repo root) must NOT be committed. They run once, then become misleading dead clutter that looks like real tooling.
