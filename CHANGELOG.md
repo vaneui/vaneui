@@ -10,6 +10,28 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.2.1
+
+`2026-08-20`
+
+### Fixed
+
+- **Every appearance on `Img` painted the same neutral border.** An appearance is
+  only a palette: it sets the intermediate `--app-*` variables, and the variant
+  axis is what maps those onto `--border-color`. `data-variant` is emitted only
+  when a variant key is extracted, and `Img` declared the variant category but
+  set no variant default, so `<Img border danger>` and `<Img border success>`
+  resolved identically. `Img` now defaults to `outline`, like every other
+  component. A plain `<Img>` is unchanged: with no appearance it still emits
+  neither attribute.
+
+  This is the same failure as `Spinner` in 1.1.3, reached a different way, so it
+  is now a test rather than a fix. `appearanceResolution.test.ts` asserts that
+  every component declaring an appearance also resolves a variant, with `Link`
+  as the one documented exception (its `LinkVariantClassMapper` consumes
+  `--app-text` directly). Class-name assertions cannot see this class of bug:
+  the class list is identical whether or not the colour resolves.
+
 ## 1.2.0
 
 `2026-08-19`

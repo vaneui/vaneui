@@ -7,6 +7,7 @@ import {
   Button,
   IconButton,
   Badge,
+  Img,
   Chip,
   Icon,
   Blockquote,
@@ -497,6 +498,16 @@ export function TestHarness() {
         </section>
 
         {/* ── Mark ── */}
+
+        {/* Img: an appearance only reaches the border once a variant resolves it,
+           and Img shipped 1.1.0 with no variant default, so every appearance
+           painted the same neutral border. */}
+        <section data-testid="img-section">
+          <Img border data-testid="img-default" alt="" />
+          <Img border success data-testid="img-success" alt="" />
+          <Img border danger data-testid="img-danger" alt="" />
+          <Img filled secondary data-testid="img-filled" alt="" />
+        </section>
 
         <section data-testid="mark-section">
           <Mark data-testid="mark-default">Default highlight</Mark>
