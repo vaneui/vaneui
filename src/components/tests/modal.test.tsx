@@ -753,8 +753,7 @@ describe('Modal Component Tests', () => {
 
       const overlay = baseElement.querySelector('.vane-overlay');
       const modal = baseElement.querySelector('.vane-modal');
-      // A portalled Modal open from the first render has no server markup to hydrate
-      // against, so it stays closed through that render and transitions in on the next.
+      // portalled content open on the first render mounts on the next one, so it transitions in
       expect(overlay).toHaveAttribute('data-state', 'entering');
       expect(modal).toHaveAttribute('data-state', 'entering');
     });

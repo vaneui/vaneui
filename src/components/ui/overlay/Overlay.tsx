@@ -34,7 +34,7 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     const theme = useTheme();
     const overlayRef = useRef<HTMLDivElement>(null);
     const mergedRef = useMergedRef(ref, overlayRef);
-    // A portal has no server markup, so stay closed through the hydrating render.
+    // only the portal path lacks server markup, so only it waits for hydration
     const hydrated = useHydrated();
     const effectiveOpen = open && (!portal || hydrated);
     const { mounted, state } = useTransition(effectiveOpen, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
@@ -85,8 +85,7 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       // content inline would hydrate differently than the client (which
       // portals to document.body) - render nothing; portaled content
       // appears after hydration
-      // false on the server and on the hydrating render; covers keepMounted content,
-      // which renders while closed and so is never gated by the open state above
+      // false on the server and on the hydrating render; also covers keepMounted content
       if (!hydrated) {
         return null;
       }

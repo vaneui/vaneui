@@ -28,8 +28,7 @@ export function Menu({
 }: MenuProps) {
   const anchorRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  // The element is state as well as a ref: a menu open on its first render mounts its
-  // content a tick later, and an effect keyed on `open` alone would never see it.
+  // element as state too: an effect keyed on `open` alone never sees a late-mounted content
   const [contentEl, setContentEl] = useState<HTMLDivElement | null>(null);
   const setContentNode = useCallback((node: HTMLDivElement | null) => {
     contentRef.current = node;

@@ -706,9 +706,7 @@ describe('Popup Component Tests', () => {
   });
 
   describe('Data State (Transitions)', () => {
-    // A popup open on its first render has no server markup to hydrate against, so it
-    // stays closed through that render and mounts on the next one — which means it
-    // transitions in rather than appearing already `entered`.
+    // portalled content open on the first render mounts on the next one, so it transitions in
     it('should transition in when open from the first render', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(

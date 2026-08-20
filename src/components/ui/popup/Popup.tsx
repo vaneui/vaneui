@@ -289,9 +289,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       setOpen(false);
     }, [onCloseProp, setOpen]);
 
-    // Only the portal path lacks server markup, so only it waits for hydration; inline
-    // content still renders server-side. Gating the open state (not the portal call)
-    // keeps the transition and element-dependent effects downstream of the gate.
+    // only the portal path lacks server markup, so only it waits for hydration
     const hydrated = useHydrated();
     const effectiveOpen = open && !disabled && (!portal || hydrated);
 
@@ -550,8 +548,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       // content inline would hydrate differently than the client (which
       // portals to document.body) - render nothing; portaled content
       // appears after hydration
-      // false on the server and on the hydrating render; covers keepMounted content,
-      // which renders while closed and so is never gated by the open state above
+      // false on the server and on the hydrating render; also covers keepMounted content
       if (!hydrated) {
         return null;
       }

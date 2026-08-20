@@ -107,8 +107,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const [titleMounted, setTitleMounted] = useState(false);
     const [bodyMounted, setBodyMounted] = useState(false);
 
-    // A portal has no server markup, so stay closed through the hydrating render; the
-    // transition and every element-dependent effect below then run once it mounts.
+    // only the portal path lacks server markup, so only it waits for hydration
     const hydrated = useHydrated();
     const effectiveOpen = open && (!portal || hydrated);
 
@@ -278,8 +277,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       // content inline would hydrate differently than the client (which
       // portals to document.body) - render nothing; portaled content
       // appears after hydration
-      // false on the server and on the hydrating render; covers keepMounted content,
-      // which renders while closed and so is never gated by the open state above
+      // false on the server and on the hydrating render; also covers keepMounted content
       if (!hydrated) {
         return null;
       }
