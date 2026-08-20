@@ -221,13 +221,22 @@
     .vane-select[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* The dropdown list is painted by the browser from the option's own colors; unset they are transparent + UA text. */
+    /* Both inherit the field's resolved colors, so a filled Select gets a filled list. */
     .vane-select option, .vane-select optgroup {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+    /* Ghost paints no surface of its own, so its list falls back to the theme surface. */
+    .vane-select[data-variant="ghost"] option,
+    .vane-select[data-variant="ghost"] optgroup {
         background-color: var(--color-bg-primary);
         color: var(--color-text-primary);
     }
     /* UA renders group labels bold italic; keep the weight cue, drop the slant. */
     .vane-select optgroup { font-style: normal; font-weight: 600; }
-    .vane-select option:disabled { color: var(--color-text-secondary); }
+    /* Faded toward the list's own surface, so a placeholder stays legible on a filled list too. */
+    /* 70% lands on the same contrast the pinned secondary token gave on the default surface. */
+    .vane-select option:disabled { color: color-mix(in oklab, var(--text-color) 70%, var(--bg-color)); }
 
     /* Checkbox height = size-unit * spacing. xs lifted off 12px (too small) to 14px, sm 15px; md stays 16px. */
     .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
@@ -974,6 +983,13 @@
     color: var(--color-text-danger);
 }
 
+/* Also unlayered: a dimmed wrapper already fades what it contains, so a nested control's own
+   opacity-50 utility would stack a second 0.5 on top and render it at a quarter strength. */
+.vane-label:is([data-disabled="true"], :has(:disabled)) :is([data-disabled="true"], :disabled),
+.vane-select-wrapper[data-disabled="true"] .vane-select[data-disabled="true"] {
+    opacity: 1;
+}
+
 /* STYLEABLE DROPDOWN — also unlayered, because `appearance-none` is a utility class and a
    layered `appearance: base-select` would lose to it no matter the specificity.
    Without this the option list is an OS surface: the options get no layout box at all, so
@@ -986,14 +1002,25 @@
     /* the themed chevron already occupies the trailing edge */
     .vane-select::picker-icon { display: none; }
 
+    /* The UA try-order is most-block-size, which flips the list above the field whenever the
+       space above is larger — even when it fits below. `normal` takes the first position that
+       fits instead, so the list opens downward unless it genuinely cannot. */
     .vane-select::picker(select) {
-        background-color: var(--color-bg-primary);
-        color: var(--color-text-primary);
-        border: 1px solid var(--color-border-primary);
+        position-try-order: normal;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
         border-radius: var(--br);
         box-shadow: var(--shadow-base);
         padding: calc(var(--py) * 0.5);
-        margin-block-start: calc(var(--gap) * 0.5);
+        /* both edges: the flipped-up position anchors the picker's bottom to the field */
+        margin-block: calc(var(--gap) * 0.5);
+    }
+
+    .vane-select[data-variant="ghost"]::picker(select) {
+        background-color: var(--color-bg-primary);
+        color: var(--color-text-primary);
+        border-color: var(--color-border-primary);
     }
 
     /* min-block-size resets the UA's fixed row height so the option's own padding drives it */
@@ -1009,7 +1036,7 @@
     /* a disabled option (a placeholder, typically) must not light up as if it were selectable */
     .vane-select option:not(:disabled):hover,
     .vane-select option:not(:disabled):focus {
-        background-color: var(--color-bg-hover-primary);
+        background-color: var(--bg-hover-color);
         outline: none;
     }
 

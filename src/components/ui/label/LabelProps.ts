@@ -24,6 +24,7 @@ import type {
   ShadowProps,
   RingProps,
   VariantProps,
+  DisabledProps,
   CursorProps,
   WidthProps,
   HeightProps,
@@ -56,6 +57,7 @@ export type LabelProps = BaseProps &
   ShadowProps &
   RingProps &
   VariantProps &
+  DisabledProps &
   CursorProps &
   WidthProps &
   HeightProps &

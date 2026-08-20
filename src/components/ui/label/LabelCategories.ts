@@ -9,6 +9,7 @@ import {
   WIDTH,
   HEIGHT,
   COMMON_MODIFIERS,
+  DISABLED,
 } from "../props/categoryBuilders";
 
 const LABEL_CATEGORIES_RAW = [
@@ -22,6 +23,7 @@ const LABEL_CATEGORIES_RAW = [
   ...WIDTH,
   ...HEIGHT,
   ...COMMON_MODIFIERS,
+  ...DISABLED,
 ] as const;
 
 /**

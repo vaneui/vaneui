@@ -28,6 +28,13 @@ function sibling(page: Page, testid: string, selector: string): Locator {
   return page.locator(`[data-testid="${testid}"] + ${selector}`);
 }
 
+/** The chevron belonging to one Select — several fixtures render one, so never .first() */
+function chevronOf(page: Page, testid: string): Locator {
+  return page
+    .locator('.vane-select-wrapper', { has: page.locator(`[data-testid="${testid}"]`) })
+    .locator('.vane-select-chevron');
+}
+
 function expectStrictlyIncreasing(values: number[], label: string): void {
   for (let i = 1; i < values.length; i++) {
     expect(
@@ -106,13 +113,13 @@ test.describe('Select', () => {
   test('the reserved trailing band is wide enough for the chevron icon', async ({ page }) => {
     const el = page.locator('[data-testid="select-default"]');
     const reserved = (await getPx(el, 'padding-inline-end')) - (await getPx(el, 'padding-inline-start'));
-    const chevron = await box(page.locator('.vane-select-chevron svg').first());
+    const chevron = await box(chevronOf(page, 'select-default').locator('svg'));
     expect(reserved).toBeGreaterThanOrEqual(chevron.width);
   });
 
   test('the chevron is vertically centred on the field and sits at its trailing edge', async ({ page }) => {
     const field = await box(page.locator('[data-testid="select-default"]'));
-    const chevron = await box(page.locator('.vane-select-chevron').first());
+    const chevron = await box(chevronOf(page, 'select-default'));
     expect(chevron.y + chevron.height / 2).toBeCloseTo(field.y + field.height / 2, 1);
     expect(chevron.x).toBeGreaterThan(field.x + field.width / 2);
     expect(chevron.x + chevron.width).toBeLessThanOrEqual(field.x + field.width + 1);

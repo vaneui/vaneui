@@ -539,6 +539,29 @@ describe('Label Component Tests', () => {
       expect(checkboxInput).toHaveAttribute('data-size', 'xs');
     });
 
+    it('dims when disabled without leaking the attribute onto the <label>', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label disabled>Email address</Label>
+        </ThemeProvider>
+      );
+      const label = container.querySelector('label')!;
+      expect(label).toHaveClass('opacity-50');
+      expect(label).toHaveAttribute('data-disabled', 'true');
+      // <label> has no native disabled attribute; a leaked one is invalid HTML
+      expect(label).not.toHaveAttribute('disabled');
+    });
+
+    it('keeps the control usable when only the Label is disabled', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Label disabled><Checkbox /></Label>
+        </ThemeProvider>
+      );
+      // opacity only: pointer-events-none on the wrapper would kill the control it wraps
+      expect(container.querySelector('label')).not.toHaveClass('pointer-events-none');
+    });
+
     it('standalone Checkbox keeps its md default', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>

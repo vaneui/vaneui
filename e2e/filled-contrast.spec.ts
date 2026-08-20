@@ -161,3 +161,58 @@ test.describe('Nested layout inheritance', () => {
     expect(stackColor).not.toBe(cardColor);
   });
 });
+
+// =========================================================================
+// Field help/error text: pinned colors an author cannot reach from outside
+// =========================================================================
+
+// Field renders its description as `secondary` and its error as `danger`. Both are
+// hardcoded, so when the Field itself paints a fill the author has no way to correct
+// them — and --color-text-secondary IS --color-bg-filled-secondary, which put the
+// description at exactly 1.00 against its own surface.
+test.describe('Field text on a filled surface', () => {
+  const field = '[data-testid="tier2-field-filled"]';
+
+  test('description and error stay readable on a filled Field', async ({ page }) => {
+    const surface = page.locator(field);
+    for (const [name, nth] of [['description', 0], ['error', 1]] as const) {
+      const ratio = await page.locator(`${field} .vane-text`).nth(nth).evaluate(
+        (el, bgSel) => {
+          const canvas = document.createElement('canvas');
+          canvas.width = canvas.height = 1;
+          const ctx = canvas.getContext('2d')!;
+          const toRgb = (c: string): [number, number, number] => {
+            ctx.clearRect(0, 0, 1, 1);
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(0, 0, 1, 1);
+            ctx.fillStyle = c;
+            ctx.fillRect(0, 0, 1, 1);
+            const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+            return [r, g, b];
+          };
+          const lum = ([r, g, b]: [number, number, number]) =>
+            [r, g, b]
+              .map((v) => {
+                v /= 255;
+                return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+              })
+              .reduce((acc, v, i) => acc + v * [0.2126, 0.7152, 0.0722][i], 0);
+          const bg = document.querySelector(bgSel) as HTMLElement;
+          const a = lum(toRgb(getComputedStyle(el).color));
+          const b = lum(toRgb(getComputedStyle(bg).backgroundColor));
+          return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+        },
+        field,
+      );
+      expect(ratio, `${name} contrast on a filled Field`).toBeGreaterThanOrEqual(WCAG_AA_LARGE_TEXT);
+    }
+    await expect(surface).toHaveAttribute('data-variant', 'filled');
+  });
+
+  test('a plain Field keeps its muted description', async ({ page }) => {
+    const description = page.locator('[data-testid="tier2-field"] .vane-text').first();
+    const body = page.locator('[data-testid="tier2-field"]');
+    // still the pinned secondary token, not the surface color, when nothing is filled
+    expect(await getColor(description)).not.toBe(await getColor(body));
+  });
+});

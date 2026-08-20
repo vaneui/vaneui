@@ -49,6 +49,16 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
       'size'
     ) ?? 'md';
 
+    // A fill can swallow the pinned help/error colors — --color-text-secondary IS
+    // --color-bg-filled-secondary — and the author cannot override them from here,
+    // so on a filled Field both take the surface's own text color instead.
+    const onFill = pickFirstTruthyKeyByCategory(
+      rest as Record<string, unknown>,
+      fieldTheme.defaults as Record<string, unknown>,
+      'variant'
+    ) === 'filled';
+    const surfaceText = onFill ? { inheritAppearance: true } : {};
+
     return (
       <ThemedComponent ref={ref} theme={fieldTheme} {...rest}>
         {hasLabel && (
@@ -60,10 +70,10 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
           </FieldControlContext.Provider>
         </LabelSizeContext.Provider>
         {hasDescription && (
-          <ThemedComponent theme={descriptionTheme} {...{ id: descriptionId }}>{description}</ThemedComponent>
+          <ThemedComponent theme={descriptionTheme} {...surfaceText} {...{ id: descriptionId }}>{description}</ThemedComponent>
         )}
         {hasError && (
-          <ThemedComponent theme={errorTheme} {...{ id: errorId }}>{error}</ThemedComponent>
+          <ThemedComponent theme={errorTheme} {...surfaceText} {...{ id: errorId }}>{error}</ThemedComponent>
         )}
       </ThemedComponent>
     );

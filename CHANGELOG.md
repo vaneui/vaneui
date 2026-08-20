@@ -10,6 +10,59 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.3.0
+
+`2026-08-20`
+
+### Added
+
+- **`Label` supports `disabled`.** It was the only form control without the
+  category, so a disabled field kept a full-strength label. `<Label disabled>`
+  now dims to the same `opacity-50` every other control uses, and a Label
+  containing a disabled control dims with it, so you disable the field rather
+  than both. The dim is opacity-only: a Label wraps its control, so
+  `pointer-events-none` would have made the control it labels unclickable.
+
+  A wrapper that dims what it contains must not let the contained control fade
+  a second time. `Label` and the `Select` wrapper now cancel the nested
+  `opacity-50`, which previously rendered a disabled `Select` field at a
+  quarter strength rather than a half.
+
+### Changed
+
+- **The `Select` dropdown takes its colours from the field.** `option`,
+  `optgroup` and `::picker(select)` were pinned to `--color-bg-primary` /
+  `--color-text-primary`, so a `filled` or `danger` Select opened a plain light
+  list. They now resolve `--bg-color` / `--text-color` / `--border-color`, which
+  options already inherit as children of the field. `ghost` resolves its
+  background to transparent, which would let the page show through the popup,
+  so it falls back to the theme surface.
+
+  A disabled option, typically a placeholder, was pinned to
+  `--color-text-secondary` and sat at 1.58:1 on a filled list. It now fades
+  toward the list's own background instead, which reproduces the previous
+  contrast on the default surface and lifts the filled case to 2.71:1.
+
+### Fixed
+
+- **The `Select` dropdown opened upward over the page.** The UA styles
+  `::picker(select)` with `position-try-order: most-block-size`, which picks
+  whichever side has MORE room rather than the first side that fits — so any
+  field past the middle of the window opened its list above itself even with
+  several hundred pixels free below. Pinning the order back to `normal` opens
+  the list downward and keeps the flip for when it genuinely does not fit. The
+  gap between field and list is now `margin-block` rather than
+  `margin-block-start`, because the flipped-up position anchors the picker's
+  bottom edge and a top margin left it touching the field.
+
+- **`Field`'s help and error text could vanish on a filled `Field`.** Both are
+  rendered by the component with pinned appearances (`secondary` and `danger`),
+  which an author cannot reach from outside, and `--color-text-secondary` IS
+  `--color-bg-filled-secondary` — so `<Field filled secondary>` painted its
+  description at exactly 1.00:1 against its own surface. On a filled `Field`
+  both now take the surface's own text colour. A plain `Field` keeps its muted
+  description.
+
 ## 1.2.1
 
 `2026-08-20`

@@ -179,6 +179,36 @@ function ArrowFlipFixtures() {
   );
 }
 
+/**
+ * Select picker placement: the UA try-order is most-block-size, so the list flips
+ * above whenever the space above is larger — even when it fits below. Both anchors are
+ * pinned to the viewport, because the fixture ends too soon to scroll a field into place.
+ */
+function SelectPlacementFixtures() {
+  return (
+    <section data-testid="select-placement-section">
+      {/* past the middle: more room above, but far more room below than the list needs */}
+      <Select
+        aria-label="select pinned mid"
+        data-testid="select-place-mid"
+        style={{ position: 'fixed', top: '60vh', left: 300, zIndex: 1, width: 160 }}
+      >
+        <option value="a">A</option>
+        <option value="b">B</option>
+      </Select>
+      {/* pinned to the bottom edge: the list cannot fit below, so it must flip */}
+      <Select
+        aria-label="select pinned bottom"
+        data-testid="select-place-bottom"
+        style={{ position: 'fixed', bottom: 4, left: 480, zIndex: 1, width: 160 }}
+      >
+        <option value="a">A</option>
+        <option value="b">B</option>
+      </Select>
+    </section>
+  );
+}
+
 /** Grid column-count fixtures (B10): desktop-first ramps measured at viewports. */
 function GridFixtures() {
   return (
@@ -683,6 +713,7 @@ export function TestHarness() {
         {/* ── Popup arrow / data-placement flip (B1/B4) ── */}
 
         <ArrowFlipFixtures />
+        <SelectPlacementFixtures />
 
         {/* ── Grid column counts (B10) ── */}
 
@@ -1031,6 +1062,20 @@ export function TestHarness() {
             <Input data-testid="tier2-field-plain-input" />
           </Field>
 
+          {/* --color-text-secondary IS --color-bg-filled-secondary, so the pinned help
+              color vanishes on this exact surface unless it follows the fill */}
+          <Field
+            data-testid="tier2-field-filled"
+            filled
+            secondary
+            padding
+            label="Filled secondary"
+            description="Used for billing"
+            error="Required"
+          >
+            <Input data-testid="tier2-field-filled-input" />
+          </Field>
+
           <Alert data-testid="tier2-alert">assertive alert</Alert>
           <Alert data-testid="tier2-alert-polite" polite success>polite status</Alert>
 
@@ -1273,6 +1318,13 @@ export function TestHarness() {
           {/* Label never paints a background, not even when `filled` */}
           <Label tertiary data-testid="label-outline-tertiary">tertiary label</Label>
           <Label success filled data-testid="label-filled-success">filled label</Label>
+
+          {/* Disabled: explicit on the Label, and inherited from a disabled control */}
+          <Label disabled data-testid="label-disabled">disabled label</Label>
+          <Label data-testid="label-enabled">enabled label</Label>
+          <Label data-testid="label-has-disabled">
+            <Input disabled aria-label="disabled input in label" data-testid="label-disabled-input" />
+          </Label>
 
           {/* List / ListItem: an appearance colors text only by default */}
           <List tertiary data-testid="list-outline-tertiary">
@@ -1572,6 +1624,17 @@ export function TestHarness() {
           <Select lg aria-label="select lg" data-testid="select-lg"><option value="a">A</option></Select>
           <Select xl aria-label="select xl" data-testid="select-xl"><option value="a">A</option></Select>
           <Select invalid aria-label="select invalid" data-testid="select-invalid"><option value="a">A</option></Select>
+          <Select disabled aria-label="select disabled" data-testid="select-disabled"><option value="a">A</option></Select>
+          {/* the picker and its options take their colors from the field, so the list follows the variant */}
+          <Select filled danger aria-label="select filled" data-testid="select-filled">
+            <option value="" disabled>Pick one</option>
+            <option value="a">A</option>
+            <option value="b">B</option>
+          </Select>
+          <Select ghost aria-label="select ghost" data-testid="select-ghost">
+            <option value="a">A</option>
+            <option value="b">B</option>
+          </Select>
 
           {/* Switch: default, size ramp, checked/unchecked pair, disabled/enabled pair */}
           <Switch aria-label="switch default" data-testid="switch-default" />

@@ -2,13 +2,15 @@ import { ComponentTheme, defaultSizedLayoutClassMappers, defaultTypographyClassM
 import type { LabelProps } from "./LabelProps";
 import { GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
 import { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper, FlexClassMapper, ShrinkClassMapper } from "../theme/layout";
+import { DisabledOpacityClassMapper } from "../theme/appearance";
 import { LABEL_CATEGORIES } from "./LabelCategories";
 import type { LabelTheme } from "./LabelTheme";
 import { labelDefaults } from "./labelDefaults";
 
 export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
   "label",
-  "vane-label has-[input]:cursor-pointer",
+  // dims for a disabled control too: authors disable the field, not its label
+  "vane-label has-[input]:cursor-pointer has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50",
   {
     size: {
       text: new FontSizeClassMapper(),
@@ -35,6 +37,8 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       cursor: new CursorClassMapper(),
       flex: new FlexClassMapper(),
       shrink: new ShrinkClassMapper(),
+      // opacity only: a Label wraps its control, so pointer-events-none would kill it too
+      disabled: new DisabledOpacityClassMapper(),
     },
   },
   labelDefaults,
