@@ -166,10 +166,7 @@ test.describe('Nested layout inheritance', () => {
 // Field help/error text: pinned colors an author cannot reach from outside
 // =========================================================================
 
-// Field renders its description as `secondary` and its error as `danger`. Both are
-// hardcoded, so when the Field itself paints a fill the author has no way to correct
-// them — and --color-text-secondary IS --color-bg-filled-secondary, which put the
-// description at exactly 1.00 against its own surface.
+// --color-text-secondary IS --color-bg-filled-secondary, so the pinned description sat at 1.00
 test.describe('Field text on a filled surface', () => {
   const field = '[data-testid="tier2-field-filled"]';
 

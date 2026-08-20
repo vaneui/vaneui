@@ -234,8 +234,7 @@
     }
     /* UA renders group labels bold italic; keep the weight cue, drop the slant. */
     .vane-select optgroup { font-style: normal; font-weight: 600; }
-    /* Faded toward the list's own surface, so a placeholder stays legible on a filled list too. */
-    /* 70% lands on the same contrast the pinned secondary token gave on the default surface. */
+    /* Fades toward the list's own surface; 70% matches the contrast the pinned token gave. */
     .vane-select option:disabled { color: color-mix(in oklab, var(--text-color) 70%, var(--bg-color)); }
 
     /* Checkbox height = size-unit * spacing. xs lifted off 12px (too small) to 14px, sm 15px; md stays 16px. */
@@ -983,8 +982,7 @@
     color: var(--color-text-danger);
 }
 
-/* Also unlayered: a dimmed wrapper already fades what it contains, so a nested control's own
-   opacity-50 utility would stack a second 0.5 on top and render it at a quarter strength. */
+/* Also unlayered: a dimmed wrapper's nested control would else stack a second 0.5 on top. */
 .vane-label:is([data-disabled="true"], :has(:disabled)) :is([data-disabled="true"], :disabled),
 .vane-select-wrapper[data-disabled="true"] .vane-select[data-disabled="true"] {
     opacity: 1;
@@ -1002,9 +1000,7 @@
     /* the themed chevron already occupies the trailing edge */
     .vane-select::picker-icon { display: none; }
 
-    /* The UA try-order is most-block-size, which flips the list above the field whenever the
-       space above is larger — even when it fits below. `normal` takes the first position that
-       fits instead, so the list opens downward unless it genuinely cannot. */
+    /* UA try-order is most-block-size: it flips the list up whenever room above is larger. */
     .vane-select::picker(select) {
         position-try-order: normal;
         background-color: var(--bg-color);

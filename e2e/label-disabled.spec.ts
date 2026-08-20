@@ -1,8 +1,6 @@
 import { test, expect, getStyle } from './base';
 
-// Label was the only form component without the `disabled` category, so a disabled field
-// kept a full-strength label. It now dims both ways: explicitly, and by containing a
-// disabled control — the author disables the field, not its label.
+// Label was the only form component without `disabled`, so a disabled field kept a full label.
 
 test.beforeEach(async ({ page, testPage }) => {
   await page.goto(testPage);

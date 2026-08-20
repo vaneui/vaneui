@@ -1,7 +1,6 @@
 import { test, expect, getStyle, type Page } from './base';
 
-// The styleable dropdown is `appearance: base-select` only. Everything here is about the
-// picker's own box, so the whole file skips on engines that keep the OS-drawn menu.
+// The picker's own box only exists under `appearance: base-select`, so the file skips elsewhere.
 
 test.beforeEach(async ({ page, testPage }) => {
   await page.goto(testPage);
@@ -29,9 +28,7 @@ async function optionsBox(page: Page, testid: string) {
 }
 
 test.describe('Select picker placement', () => {
-  // The UA sets position-try-order: most-block-size, which picks whichever side has MORE
-  // room rather than the first side that fits — so a field just past the middle of the
-  // viewport opened upward over the page. The fix pins the order back to `normal`.
+  // UA try-order is most-block-size: it took the roomier side, not the first side that fits
   test('opens below the field when the list fits below', async ({ page }) => {
     await page.locator('[data-testid="select-place-mid"]').click();
 
@@ -56,8 +53,7 @@ test.describe('Select picker placement', () => {
 });
 
 test.describe('Select picker appearance', () => {
-  // An option is a child of the field, so it inherits --bg-color/--text-color: the list
-  // follows the variant instead of being pinned to the light theme surface.
+  // an option is a child of the field, so it inherits --bg-color/--text-color
   test('a filled Select paints a filled list', async ({ page }) => {
     const filled = page.locator('[data-testid="select-filled"]');
     const plain = page.locator('[data-testid="select-default"]');
@@ -99,8 +95,7 @@ test.describe('Select picker appearance', () => {
       .not.toBe('rgba(0, 0, 0, 0)');
   });
 
-  // a placeholder is the common disabled option; pinned to --color-text-secondary it was
-  // near-invisible on a filled list, so it now fades toward the list's own surface
+  // a placeholder pinned to --color-text-secondary sat at 1.58:1 on a filled list
   test('a disabled option stays legible on a filled list', async ({ page }) => {
     const placeholder = page.locator('[data-testid="select-filled"] option[value=""]');
     const enabled = page.locator('[data-testid="select-filled"] option[value="a"]');

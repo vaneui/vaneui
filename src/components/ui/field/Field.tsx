@@ -49,9 +49,7 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
       'size'
     ) ?? 'md';
 
-    // A fill can swallow the pinned help/error colors — --color-text-secondary IS
-    // --color-bg-filled-secondary — and the author cannot override them from here,
-    // so on a filled Field both take the surface's own text color instead.
+    // a fill swallows the pinned help/error colors (--color-text-secondary IS --color-bg-filled-secondary)
     const onFill = pickFirstTruthyKeyByCategory(
       rest as Record<string, unknown>,
       fieldTheme.defaults as Record<string, unknown>,

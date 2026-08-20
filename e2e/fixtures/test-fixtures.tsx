@@ -179,11 +179,7 @@ function ArrowFlipFixtures() {
   );
 }
 
-/**
- * Select picker placement: the UA try-order is most-block-size, so the list flips
- * above whenever the space above is larger — even when it fits below. Both anchors are
- * pinned to the viewport, because the fixture ends too soon to scroll a field into place.
- */
+/** Select picker placement: anchors pinned to the viewport, since the fixture ends too soon to scroll. */
 function SelectPlacementFixtures() {
   return (
     <section data-testid="select-placement-section">
@@ -1062,8 +1058,7 @@ export function TestHarness() {
             <Input data-testid="tier2-field-plain-input" />
           </Field>
 
-          {/* --color-text-secondary IS --color-bg-filled-secondary, so the pinned help
-              color vanishes on this exact surface unless it follows the fill */}
+          {/* --color-text-secondary IS --color-bg-filled-secondary: the pinned help color vanishes here */}
           <Field
             data-testid="tier2-field-filled"
             filled
