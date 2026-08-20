@@ -1037,6 +1037,11 @@
     }
 
     .vane-select optgroup { padding: calc(var(--py) * 0.5) var(--px); }
+
+    /* A sharp field must not open a rounded list. Pill keeps --br on purpose: the field's own
+       radius is effectively infinite, which on a tall list box swallows the first and last rows. */
+    .vane-select[data-shape="sharp"]::picker(select),
+    .vane-select[data-shape="sharp"] option { border-radius: 0; }
 }
 
 /* KEYFRAMES — defined outside @layer so they're globally available. */

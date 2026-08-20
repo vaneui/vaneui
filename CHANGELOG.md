@@ -10,6 +10,27 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.3.1
+
+`2026-08-20`
+
+### Fixed
+
+- **A `sharp` Select opened a rounded dropdown.** The shape props emit Tailwind
+  classes onto the field and never touch `--br`, so the list — a pseudo-element
+  that cannot take a class — always painted the size-driven radius. `Select` now
+  publishes its resolved shape as `data-shape`, which the picker rules read.
+  `pill` deliberately still keeps `--br`: its own radius is effectively infinite
+  and a tall list box given that radius swallows its first and last rows.
+
+- **`Modal`, `Popup` and `Tooltip` listed the `shape` category twice.**
+  `VISUAL_LAYOUT` already folds `SHAPE` in, and all three spread `...SHAPE` over
+  it again. The duplicate is invisible to the type system — the `as const` union
+  is identical either way — but every consumer that iterates the array saw the
+  category twice, which rendered the shape props twice in generated prop tables
+  and produced duplicate React keys. `categoryUniqueness.test.ts` now asserts no
+  component names a category more than once.
+
 ## 1.3.0
 
 `2026-08-20`

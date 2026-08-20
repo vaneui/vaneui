@@ -1630,6 +1630,15 @@ export function TestHarness() {
             <option value="a">A</option>
             <option value="b">B</option>
           </Select>
+          {/* the list is a pseudo-element, so the shape reaches it as an attribute */}
+          <Select sharp aria-label="select sharp" data-testid="select-sharp">
+            <option value="a">A</option>
+            <option value="b">B</option>
+          </Select>
+          <Select pill aria-label="select pill" data-testid="select-pill">
+            <option value="a">A</option>
+            <option value="b">B</option>
+          </Select>
 
           {/* Switch: default, size ramp, checked/unchecked pair, disabled/enabled pair */}
           <Switch aria-label="switch default" data-testid="switch-default" />

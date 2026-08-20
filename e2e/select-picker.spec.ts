@@ -82,6 +82,24 @@ test.describe('Select picker appearance', () => {
     expect(await pickerBg('select-filled')).not.toBe(await pickerBg('select-default'));
   });
 
+  // the picker is a pseudo-element, so the shape prop's class cannot reach it
+  test('a sharp Select opens a sharp list', async ({ page }) => {
+    const pickerRadius = (testid: string) =>
+      page.locator(`[data-testid="${testid}"]`).evaluate(
+        (el) => getComputedStyle(el, '::picker(select)').borderTopLeftRadius,
+      );
+
+    expect(await pickerRadius('select-sharp')).toBe('0px');
+    expect(await getStyle(
+      page.locator('[data-testid="select-sharp"] option').first(), 'border-top-left-radius',
+    )).toBe('0px');
+
+    // rounded is unchanged, and pill deliberately keeps it: the field's own radius is
+    // effectively infinite and would swallow the option rows
+    expect(parseFloat(await pickerRadius('select-default'))).toBeGreaterThan(0);
+    expect(await pickerRadius('select-pill')).toBe(await pickerRadius('select-default'));
+  });
+
   // ghost resolves --bg-color to transparent, which would let the page show through the list
   test('a ghost Select falls back to an opaque surface', async ({ page }) => {
     const ghost = page.locator('[data-testid="select-ghost"]');

@@ -31,6 +31,14 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     );
     const chevronSize = (fieldSize ? { [fieldSize]: true } : {}) as Partial<SelectChevronProps>;
 
+    // The dropdown is a pseudo-element, so it cannot take the shape prop's class; publish the
+    // resolved shape as an attribute the picker rules can read.
+    const fieldShape = pickFirstTruthyKeyByCategory(
+      props as unknown as Record<string, unknown>,
+      selectTheme.defaults as unknown as Record<string, unknown>,
+      'shape'
+    );
+
     // Width, visibility and className size and place the whole control, so they belong on the
     // wrapper: left on the field they would narrow it while the wrapper stayed full width, and
     // the absolutely-positioned chevron would detach from the field's edge.
@@ -55,7 +63,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     // the chevron always shows, so the field is always wrapped and the icon overlays its end edge
     return (
       <ThemedComponent theme={wrapperTheme} {...wrapperProps}>
-        <ThemedComponent ref={ref} theme={selectTheme} {...fieldProps} />
+        <ThemedComponent ref={ref} theme={selectTheme} {...fieldProps} data-shape={fieldShape} />
         <ThemedComponent theme={chevronTheme} aria-hidden="true" {...chevronSize}>
           {chevronTheme.themes.chevronElement()}
         </ThemedComponent>
