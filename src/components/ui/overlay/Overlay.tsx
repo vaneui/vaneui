@@ -9,6 +9,7 @@ import { useStackingContext } from '../../utils/stackingContext';
 import { pushEscapeHandler } from '../../utils/escapeStack';
 import { composeEventHandlers } from '../../utils/composeEventHandlers';
 import { useMergedRef } from '../../utils/mergedRef';
+import { useHydrated } from '../../utils/useHydrated';
 
 export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
   function Overlay(
@@ -33,15 +34,18 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     const theme = useTheme();
     const overlayRef = useRef<HTMLDivElement>(null);
     const mergedRef = useMergedRef(ref, overlayRef);
-    const { mounted, state } = useTransition(open, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
-    const zIndex = useStackingContext(open, 'overlay', overlayRef);
+    // A portal has no server markup, so stay closed through the hydrating render.
+    const hydrated = useHydrated();
+    const effectiveOpen = open && (!portal || hydrated);
+    const { mounted, state } = useTransition(effectiveOpen, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
+    const zIndex = useStackingContext(effectiveOpen, 'overlay', overlayRef);
 
     // keyboard parity with backdrop click-to-close: Escape dismisses a
     // dismissible (onClose) overlay — only the topmost one, via the shared stack
     useEffect(() => {
-      if (!open || !onClose) return;
+      if (!effectiveOpen || !onClose) return;
       return pushEscapeHandler(() => onClose(), overlayRef.current);
-    }, [open, onClose]);
+    }, [effectiveOpen, onClose]);
 
     if (!mounted && !keepMounted) return null;
 
@@ -81,7 +85,9 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       // content inline would hydrate differently than the client (which
       // portals to document.body) - render nothing; portaled content
       // appears after hydration
-      if (typeof document === 'undefined') {
+      // false on the server and on the hydrating render; covers keepMounted content,
+      // which renders while closed and so is never gated by the open state above
+      if (!hydrated) {
         return null;
       }
       return createPortal(content, document.body);

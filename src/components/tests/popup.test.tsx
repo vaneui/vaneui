@@ -706,7 +706,10 @@ describe('Popup Component Tests', () => {
   });
 
   describe('Data State (Transitions)', () => {
-    it('should have data-state attribute when open', () => {
+    // A popup open on its first render has no server markup to hydrate against, so it
+    // stays closed through that render and mounts on the next one — which means it
+    // transitions in rather than appearing already `entered`.
+    it('should transition in when open from the first render', () => {
       const anchorRef = createAnchorRef();
       const { baseElement } = render(
         <ThemeProvider theme={defaultTheme}>
@@ -717,7 +720,26 @@ describe('Popup Component Tests', () => {
       );
 
       const popup = baseElement.querySelector('.vane-popup');
-      expect(popup).toHaveAttribute('data-state', 'entered');
+      expect(popup).toHaveAttribute('data-state', 'entering');
+    });
+
+    it('should settle on entered once the transition finishes', () => {
+      jest.useFakeTimers();
+      try {
+        const anchorRef = createAnchorRef();
+        const { baseElement } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Popup open={true} onClose={() => {}} anchorRef={anchorRef}>
+              <div>Content</div>
+            </Popup>
+          </ThemeProvider>
+        );
+
+        act(() => { jest.advanceTimersByTime(500); });
+        expect(baseElement.querySelector('.vane-popup')).toHaveAttribute('data-state', 'entered');
+      } finally {
+        jest.useRealTimers();
+      }
     });
   });
 

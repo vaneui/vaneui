@@ -10,6 +10,33 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.4.0
+
+`2026-08-20`
+
+### Changed
+
+- **Portalled floating content waits for hydration before it mounts.** A portal
+  has no server markup, so `Popup`, `Modal` and `Overlay` returned `null` during
+  SSR — but the *first client render* portalled immediately, giving React DOM it
+  never emitted server-side and forcing it to throw the subtree away and rebuild
+  it. They now stay closed through the hydrating render and mount on the next one.
+
+  The gate is on the open state rather than the portal call, so the transition
+  and every element-dependent effect sit downstream of it and run once the
+  element actually attaches. Two consequences worth knowing:
+
+  - Portalled content that is open on its **first** render now transitions in
+    (`entering` → `entered`) instead of appearing already `entered`. Content
+    opened by interaction is unaffected: hydration is long since complete.
+  - `portal={false}` is untouched. Inline content has server markup, so it still
+    renders server-side and still starts `entered` — the SSR test that pins this
+    behaviour is unchanged.
+
+  `Menu` now tracks its content element in state rather than a bare ref. Its
+  "focus the first item on open" effect was keyed on the open flag alone, so a
+  `defaultOpen` menu focused nothing once the content mounted a render later.
+
 ## 1.3.1
 
 `2026-08-20`

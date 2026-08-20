@@ -13,6 +13,7 @@ import { useControllableState } from '../../utils/controllableState';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { useMergedRef } from '../../utils/mergedRef';
+import { useHydrated } from '../../utils/useHydrated';
 import { pushEscapeHandler } from '../../utils/escapeStack';
 import { composeEventHandlers } from '../../utils/composeEventHandlers';
 import { ModalContext } from './ModalContext';
@@ -106,40 +107,45 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const [titleMounted, setTitleMounted] = useState(false);
     const [bodyMounted, setBodyMounted] = useState(false);
 
-    const overlayTransition = useTransition(open, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
-    const contentTransition = useTransition(open, transitionDuration, noAnimation);
-    const zIndex = useStackingContext(open, 'modal', overlayRef);
+    // A portal has no server markup, so stay closed through the hydrating render; the
+    // transition and every element-dependent effect below then run once it mounts.
+    const hydrated = useHydrated();
+    const effectiveOpen = open && (!portal || hydrated);
+
+    const overlayTransition = useTransition(effectiveOpen, transitionDuration, noAnimation, { onEnterComplete, onExitComplete });
+    const contentTransition = useTransition(effectiveOpen, transitionDuration, noAnimation);
+    const zIndex = useStackingContext(effectiveOpen, 'modal', overlayRef);
 
     const mergedRef = useMergedRef(ref, contentRef);
 
-    useScrollLock(open && scrollLock);
+    useScrollLock(effectiveOpen && scrollLock);
 
     const focusTrapOptions = useMemo(
       () => ({ returnFocus, initialFocus }),
       [returnFocus, initialFocus]
     );
-    useFocusTrap(contentRef, open && focusTrap, focusTrapOptions);
+    useFocusTrap(contentRef, effectiveOpen && focusTrap, focusTrapOptions);
 
     // neutralize the page behind the dialog for AT/focus (the focus trap only
     // guards the Tab boundary); skips the dialog's own portal and any overlay
     // portaled out of it (e.g. an in-modal menu).
-    useInertBackground(open, overlayRef);
+    useInertBackground(effectiveOpen, overlayRef);
 
     // join the shared overlay stack while open, so any OTHER open dialog's
     // background-inert pass spares this modal's portal (without this, two
     // simultaneously-open modals would inert each other's dialog)
     useEffect(() => {
-      if (!open) return;
+      if (!effectiveOpen) return;
       const el = overlayRef.current;
       if (!el) return;
       return registerOverlay(el, null);
-    }, [open]);
+    }, [effectiveOpen]);
 
     // only the topmost floating element closes on Escape
     useEffect(() => {
-      if (!open || !closeOnEscape) return;
+      if (!effectiveOpen || !closeOnEscape) return;
       return pushEscapeHandler(onClose, overlayRef.current);
-    }, [open, closeOnEscape, onClose]);
+    }, [effectiveOpen, closeOnEscape, onClose]);
 
     const handleOverlayClick = (event: React.MouseEvent) => {
       // defaultPrevented lets a composed consumer onClick veto the close
@@ -272,7 +278,9 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       // content inline would hydrate differently than the client (which
       // portals to document.body) - render nothing; portaled content
       // appears after hydration
-      if (typeof document === 'undefined') {
+      // false on the server and on the hydrating render; covers keepMounted content,
+      // which renders while closed and so is never gated by the open state above
+      if (!hydrated) {
         return null;
       }
       return createPortal(content, document.body);

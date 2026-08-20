@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useId, useEffect, useMemo, cloneElement } from 'react';
+import React, { useRef, useState, useCallback, useId, useEffect, useMemo, cloneElement } from 'react';
 import type { MenuProps } from './MenuProps';
 import { MenuContext, useMenuContext, type MenuContextValue } from './MenuContext';
 import { useControllableState } from '../../utils/controllableState';
@@ -28,6 +28,13 @@ export function Menu({
 }: MenuProps) {
   const anchorRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  // The element is state as well as a ref: a menu open on its first render mounts its
+  // content a tick later, and an effect keyed on `open` alone would never see it.
+  const [contentEl, setContentEl] = useState<HTMLDivElement | null>(null);
+  const setContentNode = useCallback((node: HTMLDivElement | null) => {
+    contentRef.current = node;
+    setContentEl(node);
+  }, []);
   const menuId = `menu-${useId().replace(/:/g, '-')}`;
 
   const [open, setOpen] = useControllableState({
@@ -89,10 +96,10 @@ export function Menu({
 
   // focus first (or last, when opened via ArrowUp) menu item on open
   useEffect(() => {
-    if (!effectiveOpen || !contentRef.current) return;
+    if (!effectiveOpen || !contentEl) return;
 
     const raf = requestAnimationFrame(() => {
-      const items = contentRef.current?.querySelectorAll<HTMLElement>(
+      const items = contentEl.querySelectorAll<HTMLElement>(
         '[data-menu-item]:not([data-disabled])'
       );
       if (!items || items.length === 0) return;
@@ -102,7 +109,7 @@ export function Menu({
     });
 
     return () => cancelAnimationFrame(raf);
-  }, [effectiveOpen]);
+  }, [effectiveOpen, contentEl]);
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
@@ -225,7 +232,7 @@ export function Menu({
       {triggerElement}
       <ThemeProvider themeDefaults={childThemeDefaults}>
         <Popup
-          ref={contentRef}
+          ref={setContentNode}
           open={effectiveOpen}
           onClose={closeSelf}
           anchorRef={anchorRef}

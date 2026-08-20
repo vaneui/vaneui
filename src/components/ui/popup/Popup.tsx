@@ -10,6 +10,7 @@ import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { useControllableState } from '../../utils/controllableState';
 import { useMergedRef } from '../../utils/mergedRef';
+import { useHydrated } from '../../utils/useHydrated';
 import { pushEscapeHandler } from '../../utils/escapeStack';
 import { getFocusableElements, useFocusTrap } from '../../utils/focusTrap';
 import { registerOverlay, isInOverlayFamily } from '../../utils/overlayStack';
@@ -288,7 +289,11 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       setOpen(false);
     }, [onCloseProp, setOpen]);
 
-    const effectiveOpen = open && !disabled;
+    // Only the portal path lacks server markup, so only it waits for hydration; inline
+    // content still renders server-side. Gating the open state (not the portal call)
+    // keeps the transition and element-dependent effects downstream of the gate.
+    const hydrated = useHydrated();
+    const effectiveOpen = open && !disabled && (!portal || hydrated);
 
     const placementKey = pickFirstTruthyKeyByCategory(
       props as Record<string, unknown>,
@@ -545,7 +550,9 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       // content inline would hydrate differently than the client (which
       // portals to document.body) - render nothing; portaled content
       // appears after hydration
-      if (typeof document === 'undefined') {
+      // false on the server and on the hydrating render; covers keepMounted content,
+      // which renders while closed and so is never gated by the open state above
+      if (!hydrated) {
         return null;
       }
       return createPortal(content, document.body);

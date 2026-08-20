@@ -753,9 +753,23 @@ describe('Modal Component Tests', () => {
 
       const overlay = baseElement.querySelector('.vane-overlay');
       const modal = baseElement.querySelector('.vane-modal');
-      // Initial mount: state is 'entered' (since open=true from start)
-      expect(overlay).toHaveAttribute('data-state', 'entered');
-      expect(modal).toHaveAttribute('data-state', 'entered');
+      // A portalled Modal open from the first render has no server markup to hydrate
+      // against, so it stays closed through that render and transitions in on the next.
+      expect(overlay).toHaveAttribute('data-state', 'entering');
+      expect(modal).toHaveAttribute('data-state', 'entering');
+    });
+
+    it('should render entered from the start when portalling is disabled', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open={true} portal={false} onClose={() => {}}>
+            <div>Content</div>
+          </Modal>
+        </ThemeProvider>
+      );
+
+      // inline content has server markup, so it never waits for hydration
+      expect(container.querySelector('.vane-modal')).toHaveAttribute('data-state', 'entered');
     });
   });
 
