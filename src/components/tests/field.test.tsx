@@ -383,3 +383,37 @@ describe('Control conflicts', () => {
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('Input'));
   });
 });
+
+describe('Inline control layout', () => {
+  it('should put a checkbox before its label in a control row', () => {
+    const { container } = render(<Field checkbox label="Subscribe"/>);
+    const row = container.querySelector('.vane-field > div') as HTMLElement;
+    expect(row).not.toBeNull();
+    const kids = Array.from(row.children);
+    const labelIndex = kids.findIndex(k => k.tagName === 'LABEL');
+    const controlIndex = kids.findIndex(k => k.querySelector('input') || k.tagName === 'INPUT');
+    expect(controlIndex).toBeLessThan(labelIndex);
+  });
+
+  it('should keep description below the row, not inside it', () => {
+    const { container } = render(
+      <Field checkbox label="Subscribe" description="Weekly digest."/>
+    );
+    const row = container.querySelector('.vane-field > div') as HTMLElement;
+    expect(row.textContent).not.toContain('Weekly digest.');
+    expect(container.textContent).toContain('Weekly digest.');
+  });
+
+  it('should render a switch inline too', () => {
+    const { container } = render(<Field switch label="Beta"/>);
+    const input = container.querySelector('input[role="switch"]');
+    expect(input).not.toBeNull();
+  });
+
+  it('should fall back to the stacked layout when a direction is given', () => {
+    const { container } = render(<Field checkbox column label="Subscribe"/>);
+    const wrapper = container.querySelector('.vane-field') as HTMLElement;
+    const firstChild = wrapper.firstElementChild as HTMLElement;
+    expect(firstChild.tagName).toBe('LABEL');
+  });
+});

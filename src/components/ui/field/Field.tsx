@@ -10,6 +10,7 @@ import { FIELD_CATEGORIES } from "./FieldCategories";
 import { resolveControl, FIELD_CONTROLS } from "./fieldControls";
 import { defaultFieldTheme } from "./defaultFieldTheme";
 import { defaultFieldLabelTheme } from "./defaultFieldLabelTheme";
+import { defaultFieldControlRowTheme } from "./defaultFieldControlRowTheme";
 import { defaultFieldDescriptionTheme } from "./defaultFieldDescriptionTheme";
 import { defaultFieldErrorTheme } from "./defaultFieldErrorTheme";
 
@@ -30,6 +31,7 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     const theme = useTheme();
     const fieldTheme = theme?.field.main ?? defaultFieldTheme;
     const labelTheme = theme?.field.label ?? defaultFieldLabelTheme;
+    const controlRowTheme = theme?.field.controlRow ?? defaultFieldControlRowTheme;
     const descriptionTheme = theme?.field.description ?? defaultFieldDescriptionTheme;
     const errorTheme = theme?.field.error ?? defaultFieldErrorTheme;
 
@@ -124,18 +126,36 @@ export const Field = forwardRef<FieldElement, FieldProps>(
 
     const Control = control?.descriptor.Component;
 
+    // an explicit direction means the author wants the plain layout, so the row is dropped
+    const authorDirection = pickFirstTruthyKeyByCategory(rest as Record<string, unknown>, {}, 'flexDirection');
+    const inline = control?.descriptor.layout === 'inline' && !authorDirection;
+
+    const labelElement = hasLabel && (
+      <ThemedComponent theme={labelTheme} {...{ id: labelId, htmlFor: controlId }}>{label}</ThemedComponent>
+    );
+    const controlElement = (
+      <LabelSizeContext.Provider value={resolvedSize}>
+        <FieldControlContext.Provider value={fieldControlValue}>
+          {Control
+            ? <Control ref={ref} {...controlProps}>{children}</Control>
+            : children}
+        </FieldControlContext.Provider>
+      </LabelSizeContext.Provider>
+    );
+
     return (
       <ThemedComponent ref={control ? undefined : ref} theme={fieldTheme} {...wrapperProps}>
-        {hasLabel && (
-          <ThemedComponent theme={labelTheme} {...{ id: labelId, htmlFor: controlId }}>{label}</ThemedComponent>
+        {inline ? (
+          <ThemedComponent theme={controlRowTheme}>
+            {controlElement}
+            {labelElement}
+          </ThemedComponent>
+        ) : (
+          <>
+            {labelElement}
+            {controlElement}
+          </>
         )}
-        <LabelSizeContext.Provider value={resolvedSize}>
-          <FieldControlContext.Provider value={fieldControlValue}>
-            {Control
-              ? <Control ref={ref} {...controlProps}>{children}</Control>
-              : children}
-          </FieldControlContext.Provider>
-        </LabelSizeContext.Provider>
         {hasDescription && (
           <ThemedComponent theme={descriptionTheme} {...surfaceText} {...{ id: descriptionId }}>{description}</ThemedComponent>
         )}
