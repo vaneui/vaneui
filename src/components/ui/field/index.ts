@@ -1,5 +1,5 @@
 export { Field } from './Field';
-export type { FieldProps } from './FieldProps';
+export type { FieldProps, FieldControlType } from './FieldProps';
 export { FIELD_CATEGORIES } from './FieldCategories';
 export type { FieldTheme } from './FieldTheme';
 export { fieldDefaults } from './fieldDefaults';

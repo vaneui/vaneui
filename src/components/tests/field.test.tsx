@@ -195,3 +195,11 @@ describe('Control category registration', () => {
     expect(fieldWithEveryControl).toBeTruthy();
   });
 });
+
+describe('Control type prop', () => {
+  it('should not emit type as an attribute on the wrapper', () => {
+    const { container } = renderField(<Field type="password" label="Password"/>);
+    const wrapper = container.querySelector('.vane-field') as HTMLElement;
+    expect(wrapper.hasAttribute('type')).toBe(false);
+  });
+});

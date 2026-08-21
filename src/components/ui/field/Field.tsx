@@ -11,7 +11,7 @@ import { defaultFieldDescriptionTheme } from "./defaultFieldDescriptionTheme";
 import { defaultFieldErrorTheme } from "./defaultFieldErrorTheme";
 
 export const Field = forwardRef<HTMLDivElement, FieldProps>(
-  function Field({ label, description, error, children, ...rest }, ref) {
+  function Field({ label, description, error, children, type: _type, ...rest }, ref) {
     const theme = useTheme();
     const fieldTheme = theme?.field.main ?? defaultFieldTheme;
     const labelTheme = theme?.field.label ?? defaultFieldLabelTheme;
