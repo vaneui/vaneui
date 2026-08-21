@@ -490,15 +490,27 @@ function App() {
             <Field label="Display name" error="This name is already taken.">
               <Input defaultValue="evgenii" />
             </Field>
-            <Field label="Region" description="Sets your default currency.">
-              <Select>
-                <option>Cyprus</option>
-                <option>Estonia</option>
-              </Select>
-            </Field>
             <Field lg label="Large field" description="Field size cascades to the control.">
               <Input placeholder="lg" />
             </Field>
+          </Card>
+
+          <Card>
+            <Title>Field — self-rendering</Title>
+            <Text sm secondary>
+              Skip the child control: pass <Code sm>type</Code> or a control boolean and{' '}
+              <Code sm>Field</Code> renders it. <Code sm>checkbox</Code>/<Code sm>switch</Code>{' '}
+              lay out inline with their label, and the row-to-label gap scales with size.
+            </Text>
+            <Field type="email" label="Work email" description="Used for billing receipts." />
+            <Field select label="Region" description="Sets your default currency.">
+              <option>Cyprus</option>
+              <option>Estonia</option>
+            </Field>
+            <Row flexWrap itemsStart>
+              <Field xs checkbox label="Subscribe (xs)" />
+              <Field xl checkbox label="Subscribe (xl)" />
+            </Row>
           </Card>
 
           <Card>
