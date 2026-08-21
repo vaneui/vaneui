@@ -45,6 +45,15 @@ export const Field = forwardRef<FieldElement, FieldProps>(
       if (type && booleanKey && booleanKey !== control.key) {
         console.warn(`VaneUI: Field has both type="${type}" and ${booleanKey} — type="${type}" wins.`);
       }
+      // the split loop hides these categories from the engine's own conflict check, so Field re-runs it
+      for (const category of ['control', ...SURFACE_CATEGORIES] as const) {
+        const truthyKeys = ComponentKeys[category].filter(k => (rest as Record<string, unknown>)[k] === true);
+        if (truthyKeys.length > 1) {
+          console.warn(
+            `VaneUI: conflicting ${category} props on <Field>: ${truthyKeys.join(', ')} — "${truthyKeys[0]}" wins (canonical key order, not JSX order). Pass only one prop per category.`
+          );
+        }
+      }
       const childrenArray = Children.toArray(children);
       const conflictChild = childrenArray.find(c => isValidElement(c) && CONTROL_COMPONENTS.has(c.type));
       if (conflictChild && isValidElement(conflictChild)) {

@@ -352,6 +352,16 @@ describe('Control conflicts', () => {
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('type="select"'));
   });
 
+  it('should warn when two control booleans conflict without an explicit type', () => {
+    render(<Field select textarea label="Region"/>);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('conflicting control props'));
+  });
+
+  it('should not warn for a single control boolean', () => {
+    render(<Field select label="Region"/>);
+    expect(warn).not.toHaveBeenCalled();
+  });
+
   it('should warn when a control is named and a single Input child is passed', () => {
     render(<Field select label="Region"><Input/></Field>);
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('ignored'));
