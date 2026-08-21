@@ -1097,6 +1097,17 @@ export function TestHarness() {
           </Tooltip>
         </section>
 
+        {/* ── Field self-rendering: data-* routes to the control, so testid goes on a wrapper div ── */}
+
+        <section data-testid="field-self-render-section">
+          <div data-testid="field-self-input">
+            <Field type="text" label="Self rendered" />
+          </div>
+          <div data-testid="field-self-checkbox">
+            <Field checkbox label="Subscribe" />
+          </div>
+        </section>
+
         {/* ── Aspect ratio: --aspect-ratio is the declared px:py ratio, asserted on computed values ── */}
 
         <section data-testid="ratio-section">
