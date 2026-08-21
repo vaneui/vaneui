@@ -37,6 +37,7 @@ import {
   INHERIT_COLOR,
   INHERIT_BG,
   INHERIT_BORDER,
+  CONTROL,
 } from './categoryBuilders';
 
 // Re-export for backward compatibility
@@ -75,6 +76,7 @@ export {
   INHERIT_COLOR,
   INHERIT_BG,
   INHERIT_BORDER,
+  CONTROL,
 };
 
 // Import component-specific categories from their folders
@@ -215,6 +217,7 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...INHERIT_COLOR,
   ...INHERIT_BG,
   ...INHERIT_BORDER,
+  ...CONTROL,
 ] as const;
 
 /**
@@ -237,6 +240,8 @@ export const ComponentKeys = {
   /** Breakpoint below which Row/Stack stacks into a column (desktop-first: that tier and below).
       Widest-first so combining several resolves to the widest = their union (desktopStack ⊃ tabletStack ⊃ mobileStack). */
   breakpoint: ['desktopStack', 'tabletStack', 'mobileStack'] as const,
+  /** Which form control a Field renders itself; absent means the control is passed as a child */
+  control: ['textInput', 'textarea', 'select', 'checkbox', 'switch', 'radioGroup'] as const,
   /** CSS display property values for element layout behavior */
   display: ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const,
   /** Flex direction: row (horizontal), column (vertical), or reversed variants */

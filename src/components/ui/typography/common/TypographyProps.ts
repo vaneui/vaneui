@@ -67,8 +67,9 @@ export type TypographyProps = BaseProps &
   MarginProps &
   WhitespaceProps &
   WordBreakProps &
-  Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
-  Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
+  // 'radioGroup' native HTMLAttributes key collides with the control category's flag value
+  Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children' | 'radioGroup'> &
+  Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children' | 'radioGroup'>> & {
   /** URL to navigate to (renders component as anchor tag) */
   href?: string;
   /** Custom HTML tag or React component to render as */

@@ -22,7 +22,7 @@ const PREFIXED_CATEGORIES: Record<string, string> = {
 
 // Semantic (abstracted above Tailwind): allow-listed, not prefix-checked.
 const SEMANTIC_CATEGORIES = new Set<string>([
-  'appearance', 'variant', 'shape', 'size',
+  'appearance', 'variant', 'shape', 'size', 'control',
   'display', 'position', 'flexDirection', 'fontStyle', 'textDecoration',
   'textTransform', 'truncate',
   'breakpoint', 'hide', 'orientation', 'responsiveSizing',

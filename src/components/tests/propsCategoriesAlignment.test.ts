@@ -46,6 +46,8 @@ import type { PopupProps } from '../ui/popup';
 import type { MenuItemProps, MenuLabelProps } from '../ui/menu';
 import type { NavLinkProps, NavLinkLabelProps } from '../ui/navLink';
 import type { TypographyProps, LinkProps, ListProps, ListItemProps } from '../ui/typography';
+import type { FieldProps } from '../ui/field';
+import { FIELD_CATEGORIES } from '../ui/field/FieldCategories';
 import { BUTTON_SPINNER_CATEGORIES } from '../ui/button/ButtonSpinnerCategories';
 import { INPUT_CATEGORIES } from '../ui/input/InputCategories';
 import { CHECKBOX_CATEGORIES } from '../ui/checkbox/CheckboxCategories';
@@ -119,6 +121,7 @@ const assertions: true[] = [
   true as AssertCategoriesCovered<ColProps, typeof COL_CATEGORIES>,
   true as AssertCategoriesCovered<RowProps, typeof ROW_CATEGORIES>,
   true as AssertCategoriesCovered<StackProps, typeof STACK_CATEGORIES>,
+  true as AssertCategoriesCovered<FieldProps, typeof FIELD_CATEGORIES>,
   true as AssertCategoriesCovered<SectionProps, typeof SECTION_CATEGORIES>,
   true as AssertCategoriesCovered<ContainerProps, typeof CONTAINER_CATEGORIES>,
   true as AssertCategoriesCovered<GridProps, typeof GRID_CATEGORIES>,

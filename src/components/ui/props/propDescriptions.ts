@@ -152,6 +152,30 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "control": {
+    "name": "Control",
+    "description": "Control props selecting which form control a Field renders itself.\nOmit all of them to pass the control as a child instead.",
+    "props": {
+      "textInput": {
+        "description": "Render a text input (the default control kind); pair with `type` for a specific input type"
+      },
+      "textarea": {
+        "description": "Render a multi-line textarea"
+      },
+      "select": {
+        "description": "Render a select; pass the options as children"
+      },
+      "checkbox": {
+        "description": "Render a checkbox, laid out inline with its label"
+      },
+      "switch": {
+        "description": "Render a switch, laid out inline with its label"
+      },
+      "radioGroup": {
+        "description": "Render a radio group; pass the radios as children"
+      }
+    }
+  },
   "cursor": {
     "name": "Cursor",
     "description": "Cursor props for controlling cursor appearance",

@@ -173,3 +173,14 @@ describe('Field Component Tests', () => {
     });
   });
 });
+
+describe('Control category registration', () => {
+  it('should strip control booleans from the DOM', () => {
+    const { container } = renderField(
+      <Field select label="Region"/>
+    );
+    const wrapper = container.querySelector('.vane-field') as HTMLElement;
+    expect(wrapper.hasAttribute('select')).toBe(false);
+    expect(wrapper.hasAttribute('textInput')).toBe(false);
+  });
+});

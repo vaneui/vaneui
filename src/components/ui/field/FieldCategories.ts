@@ -9,6 +9,7 @@ import {
   HEIGHT,
   COMMON_MODIFIERS,
   TEXT_ALIGN,
+  CONTROL,
 } from "../props/categoryBuilders";
 
 /** Field wraps a control in a column. Col's list minus `focusVisible`: Field is
@@ -24,4 +25,5 @@ export const FIELD_CATEGORIES = [
   ...HEIGHT,
   ...COMMON_MODIFIERS,
   ...TEXT_ALIGN,
+  ...CONTROL,
 ] as const;

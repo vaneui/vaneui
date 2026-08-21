@@ -99,3 +99,6 @@ export * from './maxHeightProps';
 
 // Inherit
 export * from './inheritProps';
+
+// Control
+export * from './controlProps';

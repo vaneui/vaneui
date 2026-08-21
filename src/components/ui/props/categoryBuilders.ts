@@ -45,6 +45,7 @@ export const INHERIT_SIZE = ['inheritSize'] as const;
 export const INHERIT_COLOR = ['inheritColor'] as const;
 export const INHERIT_BG = ['inheritBg'] as const;
 export const INHERIT_BORDER = ['inheritBorder'] as const;
+export const CONTROL = ['control'] as const;
 
 export const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
 export const VISUAL_FULL = [...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE] as const;

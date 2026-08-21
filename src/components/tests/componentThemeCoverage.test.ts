@@ -691,6 +691,7 @@ describe("Component theme coverage tests", () => {
     const fieldConfig: ComponentTestConfig = {
       propsType: "FieldProps",
       categories: FIELD_CATEGORIES,
+      componentExtractedCategories: ['control'],
       themes: [
         { name: "defaultFieldTheme", theme: defaultFieldTheme }
       ]
