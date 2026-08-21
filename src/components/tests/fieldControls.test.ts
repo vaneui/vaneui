@@ -34,4 +34,11 @@ describe('resolveControl', () => {
     expect(FIELD_CONTROLS.switch.layout).toBe('inline');
     expect(FIELD_CONTROLS.select.layout).toBe('stacked');
   });
+
+  // hardcoded expectations, not derived from TYPE_TO_KEY itself, so a transposed
+  // entry there (e.g. textarea: 'select') actually disagrees with this list
+  const CONTROL_KIND_TYPES = ['select', 'textarea', 'checkbox', 'switch', 'radiogroup'] as const;
+  it.each(CONTROL_KIND_TYPES)('should resolve type="%s" onto its own control key', (type) => {
+    expect(resolveControl({ type }, {})?.key).toBe(type);
+  });
 });
