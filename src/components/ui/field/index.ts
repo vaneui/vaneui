@@ -12,6 +12,5 @@ export { defaultFieldLabelTheme } from './defaultFieldLabelTheme';
 export { defaultFieldControlRowTheme } from './defaultFieldControlRowTheme';
 export { defaultFieldDescriptionTheme } from './defaultFieldDescriptionTheme';
 export { defaultFieldErrorTheme } from './defaultFieldErrorTheme';
-export { FIELD_CONTROL_ROW_CATEGORIES } from './FieldControlRowCategories';
 export { FieldControlContext, useFieldControlProps, useFieldGroupProps } from './FieldContext';
 export type { FieldControlContextValue } from './FieldContext';
