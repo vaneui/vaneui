@@ -348,14 +348,14 @@ describe('Control conflicts', () => {
     expect(warn).not.toHaveBeenCalled();
   });
 
-  it('should not warn for a single Radio child without a named control', () => {
-    render(<Field label="Option"><Radio value="a"/></Field>);
+  it('should not warn for a single Radio child with radiogroup named', () => {
+    render(<Field radiogroup label="Option"><Radio value="a"/></Field>);
     expect(warn).not.toHaveBeenCalled();
   });
 
-  it('should not warn for a Fragment of options without a named control', () => {
+  it('should not warn for a Fragment of options with select named', () => {
     render(
-      <Field label="Region">
+      <Field select label="Region">
         <>
           <option>Cyprus</option>
           <option>Greece</option>
