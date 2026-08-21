@@ -37,6 +37,16 @@ export const Field = forwardRef<FieldElement, FieldProps>(
       fieldTheme.defaults as Record<string, unknown>
     );
 
+    if (process.env.NODE_ENV !== 'production' && control) {
+      const booleanKey = pickFirstTruthyKeyByCategory(rest as Record<string, unknown>, {}, 'control');
+      if (type && booleanKey && booleanKey !== control.key) {
+        console.warn(`VaneUI: Field has both type="${type}" and ${booleanKey} — type="${type}" wins.`);
+      }
+      if (isValidElement(children) && typeof children.type !== 'string') {
+        console.warn(`VaneUI: Field renders its own ${control.key}, so the child control is ignored.`);
+      }
+    }
+
     // useId embeds colons, which are not valid in a CSS selector fragment
     const uid = useId().replace(/:/g, '-');
     // in self-rendering mode children are the control's own content, not the control

@@ -326,3 +326,24 @@ describe('Self-rendering prop routing', () => {
     expect(ref.current?.tagName).toBe('INPUT');
   });
 });
+
+describe('Control conflicts', () => {
+  let warn: jest.SpyInstance;
+  beforeEach(() => { warn = jest.spyOn(console, 'warn').mockImplementation(() => {}); });
+  afterEach(() => { warn.mockRestore(); });
+
+  it('should warn when type and a control boolean disagree', () => {
+    render(<Field type="select" textarea label="Region"><option>Cyprus</option></Field>);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('type="select"'));
+  });
+
+  it('should warn when a control is named and a child control is passed', () => {
+    render(<Field select label="Region"><Input/></Field>);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('ignored'));
+  });
+
+  it('should not warn for a plain self-rendered control', () => {
+    render(<Field type="password" label="Password"/>);
+    expect(warn).not.toHaveBeenCalled();
+  });
+});
