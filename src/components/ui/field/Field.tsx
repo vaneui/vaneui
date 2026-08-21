@@ -140,8 +140,12 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     const authorDirection = pickFirstTruthyKeyByCategory(rest as Record<string, unknown>, {}, 'flexDirection');
     const inline = control?.descriptor.layout === 'inline' && !authorDirection;
 
+    // a self-rendered radiogroup never claims controlId, so htmlFor would dangle; aria-labelledby covers it
     const labelElement = hasLabel && (
-      <ThemedComponent theme={labelTheme} {...{ id: labelId, htmlFor: controlId }}>{label}</ThemedComponent>
+      <ThemedComponent
+        theme={labelTheme}
+        {...{ id: labelId, ...(control?.key === 'radiogroup' ? {} : { htmlFor: controlId }) }}
+      >{label}</ThemedComponent>
     );
     const controlElement = (
       <LabelSizeContext.Provider value={resolvedSize}>

@@ -293,6 +293,18 @@ describe('Self-rendering controls', () => {
   });
 });
 
+describe('Self-rendered radiogroup label', () => {
+  it('should omit htmlFor and keep aria-labelledby for a self-rendered radiogroup', () => {
+    const { container } = render(
+      <Field radiogroup label="Plan"><Radio value="a"/><Radio value="b"/></Field>
+    );
+    const label = container.querySelector('label') as HTMLLabelElement;
+    const group = container.querySelector('[role="radiogroup"]') as HTMLElement;
+    expect(label.hasAttribute('for')).toBe(false);
+    expect(group.getAttribute('aria-labelledby')).toBe(label.id);
+  });
+});
+
 describe('Self-rendering prop routing', () => {
   it('should keep the control own visual defaults, not the wrapper ones', () => {
     const { container } = render(<Field type="text" label="Name"/>);
