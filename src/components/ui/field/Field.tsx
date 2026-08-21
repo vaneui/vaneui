@@ -22,7 +22,9 @@ const LAYOUT_KEYS = new Set<string>(
     .filter(k => !SURFACE_KEYS.has(k) && !CONTROL_KEYS.has(k))
 );
 
-export const Field = forwardRef<HTMLDivElement, FieldProps>(
+type FieldElement = HTMLDivElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+export const Field = forwardRef<FieldElement, FieldProps>(
   function Field({ label, description, error, children, type, ...rest }, ref) {
     const theme = useTheme();
     const fieldTheme = theme?.field.main ?? defaultFieldTheme;
@@ -41,7 +43,9 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
     const childId = !control && isValidElement(children)
       ? (children.props as { id?: string }).id
       : undefined;
-    const controlId = childId ?? `field-${uid}`;
+    // an explicit id in self-rendering mode must reach the control, or `for` dangles
+    const explicitId = control ? (rest as { id?: string }).id : undefined;
+    const controlId = childId ?? explicitId ?? `field-${uid}`;
     const labelId = `${controlId}-label`;
     const descriptionId = `${controlId}-description`;
     const errorId = `${controlId}-error`;
@@ -67,7 +71,8 @@ export const Field = forwardRef<HTMLDivElement, FieldProps>(
     ) ?? 'md';
 
     // a fill swallows the pinned help/error colors (--color-text-secondary IS --color-bg-filled-secondary)
-    const onFill = pickFirstTruthyKeyByCategory(
+    // self-rendering mode forwards `filled` to the control, so the wrapper never paints it
+    const onFill = !control && pickFirstTruthyKeyByCategory(
       rest as Record<string, unknown>,
       fieldTheme.defaults as Record<string, unknown>,
       'variant'

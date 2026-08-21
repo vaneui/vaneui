@@ -260,7 +260,8 @@ describe('Self-rendering controls', () => {
     expect(container.querySelectorAll('input')).toHaveLength(1);
   });
 
-  it('should forward onChange to the self-rendered control', () => {
+  // onChange bubbles from input to ancestors, so calledTimes(1) also proves no wrapper leak
+  it('should forward onChange to the self-rendered control, and only there', () => {
     const onChange = jest.fn();
     const { container } = render(<Field type="text" label="Name" onChange={onChange}/>);
     const input = container.querySelector('input') as HTMLInputElement;
@@ -268,11 +269,18 @@ describe('Self-rendering controls', () => {
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
-  it('should not forward onChange to the wrapper', () => {
-    const onChange = jest.fn();
-    const { container } = render(<Field type="text" label="Name" onChange={onChange}/>);
-    const wrapper = container.querySelector('.vane-field') as HTMLElement;
-    fireEvent.change(wrapper);
-    expect(onChange).not.toHaveBeenCalled();
+  it('should adopt an explicit id in self-rendering mode', () => {
+    const { container } = render(<Field type="text" id="email" label="Email"/>);
+    const label = container.querySelector('label') as HTMLLabelElement;
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(input.id).toBe('email');
+    expect(label.getAttribute('for')).toBe(input.id);
+  });
+
+  it('should keep the description colour when a fill routes to the control', () => {
+    const { getByText } = render(
+      <Field type="text" filled label="Name" description="Help."/>
+    );
+    expect(getByText('Help.')).toHaveAttribute('data-appearance', 'secondary');
   });
 });
