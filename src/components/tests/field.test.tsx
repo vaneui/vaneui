@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import { createRef, type ReactElement } from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import {
   Field,
@@ -201,5 +201,78 @@ describe('Control type prop', () => {
     const { container } = renderField(<Field type="password" label="Password"/>);
     const wrapper = container.querySelector('.vane-field') as HTMLElement;
     expect(wrapper.hasAttribute('type')).toBe(false);
+  });
+});
+
+describe('Self-rendering controls', () => {
+  it('should render an input for a native type', () => {
+    const { container } = render(<Field type="password" label="Password"/>);
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(input).not.toBeNull();
+    expect(input.type).toBe('password');
+  });
+
+  it('should render a select and forward children as its options', () => {
+    const { container } = render(
+      <Field select label="Region"><option>Cyprus</option></Field>
+    );
+    const select = container.querySelector('select') as HTMLSelectElement;
+    expect(select).not.toBeNull();
+    expect(select.querySelectorAll('option')).toHaveLength(1);
+  });
+
+  it('should render a textarea', () => {
+    const { container } = render(<Field textarea label="Notes" rows={4}/>);
+    const textarea = container.querySelector('textarea') as HTMLTextAreaElement;
+    expect(textarea.rows).toBe(4);
+  });
+
+  it('should forward native attributes to the control, not the wrapper', () => {
+    const { container } = render(
+      <Field type="text" label="Name" defaultValue="alex" placeholder="p"/>
+    );
+    const input = container.querySelector('input') as HTMLInputElement;
+    const wrapper = container.querySelector('.vane-field') as HTMLElement;
+    expect(input.defaultValue).toBe('alex');
+    expect(input.placeholder).toBe('p');
+    expect(wrapper.hasAttribute('placeholder')).toBe(false);
+  });
+
+  it('should keep the label pointing at the self-rendered control', () => {
+    const { container } = render(<Field type="email" label="Email"/>);
+    const label = container.querySelector('label') as HTMLLabelElement;
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(label.getAttribute('for')).toBe(input.id);
+    expect(input.id).toBeTruthy();
+  });
+
+  it('should link description and error to the self-rendered control', () => {
+    const { container } = render(
+      <Field type="text" label="Name" description="Help." error="Bad."/>
+    );
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(input.getAttribute('aria-describedby')?.split(' ')).toHaveLength(2);
+    expect(input.getAttribute('aria-invalid')).toBe('true');
+  });
+
+  it('should stay in children mode when no control is named', () => {
+    const { container } = render(<Field label="Email"><Input/></Field>);
+    expect(container.querySelectorAll('input')).toHaveLength(1);
+  });
+
+  it('should forward onChange to the self-rendered control', () => {
+    const onChange = jest.fn();
+    const { container } = render(<Field type="text" label="Name" onChange={onChange}/>);
+    const input = container.querySelector('input') as HTMLInputElement;
+    fireEvent.change(input, { target: { value: 'x' } });
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not forward onChange to the wrapper', () => {
+    const onChange = jest.fn();
+    const { container } = render(<Field type="text" label="Name" onChange={onChange}/>);
+    const wrapper = container.querySelector('.vane-field') as HTMLElement;
+    fireEvent.change(wrapper);
+    expect(onChange).not.toHaveBeenCalled();
   });
 });
