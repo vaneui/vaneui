@@ -10,6 +10,31 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Added
+
+- **`Field` can render its own control**, instead of only wrapping one passed as
+  a child. Pass `type` (a control kind such as `select`, or a native input type
+  such as `password`, `email`, `date`) or one of the six booleans `textInput`,
+  `textarea`, `select`, `checkbox`, `switch`, `radiogroup`. Surface props
+  (`appearance`, `variant`, `shape`, `border`, `ring`, `shadow`, `transparent`)
+  route to the rendered control, native attributes go to the control, and
+  `ref` now points at the control instead of the wrapper. Layout props and
+  `className` stay on the wrapper. Children still reach the control, so
+  `<option>` and `<Radio>` children keep working. `checkbox` and
+  `switch` lay out inline, control first and label beside it, unless an
+  explicit `row`/`column` falls back to the plain stacked layout. Naming no
+  control leaves today's children mode completely unchanged.
+
+### Changed
+
+- **`Field`'s `type` prop is now a closed union** of the control kinds and
+  native input types above. It previously accepted any string, inherited from
+  the anchor attributes `Field` spreads for tag switching, and Field has no
+  `href`-based tag switching of its own, so a value like `<Field type="button">`
+  was already reaching the wrapper `<div>` and emitting an invalid `type`
+  attribute at runtime. The type change surfaces that pre-existing bug at
+  compile time rather than removing a working option.
+
 ## 1.4.0
 
 `2026-08-20`

@@ -137,7 +137,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Quoted content | `Blockquote` | Left border accent, inherits parent appearance |
 | Text input | `Input` | Renders `<input>`, all HTML input attrs |
 | Toggle | `Checkbox` | Custom styled, use inside `Label` |
-| Form field (label + help + error) | `Field` | Owns the id, points the label at the control, links help/error with `aria-describedby`. An `error` also marks the control invalid |
+| Form field (label + help + error) | `Field` | Owns the id, points the label at the control, links help/error with `aria-describedby`. Can render its own control via `type` or one of `textInput`/`textarea`/`select`/`checkbox`/`switch`/`radiogroup`, or wrap one passed as a child. An `error` also marks the control invalid |
 | Inline status message | `Alert` | Live region: `role="alert"`, or `role="status"` with `polite` |
 | Busy indicator | `Spinner` | `role="status"`; give it an `aria-label` |
 | Hover/focus hint | `Tooltip` + trigger | Describes its trigger; no `aria-haspopup`/`aria-expanded` |
@@ -212,6 +212,12 @@ which `Label` alone does not do.
 ```
 
 Mark a field's validation state with the `invalid` validity prop — it layers a danger border/ring over the input's current appearance: `<Input invalid />`.
+
+`Field` can also render the control itself — name a `type` or a control boolean and drop the child:
+
+```tsx
+<Field type="email" label="Email" description="We never share it."/>
+```
 
 ### Button group
 
