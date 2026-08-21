@@ -24,7 +24,7 @@ import { defaultColTheme } from "../ui/col/defaultColTheme";
 import { defaultRowTheme } from "../ui/row/defaultRowTheme";
 import { defaultStackTheme } from "../ui/stack/defaultStackTheme";
 import { defaultCardTheme, defaultCardHeaderTheme, defaultCardBodyTheme, defaultCardFooterTheme, CARD_HEADER_CATEGORIES, CARD_BODY_CATEGORIES, CARD_FOOTER_CATEGORIES } from "../ui/card";
-import { defaultFieldTheme, defaultFieldLabelTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme } from "../ui/field";
+import { defaultFieldTheme, defaultFieldLabelTheme, defaultFieldControlRowTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme } from "../ui/field";
 import { defaultAlertTheme, ALERT_CATEGORIES } from "../ui/alert";
 import { defaultSpinnerTheme, SPINNER_CATEGORIES } from "../ui/spinner";
 import { defaultTooltipTheme } from "../ui/tooltip";
@@ -693,7 +693,8 @@ describe("Component theme coverage tests", () => {
       categories: FIELD_CATEGORIES,
       componentExtractedCategories: ['control'],
       themes: [
-        { name: "defaultFieldTheme", theme: defaultFieldTheme }
+        { name: "defaultFieldTheme", theme: defaultFieldTheme },
+        { name: "defaultFieldControlRowTheme", theme: defaultFieldControlRowTheme }
       ]
     };
     createThemeTests(fieldConfig);
@@ -1112,7 +1113,7 @@ describe("Component theme coverage tests", () => {
       defaultInputWrapperTheme,
       // withDefaults variants
       defaultMenuPopupTheme, defaultMenuDividerTheme,
-      defaultFieldTheme, defaultFieldLabelTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme,
+      defaultFieldTheme, defaultFieldLabelTheme, defaultFieldControlRowTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme,
       defaultAlertTheme, defaultSpinnerTheme, defaultTooltipTheme,
     ]);
 

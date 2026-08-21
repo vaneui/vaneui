@@ -28,6 +28,7 @@ import { alertDefaults } from '../alert/alertDefaults';
 import { spinnerDefaults } from '../spinner/spinnerDefaults';
 import { tooltipDefaults } from '../tooltip/tooltipDefaults';
 import { fieldLabelDefaults } from '../field/fieldLabelDefaults';
+import { fieldControlRowDefaults } from '../field/fieldControlRowDefaults';
 import { fieldDescriptionDefaults } from '../field/fieldDescriptionDefaults';
 import { fieldErrorDefaults } from '../field/fieldErrorDefaults';
 import { imgDefaults } from '../img/imgDefaults';
@@ -129,6 +130,7 @@ export const themeDefaults: ThemeDefaults = {
   field: {
     main: fieldDefaults,
     label: fieldLabelDefaults,
+    controlRow: fieldControlRowDefaults,
     description: fieldDescriptionDefaults,
     error: fieldErrorDefaults,
   },

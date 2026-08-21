@@ -37,6 +37,7 @@ import { defaultAlertTheme } from './ui/alert/defaultAlertTheme';
 import { defaultSpinnerTheme } from './ui/spinner/defaultSpinnerTheme';
 import { defaultTooltipTheme } from './ui/tooltip/defaultTooltipTheme';
 import { defaultFieldLabelTheme } from './ui/field/defaultFieldLabelTheme';
+import { defaultFieldControlRowTheme } from './ui/field/defaultFieldControlRowTheme';
 import { defaultFieldDescriptionTheme } from './ui/field/defaultFieldDescriptionTheme';
 import { defaultFieldErrorTheme } from './ui/field/defaultFieldErrorTheme';
 import { defaultImgTheme } from './ui/img/defaultImgTheme';
@@ -130,6 +131,7 @@ export const defaultTheme: ThemeProps = {
   field: {
     main: defaultFieldTheme,
     label: defaultFieldLabelTheme,
+    controlRow: defaultFieldControlRowTheme,
     description: defaultFieldDescriptionTheme,
     error: defaultFieldErrorTheme,
   },

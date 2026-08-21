@@ -166,6 +166,7 @@ export interface ThemeProps {
   field: {
     main: ComponentTheme<FieldProps, FieldTheme>;
     label: ComponentTheme<LabelProps, LabelTheme>;
+    controlRow: ComponentTheme<ColProps, ColTheme>;
     description: ComponentTheme<TypographyProps, TypographyTheme>;
     error: ComponentTheme<TypographyProps, TypographyTheme>;
   };
