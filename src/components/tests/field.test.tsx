@@ -8,7 +8,9 @@ import {
   Radio,
   RadioGroup,
   ThemeProvider,
-  defaultTheme
+  defaultTheme,
+  ComponentKeys,
+  type FieldProps
 } from '../../index';
 
 const renderField = (ui: ReactElement) =>
@@ -182,5 +184,14 @@ describe('Control category registration', () => {
     const wrapper = container.querySelector('.vane-field') as HTMLElement;
     expect(wrapper.hasAttribute('select')).toBe(false);
     expect(wrapper.hasAttribute('textInput')).toBe(false);
+  });
+
+  it('should type-check every control flag as a usable FieldProps key', () => {
+    // Fails `tsc --noEmit` if any control value collides with a native attribute.
+    const allControlFlags: Record<typeof ComponentKeys.control[number], true> = {
+      textInput: true, textarea: true, select: true, checkbox: true, switch: true, radiogroup: true,
+    };
+    const fieldWithEveryControl: FieldProps = { ...allControlFlags };
+    expect(fieldWithEveryControl).toBeTruthy();
   });
 });

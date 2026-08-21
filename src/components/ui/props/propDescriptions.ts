@@ -154,7 +154,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
   },
   "control": {
     "name": "Control",
-    "description": "Control props selecting which form control a Field renders itself.\nOmit all of them to pass the control as a child instead.",
+    "description": "Which form control a Field renders itself; omit all of them to pass the control as a child.",
     "props": {
       "textInput": {
         "description": "Render a text input (the default control kind); pair with `type` for a specific input type"
@@ -171,7 +171,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       "switch": {
         "description": "Render a switch, laid out inline with its label"
       },
-      "radioGroup": {
+      "radiogroup": {
         "description": "Render a radio group; pass the radios as children"
       }
     }

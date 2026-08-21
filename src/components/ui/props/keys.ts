@@ -241,7 +241,7 @@ export const ComponentKeys = {
       Widest-first so combining several resolves to the widest = their union (desktopStack ⊃ tabletStack ⊃ mobileStack). */
   breakpoint: ['desktopStack', 'tabletStack', 'mobileStack'] as const,
   /** Which form control a Field renders itself; absent means the control is passed as a child */
-  control: ['textInput', 'textarea', 'select', 'checkbox', 'switch', 'radioGroup'] as const,
+  control: ['textInput', 'textarea', 'select', 'checkbox', 'switch', 'radiogroup'] as const,
   /** CSS display property values for element layout behavior */
   display: ['inline', 'block', 'inlineBlock', 'flex', 'inlineFlex', 'grid', 'inlineGrid', 'contents', 'table', 'tableCell', 'hidden'] as const,
   /** Flex direction: row (horizontal), column (vertical), or reversed variants */

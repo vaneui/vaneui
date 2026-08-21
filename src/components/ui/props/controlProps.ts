@@ -1,7 +1,4 @@
-/**
- * Control props selecting which form control a Field renders itself.
- * Omit all of them to pass the control as a child instead.
- */
+/** Which form control a Field renders itself; omit all of them to pass the control as a child. */
 
 export interface ControlProps {
   /** Render a text input (the default control kind); pair with `type` for a specific input type */
@@ -15,5 +12,5 @@ export interface ControlProps {
   /** Render a switch, laid out inline with its label */
   switch?: boolean;
   /** Render a radio group; pass the radios as children */
-  radioGroup?: boolean;
+  radiogroup?: boolean;
 }
