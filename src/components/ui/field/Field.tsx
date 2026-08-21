@@ -48,7 +48,8 @@ export const Field = forwardRef<FieldElement, FieldProps>(
       const childrenArray = Children.toArray(children);
       const conflictChild = childrenArray.find(c => isValidElement(c) && CONTROL_COMPONENTS.has(c.type));
       if (conflictChild && isValidElement(conflictChild)) {
-        const childName = (conflictChild.type as any).displayName || (conflictChild.type as any).name || 'control';
+        const childType = conflictChild.type as { displayName?: string; name?: string };
+        const childName = childType.displayName || childType.name || 'control';
         console.warn(`VaneUI: Field renders its own ${control.key}, so the <${childName}/> child is ignored.`);
       }
     }
