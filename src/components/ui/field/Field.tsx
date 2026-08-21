@@ -104,7 +104,7 @@ export const Field = forwardRef<FieldElement, FieldProps>(
       const wProps: Record<string, unknown> = {};
       for (const [key, value] of Object.entries(rest)) {
         if (SURFACE_KEYS.has(key) || CONTROL_KEYS.has(key)) continue;
-        if (LAYOUT_KEYS.has(key) || key === 'className') { wProps[key] = value; continue; }
+        if (LAYOUT_KEYS.has(key) || key === 'className' || key === 'tag') { wProps[key] = value; continue; }
         cProps[key] = value;
       }
       if (control.inputType) { cProps.type = control.inputType; }

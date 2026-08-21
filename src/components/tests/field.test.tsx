@@ -204,6 +204,14 @@ describe('Control type prop', () => {
   });
 });
 
+describe('Control tag prop', () => {
+  it('should route tag to the wrapper, not replace the self-rendered control', () => {
+    const { container } = render(<Field type="text" tag="section" label="Name"/>);
+    expect(container.querySelector('section')).not.toBeNull();
+    expect(container.querySelector('input')).not.toBeNull();
+  });
+});
+
 describe('Self-rendering controls', () => {
   it('should render an input for a native type', () => {
     const { container } = render(<Field type="password" label="Password"/>);
