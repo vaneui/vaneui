@@ -290,6 +290,14 @@
     .vane-field[data-size="lg"] { --gap-unit: 2; }
     .vane-field[data-size="xl"] { --gap-unit: 2.5; }
 
+    /* Field's inline control row: same curve as .vane-field, so the row-to-label gap matches. */
+    .vane-field-control-row { --gap-unit: 1.5; }
+    .vane-field-control-row[data-size="xs"] { --gap-unit: 1; }
+    .vane-field-control-row[data-size="sm"] { --gap-unit: 1.25; }
+    .vane-field-control-row[data-size="md"] { --gap-unit: 1.5; }
+    .vane-field-control-row[data-size="lg"] { --gap-unit: 2; }
+    .vane-field-control-row[data-size="xl"] { --gap-unit: 2.5; }
+
     /* Label */
     .vane-label {
         --lh: var(--lh-base);

@@ -147,7 +147,7 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     return (
       <ThemedComponent ref={control ? undefined : ref} theme={fieldTheme} {...wrapperProps}>
         {inline ? (
-          <ThemedComponent theme={controlRowTheme}>
+          <ThemedComponent theme={controlRowTheme} {...{ [resolvedSize]: true }}>
             {controlElement}
             {labelElement}
           </ThemedComponent>

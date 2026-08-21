@@ -387,7 +387,7 @@ describe('Control conflicts', () => {
 describe('Inline control layout', () => {
   it('should put a checkbox before its label in a control row', () => {
     const { container } = render(<Field checkbox label="Subscribe"/>);
-    const row = container.querySelector('.vane-field > div') as HTMLElement;
+    const row = container.querySelector('.vane-field-control-row') as HTMLElement;
     expect(row).not.toBeNull();
     const kids = Array.from(row.children);
     const labelIndex = kids.findIndex(k => k.tagName === 'LABEL');
@@ -399,14 +399,14 @@ describe('Inline control layout', () => {
     const { container } = render(
       <Field checkbox label="Subscribe" description="Weekly digest."/>
     );
-    const row = container.querySelector('.vane-field > div') as HTMLElement;
+    const row = container.querySelector('.vane-field-control-row') as HTMLElement;
     expect(row.textContent).not.toContain('Weekly digest.');
     expect(container.textContent).toContain('Weekly digest.');
   });
 
   it('should render a switch inside its control row, not just anywhere', () => {
     const { container } = render(<Field switch label="Beta"/>);
-    const row = container.querySelector('.vane-field > div') as HTMLElement;
+    const row = container.querySelector('.vane-field-control-row') as HTMLElement;
     expect(row).not.toBeNull();
     expect(row.querySelector('input[role="switch"]')).not.toBeNull();
   });
@@ -416,10 +416,20 @@ describe('Inline control layout', () => {
     const wrapper = container.querySelector('.vane-field') as HTMLElement;
     const firstChild = wrapper.firstElementChild as HTMLElement;
     expect(firstChild.tagName).toBe('LABEL');
-    expect(container.querySelector('.vane-field > div')).toBeNull();
+    expect(container.querySelector('.vane-field-control-row')).toBeNull();
 
     // same control without the override, to prove the row was actually dropped, not just absent
     const { container: baseline } = render(<Field checkbox label="Notify"/>);
-    expect(baseline.querySelector('.vane-field > div')).not.toBeNull();
+    expect(baseline.querySelector('.vane-field-control-row')).not.toBeNull();
+  });
+
+  it("should give the row its own class and the Field's resolved size, not a hardcoded md", () => {
+    const { container: xsContainer } = render(<Field checkbox xs label="Subscribe"/>);
+    const { container: xlContainer } = render(<Field checkbox xl label="Subscribe"/>);
+    const xsRow = xsContainer.querySelector('.vane-field-control-row') as HTMLElement;
+    const xlRow = xlContainer.querySelector('.vane-field-control-row') as HTMLElement;
+    expect(xsRow).not.toHaveClass('vane-col');
+    expect(xsRow).toHaveAttribute('data-size', 'xs');
+    expect(xlRow).toHaveAttribute('data-size', 'xl');
   });
 });

@@ -23,4 +23,17 @@ test.describe('Field self-rendering', () => {
     // md checkbox vs sm label leaves ~3px drift; a stacked (non-inline) layout drifts 20px+.
     expect(Math.abs(boxCentre - labelCentre)).toBeLessThan(5);
   });
+
+  test('scales the control-row gap with the Field size instead of a fixed 16px', async ({ page }) => {
+    const xsRow = page.getByTestId('field-self-checkbox-xs').locator('.vane-field-control-row');
+    const xlRow = page.getByTestId('field-self-checkbox-xl').locator('.vane-field-control-row');
+    expect(await xsRow.getAttribute('data-size')).toBe('xs');
+    expect(await xlRow.getAttribute('data-size')).toBe('xl');
+    const xsGap = parseFloat(await getStyle(xsRow, 'column-gap'));
+    const xlGap = parseFloat(await getStyle(xlRow, 'column-gap'));
+    expect(xsGap).toBeLessThan(xlGap);
+    // curve mirrors .vane-field[data-size]: gap-unit 1 (xs) to 2.5 (xl) at --spacing 0.25rem
+    expect(xsGap).toBeCloseTo(4, 0);
+    expect(xlGap).toBeCloseTo(10, 0);
+  });
 });

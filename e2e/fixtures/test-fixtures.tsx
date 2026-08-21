@@ -1106,6 +1106,12 @@ export function TestHarness() {
           <div data-testid="field-self-checkbox">
             <Field checkbox label="Subscribe" />
           </div>
+          <div data-testid="field-self-checkbox-xs">
+            <Field xs checkbox label="Subscribe" />
+          </div>
+          <div data-testid="field-self-checkbox-xl">
+            <Field xl checkbox label="Subscribe" />
+          </div>
         </section>
 
         {/* ── Aspect ratio: --aspect-ratio is the declared px:py ratio, asserted on computed values ── */}
