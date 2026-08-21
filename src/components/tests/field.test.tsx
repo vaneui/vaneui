@@ -178,12 +178,18 @@ describe('Field Component Tests', () => {
 
 describe('Control category registration', () => {
   it('should strip control booleans from the DOM', () => {
-    const { container } = renderField(
-      <Field select label="Region"/>
+    // multiple control keys also trip the engine's own conflicting-props warning; silence it here
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    const config = defaultTheme.field.main.getComponentConfig(
+      { select: true, textarea: true, checkbox: true, switch: true, radiogroup: true, textInput: true }
     );
-    const wrapper = container.querySelector('.vane-field') as HTMLElement;
-    expect(wrapper.hasAttribute('select')).toBe(false);
-    expect(wrapper.hasAttribute('textInput')).toBe(false);
+    warn.mockRestore();
+    expect(config.finalProps).not.toHaveProperty('select');
+    expect(config.finalProps).not.toHaveProperty('textarea');
+    expect(config.finalProps).not.toHaveProperty('checkbox');
+    expect(config.finalProps).not.toHaveProperty('switch');
+    expect(config.finalProps).not.toHaveProperty('radiogroup');
+    expect(config.finalProps).not.toHaveProperty('textInput');
   });
 
   it('should type-check every control flag as a usable FieldProps key', () => {
