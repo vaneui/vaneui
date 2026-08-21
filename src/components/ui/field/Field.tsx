@@ -1,4 +1,4 @@
-import { forwardRef, isValidElement, useId, useMemo } from 'react';
+import { forwardRef, isValidElement, useId, useMemo, Children } from 'react';
 import type { FieldProps } from "./FieldProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
@@ -7,7 +7,7 @@ import { ComponentKeys } from "../props";
 import { LabelSizeContext } from "../label/LabelSizeContext";
 import { FieldControlContext } from "./FieldContext";
 import { FIELD_CATEGORIES } from "./FieldCategories";
-import { resolveControl } from "./fieldControls";
+import { resolveControl, FIELD_CONTROLS } from "./fieldControls";
 import { defaultFieldTheme } from "./defaultFieldTheme";
 import { defaultFieldLabelTheme } from "./defaultFieldLabelTheme";
 import { defaultFieldDescriptionTheme } from "./defaultFieldDescriptionTheme";
@@ -21,6 +21,7 @@ const LAYOUT_KEYS = new Set<string>(
   FIELD_CATEGORIES.flatMap(c => ComponentKeys[c] as readonly string[])
     .filter(k => !SURFACE_KEYS.has(k) && !CONTROL_KEYS.has(k))
 );
+const CONTROL_COMPONENTS = new Set<unknown>(Object.values(FIELD_CONTROLS).map(d => d.Component));
 
 type FieldElement = HTMLDivElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
@@ -42,8 +43,11 @@ export const Field = forwardRef<FieldElement, FieldProps>(
       if (type && booleanKey && booleanKey !== control.key) {
         console.warn(`VaneUI: Field has both type="${type}" and ${booleanKey} — type="${type}" wins.`);
       }
-      if (isValidElement(children) && typeof children.type !== 'string') {
-        console.warn(`VaneUI: Field renders its own ${control.key}, so the child control is ignored.`);
+      const childrenArray = Children.toArray(children);
+      const conflictChild = childrenArray.find(c => isValidElement(c) && CONTROL_COMPONENTS.has(c.type));
+      if (conflictChild && isValidElement(conflictChild)) {
+        const childName = (conflictChild.type as any).displayName || (conflictChild.type as any).name || 'control';
+        console.warn(`VaneUI: Field renders its own ${control.key}, so the <${childName}/> child is ignored.`);
       }
     }
 

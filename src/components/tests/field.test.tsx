@@ -337,13 +337,42 @@ describe('Control conflicts', () => {
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('type="select"'));
   });
 
-  it('should warn when a control is named and a child control is passed', () => {
+  it('should warn when a control is named and a single Input child is passed', () => {
     render(<Field select label="Region"><Input/></Field>);
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('ignored'));
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('Input'));
   });
 
   it('should not warn for a plain self-rendered control', () => {
     render(<Field type="password" label="Password"/>);
     expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('should not warn for a single Radio child without a named control', () => {
+    render(<Field label="Option"><Radio value="a"/></Field>);
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('should not warn for a Fragment of options without a named control', () => {
+    render(
+      <Field label="Region">
+        <>
+          <option>Cyprus</option>
+          <option>Greece</option>
+        </>
+      </Field>
+    );
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('should warn when multiple Input children are passed with a named control', () => {
+    render(
+      <Field select label="Region">
+        <Input/>
+        <Input/>
+      </Field>
+    );
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('ignored'));
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('Input'));
   });
 });
