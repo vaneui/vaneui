@@ -404,10 +404,11 @@ describe('Inline control layout', () => {
     expect(container.textContent).toContain('Weekly digest.');
   });
 
-  it('should render a switch inline too', () => {
+  it('should render a switch inside its control row, not just anywhere', () => {
     const { container } = render(<Field switch label="Beta"/>);
-    const input = container.querySelector('input[role="switch"]');
-    expect(input).not.toBeNull();
+    const row = container.querySelector('.vane-field > div') as HTMLElement;
+    expect(row).not.toBeNull();
+    expect(row.querySelector('input[role="switch"]')).not.toBeNull();
   });
 
   it('should fall back to the stacked layout when a direction is given', () => {
@@ -415,5 +416,10 @@ describe('Inline control layout', () => {
     const wrapper = container.querySelector('.vane-field') as HTMLElement;
     const firstChild = wrapper.firstElementChild as HTMLElement;
     expect(firstChild.tagName).toBe('LABEL');
+    expect(container.querySelector('.vane-field > div')).toBeNull();
+
+    // same control without the override, to prove the row was actually dropped, not just absent
+    const { container: baseline } = render(<Field checkbox label="Notify"/>);
+    expect(baseline.querySelector('.vane-field > div')).not.toBeNull();
   });
 });
