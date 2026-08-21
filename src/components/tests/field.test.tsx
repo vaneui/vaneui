@@ -329,8 +329,15 @@ describe('Self-rendering prop routing', () => {
 
 describe('Control conflicts', () => {
   let warn: jest.SpyInstance;
-  beforeEach(() => { warn = jest.spyOn(console, 'warn').mockImplementation(() => {}); });
-  afterEach(() => { warn.mockRestore(); });
+  let err: jest.SpyInstance;
+  beforeEach(() => {
+    warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    err = jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+  afterEach(() => {
+    warn.mockRestore();
+    err.mockRestore();
+  });
 
   it('should warn when type and a control boolean disagree', () => {
     render(<Field type="select" textarea label="Region"><option>Cyprus</option></Field>);
