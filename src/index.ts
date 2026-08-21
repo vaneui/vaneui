@@ -9,7 +9,7 @@ export { Kbd, type KbdProps } from "./components/ui/kbd";
 export { Mark, type MarkProps } from "./components/ui/mark";
 export { Checkbox, type CheckboxProps } from "./components/ui/checkbox";
 export { Label, type LabelProps } from "./components/ui/label";
-export { Field, type FieldProps } from "./components/ui/field";
+export { Field, type FieldProps, type FieldControlType } from "./components/ui/field";
 export { Alert, type AlertProps } from "./components/ui/alert";
 export { Spinner, type SpinnerProps } from "./components/ui/spinner";
 export { Tooltip, type TooltipProps } from "./components/ui/tooltip";
@@ -129,4 +129,5 @@ export type {
   InheritBgProps,
   InheritBorderProps,
   InheritProps,
+  ControlProps,
 } from "./components/ui/props/props";
