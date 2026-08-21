@@ -284,3 +284,45 @@ describe('Self-rendering controls', () => {
     expect(getByText('Help.')).toHaveAttribute('data-appearance', 'secondary');
   });
 });
+
+describe('Self-rendering prop routing', () => {
+  it('should keep the control own visual defaults, not the wrapper ones', () => {
+    const { container } = render(<Field type="text" label="Name"/>);
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(input.className).toContain('rounded-(--br)');
+    expect(input.className).not.toContain('rounded-none');
+  });
+
+  it('should route surface props to the control', () => {
+    const { container } = render(<Field type="text" filled danger label="Name"/>);
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(input.getAttribute('data-variant')).toBe('filled');
+    expect(input.getAttribute('data-appearance')).toBe('danger');
+  });
+
+  it('should not also paint the wrapper with a forwarded surface prop', () => {
+    const { container } = render(<Field type="text" filled danger label="Name"/>);
+    const wrapper = container.querySelector('.vane-field') as HTMLElement;
+    expect(wrapper.getAttribute('data-variant')).not.toBe('filled');
+  });
+
+  it('should keep layout props on the wrapper', () => {
+    const { container } = render(<Field type="text" noGap label="Name"/>);
+    const wrapper = container.querySelector('.vane-field') as HTMLElement;
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(wrapper.className).not.toContain('gap-(--gap)');
+    expect(input.className).not.toContain('gap');
+  });
+
+  it('should cascade its size to the control', () => {
+    const { container } = render(<Field type="text" lg label="Name"/>);
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(input.getAttribute('data-size')).toBe('lg');
+  });
+
+  it('should point ref at the control when self-rendering', () => {
+    const ref = createRef<HTMLInputElement>();
+    render(<Field type="text" label="Name" ref={ref}/>);
+    expect(ref.current?.tagName).toBe('INPUT');
+  });
+});
