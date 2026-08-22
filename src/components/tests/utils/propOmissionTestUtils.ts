@@ -79,6 +79,8 @@ export interface ConsoleSpy {
  */
 export function createConsoleErrorSpy(): ConsoleSpy {
   const mockFn = jest.spyOn(console, 'error').mockImplementation(() => {});
+  // all-true test props deliberately trigger the conflicting-props dev warning; mute it here
+  const warnMockFn = jest.spyOn(console, 'warn').mockImplementation(() => {});
 
   return {
     mockFn,
@@ -98,6 +100,7 @@ export function createConsoleErrorSpy(): ConsoleSpy {
     },
     restore: () => {
       mockFn.mockRestore();
+      warnMockFn.mockRestore();
     }
   };
 }

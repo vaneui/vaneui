@@ -30,6 +30,15 @@ describe('Prop Omission Edge Cases', () => {
       </ThemeProvider>
     );
 
+  // all-true test props deliberately trigger the conflicting-props dev warning; mute it here
+  let warn: jest.SpyInstance;
+  beforeEach(() => {
+    warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+  afterEach(() => {
+    warn.mockRestore();
+  });
+
   describe('Complex Prop Combinations', () => {
     it('should omit props even when mixed with valid HTML attributes', () => {
       const buttonProps = {

@@ -174,6 +174,14 @@ describe('Component Prop Omission Tests', () => {
   // List Tests - Custom test to handle both ul and ol tags
   describe('List Component', () => {
     describe('List Prop Omission Tests', () => {
+      let warn: jest.SpyInstance;
+      beforeEach(() => {
+        warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      });
+      afterEach(() => {
+        warn.mockRestore();
+      });
+
       it('should omit all boolean component props from DOM attributes', () => {
         const testProps = createTestPropsWithAllBooleans(LIST_CATEGORIES);
         const { container } = renderWithTheme(List)(testProps);
