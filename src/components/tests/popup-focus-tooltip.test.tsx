@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent, waitFor, act } from '@testing-library/react';
 import { ThemeProvider } from '../ThemeProvider';
 import { PopupTrigger } from '../ui/popup';
 import { Button } from '../ui/button';
@@ -66,7 +66,7 @@ describe('Popup focus management', () => {
     );
 
     const trigger = getByRole('button', { name: 'Hover me' });
-    trigger.focus();
+    act(() => trigger.focus());
     fireEvent.mouseEnter(trigger);
 
     await waitFor(() => {
