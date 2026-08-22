@@ -287,6 +287,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     // order), which is undiscoverable without a warning
     if (process.env.NODE_ENV !== 'production') {
       for (const category of this.categories) {
+        if (MULTI_VALUE_CATEGORIES.has(category)) continue; // side toggles compose, not one-of
         const truthyKeys = ComponentKeys[category].filter(k => componentProps[k] === true);
         if (truthyKeys.length > 1) {
           const tagName = typeof this.tag === 'string' ? `<${this.tag}>` : 'component';

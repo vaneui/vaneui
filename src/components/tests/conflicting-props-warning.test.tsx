@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import { ThemeProvider } from '../ThemeProvider';
 import { Button } from '../ui/button';
+import { Card } from '../ui/card';
 
 // Categories are mutually exclusive but the boolean-props API cannot express
 // that in types — dev builds must warn when 2+ props of one category are
@@ -61,5 +62,37 @@ describe('conflicting category props dev warning', () => {
     );
 
     expect(warnSpy).not.toHaveBeenCalled();
+  });
+
+  it('should not warn when composing border side toggles (border is multi-value)', () => {
+    render(
+      <ThemeProvider>
+        <Card borderT borderL>Content</Card>
+      </ThemeProvider>
+    );
+
+    expect(warnSpy).not.toHaveBeenCalled();
+  });
+
+  it('should not warn when composing margin side toggles (margin is multi-value)', () => {
+    render(
+      <ThemeProvider>
+        <Card marginT marginB>Content</Card>
+      </ThemeProvider>
+    );
+
+    expect(warnSpy).not.toHaveBeenCalled();
+  });
+
+  it('should still warn for a genuine conflict on a multi-value-category component', () => {
+    render(
+      <ThemeProvider>
+        <Card xs lg>Content</Card>
+      </ThemeProvider>
+    );
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('conflicting size props')
+    );
   });
 });
