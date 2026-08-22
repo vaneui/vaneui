@@ -290,13 +290,15 @@
     .vane-field[data-size="lg"] { --gap-unit: 2; }
     .vane-field[data-size="xl"] { --gap-unit: 2.5; }
 
-    /* Field's inline control row: same curve as .vane-field, so the row-to-label gap matches. */
-    .vane-field-control-row { --gap-unit: 1.5; }
-    .vane-field-control-row[data-size="xs"] { --gap-unit: 1; }
-    .vane-field-control-row[data-size="sm"] { --gap-unit: 1.25; }
-    .vane-field-control-row[data-size="md"] { --gap-unit: 1.5; }
-    .vane-field-control-row[data-size="lg"] { --gap-unit: 2; }
-    .vane-field-control-row[data-size="xl"] { --gap-unit: 2.5; }
+    /* Field's inline control row: same curve as .vane-field, so the row-to-label gap matches.
+       Carries the label's own font metrics too: the checkbox/switch line box is calc(--lh * --fs),
+       and as a sibling of the label it would otherwise resolve them against the page root. */
+    .vane-field-control-row { --gap-unit: 1.5; --lh: var(--lh-base); }
+    .vane-field-control-row[data-size="xs"] { --gap-unit: 1;    --fs-unit: var(--fs-unit-xs); }
+    .vane-field-control-row[data-size="sm"] { --gap-unit: 1.25; --fs-unit: var(--fs-unit-sm); }
+    .vane-field-control-row[data-size="md"] { --gap-unit: 1.5;  --fs-unit: var(--fs-unit-md); }
+    .vane-field-control-row[data-size="lg"] { --gap-unit: 2;    --fs-unit: var(--fs-unit-lg); }
+    .vane-field-control-row[data-size="xl"] { --gap-unit: 2.5;  --fs-unit: var(--fs-unit-xl); }
 
     /* Label */
     .vane-label {
@@ -884,6 +886,12 @@
         --accent-color: var(--app-bg);
         --checked-bg-color: var(--app-bg);
         --link-text: var(--color-text-link);
+    }
+
+    /* Field help/error pin secondary/danger, which are tuned for a light page. On any filled
+       surface — the Field itself or a Card/Row above it — they take that surface's text color. */
+    [data-variant="filled"] :is(.vane-field-description, .vane-field-error) {
+        --text-color: inherit;
     }
 
 

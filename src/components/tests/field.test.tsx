@@ -1,6 +1,8 @@
 import '@testing-library/jest-dom';
 import { createRef, type ReactElement } from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import * as fs from 'fs';
+import * as path from 'path';
 
 import {
   Field,
@@ -136,6 +138,30 @@ describe('Field Component Tests', () => {
     it('should let an explicit control size win', () => {
       const { container } = renderField(<Field lg><Input xs /></Field>);
       expect(container.querySelector('input')).toHaveAttribute('data-size', 'xs');
+    });
+
+    it.each([
+      ['xs', 'xs'],
+      ['sm', 'xs'],
+      ['md', 'sm'],
+      ['lg', 'md'],
+      ['xl', 'lg'],
+    ])('should size the label with the field at %s and the help text one step down', (size, help) => {
+      const { container } = renderField(
+        <Field {...{ [size]: true }} label="Email" description="No spam" error="Required"><Input /></Field>
+      );
+      expect(container.querySelector('label')).toHaveAttribute('data-size', size);
+      expect(container.querySelector('input')).toHaveAttribute('data-size', size);
+      expect(container.querySelector('.vane-field-description')).toHaveAttribute('data-size', help);
+      expect(container.querySelector('.vane-field-error')).toHaveAttribute('data-size', help);
+    });
+
+    it('should move the label size when the field size moves', () => {
+      const read = (size: string) => {
+        const { container } = renderField(<Field {...{ [size]: true }} label="Email"><Input /></Field>);
+        return container.querySelector('label')!.getAttribute('data-size');
+      };
+      expect(new Set(['xs', 'sm', 'md', 'lg', 'xl'].map(read)).size).toBe(5);
     });
   });
 
@@ -496,5 +522,71 @@ describe('Inline control layout', () => {
     expect(xsRow).not.toHaveClass('vane-col');
     expect(xsRow).toHaveAttribute('data-size', 'xs');
     expect(xlRow).toHaveAttribute('data-size', 'xl');
+  });
+});
+
+const rulesCss = fs.readFileSync(path.resolve(__dirname, '../css/rules.css'), 'utf-8');
+
+// Reads the value a rules.css declaration block assigns to one custom property.
+const cssVar = (selector: string, variable: string): string | undefined => {
+  const start = rulesCss.indexOf(`${selector} {`);
+  if (start === -1) return undefined;
+  const block = rulesCss.slice(start, rulesCss.indexOf('}', start));
+  const at = block.indexOf(`${variable}:`);
+  if (at === -1) return undefined;
+  return block.slice(at + variable.length + 1, block.indexOf(';', at)).trim();
+};
+
+const SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+describe('Inline control row alignment', () => {
+  it('should give the row the same size as the label it sits beside', () => {
+    for (const size of SIZES) {
+      const { container } = render(<Field checkbox {...{ [size]: true }} label="Subscribe"/>);
+      const row = container.querySelector('.vane-field-control-row') as HTMLElement;
+      const label = container.querySelector('label') as HTMLElement;
+      expect(row.getAttribute('data-size')).toBe(size);
+      expect(label.getAttribute('data-size')).toBe(size);
+    }
+  });
+
+  it("should carry the label's font metrics, so the control's line box matches the label's", () => {
+    // The checkbox/switch wrapper is h-[calc(var(--lh)*var(--fs))]. As a sibling of the label it
+    // inherits both from the row, so the row must resolve them exactly as .vane-label does.
+    expect(cssVar('.vane-label', '--lh')).toBeTruthy();
+    expect(cssVar('.vane-field-control-row', '--lh')).toBe(cssVar('.vane-label', '--lh'));
+    for (const size of SIZES) {
+      const labelFs = cssVar(`.vane-label[data-size="${size}"]`, '--fs-unit');
+      expect(labelFs).toBeTruthy();
+      expect(cssVar(`.vane-field-control-row[data-size="${size}"]`, '--fs-unit')).toBe(labelFs);
+    }
+  });
+
+  it('should keep the control pinned to the first text row', () => {
+    const { container } = render(<Field checkbox label="Subscribe"/>);
+    const wrapper = container.querySelector('.vane-field-control-row')!.firstElementChild as HTMLElement;
+    expect(wrapper).toHaveClass('self-start');
+    expect(wrapper).toHaveClass('h-[calc(var(--lh)*var(--fs))]');
+  });
+});
+
+describe('Field text on a filled surface', () => {
+  it('should give the help and error text their own classes', () => {
+    const { container } = render(<Field label="Email" description="No spam" error="Required"><Input/></Field>);
+    expect(container.querySelector('.vane-field-description')).toHaveTextContent('No spam');
+    expect(container.querySelector('.vane-field-error')).toHaveTextContent('Required');
+  });
+
+  it('should re-point both to the surface text color under any filled ancestor', () => {
+    const selector = '[data-variant="filled"] :is(.vane-field-description, .vane-field-error)';
+    const start = rulesCss.indexOf(selector);
+    expect(start).toBeGreaterThan(-1);
+    expect(rulesCss.slice(start, rulesCss.indexOf('}', start))).toContain('--text-color: inherit;');
+  });
+
+  it('should keep the pinned help and error colors off a filled surface', () => {
+    const { container } = render(<Field label="Email" description="No spam" error="Required"><Input/></Field>);
+    expect(container.querySelector('.vane-field-description')).toHaveAttribute('data-appearance', 'secondary');
+    expect(container.querySelector('.vane-field-error')).toHaveAttribute('data-appearance', 'danger');
   });
 });

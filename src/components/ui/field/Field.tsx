@@ -24,6 +24,9 @@ const LAYOUT_KEYS = new Set<string>(
 );
 const CONTROL_COMPONENTS = new Set<unknown>(Object.values(FIELD_CONTROLS).map(d => d.Component));
 
+// Help and error text sit one step below the field, so they stay subordinate at every size.
+const HELP_SIZE: Record<string, string> = { xs: 'xs', sm: 'xs', md: 'sm', lg: 'md', xl: 'lg' };
+
 type FieldElement = HTMLDivElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 // Partitions incoming props into the self-rendered control's props and the wrapper's props.
@@ -135,15 +138,7 @@ export const Field = forwardRef<FieldElement, FieldProps>(
       fieldTheme.defaults as Record<string, unknown>,
       'size'
     ) ?? 'md';
-
-    // a fill swallows the pinned help/error colors (--color-text-secondary IS --color-bg-filled-secondary)
-    // self-rendering mode forwards `filled` to the control, so the wrapper never paints it
-    const onFill = !control && pickFirstTruthyKeyByCategory(
-      rest as Record<string, unknown>,
-      fieldTheme.defaults as Record<string, unknown>,
-      'variant'
-    ) === 'filled';
-    const surfaceText = onFill ? { inheritAppearance: true } : {};
+    const helpSize = HELP_SIZE[resolvedSize];
 
     const { controlProps, wrapperProps } = splitFieldProps(rest as Record<string, unknown>, control);
 
@@ -160,7 +155,7 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     const labelElement = hasLabel && (
       <ThemedComponent
         theme={labelTheme}
-        {...{ id: labelId, ...(isRadioGroup ? {} : { htmlFor: controlId }) }}
+        {...{ [resolvedSize]: true, id: labelId, ...(isRadioGroup ? {} : { htmlFor: controlId }) }}
       >{label}</ThemedComponent>
     );
     const controlElement = (
@@ -187,10 +182,10 @@ export const Field = forwardRef<FieldElement, FieldProps>(
           </>
         )}
         {hasDescription && (
-          <ThemedComponent theme={descriptionTheme} {...surfaceText} {...{ id: descriptionId }}>{description}</ThemedComponent>
+          <ThemedComponent theme={descriptionTheme} {...{ [helpSize]: true, id: descriptionId }}>{description}</ThemedComponent>
         )}
         {hasError && (
-          <ThemedComponent theme={errorTheme} {...surfaceText} {...{ id: errorId }}>{error}</ThemedComponent>
+          <ThemedComponent theme={errorTheme} {...{ [helpSize]: true, id: errorId }}>{error}</ThemedComponent>
         )}
       </ThemedComponent>
     );
