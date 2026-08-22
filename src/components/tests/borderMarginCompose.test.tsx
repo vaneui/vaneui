@@ -20,7 +20,10 @@ describe('Border & margin composability (Tier 3)', () => {
   });
 
   it('lets noMargin reset win over a side margin toggle', () => {
+    // noMargin + marginT together also trip the reset-vs-toggle conflict warning; silence it here
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
     const { container } = renderWithTheme(<Card noMargin marginT>Content</Card>);
+    warn.mockRestore();
     const el = container.firstChild as HTMLElement;
     expect(el.className).toContain('m-0');
     expect(el.className).not.toContain('mt-(--margin)');

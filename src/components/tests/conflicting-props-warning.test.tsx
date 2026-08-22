@@ -95,4 +95,16 @@ describe('conflicting category props dev warning', () => {
       expect.stringContaining('conflicting size props')
     );
   });
+
+  it('should warn when a reset overrides a composed side toggle, naming the reset as winner', () => {
+    render(
+      <ThemeProvider>
+        <Card borderT noBorder>Content</Card>
+      </ThemeProvider>
+    );
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      expect.stringContaining('conflicting border props on <div>: borderT, noBorder — "noBorder" resets and wins')
+    );
+  });
 });

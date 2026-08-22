@@ -395,6 +395,13 @@ describe('Control conflicts', () => {
     expect(warn).not.toHaveBeenCalled();
   });
 
+  it('should warn when a reset overrides a composed border toggle, naming the reset as winner', () => {
+    render(<Field type="text" borderT noBorder label="Name"/>);
+    expect(warn).toHaveBeenCalledWith(
+      expect.stringContaining('conflicting border props on <Field>: borderT, noBorder — "noBorder" resets and wins')
+    );
+  });
+
   it('should warn when a control is named and a single Input child is passed', () => {
     render(<Field select label="Region"><Input/></Field>);
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('ignored'));

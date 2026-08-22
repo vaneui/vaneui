@@ -19,7 +19,7 @@ import { twMerge } from "tailwind-merge";
 import { OverflowClassMapper } from "../layout/overflowClassMapper";
 import { WidthClassMapper } from "../layout/widthClassMapper";
 import { HeightClassMapper } from "../layout/heightClassMapper";
-import { pickFirstTruthyKeyByCategory, collectTruthyKeysByCategory, MULTI_VALUE_CATEGORIES } from "../../../utils/componentUtils";
+import { pickFirstTruthyKeyByCategory, collectTruthyKeysByCategory, MULTI_VALUE_CATEGORIES, resetConflictKey } from "../../../utils/componentUtils";
 
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 type ThemeNode<P> = BaseClassMapper | ThemeMap<P>;
@@ -287,8 +287,17 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     // order), which is undiscoverable without a warning
     if (process.env.NODE_ENV !== 'production') {
       for (const category of this.categories) {
-        if (MULTI_VALUE_CATEGORIES.has(category)) continue; // side toggles compose, not one-of
         const truthyKeys = ComponentKeys[category].filter(k => componentProps[k] === true);
+        if (MULTI_VALUE_CATEGORIES.has(category)) {
+          const reset = resetConflictKey(truthyKeys);
+          if (reset) {
+            const tagName = typeof this.tag === 'string' ? `<${this.tag}>` : 'component';
+            console.warn(
+              `VaneUI: conflicting ${category} props on ${tagName}: ${truthyKeys.join(', ')} — "${reset}" resets and wins over the side toggles. Pass either side toggles or a reset, not both.`
+            );
+          }
+          continue;
+        }
         if (truthyKeys.length > 1) {
           const tagName = typeof this.tag === 'string' ? `<${this.tag}>` : 'component';
           console.warn(

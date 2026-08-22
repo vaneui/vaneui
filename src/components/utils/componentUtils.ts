@@ -52,3 +52,9 @@ export function collectTruthyKeysByCategory<T extends ComponentCategoryKey>(
   const reset = selected.find(k => k.startsWith('no'));
   return reset ? [reset] : selected;
 }
+
+/** Reset key that wins when a multi-value category's truthy keys mix a `no*` reset with side toggles. */
+export function resetConflictKey(truthyKeys: readonly string[]): string | undefined {
+  const reset = truthyKeys.find(k => k.startsWith('no'));
+  return reset && truthyKeys.length > 1 ? reset : undefined;
+}
