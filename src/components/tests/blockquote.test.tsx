@@ -32,7 +32,9 @@ describe('Blockquote Component', () => {
     });
 
     it('should allow custom tag override', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {}); // deliberate semantic-tag override
       const { container } = render(<Blockquote tag="div">Quote</Blockquote>);
+      warn.mockRestore();
       const divEl = container.querySelector('div');
 
       expect(divEl).toBeInTheDocument();

@@ -296,11 +296,13 @@ describe('Label Component Tests', () => {
     });
 
     it('should support custom HTML tag', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {}); // deliberate semantic-tag override
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Label tag="span">Span Label</Label>
         </ThemeProvider>
       );
+      warn.mockRestore();
 
       const spanEl = container.querySelector('span');
       expect(spanEl).toBeInTheDocument();
