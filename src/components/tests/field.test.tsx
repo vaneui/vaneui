@@ -160,7 +160,9 @@ describe('Field Component Tests', () => {
         </Field>
       );
       const label = container.querySelector('label') as HTMLLabelElement;
+      const group = container.querySelector('[role="radiogroup"]') as HTMLElement;
       expect(label.hasAttribute('for')).toBe(false);
+      expect(label.id).toBe(group.getAttribute('aria-labelledby'));
     });
 
     it('should not give the group members duplicate ids', () => {
