@@ -26,6 +26,37 @@ const CONTROL_COMPONENTS = new Set<unknown>(Object.values(FIELD_CONTROLS).map(d 
 
 type FieldElement = HTMLDivElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
+// Partitions incoming props into the self-rendered control's props and the wrapper's props.
+function splitFieldProps(
+  rest: Record<string, unknown>,
+  control: ReturnType<typeof resolveControl>
+): { controlProps: Record<string, unknown>; wrapperProps: Record<string, unknown> } {
+  if (!control) return { controlProps: {}, wrapperProps: rest };
+
+  const controlProps: Record<string, unknown> = {};
+  const wrapperProps: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(rest)) {
+    if (SURFACE_KEYS.has(key) || CONTROL_KEYS.has(key)) continue;
+    if (LAYOUT_KEYS.has(key) || key === 'className' || key === 'tag') { wrapperProps[key] = value; continue; }
+    controlProps[key] = value;
+  }
+  if (control.inputType) { controlProps.type = control.inputType; }
+
+  // empty defaults: the wrapper's own sharp/noBorder/noInsetRing must not reach the control
+  for (const category of SURFACE_CATEGORIES) {
+    if (category === 'border') {
+      for (const key of collectTruthyKeysByCategory(rest, {}, 'border')) {
+        controlProps[key] = true;
+      }
+      continue;
+    }
+    const key = pickFirstTruthyKeyByCategory(rest, {}, category);
+    if (key) { controlProps[key] = true; }
+  }
+
+  return { controlProps, wrapperProps };
+}
+
 export const Field = forwardRef<FieldElement, FieldProps>(
   function Field({ label, description, error, children, type, ...rest }, ref) {
     const theme = useTheme();
@@ -106,34 +137,7 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     ) === 'filled';
     const surfaceText = onFill ? { inheritAppearance: true } : {};
 
-    let controlProps: Record<string, unknown> = {};
-    let wrapperProps: Record<string, unknown> = rest as Record<string, unknown>;
-
-    if (control) {
-      const cProps: Record<string, unknown> = {};
-      const wProps: Record<string, unknown> = {};
-      for (const [key, value] of Object.entries(rest)) {
-        if (SURFACE_KEYS.has(key) || CONTROL_KEYS.has(key)) continue;
-        if (LAYOUT_KEYS.has(key) || key === 'className' || key === 'tag') { wProps[key] = value; continue; }
-        cProps[key] = value;
-      }
-      if (control.inputType) { cProps.type = control.inputType; }
-
-      // empty defaults: the wrapper's own sharp/noBorder/noInsetRing must not reach the control
-      for (const category of SURFACE_CATEGORIES) {
-        if (category === 'border') {
-          for (const key of collectTruthyKeysByCategory(rest as Record<string, unknown>, {}, 'border')) {
-            cProps[key] = true;
-          }
-          continue;
-        }
-        const key = pickFirstTruthyKeyByCategory(rest as Record<string, unknown>, {}, category);
-        if (key) { cProps[key] = true; }
-      }
-
-      controlProps = cProps;
-      wrapperProps = wProps;
-    }
+    const { controlProps, wrapperProps } = splitFieldProps(rest as Record<string, unknown>, control);
 
     const Control = control?.descriptor.Component;
 
