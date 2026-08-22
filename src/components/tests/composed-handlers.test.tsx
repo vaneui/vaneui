@@ -57,6 +57,13 @@ describe('Overlay handler/style composition', () => {
 });
 
 describe('Modal handler/style composition', () => {
+  let warn: jest.SpyInstance;
+  beforeEach(() => {
+    // these Modals render without a title/aria-label; mute the resulting a11y-name warning
+    warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+  afterEach(() => { warn.mockRestore(); });
+
   it('should run overlayProps.onClick AND still close on overlay click', () => {
     const onClose = jest.fn();
     const consumerClick = jest.fn();

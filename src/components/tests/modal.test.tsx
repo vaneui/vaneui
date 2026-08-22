@@ -15,7 +15,13 @@ import { resetStackCount } from '../utils/stackingContext';
 import { registerOverlay, resetOverlayStack } from '../utils/overlayStack';
 
 describe('Modal Component Tests', () => {
-  beforeEach(() => { resetStackCount(); });
+  let warn: jest.SpyInstance;
+  beforeEach(() => {
+    resetStackCount();
+    // most tests here render without a title/aria-label; mute the resulting a11y-name warning
+    warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+  afterEach(() => { warn.mockRestore(); });
 
   describe('Basic Rendering', () => {
     it('should render when open is true', () => {

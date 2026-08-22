@@ -11,6 +11,13 @@ import {
 } from '../../index';
 
 describe('Modal Enhancements', () => {
+  let warn: jest.SpyInstance;
+  beforeEach(() => {
+    // most Modals here render without a title/aria-label; mute the resulting a11y-name warning
+    warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+  afterEach(() => { warn.mockRestore(); });
+
   describe('portal prop', () => {
     it('should render in portal (document.body) by default', () => {
       const { baseElement } = render(
