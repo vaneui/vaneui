@@ -402,6 +402,11 @@ describe('Control conflicts', () => {
     );
   });
 
+  it('should still warn for a genuine surface conflict', () => {
+    render(<Field type="text" primary danger label="Name"/>);
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('conflicting appearance props on <Field>'));
+  });
+
   it('should warn when a control is named and a single Input child is passed', () => {
     render(<Field select label="Region"><Input/></Field>);
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('ignored'));
