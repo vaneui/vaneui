@@ -141,11 +141,14 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     const authorDirection = pickFirstTruthyKeyByCategory(rest as Record<string, unknown>, {}, 'flexDirection');
     const inline = control?.descriptor.layout === 'inline' && !authorDirection;
 
-    // a self-rendered radiogroup never claims controlId, so htmlFor would dangle; aria-labelledby covers it
+    // a radiogroup (self-rendered or child) never claims controlId; aria-labelledby covers it
+    const isRadioGroup = control
+      ? control.key === 'radiogroup'
+      : Children.toArray(children).some(c => isValidElement(c) && c.type === FIELD_CONTROLS.radiogroup.Component);
     const labelElement = hasLabel && (
       <ThemedComponent
         theme={labelTheme}
-        {...{ id: labelId, ...(control?.key === 'radiogroup' ? {} : { htmlFor: controlId }) }}
+        {...{ id: labelId, ...(isRadioGroup ? {} : { htmlFor: controlId }) }}
       >{label}</ThemedComponent>
     );
     const controlElement = (

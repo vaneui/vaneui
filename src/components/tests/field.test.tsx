@@ -153,6 +153,16 @@ describe('Field Component Tests', () => {
       expect(group).toHaveAttribute('aria-describedby');
     });
 
+    it('should omit the dangling for attribute on a children-mode radiogroup label', () => {
+      const { container } = renderField(
+        <Field label="Plan">
+          <RadioGroup><Radio value="a" /><Radio value="b" /></RadioGroup>
+        </Field>
+      );
+      const label = container.querySelector('label') as HTMLLabelElement;
+      expect(label.hasAttribute('for')).toBe(false);
+    });
+
     it('should not give the group members duplicate ids', () => {
       const { container } = renderField(
         <Field label="Plan">
