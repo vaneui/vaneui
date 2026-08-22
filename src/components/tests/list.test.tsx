@@ -216,6 +216,7 @@ describe('List and ListItem Components Tests', () => {
     });
 
     it('inside wins over outside when both are set (first-key-wins-per-category)', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {}); // deliberately conflicting props
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <List listInside listOutside>
@@ -223,6 +224,7 @@ describe('List and ListItem Components Tests', () => {
           </List>
         </ThemeProvider>
       );
+      warn.mockRestore();
       const list = container.querySelector('ul')!;
       // `inside` is declared first in ComponentKeys.listPosition => first-truthy wins
       expect(list).toHaveClass('list-inside');

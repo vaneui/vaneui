@@ -60,11 +60,13 @@ describe('Flex & Shrink Props', () => {
     });
 
     it('mutually exclusive: only the first-truthy flex value wins', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {}); // deliberately conflicting props
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Col flex1 flexAuto flexNone>content</Col>
         </ThemeProvider>
       );
+      warn.mockRestore();
       const el = container.querySelector('div')!;
       const classes = el.className;
       const flexClasses = ['flex-1', 'flex-auto', 'flex-none'].filter((c) =>

@@ -492,11 +492,13 @@ describe('Text Component Tests', () => {
     });
 
     it('should only apply one truncate class when multiple are specified', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {}); // deliberately conflicting props
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Text truncate lineClamp2>Text</Text>
         </ThemeProvider>
       );
+      warn.mockRestore();
 
       const text = container.querySelector('p');
       const classes = text?.className.split(' ') || [];

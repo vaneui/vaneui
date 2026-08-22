@@ -254,11 +254,13 @@ describe('Divider Component Tests', () => {
     });
 
     it('should only apply one orientation when multiple are specified', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {}); // deliberately conflicting props
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Divider horizontal vertical />
         </ThemeProvider>
       );
+      warn.mockRestore();
 
       const divider = container.querySelector('div');
       // Only one orientation should be active - check that we don't have conflicting classes
