@@ -380,6 +380,11 @@ describe('Control conflicts', () => {
     expect(warn).not.toHaveBeenCalled();
   });
 
+  it('should not warn when composing border side toggles (border is multi-value)', () => {
+    render(<Field type="text" borderT borderL label="Name"/>);
+    expect(warn).not.toHaveBeenCalled();
+  });
+
   it('should warn when a control is named and a single Input child is passed', () => {
     render(<Field select label="Region"><Input/></Field>);
     expect(warn).toHaveBeenCalledWith(expect.stringContaining('ignored'));

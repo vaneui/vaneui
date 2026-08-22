@@ -2,7 +2,7 @@ import { forwardRef, isValidElement, useId, useMemo, Children } from 'react';
 import type { FieldProps } from "./FieldProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
-import { pickFirstTruthyKeyByCategory, collectTruthyKeysByCategory } from "../../utils/componentUtils";
+import { pickFirstTruthyKeyByCategory, collectTruthyKeysByCategory, MULTI_VALUE_CATEGORIES } from "../../utils/componentUtils";
 import { ComponentKeys } from "../props";
 import { LabelSizeContext } from "../label/LabelSizeContext";
 import { FieldControlContext } from "./FieldContext";
@@ -47,6 +47,7 @@ export const Field = forwardRef<FieldElement, FieldProps>(
       }
       // the split loop hides these categories from the engine's own conflict check, so Field re-runs it
       for (const category of ['control', ...SURFACE_CATEGORIES] as const) {
+        if (MULTI_VALUE_CATEGORIES.has(category)) continue; // side toggles compose, not one-of
         const truthyKeys = ComponentKeys[category].filter(k => (rest as Record<string, unknown>)[k] === true);
         if (truthyKeys.length > 1) {
           console.warn(
