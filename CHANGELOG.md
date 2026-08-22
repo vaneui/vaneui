@@ -8,7 +8,9 @@ fixes, minor for additive props and components, major for anything that changes 
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
 
-## Unreleased
+## 1.4.1
+
+`2026-08-22`
 
 ### Added
 
@@ -34,6 +36,21 @@ rather than on a fixed calendar.
   was already reaching the wrapper `<div>` and emitting an invalid `type`
   attribute at runtime. The type change surfaces that pre-existing bug at
   compile time rather than removing a working option.
+
+### Fixed
+
+- **The conflicting-props dev warning no longer fires on composable side
+  toggles.** `border` and `margin` side toggles compose by design, so
+  `<Card borderT borderL>` and `<Card marginT marginB>` are correct usage, yet
+  every component warned that they conflicted. The warning now skips composable
+  categories, matching the rule the resolver itself already used. It still warns
+  in the one case that is genuinely ambiguous there: when a `no*` reset is
+  combined with a side toggle (`<Card borderT noBorder>`), where the reset
+  discards the toggle and wins.
+- **`Field` no longer emits a dangling `htmlFor` for a radio group.** A
+  `radiogroup` is not a labelable element and never claims the generated id, so
+  the label pointed at nothing. `Field` now omits `htmlFor` for a radio group in
+  both modes; the accessible name continues to come from `aria-labelledby`.
 
 ## 1.4.0
 
