@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-VaneUI (`@vaneui/ui`, v1.4.2) is a React component library with 40+ customizable React components (50+ named exports including sub-components). Built with TypeScript, React 19, Tailwind CSS v4, and Rollup. Uses a boolean props API (`<Button primary lg filled>`) and CSS variable-based theming via `ThemeProvider`.
+VaneUI (`@vaneui/ui`, v1.4.3) is a React component library with 40+ customizable React components (50+ named exports including sub-components). Built with TypeScript, React 19, Tailwind CSS v4, and Rollup. Uses a boolean props API (`<Button primary lg filled>`) and CSS variable-based theming via `ThemeProvider`.
 
 ## CRITICAL: Verification After ANY Code Change
 

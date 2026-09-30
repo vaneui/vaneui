@@ -8,7 +8,9 @@ fixes, minor for additive props and components, major for anything that changes 
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
 
-## Unreleased
+## 1.4.3
+
+`2026-09-30`
 
 Fixes from a review of the components composed into real screens (dashboards, forms,
 landing pages, articles, overlays, a storefront).
