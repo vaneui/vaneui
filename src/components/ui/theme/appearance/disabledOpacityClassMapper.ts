@@ -7,7 +7,7 @@ import type { CategoryProps, DisabledKey } from "../../props";
  */
 export class DisabledOpacityClassMapper extends BaseClassMapper implements Record<DisabledKey, string> {
   /** Disabled state - reduced opacity only */
-  disabled: string = "opacity-50";
+  disabled: string = "opacity-(--disabled-opacity)";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const value = extractedKeys?.disabled;

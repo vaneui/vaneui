@@ -1,4 +1,7 @@
 @layer base {
+    /* Whole-page dark mode paints the canvas; zero specificity, so any consumer html/body rule wins. */
+    :where(:root[data-theme="dark"]) { background-color: var(--color-bg-primary); }
+
     [data-size] {
         /* Non-breakpoint computed variables */
         --pl: calc(var(--py-unit) * var(--spacing));
@@ -163,6 +166,11 @@
     /* Icon sizing for Badge and Chip */
     .vane-badge :where(svg:not([class*='size-'])),
     .vane-chip :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
+    /* A remove button inside a Chip adds no vertical padding, so the chip keeps its own height. */
+    .vane-chip > .vane-icon-button[data-size] { --py-unit: 0; }
+
+    /* Linked surfaces (href) get the same hover tint as buttons. */
+    :is(a.vane-card, a.vane-chip, a.vane-badge)[href]:hover { --bg-color: var(--bg-hover-color); }
 
     /* Code: --spacing set to em so geometry scales with parent font-size; --fs-base re-declared to pick up the em --spacing. */
     /* Vertical padding 0.625x the old curve (chip ~84% of a 1.6 line box); --aspect-ratio raised to hold horizontal padding ~0.375em. */
@@ -192,8 +200,10 @@
     /* Mark: flush highlight — no padding, square, --lh:1 hugs the glyphs (reference highlights use padding:0). */
     .vane-mark { --lh: 1; }
 
-    /* Input */
-    .vane-input { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; }
+    /* Input: Button's line-height and radius ratio, so a field and its button share height and corners at every size. */
+    .vane-input { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.2174; }
+    /* The date/time picker icon's block padding would otherwise outgrow the 1.3 line box. */
+    .vane-input::-webkit-calendar-picker-indicator { padding-block: 0; }
     .vane-input[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-input[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
     .vane-input[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
@@ -205,6 +215,8 @@
     /* Textarea: the input ramp on a multi-line box. No trailing-icon reservation —
        a vertically centred icon reads as misplaced once the box grows. */
     .vane-textarea { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; min-height: calc(var(--fs) * var(--lh) * 3); resize: vertical; }
+    /* An explicit rows count sizes the box itself; the three-line floor is only for the default. */
+    .vane-textarea[rows] { min-height: 0; }
     .vane-textarea[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-textarea[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
     .vane-textarea[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
@@ -212,8 +224,8 @@
     .vane-textarea[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* Select: the input ramp, but the trailing room is reserved unconditionally —
-       unlike the input's error icon, the chevron is always present. */
-    .vane-select { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; }
+       unlike the input's error icon, the chevron is always present. nowrap keeps a squeezed value on one line. */
+    .vane-select { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.2174; white-space: nowrap; }
     .vane-select[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
     .vane-select[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
     .vane-select[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
@@ -326,6 +338,9 @@
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="lg"] { --tbl-py-unit: 2.5; --tbl-fs-unit: var(--fs-unit-lg); }
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-size="xl"] { --tbl-py-unit: 3;   --tbl-fs-unit: var(--fs-unit-xl); }
 
+    /* Body line-height for cells; the scoped preflight never sets one, so it would fall back to the page's `normal`. */
+    .vane-table { line-height: var(--lh-base); }
+
     /* No cell size default: un-sized cells carry no [data-size] and follow the table/row cascade; an explicit size (below) overrides. */
     .vane-table-cell { --aspect-ratio: 2; --py-unit: var(--tbl-py-unit, 2); --fs-unit: var(--tbl-fs-unit, var(--fs-unit-md)); --py: calc(var(--py-unit) * var(--spacing)); --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing)); --fs: calc(var(--fs-unit) * var(--fs-base)); }
     .vane-table-cell[data-size] { --aspect-ratio: 2; }
@@ -343,18 +358,17 @@
     .vane-table-caption[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-table-caption[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
-    /* List */
-    .vane-list { --lh: var(--lh-base); --py-unit: 3; }
-    .vane-list[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
-    .vane-list[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 2; }
-    .vane-list[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 3; }
-    .vane-list[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 4; }
-    .vane-list[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 5; }
+    /* List: --py-unit drives the marker gutter (--pl); wide enough that bullets and "10." stay inside the box. */
+    .vane-list { --lh: var(--lh-base); --py-unit: 6; }
+    .vane-list[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 4; }
+    .vane-list[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 5; }
+    .vane-list[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 6; }
+    .vane-list[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 7; }
+    .vane-list[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 8; }
 
     /* Text */
     /* Body line-height tightens as text grows (prose-leaning, md stays 1.6); flat 1.6 left large body too loose vs references. */
-    /* Long unbreakable tokens (URLs, hashes) wrap instead of overflowing; also shrinks min-content so a flex-item Text can shrink. */
-    .vane-text { --lh: var(--lh-base); --ls: var(--ls-base); overflow-wrap: anywhere; }
+    .vane-text { --lh: var(--lh-base); --ls: var(--ls-base); }
     .vane-text[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --lh: 1.7; }
     .vane-text[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --lh: 1.65; }
     .vane-text[data-size="md"] { --fs-unit: var(--fs-unit-md); --lh: 1.6; }
@@ -378,12 +392,15 @@
     .vane-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
     .vane-link :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
-    .vane-link-start-icon { margin-inline-end: calc(var(--gap) * 0.5); }
-    .vane-link-end-icon { margin-inline-start: calc(var(--gap) * 0.5); }
+
+    /* An svg placed straight in running text stays inline; the scoped preflight would otherwise make it a block. */
+    :is(.vane-text, .vane-link, .vane-list-item, .vane-blockquote, .vane-title, .vane-section-title, .vane-page-title) > svg { display: inline-block; vertical-align: -0.125em; }
 
     /* ListItem */
     .vane-list-item { --lh: var(--lh-base); }
     .vane-list-item :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
+    /* The icon sits in the marker gutter, so icon items and plain items share one text column. */
+    .vane-list-item-icon { margin-inline-start: calc(-1 * (var(--icon-size) + var(--gap))); }
     .vane-list-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-list-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
     .vane-list-item[data-size="md"] { --fs-unit: var(--fs-unit-md); }
@@ -431,17 +448,21 @@
     :is(.vane-stack, .vane-alert)[data-size="md"] { --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3;   --py-unit-mobile: 2; }
     :is(.vane-stack, .vane-alert)[data-size="lg"] { --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 4;   --py-unit-mobile: 3; }
     :is(.vane-stack, .vane-alert)[data-size="xl"] { --py-unit: 8; --py-unit-desktop: 8; --py-unit-tablet: 6;   --py-unit-mobile: 4; }
+    /* Alert text gets body line-height; a leading icon spans one line box, so it centres on the first line. */
+    .vane-alert { line-height: var(--lh-base); }
+    .vane-alert > svg { height: 1lh; flex-shrink: 0; }
 
     /* Modal and Popup are floating surfaces: the viewport is their whole budget on a phone,
        so their inset ramps with it. Both stay square. */
     .vane-modal {
         --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 5; --py-unit-mobile: 4;
     }
-    .vane-modal[data-size="xs"] { --modal-width: var(--modal-width-xs); --py-unit: 2;  --py-unit-desktop: 2;  --py-unit-tablet: 2; --py-unit-mobile: 1.5; }
-    .vane-modal[data-size="sm"] { --modal-width: var(--modal-width-sm); --py-unit: 4;  --py-unit-desktop: 4;  --py-unit-tablet: 3; --py-unit-mobile: 2.5; }
-    .vane-modal[data-size="md"] { --modal-width: var(--modal-width-md); --py-unit: 6;  --py-unit-desktop: 6;  --py-unit-tablet: 5; --py-unit-mobile: 4; }
-    .vane-modal[data-size="lg"] { --modal-width: var(--modal-width-lg); --py-unit: 8;  --py-unit-desktop: 8;  --py-unit-tablet: 6; --py-unit-mobile: 5; }
-    .vane-modal[data-size="xl"] { --modal-width: var(--modal-width-xl); --py-unit: 10; --py-unit-desktop: 10; --py-unit-tablet: 8; --py-unit-mobile: 6; }
+    /* The width cap leaves a margin on a phone; it is a variable, so fullScreen's own utilities still win. */
+    .vane-modal[data-size="xs"] { --modal-width: min(var(--modal-width-xs), calc(100vw - 2rem)); --py-unit: 2;  --py-unit-desktop: 2;  --py-unit-tablet: 2; --py-unit-mobile: 1.5; }
+    .vane-modal[data-size="sm"] { --modal-width: min(var(--modal-width-sm), calc(100vw - 2rem)); --py-unit: 4;  --py-unit-desktop: 4;  --py-unit-tablet: 3; --py-unit-mobile: 2.5; }
+    .vane-modal[data-size="md"] { --modal-width: min(var(--modal-width-md), calc(100vw - 2rem)); --py-unit: 6;  --py-unit-desktop: 6;  --py-unit-tablet: 5; --py-unit-mobile: 4; }
+    .vane-modal[data-size="lg"] { --modal-width: min(var(--modal-width-lg), calc(100vw - 2rem)); --py-unit: 8;  --py-unit-desktop: 8;  --py-unit-tablet: 6; --py-unit-mobile: 5; }
+    .vane-modal[data-size="xl"] { --modal-width: min(var(--modal-width-xl), calc(100vw - 2rem)); --py-unit: 10; --py-unit-desktop: 10; --py-unit-tablet: 8; --py-unit-mobile: 6; }
 
     .vane-popup {
         --py-unit: 4; --py-unit-desktop: 4; --py-unit-tablet: 3; --py-unit-mobile: 2.5;
@@ -524,6 +545,12 @@
     .vane-page-title[data-size="lg"] { --fs-unit-desktop: 30; --fs-unit-tablet: 27; --fs-unit-mobile: 24; --lh: 1; }
     .vane-page-title[data-size="xl"] { --fs-unit-desktop: 36; --fs-unit-tablet: 33; --fs-unit-mobile: 30; --lh: 1; }
 
+    /* Long unbreakable tokens (URLs, hashes) wrap, and min-content collapses so fit-content ancestors stay in the viewport. */
+    :is(.vane-text, .vane-title, .vane-section-title, .vane-page-title, .vane-blockquote, .vane-list) { overflow-wrap: anywhere; }
+    /* Flex rows and auto tables shrink by min-content, so there words stay whole and the box is capped instead. */
+    :where(.flex-row, .flex-row-reverse) > :is(.vane-text, .vane-title, .vane-section-title, .vane-page-title, .vane-blockquote, .vane-list),
+    :where(.vane-table-cell) :is(.vane-text, .vane-title, .vane-section-title, .vane-page-title, .vane-blockquote, .vane-list) { overflow-wrap: break-word; max-width: 100%; }
+
     /* MenuItem: padding scale matches Button's so larger sizes render visibly larger items. */
     .vane-menu-item { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.15; }
     .vane-menu-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
@@ -531,6 +558,9 @@
     .vane-menu-item[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
     .vane-menu-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-menu-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+
+    /* A submenu trigger keeps the hover tint while its submenu is open. */
+    .vane-menu-item[aria-expanded="true"] { background-color: var(--bg-hover-color); }
 
     /* Menu Divider - vertical spacing matches menu popup padding per size */
     [data-menu-dropdown][data-size="xs"] .vane-divider { --py-unit: 0.5; }
@@ -547,18 +577,11 @@
     .vane-nav-link[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
     .vane-nav-link[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
-    /* NavLink active uses direct background-color at higher specificity to beat appearance rules. */
-    .vane-nav-link[data-active][data-variant="outline"] {
-        background-color: var(--bg-hover-color);
-    }
-    .vane-nav-link[data-active][data-variant="outline"]:hover {
+    /* Active NavLink: a weight cue (the tint alone is under 3:1), and hover keeps the pressed tint because utilities outrank this layer. */
+    .vane-nav-link[data-active] { font-weight: 600; }
+    .vane-nav-link[data-active]:is([data-variant="outline"], [data-variant="filled"]) {
         background-color: var(--bg-active-color);
-    }
-    .vane-nav-link[data-active][data-variant="filled"] {
-        background-color: var(--bg-hover-color);
-    }
-    .vane-nav-link[data-active][data-variant="filled"]:hover {
-        background-color: var(--bg-active-color);
+        --bg-hover-color: var(--bg-active-color);
     }
 
     /* MenuLabel: compact non-interactive heading; vertical padding ramps 3/3.5/4/5/6px so sm doesn't collide with md. */
@@ -585,7 +608,8 @@
 
     /* Inner scroll viewport: clamps height & scrolls so the outer box (which hosts the arrow) stays overflow:visible.
        tabindex=0 (set in Popup.tsx) keeps the scroll region keyboard-operable (WCAG 2.1.1). */
-    .vane-popup-scroll { display: flex; flex-direction: column; gap: var(--gap); max-height: var(--max-height); overflow: auto; min-height: 0; }
+    /* gap inherits the outer box's resolved gap, so noGap (Menu) and the responsive gap classes reach the children. */
+    .vane-popup-scroll { display: flex; flex-direction: column; gap: inherit; max-height: var(--max-height); overflow: auto; min-height: 0; }
     /* Menu dropdowns stay unbounded (roving-tabindex items provide keyboard access; a clamped menu scroll region can't). */
     .vane-popup[data-menu-dropdown] > .vane-popup-scroll { max-height: none; overflow: visible; }
 
@@ -705,9 +729,11 @@
     }
 
     /* Hover bg is set here because `transparent` prop suppresses all bg theme classes. */
+    /* min-width = the control height, so the close button is square like IconButton. */
     .vane-modal-close {
         flex-shrink: 0;
         --aspect-ratio: 1;
+        min-width: var(--min-h);
     }
     .vane-modal-close:hover {
         background: var(--color-bg-hover-secondary);
@@ -723,6 +749,8 @@
     [data-loading="true"] {
         position: relative;
     }
+    /* The hidden label keeps the idle layout (icon and text on one line), so the button doesn't resize. */
+    .vane-button-loading-label { opacity: 0; display: inline-flex; align-items: center; gap: var(--gap); }
     /* Ring is 1em square, so the size prop reaches it through --fs. */
     .vane-spinner[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-spinner[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
@@ -872,7 +900,8 @@
         --focus-color: var(--app-focus);
         --accent-color: var(--app-bg-filled);
         --checked-bg-color: var(--app-bg-filled);
-        --link-text: var(--color-text-filled-link);
+        /* the fill's own text color: no single link tint reads on both light and dark fills */
+        --link-text: var(--app-text-filled);
     }
     [data-variant="ghost"] {
         --text-color: var(--app-text);
@@ -892,6 +921,27 @@
        surface — the Field itself or a Card/Row above it — they take that surface's text color. */
     [data-variant="filled"] :is(.vane-field-description, .vane-field-error) {
         --text-color: inherit;
+    }
+
+    /* Muted typography and neutral ghost buttons on a fill take the nearest surface's text color. */
+    [data-variant="filled"] :is(.vane-text, .vane-title, .vane-section-title, .vane-page-title, .vane-list, .vane-blockquote):is([data-appearance="secondary"], [data-appearance="tertiary"]),
+    [data-variant="filled"] :is(.vane-button, .vane-icon-button):is([data-appearance="primary"], [data-appearance="secondary"], [data-appearance="tertiary"])[data-variant="ghost"] {
+        --text-color: inherit;
+    }
+    [data-variant="filled"] :is(.vane-button, .vane-icon-button)[data-variant="ghost"] {
+        --bg-hover-color: color-mix(in oklab, currentColor 12%, transparent);
+        --bg-active-color: color-mix(in oklab, currentColor 20%, transparent);
+    }
+
+    /* Mark: a visible highlight tint with body-colored text, so it reads as a highlight on any surface. */
+    .vane-mark[data-variant="outline"] {
+        --text-color: var(--color-text-primary);
+        --bg-color: var(--app-bg-active);
+    }
+
+    /* Text fields take the form-control border, like Checkbox, Radio and Switch; colored appearances keep their own. */
+    :is(.vane-input, .vane-select, .vane-textarea)[data-appearance="primary"][data-variant="outline"] {
+        --ring-color: var(--color-border-form);
     }
 
 
@@ -996,6 +1046,11 @@
    forwarded to it, and its own text-(--color-text-secondary) utility would win a layer. */
 .vane-select[data-status="error"] ~ .vane-select-chevron {
     color: var(--color-text-danger);
+}
+
+/* Also unlayered: a selected disabled option is a placeholder, so it is muted like an Input placeholder. */
+.vane-select:has(option:checked:disabled) {
+    color: color-mix(in oklab, var(--text-color) 50%, transparent);
 }
 
 /* Also unlayered: a dimmed wrapper's nested control would else stack a second 0.5 on top. */

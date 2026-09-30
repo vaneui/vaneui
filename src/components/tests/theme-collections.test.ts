@@ -74,7 +74,7 @@ const REPLACEABLE_CLASSES: Record<string, string> = {
   // shape (border radius)
   'rounded-full': 'pill', 'rounded-none': 'sharp',
   // transition
-  'transition-all': 'transition', 'transition-none': 'noTransition',
+  'transition': 'transition', 'transition-none': 'noTransition',
   // background / list style
   'bg-transparent': 'transparent', 'list-disc': 'disc', 'list-decimal': 'decimal',
   // truncation / line clamp

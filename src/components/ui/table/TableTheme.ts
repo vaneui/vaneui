@@ -2,7 +2,7 @@ import type { BaseComponentTheme, DefaultLayoutClassMappers } from "../theme/com
 import type { MarginClassMapper } from "../theme/size";
 import type { BorderClassMapper, WidthClassMapper } from "../theme/layout";
 import type { SimpleConsumerClassMapper } from "../theme/appearance";
-import type { TextAlignClassMapper } from "../theme/typography";
+import type { TextAlignClassMapper, FontFamilyClassMapper } from "../theme/typography";
 
 export interface TableTheme extends BaseComponentTheme {
   size: {
@@ -17,5 +17,6 @@ export interface TableTheme extends BaseComponentTheme {
   };
   typography: {
     textAlign: TextAlignClassMapper;
+    fontFamily: FontFamilyClassMapper;
   };
 }

@@ -395,14 +395,14 @@ describe('Icon Component Tests', () => {
       expect(icon).toHaveClass('transition-none');
     });
 
-    it('emits transition-all when transition is set', () => {
+    it('emits transition when transition is set', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Icon transition><TestSvg /></Icon>
         </ThemeProvider>
       );
       const icon = container.querySelector('span');
-      expect(icon).toHaveClass('transition-all');
+      expect(icon).toHaveClass('transition');
     });
   });
 

@@ -24,6 +24,7 @@ export {
   focusVisibleAppearance,
   accentAppearance,
   checkedBgAppearance,
+  checkedOnlyBgAppearance,
   shadowAppearance,
 } from './appearanceClassMappers';
 export type {

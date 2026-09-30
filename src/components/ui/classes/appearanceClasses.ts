@@ -37,3 +37,5 @@ export const accentConsumerClass = "accent-(--accent-color)";
  *  Applies on :indeterminate too, so an indeterminate checkbox is filled like a
  *  checked one and its (white) dash overlay stays visible. */
 export const checkedBgConsumerClass = "checked:[background:var(--checked-bg-color)] indeterminate:[background:var(--checked-bg-color)]";
+/** Checked-only background (Radio): an unchecked radio group matches `:indeterminate`, so that variant must not fill it. */
+export const checkedOnlyBgConsumerClass = "checked:[background:var(--checked-bg-color)]";

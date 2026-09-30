@@ -414,8 +414,8 @@ describe('Checkbox Component Tests', () => {
 
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeInTheDocument();
-      expect(checkbox).toHaveClass('border-(--color-border-danger)');
-      expect(checkbox).toHaveClass('ring-(--color-border-danger)/30');
+      expect(checkbox).toHaveClass('border-(--color-text-danger)');
+      expect(checkbox).toHaveClass('ring-(--color-text-danger)');
     });
 
     it('should not apply error classes when error is false', () => {
@@ -426,8 +426,8 @@ describe('Checkbox Component Tests', () => {
       );
 
       const checkbox = container.querySelector('input[type="checkbox"]');
-      expect(checkbox).not.toHaveClass('border-(--color-border-danger)');
-      expect(checkbox).not.toHaveClass('ring-(--color-border-danger)/30');
+      expect(checkbox).not.toHaveClass('border-(--color-text-danger)');
+      expect(checkbox).not.toHaveClass('ring-(--color-text-danger)');
     });
 
     it('should work with other props alongside error', () => {
@@ -438,7 +438,7 @@ describe('Checkbox Component Tests', () => {
       );
 
       const checkbox = container.querySelector('input[type="checkbox"]');
-      expect(checkbox).toHaveClass('border-(--color-border-danger)'); // error state
+      expect(checkbox).toHaveClass('border-(--color-text-danger)'); // error state
       expect(checkbox).toHaveAttribute('data-size', 'lg'); // size prop
       expect(checkbox).toHaveAttribute('data-appearance', 'primary'); // appearance
     });
@@ -530,7 +530,7 @@ describe('Checkbox Component Tests', () => {
   });
 
   describe('Disabled Opacity on Wrapper', () => {
-    it('should apply opacity-50 to wrapper when disabled', () => {
+    it('should apply the disabled opacity to wrapper when disabled', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Checkbox disabled />
@@ -538,10 +538,10 @@ describe('Checkbox Component Tests', () => {
       );
 
       const wrapper = container.querySelector('span.inline-grid');
-      expect(wrapper).toHaveClass('opacity-50');
+      expect(wrapper).toHaveClass('opacity-(--disabled-opacity)');
     });
 
-    it('should apply cursor-not-allowed and pointer-events-none to input but not opacity-50', () => {
+    it('should apply cursor-not-allowed and pointer-events-none to input but not the disabled opacity', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Checkbox disabled />
@@ -551,7 +551,7 @@ describe('Checkbox Component Tests', () => {
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toHaveClass('cursor-not-allowed');
       expect(checkbox).toHaveClass('pointer-events-none');
-      expect(checkbox).not.toHaveClass('opacity-50');
+      expect(checkbox).not.toHaveClass('opacity-(--disabled-opacity)');
     });
 
     it('should show check element when disabled and checked', () => {
@@ -562,7 +562,7 @@ describe('Checkbox Component Tests', () => {
       );
 
       const wrapper = container.querySelector('span.inline-grid');
-      expect(wrapper).toHaveClass('opacity-50');
+      expect(wrapper).toHaveClass('opacity-(--disabled-opacity)');
 
       const checkbox = container.querySelector('input[type="checkbox"]');
       expect(checkbox).toBeChecked();
@@ -582,7 +582,7 @@ describe('Checkbox Component Tests', () => {
       );
 
       const wrapper = container.querySelector('span.inline-grid');
-      expect(wrapper).toHaveClass('opacity-50');
+      expect(wrapper).toHaveClass('opacity-(--disabled-opacity)');
 
       const checkbox = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
       expect(checkbox.indeterminate).toBe(true);
@@ -594,7 +594,7 @@ describe('Checkbox Component Tests', () => {
       expect(svg).toBeInTheDocument();
     });
 
-    it('should not apply opacity-50 to wrapper when not disabled', () => {
+    it('should not apply the disabled opacity to wrapper when not disabled', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
           <Checkbox />
@@ -602,7 +602,7 @@ describe('Checkbox Component Tests', () => {
       );
 
       const wrapper = container.querySelector('span.inline-grid');
-      expect(wrapper).not.toHaveClass('opacity-50');
+      expect(wrapper).not.toHaveClass('opacity-(--disabled-opacity)');
     });
   });
 

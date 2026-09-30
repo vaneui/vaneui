@@ -325,9 +325,9 @@ describe('Popup Component Tests', () => {
       });
     });
 
-    // -end placements pin the popup to the far edge of the spanned anchor area
-    // via alignSelf/justifySelf props (replacing the old inline styles).
-    it('applies justify-self-end for *-end inline placements', () => {
+    // inline -end placements rely on the spec's default alignment (toward the anchor), which also holds under RTL;
+    // an explicit justify-self-end detached them from the anchor in RTL.
+    it('does not apply justify-self-end for *-end inline placements', () => {
       const anchorRef = createAnchorRef();
       (['placeTopEnd', 'placeBottomEnd'] as const).forEach(placement => {
         const { baseElement, unmount } = render(
@@ -337,7 +337,7 @@ describe('Popup Component Tests', () => {
             </Popup>
           </ThemeProvider>
         );
-        expect(baseElement.querySelector('.vane-popup')).toHaveClass('justify-self-end');
+        expect(baseElement.querySelector('.vane-popup')).not.toHaveClass('justify-self-end');
         unmount();
       });
     });

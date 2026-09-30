@@ -1,5 +1,6 @@
 import {
   TEXT_ALIGN,
+  FONT_FAMILY,
   LAYOUT_FULL,
   BREAKPOINT,
   VISUAL_LAYOUT,
@@ -14,6 +15,7 @@ import {
 /** Card's list without cursor/focusVisible: an Alert is a surface, never a link. */
 export const ALERT_CATEGORIES = [
   ...TEXT_ALIGN,
+  ...FONT_FAMILY,
   ...LAYOUT_FULL,
   ...BREAKPOINT,
   ...VISUAL_LAYOUT,

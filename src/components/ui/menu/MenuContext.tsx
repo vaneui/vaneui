@@ -9,6 +9,10 @@ export interface MenuContextValue {
   isSubmenu: boolean;
   /** Submenu only: close just this submenu and return focus to its trigger (ArrowLeft / Escape). */
   closeSubmenu?: () => void;
+  /** A submenu registers its close while open (null on close), so moving to a sibling item can close it. */
+  setOpenSubmenu: (close: (() => void) | null) => void;
+  /** Close whichever child submenu is open, if any. */
+  closeOpenSubmenu: () => void;
 }
 
 export const MenuContext = createContext<MenuContextValue | null>(null);

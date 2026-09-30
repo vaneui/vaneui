@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useEffect, useMemo } from 'react';
+import { forwardRef, useRef, useEffect, useMemo, useCallback, type MouseEvent } from 'react';
 import type { CheckboxProps } from './CheckboxProps';
 import { useTheme } from "../../themeContext";
 import { useFieldControlProps } from "../field/FieldContext";
@@ -39,10 +39,16 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       pill, sharp, rounded,
       invalid,
       indeterminate,
-      checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, required, readOnly,
+      checked, defaultChecked, disabled, name, value, onChange, onBlur, onFocus, onClick, required, readOnly,
       id, className, tabIndex, 'aria-label': ariaLabel,
       ...remainingProps
     } = props;
+
+    // native readOnly is inert on checkbox inputs — cancel activation so aria-readonly stays truthful
+    const handleClick = useCallback((event: MouseEvent<HTMLInputElement>) => {
+      if (readOnly) event.preventDefault();
+      onClick?.(event);
+    }, [readOnly, onClick]);
 
     // indeterminate can only be set via JS, not as an HTML attribute
     useEffect(() => {
@@ -58,11 +64,14 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
       pill, sharp, rounded,
       invalid,
       disabled,
+      // read-only dims the wrapper like a read-only text field
+      readOnly,
     };
 
     const inputProps = {
       type: "checkbox" as const,
-      checked, defaultChecked, name, value, onChange, onBlur, onFocus, required, readOnly,
+      checked, defaultChecked, name, value, onChange, onBlur, onFocus, required,
+      onClick: handleClick,
       id, tabIndex, 'aria-label': ariaLabel,
       ...remainingProps,
       ...themeProps

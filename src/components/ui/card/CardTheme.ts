@@ -27,6 +27,7 @@ export interface CardTheme extends BaseComponentTheme {
     border: SimpleConsumerClassMapper;
     ring: SimpleConsumerClassMapper;
     shadow: ShadowAppearanceClassMapper;
+    focusVisible: SimpleConsumerClassMapper;
   };
   typography: {
     textAlign: TextAlignClassMapper;

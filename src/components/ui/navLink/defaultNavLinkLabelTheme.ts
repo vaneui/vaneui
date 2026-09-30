@@ -6,6 +6,7 @@ import { navLinkLabelDefaults } from "./navLinkLabelDefaults";
 import { WidthClassMapper } from "../theme/layout/widthClassMapper";
 import { OverflowClassMapper } from "../theme/layout/overflowClassMapper";
 import { WhitespaceClassMapper } from "../theme/layout/whitespaceClassMapper";
+import { FlexClassMapper } from "../theme/layout/flexClassMapper";
 
 export const defaultNavLinkLabelTheme = new ComponentTheme<NavLinkLabelProps, NavLinkLabelTheme>(
   "span",
@@ -15,6 +16,7 @@ export const defaultNavLinkLabelTheme = new ComponentTheme<NavLinkLabelProps, Na
       overflow: new OverflowClassMapper(),
       whitespace: new WhitespaceClassMapper(),
       width: new WidthClassMapper(),
+      flex: new FlexClassMapper(),
     },
     typography: {
       truncate: defaultTypographyClassMappers.truncate,

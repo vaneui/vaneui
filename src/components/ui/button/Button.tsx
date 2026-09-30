@@ -34,9 +34,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           <ThemedComponent theme={spinnerTheme} aria-hidden="true">
             <Spinner role={undefined} {...(size ? { [size]: true } : {})} />
           </ThemedComponent>
-          {/* opacity-0 (not invisible) — keeps the children in the accessibility
-              tree so the button retains its accessible name while loading */}
-          <span className="opacity-0">{resolvedProps.children}</span>
+          {/* transparent, not hidden: the children keep the button's size and accessible name while loading */}
+          <span className="vane-button-loading-label">{resolvedProps.children}</span>
         </ThemedComponent>
       );
     }

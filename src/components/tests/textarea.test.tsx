@@ -20,7 +20,7 @@ describe('Textarea Component Tests', () => {
 
       const el = container.querySelector('textarea');
       expect(el).toBeInTheDocument();
-      expect(el).toHaveClass('w-full', 'transition-all', 'duration-(--transition-duration)', 'ease-(--transition-timing)');
+      expect(el).toHaveClass('w-full', 'transition', 'duration-(--transition-duration)', 'ease-(--transition-timing)');
       expect(el).toHaveClass(FONT_SIZE_CLASS); // md size
       expect(el).toHaveClass('px-(--px)', 'py-(--py)'); // padding
       expect(el).toHaveClass('font-sans', 'font-normal'); // typography
@@ -107,8 +107,9 @@ describe('Textarea Component Tests', () => {
       const {container} = renderTextarea(<Textarea invalid />);
 
       const el = container.querySelector('textarea');
-      expect(el).toHaveClass('ring-(--color-border-danger)/30');
-      expect(el).toHaveClass('focus-visible:ring-(--color-border-danger)/30');
+      // full-strength danger ring; no separate faint focus-visible variant
+      expect(el).toHaveClass('ring-(--color-text-danger)');
+      expect(el).not.toHaveClass('focus-visible:ring-(--color-border-danger)/30');
     });
 
     it('should not emit aria-invalid or data-status without invalid', () => {
@@ -117,7 +118,7 @@ describe('Textarea Component Tests', () => {
       const el = container.querySelector('textarea');
       expect(el).not.toHaveAttribute('aria-invalid');
       expect(el).not.toHaveAttribute('data-status');
-      expect(el).not.toHaveClass('ring-(--color-border-danger)/30');
+      expect(el).not.toHaveClass('ring-(--color-text-danger)');
     });
 
     it('should respect a consumer-supplied aria-invalid value', () => {

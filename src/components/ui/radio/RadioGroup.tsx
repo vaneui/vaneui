@@ -1,4 +1,4 @@
-import { forwardRef, useId, useMemo } from 'react';
+import { forwardRef, useContext, useId, useMemo } from 'react';
 import type { RadioGroupProps } from './RadioGroupProps';
 import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
@@ -11,6 +11,8 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
   function RadioGroup(rawProps, ref) {
     // the group takes the Field wiring itself, so its Radios must not each claim the id
     const props = useFieldGroupProps(rawProps);
+    // the group resets the Field context for its Radios, so it forwards the Field's control state itself
+    const field = useContext(FieldControlContext);
     const theme = useTheme();
     // name/value/defaultValue/onChange drive the child Radios, not the group element
     const { name, value, defaultValue, onChange, ...rest } = props;
@@ -19,8 +21,8 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
     // only an explicit group size cascades — the group's own default must not outrank a nearer Label
     const size = pickFirstTruthyKeyByCategory(props as Record<string, unknown>, {}, 'size');
     const group = useMemo(
-      () => ({ name: name ?? generatedName, value, defaultValue, onChange, size }),
-      [name, generatedName, value, defaultValue, onChange, size]
+      () => ({ name: name ?? generatedName, value, defaultValue, onChange, size, disabled: field?.disabled, required: field?.required }),
+      [name, generatedName, value, defaultValue, onChange, size, field?.disabled, field?.required]
     );
 
     return (

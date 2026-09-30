@@ -548,7 +548,7 @@ describe('Label Component Tests', () => {
         </ThemeProvider>
       );
       const label = container.querySelector('label')!;
-      expect(label).toHaveClass('opacity-50');
+      expect(label).toHaveClass('opacity-(--disabled-opacity)');
       expect(label).toHaveAttribute('data-disabled', 'true');
       // <label> has no native disabled attribute; a leaked one is invalid HTML
       expect(label).not.toHaveAttribute('disabled');

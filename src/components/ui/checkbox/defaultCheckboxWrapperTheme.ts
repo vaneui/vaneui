@@ -1,6 +1,6 @@
 import { ComponentTheme, defaultLayoutClassMappers } from "../theme/common";
 import type { CheckboxProps } from "./CheckboxProps";
-import { SimpleConsumerClassMapper, DisabledOpacityClassMapper } from "../theme/appearance";
+import { SimpleConsumerClassMapper, DisabledOpacityClassMapper, ReadOnlyClassMapper } from "../theme/appearance";
 import { FocusVisibleClassMapper, AlignSelfClassMapper } from "../theme/layout";
 import { SizeClassMapper } from "../theme/size";
 import { focusVisibleConsumerClass } from "../classes/appearanceClasses";
@@ -29,6 +29,8 @@ export const defaultCheckboxWrapperTheme = new ComponentTheme<CheckboxProps, Che
     appearance: {
       variant: new SimpleConsumerClassMapper({ base: '' }, 'bg'),
       focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass }, 'focusVisible'),
+      // read-only toggles dim like read-only text fields; listed before disabled so a disabled opacity wins
+      readOnly: new ReadOnlyClassMapper(),
       disabled: new DisabledOpacityClassMapper(),
     }
   },

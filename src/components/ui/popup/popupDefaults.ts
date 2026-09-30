@@ -15,5 +15,6 @@ export const popupDefaults: Partial<PopupProps> = {
   primary: true,
   outline: true,
   wFit: true,
+  fontSans: true,
   placeBottom: true,
 };

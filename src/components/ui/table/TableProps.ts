@@ -8,6 +8,7 @@ import type {
   WidthProps,
   MarginProps,
   TextAlignProps,
+  FontFamilyProps,
   HideProps,
   ResponsiveProps,
 } from "../props";
@@ -21,6 +22,7 @@ export type TableProps = BaseProps &
   WidthProps &
   MarginProps &
   TextAlignProps &
+  FontFamilyProps &
   HideProps &
   ResponsiveProps &
   // Omit the deprecated native `border` attr (number) so it doesn't collide with

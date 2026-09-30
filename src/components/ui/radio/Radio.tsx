@@ -68,7 +68,9 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       primary, accent, secondary, tertiary, success, danger, warning, info,
       filled, outline, ghost,
       pill, sharp, rounded,
-      disabled,
+      disabled: disabled ?? group?.disabled,
+      // read-only dims the wrapper like a read-only text field
+      readOnly,
     };
 
     const inputProps = {
@@ -76,7 +78,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       checked: resolvedChecked,
       defaultChecked: resolvedDefaultChecked,
       name: name ?? group?.name,
-      value, onBlur, onFocus, required, readOnly,
+      value, onBlur, onFocus, required: required ?? group?.required,
       onChange: onChange || groupOnChange ? handleChange : undefined,
       onClick: handleClick,
       id, tabIndex, 'aria-label': ariaLabel,

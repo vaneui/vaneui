@@ -29,7 +29,7 @@ describe('Linkable Components Tests', () => {
 
       const span = container.querySelector('span');
       expect(span).toBeInTheDocument();
-      expect(span).toHaveClass('w-fit', 'h-fit', 'transition-all');
+      expect(span).toHaveClass('w-fit', 'h-fit', 'transition');
       expect(span).toHaveTextContent('Status Badge');
       
       const anchor = container.querySelector('a');
@@ -45,7 +45,7 @@ describe('Linkable Components Tests', () => {
 
       const anchor = container.querySelector('a');
       expect(anchor).toBeInTheDocument();
-      expect(anchor).toHaveClass('w-fit', 'h-fit', 'transition-all');
+      expect(anchor).toHaveClass('w-fit', 'h-fit', 'transition');
       expect(anchor).toHaveAttribute('href', '/filter?status=active');
       expect(anchor).toHaveTextContent('Active Status');
       

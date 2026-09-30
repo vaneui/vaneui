@@ -7,4 +7,5 @@ export const tableDefaults: Partial<TableProps> = {
   outline: true,
   wFull: true,
   noBorder: true,
+  fontSans: true,
 };

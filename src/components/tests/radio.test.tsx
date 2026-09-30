@@ -118,7 +118,7 @@ describe('Radio Component Tests', () => {
       const input = container.querySelector('input[type="radio"]');
       expect(input).toHaveAttribute('aria-invalid', 'true');
       expect(input).toHaveAttribute('data-status', 'error');
-      expect(input).toHaveClass('border-(--color-border-danger)');
+      expect(input).toHaveClass('border-(--color-text-danger)');
     });
 
     it('should keep validity state off the wrapper', () => {
@@ -237,7 +237,7 @@ describe('Radio Component Tests', () => {
       const input = container.querySelector('input[type="radio"]');
       expect(input).toBeDisabled();
       expect(input).toHaveClass('cursor-not-allowed', 'pointer-events-none');
-      expect(container.firstChild).toHaveClass('opacity-50');
+      expect(container.firstChild).toHaveClass('opacity-(--disabled-opacity)');
     });
   });
 

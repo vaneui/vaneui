@@ -6,6 +6,10 @@ export interface FieldControlContextValue {
   labelId: string;
   describedBy?: string;
   invalid: boolean;
+  /** Control state passed to a child control (children mode); the child's own prop wins. */
+  disabled?: boolean;
+  required?: boolean;
+  readOnly?: boolean;
 }
 
 export const FieldControlContext = createContext<FieldControlContextValue | null>(null);
@@ -13,6 +17,9 @@ export const FieldControlContext = createContext<FieldControlContextValue | null
 type FieldControlProps = {
   id?: string;
   invalid?: boolean;
+  disabled?: boolean;
+  required?: boolean;
+  readOnly?: boolean;
   'aria-describedby'?: string;
 };
 
@@ -31,6 +38,9 @@ export function useFieldControlProps<P extends FieldControlProps>(props: P): P {
     id: props.id ?? field.id,
     ...(describedBy ? { 'aria-describedby': describedBy } : {}),
     ...(field.invalid && props.invalid === undefined ? { invalid: true } : {}),
+    ...(field.disabled && props.disabled === undefined ? { disabled: true } : {}),
+    ...(field.required && props.required === undefined ? { required: true } : {}),
+    ...(field.readOnly && props.readOnly === undefined ? { readOnly: true } : {}),
   };
 }
 

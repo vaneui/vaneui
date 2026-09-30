@@ -589,7 +589,7 @@ describe('Button Component Tests', () => {
 
       // opacity-0 (not invisible/visibility:hidden) keeps the text in the
       // accessibility tree so the button is still announced as "Save"
-      const hiddenSpan = container.querySelector('span.opacity-0');
+      const hiddenSpan = container.querySelector('span.vane-button-loading-label');
       expect(hiddenSpan).toBeInTheDocument();
       expect(hiddenSpan).toHaveTextContent('Save');
       expect(container.querySelector('span.invisible')).not.toBeInTheDocument();

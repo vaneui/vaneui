@@ -1,4 +1,4 @@
-import { ComponentTheme, layoutClassMappers } from "../theme/common";
+import { ComponentTheme, layoutClassMappers, focusVisibleAppearance } from "../theme/common";
 import type { CardProps } from "./CardProps";
 import type { CardTheme } from "./CardTheme";
 import { CARD_CATEGORIES } from "./CardCategories";
@@ -21,6 +21,11 @@ export const defaultCardTheme = new ComponentTheme<CardProps, CardTheme>(
       width: new WidthClassMapper(),
       cursor: new CursorClassMapper(),
       focusVisible: new FocusVisibleClassMapper(),
+    },
+    appearance: {
+      ...layoutClassMappers.appearance,
+      // a Card with href shows the appearance's focus color, like Button
+      focusVisible: focusVisibleAppearance,
     },
     typography: {
       textAlign: new TextAlignClassMapper(),

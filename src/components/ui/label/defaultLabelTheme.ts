@@ -10,7 +10,7 @@ import { labelDefaults } from "./labelDefaults";
 export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
   "label",
   // dims for a disabled control too: authors disable the field, not its label
-  "vane-label has-[input]:cursor-pointer has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-50",
+  "vane-label has-[input]:cursor-pointer has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-(--disabled-opacity)",
   {
     size: {
       text: new FontSizeClassMapper(),

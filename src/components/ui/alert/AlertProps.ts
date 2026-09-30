@@ -2,6 +2,7 @@ import type React from 'react';
 import type {
   BaseProps,
   TextAlignProps,
+  FontFamilyProps,
   SizeProps,
   HideProps,
   ItemsProps,
@@ -32,6 +33,7 @@ import type {
 /** Alert component props */
 export type AlertProps = BaseProps &
   TextAlignProps &
+  FontFamilyProps &
   SizeProps &
   HideProps &
   ItemsProps &

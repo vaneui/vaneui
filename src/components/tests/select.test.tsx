@@ -20,7 +20,7 @@ describe('Select Component Tests', () => {
 
       const el = container.querySelector('select');
       expect(el).toBeInTheDocument();
-      expect(el).toHaveClass('w-full', 'transition-all', 'duration-(--transition-duration)', 'ease-(--transition-timing)');
+      expect(el).toHaveClass('w-full', 'transition', 'duration-(--transition-duration)', 'ease-(--transition-timing)');
       expect(el).toHaveClass(FONT_SIZE_CLASS); // md size
       expect(el).toHaveClass('px-(--px)', 'py-(--py)'); // padding
       expect(el).toHaveClass('font-sans', 'font-normal'); // typography
@@ -200,7 +200,7 @@ describe('Select Component Tests', () => {
       const el = container.querySelector('select');
       expect(el).toHaveAttribute('aria-invalid', 'true');
       expect(el).toHaveAttribute('data-status', 'error');
-      expect(el).toHaveClass('border-(--color-border-danger)');
+      expect(el).toHaveClass('border-(--color-text-danger)');
     });
 
     it('should not emit aria-invalid or data-status without invalid', () => {
@@ -284,7 +284,7 @@ describe('Select Component Tests', () => {
       const {container} = renderSelect(<Select disabled />);
 
       // the chevron is a sibling of the field, so dimming only the field would leave it bright
-      expect(container.querySelector('.vane-select-wrapper')).toHaveClass('opacity-50');
+      expect(container.querySelector('.vane-select-wrapper')).toHaveClass('opacity-(--disabled-opacity)');
     });
 
     it('should support disabled', () => {

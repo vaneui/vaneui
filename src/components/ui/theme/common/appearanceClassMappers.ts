@@ -7,7 +7,8 @@ import {
   ringConsumerClass,
   focusVisibleConsumerClass,
   accentConsumerClass,
-  checkedBgConsumerClass
+  checkedBgConsumerClass,
+  checkedOnlyBgConsumerClass
 } from "../../classes/appearanceClasses";
 
 /** Background appearance — base color only */
@@ -39,6 +40,9 @@ export const accentAppearance = new SimpleConsumerClassMapper({ base: accentCons
 
 /** Checked background appearance (Checkbox) */
 export const checkedBgAppearance = new SimpleConsumerClassMapper({ base: checkedBgConsumerClass }, 'bg');
+
+/** Checked-only background appearance (Radio) */
+export const checkedOnlyBgAppearance = new SimpleConsumerClassMapper({ base: checkedOnlyBgConsumerClass }, 'bg');
 
 /** Shadow appearance (static — differentiation between UI/layout happens via CSS variables) */
 export const shadowAppearance = new ShadowAppearanceClassMapper();

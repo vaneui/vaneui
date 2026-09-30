@@ -1,6 +1,6 @@
 import { ComponentTheme, interactiveClassMappers, bgHoverAppearance } from "../theme/common";
 import type { TextareaProps } from "./TextareaProps";
-import { StatusClassMapper, DisabledClassMapper, ReadOnlyClassMapper } from "../theme/appearance";
+import { StatusClassMapper, DisabledVisualClassMapper, ReadOnlyClassMapper } from "../theme/appearance";
 import { INPUT_CATEGORIES } from "../input/InputCategories";
 import type { InputTheme } from "../input/InputTheme";
 import { textareaDefaults } from "./textareaDefaults";
@@ -18,7 +18,7 @@ export const defaultTextareaTheme = new ComponentTheme<TextareaProps, InputTheme
       ...interactiveClassMappers.appearance,
       background: bgHoverAppearance,
       status: new StatusClassMapper(),
-      disabled: new DisabledClassMapper(),
+      disabled: new DisabledVisualClassMapper(),
       readOnly: new ReadOnlyClassMapper(),
     },
   },

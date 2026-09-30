@@ -4,6 +4,8 @@ import type { LinkTheme } from "./LinkTheme";
 import { typographyClassMappers } from "../../theme/common/typographyClassMappers";
 import { FocusVisibleClassMapper } from "../../theme/layout/focusVisibleClassMapper";
 import { LinkVariantClassMapper } from "../../theme/appearance/linkVariantClassMapper";
+import { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
+import { DisabledVisualClassMapper } from "../../theme/appearance/disabledClassMapper";
 import { LINK_CATEGORIES } from "./LinkCategories";
 import { linkDefaults } from "./linkDefaults";
 
@@ -18,11 +20,15 @@ export const defaultLinkTheme: ComponentTheme<TypographyProps, LinkTheme> = new 
       // delta: link-variant colors (cascading --link-text / --app-text) instead
       // of the generic text appearance — Link has no data-variant to drive --text-color
       text: new LinkVariantClassMapper(),
+      // delta: the focus ring takes the link's own color; Link has no appearance, so --focus-color would be unset
+      focusVisible: new SimpleConsumerClassMapper({ base: "focus-visible:outline-current", alwaysOutput: true }, 'focusVisible'),
     },
     layout: {
       ...typographyClassMappers.layout,
       // delta: LINK_CATEGORIES adds `focusVisible` so the rendered <a> can show a keyboard focus ring
       focusVisible: new FocusVisibleClassMapper(),
+      // delta: a disabled link dims like other disabled controls; after cursor so not-allowed wins over pointer
+      disabled: new DisabledVisualClassMapper(),
     },
   },
   linkDefaults,

@@ -8,8 +8,8 @@ import type { CategoryProps, TransitionKey } from "../../props";
  * can retune them globally with a single :root override.
  */
 export class TransitionClassMapper extends BaseClassMapper implements Record<TransitionKey, string> {
-  /** Enable transitions - smooth state changes */
-  transition: string = "transition-all duration-(--transition-duration) ease-(--transition-timing)";
+  /** Enable transitions - colors, shadows and transforms fade; outline width/offset (the focus ring) stay instant */
+  transition: string = "transition duration-(--transition-duration) ease-(--transition-timing)";
   /** Disable transitions - instant state changes (useful for reduced-motion) */
   noTransition: string = "transition-none";
 

@@ -14,4 +14,5 @@ export const alertDefaults: Partial<AlertProps> = {
   itemsStart: true,
   wFull: true,
   responsiveSizing: true,
+  fontSans: true,
 };

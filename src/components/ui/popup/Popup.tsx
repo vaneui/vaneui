@@ -35,21 +35,22 @@ interface AnchorStyles {
   alignSelf?: string;
 }
 
-// -start/-end variants use `span-*` keywords so the popup area edge aligns with the anchor's edge;
-// -end also sets justify-self/align-self to push the popup to the far edge of the spanned area.
+// top/bottom span the whole row so a popup wider than its anchor keeps its own width (a single center cell
+// would shrink it to the anchor); -start/-end use `span-*` so the popup edge aligns with the anchor's edge.
+// Inline alignment is left to the spec's default (toward the anchor), which also holds under RTL.
 function getAnchorStyles(placement: PopupPlacement): AnchorStyles {
   const map: Record<PopupPlacement, AnchorStyles> = {
-    'top':    { positionArea: 'top center' },
-    'bottom': { positionArea: 'bottom center' },
-    'left':   { positionArea: 'center left',  justifySelf: 'end' },
+    'top':    { positionArea: 'top span-all' },
+    'bottom': { positionArea: 'bottom span-all' },
+    'left':   { positionArea: 'center left' },
     'right':  { positionArea: 'center right' },
 
     'top-start':    { positionArea: 'top span-right' },
-    'top-end':      { positionArea: 'top span-left',    justifySelf: 'end' },
+    'top-end':      { positionArea: 'top span-left' },
     'bottom-start': { positionArea: 'bottom span-right' },
-    'bottom-end':   { positionArea: 'bottom span-left', justifySelf: 'end' },
-    'left-start':   { positionArea: 'left span-bottom', justifySelf: 'end' },
-    'left-end':     { positionArea: 'left span-top',    justifySelf: 'end', alignSelf: 'end' },
+    'bottom-end':   { positionArea: 'bottom span-left' },
+    'left-start':   { positionArea: 'left span-bottom' },
+    'left-end':     { positionArea: 'left span-top',    alignSelf: 'end' },
     'right-start':  { positionArea: 'right span-bottom' },
     'right-end':    { positionArea: 'right span-top',   alignSelf: 'end' },
   };
@@ -327,7 +328,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         const popup = popupRef.current;
         if (!popup || popup.contains(document.activeElement)) return;
 
-        const focusable = getFocusableElements(popup);
+        // the scroll box is a tab stop only for scrolling; the first real control is the target
+        const focusable = getFocusableElements(popup).filter(el => !el.classList.contains('vane-popup-scroll'));
         if (focusable.length > 0) {
           focusable[0].focus();
         } else {
@@ -518,7 +520,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     // scroll box must NOT be a tab stop (it would break the role's required
     // children). Plain-content popups make the scroll box keyboard-scrollable.
     const compositeRoles = ['menu', 'menubar', 'listbox', 'tree', 'treegrid', 'grid', 'tablist', 'radiogroup'];
-    const scrollTabIndex = role && compositeRoles.includes(role) ? undefined : 0;
+    // a tooltip is never focusable itself: it describes its trigger
+    const scrollTabIndex = role && (compositeRoles.includes(role) || role === 'tooltip') ? undefined : 0;
 
     const content = (
       <ThemedComponent

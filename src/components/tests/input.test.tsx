@@ -20,7 +20,7 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('w-full', 'transition-all', 'duration-(--transition-duration)', 'ease-(--transition-timing)');
+      expect(input).toHaveClass('w-full', 'transition', 'duration-(--transition-duration)', 'ease-(--transition-timing)');
       expect(input).toHaveClass(FONT_SIZE_CLASS); // md size
       expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // padding
       expect(input).toHaveClass('font-sans', 'font-normal'); // typography
@@ -343,7 +343,7 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('custom-input-class');
-      expect(input).toHaveClass('w-full', 'transition-all'); // still has component classes
+      expect(input).toHaveClass('w-full', 'transition'); // still has component classes
       expect(input).toHaveClass('bg-(--bg-color)'); // still has primary classes
     });
 
@@ -359,7 +359,7 @@ describe('Input Component Tests', () => {
       
       expect(textarea).toBeInTheDocument();
       expect(input).not.toBeInTheDocument();
-      expect(textarea).toHaveClass('w-full', 'transition-all');
+      expect(textarea).toHaveClass('w-full', 'transition');
       expect(textarea).toHaveAttribute('placeholder', 'Custom tag test');
     });
   });
@@ -600,8 +600,8 @@ describe('Input Component Tests', () => {
 
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
-      expect(input).toHaveClass('border-(--color-border-danger)');
-      expect(input).toHaveClass('ring-(--color-border-danger)/30');
+      expect(input).toHaveClass('border-(--color-text-danger)');
+      expect(input).toHaveClass('ring-(--color-text-danger)');
     });
 
     it('should not apply error classes when error is false', () => {
@@ -612,8 +612,8 @@ describe('Input Component Tests', () => {
       );
 
       const input = container.querySelector('input');
-      expect(input).not.toHaveClass('border-(--color-border-danger)');
-      expect(input).not.toHaveClass('ring-(--color-border-danger)/30');
+      expect(input).not.toHaveClass('border-(--color-text-danger)');
+      expect(input).not.toHaveClass('ring-(--color-text-danger)');
     });
 
     it('should work with other props alongside error', () => {
@@ -624,7 +624,7 @@ describe('Input Component Tests', () => {
       );
 
       const input = container.querySelector('input');
-      expect(input).toHaveClass('border-(--color-border-danger)'); // error state
+      expect(input).toHaveClass('border-(--color-text-danger)'); // error state
       expect(input).toHaveAttribute('data-size', 'lg'); // size prop
       expect(input).toHaveAttribute('data-appearance', 'primary'); // appearance
     });

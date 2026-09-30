@@ -1,5 +1,5 @@
 import type { BaseComponentTheme, DefaultLayoutClassMappers } from "../theme/common";
-import type { SimpleConsumerClassMapper, DisabledOpacityClassMapper } from "../theme/appearance";
+import type { SimpleConsumerClassMapper, DisabledOpacityClassMapper, ReadOnlyClassMapper } from "../theme/appearance";
 import type { FocusVisibleClassMapper, AlignSelfClassMapper } from "../theme/layout";
 import type { SizeClassMapper } from "../theme/size";
 
@@ -15,5 +15,6 @@ export interface SwitchWrapperTheme extends BaseComponentTheme {
   appearance: {
     focusVisible: SimpleConsumerClassMapper;
     disabled: DisabledOpacityClassMapper;
+    readOnly: ReadOnlyClassMapper;
   };
 }

@@ -3,7 +3,7 @@ import type { CategoryProps, ReadOnlyKey } from "../../props";
 
 /**
  * ReadOnlyClassMapper handles the read-only visual treatment for form controls.
- * Mirrors DisabledClassMapper but lighter (opacity-70 vs opacity-50) because a
+ * Mirrors DisabledClassMapper but lighter (opacity-70 vs --disabled-opacity) because a
  * read-only field is still focusable, selectable, and submittable. The opacity
  * and cursor live here as Tailwind classes (not a raw CSS rule) so they go
  * through the theme system like every other visual state.

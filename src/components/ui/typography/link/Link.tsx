@@ -3,6 +3,7 @@ import type { LinkProps } from "./LinkProps";
 import { useTheme } from "../../../themeContext";
 import { ThemedComponent } from "../../../themedComponent";
 import { resolveDisabledLink } from "../../../utils/disabledLink";
+import { pickFirstTruthyKeyByCategory } from "../../../utils/componentUtils";
 import { defaultLinkTheme } from "./defaultLinkTheme";
 
 export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
@@ -31,8 +32,12 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
       finalTarget === '_blank' && !rest.disabled && !(rest as { 'aria-label'?: string })['aria-label'];
     const { children, ...linkProps } = resolvedProps as typeof resolvedProps & { children?: ReactNode };
 
+    // an explicit size wins over the inheritSize default, unless inheritSize is also passed
+    const explicitSize = pickFirstTruthyKeyByCategory(rest as Record<string, unknown>, {}, 'size');
+    const sizeInjection = explicitSize && !rest.inheritSize ? { noInheritSize: true as const } : undefined;
+
     return (
-      <ThemedComponent ref={ref} theme={theme?.link ?? defaultLinkTheme} {...linkProps}>
+      <ThemedComponent ref={ref} theme={theme?.link ?? defaultLinkTheme} {...sizeInjection} {...linkProps}>
         {children}
         {opensNewWindow && <span className="sr-only"> (opens in new window)</span>}
       </ThemedComponent>

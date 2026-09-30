@@ -348,6 +348,83 @@ function SubmenuFixtures() {
   );
 }
 
+/** Components composed the way real screens use them (composition-consistency.spec.ts). */
+function CompositionFixtures() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [menuModalOpen, setMenuModalOpen] = useState(false);
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  return (
+    <section data-testid="composition-section">
+      {sizes.map(s => (
+        <Row key={s} itemsStart>
+          <Input {...{ [s]: true }} aria-label={`input ${s}`} data-testid={`cc-h-input-${s}`} />
+          <Select {...{ [s]: true }} aria-label={`select ${s}`} data-testid={`cc-h-select-${s}`}><option>All</option></Select>
+          <Button {...{ [s]: true }} data-testid={`cc-h-button-${s}`}>Search</Button>
+          <IconButton {...{ [s]: true }} aria-label={`icon ${s}`} data-testid={`cc-h-iconbutton-${s}`}><StarIcon /></IconButton>
+        </Row>
+      ))}
+
+      <Row data-testid="cc-row-text-input">
+        <Text data-testid="cc-row-text">Search</Text>
+        <Input aria-label="search" />
+      </Row>
+
+      <div style={{ width: 240 }}>
+        <Table>
+          <Tbody>
+            <Tr><Td><Text>Trail Runner 2, Graphite edition</Text></Td><Td textRight><Text data-testid="cc-price">$1,234.00</Text></Td></Tr>
+          </Tbody>
+        </Table>
+      </div>
+
+      <Text data-testid="cc-inline-svg">Read the migration guide <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" /></svg> before you upgrade.</Text>
+
+      <RadioGroup name="cc-unselected">
+        <Radio value="a" aria-label="unselected a" data-testid="cc-radio-unselected" />
+        <Radio value="b" aria-label="unselected b" />
+      </RadioGroup>
+      <RadioGroup name="cc-selected" defaultValue="b">
+        <Radio value="a" aria-label="selected a" data-testid="cc-radio-unchecked-in-valued-group" />
+        <Radio value="b" aria-label="selected b" />
+      </RadioGroup>
+
+      <Col noGap style={{ width: 240 }}>
+        <NavLink href="#cc" active data-testid="cc-nav-active">Dashboard</NavLink>
+        <NavLink href="#cc" data-testid="cc-nav-idle">Orders</NavLink>
+      </Col>
+
+      <Link href="#cc" data-testid="cc-link">View invoices</Link>
+
+      <Tooltip content="Filter invoices" defaultOpen>
+        <IconButton xs aria-label="filter" data-testid="cc-tooltip-anchor"><StarIcon /></IconButton>
+      </Tooltip>
+
+      <Menu trigger={<Button data-testid="cc-menu-trigger">Actions</Button>} noAnimation>
+        <MenuItem data-testid="cc-menu-item-1">Edit</MenuItem>
+        <MenuItem data-testid="cc-menu-item-2">Duplicate</MenuItem>
+        <MenuItem data-testid="cc-menu-item-3">Archive</MenuItem>
+      </Menu>
+
+      <Menu trigger={<Button data-testid="cc-end-trigger">More</Button>} placeBottomEnd noAnimation data-testid="cc-end-menu">
+        <MenuItem>Edit</MenuItem>
+      </Menu>
+
+      {/* focus returns to a trigger that stays mounted */}
+      <button data-testid="cc-modal-open" onClick={() => setModalOpen(true)}>open modal</button>
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)} noAnimation title="Return focus">
+        <button data-testid="cc-modal-inside">inside</button>
+      </Modal>
+
+      <button data-testid="cc-menu-modal-open" onClick={() => setMenuModalOpen(true)}>open modal with menu</button>
+      <Modal open={menuModalOpen} onClose={() => setMenuModalOpen(false)} noAnimation title="Menu inside" data-testid="cc-menu-modal">
+        <Menu trigger={<Button data-testid="cc-inner-menu-trigger">Options</Button>} noAnimation>
+          <MenuItem data-testid="cc-inner-menu-item">Rename</MenuItem>
+        </Menu>
+      </Modal>
+    </section>
+  );
+}
+
 export function TestHarness() {
   return (
     <ThemeProvider>
@@ -1698,6 +1775,8 @@ export function TestHarness() {
             <Radio value="b" aria-label="radio group b" data-testid="radiogroup-radio-b" />
           </RadioGroup>
         </section>
+
+        <CompositionFixtures />
 
       </div>
     </ThemeProvider>

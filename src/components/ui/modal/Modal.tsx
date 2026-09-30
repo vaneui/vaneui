@@ -22,6 +22,7 @@ import { ModalBody } from './ModalBody';
 import { ModalFooter } from './ModalFooter';
 import { ModalCloseButton } from './ModalCloseButton';
 import { Row } from '../row/Row';
+import { Title } from '../typography/title/Title';
 import { getModalPart } from './modalParts';
 
 // Any ModalHeader/ModalBody/ModalFooter among the children switches Modal
@@ -123,12 +124,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       () => ({ returnFocus, initialFocus }),
       [returnFocus, initialFocus]
     );
-    useFocusTrap(contentRef, effectiveOpen && focusTrap, focusTrapOptions);
-
     // neutralize the page behind the dialog for AT/focus (the focus trap only
     // guards the Tab boundary); skips the dialog's own portal and any overlay
     // portaled out of it (e.g. an in-modal menu).
+    // Declared before useFocusTrap: cleanups run in order, and inert must lift before focus returns.
     useInertBackground(effectiveOpen, overlayRef);
+    useFocusTrap(contentRef, effectiveOpen && focusTrap, focusTrapOptions);
 
     // join the shared overlay stack while open, so any OTHER open dialog's
     // background-inert pass spares this modal's portal (without this, two
@@ -252,7 +253,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
               <>
                 {title !== undefined && (
                   <ModalHeader>
-                    {title}
+                    {/* plain text gets the heading's font, size and weight */}
+                    {typeof title === 'string' || typeof title === 'number' ? <Title>{title}</Title> : title}
                     {showCloseButton && <ModalCloseButton />}
                   </ModalHeader>
                 )}

@@ -55,16 +55,6 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
           ctx.closeSubmenu();
         }
 
-        if (event.key === 'Escape') {
-          event.preventDefault();
-          // in a submenu, close only this level; in a root menu, close it
-          if (ctx?.isSubmenu && ctx.closeSubmenu) {
-            ctx.closeSubmenu();
-          } else {
-            ctx?.closeMenu();
-          }
-        }
-
         if (event.key === 'Tab') {
           ctx?.closeMenu();
         }
@@ -88,13 +78,15 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
         if (!disabled) {
           e.currentTarget.focus();
         }
+        // a submenu left open by a sibling closes; a submenu trigger reopens its own below
+        ctx?.closeOpenSubmenu();
         // forward to a composed handler (e.g. a submenu trigger opening on hover)
         const origMouseEnter = rest.onMouseEnter;
         if (typeof origMouseEnter === 'function') {
           (origMouseEnter as (e: React.MouseEvent<HTMLButtonElement>) => void)(e as React.MouseEvent<HTMLButtonElement>);
         }
       },
-      [disabled, rest.onMouseEnter]
+      [disabled, rest.onMouseEnter, ctx]
     );
 
     const mergedProps = {

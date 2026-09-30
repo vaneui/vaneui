@@ -381,12 +381,12 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       dataAttributes['data-responsive'] = '';
     }
     // data-appearance suppressed when inheritColor is active (lets colors cascade from ancestor).
-    // data-variant emitted when appearance is present OR variant != outline (so `<Row filled>` works without explicit appearance).
+    // data-variant only with an appearance: without one no surface is painted, so a variant would only flip the text.
     const hasAppearance = extractedKeys.appearance && extractedKeys.inheritColor !== 'inheritColor';
     if (hasAppearance) {
       dataAttributes['data-appearance'] = extractedKeys.appearance;
     }
-    if (extractedKeys.variant && (hasAppearance || extractedKeys.variant !== 'outline')) {
+    if (extractedKeys.variant && hasAppearance) {
       dataAttributes['data-variant'] = extractedKeys.variant;
     }
     if (rawProps.disabled) {
@@ -394,7 +394,9 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     }
     if (rawProps.readOnly) {
       dataAttributes['data-readonly'] = 'true';
-      if (rawProps['aria-readonly'] === undefined) {
+      // aria-readonly belongs on the control itself; a toggle's wrapper span only takes the visual cue
+      const isFormControlTag = typeof componentTag !== 'string' || ['input', 'textarea', 'select'].includes(componentTag);
+      if (rawProps['aria-readonly'] === undefined && isFormControlTag) {
         dataAttributes['aria-readonly'] = 'true';
       }
     }

@@ -4,6 +4,7 @@ import { useTheme } from "../../themeContext";
 import { useFieldControlProps } from "../field/FieldContext";
 import { ThemedComponent } from "../../themedComponent";
 import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
+import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
 import { defaultSwitchTheme } from "./defaultSwitchTheme";
 import { defaultSwitchThumbTheme } from "./defaultSwitchThumbTheme";
 import { defaultSwitchWrapperTheme } from "./defaultSwitchWrapperTheme";
@@ -29,6 +30,16 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       [inputThemeBase, labelSize]
     );
 
+    // the track's geometry lives on the wrapper, so a size set on the input (as for Checkbox and Radio) must reach it;
+    // the library default is skipped so a switch.wrapper size default still applies
+    const inputSize = pickFirstTruthyKeyByCategory(
+      rawProps as unknown as Record<string, unknown>,
+      switchInputTheme.defaults as unknown as Record<string, unknown>,
+      'size'
+    );
+    const librarySize = pickFirstTruthyKeyByCategory({}, defaultSwitchTheme.defaults as unknown as Record<string, unknown>, 'size');
+    const wrapperSize = inputSize && inputSize !== librarySize ? { [inputSize]: true } : undefined;
+
     const {
       xs, sm, md, lg, xl,
       primary, accent, secondary, tertiary, success, danger, warning, info,
@@ -53,12 +64,14 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
       filled, outline, ghost,
       pill, sharp, rounded,
       disabled,
+      // read-only dims the wrapper like a read-only text field
+      readOnly,
     };
 
     const inputProps = {
       type: "checkbox" as const,
       role: "switch",
-      checked, defaultChecked, name, value, onChange, onBlur, onFocus, required, readOnly,
+      checked, defaultChecked, name, value, onChange, onBlur, onFocus, required,
       onClick: handleClick,
       id, tabIndex, 'aria-label': ariaLabel,
       ...remainingProps,
@@ -68,7 +81,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
     };
 
     return (
-      <ThemedComponent theme={wrapperTheme} className={className} {...themeProps}>
+      <ThemedComponent theme={wrapperTheme} className={className} {...themeProps} {...wrapperSize}>
         <ThemedComponent theme={switchInputTheme} ref={ref} {...inputProps} />
         {/* decorative knob — hidden from AT; shape only, since the rest has no category here and would hit the DOM */}
         <ThemedComponent theme={thumbTheme} aria-hidden="true" {...{ pill, sharp, rounded }} />

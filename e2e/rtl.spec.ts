@@ -84,7 +84,7 @@ test.describe('Blockquote accent under RTL', () => {
   });
 });
 
-// ── ListItem icon gap (me-(--gap)) ────────────────────────────────────────────
+// ── ListItem icon: gap on the inline end (me-(--gap)), pulled into the marker gutter on the inline start ──
 
 test.describe('ListItem icon margin under RTL', () => {
   // The icon wrapper is an internal span rendered by ListItem (not reachable
@@ -93,13 +93,13 @@ test.describe('ListItem icon margin under RTL', () => {
   test('icon-to-text gap flips to margin-left under RTL (margin-inline-end)', async ({ page }) => {
     const icon = page.locator('[data-testid="rtl-list-item-icon"] .vane-list-item-icon');
     expect(await getPx(icon, 'margin-left')).toBeGreaterThan(0);
-    expect(await getPx(icon, 'margin-right')).toBe(0);
+    expect(await getPx(icon, 'margin-right')).toBeLessThan(0);
   });
 
   test('icon-to-text gap stays margin-right in LTR (no regression)', async ({ page }) => {
     const icon = page.locator('[data-testid="ltr-list-item-icon"] .vane-list-item-icon');
     expect(await getPx(icon, 'margin-right')).toBeGreaterThan(0);
-    expect(await getPx(icon, 'margin-left')).toBe(0);
+    expect(await getPx(icon, 'margin-left')).toBeLessThan(0);
   });
 });
 

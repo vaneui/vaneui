@@ -69,9 +69,25 @@ describe('Link Component Tests', () => {
 
         const link = container.querySelector('a');
         expect(link).toHaveAttribute('data-size', prop);
-        expect(link).toHaveClass('leading-[inherit]'); // inherited line height (inheritSize default)
-        expect(link).toHaveClass('text-(length:--fs-em)'); // inherited font size (inheritSize default)
+        // an explicit size wins over the inheritSize default
+        expect(link).toHaveClass('leading-(--lh)');
+        expect(link).toHaveClass('text-(length:--fs)');
+        expect(link).not.toHaveClass('text-(length:--fs-em)');
       });
+    });
+
+    it('keeps inheriting when inheritSize is passed alongside an explicit size', () => {
+      const {container} = render(<Link href="#test" sm inheritSize>link</Link>);
+      const link = container.querySelector('a');
+      expect(link).toHaveClass('text-(length:--fs-em)');
+      expect(link).toHaveClass('leading-[inherit]');
+    });
+
+    it('inherits the parent size when no size is passed', () => {
+      const {container} = render(<Link href="#test">link</Link>);
+      const link = container.querySelector('a');
+      expect(link).toHaveClass('text-(length:--fs-em)');
+      expect(link).toHaveClass('leading-[inherit]');
     });
 
     it('should support filled and outline variants', () => {

@@ -1,4 +1,4 @@
-import { test, expect, getColor, getContrastRatio } from './base';
+import { test, expect, getColor, getStyle, getContrastRatio } from './base';
 
 // WCAG AA requires 4.5:1 for normal text, 3:1 for large text.
 // VaneUI filled text is typically large-ish (button labels, card headings),
@@ -70,14 +70,13 @@ test.describe('Identity components in filled context', () => {
     expect(chipColor).not.toBe(cardColor);
   });
 
-  test('Link keeps its link color inside a filled Card', async ({ page }) => {
+  // no single link tint reads on both light and dark fills, so a Link takes the fill's text color and keeps its underline
+  test('Link inside a filled Card is readable and still underlined', async ({ page }) => {
     const link = page.locator('[data-testid="vi-link-in-filled"]');
     const card = page.locator('[data-testid="vi-identity-card"]');
 
-    const linkColor = await getColor(link);
-    const cardColor = await getColor(card);
-
-    expect(linkColor).not.toBe(cardColor);
+    expect(await getContrastRatio(link, card)).toBeGreaterThanOrEqual(4.5);
+    expect(await getStyle(link, 'text-decoration-line')).toContain('underline');
   });
 
   test('Mark, Chip, and Link each have distinct colors', async ({ page }) => {

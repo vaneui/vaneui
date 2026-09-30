@@ -1,6 +1,6 @@
 import { ComponentTheme, defaultLayoutClassMappers } from "../theme/common";
 import type { SelectWrapperProps } from "./SelectWrapperProps";
-import { WidthClassMapper } from "../theme/layout";
+import { WidthClassMapper, ShrinkClassMapper } from "../theme/layout";
 import { DisabledOpacityClassMapper } from "../theme/appearance";
 import { SELECT_WRAPPER_CATEGORIES } from "./SelectWrapperCategories";
 import type { SelectWrapperTheme } from "./SelectWrapperTheme";
@@ -14,6 +14,7 @@ export const defaultSelectWrapperTheme = new ComponentTheme<SelectWrapperProps, 
     layout: {
       ...defaultLayoutClassMappers,
       width: new WidthClassMapper(),
+      shrink: new ShrinkClassMapper(),
     },
     // the chevron is a sibling, so dimming only the field would leave it at full strength
     appearance: {

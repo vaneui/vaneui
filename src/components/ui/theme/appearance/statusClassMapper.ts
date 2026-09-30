@@ -6,8 +6,8 @@ import type { CategoryProps, ValidityKey } from "../../props";
  * Changes border/ring colors to indicate an invalid field.
  */
 export class StatusClassMapper extends BaseClassMapper implements Record<ValidityKey, string> {
-  /** Invalid state - danger border/ring via tokens (adapts to dark mode) */
-  invalid: string = "border-(--color-border-danger) ring-(--color-border-danger)/30 focus-visible:ring-(--color-border-danger)/30";
+  /** Invalid state - full-strength danger border/ring (the danger text token), readable in both themes */
+  invalid: string = "border-(--color-text-danger) ring-(--color-text-danger)";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const classes: string[] = [];

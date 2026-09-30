@@ -5,6 +5,7 @@ import {
   WIDTH,
   MARGIN,
   TEXT_ALIGN,
+  FONT_FAMILY,
   RESPONSIVE,
 } from "../props/categoryBuilders";
 
@@ -19,6 +20,7 @@ export const TABLE_CATEGORIES = [
   ...WIDTH,
   ...MARGIN,
   ...TEXT_ALIGN,
+  ...FONT_FAMILY,
   'hide',
   ...RESPONSIVE,
 ] as const;

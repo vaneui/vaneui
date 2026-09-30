@@ -5,7 +5,7 @@ import { TABLE_CATEGORIES } from "./TableCategories";
 import { tableDefaults } from "./tableDefaults";
 import { MarginClassMapper } from "../theme/size";
 import { BorderClassMapper, WidthClassMapper } from "../theme/layout";
-import { TextAlignClassMapper } from "../theme/typography";
+import { TextAlignClassMapper, FontFamilyClassMapper } from "../theme/typography";
 
 export const defaultTableTheme = new ComponentTheme<TableProps, TableTheme>(
   "table",
@@ -24,6 +24,7 @@ export const defaultTableTheme = new ComponentTheme<TableProps, TableTheme>(
     },
     typography: {
       textAlign: new TextAlignClassMapper(),
+      fontFamily: new FontFamilyClassMapper(),
     },
   },
   tableDefaults,

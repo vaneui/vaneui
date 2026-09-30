@@ -1,4 +1,4 @@
-import { forwardRef, useMemo } from 'react';
+import { forwardRef, useCallback, useMemo, type KeyboardEvent, type MouseEvent } from 'react';
 import type { SelectProps } from "./SelectProps";
 import type { SelectChevronProps } from "./SelectChevronProps";
 import { ThemedComponent } from "../../themedComponent";
@@ -46,17 +46,31 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       className,
       wFull, wFit, wAuto, wScreen,
       mobileHide, tabletHide, desktopHide,
+      noShrink,
       disabled,
+      onMouseDown, onKeyDown,
       ...rest
     } = props;
 
+    // <select> has no native readOnly, so block opening and keyboard changes (Tab still moves focus)
+    const readOnly = (rest as { readOnly?: boolean }).readOnly;
+    const handleMouseDown = useCallback((event: MouseEvent<HTMLSelectElement>) => {
+      if (readOnly) event.preventDefault();
+      onMouseDown?.(event);
+    }, [readOnly, onMouseDown]);
+    const handleKeyDown = useCallback((event: KeyboardEvent<HTMLSelectElement>) => {
+      if (readOnly && event.key !== 'Tab') event.preventDefault();
+      onKeyDown?.(event);
+    }, [readOnly, onKeyDown]);
+
     // disabled stays on the field too, so the native attribute is still emitted
-    const fieldProps = { ...rest, disabled };
+    const fieldProps = { ...rest, disabled, onMouseDown: handleMouseDown, onKeyDown: handleKeyDown };
 
     const wrapperProps = {
       className,
       wFull, wFit, wAuto, wScreen,
       mobileHide, tabletHide, desktopHide,
+      noShrink, // the wrapper is the flex item, so shrink belongs on it
       disabled, // dims the chevron with the field; the field also keeps the native attribute
     };
 

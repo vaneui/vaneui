@@ -14,5 +14,6 @@ export const tooltipDefaults: Partial<PopupProps> = {
   secondary: true,
   filled: true,
   wFit: true,
+  fontSans: true,
   placeTop: true,
 };

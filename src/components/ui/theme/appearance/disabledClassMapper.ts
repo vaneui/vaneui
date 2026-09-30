@@ -7,7 +7,7 @@ import type { CategoryProps, DisabledKey } from "../../props";
  */
 export class DisabledClassMapper extends BaseClassMapper implements Record<DisabledKey, string> {
   /** Disabled state - reduced opacity, not-allowed cursor, no pointer events */
-  disabled: string = "opacity-50 cursor-not-allowed pointer-events-none";
+  disabled: string = "opacity-(--disabled-opacity) cursor-not-allowed pointer-events-none";
 
   getClasses(extractedKeys: CategoryProps): string[] {
     const value = extractedKeys?.disabled;
@@ -18,4 +18,9 @@ export class DisabledClassMapper extends BaseClassMapper implements Record<Disab
 
     return [];
   }
+}
+
+/** For elements whose own semantics block activation (native disabled fields, a disabled Link): pointer events stay on, so the cursor shows. */
+export class DisabledVisualClassMapper extends DisabledClassMapper {
+  disabled: string = "opacity-(--disabled-opacity) cursor-not-allowed";
 }

@@ -27,7 +27,30 @@ const CONTROL_COMPONENTS = new Set<unknown>(Object.values(FIELD_CONTROLS).map(d 
 // Help and error text sit one step below the field, so they stay subordinate at every size.
 const HELP_SIZE: Record<string, string> = { xs: 'xs', sm: 'xs', md: 'sm', lg: 'md', xl: 'lg' };
 
+// In children mode these reach the child control through context; they mean nothing on the wrapper div.
+const CONTROL_STATE_KEYS = new Set(['disabled', 'required', 'readOnly']);
+// Control-only attributes that would be invalid on the wrapper div; in children mode they belong on the child.
+const CONTROL_ONLY_KEYS = new Set([
+  'placeholder', 'name', 'value', 'defaultValue', 'checked', 'defaultChecked', 'autoComplete',
+  'min', 'max', 'step', 'pattern', 'minLength', 'maxLength', 'multiple', 'rows', 'cols', 'accept',
+]);
+
 type FieldElement = HTMLDivElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+// Children mode: the wrapper keeps its own props, control state goes to context, control-only attributes are dropped.
+function splitChildrenModeProps(rest: Record<string, unknown>): {
+  wrapperProps: Record<string, unknown>; controlState: Record<string, unknown>; dropped: string[];
+} {
+  const wrapperProps: Record<string, unknown> = {};
+  const controlState: Record<string, unknown> = {};
+  const dropped: string[] = [];
+  for (const [key, value] of Object.entries(rest)) {
+    if (CONTROL_STATE_KEYS.has(key)) controlState[key] = value;
+    else if (CONTROL_ONLY_KEYS.has(key)) dropped.push(key);
+    else wrapperProps[key] = value;
+  }
+  return { wrapperProps, controlState, dropped };
+}
 
 // Partitions incoming props into the self-rendered control's props and the wrapper's props.
 function splitFieldProps(
@@ -123,13 +146,22 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     const hasDescription = description !== undefined && description !== null && description !== false;
     const hasError = error !== undefined && error !== null && error !== false;
 
+    const childrenMode = control ? null : splitChildrenModeProps(rest as Record<string, unknown>);
+    if (process.env.NODE_ENV !== 'production' && childrenMode && childrenMode.dropped.length > 0) {
+      console.warn(`VaneUI: Field passes ${childrenMode.dropped.join(', ')} to no element in children mode — set them on the child control.`);
+    }
+    const { disabled, required, readOnly } = (childrenMode?.controlState ?? {}) as { disabled?: boolean; required?: boolean; readOnly?: boolean };
+
     const fieldControlValue = useMemo(() => ({
       id: controlId,
       labelId,
       describedBy: [hasDescription ? descriptionId : null, hasError ? errorId : null]
         .filter(Boolean).join(' ') || undefined,
       invalid: hasError,
-    }), [controlId, labelId, descriptionId, errorId, hasDescription, hasError]);
+      disabled,
+      required,
+      readOnly,
+    }), [controlId, labelId, descriptionId, errorId, hasDescription, hasError, disabled, required, readOnly]);
 
     // Field's own size becomes the control's default, reusing Label's channel so
     // controls already wired for <Label> need no second lookup.
@@ -140,7 +172,9 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     ) ?? 'md';
     const helpSize = HELP_SIZE[resolvedSize];
 
-    const { controlProps, wrapperProps } = splitFieldProps(rest as Record<string, unknown>, control);
+    const { controlProps, wrapperProps } = childrenMode
+      ? { controlProps: {}, wrapperProps: childrenMode.wrapperProps }
+      : splitFieldProps(rest as Record<string, unknown>, control);
 
     const Control = control?.descriptor.Component;
 

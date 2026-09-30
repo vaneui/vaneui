@@ -43,7 +43,7 @@ describe('Switch Component Tests', () => {
       expect(el).toHaveClass('bg-(--color-bg-form)'); // unchecked track
       expect(el).toHaveClass('checked:[background:var(--checked-bg-color)]'); // checked track
       expect(el).toHaveClass('cursor-pointer');
-      expect(el).toHaveClass('transition-all', 'duration-(--transition-duration)', 'ease-(--transition-timing)');
+      expect(el).toHaveClass('transition', 'duration-(--transition-duration)', 'ease-(--transition-timing)');
     });
 
     it('should render the thumb with its slide, shape and color classes', () => {
@@ -200,13 +200,13 @@ describe('Switch Component Tests', () => {
       const el = getInput(container);
       expect(el).toBeDisabled();
       expect(el).toHaveClass('cursor-not-allowed', 'pointer-events-none');
-      expect(container.querySelector('span.vane-switch-wrapper')).toHaveClass('opacity-50');
+      expect(container.querySelector('span.vane-switch-wrapper')).toHaveClass('opacity-(--disabled-opacity)');
     });
 
     it('should not dim the wrapper when enabled', () => {
       const {container} = renderSwitch(<Switch />);
 
-      expect(container.querySelector('span.vane-switch-wrapper')).not.toHaveClass('opacity-50');
+      expect(container.querySelector('span.vane-switch-wrapper')).not.toHaveClass('opacity-(--disabled-opacity)');
     });
   });
 
@@ -217,7 +217,7 @@ describe('Switch Component Tests', () => {
       const el = getInput(container);
       expect(el).toHaveAttribute('aria-invalid', 'true');
       expect(el).toHaveAttribute('data-status', 'error');
-      expect(el).toHaveClass('border-(--color-border-danger)');
+      expect(el).toHaveClass('border-(--color-text-danger)');
     });
 
     it('should keep validity state off the wrapper', () => {

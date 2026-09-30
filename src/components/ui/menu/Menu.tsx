@@ -54,9 +54,9 @@ export function Menu({
     onCloseRef.current = onCloseProp;
   });
 
-  // close only this menu level — used for dismissal (Escape / ArrowLeft /
-  // click-outside). In a submenu, focus returns to its trigger via the
-  // return-focus effect below.
+  // close only this menu level — used for dismissal (ArrowLeft / click-outside, and
+  // Escape through the popup's escape-stack entry, so only the topmost layer closes).
+  // In a submenu, focus returns to its trigger via the return-focus effect below.
   const closeSelf = useCallback(() => {
     setOpen(false);
     onCloseRef.current?.();
@@ -80,6 +80,22 @@ export function Menu({
       openMenu();
     }
   }, [effectiveOpen, closeMenu, openMenu]);
+
+  // the open child submenu at this level, closed when the pointer moves to a sibling item
+  const openSubmenuCloseRef = useRef<(() => void) | null>(null);
+  const setOpenSubmenu = useCallback((close: (() => void) | null) => {
+    openSubmenuCloseRef.current = close;
+  }, []);
+  const closeOpenSubmenu = useCallback(() => {
+    openSubmenuCloseRef.current?.();
+  }, []);
+
+  // a submenu registers with its parent while open, so a sibling item can close it
+  useEffect(() => {
+    if (!isSubmenu || !effectiveOpen) return;
+    parentCtx?.setOpenSubmenu(closeSelf);
+    return () => parentCtx?.setOpenSubmenu(null);
+  }, [isSubmenu, effectiveOpen, parentCtx, closeSelf]);
 
   // return focus to trigger when menu closes
   const prevOpenRef = useRef(false);
@@ -130,13 +146,13 @@ export function Menu({
 
       if (isSubmenu) {
         // submenu trigger: ArrowRight opens (the open effect focuses the first
-        // item), ArrowLeft / Escape close just this submenu. ArrowUp/Down and
+        // item), ArrowLeft closes just this submenu. ArrowUp/Down and
         // Enter/Space are left to the trigger MenuItem's own handler (parent
         // navigation + click-to-open).
         if (e.key === 'ArrowRight') {
           e.preventDefault();
           openMenu();
-        } else if ((e.key === 'ArrowLeft' || e.key === 'Escape') && effectiveOpen) {
+        } else if (e.key === 'ArrowLeft' && effectiveOpen) {
           e.preventDefault();
           closeSelf();
         }
@@ -150,13 +166,8 @@ export function Menu({
         }
         openMenu();
       }
-
-      if (e.key === 'Escape' && effectiveOpen) {
-        e.preventDefault();
-        closeMenu();
-      }
     },
-    [trigger, openMenu, closeMenu, closeSelf, effectiveOpen, disabled, isSubmenu]
+    [trigger, openMenu, closeSelf, effectiveOpen, disabled, isSubmenu]
   );
 
   // hover opens a submenu (mouse parity with the keyboard ArrowRight)
@@ -194,7 +205,9 @@ export function Menu({
     loop,
     isSubmenu,
     closeSubmenu: isSubmenu ? closeSelf : undefined,
-  }), [closeMenu, closeOnItemClick, loop, isSubmenu, closeSelf]);
+    setOpenSubmenu,
+    closeOpenSubmenu,
+  }), [closeMenu, closeOnItemClick, loop, isSubmenu, closeSelf, setOpenSubmenu, closeOpenSubmenu]);
 
   // a submenu defaults to opening on the inline-end side (flips if no room)
   const hasExplicitPlacement = ComponentKeys.placement.some(

@@ -17,6 +17,7 @@ export const VISUAL_DECORATION = ['shadow', 'ring', 'focusVisible'] as const;
 export const VISUAL_DECORATION_LAYOUT = ['shadow', 'ring'] as const;
 export const SHAPE = ['shape'] as const;
 export const TEXT_ALIGN = ['textAlign'] as const;
+export const FONT_FAMILY = ['fontFamily'] as const;
 export const TRUNCATE = ['truncate'] as const;
 export const TYPOGRAPHY_STYLE_CORE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily'] as const;
 export const TYPOGRAPHY_STYLE = [...TYPOGRAPHY_STYLE_CORE, ...TEXT_ALIGN, ...TRUNCATE] as const;

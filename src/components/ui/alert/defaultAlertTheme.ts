@@ -4,7 +4,7 @@ import type { AlertTheme } from "./AlertTheme";
 import { ALERT_CATEGORIES } from "./AlertCategories";
 import { alertDefaults } from "./alertDefaults";
 import { BreakpointClassMapper } from "../theme/size";
-import { TextAlignClassMapper } from "../theme/typography";
+import { TextAlignClassMapper, FontFamilyClassMapper } from "../theme/typography";
 
 export const defaultAlertTheme = new ComponentTheme<AlertProps, AlertTheme>(
   "div",
@@ -17,6 +17,7 @@ export const defaultAlertTheme = new ComponentTheme<AlertProps, AlertTheme>(
     },
     typography: {
       textAlign: new TextAlignClassMapper(),
+      fontFamily: new FontFamilyClassMapper(),
     },
   },
   alertDefaults,
