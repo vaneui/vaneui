@@ -133,9 +133,8 @@ All release workflows include multiple quality gates to ensure package reliabili
 
 ## Required Secrets
 
-Ensure these secrets are configured in GitHub repository settings:
+No npm token is needed: the publish workflows use npm trusted publishing (OIDC), configured per package on npmjs.com under Settings → Trusted Publisher for `npm-publish.yml` and `npm-publish-stable.yml`.
 
-- `NPM_TOKEN`: NPM publish token with write access
 - `GITHUB_TOKEN`: Automatically provided by GitHub Actions
 
 ## Branch Strategy
