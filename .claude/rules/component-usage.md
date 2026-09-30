@@ -15,6 +15,8 @@ import '@vaneui/ui/css';   // self-contained: tokens + rules + utilities
 import { ThemeProvider, Button, Card, Row, Stack, Text, Title } from '@vaneui/ui';
 ```
 
+The prebuilt stylesheet is compiled for VaneUI's own components; it does not contain Tailwind's full utility set. A Tailwind class passed through `className` or `extraClasses` has no effect unless it happens to be in the bundle, and most (`max-w-md`, `p-6`, `size-8`, `ms-auto`, `z-40`) are not. For arbitrary utilities, use Option B or the `style` prop.
+
 **Option B — your own Tailwind v4 build:**
 
 ```tsx
@@ -48,7 +50,7 @@ Customize defaults globally. Components with sub-themes (Button, Card, Modal, Me
 </ThemeProvider>
 ```
 
-Components without sub-themes (Badge, Chip, Text, Row, ...) use the flat form: `themeDefaults={{ badge: { success: true } }}`. A path that matches no theme node does nothing (a dev-mode console warning calls it out).
+Components without sub-themes (Badge, Chip, Text, Row, ...) use the flat form: `themeDefaults={{ badge: { success: true } }}`. A path that matches no theme node does nothing (a dev-mode console warning calls it out). `IconButton` has its own node (`iconButton`), so `button.main` defaults do not reach it; set both when they should match.
 
 Add extra CSS classes per prop:
 
@@ -95,7 +97,7 @@ This themes the whole page, including portaled content and native controls (`col
 </div>
 ```
 
-Tokens are CSS custom properties, so the dark values inherit down the wrapper's subtree. Give the subtree a surface (e.g. a primary `Card` or `Section`) — the wrapper div itself paints nothing.
+Tokens are CSS custom properties, so the dark values inherit down the wrapper's subtree. Give the subtree a surface: a `Card`, or a `Section` with an explicit appearance (`<Section primary>`). A bare `Section` and the wrapper div paint nothing.
 
 **Portal caveat:** `Modal`, `Popup`, and `Overlay` render into a portal at the end of `<body>`, so they resolve the theme of `<html>`/`<body>`, not an inner wrapper's. `<html data-theme="dark">` is the primary supported mode; subtree theming covers in-flow content.
 
@@ -180,7 +182,8 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 
 ```tsx
 <Card>
-  <Stack>
+  {/* Col, not Stack: the Card already pads, so a padded Stack would double the inset */}
+  <Col>
     <Title>Sign Up</Title>
     {/* Label stacks label-above-field by default (flex column) */}
     <Label>
@@ -197,7 +200,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
       I agree to the terms
     </Label>
     <Button filled>Create Account</Button>
-  </Stack>
+  </Col>
 </Card>
 ```
 
@@ -210,6 +213,8 @@ which `Label` alone does not do.
   <Input type="email" />
 </Field>
 ```
+
+In a `Row` of Fields where only some have help or error text, use `<Row itemsStart>` so the controls stay aligned.
 
 Mark a field's validation state with the `invalid` validity prop — it layers a danger border/ring over the input's current appearance: `<Input invalid />`.
 
@@ -225,6 +230,15 @@ Mark a field's validation state with the `invalid` validity prop — it layers a
 <Row>
   <Button secondary>Cancel</Button>
   <Button filled>Save</Button>
+</Row>
+```
+
+Button defaults to `sm` and Input to `md`. When a button sits beside a field, give them the same size (`<Button md>` or `<Input sm>`); at the same size they are the same height.
+
+```tsx
+<Row>
+  <Input placeholder="Email" />
+  <Button md filled>Subscribe</Button>
 </Row>
 ```
 
@@ -320,12 +334,22 @@ Mark a field's validation state with the `invalid` validity prop — it layers a
 ### Sidebar navigation
 
 ```tsx
-<Col>
-  <NavLink href="/dashboard" active><Home size={16} /> Dashboard</NavLink>
-  <NavLink href="/settings"><Settings size={16} /> Settings</NavLink>
-  <NavLink href="/profile"><User size={16} /> Profile</NavLink>
-  <NavLink href="/help" disabled><HelpCircle size={16} /> Help</NavLink>
+{/* noGap: NavLinks carry their own padding; icons take the NavLink's size */}
+<Col noGap>
+  <NavLink href="/dashboard" active><Home /> Dashboard</NavLink>
+  <NavLink href="/settings"><Settings /> Settings</NavLink>
+  <NavLink href="/profile"><User /> Profile</NavLink>
+  <NavLink href="/help" disabled><HelpCircle /> Help</NavLink>
 </Col>
+```
+
+NavLink is `wFull` so sidebar items fill the column. In a horizontal nav or tab bar, add `wFit`:
+
+```tsx
+<Row>
+  <NavLink href="/overview" active wFit>Overview</NavLink>
+  <NavLink href="/reviews" wFit>Reviews</NavLink>
+</Row>
 ```
 
 ### Modal dialog
@@ -415,17 +439,17 @@ in. Prefer `Col` over `Stack` inside an already padded `Card` when you want no s
   <Text>Desktop only sidebar</Text>
 </Col>
 
-{/* Hide on desktop, show on mobile */}
+{/* Hide below desktop (< 1280px): shown only on wide screens */}
 <Row desktopHide>
-  <Text>Mobile-only nav</Text>
+  <Text>Wide-screen toolbar</Text>
 </Row>
 ```
 
-Breakpoints stack/hide **below** the width (exclusive): mobile < 768px, tablet < 1024px, desktop < 1280px. The boundary pixel itself (768/1024/1280) is the larger tier. Combining several `*Stack` (or `*Hide`) props resolves to the widest = their union.
+The `*Hide` props only hide **below** a width; there is no prop yet to show something only on small screens. Breakpoints stack/hide **below** the width (exclusive): mobile < 768px, tablet < 1024px, desktop < 1280px. The boundary pixel itself (768/1024/1280) is the larger tier. Combining several `*Stack` (or `*Hide`) props resolves to the widest = their union.
 
 `*Stack` only affects **row-direction** components. It emits `flex-col`, so on `Col`/`Stack`/`Container`/`Section` (already column) it is a no-op — use it on `Row`.
 
-Stacking a `Row` keeps its default `itemsCenter`, so the stacked children shrink to **content width** and center. For full-width stacked cards on mobile, add `itemsStretch` (or `wFull` on each child):
+Stacking a `Row` keeps its default `itemsCenter`, so the stacked children shrink to **content width** and center. For full-width stacked cards on mobile, add `itemsStretch` (or `wFull` on each child). Fit-width children such as `Button` and `Badge` keep their width either way:
 
 ```tsx
 <Row mobileStack itemsStretch>
@@ -683,7 +707,7 @@ Layout components (`Card`, `Row`, `Col`, `Stack`, `Section`, `Container`, `Grid*
 <Card className="w-full">Full-width card</Card>
 <Input className="w-64" placeholder="Fixed width" />
 <Container className="min-h-screen">Full-height container</Container>
-<Row sticky className="top-0 z-10">Sticky header</Row>
+<Row sticky primary className="top-0 z-10">Sticky header</Row>  {/* primary paints a surface so content doesn't show through */}
 ```
 
 User `className` always wins over theme classes via `twMerge`.

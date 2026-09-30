@@ -8,6 +8,79 @@ fixes, minor for additive props and components, major for anything that changes 
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
 
+## Unreleased
+
+Fixes from a review of the components composed into real screens (dashboards, forms,
+landing pages, articles, overlays, a storefront).
+
+### Added
+
+- **`Table` and `Alert` take a font family** (`fontSans`, `fontMono`, …) and default to
+  `fontSans`. Their cells and raw text used to fall back to the page's own font (a serif
+  on an unstyled page), because the scoped reset never sets one.
+
+### Changed
+
+- **`Input` and `Select` are as tall as `Button` at every size.** They used a looser line
+  height, so a field was 4.8px taller than the button beside it at `md`. Their corner
+  radius now matches too. Every `Input` and `Select` gets slightly shorter.
+- **List markers sit inside the list box.** The marker gutter was 12px at `md`, so bullets
+  and `10.` hung outside it; it is now 16–32px by size. An `icon` item's icon moves into the
+  same gutter, so icon items and plain items share one text column.
+- **`transition` no longer animates the focus ring**, only colors, shadows and transforms.
+
+### Fixed
+
+- **Words no longer break mid-word in rows and tables.** The long-token wrapping added for
+  URLs let a short label beside a full-width control shrink to one letter per line, and
+  split prices and names in table cells. Titles, lists and blockquotes now wrap long tokens
+  too, instead of overflowing on a phone.
+- **An unselected `RadioGroup` no longer shows every radio as selected.**
+- **The invalid state is visible.** `Input`, `Select` and `Textarea` drew their danger ring at
+  30% strength, fainter than a normal field; it is now full strength. Text fields also use
+  the form-control border token, like `Checkbox`, `Radio` and `Switch`.
+- **The active `NavLink` stands out**: it is semibold on a stronger tint, and hover no longer
+  looks the same as the current page. A trailing `Badge` sits at the row's end.
+- **`Link` and a `Card` with `href` draw a visible focus ring** in dark mode and on colored
+  surfaces. It used the browser's default color.
+- **Text stays readable on filled surfaces.** Secondary and tertiary text, ghost buttons and
+  links on a filled `Card` or `Section` take the surface's text color.
+- **`filled` without an appearance no longer turns text white on an unpainted surface.**
+- **Whole-page dark mode paints the page**, so cards no longer sit darker than the page.
+  Any background you set on `html` or `body` still wins.
+- **`Mark` shows a visible highlight.**
+- **An svg in running text stays inline** instead of breaking the line.
+- **`Tooltip`, `Popup` and menus render in the library font.** A string `title` on `Modal`
+  renders as a `Title`.
+- **`Modal` returns focus to the button that opened it** on every close path.
+- **Escape inside a `Menu` closes only that menu**, not the `Modal` around it or the whole
+  menu tree.
+- **Menu items sit flush again**; a 16px gap had appeared between them.
+- **Popups placed above or below keep their own width** instead of shrinking to a small
+  trigger, so tooltips no longer wrap one word per line.
+- **End-aligned and left popups stay at their trigger under `dir="rtl"`.**
+- **`Modal` keeps a margin on a phone** instead of running edge to edge.
+- **`ModalCloseButton` keeps its own look under app-wide `button.main` defaults** (a filled
+  default made the × invisible) and is square like `IconButton`.
+- **A loading `Button` with an icon keeps its size.**
+- **A read-only `Checkbox` no longer toggles**, a read-only `Select` can no longer be changed,
+  and read-only toggles dim like read-only text fields.
+- **`Field` passes `disabled`, `required` and `readOnly` to a child control**, including every
+  `Radio` of a child `RadioGroup`. Control-only attributes no longer land on its wrapper div.
+- **`<Link sm>` renders at `sm`**; an explicit size used to be ignored.
+- **A size set on the switch input theme reaches the track.**
+- **A disabled `Link` looks disabled**, and disabled fields show the not-allowed cursor.
+  Disabled opacity now reads the `--disabled-opacity` token.
+- **`Select` stays on one line in a row**, `noShrink` reaches it, and a placeholder option
+  is muted like an `Input` placeholder.
+- **`Textarea` honours `rows`** below three lines.
+- **A clickable `Chip` shows the focus ring**, and linked `Card`, `Chip` and `Badge` get a hover
+  tint.
+- **Hovering another menu item closes an open sibling submenu**, and a submenu's trigger keeps
+  its tint while the submenu is open.
+- **`Alert` text uses body line-height** and a leading icon centres on the first line.
+- A `Card` with `href` warns in development when it contains a button, link or field.
+
 ## 1.4.2
 
 `2026-08-22`

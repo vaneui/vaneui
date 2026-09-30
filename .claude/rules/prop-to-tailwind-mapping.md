@@ -345,7 +345,7 @@ Side toggles **compose**: `borderT borderL` applies both sides; `noBorder` reset
 
 | Prop | Tailwind Class |
 |------|---------------|
-| `transition` | `transition-all duration-(--transition-duration) ease-(--transition-timing)` |
+| `transition` | `transition duration-(--transition-duration) ease-(--transition-timing)` |
 | `noTransition` | `transition-none` |
 | `backdropBlur` | `backdrop-blur-(--overlay-blur)` |
 | `noBackdropBlur` | (removes blur) |
@@ -405,7 +405,7 @@ Base curve (the fallback for any `ui` component that doesn't override it):
 | `lg` | 3 (12px) | 1.25 (5px) |
 | `xl` | 3.5 (14px) | 1.5 (6px) |
 
-`Link` is a further exception: its inline start/end icons use `--gap × 0.5` (via margin) for tighter inline runs. `ListItem` uses the full base `--gap`.
+An svg placed directly in running text (`Text`, `Link`, `ListItem`, headings) stays inline and sits on the text baseline. `ListItem`'s `icon` uses the full base `--gap` and sits in the marker gutter.
 
 ### Rendered pixels
 
