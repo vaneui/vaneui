@@ -8,6 +8,24 @@ fixes, minor for additive props and components, major for anything that changes 
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
 
+## 1.4.2
+
+`2026-08-22`
+
+### Fixed
+
+- **`Field`'s label now scales with the field.** The label, description and error
+  were pinned to `sm` at every size, so `<Field xl>` grew the control and left its
+  label behind. The label now takes the field's size and the help and error text
+  sit one step below it.
+- **`Field`'s inline checkbox and switch line up with their label.** The control
+  resolved its line box against the page root instead of the label's font
+  metrics, so it sat high and the switch track overflowed its own box.
+- **`Field`'s help and error text stay readable on a filled surface.** Their pinned
+  secondary and danger colors lost contrast on a fill; under any filled ancestor,
+  the field itself or a `Card` or `Row` above it, they now take that surface's
+  text color.
+
 ## 1.4.1
 
 `2026-08-22`
