@@ -55,7 +55,7 @@ b. **Export Exists**
    - If missing, FAIL and report which component needs export
 
 c. **Theme Exists**
-   - Check theme is in `src/components/themeContext.tsx`
+   - Check theme is in `src/components/themeTypes.ts` (ThemeProps) and `src/components/defaultTheme.ts`
    - If missing, FAIL and report which component needs theme integration
 
 d. **Prop Leak Check**

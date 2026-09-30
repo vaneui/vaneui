@@ -64,7 +64,7 @@ The pattern for defining and using Key types:
    // CORRECT - import from props (which re-exports from keys.ts)
    import type { CategoryProps, MyCategoryKey } from "../../props";
 
-   export class MyCategoryTheme extends BaseTheme implements Record<MyCategoryKey, string> {
+   export class MyCategoryTheme extends BaseClassMapper implements Record<MyCategoryKey, string> {
      optionA: string = "class-a";
      optionB: string = "class-b";
      optionC: string = "class-c";
@@ -147,7 +147,7 @@ This applies to sub-theme variants too (e.g., `menuPopupDefaults`, `menuDividerD
 
 ## Size-Dependent Padding and Border-Radius
 
-Padding and border-radius values MUST scale with the component's size prop. A component cannot use the same padding or border-radius when `xs` vs `xl` is applied — these are driven by CSS variables that change per size (`--pd-unit`, `--rounded`, etc.).
+Padding and border-radius values MUST scale with the component's size prop. A component cannot use the same padding or border-radius when `xs` vs `xl` is applied — these are driven by CSS variables that change per size (`--py-unit`, `--br-unit`, etc.).
 
 When reviewing or creating themes, verify that:
 - Padding class mappers use size-aware CSS variables (e.g., `PyClassMapper`, `PxClassMapper`)

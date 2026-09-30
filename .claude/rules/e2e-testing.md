@@ -1,7 +1,6 @@
 ---
 paths:
   - "e2e/**"
-  - "e2e/**"
   - "playwright.config.*"
 ---
 
@@ -29,7 +28,7 @@ E2e tests validate **computed CSS styles in a real browser**. They complement Je
 
 ## Pattern: Adding Tests for a New Component
 
-1. **Add fixtures to `e2e/fixtures/test-harness.tsx`**
+1. **Add fixtures to `e2e/fixtures/test-fixtures.tsx`**
    - Import the component from `../../src`
    - Add a `<section data-testid="{component}-section">` with test elements
    - Tag each element with `data-testid="{component}-{variant}"` (e.g., `blockquote-default`, `kbd-xs`)

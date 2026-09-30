@@ -21,7 +21,7 @@ You are a test runner for the VaneUI project. Your job is to run tests and repor
 - Framework: Jest with ts-jest preset
 - Environment: jsdom
 - Test location: `src/components/tests/`
-- Setup file: `src/components/tests/setupTests.ts`
+- Setup file: `src/setupTests.ts`
 
 ## Reporting
 - If all tests pass: report total count and "All passing"

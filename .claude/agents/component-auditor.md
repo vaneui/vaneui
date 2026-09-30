@@ -18,14 +18,14 @@ You are a component auditor for the VaneUI library. Check components against the
 
 ## Props Audit
 - [ ] Correct prop categories assigned (check `categories` array in theme)
-- [ ] Default props defined in `defaults.ts`
+- [ ] Default props defined in `{component}Defaults.ts`
 - [ ] Boolean props do not leak to DOM (filtered by component config)
-- [ ] `href` triggers tag switch where appropriate (Button, Card, Link)
+- [ ] `href` triggers tag switch where appropriate (Button, Card)
 - [ ] `tag` prop supported for custom element rendering
 
 ## Theme Audit
 - [ ] Theme covers all relevant categories (size, appearance, variant, shape as needed)
-- [ ] Theme classes use CSS variable unit pattern (`[--fs-unit:N]`)
+- [ ] Size units (`--fs-unit`, `--py-unit`, `--gap-unit`) come from `data-size` rules in `rules.css`, not hardcoded classes
 - [ ] `data-vane-type` set correctly (`ui` for interactive/typography, `layout` for structural)
 - [ ] `data-size`, `data-appearance`, `data-variant` attributes emitted
 
@@ -41,7 +41,7 @@ You are a component auditor for the VaneUI library. Check components against the
 - [ ] Follows existing pattern: `Divider` + `SectionTitle` + multiple `Card` examples
 
 ## E2E Audit
-- [ ] Component fixtures exist in `e2e/fixtures/test-harness.tsx` with `data-testid` attributes
+- [ ] Component fixtures exist in `e2e/fixtures/test-fixtures.tsx` with `data-testid` attributes
 - [ ] At least one `e2e/*.spec.ts` validates computed CSS styles for the component (color inheritance, font-size scaling, border rendering, etc.)
 
 ## Accessibility Audit

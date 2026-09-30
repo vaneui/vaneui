@@ -26,28 +26,28 @@ Props flow: Component → `pickFirstTruthyKeyByCategory()` (in `src/components/u
 **When a boolean prop silently fails to render**, the first place to check is `src/components/tests/componentThemeCoverage.test.ts` — if the component isn't registered there, missing mappers or default handlers go undetected. A prop "doing nothing" with no error usually means the category key has no theme mapper, which this test would have caught.
 
 Key files:
-- `src/components/themedComponent.tsx` — Theme resolution, prop filtering, class generation
-- `src/components/utils/pickFirstTruthyKeyByCategory.ts` — Category-based prop selection
+- `src/components/ui/theme/common/ComponentTheme.tsx` — Theme resolution, prop filtering, class generation
+- `src/components/utils/componentUtils.ts` — `pickFirstTruthyKeyByCategory`, category-based prop selection
 - `src/components/utils/deepMerge.ts` — Theme merging (special-case for 'defaults' key)
 - `src/components/ui/props/keys.ts` — Category definitions, ComponentKeys, ComponentCategories
 
 ### Theme/Styling Issues
-CSS variable pipeline: Theme classes set units (`[--fs-unit:8]`) → `vars.css` computes values (`calc(var(--fs-unit) * var(--fs-base))`) → Consumer classes use them (`text-(length:--fs)`, `bg-(--bg-color)`).
+CSS variable pipeline: `rules.css` sets units per `data-size` (`--fs-unit`) → `rules.css` computes values (`calc(var(--fs-unit) * var(--fs-base))`) → Consumer classes use them (`text-(length:--fs)`, `bg-(--bg-color)`).
 
 Key files:
-- `src/components/ui/css/vars.css` — CSS variable definitions, data-attribute color rules
+- `src/components/css/tokens.css` + `rules.css` — CSS variable definitions, data-attribute color rules
 - `src/components/ui/theme/` — Theme implementations per category (appearance/, size/, layout/, typography/)
-- `src/components/ui/classes/` — CSS class mappings (appearanceClasses, sizeClasses)
+- `src/components/ui/classes/` — CSS class mappings (appearanceClasses)
 
 ### ThemeProvider Issues
-Context pipeline: `ThemeProvider` → `deepMerge()` merges parent + child themes → `useTheme()` returns merged theme → Components consume via `theme.componentName`.
+Context pipeline: `ThemeProvider` → `deepMerge()` merges parent + child themes → `useTheme()` returns merged theme → Components consume via `theme?.componentName ?? default{Component}Theme`.
 
 Key files:
-- `src/components/themeContext.tsx` — ThemeProvider, useTheme, merge strategies ("merge" | "replace")
+- `src/components/ThemeProvider.tsx` — ThemeProvider, merge strategies ("merge" | "replace"); `useTheme` is in `themeContext.tsx`
 
 ### Component-Specific Patterns
 - **Checkbox**: Unique wrapper pattern with sub-themes (input/check/wrapper) — more complex than other components
-- **Card/Button/Link**: Tag switching via `tagFunction` — renders as `<a>` when `href` is provided
+- **Card/Button**: Tag switching via `tagFunction` — renders as `<a>` when `href` is provided
 - **Grid2-6**: CSS Grid components with column-count variants
 - **Typography (PageTitle, SectionTitle, Title)**: Responsive font scaling via breakpoint-specific `--fs-unit` values
 

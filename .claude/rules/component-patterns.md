@@ -12,8 +12,8 @@ Every component follows this exact pattern:
 
 ```tsx
 import React, { forwardRef } from 'react';
-import { useTheme } from "../themeContext";
-import { ThemedComponent } from "../themedComponent";
+import { useTheme } from "../../themeContext";
+import { ThemedComponent } from "../../themedComponent";
 
 export type ComponentProps = BaseProps & SizeProps & AppearanceProps & /* ... */ &
   Omit<React.HTMLAttributes<HTMLElement>, 'className' | 'children'> & {
@@ -24,7 +24,7 @@ export type ComponentProps = BaseProps & SizeProps & AppearanceProps & /* ... */
 export const Component = forwardRef<HTMLElement, ComponentProps>(
   function Component(props, ref) {
     const theme = useTheme();
-    return <ThemedComponent ref={ref} theme={theme.componentName} {...props} />
+    return <ThemedComponent ref={ref} theme={theme?.componentName ?? defaultComponentTheme} {...props} />
   }
 );
 
@@ -42,8 +42,8 @@ Component.displayName = 'Component';
 - [ ] Components with `href` must support tag switching (button/div -> `<a>`)
 
 ### Theme Integration
-- [ ] Create theme file in `src/components/ui/theme/{component}Theme.ts`
-- [ ] Update `src/components/themeContext.tsx` with theme import and types
+- [ ] Create theme files in `src/components/ui/{component}/` (`{Component}Theme.ts` + `default{Component}Theme.ts`)
+- [ ] Update `src/components/themeTypes.ts` (ThemeProps) and `src/components/defaultTheme.ts` (defaultTheme)
 - [ ] Add categories to `src/components/ui/props/keys.ts` if needed
 - [ ] **Key types must be imported from `keys.ts`** — never define Key types locally in theme files
 

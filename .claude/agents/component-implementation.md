@@ -22,18 +22,18 @@ When implementing a new component, ALL of these steps must be completed:
 
 ### Phase 2: Component Implementation
 
-- [ ] Create component file: `src/components/ui/{component}.tsx`
+- [ ] Create component file: `src/components/ui/{component}/{Component}.tsx`
   - Use `forwardRef` with correct element type
   - Use `ThemedComponent` wrapper with `useTheme()`
   - Set `displayName`
   - Export component and props type
 
-- [ ] Create theme file: `src/components/ui/theme/{component}Theme.ts`
+- [ ] Create theme files: `src/components/ui/{component}/{Component}Theme.ts` + `default{Component}Theme.ts`
   - Define theme type interface
   - Create ComponentTheme instance with correct categories
   - Set appropriate defaults
   - Set correct `vaneType` ('ui' or 'layout')
-  - **Import Key types from `../../props`** — never define locally
+  - **Import Key types from `../props`** — never define locally
 
 - [ ] Add categories to keys.ts if needed: `src/components/ui/props/keys.ts`
   - Add values to `ComponentKeys`
@@ -56,12 +56,11 @@ import type { CategoryProps, MyCategoryKey } from "../../props";
 
 ### Phase 3: Integration
 
-- [ ] Update `src/components/themeContext.tsx`:
+- [ ] Update `src/components/themeTypes.ts` and `src/components/defaultTheme.ts`:
   - Import theme and theme type
-  - Add to `ThemeProps` interface
-  - Add to `defaultTheme` object
-  - Add to `ThemeDefaults` type
-  - Add to `ThemeExtraClasses` type
+  - Add to `ThemeProps` interface (`themeTypes.ts`)
+  - Add to `defaultTheme` object (`defaultTheme.ts`)
+  - `ThemeDefaults` and `ThemeExtraClasses` derive from `ThemeProps` automatically
 
 - [ ] Update `src/index.ts`:
   - Export component
@@ -80,7 +79,7 @@ Create test file: `src/components/tests/{component}.test.tsx`
 **Also REQUIRED**: Register the component in `src/components/tests/componentThemeCoverage.test.ts`. Every component with categories + theme must be entered here so the test validates that all category keys have theme mappers and all boolean defaults have handlers. Components sharing categories (e.g., IconButton shares `BUTTON_CATEGORIES` with Button) add their theme to the existing config's `themes[]` array. `.withDefaults()` variants only need a standalone `testThemeDefaults()` call. **Without this entry, prop/mapper mismatches are silent.**
 
 **Also REQUIRED**: Add e2e fixtures and spec:
-- Add fixtures for the component to `e2e/fixtures/test-harness.tsx` with `data-testid` attributes
+- Add fixtures for the component to `e2e/fixtures/test-fixtures.tsx` with `data-testid` attributes
 - Create `e2e/{component}.spec.ts` validating computed CSS styles in a real browser (color inheritance, font-size scaling, border rendering)
 - See `.claude/rules/e2e-testing.md` for patterns
 
@@ -102,7 +101,7 @@ describe('Component', () => {
   describe('sizes', () => {
     ['xs', 'sm', 'md', 'lg', 'xl'].forEach(size => {
       it(`applies ${size} size`, () => {
-        // Verify size-specific CSS variable classes
+        // Verify data-size attribute
       });
     });
   });
@@ -207,17 +206,17 @@ After implementation, provide a summary:
 Component Implementation Complete: {ComponentName}
 
 Files Created/Modified:
-- src/components/ui/{component}.tsx ✓
-- src/components/ui/theme/{component}Theme.ts ✓
+- src/components/ui/{component}/{Component}.tsx ✓
+- src/components/ui/{component}/default{Component}Theme.ts ✓
 - src/components/ui/{component}/{component}Defaults.ts ✓
 - src/components/ui/props/keys.ts (if modified) ✓
-- src/components/themeContext.tsx ✓
+- src/components/themeTypes.ts + src/components/defaultTheme.ts ✓
 - src/components/ui/theme/defaults.ts ✓
 - src/index.ts ✓
 - src/components/tests/{component}.test.tsx ✓
 - src/components/tests/componentThemeCoverage.test.ts ✓
 - playground/src/App.tsx ✓
-- e2e/fixtures/test-harness.tsx ✓
+- e2e/fixtures/test-fixtures.tsx ✓
 - e2e/{component}.spec.ts ✓
 
 Verification:
@@ -235,7 +234,7 @@ vaneType: ui | layout
 ## Common Issues
 
 1. **Forgot to add tests** — Tests are REQUIRED, not optional
-2. **Missing themeContext update** — Component won't be available via useTheme()
+2. **Missing themeTypes/defaultTheme update** — Component won't be available via useTheme()
 3. **Missing index.ts export** — Component won't be part of public API
 4. **Boolean props leaking to DOM** — Ensure getComponentConfig filters them
 5. **Wrong vaneType** — UI components have compact spacing, layout has generous spacing

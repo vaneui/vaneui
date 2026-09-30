@@ -31,7 +31,7 @@ and let your Tailwind build emit the utilities VaneUI's components use by scanni
 
 ### ThemeProvider
 
-Wrap your app in `ThemeProvider`. It is required for theming to work.
+Wrap your app in `ThemeProvider` to customize the theme. Without it, each component falls back to its built-in default theme.
 
 ```tsx
 <ThemeProvider>
@@ -39,7 +39,7 @@ Wrap your app in `ThemeProvider`. It is required for theming to work.
 </ThemeProvider>
 ```
 
-Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox) need the nested form — Button's main element lives at `button.main`:
+Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox, Field, Switch, Radio, Table) need the nested form — Button's main element lives at `button.main`:
 
 ```tsx
 <ThemeProvider themeDefaults={{ button: { main: { filled: true, lg: true } } }}>
@@ -446,7 +446,7 @@ All components support size props. Only one is active at a time. If two props of
 <Text xl>Extra large</Text>
 ```
 
-Defaults vary by component: most default to `md`, but `Button`, `IconButton`, `MenuItem`, `MenuLabel`, `NavLink`, and `Label` default to `sm` (a bare `<Button>` is small). Size controls font-size, padding, gap, and border-radius simultaneously via CSS variables. Do not use Tailwind size classes to override these.
+Defaults vary by component: most default to `md`, but `Button`, `IconButton`, `MenuItem`, `MenuLabel`, `NavLink`, `Tooltip`, and `Label` default to `sm` (a bare `<Button>` is small). Size controls font-size, padding, gap, and border-radius simultaneously via CSS variables. Do not use Tailwind size classes to override these.
 
 ## Appearance Props
 
@@ -477,7 +477,7 @@ Controls whether colors are applied as background fill or as border/text only.
 
 `ghost` renders a transparent background with no border and appearance-colored text, plus a tinted background on hover — for low-emphasis actions.
 
-`outline` is the default for most components. Exceptions: `Checkbox` defaults to `filled`, and `Link` has no variant default (it renders as a link).
+`outline` is the default for most components. Exceptions: `Checkbox`, `Radio`, `Switch` and `Tooltip` default to `filled`, and `Link` has no variant default (it renders as a link).
 
 ## Shape Props
 
@@ -683,7 +683,7 @@ Layout components (`Card`, `Row`, `Col`, `Stack`, `Section`, `Container`, `Grid*
 <Card className="w-full">Full-width card</Card>
 <Input className="w-64" placeholder="Fixed width" />
 <Container className="min-h-screen">Full-height container</Container>
-<Row className="sticky top-0 z-10">Sticky header</Row>
+<Row sticky className="top-0 z-10">Sticky header</Row>
 ```
 
 User `className` always wins over theme classes via `twMerge`.

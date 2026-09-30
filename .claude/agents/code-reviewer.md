@@ -16,13 +16,13 @@ You are a code reviewer for the VaneUI React component library. Review code chan
 - Components with `href` prop must support auto tag-switching (e.g., Button renders as `<a>` when `href` is provided)
 
 ## Prop API Consistency
-- Props use boolean flags: size (`xs`/`sm`/`md`/`lg`/`xl`), appearance (`primary`/`brand`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`link`), variant (`filled`/`outline`), shape (`pill`/`rounded`/`sharp`)
+- Props use boolean flags: size (`xs`/`sm`/`md`/`lg`/`xl`), appearance (`primary`/`accent`/`secondary`/`tertiary`/`success`/`danger`/`warning`/`info`/`inheritAppearance`), variant (`filled`/`outline`/`ghost`), shape (`pill`/`rounded`/`sharp`)
 - Props within a category are mutually exclusive (enforced by `pickFirstTruthyKeyByCategory`)
-- Component-specific defaults must be defined in `defaults.ts`
+- Component-specific defaults must be defined in `{component}Defaults.ts`
 - Boolean props must NOT leak to the DOM — they must be filtered by `getComponentConfig()`
 
 ## Theme Integration
-- Theme classes use CSS variable units: `[--fs-unit:N]`, `[--py-unit:N]`, `[--gap-unit:N]`
+- CSS variable units (`--fs-unit`, `--py-unit`, `--gap-unit`) are set per `data-size` in `rules.css`, not by theme classes
 - Appearance/variant colors come from `data-appearance` + `data-variant` attributes consumed in `vars.css`
 - Never hardcode colors — use appearance props that map to CSS variables
 - Size controls gap, padding, font-size, and border-radius via the unit variable system

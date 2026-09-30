@@ -27,7 +27,7 @@ The prefix is enforced, not the full class, so a deliberate logical/suffix diver
 
 Named for clarity, not class-correspondence. Not prefix-checked.
 
-- **Design-system layer:** `appearance`, `variant`, `shape`, `size`.
+- **Design-system layer:** `appearance`, `variant`, `shape`, `size`, `control`.
 - **Bare Tailwind values** (individually class-correct, no shared prefix): `display`, `position`, `flexDirection`, `fontStyle`, `textDecoration`, `textTransform`, `truncate`.
 - **Responsive/semantic:** `breakpoint` (`mobileStack`…), `hide`, `orientation`, `responsiveSizing`.
 - **Deliberately-clearer renames** (from the prop-naming review): `validity` (`invalid`), `constrainWidth`, `clampHeight`.

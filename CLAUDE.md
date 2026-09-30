@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-VaneUI (`@vaneui/ui`, v0.9.0) is a React component library with 40+ customizable React components (50+ named exports including sub-components). Built with TypeScript, React 19, Tailwind CSS v4, and Rollup. Uses a boolean props API (`<Button primary lg filled>`) and CSS variable-based theming via `ThemeProvider`.
+VaneUI (`@vaneui/ui`, v1.4.2) is a React component library with 40+ customizable React components (50+ named exports including sub-components). Built with TypeScript, React 19, Tailwind CSS v4, and Rollup. Uses a boolean props API (`<Button primary lg filled>`) and CSS variable-based theming via `ThemeProvider`.
 
 ## CRITICAL: Verification After ANY Code Change
 
@@ -31,13 +31,13 @@ When creating or modifying components, **ALL steps below must be completed**. Us
 ### Required Steps for New Components
 
 1. **Create Component**
-   - Component file: `src/components/ui/{component}.tsx`
-   - Theme file: `src/components/ui/theme/{component}Theme.ts`
+   - Component file: `src/components/ui/{component}/{Component}.tsx`
+   - Theme files: `src/components/ui/{component}/{Component}Theme.ts` + `default{Component}Theme.ts`
    - Add categories to `src/components/ui/props/keys.ts` if needed
    - **Key Type Pattern**: Define keys in `ComponentKeys`, export Key type from `keys.ts`, theme files import from `../../props`
 
 2. **Integrate with Theme System**
-   - Update `src/components/themeContext.tsx` (import, ThemeProps, defaultTheme, ThemeDefaults, ThemeExtraClasses)
+   - Update `src/components/themeTypes.ts` (import, ThemeProps) and `src/components/defaultTheme.ts` (defaultTheme); ThemeDefaults/ThemeExtraClasses derive from ThemeProps
    - Update `src/index.ts` (export component and props type)
 
 3. **Write Tests (REQUIRED)**
@@ -91,7 +91,6 @@ When a task matches an agent's trigger below, you **MUST** delegate to that agen
 - `npm run test:e2e` — Playwright e2e tests (visual & computed style validation)
 - `npm run test:e2e:ui` — Playwright interactive UI mode
 - `npm run playground` — Dev server with CSS hot reload
-- `npm run build:js` — TypeScript/Rollup only
 - `npm run build:css:ui` — Tailwind CLI for component styles
 - `npm run build:css:vars` — Tailwind CLI for CSS variables
 
@@ -131,7 +130,7 @@ still decide what the bump should be; this policy only decides who authorises it
 | **Form** | Input, Textarea, Select, Checkbox, Radio (+ RadioGroup), Switch, Label, Field | `ui` (Field is `layout`) |
 | **Overlay / Floating** | Overlay, Modal (+ Header/Body/Footer), Popup, Tooltip | `layout` |
 | **Menu / Nav** | Menu (+ Item/Label), NavLink, ModalCloseButton, PopupTrigger | `ui` |
-| **Layout** | Card (+ Header/Body/Footer), Section, Container, Row, Col, Stack, Grid2–6, Divider, Img, Alert | `layout` |
+| **Layout** | Card (+ Header/Body/Footer), Section, Container, Row, Col, Stack, Grid2–6, Divider, Img, Alert, Table (+ Thead/Tbody/Tfoot/Tr/Th/Td/Caption) | `layout` |
 | **Typography** | Text, Title, SectionTitle, PageTitle, Link, List, ListItem, Blockquote | `ui` |
 
 ## Prop System (Boolean Flags)
@@ -140,7 +139,7 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 
 | Category | Values |
 |----------|--------|
-| **size** | `xs`, `sm` (default for Button, MenuItem, Label), `md` (default for others), `lg`, `xl` |
+| **size** | `xs`, `sm` (default for Button, IconButton, NavLink, MenuItem, MenuLabel, Tooltip, Label), `md` (default for others), `lg`, `xl` |
 | **appearance** | `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info` |
 | **variant** | `filled`, `outline` (default), `ghost` |
 | **shape** | `pill`, `rounded` (default), `sharp` |
@@ -192,22 +191,23 @@ src/
 │   │   ├── typography/          # text/, title/, sectionTitle/, pageTitle/, link/, list/,
 │   │   │                        # listItem/, blockquote/ — sibling of theme/, not under it
 │   │   ├── props/               # Shared prop type files + keys.ts + categoryBuilders.ts
-│   │   ├── theme/               # Shared theme modules: common.ts (interactiveClassMappers),
-│   │   │                        # layout.ts, defaults.ts aggregator
+│   │   ├── theme/               # Shared theme modules: common/ (interactiveClassMappers),
+│   │   │                        # layout/, defaults.ts aggregator
 │   │   ├── classes/             # CSS class mappings
-│   │   ├── css/                 # vars.css, tokens.css, rules.css, index.css
 │   │   └── layout.tsx           # Re-exports layout components (Card, Row, Col, Stack, Grid*,
-│   │                            # Section, Container, Divider)
-│   ├── tests/                   # 68 test files (Jest + Testing Library)
+│   │                            # Section, Container, Table)
+│   ├── css/                     # vars.css, tokens.css, rules.css
+│   ├── tests/                   # 104 test files (Jest + Testing Library)
 │   ├── utils/                   # deepMerge, componentUtils, stackingContext
-│   ├── themeContext.tsx         # ThemeProvider & useTheme
+│   ├── themeContext.tsx         # ThemeContext & useTheme
+│   ├── ThemeProvider.tsx        # ThemeProvider
 │   └── themedComponent.tsx      # Generic themed component wrapper
 └── index.ts                     # Barrel exports
 ```
 
 **Component pattern**: `forwardRef` + `useTheme()` + `ThemedComponent` wrapper. All components support `className` (merged via `twMerge`), `ref`, `tag` prop, and `href` for tag switching (renders as `<a>`).
 
-**Theming**: CSS variables set by theme classes (`[--fs-unit:8]`) -> computed in `vars.css` (`calc(var(--fs-unit) * var(--fs-base))`) -> consumed by utility classes (`text-(length:--fs)`). Colors driven by `data-appearance` + `data-variant` attributes.
+**Theming**: unit variables set per `data-size`/`data-vane-type` in `rules.css` (`.vane-button[data-size="md"] { --fs-unit: ... }`) -> computed in `rules.css` (`calc(var(--fs-unit) * var(--fs-base))`) -> consumed by utility classes (`text-(length:--fs)`). Colors driven by `data-appearance` + `data-variant` attributes.
 
 **ThemeProvider**: Supports `themeDefaults`, `extraClasses`, `themeOverride`, nested providers with `mergeStrategy` ("merge" | "replace").
 
@@ -227,7 +227,7 @@ src/
 6. **No replaceable Tailwind classes in base class strings** — When a Tailwind class has an equivalent boolean prop (e.g., `items-center` → `itemsCenter`, `cursor-pointer` → `cursorPointer`, `relative` → `relative`), it MUST go in the component's defaults object, not in the base class string of `new ComponentTheme(...)`. The base class string is only for classes that have NO boolean prop equivalent (e.g., `align-middle`, `aspect-square`, `w-full`, child selectors like `[&_svg]:shrink-0`, conditional selectors like `hover:underline`). This is enforced by the `theme-collections.test.ts` quality check. When adding a boolean prop default, ensure the component's categories include the prop's category, the theme has the corresponding class mapper, and the prop type includes the prop interface.
 7. **No hardcoded visual props on child components** — When a parent component renders a child VaneUI component (e.g., Menu renders Popup), visual defaults (size, appearance, variant, shape, layout) must come from the theme system via a sub-theme + ThemeProvider `themeDefaults`, NOT from hardcoded boolean props on the JSX element. Only functional/ARIA props (open, onClose, role, id, ref, anchorRef, etc.) should be set directly. This ensures all visual aspects are customizable via ThemeProvider.
 8. **No hardcoded inline defaults in ComponentTheme constructors** — Every component's defaults MUST be extracted to a separate `{component}Defaults.ts` file (e.g., `menuDividerDefaults.ts`, `menuPopupDefaults.ts`), never passed as inline object literals in `new ComponentTheme(...)`. This makes ALL defaults customizable via ThemeProvider's `themeDefaults` and discoverable in the `theme/defaults.ts` aggregator. When a sub-theme reuses a parent theme (like MenuDivider reuses DividerTheme), create a separate defaults file for the sub-theme variant.
-9. **Size-dependent padding and border-radius** — Padding (`padding`, `paddingX`, `paddingY`) and border-radius (`rounded`, `pill`, `sharp`) values MUST scale with the component's size prop (`xs`/`sm`/`md`/`lg`/`xl`). A component cannot use the same padding or border-radius across different size variants — these are driven by CSS variables that change per size (e.g., `--pd-unit`, `--rounded`). Always verify that size-dependent properties actually change when different size props are applied. If a padding or radius value is hardcoded and ignores size, it is a bug.
+9. **Size-dependent padding and border-radius** — Padding (`padding`, `paddingX`, `paddingY`) and border-radius (`rounded`, `pill`, `sharp`) values MUST scale with the component's size prop (`xs`/`sm`/`md`/`lg`/`xl`). A component cannot use the same padding or border-radius across different size variants — these are driven by CSS variables that change per size (e.g., `--py-unit`, `--br-unit`). Always verify that size-dependent properties actually change when different size props are applied. If a padding or radius value is hardcoded and ignores size, it is a bug.
 
 ## Detailed Conventions
 

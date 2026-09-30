@@ -11,7 +11,7 @@ paths:
 - Framework: Jest with ts-jest preset
 - Environment: jsdom
 - Test location: `src/components/tests/`
-- Setup file: `src/components/tests/setupTests.ts`
+- Setup file: `src/setupTests.ts`
 - Run all: `npm test`
 - Run one: `npx jest --no-coverage path/to/test.tsx`
 

@@ -13,11 +13,11 @@ The release pipeline supports two types of releases:
 
 ### 1. Test Suite (`test.yml`)
 
-**Trigger:** Pull requests and pushes to `main`/`prod` branches  
+**Trigger:** Pull requests to `main`/`prod` branches  
 **Purpose:** Ensure code quality and prevent regressions
 
 **Process:**
-- Runs on multiple Node.js versions (18, 20)
+- Runs on Node.js 24 against React 18 and 19
 - Type checking with TypeScript
 - Full test suite execution
 - Package building verification
@@ -41,7 +41,7 @@ The release pipeline supports two types of releases:
 npm install @vaneui/ui@alpha
 ```
 
-### 2. Stable Release Pipeline (`npm-publish-stable.yml`)
+### 3. Stable Release Pipeline (`npm-publish-stable.yml`)
 
 **Trigger:** Push to `prod` branch  
 **Purpose:** Create stable production releases
@@ -59,7 +59,7 @@ npm install @vaneui/ui@alpha
 npm install @vaneui/ui@latest
 ```
 
-### 3. Manual Release Creation (`release.yml`)
+### 4. Manual Release Creation (`release.yml`)
 
 **Trigger:** Manual workflow dispatch  
 **Purpose:** Bump version and initiate release process
@@ -68,7 +68,7 @@ npm install @vaneui/ui@latest
 - Runs tests before proceeding (fails if tests fail)
 - Choose version bump type: patch, minor, major
 - Choose target branch: main (pre-release) or prod (stable)
-- Builds package and runs tests again
+- Builds package
 - Automatically commits version bump only if all tests pass
 - Triggers appropriate release pipeline
 
@@ -106,7 +106,7 @@ All release workflows include multiple quality gates to ensure package reliabili
 ### 🧪 **Test Gates**
 - **Pre-build tests**: Run before any build process
 - **Post-build tests**: Run after building to ensure build doesn't break functionality
-- **Multiple Node.js versions**: Test compatibility across Node 18 and 20
+- **Multiple React versions**: Test compatibility across React 18 and 19 (PR test suite)
 - **Type checking**: Ensure TypeScript compilation succeeds
 
 ### 🚫 **Failure Handling**

@@ -345,7 +345,7 @@ Side toggles **compose**: `borderT borderL` applies both sides; `noBorder` reset
 
 | Prop | Tailwind Class |
 |------|---------------|
-| `transition` | `transition-all duration-200` |
+| `transition` | `transition-all duration-(--transition-duration) ease-(--transition-timing)` |
 | `noTransition` | `transition-none` |
 | `backdropBlur` | `backdrop-blur-(--overlay-blur)` |
 | `noBackdropBlur` | (removes blur) |
@@ -409,7 +409,7 @@ Base curve (the fallback for any `ui` component that doesn't override it):
 
 ### Rendered pixels
 
-Actual pixel gap = `gap-unit × spacing`. The value of `spacing` depends on where your component is mounted — outside any scaled container, `--spacing` is 1rem (≈ 4px at the default Tailwind base), so layout `md` renders at `4 × 4px = 16px`. In a consumer that overrides `--spacing` (e.g., a template system that sets `--spacing: calc(--th / 300)`), the same prop re-scales automatically. **This is the point.** Hardcoding `gap-[10px]` locks in one pixel value and breaks every other context.
+Actual pixel gap = `gap-unit × spacing`. The value of `spacing` depends on where your component is mounted — outside any scaled container, `--spacing` is 0.25rem (≈ 4px at the default Tailwind base), so layout `md` renders at `4 × 4px = 16px`. In a consumer that overrides `--spacing` (e.g., a template system that sets `--spacing: calc(--th / 300)`), the same prop re-scales automatically. **This is the point.** Hardcoding `gap-[10px]` locks in one pixel value and breaks every other context.
 
 ### Anti-pattern → recommended
 
@@ -421,7 +421,7 @@ Actual pixel gap = `gap-unit × spacing`. The value of `spacing` depends on wher
 <Stack className="p-[24px]">
 
 // ✅ Size prop — flows through the --gap-unit × --spacing pipeline
-<Col lg>                        // 10.5px at spacing=2.1, 20px at spacing=4, etc.
+<Col lg>                        // 12.6px at spacing=2.1, 24px at spacing=4, etc.
 <Row>                           // md is the default; no prop needed
 <Card>                          // md default
 <Stack xl>                      // padding scales with the same size prop

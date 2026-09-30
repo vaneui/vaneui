@@ -15,10 +15,8 @@ npm run playground   # Build CSS then start the Vite playground with hot reload
 
 ### Build Commands
 - `npm run build` - Full build process (includes TypeScript compilation, CSS generation, and cleanup)
-- `npm run build:js` - TypeScript compilation and bundling only
 - `npm run build:css:ui` - Generate main UI CSS file using Tailwind CLI v4
 - `npm run build:css:vars` - Generate CSS variables file using Tailwind CLI v4
-- `npm run clean` - Clean the dist directory
 
 ### Development Commands
 - `npm run type-check` - Run TypeScript type checking without emitting files
@@ -37,7 +35,7 @@ The library uses a sophisticated theme system centered around `ComponentTheme<P,
 - **ThemeProvider**: Context provider for global theme configuration (supports nesting, defaults, and extra classes)
 - **ComponentTheme**: Base class that handles prop-to-class mapping and component configuration
 - **ThemedComponent**: Generic component wrapper that applies themes
-- **BaseTheme**: Foundation for all theme implementations (each theme extends this)
+- **BaseClassMapper**: Foundation for all theme implementations (each theme extends this)
 
 ### Component Structure
 ```
@@ -53,14 +51,16 @@ src/
 │   │   │   ├── list/            # List-specific themes
 │   │   │   └── common/          # Shared theme utilities and base classes
 │   │   └── classes/             # Pre-defined class mappings for appearances
-│   ├── complex/                 # Composite components (DataTable, etc.)
 │   ├── css/                     # CSS files
-│   │   ├── vars.css             # CSS variable definitions (@theme block)
-│   │   └── index.css            # Main component styles
+│   │   ├── tokens.css           # Design tokens (@theme block)
+│   │   ├── rules.css            # Computed variables and data-attribute rules
+│   │   └── vars.css             # Imports tokens.css + rules.css
+│   ├── index.css                # Main component styles
+│   ├── tests/                   # Component tests
 │   ├── utils/                   # Utility functions (componentUtils, deepMerge)
-│   ├── themeContext.tsx         # Theme provider and context
+│   ├── themeContext.tsx         # Theme context and useTheme
+│   ├── ThemeProvider.tsx        # Theme provider
 │   └── themedComponent.tsx      # Generic themed component wrapper
-├── tests/                       # Component tests
 └── index.ts                     # Main export file
 ```
 
@@ -200,7 +200,7 @@ Components emit data attributes used for CSS-driven styling:
 - `data-vane-type` - Component type (`"ui"` or `"layout"`) - controls spacing scales
 - `data-size` - Current size (`"xs"`, `"sm"`, `"md"`, `"lg"`, `"xl"`)
 - `data-appearance` - Current appearance (`"primary"`, `"secondary"`, etc.)
-- `data-variant` - Current variant (`"filled"` or `"outline"`)
+- `data-variant` - Current variant (`"filled"`, `"outline"` or `"ghost"`)
 
 These attributes are used by CSS rules in `vars.css` to set appearance-specific color variables and component-type-specific spacing.
 
@@ -341,7 +341,7 @@ export class PyTheme extends PaddingTheme {
 ```
 
 ### Theme Provider System
-Located in `src/components/themeContext.tsx`:
+Located in `src/components/ThemeProvider.tsx` (types in `src/components/themeTypes.ts`):
 
 ```typescript
 export interface ThemeProviderProps {
@@ -354,7 +354,7 @@ export interface ThemeProviderProps {
 }
 
 // Example usage:
-<ThemeProvider themeDefaults={{ button: { md: true, primary: true } }}>
+<ThemeProvider themeDefaults={{ button: { main: { md: true, primary: true } } }}>
   <Button>I'm medium and primary by default</Button>
 </ThemeProvider>
 
@@ -374,11 +374,11 @@ export const ComponentKeys = {
   size: ['xs', 'sm', 'md', 'lg', 'xl'],
   appearance: ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info', 'inheritAppearance'],
   variant: ['filled', 'outline', 'ghost'],
-  shape: ['rounded', 'pill', 'sharp'],
+  shape: ['pill', 'sharp', 'rounded'],
   fontFamily: ['fontSans', 'fontSerif', 'fontMono', 'fontHeading'],
   fontWeight: ['fontThin', 'fontExtralight', 'fontLight', 'fontNormal', 'fontMedium', 'fontSemibold', 'fontBold', 'fontExtrabold', 'fontBlack'],
-  textAlign: ['textLeft', 'textCenter', 'textRight', 'textJustify'],
-  padding: ['padding', 'noPadding'],
+  textAlign: ['textLeft', 'textCenter', 'textRight', 'textJustify', 'textStart', 'textEnd'],
+  padding: ['padding', 'paddingX', 'paddingY', 'noPadding'],
   gap: ['gap', 'noGap'],
   // ... more categories
 };
@@ -386,12 +386,13 @@ export const ComponentKeys = {
 // Category constants for composition
 export const TEXT_ALIGN = ['textAlign'] as const;
 export const TYPOGRAPHY_STYLE_CORE = ['fontWeight', 'fontStyle', 'textDecoration', 'textTransform', 'fontFamily'] as const;
-export const TYPOGRAPHY_STYLE = [...TYPOGRAPHY_STYLE_CORE, ...TEXT_ALIGN] as const;
+export const TYPOGRAPHY_STYLE = [...TYPOGRAPHY_STYLE_CORE, ...TEXT_ALIGN, ...TRUNCATE] as const;
 
 // Component categories use composition for DRY code
-export const COL_CATEGORIES = [...LAYOUT_FULL, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS, ...TEXT_ALIGN] as const;
-export const ROW_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS, ...TEXT_ALIGN] as const;
-export const STACK_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...VISUAL_LAYOUT, ...VARIANT, ...COMMON_MODIFIERS, ...TEXT_ALIGN] as const;
+export const COL_CATEGORIES = [...LAYOUT_FULL, ...PADDING, ...MARGIN, ...VISUAL_LAYOUT, ...VARIANT, ...BREAKPOINT, ...WIDTH, ...HEIGHT, ...COMMON_MODIFIERS, ...TEXT_ALIGN, 'focusVisible'] as const;
+export const RESPONSIVE_LAYOUT_CATEGORIES = [...LAYOUT_FULL, ...BREAKPOINT, ...PADDING, ...MARGIN, ...VISUAL_LAYOUT, ...VARIANT, ...WIDTH, ...HEIGHT, ...COMMON_MODIFIERS, ...TEXT_ALIGN, 'focusVisible'] as const;
+export const ROW_CATEGORIES = RESPONSIVE_LAYOUT_CATEGORIES;
+export const STACK_CATEGORIES = RESPONSIVE_LAYOUT_CATEGORIES;
 ```
 
 The `pickFirstTruthyKeyByCategory` utility selects one prop from each category based on priority (prop > default).
@@ -410,7 +411,7 @@ export type MyCategoryKey = typeof ComponentKeys.myCategory[number];
 // ✅ CORRECT: Theme file imports from props
 import type { CategoryProps, MyCategoryKey } from "../../props";
 
-export class MyCategoryTheme extends BaseTheme implements Record<MyCategoryKey, string> {
+export class MyCategoryTheme extends BaseClassMapper implements Record<MyCategoryKey, string> {
   optionA: string = "class-a";
   optionB: string = "class-b";
   optionC: string = "class-c";
@@ -430,7 +431,7 @@ This pattern ensures:
 
 ### Creating New Components
 
-1. **Define props interface** in `src/components/ui/props/`:
+1. **Define props interface** in `src/components/ui/{component}/{Component}Props.ts`:
    ```typescript
    export interface MyComponentProps extends ComponentProps {
      // Component inherits size, appearance, variant, className, tag, etc.
@@ -449,7 +450,7 @@ This pattern ensures:
    export type MyCategoryKey = typeof ComponentKeys.myCategory[number];
    ```
 
-3. **Create theme** in `src/components/ui/theme/` — import Key types from props:
+3. **Create theme** in `src/components/ui/{component}/default{Component}Theme.ts` — import Key types from props:
    ```typescript
    export const myComponentTheme = new ComponentTheme<MyComponentProps, MyComponentTheme>(
      "div",  // default tag
@@ -474,17 +475,17 @@ This pattern ensures:
    );
    ```
 
-4. **Create component** in `src/components/ui/`:
+4. **Create component** in `src/components/ui/{component}/`:
    ```typescript
    export const MyComponent = forwardRef<HTMLDivElement, MyComponentProps>(
      function MyComponent(props, ref) {
        const theme = useTheme();
-       return <ThemedComponent ref={ref} theme={theme.myComponent} {...props} />
+       return <ThemedComponent ref={ref} theme={theme?.myComponent ?? defaultMyComponentTheme} {...props} />
      }
    );
    ```
 
-5. **Add to theme interface** in `src/components/themeContext.tsx`:
+5. **Add to theme interface** in `src/components/themeTypes.ts` and `src/components/defaultTheme.ts`:
    ```typescript
    export interface ThemeProps {
      // ... existing components

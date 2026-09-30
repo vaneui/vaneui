@@ -18,7 +18,7 @@ Theme classes use Tailwind v4 arbitrary value syntax to set CSS variable units:
 // BrTheme:       rounded = "[--br-unit:2]", pill = "[--br-unit:9999]", sharp = "[--br-unit:0]"
 ```
 
-### Tier 2: Computed Variables (vars.css @layer base)
+### Tier 2: Computed Variables (rules.css @layer base)
 ```css
 --fs: calc(var(--fs-unit) * var(--fs-base));        /* font-size */
 --py: calc(var(--py-unit) * var(--spacing));         /* padding-y */
@@ -27,7 +27,7 @@ Theme classes use Tailwind v4 arbitrary value syntax to set CSS variable units:
 --br: calc(var(--br-unit) * var(--br-base));         /* border-radius */
 ```
 
-### Tier 3: Semantic Variables (vars.css @theme block)
+### Tier 3: Semantic Variables (tokens.css @theme block)
 ```css
 --color-text-primary, --color-bg-primary, --color-border-primary /* per appearance */
 --breakpoint-mobile: 48rem; --breakpoint-tablet: 64rem; --breakpoint-desktop: 80rem;
