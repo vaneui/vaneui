@@ -620,6 +620,16 @@
     .vane-popup[data-menu-dropdown][data-size="lg"] { --py-unit: 1.75; --py-unit-desktop: 1.75; --py-unit-tablet: 1.75; --py-unit-mobile: 1.75; }
     .vane-popup[data-menu-dropdown][data-size="xl"] { --py-unit: 2;    --py-unit-desktop: 2;    --py-unit-tablet: 2;    --py-unit-mobile: 2; }
 
+    /* Tooltip: a label, not a panel. Badge's font ramp (one step under the trigger), Button's padding ramp and
+       radius, so a tooltip is as tall as a Button of the same size; no viewport ramp, and a width cap so long hints wrap.
+       Text size is set here, not by a theme mapper, so other popups keep inheriting their text from the page. */
+    .vane-popup[data-tooltip] { --lh: 1.4; --aspect-ratio: 2; font-size: var(--fs); line-height: var(--lh); max-width: min(var(--tooltip-max-w), calc(100vw - 1rem)); }
+    .vane-popup[data-tooltip][data-size="xs"] { --fs-unit: 5; --py-unit: 1;   --py-unit-desktop: 1;   --py-unit-tablet: 1;   --py-unit-mobile: 1;   --br-unit: 1.25; --tooltip-max-w: 16rem; }
+    .vane-popup[data-tooltip][data-size="sm"] { --fs-unit: 6; --py-unit: 1.5; --py-unit-desktop: 1.5; --py-unit-tablet: 1.5; --py-unit-mobile: 1.5; --br-unit: 1.5;  --tooltip-max-w: 20rem; }
+    .vane-popup[data-tooltip][data-size="md"] { --fs-unit: 7; --py-unit: 2;   --py-unit-desktop: 2;   --py-unit-tablet: 2;   --py-unit-mobile: 2;   --br-unit: 2;    --tooltip-max-w: 24rem; }
+    .vane-popup[data-tooltip][data-size="lg"] { --fs-unit: 8; --py-unit: 2.5; --py-unit-desktop: 2.5; --py-unit-tablet: 2.5; --py-unit-mobile: 2.5; --br-unit: 2.25; --tooltip-max-w: 28rem; }
+    .vane-popup[data-tooltip][data-size="xl"] { --fs-unit: 9; --py-unit: 3;   --py-unit-desktop: 3;   --py-unit-tablet: 3;   --py-unit-mobile: 3;   --br-unit: 2.75; --tooltip-max-w: 32rem; }
+
     /* ANIMATIONS — driven by data-state from useTransition */
 
     /* Overlay fade */

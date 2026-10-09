@@ -1,8 +1,14 @@
 import type React from 'react';
 import type { PopupProps } from "../popup/PopupProps";
 
-/** Tooltip component props */
-export interface TooltipProps {
+/**
+ * Tooltip component props. Popup props (size, appearance, variant, shape, placement, arrow, offset, ...)
+ * are accepted directly and styled onto the tooltip.
+ */
+export type TooltipProps = Omit<
+  PopupProps,
+  'anchorRef' | 'open' | 'onClose' | 'defaultOpen' | 'onOpenChange' | 'disabled' | 'children' | 'content' | 'id' | 'role'
+> & {
   /** The element the tooltip describes (must accept ref) */
   children: React.ReactElement;
   /** Tooltip content */
@@ -17,10 +23,10 @@ export interface TooltipProps {
   openDelay?: number;
   /** Delay before hiding in ms (default: 100) */
   closeDelay?: number;
-  /** Props passed to the internal Popup */
+  /** Props passed to the internal Popup, combined with the direct props (pass one value per category) */
   popupProps?: Partial<Omit<PopupProps, 'open' | 'onClose' | 'anchorRef' | 'children'>>;
   /** Override the generated tooltip id */
   popupId?: string;
   /** Prevent the tooltip from opening */
   disabled?: boolean;
-}
+};

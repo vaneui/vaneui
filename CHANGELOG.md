@@ -8,6 +8,35 @@ fixes, minor for additive props and components, major for anything that changes 
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
 
+## Unreleased
+
+A consistency pass on `Tooltip`: it is now sized and coloured as a label, not a panel.
+
+### Added
+
+- **`Tooltip` takes `Popup` props directly**, like `Menu`: `<Tooltip lg placeBottom arrow>`.
+  Size, appearance, variant, shape, placement, `arrow`, `offset` and `className` style the
+  tooltip. `popupProps` still works and is combined with them.
+
+### Changed
+
+- **`Tooltip` is filled in ink**: near-black, and near-white in dark mode, like a filled
+  primary `Button`. It was gray. `<Tooltip secondary>` or
+  `themeDefaults={{ tooltip: { secondary: true } }}` brings the gray back.
+- **`Tooltip` text follows its size**: 10, 12, 14, 16 and 18px from `xs` to `xl`, one step
+  under a `Button` of the same size. It inherited the page's text (16px at every size).
+- **`Tooltip` padding and radius follow the `Button` ramp**, so a tooltip is about as tall as a
+  `Button` of the same size (29px instead of 44px at the default `sm`). Padding no longer
+  shrinks on tablets and phones.
+- **Long tooltips wrap** inside a cap that grows with size (16–32rem, 20rem at `sm`) instead
+  of running on one line across the page.
+
+### Fixed
+
+- **Popups placed above or below stay on screen next to an anchor at the viewport edge** in
+  browsers with CSS anchor positioning. They were centred on the anchor and cut off; they
+  now line up with the anchor's edge, and the arrow follows.
+
 ## 1.4.3
 
 `2026-09-30`

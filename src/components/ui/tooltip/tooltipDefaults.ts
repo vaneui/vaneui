@@ -1,6 +1,6 @@
 import type { PopupProps } from "../popup/PopupProps";
 
-/** Tooltip popup: smaller and filled, so it reads as an overlay label rather than a panel. */
+/** Tooltip popup: smaller and filled in ink (near-white in dark mode), so it reads as an overlay label rather than a panel. */
 export const tooltipDefaults: Partial<PopupProps> = {
   sm: true,
   fixed: true,
@@ -11,7 +11,7 @@ export const tooltipDefaults: Partial<PopupProps> = {
   shadow: true,
   noBorder: true,
   noInsetRing: true,
-  secondary: true,
+  primary: true,
   filled: true,
   wFit: true,
   fontSans: true,

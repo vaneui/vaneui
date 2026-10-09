@@ -20,6 +20,7 @@ import {
   Spinner,
   Tooltip,
   Button,
+  IconButton,
   Icon,
   Badge,
   Chip,
@@ -108,78 +109,13 @@ function App() {
 
           <PageTitle>VaneUI Playground</PageTitle>
           <Text secondary>
-            Icon inline + container modes, and the <Code sm>data-theme="dark"</Code>{' '}
-            color-scheme comparison.
+            Icon container mode, the <Code sm>data-theme="dark"</Code> color-scheme comparison,
+            and the label-sized <Code sm>Tooltip</Code>.
           </Text>
 
-          {/* ═══ 1. ICON — INLINE ════════════════════════════════════════════ */}
+          {/* ═══ 1. ICON — CONTAINER MODE ════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>1. Icon — Inline</SectionTitle>
-
-          <Card>
-            <Title>Bare Icon inherits parent color</Title>
-            <Text sm secondary>
-              With no appearance prop, <Code sm>Icon</Code> uses{' '}
-              <Code sm>currentColor</Code> and adopts whatever color its parent
-              renders in.
-            </Text>
-            <Stack noPadding>
-              <Text>
-                Default text color — <Icon><TestSvg /></Icon> inherits.
-              </Text>
-              <Text danger>
-                Danger text — <Icon><TestSvg /></Icon> inherits.
-              </Text>
-              <Text secondary>
-                Secondary text — <Icon><TestSvg /></Icon> inherits.
-              </Text>
-            </Stack>
-          </Card>
-
-          <Card>
-            <Title>Sizes and appearances</Title>
-            <Text sm secondary>
-              The size prop scales the SVG via the shared font-size pipeline;
-              appearance props tint it via <Code sm>currentColor</Code> — no box,
-              no padding.
-            </Text>
-            <Row itemsEnd flexWrap>
-              <Col>
-                <Text sm fontBold>xs</Text>
-                <Icon xs><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>md</Text>
-                <Icon><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>xl</Text>
-                <Icon xl><TestSvg /></Icon>
-              </Col>
-            </Row>
-            <Row flexWrap>
-              <Col>
-                <Text sm fontBold>info</Text>
-                <Icon info><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>success</Text>
-                <Icon success><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>danger</Text>
-                <Icon danger><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>warning</Text>
-                <Icon warning><TestSvg /></Icon>
-              </Col>
-            </Row>
-          </Card>
-
-          {/* ═══ 2. ICON — CONTAINER MODE ════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>2. Icon — Container Mode</SectionTitle>
+          <SectionTitle>1. Icon — Container Mode</SectionTitle>
 
           <Card>
             <Title>Badge recipes</Title>
@@ -247,9 +183,9 @@ function App() {
             </Row>
           </Card>
 
-          {/* ═══ 3. DARK MODE ════════════════════════════════════════════════ */}
+          {/* ═══ 2. DARK MODE ════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>3. Dark Mode</SectionTitle>
+          <SectionTitle>2. Dark Mode</SectionTitle>
 
           <Card>
             <Title>Light vs data-theme="dark"</Title>
@@ -289,9 +225,9 @@ function App() {
             </div>
           </Card>
 
-          {/* ═══ 4. TABLE ════════════════════════════════════════════════════ */}
+          {/* ═══ 3. TABLE ════════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>4. Table</SectionTitle>
+          <SectionTitle>3. Table</SectionTitle>
 
           <Card>
             <Title>Row-rule table (light and dark)</Title>
@@ -389,9 +325,9 @@ function App() {
             </Table>
           </Card>
 
-          {/* ═══ 5. FORM CONTROLS ═════════════════════════════════════════════ */}
+          {/* ═══ 4. FORM CONTROLS ═════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>5. Form controls</SectionTitle>
+          <SectionTitle>4. Form controls</SectionTitle>
 
           <Card>
             <Title>Sizes</Title>
@@ -473,9 +409,9 @@ function App() {
             </Stack>
           </Card>
 
-          {/* ═══ 6. FIELD, ALERT, SPINNER, TOOLTIP ════════════════════ */}
+          {/* ═══ 5. FIELD, ALERT, SPINNER ═════════════════════════════ */}
           <Divider />
-          <SectionTitle>6. Field, Alert, Spinner, Tooltip</SectionTitle>
+          <SectionTitle>5. Field, Alert, Spinner</SectionTitle>
 
           <Card>
             <Title>Field</Title>
@@ -526,26 +462,94 @@ function App() {
           </Card>
 
           <Card>
-            <Title>Spinner and Tooltip</Title>
+            <Title>Spinner</Title>
             <Text sm secondary>
               <Code sm>Spinner</Code> scales with the size ramp and takes its colour from the
-              appearance. <Code sm>Tooltip</Code> describes its trigger on hover and focus.
+              appearance.
             </Text>
-            <Row itemsCenter flexWrap>
+            <Row flexWrap>
               {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
                 <Spinner key={size} {...{ [size]: true }} aria-label={`Loading ${size}`} />
               ))}
               <Spinner success aria-label="Loading success" />
               <Spinner danger aria-label="Loading danger" />
+              <Button loading>Loading button</Button>
             </Row>
-            <Row itemsCenter flexWrap>
+          </Card>
+
+          {/* ═══ 6. TOOLTIP ══════════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>6. Tooltip</SectionTitle>
+
+          <Card>
+            <Title>Basic usage</Title>
+            <Text sm secondary>
+              An ink label on hover and keyboard focus, near-white in dark mode. It describes its
+              trigger with <Code sm>aria-describedby</Code> and adds no tab stop.
+            </Text>
+            <Row flexWrap>
               <Tooltip content="Saves without leaving the page">
                 <Button>Hover me</Button>
               </Tooltip>
               <Tooltip content="Focus me with the keyboard too">
                 <Button secondary>Tab to me</Button>
               </Tooltip>
-              <Button loading>Loading button</Button>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Sizes</Title>
+            <Text sm secondary>
+              Size goes straight on <Code sm>Tooltip</Code>. Its text sits one step under a Button
+              of the same size, and its padding and radius follow the Button ramp, so the two line up.
+            </Text>
+            <Row flexWrap>
+              {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+                <Tooltip key={size} {...{ [size]: true }} content={`Tooltip ${size}`}>
+                  <Button {...{ [size]: true }}>Button {size}</Button>
+                </Tooltip>
+              ))}
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Placement, arrow and colour</Title>
+            <Text sm secondary>
+              Placement, <Code sm>arrow</Code> and appearance are direct props too.{' '}
+              <Code sm>popupProps</Code> still works.
+            </Text>
+            <Row flexWrap>
+              <Tooltip placeBottom content="Opens below its trigger">
+                <Button secondary>placeBottom</Button>
+              </Tooltip>
+              <Tooltip placeRight arrow content="Points at its trigger">
+                <Button secondary>placeRight arrow</Button>
+              </Tooltip>
+              <Tooltip danger content="Deletes the project for everyone">
+                <Button danger>Delete project</Button>
+              </Tooltip>
+              <Tooltip secondary content="The gray tooltip from earlier releases">
+                <Button secondary>secondary</Button>
+              </Tooltip>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Long hints and screen edges</Title>
+            <Text sm secondary>
+              A long hint wraps inside a width cap that grows with size. On a narrow window the
+              tooltips at either end line up with their trigger instead of being cut off.
+            </Text>
+            <Row justifyBetween>
+              <Tooltip content="Add to favourites">
+                <IconButton aria-label="Add to favourites"><TestSvg /></IconButton>
+              </Tooltip>
+              <Tooltip content="Archiving moves the conversation out of your inbox. Replies bring it back, and nothing is deleted.">
+                <Button secondary>Archive</Button>
+              </Tooltip>
+              <Tooltip content="Archive this conversation">
+                <IconButton aria-label="Archive this conversation"><TestSvg /></IconButton>
+              </Tooltip>
             </Row>
           </Card>
 
