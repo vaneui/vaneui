@@ -8,7 +8,9 @@ fixes, minor for additive props and components, major for anything that changes 
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
 
-## Unreleased
+## 1.4.4
+
+`2026-10-10`
 
 A consistency pass on `Tooltip`: it is now sized and coloured as a label, not a panel.
 
