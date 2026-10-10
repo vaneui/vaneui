@@ -142,7 +142,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Form field (label + help + error) | `Field` | Owns the id, points the label at the control, links help/error with `aria-describedby`. Can render its own control via `type` or one of `textInput`/`textarea`/`select`/`checkbox`/`switch`/`radiogroup`, or wrap one passed as a child. An `error` also marks the control invalid |
 | Inline status message | `Alert` | Live region: `role="alert"`, or `role="status"` with `polite` |
 | Busy indicator | `Spinner` | `role="status"`; give it an `aria-label` |
-| Hover/focus hint | `Tooltip` + trigger | Describes its trigger; no `aria-haspopup`/`aria-expanded` |
+| Hover/focus hint | `Tooltip` + trigger | Ink label that describes its trigger (no `aria-haspopup`/`aria-expanded`). Takes size, appearance and `place*` props directly: `<Tooltip lg placeBottom>` |
 | Input label | `Label` | Flex **column** (label above field) with gap, sm size, `inheritAppearance`. Use `row` for inline controls (e.g. Checkbox) |
 | Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `listDecimal` |
 | Horizontal rule | `Divider` | Thin line separator |

@@ -188,7 +188,9 @@ function measurePlacement(
   // Re-derive the -start/-end suffix from geometry so it stays correct after an
   // inline flip (a requested -start can render -end near a viewport edge).
   let suffix = '';
-  if (requested.endsWith('-start') || requested.endsWith('-end')) {
+  // a centred request that rendered off-centre took an edge-aligned fallback; the arrow must follow it
+  const offCentre = isBlockAxis ? Math.abs(popupCenterX - anchorCenterX) > 1 : Math.abs(popupCenterY - anchorCenterY) > 1;
+  if (requested.endsWith('-start') || requested.endsWith('-end') || offCentre) {
     const startD = isBlockAxis ? Math.abs(popupRect.left - anchorRect.left) : Math.abs(popupRect.top - anchorRect.top);
     const endD = isBlockAxis ? Math.abs(popupRect.right - anchorRect.right) : Math.abs(popupRect.bottom - anchorRect.bottom);
     suffix = startD <= endD ? '-start' : '-end';
@@ -207,6 +209,14 @@ function supportsAnchorPositioning(): boolean {
   return _supportsAnchorPositioning;
 }
 
+// A centred top/bottom popup wider than its anchor overflows a viewport edge (CSS has no shift), so after the
+// flip it falls back to edge-aligned areas, which keep it on screen beside the anchor like the JS path's clamp.
+function getTryFallbacks(placement: PopupPlacement): string {
+  if (placement === 'top') return 'flip-block, top span-right, top span-left, bottom span-right, bottom span-left';
+  if (placement === 'bottom') return 'flip-block, bottom span-right, bottom span-left, top span-right, top span-left';
+  return 'flip-block, flip-inline';
+}
+
 // align-self / justify-self are applied as VaneUI props (see anchorSelfProps),
 // not inline styles, so only the position-area + offset + width stay here.
 function buildCssAnchorStyles(
@@ -219,7 +229,7 @@ function buildCssAnchorStyles(
   return {
     positionAnchor: `--${anchorName}`,
     positionArea: anchor.positionArea,
-    positionTryFallbacks: 'flip-block, flip-inline',
+    positionTryFallbacks: getTryFallbacks(placement),
     ...getOffsetStyle(placement, offset),
     ...(matchWidth ? { width: 'anchor-size(width)' } : undefined),
   } as React.CSSProperties;

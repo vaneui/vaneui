@@ -83,7 +83,14 @@ describe('Tooltip Component Tests', () => {
       const tooltip = screen.getByRole('tooltip');
       expect(tooltip).toHaveAttribute('data-size', 'sm');
       expect(tooltip).toHaveAttribute('data-variant', 'filled');
-      expect(tooltip).toHaveAttribute('data-appearance', 'secondary');
+      expect(tooltip).toHaveAttribute('data-appearance', 'primary');
+    });
+
+    it('should mark the popup as a tooltip for the label-sized rules', () => {
+      renderTooltip(
+        <Tooltip content="Tip text" open><Button>Trigger</Button></Tooltip>
+      );
+      expect(screen.getByRole('tooltip')).toHaveAttribute('data-tooltip', '');
     });
 
     it('should let popupProps override the preset', () => {
@@ -91,6 +98,82 @@ describe('Tooltip Component Tests', () => {
         <Tooltip content="Tip text" open popupProps={{ lg: true }}><Button>Trigger</Button></Tooltip>
       );
       expect(screen.getByRole('tooltip')).toHaveAttribute('data-size', 'lg');
+    });
+  });
+
+  describe('Direct popup props', () => {
+    it('should take size, appearance and variant directly', () => {
+      renderTooltip(
+        <Tooltip content="Tip text" open lg danger outline><Button>Trigger</Button></Tooltip>
+      );
+      const tooltip = screen.getByRole('tooltip');
+      expect(tooltip).toHaveAttribute('data-size', 'lg');
+      expect(tooltip).toHaveAttribute('data-appearance', 'danger');
+      expect(tooltip).toHaveAttribute('data-variant', 'outline');
+    });
+
+    it('should take placement directly', () => {
+      renderTooltip(
+        <Tooltip content="Tip text" open placeBottom><Button>Trigger</Button></Tooltip>
+      );
+      expect(screen.getByRole('tooltip')).toHaveAttribute('data-placement', 'bottom');
+    });
+
+    it('should draw an arrow when asked', () => {
+      renderTooltip(
+        <Tooltip content="Tip text" open arrow><Button>Trigger</Button></Tooltip>
+      );
+      expect(screen.getByRole('tooltip').querySelector('.vane-popup-arrow')).toBeInTheDocument();
+    });
+
+    it('should style the tooltip, not the trigger', () => {
+      renderTooltip(
+        <Tooltip content="Tip text" open lg className="custom-tip" data-testid="tip"><Button>Trigger</Button></Tooltip>
+      );
+      const tooltip = screen.getByRole('tooltip');
+      const trigger = screen.getByRole('button');
+      expect(tooltip).toHaveClass('custom-tip');
+      expect(tooltip).toHaveAttribute('data-testid', 'tip');
+      expect(trigger).not.toHaveClass('custom-tip');
+      expect(trigger).toHaveAttribute('data-size', 'sm');
+    });
+
+    it('should not leak boolean props to the DOM', () => {
+      renderTooltip(
+        <Tooltip content="Tip text" open lg danger placeBottom arrow><Button>Trigger</Button></Tooltip>
+      );
+      const tooltip = screen.getByRole('tooltip');
+      expect(tooltip).not.toHaveAttribute('lg');
+      expect(tooltip).not.toHaveAttribute('danger');
+      expect(tooltip).not.toHaveAttribute('placeBottom');
+      expect(tooltip).not.toHaveAttribute('arrow');
+    });
+
+    it('should combine direct props with popupProps', () => {
+      renderTooltip(
+        <Tooltip content="Tip text" open lg popupProps={{ danger: true }}><Button>Trigger</Button></Tooltip>
+      );
+      const tooltip = screen.getByRole('tooltip');
+      expect(tooltip).toHaveAttribute('data-size', 'lg');
+      expect(tooltip).toHaveAttribute('data-appearance', 'danger');
+    });
+
+    it('should keep the tooltip role and the describedby link with direct props', () => {
+      renderTooltip(
+        <Tooltip content="Tip text" open lg popupId="tip-id"><Button>Trigger</Button></Tooltip>
+      );
+      const tooltip = screen.getByRole('tooltip');
+      expect(tooltip).toHaveAttribute('id', 'tip-id');
+      expect(screen.getByRole('button')).toHaveAttribute('aria-describedby', 'tip-id');
+    });
+
+    it('should let ThemeProvider defaults restyle every tooltip', () => {
+      render(
+        <ThemeProvider themeDefaults={{ tooltip: { secondary: true } }}>
+          <Tooltip content="Tip text" open><Button>Trigger</Button></Tooltip>
+        </ThemeProvider>
+      );
+      expect(screen.getByRole('tooltip')).toHaveAttribute('data-appearance', 'secondary');
     });
   });
 });

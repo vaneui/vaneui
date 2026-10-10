@@ -283,6 +283,53 @@ function PopupPositioningFixtures() {
 }
 
 /**
+ * Tooltip label scale, width cap and screen-edge placement. Closed, with the edge anchors unmounted,
+ * until the spec clicks "show", so nothing covers other fixtures or joins the stacking counter at load.
+ */
+function TooltipFixtures() {
+  const [show, setShow] = useState(false);
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  return (
+    <section data-testid="tooltip-section">
+      <button data-testid="tooltip-show" onClick={() => setShow(true)}>show tooltips</button>
+      <Row flexWrap style={{ paddingTop: 72 }}>
+        {sizes.map((size) => (
+          <Tooltip key={size} content={`Tooltip ${size}`} open={show} noAnimation {...{ [size]: true }} data-testid={`tooltip-${size}`}>
+            <Button {...{ [size]: true }} data-testid={`tooltip-button-${size}`}>Button {size}</Button>
+          </Tooltip>
+        ))}
+        <Button filled data-testid="tooltip-ink-reference">Ink</Button>
+      </Row>
+      <Row style={{ paddingBottom: 140 }}>
+        <Tooltip
+          content="Archiving moves the conversation out of your inbox. Replies bring it back, and nothing is deleted."
+          open={show}
+          noAnimation
+          placeBottom
+          data-testid="tooltip-long"
+        >
+          <Button data-testid="tooltip-long-anchor">Long hint</Button>
+        </Tooltip>
+      </Row>
+      {show && (
+        <>
+          <Tooltip content="Add to favourites" open noAnimation data-testid="tooltip-edge-left">
+            <IconButton fixed aria-label="favourite" data-testid="tooltip-edge-left-anchor" style={{ left: 4, top: 120 }}>
+              <StarIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip content="Archive this conversation" open noAnimation data-testid="tooltip-edge-right">
+            <IconButton fixed aria-label="archive" data-testid="tooltip-edge-right-anchor" style={{ right: 4, top: 120 }}>
+              <StarIcon />
+            </IconButton>
+          </Tooltip>
+        </>
+      )}
+    </section>
+  );
+}
+
+/**
  * Modal / nested-overlay behavior regressions (BUG-01/02/09). Closed until the
  * spec clicks a trigger, so nothing inerts the page or registers z at load.
  */
@@ -1777,6 +1824,10 @@ export function TestHarness() {
         </section>
 
         <CompositionFixtures />
+
+        {/* ── Tooltip label scale + screen edges (mounted last: opens on demand) ── */}
+
+        <TooltipFixtures />
 
       </div>
     </ThemeProvider>
