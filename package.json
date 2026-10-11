@@ -1,7 +1,7 @@
 {
   "name": "@vaneui/ui",
   "version": "1.4.4",
-  "description": "A simple and lightweight UI component library for React, built with Tailwind CSS.",
+  "description": "React component library with a boolean props API, built on Tailwind CSS v4. Write <Button primary lg filled> instead of variant strings.",
   "author": "",
   "license": "MIT",
   "homepage": "https://vaneui.com/",
@@ -9,14 +9,21 @@
     "type": "git",
     "url": "git+https://github.com/vaneui/vaneui.git"
   },
+  "bugs": {
+    "url": "https://github.com/vaneui/vaneui/issues"
+  },
   "keywords": [
     "react",
+    "react-components",
     "ui",
     "components",
+    "component-library",
+    "ui-library",
+    "design-system",
     "vane",
     "vaneui",
     "tailwind",
-    "headless",
+    "tailwindcss",
     "typescript"
   ],
   "type": "module",
