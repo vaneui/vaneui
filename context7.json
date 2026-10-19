@@ -1,5 +1,7 @@
 {
   "$schema": "https://context7.com/schema/context7.json",
+  "url": "https://context7.com/vaneui/vaneui",
+  "public_key": "pk_dJjFnwYHn9sw4sY7ScCG8",
   "projectTitle": "VaneUI",
   "description": "VaneUI is an open-source React component library for Tailwind CSS v4 with a boolean props API: write <Button primary lg filled> instead of variant=\"filled\" size=\"lg\". 40+ typed components, CSS variable theming through ThemeProvider, dark mode, React 18 and 19, MIT license.",
   "folders": [
