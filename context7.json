@@ -1,0 +1,47 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "VaneUI",
+  "description": "VaneUI is an open-source React component library for Tailwind CSS v4 with a boolean props API: write <Button primary lg filled> instead of variant=\"filled\" size=\"lg\". 40+ typed components, CSS variable theming through ThemeProvider, dark mode, React 18 and 19, MIT license.",
+  "folders": [
+    ".claude/rules",
+    "src"
+  ],
+  "excludeFolders": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "tests",
+    "e2e",
+    "playground",
+    "scripts",
+    ".github",
+    ".claude/agents",
+    ".idea",
+    ".vscode"
+  ],
+  "excludeFiles": [
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "component-patterns.md",
+    "css-conventions.md",
+    "props-and-theme.md",
+    "testing.md",
+    "e2e-testing.md",
+    "playground-examples.md"
+  ],
+  "rules": [
+    "Set visual options with boolean props: <Button danger lg filled>. Never pass variant=\"filled\", size=\"lg\" or appearance=\"danger\" strings.",
+    "Pass at most one value per category: size (xs, sm, md, lg, xl), appearance (primary, accent, secondary, tertiary, success, danger, warning, info), variant (filled, outline, ghost), shape (pill, rounded, sharp).",
+    "Do not pass props that are already defaults. Button is already sm, primary, outline and rounded; Card is md, primary, outline and rounded; Row and Stack already have gap. Write <Button filled>, not <Button primary outline rounded filled>.",
+    "Import exactly one stylesheet: '@vaneui/ui/css' (prebuilt, no Tailwind setup) or '@vaneui/ui/vars' in a Tailwind CSS v4 build, with '@vaneui/ui/tokens' and @source \"../node_modules/@vaneui/ui\". Never import both css and vars.",
+    "Wrap the app once in <ThemeProvider> at the root. themeDefaults, extraClasses and themeOverride only apply inside a provider.",
+    "Set app-wide defaults with ThemeProvider themeDefaults. Components with sub-themes use the nested form: { button: { main: { filled: true } } }. Others use the flat form: { badge: { success: true } }.",
+    "Prefer VaneUI props over Tailwind classes: fontBold not className=\"font-bold\", textCenter not \"text-center\", pill not \"rounded-full\", itemsCenter not \"items-center\".",
+    "Do not override themed colors or sizes with className: use danger, not bg-red-500, and size props, not gap-* or text-sm. Keep className for things no prop covers, such as width or custom positioning.",
+    "Layouts are desktop-first. Use mobileStack or tabletStack on a Row to stack it on smaller screens, and mobileHide, tabletHide or desktopHide to hide content below that width.",
+    "Chip and Badge default to the neutral secondary appearance, and Text, Title, SectionTitle and PageTitle inherit color from their parent. Add an appearance prop only when you want a specific color.",
+    "Use href to render a link: Button, Card, NavLink and Badge render an <a> when given href. Do not wrap a Button in a Link, and use NavLink for sidebar and header navigation.",
+    "For dark mode, set data-theme=\"dark\" on the <html> element. Components need no code changes.",
+    "Import components from '@vaneui/ui'. Per-component entry points such as '@vaneui/ui/button' also exist. Check prop names and defaults on https://vaneui.com/docs or with the @vaneui/mcp server before guessing."
+  ]
+}
