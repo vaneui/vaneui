@@ -14,4 +14,4 @@ import {
 export const OBJECT_FIT = ['objectFit'] as const;
 
 /** Categories for image media components */
-export const IMG_CATEGORIES = [...LAYOUT_CORE, ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...OBJECT_FIT, ...WIDTH, ...HEIGHT, ...COMMON_MODIFIERS] as const;
+export const IMG_CATEGORIES = [...LAYOUT_CORE, 'shrink', ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...OBJECT_FIT, ...WIDTH, ...HEIGHT, ...COMMON_MODIFIERS] as const;

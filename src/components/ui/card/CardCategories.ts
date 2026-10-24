@@ -10,6 +10,9 @@ import {
   HEIGHT,
   CURSOR,
   COMMON_MODIFIERS,
+  STRONG_BORDER,
+  POINTER_EVENTS,
+  WHITESPACE,
 } from "../props/categoryBuilders";
 
 /** Categories for card components with layout support and text alignment.
@@ -20,6 +23,7 @@ export const CARD_CATEGORIES = [
   ...LAYOUT_FULL,
   ...BREAKPOINT,
   ...VISUAL_LAYOUT,
+  ...STRONG_BORDER,
   ...PADDING,
   ...MARGIN,
   ...VARIANT,
@@ -27,5 +31,7 @@ export const CARD_CATEGORIES = [
   ...HEIGHT,
   ...CURSOR,
   ...COMMON_MODIFIERS,
+  ...POINTER_EVENTS,
+  ...WHITESPACE,
   'focusVisible',
 ] as const;

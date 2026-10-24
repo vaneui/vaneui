@@ -472,6 +472,45 @@ function CompositionFixtures() {
   );
 }
 
+/** Layout additions: divided grid, strong border, NavLink indicator and selection, shadow size. */
+function LayoutAdditionsFixtures() {
+  return (
+    <section data-testid="layout-additions-section">
+      <Grid4 divided data-testid="grid-divided">
+        <div data-testid="grid-divided-cell">1</div><div>2</div><div>3</div><div>4</div>
+      </Grid4>
+      <Card data-testid="card-soft-border">Soft</Card>
+      <Card strongBorder data-testid="card-strong-border">Strong</Card>
+      <Card filled border strongBorder data-testid="card-strong-border-filled">Strong filled</Card>
+      <Col noGap>
+        <NavLink href="#rail" indicatorStart data-testid="nav-rail">Rail</NavLink>
+        <NavLink href="#rail-active" indicatorStart active data-testid="nav-rail-active">Rail active</NavLink>
+        <NavLink href="#tab" indicatorBottom data-testid="nav-tab">Tab</NavLink>
+        <NavLink href="#tab-active" indicatorBottom active data-testid="nav-tab-active">Tab active</NavLink>
+      </Col>
+      <div dir="rtl">
+        <NavLink href="#rail-rtl" indicatorStart active data-testid="nav-rail-rtl">Rail RTL</NavLink>
+      </div>
+      <Col noGap role="listbox" aria-label="options">
+        <NavLink role="option" aria-selected="true" data-testid="nav-option-selected">Selected</NavLink>
+        <NavLink role="option" aria-selected="false" data-testid="nav-option">Option</NavLink>
+        <NavLink role="option" aria-selected="true" indicatorStart data-testid="nav-option-rail">Selected rail</NavLink>
+      </Col>
+      <Card xs shadow data-testid="card-xs-shadow">xs</Card>
+      <Card lg shadowXs data-testid="card-lg-shadow-xs">lg, shadowXs</Card>
+      <Card shadowXl data-testid="card-shadow-xl">shadowXl</Card>
+      <Card xl shadow data-testid="card-xl-shadow">xl</Card>
+      <Button lg shadow data-testid="button-lg-shadow">lg</Button>
+      <Button shadowLg data-testid="button-shadow-lg">shadowLg</Button>
+      <Row pointerEventsNone whitespaceNowrap data-testid="row-pe-nowrap">No pointer events, no wrap</Row>
+      <Row noGap style={{ width: 64 }}>
+        <Img noShrink src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" width={48} height={8} data-testid="img-no-shrink"/>
+        <Img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" width={48} height={8} data-testid="img-shrinks"/>
+      </Row>
+    </section>
+  );
+}
+
 export function TestHarness() {
   return (
     <ThemeProvider>
@@ -1618,13 +1657,18 @@ export function TestHarness() {
             <Text data-testid="dm-dark-bare-text">Bare dark text</Text>
           </div>
 
-          {/* Explicit light marker semantics: data-theme="light" re-declares
-              NO tokens — under <html data-theme="dark"> it must pin
-              color-scheme: light (native controls) while the dark token
-              values still inherit from html. A no-op in the default light
-              page, exercised by the html-level dark tests. */}
+          {/* data-theme="light" re-declares the light tokens: under html dark it is a light island */}
           <div data-theme="light" data-testid="dm-light-pin">
             <Text data-testid="dm-light-pin-text">Pinned light region</Text>
+          </div>
+          {/* the same island inside a dark subtree wrapper */}
+          <div data-theme="dark">
+            <div data-theme="light">
+              <Card data-testid="dm-light-island-surface">
+                <Button data-testid="dm-light-island-button">Primary</Button>
+                <Text data-testid="dm-light-island-text">Island text</Text>
+              </Card>
+            </div>
           </div>
         </section>
 
@@ -1822,6 +1866,8 @@ export function TestHarness() {
             <Radio value="b" aria-label="radio group b" data-testid="radiogroup-radio-b" />
           </RadioGroup>
         </section>
+
+        <LayoutAdditionsFixtures />
 
         <CompositionFixtures />
 

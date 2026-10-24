@@ -101,7 +101,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 
 **Portal caveat:** `Modal`, `Popup`, and `Overlay` render into a portal at the end of `<body>`, so they resolve the theme of `<html>`/`<body>`, not an inner wrapper's. `<html data-theme="dark">` is the primary supported mode; subtree theming covers in-flow content.
 
-**Forcing light:** `data-theme="light"` marks an explicit light region and restores `color-scheme: light` for native controls. The light token values are the `:root` defaults, so inside a dark *subtree* the inherited dark tokens still apply — to render a fully light island within `data-theme="dark"`, re-declare the tokens you need under your own `[data-theme="light"]` selector (see below).
+**Forcing light:** `data-theme="light"` makes a subtree light again inside a dark page or wrapper: it re-declares every token the dark block sets at its light value and restores `color-scheme: light`. On `<html>` it changes nothing, so `@theme` customizations stay. Custom tokens you re-declared for dark need their light value under your own `[data-theme="light"]` selector too (see below).
 
 **Custom themes:** consumers can re-declare any `--color-*` token under their own selectors — the same mechanism the dark block uses:
 

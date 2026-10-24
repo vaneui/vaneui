@@ -16,7 +16,8 @@ export class GapClassMapper extends BaseClassMapper implements Record<Responsive
   mobile: string = "max-mobile:gap-(--gap-mobile)";
 
   getClasses(extractedKeys: CategoryProps): string[] {
-    if (extractedKeys?.gap === 'gap') {
+    // a divided grid owns its 1px gap
+    if (extractedKeys?.gap === 'gap' && !extractedKeys?.divided) {
       // Use breakpoint-specific classes if responsive=true
       if (extractedKeys?.responsiveSizing === 'responsiveSizing') {
         return [this.desktop, this.tablet, this.mobile];

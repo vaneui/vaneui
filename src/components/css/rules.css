@@ -584,6 +584,12 @@
         --bg-hover-color: var(--bg-active-color);
     }
 
+    /* A selected option (aria-selected, e.g. in a listbox) takes the hover fill. */
+    :is(.vane-nav-link, .vane-menu-item)[aria-selected="true"] { background-color: var(--bg-hover-color); }
+
+    /* NavLink indicators flip to the right edge in right-to-left text. */
+    [dir="rtl"] .vane-nav-link { --indicator-dir: -1; }
+
     /* MenuLabel: compact non-interactive heading; vertical padding ramps 3/3.5/4/5/6px so sm doesn't collide with md. */
     .vane-menu-label { --lh: var(--lh-base); --py-unit: 1; --aspect-ratio: 2; --br-unit: 0.15; }
     .vane-menu-label[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.75; }

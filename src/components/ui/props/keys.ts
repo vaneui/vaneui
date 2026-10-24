@@ -38,6 +38,9 @@ import {
   INHERIT_BG,
   INHERIT_BORDER,
   CONTROL,
+  DIVIDED,
+  STRONG_BORDER,
+  INDICATOR,
 } from './categoryBuilders';
 
 // Re-export for backward compatibility
@@ -77,6 +80,9 @@ export {
   INHERIT_BG,
   INHERIT_BORDER,
   CONTROL,
+  DIVIDED,
+  STRONG_BORDER,
+  INDICATOR,
 };
 
 // Import component-specific categories from their folders
@@ -218,6 +224,9 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...INHERIT_BG,
   ...INHERIT_BORDER,
   ...CONTROL,
+  ...DIVIDED,
+  ...STRONG_BORDER,
+  ...INDICATOR,
 ] as const;
 
 /**
@@ -283,8 +292,8 @@ export const ComponentKeys = {
   position: ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const,
   /** Inset ring visibility: insetRing (show) or noInsetRing (hide) — emits ring-inset */
   ring: ['insetRing', 'noInsetRing'] as const,
-  /** Drop shadow visibility: shadow (enabled) or noShadow (disabled) */
-  shadow: ['shadow', 'noShadow'] as const,
+  /** Drop shadow: shadow (follows the component size), a fixed size shadowXs-shadowXl, or noShadow */
+  shadow: ['shadow', 'shadowXs', 'shadowSm', 'shadowMd', 'shadowLg', 'shadowXl', 'noShadow'] as const,
   /** Focus-visible outline visibility: focusVisible (show) or noFocusVisible (hide) */
   focusVisible: ['focusVisible', 'noFocusVisible'] as const,
   /** Border radius shape: pill (fully rounded), sharp (no radius), rounded (medium radius) */
@@ -353,6 +362,12 @@ export const ComponentKeys = {
   inheritBg: ['inheritBg', 'noInheritBg'] as const,
   /** Inherit border color from parent via CSS variable cascade */
   inheritBorder: ['inheritBorder', 'noInheritBorder'] as const,
+  /** Grid cells split by 1px lines in the divider color */
+  divided: ['divided'] as const,
+  /** Border in the appearance's strong color (its focus color) instead of its border tint */
+  strongBorder: ['strongBorder'] as const,
+  /** NavLink indicator: a start-edge rail or a bottom bar, in the accent color on the active item */
+  indicator: ['indicatorStart', 'indicatorBottom'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -453,6 +468,15 @@ export type InheritColorKey = typeof ComponentKeys.inheritColor[number];
 export type InheritBgKey = typeof ComponentKeys.inheritBg[number];
 /** Inherit border color toggle keys */
 export type InheritBorderKey = typeof ComponentKeys.inheritBorder[number];
+
+/** Divided grid key */
+export type DividedKey = typeof ComponentKeys.divided[number];
+/** Strong border key */
+export type StrongBorderKey = typeof ComponentKeys.strongBorder[number];
+/** NavLink indicator keys: indicatorStart, indicatorBottom */
+export type IndicatorKey = typeof ComponentKeys.indicator[number];
+/** Drop shadow keys */
+export type ShadowKey = typeof ComponentKeys.shadow[number];
 
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];

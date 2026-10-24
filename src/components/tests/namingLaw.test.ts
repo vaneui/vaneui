@@ -29,6 +29,7 @@ const SEMANTIC_CATEGORIES = new Set<string>([
   'validity', 'constrainWidth', 'clampHeight',
   'transparent', 'disabled', 'readOnly', 'shrink',
   'inheritSize', 'inheritColor', 'inheritBg', 'inheritBorder',
+  'divided', 'strongBorder', 'indicator',
 ]);
 
 const cap = (s: string) => s[0].toUpperCase() + s.slice(1);

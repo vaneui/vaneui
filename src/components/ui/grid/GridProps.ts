@@ -17,6 +17,10 @@ import type {
   VariantProps,
   ShapeProps,
   BorderProps,
+  StrongBorderProps,
+  PointerEventsProps,
+  WhitespaceProps,
+  DividedProps,
   TransparentProps,
   ResponsiveProps,
   PaddingProps,
@@ -58,6 +62,10 @@ export type GridProps = BaseProps &
   ResponsiveProps &
   ShapeProps &
   BorderProps &
+  StrongBorderProps &
+  PointerEventsProps &
+  WhitespaceProps &
+  DividedProps &
   PaddingProps &
   MarginProps &
   WidthProps &

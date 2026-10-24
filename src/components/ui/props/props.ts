@@ -27,7 +27,9 @@ export * from './textAlignProps';
 export * from './paddingProps';
 export * from './marginProps';
 export * from './gapProps';
+export * from './dividedProps';
 export * from './borderProps';
+export * from './strongBorderProps';
 export * from './shadowProps';
 export * from './ringProps';
 export * from './focusVisibleProps';
@@ -77,6 +79,9 @@ export * from './statusProps';
 
 // Orientation
 export * from './orientationProps';
+
+// Indicator
+export * from './indicatorProps';
 
 // Height
 export * from './heightProps';

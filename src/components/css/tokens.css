@@ -217,8 +217,8 @@
    DARK SCHEME — the official dark-mode extension point.
 
    Usage: set data-theme="dark" on <html> (primary mode) or on any in-flow
-   wrapper element to theme a subtree. data-theme="light" restores the light
-   color-scheme for native controls.
+   wrapper element to theme a subtree. data-theme="light" (end of file) makes
+   a subtree light again.
 
    This is a plain rule, NOT an @theme block: Tailwind v4 cannot nest @theme
    under a selector, and a plain rule is valid both as Tailwind input and as
@@ -355,9 +355,88 @@
     --shadow-alpha-soft: 0.25;
 }
 
-/* Explicit light marker — restores the light color-scheme for native
-   controls (form fields, scrollbars). The light token values themselves are
-   the :root defaults emitted from the @theme block above. */
-[data-theme="light"] {
+/* LIGHT SCHEME: dark-block tokens at light values; :not(:root) keeps @theme overrides on <html>. */
+[data-theme="light"]:not(:root),
+:host([data-theme="light"]) {
     color-scheme: light;
+
+    --color-text-primary: oklch(21% 0.034 264.665); /* gray-900 */
+    --color-text-secondary: oklch(44.6% 0.03 256.802); /* gray-600 */
+    --color-text-tertiary: oklch(55.1% 0.027 264.364); /* gray-500 */
+    --color-text-link: oklch(54.6% 0.245 262.881); /* blue-600 */
+    --color-text-accent: oklch(51.4% 0.222 16.935); /* rose-700 */
+    --color-text-success: oklch(50.8% 0.118 165.612); /* emerald-700 */
+    --color-text-danger: oklch(50.5% 0.213 27.518); /* red-700 */
+    --color-text-warning: oklch(55.5% 0.163 48.998); /* amber-700 */
+    --color-text-info: oklch(52% 0.105 223.128); /* cyan-700 */
+
+    --color-text-filled-primary: #fff; /* white */
+    --color-text-filled-tertiary: oklch(92.8% 0.006 264.531); /* gray-200 */
+    --color-text-filled-link: oklch(93.2% 0.032 255.585); /* blue-100 */
+
+    --color-bg-primary: #fff; /* white */
+    --color-bg-secondary: oklch(98.5% 0.002 247.839); /* gray-50 */
+    --color-bg-tertiary: oklch(96.7% 0.003 264.542); /* gray-100 */
+    --color-bg-accent: oklch(96.9% 0.015 12.422); /* rose-50 */
+    --color-bg-success: oklch(97.9% 0.021 166.113); /* emerald-50 */
+    --color-bg-danger: oklch(97.1% 0.013 17.38); /* red-50 */
+    --color-bg-warning: oklch(98.7% 0.022 95.277); /* amber-50 */
+    --color-bg-info: oklch(98.4% 0.019 200.873); /* cyan-50 */
+    --color-bg-form: #fff; /* white */
+
+    --color-bg-hover-primary: oklch(98.5% 0.002 247.839); /* gray-50 */
+    --color-bg-hover-secondary: oklch(96.7% 0.003 264.542); /* gray-100 */
+    --color-bg-hover-tertiary: oklch(92.8% 0.006 264.531); /* gray-200 */
+    --color-bg-hover-accent: oklch(94.1% 0.03 12.58); /* rose-100 */
+    --color-bg-hover-success: oklch(95% 0.052 163.051); /* emerald-100 */
+    --color-bg-hover-danger: oklch(93.6% 0.032 17.717); /* red-100 */
+    --color-bg-hover-warning: oklch(96.2% 0.059 95.617); /* amber-100 */
+    --color-bg-hover-info: oklch(95.6% 0.045 203.388); /* cyan-100 */
+
+    --color-bg-active-primary: oklch(96.7% 0.003 264.542); /* gray-100 */
+    --color-bg-active-secondary: oklch(92.8% 0.006 264.531); /* gray-200 */
+    --color-bg-active-tertiary: oklch(87.2% 0.01 258.338); /* gray-300 */
+    --color-bg-active-accent: oklch(89.2% 0.058 10.001); /* rose-200 */
+    --color-bg-active-success: oklch(90.5% 0.093 164.15); /* emerald-200 */
+    --color-bg-active-danger: oklch(88.5% 0.062 18.334); /* red-200 */
+    --color-bg-active-warning: oklch(92.4% 0.12 95.746); /* amber-200 */
+    --color-bg-active-info: oklch(91.7% 0.08 205.041); /* cyan-200 */
+
+    --color-bg-filled-primary: oklch(27.8% 0.033 256.848); /* gray-800 */
+    --color-bg-filled-accent: oklch(58.6% 0.253 17.585); /* rose-600 */
+    --color-bg-filled-danger: oklch(57.7% 0.245 27.325); /* red-600 */
+
+    --color-bg-filled-hover-primary: oklch(21% 0.034 264.665); /* gray-900 */
+    --color-bg-filled-hover-accent: oklch(51.4% 0.222 16.935); /* rose-700 */
+    --color-bg-filled-hover-danger: oklch(50.5% 0.213 27.518); /* red-700 */
+
+    --color-bg-filled-active-primary: oklch(13% 0.028 261.692); /* gray-950 */
+    --color-bg-filled-active-accent: oklch(45.5% 0.188 13.697); /* rose-800 */
+    --color-bg-filled-active-danger: oklch(44.4% 0.177 26.899); /* red-800 */
+
+    --color-border-primary: oklch(92.8% 0.006 264.531); /* gray-200 */
+    --color-border-secondary: oklch(92.8% 0.006 264.531); /* gray-200 */
+    --color-border-tertiary: oklch(92.8% 0.006 264.531); /* gray-200 */
+    --color-border-form: oklch(87.2% 0.01 258.338); /* gray-300 */
+    --color-border-accent: oklch(81% 0.117 11.638); /* rose-300 */
+    --color-border-success: oklch(84.5% 0.143 164.978); /* emerald-300 */
+    --color-border-danger: oklch(80.8% 0.114 19.571); /* red-300 */
+    --color-border-warning: oklch(87.9% 0.169 91.605); /* amber-300 */
+    --color-border-info: oklch(86.5% 0.127 207.078); /* cyan-300 */
+
+    --color-divider-filled: oklch(1 0 0 / 15%);
+
+    --color-focus-primary: oklch(44.6% 0.03 256.802); /* gray-600 */
+    --color-focus-secondary: oklch(44.6% 0.03 256.802); /* gray-600 */
+    --color-focus-tertiary: oklch(44.6% 0.03 256.802); /* gray-600 */
+    --color-focus-accent: oklch(58.6% 0.253 17.585); /* rose-600 */
+    --color-focus-success: oklch(59.6% 0.145 163.225); /* emerald-600 */
+    --color-focus-danger: oklch(57.7% 0.245 27.325); /* red-600 */
+    --color-focus-warning: oklch(66.6% 0.179 58.318); /* amber-600 */
+    --color-focus-info: oklch(60.9% 0.126 221.723); /* cyan-600 */
+
+    --overlay-bg: oklch(0 0 0 / 50%);
+
+    --shadow-alpha: 0.1;
+    --shadow-alpha-soft: 0.06;
 }
