@@ -91,6 +91,8 @@ function ThemeShowcase() {
   );
 }
 
+const LOGO_SRC = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#2563eb"/></svg>')}`;
+
 const UPLOAD_SIZE_MB = 6;
 
 function UploadCard() {
@@ -210,13 +212,13 @@ function App() {
             </Text>
             <Row itemsStart tabletStack>
               <Col noGap className="w-48">
-                <NavLink href="#install" indicatorStart ghost secondary>Installation</NavLink>
-                <NavLink href="#concepts" indicatorStart ghost active>Core concepts</NavLink>
-                <NavLink href="#theming" indicatorStart ghost secondary>Theming</NavLink>
+                <NavLink href="#install" indicatorStart ghost sharp secondary>Installation</NavLink>
+                <NavLink href="#concepts" indicatorStart ghost sharp active>Core concepts</NavLink>
+                <NavLink href="#theming" indicatorStart ghost sharp secondary>Theming</NavLink>
               </Col>
               <Col noGap role="listbox" aria-label="Search results" className="w-48">
-                <NavLink role="option" aria-selected="true" indicatorStart ghost>Button</NavLink>
-                <NavLink role="option" aria-selected="false" indicatorStart ghost secondary>Badge</NavLink>
+                <NavLink role="option" aria-selected="true" indicatorStart ghost sharp>Button</NavLink>
+                <NavLink role="option" aria-selected="false" indicatorStart ghost sharp secondary>Badge</NavLink>
               </Col>
               <Row noGap borderB>
                 <NavLink href="#docs" indicatorBottom ghost sharp active fontNormal wFit>Docs</NavLink>
@@ -246,7 +248,7 @@ function App() {
               <Code sm>whitespaceNowrap</Code>, and <Code sm>Img noShrink</Code> keeps a logo its size in a tight row.
             </Text>
             <Row whitespaceNowrap overflowHidden className="max-w-80">
-              <Img noShrink src="https://vaneui.com/favicon.ico" alt="" width={24} height={24} />
+              <Img noShrink src={LOGO_SRC} alt="" width={24} height={24} />
               <Text sm>A long label that stays on one line and clips at the edge of its row</Text>
             </Row>
           </Card>
