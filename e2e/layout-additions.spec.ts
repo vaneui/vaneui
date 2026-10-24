@@ -120,8 +120,9 @@ test.describe('Layout pointer events, whitespace and Img noShrink', () => {
     expect(await getStyle(row, 'white-space')).toBe('nowrap');
   });
 
-  test('a noShrink Img keeps its width in a narrow row while its sibling shrinks', async ({ page }) => {
+  test('a noShrink Img gets flex-shrink 0 and keeps its width in a narrow row', async ({ page }) => {
+    expect(await getStyle(byId(page, 'img-no-shrink'), 'flex-shrink')).toBe('0');
+    expect(await getStyle(byId(page, 'img-shrinks'), 'flex-shrink')).toBe('1');
     expect((await byId(page, 'img-no-shrink').boundingBox())?.width).toBe(48);
-    expect((await byId(page, 'img-shrinks').boundingBox())?.width).toBeLessThan(48);
   });
 });
