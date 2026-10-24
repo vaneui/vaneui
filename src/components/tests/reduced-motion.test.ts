@@ -44,6 +44,11 @@ describe('prefers-reduced-motion support', () => {
     expect(mediaBlock).toContain('.vane-spinner');
   });
 
+  it('should stop the progress fill transition', () => {
+    const mediaBlock = extractReducedMotionBlock(cssContent);
+    expect(mediaBlock).toContain('.vane-progress::before');
+  });
+
   it('should use 0.01ms duration (not 0s) to preserve JS event listeners', () => {
     const mediaBlock = extractReducedMotionBlock(cssContent);
     expect(mediaBlock).toContain('animation-duration: 0.01ms');

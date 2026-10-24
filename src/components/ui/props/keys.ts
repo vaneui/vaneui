@@ -102,6 +102,7 @@ import { COL_CATEGORIES } from '../col/ColCategories';
 import { FIELD_CATEGORIES } from '../field/FieldCategories';
 import { ALERT_CATEGORIES } from '../alert/AlertCategories';
 import { SPINNER_CATEGORIES } from '../spinner/SpinnerCategories';
+import { PROGRESS_CATEGORIES } from '../progress/ProgressCategories';
 import { DIVIDER_CATEGORIES } from '../divider/DividerCategories';
 import { IMG_CATEGORIES } from '../img/ImgCategories';
 import { SECTION_CATEGORIES } from '../section/SectionCategories';
@@ -134,6 +135,7 @@ export { COL_CATEGORIES };
 export { FIELD_CATEGORIES };
 export { ALERT_CATEGORIES };
 export { SPINNER_CATEGORIES };
+export { PROGRESS_CATEGORIES };
 export { CONTAINER_CATEGORIES };
 export { DIVIDER_CATEGORIES };
 export { GRID_CATEGORIES };
@@ -538,7 +540,7 @@ export type CategoryProps = {
 };
 
 /** All available component names in the library */
-export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'alert', 'spinner', 'divider', 'container', 'row', 'col', 'stack', 'section',
+export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'alert', 'spinner', 'progress', 'divider', 'container', 'row', 'col', 'stack', 'section',
   'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'tooltip', 'menu', 'navLink', 'table'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
@@ -578,6 +580,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   field: FIELD_CATEGORIES,
   alert: ALERT_CATEGORIES,
   spinner: SPINNER_CATEGORIES,
+  progress: PROGRESS_CATEGORIES,
   link: LINK_CATEGORIES,
   list: LIST_CATEGORIES,
   listItem: LIST_ITEM_CATEGORIES,

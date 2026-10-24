@@ -124,6 +124,7 @@ describe('Theme structure consistency', () => {
       field: { main: {}, label: {}, description: {}, error: {} },
       alert: {},
       spinner: {},
+      progress: {},
       divider: {},
       container: {},
       row: {},

@@ -29,6 +29,7 @@ import {
   Field,
   Alert,
   Spinner,
+  Progress,
   Tooltip,
   Row,
   Code,
@@ -1258,6 +1259,19 @@ export function TestHarness() {
           >
             <Button data-testid="tier2-tooltip-trigger">tooltip trigger</Button>
           </Tooltip>
+        </section>
+
+        {/* ── Progress: bar height per size, fill ratio, fill color per appearance ── */}
+
+        <section data-testid="progress-section">
+          <Progress data-testid="progress-xs" xs value={50} aria-label="Progress xs" />
+          <Progress data-testid="progress-sm" sm value={50} aria-label="Progress sm" />
+          <Progress data-testid="progress-md" md value={50} aria-label="Progress md" />
+          <Progress data-testid="progress-lg" lg value={50} aria-label="Progress lg" />
+          <Progress data-testid="progress-xl" xl value={50} aria-label="Progress xl" />
+          <Progress data-testid="progress-default" value={40} aria-label="Progress default" />
+          <Progress data-testid="progress-max" value={3} max={8} aria-label="Progress steps" />
+          <Progress data-testid="progress-accent" accent value={60} aria-label="Progress accent" />
         </section>
 
         {/* ── Field self-rendering: data-* routes to the control, so testid goes on a wrapper div ── */}

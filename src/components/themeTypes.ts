@@ -13,6 +13,7 @@ import type { CardTheme } from "./ui/card/CardTheme";
 import type { FieldTheme } from "./ui/field/FieldTheme";
 import type { AlertTheme } from "./ui/alert/AlertTheme";
 import type { SpinnerTheme } from "./ui/spinner/SpinnerTheme";
+import type { ProgressTheme } from "./ui/progress/ProgressTheme";
 import type { CardHeaderTheme } from './ui/card/CardHeaderTheme';
 import type { CardBodyTheme } from './ui/card/CardBodyTheme';
 import type { CardFooterTheme } from './ui/card/CardFooterTheme';
@@ -70,6 +71,7 @@ import type { CardProps } from "./ui/card/CardProps";
 import type { FieldProps } from "./ui/field/FieldProps";
 import type { AlertProps } from "./ui/alert/AlertProps";
 import type { SpinnerProps } from "./ui/spinner/SpinnerProps";
+import type { ProgressProps } from "./ui/progress/ProgressProps";
 import type { CardHeaderProps } from "./ui/card/CardHeaderProps";
 import type { CardBodyProps } from "./ui/card/CardBodyProps";
 import type { CardFooterProps } from "./ui/card/CardFooterProps";
@@ -202,6 +204,7 @@ export interface ThemeProps {
   tooltip: ComponentTheme<PopupProps, PopupTheme>;
   alert: ComponentTheme<AlertProps, AlertTheme>;
   spinner: ComponentTheme<SpinnerProps, SpinnerTheme>;
+  progress: ComponentTheme<ProgressProps, ProgressTheme>;
   menu: {
     item: ComponentTheme<MenuItemProps, MenuItemTheme>;
     popup: ComponentTheme<PopupProps, PopupTheme>;

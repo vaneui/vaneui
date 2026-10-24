@@ -11,7 +11,7 @@ const EXPECTED_RUNTIME_EXPORTS = [
   'Divider', 'Grid2', 'Grid3', 'Grid4', 'Grid5', 'Grid6', 'Icon', 'IconButton', 'Img', 'Input',
   'Field', 'Kbd', 'Label', 'Link', 'List', 'ListItem', 'Mark', 'Menu', 'MenuItem', 'MenuLabel', 'Modal',
   'ModalBody', 'ModalCloseButton', 'ModalFooter', 'ModalHeader', 'NavLink', 'Overlay',
-  'PageTitle', 'Popup', 'PopupTrigger', 'Radio', 'RadioGroup', 'Row', 'Section', 'SectionTitle',
+  'PageTitle', 'Popup', 'PopupTrigger', 'Progress', 'Radio', 'RadioGroup', 'Row', 'Section', 'SectionTitle',
   'Select', 'Spinner', 'Stack', 'Switch',
   'Table', 'Tbody', 'Td', 'Text', 'Textarea', 'Tfoot', 'Th', 'Thead',
   'ThemeProvider', 'Title', 'Tooltip', 'Tr', 'defaultTheme', 'themeDefaults', 'useTheme',

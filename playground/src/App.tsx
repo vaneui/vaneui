@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -18,10 +19,10 @@ import {
   Field,
   Alert,
   Spinner,
+  Progress,
   Tooltip,
   Button,
   IconButton,
-  Icon,
   Badge,
   Chip,
   Input,
@@ -101,6 +102,26 @@ function ThemeShowcase() {
   );
 }
 
+const UPLOAD_SIZE_MB = 6;
+
+function UploadCard() {
+  const [sent, setSent] = useState(2);
+  const done = sent >= UPLOAD_SIZE_MB;
+  return (
+    <Card sm>
+      <Row justifyBetween>
+        <Text sm fontSemibold>quarterly-report.pdf</Text>
+        <Text sm secondary>{sent} of {UPLOAD_SIZE_MB} MB</Text>
+      </Row>
+      <Progress sm success={done} value={sent} max={UPLOAD_SIZE_MB} aria-label="Uploading quarterly-report.pdf" />
+      <Row justifyBetween>
+        <Text xs secondary>{done ? 'Upload complete' : 'Uploading to the shared drive'}</Text>
+        <Button xs secondary onClick={() => setSent(done ? 0 : sent + 1)}>{done ? 'Restart' : 'Send 1 MB'}</Button>
+      </Row>
+    </Card>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -109,78 +130,53 @@ function App() {
 
           <PageTitle>VaneUI Playground</PageTitle>
           <Text secondary>
-            Icon container mode, the <Code sm>data-theme="dark"</Code> color-scheme comparison,
-            and the label-sized <Code sm>Tooltip</Code>.
+            The new <Code sm>Progress</Code> bar, the <Code sm>data-theme="dark"</Code> color-scheme
+            comparison, and the label-sized <Code sm>Tooltip</Code>.
           </Text>
 
-          {/* ═══ 1. ICON — CONTAINER MODE ════════════════════════════════════ */}
+          {/* ═══ 1. PROGRESS ═════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>1. Icon — Container Mode</SectionTitle>
+          <SectionTitle>1. Progress</SectionTitle>
 
           <Card>
-            <Title>Badge recipes</Title>
+            <Title>Basic usage</Title>
             <Text sm secondary>
-              <Code sm>padding</Code> + <Code sm>filled</Code>/<Code sm>border</Code>/
-              <Code sm>ring</Code> + shape + appearance produce a self-contained
-              icon badge.
+              <Code sm>value</Code> fills the bar against <Code sm>max</Code> (100 by default). It
+              renders one <Code sm>role="progressbar"</Code> element, so name it with{' '}
+              <Code sm>aria-label</Code>.
             </Text>
-            <Row flexWrap>
-              <Col>
-                <Text sm fontBold>filled rounded</Text>
-                <Icon padding primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>filled pill</Text>
-                <Icon padding pill success filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>filled sharp</Text>
-                <Icon padding sharp danger filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>border pill</Text>
-                <Icon padding pill warning border><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>ring pill</Text>
-                <Icon padding pill primary insetRing><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>ring + filled</Text>
-                <Icon padding pill primary filled insetRing><TestSvg /></Icon>
-              </Col>
-            </Row>
+            <Progress value={40} aria-label="Default progress" />
+            <Progress value={3} max={8} aria-label="Step 3 of 8" />
           </Card>
 
           <Card>
-            <Title>Container size scaling</Title>
+            <Title>Sizes</Title>
+            <Text sm secondary>The bar height follows the size ramp, from a 2px hairline at xs to 16px at xl.</Text>
+            {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+              <Row key={size}>
+                <Text sm secondary className="w-8">{size}</Text>
+                <Progress {...{ [size]: true }} value={60} flex1 aria-label={`Progress ${size}`} />
+              </Row>
+            ))}
+          </Card>
+
+          <Card>
+            <Title>Appearances and shapes</Title>
             <Text sm secondary>
-              Same <Code sm>padding pill primary filled</Code> recipe at every
-              size — padding and SVG scale together through the CSS variable
-              pipeline.
+              The fill takes the appearance color and the track stays neutral. <Code sm>pill</Code> is
+              the default; <Code sm>rounded</Code> and <Code sm>sharp</Code> square the ends off.
             </Text>
-            <Row flexWrap itemsEnd>
-              <Col>
-                <Text sm fontBold>xs</Text>
-                <Icon xs padding pill primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>sm</Text>
-                <Icon sm padding pill primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>md</Text>
-                <Icon padding pill primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>lg</Text>
-                <Icon lg padding pill primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>xl</Text>
-                <Icon xl padding pill primary filled><TestSvg /></Icon>
-              </Col>
-            </Row>
+            {(['primary', 'accent', 'success', 'danger', 'warning', 'info'] as const).map(a => (
+              <Progress key={a} {...{ [a]: true }} value={70} aria-label={`${a} progress`} />
+            ))}
+            <Progress lg rounded value={45} aria-label="Rounded progress" />
+            <Progress lg sharp value={45} aria-label="Sharp progress" />
+          </Card>
+
+          <Card>
+            <Title>Upload card</Title>
+            <Text sm secondary>A file upload in a small card. Each click sends another megabyte, and the fill eases to the new width.</Text>
+            <UploadCard />
           </Card>
 
           {/* ═══ 2. DARK MODE ════════════════════════════════════════════════ */}
