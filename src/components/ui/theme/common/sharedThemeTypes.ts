@@ -21,6 +21,8 @@ import type { ShrinkClassMapper } from "../layout/shrinkClassMapper";
 import type { SimpleConsumerClassMapper } from "../appearance/simpleConsumerClassMapper";
 import type { ShadowAppearanceClassMapper } from "../appearance/shadowAppearanceClassMapper";
 import type { DisabledClassMapper } from "../appearance/disabledClassMapper";
+import type { StrongBorderClassMapper } from "../appearance/strongBorderClassMapper";
+import type { PointerEventsClassMapper } from "../layout/pointerEventsClassMapper";
 import type { TextAlignClassMapper } from "../typography/textAlignClassMapper";
 
 export interface InteractiveSizeClassMapper {
@@ -76,6 +78,7 @@ export interface LayoutAppearanceClassMappers {
   background: SimpleConsumerClassMapper;
   text: SimpleConsumerClassMapper;
   border: SimpleConsumerClassMapper;
+  strongBorder: StrongBorderClassMapper;
   ring: SimpleConsumerClassMapper;
   shadow: ShadowAppearanceClassMapper;
 }
@@ -88,6 +91,8 @@ export interface LayoutLayoutClassMappers extends DefaultSizedLayoutClassMappers
   radius: RadiusClassMapper;
   flex: FlexClassMapper;
   shrink: ShrinkClassMapper;
+  pointerEvents: PointerEventsClassMapper;
+  whitespace: WhitespaceClassMapper;
 }
 
 export interface BasicFlexLayoutComponentTheme extends BaseComponentTheme {

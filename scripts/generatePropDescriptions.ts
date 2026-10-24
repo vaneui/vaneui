@@ -86,6 +86,9 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'InheritBgProps': 'inheritBg',
   'InheritBorderProps': 'inheritBorder',
   'ControlProps': 'control',
+  'DividedProps': 'divided',
+  'StrongBorderProps': 'strongBorder',
+  'IndicatorProps': 'indicator',
 };
 
 // Convert category key to display name

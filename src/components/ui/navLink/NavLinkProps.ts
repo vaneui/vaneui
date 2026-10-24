@@ -16,6 +16,7 @@ import type {
   FlexDirectionProps,
   AppearanceProps,
   BorderProps,
+  IndicatorProps,
   ShadowProps,
   RingProps,
   FocusVisibleProps,
@@ -56,6 +57,7 @@ export type NavLinkProps = BaseProps &
   FlexDirectionProps &
   AppearanceProps &
   BorderProps &
+  IndicatorProps &
   ShadowProps &
   RingProps &
   FocusVisibleProps &

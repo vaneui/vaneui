@@ -138,7 +138,7 @@ Generic locations such as `~/.claude/` are fine; the rule covers real paths from
 
 | Category | Components | `data-vane-type` |
 |----------|-----------|-----------------|
-| **Interactive** | Button, IconButton, Badge, Chip, Code, Kbd, Mark, Icon, Spinner | `ui` |
+| **Interactive** | Button, IconButton, Badge, Chip, Code, Kbd, Mark, Icon, Spinner, Progress | `ui` |
 | **Form** | Input, Textarea, Select, Checkbox, Radio (+ RadioGroup), Switch, Label, Field | `ui` (Field is `layout`) |
 | **Overlay / Floating** | Overlay, Modal (+ Header/Body/Footer), Popup, Tooltip | `layout` |
 | **Menu / Nav** | Menu (+ Item/Label), NavLink, ModalCloseButton, PopupTrigger | `ui` |
@@ -160,7 +160,9 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 | **fontWeight** | `fontThin` through `fontBlack` |
 | **textAlign** | `textLeft`, `textCenter`, `textRight`, `textJustify` |
 
-Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShadow`, `insetRing`/`noInsetRing`, `border`/`noBorder`, `underline`, `uppercase`, `italic`, `fontBold`, `fontSemibold`, `fontMono`, `transparent`, `responsiveSizing`, `sticky`, `flexWrap`, `itemsCenter`, `justifyBetween`, etc.
+Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShadow` (`shadowXs`–`shadowXl` fix the size), `insetRing`/`noInsetRing`, `border`/`noBorder`, `underline`, `uppercase`, `italic`, `fontBold`, `fontSemibold`, `fontMono`, `transparent`, `responsiveSizing`, `sticky`, `flexWrap`, `itemsCenter`, `justifyBetween`, etc.
+
+Layout extras: `divided` (Grid2–6: 1px lines instead of the gap), `strongBorder` (border in the appearance's strong color), `pointerEvents*` and `whitespace*` on layout components. NavLink takes `indicatorStart` (rail, accent mark when active or `aria-selected`) or `indicatorBottom` (tab bar).
 
 **Breakpoints** (layout components): `mobileStack`, `tabletStack`, `desktopStack`
 **Hide**: `mobileHide`, `tabletHide`, `desktopHide`
@@ -179,6 +181,7 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 | **Badge** | md, secondary (neutral default; color via success/danger/…), outline, pill, fontSemibold |
 | **Chip** | md, secondary (not primary!), outline, rounded, fontSans |
 | **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noInsetRing, wFull, textLeft, focusVisible |
+| **Progress** | md, primary, outline, pill, wFull, noMargin (`value` required, `max` 100) |
 | **Link** | md, underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (link color by default; no appearance or variant default) |
 | **Input** | md, primary, outline, rounded, wFull, insetRing, focusVisible |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit |

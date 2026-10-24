@@ -584,6 +584,12 @@
         --bg-hover-color: var(--bg-active-color);
     }
 
+    /* A selected option (aria-selected, e.g. in a listbox) takes the hover fill. */
+    :is(.vane-nav-link, .vane-menu-item)[aria-selected="true"] { background-color: var(--bg-hover-color); }
+
+    /* NavLink indicators flip to the right edge in right-to-left text. */
+    [dir="rtl"] .vane-nav-link { --indicator-dir: -1; }
+
     /* MenuLabel: compact non-interactive heading; vertical padding ramps 3/3.5/4/5/6px so sm doesn't collide with md. */
     .vane-menu-label { --lh: var(--lh-base); --py-unit: 1; --aspect-ratio: 2; --br-unit: 0.15; }
     .vane-menu-label[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.75; }
@@ -777,6 +783,28 @@
         border-right-color: transparent;
         border-radius: 50%;
         animation: vane-spin 0.6s linear infinite;
+    }
+
+    /* Progress: one element, a neutral track whose ::before is the fill; --progress is the 0..1 ratio. */
+    .vane-progress {
+        height: var(--size);
+        overflow: hidden;
+        background-color: var(--color-border-primary);
+    }
+    /* `rounded` radius scales with the bar height; beats the ui-type --min-h formula. */
+    .vane-progress[data-size] { --br: calc(var(--size) * 0.25); }
+    .vane-progress[data-size="xs"] { --size-unit: 0.5; }
+    .vane-progress[data-size="sm"] { --size-unit: 1; }
+    .vane-progress[data-size="md"] { --size-unit: 2; }
+    .vane-progress[data-size="lg"] { --size-unit: 3; }
+    .vane-progress[data-size="xl"] { --size-unit: 4; }
+    .vane-progress::before {
+        content: "";
+        display: block;
+        height: 100%;
+        width: calc(var(--progress, 0) * 100%);
+        background-color: var(--focus-color);
+        transition: width 0.2s ease;
     }
 
     /* read-only: only the bits with no class equivalent — opacity/cursor are in ReadOnlyClassMapper */
@@ -1027,6 +1055,10 @@
         .vane-spinner {
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
+        }
+
+        .vane-progress::before {
+            transition: none;
         }
 
         [data-vane-type] {

@@ -101,7 +101,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 
 **Portal caveat:** `Modal`, `Popup`, and `Overlay` render into a portal at the end of `<body>`, so they resolve the theme of `<html>`/`<body>`, not an inner wrapper's. `<html data-theme="dark">` is the primary supported mode; subtree theming covers in-flow content.
 
-**Forcing light:** `data-theme="light"` marks an explicit light region and restores `color-scheme: light` for native controls. The light token values are the `:root` defaults, so inside a dark *subtree* the inherited dark tokens still apply — to render a fully light island within `data-theme="dark"`, re-declare the tokens you need under your own `[data-theme="light"]` selector (see below).
+**Forcing light:** `data-theme="light"` makes a subtree light again inside a dark page or wrapper: it re-declares every token the dark block sets at its light value and restores `color-scheme: light`. On `<html>` it changes nothing, so `@theme` customizations stay. Custom tokens you re-declared for dark need their light value under your own `[data-theme="light"]` selector too (see below).
 
 **Custom themes:** consumers can re-declare any `--color-*` token under their own selectors — the same mechanism the dark block uses:
 
@@ -125,7 +125,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Vertical layout (no padding) | `Col` | Flexbox column, no padding |
 | Page-width wrapper | `Container` | Centered, max-width, no padding |
 | Semantic page section | `Section` | Flex column with padding, responsive |
-| Equal-column grid | `Grid2`-`Grid6` | CSS Grid with N columns |
+| Equal-column grid | `Grid2`-`Grid6` | CSS Grid with N columns. `divided` draws 1px lines between cells instead of the gap |
 | Page heading | `PageTitle` | Renders `<h1>`, responsive |
 | Section heading | `SectionTitle` | Renders `<h2>`, responsive |
 | Subsection heading | `Title` | Renders `<h3>`, responsive |
@@ -142,6 +142,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Form field (label + help + error) | `Field` | Owns the id, points the label at the control, links help/error with `aria-describedby`. Can render its own control via `type` or one of `textInput`/`textarea`/`select`/`checkbox`/`switch`/`radiogroup`, or wrap one passed as a child. An `error` also marks the control invalid |
 | Inline status message | `Alert` | Live region: `role="alert"`, or `role="status"` with `polite` |
 | Busy indicator | `Spinner` | `role="status"`; give it an `aria-label` |
+| Determinate progress | `Progress` | `role="progressbar"` with `value` (and `max`, 100 by default); give it an `aria-label`. The fill takes the appearance color |
 | Hover/focus hint | `Tooltip` + trigger | Ink label that describes its trigger (no `aria-haspopup`/`aria-expanded`). Takes size, appearance and `place*` props directly: `<Tooltip lg placeBottom>` |
 | Input label | `Label` | Flex **column** (label above field) with gap, sm size, `inheritAppearance`. Use `row` for inline controls (e.g. Checkbox) |
 | Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `listDecimal` |
@@ -349,6 +350,19 @@ NavLink is `wFull` so sidebar items fill the column. In a horizontal nav or tab 
 <Row>
   <NavLink href="/overview" active wFit>Overview</NavLink>
   <NavLink href="/reviews" wFit>Reviews</NavLink>
+</Row>
+```
+
+To mark the current item with a line instead of only a tint, add `indicatorStart` (a rail on the start edge that turns into a 2px accent mark when `active` or `aria-selected="true"`) or `indicatorBottom` (an accent bar under the active tab). Both are inset shadows, so the text does not move:
+
+```tsx
+<Col noGap>
+  <NavLink href="/install" indicatorStart ghost secondary>Installation</NavLink>
+  <NavLink href="/concepts" indicatorStart ghost active>Core concepts</NavLink>
+</Col>
+<Row noGap borderB>
+  <NavLink href="/docs" indicatorBottom ghost sharp active wFit>Docs</NavLink>
+  <NavLink href="/playground" indicatorBottom ghost sharp secondary wFit>Playground</NavLink>
 </Row>
 ```
 

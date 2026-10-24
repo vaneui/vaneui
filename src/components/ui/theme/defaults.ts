@@ -26,6 +26,7 @@ import { labelDefaults } from '../label/labelDefaults';
 import { fieldDefaults } from '../field/fieldDefaults';
 import { alertDefaults } from '../alert/alertDefaults';
 import { spinnerDefaults } from '../spinner/spinnerDefaults';
+import { progressDefaults } from '../progress/progressDefaults';
 import { tooltipDefaults } from '../tooltip/tooltipDefaults';
 import { fieldLabelDefaults } from '../field/fieldLabelDefaults';
 import { fieldControlRowDefaults } from '../field/fieldControlRowDefaults';
@@ -166,6 +167,7 @@ export const themeDefaults: ThemeDefaults = {
   tooltip: tooltipDefaults,
   alert: alertDefaults,
   spinner: spinnerDefaults,
+  progress: progressDefaults,
   menu: {
     item: menuItemDefaults,
     popup: menuPopupDefaults,

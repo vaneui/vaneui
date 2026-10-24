@@ -243,7 +243,7 @@ test.describe('html-level dark mode (primary documented mode)', () => {
     expect(await rendersAs(overlay, 'background-color', DARK_OVERLAY_BG)).toBe(true);
   });
 
-  test('data-theme="light" under html-dark pins color-scheme light but still inherits dark tokens', async ({ page }) => {
+  test('data-theme="light" under html-dark is a light island: scheme and tokens go back to light', async ({ page }) => {
     const pin = page.locator('[data-testid="dm-light-pin"]');
     const pinText = page.locator('[data-testid="dm-light-pin-text"]');
     const darkBareText = page.locator('[data-testid="dm-dark-bare-text"]');
@@ -252,12 +252,29 @@ test.describe('html-level dark mode (primary documented mode)', () => {
 
     await enableHtmlDark(page);
 
-    // explicit light marker: native-control scheme is pinned back to light...
     expect(await getStyle(pin, 'color-scheme')).toBe('light');
-    // ...but [data-theme="light"] re-declares NO tokens (documented), so the
-    // dark values inherited from <html> still apply — same computed color as
-    // a bare Text inside an actual dark wrapper
-    expect(await getColor(pinText)).not.toBe(lightColor);
-    expect(await getColor(pinText)).toBe(await getColor(darkBareText));
+    expect(await getColor(pinText)).toBe(lightColor);
+    expect(await getColor(pinText)).not.toBe(await getColor(darkBareText));
+  });
+
+  test('data-theme="light" inside a dark wrapper paints the light surface', async ({ page }) => {
+    const island = page.locator('[data-testid="dm-light-island-surface"]');
+    expect(await getBg(island)).toBe(await getBg(page.locator('[data-testid="dm-light-surface"]')));
+    expect(await getBg(island)).not.toBe(await getBg(page.locator('[data-testid="dm-dark-surface"]')));
+    expect(await getBg(page.locator('[data-testid="dm-light-island-button"]')))
+      .toBe(await getBg(page.locator('[data-testid="dm-light-button-primary"]')));
+    expect(await getColor(page.locator('[data-testid="dm-light-island-text"]')))
+      .toBe(await getColor(page.locator('[data-testid="dm-light-text"]')));
+  });
+
+  test('data-theme="light" on html keeps the root tokens', async ({ page }) => {
+    const text = page.locator('[data-testid="dm-light-text"]');
+    const before = await getColor(text);
+    await page.evaluate(() => {
+      document.documentElement.style.setProperty('--color-text-primary', 'rgb(1, 2, 3)');
+      document.documentElement.dataset.theme = 'light';
+    });
+    expect(await getColor(text)).not.toBe(before);
+    expect(await getColor(text)).toBe('rgb(1, 2, 3)');
   });
 });

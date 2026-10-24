@@ -47,6 +47,8 @@ import type { MenuItemProps, MenuLabelProps } from '../ui/menu';
 import type { NavLinkProps, NavLinkLabelProps } from '../ui/navLink';
 import type { TypographyProps, LinkProps, ListProps, ListItemProps } from '../ui/typography';
 import type { FieldProps } from '../ui/field';
+import type { ProgressProps } from '../ui/progress';
+import { PROGRESS_CATEGORIES } from '../ui/progress/ProgressCategories';
 import { FIELD_CATEGORIES } from '../ui/field/FieldCategories';
 import { BUTTON_SPINNER_CATEGORIES } from '../ui/button/ButtonSpinnerCategories';
 import { INPUT_CATEGORIES } from '../ui/input/InputCategories';
@@ -137,6 +139,7 @@ const assertions: true[] = [
   true as AssertCategoriesCovered<LinkProps, typeof LINK_CATEGORIES>,
   true as AssertCategoriesCovered<ListProps, typeof LIST_CATEGORIES>,
   true as AssertCategoriesCovered<ListItemProps, typeof LIST_ITEM_CATEGORIES>,
+  true as AssertCategoriesCovered<ProgressProps, typeof PROGRESS_CATEGORIES>,
   // sub-components — every *Categories.ts must have its pair here
   true as AssertCategoriesCovered<ButtonSpinnerProps, typeof BUTTON_SPINNER_CATEGORIES>,
   true as AssertCategoriesCovered<CardHeaderProps, typeof CARD_HEADER_CATEGORIES>,

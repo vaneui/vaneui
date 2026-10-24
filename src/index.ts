@@ -12,6 +12,7 @@ export { Label, type LabelProps } from "./components/ui/label";
 export { Field, type FieldProps, type FieldControlType } from "./components/ui/field";
 export { Alert, type AlertProps } from "./components/ui/alert";
 export { Spinner, type SpinnerProps } from "./components/ui/spinner";
+export { Progress, type ProgressProps } from "./components/ui/progress";
 export { Tooltip, type TooltipProps } from "./components/ui/tooltip";
 export { Img, type ImgProps } from "./components/ui/img";
 export { Input, type InputProps } from "./components/ui/input";

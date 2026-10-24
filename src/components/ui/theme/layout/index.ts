@@ -27,3 +27,5 @@ export { WidthClassMapper } from './widthClassMapper';
 export { WrapClassMapper } from './wrapClassMapper';
 export { FlexClassMapper } from './flexClassMapper';
 export { ShrinkClassMapper } from './shrinkClassMapper';
+export { DividedClassMapper } from './dividedClassMapper';
+export { IndicatorClassMapper } from './indicatorClassMapper';

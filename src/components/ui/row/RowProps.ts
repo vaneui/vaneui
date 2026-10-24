@@ -16,6 +16,9 @@ import type {
   BreakpointProps,
   AppearanceProps,
   BorderProps,
+  StrongBorderProps,
+  PointerEventsProps,
+  WhitespaceProps,
   ShadowProps,
   RingProps,
   FocusVisibleProps,
@@ -47,6 +50,9 @@ export type RowProps = BaseProps &
   BreakpointProps &
   AppearanceProps &
   BorderProps &
+  StrongBorderProps &
+  PointerEventsProps &
+  WhitespaceProps &
   ShadowProps &
   RingProps &
   FocusVisibleProps &

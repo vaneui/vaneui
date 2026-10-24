@@ -27,6 +27,7 @@ import { defaultCardTheme, defaultCardHeaderTheme, defaultCardBodyTheme, default
 import { defaultFieldTheme, defaultFieldLabelTheme, defaultFieldControlRowTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme } from "../ui/field";
 import { defaultAlertTheme, ALERT_CATEGORIES } from "../ui/alert";
 import { defaultSpinnerTheme, SPINNER_CATEGORIES } from "../ui/spinner";
+import { defaultProgressTheme, PROGRESS_CATEGORIES } from "../ui/progress";
 import { defaultTooltipTheme } from "../ui/tooltip";
 import { defaultDividerTheme } from "../ui/divider/defaultDividerTheme";
 import { defaultMenuDividerTheme } from "../ui/divider/defaultMenuDividerTheme";
@@ -717,6 +718,15 @@ describe("Component theme coverage tests", () => {
     };
     createThemeTests(spinnerConfig);
 
+    const progressConfig: ComponentTestConfig = {
+      propsType: "ProgressProps",
+      categories: PROGRESS_CATEGORIES,
+      themes: [
+        { name: "defaultProgressTheme", theme: defaultProgressTheme }
+      ]
+    };
+    createThemeTests(progressConfig);
+
     const cardConfig: ComponentTestConfig = {
       propsType: "CardProps",
       categories: CARD_CATEGORIES,
@@ -1114,7 +1124,7 @@ describe("Component theme coverage tests", () => {
       // withDefaults variants
       defaultMenuPopupTheme, defaultMenuDividerTheme,
       defaultFieldTheme, defaultFieldLabelTheme, defaultFieldControlRowTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme,
-      defaultAlertTheme, defaultSpinnerTheme, defaultTooltipTheme,
+      defaultAlertTheme, defaultSpinnerTheme, defaultProgressTheme, defaultTooltipTheme,
     ]);
 
     it("should cover every ComponentTheme instance in defaultTheme", () => {
