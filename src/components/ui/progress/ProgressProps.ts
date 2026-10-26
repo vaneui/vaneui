@@ -3,8 +3,9 @@ import type {
   BaseProps,
   SizeProps,
   AppearanceProps,
-  VariantProps,
   ShapeProps,
+  TransitionProps,
+  OverflowProps,
   WidthProps,
   FlexProps,
   HideProps,
@@ -15,8 +16,9 @@ import type {
 export type ProgressProps = Omit<BaseProps, 'children'> &
   SizeProps &
   AppearanceProps &
-  VariantProps &
   ShapeProps &
+  TransitionProps &
+  OverflowProps &
   WidthProps &
   FlexProps &
   HideProps &

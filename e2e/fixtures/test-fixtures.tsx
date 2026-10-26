@@ -1272,6 +1272,9 @@ export function TestHarness() {
           <Progress data-testid="progress-default" value={40} aria-label="Progress default" />
           <Progress data-testid="progress-max" value={3} max={8} aria-label="Progress steps" />
           <Progress data-testid="progress-accent" accent value={60} aria-label="Progress accent" />
+          <div dir="rtl">
+            <Progress data-testid="progress-rtl" value={40} aria-label="Progress RTL" />
+          </div>
         </section>
 
         {/* ── Field self-rendering: data-* routes to the control, so testid goes on a wrapper div ── */}

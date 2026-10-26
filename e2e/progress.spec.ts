@@ -1,11 +1,14 @@
 import { test, expect, getStyle, getBg, type Locator } from './base';
 
-// the fill is the root's ::before, so its geometry and color are read off the pseudo-element
-async function getFillStyle(locator: Locator, property: string): Promise<string> {
-  return locator.evaluate(
-    (el, prop) => getComputedStyle(el, '::before').getPropertyValue(prop),
-    property,
-  );
+const fillOf = (bar: Locator) => bar.locator('.vane-progress-fill');
+
+/** The visible share of the track the fill covers, measured from the track's start edge */
+async function filledShare(bar: Locator, rtl = false): Promise<number> {
+  const track = await bar.boundingBox();
+  const fill = await fillOf(bar).boundingBox();
+  if (!track || !fill) throw new Error('progress not rendered');
+  const covered = rtl ? track.x + track.width - fill.x : fill.x + fill.width - track.x;
+  return covered / track.width;
 }
 
 test.beforeEach(async ({ page, testPage }) => {
@@ -14,13 +17,13 @@ test.beforeEach(async ({ page, testPage }) => {
 });
 
 test.describe('Progress', () => {
-  test('renders a single progressbar div that clips its fill', async ({ page }) => {
+  test('renders a progressbar track that clips one decorative fill', async ({ page }) => {
     const bar = page.locator('[data-testid="progress-default"]');
     expect(await bar.evaluate(el => el.tagName.toLowerCase())).toBe('div');
     await expect(bar).toHaveAttribute('role', 'progressbar');
-    expect(await bar.evaluate(el => el.childElementCount)).toBe(0);
+    expect(await bar.evaluate(el => el.childElementCount)).toBe(1);
+    await expect(fillOf(bar)).toHaveAttribute('aria-hidden', 'true');
     expect(await getStyle(bar, 'overflow')).toBe('hidden');
-    expect(await getFillStyle(bar, 'content')).toBe('""');
   });
 
   test('sizes xs→xl produce strictly increasing bar heights', async ({ page }) => {
@@ -34,22 +37,23 @@ test.describe('Progress', () => {
     }
   });
 
-  test('the fill spans the value ratio of the track', async ({ page }) => {
+  test('the fill covers the value ratio of the track, as tall as the track', async ({ page }) => {
     for (const [id, ratio] of [['progress-default', 0.4], ['progress-max', 3 / 8]] as const) {
       const bar = page.locator(`[data-testid="${id}"]`);
-      const track = parseFloat(await getStyle(bar, 'width'));
-      const fill = parseFloat(await getFillStyle(bar, 'width'));
-      expect(track).toBeGreaterThan(0);
-      expect(fill).toBeCloseTo(track * ratio, 0);
-      expect(parseFloat(await getFillStyle(bar, 'height'))).toBeCloseTo(parseFloat(await getStyle(bar, 'height')), 1);
+      expect(await filledShare(bar)).toBeCloseTo(ratio, 2);
+      expect(parseFloat(await getStyle(fillOf(bar), 'height'))).toBeCloseTo(parseFloat(await getStyle(bar, 'height')), 1);
     }
+  });
+
+  test('in right-to-left text the fill grows from the right edge', async ({ page }) => {
+    expect(await filledShare(page.locator('[data-testid="progress-rtl"]'), true)).toBeCloseTo(0.4, 2);
   });
 
   test('the fill takes the appearance color while the track stays neutral', async ({ page }) => {
     const primary = page.locator('[data-testid="progress-default"]');
     const accent = page.locator('[data-testid="progress-accent"]');
-    expect(await getFillStyle(primary, 'background-color')).not.toBe(await getFillStyle(accent, 'background-color'));
+    expect(await getBg(fillOf(primary))).not.toBe(await getBg(fillOf(accent)));
     expect(await getBg(primary)).toBe(await getBg(accent));
-    expect(await getFillStyle(primary, 'background-color')).not.toBe(await getBg(primary));
+    expect(await getBg(fillOf(primary))).not.toBe(await getBg(primary));
   });
 });

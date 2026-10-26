@@ -1,1 +1,1 @@
-export const PROGRESS_CATEGORIES = ['size', 'appearance', 'variant', 'shape', 'width', 'flex', 'hide', 'margin'] as const;
+export const PROGRESS_CATEGORIES = ['size', 'appearance', 'shape', 'transition', 'overflow', 'width', 'flex', 'hide', 'margin'] as const;

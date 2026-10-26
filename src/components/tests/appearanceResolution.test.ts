@@ -16,6 +16,8 @@ import { ComponentCategories, ComponentKeys, defaultTheme } from '../../index';
 const RESOLVES_WITHOUT_VARIANT = new Set([
   // LinkVariantClassMapper consumes --app-text directly, bypassing the variant axis
   'link',
+  // the track stays neutral; its progress.fill sub-theme (filled by default) carries the colour
+  'progress',
 ]);
 
 function defaultsFor(key: string): Record<string, unknown> | null {

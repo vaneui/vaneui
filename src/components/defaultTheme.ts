@@ -36,6 +36,7 @@ import { defaultFieldTheme } from './ui/field/defaultFieldTheme';
 import { defaultAlertTheme } from './ui/alert/defaultAlertTheme';
 import { defaultSpinnerTheme } from './ui/spinner/defaultSpinnerTheme';
 import { defaultProgressTheme } from './ui/progress/defaultProgressTheme';
+import { defaultProgressFillTheme } from './ui/progress/defaultProgressFillTheme';
 import { defaultTooltipTheme } from './ui/tooltip/defaultTooltipTheme';
 import { defaultFieldLabelTheme } from './ui/field/defaultFieldLabelTheme';
 import { defaultFieldControlRowTheme } from './ui/field/defaultFieldControlRowTheme';
@@ -168,7 +169,10 @@ export const defaultTheme: ThemeProps = {
   tooltip: defaultTooltipTheme,
   alert: defaultAlertTheme,
   spinner: defaultSpinnerTheme,
-  progress: defaultProgressTheme,
+  progress: {
+    main: defaultProgressTheme,
+    fill: defaultProgressFillTheme,
+  },
   menu: {
     item: defaultMenuItemTheme,
     popup: defaultMenuPopupTheme,

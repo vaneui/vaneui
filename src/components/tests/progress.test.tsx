@@ -8,17 +8,22 @@ const renderProgress = (ui: ReactElement) =>
   render(<ThemeProvider theme={defaultTheme}>{ui}</ThemeProvider>);
 
 const getBar = (container: HTMLElement) => container.querySelector('.vane-progress') as HTMLElement;
+const getFill = (container: HTMLElement) => container.querySelector('.vane-progress-fill') as HTMLElement;
 
 describe('Progress Component Tests', () => {
   describe('Basic Rendering', () => {
-    it('should render one progressbar div with the default theme', () => {
+    it('should render a progressbar track holding one decorative fill', () => {
       const { container } = renderProgress(<Progress value={40} aria-label="Upload" />);
       const bar = getBar(container);
       expect(bar).toBeInTheDocument();
       expect(bar.tagName).toBe('DIV');
       expect(bar).toHaveAttribute('role', 'progressbar');
       expect(bar).toHaveAttribute('data-vane-type', 'ui');
-      expect(bar.childElementCount).toBe(0);
+      expect(bar.childElementCount).toBe(1);
+      const fill = getFill(container);
+      expect(fill.parentElement).toBe(bar);
+      expect(fill).toHaveAttribute('aria-hidden', 'true');
+      expect(fill).toHaveAttribute('data-vane-type', 'ui');
     });
 
     it('should expose the range and current value to assistive tech', () => {
@@ -34,13 +39,28 @@ describe('Progress Component Tests', () => {
       expect(getBar(container).style.getPropertyValue('--progress')).toBe('0.4');
     });
 
-    it('should apply the default size, appearance, variant, shape, width and margin', () => {
+    it('should style the track with its default props', () => {
       const { container } = renderProgress(<Progress value={40} aria-label="Upload" />);
       const bar = getBar(container);
       expect(bar).toHaveAttribute('data-size', 'md');
       expect(bar).toHaveAttribute('data-appearance', 'primary');
-      expect(bar).toHaveAttribute('data-variant', 'outline');
-      expect(bar).toHaveClass('rounded-full', 'w-full', 'm-0');
+      expect(bar).toHaveClass('h-(--size)', 'bg-(--color-border-primary)', 'overflow-hidden', 'rounded-full', 'w-full', 'm-0');
+    });
+
+    it('should style the fill with its default props: filled, full size, transition', () => {
+      const { container } = renderProgress(<Progress value={40} aria-label="Upload" />);
+      const fill = getFill(container);
+      expect(fill).toHaveAttribute('data-appearance', 'primary');
+      expect(fill).toHaveAttribute('data-variant', 'filled');
+      expect(fill).toHaveClass('bg-(--bg-color)', 'w-full', 'h-full', 'rounded-full', 'transition');
+    });
+
+    it('should slide the fill in by the unfilled share, from the end in RTL', () => {
+      const { container } = renderProgress(<Progress value={40} aria-label="Upload" />);
+      expect(getFill(container)).toHaveClass(
+        '-translate-x-[calc(100%_-_var(--progress,0)_*_100%)]',
+        'rtl:translate-x-[calc(100%_-_var(--progress,0)_*_100%)]'
+      );
     });
   });
 
@@ -90,25 +110,47 @@ describe('Progress Component Tests', () => {
     });
 
     it.each(['primary', 'accent', 'secondary', 'success', 'danger', 'warning', 'info'] as const)(
-      'should render %s appearance',
+      'should pass %s appearance to the fill',
       (appearance) => {
         const { container } = renderProgress(<Progress value={50} {...{ [appearance]: true }} aria-label="Upload" />);
         expect(getBar(container)).toHaveAttribute('data-appearance', appearance);
+        expect(getFill(container)).toHaveAttribute('data-appearance', appearance);
+        expect(getFill(container)).toHaveAttribute('data-variant', 'filled');
       }
     );
 
-    it('should switch the variant', () => {
-      const { container } = renderProgress(<Progress value={50} filled aria-label="Upload" />);
-      expect(getBar(container)).toHaveAttribute('data-variant', 'filled');
+    it('should pass noTransition to the fill', () => {
+      const { container } = renderProgress(<Progress value={50} noTransition aria-label="Upload" />);
+      expect(getFill(container)).toHaveClass('transition-none');
+    });
+
+    it('should let a progress.fill theme default restyle the fill', () => {
+      const { container } = render(
+        <ThemeProvider themeDefaults={{ progress: { fill: { primary: false, success: true, noTransition: true } } }}>
+          <Progress value={50} aria-label="Upload" />
+        </ThemeProvider>
+      );
+      expect(getFill(container)).toHaveAttribute('data-appearance', 'success');
+      expect(getFill(container)).toHaveClass('transition-none');
+    });
+
+    it('should still let an explicit prop win over a progress.fill theme default', () => {
+      const { container } = render(
+        <ThemeProvider themeDefaults={{ progress: { fill: { primary: false, success: true } } }}>
+          <Progress value={50} danger aria-label="Upload" />
+        </ThemeProvider>
+      );
+      expect(getFill(container)).toHaveAttribute('data-appearance', 'danger');
     });
 
     it.each([
       ['pill', 'rounded-full'],
       ['rounded', 'rounded-(--br)'],
       ['sharp', 'rounded-none'],
-    ] as const)('should render %s shape', (shape, cls) => {
+    ] as const)('should render %s shape on the track and the fill', (shape, cls) => {
       const { container } = renderProgress(<Progress value={50} {...{ [shape]: true }} aria-label="Upload" />);
       expect(getBar(container)).toHaveClass(cls);
+      expect(getFill(container)).toHaveClass(cls);
     });
 
     it('should apply width, flex, hide and margin props', () => {
@@ -130,11 +172,12 @@ describe('Progress Component Tests', () => {
 
     it('should not leak value, max or boolean props to the DOM', () => {
       const { container } = renderProgress(
-        <Progress value={3} max={8} accent lg filled sharp flex1 aria-label="Upload" />
+        <Progress value={3} max={8} accent lg sharp noTransition flex1 aria-label="Upload" />
       );
-      const bar = getBar(container);
-      for (const attr of ['value', 'max', 'accent', 'lg', 'filled', 'sharp', 'flex1']) {
-        expect(bar.hasAttribute(attr)).toBe(false);
+      for (const el of [getBar(container), getFill(container)]) {
+        for (const attr of ['value', 'max', 'accent', 'lg', 'sharp', 'noTransition', 'flex1']) {
+          expect(el.hasAttribute(attr)).toBe(false);
+        }
       }
     });
 

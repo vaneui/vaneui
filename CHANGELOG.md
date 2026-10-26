@@ -15,11 +15,12 @@ strong borders, NavLink indicators, shadow sizes and real light subtrees.
 
 ### Added
 
-- **`Progress`**: a determinate bar, `<Progress value={40} aria-label="Upload" />`. One
-  `role="progressbar"` element with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`;
-  `value` is clamped to 0 to `max` (100 by default). The fill takes the appearance color over
-  a neutral track. Heights run 2, 4, 8, 12 and 16px from `xs` to `xl`; `pill` by default. The
-  fill eases to a new width, with no motion under reduced motion.
+- **`Progress`**: a determinate bar, `<Progress value={40} aria-label="Upload" />`. A
+  `role="progressbar"` track with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`;
+  `value` is clamped to 0 to `max` (100 by default). The fill is its own themed element
+  (`progress.fill`), a filled bar in the appearance color over a neutral track, and it follows
+  the track's shape and `transition`/`noTransition`. Heights run 2, 4, 8, 12 and 16px from `xs`
+  to `xl`; `pill` by default. The fill eases to a new value, with no motion under reduced motion.
 - **`divided` on `Grid2` to `Grid6`**: 1px lines in the divider color between and around
   the cells, in place of the gap.
 - **`strongBorder` on layout components** (`Row`, `Col`, `Stack`, `Grid*`, `Container`, `Card`,

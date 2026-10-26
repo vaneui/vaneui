@@ -181,7 +181,7 @@ Layout extras: `divided` (Grid2–6: 1px lines instead of the gap), `strongBorde
 | **Badge** | md, secondary (neutral default; color via success/danger/…), outline, pill, fontSemibold |
 | **Chip** | md, secondary (not primary!), outline, rounded, fontSans |
 | **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noInsetRing, wFull, textLeft, focusVisible |
-| **Progress** | md, primary, outline, pill, wFull, noMargin (`value` required, `max` 100) |
+| **Progress** | md, primary, pill, transition, overflowHidden, wFull, noMargin (`value` required, `max` 100). Fill sub-theme `progress.fill`: filled, wFull, hFull |
 | **Link** | md, underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (link color by default; no appearance or variant default) |
 | **Input** | md, primary, outline, rounded, wFull, insetRing, focusVisible |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit |

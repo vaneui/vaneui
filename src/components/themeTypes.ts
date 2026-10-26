@@ -14,6 +14,7 @@ import type { FieldTheme } from "./ui/field/FieldTheme";
 import type { AlertTheme } from "./ui/alert/AlertTheme";
 import type { SpinnerTheme } from "./ui/spinner/SpinnerTheme";
 import type { ProgressTheme } from "./ui/progress/ProgressTheme";
+import type { ProgressFillTheme } from "./ui/progress/ProgressFillTheme";
 import type { CardHeaderTheme } from './ui/card/CardHeaderTheme';
 import type { CardBodyTheme } from './ui/card/CardBodyTheme';
 import type { CardFooterTheme } from './ui/card/CardFooterTheme';
@@ -72,6 +73,7 @@ import type { FieldProps } from "./ui/field/FieldProps";
 import type { AlertProps } from "./ui/alert/AlertProps";
 import type { SpinnerProps } from "./ui/spinner/SpinnerProps";
 import type { ProgressProps } from "./ui/progress/ProgressProps";
+import type { ProgressFillProps } from "./ui/progress/ProgressFillProps";
 import type { CardHeaderProps } from "./ui/card/CardHeaderProps";
 import type { CardBodyProps } from "./ui/card/CardBodyProps";
 import type { CardFooterProps } from "./ui/card/CardFooterProps";
@@ -204,7 +206,10 @@ export interface ThemeProps {
   tooltip: ComponentTheme<PopupProps, PopupTheme>;
   alert: ComponentTheme<AlertProps, AlertTheme>;
   spinner: ComponentTheme<SpinnerProps, SpinnerTheme>;
-  progress: ComponentTheme<ProgressProps, ProgressTheme>;
+  progress: {
+    main: ComponentTheme<ProgressProps, ProgressTheme>;
+    fill: ComponentTheme<ProgressFillProps, ProgressFillTheme>;
+  };
   menu: {
     item: ComponentTheme<MenuItemProps, MenuItemTheme>;
     popup: ComponentTheme<PopupProps, PopupTheme>;
