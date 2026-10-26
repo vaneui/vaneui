@@ -39,12 +39,20 @@ strong borders, NavLink indicators, shadow sizes and real light subtrees.
 - **Selected options**: a `NavLink` or `MenuItem` with `aria-selected="true"` (an option in a
   listbox, like a search result) takes the hover fill.
 
+### Changed
+
+- **Dark mode colors are `light-dark()` pairs.** The dark block's colors are now one list of
+  `light-dark(light, dark)` pairs on every `data-theme` element, and `data-theme` sets
+  `color-scheme`, which picks the side. Pages without `data-theme` keep the `@theme` values and
+  are unaffected. Uncompiled, `light-dark()` needs Chrome 123, Firefox 120 or Safari 17.5;
+  bundlers that compile it for older browsers (Next.js does by default) keep those working. To
+  change a color in both schemes, re-declare it as a pair under `:root[data-theme], [data-theme]`.
+
 ### Fixed
 
 - **`data-theme="light"` makes a subtree light inside a dark page or wrapper.** It only reset
-  `color-scheme`, so the dark colors still came through. It now re-declares every token the
-  dark block sets at its light value. On `<html>` it changes nothing, so token customizations
-  made with `@theme` keep working.
+  `color-scheme`, so the dark colors still came through. It now resolves every pair to its light
+  side. On `<html>` it changes nothing, so token customizations made with `@theme` keep working.
 
 ## 1.4.4
 

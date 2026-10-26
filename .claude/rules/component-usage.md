@@ -73,7 +73,7 @@ Nested providers inherit from parent (`mergeStrategy="merge"`, default) or reset
 
 ## Dark Mode
 
-`data-theme="dark"` is the official dark-mode extension point. The shipped CSS re-declares every color token under it; no component code changes.
+`data-theme="dark"` is the official dark-mode extension point. The shipped CSS declares each scheme color as a `light-dark(light, dark)` pair on every `data-theme` element, and `data-theme` sets `color-scheme`, which picks the side; no component code changes. Pages without `data-theme` keep the `@theme` values.
 
 **Primary mode — `<html data-theme="dark">`:**
 
@@ -101,9 +101,9 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 
 **Portal caveat:** `Modal`, `Popup`, and `Overlay` render into a portal at the end of `<body>`, so they resolve the theme of `<html>`/`<body>`, not an inner wrapper's. `<html data-theme="dark">` is the primary supported mode; subtree theming covers in-flow content.
 
-**Forcing light:** `data-theme="light"` makes a subtree light again inside a dark page or wrapper: it re-declares every token the dark block sets at its light value and restores `color-scheme: light`. On `<html>` it changes nothing, so `@theme` customizations stay. Custom tokens you re-declared for dark need their light value under your own `[data-theme="light"]` selector too (see below).
+**Forcing light:** `data-theme="light"` makes a subtree light again inside a dark page or wrapper: it sets `color-scheme: light`, so the pairs resolve to their light side. On `<html>` it changes nothing, so `@theme` customizations stay. A color you customize for dark should be a pair too, so light subtrees inside it get your light value (see below).
 
-**Custom themes:** consumers can re-declare any `--color-*` token under their own selectors — the same mechanism the dark block uses:
+**Custom themes:** consumers can re-declare any `--color-*` token under their own selectors:
 
 ```css
 [data-theme="ocean"] {
@@ -111,6 +111,17 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
   --color-text-info: oklch(45% 0.12 220);
 }
 ```
+
+To change a color in both schemes, re-declare it as a pair on the `data-theme` elements, and set the light value in `@theme` for pages without `data-theme`:
+
+```css
+:root[data-theme],
+[data-theme] {
+  --color-bg-info: light-dark(oklch(95% 0.02 220), oklch(30% 0.05 220));
+}
+```
+
+Keep `light-dark()` pairs off a `:root`-only rule: bundlers that compile it for older browsers (Next.js does by default) resolve it where it is declared, so nested `data-theme` subtrees would not switch. Uncompiled, `light-dark()` needs Chrome 123, Firefox 120 or Safari 17.5.
 
 ## Component Selection Guide
 
