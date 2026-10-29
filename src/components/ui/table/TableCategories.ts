@@ -21,6 +21,6 @@ export const TABLE_CATEGORIES = [
   ...MARGIN,
   ...TEXT_ALIGN,
   ...FONT_FAMILY,
-  'hide',
+  'hide', 'show',
   ...RESPONSIVE,
 ] as const;

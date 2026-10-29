@@ -1,8 +1,10 @@
+import type { ResponsiveWidthProps } from './responsiveWidthProps';
+
 /**
  * Width props for controlling component width
  */
 
-export interface WidthProps {
+export interface WidthProps extends ResponsiveWidthProps {
   /** Set width to 100% */
   wFull?: boolean;
   /** Set width to fit-content */

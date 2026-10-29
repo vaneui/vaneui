@@ -1,6 +1,6 @@
 // Category building blocks shared by keys.ts and component-specific category files.
 
-export const LAYOUT_CORE = ['size', 'hide', 'items', 'justify', 'position', 'display', 'overflow'] as const;
+export const LAYOUT_CORE = ['size', 'hide', 'show', 'items', 'justify', 'position', 'display', 'overflow'] as const;
 export const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'flex', 'shrink'] as const;
 // Per-item cross-axis alignment (align-self). Opt-in per component (not part of
 // LAYOUT_CORE) so a child can override its parent's align-items.
@@ -27,7 +27,7 @@ export const GAP = ['gap'] as const;
 export const VARIANT = ['variant'] as const;
 export const TRANSPARENT = ['transparent'] as const;
 export const RESPONSIVE = ['responsiveSizing'] as const;
-export const WIDTH = ['width'] as const;
+export const WIDTH = ['width', 'responsiveWidth'] as const;
 export const COMMON_MODIFIERS = [...TRANSPARENT, ...RESPONSIVE] as const;
 
 export const CURSOR = ['cursor'] as const;
@@ -83,9 +83,9 @@ export const CODE_CATEGORIES = UI_ELEMENT_CATEGORIES;
 export const BUTTON_CATEGORIES = UI_ELEMENT_CATEGORIES;
 
 export const ICON_CATEGORIES = [
-  'size', 'appearance', 'variant', 'display', 'hide', 'items', 'justify',
+  'size', 'appearance', 'variant', 'display', 'hide', 'show', 'items', 'justify',
   'position', 'shape', 'padding', 'border', 'ring', 'shadow',
-  'width', 'height', 'shrink', 'transition', 'transparent',
+  'width', 'responsiveWidth', 'height', 'shrink', 'transition', 'transparent',
 ] as const;
 
 // Grid excludes breakpoint/shadow/ring/textAlign — no corresponding mappers on a grid container.

@@ -5,6 +5,6 @@ export const TR_CATEGORIES = [
   'size',
   ...VISUAL_CORE,
   ...VARIANT,
-  'hide',
+  'hide', 'show',
   ...COMMON_MODIFIERS,
 ] as const;

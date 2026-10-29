@@ -472,13 +472,19 @@ in. Prefer `Col` over `Stack` inside an already padded `Card` when you want no s
 <Row desktopHide>
   <Text>Wide-screen toolbar</Text>
 </Row>
+
+{/* Show only below tablet (< 1024px): a menu button for small screens */}
+<IconButton tabletShow aria-label="Menu"><MenuIcon/></IconButton>
+
+{/* Full width on mobile, its fit width above */}
+<Button mobileWFull>Get started</Button>
 ```
 
-The `*Hide` props only hide **below** a width; there is no prop yet to show something only on small screens. Breakpoints stack/hide **below** the width (exclusive): mobile < 768px, tablet < 1024px, desktop < 1280px. The boundary pixel itself (768/1024/1280) is the larger tier. Combining several `*Stack` (or `*Hide`) props resolves to the widest = their union.
+Breakpoints stack/hide **below** the width (exclusive): mobile < 768px, tablet < 1024px, desktop < 1280px. The boundary pixel itself (768/1024/1280) is the larger tier. `*Show` is the reverse of `*Hide`: the element shows only below the width and is hidden from it up. `*WFull` makes a component full width below the width and keeps its base width (`wFit` on a Button) above it. Hide and show are separate categories, so `mobileHide tabletShow` shows only between 768 and 1024px. Combining several `*Stack`, `*Hide`, `*Show` or `*WFull` props of one kind resolves to the widest = their union.
 
 `*Stack` only affects **row-direction** components. It emits `flex-col`, so on `Col`/`Stack`/`Container`/`Section` (already column) it is a no-op — use it on `Row`.
 
-Stacking a `Row` keeps its default `itemsCenter`, so the stacked children shrink to **content width** and center. For full-width stacked cards on mobile, add `itemsStretch` (or `wFull` on each child). Fit-width children such as `Button` and `Badge` keep their width either way:
+Stacking a `Row` keeps its default `itemsCenter`, so the stacked children shrink to **content width** and center. For full-width stacked cards on mobile, add `itemsStretch` (or `wFull` on each child). Fit-width children such as `Button` and `Badge` keep their width either way; give them `mobileWFull` to fill the stacked row:
 
 ```tsx
 <Row mobileStack itemsStretch>

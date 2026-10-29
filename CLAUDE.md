@@ -170,7 +170,8 @@ Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShado
 Layout extras: `divided` (Grid2–6: 1px lines instead of the gap), `strongBorder` (border in the appearance's strong color), `pointerEvents*` and `whitespace*` on layout components. NavLink takes `indicatorStart` (rail, accent mark when active or `aria-selected`) or `indicatorBottom` (tab bar).
 
 **Breakpoints** (layout components): `mobileStack`, `tabletStack`, `desktopStack`
-**Hide**: `mobileHide`, `tabletHide`, `desktopHide`
+**Hide**: `mobileHide`, `tabletHide`, `desktopHide`; **Show** (only below the width): `mobileShow`, `tabletShow`, `desktopShow`
+**Responsive width** (full width below the width): `mobileWFull`, `tabletWFull`, `desktopWFull`
 
 ## Key Defaults (Do NOT Redundantly Specify)
 

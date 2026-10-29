@@ -5,6 +5,6 @@ export const TFOOT_CATEGORIES = [
   'size',
   ...VISUAL_CORE,
   ...VARIANT,
-  'hide',
+  'hide', 'show',
   ...COMMON_MODIFIERS,
 ] as const;

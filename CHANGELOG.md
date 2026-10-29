@@ -8,6 +8,17 @@ fixes, minor for additive props and components, major for anything that changes 
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
 
+## Unreleased
+
+### Added
+
+- `mobileShow`, `tabletShow` and `desktopShow`: show an element only below 768, 1024 or 1280px,
+  the reverse of `mobileHide` and friends. They combine with a hide prop, so
+  `<Row mobileHide tabletShow>` shows only between 768 and 1024px.
+- `mobileWFull`, `tabletWFull` and `desktopWFull`: full width below 768, 1024 or 1280px,
+  keeping the component's base width above it. `<Button mobileWFull>` fills a stacked row on a
+  phone and stays fit width on desktop. A `Select` applies both families to its wrapper.
+
 ## 1.4.5
 
 `2026-10-29`
