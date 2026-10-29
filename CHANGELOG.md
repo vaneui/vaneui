@@ -10,6 +10,13 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.4.6
+
+`2026-10-29`
+
+Breakpoint props for showing an element only on smaller screens and for full width below a
+breakpoint, so sites no longer need `lg:hidden` or `max-mobile:w-full`.
+
 ### Added
 
 - `mobileShow`, `tabletShow` and `desktopShow`: show an element only below 768, 1024 or 1280px,
@@ -18,6 +25,8 @@ rather than on a fixed calendar.
 - `mobileWFull`, `tabletWFull` and `desktopWFull`: full width below 768, 1024 or 1280px,
   keeping the component's base width above it. `<Button mobileWFull>` fills a stacked row on a
   phone and stays fit width on desktop. A `Select` applies both families to its wrapper.
+
+[Full diff](https://github.com/vaneui/vaneui/compare/v1.4.5...v1.4.6)
 
 ## 1.4.5
 
