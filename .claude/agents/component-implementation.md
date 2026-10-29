@@ -16,7 +16,6 @@ When implementing a new component, ALL of these steps must be completed:
 
 ### Phase 1: Research & Planning
 
-- [ ] Check reference frameworks for similar components (see parent CLAUDE.md)
 - [ ] Identify required prop categories from `src/components/ui/props/keys.ts`
 - [ ] Plan theme structure (size, appearance, variant, shape themes as needed)
 
@@ -180,8 +179,6 @@ describe('Component', () => {
 Run ALL of these commands and ensure they pass:
 
 ```bash
-cd C:/GitHub/vaneui
-
 # 1. TypeScript validation
 npm run type-check
 

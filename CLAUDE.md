@@ -9,8 +9,6 @@ VaneUI (`@vaneui/ui`, v1.4.6) is a React component library with 40+ customizable
 **After making ANY code changes** (new features, bug fixes, refactoring, import changes, theme updates, etc.), you MUST run the full verification pipeline. Do NOT report work as complete until all checks pass.
 
 ```bash
-cd C:/GitHub/vaneui
-
 npm run type-check    # TypeScript type validation
 npm run lint          # ESLint — zero errors required
 npm test              # Jest — all tests must pass
@@ -265,11 +263,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for architecture details, CSS variable 
 
 ---
 
-## Reference Implementations
+## Third-party UI frameworks
 
-When adding or refactoring a component, study mature implementation patterns — props API, accessibility, theming, responsive behavior — before writing VaneUI code, then re-express them in VaneUI's conventions (boolean props API, Tailwind CSS v4, ThemeProvider, TypeScript strict mode). Pointers to the local reference repositories are maintained at the workspace level (`C:\GitHub\CLAUDE.md`), not in this repo.
-
-> **Do not name third-party UI frameworks anywhere in this repository** — not in source, comments, tests, CSS, or docs. See the workspace `CLAUDE.md` rule for details.
+**Do not name third-party UI frameworks anywhere in this repository**: not in source, comments, tests, CSS, or docs. Describe the technical behavior generically instead.
 
 ---
 
