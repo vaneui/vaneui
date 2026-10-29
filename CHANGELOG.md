@@ -48,7 +48,8 @@ strong borders, NavLink indicators, shadow sizes and real light subtrees.
   `color-scheme`, which picks the side. Pages without `data-theme` keep the `@theme` values and
   are unaffected. Uncompiled, `light-dark()` needs Chrome 123, Firefox 120 or Safari 17.5;
   bundlers that compile it for older browsers (Next.js does by default) keep those working. To
-  change a color in both schemes, re-declare it as a pair under `:root[data-theme], [data-theme]`.
+  change a color in both schemes, re-declare it as a pair under
+  `:root[data-theme], [data-theme]:not(:root)`, after the VaneUI stylesheet.
 
 ### Fixed
 

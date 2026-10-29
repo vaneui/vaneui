@@ -101,7 +101,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 
 **Portal caveat:** `Modal`, `Popup`, and `Overlay` render into a portal at the end of `<body>`, so they resolve the theme of `<html>`/`<body>`, not an inner wrapper's. `<html data-theme="dark">` is the primary supported mode; subtree theming covers in-flow content.
 
-**Forcing light:** `data-theme="light"` makes a subtree light again inside a dark page or wrapper: it sets `color-scheme: light`, so the pairs resolve to their light side. On `<html>` it changes nothing, so `@theme` customizations stay. A color you customize for dark should be a pair too, so light subtrees inside it get your light value (see below).
+**Forcing light:** `data-theme="light"` makes a subtree light again inside a dark page or wrapper: it sets `color-scheme: light`, so the pairs resolve to their light side. On `<html>` it changes nothing, so light-page customizations stay. A color you customize for dark should be a pair too, so light subtrees inside it get your light value (see below).
 
 **Custom themes:** consumers can re-declare any `--color-*` token under their own selectors:
 
@@ -112,11 +112,15 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 }
 ```
 
-To change a color in both schemes, re-declare it as a pair on the `data-theme` elements, and set the light value in `@theme` for pages without `data-theme`:
+To change a color in both schemes, re-declare it as a pair on the `data-theme` elements, and set the light value on `:root` for pages without `data-theme`. Put both rules after the VaneUI stylesheet: `[data-theme]:not(:root)` carries the same weight as the built-in light-subtree rule, so the pair also wins in a light region inside a dark page (a bare `[data-theme]` loses there).
 
 ```css
+:root {
+  --color-bg-info: oklch(95% 0.02 220);
+}
+
 :root[data-theme],
-[data-theme] {
+[data-theme]:not(:root) {
   --color-bg-info: light-dark(oklch(95% 0.02 220), oklch(30% 0.05 220));
 }
 ```
