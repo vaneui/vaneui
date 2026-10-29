@@ -8,6 +8,52 @@ fixes, minor for additive props and components, major for anything that changes 
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
 
+## Unreleased
+
+Additions that let vaneui.com drop most of its custom CSS: a progress bar, divided grids,
+strong borders, NavLink indicators, shadow sizes and real light subtrees.
+
+### Added
+
+- **`Progress`**: a determinate bar, `<Progress value={40} aria-label="Upload" />`. A
+  `role="progressbar"` track with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`;
+  `value` is clamped to 0 to `max` (100 by default). The fill is its own themed element
+  (`progress.fill`), a filled bar in the appearance color over a neutral track, and it follows
+  the track's shape and `transition`/`noTransition`. Heights run 2, 4, 8, 12 and 16px from `xs`
+  to `xl`; `pill` by default. The fill eases to a new value, with no motion under reduced motion.
+- **`divided` on `Grid2` to `Grid6`**: 1px lines in the divider color between and around
+  the cells, in place of the gap.
+- **`strongBorder` on layout components** (`Row`, `Col`, `Stack`, `Grid*`, `Container`, `Card`,
+  `Section`): the border takes the appearance's strong color, the one its focus ring uses. A
+  filled `Card`, whose border is otherwise transparent, shows it too.
+- **`indicatorStart` and `indicatorBottom` on `NavLink`**: a 1px rail on the start edge that
+  turns into a 2px accent mark when `active` or `aria-selected`, or an accent bar under the
+  active tab. They are inset shadows, so the text does not move. The rail flips in
+  right-to-left text.
+- **`shadowXs` to `shadowXl`**: fix the drop shadow size on the component's own ramp
+  (compact for UI components, deeper for layout ones), whatever the component's size.
+  `shadow` still follows the size.
+- **`pointerEventsNone`/`pointerEventsAuto` and the `whitespace*` props on layout
+  components**: `Row`, `Col`, `Stack`, `Grid*`, `Container`, `Card` and `Section`.
+- **`noShrink` on `Img`**, so an image keeps its size in a tight `Row`.
+- **Selected options**: a `NavLink` or `MenuItem` with `aria-selected="true"` (an option in a
+  listbox, like a search result) takes the hover fill.
+
+### Changed
+
+- **Dark mode colors are `light-dark()` pairs.** The dark block's colors are now one list of
+  `light-dark(light, dark)` pairs on every `data-theme` element, and `data-theme` sets
+  `color-scheme`, which picks the side. Pages without `data-theme` keep the `@theme` values and
+  are unaffected. Uncompiled, `light-dark()` needs Chrome 123, Firefox 120 or Safari 17.5;
+  bundlers that compile it for older browsers (Next.js does by default) keep those working. To
+  change a color in both schemes, re-declare it as a pair under `:root[data-theme], [data-theme]`.
+
+### Fixed
+
+- **`data-theme="light"` makes a subtree light inside a dark page or wrapper.** It only reset
+  `color-scheme`, so the dark colors still came through. It now resolves every pair to its light
+  side. On `<html>` it changes nothing, so token customizations made with `@theme` keep working.
+
 ## 1.4.4
 
 `2026-10-10`

@@ -242,6 +242,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "divided": {
+    "name": "Divided",
+    "description": "Divided grid prop: 1px lines between cells instead of a gap",
+    "props": {
+      "divided": {
+        "description": "Draw 1px divider-colored lines between and around cells (replaces the gap)"
+      }
+    }
+  },
   "flexDirection": {
     "name": "Flex Direction",
     "description": "Flex direction props for controlling flex layout direction",
@@ -392,6 +401,18 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "desktopHide": {
         "description": "Hide element on desktop devices and below (max-desktop: 80rem)"
+      }
+    }
+  },
+  "indicator": {
+    "name": "Indicator",
+    "description": "Indicator props: a line that marks the active item, drawn with inset shadows (no layout shift)",
+    "props": {
+      "indicatorStart": {
+        "description": "1px rail on the start edge that turns into a 2px accent mark when active or selected"
+      },
+      "indicatorBottom": {
+        "description": "1px accent bar on the bottom edge while active, for tab bars"
       }
     }
   },
@@ -820,7 +841,22 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "description": "Shadow props for controlling drop shadows",
     "props": {
       "shadow": {
-        "description": "Enable drop shadow"
+        "description": "Enable drop shadow at the component's size"
+      },
+      "shadowXs": {
+        "description": "Extra-small drop shadow, whatever the component's size"
+      },
+      "shadowSm": {
+        "description": "Small drop shadow, whatever the component's size"
+      },
+      "shadowMd": {
+        "description": "Medium drop shadow, whatever the component's size"
+      },
+      "shadowLg": {
+        "description": "Large drop shadow, whatever the component's size"
+      },
+      "shadowXl": {
+        "description": "Extra-large drop shadow, whatever the component's size"
       },
       "noShadow": {
         "description": "Disable drop shadow"
@@ -878,6 +914,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "props": {
       "invalid": {
         "description": "Mark the field invalid (red border/ring), layered over any appearance"
+      }
+    }
+  },
+  "strongBorder": {
+    "name": "Strong Border",
+    "description": "Strong border prop: the border takes the appearance's strong (focus) color",
+    "props": {
+      "strongBorder": {
+        "description": "Paint the border in the appearance's strong color instead of its soft one"
       }
     }
   },

@@ -17,6 +17,9 @@ import type {
   BreakpointProps,
   AppearanceProps,
   BorderProps,
+  StrongBorderProps,
+  PointerEventsProps,
+  WhitespaceProps,
   ShadowProps,
   RingProps,
   FocusVisibleProps,
@@ -49,6 +52,9 @@ export type CardProps = BaseProps &
   BreakpointProps &
   AppearanceProps &
   BorderProps &
+  StrongBorderProps &
+  PointerEventsProps &
+  WhitespaceProps &
   ShadowProps &
   RingProps &
   FocusVisibleProps &

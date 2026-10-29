@@ -9,6 +9,9 @@ import {
   HEIGHT,
   COMMON_MODIFIERS,
   TEXT_ALIGN,
+  STRONG_BORDER,
+  POINTER_EVENTS,
+  WHITESPACE,
 } from "../props/categoryBuilders";
 
 /** Categories for column layout components. Adds `focusVisible` so Col can
@@ -18,11 +21,14 @@ export const COL_CATEGORIES = [
   ...PADDING,
   ...MARGIN,
   ...VISUAL_LAYOUT,
+  ...STRONG_BORDER,
   ...VARIANT,
   ...BREAKPOINT,
   ...WIDTH,
   ...HEIGHT,
   ...COMMON_MODIFIERS,
   ...TEXT_ALIGN,
+  ...POINTER_EVENTS,
+  ...WHITESPACE,
   'focusVisible',
 ] as const;

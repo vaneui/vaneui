@@ -1,5 +1,6 @@
 export { LinkVariantClassMapper } from './linkVariantClassMapper';
 export { ShadowAppearanceClassMapper } from './shadowAppearanceClassMapper';
+export { StrongBorderClassMapper } from './strongBorderClassMapper';
 export { SimpleConsumerClassMapper } from './simpleConsumerClassMapper';
 export { StatusClassMapper } from './statusClassMapper';
 export { DisabledClassMapper, DisabledVisualClassMapper } from './disabledClassMapper';

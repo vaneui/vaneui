@@ -41,7 +41,7 @@ Wrap your app in `ThemeProvider` to customize the theme. Without it, each compon
 </ThemeProvider>
 ```
 
-Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox, Field, Switch, Radio, Table) need the nested form — Button's main element lives at `button.main`:
+Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox, Field, Switch, Radio, Table, Progress) need the nested form — Button's main element lives at `button.main`:
 
 ```tsx
 <ThemeProvider themeDefaults={{ button: { main: { filled: true, lg: true } } }}>
@@ -73,7 +73,7 @@ Nested providers inherit from parent (`mergeStrategy="merge"`, default) or reset
 
 ## Dark Mode
 
-`data-theme="dark"` is the official dark-mode extension point. The shipped CSS re-declares every color token under it; no component code changes.
+`data-theme="dark"` is the official dark-mode extension point. The shipped CSS declares each scheme color as a `light-dark(light, dark)` pair on every `data-theme` element, and `data-theme` sets `color-scheme`, which picks the side; no component code changes. Pages without `data-theme` keep the `@theme` values.
 
 **Primary mode — `<html data-theme="dark">`:**
 
@@ -101,9 +101,9 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 
 **Portal caveat:** `Modal`, `Popup`, and `Overlay` render into a portal at the end of `<body>`, so they resolve the theme of `<html>`/`<body>`, not an inner wrapper's. `<html data-theme="dark">` is the primary supported mode; subtree theming covers in-flow content.
 
-**Forcing light:** `data-theme="light"` marks an explicit light region and restores `color-scheme: light` for native controls. The light token values are the `:root` defaults, so inside a dark *subtree* the inherited dark tokens still apply — to render a fully light island within `data-theme="dark"`, re-declare the tokens you need under your own `[data-theme="light"]` selector (see below).
+**Forcing light:** `data-theme="light"` makes a subtree light again inside a dark page or wrapper: it sets `color-scheme: light`, so the pairs resolve to their light side. On `<html>` it changes nothing, so `@theme` customizations stay. A color you customize for dark should be a pair too, so light subtrees inside it get your light value (see below).
 
-**Custom themes:** consumers can re-declare any `--color-*` token under their own selectors — the same mechanism the dark block uses:
+**Custom themes:** consumers can re-declare any `--color-*` token under their own selectors:
 
 ```css
 [data-theme="ocean"] {
@@ -111,6 +111,17 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
   --color-text-info: oklch(45% 0.12 220);
 }
 ```
+
+To change a color in both schemes, re-declare it as a pair on the `data-theme` elements, and set the light value in `@theme` for pages without `data-theme`:
+
+```css
+:root[data-theme],
+[data-theme] {
+  --color-bg-info: light-dark(oklch(95% 0.02 220), oklch(30% 0.05 220));
+}
+```
+
+Keep `light-dark()` pairs off a `:root`-only rule: bundlers that compile it for older browsers (Next.js does by default) resolve it where it is declared, so nested `data-theme` subtrees would not switch. Uncompiled, `light-dark()` needs Chrome 123, Firefox 120 or Safari 17.5.
 
 ## Component Selection Guide
 
@@ -125,7 +136,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Vertical layout (no padding) | `Col` | Flexbox column, no padding |
 | Page-width wrapper | `Container` | Centered, max-width, no padding |
 | Semantic page section | `Section` | Flex column with padding, responsive |
-| Equal-column grid | `Grid2`-`Grid6` | CSS Grid with N columns |
+| Equal-column grid | `Grid2`-`Grid6` | CSS Grid with N columns. `divided` draws 1px lines between cells instead of the gap |
 | Page heading | `PageTitle` | Renders `<h1>`, responsive |
 | Section heading | `SectionTitle` | Renders `<h2>`, responsive |
 | Subsection heading | `Title` | Renders `<h3>`, responsive |
@@ -142,6 +153,7 @@ Tokens are CSS custom properties, so the dark values inherit down the wrapper's 
 | Form field (label + help + error) | `Field` | Owns the id, points the label at the control, links help/error with `aria-describedby`. Can render its own control via `type` or one of `textInput`/`textarea`/`select`/`checkbox`/`switch`/`radiogroup`, or wrap one passed as a child. An `error` also marks the control invalid |
 | Inline status message | `Alert` | Live region: `role="alert"`, or `role="status"` with `polite` |
 | Busy indicator | `Spinner` | `role="status"`; give it an `aria-label` |
+| Determinate progress | `Progress` | `role="progressbar"` with `value` (and `max`, 100 by default); give it an `aria-label`. The fill takes the appearance color; restyle it with `themeDefaults={{ progress: { fill: {...} } }}` |
 | Hover/focus hint | `Tooltip` + trigger | Ink label that describes its trigger (no `aria-haspopup`/`aria-expanded`). Takes size, appearance and `place*` props directly: `<Tooltip lg placeBottom>` |
 | Input label | `Label` | Flex **column** (label above field) with gap, sm size, `inheritAppearance`. Use `row` for inline controls (e.g. Checkbox) |
 | Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `listDecimal` |
@@ -349,6 +361,19 @@ NavLink is `wFull` so sidebar items fill the column. In a horizontal nav or tab 
 <Row>
   <NavLink href="/overview" active wFit>Overview</NavLink>
   <NavLink href="/reviews" wFit>Reviews</NavLink>
+</Row>
+```
+
+To mark the current item with a line instead of only a tint, add `indicatorStart` (a rail on the start edge that turns into a 2px accent mark when `active` or `aria-selected="true"`) or `indicatorBottom` (an accent bar under the active tab). Both are inset shadows, so the text does not move:
+
+```tsx
+<Col noGap>
+  <NavLink href="/install" indicatorStart ghost secondary>Installation</NavLink>
+  <NavLink href="/concepts" indicatorStart ghost active>Core concepts</NavLink>
+</Col>
+<Row noGap borderB>
+  <NavLink href="/docs" indicatorBottom ghost sharp active wFit>Docs</NavLink>
+  <NavLink href="/playground" indicatorBottom ghost sharp secondary wFit>Playground</NavLink>
 </Row>
 ```
 

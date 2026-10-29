@@ -1,7 +1,7 @@
 import type { BaseComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
 import type { GapClassMapper, PxClassMapper, PyClassMapper, MarginClassMapper } from "../theme/size";
-import type { WrapClassMapper, DirectionClassMapper, RadiusClassMapper, BorderClassMapper, FlexClassMapper, ShrinkClassMapper } from "../theme/layout";
-import type { SimpleConsumerClassMapper } from "../theme/appearance";
+import type { WrapClassMapper, DirectionClassMapper, RadiusClassMapper, BorderClassMapper, FlexClassMapper, ShrinkClassMapper, PointerEventsClassMapper, WhitespaceClassMapper, DividedClassMapper } from "../theme/layout";
+import type { SimpleConsumerClassMapper, StrongBorderClassMapper } from "../theme/appearance";
 
 export interface GridTheme extends BaseComponentTheme {
   size: {
@@ -14,6 +14,7 @@ export interface GridTheme extends BaseComponentTheme {
     background: SimpleConsumerClassMapper;
     text: SimpleConsumerClassMapper;
     border: SimpleConsumerClassMapper;
+    strongBorder: StrongBorderClassMapper;
   };
   layout: DefaultSizedLayoutClassMappers & {
     wrap: WrapClassMapper;
@@ -22,5 +23,8 @@ export interface GridTheme extends BaseComponentTheme {
     border: BorderClassMapper;
     flex: FlexClassMapper;
     shrink: ShrinkClassMapper;
+    pointerEvents: PointerEventsClassMapper;
+    whitespace: WhitespaceClassMapper;
+    divided: DividedClassMapper;
   };
 }

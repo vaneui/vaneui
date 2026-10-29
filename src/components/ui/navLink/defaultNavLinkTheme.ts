@@ -2,6 +2,7 @@ import { ComponentTheme, defaultTypographyClassMappers, interactiveClassMappers,
 import type { NavLinkProps } from "./NavLinkProps";
 import type { NavLinkTheme } from "./NavLinkTheme";
 import { NAV_LINK_CATEGORIES } from "./NavLinkCategories";
+import { IndicatorClassMapper } from "../theme/layout";
 import { navLinkDefaults } from "./navLinkDefaults";
 
 export const defaultNavLinkTheme = new ComponentTheme<NavLinkProps, NavLinkTheme>(
@@ -12,6 +13,10 @@ export const defaultNavLinkTheme = new ComponentTheme<NavLinkProps, NavLinkTheme
     appearance: {
       ...interactiveClassMappers.appearance,
       background: bgHoverOnlyAppearance,
+    },
+    layout: {
+      ...interactiveClassMappers.layout,
+      indicator: new IndicatorClassMapper(),
     },
     typography: defaultTypographyClassMappers,
   },

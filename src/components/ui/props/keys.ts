@@ -38,6 +38,9 @@ import {
   INHERIT_BG,
   INHERIT_BORDER,
   CONTROL,
+  DIVIDED,
+  STRONG_BORDER,
+  INDICATOR,
 } from './categoryBuilders';
 
 // Re-export for backward compatibility
@@ -77,6 +80,9 @@ export {
   INHERIT_BG,
   INHERIT_BORDER,
   CONTROL,
+  DIVIDED,
+  STRONG_BORDER,
+  INDICATOR,
 };
 
 // Import component-specific categories from their folders
@@ -96,6 +102,7 @@ import { COL_CATEGORIES } from '../col/ColCategories';
 import { FIELD_CATEGORIES } from '../field/FieldCategories';
 import { ALERT_CATEGORIES } from '../alert/AlertCategories';
 import { SPINNER_CATEGORIES } from '../spinner/SpinnerCategories';
+import { PROGRESS_CATEGORIES } from '../progress/ProgressCategories';
 import { DIVIDER_CATEGORIES } from '../divider/DividerCategories';
 import { IMG_CATEGORIES } from '../img/ImgCategories';
 import { SECTION_CATEGORIES } from '../section/SectionCategories';
@@ -128,6 +135,7 @@ export { COL_CATEGORIES };
 export { FIELD_CATEGORIES };
 export { ALERT_CATEGORIES };
 export { SPINNER_CATEGORIES };
+export { PROGRESS_CATEGORIES };
 export { CONTAINER_CATEGORIES };
 export { DIVIDER_CATEGORIES };
 export { GRID_CATEGORIES };
@@ -218,6 +226,9 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...INHERIT_BG,
   ...INHERIT_BORDER,
   ...CONTROL,
+  ...DIVIDED,
+  ...STRONG_BORDER,
+  ...INDICATOR,
 ] as const;
 
 /**
@@ -283,8 +294,8 @@ export const ComponentKeys = {
   position: ['relative', 'absolute', 'fixed', 'sticky', 'static'] as const,
   /** Inset ring visibility: insetRing (show) or noInsetRing (hide) — emits ring-inset */
   ring: ['insetRing', 'noInsetRing'] as const,
-  /** Drop shadow visibility: shadow (enabled) or noShadow (disabled) */
-  shadow: ['shadow', 'noShadow'] as const,
+  /** Drop shadow: shadow (follows the component size), a fixed size shadowXs-shadowXl, or noShadow */
+  shadow: ['shadow', 'shadowXs', 'shadowSm', 'shadowMd', 'shadowLg', 'shadowXl', 'noShadow'] as const,
   /** Focus-visible outline visibility: focusVisible (show) or noFocusVisible (hide) */
   focusVisible: ['focusVisible', 'noFocusVisible'] as const,
   /** Border radius shape: pill (fully rounded), sharp (no radius), rounded (medium radius) */
@@ -353,6 +364,12 @@ export const ComponentKeys = {
   inheritBg: ['inheritBg', 'noInheritBg'] as const,
   /** Inherit border color from parent via CSS variable cascade */
   inheritBorder: ['inheritBorder', 'noInheritBorder'] as const,
+  /** Grid cells split by 1px lines in the divider color */
+  divided: ['divided'] as const,
+  /** Border in the appearance's strong color (its focus color) instead of its border tint */
+  strongBorder: ['strongBorder'] as const,
+  /** NavLink indicator: a start-edge rail or a bottom bar, in the accent color on the active item */
+  indicator: ['indicatorStart', 'indicatorBottom'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -454,6 +471,15 @@ export type InheritBgKey = typeof ComponentKeys.inheritBg[number];
 /** Inherit border color toggle keys */
 export type InheritBorderKey = typeof ComponentKeys.inheritBorder[number];
 
+/** Divided grid key */
+export type DividedKey = typeof ComponentKeys.divided[number];
+/** Strong border key */
+export type StrongBorderKey = typeof ComponentKeys.strongBorder[number];
+/** NavLink indicator keys: indicatorStart, indicatorBottom */
+export type IndicatorKey = typeof ComponentKeys.indicator[number];
+/** Drop shadow keys */
+export type ShadowKey = typeof ComponentKeys.shadow[number];
+
 /** Shape keys for border radius: pill, sharp, rounded */
 export type ShapeKey = typeof ComponentKeys.shape[number];
 
@@ -514,7 +540,7 @@ export type CategoryProps = {
 };
 
 /** All available component names in the library */
-export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'alert', 'spinner', 'divider', 'container', 'row', 'col', 'stack', 'section',
+export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'alert', 'spinner', 'progress', 'divider', 'container', 'row', 'col', 'stack', 'section',
   'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'tooltip', 'menu', 'navLink', 'table'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
@@ -554,6 +580,7 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   field: FIELD_CATEGORIES,
   alert: ALERT_CATEGORIES,
   spinner: SPINNER_CATEGORIES,
+  progress: PROGRESS_CATEGORIES,
   link: LINK_CATEGORIES,
   list: LIST_CATEGORIES,
   listItem: LIST_ITEM_CATEGORIES,

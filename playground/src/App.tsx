@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -8,6 +9,9 @@ import {
   Title,
   Section,
   Card,
+  Grid3,
+  Img,
+  NavLink,
   CardHeader,
   CardBody,
   Container,
@@ -15,30 +19,16 @@ import {
   Code,
   PageTitle,
   SectionTitle,
-  Field,
-  Alert,
-  Spinner,
+  Progress,
   Tooltip,
   Button,
   IconButton,
-  Icon,
   Badge,
   Chip,
   Input,
   Checkbox,
-  Textarea,
-  Select,
-  Switch,
-  Radio,
-  RadioGroup,
   Label,
   Link,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
 } from '../../src';
 
 const TestSvg = () => (
@@ -101,6 +91,28 @@ function ThemeShowcase() {
   );
 }
 
+const LOGO_SRC = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#2563eb"/></svg>')}`;
+
+const UPLOAD_SIZE_MB = 6;
+
+function UploadCard() {
+  const [sent, setSent] = useState(2);
+  const done = sent >= UPLOAD_SIZE_MB;
+  return (
+    <Card sm>
+      <Row justifyBetween>
+        <Text sm fontSemibold>quarterly-report.pdf</Text>
+        <Text sm secondary>{sent} of {UPLOAD_SIZE_MB} MB</Text>
+      </Row>
+      <Progress sm success={done} value={sent} max={UPLOAD_SIZE_MB} aria-label="Uploading quarterly-report.pdf" />
+      <Row justifyBetween>
+        <Text xs secondary>{done ? 'Upload complete' : 'Uploading to the shared drive'}</Text>
+        <Button xs secondary onClick={() => setSent(done ? 0 : sent + 1)}>{done ? 'Restart' : 'Send 1 MB'}</Button>
+      </Row>
+    </Card>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -109,83 +121,141 @@ function App() {
 
           <PageTitle>VaneUI Playground</PageTitle>
           <Text secondary>
-            Icon container mode, the <Code sm>data-theme="dark"</Code> color-scheme comparison,
-            and the label-sized <Code sm>Tooltip</Code>.
+            The new <Code sm>Progress</Code> bar, divided grids, strong borders, NavLink indicators,
+            shadow sizes, light islands inside <Code sm>data-theme="dark"</Code>, and the label-sized{' '}
+            <Code sm>Tooltip</Code>.
           </Text>
 
-          {/* ═══ 1. ICON — CONTAINER MODE ════════════════════════════════════ */}
+          {/* ═══ 1. PROGRESS ═════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>1. Icon — Container Mode</SectionTitle>
+          <SectionTitle>1. Progress</SectionTitle>
 
           <Card>
-            <Title>Badge recipes</Title>
+            <Title>Basic usage</Title>
             <Text sm secondary>
-              <Code sm>padding</Code> + <Code sm>filled</Code>/<Code sm>border</Code>/
-              <Code sm>ring</Code> + shape + appearance produce a self-contained
-              icon badge.
+              <Code sm>value</Code> fills the bar against <Code sm>max</Code> (100 by default). It
+              renders one <Code sm>role="progressbar"</Code> element, so name it with{' '}
+              <Code sm>aria-label</Code>.
+            </Text>
+            <Progress value={40} aria-label="Default progress" />
+            <Progress value={3} max={8} aria-label="Step 3 of 8" />
+          </Card>
+
+          <Card>
+            <Title>Sizes</Title>
+            <Text sm secondary>The bar height follows the size ramp, from a 2px hairline at xs to 16px at xl.</Text>
+            {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+              <Row key={size}>
+                <Text sm secondary className="w-8">{size}</Text>
+                <Progress {...{ [size]: true }} value={60} flex1 aria-label={`Progress ${size}`} />
+              </Row>
+            ))}
+          </Card>
+
+          <Card>
+            <Title>Appearances and shapes</Title>
+            <Text sm secondary>
+              The fill takes the appearance color and the track stays neutral. <Code sm>pill</Code> is
+              the default; <Code sm>rounded</Code> and <Code sm>sharp</Code> square the ends off.
+            </Text>
+            {(['primary', 'accent', 'success', 'danger', 'warning', 'info'] as const).map(a => (
+              <Progress key={a} {...{ [a]: true }} value={70} aria-label={`${a} progress`} />
+            ))}
+            <Progress lg rounded value={45} aria-label="Rounded progress" />
+            <Progress lg sharp value={45} aria-label="Sharp progress" />
+          </Card>
+
+          <Card>
+            <Title>Upload card</Title>
+            <Text sm secondary>A file upload in a small card. Each click sends another megabyte, and the fill eases to the new width.</Text>
+            <UploadCard />
+          </Card>
+
+          {/* ═══ 2. GRIDS, BORDERS, INDICATORS ═══════════════════════════════ */}
+          <Divider />
+          <SectionTitle>2. Grids, borders and indicators</SectionTitle>
+
+          <Card>
+            <Title>Divided grid</Title>
+            <Text sm secondary>
+              <Code sm>divided</Code> swaps the gap for 1px lines in the divider color, between and
+              around the cells. Give the cells their own padding.
+            </Text>
+            <Grid3 divided>
+              {['Boolean props', 'Theme overrides', 'Dark mode', 'Tailwind CSS v4', 'Accessible', 'Server components'].map(t => (
+                <Stack key={t} sm>
+                  <Title sm>{t}</Title>
+                  <Text sm secondary>One cell of a divided grid.</Text>
+                </Stack>
+              ))}
+            </Grid3>
+          </Card>
+
+          <Card>
+            <Title>Strong border</Title>
+            <Text sm secondary>
+              <Code sm>strongBorder</Code> paints the border in the appearance's strong color, for a
+              selected card or a highlighted plan.
+            </Text>
+            <Row itemsStretch tabletStack>
+              <Card sm flex1><Title sm>Starter</Title><Text sm secondary>Soft border</Text></Card>
+              <Card sm flex1 strongBorder><Title sm>Team</Title><Text sm secondary>strongBorder</Text></Card>
+              <Card sm flex1 accent strongBorder><Title sm>Business</Title><Text sm secondary>accent strongBorder</Text></Card>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>NavLink indicators</Title>
+            <Text sm secondary>
+              <Code sm>indicatorStart</Code> draws a rail that turns into an accent mark on the active
+              or selected link. <Code sm>indicatorBottom</Code> marks the active tab. Neither moves the text.
+            </Text>
+            <Row itemsStart tabletStack>
+              <Col noGap className="w-48">
+                <NavLink href="#install" indicatorStart ghost sharp secondary>Installation</NavLink>
+                <NavLink href="#concepts" indicatorStart ghost sharp active>Core concepts</NavLink>
+                <NavLink href="#theming" indicatorStart ghost sharp secondary>Theming</NavLink>
+              </Col>
+              <Col noGap role="listbox" aria-label="Search results" className="w-48">
+                <NavLink role="option" aria-selected="true" indicatorStart ghost sharp>Button</NavLink>
+                <NavLink role="option" aria-selected="false" indicatorStart ghost sharp secondary>Badge</NavLink>
+              </Col>
+              <Row noGap borderB>
+                <NavLink href="#docs" indicatorBottom ghost sharp active fontNormal wFit>Docs</NavLink>
+                <NavLink href="#playground" indicatorBottom ghost sharp secondary fontNormal wFit>Playground</NavLink>
+                <NavLink href="#changelog" indicatorBottom ghost sharp secondary fontNormal wFit>Changelog</NavLink>
+              </Row>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Shadow sizes</Title>
+            <Text sm secondary>
+              <Code sm>shadow</Code> follows the component size. <Code sm>shadowXs</Code> to{' '}
+              <Code sm>shadowXl</Code> pick a size on the same ramp, whatever the component size.
             </Text>
             <Row flexWrap>
-              <Col>
-                <Text sm fontBold>filled rounded</Text>
-                <Icon padding primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>filled pill</Text>
-                <Icon padding pill success filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>filled sharp</Text>
-                <Icon padding sharp danger filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>border pill</Text>
-                <Icon padding pill warning border><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>ring pill</Text>
-                <Icon padding pill primary insetRing><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>ring + filled</Text>
-                <Icon padding pill primary filled insetRing><TestSvg /></Icon>
-              </Col>
+              {(['shadowXs', 'shadowSm', 'shadowMd', 'shadowLg', 'shadowXl'] as const).map(s => (
+                <Card key={s} sm {...{ [s]: true }}><Text sm>{s}</Text></Card>
+              ))}
             </Row>
           </Card>
 
           <Card>
-            <Title>Container size scaling</Title>
+            <Title>Pointer events, whitespace and Img noShrink</Title>
             <Text sm secondary>
-              Same <Code sm>padding pill primary filled</Code> recipe at every
-              size — padding and SVG scale together through the CSS variable
-              pipeline.
+              Layout components take <Code sm>pointerEventsNone</Code> and{' '}
+              <Code sm>whitespaceNowrap</Code>, and <Code sm>Img noShrink</Code> keeps a logo its size in a tight row.
             </Text>
-            <Row flexWrap itemsEnd>
-              <Col>
-                <Text sm fontBold>xs</Text>
-                <Icon xs padding pill primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>sm</Text>
-                <Icon sm padding pill primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>md</Text>
-                <Icon padding pill primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>lg</Text>
-                <Icon lg padding pill primary filled><TestSvg /></Icon>
-              </Col>
-              <Col>
-                <Text sm fontBold>xl</Text>
-                <Icon xl padding pill primary filled><TestSvg /></Icon>
-              </Col>
+            <Row whitespaceNowrap overflowHidden className="max-w-80">
+              <Img noShrink src={LOGO_SRC} alt="" width={24} height={24} />
+              <Text sm>A long label that stays on one line and clips at the edge of its row</Text>
             </Row>
           </Card>
 
-          {/* ═══ 2. DARK MODE ════════════════════════════════════════════════ */}
+          {/* ═══ 3. DARK MODE ════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>2. Dark Mode</SectionTitle>
+          <SectionTitle>3. Dark Mode</SectionTitle>
 
           <Card>
             <Title>Light vs data-theme="dark"</Title>
@@ -225,261 +295,28 @@ function App() {
             </div>
           </Card>
 
-          {/* ═══ 3. TABLE ════════════════════════════════════════════════════ */}
+          <Card>
+            <Title>Light island inside dark</Title>
+            <Text sm secondary>
+              <Code sm>{'<div data-theme="light">'}</Code> inside a dark wrapper is light again: the light
+              block re-declares every token the dark block sets.
+            </Text>
+            <div data-theme="dark">
+              <Card>
+                <Text>Dark surface</Text>
+                <div data-theme="light">
+                  <Card sm>
+                    <Text>Light card inside the dark surface</Text>
+                    <Row><Button>Primary</Button><Button filled>Filled</Button></Row>
+                  </Card>
+                </div>
+              </Card>
+            </div>
+          </Card>
+
+          {/* ═══ 4. TOOLTIP ══════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>3. Table</SectionTitle>
-
-          <Card>
-            <Title>Row-rule table (light and dark)</Title>
-            <Text sm secondary>
-              <Code sm>Table</Code> + <Code sm>Thead/Tbody/Tr/Th/Td</Code> render
-              a clean, dark-mode-correct table — <Code sm>secondary</Code> cell
-              borders give the 1px row rule and a muted semibold header, with
-              size-scaled cell padding. Wrap in <Code sm>{'<Col overflowXAuto>'}</Code>{' '}
-              for horizontal scroll.
-            </Text>
-            <Row itemsStretch tabletStack>
-              <Col overflowXAuto className="flex-1">
-                <Table>
-                  <Thead>
-                    <Tr>
-                      <Th>Service</Th>
-                      <Th>Region</Th>
-                      <Th textRight>Latency</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    <Tr>
-                      <Td>api-gateway</Td>
-                      <Td>europe-west</Td>
-                      <Td textRight>42 ms</Td>
-                    </Tr>
-                    <Tr>
-                      <Td>auth</Td>
-                      <Td>us-east</Td>
-                      <Td textRight>88 ms</Td>
-                    </Tr>
-                    <Tr>
-                      <Td>billing</Td>
-                      <Td>us-east</Td>
-                      <Td textRight>17 ms</Td>
-                    </Tr>
-                  </Tbody>
-                </Table>
-              </Col>
-              <div data-theme="dark" className="flex flex-1">
-                <Col overflowXAuto className="flex-1">
-                  <Table>
-                    <Thead>
-                      <Tr>
-                        <Th>Service</Th>
-                        <Th>Region</Th>
-                        <Th textRight>Latency</Th>
-                      </Tr>
-                    </Thead>
-                    <Tbody>
-                      <Tr>
-                        <Td>api-gateway</Td>
-                        <Td>europe-west</Td>
-                        <Td textRight>42 ms</Td>
-                      </Tr>
-                      <Tr>
-                        <Td>auth</Td>
-                        <Td>us-east</Td>
-                        <Td textRight>88 ms</Td>
-                      </Tr>
-                    </Tbody>
-                  </Table>
-                </Col>
-              </div>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>One size prop sizes the whole table</Title>
-            <Text sm secondary>
-              <Code sm>{'<Table sm>'}</Code> / <Code sm>{'<Table md>'}</Code> /{' '}
-              <Code sm>{'<Table lg>'}</Code> cascade text + padding to every cell. A
-              size on a <Code sm>Th</Code>/<Code sm>Td</Code> or <Code sm>Tr</Code>{' '}
-              overrides for that cell/row.
-            </Text>
-            {(['sm', 'md', 'lg'] as const).map(size => (
-              <Table key={size} {...{ [size]: true }}>
-                <Thead>
-                  <Tr><Th>Size {size}</Th><Th textRight>Value</Th></Tr>
-                </Thead>
-                <Tbody>
-                  <Tr><Td>text + padding</Td><Td textRight>cascade</Td></Tr>
-                </Tbody>
-              </Table>
-            ))}
-            {/* Override: xs table, but an xl cell and an lg row stay large */}
-            <Table xs>
-              <Thead>
-                <Tr><Th>xs table</Th><Th xl textRight>xl cell</Th></Tr>
-              </Thead>
-              <Tbody>
-                <Tr><Td>tiny</Td><Td xl textRight>large</Td></Tr>
-                <Tr lg><Td>lg row</Td><Td textRight>lg row</Td></Tr>
-              </Tbody>
-            </Table>
-          </Card>
-
-          {/* ═══ 4. FORM CONTROLS ═════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>4. Form controls</SectionTitle>
-
-          <Card>
-            <Title>Sizes</Title>
-            <Text sm secondary>
-              Every control shares the size ramp. <Code sm>Textarea</Code> and{' '}
-              <Code sm>Select</Code> follow the <Code sm>Input</Code> scale;{' '}
-              <Code sm>Switch</Code> and <Code sm>Radio</Code> follow the{' '}
-              <Code sm>Checkbox</Code> scale.
-            </Text>
-            {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
-              <Row key={size} itemsCenter flexWrap>
-                <Text sm secondary className="w-8">{size}</Text>
-                <Select {...{ [size]: true }} className="w-40">
-                  <option>Cyprus</option>
-                  <option>Estonia</option>
-                </Select>
-                <Textarea {...{ [size]: true }} className="w-48" placeholder="Notes" />
-                <Switch {...{ [size]: true }} defaultChecked />
-                <Radio {...{ [size]: true }} name={`size-${size}`} defaultChecked />
-              </Row>
-            ))}
-          </Card>
-
-          <Card>
-            <Title>Appearances and states</Title>
-            <Text sm secondary>
-              Controls take the same appearance props as the rest of the library.{' '}
-              <Code sm>invalid</Code> emits <Code sm>aria-invalid</Code> plus a danger
-              border, so the error state is never colour-only.
-            </Text>
-            <Row flexWrap itemsCenter>
-              {(['primary', 'success', 'danger', 'warning', 'info'] as const).map(a => (
-                <Switch key={a} {...{ [a]: true }} defaultChecked />
-              ))}
-              <Switch disabled />
-              <Switch defaultChecked disabled />
-            </Row>
-            <Row flexWrap itemsStart>
-              <Textarea invalid className="w-56" placeholder="Invalid textarea" />
-              <Select invalid className="w-40">
-                <option>Invalid select</option>
-              </Select>
-              <Select disabled className="w-40">
-                <option>Disabled</option>
-              </Select>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>A real form</Title>
-            <Text sm secondary>
-              Controls sit inside <Code sm>Label</Code>, which stacks label above field
-              and propagates its size down. Use <Code sm>{'<Label row>'}</Code> for
-              inline controls.
-            </Text>
-            <Stack noPadding>
-              <Label>
-                Country
-                <Select>
-                  <option>Cyprus</option>
-                  <option>Estonia</option>
-                  <option>Portugal</option>
-                </Select>
-              </Label>
-              <Label>
-                Notes
-                <Textarea placeholder="Anything we should know?" />
-              </Label>
-              <Label>
-                Plan
-                <RadioGroup name="plan" defaultValue="pro">
-                  <Label row><Radio value="free" /> Free</Label>
-                  <Label row><Radio value="pro" /> Pro</Label>
-                  <Label row><Radio value="team" /> Team</Label>
-                </RadioGroup>
-              </Label>
-              <Label row><Switch defaultChecked /> Email notifications</Label>
-              <Label row><Checkbox /> I agree to the terms</Label>
-            </Stack>
-          </Card>
-
-          {/* ═══ 5. FIELD, ALERT, SPINNER ═════════════════════════════ */}
-          <Divider />
-          <SectionTitle>5. Field, Alert, Spinner</SectionTitle>
-
-          <Card>
-            <Title>Field</Title>
-            <Text sm secondary>
-              <Code sm>Field</Code> owns the id, points the label at the control, and links
-              the help and error text with <Code sm>aria-describedby</Code>. An{' '}
-              <Code sm>error</Code> also marks the control invalid.
-            </Text>
-            <Field label="Work email" description="Used for billing receipts.">
-              <Input type="email" placeholder="you@company.com" />
-            </Field>
-            <Field label="Display name" error="This name is already taken.">
-              <Input defaultValue="evgenii" />
-            </Field>
-            <Field lg label="Large field" description="Field size cascades to the control.">
-              <Input placeholder="lg" />
-            </Field>
-          </Card>
-
-          <Card>
-            <Title>Field — self-rendering</Title>
-            <Text sm secondary>
-              Skip the child control: pass <Code sm>type</Code> or a control boolean and{' '}
-              <Code sm>Field</Code> renders it. <Code sm>checkbox</Code>/<Code sm>switch</Code>{' '}
-              lay out inline with their label, and the row-to-label gap scales with size.
-            </Text>
-            <Field type="email" label="Work email" description="Used for billing receipts." />
-            <Field select label="Region" description="Sets your default currency.">
-              <option>Cyprus</option>
-              <option>Estonia</option>
-            </Field>
-            <Row flexWrap itemsStart>
-              <Field xs checkbox label="Subscribe (xs)" />
-              <Field xl checkbox label="Subscribe (xl)" />
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Alert</Title>
-            <Text sm secondary>
-              A live region: <Code sm>role=&quot;alert&quot;</Code> by default,{' '}
-              <Code sm>role=&quot;status&quot;</Code> with <Code sm>polite</Code>.
-            </Text>
-            <Alert info>Scheduled maintenance starts at 02:00 UTC.</Alert>
-            <Alert success polite>Your changes were saved.</Alert>
-            <Alert warning>Your trial ends in three days.</Alert>
-            <Alert danger filled>Payment failed. Update your card to continue.</Alert>
-          </Card>
-
-          <Card>
-            <Title>Spinner</Title>
-            <Text sm secondary>
-              <Code sm>Spinner</Code> scales with the size ramp and takes its colour from the
-              appearance.
-            </Text>
-            <Row flexWrap>
-              {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
-                <Spinner key={size} {...{ [size]: true }} aria-label={`Loading ${size}`} />
-              ))}
-              <Spinner success aria-label="Loading success" />
-              <Spinner danger aria-label="Loading danger" />
-              <Button loading>Loading button</Button>
-            </Row>
-          </Card>
-
-          {/* ═══ 6. TOOLTIP ══════════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>6. Tooltip</SectionTitle>
+          <SectionTitle>4. Tooltip</SectionTitle>
 
           <Card>
             <Title>Basic usage</Title>

@@ -47,6 +47,10 @@ export const INHERIT_COLOR = ['inheritColor'] as const;
 export const INHERIT_BG = ['inheritBg'] as const;
 export const INHERIT_BORDER = ['inheritBorder'] as const;
 export const CONTROL = ['control'] as const;
+export const POINTER_EVENTS = ['pointerEvents'] as const;
+export const DIVIDED = ['divided'] as const;
+export const STRONG_BORDER = ['strongBorder'] as const;
+export const INDICATOR = ['indicator'] as const;
 
 export const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
 export const VISUAL_FULL = [...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE] as const;
@@ -86,22 +90,27 @@ export const ICON_CATEGORIES = [
 
 // Grid excludes breakpoint/shadow/ring/textAlign — no corresponding mappers on a grid container.
 // Wrap in a Card/Section if needed.
-export const GRID_CATEGORIES = [
+const LAYOUT_BOX_CATEGORIES = [
   ...LAYOUT_FULL,
   ...PADDING,
   ...MARGIN,
   ...VISUAL_CORE,
   ...BORDER,
+  ...STRONG_BORDER,
   ...SHAPE,
   ...VARIANT,
   ...WIDTH,
   ...HEIGHT,
   ...COMMON_MODIFIERS,
+  ...POINTER_EVENTS,
+  ...WHITESPACE,
 ] as const;
+
+export const GRID_CATEGORIES = [...LAYOUT_BOX_CATEGORIES, ...DIVIDED] as const;
 
 // Container is a flex column wrapper — supports breakpoint/shadow/ring/textAlign (unlike Grid).
 export const CONTAINER_CATEGORIES = [
-  ...GRID_CATEGORIES,
+  ...LAYOUT_BOX_CATEGORIES,
   ...BREAKPOINT,
   ...VISUAL_DECORATION_LAYOUT,
   ...TEXT_ALIGN,
@@ -116,11 +125,14 @@ export const RESPONSIVE_LAYOUT_CATEGORIES = [
   ...PADDING,
   ...MARGIN,
   ...VISUAL_LAYOUT,
+  ...STRONG_BORDER,
   ...VARIANT,
   ...WIDTH,
   ...HEIGHT,
   ...COMMON_MODIFIERS,
   ...TEXT_ALIGN,
+  ...POINTER_EVENTS,
+  ...WHITESPACE,
   'focusVisible',
 ] as const;
 

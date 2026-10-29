@@ -10,6 +10,9 @@ import { RingClassMapper } from "../layout/ringClassMapper";
 import { RadiusClassMapper } from "../layout/radiusClassMapper";
 import { FlexClassMapper } from "../layout/flexClassMapper";
 import { ShrinkClassMapper } from "../layout/shrinkClassMapper";
+import { PointerEventsClassMapper } from "../layout/pointerEventsClassMapper";
+import { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
+import { StrongBorderClassMapper } from "../appearance/strongBorderClassMapper";
 import { bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "./appearanceClassMappers";
 
 // shared by Card, Section, Container, Stack, Row, Col; individual components may extend/override
@@ -24,6 +27,7 @@ export const layoutClassMappers = {
     background: bgAppearance,
     text: textAppearance,
     border: borderAppearance,
+    strongBorder: new StrongBorderClassMapper(),
     ring: ringAppearance,
     shadow: shadowAppearance,
   },
@@ -36,5 +40,7 @@ export const layoutClassMappers = {
     radius: new RadiusClassMapper(),
     flex: new FlexClassMapper(),
     shrink: new ShrinkClassMapper(),
+    pointerEvents: new PointerEventsClassMapper(),
+    whitespace: new WhitespaceClassMapper(),
   },
 };

@@ -15,6 +15,9 @@ import type {
   FlexDirectionProps,
   AppearanceProps,
   BorderProps,
+  StrongBorderProps,
+  PointerEventsProps,
+  WhitespaceProps,
   ShadowProps,
   RingProps,
   ShapeProps,
@@ -45,6 +48,9 @@ export type ContainerProps = BaseProps &
   FlexDirectionProps &
   AppearanceProps &
   BorderProps &
+  StrongBorderProps &
+  PointerEventsProps &
+  WhitespaceProps &
   ShadowProps &
   RingProps &
   ShapeProps &
