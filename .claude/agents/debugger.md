@@ -56,7 +56,6 @@ Key files:
 After applying a fix, run the full verification pipeline:
 
 ```bash
-cd C:/GitHub/vaneui
 npm run type-check    # TypeScript
 npm run lint          # ESLint — zero errors required
 npm test              # Jest — all tests must pass
