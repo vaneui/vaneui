@@ -45,7 +45,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     const {
       className,
       wFull, wFit, wAuto, wScreen,
+      mobileWFull, tabletWFull, desktopWFull,
       mobileHide, tabletHide, desktopHide,
+      mobileShow, tabletShow, desktopShow,
       noShrink,
       disabled,
       onMouseDown, onKeyDown,
@@ -69,7 +71,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     const wrapperProps = {
       className,
       wFull, wFit, wAuto, wScreen,
+      mobileWFull, tabletWFull, desktopWFull,
       mobileHide, tabletHide, desktopHide,
+      mobileShow, tabletShow, desktopShow,
       noShrink, // the wrapper is the flex item, so shrink belongs on it
       disabled, // dims the chevron with the field; the field also keeps the native attribute
     };

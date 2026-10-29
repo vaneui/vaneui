@@ -824,6 +824,21 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "responsiveWidth": {
+    "name": "Responsive Width",
+    "description": "Responsive width props: full width below a breakpoint, keeping the base width above it",
+    "props": {
+      "mobileWFull": {
+        "description": "Set width to 100% on mobile, below 768px (max-mobile: 48rem)"
+      },
+      "tabletWFull": {
+        "description": "Set width to 100% on tablet and below, below 1024px (max-tablet: 64rem)"
+      },
+      "desktopWFull": {
+        "description": "Set width to 100% on desktop and below, below 1280px (max-desktop: 80rem)"
+      }
+    }
+  },
   "ring": {
     "name": "Ring",
     "description": "Ring props for the always-on inset ring (emits ring-inset). Not the focus\nindicator — that is focusVisible.",
@@ -875,6 +890,21 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "sharp": {
         "description": "No rounded corners (square)"
+      }
+    }
+  },
+  "show": {
+    "name": "Show",
+    "description": "Show props: show an element only below a breakpoint, the reverse of the hide props",
+    "props": {
+      "mobileShow": {
+        "description": "Show element only on mobile, below 768px (hidden from 48rem up)"
+      },
+      "tabletShow": {
+        "description": "Show element only on tablet and below, below 1024px (hidden from 64rem up)"
+      },
+      "desktopShow": {
+        "description": "Show element only on desktop and below, below 1280px (hidden from 80rem up)"
       }
     }
   },

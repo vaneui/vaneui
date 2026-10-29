@@ -29,7 +29,7 @@ Named for clarity, not class-correspondence. Not prefix-checked.
 
 - **Design-system layer:** `appearance`, `variant`, `shape`, `size`, `control`.
 - **Bare Tailwind values** (individually class-correct, no shared prefix): `display`, `position`, `flexDirection`, `fontStyle`, `textDecoration`, `textTransform`, `truncate`.
-- **Responsive/semantic:** `breakpoint` (`mobileStack`…), `hide`, `orientation`, `responsiveSizing`.
+- **Responsive/semantic:** `breakpoint` (`mobileStack`…), `hide`, `show` (`mobileShow`…), `responsiveWidth` (`mobileWFull`…), `orientation`, `responsiveSizing`.
 - **Deliberately-clearer renames** (from the prop-naming review): `validity` (`invalid`), `constrainWidth`, `clampHeight`.
 - **Single-flag state:** `transparent`, `disabled`, `readOnly`, `shrink`.
 - **Inherit family:** `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (appearance's `inheritAppearance` value lives in the design-system layer).

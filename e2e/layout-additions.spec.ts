@@ -126,3 +126,28 @@ test.describe('Layout pointer events, whitespace and Img noShrink', () => {
     expect((await byId(page, 'img-no-shrink').boundingBox())?.width).toBe(48);
   });
 });
+
+test.describe('Responsive width and show', () => {
+  test('mobileWFull fills the row on mobile and keeps the fit width above', async ({ page }) => {
+    const col = byId(page, 'col-mobile-wfull');
+    const button = byId(page, 'button-mobile-wfull');
+    await page.setViewportSize({ width: 600, height: 700 });
+    expect((await button.boundingBox())!.width).toBeCloseTo((await col.boundingBox())!.width, 0);
+    await page.setViewportSize({ width: 1300, height: 800 });
+    expect((await button.boundingBox())!.width).toBeLessThan((await col.boundingBox())!.width / 2);
+  });
+
+  test('tabletShow shows only below 1024px, and mobileHide tabletShow only between 768 and 1024px', async ({ page }) => {
+    const button = byId(page, 'button-tablet-show');
+    const band = byId(page, 'row-tablet-band');
+    await page.setViewportSize({ width: 600, height: 700 });
+    await expect(button).toBeVisible();
+    await expect(band).toBeHidden();
+    await page.setViewportSize({ width: 900, height: 700 });
+    await expect(button).toBeVisible();
+    await expect(band).toBeVisible();
+    await page.setViewportSize({ width: 1300, height: 800 });
+    await expect(button).toBeHidden();
+    await expect(band).toBeHidden();
+  });
+});

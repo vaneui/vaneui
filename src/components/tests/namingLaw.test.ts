@@ -25,7 +25,7 @@ const SEMANTIC_CATEGORIES = new Set<string>([
   'appearance', 'variant', 'shape', 'size', 'control',
   'display', 'position', 'flexDirection', 'fontStyle', 'textDecoration',
   'textTransform', 'truncate',
-  'breakpoint', 'hide', 'orientation', 'responsiveSizing',
+  'breakpoint', 'hide', 'show', 'responsiveWidth', 'orientation', 'responsiveSizing',
   'validity', 'constrainWidth', 'clampHeight',
   'transparent', 'disabled', 'readOnly', 'shrink',
   'inheritSize', 'inheritColor', 'inheritBg', 'inheritBorder',

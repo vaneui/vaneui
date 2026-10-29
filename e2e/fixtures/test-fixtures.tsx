@@ -508,6 +508,11 @@ function LayoutAdditionsFixtures() {
         <Img noShrink src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" width={48} height={8} data-testid="img-no-shrink"/>
         <Img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="" width={48} height={8} data-testid="img-shrinks"/>
       </Row>
+      <Col itemsStart data-testid="col-mobile-wfull">
+        <Button mobileWFull data-testid="button-mobile-wfull">Adopt</Button>
+      </Col>
+      <Button tabletShow data-testid="button-tablet-show">Menu</Button>
+      <Row mobileHide tabletShow data-testid="row-tablet-band">Tablet band</Row>
     </section>
   );
 }

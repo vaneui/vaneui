@@ -52,6 +52,7 @@ export * from './overflowProps';
 // Responsive
 export * from './breakpointProps';
 export * from './hideProps';
+export * from './showProps';
 export * from './responsiveProps';
 
 // Visual modifiers
@@ -70,6 +71,7 @@ export * from './listPositionProps';
 
 // Width
 export * from './widthProps';
+export * from './responsiveWidthProps';
 
 // Truncate
 export * from './truncateProps';

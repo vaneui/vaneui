@@ -267,6 +267,8 @@ export const ComponentKeys = {
   gap: ['gap', 'noGap'] as const,
   /** Hide elements at specific breakpoint sizes. Widest-first so combining several resolves to the widest = their union. */
   hide: ['desktopHide', 'tabletHide', 'mobileHide'] as const,
+  /** Show elements only below a breakpoint, the reverse of hide. Widest-first, like hide. */
+  show: ['desktopShow', 'tabletShow', 'mobileShow'] as const,
   /** Cross-axis alignment for flex items (align-items) */
   items: ['itemsStart', 'itemsEnd', 'itemsCenter', 'itemsBaseline', 'itemsStretch'] as const,
   /** Per-item cross-axis alignment, overriding the parent's align-items (align-self) */
@@ -336,6 +338,8 @@ export const ComponentKeys = {
   objectFit: ['objectCover', 'objectContain', 'objectFill', 'objectNone', 'objectScaleDown'] as const,
   /** Width control for element sizing */
   width: ['wFull', 'wFit', 'wAuto', 'wScreen'] as const,
+  /** Full width below a breakpoint, on top of the base width. Widest-first, like hide. */
+  responsiveWidth: ['desktopWFull', 'tabletWFull', 'mobileWFull'] as const,
   /** Truncate control for text overflow */
   truncate: ['truncate', 'lineClamp2', 'lineClamp3', 'lineClamp4', 'lineClamp5', 'noTruncate'] as const,
   /** Form validation state: invalid (layers danger border/ring over any appearance) */
@@ -404,6 +408,8 @@ export type MarginKey = typeof ComponentKeys.margin[number];
 export type BreakpointKey = typeof ComponentKeys.breakpoint[number];
 /** Breakpoint-specific hide keys for responsive visibility */
 export type HideKey = typeof ComponentKeys.hide[number];
+/** Breakpoint-specific show keys: visible only below a breakpoint */
+export type ShowKey = typeof ComponentKeys.show[number];
 /** CSS position keys: relative, absolute, fixed, sticky, static */
 export type PositionKey = typeof ComponentKeys.position[number];
 /** Flex direction keys: row, column, rowReverse, columnReverse */
@@ -442,6 +448,8 @@ export type WordBreakKey = typeof ComponentKeys.wordBreak[number];
 export type ObjectFitKey = typeof ComponentKeys.objectFit[number];
 /** Width keys for element sizing */
 export type WidthKey = typeof ComponentKeys.width[number];
+/** Breakpoint-specific full-width keys */
+export type ResponsiveWidthKey = typeof ComponentKeys.responsiveWidth[number];
 /** Truncate keys for text overflow */
 export type TruncateKey = typeof ComponentKeys.truncate[number];
 /** Validity keys for form validation */
