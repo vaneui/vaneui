@@ -17,33 +17,33 @@ strong borders, NavLink indicators, shadow sizes and real light subtrees.
 
 ### Added
 
-- **`Progress`**: a determinate bar, `<Progress value={40} aria-label="Upload" />`. A
+- `Progress`: a determinate bar, `<Progress value={40} aria-label="Upload" />`. A
   `role="progressbar"` track with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`;
   `value` is clamped to 0 to `max` (100 by default). The fill is its own themed element
   (`progress.fill`), a filled bar in the appearance color over a neutral track, and it follows
   the track's shape and `transition`/`noTransition`. Heights run 2, 4, 8, 12 and 16px from `xs`
   to `xl`; `pill` by default. The fill eases to a new value, with no motion under reduced motion.
-- **`divided` on `Grid2` to `Grid6`**: 1px lines in the divider color between and around
+- `divided` on `Grid2` to `Grid6`: 1px lines in the divider color between and around
   the cells, in place of the gap.
-- **`strongBorder` on layout components** (`Row`, `Col`, `Stack`, `Grid*`, `Container`, `Card`,
+- `strongBorder` on layout components (`Row`, `Col`, `Stack`, `Grid*`, `Container`, `Card`,
   `Section`): the border takes the appearance's strong color, the one its focus ring uses. A
   filled `Card`, whose border is otherwise transparent, shows it too.
-- **`indicatorStart` and `indicatorBottom` on `NavLink`**: a 1px rail on the start edge that
+- `indicatorStart` and `indicatorBottom` on `NavLink`: a 1px rail on the start edge that
   turns into a 2px accent mark when `active` or `aria-selected`, or an accent bar under the
   active tab. They are inset shadows, so the text does not move. The rail flips in
   right-to-left text.
-- **`shadowXs` to `shadowXl`**: fix the drop shadow size on the component's own ramp
+- `shadowXs` to `shadowXl`: fix the drop shadow size on the component's own ramp
   (compact for UI components, deeper for layout ones), whatever the component's size.
   `shadow` still follows the size.
-- **`pointerEventsNone`/`pointerEventsAuto` and the `whitespace*` props on layout
-  components**: `Row`, `Col`, `Stack`, `Grid*`, `Container`, `Card` and `Section`.
-- **`noShrink` on `Img`**, so an image keeps its size in a tight `Row`.
-- **Selected options**: a `NavLink` or `MenuItem` with `aria-selected="true"` (an option in a
+- `pointerEventsNone`/`pointerEventsAuto` and the `whitespace*` props on layout
+  components: `Row`, `Col`, `Stack`, `Grid*`, `Container`, `Card` and `Section`.
+- `noShrink` on `Img`, so an image keeps its size in a tight `Row`.
+- Selected options: a `NavLink` or `MenuItem` with `aria-selected="true"` (an option in a
   listbox, like a search result) takes the hover fill.
 
 ### Changed
 
-- **Dark mode colors are `light-dark()` pairs.** The dark block's colors are now one list of
+- Dark mode colors are `light-dark()` pairs. The dark block's colors are now one list of
   `light-dark(light, dark)` pairs on every `data-theme` element, and `data-theme` sets
   `color-scheme`, which picks the side. Pages without `data-theme` keep the `@theme` values and
   are unaffected. Uncompiled, `light-dark()` needs Chrome 123, Firefox 120 or Safari 17.5;
@@ -53,7 +53,7 @@ strong borders, NavLink indicators, shadow sizes and real light subtrees.
 
 ### Fixed
 
-- **`data-theme="light"` makes a subtree light inside a dark page or wrapper.** It only reset
+- `data-theme="light"` makes a subtree light inside a dark page or wrapper. It only reset
   `color-scheme`, so the dark colors still came through. It now resolves every pair to its light
   side. On `<html>` it changes nothing, so token customizations made with `@theme` keep working.
 
@@ -65,26 +65,26 @@ A consistency pass on `Tooltip`: it is now sized and coloured as a label, not a 
 
 ### Added
 
-- **`Tooltip` takes `Popup` props directly**, like `Menu`: `<Tooltip lg placeBottom arrow>`.
+- `Tooltip` takes `Popup` props directly, like `Menu`: `<Tooltip lg placeBottom arrow>`.
   Size, appearance, variant, shape, placement, `arrow`, `offset` and `className` style the
   tooltip. `popupProps` still works and is combined with them.
 
 ### Changed
 
-- **`Tooltip` is filled in ink**: near-black, and near-white in dark mode, like a filled
+- `Tooltip` is filled in ink: near-black, and near-white in dark mode, like a filled
   primary `Button`. It was gray. `<Tooltip secondary>` or
   `themeDefaults={{ tooltip: { secondary: true } }}` brings the gray back.
-- **`Tooltip` text follows its size**: 10, 12, 14, 16 and 18px from `xs` to `xl`, one step
+- `Tooltip` text follows its size: 10, 12, 14, 16 and 18px from `xs` to `xl`, one step
   under a `Button` of the same size. It inherited the page's text (16px at every size).
-- **`Tooltip` padding and radius follow the `Button` ramp**, so a tooltip is about as tall as a
+- `Tooltip` padding and radius follow the `Button` ramp, so a tooltip is about as tall as a
   `Button` of the same size (29px instead of 44px at the default `sm`). Padding no longer
   shrinks on tablets and phones.
-- **Long tooltips wrap** inside a cap that grows with size (16–32rem, 20rem at `sm`) instead
+- Long tooltips wrap inside a cap that grows with size (16–32rem, 20rem at `sm`) instead
   of running on one line across the page.
 
 ### Fixed
 
-- **Popups placed above or below stay on screen next to an anchor at the viewport edge** in
+- Popups placed above or below stay on screen next to an anchor at the viewport edge in
   browsers with CSS anchor positioning. They were centred on the anchor and cut off; they
   now line up with the anchor's edge, and the arrow follows.
 
@@ -97,70 +97,70 @@ landing pages, articles, overlays, a storefront).
 
 ### Added
 
-- **`Table` and `Alert` take a font family** (`fontSans`, `fontMono`, …) and default to
+- `Table` and `Alert` take a font family (`fontSans`, `fontMono`, …) and default to
   `fontSans`. Their cells and raw text used to fall back to the page's own font (a serif
   on an unstyled page), because the scoped reset never sets one.
 
 ### Changed
 
-- **`Input` and `Select` are as tall as `Button` at every size.** They used a looser line
+- `Input` and `Select` are as tall as `Button` at every size. They used a looser line
   height, so a field was 4.8px taller than the button beside it at `md`. Their corner
   radius now matches too. Every `Input` and `Select` gets slightly shorter.
-- **List markers sit inside the list box.** The marker gutter was 12px at `md`, so bullets
+- List markers sit inside the list box. The marker gutter was 12px at `md`, so bullets
   and `10.` hung outside it; it is now 16–32px by size. An `icon` item's icon moves into the
   same gutter, so icon items and plain items share one text column.
-- **`transition` no longer animates the focus ring**, only colors, shadows and transforms.
+- `transition` no longer animates the focus ring, only colors, shadows and transforms.
 
 ### Fixed
 
-- **Words no longer break mid-word in rows and tables.** The long-token wrapping added for
+- Words no longer break mid-word in rows and tables. The long-token wrapping added for
   URLs let a short label beside a full-width control shrink to one letter per line, and
   split prices and names in table cells. Titles, lists and blockquotes now wrap long tokens
   too, instead of overflowing on a phone.
-- **An unselected `RadioGroup` no longer shows every radio as selected.**
-- **The invalid state is visible.** `Input`, `Select` and `Textarea` drew their danger ring at
+- An unselected `RadioGroup` no longer shows every radio as selected.
+- The invalid state is visible. `Input`, `Select` and `Textarea` drew their danger ring at
   30% strength, fainter than a normal field; it is now full strength. Text fields also use
   the form-control border token, like `Checkbox`, `Radio` and `Switch`.
-- **The active `NavLink` stands out**: it is semibold on a stronger tint, and hover no longer
+- The active `NavLink` stands out: it is semibold on a stronger tint, and hover no longer
   looks the same as the current page. A trailing `Badge` sits at the row's end.
-- **`Link` and a `Card` with `href` draw a visible focus ring** in dark mode and on colored
+- `Link` and a `Card` with `href` draw a visible focus ring in dark mode and on colored
   surfaces. It used the browser's default color.
-- **Text stays readable on filled surfaces.** Secondary and tertiary text, ghost buttons and
+- Text stays readable on filled surfaces. Secondary and tertiary text, ghost buttons and
   links on a filled `Card` or `Section` take the surface's text color.
-- **`filled` without an appearance no longer turns text white on an unpainted surface.**
-- **Whole-page dark mode paints the page**, so cards no longer sit darker than the page.
+- `filled` without an appearance no longer turns text white on an unpainted surface.
+- Whole-page dark mode paints the page, so cards no longer sit darker than the page.
   Any background you set on `html` or `body` still wins.
-- **`Mark` shows a visible highlight.**
-- **An svg in running text stays inline** instead of breaking the line.
-- **`Tooltip`, `Popup` and menus render in the library font.** A string `title` on `Modal`
+- `Mark` shows a visible highlight.
+- An svg in running text stays inline instead of breaking the line.
+- `Tooltip`, `Popup` and menus render in the library font. A string `title` on `Modal`
   renders as a `Title`.
-- **`Modal` returns focus to the button that opened it** on every close path.
-- **Escape inside a `Menu` closes only that menu**, not the `Modal` around it or the whole
+- `Modal` returns focus to the button that opened it on every close path.
+- Escape inside a `Menu` closes only that menu, not the `Modal` around it or the whole
   menu tree.
-- **Menu items sit flush again**; a 16px gap had appeared between them.
-- **Popups placed above or below keep their own width** instead of shrinking to a small
+- Menu items sit flush again; a 16px gap had appeared between them.
+- Popups placed above or below keep their own width instead of shrinking to a small
   trigger, so tooltips no longer wrap one word per line.
-- **End-aligned and left popups stay at their trigger under `dir="rtl"`.**
-- **`Modal` keeps a margin on a phone** instead of running edge to edge.
-- **`ModalCloseButton` keeps its own look under app-wide `button.main` defaults** (a filled
+- End-aligned and left popups stay at their trigger under `dir="rtl"`.
+- `Modal` keeps a margin on a phone instead of running edge to edge.
+- `ModalCloseButton` keeps its own look under app-wide `button.main` defaults (a filled
   default made the × invisible) and is square like `IconButton`.
-- **A loading `Button` with an icon keeps its size.**
-- **A read-only `Checkbox` no longer toggles**, a read-only `Select` can no longer be changed,
+- A loading `Button` with an icon keeps its size.
+- A read-only `Checkbox` no longer toggles, a read-only `Select` can no longer be changed,
   and read-only toggles dim like read-only text fields.
-- **`Field` passes `disabled`, `required` and `readOnly` to a child control**, including every
+- `Field` passes `disabled`, `required` and `readOnly` to a child control, including every
   `Radio` of a child `RadioGroup`. Control-only attributes no longer land on its wrapper div.
-- **`<Link sm>` renders at `sm`**; an explicit size used to be ignored.
-- **A size set on the switch input theme reaches the track.**
-- **A disabled `Link` looks disabled**, and disabled fields show the not-allowed cursor.
+- `<Link sm>` renders at `sm`; an explicit size used to be ignored.
+- A size set on the switch input theme reaches the track.
+- A disabled `Link` looks disabled, and disabled fields show the not-allowed cursor.
   Disabled opacity now reads the `--disabled-opacity` token.
-- **`Select` stays on one line in a row**, `noShrink` reaches it, and a placeholder option
+- `Select` stays on one line in a row, `noShrink` reaches it, and a placeholder option
   is muted like an `Input` placeholder.
-- **`Textarea` honours `rows`** below three lines.
-- **A clickable `Chip` shows the focus ring**, and linked `Card`, `Chip` and `Badge` get a hover
+- `Textarea` honours `rows` below three lines.
+- A clickable `Chip` shows the focus ring, and linked `Card`, `Chip` and `Badge` get a hover
   tint.
-- **Hovering another menu item closes an open sibling submenu**, and a submenu's trigger keeps
+- Hovering another menu item closes an open sibling submenu, and a submenu's trigger keeps
   its tint while the submenu is open.
-- **`Alert` text uses body line-height** and a leading icon centres on the first line.
+- `Alert` text uses body line-height and a leading icon centres on the first line.
 - A `Card` with `href` warns in development when it contains a button, link or field.
 
 ## 1.4.2
@@ -169,14 +169,14 @@ landing pages, articles, overlays, a storefront).
 
 ### Fixed
 
-- **`Field`'s label now scales with the field.** The label, description and error
+- `Field`'s label now scales with the field. The label, description and error
   were pinned to `sm` at every size, so `<Field xl>` grew the control and left its
   label behind. The label now takes the field's size and the help and error text
   sit one step below it.
-- **`Field`'s inline checkbox and switch line up with their label.** The control
+- `Field`'s inline checkbox and switch line up with their label. The control
   resolved its line box against the page root instead of the label's font
   metrics, so it sat high and the switch track overflowed its own box.
-- **`Field`'s help and error text stay readable on a filled surface.** Their pinned
+- `Field`'s help and error text stay readable on a filled surface. Their pinned
   secondary and danger colors lost contrast on a fill; under any filled ancestor,
   the field itself or a `Card` or `Row` above it, they now take that surface's
   text color.
@@ -187,7 +187,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Added
 
-- **`Field` can render its own control**, instead of only wrapping one passed as
+- `Field` can render its own control, instead of only wrapping one passed as
   a child. Pass `type` (a control kind such as `select`, or a native input type
   such as `password`, `email`, `date`) or one of the six booleans `textInput`,
   `textarea`, `select`, `checkbox`, `switch`, `radiogroup`. Surface props
@@ -202,7 +202,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Changed
 
-- **`Field`'s `type` prop is now a closed union** of the control kinds and
+- `Field`'s `type` prop is now a closed union of the control kinds and
   native input types above. It previously accepted any string, inherited from
   the anchor attributes `Field` spreads for tag switching, and Field has no
   `href`-based tag switching of its own, so a value like `<Field type="button">`
@@ -212,15 +212,15 @@ landing pages, articles, overlays, a storefront).
 
 ### Fixed
 
-- **The conflicting-props dev warning no longer fires on composable side
-  toggles.** `border` and `margin` side toggles compose by design, so
+- The conflicting-props dev warning no longer fires on composable side
+  toggles. `border` and `margin` side toggles compose by design, so
   `<Card borderT borderL>` and `<Card marginT marginB>` are correct usage, yet
   every component warned that they conflicted. The warning now skips composable
   categories, matching the rule the resolver itself already used. It still warns
   in the one case that is genuinely ambiguous there: when a `no*` reset is
   combined with a side toggle (`<Card borderT noBorder>`), where the reset
   discards the toggle and wins.
-- **`Field` no longer emits a dangling `htmlFor` for a radio group.** A
+- `Field` no longer emits a dangling `htmlFor` for a radio group. A
   `radiogroup` is not a labelable element and never claims the generated id, so
   the label pointed at nothing. `Field` now omits `htmlFor` for a radio group in
   both modes; the accessible name continues to come from `aria-labelledby`.
@@ -231,7 +231,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Changed
 
-- **Portalled floating content waits for hydration before it mounts.** A portal
+- Portalled floating content waits for hydration before it mounts. A portal
   has no server markup, so `Popup`, `Modal` and `Overlay` returned `null` during
   SSR — but the *first client render* portalled immediately, giving React DOM it
   never emitted server-side and forcing it to throw the subtree away and rebuild
@@ -241,7 +241,7 @@ landing pages, articles, overlays, a storefront).
   and every element-dependent effect sit downstream of it and run once the
   element actually attaches. Two consequences worth knowing:
 
-  - Portalled content that is open on its **first** render now transitions in
+  - Portalled content that is open on its first render now transitions in
     (`entering` → `entered`) instead of appearing already `entered`. Content
     opened by interaction is unaffected: hydration is long since complete.
   - `portal={false}` is untouched. Inline content has server markup, so it still
@@ -258,14 +258,14 @@ landing pages, articles, overlays, a storefront).
 
 ### Fixed
 
-- **A `sharp` Select opened a rounded dropdown.** The shape props emit Tailwind
+- A `sharp` Select opened a rounded dropdown. The shape props emit Tailwind
   classes onto the field and never touch `--br`, so the list — a pseudo-element
   that cannot take a class — always painted the size-driven radius. `Select` now
   publishes its resolved shape as `data-shape`, which the picker rules read.
   `pill` deliberately still keeps `--br`: its own radius is effectively infinite
   and a tall list box given that radius swallows its first and last rows.
 
-- **`Modal`, `Popup` and `Tooltip` listed the `shape` category twice.**
+- `Modal`, `Popup` and `Tooltip` listed the `shape` category twice.
   `VISUAL_LAYOUT` already folds `SHAPE` in, and all three spread `...SHAPE` over
   it again. The duplicate is invisible to the type system — the `as const` union
   is identical either way — but every consumer that iterates the array saw the
@@ -279,7 +279,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Added
 
-- **`Label` supports `disabled`.** It was the only form control without the
+- `Label` supports `disabled`. It was the only form control without the
   category, so a disabled field kept a full-strength label. `<Label disabled>`
   now dims to the same `opacity-50` every other control uses, and a Label
   containing a disabled control dims with it, so you disable the field rather
@@ -293,7 +293,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Changed
 
-- **The `Select` dropdown takes its colours from the field.** `option`,
+- The `Select` dropdown takes its colours from the field. `option`,
   `optgroup` and `::picker(select)` were pinned to `--color-bg-primary` /
   `--color-text-primary`, so a `filled` or `danger` Select opened a plain light
   list. They now resolve `--bg-color` / `--text-color` / `--border-color`, which
@@ -308,7 +308,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Fixed
 
-- **The `Select` dropdown opened upward over the page.** The UA styles
+- The `Select` dropdown opened upward over the page. The UA styles
   `::picker(select)` with `position-try-order: most-block-size`, which picks
   whichever side has MORE room rather than the first side that fits — so any
   field past the middle of the window opened its list above itself even with
@@ -318,7 +318,7 @@ landing pages, articles, overlays, a storefront).
   `margin-block-start`, because the flipped-up position anchors the picker's
   bottom edge and a top margin left it touching the field.
 
-- **`Field`'s help and error text could vanish on a filled `Field`.** Both are
+- `Field`'s help and error text could vanish on a filled `Field`. Both are
   rendered by the component with pinned appearances (`secondary` and `danger`),
   which an author cannot reach from outside, and `--color-text-secondary` IS
   `--color-bg-filled-secondary` — so `<Field filled secondary>` painted its
@@ -332,7 +332,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Fixed
 
-- **Every appearance on `Img` painted the same neutral border.** An appearance is
+- Every appearance on `Img` painted the same neutral border. An appearance is
   only a palette: it sets the intermediate `--app-*` variables, and the variant
   axis is what maps those onto `--border-color`. `data-variant` is emitted only
   when a variant key is extracted, and `Img` declared the variant category but
@@ -354,8 +354,8 @@ landing pages, articles, overlays, a storefront).
 
 ### Changed
 
-- **`Button` and `IconButton` now render the `Spinner` component for their
-  loading state**, instead of a private ring the library maintained separately.
+- `Button` and `IconButton` now render the `Spinner` component for their
+  loading state, instead of a private ring the library maintained separately.
   There was one ring drawn two ways: `.vane-button-spinner-ring` and
   `.vane-spinner` had already drifted to different stroke rules once, and every
   future change to the spinner had to be made in both places.
@@ -384,7 +384,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Fixed
 
-- **`Spinner`'s appearance props did nothing.** `<Spinner danger>` emitted
+- `Spinner`'s appearance props did nothing. `<Spinner danger>` emitted
   `data-appearance="danger"` and resolved the danger palette, but an appearance
   only reaches `--text-color` through the variant axis, and `Spinner` had no
   `variant` category, so no `data-variant` was emitted and the mapping never
@@ -402,11 +402,11 @@ landing pages, articles, overlays, a storefront).
   The variant carries no background here, since a ring has nothing to fill; it
   only selects which color of the appearance the ring paints in.
 
-- **The spinner ring was a 1px hairline at `xs` and `sm`.** Its stroke was
+- The spinner ring was a 1px hairline at `xs` and `sm`. Its stroke was
   `0.125em`, and browsers floor `border-width` to whole pixels, so 1.5px and
   1.75px both painted as 1px. The stroke now floors at 2px.
 
-- **`Button`'s loading ring and `Spinner` had drifted to different strokes**
+- `Button`'s loading ring and `Spinner` had drifted to different strokes
   (a pinned 2px against the scaling `0.125em`), so the same ring rendered at two
   weights depending on where it came from. Both now share one rule.
 
@@ -416,7 +416,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Added
 
-- **A `Select`'s dropdown list is now styled where the engine allows it.** A native
+- A `Select`'s dropdown list is now styled where the engine allows it. A native
   `<select>` hands its option list to the operating system, which draws a flat,
   square, unpadded menu: the options get no layout box at all, so padding, radius
   and shadow were inert and only their colors landed. Behind
@@ -427,7 +427,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Fixed
 
-- **A `sharp` or `rounded` `Switch` reshaped only its track.** The knob was
+- A `sharp` or `rounded` `Switch` reshaped only its track. The knob was
   rendered with no props and its theme pins `pill`, so a square track kept a
   circular knob. The shape now reaches the knob, and its radius insets from the
   track's by the track padding, so the two corners stay concentric rather than
@@ -437,14 +437,14 @@ landing pages, articles, overlays, a storefront).
 
 ### Fixed
 
-- **The `Input` error icon rendered as a solid disc with a slot cut through it**,
+- The `Input` error icon rendered as a solid disc with a slot cut through it,
   not an exclamation mark. Its stem and dot are meant to be holes punched in the
   disc, which under the nonzero fill rule requires them to wind opposite to it.
   The stem did; the dot did not, so it merged into the disc and vanished. The
   glyph is now sampled pixel-by-pixel in the e2e suite, because both the class
   list and the icon's geometry are identical either way.
 
-- **A `Select`'s dropdown list ignored the theme.** `<option>` and `<optgroup>`
+- A `Select`'s dropdown list ignored the theme. `<option>` and `<optgroup>`
   default to a transparent background, and the browser paints the popup from the
   option's own colors, so the list fell back to user-agent colors instead of the
   field's. Both now carry the surface and text tokens, group labels lose the
@@ -452,7 +452,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Changed
 
-- **A `Select`'s chevron turns danger when the field is invalid.** The chevron is
+- A `Select`'s chevron turns danger when the field is invalid. The chevron is
   a sibling of the field rather than a descendant, so the error state was not
   reaching it and the control's trailing edge stayed neutral while `Input` and
   `Textarea` both changed.
@@ -463,7 +463,7 @@ landing pages, articles, overlays, a storefront).
 
 ### Added
 
-- **`Field`** wires a form control to its label, help text and error message.
+- `Field` wires a form control to its label, help text and error message.
   `invalid` already emitted `aria-invalid`, but nothing associated an error
   message, so a screen reader announced that a control was invalid without
   saying why. `Field` owns one id and publishes it, the label id, the
@@ -482,15 +482,15 @@ landing pages, articles, overlays, a storefront).
   takes the label by reference through `aria-labelledby` instead. `Field`'s own
   size becomes the control's default, the same way `Label` already worked.
 
-- **`Tooltip`** describes its trigger on hover and on keyboard focus. Built on
+- `Tooltip` describes its trigger on hover and on keyboard focus. Built on
   `PopupTrigger`'s tooltip semantics: the trigger gets `aria-describedby` while
   open and never `aria-haspopup` or `aria-expanded`, which do not apply.
 
-- **`Spinner`** promotes the ring that already existed inside `Button` to a
+- `Spinner` promotes the ring that already existed inside `Button` to a
   component of its own. `role="status"`, sized by the size prop and coloured by
   the appearance prop.
 
-- **`Alert`** is a live-region surface: `role="alert"` by default, or
+- `Alert` is a live-region surface: `role="alert"` by default, or
   `role="status"` with `polite` for messages that should wait for a pause.
 
 ### Changed
@@ -575,34 +575,34 @@ through `ThemeProvider`.
 
 ### Added
 
-- **[Table](https://vaneui.com/docs/layout-components/table) family.** `Table`, `Thead`,
+- [Table](https://vaneui.com/docs/layout-components/table) family. `Table`, `Thead`,
   `Tbody`, `Tfoot`, `Tr`, `Th`, `Td`, `Caption`, with the size prop cascading from any
   container element down to the cells.
-- **Dark mode** through the `data-theme="dark"` token contract. No component code
+- Dark mode through the `data-theme="dark"` token contract. No component code
   changes are required, and consumers can declare their own themes by re-declaring the
   same tokens under any selector.
-- **RTL support.** Logical CSS utilities behind the existing props, plus `textStart` and
+- RTL support. Logical CSS utilities behind the existing props, plus `textStart` and
   `textEnd` alongside the physical `textLeft` and `textRight`.
-- **Nested submenus** on [Menu](https://vaneui.com/docs/overlay-components/menu), with
+- Nested submenus on [Menu](https://vaneui.com/docs/overlay-components/menu), with
   the full keyboard model including typeahead, `Home`, `End`, and arrow-key traversal.
-- **Icon container mode.** [Icon](https://vaneui.com/docs/basic-components/icon) gained
+- Icon container mode. [Icon](https://vaneui.com/docs/basic-components/icon) gained
   opt-in padding, shape, border, and ring, and its glyph size decoupled from the
   font-size variable.
-- **List markers and spacing.** `listCircle`, `listSquare`, `listLowerAlpha`,
+- List markers and spacing. `listCircle`, `listSquare`, `listLowerAlpha`,
   `listLowerRoman`, inside/outside positioning, per-item gap control, automatic marker
   progression on nested lists, and a
   [ListItem](https://vaneui.com/docs/typography-components/list) `icon` prop for custom
   markers.
-- **Size-driven margin props** on layout components and block typography, on the same
+- Size-driven margin props on layout components and block typography, on the same
   scale as gap and padding.
-- **Per-side border widths** and logical `borderStart` / `borderEnd` props.
-- **`alignSelf` and `justifySelf` props**, with
+- Per-side border widths and logical `borderStart` / `borderEnd` props.
+- `alignSelf` and `justifySelf` props, with
   [Popup](https://vaneui.com/docs/overlay-components/popup) edge alignment driven
   through them.
-- **Granular inherit props** (`inheritSize`, `inheritColor`, `inheritBg`,
+- Granular inherit props (`inheritSize`, `inheritColor`, `inheritBg`,
   `inheritBorder`) alongside `inheritAppearance`.
-- **`wordBreak` category**, and `whitespace` extended to typography components.
-- **`href` support on `Row`, `Col`, and `Stack`**, with a conditional focus ring.
+- `wordBreak` category, and `whitespace` extended to typography components.
+- `href` support on `Row`, `Col`, and `Stack`, with a conditional focus ring.
 
 ### Changed
 

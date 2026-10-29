@@ -634,12 +634,14 @@ makes the change. Never batch this up at release time.
   also uses `Accessibility`.
 - Write for someone upgrading, not for a reviewer. Say what changed for the consumer
   and what they must now do differently, not which file moved.
-- **Name the component first**, so the file can be scanned by component, and link its
+- Name the component first, so the file can be scanned by component, and link its
   docs page on first mention in a release: `[Table](https://vaneui.com/docs/layout-components/table)`.
   Use absolute URLs so the links also work when the file is read on GitHub or from
   `node_modules`.
 - Internal-only work (refactors, test changes, CI) gets no entry.
 - No em or en dashes. The file renders on vaneui.com and follows the docs style rules.
+- No bold. Start a bullet with the component or prop name as plain text or a code span:
+  bold on every bullet makes the rendered page hard to read.
 
 Breaking changes go under `Changed` or `Removed` like anything else, naming the
 replacement. A dedicated `### Migrating from <previous major>` section with a full
