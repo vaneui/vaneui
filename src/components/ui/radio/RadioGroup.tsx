@@ -14,15 +14,20 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
     // the group resets the Field context for its Radios, so it forwards the Field's control state itself
     const field = useContext(FieldControlContext);
     const theme = useTheme();
-    // name/value/defaultValue/onChange drive the child Radios, not the group element
-    const { name, value, defaultValue, onChange, ...rest } = props;
+    // name/value/defaultValue/onChange and the control state drive the child Radios, not the group element
+    const { name, value, defaultValue, onChange, disabled: ownDisabled, readOnly: ownReadOnly, required: ownRequired, invalid: ownInvalid, ...rest } = props;
+    // the group's own state wins over the enclosing Field's
+    const disabled = ownDisabled ?? field?.disabled;
+    const readOnly = ownReadOnly ?? field?.readOnly;
+    const required = ownRequired ?? field?.required;
+    const invalid = ownInvalid ?? (field?.invalid || undefined);
     // radios are only mutually exclusive when they share a name, so fall back to a generated one
     const generatedName = useId();
     // only an explicit group size cascades — the group's own default must not outrank a nearer Label
     const size = pickFirstTruthyKeyByCategory(props as Record<string, unknown>, {}, 'size');
     const group = useMemo(
-      () => ({ name: name ?? generatedName, value, defaultValue, onChange, size, disabled: field?.disabled, required: field?.required }),
-      [name, generatedName, value, defaultValue, onChange, size, field?.disabled, field?.required]
+      () => ({ name: name ?? generatedName, value, defaultValue, onChange, size, disabled, readOnly, required, invalid }),
+      [name, generatedName, value, defaultValue, onChange, size, disabled, readOnly, required, invalid]
     );
 
     return (
@@ -32,6 +37,11 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
             theme={theme?.radioGroup ?? defaultRadioGroupTheme}
             ref={ref}
             role="radiogroup"
+            // radiogroup supports these states in ARIA 1.2; the radios carry the native attributes
+            aria-disabled={disabled || undefined}
+            aria-readonly={readOnly || undefined}
+            aria-required={required || undefined}
+            aria-invalid={invalid || undefined}
             {...rest}
           />
         </FieldControlContext.Provider>

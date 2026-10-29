@@ -19,7 +19,6 @@ import {
   Code,
   PageTitle,
   SectionTitle,
-  Progress,
   Tooltip,
   Button,
   IconButton,
@@ -29,6 +28,16 @@ import {
   Checkbox,
   Label,
   Link,
+  Menu,
+  MenuItem,
+  Field,
+  RadioGroup,
+  Radio,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalCloseButton,
 } from '../../src';
 
 const TestSvg = () => (
@@ -93,23 +102,54 @@ function ThemeShowcase() {
 
 const LOGO_SRC = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#2563eb"/></svg>')}`;
 
-const UPLOAD_SIZE_MB = 6;
-
-function UploadCard() {
-  const [sent, setSent] = useState(2);
-  const done = sent >= UPLOAD_SIZE_MB;
+function ReviewMenu() {
+  const [pinned, setPinned] = useState(false);
   return (
-    <Card sm>
-      <Row justifyBetween>
-        <Text sm fontSemibold>quarterly-report.pdf</Text>
-        <Text sm secondary>{sent} of {UPLOAD_SIZE_MB} MB</Text>
-      </Row>
-      <Progress sm success={done} value={sent} max={UPLOAD_SIZE_MB} aria-label="Uploading quarterly-report.pdf" />
-      <Row justifyBetween>
-        <Text xs secondary>{done ? 'Upload complete' : 'Uploading to the shared drive'}</Text>
-        <Button xs secondary onClick={() => setSent(done ? 0 : sent + 1)}>{done ? 'Restart' : 'Send 1 MB'}</Button>
-      </Row>
-    </Card>
+    <Menu trigger={<Tooltip content="More actions"><IconButton aria-label="More actions"><TestSvg /></IconButton></Tooltip>}>
+      <MenuItem>Rename</MenuItem>
+      <MenuItem role="menuitemcheckbox" aria-checked={pinned} onClick={() => setPinned(!pinned)}>
+        {pinned ? 'Unpin' : 'Pin'} to sidebar
+      </MenuItem>
+      <Divider />
+      <MenuItem danger>Delete</MenuItem>
+    </Menu>
+  );
+}
+
+const FILTERS = ['Open', 'Merged', 'Draft'];
+
+function FilterChips() {
+  const [active, setActive] = useState('Open');
+  return (
+    <Row flexWrap>
+      {FILTERS.map(filter => (
+        <Chip key={filter} primary={filter === active} aria-pressed={filter === active} onClick={() => setActive(filter)}>
+          {filter}
+        </Chip>
+      ))}
+    </Row>
+  );
+}
+
+function CloseButtonModal() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button secondary onClick={() => setOpen(true)}>Open dialog</Button>
+      <Modal open={open} onClose={() => setOpen(false)} aria-label="Discard draft" withCloseButton={false}>
+        <ModalHeader>
+          <Title>Discard draft?</Title>
+          <ModalCloseButton md />
+        </ModalHeader>
+        <ModalBody>
+          <Text>The draft has not been saved. Discarding it cannot be undone.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <ModalCloseButton secondary>Keep editing</ModalCloseButton>
+          <Button danger filled onClick={() => setOpen(false)}>Discard</Button>
+        </ModalFooter>
+      </Modal>
+    </>
   );
 }
 
@@ -121,59 +161,14 @@ function App() {
 
           <PageTitle>VaneUI Playground</PageTitle>
           <Text secondary>
-            The new <Code sm>Progress</Code> bar, divided grids, strong borders, NavLink indicators,
-            shadow sizes, light islands inside <Code sm>data-theme="dark"</Code>, and the label-sized{' '}
-            <Code sm>Tooltip</Code>.
+            Divided grids, strong borders, NavLink indicators, shadow sizes, light islands inside{' '}
+            <Code sm>data-theme="dark"</Code>, the label-sized <Code sm>Tooltip</Code>, and the fixes
+            from the component review.
           </Text>
 
-          {/* ═══ 1. PROGRESS ═════════════════════════════════════════════════ */}
+          {/* ═══ 1. GRIDS, BORDERS, INDICATORS ═══════════════════════════════ */}
           <Divider />
-          <SectionTitle>1. Progress</SectionTitle>
-
-          <Card>
-            <Title>Basic usage</Title>
-            <Text sm secondary>
-              <Code sm>value</Code> fills the bar against <Code sm>max</Code> (100 by default). It
-              renders one <Code sm>role="progressbar"</Code> element, so name it with{' '}
-              <Code sm>aria-label</Code>.
-            </Text>
-            <Progress value={40} aria-label="Default progress" />
-            <Progress value={3} max={8} aria-label="Step 3 of 8" />
-          </Card>
-
-          <Card>
-            <Title>Sizes</Title>
-            <Text sm secondary>The bar height follows the size ramp, from a 2px hairline at xs to 16px at xl.</Text>
-            {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
-              <Row key={size}>
-                <Text sm secondary className="w-8">{size}</Text>
-                <Progress {...{ [size]: true }} value={60} flex1 aria-label={`Progress ${size}`} />
-              </Row>
-            ))}
-          </Card>
-
-          <Card>
-            <Title>Appearances and shapes</Title>
-            <Text sm secondary>
-              The fill takes the appearance color and the track stays neutral. <Code sm>pill</Code> is
-              the default; <Code sm>rounded</Code> and <Code sm>sharp</Code> square the ends off.
-            </Text>
-            {(['primary', 'accent', 'success', 'danger', 'warning', 'info'] as const).map(a => (
-              <Progress key={a} {...{ [a]: true }} value={70} aria-label={`${a} progress`} />
-            ))}
-            <Progress lg rounded value={45} aria-label="Rounded progress" />
-            <Progress lg sharp value={45} aria-label="Sharp progress" />
-          </Card>
-
-          <Card>
-            <Title>Upload card</Title>
-            <Text sm secondary>A file upload in a small card. Each click sends another megabyte, and the fill eases to the new width.</Text>
-            <UploadCard />
-          </Card>
-
-          {/* ═══ 2. GRIDS, BORDERS, INDICATORS ═══════════════════════════════ */}
-          <Divider />
-          <SectionTitle>2. Grids, borders and indicators</SectionTitle>
+          <SectionTitle>1. Grids, borders and indicators</SectionTitle>
 
           <Card>
             <Title>Divided grid</Title>
@@ -253,9 +248,9 @@ function App() {
             </Row>
           </Card>
 
-          {/* ═══ 3. DARK MODE ════════════════════════════════════════════════ */}
+          {/* ═══ 2. DARK MODE ════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>3. Dark Mode</SectionTitle>
+          <SectionTitle>2. Dark Mode</SectionTitle>
 
           <Card>
             <Title>Light vs data-theme="dark"</Title>
@@ -314,9 +309,9 @@ function App() {
             </div>
           </Card>
 
-          {/* ═══ 4. TOOLTIP ══════════════════════════════════════════════════ */}
+          {/* ═══ 3. TOOLTIP ══════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>4. Tooltip</SectionTitle>
+          <SectionTitle>3. Tooltip</SectionTitle>
 
           <Card>
             <Title>Basic usage</Title>
@@ -388,6 +383,70 @@ function App() {
                 <IconButton aria-label="Archive this conversation"><TestSvg /></IconButton>
               </Tooltip>
             </Row>
+          </Card>
+
+          {/* ═══ 4. REVIEW FIXES ═════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>4. Fixes from the component review</SectionTitle>
+
+          <Card>
+            <Title>Tooltip as a menu trigger</Title>
+            <Text sm secondary>
+              A <Code sm>Tooltip</Code> passes the menu's ref, handlers and aria attributes to its
+              button, so the menu opens on click. The middle item is a{' '}
+              <Code sm>menuitemcheckbox</Code>: <Code sm>MenuItem</Code> keeps a passed role.
+            </Text>
+            <Row><ReviewMenu /></Row>
+          </Card>
+
+          <Card>
+            <Title>Form state</Title>
+            <Text sm secondary>
+              Group state reaches every radio, a <Code sm>Select</Code> takes a placeholder, and a
+              disabled Field dims its label.
+            </Text>
+            <Row tabletStack itemsStart>
+              <Field label="Plan" error="Pick a plan to continue">
+                <RadioGroup name="plan">
+                  <Label row><Radio value="free" /> Free</Label>
+                  <Label row><Radio value="pro" /> Pro</Label>
+                </RadioGroup>
+              </Field>
+              <Field select label="Region" placeholder="Choose a region" required>
+                <option value="eu">Europe</option>
+                <option value="us">United States</option>
+              </Field>
+              <Field type="email" label="Email" disabled defaultValue="team@example.com" />
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Clickable chips</Title>
+            <Text sm secondary>
+              A chip with <Code sm>onClick</Code> is a button for the keyboard too: Tab to it, then
+              Enter or Space.
+            </Text>
+            <FilterChips />
+          </Card>
+
+          <Card>
+            <Title>Arrow gap and sticky rows</Title>
+            <Text sm secondary>
+              With <Code sm>arrow</Code>, the gap is measured from the tip, so it never touches the
+              trigger. A <Code sm>sticky</Code> row sticks at the top with no extra class.
+            </Text>
+            <Row flexWrap>
+              <Tooltip xl arrow placeBottom content="The tip clears the button at every size">
+                <Button lg secondary>xl arrow</Button>
+              </Tooltip>
+              <CloseButtonModal />
+            </Row>
+            <Col noGap border style={{ height: 120, overflow: 'auto' }}>
+              <Row sticky primary filled paddingX>Inbox</Row>
+              {Array.from({ length: 8 }, (_, i) => (
+                <Row key={i} paddingX><Text sm>Message {i + 1}</Text></Row>
+              ))}
+            </Col>
           </Card>
 
         </Container>

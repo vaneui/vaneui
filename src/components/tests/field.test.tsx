@@ -590,3 +590,111 @@ describe('Field text on a filled surface', () => {
     expect(container.querySelector('.vane-field-error')).toHaveAttribute('data-appearance', 'danger');
   });
 });
+
+describe('Field radiogroup state', () => {
+  const radiosOf = (container: HTMLElement) =>
+    Array.from(container.querySelectorAll('input[type="radio"]')) as HTMLInputElement[];
+
+  it('should disable the radios of a child RadioGroup', () => {
+    const { container } = renderField(
+      <Field label="Plan" disabled>
+        <RadioGroup><Radio value="a" /><Radio value="b" /></RadioGroup>
+      </Field>
+    );
+    expect(radiosOf(container).every((input) => input.disabled)).toBe(true);
+  });
+
+  it('should make the radios of a child RadioGroup read-only', () => {
+    const { container } = renderField(
+      <Field label="Plan" readOnly>
+        <RadioGroup><Radio value="a" /><Radio value="b" /></RadioGroup>
+      </Field>
+    );
+    const [a] = radiosOf(container);
+    fireEvent.click(a);
+    expect(a.checked).toBe(false);
+    expect(a).toHaveAttribute('aria-readonly', 'true');
+  });
+
+  it('should mark the radios of a child RadioGroup invalid on error', () => {
+    const { container } = renderField(
+      <Field label="Plan" error="Pick a plan">
+        <RadioGroup><Radio value="a" /><Radio value="b" /></RadioGroup>
+      </Field>
+    );
+    const group = container.querySelector('[role="radiogroup"]') as HTMLElement;
+    expect(group).toHaveAttribute('aria-invalid', 'true');
+    for (const input of radiosOf(container)) {
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+    }
+  });
+
+  it('should pass disabled and error to a self-rendered radiogroup', () => {
+    const { container } = renderField(
+      <Field radiogroup label="Plan" disabled error="Pick a plan">
+        <Radio value="a" /><Radio value="b" />
+      </Field>
+    );
+    for (const input of radiosOf(container)) {
+      expect(input.disabled).toBe(true);
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+    }
+  });
+});
+
+describe('Field validity and disabled state', () => {
+  it('should mark a child control invalid with the invalid prop, without error text', () => {
+    const { container } = renderField(<Field label="Email" invalid><Input /></Field>);
+    const input = container.querySelector('input') as HTMLInputElement;
+    const wrapper = container.querySelector('.vane-field') as HTMLElement;
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    expect(input).not.toHaveAttribute('aria-describedby');
+    expect(wrapper).not.toHaveAttribute('invalid');
+    expect(wrapper).not.toHaveAttribute('aria-invalid');
+  });
+
+  it('should mark a self-rendered control invalid with the invalid prop', () => {
+    const { container } = renderField(<Field type="email" label="Email" invalid/>);
+    expect(container.querySelector('input')).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it('should render no empty error element for error={true}', () => {
+    const { container } = renderField(<Field label="Email" error><Input /></Field>);
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    expect(input).not.toHaveAttribute('aria-describedby');
+    expect(container.querySelector('.vane-field-error')).toBeNull();
+    expect(container.querySelectorAll('.vane-field > p')).toHaveLength(0);
+  });
+
+  it('should still render and link real error text', () => {
+    const { container } = renderField(<Field label="Email" error="Required"><Input /></Field>);
+    const input = container.querySelector('input') as HTMLInputElement;
+    const error = container.querySelector(`#${input.getAttribute('aria-describedby')}`);
+    expect(error).toHaveTextContent('Required');
+  });
+
+  it('should dim the label of a disabled Field', () => {
+    const { container } = renderField(<Field label="Email" disabled><Input /></Field>);
+    const label = container.querySelector('label') as HTMLLabelElement;
+    expect(label).toHaveAttribute('data-disabled', 'true');
+    expect(label).toHaveClass('opacity-(--disabled-opacity)');
+    expect(label).not.toHaveAttribute('disabled');
+  });
+
+  it('should dim the label when the child control is disabled', () => {
+    const { container } = renderField(<Field label="Email"><Input disabled /></Field>);
+    expect(container.querySelector('label')).toHaveAttribute('data-disabled', 'true');
+  });
+
+  it('should dim the label of a disabled self-rendered control', () => {
+    const { container } = renderField(<Field type="text" label="Name" disabled/>);
+    expect(container.querySelector('label')).toHaveAttribute('data-disabled', 'true');
+    expect(container.querySelector('input')).toBeDisabled();
+  });
+
+  it('should leave the label of an enabled Field alone', () => {
+    const { container } = renderField(<Field label="Email"><Input /></Field>);
+    expect(container.querySelector('label')).not.toHaveAttribute('data-disabled');
+  });
+});

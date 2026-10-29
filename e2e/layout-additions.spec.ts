@@ -80,6 +80,41 @@ test.describe('NavLink indicator', () => {
   });
 });
 
+test.describe('Selected NavLink tab', () => {
+  test('indicatorBottom draws the accent bar for aria-selected="true", not for an unselected tab', async ({ page }) => {
+    const selected = byId(page, 'nav-tab-selected');
+    const accent = await colorIn(selected, 'var(--color-focus-accent)');
+    const shadow = await getStyle(selected, 'box-shadow');
+    expect(shadow).toContain(`${accent} 0px -1px 0px 0px inset`);
+    expect(shadow).toContain(`${accent} 0px 1px 0px 0px`);
+    expect(await getStyle(byId(page, 'nav-tab-unselected'), 'box-shadow')).not.toContain(accent);
+  });
+});
+
+test.describe('Sticky', () => {
+  test('sticky sticks at the top edge without a top utility', async ({ page }) => {
+    expect(await getStyle(byId(page, 'row-sticky'), 'position')).toBe('sticky');
+    expect(await getStyle(byId(page, 'row-sticky'), 'top')).toBe('0px');
+  });
+
+  test('--sticky-top moves the sticking edge, e.g. below a fixed header', async ({ page }) => {
+    expect(await getStyle(byId(page, 'row-sticky-offset'), 'top')).toBe('12px');
+  });
+
+  test('a bottom-* class keeps the element bottom-sticky, with no top', async ({ page }) => {
+    expect(await getStyle(byId(page, 'row-sticky-bottom'), 'top')).toBe('auto');
+  });
+
+  test('a sticky Row stays in view when its scroller scrolls', async ({ page }) => {
+    const scroller = byId(page, 'sticky-scroller');
+    const row = byId(page, 'row-sticky');
+    await scroller.evaluate((el) => { el.scrollTop = 120; });
+    const scrollerTop = await scroller.evaluate((el) => el.getBoundingClientRect().top);
+    const rowTop = await row.evaluate((el) => el.getBoundingClientRect().top);
+    expect(Math.abs(rowTop - scrollerTop)).toBeLessThanOrEqual(1);
+  });
+});
+
 test.describe('Selected NavLink option', () => {
   test('aria-selected="true" takes the hover fill; an unselected option does not', async ({ page }) => {
     const selected = byId(page, 'nav-option-selected');

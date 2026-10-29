@@ -1391,3 +1391,75 @@ describe('Popup Component Tests', () => {
     });
   });
 });
+
+describe('Popup arrow offset', () => {
+  beforeEach(() => {
+    resetStackCount();
+    Object.defineProperty(window, 'innerWidth', { value: 1024, writable: true });
+    Object.defineProperty(window, 'innerHeight', { value: 768, writable: true });
+  });
+  afterEach(() => {
+    document.body.querySelectorAll('button').forEach(el => el.remove());
+  });
+
+  // jsdom has no CSS anchor positioning, so these run the JS placement path
+  const renderAt = (props: Record<string, unknown>) => {
+    const anchorRef = { current: document.createElement('button') };
+    document.body.appendChild(anchorRef.current);
+    jest.spyOn(anchorRef.current, 'getBoundingClientRect').mockReturnValue({
+      top: 300, bottom: 340, left: 400, right: 460, width: 60, height: 40,
+      x: 400, y: 300, toJSON: () => {},
+    });
+    const { baseElement } = render(
+      <ThemeProvider theme={defaultTheme}>
+        <Popup open onClose={() => {}} anchorRef={anchorRef} portal={false} {...props}>
+          <div>Content</div>
+        </Popup>
+      </ThemeProvider>
+    );
+    return baseElement.querySelector('.vane-popup') as HTMLElement;
+  };
+
+  it('should sit `offset` from the anchor without an arrow', () => {
+    const popup = renderAt({ placeBottom: true });
+    expect(parseFloat(popup.style.top)).toBeCloseTo(344);
+  });
+
+  it('should measure the offset from the arrow tip, half the arrow diagonal past the edge', () => {
+    const popup = renderAt({ placeBottom: true, arrow: true });
+    // default 7px arrow: the tip reaches 7 * 0.7071 ≈ 4.95px past the popup edge
+    expect(parseFloat(popup.style.top)).toBeCloseTo(344 + 7 * Math.SQRT1_2, 1);
+  });
+
+  it('should follow the arrow size', () => {
+    const popup = renderAt({ placeRight: true, arrow: true, offset: 8, style: { '--popup-arrow-size': '10px' } });
+    expect(parseFloat(popup.style.left)).toBeCloseTo(460 + 8 + 10 * Math.SQRT1_2, 1);
+  });
+});
+
+describe('Popup style prop', () => {
+  afterEach(() => {
+    document.body.querySelectorAll('button').forEach(el => el.remove());
+  });
+
+  it('should keep the positioning style when a consumer passes style', () => {
+    resetStackCount();
+    const anchorRef = { current: document.createElement('button') };
+    document.body.appendChild(anchorRef.current);
+    jest.spyOn(anchorRef.current, 'getBoundingClientRect').mockReturnValue({
+      top: 300, bottom: 340, left: 400, right: 460, width: 60, height: 40,
+      x: 400, y: 300, toJSON: () => {},
+    });
+    const { baseElement } = render(
+      <ThemeProvider theme={defaultTheme}>
+        <Popup open onClose={() => {}} anchorRef={anchorRef} portal={false} placeBottom style={{ maxWidth: 240 }}>
+          <div>Content</div>
+        </Popup>
+      </ThemeProvider>
+    );
+    const popup = baseElement.querySelector('.vane-popup') as HTMLElement;
+    expect(popup.style.maxWidth).toBe('240px');
+    expect(parseFloat(popup.style.top)).toBeCloseTo(344);
+    expect(popup.style.getPropertyValue('--z-index')).not.toBe('');
+  });
+});

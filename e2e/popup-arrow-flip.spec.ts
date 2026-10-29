@@ -140,4 +140,44 @@ test.describe('Popup positioning bug fixes (2026-08-10)', () => {
     expect(dp).toMatch(/^bottom/);
     expect(p.top).toBeGreaterThanOrEqual(a.bottom - 2);
   });
+
+  // The arrow tip, not the popup edge, sits `offset` (4px) from the anchor. Before, the tip reached
+  // past the edge by half the arrow's diagonal and touched or overlapped the anchor (3px at xl).
+  async function arrowGap(page: import('./base').Page, id: string, side: 'below' | 'right') {
+    await page.locator(`[data-testid="${id}-anchor"]`).click();
+    const popup = page.locator(`[data-testid="${id}-popup"]`);
+    await expect(popup).toBeVisible();
+    await settle(page);
+    const arrow = await rectOf(popup.locator('.vane-popup-arrow'));
+    const anchor = await rectOf(page.locator(`[data-testid="${id}-anchor"]`));
+    return side === 'below' ? arrow.top - anchor.bottom : arrow.left - anchor.right;
+  }
+
+  test('the arrow tip keeps the offset from the anchor (xl, below)', async ({ page }) => {
+    await page.setViewportSize({ width: 1000, height: 800 });
+    const gap = await arrowGap(page, 'pos-arrow-gap', 'below');
+    expect(gap).toBeGreaterThanOrEqual(2.5);
+    expect(gap).toBeLessThanOrEqual(5.5);
+  });
+
+  test('the arrow tip keeps the offset from the anchor (md, right)', async ({ page }) => {
+    await page.setViewportSize({ width: 1000, height: 800 });
+    const gap = await arrowGap(page, 'pos-arrow-gap-right', 'right');
+    expect(gap).toBeGreaterThanOrEqual(2.5);
+    expect(gap).toBeLessThanOrEqual(5.5);
+  });
+
+  test('the JS fallback leaves the same gap at the arrow tip', async ({ page, testPage }) => {
+    await page.addInitScript(() => {
+      const orig = CSS.supports.bind(CSS);
+      // @ts-expect-error override for test
+      CSS.supports = (a: string, b?: string) =>
+        String(a).includes('position-area') || String(a).includes('anchor') ? false : orig(a as string, b as string);
+    });
+    await page.goto(testPage);
+    await page.setViewportSize({ width: 1000, height: 800 });
+    const gap = await arrowGap(page, 'pos-arrow-gap', 'below');
+    expect(gap).toBeGreaterThanOrEqual(2.5);
+    expect(gap).toBeLessThanOrEqual(5.5);
+  });
 });

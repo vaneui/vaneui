@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
-import { type ReactElement } from 'react';
+import { createRef, type ReactElement } from 'react';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 
-import { Tooltip, Button, ThemeProvider, defaultTheme } from '../../index';
+import { Tooltip, Button, PopupTrigger, ThemeProvider, defaultTheme } from '../../index';
 
 const renderTooltip = (ui: ReactElement) =>
   render(<ThemeProvider theme={defaultTheme}>{ui}</ThemeProvider>);
@@ -175,5 +175,65 @@ describe('Tooltip Component Tests', () => {
       );
       expect(screen.getByRole('tooltip')).toHaveAttribute('data-appearance', 'secondary');
     });
+  });
+});
+
+describe('Tooltip as a trigger', () => {
+  it('should forward its ref to the child, not the tooltip', () => {
+    const ref = createRef<HTMLElement>();
+    renderTooltip(
+      <Tooltip content="Tip text" open ref={ref}><Button>Trigger</Button></Tooltip>
+    );
+    expect(ref.current).toBe(screen.getByRole('button'));
+  });
+
+  it('should keep the child\'s own ref alongside the forwarded one', () => {
+    const tooltipRef = createRef<HTMLElement>();
+    const childRef = createRef<HTMLButtonElement>();
+    renderTooltip(
+      <Tooltip content="Tip text" ref={tooltipRef}><Button ref={childRef}>Trigger</Button></Tooltip>
+    );
+    expect(childRef.current).toBe(screen.getByRole('button'));
+    expect(tooltipRef.current).toBe(childRef.current);
+  });
+
+  it('should pass handlers and aria attributes to the child and run the child\'s own handler too', () => {
+    const own = jest.fn();
+    const forwarded = jest.fn();
+    renderTooltip(
+      <Tooltip content="Tip text" onClick={forwarded} aria-haspopup="dialog">
+        <Button onClick={own}>Trigger</Button>
+      </Tooltip>
+    );
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+    expect(own).toHaveBeenCalledTimes(1);
+    expect(forwarded).toHaveBeenCalledTimes(1);
+    expect(button).toHaveAttribute('aria-haspopup', 'dialog');
+  });
+
+  it('should open a PopupTrigger popup when it wraps the trigger', async () => {
+    renderTooltip(
+      <PopupTrigger popup={<div>Panel</div>}>
+        <Tooltip content="Tip text"><Button>Open</Button></Tooltip>
+      </PopupTrigger>
+    );
+    const button = screen.getByRole('button');
+    expect(button).toHaveAttribute('aria-expanded', 'false');
+    await act(async () => {
+      fireEvent.click(button);
+    });
+    expect(screen.getByText('Panel')).toBeInTheDocument();
+    expect(button).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('should keep the popup lifecycle callbacks on the tooltip', async () => {
+    const onEnterComplete = jest.fn();
+    renderTooltip(
+      <Tooltip content="Tip text" open noAnimation onEnterComplete={onEnterComplete}><Button>Trigger</Button></Tooltip>
+    );
+    await act(async () => {});
+    expect(screen.getByRole('button')).not.toHaveAttribute('onEnterComplete');
+    expect(onEnterComplete).toHaveBeenCalled();
   });
 });

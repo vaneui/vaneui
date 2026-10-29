@@ -7,6 +7,7 @@ import {
   MenuLabel,
   Button,
   Divider,
+  Tooltip,
   ThemeProvider,
   defaultTheme
 } from '../../index';
@@ -1170,5 +1171,91 @@ describe('Menu Component Tests', () => {
       expect(document.body.querySelectorAll('[role="menu"]')).toHaveLength(1);
       expect(byText('New')).toBeDefined(); // parent still open
     });
+  });
+});
+
+describe('MenuItem role', () => {
+  it('should keep a passed role, so checkable items can be menuitemcheckbox or menuitemradio', () => {
+    renderMenu(
+      <Menu defaultOpen trigger={<Button>View</Button>}>
+        <MenuItem role="menuitemcheckbox" aria-checked="true">Show grid</MenuItem>
+        <MenuItem role="menuitemradio" aria-checked="false">Compact</MenuItem>
+        <MenuItem>Plain</MenuItem>
+      </Menu>
+    );
+
+    const checkbox = document.body.querySelector('[role="menuitemcheckbox"]');
+    const radio = document.body.querySelector('[role="menuitemradio"]');
+    expect(checkbox).toHaveAttribute('aria-checked', 'true');
+    expect(radio).toHaveAttribute('aria-checked', 'false');
+    expect(document.body.querySelectorAll('[role="menuitem"]')).toHaveLength(1);
+  });
+
+  it('should keep a checkable item in the arrow-key order', () => {
+    renderMenu(
+      <Menu defaultOpen trigger={<Button>View</Button>}>
+        <MenuItem>First</MenuItem>
+        <MenuItem role="menuitemcheckbox" aria-checked="false">Second</MenuItem>
+      </Menu>
+    );
+
+    const items = Array.from(document.body.querySelectorAll('[data-menu-item]')) as HTMLElement[];
+    items[0].focus();
+    fireEvent.keyDown(items[0], { key: 'ArrowDown' });
+    expect(document.activeElement).toBe(items[1]);
+  });
+});
+
+describe('Tooltip as the Menu trigger', () => {
+  const renderTooltipMenu = (onItem = jest.fn()) => renderMenu(
+    <Menu trigger={<Tooltip content="More actions" openDelay={0}><Button>Actions</Button></Tooltip>}>
+      <MenuItem onClick={onItem}>Edit</MenuItem>
+    </Menu>
+  );
+
+  it('should put the menu trigger attributes on the button, not on the tooltip', () => {
+    renderTooltipMenu();
+    const button = document.body.querySelector('button') as HTMLElement;
+    expect(button).toHaveAttribute('aria-haspopup', 'menu');
+    expect(button).toHaveAttribute('aria-expanded', 'false');
+  });
+
+  it('should open the menu on click', () => {
+    renderTooltipMenu();
+    const button = document.body.querySelector('button') as HTMLElement;
+    act(() => { fireEvent.click(button); });
+    act(() => { jest.runAllTimers(); });
+    expect(document.body.querySelector('[role="menu"]')).toBeInTheDocument();
+    expect(button).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('should open the menu with the keyboard', () => {
+    renderTooltipMenu();
+    const button = document.body.querySelector('button') as HTMLElement;
+    act(() => { fireEvent.keyDown(button, { key: 'ArrowDown' }); });
+    act(() => { jest.runAllTimers(); });
+    expect(document.body.querySelector('[role="menu"]')).toBeInTheDocument();
+  });
+
+  it('should still show the tooltip on hover and describe the button', () => {
+    renderTooltipMenu();
+    const button = document.body.querySelector('button') as HTMLElement;
+    act(() => { fireEvent.mouseEnter(button); });
+    act(() => { jest.runAllTimers(); });
+    const tooltip = document.body.querySelector('[role="tooltip"]') as HTMLElement;
+    expect(tooltip).toHaveTextContent('More actions');
+    expect(button.getAttribute('aria-describedby')).toContain(tooltip.id);
+  });
+
+  it('should anchor the menu to the button', () => {
+    renderTooltipMenu();
+    const button = document.body.querySelector('button') as HTMLElement;
+    act(() => { fireEvent.click(button); });
+    act(() => { jest.runAllTimers(); });
+    // Escape closes the menu and hands focus back to the anchor; a missing anchor ref would lose it
+    const menu = document.body.querySelector('[role="menu"]') as HTMLElement;
+    act(() => { fireEvent.keyDown(menu, { key: 'Escape' }); });
+    act(() => { jest.runAllTimers(); });
+    expect(document.activeElement).toBe(button);
   });
 });

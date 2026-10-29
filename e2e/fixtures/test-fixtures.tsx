@@ -262,6 +262,22 @@ function PopupPositioningFixtures() {
         <button data-testid="pos-arrow-anchor" style={fixed({ left: 200, top: 200 })}>a</button>
       </PopupTrigger>
 
+      {/* The arrow tip keeps the offset from the anchor at every size, instead of touching or overlapping it. */}
+      <PopupTrigger
+        triggerOnClick
+        popup={<div>arrow gap below</div>}
+        popupProps={{ placeBottom: true, arrow: true, xl: true, 'aria-label': 'pos arrow gap', 'data-testid': 'pos-arrow-gap-popup' } as Record<string, unknown>}
+      >
+        <button data-testid="pos-arrow-gap-anchor" style={fixed({ left: 420, top: 200 })}>a</button>
+      </PopupTrigger>
+      <PopupTrigger
+        triggerOnClick
+        popup={<div>arrow gap right</div>}
+        popupProps={{ placeRight: true, arrow: true, 'aria-label': 'pos arrow gap right', 'data-testid': 'pos-arrow-gap-right-popup' } as Record<string, unknown>}
+      >
+        <button data-testid="pos-arrow-gap-right-anchor" style={fixed({ left: 60, top: 420 })}>a</button>
+      </PopupTrigger>
+
       {/* BUG-10: start-aligned popup near the right edge inline-flips → data-placement follows. */}
       <PopupTrigger
         triggerOnClick
@@ -491,6 +507,16 @@ function LayoutAdditionsFixtures() {
       </Col>
       <div dir="rtl">
         <NavLink href="#rail-rtl" indicatorStart active data-testid="nav-rail-rtl">Rail RTL</NavLink>
+      </div>
+      <Row noGap role="tablist" aria-label="tabs">
+        <NavLink role="tab" aria-selected="true" indicatorBottom wFit data-testid="nav-tab-selected">Selected tab</NavLink>
+        <NavLink role="tab" aria-selected="false" indicatorBottom wFit data-testid="nav-tab-unselected">Tab</NavLink>
+      </Row>
+      <div style={{ height: 60, overflow: 'auto' }} data-testid="sticky-scroller">
+        <Row sticky primary data-testid="row-sticky">Sticky</Row>
+        <Row sticky primary style={{ '--sticky-top': '12px' } as React.CSSProperties} data-testid="row-sticky-offset">Sticky below a bar</Row>
+        <Row sticky className="bottom-0" data-testid="row-sticky-bottom">Bottom-sticky</Row>
+        <div style={{ height: 240 }} />
       </div>
       <Col noGap role="listbox" aria-label="options">
         <NavLink role="option" aria-selected="true" data-testid="nav-option-selected">Selected</NavLink>

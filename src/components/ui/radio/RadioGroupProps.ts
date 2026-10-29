@@ -71,4 +71,12 @@ export type RadioGroupProps = BaseProps &
   defaultValue?: string;
   /** Fires when any Radio in the group changes */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  /** Disables every Radio in the group; a Radio's own `disabled` wins */
+  disabled?: boolean;
+  /** Makes every Radio in the group read-only; a Radio's own `readOnly` wins */
+  readOnly?: boolean;
+  /** Marks every Radio in the group required; a Radio's own `required` wins */
+  required?: boolean;
+  /** Marks every Radio in the group invalid; a Radio's own `invalid` wins */
+  invalid?: boolean;
 };

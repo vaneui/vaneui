@@ -51,11 +51,15 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       groupOnChange?.(event);
     }, [onChange, groupOnChange]);
 
+    // a group (or the Field around it) can make every Radio read-only or invalid; the Radio's own prop wins
+    const resolvedReadOnly = readOnly ?? group?.readOnly;
+    const resolvedInvalid = invalid ?? group?.invalid;
+
     // native readOnly is inert on radio inputs — cancel activation so aria-readonly stays truthful
     const handleClick = useCallback((event: MouseEvent<HTMLInputElement>) => {
-      if (readOnly) event.preventDefault();
+      if (resolvedReadOnly) event.preventDefault();
       onClick?.(event);
-    }, [readOnly, onClick]);
+    }, [resolvedReadOnly, onClick]);
 
     // a group `value` makes every Radio controlled; `defaultValue` only seeds the uncontrolled one
     const resolvedChecked = checked ?? (group?.value !== undefined ? matchesGroupValue(group.value, value) : undefined);
@@ -70,7 +74,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       pill, sharp, rounded,
       disabled: disabled ?? group?.disabled,
       // read-only dims the wrapper like a read-only text field
-      readOnly,
+      readOnly: resolvedReadOnly,
     };
 
     const inputProps = {
@@ -85,7 +89,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       ...remainingProps,
       ...themeProps,
       // validity belongs on the input only, never duplicated onto the wrapper
-      invalid,
+      invalid: resolvedInvalid,
     };
 
     return (

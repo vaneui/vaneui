@@ -3,7 +3,8 @@ import type { PopupProps } from "../popup/PopupProps";
 
 /**
  * Tooltip component props. Popup props (size, appearance, variant, shape, placement, arrow, offset, ...)
- * are accepted directly and styled onto the tooltip.
+ * are accepted directly and styled onto the tooltip. The ref, event handlers and aria-* attributes
+ * go to the child instead, so a Tooltip can itself be the trigger of a Menu or PopupTrigger.
  */
 export type TooltipProps = Omit<
   PopupProps,
