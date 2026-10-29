@@ -8,7 +8,9 @@ fixes, minor for additive props and components, major for anything that changes 
 existing prop name, default, or rendered element. Releases ship when work is ready
 rather than on a fixed calendar.
 
-## Unreleased
+## 1.4.5
+
+`2026-10-29`
 
 Additions that let vaneui.com drop most of its custom CSS: a progress bar, divided grids,
 strong borders, NavLink indicators, shadow sizes and real light subtrees.

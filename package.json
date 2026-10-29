@@ -1,6 +1,6 @@
 {
   "name": "@vaneui/ui",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "React component library with a boolean props API, built on Tailwind CSS v4. Write <Button primary lg filled> instead of variant strings.",
   "author": "",
   "license": "MIT",
