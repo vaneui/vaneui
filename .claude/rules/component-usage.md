@@ -742,7 +742,7 @@ Layout components (`Card`, `Row`, `Col`, `Stack`, `Section`, `Container`, `Grid*
 <Card className="w-full">Full-width card</Card>
 <Input className="w-64" placeholder="Fixed width" />
 <Container className="min-h-screen">Full-height container</Container>
-<Row sticky primary className="top-0 z-10">Sticky header</Row>  {/* primary paints a surface so content doesn't show through */}
+<Row sticky primary className="z-10">Sticky header</Row>  {/* sticks at top: 0 (set --sticky-top to clear a fixed bar); primary paints a surface so content doesn't show through */}
 ```
 
 User `className` always wins over theme classes via `twMerge`.

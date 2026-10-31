@@ -91,7 +91,8 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
 
     const mergedProps = {
       ...rest,
-      role: 'menuitem' as const,
+      // menuitemcheckbox / menuitemradio (with aria-checked) are the checkable forms, so a passed role wins
+      role: rest.role ?? 'menuitem',
       tabIndex: -1,
       'data-menu-item': '',
       'aria-disabled': disabled || undefined,

@@ -587,6 +587,10 @@
     /* A selected option (aria-selected, e.g. in a listbox) takes the hover fill. */
     :is(.vane-nav-link, .vane-menu-item)[aria-selected="true"] { background-color: var(--bg-hover-color); }
 
+    /* `sticky` sticks at the top edge; --sticky-top clears a fixed header. A top-* utility still wins (utilities
+       outrank this layer), and a bottom-* class means a bottom-sticky element, so it gets no top. */
+    .sticky:where([data-vane-type]):not([class*="bottom-"]) { top: var(--sticky-top, 0px); }
+
     /* NavLink indicators flip to the right edge in right-to-left text. */
     [dir="rtl"] .vane-nav-link { --indicator-dir: -1; }
 

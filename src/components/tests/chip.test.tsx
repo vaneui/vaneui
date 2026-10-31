@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import {
   Chip,
@@ -395,5 +395,70 @@ describe('Chip Component Tests', () => {
       const chip = container.querySelector('span');
       expect(chip).toHaveClass('[&_svg]:shrink-0');
     });
+  });
+});
+describe('Clickable Chip keyboard access', () => {
+  const renderChip = (ui: React.ReactElement) =>
+    render(<ThemeProvider theme={defaultTheme}>{ui}</ThemeProvider>).container.firstElementChild as HTMLElement;
+
+  it('should give a clickable span chip button semantics and a tab stop', () => {
+    const chip = renderChip(<Chip onClick={() => {}}>Filter</Chip>);
+    expect(chip.tagName).toBe('SPAN');
+    expect(chip).toHaveAttribute('role', 'button');
+    expect(chip).toHaveAttribute('tabindex', '0');
+  });
+
+  it('should activate on Enter and on Space (on key up, like a button)', () => {
+    const onClick = jest.fn();
+    const chip = renderChip(<Chip onClick={onClick}>Filter</Chip>);
+    fireEvent.keyDown(chip, { key: 'Enter' });
+    expect(onClick).toHaveBeenCalledTimes(1);
+    const spaceDown = fireEvent.keyDown(chip, { key: ' ' });
+    // Space must not scroll the page
+    expect(spaceDown).toBe(false);
+    expect(onClick).toHaveBeenCalledTimes(1);
+    fireEvent.keyUp(chip, { key: ' ' });
+    expect(onClick).toHaveBeenCalledTimes(2);
+  });
+
+  it('should run the consumer\'s own key handlers and respect preventDefault', () => {
+    const onClick = jest.fn();
+    const onKeyDown = jest.fn((event: React.KeyboardEvent) => event.preventDefault());
+    const chip = renderChip(<Chip onClick={onClick} onKeyDown={onKeyDown}>Filter</Chip>);
+    fireEvent.keyDown(chip, { key: 'Enter' });
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it('should stay focusable but inert when disabled', () => {
+    const onClick = jest.fn();
+    const chip = renderChip(<Chip onClick={onClick} disabled>Filter</Chip>);
+    expect(chip).toHaveAttribute('aria-disabled', 'true');
+    expect(chip).toHaveAttribute('tabindex', '0');
+    fireEvent.keyDown(chip, { key: 'Enter' });
+    fireEvent.keyUp(chip, { key: ' ' });
+    fireEvent.click(chip);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it('should let a passed role and tabIndex win', () => {
+    const chip = renderChip(<Chip onClick={() => {}} role="switch" tabIndex={-1}>Filter</Chip>);
+    expect(chip).toHaveAttribute('role', 'switch');
+    expect(chip).toHaveAttribute('tabindex', '-1');
+  });
+
+  it('should leave a plain chip, a link chip and a button chip alone', () => {
+    const plain = renderChip(<Chip>Tag</Chip>);
+    expect(plain).not.toHaveAttribute('role');
+    expect(plain).not.toHaveAttribute('tabindex');
+
+    const link = renderChip(<Chip href="/tags/js" onClick={() => {}}>JS</Chip>);
+    expect(link.tagName).toBe('A');
+    expect(link).not.toHaveAttribute('role');
+
+    const button = renderChip(<Chip tag="button" onClick={() => {}}>Filter</Chip>);
+    expect(button.tagName).toBe('BUTTON');
+    expect(button).not.toHaveAttribute('role');
+    expect(button).not.toHaveAttribute('tabindex');
   });
 });

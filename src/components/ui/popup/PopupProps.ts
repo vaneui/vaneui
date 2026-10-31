@@ -92,7 +92,7 @@ export type PopupProps = BaseProps &
     onOpenChange?: (open: boolean) => void;
     /** Reference to anchor element */
     anchorRef: React.RefObject<HTMLElement | null>;
-    /** Offset from anchor in pixels (default: 4) */
+    /** Gap to the anchor in pixels (default: 4); with `arrow`, measured from the arrow tip */
     offset?: number;
     /** Close when pressing Escape (default: true) */
     closeOnEscape?: boolean;

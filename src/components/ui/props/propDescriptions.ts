@@ -808,7 +808,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
         "description": "Fixed positioning"
       },
       "sticky": {
-        "description": "Sticky positioning"
+        "description": "Sticky positioning at the top edge; set --sticky-top to stick below a fixed header"
       },
       "static": {
         "description": "Static positioning"

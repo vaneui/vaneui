@@ -468,3 +468,66 @@ describe('Radio Component Tests', () => {
     });
   });
 });
+
+describe('RadioGroup state', () => {
+  const group = (props: Record<string, unknown>) => (
+    <RadioGroup name="plan" {...props}>
+      <Radio value="free" />
+      <Radio value="pro" />
+    </RadioGroup>
+  );
+
+  it('should disable every Radio from the group', () => {
+    const {container} = renderRadio(group({ disabled: true }));
+    expect(inputsOf(container).every((input) => input.disabled)).toBe(true);
+    expect(container.firstChild).toHaveAttribute('aria-disabled', 'true');
+  });
+
+  it('should make every Radio read-only from the group, so a click does not check it', () => {
+    const {container} = renderRadio(group({ readOnly: true }));
+    const [free] = inputsOf(container);
+    expect(free).toHaveAttribute('aria-readonly', 'true');
+    fireEvent.click(free);
+    expect(free.checked).toBe(false);
+    expect(container.firstChild).toHaveAttribute('aria-readonly', 'true');
+  });
+
+  it('should mark every Radio invalid from the group', () => {
+    const {container} = renderRadio(group({ invalid: true }));
+    for (const input of inputsOf(container)) {
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+      expect(input).toHaveAttribute('data-status', 'error');
+    }
+    expect(container.firstChild).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it('should mark every Radio required from the group', () => {
+    const {container} = renderRadio(group({ required: true }));
+    expect(inputsOf(container).every((input) => input.required)).toBe(true);
+    expect(container.firstChild).toHaveAttribute('aria-required', 'true');
+  });
+
+  it('should let a Radio\'s own state win over the group', () => {
+    const {container} = renderRadio(
+      <RadioGroup name="plan" disabled invalid>
+        <Radio value="free" disabled={false} invalid={false} />
+        <Radio value="pro" />
+      </RadioGroup>
+    );
+    const [free, pro] = inputsOf(container);
+    expect(free.disabled).toBe(false);
+    expect(free).not.toHaveAttribute('aria-invalid');
+    expect(pro.disabled).toBe(true);
+    expect(pro).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it('should keep the state props off the group element', () => {
+    const {container} = renderRadio(group({ disabled: true, readOnly: true, invalid: true }));
+    const element = container.firstChild as HTMLElement;
+    expect(element).not.toHaveAttribute('disabled');
+    expect(element).not.toHaveAttribute('readonly');
+    expect(element).not.toHaveAttribute('invalid');
+    // the radios dim themselves; a dimmed group would stack a second opacity on top
+    expect(element).not.toHaveAttribute('data-disabled');
+  });
+});

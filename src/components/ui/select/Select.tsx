@@ -51,8 +51,16 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       noShrink,
       disabled,
       onMouseDown, onKeyDown,
+      placeholder, children,
       ...rest
     } = props;
+
+    // <select> has no placeholder attribute: the prompt is a first empty option, disabled so it can't be
+    // picked again and hidden from the list. An uncontrolled select starts on it instead of the first real option.
+    const showPlaceholder = placeholder !== undefined && !rest.multiple;
+    const placeholderDefault = showPlaceholder && rest.value === undefined && rest.defaultValue === undefined
+      ? { defaultValue: '' }
+      : undefined;
 
     // <select> has no native readOnly, so block opening and keyboard changes (Tab still moves focus)
     const readOnly = (rest as { readOnly?: boolean }).readOnly;
@@ -66,7 +74,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     }, [readOnly, onKeyDown]);
 
     // disabled stays on the field too, so the native attribute is still emitted
-    const fieldProps = { ...rest, disabled, onMouseDown: handleMouseDown, onKeyDown: handleKeyDown };
+    const fieldProps = { ...placeholderDefault, ...rest, disabled, onMouseDown: handleMouseDown, onKeyDown: handleKeyDown };
 
     const wrapperProps = {
       className,
@@ -81,7 +89,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     // the chevron always shows, so the field is always wrapped and the icon overlays its end edge
     return (
       <ThemedComponent theme={wrapperTheme} {...wrapperProps}>
-        <ThemedComponent ref={ref} theme={selectTheme} {...fieldProps} data-shape={fieldShape} />
+        <ThemedComponent ref={ref} theme={selectTheme} {...fieldProps} data-shape={fieldShape}>
+          {showPlaceholder && <option value="" disabled hidden>{placeholder}</option>}
+          {children}
+        </ThemedComponent>
         <ThemedComponent theme={chevronTheme} aria-hidden="true" {...chevronSize}>
           {chevronTheme.themes.chevronElement()}
         </ThemedComponent>

@@ -57,18 +57,30 @@ function getAnchorStyles(placement: PopupPlacement): AnchorStyles {
   return map[placement];
 }
 
-function getOffsetStyle(placement: PopupPlacement, offset: number): React.CSSProperties {
+// The arrow is a square turned 45deg and centred on the popup edge, so its tip reaches half its
+// diagonal (size * 0.7071) past that edge. With an arrow, the offset is measured from the tip:
+// the gap grows by that reach, or the tip would touch or overlap the anchor.
+const ARROW_SIZE_FALLBACK = 7;
+const arrowReachCss = `var(--popup-arrow-size, ${ARROW_SIZE_FALLBACK}px) * ${Math.SQRT1_2.toFixed(4)}`;
+
+function getArrowReachPx(popup: HTMLElement): number {
+  const size = parseFloat(getComputedStyle(popup).getPropertyValue('--popup-arrow-size'));
+  return (Number.isFinite(size) ? size : ARROW_SIZE_FALLBACK) * Math.SQRT1_2;
+}
+
+function getOffsetStyle(placement: PopupPlacement, offset: number, arrow: boolean): React.CSSProperties {
+  const gap = arrow ? `calc(${offset}px + ${arrowReachCss})` : offset;
   if (placement.startsWith('top')) {
-    return { marginBottom: offset };
+    return { marginBottom: gap };
   }
   if (placement.startsWith('bottom')) {
-    return { marginTop: offset };
+    return { marginTop: gap };
   }
   if (placement.startsWith('left')) {
-    return { marginRight: offset };
+    return { marginRight: gap };
   }
   if (placement.startsWith('right')) {
-    return { marginLeft: offset };
+    return { marginLeft: gap };
   }
   return {};
 }
@@ -224,13 +236,14 @@ function buildCssAnchorStyles(
   placement: PopupPlacement,
   offset: number,
   matchWidth: boolean,
+  arrow: boolean,
 ): React.CSSProperties {
   const anchor = getAnchorStyles(placement);
   return {
     positionAnchor: `--${anchorName}`,
     positionArea: anchor.positionArea,
     positionTryFallbacks: getTryFallbacks(placement),
-    ...getOffsetStyle(placement, offset),
+    ...getOffsetStyle(placement, offset, arrow),
     ...(matchWidth ? { width: 'anchor-size(width)' } : undefined),
   } as React.CSSProperties;
 }
@@ -388,7 +401,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
       const anchorRect = anchor.getBoundingClientRect();
       const popupRect = popup.getBoundingClientRect();
-      const pos = getJsPosition(anchorRect, popupRect, placement, offset);
+      const gap = arrow ? offset + getArrowReachPx(popup) : offset;
+      const pos = getJsPosition(anchorRect, popupRect, placement, gap);
 
       setPositionStyles({
         top: pos.top,
@@ -396,7 +410,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         ...(matchWidth ? { width: anchorRect.width } : undefined),
       });
       setResolvedPlacement(pos.resolvedPlacement);
-    }, [anchorRef, placement, offset, matchWidth]);
+    }, [anchorRef, placement, offset, matchWidth, arrow]);
 
     // CSS-anchor path: read the rendered geometry to recover the side the
     // browser actually placed the popup on (it may have flipped via
@@ -414,12 +428,12 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       if (!effectiveOpen || !anchorRef.current) return;
 
       if (supportsAnchorPositioning()) {
-        setPositionStyles(buildCssAnchorStyles(anchorName, placement, offset, matchWidth));
+        setPositionStyles(buildCssAnchorStyles(anchorName, placement, offset, matchWidth, arrow));
         setResolvedPlacement(placement); // optimistic; corrected post-layout by measureCssPlacement
       } else {
         updateJsPosition();
       }
-    }, [effectiveOpen, anchorRef, anchorName, placementKey, offset, matchWidth, updateJsPosition]);
+    }, [effectiveOpen, anchorRef, anchorName, placementKey, offset, matchWidth, arrow, updateJsPosition]);
 
     // reposition on scroll/resize for JS fallback path
     useEffect(() => {
@@ -524,7 +538,14 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const popupId = props.id || `popup-${anchorName}`;
 
-    const mergedProps = { ...props, id: popupId, role, ...(modal ? { 'aria-modal': true } : {}), ...anchorSelfProps(placement), ...(isDetached ? { pointerEventsNone: true } : {}) };
+    // a consumer style merges with the positioning style instead of replacing it; the position wins
+    const style = {
+      '--z-index': zIndex,
+      ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } : undefined),
+      ...props.style,
+      ...positionStyles,
+    } as React.CSSProperties;
+    const mergedProps = { ...props, style, id: popupId, role, ...(modal ? { 'aria-modal': true } : {}), ...anchorSelfProps(placement), ...(isDetached ? { pointerEventsNone: true } : {}) };
 
     // Composite-widget popups (Menu etc.) own their own focusable items, so the
     // scroll box must NOT be a tab stop (it would break the role's required
@@ -540,11 +561,6 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         className={isHidden ? 'hidden' : isDetached ? 'invisible' : undefined}
         data-state={isHidden ? undefined : state}
         data-placement={resolvedPlacement || undefined}
-        style={{
-          '--z-index': zIndex,
-          ...(transitionDuration !== 200 ? { '--transition-duration': `${transitionDuration}ms` } : undefined),
-          ...positionStyles,
-        } as React.CSSProperties}
         aria-hidden={(isHidden || isDetached) || undefined}
         {...mergedProps}
       >

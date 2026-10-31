@@ -12,9 +12,11 @@ export interface RadioGroupContextValue {
   defaultValue?: string;
   /** Called after the Radio's own onChange whenever a Radio in the group changes. */
   onChange?: ChangeEventHandler<HTMLInputElement>;
-  /** Set by an enclosing Field; a Radio's own prop wins. */
+  /** Set on the group or by an enclosing Field; a Radio's own prop wins. */
   disabled?: boolean;
   required?: boolean;
+  readOnly?: boolean;
+  invalid?: boolean;
 }
 
 /* Group state consumed by descendant Radios — a scalar context like LabelSizeContext, so mounting a RadioGroup never forks the theme graph. */

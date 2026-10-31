@@ -10,6 +10,47 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+Fixes for the bugs found in the 1.4.6 component review, each covered by tests. A few fixes need
+a new prop to work, so this is a minor release.
+
+### Added
+
+- `disabled`, `readOnly`, `required` and `invalid` on `RadioGroup`: they reach every `Radio` in
+  the group, and a `Radio`'s own prop wins. The group also gets the matching `aria-*`
+  attributes.
+- `invalid` on `Field`: marks the control invalid without showing error text, for checks
+  reported elsewhere on the page.
+- `placeholder` on `Select`: a muted first option that can't be picked again. An uncontrolled
+  select starts on it, and with `required` the empty value fails validation. `<Field select
+  placeholder>` passes it through.
+- `ModalCloseButton` takes every `Button` prop and children. With children it renders a
+  labelled close button, such as a footer "Cancel", with Button's own look.
+
+### Fixed
+
+- A `Tooltip` can be the trigger of a `Menu` or `PopupTrigger`. Its ref, event handlers and
+  `aria-*` attributes now go to the child element, so the menu opens on click and anchors to
+  the button. Before, the menu never opened.
+- `RadioGroup` and `<Field radiogroup>` honour `readOnly` and `error` from the Field (and now
+  their own state props). Before, only `disabled` and `required` reached the radios.
+- `MenuItem` keeps a passed `role`, so `menuitemcheckbox` and `menuitemradio` items work.
+- `ModalCloseButton`: a passed size or appearance wins over its defaults (before, `lg` lost to
+  the built-in `sm` with a conflict warning); a passed `onClick` runs before the close instead
+  of replacing it, and `event.preventDefault()` in it keeps the modal open.
+- `sticky` sticks at the top edge without a `top-*` class. Set `--sticky-top` to stick below a
+  fixed header; a `top-*` class still wins, and an element with a `bottom-*` class gets no top.
+- `indicatorBottom` draws the accent bar for `aria-selected="true"` (a tab), like
+  `indicatorStart` does.
+- `Field`: `error={true}` marks the control invalid without rendering an empty error paragraph,
+  and a disabled Field (or a disabled child control) dims its label.
+- A clickable `Chip` (`onClick` without `href`) is reachable by keyboard: it gets
+  `role="button"`, a tab stop, and Enter and Space activation. A disabled one stays focusable
+  but does nothing.
+- A `Popup` or `Tooltip` with `arrow` measures `offset` from the arrow tip, so the tip no longer
+  touches or overlaps the trigger (by up to 3px at `xl`).
+- A `style` passed to `Popup` merges with its positioning instead of replacing it, which left
+  the popup unpositioned.
+
 ## 1.4.6
 
 `2026-10-29`

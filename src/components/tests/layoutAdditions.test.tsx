@@ -66,12 +66,19 @@ describe('NavLink indicator', () => {
     expect(el.className).toContain('aria-selected:inset-shadow-[calc(var(--indicator-dir,1)*2px)_0_var(--color-focus-accent)]');
   });
 
-  it('indicatorBottom draws a bottom bar only while active', () => {
+  it('indicatorBottom draws a bottom bar while active', () => {
     const el = renderEl(<NavLink href="#" indicatorBottom active>Docs</NavLink>);
     expect(el).toHaveAttribute('data-active');
     expect(el.className).toContain('data-active:inset-shadow-[0_-1px_var(--color-focus-accent)]');
     expect(el.className).toContain('data-active:shadow-[0_1px_var(--color-focus-accent)]');
     expect(el.className).not.toContain('--divider-color');
+  });
+
+  it('indicatorBottom also draws the bar for a selected tab (aria-selected), like indicatorStart', () => {
+    const el = renderEl(<NavLink role="tab" aria-selected="true" indicatorBottom>Docs</NavLink>);
+    expect(el).not.toHaveAttribute('data-active');
+    expect(el.className).toContain('aria-selected:inset-shadow-[0_-1px_var(--color-focus-accent)]');
+    expect(el.className).toContain('aria-selected:shadow-[0_1px_var(--color-focus-accent)]');
   });
 
   it('the two indicators are exclusive: indicatorStart wins, with a warning', () => {

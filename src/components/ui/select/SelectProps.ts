@@ -80,4 +80,6 @@ export type SelectProps = BaseProps &
   Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
+  /** Muted prompt shown until an option is picked: a first, empty option that can't be chosen again. With `required`, the empty value fails validation. Ignored with `multiple` */
+  placeholder?: string;
 };

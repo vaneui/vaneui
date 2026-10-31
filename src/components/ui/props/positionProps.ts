@@ -9,7 +9,7 @@ export interface PositionProps {
   absolute?: boolean;
   /** Fixed positioning */
   fixed?: boolean;
-  /** Sticky positioning */
+  /** Sticky positioning at the top edge; set --sticky-top to stick below a fixed header */
   sticky?: boolean;
   /** Static positioning */
   static?: boolean;

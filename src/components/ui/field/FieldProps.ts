@@ -28,8 +28,10 @@ export type FieldProps = BaseProps & CleanedColProps & ControlProps & ControlAtt
   label?: React.ReactNode;
   /** Help text below the control, linked with aria-describedby */
   description?: React.ReactNode;
-  /** Error text below the control; its presence also marks the control invalid */
+  /** Error text below the control; its presence also marks the control invalid. `true` marks it invalid with no text */
   error?: React.ReactNode;
+  /** Marks the control invalid without showing error text (cross-field checks, server errors shown elsewhere) */
+  invalid?: boolean;
   /** Which control to render; omit to pass the control as a child */
   type?: FieldControlType;
   /** Change handler for the rendered control */

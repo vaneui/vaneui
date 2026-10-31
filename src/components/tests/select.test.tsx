@@ -3,6 +3,7 @@ import { createRef } from 'react';
 import { render } from '@testing-library/react';
 
 import {
+  Field,
   Select,
   ThemeProvider,
   defaultTheme
@@ -337,5 +338,64 @@ describe('Select Component Tests', () => {
 
       expect(container.querySelector('select')).toHaveClass('custom-primary-class');
     });
+  });
+});
+
+describe('Select placeholder', () => {
+  const selectOf = (container: HTMLElement) => container.querySelector('select') as HTMLSelectElement;
+
+  it('should render the placeholder as a first empty option that cannot be picked', () => {
+    const {container} = renderSelect(
+      <Select placeholder="Choose a region"><option value="cy">Cyprus</option></Select>
+    );
+    const select = selectOf(container);
+    const first = select.options[0];
+    expect(first.value).toBe('');
+    expect(first.textContent).toBe('Choose a region');
+    expect(first.disabled).toBe(true);
+    expect(first.hidden).toBe(true);
+    expect(select.hasAttribute('placeholder')).toBe(false);
+  });
+
+  it('should start an uncontrolled select on the placeholder, not the first real option', () => {
+    const {container} = renderSelect(
+      <Select placeholder="Choose"><option value="cy">Cyprus</option><option value="gr">Greece</option></Select>
+    );
+    expect(selectOf(container).value).toBe('');
+  });
+
+  it('should keep a passed defaultValue or value', () => {
+    const {container} = renderSelect(
+      <Select placeholder="Choose" defaultValue="gr"><option value="cy">Cyprus</option><option value="gr">Greece</option></Select>
+    );
+    expect(selectOf(container).value).toBe('gr');
+
+    const controlled = renderSelect(
+      <Select placeholder="Choose" value="cy" onChange={() => {}}><option value="cy">Cyprus</option></Select>
+    );
+    expect(selectOf(controlled.container).value).toBe('cy');
+  });
+
+  it('should fail required validation while the placeholder is shown', () => {
+    const {container} = renderSelect(
+      <Select placeholder="Choose" required><option value="cy">Cyprus</option></Select>
+    );
+    expect(selectOf(container).checkValidity()).toBe(false);
+  });
+
+  it('should ignore the placeholder on a multiple select', () => {
+    const {container} = renderSelect(
+      <Select placeholder="Choose" multiple><option value="cy">Cyprus</option></Select>
+    );
+    expect(selectOf(container).options).toHaveLength(1);
+  });
+
+  it('should reach the select a Field renders', () => {
+    const {container} = renderSelect(
+      <Field select label="Region" placeholder="Choose a region"><option value="cy">Cyprus</option></Field>
+    );
+    const select = selectOf(container);
+    expect(select.options[0].textContent).toBe('Choose a region');
+    expect(select.value).toBe('');
   });
 });

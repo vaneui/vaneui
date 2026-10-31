@@ -1391,3 +1391,89 @@ describe('Modal Component Tests', () => {
     });
   });
 });
+
+describe('ModalCloseButton props', () => {
+  beforeEach(() => { resetStackCount(); resetOverlayStack(); });
+
+  const renderInModal = (button: React.ReactElement, onClose: () => void = () => {}) => render(
+    <ThemeProvider theme={defaultTheme}>
+      <Modal open onClose={onClose} aria-label="Dialog" withCloseButton={false}>
+        <ModalBody>Body</ModalBody>
+        <ModalFooter>{button}</ModalFooter>
+      </Modal>
+    </ThemeProvider>
+  );
+
+  it('should keep its × defaults when nothing is passed', () => {
+    renderInModal(<ModalCloseButton />);
+    const button = screen.getByRole('button', { name: 'Close' });
+    expect(button).toHaveAttribute('data-size', 'sm');
+    expect(button).toHaveAttribute('data-appearance', 'secondary');
+    expect(button).toHaveClass('vane-modal-close');
+  });
+
+  it('should let passed props win over its defaults, without a conflict warning', () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+    renderInModal(<ModalCloseButton lg danger />);
+    const button = screen.getByRole('button', { name: 'Close' });
+    expect(button).toHaveAttribute('data-size', 'lg');
+    expect(button).toHaveAttribute('data-appearance', 'danger');
+    expect(warn).not.toHaveBeenCalledWith(expect.stringContaining('conflicting'));
+    warn.mockRestore();
+  });
+
+  it('should run a passed onClick and still close', () => {
+    const onClose = jest.fn();
+    const onClick = jest.fn();
+    renderInModal(<ModalCloseButton onClick={onClick} />, onClose);
+    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('should stay open when the onClick calls preventDefault', () => {
+    const onClose = jest.fn();
+    renderInModal(<ModalCloseButton onClick={(event) => event.preventDefault()} />, onClose);
+    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it('should render children as a labelled close button with Button defaults', () => {
+    const onClose = jest.fn();
+    renderInModal(<ModalCloseButton filled>Cancel</ModalCloseButton>, onClose);
+    const button = screen.getByRole('button', { name: 'Cancel' });
+    expect(button).not.toHaveAttribute('aria-label');
+    expect(button).not.toHaveClass('vane-modal-close');
+    expect(button.querySelector('svg')).toBeNull();
+    expect(button).toHaveAttribute('data-appearance', 'primary');
+    expect(button).toHaveAttribute('data-variant', 'filled');
+    fireEvent.click(button);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('should keep a passed aria-label and className', () => {
+    renderInModal(<ModalCloseButton aria-label="Dismiss" className="extra" />);
+    const button = screen.getByRole('button', { name: 'Dismiss' });
+    expect(button).toHaveClass('vane-modal-close', 'extra');
+  });
+
+  it('should let ThemeProvider modal.closeButton defaults restyle it, and a passed prop still win', () => {
+    render(
+      <ThemeProvider themeDefaults={{ modal: { closeButton: { md: true } } }}>
+        <Modal open onClose={() => {}} aria-label="Dialog" withCloseButton={false}>
+          <ModalBody><ModalCloseButton /><ModalCloseButton xl aria-label="Big" /></ModalBody>
+        </Modal>
+      </ThemeProvider>
+    );
+    expect(screen.getByRole('button', { name: 'Close' })).toHaveAttribute('data-size', 'md');
+    expect(screen.getByRole('button', { name: 'Big' })).toHaveAttribute('data-size', 'xl');
+  });
+
+  it('should not leak boolean props to the DOM', () => {
+    renderInModal(<ModalCloseButton lg danger filled />);
+    const button = screen.getByRole('button', { name: 'Close' });
+    expect(button).not.toHaveAttribute('lg');
+    expect(button).not.toHaveAttribute('danger');
+    expect(button).not.toHaveAttribute('filled');
+  });
+});

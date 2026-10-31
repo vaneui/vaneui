@@ -28,7 +28,7 @@ const CONTROL_COMPONENTS = new Set<unknown>(Object.values(FIELD_CONTROLS).map(d 
 const HELP_SIZE: Record<string, string> = { xs: 'xs', sm: 'xs', md: 'sm', lg: 'md', xl: 'lg' };
 
 // In children mode these reach the child control through context; they mean nothing on the wrapper div.
-const CONTROL_STATE_KEYS = new Set(['disabled', 'required', 'readOnly']);
+const CONTROL_STATE_KEYS = new Set(['disabled', 'required', 'readOnly', 'invalid']);
 // Control-only attributes that would be invalid on the wrapper div; in children mode they belong on the child.
 const CONTROL_ONLY_KEYS = new Set([
   'placeholder', 'name', 'value', 'defaultValue', 'checked', 'defaultChecked', 'autoComplete',
@@ -145,23 +145,33 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     const hasLabel = label !== undefined && label !== null && label !== false;
     const hasDescription = description !== undefined && description !== null && description !== false;
     const hasError = error !== undefined && error !== null && error !== false;
+    // error={true} marks the field invalid without a message, so no empty error element is rendered
+    const hasErrorMessage = hasError && error !== true;
 
     const childrenMode = control ? null : splitChildrenModeProps(rest as Record<string, unknown>);
     if (process.env.NODE_ENV !== 'production' && childrenMode && childrenMode.dropped.length > 0) {
       console.warn(`VaneUI: Field passes ${childrenMode.dropped.join(', ')} to no element in children mode — set them on the child control.`);
     }
-    const { disabled, required, readOnly } = (childrenMode?.controlState ?? {}) as { disabled?: boolean; required?: boolean; readOnly?: boolean };
+    const { disabled, required, readOnly, invalid } = (childrenMode?.controlState ?? {}) as { disabled?: boolean; required?: boolean; readOnly?: boolean; invalid?: boolean };
+    // a field is invalid when it has an error or is marked invalid (self-rendered controls take `invalid` as a prop)
+    const fieldInvalid = hasError || invalid === true;
 
     const fieldControlValue = useMemo(() => ({
       id: controlId,
       labelId,
-      describedBy: [hasDescription ? descriptionId : null, hasError ? errorId : null]
+      describedBy: [hasDescription ? descriptionId : null, hasErrorMessage ? errorId : null]
         .filter(Boolean).join(' ') || undefined,
-      invalid: hasError,
+      invalid: fieldInvalid,
       disabled,
       required,
       readOnly,
-    }), [controlId, labelId, descriptionId, errorId, hasDescription, hasError, disabled, required, readOnly]);
+    }), [controlId, labelId, descriptionId, errorId, hasDescription, hasErrorMessage, fieldInvalid, disabled, required, readOnly]);
+
+    // the label is a sibling of the control, so its :disabled selector can't see it; a disabled field dims it directly
+    const childDisabled = !control && isValidElement(children)
+      ? (children.props as { disabled?: boolean }).disabled === true
+      : false;
+    const fieldDisabled = (rest as { disabled?: boolean }).disabled === true || childDisabled;
 
     // Field's own size becomes the control's default, reusing Label's channel so
     // controls already wired for <Label> need no second lookup.
@@ -189,7 +199,7 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     const labelElement = hasLabel && (
       <ThemedComponent
         theme={labelTheme}
-        {...{ [resolvedSize]: true, id: labelId, ...(isRadioGroup ? {} : { htmlFor: controlId }) }}
+        {...{ [resolvedSize]: true, id: labelId, ...(isRadioGroup ? {} : { htmlFor: controlId }), ...(fieldDisabled ? { disabled: true } : {}) }}
       >{label}</ThemedComponent>
     );
     const controlElement = (
@@ -218,7 +228,7 @@ export const Field = forwardRef<FieldElement, FieldProps>(
         {hasDescription && (
           <ThemedComponent theme={descriptionTheme} {...{ [helpSize]: true, id: descriptionId }}>{description}</ThemedComponent>
         )}
-        {hasError && (
+        {hasErrorMessage && (
           <ThemedComponent theme={errorTheme} {...{ [helpSize]: true, id: errorId }}>{error}</ThemedComponent>
         )}
       </ThemedComponent>
