@@ -10,6 +10,10 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.5.0
+
+`2026-10-31`
+
 Fixes for the bugs found in the 1.4.6 component review, each covered by tests. A few fixes need
 a new prop to work, so this is a minor release.
 
@@ -50,6 +54,8 @@ a new prop to work, so this is a minor release.
   touches or overlaps the trigger (by up to 3px at `xl`).
 - A `style` passed to `Popup` merges with its positioning instead of replacing it, which left
   the popup unpositioned.
+
+[Full diff](https://github.com/vaneui/vaneui/compare/v1.4.6...v1.5.0)
 
 ## 1.4.6
 
