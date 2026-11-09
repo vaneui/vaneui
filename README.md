@@ -1,3 +1,8 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/readme-banner-dark.png">
+  <img alt="VaneUI: deliver clean UI without complex code. A Card written with boolean props on the left and the card it renders on the right." src=".github/assets/readme-banner-light.png">
+</picture>
+
 # VaneUI
 
 [![npm version](https://img.shields.io/npm/v/%40vaneui/ui.svg?style=flat)](https://www.npmjs.com/package/@vaneui/ui)
