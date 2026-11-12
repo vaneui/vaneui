@@ -375,3 +375,56 @@ for (const path of ['css-anchor', 'js-fallback'] as const) {
     });
   });
 }
+
+// An open Modal makes the rest of the page inert. The page keeps a few dialogs open in place for
+// other specs, and they already make every unknown child of <body> inert, so these tests look at
+// what must be spared; turning the pass off with `inertBackground={false}` cannot be told apart
+// here and is covered by the unit tests.
+test.describe('What an open Modal leaves usable', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.locator(T('ob-inert-open')).click();
+    await expect(page.locator(T('ob-inert-modal'))).toBeVisible();
+  });
+
+  test('an Overlay opened from the Modal takes clicks and keys, and closes first on Escape', async ({ page }) => {
+    await page.locator(T('ob-inert-open-overlay')).click();
+
+    const overlay = page.locator(T('ob-inert-overlay'));
+    await expect(overlay).toBeVisible();
+    await expect(overlay).not.toHaveAttribute('inert', '');
+    await expect(overlay).not.toHaveAttribute('aria-hidden', 'true');
+
+    const button = page.locator(T('ob-inert-overlay-button'));
+    await button.click();
+    await expect(button).toHaveText('In overlay 1');
+    await button.focus();
+    await expect(button).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(button).toHaveText('In overlay 2');
+
+    await page.keyboard.press('Escape');
+    await expect(overlay).toHaveCount(0);
+    await expect(page.locator(T('ob-inert-modal'))).toBeVisible();
+  });
+
+  test('a portal of another library stays usable when it is marked or registered', async ({ page }) => {
+    await page.locator(T('ob-inert-open-portals')).click();
+
+    // data-vane-overlay on the portal's own element, a child of <body>
+    await expect(page.locator(T('ob-inert-marked'))).not.toHaveAttribute('inert', '');
+    await expect(page.locator(T('ob-inert-marked'))).not.toHaveAttribute('aria-hidden', 'true');
+    const marked = page.locator(T('ob-inert-marked-button'));
+    await marked.click();
+    await expect(marked).toHaveText('Marked 1');
+
+    // useOverlayRegistration on an element inside the portal: its container under <body> is spared
+    await expect(page.locator(T('ob-inert-registered-root'))).not.toHaveAttribute('inert', '');
+    const registered = page.locator(T('ob-inert-registered-button'));
+    await registered.click();
+    await expect(registered).toHaveText('Registered 1');
+
+    // a portal that is neither stays part of the background
+    await expect(page.locator(T('ob-inert-plain'))).toHaveAttribute('inert', '');
+    await expect(page.locator(T('ob-inert-plain'))).toHaveAttribute('aria-hidden', 'true');
+  });
+});

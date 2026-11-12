@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   ThemeProvider,
   Card,
@@ -59,6 +60,7 @@ import {
   Tr,
   Th,
   Td,
+  useOverlayRegistration,
 } from '../../src';
 
 // Simple SVG icon for testing
@@ -412,6 +414,44 @@ function LifecycleProbe() {
   return null;
 }
 
+/** Shows how many times it was clicked, so a spec can tell that a click arrived. */
+function CountButton({ testId, label }: { testId: string; label: string }) {
+  const [count, setCount] = useState(0);
+  return (
+    <button data-testid={testId} onClick={() => setCount((c) => c + 1)}>{label} {count}</button>
+  );
+}
+
+/** Stand-ins for what another library portals to <body>: one marked, one registered, one neither. */
+function ForeignPortals() {
+  const registrationRef = useOverlayRegistration();
+  const place = (left: number): React.CSSProperties => ({ position: 'fixed', top: 8, left, zIndex: 10000 });
+  return (
+    <>
+      {createPortal(
+        <div data-vane-overlay="" data-testid="ob-inert-marked" style={place(8)}>
+          <CountButton testId="ob-inert-marked-button" label="Marked" />
+        </div>,
+        document.body
+      )}
+      {createPortal(
+        <div data-testid="ob-inert-registered-root" style={place(160)}>
+          <div ref={registrationRef}>
+            <CountButton testId="ob-inert-registered-button" label="Registered" />
+          </div>
+        </div>,
+        document.body
+      )}
+      {createPortal(
+        <div data-testid="ob-inert-plain" style={place(320)}>
+          <CountButton testId="ob-inert-plain-button" label="Plain" />
+        </div>,
+        document.body
+      )}
+    </>
+  );
+}
+
 function OverlayBehaviorFixtures() {
   const [lifeOpen, setLifeOpen] = useState(false);
   const [dragOpen, setDragOpen] = useState(false);
@@ -422,6 +462,9 @@ function OverlayBehaviorFixtures() {
   const [nestA, setNestA] = useState(false);
   const [nestB, setNestB] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [inertOpen, setInertOpen] = useState(false);
+  const [inertOverlay, setInertOverlay] = useState(false);
+  const [inertPortals, setInertPortals] = useState(false);
   return (
     <section data-testid="overlay-behavior-section">
       {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
@@ -531,6 +574,17 @@ function OverlayBehaviorFixtures() {
           <MenuItem>Duplicate</MenuItem>
         </Menu>
       </div>
+
+      {/* What an open Modal leaves usable: an Overlay opened from it, and portals of another library. */}
+      <button data-testid="ob-inert-open" onClick={() => setInertOpen(true)}>open settings modal</button>
+      <Modal open={inertOpen} onClose={() => setInertOpen(false)} title="Settings" noAnimation data-testid="ob-inert-modal">
+        <button data-testid="ob-inert-open-overlay" onClick={() => setInertOverlay(true)}>open overlay</button>
+        <button data-testid="ob-inert-open-portals" onClick={() => setInertPortals(true)}>show portals</button>
+      </Modal>
+      <Overlay open={inertOverlay} onClose={() => setInertOverlay(false)} noAnimation data-testid="ob-inert-overlay">
+        <CountButton testId="ob-inert-overlay-button" label="In overlay" />
+      </Overlay>
+      {inertPortals && <ForeignPortals />}
     </section>
   );
 }

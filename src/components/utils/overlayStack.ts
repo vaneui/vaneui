@@ -20,6 +20,11 @@ export interface OverlayStackEntry {
   el: HTMLElement;
   /** The parent overlay's element, if this overlay was opened from inside another. */
   parent: HTMLElement | null;
+  /**
+   * The element inside `el` that holds the overlay's own content, when that is not `el` itself:
+   * a Modal registers its backdrop, and the dialog is the backdrop's child.
+   */
+  content: HTMLElement | null;
 }
 
 const entries: OverlayStackEntry[] = [];
@@ -46,10 +51,15 @@ function notifyOverlayStackChange(): void {
  * Register an open overlay. Returns an unregister function.
  * `parent` is the element of the overlay this one was opened from (or null for
  * a top-level overlay) — typically resolved via {@link findOverlayContaining}
- * on the new overlay's anchor/trigger.
+ * on the new overlay's anchor/trigger. `content` is the element inside `el` that
+ * holds the overlay's content when it is not `el` itself (a dialog in its backdrop).
  */
-export function registerOverlay(el: HTMLElement, parent: HTMLElement | null = null): () => void {
-  entries.push({ el, parent });
+export function registerOverlay(
+  el: HTMLElement,
+  parent: HTMLElement | null = null,
+  content: HTMLElement | null = null
+): () => void {
+  entries.push({ el, parent, content });
   notifyOverlayStackChange();
   return () => unregisterOverlay(el);
 }
@@ -167,7 +177,10 @@ export function findOverlayOpener(node: Node | null): HTMLElement | null {
 export function isInClosedOverlay(node: Node): boolean {
   const overlay = findKnownOverlay(node);
   if (!overlay) return false;
-  return !entries.some((entry) => entry.el === overlay || entry.el.contains(overlay));
+  // A popup registers its own element. A Modal registers its backdrop and names the dialog, the
+  // element known here, as its content. Any other registered ancestor (an Overlay around a popup
+  // rendered in place, say) says nothing about whether this overlay is open.
+  return !entries.some((entry) => entry.el === overlay || entry.content === overlay);
 }
 
 /** test cleanup */

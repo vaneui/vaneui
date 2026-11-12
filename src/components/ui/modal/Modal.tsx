@@ -70,6 +70,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       closeOnEscape = true,
       scrollLock = true,
       focusTrap = true,
+      inertBackground = true,
       returnFocus = true,
       initialFocus,
       overlayProps,
@@ -129,7 +130,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // guards the Tab boundary); skips the dialog's own portal and any overlay
     // portaled out of it (e.g. an in-modal menu).
     // Declared before useFocusTrap: cleanups run in order, and inert must lift before focus returns.
-    useInertBackground(effectiveOpen, overlayRef);
+    useInertBackground(effectiveOpen && inertBackground, overlayRef);
     useFocusTrap(contentRef, effectiveOpen && focusTrap, focusTrapOptions);
 
     // join the shared overlay stack while open, so any OTHER open dialog's
@@ -143,7 +144,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       const el = overlayRef.current;
       if (!el) return;
       const parent = el.parentElement?.closest('.vane-overlay, .vane-popup') as HTMLElement | null | undefined;
-      return registerOverlay(el, parent ?? null);
+      return registerOverlay(el, parent ?? null, contentRef.current);
     }, [effectiveOpen]);
 
     // stable ref so the Escape entry below is pushed once per open: re-pushing whenever an

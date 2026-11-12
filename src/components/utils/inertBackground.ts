@@ -19,6 +19,17 @@ interface PrevState {
 // registers/unregisters — so a sibling overlay (a stacked modal, or an in-modal
 // popup that registers after this effect ran) is released rather than left
 // inert. Prior `inert`/`aria-hidden` values are captured and restored.
+//
+// Portals VaneUI did not render (another library's popover, a toast container)
+// are not in the overlay stack. Two ways keep them live:
+//  - the `data-vane-overlay` attribute on the portal's own element, when that
+//    element is a direct child of document.body;
+//  - `useOverlayRegistration()`, which registers any element (its body-level
+//    container is then left alone, as for VaneUI's own overlays).
+
+/** A direct child of document.body carrying this attribute is never made inert by a Modal. */
+export const OVERLAY_ATTRIBUTE = 'data-vane-overlay';
+
 export function useInertBackground(
   enabled: boolean,
   selfRef: RefObject<HTMLElement | null>,
@@ -40,6 +51,7 @@ export function useInertBackground(
       const overlays = getActiveOverlayPortals();
       const isProtected = (child: Element): boolean => {
         if (self && (child === self || child.contains(self) || self.contains(child))) return true;
+        if (child.hasAttribute(OVERLAY_ATTRIBUTE)) return true;
         return overlays.some((o) => child === o || child.contains(o) || o.contains(child));
       };
 
@@ -71,10 +83,15 @@ export function useInertBackground(
     // don't mutate childList, so this never feeds back into itself
     const observer = new MutationObserver(reconcile);
     observer.observe(document.body, { childList: true });
+    // and the marker attribute being set or removed after the dialog opened; the filter keeps
+    // this to that one attribute, so the `inert`/`aria-hidden` written above do not come back here
+    const markerObserver = new MutationObserver(reconcile);
+    markerObserver.observe(document.body, { attributes: true, attributeFilter: [OVERLAY_ATTRIBUTE], subtree: true });
 
     return () => {
       unsubscribe();
       observer.disconnect();
+      markerObserver.disconnect();
       for (const [el, prev] of touched) restore(el, prev);
     };
   }, [enabled, selfRef]);
