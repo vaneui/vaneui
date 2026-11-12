@@ -922,7 +922,8 @@ function FormStateFixtures() {
 
 /* ════════ FORM-STATE FIXTURES (end) ════════ */
 
-// ── Theme engine fixtures (compound Card detection, Table appearance) ────────
+// ── Theme engine fixtures (compound Card detection, Table appearance,
+//    className against responsive classes) ───────────────────────────────────
 
 /** Card parts that reach the Card through a consumer component, not as its direct React children. */
 function WrappedCardParts({ id, staticSizing }: { id: string; staticSizing?: boolean }) {
@@ -1028,6 +1029,16 @@ function ThemeEngineFixtures() {
           </tbody>
         </table>
       </Card>
+
+      {/* className against the theme's responsive classes: an override holds at every width. */}
+      <Section data-testid="rp-section-plain"><div>one</div><div>two</div></Section>
+      <Section data-testid="rp-section" className="py-8 gap-2"><div>one</div><div>two</div></Section>
+      {/* the user's own breakpoint class still applies below its breakpoint */}
+      <Section data-testid="rp-section-own" className="py-8 max-mobile:py-(--py-mobile)">
+        <div>one</div><div>two</div>
+      </Section>
+      <PageTitle data-testid="rp-title-plain">Title</PageTitle>
+      <PageTitle data-testid="rp-title" className="text-5xl">Title</PageTitle>
     </section>
   );
 }

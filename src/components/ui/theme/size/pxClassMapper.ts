@@ -15,6 +15,10 @@ export class PxClassMapper extends BaseClassMapper implements Record<ResponsiveB
   /** Mobile: apply horizontal padding using --px-mobile */
   mobile: string = "max-mobile:px-(--px-mobile)";
 
+  responsiveClasses(): readonly string[] {
+    return [this.tablet, this.mobile];
+  }
+
   getClasses(extractedKeys: CategoryProps): string[] {
     const p = extractedKeys?.padding;
     if (p === 'padding' || p === 'paddingX' || p === undefined) {

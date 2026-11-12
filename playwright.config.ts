@@ -27,11 +27,13 @@ type TestOptions = { testPage: string };
 // strongBorder, the NavLink indicators and the shadow sizes. card-compound
 // depends on a rules.css rule (the DOM-driven compound Card inset) that each
 // pipeline compiles separately, and table-appearance on the selector that keeps
-// a cell outside a Table on the neutral palette.
+// a cell outside a Table on the neutral palette. classname-responsive checks
+// user utilities against the theme's breakpoint classes, whose order in the
+// stylesheet is each pipeline's own.
 //
 // What does NOT belong here: behaviour tests (focus, keyboard, z-index,
 // menu/popup mechanics) — they exercise component logic, not CSS pipelines.
-const DUAL_PIPELINE_SPECS = /(css-noise-audit|computed-styles|filled-contrast|dark-mode|rtl|layout-additions|card-compound|table-appearance)\.spec\.ts$/;
+const DUAL_PIPELINE_SPECS = /(css-noise-audit|computed-styles|filled-contrast|dark-mode|rtl|layout-additions|card-compound|table-appearance|classname-responsive)\.spec\.ts$/;
 
 // Behavior-critical specs that ALSO run on Firefox and WebKit. These cover
 // component mechanics where engines genuinely differ — most importantly the

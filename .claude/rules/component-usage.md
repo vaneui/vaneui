@@ -749,4 +749,4 @@ Layout components (`Card`, `Row`, `Col`, `Stack`, `Section`, `Container`, `Grid*
 <Row sticky primary className="z-10">Sticky header</Row>  {/* sticks at top: 0 (set --sticky-top to clear a fixed bar); primary paints a surface so content doesn't show through */}
 ```
 
-User `className` always wins over theme classes via `twMerge`.
+User `className` always wins over theme classes via `twMerge`. That holds at every width: a responsive component (`Section`, `Card`, `Stack`, `Container`, `Alert`, `Modal`, `Popup`, the titles) repeats its padding, gap and font size for tablet and mobile, and a class that overrides one of those values replaces all three, so `<Section className="py-8">` keeps `py-8` on a phone. Override the whole value (`py-*`, `px-*`, `p-*`, `gap-*`, a font-size class): a one-sided class such as `pt-*` or `gap-x-*` still gives way to the theme below 1024px. Explicit responsive props (`mobileStack`, `tabletHide`, `mobileWFull`) and the Grid column collapse are not overridden by a class without a breakpoint.
