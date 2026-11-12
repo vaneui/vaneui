@@ -232,8 +232,9 @@ src/
 ## Exports
 
 - `@vaneui/ui` — All components + ThemeProvider + useTheme + defaultTheme + types
-- `@vaneui/ui/vars` — CSS variables (`vars.css`)
-- `@vaneui/ui/css` — Pre-built component styles (`ui.css`)
+- `@vaneui/ui/vars` — CSS variables and component rules (`vars.css`), for a Tailwind v4 build
+- `@vaneui/ui/tokens` — Design tokens and the `mobile` / `tablet` / `desktop` breakpoints (`tokens.css`); import it next to `vars` in a Tailwind v4 build, or the responsive props emit no CSS
+- `@vaneui/ui/css` — Pre-built component styles (`ui.css`), self-contained
 
 ## Critical Rules
 

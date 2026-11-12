@@ -4,7 +4,7 @@ This guide is for consuming projects that use `@vaneui/ui`. It covers correct co
 
 ## Setup
 
-### Required CSS — import exactly ONE of the two stylesheets
+### Required CSS — pick exactly ONE of the two options
 
 `@vaneui/ui/css` is fully self-contained (it embeds everything `@vaneui/ui/vars` contains). Importing both ships ~40 KB of duplicate rules at two different cascade strengths — never do it.
 
@@ -17,19 +17,19 @@ import { ThemeProvider, Button, Card, Row, Stack, Text, Title } from '@vaneui/ui
 
 The prebuilt stylesheet is compiled for VaneUI's own components; it does not contain Tailwind's full utility set. A Tailwind class passed through `className` or `extraClasses` has no effect unless it happens to be in the bundle, and most (`max-w-md`, `p-6`, `size-8`, `ms-auto`, `z-40`) are not. For arbitrary utilities, use Option B or the `style` prop.
 
-**Option B — your own Tailwind v4 build:**
-
-```tsx
-import '@vaneui/ui/vars';  // tokens + component rules (no utilities)
-```
-
-and let your Tailwind build emit the utilities VaneUI's components use by scanning the library:
+**Option B — your own Tailwind v4 build.** Add all four lines to your main CSS file:
 
 ```css
 /* your app.css */
 @import "tailwindcss";
-@source "../node_modules/@vaneui/ui/dist";
+@import "@vaneui/ui/tokens";  /* design tokens and the mobile / tablet / desktop breakpoints */
+@import "@vaneui/ui/vars";    /* CSS variables + component rules (no utilities) */
+@source "../node_modules/@vaneui/ui";
 ```
+
+`@source` lets your Tailwind build emit the utilities VaneUI's components use by scanning the library. Its path is relative to the CSS file that contains it.
+
+The tokens import is required. It registers VaneUI's breakpoints with your Tailwind build, and without it Tailwind emits no CSS for any `max-mobile:`, `max-tablet:` or `max-desktop:` class: `mobileStack`, the `*Hide`, `*Show` and `*WFull` props and responsive padding and font sizes then do nothing, with no build error.
 
 ### ThemeProvider
 
@@ -218,6 +218,20 @@ Keep `light-dark()` pairs off a `:root`-only rule: bundlers that compile it for 
     <Button filled>Create Account</Button>
   </Col>
 </Card>
+```
+
+`Button` and `IconButton` set no `type`, so inside a `<form>` the browser treats each one as a
+submit button: a click, or Enter in a field, submits the form. Pass `type="button"` on every
+button that does not submit (Cancel, Add row, a toggle) and `type="submit"` on the one that does.
+
+```tsx
+<form onSubmit={save}>
+  <Field label="Name"><Input name="name" /></Field>
+  <Row>
+    <Button type="button" secondary onClick={cancel}>Cancel</Button>
+    <Button type="submit" filled>Save</Button>
+  </Row>
+</form>
 ```
 
 Prefer `Field` when a control needs help text or an error message: it generates the
@@ -417,8 +431,24 @@ const [open, setOpen] = useState(false);
 
 `Popup` positions itself against its anchor via one of 12 `place*` props: `placeTop`, `placeBottom`, `placeLeft`, `placeRight` plus each side's `*Start`/`*End` alignment (`placeTopStart`, `placeTopEnd`, `placeBottomStart`, `placeBottomEnd`, `placeLeftStart`, `placeLeftEnd`, `placeRightStart`, `placeRightEnd`).
 
+`PopupTrigger` owns the anchor and the open state, so the placement goes in `popupProps`:
+
 ```tsx
-<Popup placeBottomStart>...</Popup>
+<PopupTrigger popup={<Text>Saved filters</Text>} popupProps={{ placeBottomStart: true }}>
+  <Button>Filters</Button>
+</PopupTrigger>
+```
+
+A `Popup` used on its own needs the anchor's ref (`anchorRef` is required):
+
+```tsx
+const anchorRef = useRef<HTMLButtonElement>(null);
+const [open, setOpen] = useState(false);
+
+<Button ref={anchorRef} onClick={() => setOpen(true)}>Filters</Button>
+<Popup anchorRef={anchorRef} open={open} onClose={() => setOpen(false)} placeBottomStart>
+  <Text>Saved filters</Text>
+</Popup>
 ```
 
 For size-driven floating dimensions, `constrainWidth` applies a size-dependent minimum width and `clampHeight` a size-dependent maximum height.
