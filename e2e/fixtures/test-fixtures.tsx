@@ -504,6 +504,14 @@ function OverlayBehaviorFixtures() {
         </Menu>
       </Row>
 
+      {/* A PopupTrigger left at its defaults: the dialog it opens is named by its trigger. */}
+      <PopupTrigger
+        popup={<Text>Show paid invoices only</Text>}
+        popupProps={{ 'data-testid': 'ob-name-popup' } as Record<string, unknown>}
+      >
+        <Button data-testid="ob-name-trigger">Filters</Button>
+      </PopupTrigger>
+
       {/* One trigger anchors two popups: a Tooltip and the Menu it opens. */}
       <div style={{ padding: '48px 160px' }}>
         <Menu

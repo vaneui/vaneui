@@ -415,17 +415,19 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     // on close (mirrors Modal). A non-modal Popup keeps its lightweight autoFocus.
     useFocusTrap(popupRef, effectiveOpen && modal, { returnFocus: true });
 
-    // dev-only: a modal dialog with no accessible name is an ARIA violation
+    // dev-only: a dialog with no accessible name is an ARIA violation. PopupTrigger and Menu name
+    // their popup by the trigger; a Popup used on its own has to be given a name.
+    const needsAccessibleName = modal || role === 'dialog' || role === 'alertdialog';
+    const hasAccessibleName =
+      Boolean((props as Record<string, unknown>)['aria-label'])
+      || Boolean((props as Record<string, unknown>)['aria-labelledby']);
     useEffect(() => {
-      if (process.env.NODE_ENV !== 'production' && effectiveOpen && modal) {
-        const p = props as Record<string, unknown>;
-        if (!p['aria-label'] && !p['aria-labelledby']) {
-          console.warn(
-            'VaneUI: a modal Popup has no accessible name — set aria-label or aria-labelledby so screen readers can announce the dialog.'
-          );
-        }
+      if (process.env.NODE_ENV !== 'production' && effectiveOpen && needsAccessibleName && !hasAccessibleName) {
+        console.warn(
+          'VaneUI: a Popup with a dialog role has no accessible name. Set aria-label or aria-labelledby so screen readers can announce it (PopupTrigger names the popup by its trigger).'
+        );
       }
-    }, [effectiveOpen, modal]);
+    }, [effectiveOpen, needsAccessibleName, hasAccessibleName]);
 
     const mergedRef = useMergedRef(ref, popupRef);
 

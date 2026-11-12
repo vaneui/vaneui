@@ -201,7 +201,7 @@ describe('Font family on components that hold raw text', () => {
   it('Popup and Tooltip default to the sans font', () => {
     render(wrap(
       <>
-        <Popup open onClose={() => {}} anchorRef={{ current: null }}>Panel</Popup>
+        <Popup open onClose={() => {}} anchorRef={{ current: null }} aria-label="Panel">Panel</Popup>
         <Tooltip content="Filter invoices" defaultOpen><button type="button">F</button></Tooltip>
       </>
     ));
