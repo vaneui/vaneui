@@ -20,6 +20,11 @@ export interface OverlayStackEntry {
   el: HTMLElement;
   /** The parent overlay's element, if this overlay was opened from inside another. */
   parent: HTMLElement | null;
+  /**
+   * The element inside `el` that holds the overlay's own content, when that is not `el` itself:
+   * a Modal registers its backdrop, and the dialog is the backdrop's child.
+   */
+  content: HTMLElement | null;
 }
 
 const entries: OverlayStackEntry[] = [];
@@ -46,10 +51,15 @@ function notifyOverlayStackChange(): void {
  * Register an open overlay. Returns an unregister function.
  * `parent` is the element of the overlay this one was opened from (or null for
  * a top-level overlay) — typically resolved via {@link findOverlayContaining}
- * on the new overlay's anchor/trigger.
+ * on the new overlay's anchor/trigger. `content` is the element inside `el` that
+ * holds the overlay's content when it is not `el` itself (a dialog in its backdrop).
  */
-export function registerOverlay(el: HTMLElement, parent: HTMLElement | null = null): () => void {
-  entries.push({ el, parent });
+export function registerOverlay(
+  el: HTMLElement,
+  parent: HTMLElement | null = null,
+  content: HTMLElement | null = null
+): () => void {
+  entries.push({ el, parent, content });
   notifyOverlayStackChange();
   return () => unregisterOverlay(el);
 }
@@ -126,6 +136,51 @@ export function getDescendantOverlays(rootEl: HTMLElement): HTMLElement[] {
     }
   }
   return out;
+}
+
+// ── Openers ──────────────────────────────────────────────────────────────────
+// The element each overlay was opened from: a popup's anchor, or the element
+// that had focus when a dialog trapped it. Unlike the open set above, this is
+// kept for as long as the overlay's element exists, because returning focus
+// needs it while the overlay is closing or already closed: a menu item that
+// opened a dialog is gone when the dialog closes, and the menu's own trigger
+// is the element to go back to.
+const openers = new WeakMap<HTMLElement, () => HTMLElement | null>();
+
+/** Record how to find the element `el` (an overlay's root, or a dialog) was opened from. */
+export function setOverlayOpener(el: HTMLElement, getOpener: () => HTMLElement | null): void {
+  openers.set(el, getOpener);
+}
+
+export function hasOverlayOpener(el: HTMLElement): boolean {
+  return openers.has(el);
+}
+
+function findKnownOverlay(node: Node | null): HTMLElement | null {
+  for (let current: Node | null = node; current; current = current.parentNode) {
+    if (current instanceof HTMLElement && openers.has(current)) return current;
+  }
+  return null;
+}
+
+/** The opener of the nearest overlay that is or contains `node`, or null. */
+export function findOverlayOpener(node: Node | null): HTMLElement | null {
+  const overlay = findKnownOverlay(node);
+  return overlay ? openers.get(overlay)?.() ?? null : null;
+}
+
+/**
+ * True when `node` sits in an overlay that is not open right now: one that is
+ * closing (still mounted for its exit) or kept mounted while closed. Focus
+ * sent there would be lost when the overlay unmounts, or never land at all.
+ */
+export function isInClosedOverlay(node: Node): boolean {
+  const overlay = findKnownOverlay(node);
+  if (!overlay) return false;
+  // A popup registers its own element. A Modal registers its backdrop and names the dialog, the
+  // element known here, as its content. Any other registered ancestor (an Overlay around a popup
+  // rendered in place, say) says nothing about whether this overlay is open.
+  return !entries.some((entry) => entry.el === overlay || entry.content === overlay);
 }
 
 /** test cleanup */

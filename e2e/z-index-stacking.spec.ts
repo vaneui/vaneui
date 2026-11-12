@@ -266,15 +266,27 @@ test.describe('Nested-overlay behavior bug fixes (2026-08-10)', () => {
     expect(await present(page, 'mb-popup')).toBe(false); // inner popup closed
   });
 
-  // BUG-09: closing a Modal opened from a self-removing trigger keeps focus off <body>.
-  test('closing a Modal does not strand focus on <body>', async ({ page }) => {
-    await page.locator('[data-testid="mb-rf-open"]').click();
+  // BUG-09: a Modal whose opener removed itself has nothing to return focus to. It must not
+  // send focus to the first focusable element of the page instead: that scrolls to the top.
+  test('closing a Modal whose opener is gone does not jump to the top of the page', async ({ page }) => {
+    const open = page.locator('[data-testid="mb-rf-open"]');
+    await open.scrollIntoViewIfNeeded();
+    const scrollBefore = await page.evaluate(() => window.scrollY);
+    expect(scrollBefore).toBeGreaterThan(0);
+
+    // opened from the keyboard: a mouse press would also dismiss an unrelated open tooltip on the
+    // page, and that tooltip's own focus handling would then race with what is checked here
+    await open.focus();
+    await page.keyboard.press('Enter');
     await page.locator('[data-testid="mb-rf-modal"]').waitFor({ state: 'visible' });
     await page.waitForTimeout(60);
     await page.keyboard.press('Escape');
-    // Focus is restored on the next frame (see focusTrap cleanup); poll for it.
-    await expect
-      .poll(async () => page.evaluate(() => document.activeElement?.tagName ?? null), { timeout: 2000 })
-      .not.toBe('BODY');
+    await expect(page.locator('[data-testid="mb-rf-modal"]')).toHaveCount(0);
+    // give a deferred focus move the frames it would need
+    await page.waitForTimeout(150);
+
+    const firstFocusable = page.locator('[data-testid="bare-button"]');
+    await expect(firstFocusable).not.toBeFocused();
+    expect(Math.abs((await page.evaluate(() => window.scrollY)) - scrollBefore)).toBeLessThanOrEqual(1);
   });
 });

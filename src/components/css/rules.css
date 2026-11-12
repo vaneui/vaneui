@@ -620,8 +620,13 @@
        tabindex=0 (set in Popup.tsx) keeps the scroll region keyboard-operable (WCAG 2.1.1). */
     /* gap inherits the outer box's resolved gap, so noGap (Menu) and the responsive gap classes reach the children. */
     .vane-popup-scroll { display: flex; flex-direction: column; gap: inherit; max-height: var(--max-height); overflow: auto; min-height: 0; }
-    /* Menu dropdowns stay unbounded (roving-tabindex items provide keyboard access; a clamped menu scroll region can't). */
-    .vane-popup[data-menu-dropdown] > .vane-popup-scroll { max-height: none; overflow: visible; }
+    /* Menu dropdowns grow with their items until the room beside the anchor runs out, then scroll: Popup.tsx
+       measures that room into --popup-scroll-max-height, and clampHeight on the outer box shrinks this one too.
+       Focus moves through the items and scrolls them into view, and the focused item is the menu's tab stop
+       (MenuItem.tsx), so the box itself is not one.
+       The 4px inset leaves room for an item's focus outline (2px wide, 2px off the item), which a scroll
+       box would otherwise cut off; the negative margin takes the same space back, so the items do not move. */
+    .vane-popup[data-menu-dropdown] > .vane-popup-scroll { max-height: var(--popup-scroll-max-height, none); overflow-y: auto; box-sizing: border-box; padding: 4px; margin: -4px; scroll-padding-block: 4px; }
 
     /* Menu dropdown: tighter than generic Popup; floor lifted to 4px so no size renders below the minimum. */
     .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 1;    --py-unit-desktop: 1;    --py-unit-tablet: 1;    --py-unit-mobile: 1; }
@@ -736,6 +741,27 @@
         flex-shrink: 0;
     }
 
+    /* Compound Card, decided from the rendered DOM: with a part as a direct child the parts own
+       the inset, so the Card's own padding resolves to zero. Card.tsx already drops the padding
+       classes when it can see the parts among its children; this covers the parts it cannot see
+       (rendered by a wrapper component, or arriving from a Server Component), whose Card still
+       carries them. Zeroing the variables instead of `padding` leaves a user className alone.
+       An explicit padding prop on the Card (data-own-padding) keeps its inset. */
+    .vane-card:not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer)) {
+        /* the [data-size] formulas, kept for the children below */
+        --card-py: calc(var(--py-unit) * var(--spacing));
+        --card-px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
+        --py: 0px; --px: 0px;
+        --py-desktop: 0px; --py-tablet: 0px; --py-mobile: 0px;
+        --px-desktop: 0px; --px-tablet: 0px; --px-mobile: 0px;
+    }
+    /* Parts carry no data-size, so they inherit --py/--px from the Card (used when a part turns
+       responsiveSizing off): hand the Card's values back to every child without its own. */
+    .vane-card:not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer)) > :not([data-size]) {
+        --py: var(--card-py);
+        --px: var(--card-px);
+    }
+
     /* Modal compound sub-components */
     .vane-modal-header {
         flex-shrink: 0;
@@ -819,6 +845,9 @@
         --app-border: var(--color-border-primary);
         --app-focus: var(--color-focus-primary);
     }
+    /* A table cell has no appearance of its own and follows its Table. Used outside a Table it has
+       nothing to follow, so it keeps the neutral outline palette (see the outline rule below). */
+    .vane-table-cell:not([data-appearance]):not(.vane-table *),
     [data-appearance="secondary"] {
         --app-text: var(--color-text-secondary);
         --app-text-filled: var(--color-text-filled-secondary);
@@ -904,6 +933,7 @@
         --app-focus: var(--color-focus-info);
     }
     /* AXIS 2: VARIANT — maps --app-* palette to final consumer variables */
+    .vane-table-cell:not([data-appearance]):not(.vane-table *),
     [data-variant="outline"] {
         --text-color: var(--app-text);
         --bg-color: var(--app-bg);
@@ -987,16 +1017,12 @@
         --ring-color: transparent;
     }
 
-    /* Checked/indeterminate + outline: border becomes the appearance color */
-    .vane-checkbox[data-variant="outline"]:is(:checked, :indeterminate) {
-        --border-color: var(--checked-bg-color);
-        --ring-color: var(--checked-bg-color);
-    }
-
-    /* Checked/indeterminate + ghost: border becomes the appearance color (same as outline) */
-    .vane-checkbox[data-variant="ghost"]:is(:checked, :indeterminate) {
-        --border-color: var(--checked-bg-color);
-        --ring-color: var(--checked-bg-color);
+    /* Checked/indeterminate + outline or ghost: the fill stays the page-colored --checked-bg-color,
+       so the border draws the box. It takes the appearance's text color, the color of the mark;
+       the fill color as border left a mark floating with no box around it. */
+    .vane-checkbox:is([data-variant="outline"], [data-variant="ghost"]):is(:checked, :indeterminate) {
+        --border-color: var(--app-text);
+        --ring-color: var(--app-text);
     }
 
     /* Radio mirrors the checkbox border treatment: neutral unchecked border, appearance color once checked. */
@@ -1011,8 +1037,8 @@
     }
 
     .vane-radio:is([data-variant="outline"], [data-variant="ghost"]):checked {
-        --border-color: var(--checked-bg-color);
-        --ring-color: var(--checked-bg-color);
+        --border-color: var(--app-text);
+        --ring-color: var(--app-text);
     }
 
     /* Switch track needs a visible unchecked border despite filled's transparent — same as Checkbox.

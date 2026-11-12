@@ -3,6 +3,7 @@ import type { CardHeaderProps } from "./CardHeaderProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { defaultCardHeaderTheme } from "./defaultCardHeaderTheme";
+import { markCardPart } from "./cardParts";
 
 export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   function CardHeader(props, ref) {
@@ -12,3 +13,4 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
 );
 
 CardHeader.displayName = 'CardHeader';
+markCardPart(CardHeader);

@@ -15,6 +15,10 @@ export class GapClassMapper extends BaseClassMapper implements Record<Responsive
   /** Mobile: apply gap using --gap-mobile */
   mobile: string = "max-mobile:gap-(--gap-mobile)";
 
+  responsiveClasses(): readonly string[] {
+    return [this.tablet, this.mobile];
+  }
+
   getClasses(extractedKeys: CategoryProps): string[] {
     // a divided grid owns its 1px gap
     if (extractedKeys?.gap === 'gap' && !extractedKeys?.divided) {

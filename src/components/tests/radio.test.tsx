@@ -200,7 +200,10 @@ describe('Radio Component Tests', () => {
       const {container} = renderRadio(<Radio value="pro" readOnly />);
 
       const input = container.querySelector('input[type="radio"]') as HTMLInputElement;
-      expect(input).toHaveAttribute('aria-readonly', 'true');
+      // ARIA does not allow aria-readonly on a radio (only on its radiogroup), so the
+      // input carries the native attribute and the styling hook, never the ARIA state
+      expect(input).not.toHaveAttribute('aria-readonly');
+      expect(input).toHaveAttribute('readonly');
       expect(input).toHaveAttribute('data-readonly', 'true');
 
       fireEvent.click(input);
@@ -486,10 +489,14 @@ describe('RadioGroup state', () => {
   it('should make every Radio read-only from the group, so a click does not check it', () => {
     const {container} = renderRadio(group({ readOnly: true }));
     const [free] = inputsOf(container);
-    expect(free).toHaveAttribute('aria-readonly', 'true');
+    // the radiogroup is where ARIA allows the read-only state; a radio may not carry it
+    expect(container.firstChild).toHaveAttribute('aria-readonly', 'true');
+    for (const input of inputsOf(container)) {
+      expect(input).not.toHaveAttribute('aria-readonly');
+      expect(input).toHaveAttribute('data-readonly', 'true');
+    }
     fireEvent.click(free);
     expect(free.checked).toBe(false);
-    expect(container.firstChild).toHaveAttribute('aria-readonly', 'true');
   });
 
   it('should mark every Radio invalid from the group', () => {

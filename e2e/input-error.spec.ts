@@ -16,10 +16,12 @@ test.describe('Error input cue (A5)', () => {
     const errWrapper = page.locator('.vane-input-wrapper', { has: page.locator('[data-testid="err-input"]') });
     await expect(errWrapper.locator('.vane-input-error-icon svg')).toBeVisible();
 
-    // the OK input is not wrapped and has no icon
-    await expect(
-      page.locator('.vane-input-wrapper', { has: page.locator('[data-testid="ok-input"]') })
-    ).toHaveCount(0);
+    // the OK input keeps the wrapper (so the <input> node survives a validity flip),
+    // but it holds no icon and generates no box
+    const okWrapper = page.locator('.vane-input-wrapper', { has: page.locator('[data-testid="ok-input"]') });
+    await expect(okWrapper).toHaveCount(1);
+    await expect(okWrapper.locator('.vane-input-error-icon')).toHaveCount(0);
+    expect(await getStyle(okWrapper, 'display')).toBe('contents');
   });
 
   test('the error icon is decorative (aria-hidden) and uses the danger color token', async ({ page }) => {

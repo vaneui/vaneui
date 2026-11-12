@@ -2,6 +2,7 @@ export { LinkVariantClassMapper } from './linkVariantClassMapper';
 export { ShadowAppearanceClassMapper } from './shadowAppearanceClassMapper';
 export { StrongBorderClassMapper } from './strongBorderClassMapper';
 export { SimpleConsumerClassMapper } from './simpleConsumerClassMapper';
+export { FilledSurfaceClassMapper } from './filledSurfaceClassMapper';
 export { StatusClassMapper } from './statusClassMapper';
 export { DisabledClassMapper, DisabledVisualClassMapper } from './disabledClassMapper';
 export { ReadOnlyClassMapper } from './readOnlyClassMapper';

@@ -12,6 +12,7 @@ import { defaultMenuPopupTheme } from './defaultMenuPopupTheme';
 import { defaultMenuDividerTheme } from '../divider/defaultMenuDividerTheme';
 import { ComponentKeys } from '../props';
 import { composeRefs, getElementRef } from '../../utils/composeRefs';
+import { useTriggerLabelId } from '../../utils/triggerLabel';
 
 export function Menu({
   children,
@@ -175,6 +176,18 @@ export function Menu({
     if (isSubmenu) openMenu();
   }, [isSubmenu, openMenu]);
 
+  // The menu takes its accessible name from the trigger, unless the consumer named it. The trigger
+  // gets an id only for this reference, and only when it has none of its own.
+  const menuHasOwnName = Boolean(
+    (popupProps as Record<string, unknown>)['aria-label'] || (popupProps as Record<string, unknown>)['aria-labelledby']
+  );
+  const labelledBy = useTriggerLabelId(
+    anchorRef,
+    (trigger as React.ReactElement<{ id?: string }>).props?.id,
+    `${menuId}-trigger`,
+    !menuHasOwnName,
+  );
+
   // compose with the trigger's own ref — cloneElement would silently
   // replace a ref the consumer attached to their trigger element
   const triggerElement = cloneElement(trigger, {
@@ -251,6 +264,7 @@ export function Menu({
           id={menuId}
           role="menu"
           aria-orientation="vertical"
+          aria-labelledby={labelledBy}
           data-menu-dropdown=""
           transitionDuration={transitionDuration}
           {...submenuPlacementProps}

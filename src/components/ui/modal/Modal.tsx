@@ -14,6 +14,7 @@ import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { useMergedRef } from '../../utils/mergedRef';
 import { useHydrated } from '../../utils/useHydrated';
+import { useIsomorphicLayoutEffect } from '../../utils/isomorphicLayoutEffect';
 import { pushEscapeHandler } from '../../utils/escapeStack';
 import { composeEventHandlers } from '../../utils/composeEventHandlers';
 import { ModalContext } from './ModalContext';
@@ -69,6 +70,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       closeOnEscape = true,
       scrollLock = true,
       focusTrap = true,
+      inertBackground = true,
       returnFocus = true,
       initialFocus,
       overlayProps,
@@ -128,28 +130,52 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // guards the Tab boundary); skips the dialog's own portal and any overlay
     // portaled out of it (e.g. an in-modal menu).
     // Declared before useFocusTrap: cleanups run in order, and inert must lift before focus returns.
-    useInertBackground(effectiveOpen, overlayRef);
+    useInertBackground(effectiveOpen && inertBackground, overlayRef);
     useFocusTrap(contentRef, effectiveOpen && focusTrap, focusTrapOptions);
 
     // join the shared overlay stack while open, so any OTHER open dialog's
     // background-inert pass spares this modal's portal (without this, two
-    // simultaneously-open modals would inert each other's dialog)
+    // simultaneously-open modals would inert each other's dialog).
+    // A modal rendered in place (portal off) inside another overlay is that
+    // overlay's child: it runs its effects first, so without the link Escape
+    // would reach the outer overlay before this one.
     useEffect(() => {
       if (!effectiveOpen) return;
       const el = overlayRef.current;
       if (!el) return;
-      return registerOverlay(el, null);
+      const parent = el.parentElement?.closest('.vane-overlay, .vane-popup') as HTMLElement | null | undefined;
+      return registerOverlay(el, parent ?? null, contentRef.current);
     }, [effectiveOpen]);
+
+    // stable ref so the Escape entry below is pushed once per open: re-pushing whenever an
+    // inline onClose changes identity would move this modal above one that opened after it
+    const onCloseRef = useRef(onClose);
+    useIsomorphicLayoutEffect(() => {
+      onCloseRef.current = onClose;
+    });
 
     // only the topmost floating element closes on Escape
     useEffect(() => {
       if (!effectiveOpen || !closeOnEscape) return;
-      return pushEscapeHandler(onClose, overlayRef.current);
-    }, [effectiveOpen, closeOnEscape, onClose]);
+      return pushEscapeHandler(() => onCloseRef.current(), overlayRef.current);
+    }, [effectiveOpen, closeOnEscape]);
+
+    // A click lands on the nearest common ancestor of where the press started and where it ended,
+    // so pressing inside the dialog and releasing over the backdrop (dragging to select text in a
+    // field) clicks the backdrop. Remember where the last press began: only a press that also
+    // started on the backdrop may close the modal. Capture phase, so a child that stops the
+    // event's propagation cannot hide the press.
+    const pressStartedInDialogRef = useRef(false);
+    const handleOverlayMouseDownCapture = (event: React.MouseEvent) => {
+      pressStartedInDialogRef.current = event.target !== event.currentTarget;
+    };
 
     const handleOverlayClick = (event: React.MouseEvent) => {
+      if (event.target !== event.currentTarget) return;
+      const pressStartedInDialog = pressStartedInDialogRef.current;
+      pressStartedInDialogRef.current = false;
       // defaultPrevented lets a composed consumer onClick veto the close
-      if (closeOnOverlayClick && !event.defaultPrevented && event.target === event.currentTarget) {
+      if (closeOnOverlayClick && !event.defaultPrevented && !pressStartedInDialog) {
         onClose();
       }
     };
@@ -195,6 +221,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // --z-index)
     const {
       onClick: overlayOnClick,
+      onMouseDownCapture: overlayOnMouseDownCapture,
       style: overlayStyle,
       className: overlayClassName,
       ...restOverlayProps
@@ -228,6 +255,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           ...restOverlayProps,
           className: [isHidden ? 'hidden' : undefined, overlayClassName].filter(Boolean).join(' ') || undefined,
           onClick: composeEventHandlers(overlayOnClick, handleOverlayClick),
+          onMouseDownCapture: composeEventHandlers(overlayOnMouseDownCapture, handleOverlayMouseDownCapture),
           style: { ...cssVars, ...overlayStyle },
         }}
       >

@@ -9,6 +9,19 @@ import {
   defaultTheme,
 } from '../../index';
 
+// Most Popups in this file are rendered on their own and without a name. The development warning
+// about that is tested in popup-accessible-name.test.tsx; here it is left out of the output.
+let unnamedPopupWarning: jest.SpyInstance;
+beforeAll(() => {
+  const warn = console.warn;
+  unnamedPopupWarning = jest.spyOn(console, 'warn').mockImplementation((...args: unknown[]) => {
+    if (!String(args[0]).includes('a Popup with a dialog role has no accessible name')) warn(...args);
+  });
+});
+afterAll(() => {
+  unnamedPopupWarning.mockRestore();
+});
+
 // Mock IntersectionObserver
 const mockObserve = jest.fn();
 const mockDisconnect = jest.fn();

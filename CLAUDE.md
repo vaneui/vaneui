@@ -215,7 +215,7 @@ src/
 │   │   └── layout.tsx           # Re-exports layout components (Card, Row, Col, Stack, Grid*,
 │   │                            # Section, Container, Table)
 │   ├── css/                     # vars.css, tokens.css, rules.css
-│   ├── tests/                   # 104 test files (Jest + Testing Library)
+│   ├── tests/                   # 120 test files (Jest + Testing Library)
 │   ├── utils/                   # deepMerge, componentUtils, stackingContext
 │   ├── themeContext.tsx         # ThemeContext & useTheme
 │   ├── ThemeProvider.tsx        # ThemeProvider
@@ -232,8 +232,10 @@ src/
 ## Exports
 
 - `@vaneui/ui` — All components + ThemeProvider + useTheme + defaultTheme + types
-- `@vaneui/ui/vars` — CSS variables (`vars.css`)
-- `@vaneui/ui/css` — Pre-built component styles (`ui.css`)
+- `@vaneui/ui/vars` — CSS variables and component rules (`vars.css`), for a Tailwind v4 build
+- `@vaneui/ui/tokens` — Design tokens and the `mobile` / `tablet` / `desktop` breakpoints (`tokens.css`); import it next to `vars` in a Tailwind v4 build, or the responsive props emit no CSS
+- `@vaneui/ui/css` — Pre-built component styles (`ui.css`), self-contained
+- `@vaneui/ui/{component}` — Per-component entry points (`@vaneui/ui/button`, `@vaneui/ui/alert`, ...). The `exports` map in `package.json` is written by hand: a new component directory needs its entry there, and `export-surface.test.ts` fails until it has one
 
 ## Critical Rules
 

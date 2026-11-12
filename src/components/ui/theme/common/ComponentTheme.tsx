@@ -20,6 +20,7 @@ import { OverflowClassMapper } from "../layout/overflowClassMapper";
 import { WidthClassMapper } from "../layout/widthClassMapper";
 import { HeightClassMapper } from "../layout/heightClassMapper";
 import { pickFirstTruthyKeyByCategory, collectTruthyKeysByCategory, MULTI_VALUE_CATEGORIES, resetConflictKey } from "../../../utils/componentUtils";
+import { dropOverriddenResponsiveClasses } from "./responsiveOverride";
 
 type ComponentProps = { className?: string; children?: React.ReactNode; tag?: React.ElementType; };
 type ThemeNode<P> = BaseClassMapper | ThemeMap<P>;
@@ -113,6 +114,8 @@ interface ResolutionState {
   baseClasses: readonly string[];
   /** extracted-keys signature → theme-tree walk output (pre-filtered, treated as immutable) */
   walkCache: Map<string, readonly string[]>;
+  /** every mapper's below-breakpoint repeat classes (BaseClassMapper.responsiveClasses), collected on first use */
+  responsiveClasses?: ReadonlySet<string>;
 }
 
 /* Resolution state keyed by instance identity in a module-level WeakMap, not on the instance: deepClone/deepMerge copy instances generically, so instance state would leak into clones or break (Set/Map slots don't survive). Every clone/withDefaults() starts cold. */
@@ -270,6 +273,30 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     return classes.filter(Boolean);
   }
 
+  /* The classes this theme can emit that only repeat a value below a breakpoint. */
+  private responsiveClasses(): ReadonlySet<string> {
+    const state = this.resolutionState();
+    if (state.responsiveClasses === undefined) {
+      const found = new Set<string>();
+      const walk = (map: object) => {
+        for (const key of Object.keys(map)) {
+          const node = (map as ThemeMap<P>)[key];
+
+          if (node instanceof BaseClassMapper) {
+            for (const cls of node.responsiveClasses().join(' ').split(/\s+/)) {
+              if (cls) found.add(cls);
+            }
+          } else if (node && typeof node === "object" && !Array.isArray(node)) {
+            walk(node);
+          }
+        }
+      };
+      walk(this.themes);
+      state.responsiveClasses = found;
+    }
+    return state.responsiveClasses;
+  }
+
   getTag(props: P): React.ElementType {
     if (this.tagFunction) {
       return this.tagFunction(props, this.defaults);
@@ -367,7 +394,12 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       }
     }
 
-    const themeGeneratedClasses = this.getClasses(props, extractedKeys);
+    let themeGeneratedClasses: readonly string[] = this.getClasses(props, extractedKeys);
+    if (className) {
+      // a className that overrides a responsive value also takes out the theme's
+      // below-breakpoint classes for it, which twMerge leaves in (different variants never conflict)
+      themeGeneratedClasses = dropOverriddenResponsiveClasses(themeGeneratedClasses, this.responsiveClasses(), className);
+    }
     const finalClasses = twMerge(...themeGeneratedClasses, className);
 
     const dataAttributes: Record<string, string> = {};
@@ -396,7 +428,10 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       dataAttributes['data-readonly'] = 'true';
       // aria-readonly belongs on the control itself; a toggle's wrapper span only takes the visual cue
       const isFormControlTag = typeof componentTag !== 'string' || ['input', 'textarea', 'select'].includes(componentTag);
-      if (rawProps['aria-readonly'] === undefined && isFormControlTag) {
+      // ARIA does not allow aria-readonly on the radio role (it is valid on the radiogroup,
+      // which RadioGroup sets), so a radio input keeps only the native attribute and data-readonly
+      const isRadio = rawProps.type === 'radio';
+      if (rawProps['aria-readonly'] === undefined && isFormControlTag && !isRadio) {
         dataAttributes['aria-readonly'] = 'true';
       }
     }

@@ -1,166 +1,61 @@
 # VaneUI Release Process
 
-This document outlines the automated release pipeline for VaneUI using GitHub Actions.
+Releases run off branch pushes. The steps for cutting one, and the rules for the
+changelog, are in [CONTRIBUTING.md](../CONTRIBUTING.md#release-notes) under
+"Release Notes" and "Cutting a release". This page only describes what the
+workflows do.
 
-## Overview
+## Branches
 
-The release pipeline supports two types of releases:
+| Push to | Workflow | Result |
+|---------|----------|--------|
+| a pull request against `main` or `prod` | `test.yml` | Unit tests on React 18 and 19, build, package checks, browser tests. Nothing is published. |
+| `main` | `npm-publish.yml` | A pre-release on the `alpha` dist-tag. |
+| `prod` | `npm-publish-stable.yml` | The stable release on `latest`, a `vX.Y.Z` git tag and a GitHub release. |
 
-1. **Pre-releases** - Published from the `main` branch with `alpha` tag
-2. **Stable releases** - Published from the `prod` branch as the latest version
+There is no workflow that bumps the version. The version in `package.json` and the
+`CHANGELOG.md` entry are committed by hand, then `main` is pushed, then `main:prod`.
 
-## Workflows
+## What gates a publish
 
-### 1. Test Suite (`test.yml`)
+Both publish workflows run the same gate before `npm publish`:
 
-**Trigger:** Pull requests to `main`/`prod` branches  
-**Purpose:** Ensure code quality and prevent regressions
+1. Browser tests (`npm run test:e2e`) in the Playwright container, on Chromium, Firefox and WebKit.
+2. `npm test` (type check and unit tests).
+3. `npm run build`.
+4. `npm pack --dry-run` and `npm run check:package` (the exports map and the shipped types).
 
-**Process:**
-- Runs on Node.js 24 against React 18 and 19
-- Type checking with TypeScript
-- Full test suite execution
-- Package building verification
-- Test coverage reporting
-- Blocks merging if tests fail
+A failure in any step stops the run before anything is published.
 
-### 2. Pre-release Pipeline (`npm-publish.yml`)
+## Pre-releases
 
-**Trigger:** Push to `main` branch  
-**Purpose:** Create pre-release versions for testing and review
+Every push to `main` publishes `X.Y.Z-alpha.<timestamp>.g<short sha>` to the `alpha`
+dist-tag. When the version in `package.json` is already on npm, the pre-release is
+built on the next patch number, so it sorts above the stable release it follows.
 
-**Process:**
-- Runs tests automatically (fails if tests fail)
-- Generates version: `{base-version}-alpha.{timestamp}.{commit-sha}`
-- Builds package and runs tests again
-- Publishes to npm with `alpha` tag only if all tests pass
-- Reports publication success
-
-**Installation:**
 ```bash
 npm install @vaneui/ui@alpha
 ```
 
-### 3. Stable Release Pipeline (`npm-publish-stable.yml`)
+## Stable releases
 
-**Trigger:** Push to `prod` branch  
-**Purpose:** Create stable production releases
-
-**Process:**
-- Runs tests automatically (fails if tests fail)
-- Checks if version already exists on npm
-- Builds package and runs tests again
-- Publishes to npm as `latest` only if all tests pass
-- Creates git tag and GitHub release
-- Only publishes if version is new and tests pass
-
-**Installation:**
-```bash
-npm install @vaneui/ui@latest
-```
-
-### 4. Manual Release Creation (`release.yml`)
-
-**Trigger:** Manual workflow dispatch  
-**Purpose:** Bump version and initiate release process
-
-**Features:**
-- Runs tests before proceeding (fails if tests fail)
-- Choose version bump type: patch, minor, major
-- Choose target branch: main (pre-release) or prod (stable)
-- Builds package
-- Automatically commits version bump only if all tests pass
-- Triggers appropriate release pipeline
-
-## Release Process
-
-### For Pre-releases (Testing/Review)
-
-1. **Automatic:** Push changes to `main` branch
-   - Pre-release is created automatically
-   - Version format: `0.1.8-alpha.20240714123456.abc1234`
-
-2. **Manual:** Use GitHub Actions UI
-   - Go to Actions → "Create Release"
-   - Select version bump type
-   - Select `main` as target branch
-   - Click "Run workflow"
-
-### For Stable Releases
-
-1. **Recommended:** Use GitHub Actions UI
-   - Go to Actions → "Create Release"
-   - Select version bump type
-   - Select `prod` as target branch
-   - Click "Run workflow"
-
-2. **Manual:** 
-   - Bump version manually in `package.json`
-   - Push to `prod` branch
-   - Stable release is created automatically
-
-## Quality Gates
-
-All release workflows include multiple quality gates to ensure package reliability:
-
-### 🧪 **Test Gates**
-- **Pre-build tests**: Run before any build process
-- **Post-build tests**: Run after building to ensure build doesn't break functionality
-- **Multiple React versions**: Test compatibility across React 18 and 19 (PR test suite)
-- **Type checking**: Ensure TypeScript compilation succeeds
-
-### 🚫 **Failure Handling**
-- **Immediate stop**: Any test failure immediately stops the release process
-- **Clear error messages**: Descriptive failure messages in CI logs
-- **No partial publishes**: Package is never published if any step fails
-- **Version rollback**: Failed releases don't increment version numbers
-
-### 🔍 **Verification Steps**
-- **Package content verification**: Ensure all required files are included
-- **Test coverage reporting**: Monitor test coverage trends
-- **Build artifact validation**: Verify built package integrity
-
-## Version Strategy
-
-- **Patch** (0.1.8 → 0.1.9): Bug fixes, small improvements
-- **Minor** (0.1.8 → 0.2.0): New features, backwards compatible
-- **Major** (0.1.8 → 1.0.0): Breaking changes
-
-## NPM Tags
-
-- `latest`: Stable releases from prod branch
-- `alpha`: Pre-releases from main branch
-
-## Required Secrets
-
-No npm token is needed: the publish workflows use npm trusted publishing (OIDC), configured per package on npmjs.com under Settings → Trusted Publisher for `npm-publish.yml` and `npm-publish-stable.yml`.
-
-- `GITHUB_TOKEN`: Automatically provided by GitHub Actions
-
-## Branch Strategy
-
-```
-main (development)     →  Pre-releases (@alpha)
-  ↓ (merge when ready)
-prod (production)      →  Stable releases (@latest)
-```
-
-## Installation Examples
+A push to `prod` publishes the version in `package.json` to `latest`, unless that
+exact version is already on npm. The tag and the GitHub release are created whenever
+they are missing, also on a re-run after a publish that succeeded but failed to tag.
 
 ```bash
-# Latest stable version
 npm install @vaneui/ui
-
-# Latest pre-release
-npm install @vaneui/ui@alpha
-
-# Specific version
-npm install @vaneui/ui@0.1.8
-npm install @vaneui/ui@0.1.8-alpha.20240714123456.abc1234
 ```
 
-## Monitoring
+## Credentials
 
-- Check GitHub Actions for build status
-- Monitor npm package page for published versions
-- Review GitHub releases for release notes
+No npm token is stored. Both publish workflows use npm trusted publishing (OIDC),
+configured on npmjs.com under the package settings for `npm-publish.yml` and
+`npm-publish-stable.yml`. The tag and the GitHub release use the workflow's own
+`GITHUB_TOKEN`.
+
+## Version numbers
+
+The rule is at the top of [CHANGELOG.md](../CHANGELOG.md): patch for fixes, minor
+for additive props and components, major for a change to an existing prop name,
+default or rendered element.

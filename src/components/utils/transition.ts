@@ -72,7 +72,12 @@ export function useTransition(
     return cleanup;
   }, [open, duration, disabled, cleanup]);
 
-  const mounted = open || state === 'entering' || state === 'exiting';
+  // Mounted from the render that opens it until the exit transition has finished. On the render
+  // that closes it `state` still reads 'entered' (the effect above moves it to 'exiting' afterwards),
+  // and that render must count as mounted too: dropping out for it would unmount the content and
+  // mount a fresh copy for the exit, losing its DOM nodes, effects and form state. With the
+  // transition disabled there is no exit to wait for, so the content leaves with `open`.
+  const mounted = open || (!disabled && state !== 'exited');
 
   return { mounted, state };
 }
