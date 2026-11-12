@@ -415,6 +415,12 @@ function LifecycleProbe() {
 function OverlayBehaviorFixtures() {
   const [lifeOpen, setLifeOpen] = useState(false);
   const [dragOpen, setDragOpen] = useState(false);
+  const [escA, setEscA] = useState(false);
+  const [escB, setEscB] = useState(false);
+  const [escText, setEscText] = useState('');
+  const closeEscB = React.useCallback(() => setEscB(false), []);
+  const [nestA, setNestA] = useState(false);
+  const [nestB, setNestB] = useState(false);
   return (
     <section data-testid="overlay-behavior-section">
       {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
@@ -439,6 +445,29 @@ function OverlayBehaviorFixtures() {
           defaultValue="some long text to select by dragging"
           style={{ width: '100%' }}
         />
+      </Modal>
+
+      {/* Escape order, siblings: A has an inline onClose, and typing in B re-renders this component. */}
+      <button data-testid="ob-esc-open-a" onClick={() => setEscA(true)}>open modal A</button>
+      <Modal open={escA} onClose={() => setEscA(false)} title="A" noAnimation data-testid="ob-esc-a">
+        <button data-testid="ob-esc-open-b" onClick={() => setEscB(true)}>open modal B</button>
+      </Modal>
+      <Modal open={escB} onClose={closeEscB} title="B" noAnimation data-testid="ob-esc-b">
+        <input
+          data-testid="ob-esc-b-input"
+          aria-label="Name"
+          value={escText}
+          onChange={(e) => setEscText(e.target.value)}
+        />
+      </Modal>
+
+      {/* Escape order, nested: B is rendered inside A's content. */}
+      <button data-testid="ob-nest-open-a" onClick={() => setNestA(true)}>open outer modal</button>
+      <Modal open={nestA} onClose={() => setNestA(false)} title="Outer" noAnimation data-testid="ob-nest-a">
+        <button data-testid="ob-nest-open-b" onClick={() => setNestB(true)}>open inner modal</button>
+        <Modal open={nestB} onClose={() => setNestB(false)} title="Inner" noAnimation data-testid="ob-nest-b">
+          <Text>inner</Text>
+        </Modal>
       </Modal>
 
       {/* One trigger anchors two popups: a Tooltip and the Menu it opens. */}

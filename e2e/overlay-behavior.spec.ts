@@ -92,6 +92,36 @@ test.describe('Modal backdrop dismissal', () => {
   });
 });
 
+test.describe('Escape with two Modals open', () => {
+  test('sibling modals close top-first, also after the lower one re-renders', async ({ page }) => {
+    await page.locator(T('ob-esc-open-a')).click();
+    await page.locator(T('ob-esc-open-b')).click();
+    await expect(page.locator(T('ob-esc-b'))).toBeVisible();
+    // typing updates state in the parent, which re-renders A with a new inline onClose
+    await page.locator(T('ob-esc-b-input')).fill('x');
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator(T('ob-esc-b'))).toHaveCount(0);
+    await expect(page.locator(T('ob-esc-a'))).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator(T('ob-esc-a'))).toHaveCount(0);
+  });
+
+  test('a modal nested in another closes before it', async ({ page }) => {
+    await page.locator(T('ob-nest-open-a')).click();
+    await page.locator(T('ob-nest-open-b')).click();
+    await expect(page.locator(T('ob-nest-b'))).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator(T('ob-nest-b'))).toHaveCount(0);
+    await expect(page.locator(T('ob-nest-a'))).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator(T('ob-nest-a'))).toHaveCount(0);
+  });
+});
+
 for (const path of ['css-anchor', 'js-fallback'] as const) {
   test.describe(`Two popups on one anchor (${path})`, () => {
     test.beforeEach(async ({ page, testPage }) => {
