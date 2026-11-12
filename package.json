@@ -68,6 +68,16 @@
         "default": "./dist/cjs/components/themeContext.cjs"
       }
     },
+    "./alert": {
+      "import": {
+        "types": "./dist/types/components/ui/alert/index.d.mts",
+        "default": "./dist/esm/components/ui/alert/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/alert/index.d.cts",
+        "default": "./dist/cjs/components/ui/alert/index.cjs"
+      }
+    },
     "./badge": {
       "import": {
         "types": "./dist/types/components/ui/badge/index.d.mts",
@@ -156,6 +166,16 @@
       "require": {
         "types": "./dist/types/components/ui/divider/index.d.cts",
         "default": "./dist/cjs/components/ui/divider/index.cjs"
+      }
+    },
+    "./field": {
+      "import": {
+        "types": "./dist/types/components/ui/field/index.d.mts",
+        "default": "./dist/esm/components/ui/field/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/field/index.d.cts",
+        "default": "./dist/cjs/components/ui/field/index.cjs"
       }
     },
     "./grid": {
@@ -288,6 +308,26 @@
         "default": "./dist/cjs/components/ui/popup/index.cjs"
       }
     },
+    "./progress": {
+      "import": {
+        "types": "./dist/types/components/ui/progress/index.d.mts",
+        "default": "./dist/esm/components/ui/progress/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/progress/index.d.cts",
+        "default": "./dist/cjs/components/ui/progress/index.cjs"
+      }
+    },
+    "./radio": {
+      "import": {
+        "types": "./dist/types/components/ui/radio/index.d.mts",
+        "default": "./dist/esm/components/ui/radio/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/radio/index.d.cts",
+        "default": "./dist/cjs/components/ui/radio/index.cjs"
+      }
+    },
     "./row": {
       "import": {
         "types": "./dist/types/components/ui/row/index.d.mts",
@@ -308,6 +348,26 @@
         "default": "./dist/cjs/components/ui/section/index.cjs"
       }
     },
+    "./select": {
+      "import": {
+        "types": "./dist/types/components/ui/select/index.d.mts",
+        "default": "./dist/esm/components/ui/select/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/select/index.d.cts",
+        "default": "./dist/cjs/components/ui/select/index.cjs"
+      }
+    },
+    "./spinner": {
+      "import": {
+        "types": "./dist/types/components/ui/spinner/index.d.mts",
+        "default": "./dist/esm/components/ui/spinner/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/spinner/index.d.cts",
+        "default": "./dist/cjs/components/ui/spinner/index.cjs"
+      }
+    },
     "./stack": {
       "import": {
         "types": "./dist/types/components/ui/stack/index.d.mts",
@@ -318,6 +378,16 @@
         "default": "./dist/cjs/components/ui/stack/index.cjs"
       }
     },
+    "./switch": {
+      "import": {
+        "types": "./dist/types/components/ui/switch/index.d.mts",
+        "default": "./dist/esm/components/ui/switch/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/switch/index.d.cts",
+        "default": "./dist/cjs/components/ui/switch/index.cjs"
+      }
+    },
     "./table": {
       "import": {
         "types": "./dist/types/components/ui/table/index.d.mts",
@@ -326,6 +396,26 @@
       "require": {
         "types": "./dist/types/components/ui/table/index.d.cts",
         "default": "./dist/cjs/components/ui/table/index.cjs"
+      }
+    },
+    "./textarea": {
+      "import": {
+        "types": "./dist/types/components/ui/textarea/index.d.mts",
+        "default": "./dist/esm/components/ui/textarea/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/textarea/index.d.cts",
+        "default": "./dist/cjs/components/ui/textarea/index.cjs"
+      }
+    },
+    "./tooltip": {
+      "import": {
+        "types": "./dist/types/components/ui/tooltip/index.d.mts",
+        "default": "./dist/esm/components/ui/tooltip/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/tooltip/index.d.cts",
+        "default": "./dist/cjs/components/ui/tooltip/index.cjs"
       }
     },
     "./props": {

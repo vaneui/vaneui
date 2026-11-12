@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import * as VaneUI from '../../index';
 
 // Locks the package's runtime export surface. Adding, removing, or renaming
@@ -27,5 +29,53 @@ describe('public export surface', () => {
     const unexpected = actual.filter(name => !expected.includes(name));
 
     expect({ missing, unexpected }).toEqual({ missing: [], unexpected: [] });
+  });
+});
+
+// The exports map is written by hand while the build takes its entries from a glob, so a new
+// component directory is built and typed but has no import path until it is listed here too.
+describe('package exports map', () => {
+  const root = path.join(__dirname, '../../..');
+  const exportsMap: Record<string, unknown> = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8')).exports;
+  const uiDir = path.join(root, 'src/components/ui');
+
+  const entryFor = (modulePath: string) => ({
+    import: { types: `./dist/types/${modulePath}.d.mts`, default: `./dist/esm/${modulePath}.mjs` },
+    require: { types: `./dist/types/${modulePath}.d.cts`, default: `./dist/cjs/${modulePath}.cjs` },
+  });
+
+  const directoriesWithIndex = (dir: string) => fs.readdirSync(dir, { withFileTypes: true })
+    .filter(entry => entry.isDirectory() && fs.existsSync(path.join(dir, entry.name, 'index.ts')))
+    .map(entry => entry.name);
+
+  // built as an entry but not an import path of its own: `./theme` is the theme context
+  const INTERNAL_DIRECTORIES = ['theme'];
+
+  it('gives every component directory an import path', () => {
+    const components = directoriesWithIndex(uiDir).filter(name => !INTERNAL_DIRECTORIES.includes(name));
+    expect(components).toEqual(expect.arrayContaining(['alert', 'button', 'field', 'table', 'tooltip']));
+    for (const name of components) {
+      expect({ [name]: exportsMap[`./${name}`] }).toEqual({ [name]: entryFor(`components/ui/${name}/index`) });
+    }
+  });
+
+  it('gives every typography component an import path', () => {
+    // common/ is shared machinery, not a component
+    const components = directoriesWithIndex(path.join(uiDir, 'typography')).filter(name => name !== 'common');
+    expect(components).toEqual(expect.arrayContaining(['text', 'title', 'link']));
+    for (const name of components) {
+      expect({ [name]: exportsMap[`./${name}`] }).toEqual({ [name]: entryFor(`components/ui/typography/${name}/index`) });
+    }
+  });
+
+  it('points every JS import path at a source module, with matching ESM, CJS and type targets', () => {
+    for (const [subpath, target] of Object.entries(exportsMap)) {
+      const esm = (target as { import?: { default?: string } })?.import?.default;
+      if (typeof esm !== 'string' || !esm.endsWith('.mjs')) continue; // stylesheets and package.json
+      const modulePath = esm.replace(/^\.\/dist\/esm\//, '').replace(/\.mjs$/, '');
+      expect({ [subpath]: target }).toEqual({ [subpath]: entryFor(modulePath) });
+      const source = path.join(root, 'src', modulePath);
+      expect({ [subpath]: fs.existsSync(`${source}.ts`) || fs.existsSync(`${source}.tsx`) }).toEqual({ [subpath]: true });
+    }
   });
 });

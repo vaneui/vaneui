@@ -235,6 +235,7 @@ src/
 - `@vaneui/ui/vars` — CSS variables and component rules (`vars.css`), for a Tailwind v4 build
 - `@vaneui/ui/tokens` — Design tokens and the `mobile` / `tablet` / `desktop` breakpoints (`tokens.css`); import it next to `vars` in a Tailwind v4 build, or the responsive props emit no CSS
 - `@vaneui/ui/css` — Pre-built component styles (`ui.css`), self-contained
+- `@vaneui/ui/{component}` — Per-component entry points (`@vaneui/ui/button`, `@vaneui/ui/alert`, ...). The `exports` map in `package.json` is written by hand: a new component directory needs its entry there, and `export-surface.test.ts` fails until it has one
 
 ## Critical Rules
 
