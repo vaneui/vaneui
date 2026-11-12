@@ -743,8 +743,9 @@ function LayoutAdditionsFixtures() {
 }
 
 /* ════════ FORM-STATE FIXTURES (start) ════════
-   One block for the form-control state specs: input-stable-node.spec.ts, plus the read-only
-   toggles that put read-only controls in front of the axe scan (accessibility.spec.ts). */
+   One block for the form-control state specs: input-stable-node.spec.ts and
+   readonly-toggles.spec.ts. The read-only toggles also put read-only controls in front of
+   the axe scan (accessibility.spec.ts). */
 
 /** The themed <input> on its own, with the same Field and Label wiring as Input but none of
     Input's wrapper span: the layout reference a valid Input has to match box for box. */

@@ -70,7 +70,10 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
 
     const inputProps = {
       type: "checkbox" as const,
-      checked, defaultChecked, name, value, onChange, onBlur, onFocus, required,
+      checked, defaultChecked, name, value, onBlur, onFocus, required,
+      // read-only reports no change: React builds onChange from the click, which carries the
+      // flipped `checked` before handleClick cancels it, so a controlled form would store it
+      onChange: readOnly ? undefined : onChange,
       onClick: handleClick,
       id, tabIndex, 'aria-label': ariaLabel,
       ...remainingProps,
