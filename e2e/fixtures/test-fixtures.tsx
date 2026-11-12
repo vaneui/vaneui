@@ -396,6 +396,42 @@ function ModalBehaviorFixtures() {
   );
 }
 
+/* ── Overlay behavior fixtures (overlay-behavior.spec.ts) ──────────────────────
+   Everything here stays closed until a spec opens it, so nothing covers other
+   fixtures, makes the page inert or joins the stacking counter at load. */
+
+/** Counts its own mounts and unmounts on window, so a spec can see a remount. */
+function LifecycleProbe() {
+  React.useEffect(() => {
+    const w = window as unknown as { __obMounts?: number; __obUnmounts?: number };
+    w.__obMounts = (w.__obMounts ?? 0) + 1;
+    return () => {
+      w.__obUnmounts = (w.__obUnmounts ?? 0) + 1;
+    };
+  }, []);
+  return null;
+}
+
+function OverlayBehaviorFixtures() {
+  const [lifeOpen, setLifeOpen] = useState(false);
+  return (
+    <section data-testid="overlay-behavior-section">
+      {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
+      <button data-testid="ob-life-open" onClick={() => setLifeOpen(true)}>open lifecycle modal</button>
+      <Modal
+        open={lifeOpen}
+        onClose={() => setLifeOpen(false)}
+        title="Lifecycle"
+        transitionDuration={600}
+        data-testid="ob-life-modal"
+      >
+        <LifecycleProbe />
+        <input data-testid="ob-life-input" aria-label="Note" />
+      </Modal>
+    </section>
+  );
+}
+
 /** Interactive nested-submenu fixture (B2): opened via click/keyboard in e2e. */
 function SubmenuFixtures() {
   return (
@@ -921,6 +957,9 @@ export function TestHarness() {
         {/* ── Popup positioning + Modal behavior regressions (2026-08-10 fixes) ── */}
         <PopupPositioningFixtures />
         <ModalBehaviorFixtures />
+
+        {/* ── Overlay behavior: lifecycle, anchors, dismissal, focus return, menu scroll, naming, inert ── */}
+        <OverlayBehaviorFixtures />
 
         {/* ── NavLink icon sizing ── */}
 

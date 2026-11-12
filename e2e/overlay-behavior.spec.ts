@@ -1,0 +1,54 @@
+import { test, expect, type Page } from './base';
+
+// Overlay behaviour in a real browser: what jsdom cannot see (layout, focus, anchor positioning,
+// native scrolling). Every fixture here starts closed and is opened by the test that needs it.
+
+const T = (id: string) => `[data-testid="${id}"]`;
+
+test.beforeEach(async ({ page, testPage }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto(testPage);
+  await page.waitForSelector(T('overlay-behavior-section'));
+});
+
+async function openLifecycleModal(page: Page) {
+  await page.locator(T('ob-life-open')).click();
+  await expect(page.locator(T('ob-life-modal'))).toHaveAttribute('data-state', 'entered');
+}
+
+test.describe('Overlay lifecycle: closing keeps the content mounted', () => {
+  test('the dialog is the same DOM node while it fades out', async ({ page }) => {
+    await openLifecycleModal(page);
+    await page.locator(T('ob-life-modal')).evaluate((el) => {
+      (el as HTMLElement & { __same?: boolean }).__same = true;
+    });
+
+    await page.keyboard.press('Escape');
+
+    const dialog = page.locator(T('ob-life-modal'));
+    await expect(dialog).toHaveAttribute('data-state', 'exiting');
+    expect(await dialog.evaluate((el) => (el as HTMLElement & { __same?: boolean }).__same === true)).toBe(true);
+    await expect(dialog).toHaveCount(0);
+  });
+
+  test('a typed value survives the exit and child effects run once', async ({ page }) => {
+    await openLifecycleModal(page);
+    await page.locator(T('ob-life-input')).fill('typed by the user');
+
+    await page.keyboard.press('Escape');
+
+    await expect(page.locator(T('ob-life-modal'))).toHaveAttribute('data-state', 'exiting');
+    await expect(page.locator(T('ob-life-input'))).toHaveValue('typed by the user');
+    // still mounted: one mount, no unmount yet
+    expect(await page.evaluate(() => {
+      const w = window as unknown as { __obMounts?: number; __obUnmounts?: number };
+      return [w.__obMounts ?? 0, w.__obUnmounts ?? 0];
+    })).toEqual([1, 0]);
+
+    await expect(page.locator(T('ob-life-modal'))).toHaveCount(0);
+    expect(await page.evaluate(() => {
+      const w = window as unknown as { __obMounts?: number; __obUnmounts?: number };
+      return [w.__obMounts ?? 0, w.__obUnmounts ?? 0];
+    })).toEqual([1, 1]);
+  });
+});
