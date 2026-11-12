@@ -49,6 +49,7 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
+  Grid2,
   Grid4,
   Grid6,
   Section,
@@ -787,6 +788,8 @@ const INPUT_LAYOUT_CONTEXTS: { id: string; render: (Control: InputLike, name: st
     id: 'mobile-hide',
     render: (Control, name) => <Row><Control mobileHide aria-label={name} /><Button>Go</Button></Row>,
   },
+  // a divided grid draws its lines on each cell: an Input cell takes them on the <input>
+  { id: 'divided', render: (Control, name) => <Grid2 divided><Control aria-label={name} /><Text>Cell</Text></Grid2> },
 ];
 
 const isIncompleteEmail = (value: string) => value !== '' && !value.includes('@');

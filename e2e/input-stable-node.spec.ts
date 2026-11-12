@@ -7,7 +7,7 @@ import { test, expect, getStyle, type Page } from './base';
 // <input> (no wrapper), and the two have to match box for box.
 
 const CONTEXTS = [
-  'block', 'inline', 'row', 'col', 'label', 'field', 'class-width', 'style-width', 'wfit', 'mobile-hide',
+  'block', 'inline', 'row', 'col', 'label', 'field', 'class-width', 'style-width', 'wfit', 'mobile-hide', 'divided',
 ] as const;
 
 const WIDE = { width: 1440, height: 900 };
