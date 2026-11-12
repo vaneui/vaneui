@@ -6,6 +6,17 @@ on:
     branches:
       - main
 
+# Jobs that need more (the publish job) widen this themselves.
+permissions:
+  contents: read
+
+# One pre-release publish at a time, in push order, so `alpha` never ends up on the
+# older of two quick pushes. A run in progress is never cancelled mid-publish; GitHub
+# keeps only the newest waiting run.
+concurrency:
+  group: publish-alpha
+  cancel-in-progress: false
+
 jobs:
   # E2E runs in the Playwright image, which ships the browsers and their system deps.
   # `playwright install --with-deps` fetched 114MB of WebKit's GStreamer/GTK tree on
@@ -15,6 +26,7 @@ jobs:
   # The matrix is a single value so the image tag and the version guard cannot drift.
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     strategy:
       matrix:
         playwright: ['1.60.0']
@@ -56,6 +68,7 @@ jobs:
   build-and-publish:
     needs: e2e
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: read
       # id-token: write — npm trusted publishing (OIDC), no NPM_TOKEN needed
@@ -91,8 +104,17 @@ jobs:
         id: version
         run: |
           BASE_VERSION=$(node -p "require('./package.json').version")
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          # A pre-release of a version that is already on npm would sort below it
+          # (1.5.0-alpha.x < 1.5.0), so builds made after a stable release are
+          # pre-releases of the next patch.
+          if [ -n "$(npm view "$PACKAGE_NAME@$BASE_VERSION" version 2>/dev/null || true)" ]; then
+            BASE_VERSION=$(node -p "const [major, minor, patch] = process.argv[1].split('.').map(Number); [major, minor, patch + 1].join('.')" "$BASE_VERSION")
+          fi
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          SHORT_SHA=$(git rev-parse --short HEAD)
+          # The `g` prefix keeps the identifier valid: an all-digit short SHA with a
+          # leading zero is not a legal semver pre-release identifier.
+          SHORT_SHA="g$(git rev-parse --short HEAD)"
           PRE_VERSION="${BASE_VERSION}-alpha.${TIMESTAMP}.${SHORT_SHA}"
           echo "Pre-release version: $PRE_VERSION"
           echo "version=$PRE_VERSION" >> $GITHUB_OUTPUT
@@ -117,9 +139,9 @@ jobs:
       # (publint) and the shipped types must resolve under every TypeScript
       # moduleResolution mode, including node16/nodenext (attw).
       - name: Validate Package Exports and Types
-        run: |
-          npx publint
-          npx --yes @arethetypeswrong/cli --pack .
+        # Both tools are pinned devDependencies: this job holds the npm publish
+        # token, so it must not fetch whatever `npx` resolves at run time.
+        run: npm run check:package
 
       - name: Publish Pre-release to npm
         # --ignore-scripts: this workflow already ran build + test + test:e2e

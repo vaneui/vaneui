@@ -459,6 +459,7 @@
     "e2e:build:harness": "cd e2e/fixtures && npx vite build",
     "e2e:build": "npm run e2e:build:css && npm run e2e:build:harness",
     "e2e:serve": "npm run e2e:build && cd e2e/fixtures && npx vite preview --port 4173 --strictPort",
+    "check:package": "publint && attw --pack .",
     "prepublishOnly": "npm run build && npm test && npm run test:e2e"
   },
   "dependencies": {
@@ -469,6 +470,7 @@
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "0.18.5",
     "@axe-core/playwright": "^4.11.3",
     "@eslint/js": "^9.34.0",
     "@playwright/test": "^1.60.0",
@@ -493,6 +495,7 @@
     "jest-environment-jsdom": "^30.0.4",
     "jsdom": "^26.1.0",
     "postcss": "^8.5.0",
+    "publint": "0.3.25",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "rimraf": "^5.0.10",

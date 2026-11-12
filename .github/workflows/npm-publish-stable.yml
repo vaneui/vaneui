@@ -6,6 +6,16 @@ on:
     branches:
       - prod
 
+# Jobs that need more (the publish job) widen this themselves.
+permissions:
+  contents: read
+
+# One stable publish at a time. A run in progress is never cancelled: stopping between
+# `npm publish` and the tag step would leave a version on npm with no tag.
+concurrency:
+  group: publish-stable
+  cancel-in-progress: false
+
 jobs:
   # E2E runs in the Playwright image, which ships the browsers and their system deps.
   # `playwright install --with-deps` fetched 114MB of WebKit's GStreamer/GTK tree on
@@ -15,6 +25,7 @@ jobs:
   # The matrix is a single value so the image tag and the version guard cannot drift.
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     strategy:
       matrix:
         playwright: ['1.60.0']
@@ -56,6 +67,7 @@ jobs:
   build-and-publish:
     needs: e2e
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       # contents: write — required to push the version tag and create the GitHub release
       contents: write
@@ -93,16 +105,18 @@ jobs:
         run: |
           VERSION=$(node -p "require('./package.json').version")
           PACKAGE_NAME=$(node -p "require('./package.json').name")
-          PUBLISHED_VERSION=$(npm view $PACKAGE_NAME version 2>/dev/null || echo "none")
+          # Ask for this exact version: comparing with `latest` misses a version that was
+          # published and then superseded.
+          PUBLISHED_VERSION=$(npm view "$PACKAGE_NAME@$VERSION" version 2>/dev/null || true)
           echo "Local version: $VERSION"
-          echo "Published version: $PUBLISHED_VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "package=$PACKAGE_NAME" >> $GITHUB_OUTPUT
           if [ "$VERSION" = "$PUBLISHED_VERSION" ]; then
-            echo "Version $VERSION is already published. Skipping."
+            echo "Version $VERSION is already published. Skipping the publish steps."
             echo "should_publish=false" >> $GITHUB_OUTPUT
           else
             echo "Version $VERSION is new. Proceeding to publish."
             echo "should_publish=true" >> $GITHUB_OUTPUT
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
           fi
 
       # Proceed only if the version is new
@@ -127,9 +141,9 @@ jobs:
       # moduleResolution mode, including node16/nodenext (attw).
       - name: Validate Package Exports and Types
         if: steps.check_version.outputs.should_publish == 'true'
-        run: |
-          npx publint
-          npx --yes @arethetypeswrong/cli --pack .
+        # Both tools are pinned devDependencies: this job holds the npm publish
+        # token, so it must not fetch whatever `npx` resolves at run time.
+        run: npm run check:package
 
       - name: Publish Stable Package to npm
         # --ignore-scripts: build + test ran above and e2e ran in the gating job
@@ -138,17 +152,50 @@ jobs:
         if: steps.check_version.outputs.should_publish == 'true'
         run: npm publish --access public --ignore-scripts
 
-      # Tag the published commit and create a GitHub release so every npm
-      # version maps to a commit (RELEASE_PROCESS.md documents this step).
-      - name: Create Git Tag and GitHub Release
-        if: steps.check_version.outputs.should_publish == 'true'
+      # Tag the published commit and create a GitHub release so every npm version maps
+      # to a commit. Both steps key on what is missing, not on whether this run
+      # published: if a publish succeeded and the tag step failed, the re-run finds the
+      # version on npm, skips the publish and still creates the tag and the release.
+      - name: Check Git Tag and GitHub Release
+        id: check_release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           VERSION=${{ steps.check_version.outputs.version }}
-          git tag "v$VERSION" "$GITHUB_SHA"
+          if git ls-remote --exit-code --tags origin "refs/tags/v$VERSION" >/dev/null 2>&1; then
+            echo "tag_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "tag_exists=false" >> $GITHUB_OUTPUT
+          fi
+          if gh release view "v$VERSION" >/dev/null 2>&1; then
+            echo "release_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "release_exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Git Tag
+        if: steps.check_release.outputs.tag_exists == 'false'
+        run: |
+          VERSION=${{ steps.check_version.outputs.version }}
+          PACKAGE_NAME=${{ steps.check_version.outputs.package }}
+          # Tag the commit npm recorded for this version. That is this commit, unless a
+          # later push to prod left the version unchanged; right after a publish the
+          # registry may not answer yet, and then this commit is the published one.
+          TARGET=$(npm view "$PACKAGE_NAME@$VERSION" gitHead 2>/dev/null || true)
+          TARGET="${TARGET:-$GITHUB_SHA}"
+          if [ "$TARGET" != "$GITHUB_SHA" ]; then
+            git fetch --depth=1 origin "$TARGET"
+          fi
+          git tag "v$VERSION" "$TARGET"
           git push origin "v$VERSION"
-          gh release create "v$VERSION" --title "v$VERSION" --generate-notes
+
+      - name: Create GitHub Release
+        if: steps.check_release.outputs.release_exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=${{ steps.check_version.outputs.version }}
+          gh release create "v$VERSION" --title "v$VERSION" --generate-notes --verify-tag
 
       - name: Report Success
         if: steps.check_version.outputs.should_publish == 'true'
