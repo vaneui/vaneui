@@ -677,6 +677,108 @@ describe('Field validity and disabled state', () => {
     expect(error).toHaveTextContent('Required');
   });
 
+  // `error={errors.email ?? ''}` and `error={message}` with an empty message are common ways to
+  // say "no error". An empty string used to count as an error: the control went invalid, an
+  // empty error element was rendered and aria-describedby pointed at it.
+  describe('an empty string is no error and no description', () => {
+    it.each([
+      ['a child control', <Field label="Email" error=""><Input /></Field>],
+      ['a self-rendered control', <Field type="email" label="Email" error=""/>],
+    ])('error="" on %s: not invalid, no error element, no aria-describedby', (_name, ui) => {
+      const { container } = renderField(ui);
+      const input = container.querySelector('input') as HTMLInputElement;
+      expect(input).not.toHaveAttribute('aria-invalid');
+      expect(input).not.toHaveAttribute('data-invalid');
+      expect(input).not.toHaveAttribute('aria-describedby');
+      expect(container.querySelector('.vane-field-error')).toBeNull();
+      expect(container.querySelector('.vane-input-error-icon')).toBeNull();
+      expect(container.querySelectorAll('.vane-field > p')).toHaveLength(0);
+    });
+
+    it.each([
+      ['a child control', <Field label="Email" description=""><Input /></Field>],
+      ['a self-rendered control', <Field type="email" label="Email" description=""/>],
+    ])('description="" on %s: no description element, no aria-describedby', (_name, ui) => {
+      const { container } = renderField(ui);
+      const input = container.querySelector('input') as HTMLInputElement;
+      expect(input).not.toHaveAttribute('aria-describedby');
+      expect(container.querySelector('.vane-field-description')).toBeNull();
+      expect(container.querySelectorAll('.vane-field > p')).toHaveLength(0);
+    });
+
+    it('describes the control by the one message that has text', () => {
+      const { container } = renderField(
+        <>
+          <Field label="Email" description="" error="Required"><Input data-testid="only-error" /></Field>
+          <Field label="Name" description="As on your card" error=""><Input data-testid="only-help" /></Field>
+        </>
+      );
+      const onlyError = container.querySelector('[data-testid="only-error"]') as HTMLInputElement;
+      const onlyHelp = container.querySelector('[data-testid="only-help"]') as HTMLInputElement;
+
+      expect(onlyError).toHaveAttribute('aria-invalid', 'true');
+      expect(onlyError.getAttribute('aria-describedby')).toBe(`${onlyError.id}-error`);
+      expect(container.querySelector(`#${onlyError.id}-error`)).toHaveTextContent('Required');
+
+      expect(onlyHelp).not.toHaveAttribute('aria-invalid');
+      expect(onlyHelp.getAttribute('aria-describedby')).toBe(`${onlyHelp.id}-description`);
+      expect(container.querySelector(`#${onlyHelp.id}-description`)).toHaveTextContent('As on your card');
+    });
+
+    it('every id in aria-describedby points at an element that exists', () => {
+      const { container } = renderField(
+        <>
+          <Field label="A" description="" error=""><Input /></Field>
+          <Field label="B" description="Help" error=""><Input /></Field>
+          <Field label="C" description="" error="Bad"><Input /></Field>
+          <Field label="D" description="Help" error="Bad"><Input /></Field>
+        </>
+      );
+      const inputs = Array.from(container.querySelectorAll('input'));
+      expect(inputs.map(input => (input.getAttribute('aria-describedby') ?? '').split(' ').filter(Boolean).length))
+        .toEqual([0, 1, 1, 2]);
+      for (const input of inputs) {
+        for (const id of (input.getAttribute('aria-describedby') ?? '').split(' ').filter(Boolean)) {
+          expect(container.querySelector(`#${id}`)).not.toBeNull();
+        }
+      }
+    });
+
+    it('a radiogroup with error="" is neither invalid nor described', () => {
+      const { container } = renderField(
+        <Field label="Plan" error="" description="">
+          <RadioGroup name="plan"><Radio value="a" /><Radio value="b" /></RadioGroup>
+        </Field>
+      );
+      const group = container.querySelector('[role="radiogroup"]') as HTMLElement;
+      expect(group).not.toHaveAttribute('aria-invalid');
+      expect(group).not.toHaveAttribute('aria-describedby');
+      for (const radio of Array.from(container.querySelectorAll('input'))) {
+        expect(radio).not.toHaveAttribute('aria-invalid');
+      }
+    });
+
+    it('clearing the error to "" makes the field valid again', () => {
+      const { container, rerender } = renderField(<Field label="Email" error="Required"><Input /></Field>);
+      const input = container.querySelector('input') as HTMLInputElement;
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+
+      rerender(<ThemeProvider theme={defaultTheme}><Field label="Email" error=""><Input /></Field></ThemeProvider>);
+      expect(container.querySelector('input')).toBe(input);
+      expect(input).not.toHaveAttribute('aria-invalid');
+      expect(input).not.toHaveAttribute('aria-describedby');
+      expect(container.querySelector('.vane-field-error')).toBeNull();
+    });
+
+    it('`invalid` still marks the field invalid when the error is an empty string', () => {
+      const { container } = renderField(<Field label="Email" error="" invalid><Input /></Field>);
+      const input = container.querySelector('input') as HTMLInputElement;
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+      expect(input).not.toHaveAttribute('aria-describedby');
+      expect(container.querySelector('.vane-field-error')).toBeNull();
+    });
+  });
+
   it('should dim the label of a disabled Field', () => {
     const { container } = renderField(<Field label="Email" disabled><Input /></Field>);
     const label = container.querySelector('label') as HTMLLabelElement;
