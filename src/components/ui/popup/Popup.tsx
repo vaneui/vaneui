@@ -180,6 +180,52 @@ function getJsPosition(
   return { ...pos, resolvedPlacement: resolved };
 }
 
+// Menus only. A menu grows with its items, and when it has more of them than there is room for
+// beside its anchor it scrolls inside itself: rules.css caps the menu's scroll box at
+// --popup-scroll-max-height, which is set here. The cap is the room on the roomier side of the
+// anchor, so a menu that fits on either side is never capped and the flip to the other side still
+// finds a place that fits.
+const SCROLL_CAP_PROPERTY = '--popup-scroll-max-height';
+
+function getAvailableHeight(anchorRect: DOMRect, placement: PopupPlacement, gap: number): number {
+  // the area a fixed element is laid out in: the window without a horizontal scrollbar
+  const viewportHeight = document.documentElement.clientHeight || window.innerHeight;
+  if (placement.startsWith('top') || placement.startsWith('bottom')) {
+    return Math.max(viewportHeight - anchorRect.bottom, anchorRect.top) - gap;
+  }
+  // beside the anchor: -start hangs down from the anchor's top edge, -end stands on its bottom edge
+  if (placement.endsWith('-start') || placement.endsWith('-end')) {
+    return Math.max(viewportHeight - anchorRect.top, anchorRect.bottom);
+  }
+  return viewportHeight;
+}
+
+const toPx = (value: string): number => {
+  const px = parseFloat(value);
+  return Number.isFinite(px) ? px : 0;
+};
+
+function updateMenuScrollCap(popup: HTMLElement, anchorRect: DOMRect, placement: PopupPlacement, gap: number): void {
+  if (!popup.hasAttribute('data-menu-dropdown')) return;
+  const scrollBox = popup.firstElementChild;
+  if (!scrollBox || !scrollBox.classList.contains('vane-popup-scroll')) return;
+
+  // what the popup's box adds around its scroll box: padding and border, less the scroll box's own margins
+  const popupStyle = getComputedStyle(popup);
+  const scrollStyle = getComputedStyle(scrollBox);
+  const chrome =
+    toPx(popupStyle.paddingTop) + toPx(popupStyle.paddingBottom) +
+    toPx(popupStyle.borderTopWidth) + toPx(popupStyle.borderBottomWidth) +
+    toPx(scrollStyle.marginTop) + toPx(scrollStyle.marginBottom);
+
+  // rounded down, so a capped menu is never a fraction of a pixel too tall for the side it flips to
+  const cap = Math.floor(Math.max(0, getAvailableHeight(anchorRect, placement, gap) - chrome) * 100) / 100;
+  const value = `${cap}px`;
+  if (popup.style.getPropertyValue(SCROLL_CAP_PROPERTY) !== value) {
+    popup.style.setProperty(SCROLL_CAP_PROPERTY, value);
+  }
+}
+
 // Derive the popup's ACTUAL placement side from its rendered geometry. On the
 // CSS-anchor path the browser can silently flip via position-try-fallbacks, so
 // the requested placement is stale; comparing the rendered rects recovers the
@@ -398,8 +444,10 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       if (!anchor || !popup) return;
 
       const anchorRect = anchor.getBoundingClientRect();
-      const popupRect = popup.getBoundingClientRect();
       const gap = arrow ? offset + getArrowReachPx(popup) : offset;
+      // before the popup is measured: the cap changes how tall a long menu is
+      updateMenuScrollCap(popup, anchorRect, placement, gap);
+      const popupRect = popup.getBoundingClientRect();
       const pos = getJsPosition(anchorRect, popupRect, placement, gap);
 
       setPositionStyles({
@@ -422,16 +470,26 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       );
     }, [anchorRef, placement]);
 
+    // CSS-anchor path: the browser places the popup, but the room a long menu may take is still measured here
+    const updateCssScrollCap = useCallback(() => {
+      const anchor = anchorRef.current;
+      const popup = popupRef.current;
+      if (!anchor || !popup) return;
+      const gap = arrow ? offset + getArrowReachPx(popup) : offset;
+      updateMenuScrollCap(popup, anchor.getBoundingClientRect(), placement, gap);
+    }, [anchorRef, placement, offset, arrow]);
+
     useIsomorphicLayoutEffect(() => {
       if (!effectiveOpen || !anchorRef.current) return;
 
       if (supportsAnchorPositioning()) {
+        updateCssScrollCap();
         setPositionStyles(buildCssAnchorStyles(anchorName, placement, offset, matchWidth, arrow));
         setResolvedPlacement(placement); // optimistic; corrected post-layout by measureCssPlacement
       } else {
         updateJsPosition();
       }
-    }, [effectiveOpen, anchorRef, anchorName, placementKey, offset, matchWidth, arrow, updateJsPosition]);
+    }, [effectiveOpen, anchorRef, anchorName, placementKey, offset, matchWidth, arrow, updateJsPosition, updateCssScrollCap]);
 
     // reposition on scroll/resize for JS fallback path
     useEffect(() => {
@@ -453,16 +511,21 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
     useEffect(() => {
       if (!effectiveOpen || !supportsAnchorPositioning()) return;
 
+      const handleReposition = () => {
+        updateCssScrollCap();
+        measureCssPlacement();
+      };
+
       const raf = requestAnimationFrame(measureCssPlacement);
-      window.addEventListener('scroll', measureCssPlacement, true);
-      window.addEventListener('resize', measureCssPlacement);
+      window.addEventListener('scroll', handleReposition, true);
+      window.addEventListener('resize', handleReposition);
 
       return () => {
         cancelAnimationFrame(raf);
-        window.removeEventListener('scroll', measureCssPlacement, true);
-        window.removeEventListener('resize', measureCssPlacement);
+        window.removeEventListener('scroll', handleReposition, true);
+        window.removeEventListener('resize', handleReposition);
       };
-    }, [effectiveOpen, measureCssPlacement]);
+    }, [effectiveOpen, measureCssPlacement, updateCssScrollCap]);
 
     // only the topmost floating element closes on Escape
     useEffect(() => {

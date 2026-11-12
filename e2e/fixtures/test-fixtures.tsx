@@ -485,6 +485,25 @@ function OverlayBehaviorFixtures() {
         <MenuItem data-testid="ob-focus-item" onClick={() => setConfirmOpen(true)}>Delete</MenuItem>
       </Menu>
 
+      {/* Menus with more items than the viewport has room for, with and without clampHeight, and a short one. */}
+      <Row>
+        <Menu data-testid="ob-tall-menu" trigger={<Button data-testid="ob-tall-trigger">Tall menu</Button>}>
+          {Array.from({ length: 40 }, (_, i) => (
+            <MenuItem key={i} data-testid={`ob-tall-item-${i}`}>Item {i + 1}</MenuItem>
+          ))}
+        </Menu>
+        <Menu clampHeight data-testid="ob-clamp-menu" trigger={<Button data-testid="ob-clamp-trigger">Clamped menu</Button>}>
+          {Array.from({ length: 40 }, (_, i) => (
+            <MenuItem key={i} data-testid={`ob-clamp-item-${i}`}>Item {i + 1}</MenuItem>
+          ))}
+        </Menu>
+        <Menu data-testid="ob-short-menu" trigger={<Button data-testid="ob-short-trigger">Short menu</Button>}>
+          <MenuItem data-testid="ob-short-item-0">Edit</MenuItem>
+          <MenuItem data-testid="ob-short-item-1">Duplicate</MenuItem>
+          <MenuItem data-testid="ob-short-item-2">Archive</MenuItem>
+        </Menu>
+      </Row>
+
       {/* One trigger anchors two popups: a Tooltip and the Menu it opens. */}
       <div style={{ padding: '48px 160px' }}>
         <Menu

@@ -620,8 +620,13 @@
        tabindex=0 (set in Popup.tsx) keeps the scroll region keyboard-operable (WCAG 2.1.1). */
     /* gap inherits the outer box's resolved gap, so noGap (Menu) and the responsive gap classes reach the children. */
     .vane-popup-scroll { display: flex; flex-direction: column; gap: inherit; max-height: var(--max-height); overflow: auto; min-height: 0; }
-    /* Menu dropdowns stay unbounded (roving-tabindex items provide keyboard access; a clamped menu scroll region can't). */
-    .vane-popup[data-menu-dropdown] > .vane-popup-scroll { max-height: none; overflow: visible; }
+    /* Menu dropdowns grow with their items until the room beside the anchor runs out, then scroll: Popup.tsx
+       measures that room into --popup-scroll-max-height, and clampHeight on the outer box shrinks this one too.
+       Focus moves through the items and scrolls them into view, and the focused item is the menu's tab stop
+       (MenuItem.tsx), so the box itself is not one.
+       The 4px inset leaves room for an item's focus outline (2px wide, 2px off the item), which a scroll
+       box would otherwise cut off; the negative margin takes the same space back, so the items do not move. */
+    .vane-popup[data-menu-dropdown] > .vane-popup-scroll { max-height: var(--popup-scroll-max-height, none); overflow-y: auto; box-sizing: border-box; padding: 4px; margin: -4px; scroll-padding-block: 4px; }
 
     /* Menu dropdown: tighter than generic Popup; floor lifted to 4px so no size renders below the minimum. */
     .vane-popup[data-menu-dropdown][data-size="xs"] { --py-unit: 1;    --py-unit-desktop: 1;    --py-unit-tablet: 1;    --py-unit-mobile: 1; }
