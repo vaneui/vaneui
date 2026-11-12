@@ -688,7 +688,7 @@ describe('Field validity and disabled state', () => {
       const { container } = renderField(ui);
       const input = container.querySelector('input') as HTMLInputElement;
       expect(input).not.toHaveAttribute('aria-invalid');
-      expect(input).not.toHaveAttribute('data-invalid');
+      expect(input).not.toHaveAttribute('data-status');
       expect(input).not.toHaveAttribute('aria-describedby');
       expect(container.querySelector('.vane-field-error')).toBeNull();
       expect(container.querySelector('.vane-input-error-icon')).toBeNull();
