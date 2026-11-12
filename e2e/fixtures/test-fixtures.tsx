@@ -744,8 +744,8 @@ function LayoutAdditionsFixtures() {
 
 /* ════════ FORM-STATE FIXTURES (start) ════════
    One block for the form-control state specs: input-stable-node.spec.ts,
-   readonly-toggles.spec.ts and disabled-link.spec.ts. The read-only toggles also put
-   read-only controls in front of the axe scan (accessibility.spec.ts). */
+   readonly-toggles.spec.ts, disabled-link.spec.ts and checked-toggle-contrast.spec.ts. The
+   read-only toggles also put read-only controls in front of the axe scan (accessibility.spec.ts). */
 
 /** The themed <input> on its own, with the same Field and Label wiring as Input but none of
     Input's wrapper span: the layout reference a valid Input has to match box for box. */
@@ -848,6 +848,41 @@ function ReadOnlyToggleFixtures() {
   );
 }
 
+const TOGGLE_VARIANTS = ['filled', 'outline', 'ghost'] as const;
+const TOGGLE_APPEARANCES = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
+
+/** A checked Checkbox, an indeterminate Checkbox and a checked Radio in every variant and
+    appearance, on a light and on a dark page surface: the mark has to show against its box,
+    and the box against the page. */
+function CheckedToggleFixtures() {
+  return (
+    <>
+      {(['light', 'dark'] as const).map((scheme) => (
+        <div key={scheme} {...(scheme === 'dark' ? { 'data-theme': 'dark' } : undefined)}>
+          <Card data-testid={`checked-toggle-page-${scheme}`}>
+            {TOGGLE_VARIANTS.map((variant) => (
+              <Row key={variant} flexWrap>
+                {TOGGLE_APPEARANCES.map((appearance) => {
+                  const look = { [variant]: true, [appearance]: true };
+                  const id = `${scheme}-${variant}-${appearance}`;
+                  const name = `${scheme} ${variant} ${appearance}`;
+                  return (
+                    <React.Fragment key={appearance}>
+                      <Checkbox {...look} defaultChecked aria-label={`${name} checkbox`} data-testid={`checked-toggle-checkbox-${id}`} />
+                      <Checkbox {...look} indeterminate aria-label={`${name} mixed checkbox`} data-testid={`checked-toggle-indeterminate-${id}`} />
+                      <Radio {...look} defaultChecked name={`checked-toggle-${id}`} aria-label={`${name} radio`} data-testid={`checked-toggle-radio-${id}`} />
+                    </React.Fragment>
+                  );
+                })}
+              </Row>
+            ))}
+          </Card>
+        </div>
+      ))}
+    </>
+  );
+}
+
 function FormStateFixtures() {
   return (
     <section data-testid="form-state-section">
@@ -865,6 +900,7 @@ function FormStateFixtures() {
         <Badge href="#followed-badge" disabled data-testid="disabled-link-badge">Badge</Badge>
         <Code href="#followed-code" disabled data-testid="disabled-link-code">code</Code>
       </Row>
+      <CheckedToggleFixtures />
     </section>
   );
 }

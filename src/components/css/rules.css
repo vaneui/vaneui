@@ -992,16 +992,12 @@
         --ring-color: transparent;
     }
 
-    /* Checked/indeterminate + outline: border becomes the appearance color */
-    .vane-checkbox[data-variant="outline"]:is(:checked, :indeterminate) {
-        --border-color: var(--checked-bg-color);
-        --ring-color: var(--checked-bg-color);
-    }
-
-    /* Checked/indeterminate + ghost: border becomes the appearance color (same as outline) */
-    .vane-checkbox[data-variant="ghost"]:is(:checked, :indeterminate) {
-        --border-color: var(--checked-bg-color);
-        --ring-color: var(--checked-bg-color);
+    /* Checked/indeterminate + outline or ghost: the fill stays the page-colored --checked-bg-color,
+       so the border draws the box. It takes the appearance's text color, the color of the mark;
+       the fill color as border left a mark floating with no box around it. */
+    .vane-checkbox:is([data-variant="outline"], [data-variant="ghost"]):is(:checked, :indeterminate) {
+        --border-color: var(--app-text);
+        --ring-color: var(--app-text);
     }
 
     /* Radio mirrors the checkbox border treatment: neutral unchecked border, appearance color once checked. */
@@ -1016,8 +1012,8 @@
     }
 
     .vane-radio:is([data-variant="outline"], [data-variant="ghost"]):checked {
-        --border-color: var(--checked-bg-color);
-        --ring-color: var(--checked-bg-color);
+        --border-color: var(--app-text);
+        --ring-color: var(--app-text);
     }
 
     /* Switch track needs a visible unchecked border despite filled's transparent — same as Checkbox.

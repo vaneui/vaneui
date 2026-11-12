@@ -233,6 +233,39 @@ describe('Checkbox Component Tests', () => {
       expect(checkbox).toHaveClass('border-(--border-color)');
     });
 
+    // The mark takes its color from the wrapper's variant and the box from the input's. When
+    // `ghost` reached only the input, the wrapper stayed `filled` and drew a white mark on the
+    // white ghost box.
+    it.each(['filled', 'outline', 'ghost'] as const)('sends %s to the wrapper as well as the input', (variant) => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox {...{[variant]: true}} defaultChecked />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
+      expect(input).toHaveAttribute('data-variant', variant);
+      expect(input.parentElement).toHaveAttribute('data-variant', variant);
+      expect(input).not.toHaveAttribute(variant);
+      expect(input.parentElement).not.toHaveAttribute(variant);
+    });
+
+    it.each([
+      ['Checkbox', Checkbox],
+      ['Radio', Radio],
+      ['Switch', Switch],
+    ] as const)('%s ghost: wrapper and input agree on the variant', (_name, Toggle) => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Toggle ghost defaultChecked />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input') as HTMLInputElement;
+      expect(input).toHaveAttribute('data-variant', 'ghost');
+      expect(input.parentElement).toHaveAttribute('data-variant', 'ghost');
+    });
+
     it('should use filled variant by default based on theme defaults', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>

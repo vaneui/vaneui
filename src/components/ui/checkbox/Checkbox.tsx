@@ -39,7 +39,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const {
       xs, sm, md, lg, xl,
       primary, accent, secondary, tertiary, success, danger, warning, info,
-      filled, outline,
+      filled, outline, ghost,
       pill, sharp, rounded,
       invalid,
       indeterminate,
@@ -64,7 +64,8 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     const themeProps = {
       xs, sm, md, lg, xl,
       primary, accent, secondary, tertiary, success, danger, warning, info,
-      filled, outline,
+      // every variant must reach the wrapper too: the check mark reads --text-color from it
+      filled, outline, ghost,
       pill, sharp, rounded,
       invalid,
       disabled,
