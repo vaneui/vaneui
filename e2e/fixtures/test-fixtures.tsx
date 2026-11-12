@@ -414,6 +414,7 @@ function LifecycleProbe() {
 
 function OverlayBehaviorFixtures() {
   const [lifeOpen, setLifeOpen] = useState(false);
+  const [dragOpen, setDragOpen] = useState(false);
   return (
     <section data-testid="overlay-behavior-section">
       {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
@@ -427,6 +428,17 @@ function OverlayBehaviorFixtures() {
       >
         <LifecycleProbe />
         <input data-testid="ob-life-input" aria-label="Note" />
+      </Modal>
+
+      {/* A text field inside a dialog: a selection drag can end over the backdrop. */}
+      <button data-testid="ob-drag-open" onClick={() => setDragOpen(true)}>open drag modal</button>
+      <Modal open={dragOpen} onClose={() => setDragOpen(false)} title="Form" noAnimation data-testid="ob-drag-modal">
+        <input
+          data-testid="ob-drag-field"
+          aria-label="Description"
+          defaultValue="some long text to select by dragging"
+          style={{ width: '100%' }}
+        />
       </Modal>
 
       {/* One trigger anchors two popups: a Tooltip and the Menu it opens. */}

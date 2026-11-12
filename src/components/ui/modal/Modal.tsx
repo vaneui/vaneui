@@ -147,9 +147,22 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       return pushEscapeHandler(onClose, overlayRef.current);
     }, [effectiveOpen, closeOnEscape, onClose]);
 
+    // A click lands on the nearest common ancestor of where the press started and where it ended,
+    // so pressing inside the dialog and releasing over the backdrop (dragging to select text in a
+    // field) clicks the backdrop. Remember where the last press began: only a press that also
+    // started on the backdrop may close the modal. Capture phase, so a child that stops the
+    // event's propagation cannot hide the press.
+    const pressStartedInDialogRef = useRef(false);
+    const handleOverlayMouseDownCapture = (event: React.MouseEvent) => {
+      pressStartedInDialogRef.current = event.target !== event.currentTarget;
+    };
+
     const handleOverlayClick = (event: React.MouseEvent) => {
+      if (event.target !== event.currentTarget) return;
+      const pressStartedInDialog = pressStartedInDialogRef.current;
+      pressStartedInDialogRef.current = false;
       // defaultPrevented lets a composed consumer onClick veto the close
-      if (closeOnOverlayClick && !event.defaultPrevented && event.target === event.currentTarget) {
+      if (closeOnOverlayClick && !event.defaultPrevented && !pressStartedInDialog) {
         onClose();
       }
     };
@@ -195,6 +208,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // --z-index)
     const {
       onClick: overlayOnClick,
+      onMouseDownCapture: overlayOnMouseDownCapture,
       style: overlayStyle,
       className: overlayClassName,
       ...restOverlayProps
@@ -228,6 +242,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           ...restOverlayProps,
           className: [isHidden ? 'hidden' : undefined, overlayClassName].filter(Boolean).join(' ') || undefined,
           onClick: composeEventHandlers(overlayOnClick, handleOverlayClick),
+          onMouseDownCapture: composeEventHandlers(overlayOnMouseDownCapture, handleOverlayMouseDownCapture),
           style: { ...cssVars, ...overlayStyle },
         }}
       >

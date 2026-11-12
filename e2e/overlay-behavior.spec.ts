@@ -70,6 +70,28 @@ test.describe('Overlay lifecycle: closing keeps the content mounted', () => {
   });
 });
 
+test.describe('Modal backdrop dismissal', () => {
+  test('a drag that starts in the dialog and ends on the backdrop keeps the Modal open', async ({ page }) => {
+    await page.locator(T('ob-drag-open')).click();
+    const dialog = page.locator(T('ob-drag-modal'));
+    await expect(dialog).toBeVisible();
+
+    // press in the field, drag out of the dialog, release over the backdrop
+    const field = await rectOf(page.locator(T('ob-drag-field')));
+    await page.mouse.move(field.right - 10, field.top + field.height / 2);
+    await page.mouse.down();
+    await page.mouse.move(5, 5, { steps: 5 });
+    await page.mouse.up();
+
+    await expect(dialog).toBeVisible();
+    await expect(page.locator(T('ob-drag-field'))).toHaveValue('some long text to select by dragging');
+
+    // a real click on the backdrop still closes it
+    await page.mouse.click(5, 5);
+    await expect(dialog).toHaveCount(0);
+  });
+});
+
 for (const path of ['css-anchor', 'js-fallback'] as const) {
   test.describe(`Two popups on one anchor (${path})`, () => {
     test.beforeEach(async ({ page, testPage }) => {
