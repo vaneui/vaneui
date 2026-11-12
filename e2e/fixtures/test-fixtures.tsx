@@ -428,6 +428,26 @@ function OverlayBehaviorFixtures() {
         <LifecycleProbe />
         <input data-testid="ob-life-input" aria-label="Note" />
       </Modal>
+
+      {/* One trigger anchors two popups: a Tooltip and the Menu it opens. */}
+      <div style={{ padding: '48px 160px' }}>
+        <Menu
+          data-testid="ob-anchor-menu"
+          trigger={
+            <Tooltip
+              content="More actions"
+              openDelay={0}
+              closeDelay={0}
+              popupProps={{ 'data-testid': 'ob-anchor-tooltip' } as Record<string, unknown>}
+            >
+              <Button data-testid="ob-anchor-trigger">Actions</Button>
+            </Tooltip>
+          }
+        >
+          <MenuItem data-testid="ob-anchor-item">Edit</MenuItem>
+          <MenuItem>Duplicate</MenuItem>
+        </Menu>
+      </div>
     </section>
   );
 }

@@ -14,6 +14,7 @@ import { useHydrated } from '../../utils/useHydrated';
 import { pushEscapeHandler } from '../../utils/escapeStack';
 import { getFocusableElements, useFocusTrap } from '../../utils/focusTrap';
 import { registerOverlay, isInOverlayFamily } from '../../utils/overlayStack';
+import { addAnchorName } from '../../utils/anchorName';
 
 type PopupPlacement =
   | 'top'
@@ -382,16 +383,13 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
 
     const mergedRef = useMergedRef(ref, popupRef);
 
-    // gated on `mounted` (not `open`) so anchor-name survives the exit transition
+    // gated on `mounted` (not `open`) so anchor-name survives the exit transition.
+    // The anchor may serve other popups too (a Tooltip and a Menu on one button), so this popup
+    // adds its own name to the anchor's list and removes only that name again.
     useIsomorphicLayoutEffect(() => {
       if (!mounted || !supportsAnchorPositioning() || !anchorRef.current) return;
 
-      const anchor = anchorRef.current;
-      anchor.style.setProperty('anchor-name', `--${anchorName}`);
-
-      return () => {
-        anchor.style.removeProperty('anchor-name');
-      };
+      return addAnchorName(anchorRef.current, `--${anchorName}`);
     }, [mounted, anchorRef, anchorName]);
 
     const updateJsPosition = useCallback(() => {
