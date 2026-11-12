@@ -1,7 +1,9 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { useState } from 'react';
+import { render, fireEvent } from '@testing-library/react';
 
 import {
+  Field,
   Input,
   ThemeProvider,
   defaultTheme
@@ -683,14 +685,58 @@ describe('Input Component Tests', () => {
       expect(wrapper!.querySelector('input.vane-input')).toBeInTheDocument();
     });
 
-    it('does not render the error icon (or wrapper) without error', () => {
+    it('does not render the error icon without error', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Input placeholder="OK input" />
         </ThemeProvider>
       );
       expect(container.querySelector('.vane-input-error-icon')).not.toBeInTheDocument();
-      expect(container.querySelector('.vane-input-wrapper')).not.toBeInTheDocument();
+    });
+
+    it('keeps the wrapper while valid, but as a box-less element (display: contents)', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Input placeholder="OK input" />
+        </ThemeProvider>
+      );
+      const wrapper = container.querySelector('.vane-input-wrapper') as HTMLElement;
+      expect(wrapper).toBeInTheDocument();
+      expect(wrapper.tagName).toBe('SPAN');
+      // no box of its own, so the <input> lays out as a direct child of the wrapper's parent
+      expect(wrapper).toHaveClass('contents');
+      expect(wrapper).not.toHaveClass('flex');
+      expect(wrapper.children).toHaveLength(1);
+      expect(wrapper.firstElementChild).toBe(container.querySelector('input'));
+    });
+
+    it('switches the wrapper from contents to its themed box when invalid', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Input invalid placeholder="Error input" /></ThemeProvider>
+      );
+      const wrapper = container.querySelector('.vane-input-wrapper') as HTMLElement;
+      expect(wrapper).not.toHaveClass('contents');
+      expect(wrapper).toHaveClass('relative', 'flex', 'w-full');
+    });
+
+    it('sends className, style, width and hide props to the <input>, never to the wrapper', () => {
+      for (const invalid of [false, true]) {
+        const { container, unmount } = render(
+          <ThemeProvider theme={defaultTheme}>
+            <Input invalid={invalid} className="w-64 custom" style={{ width: 200 }} wFit mobileHide data-testid="field" />
+          </ThemeProvider>
+        );
+        const wrapper = container.querySelector('.vane-input-wrapper') as HTMLElement;
+        const input = container.querySelector('input') as HTMLInputElement;
+        expect(input).toHaveClass('custom', 'max-mobile:hidden');
+        expect(input).toHaveStyle({ width: '200px' });
+        expect(input).toHaveAttribute('data-testid', 'field');
+        expect(wrapper).not.toHaveClass('custom');
+        expect(wrapper).not.toHaveClass('max-mobile:hidden');
+        expect(wrapper).not.toHaveAttribute('style');
+        expect(wrapper).not.toHaveAttribute('data-testid');
+        unmount();
+      }
     });
 
     it('forwards ref to the <input>, not the wrapper, in the error state', () => {
@@ -744,6 +790,129 @@ describe('Input Component Tests', () => {
       );
       const wrapper = container.querySelector('.vane-input-wrapper') as HTMLElement;
       expect(wrapper).toHaveClass('w-fit');
+    });
+  });
+
+  // Live validation flips `invalid` while the user types. The <input> has to stay
+  // the same DOM node through that, or the browser drops focus and the typed text.
+  describe('Stable <input> node when validity changes', () => {
+    const isEmail = (value: string) => value === '' || value.includes('@');
+
+    function LiveValidatedInput() {
+      const [value, setValue] = useState('');
+      return (
+        <Input
+          aria-label="Email"
+          value={value}
+          invalid={!isEmail(value)}
+          onChange={(event) => setValue(event.target.value)}
+        />
+      );
+    }
+
+    function LiveValidatedField({ selfRendered = false }: { selfRendered?: boolean }) {
+      const [value, setValue] = useState('');
+      const error = isEmail(value) ? undefined : 'Enter an email address';
+      return selfRendered
+        ? <Field type="email" label="Email" error={error} value={value} onChange={(event) => setValue((event.target as HTMLInputElement).value)} />
+        : (
+          <Field label="Email" error={error}>
+            <Input value={value} onChange={(event) => setValue(event.target.value)} />
+          </Field>
+        );
+    }
+
+    const type = (input: HTMLInputElement, text: string) => {
+      for (let i = 1; i <= text.length; i++) {
+        fireEvent.change(input, { target: { value: text.slice(0, i) } });
+      }
+    };
+
+    it('controlled: typing through valid -> invalid -> valid keeps node, focus and value', () => {
+      const { container } = render(<ThemeProvider theme={defaultTheme}><LiveValidatedInput /></ThemeProvider>);
+      const input = container.querySelector('input') as HTMLInputElement;
+      input.focus();
+      expect(document.activeElement).toBe(input);
+
+      type(input, 'ab');
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+      expect(container.querySelector('.vane-input-error-icon')).toBeInTheDocument();
+      expect(container.querySelector('input')).toBe(input);
+      expect(input.isConnected).toBe(true);
+      expect(document.activeElement).toBe(input);
+      expect(input.value).toBe('ab');
+
+      type(input, 'ab@c');
+      expect(input).not.toHaveAttribute('aria-invalid');
+      expect(container.querySelector('.vane-input-error-icon')).not.toBeInTheDocument();
+      expect(container.querySelector('input')).toBe(input);
+      expect(input.isConnected).toBe(true);
+      expect(document.activeElement).toBe(input);
+      expect(input.value).toBe('ab@c');
+    });
+
+    it('uncontrolled: flipping invalid in both directions keeps node, focus and the typed value', () => {
+      const ui = (invalid: boolean) => (
+        <ThemeProvider theme={defaultTheme}><Input aria-label="Name" defaultValue="" invalid={invalid} /></ThemeProvider>
+      );
+      const { container, rerender } = render(ui(false));
+      const input = container.querySelector('input') as HTMLInputElement;
+      input.focus();
+      // the DOM owns an uncontrolled value, so a replaced node would come back empty
+      fireEvent.change(input, { target: { value: 'typed' } });
+
+      rerender(ui(true));
+      expect(container.querySelector('input')).toBe(input);
+      expect(input.isConnected).toBe(true);
+      expect(document.activeElement).toBe(input);
+      expect(input.value).toBe('typed');
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+
+      rerender(ui(false));
+      expect(container.querySelector('input')).toBe(input);
+      expect(input.isConnected).toBe(true);
+      expect(document.activeElement).toBe(input);
+      expect(input.value).toBe('typed');
+      expect(input).not.toHaveAttribute('aria-invalid');
+    });
+
+    it('keeps the forwarded ref on the same <input> across the flip', () => {
+      const seen: (HTMLInputElement | null)[] = [];
+      const ref = (node: HTMLInputElement | null) => { seen.push(node); };
+      const ui = (invalid: boolean) => (
+        <ThemeProvider theme={defaultTheme}><Input ref={ref} aria-label="Name" invalid={invalid} /></ThemeProvider>
+      );
+      const { container, rerender } = render(ui(false));
+      rerender(ui(true));
+      rerender(ui(false));
+      // attached once, never detached: a remount would report null and then a new node
+      expect(seen).toEqual([container.querySelector('input')]);
+    });
+
+    it.each([
+      ['a child Input', false],
+      ['a self-rendered control', true],
+    ])('through <Field error> with %s: typing keeps node, focus and value', (_name, selfRendered) => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><LiveValidatedField selfRendered={selfRendered} /></ThemeProvider>
+      );
+      const input = container.querySelector('input') as HTMLInputElement;
+      input.focus();
+
+      type(input, 'abcd');
+      expect(container.querySelector('.vane-field-error')).toHaveTextContent('Enter an email address');
+      expect(container.querySelector('input')).toBe(input);
+      expect(input.isConnected).toBe(true);
+      expect(document.activeElement).toBe(input);
+      expect(input.value).toBe('abcd');
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+
+      type(input, 'abcd@e');
+      expect(container.querySelector('.vane-field-error')).not.toBeInTheDocument();
+      expect(container.querySelector('input')).toBe(input);
+      expect(document.activeElement).toBe(input);
+      expect(input.value).toBe('abcd@e');
+      expect(input).not.toHaveAttribute('aria-invalid');
     });
   });
 });

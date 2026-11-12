@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { forwardRef, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
   ThemeProvider,
@@ -61,7 +61,13 @@ import {
   Th,
   Td,
   useOverlayRegistration,
+  type InputProps,
 } from '../../src';
+// internals behind BareInput (form-state fixtures): the input exactly as Input renders it, minus the wrapper span
+import { ThemedComponent } from '../../src/components/themedComponent';
+import { defaultInputTheme } from '../../src/components/ui/input';
+import { useFieldControlProps } from '../../src/components/ui/field/FieldContext';
+import { useLabelSizeContext, withLabelSizeDefault } from '../../src/components/ui/label/LabelSizeContext';
 
 // Simple SVG icon for testing
 export const StarIcon = () => (
@@ -735,6 +741,94 @@ function LayoutAdditionsFixtures() {
     </section>
   );
 }
+
+/* ════════ FORM-STATE FIXTURES (start) ════════
+   One block for the form-control state specs: input-stable-node.spec.ts. */
+
+/** The themed <input> on its own, with the same Field and Label wiring as Input but none of
+    Input's wrapper span: the layout reference a valid Input has to match box for box. */
+const BareInput = forwardRef<HTMLInputElement, InputProps>(function BareInput(rawProps, ref) {
+  const props = useFieldControlProps(rawProps);
+  const labelSize = useLabelSizeContext();
+  const theme = useMemo(() => withLabelSizeDefault(defaultInputTheme, labelSize), [labelSize]);
+  return <ThemedComponent ref={ref} theme={theme} {...props} />;
+});
+
+type InputLike = typeof Input;
+
+/** Each context renders twice at one fixed width: once with Input, once with BareInput. */
+const INPUT_LAYOUT_CONTEXTS: { id: string; render: (Control: InputLike, name: string) => React.ReactNode }[] = [
+  { id: 'block', render: (Control, name) => <div><Control aria-label={name} /></div> },
+  { id: 'inline', render: (Control, name) => <p>Name: <Control wFit aria-label={name} /> (optional)</p> },
+  {
+    id: 'row',
+    render: (Control, name) => <Row><Text>Search</Text><Control aria-label={name} /><Button>Go</Button></Row>,
+  },
+  { id: 'col', render: (Control, name) => <Col><Control aria-label={name} /><Button>Go</Button></Col> },
+  { id: 'label', render: (Control) => <Label>Email<Control placeholder="you@example.com" /></Label> },
+  {
+    id: 'field',
+    render: (Control) => <Field label="Email" description="We never share it."><Control type="email" /></Field>,
+  },
+  {
+    id: 'class-width',
+    render: (Control, name) => <Row><Control className="w-64" aria-label={name} /><Button>Go</Button></Row>,
+  },
+  {
+    id: 'style-width',
+    render: (Control, name) => <Row><Control style={{ width: 200 }} aria-label={name} /><Button>Go</Button></Row>,
+  },
+  { id: 'wfit', render: (Control, name) => <Row><Control wFit aria-label={name} /><Button>Go</Button></Row> },
+  {
+    id: 'mobile-hide',
+    render: (Control, name) => <Row><Control mobileHide aria-label={name} /><Button>Go</Button></Row>,
+  },
+];
+
+const isIncompleteEmail = (value: string) => value !== '' && !value.includes('@');
+
+/** Inputs validated on every keystroke: `invalid` flips while the field has focus. */
+function LiveValidationFixtures() {
+  const [controlled, setControlled] = useState('');
+  const [inField, setInField] = useState('');
+  const [uncontrolledInvalid, setUncontrolledInvalid] = useState(false);
+  return (
+    <Col style={{ width: 360 }}>
+      <Input
+        aria-label="live validated email"
+        data-testid="live-input"
+        value={controlled}
+        invalid={isIncompleteEmail(controlled)}
+        onChange={(event) => setControlled(event.target.value)}
+      />
+      <Input
+        aria-label="live validated uncontrolled email"
+        data-testid="live-uncontrolled"
+        invalid={uncontrolledInvalid}
+        onChange={(event) => setUncontrolledInvalid(isIncompleteEmail(event.target.value))}
+      />
+      <Field label="Live email" error={isIncompleteEmail(inField) ? 'Enter an email address' : undefined} data-testid="live-field">
+        <Input data-testid="live-field-input" value={inField} onChange={(event) => setInField(event.target.value)} />
+      </Field>
+    </Col>
+  );
+}
+
+function FormStateFixtures() {
+  return (
+    <section data-testid="form-state-section">
+      {INPUT_LAYOUT_CONTEXTS.map(({ id, render }) => (
+        <div key={id} style={{ width: 360 }}>
+          <div data-testid={`input-layout-${id}-actual`}>{render(Input, `${id} input`)}</div>
+          <div data-testid={`input-layout-${id}-reference`}>{render(BareInput as InputLike, `${id} reference input`)}</div>
+        </div>
+      ))}
+      <LiveValidationFixtures />
+    </section>
+  );
+}
+
+/* ════════ FORM-STATE FIXTURES (end) ════════ */
 
 export function TestHarness() {
   return (
@@ -2110,6 +2204,8 @@ export function TestHarness() {
             <Radio value="b" aria-label="radio group b" data-testid="radiogroup-radio-b" />
           </RadioGroup>
         </section>
+
+        <FormStateFixtures />
 
         <LayoutAdditionsFixtures />
 
