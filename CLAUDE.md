@@ -215,7 +215,7 @@ src/
 │   │   └── layout.tsx           # Re-exports layout components (Card, Row, Col, Stack, Grid*,
 │   │                            # Section, Container, Table)
 │   ├── css/                     # vars.css, tokens.css, rules.css
-│   ├── tests/                   # 104 test files (Jest + Testing Library)
+│   ├── tests/                   # 120 test files (Jest + Testing Library)
 │   ├── utils/                   # deepMerge, componentUtils, stackingContext
 │   ├── themeContext.tsx         # ThemeContext & useTheme
 │   ├── ThemeProvider.tsx        # ThemeProvider

@@ -254,6 +254,20 @@ Mark a field's validation state with the `invalid` validity prop — it layers a
 <Field type="email" label="Email" description="We never share it."/>
 ```
 
+A control VaneUI does not ship (a plain `<input>`, a masked input, a date picker) takes the Field's `id`, `aria-describedby`, `aria-invalid`, `required`, `disabled` and `readOnly` by spreading `useFieldControlProps(props)`. The control's own props win, and outside a Field the props come back unchanged.
+
+```tsx
+function DateInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input type="date" {...useFieldControlProps(props)} />;
+}
+
+<Field label="Start date" error={errors.start}>
+  <DateInput />
+</Field>
+```
+
+An empty string for `error` or `description` means no message, so `error={errors.email ?? ''}` leaves the field valid.
+
 ### Button group
 
 ```tsx
@@ -415,6 +429,8 @@ const [open, setOpen] = useState(false);
   </ModalFooter>
 </Modal>
 ```
+
+An open Modal makes the rest of the page inert. VaneUI's own overlays stay usable. A child of `<body>` that has to stay usable too (a toast region, a container another library portals there) takes the `data-vane-overlay` attribute, or registers itself with the ref from `useOverlayRegistration()`. `inertBackground={false}` turns the inert pass off for one modal.
 
 ### Dropdown menu
 
