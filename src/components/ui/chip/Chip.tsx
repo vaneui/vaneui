@@ -4,6 +4,7 @@ import type { ChipProps } from "./ChipProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { composeEventHandlers } from "../../utils/composeEventHandlers";
+import { resolveDisabledLink } from "../../utils/disabledLink";
 import { defaultChipTheme } from "./defaultChipTheme";
 
 export const Chip = forwardRef<HTMLSpanElement, ChipProps>(
@@ -40,7 +41,13 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(
       }),
     } : undefined;
 
-    return <ThemedComponent theme={theme?.chip ?? defaultChipTheme} ref={ref} {...focusInjection} {...props} {...spanButtonProps} />
+    // disabled + href: a placeholder link (no href, aria-disabled, still focusable, activation
+    // blocked), as Button and Link render it; the props pass through untouched otherwise.
+    // `interactive` and `isSpanButton` above read the original props, so the placeholder keeps
+    // its focus ring and is not mistaken for a clickable span.
+    const resolvedProps = resolveDisabledLink({ ...props }, !!props.disabled);
+
+    return <ThemedComponent theme={theme?.chip ?? defaultChipTheme} ref={ref} {...focusInjection} {...resolvedProps} {...spanButtonProps} />
   }
 );
 

@@ -743,9 +743,9 @@ function LayoutAdditionsFixtures() {
 }
 
 /* ════════ FORM-STATE FIXTURES (start) ════════
-   One block for the form-control state specs: input-stable-node.spec.ts and
-   readonly-toggles.spec.ts. The read-only toggles also put read-only controls in front of
-   the axe scan (accessibility.spec.ts). */
+   One block for the form-control state specs: input-stable-node.spec.ts,
+   readonly-toggles.spec.ts and disabled-link.spec.ts. The read-only toggles also put
+   read-only controls in front of the axe scan (accessibility.spec.ts). */
 
 /** The themed <input> on its own, with the same Field and Label wiring as Input but none of
     Input's wrapper span: the layout reference a valid Input has to match box for box. */
@@ -859,6 +859,12 @@ function FormStateFixtures() {
       ))}
       <LiveValidationFixtures />
       <ReadOnlyToggleFixtures />
+      {/* disabled links: focusable placeholders that neither a click nor Enter may follow */}
+      <Row data-testid="disabled-links">
+        <Chip href="#followed-chip" disabled data-testid="disabled-link-chip">Chip</Chip>
+        <Badge href="#followed-badge" disabled data-testid="disabled-link-badge">Badge</Badge>
+        <Code href="#followed-code" disabled data-testid="disabled-link-code">code</Code>
+      </Row>
     </section>
   );
 }
