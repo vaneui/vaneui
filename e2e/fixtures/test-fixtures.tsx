@@ -922,6 +922,67 @@ function FormStateFixtures() {
 
 /* ════════ FORM-STATE FIXTURES (end) ════════ */
 
+// ── Theme engine fixtures (compound Card detection) ──────────────────────────
+
+/** Card parts that reach the Card through a consumer component, not as its direct React children. */
+function WrappedCardParts({ id, staticSizing }: { id: string; staticSizing?: boolean }) {
+  const sizing = staticSizing ? { responsiveSizing: false } : {};
+  return (
+    <>
+      <CardHeader data-testid={`${id}-header`} {...sizing}>header</CardHeader>
+      <CardBody data-testid={`${id}-body`} {...sizing}>body</CardBody>
+      <CardFooter data-testid={`${id}-footer`} {...sizing}>footer</CardFooter>
+    </>
+  );
+}
+
+/** A lazily resolved part type, the shape a part takes when it arrives from a Server Component. */
+const LazyCardBody = React.lazy(() => Promise.resolve({ default: CardBody }));
+
+function ThemeEngineFixtures() {
+  return (
+    <section data-testid="theme-engine-section">
+      {/* Compound Card: the parts own the inset however they reach the Card. */}
+      <Card data-testid="cc-plain">plain</Card>
+      <Card data-testid="cc-direct">
+        <CardHeader data-testid="cc-direct-header">header</CardHeader>
+        <CardBody data-testid="cc-direct-body">body</CardBody>
+        <CardFooter data-testid="cc-direct-footer">footer</CardFooter>
+      </Card>
+      <Card data-testid="cc-fragment">
+        <>
+          <CardHeader data-testid="cc-fragment-header">header</CardHeader>
+          <CardBody data-testid="cc-fragment-body">body</CardBody>
+          <CardFooter data-testid="cc-fragment-footer">footer</CardFooter>
+        </>
+      </Card>
+      <Card data-testid="cc-wrapped"><WrappedCardParts id="cc-wrapped"/></Card>
+      <React.Suspense fallback={null}>
+        <Card data-testid="cc-lazy">
+          <LazyCardBody data-testid="cc-lazy-body">body</LazyCardBody>
+        </Card>
+      </React.Suspense>
+      {/* an explicit padding prop keeps the Card's own inset next to its parts */}
+      <Card data-testid="cc-own-direct" padding>
+        <CardBody data-testid="cc-own-direct-body">body</CardBody>
+      </Card>
+      <Card data-testid="cc-own-wrapped" padding><WrappedCardParts id="cc-own-wrapped"/></Card>
+      {/* responsiveSizing off on both levels: the Card's --py/--px are zeroed, the parts keep theirs */}
+      <Card data-testid="cc-static-plain" responsiveSizing={false}>plain</Card>
+      <Card data-testid="cc-static-direct" responsiveSizing={false}>
+        <CardBody data-testid="cc-static-direct-body" responsiveSizing={false}>body</CardBody>
+      </Card>
+      <Card data-testid="cc-static-wrapped" responsiveSizing={false}>
+        <WrappedCardParts id="cc-static-wrapped" staticSizing/>
+      </Card>
+      {/* a part nested deeper than a direct child does not make the Card compound */}
+      <Card data-testid="cc-nested">
+        <div><CardBody data-testid="cc-nested-body">body</CardBody></div>
+      </Card>
+    </section>
+  );
+}
+
 export function TestHarness() {
   return (
     <ThemeProvider>
@@ -2302,6 +2363,8 @@ export function TestHarness() {
         <LayoutAdditionsFixtures />
 
         <CompositionFixtures />
+
+        <ThemeEngineFixtures />
 
         {/* ── Tooltip label scale + screen edges (mounted last: opens on demand) ── */}
 

@@ -441,6 +441,8 @@ For size-driven floating dimensions, `constrainWidth` applies a size-dependent m
 </Card>
 ```
 
+With a part as its direct child, the Card drops its own padding and the parts carry the inset. That holds when the parts sit in a fragment, come from your own component or are rendered from a Server Component. A part nested inside another element does not count. An explicit `padding`, `paddingX` or `paddingY` on the Card keeps its own inset as well.
+
 ## Responsive Layout
 
 VaneUI is **desktop-first**. Base styles target desktop. Use breakpoint props to adapt for smaller screens.

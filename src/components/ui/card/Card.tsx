@@ -3,12 +3,25 @@ import type { CardProps } from "./CardProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { useMergedRef } from "../../utils/mergedRef";
-import { CardHeader } from './CardHeader';
-import { CardBody } from './CardBody';
-import { CardFooter } from './CardFooter';
+import { isCardPart } from './cardParts';
 import { defaultCardTheme } from "./defaultCardTheme";
 
 const INTERACTIVE_SELECTOR = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+// A CardHeader/CardBody/CardFooter among the children switches the Card to compound
+// mode. Children.toArray does not flatten Fragments, so the scan recurses through them;
+// parts are identified by their static marker (survives memo()-style wrappers) instead
+// of reference equality. A part rendered by a consumer component, or one that arrives
+// as a lazy reference from a Server Component, cannot be seen from here: for those the
+// stylesheet decides from the rendered DOM (see the compound Card rule in rules.css).
+const containsCardPart = (nodes: React.ReactNode): boolean =>
+  React.Children.toArray(nodes).some(child => {
+    if (!React.isValidElement(child)) return false;
+    if (child.type === React.Fragment) {
+      return containsCardPart((child.props as { children?: React.ReactNode }).children);
+    }
+    return isCardPart(child.type);
+  });
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   function Card({ children, ...props }, ref) {
@@ -28,11 +41,13 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     }, [props.href]);
 
     // compound mode: sub-components own padding when present in children
-    const childArray = React.Children.toArray(children);
-    const isCompoundMode = childArray.some(
-      child => React.isValidElement(child) &&
-        (child.type === CardHeader || child.type === CardBody || child.type === CardFooter)
-    );
+    const isCompoundMode = containsCardPart(children);
+
+    // An explicit padding prop keeps the Card's own inset next to its parts. The marker
+    // tells the DOM-driven compound rule in rules.css to leave such a Card alone.
+    const ownPadding = props.padding || props.paddingX || props.paddingY
+      ? { 'data-own-padding': '' }
+      : undefined;
 
     // Only render a keyboard focus ring when Card tag-switches to <a> (href set).
     // Plain <div> isn't focusable, so the class would be dead. Explicit
@@ -42,10 +57,10 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     const focusInjection = props.href && !props.noFocusVisible ? { focusVisible: true as const } : undefined;
 
     if (isCompoundMode) {
-      return <ThemedComponent ref={mergedRef} theme={cardTheme} noPadding {...focusInjection} {...props}>{children}</ThemedComponent>;
+      return <ThemedComponent ref={mergedRef} theme={cardTheme} noPadding {...focusInjection} {...ownPadding} {...props}>{children}</ThemedComponent>;
     }
 
-    return <ThemedComponent ref={mergedRef} theme={cardTheme} {...focusInjection} {...props}>{children}</ThemedComponent>;
+    return <ThemedComponent ref={mergedRef} theme={cardTheme} {...focusInjection} {...ownPadding} {...props}>{children}</ThemedComponent>;
   }
 );
 

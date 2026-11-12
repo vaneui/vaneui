@@ -741,6 +741,27 @@
         flex-shrink: 0;
     }
 
+    /* Compound Card, decided from the rendered DOM: with a part as a direct child the parts own
+       the inset, so the Card's own padding resolves to zero. Card.tsx already drops the padding
+       classes when it can see the parts among its children; this covers the parts it cannot see
+       (rendered by a wrapper component, or arriving from a Server Component), whose Card still
+       carries them. Zeroing the variables instead of `padding` leaves a user className alone.
+       An explicit padding prop on the Card (data-own-padding) keeps its inset. */
+    .vane-card:not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer)) {
+        /* the [data-size] formulas, kept for the children below */
+        --card-py: calc(var(--py-unit) * var(--spacing));
+        --card-px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
+        --py: 0px; --px: 0px;
+        --py-desktop: 0px; --py-tablet: 0px; --py-mobile: 0px;
+        --px-desktop: 0px; --px-tablet: 0px; --px-mobile: 0px;
+    }
+    /* Parts carry no data-size, so they inherit --py/--px from the Card (used when a part turns
+       responsiveSizing off): hand the Card's values back to every child without its own. */
+    .vane-card:not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer)) > :not([data-size]) {
+        --py: var(--card-py);
+        --px: var(--card-px);
+    }
+
     /* Modal compound sub-components */
     .vane-modal-header {
         flex-shrink: 0;
