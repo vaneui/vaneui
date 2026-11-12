@@ -845,6 +845,9 @@
         --app-border: var(--color-border-primary);
         --app-focus: var(--color-focus-primary);
     }
+    /* A table cell has no appearance of its own and follows its Table. Used outside a Table it has
+       nothing to follow, so it keeps the neutral outline palette (see the outline rule below). */
+    .vane-table-cell:not([data-appearance]):not(.vane-table *),
     [data-appearance="secondary"] {
         --app-text: var(--color-text-secondary);
         --app-text-filled: var(--color-text-filled-secondary);
@@ -930,6 +933,7 @@
         --app-focus: var(--color-focus-info);
     }
     /* AXIS 2: VARIANT — maps --app-* palette to final consumer variables */
+    .vane-table-cell:not([data-appearance]):not(.vane-table *),
     [data-variant="outline"] {
         --text-color: var(--app-text);
         --bg-color: var(--app-bg);

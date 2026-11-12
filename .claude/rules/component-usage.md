@@ -540,6 +540,8 @@ Controls whether colors are applied as background fill or as border/text only.
 
 `outline` is the default for most components. Exceptions: `Checkbox`, `Radio`, `Switch` and `Tooltip` default to `filled`, and `Link` has no variant default (it renders as a link).
 
+An appearance or variant on `Table` reaches its rows and cells, so set it once on the table: `<Table success>` colors the row rules and the header text, `<Table filled>` fills the table and its text follows the fill. A cell with its own appearance (`<Td danger>`) keeps it.
+
 ## Shape Props
 
 Controls border-radius. One per component.

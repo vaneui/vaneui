@@ -922,7 +922,7 @@ function FormStateFixtures() {
 
 /* ════════ FORM-STATE FIXTURES (end) ════════ */
 
-// ── Theme engine fixtures (compound Card detection) ──────────────────────────
+// ── Theme engine fixtures (compound Card detection, Table appearance) ────────
 
 /** Card parts that reach the Card through a consumer component, not as its direct React children. */
 function WrappedCardParts({ id, staticSizing }: { id: string; staticSizing?: boolean }) {
@@ -938,6 +938,22 @@ function WrappedCardParts({ id, staticSizing }: { id: string; staticSizing?: boo
 
 /** A lazily resolved part type, the shape a part takes when it arrives from a Server Component. */
 const LazyCardBody = React.lazy(() => Promise.resolve({ default: CardBody }));
+
+/** One header row and one body row; the Table takes the appearance props, the cells take none. */
+function AppearanceTable({ id, ...tableProps }: { id: string } & React.ComponentProps<typeof Table>) {
+  return (
+    <Table data-testid={id} {...tableProps}>
+      <Thead>
+        <Tr><Th data-testid={`${id}-th`}>header</Th></Tr>
+      </Thead>
+      <Tbody>
+        <Tr data-testid={`${id}-tr`}>
+          <Td data-testid={`${id}-td`}><Text data-testid={`${id}-text`}>cell</Text></Td>
+        </Tr>
+      </Tbody>
+    </Table>
+  );
+}
 
 function ThemeEngineFixtures() {
   return (
@@ -978,6 +994,39 @@ function ThemeEngineFixtures() {
       {/* a part nested deeper than a direct child does not make the Card compound */}
       <Card data-testid="cc-nested">
         <div><CardBody data-testid="cc-nested-body">body</CardBody></div>
+      </Card>
+
+      {/* Table appearance: the Table's appearance and variant reach its rows and cells. */}
+      <AppearanceTable id="ta-default"/>
+      <AppearanceTable id="ta-success" success/>
+      <AppearanceTable id="ta-danger-border" danger border/>
+      <AppearanceTable id="ta-filled" filled/>
+      <AppearanceTable id="ta-filled-success" filled success/>
+      {/* a cell's own appearance wins over the Table's */}
+      <Table success data-testid="ta-own">
+        <Thead><Tr><Th danger data-testid="ta-own-th">header</Th></Tr></Thead>
+        <Tbody><Tr><Td danger data-testid="ta-own-td">cell</Td></Tr></Tbody>
+      </Table>
+      {/* a row with its own appearance and variant sits between the Table and its cells */}
+      <Table data-testid="ta-row">
+        <Tbody>
+          <Tr filled info data-testid="ta-row-tr">
+            <Th data-testid="ta-row-th">header</Th>
+            <Td data-testid="ta-row-td">cell</Td>
+          </Tr>
+          <Tr><Td data-testid="ta-row-plain-td">cell</Td></Tr>
+        </Tbody>
+      </Table>
+      {/* cells outside a Table keep the neutral palette, whatever surrounds them */}
+      <Card danger data-testid="ta-standalone">
+        <table>
+          <tbody>
+            <tr>
+              <Th data-testid="ta-standalone-th">header</Th>
+              <Td data-testid="ta-standalone-td">cell</Td>
+            </tr>
+          </tbody>
+        </table>
       </Card>
     </section>
   );
