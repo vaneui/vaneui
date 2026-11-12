@@ -613,7 +613,10 @@ describe('Field radiogroup state', () => {
     const [a] = radiosOf(container);
     fireEvent.click(a);
     expect(a.checked).toBe(false);
-    expect(a).toHaveAttribute('aria-readonly', 'true');
+    // ARIA allows aria-readonly on the radiogroup, not on a radio
+    expect(container.querySelector('[role="radiogroup"]')).toHaveAttribute('aria-readonly', 'true');
+    expect(a).not.toHaveAttribute('aria-readonly');
+    expect(a).toHaveAttribute('data-readonly', 'true');
   });
 
   it('should mark the radios of a child RadioGroup invalid on error', () => {

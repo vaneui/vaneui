@@ -396,7 +396,10 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       dataAttributes['data-readonly'] = 'true';
       // aria-readonly belongs on the control itself; a toggle's wrapper span only takes the visual cue
       const isFormControlTag = typeof componentTag !== 'string' || ['input', 'textarea', 'select'].includes(componentTag);
-      if (rawProps['aria-readonly'] === undefined && isFormControlTag) {
+      // ARIA does not allow aria-readonly on the radio role (it is valid on the radiogroup,
+      // which RadioGroup sets), so a radio input keeps only the native attribute and data-readonly
+      const isRadio = rawProps.type === 'radio';
+      if (rawProps['aria-readonly'] === undefined && isFormControlTag && !isRadio) {
         dataAttributes['aria-readonly'] = 'true';
       }
     }

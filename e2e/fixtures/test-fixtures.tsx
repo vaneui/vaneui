@@ -743,7 +743,8 @@ function LayoutAdditionsFixtures() {
 }
 
 /* ════════ FORM-STATE FIXTURES (start) ════════
-   One block for the form-control state specs: input-stable-node.spec.ts. */
+   One block for the form-control state specs: input-stable-node.spec.ts, plus the read-only
+   toggles that put read-only controls in front of the axe scan (accessibility.spec.ts). */
 
 /** The themed <input> on its own, with the same Field and Label wiring as Input but none of
     Input's wrapper span: the layout reference a valid Input has to match box for box. */
@@ -814,6 +815,38 @@ function LiveValidationFixtures() {
   );
 }
 
+/** Controlled read-only toggles; each state span shows what a form would store. The page-wide
+    axe scan reads them too: a read-only radio must not carry aria-readonly. */
+function ReadOnlyToggleFixtures() {
+  const [checkbox, setCheckbox] = useState(false);
+  const [switchOn, setSwitchOn] = useState(false);
+  const [plan, setPlan] = useState('a');
+  return (
+    <Col data-testid="readonly-toggles">
+      <Label row>
+        <Checkbox readOnly checked={checkbox} onChange={(event) => setCheckbox(event.target.checked)} data-testid="ro-checkbox" />
+        <span data-testid="ro-checkbox-text">Read-only checkbox</span>
+      </Label>
+      <span data-testid="ro-checkbox-state">{String(checkbox)}</span>
+      <Label row>
+        <Switch readOnly checked={switchOn} onChange={(event) => setSwitchOn(event.target.checked)} data-testid="ro-switch" />
+        <span data-testid="ro-switch-text">Read-only switch</span>
+      </Label>
+      <span data-testid="ro-switch-state">{String(switchOn)}</span>
+      <RadioGroup readOnly value={plan} onChange={(event) => setPlan(event.target.value)} aria-label="Read-only plan">
+        <Label row><Radio value="a" data-testid="ro-radio-a" />Starter</Label>
+        <Label row>
+          <Radio value="b" data-testid="ro-radio-b" />
+          <span data-testid="ro-radio-b-text">Pro</span>
+        </Label>
+      </RadioGroup>
+      <span data-testid="ro-radio-state">{plan}</span>
+      {/* a lone read-only Radio, outside any group */}
+      <Label row><Radio readOnly defaultChecked name="ro-lone" data-testid="ro-radio-lone" />Read-only radio</Label>
+    </Col>
+  );
+}
+
 function FormStateFixtures() {
   return (
     <section data-testid="form-state-section">
@@ -824,6 +857,7 @@ function FormStateFixtures() {
         </div>
       ))}
       <LiveValidationFixtures />
+      <ReadOnlyToggleFixtures />
     </section>
   );
 }
