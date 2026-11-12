@@ -421,6 +421,7 @@ function OverlayBehaviorFixtures() {
   const closeEscB = React.useCallback(() => setEscB(false), []);
   const [nestA, setNestA] = useState(false);
   const [nestB, setNestB] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   return (
     <section data-testid="overlay-behavior-section">
       {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
@@ -469,6 +470,20 @@ function OverlayBehaviorFixtures() {
           <Text>inner</Text>
         </Modal>
       </Modal>
+
+      {/* A confirm dialog opened from a menu item. The Modal is declared before the Menu on purpose:
+          its effects run first, so it sees the menu item as the focused element when it opens. */}
+      <Modal
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        title="Delete this file?"
+        data-testid="ob-focus-modal"
+      >
+        <Button data-testid="ob-focus-cancel" onClick={() => setConfirmOpen(false)}>Cancel</Button>
+      </Modal>
+      <Menu data-testid="ob-focus-menu" trigger={<Button data-testid="ob-focus-trigger">File</Button>}>
+        <MenuItem data-testid="ob-focus-item" onClick={() => setConfirmOpen(true)}>Delete</MenuItem>
+      </Menu>
 
       {/* One trigger anchors two popups: a Tooltip and the Menu it opens. */}
       <div style={{ padding: '48px 160px' }}>

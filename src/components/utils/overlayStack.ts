@@ -128,6 +128,48 @@ export function getDescendantOverlays(rootEl: HTMLElement): HTMLElement[] {
   return out;
 }
 
+// ── Openers ──────────────────────────────────────────────────────────────────
+// The element each overlay was opened from: a popup's anchor, or the element
+// that had focus when a dialog trapped it. Unlike the open set above, this is
+// kept for as long as the overlay's element exists, because returning focus
+// needs it while the overlay is closing or already closed: a menu item that
+// opened a dialog is gone when the dialog closes, and the menu's own trigger
+// is the element to go back to.
+const openers = new WeakMap<HTMLElement, () => HTMLElement | null>();
+
+/** Record how to find the element `el` (an overlay's root, or a dialog) was opened from. */
+export function setOverlayOpener(el: HTMLElement, getOpener: () => HTMLElement | null): void {
+  openers.set(el, getOpener);
+}
+
+export function hasOverlayOpener(el: HTMLElement): boolean {
+  return openers.has(el);
+}
+
+function findKnownOverlay(node: Node | null): HTMLElement | null {
+  for (let current: Node | null = node; current; current = current.parentNode) {
+    if (current instanceof HTMLElement && openers.has(current)) return current;
+  }
+  return null;
+}
+
+/** The opener of the nearest overlay that is or contains `node`, or null. */
+export function findOverlayOpener(node: Node | null): HTMLElement | null {
+  const overlay = findKnownOverlay(node);
+  return overlay ? openers.get(overlay)?.() ?? null : null;
+}
+
+/**
+ * True when `node` sits in an overlay that is not open right now: one that is
+ * closing (still mounted for its exit) or kept mounted while closed. Focus
+ * sent there would be lost when the overlay unmounts, or never land at all.
+ */
+export function isInClosedOverlay(node: Node): boolean {
+  const overlay = findKnownOverlay(node);
+  if (!overlay) return false;
+  return !entries.some((entry) => entry.el === overlay || entry.el.contains(overlay));
+}
+
 /** test cleanup */
 export function resetOverlayStack(): void {
   entries.length = 0;

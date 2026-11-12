@@ -13,7 +13,7 @@ import { useMergedRef } from '../../utils/mergedRef';
 import { useHydrated } from '../../utils/useHydrated';
 import { pushEscapeHandler } from '../../utils/escapeStack';
 import { getFocusableElements, useFocusTrap } from '../../utils/focusTrap';
-import { registerOverlay, isInOverlayFamily } from '../../utils/overlayStack';
+import { registerOverlay, isInOverlayFamily, setOverlayOpener } from '../../utils/overlayStack';
 import { addAnchorName } from '../../utils/anchorName';
 
 type PopupPlacement =
@@ -480,6 +480,14 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       if (!popup) return;
       return registerOverlay(popup, resolveParentOverlay());
     }, [effectiveOpen, anchorRef]);
+
+    // The anchor is what this popup was opened from. Recorded for as long as the popup element
+    // exists (not only while open), so a dialog opened from inside it (a menu item) can send
+    // focus back to the anchor after the popup has closed.
+    useIsomorphicLayoutEffect(() => {
+      const popup = popupRef.current;
+      if (popup) setOverlayOpener(popup, () => anchorRef.current);
+    }, [mounted, keepMounted, portal, hydrated, anchorRef]);
 
     useEffect(() => {
       if (!effectiveOpen || !closeOnClickOutside) return;

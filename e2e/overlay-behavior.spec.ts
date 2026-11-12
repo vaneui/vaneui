@@ -122,6 +122,28 @@ test.describe('Escape with two Modals open', () => {
   });
 });
 
+test.describe('Focus return from a Modal opened by a menu item', () => {
+  test('focus goes back to the menu trigger and the page does not scroll', async ({ page }) => {
+    const trigger = page.locator(T('ob-focus-trigger'));
+    await trigger.scrollIntoViewIfNeeded();
+    const scrollBefore = await page.evaluate(() => window.scrollY);
+    // the fixture sits well below the first screen, so a jump to the top would show
+    expect(scrollBefore).toBeGreaterThan(0);
+
+    await trigger.click();
+    await page.locator(T('ob-focus-item')).click();
+    await expect(page.locator(T('ob-focus-modal'))).toHaveAttribute('data-state', 'entered');
+    // the menu, and the item that had focus, are gone by now
+    await expect(page.locator(T('ob-focus-menu'))).toHaveCount(0);
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator(T('ob-focus-modal'))).toHaveCount(0);
+
+    await expect(trigger).toBeFocused();
+    expect(Math.abs((await page.evaluate(() => window.scrollY)) - scrollBefore)).toBeLessThanOrEqual(1);
+  });
+});
+
 for (const path of ['css-anchor', 'js-fallback'] as const) {
   test.describe(`Two popups on one anchor (${path})`, () => {
     test.beforeEach(async ({ page, testPage }) => {
