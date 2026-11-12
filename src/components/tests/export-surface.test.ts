@@ -14,7 +14,8 @@ const EXPECTED_RUNTIME_EXPORTS = [
   'PageTitle', 'Popup', 'PopupTrigger', 'Progress', 'Radio', 'RadioGroup', 'Row', 'Section', 'SectionTitle',
   'Select', 'Spinner', 'Stack', 'Switch',
   'Table', 'Tbody', 'Td', 'Text', 'Textarea', 'Tfoot', 'Th', 'Thead',
-  'ThemeProvider', 'Title', 'Tooltip', 'Tr', 'defaultTheme', 'themeDefaults', 'useOverlayRegistration', 'useTheme',
+  'ThemeProvider', 'Title', 'Tooltip', 'Tr', 'defaultTheme', 'themeDefaults', 'useFieldControlProps',
+  'useOverlayRegistration', 'useTheme',
 ];
 
 describe('public export surface', () => {

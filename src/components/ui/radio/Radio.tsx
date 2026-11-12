@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useMemo, type ChangeEvent, type MouseEvent } from 'react';
 import type { RadioProps } from './RadioProps';
 import { useTheme } from "../../themeContext";
-import { useFieldControlProps } from "../field/FieldContext";
+import { useThemedFieldControlProps } from "../field/FieldContext";
 import { ThemedComponent } from "../../themedComponent";
 import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
 import { useRadioGroupContext } from "./RadioGroupContext";
@@ -15,7 +15,7 @@ const matchesGroupValue = (groupValue: string, value: RadioProps['value']): bool
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(
   function Radio(rawProps, ref) {
-    const props = useFieldControlProps(rawProps);
+    const props = useThemedFieldControlProps(rawProps);
     const theme = useTheme();
     const wrapperThemeBase = theme?.radio.wrapper ?? defaultRadioWrapperTheme;
     const inputThemeBase = theme?.radio.input ?? defaultRadioTheme;

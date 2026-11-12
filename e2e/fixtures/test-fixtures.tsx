@@ -62,11 +62,12 @@ import {
   Td,
   useOverlayRegistration,
   type InputProps,
+  useFieldControlProps,
 } from '../../src';
 // internals behind BareInput (form-state fixtures): the input exactly as Input renders it, minus the wrapper span
 import { ThemedComponent } from '../../src/components/themedComponent';
 import { defaultInputTheme } from '../../src/components/ui/input';
-import { useFieldControlProps } from '../../src/components/ui/field/FieldContext';
+import { useThemedFieldControlProps } from '../../src/components/ui/field/FieldContext';
 import { useLabelSizeContext, withLabelSizeDefault } from '../../src/components/ui/label/LabelSizeContext';
 
 // Simple SVG icon for testing
@@ -744,13 +745,14 @@ function LayoutAdditionsFixtures() {
 
 /* ════════ FORM-STATE FIXTURES (start) ════════
    One block for the form-control state specs: input-stable-node.spec.ts,
-   readonly-toggles.spec.ts, disabled-link.spec.ts and checked-toggle-contrast.spec.ts. The
-   read-only toggles also put read-only controls in front of the axe scan (accessibility.spec.ts). */
+   readonly-toggles.spec.ts, disabled-link.spec.ts, checked-toggle-contrast.spec.ts and
+   field-custom-control.spec.ts. The read-only toggles and the plain <input> in a Field also
+   stand in front of the axe scan (accessibility.spec.ts). */
 
 /** The themed <input> on its own, with the same Field and Label wiring as Input but none of
     Input's wrapper span: the layout reference a valid Input has to match box for box. */
 const BareInput = forwardRef<HTMLInputElement, InputProps>(function BareInput(rawProps, ref) {
-  const props = useFieldControlProps(rawProps);
+  const props = useThemedFieldControlProps(rawProps);
   const labelSize = useLabelSizeContext();
   const theme = useMemo(() => withLabelSizeDefault(defaultInputTheme, labelSize), [labelSize]);
   return <ThemedComponent ref={ref} theme={theme} {...props} />;
@@ -883,6 +885,11 @@ function CheckedToggleFixtures() {
   );
 }
 
+/** A control the library does not ship: a plain <input> that takes its Field wiring from the public hook. */
+function PlainFieldInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input {...useFieldControlProps(props)} />;
+}
+
 function FormStateFixtures() {
   return (
     <section data-testid="form-state-section">
@@ -901,6 +908,14 @@ function FormStateFixtures() {
         <Code href="#followed-code" disabled data-testid="disabled-link-code">code</Code>
       </Row>
       <CheckedToggleFixtures />
+      <Col style={{ width: 360 }}>
+        <Field label="Start date" description="Any weekday" error="Pick a date">
+          <PlainFieldInput data-testid="plain-field-input" />
+        </Field>
+        <Field label="End date">
+          <PlainFieldInput data-testid="plain-field-input-valid" />
+        </Field>
+      </Col>
     </section>
   );
 }
