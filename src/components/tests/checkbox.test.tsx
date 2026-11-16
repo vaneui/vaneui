@@ -1,8 +1,12 @@
 import '@testing-library/jest-dom';
+import { createRef } from 'react';
 import { render } from '@testing-library/react';
 
 import {
   Checkbox,
+  Field,
+  Radio,
+  Switch,
   ThemeProvider,
   defaultTheme
 } from '../../index';
@@ -227,6 +231,39 @@ describe('Checkbox Component Tests', () => {
       expect(checkbox).toHaveClass('checked:[background:var(--checked-bg-color)]');
       // Outline variant uses regular border colors
       expect(checkbox).toHaveClass('border-(--border-color)');
+    });
+
+    // The mark takes its color from the wrapper's variant and the box from the input's. When
+    // `ghost` reached only the input, the wrapper stayed `filled` and drew a white mark on the
+    // white ghost box.
+    it.each(['filled', 'outline', 'ghost'] as const)('sends %s to the wrapper as well as the input', (variant) => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox {...{[variant]: true}} defaultChecked />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input[type="checkbox"]') as HTMLInputElement;
+      expect(input).toHaveAttribute('data-variant', variant);
+      expect(input.parentElement).toHaveAttribute('data-variant', variant);
+      expect(input).not.toHaveAttribute(variant);
+      expect(input.parentElement).not.toHaveAttribute(variant);
+    });
+
+    it.each([
+      ['Checkbox', Checkbox],
+      ['Radio', Radio],
+      ['Switch', Switch],
+    ] as const)('%s ghost: wrapper and input agree on the variant', (_name, Toggle) => {
+      const {container} = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Toggle ghost defaultChecked />
+        </ThemeProvider>
+      );
+
+      const input = container.querySelector('input') as HTMLInputElement;
+      expect(input).toHaveAttribute('data-variant', 'ghost');
+      expect(input.parentElement).toHaveAttribute('data-variant', 'ghost');
     });
 
     it('should use filled variant by default based on theme defaults', () => {
@@ -618,6 +655,92 @@ describe('Checkbox Component Tests', () => {
       decorative.forEach((el) => expect(el).toHaveAttribute('aria-hidden', 'true'));
       // the input itself must NOT be hidden — it carries the actual checkbox state
       expect(wrapper.querySelector('input')).not.toHaveAttribute('aria-hidden');
+    });
+  });
+
+  // The ref is the native control, as for Radio and Switch: code that reads `.checked`,
+  // calls `.focus()` or registers the field by ref needs the <input>, not the wrapper span.
+  describe('Ref forwarding', () => {
+    it('forwards an object ref to the <input>', () => {
+      const ref = createRef<HTMLInputElement>();
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Checkbox ref={ref} defaultChecked /></ThemeProvider>
+      );
+      expect(ref.current).toBeInstanceOf(HTMLInputElement);
+      expect(ref.current).toBe(container.querySelector('input[type="checkbox"]'));
+      expect(ref.current?.checked).toBe(true);
+      ref.current?.focus();
+      expect(document.activeElement).toBe(ref.current);
+    });
+
+    it('forwards a callback ref to the <input> and clears it on unmount', () => {
+      const seen: (HTMLInputElement | null)[] = [];
+      const { container, unmount } = render(
+        <ThemeProvider theme={defaultTheme}><Checkbox ref={(node) => { seen.push(node); }} /></ThemeProvider>
+      );
+      const input = container.querySelector('input[type="checkbox"]');
+      unmount();
+      expect(seen).toEqual([input, null]);
+    });
+
+    it('still drives `indeterminate` when a ref is passed', () => {
+      const ref = createRef<HTMLInputElement>();
+      const ui = (indeterminate: boolean) => (
+        <ThemeProvider theme={defaultTheme}><Checkbox ref={ref} indeterminate={indeterminate} /></ThemeProvider>
+      );
+      const { rerender } = render(ui(true));
+      expect(ref.current?.indeterminate).toBe(true);
+      rerender(ui(false));
+      expect(ref.current?.indeterminate).toBe(false);
+    });
+
+    it('gives the same kind of element as Radio and Switch', () => {
+      const checkbox = createRef<HTMLInputElement>();
+      const radio = createRef<HTMLInputElement>();
+      const toggle = createRef<HTMLInputElement>();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Checkbox ref={checkbox} /><Radio ref={radio} /><Switch ref={toggle} />
+        </ThemeProvider>
+      );
+      for (const ref of [checkbox, radio, toggle]) {
+        expect(ref.current?.tagName).toBe('INPUT');
+      }
+    });
+
+    it('reaches the <input> through a self-rendering Field, as for a switch', () => {
+      const checkbox = createRef<HTMLInputElement>();
+      const toggle = createRef<HTMLInputElement>();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Field type="checkbox" label="Terms" ref={checkbox} />
+          <Field switch label="Alerts" ref={toggle} />
+        </ThemeProvider>
+      );
+      expect(checkbox.current?.tagName).toBe('INPUT');
+      expect(checkbox.current?.type).toBe('checkbox');
+      expect(toggle.current?.tagName).toBe('INPUT');
+    });
+
+    it('reaches the <input> on a Checkbox passed to Field as a child', () => {
+      const ref = createRef<HTMLInputElement>();
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Field label="Terms"><Checkbox ref={ref} /></Field>
+        </ThemeProvider>
+      );
+      expect(ref.current).toBe(container.querySelector('input[type="checkbox"]'));
+      // the label points at the element the ref holds
+      expect(container.querySelector('label')).toHaveAttribute('for', ref.current?.id);
+    });
+
+    it('keeps className on the wrapper, not on the ref target', () => {
+      const ref = createRef<HTMLInputElement>();
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}><Checkbox ref={ref} className="custom-checkbox" /></ThemeProvider>
+      );
+      expect(container.firstElementChild).toHaveClass('custom-checkbox');
+      expect(ref.current).not.toHaveClass('custom-checkbox');
     });
   });
 });

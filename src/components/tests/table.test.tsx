@@ -1,5 +1,7 @@
 import '@testing-library/jest-dom';
 import React from 'react';
+import * as fs from 'fs';
+import * as path from 'path';
 import { render } from '@testing-library/react';
 
 import {
@@ -191,11 +193,13 @@ describe('Table Component Tests', () => {
       expect(th).toHaveClass('text-(length:--fs)'); // font-size scales with size
     });
 
-    it('has data-vane-type="layout" and secondary appearance', () => {
+    it('has data-vane-type="layout" and no appearance of its own', () => {
       const { container } = renderInRow(<Th>H</Th>);
       const th = container.querySelector('th');
       expect(th).toHaveAttribute('data-vane-type', 'layout');
-      expect(th).toHaveAttribute('data-appearance', 'secondary');
+      // a pinned appearance here would stop the Table's colors at the cell
+      expect(th).not.toHaveAttribute('data-appearance');
+      expect(th).not.toHaveAttribute('data-variant');
     });
 
     it('un-sized cell emits no data-size (so it follows the table/row size cascade)', () => {
@@ -332,6 +336,155 @@ describe('Table Component Tests', () => {
       expect(container.querySelectorAll('th.vane-table-cell')).toHaveLength(2);
       expect(container.querySelectorAll('td.vane-table-cell')).toHaveLength(2);
       expect(container.querySelectorAll('tr.vane-table-row')).toHaveLength(2);
+    });
+  });
+
+  describe('Appearance and variant cascade', () => {
+    const SURFACE_CLASSES = ['bg-(--bg-color)', 'text-(--text-color)'];
+    // the selector that keeps a cell outside a Table on the neutral outline palette
+    const STANDALONE_CELL = '.vane-table-cell:not([data-appearance]):not(.vane-table *)';
+
+    function renderFullTable(tableProps: Record<string, unknown> = {}, cellProps: Record<string, unknown> = {}) {
+      return render(
+        <ThemeProvider theme={defaultTheme}>
+          {React.createElement(Table, tableProps,
+            <Thead><Tr>{React.createElement(Th, cellProps, 'Name')}</Tr></Thead>,
+            <Tbody><Tr>{React.createElement(Td, cellProps, 'Ada')}</Tr></Tbody>
+          )}
+        </ThemeProvider>
+      );
+    }
+
+    it('default cells carry no appearance or variant, so the Table\'s colors reach them', () => {
+      const { container } = renderFullTable();
+      for (const cell of container.querySelectorAll('.vane-table-cell')) {
+        expect(cell).not.toHaveAttribute('data-appearance');
+        expect(cell).not.toHaveAttribute('data-variant');
+        // the consumer class stays, reading the color the Table set
+        expect(cell).toHaveClass('border-(--border-color)');
+      }
+      expect(container.querySelector('th')).toHaveClass('text-(--text-color)');
+      expect(container.querySelector('td')).not.toHaveClass('text-(--text-color)');
+    });
+
+    it('the default Table keeps its attributes and paints no surface', () => {
+      const { container } = renderFullTable();
+      const table = container.querySelector('.vane-table');
+      expect(table).toHaveAttribute('data-appearance', 'secondary');
+      expect(table).toHaveAttribute('data-variant', 'outline');
+      for (const cls of SURFACE_CLASSES) expect(table).not.toHaveClass(cls);
+    });
+
+    it.each(['primary', 'accent', 'tertiary', 'success', 'danger', 'warning', 'info'] as const)(
+      'an outline %s Table is the only element that names the appearance',
+      (appearance) => {
+        const { container } = renderFullTable({ [appearance]: true });
+        const table = container.querySelector('.vane-table');
+        expect(table).toHaveAttribute('data-appearance', appearance);
+        expect(table).toHaveAttribute('data-variant', 'outline');
+        for (const cls of SURFACE_CLASSES) expect(table).not.toHaveClass(cls);
+        expect(container.querySelectorAll('.vane-table [data-appearance]')).toHaveLength(0);
+        expect(container.querySelectorAll('.vane-table [data-variant]')).toHaveLength(0);
+      }
+    );
+
+    it('a filled Table paints its surface: background and text consumers', () => {
+      const { container } = renderFullTable({ filled: true });
+      const table = container.querySelector('.vane-table');
+      expect(table).toHaveAttribute('data-appearance', 'secondary');
+      expect(table).toHaveAttribute('data-variant', 'filled');
+      expect(table).toHaveClass(...SURFACE_CLASSES);
+      expect(container.querySelectorAll('.vane-table [data-variant]')).toHaveLength(0);
+    });
+
+    it('a filled Table with an appearance fills in that appearance', () => {
+      const { container } = renderFullTable({ filled: true, success: true });
+      const table = container.querySelector('.vane-table');
+      expect(table).toHaveAttribute('data-appearance', 'success');
+      expect(table).toHaveAttribute('data-variant', 'filled');
+      expect(table).toHaveClass(...SURFACE_CLASSES);
+    });
+
+    it('a ghost Table paints no surface', () => {
+      const { container } = renderFullTable({ ghost: true });
+      const table = container.querySelector('.vane-table');
+      expect(table).toHaveAttribute('data-variant', 'ghost');
+      for (const cls of SURFACE_CLASSES) expect(table).not.toHaveClass(cls);
+    });
+
+    it('a cell\'s own appearance wins over the Table\'s', () => {
+      const { container } = renderFullTable({ success: true }, { danger: true });
+      for (const cell of container.querySelectorAll('.vane-table-cell')) {
+        expect(cell).toHaveAttribute('data-appearance', 'danger');
+        expect(cell).toHaveAttribute('data-variant', 'outline');
+      }
+    });
+
+    it('a cell\'s own variant applies together with its own appearance', () => {
+      const { container } = renderFullTable({}, { info: true, filled: true });
+      for (const cell of container.querySelectorAll('.vane-table-cell')) {
+        expect(cell).toHaveAttribute('data-appearance', 'info');
+        expect(cell).toHaveAttribute('data-variant', 'filled');
+      }
+    });
+
+    it('an explicit `secondary` on a cell still pins it', () => {
+      const { container } = renderFullTable({ success: true }, { secondary: true });
+      for (const cell of container.querySelectorAll('.vane-table-cell')) {
+        expect(cell).toHaveAttribute('data-appearance', 'secondary');
+        expect(cell).toHaveAttribute('data-variant', 'outline');
+      }
+    });
+
+    it('themeDefaults can still give every cell an appearance', () => {
+      const { container } = render(
+        <ThemeProvider themeDefaults={{ table: { td: { warning: true } } }}>
+          <Table><Tbody><Tr><Td>Ada</Td></Tr></Tbody></Table>
+        </ThemeProvider>
+      );
+      const td = container.querySelector('td');
+      expect(td).toHaveAttribute('data-appearance', 'warning');
+      expect(td).toHaveAttribute('data-variant', 'outline');
+    });
+
+    it('a row or section with its own appearance and variant sits between the Table and its cells', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Table>
+            <Thead filled secondary><Tr><Th>Name</Th></Tr></Thead>
+            <Tbody><Tr danger outline><Td>Ada</Td></Tr></Tbody>
+          </Table>
+        </ThemeProvider>
+      );
+      // nothing on the cell overrides what the row or section resolved
+      expect(container.querySelector('th')?.closest('[data-variant]')).toBe(container.querySelector('thead'));
+      expect(container.querySelector('td')?.closest('[data-variant]')).toBe(container.querySelector('tbody tr'));
+    });
+
+    it('a cell outside a Table matches the neutral-palette fallback, a cell inside one does not', () => {
+      const standalone = renderInRow(<><Th>H</Th><Td>B</Td></>);
+      for (const cell of standalone.container.querySelectorAll('.vane-table-cell')) {
+        expect(cell.matches(STANDALONE_CELL)).toBe(true);
+      }
+      const inTable = renderFullTable();
+      for (const cell of inTable.container.querySelectorAll('.vane-table-cell')) {
+        expect(cell.matches(STANDALONE_CELL)).toBe(false);
+      }
+      // a cell with its own appearance never needs the fallback
+      const own = renderInRow(<Td danger>B</Td>);
+      expect(own.container.querySelector('td')?.matches(STANDALONE_CELL)).toBe(false);
+    });
+
+    it('the stylesheet gives that fallback the secondary palette and the outline mapping', () => {
+      const rulesCss = fs.readFileSync(path.join(__dirname, '../css/rules.css'), 'utf8');
+      const ruleFor = (firstSelector: string) => {
+        const start = rulesCss.indexOf(`${STANDALONE_CELL},\n    ${firstSelector} {`);
+        return start === -1 ? '' : rulesCss.slice(start, rulesCss.indexOf('}', start));
+      };
+      expect(ruleFor('[data-appearance="secondary"]')).toContain('--app-border: var(--color-border-secondary);');
+      expect(ruleFor('[data-appearance="secondary"]')).toContain('--app-text: var(--color-text-secondary);');
+      expect(ruleFor('[data-variant="outline"]')).toContain('--border-color: var(--app-border);');
+      expect(ruleFor('[data-variant="outline"]')).toContain('--text-color: var(--app-text);');
     });
   });
 });

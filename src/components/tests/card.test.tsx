@@ -1,4 +1,6 @@
 import '@testing-library/jest-dom';
+import * as fs from 'fs';
+import * as path from 'path';
 import React from 'react';
 import { render } from '@testing-library/react';
 
@@ -1078,6 +1080,157 @@ describe('Card Component Tests', () => {
       const card = container.querySelector('a.vane-card');
       expect(card).toBeInTheDocument();
       expect(card).toHaveAttribute('href', '/details');
+    });
+  });
+
+  // Compound mode must not depend on the parts being the Card's direct React children:
+  // a fragment, a memo() wrapper or a consumer component in between used to leave the
+  // Card's own padding in place, doubling the inset.
+  describe('Compound mode through fragments and wrapper components', () => {
+    const PADDING_CLASSES = [
+      'px-(--px-desktop)', 'max-tablet:px-(--px-tablet)', 'max-mobile:px-(--px-mobile)',
+      'py-(--py-desktop)', 'max-tablet:py-(--py-tablet)', 'max-mobile:py-(--py-mobile)',
+    ];
+    const expectNoPaddingClasses = (card: Element | null) => {
+      expect(card).toBeInTheDocument();
+      PADDING_CLASSES.forEach(cls => expect(card).not.toHaveClass(cls));
+    };
+
+    // the rule in rules.css that zeroes the Card's own inset from the rendered DOM
+    const rulesCss = fs.readFileSync(path.resolve(__dirname, '../css/rules.css'), 'utf-8');
+    const COMPOUND_SELECTOR =
+      '.vane-card:not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer))';
+    // true when the shipped stylesheet has the rule and the rendered Card is selected by it
+    const zeroedByCompoundRule = (card: Element | null) =>
+      rulesCss.includes(COMPOUND_SELECTOR) && (card as HTMLElement).matches(COMPOUND_SELECTOR);
+
+    it('drops the padding classes for the direct-children form (unchanged output)', () => {
+      const { container } = render(
+        <Card>
+          <CardHeader>Header</CardHeader>
+          <CardBody>Body</CardBody>
+        </Card>
+      );
+      const card = container.querySelector('.vane-card');
+      expectNoPaddingClasses(card);
+      expect(card).not.toHaveAttribute('data-own-padding');
+    });
+
+    it('detects parts wrapped in a fragment', () => {
+      const { container } = render(
+        <Card>
+          <>
+            <CardHeader>Header</CardHeader>
+            <CardBody>Body</CardBody>
+          </>
+        </Card>
+      );
+      expectNoPaddingClasses(container.querySelector('.vane-card'));
+    });
+
+    it('detects parts in a conditional fragment next to other children', () => {
+      const showFooter = true;
+      const { container } = render(
+        <Card>
+          <div>Intro</div>
+          {showFooter && (
+            <>
+              <>
+                <CardFooter>Footer</CardFooter>
+              </>
+            </>
+          )}
+        </Card>
+      );
+      expectNoPaddingClasses(container.querySelector('.vane-card'));
+    });
+
+    it('detects a memo()-wrapped part', () => {
+      const MemoHeader = React.memo(CardHeader);
+      const { container } = render(
+        <Card>
+          <MemoHeader>Header</MemoHeader>
+        </Card>
+      );
+      expectNoPaddingClasses(container.querySelector('.vane-card'));
+    });
+
+    it('ships a CSS rule that zeroes the inset of a Card with a part as a direct DOM child', () => {
+      expect(rulesCss.includes(COMPOUND_SELECTOR)).toBe(true);
+      const rule = rulesCss.slice(rulesCss.indexOf(COMPOUND_SELECTOR));
+      const declarations = rule.slice(rule.indexOf('{'), rule.indexOf('}'));
+      ['--py', '--px', '--py-desktop', '--py-tablet', '--py-mobile', '--px-desktop', '--px-tablet', '--px-mobile']
+        .forEach(name => expect(declarations).toMatch(new RegExp(`${name}:\\s*0px`)));
+    });
+
+    it('matches that rule when the parts come from a wrapper component', () => {
+      // React cannot see through a consumer component (or a server-rendered child), so the
+      // Card keeps its padding classes; the DOM-driven rule is what removes the inset.
+      const Sections = () => (
+        <>
+          <CardHeader>Header</CardHeader>
+          <CardBody>Body</CardBody>
+        </>
+      );
+      const { container } = render(<Card><Sections/></Card>);
+      const card = container.querySelector('.vane-card') as HTMLElement;
+      expect(card.querySelector(':scope > .vane-card-header')).toBeInTheDocument();
+      expect(zeroedByCompoundRule(card)).toBe(true);
+    });
+
+    it('matches that rule for a lazily resolved part type', async () => {
+      // a child that arrives from a Server Component is a lazy reference, not the part itself
+      const LazyBody = React.lazy(() => Promise.resolve({ default: CardBody }));
+      const { container, findByText } = render(
+        <React.Suspense fallback={null}>
+          <Card><LazyBody>Lazy body</LazyBody></Card>
+        </React.Suspense>
+      );
+      await findByText('Lazy body');
+      expect(zeroedByCompoundRule(container.querySelector('.vane-card'))).toBe(true);
+    });
+
+    it('does not match that rule for a plain Card or for parts nested deeper', () => {
+      const { container } = render(
+        <>
+          <Card data-testid="plain">Simple content</Card>
+          <Card data-testid="nested"><div><CardBody>Body</CardBody></div></Card>
+        </>
+      );
+      container.querySelectorAll('.vane-card').forEach(card => {
+        expect(card.matches(COMPOUND_SELECTOR)).toBe(false);
+        PADDING_CLASSES.forEach(cls => expect(card).toHaveClass(cls));
+      });
+    });
+
+    it.each(['padding', 'paddingX', 'paddingY'] as const)(
+      'keeps an explicit %s on a compound Card and opts it out of the rule',
+      (prop) => {
+        const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+        const { container } = render(
+          React.createElement(Card, { [prop]: true }, <CardBody>Body</CardBody>)
+        );
+        warn.mockRestore();
+        const card = container.querySelector('.vane-card') as HTMLElement;
+        expect(card).toHaveAttribute('data-own-padding', '');
+        expect(card.matches(COMPOUND_SELECTOR)).toBe(false);
+        if (prop !== 'paddingY') expect(card).toHaveClass('px-(--px-desktop)');
+        if (prop !== 'paddingX') expect(card).toHaveClass('py-(--py-desktop)');
+        expect(card).not.toHaveAttribute(prop);
+      }
+    );
+
+    it('adds no marker attribute to a Card without an explicit padding prop', () => {
+      const { container } = render(
+        <>
+          <Card>Plain</Card>
+          <Card noPadding>Flush</Card>
+          <Card padding={false}>Off</Card>
+        </>
+      );
+      container.querySelectorAll('.vane-card').forEach(card => {
+        expect(card).not.toHaveAttribute('data-own-padding');
+      });
     });
   });
 

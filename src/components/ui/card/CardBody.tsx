@@ -3,6 +3,7 @@ import type { CardBodyProps } from "./CardBodyProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { defaultCardBodyTheme } from "./defaultCardBodyTheme";
+import { markCardPart } from "./cardParts";
 
 export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
   function CardBody(props, ref) {
@@ -12,3 +13,4 @@ export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
 );
 
 CardBody.displayName = 'CardBody';
+markCardPart(CardBody);

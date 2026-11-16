@@ -1,4 +1,5 @@
 import { useEffect, useRef, RefObject } from 'react';
+import { findOverlayOpener, hasOverlayOpener, isInClosedOverlay, setOverlayOpener } from './overlayStack';
 
 const FOCUSABLE_SELECTOR = [
   'a[href]',
@@ -21,12 +22,41 @@ export interface FocusTrapOptions {
   initialFocus?: RefObject<HTMLElement | null>;
 }
 
+// Where focus may go when a trap is released: the element that had focus when the trap was set
+// up, then stand-ins for it. A menu item that opens a dialog is gone when the dialog closes
+// (its menu has closed), so the menu's trigger stands in for it, then that menu's own opener,
+// and so on outward. Resolved when the trap is set up, while those overlays are still in the DOM.
+function getReturnTargets(trigger: Element | null): HTMLElement[] {
+  const targets: HTMLElement[] = [];
+  let el: Element | null = trigger;
+  while (el instanceof HTMLElement && el !== document.body && !targets.includes(el)) {
+    targets.push(el);
+    el = findOverlayOpener(el);
+  }
+  return targets;
+}
+
+function restoreFocus(targets: HTMLElement[]): void {
+  for (let i = 0; i < targets.length; i++) {
+    const target = targets[i];
+    // gone, or inside an overlay that has closed since (hidden, or about to unmount)
+    if (!target.isConnected || isInClosedOverlay(target)) continue;
+    // the original trigger keeps the browser's default scrolling; a stand-in must not move the page
+    target.focus(i === 0 ? undefined : { preventScroll: true });
+    if (document.activeElement === target) return;
+  }
+  // Nothing left to return to (the opener is gone, or the dialog was opened without one).
+  // Focus stays where the browser leaves it: sending it to some other element, such as the
+  // first focusable one on the page, scrolls there and loses the user's place.
+}
+
 export function createFocusTrap(
   container: HTMLElement,
   triggerElement: Element | null,
   options?: FocusTrapOptions
 ): () => void {
   const { returnFocus = true, initialFocus } = options || {};
+  const returnTargets = getReturnTargets(triggerElement);
 
   requestAnimationFrame(() => {
     if (initialFocus?.current) {
@@ -76,16 +106,7 @@ export function createFocusTrap(
 
   return () => {
     document.removeEventListener('keydown', handleKeyDown);
-    if (!returnFocus) return;
-    if (triggerElement instanceof HTMLElement && triggerElement !== document.body && triggerElement.isConnected) {
-      triggerElement.focus();
-      return;
-    }
-    // Trigger is gone or never existed (opened programmatically / from a control
-    // that unmounts): don't strand focus on <body> — move it to a real element.
-    // Deferred so the background's `inert` (removed during this same unmount) is
-    // gone before we try to focus a background element.
-    requestAnimationFrame(() => getFocusableElements(document.body)[0]?.focus());
+    if (returnFocus) restoreFocus(returnTargets);
   };
 }
 
@@ -98,8 +119,17 @@ export function useFocusTrap(
 
   useEffect(() => {
     if (enabled && containerRef.current) {
+      const container = containerRef.current;
       triggerRef.current = document.activeElement;
-      return createFocusTrap(containerRef.current, triggerRef.current, options);
+      // let a dialog opened from inside this one find its way back out; a popup that already
+      // recorded its anchor keeps it
+      if (!hasOverlayOpener(container)) {
+        setOverlayOpener(container, () => {
+          const trigger = triggerRef.current;
+          return trigger instanceof HTMLElement && trigger !== document.body ? trigger : null;
+        });
+      }
+      return createFocusTrap(container, triggerRef.current, options);
     }
   }, [enabled, containerRef, options?.returnFocus, options?.initialFocus]);
 }

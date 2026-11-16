@@ -3,7 +3,7 @@ import type { SelectProps } from "./SelectProps";
 import type { SelectChevronProps } from "./SelectChevronProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
-import { useFieldControlProps } from "../field/FieldContext";
+import { useThemedFieldControlProps } from "../field/FieldContext";
 import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
 import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
 import { defaultSelectTheme } from "./defaultSelectTheme";
@@ -12,7 +12,7 @@ import { defaultSelectWrapperTheme } from "./defaultSelectWrapperTheme";
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   function Select(rawProps, ref) {
-    const props = useFieldControlProps(rawProps);
+    const props = useThemedFieldControlProps(rawProps);
     const theme = useTheme();
     const selectThemeBase = theme?.select ?? defaultSelectTheme;
     const chevronTheme = theme?.selectChevron ?? defaultSelectChevronTheme;

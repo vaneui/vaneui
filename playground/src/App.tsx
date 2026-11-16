@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type InputHTMLAttributes } from 'react';
 import {
   ThemeProvider,
   defaultTheme,
@@ -31,13 +31,19 @@ import {
   Menu,
   MenuItem,
   Field,
-  RadioGroup,
+  useFieldControlProps,
   Radio,
+  Switch,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  ModalCloseButton,
 } from '../../src';
 
 const TestSvg = () => (
@@ -102,54 +108,100 @@ function ThemeShowcase() {
 
 const LOGO_SRC = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#2563eb"/></svg>')}`;
 
-function ReviewMenu() {
-  const [pinned, setPinned] = useState(false);
-  return (
-    <Menu trigger={<Tooltip content="More actions"><IconButton aria-label="More actions"><TestSvg /></IconButton></Tooltip>}>
-      <MenuItem>Rename</MenuItem>
-      <MenuItem role="menuitemcheckbox" aria-checked={pinned} onClick={() => setPinned(!pinned)}>
-        {pinned ? 'Unpin' : 'Pin'} to sidebar
-      </MenuItem>
-      <Divider />
-      <MenuItem danger>Delete</MenuItem>
-    </Menu>
-  );
-}
-
-const FILTERS = ['Open', 'Merged', 'Draft'];
-
-function FilterChips() {
-  const [active, setActive] = useState('Open');
-  return (
-    <Row flexWrap>
-      {FILTERS.map(filter => (
-        <Chip key={filter} primary={filter === active} aria-pressed={filter === active} onClick={() => setActive(filter)}>
-          {filter}
-        </Chip>
-      ))}
-    </Row>
-  );
-}
-
-function CloseButtonModal() {
-  const [open, setOpen] = useState(false);
+/* A Tooltip and a Menu on one trigger, a dialog opened from a menu item, and a second dialog
+   on top of it. */
+function ProjectMenu() {
+  const [rename, setRename] = useState(false);
+  const [discard, setDiscard] = useState(false);
   return (
     <>
-      <Button secondary onClick={() => setOpen(true)}>Open dialog</Button>
-      <Modal open={open} onClose={() => setOpen(false)} aria-label="Discard draft" withCloseButton={false}>
+      <Menu trigger={<Tooltip content="Project actions"><IconButton aria-label="Project actions"><TestSvg /></IconButton></Tooltip>}>
+        <MenuItem onClick={() => setRename(true)}>Rename</MenuItem>
+        <MenuItem>Duplicate</MenuItem>
+        <Divider />
+        <MenuItem danger>Delete</MenuItem>
+      </Menu>
+      <Modal open={rename} onClose={() => setRename(false)} aria-label="Rename project">
         <ModalHeader>
-          <Title>Discard draft?</Title>
-          <ModalCloseButton md />
+          <Title>Rename project</Title>
         </ModalHeader>
         <ModalBody>
-          <Text>The draft has not been saved. Discarding it cannot be undone.</Text>
+          <Field label="Name" description="Select the text and let go over the backdrop: the dialog stays open.">
+            <Input defaultValue="vaneui-web" />
+          </Field>
         </ModalBody>
         <ModalFooter>
-          <ModalCloseButton secondary>Keep editing</ModalCloseButton>
-          <Button danger filled onClick={() => setOpen(false)}>Discard</Button>
+          <Button type="button" secondary onClick={() => setDiscard(true)}>Discard</Button>
+          <Button type="button" filled onClick={() => setRename(false)}>Save</Button>
+        </ModalFooter>
+      </Modal>
+      <Modal sm open={discard} onClose={() => setDiscard(false)} aria-label="Discard changes">
+        <ModalBody>
+          <Text>Escape closes this dialog first, then the one under it.</Text>
+        </ModalBody>
+        <ModalFooter>
+          <Button type="button" danger filled onClick={() => { setDiscard(false); setRename(false); }}>Discard</Button>
         </ModalFooter>
       </Modal>
     </>
+  );
+}
+
+const TIME_ZONES = Array.from({ length: 27 }, (_, i) => `UTC${i < 12 ? '-' : '+'}${Math.abs(i - 12)}`);
+
+/* Validates on every keystroke, so `invalid` flips while the field has focus. */
+function LiveValidation() {
+  const [email, setEmail] = useState('');
+  const error = email && !email.includes('@') ? 'An address needs an @.' : '';
+  return (
+    <Field label="Email" error={error} description="Type a few letters, then an @.">
+      <Input type="email" value={email} onChange={event => setEmail(event.target.value)} />
+    </Field>
+  );
+}
+
+function ReadOnlyToggles() {
+  const [checked, setChecked] = useState(true);
+  const toggle = () => setChecked(value => !value);
+  return (
+    <Col whitespaceNowrap>
+      <Label row><Checkbox readOnly checked={checked} onChange={toggle} /> Read-only checkbox</Label>
+      <Label row><Switch readOnly checked={checked} onChange={toggle} /> Read-only switch</Label>
+    </Col>
+  );
+}
+
+/* A control the library does not ship: the hook hands it the Field's id and aria attributes. */
+function DateInput(props: InputHTMLAttributes<HTMLInputElement>) {
+  return <input type="date" {...useFieldControlProps(props)} />;
+}
+
+/* Parts rendered by a component: the Card cannot see them among its own children. */
+function PlanParts() {
+  return (
+    <>
+      <CardHeader>
+        <Title sm>Team plan</Title>
+        <Badge success>Active</Badge>
+      </CardHeader>
+      <CardBody>
+        <Text sm>Header and body come from a component of your own.</Text>
+      </CardBody>
+    </>
+  );
+}
+
+function ChecksTable(props: { success?: boolean; filled?: boolean }) {
+  return (
+    <Table sm {...props}>
+      <Thead>
+        <Tr><Th>Check</Th><Th>Result</Th></Tr>
+      </Thead>
+      <Tbody>
+        <Tr><Td>Build</Td><Td>Passed</Td></Tr>
+        <Tr><Td>Tests</Td><Td>Passed</Td></Tr>
+      </Tbody>
+    </Table>
   );
 }
 
@@ -163,7 +215,7 @@ function App() {
           <Text secondary>
             Divided grids, strong borders, NavLink indicators, shadow sizes, light islands inside{' '}
             <Code sm>data-theme="dark"</Code>, the label-sized <Code sm>Tooltip</Code>, and the fixes
-            from the component review.
+            from the project review.
           </Text>
 
           {/* ═══ 1. GRIDS, BORDERS, INDICATORS ═══════════════════════════════ */}
@@ -387,66 +439,71 @@ function App() {
 
           {/* ═══ 4. REVIEW FIXES ═════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>4. Fixes from the component review</SectionTitle>
+          <SectionTitle>4. Fixes from the project review</SectionTitle>
 
           <Card>
-            <Title>Tooltip as a menu trigger</Title>
+            <Title>Menus and dialogs</Title>
             <Text sm secondary>
-              A <Code sm>Tooltip</Code> passes the menu's ref, handlers and aria attributes to its
-              button, so the menu opens on click. The middle item is a{' '}
-              <Code sm>menuitemcheckbox</Code>: <Code sm>MenuItem</Code> keeps a passed role.
+              The first trigger has a <Code sm>Tooltip</Code> and a <Code sm>Menu</Code>: the menu
+              stays on its button after the tooltip closes. Rename opens a dialog that returns focus
+              to the trigger, and what you type stays while it fades out. The second menu has more
+              items than fit, so it scrolls.
             </Text>
-            <Row><ReviewMenu /></Row>
+            <Row>
+              <ProjectMenu />
+              <Menu trigger={<Button secondary>Time zone</Button>}>
+                {TIME_ZONES.map(zone => <MenuItem key={zone}>{zone}</MenuItem>)}
+              </Menu>
+            </Row>
           </Card>
 
           <Card>
             <Title>Form state</Title>
             <Text sm secondary>
-              Group state reaches every radio, a <Code sm>Select</Code> takes a placeholder, and a
-              disabled Field dims its label.
+              An <Code sm>Input</Code> keeps focus while <Code sm>invalid</Code> flips, read-only
+              toggles do not call <Code sm>onChange</Code>, and a plain input takes the Field's
+              wiring from <Code sm>useFieldControlProps</Code>.
             </Text>
             <Row tabletStack itemsStart>
-              <Field label="Plan" error="Pick a plan to continue">
-                <RadioGroup name="plan">
-                  <Label row><Radio value="free" /> Free</Label>
-                  <Label row><Radio value="pro" /> Pro</Label>
-                </RadioGroup>
+              <LiveValidation />
+              <ReadOnlyToggles />
+              <Field label="Start date" description="A plain date input.">
+                <DateInput />
               </Field>
-              <Field select label="Region" placeholder="Choose a region" required>
-                <option value="eu">Europe</option>
-                <option value="us">United States</option>
-              </Field>
-              <Field type="email" label="Email" disabled defaultValue="team@example.com" />
             </Row>
           </Card>
 
           <Card>
-            <Title>Clickable chips</Title>
+            <Title>Checked state in every variant</Title>
             <Text sm secondary>
-              A chip with <Code sm>onClick</Code> is a button for the keyboard too: Tab to it, then
-              Enter or Space.
-            </Text>
-            <FilterChips />
-          </Card>
-
-          <Card>
-            <Title>Arrow gap and sticky rows</Title>
-            <Text sm secondary>
-              With <Code sm>arrow</Code>, the gap is measured from the tip, so it never touches the
-              trigger. A <Code sm>sticky</Code> row sticks at the top with no extra class.
+              The mark and the box stay visible in <Code sm>outline</Code> and <Code sm>ghost</Code>.
+              A disabled <Code sm>Chip</Code> link cannot be followed.
             </Text>
             <Row flexWrap>
-              <Tooltip xl arrow placeBottom content="The tip clears the button at every size">
-                <Button lg secondary>xl arrow</Button>
-              </Tooltip>
-              <CloseButtonModal />
+              <Label row><Checkbox defaultChecked /> filled</Label>
+              <Label row><Checkbox outline defaultChecked /> outline</Label>
+              <Label row><Checkbox ghost defaultChecked /> ghost</Label>
+              <Label row><Radio outline name="variant-outline" defaultChecked /> outline</Label>
+              <Label row><Radio ghost name="variant-ghost" defaultChecked /> ghost</Label>
+              <Chip href="https://vaneui.com" disabled>Disabled link</Chip>
             </Row>
-            <Col noGap border style={{ height: 120, overflow: 'auto' }}>
-              <Row sticky primary filled paddingX>Inbox</Row>
-              {Array.from({ length: 8 }, (_, i) => (
-                <Row key={i} paddingX><Text sm>Message {i + 1}</Text></Row>
-              ))}
-            </Col>
+          </Card>
+
+          <Card>
+            <Title>Card parts, Table colors and className</Title>
+            <Text sm secondary>
+              A <Code sm>Card</Code> drops its own padding when its parts come from another
+              component. An appearance or <Code sm>filled</Code> on a <Code sm>Table</Code> reaches
+              its cells. <Code sm>className="py-8"</Code> on the last card holds on a phone too.
+            </Text>
+            <Row tabletStack itemsStart>
+              <Card sm><PlanParts /></Card>
+              <Card sm className="py-8"><Text sm>py-8 at every width</Text></Card>
+            </Row>
+            <Row tabletStack itemsStart>
+              <ChecksTable success />
+              <ChecksTable filled />
+            </Row>
           </Card>
 
         </Container>

@@ -3,6 +3,7 @@ import type { PopupTriggerProps } from './PopupTriggerProps';
 import { Popup } from './Popup';
 import { useControllableState } from '../../utils/controllableState';
 import { composeRefs, getElementRef } from '../../utils/composeRefs';
+import { useTriggerLabelId } from '../../utils/triggerLabel';
 
 export function PopupTrigger({
   children,
@@ -30,8 +31,8 @@ export function PopupTrigger({
   });
   const anchorRef = useRef<HTMLElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
-  const generatedId = useId();
-  const popupId = popupIdProp || `popup-trigger-${generatedId.replace(/:/g, '-')}`;
+  const generatedId = useId().replace(/:/g, '-');
+  const popupId = popupIdProp || `popup-trigger-${generatedId}`;
   const prevOpenRef = useRef(false);
   // set only while we programmatically return focus to the trigger on close, so
   // a hover/focus trigger's onFocus doesn't immediately re-open the popup
@@ -159,6 +160,17 @@ export function PopupTrigger({
           'aria-controls': !disabled && open ? popupId : undefined,
         };
 
+  // The popup takes its accessible name from the trigger (a dialog without a name is an ARIA
+  // violation), unless it is a tooltip, which is named by its own text, or the consumer named it.
+  // The trigger gets an id only for this reference, and only when it has none of its own.
+  const popupHasOwnName = Boolean(popupProps?.['aria-label'] || popupProps?.['aria-labelledby']);
+  const labelledBy = useTriggerLabelId(
+    anchorRef,
+    (children as React.ReactElement<{ id?: string }>).props?.id,
+    `popup-trigger-anchor-${generatedId}`,
+    !isTooltip && !popupHasOwnName,
+  );
+
   // compose with the trigger's own ref — cloneElement would silently
   // replace a ref the consumer attached to their trigger element
   const triggerElement = cloneElement(children, {
@@ -188,6 +200,7 @@ export function PopupTrigger({
         onClose={handleClose}
         anchorRef={anchorRef}
         id={popupId}
+        aria-labelledby={labelledBy}
         disabled={disabled}
         // click-opened dialogs portal to document.body, breaking Tab order —
         // move focus in on open; never steal focus for hover/focus modes or

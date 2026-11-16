@@ -14,6 +14,10 @@ export class FontSizeClassMapper extends BaseClassMapper implements Record<Respo
   /** Inherit: scale font-size relative to parent via --fs-ratio (default 1 = same as parent). */
   inherit: string = "text-(length:--fs-em)";
 
+  responsiveClasses(): readonly string[] {
+    return [this.tablet, this.mobile];
+  }
+
   getClasses(extractedKeys: CategoryProps): string[] {
     // Responsive overrides inheritSize: responsive components have deliberate
     // viewport-scaled size intent that should not be collapsed to inherited size.

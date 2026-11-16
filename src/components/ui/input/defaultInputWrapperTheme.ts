@@ -10,6 +10,9 @@ import { inputWrapperDefaults } from "./inputWrapperDefaults";
 // trailing edge. A real themed element — relative/flex/wFull come from props
 // (not a raw className) so the wrapper is customizable via theme.inputWrapper,
 // mirroring how checkbox.wrapper is themed.
+// Input renders this element while valid too, so the <input> keeps its DOM node
+// when the validity flips; there it takes the display category's `contents` key
+// and generates no box, so the defaults below only show in the error state.
 export const defaultInputWrapperTheme = new ComponentTheme<InputWrapperProps, InputWrapperTheme>(
   "span",
   "vane-input-wrapper",

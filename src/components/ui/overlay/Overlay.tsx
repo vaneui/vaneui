@@ -7,6 +7,7 @@ import { defaultOverlayTheme } from "./defaultOverlayTheme";
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { pushEscapeHandler } from '../../utils/escapeStack';
+import { registerOverlay } from '../../utils/overlayStack';
 import { composeEventHandlers } from '../../utils/composeEventHandlers';
 import { useMergedRef } from '../../utils/mergedRef';
 import { useHydrated } from '../../utils/useHydrated';
@@ -46,6 +47,17 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       if (!effectiveOpen || !onClose) return;
       return pushEscapeHandler(() => onClose(), overlayRef.current);
     }, [effectiveOpen, onClose]);
+
+    // Join the shared overlay stack while open, so a Modal that is open at the same time leaves
+    // this overlay usable instead of making it inert with the rest of the page. Only a portaled
+    // overlay does: one rendered in place is part of whatever contains it, and registering it would
+    // keep that whole container (often the app root) live behind a Modal.
+    useEffect(() => {
+      if (!effectiveOpen || !portal) return;
+      const el = overlayRef.current;
+      if (!el) return;
+      return registerOverlay(el);
+    }, [effectiveOpen, portal]);
 
     if (!mounted && !keepMounted) return null;
 

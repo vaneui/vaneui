@@ -1,4 +1,4 @@
-import { ComponentTheme, defaultLayoutClassMappers, borderAppearance } from "../theme/common";
+import { ComponentTheme, defaultLayoutClassMappers, borderAppearance, filledSurfaceAppearance } from "../theme/common";
 import type { TableProps } from "./TableProps";
 import type { TableTheme } from "./TableTheme";
 import { TABLE_CATEGORIES } from "./TableCategories";
@@ -15,6 +15,7 @@ export const defaultTableTheme = new ComponentTheme<TableProps, TableTheme>(
       margin: new MarginClassMapper(),
     },
     appearance: {
+      surface: filledSurfaceAppearance,
       border: borderAppearance,
     },
     layout: {

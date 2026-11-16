@@ -179,11 +179,11 @@ describe('Comprehensive Ref Support Tests', () => {
       expect(imgRef).toBe(img);
     });
 
-    it('Checkbox should forward ref to wrapper', () => {
-      let checkboxRef: HTMLDivElement | null = null;
+    it('Checkbox should forward ref to the <input>, like Radio and Switch', () => {
+      let checkboxRef: HTMLInputElement | null = null;
       
       const TestComponent = () => {
-        const ref = useRef<HTMLDivElement>(null);
+        const ref = useRef<HTMLInputElement>(null);
         
         useEffect(() => {
           checkboxRef = ref.current;
@@ -197,11 +197,12 @@ describe('Comprehensive Ref Support Tests', () => {
       };
       
       const { container } = render(<TestComponent />);
-      // Checkbox renders a wrapper span with inline-grid class
-      const wrapper = container.querySelector('span.inline-grid');
+      // the ref is the native control, not the wrapper span around it
+      const input = container.querySelector('input[type="checkbox"]');
       
-      expect(wrapper).toBeInTheDocument();
-      expect(checkboxRef).toBe(wrapper);
+      expect(input).toBeInTheDocument();
+      expect(checkboxRef).toBe(input);
+      expect(checkboxRef).not.toBe(container.querySelector('span.inline-grid'));
     });
   });
 

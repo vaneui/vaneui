@@ -4,7 +4,7 @@ This guide is for consuming projects that use `@vaneui/ui`. It covers correct co
 
 ## Setup
 
-### Required CSS — import exactly ONE of the two stylesheets
+### Required CSS — pick exactly ONE of the two options
 
 `@vaneui/ui/css` is fully self-contained (it embeds everything `@vaneui/ui/vars` contains). Importing both ships ~40 KB of duplicate rules at two different cascade strengths — never do it.
 
@@ -17,19 +17,19 @@ import { ThemeProvider, Button, Card, Row, Stack, Text, Title } from '@vaneui/ui
 
 The prebuilt stylesheet is compiled for VaneUI's own components; it does not contain Tailwind's full utility set. A Tailwind class passed through `className` or `extraClasses` has no effect unless it happens to be in the bundle, and most (`max-w-md`, `p-6`, `size-8`, `ms-auto`, `z-40`) are not. For arbitrary utilities, use Option B or the `style` prop.
 
-**Option B — your own Tailwind v4 build:**
-
-```tsx
-import '@vaneui/ui/vars';  // tokens + component rules (no utilities)
-```
-
-and let your Tailwind build emit the utilities VaneUI's components use by scanning the library:
+**Option B — your own Tailwind v4 build.** Add all four lines to your main CSS file:
 
 ```css
 /* your app.css */
 @import "tailwindcss";
-@source "../node_modules/@vaneui/ui/dist";
+@import "@vaneui/ui/tokens";  /* design tokens and the mobile / tablet / desktop breakpoints */
+@import "@vaneui/ui/vars";    /* CSS variables + component rules (no utilities) */
+@source "../node_modules/@vaneui/ui";
 ```
+
+`@source` lets your Tailwind build emit the utilities VaneUI's components use by scanning the library. Its path is relative to the CSS file that contains it.
+
+The tokens import is required. It registers VaneUI's breakpoints with your Tailwind build, and without it Tailwind emits no CSS for any `max-mobile:`, `max-tablet:` or `max-desktop:` class: `mobileStack`, the `*Hide`, `*Show` and `*WFull` props and responsive padding and font sizes then do nothing, with no build error.
 
 ### ThemeProvider
 
@@ -220,6 +220,20 @@ Keep `light-dark()` pairs off a `:root`-only rule: bundlers that compile it for 
 </Card>
 ```
 
+`Button` and `IconButton` set no `type`, so inside a `<form>` the browser treats each one as a
+submit button: a click, or Enter in a field, submits the form. Pass `type="button"` on every
+button that does not submit (Cancel, Add row, a toggle) and `type="submit"` on the one that does.
+
+```tsx
+<form onSubmit={save}>
+  <Field label="Name"><Input name="name" /></Field>
+  <Row>
+    <Button type="button" secondary onClick={cancel}>Cancel</Button>
+    <Button type="submit" filled>Save</Button>
+  </Row>
+</form>
+```
+
 Prefer `Field` when a control needs help text or an error message: it generates the
 id, points the label at the control and links both messages with `aria-describedby`,
 which `Label` alone does not do.
@@ -239,6 +253,20 @@ Mark a field's validation state with the `invalid` validity prop — it layers a
 ```tsx
 <Field type="email" label="Email" description="We never share it."/>
 ```
+
+A control VaneUI does not ship (a plain `<input>`, a masked input, a date picker) takes the Field's `id`, `aria-describedby`, `aria-invalid`, `required`, `disabled` and `readOnly` by spreading `useFieldControlProps(props)`. The control's own props win, and outside a Field the props come back unchanged.
+
+```tsx
+function DateInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input type="date" {...useFieldControlProps(props)} />;
+}
+
+<Field label="Start date" error={errors.start}>
+  <DateInput />
+</Field>
+```
+
+An empty string for `error` or `description` means no message, so `error={errors.email ?? ''}` leaves the field valid.
 
 ### Button group
 
@@ -402,6 +430,8 @@ const [open, setOpen] = useState(false);
 </Modal>
 ```
 
+An open Modal makes the rest of the page inert. VaneUI's own overlays stay usable. A child of `<body>` that has to stay usable too (a toast region, a container another library portals there) takes the `data-vane-overlay` attribute, or registers itself with the ref from `useOverlayRegistration()`. `inertBackground={false}` turns the inert pass off for one modal.
+
 ### Dropdown menu
 
 ```tsx
@@ -417,8 +447,24 @@ const [open, setOpen] = useState(false);
 
 `Popup` positions itself against its anchor via one of 12 `place*` props: `placeTop`, `placeBottom`, `placeLeft`, `placeRight` plus each side's `*Start`/`*End` alignment (`placeTopStart`, `placeTopEnd`, `placeBottomStart`, `placeBottomEnd`, `placeLeftStart`, `placeLeftEnd`, `placeRightStart`, `placeRightEnd`).
 
+`PopupTrigger` owns the anchor and the open state, so the placement goes in `popupProps`:
+
 ```tsx
-<Popup placeBottomStart>...</Popup>
+<PopupTrigger popup={<Text>Saved filters</Text>} popupProps={{ placeBottomStart: true }}>
+  <Button>Filters</Button>
+</PopupTrigger>
+```
+
+A `Popup` used on its own needs the anchor's ref (`anchorRef` is required):
+
+```tsx
+const anchorRef = useRef<HTMLButtonElement>(null);
+const [open, setOpen] = useState(false);
+
+<Button ref={anchorRef} onClick={() => setOpen(true)}>Filters</Button>
+<Popup anchorRef={anchorRef} open={open} onClose={() => setOpen(false)} placeBottomStart>
+  <Text>Saved filters</Text>
+</Popup>
 ```
 
 For size-driven floating dimensions, `constrainWidth` applies a size-dependent minimum width and `clampHeight` a size-dependent maximum height.
@@ -440,6 +486,8 @@ For size-driven floating dimensions, `constrainWidth` applies a size-dependent m
   </CardFooter>
 </Card>
 ```
+
+With a part as its direct child, the Card drops its own padding and the parts carry the inset. That holds when the parts sit in a fragment, come from your own component or are rendered from a Server Component. A part nested inside another element does not count. An explicit `padding`, `paddingX` or `paddingY` on the Card keeps its own inset as well.
 
 ## Responsive Layout
 
@@ -537,6 +585,8 @@ Controls whether colors are applied as background fill or as border/text only.
 `ghost` renders a transparent background with no border and appearance-colored text, plus a tinted background on hover — for low-emphasis actions.
 
 `outline` is the default for most components. Exceptions: `Checkbox`, `Radio`, `Switch` and `Tooltip` default to `filled`, and `Link` has no variant default (it renders as a link).
+
+An appearance or variant on `Table` reaches its rows and cells, so set it once on the table: `<Table success>` colors the row rules and the header text, `<Table filled>` fills the table and its text follows the fill. A cell with its own appearance (`<Td danger>`) keeps it.
 
 ## Shape Props
 
@@ -745,4 +795,4 @@ Layout components (`Card`, `Row`, `Col`, `Stack`, `Section`, `Container`, `Grid*
 <Row sticky primary className="z-10">Sticky header</Row>  {/* sticks at top: 0 (set --sticky-top to clear a fixed bar); primary paints a surface so content doesn't show through */}
 ```
 
-User `className` always wins over theme classes via `twMerge`.
+User `className` always wins over theme classes via `twMerge`. That holds at every width: a responsive component (`Section`, `Card`, `Stack`, `Container`, `Alert`, `Modal`, `Popup`, the titles) repeats its padding, gap and font size for tablet and mobile, and a class that overrides one of those values replaces all three, so `<Section className="py-8">` keeps `py-8` on a phone. Override the whole value (`py-*`, `px-*`, `p-*`, `gap-*`, a font-size class): a one-sided class such as `pt-*` or `gap-x-*` still gives way to the theme below 1024px. Explicit responsive props (`mobileStack`, `tabletHide`, `mobileWFull`) and the Grid column collapse are not overridden by a class without a breakpoint.

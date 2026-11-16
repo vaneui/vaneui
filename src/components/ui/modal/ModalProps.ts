@@ -88,6 +88,14 @@ export type ModalProps = BaseProps &
     scrollLock?: boolean;
     /** Trap focus inside modal (default: true) */
     focusTrap?: boolean;
+    /**
+     * Make the rest of the page inert while the modal is open, so pointer, keyboard and assistive
+     * technology cannot reach it (default: true). Other open VaneUI overlays are always left alone.
+     * To keep one portal of another library usable, give its element (a direct child of `<body>`)
+     * the `data-vane-overlay` attribute or register it with `useOverlayRegistration()`; set this to
+     * `false` only when the whole background has to stay reachable.
+     */
+    inertBackground?: boolean;
     /** Return focus to trigger element on close (default: true) */
     returnFocus?: boolean;
     /** Ref to element that should receive focus when modal opens */

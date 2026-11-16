@@ -25,6 +25,7 @@ export {
   accentAppearance,
   checkedBgAppearance,
   checkedOnlyBgAppearance,
+  filledSurfaceAppearance,
   shadowAppearance,
 } from './appearanceClassMappers';
 export type {

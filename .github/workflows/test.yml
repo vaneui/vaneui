@@ -8,9 +8,18 @@ on:
   pull_request:
     branches: [ main, prod ]
 
+permissions:
+  contents: read
+
+# A new push to a pull request replaces the run for the previous one.
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       matrix:
         node-version: [24]
@@ -54,8 +63,15 @@ jobs:
       - name: Verify Package Contents
         run: npm pack --dry-run
 
+      # Same check the publish workflows run, so a broken exports map or type
+      # resolution fails the pull request instead of the release.
+      - name: Validate Package Exports and Types
+        if: matrix.react-version == 19
+        run: npm run check:package
+
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     # The image ships all three browsers AND their system deps, so there is no
     # `playwright install` step. `--with-deps` fetched 114MB of WebKit's GStreamer/GTK
     # tree on every run (Chromium's deps are already on the runner), at an Ubuntu mirror

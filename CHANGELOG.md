@@ -10,6 +10,121 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+Fixes from a review of 1.5.0, each covered by tests. Overlays keep their content while they
+close, an `Input` keeps focus while it is validated, read-only toggles stop reporting changes,
+a `Card` finds its parts wherever they render, and a `className` overrides a responsive value
+at every width. Some fixes change the rendered markup or where a `ref` points; those are under
+Changed.
+
+### Added
+
+- `inertBackground` on [Modal](https://vaneui.com/docs/overlay-components/modal), `true` by
+  default. An open Modal makes the rest of the page inert, and `false` turns that off for one
+  modal.
+- `data-vane-overlay`: a child of `<body>` with this attribute stays usable while a Modal is
+  open. Use it on a toast region or on a container another library portals to `<body>`.
+- `useOverlayRegistration()`, with the `OverlayRegistrationRef` type: the ref it returns
+  registers an element as an overlay while it is mounted, so an open Modal leaves the
+  element's container under `<body>` usable.
+- `useFieldControlProps`, with the `FieldControlProps` type: a control VaneUI does not ship (a
+  plain `<input>`, a masked input, a date picker) takes the
+  [Field](https://vaneui.com/docs/form-components/field)'s `id`, `aria-describedby`,
+  `aria-invalid`, `required`, `disabled` and `readOnly` by spreading
+  `useFieldControlProps(props)`. The control's own props win, and outside a Field the props
+  come back unchanged.
+- Import paths for nine more components: `@vaneui/ui/alert`, `/field`, `/progress`, `/radio`,
+  `/select`, `/spinner`, `/switch`, `/textarea` and `/tooltip`. They were built like the other
+  component entries but missing from the package's `exports`, so the import failed.
+
+### Changed
+
+- [Input](https://vaneui.com/docs/form-components/input): the root element is a wrapper
+  `<span>` with the `<input>` inside, in every state. Before, the wrapper was rendered only
+  while the input was invalid. A valid Input's wrapper is `display: contents`, so the layout
+  is the same, and `ref`, `className` and `style` still go to the `<input>`. A selector that
+  expects the `<input>` as a direct child of its parent (`.form > input`) no longer matches.
+- [Checkbox](https://vaneui.com/docs/form-components/checkbox): `ref` points at the `<input>`
+  and is typed `HTMLInputElement`, like `Radio` and `Switch`. It pointed at the wrapper span.
+  Code that used the ref to reach the wrapper reads `ref.current.parentElement`.
+- [Table](https://vaneui.com/docs/layout-components/table): `Td` and `Th` default to
+  `inheritAppearance` where they had `secondary`, so they follow the Table (see Fixed). The
+  default table looks the same, but its cells no longer carry `data-appearance` and
+  `data-variant` attributes.
+- [Menu](https://vaneui.com/docs/overlay-components/menu): the item focused last is the
+  menu's one tab stop (`tabindex="0"`, every other item `-1`), and hovering an item focuses
+  it.
+- `Menu` and `PopupTrigger` give a trigger without an `id` a generated one, which the popup's
+  `aria-labelledby` points at (see Accessibility).
+- `Modal`: when the element that opened a dialog is gone at close, focus goes to the opener of
+  the overlay that element was in, or stays where it is. It went to the first focusable
+  element of the page.
+
+### Fixed
+
+- Closing a `Modal`, [Popup](https://vaneui.com/docs/overlay-components/popup), `Menu`,
+  [Tooltip](https://vaneui.com/docs/overlay-components/tooltip) or
+  [Overlay](https://vaneui.com/docs/overlay-components/overlay) keeps its content mounted
+  until the exit animation ends. Before, the content was unmounted and mounted again for the
+  exit: child effects ran twice on every close, and text typed into an uncontrolled field was
+  gone during the fade.
+- `Input` keeps focus and the typed text when `invalid` changes, on its own and through
+  `<Field error>`. Before, the `<input>` was replaced each time, so validating while the user
+  typed dropped the focus.
+- A `Tooltip` and a `Menu` or `PopupTrigger` on one trigger keep separate anchors. Before, in
+  browsers with CSS anchor positioning, the menu jumped to the corner of the page once the
+  tooltip had closed.
+- `Modal`: selecting text inside the dialog and releasing the mouse over the backdrop no
+  longer closes it. A press that starts on the backdrop closes it as before.
+- `Modal`: with two modals open, Escape closes the top one. Before, a lower modal that
+  rendered again could close first.
+- `Modal`: a dialog opened from a `MenuItem` returns focus to the menu's trigger when it
+  closes. Before, focus jumped to the first focusable element of the page and the page
+  scrolled to it.
+- `Menu`: a menu with more items than fit on screen scrolls, and `clampHeight` limits the
+  scrolling area. Before, the last items ran off the screen, or out of the clamped box.
+- An `Overlay` opened while a `Modal` is open stays usable. Before, the Modal made it inert.
+- `Checkbox`, [Switch](https://vaneui.com/docs/form-components/switch) and
+  [Radio](https://vaneui.com/docs/form-components/radio): a `readOnly` control no longer calls
+  `onChange`, also when the state comes from a `RadioGroup` or a Field. Before, a controlled
+  form received the flipped value while the control on screen stayed as it was. `onClick` is
+  still called.
+- [Chip](https://vaneui.com/docs/basic-components/chip),
+  [Badge](https://vaneui.com/docs/basic-components/badge) and
+  [Code](https://vaneui.com/docs/basic-components/code): `disabled` with `href` renders a link
+  that cannot be followed (no `href`, `aria-disabled="true"`, still focusable), like a
+  disabled `Button` link. Before, the link stayed in the tab order and Enter followed it.
+- `Checkbox` and `Radio`: the checked state is visible in the `outline` and `ghost` variants.
+  Before, the box took the page color and the mark floated on the page, and a `ghost` Checkbox
+  showed no mark at all.
+- `Field`: an empty string for `error` or `description` means no message. Before,
+  `error=""` marked the control invalid and rendered an empty paragraph.
+- [Card](https://vaneui.com/docs/layout-components/card): `CardHeader`, `CardBody` and
+  `CardFooter` are found inside a fragment, behind `memo()`, when your own component renders
+  them and when they come from a Server Component. Before, such a Card kept its own padding
+  and the inset doubled. A Card with an explicit `padding`, `paddingX` or `paddingY` keeps its
+  inset next to its parts.
+- `Table`: an appearance or variant on the Table reaches its rows and cells. `<Table success>`
+  colors the row rules and the header text, and `<Table filled>` fills the table. Before, both
+  changed nothing. A `Tr`, `Thead`, `Tbody` or `Tfoot` with its own appearance and variant
+  passes them to its cells, and a cell with its own appearance (`<Td danger>`) keeps it.
+- A `className` that overrides a responsive value holds at every width:
+  `<Section className="py-8">` keeps `py-8` on a phone. Before, the class replaced the desktop
+  value only, and the component's own tablet and mobile padding, gap or font size came back
+  below 1024px. This covers `py-*`, `px-*`, `p-*`, `gap-*` and font-size classes; a one-sided
+  class such as `pt-*` still gives way below 1024px.
+- `ThemeProvider` with `themeDefaults`, `extraClasses` or `theme` copies only the theme nodes
+  it changes. `Tooltip` and `Menu` each mount one, and rendering 300 of either on the server
+  took about 270ms; it now takes about 20ms.
+
+### Accessibility
+
+- The popup of a `PopupTrigger` or a `Menu` is named by its trigger through
+  `aria-labelledby`. Before, the dialog had no accessible name. An `aria-label` or
+  `aria-labelledby` you set on the popup is kept. A `Popup` used on its own warns in
+  development when it opens with a dialog role and no name.
+- `Radio`: a read-only radio no longer carries `aria-readonly`, which the radio role does not
+  allow. The `RadioGroup` keeps it.
+
 ## 1.5.0
 
 `2026-10-31`

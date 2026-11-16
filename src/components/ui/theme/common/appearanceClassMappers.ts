@@ -1,5 +1,6 @@
 import { SimpleConsumerClassMapper } from "../appearance/simpleConsumerClassMapper";
 import { ShadowAppearanceClassMapper } from "../appearance/shadowAppearanceClassMapper";
+import { FilledSurfaceClassMapper } from "../appearance/filledSurfaceClassMapper";
 import {
   bgConsumerClasses,
   textConsumerClass,
@@ -43,6 +44,9 @@ export const checkedBgAppearance = new SimpleConsumerClassMapper({ base: checked
 
 /** Checked-only background appearance (Radio) */
 export const checkedOnlyBgAppearance = new SimpleConsumerClassMapper({ base: checkedOnlyBgConsumerClass }, 'bg');
+
+/** Background and text for the `filled` variant only (Table: outline colors the lines, filled fills the surface) */
+export const filledSurfaceAppearance = new FilledSurfaceClassMapper();
 
 /** Shadow appearance (static — differentiation between UI/layout happens via CSS variables) */
 export const shadowAppearance = new ShadowAppearanceClassMapper();

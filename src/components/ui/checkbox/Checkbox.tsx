@@ -1,23 +1,27 @@
 import { forwardRef, useRef, useEffect, useMemo, useCallback, type MouseEvent } from 'react';
 import type { CheckboxProps } from './CheckboxProps';
 import { useTheme } from "../../themeContext";
-import { useFieldControlProps } from "../field/FieldContext";
+import { useThemedFieldControlProps } from "../field/FieldContext";
 import { ThemedComponent } from "../../themedComponent";
 import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
+import { useMergedRef } from "../../utils/mergedRef";
 import { defaultCheckboxTheme } from "./defaultCheckboxTheme";
 import { defaultCheckboxCheckTheme } from "./defaultCheckboxCheckTheme";
 import { defaultCheckboxIndeterminateTheme } from "./defaultCheckboxIndeterminateTheme";
 import { defaultCheckboxWrapperTheme } from "./defaultCheckboxWrapperTheme";
 
-export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   function Checkbox(rawProps, ref) {
-    const props = useFieldControlProps(rawProps);
+    const props = useThemedFieldControlProps(rawProps);
     const theme = useTheme();
     const wrapperThemeBase = theme?.checkbox.wrapper ?? defaultCheckboxWrapperTheme;
     const inputThemeBase = theme?.checkbox.input ?? defaultCheckboxTheme;
     const checkTheme = theme?.checkbox.check ?? defaultCheckboxCheckTheme;
     const indeterminateTheme = theme?.checkbox.indeterminate ?? defaultCheckboxIndeterminateTheme;
     const inputRef = useRef<HTMLInputElement>(null);
+    // the forwarded ref lands on the <input>, as for Radio and Switch, so `.checked`, `.focus()`
+    // and field registration by ref reach the control; the internal ref still drives `indeterminate`
+    const mergedInputRef = useMergedRef(ref, inputRef);
 
     // inside a Label, the Label's resolved size becomes the size default for
     // the sized sub-themes (wrapper + input; check/indeterminate have no size
@@ -35,7 +39,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
     const {
       xs, sm, md, lg, xl,
       primary, accent, secondary, tertiary, success, danger, warning, info,
-      filled, outline,
+      filled, outline, ghost,
       pill, sharp, rounded,
       invalid,
       indeterminate,
@@ -60,7 +64,8 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
     const themeProps = {
       xs, sm, md, lg, xl,
       primary, accent, secondary, tertiary, success, danger, warning, info,
-      filled, outline,
+      // every variant must reach the wrapper too: the check mark reads --text-color from it
+      filled, outline, ghost,
       pill, sharp, rounded,
       invalid,
       disabled,
@@ -70,7 +75,10 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
 
     const inputProps = {
       type: "checkbox" as const,
-      checked, defaultChecked, name, value, onChange, onBlur, onFocus, required,
+      checked, defaultChecked, name, value, onBlur, onFocus, required,
+      // read-only reports no change: React builds onChange from the click, which carries the
+      // flipped `checked` before handleClick cancels it, so a controlled form would store it
+      onChange: readOnly ? undefined : onChange,
       onClick: handleClick,
       id, tabIndex, 'aria-label': ariaLabel,
       ...remainingProps,
@@ -78,8 +86,8 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(
     };
 
     return (
-      <ThemedComponent theme={wrapperTheme} ref={ref} className={className} {...themeProps}>
-        <ThemedComponent theme={checkboxInputTheme} ref={inputRef} {...inputProps} />
+      <ThemedComponent theme={wrapperTheme} className={className} {...themeProps}>
+        <ThemedComponent theme={checkboxInputTheme} ref={mergedInputRef} {...inputProps} />
         {/* decorative overlays — the real state lives on the <input>; hide them from AT */}
         <ThemedComponent theme={checkTheme} aria-hidden="true">
           {checkTheme.themes.checkElement()}

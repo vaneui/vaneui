@@ -18,70 +18,72 @@ const warnDeadCustomization = (option: string, path: string, hint: string): void
 
 const SUB_THEME_HINT = 'Components with sub-themes need the nested form, e.g. { button: { main: { filled: true } } }.';
 
-function applyDefaultsRecursively(
-  themeObject: Record<string, unknown> | object,
-  defaultsObject: Record<string, unknown> | object,
+type ThemeNode = Record<string, unknown>;
+
+const isObjectLike = (value: unknown): value is ThemeNode =>
+  typeof value === 'object' && value !== null;
+
+/** Shallow copy that keeps the prototype, so a ComponentTheme or mapper instance stays one. */
+const copyNode = <T extends object>(node: T): T =>
+  Array.isArray(node)
+    ? ([...node] as unknown as T)
+    : Object.assign(Object.create(Object.getPrototypeOf(node)), node);
+
+// the two per-node slots a provider customizes, and how an incoming value combines with the node's own
+const CUSTOMIZATION_SLOTS = {
+  defaults: {
+    option: 'themeDefaults',
+    merge: (current: ThemeNode, incoming: ThemeNode): ThemeNode =>
+      mergeDefaults(current as Record<string, boolean>, incoming as Record<string, boolean>),
+  },
+  extraClasses: {
+    option: 'extraClasses',
+    merge: (current: ThemeNode, incoming: ThemeNode): ThemeNode => ({ ...current, ...incoming }),
+  },
+} as const;
+
+type CustomizationSlot = keyof typeof CUSTOMIZATION_SLOTS;
+
+/* Applies a themeDefaults / extraClasses object to a theme tree without writing to it: a node
+   that takes a customization is copied, and so is each ancestor on the way to it. Everything
+   off that path is returned by reference, so the base theme (a parent provider's, or
+   defaultTheme) stays untouched and its nodes keep their warm class caches. Returns the node
+   itself when nothing below it changed. */
+function withCustomization<T>(
+  themeNode: T,
+  customization: unknown,
+  slot: CustomizationSlot,
   path: string = ''
-): void {
-  if (!themeObject || typeof themeObject !== 'object' || !defaultsObject || typeof defaultsObject !== 'object') {
-    return;
+): T {
+  if (!isObjectLike(themeNode) || !isObjectLike(customization)) {
+    return themeNode;
   }
 
-  if ('defaults' in themeObject &&
-      typeof themeObject.defaults === 'object' &&
-      themeObject.defaults !== null &&
-      !('defaults' in defaultsObject)) {
-    themeObject.defaults = mergeDefaults(
-      themeObject.defaults as Record<string, boolean>,
-      defaultsObject as Record<string, boolean>
-    );
-  } else {
-    for (const key in defaultsObject) {
-      const keyPath = path ? `${path}.${key}` : key;
-      if (key in themeObject &&
-          typeof (themeObject as Record<string, unknown>)[key] === 'object' &&
-          (themeObject as Record<string, unknown>)[key] !== null &&
-          typeof (defaultsObject as Record<string, unknown>)[key] === 'object' &&
-          (defaultsObject as Record<string, unknown>)[key] !== null) {
-        applyDefaultsRecursively((themeObject as Record<string, unknown>)[key] as Record<string, unknown>, (defaultsObject as Record<string, unknown>)[key] as Record<string, unknown>, keyPath);
-      } else {
-        warnDeadCustomization('themeDefaults', keyPath, SUB_THEME_HINT);
+  // a node that owns the slot takes the customization, unless the customization nests the slot name itself
+  const current = slot in themeNode ? themeNode[slot] : undefined;
+  if (isObjectLike(current) && !(slot in customization)) {
+    const copy: ThemeNode = copyNode(themeNode);
+    copy[slot] = CUSTOMIZATION_SLOTS[slot].merge(current, customization);
+    return copy as T;
+  }
+
+  let copy: ThemeNode | undefined;
+  for (const key in customization) {
+    const keyPath = path ? `${path}.${key}` : key;
+    const child = key in themeNode ? themeNode[key] : undefined;
+    const childCustomization = customization[key];
+    if (isObjectLike(child) && isObjectLike(childCustomization)) {
+      const nextChild = withCustomization(child, childCustomization, slot, keyPath);
+      if (nextChild !== child) {
+        copy ??= copyNode(themeNode);
+        copy[key] = nextChild;
       }
+    } else {
+      warnDeadCustomization(CUSTOMIZATION_SLOTS[slot].option, keyPath, SUB_THEME_HINT);
     }
   }
-}
 
-function applyExtraClassesRecursively(
-  themeObject: Record<string, unknown> | object,
-  extraClassesObject: Record<string, unknown> | object,
-  path: string = ''
-): void {
-  if (!themeObject || typeof themeObject !== 'object' || !extraClassesObject || typeof extraClassesObject !== 'object') {
-    return;
-  }
-
-  if ('extraClasses' in themeObject &&
-      typeof themeObject.extraClasses === 'object' &&
-      themeObject.extraClasses !== null &&
-      !('extraClasses' in extraClassesObject)) {
-    themeObject.extraClasses = {
-      ...themeObject.extraClasses,
-      ...extraClassesObject as Record<string, string>
-    };
-  } else {
-    for (const key in extraClassesObject) {
-      const keyPath = path ? `${path}.${key}` : key;
-      if (key in themeObject &&
-          typeof (themeObject as Record<string, unknown>)[key] === 'object' &&
-          (themeObject as Record<string, unknown>)[key] !== null &&
-          typeof (extraClassesObject as Record<string, unknown>)[key] === 'object' &&
-          (extraClassesObject as Record<string, unknown>)[key] !== null) {
-        applyExtraClassesRecursively((themeObject as Record<string, unknown>)[key] as Record<string, unknown>, (extraClassesObject as Record<string, unknown>)[key] as Record<string, unknown>, keyPath);
-      } else {
-        warnDeadCustomization('extraClasses', keyPath, SUB_THEME_HINT);
-      }
-    }
-  }
+  return (copy ?? themeNode) as T;
 }
 
 export function ThemeProvider(
@@ -102,9 +104,7 @@ export function ThemeProvider(
         : parentTheme ?? defaultTheme;
 
       // fast path: nothing to customize — reuse the base theme by reference.
-      // Keeps context identity stable across re-renders and skips the
-      // whole-tree clone (the clone below exists only to isolate mutations,
-      // and this path performs none).
+      // Keeps context identity stable across re-renders.
       if (themeObject === undefined &&
           themeDefaults === undefined &&
           extraClasses === undefined &&
@@ -112,23 +112,26 @@ export function ThemeProvider(
         return baseTheme;
       }
 
-      // clone for isolation before merging
+      // Structural sharing: no step below writes to baseTheme. Each one copies the
+      // nodes it changes (and their ancestors) and shares the rest by reference, so a
+      // provider costs a handful of objects instead of a clone of the whole tree.
+      // deepMerge is copy-on-write along the paths of its source.
       let finalTheme = themeObject
-        ? deepMerge(deepClone(baseTheme), themeObject)
-        : deepClone(baseTheme);
+        ? deepMerge(baseTheme, themeObject)
+        : baseTheme;
 
-      // themeOverride gets a fresh clone so the callback can't corrupt our copy
+      // themeOverride may mutate anything it is handed, so it is the one input that
+      // still gets a private clone of the whole tree
       if (typeof themeOverride === 'function') {
         finalTheme = themeOverride(deepClone(finalTheme));
       }
 
-      // in-place mutation is safe — finalTheme is already a unique copy
       if (themeDefaults !== undefined) {
-        applyDefaultsRecursively(finalTheme, themeDefaults);
+        finalTheme = withCustomization(finalTheme, themeDefaults, 'defaults');
       }
 
       if (extraClasses !== undefined) {
-        applyExtraClassesRecursively(finalTheme, extraClasses);
+        finalTheme = withCustomization(finalTheme, extraClasses, 'extraClasses');
       }
 
       return finalTheme;

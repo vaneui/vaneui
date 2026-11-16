@@ -56,6 +56,25 @@ describe('Read-only toggles', () => {
     expect(input).toHaveAttribute('aria-readonly', 'true');
   });
 
+  // aria-readonly is allowed on checkbox, switch and textbox roles, but not on radio
+  it.each([
+    ['Checkbox', <Checkbox readOnly aria-label="x" />, 'true'],
+    ['Switch', <Switch readOnly aria-label="x" />, 'true'],
+    ['Input', <Input readOnly aria-label="x" />, 'true'],
+    ['Radio', <Radio readOnly aria-label="x" />, null],
+  ])('a read-only %s has aria-readonly only where its role allows it', (_name, ui, expected) => {
+    const { container } = render(wrap(ui));
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(input.getAttribute('aria-readonly')).toBe(expected);
+    expect(input).toHaveAttribute('data-readonly', 'true');
+    expect(input).toHaveAttribute('readonly');
+  });
+
+  it('a consumer-set aria-readonly on a Radio is passed through untouched', () => {
+    const { container } = render(wrap(<Radio readOnly aria-readonly="false" aria-label="x" />));
+    expect(container.querySelector('input')).toHaveAttribute('aria-readonly', 'false');
+  });
+
   it.each([
     ['Checkbox', <Checkbox readOnly aria-label="x" />],
     ['Radio', <Radio readOnly aria-label="x" />],
@@ -201,7 +220,7 @@ describe('Font family on components that hold raw text', () => {
   it('Popup and Tooltip default to the sans font', () => {
     render(wrap(
       <>
-        <Popup open onClose={() => {}} anchorRef={{ current: null }}>Panel</Popup>
+        <Popup open onClose={() => {}} anchorRef={{ current: null }} aria-label="Panel">Panel</Popup>
         <Tooltip content="Filter invoices" defaultOpen><button type="button">F</button></Tooltip>
       </>
     ));

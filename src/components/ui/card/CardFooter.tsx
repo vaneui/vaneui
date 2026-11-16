@@ -3,6 +3,7 @@ import type { CardFooterProps } from "./CardFooterProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { defaultCardFooterTheme } from "./defaultCardFooterTheme";
+import { markCardPart } from "./cardParts";
 
 export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
   function CardFooter(props, ref) {
@@ -12,3 +13,4 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
 );
 
 CardFooter.displayName = 'CardFooter';
+markCardPart(CardFooter);

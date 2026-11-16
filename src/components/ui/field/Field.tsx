@@ -143,8 +143,10 @@ export const Field = forwardRef<FieldElement, FieldProps>(
     const errorId = `${controlId}-error`;
 
     const hasLabel = label !== undefined && label !== null && label !== false;
-    const hasDescription = description !== undefined && description !== null && description !== false;
-    const hasError = error !== undefined && error !== null && error !== false;
+    // an empty string is no message: `error={errors.email ?? ''}` must leave the field valid,
+    // render no empty element and add no id to aria-describedby
+    const hasDescription = description !== undefined && description !== null && description !== false && description !== '';
+    const hasError = error !== undefined && error !== null && error !== false && error !== '';
     // error={true} marks the field invalid without a message, so no empty error element is rendered
     const hasErrorMessage = hasError && error !== true;
 

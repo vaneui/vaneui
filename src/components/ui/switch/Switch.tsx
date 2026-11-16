@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useMemo, type MouseEvent } from 'react';
 import type { SwitchProps } from './SwitchProps';
 import { useTheme } from "../../themeContext";
-import { useFieldControlProps } from "../field/FieldContext";
+import { useThemedFieldControlProps } from "../field/FieldContext";
 import { ThemedComponent } from "../../themedComponent";
 import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
 import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
@@ -11,7 +11,7 @@ import { defaultSwitchWrapperTheme } from "./defaultSwitchWrapperTheme";
 
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   function Switch(rawProps, ref) {
-    const props = useFieldControlProps(rawProps);
+    const props = useThemedFieldControlProps(rawProps);
     const theme = useTheme();
     const wrapperThemeBase = theme?.switch.wrapper ?? defaultSwitchWrapperTheme;
     const inputThemeBase = theme?.switch.input ?? defaultSwitchTheme;
@@ -71,7 +71,10 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
     const inputProps = {
       type: "checkbox" as const,
       role: "switch",
-      checked, defaultChecked, name, value, onChange, onBlur, onFocus, required,
+      checked, defaultChecked, name, value, onBlur, onFocus, required,
+      // read-only reports no change: React builds onChange from the click, which carries the
+      // flipped `checked` before handleClick cancels it, so a controlled form would store it
+      onChange: readOnly ? undefined : onChange,
       onClick: handleClick,
       id, tabIndex, 'aria-label': ariaLabel,
       ...remainingProps,

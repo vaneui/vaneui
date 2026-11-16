@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { forwardRef, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   ThemeProvider,
   Card,
@@ -48,6 +49,7 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
+  Grid2,
   Grid4,
   Grid6,
   Section,
@@ -59,7 +61,15 @@ import {
   Tr,
   Th,
   Td,
+  useOverlayRegistration,
+  type InputProps,
+  useFieldControlProps,
 } from '../../src';
+// internals behind BareInput (form-state fixtures): the input exactly as Input renders it, minus the wrapper span
+import { ThemedComponent } from '../../src/components/themedComponent';
+import { defaultInputTheme } from '../../src/components/ui/input';
+import { useThemedFieldControlProps } from '../../src/components/ui/field/FieldContext';
+import { useLabelSizeContext, withLabelSizeDefault } from '../../src/components/ui/label/LabelSizeContext';
 
 // Simple SVG icon for testing
 export const StarIcon = () => (
@@ -396,6 +406,197 @@ function ModalBehaviorFixtures() {
   );
 }
 
+/* ── Overlay behavior fixtures (overlay-behavior.spec.ts) ──────────────────────
+   Everything here stays closed until a spec opens it, so nothing covers other
+   fixtures, makes the page inert or joins the stacking counter at load. */
+
+/** Counts its own mounts and unmounts on window, so a spec can see a remount. */
+function LifecycleProbe() {
+  React.useEffect(() => {
+    const w = window as unknown as { __obMounts?: number; __obUnmounts?: number };
+    w.__obMounts = (w.__obMounts ?? 0) + 1;
+    return () => {
+      w.__obUnmounts = (w.__obUnmounts ?? 0) + 1;
+    };
+  }, []);
+  return null;
+}
+
+/** Shows how many times it was clicked, so a spec can tell that a click arrived. */
+function CountButton({ testId, label }: { testId: string; label: string }) {
+  const [count, setCount] = useState(0);
+  return (
+    <button data-testid={testId} onClick={() => setCount((c) => c + 1)}>{label} {count}</button>
+  );
+}
+
+/** Stand-ins for what another library portals to <body>: one marked, one registered, one neither. */
+function ForeignPortals() {
+  const registrationRef = useOverlayRegistration();
+  const place = (left: number): React.CSSProperties => ({ position: 'fixed', top: 8, left, zIndex: 10000 });
+  return (
+    <>
+      {createPortal(
+        <div data-vane-overlay="" data-testid="ob-inert-marked" style={place(8)}>
+          <CountButton testId="ob-inert-marked-button" label="Marked" />
+        </div>,
+        document.body
+      )}
+      {createPortal(
+        <div data-testid="ob-inert-registered-root" style={place(160)}>
+          <div ref={registrationRef}>
+            <CountButton testId="ob-inert-registered-button" label="Registered" />
+          </div>
+        </div>,
+        document.body
+      )}
+      {createPortal(
+        <div data-testid="ob-inert-plain" style={place(320)}>
+          <CountButton testId="ob-inert-plain-button" label="Plain" />
+        </div>,
+        document.body
+      )}
+    </>
+  );
+}
+
+function OverlayBehaviorFixtures() {
+  const [lifeOpen, setLifeOpen] = useState(false);
+  const [dragOpen, setDragOpen] = useState(false);
+  const [escA, setEscA] = useState(false);
+  const [escB, setEscB] = useState(false);
+  const [escText, setEscText] = useState('');
+  const closeEscB = React.useCallback(() => setEscB(false), []);
+  const [nestA, setNestA] = useState(false);
+  const [nestB, setNestB] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [inertOpen, setInertOpen] = useState(false);
+  const [inertOverlay, setInertOverlay] = useState(false);
+  const [inertPortals, setInertPortals] = useState(false);
+  return (
+    <section data-testid="overlay-behavior-section">
+      {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
+      <button data-testid="ob-life-open" onClick={() => setLifeOpen(true)}>open lifecycle modal</button>
+      <Modal
+        open={lifeOpen}
+        onClose={() => setLifeOpen(false)}
+        title="Lifecycle"
+        transitionDuration={600}
+        data-testid="ob-life-modal"
+      >
+        <LifecycleProbe />
+        <input data-testid="ob-life-input" aria-label="Note" />
+      </Modal>
+
+      {/* A text field inside a dialog: a selection drag can end over the backdrop. */}
+      <button data-testid="ob-drag-open" onClick={() => setDragOpen(true)}>open drag modal</button>
+      <Modal open={dragOpen} onClose={() => setDragOpen(false)} title="Form" noAnimation data-testid="ob-drag-modal">
+        <input
+          data-testid="ob-drag-field"
+          aria-label="Description"
+          defaultValue="some long text to select by dragging"
+          style={{ width: '100%' }}
+        />
+      </Modal>
+
+      {/* Escape order, siblings: A has an inline onClose, and typing in B re-renders this component. */}
+      <button data-testid="ob-esc-open-a" onClick={() => setEscA(true)}>open modal A</button>
+      <Modal open={escA} onClose={() => setEscA(false)} title="A" noAnimation data-testid="ob-esc-a">
+        <button data-testid="ob-esc-open-b" onClick={() => setEscB(true)}>open modal B</button>
+      </Modal>
+      <Modal open={escB} onClose={closeEscB} title="B" noAnimation data-testid="ob-esc-b">
+        <input
+          data-testid="ob-esc-b-input"
+          aria-label="Name"
+          value={escText}
+          onChange={(e) => setEscText(e.target.value)}
+        />
+      </Modal>
+
+      {/* Escape order, nested: B is rendered inside A's content. */}
+      <button data-testid="ob-nest-open-a" onClick={() => setNestA(true)}>open outer modal</button>
+      <Modal open={nestA} onClose={() => setNestA(false)} title="Outer" noAnimation data-testid="ob-nest-a">
+        <button data-testid="ob-nest-open-b" onClick={() => setNestB(true)}>open inner modal</button>
+        <Modal open={nestB} onClose={() => setNestB(false)} title="Inner" noAnimation data-testid="ob-nest-b">
+          <Text>inner</Text>
+        </Modal>
+      </Modal>
+
+      {/* A confirm dialog opened from a menu item. The Modal is declared before the Menu on purpose:
+          its effects run first, so it sees the menu item as the focused element when it opens. */}
+      <Modal
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        title="Delete this file?"
+        data-testid="ob-focus-modal"
+      >
+        <Button data-testid="ob-focus-cancel" onClick={() => setConfirmOpen(false)}>Cancel</Button>
+      </Modal>
+      <Menu data-testid="ob-focus-menu" trigger={<Button data-testid="ob-focus-trigger">File</Button>}>
+        <MenuItem data-testid="ob-focus-item" onClick={() => setConfirmOpen(true)}>Delete</MenuItem>
+      </Menu>
+
+      {/* Menus with more items than the viewport has room for, with and without clampHeight, and a short one. */}
+      <Row>
+        <Menu data-testid="ob-tall-menu" trigger={<Button data-testid="ob-tall-trigger">Tall menu</Button>}>
+          {Array.from({ length: 40 }, (_, i) => (
+            <MenuItem key={i} data-testid={`ob-tall-item-${i}`}>Item {i + 1}</MenuItem>
+          ))}
+        </Menu>
+        <Menu clampHeight data-testid="ob-clamp-menu" trigger={<Button data-testid="ob-clamp-trigger">Clamped menu</Button>}>
+          {Array.from({ length: 40 }, (_, i) => (
+            <MenuItem key={i} data-testid={`ob-clamp-item-${i}`}>Item {i + 1}</MenuItem>
+          ))}
+        </Menu>
+        <Menu data-testid="ob-short-menu" trigger={<Button data-testid="ob-short-trigger">Short menu</Button>}>
+          <MenuItem data-testid="ob-short-item-0">Edit</MenuItem>
+          <MenuItem data-testid="ob-short-item-1">Duplicate</MenuItem>
+          <MenuItem data-testid="ob-short-item-2">Archive</MenuItem>
+        </Menu>
+      </Row>
+
+      {/* A PopupTrigger left at its defaults: the dialog it opens is named by its trigger. */}
+      <PopupTrigger
+        popup={<Text>Show paid invoices only</Text>}
+        popupProps={{ 'data-testid': 'ob-name-popup' } as Record<string, unknown>}
+      >
+        <Button data-testid="ob-name-trigger">Filters</Button>
+      </PopupTrigger>
+
+      {/* One trigger anchors two popups: a Tooltip and the Menu it opens. */}
+      <div style={{ padding: '48px 160px' }}>
+        <Menu
+          data-testid="ob-anchor-menu"
+          trigger={
+            <Tooltip
+              content="More actions"
+              openDelay={0}
+              closeDelay={0}
+              popupProps={{ 'data-testid': 'ob-anchor-tooltip' } as Record<string, unknown>}
+            >
+              <Button data-testid="ob-anchor-trigger">Actions</Button>
+            </Tooltip>
+          }
+        >
+          <MenuItem data-testid="ob-anchor-item">Edit</MenuItem>
+          <MenuItem>Duplicate</MenuItem>
+        </Menu>
+      </div>
+
+      {/* What an open Modal leaves usable: an Overlay opened from it, and portals of another library. */}
+      <button data-testid="ob-inert-open" onClick={() => setInertOpen(true)}>open settings modal</button>
+      <Modal open={inertOpen} onClose={() => setInertOpen(false)} title="Settings" noAnimation data-testid="ob-inert-modal">
+        <button data-testid="ob-inert-open-overlay" onClick={() => setInertOverlay(true)}>open overlay</button>
+        <button data-testid="ob-inert-open-portals" onClick={() => setInertPortals(true)}>show portals</button>
+      </Modal>
+      <Overlay open={inertOverlay} onClose={() => setInertOverlay(false)} noAnimation data-testid="ob-inert-overlay">
+        <CountButton testId="ob-inert-overlay-button" label="In overlay" />
+      </Overlay>
+      {inertPortals && <ForeignPortals />}
+    </section>
+  );
+}
+
 /** Interactive nested-submenu fixture (B2): opened via click/keyboard in e2e. */
 function SubmenuFixtures() {
   return (
@@ -539,6 +740,308 @@ function LayoutAdditionsFixtures() {
       </Col>
       <Button tabletShow data-testid="button-tablet-show">Menu</Button>
       <Row mobileHide tabletShow data-testid="row-tablet-band">Tablet band</Row>
+    </section>
+  );
+}
+
+/* ════════ FORM-STATE FIXTURES (start) ════════
+   One block for the form-control state specs: input-stable-node.spec.ts,
+   readonly-toggles.spec.ts, disabled-link.spec.ts, checked-toggle-contrast.spec.ts and
+   field-custom-control.spec.ts. The read-only toggles and the plain <input> in a Field also
+   stand in front of the axe scan (accessibility.spec.ts). */
+
+/** The themed <input> on its own, with the same Field and Label wiring as Input but none of
+    Input's wrapper span: the layout reference a valid Input has to match box for box. */
+const BareInput = forwardRef<HTMLInputElement, InputProps>(function BareInput(rawProps, ref) {
+  const props = useThemedFieldControlProps(rawProps);
+  const labelSize = useLabelSizeContext();
+  const theme = useMemo(() => withLabelSizeDefault(defaultInputTheme, labelSize), [labelSize]);
+  return <ThemedComponent ref={ref} theme={theme} {...props} />;
+});
+
+type InputLike = typeof Input;
+
+/** Each context renders twice at one fixed width: once with Input, once with BareInput. */
+const INPUT_LAYOUT_CONTEXTS: { id: string; render: (Control: InputLike, name: string) => React.ReactNode }[] = [
+  { id: 'block', render: (Control, name) => <div><Control aria-label={name} /></div> },
+  { id: 'inline', render: (Control, name) => <p>Name: <Control wFit aria-label={name} /> (optional)</p> },
+  {
+    id: 'row',
+    render: (Control, name) => <Row><Text>Search</Text><Control aria-label={name} /><Button>Go</Button></Row>,
+  },
+  { id: 'col', render: (Control, name) => <Col><Control aria-label={name} /><Button>Go</Button></Col> },
+  { id: 'label', render: (Control) => <Label>Email<Control placeholder="you@example.com" /></Label> },
+  {
+    id: 'field',
+    render: (Control) => <Field label="Email" description="We never share it."><Control type="email" /></Field>,
+  },
+  {
+    id: 'class-width',
+    render: (Control, name) => <Row><Control className="w-64" aria-label={name} /><Button>Go</Button></Row>,
+  },
+  {
+    id: 'style-width',
+    render: (Control, name) => <Row><Control style={{ width: 200 }} aria-label={name} /><Button>Go</Button></Row>,
+  },
+  { id: 'wfit', render: (Control, name) => <Row><Control wFit aria-label={name} /><Button>Go</Button></Row> },
+  {
+    id: 'mobile-hide',
+    render: (Control, name) => <Row><Control mobileHide aria-label={name} /><Button>Go</Button></Row>,
+  },
+  // a divided grid draws its lines on each cell: an Input cell takes them on the <input>
+  { id: 'divided', render: (Control, name) => <Grid2 divided><Control aria-label={name} /><Text>Cell</Text></Grid2> },
+];
+
+const isIncompleteEmail = (value: string) => value !== '' && !value.includes('@');
+
+/** Inputs validated on every keystroke: `invalid` flips while the field has focus. */
+function LiveValidationFixtures() {
+  const [controlled, setControlled] = useState('');
+  const [inField, setInField] = useState('');
+  const [uncontrolledInvalid, setUncontrolledInvalid] = useState(false);
+  return (
+    <Col style={{ width: 360 }}>
+      <Input
+        aria-label="live validated email"
+        data-testid="live-input"
+        value={controlled}
+        invalid={isIncompleteEmail(controlled)}
+        onChange={(event) => setControlled(event.target.value)}
+      />
+      <Input
+        aria-label="live validated uncontrolled email"
+        data-testid="live-uncontrolled"
+        invalid={uncontrolledInvalid}
+        onChange={(event) => setUncontrolledInvalid(isIncompleteEmail(event.target.value))}
+      />
+      <Field label="Live email" error={isIncompleteEmail(inField) ? 'Enter an email address' : undefined} data-testid="live-field">
+        <Input data-testid="live-field-input" value={inField} onChange={(event) => setInField(event.target.value)} />
+      </Field>
+    </Col>
+  );
+}
+
+/** Controlled read-only toggles; each state span shows what a form would store. The page-wide
+    axe scan reads them too: a read-only radio must not carry aria-readonly. */
+function ReadOnlyToggleFixtures() {
+  const [checkbox, setCheckbox] = useState(false);
+  const [switchOn, setSwitchOn] = useState(false);
+  const [plan, setPlan] = useState('a');
+  return (
+    <Col data-testid="readonly-toggles">
+      <Label row>
+        <Checkbox readOnly checked={checkbox} onChange={(event) => setCheckbox(event.target.checked)} data-testid="ro-checkbox" />
+        <span data-testid="ro-checkbox-text">Read-only checkbox</span>
+      </Label>
+      <span data-testid="ro-checkbox-state">{String(checkbox)}</span>
+      <Label row>
+        <Switch readOnly checked={switchOn} onChange={(event) => setSwitchOn(event.target.checked)} data-testid="ro-switch" />
+        <span data-testid="ro-switch-text">Read-only switch</span>
+      </Label>
+      <span data-testid="ro-switch-state">{String(switchOn)}</span>
+      <RadioGroup readOnly value={plan} onChange={(event) => setPlan(event.target.value)} aria-label="Read-only plan">
+        <Label row><Radio value="a" data-testid="ro-radio-a" />Starter</Label>
+        <Label row>
+          <Radio value="b" data-testid="ro-radio-b" />
+          <span data-testid="ro-radio-b-text">Pro</span>
+        </Label>
+      </RadioGroup>
+      <span data-testid="ro-radio-state">{plan}</span>
+      {/* a lone read-only Radio, outside any group */}
+      <Label row><Radio readOnly defaultChecked name="ro-lone" data-testid="ro-radio-lone" />Read-only radio</Label>
+    </Col>
+  );
+}
+
+const TOGGLE_VARIANTS = ['filled', 'outline', 'ghost'] as const;
+const TOGGLE_APPEARANCES = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
+
+/** A checked Checkbox, an indeterminate Checkbox and a checked Radio in every variant and
+    appearance, on a light and on a dark page surface: the mark has to show against its box,
+    and the box against the page. */
+function CheckedToggleFixtures() {
+  return (
+    <>
+      {(['light', 'dark'] as const).map((scheme) => (
+        <div key={scheme} {...(scheme === 'dark' ? { 'data-theme': 'dark' } : undefined)}>
+          <Card data-testid={`checked-toggle-page-${scheme}`}>
+            {TOGGLE_VARIANTS.map((variant) => (
+              <Row key={variant} flexWrap>
+                {TOGGLE_APPEARANCES.map((appearance) => {
+                  const look = { [variant]: true, [appearance]: true };
+                  const id = `${scheme}-${variant}-${appearance}`;
+                  const name = `${scheme} ${variant} ${appearance}`;
+                  return (
+                    <React.Fragment key={appearance}>
+                      <Checkbox {...look} defaultChecked aria-label={`${name} checkbox`} data-testid={`checked-toggle-checkbox-${id}`} />
+                      <Checkbox {...look} indeterminate aria-label={`${name} mixed checkbox`} data-testid={`checked-toggle-indeterminate-${id}`} />
+                      <Radio {...look} defaultChecked name={`checked-toggle-${id}`} aria-label={`${name} radio`} data-testid={`checked-toggle-radio-${id}`} />
+                    </React.Fragment>
+                  );
+                })}
+              </Row>
+            ))}
+          </Card>
+        </div>
+      ))}
+    </>
+  );
+}
+
+/** A control the library does not ship: a plain <input> that takes its Field wiring from the public hook. */
+function PlainFieldInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input {...useFieldControlProps(props)} />;
+}
+
+function FormStateFixtures() {
+  return (
+    <section data-testid="form-state-section">
+      {INPUT_LAYOUT_CONTEXTS.map(({ id, render }) => (
+        <div key={id} style={{ width: 360 }}>
+          <div data-testid={`input-layout-${id}-actual`}>{render(Input, `${id} input`)}</div>
+          <div data-testid={`input-layout-${id}-reference`}>{render(BareInput as InputLike, `${id} reference input`)}</div>
+        </div>
+      ))}
+      <LiveValidationFixtures />
+      <ReadOnlyToggleFixtures />
+      {/* disabled links: focusable placeholders that neither a click nor Enter may follow */}
+      <Row data-testid="disabled-links">
+        <Chip href="#followed-chip" disabled data-testid="disabled-link-chip">Chip</Chip>
+        <Badge href="#followed-badge" disabled data-testid="disabled-link-badge">Badge</Badge>
+        <Code href="#followed-code" disabled data-testid="disabled-link-code">code</Code>
+      </Row>
+      <CheckedToggleFixtures />
+      <Col style={{ width: 360 }}>
+        <Field label="Start date" description="Any weekday" error="Pick a date">
+          <PlainFieldInput data-testid="plain-field-input" />
+        </Field>
+        <Field label="End date">
+          <PlainFieldInput data-testid="plain-field-input-valid" />
+        </Field>
+      </Col>
+    </section>
+  );
+}
+
+/* ════════ FORM-STATE FIXTURES (end) ════════ */
+
+// ── Theme engine fixtures (compound Card detection, Table appearance,
+//    className against responsive classes) ───────────────────────────────────
+
+/** Card parts that reach the Card through a consumer component, not as its direct React children. */
+function WrappedCardParts({ id, staticSizing }: { id: string; staticSizing?: boolean }) {
+  const sizing = staticSizing ? { responsiveSizing: false } : {};
+  return (
+    <>
+      <CardHeader data-testid={`${id}-header`} {...sizing}>header</CardHeader>
+      <CardBody data-testid={`${id}-body`} {...sizing}>body</CardBody>
+      <CardFooter data-testid={`${id}-footer`} {...sizing}>footer</CardFooter>
+    </>
+  );
+}
+
+/** A lazily resolved part type, the shape a part takes when it arrives from a Server Component. */
+const LazyCardBody = React.lazy(() => Promise.resolve({ default: CardBody }));
+
+/** One header row and one body row; the Table takes the appearance props, the cells take none. */
+function AppearanceTable({ id, ...tableProps }: { id: string } & React.ComponentProps<typeof Table>) {
+  return (
+    <Table data-testid={id} {...tableProps}>
+      <Thead>
+        <Tr><Th data-testid={`${id}-th`}>header</Th></Tr>
+      </Thead>
+      <Tbody>
+        <Tr data-testid={`${id}-tr`}>
+          <Td data-testid={`${id}-td`}><Text data-testid={`${id}-text`}>cell</Text></Td>
+        </Tr>
+      </Tbody>
+    </Table>
+  );
+}
+
+function ThemeEngineFixtures() {
+  return (
+    <section data-testid="theme-engine-section">
+      {/* Compound Card: the parts own the inset however they reach the Card. */}
+      <Card data-testid="cc-plain">plain</Card>
+      <Card data-testid="cc-direct">
+        <CardHeader data-testid="cc-direct-header">header</CardHeader>
+        <CardBody data-testid="cc-direct-body">body</CardBody>
+        <CardFooter data-testid="cc-direct-footer">footer</CardFooter>
+      </Card>
+      <Card data-testid="cc-fragment">
+        <>
+          <CardHeader data-testid="cc-fragment-header">header</CardHeader>
+          <CardBody data-testid="cc-fragment-body">body</CardBody>
+          <CardFooter data-testid="cc-fragment-footer">footer</CardFooter>
+        </>
+      </Card>
+      <Card data-testid="cc-wrapped"><WrappedCardParts id="cc-wrapped"/></Card>
+      <React.Suspense fallback={null}>
+        <Card data-testid="cc-lazy">
+          <LazyCardBody data-testid="cc-lazy-body">body</LazyCardBody>
+        </Card>
+      </React.Suspense>
+      {/* an explicit padding prop keeps the Card's own inset next to its parts */}
+      <Card data-testid="cc-own-direct" padding>
+        <CardBody data-testid="cc-own-direct-body">body</CardBody>
+      </Card>
+      <Card data-testid="cc-own-wrapped" padding><WrappedCardParts id="cc-own-wrapped"/></Card>
+      {/* responsiveSizing off on both levels: the Card's --py/--px are zeroed, the parts keep theirs */}
+      <Card data-testid="cc-static-plain" responsiveSizing={false}>plain</Card>
+      <Card data-testid="cc-static-direct" responsiveSizing={false}>
+        <CardBody data-testid="cc-static-direct-body" responsiveSizing={false}>body</CardBody>
+      </Card>
+      <Card data-testid="cc-static-wrapped" responsiveSizing={false}>
+        <WrappedCardParts id="cc-static-wrapped" staticSizing/>
+      </Card>
+      {/* a part nested deeper than a direct child does not make the Card compound */}
+      <Card data-testid="cc-nested">
+        <div><CardBody data-testid="cc-nested-body">body</CardBody></div>
+      </Card>
+
+      {/* Table appearance: the Table's appearance and variant reach its rows and cells. */}
+      <AppearanceTable id="ta-default"/>
+      <AppearanceTable id="ta-success" success/>
+      <AppearanceTable id="ta-danger-border" danger border/>
+      <AppearanceTable id="ta-filled" filled/>
+      <AppearanceTable id="ta-filled-success" filled success/>
+      {/* a cell's own appearance wins over the Table's */}
+      <Table success data-testid="ta-own">
+        <Thead><Tr><Th danger data-testid="ta-own-th">header</Th></Tr></Thead>
+        <Tbody><Tr><Td danger data-testid="ta-own-td">cell</Td></Tr></Tbody>
+      </Table>
+      {/* a row with its own appearance and variant sits between the Table and its cells */}
+      <Table data-testid="ta-row">
+        <Tbody>
+          <Tr filled info data-testid="ta-row-tr">
+            <Th data-testid="ta-row-th">header</Th>
+            <Td data-testid="ta-row-td">cell</Td>
+          </Tr>
+          <Tr><Td data-testid="ta-row-plain-td">cell</Td></Tr>
+        </Tbody>
+      </Table>
+      {/* cells outside a Table keep the neutral palette, whatever surrounds them */}
+      <Card danger data-testid="ta-standalone">
+        <table>
+          <tbody>
+            <tr>
+              <Th data-testid="ta-standalone-th">header</Th>
+              <Td data-testid="ta-standalone-td">cell</Td>
+            </tr>
+          </tbody>
+        </table>
+      </Card>
+
+      {/* className against the theme's responsive classes: an override holds at every width. */}
+      <Section data-testid="rp-section-plain"><div>one</div><div>two</div></Section>
+      <Section data-testid="rp-section" className="py-8 gap-2"><div>one</div><div>two</div></Section>
+      {/* the user's own breakpoint class still applies below its breakpoint */}
+      <Section data-testid="rp-section-own" className="py-8 max-mobile:py-(--py-mobile)">
+        <div>one</div><div>two</div>
+      </Section>
+      <PageTitle data-testid="rp-title-plain">Title</PageTitle>
+      <PageTitle data-testid="rp-title" className="text-5xl">Title</PageTitle>
     </section>
   );
 }
@@ -921,6 +1424,9 @@ export function TestHarness() {
         {/* ── Popup positioning + Modal behavior regressions (2026-08-10 fixes) ── */}
         <PopupPositioningFixtures />
         <ModalBehaviorFixtures />
+
+        {/* ── Overlay behavior: lifecycle, anchors, dismissal, focus return, menu scroll, naming, inert ── */}
+        <OverlayBehaviorFixtures />
 
         {/* ── NavLink icon sizing ── */}
 
@@ -1915,9 +2421,13 @@ export function TestHarness() {
           </RadioGroup>
         </section>
 
+        <FormStateFixtures />
+
         <LayoutAdditionsFixtures />
 
         <CompositionFixtures />
+
+        <ThemeEngineFixtures />
 
         {/* ── Tooltip label scale + screen edges (mounted last: opens on demand) ── */}
 

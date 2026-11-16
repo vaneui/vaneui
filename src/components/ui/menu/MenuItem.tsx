@@ -6,6 +6,12 @@ import { useMenuContext } from './MenuContext';
 import { createScopedKeydownHandler } from '../../utils/scopedKeydownHandler';
 import { defaultMenuItemTheme } from './defaultMenuItemTheme';
 
+// Roving tabindex: the item focused last is its menu's one tab stop and every other item stays at -1.
+// Focus still moves with the arrow keys; the tab stop is there so that a menu long enough to scroll
+// holds a tabbable element inside its scroll box. It is kept on the elements themselves, per menu
+// element: a submenu's trigger is an item of the parent menu, and moving focus should not re-render items.
+const menuTabStops = new WeakMap<Element, HTMLElement>();
+
 export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
   function MenuItem(props, ref) {
     const { closeMenuOnClick, ...rest } = props;
@@ -15,6 +21,24 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
     const shouldClose = closeMenuOnClick ?? ctx?.closeOnItemClick ?? true;
     const loop = ctx?.loop ?? true;
     const disabled = props.disabled;
+
+    const handleFocus = useCallback(
+      (e: React.FocusEvent<HTMLElement>) => {
+        const item = e.currentTarget;
+        const menu = item.closest('[data-menu-dropdown]');
+        if (menu) {
+          const previous = menuTabStops.get(menu);
+          if (previous && previous !== item) previous.tabIndex = -1;
+          item.tabIndex = 0;
+          menuTabStops.set(menu, item);
+        }
+        const origFocus = rest.onFocus;
+        if (typeof origFocus === 'function') {
+          (origFocus as (e: React.FocusEvent<HTMLButtonElement>) => void)(e as React.FocusEvent<HTMLButtonElement>);
+        }
+      },
+      [rest.onFocus]
+    );
 
     const handleClick = useCallback(
       (e: React.MouseEvent<HTMLElement>) => {
@@ -76,7 +100,8 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
     const handleMouseEnter = useCallback(
       (e: React.MouseEvent<HTMLElement>) => {
         if (!disabled) {
-          e.currentTarget.focus();
+          // no scrolling: in a menu that scrolls, an item half out of view would slide under the pointer
+          e.currentTarget.focus({ preventScroll: true });
         }
         // a submenu left open by a sibling closes; a submenu trigger reopens its own below
         ctx?.closeOpenSubmenu();
@@ -93,10 +118,12 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
       ...rest,
       // menuitemcheckbox / menuitemradio (with aria-checked) are the checkable forms, so a passed role wins
       role: rest.role ?? 'menuitem',
+      // every item starts out of the tab order; handleFocus moves the one tab stop
       tabIndex: -1,
       'data-menu-item': '',
       'aria-disabled': disabled || undefined,
       onClick: handleClick,
+      onFocus: handleFocus,
       onKeyDown: handleKeyDown,
       onMouseDown: handleMouseDown,
       onMouseEnter: handleMouseEnter,

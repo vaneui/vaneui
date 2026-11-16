@@ -15,6 +15,10 @@ export class PyClassMapper extends BaseClassMapper implements Record<ResponsiveB
   /** Mobile: apply vertical padding using --py-mobile */
   mobile: string = "max-mobile:py-(--py-mobile)";
 
+  responsiveClasses(): readonly string[] {
+    return [this.tablet, this.mobile];
+  }
+
   getClasses(extractedKeys: CategoryProps): string[] {
     const p = extractedKeys?.padding;
     if (p === 'padding' || p === 'paddingY' || p === undefined) {

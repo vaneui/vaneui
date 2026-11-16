@@ -26,9 +26,9 @@ type CleanedColProps = CleanHTMLProps<ColProps, 'type' | 'onChange' | 'onBlur' |
 export type FieldProps = BaseProps & CleanedColProps & ControlProps & ControlAttributes & {
   /** Label text, associated with the control via htmlFor */
   label?: React.ReactNode;
-  /** Help text below the control, linked with aria-describedby */
+  /** Help text below the control, linked with aria-describedby. An empty string renders nothing */
   description?: React.ReactNode;
-  /** Error text below the control; its presence also marks the control invalid. `true` marks it invalid with no text */
+  /** Error text below the control; its presence also marks the control invalid. `true` marks it invalid with no text; an empty string is no error */
   error?: React.ReactNode;
   /** Marks the control invalid without showing error text (cross-field checks, server errors shown elsewhere) */
   invalid?: boolean;
