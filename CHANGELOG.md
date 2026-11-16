@@ -10,6 +10,10 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.6.0
+
+`2026-11-16`
+
 Fixes from a review of 1.5.0, each covered by tests. Overlays keep their content while they
 close, an `Input` keeps focus while it is validated, read-only toggles stop reporting changes,
 a `Card` finds its parts wherever they render, and a `className` overrides a responsive value
@@ -124,6 +128,8 @@ Changed.
   development when it opens with a dialog role and no name.
 - `Radio`: a read-only radio no longer carries `aria-readonly`, which the radio role does not
   allow. The `RadioGroup` keeps it.
+
+[Full diff](https://github.com/vaneui/vaneui/compare/v1.5.0...v1.6.0)
 
 ## 1.5.0
 
