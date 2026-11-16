@@ -185,7 +185,7 @@ Config file locations and more clients are in the [@vaneui/mcp README](https://g
 
 **llms.txt.** [vaneui.com/llms.txt](https://vaneui.com/llms.txt) is an index of every docs page, and [vaneui.com/llms-full.txt](https://vaneui.com/llms-full.txt) has all docs pages, with each component's props, in one file you can give to a model as context.
 
-**Context7.** The docs are also indexed on [Context7](https://context7.com/vaneui/vaneui), for assistants that use it.
+**Context7.** The docs are also indexed on [Context7](https://context7.com/llmstxt/vaneui_llms-full_txt), for assistants that use it.
 
 ## Links
 
