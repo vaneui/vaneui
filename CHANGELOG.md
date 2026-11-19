@@ -10,6 +10,13 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.6.1
+
+`2026-11-19`
+
+The stylesheet import paths resolve for TypeScript, so a project on TypeScript 6 or later can
+import `@vaneui/ui/css` from a `.ts` or `.tsx` file.
+
 ### Fixed
 
 - `import '@vaneui/ui/css'` in a TypeScript file passes the type check on TypeScript 6 and
