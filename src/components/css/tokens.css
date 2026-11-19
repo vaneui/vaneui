@@ -10,17 +10,18 @@
     --color-text-warning: var(--color-amber-700);
     --color-text-info: var(--color-cyan-700);
 
-    /* Filled Text Colors — white for primary, very light tints per
-       appearance for contrast against filled (dark) backgrounds.
+    /* Filled Text Colors — the lightest text that keeps 4.5:1 against its
+       fill: white on the primary, accent and danger fills, gray-50 on the
+       tertiary fill, a 100-level tint of the appearance on the rest.
        Customizable per project. */
     --color-text-filled-primary: var(--color-white);
     --color-text-filled-secondary: var(--color-gray-100);
-    --color-text-filled-tertiary: var(--color-gray-200);
+    --color-text-filled-tertiary: var(--color-gray-50);
     /* filled-link text is a light tint (its fill is blue-600), like every other filled text token */
     --color-text-filled-link: var(--color-blue-100);
-    --color-text-filled-accent: var(--color-rose-100);
+    --color-text-filled-accent: var(--color-white);
     --color-text-filled-success: var(--color-emerald-100);
-    --color-text-filled-danger: var(--color-red-100);
+    --color-text-filled-danger: var(--color-white);
     --color-text-filled-warning: var(--color-amber-100);
     --color-text-filled-info: var(--color-cyan-100);
 
@@ -282,10 +283,9 @@
     --color-text-info: light-dark(oklch(52% 0.105 223.128), oklch(78.9% 0.154 211.53)); /* cyan-700 / cyan-400 */
 
     /* Filled Text Colors — primary inverts polarity (light CTA on dark
-       pages); link/tertiary lighten one tint. Same in both schemes (not listed):
-       secondary, accent, success, danger, warning, info (100-level tints). */
+       pages); link lightens one tint. Same in both schemes (not listed):
+       secondary, tertiary, accent, success, danger, warning, info. */
     --color-text-filled-primary: light-dark(#fff, oklch(21% 0.034 264.665)); /* white / gray-900 */
-    --color-text-filled-tertiary: light-dark(oklch(92.8% 0.006 264.531), oklch(98.5% 0.002 247.839)); /* gray-200 / gray-50 */
     /* filled-link text sits on a blue-600 fill in both schemes */
     --color-text-filled-link: light-dark(oklch(93.2% 0.032 255.585), oklch(97% 0.014 254.604)); /* blue-100 / blue-50 */
 
