@@ -10,6 +10,10 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.6.2
+
+`2026-11-19`
+
 A filled Table keeps the lines between its rows, and text on the danger, accent and tertiary
 fills is readable at small sizes.
 
