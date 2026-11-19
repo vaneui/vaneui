@@ -10,6 +10,13 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Changed
+
+- The package is built with updated development tools, which clears every advisory `npm audit`
+  reported for them. None of them ships in the package: its one runtime dependency,
+  `tailwind-merge`, is unchanged. The built files export the same names and render the same
+  markup as 1.6.1; some list their internal imports in a different order.
+
 ## 1.6.1
 
 `2026-11-19`
