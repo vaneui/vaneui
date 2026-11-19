@@ -68,6 +68,28 @@ describe('package exports map', () => {
     }
   });
 
+  // TypeScript 6 reports `import '@vaneui/ui/css'` as an error when the import resolves to no
+  // declaration, so a stylesheet entry carries a `types` target for both module systems. The
+  // top-level `default` is the target Tailwind reads: its resolver looks up
+  // `@import "@vaneui/ui/vars"` under the `style` condition alone, and without a `default` the
+  // import fails ("./vars" is not exported under the condition "style").
+  it('gives every stylesheet import path a declaration and a default target', () => {
+    const stylesheets: Record<string, string> = { './css': 'ui', './vars': 'vars', './tokens': 'tokens' };
+    for (const [subpath, file] of Object.entries(stylesheets)) {
+      const css = `./dist/${file}.css`;
+      expect({ [subpath]: exportsMap[subpath] }).toEqual({
+        [subpath]: {
+          import: { types: './dist/types/stylesheet.d.mts', default: css },
+          require: { types: './dist/types/stylesheet.d.cts', default: css },
+          default: css,
+        },
+      });
+    }
+    // a new stylesheet entry needs the same shape, so it has to be listed above
+    const cssTargets = Object.keys(exportsMap).filter(subpath => JSON.stringify(exportsMap[subpath]).includes('.css"'));
+    expect(cssTargets.sort()).toEqual(Object.keys(stylesheets).sort());
+  });
+
   it('points every JS import path at a source module, with matching ESM, CJS and type targets', () => {
     for (const [subpath, target] of Object.entries(exportsMap)) {
       const esm = (target as { import?: { default?: string } })?.import?.default;

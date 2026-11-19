@@ -10,6 +10,16 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Fixed
+
+- `import '@vaneui/ui/css'` in a TypeScript file passes the type check on TypeScript 6 and
+  later. The stylesheet import paths (`@vaneui/ui/css`, `/vars` and `/tokens`) had no type
+  declarations. TypeScript 6 reports a side-effect import it cannot resolve as an error
+  (`TS2882`), where earlier versions skipped it unless `noUncheckedSideEffectImports` was set.
+  Each path now has a `types` target, an empty module, under the `bundler`, `node16` and
+  `nodenext` resolution modes. `@import "@vaneui/ui/css"` in a CSS file was not affected and
+  resolves to the same file as before.
+
 ## 1.6.0
 
 `2026-11-16`

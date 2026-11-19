@@ -519,15 +519,36 @@
       }
     },
     "./vars": {
-      "import": "./dist/vars.css",
+      "import": {
+        "types": "./dist/types/stylesheet.d.mts",
+        "default": "./dist/vars.css"
+      },
+      "require": {
+        "types": "./dist/types/stylesheet.d.cts",
+        "default": "./dist/vars.css"
+      },
       "default": "./dist/vars.css"
     },
     "./tokens": {
-      "import": "./dist/tokens.css",
+      "import": {
+        "types": "./dist/types/stylesheet.d.mts",
+        "default": "./dist/tokens.css"
+      },
+      "require": {
+        "types": "./dist/types/stylesheet.d.cts",
+        "default": "./dist/tokens.css"
+      },
       "default": "./dist/tokens.css"
     },
     "./css": {
-      "import": "./dist/ui.css",
+      "import": {
+        "types": "./dist/types/stylesheet.d.mts",
+        "default": "./dist/ui.css"
+      },
+      "require": {
+        "types": "./dist/types/stylesheet.d.cts",
+        "default": "./dist/ui.css"
+      },
       "default": "./dist/ui.css"
     },
     "./package.json": "./package.json"
