@@ -55,3 +55,15 @@ for (const dts of dtsFiles) {
 }
 
 console.log(`Generated ${dtsFiles.length} .d.mts and ${dtsFiles.length} .d.cts declaration variants`);
+
+/**
+ * The stylesheet entries (`./css`, `./vars`, `./tokens`) point at CSS files, which TypeScript
+ * cannot read. Their `types` conditions point at this empty module instead, so
+ * `import '@vaneui/ui/css'` in a TypeScript file resolves. TypeScript 6 reports a side-effect
+ * import it cannot resolve as an error (`noUncheckedSideEffectImports` is on by default).
+ */
+for (const ext of [".d.mts", ".d.cts"]) {
+  fs.writeFileSync(path.resolve(`dist/types/stylesheet${ext}`), "export {};\n");
+}
+
+console.log("Generated the stylesheet declarations (stylesheet.d.mts, stylesheet.d.cts)");
