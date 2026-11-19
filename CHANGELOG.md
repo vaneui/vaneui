@@ -10,6 +10,15 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Fixed
+
+- A filled [Table](https://vaneui.com/docs/layout-components/table) keeps its row lines. Since
+  1.6.0 a filled Table, section or row passed its fill to the cells, and the lines between the
+  rows had no color. The cells now draw them in `--color-divider-filled`, the color a `Divider`
+  takes on a fill. The nearest row or section with its own variant decides, a cell with its own
+  appearance keeps its colors, and the Table's own border is as before. A `ghost` Table still
+  has no row lines.
+
 ### Changed
 
 - The package is built with updated development tools, which clears every advisory `npm audit`

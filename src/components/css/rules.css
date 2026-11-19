@@ -991,6 +991,16 @@
         --bg-active-color: color-mix(in oklab, currentColor 20%, transparent);
     }
 
+    /* Row rules on a fill. A fill has no border color, so the cells that follow a filled Table,
+       section or row draw their rule in the divider scrim, the color Divider takes on a fill.
+       The nearest ancestor with a variant decides: under an outline row inside a filled Table the
+       cells keep that row's border color. A cell with its own appearance resolves its own. */
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > .vane-table-cell:not([data-appearance]),
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > .vane-table-cell:not([data-appearance]),
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > :not([data-variant]) > .vane-table-cell:not([data-appearance]) {
+        --border-color: var(--divider-color);
+    }
+
     /* Mark: a visible highlight tint with body-colored text, so it reads as a highlight on any surface. */
     .vane-mark[data-variant="outline"] {
         --text-color: var(--color-text-primary);

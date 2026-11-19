@@ -486,5 +486,50 @@ describe('Table Component Tests', () => {
       expect(ruleFor('[data-variant="outline"]')).toContain('--border-color: var(--app-border);');
       expect(ruleFor('[data-variant="outline"]')).toContain('--text-color: var(--app-text);');
     });
+
+    describe('row rules on a fill', () => {
+      // the selector list of the stylesheet rule that gives a cell on a fill its row rule
+      const rulesCss = fs.readFileSync(path.join(__dirname, '../css/rules.css'), 'utf8');
+      const marker = '/* Row rules on a fill.';
+      const start = rulesCss.indexOf('*/', rulesCss.indexOf(marker)) + 2;
+      const open = rulesCss.indexOf('{', start);
+      const ON_FILL = rulesCss.slice(start, open).trim();
+      const cell = (ui: React.ReactElement, selector = 'td') => {
+        const { container } = render(<ThemeProvider theme={defaultTheme}>{ui}</ThemeProvider>);
+        return container.querySelector(selector) as HTMLElement;
+      };
+      const body = (row: React.ReactNode = <Tr><Td>Ada</Td></Tr>) => <Tbody>{row}</Tbody>;
+
+      it('the stylesheet draws them in the divider color', () => {
+        expect(rulesCss.indexOf(marker)).toBeGreaterThan(-1);
+        expect(rulesCss.slice(open, rulesCss.indexOf('}', open))).toContain('--border-color: var(--divider-color);');
+      });
+
+      it('reaches the cells of a filled Table, section or row', () => {
+        expect(cell(<Table filled>{body()}</Table>).matches(ON_FILL)).toBe(true);
+        expect(cell(<Table filled success><Thead><Tr><Th>Name</Th></Tr></Thead></Table>, 'th').matches(ON_FILL)).toBe(true);
+        expect(cell(<Table><Thead filled secondary><Tr><Th>Name</Th></Tr></Thead></Table>, 'th').matches(ON_FILL)).toBe(true);
+        expect(cell(<Table>{body(<Tr filled info><Td>Ada</Td></Tr>)}</Table>).matches(ON_FILL)).toBe(true);
+        // plain table markup between the filled Table and its cells
+        expect(cell(<Table filled><tbody><tr><Td>Ada</Td></tr></tbody></Table>).matches(ON_FILL)).toBe(true);
+      });
+
+      it('leaves an outline or ghost Table as it was', () => {
+        expect(cell(<Table>{body()}</Table>).matches(ON_FILL)).toBe(false);
+        expect(cell(<Table danger>{body()}</Table>).matches(ON_FILL)).toBe(false);
+        expect(cell(<Table ghost>{body()}</Table>).matches(ON_FILL)).toBe(false);
+      });
+
+      it('lets the nearest row or section with a variant decide', () => {
+        expect(cell(<Table filled>{body(<Tr secondary outline><Td>Ada</Td></Tr>)}</Table>).matches(ON_FILL)).toBe(false);
+        expect(cell(<Table filled><Tbody secondary ghost><Tr><Td>Ada</Td></Tr></Tbody></Table>).matches(ON_FILL)).toBe(false);
+        expect(cell(<Table filled><Tbody secondary outline><Tr filled info><Td>Ada</Td></Tr></Tbody></Table>).matches(ON_FILL)).toBe(true);
+      });
+
+      it('skips a cell with its own appearance and a cell outside a Table', () => {
+        expect(cell(<Table filled>{body(<Tr><Td danger>Ada</Td></Tr>)}</Table>).matches(ON_FILL)).toBe(false);
+        expect(renderInRow(<Td>B</Td>).container.querySelector('td')?.matches(ON_FILL)).toBe(false);
+      });
+    });
   });
 });
