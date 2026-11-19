@@ -1,9 +1,10 @@
 import { test, expect, getColor, getStyle, getContrastRatio } from './base';
 
 // WCAG AA requires 4.5:1 for normal text, 3:1 for large text.
-// VaneUI filled text is typically large-ish (button labels, card headings),
-// so we use the 3:1 threshold as the minimum bar.
-const WCAG_AA_LARGE_TEXT = 3;
+// Filled text is often small (a Badge, a Chip, a small Button label), so the
+// filled pairs are held to 4.5:1. schemeTokens.test.ts checks the same pairs
+// from the token values.
+const WCAG_AA_TEXT = 4.5;
 
 // ── Tests ────────────────────────────────────────────────────────────────────
 
@@ -22,13 +23,13 @@ test.describe('Filled text contrast (WCAG)', () => {
   const appearances = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
 
   for (const appearance of appearances) {
-    test(`${appearance} filled: text has at least 3:1 contrast against background`, async ({ page }) => {
+    test(`${appearance} filled: text has at least 4.5:1 contrast against background`, async ({ page }) => {
       const card = page.locator(`[data-testid="vi-contrast-${appearance}"]`);
       const text = page.locator(`[data-testid="vi-contrast-text-${appearance}"]`);
 
       const ratio = await getContrastRatio(text, card);
 
-      expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_LARGE_TEXT);
+      expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_TEXT);
     });
   }
 
@@ -200,7 +201,7 @@ test.describe('Field text on a filled surface', () => {
         },
         field,
       );
-      expect(ratio, `${name} contrast on a filled Field`).toBeGreaterThanOrEqual(WCAG_AA_LARGE_TEXT);
+      expect(ratio, `${name} contrast on a filled Field`).toBeGreaterThanOrEqual(WCAG_AA_TEXT);
     }
     await expect(surface).toHaveAttribute('data-variant', 'filled');
   });

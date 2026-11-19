@@ -10,6 +10,35 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+A filled Table keeps the lines between its rows, and text on the danger, accent and tertiary
+fills is readable at small sizes.
+
+### Fixed
+
+- A filled [Table](https://vaneui.com/docs/layout-components/table) keeps its row lines. Since
+  1.6.0 a filled Table, section or row passed its fill to the cells, and the lines between the
+  rows had no color. The cells now draw them in `--color-divider-filled`, the color a `Divider`
+  takes on a fill. The nearest row or section with its own variant decides, a cell with its own
+  appearance keeps its colors, and the Table's own border is as before. A `ghost` Table still
+  has no row lines.
+
+### Accessibility
+
+- Text on the danger, accent and tertiary fills reaches 4.5:1. In the light scheme a filled
+  `Badge`, `Chip` or `Button` sat at 3.9:1 in danger and tertiary and at 3.8:1 in accent.
+  `--color-text-filled-danger` and `--color-text-filled-accent` are now white (they were
+  `red-100` and `rose-100`) and `--color-text-filled-tertiary` is `gray-50` (it was `gray-200`
+  in the light scheme and `gray-50` in the dark one). The fills are unchanged, and a project
+  that sets these tokens keeps its own values. In the dark scheme the danger and accent text
+  changes from the same tints to white, which was above 4.5:1 before and after.
+
+### Changed
+
+- The package is built with updated development tools, which clears every advisory `npm audit`
+  reported for them. None of them ships in the package: its one runtime dependency,
+  `tailwind-merge`, is unchanged. The built files export the same names and render the same
+  markup as 1.6.1; some list their internal imports in a different order.
+
 ## 1.6.1
 
 `2026-11-19`

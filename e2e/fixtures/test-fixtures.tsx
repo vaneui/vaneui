@@ -1006,6 +1006,16 @@ function ThemeEngineFixtures() {
       <AppearanceTable id="ta-danger-border" danger border/>
       <AppearanceTable id="ta-filled" filled/>
       <AppearanceTable id="ta-filled-success" filled success/>
+      <AppearanceTable id="ta-filled-border" filled border/>
+      <AppearanceTable id="ta-ghost" ghost/>
+      {/* on a fill the nearest row with a variant, or the cell's own appearance, decides the row rule */}
+      <Table filled data-testid="ta-filled-mixed">
+        <Tbody>
+          <Tr secondary outline><Td data-testid="ta-filled-outline-row-td">cell</Td></Tr>
+          <Tr><Td danger data-testid="ta-filled-own-td">cell</Td></Tr>
+          <Tr><Td data-testid="ta-filled-mixed-td">cell</Td></Tr>
+        </Tbody>
+      </Table>
       {/* a cell's own appearance wins over the Table's */}
       <Table success data-testid="ta-own">
         <Thead><Tr><Th danger data-testid="ta-own-th">header</Th></Tr></Thead>

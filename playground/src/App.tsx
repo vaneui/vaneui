@@ -494,7 +494,9 @@ function App() {
             <Text sm secondary>
               A <Code sm>Card</Code> drops its own padding when its parts come from another
               component. An appearance or <Code sm>filled</Code> on a <Code sm>Table</Code> reaches
-              its cells. <Code sm>className="py-8"</Code> on the last card holds on a phone too.
+              its cells, and a filled Table keeps its row lines. <Code sm>className="py-8"</Code> on
+              the last card holds on a phone too. Text on the danger, accent and tertiary fills
+              reads at 4.5:1.
             </Text>
             <Row tabletStack itemsStart>
               <Card sm><PlanParts /></Card>
@@ -503,6 +505,13 @@ function App() {
             <Row tabletStack itemsStart>
               <ChecksTable success />
               <ChecksTable filled />
+              <ChecksTable filled success />
+            </Row>
+            <Row>
+              <Badge danger filled>Overdue</Badge>
+              <Badge accent filled>New</Badge>
+              <Badge tertiary filled>Draft</Badge>
+              <Button danger filled>Delete</Button>
             </Row>
           </Card>
 

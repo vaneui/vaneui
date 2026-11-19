@@ -2,7 +2,8 @@ import { test, expect, getStyle, getColor, getBg, type Page } from './base';
 
 // A Table's appearance and variant reach its rows and cells: cells carry no appearance
 // of their own, so the row rules and the header text read the colors the Table (or a
-// row between them) resolved. `outline` colors the lines, `filled` fills the surface.
+// row between them) resolved. `outline` colors the lines, `filled` fills the surface
+// and draws the lines in the divider color of a fill.
 // The default Table must keep the look it always had.
 
 const TRANSPARENT = 'rgba(0, 0, 0, 0)';
@@ -83,8 +84,31 @@ test.describe('Table appearance', () => {
     for (const id of ['ta-filled-tr', 'ta-filled-th', 'ta-filled-td']) {
       expect(await getBg(byId(page, id))).toBe(TRANSPARENT);
     }
-    // filled has no border color, as on every other filled surface
-    expect(await rowRule(page, 'ta-filled-td')).toBe(TRANSPARENT);
+    // a fill has no border color, so the row rules take the divider color of a fill
+    const rule = await token(page, '--color-divider-filled');
+    expect(rule).not.toBe(TRANSPARENT);
+    expect(await rowRule(page, 'ta-filled-th')).toBe(rule);
+    expect(await rowRule(page, 'ta-filled-td')).toBe(rule);
+    expect(await rowRule(page, 'ta-filled-success-td')).toBe(rule);
+  });
+
+  test('the outer border of a filled Table stays without a color', async ({ page }) => {
+    for (const side of ['top', 'right', 'bottom', 'left']) {
+      expect(await getStyle(byId(page, 'ta-filled-border'), `border-${side}-color`)).toBe(TRANSPARENT);
+    }
+    // its cells still draw their row rules
+    expect(await rowRule(page, 'ta-filled-border-td')).toBe(await token(page, '--color-divider-filled'));
+  });
+
+  test('on a filled Table the nearest row with a variant decides the row rule', async ({ page }) => {
+    expect(await rowRule(page, 'ta-filled-mixed-td')).toBe(await token(page, '--color-divider-filled'));
+    expect(await rowRule(page, 'ta-filled-outline-row-td')).toBe(await token(page, '--color-border-secondary'));
+    expect(await rowRule(page, 'ta-filled-own-td')).toBe(await token(page, '--color-border-danger'));
+  });
+
+  test('a ghost Table keeps its row rules without a color', async ({ page }) => {
+    expect(await rowRule(page, 'ta-ghost-th')).toBe(TRANSPARENT);
+    expect(await rowRule(page, 'ta-ghost-td')).toBe(TRANSPARENT);
   });
 
   test('a filled Table with an appearance fills in that appearance', async ({ page }) => {
@@ -109,6 +133,7 @@ test.describe('Table appearance', () => {
     const text = await token(page, '--color-text-filled-info');
     expect(await getColor(byId(page, 'ta-row-th'))).toBe(text);
     expect(await getColor(byId(page, 'ta-row-td'))).toBe(text);
+    expect(await rowRule(page, 'ta-row-td')).toBe(await token(page, '--color-divider-filled'));
     expect(await rowRule(page, 'ta-row-plain-td')).toBe(await token(page, '--color-border-secondary'));
   });
 

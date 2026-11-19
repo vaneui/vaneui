@@ -131,23 +131,25 @@ test.describe('Inherit-mode re-resolution at the theme boundary', () => {
 });
 
 // =========================================================================
-// Contrast gate (dark scheme): same policy as filled-contrast.spec.ts —
-// 3:1 minimum (WCAG AA large text) — extended to BOTH variants, since dark
-// outline surfaces are colored (950-level), not white.
+// Contrast gate (dark scheme): filled text is held to 4.5:1, the same policy
+// as filled-contrast.spec.ts. The gate also covers the outline variant, at
+// 3:1 (WCAG AA large text), since dark outline surfaces are colored
+// (950-level), not white.
 // =========================================================================
 
+const WCAG_AA_TEXT = 4.5;
 const WCAG_AA_LARGE_TEXT = 3;
 const appearances = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
 
 test.describe('Dark filled text contrast (WCAG)', () => {
   for (const appearance of appearances) {
-    test(`${appearance} filled: text has at least 3:1 contrast against dark background`, async ({ page }) => {
+    test(`${appearance} filled: text has at least 4.5:1 contrast against dark background`, async ({ page }) => {
       const card = page.locator(`[data-testid="dm-contrast-filled-${appearance}"]`);
       const text = page.locator(`[data-testid="dm-contrast-filled-text-${appearance}"]`);
 
       const ratio = await getContrastRatio(text, card);
 
-      expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_LARGE_TEXT);
+      expect(ratio).toBeGreaterThanOrEqual(WCAG_AA_TEXT);
     });
   }
 });
