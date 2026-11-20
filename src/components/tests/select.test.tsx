@@ -60,7 +60,7 @@ describe('Select Component Tests', () => {
       const {container} = renderSelect(<Select />);
 
       const el = container.querySelector('select') as HTMLElement;
-      expect(el.getAttribute('data-size')).toBe('md');
+      expect(el.getAttribute('data-size')).toBe('sm');
       expect(el.getAttribute('data-appearance')).toBe('primary');
       expect(el.getAttribute('data-variant')).toBe('outline');
       expect(el.getAttribute('data-vane-type')).toBe('ui');

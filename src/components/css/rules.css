@@ -134,11 +134,11 @@
 
     /* Icon: --icon-size is set per data-size as --spacing × N, decoupled from text font-size. */
     .vane-icon { --py-unit: 2; --aspect-ratio: 1; --br-unit: 0.2174; }
-    .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --icon-size: calc(var(--spacing) * 4);  --py-unit: 1;   }
-    .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --icon-size: calc(var(--spacing) * 6);  --py-unit: 1.5; }
-    .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --icon-size: calc(var(--spacing) * 8);  --py-unit: 2;   }
-    .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --icon-size: calc(var(--spacing) * 12); --py-unit: 2.5; }
-    .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --icon-size: calc(var(--spacing) * 16); --py-unit: 3;   }
+    .vane-icon[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --icon-size: calc(var(--spacing) * 3); --py-unit: 1;   }
+    .vane-icon[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --icon-size: calc(var(--spacing) * 4); --py-unit: 1.5; }
+    .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --icon-size: calc(var(--spacing) * 5); --py-unit: 2;   }
+    .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --icon-size: calc(var(--spacing) * 6); --py-unit: 2.5; }
+    .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --icon-size: calc(var(--spacing) * 8); --py-unit: 3;   }
     /* Outline Icons override --bg-color to transparent so inline use stays un-boxed; filled opts into bg paint. */
     .vane-icon[data-variant="outline"] { --bg-color: transparent; }
 
@@ -747,6 +747,33 @@
         --py-unit-tablet: inherit;
         --py-unit-mobile: inherit;
     }
+    /* Parts meet without a second inset. Each part pads all four sides and the surface adds its
+       gap, so a title sat two paddings and a gap above the body (64px in a Modal at md). Now the
+       body keeps its padding, which is also the room its scroll box needs for focus rings, and
+       the header gives up its bottom padding, the footer its top padding, and the surface its
+       gap between parts. `padding-block` takes a start and an end value, so the two factors
+       switch one side off without touching the utility classes, and a user className still
+       wins. A side with a divider line, or next to a filled part, keeps its padding. */
+    :is(.vane-card-header, .vane-card-body, .vane-card-footer,
+        .vane-modal-header, .vane-modal-body, .vane-modal-footer) {
+        --part-pt: 1;
+        --part-pb: 1;
+        --py-desktop: calc(var(--py-unit-desktop) * var(--spacing) * var(--part-pt)) calc(var(--py-unit-desktop) * var(--spacing) * var(--part-pb));
+        --py-tablet: calc(var(--py-unit-tablet) * var(--spacing) * var(--part-pt)) calc(var(--py-unit-tablet) * var(--spacing) * var(--part-pb));
+        --py-mobile: calc(var(--py-unit-mobile) * var(--spacing) * var(--part-pt)) calc(var(--py-unit-mobile) * var(--spacing) * var(--part-pb));
+        /* a part with responsiveSizing off reads --py */
+        --py: calc(var(--py-unit) * var(--spacing) * var(--part-pt)) calc(var(--py-unit) * var(--spacing) * var(--part-pb));
+    }
+    :is(.vane-card-header, .vane-modal-header):not([data-variant="filled"], [class*="border-b-"], [class*="border-y-"], [class*="border-[length"]):has(+ :is(.vane-card-body, .vane-card-footer, .vane-modal-body, .vane-modal-footer):not([data-variant="filled"], [class*="border-t-"], [class*="border-y-"], [class*="border-[length"])) {
+        --part-pb: 0;
+    }
+    :is(.vane-card-body, .vane-modal-body):not([data-variant="filled"], [class*="border-b-"], [class*="border-y-"], [class*="border-[length"]) + :is(.vane-card-footer, .vane-modal-footer):not([data-variant="filled"], [class*="border-t-"], [class*="border-y-"], [class*="border-[length"]) {
+        --part-pt: 0;
+    }
+    :is(.vane-card, .vane-modal):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal-header, .vane-modal-body, .vane-modal-footer)) {
+        --gap: 0px;
+        --gap-desktop: 0px; --gap-tablet: 0px; --gap-mobile: 0px;
+    }
     .vane-card-header {
         flex-shrink: 0;
     }
@@ -777,6 +804,10 @@
     .vane-card:not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer)) > :not([data-size]) {
         --py: var(--card-py);
         --px: var(--card-px);
+    }
+    /* ...and the parts keep the two-sided value from above, which the rule before this one outranks. */
+    .vane-card:not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer)) > :is(.vane-card-header, .vane-card-body, .vane-card-footer) {
+        --py: calc(var(--card-py) * var(--part-pt)) calc(var(--card-py) * var(--part-pb));
     }
 
     /* Modal compound sub-components */

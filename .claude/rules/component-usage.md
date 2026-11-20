@@ -277,12 +277,12 @@ An empty string for `error` or `description` means no message, so `error={errors
 </Row>
 ```
 
-Button defaults to `sm` and Input to `md`. When a button sits beside a field, give them the same size (`<Button md>` or `<Input sm>`); at the same size they are the same height.
+`Button`, `Input`, `Textarea` and `Select` all default to `sm`, so a field and a button written with no size prop are the same height. Give them the same size prop when you change one (`<Input md>` next to `<Button md>`).
 
 ```tsx
 <Row>
   <Input placeholder="Email" />
-  <Button md filled>Subscribe</Button>
+  <Button filled>Subscribe</Button>
 </Row>
 ```
 
@@ -505,6 +505,8 @@ For size-driven floating dimensions, `constrainWidth` applies a size-dependent m
 
 With a part as its direct child, the Card drops its own padding and the parts carry the inset. That holds when the parts sit in a fragment, come from your own component or are rendered from a Server Component. A part nested inside another element does not count. An explicit `padding`, `paddingX` or `paddingY` on the Card keeps its own inset as well.
 
+The parts of a Card or a Modal meet one inset apart: the body keeps its padding, the header drops its bottom padding and the footer its top padding, and the surface puts no gap between them. For a divider, add `borderB` to the header or `borderT` to the footer; a part with a line (or a `filled` part) keeps its padding on that side.
+
 ## Responsive Layout
 
 VaneUI is **desktop-first**. Base styles target desktop. Use breakpoint props to adapt for smaller screens.
@@ -569,7 +571,7 @@ All components support size props. Only one is active at a time. If two props of
 <Text xl>Extra large</Text>
 ```
 
-Defaults vary by component: most default to `md`, but `Button`, `IconButton`, `MenuItem`, `MenuLabel`, `NavLink`, `Tooltip`, and `Label` default to `sm` (a bare `<Button>` is small). Size controls font-size, padding, gap, and border-radius simultaneously via CSS variables. Do not use Tailwind size classes to override these.
+Defaults vary by component: most default to `md`, but the controls and the dense components default to `sm`: `Button`, `IconButton`, `Input`, `Textarea`, `Select`, `Field`, `Label`, `MenuItem`, `MenuLabel`, `NavLink`, `Tooltip`, `Badge` and `Table` (a bare `<Button>` or `<Input>` has 14px text). `Icon` has its own scale: 12, 16, 20, 24 and 32px, 20px by default. Size controls font-size, padding, gap, and border-radius simultaneously via CSS variables. Do not use Tailwind size classes to override these.
 
 ## Appearance Props
 

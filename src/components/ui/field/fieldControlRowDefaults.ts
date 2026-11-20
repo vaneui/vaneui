@@ -3,7 +3,7 @@ import type { ColProps } from "../col/ColProps";
 /** itemsCenter not itemsStart; restates colDefaults since withDefaults replaces, not merges. */
 export const fieldControlRowDefaults: Partial<ColProps> = {
   row: true,
-  md: true,
+  sm: true,
   flex: true,
   itemsCenter: true,
   gap: true,

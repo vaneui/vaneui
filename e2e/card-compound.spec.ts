@@ -13,7 +13,7 @@ const VIEWPORTS = [
 ] as const;
 
 const SIDES = ['top', 'right', 'bottom', 'left'] as const;
-const GAP = 12; // Card md: --gap-unit 3
+const GAP = 12; // Card md: --gap-unit 3 (a plain Card; a compound Card has no gap between its parts)
 
 const padding = (l: Locator) =>
   Promise.all(SIDES.map(side => getStyle(l, `padding-${side}`).then(parseFloat)));
@@ -43,10 +43,11 @@ for (const vp of VIEWPORTS) {
       test(`${form} parts: the Card has no inset, the parts carry it`, async ({ page }) => {
         const card = byId(page, `cc-${form}`);
         expect(await padding(card)).toEqual([0, 0, 0, 0]);
-        expect(await gap(card)).toBe(GAP);
-        for (const part of ['header', 'body', 'footer'] as const) {
-          expect(await padding(byId(page, `cc-${form}-${part}`))).toEqual([vp.inset, vp.inset, vp.inset, vp.inset]);
-        }
+        // the parts meet without the Card's gap, and only the body pads the sides they share
+        expect(await gap(card)).toBe(0);
+        expect(await padding(byId(page, `cc-${form}-header`))).toEqual([vp.inset, vp.inset, 0, vp.inset]);
+        expect(await padding(byId(page, `cc-${form}-body`))).toEqual([vp.inset, vp.inset, vp.inset, vp.inset]);
+        expect(await padding(byId(page, `cc-${form}-footer`))).toEqual([0, vp.inset, vp.inset, vp.inset]);
       });
     }
 
@@ -76,6 +77,28 @@ for (const vp of VIEWPORTS) {
       }
     });
 
+    test('header text sits one inset above the body text', async ({ page }) => {
+      const edge = (id: string, side: 'top' | 'bottom') =>
+        byId(page, id).evaluate((el, s) => el.getBoundingClientRect()[s], side);
+      expect(await edge('cc-direct-body', 'top')).toBeCloseTo(await edge('cc-direct-header', 'bottom'), 1);
+      expect(await edge('cc-direct-footer', 'top')).toBeCloseTo(await edge('cc-direct-body', 'bottom'), 1);
+    });
+
+    test('a divider line or a filled part keeps the padding beside it', async ({ page }) => {
+      expect(await padding(byId(page, 'cc-divided-header'))).toEqual([vp.inset, vp.inset, vp.inset, vp.inset]);
+      expect(await padding(byId(page, 'cc-divided-footer'))).toEqual([vp.inset, vp.inset, vp.inset, vp.inset]);
+    });
+
+    test('a header right above a footer leaves one inset between them', async ({ page }) => {
+      expect(await padding(byId(page, 'cc-nobody-header'))).toEqual([vp.inset, vp.inset, 0, vp.inset]);
+      expect(await padding(byId(page, 'cc-nobody-footer'))).toEqual([vp.inset, vp.inset, vp.inset, vp.inset]);
+    });
+
+    test('a className on a part wins over the dropped side', async ({ page }) => {
+      const [top, , bottom] = await padding(byId(page, 'cc-classname-header'));
+      expect([top, bottom]).toEqual([8, 8]);
+    });
+
     test('a part nested below a plain element leaves the Card padded', async ({ page }) => {
       expect(await padding(byId(page, 'cc-nested'))).toEqual([vp.inset, vp.inset, vp.inset, vp.inset]);
     });
@@ -91,5 +114,21 @@ test.describe('compound Card with responsiveSizing off', () => {
       expect(await padding(byId(page, `cc-static-${form}`))).toEqual([0, 0, 0, 0]);
       expect(await padding(byId(page, `cc-static-${form}-body`))).toEqual([24, 24, 24, 24]);
     }
+    expect(await padding(byId(page, 'cc-static-wrapped-header'))).toEqual([24, 24, 0, 24]);
+    expect(await padding(byId(page, 'cc-static-wrapped-footer'))).toEqual([0, 24, 24, 24]);
+  });
+});
+
+test.describe('compound Modal', () => {
+  test('header, body and footer meet like the Card parts', async ({ page }) => {
+    await page.waitForSelector('[data-testid="z-modal-content"]');
+    const modal = byId(page, 'z-modal-content');
+    expect(await gap(modal)).toBe(0);
+    const [top, , bottom] = await padding(modal.locator('.vane-modal-header'));
+    expect(top).toBeGreaterThan(0);
+    expect(bottom).toBe(0);
+    const [bodyTop, , bodyBottom] = await padding(modal.locator('.vane-modal-body'));
+    expect(bodyTop).toBe(top);
+    expect(bodyBottom).toBe(top);
   });
 });

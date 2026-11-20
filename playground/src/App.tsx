@@ -5,14 +5,10 @@ import {
   defaultTheme,
   Row,
   Col,
-  Stack,
   Text,
   Title,
   Section,
   Card,
-  Grid3,
-  Img,
-  NavLink,
   CardHeader,
   CardBody,
   Container,
@@ -24,6 +20,7 @@ import {
   Button,
   IconButton,
   Badge,
+  Icon,
   Chip,
   Input,
   Checkbox,
@@ -107,7 +104,6 @@ function ThemeShowcase() {
   );
 }
 
-const LOGO_SRC = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#2563eb"/></svg>')}`;
 
 /* A Tooltip and a Menu on one trigger, a dialog opened from a menu item, and a second dialog
    on top of it. */
@@ -194,7 +190,7 @@ function PlanParts() {
 
 function ChecksTable(props: { success?: boolean; filled?: boolean }) {
   return (
-    <Table sm {...props}>
+    <Table {...props}>
       <Thead>
         <Tr><Th>Check</Th><Th>Result</Th></Tr>
       </Thead>
@@ -214,90 +210,57 @@ function App() {
 
           <PageTitle>VaneUI Playground</PageTitle>
           <Text secondary>
-            Divided grids, strong borders, NavLink indicators, shadow sizes, light islands inside{' '}
-            <Code sm>data-theme="dark"</Code>, the label-sized <Code sm>Tooltip</Code>, and the fixes
-            from the project review.
+            Default sizes that line up, the Icon scale, Card and Modal parts, light islands inside{' '}
+            <Code sm>data-theme="dark"</Code>, Alert sizes, and the fixes from the project review.
           </Text>
 
-          {/* ═══ 1. GRIDS, BORDERS, INDICATORS ═══════════════════════════════ */}
+          {/* ═══ 1. DEFAULT SIZES ═══════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>1. Grids, borders and indicators</SectionTitle>
+          <SectionTitle>1. Default sizes and parts</SectionTitle>
 
           <Card>
-            <Title>Divided grid</Title>
+            <Title>No size props</Title>
             <Text sm secondary>
-              <Code sm>divided</Code> swaps the gap for 1px lines in the divider color, between and
-              around the cells. Give the cells their own padding.
-            </Text>
-            <Grid3 divided>
-              {['Boolean props', 'Theme overrides', 'Dark mode', 'Tailwind CSS v4', 'Accessible', 'Server components'].map(t => (
-                <Stack key={t} sm>
-                  <Title sm>{t}</Title>
-                  <Text sm secondary>One cell of a divided grid.</Text>
-                </Stack>
-              ))}
-            </Grid3>
-          </Card>
-
-          <Card>
-            <Title>Strong border</Title>
-            <Text sm secondary>
-              <Code sm>strongBorder</Code> paints the border in the appearance's strong color, for a
-              selected card or a highlighted plan.
-            </Text>
-            <Row itemsStretch tabletStack>
-              <Card sm flex1><Title sm>Starter</Title><Text sm secondary>Soft border</Text></Card>
-              <Card sm flex1 strongBorder><Title sm>Team</Title><Text sm secondary>strongBorder</Text></Card>
-              <Card sm flex1 accent strongBorder><Title sm>Business</Title><Text sm secondary>accent strongBorder</Text></Card>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>NavLink indicators</Title>
-            <Text sm secondary>
-              <Code sm>indicatorStart</Code> draws a rail that turns into an accent mark on the active
-              or selected link. <Code sm>indicatorBottom</Code> marks the active tab. Neither moves the text.
-            </Text>
-            <Row itemsStart tabletStack>
-              <Col noGap className="w-48">
-                <NavLink href="#install" indicatorStart ghost sharp secondary>Installation</NavLink>
-                <NavLink href="#concepts" indicatorStart ghost sharp active>Core concepts</NavLink>
-                <NavLink href="#theming" indicatorStart ghost sharp secondary>Theming</NavLink>
-              </Col>
-              <Col noGap role="listbox" aria-label="Search results" className="w-48">
-                <NavLink role="option" aria-selected="true" indicatorStart ghost sharp>Button</NavLink>
-                <NavLink role="option" aria-selected="false" indicatorStart ghost sharp secondary>Badge</NavLink>
-              </Col>
-              <Row noGap borderB>
-                <NavLink href="#docs" indicatorBottom ghost sharp active fontNormal wFit>Docs</NavLink>
-                <NavLink href="#playground" indicatorBottom ghost sharp secondary fontNormal wFit>Playground</NavLink>
-                <NavLink href="#changelog" indicatorBottom ghost sharp secondary fontNormal wFit>Changelog</NavLink>
-              </Row>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Shadow sizes</Title>
-            <Text sm secondary>
-              <Code sm>shadow</Code> follows the component size. <Code sm>shadowXs</Code> to{' '}
-              <Code sm>shadowXl</Code> pick a size on the same ramp, whatever the component size.
+              A field and a button with no props line up: both are <Code sm>sm</Code>. A
+              <Code sm>Badge</Code> and a <Code sm>Table</Code> use the 12px and 14px steps.
             </Text>
             <Row flexWrap>
-              {(['shadowXs', 'shadowSm', 'shadowMd', 'shadowLg', 'shadowXl'] as const).map(s => (
-                <Card key={s} sm {...{ [s]: true }}><Text sm>{s}</Text></Card>
-              ))}
+              <Input placeholder="you@example.com" wFit />
+              <Button filled>Subscribe</Button>
+              <Badge success>Paid</Badge>
+              <Badge warning>Pending</Badge>
+            </Row>
+            <Field label="Project name" description="Shown in the sidebar.">
+              <Input defaultValue="Website" />
+            </Field>
+            <ChecksTable />
+          </Card>
+
+          <Card>
+            <Title>Icon scale</Title>
+            <Text sm secondary>12, 16, 20, 24 and 32px. The default sits next to body text.</Text>
+            <Row itemsEnd>
+              <Icon xs><TestSvg /></Icon>
+              <Icon sm><TestSvg /></Icon>
+              <Icon><TestSvg /></Icon>
+              <Icon lg><TestSvg /></Icon>
+              <Icon xl><TestSvg /></Icon>
+              <Row sm><Icon><TestSvg /></Icon><Text>Starred projects</Text></Row>
             </Row>
           </Card>
 
           <Card>
-            <Title>Pointer events, whitespace and Img noShrink</Title>
+            <Title>Header, body and footer</Title>
             <Text sm secondary>
-              Layout components take <Code sm>pointerEventsNone</Code> and{' '}
-              <Code sm>whitespaceNowrap</Code>, and <Code sm>Img noShrink</Code> keeps a logo its size in a tight row.
+              The parts meet one inset apart. A header with <Code sm>borderB</Code> keeps the room
+              for its line.
             </Text>
-            <Row whitespaceNowrap overflowHidden className="max-w-80">
-              <Img noShrink src={LOGO_SRC} alt="" width={24} height={24} />
-              <Text sm>A long label that stays on one line and clips at the edge of its row</Text>
+            <Row tabletStack itemsStart>
+              <Card><PlanParts /></Card>
+              <Card>
+                <CardHeader borderB><Title sm>With a divider</Title></CardHeader>
+                <CardBody><Text>The line sits between two insets.</Text></CardBody>
+              </Card>
             </Row>
           </Card>
 

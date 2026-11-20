@@ -21,8 +21,8 @@ describe('Badge Component Tests', () => {
       const badge = container.querySelector('span');
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveClass('w-fit', 'h-fit', 'whitespace-nowrap');
-      expect(badge).toHaveClass(FONT_SIZE_CLASS); // md size
-      expect(badge).toHaveAttribute('data-size', 'md');
+      expect(badge).toHaveClass(FONT_SIZE_CLASS); // sm size
+      expect(badge).toHaveAttribute('data-size', 'sm');
       expect(badge).toHaveClass('text-(--text-color)'); // secondary appearance (neutral default; colored via success/danger/…)
       expect(badge).toHaveClass('font-sans');
       expect(badge).toHaveClass('font-semibold'); // semibold weight

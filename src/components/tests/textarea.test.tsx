@@ -58,7 +58,7 @@ describe('Textarea Component Tests', () => {
       const {container} = renderTextarea(<Textarea />);
 
       const el = container.querySelector('textarea') as HTMLElement;
-      expect(el.getAttribute('data-size')).toBe('md');
+      expect(el.getAttribute('data-size')).toBe('sm');
       expect(el.getAttribute('data-appearance')).toBe('primary');
       expect(el.getAttribute('data-variant')).toBe('outline');
       expect(el.getAttribute('data-vane-type')).toBe('ui');

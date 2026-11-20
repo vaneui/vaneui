@@ -25,7 +25,7 @@ describe('Field Component Tests', () => {
       const field = container.querySelector('.vane-field');
       expect(field).toBeInTheDocument();
       expect(field).toHaveClass('flex', 'flex-col');
-      expect(field).toHaveAttribute('data-size', 'md');
+      expect(field).toHaveAttribute('data-size', 'sm');
     });
 
     it('should render only the slots it was given', () => {

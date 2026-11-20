@@ -23,7 +23,8 @@ describe('Input Component Tests', () => {
       const input = container.querySelector('input');
       expect(input).toBeInTheDocument();
       expect(input).toHaveClass('w-full', 'transition', 'duration-(--transition-duration)', 'ease-(--transition-timing)');
-      expect(input).toHaveClass(FONT_SIZE_CLASS); // md size
+      expect(input).toHaveClass(FONT_SIZE_CLASS);
+      expect(input).toHaveAttribute('data-size', 'sm'); // the size Button defaults to
       expect(input).toHaveClass('px-(--px)', 'py-(--py)'); // padding
       expect(input).toHaveClass('font-sans', 'font-normal'); // typography
       expect(input).toHaveClass('rounded-(--br)'); // rounded

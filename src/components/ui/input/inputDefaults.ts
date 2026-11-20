@@ -2,7 +2,7 @@ import type { InputProps } from "./InputProps";
 
 /** Default props for Input component */
 export const inputDefaults: Partial<InputProps> = {
-  md: true,
+  sm: true,
   wFull: true,
   primary: true,
   rounded: true,

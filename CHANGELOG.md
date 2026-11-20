@@ -10,6 +10,27 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Changed
+
+- `Input`, `Textarea`, `Select` and `Field` default to `sm`, the size `Button` already
+  defaults to. A field and a button written with no size prop were 37px and 30px tall, with
+  16px and 14px text; both are now 30px with 14px text. Pass `md` to keep the earlier size.
+  To keep it everywhere, set
+  `themeDefaults={{ input: { md: true }, textarea: { md: true }, select: { md: true }, field: { main: { md: true } } }}`.
+- `Badge` defaults to `sm`: 12px text and 20px tall, where it was 14px and 25px. Pass `md`
+  for the earlier size.
+- `Table` defaults to `sm`: 14px text and 6px by 12px cell padding, where it was 16px and 8px
+  by 16px. Pass `md` for the earlier size.
+- `Icon` sizes are 12, 16, 20, 24 and 32px for `xs` to `xl`. They were 16, 24, 32, 48 and
+  64px, so a default `Icon` next to body text was 32px. For a larger glyph, give the SVG a
+  `size-*` class.
+- The parts of a `Card` and a `Modal` meet one inset apart. Each part padded all four sides
+  and the surface added its gap, which left 64px between a Modal title and its body at `md`
+  (60px in a Card). The body keeps its padding, the header drops its bottom padding, the
+  footer drops its top padding, and the surface has no gap between parts: 24px at `md`. A
+  header with `borderB`, a footer with `borderT` and a `filled` part keep their padding on
+  that side, and a padding class on a part still wins.
+
 ## 1.6.3
 
 `2026-11-20`
