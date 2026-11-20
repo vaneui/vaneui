@@ -1784,6 +1784,26 @@ export function TestHarness() {
 
           <Alert data-testid="tier2-alert">assertive alert</Alert>
           <Alert data-testid="tier2-alert-polite" polite success>polite status</Alert>
+          {/* Alert sizes: text, radius, gap, padding and a leading icon all follow the size prop.
+              The icon carries width/height attributes, as icon libraries render them. */}
+          {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+            <Alert key={size} data-testid={`alert-${size}`} polite {...{ [size]: true }}>
+              <svg data-testid={`alert-${size}-icon`} viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" /></svg>
+              Alert {size}
+            </Alert>
+          ))}
+          <Alert data-testid="alert-icon-sized" polite>
+            <svg data-testid="alert-icon-sized-icon" className="size-8" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" /></svg>
+            Icon with its own size class
+          </Alert>
+          {/* A message block next to an action: the block takes the free width */}
+          <Alert data-testid="alert-action" warning polite>
+            <Col noGap data-testid="alert-action-message">
+              <Text fontSemibold>Your trial ends in three days</Text>
+              <Text sm>Add a payment method to keep your projects running.</Text>
+            </Col>
+            <Button warning filled data-testid="alert-action-button">Add card</Button>
+          </Alert>
 
           <Spinner data-testid="tier2-spinner" aria-label="Loading" />
           <Spinner data-testid="tier2-spinner-xl" xl aria-label="Loading large" />

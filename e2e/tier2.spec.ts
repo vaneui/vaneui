@@ -1,4 +1,4 @@
-import { test, expect, getStyle, type Locator } from './base';
+import { test, expect, getStyle, getFontSize, type Locator } from './base';
 
 // Field, Alert, Spinner and Tooltip in a real browser: association and live-region
 // semantics that jsdom can assert, plus the computed geometry it cannot.
@@ -48,15 +48,61 @@ test.describe('Alert', () => {
     await expect(page.locator('[data-testid="tier2-alert-polite"]')).toHaveAttribute('role', 'status');
   });
 
-  test('paints a surface and ramps its padding down on a phone', async ({ page }) => {
+  test('paints a surface and keeps a 12px inset on a phone', async ({ page }) => {
     const alert = page.locator('[data-testid="tier2-alert"]');
 
     await page.setViewportSize(WIDE);
     expect(await padX(alert)).toBe(16);
 
     await page.setViewportSize(PHONE);
-    expect(await padX(alert)).toBe(8);
+    expect(await padX(alert)).toBe(12);
   });
+
+  // text one step below body text, radius on the control curve, icon 10/7 of the text
+  const SIZES = {
+    xs: { fs: 12, radius: 6, gap: 6, pad: 8 },
+    sm: { fs: 13, radius: 7, gap: 8, pad: 12 },
+    md: { fs: 14, radius: 8, gap: 12, pad: 16 },
+    lg: { fs: 16, radius: 10, gap: 16, pad: 20 },
+    xl: { fs: 18, radius: 12, gap: 20, pad: 24 },
+  } as const;
+
+  for (const [size, want] of Object.entries(SIZES)) {
+    test(`${size}: text, radius, gap, padding and icon follow the size`, async ({ page }) => {
+      const alert = page.locator(`[data-testid="alert-${size}"]`);
+      expect(await getFontSize(alert)).toBe(want.fs);
+      expect(parseFloat(await getStyle(alert, 'border-top-left-radius'))).toBeCloseTo(want.radius, 1);
+      expect(parseFloat(await getStyle(alert, 'column-gap'))).toBe(want.gap);
+      expect(await padX(alert)).toBe(want.pad);
+
+      // the icon box is 10/7 of the text wide and one line tall, whatever its width attribute says
+      const icon = page.locator(`[data-testid="alert-${size}-icon"]`);
+      const box = (await icon.boundingBox())!;
+      expect(box.width).toBeCloseTo((want.fs * 10) / 7, 1);
+      expect(box.height).toBeCloseTo(want.fs * 1.6, 1);
+    });
+  }
+
+  test('keeps the size of an icon that has its own size class', async ({ page }) => {
+    const box = (await page.locator('[data-testid="alert-icon-sized-icon"]').boundingBox())!;
+    expect(box.width).toBe(32);
+  });
+
+  for (const viewport of [WIDE, PHONE]) {
+    test(`puts a trailing action at the end edge at ${viewport.width}px`, async ({ page }) => {
+      await page.setViewportSize(viewport);
+      const alert = page.locator('[data-testid="alert-action"]');
+      const a = (await alert.boundingBox())!;
+      const m = (await page.locator('[data-testid="alert-action-message"]').boundingBox())!;
+      const b = (await page.locator('[data-testid="alert-action-button"]').boundingBox())!;
+      const inner = a.x + a.width - (await padX(alert)) - 1; // 1px border
+      const gap = parseFloat(await getStyle(alert, 'column-gap'));
+
+      expect(b.x + b.width).toBeCloseTo(inner, 0);
+      // the message block takes the rest of the row
+      expect(m.x + m.width + gap).toBeCloseTo(b.x, 0);
+    });
+  }
 });
 
 test.describe('Spinner', () => {
