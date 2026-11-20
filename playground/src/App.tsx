@@ -1,6 +1,7 @@
 import { useState, type InputHTMLAttributes } from 'react';
 import {
   ThemeProvider,
+  Alert,
   defaultTheme,
   Row,
   Col,
@@ -361,80 +362,74 @@ function App() {
             </div>
           </Card>
 
-          {/* ═══ 3. TOOLTIP ══════════════════════════════════════════════════ */}
+          {/* ═══ 3. ALERT ════════════════════════════════════════════════════ */}
           <Divider />
-          <SectionTitle>3. Tooltip</SectionTitle>
-
-          <Card>
-            <Title>Basic usage</Title>
-            <Text sm secondary>
-              An ink label on hover and keyboard focus, near-white in dark mode. It describes its
-              trigger with <Code sm>aria-describedby</Code> and adds no tab stop.
-            </Text>
-            <Row flexWrap>
-              <Tooltip content="Saves without leaving the page">
-                <Button>Hover me</Button>
-              </Tooltip>
-              <Tooltip content="Focus me with the keyboard too">
-                <Button secondary>Tab to me</Button>
-              </Tooltip>
-            </Row>
-          </Card>
+          <SectionTitle>3. Alert</SectionTitle>
 
           <Card>
             <Title>Sizes</Title>
             <Text sm secondary>
-              Size goes straight on <Code sm>Tooltip</Code>. Its text sits one step under a Button
-              of the same size, and its padding and radius follow the Button ramp, so the two line up.
+              Text, radius, gap, padding and a leading icon all follow the size. The text runs one
+              step below body text (14px at <Code sm>md</Code>), the radius matches an Input of the
+              same size, and the icon is 10/7 of the text, whatever width its library renders.
             </Text>
-            <Row flexWrap>
+            <Col>
               {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
-                <Tooltip key={size} {...{ [size]: true }} content={`Tooltip ${size}`}>
-                  <Button {...{ [size]: true }}>Button {size}</Button>
-                </Tooltip>
+                <Alert key={size} polite {...{ [size]: true }}>
+                  <TestSvg />
+                  Alert {size}: a new version is available. Reload to update.
+                </Alert>
               ))}
-            </Row>
+            </Col>
           </Card>
 
           <Card>
-            <Title>Placement, arrow and colour</Title>
+            <Title>Message and actions</Title>
             <Text sm secondary>
-              Placement, <Code sm>arrow</Code> and appearance are direct props too.{' '}
-              <Code sm>popupProps</Code> still works.
+              A Text, Col, Stack or Row in an Alert takes the free width, so a trailing Button sits
+              at the end edge. <Code sm>itemsCenter</Code> centres it on a two-line message. For a
+              long message, put the buttons under the text instead.
             </Text>
-            <Row flexWrap>
-              <Tooltip placeBottom content="Opens below its trigger">
-                <Button secondary>placeBottom</Button>
-              </Tooltip>
-              <Tooltip placeRight arrow content="Points at its trigger">
-                <Button secondary>placeRight arrow</Button>
-              </Tooltip>
-              <Tooltip danger content="Deletes the project for everyone">
-                <Button danger>Delete project</Button>
-              </Tooltip>
-              <Tooltip secondary content="The gray tooltip from earlier releases">
-                <Button secondary>secondary</Button>
-              </Tooltip>
-            </Row>
+            <Col>
+              <Alert warning polite itemsCenter>
+                <Col noGap>
+                  <Text fontSemibold>Your trial ends in three days</Text>
+                  <Text sm>Add a payment method to keep your projects running.</Text>
+                </Col>
+                <Button warning filled>Add card</Button>
+              </Alert>
+              <Alert success polite itemsCenter>
+                <TestSvg />
+                <Text sm>Your changes were saved.</Text>
+                <Button success ghost>Undo</Button>
+              </Alert>
+              <Alert danger polite>
+                <TestSvg />
+                <Col>
+                  <Col noGap>
+                    <Text fontSemibold>Payment failed</Text>
+                    <Text sm>
+                      The card ending in 4242 was declined. Update the card or try another payment
+                      method. Your projects keep running for seven days.
+                    </Text>
+                  </Col>
+                  <Row>
+                    <Button danger filled>Update card</Button>
+                    <Button danger ghost>Contact support</Button>
+                  </Row>
+                </Col>
+              </Alert>
+            </Col>
           </Card>
 
           <Card>
-            <Title>Long hints and screen edges</Title>
-            <Text sm secondary>
-              A long hint wraps inside a width cap that grows with size. On a narrow window the
-              tooltips at either end line up with their trigger instead of being cut off.
-            </Text>
-            <Row justifyBetween>
-              <Tooltip content="Add to favourites">
-                <IconButton aria-label="Add to favourites"><TestSvg /></IconButton>
-              </Tooltip>
-              <Tooltip content="Archiving moves the conversation out of your inbox. Replies bring it back, and nothing is deleted.">
-                <Button secondary>Archive</Button>
-              </Tooltip>
-              <Tooltip content="Archive this conversation">
-                <IconButton aria-label="Archive this conversation"><TestSvg /></IconButton>
-              </Tooltip>
-            </Row>
+            <Title>Appearances and variants</Title>
+            <Col>
+              <Alert polite>A new version is available.</Alert>
+              <Alert success polite>Your changes were saved.</Alert>
+              <Alert warning polite>Your trial ends in three days.</Alert>
+              <Alert danger filled polite>Payment failed. Update your card to continue.</Alert>
+            </Col>
           </Card>
 
           {/* ═══ 4. REVIEW FIXES ═════════════════════════════════════════════ */}

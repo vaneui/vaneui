@@ -10,6 +10,31 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Changed
+
+- [Alert](https://vaneui.com/docs/basic-components/alert) is sized as a message strip, and
+  every part of it follows the size prop. It used the Card scale before: a 20px radius at
+  `md`, a leading icon as wide as its library rendered it (24px for most) at every size, and a
+  gap between icon and text of up to 32px. Its text did not follow the size at all and stayed
+  at the size of the page, 16px on most. The values are now:
+
+  | Size | Text | Radius | Icon | Gap | Padding |
+  |------|------|--------|------|-----|---------|
+  | `xs` | 12px | 6px | 17px | 6px | 8px |
+  | `sm` | 13px | 7px | 19px | 8px | 12px |
+  | `md` | 14px | 8px | 20px | 12px | 16px |
+  | `lg` | 16px | 10px | 23px | 16px | 20px |
+  | `xl` | 18px | 12px | 26px | 20px | 24px |
+
+  At `md` the radius was 20px and the gap 16px; at `lg` and `xl` the padding was 24px and
+  32px. On a phone the `md` padding stops at 12px, where it went down to 8px. An icon with a
+  `size-*` class keeps that size, and a font-size, padding, gap or radius class on the Alert
+  still wins. A `Text` inside an Alert sets its own size, as before.
+- A `Text`, `Col`, `Stack` or `Row` placed directly in an Alert takes the free width of the
+  row, so a `Button` after the message sits at the end edge. Before, the button followed the
+  text and stopped in the middle of a wide Alert. A message block with `flexNone` keeps
+  its content width.
+
 ## 1.6.2
 
 `2026-11-19`

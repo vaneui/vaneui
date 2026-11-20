@@ -337,6 +337,22 @@ Button defaults to `sm` and Input to `md`. When a button sits beside a field, gi
 </Row>
 ```
 
+### Alert with a title and an action
+
+```tsx
+<Alert warning itemsCenter>
+  <Col noGap>
+    <Text fontSemibold>Your trial ends in three days</Text>
+    <Text sm>Add a payment method to keep your projects running.</Text>
+  </Col>
+  <Button warning filled>Add card</Button>
+</Alert>
+```
+
+A `Text`, `Col`, `Stack` or `Row` placed directly in an Alert takes the free width, so the Button after it sits at the end edge. Wrap a bare-text message in `Text` when an action follows it. `itemsCenter` centres the action on a short message; leave it out when the Alert has a leading icon and a message of several lines, so the icon stays on the first line. For a long message, put the buttons in the `Col`, under the text.
+
+Alert text is one step below body text (14px at `md`), and its radius, padding, gap and a leading icon follow the size prop. A plain `<svg>` icon is sized by the Alert; give it a `size-*` class to set your own.
+
 ### List
 
 ```tsx
