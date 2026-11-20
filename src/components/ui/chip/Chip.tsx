@@ -5,6 +5,7 @@ import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { composeEventHandlers } from "../../utils/composeEventHandlers";
 import { resolveDisabledLink } from "../../utils/disabledLink";
+import { wrapTextRuns } from "../../utils/textRuns";
 import { defaultChipTheme } from "./defaultChipTheme";
 
 export const Chip = forwardRef<HTMLSpanElement, ChipProps>(
@@ -47,7 +48,12 @@ export const Chip = forwardRef<HTMLSpanElement, ChipProps>(
     // its focus ring and is not mistaken for a clickable span.
     const resolvedProps = resolveDisabledLink({ ...props }, !!props.disabled);
 
-    return <ThemedComponent theme={theme?.chip ?? defaultChipTheme} ref={ref} {...focusInjection} {...resolvedProps} {...spanButtonProps} />
+    return (
+      <ThemedComponent theme={theme?.chip ?? defaultChipTheme} ref={ref} {...focusInjection} {...resolvedProps} {...spanButtonProps}>
+        {/* text gets a span of its own, so the stylesheet can center it by the capital height */}
+        {wrapTextRuns(resolvedProps.children)}
+      </ThemedComponent>
+    );
   }
 );
 

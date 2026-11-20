@@ -654,6 +654,19 @@ Text alignment offers both modes:
 <Text textLeft>Always physically left, even under dir="rtl"</Text>
 ```
 
+## Text Inside Boxed Components
+
+Button, IconButton, Badge, Chip, MenuItem, MenuLabel, Alert and Tooltip render each run of their own text in a `<span class="vane-text-run">`, and NavLink renders its label in `vane-nav-link-label`. The stylesheet trims that span to the height of the capital letters, so the text sits in the middle of the component with any font. The size of the component does not change. Browsers without `text-box` (before Chrome 133, Safari 18.2, Firefox 154) render the text where the font's line box puts it.
+
+```tsx
+<Button><Save /> Save changes</Button>
+{/* renders: <button><svg/><span class="vane-text-run"> Save changes</span></button> */}
+```
+
+- In tests, find a component by its role or class (`getByRole('button', { name: 'Save changes' })`). `getByText('Save changes')` returns the span, not the button.
+- Text passed as an element (a translation component, a fragment, your own `<span>`) is not wrapped. Give your own span `className="vane-text-run"` to center it the same way.
+- Label is not wrapped and renders its text as before.
+
 ## Anti-Patterns
 
 ### Don't use Tailwind classes for things VaneUI props handle

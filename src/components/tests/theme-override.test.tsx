@@ -132,8 +132,8 @@ describe('Theme Override Tests', () => {
 
       const outlineButton = container.querySelectorAll('button')[0];
       const filledButton = container.querySelectorAll('button')[1];
-      const outlineBadge = container.querySelectorAll('span')[0];
-      const filledBadge = container.querySelectorAll('span')[1];
+      const outlineBadge = container.querySelectorAll('.vane-badge')[0];
+      const filledBadge = container.querySelectorAll('.vane-badge')[1];
 
       expect(outlineButton).toHaveClass('text-blue-500');
       expect(filledButton).toHaveClass('bg-blue-600');

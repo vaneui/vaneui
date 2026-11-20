@@ -5,6 +5,7 @@ import { PopupTrigger } from "../popup/PopupTrigger";
 import { useTheme } from "../../themeContext";
 import { ThemeProvider } from "../../ThemeProvider";
 import { composeRefs, getElementRef } from "../../utils/composeRefs";
+import { wrapTextRuns } from "../../utils/textRuns";
 import { defaultTooltipTheme } from "./defaultTooltipTheme";
 
 // Popup lifecycle callbacks stay on the tooltip; every other handler belongs to the trigger.
@@ -57,6 +58,9 @@ export const Tooltip = forwardRef<HTMLElement, TooltipProps>(
         };
       }
     }
+    // text gets a span of its own, so the stylesheet can center it by the capital height
+    const label = wrapTextRuns(content);
+
     const trigger = ref || Object.keys(triggerProps).length > 0
       ? cloneElement(children, {
           ...triggerProps,
@@ -67,7 +71,7 @@ export const Tooltip = forwardRef<HTMLElement, TooltipProps>(
     return (
       <ThemeProvider themeDefaults={childThemeDefaults}>
         <PopupTrigger
-          popup={content}
+          popup={label}
           triggerOnHover
           triggerOnFocus
           open={open}

@@ -190,7 +190,7 @@ describe('Extra Classes Functionality Tests', () => {
       );
 
       const button = container.querySelector('button');
-      const badge = container.querySelector('span');
+      const badge = container.querySelector('.vane-badge');
       const text = container.querySelector('p');
 
       expect(button).toHaveClass('transform', 'hover:scale-105');

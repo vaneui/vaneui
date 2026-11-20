@@ -802,6 +802,34 @@
         background: var(--color-bg-hover-secondary);
     }
 
+    /* TEXT RUNS — the span a boxed label (Button, IconButton, Badge, Chip, MenuItem, MenuLabel,
+       Alert, Tooltip) renders around its text, and NavLink's label. A browser centers the line box
+       of the font, whose room above the capitals and below the baseline is rarely equal, so the
+       text sat up to a pixel and a half high or low depending on the font. The trim makes the box
+       end at the capital height and at the baseline, and the padding gives back exactly what the
+       trim took, so the capitals are centered and the component keeps its size. Padding rather
+       than margin: tails and accents draw into it, and a truncated label does not cut them.
+       Browsers without text-box skip the block and render the text as before.
+
+       The line box keeps its height, so it now reaches past the span on the side where the font has
+       more room, by the distance the text moved (under 2px). Inside a component's own padding that
+       changes nothing. A scroll box with the span flush against its end edge would gain that much to
+       scroll: the tooltip's scroll box is the one place the library has it, and takes the room back
+       below. Label has no padding of its own and is often the last thing in a scroll box, so it
+       does not wrap its text. */
+    @supports (text-box: trim-both cap alphabetic) {
+        .vane-text-run,
+        .vane-nav-link-label {
+            text-box: trim-both cap alphabetic;
+            padding-block: calc((1lh - 1cap) / 2);
+        }
+        /* same size as before: the margin takes back what the padding adds */
+        .vane-popup[data-tooltip] > .vane-popup-scroll {
+            padding-block-end: 0.25em;
+            margin-block-end: -0.25em;
+        }
+    }
+
     /* DISABLED STATE — neutralizes hover/active color changes; opacity/cursor come from DisabledClassMapper. */
     [data-disabled="true"] {
         --bg-hover-color: var(--bg-color);
