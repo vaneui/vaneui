@@ -499,14 +499,14 @@ describe('Label Component Tests', () => {
       expect(input).toHaveAttribute('data-size', 'xs');
     });
 
-    it('standalone Input (no Label ancestor) keeps its md default', () => {
+    it('standalone Input (no Label ancestor) keeps its sm default', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Input />
         </ThemeProvider>
       );
       const input = container.querySelector('input')!;
-      expect(input).toHaveAttribute('data-size', 'md');
+      expect(input).toHaveAttribute('data-size', 'sm');
     });
 
     it('Checkbox input inside <Label lg> becomes lg', () => {

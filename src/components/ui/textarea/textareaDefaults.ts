@@ -2,7 +2,7 @@ import type { TextareaProps } from "./TextareaProps";
 
 /** Default props for Textarea component */
 export const textareaDefaults: Partial<TextareaProps> = {
-  md: true,
+  sm: true,
   wFull: true,
   primary: true,
   rounded: true,

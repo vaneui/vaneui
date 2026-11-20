@@ -149,7 +149,7 @@ describe('Label size propagation semantics', () => {
   });
 
   describe('(d) propagation is scoped to the Label subtree', () => {
-    it('sibling Input/Checkbox outside the Label keep their md default', () => {
+    it('sibling Input and Checkbox outside the Label keep their own defaults (sm and md)', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>
           <Label lg>
@@ -161,7 +161,7 @@ describe('Label size propagation semantics', () => {
         </ThemeProvider>
       );
       expect(container.querySelector('[data-testid="inside"]')).toHaveAttribute('data-size', 'lg');
-      expect(container.querySelector('[data-testid="outside"]')).toHaveAttribute('data-size', 'md');
+      expect(container.querySelector('[data-testid="outside"]')).toHaveAttribute('data-size', 'sm');
       expect(container.querySelector('[data-testid="outside-checkbox"]')).toHaveAttribute('data-size', 'md');
     });
 

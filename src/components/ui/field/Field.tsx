@@ -181,7 +181,7 @@ export const Field = forwardRef<FieldElement, FieldProps>(
       rest as Record<string, unknown>,
       fieldTheme.defaults as Record<string, unknown>,
       'size'
-    ) ?? 'md';
+    ) ?? 'sm';
     const helpSize = HELP_SIZE[resolvedSize];
 
     const { controlProps, wrapperProps } = childrenMode

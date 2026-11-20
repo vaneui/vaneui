@@ -3,7 +3,7 @@ import type { FieldProps } from "./FieldProps";
 /** Default props for Field component. No `control` default: one would force every Field to self-render. */
 export const fieldDefaults: Partial<FieldProps> = {
   column: true,
-  md: true,
+  sm: true,
   flex: true,
   itemsStart: true,
   gap: true,

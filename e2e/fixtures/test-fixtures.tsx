@@ -1014,6 +1014,33 @@ function AppearanceTable({ id, ...tableProps }: { id: string } & React.Component
   );
 }
 
+/** Components at their default size, side by side, plus the Icon scale. */
+function DefaultSizeFixtures() {
+  return (
+    <section data-testid="default-sizes-section">
+      <Row>
+        <Input data-testid="ds-input" placeholder="Input" aria-label="Input"/>
+        <Select data-testid="ds-select" aria-label="Select"><option>Select</option></Select>
+        <Button data-testid="ds-button">Button</Button>
+      </Row>
+      <Textarea data-testid="ds-textarea" aria-label="Textarea" defaultValue="Textarea"/>
+      <Field data-testid="ds-field" label="Field label"><Input data-testid="ds-field-input"/></Field>
+      <Badge data-testid="ds-badge">Badge</Badge>
+      <Table>
+        <Thead><Tr><Th data-testid="ds-th">Head</Th></Tr></Thead>
+        <Tbody><Tr><Td data-testid="ds-td">Cell</Td></Tr></Tbody>
+      </Table>
+      <Row>
+        <Icon xs data-testid="ds-icon-xs"><StarIcon/></Icon>
+        <Icon sm data-testid="ds-icon-sm"><StarIcon/></Icon>
+        <Icon data-testid="ds-icon-md"><StarIcon/></Icon>
+        <Icon lg data-testid="ds-icon-lg"><StarIcon/></Icon>
+        <Icon xl data-testid="ds-icon-xl"><StarIcon/></Icon>
+      </Row>
+    </section>
+  );
+}
+
 function ThemeEngineFixtures() {
   return (
     <section data-testid="theme-engine-section">
@@ -1049,6 +1076,22 @@ function ThemeEngineFixtures() {
       </Card>
       <Card data-testid="cc-static-wrapped" responsiveSizing={false}>
         <WrappedCardParts id="cc-static-wrapped" staticSizing/>
+      </Card>
+      {/* a divider line or a filled part keeps the padding on its side of the boundary */}
+      <Card data-testid="cc-divided">
+        <CardHeader data-testid="cc-divided-header" borderB>header</CardHeader>
+        <CardBody data-testid="cc-divided-body">body</CardBody>
+        <CardFooter data-testid="cc-divided-footer" secondary filled>footer</CardFooter>
+      </Card>
+      {/* without a body the header gives up its side and the footer keeps its own */}
+      <Card data-testid="cc-nobody">
+        <CardHeader data-testid="cc-nobody-header">header</CardHeader>
+        <CardFooter data-testid="cc-nobody-footer">footer</CardFooter>
+      </Card>
+      {/* a className on a part still wins over the dropped side */}
+      <Card data-testid="cc-classname">
+        <CardHeader data-testid="cc-classname-header" className="py-2">header</CardHeader>
+        <CardBody>body</CardBody>
       </Card>
       {/* a part nested deeper than a direct child does not make the Card compound */}
       <Card data-testid="cc-nested">
@@ -2513,6 +2556,7 @@ export function TestHarness() {
         <CompositionFixtures />
 
         <ThemeEngineFixtures />
+        <DefaultSizeFixtures />
 
         <TextRunFixtures />
 

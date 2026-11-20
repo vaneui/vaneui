@@ -37,7 +37,7 @@ test.describe('Field', () => {
 
   test('stacks its parts with a tighter gap than the layout curve', async ({ page }) => {
     const gap = parseFloat(await getStyle(page.locator('[data-testid="tier2-field"]'), 'row-gap'));
-    expect(gap).toBe(6); // md field: --gap-unit 1.5
+    expect(gap).toBe(5); // sm field (the default): --gap-unit 1.25
     expect(gap).toBeLessThan(16); // the generic layout md gap
   });
 });

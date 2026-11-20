@@ -153,7 +153,7 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 
 | Category | Values |
 |----------|--------|
-| **size** | `xs`, `sm` (default for Button, IconButton, NavLink, MenuItem, MenuLabel, Tooltip, Label), `md` (default for others), `lg`, `xl` |
+| **size** | `xs`, `sm` (default for Button, IconButton, Input, Textarea, Select, Field, Label, NavLink, MenuItem, MenuLabel, Tooltip, Badge, Table), `md` (default for others), `lg`, `xl` |
 | **appearance** | `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info` |
 | **variant** | `filled`, `outline` (default), `ghost` |
 | **shape** | `pill`, `rounded` (default), `sharp` |
@@ -181,12 +181,12 @@ Layout extras: `divided` (Grid2–6: 1px lines instead of the gap), `strongBorde
 | **Row** | md, row, flex, itemsCenter, gap, noPadding, noBorder, noInsetRing, outline, sharp |
 | **Col** | md, column, flex, gap, noPadding, noBorder, noInsetRing, outline, sharp |
 | **Stack** | md, flex, column, flexWrap, gap, padding, noBorder, noInsetRing, outline, sharp |
-| **Badge** | md, secondary (neutral default; color via success/danger/…), outline, pill, fontSemibold |
+| **Badge** | sm, secondary (neutral default; color via success/danger/…), outline, pill, fontSemibold |
 | **Chip** | md, secondary (not primary!), outline, rounded, fontSans |
 | **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noInsetRing, wFull, textLeft, focusVisible |
 | **Progress** | md, primary, pill, transition, overflowHidden, wFull, noMargin (`value` required, `max` 100). Fill sub-theme `progress.fill`: filled, wFull, hFull |
 | **Link** | md, underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (link color by default; no appearance or variant default) |
-| **Input** | md, primary, outline, rounded, wFull, insetRing, focusVisible |
+| **Input** | sm, primary, outline, rounded, wFull, insetRing, focusVisible |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
 | **Label** | sm, flex, column, itemsStart, gap, inheritAppearance, fontMedium (use `row` for inline controls like Checkbox) |

@@ -71,6 +71,11 @@ describe('Table Component Tests', () => {
       expect(table).toHaveAttribute('data-variant', 'outline');
     });
 
+    it('defaults to sm, the 14px step', () => {
+      const { container } = renderTable();
+      expect(container.querySelector('.vane-table')).toHaveAttribute('data-size', 'sm');
+    });
+
     it('has no outer border by default (noBorder)', () => {
       const { container } = renderTable();
       const table = container.querySelector('.vane-table') as HTMLElement;

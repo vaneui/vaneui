@@ -2,7 +2,7 @@ import type { TableProps } from "./TableProps";
 
 /** Default props for the Table component */
 export const tableDefaults: Partial<TableProps> = {
-  md: true,
+  sm: true,
   secondary: true,
   outline: true,
   wFull: true,
