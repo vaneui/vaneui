@@ -476,7 +476,7 @@ describe('Table Component Tests', () => {
     });
 
     it('the stylesheet gives that fallback the secondary palette and the outline mapping', () => {
-      const rulesCss = fs.readFileSync(path.join(__dirname, '../css/rules.css'), 'utf8');
+      const rulesCss = fs.readFileSync(path.join(__dirname, '../css/rules.css'), 'utf8').replace(/\r\n/g, '\n');
       const ruleFor = (firstSelector: string) => {
         const start = rulesCss.indexOf(`${STANDALONE_CELL},\n    ${firstSelector} {`);
         return start === -1 ? '' : rulesCss.slice(start, rulesCss.indexOf('}', start));
@@ -489,7 +489,7 @@ describe('Table Component Tests', () => {
 
     describe('row rules on a fill', () => {
       // the selector list of the stylesheet rule that gives a cell on a fill its row rule
-      const rulesCss = fs.readFileSync(path.join(__dirname, '../css/rules.css'), 'utf8');
+      const rulesCss = fs.readFileSync(path.join(__dirname, '../css/rules.css'), 'utf8').replace(/\r\n/g, '\n');
       const marker = '/* Row rules on a fill.';
       const start = rulesCss.indexOf('*/', rulesCss.indexOf(marker)) + 2;
       const open = rulesCss.indexOf('{', start);
