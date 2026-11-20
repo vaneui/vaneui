@@ -10,6 +10,12 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.6.3
+
+`2026-11-20`
+
+Alert is sized as a message strip, and a trailing action sits at its end edge.
+
 ### Changed
 
 - [Alert](https://vaneui.com/docs/basic-components/alert) is sized as a message strip, and
