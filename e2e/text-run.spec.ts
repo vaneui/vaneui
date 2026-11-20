@@ -74,7 +74,10 @@ test.describe('Text run', () => {
     test(`${id} is the size of its untrimmed twin`, async ({ page }) => {
       const trimmed = await boxOf(byId(page, id));
       const plain = await boxOf(byId(page, `${id}-plain`));
-      expect(Math.abs(trimmed.height - plain.height)).toBeLessThanOrEqual(0.05);
+      // One line is the same height to the layout unit: a difference of 1/64px per label adds up in a
+      // long menu and moves the end of its scroll range. Several lines keep the rounding of the trim.
+      const tolerance = id === 'text-run-wrapped' ? 0.05 : 0;
+      expect(Math.abs(trimmed.height - plain.height)).toBeLessThanOrEqual(tolerance);
       expect(Math.abs(trimmed.width - plain.width)).toBeLessThanOrEqual(0.05);
     });
 
@@ -91,8 +94,8 @@ test.describe('Text run', () => {
   test('the text box of a single line is one line tall', async ({ page }) => {
     for (const size of sizes) {
       const run = byId(page, `text-run-button-${size}`).locator(RUN);
-      const lineHeight = await px(byId(page, `text-run-button-${size}`), 'line-height');
-      expect(Math.abs((await boxOf(run)).height - lineHeight)).toBeLessThanOrEqual(0.05);
+      const plain = byId(page, `text-run-button-${size}-plain`).locator('span');
+      expect((await boxOf(run)).height).toBe((await boxOf(plain)).height);
     }
   });
 

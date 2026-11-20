@@ -816,12 +816,19 @@
        changes nothing. A scroll box with the span flush against its end edge would gain that much to
        scroll: the tooltip's scroll box is the one place the library has it, and takes the room back
        below. Label has no padding of its own and is often the last thing in a scroll box, so it
-       does not wrap its text. */
+       does not wrap its text.
+
+       The browser rounds the trim and each padding down to its layout unit (1/64px), so their sum
+       comes out up to 2/64px under the line height. One label does not show that, but forty menu
+       items add it up, and where the total lands decides how far a scroll box can scroll. The
+       minimum height brings a one-line label back to the line height exactly. */
     @supports (text-box: trim-both cap alphabetic) {
         .vane-text-run,
         .vane-nav-link-label {
             text-box: trim-both cap alphabetic;
             padding-block: calc((1lh - 1cap) / 2);
+            box-sizing: border-box;
+            min-block-size: 1lh;
         }
         /* same size as before: the margin takes back what the padding adds */
         .vane-popup[data-tooltip] > .vane-popup-scroll {
