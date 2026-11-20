@@ -335,10 +335,13 @@ function TextRunFixtures() {
         <IconButton aria-label="letter plain" data-testid="text-run-icon-button-plain"><span>A</span></IconButton>
       </Row>
       <Col style={{ width: 240 }}>
-        <MenuItem data-testid="text-run-menu-item"><StarIcon />Save</MenuItem>
-        <MenuItem data-testid="text-run-menu-item-plain"><StarIcon /><span>Save</span></MenuItem>
-        <MenuLabel data-testid="text-run-menu-label">Save</MenuLabel>
-        <MenuLabel data-testid="text-run-menu-label-plain"><span>Save</span></MenuLabel>
+        {/* MenuItem (role="menuitem") needs a role="menu" parent to satisfy ARIA. */}
+        <div role="menu" aria-label="text run spot check">
+          <MenuItem data-testid="text-run-menu-item"><StarIcon />Save</MenuItem>
+          <MenuItem data-testid="text-run-menu-item-plain"><StarIcon /><span>Save</span></MenuItem>
+          <MenuLabel data-testid="text-run-menu-label">Save</MenuLabel>
+          <MenuLabel data-testid="text-run-menu-label-plain"><span>Save</span></MenuLabel>
+        </div>
         <Alert data-testid="text-run-alert">Save</Alert>
         <Alert data-testid="text-run-alert-plain"><span>Save</span></Alert>
       </Col>
