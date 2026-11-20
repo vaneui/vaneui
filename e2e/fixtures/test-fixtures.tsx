@@ -1019,11 +1019,11 @@ function DefaultSizeFixtures() {
   return (
     <section data-testid="default-sizes-section">
       <Row>
-        <Input data-testid="ds-input" placeholder="Input"/>
-        <Select data-testid="ds-select"><option>Select</option></Select>
+        <Input data-testid="ds-input" placeholder="Input" aria-label="Input"/>
+        <Select data-testid="ds-select" aria-label="Select"><option>Select</option></Select>
         <Button data-testid="ds-button">Button</Button>
       </Row>
-      <Textarea data-testid="ds-textarea" defaultValue="Textarea"/>
+      <Textarea data-testid="ds-textarea" aria-label="Textarea" defaultValue="Textarea"/>
       <Field data-testid="ds-field" label="Field label"><Input data-testid="ds-field-input"/></Field>
       <Badge data-testid="ds-badge">Badge</Badge>
       <Table>
