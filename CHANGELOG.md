@@ -10,6 +10,13 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.7.1
+
+`2026-11-20`
+
+Controls, Badge and Table default to the size Button has, Icon sizes are smaller, and the parts
+of a Card and a Modal sit one inset apart.
+
 ### Changed
 
 - `Input`, `Textarea`, `Select` and `Field` default to `sm`, the size `Button` already
