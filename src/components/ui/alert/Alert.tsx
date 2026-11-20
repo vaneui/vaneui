@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import type { AlertProps } from "./AlertProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
+import { wrapTextRuns } from "../../utils/textRuns";
 import { defaultAlertTheme } from "./defaultAlertTheme";
 
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(
@@ -9,7 +10,12 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
     const theme = useTheme();
     // alert interrupts the user, status waits for a pause; both are live regions
     const role = polite ? 'status' : 'alert';
-    return <ThemedComponent ref={ref} theme={theme?.alert ?? defaultAlertTheme} role={role} {...props} />
+    return (
+      <ThemedComponent ref={ref} theme={theme?.alert ?? defaultAlertTheme} role={role} {...props}>
+        {/* text gets a span of its own, so the stylesheet can center it by the capital height */}
+        {wrapTextRuns(props.children)}
+      </ThemedComponent>
+    );
   }
 );
 

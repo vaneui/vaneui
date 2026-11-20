@@ -4,6 +4,7 @@ import { useTheme } from '../../themeContext';
 import { ThemedComponent } from '../../themedComponent';
 import { useMenuContext } from './MenuContext';
 import { createScopedKeydownHandler } from '../../utils/scopedKeydownHandler';
+import { wrapTextRuns } from '../../utils/textRuns';
 import { defaultMenuItemTheme } from './defaultMenuItemTheme';
 
 // Roving tabindex: the item focused last is its menu's one tab stop and every other item stays at -1.
@@ -134,7 +135,10 @@ export const MenuItem = forwardRef<HTMLElement, MenuItemProps>(
         ref={ref}
         theme={theme?.menu.item ?? defaultMenuItemTheme}
         {...mergedProps}
-      />
+      >
+        {/* text gets a span of its own, so the stylesheet can center it by the capital height */}
+        {wrapTextRuns(rest.children)}
+      </ThemedComponent>
     );
   }
 );

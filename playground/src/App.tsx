@@ -31,9 +31,9 @@ import {
   Link,
   Menu,
   MenuItem,
+  MenuLabel,
   Field,
   useFieldControlProps,
-  Radio,
   Switch,
   Table,
   Thead,
@@ -206,6 +206,8 @@ function ChecksTable(props: { success?: boolean; filled?: boolean }) {
   );
 }
 
+const LABEL_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -216,7 +218,7 @@ function App() {
           <Text secondary>
             Divided grids, strong borders, NavLink indicators, shadow sizes, light islands inside{' '}
             <Code sm>data-theme="dark"</Code>, the label-sized <Code sm>Tooltip</Code>, and the fixes
-            from the project review.
+            from the project review, and text centered in boxed labels.
           </Text>
 
           {/* ═══ 1. GRIDS, BORDERS, INDICATORS ═══════════════════════════════ */}
@@ -469,22 +471,6 @@ function App() {
           </Card>
 
           <Card>
-            <Title>Checked state in every variant</Title>
-            <Text sm secondary>
-              The mark and the box stay visible in <Code sm>outline</Code> and <Code sm>ghost</Code>.
-              A disabled <Code sm>Chip</Code> link cannot be followed.
-            </Text>
-            <Row flexWrap>
-              <Label row><Checkbox defaultChecked /> filled</Label>
-              <Label row><Checkbox outline defaultChecked /> outline</Label>
-              <Label row><Checkbox ghost defaultChecked /> ghost</Label>
-              <Label row><Radio outline name="variant-outline" defaultChecked /> outline</Label>
-              <Label row><Radio ghost name="variant-ghost" defaultChecked /> ghost</Label>
-              <Chip href="https://vaneui.com" disabled>Disabled link</Chip>
-            </Row>
-          </Card>
-
-          <Card>
             <Title>Card parts, Table colors and className</Title>
             <Text sm secondary>
               A <Code sm>Card</Code> drops its own padding when its parts come from another
@@ -507,6 +493,43 @@ function App() {
               <Badge accent filled>New</Badge>
               <Badge tertiary filled>Draft</Badge>
               <Button danger filled>Delete</Button>
+            </Row>
+          </Card>
+
+          {/* ═══ 5. TEXT CENTERED IN ITS BOX ═════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>5. Text centered in its box</SectionTitle>
+
+          <Card>
+            <Title>Capitals in the middle</Title>
+            <Text sm secondary>
+              A boxed label puts its text in a span and trims it to the capital height, so the
+              letters sit in the middle of the box whatever the font. Sizes stay the same, tails
+              and accents stay whole, and a truncated <Code sm>NavLink</Code> keeps its ellipsis.
+            </Text>
+            {LABEL_SIZES.map(size => (
+              <Row key={size} flexWrap>
+                <Button {...{ [size]: true }} filled>Edit page</Button>
+                <Button {...{ [size]: true }}>Ågjpqy</Button>
+                <Badge {...{ [size]: true }} success filled>Paid</Badge>
+                <Chip {...{ [size]: true }}>Design</Chip>
+                <IconButton {...{ [size]: true }} aria-label="Bold">B</IconButton>
+                <Tooltip {...{ [size]: true }} content="Copy link">
+                  <Button {...{ [size]: true }} secondary>Hover me</Button>
+                </Tooltip>
+              </Row>
+            ))}
+            <Row itemsStart flexWrap>
+              <Col noGap className="w-48">
+                <NavLink href="#labels" active>Overview</NavLink>
+                <NavLink href="#labels">A long label that is cut short</NavLink>
+              </Col>
+              <Menu trigger={<Button secondary>Project</Button>}>
+                <MenuLabel>Project</MenuLabel>
+                <MenuItem>Rename</MenuItem>
+                <MenuItem>Duplicate</MenuItem>
+              </Menu>
+              <Alert success polite>Saved</Alert>
             </Row>
           </Card>
 

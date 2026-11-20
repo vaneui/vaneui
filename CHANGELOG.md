@@ -10,6 +10,40 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Changed
+
+- Text in [Button](https://vaneui.com/docs/basic-components/button), IconButton, Badge, Chip,
+  MenuItem, MenuLabel, Alert, Tooltip and NavLink is centered by the height of its capital
+  letters. A browser centers the line box of the font, which is rarely even around the letters,
+  so a label sat up to 1.4px above or below the middle of its component, in a direction that
+  depended on the font. Measured over five sizes, seven fonts and three display densities, a
+  capital was 0.5px from the middle on average and is now 0.2px. The size of each component
+  and the place of its icons stay the same.
+
+  The components now render each run of their own text in a `<span class="vane-text-run">`,
+  and the stylesheet trims that span to the capital height with `text-box` and pads it back to
+  the line height. NavLink trims the label span it already had. What to check in an app:
+
+  - A test or a style that reaches the text by its tag (`button > span`,
+    `querySelector('span')`), or that expects `getByText('Save')` to return the button itself,
+    now finds the new span. Find the component by its role or its class instead.
+  - Text passed as an element (a translation component, a fragment, a span of your own) is
+    not wrapped and renders as before. Give your own span `className="vane-text-run"` to
+    center it the same way.
+  - In a row aligned by baseline (`itemsBaseline`) and inline in a paragraph, the text keeps
+    its baseline, so the box around it moves by up to 1.2px and the line can change height
+    by up to 1px. In a flex or grid parent with any other alignment nothing moves.
+  - The line box of the trimmed text reaches up to 2px past its span. The padding of the
+    component covers that. A component with `noPadding` that touches the end edge of a
+    scroll container can add that much scrolling to it.
+
+  The trim needs `text-box` (Chrome and Edge 133, Safari 18.2, Firefox 154). Other browsers
+  render the text where it was. Label, Input, Select, Textarea, table cells, Code, Kbd and
+  Mark are not changed.
+- The label of a [NavLink](https://vaneui.com/docs/basic-components/navlink) clips its
+  overflow (`overflowClip`) where it hid it. The ellipsis of a long label is the same; the
+  label can no longer be scrolled sideways by a text search or a selection drag.
+
 ## 1.6.3
 
 `2026-11-20`
