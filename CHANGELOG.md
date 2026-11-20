@@ -10,6 +10,13 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.7.0
+
+`2026-11-20`
+
+The text of Button, Badge, Chip and six more components is centered by the height of its
+capital letters.
+
 ### Changed
 
 - Text in [Button](https://vaneui.com/docs/basic-components/button), IconButton, Badge, Chip,
