@@ -15,7 +15,7 @@ rather than on a fixed calendar.
 - Text in [Button](https://vaneui.com/docs/basic-components/button), IconButton, Badge, Chip,
   MenuItem, MenuLabel, Alert, Tooltip and NavLink is centered by the height of its capital
   letters. A browser centers the line box of the font, which is rarely even around the letters,
-  so a label sat up to 1.5px above or below the middle of its component, in a direction that
+  so a label sat up to 1.4px above or below the middle of its component, in a direction that
   depended on the font. Measured over five sizes, seven fonts and three display densities, a
   capital was 0.5px from the middle on average and is now 0.2px. The size of each component
   and the place of its icons stay the same.
