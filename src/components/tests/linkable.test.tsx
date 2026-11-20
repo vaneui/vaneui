@@ -49,8 +49,9 @@ describe('Linkable Components Tests', () => {
       expect(anchor).toHaveAttribute('href', '/filter?status=active');
       expect(anchor).toHaveTextContent('Active Status');
       
-      const span = container.querySelector('span');
-      expect(span).not.toBeInTheDocument();
+      // the root is the anchor; the only span left is the one around the text
+      expect(anchor?.tagName).toBe('A');
+      expect(container.querySelector('span:not(.vane-text-run)')).not.toBeInTheDocument();
     });
   });
 
@@ -133,8 +134,9 @@ describe('Linkable Components Tests', () => {
       expect(anchor).toHaveAttribute('href', '/tag/react');
       expect(anchor).toHaveTextContent('React Chip');
       
-      const span = container.querySelector('span');
-      expect(span).not.toBeInTheDocument();
+      // the root is the anchor; the only span left is the one around the text
+      expect(anchor?.tagName).toBe('A');
+      expect(container.querySelector('span:not(.vane-text-run)')).not.toBeInTheDocument();
     });
   });
 

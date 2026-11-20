@@ -310,6 +310,61 @@ function PopupPositioningFixtures() {
 }
 
 /**
+ * Text runs: the span a boxed label renders around its own text, which the stylesheet trims to the
+ * capital height. Each case has a twin whose text sits in a span of the fixture's own, which the
+ * component leaves alone, so a spec can compare the trimmed box with the untrimmed one.
+ */
+function TextRunFixtures() {
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  return (
+    <section data-testid="text-run-section">
+      <Row flexWrap>
+        {sizes.map(size => (
+          <React.Fragment key={size}>
+            <Button {...{ [size]: true }} data-testid={`text-run-button-${size}`}>Save</Button>
+            <Button {...{ [size]: true }} data-testid={`text-run-button-${size}-plain`}><span>Save</span></Button>
+          </React.Fragment>
+        ))}
+      </Row>
+      <Row flexWrap>
+        <Badge data-testid="text-run-badge">Save</Badge>
+        <Badge data-testid="text-run-badge-plain"><span>Save</span></Badge>
+        <Chip data-testid="text-run-chip">Save</Chip>
+        <Chip data-testid="text-run-chip-plain"><span>Save</span></Chip>
+        <IconButton aria-label="letter" data-testid="text-run-icon-button">A</IconButton>
+        <IconButton aria-label="letter plain" data-testid="text-run-icon-button-plain"><span>A</span></IconButton>
+      </Row>
+      <Col style={{ width: 240 }}>
+        {/* MenuItem (role="menuitem") needs a role="menu" parent to satisfy ARIA. */}
+        <div role="menu" aria-label="text run spot check">
+          <MenuItem data-testid="text-run-menu-item"><StarIcon />Save</MenuItem>
+          <MenuItem data-testid="text-run-menu-item-plain"><StarIcon /><span>Save</span></MenuItem>
+          <MenuLabel data-testid="text-run-menu-label">Save</MenuLabel>
+          <MenuLabel data-testid="text-run-menu-label-plain"><span>Save</span></MenuLabel>
+        </div>
+        <Alert data-testid="text-run-alert">Save</Alert>
+        <Alert data-testid="text-run-alert-plain"><span>Save</span></Alert>
+      </Col>
+      <Row flexWrap itemsStart>
+        <Button data-testid="text-run-icons"><StarIcon />Save<StarIcon /></Button>
+        <Button data-testid="text-run-count">{3} items</Button>
+        <Button style={{ width: 120 }} data-testid="text-run-wrapped">A long label that wraps onto several lines</Button>
+        <Button style={{ width: 120 }} data-testid="text-run-wrapped-plain"><span>A long label that wraps onto several lines</span></Button>
+      </Row>
+      <Col style={{ width: 130 }}>
+        <NavLink href="#" data-testid="text-run-nav-link"><StarIcon />Save</NavLink>
+        <NavLink href="#" data-testid="text-run-nav-link-truncated">Ågjpqy and a long navigation label</NavLink>
+      </Col>
+      {/* A Label keeps its text bare: with no padding of its own it would hand the scroll box
+          around it a pixel to scroll. */}
+      <div data-testid="text-run-scroll-box" style={{ overflow: 'auto', width: 200 }}>
+        <Label row data-testid="text-run-label"><Checkbox aria-label="option" />Option</Label>
+      </div>
+    </section>
+  );
+}
+
+/**
  * Tooltip label scale, width cap and screen-edge placement. Closed, with the edge anchors unmounted,
  * until the spec clicks "show", so nothing covers other fixtures or joins the stacking counter at load.
  */
@@ -2502,6 +2557,8 @@ export function TestHarness() {
 
         <ThemeEngineFixtures />
         <DefaultSizeFixtures />
+
+        <TextRunFixtures />
 
         {/* ── Tooltip label scale + screen edges (mounted last: opens on demand) ── */}
 

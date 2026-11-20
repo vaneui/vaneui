@@ -3,6 +3,7 @@ import type { BadgeProps } from "./BadgeProps";
 import { ThemedComponent } from "../../themedComponent";
 import { useTheme } from "../../themeContext";
 import { resolveDisabledLink } from "../../utils/disabledLink";
+import { wrapTextRuns } from "../../utils/textRuns";
 import { defaultBadgeTheme } from "./defaultBadgeTheme";
 
 export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
@@ -14,7 +15,12 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
     // disabled + href: a placeholder link (no href, aria-disabled, still focusable, activation
     // blocked), as Button and Link render it; the props pass through untouched otherwise
     const resolvedProps = resolveDisabledLink({ ...props }, !!props.disabled);
-    return <ThemedComponent theme={theme?.badge ?? defaultBadgeTheme} ref={ref} {...focusInjection} {...resolvedProps} />
+    return (
+      <ThemedComponent theme={theme?.badge ?? defaultBadgeTheme} ref={ref} {...focusInjection} {...resolvedProps}>
+        {/* text gets a span of its own, so the stylesheet can center it by the capital height */}
+        {wrapTextRuns(resolvedProps.children)}
+      </ThemedComponent>
+    );
   }
 );
 

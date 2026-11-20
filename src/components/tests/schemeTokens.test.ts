@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const tokensCss = fs.readFileSync(path.resolve(__dirname, '../css/tokens.css'), 'utf-8');
+// a Windows checkout with core.autocrlf has CRLF line endings; the searches below look for "\n"
+const tokensCss = fs.readFileSync(path.resolve(__dirname, '../css/tokens.css'), 'utf-8').replace(/\r\n/g, '\n');
 const paletteCss = fs.readFileSync(require.resolve('tailwindcss/theme.css'), 'utf-8');
 
 const DARK = [':root[data-theme="dark"]', '[data-theme="dark"]', ':host([data-theme="dark"])'];

@@ -169,6 +169,13 @@ describe('SSR rendering', () => {
     expect(html).toContain('Open');
   });
 
+  it('should render the text of a boxed label in its span on the server', () => {
+    const html = renderSSR(<Button><svg />Save</Button>);
+    expect(html).toContain('<span class="vane-text-run">Save</span>');
+    // one span for text nodes that touch, as on the client
+    expect(renderSSR(<Badge>{3} new</Badge>)).toMatch(/<span class="vane-text-run">3(<!-- -->)? new<\/span>/);
+  });
+
   it('should cover every component export of the package in this smoke test', () => {
     const covered = new Set([
       'ThemeProvider', 'Button', 'IconButton', 'Icon', 'Badge', 'Divider', 'Chip', 'Code', 'Kbd',

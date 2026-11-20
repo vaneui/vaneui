@@ -4,6 +4,7 @@ import { useTheme } from "../../themeContext";
 import { ThemedComponent } from "../../themedComponent";
 import { resolveDisabledLink } from "../../utils/disabledLink";
 import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
+import { wrapTextRuns } from "../../utils/textRuns";
 // file path, not the barrel: the barrel would pull the whole ui index into this module
 import { Spinner } from "../spinner/Spinner";
 import { defaultIconButtonTheme } from "./defaultIconButtonTheme";
@@ -31,6 +32,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
 
     const isDisabled = rest.disabled || loading;
     const resolvedProps = resolveDisabledLink(rest, !!isDisabled);
+    // a letter or symbol used as the icon gets a span, so the stylesheet can center it by the capital height
+    const label = wrapTextRuns(resolvedProps.children);
 
     if (loading) {
       const loadingProps = { ...resolvedProps, disabled: true as const, 'data-loading': 'true', 'aria-busy': true as const };
@@ -47,12 +50,12 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
             <Spinner role={undefined} {...(size ? { [size]: true } : {})} />
           </ThemedComponent>
           {/* transparent, not hidden: the children keep the button's size and accessible name while loading */}
-          <span className="vane-button-loading-label">{resolvedProps.children}</span>
+          <span className="vane-button-loading-label">{label}</span>
         </ThemedComponent>
       );
     }
 
-    return <ThemedComponent ref={ref} theme={iconButtonTheme} {...resolvedProps} />;
+    return <ThemedComponent ref={ref} theme={iconButtonTheme} {...resolvedProps}>{label}</ThemedComponent>;
   }
 );
 
