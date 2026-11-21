@@ -157,7 +157,7 @@ Set `data-theme="dark"` on the `<html>` element. The shipped CSS re-declares the
 
 ## Use with AI assistants
 
-**MCP server.** [`@vaneui/mcp`](https://www.npmjs.com/package/@vaneui/mcp) gives an AI coding agent the VaneUI docs, a prop table for every component, and two tools: `search_docs` and `get_component_props`. It runs over stdio with `npx` and needs Node.js 24.
+**MCP server.** [`@vaneui/mcp`](https://www.npmjs.com/package/@vaneui/mcp) gives an AI coding agent the VaneUI docs, a prop table for every component, and three tools: `search_docs`, `get_doc` and `get_component_props`. It runs over stdio with `npx` and needs Node.js 20 or later.
 
 Claude Code:
 
@@ -181,7 +181,7 @@ Claude Desktop (`claude_desktop_config.json`), Cursor (`.cursor/mcp.json`) and o
 }
 ```
 
-Config file locations and more clients are in the [@vaneui/mcp README](https://github.com/vaneui/mcp#quickstart).
+Config file locations and more clients are in [Use VaneUI with AI coding assistants](https://vaneui.com/docs/getting-started/ai-assistants) and the [@vaneui/mcp README](https://github.com/vaneui/mcp#quickstart).
 
 **llms.txt.** [vaneui.com/llms.txt](https://vaneui.com/llms.txt) is an index of every docs page, and [vaneui.com/llms-full.txt](https://vaneui.com/llms-full.txt) has all docs pages, with each component's props, in one file you can give to a model as context.
 
@@ -189,6 +189,7 @@ Config file locations and more clients are in the [@vaneui/mcp README](https://g
 
 ## Links
 
+- [Website](https://vaneui.com)
 - [Documentation](https://vaneui.com/docs)
 - [Changelog](https://vaneui.com/docs/reference/changelog)
 - [npm](https://www.npmjs.com/package/@vaneui/ui)

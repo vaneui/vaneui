@@ -10,6 +10,12 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Fixed
+
+- The README described `@vaneui/mcp` as having two tools and needing Node.js 24. It has three
+  (`search_docs`, `get_doc` and `get_component_props`) and runs on Node.js 20 or later. The
+  README also links to the vaneui.com home page and to the AI assistants setup guide.
+
 ## 1.7.1
 
 `2026-11-20`
