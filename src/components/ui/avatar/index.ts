@@ -1,0 +1,12 @@
+export { Avatar } from './Avatar';
+export { AvatarGroup } from './AvatarGroup';
+export type { AvatarProps } from './AvatarProps';
+export type { AvatarGroupProps } from './AvatarGroupProps';
+export { AVATAR_CATEGORIES } from './AvatarCategories';
+export { AVATAR_GROUP_CATEGORIES } from './AvatarGroupCategories';
+export type { AvatarTheme } from './AvatarTheme';
+export type { AvatarGroupTheme } from './AvatarGroupTheme';
+export { avatarDefaults } from './avatarDefaults';
+export { avatarGroupDefaults } from './avatarGroupDefaults';
+export { defaultAvatarTheme } from './defaultAvatarTheme';
+export { defaultAvatarGroupTheme } from './defaultAvatarGroupTheme';

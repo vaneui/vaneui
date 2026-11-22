@@ -14,4 +14,5 @@ export const textareaDefaults: Partial<TextareaProps> = {
   noShadow: true,
   focusVisible: true,
   transition: true,
+  resizeY: true,
 };

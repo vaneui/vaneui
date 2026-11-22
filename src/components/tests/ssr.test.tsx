@@ -19,6 +19,7 @@ import {
   Card, CardHeader, CardBody, CardFooter,
   Table, Thead, Tbody, Tfoot, Tr, Th, Td, Caption,
   Text, Title, Link, List, ListItem, SectionTitle, PageTitle, Blockquote,
+  Avatar, AvatarGroup, Breadcrumb, BreadcrumbItem,
 } from '../../index';
 
 const renderSSR = (node: React.ReactNode): string =>
@@ -106,6 +107,18 @@ describe('SSR rendering', () => {
           </Table>
           <Divider />
           <Img src="/x.png" alt="img" />
+          <AvatarGroup max={2}>
+            <Avatar name="Ada Lovelace" />
+            <Avatar src="/a.png" name="Alan Turing" />
+            <Avatar name="Grace Hopper" />
+          </AvatarGroup>
+          <Breadcrumb>
+            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+            <BreadcrumbItem>Here</BreadcrumbItem>
+          </Breadcrumb>
+          <Input startSection={<svg />} endSection="kg" placeholder="weight" />
+          <Select startSection={<svg />} defaultValue="a"><option value="a">A</option></Select>
+          <Progress indeterminate aria-label="Loading" />
         </Section>
       </Container>
     );
@@ -186,6 +199,7 @@ describe('SSR rendering', () => {
       'Grid6', 'Card', 'CardHeader', 'CardBody', 'CardFooter', 'Text', 'Title', 'Link', 'List',
       'ListItem', 'SectionTitle', 'PageTitle', 'Blockquote',
       'Table', 'Thead', 'Tbody', 'Tfoot', 'Tr', 'Th', 'Td', 'Caption',
+      'Avatar', 'AvatarGroup', 'Breadcrumb', 'BreadcrumbItem',
     ]);
 
     const componentExports = Object.entries(VaneUI)

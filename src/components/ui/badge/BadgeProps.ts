@@ -35,6 +35,7 @@ import type {
   WhitespaceProps, WordBreakProps,
   WidthProps,
   HeightProps,
+  DotProps,
   DisabledProps
 } from "../props";
 
@@ -76,6 +77,7 @@ export type BadgeProps = BaseProps &
   WidthProps &
   HeightProps &
   DisabledProps &
+  DotProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */

@@ -19,6 +19,7 @@ import type {
   StrongBorderProps,
   PointerEventsProps,
   WhitespaceProps,
+  AspectProps,
   ShadowProps,
   RingProps,
   FocusVisibleProps,
@@ -53,6 +54,7 @@ export type RowProps = BaseProps &
   StrongBorderProps &
   PointerEventsProps &
   WhitespaceProps &
+  AspectProps &
   ShadowProps &
   RingProps &
   FocusVisibleProps &

@@ -78,6 +78,16 @@
         "default": "./dist/cjs/components/ui/alert/index.cjs"
       }
     },
+    "./avatar": {
+      "import": {
+        "types": "./dist/types/components/ui/avatar/index.d.mts",
+        "default": "./dist/esm/components/ui/avatar/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/avatar/index.d.cts",
+        "default": "./dist/cjs/components/ui/avatar/index.cjs"
+      }
+    },
     "./badge": {
       "import": {
         "types": "./dist/types/components/ui/badge/index.d.mts",
@@ -86,6 +96,16 @@
       "require": {
         "types": "./dist/types/components/ui/badge/index.d.cts",
         "default": "./dist/cjs/components/ui/badge/index.cjs"
+      }
+    },
+    "./breadcrumb": {
+      "import": {
+        "types": "./dist/types/components/ui/breadcrumb/index.d.mts",
+        "default": "./dist/esm/components/ui/breadcrumb/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/breadcrumb/index.d.cts",
+        "default": "./dist/cjs/components/ui/breadcrumb/index.cjs"
       }
     },
     "./button": {

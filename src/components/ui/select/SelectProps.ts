@@ -82,4 +82,6 @@ export type SelectProps = BaseProps &
   tag?: React.ElementType;
   /** Muted prompt shown until an option is picked: a first, empty option that can't be chosen again. With `required`, the empty value fails validation. Ignored with `multiple` */
   placeholder?: string;
+  /** Content at the start edge inside the field, such as an icon or a short prefix; the field reserves its width. The end edge holds the chevron */
+  startSection?: React.ReactNode;
 };

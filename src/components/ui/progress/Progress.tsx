@@ -12,13 +12,13 @@ import { progressDefaults } from "./progressDefaults";
 const FILL_CATEGORIES = ['appearance', 'shape', 'transition'] as const;
 
 export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
-  function Progress({ value, max = 100, style, ...props }, ref) {
+  function Progress({ value, max = 100, indeterminate, style, ...props }, ref) {
     const theme = useTheme();
     const trackTheme = theme?.progress.main ?? defaultProgressTheme;
     const fillTheme = theme?.progress.fill ?? defaultProgressFillTheme;
 
     const range = Number.isFinite(max) && max > 0 ? max : 0;
-    const current = Math.min(Math.max(Number.isFinite(value) ? value : 0, 0), range);
+    const current = Math.min(Math.max(typeof value === 'number' && Number.isFinite(value) ? value : 0, 0), range);
     const ratio = range > 0 ? current / range : 0;
 
     const raw = props as unknown as Record<string, unknown>;
@@ -37,8 +37,10 @@ export const Progress = forwardRef<HTMLDivElement, ProgressProps>(
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={range}
-        aria-valuenow={current}
-        {...{ ...props, style: { ...style, '--progress': ratio } as CSSProperties }}
+        // indeterminate: no aria-valuenow, which is how assistive tech tells "busy" from a value
+        aria-valuenow={indeterminate ? undefined : current}
+        data-indeterminate={indeterminate ? 'true' : undefined}
+        {...{ ...props, style: indeterminate ? style : { ...style, '--progress': ratio } as CSSProperties }}
       >
         <ThemedComponent theme={fillTheme} aria-hidden="true" {...fillProps} />
       </ThemedComponent>

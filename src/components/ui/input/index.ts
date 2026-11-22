@@ -14,3 +14,8 @@ export { INPUT_WRAPPER_CATEGORIES } from './InputWrapperCategories';
 export type { InputWrapperTheme } from './InputWrapperTheme';
 export { inputWrapperDefaults } from './inputWrapperDefaults';
 export { defaultInputWrapperTheme } from './defaultInputWrapperTheme';
+export type { InputSectionProps } from './InputSectionProps';
+export { INPUT_SECTION_CATEGORIES } from './InputSectionCategories';
+export type { InputSectionTheme } from './InputSectionTheme';
+export { inputSectionDefaults } from './inputSectionDefaults';
+export { defaultInputSectionTheme } from './defaultInputSectionTheme';

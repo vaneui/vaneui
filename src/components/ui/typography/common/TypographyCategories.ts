@@ -18,6 +18,7 @@ import {
   BORDER,
   WHITESPACE,
   WORD_BREAK,
+  SR_ONLY,
 } from "../../props/categoryBuilders";
 
 /** Cursor appearance property */
@@ -48,6 +49,7 @@ export const TYPOGRAPHY_CATEGORIES = [
   ...RESPONSIVE,
   ...INHERIT_SIZE,
   ...INHERIT_COLOR,
+  ...SR_ONLY,
 ] as const;
 
 /**

@@ -10,6 +10,7 @@ import {
   INHERIT_COLOR,
   WHITESPACE,
   WORD_BREAK,
+  SR_ONLY
 } from "../../props/categoryBuilders";
 
 /**
@@ -47,4 +48,5 @@ export const LIST_ITEM_CATEGORIES = [
   ...RESPONSIVE,
   ...INHERIT_SIZE,
   ...INHERIT_COLOR,
+  ...SR_ONLY,
 ] as const;

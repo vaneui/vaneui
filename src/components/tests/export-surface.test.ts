@@ -8,7 +8,7 @@ import * as VaneUI from '../../index';
 // over-eager re-export) fail here instead of shipping silently. The exports
 // MAP targets are validated separately by publint/attw in the publish gate.
 const EXPECTED_RUNTIME_EXPORTS = [
-  'Alert', 'Badge', 'Blockquote', 'Button', 'COMPONENT', 'Caption', 'Card', 'CardBody', 'CardFooter', 'CardHeader',
+  'Alert', 'Avatar', 'AvatarGroup', 'Badge', 'Blockquote', 'Breadcrumb', 'BreadcrumbItem', 'Button', 'COMPONENT', 'Caption', 'Card', 'CardBody', 'CardFooter', 'CardHeader',
   'Checkbox', 'Chip', 'Code', 'Col', 'ComponentCategories', 'ComponentKeys', 'Container',
   'Divider', 'Grid2', 'Grid3', 'Grid4', 'Grid5', 'Grid6', 'Icon', 'IconButton', 'Img', 'Input',
   'Field', 'Kbd', 'Label', 'Link', 'List', 'ListItem', 'Mark', 'Menu', 'MenuItem', 'MenuLabel', 'Modal',

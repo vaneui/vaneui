@@ -62,6 +62,10 @@ import {
   Th,
   Td,
   useOverlayRegistration,
+  Avatar,
+  AvatarGroup,
+  Breadcrumb,
+  BreadcrumbItem,
   type InputProps,
   useFieldControlProps,
 } from '../../src';
@@ -855,6 +859,86 @@ function LayoutAdditionsFixtures() {
       </Col>
       <Button tabletShow data-testid="button-tablet-show">Menu</Button>
       <Row mobileHide tabletShow data-testid="row-tablet-band">Tablet band</Row>
+    </section>
+  );
+}
+
+/* ════════ QUICK ADDITIONS (quick-additions.spec.ts) ════════
+   Avatar, AvatarGroup, Breadcrumb, field sections and the small props: gap steps,
+   Textarea autosize/resize, Table striped/hoverable, Badge dot, Progress indeterminate,
+   srOnly and aspect ratio. */
+const AVATAR_PHOTO = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 4"><rect width="4" height="4" fill="#6366f1"/></svg>')}`;
+
+function QuickAdditionsFixtures() {
+  return (
+    <section data-testid="quick-additions-section">
+      <Row flexWrap>
+        {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+          <Avatar key={size} {...{ [size]: true }} name="Ada Lovelace" data-testid={`avatar-${size}`} />
+        ))}
+        <Avatar src={AVATAR_PHOTO} name="Grace Hopper" data-testid="avatar-image" />
+        <Avatar rounded data-testid="avatar-rounded" />
+      </Row>
+      <AvatarGroup aria-label="Editors" max={2} data-testid="avatar-group">
+        <Avatar name="Ada Lovelace" data-testid="avatar-group-first" />
+        <Avatar name="Alan Turing" data-testid="avatar-group-second" />
+        <Avatar name="Grace Hopper" />
+      </AvatarGroup>
+
+      <Breadcrumb data-testid="breadcrumb">
+        <BreadcrumbItem href="#home" data-testid="breadcrumb-link">Home</BreadcrumbItem>
+        <BreadcrumbItem href="#docs">Docs</BreadcrumbItem>
+        <BreadcrumbItem data-testid="breadcrumb-current">Button</BreadcrumbItem>
+      </Breadcrumb>
+
+      <Col itemsStart style={{ width: 320 }}>
+        <Input aria-label="plain" data-testid="input-plain" />
+        <Input aria-label="start icon" startSection={<StarIcon />} data-testid="input-start-icon" />
+        <Input aria-label="start text" startSection="https://" data-testid="input-start-text" />
+        <Input aria-label="end text" endSection="kg" data-testid="input-end-text" />
+        <Input aria-label="end invalid" invalid endSection="kg" data-testid="input-end-invalid" />
+        <Input lg aria-label="lg start icon" startSection={<StarIcon />} data-testid="input-lg-start-icon" />
+        <Input aria-label="narrow" startSection={<StarIcon />} style={{ width: 160 }} data-testid="input-start-narrow" />
+        <Select aria-label="select start" startSection={<StarIcon />} data-testid="select-start">
+          <option>Europe</option>
+        </Select>
+      </Col>
+
+      <Col itemsStart style={{ width: 320 }}>
+        <Textarea aria-label="textarea resize default" data-testid="textarea-resize-default" />
+        <Textarea aria-label="textarea none" resizeNone data-testid="textarea-resize-none" />
+        <Textarea aria-label="textarea autosize" autosize rows={1} data-testid="textarea-autosize" />
+      </Col>
+
+      <Table striped hoverable data-testid="table-striped">
+        <Tbody>
+          <Tr data-testid="table-striped-row-1"><Td>1</Td></Tr>
+          <Tr data-testid="table-striped-row-2"><Td>2</Td></Tr>
+          <Tr data-testid="table-striped-row-3"><Td>3</Td></Tr>
+        </Tbody>
+      </Table>
+
+      <Row>
+        <Badge success dot data-testid="badge-dot">Online</Badge>
+        <Badge success dot aria-label="Online" data-testid="badge-dot-only" />
+        <Badge success filled dot aria-label="Online" data-testid="badge-dot-only-filled" />
+      </Row>
+
+      <Col style={{ width: 300 }}>
+        <Progress indeterminate aria-label="loading" data-testid="progress-indeterminate" />
+        <div dir="rtl"><Progress indeterminate aria-label="loading rtl" data-testid="progress-indeterminate-rtl" /></div>
+      </Col>
+
+      <Text srOnly data-testid="text-sr-only">Only for screen readers</Text>
+
+      <Row itemsStart>
+        <Img aspectSquare src={AVATAR_PHOTO} alt="" style={{ width: 80 }} data-testid="img-aspect-square" />
+        <Card aspectVideo style={{ width: 160 }} data-testid="card-aspect-video">16:9</Card>
+      </Row>
+
+      <Row sm gapXs data-testid="row-sm-gap-xs"><span>a</span><span>b</span></Row>
+      <Row xl gapXs data-testid="row-xl-gap-xs"><span>a</span><span>b</span></Row>
+      <Row sm gapXl data-testid="row-sm-gap-xl"><span>a</span><span>b</span></Row>
     </section>
   );
 }
@@ -2734,6 +2818,8 @@ export function TestHarness() {
         <FormStateFixtures />
 
         <LayoutAdditionsFixtures />
+
+        <QuickAdditionsFixtures />
 
         <CompositionFixtures />
 

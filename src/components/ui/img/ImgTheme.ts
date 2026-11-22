@@ -1,5 +1,5 @@
 import type { BaseComponentTheme, DefaultSizedLayoutClassMappers } from "../theme/common";
-import type { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, ObjectFitClassMapper, ShrinkClassMapper } from "../theme/layout";
+import type { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, ObjectFitClassMapper, ShrinkClassMapper, AspectClassMapper } from "../theme/layout";
 import type { SimpleConsumerClassMapper, ShadowAppearanceClassMapper } from "../theme/appearance";
 
 export interface ImgTheme extends BaseComponentTheme {
@@ -10,6 +10,7 @@ export interface ImgTheme extends BaseComponentTheme {
     radius: RadiusClassMapper;
     objectFit: ObjectFitClassMapper;
     shrink: ShrinkClassMapper;
+    aspect: AspectClassMapper;
   };
   appearance: {
     background: SimpleConsumerClassMapper;

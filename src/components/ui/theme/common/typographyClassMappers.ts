@@ -7,6 +7,7 @@ import { MarginClassMapper } from "../size/marginClassMapper";
 import { CursorClassMapper } from "../layout/cursorClassMapper";
 import { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
 import { WordBreakClassMapper } from "../layout/wordBreakClassMapper";
+import { SrOnlyClassMapper } from "../layout/srOnlyClassMapper";
 import { textAppearance } from "./appearanceClassMappers";
 
 // Typography components are background-less by design; no bgAppearance, no `transparent` category.
@@ -33,5 +34,6 @@ export const typographyClassMappers: TextTheme = {
     cursor: new CursorClassMapper(),
     whitespace: new WhitespaceClassMapper(),
     wordBreak: new WordBreakClassMapper(),
+    srOnly: new SrOnlyClassMapper(),
   },
 };

@@ -165,6 +165,10 @@ describe('Theme structure consistency', () => {
       menu: {},
       navLink: {},
       table: {},
+      inputSection: {},
+      avatar: {},
+      avatarGroup: {},
+      breadcrumb: { main: {}, list: {}, item: {}, separator: {} },
     };
 
     // At runtime, also ensure the keys align with COMPONENT

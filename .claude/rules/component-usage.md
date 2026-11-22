@@ -41,7 +41,7 @@ Wrap your app in `ThemeProvider` to customize the theme. Without it, each compon
 </ThemeProvider>
 ```
 
-Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox, Field, Switch, Radio, Table, Progress) need the nested form — Button's main element lives at `button.main`:
+Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox, Field, Switch, Radio, Table, Progress, Breadcrumb) need the nested form — Button's main element lives at `button.main`:
 
 ```tsx
 <ThemeProvider themeDefaults={{ button: { main: { filled: true, lg: true } } }}>
@@ -133,6 +133,7 @@ Keep `light-dark()` pairs off a `:root`-only rule: bundlers that compile it for 
 |------|-----------|-------|
 | Clickable action | `Button` | Renders `<button>`, or `<a>` with `href` |
 | Icon-only button | `IconButton` | Square button, renders `<button>` or `<a>` with `href`. Give an icon-only `IconButton` (and `ModalCloseButton`) an `aria-label` for an accessible name |
+| Page trail | `Breadcrumb` + `BreadcrumbItem` | `nav` labelled "Breadcrumb" around an `<ol>`. An item with `href` is a link; the last item is the current page unless one sets `current`. `separator` replaces the chevron |
 | Navigation link | `NavLink` | For sidebars/nav menus. Has `active` prop with `aria-current="page"`. Renders `<a>` with `href`, `<button>` without |
 | Content container with border | `Card` | Renders `<div>`, or `<a>` with `href`. Sub-components: `CardHeader`, `CardBody`, `CardFooter` |
 | Horizontal layout | `Row` | Flexbox row, `itemsCenter` by default |
@@ -146,23 +147,25 @@ Keep `light-dark()` pairs off a `:root`-only rule: bundlers that compile it for 
 | Subsection heading | `Title` | Renders `<h3>`, responsive |
 | Body text | `Text` | Renders `<p>` |
 | Hyperlink | `Link` | Renders `<a>`, underline by default, blue link color by default |
-| Status indicator | `Badge` | Pill-shaped, semibold (normal case; add `uppercase` for status-chip look) |
+| Status indicator | `Badge` | Pill-shaped, semibold (normal case; add `uppercase` for status-chip look). `dot` adds a status dot; with no text and an `aria-label` the badge is the dot |
+| Person or team picture | `Avatar` | Image (`src`), else initials of `name`, else a person icon. `name` is the text alternative. Circle by default, `rounded` for a square |
+| Overlapping avatars | `AvatarGroup` | Takes the size for its avatars; `max` and `total` add a "+N" avatar. Give it an `aria-label` |
 | Tag / filter token | `Chip` | Rounded, sans-serif, secondary by default |
 | Inline code | `Code` | Monospace, rounded, with padding |
 | Keyboard shortcut | `Kbd` | Monospace, bordered, 3D effect |
 | Text highlight | `Mark` | Background highlight, defaults to warning (yellow) |
 | Quoted content | `Blockquote` | Left border accent, inherits parent appearance |
-| Text input | `Input` | Renders `<input>`, all HTML input attrs |
+| Text input | `Input` | Renders `<input>`, all HTML input attrs. `startSection` / `endSection` put an icon, prefix, unit or button inside the field |
 | Toggle | `Checkbox` | Custom styled, use inside `Label` |
 | Form field (label + help + error) | `Field` | Owns the id, points the label at the control, links help/error with `aria-describedby`. Can render its own control via `type` or one of `textInput`/`textarea`/`select`/`checkbox`/`switch`/`radiogroup`, or wrap one passed as a child. An `error` also marks the control invalid |
 | Inline status message | `Alert` | Live region: `role="alert"`, or `role="status"` with `polite` |
 | Busy indicator | `Spinner` | `role="status"`; give it an `aria-label` |
-| Determinate progress | `Progress` | `role="progressbar"` with `value` (and `max`, 100 by default); give it an `aria-label`. The fill takes the appearance color; restyle it with `themeDefaults={{ progress: { fill: {...} } }}` |
+| Progress | `Progress` | `role="progressbar"` with `value` (and `max`, 100 by default), or `indeterminate` for work of unknown length; give it an `aria-label`. The fill takes the appearance color; restyle it with `themeDefaults={{ progress: { fill: {...} } }}` |
 | Hover/focus hint | `Tooltip` + trigger | Ink label that describes its trigger (no `aria-haspopup`/`aria-expanded`). Takes size, appearance and `place*` props directly: `<Tooltip lg placeBottom>` |
 | Input label | `Label` | Flex **column** (label above field) with gap, sm size, `inheritAppearance`. Use `row` for inline controls (e.g. Checkbox) |
 | Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `listDecimal` |
 | Horizontal rule | `Divider` | Thin line separator |
-| Image | `Img` | Rounded by default |
+| Image | `Img` | Rounded by default. `aspectSquare` / `aspectVideo` fix the shape |
 | Fullscreen backdrop | `Overlay` | Portal-rendered, click-to-close, optional blur |
 | Dialog | `Modal` | Accessible dialog with focus trap, scroll lock. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton` |
 | Floating element | `Popup` + `PopupTrigger` | CSS Anchor Positioning; 12 `place*` placement props (see Popup placement below) |
@@ -245,6 +248,27 @@ which `Label` alone does not do.
 ```
 
 In a `Row` of Fields where only some have help or error text, use `<Row itemsStart>` so the controls stay aligned.
+
+### Field sections
+
+`startSection` and `endSection` put content inside an `Input`: an icon, a prefix, a unit or a
+button. The field reserves the section's measured width, and the section follows the field's
+size. `Select` takes `startSection` only (its end holds the chevron), and `Field` passes both to
+the control it renders. A section ignores the pointer, so a click on an icon focuses the field;
+a button or link in a section stays clickable.
+
+```tsx
+<Input aria-label="Search" startSection={<Search />} placeholder="Search docs" />
+<Input aria-label="Site" startSection="https://" />
+<Input aria-label="Weight" type="number" endSection="kg" />
+<Field type="url" label="Homepage" startSection="https://" />
+```
+
+With a section, `className`, the width props and the sizing part of `style` (width, margin,
+flex) apply to the wrapper around the field, as on `Select`.
+
+`<Textarea autosize>` grows with its text and has no resize handle. `resizeNone`, `resizeX` and
+`resize` change the handle; the default is `resizeY`.
 
 Mark a field's validation state with the `invalid` validity prop — it layers a danger border/ring over the input's current appearance: `<Input invalid />`.
 
@@ -352,6 +376,37 @@ An empty string for `error` or `description` means no message, so `error={errors
 A `Text`, `Col`, `Stack` or `Row` placed directly in an Alert takes the free width, so the Button after it sits at the end edge. Wrap a bare-text message in `Text` when an action follows it. `itemsCenter` centres the action on a short message; leave it out when the Alert has a leading icon and a message of several lines, so the icon stays on the first line. For a long message, put the buttons in the `Col`, under the text.
 
 Alert text is one step below body text (14px at `md`), and its radius, padding, gap and a leading icon follow the size prop. A `Text` that carries the message, on its own or in that `Col`, follows the Alert's size too: an unsized `Text` takes the Alert's text size, and `<Text sm>` sits one step below it. A plain `<svg>` icon is sized by the Alert; give it a `size-*` class to set your own.
+
+A status dot before the text, or a dot on its own:
+
+```tsx
+<Badge success dot>Online</Badge>
+<Badge danger dot aria-label="Offline" />
+```
+
+### Avatars
+
+```tsx
+<Avatar src={user.photo} name={user.name} />
+<Avatar name="Ada Lovelace" />            {/* initials AL */}
+<AvatarGroup aria-label="Editors" max={3}>
+  {editors.map(e => <Avatar key={e.id} src={e.photo} name={e.name} />)}
+</AvatarGroup>
+```
+
+### Breadcrumb
+
+```tsx
+<Breadcrumb>
+  <BreadcrumbItem href="/" tag={Link}>Home</BreadcrumbItem>
+  <BreadcrumbItem href="/docs" tag={Link}>Docs</BreadcrumbItem>
+  <BreadcrumbItem>Button</BreadcrumbItem>
+</Breadcrumb>
+```
+
+### Tables
+
+`<Table striped>` tints every other body row, `<Table hoverable>` the row under the pointer.
 
 ### List
 
@@ -623,6 +678,8 @@ These are on/off switches. Check defaults before using — many are already true
 ```tsx
 {/* Layout toggles */}
 <Card noGap>No gap between children</Card>
+<Row gapSm>A fixed small gap at every size and width (gapXs–gapXl)</Row>
+<Card aspectVideo>A 16:9 box (aspectSquare, aspectAuto)</Card>
 <Card noPadding>No padding</Card>
 <Card shadow>Add shadow</Card>
 <Card noShadow>Remove shadow</Card>
@@ -639,6 +696,7 @@ These are on/off switches. Check defaults before using — many are already true
 <Text fontMono>Monospace text</Text>
 <Text textCenter>Centered</Text>
 <Text textRight>Right-aligned</Text>
+<Text srOnly>Read by screen readers, not shown</Text>
 ```
 
 ## Text Alignment & RTL

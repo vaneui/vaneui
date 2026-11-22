@@ -13,6 +13,7 @@ import {
   STRONG_BORDER,
   POINTER_EVENTS,
   WHITESPACE,
+  ASPECT,
 } from "../props/categoryBuilders";
 
 /** Categories for card components with layout support and text alignment.
@@ -33,5 +34,6 @@ export const CARD_CATEGORIES = [
   ...COMMON_MODIFIERS,
   ...POINTER_EVENTS,
   ...WHITESPACE,
+  ...ASPECT,
   'focusVisible',
 ] as const;

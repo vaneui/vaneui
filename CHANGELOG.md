@@ -10,6 +10,45 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+New components (Avatar, AvatarGroup, Breadcrumb), start and end sections on fields, and small
+props that used to need a class or a wrapper.
+
+### Added
+
+- `Avatar`: a picture of a person or thing. It shows `src`, then the initials of `name` when
+  there is no image or it fails to load, then its children, then a person icon. The `name` is the
+  image's text alternative (or `alt`), and initials or children get `role="img"` with the name as
+  their label. It takes the size, appearance, variant and shape props (a circle by default,
+  `rounded` for a square with size-driven corners), and `imgProps` for the `<img>`.
+- `AvatarGroup`: a row of overlapping avatars with a ring in the surface color between them. Its
+  size reaches the avatars, `max` shows that many and counts the rest in one "+N" avatar, and
+  `total` counts against a list you only load in part. It renders `role="group"`.
+- `Breadcrumb` and `BreadcrumbItem`: a `nav` labelled "Breadcrumb" (pass `aria-label` to
+  translate it) around an ordered list. An item with `href` is a link, one without is text, and
+  the last item is the current page (`aria-current="page"`) unless an item sets `current`.
+  `separator` replaces the chevron, and `tag` takes a router link.
+- `startSection` and `endSection` on `Input`, and `startSection` on `Select` (its end holds the
+  chevron): an icon, a prefix such as `https://`, a unit or a button inside the field. The field
+  reserves the measured width of each section, the section follows the field's size, and the
+  input keeps its place in the tree when a section comes or goes, so it keeps focus and text.
+  `Field` passes them to the control it renders. With a section, `className`, the width props
+  and the sizing part of `style` go to the wrapper, as on `Select`.
+- `gapXs`, `gapSm`, `gapMd`, `gapLg` and `gapXl` on the layout components: a fixed gap step that
+  stays the same at every size and width, where `gap` follows the size prop.
+- `Textarea`: `autosize` grows the box with its text (`field-sizing: content`, with a script
+  fallback for browsers without it), and `resizeNone`, `resizeX` and `resize` change the handle.
+  The default `resizeY` keeps the vertical handle it had.
+- `Table`: `striped` tints every other body row and `hoverable` the row under the pointer, both
+  with a tint of the row's own text color.
+- `Badge`: `dot` draws a status dot before the text. With no text and an `aria-label`, the badge
+  is the dot and gets `role="img"`.
+- `Progress`: `indeterminate` for work of unknown length. `value` becomes optional, the bar drops
+  `aria-valuenow`, and the fill slides across the track (the other way in RTL, still with reduced
+  motion).
+- `srOnly` on the typography components and `Label`: visually hidden, still read by screen
+  readers.
+- `aspectSquare`, `aspectVideo` and `aspectAuto` on `Img`, `Card`, `Row`, `Col` and `Stack`.
+
 ## 1.7.2
 
 `2026-11-22`

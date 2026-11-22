@@ -16,7 +16,7 @@ Every category in `ComponentKeys` is exactly one of these. The guard test (`src/
 
 Every value carries the category's CSS-property prefix. This is where the `light` sin recurs, so it is enforced: each value must start with the prefix (or be its single `no*` negation).
 
-`fontWeight`/`fontFamily` (`font`), `listStyle`/`listPosition` (`list`), `textAlign` (`text`), `items`, `justify`, `justifySelf`, `alignSelf`, `overflow`, `cursor`, `whitespace`, `objectFit` (`object`), `wordBreak` (`break`), `letterSpacing` (`tracking`), `width` (`w`), `height` (`h`), `padding`, `margin`, `border`, `gap`, `shadow`, `transition`, `focusVisible`, `ring` (`insetRing`), `blur` (`backdropBlur`), `pointerEvents`, `wrap`/`flex` (`flex`), `placement` (`place`).
+`fontWeight`/`fontFamily` (`font`), `listStyle`/`listPosition` (`list`), `textAlign` (`text`), `items`, `justify`, `justifySelf`, `alignSelf`, `overflow`, `cursor`, `whitespace`, `objectFit` (`object`), `wordBreak` (`break`), `letterSpacing` (`tracking`), `width` (`w`), `height` (`h`), `padding`, `margin`, `border`, `gap`, `shadow`, `transition`, `focusVisible`, `ring` (`insetRing`), `blur` (`backdropBlur`), `pointerEvents`, `wrap`/`flex` (`flex`), `placement` (`place`), `resize`, `aspect`, `srOnly`.
 
 The prefix is enforced, not the full class, so a deliberate logical/suffix divergence still passes as long as the prefix holds:
 - `borderStart`/`borderEnd` emit `border-s`/`border-e` (logical, RTL-aware) but keep the `border` prefix.
@@ -31,7 +31,8 @@ Named for clarity, not class-correspondence. Not prefix-checked.
 - **Bare Tailwind values** (individually class-correct, no shared prefix): `display`, `position`, `flexDirection`, `fontStyle`, `textDecoration`, `textTransform`, `truncate`.
 - **Responsive/semantic:** `breakpoint` (`mobileStack`…), `hide`, `show` (`mobileShow`…), `responsiveWidth` (`mobileWFull`…), `orientation`, `responsiveSizing`.
 - **Deliberately-clearer renames** (from the prop-naming review): `validity` (`invalid`), `constrainWidth`, `clampHeight`.
-- **Single-flag state:** `transparent`, `disabled`, `readOnly`, `shrink`.
+- **Single-flag state:** `transparent`, `disabled`, `readOnly`, `shrink`, `autosize` (emits `field-sizing-content`).
+- **Component behaviours** (not one utility each): `dot` (Badge), `striped`, `hoverable` (Table).
 - **Inherit family:** `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (appearance's `inheritAppearance` value lives in the design-system layer).
 
 ## Adding a category

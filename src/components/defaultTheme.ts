@@ -36,6 +36,12 @@ import { defaultFieldTheme } from './ui/field/defaultFieldTheme';
 import { defaultAlertTheme } from './ui/alert/defaultAlertTheme';
 import { defaultSpinnerTheme } from './ui/spinner/defaultSpinnerTheme';
 import { defaultProgressTheme } from './ui/progress/defaultProgressTheme';
+import { defaultAvatarTheme } from './ui/avatar/defaultAvatarTheme';
+import { defaultAvatarGroupTheme } from './ui/avatar/defaultAvatarGroupTheme';
+import { defaultBreadcrumbTheme } from './ui/breadcrumb/defaultBreadcrumbTheme';
+import { defaultBreadcrumbListTheme } from './ui/breadcrumb/defaultBreadcrumbListTheme';
+import { defaultBreadcrumbItemTheme } from './ui/breadcrumb/defaultBreadcrumbItemTheme';
+import { defaultBreadcrumbSeparatorTheme } from './ui/breadcrumb/defaultBreadcrumbSeparatorTheme';
 import { defaultProgressFillTheme } from './ui/progress/defaultProgressFillTheme';
 import { defaultTooltipTheme } from './ui/tooltip/defaultTooltipTheme';
 import { defaultFieldLabelTheme } from './ui/field/defaultFieldLabelTheme';
@@ -46,6 +52,7 @@ import { defaultImgTheme } from './ui/img/defaultImgTheme';
 import { defaultInputTheme } from './ui/input/defaultInputTheme';
 import { defaultInputErrorIconTheme } from './ui/input/defaultInputErrorIconTheme';
 import { defaultInputWrapperTheme } from './ui/input/defaultInputWrapperTheme';
+import { defaultInputSectionTheme } from './ui/input/defaultInputSectionTheme';
 import { defaultTextareaTheme } from './ui/textarea/defaultTextareaTheme';
 import { defaultSelectTheme } from './ui/select/defaultSelectTheme';
 import { defaultSelectChevronTheme } from './ui/select/defaultSelectChevronTheme';
@@ -141,6 +148,7 @@ export const defaultTheme: ThemeProps = {
   input: defaultInputTheme,
   inputErrorIcon: defaultInputErrorIconTheme,
   inputWrapper: defaultInputWrapperTheme,
+  inputSection: defaultInputSectionTheme,
   textarea: defaultTextareaTheme,
   select: defaultSelectTheme,
   selectChevron: defaultSelectChevronTheme,
@@ -192,5 +200,13 @@ export const defaultTheme: ThemeProps = {
     th: defaultThTheme,
     td: defaultTdTheme,
     caption: defaultCaptionTheme,
+  },
+  avatar: defaultAvatarTheme,
+  avatarGroup: defaultAvatarGroupTheme,
+  breadcrumb: {
+    main: defaultBreadcrumbTheme,
+    list: defaultBreadcrumbListTheme,
+    item: defaultBreadcrumbItemTheme,
+    separator: defaultBreadcrumbSeparatorTheme,
   },
 };
