@@ -11,7 +11,7 @@ import { useStackingContext } from '../../utils/stackingContext';
 import { useControllableState } from '../../utils/controllableState';
 import { useMergedRef } from '../../utils/mergedRef';
 import { useHydrated } from '../../utils/useHydrated';
-import { pushEscapeHandler } from '../../utils/escapeStack';
+import { pushEscapeHandler, ignoreEscape } from '../../utils/escapeStack';
 import { getFocusableElements, useFocusTrap } from '../../utils/focusTrap';
 import { registerOverlay, isInOverlayFamily, setOverlayOpener } from '../../utils/overlayStack';
 import { addAnchorName } from '../../utils/anchorName';
@@ -529,11 +529,12 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       };
     }, [effectiveOpen, measureCssPlacement, updateCssScrollCap]);
 
-    // only the topmost floating element closes on Escape
+    // only the topmost floating element closes on Escape. A modal popup that does not close on
+    // Escape still takes its turn, doing nothing, so Escape cannot close a dialog beneath it.
     useEffect(() => {
-      if (!effectiveOpen || !closeOnEscape) return;
-      return pushEscapeHandler(() => onCloseRef.current?.(), popupRef.current);
-    }, [effectiveOpen, closeOnEscape]);
+      if (!effectiveOpen || (!closeOnEscape && !modal)) return;
+      return pushEscapeHandler(closeOnEscape ? () => onCloseRef.current?.() : ignoreEscape, popupRef.current);
+    }, [effectiveOpen, closeOnEscape, modal]);
 
     // register in the shared overlay stack so nested popups know their lineage:
     // the parent is resolved from the anchor's DOM ancestry (a child popup's

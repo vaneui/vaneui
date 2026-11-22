@@ -15,7 +15,7 @@ import { useStackingContext } from '../../utils/stackingContext';
 import { useMergedRef } from '../../utils/mergedRef';
 import { useHydrated } from '../../utils/useHydrated';
 import { useIsomorphicLayoutEffect } from '../../utils/isomorphicLayoutEffect';
-import { pushEscapeHandler } from '../../utils/escapeStack';
+import { pushEscapeHandler, ignoreEscape } from '../../utils/escapeStack';
 import { composeEventHandlers } from '../../utils/composeEventHandlers';
 import { ModalContext } from './ModalContext';
 import { ModalHeader } from './ModalHeader';
@@ -154,10 +154,11 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       onCloseRef.current = onClose;
     });
 
-    // only the topmost floating element closes on Escape
+    // only the topmost floating element closes on Escape. With closeOnEscape off the dialog still
+    // takes its turn, doing nothing, so Escape cannot close a dialog beneath it instead.
     useEffect(() => {
-      if (!effectiveOpen || !closeOnEscape) return;
-      return pushEscapeHandler(() => onCloseRef.current(), overlayRef.current);
+      if (!effectiveOpen) return;
+      return pushEscapeHandler(closeOnEscape ? () => onCloseRef.current() : ignoreEscape, overlayRef.current);
     }, [effectiveOpen, closeOnEscape]);
 
     // A click lands on the nearest common ancestor of where the press started and where it ended,
