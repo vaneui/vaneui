@@ -1097,6 +1097,14 @@
         --ring-color: var(--color-border-form);
     }
 
+    /* Placeholder on an outline or ghost field: the secondary text color, at least 4.5:1 on every
+       appearance's field surface in both schemes. The preflight's half-transparent text color was
+       3.4:1 on white. A filled field keeps that mix, which follows its fill. The Select placeholder
+       (a selected disabled option) gets the same color in the unlayered block below. */
+    :is(.vane-input, .vane-textarea):is([data-variant="outline"], [data-variant="ghost"])::placeholder {
+        color: var(--color-text-secondary);
+    }
+
 
     /* Checkboxes need a visible unchecked border despite filled's transparent; set border+ring color (ring dormant, noRing default). */
 
@@ -1216,6 +1224,10 @@
 /* Also unlayered: a selected disabled option is a placeholder, so it is muted like an Input placeholder. */
 .vane-select:has(option:checked:disabled) {
     color: color-mix(in oklab, var(--text-color) 50%, transparent);
+}
+
+.vane-select:is([data-variant="outline"], [data-variant="ghost"]):has(option:checked:disabled) {
+    color: var(--color-text-secondary);
 }
 
 /* Also unlayered: a dimmed wrapper's nested control would else stack a second 0.5 on top. */

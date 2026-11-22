@@ -805,8 +805,8 @@ function LayoutAdditionsFixtures() {
 
 /* ════════ FORM-STATE FIXTURES (start) ════════
    One block for the form-control state specs: input-stable-node.spec.ts,
-   readonly-toggles.spec.ts, disabled-link.spec.ts, checked-toggle-contrast.spec.ts and
-   field-custom-control.spec.ts. The read-only toggles and the plain <input> in a Field also
+   readonly-toggles.spec.ts, disabled-link.spec.ts, checked-toggle-contrast.spec.ts,
+   placeholder-contrast.spec.ts and field-custom-control.spec.ts. The read-only toggles and the plain <input> in a Field also
    stand in front of the axe scan (accessibility.spec.ts). */
 
 /** The themed <input> on its own, with the same Field and Label wiring as Input but none of
@@ -948,6 +948,42 @@ function CheckedToggleFixtures() {
   );
 }
 
+const PLACEHOLDER_VARIANTS = ['outline', 'ghost'] as const;
+
+/** An Input, a Textarea and a Select showing their placeholder in every appearance of the outline
+    and ghost variants, on a light and on a dark page surface: the placeholder has to read as text
+    (4.5:1) against the field. */
+function PlaceholderContrastFixtures() {
+  return (
+    <section data-testid="placeholder-contrast-section">
+      {(['light', 'dark'] as const).map((scheme) => (
+        <div key={scheme} {...(scheme === 'dark' ? { 'data-theme': 'dark' } : undefined)}>
+          <Card data-testid={`placeholder-page-${scheme}`}>
+            {PLACEHOLDER_VARIANTS.map((variant) => (
+              <Row key={variant} flexWrap>
+                {TOGGLE_APPEARANCES.map((appearance) => {
+                  const look = { [variant]: true, [appearance]: true };
+                  const id = `${scheme}-${variant}-${appearance}`;
+                  const name = `${scheme} ${variant} ${appearance}`;
+                  return (
+                    <React.Fragment key={appearance}>
+                      <Input {...look} wFit placeholder="Email" aria-label={`${name} input`} data-testid={`placeholder-input-${id}`} />
+                      <Textarea {...look} wFit rows={1} placeholder="Notes" aria-label={`${name} textarea`} data-testid={`placeholder-textarea-${id}`} />
+                      <Select {...look} wFit placeholder="Country" aria-label={`${name} select`} data-testid={`placeholder-select-${id}`}>
+                        <option value="ee">Estonia</option>
+                      </Select>
+                    </React.Fragment>
+                  );
+                })}
+              </Row>
+            ))}
+          </Card>
+        </div>
+      ))}
+    </section>
+  );
+}
+
 /** A control the library does not ship: a plain <input> that takes its Field wiring from the public hook. */
 function PlainFieldInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return <input {...useFieldControlProps(props)} />;
@@ -971,6 +1007,7 @@ function FormStateFixtures() {
         <Code href="#followed-code" disabled data-testid="disabled-link-code">code</Code>
       </Row>
       <CheckedToggleFixtures />
+      <PlaceholderContrastFixtures />
       <Col style={{ width: 360 }}>
         <Field label="Start date" description="Any weekday" error="Pick a date">
           <PlainFieldInput data-testid="plain-field-input" />
