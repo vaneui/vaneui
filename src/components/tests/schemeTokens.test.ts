@@ -51,6 +51,16 @@ describe('dark and light scheme tokens', () => {
       ['shadow-alpha-soft', themeTokens.get('shadow-alpha-soft')],
     ]));
   });
+
+  it('composes the shadow tokens again on a data-theme subtree, from the @theme strings', () => {
+    // a custom property resolves where it is declared: composed only on :root, a subtree kept
+    // the page's alphas, so a dark subtree drew light shadows and a light island dark ones
+    const shadowTokens = [...themeTokens.keys()].filter(name => /^shadow-(ui|layout)-/.test(name));
+    expect(shadowTokens).toHaveLength(10);
+    const subtree = rule(['[data-theme="dark"]:not(:root)', '[data-theme="light"]:not(:root)']);
+    expect(subtree).toBeDefined();
+    expect(declarations(subtree!.body)).toEqual(new Map(shadowTokens.map(name => [name, themeTokens.get(name)])));
+  });
 });
 
 /**

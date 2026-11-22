@@ -1175,6 +1175,13 @@ function ThemeEngineFixtures() {
       <Card data-testid="cc-static-wrapped" responsiveSizing={false}>
         <WrappedCardParts id="cc-static-wrapped" staticSizing/>
       </Card>
+      {/* responsiveSizing off on the Card alone: its parts keep one inset at every width too */}
+      <Card data-testid="cc-static-card" responsiveSizing={false}>
+        <CardHeader data-testid="cc-static-card-header">header</CardHeader>
+        <CardBody data-testid="cc-static-card-body">body</CardBody>
+        <CardFooter data-testid="cc-static-card-footer">footer</CardFooter>
+      </Card>
+      <Card data-testid="cc-static-card-wrapped" responsiveSizing={false}><WrappedCardParts id="cc-static-card-wrapped"/></Card>
       {/* a divider line or a filled part keeps the padding on its side of the boundary */}
       <Card data-testid="cc-divided">
         <CardHeader data-testid="cc-divided-header" borderB>header</CardHeader>
@@ -1226,6 +1233,29 @@ function ThemeEngineFixtures() {
           </Tr>
           <Tr><Td data-testid="ta-row-plain-td">cell</Td></Tr>
         </Tbody>
+      </Table>
+      {/* a row or section with an appearance and no variant paints it as outline */}
+      <Table data-testid="ta-row-app">
+        <Thead info data-testid="ta-row-app-thead"><Tr><Th data-testid="ta-row-app-thead-th">header</Th></Tr></Thead>
+        <Tbody>
+          <Tr danger data-testid="ta-row-app-tr"><Td data-testid="ta-row-app-td">cell</Td></Tr>
+          <Tr danger outline data-testid="ta-row-app-outline-tr"><Td data-testid="ta-row-app-outline-td">cell</Td></Tr>
+          <Tr><Td data-testid="ta-row-app-plain-td">cell</Td></Tr>
+        </Tbody>
+        <Tbody success data-testid="ta-row-app-tbody"><Tr><Td data-testid="ta-row-app-tbody-td">cell</Td></Tr></Tbody>
+      </Table>
+      {/* a filled cell paints its fill and keeps the row rule of the cells beside it */}
+      <Table data-testid="ta-cell-filled">
+        <Tbody>
+          <Tr>
+            <Th success filled data-testid="ta-cell-filled-th">header</Th>
+            <Td success filled data-testid="ta-cell-filled-td">cell</Td>
+            <Td data-testid="ta-cell-filled-plain-td">cell</Td>
+          </Tr>
+        </Tbody>
+      </Table>
+      <Table filled data-testid="ta-cell-filled-on-fill">
+        <Tbody><Tr><Td success filled data-testid="ta-cell-filled-on-fill-td">cell</Td></Tr></Tbody>
       </Table>
       {/* cells outside a Table keep the neutral palette, whatever surrounds them */}
       <Card danger data-testid="ta-standalone">
@@ -1447,6 +1477,14 @@ export function TestHarness() {
           <Mark data-testid="mark-md">MD mark</Mark>
           <Mark lg data-testid="mark-lg">LG mark</Mark>
           <Mark xl data-testid="mark-xl">XL mark</Mark>
+          {/* `rounded` and `pill` on a Mark: rounded took the radius of a control and drew a pill */}
+          {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+            <Mark key={size} {...{ [size]: true }} rounded data-testid={`mark-rounded-${size}`}>Rounded {size}</Mark>
+          ))}
+          <Mark pill data-testid="mark-pill">Pill mark</Mark>
+          <Card>
+            <Text>In a card <Mark rounded data-testid="mark-rounded-in-card">rounded mark</Mark></Text>
+          </Card>
         </section>
 
         {/* ── Inline baseline alignment (Code / Kbd / Mark in running text) ──
@@ -1995,10 +2033,21 @@ export function TestHarness() {
           {/* A message block next to an action: the block takes the free width */}
           <Alert data-testid="alert-action" warning polite>
             <Col noGap data-testid="alert-action-message">
-              <Text fontSemibold>Your trial ends in three days</Text>
-              <Text sm>Add a payment method to keep your projects running.</Text>
+              <Text fontSemibold data-testid="alert-action-title">Your trial ends in three days</Text>
+              <Text sm data-testid="alert-action-detail">Add a payment method to keep your projects running.</Text>
             </Col>
             <Button warning filled data-testid="alert-action-button">Add card</Button>
+          </Alert>
+          {/* A message in a Text follows the Alert's size, next to a leading icon */}
+          {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+            <Alert key={size} data-testid={`alert-text-${size}`} polite {...{ [size]: true }}>
+              <svg data-testid={`alert-text-${size}-icon`} viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" /></svg>
+              <Text data-testid={`alert-text-${size}-text`}>Your trial ends soon</Text>
+              <Button>Upgrade</Button>
+            </Alert>
+          ))}
+          <Alert data-testid="alert-text-stack" polite lg>
+            <Stack noPadding noGap><Text data-testid="alert-text-stack-text">In a Stack</Text></Stack>
           </Alert>
 
           <Spinner data-testid="tier2-spinner" aria-label="Loading" />
@@ -2402,6 +2451,7 @@ export function TestHarness() {
             </Card>
             {/* Light control for the bare inherit-mode regression case below */}
             <Text data-testid="dm-light-bare-text">Bare light text</Text>
+            <Card shadow data-testid="dm-light-shadow">Shadow</Card>
           </div>
 
           {/* Dark column — representative components under a data-theme="dark"
@@ -2427,6 +2477,7 @@ export function TestHarness() {
               <Input invalid aria-label="dark error input" data-testid="dm-dark-error-input" />
               <Link href="#" data-testid="dm-dark-link">Dark link</Link>
             </Card>
+            <Card shadow data-testid="dm-dark-shadow">Shadow</Card>
 
             {/* Contrast gate fixtures: all 10 appearances × filled + outline */}
             <Card filled primary data-testid="dm-contrast-filled-primary"><Text data-testid="dm-contrast-filled-text-primary">Primary filled</Text></Card>
@@ -2460,6 +2511,7 @@ export function TestHarness() {
           {/* data-theme="light" re-declares the light tokens: under html dark it is a light island */}
           <div data-theme="light" data-testid="dm-light-pin">
             <Text data-testid="dm-light-pin-text">Pinned light region</Text>
+            <Card shadow data-testid="dm-light-pin-shadow">Shadow</Card>
           </div>
           {/* the same island inside a dark subtree wrapper */}
           <div data-theme="dark">
@@ -2468,6 +2520,7 @@ export function TestHarness() {
                 <Button data-testid="dm-light-island-button">Primary</Button>
                 <Text data-testid="dm-light-island-text">Island text</Text>
               </Card>
+              <Card shadow data-testid="dm-light-island-shadow">Shadow</Card>
             </div>
           </div>
         </section>

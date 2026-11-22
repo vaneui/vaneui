@@ -199,6 +199,15 @@
 
     /* Mark: flush highlight — no padding, square, --lh:1 hugs the glyphs (reference highlights use padding:0). */
     .vane-mark { --lh: 1; }
+    /* `rounded` on a Mark: its box is the surrounding text's 1em, so the radius is a share of 1em that
+       grows with the size prop. Declared after the ui-type --min-h formula, which it beats: that one
+       reads the control units the Mark inherits from its parent (a Card's padding unit made it a pill). */
+    .vane-mark[data-size] { --br: calc(var(--br-unit) * 1em); }
+    .vane-mark[data-size="xs"] { --br-unit: 0.2; }
+    .vane-mark[data-size="sm"] { --br-unit: 0.25; }
+    .vane-mark[data-size="md"] { --br-unit: 0.3; }
+    .vane-mark[data-size="lg"] { --br-unit: 0.35; }
+    .vane-mark[data-size="xl"] { --br-unit: 0.4; }
 
     /* Input: Button's line-height and radius ratio, so a field and its button share height and corners at every size. */
     .vane-input { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.2174; }
@@ -468,6 +477,15 @@
     .vane-alert > svg:where(:not([class*='size-'])) { width: var(--icon-size); }
     /* The message block takes the free width, so trailing actions sit at the end edge. */
     .vane-alert > :is(.vane-text, .vane-col, .vane-stack, .vane-row) { flex: 1 1 0%; min-width: 0; }
+    /* A Text that carries the message (on its own or in that block) follows the Alert's size like
+       bare text does: md is the Alert's text size and every other size keeps its step from md, so
+       a `sm` line stays one step below. --alert-fs-step is the Alert's distance from body text. */
+    .vane-alert { --alert-fs-step: calc(var(--fs-unit) - var(--fs-unit-md)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="xs"] { --fs-unit: calc(var(--fs-unit-xs) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="sm"] { --fs-unit: calc(var(--fs-unit-sm) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="md"] { --fs-unit: calc(var(--fs-unit-md) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="lg"] { --fs-unit: calc(var(--fs-unit-lg) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="xl"] { --fs-unit: calc(var(--fs-unit-xl) + var(--alert-fs-step)); }
 
     /* Modal and Popup are floating surfaces: the viewport is their whole budget on a phone,
        so their inset ramps with it. Both stay square. */
@@ -751,6 +769,14 @@
         --py-unit-tablet: inherit;
         --py-unit-mobile: inherit;
     }
+    /* ...but a surface with responsiveSizing off keeps one inset at every width, and so do its
+       parts: its tablet and mobile units are declared outside [data-responsive], so the parts
+       take the desktop unit for every width instead of inheriting them. */
+    :is(.vane-card, .vane-modal):not([data-responsive]) > :is(.vane-card-header, .vane-card-body, .vane-card-footer,
+        .vane-modal-header, .vane-modal-body, .vane-modal-footer) {
+        --py-unit-tablet: var(--py-unit-desktop);
+        --py-unit-mobile: var(--py-unit-desktop);
+    }
     /* Parts meet without a second inset. Each part pads all four sides and the surface adds its
        gap, so a title sat two paddings and a gap above the body (64px in a Modal at md). Now the
        body keeps its padding, which is also the room its scroll box needs for focus rings, and
@@ -1018,6 +1044,9 @@
         --app-focus: var(--color-focus-info);
     }
     /* AXIS 2: VARIANT — maps --app-* palette to final consumer variables */
+    /* A table row or section has no variant of its own (it follows its Table), so one that sets
+       an appearance and no variant paints it as outline, like the Table and its cells do. */
+    :is(.vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-appearance]:not([data-variant]),
     .vane-table-cell:not([data-appearance]):not(.vane-table *),
     [data-variant="outline"] {
         --text-color: var(--app-text);
@@ -1079,11 +1108,20 @@
     /* Row rules on a fill. A fill has no border color, so the cells that follow a filled Table,
        section or row draw their rule in the divider scrim, the color Divider takes on a fill.
        The nearest ancestor with a variant decides: under an outline row inside a filled Table the
-       cells keep that row's border color. A cell with its own appearance resolves its own. */
+       cells keep that row's border color. A cell with its own appearance resolves its own, unless
+       it is filled: a fill has no border color, so a filled cell draws the rule of its neighbours. */
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > .vane-table-cell:not([data-appearance]),
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > .vane-table-cell:not([data-appearance]),
-    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > :not([data-variant]) > .vane-table-cell:not([data-appearance]) {
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > :not([data-variant]) > .vane-table-cell:not([data-appearance]),
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > .vane-table-cell[data-variant="filled"],
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > .vane-table-cell[data-variant="filled"],
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > :not([data-variant]) > .vane-table-cell[data-variant="filled"] {
         --border-color: var(--divider-color);
+    }
+    /* A filled cell paints its own fill but has no border color either, so it keeps the row rule of
+       the cells beside it: the one its row passes down, or on a fill the divider color (above). */
+    .vane-table-cell[data-variant="filled"] {
+        --border-color: inherit;
     }
 
     /* Mark: a visible highlight tint with body-colored text, so it reads as a highlight on any surface. */
