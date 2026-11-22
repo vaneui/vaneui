@@ -915,9 +915,9 @@ function ReadOnlyToggleFixtures() {
 const TOGGLE_VARIANTS = ['filled', 'outline', 'ghost'] as const;
 const TOGGLE_APPEARANCES = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
 
-/** A checked Checkbox, an indeterminate Checkbox and a checked Radio in every variant and
-    appearance, on a light and on a dark page surface: the mark has to show against its box,
-    and the box against the page. */
+/** A checked Checkbox, an indeterminate Checkbox, a checked Radio and a checked Switch in every
+    variant and appearance, on a light and on a dark page surface: the mark has to show against
+    its box, and the box against the page. */
 function CheckedToggleFixtures() {
   return (
     <>
@@ -935,6 +935,7 @@ function CheckedToggleFixtures() {
                       <Checkbox {...look} defaultChecked aria-label={`${name} checkbox`} data-testid={`checked-toggle-checkbox-${id}`} />
                       <Checkbox {...look} indeterminate aria-label={`${name} mixed checkbox`} data-testid={`checked-toggle-indeterminate-${id}`} />
                       <Radio {...look} defaultChecked name={`checked-toggle-${id}`} aria-label={`${name} radio`} data-testid={`checked-toggle-radio-${id}`} />
+                      <Switch {...look} defaultChecked aria-label={`${name} switch`} data-testid={`checked-toggle-switch-${id}`} />
                     </React.Fragment>
                   );
                 })}

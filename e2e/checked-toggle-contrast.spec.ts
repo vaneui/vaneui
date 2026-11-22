@@ -1,10 +1,11 @@
 import { test, expect, getBg, type Page } from './base';
 
-// A checked Checkbox or Radio has to stay readable in every variant and appearance, on a light
-// and on a dark page: the mark against its box, and the box against the page. Two bugs hid
+// A checked Checkbox, Radio or Switch has to stay readable in every variant and appearance, on a
+// light and on a dark page: the mark against its box, and the box against the page. Two bugs hid
 // here. A `ghost` Checkbox kept a `filled` wrapper, so it drew a white mark on a white box.
 // And a checked `outline` or `ghost` box took its page-colored fill as border color, which
-// left the mark floating with no box around it.
+// left the mark floating with no box around it (a Switch kept that bug longer: its thumb showed
+// as a lone dot with no track). For a Switch the box is the track and the mark is the thumb.
 //
 // 3:1 is the WCAG minimum for the parts of a control that are needed to identify its state.
 
@@ -13,7 +14,7 @@ const MIN_CONTRAST = 3;
 const SCHEMES = ['light', 'dark'] as const;
 const VARIANTS = ['filled', 'outline', 'ghost'] as const;
 const APPEARANCES = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
-const KINDS = ['checkbox', 'indeterminate', 'radio'] as const;
+const KINDS = ['checkbox', 'indeterminate', 'radio', 'switch'] as const;
 
 // `filled` is the default look and older than this spec. One pair sits under 3:1 (a secondary
 // fill on the dark page); it is pinned here so it cannot get worse unnoticed.
@@ -22,7 +23,7 @@ const KNOWN_LOW_BOX_CONTRAST: Record<string, number> = {
 };
 
 type Measured = {
-  /** how many overlay marks are visible (the check, the dash or the dot): exactly one */
+  /** how many overlay marks are visible (the check, the dash, the dot or the thumb): exactly one */
   marks: number;
   /** the visible mark against the fill of its box */
   markVsBox: number;
@@ -80,7 +81,12 @@ async function measureToggles(page: Page): Promise<Record<string, Measured>> {
       // the overlays are the input's sibling spans; only the one for the current state is visible
       const marks = Array.from(input.parentElement!.querySelectorAll(':scope > span'))
         .filter((span) => getComputedStyle(span).visibility === 'visible');
-      const mark = marks.length > 0 ? over(toRgba(getComputedStyle(marks[0]).color), fill) : fill;
+      // the check, dash and dot draw in their text color; the Switch thumb is a filled knob
+      const markStyle = marks.length > 0 ? getComputedStyle(marks[0]) : null;
+      const markColor = markStyle && marks[0].classList.contains('vane-switch-thumb')
+        ? markStyle.backgroundColor
+        : markStyle?.color;
+      const mark = markColor ? over(toRgba(markColor), fill) : fill;
 
       measured[id] = {
         marks: marks.length,

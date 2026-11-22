@@ -1148,9 +1148,12 @@
         --ring-color: transparent;
     }
 
+    /* Checked + outline or ghost: the track stays the page-colored --checked-bg-color, so its border
+       draws the track, in the appearance's text color like the thumb (as for Checkbox and Radio).
+       The fill color as border left the thumb as a lone dot with no track around it. */
     .vane-switch:is([data-variant="outline"], [data-variant="ghost"]):checked {
-        --border-color: var(--checked-bg-color);
-        --ring-color: var(--checked-bg-color);
+        --border-color: var(--app-text);
+        --ring-color: var(--app-text);
     }
 
     /* REDUCED MOTION — uses 0.01ms (not 0s) so JS animationend/transitionend listeners still fire. */
