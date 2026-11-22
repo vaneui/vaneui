@@ -2542,6 +2542,17 @@ export function TestHarness() {
             <option value="a">A</option>
             <option value="b">B</option>
           </Select>
+          {/* a style width sizes the whole control, so the chevron stays at the field's edge */}
+          <div style={{ width: 500 }}>
+            <Select style={{ width: 200 }} aria-label="select style width" data-testid="select-style-width">
+              <option value="a">Estonia</option>
+            </Select>
+          </div>
+          <div style={{ width: 500 }}>
+            <Field select label="Country" style={{ width: 200 }} data-testid="select-field-style-width">
+              <option value="a">Estonia</option>
+            </Field>
+          </div>
 
           {/* Switch: default, size ramp, checked/unchecked pair, disabled/enabled pair */}
           <Switch aria-label="switch default" data-testid="switch-default" />

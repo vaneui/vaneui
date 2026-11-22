@@ -125,6 +125,18 @@ test.describe('Select', () => {
     expect(chevron.x + chevron.width).toBeLessThanOrEqual(field.x + field.width + 1);
   });
 
+  // A style width used to narrow only the <select>, so the chevron stayed 300px away at the
+  // full-width wrapper's edge.
+  for (const testid of ['select-style-width', 'select-field-style-width']) {
+    test(`a style width keeps the chevron at the field's trailing edge (${testid})`, async ({ page }) => {
+      const field = await box(page.locator(`[data-testid="${testid}"]`));
+      const chevron = await box(chevronOf(page, testid));
+      expect(field.width).toBeCloseTo(200, 0);
+      expect(chevron.x).toBeGreaterThan(field.x + field.width / 2);
+      expect(chevron.x + chevron.width).toBeLessThanOrEqual(field.x + field.width + 1);
+    });
+  }
+
   // The browser paints the dropdown list from the option's own colors, so a transparent
   // default leaves the popup on UA colors instead of the theme's.
   test('options carry an opaque themed background and text color', async ({ page }) => {
