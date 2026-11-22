@@ -1080,11 +1080,20 @@
     /* Row rules on a fill. A fill has no border color, so the cells that follow a filled Table,
        section or row draw their rule in the divider scrim, the color Divider takes on a fill.
        The nearest ancestor with a variant decides: under an outline row inside a filled Table the
-       cells keep that row's border color. A cell with its own appearance resolves its own. */
+       cells keep that row's border color. A cell with its own appearance resolves its own, unless
+       it is filled: a fill has no border color, so a filled cell draws the rule of its neighbours. */
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > .vane-table-cell:not([data-appearance]),
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > .vane-table-cell:not([data-appearance]),
-    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > :not([data-variant]) > .vane-table-cell:not([data-appearance]) {
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > :not([data-variant]) > .vane-table-cell:not([data-appearance]),
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > .vane-table-cell[data-variant="filled"],
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > .vane-table-cell[data-variant="filled"],
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > :not([data-variant]) > .vane-table-cell[data-variant="filled"] {
         --border-color: var(--divider-color);
+    }
+    /* A filled cell paints its own fill but has no border color either, so it keeps the row rule of
+       the cells beside it: the one its row passes down, or on a fill the divider color (above). */
+    .vane-table-cell[data-variant="filled"] {
+        --border-color: inherit;
     }
 
     /* Mark: a visible highlight tint with body-colored text, so it reads as a highlight on any surface. */

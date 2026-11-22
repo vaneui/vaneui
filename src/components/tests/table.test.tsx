@@ -433,6 +433,25 @@ describe('Table Component Tests', () => {
       }
     });
 
+    it('a filled cell with an appearance of its own paints its surface', () => {
+      // the cells had only a border consumer, so a filled cell painted nothing
+      const { container } = renderFullTable({}, { success: true, filled: true });
+      for (const cell of container.querySelectorAll('.vane-table-cell')) {
+        expect(cell).toHaveAttribute('data-variant', 'filled');
+        expect(cell).toHaveClass(...SURFACE_CLASSES);
+      }
+    });
+
+    it('a cell paints no surface without a fill and an appearance of its own', () => {
+      for (const cellProps of [{}, { danger: true }, { danger: true, outline: true }, { filled: true }]) {
+        const { container, unmount } = renderFullTable({ filled: true }, cellProps);
+        for (const cell of container.querySelectorAll('.vane-table-cell')) {
+          expect(cell).not.toHaveClass('bg-(--bg-color)');
+        }
+        unmount();
+      }
+    });
+
     it('an explicit `secondary` on a cell still pins it', () => {
       const { container } = renderFullTable({ success: true }, { secondary: true });
       for (const cell of container.querySelectorAll('.vane-table-cell')) {
@@ -529,6 +548,11 @@ describe('Table Component Tests', () => {
         expect(cell(<Table filled>{body(<Tr secondary outline><Td>Ada</Td></Tr>)}</Table>).matches(ON_FILL)).toBe(false);
         expect(cell(<Table filled><Tbody secondary ghost><Tr><Td>Ada</Td></Tr></Tbody></Table>).matches(ON_FILL)).toBe(false);
         expect(cell(<Table filled><Tbody secondary outline><Tr filled info><Td>Ada</Td></Tr></Tbody></Table>).matches(ON_FILL)).toBe(true);
+      });
+
+      it('reaches a filled cell with its own appearance, which has no border color either', () => {
+        expect(cell(<Table filled>{body(<Tr><Td danger filled>Ada</Td></Tr>)}</Table>).matches(ON_FILL)).toBe(true);
+        expect(cell(<Table>{body(<Tr><Td danger filled>Ada</Td></Tr>)}</Table>).matches(ON_FILL)).toBe(false);
       });
 
       it('skips a cell with its own appearance and a cell outside a Table', () => {

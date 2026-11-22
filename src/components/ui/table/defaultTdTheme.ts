@@ -1,4 +1,4 @@
-import { ComponentTheme, defaultLayoutClassMappers, borderAppearance } from "../theme/common";
+import { ComponentTheme, defaultLayoutClassMappers, borderAppearance, filledSurfaceAppearance } from "../theme/common";
 import type { TdProps } from "./TdProps";
 import type { TdTheme } from "./TdTheme";
 import { TD_CATEGORIES } from "./TdCategories";
@@ -17,6 +17,7 @@ export const defaultTdTheme = new ComponentTheme<TdProps, TdTheme>(
       fontSize: new FontSizeClassMapper(),
     },
     appearance: {
+      surface: filledSurfaceAppearance,
       border: borderAppearance,
     },
     layout: {

@@ -162,6 +162,22 @@ test.describe('Table appearance', () => {
     expect(await rowRule(page, 'ta-row-app-tbody-td')).toBe(await token(page, '--color-border-success'));
   });
 
+  test('a filled cell paints its fill and keeps the row rule of its neighbours', async ({ page }) => {
+    // a cell had only a border consumer, and a fill has no border color: a filled cell painted
+    // nothing and left a gap in the row rule
+    const bg = await token(page, '--color-bg-filled-success');
+    const text = await token(page, '--color-text-filled-success');
+    for (const id of ['ta-cell-filled-th', 'ta-cell-filled-td']) {
+      expect(await getBg(byId(page, id))).toBe(bg);
+      expect(await getColor(byId(page, id))).toBe(text);
+      expect(await rowRule(page, id)).toBe(await token(page, '--color-border-secondary'));
+    }
+    expect(await rowRule(page, 'ta-cell-filled-td')).toBe(await rowRule(page, 'ta-cell-filled-plain-td'));
+    // on a fill it draws the divider color, like the cells around it
+    expect(await getBg(byId(page, 'ta-cell-filled-on-fill-td'))).toBe(bg);
+    expect(await rowRule(page, 'ta-cell-filled-on-fill-td')).toBe(await token(page, '--color-divider-filled'));
+  });
+
   test('cells outside a Table keep the neutral palette inside a colored parent', async ({ page }) => {
     const border = await token(page, '--color-border-secondary');
     expect(border).not.toBe(await token(page, '--color-border-danger'));

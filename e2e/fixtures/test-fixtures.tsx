@@ -1139,6 +1139,19 @@ function ThemeEngineFixtures() {
         </Tbody>
         <Tbody success data-testid="ta-row-app-tbody"><Tr><Td data-testid="ta-row-app-tbody-td">cell</Td></Tr></Tbody>
       </Table>
+      {/* a filled cell paints its fill and keeps the row rule of the cells beside it */}
+      <Table data-testid="ta-cell-filled">
+        <Tbody>
+          <Tr>
+            <Th success filled data-testid="ta-cell-filled-th">header</Th>
+            <Td success filled data-testid="ta-cell-filled-td">cell</Td>
+            <Td data-testid="ta-cell-filled-plain-td">cell</Td>
+          </Tr>
+        </Tbody>
+      </Table>
+      <Table filled data-testid="ta-cell-filled-on-fill">
+        <Tbody><Tr><Td success filled data-testid="ta-cell-filled-on-fill-td">cell</Td></Tr></Tbody>
+      </Table>
       {/* cells outside a Table keep the neutral palette, whatever surrounds them */}
       <Card danger data-testid="ta-standalone">
         <table>
