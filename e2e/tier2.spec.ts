@@ -184,6 +184,29 @@ test.describe('Spinner', () => {
     }
   });
 
+  test('a loading button keeps its idle box and hides every child under the spinner', async ({ page }) => {
+    const idle = await page.locator('[data-testid="tier2-button-idle-icon"]').boundingBox();
+    const loading = page.locator('[data-testid="tier2-button-loading-icon"]');
+    const box = await loading.boundingBox();
+    expect(box!.width).toBeCloseTo(idle!.width, 1);
+    expect(box!.height).toBeCloseTo(idle!.height, 1);
+
+    for (const id of ['tier2-button-loading-icon', 'tier2-button-loading-bare', 'tier2-icon-button-loading']) {
+      const button = page.locator(`[data-testid="${id}"]`);
+      // every child but the spinner is transparent, the bare text too, and the ring still shows
+      const looks = await button.evaluate((el) => Array.from(el.children).map((child) => ({
+        spinner: child.classList.contains('vane-button-spinner'),
+        opacity: getComputedStyle(child).opacity,
+      })));
+      expect(looks.filter((look) => look.spinner), `${id} spinner`).toHaveLength(1);
+      expect(looks.filter((look) => !look.spinner).map((look) => look.opacity), `${id} children`)
+        .toEqual(looks.filter((look) => !look.spinner).map(() => '0'));
+      expect(await getStyle(button, 'color'), `${id} bare text`).toBe('rgba(0, 0, 0, 0)');
+      const ring = button.locator('.vane-spinner');
+      expect(await getStyle(ring, 'border-top-color'), `${id} ring`).not.toBe('rgba(0, 0, 0, 0)');
+    }
+  });
+
   test('the loading ring follows the button it sits in', async ({ page }) => {
     const outlineRing = page.locator('[data-testid="tier2-button-loading"] .vane-spinner');
     const filledRing = page.locator('[data-testid="tier2-button-loading-filled"] .vane-spinner');

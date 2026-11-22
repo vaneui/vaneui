@@ -1920,6 +1920,14 @@ export function TestHarness() {
           </Badge>
           <Button loading sm data-testid="tier2-button-loading">Saving</Button>
           <Button loading sm filled danger data-testid="tier2-button-loading-filled">Deleting</Button>
+          {/* loading keeps the children in place: same box as the idle twin, children transparent */}
+          <Row>
+            <Button lg data-testid="tier2-button-idle-icon"><StarIcon /> Save draft</Button>
+            <Button lg loading data-testid="tier2-button-loading-icon"><StarIcon /> Save draft</Button>
+            {/* text in an array next to an element stays bare: only the color can hide it */}
+            <Button loading data-testid="tier2-button-loading-bare">{[<StarIcon key="star" />, 'Bare']}</Button>
+            <IconButton loading aria-label="Refresh" data-testid="tier2-icon-button-loading"><StarIcon /></IconButton>
+          </Row>
 
           <Tooltip
             content="Tip body"

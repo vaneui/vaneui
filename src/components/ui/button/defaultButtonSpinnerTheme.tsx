@@ -8,7 +8,7 @@ import { buttonSpinnerDefaults } from "./buttonSpinnerDefaults";
 
 export const defaultButtonSpinnerTheme = new ComponentTheme<ButtonSpinnerProps, ButtonSpinnerTheme>(
   "span",
-  "inset-0",
+  "vane-button-spinner inset-0",
   {
     appearance: {
       text: new SimpleConsumerClassMapper({ base: textConsumerClass, alwaysOutput: true }, 'text'),

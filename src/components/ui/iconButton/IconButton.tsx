@@ -35,27 +35,32 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
     // a letter or symbol used as the icon gets a span, so the stylesheet can center it by the capital height
     const label = wrapTextRuns(resolvedProps.children);
 
-    if (loading) {
-      const loadingProps = { ...resolvedProps, disabled: true as const, 'data-loading': 'true', 'aria-busy': true as const };
-      // the Spinner would otherwise fall back to its own md default
-      const size = pickFirstTruthyKeyByCategory(
+    // The children keep their place in both states, so flipping `loading` neither remounts them nor
+    // resets their state. While loading they turn transparent (rules.css) under the spinner, which
+    // keeps the button's size, layout and accessible name.
+    const loadingProps = loading
+      ? { disabled: true as const, 'data-loading': 'true', 'aria-busy': true as const }
+      : undefined;
+    // the Spinner would otherwise fall back to its own md default
+    const size = loading
+      ? pickFirstTruthyKeyByCategory(
         resolvedProps as unknown as Record<string, unknown>,
         iconButtonTheme.defaults as unknown as Record<string, unknown>,
         'size'
-      );
-      return (
-        <ThemedComponent ref={ref} theme={iconButtonTheme} {...loadingProps}>
-          {/* decorative spinner — aria-busy on the button already conveys the loading state */}
+      )
+      : undefined;
+
+    return (
+      <ThemedComponent ref={ref} theme={iconButtonTheme} {...resolvedProps} {...loadingProps}>
+        {label}
+        {loading && (
           <ThemedComponent theme={spinnerTheme} aria-hidden="true">
+            {/* decorative spinner — aria-busy on the button already conveys the loading state */}
             <Spinner role={undefined} {...(size ? { [size]: true } : {})} />
           </ThemedComponent>
-          {/* transparent, not hidden: the children keep the button's size and accessible name while loading */}
-          <span className="vane-button-loading-label">{label}</span>
-        </ThemedComponent>
-      );
-    }
-
-    return <ThemedComponent ref={ref} theme={iconButtonTheme} {...resolvedProps}>{label}</ThemedComponent>;
+        )}
+      </ThemedComponent>
+    );
   }
 );
 

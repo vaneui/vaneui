@@ -197,11 +197,14 @@ describe('Text runs in components', () => {
     expect(screen.getByLabelText('Email')).toBe(screen.getByRole('textbox'));
   });
 
-  it('wraps the text of a loading Button inside the hidden label', () => {
+  it('keeps the text run of a loading Button a direct child, next to the spinner', () => {
     const { container } = inTheme(<Button loading>Save</Button>);
-    const hidden = container.querySelector('.vane-button-loading-label') as HTMLElement;
-    expect(hidden.querySelector(RUN)).toHaveTextContent('Save');
-    expect(container.querySelectorAll(RUN)).toHaveLength(1);
+    const root = container.querySelector('.vane-button') as HTMLElement;
+    const runs = container.querySelectorAll(RUN);
+    expect(runs).toHaveLength(1);
+    expect(runs[0]).toHaveTextContent('Save');
+    expect(runs[0].parentElement).toBe(root);
+    expect(root.querySelector('.vane-button-spinner')).toBeInTheDocument();
   });
 
   it('wraps the text of a Tooltip', async () => {

@@ -878,12 +878,10 @@
         --bg-active-color: var(--bg-color);
     }
 
-    /* LOADING STATE — visual classes applied by Button.tsx */
+    /* LOADING STATE — visual classes applied by Button.tsx; the children are hidden in the unlayered block below */
     [data-loading="true"] {
         position: relative;
     }
-    /* The hidden label keeps the idle layout (icon and text on one line), so the button doesn't resize. */
-    .vane-button-loading-label { opacity: 0; display: inline-flex; align-items: center; gap: var(--gap); }
     /* Ring is 1em square, so the size prop reaches it through --fs. */
     .vane-spinner[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-spinner[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
@@ -1197,6 +1195,19 @@
    forwarded to it, and its own text-(--color-text-secondary) utility would win a layer. */
 .vane-select[data-status="error"] ~ .vane-select-chevron {
     color: var(--color-text-danger);
+}
+
+/* LOADING BUTTON — also unlayered, so a child's own opacity or color utility cannot show through.
+   The children stay where they are while a Button or IconButton loads: the button keeps its idle
+   size and layout, and the children keep their state. They turn transparent under the spinner
+   overlay; opacity rather than visibility, so they still give the button its accessible name.
+   The transparent color covers text the component left bare, which no selector can reach. */
+:is(.vane-button, .vane-icon-button)[data-loading="true"] {
+    color: transparent;
+}
+
+:is(.vane-button, .vane-icon-button)[data-loading="true"] > :not(.vane-button-spinner) {
+    opacity: 0;
 }
 
 /* Also unlayered: a selected disabled option is a placeholder, so it is muted like an Input placeholder. */
