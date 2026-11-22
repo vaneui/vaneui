@@ -212,3 +212,141 @@ describe('createFocusTrap', () => {
     });
   });
 });
+
+// In a radio group only one radio is a tab stop: the checked one, or (with none checked) the
+// radio Tab lands on. A trap that took the last radio in DOM order for its last stop never saw
+// Tab from the group's real stop, and the browser moved focus out of the dialog.
+describe('createFocusTrap with a radio group', () => {
+  let container: HTMLElement;
+  let offsetParent: PropertyDescriptor | undefined;
+
+  beforeEach(() => {
+    jest.useFakeTimers();
+    // jsdom has no layout: report a parent, so the controls count as focusable
+    offsetParent = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'offsetParent');
+    Object.defineProperty(HTMLElement.prototype, 'offsetParent', {
+      configurable: true,
+      get(this: HTMLElement) { return this.parentNode; },
+    });
+    container = document.createElement('div');
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    container.remove();
+    if (offsetParent) Object.defineProperty(HTMLElement.prototype, 'offsetParent', offsetParent);
+    jest.useRealTimers();
+  });
+
+  const radio = (name: string, value: string, checked = false) => {
+    const el = document.createElement('input');
+    el.type = 'radio';
+    el.name = name;
+    el.value = value;
+    el.checked = checked;
+    el.dataset.testid = value;
+    return el;
+  };
+  const button = (text: string) => {
+    const el = document.createElement('button');
+    el.textContent = text;
+    return el;
+  };
+  const tab = (shiftKey = false) => {
+    const evt = new KeyboardEvent('keydown', { key: 'Tab', shiftKey, bubbles: true, cancelable: true });
+    document.activeElement!.dispatchEvent(evt);
+    return evt;
+  };
+
+  it('should wrap Tab from the checked radio of a group that ends the dialog', () => {
+    const close = button('Close');
+    const light = radio('theme', 'light', true);
+    container.append(close, light, radio('theme', 'dark'), radio('theme', 'system'));
+    const cleanup = createFocusTrap(container, null);
+
+    light.focus();
+    expect(tab().defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(close);
+    cleanup();
+  });
+
+  it('should wrap Shift+Tab from the first control to the checked radio of the last group', () => {
+    const close = button('Close');
+    const dark = radio('theme', 'dark', true);
+    container.append(close, radio('theme', 'light'), dark, radio('theme', 'system'));
+    const cleanup = createFocusTrap(container, null);
+
+    close.focus();
+    expect(tab(true).defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(dark);
+    cleanup();
+  });
+
+  it('should wrap Tab from any radio of a last group with none checked', () => {
+    const close = button('Close');
+    const first = radio('size', 's');
+    const last = radio('size', 'l');
+    container.append(close, first, radio('size', 'm'), last);
+    const cleanup = createFocusTrap(container, null);
+
+    // Tab enters an unchecked group on its first radio, Shift+Tab on its last
+    for (const entered of [first, last]) {
+      entered.focus();
+      expect(tab().defaultPrevented).toBe(true);
+      expect(document.activeElement).toBe(close);
+    }
+    close.focus();
+    tab(true);
+    expect(document.activeElement).toBe(first);
+    cleanup();
+  });
+
+  it('should wrap Shift+Tab from a radio group that starts the dialog', () => {
+    const light = radio('theme', 'light');
+    const dark = radio('theme', 'dark', true);
+    const save = button('Save');
+    container.append(light, dark, save);
+    const cleanup = createFocusTrap(container, null);
+
+    dark.focus();
+    expect(tab(true).defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(save);
+
+    save.focus();
+    tab();
+    expect(document.activeElement).toBe(dark);
+    cleanup();
+  });
+
+  it('should keep radios of different groups, and radios without a name, as tab stops of their own', () => {
+    const close = button('Close');
+    const a = radio('a', 'a1', true);
+    const b = radio('b', 'b1', true);
+    const loose = document.createElement('input');
+    loose.type = 'radio';
+    container.append(close, a, b, loose);
+    const cleanup = createFocusTrap(container, null);
+
+    // b is not the last stop: Tab from it is left to the browser
+    b.focus();
+    expect(tab().defaultPrevented).toBe(false);
+    loose.focus();
+    expect(tab().defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(close);
+    cleanup();
+  });
+
+  it('should not count an element taken out of the tab order as the last stop', () => {
+    const close = button('Close');
+    const save = button('Save');
+    const skipped = button('Not a tab stop');
+    skipped.tabIndex = -1;
+    container.append(close, save, skipped);
+    const cleanup = createFocusTrap(container, null);
+
+    save.focus();
+    expect(tab().defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(close);
+    cleanup();
+  });
+});

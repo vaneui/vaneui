@@ -6,11 +6,12 @@ import { ThemedComponent } from "../../themedComponent";
 import { defaultOverlayTheme } from "./defaultOverlayTheme";
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
-import { pushEscapeHandler } from '../../utils/escapeStack';
+import { pushEscapeHandler, ignoreEscape } from '../../utils/escapeStack';
 import { registerOverlay } from '../../utils/overlayStack';
 import { composeEventHandlers } from '../../utils/composeEventHandlers';
 import { useMergedRef } from '../../utils/mergedRef';
 import { useHydrated } from '../../utils/useHydrated';
+import { useIsomorphicLayoutEffect } from '../../utils/isomorphicLayoutEffect';
 
 export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
   function Overlay(
@@ -42,11 +43,23 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
     const zIndex = useStackingContext(effectiveOpen, 'overlay', overlayRef);
 
     // keyboard parity with backdrop click-to-close: Escape dismisses a
-    // dismissible (onClose) overlay — only the topmost one, via the shared stack
+    // dismissible (onClose) overlay — only the topmost one, via the shared stack.
+    // A portaled overlay without onClose (a "Saving..." scrim) covers the page and takes
+    // Escape without closing, so a dialog beneath it does not close instead. One that lets
+    // the pointer through, or sits in place inside its container, blocks nothing.
+    // The entry is pushed once per open and calls the latest onClose through a ref: re-pushing it
+    // whenever an inline onClose changes identity would move it above a Modal opened after it.
+    const blocksEscape = portal && !pointerEventsNone;
+    const onCloseRef = useRef(onClose);
+    useIsomorphicLayoutEffect(() => {
+      onCloseRef.current = onClose;
+    });
+    const dismissible = !!onClose;
     useEffect(() => {
-      if (!effectiveOpen || !onClose) return;
-      return pushEscapeHandler(() => onClose(), overlayRef.current);
-    }, [effectiveOpen, onClose]);
+      if (!effectiveOpen) return;
+      if (dismissible) return pushEscapeHandler(() => onCloseRef.current?.(), overlayRef.current);
+      if (blocksEscape) return pushEscapeHandler(ignoreEscape, overlayRef.current);
+    }, [effectiveOpen, dismissible, blocksEscape]);
 
     // Join the shared overlay stack while open, so a Modal that is open at the same time leaves
     // this overlay usable instead of making it inert with the rest of the page. Only a portaled

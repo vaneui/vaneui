@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
-import { useCallback, useState } from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { useCallback, useRef, useState } from 'react';
+import { render, fireEvent, act } from '@testing-library/react';
 
-import { Modal, ThemeProvider, defaultTheme } from '../../index';
+import { Modal, Menu, MenuItem, Button, Popup, Tooltip, ThemeProvider, defaultTheme } from '../../index';
 import { resetStackCount } from '../utils/stackingContext';
 import { resetOverlayStack } from '../utils/overlayStack';
 import { resetEscapeStack } from '../utils/escapeStack';
@@ -89,6 +89,84 @@ describe('Modal dismissal', () => {
 
       expect(onMouseDownCapture).toHaveBeenCalledTimes(1);
       expect(onClose).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('backdrop click after a press on the backdrop that ends in the dialog', () => {
+    it('should stay open when the press started on the backdrop and ended inside the dialog', () => {
+      const onClose = jest.fn();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={onClose} title="Form"><input data-testid="field" /></Modal>
+        </ThemeProvider>
+      );
+
+      fireEvent.mouseDown(getBackdrop());
+      fireEvent.mouseUp(document.body.querySelector('[data-testid="field"]')!);
+      // the click lands on the nearest common ancestor: the backdrop
+      fireEvent.click(getBackdrop());
+
+      expect(onClose).not.toHaveBeenCalled();
+
+      // the gesture is over: the next real click on the backdrop closes
+      fireEvent.mouseDown(getBackdrop());
+      fireEvent.mouseUp(getBackdrop());
+      fireEvent.click(getBackdrop());
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  // A click inside the dialog reaches listeners on the document (delegated analytics, a widget in
+  // the dialog that closes on a click outside itself), and still does not close the Modal.
+  describe('clicks inside the dialog', () => {
+    let seen: EventTarget[] = [];
+    const listener = (e: Event) => { seen.push(e.target as EventTarget); };
+    beforeEach(() => {
+      seen = [];
+      document.addEventListener('click', listener);
+    });
+    afterEach(() => document.removeEventListener('click', listener));
+
+    it('should reach a click listener on the document', () => {
+      const onClose = jest.fn();
+      const { getByTestId } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={onClose} title="Track"><button data-testid="inside">Buy</button></Modal>
+        </ThemeProvider>
+      );
+      const inside = getByTestId('inside');
+
+      fireEvent.mouseDown(inside);
+      fireEvent.mouseUp(inside);
+      fireEvent.click(inside);
+
+      expect(seen).toContain(inside);
+      expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('should not close the Modal on a click inside the dialog, also without press events', () => {
+      const onClose = jest.fn();
+      const { getByTestId } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={onClose} title="Track"><span data-testid="text">Some text</span></Modal>
+        </ThemeProvider>
+      );
+
+      fireEvent.click(getByTestId('text'));
+      fireEvent.click(document.body.querySelector('[role="dialog"]')!);
+      expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('should still run a click handler passed to the dialog', () => {
+      const onClick = jest.fn();
+      const { getByTestId } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="Track" onClick={onClick}><button data-testid="inside">Buy</button></Modal>
+        </ThemeProvider>
+      );
+
+      fireEvent.click(getByTestId('inside'));
+      expect(onClick).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -212,5 +290,99 @@ describe('Modal dismissal', () => {
       pressEscape();
       expect(onClose).not.toHaveBeenCalled();
     });
+  });
+});
+
+// One click outside closes one layer, like Escape: a press on the backdrop that closes a menu open
+// in the Modal does not close the Modal too.
+describe('Backdrop click with a popup open in the Modal', () => {
+  beforeEach(() => {
+    resetStackCount();
+    resetOverlayStack();
+    resetEscapeStack();
+  });
+
+  // the outside-press listener is attached on the next task, so the click that opened it does not close it
+  const settle = () => act(async () => { await new Promise((resolve) => setTimeout(resolve, 0)); });
+  const clickBackdrop = () => {
+    fireEvent.mouseDown(getBackdrop());
+    fireEvent.mouseUp(getBackdrop());
+    fireEvent.click(getBackdrop());
+  };
+
+  it('should close only the Menu, and the Modal on the next click', async () => {
+    const onClose = jest.fn();
+    render(
+      <ThemeProvider theme={defaultTheme}>
+        <Modal open onClose={onClose} title="Edit">
+          <Menu trigger={<Button data-testid="trigger">Actions</Button>} noAnimation>
+            <MenuItem>Duplicate</MenuItem>
+          </Menu>
+        </Modal>
+      </ThemeProvider>
+    );
+    fireEvent.click(document.body.querySelector('[data-testid="trigger"]')!);
+    await settle();
+    expect(document.body.querySelector('[role="menu"]')).toBeInTheDocument();
+
+    clickBackdrop();
+    expect(document.body.querySelector('[role="menu"]')).not.toBeInTheDocument();
+    expect(onClose).not.toHaveBeenCalled();
+
+    clickBackdrop();
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('should close the Modal when the open popup does not close on a click outside', async () => {
+    const onClose = jest.fn();
+    function PinnedPopup() {
+      const anchorRef = useRef<HTMLButtonElement>(null);
+      return (
+        <Modal open onClose={onClose} title="Edit">
+          <button ref={anchorRef}>Anchor</button>
+          <Popup open anchorRef={anchorRef} closeOnClickOutside={false} aria-label="Hint">Hint</Popup>
+        </Modal>
+      );
+    }
+    render(<ThemeProvider theme={defaultTheme}><PinnedPopup /></ThemeProvider>);
+    await settle();
+
+    clickBackdrop();
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('should close the Modal on the first click while a Tooltip in it is open', async () => {
+    const onClose = jest.fn();
+    render(
+      <ThemeProvider theme={defaultTheme}>
+        <Modal open onClose={onClose} title="Edit">
+          <Tooltip content="Saves a copy" open><Button>Duplicate</Button></Tooltip>
+        </Modal>
+      </ThemeProvider>
+    );
+    await settle();
+    expect(document.body.querySelector('[role="tooltip"]')).toBeInTheDocument();
+
+    clickBackdrop();
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('should close the Modal when the popup that closed on the press was not its own', async () => {
+    const onClose = jest.fn();
+    function PagePopup() {
+      const anchorRef = useRef<HTMLButtonElement>(null);
+      return (
+        <>
+          <button ref={anchorRef}>Page anchor</button>
+          <Popup defaultOpen anchorRef={anchorRef} aria-label="Page popup">On the page</Popup>
+          <Modal open onClose={onClose} title="Edit">content</Modal>
+        </>
+      );
+    }
+    render(<ThemeProvider theme={defaultTheme}><PagePopup /></ThemeProvider>);
+    await settle();
+
+    clickBackdrop();
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 });

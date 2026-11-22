@@ -66,22 +66,34 @@ export function PopupTrigger({
     }
   }, [isHover, closeDelay, clearTimers, setOpen]);
 
+  // Disabling closes the popup and drops a pending open. Without this the open state outlived the
+  // disabled spell (the trigger's handlers are gone, so a pointer leaving was never seen) and the
+  // popup came back by itself when re-enabled.
+  // A controlled popup with no onOpenChange keeps the state its owner set.
+  const canReportClose = openProp === undefined || !!onOpenChange;
+  useEffect(() => {
+    if (!disabled) return;
+    clearTimers();
+    if (open && canReportClose) setOpen(false);
+  }, [disabled, open, canReportClose, clearTimers, setOpen]);
+
   // Return focus to the trigger when the popup closes and focus would otherwise
   // be lost (Escape / click-outside) or trapped in the now-removed popup. Click
-  // mode always returns (its prior contract); for hover/focus modes the suppress
-  // flag stops the returned focus from re-opening the popup.
+  // mode always returns (its prior contract), unless the popup closed because it
+  // was disabled; for hover/focus modes the suppress flag stops the returned
+  // focus from re-opening the popup.
   useEffect(() => {
     if (prevOpenRef.current && !open && anchorRef.current) {
       const active = document.activeElement;
       const focusLostOrInPopup =
         !active || active === document.body || !!popupRef.current?.contains(active);
-      if (useClick || focusLostOrInPopup) {
+      if ((useClick && !disabled) || focusLostOrInPopup) {
         if (!useClick) suppressOpenRef.current = true;
         anchorRef.current.focus();
       }
     }
     prevOpenRef.current = open;
-  }, [open, useClick]);
+  }, [open, useClick, disabled]);
 
   const handleToggle = useCallback(() => {
     if (open) handleClose();

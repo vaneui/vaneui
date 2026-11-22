@@ -6,6 +6,42 @@ interface PrevState {
   prevAriaHidden: string | null;
 }
 
+// Every open dialog that neutralizes a child of <body> holds it here. Dialogs open and close in
+// any order (a nested one unmounts after its parent's exit, siblings close in one commit), so the
+// state to restore is recorded once, by the first dialog that holds the element, and put back
+// only when the last one lets go. A per-dialog snapshot would record what an earlier dialog wrote
+// as the page's own state, and a later cleanup would "restore" aria-hidden after every dialog closed.
+interface Hold {
+  original: PrevState;
+  holders: Set<object>;
+}
+
+const holds = new Map<HTMLElement, Hold>();
+
+function acquire(el: HTMLElement, holder: object): void {
+  let hold = holds.get(el);
+  if (!hold) {
+    hold = {
+      original: { hadInert: el.hasAttribute('inert'), prevAriaHidden: el.getAttribute('aria-hidden') },
+      holders: new Set(),
+    };
+    holds.set(el, hold);
+  }
+  hold.holders.add(holder);
+  el.setAttribute('inert', '');
+  el.setAttribute('aria-hidden', 'true');
+}
+
+function release(el: HTMLElement, holder: object): void {
+  const hold = holds.get(el);
+  if (!hold || !hold.holders.delete(holder) || hold.holders.size > 0) return;
+  holds.delete(el);
+  const { original } = hold;
+  if (!original.hadInert) el.removeAttribute('inert');
+  if (original.prevAriaHidden === null) el.removeAttribute('aria-hidden');
+  else el.setAttribute('aria-hidden', original.prevAriaHidden);
+}
+
 // While `enabled`, neutralize the page BEHIND a modal dialog: every direct
 // child of document.body that is not the dialog's own portal — nor an overlay
 // portaled out of it (e.g. an in-modal menu) — gets `inert` + aria-hidden, so
@@ -18,7 +54,8 @@ interface PrevState {
 // and an overlay-stack subscription re-runs the pass when another overlay
 // registers/unregisters — so a sibling overlay (a stacked modal, or an in-modal
 // popup that registers after this effect ran) is released rather than left
-// inert. Prior `inert`/`aria-hidden` values are captured and restored.
+// inert. Prior `inert`/`aria-hidden` values are captured and restored once no
+// open dialog holds the element any more (see `holds` above).
 //
 // Portals VaneUI did not render (another library's popover, a toast container)
 // are not in the overlay stack. Two ways keep them live:
@@ -37,14 +74,8 @@ export function useInertBackground(
   useEffect(() => {
     if (!enabled || typeof document === 'undefined') return;
 
-    // body children we have neutralized, with their pre-existing state to restore
-    const touched = new Map<HTMLElement, PrevState>();
-
-    const restore = (el: HTMLElement, prev: PrevState): void => {
-      if (!prev.hadInert) el.removeAttribute('inert');
-      if (prev.prevAriaHidden === null) el.removeAttribute('aria-hidden');
-      else el.setAttribute('aria-hidden', prev.prevAriaHidden);
-    };
+    // the body children this dialog holds; the set itself is its token in `holds`
+    const held = new Set<HTMLElement>();
 
     const reconcile = (): void => {
       const self = selfRef.current;
@@ -60,20 +91,12 @@ export function useInertBackground(
         if (isProtected(child)) {
           // a child we previously neutralized has since become a protected
           // overlay (e.g. it just registered) → release it
-          const prev = touched.get(child);
-          if (prev) {
-            restore(child, prev);
-            touched.delete(child);
-          }
+          if (held.delete(child)) release(child, held);
           continue;
         }
-        if (touched.has(child)) continue; // already neutralized
-        touched.set(child, {
-          hadInert: child.hasAttribute('inert'),
-          prevAriaHidden: child.getAttribute('aria-hidden'),
-        });
-        child.setAttribute('inert', '');
-        child.setAttribute('aria-hidden', 'true');
+        if (held.has(child)) continue; // already neutralized
+        held.add(child);
+        acquire(child, held);
       }
     };
 
@@ -92,7 +115,8 @@ export function useInertBackground(
       unsubscribe();
       observer.disconnect();
       markerObserver.disconnect();
-      for (const [el, prev] of touched) restore(el, prev);
+      for (const el of held) release(el, held);
+      held.clear();
     };
   }, [enabled, selfRef]);
 }

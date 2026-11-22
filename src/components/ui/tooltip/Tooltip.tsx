@@ -17,6 +17,11 @@ const isHandler = (key: string) => /^on[A-Z]/.test(key);
 const isTriggerProp = (key: string) =>
   key.startsWith('aria-') || key === 'closeMenuOnClick' || (isHandler(key) && !POPUP_CALLBACKS.has(key));
 
+/* Content that renders nothing: a conditional tooltip (`content={isTruncated ? text : undefined}`)
+   then shows no empty bubble and does not describe its trigger. */
+const isEmptyContent = (content: React.ReactNode) =>
+  content === undefined || content === null || content === '' || typeof content === 'boolean';
+
 export const Tooltip = forwardRef<HTMLElement, TooltipProps>(
   function Tooltip({
     children,
@@ -81,7 +86,7 @@ export const Tooltip = forwardRef<HTMLElement, TooltipProps>(
           closeDelay={closeDelay}
           popupProps={tooltipPopupProps}
           popupId={popupId}
-          disabled={disabled}
+          disabled={disabled || isEmptyContent(content)}
         >
           {trigger as React.ReactElement}
         </PopupTrigger>

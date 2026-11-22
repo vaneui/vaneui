@@ -336,3 +336,139 @@ describe('isInClosedOverlay with an Overlay around a popup', () => {
     backdrop.remove();
   });
 });
+
+// Several dialogs can make the same child of <body> inert. Each one holds it, and the page comes
+// back only when the last of them lets go, with the attributes it had before any dialog opened.
+describe('Modal inert background with stacked dialogs', () => {
+  beforeEach(() => {
+    resetStackCount();
+    resetOverlayStack();
+    resetEscapeStack();
+  });
+
+  const expectLive = (el: Element) => {
+    expect(el).not.toHaveAttribute('inert');
+    expect(el).not.toHaveAttribute('aria-hidden');
+  };
+  const expectInert = (el: Element) => {
+    expect(el).toHaveAttribute('inert');
+    expect(el).toHaveAttribute('aria-hidden', 'true');
+  };
+
+  // the inner dialog is still open while its parent plays its exit, and unmounts with it afterwards
+  it('should bring the page back when a nested Modal closes together with its parent', async () => {
+    function EditDialog() {
+      const [outer, setOuter] = useState(false);
+      const [inner, setInner] = useState(false);
+      return (
+        <>
+          <button data-testid="edit" onClick={() => setOuter(true)}>Edit item</button>
+          <Modal open={outer} onClose={() => setOuter(false)} title="Edit item" transitionDuration={20}>
+            <button data-testid="delete" onClick={() => setInner(true)}>Delete</button>
+            <Modal open={inner} onClose={() => setInner(false)} title="Delete this item?" transitionDuration={20}>
+              <button data-testid="confirm" onClick={() => setOuter(false)}>Yes, delete</button>
+            </Modal>
+          </Modal>
+        </>
+      );
+    }
+    const { container, getByTestId } = render(wrap(<EditDialog />));
+
+    fireEvent.click(getByTestId('edit'));
+    fireEvent.click(document.body.querySelector('[data-testid="delete"]')!);
+    expect(document.body.querySelectorAll('[role="dialog"]')).toHaveLength(2);
+    expectInert(container);
+
+    fireEvent.click(document.body.querySelector('[data-testid="confirm"]')!);
+    await waitFor(() => expect(document.body.querySelectorAll('[role="dialog"]')).toHaveLength(0));
+    expectLive(container);
+  });
+
+  it('should bring the page back when sibling Modals close in one handler', () => {
+    let closeBoth: () => void = () => {};
+    function TwoDialogs() {
+      const [a, setA] = useState(true);
+      const [b, setB] = useState(true);
+      closeBoth = () => { setB(false); setA(false); };
+      return (
+        <>
+          <Modal open={a} onClose={() => setA(false)} title="A" noAnimation>a</Modal>
+          <Modal open={b} onClose={() => setB(false)} title="B" noAnimation>b</Modal>
+        </>
+      );
+    }
+    const background = document.body.appendChild(document.createElement('div'));
+    const { container } = render(wrap(<TwoDialogs />));
+    expectInert(container);
+    expectInert(background);
+
+    act(() => closeBoth());
+    expectLive(container);
+    expectLive(background);
+    background.remove();
+  });
+
+  it('should keep the page inert while the upper Modal stays open after the lower one closed', () => {
+    let closeLower: () => void = () => {};
+    let closeUpper: () => void = () => {};
+    function TwoDialogs() {
+      const [lower, setLower] = useState(true);
+      const [upper, setUpper] = useState(true);
+      closeLower = () => setLower(false);
+      closeUpper = () => setUpper(false);
+      return (
+        <>
+          <Modal open={lower} onClose={() => setLower(false)} title="Lower" noAnimation>lower</Modal>
+          <Modal open={upper} onClose={() => setUpper(false)} title="Upper" noAnimation>upper</Modal>
+        </>
+      );
+    }
+    const background = document.body.appendChild(document.createElement('div'));
+    const { container } = render(wrap(<TwoDialogs />));
+
+    act(() => closeLower());
+    expect(document.body.querySelectorAll('[role="dialog"]')).toHaveLength(1);
+    expectInert(container);
+    expectInert(background);
+
+    act(() => closeUpper());
+    expectLive(container);
+    expectLive(background);
+    background.remove();
+  });
+
+  it('should restore the attributes the page had before any dialog opened, whatever the closing order', () => {
+    const hidden = document.body.appendChild(document.createElement('div'));
+    hidden.setAttribute('aria-hidden', 'true');
+    const inertAlready = document.body.appendChild(document.createElement('div'));
+    inertAlready.setAttribute('inert', '');
+    const shown = document.body.appendChild(document.createElement('div'));
+    shown.setAttribute('aria-hidden', 'false');
+
+    const ui = (a: boolean, b: boolean) => wrap(
+      <>
+        <Modal open={a} onClose={() => {}} title="A" noAnimation>a</Modal>
+        <Modal open={b} onClose={() => {}} title="B" noAnimation>b</Modal>
+      </>
+    );
+    const { rerender } = render(ui(true, false));
+    rerender(ui(true, true));
+    for (const el of [hidden, inertAlready, shown]) expectInert(el);
+
+    // the first dialog closes before the second
+    rerender(ui(false, true));
+    for (const el of [hidden, inertAlready, shown]) expectInert(el);
+    rerender(ui(false, false));
+
+    expect(hidden).toHaveAttribute('aria-hidden', 'true');
+    expect(hidden).not.toHaveAttribute('inert');
+    expect(inertAlready).toHaveAttribute('inert');
+    expect(inertAlready).not.toHaveAttribute('aria-hidden');
+    expect(shown).toHaveAttribute('aria-hidden', 'false');
+    expect(shown).not.toHaveAttribute('inert');
+
+    hidden.remove();
+    inertAlready.remove();
+    shown.remove();
+  });
+});

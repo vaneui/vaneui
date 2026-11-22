@@ -8,14 +8,14 @@ import { defaultModalOverlayTheme } from './defaultModalOverlayTheme';
 import { useScrollLock } from '../../utils/scrollLock';
 import { useFocusTrap } from '../../utils/focusTrap';
 import { useInertBackground } from '../../utils/inertBackground';
-import { registerOverlay } from '../../utils/overlayStack';
+import { registerOverlay, getDescendantOverlays, getOutsidePressDismissals } from '../../utils/overlayStack';
 import { useControllableState } from '../../utils/controllableState';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
 import { useMergedRef } from '../../utils/mergedRef';
 import { useHydrated } from '../../utils/useHydrated';
 import { useIsomorphicLayoutEffect } from '../../utils/isomorphicLayoutEffect';
-import { pushEscapeHandler } from '../../utils/escapeStack';
+import { pushEscapeHandler, ignoreEscape } from '../../utils/escapeStack';
 import { composeEventHandlers } from '../../utils/composeEventHandlers';
 import { ModalContext } from './ModalContext';
 import { ModalHeader } from './ModalHeader';
@@ -154,28 +154,48 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       onCloseRef.current = onClose;
     });
 
-    // only the topmost floating element closes on Escape
+    // only the topmost floating element closes on Escape. With closeOnEscape off the dialog still
+    // takes its turn, doing nothing, so Escape cannot close a dialog beneath it instead.
     useEffect(() => {
-      if (!effectiveOpen || !closeOnEscape) return;
-      return pushEscapeHandler(() => onCloseRef.current(), overlayRef.current);
+      if (!effectiveOpen) return;
+      return pushEscapeHandler(closeOnEscape ? () => onCloseRef.current() : ignoreEscape, overlayRef.current);
     }, [effectiveOpen, closeOnEscape]);
 
     // A click lands on the nearest common ancestor of where the press started and where it ended,
     // so pressing inside the dialog and releasing over the backdrop (dragging to select text in a
-    // field) clicks the backdrop. Remember where the last press began: only a press that also
-    // started on the backdrop may close the modal. Capture phase, so a child that stops the
-    // event's propagation cannot hide the press.
+    // field), or the other way round, clicks the backdrop. Remember where the last press began and
+    // ended: only a press that started and ended on the backdrop may close the modal. Capture
+    // phase, so a child that stops the event's propagation cannot hide the press. Only the
+    // backdrop's own clicks close it, so clicks inside the dialog are left to propagate: listeners
+    // on the document (delegated analytics, a widget that closes on a click outside itself) see them.
     const pressStartedInDialogRef = useRef(false);
-    const handleOverlayMouseDownCapture = (event: React.MouseEvent) => {
+    const pressEndedInDialogRef = useRef(false);
+    // A press on the backdrop also closes a popup open in this dialog (a menu), on mousedown. One
+    // click closes one layer, as Escape does: remember the press and this dialog's popups at that
+    // moment, and let the click close the dialog only if the press closed none of them.
+    const backdropPressRef = useRef<{ event: Event; popups: HTMLElement[] } | null>(null);
+    const handleOverlayMouseDownCapture = (event: React.MouseEvent<HTMLElement>) => {
       pressStartedInDialogRef.current = event.target !== event.currentTarget;
+      backdropPressRef.current = pressStartedInDialogRef.current
+        ? null
+        : { event: event.nativeEvent, popups: getDescendantOverlays(event.currentTarget) };
+    };
+    const handleOverlayMouseUpCapture = (event: React.MouseEvent) => {
+      pressEndedInDialogRef.current = event.target !== event.currentTarget;
     };
 
     const handleOverlayClick = (event: React.MouseEvent) => {
-      if (event.target !== event.currentTarget) return;
-      const pressStartedInDialog = pressStartedInDialogRef.current;
+      // every click ends the press it came from
+      const pressTouchedDialog = pressStartedInDialogRef.current || pressEndedInDialogRef.current;
+      const backdropPress = backdropPressRef.current;
       pressStartedInDialogRef.current = false;
+      pressEndedInDialogRef.current = false;
+      backdropPressRef.current = null;
+      if (event.target !== event.currentTarget) return;
+      const pressClosedPopup = !!backdropPress
+        && getOutsidePressDismissals(backdropPress.event).some((el) => backdropPress.popups.includes(el));
       // defaultPrevented lets a composed consumer onClick veto the close
-      if (closeOnOverlayClick && !event.defaultPrevented && !pressStartedInDialog) {
+      if (closeOnOverlayClick && !event.defaultPrevented && !pressTouchedDialog && !pressClosedPopup) {
         onClose();
       }
     };
@@ -222,6 +242,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const {
       onClick: overlayOnClick,
       onMouseDownCapture: overlayOnMouseDownCapture,
+      onMouseUpCapture: overlayOnMouseUpCapture,
       style: overlayStyle,
       className: overlayClassName,
       ...restOverlayProps
@@ -231,7 +252,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     };
 
     const {
-      onClick: contentOnClick,
       style: contentStyle,
       ...restProps
     } = props;
@@ -256,6 +276,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           className: [isHidden ? 'hidden' : undefined, overlayClassName].filter(Boolean).join(' ') || undefined,
           onClick: composeEventHandlers(overlayOnClick, handleOverlayClick),
           onMouseDownCapture: composeEventHandlers(overlayOnMouseDownCapture, handleOverlayMouseDownCapture),
+          onMouseUpCapture: composeEventHandlers(overlayOnMouseUpCapture, handleOverlayMouseUpCapture),
           style: { ...cssVars, ...overlayStyle },
         }}
       >
@@ -270,7 +291,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           {...{
             ...restProps,
             ...(fullScreen ? { sharp: true, wScreen: true, hScreen: true } : {}),
-            onClick: composeEventHandlers(contentOnClick, (e: React.MouseEvent) => e.stopPropagation()),
             style: { ...contentDurationStyle, ...contentStyle },
           }}
         >

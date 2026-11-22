@@ -532,6 +532,12 @@ function OverlayBehaviorFixtures() {
   const [inertOpen, setInertOpen] = useState(false);
   const [inertOverlay, setInertOverlay] = useState(false);
   const [inertPortals, setInertPortals] = useState(false);
+  const [radioOpen, setRadioOpen] = useState(false);
+  const shiftAnchorRef = useRef<HTMLButtonElement>(null);
+  const [shiftOpen, setShiftOpen] = useState(false);
+  const growAnchorRef = useRef<HTMLButtonElement>(null);
+  const [growOpen, setGrowOpen] = useState(false);
+  const [layerOpen, setLayerOpen] = useState(false);
   return (
     <section data-testid="overlay-behavior-section">
       {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
@@ -652,6 +658,56 @@ function OverlayBehaviorFixtures() {
         <CountButton testId="ob-inert-overlay-button" label="In overlay" />
       </Overlay>
       {inertPortals && <ForeignPortals />}
+
+      {/* A dialog whose last controls are a radio group: only the checked radio is a tab stop. */}
+      <button data-testid="ob-radio-open" onClick={() => setRadioOpen(true)}>open theme modal</button>
+      <Modal open={radioOpen} onClose={() => setRadioOpen(false)} title="Choose a theme" noAnimation data-testid="ob-radio-modal">
+        <RadioGroup name="ob-theme" defaultValue="light" aria-label="Theme">
+          <Label row><Radio value="light" data-testid="ob-radio-light" /> Light</Label>
+          <Label row><Radio value="dark" data-testid="ob-radio-dark" /> Dark</Label>
+          <Label row><Radio value="system" data-testid="ob-radio-system" /> System</Label>
+        </RadioGroup>
+      </Modal>
+
+      {/* A popup whose anchor moves when content above it grows (no scroll, no resize). */}
+      <div data-testid="ob-shift-spacer" />
+      <Button ref={shiftAnchorRef} data-testid="ob-shift-anchor" onClick={() => setShiftOpen((o) => !o)}>Shipping</Button>
+      <Popup
+        open={shiftOpen}
+        onClose={() => setShiftOpen(false)}
+        anchorRef={shiftAnchorRef}
+        placeBottomStart
+        closeOnClickOutside={false}
+        noAnimation
+        aria-label="Shipping"
+        data-testid="ob-shift-popup"
+      >
+        <Text>Ships in 2 days</Text>
+      </Popup>
+
+      {/* A popup above its anchor whose content grows while it is open. */}
+      <Button ref={growAnchorRef} data-testid="ob-grow-anchor" onClick={() => setGrowOpen((o) => !o)}>Returns</Button>
+      <Popup
+        open={growOpen}
+        onClose={() => setGrowOpen(false)}
+        anchorRef={growAnchorRef}
+        placeTopStart
+        closeOnClickOutside={false}
+        noAnimation
+        aria-label="Returns"
+        data-testid="ob-grow-popup"
+      >
+        <Text data-testid="ob-grow-text" style={{ width: 200 }}>Free returns</Text>
+      </Popup>
+
+      {/* A Menu inside a Modal: one click on the backdrop closes one layer. */}
+      <button data-testid="ob-layer-open" onClick={() => setLayerOpen(true)}>open modal with a menu</button>
+      <Modal open={layerOpen} onClose={() => setLayerOpen(false)} title="Edit item" noAnimation data-testid="ob-layer-modal">
+        <Menu noAnimation data-testid="ob-layer-menu" trigger={<Button data-testid="ob-layer-trigger">Actions</Button>}>
+          <MenuItem>Duplicate</MenuItem>
+          <MenuItem>Archive</MenuItem>
+        </Menu>
+      </Modal>
     </section>
   );
 }
