@@ -528,6 +528,7 @@ function OverlayBehaviorFixtures() {
   const [inertOpen, setInertOpen] = useState(false);
   const [inertOverlay, setInertOverlay] = useState(false);
   const [inertPortals, setInertPortals] = useState(false);
+  const [radioOpen, setRadioOpen] = useState(false);
   return (
     <section data-testid="overlay-behavior-section">
       {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
@@ -648,6 +649,16 @@ function OverlayBehaviorFixtures() {
         <CountButton testId="ob-inert-overlay-button" label="In overlay" />
       </Overlay>
       {inertPortals && <ForeignPortals />}
+
+      {/* A dialog whose last controls are a radio group: only the checked radio is a tab stop. */}
+      <button data-testid="ob-radio-open" onClick={() => setRadioOpen(true)}>open theme modal</button>
+      <Modal open={radioOpen} onClose={() => setRadioOpen(false)} title="Choose a theme" noAnimation data-testid="ob-radio-modal">
+        <RadioGroup name="ob-theme" defaultValue="light" aria-label="Theme">
+          <Label row><Radio value="light" data-testid="ob-radio-light" /> Light</Label>
+          <Label row><Radio value="dark" data-testid="ob-radio-dark" /> Dark</Label>
+          <Label row><Radio value="system" data-testid="ob-radio-system" /> System</Label>
+        </RadioGroup>
+      </Modal>
     </section>
   );
 }

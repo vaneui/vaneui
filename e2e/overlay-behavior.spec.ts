@@ -428,3 +428,29 @@ test.describe('What an open Modal leaves usable', () => {
     await expect(page.locator(T('ob-inert-plain'))).toHaveAttribute('aria-hidden', 'true');
   });
 });
+
+test.describe('Focus trap with a radio group at the end of the dialog', () => {
+  test('Tab from the checked radio wraps to the first control, and Shift+Tab comes back to it', async ({ page }) => {
+    await page.locator(T('ob-radio-open')).click();
+    const dialog = page.locator(T('ob-radio-modal'));
+    await expect(dialog).toBeVisible();
+    const close = dialog.getByRole('button', { name: 'Close' });
+    await expect(close).toBeFocused();
+
+    await page.keyboard.press('Tab');
+    await expect(page.locator(T('ob-radio-light'))).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+
+    await page.keyboard.press('Shift+Tab');
+    await expect(page.locator(T('ob-radio-light'))).toBeFocused();
+
+    // arrow keys move the checked radio, and with it the group's tab stop
+    await page.keyboard.press('ArrowDown');
+    await expect(page.locator(T('ob-radio-dark'))).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+    await page.keyboard.press('Shift+Tab');
+    await expect(page.locator(T('ob-radio-dark'))).toBeFocused();
+  });
+});

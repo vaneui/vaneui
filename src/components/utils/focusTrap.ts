@@ -17,6 +17,37 @@ export function getFocusableElements(container: HTMLElement): HTMLElement[] {
   );
 }
 
+// A named radio belongs to the group of radios with the same name in the same form.
+function radioGroupOf(el: Element, candidates: HTMLElement[]): HTMLInputElement[] | null {
+  if (!(el instanceof HTMLInputElement) || el.type !== 'radio' || !el.name) return null;
+  return candidates.filter(
+    (other): other is HTMLInputElement =>
+      other instanceof HTMLInputElement && other.type === 'radio' && other.name === el.name && other.form === el.form
+  );
+}
+
+// The elements Tab stops on, in order. An element with a negative tabIndex is focusable but
+// skipped by Tab. In a radio group only one radio is a stop: the checked one, or the first when
+// none is checked. Taking every radio would make an unchecked radio the dialog's last stop, one
+// Tab never lands on, and Tab from the group's real stop would leave the dialog.
+function getTabStops(container: HTMLElement): HTMLElement[] {
+  const elements = getFocusableElements(container).filter((el) => el.tabIndex >= 0);
+  return elements.filter((el) => {
+    const group = radioGroupOf(el, elements);
+    if (!group) return true;
+    return el === (group.find((r) => r.checked) ?? group[0]);
+  });
+}
+
+// Whether focus on `active` is focus on the stop `stop`: any radio of a group stands for the
+// group's stop (Shift+Tab enters a group with none checked on its last radio).
+function isAtStop(active: Element | null, stop: HTMLElement, container: HTMLElement): boolean {
+  if (active === stop) return true;
+  if (!active || !container.contains(active)) return false;
+  const group = radioGroupOf(stop, getFocusableElements(container));
+  return !!group && group.includes(active as HTMLInputElement);
+}
+
 export interface FocusTrapOptions {
   returnFocus?: boolean;
   initialFocus?: RefObject<HTMLElement | null>;
@@ -76,7 +107,7 @@ export function createFocusTrap(
   function handleKeyDown(event: KeyboardEvent): void {
     if (event.key !== 'Tab') return;
 
-    const elements = getFocusableElements(container);
+    const elements = getTabStops(container);
     // a dialog with no focusable content still traps Tab on itself rather than
     // leaking focus to the background
     if (elements.length === 0) {
@@ -93,10 +124,10 @@ export function createFocusTrap(
     if (active === container) {
       event.preventDefault();
       (event.shiftKey ? last : first).focus();
-    } else if (event.shiftKey && active === first) {
+    } else if (event.shiftKey && isAtStop(active, first, container)) {
       event.preventDefault();
       last.focus();
-    } else if (!event.shiftKey && active === last) {
+    } else if (!event.shiftKey && isAtStop(active, last, container)) {
       event.preventDefault();
       first.focus();
     }
