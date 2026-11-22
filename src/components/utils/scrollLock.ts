@@ -7,7 +7,12 @@ let originalStyles: {
   paddingRight: string;
 } | null = null;
 
+// The width the page loses when the lock hides its scrollbar. A gutter reserved with
+// `scrollbar-gutter: stable` on the root stays when the scrollbar goes, so the page does not move
+// and needs no padding (innerWidth - clientWidth still reports the gutter).
 function getScrollbarWidth(): number {
+  const gutter = getComputedStyle(document.documentElement).getPropertyValue('scrollbar-gutter');
+  if (gutter.includes('stable')) return 0;
   return window.innerWidth - document.documentElement.clientWidth;
 }
 
