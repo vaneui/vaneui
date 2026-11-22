@@ -150,3 +150,55 @@ describe('Escape with a top layer that does not close on it', () => {
     expect(closeModal).not.toHaveBeenCalled();
   });
 });
+
+// An Overlay's Escape entry is pushed once per open. Re-pushing it whenever an inline onClose
+// changes identity (any render of its parent) would move it above a Modal opened after it.
+describe('Escape with an Overlay whose onClose is an inline function', () => {
+  beforeEach(() => {
+    resetStackCount();
+    resetOverlayStack();
+    resetEscapeStack();
+  });
+
+  function DrawerWithRename() {
+    const [drawer, setDrawer] = useState(true);
+    const [rename, setRename] = useState(false);
+    const [name, setName] = useState('Report');
+    return (
+      <>
+        <Overlay open={drawer} onClose={() => setDrawer(false)} noAnimation>
+          <div data-testid="drawer">
+            <button data-testid="rename" onClick={() => setRename(true)}>Rename</button>
+          </div>
+        </Overlay>
+        <Modal open={rename} onClose={() => setRename(false)} title="Rename" noAnimation>
+          <input data-testid="name" value={name} onChange={(e) => setName(e.target.value)} />
+        </Modal>
+      </>
+    );
+  }
+
+  it('should close the Modal opened over the Overlay after the parent re-rendered', () => {
+    render(wrap(<DrawerWithRename />));
+    fireEvent.click(document.body.querySelector('[data-testid="rename"]')!);
+    fireEvent.change(document.body.querySelector('[data-testid="name"]')!, { target: { value: 'Report 2' } });
+
+    pressEscape();
+    expect(document.body.querySelector('[role="dialog"]')).not.toBeInTheDocument();
+    expect(document.body.querySelector('[data-testid="drawer"]')).toBeInTheDocument();
+
+    pressEscape();
+    expect(document.body.querySelector('[data-testid="drawer"]')).not.toBeInTheDocument();
+  });
+
+  it('should call the onClose of the latest render', () => {
+    const first = jest.fn();
+    const latest = jest.fn();
+    const { rerender } = render(wrap(<Overlay open onClose={first} />));
+    rerender(wrap(<Overlay open onClose={latest} />));
+
+    pressEscape();
+    expect(first).not.toHaveBeenCalled();
+    expect(latest).toHaveBeenCalledTimes(1);
+  });
+});
