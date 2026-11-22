@@ -468,6 +468,15 @@
     .vane-alert > svg:where(:not([class*='size-'])) { width: var(--icon-size); }
     /* The message block takes the free width, so trailing actions sit at the end edge. */
     .vane-alert > :is(.vane-text, .vane-col, .vane-stack, .vane-row) { flex: 1 1 0%; min-width: 0; }
+    /* A Text that carries the message (on its own or in that block) follows the Alert's size like
+       bare text does: md is the Alert's text size and every other size keeps its step from md, so
+       a `sm` line stays one step below. --alert-fs-step is the Alert's distance from body text. */
+    .vane-alert { --alert-fs-step: calc(var(--fs-unit) - var(--fs-unit-md)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="xs"] { --fs-unit: calc(var(--fs-unit-xs) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="sm"] { --fs-unit: calc(var(--fs-unit-sm) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="md"] { --fs-unit: calc(var(--fs-unit-md) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="lg"] { --fs-unit: calc(var(--fs-unit-lg) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="xl"] { --fs-unit: calc(var(--fs-unit-xl) + var(--alert-fs-step)); }
 
     /* Modal and Popup are floating surfaces: the viewport is their whole budget on a phone,
        so their inset ramps with it. Both stay square. */

@@ -88,6 +88,29 @@ test.describe('Alert', () => {
     expect(box.width).toBe(32);
   });
 
+  for (const [size, want] of Object.entries(SIZES)) {
+    test(`${size}: a Text message takes the Alert's text size and lines up with the icon`, async ({ page }) => {
+      // Text kept its own 16px, so the message did not follow the Alert's size
+      const text = page.locator(`[data-testid="alert-text-${size}-text"]`);
+      expect(await getFontSize(text)).toBe(want.fs);
+      expect(await getFontSize(text)).toBe(await getFontSize(page.locator(`[data-testid="alert-${size}"]`)));
+
+      // the icon spans the Text's first line box, so their centres meet
+      const icon = (await page.locator(`[data-testid="alert-text-${size}-icon"]`).boundingBox())!;
+      const t = (await text.boundingBox())!;
+      const lineHeight = parseFloat(await getStyle(text, 'line-height'));
+      expect(icon.y + icon.height / 2).toBeCloseTo(t.y + lineHeight / 2, 0);
+    });
+  }
+
+  test('a Text in the message block keeps its step from the Alert\'s size', async ({ page }) => {
+    // md Alert: 14px; a `sm` line one step below it
+    expect(await getFontSize(page.locator('[data-testid="alert-action-title"]'))).toBe(14);
+    expect(await getFontSize(page.locator('[data-testid="alert-action-detail"]'))).toBe(12);
+    // lg Alert: 16px for a Text inside a Stack too
+    expect(await getFontSize(page.locator('[data-testid="alert-text-stack-text"]'))).toBe(16);
+  });
+
   for (const viewport of [WIDE, PHONE]) {
     test(`puts a trailing action at the end edge at ${viewport.width}px`, async ({ page }) => {
       await page.setViewportSize(viewport);

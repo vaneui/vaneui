@@ -351,7 +351,7 @@ An empty string for `error` or `description` means no message, so `error={errors
 
 A `Text`, `Col`, `Stack` or `Row` placed directly in an Alert takes the free width, so the Button after it sits at the end edge. Wrap a bare-text message in `Text` when an action follows it. `itemsCenter` centres the action on a short message; leave it out when the Alert has a leading icon and a message of several lines, so the icon stays on the first line. For a long message, put the buttons in the `Col`, under the text.
 
-Alert text is one step below body text (14px at `md`), and its radius, padding, gap and a leading icon follow the size prop. A plain `<svg>` icon is sized by the Alert; give it a `size-*` class to set your own.
+Alert text is one step below body text (14px at `md`), and its radius, padding, gap and a leading icon follow the size prop. A `Text` that carries the message, on its own or in that `Col`, follows the Alert's size too: an unsized `Text` takes the Alert's text size, and `<Text sm>` sits one step below it. A plain `<svg>` icon is sized by the Alert; give it a `size-*` class to set your own.
 
 ### List
 

@@ -1920,10 +1920,21 @@ export function TestHarness() {
           {/* A message block next to an action: the block takes the free width */}
           <Alert data-testid="alert-action" warning polite>
             <Col noGap data-testid="alert-action-message">
-              <Text fontSemibold>Your trial ends in three days</Text>
-              <Text sm>Add a payment method to keep your projects running.</Text>
+              <Text fontSemibold data-testid="alert-action-title">Your trial ends in three days</Text>
+              <Text sm data-testid="alert-action-detail">Add a payment method to keep your projects running.</Text>
             </Col>
             <Button warning filled data-testid="alert-action-button">Add card</Button>
+          </Alert>
+          {/* A message in a Text follows the Alert's size, next to a leading icon */}
+          {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+            <Alert key={size} data-testid={`alert-text-${size}`} polite {...{ [size]: true }}>
+              <svg data-testid={`alert-text-${size}-icon`} viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" /></svg>
+              <Text data-testid={`alert-text-${size}-text`}>Your trial ends soon</Text>
+              <Button>Upgrade</Button>
+            </Alert>
+          ))}
+          <Alert data-testid="alert-text-stack" polite lg>
+            <Stack noPadding noGap><Text data-testid="alert-text-stack-text">In a Stack</Text></Stack>
           </Alert>
 
           <Spinner data-testid="tier2-spinner" aria-label="Loading" />
