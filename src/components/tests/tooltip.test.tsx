@@ -75,6 +75,58 @@ describe('Tooltip Component Tests', () => {
     });
   });
 
+  // A conditional tooltip (`content={isTruncated ? fullText : undefined}`) has nothing to show when
+  // its content is empty: no bubble, and nothing that describes the trigger.
+  describe('Empty content', () => {
+    it.each([
+      ['undefined', undefined],
+      ['null', null],
+      ['an empty string', ''],
+      ['false', false],
+    ])('should show nothing and describe nothing when the content is %s', async (_, content) => {
+      renderTooltip(
+        <Tooltip content={content} openDelay={0}><Button>No tip</Button></Tooltip>
+      );
+      const trigger = screen.getByRole('button');
+      await act(async () => {
+        fireEvent.mouseEnter(trigger);
+        fireEvent.focus(trigger);
+      });
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+      expect(document.body.querySelector('[data-tooltip]')).not.toBeInTheDocument();
+      expect(trigger).not.toHaveAttribute('aria-describedby');
+    });
+
+    it('should show nothing for empty content even when it is controlled open', () => {
+      renderTooltip(
+        <Tooltip content="" open><Button>No tip</Button></Tooltip>
+      );
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+      expect(screen.getByRole('button')).not.toHaveAttribute('aria-describedby');
+    });
+
+    it('should show a tooltip for 0, which is content', () => {
+      renderTooltip(
+        <Tooltip content={0} open><Button>Count</Button></Tooltip>
+      );
+      expect(screen.getByRole('tooltip')).toHaveTextContent('0');
+    });
+
+    it('should open once the content is no longer empty', async () => {
+      const ui = (content: string | undefined) => (
+        <ThemeProvider theme={defaultTheme}>
+          <Tooltip content={content} openDelay={0}><Button>Name</Button></Tooltip>
+        </ThemeProvider>
+      );
+      const { rerender } = render(ui(undefined));
+      rerender(ui('A long file name'));
+      await act(async () => {
+        fireEvent.mouseEnter(screen.getByRole('button'));
+      });
+      expect(screen.getByRole('tooltip')).toHaveTextContent('A long file name');
+    });
+  });
+
   describe('Theming', () => {
     it('should take its visual defaults from the tooltip theme', () => {
       renderTooltip(
