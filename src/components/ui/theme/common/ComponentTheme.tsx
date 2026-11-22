@@ -43,6 +43,12 @@ const TAG_INVALID_ATTRS: Record<string, readonly string[]> = {
   button: ['href', 'target', 'download', 'rel', 'hrefLang', 'ping'],
 };
 
+const hasFalseProp = (props: Record<string, unknown>, category: ComponentCategoryKey): boolean =>
+  ComponentKeys[category].some(k => props[k] === false);
+
+const hasTrueKey = (values: Record<string, unknown>, category: ComponentCategoryKey): boolean =>
+  ComponentKeys[category].some(k => values[k] === true);
+
 export type VaneComponentType = 'ui' | 'layout';
 
 export type ThemeMap<P> = {
@@ -132,6 +138,8 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   readonly vaneType?: VaneComponentType;
   // fallback for pickFirstTruthyKeyByCategory when props omit a category; merged via ThemeProvider
   defaults: Partial<P>;
+  // the defaults the theme was built with, before a ThemeProvider merged its own into `defaults`
+  private readonly ownDefaults: Partial<P>;
   extraClasses: Partial<Record<keyof P, string>>;
   private readonly categories: readonly ComponentCategoryKey[];
   // base type decoupled from P so ComponentTheme<SpecificProps, T> stays structurally compatible
@@ -149,6 +157,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
     this.tag = tag;
     this.base = base;
     this.defaults = defaults;
+    this.ownDefaults = defaults;
     this.extraClasses = {};
     this.categories = categories;
     // safe: existing tagFunctions only access optional props (e.g. href)
@@ -186,6 +195,7 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
   private resolveExtractedKeys(props: P): Record<string, string> {
     const componentProps = props as unknown as Record<string, boolean>;
     const defaults = this.defaults as Record<string, boolean>;
+    const ownDefaults = this.ownDefaults as Record<string, boolean>;
 
     const extractedKeys: Record<string, string> = {};
     for (const category of this.categories) {
@@ -197,7 +207,17 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
         }
         continue;
       }
-      const key = pickFirstTruthyKeyByCategory(componentProps, defaults, category);
+      let key: string | undefined = pickFirstTruthyKeyByCategory(componentProps, defaults, category);
+      if (key === undefined && hasFalseProp(componentProps, category)) {
+        // A provider that picks a key turns the component's own one off (mergeDefaults), so a
+        // prop that then turns the provider's key off left nothing. The component's own default
+        // comes back, unless it is the key the prop turned off.
+        key = pickFirstTruthyKeyByCategory(componentProps, ownDefaults, category);
+        // a variant can be replaced but not removed: without one the appearance maps no colors
+        if (key === undefined && category === 'variant' && hasTrueKey(ownDefaults, category)) {
+          key = ComponentKeys.variant.find(k => componentProps[k] !== false);
+        }
+      }
       if (key !== undefined) {
         extractedKeys[category] = key;
       }
