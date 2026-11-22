@@ -73,6 +73,15 @@ test.describe('Field size reaches every slot', () => {
     expect(xlHelp).toBeLessThan(xlLabel);
     expect(await fs('field-size-xl', '.vane-field-error')).toBeCloseTo(xlHelp, 1);
   });
+
+  // the group used to keep its own md gap in every Field
+  test('spaces the options of a radio group by the Field size', async ({ page }) => {
+    const gap = async (size: string) =>
+      parseFloat(await getStyle(page.getByTestId(`field-radiogroup-${size}`).locator('[role="radiogroup"]'), 'row-gap'));
+    const [xs, sm, xl] = [await gap('xs'), await gap('sm'), await gap('xl')];
+    expect(xs).toBeLessThan(sm);
+    expect(sm).toBeLessThan(xl);
+  });
 });
 
 test.describe('Field text on a filled surface', () => {

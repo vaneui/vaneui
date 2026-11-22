@@ -1969,6 +1969,15 @@ export function TestHarness() {
           <Card filled data-testid="field-on-filled-card">
             <Field label="Email" description="No spam" error="Required"><Input /></Field>
           </Card>
+          {/* the group's gap follows the Field size, like its label and radios */}
+          {(['xs', 'sm', 'xl'] as const).map((size) => (
+            <div key={size} data-testid={`field-radiogroup-${size}`}>
+              <Field radiogroup {...{ [size]: true }} label="Plan">
+                <Radio value="month" aria-label="Monthly" />
+                <Radio value="year" aria-label="Yearly" />
+              </Field>
+            </div>
+          ))}
         </section>
 
         {/* ── Aspect ratio: --aspect-ratio is the declared px:py ratio, asserted on computed values ── */}

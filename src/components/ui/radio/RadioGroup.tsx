@@ -5,6 +5,7 @@ import { ThemedComponent } from "../../themedComponent";
 import { RadioGroupContext } from "./RadioGroupContext";
 import { FieldControlContext, useFieldGroupProps } from "../field/FieldContext";
 import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
+import { useLabelSizeContext, withLabelSizeDefault } from "../label/LabelSizeContext";
 import { defaultRadioGroupTheme } from "./defaultRadioGroupTheme";
 
 export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
@@ -14,6 +15,14 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
     // the group resets the Field context for its Radios, so it forwards the Field's control state itself
     const field = useContext(FieldControlContext);
     const theme = useTheme();
+    // inside a Field (or a Label) the enclosing size becomes the group's size default, so its gap
+    // follows the Field like the label and the radios do; an explicit size prop still wins
+    const labelSize = useLabelSizeContext();
+    const groupThemeBase = theme?.radioGroup ?? defaultRadioGroupTheme;
+    const groupTheme = useMemo(
+      () => withLabelSizeDefault(groupThemeBase, labelSize),
+      [groupThemeBase, labelSize]
+    );
     // name/value/defaultValue/onChange and the control state drive the child Radios, not the group element
     const { name, value, defaultValue, onChange, disabled: ownDisabled, readOnly: ownReadOnly, required: ownRequired, invalid: ownInvalid, ...rest } = props;
     // the group's own state wins over the enclosing Field's
@@ -34,7 +43,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(
       <RadioGroupContext.Provider value={group}>
         <FieldControlContext.Provider value={null}>
           <ThemedComponent
-            theme={theme?.radioGroup ?? defaultRadioGroupTheme}
+            theme={groupTheme}
             ref={ref}
             role="radiogroup"
             // radiogroup supports these states in ARIA 1.2; the radios carry the native attributes
