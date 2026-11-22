@@ -24,8 +24,10 @@ export const NavLink = forwardRef<HTMLElement, NavLinkProps>(
         : {}),
       'data-active': active || undefined,
       // aria-current="page" is page-navigation semantics, valid only on the <a> form; omit it on the
-      // <button> form so an action trigger isn't announced as the current page.
-      'aria-current': active && !rendersAsButton ? ('page' as const) : undefined,
+      // <button> form so an action trigger isn't announced as the current page. An aria-current the
+      // caller passes wins (a table-of-contents entry is the current "location", a section link "true").
+      'aria-current': (resolvedRest as { 'aria-current'?: React.AriaAttributes['aria-current'] })['aria-current']
+        ?? (active && !rendersAsButton ? ('page' as const) : undefined),
     };
 
     // The label span holds the text, so it can truncate and take the free space. It runs from the

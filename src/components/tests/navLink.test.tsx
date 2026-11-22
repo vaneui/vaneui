@@ -264,6 +264,21 @@ describe('NavLink Component Tests', () => {
       // aria-current="page" is page-navigation semantics — wrong on an action <button>
       expect(btn).not.toHaveAttribute('aria-current');
     });
+
+    it('keeps an aria-current the caller passes, active or not', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="#intro" aria-current="location">Intro</NavLink>
+          <NavLink href="/docs" active aria-current="true">Docs</NavLink>
+          <NavLink href="/docs/button" active>Button</NavLink>
+        </ThemeProvider>
+      );
+      const [toc, section, page] = Array.from(container.querySelectorAll('a'));
+      expect(toc).toHaveAttribute('aria-current', 'location');
+      expect(section).toHaveAttribute('aria-current', 'true');
+      expect(section).toHaveAttribute('data-active', 'true');
+      expect(page).toHaveAttribute('aria-current', 'page');
+    });
   });
 
   describe('Button form (no href)', () => {
