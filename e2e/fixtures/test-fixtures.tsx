@@ -1379,6 +1379,14 @@ export function TestHarness() {
           <Mark data-testid="mark-md">MD mark</Mark>
           <Mark lg data-testid="mark-lg">LG mark</Mark>
           <Mark xl data-testid="mark-xl">XL mark</Mark>
+          {/* `rounded` and `pill` on a Mark: rounded took the radius of a control and drew a pill */}
+          {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+            <Mark key={size} {...{ [size]: true }} rounded data-testid={`mark-rounded-${size}`}>Rounded {size}</Mark>
+          ))}
+          <Mark pill data-testid="mark-pill">Pill mark</Mark>
+          <Card>
+            <Text>In a card <Mark rounded data-testid="mark-rounded-in-card">rounded mark</Mark></Text>
+          </Card>
         </section>
 
         {/* ── Inline baseline alignment (Code / Kbd / Mark in running text) ──

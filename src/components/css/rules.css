@@ -199,6 +199,15 @@
 
     /* Mark: flush highlight — no padding, square, --lh:1 hugs the glyphs (reference highlights use padding:0). */
     .vane-mark { --lh: 1; }
+    /* `rounded` on a Mark: its box is the surrounding text's 1em, so the radius is a share of 1em that
+       grows with the size prop. Declared after the ui-type --min-h formula, which it beats: that one
+       reads the control units the Mark inherits from its parent (a Card's padding unit made it a pill). */
+    .vane-mark[data-size] { --br: calc(var(--br-unit) * 1em); }
+    .vane-mark[data-size="xs"] { --br-unit: 0.2; }
+    .vane-mark[data-size="sm"] { --br-unit: 0.25; }
+    .vane-mark[data-size="md"] { --br-unit: 0.3; }
+    .vane-mark[data-size="lg"] { --br-unit: 0.35; }
+    .vane-mark[data-size="xl"] { --br-unit: 0.4; }
 
     /* Input: Button's line-height and radius ratio, so a field and its button share height and corners at every size. */
     .vane-input { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.2174; }
