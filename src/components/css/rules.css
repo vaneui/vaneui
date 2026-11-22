@@ -1016,6 +1016,9 @@
         --app-focus: var(--color-focus-info);
     }
     /* AXIS 2: VARIANT — maps --app-* palette to final consumer variables */
+    /* A table row or section has no variant of its own (it follows its Table), so one that sets
+       an appearance and no variant paints it as outline, like the Table and its cells do. */
+    :is(.vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-appearance]:not([data-variant]),
     .vane-table-cell:not([data-appearance]):not(.vane-table *),
     [data-variant="outline"] {
         --text-color: var(--app-text);

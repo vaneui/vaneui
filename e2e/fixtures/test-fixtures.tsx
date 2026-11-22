@@ -1129,6 +1129,16 @@ function ThemeEngineFixtures() {
           <Tr><Td data-testid="ta-row-plain-td">cell</Td></Tr>
         </Tbody>
       </Table>
+      {/* a row or section with an appearance and no variant paints it as outline */}
+      <Table data-testid="ta-row-app">
+        <Thead info data-testid="ta-row-app-thead"><Tr><Th data-testid="ta-row-app-thead-th">header</Th></Tr></Thead>
+        <Tbody>
+          <Tr danger data-testid="ta-row-app-tr"><Td data-testid="ta-row-app-td">cell</Td></Tr>
+          <Tr danger outline data-testid="ta-row-app-outline-tr"><Td data-testid="ta-row-app-outline-td">cell</Td></Tr>
+          <Tr><Td data-testid="ta-row-app-plain-td">cell</Td></Tr>
+        </Tbody>
+        <Tbody success data-testid="ta-row-app-tbody"><Tr><Td data-testid="ta-row-app-tbody-td">cell</Td></Tr></Tbody>
+      </Table>
       {/* cells outside a Table keep the neutral palette, whatever surrounds them */}
       <Card danger data-testid="ta-standalone">
         <table>
