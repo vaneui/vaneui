@@ -10,6 +10,13 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.7.2
+
+`2026-11-22`
+
+Fixes from a bug check of 1.7.1: stacked Modals, Escape and focus in overlays, the Switch
+track, `padding={false}`, Table appearances, Text in an Alert, and field placeholders.
+
 ### Accessibility
 
 - Closing stacked `Modal`s out of order (a confirm dialog closed together with the dialog that
