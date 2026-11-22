@@ -92,6 +92,84 @@ describe('Modal dismissal', () => {
     });
   });
 
+  describe('backdrop click after a press on the backdrop that ends in the dialog', () => {
+    it('should stay open when the press started on the backdrop and ended inside the dialog', () => {
+      const onClose = jest.fn();
+      render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={onClose} title="Form"><input data-testid="field" /></Modal>
+        </ThemeProvider>
+      );
+
+      fireEvent.mouseDown(getBackdrop());
+      fireEvent.mouseUp(document.body.querySelector('[data-testid="field"]')!);
+      // the click lands on the nearest common ancestor: the backdrop
+      fireEvent.click(getBackdrop());
+
+      expect(onClose).not.toHaveBeenCalled();
+
+      // the gesture is over: the next real click on the backdrop closes
+      fireEvent.mouseDown(getBackdrop());
+      fireEvent.mouseUp(getBackdrop());
+      fireEvent.click(getBackdrop());
+      expect(onClose).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  // A click inside the dialog reaches listeners on the document (delegated analytics, a widget in
+  // the dialog that closes on a click outside itself), and still does not close the Modal.
+  describe('clicks inside the dialog', () => {
+    let seen: EventTarget[] = [];
+    const listener = (e: Event) => { seen.push(e.target as EventTarget); };
+    beforeEach(() => {
+      seen = [];
+      document.addEventListener('click', listener);
+    });
+    afterEach(() => document.removeEventListener('click', listener));
+
+    it('should reach a click listener on the document', () => {
+      const onClose = jest.fn();
+      const { getByTestId } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={onClose} title="Track"><button data-testid="inside">Buy</button></Modal>
+        </ThemeProvider>
+      );
+      const inside = getByTestId('inside');
+
+      fireEvent.mouseDown(inside);
+      fireEvent.mouseUp(inside);
+      fireEvent.click(inside);
+
+      expect(seen).toContain(inside);
+      expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('should not close the Modal on a click inside the dialog, also without press events', () => {
+      const onClose = jest.fn();
+      const { getByTestId } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={onClose} title="Track"><span data-testid="text">Some text</span></Modal>
+        </ThemeProvider>
+      );
+
+      fireEvent.click(getByTestId('text'));
+      fireEvent.click(document.body.querySelector('[role="dialog"]')!);
+      expect(onClose).not.toHaveBeenCalled();
+    });
+
+    it('should still run a click handler passed to the dialog', () => {
+      const onClick = jest.fn();
+      const { getByTestId } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <Modal open onClose={() => {}} title="Track" onClick={onClick}><button data-testid="inside">Buy</button></Modal>
+        </ThemeProvider>
+      );
+
+      fireEvent.click(getByTestId('inside'));
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+  });
+
   // Escape closes one layer at a time, the one on top first.
   describe('Escape with two modals open', () => {
     const isOpen = (testId: string) => document.body.querySelector(`[data-testid="${testId}"]`) !== null;

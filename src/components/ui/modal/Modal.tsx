@@ -163,20 +163,28 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
     // A click lands on the nearest common ancestor of where the press started and where it ended,
     // so pressing inside the dialog and releasing over the backdrop (dragging to select text in a
-    // field) clicks the backdrop. Remember where the last press began: only a press that also
-    // started on the backdrop may close the modal. Capture phase, so a child that stops the
-    // event's propagation cannot hide the press.
+    // field), or the other way round, clicks the backdrop. Remember where the last press began and
+    // ended: only a press that started and ended on the backdrop may close the modal. Capture
+    // phase, so a child that stops the event's propagation cannot hide the press. Only the
+    // backdrop's own clicks close it, so clicks inside the dialog are left to propagate: listeners
+    // on the document (delegated analytics, a widget that closes on a click outside itself) see them.
     const pressStartedInDialogRef = useRef(false);
+    const pressEndedInDialogRef = useRef(false);
     const handleOverlayMouseDownCapture = (event: React.MouseEvent) => {
       pressStartedInDialogRef.current = event.target !== event.currentTarget;
     };
+    const handleOverlayMouseUpCapture = (event: React.MouseEvent) => {
+      pressEndedInDialogRef.current = event.target !== event.currentTarget;
+    };
 
     const handleOverlayClick = (event: React.MouseEvent) => {
-      if (event.target !== event.currentTarget) return;
-      const pressStartedInDialog = pressStartedInDialogRef.current;
+      // every click ends the press it came from
+      const pressTouchedDialog = pressStartedInDialogRef.current || pressEndedInDialogRef.current;
       pressStartedInDialogRef.current = false;
+      pressEndedInDialogRef.current = false;
+      if (event.target !== event.currentTarget) return;
       // defaultPrevented lets a composed consumer onClick veto the close
-      if (closeOnOverlayClick && !event.defaultPrevented && !pressStartedInDialog) {
+      if (closeOnOverlayClick && !event.defaultPrevented && !pressTouchedDialog) {
         onClose();
       }
     };
@@ -223,6 +231,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const {
       onClick: overlayOnClick,
       onMouseDownCapture: overlayOnMouseDownCapture,
+      onMouseUpCapture: overlayOnMouseUpCapture,
       style: overlayStyle,
       className: overlayClassName,
       ...restOverlayProps
@@ -232,7 +241,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     };
 
     const {
-      onClick: contentOnClick,
       style: contentStyle,
       ...restProps
     } = props;
@@ -257,6 +265,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           className: [isHidden ? 'hidden' : undefined, overlayClassName].filter(Boolean).join(' ') || undefined,
           onClick: composeEventHandlers(overlayOnClick, handleOverlayClick),
           onMouseDownCapture: composeEventHandlers(overlayOnMouseDownCapture, handleOverlayMouseDownCapture),
+          onMouseUpCapture: composeEventHandlers(overlayOnMouseUpCapture, handleOverlayMouseUpCapture),
           style: { ...cssVars, ...overlayStyle },
         }}
       >
@@ -271,7 +280,6 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           {...{
             ...restProps,
             ...(fullScreen ? { sharp: true, wScreen: true, hScreen: true } : {}),
-            onClick: composeEventHandlers(contentOnClick, (e: React.MouseEvent) => e.stopPropagation()),
             style: { ...contentDurationStyle, ...contentStyle },
           }}
         >
