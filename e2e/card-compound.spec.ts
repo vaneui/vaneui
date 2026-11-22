@@ -117,6 +117,22 @@ test.describe('compound Card with responsiveSizing off', () => {
     expect(await padding(byId(page, 'cc-static-wrapped-header'))).toEqual([24, 24, 0, 24]);
     expect(await padding(byId(page, 'cc-static-wrapped-footer'))).toEqual([0, 24, 24, 24]);
   });
+
+  // the parts keep their own responsiveSizing default; they used to inherit the Card's tablet
+  // and mobile units and shrink with the viewport although the Card had opted out
+  for (const vp of VIEWPORTS) {
+    test(`parts of a Card that opts out keep the desktop inset at ${vp.name} width`, async ({ page }) => {
+      await page.setViewportSize({ width: vp.width, height: vp.height });
+      for (const id of ['cc-static-card', 'cc-static-card-wrapped']) {
+        expect(await padding(byId(page, id))).toEqual([0, 0, 0, 0]);
+        expect(await padding(byId(page, `${id}-header`))).toEqual([24, 24, 0, 24]);
+        expect(await padding(byId(page, `${id}-body`))).toEqual([24, 24, 24, 24]);
+        expect(await padding(byId(page, `${id}-footer`))).toEqual([0, 24, 24, 24]);
+      }
+      // a responsive Card's parts still follow the viewport
+      expect(await padding(byId(page, 'cc-direct-body'))).toEqual([vp.inset, vp.inset, vp.inset, vp.inset]);
+    });
+  }
 });
 
 test.describe('compound Modal', () => {

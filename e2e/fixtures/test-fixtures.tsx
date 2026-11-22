@@ -1077,6 +1077,13 @@ function ThemeEngineFixtures() {
       <Card data-testid="cc-static-wrapped" responsiveSizing={false}>
         <WrappedCardParts id="cc-static-wrapped" staticSizing/>
       </Card>
+      {/* responsiveSizing off on the Card alone: its parts keep one inset at every width too */}
+      <Card data-testid="cc-static-card" responsiveSizing={false}>
+        <CardHeader data-testid="cc-static-card-header">header</CardHeader>
+        <CardBody data-testid="cc-static-card-body">body</CardBody>
+        <CardFooter data-testid="cc-static-card-footer">footer</CardFooter>
+      </Card>
+      <Card data-testid="cc-static-card-wrapped" responsiveSizing={false}><WrappedCardParts id="cc-static-card-wrapped"/></Card>
       {/* a divider line or a filled part keeps the padding on its side of the boundary */}
       <Card data-testid="cc-divided">
         <CardHeader data-testid="cc-divided-header" borderB>header</CardHeader>

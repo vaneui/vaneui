@@ -756,6 +756,14 @@
         --py-unit-tablet: inherit;
         --py-unit-mobile: inherit;
     }
+    /* ...but a surface with responsiveSizing off keeps one inset at every width, and so do its
+       parts: its tablet and mobile units are declared outside [data-responsive], so the parts
+       take the desktop unit for every width instead of inheriting them. */
+    :is(.vane-card, .vane-modal):not([data-responsive]) > :is(.vane-card-header, .vane-card-body, .vane-card-footer,
+        .vane-modal-header, .vane-modal-body, .vane-modal-footer) {
+        --py-unit-tablet: var(--py-unit-desktop);
+        --py-unit-mobile: var(--py-unit-desktop);
+    }
     /* Parts meet without a second inset. Each part pads all four sides and the surface adds its
        gap, so a title sat two paddings and a gap above the body (64px in a Modal at md). Now the
        body keeps its padding, which is also the room its scroll box needs for focus rings, and
