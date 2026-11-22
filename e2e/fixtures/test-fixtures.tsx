@@ -355,6 +355,10 @@ function TextRunFixtures() {
         <NavLink href="#" data-testid="text-run-nav-link"><StarIcon />Save</NavLink>
         <NavLink href="#" data-testid="text-run-nav-link-truncated">Ågjpqy and a long navigation label</NavLink>
       </Col>
+      <Col style={{ width: 240 }}>
+        {/* an icon between two pieces of text stays in the label, in its place */}
+        <NavLink href="#" data-testid="text-run-nav-link-inline-icon">Open <StarIcon /> in new tab</NavLink>
+      </Col>
       {/* A Label keeps its text bare: with no padding of its own it would hand the scroll box
           around it a pixel to scroll. */}
       <div data-testid="text-run-scroll-box" style={{ overflow: 'auto', width: 200 }}>

@@ -624,6 +624,10 @@
     .vane-nav-link :where(svg:not([class*='size-'])),
     .vane-menu-label :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
 
+    /* An icon between two pieces of NavLink text sits in the label's line of text, where the
+       preflight's display: block would break the line around it. */
+    .vane-nav-link-label > :where(svg, img) { display: inline-block; }
+
     /* Popup - equal padding for floating content (matches layout defaults) */
     /* Safety cap: never wider than the viewport (wide content scrolls via overflowAuto). */
     .vane-popup { max-width: calc(100vw - 1rem); }
