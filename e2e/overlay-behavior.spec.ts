@@ -454,3 +454,50 @@ test.describe('Focus trap with a radio group at the end of the dialog', () => {
     await expect(page.locator(T('ob-radio-dark'))).toBeFocused();
   });
 });
+
+for (const path of ['css-anchor', 'js-fallback'] as const) {
+  test.describe(`A popup whose anchor moves with the layout (${path})`, () => {
+    test.beforeEach(async ({ page, testPage }) => {
+      if (path === 'js-fallback') {
+        await forceJsPositioning(page);
+        await page.goto(testPage);
+        await page.waitForSelector(T('overlay-behavior-section'));
+      }
+    });
+
+    test('stays under its anchor when content above the anchor grows', async ({ page }) => {
+      const anchor = page.locator(T('ob-shift-anchor'));
+      const popup = page.locator(T('ob-shift-popup'));
+      await moveToViewportY(anchor, 200);
+      await anchor.focus();
+      await page.keyboard.press('Enter');
+      await expect(popup).toBeVisible();
+      const gap = (await rectOf(popup)).top - (await rectOf(anchor)).bottom;
+      expect(gap).toBeGreaterThan(0);
+
+      await page.locator(T('ob-shift-spacer')).evaluate((el) => { (el as HTMLElement).style.height = '150px'; });
+
+      await expect.poll(async () => (await rectOf(anchor)).top).toBeGreaterThan(340);
+      await expect.poll(async () => (await rectOf(popup)).top - (await rectOf(anchor)).bottom).toBeCloseTo(gap, 0);
+    });
+
+    test('a popup above its anchor stays on it when its content grows', async ({ page }) => {
+      const anchor = page.locator(T('ob-grow-anchor'));
+      const popup = page.locator(T('ob-grow-popup'));
+      await moveToViewportY(anchor, 400);
+      await anchor.focus();
+      await page.keyboard.press('Enter');
+      await expect(popup).toBeVisible();
+      await expect(popup).toHaveAttribute('data-placement', 'top-start');
+      const before = await rectOf(popup);
+      const gap = (await rectOf(anchor)).top - before.bottom;
+
+      await page.locator(T('ob-grow-text')).evaluate((el) => {
+        el.textContent = 'Free returns within 30 days. Items must be unused and in their original packaging.';
+      });
+
+      await expect.poll(async () => (await rectOf(popup)).height).toBeGreaterThan(before.height + 10);
+      await expect.poll(async () => (await rectOf(anchor)).top - (await rectOf(popup)).bottom).toBeCloseTo(gap, 0);
+    });
+  });
+}

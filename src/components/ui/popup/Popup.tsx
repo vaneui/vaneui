@@ -440,6 +440,8 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       return addAnchorName(anchorRef.current, `--${anchorName}`);
     }, [mounted, anchorRef, anchorName]);
 
+    // what the JS path last wrote, so a re-measure that finds nothing moved renders nothing
+    const lastJsPositionRef = useRef<{ top: number; left: number; width?: number; placement: PopupPlacement } | null>(null);
     const updateJsPosition = useCallback(() => {
       const anchor = anchorRef.current;
       const popup = popupRef.current;
@@ -451,11 +453,17 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
       updateMenuScrollCap(popup, anchorRect, placement, gap);
       const popupRect = popup.getBoundingClientRect();
       const pos = getJsPosition(anchorRect, popupRect, placement, gap);
+      const width = matchWidth ? anchorRect.width : undefined;
 
+      const last = lastJsPositionRef.current;
+      if (last && last.top === pos.top && last.left === pos.left && last.width === width && last.placement === pos.resolvedPlacement) {
+        return;
+      }
+      lastJsPositionRef.current = { top: pos.top, left: pos.left, width, placement: pos.resolvedPlacement };
       setPositionStyles({
         top: pos.top,
         left: pos.left,
-        ...(matchWidth ? { width: anchorRect.width } : undefined),
+        ...(width !== undefined ? { width } : undefined),
       });
       setResolvedPlacement(pos.resolvedPlacement);
     }, [anchorRef, placement, offset, matchWidth, arrow]);
@@ -489,24 +497,49 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         setPositionStyles(buildCssAnchorStyles(anchorName, placement, offset, matchWidth, arrow));
         setResolvedPlacement(placement); // optimistic; corrected post-layout by measureCssPlacement
       } else {
+        // measure afresh on every open: the popup's own state may be from an earlier opening
+        lastJsPositionRef.current = null;
         updateJsPosition();
       }
     }, [effectiveOpen, anchorRef, anchorName, placementKey, offset, matchWidth, arrow, updateJsPosition, updateCssScrollCap]);
 
-    // reposition on scroll/resize for JS fallback path
+    // JS fallback path: follow the anchor. Scroll and resize reposition at once. Layout can also
+    // move or resize the anchor or the popup with neither (content above the anchor grows, the
+    // popup's content changes), so a re-measure is also scheduled, at most once a frame, when the
+    // anchor or the popup changes size, when the page's DOM changes, and once after the first
+    // frame on open (fonts and a menu's scroll cap settle after the first layout).
     useEffect(() => {
       if (!effectiveOpen || supportsAnchorPositioning()) return;
 
       const handleReposition = () => updateJsPosition();
+      let frame = 0;
+      const scheduleReposition = () => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          updateJsPosition();
+        });
+      };
 
       window.addEventListener('scroll', handleReposition, true);
       window.addEventListener('resize', handleReposition);
+      scheduleReposition();
+
+      const resizeObserver = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(scheduleReposition) : null;
+      if (anchorRef.current) resizeObserver?.observe(anchorRef.current);
+      if (popupRef.current) resizeObserver?.observe(popupRef.current);
+      // a re-measure that finds nothing moved writes nothing, so the popup's own style updates end here
+      const mutationObserver = new MutationObserver(scheduleReposition);
+      mutationObserver.observe(document.body, { subtree: true, childList: true, attributes: true, characterData: true });
 
       return () => {
+        cancelAnimationFrame(frame);
+        resizeObserver?.disconnect();
+        mutationObserver.disconnect();
         window.removeEventListener('scroll', handleReposition, true);
         window.removeEventListener('resize', handleReposition);
       };
-    }, [effectiveOpen, updateJsPosition]);
+    }, [effectiveOpen, updateJsPosition, anchorRef]);
 
     // CSS-anchor path: correct data-placement (and thus the arrow) from the
     // browser's actual flip, after layout and on every reposition (B1/B4)

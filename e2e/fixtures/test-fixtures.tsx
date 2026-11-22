@@ -529,6 +529,10 @@ function OverlayBehaviorFixtures() {
   const [inertOverlay, setInertOverlay] = useState(false);
   const [inertPortals, setInertPortals] = useState(false);
   const [radioOpen, setRadioOpen] = useState(false);
+  const shiftAnchorRef = useRef<HTMLButtonElement>(null);
+  const [shiftOpen, setShiftOpen] = useState(false);
+  const growAnchorRef = useRef<HTMLButtonElement>(null);
+  const [growOpen, setGrowOpen] = useState(false);
   return (
     <section data-testid="overlay-behavior-section">
       {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
@@ -659,6 +663,37 @@ function OverlayBehaviorFixtures() {
           <Label row><Radio value="system" data-testid="ob-radio-system" /> System</Label>
         </RadioGroup>
       </Modal>
+
+      {/* A popup whose anchor moves when content above it grows (no scroll, no resize). */}
+      <div data-testid="ob-shift-spacer" />
+      <Button ref={shiftAnchorRef} data-testid="ob-shift-anchor" onClick={() => setShiftOpen((o) => !o)}>Shipping</Button>
+      <Popup
+        open={shiftOpen}
+        onClose={() => setShiftOpen(false)}
+        anchorRef={shiftAnchorRef}
+        placeBottomStart
+        closeOnClickOutside={false}
+        noAnimation
+        aria-label="Shipping"
+        data-testid="ob-shift-popup"
+      >
+        <Text>Ships in 2 days</Text>
+      </Popup>
+
+      {/* A popup above its anchor whose content grows while it is open. */}
+      <Button ref={growAnchorRef} data-testid="ob-grow-anchor" onClick={() => setGrowOpen((o) => !o)}>Returns</Button>
+      <Popup
+        open={growOpen}
+        onClose={() => setGrowOpen(false)}
+        anchorRef={growAnchorRef}
+        placeTopStart
+        closeOnClickOutside={false}
+        noAnimation
+        aria-label="Returns"
+        data-testid="ob-grow-popup"
+      >
+        <Text data-testid="ob-grow-text" style={{ width: 200 }}>Free returns</Text>
+      </Popup>
     </section>
   );
 }
