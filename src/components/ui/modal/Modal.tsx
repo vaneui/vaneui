@@ -8,7 +8,7 @@ import { defaultModalOverlayTheme } from './defaultModalOverlayTheme';
 import { useScrollLock } from '../../utils/scrollLock';
 import { useFocusTrap } from '../../utils/focusTrap';
 import { useInertBackground } from '../../utils/inertBackground';
-import { registerOverlay } from '../../utils/overlayStack';
+import { registerOverlay, getDescendantOverlays, getOutsidePressDismissals } from '../../utils/overlayStack';
 import { useControllableState } from '../../utils/controllableState';
 import { useTransition } from '../../utils/transition';
 import { useStackingContext } from '../../utils/stackingContext';
@@ -170,8 +170,15 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     // on the document (delegated analytics, a widget that closes on a click outside itself) see them.
     const pressStartedInDialogRef = useRef(false);
     const pressEndedInDialogRef = useRef(false);
-    const handleOverlayMouseDownCapture = (event: React.MouseEvent) => {
+    // A press on the backdrop also closes a popup open in this dialog (a menu), on mousedown. One
+    // click closes one layer, as Escape does: remember the press and this dialog's popups at that
+    // moment, and let the click close the dialog only if the press closed none of them.
+    const backdropPressRef = useRef<{ event: Event; popups: HTMLElement[] } | null>(null);
+    const handleOverlayMouseDownCapture = (event: React.MouseEvent<HTMLElement>) => {
       pressStartedInDialogRef.current = event.target !== event.currentTarget;
+      backdropPressRef.current = pressStartedInDialogRef.current
+        ? null
+        : { event: event.nativeEvent, popups: getDescendantOverlays(event.currentTarget) };
     };
     const handleOverlayMouseUpCapture = (event: React.MouseEvent) => {
       pressEndedInDialogRef.current = event.target !== event.currentTarget;
@@ -180,11 +187,15 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const handleOverlayClick = (event: React.MouseEvent) => {
       // every click ends the press it came from
       const pressTouchedDialog = pressStartedInDialogRef.current || pressEndedInDialogRef.current;
+      const backdropPress = backdropPressRef.current;
       pressStartedInDialogRef.current = false;
       pressEndedInDialogRef.current = false;
+      backdropPressRef.current = null;
       if (event.target !== event.currentTarget) return;
+      const pressClosedPopup = !!backdropPress
+        && getOutsidePressDismissals(backdropPress.event).some((el) => backdropPress.popups.includes(el));
       // defaultPrevented lets a composed consumer onClick veto the close
-      if (closeOnOverlayClick && !event.defaultPrevented && !pressTouchedDialog) {
+      if (closeOnOverlayClick && !event.defaultPrevented && !pressTouchedDialog && !pressClosedPopup) {
         onClose();
       }
     };

@@ -13,7 +13,7 @@ import { useMergedRef } from '../../utils/mergedRef';
 import { useHydrated } from '../../utils/useHydrated';
 import { pushEscapeHandler, ignoreEscape } from '../../utils/escapeStack';
 import { getFocusableElements, useFocusTrap } from '../../utils/focusTrap';
-import { registerOverlay, isInOverlayFamily, setOverlayOpener } from '../../utils/overlayStack';
+import { registerOverlay, isInOverlayFamily, setOverlayOpener, recordOutsidePressDismissal } from '../../utils/overlayStack';
 import { addAnchorName } from '../../utils/anchorName';
 
 type PopupPlacement =
@@ -602,6 +602,9 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
           return;
         }
 
+        // lets a Modal whose backdrop takes the click that follows know this press closed a layer
+        // above it; a tooltip only describes its trigger and is not a layer
+        if (popup && role !== 'tooltip') recordOutsidePressDismissal(event, popup);
         onCloseRef.current?.();
       };
 
@@ -614,7 +617,7 @@ export const Popup = forwardRef<HTMLDivElement, PopupProps>(
         clearTimeout(timeoutId);
         document.removeEventListener('mousedown', handleClickOutside);
       };
-    }, [effectiveOpen, closeOnClickOutside, anchorRef]);
+    }, [effectiveOpen, closeOnClickOutside, anchorRef, role]);
 
     const [isDetached, setIsDetached] = useState(false);
     useEffect(() => {

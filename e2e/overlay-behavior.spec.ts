@@ -92,6 +92,24 @@ test.describe('Modal backdrop dismissal', () => {
   });
 });
 
+test.describe('Backdrop click with a Menu open in the Modal', () => {
+  test('the first click closes the menu, the second the Modal', async ({ page }) => {
+    await page.locator(T('ob-layer-open')).click();
+    const dialog = page.locator(T('ob-layer-modal'));
+    await expect(dialog).toBeVisible();
+    await page.locator(T('ob-layer-trigger')).click();
+    const menu = page.locator(T('ob-layer-menu'));
+    await expect(menu).toBeVisible();
+
+    await page.mouse.click(5, 5);
+    await expect(menu).toHaveCount(0);
+    await expect(dialog).toBeVisible();
+
+    await page.mouse.click(5, 5);
+    await expect(dialog).toHaveCount(0);
+  });
+});
+
 test.describe('Escape with two Modals open', () => {
   test('sibling modals close top-first, also after the lower one re-renders', async ({ page }) => {
     await page.locator(T('ob-esc-open-a')).click();

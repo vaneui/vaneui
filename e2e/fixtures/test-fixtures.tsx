@@ -533,6 +533,7 @@ function OverlayBehaviorFixtures() {
   const [shiftOpen, setShiftOpen] = useState(false);
   const growAnchorRef = useRef<HTMLButtonElement>(null);
   const [growOpen, setGrowOpen] = useState(false);
+  const [layerOpen, setLayerOpen] = useState(false);
   return (
     <section data-testid="overlay-behavior-section">
       {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
@@ -694,6 +695,15 @@ function OverlayBehaviorFixtures() {
       >
         <Text data-testid="ob-grow-text" style={{ width: 200 }}>Free returns</Text>
       </Popup>
+
+      {/* A Menu inside a Modal: one click on the backdrop closes one layer. */}
+      <button data-testid="ob-layer-open" onClick={() => setLayerOpen(true)}>open modal with a menu</button>
+      <Modal open={layerOpen} onClose={() => setLayerOpen(false)} title="Edit item" noAnimation data-testid="ob-layer-modal">
+        <Menu noAnimation data-testid="ob-layer-menu" trigger={<Button data-testid="ob-layer-trigger">Actions</Button>}>
+          <MenuItem>Duplicate</MenuItem>
+          <MenuItem>Archive</MenuItem>
+        </Menu>
+      </Modal>
     </section>
   );
 }
