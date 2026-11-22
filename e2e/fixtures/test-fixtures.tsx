@@ -2318,6 +2318,7 @@ export function TestHarness() {
             </Card>
             {/* Light control for the bare inherit-mode regression case below */}
             <Text data-testid="dm-light-bare-text">Bare light text</Text>
+            <Card shadow data-testid="dm-light-shadow">Shadow</Card>
           </div>
 
           {/* Dark column — representative components under a data-theme="dark"
@@ -2343,6 +2344,7 @@ export function TestHarness() {
               <Input invalid aria-label="dark error input" data-testid="dm-dark-error-input" />
               <Link href="#" data-testid="dm-dark-link">Dark link</Link>
             </Card>
+            <Card shadow data-testid="dm-dark-shadow">Shadow</Card>
 
             {/* Contrast gate fixtures: all 10 appearances × filled + outline */}
             <Card filled primary data-testid="dm-contrast-filled-primary"><Text data-testid="dm-contrast-filled-text-primary">Primary filled</Text></Card>
@@ -2376,6 +2378,7 @@ export function TestHarness() {
           {/* data-theme="light" re-declares the light tokens: under html dark it is a light island */}
           <div data-theme="light" data-testid="dm-light-pin">
             <Text data-testid="dm-light-pin-text">Pinned light region</Text>
+            <Card shadow data-testid="dm-light-pin-shadow">Shadow</Card>
           </div>
           {/* the same island inside a dark subtree wrapper */}
           <div data-theme="dark">
@@ -2384,6 +2387,7 @@ export function TestHarness() {
                 <Button data-testid="dm-light-island-button">Primary</Button>
                 <Text data-testid="dm-light-island-text">Island text</Text>
               </Card>
+              <Card shadow data-testid="dm-light-island-shadow">Shadow</Card>
             </div>
           </div>
         </section>
