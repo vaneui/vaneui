@@ -1973,6 +1973,9 @@ export function TestHarness() {
           <Card filled data-testid="field-on-filled-card">
             <Field label="Email" description="No spam" error="Required"><Input /></Field>
           </Card>
+          <div data-testid="field-self-amount">
+            <Field type="number" label="Amount" textRight defaultValue="42" />
+          </div>
           {/* the group's gap follows the Field size, like its label and radios */}
           {(['xs', 'sm', 'xl'] as const).map((size) => (
             <div key={size} data-testid={`field-radiogroup-${size}`}>

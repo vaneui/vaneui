@@ -43,6 +43,12 @@ test.describe('Field self-rendering', () => {
     expect(Math.abs(wrapperH - labelH)).toBeLessThanOrEqual(1);
   });
 
+  // an input does not inherit text-align, so the prop has to land on the control itself
+  test('aligns the value of the control it renders by its text-align prop', async ({ page }) => {
+    const input = page.getByTestId('field-self-amount').locator('input');
+    expect(await getStyle(input, 'text-align')).toBe('right');
+  });
+
   test('scales the control-row gap with the Field size instead of a fixed 16px', async ({ page }) => {
     const xsRow = page.getByTestId('field-self-checkbox-xs').locator('.vane-field-control-row');
     const xlRow = page.getByTestId('field-self-checkbox-xl').locator('.vane-field-control-row');
