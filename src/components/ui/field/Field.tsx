@@ -23,6 +23,11 @@ const LAYOUT_KEYS = new Set<string>(
     .filter(k => !SURFACE_KEYS.has(k) && !CONTROL_KEYS.has(k))
 );
 const CONTROL_COMPONENTS = new Set<unknown>(Object.values(FIELD_CONTROLS).map(d => d.Component));
+// A text field's value takes the alignment (an amount aligned right): a form control does not
+// inherit text-align, so on the wrapper it changed nothing. Toggles and radios keep it on the
+// wrapper, where it aligns their label text.
+const TEXT_ALIGN_KEYS = new Set<string>(ComponentKeys.textAlign);
+const ALIGNED_CONTROLS = new Set<string>(['textInput', 'textarea', 'select']);
 
 // Help and error text sit one step below the field, so they stay subordinate at every size.
 const HELP_SIZE: Record<string, string> = { xs: 'xs', sm: 'xs', md: 'sm', lg: 'md', xl: 'lg' };
@@ -61,8 +66,10 @@ function splitFieldProps(
 
   const controlProps: Record<string, unknown> = {};
   const wrapperProps: Record<string, unknown> = {};
+  const alignsText = ALIGNED_CONTROLS.has(control.key);
   for (const [key, value] of Object.entries(rest)) {
     if (SURFACE_KEYS.has(key) || CONTROL_KEYS.has(key)) continue;
+    if (alignsText && TEXT_ALIGN_KEYS.has(key)) { controlProps[key] = value; continue; }
     if (LAYOUT_KEYS.has(key) || key === 'className' || key === 'tag') { wrapperProps[key] = value; continue; }
     controlProps[key] = value;
   }

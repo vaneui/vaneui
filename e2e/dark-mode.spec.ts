@@ -178,6 +178,34 @@ test.describe('Dark outline text contrast (WCAG)', () => {
 // test, so the order within a test is the only sequencing that matters.
 // =========================================================================
 
+test.describe('Shadows follow data-theme', () => {
+  // The shadow tokens were composed once on :root, so a subtree kept the alphas of the page
+  // around it: a dark subtree drew light shadows and a light island in a dark page dark ones.
+  const shadow = (page: Page, id: string) => getStyle(page.locator(`[data-testid="${id}"]`), 'box-shadow');
+
+  test('a page without data-theme keeps the light shadow', async ({ page }) => {
+    const light = await shadow(page, 'dm-light-shadow');
+    expect(light).toContain('0.1)');
+    expect(light).toContain('0.06)');
+  });
+
+  test('a dark subtree draws the shadow of a dark page', async ({ page }) => {
+    const light = await shadow(page, 'dm-light-shadow');
+    const subtree = await shadow(page, 'dm-dark-shadow');
+    expect(subtree).not.toBe(light);
+    await enableHtmlDark(page);
+    expect(await shadow(page, 'dm-light-shadow')).toBe(subtree);
+  });
+
+  test('a light subtree draws the light shadow, inside a dark wrapper and under a dark page', async ({ page }) => {
+    const light = await shadow(page, 'dm-light-shadow');
+    expect(await shadow(page, 'dm-light-island-shadow')).toBe(light);
+    await enableHtmlDark(page);
+    expect(await shadow(page, 'dm-light-shadow')).not.toBe(light);
+    expect(await shadow(page, 'dm-light-pin-shadow')).toBe(light);
+  });
+});
+
 test.describe('html-level dark mode (primary documented mode)', () => {
   test('flipping html re-themes in-flow content outside any data-theme wrapper', async ({ page }) => {
     const surface = page.locator('[data-testid="dm-light-surface"]');

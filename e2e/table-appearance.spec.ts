@@ -137,6 +137,47 @@ test.describe('Table appearance', () => {
     expect(await rowRule(page, 'ta-row-plain-td')).toBe(await token(page, '--color-border-secondary'));
   });
 
+  test('a row or section with an appearance and no variant paints it as outline', async ({ page }) => {
+    // rows and sections have no variant default; their appearance used to map no colors,
+    // so a danger row painted the Table's neutral tint and kept the neutral row rule
+    const bg = await token(page, '--color-bg-danger');
+    const text = await token(page, '--color-text-danger');
+    const border = await token(page, '--color-border-danger');
+    expect(bg).not.toBe(await token(page, '--color-bg-secondary'));
+    expect(await getBg(byId(page, 'ta-row-app-tr'))).toBe(bg);
+    expect(await getColor(byId(page, 'ta-row-app-td'))).toBe(text);
+    expect(await rowRule(page, 'ta-row-app-td')).toBe(border);
+    // the same as the row with the variant written out
+    expect(await getBg(byId(page, 'ta-row-app-tr'))).toBe(await getBg(byId(page, 'ta-row-app-outline-tr')));
+    expect(await getColor(byId(page, 'ta-row-app-td'))).toBe(await getColor(byId(page, 'ta-row-app-outline-td')));
+    expect(await rowRule(page, 'ta-row-app-td')).toBe(await rowRule(page, 'ta-row-app-outline-td'));
+    // the other rows keep the Table's colors
+    expect(await rowRule(page, 'ta-row-app-plain-td')).toBe(await token(page, '--color-border-secondary'));
+
+    // a head or body section does the same for its rows
+    expect(await getBg(byId(page, 'ta-row-app-thead'))).toBe(await token(page, '--color-bg-info'));
+    expect(await getColor(byId(page, 'ta-row-app-thead-th'))).toBe(await token(page, '--color-text-info'));
+    expect(await rowRule(page, 'ta-row-app-thead-th')).toBe(await token(page, '--color-border-info'));
+    expect(await getBg(byId(page, 'ta-row-app-tbody'))).toBe(await token(page, '--color-bg-success'));
+    expect(await rowRule(page, 'ta-row-app-tbody-td')).toBe(await token(page, '--color-border-success'));
+  });
+
+  test('a filled cell paints its fill and keeps the row rule of its neighbours', async ({ page }) => {
+    // a cell had only a border consumer, and a fill has no border color: a filled cell painted
+    // nothing and left a gap in the row rule
+    const bg = await token(page, '--color-bg-filled-success');
+    const text = await token(page, '--color-text-filled-success');
+    for (const id of ['ta-cell-filled-th', 'ta-cell-filled-td']) {
+      expect(await getBg(byId(page, id))).toBe(bg);
+      expect(await getColor(byId(page, id))).toBe(text);
+      expect(await rowRule(page, id)).toBe(await token(page, '--color-border-secondary'));
+    }
+    expect(await rowRule(page, 'ta-cell-filled-td')).toBe(await rowRule(page, 'ta-cell-filled-plain-td'));
+    // on a fill it draws the divider color, like the cells around it
+    expect(await getBg(byId(page, 'ta-cell-filled-on-fill-td'))).toBe(bg);
+    expect(await rowRule(page, 'ta-cell-filled-on-fill-td')).toBe(await token(page, '--color-divider-filled'));
+  });
+
   test('cells outside a Table keep the neutral palette inside a colored parent', async ({ page }) => {
     const border = await token(page, '--color-border-secondary');
     expect(border).not.toBe(await token(page, '--color-border-danger'));

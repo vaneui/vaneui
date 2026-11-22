@@ -10,11 +10,90 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Accessibility
+
+- Closing stacked `Modal`s out of order (a confirm dialog closed together with the dialog that
+  opened it, two dialogs closed in one handler, or the lower one closed first) left
+  `aria-hidden="true"` on the app root, so screen readers lost the whole page, and the page
+  behind the remaining dialog became live too early. The page now comes back only when the last
+  dialog closes, with exactly the `inert` and `aria-hidden` values it had before.
+- Tab from the checked radio of a `RadioGroup` at the end of a `Modal` (or a modal `Popup`) moved
+  focus out of the dialog. The focus trap now counts one tab stop per radio group, in both
+  directions, and skips elements with a negative `tabIndex`.
+- A `Tooltip` with `undefined`, `null`, `''` or `false` content opened an empty bubble and
+  pointed `aria-describedby` at it. It now shows nothing.
+- `useFieldControlProps` around a VaneUI `Input` listed each `aria-describedby` id twice, so the
+  help text was read twice. Field wiring now names each id once (also in a radio group's
+  `aria-labelledby`).
+- `Select`, `Input` and `Textarea` placeholders sat at 3.4:1. Outline and ghost fields now draw
+  them in `--color-text-secondary`, at least 4.5:1 on every appearance in both schemes.
+- `NavLink` replaced an `aria-current` the caller passed (`"location"` for a table of contents
+  entry, `"true"` for a section link) with `"page"` or nothing. A caller's value now wins.
+
 ### Fixed
 
+- `padding={false}`, and `padding: false` in `themeDefaults`, left the padding on (Button, Card,
+  Stack, Section, Badge, Chip, Alert, Code, Kbd, NavLink, Input, List and others). They now turn
+  it off, like `noPadding`.
+- Turning off a variant that a `ThemeProvider` set (`<Button danger filled={false}>` under
+  `filled: true`) left the component with no variant and no appearance colors. It now falls back
+  to the component's own default variant, or to `outline`.
+- A checked `outline` or `ghost` `Switch` drew its track border in the page color, so only the
+  thumb showed. The track border now takes the appearance's text color, in both schemes.
+- Escape closed the dialog under a top layer that does not close on Escape (a `Modal` or modal
+  `Popup` with `closeOnEscape={false}`, a portaled `Overlay` without `onClose`). That layer now
+  keeps Escape.
+- An `Overlay` with an inline `onClose` registered for Escape again on every render, so Escape
+  closed it instead of a `Modal` opened over it. It now registers once per open and calls the
+  latest `onClose`.
+- One click on a `Modal`'s backdrop closed both the `Menu` or `Popup` open in it and the Modal.
+  It now closes only the popup, like Escape.
+- A `Tooltip`, `PopupTrigger` or `Menu` disabled while open opened again by itself when it was
+  enabled. Disabling now closes it and drops a pending open.
+- On browsers without CSS anchor positioning, a `Popup` or `Menu` stayed put when layout moved
+  or resized its anchor. It now follows.
+- Opening a `Modal` shifted the page by the scrollbar width when `html` had
+  `scrollbar-gutter: stable`. No padding is added then.
+- An appearance on `Tr`, `Thead`, `Tbody` or `Tfoot` without a variant painted nothing. It now
+  paints as `outline`, the same as with `outline` written out.
+- `<Td success filled>` and `<Th ... filled>` painted no fill and left a gap in the row rule.
+  They now paint their fill and text color and keep the row rule beside them.
+- A `data-theme="dark"` subtree drew the light-scheme shadows, and a `data-theme="light"` island
+  in a dark page the dark ones. Each subtree now draws its own scheme's shadows. Pages without
+  `data-theme` are unchanged.
+- With `responsiveSizing={false}` on a `Card`, its header, body and footer still shrank their
+  padding on tablet and mobile. They now keep the fixed inset (Modal parts too).
+- `<Mark rounded>` drew a pill and clipped its first and last letters. It now has corners that
+  grow with the size prop; `pill` and the default `sharp` are unchanged.
+- A `style` width on a `Select` (or `<Field select style>`) narrowed only the field and left the
+  chevron at the far edge. Sizing and placement styles now go to the whole control.
+- A `RadioGroup` inside a `Field` kept `md` spacing at every Field size. It now follows the
+  Field's size unless it has its own.
+- `NavLink` moved an element placed between two pieces of text to the end. Children keep their
+  order.
+- `textRight` and the other text-align props on a `Field` that renders its own text control
+  landed on the wrapper and did nothing. They now align the control's value.
 - The README described `@vaneui/mcp` as having two tools and needing Node.js 24. It has three
   (`search_docs`, `get_doc` and `get_component_props`) and runs on Node.js 20 or later. The
   README also links to the vaneui.com home page and to the AI assistants setup guide.
+
+### Changed
+
+- A `Text` in an `Alert` (the documented pattern for a message followed by an action) kept the
+  body size, 16px, at every Alert size and sat off the leading icon. It now takes the Alert's
+  text size (14px at `md`), and `<Text sm>` sits one step below it.
+- Clicks inside a `Modal` now reach `document` click listeners (analytics, outside-click
+  handlers). The dialog stopped their propagation before. Like any portal, a click inside a
+  Modal also reaches the `onClick` of its React ancestors now. A press that starts on the
+  backdrop and ends in the dialog no longer closes it.
+- Turning `loading` on and off on `Button` or `IconButton` remounted the children, which reset
+  their state. They now stay mounted and keep their idle layout while a spinner shows over
+  them. The loading state no longer renders the `vane-button-loading-label` span; the spinner's
+  wrapper has the class `vane-button-spinner`.
+
+### Added
+
+- `TdTheme` and `ThTheme` have a `surface` slot, which paints a filled cell.
 
 ## 1.7.1
 

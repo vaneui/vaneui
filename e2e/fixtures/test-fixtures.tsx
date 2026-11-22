@@ -355,6 +355,10 @@ function TextRunFixtures() {
         <NavLink href="#" data-testid="text-run-nav-link"><StarIcon />Save</NavLink>
         <NavLink href="#" data-testid="text-run-nav-link-truncated">Ågjpqy and a long navigation label</NavLink>
       </Col>
+      <Col style={{ width: 240 }}>
+        {/* an icon between two pieces of text stays in the label, in its place */}
+        <NavLink href="#" data-testid="text-run-nav-link-inline-icon">Open <StarIcon /> in new tab</NavLink>
+      </Col>
       {/* A Label keeps its text bare: with no padding of its own it would hand the scroll box
           around it a pixel to scroll. */}
       <div data-testid="text-run-scroll-box" style={{ overflow: 'auto', width: 200 }}>
@@ -528,6 +532,12 @@ function OverlayBehaviorFixtures() {
   const [inertOpen, setInertOpen] = useState(false);
   const [inertOverlay, setInertOverlay] = useState(false);
   const [inertPortals, setInertPortals] = useState(false);
+  const [radioOpen, setRadioOpen] = useState(false);
+  const shiftAnchorRef = useRef<HTMLButtonElement>(null);
+  const [shiftOpen, setShiftOpen] = useState(false);
+  const growAnchorRef = useRef<HTMLButtonElement>(null);
+  const [growOpen, setGrowOpen] = useState(false);
+  const [layerOpen, setLayerOpen] = useState(false);
   return (
     <section data-testid="overlay-behavior-section">
       {/* Closing keeps the content mounted for the exit animation: a slow one, so the spec can look mid-exit. */}
@@ -648,6 +658,56 @@ function OverlayBehaviorFixtures() {
         <CountButton testId="ob-inert-overlay-button" label="In overlay" />
       </Overlay>
       {inertPortals && <ForeignPortals />}
+
+      {/* A dialog whose last controls are a radio group: only the checked radio is a tab stop. */}
+      <button data-testid="ob-radio-open" onClick={() => setRadioOpen(true)}>open theme modal</button>
+      <Modal open={radioOpen} onClose={() => setRadioOpen(false)} title="Choose a theme" noAnimation data-testid="ob-radio-modal">
+        <RadioGroup name="ob-theme" defaultValue="light" aria-label="Theme">
+          <Label row><Radio value="light" data-testid="ob-radio-light" /> Light</Label>
+          <Label row><Radio value="dark" data-testid="ob-radio-dark" /> Dark</Label>
+          <Label row><Radio value="system" data-testid="ob-radio-system" /> System</Label>
+        </RadioGroup>
+      </Modal>
+
+      {/* A popup whose anchor moves when content above it grows (no scroll, no resize). */}
+      <div data-testid="ob-shift-spacer" />
+      <Button ref={shiftAnchorRef} data-testid="ob-shift-anchor" onClick={() => setShiftOpen((o) => !o)}>Shipping</Button>
+      <Popup
+        open={shiftOpen}
+        onClose={() => setShiftOpen(false)}
+        anchorRef={shiftAnchorRef}
+        placeBottomStart
+        closeOnClickOutside={false}
+        noAnimation
+        aria-label="Shipping"
+        data-testid="ob-shift-popup"
+      >
+        <Text>Ships in 2 days</Text>
+      </Popup>
+
+      {/* A popup above its anchor whose content grows while it is open. */}
+      <Button ref={growAnchorRef} data-testid="ob-grow-anchor" onClick={() => setGrowOpen((o) => !o)}>Returns</Button>
+      <Popup
+        open={growOpen}
+        onClose={() => setGrowOpen(false)}
+        anchorRef={growAnchorRef}
+        placeTopStart
+        closeOnClickOutside={false}
+        noAnimation
+        aria-label="Returns"
+        data-testid="ob-grow-popup"
+      >
+        <Text data-testid="ob-grow-text" style={{ width: 200 }}>Free returns</Text>
+      </Popup>
+
+      {/* A Menu inside a Modal: one click on the backdrop closes one layer. */}
+      <button data-testid="ob-layer-open" onClick={() => setLayerOpen(true)}>open modal with a menu</button>
+      <Modal open={layerOpen} onClose={() => setLayerOpen(false)} title="Edit item" noAnimation data-testid="ob-layer-modal">
+        <Menu noAnimation data-testid="ob-layer-menu" trigger={<Button data-testid="ob-layer-trigger">Actions</Button>}>
+          <MenuItem>Duplicate</MenuItem>
+          <MenuItem>Archive</MenuItem>
+        </Menu>
+      </Modal>
     </section>
   );
 }
@@ -801,8 +861,8 @@ function LayoutAdditionsFixtures() {
 
 /* ════════ FORM-STATE FIXTURES (start) ════════
    One block for the form-control state specs: input-stable-node.spec.ts,
-   readonly-toggles.spec.ts, disabled-link.spec.ts, checked-toggle-contrast.spec.ts and
-   field-custom-control.spec.ts. The read-only toggles and the plain <input> in a Field also
+   readonly-toggles.spec.ts, disabled-link.spec.ts, checked-toggle-contrast.spec.ts,
+   placeholder-contrast.spec.ts and field-custom-control.spec.ts. The read-only toggles and the plain <input> in a Field also
    stand in front of the axe scan (accessibility.spec.ts). */
 
 /** The themed <input> on its own, with the same Field and Label wiring as Input but none of
@@ -911,9 +971,9 @@ function ReadOnlyToggleFixtures() {
 const TOGGLE_VARIANTS = ['filled', 'outline', 'ghost'] as const;
 const TOGGLE_APPEARANCES = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
 
-/** A checked Checkbox, an indeterminate Checkbox and a checked Radio in every variant and
-    appearance, on a light and on a dark page surface: the mark has to show against its box,
-    and the box against the page. */
+/** A checked Checkbox, an indeterminate Checkbox, a checked Radio and a checked Switch in every
+    variant and appearance, on a light and on a dark page surface: the mark has to show against
+    its box, and the box against the page. */
 function CheckedToggleFixtures() {
   return (
     <>
@@ -931,6 +991,7 @@ function CheckedToggleFixtures() {
                       <Checkbox {...look} defaultChecked aria-label={`${name} checkbox`} data-testid={`checked-toggle-checkbox-${id}`} />
                       <Checkbox {...look} indeterminate aria-label={`${name} mixed checkbox`} data-testid={`checked-toggle-indeterminate-${id}`} />
                       <Radio {...look} defaultChecked name={`checked-toggle-${id}`} aria-label={`${name} radio`} data-testid={`checked-toggle-radio-${id}`} />
+                      <Switch {...look} defaultChecked aria-label={`${name} switch`} data-testid={`checked-toggle-switch-${id}`} />
                     </React.Fragment>
                   );
                 })}
@@ -940,6 +1001,42 @@ function CheckedToggleFixtures() {
         </div>
       ))}
     </>
+  );
+}
+
+const PLACEHOLDER_VARIANTS = ['outline', 'ghost'] as const;
+
+/** An Input, a Textarea and a Select showing their placeholder in every appearance of the outline
+    and ghost variants, on a light and on a dark page surface: the placeholder has to read as text
+    (4.5:1) against the field. */
+function PlaceholderContrastFixtures() {
+  return (
+    <section data-testid="placeholder-contrast-section">
+      {(['light', 'dark'] as const).map((scheme) => (
+        <div key={scheme} {...(scheme === 'dark' ? { 'data-theme': 'dark' } : undefined)}>
+          <Card data-testid={`placeholder-page-${scheme}`}>
+            {PLACEHOLDER_VARIANTS.map((variant) => (
+              <Row key={variant} flexWrap>
+                {TOGGLE_APPEARANCES.map((appearance) => {
+                  const look = { [variant]: true, [appearance]: true };
+                  const id = `${scheme}-${variant}-${appearance}`;
+                  const name = `${scheme} ${variant} ${appearance}`;
+                  return (
+                    <React.Fragment key={appearance}>
+                      <Input {...look} wFit placeholder="Email" aria-label={`${name} input`} data-testid={`placeholder-input-${id}`} />
+                      <Textarea {...look} wFit rows={1} placeholder="Notes" aria-label={`${name} textarea`} data-testid={`placeholder-textarea-${id}`} />
+                      <Select {...look} wFit placeholder="Country" aria-label={`${name} select`} data-testid={`placeholder-select-${id}`}>
+                        <option value="ee">Estonia</option>
+                      </Select>
+                    </React.Fragment>
+                  );
+                })}
+              </Row>
+            ))}
+          </Card>
+        </div>
+      ))}
+    </section>
   );
 }
 
@@ -966,6 +1063,7 @@ function FormStateFixtures() {
         <Code href="#followed-code" disabled data-testid="disabled-link-code">code</Code>
       </Row>
       <CheckedToggleFixtures />
+      <PlaceholderContrastFixtures />
       <Col style={{ width: 360 }}>
         <Field label="Start date" description="Any weekday" error="Pick a date">
           <PlainFieldInput data-testid="plain-field-input" />
@@ -1077,6 +1175,13 @@ function ThemeEngineFixtures() {
       <Card data-testid="cc-static-wrapped" responsiveSizing={false}>
         <WrappedCardParts id="cc-static-wrapped" staticSizing/>
       </Card>
+      {/* responsiveSizing off on the Card alone: its parts keep one inset at every width too */}
+      <Card data-testid="cc-static-card" responsiveSizing={false}>
+        <CardHeader data-testid="cc-static-card-header">header</CardHeader>
+        <CardBody data-testid="cc-static-card-body">body</CardBody>
+        <CardFooter data-testid="cc-static-card-footer">footer</CardFooter>
+      </Card>
+      <Card data-testid="cc-static-card-wrapped" responsiveSizing={false}><WrappedCardParts id="cc-static-card-wrapped"/></Card>
       {/* a divider line or a filled part keeps the padding on its side of the boundary */}
       <Card data-testid="cc-divided">
         <CardHeader data-testid="cc-divided-header" borderB>header</CardHeader>
@@ -1128,6 +1233,29 @@ function ThemeEngineFixtures() {
           </Tr>
           <Tr><Td data-testid="ta-row-plain-td">cell</Td></Tr>
         </Tbody>
+      </Table>
+      {/* a row or section with an appearance and no variant paints it as outline */}
+      <Table data-testid="ta-row-app">
+        <Thead info data-testid="ta-row-app-thead"><Tr><Th data-testid="ta-row-app-thead-th">header</Th></Tr></Thead>
+        <Tbody>
+          <Tr danger data-testid="ta-row-app-tr"><Td data-testid="ta-row-app-td">cell</Td></Tr>
+          <Tr danger outline data-testid="ta-row-app-outline-tr"><Td data-testid="ta-row-app-outline-td">cell</Td></Tr>
+          <Tr><Td data-testid="ta-row-app-plain-td">cell</Td></Tr>
+        </Tbody>
+        <Tbody success data-testid="ta-row-app-tbody"><Tr><Td data-testid="ta-row-app-tbody-td">cell</Td></Tr></Tbody>
+      </Table>
+      {/* a filled cell paints its fill and keeps the row rule of the cells beside it */}
+      <Table data-testid="ta-cell-filled">
+        <Tbody>
+          <Tr>
+            <Th success filled data-testid="ta-cell-filled-th">header</Th>
+            <Td success filled data-testid="ta-cell-filled-td">cell</Td>
+            <Td data-testid="ta-cell-filled-plain-td">cell</Td>
+          </Tr>
+        </Tbody>
+      </Table>
+      <Table filled data-testid="ta-cell-filled-on-fill">
+        <Tbody><Tr><Td success filled data-testid="ta-cell-filled-on-fill-td">cell</Td></Tr></Tbody>
       </Table>
       {/* cells outside a Table keep the neutral palette, whatever surrounds them */}
       <Card danger data-testid="ta-standalone">
@@ -1349,6 +1477,14 @@ export function TestHarness() {
           <Mark data-testid="mark-md">MD mark</Mark>
           <Mark lg data-testid="mark-lg">LG mark</Mark>
           <Mark xl data-testid="mark-xl">XL mark</Mark>
+          {/* `rounded` and `pill` on a Mark: rounded took the radius of a control and drew a pill */}
+          {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+            <Mark key={size} {...{ [size]: true }} rounded data-testid={`mark-rounded-${size}`}>Rounded {size}</Mark>
+          ))}
+          <Mark pill data-testid="mark-pill">Pill mark</Mark>
+          <Card>
+            <Text>In a card <Mark rounded data-testid="mark-rounded-in-card">rounded mark</Mark></Text>
+          </Card>
         </section>
 
         {/* ── Inline baseline alignment (Code / Kbd / Mark in running text) ──
@@ -1897,10 +2033,21 @@ export function TestHarness() {
           {/* A message block next to an action: the block takes the free width */}
           <Alert data-testid="alert-action" warning polite>
             <Col noGap data-testid="alert-action-message">
-              <Text fontSemibold>Your trial ends in three days</Text>
-              <Text sm>Add a payment method to keep your projects running.</Text>
+              <Text fontSemibold data-testid="alert-action-title">Your trial ends in three days</Text>
+              <Text sm data-testid="alert-action-detail">Add a payment method to keep your projects running.</Text>
             </Col>
             <Button warning filled data-testid="alert-action-button">Add card</Button>
+          </Alert>
+          {/* A message in a Text follows the Alert's size, next to a leading icon */}
+          {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+            <Alert key={size} data-testid={`alert-text-${size}`} polite {...{ [size]: true }}>
+              <svg data-testid={`alert-text-${size}-icon`} viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" /></svg>
+              <Text data-testid={`alert-text-${size}-text`}>Your trial ends soon</Text>
+              <Button>Upgrade</Button>
+            </Alert>
+          ))}
+          <Alert data-testid="alert-text-stack" polite lg>
+            <Stack noPadding noGap><Text data-testid="alert-text-stack-text">In a Stack</Text></Stack>
           </Alert>
 
           <Spinner data-testid="tier2-spinner" aria-label="Loading" />
@@ -1916,6 +2063,14 @@ export function TestHarness() {
           </Badge>
           <Button loading sm data-testid="tier2-button-loading">Saving</Button>
           <Button loading sm filled danger data-testid="tier2-button-loading-filled">Deleting</Button>
+          {/* loading keeps the children in place: same box as the idle twin, children transparent */}
+          <Row>
+            <Button lg data-testid="tier2-button-idle-icon"><StarIcon /> Save draft</Button>
+            <Button lg loading data-testid="tier2-button-loading-icon"><StarIcon /> Save draft</Button>
+            {/* text in an array next to an element stays bare: only the color can hide it */}
+            <Button loading data-testid="tier2-button-loading-bare">{[<StarIcon key="star" />, 'Bare']}</Button>
+            <IconButton loading aria-label="Refresh" data-testid="tier2-icon-button-loading"><StarIcon /></IconButton>
+          </Row>
 
           <Tooltip
             content="Tip body"
@@ -1969,6 +2124,18 @@ export function TestHarness() {
           <Card filled data-testid="field-on-filled-card">
             <Field label="Email" description="No spam" error="Required"><Input /></Field>
           </Card>
+          <div data-testid="field-self-amount">
+            <Field type="number" label="Amount" textRight defaultValue="42" />
+          </div>
+          {/* the group's gap follows the Field size, like its label and radios */}
+          {(['xs', 'sm', 'xl'] as const).map((size) => (
+            <div key={size} data-testid={`field-radiogroup-${size}`}>
+              <Field radiogroup {...{ [size]: true }} label="Plan">
+                <Radio value="month" aria-label="Monthly" />
+                <Radio value="year" aria-label="Yearly" />
+              </Field>
+            </div>
+          ))}
         </section>
 
         {/* ── Aspect ratio: --aspect-ratio is the declared px:py ratio, asserted on computed values ── */}
@@ -2284,6 +2451,7 @@ export function TestHarness() {
             </Card>
             {/* Light control for the bare inherit-mode regression case below */}
             <Text data-testid="dm-light-bare-text">Bare light text</Text>
+            <Card shadow data-testid="dm-light-shadow">Shadow</Card>
           </div>
 
           {/* Dark column — representative components under a data-theme="dark"
@@ -2309,6 +2477,7 @@ export function TestHarness() {
               <Input invalid aria-label="dark error input" data-testid="dm-dark-error-input" />
               <Link href="#" data-testid="dm-dark-link">Dark link</Link>
             </Card>
+            <Card shadow data-testid="dm-dark-shadow">Shadow</Card>
 
             {/* Contrast gate fixtures: all 10 appearances × filled + outline */}
             <Card filled primary data-testid="dm-contrast-filled-primary"><Text data-testid="dm-contrast-filled-text-primary">Primary filled</Text></Card>
@@ -2342,6 +2511,7 @@ export function TestHarness() {
           {/* data-theme="light" re-declares the light tokens: under html dark it is a light island */}
           <div data-theme="light" data-testid="dm-light-pin">
             <Text data-testid="dm-light-pin-text">Pinned light region</Text>
+            <Card shadow data-testid="dm-light-pin-shadow">Shadow</Card>
           </div>
           {/* the same island inside a dark subtree wrapper */}
           <div data-theme="dark">
@@ -2350,6 +2520,7 @@ export function TestHarness() {
                 <Button data-testid="dm-light-island-button">Primary</Button>
                 <Text data-testid="dm-light-island-text">Island text</Text>
               </Card>
+              <Card shadow data-testid="dm-light-island-shadow">Shadow</Card>
             </div>
           </div>
         </section>
@@ -2518,6 +2689,17 @@ export function TestHarness() {
             <option value="a">A</option>
             <option value="b">B</option>
           </Select>
+          {/* a style width sizes the whole control, so the chevron stays at the field's edge */}
+          <div style={{ width: 500 }}>
+            <Select style={{ width: 200 }} aria-label="select style width" data-testid="select-style-width">
+              <option value="a">Estonia</option>
+            </Select>
+          </div>
+          <div style={{ width: 500 }}>
+            <Field select label="Country" style={{ width: 200 }} data-testid="select-field-style-width">
+              <option value="a">Estonia</option>
+            </Field>
+          </div>
 
           {/* Switch: default, size ramp, checked/unchecked pair, disabled/enabled pair */}
           <Switch aria-label="switch default" data-testid="switch-default" />

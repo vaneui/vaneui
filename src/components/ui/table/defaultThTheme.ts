@@ -1,4 +1,4 @@
-import { ComponentTheme, defaultLayoutClassMappers, textAppearance, borderAppearance } from "../theme/common";
+import { ComponentTheme, defaultLayoutClassMappers, textAppearance, borderAppearance, filledSurfaceAppearance } from "../theme/common";
 import type { ThProps } from "./ThProps";
 import type { ThTheme } from "./ThTheme";
 import { TH_CATEGORIES } from "./ThCategories";
@@ -17,6 +17,7 @@ export const defaultThTheme = new ComponentTheme<ThProps, ThTheme>(
       fontSize: new FontSizeClassMapper(),
     },
     appearance: {
+      surface: filledSurfaceAppearance,
       text: textAppearance,
       border: borderAppearance,
     },

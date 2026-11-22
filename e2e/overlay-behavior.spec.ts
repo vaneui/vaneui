@@ -92,6 +92,24 @@ test.describe('Modal backdrop dismissal', () => {
   });
 });
 
+test.describe('Backdrop click with a Menu open in the Modal', () => {
+  test('the first click closes the menu, the second the Modal', async ({ page }) => {
+    await page.locator(T('ob-layer-open')).click();
+    const dialog = page.locator(T('ob-layer-modal'));
+    await expect(dialog).toBeVisible();
+    await page.locator(T('ob-layer-trigger')).click();
+    const menu = page.locator(T('ob-layer-menu'));
+    await expect(menu).toBeVisible();
+
+    await page.mouse.click(5, 5);
+    await expect(menu).toHaveCount(0);
+    await expect(dialog).toBeVisible();
+
+    await page.mouse.click(5, 5);
+    await expect(dialog).toHaveCount(0);
+  });
+});
+
 test.describe('Escape with two Modals open', () => {
   test('sibling modals close top-first, also after the lower one re-renders', async ({ page }) => {
     await page.locator(T('ob-esc-open-a')).click();
@@ -428,3 +446,76 @@ test.describe('What an open Modal leaves usable', () => {
     await expect(page.locator(T('ob-inert-plain'))).toHaveAttribute('aria-hidden', 'true');
   });
 });
+
+test.describe('Focus trap with a radio group at the end of the dialog', () => {
+  test('Tab from the checked radio wraps to the first control, and Shift+Tab comes back to it', async ({ page }) => {
+    await page.locator(T('ob-radio-open')).click();
+    const dialog = page.locator(T('ob-radio-modal'));
+    await expect(dialog).toBeVisible();
+    const close = dialog.getByRole('button', { name: 'Close' });
+    await expect(close).toBeFocused();
+
+    await page.keyboard.press('Tab');
+    await expect(page.locator(T('ob-radio-light'))).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+
+    await page.keyboard.press('Shift+Tab');
+    await expect(page.locator(T('ob-radio-light'))).toBeFocused();
+
+    // arrow keys move the checked radio, and with it the group's tab stop
+    await page.keyboard.press('ArrowDown');
+    await expect(page.locator(T('ob-radio-dark'))).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+    await page.keyboard.press('Shift+Tab');
+    await expect(page.locator(T('ob-radio-dark'))).toBeFocused();
+  });
+});
+
+for (const path of ['css-anchor', 'js-fallback'] as const) {
+  test.describe(`A popup whose anchor moves with the layout (${path})`, () => {
+    test.beforeEach(async ({ page, testPage }) => {
+      if (path === 'js-fallback') {
+        await forceJsPositioning(page);
+        await page.goto(testPage);
+        await page.waitForSelector(T('overlay-behavior-section'));
+      }
+    });
+
+    test('stays under its anchor when content above the anchor grows', async ({ page }) => {
+      const anchor = page.locator(T('ob-shift-anchor'));
+      const popup = page.locator(T('ob-shift-popup'));
+      await moveToViewportY(anchor, 200);
+      await anchor.focus();
+      await page.keyboard.press('Enter');
+      await expect(popup).toBeVisible();
+      const gap = (await rectOf(popup)).top - (await rectOf(anchor)).bottom;
+      expect(gap).toBeGreaterThan(0);
+
+      await page.locator(T('ob-shift-spacer')).evaluate((el) => { (el as HTMLElement).style.height = '150px'; });
+
+      await expect.poll(async () => (await rectOf(anchor)).top).toBeGreaterThan(340);
+      await expect.poll(async () => (await rectOf(popup)).top - (await rectOf(anchor)).bottom).toBeCloseTo(gap, 0);
+    });
+
+    test('a popup above its anchor stays on it when its content grows', async ({ page }) => {
+      const anchor = page.locator(T('ob-grow-anchor'));
+      const popup = page.locator(T('ob-grow-popup'));
+      await moveToViewportY(anchor, 400);
+      await anchor.focus();
+      await page.keyboard.press('Enter');
+      await expect(popup).toBeVisible();
+      await expect(popup).toHaveAttribute('data-placement', 'top-start');
+      const before = await rectOf(popup);
+      const gap = (await rectOf(anchor)).top - before.bottom;
+
+      await page.locator(T('ob-grow-text')).evaluate((el) => {
+        el.textContent = 'Free returns within 30 days. Items must be unused and in their original packaging.';
+      });
+
+      await expect.poll(async () => (await rectOf(popup)).height).toBeGreaterThan(before.height + 10);
+      await expect.poll(async () => (await rectOf(anchor)).top - (await rectOf(popup)).bottom).toBeCloseTo(gap, 0);
+    });
+  });
+}

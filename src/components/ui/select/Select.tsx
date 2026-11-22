@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useMemo, type KeyboardEvent, type MouseEvent } from 'react';
+import { forwardRef, useCallback, useMemo, type CSSProperties, type KeyboardEvent, type MouseEvent } from 'react';
 import type { SelectProps } from "./SelectProps";
 import type { SelectChevronProps } from "./SelectChevronProps";
 import { ThemedComponent } from "../../themedComponent";
@@ -9,6 +9,30 @@ import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
 import { defaultSelectTheme } from "./defaultSelectTheme";
 import { defaultSelectChevronTheme } from "./defaultSelectChevronTheme";
 import { defaultSelectWrapperTheme } from "./defaultSelectWrapperTheme";
+
+// Inline style that sizes the control or places it in its parent's layout. Like the width props,
+// it belongs on the wrapper: on the field a width narrowed the <select> inside the full-width
+// wrapper, and the chevron stayed at the wrapper's far edge. The rest of the style stays on the field.
+const WRAPPER_STYLE_KEYS = new Set<string>([
+  'width', 'minWidth', 'maxWidth', 'inlineSize', 'minInlineSize', 'maxInlineSize',
+  'flex', 'flexBasis', 'flexGrow', 'flexShrink', 'alignSelf', 'justifySelf', 'order',
+  'gridArea', 'gridColumn', 'gridColumnStart', 'gridColumnEnd', 'gridRow', 'gridRowStart', 'gridRowEnd',
+  'margin', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft',
+  'marginInline', 'marginInlineStart', 'marginInlineEnd', 'marginBlock', 'marginBlockStart', 'marginBlockEnd',
+]);
+
+function splitStyle(style: CSSProperties | undefined): { wrapperStyle?: CSSProperties; fieldStyle?: CSSProperties } {
+  if (!style) return {};
+  const wrapperStyle: Record<string, unknown> = {};
+  const fieldStyle: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(style)) {
+    (WRAPPER_STYLE_KEYS.has(key) ? wrapperStyle : fieldStyle)[key] = value;
+  }
+  return {
+    wrapperStyle: Object.keys(wrapperStyle).length > 0 ? wrapperStyle : undefined,
+    fieldStyle: Object.keys(fieldStyle).length > 0 ? fieldStyle : undefined,
+  };
+}
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   function Select(rawProps, ref) {
@@ -41,9 +65,10 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     // Width, visibility and className size and place the whole control, so they belong on the
     // wrapper: left on the field they would narrow it while the wrapper stayed full width, and
-    // the absolutely-positioned chevron would detach from the field's edge.
+    // the absolutely-positioned chevron would detach from the field's edge. The same goes for
+    // the sizing part of `style` (see WRAPPER_STYLE_KEYS).
     const {
-      className,
+      className, style,
       wFull, wFit, wAuto, wScreen,
       mobileWFull, tabletWFull, desktopWFull,
       mobileHide, tabletHide, desktopHide,
@@ -73,11 +98,13 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
       onKeyDown?.(event);
     }, [readOnly, onKeyDown]);
 
+    const { wrapperStyle, fieldStyle } = splitStyle(style);
+
     // disabled stays on the field too, so the native attribute is still emitted
-    const fieldProps = { ...placeholderDefault, ...rest, disabled, onMouseDown: handleMouseDown, onKeyDown: handleKeyDown };
+    const fieldProps = { ...placeholderDefault, ...rest, style: fieldStyle, disabled, onMouseDown: handleMouseDown, onKeyDown: handleKeyDown };
 
     const wrapperProps = {
-      className,
+      className, style: wrapperStyle,
       wFull, wFit, wAuto, wScreen,
       mobileWFull, tabletWFull, desktopWFull,
       mobileHide, tabletHide, desktopHide,

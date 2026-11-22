@@ -24,28 +24,26 @@ export const NavLink = forwardRef<HTMLElement, NavLinkProps>(
         : {}),
       'data-active': active || undefined,
       // aria-current="page" is page-navigation semantics, valid only on the <a> form; omit it on the
-      // <button> form so an action trigger isn't announced as the current page.
-      'aria-current': active && !rendersAsButton ? ('page' as const) : undefined,
+      // <button> form so an action trigger isn't announced as the current page. An aria-current the
+      // caller passes wins (a table-of-contents entry is the current "location", a section link "true").
+      'aria-current': (resolvedRest as { 'aria-current'?: React.AriaAttributes['aria-current'] })['aria-current']
+        ?? (active && !rendersAsButton ? ('page' as const) : undefined),
     };
 
-    // text wraps in the label span for truncation; elements render directly in the flex container
-    const leading: React.ReactNode[] = [];
-    const textParts: React.ReactNode[] = [];
-    const trailing: React.ReactNode[] = [];
-    let seenText = false;
-
+    // The label span holds the text, so it can truncate and take the free space. It runs from the
+    // first piece of text to the last, so an element between two pieces of text (an icon inside
+    // the label) keeps its place; elements before the first text and after the last render
+    // directly in the flex container.
+    const items: React.ReactNode[] = [];
     Children.forEach(children, (child) => {
-      if (isValidElement(child)) {
-        if (seenText) {
-          trailing.push(child);
-        } else {
-          leading.push(child);
-        }
-      } else if (child != null && child !== false && child !== true) {
-        seenText = true;
-        textParts.push(child);
-      }
+      if (child != null && child !== false && child !== true) items.push(child);
     });
+    const isText = (child: React.ReactNode) => !isValidElement(child);
+    const firstText = items.findIndex(isText);
+    const lastText = items.length - 1 - [...items].reverse().findIndex(isText);
+    const leading = firstText < 0 ? items : items.slice(0, firstText);
+    const textParts = firstText < 0 ? [] : items.slice(firstText, lastText + 1);
+    const trailing = firstText < 0 ? [] : items.slice(lastText + 1);
 
     return (
       <ThemedComponent ref={ref} theme={theme?.navLink.root ?? defaultNavLinkTheme} {...mergedProps}>

@@ -35,8 +35,14 @@ export type FieldControlProps = FieldWiringProps & {
   'aria-invalid'?: AriaAttributes['aria-invalid'];
 };
 
+/**
+ * Joins two ARIA id lists, each id once and in first-seen order. A control can take the
+ * Field's wiring twice (a custom control that spreads `useFieldControlProps` around a VaneUI
+ * Input, which wires itself again), and a repeated id makes a screen reader read its text twice.
+ */
 function join(a: string | undefined, b: string | undefined): string | undefined {
-  return [a, b].filter(Boolean).join(' ') || undefined;
+  const ids = new Set(`${a ?? ''} ${b ?? ''}`.split(/\s+/).filter(Boolean));
+  return [...ids].join(' ') || undefined;
 }
 
 function withFieldWiring<P extends FieldWiringProps>(props: P, field: FieldControlContextValue): P {

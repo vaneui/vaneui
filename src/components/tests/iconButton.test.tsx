@@ -304,6 +304,33 @@ describe('IconButton Component Tests', () => {
       expect(spinnerRing!.closest('[aria-hidden="true"]')).toBeInTheDocument();
     });
 
+    // The icon used to move into a hidden label span while loading, so React mounted it again.
+    it('should keep its icon mounted when loading flips', () => {
+      const mounts = jest.fn();
+      function Glyph() {
+        React.useEffect(() => { mounts(); }, []);
+        return <svg data-testid="glyph" />;
+      }
+      const ui = (loading: boolean) => (
+        <ThemeProvider theme={defaultTheme}>
+          <IconButton loading={loading} aria-label="Refresh"><Glyph /></IconButton>
+        </ThemeProvider>
+      );
+      const { getByTestId, getByRole, rerender } = render(ui(false));
+      const glyph = getByTestId('glyph');
+
+      rerender(ui(true));
+      expect(getByTestId('glyph')).toBe(glyph);
+      // the icon stays the first child; the spinner overlay follows it
+      const button = getByRole('button', { name: 'Refresh' });
+      expect(button.firstElementChild).toBe(glyph);
+      expect(button.lastElementChild).toHaveClass('vane-button-spinner');
+
+      rerender(ui(false));
+      expect(getByTestId('glyph')).toBe(glyph);
+      expect(mounts).toHaveBeenCalledTimes(1);
+    });
+
     it('should not leak loading prop to DOM', () => {
       const { container } = render(
         <ThemeProvider theme={defaultTheme}>

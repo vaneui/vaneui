@@ -199,6 +199,15 @@
 
     /* Mark: flush highlight — no padding, square, --lh:1 hugs the glyphs (reference highlights use padding:0). */
     .vane-mark { --lh: 1; }
+    /* `rounded` on a Mark: its box is the surrounding text's 1em, so the radius is a share of 1em that
+       grows with the size prop. Declared after the ui-type --min-h formula, which it beats: that one
+       reads the control units the Mark inherits from its parent (a Card's padding unit made it a pill). */
+    .vane-mark[data-size] { --br: calc(var(--br-unit) * 1em); }
+    .vane-mark[data-size="xs"] { --br-unit: 0.2; }
+    .vane-mark[data-size="sm"] { --br-unit: 0.25; }
+    .vane-mark[data-size="md"] { --br-unit: 0.3; }
+    .vane-mark[data-size="lg"] { --br-unit: 0.35; }
+    .vane-mark[data-size="xl"] { --br-unit: 0.4; }
 
     /* Input: Button's line-height and radius ratio, so a field and its button share height and corners at every size. */
     .vane-input { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.2174; }
@@ -468,6 +477,15 @@
     .vane-alert > svg:where(:not([class*='size-'])) { width: var(--icon-size); }
     /* The message block takes the free width, so trailing actions sit at the end edge. */
     .vane-alert > :is(.vane-text, .vane-col, .vane-stack, .vane-row) { flex: 1 1 0%; min-width: 0; }
+    /* A Text that carries the message (on its own or in that block) follows the Alert's size like
+       bare text does: md is the Alert's text size and every other size keeps its step from md, so
+       a `sm` line stays one step below. --alert-fs-step is the Alert's distance from body text. */
+    .vane-alert { --alert-fs-step: calc(var(--fs-unit) - var(--fs-unit-md)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="xs"] { --fs-unit: calc(var(--fs-unit-xs) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="sm"] { --fs-unit: calc(var(--fs-unit-sm) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="md"] { --fs-unit: calc(var(--fs-unit-md) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="lg"] { --fs-unit: calc(var(--fs-unit-lg) + var(--alert-fs-step)); }
+    :is(.vane-alert, .vane-alert > :is(.vane-col, .vane-stack, .vane-row)) > .vane-text[data-size="xl"] { --fs-unit: calc(var(--fs-unit-xl) + var(--alert-fs-step)); }
 
     /* Modal and Popup are floating surfaces: the viewport is their whole budget on a phone,
        so their inset ramps with it. Both stay square. */
@@ -624,6 +642,10 @@
     .vane-nav-link :where(svg:not([class*='size-'])),
     .vane-menu-label :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
 
+    /* An icon between two pieces of NavLink text sits in the label's line of text, where the
+       preflight's display: block would break the line around it. */
+    .vane-nav-link-label > :where(svg, img) { display: inline-block; }
+
     /* Popup - equal padding for floating content (matches layout defaults) */
     /* Safety cap: never wider than the viewport (wide content scrolls via overflowAuto). */
     .vane-popup { max-width: calc(100vw - 1rem); }
@@ -746,6 +768,14 @@
         --py-unit-desktop: inherit;
         --py-unit-tablet: inherit;
         --py-unit-mobile: inherit;
+    }
+    /* ...but a surface with responsiveSizing off keeps one inset at every width, and so do its
+       parts: its tablet and mobile units are declared outside [data-responsive], so the parts
+       take the desktop unit for every width instead of inheriting them. */
+    :is(.vane-card, .vane-modal):not([data-responsive]) > :is(.vane-card-header, .vane-card-body, .vane-card-footer,
+        .vane-modal-header, .vane-modal-body, .vane-modal-footer) {
+        --py-unit-tablet: var(--py-unit-desktop);
+        --py-unit-mobile: var(--py-unit-desktop);
     }
     /* Parts meet without a second inset. Each part pads all four sides and the surface adds its
        gap, so a title sat two paddings and a gap above the body (64px in a Modal at md). Now the
@@ -874,12 +904,10 @@
         --bg-active-color: var(--bg-color);
     }
 
-    /* LOADING STATE — visual classes applied by Button.tsx */
+    /* LOADING STATE — visual classes applied by Button.tsx; the children are hidden in the unlayered block below */
     [data-loading="true"] {
         position: relative;
     }
-    /* The hidden label keeps the idle layout (icon and text on one line), so the button doesn't resize. */
-    .vane-button-loading-label { opacity: 0; display: inline-flex; align-items: center; gap: var(--gap); }
     /* Ring is 1em square, so the size prop reaches it through --fs. */
     .vane-spinner[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
     .vane-spinner[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
@@ -1016,6 +1044,9 @@
         --app-focus: var(--color-focus-info);
     }
     /* AXIS 2: VARIANT — maps --app-* palette to final consumer variables */
+    /* A table row or section has no variant of its own (it follows its Table), so one that sets
+       an appearance and no variant paints it as outline, like the Table and its cells do. */
+    :is(.vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-appearance]:not([data-variant]),
     .vane-table-cell:not([data-appearance]):not(.vane-table *),
     [data-variant="outline"] {
         --text-color: var(--app-text);
@@ -1077,11 +1108,20 @@
     /* Row rules on a fill. A fill has no border color, so the cells that follow a filled Table,
        section or row draw their rule in the divider scrim, the color Divider takes on a fill.
        The nearest ancestor with a variant decides: under an outline row inside a filled Table the
-       cells keep that row's border color. A cell with its own appearance resolves its own. */
+       cells keep that row's border color. A cell with its own appearance resolves its own, unless
+       it is filled: a fill has no border color, so a filled cell draws the rule of its neighbours. */
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > .vane-table-cell:not([data-appearance]),
     :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > .vane-table-cell:not([data-appearance]),
-    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > :not([data-variant]) > .vane-table-cell:not([data-appearance]) {
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > :not([data-variant]) > .vane-table-cell:not([data-appearance]),
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > .vane-table-cell[data-variant="filled"],
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > .vane-table-cell[data-variant="filled"],
+    :is(.vane-table, .vane-table-head, .vane-table-body, .vane-table-foot, .vane-table-row)[data-variant="filled"] > :not([data-variant]) > :not([data-variant]) > .vane-table-cell[data-variant="filled"] {
         --border-color: var(--divider-color);
+    }
+    /* A filled cell paints its own fill but has no border color either, so it keeps the row rule of
+       the cells beside it: the one its row passes down, or on a fill the divider color (above). */
+    .vane-table-cell[data-variant="filled"] {
+        --border-color: inherit;
     }
 
     /* Mark: a visible highlight tint with body-colored text, so it reads as a highlight on any surface. */
@@ -1093,6 +1133,14 @@
     /* Text fields take the form-control border, like Checkbox, Radio and Switch; colored appearances keep their own. */
     :is(.vane-input, .vane-select, .vane-textarea)[data-appearance="primary"][data-variant="outline"] {
         --ring-color: var(--color-border-form);
+    }
+
+    /* Placeholder on an outline or ghost field: the secondary text color, at least 4.5:1 on every
+       appearance's field surface in both schemes. The preflight's half-transparent text color was
+       3.4:1 on white. A filled field keeps that mix, which follows its fill. The Select placeholder
+       (a selected disabled option) gets the same color in the unlayered block below. */
+    :is(.vane-input, .vane-textarea):is([data-variant="outline"], [data-variant="ghost"])::placeholder {
+        color: var(--color-text-secondary);
     }
 
 
@@ -1146,9 +1194,12 @@
         --ring-color: transparent;
     }
 
+    /* Checked + outline or ghost: the track stays the page-colored --checked-bg-color, so its border
+       draws the track, in the appearance's text color like the thumb (as for Checkbox and Radio).
+       The fill color as border left the thumb as a lone dot with no track around it. */
     .vane-switch:is([data-variant="outline"], [data-variant="ghost"]):checked {
-        --border-color: var(--checked-bg-color);
-        --ring-color: var(--checked-bg-color);
+        --border-color: var(--app-text);
+        --ring-color: var(--app-text);
     }
 
     /* REDUCED MOTION — uses 0.01ms (not 0s) so JS animationend/transitionend listeners still fire. */
@@ -1195,9 +1246,26 @@
     color: var(--color-text-danger);
 }
 
+/* LOADING BUTTON — also unlayered, so a child's own opacity or color utility cannot show through.
+   The children stay where they are while a Button or IconButton loads: the button keeps its idle
+   size and layout, and the children keep their state. They turn transparent under the spinner
+   overlay; opacity rather than visibility, so they still give the button its accessible name.
+   The transparent color covers text the component left bare, which no selector can reach. */
+:is(.vane-button, .vane-icon-button)[data-loading="true"] {
+    color: transparent;
+}
+
+:is(.vane-button, .vane-icon-button)[data-loading="true"] > :not(.vane-button-spinner) {
+    opacity: 0;
+}
+
 /* Also unlayered: a selected disabled option is a placeholder, so it is muted like an Input placeholder. */
 .vane-select:has(option:checked:disabled) {
     color: color-mix(in oklab, var(--text-color) 50%, transparent);
+}
+
+.vane-select:is([data-variant="outline"], [data-variant="ghost"]):has(option:checked:disabled) {
+    color: var(--color-text-secondary);
 }
 
 /* Also unlayered: a dimmed wrapper's nested control would else stack a second 0.5 on top. */

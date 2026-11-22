@@ -92,6 +92,54 @@ describe('NavLink Component Tests', () => {
       const label = root?.querySelector('span.vane-nav-link-label');
       expect(label).toBeInTheDocument();
     });
+
+    /** The root's children in order: element tag names, the label as `label(...)` with its own children. */
+    const outline = (root: Element): string[] => Array.from(root.childNodes).map((node) => {
+      if (node.nodeType === Node.TEXT_NODE) return `"${node.textContent}"`;
+      const el = node as Element;
+      return el.classList.contains('vane-nav-link-label')
+        ? `label(${outline(el).join(', ')})`
+        : el.tagName.toLowerCase();
+    });
+
+    // An element between two pieces of text used to move to the end, after all the text.
+    it('should keep an element between two pieces of text in its place', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/docs">Open <svg data-testid="icon" /> in new tab</NavLink>
+        </ThemeProvider>
+      );
+
+      const root = container.querySelector('a') as HTMLElement;
+      expect(outline(root)).toEqual(['label("Open ", svg, " in new tab")']);
+      expect(root).toHaveTextContent('Open in new tab');
+    });
+
+    it('should keep leading and trailing elements outside the label, in order', () => {
+      const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/inbox"><svg /><i />Inbox <b>new</b> mail<em /><svg /></NavLink>
+        </ThemeProvider>
+      );
+
+      const root = container.querySelector('a') as HTMLElement;
+      expect(outline(root)).toEqual(['svg', 'i', 'label("Inbox ", b, " mail")', 'em', 'svg']);
+      // no missing-key warning for the elements regrouped around the label
+      expect(errorSpy).not.toHaveBeenCalled();
+      errorSpy.mockRestore();
+    });
+
+    it('should render no label for elements only', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="/home"><svg /><i /></NavLink>
+        </ThemeProvider>
+      );
+
+      const root = container.querySelector('a') as HTMLElement;
+      expect(outline(root)).toEqual(['svg', 'i']);
+    });
   });
 
   describe('Size Variants', () => {
@@ -215,6 +263,21 @@ describe('NavLink Component Tests', () => {
       expect(btn).toHaveAttribute('data-active', 'true');
       // aria-current="page" is page-navigation semantics — wrong on an action <button>
       expect(btn).not.toHaveAttribute('aria-current');
+    });
+
+    it('keeps an aria-current the caller passes, active or not', () => {
+      const { container } = render(
+        <ThemeProvider theme={defaultTheme}>
+          <NavLink href="#intro" aria-current="location">Intro</NavLink>
+          <NavLink href="/docs" active aria-current="true">Docs</NavLink>
+          <NavLink href="/docs/button" active>Button</NavLink>
+        </ThemeProvider>
+      );
+      const [toc, section, page] = Array.from(container.querySelectorAll('a'));
+      expect(toc).toHaveAttribute('aria-current', 'location');
+      expect(section).toHaveAttribute('aria-current', 'true');
+      expect(section).toHaveAttribute('data-active', 'true');
+      expect(page).toHaveAttribute('aria-current', 'page');
     });
   });
 

@@ -63,6 +63,13 @@ export function Menu({
     onCloseRef.current?.();
   }, [setOpen]);
 
+  // Disabling an open menu closes it: masking it while disabled left `open` set, and the menu
+  // came back by itself when re-enabled. A controlled menu with no handler keeps the state its owner set.
+  const canReportClose = openProp === undefined || !!onOpenChange || !!onCloseProp;
+  useEffect(() => {
+    if (disabled && open && canReportClose) closeSelf();
+  }, [disabled, open, canReportClose, closeSelf]);
+
   // selecting a leaf item closes this level and, for a submenu, bubbles up so
   // the whole tree closes
   const closeMenu = useCallback(() => {

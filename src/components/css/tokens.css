@@ -266,6 +266,24 @@
     --shadow-alpha-soft: 0.06;
 }
 
+/* The shadow tokens are composed from the alphas, and a custom property is resolved where it is
+   declared. <html> and a :host declare both, so a dark root gets the dark shadows; a data-theme
+   subtree must compose them again from its own alphas, or it keeps the shadows of the page around
+   it. Same strings as in @theme; --shadow-color stays in use there, so no build drops it. */
+[data-theme="dark"]:not(:root),
+[data-theme="light"]:not(:root) {
+    --shadow-ui-xs:  0 1px 2px 0 rgb(var(--shadow-color) / var(--shadow-alpha));
+    --shadow-ui-sm:  0 1px 3px 0 rgb(var(--shadow-color) / var(--shadow-alpha));
+    --shadow-ui-md:  0 2px 4px -1px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 1px 2px 0 rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-ui-lg:  0 3px 6px -1px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 1px 2px -1px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-ui-xl:  0 4px 8px -2px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 2px 3px -1px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-layout-xs:  0 2px 4px -1px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 1px 2px 0 rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-layout-sm:  0 4px 8px -2px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 1px 3px -1px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-layout-md:  0 6px 12px -3px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 2px 4px -1px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-layout-lg:  0 10px 20px -5px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 2px 6px -2px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+    --shadow-layout-xl:  0 16px 32px -6px rgb(var(--shadow-color) / var(--shadow-alpha)), 0 3px 8px -2px rgb(var(--shadow-color) / var(--shadow-alpha-soft));
+}
+
 :root[data-theme="dark"],
 [data-theme="dark"],
 :host([data-theme="dark"]),

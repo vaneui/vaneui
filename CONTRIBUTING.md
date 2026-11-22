@@ -659,9 +659,12 @@ upgrades to be a real cost; until then it is documentation nobody reads.
    whole date.
 2. `npm version x.y.z --no-git-tag-version`, then commit both files.
 3. Push `main` (publishes an `alpha` smoke-test build through the full gate).
-4. Once green, `git push origin main:prod`. That triggers `npm-publish-stable.yml`,
-   which republishes the same tree to the `latest` dist-tag and creates the git tag
-   plus the GitHub release.
+4. Once that run is green, `git push origin main:prod`. That triggers
+   `npm-publish-stable.yml`, which republishes the same tree to the `latest` dist-tag and
+   creates the git tag plus the GitHub release. Push `prod` only after the alpha run has
+   finished: npmjs.com shows the README only while the newest publish is the `latest` one,
+   so the stable publish has to come last. For the same reason a push to `main` between
+   releases runs the gate and publishes no alpha.
 
 Version choice follows semver: patch for fixes, minor for additive props or components,
 major for anything that breaks an existing prop name, default, or rendered element.

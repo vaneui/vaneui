@@ -378,6 +378,29 @@ describe('Self-rendering prop routing', () => {
     expect(input.className).not.toContain('gap');
   });
 
+  // A form control does not inherit text-align, so on the wrapper `textRight` changed nothing.
+  it.each([
+    ['an input', <Field key="input" type="number" label="Amount" textRight defaultValue="42"/>, 'input'],
+    ['a textarea', <Field key="textarea" textarea label="Note" textCenter/>, 'textarea'],
+    ['a select', <Field key="select" select label="Plan" textEnd><option>Free</option></Field>, 'select'],
+  ])('should align the value of %s it renders itself', (_name, ui, tag) => {
+    const { container } = render(ui);
+    const control = container.querySelector(tag) as HTMLElement;
+    const wrapper = container.querySelector('.vane-field') as HTMLElement;
+    expect(control.className).toMatch(/\btext-(right|center|end)\b/);
+    expect(wrapper.className).not.toMatch(/\btext-(right|center|end)\b/);
+    expect(control).not.toHaveAttribute('textRight');
+  });
+
+  it('should keep text alignment on the wrapper of a checkbox, where it aligns the label', () => {
+    const { container } = render(<Field checkbox label="Subscribe" textCenter/>);
+    const wrapper = container.querySelector('.vane-field') as HTMLElement;
+    const input = container.querySelector('input') as HTMLInputElement;
+    expect(wrapper).toHaveClass('text-center');
+    expect(input.className).not.toContain('text-center');
+    expect(input).not.toHaveAttribute('textcenter');
+  });
+
   it('should cascade its size to the control', () => {
     const { container } = render(<Field type="text" lg label="Name"/>);
     const input = container.querySelector('input') as HTMLInputElement;

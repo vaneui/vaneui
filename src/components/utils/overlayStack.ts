@@ -138,6 +138,25 @@ export function getDescendantOverlays(rootEl: HTMLElement): HTMLElement[] {
   return out;
 }
 
+// ── Outside presses ──────────────────────────────────────────────────────────
+// A popup closes on the press (mousedown) outside it; the click that follows lands on what is
+// beneath, often the backdrop of the Modal the popup was opened in. The popup records the press
+// that dismissed it, so that backdrop can ignore the click: one click outside closes one layer,
+// as Escape does.
+const outsidePressDismissals = new WeakMap<Event, HTMLElement[]>();
+
+/** Record that `event` (a native mousedown outside `el`) closed the overlay `el`. */
+export function recordOutsidePressDismissal(event: Event, el: HTMLElement): void {
+  const dismissed = outsidePressDismissals.get(event);
+  if (dismissed) dismissed.push(el);
+  else outsidePressDismissals.set(event, [el]);
+}
+
+/** The overlays that `event` (a native mousedown) closed because it was outside them. */
+export function getOutsidePressDismissals(event: Event): HTMLElement[] {
+  return outsidePressDismissals.get(event) ?? [];
+}
+
 // ── Openers ──────────────────────────────────────────────────────────────────
 // The element each overlay was opened from: a popup's anchor, or the element
 // that had focus when a dialog trapped it. Unlike the open set above, this is

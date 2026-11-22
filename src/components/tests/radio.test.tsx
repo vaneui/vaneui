@@ -3,6 +3,7 @@ import { createRef, useState } from 'react';
 import { render, fireEvent } from '@testing-library/react';
 
 import {
+  Field,
   Label,
   Radio,
   RadioGroup,
@@ -424,6 +425,45 @@ describe('Radio Component Tests', () => {
       );
 
       expect(inputsOf(container)[0]).toHaveAttribute('data-size', 'lg');
+    });
+
+    // The gap between the options comes from the group's data-size. It used to stay md in every
+    // Field, while the Field's label and radios followed the Field's size.
+    it.each(['xs', 'sm', 'lg', 'xl'] as const)('should take the size of a %s Field around it', (size) => {
+      const fieldProps = { [size]: true };
+      const selfRendered = renderRadio(
+        <Field radiogroup label="Plan" {...fieldProps}>
+          <Radio value="free" aria-label="Free" />
+        </Field>
+      );
+      const asChild = renderRadio(
+        <Field label="Plan" {...fieldProps}>
+          <RadioGroup><Radio value="free" aria-label="Free" /></RadioGroup>
+        </Field>
+      );
+
+      for (const { container } of [selfRendered, asChild]) {
+        const group = container.querySelector('[role="radiogroup"]') as HTMLElement;
+        expect(group).toHaveAttribute('data-size', size);
+        expect(inputsOf(container)[0]).toHaveAttribute('data-size', size);
+      }
+    });
+
+    it('should keep its own size inside a Field of another size', () => {
+      const {container} = renderRadio(
+        <Field label="Plan" lg>
+          <RadioGroup xs><Radio value="free" aria-label="Free" /></RadioGroup>
+        </Field>
+      );
+
+      expect(container.querySelector('[role="radiogroup"]')).toHaveAttribute('data-size', 'xs');
+      expect(inputsOf(container)[0]).toHaveAttribute('data-size', 'xs');
+    });
+
+    it('should keep its md default outside a Field', () => {
+      const {container} = renderRadio(<RadioGroup><Radio value="free" aria-label="Free" /></RadioGroup>);
+
+      expect(container.firstChild).toHaveAttribute('data-size', 'md');
     });
 
     it('should forward ref to the group element', () => {

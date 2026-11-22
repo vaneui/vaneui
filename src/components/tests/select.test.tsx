@@ -281,6 +281,42 @@ describe('Select Component Tests', () => {
       expect(wrapper).toHaveClass('max-mobile:hidden');
     });
 
+    // A style width on the field narrowed only the <select>: the wrapper stayed full width and the
+    // chevron sat at its far edge, 300px away from the field.
+    it('should size the wrapper by a style width and keep the rest of the style on the field', () => {
+      const {container} = renderSelect(
+        <Select style={{ width: 200, maxWidth: '50%', marginInlineStart: 8, color: 'red', fontStyle: 'italic' }} />
+      );
+
+      const wrapper = container.querySelector('.vane-select-wrapper') as HTMLElement;
+      const field = container.querySelector('select') as HTMLSelectElement;
+      expect(wrapper.style.width).toBe('200px');
+      expect(wrapper.style.maxWidth).toBe('50%');
+      expect(wrapper.style.marginInlineStart).toBe('8px');
+      expect(wrapper.style.color).toBe('');
+      expect(field.style.width).toBe('');
+      expect(field.style.maxWidth).toBe('');
+      expect(field.style.color).toBe('red');
+      expect(field.style.fontStyle).toBe('italic');
+    });
+
+    it('should put no style attribute on either element when none is given', () => {
+      const {container} = renderSelect(<Select style={{ flex: 1 }} />);
+
+      expect((container.querySelector('.vane-select-wrapper') as HTMLElement).style.flex).toContain('1');
+      expect(container.querySelector('select')).not.toHaveAttribute('style');
+    });
+
+    it('should size the wrapper of a Field select by the style the Field passes to its control', () => {
+      const {container} = renderSelect(
+        <Field select label="Country" style={{ width: 200 }}><option>Estonia</option></Field>
+      );
+
+      expect((container.querySelector('.vane-select-wrapper') as HTMLElement).style.width).toBe('200px');
+      expect((container.querySelector('select') as HTMLSelectElement).style.width).toBe('');
+      expect((container.querySelector('.vane-field') as HTMLElement).style.width).toBe('');
+    });
+
     it('should dim the chevron along with the field when disabled', () => {
       const {container} = renderSelect(<Select disabled />);
 

@@ -166,4 +166,30 @@ test.describe('Mark', () => {
       expect(fontSizes[i]).toBe(fontSizes[0]);
     }
   });
+
+  test('rounded draws corners that grow with the size, and pill stays a pill', async ({ page }) => {
+    // Mark had no radius unit of its own, so `rounded` took a control's full height as its
+    // radius and looked the same as `pill`
+    const box = async (id: string) => page.locator(`[data-testid="${id}"]`).evaluate(el => ({
+      radius: parseFloat(getComputedStyle(el).borderTopLeftRadius),
+      fontSize: parseFloat(getComputedStyle(el).fontSize),
+      height: el.getBoundingClientRect().height,
+    }));
+    const radii: number[] = [];
+    for (const size of ['xs', 'sm', 'md', 'lg', 'xl']) {
+      const { radius, height } = await box(`mark-rounded-${size}`);
+      expect(radius).toBeGreaterThan(0);
+      expect(radius).toBeLessThan(height / 2);
+      radii.push(radius);
+    }
+    for (let i = 1; i < radii.length; i++) {
+      expect(radii[i]).toBeGreaterThan(radii[i - 1]);
+    }
+    // the parent's control units do not reach the radius
+    const inCard = await box('mark-rounded-in-card');
+    const onPage = await box('mark-rounded-md');
+    expect(inCard.radius / inCard.fontSize).toBeCloseTo(onPage.radius / onPage.fontSize, 3);
+    const pill = await box('mark-pill');
+    expect(pill.radius).toBeGreaterThanOrEqual(pill.height / 2);
+  });
 });

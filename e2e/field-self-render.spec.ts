@@ -43,6 +43,12 @@ test.describe('Field self-rendering', () => {
     expect(Math.abs(wrapperH - labelH)).toBeLessThanOrEqual(1);
   });
 
+  // an input does not inherit text-align, so the prop has to land on the control itself
+  test('aligns the value of the control it renders by its text-align prop', async ({ page }) => {
+    const input = page.getByTestId('field-self-amount').locator('input');
+    expect(await getStyle(input, 'text-align')).toBe('right');
+  });
+
   test('scales the control-row gap with the Field size instead of a fixed 16px', async ({ page }) => {
     const xsRow = page.getByTestId('field-self-checkbox-xs').locator('.vane-field-control-row');
     const xlRow = page.getByTestId('field-self-checkbox-xl').locator('.vane-field-control-row');
@@ -72,6 +78,15 @@ test.describe('Field size reaches every slot', () => {
     const xlHelp = await fs('field-size-xl', '.vane-field-description');
     expect(xlHelp).toBeLessThan(xlLabel);
     expect(await fs('field-size-xl', '.vane-field-error')).toBeCloseTo(xlHelp, 1);
+  });
+
+  // the group used to keep its own md gap in every Field
+  test('spaces the options of a radio group by the Field size', async ({ page }) => {
+    const gap = async (size: string) =>
+      parseFloat(await getStyle(page.getByTestId(`field-radiogroup-${size}`).locator('[role="radiogroup"]'), 'row-gap'));
+    const [xs, sm, xl] = [await gap('xs'), await gap('sm'), await gap('xl')];
+    expect(xs).toBeLessThan(sm);
+    expect(sm).toBeLessThan(xl);
   });
 });
 

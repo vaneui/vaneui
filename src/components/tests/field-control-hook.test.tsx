@@ -124,6 +124,16 @@ describe('useFieldControlProps', () => {
       expect(ids).toHaveLength(2);
     });
 
+    it('names each id once when its own aria-describedby already holds the Field\'s ids', () => {
+      const { container } = wrap(
+        <Field label="Start date" description="Any weekday" error="Pick a date">
+          <NativeInput id="start" aria-describedby="start-error external start-description" />
+        </Field>
+      );
+      const input = container.querySelector('input') as HTMLInputElement;
+      expect(idsOf(input, 'aria-describedby')).toEqual(['start-error', 'external', 'start-description']);
+    });
+
     it('keeps an explicit aria-invalid, disabled, required and readOnly', () => {
       const { container } = wrap(
         <Field label="Start date" error="Pick a date" disabled required readOnly>
@@ -182,6 +192,33 @@ describe('useFieldControlProps', () => {
     rerender(<ThemeProvider theme={defaultTheme}><Field label="Start date"><NativeInput /></Field></ThemeProvider>);
     expect(input).not.toHaveAttribute('aria-invalid');
     expect(input).not.toHaveAttribute('aria-describedby');
+  });
+
+  // A masked input built on Input to keep its styling takes the wiring from the hook and then
+  // from Input itself. The ids used to be listed twice, so the help text was read twice.
+  it('describes a custom control built on Input by each message once', () => {
+    function MaskedInput(props: InputHTMLAttributes<HTMLInputElement>) {
+      return <Input {...useFieldControlProps(props)} />;
+    }
+    const { container } = wrap(
+      <Field label="Phone" description="Digits only" error="Too short"><MaskedInput /></Field>
+    );
+    const input = container.querySelector('input') as HTMLInputElement;
+    const ids = idsOf(input, 'aria-describedby');
+    expect(ids).toHaveLength(2);
+    expect(new Set(ids).size).toBe(2);
+    expect(input).toHaveAccessibleDescription('Digits only Too short');
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+  });
+
+  it('labels a radiogroup by the Field\'s label once, also when the group names it itself', () => {
+    const { container } = wrap(
+      <Field radiogroup id="plan" label="Plan" aria-labelledby="plan-label intro">
+        <input type="radio" aria-label="Monthly" />
+      </Field>
+    );
+    const group = container.querySelector('[role="radiogroup"]') as HTMLElement;
+    expect(idsOf(group, 'aria-labelledby')).toEqual(['plan-label', 'intro']);
   });
 
   // the hook is for controls the library does not ship; its own controls keep their wiring

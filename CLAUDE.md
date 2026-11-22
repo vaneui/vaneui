@@ -96,7 +96,7 @@ When a task matches an agent's trigger below, you **MUST** delegate to that agen
 
 Releases run off branch pushes, so the branch you push decides what ships:
 
-- `git push origin main` — publishes a **pre-release (alpha)** and runs the full CI gate.
+- `git push origin main` — runs the full CI gate, and publishes a **pre-release (alpha)** while the version in `package.json` is not on npm yet. After a stable release, pushes to `main` publish nothing until the version is bumped: npmjs.com shows the README only while the newest publish is the `latest` one, so an alpha published after a stable release would leave the package page without its README.
 - `git push origin main:prod` — publishes the **stable** release, tags it, and cuts the GitHub release.
 
 **Only a patch bump may be released without asking.** In `X.Y.Z`, that is `Z` — the third
@@ -223,7 +223,7 @@ src/
 └── index.ts                     # Barrel exports
 ```
 
-**Component pattern**: `forwardRef` + `useTheme()` + `ThemedComponent` wrapper. All components support `className` (merged via `twMerge`), `ref`, `tag` prop, and `href` for tag switching (renders as `<a>`).
+**Component pattern**: `forwardRef` + `useTheme()` + `ThemedComponent` wrapper. All components support `className` (merged via `twMerge`), `ref` and the `tag` prop, except `PopupTrigger`, which renders only its child, and `ModalCloseButton`, which has no `tag`. `href` renders an `<a>` on these components only: `Button`, `IconButton`, `NavLink`, `MenuItem`, `Badge`, `Chip`, `Code`, `Card`, `Row`, `Col`, `Stack`, `Text`, `Title`, `SectionTitle` and `PageTitle`, and `Link` is always an `<a>`. The others keep their own element: most reject `href` in TypeScript, and `ListItem` and `Blockquote` accept it but render `<li href>` and `<blockquote href>`, which are not links.
 
 **Theming**: unit variables set per `data-size`/`data-vane-type` in `rules.css` (`.vane-button[data-size="md"] { --fs-unit: ... }`) -> computed in `rules.css` (`calc(var(--fs-unit) * var(--fs-base))`) -> consumed by utility classes (`text-(length:--fs)`). Colors driven by `data-appearance` + `data-variant` attributes.
 

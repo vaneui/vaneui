@@ -141,6 +141,22 @@ test.describe('Text run next to scrolling', () => {
     expect(Math.abs((await boxOf(label)).height - lineHeight)).toBeLessThanOrEqual(0.05);
   });
 
+  test('an icon between two pieces of NavLink text stays in place on the label line', async ({ page }) => {
+    const link = byId(page, 'text-run-nav-link-inline-icon');
+    const label = link.locator('.vane-nav-link-label');
+    const icon = label.locator('svg');
+    const labelBox = await boxOf(label);
+    const iconBox = await boxOf(icon);
+    // the icon stays between the words: it used to move after all of the text
+    expect(iconBox.left).toBeGreaterThan(labelBox.left + 10);
+    expect(iconBox.right).toBeLessThan(labelBox.right - 10);
+    // one line: a block-level icon would break the label into three
+    expect(Math.abs(labelBox.height - await px(link, 'line-height'))).toBeLessThanOrEqual(0.05);
+    expect(iconBox.top).toBeGreaterThanOrEqual(labelBox.top - 1);
+    expect(iconBox.bottom).toBeLessThanOrEqual(labelBox.bottom + 1);
+    expect(await label.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(false);
+  });
+
   test('a Label keeps its text bare and adds nothing to scroll', async ({ page }) => {
     await expect(byId(page, 'text-run-label').locator(RUN)).toHaveCount(0);
     const box = byId(page, 'text-run-scroll-box');

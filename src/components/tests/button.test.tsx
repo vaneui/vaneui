@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import { useEffect, useState } from 'react';
+import { render, fireEvent } from '@testing-library/react';
 
 import {
   Button,
@@ -580,19 +581,49 @@ describe('Button Component Tests', () => {
       expect(spinnerRing).not.toHaveAttribute('role');
     });
 
-    it('should render children with opacity-0 to preserve button width and accessible name', () => {
+    it('should keep the children where they are while loading, next to the spinner', () => {
       const {container} = render(
         <ThemeProvider theme={defaultTheme}>
-          <Button loading>Save</Button>
+          <Button loading><svg data-testid="icon" />Save</Button>
         </ThemeProvider>
       );
 
-      // opacity-0 (not invisible/visibility:hidden) keeps the text in the
-      // accessibility tree so the button is still announced as "Save"
-      const hiddenSpan = container.querySelector('span.vane-button-loading-label');
-      expect(hiddenSpan).toBeInTheDocument();
-      expect(hiddenSpan).toHaveTextContent('Save');
+      // the children stay direct children (rules.css makes them transparent, not hidden, so the
+      // button is still announced as "Save"); the spinner overlay is added after them
+      const button = container.querySelector('button') as HTMLElement;
+      const children = Array.from(button.children);
+      expect(children.map(child => child.tagName.toLowerCase())).toEqual(['svg', 'span', 'span']);
+      expect(children[1]).toHaveClass('vane-text-run');
+      expect(children[1]).toHaveTextContent('Save');
+      expect(children[2]).toHaveClass('vane-button-spinner');
       expect(container.querySelector('span.invisible')).not.toBeInTheDocument();
+    });
+
+    // The children used to move into a hidden label span while loading, so React mounted them
+    // again: a child's state (an animated icon, a counter) reset on every save.
+    it('should keep the children mounted, with their state, when loading flips', () => {
+      const mounts = jest.fn();
+      function Glyph() {
+        const [clicks, setClicks] = useState(0);
+        useEffect(() => { mounts(); }, []);
+        return <svg data-testid="glyph" data-clicks={clicks} onClick={() => setClicks(c => c + 1)} />;
+      }
+      const ui = (loading: boolean) => (
+        <ThemeProvider theme={defaultTheme}>
+          <Button loading={loading}><Glyph /> Save</Button>
+        </ThemeProvider>
+      );
+      const {getByTestId, rerender} = render(ui(false));
+      const glyph = getByTestId('glyph');
+      fireEvent.click(glyph);
+      expect(glyph).toHaveAttribute('data-clicks', '1');
+
+      rerender(ui(true));
+      expect(getByTestId('glyph')).toBe(glyph);
+      rerender(ui(false));
+      expect(getByTestId('glyph')).toBe(glyph);
+      expect(glyph).toHaveAttribute('data-clicks', '1');
+      expect(mounts).toHaveBeenCalledTimes(1);
     });
 
     it('should keep its accessible name and announce busy state while loading', () => {
