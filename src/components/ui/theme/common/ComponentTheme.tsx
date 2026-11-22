@@ -49,6 +49,9 @@ const hasFalseProp = (props: Record<string, unknown>, category: ComponentCategor
 const hasTrueKey = (values: Record<string, unknown>, category: ComponentCategoryKey): boolean =>
   ComponentKeys[category].some(k => values[k] === true);
 
+// the padding keys that switch padding on (everything in the category but the noPadding reset)
+const PADDING_ON_KEYS = ComponentKeys.padding.filter(k => k !== 'noPadding');
+
 export type VaneComponentType = 'ui' | 'layout';
 
 export type ThemeMap<P> = {
@@ -217,6 +220,12 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
         if (key === undefined && category === 'variant' && hasTrueKey(ownDefaults, category)) {
           key = ComponentKeys.variant.find(k => componentProps[k] !== false);
         }
+      }
+      // The padding mappers read an unset category as padded (a theme without a padding default
+      // stays padded), so `padding={false}` or a provider's `padding: false` must resolve to the
+      // reset. `noPadding={false}` turns the reset off and keeps the padding.
+      if (key === undefined && category === 'padding' && PADDING_ON_KEYS.some(k => componentProps[k] === false || defaults[k] === false)) {
+        key = 'noPadding';
       }
       if (key !== undefined) {
         extractedKeys[category] = key;
