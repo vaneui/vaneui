@@ -99,17 +99,23 @@ jobs:
           echo "Please fix the failing tests before merging to main branch."
           exit 1
 
-      # Generate pre-release version with timestamp and commit SHA
+      # An alpha is published only while a release is pending, that is while the
+      # version in package.json is not on npm yet. npmjs.com shows a package's README
+      # only while the newest publish is the `latest` one: the registry keeps no README
+      # per version, so an alpha published after a stable release leaves the package
+      # page without a README until the next stable release. A push between releases
+      # still runs every check in this workflow; it only skips the publish.
       - name: Generate Pre-release Version
         id: version
         run: |
           BASE_VERSION=$(node -p "require('./package.json').version")
           PACKAGE_NAME=$(node -p "require('./package.json').name")
-          # A pre-release of a version that is already on npm would sort below it
-          # (1.5.0-alpha.x < 1.5.0), so builds made after a stable release are
-          # pre-releases of the next patch.
+          echo "package=$PACKAGE_NAME" >> $GITHUB_OUTPUT
+          echo "base=$BASE_VERSION" >> $GITHUB_OUTPUT
           if [ -n "$(npm view "$PACKAGE_NAME@$BASE_VERSION" version 2>/dev/null || true)" ]; then
-            BASE_VERSION=$(node -p "const [major, minor, patch] = process.argv[1].split('.').map(Number); [major, minor, patch + 1].join('.')" "$BASE_VERSION")
+            echo "::notice::$PACKAGE_NAME@$BASE_VERSION is already released, so this push publishes no alpha (one would hide the README on npmjs.com until the next stable release). Bump the version in package.json to publish one."
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+            exit 0
           fi
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           # The `g` prefix keeps the identifier valid: an all-digit short SHA with a
@@ -118,6 +124,7 @@ jobs:
           PRE_VERSION="${BASE_VERSION}-alpha.${TIMESTAMP}.${SHORT_SHA}"
           echo "Pre-release version: $PRE_VERSION"
           echo "version=$PRE_VERSION" >> $GITHUB_OUTPUT
+          echo "should_publish=true" >> $GITHUB_OUTPUT
           # Update package.json with pre-release version
           npm version $PRE_VERSION --no-git-tag-version
 
@@ -144,12 +151,31 @@ jobs:
         run: npm run check:package
 
       - name: Publish Pre-release to npm
+        id: publish
+        if: steps.version.outputs.should_publish == 'true'
+        env:
+          PACKAGE_NAME: ${{ steps.version.outputs.package }}
+          BASE_VERSION: ${{ steps.version.outputs.base }}
         # --ignore-scripts: this workflow already ran build + test + test:e2e
         # explicitly above. Without --ignore-scripts the `prepublishOnly`
         # script in package.json would re-run all three, doubling CI time.
-        run: npm publish --access public --tag alpha --ignore-scripts
+        run: |
+          # The stable release of this commit may have started while this run was
+          # testing (main and prod pushed close together). An alpha that lands after
+          # it would hide the README, so the stable workflow publishes alone. The
+          # dist-tags endpoint is read because the full package document is cached.
+          PROD_SHA=$(git ls-remote origin refs/heads/prod | cut -f1 || true)
+          LATEST=$(curl -fsS "https://registry.npmjs.org/-/package/${PACKAGE_NAME/\//%2f}/dist-tags" \
+            | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).latest" 2>/dev/null || true)
+          if [ "$PROD_SHA" = "$GITHUB_SHA" ] || [ "$LATEST" = "$BASE_VERSION" ]; then
+            echo "::notice::$PACKAGE_NAME@$BASE_VERSION is being released from this commit, so no alpha is published."
+            exit 0
+          fi
+          npm publish --access public --tag alpha --ignore-scripts
+          echo "published=true" >> $GITHUB_OUTPUT
 
       - name: Report Success
+        if: steps.publish.outputs.published == 'true'
         run: |
           echo "✅ Pre-release published successfully!"
           echo "📦 Version: ${{ steps.version.outputs.version }}"
