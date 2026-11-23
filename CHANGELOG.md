@@ -10,6 +10,10 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.8.0
+
+`2026-11-23`
+
 New components (Avatar, AvatarGroup, Breadcrumb, SegmentedControl, Skeleton), loading placeholders
 through one `skeleton` prop, start and end sections on fields, small props that used to need a
 class or a wrapper, and gentler corners on cards, modals and images with one setting that scales
