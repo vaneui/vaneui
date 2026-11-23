@@ -43,6 +43,8 @@ import { defaultBreadcrumbTheme } from './ui/breadcrumb/defaultBreadcrumbTheme';
 import { defaultBreadcrumbListTheme } from './ui/breadcrumb/defaultBreadcrumbListTheme';
 import { defaultBreadcrumbItemTheme } from './ui/breadcrumb/defaultBreadcrumbItemTheme';
 import { defaultBreadcrumbSeparatorTheme } from './ui/breadcrumb/defaultBreadcrumbSeparatorTheme';
+import { defaultSegmentedControlTheme } from './ui/segmentedControl/defaultSegmentedControlTheme';
+import { defaultSegmentedControlItemTheme } from './ui/segmentedControl/defaultSegmentedControlItemTheme';
 import { defaultProgressFillTheme } from './ui/progress/defaultProgressFillTheme';
 import { defaultTooltipTheme } from './ui/tooltip/defaultTooltipTheme';
 import { defaultFieldLabelTheme } from './ui/field/defaultFieldLabelTheme';
@@ -210,5 +212,9 @@ export const defaultTheme: ThemeProps = {
     list: defaultBreadcrumbListTheme,
     item: defaultBreadcrumbItemTheme,
     separator: defaultBreadcrumbSeparatorTheme,
+  },
+  segmentedControl: {
+    main: defaultSegmentedControlTheme,
+    item: defaultSegmentedControlItemTheme,
   },
 };

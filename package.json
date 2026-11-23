@@ -378,6 +378,16 @@
         "default": "./dist/cjs/components/ui/section/index.cjs"
       }
     },
+    "./segmentedControl": {
+      "import": {
+        "types": "./dist/types/components/ui/segmentedControl/index.d.mts",
+        "default": "./dist/esm/components/ui/segmentedControl/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/segmentedControl/index.d.cts",
+        "default": "./dist/cjs/components/ui/segmentedControl/index.cjs"
+      }
+    },
     "./select": {
       "import": {
         "types": "./dist/types/components/ui/select/index.d.mts",

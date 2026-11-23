@@ -26,10 +26,11 @@ import {
   Link,
   NavLink,
   PageTitle,
-  Progress,
   Row,
   Section,
   SectionTitle,
+  SegmentedControl,
+  SegmentedControlItem,
   Select,
   Skeleton,
   Table,
@@ -232,6 +233,66 @@ function SkeletonShowcase() {
   );
 }
 
+const ISSUES = [
+  { title: 'Fix the Safari export button', status: 'open' },
+  { title: 'Add a dark logo', status: 'closed' },
+  { title: 'Translate the docs', status: 'draft' },
+  { title: 'Cache the search index', status: 'open' },
+];
+
+function SegmentedControlShowcase() {
+  const [status, setStatus] = useState('all');
+  const shown = ISSUES.filter(issue => status === 'all' || issue.status === status);
+  return (
+    <>
+      <Card>
+        <Title>A filter</Title>
+        <Text sm secondary>
+          One choice out of a few, always visible. The segments are native radios, so the arrow keys
+          move the choice and a form gets the value.
+        </Text>
+        <SegmentedControl aria-label="Status" value={status} onChange={event => setStatus(event.target.value)}>
+          <SegmentedControlItem value="all">All</SegmentedControlItem>
+          <SegmentedControlItem value="open">Open</SegmentedControlItem>
+          <SegmentedControlItem value="closed">Closed</SegmentedControlItem>
+          <SegmentedControlItem value="draft">Draft</SegmentedControlItem>
+        </SegmentedControl>
+        <Col gapXs>
+          {shown.map(issue => <Text key={issue.title} sm>{issue.title}</Text>)}
+        </Col>
+      </Card>
+
+      <Card>
+        <Title>Sizes, colors and width</Title>
+        <Text sm secondary>
+          The control is as tall as a Button of its size. Its appearance and variant color the
+          selected segment; the track stays neutral.
+        </Text>
+        <Row flexWrap>
+          <SegmentedControl xs aria-label="Range" defaultValue="w">
+            <SegmentedControlItem value="d">Day</SegmentedControlItem>
+            <SegmentedControlItem value="w">Week</SegmentedControlItem>
+          </SegmentedControl>
+          <SegmentedControl md accent filled aria-label="View" defaultValue="board">
+            <SegmentedControlItem value="list">List</SegmentedControlItem>
+            <SegmentedControlItem value="board">Board</SegmentedControlItem>
+          </SegmentedControl>
+          <SegmentedControl lg pill aria-label="Layout" defaultValue="grid">
+            <SegmentedControlItem value="list" aria-label="List"><TestSvg /></SegmentedControlItem>
+            <SegmentedControlItem value="grid" aria-label="Grid"><TestSvg /></SegmentedControlItem>
+            <SegmentedControlItem value="both" disabled><TestSvg /> Both</SegmentedControlItem>
+          </SegmentedControl>
+          <Button md>Button md</Button>
+        </Row>
+        <SegmentedControl wFull aria-label="Billing" defaultValue="year">
+          <SegmentedControlItem value="month">Monthly</SegmentedControlItem>
+          <SegmentedControlItem value="year">Yearly</SegmentedControlItem>
+        </SegmentedControl>
+      </Card>
+    </>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -241,7 +302,8 @@ function App() {
           <PageTitle>VaneUI Playground</PageTitle>
           <Text secondary>
             Default sizes and parts, light islands inside <Code sm>data-theme="dark"</Code>, the new
-            Avatar and Breadcrumb, field sections, the new small props and loading placeholders.
+            Avatar and Breadcrumb, field sections, the new small props, loading placeholders and the
+            SegmentedControl.
           </Text>
 
           {/* ═══ 1. DEFAULT SIZES ═══════════════════════════════════════════ */}
@@ -460,19 +522,6 @@ function App() {
           </Card>
 
           <Card>
-            <Title>Progress indeterminate</Title>
-            <Text sm secondary>
-              A bar for work of unknown length. It slides the other way in RTL and stands still with
-              reduced motion.
-            </Text>
-            <Col>
-              <Progress indeterminate aria-label="Uploading" />
-              <Progress indeterminate success sm aria-label="Syncing" />
-              <div dir="rtl"><Progress indeterminate info aria-label="Loading" /></div>
-            </Col>
-          </Card>
-
-          <Card>
             <Title>Fixed gaps, aspect ratio and srOnly</Title>
             <Text sm secondary>
               <Code sm>gapXs</Code> to <Code sm>gapXl</Code> keep one gap at every size and width.
@@ -503,6 +552,12 @@ function App() {
           <SectionTitle>6. Skeleton</SectionTitle>
 
           <SkeletonShowcase />
+
+          {/* ═══ 7. SEGMENTED CONTROL ═══════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>7. SegmentedControl</SectionTitle>
+
+          <SegmentedControlShowcase />
 
         </Container>
       </Section>

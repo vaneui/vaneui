@@ -141,7 +141,7 @@ Generic locations such as `~/.claude/` are fine; the rule covers real paths from
 | Category | Components | `data-vane-type` |
 |----------|-----------|-----------------|
 | **Interactive** | Button, IconButton, Badge, Chip, Code, Kbd, Mark, Icon, Spinner, Progress, Avatar (+ AvatarGroup), Skeleton | `ui` |
-| **Form** | Input, Textarea, Select, Checkbox, Radio (+ RadioGroup), Switch, Label, Field | `ui` (Field is `layout`) |
+| **Form** | Input, Textarea, Select, Checkbox, Radio (+ RadioGroup), Switch, SegmentedControl (+ SegmentedControlItem), Label, Field | `ui` (Field is `layout`) |
 | **Overlay / Floating** | Overlay, Modal (+ Header/Body/Footer), Popup, Tooltip | `layout` |
 | **Menu / Nav** | Menu (+ Item/Label), NavLink, Breadcrumb (+ BreadcrumbItem), ModalCloseButton, PopupTrigger | `ui` |
 | **Layout** | Card (+ Header/Body/Footer), Section, Container, Row, Col, Stack, Grid2–6, Divider, Img, Alert, Table (+ Thead/Tbody/Tfoot/Tr/Th/Td/Caption) | `layout` |
@@ -153,7 +153,7 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 
 | Category | Values |
 |----------|--------|
-| **size** | `xs`, `sm` (default for Button, IconButton, Input, Textarea, Select, Field, Label, NavLink, MenuItem, MenuLabel, Tooltip, Badge, Table, Breadcrumb), `md` (default for others), `lg`, `xl` |
+| **size** | `xs`, `sm` (default for Button, IconButton, Input, Textarea, Select, Field, Label, NavLink, MenuItem, MenuLabel, Tooltip, Badge, Table, Breadcrumb, SegmentedControl), `md` (default for others), `lg`, `xl` |
 | **appearance** | `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info` |
 | **variant** | `filled`, `outline` (default), `ghost` |
 | **shape** | `pill`, `rounded` (default), `sharp` |
@@ -166,7 +166,7 @@ Additional toggle props: `gap`/`noGap` (`gapXs`–`gapXl` fix the step at every 
 
 Layout extras: `divided` (Grid2–6: 1px lines instead of the gap), `strongBorder` (border in the appearance's strong color), `pointerEvents*` and `whitespace*` on layout components. NavLink takes `indicatorStart` (rail, accent mark when active or `aria-selected`) or `indicatorBottom` (tab bar). `aspectSquare`/`aspectVideo`/`aspectAuto` on Img, Card, Row, Col and Stack.
 
-Component extras: `startSection`/`endSection` on Input (Select takes `startSection`; Field passes both to the control it renders), Textarea `autosize` and `resizeY` (default)/`resizeX`/`resize`/`resizeNone`, Table `striped`/`hoverable`, Badge `dot`, Progress `indeterminate`.
+Component extras: SegmentedControl takes `value`/`defaultValue`/`onChange`/`name`/`disabled`/`required` like RadioGroup, and a segment's `className` and `style` go to its `<label>` while `ref` and the other attributes go to its radio. `startSection`/`endSection` on Input (Select takes `startSection`; Field passes both to the control it renders), Textarea `autosize` and `resizeY` (default)/`resizeX`/`resize`/`resizeNone`, Table `striped`/`hoverable`, Badge `dot`, Progress `indeterminate`.
 
 Loading placeholders: `skeleton` on any component sets `data-skeleton`, `aria-busy` and `inert`; the unlayered SKELETON rules in `rules.css` then draw it and every component inside it as a placeholder (text as line-through bars, the box components as solid shapes, containers keep their surface). The pass-down is CSS only, so children carry no attribute. An empty text component draws one default bar (12ch, `--skeleton-text-width`) and an empty Button, Badge, Chip, Code, Kbd or Mark the room of a 6ch label (`--skeleton-label-width`), so no filler text is needed. `Skeleton` is the plain box for areas with no component.
 
@@ -195,6 +195,7 @@ Loading placeholders: `skeleton` on any component sets `data-skeleton`, `aria-bu
 | **Avatar** | md, secondary, outline, pill, border, inlineFlex, itemsCenter, justifyCenter, overflowHidden, relative, noShrink, noInsetRing, fontMedium. AvatarGroup: md, flex, row, itemsCenter |
 | **Skeleton** | md, rounded, block, wFull, skeleton (aria-hidden; one line of text tall at its size) |
 | **Breadcrumb** | sm, secondary, outline, fontSans (`breadcrumb.main`). Parts: `breadcrumb.list` (flex, flexWrap, itemsCenter, gap), `breadcrumb.item` (focusVisible, transition, whitespaceNowrap), `breadcrumb.separator` |
+| **SegmentedControl** | sm, primary, outline, rounded, inlineFlex, itemsStretch, padding (`segmentedControl.main`, a neutral track as tall as a Button). `segmentedControl.item`: sm, primary, outline, rounded, inlineFlex, itemsCenter, justifyCenter, relative, padding, gap, fontSans, fontMedium, cursorPointer, transition, whitespaceNowrap. The control's size, appearance, variant and shape reach the segments |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
 | **Label** | sm, flex, column, itemsStart, gap, inheritAppearance, fontMedium (use `row` for inline controls like Checkbox) |

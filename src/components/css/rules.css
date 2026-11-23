@@ -980,6 +980,70 @@
     .vane-breadcrumb-list { list-style: none; margin: 0; padding: 0; }
     .vane-breadcrumb-separator :where(svg:not([class*='size-'])) { width: 1em; height: 1em; }
 
+    /* SegmentedControl: the track is as tall as a Button of its size (its padding plus a segment),
+       with a Button's corners. A segment has the Button's text size, the rest of that height and
+       corners that follow its own height. */
+    .vane-segmented-control { --lh: 1.3; --aspect-ratio: 1; --br-unit: 0.2174; }
+    .vane-segmented-control[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5;  --control-py-unit: 1; }
+    .vane-segmented-control[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 0.75; --control-py-unit: 1.5; }
+    .vane-segmented-control[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1;    --control-py-unit: 2; }
+    .vane-segmented-control[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 1;    --control-py-unit: 2.5; }
+    .vane-segmented-control[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 1.25; --control-py-unit: 3; }
+    .vane-segmented-control[data-size] {
+        --min-h: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--control-py-unit)) * var(--spacing));
+        --br: calc(var(--min-h) * var(--br-unit));
+    }
+    .vane-segmented-control-item { --lh: 1.3; --br-unit: 0.2174; }
+    .vane-segmented-control-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5;  --px: calc(var(--spacing) * 2); }
+    .vane-segmented-control-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 0.75; --px: calc(var(--spacing) * 2.5); }
+    .vane-segmented-control-item[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1;    --px: calc(var(--spacing) * 3); }
+    .vane-segmented-control-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 1.5;  --px: calc(var(--spacing) * 3.5); }
+    .vane-segmented-control-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 1.75; --px: calc(var(--spacing) * 4); }
+    .vane-segmented-control-item :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
+
+    /* The radio covers its segment unseen, so a click, a tap and the arrow keys work as on any
+       radio group. A segment that is not selected shows muted text on the track. */
+    .vane-segmented-control-input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+        appearance: none;
+        cursor: inherit;
+    }
+    .vane-segmented-control-item { color: var(--color-text-secondary); }
+    .vane-segmented-control-item:not([data-disabled="true"]):hover { color: var(--color-text-primary); }
+    /* The selected segment takes the surface and text of its appearance and variant: a raised
+       white segment by default, the fill with `filled`, no surface with `ghost`. */
+    .vane-segmented-control-item:has(> .vane-segmented-control-input:checked) {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+    .vane-segmented-control-item:not([data-variant="ghost"]):has(> .vane-segmented-control-input:checked) {
+        box-shadow: var(--shadow-base), inset 0 0 0 1px var(--border-color);
+    }
+    /* The focus ring hugs the segment, so it stays inside the track */
+    .vane-segmented-control-item:has(> .vane-segmented-control-input:focus-visible) {
+        outline: 2px solid var(--focus-color);
+        outline-offset: 0;
+    }
+    /* A line between two segments that are not selected */
+    .vane-segmented-control-item + .vane-segmented-control-item::before {
+        content: "";
+        position: absolute;
+        inset-block: 25%;
+        inset-inline-start: -0.5px;
+        inline-size: 1px;
+        background-color: var(--color-border-form);
+        pointer-events: none;
+    }
+    .vane-segmented-control-item:has(> .vane-segmented-control-input:checked)::before,
+    .vane-segmented-control-item:has(> .vane-segmented-control-input:checked) + .vane-segmented-control-item::before {
+        opacity: 0;
+    }
+
     /* Skeleton box: one line of text tall at its size (--min-h, 18 to 30px), with the corners of a
        control of that size. The fill and the pulse are in the SKELETON rules below. */
     .vane-skeleton { --lh: 1.5; --py-unit: 0; --br-unit: 0.25; }
@@ -1400,7 +1464,7 @@
     color: transparent;
 }
 
-:is(.vane-button, .vane-icon-button, .vane-badge, .vane-chip, .vane-code, .vane-kbd, .vane-mark, .vane-icon, .vane-avatar, .vane-img, .vane-input, .vane-textarea, .vane-select, .vane-checkbox, .vane-radio, .vane-switch, .vane-progress, .vane-spinner, .vane-skeleton):is([data-skeleton], [data-skeleton] *),
+:is(.vane-button, .vane-icon-button, .vane-badge, .vane-chip, .vane-code, .vane-kbd, .vane-mark, .vane-icon, .vane-avatar, .vane-img, .vane-input, .vane-textarea, .vane-select, .vane-checkbox, .vane-radio, .vane-switch, .vane-segmented-control, .vane-progress, .vane-spinner, .vane-skeleton):is([data-skeleton], [data-skeleton] *),
 :is(svg, img, video, canvas):is([data-skeleton] *) {
     background: var(--vane-skeleton-fill);
     border-color: transparent;
@@ -1409,7 +1473,7 @@
 
 /* What a box holds is hidden: the label and icon of a Button, the image or initials of an Avatar,
    the fill of a Progress, the drawing of an icon. An image is moved out of its own box. */
-:is(.vane-button, .vane-icon-button, .vane-badge, .vane-chip, .vane-code, .vane-kbd, .vane-mark, .vane-icon, .vane-avatar, .vane-img, .vane-input, .vane-textarea, .vane-select, .vane-checkbox, .vane-radio, .vane-switch, .vane-progress, .vane-spinner, .vane-skeleton, svg):is([data-skeleton], [data-skeleton] *) * {
+:is(.vane-button, .vane-icon-button, .vane-badge, .vane-chip, .vane-code, .vane-kbd, .vane-mark, .vane-icon, .vane-avatar, .vane-img, .vane-input, .vane-textarea, .vane-select, .vane-checkbox, .vane-radio, .vane-switch, .vane-segmented-control, .vane-progress, .vane-spinner, .vane-skeleton, svg):is([data-skeleton], [data-skeleton] *) * {
     visibility: hidden;
 }
 

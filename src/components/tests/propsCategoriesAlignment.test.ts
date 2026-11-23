@@ -41,6 +41,8 @@ import { SKELETON_CATEGORIES } from '../ui/skeleton/SkeletonCategories';
 import {
   BREADCRUMB_CATEGORIES, BREADCRUMB_LIST_CATEGORIES, BREADCRUMB_ITEM_CATEGORIES, BREADCRUMB_SEPARATOR_CATEGORIES,
 } from '../ui/breadcrumb/BreadcrumbCategories';
+import type { SegmentedControlProps, SegmentedControlItemProps } from '../ui/segmentedControl';
+import { SEGMENTED_CONTROL_CATEGORIES, SEGMENTED_CONTROL_ITEM_CATEGORIES } from '../ui/segmentedControl/SegmentedControlCategories';
 import type { CheckboxProps, CheckboxCheckProps, CheckboxIndeterminateProps } from '../ui/checkbox';
 import type { LabelProps } from '../ui/label';
 import type { CardProps, CardHeaderProps, CardBodyProps, CardFooterProps } from '../ui/card';
@@ -136,6 +138,8 @@ const assertions: true[] = [
   true as AssertCategoriesCovered<SkeletonProps, typeof SKELETON_CATEGORIES>,
   true as AssertCategoriesCovered<BreadcrumbProps, typeof BREADCRUMB_CATEGORIES>,
   true as AssertCategoriesCovered<BreadcrumbItemProps, typeof BREADCRUMB_ITEM_CATEGORIES>,
+  true as AssertCategoriesCovered<SegmentedControlProps, typeof SEGMENTED_CONTROL_CATEGORIES>,
+  true as AssertCategoriesCovered<SegmentedControlItemProps, typeof SEGMENTED_CONTROL_ITEM_CATEGORIES>,
   true as AssertCategoriesCovered<CheckboxProps, typeof CHECKBOX_CATEGORIES>,
   true as AssertCategoriesCovered<LabelProps, typeof LABEL_CATEGORIES>,
   true as AssertCategoriesCovered<CardProps, typeof CARD_CATEGORIES>,

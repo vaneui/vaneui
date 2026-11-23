@@ -43,6 +43,10 @@ import {
   defaultBreadcrumbTheme, defaultBreadcrumbListTheme, defaultBreadcrumbItemTheme, defaultBreadcrumbSeparatorTheme,
   BREADCRUMB_CATEGORIES, BREADCRUMB_LIST_CATEGORIES, BREADCRUMB_ITEM_CATEGORIES, BREADCRUMB_SEPARATOR_CATEGORIES,
 } from "../ui/breadcrumb";
+import {
+  defaultSegmentedControlTheme, defaultSegmentedControlItemTheme,
+  SEGMENTED_CONTROL_CATEGORIES, SEGMENTED_CONTROL_ITEM_CATEGORIES,
+} from "../ui/segmentedControl";
 import { defaultSelectTheme, defaultSelectChevronTheme, SELECT_CHEVRON_CATEGORIES, defaultSelectWrapperTheme, SELECT_WRAPPER_CATEGORIES } from "../ui/select";
 import { defaultSwitchTheme, defaultSwitchThumbTheme, defaultSwitchWrapperTheme, SWITCH_CATEGORIES, SWITCH_THUMB_CATEGORIES } from "../ui/switch";
 import { defaultRadioTheme, defaultRadioDotTheme, defaultRadioWrapperTheme, defaultRadioGroupTheme, RADIO_CATEGORIES, RADIO_DOT_CATEGORIES, RADIO_GROUP_CATEGORIES } from "../ui/radio";
@@ -580,6 +584,24 @@ describe("Component theme coverage tests", () => {
       ]
     };
     createThemeTests(breadcrumbSeparatorConfig);
+
+    const segmentedControlConfig: ComponentTestConfig = {
+      propsType: "SegmentedControlProps",
+      categories: SEGMENTED_CONTROL_CATEGORIES,
+      themes: [
+        { name: "defaultSegmentedControlTheme", theme: defaultSegmentedControlTheme }
+      ]
+    };
+    createThemeTests(segmentedControlConfig);
+
+    const segmentedControlItemConfig: ComponentTestConfig = {
+      propsType: "SegmentedControlItemProps",
+      categories: SEGMENTED_CONTROL_ITEM_CATEGORIES,
+      themes: [
+        { name: "defaultSegmentedControlItemTheme", theme: defaultSegmentedControlItemTheme }
+      ]
+    };
+    createThemeTests(segmentedControlItemConfig);
 
     const selectChevronConfig: ComponentTestConfig = {
       propsType: "SelectChevronProps",
@@ -1222,6 +1244,7 @@ describe("Component theme coverage tests", () => {
       defaultInputSectionTheme,
       defaultAvatarTheme, defaultAvatarGroupTheme, defaultSkeletonTheme,
       defaultBreadcrumbTheme, defaultBreadcrumbListTheme, defaultBreadcrumbItemTheme, defaultBreadcrumbSeparatorTheme,
+      defaultSegmentedControlTheme, defaultSegmentedControlItemTheme,
       // withDefaults variants
       defaultMenuPopupTheme, defaultMenuDividerTheme,
       defaultFieldTheme, defaultFieldLabelTheme, defaultFieldControlRowTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme,

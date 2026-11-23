@@ -144,6 +144,7 @@ import { AVATAR_CATEGORIES } from '../avatar/AvatarCategories';
 import { AVATAR_GROUP_CATEGORIES } from '../avatar/AvatarGroupCategories';
 import { SKELETON_CATEGORIES } from '../skeleton/SkeletonCategories';
 import { BREADCRUMB_CATEGORIES } from '../breadcrumb/BreadcrumbCategories';
+import { SEGMENTED_CONTROL_CATEGORIES } from '../segmentedControl/SegmentedControlCategories';
 
 // Re-export for backward compatibility
 export { BADGE_CATEGORIES };
@@ -182,7 +183,7 @@ export { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES };
 export { MENU_ITEM_CATEGORIES };
 export { NAV_LINK_CATEGORIES };
 export { TABLE_CATEGORIES };
-export { AVATAR_CATEGORIES, AVATAR_GROUP_CATEGORIES, BREADCRUMB_CATEGORIES };
+export { AVATAR_CATEGORIES, AVATAR_GROUP_CATEGORIES, BREADCRUMB_CATEGORIES, SEGMENTED_CONTROL_CATEGORIES };
 
 /** Blur effect property for backdrop blur */
 export const BLUR = ['blur'] as const;
@@ -614,7 +615,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'alert', 'spinner', 'progress', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'inputSection', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'tooltip', 'menu', 'navLink', 'table', 'avatar', 'avatarGroup', 'skeleton', 'breadcrumb'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'inputSection', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'tooltip', 'menu', 'navLink', 'table', 'avatar', 'avatarGroup', 'skeleton', 'breadcrumb', 'segmentedControl'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -678,4 +679,5 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   avatarGroup: AVATAR_GROUP_CATEGORIES,
   skeleton: SKELETON_CATEGORIES,
   breadcrumb: BREADCRUMB_CATEGORIES,
+  segmentedControl: SEGMENTED_CONTROL_CATEGORIES,
 }

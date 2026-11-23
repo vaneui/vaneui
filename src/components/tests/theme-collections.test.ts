@@ -170,6 +170,7 @@ describe('Theme structure consistency', () => {
       avatarGroup: {},
       skeleton: {},
       breadcrumb: { main: {}, list: {}, item: {}, separator: {} },
+      segmentedControl: { main: {}, item: {} },
     };
 
     // At runtime, also ensure the keys align with COMPONENT

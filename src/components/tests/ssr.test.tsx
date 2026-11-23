@@ -19,7 +19,7 @@ import {
   Card, CardHeader, CardBody, CardFooter,
   Table, Thead, Tbody, Tfoot, Tr, Th, Td, Caption,
   Text, Title, Link, List, ListItem, SectionTitle, PageTitle, Blockquote,
-  Avatar, AvatarGroup, Breadcrumb, BreadcrumbItem, Skeleton,
+  Avatar, AvatarGroup, Breadcrumb, BreadcrumbItem, Skeleton, SegmentedControl, SegmentedControlItem,
 } from '../../index';
 
 const renderSSR = (node: React.ReactNode): string =>
@@ -121,6 +121,10 @@ describe('SSR rendering', () => {
           <Progress indeterminate aria-label="Loading" />
           <Card skeleton><Title>Loading</Title><Button>Save</Button></Card>
           <Skeleton aspectVideo />
+          <SegmentedControl aria-label="View" defaultValue="day">
+            <SegmentedControlItem value="day">Day</SegmentedControlItem>
+            <SegmentedControlItem value="week">Week</SegmentedControlItem>
+          </SegmentedControl>
         </Section>
       </Container>
     );
@@ -208,7 +212,7 @@ describe('SSR rendering', () => {
       'Grid6', 'Card', 'CardHeader', 'CardBody', 'CardFooter', 'Text', 'Title', 'Link', 'List',
       'ListItem', 'SectionTitle', 'PageTitle', 'Blockquote',
       'Table', 'Thead', 'Tbody', 'Tfoot', 'Tr', 'Th', 'Td', 'Caption',
-      'Avatar', 'AvatarGroup', 'Breadcrumb', 'BreadcrumbItem', 'Skeleton',
+      'Avatar', 'AvatarGroup', 'Breadcrumb', 'BreadcrumbItem', 'Skeleton', 'SegmentedControl', 'SegmentedControlItem',
     ]);
 
     const componentExports = Object.entries(VaneUI)

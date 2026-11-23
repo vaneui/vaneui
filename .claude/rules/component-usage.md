@@ -41,7 +41,7 @@ Wrap your app in `ThemeProvider` to customize the theme. Without it, each compon
 </ThemeProvider>
 ```
 
-Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox, Field, Switch, Radio, Table, Progress, Breadcrumb) need the nested form — Button's main element lives at `button.main`:
+Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox, Field, Switch, Radio, Table, Progress, Breadcrumb, SegmentedControl) need the nested form — Button's main element lives at `button.main`:
 
 ```tsx
 <ThemeProvider themeDefaults={{ button: { main: { filled: true, lg: true } } }}>
@@ -134,6 +134,7 @@ Keep `light-dark()` pairs off a `:root`-only rule: bundlers that compile it for 
 | Clickable action | `Button` | Renders `<button>`, or `<a>` with `href` |
 | Icon-only button | `IconButton` | Square button, renders `<button>` or `<a>` with `href`. Give an icon-only `IconButton` (and `ModalCloseButton`) an `aria-label` for an accessible name |
 | Page trail | `Breadcrumb` + `BreadcrumbItem` | `nav` labelled "Breadcrumb" around an `<ol>`. An item with `href` is a link; the last item is the current page unless one sets `current`. `separator` replaces the chevron |
+| One choice out of a few (filter, view switch) | `SegmentedControl` + `SegmentedControlItem` | A row of radio buttons on a neutral track; the selected segment is raised. Takes `value`/`defaultValue`/`onChange` like `RadioGroup`. Give it an `aria-label` |
 | Navigation link | `NavLink` | For sidebars/nav menus. Has `active` prop with `aria-current="page"`. Renders `<a>` with `href`, `<button>` without |
 | Content container with border | `Card` | Renders `<div>`, or `<a>` with `href`. Sub-components: `CardHeader`, `CardBody`, `CardFooter` |
 | Horizontal layout | `Row` | Flexbox row, `itemsCenter` by default |
@@ -399,7 +400,7 @@ A status dot before the text, or a dot on its own:
 
 `skeleton` shows a component as a placeholder in its own layout. On a container it reaches
 everything inside: text turns into bars as long as each line, the box components (Button, Badge,
-Chip, fields, toggles, Avatar, Img, Icon, Progress) into solid shapes of their own size, and the
+Chip, fields, toggles, segmented controls, Avatar, Img, Icon, Progress) into solid shapes of their own size, and the
 container keeps its surface and border. Render the real components with the data, or with
 placeholder text of the expected length, so the loaded page does not jump:
 
@@ -442,6 +443,25 @@ text tall at its size; aspect props, a height or a class set its shape.
   <BreadcrumbItem>Button</BreadcrumbItem>
 </Breadcrumb>
 ```
+
+### Segmented control
+
+```tsx
+const [status, setStatus] = useState('open');
+
+<SegmentedControl aria-label="Status" value={status} onChange={e => setStatus(e.target.value)}>
+  <SegmentedControlItem value="all">All</SegmentedControlItem>
+  <SegmentedControlItem value="open">Open</SegmentedControlItem>
+  <SegmentedControlItem value="closed">Closed</SegmentedControlItem>
+</SegmentedControl>
+```
+
+Each segment is a native radio, so the arrow keys move the selection and a form submits the
+value under `name`. The control is as tall as a Button of its size (`sm` by default), and its size,
+appearance, variant and shape reach the segments: `<SegmentedControl accent filled>` fills the
+selected segment with the accent color. A segment with its own appearance keeps it, `disabled` on a
+segment skips it, and `wFull` stretches the segments to fill the width. A segment's `className`
+and `style` go to its `<label>`; `ref` and the other attributes go to its radio.
 
 ### Tables
 
@@ -755,7 +775,7 @@ Text alignment offers both modes:
 
 ## Text Inside Boxed Components
 
-Button, IconButton, Badge, Chip, MenuItem, MenuLabel, Alert and Tooltip render each run of their own text in a `<span class="vane-text-run">`, and NavLink renders its label in `vane-nav-link-label`. The stylesheet trims that span to the height of the capital letters, so the text sits in the middle of the component with any font. The size of the component does not change. Browsers without `text-box` (before Chrome 133, Safari 18.2, Firefox 154) render the text where the font's line box puts it.
+Button, IconButton, Badge, Chip, MenuItem, MenuLabel, SegmentedControlItem, Alert and Tooltip render each run of their own text in a `<span class="vane-text-run">`, and NavLink renders its label in `vane-nav-link-label`. The stylesheet trims that span to the height of the capital letters, so the text sits in the middle of the component with any font. The size of the component does not change. Browsers without `text-box` (before Chrome 133, Safari 18.2, Firefox 154) render the text where the font's line box puts it.
 
 ```tsx
 <Button><Save /> Save changes</Button>

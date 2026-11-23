@@ -69,6 +69,9 @@ import type { BreadcrumbTheme, BreadcrumbListTheme, BreadcrumbItemTheme, Breadcr
 import type { BreadcrumbProps } from './ui/breadcrumb/BreadcrumbProps';
 import type { BreadcrumbItemProps } from './ui/breadcrumb/BreadcrumbItemProps';
 import type { BreadcrumbListProps, BreadcrumbSeparatorProps } from './ui/breadcrumb/BreadcrumbPartProps';
+import type { SegmentedControlTheme, SegmentedControlItemTheme } from './ui/segmentedControl/SegmentedControlTheme';
+import type { SegmentedControlProps } from './ui/segmentedControl/SegmentedControlProps';
+import type { SegmentedControlItemProps } from './ui/segmentedControl/SegmentedControlItemProps';
 import type { TheadTheme } from './ui/table/TheadTheme';
 import type { TbodyTheme } from './ui/table/TbodyTheme';
 import type { TfootTheme } from './ui/table/TfootTheme';
@@ -251,6 +254,10 @@ export interface ThemeProps {
     list: ComponentTheme<BreadcrumbListProps, BreadcrumbListTheme>;
     item: ComponentTheme<BreadcrumbItemProps, BreadcrumbItemTheme>;
     separator: ComponentTheme<BreadcrumbSeparatorProps, BreadcrumbSeparatorTheme>;
+  };
+  segmentedControl: {
+    main: ComponentTheme<SegmentedControlProps, SegmentedControlTheme>;
+    item: ComponentTheme<SegmentedControlItemProps, SegmentedControlItemTheme>;
   };
 }
 

@@ -10,9 +10,9 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
-New components (Avatar, AvatarGroup, Breadcrumb, Skeleton), loading placeholders through one
-`skeleton` prop, start and end sections on fields, and small props that used to need a class or a
-wrapper.
+New components (Avatar, AvatarGroup, Breadcrumb, SegmentedControl, Skeleton), loading placeholders
+through one `skeleton` prop, start and end sections on fields, and small props that used to need a
+class or a wrapper.
 
 ### Added
 
@@ -28,6 +28,15 @@ wrapper.
   translate it) around an ordered list. An item with `href` is a link, one without is text, and
   the last item is the current page (`aria-current="page"`) unless an item sets `current`.
   `separator` replaces the chevron, and `tag` takes a router link.
+- `SegmentedControl` and `SegmentedControlItem`: one choice out of a few, shown side by side on a
+  track, for a filter or a view switch. The control is a `radiogroup` and each segment a `<label>`
+  around a native radio, so a click, the arrow keys and form submission work without script. It
+  takes `value` or `defaultValue`, `onChange`, `name` (generated when omitted), `disabled` and
+  `required`. It is as tall as a Button of its size (`sm` by default) with a Button's corners; its
+  size, appearance, variant and shape reach the segments, and a segment's own prop wins. The
+  selected segment is a raised surface by default and takes the fill with `filled`; the track
+  stays neutral. `wFull` stretches it, and a `Field` names it. A segment's `className` and `style`
+  go to the segment, and `ref` and the other attributes to its radio.
 - `startSection` and `endSection` on `Input`, and `startSection` on `Select` (its end holds the
   chevron): an icon, a prefix such as `https://`, a unit or a button inside the field. The field
   reserves the measured width of each section, the section follows the field's size, and the
@@ -52,13 +61,13 @@ wrapper.
 - `skeleton` on every component: it shows the component as a loading placeholder in its own
   layout. On a container (`Card`, `Row`, `Col`, `Stack`, `Section`, `Table`, `Field` and the
   others) it reaches every component inside: text turns into bars as long as each line, and
-  buttons, badges, chips, fields, toggles, avatars, images and icons into solid shapes of their
-  own size and corners, while the container keeps its surface and border. The element gets
-  `data-skeleton`, `aria-busy="true"` and `inert`, so nothing inside takes focus or clicks, and the
-  placeholders pulse (still with reduced motion). `--skeleton-color` tints them. A text that has
-  nothing in it yet draws one bar 12 characters long (`--skeleton-text-width`), and an empty
-  Button, Badge, Chip, Code, Kbd or Mark takes the room of a 6-character label
-  (`--skeleton-label-width`), so a placeholder needs no filler text.
+  buttons, badges, chips, fields, toggles, segmented controls, avatars, images and icons into
+  solid shapes of their own size and corners, while the container keeps its surface and border.
+  The element gets `data-skeleton`, `aria-busy="true"` and `inert`, so nothing inside takes focus
+  or clicks, and the placeholders pulse (still with reduced motion). `--skeleton-color` tints
+  them. A text that has nothing in it yet draws one bar 12 characters long
+  (`--skeleton-text-width`), and an empty Button, Badge, Chip, Code, Kbd or Mark takes the room
+  of a 6-character label (`--skeleton-label-width`), so a placeholder needs no filler text.
 - `Skeleton`: a placeholder box for an area that has no component of its own, such as a chart or
   a map. It is full width and one line of text tall at its size, with size-driven corners; the
   aspect, height and shape props or a class set its shape. It is hidden from assistive tech.

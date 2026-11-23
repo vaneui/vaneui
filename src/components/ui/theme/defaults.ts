@@ -80,6 +80,8 @@ import { breadcrumbDefaults } from '../breadcrumb/breadcrumbDefaults';
 import { breadcrumbListDefaults } from '../breadcrumb/breadcrumbListDefaults';
 import { breadcrumbItemDefaults } from '../breadcrumb/breadcrumbItemDefaults';
 import { breadcrumbSeparatorDefaults } from '../breadcrumb/breadcrumbSeparatorDefaults';
+import { segmentedControlDefaults } from '../segmentedControl/segmentedControlDefaults';
+import { segmentedControlItemDefaults } from '../segmentedControl/segmentedControlItemDefaults';
 import {
   pageTitleDefaults,
   sectionTitleDefaults,
@@ -209,5 +211,9 @@ export const themeDefaults: ThemeDefaults = {
     list: breadcrumbListDefaults,
     item: breadcrumbItemDefaults,
     separator: breadcrumbSeparatorDefaults,
+  },
+  segmentedControl: {
+    main: segmentedControlDefaults,
+    item: segmentedControlItemDefaults,
   },
 };

@@ -67,6 +67,8 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Skeleton,
+  SegmentedControl,
+  SegmentedControlItem,
   type InputProps,
   useFieldControlProps,
 } from '../../src';
@@ -960,6 +962,81 @@ function SkeletonFixtures() {
         <BreadcrumbItem href="#docs">Docs</BreadcrumbItem>
         <BreadcrumbItem>Button</BreadcrumbItem>
       </Breadcrumb>
+    </section>
+  );
+}
+
+function SegmentedControlFixtures() {
+  const [view, setView] = useState('week');
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  return (
+    <section data-testid="segmented-control-section">
+      <Row>
+        <SegmentedControl aria-label="Status" defaultValue="all" data-testid="seg-default">
+          <SegmentedControlItem value="all" data-testid="seg-default-all">All</SegmentedControlItem>
+          <SegmentedControlItem value="open" data-testid="seg-default-open">Open</SegmentedControlItem>
+          <SegmentedControlItem value="closed" data-testid="seg-default-closed">Closed</SegmentedControlItem>
+          <SegmentedControlItem value="draft" data-testid="seg-default-draft">Draft</SegmentedControlItem>
+        </SegmentedControl>
+        <Button data-testid="seg-default-button">Button</Button>
+        <Input aria-label="next to a segmented control" data-testid="seg-default-input" />
+      </Row>
+
+      {sizes.map(size => (
+        <Row key={size}>
+          <SegmentedControl {...{ [size]: true }} aria-label={`Size ${size}`} defaultValue="a" data-testid={`seg-${size}`}>
+            <SegmentedControlItem value="a" data-testid={`seg-${size}-a`}>Day</SegmentedControlItem>
+            <SegmentedControlItem value="b">Week</SegmentedControlItem>
+          </SegmentedControl>
+          <Button {...{ [size]: true }} data-testid={`seg-${size}-button`}>Button</Button>
+        </Row>
+      ))}
+
+      <SegmentedControl accent filled aria-label="Filled" defaultValue="b" data-testid="seg-filled">
+        <SegmentedControlItem value="a" data-testid="seg-filled-a">List</SegmentedControlItem>
+        <SegmentedControlItem value="b" data-testid="seg-filled-b">Board</SegmentedControlItem>
+        <SegmentedControlItem value="c" success data-testid="seg-filled-c">Done</SegmentedControlItem>
+      </SegmentedControl>
+
+      <div style={{ width: 420 }} data-testid="seg-full-box">
+        <SegmentedControl wFull aria-label="Full width" defaultValue="a" data-testid="seg-full">
+          <SegmentedControlItem value="a" data-testid="seg-full-a">Day</SegmentedControlItem>
+          <SegmentedControlItem value="b" data-testid="seg-full-b">Week</SegmentedControlItem>
+          <SegmentedControlItem value="c" data-testid="seg-full-c">Month</SegmentedControlItem>
+        </SegmentedControl>
+      </div>
+
+      <SegmentedControl aria-label="View" value={view} onChange={event => setView(event.target.value)} data-testid="seg-controlled">
+        <SegmentedControlItem value="day" data-testid="seg-controlled-day">Day</SegmentedControlItem>
+        <SegmentedControlItem value="week" data-testid="seg-controlled-week">Week</SegmentedControlItem>
+        <SegmentedControlItem value="month" disabled data-testid="seg-controlled-month">Month</SegmentedControlItem>
+      </SegmentedControl>
+      <Text data-testid="seg-controlled-value">{view}</Text>
+
+      <SegmentedControl aria-label="Layout" defaultValue="list" data-testid="seg-icons">
+        <SegmentedControlItem value="list" aria-label="List" data-testid="seg-icons-list"><StarIcon /></SegmentedControlItem>
+        <SegmentedControlItem value="grid" aria-label="Grid"><StarIcon /></SegmentedControlItem>
+        <SegmentedControlItem value="both" data-testid="seg-icons-both"><StarIcon /> Both</SegmentedControlItem>
+      </SegmentedControl>
+
+      <SegmentedControl disabled aria-label="Disabled" defaultValue="a" data-testid="seg-disabled">
+        <SegmentedControlItem value="a">On</SegmentedControlItem>
+        <SegmentedControlItem value="b" data-testid="seg-disabled-b">Off</SegmentedControlItem>
+      </SegmentedControl>
+
+      <SegmentedControl skeleton aria-label="Loading" defaultValue="a" data-testid="seg-skeleton">
+        <SegmentedControlItem value="a" data-testid="seg-skeleton-a">Day</SegmentedControlItem>
+        <SegmentedControlItem value="b">Week</SegmentedControlItem>
+      </SegmentedControl>
+
+      <div data-theme="dark" data-testid="seg-dark-box">
+        <Card>
+          <SegmentedControl aria-label="Dark" defaultValue="a" data-testid="seg-dark">
+            <SegmentedControlItem value="a" data-testid="seg-dark-a">Day</SegmentedControlItem>
+            <SegmentedControlItem value="b" data-testid="seg-dark-b">Week</SegmentedControlItem>
+          </SegmentedControl>
+        </Card>
+      </div>
     </section>
   );
 }
@@ -2917,6 +2994,8 @@ export function TestHarness() {
         <QuickAdditionsFixtures />
 
         <SkeletonFixtures />
+
+        <SegmentedControlFixtures />
 
         <CompositionFixtures />
 
