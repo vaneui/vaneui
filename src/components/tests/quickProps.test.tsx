@@ -129,7 +129,7 @@ describe('Badge dot', () => {
   it('should draw a dot before the text', () => {
     const { container } = renderUi(<Badge success dot>Online</Badge>);
     const badge = container.querySelector('.vane-badge') as HTMLElement;
-    expect(badge).toHaveClass("before:content-['']", 'before:rounded-full', 'before:bg-current');
+    expect(badge).toHaveClass('vane-badge-dot', "before:content-['']", 'before:rounded-full', 'before:bg-current');
     expect(badge).toHaveTextContent('Online');
     expect(badge).not.toHaveAttribute('dot');
     expect(badge).not.toHaveAttribute('role');
@@ -150,6 +150,7 @@ describe('Badge dot', () => {
   it('should add no dot classes without the prop', () => {
     const { container } = renderUi(<Badge>New</Badge>);
     expect(container.querySelector('.vane-badge')).not.toHaveClass('before:bg-current');
+    expect(container.querySelector('.vane-badge')).not.toHaveClass('vane-badge-dot');
   });
 });
 

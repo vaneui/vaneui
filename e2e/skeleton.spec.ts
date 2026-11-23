@@ -155,6 +155,66 @@ test.describe('skeleton on single components', () => {
   });
 });
 
+test.describe('skeleton on components with no text yet', () => {
+  /** The computed style of a pseudo-element. */
+  const pseudo = (locator: Locator, which: '::before' | '::after', property: string) =>
+    locator.evaluate((el, [w, p]) => getComputedStyle(el, w).getPropertyValue(p), [which, property] as const);
+
+  /** Width of `n` zero digits in the element's font, which is what `n`ch is. */
+  const ch = (locator: Locator) => locator.evaluate((el) => {
+    const probe = document.createElement('span');
+    probe.textContent = '0'.repeat(100);
+    probe.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap';
+    el.parentElement!.appendChild(probe);
+    probe.style.font = getComputedStyle(el).font;
+    const width = probe.getBoundingClientRect().width / 100;
+    probe.remove();
+    return width;
+  });
+
+  test('an empty text draws one bar of 12 characters, one line tall', async ({ page }) => {
+    for (const id of ['title', 'text']) {
+      const empty = page.getByTestId(`skeleton-empty-${id}`);
+      const full = page.getByTestId(`skeleton-full-${id}`);
+      expect(await pseudo(empty, '::before', 'content')).toBe('""');
+      expect(parseFloat(await pseudo(empty, '::before', 'width'))).toBeCloseTo(12 * await ch(empty), 0);
+      expect((await box(empty)).height).toBeCloseTo((await box(full)).height, 1);
+      // a band of the same fill as the bars over real text
+      expect(await pseudo(empty, '::before', 'background-image')).toContain(await decorationColor(full));
+    }
+  });
+
+  test('--skeleton-text-width sets the length of that bar', async ({ page }) => {
+    const short = page.getByTestId('skeleton-empty-short');
+    expect(parseFloat(await pseudo(short, '::before', 'width'))).toBeCloseTo(5 * await ch(short), 0);
+  });
+
+  test('an empty box keeps the height of a labelled one and takes the room of a short label', async ({ page }) => {
+    for (const id of ['button', 'badge']) {
+      const empty = await box(page.getByTestId(`skeleton-empty-${id}`));
+      const full = await box(page.getByTestId(`skeleton-full-${id}`));
+      expect(empty.height).toBeCloseTo(full.height, 1);
+      expect(empty.width).toBeGreaterThan(empty.height);
+    }
+    const dot = await box(page.getByTestId('skeleton-empty-dot'));
+    expect(dot.width).toBeCloseTo(dot.height, 1);
+  });
+
+  test('an empty nav item and table cell keep the height of a full one', async ({ page }) => {
+    for (const id of ['navlink', 'cell']) {
+      const empty = page.getByTestId(`skeleton-empty-${id}`);
+      expect((await box(empty)).height).toBeCloseTo((await box(page.getByTestId(`skeleton-full-${id}`))).height, 1);
+      expect(await pseudo(empty, '::before', 'content')).toBe('""');
+    }
+  });
+
+  test('an empty text outside a skeleton draws nothing', async ({ page }) => {
+    const outside = page.getByTestId('skeleton-empty-outside');
+    expect(await pseudo(outside, '::before', 'content')).toBe('none');
+    expect((await box(outside)).height).toBe(0);
+  });
+});
+
 test.describe('pulse', () => {
   test('runs on the outermost skeleton only and moves the fill', async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'no-preference' });

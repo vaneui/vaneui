@@ -933,6 +933,28 @@ function SkeletonFixtures() {
           <Tr><Td>Alan Turing</Td><Td>Mathematician</Td></Tr>
         </Tbody>
       </Table>
+      <Card skeleton data-testid="skeleton-empty" className="w-96">
+        <Title data-testid="skeleton-empty-title">{undefined}</Title>
+        <Title data-testid="skeleton-full-title">Ada</Title>
+        <Text data-testid="skeleton-empty-text">{''}</Text>
+        <Text data-testid="skeleton-full-text">Ada</Text>
+        <Text style={{ '--skeleton-text-width': '5ch' } as React.CSSProperties} data-testid="skeleton-empty-short" />
+        <Row>
+          <Button filled data-testid="skeleton-empty-button" />
+          <Button filled data-testid="skeleton-full-button">Follow</Button>
+          <Badge data-testid="skeleton-empty-badge" />
+          <Badge data-testid="skeleton-full-badge">Online</Badge>
+          <Badge success dot aria-label="Online" data-testid="skeleton-empty-dot" />
+        </Row>
+        <Col noGap>
+          <NavLink href="#empty" data-testid="skeleton-empty-navlink" />
+          <NavLink href="#full" data-testid="skeleton-full-navlink">Settings</NavLink>
+        </Col>
+        <Table>
+          <Tbody><Tr><Td data-testid="skeleton-empty-cell" /><Td data-testid="skeleton-full-cell">Ada</Td></Tr></Tbody>
+        </Table>
+      </Card>
+      <Text data-testid="skeleton-empty-outside" />
       <Breadcrumb skeleton data-testid="skeleton-breadcrumb">
         <BreadcrumbItem href="#home">Home</BreadcrumbItem>
         <BreadcrumbItem href="#docs">Docs</BreadcrumbItem>

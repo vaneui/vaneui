@@ -168,7 +168,7 @@ Layout extras: `divided` (Grid2–6: 1px lines instead of the gap), `strongBorde
 
 Component extras: `startSection`/`endSection` on Input (Select takes `startSection`; Field passes both to the control it renders), Textarea `autosize` and `resizeY` (default)/`resizeX`/`resize`/`resizeNone`, Table `striped`/`hoverable`, Badge `dot`, Progress `indeterminate`.
 
-Loading placeholders: `skeleton` on any component sets `data-skeleton`, `aria-busy` and `inert`; the unlayered SKELETON rules in `rules.css` then draw it and every component inside it as a placeholder (text as line-through bars, the box components as solid shapes, containers keep their surface). The pass-down is CSS only, so children carry no attribute. `Skeleton` is the plain box for areas with no component.
+Loading placeholders: `skeleton` on any component sets `data-skeleton`, `aria-busy` and `inert`; the unlayered SKELETON rules in `rules.css` then draw it and every component inside it as a placeholder (text as line-through bars, the box components as solid shapes, containers keep their surface). The pass-down is CSS only, so children carry no attribute. An empty text component draws one default bar (12ch, `--skeleton-text-width`) and an empty Button, Badge, Chip, Code, Kbd or Mark the room of a 6ch label (`--skeleton-label-width`), so no filler text is needed. `Skeleton` is the plain box for areas with no component.
 
 **Breakpoints** (layout components): `mobileStack`, `tabletStack`, `desktopStack`
 **Hide**: `mobileHide`, `tabletHide`, `desktopHide`; **Show** (only below the width): `mobileShow`, `tabletShow`, `desktopShow`

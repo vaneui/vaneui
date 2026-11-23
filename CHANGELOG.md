@@ -55,7 +55,10 @@ wrapper.
   buttons, badges, chips, fields, toggles, avatars, images and icons into solid shapes of their
   own size and corners, while the container keeps its surface and border. The element gets
   `data-skeleton`, `aria-busy="true"` and `inert`, so nothing inside takes focus or clicks, and the
-  placeholders pulse (still with reduced motion). `--skeleton-color` tints them.
+  placeholders pulse (still with reduced motion). `--skeleton-color` tints them. A text that has
+  nothing in it yet draws one bar 12 characters long (`--skeleton-text-width`), and an empty
+  Button, Badge, Chip, Code, Kbd or Mark takes the room of a 6-character label
+  (`--skeleton-label-width`), so a placeholder needs no filler text.
 - `Skeleton`: a placeholder box for an area that has no component of its own, such as a chart or
   a map. It is full width and one line of text tall at its size, with size-driven corners; the
   aspect, height and shape props or a class set its shape. It is hidden from assistive tech.

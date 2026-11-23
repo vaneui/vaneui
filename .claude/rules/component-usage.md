@@ -400,14 +400,14 @@ A status dot before the text, or a dot on its own:
 `skeleton` shows a component as a placeholder in its own layout. On a container it reaches
 everything inside: text turns into bars as long as each line, the box components (Button, Badge,
 Chip, fields, toggles, Avatar, Img, Icon, Progress) into solid shapes of their own size, and the
-container keeps its surface and border. Render the real components with placeholder text, so the
-loaded page does not jump:
+container keeps its surface and border. Render the real components with the data, or with
+placeholder text of the expected length, so the loaded page does not jump:
 
 ```tsx
 <Card skeleton={loading}>
   <Row>
-    <Avatar src={user?.photo} name={user?.name ?? 'Ada Lovelace'} />
-    <Title>{user?.name ?? 'Loading name'}</Title>
+    <Avatar src={user?.photo} name={user?.name} />
+    <Title>{user?.name}</Title>{/* empty while loading: a 12-character bar */}
   </Row>
   <Text>{user?.bio ?? 'A line of placeholder text about this long.'}</Text>
   <Button filled>Follow</Button>
@@ -416,9 +416,12 @@ loaded page does not jump:
 
 The element with the prop gets `aria-busy="true"` and `inert`: nothing inside takes focus or
 clicks, and it is hidden from screen readers, so announce the wait elsewhere (for example a
-`<Text srOnly role="status">Loading profile</Text>`). An empty `Text` has no line to draw, so give
-it placeholder text. The placeholders pulse, and stand still with reduced motion. Set
-`--skeleton-color` to tint them.
+`<Text srOnly role="status">Loading profile</Text>`). A text with nothing in it yet (`{user?.name}`
+while `user` is undefined) draws one bar 12 characters long; set `--skeleton-text-width` to change
+it. An empty Button, Badge, Chip, Code, Kbd or Mark takes the room of a 6-character label
+(`--skeleton-label-width`). Placeholder text of the expected length matches the loaded layout
+more closely. The placeholders pulse, and stand still with reduced motion. Set `--skeleton-color`
+to tint them.
 
 `Skeleton` is a box for an area with no component of its own. It is full width and one line of
 text tall at its size; aspect props, a height or a class set its shape.
