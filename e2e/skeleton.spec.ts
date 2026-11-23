@@ -60,6 +60,14 @@ test.describe('skeleton on a container', () => {
     expect(text).toBeGreaterThan(8);
   });
 
+  test('gives the text of a Label a box of its own, so every engine draws the full bar', async ({ page }) => {
+    // WebKit takes a decoration's thickness from the box that holds the text, and the anonymous
+    // box around bare text in a flex container has none: the bar drew as a hairline there
+    const run = page.getByTestId('skeleton-card').locator('label > .vane-label-text');
+    await expect(run).toHaveText('Keep me posted');
+    expect(await px(run, 'text-decoration-thickness')).toBeGreaterThan(8);
+  });
+
   test('turns boxes into solid shapes of the same fill and hides what they hold', async ({ page }) => {
     const fill = await decorationColor(page.getByTestId('skeleton-card-title'));
     for (const id of ['skeleton-card-avatar', 'skeleton-card-badge', 'skeleton-card-button', 'skeleton-card-input', 'skeleton-card-checkbox']) {

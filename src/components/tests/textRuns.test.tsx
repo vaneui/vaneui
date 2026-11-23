@@ -32,6 +32,11 @@ describe('wrapTextRuns', () => {
     expect(getByTestId('host').innerHTML).toBe('<span class="vane-text-run">Save</span>');
   });
 
+  it('takes another class for the span', () => {
+    const { getByTestId } = render(<div data-testid="host">{wrapTextRuns(['Save', <Icon key="i" />], 'vane-label-text')}</div>);
+    expect(getByTestId('host').firstElementChild?.outerHTML).toBe('<span class="vane-label-text">Save</span>');
+  });
+
   it('wraps a number, zero included', () => {
     expect(renderRuns(42).container.firstElementChild?.innerHTML).toBe('<span class="vane-text-run">42</span>');
     expect(renderRuns(0).container.firstElementChild?.innerHTML).toBe('<span class="vane-text-run">0</span>');

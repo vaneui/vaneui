@@ -6,6 +6,7 @@ import { pickFirstTruthyKeyByCategory } from "../../utils/componentUtils";
 import { warnSemanticTagOverride } from "../../utils/warnSemanticTag";
 import { LabelSizeContext } from "./LabelSizeContext";
 import { defaultLabelTheme } from "./defaultLabelTheme";
+import { LABEL_TEXT_CLASS, wrapTextRuns } from "../../utils/textRuns";
 
 export const Label = forwardRef<HTMLLabelElement, LabelProps>(
   function Label(props, ref) {
@@ -25,7 +26,7 @@ export const Label = forwardRef<HTMLLabelElement, LabelProps>(
     return (
       <ThemedComponent theme={labelTheme} ref={ref} {...props}>
         <LabelSizeContext.Provider value={resolvedSize}>
-          {props.children}
+          {wrapTextRuns(props.children, LABEL_TEXT_CLASS)}
         </LabelSizeContext.Provider>
       </ThemedComponent>
     );

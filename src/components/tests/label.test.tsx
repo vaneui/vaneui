@@ -574,4 +574,32 @@ describe('Label Component Tests', () => {
       expect(checkboxInput).toHaveAttribute('data-size', 'md');
     });
   });
+
+  describe('Text runs', () => {
+    it('renders each run of its own text in a span.vane-label-text', () => {
+      const { container } = render(<Label row><Checkbox /> I agree to the terms</Label>);
+      const label = container.querySelector('label')!;
+      const span = label.querySelector(':scope > span.vane-label-text');
+      expect(span).toHaveTextContent('I agree to the terms');
+      expect(label.querySelector('.vane-text-run')).toBeNull();
+      // the checkbox wrapper stays a direct child, before the text
+      expect(label.firstElementChild).not.toBe(span);
+      expect(label.querySelector(':scope input[type="checkbox"]')).toBeInTheDocument();
+    });
+
+    it('wraps text above a field and leaves the field alone', () => {
+      const { container } = render(<Label>Email<input aria-label="x" /></Label>);
+      const label = container.querySelector('label')!;
+      expect(label.children[0]).toHaveClass('vane-label-text');
+      expect(label.children[0]).toHaveTextContent('Email');
+      expect(label.children[1].tagName).toBe('INPUT');
+    });
+
+    it('keeps white space and elements bare', () => {
+      const { container } = render(<Label row>{' '}<span data-testid="own">Own</span>{' '}</Label>);
+      const label = container.querySelector('label')!;
+      expect(label.querySelector('.vane-label-text')).toBeNull();
+      expect(label.querySelector('[data-testid="own"]')!.parentElement).toBe(label);
+    });
+  });
 });

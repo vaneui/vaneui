@@ -759,7 +759,7 @@ Button, IconButton, Badge, Chip, MenuItem, MenuLabel, Alert and Tooltip render e
 
 - In tests, find a component by its role or class (`getByRole('button', { name: 'Save changes' })`). `getByText('Save changes')` returns the span, not the button.
 - Text passed as an element (a translation component, a fragment, your own `<span>`) is not wrapped. Give your own span `className="vane-text-run"` to center it the same way.
-- Label is not wrapped and renders its text as before.
+- Label renders each run of its own text in a plain `<span class="vane-label-text">`, which is not trimmed.
 
 ## Anti-Patterns
 

@@ -60,6 +60,14 @@ wrapper.
   a map. It is full width and one line of text tall at its size, with size-driven corners; the
   aspect, height and shape props or a class set its shape. It is hidden from assistive tech.
 
+### Changed
+
+- `Label` renders each run of its own text in a `<span class="vane-label-text">`, so a
+  `skeleton` draws a full bar over it in Safari, which drew a hairline over text placed straight
+  in a flex container. The span has no styles of its own and the layout does not change; in tests,
+  `getByText` on the label's text returns the span, not the label. White space and text passed as
+  an element are not wrapped.
+
 ## 1.7.2
 
 `2026-11-22`
