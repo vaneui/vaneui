@@ -142,8 +142,8 @@ describe('Skeleton', () => {
     expect(box).toHaveClass('h-40', 'vane-skeleton');
   });
 
-  it('lets the caller expose it, and then marks it busy', () => {
-    const { container } = renderUi(<Skeleton aria-hidden={false} aria-label="Loading chart" role="img" data-testid="s" />);
+  it('marks it busy once the caller turns aria-hidden off', () => {
+    const { container } = renderUi(<Skeleton aria-hidden={false} data-testid="s" />);
     const box = byTestId(container, 's');
     expect(box).toHaveAttribute('aria-hidden', 'false');
     expect(box).toHaveAttribute('aria-busy', 'true');
