@@ -157,8 +157,11 @@ test.describe('Text run next to scrolling', () => {
     expect(await label.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(false);
   });
 
-  test('a Label keeps its text bare and adds nothing to scroll', async ({ page }) => {
-    await expect(byId(page, 'text-run-label').locator(RUN)).toHaveCount(0);
+  test('a Label puts its text in an untrimmed span and adds nothing to scroll', async ({ page }) => {
+    const label = byId(page, 'text-run-label');
+    await expect(label.locator(RUN)).toHaveCount(0);
+    await expect(label.locator(':scope > .vane-label-text')).toHaveText('Option');
+    expect(await label.locator('.vane-label-text').evaluate((el) => getComputedStyle(el).paddingTop)).toBe('0px');
     const box = byId(page, 'text-run-scroll-box');
     expect(await box.evaluate((el) => el.scrollHeight - el.clientHeight)).toBe(0);
   });

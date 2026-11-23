@@ -4,6 +4,13 @@ import type { ReactNode } from 'react';
 /** Class of the span a component renders around each run of its own text. */
 export const TEXT_RUN_CLASS = 'vane-text-run';
 
+/**
+ * Class of the span Label renders around each run of its own text. It carries no styles: the
+ * span only gives the text a box of its own (see `wrapTextRuns`), without the trim of
+ * `vane-text-run`, which reaches past a Label's edge and can scroll an unpadded box.
+ */
+export const LABEL_TEXT_CLASS = 'vane-label-text';
+
 type Kind = 'text' | 'empty' | 'other' | 'mixed';
 
 // White space a flex container drops: text made only of these characters produces no flex item,
@@ -36,12 +43,16 @@ function textOf(node: ReactNode): string {
 }
 
 /**
- * Wraps each run of text among `children` in a `<span class="vane-text-run">`.
+ * Wraps each run of text among `children` in a `<span class="vane-text-run">` (or the class
+ * passed as `className`).
  *
  * A flex container puts bare text in an anonymous box that no selector reaches. The browser
  * centers that box by the font's line box, which is rarely symmetric around the letters, so
  * the text of a Button or Badge sits a little high or low. The span gives the text a box the
- * stylesheet can trim to the capital height (see the `.vane-text-run` rule in rules.css).
+ * stylesheet can trim to the capital height (see the `.vane-text-run` rule in rules.css). The
+ * span also lets a text decoration on the container draw at its own thickness: WebKit takes the
+ * thickness of a decoration from the box that holds the text, and an anonymous box has none, so
+ * the line-through bars of a `skeleton` drew as hairlines on bare text in a Label.
  *
  * The layout of the children does not change:
  * - text nodes that touch (`{count} items`) share one span, as they share one flex item today;
@@ -49,10 +60,10 @@ function textOf(node: ReactNode): string {
  * - elements are returned untouched and at the same index, so their state and keys hold;
  * - text that sits in a nested array next to elements is left as it is.
  */
-export function wrapTextRuns(children: ReactNode): ReactNode {
+export function wrapTextRuns(children: ReactNode, className: string = TEXT_RUN_CLASS): ReactNode {
   if (!Array.isArray(children)) {
     return kindOf(children) === 'text' && !BLANK.test(textOf(children))
-      ? createElement('span', { className: TEXT_RUN_CLASS }, children)
+      ? createElement('span', { className }, children)
       : children;
   }
 
@@ -69,7 +80,7 @@ export function wrapTextRuns(children: ReactNode): ReactNode {
     if (!BLANK.test(textOf(run))) {
       // the span takes the place of the run's first node and the rest of the run becomes null,
       // so every other child keeps its index
-      result[start] = createElement('span', { key: `vane-text-run-${start}`, className: TEXT_RUN_CLASS }, ...run);
+      result[start] = createElement('span', { key: `${className}-${start}`, className }, ...run);
       for (let i = start + 1; i < end; i++) result[i] = null;
       wrapped = true;
     }

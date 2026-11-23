@@ -15,6 +15,7 @@ import type {
   ShapeProps,
   VariantProps,
   ObjectFitProps,
+  AspectProps,
   ShrinkProps,
   WidthProps,
   HeightProps,
@@ -39,6 +40,7 @@ export type ImgProps = BaseProps &
   ShapeProps &
   VariantProps &
   ObjectFitProps &
+  AspectProps &
   ShrinkProps &
   WidthProps &
   HeightProps &

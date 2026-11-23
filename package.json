@@ -78,6 +78,26 @@
         "default": "./dist/cjs/components/ui/alert/index.cjs"
       }
     },
+    "./avatar": {
+      "import": {
+        "types": "./dist/types/components/ui/avatar/index.d.mts",
+        "default": "./dist/esm/components/ui/avatar/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/avatar/index.d.cts",
+        "default": "./dist/cjs/components/ui/avatar/index.cjs"
+      }
+    },
+    "./skeleton": {
+      "import": {
+        "types": "./dist/types/components/ui/skeleton/index.d.mts",
+        "default": "./dist/esm/components/ui/skeleton/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/skeleton/index.d.cts",
+        "default": "./dist/cjs/components/ui/skeleton/index.cjs"
+      }
+    },
     "./badge": {
       "import": {
         "types": "./dist/types/components/ui/badge/index.d.mts",
@@ -86,6 +106,16 @@
       "require": {
         "types": "./dist/types/components/ui/badge/index.d.cts",
         "default": "./dist/cjs/components/ui/badge/index.cjs"
+      }
+    },
+    "./breadcrumb": {
+      "import": {
+        "types": "./dist/types/components/ui/breadcrumb/index.d.mts",
+        "default": "./dist/esm/components/ui/breadcrumb/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/breadcrumb/index.d.cts",
+        "default": "./dist/cjs/components/ui/breadcrumb/index.cjs"
       }
     },
     "./button": {
@@ -346,6 +376,16 @@
       "require": {
         "types": "./dist/types/components/ui/section/index.d.cts",
         "default": "./dist/cjs/components/ui/section/index.cjs"
+      }
+    },
+    "./segmentedControl": {
+      "import": {
+        "types": "./dist/types/components/ui/segmentedControl/index.d.mts",
+        "default": "./dist/esm/components/ui/segmentedControl/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/segmentedControl/index.d.cts",
+        "default": "./dist/cjs/components/ui/segmentedControl/index.cjs"
       }
     },
     "./select": {

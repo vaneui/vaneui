@@ -41,7 +41,7 @@ Wrap your app in `ThemeProvider` to customize the theme. Without it, each compon
 </ThemeProvider>
 ```
 
-Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox, Field, Switch, Radio, Table, Progress) need the nested form — Button's main element lives at `button.main`:
+Customize defaults globally. Components with sub-themes (Button, Card, Modal, Menu, NavLink, Checkbox, Field, Switch, Radio, Table, Progress, Breadcrumb, SegmentedControl) need the nested form — Button's main element lives at `button.main`:
 
 ```tsx
 <ThemeProvider themeDefaults={{ button: { main: { filled: true, lg: true } } }}>
@@ -133,6 +133,8 @@ Keep `light-dark()` pairs off a `:root`-only rule: bundlers that compile it for 
 |------|-----------|-------|
 | Clickable action | `Button` | Renders `<button>`, or `<a>` with `href` |
 | Icon-only button | `IconButton` | Square button, renders `<button>` or `<a>` with `href`. Give an icon-only `IconButton` (and `ModalCloseButton`) an `aria-label` for an accessible name |
+| Page trail | `Breadcrumb` + `BreadcrumbItem` | `nav` labelled "Breadcrumb" around an `<ol>`. An item with `href` is a link; the last item is the current page unless one sets `current`. `separator` replaces the chevron |
+| One choice out of a few (filter, view switch) | `SegmentedControl` + `SegmentedControlItem` | A row of radio buttons on a neutral track; the selected segment is raised. Takes `value`/`defaultValue`/`onChange` like `RadioGroup`. Give it an `aria-label` |
 | Navigation link | `NavLink` | For sidebars/nav menus. Has `active` prop with `aria-current="page"`. Renders `<a>` with `href`, `<button>` without |
 | Content container with border | `Card` | Renders `<div>`, or `<a>` with `href`. Sub-components: `CardHeader`, `CardBody`, `CardFooter` |
 | Horizontal layout | `Row` | Flexbox row, `itemsCenter` by default |
@@ -146,23 +148,26 @@ Keep `light-dark()` pairs off a `:root`-only rule: bundlers that compile it for 
 | Subsection heading | `Title` | Renders `<h3>`, responsive |
 | Body text | `Text` | Renders `<p>` |
 | Hyperlink | `Link` | Renders `<a>`, underline by default, blue link color by default |
-| Status indicator | `Badge` | Pill-shaped, semibold (normal case; add `uppercase` for status-chip look) |
+| Status indicator | `Badge` | Pill-shaped, semibold (normal case; add `uppercase` for status-chip look). `dot` adds a status dot; with no text and an `aria-label` the badge is the dot |
+| Person or team picture | `Avatar` | Image (`src`), else initials of `name`, else a person icon. `name` is the text alternative. Circle by default, `rounded` for a square |
+| Loading placeholder | `skeleton` prop, or `Skeleton` | `skeleton` on a component (or a container) draws it and everything inside as a placeholder in the same layout. `Skeleton` is a plain box for an area with no component, such as a chart |
+| Overlapping avatars | `AvatarGroup` | Takes the size for its avatars; `max` and `total` add a "+N" avatar. Give it an `aria-label` |
 | Tag / filter token | `Chip` | Rounded, sans-serif, secondary by default |
 | Inline code | `Code` | Monospace, rounded, with padding |
 | Keyboard shortcut | `Kbd` | Monospace, bordered, 3D effect |
 | Text highlight | `Mark` | Background highlight, defaults to warning (yellow) |
 | Quoted content | `Blockquote` | Left border accent, inherits parent appearance |
-| Text input | `Input` | Renders `<input>`, all HTML input attrs |
+| Text input | `Input` | Renders `<input>`, all HTML input attrs. `startSection` / `endSection` put an icon, prefix, unit or button inside the field |
 | Toggle | `Checkbox` | Custom styled, use inside `Label` |
 | Form field (label + help + error) | `Field` | Owns the id, points the label at the control, links help/error with `aria-describedby`. Can render its own control via `type` or one of `textInput`/`textarea`/`select`/`checkbox`/`switch`/`radiogroup`, or wrap one passed as a child. An `error` also marks the control invalid |
 | Inline status message | `Alert` | Live region: `role="alert"`, or `role="status"` with `polite` |
 | Busy indicator | `Spinner` | `role="status"`; give it an `aria-label` |
-| Determinate progress | `Progress` | `role="progressbar"` with `value` (and `max`, 100 by default); give it an `aria-label`. The fill takes the appearance color; restyle it with `themeDefaults={{ progress: { fill: {...} } }}` |
+| Progress | `Progress` | `role="progressbar"` with `value` (and `max`, 100 by default), or `indeterminate` for work of unknown length; give it an `aria-label`. The fill takes the appearance color; restyle it with `themeDefaults={{ progress: { fill: {...} } }}` |
 | Hover/focus hint | `Tooltip` + trigger | Ink label that describes its trigger (no `aria-haspopup`/`aria-expanded`). Takes size, appearance and `place*` props directly: `<Tooltip lg placeBottom>` |
 | Input label | `Label` | Flex **column** (label above field) with gap, sm size, `inheritAppearance`. Use `row` for inline controls (e.g. Checkbox) |
 | Bullet/number list | `List` + `ListItem` | `<ul>` default, `<ol>` with `listDecimal` |
 | Horizontal rule | `Divider` | Thin line separator |
-| Image | `Img` | Rounded by default |
+| Image | `Img` | Rounded by default. `aspectSquare` / `aspectVideo` fix the shape |
 | Fullscreen backdrop | `Overlay` | Portal-rendered, click-to-close, optional blur |
 | Dialog | `Modal` | Accessible dialog with focus trap, scroll lock. Sub-components: `ModalHeader`, `ModalBody`, `ModalFooter`, `ModalCloseButton` |
 | Floating element | `Popup` + `PopupTrigger` | CSS Anchor Positioning; 12 `place*` placement props (see Popup placement below) |
@@ -245,6 +250,27 @@ which `Label` alone does not do.
 ```
 
 In a `Row` of Fields where only some have help or error text, use `<Row itemsStart>` so the controls stay aligned.
+
+### Field sections
+
+`startSection` and `endSection` put content inside an `Input`: an icon, a prefix, a unit or a
+button. The field reserves the section's measured width, and the section follows the field's
+size. `Select` takes `startSection` only (its end holds the chevron), and `Field` passes both to
+the control it renders. A section ignores the pointer, so a click on an icon focuses the field;
+a button or link in a section stays clickable.
+
+```tsx
+<Input aria-label="Search" startSection={<Search />} placeholder="Search docs" />
+<Input aria-label="Site" startSection="https://" />
+<Input aria-label="Weight" type="number" endSection="kg" />
+<Field type="url" label="Homepage" startSection="https://" />
+```
+
+With a section, `className`, the width props and the sizing part of `style` (width, margin,
+flex) apply to the wrapper around the field, as on `Select`.
+
+`<Textarea autosize>` grows with its text and has no resize handle. `resizeNone`, `resizeX` and
+`resize` change the handle; the default is `resizeY`.
 
 Mark a field's validation state with the `invalid` validity prop — it layers a danger border/ring over the input's current appearance: `<Input invalid />`.
 
@@ -352,6 +378,94 @@ An empty string for `error` or `description` means no message, so `error={errors
 A `Text`, `Col`, `Stack` or `Row` placed directly in an Alert takes the free width, so the Button after it sits at the end edge. Wrap a bare-text message in `Text` when an action follows it. `itemsCenter` centres the action on a short message; leave it out when the Alert has a leading icon and a message of several lines, so the icon stays on the first line. For a long message, put the buttons in the `Col`, under the text.
 
 Alert text is one step below body text (14px at `md`), and its radius, padding, gap and a leading icon follow the size prop. A `Text` that carries the message, on its own or in that `Col`, follows the Alert's size too: an unsized `Text` takes the Alert's text size, and `<Text sm>` sits one step below it. A plain `<svg>` icon is sized by the Alert; give it a `size-*` class to set your own.
+
+A status dot before the text, or a dot on its own:
+
+```tsx
+<Badge success dot>Online</Badge>
+<Badge danger dot aria-label="Offline" />
+```
+
+### Avatars
+
+```tsx
+<Avatar src={user.photo} name={user.name} />
+<Avatar name="Ada Lovelace" />            {/* initials AL */}
+<AvatarGroup aria-label="Editors" max={3}>
+  {editors.map(e => <Avatar key={e.id} src={e.photo} name={e.name} />)}
+</AvatarGroup>
+```
+
+### Loading placeholders
+
+`skeleton` shows a component as a placeholder in its own layout. On a container it reaches
+everything inside: text turns into bars as long as each line, the box components (Button, Badge,
+Chip, fields, toggles, segmented controls, Avatar, Img, Icon, Progress) into solid shapes of their own size, and the
+container keeps its surface and border. Render the real components with the data, or with
+placeholder text of the expected length, so the loaded page does not jump:
+
+```tsx
+<Card skeleton={loading}>
+  <Row>
+    <Avatar src={user?.photo} name={user?.name} />
+    <Title>{user?.name}</Title>{/* empty while loading: a 12-character bar */}
+  </Row>
+  <Text>{user?.bio ?? 'A line of placeholder text about this long.'}</Text>
+  <Button filled>Follow</Button>
+</Card>
+```
+
+The element with the prop gets `aria-busy="true"` and `inert`: nothing inside takes focus or
+clicks, and it is hidden from screen readers, so announce the wait elsewhere (for example a
+`<Text srOnly role="status">Loading profile</Text>`). A text with nothing in it yet (`{user?.name}`
+while `user` is undefined) draws one bar 12 characters long; set `--skeleton-text-width` to change
+it. An empty Button, Badge, Chip, Code, Kbd or Mark takes the room of a 6-character label
+(`--skeleton-label-width`). Placeholder text of the expected length matches the loaded layout
+more closely. Keep text in a component of its own (`Text`, `Title`, a cell): Safari draws the bar
+over text placed straight in a `Row`, `Col`, `Card`, `Stack`, `Section` or `Container` as a thin
+line. The placeholders pulse, and stand still with reduced motion. Set `--skeleton-color`
+to tint them.
+
+`Skeleton` is a box for an area with no component of its own. It is full width and one line of
+text tall at its size; aspect props, a height or a class set its shape.
+
+```tsx
+<Skeleton aspectVideo />                      {/* a chart or a video */}
+<Skeleton lg className="w-1/2" />
+```
+
+### Breadcrumb
+
+```tsx
+<Breadcrumb>
+  <BreadcrumbItem href="/" tag={Link}>Home</BreadcrumbItem>
+  <BreadcrumbItem href="/docs" tag={Link}>Docs</BreadcrumbItem>
+  <BreadcrumbItem>Button</BreadcrumbItem>
+</Breadcrumb>
+```
+
+### Segmented control
+
+```tsx
+const [status, setStatus] = useState('open');
+
+<SegmentedControl aria-label="Status" value={status} onChange={e => setStatus(e.target.value)}>
+  <SegmentedControlItem value="all">All</SegmentedControlItem>
+  <SegmentedControlItem value="open">Open</SegmentedControlItem>
+  <SegmentedControlItem value="closed">Closed</SegmentedControlItem>
+</SegmentedControl>
+```
+
+Each segment is a native radio, so the arrow keys move the selection and a form submits the
+value under `name`. The control is as tall as a Button of its size (`sm` by default), and its size,
+appearance, variant and shape reach the segments: `<SegmentedControl accent filled>` fills the
+selected segment with the accent color, and `ghost` drops the track and tints the selected segment. A segment with its own appearance keeps it, `disabled` on a
+segment skips it, and `wFull` stretches the segments to fill the width. A segment's `className`
+and `style` go to its `<label>`; `ref` and the other attributes go to its radio.
+
+### Tables
+
+`<Table striped>` tints every other body row, `<Table hoverable>` the row under the pointer.
 
 ### List
 
@@ -616,6 +730,17 @@ Controls border-radius. One per component.
 <Button sharp>No border-radius</Button>
 ```
 
+To make the whole library sharper or rounder, set `--br-scale` (1 by default) in your CSS instead
+of giving every component a shape: it multiplies the corners of every component, and `pill` and
+`sharp` keep their shape.
+
+```css
+:root { --br-scale: 0.5; } /* 0 for square corners, 2 for twice as round */
+```
+
+An `Img` that opens or closes a Card built from parts (`<Card><Img/><CardBody>...</CardBody></Card>`)
+takes the Card's corners on that edge and is square where it meets the parts.
+
 ## Toggle Props
 
 These are on/off switches. Check defaults before using — many are already true.
@@ -623,6 +748,8 @@ These are on/off switches. Check defaults before using — many are already true
 ```tsx
 {/* Layout toggles */}
 <Card noGap>No gap between children</Card>
+<Row gapSm>A fixed small gap at every size and width (gapXs–gapXl)</Row>
+<Card aspectVideo>A 16:9 box (aspectSquare, aspectAuto)</Card>
 <Card noPadding>No padding</Card>
 <Card shadow>Add shadow</Card>
 <Card noShadow>Remove shadow</Card>
@@ -639,6 +766,7 @@ These are on/off switches. Check defaults before using — many are already true
 <Text fontMono>Monospace text</Text>
 <Text textCenter>Centered</Text>
 <Text textRight>Right-aligned</Text>
+<Text srOnly>Read by screen readers, not shown</Text>
 ```
 
 ## Text Alignment & RTL
@@ -658,7 +786,7 @@ Text alignment offers both modes:
 
 ## Text Inside Boxed Components
 
-Button, IconButton, Badge, Chip, MenuItem, MenuLabel, Alert and Tooltip render each run of their own text in a `<span class="vane-text-run">`, and NavLink renders its label in `vane-nav-link-label`. The stylesheet trims that span to the height of the capital letters, so the text sits in the middle of the component with any font. The size of the component does not change. Browsers without `text-box` (before Chrome 133, Safari 18.2, Firefox 154) render the text where the font's line box puts it.
+Button, IconButton, Badge, Chip, MenuItem, MenuLabel, SegmentedControlItem, Alert and Tooltip render each run of their own text in a `<span class="vane-text-run">`, and NavLink renders its label in `vane-nav-link-label`. The stylesheet trims that span to the height of the capital letters, so the text sits in the middle of the component with any font. The size of the component does not change. Browsers without `text-box` (before Chrome 133, Safari 18.2, Firefox 154) render the text where the font's line box puts it.
 
 ```tsx
 <Button><Save /> Save changes</Button>
@@ -667,7 +795,7 @@ Button, IconButton, Badge, Chip, MenuItem, MenuLabel, Alert and Tooltip render e
 
 - In tests, find a component by its role or class (`getByRole('button', { name: 'Save changes' })`). `getByText('Save changes')` returns the span, not the button.
 - Text passed as an element (a translation component, a fragment, your own `<span>`) is not wrapped. Give your own span `className="vane-text-run"` to center it the same way.
-- Label is not wrapped and renders its text as before.
+- Label renders each run of its own text in a plain `<span class="vane-label-text">`, which is not trimmed.
 
 ## Anti-Patterns
 

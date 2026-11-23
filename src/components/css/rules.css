@@ -6,7 +6,7 @@
         /* Non-breakpoint computed variables */
         --pl: calc(var(--py-unit) * var(--spacing));
         --size: calc(var(--size-unit) * var(--spacing));
-        --br: calc(var(--br-unit) * var(--br-base));
+        --br: calc(var(--br-unit) * var(--br-base) * var(--br-scale));
         --py: calc(var(--py-unit) * var(--spacing));
         --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
         --gap: calc(var(--gap-unit) * var(--spacing));
@@ -76,6 +76,11 @@
 
     /* Type-based defaults per data-vane-type + data-size. UI --br-unit per component, Layout per size. */
 
+    /* Fixed gap steps (gapXs-gapXl): one ramp per type, whatever the component's size.
+       They match the type's own size curve (UI 1-3 units, Layout 2-8), so gapMd is the md gap. */
+    [data-vane-type="ui"] { --gap-unit-xs: 1; --gap-unit-sm: 1.5; --gap-unit-md: 2; --gap-unit-lg: 2.5; --gap-unit-xl: 3; }
+    [data-vane-type="layout"] { --gap-unit-xs: 2; --gap-unit-sm: 3; --gap-unit-md: 4; --gap-unit-lg: 6; --gap-unit-xl: 8; }
+
     /* UI type defaults */
     [data-vane-type="ui"][data-size="xs"] { --gap-unit: 1;   --shadow-base: var(--shadow-ui-xs); }
     [data-vane-type="ui"][data-size="sm"] { --gap-unit: 1.5; --shadow-base: var(--shadow-ui-sm); }
@@ -96,10 +101,12 @@
     :is(.vane-badge, .vane-chip)[data-size="lg"] { --gap-unit: 1.25; }
     :is(.vane-badge, .vane-chip)[data-size="xl"] { --gap-unit: 1.5;  }
 
-    /* --min-h: single-line control border-box height, so icon-only Buttons/IconButton match text Buttons per size. --br = that height * --br-unit. */
+    /* --min-h: single-line control border-box height, so icon-only Buttons/IconButton match text Buttons per size. --br = that height * --br-unit.
+       Every radius formula in this file is multiplied by --br-scale (tokens.css, 1 by default), so one
+       value makes the whole library sharper (0) or rounder (2). pill and sharp are not scaled. */
     [data-vane-type="ui"][data-size] {
         --min-h: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit)) * var(--spacing));
-        --br: calc(var(--min-h) * var(--br-unit));
+        --br: calc(var(--min-h) * var(--br-unit) * var(--br-scale));
     }
 
     /* Square by default, and declared here rather than per size so a component rule can override it:
@@ -107,12 +114,14 @@
        leaking in by inheritance (a Stack inside a Td). */
     [data-vane-type="layout"] { --aspect-ratio: 1; }
 
-    /* Layout gap/py units on the md-anchored curve (.5/.75/1/1.5/2x), so large sizes open up (md->xl doubles). */
-    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --shadow-base: var(--shadow-layout-xs); }
-    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --shadow-base: var(--shadow-layout-sm); }
-    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --shadow-base: var(--shadow-layout-md); }
-    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 6; --py-unit: 6; --shadow-base: var(--shadow-layout-lg); }
-    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 8; --py-unit: 8; --shadow-base: var(--shadow-layout-xl); }
+    /* Layout gap/py units on the md-anchored curve (.5/.75/1/1.5/2x), so large sizes open up (md->xl doubles).
+       Surface corners (Card, Modal, Img, a rounded Stack) run 8/10/12/14/16px: a md Card sits at about
+       1.5x the corners of the sm Button inside it, just above the Menu (10px). */
+    [data-vane-type="layout"][data-size="xs"] { --br-unit: 2;   --gap-unit: 2; --py-unit: 2; --shadow-base: var(--shadow-layout-xs); }
+    [data-vane-type="layout"][data-size="sm"] { --br-unit: 2.5; --gap-unit: 3; --py-unit: 3; --shadow-base: var(--shadow-layout-sm); }
+    [data-vane-type="layout"][data-size="md"] { --br-unit: 3;   --gap-unit: 4; --py-unit: 4; --shadow-base: var(--shadow-layout-md); }
+    [data-vane-type="layout"][data-size="lg"] { --br-unit: 3.5; --gap-unit: 6; --py-unit: 6; --shadow-base: var(--shadow-layout-lg); }
+    [data-vane-type="layout"][data-size="xl"] { --br-unit: 4;   --gap-unit: 8; --py-unit: 8; --shadow-base: var(--shadow-layout-xl); }
 
     /* NON-RESPONSIVE COMPONENTS */
 
@@ -139,6 +148,8 @@
     .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --icon-size: calc(var(--spacing) * 5); --py-unit: 2;   }
     .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --icon-size: calc(var(--spacing) * 6); --py-unit: 2.5; }
     .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --icon-size: calc(var(--spacing) * 8); --py-unit: 3;   }
+    /* Corners from the Icon's own box (it has no padding), at the Button ratio */
+    .vane-icon[data-size] { --br: calc(var(--icon-size) * var(--br-unit) * var(--br-scale)); }
     /* Outline Icons override --bg-color to transparent so inline use stays un-boxed; filled opts into bg paint. */
     .vane-icon[data-variant="outline"] { --bg-color: transparent; }
 
@@ -202,7 +213,7 @@
     /* `rounded` on a Mark: its box is the surrounding text's 1em, so the radius is a share of 1em that
        grows with the size prop. Declared after the ui-type --min-h formula, which it beats: that one
        reads the control units the Mark inherits from its parent (a Card's padding unit made it a pill). */
-    .vane-mark[data-size] { --br: calc(var(--br-unit) * 1em); }
+    .vane-mark[data-size] { --br: calc(var(--br-unit) * 1em * var(--br-scale)); }
     .vane-mark[data-size="xs"] { --br-unit: 0.2; }
     .vane-mark[data-size="sm"] { --br-unit: 0.25; }
     .vane-mark[data-size="md"] { --br-unit: 0.3; }
@@ -210,20 +221,28 @@
     .vane-mark[data-size="xl"] { --br-unit: 0.4; }
 
     /* Input: Button's line-height and radius ratio, so a field and its button share height and corners at every size. */
-    .vane-input { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.2174; }
+    /* The input section (startSection / endSection) shares the field's ramp, so its inset and text size match the field. */
+    :is(.vane-input, .vane-input-section) { --lh: 1.3; --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.2174; }
     /* The date/time picker icon's block padding would otherwise outgrow the 1.3 line box. */
     .vane-input::-webkit-calendar-picker-indicator { padding-block: 0; }
-    .vane-input[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
-    .vane-input[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
-    .vane-input[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
-    .vane-input[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
-    .vane-input[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
+    :is(.vane-input, .vane-input-section)[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
+    :is(.vane-input, .vane-input-section)[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 1.5; }
+    :is(.vane-input, .vane-input-section)[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 2; }
+    :is(.vane-input, .vane-input-section)[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 2.5; }
+    :is(.vane-input, .vane-input-section)[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
     /* trailing-icon room for input/select is declared unlayered at the end of this
        file: a utilities-layer px-(--px) would otherwise win over it. */
 
+    /* Section icons take the field's icon size; a button or link in a section stays clickable
+       although the section lets clicks through to the field. */
+    .vane-input-section :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); flex-shrink: 0; }
+    .vane-input-section :is(button, a, input, select, textarea, [tabindex]) { pointer-events: auto; }
+
     /* Textarea: the input ramp on a multi-line box. No trailing-icon reservation —
-       a vertically centred icon reads as misplaced once the box grows. */
-    .vane-textarea { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; min-height: calc(var(--fs) * var(--lh) * 3); resize: vertical; }
+       a vertically centred icon reads as misplaced once the box grows. The resize handle
+       comes from the resize props (resizeY by default); `autosize` grows the box from
+       this three-line floor with its content. */
+    .vane-textarea { --lh: var(--lh-base); --py-unit: 2; --aspect-ratio: 2; --br-unit: 0.1923; min-height: calc(var(--fs) * var(--lh) * 3); }
     /* An explicit rows count sizes the box itself; the three-line floor is only for the default. */
     .vane-textarea[rows] { min-height: 0; }
     .vane-textarea[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 1; }
@@ -259,7 +278,7 @@
     .vane-select option:disabled { color: color-mix(in oklab, var(--text-color) 70%, var(--bg-color)); }
 
     /* Checkbox height = size-unit * spacing. xs lifted off 12px (too small) to 14px, sm 15px; md stays 16px. */
-    .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
+    .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing) * var(--br-scale)); }
     .vane-checkbox[data-size="xs"] { --size-unit: 3.5; }
     .vane-checkbox[data-size="sm"] { --size-unit: 3.75; }
     .vane-checkbox[data-size="md"] { --size-unit: 4; }
@@ -267,7 +286,7 @@
     .vane-checkbox[data-size="xl"] { --size-unit: 5; }
 
     /* Radio: same size ramp as the checkbox. Circular by default, so --br only applies when a consumer opts into `rounded`. */
-    .vane-radio[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
+    .vane-radio[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing) * var(--br-scale)); }
     .vane-radio[data-size="xs"] { --size-unit: 3.5; }
     .vane-radio[data-size="sm"] { --size-unit: 3.75; }
     .vane-radio[data-size="md"] { --size-unit: 4; }
@@ -282,7 +301,7 @@
         --switch-thumb: calc(var(--size) - 2 * var(--switch-pad));
         --switch-travel: calc(var(--switch-w) - var(--size));
         /* `rounded` radius for the track; the thumb insets from this one value so the two stay concentric. */
-        --switch-br: calc(var(--size) * 0.25);
+        --switch-br: calc(var(--size) * 0.25 * var(--br-scale));
     }
     .vane-switch-wrapper[data-size="xs"] { --size-unit: 3.75; }
     .vane-switch-wrapper[data-size="sm"] { --size-unit: 4; }
@@ -299,7 +318,7 @@
         width: var(--switch-thumb);
         height: var(--switch-thumb);
         margin-inline-start: var(--switch-pad);
-        --br: calc(var(--switch-br) - var(--switch-pad));
+        --br: max(0px, var(--switch-br) - var(--switch-pad));
     }
     [dir="rtl"] .vane-switch-thumb { --switch-travel: calc(var(--size) - var(--switch-w)); }
 
@@ -367,6 +386,17 @@
     .vane-table-caption[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
     .vane-table-caption[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
+    /* Striped and hoverable tables: a tint of the row's own text color, so it reads on any
+       appearance, on a fill and in dark mode. Components layer on purpose: a row or cell fill
+       (an appearance on Tr, a filled Td, a bg-* class) is a utility and wins. Hover comes last
+       so a hovered stripe still changes. */
+    .vane-table-striped > tbody > tr:nth-child(even) {
+        background-color: color-mix(in oklab, currentColor 4%, transparent);
+    }
+    .vane-table-hoverable > tbody > tr:hover {
+        background-color: color-mix(in oklab, currentColor 8%, transparent);
+    }
+
     /* List: --py-unit drives the marker gutter (--pl); wide enough that bullets and "10." stay inside the box. */
     .vane-list { --lh: var(--lh-base); --py-unit: 6; }
     .vane-list[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 4; }
@@ -427,6 +457,8 @@
     .vane-card {
         --gap-unit: 3; --aspect-ratio: 1;
         --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 5; --py-unit-mobile: 4;
+        /* the corners of an Img on the Card's edge (CARD MEDIA below): the Card's, less its border */
+        --card-corner: max(0px, var(--br) - var(--bw));
     }
     .vane-card[data-size="xs"] { --gap-unit: 1.5;  --py-unit: 3;   --py-unit-desktop: 3;   --py-unit-tablet: 3; --py-unit-mobile: 2; }
     .vane-card[data-size="sm"] { --gap-unit: 2.25; --py-unit: 4.5; --py-unit-desktop: 4.5; --py-unit-tablet: 4; --py-unit-mobile: 3; }
@@ -927,12 +959,112 @@
     }
 
     /* Progress track height per size; `rounded` follows the bar height, beating the ui-type --min-h formula. */
-    .vane-progress[data-size] { --br: calc(var(--size) * 0.25); }
+    .vane-progress[data-size] { --br: calc(var(--size) * 0.25 * var(--br-scale)); }
     .vane-progress[data-size="xs"] { --size-unit: 0.5; }
     .vane-progress[data-size="sm"] { --size-unit: 1; }
     .vane-progress[data-size="md"] { --size-unit: 2; }
     .vane-progress[data-size="lg"] { --size-unit: 3; }
     .vane-progress[data-size="xl"] { --size-unit: 4; }
+
+    /* Avatar: a --size square (24, 32, 40, 48, 64px), clipped to its shape. Initials are 40% of
+       the size, the fallback icon 60%, and the image covers the box. */
+    .vane-avatar[data-size] { --br: calc(var(--size) * 0.25 * var(--br-scale)); font-size: calc(var(--size) * 0.4); line-height: 1; }
+    .vane-avatar[data-size="xs"] { --size-unit: 6; }
+    .vane-avatar[data-size="sm"] { --size-unit: 8; }
+    .vane-avatar[data-size="md"] { --size-unit: 10; }
+    .vane-avatar[data-size="lg"] { --size-unit: 12; }
+    .vane-avatar[data-size="xl"] { --size-unit: 16; }
+    .vane-avatar-image { width: 100%; height: 100%; object-fit: cover; }
+    .vane-avatar :where(svg:not([class*='size-'])) { width: 60%; height: 60%; }
+
+    /* AvatarGroup: avatars overlap by a quarter of their size, each ringed in the color of the
+       surface behind the group (resolved on the group, so the avatars' own --bg-color is not it). */
+    .vane-avatar-group { --avatar-ring-color: var(--bg-color); }
+    .vane-avatar-group > .vane-avatar { outline: calc(var(--size) * 0.05 + 1px) solid var(--avatar-ring-color); }
+    .vane-avatar-group > .vane-avatar + .vane-avatar { margin-inline-start: calc(var(--size) * -0.25); }
+
+    /* Breadcrumb: a plain list (no markers or indent, also without a preflight), and a separator
+       icon at the text size. */
+    .vane-breadcrumb-list { list-style: none; margin: 0; padding: 0; }
+    .vane-breadcrumb-separator :where(svg:not([class*='size-'])) { width: 1em; height: 1em; }
+
+    /* SegmentedControl: the track is as tall as a Button of its size (its padding plus a segment),
+       with a Button's corners. A segment has the Button's text size, the rest of that height and
+       corners that follow its own height. */
+    .vane-segmented-control { --lh: 1.3; --aspect-ratio: 1; --br-unit: 0.2174; --segmented-track: var(--color-bg-tertiary); }
+    /* A ghost control has no track; its selected segment is tinted instead */
+    .vane-segmented-control[data-variant="ghost"] { --segmented-track: transparent; }
+    .vane-segmented-control[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5;  --control-py-unit: 1; }
+    .vane-segmented-control[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 0.75; --control-py-unit: 1.5; }
+    .vane-segmented-control[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1;    --control-py-unit: 2; }
+    .vane-segmented-control[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 1;    --control-py-unit: 2.5; }
+    .vane-segmented-control[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 1.25; --control-py-unit: 3; }
+    .vane-segmented-control[data-size] {
+        --min-h: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--control-py-unit)) * var(--spacing));
+        --br: calc(var(--min-h) * var(--br-unit) * var(--br-scale));
+    }
+    .vane-segmented-control-item { --lh: 1.3; --br-unit: 0.2174; }
+    .vane-segmented-control-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5;  --px: calc(var(--spacing) * 2); }
+    .vane-segmented-control-item[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 0.75; --px: calc(var(--spacing) * 2.5); }
+    .vane-segmented-control-item[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1;    --px: calc(var(--spacing) * 3); }
+    .vane-segmented-control-item[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --py-unit: 1.5;  --px: calc(var(--spacing) * 3.5); }
+    .vane-segmented-control-item[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 1.75; --px: calc(var(--spacing) * 4); }
+    .vane-segmented-control-item :where(svg:not([class*='size-'])) { width: var(--icon-size); height: var(--icon-size); }
+
+    /* The radio covers its segment unseen, so a click, a tap and the arrow keys work as on any
+       radio group. A segment that is not selected shows muted text on the track. */
+    .vane-segmented-control-input {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        opacity: 0;
+        appearance: none;
+        cursor: inherit;
+    }
+    .vane-segmented-control-item { color: var(--color-text-secondary); }
+    .vane-segmented-control-item:not([data-disabled="true"]):hover { color: var(--color-text-primary); }
+    /* The selected segment takes the surface and text of its appearance and variant: a raised
+       white segment by default, the fill with `filled`, the active tint with `ghost`. */
+    .vane-segmented-control-item:has(> .vane-segmented-control-input:checked) {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+    }
+    .vane-segmented-control-item[data-variant="ghost"]:has(> .vane-segmented-control-input:checked) {
+        background-color: var(--bg-active-color);
+    }
+    .vane-segmented-control-item:not([data-variant="ghost"]):has(> .vane-segmented-control-input:checked) {
+        box-shadow: var(--shadow-base), inset 0 0 0 1px var(--border-color);
+    }
+    /* The focus ring hugs the segment, so it stays inside the track */
+    .vane-segmented-control-item:has(> .vane-segmented-control-input:focus-visible) {
+        outline: 2px solid var(--focus-color);
+        outline-offset: 0;
+    }
+    /* A line between two segments that are not selected */
+    .vane-segmented-control-item + .vane-segmented-control-item::before {
+        content: "";
+        position: absolute;
+        inset-block: 25%;
+        inset-inline-start: -0.5px;
+        inline-size: 1px;
+        background-color: var(--color-border-form);
+        pointer-events: none;
+    }
+    .vane-segmented-control-item:has(> .vane-segmented-control-input:checked)::before,
+    .vane-segmented-control-item:has(> .vane-segmented-control-input:checked) + .vane-segmented-control-item::before {
+        opacity: 0;
+    }
+
+    /* Skeleton box: one line of text tall at its size (--min-h, 18 to 30px), with the corners of a
+       control of that size. The fill and the pulse are in the SKELETON rules below. */
+    .vane-skeleton { --lh: 1.5; --py-unit: 0; --br-unit: 0.25; }
+    .vane-skeleton[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-skeleton[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-skeleton[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-skeleton[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-skeleton[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
 
     /* read-only: only the bits with no class equivalent — opacity/cursor are in ReadOnlyClassMapper */
     [data-readonly="true"] {
@@ -1240,10 +1372,46 @@
     padding-inline-end: calc(var(--px) + var(--icon-size) + var(--gap));
 }
 
+/* SECTIONS — unlayered for the same reason. The field reserves the measured width of each
+   section (--field-start-section / --field-end-section, set on the wrapper by the component)
+   plus one inset. Until it is measured (server markup) it reserves one icon. The section's own
+   outer inset is two thirds of --px, so an icon sits in a square as tall as the field. */
+:is(.vane-input-wrapper, .vane-select-wrapper)[data-start-section] > :is(.vane-input, .vane-select) {
+    padding-inline-start: calc(var(--field-start-section, calc(var(--icon-size) + var(--px) * 2 / 3)) + var(--px) * 2 / 3);
+}
+
+.vane-input-wrapper[data-end-section] > .vane-input {
+    padding-inline-end: calc(var(--field-end-section, calc(var(--icon-size) + var(--px) * 2 / 3)) + var(--px) * 2 / 3);
+}
+
+/* With an end section, the error icon sits just inside it and the field reserves both. */
+.vane-input-wrapper[data-end-section] > .vane-input[data-status="error"] {
+    padding-inline-end: calc(var(--field-end-section, calc(var(--icon-size) + var(--px) * 2 / 3)) + var(--icon-size) + var(--gap) + var(--px) * 2 / 3);
+}
+
+.vane-input-wrapper[data-end-section] > .vane-input-error-icon {
+    inset-inline-end: calc(var(--field-end-section, calc(var(--icon-size) + var(--px) * 2 / 3)) + var(--gap) / 2);
+}
+
 /* Also unlayered: the chevron is a sibling, so the field's error state has to be
    forwarded to it, and its own text-(--color-text-secondary) utility would win a layer. */
 .vane-select[data-status="error"] ~ .vane-select-chevron {
     color: var(--color-text-danger);
+}
+
+/* SCREEN-READER ONLY (srOnly) — unlayered, so the component's own width, padding or margin
+   utilities (Text is w-fit) cannot bring the content back into view. */
+.vane-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border-width: 0;
 }
 
 /* LOADING BUTTON — also unlayered, so a child's own opacity or color utility cannot show through.
@@ -1259,6 +1427,118 @@
     opacity: 0;
 }
 
+/* INDETERMINATE PROGRESS — unlayered, because the fill's width and value slide are utilities.
+   A bar of 40% of the track slides across it; in RTL it runs the other way. With reduced
+   motion it stands still in the middle of the track, which no value would draw. */
+.vane-progress[data-indeterminate="true"] > .vane-progress-fill {
+    width: 40%;
+    translate: none;
+    animation: vane-progress-slide 1.6s ease-in-out infinite;
+}
+
+.vane-progress[data-indeterminate="true"]:dir(rtl) > .vane-progress-fill {
+    animation-name: vane-progress-slide-rtl;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vane-progress[data-indeterminate="true"] > .vane-progress-fill {
+        animation: none;
+        transform: translateX(75%);
+    }
+
+    .vane-progress[data-indeterminate="true"]:dir(rtl) > .vane-progress-fill {
+        transform: translateX(-75%);
+    }
+}
+
+/* SKELETON — unlayered, so no color, background or decoration utility of a component shows through.
+   `skeleton` (data-skeleton) turns a component and every component inside it into a placeholder:
+   - text turns into bars, one per line and as long as the line, drawn as a thick line-through;
+   - boxes (buttons, badges, fields, avatars, images, icons) turn into solid shapes of their own
+     size and corners, with their content hidden;
+   - a container keeps its own surface and border, so the layout reads before the data arrives.
+   Bars and shapes share one opaque fill, so a bar drawn over a shape of the same fill adds nothing.
+   --skeleton-color tints it. The pulse runs on the outermost skeleton and reaches the rest through
+   the inherited --vane-skeleton-pulse, so the surfaces of containers stay still. */
+@property --vane-skeleton-pulse {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 1;
+}
+
+:is([data-skeleton], [data-skeleton] *) {
+    --vane-skeleton-fill: color-mix(in oklab, var(--skeleton-color, var(--color-text-secondary)) calc(var(--vane-skeleton-pulse) * 20%), var(--color-bg-primary));
+    color: transparent;
+    text-decoration: line-through solid var(--vane-skeleton-fill) 0.7em;
+    text-shadow: none;
+}
+
+:is([data-skeleton], [data-skeleton] *)::placeholder {
+    color: transparent;
+}
+
+:is(.vane-button, .vane-icon-button, .vane-badge, .vane-chip, .vane-code, .vane-kbd, .vane-mark, .vane-icon, .vane-avatar, .vane-img, .vane-input, .vane-textarea, .vane-select, .vane-checkbox, .vane-radio, .vane-switch, .vane-segmented-control, .vane-progress, .vane-spinner, .vane-skeleton):is([data-skeleton], [data-skeleton] *),
+:is(svg, img, video, canvas):is([data-skeleton] *) {
+    background: var(--vane-skeleton-fill);
+    border-color: transparent;
+    box-shadow: none;
+}
+
+/* What a box holds is hidden: the label and icon of a Button, the image or initials of an Avatar,
+   the fill of a Progress, the drawing of an icon. An image is moved out of its own box. */
+:is(.vane-button, .vane-icon-button, .vane-badge, .vane-chip, .vane-code, .vane-kbd, .vane-mark, .vane-icon, .vane-avatar, .vane-img, .vane-input, .vane-textarea, .vane-select, .vane-checkbox, .vane-radio, .vane-switch, .vane-segmented-control, .vane-progress, .vane-spinner, .vane-skeleton, svg):is([data-skeleton], [data-skeleton] *) * {
+    visibility: hidden;
+}
+
+:is(img, video, canvas):is([data-skeleton], [data-skeleton] *) {
+    object-position: 1000vmax 0;
+}
+
+/* A bare icon is a shape too, with the corners of an Icon. */
+svg:is([data-skeleton] *) {
+    border-radius: calc(21.74% * var(--br-scale));
+}
+
+/* Parts that only decorate a control are hidden with it: the check, dot and thumb of a toggle,
+   the sections, error icon and chevron of a field, the separators of a Breadcrumb. */
+:is(.vane-checkbox, .vane-radio, .vane-switch):is([data-skeleton], [data-skeleton] *) ~ *,
+:is([data-skeleton] *, :has(> [data-skeleton]) > *):is(.vane-input-section, .vane-input-error-icon, .vane-select-chevron),
+[data-skeleton] .vane-breadcrumb-separator {
+    visibility: hidden;
+}
+
+/* A text with nothing in it yet (data that has not arrived) draws one bar of a default length, so
+   a placeholder needs no filler text: 12 characters, or --skeleton-text-width. An empty Button,
+   Badge, Chip, Code, Kbd or Mark takes the room of a 6-character label, or --skeleton-label-width.
+   The bar is a band of the fill in a box one line tall, so it sits where a line of text would and
+   does not depend on how an engine draws a line-through. It sits 0.08em below the middle of the
+   line, where the engines put the line-through of a real text (0 to 0.15em low). A dot-only Badge
+   stays a dot. */
+:is(.vane-text, .vane-title, .vane-section-title, .vane-page-title, .vane-link, .vane-list-item, .vane-blockquote, .vane-table-cell, .vane-table-caption, .vane-nav-link, .vane-menu-item, .vane-menu-label, .vane-breadcrumb-item):is([data-skeleton], [data-skeleton] *):empty::before {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    inline-size: var(--skeleton-text-width, 12ch);
+    max-inline-size: 100%;
+    block-size: 1lh;
+    background: linear-gradient(var(--vane-skeleton-fill), var(--vane-skeleton-fill)) 0 calc(50% + 0.08em) / 100% 0.7em no-repeat;
+}
+
+:is(.vane-button, .vane-badge:not(.vane-badge-dot), .vane-chip, .vane-code, .vane-kbd, .vane-mark):is([data-skeleton], [data-skeleton] *):empty::after {
+    content: "";
+    display: inline-block;
+    vertical-align: top;
+    inline-size: var(--skeleton-label-width, 6ch);
+    block-size: 1lh;
+}
+
+/* With reduced motion the placeholders stand still. */
+@media (prefers-reduced-motion: no-preference) {
+    [data-skeleton]:not([data-skeleton] *) {
+        animation: vane-skeleton-pulse 1.6s ease-in-out infinite;
+    }
+}
+
 /* Also unlayered: a selected disabled option is a placeholder, so it is muted like an Input placeholder. */
 .vane-select:has(option:checked:disabled) {
     color: color-mix(in oklab, var(--text-color) 50%, transparent);
@@ -1270,8 +1550,27 @@
 
 /* Also unlayered: a dimmed wrapper's nested control would else stack a second 0.5 on top. */
 .vane-label:is([data-disabled="true"], :has(:disabled)) :is([data-disabled="true"], :disabled),
-.vane-select-wrapper[data-disabled="true"] .vane-select[data-disabled="true"] {
+.vane-select-wrapper[data-disabled="true"] .vane-select[data-disabled="true"],
+.vane-input-wrapper[data-disabled="true"] .vane-input[data-disabled="true"] {
     opacity: 1;
+}
+
+/* CARD MEDIA — an Img that opens or closes a Card of parts sits on the Card's edge, since such a
+   Card has no inset of its own. It takes the Card's corners on that edge, less the border, and is
+   square where it meets the parts. Unlayered so it can replace the corners of the Img's own
+   rounded-(--br) utility. It needs that class on both: a sharp or pill Card or Img, or a radius
+   class of the user's own (tailwind-merge drops the theme's class for it), keeps its corners. */
+.vane-card.rounded-\(--br\):not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer)) > .vane-img.rounded-\(--br\):first-child {
+    border-top-left-radius: var(--card-corner);
+    border-top-right-radius: var(--card-corner);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.vane-card.rounded-\(--br\):not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer)) > .vane-img.rounded-\(--br\):last-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: var(--card-corner);
+    border-bottom-right-radius: var(--card-corner);
 }
 
 /* STYLEABLE DROPDOWN — also unlayered, because `appearance-none` is a utility class and a
@@ -1286,15 +1585,24 @@
     /* the themed chevron already occupies the trailing edge */
     .vane-select::picker-icon { display: none; }
 
+    /* The list has the corners and inset of a Menu dropdown next to a Button of the field's size
+       (a sm field opens a list like the default Menu: 10px corners, 6px inset), and each option
+       the corners of a MenuItem of the field's size. */
+    .vane-select[data-size="xs"] { --picker-br-unit: 2;   --picker-py-unit: 1.25; --option-py-unit: 1; }
+    .vane-select[data-size="sm"] { --picker-br-unit: 2.5; --picker-py-unit: 1.5;  --option-py-unit: 1.5; }
+    .vane-select[data-size="md"] { --picker-br-unit: 3;   --picker-py-unit: 1.75; --option-py-unit: 2; }
+    .vane-select[data-size="lg"] { --picker-br-unit: 3.5; --picker-py-unit: 2;    --option-py-unit: 2.5; }
+    .vane-select[data-size="xl"] { --picker-br-unit: 4;   --picker-py-unit: 2.25; --option-py-unit: 3; }
+
     /* UA try-order is most-block-size: it flips the list up whenever room above is larger. */
     .vane-select::picker(select) {
         position-try-order: normal;
         background-color: var(--bg-color);
         color: var(--text-color);
         border: 1px solid var(--border-color);
-        border-radius: var(--br);
+        border-radius: calc(var(--picker-br-unit) * var(--br-base) * var(--br-scale));
         box-shadow: var(--shadow-base);
-        padding: calc(var(--py) * 0.5);
+        padding: calc(var(--picker-py-unit) * var(--spacing));
         /* both edges: the flipped-up position anchors the picker's bottom to the field */
         margin-block: calc(var(--gap) * 0.5);
     }
@@ -1312,7 +1620,7 @@
         gap: var(--gap);
         min-block-size: 0;
         padding: calc(var(--py) * 0.75) var(--px);
-        border-radius: var(--br);
+        border-radius: calc((var(--fs-unit) * 0.5 * var(--lh-base) + 2 * var(--option-py-unit)) * var(--spacing) * 0.15 * var(--br-scale));
     }
 
     /* a disabled option (a placeholder, typically) must not light up as if it were selectable */
@@ -1324,8 +1632,8 @@
 
     .vane-select optgroup { padding: calc(var(--py) * 0.5) var(--px); }
 
-    /* A sharp field must not open a rounded list. Pill keeps --br on purpose: the field's own
-       radius is effectively infinite, which on a tall list box swallows the first and last rows. */
+    /* A sharp field must not open a rounded list. A pill field opens the rounded list: the field's
+       own radius is effectively infinite, which on a tall list box swallows the first and last rows. */
     .vane-select[data-shape="sharp"]::picker(select),
     .vane-select[data-shape="sharp"] option { border-radius: 0; }
 }
@@ -1352,6 +1660,20 @@
     to { opacity: 0; transform: scale(0.95); }
 }
 
+@keyframes vane-progress-slide {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(250%); }
+}
+
+@keyframes vane-progress-slide-rtl {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-250%); }
+}
+
 @keyframes vane-spin {
     to { transform: rotate(360deg); }
+}
+
+@keyframes vane-skeleton-pulse {
+    50% { --vane-skeleton-pulse: 0.55; }
 }

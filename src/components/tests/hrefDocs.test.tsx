@@ -22,6 +22,7 @@ const STANDALONE = [
   'NavLink', 'MenuItem', 'MenuLabel', 'Section', 'Container', 'Col', 'Row', 'Stack',
   'Grid2', 'Grid3', 'Grid4', 'Grid5', 'Grid6', 'Card', 'CardHeader', 'CardBody', 'CardFooter', 'Table',
   'Text', 'Title', 'Link', 'List', 'ListItem', 'SectionTitle', 'PageTitle', 'Blockquote',
+  'Avatar', 'AvatarGroup', 'Breadcrumb', 'BreadcrumbItem', 'Skeleton', 'SegmentedControl', 'SegmentedControlItem',
 ] as const;
 
 const TABLE_PARTS: Record<string, (el: React.ReactNode) => React.ReactNode> = {

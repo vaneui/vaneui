@@ -11,6 +11,8 @@ import type {
   FontFamilyProps,
   HideProps,
   ResponsiveProps,
+  StripedProps,
+  HoverableProps,
 } from "../props";
 
 /** Table component props */
@@ -25,6 +27,8 @@ export type TableProps = BaseProps &
   FontFamilyProps &
   HideProps &
   ResponsiveProps &
+  StripedProps &
+  HoverableProps &
   // Omit the deprecated native `border` attr (number) so it doesn't collide with
   // VaneUI's boolean `border` prop and collapse the field to `never`.
   Omit<React.TableHTMLAttributes<HTMLTableElement>, 'className' | 'children' | 'border'> & {

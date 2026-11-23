@@ -18,6 +18,7 @@ const PREFIXED_CATEGORIES: Record<string, string> = {
   border: 'border', gap: 'gap', shadow: 'shadow', transition: 'transition',
   focusVisible: 'focusVisible', ring: 'insetRing', blur: 'backdropBlur',
   pointerEvents: 'pointerEvents', wrap: 'flex', flex: 'flex', placement: 'place',
+  resize: 'resize', aspect: 'aspect', srOnly: 'srOnly',
 };
 
 // Semantic (abstracted above Tailwind): allow-listed, not prefix-checked.
@@ -30,6 +31,12 @@ const SEMANTIC_CATEGORIES = new Set<string>([
   'transparent', 'disabled', 'readOnly', 'shrink',
   'inheritSize', 'inheritColor', 'inheritBg', 'inheritBorder',
   'divided', 'strongBorder', 'indicator',
+  // Textarea grows with its content (field-sizing: content), no single class to mirror
+  'autosize',
+  // Badge status dot and Table row states: component behaviours, not one utility each
+  'dot', 'striped', 'hoverable',
+  // Loading placeholder state: a set of rules in the stylesheet, not one utility
+  'skeleton',
 ]);
 
 const cap = (s: string) => s[0].toUpperCase() + s.slice(1);

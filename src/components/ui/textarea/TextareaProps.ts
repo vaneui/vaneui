@@ -36,7 +36,9 @@ import type {
   StatusProps,
   TruncateProps,
   WhitespaceProps,
-  WordBreakProps
+  WordBreakProps,
+  ResizeProps,
+  AutosizeProps
 } from '../props';
 
 /** Textarea component props */
@@ -77,6 +79,8 @@ export type TextareaProps = BaseProps &
   TruncateProps &
   WhitespaceProps &
   WordBreakProps &
+  ResizeProps &
+  AutosizeProps &
   Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;

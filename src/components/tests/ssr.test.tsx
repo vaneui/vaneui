@@ -19,6 +19,7 @@ import {
   Card, CardHeader, CardBody, CardFooter,
   Table, Thead, Tbody, Tfoot, Tr, Th, Td, Caption,
   Text, Title, Link, List, ListItem, SectionTitle, PageTitle, Blockquote,
+  Avatar, AvatarGroup, Breadcrumb, BreadcrumbItem, Skeleton, SegmentedControl, SegmentedControlItem,
 } from '../../index';
 
 const renderSSR = (node: React.ReactNode): string =>
@@ -106,6 +107,24 @@ describe('SSR rendering', () => {
           </Table>
           <Divider />
           <Img src="/x.png" alt="img" />
+          <AvatarGroup max={2}>
+            <Avatar name="Ada Lovelace" />
+            <Avatar src="/a.png" name="Alan Turing" />
+            <Avatar name="Grace Hopper" />
+          </AvatarGroup>
+          <Breadcrumb>
+            <BreadcrumbItem href="/">Home</BreadcrumbItem>
+            <BreadcrumbItem>Here</BreadcrumbItem>
+          </Breadcrumb>
+          <Input startSection={<svg />} endSection="kg" placeholder="weight" />
+          <Select startSection={<svg />} defaultValue="a"><option value="a">A</option></Select>
+          <Progress indeterminate aria-label="Loading" />
+          <Card skeleton><Title>Loading</Title><Button>Save</Button></Card>
+          <Skeleton aspectVideo />
+          <SegmentedControl aria-label="View" defaultValue="day">
+            <SegmentedControlItem value="day">Day</SegmentedControlItem>
+            <SegmentedControlItem value="week">Week</SegmentedControlItem>
+          </SegmentedControl>
         </Section>
       </Container>
     );
@@ -113,6 +132,13 @@ describe('SSR rendering', () => {
     expect(html.length).toBeGreaterThan(0);
     expect(html).toContain('Button');
     expect(html).toContain('Page');
+  });
+
+  it('should render a skeleton with its attributes, inert included', () => {
+    const html = renderSSR(<Card skeleton><Avatar name="Ada Lovelace" /></Card>);
+    expect(html).toContain('data-skeleton=""');
+    expect(html).toContain('aria-busy="true"');
+    expect(html).toMatch(/\binert=""/);
   });
 
   it('should render SSR-open portaled components as null on the server without throwing', () => {
@@ -186,6 +212,7 @@ describe('SSR rendering', () => {
       'Grid6', 'Card', 'CardHeader', 'CardBody', 'CardFooter', 'Text', 'Title', 'Link', 'List',
       'ListItem', 'SectionTitle', 'PageTitle', 'Blockquote',
       'Table', 'Thead', 'Tbody', 'Tfoot', 'Tr', 'Th', 'Td', 'Caption',
+      'Avatar', 'AvatarGroup', 'Breadcrumb', 'BreadcrumbItem', 'Skeleton', 'SegmentedControl', 'SegmentedControlItem',
     ]);
 
     const componentExports = Object.entries(VaneUI)

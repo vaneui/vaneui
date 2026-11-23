@@ -12,6 +12,7 @@ import { FlexClassMapper } from "../layout/flexClassMapper";
 import { ShrinkClassMapper } from "../layout/shrinkClassMapper";
 import { PointerEventsClassMapper } from "../layout/pointerEventsClassMapper";
 import { WhitespaceClassMapper } from "../layout/whitespaceClassMapper";
+import { AspectClassMapper } from "../layout/aspectClassMapper";
 import { StrongBorderClassMapper } from "../appearance/strongBorderClassMapper";
 import { bgAppearance, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "./appearanceClassMappers";
 
@@ -42,5 +43,6 @@ export const layoutClassMappers = {
     shrink: new ShrinkClassMapper(),
     pointerEvents: new PointerEventsClassMapper(),
     whitespace: new WhitespaceClassMapper(),
+    aspect: new AspectClassMapper(),
   },
 };

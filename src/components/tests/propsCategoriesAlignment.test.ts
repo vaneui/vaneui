@@ -28,7 +28,21 @@ import type { CodeProps } from '../ui/code';
 import type { KbdProps } from '../ui/kbd';
 import type { MarkProps } from '../ui/mark';
 import type { IconProps } from '../ui/icon';
-import type { InputProps } from '../ui/input';
+import type { InputProps, InputSectionProps } from '../ui/input';
+import type { TextareaProps } from '../ui/textarea';
+import type { AvatarProps, AvatarGroupProps } from '../ui/avatar';
+import type { BreadcrumbProps, BreadcrumbItemProps, BreadcrumbListProps, BreadcrumbSeparatorProps } from '../ui/breadcrumb';
+import { INPUT_SECTION_CATEGORIES } from '../ui/input/InputSectionCategories';
+import { TEXTAREA_CATEGORIES } from '../ui/textarea/TextareaCategories';
+import { AVATAR_CATEGORIES } from '../ui/avatar/AvatarCategories';
+import { AVATAR_GROUP_CATEGORIES } from '../ui/avatar/AvatarGroupCategories';
+import type { SkeletonProps } from '../ui/skeleton';
+import { SKELETON_CATEGORIES } from '../ui/skeleton/SkeletonCategories';
+import {
+  BREADCRUMB_CATEGORIES, BREADCRUMB_LIST_CATEGORIES, BREADCRUMB_ITEM_CATEGORIES, BREADCRUMB_SEPARATOR_CATEGORIES,
+} from '../ui/breadcrumb/BreadcrumbCategories';
+import type { SegmentedControlProps, SegmentedControlItemProps } from '../ui/segmentedControl';
+import { SEGMENTED_CONTROL_CATEGORIES, SEGMENTED_CONTROL_ITEM_CATEGORIES } from '../ui/segmentedControl/SegmentedControlCategories';
 import type { CheckboxProps, CheckboxCheckProps, CheckboxIndeterminateProps } from '../ui/checkbox';
 import type { LabelProps } from '../ui/label';
 import type { CardProps, CardHeaderProps, CardBodyProps, CardFooterProps } from '../ui/card';
@@ -118,6 +132,14 @@ const assertions: true[] = [
   true as AssertCategoriesCovered<MarkProps, typeof CODE_CATEGORIES>,
   true as AssertCategoriesCovered<IconProps, typeof ICON_CATEGORIES>,
   true as AssertCategoriesCovered<InputProps, typeof INPUT_CATEGORIES>,
+  true as AssertCategoriesCovered<TextareaProps, typeof TEXTAREA_CATEGORIES>,
+  true as AssertCategoriesCovered<AvatarProps, typeof AVATAR_CATEGORIES>,
+  true as AssertCategoriesCovered<AvatarGroupProps, typeof AVATAR_GROUP_CATEGORIES>,
+  true as AssertCategoriesCovered<SkeletonProps, typeof SKELETON_CATEGORIES>,
+  true as AssertCategoriesCovered<BreadcrumbProps, typeof BREADCRUMB_CATEGORIES>,
+  true as AssertCategoriesCovered<BreadcrumbItemProps, typeof BREADCRUMB_ITEM_CATEGORIES>,
+  true as AssertCategoriesCovered<SegmentedControlProps, typeof SEGMENTED_CONTROL_CATEGORIES>,
+  true as AssertCategoriesCovered<SegmentedControlItemProps, typeof SEGMENTED_CONTROL_ITEM_CATEGORIES>,
   true as AssertCategoriesCovered<CheckboxProps, typeof CHECKBOX_CATEGORIES>,
   true as AssertCategoriesCovered<LabelProps, typeof LABEL_CATEGORIES>,
   true as AssertCategoriesCovered<CardProps, typeof CARD_CATEGORIES>,
@@ -154,6 +176,9 @@ const assertions: true[] = [
   true as AssertCategoriesCovered<NavLinkLabelProps, typeof NAV_LINK_LABEL_CATEGORIES>,
   true as AssertCategoriesCovered<CheckboxCheckProps, typeof CHECKBOX_CHECK_CATEGORIES>,
   true as AssertCategoriesCovered<CheckboxIndeterminateProps, typeof CHECKBOX_INDETERMINATE_CATEGORIES>,
+  true as AssertCategoriesCovered<InputSectionProps, typeof INPUT_SECTION_CATEGORIES>,
+  true as AssertCategoriesCovered<BreadcrumbListProps, typeof BREADCRUMB_LIST_CATEGORIES>,
+  true as AssertCategoriesCovered<BreadcrumbSeparatorProps, typeof BREADCRUMB_SEPARATOR_CATEGORIES>,
   // Table family
   true as AssertCategoriesCovered<TableProps, typeof TABLE_CATEGORIES>,
   true as AssertCategoriesCovered<TheadProps, typeof THEAD_CATEGORIES>,
@@ -172,6 +197,10 @@ const assertions: true[] = [
 const reverseAssertions: true[] = [
   true as AssertNoExtraCategoryFlags<ListItemProps, typeof LIST_ITEM_CATEGORIES>,
   true as AssertNoExtraCategoryFlags<TypographyProps, typeof TYPOGRAPHY_CATEGORIES>,
+  true as AssertNoExtraCategoryFlags<AvatarProps, typeof AVATAR_CATEGORIES>,
+  true as AssertNoExtraCategoryFlags<AvatarGroupProps, typeof AVATAR_GROUP_CATEGORIES>,
+  true as AssertNoExtraCategoryFlags<SkeletonProps, typeof SKELETON_CATEGORIES>,
+  true as AssertNoExtraCategoryFlags<BreadcrumbProps, typeof BREADCRUMB_CATEGORIES>,
 ];
 
 describe('Props/Categories alignment', () => {

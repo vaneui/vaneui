@@ -1,6 +1,6 @@
 import type React from 'react';
 import type { ColProps } from "../col/ColProps";
-import type { BaseProps, ControlProps } from "../props";
+import type { BaseProps, ControlProps, AspectProps, AutosizeProps, ResizeProps } from "../props";
 import type { CleanHTMLProps } from "../props/baseProps";
 
 /** Which control a Field renders: a control kind, or a native input type. */
@@ -20,10 +20,11 @@ type ControlAttributes =
 type ControlElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 // ColProps also brings onChange/onBlur/onFocus + children/className; handle both like `type` above.
-type CleanedColProps = CleanHTMLProps<ColProps, 'type' | 'onChange' | 'onBlur' | 'onFocus'>;
+// Its aspect-ratio props are left out: a Field sizes to its label, control and messages.
+type CleanedColProps = Omit<CleanHTMLProps<ColProps, 'type' | 'onChange' | 'onBlur' | 'onFocus'>, keyof AspectProps>;
 
 /** Field component props */
-export type FieldProps = BaseProps & CleanedColProps & ControlProps & ControlAttributes & {
+export type FieldProps = BaseProps & CleanedColProps & ControlProps & ControlAttributes & AutosizeProps & ResizeProps & {
   /** Label text, associated with the control via htmlFor */
   label?: React.ReactNode;
   /** Help text below the control, linked with aria-describedby. An empty string renders nothing */
@@ -40,4 +41,8 @@ export type FieldProps = BaseProps & CleanedColProps & ControlProps & ControlAtt
   onBlur?: React.FocusEventHandler<ControlElement>;
   /** Focus handler for the rendered control */
   onFocus?: React.FocusEventHandler<ControlElement>;
+  /** Start-edge content of the rendered Input or Select (an icon, a prefix) */
+  startSection?: React.ReactNode;
+  /** End-edge content of the rendered Input (an icon, a unit, a small button) */
+  endSection?: React.ReactNode;
 };

@@ -89,6 +89,30 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "aspect": {
+    "name": "Aspect",
+    "description": "Aspect ratio props",
+    "props": {
+      "aspectSquare": {
+        "description": "Square box (aspect-ratio: 1 / 1)"
+      },
+      "aspectVideo": {
+        "description": "Video box (aspect-ratio: 16 / 9)"
+      },
+      "aspectAuto": {
+        "description": "The content's own ratio (aspect-ratio: auto)"
+      }
+    }
+  },
+  "autosize": {
+    "name": "Autosize",
+    "description": "Autosize prop for the Textarea",
+    "props": {
+      "autosize": {
+        "description": "Grow and shrink with the content, with no resize handle (field-sizing: content)"
+      }
+    }
+  },
   "blur": {
     "name": "Blur",
     "description": "Blur props for controlling backdrop blur effect",
@@ -251,6 +275,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "dot": {
+    "name": "Dot",
+    "description": "Badge status dot prop",
+    "props": {
+      "dot": {
+        "description": "Status dot before the text, in the text color; with no children only the dot shows"
+      }
+    }
+  },
   "flexDirection": {
     "name": "Flex Direction",
     "description": "Flex direction props for controlling flex layout direction",
@@ -364,7 +397,22 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
     "description": "Gap props for controlling spacing between children",
     "props": {
       "gap": {
-        "description": "Enable gap spacing between children"
+        "description": "Enable gap spacing between children, at the component's size"
+      },
+      "gapXs": {
+        "description": "Extra-small gap, whatever the component's size"
+      },
+      "gapSm": {
+        "description": "Small gap, whatever the component's size"
+      },
+      "gapMd": {
+        "description": "Medium gap, whatever the component's size"
+      },
+      "gapLg": {
+        "description": "Large gap, whatever the component's size"
+      },
+      "gapXl": {
+        "description": "Extra-large gap, whatever the component's size"
       },
       "noGap": {
         "description": "Disable gap spacing"
@@ -391,7 +439,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
   },
   "hide": {
     "name": "Hide",
-    "description": "Hide props for responsive element visibility",
+    "description": "Hide props for responsive element visibility. They also carry `show` and `skeleton`, which\nevery category list that takes `hide` takes as well (LAYOUT_CORE and the explicit lists).",
     "props": {
       "mobileHide": {
         "description": "Hide element on mobile devices and below (max-mobile: 48rem)"
@@ -401,6 +449,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "desktopHide": {
         "description": "Hide element on desktop devices and below (max-desktop: 80rem)"
+      }
+    }
+  },
+  "hoverable": {
+    "name": "Hoverable",
+    "description": "Table hoverable prop",
+    "props": {
+      "hoverable": {
+        "description": "The body row under the pointer takes a hover background"
       }
     }
   },
@@ -815,6 +872,24 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "resize": {
+    "name": "Resize",
+    "description": "Resize props for the Textarea handle",
+    "props": {
+      "resizeY": {
+        "description": "Resize handle drags vertically (the default)"
+      },
+      "resizeX": {
+        "description": "Resize handle drags horizontally"
+      },
+      "resize": {
+        "description": "Resize handle drags in both directions"
+      },
+      "resizeNone": {
+        "description": "No resize handle"
+      }
+    }
+  },
   "responsiveSizing": {
     "name": "Responsive Sizing",
     "description": "Responsive prop for enabling breakpoint-specific sizing",
@@ -938,12 +1013,39 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       }
     }
   },
+  "skeleton": {
+    "name": "Skeleton",
+    "description": "Skeleton prop: the loading placeholder state",
+    "props": {
+      "skeleton": {
+        "description": "Show the component as a loading placeholder in its own size and shape. On a container, every component inside it becomes a placeholder too"
+      }
+    }
+  },
+  "srOnly": {
+    "name": "Sr Only",
+    "description": "Visually hidden prop",
+    "props": {
+      "srOnly": {
+        "description": "Hide visually and keep it for screen readers (sr-only)"
+      }
+    }
+  },
   "validity": {
     "name": "Validity",
     "description": "Validity props for form validation state\nNote: For success/warning validation states, use the appearance props\n(success, warning) which provide similar visual feedback.",
     "props": {
       "invalid": {
         "description": "Mark the field invalid (red border/ring), layered over any appearance"
+      }
+    }
+  },
+  "striped": {
+    "name": "Striped",
+    "description": "Table striped prop",
+    "props": {
+      "striped": {
+        "description": "Body rows on alternating backgrounds"
       }
     }
   },

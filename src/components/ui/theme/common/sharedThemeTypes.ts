@@ -1,4 +1,5 @@
 import type { BaseTypographyComponentTheme, DefaultSizedLayoutClassMappers, BaseComponentTheme } from "./ComponentTheme";
+import type { AspectClassMapper } from "../layout/aspectClassMapper";
 import type { FontSizeClassMapper } from "../size/fontSizeClassMapper";
 import type { LineHeightClassMapper } from "../size/lineHeightClassMapper";
 import type { GapClassMapper } from "../size/gapClassMapper";
@@ -93,6 +94,7 @@ export interface LayoutLayoutClassMappers extends DefaultSizedLayoutClassMappers
   shrink: ShrinkClassMapper;
   pointerEvents: PointerEventsClassMapper;
   whitespace: WhitespaceClassMapper;
+  aspect: AspectClassMapper;
 }
 
 export interface BasicFlexLayoutComponentTheme extends BaseComponentTheme {

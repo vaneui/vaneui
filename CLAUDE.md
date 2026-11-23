@@ -140,10 +140,10 @@ Generic locations such as `~/.claude/` are fine; the rule covers real paths from
 
 | Category | Components | `data-vane-type` |
 |----------|-----------|-----------------|
-| **Interactive** | Button, IconButton, Badge, Chip, Code, Kbd, Mark, Icon, Spinner, Progress | `ui` |
-| **Form** | Input, Textarea, Select, Checkbox, Radio (+ RadioGroup), Switch, Label, Field | `ui` (Field is `layout`) |
+| **Interactive** | Button, IconButton, Badge, Chip, Code, Kbd, Mark, Icon, Spinner, Progress, Avatar (+ AvatarGroup), Skeleton | `ui` |
+| **Form** | Input, Textarea, Select, Checkbox, Radio (+ RadioGroup), Switch, SegmentedControl (+ SegmentedControlItem), Label, Field | `ui` (Field is `layout`) |
 | **Overlay / Floating** | Overlay, Modal (+ Header/Body/Footer), Popup, Tooltip | `layout` |
-| **Menu / Nav** | Menu (+ Item/Label), NavLink, ModalCloseButton, PopupTrigger | `ui` |
+| **Menu / Nav** | Menu (+ Item/Label), NavLink, Breadcrumb (+ BreadcrumbItem), ModalCloseButton, PopupTrigger | `ui` |
 | **Layout** | Card (+ Header/Body/Footer), Section, Container, Row, Col, Stack, Grid2–6, Divider, Img, Alert, Table (+ Thead/Tbody/Tfoot/Tr/Th/Td/Caption) | `layout` |
 | **Typography** | Text, Title, SectionTitle, PageTitle, Link, List, ListItem, Blockquote | `ui` |
 
@@ -153,7 +153,7 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 
 | Category | Values |
 |----------|--------|
-| **size** | `xs`, `sm` (default for Button, IconButton, Input, Textarea, Select, Field, Label, NavLink, MenuItem, MenuLabel, Tooltip, Badge, Table), `md` (default for others), `lg`, `xl` |
+| **size** | `xs`, `sm` (default for Button, IconButton, Input, Textarea, Select, Field, Label, NavLink, MenuItem, MenuLabel, Tooltip, Badge, Table, Breadcrumb, SegmentedControl), `md` (default for others), `lg`, `xl` |
 | **appearance** | `primary`, `accent`, `secondary`, `tertiary`, `success`, `danger`, `warning`, `info` |
 | **variant** | `filled`, `outline` (default), `ghost` |
 | **shape** | `pill`, `rounded` (default), `sharp` |
@@ -162,9 +162,13 @@ Props are grouped into **mutually exclusive categories** — only one value per 
 | **fontWeight** | `fontThin` through `fontBlack` |
 | **textAlign** | `textLeft`, `textCenter`, `textRight`, `textJustify` |
 
-Additional toggle props: `gap`/`noGap`, `padding`/`noPadding`, `shadow`/`noShadow` (`shadowXs`–`shadowXl` fix the size), `insetRing`/`noInsetRing`, `border`/`noBorder`, `underline`, `uppercase`, `italic`, `fontBold`, `fontSemibold`, `fontMono`, `transparent`, `responsiveSizing`, `sticky`, `flexWrap`, `itemsCenter`, `justifyBetween`, etc.
+Additional toggle props: `gap`/`noGap` (`gapXs`–`gapXl` fix the step at every size), `padding`/`noPadding`, `shadow`/`noShadow` (`shadowXs`–`shadowXl` fix the size), `insetRing`/`noInsetRing`, `border`/`noBorder`, `underline`, `uppercase`, `italic`, `fontBold`, `fontSemibold`, `fontMono`, `transparent`, `responsiveSizing`, `sticky`, `flexWrap`, `itemsCenter`, `justifyBetween`, `srOnly` (typography and Label), etc.
 
-Layout extras: `divided` (Grid2–6: 1px lines instead of the gap), `strongBorder` (border in the appearance's strong color), `pointerEvents*` and `whitespace*` on layout components. NavLink takes `indicatorStart` (rail, accent mark when active or `aria-selected`) or `indicatorBottom` (tab bar).
+Layout extras: `divided` (Grid2–6: 1px lines instead of the gap), `strongBorder` (border in the appearance's strong color), `pointerEvents*` and `whitespace*` on layout components. NavLink takes `indicatorStart` (rail, accent mark when active or `aria-selected`) or `indicatorBottom` (tab bar). `aspectSquare`/`aspectVideo`/`aspectAuto` on Img, Card, Row, Col and Stack.
+
+Component extras: SegmentedControl takes `value`/`defaultValue`/`onChange`/`name`/`disabled`/`required` like RadioGroup, and a segment's `className` and `style` go to its `<label>` while `ref` and the other attributes go to its radio. `startSection`/`endSection` on Input (Select takes `startSection`; Field passes both to the control it renders), Textarea `autosize` and `resizeY` (default)/`resizeX`/`resize`/`resizeNone`, Table `striped`/`hoverable`, Badge `dot`, Progress `indeterminate`.
+
+Loading placeholders: `skeleton` on any component sets `data-skeleton`, `aria-busy` and `inert`; the unlayered SKELETON rules in `rules.css` then draw it and every component inside it as a placeholder (text as line-through bars, the box components as solid shapes, containers keep their surface). The pass-down is CSS only, so children carry no attribute. An empty text component draws one default bar (12ch, `--skeleton-text-width`) and an empty Button, Badge, Chip, Code, Kbd or Mark the room of a 6ch label (`--skeleton-label-width`), so no filler text is needed. `Skeleton` is the plain box for areas with no component.
 
 **Breakpoints** (layout components): `mobileStack`, `tabletStack`, `desktopStack`
 **Hide**: `mobileHide`, `tabletHide`, `desktopHide`; **Show** (only below the width): `mobileShow`, `tabletShow`, `desktopShow`
@@ -184,9 +188,14 @@ Layout extras: `divided` (Grid2–6: 1px lines instead of the gap), `strongBorde
 | **Badge** | sm, secondary (neutral default; color via success/danger/…), outline, pill, fontSemibold |
 | **Chip** | md, secondary (not primary!), outline, rounded, fontSans |
 | **NavLink** | sm, primary, outline, rounded, noBorder, noShadow, noInsetRing, wFull, textLeft, focusVisible |
-| **Progress** | md, primary, pill, transition, overflowHidden, wFull, noMargin (`value` required, `max` 100). Fill sub-theme `progress.fill`: filled, wFull, hFull |
+| **Progress** | md, primary, pill, transition, overflowHidden, wFull, noMargin (`value` required unless `indeterminate`, `max` 100). Fill sub-theme `progress.fill`: filled, wFull, hFull |
 | **Link** | md, underline, fontSans, cursorPointer, inheritSize, wFit, focusVisible (link color by default; no appearance or variant default) |
 | **Input** | sm, primary, outline, rounded, wFull, insetRing, focusVisible |
+| **Textarea** | the Input defaults plus resizeY |
+| **Avatar** | md, secondary, outline, pill, border, inlineFlex, itemsCenter, justifyCenter, overflowHidden, relative, noShrink, noInsetRing, fontMedium. AvatarGroup: md, flex, row, itemsCenter |
+| **Skeleton** | md, rounded, block, wFull, skeleton (aria-hidden; one line of text tall at its size) |
+| **Breadcrumb** | sm, secondary, outline, fontSans (`breadcrumb.main`). Parts: `breadcrumb.list` (flex, flexWrap, itemsCenter, gap), `breadcrumb.item` (focusVisible, transition, whitespaceNowrap), `breadcrumb.separator` |
+| **SegmentedControl** | sm, primary, outline, rounded, inlineFlex, itemsStretch, padding (`segmentedControl.main`, a neutral track as tall as a Button). `segmentedControl.item`: sm, primary, outline, rounded, inlineFlex, itemsCenter, justifyCenter, relative, padding, gap, fontSans, fontMedium, cursorPointer, transition, whitespaceNowrap. The control's size, appearance, variant and shape reach the segments |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
 | **Label** | sm, flex, column, itemsStart, gap, inheritAppearance, fontMedium (use `row` for inline controls like Checkbox) |
@@ -215,7 +224,7 @@ src/
 │   │   └── layout.tsx           # Re-exports layout components (Card, Row, Col, Stack, Grid*,
 │   │                            # Section, Container, Table)
 │   ├── css/                     # vars.css, tokens.css, rules.css
-│   ├── tests/                   # 121 test files (Jest + Testing Library)
+│   ├── tests/                   # 133 test files (Jest + Testing Library)
 │   ├── utils/                   # deepMerge, componentUtils, stackingContext, textRuns
 │   ├── themeContext.tsx         # ThemeContext & useTheme
 │   ├── ThemeProvider.tsx        # ThemeProvider
@@ -223,9 +232,9 @@ src/
 └── index.ts                     # Barrel exports
 ```
 
-**Component pattern**: `forwardRef` + `useTheme()` + `ThemedComponent` wrapper. All components support `className` (merged via `twMerge`), `ref` and the `tag` prop, except `PopupTrigger`, which renders only its child, and `ModalCloseButton`, which has no `tag`. `href` renders an `<a>` on these components only: `Button`, `IconButton`, `NavLink`, `MenuItem`, `Badge`, `Chip`, `Code`, `Card`, `Row`, `Col`, `Stack`, `Text`, `Title`, `SectionTitle` and `PageTitle`, and `Link` is always an `<a>`. The others keep their own element: most reject `href` in TypeScript, and `ListItem` and `Blockquote` accept it but render `<li href>` and `<blockquote href>`, which are not links.
+**Component pattern**: `forwardRef` + `useTheme()` + `ThemedComponent` wrapper. All components support `className` (merged via `twMerge`), `ref` and the `tag` prop, except `PopupTrigger`, which renders only its child, and `ModalCloseButton`, which has no `tag`. `href` renders an `<a>` on these components only: `Button`, `IconButton`, `NavLink`, `MenuItem`, `Badge`, `Chip`, `Code`, `Card`, `Row`, `Col`, `Stack`, `Text`, `Title`, `SectionTitle`, `PageTitle` and `BreadcrumbItem`, and `Link` is always an `<a>`. The others keep their own element: most reject `href` in TypeScript, and `ListItem` and `Blockquote` accept it but render `<li href>` and `<blockquote href>`, which are not links.
 
-**Theming**: unit variables set per `data-size`/`data-vane-type` in `rules.css` (`.vane-button[data-size="md"] { --fs-unit: ... }`) -> computed in `rules.css` (`calc(var(--fs-unit) * var(--fs-base))`) -> consumed by utility classes (`text-(length:--fs)`). Colors driven by `data-appearance` + `data-variant` attributes.
+**Theming**: unit variables set per `data-size`/`data-vane-type` in `rules.css` (`.vane-button[data-size="md"] { --fs-unit: ... }`) -> computed in `rules.css` (`calc(var(--fs-unit) * var(--fs-base))`) -> consumed by utility classes (`text-(length:--fs)`). Colors driven by `data-appearance` + `data-variant` attributes. Every radius formula (`--br` in `rules.css`, the Select list, the Card media corners) is multiplied by `--br-scale` from `tokens.css` (1 by default); keep it in any new one. Surfaces (layout type) run 8 to 16px from `xs` to `xl`.
 
 **ThemeProvider**: Supports `themeDefaults`, `extraClasses`, `themeOverride`, nested providers with `mergeStrategy` ("merge" | "replace").
 

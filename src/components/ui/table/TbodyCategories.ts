@@ -5,6 +5,6 @@ export const TBODY_CATEGORIES = [
   'size',
   ...VISUAL_CORE,
   ...VARIANT,
-  'hide', 'show',
+  'hide', 'show', 'skeleton',
   ...COMMON_MODIFIERS,
 ] as const;

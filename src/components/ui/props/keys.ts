@@ -41,6 +41,13 @@ import {
   DIVIDED,
   STRONG_BORDER,
   INDICATOR,
+  RESIZE,
+  AUTOSIZE,
+  ASPECT,
+  SR_ONLY,
+  DOT,
+  STRIPED,
+  HOVERABLE,
 } from './categoryBuilders';
 
 // Re-export for backward compatibility
@@ -83,6 +90,13 @@ export {
   DIVIDED,
   STRONG_BORDER,
   INDICATOR,
+  RESIZE,
+  AUTOSIZE,
+  ASPECT,
+  SR_ONLY,
+  DOT,
+  STRIPED,
+  HOVERABLE,
 };
 
 // Import component-specific categories from their folders
@@ -110,6 +124,8 @@ import { LABEL_CATEGORIES } from '../label/LabelCategories';
 import { INPUT_CATEGORIES } from '../input/InputCategories';
 import { INPUT_ERROR_ICON_CATEGORIES } from '../input/InputErrorIconCategories';
 import { INPUT_WRAPPER_CATEGORIES } from '../input/InputWrapperCategories';
+import { INPUT_SECTION_CATEGORIES } from '../input/InputSectionCategories';
+import { TEXTAREA_CATEGORIES } from '../textarea/TextareaCategories';
 import { SELECT_CHEVRON_CATEGORIES } from '../select/SelectChevronCategories';
 import { SELECT_WRAPPER_CATEGORIES } from '../select/SelectWrapperCategories';
 import { SWITCH_CATEGORIES } from '../switch/SwitchCategories';
@@ -124,6 +140,11 @@ import { LINK_CATEGORIES } from '../typography/link/LinkCategories';
 import { MENU_ITEM_CATEGORIES } from '../menu/MenuItemCategories';
 import { NAV_LINK_CATEGORIES } from '../navLink/NavLinkCategories';
 import { TABLE_CATEGORIES } from '../table/TableCategories';
+import { AVATAR_CATEGORIES } from '../avatar/AvatarCategories';
+import { AVATAR_GROUP_CATEGORIES } from '../avatar/AvatarGroupCategories';
+import { SKELETON_CATEGORIES } from '../skeleton/SkeletonCategories';
+import { BREADCRUMB_CATEGORIES } from '../breadcrumb/BreadcrumbCategories';
+import { SEGMENTED_CONTROL_CATEGORIES } from '../segmentedControl/SegmentedControlCategories';
 
 // Re-export for backward compatibility
 export { BADGE_CATEGORIES };
@@ -148,6 +169,8 @@ export { LABEL_CATEGORIES };
 export { INPUT_CATEGORIES };
 export { INPUT_ERROR_ICON_CATEGORIES };
 export { INPUT_WRAPPER_CATEGORIES };
+export { INPUT_SECTION_CATEGORIES };
+export { TEXTAREA_CATEGORIES };
 export { SELECT_CHEVRON_CATEGORIES };
 export { SELECT_WRAPPER_CATEGORIES };
 export { SWITCH_CATEGORIES };
@@ -160,6 +183,7 @@ export { TYPOGRAPHY_CATEGORIES, LIST_CATEGORIES };
 export { MENU_ITEM_CATEGORIES };
 export { NAV_LINK_CATEGORIES };
 export { TABLE_CATEGORIES };
+export { AVATAR_CATEGORIES, AVATAR_GROUP_CATEGORIES, BREADCRUMB_CATEGORIES, SEGMENTED_CONTROL_CATEGORIES };
 
 /** Blur effect property for backdrop blur */
 export const BLUR = ['blur'] as const;
@@ -229,6 +253,13 @@ export const COMPONENT_PROPS_CATEGORY = [
   ...DIVIDED,
   ...STRONG_BORDER,
   ...INDICATOR,
+  ...RESIZE,
+  ...AUTOSIZE,
+  ...ASPECT,
+  ...SR_ONLY,
+  ...DOT,
+  ...STRIPED,
+  ...HOVERABLE,
 ] as const;
 
 /**
@@ -263,8 +294,8 @@ export const ComponentKeys = {
   fontStyle: ['italic', 'notItalic'] as const,
   /** Font weight from thin (100) to black (900), all emit font-* */
   fontWeight: ['fontThin', 'fontExtralight', 'fontLight', 'fontNormal', 'fontMedium', 'fontSemibold', 'fontBold', 'fontExtrabold', 'fontBlack'] as const,
-  /** Spacing between flex/grid items: gap (enabled) or noGap (disabled) */
-  gap: ['gap', 'noGap'] as const,
+  /** Spacing between flex/grid items: gap (follows the component size), a fixed step gapXs-gapXl, or noGap (disabled) */
+  gap: ['gap', 'gapXs', 'gapSm', 'gapMd', 'gapLg', 'gapXl', 'noGap'] as const,
   /** Hide elements at specific breakpoint sizes. Widest-first so combining several resolves to the widest = their union. */
   hide: ['desktopHide', 'tabletHide', 'mobileHide'] as const,
   /** Show elements only below a breakpoint, the reverse of hide. Widest-first, like hide. */
@@ -374,6 +405,23 @@ export const ComponentKeys = {
   strongBorder: ['strongBorder'] as const,
   /** NavLink indicator: a start-edge rail or a bottom bar, in the accent color on the active item */
   indicator: ['indicatorStart', 'indicatorBottom'] as const,
+  /** Textarea resize handle: vertical (default), horizontal, both, or none */
+  resize: ['resizeY', 'resizeX', 'resize', 'resizeNone'] as const,
+  /** Textarea grows and shrinks with its content (field-sizing: content) */
+  autosize: ['autosize'] as const,
+  /** Fixed aspect ratio: square (1/1), video (16/9), or auto (the content's own) */
+  aspect: ['aspectSquare', 'aspectVideo', 'aspectAuto'] as const,
+  /** Visually hidden, still read by screen readers */
+  srOnly: ['srOnly'] as const,
+  /** Badge status dot before the text, in the text color */
+  dot: ['dot'] as const,
+  /** Table body rows on alternating backgrounds */
+  striped: ['striped'] as const,
+  /** Table body row under the pointer takes a hover background */
+  hoverable: ['hoverable'] as const,
+  /** Loading placeholder: the component keeps its size and shape, its content is hidden, and
+   *  every component inside a skeleton container becomes a placeholder too */
+  skeleton: ['skeleton'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -485,6 +533,24 @@ export type DividedKey = typeof ComponentKeys.divided[number];
 export type StrongBorderKey = typeof ComponentKeys.strongBorder[number];
 /** NavLink indicator keys: indicatorStart, indicatorBottom */
 export type IndicatorKey = typeof ComponentKeys.indicator[number];
+/** Textarea resize keys */
+export type ResizeKey = typeof ComponentKeys.resize[number];
+/** Textarea autosize key */
+export type AutosizeKey = typeof ComponentKeys.autosize[number];
+/** Aspect ratio keys */
+export type AspectKey = typeof ComponentKeys.aspect[number];
+/** Visually hidden key */
+export type SrOnlyKey = typeof ComponentKeys.srOnly[number];
+/** Badge dot key */
+export type DotKey = typeof ComponentKeys.dot[number];
+/** Table striped key */
+export type StripedKey = typeof ComponentKeys.striped[number];
+/** Table hoverable key */
+export type HoverableKey = typeof ComponentKeys.hoverable[number];
+/** Loading placeholder key */
+export type SkeletonKey = typeof ComponentKeys.skeleton[number];
+/** Gap keys */
+export type GapKey = typeof ComponentKeys.gap[number];
 /** Drop shadow keys */
 export type ShadowKey = typeof ComponentKeys.shadow[number];
 
@@ -549,7 +615,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'alert', 'spinner', 'progress', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'tooltip', 'menu', 'navLink', 'table'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'inputSection', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'tooltip', 'menu', 'navLink', 'table', 'avatar', 'avatarGroup', 'skeleton', 'breadcrumb', 'segmentedControl'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -577,7 +643,8 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   input: INPUT_CATEGORIES,
   inputErrorIcon: INPUT_ERROR_ICON_CATEGORIES,
   inputWrapper: INPUT_WRAPPER_CATEGORIES,
-  textarea: INPUT_CATEGORIES,
+  inputSection: INPUT_SECTION_CATEGORIES,
+  textarea: TEXTAREA_CATEGORIES,
   select: INPUT_CATEGORIES,
   selectChevron: SELECT_CHEVRON_CATEGORIES,
   selectWrapper: SELECT_WRAPPER_CATEGORIES,
@@ -608,4 +675,9 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   menu: MENU_ITEM_CATEGORIES,
   navLink: NAV_LINK_CATEGORIES,
   table: TABLE_CATEGORIES,
+  avatar: AVATAR_CATEGORIES,
+  avatarGroup: AVATAR_GROUP_CATEGORIES,
+  skeleton: SKELETON_CATEGORIES,
+  breadcrumb: BREADCRUMB_CATEGORIES,
+  segmentedControl: SEGMENTED_CONTROL_CATEGORIES,
 }

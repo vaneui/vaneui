@@ -1,6 +1,6 @@
 // Category building blocks shared by keys.ts and component-specific category files.
 
-export const LAYOUT_CORE = ['size', 'hide', 'show', 'items', 'justify', 'position', 'display', 'overflow'] as const;
+export const LAYOUT_CORE = ['size', 'hide', 'show', 'skeleton', 'items', 'justify', 'position', 'display', 'overflow'] as const;
 export const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'flex', 'shrink'] as const;
 // Per-item cross-axis alignment (align-self). Opt-in per component (not part of
 // LAYOUT_CORE) so a child can override its parent's align-items.
@@ -51,6 +51,13 @@ export const POINTER_EVENTS = ['pointerEvents'] as const;
 export const DIVIDED = ['divided'] as const;
 export const STRONG_BORDER = ['strongBorder'] as const;
 export const INDICATOR = ['indicator'] as const;
+export const RESIZE = ['resize'] as const;
+export const AUTOSIZE = ['autosize'] as const;
+export const ASPECT = ['aspect'] as const;
+export const SR_ONLY = ['srOnly'] as const;
+export const DOT = ['dot'] as const;
+export const STRIPED = ['striped'] as const;
+export const HOVERABLE = ['hoverable'] as const;
 
 export const LAYOUT_FULL = [...LAYOUT_CORE, ...LAYOUT_FLEX] as const;
 export const VISUAL_FULL = [...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE] as const;
@@ -77,13 +84,13 @@ export const UI_ELEMENT_CATEGORIES = [
   ...INHERIT_SIZE,
 ] as const;
 
-export const BADGE_CATEGORIES = UI_ELEMENT_CATEGORIES;
+export const BADGE_CATEGORIES = [...UI_ELEMENT_CATEGORIES, ...DOT] as const;
 export const CHIP_CATEGORIES = UI_ELEMENT_CATEGORIES;
 export const CODE_CATEGORIES = UI_ELEMENT_CATEGORIES;
 export const BUTTON_CATEGORIES = UI_ELEMENT_CATEGORIES;
 
 export const ICON_CATEGORIES = [
-  'size', 'appearance', 'variant', 'display', 'hide', 'show', 'items', 'justify',
+  'size', 'appearance', 'variant', 'display', 'hide', 'show', 'skeleton', 'items', 'justify',
   'position', 'shape', 'padding', 'border', 'ring', 'shadow',
   'width', 'responsiveWidth', 'height', 'shrink', 'transition', 'transparent',
 ] as const;
@@ -133,6 +140,7 @@ export const RESPONSIVE_LAYOUT_CATEGORIES = [
   ...TEXT_ALIGN,
   ...POINTER_EVENTS,
   ...WHITESPACE,
+  ...ASPECT,
   'focusVisible',
 ] as const;
 

@@ -1,7 +1,7 @@
 import { ComponentTheme, defaultSizedLayoutClassMappers, defaultTypographyClassMappers, textAppearance, borderAppearance, ringAppearance, shadowAppearance } from "../theme/common";
 import type { LabelProps } from "./LabelProps";
 import { GapClassMapper, FontSizeClassMapper, LineHeightClassMapper } from "../theme/size";
-import { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper, FlexClassMapper, ShrinkClassMapper } from "../theme/layout";
+import { BorderClassMapper, RingClassMapper, WrapClassMapper, DirectionClassMapper, CursorClassMapper, FlexClassMapper, ShrinkClassMapper, SrOnlyClassMapper } from "../theme/layout";
 import { DisabledOpacityClassMapper } from "../theme/appearance";
 import { LABEL_CATEGORIES } from "./LabelCategories";
 import type { LabelTheme } from "./LabelTheme";
@@ -39,6 +39,7 @@ export const defaultLabelTheme = new ComponentTheme<LabelProps, LabelTheme>(
       shrink: new ShrinkClassMapper(),
       // opacity only: a Label wraps its control, so pointer-events-none would kill it too
       disabled: new DisabledOpacityClassMapper(),
+      srOnly: new SrOnlyClassMapper(),
     },
   },
   labelDefaults,

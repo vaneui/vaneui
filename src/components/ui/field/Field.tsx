@@ -38,7 +38,23 @@ const CONTROL_STATE_KEYS = new Set(['disabled', 'required', 'readOnly', 'invalid
 const CONTROL_ONLY_KEYS = new Set([
   'placeholder', 'name', 'value', 'defaultValue', 'checked', 'defaultChecked', 'autoComplete',
   'min', 'max', 'step', 'pattern', 'minLength', 'maxLength', 'multiple', 'rows', 'cols', 'accept',
+  'startSection', 'endSection', 'autosize', 'resizeY', 'resizeX', 'resize', 'resizeNone',
 ]);
+
+// Props only some rendered controls take: sections on Input and Select (end only on Input,
+// where the chevron does not hold it), the resize handle and autosize on Textarea.
+const TEXT_CONTROL = new Set<string>(['textInput']);
+const SECTION_CONTROLS = new Set<string>(['textInput', 'select']);
+const TEXTAREA_CONTROL = new Set<string>(['textarea']);
+const CONTROL_SPECIFIC_KEYS: Record<string, Set<string> | undefined> = {
+  startSection: SECTION_CONTROLS,
+  endSection: TEXT_CONTROL,
+  autosize: TEXTAREA_CONTROL,
+  resizeY: TEXTAREA_CONTROL,
+  resizeX: TEXTAREA_CONTROL,
+  resize: TEXTAREA_CONTROL,
+  resizeNone: TEXTAREA_CONTROL,
+};
 
 type FieldElement = HTMLDivElement | HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
@@ -71,6 +87,9 @@ function splitFieldProps(
     if (SURFACE_KEYS.has(key) || CONTROL_KEYS.has(key)) continue;
     if (alignsText && TEXT_ALIGN_KEYS.has(key)) { controlProps[key] = value; continue; }
     if (LAYOUT_KEYS.has(key) || key === 'className' || key === 'tag') { wrapperProps[key] = value; continue; }
+    // a slot or option the rendered control does not have is dropped, not leaked onto its element
+    const owner = CONTROL_SPECIFIC_KEYS[key];
+    if (owner && !owner.has(control.key)) continue;
     controlProps[key] = value;
   }
   if (control.inputType) { controlProps.type = control.inputType; }

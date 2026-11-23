@@ -8,10 +8,11 @@ import {
   WIDTH,
   HEIGHT,
   COMMON_MODIFIERS,
+  ASPECT,
 } from "../props/categoryBuilders";
 
 /** Object fit property for images/videos */
 export const OBJECT_FIT = ['objectFit'] as const;
 
 /** Categories for image media components */
-export const IMG_CATEGORIES = [...LAYOUT_CORE, 'shrink', ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...OBJECT_FIT, ...WIDTH, ...HEIGHT, ...COMMON_MODIFIERS] as const;
+export const IMG_CATEGORIES = [...LAYOUT_CORE, 'shrink', ...VISUAL_CORE, ...BORDER, ...VISUAL_DECORATION, ...SHAPE, ...VARIANT, ...OBJECT_FIT, ...ASPECT, ...WIDTH, ...HEIGHT, ...COMMON_MODIFIERS] as const;

@@ -125,6 +125,9 @@
     --font-heading: var(--font-sans);
 
     --br-base: var(--spacing);
+    /* Multiplies every component's corner radius: 0 for square corners, 2 for twice as round.
+       pill and sharp shapes keep their own. */
+    --br-scale: 1;
     --fs-base: calc(var(--spacing) * 0.5);
 
     /* Em-relative font-size — used by inline components (Code, Kbd, Mark, Link)

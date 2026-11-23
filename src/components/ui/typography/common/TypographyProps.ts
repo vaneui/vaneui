@@ -25,6 +25,7 @@ import type {
   MarginProps,
   WhitespaceProps,
   WordBreakProps,
+  SrOnlyProps,
   InheritSizeProps,
   InheritColorProps
 } from '../../props';
@@ -67,6 +68,7 @@ export type TypographyProps = BaseProps &
   MarginProps &
   WhitespaceProps &
   WordBreakProps &
+  SrOnlyProps &
   Omit<React.HTMLAttributes<HTMLSpanElement>, 'className' | 'children'> &
   Partial<Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'>> & {
   /** URL to navigate to (renders component as anchor tag) */

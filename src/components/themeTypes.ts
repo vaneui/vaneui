@@ -34,6 +34,7 @@ import type { ImgTheme } from './ui/img/ImgTheme';
 import type { InputTheme } from './ui/input/InputTheme';
 import type { InputErrorIconTheme } from './ui/input/InputErrorIconTheme';
 import type { InputWrapperTheme } from './ui/input/InputWrapperTheme';
+import type { InputSectionTheme } from './ui/input/InputSectionTheme';
 import type { SelectChevronTheme } from './ui/select/SelectChevronTheme';
 import type { SelectWrapperTheme } from './ui/select/SelectWrapperTheme';
 import type { SwitchTheme } from './ui/switch/SwitchTheme';
@@ -58,6 +59,19 @@ import type { MenuLabelTheme } from './ui/menu/MenuLabelTheme';
 import type { NavLinkTheme } from './ui/navLink/NavLinkTheme';
 import type { NavLinkLabelTheme } from './ui/navLink/NavLinkLabelTheme';
 import type { TableTheme } from './ui/table/TableTheme';
+import type { AvatarTheme } from './ui/avatar/AvatarTheme';
+import type { AvatarGroupTheme } from './ui/avatar/AvatarGroupTheme';
+import type { AvatarProps } from './ui/avatar/AvatarProps';
+import type { AvatarGroupProps } from './ui/avatar/AvatarGroupProps';
+import type { SkeletonTheme } from './ui/skeleton/SkeletonTheme';
+import type { SkeletonProps } from './ui/skeleton/SkeletonProps';
+import type { BreadcrumbTheme, BreadcrumbListTheme, BreadcrumbItemTheme, BreadcrumbSeparatorTheme } from './ui/breadcrumb/BreadcrumbTheme';
+import type { BreadcrumbProps } from './ui/breadcrumb/BreadcrumbProps';
+import type { BreadcrumbItemProps } from './ui/breadcrumb/BreadcrumbItemProps';
+import type { BreadcrumbListProps, BreadcrumbSeparatorProps } from './ui/breadcrumb/BreadcrumbPartProps';
+import type { SegmentedControlTheme, SegmentedControlItemTheme } from './ui/segmentedControl/SegmentedControlTheme';
+import type { SegmentedControlProps } from './ui/segmentedControl/SegmentedControlProps';
+import type { SegmentedControlItemProps } from './ui/segmentedControl/SegmentedControlItemProps';
 import type { TheadTheme } from './ui/table/TheadTheme';
 import type { TbodyTheme } from './ui/table/TbodyTheme';
 import type { TfootTheme } from './ui/table/TfootTheme';
@@ -92,8 +106,9 @@ import type { CheckboxCheckProps } from "./ui/checkbox/CheckboxCheckProps";
 import type { CheckboxIndeterminateProps } from "./ui/checkbox/CheckboxIndeterminateProps";
 import type { LabelProps } from "./ui/label";
 import type { ImgProps } from "./ui/img";
-import type { InputProps, InputErrorIconProps, InputWrapperProps } from "./ui/input";
+import type { InputProps, InputErrorIconProps, InputWrapperProps, InputSectionProps } from "./ui/input";
 import type { TextareaProps } from "./ui/textarea/TextareaProps";
+import type { TextareaTheme } from "./ui/textarea/TextareaTheme";
 import type { SelectProps, SelectChevronProps, SelectWrapperProps } from "./ui/select";
 import type { SwitchProps, SwitchThumbProps } from "./ui/switch";
 import type { RadioProps, RadioDotProps, RadioGroupProps } from "./ui/radio";
@@ -178,7 +193,8 @@ export interface ThemeProps {
   input: ComponentTheme<InputProps, InputTheme>;
   inputErrorIcon: ComponentTheme<InputErrorIconProps, InputErrorIconTheme>;
   inputWrapper: ComponentTheme<InputWrapperProps, InputWrapperTheme>;
-  textarea: ComponentTheme<TextareaProps, InputTheme>;
+  inputSection: ComponentTheme<InputSectionProps, InputSectionTheme>;
+  textarea: ComponentTheme<TextareaProps, TextareaTheme>;
   select: ComponentTheme<SelectProps, InputTheme>;
   selectChevron: ComponentTheme<SelectChevronProps, SelectChevronTheme>;
   selectWrapper: ComponentTheme<SelectWrapperProps, SelectWrapperTheme>;
@@ -229,6 +245,19 @@ export interface ThemeProps {
     th: ComponentTheme<ThProps, ThTheme>;
     td: ComponentTheme<TdProps, TdTheme>;
     caption: ComponentTheme<CaptionProps, CaptionTheme>;
+  };
+  avatar: ComponentTheme<AvatarProps, AvatarTheme>;
+  avatarGroup: ComponentTheme<AvatarGroupProps, AvatarGroupTheme>;
+  skeleton: ComponentTheme<SkeletonProps, SkeletonTheme>;
+  breadcrumb: {
+    main: ComponentTheme<BreadcrumbProps, BreadcrumbTheme>;
+    list: ComponentTheme<BreadcrumbListProps, BreadcrumbListTheme>;
+    item: ComponentTheme<BreadcrumbItemProps, BreadcrumbItemTheme>;
+    separator: ComponentTheme<BreadcrumbSeparatorProps, BreadcrumbSeparatorTheme>;
+  };
+  segmentedControl: {
+    main: ComponentTheme<SegmentedControlProps, SegmentedControlTheme>;
+    item: ComponentTheme<SegmentedControlItemProps, SegmentedControlItemTheme>;
   };
 }
 

@@ -20,6 +20,7 @@ import type {
   StrongBorderProps,
   PointerEventsProps,
   WhitespaceProps,
+  AspectProps,
   ShadowProps,
   RingProps,
   FocusVisibleProps,
@@ -55,6 +56,7 @@ export type CardProps = BaseProps &
   StrongBorderProps &
   PointerEventsProps &
   WhitespaceProps &
+  AspectProps &
   ShadowProps &
   RingProps &
   FocusVisibleProps &

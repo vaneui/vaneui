@@ -36,7 +36,7 @@ type TestOptions = { testPage: string };
 //
 // What does NOT belong here: behaviour tests (focus, keyboard, z-index,
 // menu/popup mechanics) — they exercise component logic, not CSS pipelines.
-const DUAL_PIPELINE_SPECS = /(css-noise-audit|computed-styles|filled-contrast|checked-toggle-contrast|placeholder-contrast|dark-mode|rtl|layout-additions|card-compound|table-appearance|classname-responsive|text-run)\.spec\.ts$/;
+const DUAL_PIPELINE_SPECS = /(css-noise-audit|computed-styles|filled-contrast|checked-toggle-contrast|placeholder-contrast|dark-mode|rtl|layout-additions|card-compound|table-appearance|classname-responsive|text-run|quick-additions|skeleton|segmented-control|radius)\.spec\.ts$/;
 
 // Behavior-critical specs that ALSO run on Firefox and WebKit. These cover
 // component mechanics where engines genuinely differ — most importantly the

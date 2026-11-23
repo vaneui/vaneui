@@ -7,6 +7,8 @@ import {
   TEXT_ALIGN,
   FONT_FAMILY,
   RESPONSIVE,
+  STRIPED,
+  HOVERABLE,
 } from "../props/categoryBuilders";
 
 // No `shape`: border-radius has no effect on a border-collapse table, so the
@@ -21,6 +23,8 @@ export const TABLE_CATEGORIES = [
   ...MARGIN,
   ...TEXT_ALIGN,
   ...FONT_FAMILY,
-  'hide', 'show',
+  'hide', 'show', 'skeleton',
   ...RESPONSIVE,
+  ...STRIPED,
+  ...HOVERABLE,
 ] as const;

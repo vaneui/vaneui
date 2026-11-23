@@ -1,6 +1,6 @@
 import { ComponentTheme, defaultSizedLayoutClassMappers, bgAppearance, borderAppearance, ringAppearance, focusVisibleAppearance, shadowAppearance } from "../theme/common";
 import type { ImgProps } from "./ImgProps";
-import { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, ObjectFitClassMapper, ShrinkClassMapper } from "../theme/layout";
+import { BorderClassMapper, RingClassMapper, FocusVisibleClassMapper, RadiusClassMapper, ObjectFitClassMapper, ShrinkClassMapper, AspectClassMapper } from "../theme/layout";
 import type { ImgTheme } from "./ImgTheme";
 import { imgDefaults } from "./imgDefaults";
 import { IMG_CATEGORIES } from "./ImgCategories";
@@ -17,6 +17,7 @@ export const defaultImgTheme = new ComponentTheme<ImgProps, ImgTheme>(
       radius: new RadiusClassMapper(),
       objectFit: new ObjectFitClassMapper(),
       shrink: new ShrinkClassMapper(),
+      aspect: new AspectClassMapper(),
     },
     appearance: {
       background: bgAppearance,

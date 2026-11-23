@@ -21,6 +21,7 @@ import type {
   StrongBorderProps,
   PointerEventsProps,
   WhitespaceProps,
+  AspectProps,
   ShadowProps,
   RingProps,
   FocusVisibleProps,
@@ -55,6 +56,7 @@ export type StackProps = BaseProps &
   StrongBorderProps &
   PointerEventsProps &
   WhitespaceProps &
+  AspectProps &
   ShadowProps &
   RingProps &
   FocusVisibleProps &

@@ -109,3 +109,21 @@ export * from './inheritProps';
 
 // Control
 export * from './controlProps';
+
+// Textarea resize and autosize
+export * from './resizeProps';
+export * from './autosizeProps';
+
+// Aspect ratio
+export * from './aspectProps';
+
+// Visually hidden
+export * from './srOnlyProps';
+
+// Badge dot
+export * from './dotProps';
+
+// Table row states
+export * from './stripedProps';
+export * from './hoverableProps';
+export * from './skeletonProps';

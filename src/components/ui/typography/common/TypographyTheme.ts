@@ -9,6 +9,7 @@ import type { MarginClassMapper } from "../../theme/size/marginClassMapper";
 import type { CursorClassMapper } from "../../theme/layout/cursorClassMapper";
 import type { WhitespaceClassMapper } from "../../theme/layout/whitespaceClassMapper";
 import type { WordBreakClassMapper } from "../../theme/layout/wordBreakClassMapper";
+import type { SrOnlyClassMapper } from "../../theme/layout/srOnlyClassMapper";
 import type { SimpleConsumerClassMapper } from "../../theme/appearance/simpleConsumerClassMapper";
 
 export interface TextTheme extends BaseTypographyComponentTheme {
@@ -25,6 +26,7 @@ export interface TextTheme extends BaseTypographyComponentTheme {
     cursor: CursorClassMapper;
     whitespace: WhitespaceClassMapper;
     wordBreak: WordBreakClassMapper;
+    srOnly: SrOnlyClassMapper;
   };
 }
 

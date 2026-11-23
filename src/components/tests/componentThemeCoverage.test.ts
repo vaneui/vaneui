@@ -35,7 +35,18 @@ import { defaultSectionTheme } from "../ui/section/defaultSectionTheme";
 import { defaultLabelTheme } from "../ui/label/defaultLabelTheme";
 import { defaultImgTheme } from "../ui/img/defaultImgTheme";
 import { defaultInputTheme, defaultInputErrorIconTheme, INPUT_ERROR_ICON_CATEGORIES, defaultInputWrapperTheme, INPUT_WRAPPER_CATEGORIES } from "../ui/input";
-import { defaultTextareaTheme } from "../ui/textarea";
+import { defaultTextareaTheme, TEXTAREA_CATEGORIES } from "../ui/textarea";
+import { defaultInputSectionTheme, INPUT_SECTION_CATEGORIES } from "../ui/input";
+import { defaultAvatarTheme, defaultAvatarGroupTheme, AVATAR_CATEGORIES, AVATAR_GROUP_CATEGORIES } from "../ui/avatar";
+import { defaultSkeletonTheme, SKELETON_CATEGORIES } from "../ui/skeleton";
+import {
+  defaultBreadcrumbTheme, defaultBreadcrumbListTheme, defaultBreadcrumbItemTheme, defaultBreadcrumbSeparatorTheme,
+  BREADCRUMB_CATEGORIES, BREADCRUMB_LIST_CATEGORIES, BREADCRUMB_ITEM_CATEGORIES, BREADCRUMB_SEPARATOR_CATEGORIES,
+} from "../ui/breadcrumb";
+import {
+  defaultSegmentedControlTheme, defaultSegmentedControlItemTheme,
+  SEGMENTED_CONTROL_CATEGORIES, SEGMENTED_CONTROL_ITEM_CATEGORIES,
+} from "../ui/segmentedControl";
 import { defaultSelectTheme, defaultSelectChevronTheme, SELECT_CHEVRON_CATEGORIES, defaultSelectWrapperTheme, SELECT_WRAPPER_CATEGORIES } from "../ui/select";
 import { defaultSwitchTheme, defaultSwitchThumbTheme, defaultSwitchWrapperTheme, SWITCH_CATEGORIES, SWITCH_THUMB_CATEGORIES } from "../ui/switch";
 import { defaultRadioTheme, defaultRadioDotTheme, defaultRadioWrapperTheme, defaultRadioGroupTheme, RADIO_CATEGORIES, RADIO_DOT_CATEGORIES, RADIO_GROUP_CATEGORIES } from "../ui/radio";
@@ -491,6 +502,106 @@ describe("Component theme coverage tests", () => {
       ]
     };
     createThemeTests(inputConfig);
+
+    // Textarea adds the resize handle and autosize to the input's categories
+    const textareaConfig: ComponentTestConfig = {
+      propsType: "TextareaProps",
+      categories: TEXTAREA_CATEGORIES,
+      themes: [
+        { name: "defaultTextareaTheme", theme: defaultTextareaTheme }
+      ]
+    };
+    createThemeTests(textareaConfig);
+
+    const inputSectionConfig: ComponentTestConfig = {
+      propsType: "InputSectionProps",
+      categories: INPUT_SECTION_CATEGORIES,
+      themes: [
+        { name: "defaultInputSectionTheme", theme: defaultInputSectionTheme }
+      ]
+    };
+    createThemeTests(inputSectionConfig);
+
+    const avatarConfig: ComponentTestConfig = {
+      propsType: "AvatarProps",
+      categories: AVATAR_CATEGORIES,
+      themes: [
+        { name: "defaultAvatarTheme", theme: defaultAvatarTheme }
+      ]
+    };
+    createThemeTests(avatarConfig);
+
+    const avatarGroupConfig: ComponentTestConfig = {
+      propsType: "AvatarGroupProps",
+      categories: AVATAR_GROUP_CATEGORIES,
+      themes: [
+        { name: "defaultAvatarGroupTheme", theme: defaultAvatarGroupTheme }
+      ]
+    };
+    createThemeTests(avatarGroupConfig);
+
+    const skeletonConfig: ComponentTestConfig = {
+      propsType: "SkeletonProps",
+      categories: SKELETON_CATEGORIES,
+      themes: [
+        { name: "defaultSkeletonTheme", theme: defaultSkeletonTheme }
+      ]
+    };
+    createThemeTests(skeletonConfig);
+
+    const breadcrumbConfig: ComponentTestConfig = {
+      propsType: "BreadcrumbProps",
+      categories: BREADCRUMB_CATEGORIES,
+      themes: [
+        { name: "defaultBreadcrumbTheme", theme: defaultBreadcrumbTheme }
+      ]
+    };
+    createThemeTests(breadcrumbConfig);
+
+    const breadcrumbListConfig: ComponentTestConfig = {
+      propsType: "BreadcrumbListProps",
+      categories: BREADCRUMB_LIST_CATEGORIES,
+      themes: [
+        { name: "defaultBreadcrumbListTheme", theme: defaultBreadcrumbListTheme }
+      ]
+    };
+    createThemeTests(breadcrumbListConfig);
+
+    const breadcrumbItemConfig: ComponentTestConfig = {
+      propsType: "BreadcrumbItemProps",
+      categories: BREADCRUMB_ITEM_CATEGORIES,
+      themes: [
+        { name: "defaultBreadcrumbItemTheme", theme: defaultBreadcrumbItemTheme }
+      ]
+    };
+    createThemeTests(breadcrumbItemConfig);
+
+    const breadcrumbSeparatorConfig: ComponentTestConfig = {
+      propsType: "BreadcrumbSeparatorProps",
+      categories: BREADCRUMB_SEPARATOR_CATEGORIES,
+      themes: [
+        { name: "defaultBreadcrumbSeparatorTheme", theme: defaultBreadcrumbSeparatorTheme }
+      ]
+    };
+    createThemeTests(breadcrumbSeparatorConfig);
+
+    const segmentedControlConfig: ComponentTestConfig = {
+      propsType: "SegmentedControlProps",
+      categories: SEGMENTED_CONTROL_CATEGORIES,
+      themes: [
+        { name: "defaultSegmentedControlTheme", theme: defaultSegmentedControlTheme }
+      ]
+    };
+    createThemeTests(segmentedControlConfig);
+
+    const segmentedControlItemConfig: ComponentTestConfig = {
+      propsType: "SegmentedControlItemProps",
+      categories: SEGMENTED_CONTROL_ITEM_CATEGORIES,
+      themes: [
+        { name: "defaultSegmentedControlItemTheme", theme: defaultSegmentedControlItemTheme }
+      ]
+    };
+    createThemeTests(segmentedControlItemConfig);
 
     const selectChevronConfig: ComponentTestConfig = {
       propsType: "SelectChevronProps",
@@ -1130,6 +1241,10 @@ describe("Component theme coverage tests", () => {
       defaultButtonSpinnerTheme, defaultNavLinkLabelTheme, defaultCheckboxIndeterminateTheme,
       defaultInputErrorIconTheme,
       defaultInputWrapperTheme,
+      defaultInputSectionTheme,
+      defaultAvatarTheme, defaultAvatarGroupTheme, defaultSkeletonTheme,
+      defaultBreadcrumbTheme, defaultBreadcrumbListTheme, defaultBreadcrumbItemTheme, defaultBreadcrumbSeparatorTheme,
+      defaultSegmentedControlTheme, defaultSegmentedControlItemTheme,
       // withDefaults variants
       defaultMenuPopupTheme, defaultMenuDividerTheme,
       defaultFieldTheme, defaultFieldLabelTheme, defaultFieldControlRowTheme, defaultFieldDescriptionTheme, defaultFieldErrorTheme,

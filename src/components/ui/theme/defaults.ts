@@ -37,6 +37,7 @@ import { imgDefaults } from '../img/imgDefaults';
 import { inputDefaults } from '../input/inputDefaults';
 import { inputErrorIconDefaults } from '../input/inputErrorIconDefaults';
 import { inputWrapperDefaults } from '../input/inputWrapperDefaults';
+import { inputSectionDefaults } from '../input/inputSectionDefaults';
 import { textareaDefaults } from '../textarea/textareaDefaults';
 import { selectDefaults } from '../select/selectDefaults';
 import { selectChevronDefaults } from '../select/selectChevronDefaults';
@@ -72,6 +73,15 @@ import { trDefaults } from '../table/trDefaults';
 import { thDefaults } from '../table/thDefaults';
 import { tdDefaults } from '../table/tdDefaults';
 import { captionDefaults } from '../table/captionDefaults';
+import { avatarDefaults } from '../avatar/avatarDefaults';
+import { avatarGroupDefaults } from '../avatar/avatarGroupDefaults';
+import { skeletonDefaults } from '../skeleton/skeletonDefaults';
+import { breadcrumbDefaults } from '../breadcrumb/breadcrumbDefaults';
+import { breadcrumbListDefaults } from '../breadcrumb/breadcrumbListDefaults';
+import { breadcrumbItemDefaults } from '../breadcrumb/breadcrumbItemDefaults';
+import { breadcrumbSeparatorDefaults } from '../breadcrumb/breadcrumbSeparatorDefaults';
+import { segmentedControlDefaults } from '../segmentedControl/segmentedControlDefaults';
+import { segmentedControlItemDefaults } from '../segmentedControl/segmentedControlItemDefaults';
 import {
   pageTitleDefaults,
   sectionTitleDefaults,
@@ -140,6 +150,7 @@ export const themeDefaults: ThemeDefaults = {
   input: inputDefaults,
   inputErrorIcon: inputErrorIconDefaults,
   inputWrapper: inputWrapperDefaults,
+  inputSection: inputSectionDefaults,
   textarea: textareaDefaults,
   select: selectDefaults,
   selectChevron: selectChevronDefaults,
@@ -191,5 +202,18 @@ export const themeDefaults: ThemeDefaults = {
     th: thDefaults,
     td: tdDefaults,
     caption: captionDefaults,
+  },
+  avatar: avatarDefaults,
+  avatarGroup: avatarGroupDefaults,
+  skeleton: skeletonDefaults,
+  breadcrumb: {
+    main: breadcrumbDefaults,
+    list: breadcrumbListDefaults,
+    item: breadcrumbItemDefaults,
+    separator: breadcrumbSeparatorDefaults,
+  },
+  segmentedControl: {
+    main: segmentedControlDefaults,
+    item: segmentedControlItemDefaults,
   },
 };

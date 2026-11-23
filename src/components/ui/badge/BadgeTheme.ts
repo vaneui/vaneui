@@ -1,3 +1,9 @@
-import type { InteractiveComponentTheme } from "../theme/common";
+import type { InteractiveComponentTheme, InteractiveLayoutClassMappers } from "../theme/common";
+import type { DotClassMapper } from "../theme/layout";
 
-export type BadgeTheme = InteractiveComponentTheme;
+/** Badge theme: the interactive mappers plus the status dot */
+export interface BadgeTheme extends InteractiveComponentTheme {
+  layout: InteractiveLayoutClassMappers & {
+    dot: DotClassMapper;
+  };
+}

@@ -1,48 +1,46 @@
-import { useState, type InputHTMLAttributes } from 'react';
+import { useState } from 'react';
 import {
   ThemeProvider,
-  Alert,
   defaultTheme,
-  Row,
-  Col,
-  Text,
-  Title,
-  Section,
+  Avatar,
+  AvatarGroup,
+  Badge,
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
   Card,
-  CardHeader,
   CardBody,
+  CardHeader,
+  Checkbox,
+  Chip,
+  Code,
+  Col,
   Container,
   Divider,
-  Code,
-  PageTitle,
-  SectionTitle,
-  Tooltip,
-  Button,
-  IconButton,
-  Badge,
-  Icon,
-  Chip,
+  Field,
+  Grid2,
+  Img,
   Input,
-  Checkbox,
+  Kbd,
   Label,
   Link,
-  Menu,
   NavLink,
-  MenuItem,
-  MenuLabel,
-  Field,
-  useFieldControlProps,
-  Switch,
+  PageTitle,
+  Row,
+  Section,
+  SectionTitle,
+  SegmentedControl,
+  SegmentedControlItem,
+  Select,
+  Skeleton,
   Table,
-  Thead,
   Tbody,
-  Tr,
-  Th,
   Td,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  Text,
+  Th,
+  Thead,
+  Title,
+  Tr,
 } from '../../src';
 
 const TestSvg = () => (
@@ -106,74 +104,6 @@ function ThemeShowcase() {
 }
 
 
-/* A Tooltip and a Menu on one trigger, a dialog opened from a menu item, and a second dialog
-   on top of it. */
-function ProjectMenu() {
-  const [rename, setRename] = useState(false);
-  const [discard, setDiscard] = useState(false);
-  return (
-    <>
-      <Menu trigger={<Tooltip content="Project actions"><IconButton aria-label="Project actions"><TestSvg /></IconButton></Tooltip>}>
-        <MenuItem onClick={() => setRename(true)}>Rename</MenuItem>
-        <MenuItem>Duplicate</MenuItem>
-        <Divider />
-        <MenuItem danger>Delete</MenuItem>
-      </Menu>
-      <Modal open={rename} onClose={() => setRename(false)} aria-label="Rename project">
-        <ModalHeader>
-          <Title>Rename project</Title>
-        </ModalHeader>
-        <ModalBody>
-          <Field label="Name" description="Select the text and let go over the backdrop: the dialog stays open.">
-            <Input defaultValue="vaneui-web" />
-          </Field>
-        </ModalBody>
-        <ModalFooter>
-          <Button type="button" secondary onClick={() => setDiscard(true)}>Discard</Button>
-          <Button type="button" filled onClick={() => setRename(false)}>Save</Button>
-        </ModalFooter>
-      </Modal>
-      <Modal sm open={discard} onClose={() => setDiscard(false)} aria-label="Discard changes">
-        <ModalBody>
-          <Text>Escape closes this dialog first, then the one under it.</Text>
-        </ModalBody>
-        <ModalFooter>
-          <Button type="button" danger filled onClick={() => { setDiscard(false); setRename(false); }}>Discard</Button>
-        </ModalFooter>
-      </Modal>
-    </>
-  );
-}
-
-const TIME_ZONES = Array.from({ length: 27 }, (_, i) => `UTC${i < 12 ? '-' : '+'}${Math.abs(i - 12)}`);
-
-/* Validates on every keystroke, so `invalid` flips while the field has focus. */
-function LiveValidation() {
-  const [email, setEmail] = useState('');
-  const error = email && !email.includes('@') ? 'An address needs an @.' : '';
-  return (
-    <Field label="Email" error={error} description="Type a few letters, then an @.">
-      <Input type="email" value={email} onChange={event => setEmail(event.target.value)} />
-    </Field>
-  );
-}
-
-function ReadOnlyToggles() {
-  const [checked, setChecked] = useState(true);
-  const toggle = () => setChecked(value => !value);
-  return (
-    <Col whitespaceNowrap>
-      <Label row><Checkbox readOnly checked={checked} onChange={toggle} /> Read-only checkbox</Label>
-      <Label row><Switch readOnly checked={checked} onChange={toggle} /> Read-only switch</Label>
-    </Col>
-  );
-}
-
-/* A control the library does not ship: the hook hands it the Field's id and aria attributes. */
-function DateInput(props: InputHTMLAttributes<HTMLInputElement>) {
-  return <input type="date" {...useFieldControlProps(props)} />;
-}
-
 /* Parts rendered by a component: the Card cannot see them among its own children. */
 function PlanParts() {
   return (
@@ -189,7 +119,7 @@ function PlanParts() {
   );
 }
 
-function ChecksTable(props: { success?: boolean; filled?: boolean }) {
+function ChecksTable(props: { success?: boolean; filled?: boolean; striped?: boolean; hoverable?: boolean }) {
   return (
     <Table {...props}>
       <Thead>
@@ -198,12 +128,170 @@ function ChecksTable(props: { success?: boolean; filled?: boolean }) {
       <Tbody>
         <Tr><Td>Build</Td><Td>Passed</Td></Tr>
         <Tr><Td>Tests</Td><Td>Passed</Td></Tr>
+        <Tr><Td>Lint</Td><Td>Passed</Td></Tr>
+        <Tr><Td>E2E</Td><Td>Running</Td></Tr>
       </Tbody>
     </Table>
   );
 }
 
-const LABEL_SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+const SearchSvg = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+    <circle cx="11" cy="11" r="7" />
+    <path d="M20 20l-3.5-3.5" />
+  </svg>
+);
+
+/* A local stand-in for a photo, so the playground needs no network */
+const PHOTO = `data:image/svg+xml,${encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90"><defs><linearGradient id="g" x2="1" y2="1">'
+  + '<stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>'
+  + '<rect width="120" height="90" fill="url(#g)"/><circle cx="60" cy="38" r="16" fill="#fff" fill-opacity=".85"/>'
+  + '<ellipse cx="60" cy="88" rx="32" ry="26" fill="#fff" fill-opacity=".85"/></svg>'
+)}`;
+
+const SIZES = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+
+const TEAM = ['Ada Lovelace', 'Alan Turing', 'Grace Hopper', 'Katherine Johnson', 'Edsger Dijkstra', 'Barbara Liskov'];
+
+/* A clear button that comes and goes as you type: the input keeps focus and its text. */
+function SearchField() {
+  const [query, setQuery] = useState('');
+  return (
+    <Input
+      aria-label="Search docs"
+      placeholder="Search docs"
+      value={query}
+      onChange={event => setQuery(event.target.value)}
+      startSection={<SearchSvg />}
+      endSection={query ? (
+        <Button type="button" xs ghost secondary onClick={() => setQuery('')}>Clear</Button>
+      ) : <Kbd xs>/</Kbd>}
+    />
+  );
+}
+
+function ProfileCard(props: { loading: boolean }) {
+  return (
+    <Card skeleton={props.loading} className="w-80">
+      <Row>
+        <Avatar src={PHOTO} name="Ada Lovelace" />
+        <Col noGap>
+          <Title sm>Ada Lovelace</Title>
+          <Text sm secondary>Analyst, London</Text>
+        </Col>
+      </Row>
+      <Text>Wrote the first program for a machine that did not exist yet.</Text>
+      <Row>
+        <Badge success dot>Online</Badge>
+        <Chip sm>Math</Chip>
+      </Row>
+      <Row>
+        <Button filled><TestSvg /> Follow</Button>
+        <Link href="#profile">Profile</Link>
+      </Row>
+    </Card>
+  );
+}
+
+function SkeletonShowcase() {
+  const [loading, setLoading] = useState(true);
+  return (
+    <Card>
+      <Title>One prop, the same layout</Title>
+      <Text sm secondary>
+        <Code sm>skeleton</Code> on the Card turns the components inside it into placeholders: text
+        into bars as long as each line, buttons, badges, fields and avatars into shapes of their own
+        size. The Card keeps its surface, and nothing inside takes focus.
+      </Text>
+      <Label row>
+        <Checkbox checked={loading} onChange={() => setLoading(!loading)} />
+        Loading
+      </Label>
+      <Row tabletStack itemsStart>
+        <ProfileCard loading={loading} />
+        <div data-theme="dark"><ProfileCard loading={loading} /></div>
+        <Col skeleton={loading} noGap className="w-56">
+          <NavLink href="#home" active><TestSvg /> Dashboard</NavLink>
+          <NavLink href="#settings"><TestSvg /> Settings</NavLink>
+          <NavLink href="#team"><TestSvg /> Team</NavLink>
+        </Col>
+      </Row>
+      <Text sm secondary>
+        <Code sm>Skeleton</Code> is a plain box for an area with no component of its own, such as a
+        chart. It is one line of text tall at its size; aspect props, a height or a class set its shape.
+      </Text>
+      <Row itemsStart flexWrap>
+        <Skeleton aspectVideo className="w-64" />
+        <Col className="w-64">
+          <Skeleton />
+          <Skeleton sm className="w-1/2" />
+          <Skeleton pill aspectSquare className="w-12" />
+        </Col>
+      </Row>
+    </Card>
+  );
+}
+
+const ISSUES = [
+  { title: 'Fix the Safari export button', status: 'open' },
+  { title: 'Add a dark logo', status: 'closed' },
+  { title: 'Translate the docs', status: 'draft' },
+  { title: 'Cache the search index', status: 'open' },
+];
+
+function SegmentedControlShowcase() {
+  const [status, setStatus] = useState('all');
+  const shown = ISSUES.filter(issue => status === 'all' || issue.status === status);
+  return (
+    <>
+      <Card>
+        <Title>A filter</Title>
+        <Text sm secondary>
+          One choice out of a few, always visible. The segments are native radios, so the arrow keys
+          move the choice and a form gets the value.
+        </Text>
+        <SegmentedControl aria-label="Status" value={status} onChange={event => setStatus(event.target.value)}>
+          <SegmentedControlItem value="all">All</SegmentedControlItem>
+          <SegmentedControlItem value="open">Open</SegmentedControlItem>
+          <SegmentedControlItem value="closed">Closed</SegmentedControlItem>
+          <SegmentedControlItem value="draft">Draft</SegmentedControlItem>
+        </SegmentedControl>
+        <Col gapXs>
+          {shown.map(issue => <Text key={issue.title} sm>{issue.title}</Text>)}
+        </Col>
+      </Card>
+
+      <Card>
+        <Title>Sizes, colors and width</Title>
+        <Text sm secondary>
+          The control is as tall as a Button of its size. Its appearance and variant color the
+          selected segment; the track stays neutral.
+        </Text>
+        <Row flexWrap>
+          <SegmentedControl xs aria-label="Range" defaultValue="w">
+            <SegmentedControlItem value="d">Day</SegmentedControlItem>
+            <SegmentedControlItem value="w">Week</SegmentedControlItem>
+          </SegmentedControl>
+          <SegmentedControl md accent filled aria-label="View" defaultValue="board">
+            <SegmentedControlItem value="list">List</SegmentedControlItem>
+            <SegmentedControlItem value="board">Board</SegmentedControlItem>
+          </SegmentedControl>
+          <SegmentedControl lg pill aria-label="Layout" defaultValue="grid">
+            <SegmentedControlItem value="list" aria-label="List"><TestSvg /></SegmentedControlItem>
+            <SegmentedControlItem value="grid" aria-label="Grid"><TestSvg /></SegmentedControlItem>
+            <SegmentedControlItem value="both" disabled><TestSvg /> Both</SegmentedControlItem>
+          </SegmentedControl>
+          <Button md>Button md</Button>
+        </Row>
+        <SegmentedControl wFull aria-label="Billing" defaultValue="year">
+          <SegmentedControlItem value="month">Monthly</SegmentedControlItem>
+          <SegmentedControlItem value="year">Yearly</SegmentedControlItem>
+        </SegmentedControl>
+      </Card>
+    </>
+  );
+}
 
 function App() {
   return (
@@ -213,9 +301,9 @@ function App() {
 
           <PageTitle>VaneUI Playground</PageTitle>
           <Text secondary>
-            Default sizes that line up, the Icon scale, Card and Modal parts, light islands inside{' '}
-            <Code sm>data-theme="dark"</Code>, Alert sizes, the fixes from the project review, and
-            text centered in boxed labels.
+            Default sizes and parts, light islands inside <Code sm>data-theme="dark"</Code>, the new
+            Avatar and Breadcrumb, field sections, the new small props, loading placeholders and the
+            SegmentedControl.
           </Text>
 
           {/* ═══ 1. DEFAULT SIZES ═══════════════════════════════════════════ */}
@@ -238,19 +326,6 @@ function App() {
               <Input defaultValue="Website" />
             </Field>
             <ChecksTable />
-          </Card>
-
-          <Card>
-            <Title>Icon scale</Title>
-            <Text sm secondary>12, 16, 20, 24 and 32px. The default sits next to body text.</Text>
-            <Row itemsEnd>
-              <Icon xs><TestSvg /></Icon>
-              <Icon sm><TestSvg /></Icon>
-              <Icon><TestSvg /></Icon>
-              <Icon lg><TestSvg /></Icon>
-              <Icon xl><TestSvg /></Icon>
-              <Row sm><Icon><TestSvg /></Icon><Text>Starred projects</Text></Row>
-            </Row>
           </Card>
 
           <Card>
@@ -329,174 +404,160 @@ function App() {
             </div>
           </Card>
 
-          {/* ═══ 3. ALERT ════════════════════════════════════════════════════ */}
+          {/* ═══ 3. AVATAR AND BREADCRUMB ═══════════════════════════════════ */}
           <Divider />
-          <SectionTitle>3. Alert</SectionTitle>
+          <SectionTitle>3. Avatar and Breadcrumb</SectionTitle>
 
           <Card>
-            <Title>Sizes</Title>
+            <Title>Avatar content and sizes</Title>
             <Text sm secondary>
-              Text, radius, gap, padding and a leading icon all follow the size. The text runs one
-              step below body text (14px at <Code sm>md</Code>), the radius matches an Input of the
-              same size, and the icon is 10/7 of the text, whatever width its library renders.
+              An image, the initials of the name when there is no image or it fails to load, then a
+              person icon. The size sets the box, the radius and the initials together.
             </Text>
-            <Col>
-              {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
-                <Alert key={size} polite {...{ [size]: true }}>
-                  <TestSvg />
-                  Alert {size}: a new version is available. Reload to update.
-                </Alert>
-              ))}
-            </Col>
-          </Card>
-
-          <Card>
-            <Title>Message and actions</Title>
-            <Text sm secondary>
-              A Text, Col, Stack or Row in an Alert takes the free width, so a trailing Button sits
-              at the end edge. <Code sm>itemsCenter</Code> centres it on a two-line message. For a
-              long message, put the buttons under the text instead.
-            </Text>
-            <Col>
-              <Alert warning polite itemsCenter>
-                <Col noGap>
-                  <Text fontSemibold>Your trial ends in three days</Text>
-                  <Text sm>Add a payment method to keep your projects running.</Text>
-                </Col>
-                <Button warning filled>Add card</Button>
-              </Alert>
-              <Alert success polite itemsCenter>
-                <TestSvg />
-                <Text sm>Your changes were saved.</Text>
-                <Button success ghost>Undo</Button>
-              </Alert>
-              <Alert danger polite>
-                <TestSvg />
-                <Col>
-                  <Col noGap>
-                    <Text fontSemibold>Payment failed</Text>
-                    <Text sm>
-                      The card ending in 4242 was declined. Update the card or try another payment
-                      method. Your projects keep running for seven days.
-                    </Text>
-                  </Col>
-                  <Row>
-                    <Button danger filled>Update card</Button>
-                    <Button danger ghost>Contact support</Button>
-                  </Row>
-                </Col>
-              </Alert>
-            </Col>
-          </Card>
-
-          <Card>
-            <Title>Appearances and variants</Title>
-            <Col>
-              <Alert polite>A new version is available.</Alert>
-              <Alert success polite>Your changes were saved.</Alert>
-              <Alert warning polite>Your trial ends in three days.</Alert>
-              <Alert danger filled polite>Payment failed. Update your card to continue.</Alert>
-            </Col>
-          </Card>
-
-          {/* ═══ 4. REVIEW FIXES ═════════════════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>4. Fixes from the project review</SectionTitle>
-
-          <Card>
-            <Title>Menus and dialogs</Title>
-            <Text sm secondary>
-              The first trigger has a <Code sm>Tooltip</Code> and a <Code sm>Menu</Code>: the menu
-              stays on its button after the tooltip closes. Rename opens a dialog that returns focus
-              to the trigger, and what you type stays while it fades out. The second menu has more
-              items than fit, so it scrolls.
-            </Text>
-            <Row>
-              <ProjectMenu />
-              <Menu trigger={<Button secondary>Time zone</Button>}>
-                {TIME_ZONES.map(zone => <MenuItem key={zone}>{zone}</MenuItem>)}
-              </Menu>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Form state</Title>
-            <Text sm secondary>
-              An <Code sm>Input</Code> keeps focus while <Code sm>invalid</Code> flips, read-only
-              toggles do not call <Code sm>onChange</Code>, and a plain input takes the Field's
-              wiring from <Code sm>useFieldControlProps</Code>.
-            </Text>
-            <Row tabletStack itemsStart>
-              <LiveValidation />
-              <ReadOnlyToggles />
-              <Field label="Start date" description="A plain date input.">
-                <DateInput />
-              </Field>
-            </Row>
-          </Card>
-
-          <Card>
-            <Title>Card parts, Table colors and className</Title>
-            <Text sm secondary>
-              A <Code sm>Card</Code> drops its own padding when its parts come from another
-              component. An appearance or <Code sm>filled</Code> on a <Code sm>Table</Code> reaches
-              its cells, and a filled Table keeps its row lines. <Code sm>className="py-8"</Code> on
-              the last card holds on a phone too. Text on the danger, accent and tertiary fills
-              reads at 4.5:1.
-            </Text>
-            <Row tabletStack itemsStart>
-              <Card sm><PlanParts /></Card>
-              <Card sm className="py-8"><Text sm>py-8 at every width</Text></Card>
-            </Row>
-            <Row tabletStack itemsStart>
-              <ChecksTable success />
-              <ChecksTable filled />
-              <ChecksTable filled success />
-            </Row>
-            <Row>
-              <Badge danger filled>Overdue</Badge>
-              <Badge accent filled>New</Badge>
-              <Badge tertiary filled>Draft</Badge>
-              <Button danger filled>Delete</Button>
-            </Row>
-          </Card>
-
-          {/* ═══ 5. TEXT CENTERED IN ITS BOX ═════════════════════════════════ */}
-          <Divider />
-          <SectionTitle>5. Text centered in its box</SectionTitle>
-
-          <Card>
-            <Title>Capitals in the middle</Title>
-            <Text sm secondary>
-              A boxed label puts its text in a span and trims it to the capital height, so the
-              letters sit in the middle of the box whatever the font. Sizes stay the same, tails
-              and accents stay whole, and a truncated <Code sm>NavLink</Code> keeps its ellipsis.
-            </Text>
-            {LABEL_SIZES.map(size => (
+            {SIZES.map(size => (
               <Row key={size} flexWrap>
-                <Button {...{ [size]: true }} filled>Edit page</Button>
-                <Button {...{ [size]: true }}>Ågjpqy</Button>
-                <Badge {...{ [size]: true }} success filled>Paid</Badge>
-                <Chip {...{ [size]: true }}>Design</Chip>
-                <IconButton {...{ [size]: true }} aria-label="Bold">B</IconButton>
-                <Tooltip {...{ [size]: true }} content="Copy link">
-                  <Button {...{ [size]: true }} secondary>Hover me</Button>
-                </Tooltip>
+                <Avatar {...{ [size]: true }} src={PHOTO} name="Ada Lovelace" />
+                <Avatar {...{ [size]: true }} src="/missing.png" name="Grace Hopper" />
+                <Avatar {...{ [size]: true }} name="Alan Turing" primary filled />
+                <Avatar {...{ [size]: true }} rounded success />
+                <Avatar {...{ [size]: true }} />
               </Row>
             ))}
-            <Row itemsStart flexWrap>
-              <Col noGap className="w-48">
-                <NavLink href="#labels" active>Overview</NavLink>
-                <NavLink href="#labels">A long label that is cut short</NavLink>
-              </Col>
-              <Menu trigger={<Button secondary>Project</Button>}>
-                <MenuLabel>Project</MenuLabel>
-                <MenuItem>Rename</MenuItem>
-                <MenuItem>Duplicate</MenuItem>
-              </Menu>
-              <Alert success polite>Saved</Alert>
+          </Card>
+
+          <Card>
+            <Title>AvatarGroup</Title>
+            <Text sm secondary>
+              Avatars overlap and take the group's size. <Code sm>max</Code> counts the rest in one
+              avatar, and <Code sm>total</Code> counts against a list you only load in part.
+            </Text>
+            <Row flexWrap>
+              <AvatarGroup aria-label="Editors" max={4}>
+                {TEAM.map(name => <Avatar key={name} name={name} />)}
+              </AvatarGroup>
+              <AvatarGroup lg aria-label="Reviewers" total={48}>
+                <Avatar src={PHOTO} name="Alan Turing" />
+                <Avatar name="Barbara Liskov" info filled />
+                <Avatar name="Edsger Dijkstra" warning filled />
+              </AvatarGroup>
             </Row>
           </Card>
+
+          <Card>
+            <Title>Breadcrumb</Title>
+            <Text sm secondary>
+              A labelled <Code sm>nav</Code> with an ordered list. The last item is the current page
+              unless one item sets <Code sm>current</Code>. The trail wraps on a narrow screen.
+            </Text>
+            <Breadcrumb>
+              <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+              <BreadcrumbItem href="#docs">Docs</BreadcrumbItem>
+              <BreadcrumbItem href="#components">Components</BreadcrumbItem>
+              <BreadcrumbItem>Breadcrumb</BreadcrumbItem>
+            </Breadcrumb>
+            <Breadcrumb md separator="/">
+              <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+              <BreadcrumbItem href="#settings">Settings</BreadcrumbItem>
+              <BreadcrumbItem>Billing</BreadcrumbItem>
+            </Breadcrumb>
+          </Card>
+
+          {/* ═══ 4. FIELD SECTIONS ═══════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>4. Field sections and Textarea</SectionTitle>
+
+          <Card>
+            <Title>Start and end sections</Title>
+            <Text sm secondary>
+              A section overlays the field and the field reserves its measured width, so a prefix
+              like https:// is as wide as its text. A section follows the field's size.
+            </Text>
+            <Grid2 itemsStart>
+              <SearchField />
+              <Input aria-label="Site" startSection="https://" placeholder="vaneui.com" />
+              <Input aria-label="Weight" type="number" endSection="kg" defaultValue="72" invalid />
+              <Select aria-label="Region" startSection={<TestSvg />}>
+                <option>Europe</option>
+                <option>North America</option>
+              </Select>
+              <Field type="url" label="Homepage" startSection="https://" description="Field passes the section to its input." />
+              <Input lg aria-label="Large search" startSection={<SearchSvg />} placeholder="Large" />
+            </Grid2>
+          </Card>
+
+          <Card>
+            <Title>Textarea autosize and resize</Title>
+            <Text sm secondary>
+              <Code sm>autosize</Code> grows the box with its text and drops the handle.
+              <Code sm>resizeNone</Code>, <Code sm>resizeX</Code> and <Code sm>resize</Code> change the
+              handle; the default resizes vertically.
+            </Text>
+            <Grid2>
+              <Field textarea autosize label="Autosize" defaultValue={'Type a few lines.\nThe box grows with them.'} />
+              <Field textarea resizeNone label="No handle" defaultValue="This one keeps its height." />
+            </Grid2>
+          </Card>
+
+          {/* ═══ 5. SMALL PROPS ══════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>5. Small props</SectionTitle>
+
+          <Card>
+            <Title>Table striped and hoverable, Badge dot</Title>
+            <Text sm secondary>
+              Stripes and the hover tint are a tint of the row's own text color, so they read on any
+              appearance. A dot badge with no text and an <Code sm>aria-label</Code> is one image.
+            </Text>
+            <Row tabletStack itemsStart>
+              <ChecksTable striped hoverable />
+              <ChecksTable striped success />
+            </Row>
+            <Row flexWrap>
+              <Badge success dot>Online</Badge>
+              <Badge warning dot>Away</Badge>
+              <Badge danger filled dot>Offline</Badge>
+              <Badge info dot aria-label="New messages" />
+              <Text sm>Build status <Badge xs success dot aria-label="Passing" /></Text>
+            </Row>
+          </Card>
+
+          <Card>
+            <Title>Fixed gaps, aspect ratio and srOnly</Title>
+            <Text sm secondary>
+              <Code sm>gapXs</Code> to <Code sm>gapXl</Code> keep one gap at every size and width.
+              <Code sm>aspectSquare</Code> and <Code sm>aspectVideo</Code> fix the shape of an image or a
+              box. <Code sm>srOnly</Code> keeps text for screen readers only.
+            </Text>
+            <Row flexWrap>
+              {(['gapXs', 'gapSm', 'gapMd', 'gapLg', 'gapXl'] as const).map(gap => (
+                <Row key={gap} lg {...{ [gap]: true }}>
+                  <Chip sm>{gap}</Chip><Chip sm>b</Chip><Chip sm>c</Chip>
+                </Row>
+              ))}
+            </Row>
+            <Row itemsStart flexWrap>
+              <Img aspectSquare src={PHOTO} alt="A square crop" className="w-40" />
+              <Card aspectVideo secondary filled itemsCenter justifyCenter className="w-64">
+                <Text>16:9 card</Text>
+              </Card>
+              <Button>
+                <TestSvg />
+                <Text tag="span" srOnly>Add to favorites</Text>
+              </Button>
+            </Row>
+          </Card>
+
+          {/* ═══ 6. SKELETON ═══════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>6. Skeleton</SectionTitle>
+
+          <SkeletonShowcase />
+
+          {/* ═══ 7. SEGMENTED CONTROL ═══════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>7. SegmentedControl</SectionTitle>
+
+          <SegmentedControlShowcase />
 
         </Container>
       </Section>

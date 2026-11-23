@@ -80,4 +80,8 @@ export type InputProps = BaseProps &
   Omit<React.InputHTMLAttributes<HTMLInputElement>, 'className' | 'children'> & {
   /** Custom HTML tag or React component to render as */
   tag?: React.ElementType;
+  /** Content at the start edge inside the field: an icon, a prefix such as "https://", or a small button. The field reserves its width. With a section, className, width, visibility and the sizing part of style go on the wrapper, as on Select */
+  startSection?: React.ReactNode;
+  /** Content at the end edge inside the field: an icon, a unit such as "kg", or a small button (clear, show password, copy). The field reserves its width */
+  endSection?: React.ReactNode;
 };

@@ -62,6 +62,13 @@ import {
   Th,
   Td,
   useOverlayRegistration,
+  Avatar,
+  AvatarGroup,
+  Breadcrumb,
+  BreadcrumbItem,
+  Skeleton,
+  SegmentedControl,
+  SegmentedControlItem,
   type InputProps,
   useFieldControlProps,
 } from '../../src';
@@ -855,6 +862,316 @@ function LayoutAdditionsFixtures() {
       </Col>
       <Button tabletShow data-testid="button-tablet-show">Menu</Button>
       <Row mobileHide tabletShow data-testid="row-tablet-band">Tablet band</Row>
+    </section>
+  );
+}
+
+/* ════════ QUICK ADDITIONS (quick-additions.spec.ts) ════════
+   Avatar, AvatarGroup, Breadcrumb, field sections and the small props: gap steps,
+   Textarea autosize/resize, Table striped/hoverable, Badge dot, Progress indeterminate,
+   srOnly and aspect ratio. */
+const AVATAR_PHOTO = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 4"><rect width="4" height="4" fill="#6366f1"/></svg>')}`;
+
+function SkeletonFixtures() {
+  const profile = (props: { skeleton?: boolean; testId: string }) => (
+    <Card skeleton={props.skeleton} data-testid={props.testId} className="w-96">
+      <Row>
+        <Avatar name="Ada Lovelace" data-testid={`${props.testId}-avatar`} />
+        <Col noGap>
+          <Title data-testid={`${props.testId}-title`}>Ada Lovelace</Title>
+          <Text sm>Analyst, London</Text>
+        </Col>
+      </Row>
+      <Text data-testid={`${props.testId}-text`}>Wrote the first program for a machine that did not exist yet, and saw that it could do more than arithmetic.</Text>
+      <Row>
+        <Badge success dot data-testid={`${props.testId}-badge`}>Online</Badge>
+        <Chip>Math</Chip>
+        <Code>note G</Code>
+      </Row>
+      <Field label="Email" data-testid={`${props.testId}-field`}>
+        <Input placeholder="you@example.com" startSection={<StarIcon />} data-testid={`${props.testId}-input`} />
+      </Field>
+      <Label row><Checkbox defaultChecked data-testid={`${props.testId}-checkbox`} /> Keep me posted</Label>
+      <Row>
+        <Button filled data-testid={`${props.testId}-button`}><StarIcon /> Follow</Button>
+        <Link href="#profile" data-testid={`${props.testId}-link`}>Profile</Link>
+      </Row>
+    </Card>
+  );
+
+  return (
+    <section data-testid="skeleton-section">
+      <Row itemsStart flexWrap>
+        {profile({ testId: 'skeleton-off' })}
+        {profile({ skeleton: true, testId: 'skeleton-card' })}
+        <div data-theme="dark">
+          {profile({ skeleton: true, testId: 'skeleton-dark' })}
+        </div>
+      </Row>
+      <Row flexWrap>
+        <Button skeleton data-testid="skeleton-button">Save</Button>
+        <Text skeleton data-testid="skeleton-text">Loading text</Text>
+        <Input skeleton aria-label="Name" endSection="kg" data-testid="skeleton-input" />
+        <Switch skeleton aria-label="On" defaultChecked data-testid="skeleton-switch" />
+        <Progress skeleton value={60} aria-label="Done" data-testid="skeleton-progress" />
+        <Img skeleton src={AVATAR_PHOTO} alt="" aspectSquare className="w-16" data-testid="skeleton-img" />
+        <Button skeleton aria-busy={false} data-testid="skeleton-button-busy-false">Own busy</Button>
+      </Row>
+      <Col skeleton data-testid="skeleton-nav" className="w-60">
+        <NavLink href="#a" active><StarIcon /> Dashboard</NavLink>
+        <NavLink href="#b"><StarIcon /> Settings</NavLink>
+      </Col>
+      <Row flexWrap>
+        {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+          <Skeleton key={size} {...{ [size]: true }} className="w-24" data-testid={`skeleton-box-${size}`} />
+        ))}
+        <Skeleton aspectVideo className="w-48" data-testid="skeleton-box-video" />
+        <Skeleton pill aspectSquare className="w-12" data-testid="skeleton-box-circle" />
+      </Row>
+      <Table skeleton data-testid="skeleton-table">
+        <Thead><Tr><Th>Name</Th><Th>Role</Th></Tr></Thead>
+        <Tbody>
+          <Tr><Td>Ada Lovelace</Td><Td>Analyst</Td></Tr>
+          <Tr><Td>Alan Turing</Td><Td>Mathematician</Td></Tr>
+        </Tbody>
+      </Table>
+      <Card skeleton data-testid="skeleton-empty" className="w-96">
+        <Title data-testid="skeleton-empty-title">{undefined}</Title>
+        <Title data-testid="skeleton-full-title">Ada</Title>
+        <Text data-testid="skeleton-empty-text">{''}</Text>
+        <Text data-testid="skeleton-full-text">Ada</Text>
+        <Text style={{ '--skeleton-text-width': '5ch' } as React.CSSProperties} data-testid="skeleton-empty-short" />
+        <Row>
+          <Button filled data-testid="skeleton-empty-button" />
+          <Button filled data-testid="skeleton-full-button">Follow</Button>
+          <Badge data-testid="skeleton-empty-badge" />
+          <Badge data-testid="skeleton-full-badge">Online</Badge>
+          <Badge success dot aria-label="Online" data-testid="skeleton-empty-dot" />
+        </Row>
+        <Col noGap>
+          <NavLink href="#empty" data-testid="skeleton-empty-navlink" />
+          <NavLink href="#full" data-testid="skeleton-full-navlink">Settings</NavLink>
+        </Col>
+        <Table>
+          <Tbody><Tr><Td data-testid="skeleton-empty-cell" /><Td data-testid="skeleton-full-cell">Ada</Td></Tr></Tbody>
+        </Table>
+      </Card>
+      <Text data-testid="skeleton-empty-outside" />
+      <Breadcrumb skeleton data-testid="skeleton-breadcrumb">
+        <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+        <BreadcrumbItem href="#docs">Docs</BreadcrumbItem>
+        <BreadcrumbItem>Button</BreadcrumbItem>
+      </Breadcrumb>
+    </section>
+  );
+}
+
+// Border radius: surface scale, --br-scale, Card media, Icon corners (radius.spec.ts)
+const RADIUS_IMG = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
+function RadiusFixtures() {
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  const controls = (prefix: string) => (
+    <Row flexWrap>
+      <Button data-testid={`${prefix}-button`}>Save</Button>
+      <Input aria-label="Email" data-testid={`${prefix}-input`} />
+      <Checkbox aria-label="Agree" data-testid={`${prefix}-checkbox`} />
+      <Avatar rounded name="Ada Lovelace" data-testid={`${prefix}-avatar`} />
+      <Badge rounded data-testid={`${prefix}-badge`}>New</Badge>
+      <Progress rounded value={40} aria-label="Progress" data-testid={`${prefix}-progress`} />
+      <Icon filled data-testid={`${prefix}-icon`}><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /></svg></Icon>
+      <Skeleton style={{ width: 96 }} data-testid={`${prefix}-skeleton`} />
+      <Card data-testid={`${prefix}-card`}><Text>Card</Text></Card>
+      <Badge pill data-testid={`${prefix}-pill`}>Pill</Badge>
+    </Row>
+  );
+  return (
+    <Section data-testid="radius-section">
+      <Row flexWrap itemsStart>
+        {sizes.map(size => (
+          <Card key={size} {...{ [size]: true }} data-testid={`radius-card-${size}`}><Text>Card</Text></Card>
+        ))}
+        <Img md src={RADIUS_IMG} alt="" width={48} height={32} data-testid="radius-img-md" />
+      </Row>
+      <Row flexWrap>
+        {sizes.map(size => (
+          <Icon key={size} {...{ [size]: true }} filled data-testid={`radius-icon-${size}`}><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /></svg></Icon>
+        ))}
+      </Row>
+      <div data-testid="radius-scale-default">{controls('radius-scale-default')}</div>
+      <div style={{ ['--br-scale' as string]: 0 }}>{controls('radius-scale-0')}</div>
+      <div style={{ ['--br-scale' as string]: 2 }}>{controls('radius-scale-2')}</div>
+      <Row itemsStart>
+        <Card style={{ width: 224 }} data-testid="radius-media-top">
+          <Img src={RADIUS_IMG} alt="" height={64} style={{ width: '100%' }} data-testid="radius-media-top-img" />
+          <CardBody><Text>Image on the top edge</Text></CardBody>
+        </Card>
+        <Card style={{ width: 224 }} data-testid="radius-media-bottom">
+          <CardBody><Text>Image on the bottom edge</Text></CardBody>
+          <Img src={RADIUS_IMG} alt="" height={64} style={{ width: '100%' }} data-testid="radius-media-bottom-img" />
+        </Card>
+        <Card style={{ width: 224 }} data-testid="radius-media-padded">
+          <Img src={RADIUS_IMG} alt="" height={64} style={{ width: '100%' }} data-testid="radius-media-padded-img" />
+          <Text>An inset image keeps its corners</Text>
+        </Card>
+        <Card style={{ width: 224 }}>
+          <Img sharp src={RADIUS_IMG} alt="" height={64} style={{ width: '100%' }} data-testid="radius-media-sharp-img" />
+          <CardBody><Text>A sharp image stays sharp</Text></CardBody>
+        </Card>
+      </Row>
+    </Section>
+  );
+}
+
+function SegmentedControlFixtures() {
+  const [view, setView] = useState('week');
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  return (
+    <section data-testid="segmented-control-section">
+      <Row>
+        <SegmentedControl aria-label="Status" defaultValue="all" data-testid="seg-default">
+          <SegmentedControlItem value="all" data-testid="seg-default-all">All</SegmentedControlItem>
+          <SegmentedControlItem value="open" data-testid="seg-default-open">Open</SegmentedControlItem>
+          <SegmentedControlItem value="closed" data-testid="seg-default-closed">Closed</SegmentedControlItem>
+          <SegmentedControlItem value="draft" data-testid="seg-default-draft">Draft</SegmentedControlItem>
+        </SegmentedControl>
+        <Button data-testid="seg-default-button">Button</Button>
+        <Input aria-label="next to a segmented control" data-testid="seg-default-input" />
+      </Row>
+
+      {sizes.map(size => (
+        <Row key={size}>
+          <SegmentedControl {...{ [size]: true }} aria-label={`Size ${size}`} defaultValue="a" data-testid={`seg-${size}`}>
+            <SegmentedControlItem value="a" data-testid={`seg-${size}-a`}>Day</SegmentedControlItem>
+            <SegmentedControlItem value="b">Week</SegmentedControlItem>
+          </SegmentedControl>
+          <Button {...{ [size]: true }} data-testid={`seg-${size}-button`}>Button</Button>
+        </Row>
+      ))}
+
+      <SegmentedControl accent filled aria-label="Filled" defaultValue="b" data-testid="seg-filled">
+        <SegmentedControlItem value="a" data-testid="seg-filled-a">List</SegmentedControlItem>
+        <SegmentedControlItem value="b" data-testid="seg-filled-b">Board</SegmentedControlItem>
+        <SegmentedControlItem value="c" success data-testid="seg-filled-c">Done</SegmentedControlItem>
+      </SegmentedControl>
+
+      <SegmentedControl secondary ghost aria-label="Ghost" defaultValue="a" data-testid="seg-ghost">
+        <SegmentedControlItem value="a" data-testid="seg-ghost-a">List</SegmentedControlItem>
+        <SegmentedControlItem value="b" data-testid="seg-ghost-b">Board</SegmentedControlItem>
+      </SegmentedControl>
+
+      <div style={{ width: 420 }} data-testid="seg-full-box">
+        <SegmentedControl wFull aria-label="Full width" defaultValue="a" data-testid="seg-full">
+          <SegmentedControlItem value="a" data-testid="seg-full-a">Day</SegmentedControlItem>
+          <SegmentedControlItem value="b" data-testid="seg-full-b">Week</SegmentedControlItem>
+          <SegmentedControlItem value="c" data-testid="seg-full-c">Month</SegmentedControlItem>
+        </SegmentedControl>
+      </div>
+
+      <SegmentedControl aria-label="View" value={view} onChange={event => setView(event.target.value)} data-testid="seg-controlled">
+        <SegmentedControlItem value="day" data-testid="seg-controlled-day">Day</SegmentedControlItem>
+        <SegmentedControlItem value="week" data-testid="seg-controlled-week">Week</SegmentedControlItem>
+        <SegmentedControlItem value="month" disabled data-testid="seg-controlled-month">Month</SegmentedControlItem>
+      </SegmentedControl>
+      <Text data-testid="seg-controlled-value">{view}</Text>
+
+      <SegmentedControl aria-label="Layout" defaultValue="list" data-testid="seg-icons">
+        <SegmentedControlItem value="list" aria-label="List" data-testid="seg-icons-list"><StarIcon /></SegmentedControlItem>
+        <SegmentedControlItem value="grid" aria-label="Grid"><StarIcon /></SegmentedControlItem>
+        <SegmentedControlItem value="both" data-testid="seg-icons-both"><StarIcon /> Both</SegmentedControlItem>
+      </SegmentedControl>
+
+      <SegmentedControl disabled aria-label="Disabled" defaultValue="a" data-testid="seg-disabled">
+        <SegmentedControlItem value="a">On</SegmentedControlItem>
+        <SegmentedControlItem value="b" data-testid="seg-disabled-b">Off</SegmentedControlItem>
+      </SegmentedControl>
+
+      <SegmentedControl skeleton aria-label="Loading" defaultValue="a" data-testid="seg-skeleton">
+        <SegmentedControlItem value="a" data-testid="seg-skeleton-a">Day</SegmentedControlItem>
+        <SegmentedControlItem value="b">Week</SegmentedControlItem>
+      </SegmentedControl>
+
+      <div data-theme="dark" data-testid="seg-dark-box">
+        <Card>
+          <SegmentedControl aria-label="Dark" defaultValue="a" data-testid="seg-dark">
+            <SegmentedControlItem value="a" data-testid="seg-dark-a">Day</SegmentedControlItem>
+            <SegmentedControlItem value="b" data-testid="seg-dark-b">Week</SegmentedControlItem>
+          </SegmentedControl>
+        </Card>
+      </div>
+    </section>
+  );
+}
+
+function QuickAdditionsFixtures() {
+  return (
+    <section data-testid="quick-additions-section">
+      <Row flexWrap>
+        {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+          <Avatar key={size} {...{ [size]: true }} name="Ada Lovelace" data-testid={`avatar-${size}`} />
+        ))}
+        <Avatar src={AVATAR_PHOTO} name="Grace Hopper" data-testid="avatar-image" />
+        <Avatar rounded data-testid="avatar-rounded" />
+      </Row>
+      <AvatarGroup aria-label="Editors" max={2} data-testid="avatar-group">
+        <Avatar name="Ada Lovelace" data-testid="avatar-group-first" />
+        <Avatar name="Alan Turing" data-testid="avatar-group-second" />
+        <Avatar name="Grace Hopper" />
+      </AvatarGroup>
+
+      <Breadcrumb data-testid="breadcrumb">
+        <BreadcrumbItem href="#home" data-testid="breadcrumb-link">Home</BreadcrumbItem>
+        <BreadcrumbItem href="#docs">Docs</BreadcrumbItem>
+        <BreadcrumbItem data-testid="breadcrumb-current">Button</BreadcrumbItem>
+      </Breadcrumb>
+
+      <Col itemsStart style={{ width: 320 }}>
+        <Input aria-label="plain" data-testid="input-plain" />
+        <Input aria-label="start icon" startSection={<StarIcon />} data-testid="input-start-icon" />
+        <Input aria-label="start text" startSection="https://" data-testid="input-start-text" />
+        <Input aria-label="end text" endSection="kg" data-testid="input-end-text" />
+        <Input aria-label="end invalid" invalid endSection="kg" data-testid="input-end-invalid" />
+        <Input lg aria-label="lg start icon" startSection={<StarIcon />} data-testid="input-lg-start-icon" />
+        <Input aria-label="narrow" startSection={<StarIcon />} style={{ width: 160 }} data-testid="input-start-narrow" />
+        <Select aria-label="select start" startSection={<StarIcon />} data-testid="select-start">
+          <option>Europe</option>
+        </Select>
+      </Col>
+
+      <Col itemsStart style={{ width: 320 }}>
+        <Textarea aria-label="textarea resize default" data-testid="textarea-resize-default" />
+        <Textarea aria-label="textarea none" resizeNone data-testid="textarea-resize-none" />
+        <Textarea aria-label="textarea autosize" autosize rows={1} data-testid="textarea-autosize" />
+      </Col>
+
+      <Table striped hoverable data-testid="table-striped">
+        <Tbody>
+          <Tr data-testid="table-striped-row-1"><Td>1</Td></Tr>
+          <Tr data-testid="table-striped-row-2"><Td>2</Td></Tr>
+          <Tr data-testid="table-striped-row-3"><Td>3</Td></Tr>
+        </Tbody>
+      </Table>
+
+      <Row>
+        <Badge success dot data-testid="badge-dot">Online</Badge>
+        <Badge success dot aria-label="Online" data-testid="badge-dot-only" />
+        <Badge success filled dot aria-label="Online" data-testid="badge-dot-only-filled" />
+      </Row>
+
+      <Col style={{ width: 300 }}>
+        <Progress indeterminate aria-label="loading" data-testid="progress-indeterminate" />
+        <div dir="rtl"><Progress indeterminate aria-label="loading rtl" data-testid="progress-indeterminate-rtl" /></div>
+      </Col>
+
+      <Text srOnly data-testid="text-sr-only">Only for screen readers</Text>
+
+      <Row itemsStart>
+        <Img aspectSquare src={AVATAR_PHOTO} alt="" style={{ width: 80 }} data-testid="img-aspect-square" />
+        <Card aspectVideo style={{ width: 160 }} data-testid="card-aspect-video">16:9</Card>
+      </Row>
+
+      <Row sm gapXs data-testid="row-sm-gap-xs"><span>a</span><span>b</span></Row>
+      <Row xl gapXs data-testid="row-xl-gap-xs"><span>a</span><span>b</span></Row>
+      <Row sm gapXl data-testid="row-sm-gap-xl"><span>a</span><span>b</span></Row>
     </section>
   );
 }
@@ -2734,6 +3051,14 @@ export function TestHarness() {
         <FormStateFixtures />
 
         <LayoutAdditionsFixtures />
+
+        <QuickAdditionsFixtures />
+
+        <SkeletonFixtures />
+
+        <SegmentedControlFixtures />
+
+        <RadiusFixtures />
 
         <CompositionFixtures />
 

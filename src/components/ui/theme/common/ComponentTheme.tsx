@@ -3,6 +3,7 @@ import { BaseClassMapper } from "./BaseClassMapper";
 import { ComponentCategoryKey } from "../../props";
 import { ComponentKeys } from "../../props";
 import { HideClassMapper } from "../layout/hideClassMapper";
+import { SkeletonClassMapper } from "../layout/skeletonClassMapper";
 import { ItemsClassMapper } from "../layout/itemsClassMapper";
 import { JustifyClassMapper } from "../layout/justifyClassMapper";
 import { PositionClassMapper } from "../layout/positionClassMapper";
@@ -60,6 +61,7 @@ export type ThemeMap<P> = {
 
 export interface DefaultLayoutClassMappers {
   hide: HideClassMapper;
+  skeleton: SkeletonClassMapper;
   items: ItemsClassMapper;
   justify: JustifyClassMapper;
   position: PositionClassMapper;
@@ -87,6 +89,7 @@ export interface BaseTypographyComponentTheme extends BaseComponentTheme {
 
 export const defaultLayoutClassMappers: DefaultLayoutClassMappers = {
   hide: new HideClassMapper(),
+  skeleton: new SkeletonClassMapper(),
   items: new ItemsClassMapper(),
   justify: new JustifyClassMapper(),
   position: new PositionClassMapper(),
@@ -462,6 +465,17 @@ export class ComponentTheme<P extends ComponentProps, TTheme extends object> {
       const isRadio = rawProps.type === 'radio';
       if (rawProps['aria-readonly'] === undefined && isFormControlTag && !isRadio) {
         dataAttributes['aria-readonly'] = 'true';
+      }
+    }
+    // Loading placeholder: rules.css draws it from data-skeleton, on this element and on the
+    // components inside it; aria-busy marks the content as not ready (an element hidden from
+    // assistive tech, such as the Skeleton box, has nothing to mark).
+    // ThemedComponent adds `inert`, which needs to know the React version.
+    if (extractedKeys.skeleton) {
+      dataAttributes['data-skeleton'] = '';
+      const hidden = rawProps['aria-hidden'] === true || rawProps['aria-hidden'] === 'true';
+      if (rawProps['aria-busy'] === undefined && !hidden) {
+        dataAttributes['aria-busy'] = 'true';
       }
     }
     // error state must be AT-perceivable, not color-only: emit aria-invalid
