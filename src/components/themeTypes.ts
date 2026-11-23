@@ -63,6 +63,8 @@ import type { AvatarTheme } from './ui/avatar/AvatarTheme';
 import type { AvatarGroupTheme } from './ui/avatar/AvatarGroupTheme';
 import type { AvatarProps } from './ui/avatar/AvatarProps';
 import type { AvatarGroupProps } from './ui/avatar/AvatarGroupProps';
+import type { SkeletonTheme } from './ui/skeleton/SkeletonTheme';
+import type { SkeletonProps } from './ui/skeleton/SkeletonProps';
 import type { BreadcrumbTheme, BreadcrumbListTheme, BreadcrumbItemTheme, BreadcrumbSeparatorTheme } from './ui/breadcrumb/BreadcrumbTheme';
 import type { BreadcrumbProps } from './ui/breadcrumb/BreadcrumbProps';
 import type { BreadcrumbItemProps } from './ui/breadcrumb/BreadcrumbItemProps';
@@ -243,6 +245,7 @@ export interface ThemeProps {
   };
   avatar: ComponentTheme<AvatarProps, AvatarTheme>;
   avatarGroup: ComponentTheme<AvatarGroupProps, AvatarGroupTheme>;
+  skeleton: ComponentTheme<SkeletonProps, SkeletonTheme>;
   breadcrumb: {
     main: ComponentTheme<BreadcrumbProps, BreadcrumbTheme>;
     list: ComponentTheme<BreadcrumbListProps, BreadcrumbListTheme>;

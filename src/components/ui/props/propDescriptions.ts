@@ -439,7 +439,7 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
   },
   "hide": {
     "name": "Hide",
-    "description": "Hide props for responsive element visibility",
+    "description": "Hide props for responsive element visibility. They also carry `show` and `skeleton`, which\nevery category list that takes `hide` takes as well (LAYOUT_CORE and the explicit lists).",
     "props": {
       "mobileHide": {
         "description": "Hide element on mobile devices and below (max-mobile: 48rem)"
@@ -1010,6 +1010,15 @@ export const PropDescriptions: Record<string, CategoryDescription> = {
       },
       "xl": {
         "description": "Extra large size"
+      }
+    }
+  },
+  "skeleton": {
+    "name": "Skeleton",
+    "description": "Skeleton prop: the loading placeholder state",
+    "props": {
+      "skeleton": {
+        "description": "Show the component as a loading placeholder in its own size and shape. On a container, every component inside it becomes a placeholder too"
       }
     }
   },

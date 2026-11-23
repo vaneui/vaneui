@@ -126,3 +126,4 @@ export * from './dotProps';
 // Table row states
 export * from './stripedProps';
 export * from './hoverableProps';
+export * from './skeletonProps';

@@ -32,7 +32,7 @@ Named for clarity, not class-correspondence. Not prefix-checked.
 - **Responsive/semantic:** `breakpoint` (`mobileStack`…), `hide`, `show` (`mobileShow`…), `responsiveWidth` (`mobileWFull`…), `orientation`, `responsiveSizing`.
 - **Deliberately-clearer renames** (from the prop-naming review): `validity` (`invalid`), `constrainWidth`, `clampHeight`.
 - **Single-flag state:** `transparent`, `disabled`, `readOnly`, `shrink`, `autosize` (emits `field-sizing-content`).
-- **Component behaviours** (not one utility each): `dot` (Badge), `striped`, `hoverable` (Table).
+- **Component behaviours** (not one utility each): `dot` (Badge), `striped`, `hoverable` (Table), `skeleton` (the loading placeholder on any component).
 - **Inherit family:** `inheritSize`, `inheritColor`, `inheritBg`, `inheritBorder` (appearance's `inheritAppearance` value lives in the design-system layer).
 
 ## Adding a category

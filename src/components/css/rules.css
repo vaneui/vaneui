@@ -980,6 +980,15 @@
     .vane-breadcrumb-list { list-style: none; margin: 0; padding: 0; }
     .vane-breadcrumb-separator :where(svg:not([class*='size-'])) { width: 1em; height: 1em; }
 
+    /* Skeleton box: one line of text tall at its size (--min-h, 18 to 30px), with the corners of a
+       control of that size. The fill and the pulse are in the SKELETON rules below. */
+    .vane-skeleton { --lh: 1.5; --py-unit: 0; --br-unit: 0.25; }
+    .vane-skeleton[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-skeleton[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-skeleton[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-skeleton[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-skeleton[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
+
     /* read-only: only the bits with no class equivalent — opacity/cursor are in ReadOnlyClassMapper */
     [data-readonly="true"] {
         caret-color: transparent;
@@ -1365,6 +1374,69 @@
     }
 }
 
+/* SKELETON — unlayered, so no color, background or decoration utility of a component shows through.
+   `skeleton` (data-skeleton) turns a component and every component inside it into a placeholder:
+   - text turns into bars, one per line and as long as the line, drawn as a thick line-through;
+   - boxes (buttons, badges, fields, avatars, images, icons) turn into solid shapes of their own
+     size and corners, with their content hidden;
+   - a container keeps its own surface and border, so the layout reads before the data arrives.
+   Bars and shapes share one opaque fill, so a bar drawn over a shape of the same fill adds nothing.
+   --skeleton-color tints it. The pulse runs on the outermost skeleton and reaches the rest through
+   the inherited --vane-skeleton-pulse, so the surfaces of containers stay still. */
+@property --vane-skeleton-pulse {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 1;
+}
+
+:is([data-skeleton], [data-skeleton] *) {
+    --vane-skeleton-fill: color-mix(in oklab, var(--skeleton-color, var(--color-text-secondary)) calc(var(--vane-skeleton-pulse) * 20%), var(--color-bg-primary));
+    color: transparent;
+    text-decoration: line-through solid var(--vane-skeleton-fill) 0.7em;
+    text-shadow: none;
+}
+
+:is([data-skeleton], [data-skeleton] *)::placeholder {
+    color: transparent;
+}
+
+:is(.vane-button, .vane-icon-button, .vane-badge, .vane-chip, .vane-code, .vane-kbd, .vane-mark, .vane-icon, .vane-avatar, .vane-img, .vane-input, .vane-textarea, .vane-select, .vane-checkbox, .vane-radio, .vane-switch, .vane-progress, .vane-spinner, .vane-skeleton):is([data-skeleton], [data-skeleton] *),
+:is(svg, img, video, canvas):is([data-skeleton] *) {
+    background: var(--vane-skeleton-fill);
+    border-color: transparent;
+    box-shadow: none;
+}
+
+/* What a box holds is hidden: the label and icon of a Button, the image or initials of an Avatar,
+   the fill of a Progress, the drawing of an icon. An image is moved out of its own box. */
+:is(.vane-button, .vane-icon-button, .vane-badge, .vane-chip, .vane-code, .vane-kbd, .vane-mark, .vane-icon, .vane-avatar, .vane-img, .vane-input, .vane-textarea, .vane-select, .vane-checkbox, .vane-radio, .vane-switch, .vane-progress, .vane-spinner, .vane-skeleton, svg):is([data-skeleton], [data-skeleton] *) * {
+    visibility: hidden;
+}
+
+:is(img, video, canvas):is([data-skeleton], [data-skeleton] *) {
+    object-position: 1000vmax 0;
+}
+
+/* A bare icon is a shape too, with the corners of an Icon. */
+svg:is([data-skeleton] *) {
+    border-radius: 25%;
+}
+
+/* Parts that only decorate a control are hidden with it: the check, dot and thumb of a toggle,
+   the sections, error icon and chevron of a field, the separators of a Breadcrumb. */
+:is(.vane-checkbox, .vane-radio, .vane-switch):is([data-skeleton], [data-skeleton] *) ~ *,
+:is([data-skeleton] *, :has(> [data-skeleton]) > *):is(.vane-input-section, .vane-input-error-icon, .vane-select-chevron),
+[data-skeleton] .vane-breadcrumb-separator {
+    visibility: hidden;
+}
+
+/* With reduced motion the placeholders stand still. */
+@media (prefers-reduced-motion: no-preference) {
+    [data-skeleton]:not([data-skeleton] *) {
+        animation: vane-skeleton-pulse 1.6s ease-in-out infinite;
+    }
+}
+
 /* Also unlayered: a selected disabled option is a placeholder, so it is muted like an Input placeholder. */
 .vane-select:has(option:checked:disabled) {
     color: color-mix(in oklab, var(--text-color) 50%, transparent);
@@ -1471,4 +1543,8 @@
 
 @keyframes vane-spin {
     to { transform: rotate(360deg); }
+}
+
+@keyframes vane-skeleton-pulse {
+    50% { --vane-skeleton-pulse: 0.55; }
 }

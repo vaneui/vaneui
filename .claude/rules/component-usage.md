@@ -149,6 +149,7 @@ Keep `light-dark()` pairs off a `:root`-only rule: bundlers that compile it for 
 | Hyperlink | `Link` | Renders `<a>`, underline by default, blue link color by default |
 | Status indicator | `Badge` | Pill-shaped, semibold (normal case; add `uppercase` for status-chip look). `dot` adds a status dot; with no text and an `aria-label` the badge is the dot |
 | Person or team picture | `Avatar` | Image (`src`), else initials of `name`, else a person icon. `name` is the text alternative. Circle by default, `rounded` for a square |
+| Loading placeholder | `skeleton` prop, or `Skeleton` | `skeleton` on a component (or a container) draws it and everything inside as a placeholder in the same layout. `Skeleton` is a plain box for an area with no component, such as a chart |
 | Overlapping avatars | `AvatarGroup` | Takes the size for its avatars; `max` and `total` add a "+N" avatar. Give it an `aria-label` |
 | Tag / filter token | `Chip` | Rounded, sans-serif, secondary by default |
 | Inline code | `Code` | Monospace, rounded, with padding |
@@ -392,6 +393,39 @@ A status dot before the text, or a dot on its own:
 <AvatarGroup aria-label="Editors" max={3}>
   {editors.map(e => <Avatar key={e.id} src={e.photo} name={e.name} />)}
 </AvatarGroup>
+```
+
+### Loading placeholders
+
+`skeleton` shows a component as a placeholder in its own layout. On a container it reaches
+everything inside: text turns into bars as long as each line, the box components (Button, Badge,
+Chip, fields, toggles, Avatar, Img, Icon, Progress) into solid shapes of their own size, and the
+container keeps its surface and border. Render the real components with placeholder text, so the
+loaded page does not jump:
+
+```tsx
+<Card skeleton={loading}>
+  <Row>
+    <Avatar src={user?.photo} name={user?.name ?? 'Ada Lovelace'} />
+    <Title>{user?.name ?? 'Loading name'}</Title>
+  </Row>
+  <Text>{user?.bio ?? 'A line of placeholder text about this long.'}</Text>
+  <Button filled>Follow</Button>
+</Card>
+```
+
+The element with the prop gets `aria-busy="true"` and `inert`: nothing inside takes focus or
+clicks, and it is hidden from screen readers, so announce the wait elsewhere (for example a
+`<Text srOnly role="status">Loading profile</Text>`). An empty `Text` has no line to draw, so give
+it placeholder text. The placeholders pulse, and stand still with reduced motion. Set
+`--skeleton-color` to tint them.
+
+`Skeleton` is a box for an area with no component of its own. It is full width and one line of
+text tall at its size; aspect props, a height or a class set its shape.
+
+```tsx
+<Skeleton aspectVideo />                      {/* a chart or a video */}
+<Skeleton lg className="w-1/2" />
 ```
 
 ### Breadcrumb

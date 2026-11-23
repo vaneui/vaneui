@@ -23,7 +23,7 @@ export const TABLE_CATEGORIES = [
   ...MARGIN,
   ...TEXT_ALIGN,
   ...FONT_FAMILY,
-  'hide', 'show',
+  'hide', 'show', 'skeleton',
   ...RESPONSIVE,
   ...STRIPED,
   ...HOVERABLE,

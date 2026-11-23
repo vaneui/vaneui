@@ -38,6 +38,7 @@ import { defaultInputTheme, defaultInputErrorIconTheme, INPUT_ERROR_ICON_CATEGOR
 import { defaultTextareaTheme, TEXTAREA_CATEGORIES } from "../ui/textarea";
 import { defaultInputSectionTheme, INPUT_SECTION_CATEGORIES } from "../ui/input";
 import { defaultAvatarTheme, defaultAvatarGroupTheme, AVATAR_CATEGORIES, AVATAR_GROUP_CATEGORIES } from "../ui/avatar";
+import { defaultSkeletonTheme, SKELETON_CATEGORIES } from "../ui/skeleton";
 import {
   defaultBreadcrumbTheme, defaultBreadcrumbListTheme, defaultBreadcrumbItemTheme, defaultBreadcrumbSeparatorTheme,
   BREADCRUMB_CATEGORIES, BREADCRUMB_LIST_CATEGORIES, BREADCRUMB_ITEM_CATEGORIES, BREADCRUMB_SEPARATOR_CATEGORIES,
@@ -534,6 +535,15 @@ describe("Component theme coverage tests", () => {
       ]
     };
     createThemeTests(avatarGroupConfig);
+
+    const skeletonConfig: ComponentTestConfig = {
+      propsType: "SkeletonProps",
+      categories: SKELETON_CATEGORIES,
+      themes: [
+        { name: "defaultSkeletonTheme", theme: defaultSkeletonTheme }
+      ]
+    };
+    createThemeTests(skeletonConfig);
 
     const breadcrumbConfig: ComponentTestConfig = {
       propsType: "BreadcrumbProps",
@@ -1210,7 +1220,7 @@ describe("Component theme coverage tests", () => {
       defaultInputErrorIconTheme,
       defaultInputWrapperTheme,
       defaultInputSectionTheme,
-      defaultAvatarTheme, defaultAvatarGroupTheme,
+      defaultAvatarTheme, defaultAvatarGroupTheme, defaultSkeletonTheme,
       defaultBreadcrumbTheme, defaultBreadcrumbListTheme, defaultBreadcrumbItemTheme, defaultBreadcrumbSeparatorTheme,
       // withDefaults variants
       defaultMenuPopupTheme, defaultMenuDividerTheme,

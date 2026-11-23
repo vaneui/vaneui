@@ -140,7 +140,7 @@ Generic locations such as `~/.claude/` are fine; the rule covers real paths from
 
 | Category | Components | `data-vane-type` |
 |----------|-----------|-----------------|
-| **Interactive** | Button, IconButton, Badge, Chip, Code, Kbd, Mark, Icon, Spinner, Progress, Avatar (+ AvatarGroup) | `ui` |
+| **Interactive** | Button, IconButton, Badge, Chip, Code, Kbd, Mark, Icon, Spinner, Progress, Avatar (+ AvatarGroup), Skeleton | `ui` |
 | **Form** | Input, Textarea, Select, Checkbox, Radio (+ RadioGroup), Switch, Label, Field | `ui` (Field is `layout`) |
 | **Overlay / Floating** | Overlay, Modal (+ Header/Body/Footer), Popup, Tooltip | `layout` |
 | **Menu / Nav** | Menu (+ Item/Label), NavLink, Breadcrumb (+ BreadcrumbItem), ModalCloseButton, PopupTrigger | `ui` |
@@ -168,6 +168,8 @@ Layout extras: `divided` (Grid2–6: 1px lines instead of the gap), `strongBorde
 
 Component extras: `startSection`/`endSection` on Input (Select takes `startSection`; Field passes both to the control it renders), Textarea `autosize` and `resizeY` (default)/`resizeX`/`resize`/`resizeNone`, Table `striped`/`hoverable`, Badge `dot`, Progress `indeterminate`.
 
+Loading placeholders: `skeleton` on any component sets `data-skeleton`, `aria-busy` and `inert`; the unlayered SKELETON rules in `rules.css` then draw it and every component inside it as a placeholder (text as line-through bars, the box components as solid shapes, containers keep their surface). The pass-down is CSS only, so children carry no attribute. `Skeleton` is the plain box for areas with no component.
+
 **Breakpoints** (layout components): `mobileStack`, `tabletStack`, `desktopStack`
 **Hide**: `mobileHide`, `tabletHide`, `desktopHide`; **Show** (only below the width): `mobileShow`, `tabletShow`, `desktopShow`
 **Responsive width** (full width below the width): `mobileWFull`, `tabletWFull`, `desktopWFull`
@@ -191,6 +193,7 @@ Component extras: `startSection`/`endSection` on Input (Select takes `startSecti
 | **Input** | sm, primary, outline, rounded, wFull, insetRing, focusVisible |
 | **Textarea** | the Input defaults plus resizeY |
 | **Avatar** | md, secondary, outline, pill, border, inlineFlex, itemsCenter, justifyCenter, overflowHidden, relative, noShrink, noInsetRing, fontMedium. AvatarGroup: md, flex, row, itemsCenter |
+| **Skeleton** | md, rounded, block, wFull, skeleton (aria-hidden; one line of text tall at its size) |
 | **Breadcrumb** | sm, secondary, outline, fontSans (`breadcrumb.main`). Parts: `breadcrumb.list` (flex, flexWrap, itemsCenter, gap), `breadcrumb.item` (focusVisible, transition, whitespaceNowrap), `breadcrumb.separator` |
 | **Icon** | md, inlineFlex, itemsCenter, justifyCenter, outline, rounded, noPadding, noBorder, noInsetRing, noShadow, noShrink, noTransition, wFit |
 | **Checkbox** | md, primary, border, rounded, filled, focusVisible, cursorPointer |
@@ -220,7 +223,7 @@ src/
 │   │   └── layout.tsx           # Re-exports layout components (Card, Row, Col, Stack, Grid*,
 │   │                            # Section, Container, Table)
 │   ├── css/                     # vars.css, tokens.css, rules.css
-│   ├── tests/                   # 132 test files (Jest + Testing Library)
+│   ├── tests/                   # 133 test files (Jest + Testing Library)
 │   ├── utils/                   # deepMerge, componentUtils, stackingContext, textRuns
 │   ├── themeContext.tsx         # ThemeContext & useTheme
 │   ├── ThemeProvider.tsx        # ThemeProvider

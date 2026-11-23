@@ -36,6 +36,8 @@ import { INPUT_SECTION_CATEGORIES } from '../ui/input/InputSectionCategories';
 import { TEXTAREA_CATEGORIES } from '../ui/textarea/TextareaCategories';
 import { AVATAR_CATEGORIES } from '../ui/avatar/AvatarCategories';
 import { AVATAR_GROUP_CATEGORIES } from '../ui/avatar/AvatarGroupCategories';
+import type { SkeletonProps } from '../ui/skeleton';
+import { SKELETON_CATEGORIES } from '../ui/skeleton/SkeletonCategories';
 import {
   BREADCRUMB_CATEGORIES, BREADCRUMB_LIST_CATEGORIES, BREADCRUMB_ITEM_CATEGORIES, BREADCRUMB_SEPARATOR_CATEGORIES,
 } from '../ui/breadcrumb/BreadcrumbCategories';
@@ -131,6 +133,7 @@ const assertions: true[] = [
   true as AssertCategoriesCovered<TextareaProps, typeof TEXTAREA_CATEGORIES>,
   true as AssertCategoriesCovered<AvatarProps, typeof AVATAR_CATEGORIES>,
   true as AssertCategoriesCovered<AvatarGroupProps, typeof AVATAR_GROUP_CATEGORIES>,
+  true as AssertCategoriesCovered<SkeletonProps, typeof SKELETON_CATEGORIES>,
   true as AssertCategoriesCovered<BreadcrumbProps, typeof BREADCRUMB_CATEGORIES>,
   true as AssertCategoriesCovered<BreadcrumbItemProps, typeof BREADCRUMB_ITEM_CATEGORIES>,
   true as AssertCategoriesCovered<CheckboxProps, typeof CHECKBOX_CATEGORIES>,
@@ -192,6 +195,7 @@ const reverseAssertions: true[] = [
   true as AssertNoExtraCategoryFlags<TypographyProps, typeof TYPOGRAPHY_CATEGORIES>,
   true as AssertNoExtraCategoryFlags<AvatarProps, typeof AVATAR_CATEGORIES>,
   true as AssertNoExtraCategoryFlags<AvatarGroupProps, typeof AVATAR_GROUP_CATEGORIES>,
+  true as AssertNoExtraCategoryFlags<SkeletonProps, typeof SKELETON_CATEGORIES>,
   true as AssertNoExtraCategoryFlags<BreadcrumbProps, typeof BREADCRUMB_CATEGORIES>,
 ];
 

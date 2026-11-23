@@ -38,6 +38,7 @@ import { defaultSpinnerTheme } from './ui/spinner/defaultSpinnerTheme';
 import { defaultProgressTheme } from './ui/progress/defaultProgressTheme';
 import { defaultAvatarTheme } from './ui/avatar/defaultAvatarTheme';
 import { defaultAvatarGroupTheme } from './ui/avatar/defaultAvatarGroupTheme';
+import { defaultSkeletonTheme } from './ui/skeleton/defaultSkeletonTheme';
 import { defaultBreadcrumbTheme } from './ui/breadcrumb/defaultBreadcrumbTheme';
 import { defaultBreadcrumbListTheme } from './ui/breadcrumb/defaultBreadcrumbListTheme';
 import { defaultBreadcrumbItemTheme } from './ui/breadcrumb/defaultBreadcrumbItemTheme';
@@ -203,6 +204,7 @@ export const defaultTheme: ThemeProps = {
   },
   avatar: defaultAvatarTheme,
   avatarGroup: defaultAvatarGroupTheme,
+  skeleton: defaultSkeletonTheme,
   breadcrumb: {
     main: defaultBreadcrumbTheme,
     list: defaultBreadcrumbListTheme,

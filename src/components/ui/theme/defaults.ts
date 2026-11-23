@@ -75,6 +75,7 @@ import { tdDefaults } from '../table/tdDefaults';
 import { captionDefaults } from '../table/captionDefaults';
 import { avatarDefaults } from '../avatar/avatarDefaults';
 import { avatarGroupDefaults } from '../avatar/avatarGroupDefaults';
+import { skeletonDefaults } from '../skeleton/skeletonDefaults';
 import { breadcrumbDefaults } from '../breadcrumb/breadcrumbDefaults';
 import { breadcrumbListDefaults } from '../breadcrumb/breadcrumbListDefaults';
 import { breadcrumbItemDefaults } from '../breadcrumb/breadcrumbItemDefaults';
@@ -202,6 +203,7 @@ export const themeDefaults: ThemeDefaults = {
   },
   avatar: avatarDefaults,
   avatarGroup: avatarGroupDefaults,
+  skeleton: skeletonDefaults,
   breadcrumb: {
     main: breadcrumbDefaults,
     list: breadcrumbListDefaults,

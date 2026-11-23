@@ -35,6 +35,8 @@ const SEMANTIC_CATEGORIES = new Set<string>([
   'autosize',
   // Badge status dot and Table row states: component behaviours, not one utility each
   'dot', 'striped', 'hoverable',
+  // Loading placeholder state: a set of rules in the stylesheet, not one utility
+  'skeleton',
 ]);
 
 const cap = (s: string) => s[0].toUpperCase() + s.slice(1);

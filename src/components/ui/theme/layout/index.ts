@@ -35,3 +35,4 @@ export { AspectClassMapper } from './aspectClassMapper';
 export { SrOnlyClassMapper } from './srOnlyClassMapper';
 export { DotClassMapper } from './dotClassMapper';
 export { StripedClassMapper, HoverableClassMapper } from './tableRowStateClassMapper';
+export { SkeletonClassMapper } from './skeletonClassMapper';

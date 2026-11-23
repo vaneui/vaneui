@@ -3,6 +3,7 @@ export { IconButton, type IconButtonProps } from "./components/ui/iconButton";
 export { Icon, type IconProps } from "./components/ui/icon";
 export { Badge, type BadgeProps } from "./components/ui/badge";
 export { Avatar, AvatarGroup, type AvatarProps, type AvatarGroupProps } from "./components/ui/avatar";
+export { Skeleton, type SkeletonProps } from "./components/ui/skeleton";
 export { Breadcrumb, BreadcrumbItem, type BreadcrumbProps, type BreadcrumbItemProps } from "./components/ui/breadcrumb";
 export { Divider, type DividerProps } from "./components/ui/divider";
 export { Chip, type ChipProps } from "./components/ui/chip";

@@ -19,7 +19,7 @@ import {
   Card, CardHeader, CardBody, CardFooter,
   Table, Thead, Tbody, Tfoot, Tr, Th, Td, Caption,
   Text, Title, Link, List, ListItem, SectionTitle, PageTitle, Blockquote,
-  Avatar, AvatarGroup, Breadcrumb, BreadcrumbItem,
+  Avatar, AvatarGroup, Breadcrumb, BreadcrumbItem, Skeleton,
 } from '../../index';
 
 const renderSSR = (node: React.ReactNode): string =>
@@ -119,6 +119,8 @@ describe('SSR rendering', () => {
           <Input startSection={<svg />} endSection="kg" placeholder="weight" />
           <Select startSection={<svg />} defaultValue="a"><option value="a">A</option></Select>
           <Progress indeterminate aria-label="Loading" />
+          <Card skeleton><Title>Loading</Title><Button>Save</Button></Card>
+          <Skeleton aspectVideo />
         </Section>
       </Container>
     );
@@ -126,6 +128,13 @@ describe('SSR rendering', () => {
     expect(html.length).toBeGreaterThan(0);
     expect(html).toContain('Button');
     expect(html).toContain('Page');
+  });
+
+  it('should render a skeleton with its attributes, inert included', () => {
+    const html = renderSSR(<Card skeleton><Avatar name="Ada Lovelace" /></Card>);
+    expect(html).toContain('data-skeleton=""');
+    expect(html).toContain('aria-busy="true"');
+    expect(html).toMatch(/\binert=""/);
   });
 
   it('should render SSR-open portaled components as null on the server without throwing', () => {
@@ -199,7 +208,7 @@ describe('SSR rendering', () => {
       'Grid6', 'Card', 'CardHeader', 'CardBody', 'CardFooter', 'Text', 'Title', 'Link', 'List',
       'ListItem', 'SectionTitle', 'PageTitle', 'Blockquote',
       'Table', 'Thead', 'Tbody', 'Tfoot', 'Tr', 'Th', 'Td', 'Caption',
-      'Avatar', 'AvatarGroup', 'Breadcrumb', 'BreadcrumbItem',
+      'Avatar', 'AvatarGroup', 'Breadcrumb', 'BreadcrumbItem', 'Skeleton',
     ]);
 
     const componentExports = Object.entries(VaneUI)

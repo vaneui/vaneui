@@ -88,6 +88,16 @@
         "default": "./dist/cjs/components/ui/avatar/index.cjs"
       }
     },
+    "./skeleton": {
+      "import": {
+        "types": "./dist/types/components/ui/skeleton/index.d.mts",
+        "default": "./dist/esm/components/ui/skeleton/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/components/ui/skeleton/index.d.cts",
+        "default": "./dist/cjs/components/ui/skeleton/index.cjs"
+      }
+    },
     "./badge": {
       "import": {
         "types": "./dist/types/components/ui/badge/index.d.mts",

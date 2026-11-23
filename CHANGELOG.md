@@ -10,8 +10,9 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
-New components (Avatar, AvatarGroup, Breadcrumb), start and end sections on fields, and small
-props that used to need a class or a wrapper.
+New components (Avatar, AvatarGroup, Breadcrumb, Skeleton), loading placeholders through one
+`skeleton` prop, start and end sections on fields, and small props that used to need a class or a
+wrapper.
 
 ### Added
 
@@ -48,6 +49,16 @@ props that used to need a class or a wrapper.
 - `srOnly` on the typography components and `Label`: visually hidden, still read by screen
   readers.
 - `aspectSquare`, `aspectVideo` and `aspectAuto` on `Img`, `Card`, `Row`, `Col` and `Stack`.
+- `skeleton` on every component: it shows the component as a loading placeholder in its own
+  layout. On a container (`Card`, `Row`, `Col`, `Stack`, `Section`, `Table`, `Field` and the
+  others) it reaches every component inside: text turns into bars as long as each line, and
+  buttons, badges, chips, fields, toggles, avatars, images and icons into solid shapes of their
+  own size and corners, while the container keeps its surface and border. The element gets
+  `data-skeleton`, `aria-busy="true"` and `inert`, so nothing inside takes focus or clicks, and the
+  placeholders pulse (still with reduced motion). `--skeleton-color` tints them.
+- `Skeleton`: a placeholder box for an area that has no component of its own, such as a chart or
+  a map. It is full width and one line of text tall at its size, with size-driven corners; the
+  aspect, height and shape props or a class set its shape. It is hidden from assistive tech.
 
 ## 1.7.2
 

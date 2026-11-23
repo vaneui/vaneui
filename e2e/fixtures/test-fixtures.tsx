@@ -66,6 +66,7 @@ import {
   AvatarGroup,
   Breadcrumb,
   BreadcrumbItem,
+  Skeleton,
   type InputProps,
   useFieldControlProps,
 } from '../../src';
@@ -868,6 +869,78 @@ function LayoutAdditionsFixtures() {
    Textarea autosize/resize, Table striped/hoverable, Badge dot, Progress indeterminate,
    srOnly and aspect ratio. */
 const AVATAR_PHOTO = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 4"><rect width="4" height="4" fill="#6366f1"/></svg>')}`;
+
+function SkeletonFixtures() {
+  const profile = (props: { skeleton?: boolean; testId: string }) => (
+    <Card skeleton={props.skeleton} data-testid={props.testId} className="w-96">
+      <Row>
+        <Avatar name="Ada Lovelace" data-testid={`${props.testId}-avatar`} />
+        <Col noGap>
+          <Title data-testid={`${props.testId}-title`}>Ada Lovelace</Title>
+          <Text sm>Analyst, London</Text>
+        </Col>
+      </Row>
+      <Text data-testid={`${props.testId}-text`}>Wrote the first program for a machine that did not exist yet, and saw that it could do more than arithmetic.</Text>
+      <Row>
+        <Badge success dot data-testid={`${props.testId}-badge`}>Online</Badge>
+        <Chip>Math</Chip>
+        <Code>note G</Code>
+      </Row>
+      <Field label="Email" data-testid={`${props.testId}-field`}>
+        <Input placeholder="you@example.com" startSection={<StarIcon />} data-testid={`${props.testId}-input`} />
+      </Field>
+      <Label row><Checkbox defaultChecked data-testid={`${props.testId}-checkbox`} /> Keep me posted</Label>
+      <Row>
+        <Button filled data-testid={`${props.testId}-button`}><StarIcon /> Follow</Button>
+        <Link href="#profile" data-testid={`${props.testId}-link`}>Profile</Link>
+      </Row>
+    </Card>
+  );
+
+  return (
+    <section data-testid="skeleton-section">
+      <Row itemsStart flexWrap>
+        {profile({ testId: 'skeleton-off' })}
+        {profile({ skeleton: true, testId: 'skeleton-card' })}
+        <div data-theme="dark">
+          {profile({ skeleton: true, testId: 'skeleton-dark' })}
+        </div>
+      </Row>
+      <Row flexWrap>
+        <Button skeleton data-testid="skeleton-button">Save</Button>
+        <Text skeleton data-testid="skeleton-text">Loading text</Text>
+        <Input skeleton aria-label="Name" endSection="kg" data-testid="skeleton-input" />
+        <Switch skeleton aria-label="On" defaultChecked data-testid="skeleton-switch" />
+        <Progress skeleton value={60} aria-label="Done" data-testid="skeleton-progress" />
+        <Img skeleton src={AVATAR_PHOTO} alt="" aspectSquare className="w-16" data-testid="skeleton-img" />
+        <Button skeleton aria-busy={false} data-testid="skeleton-button-busy-false">Own busy</Button>
+      </Row>
+      <Col skeleton data-testid="skeleton-nav" className="w-60">
+        <NavLink href="#a" active><StarIcon /> Dashboard</NavLink>
+        <NavLink href="#b"><StarIcon /> Settings</NavLink>
+      </Col>
+      <Row flexWrap>
+        {(['xs', 'sm', 'md', 'lg', 'xl'] as const).map(size => (
+          <Skeleton key={size} {...{ [size]: true }} className="w-24" data-testid={`skeleton-box-${size}`} />
+        ))}
+        <Skeleton aspectVideo className="w-48" data-testid="skeleton-box-video" />
+        <Skeleton pill aspectSquare className="w-12" data-testid="skeleton-box-circle" />
+      </Row>
+      <Table skeleton data-testid="skeleton-table">
+        <Thead><Tr><Th>Name</Th><Th>Role</Th></Tr></Thead>
+        <Tbody>
+          <Tr><Td>Ada Lovelace</Td><Td>Analyst</Td></Tr>
+          <Tr><Td>Alan Turing</Td><Td>Mathematician</Td></Tr>
+        </Tbody>
+      </Table>
+      <Breadcrumb skeleton data-testid="skeleton-breadcrumb">
+        <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+        <BreadcrumbItem href="#docs">Docs</BreadcrumbItem>
+        <BreadcrumbItem>Button</BreadcrumbItem>
+      </Breadcrumb>
+    </section>
+  );
+}
 
 function QuickAdditionsFixtures() {
   return (
@@ -2820,6 +2893,8 @@ export function TestHarness() {
         <LayoutAdditionsFixtures />
 
         <QuickAdditionsFixtures />
+
+        <SkeletonFixtures />
 
         <CompositionFixtures />
 

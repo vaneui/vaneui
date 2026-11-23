@@ -168,6 +168,7 @@ describe('Theme structure consistency', () => {
       inputSection: {},
       avatar: {},
       avatarGroup: {},
+      skeleton: {},
       breadcrumb: { main: {}, list: {}, item: {}, separator: {} },
     };
 

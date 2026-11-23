@@ -19,18 +19,19 @@ import {
   Divider,
   Field,
   Grid2,
-  Icon,
   Img,
   Input,
   Kbd,
   Label,
   Link,
+  NavLink,
   PageTitle,
   Progress,
   Row,
   Section,
   SectionTitle,
   Select,
+  Skeleton,
   Table,
   Tbody,
   Td,
@@ -169,6 +170,68 @@ function SearchField() {
   );
 }
 
+function ProfileCard(props: { loading: boolean }) {
+  return (
+    <Card skeleton={props.loading} className="w-80">
+      <Row>
+        <Avatar src={PHOTO} name="Ada Lovelace" />
+        <Col noGap>
+          <Title sm>Ada Lovelace</Title>
+          <Text sm secondary>Analyst, London</Text>
+        </Col>
+      </Row>
+      <Text>Wrote the first program for a machine that did not exist yet.</Text>
+      <Row>
+        <Badge success dot>Online</Badge>
+        <Chip sm>Math</Chip>
+      </Row>
+      <Row>
+        <Button filled><TestSvg /> Follow</Button>
+        <Link href="#profile">Profile</Link>
+      </Row>
+    </Card>
+  );
+}
+
+function SkeletonShowcase() {
+  const [loading, setLoading] = useState(true);
+  return (
+    <Card>
+      <Title>One prop, the same layout</Title>
+      <Text sm secondary>
+        <Code sm>skeleton</Code> on the Card turns the components inside it into placeholders: text
+        into bars as long as each line, buttons, badges, fields and avatars into shapes of their own
+        size. The Card keeps its surface, and nothing inside takes focus.
+      </Text>
+      <Label row>
+        <Checkbox checked={loading} onChange={() => setLoading(!loading)} />
+        Loading
+      </Label>
+      <Row tabletStack itemsStart>
+        <ProfileCard loading={loading} />
+        <div data-theme="dark"><ProfileCard loading={loading} /></div>
+        <Col skeleton={loading} noGap className="w-56">
+          <NavLink href="#home" active><TestSvg /> Dashboard</NavLink>
+          <NavLink href="#settings"><TestSvg /> Settings</NavLink>
+          <NavLink href="#team"><TestSvg /> Team</NavLink>
+        </Col>
+      </Row>
+      <Text sm secondary>
+        <Code sm>Skeleton</Code> is a plain box for an area with no component of its own, such as a
+        chart. It is one line of text tall at its size; aspect props, a height or a class set its shape.
+      </Text>
+      <Row itemsStart flexWrap>
+        <Skeleton aspectVideo className="w-64" />
+        <Col className="w-64">
+          <Skeleton />
+          <Skeleton sm className="w-1/2" />
+          <Skeleton pill aspectSquare className="w-12" />
+        </Col>
+      </Row>
+    </Card>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -178,7 +241,7 @@ function App() {
           <PageTitle>VaneUI Playground</PageTitle>
           <Text secondary>
             Default sizes and parts, light islands inside <Code sm>data-theme="dark"</Code>, the new
-            Avatar and Breadcrumb, field sections, and the new small props.
+            Avatar and Breadcrumb, field sections, the new small props and loading placeholders.
           </Text>
 
           {/* ═══ 1. DEFAULT SIZES ═══════════════════════════════════════════ */}
@@ -201,19 +264,6 @@ function App() {
               <Input defaultValue="Website" />
             </Field>
             <ChecksTable />
-          </Card>
-
-          <Card>
-            <Title>Icon scale</Title>
-            <Text sm secondary>12, 16, 20, 24 and 32px. The default sits next to body text.</Text>
-            <Row itemsEnd>
-              <Icon xs><TestSvg /></Icon>
-              <Icon sm><TestSvg /></Icon>
-              <Icon><TestSvg /></Icon>
-              <Icon lg><TestSvg /></Icon>
-              <Icon xl><TestSvg /></Icon>
-              <Row sm><Icon><TestSvg /></Icon><Text>Starred projects</Text></Row>
-            </Row>
           </Card>
 
           <Card>
@@ -447,6 +497,12 @@ function App() {
               </Button>
             </Row>
           </Card>
+
+          {/* ═══ 6. SKELETON ═══════════════════════════════════════════════ */}
+          <Divider />
+          <SectionTitle>6. Skeleton</SectionTitle>
+
+          <SkeletonShowcase />
 
         </Container>
       </Section>

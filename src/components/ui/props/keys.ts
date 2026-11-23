@@ -142,6 +142,7 @@ import { NAV_LINK_CATEGORIES } from '../navLink/NavLinkCategories';
 import { TABLE_CATEGORIES } from '../table/TableCategories';
 import { AVATAR_CATEGORIES } from '../avatar/AvatarCategories';
 import { AVATAR_GROUP_CATEGORIES } from '../avatar/AvatarGroupCategories';
+import { SKELETON_CATEGORIES } from '../skeleton/SkeletonCategories';
 import { BREADCRUMB_CATEGORIES } from '../breadcrumb/BreadcrumbCategories';
 
 // Re-export for backward compatibility
@@ -417,6 +418,9 @@ export const ComponentKeys = {
   striped: ['striped'] as const,
   /** Table body row under the pointer takes a hover background */
   hoverable: ['hoverable'] as const,
+  /** Loading placeholder: the component keeps its size and shape, its content is hidden, and
+   *  every component inside a skeleton container becomes a placeholder too */
+  skeleton: ['skeleton'] as const,
 } as const;
 
 /** All border side keys (excluding noBorder since it doesn't have a CSS class) */
@@ -542,6 +546,8 @@ export type DotKey = typeof ComponentKeys.dot[number];
 export type StripedKey = typeof ComponentKeys.striped[number];
 /** Table hoverable key */
 export type HoverableKey = typeof ComponentKeys.hoverable[number];
+/** Loading placeholder key */
+export type SkeletonKey = typeof ComponentKeys.skeleton[number];
 /** Gap keys */
 export type GapKey = typeof ComponentKeys.gap[number];
 /** Drop shadow keys */
@@ -608,7 +614,7 @@ export type CategoryProps = {
 
 /** All available component names in the library */
 export const COMPONENT = ['button', 'iconButton', 'badge', 'chip', 'code', 'kbd', 'mark', 'icon', 'card', 'field', 'alert', 'spinner', 'progress', 'divider', 'container', 'row', 'col', 'stack', 'section',
-  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'inputSection', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'tooltip', 'menu', 'navLink', 'table', 'avatar', 'avatarGroup', 'breadcrumb'] as const;
+  'grid2', 'grid3', 'grid4', 'grid5', 'grid6', 'pageTitle', 'sectionTitle', 'title', 'text', 'blockquote', 'blockquoteCite', 'link', 'list', 'listItem', 'checkbox', 'label', 'img', 'input', 'inputErrorIcon', 'inputWrapper', 'inputSection', 'textarea', 'select', 'selectChevron', 'selectWrapper', 'switch', 'radio', 'radioGroup', 'overlay', 'modal', 'popup', 'tooltip', 'menu', 'navLink', 'table', 'avatar', 'avatarGroup', 'skeleton', 'breadcrumb'] as const;
 /** Type for component name keys */
 export type ComponentKey = typeof COMPONENT[number];
 
@@ -670,5 +676,6 @@ export const ComponentCategories: Record<ComponentKey, readonly string[]> = {
   table: TABLE_CATEGORIES,
   avatar: AVATAR_CATEGORIES,
   avatarGroup: AVATAR_GROUP_CATEGORIES,
+  skeleton: SKELETON_CATEGORIES,
   breadcrumb: BREADCRUMB_CATEGORIES,
 }

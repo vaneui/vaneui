@@ -98,6 +98,7 @@ const interfaceToCategoryMap: Record<string, ComponentKeyCategory> = {
   'DotProps': 'dot',
   'StripedProps': 'striped',
   'HoverableProps': 'hoverable',
+  'SkeletonProps': 'skeleton',
 };
 
 // Convert category key to display name

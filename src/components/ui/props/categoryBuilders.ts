@@ -1,6 +1,6 @@
 // Category building blocks shared by keys.ts and component-specific category files.
 
-export const LAYOUT_CORE = ['size', 'hide', 'show', 'items', 'justify', 'position', 'display', 'overflow'] as const;
+export const LAYOUT_CORE = ['size', 'hide', 'show', 'skeleton', 'items', 'justify', 'position', 'display', 'overflow'] as const;
 export const LAYOUT_FLEX = ['wrap', 'gap', 'flexDirection', 'flex', 'shrink'] as const;
 // Per-item cross-axis alignment (align-self). Opt-in per component (not part of
 // LAYOUT_CORE) so a child can override its parent's align-items.
@@ -90,7 +90,7 @@ export const CODE_CATEGORIES = UI_ELEMENT_CATEGORIES;
 export const BUTTON_CATEGORIES = UI_ELEMENT_CATEGORIES;
 
 export const ICON_CATEGORIES = [
-  'size', 'appearance', 'variant', 'display', 'hide', 'show', 'items', 'justify',
+  'size', 'appearance', 'variant', 'display', 'hide', 'show', 'skeleton', 'items', 'justify',
   'position', 'shape', 'padding', 'border', 'ring', 'shadow',
   'width', 'responsiveWidth', 'height', 'shrink', 'transition', 'transparent',
 ] as const;
