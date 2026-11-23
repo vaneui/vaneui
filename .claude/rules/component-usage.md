@@ -420,7 +420,9 @@ clicks, and it is hidden from screen readers, so announce the wait elsewhere (fo
 while `user` is undefined) draws one bar 12 characters long; set `--skeleton-text-width` to change
 it. An empty Button, Badge, Chip, Code, Kbd or Mark takes the room of a 6-character label
 (`--skeleton-label-width`). Placeholder text of the expected length matches the loaded layout
-more closely. The placeholders pulse, and stand still with reduced motion. Set `--skeleton-color`
+more closely. Keep text in a component of its own (`Text`, `Title`, a cell): Safari draws the bar
+over text placed straight in a `Row`, `Col`, `Card`, `Stack`, `Section` or `Container` as a thin
+line. The placeholders pulse, and stand still with reduced motion. Set `--skeleton-color`
 to tint them.
 
 `Skeleton` is a box for an area with no component of its own. It is full width and one line of
