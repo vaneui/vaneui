@@ -1434,7 +1434,9 @@ svg:is([data-skeleton] *) {
    a placeholder needs no filler text: 12 characters, or --skeleton-text-width. An empty Button,
    Badge, Chip, Code, Kbd or Mark takes the room of a 6-character label, or --skeleton-label-width.
    The bar is a band of the fill in a box one line tall, so it sits where a line of text would and
-   does not depend on how an engine draws a line-through. A dot-only Badge stays a dot. */
+   does not depend on how an engine draws a line-through. It sits 0.08em below the middle of the
+   line, where the engines put the line-through of a real text (0 to 0.15em low). A dot-only Badge
+   stays a dot. */
 :is(.vane-text, .vane-title, .vane-section-title, .vane-page-title, .vane-link, .vane-list-item, .vane-blockquote, .vane-table-cell, .vane-table-caption, .vane-nav-link, .vane-menu-item, .vane-menu-label, .vane-breadcrumb-item):is([data-skeleton], [data-skeleton] *):empty::before {
     content: "";
     display: inline-block;
@@ -1442,7 +1444,7 @@ svg:is([data-skeleton] *) {
     inline-size: var(--skeleton-text-width, 12ch);
     max-inline-size: 100%;
     block-size: 1lh;
-    background: linear-gradient(var(--vane-skeleton-fill), var(--vane-skeleton-fill)) center / 100% 0.7em no-repeat;
+    background: linear-gradient(var(--vane-skeleton-fill), var(--vane-skeleton-fill)) 0 calc(50% + 0.08em) / 100% 0.7em no-repeat;
 }
 
 :is(.vane-button, .vane-badge:not(.vane-badge-dot), .vane-chip, .vane-code, .vane-kbd, .vane-mark):is([data-skeleton], [data-skeleton] *):empty::after {
