@@ -7,7 +7,8 @@ import { RadiusClassMapper, WidthClassMapper } from "../theme/layout";
 import { SEGMENTED_CONTROL_CATEGORIES } from "./SegmentedControlCategories";
 import { segmentedControlDefaults } from "./segmentedControlDefaults";
 
-// The track: a neutral surface whatever the appearance, which colors the selected segment.
+// The track: a neutral surface whatever the appearance, which colors the selected segment
+// (none with `ghost`, see rules.css).
 // Its padding and corners follow the size (rules.css), so the control is as tall as a Button.
 export const defaultSegmentedControlTheme = new ComponentTheme<SegmentedControlProps, SegmentedControlTheme>(
   "div",
@@ -19,7 +20,7 @@ export const defaultSegmentedControlTheme = new ComponentTheme<SegmentedControlP
       margin: new MarginClassMapper(),
     },
     appearance: {
-      background: new SimpleConsumerClassMapper({ base: 'bg-(--color-bg-tertiary)', alwaysOutput: true }, 'bg'),
+      background: new SimpleConsumerClassMapper({ base: 'bg-(--segmented-track)', alwaysOutput: true }, 'bg'),
     },
     layout: {
       ...defaultLayoutClassMappers,

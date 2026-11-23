@@ -983,7 +983,9 @@
     /* SegmentedControl: the track is as tall as a Button of its size (its padding plus a segment),
        with a Button's corners. A segment has the Button's text size, the rest of that height and
        corners that follow its own height. */
-    .vane-segmented-control { --lh: 1.3; --aspect-ratio: 1; --br-unit: 0.2174; }
+    .vane-segmented-control { --lh: 1.3; --aspect-ratio: 1; --br-unit: 0.2174; --segmented-track: var(--color-bg-tertiary); }
+    /* A ghost control has no track; its selected segment is tinted instead */
+    .vane-segmented-control[data-variant="ghost"] { --segmented-track: transparent; }
     .vane-segmented-control[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5;  --control-py-unit: 1; }
     .vane-segmented-control[data-size="sm"] { --fs-unit: var(--fs-unit-sm); --py-unit: 0.75; --control-py-unit: 1.5; }
     .vane-segmented-control[data-size="md"] { --fs-unit: var(--fs-unit-md); --py-unit: 1;    --control-py-unit: 2; }
@@ -1016,10 +1018,13 @@
     .vane-segmented-control-item { color: var(--color-text-secondary); }
     .vane-segmented-control-item:not([data-disabled="true"]):hover { color: var(--color-text-primary); }
     /* The selected segment takes the surface and text of its appearance and variant: a raised
-       white segment by default, the fill with `filled`, no surface with `ghost`. */
+       white segment by default, the fill with `filled`, the active tint with `ghost`. */
     .vane-segmented-control-item:has(> .vane-segmented-control-input:checked) {
         background-color: var(--bg-color);
         color: var(--text-color);
+    }
+    .vane-segmented-control-item[data-variant="ghost"]:has(> .vane-segmented-control-input:checked) {
+        background-color: var(--bg-active-color);
     }
     .vane-segmented-control-item:not([data-variant="ghost"]):has(> .vane-segmented-control-input:checked) {
         box-shadow: var(--shadow-base), inset 0 0 0 1px var(--border-color);

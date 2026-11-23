@@ -459,7 +459,7 @@ const [status, setStatus] = useState('open');
 Each segment is a native radio, so the arrow keys move the selection and a form submits the
 value under `name`. The control is as tall as a Button of its size (`sm` by default), and its size,
 appearance, variant and shape reach the segments: `<SegmentedControl accent filled>` fills the
-selected segment with the accent color. A segment with its own appearance keeps it, `disabled` on a
+selected segment with the accent color, and `ghost` drops the track and tints the selected segment. A segment with its own appearance keeps it, `disabled` on a
 segment skips it, and `wFull` stretches the segments to fill the width. A segment's `className`
 and `style` go to its `<label>`; `ref` and the other attributes go to its radio.
 

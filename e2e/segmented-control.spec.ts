@@ -141,6 +141,16 @@ test.describe('SegmentedControl colors', () => {
     expect(await getBg(segment(page, 'seg-filled-c'))).not.toBe(fill);
   });
 
+  test('tints the selected segment with ghost, on no track', async ({ page }) => {
+    expect(await getBg(page.getByTestId('seg-ghost'))).toBe(TRANSPARENT);
+    const selected = segment(page, 'seg-ghost-a');
+    const tint = await getBg(selected);
+    expect(tint).not.toBe(TRANSPARENT);
+    expect(await getStyle(selected, 'box-shadow')).toBe('none');
+    expect(await getBg(segment(page, 'seg-ghost-b'))).toBe(TRANSPARENT);
+    expect(await contrast(page, await getColor(selected), tint)).toBeGreaterThanOrEqual(4.5);
+  });
+
   test('stays readable in a dark subtree', async ({ page }) => {
     const track = await getBg(page.getByTestId('seg-dark'));
     const selected = segment(page, 'seg-dark-a');

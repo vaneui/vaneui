@@ -98,7 +98,7 @@ describe('SegmentedControl', () => {
     expect(group).toHaveAttribute('data-appearance', 'primary');
     expect(group).toHaveAttribute('data-variant', 'outline');
     expect(group).toHaveAttribute('data-vane-type', 'ui');
-    expect(group).toHaveClass('inline-flex', 'items-stretch', 'bg-(--color-bg-tertiary)', 'px-(--px)', 'py-(--py)', 'rounded-(--br)');
+    expect(group).toHaveClass('inline-flex', 'items-stretch', 'bg-(--segmented-track)', 'px-(--px)', 'py-(--py)', 'rounded-(--br)');
   });
 
   it('should style a segment with its defaults', () => {
@@ -115,7 +115,7 @@ describe('SegmentedControl', () => {
     renderUi(statuses({ accent: true, filled: true }));
     const group = screen.getByRole('radiogroup');
     expect(group).toHaveAttribute('data-appearance', 'accent');
-    expect(group).toHaveClass('bg-(--color-bg-tertiary)');
+    expect(group).toHaveClass('bg-(--segmented-track)');
     expect(group).not.toHaveClass('bg-(--bg-color)');
   });
 

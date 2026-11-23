@@ -998,6 +998,11 @@ function SegmentedControlFixtures() {
         <SegmentedControlItem value="c" success data-testid="seg-filled-c">Done</SegmentedControlItem>
       </SegmentedControl>
 
+      <SegmentedControl secondary ghost aria-label="Ghost" defaultValue="a" data-testid="seg-ghost">
+        <SegmentedControlItem value="a" data-testid="seg-ghost-a">List</SegmentedControlItem>
+        <SegmentedControlItem value="b" data-testid="seg-ghost-b">Board</SegmentedControlItem>
+      </SegmentedControl>
+
       <div style={{ width: 420 }} data-testid="seg-full-box">
         <SegmentedControl wFull aria-label="Full width" defaultValue="a" data-testid="seg-full">
           <SegmentedControlItem value="a" data-testid="seg-full-a">Day</SegmentedControlItem>

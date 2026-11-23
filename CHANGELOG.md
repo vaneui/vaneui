@@ -34,9 +34,10 @@ class or a wrapper.
   takes `value` or `defaultValue`, `onChange`, `name` (generated when omitted), `disabled` and
   `required`. It is as tall as a Button of its size (`sm` by default) with a Button's corners; its
   size, appearance, variant and shape reach the segments, and a segment's own prop wins. The
-  selected segment is a raised surface by default and takes the fill with `filled`; the track
-  stays neutral. `wFull` stretches it, and a `Field` names it. A segment's `className` and `style`
-  go to the segment, and `ref` and the other attributes to its radio.
+  selected segment is a raised surface by default and takes the fill with `filled`, on a neutral
+  track; with `ghost` there is no track and the selected segment is tinted. `wFull` stretches
+  it, and a `Field` names it. A segment's `className` and `style` go to the segment, and `ref`
+  and the other attributes to its radio.
 - `startSection` and `endSection` on `Input`, and `startSection` on `Select` (its end holds the
   chevron): an icon, a prefix such as `https://`, a unit or a button inside the field. The field
   reserves the measured width of each section, the section follows the field's size, and the
