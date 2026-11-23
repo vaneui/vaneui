@@ -730,6 +730,17 @@ Controls border-radius. One per component.
 <Button sharp>No border-radius</Button>
 ```
 
+To make the whole library sharper or rounder, set `--br-scale` (1 by default) in your CSS instead
+of giving every component a shape: it multiplies the corners of every component, and `pill` and
+`sharp` keep their shape.
+
+```css
+:root { --br-scale: 0.5; } /* 0 for square corners, 2 for twice as round */
+```
+
+An `Img` that opens or closes a Card built from parts (`<Card><Img/><CardBody>...</CardBody></Card>`)
+takes the Card's corners on that edge and is square where it meets the parts.
+
 ## Toggle Props
 
 These are on/off switches. Check defaults before using — many are already true.

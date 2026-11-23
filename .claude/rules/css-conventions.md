@@ -24,7 +24,7 @@ Theme classes use Tailwind v4 arbitrary value syntax to set CSS variable units:
 --py: calc(var(--py-unit) * var(--spacing));         /* padding-y */
 --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing)); /* padding-x */
 --gap: calc(var(--gap-unit) * var(--spacing));       /* gap */
---br: calc(var(--br-unit) * var(--br-base));         /* border-radius */
+--br: calc(var(--br-unit) * var(--br-base) * var(--br-scale)); /* border-radius; every radius formula takes --br-scale */
 ```
 
 ### Tier 3: Semantic Variables (tokens.css @theme block)

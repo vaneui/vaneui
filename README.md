@@ -120,7 +120,7 @@ Every component can be customized at three levels.
 ```css
 :root {
   --color-text-primary: #8b5cf6;
-  --br-base: 0.25rem;
+  --br-scale: 0.5; /* every corner radius at half its size: 0 is square, 2 twice as round */
 }
 ```
 

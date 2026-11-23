@@ -234,7 +234,7 @@ src/
 
 **Component pattern**: `forwardRef` + `useTheme()` + `ThemedComponent` wrapper. All components support `className` (merged via `twMerge`), `ref` and the `tag` prop, except `PopupTrigger`, which renders only its child, and `ModalCloseButton`, which has no `tag`. `href` renders an `<a>` on these components only: `Button`, `IconButton`, `NavLink`, `MenuItem`, `Badge`, `Chip`, `Code`, `Card`, `Row`, `Col`, `Stack`, `Text`, `Title`, `SectionTitle`, `PageTitle` and `BreadcrumbItem`, and `Link` is always an `<a>`. The others keep their own element: most reject `href` in TypeScript, and `ListItem` and `Blockquote` accept it but render `<li href>` and `<blockquote href>`, which are not links.
 
-**Theming**: unit variables set per `data-size`/`data-vane-type` in `rules.css` (`.vane-button[data-size="md"] { --fs-unit: ... }`) -> computed in `rules.css` (`calc(var(--fs-unit) * var(--fs-base))`) -> consumed by utility classes (`text-(length:--fs)`). Colors driven by `data-appearance` + `data-variant` attributes.
+**Theming**: unit variables set per `data-size`/`data-vane-type` in `rules.css` (`.vane-button[data-size="md"] { --fs-unit: ... }`) -> computed in `rules.css` (`calc(var(--fs-unit) * var(--fs-base))`) -> consumed by utility classes (`text-(length:--fs)`). Colors driven by `data-appearance` + `data-variant` attributes. Every radius formula (`--br` in `rules.css`, the Select list, the Card media corners) is multiplied by `--br-scale` from `tokens.css` (1 by default); keep it in any new one. Surfaces (layout type) run 8 to 16px from `xs` to `xl`.
 
 **ThemeProvider**: Supports `themeDefaults`, `extraClasses`, `themeOverride`, nested providers with `mergeStrategy` ("merge" | "replace").
 

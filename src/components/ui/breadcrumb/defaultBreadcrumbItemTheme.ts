@@ -13,7 +13,7 @@ import { breadcrumbItemDefaults } from "./breadcrumbItemDefaults";
 // strong color. The focus ring uses the Breadcrumb's focus color.
 export const defaultBreadcrumbItemTheme = new ComponentTheme<BreadcrumbItemProps, BreadcrumbItemTheme>(
   "span",
-  "vane-breadcrumb-item underline-offset-2 [&[href]]:hover:underline [&[href]]:hover:text-(--color-text-primary) aria-[current=page]:text-(--color-text-primary) rounded-[2px]",
+  "vane-breadcrumb-item underline-offset-2 [&[href]]:hover:underline [&[href]]:hover:text-(--color-text-primary) aria-[current=page]:text-(--color-text-primary) rounded-[calc(2px*var(--br-scale))]",
   {
     appearance: {
       focusVisible: new SimpleConsumerClassMapper({ base: focusVisibleConsumerClass, alwaysOutput: true }, 'focusVisible'),

@@ -6,7 +6,7 @@
         /* Non-breakpoint computed variables */
         --pl: calc(var(--py-unit) * var(--spacing));
         --size: calc(var(--size-unit) * var(--spacing));
-        --br: calc(var(--br-unit) * var(--br-base));
+        --br: calc(var(--br-unit) * var(--br-base) * var(--br-scale));
         --py: calc(var(--py-unit) * var(--spacing));
         --px: calc(var(--aspect-ratio) * var(--py-unit) * var(--spacing));
         --gap: calc(var(--gap-unit) * var(--spacing));
@@ -101,10 +101,12 @@
     :is(.vane-badge, .vane-chip)[data-size="lg"] { --gap-unit: 1.25; }
     :is(.vane-badge, .vane-chip)[data-size="xl"] { --gap-unit: 1.5;  }
 
-    /* --min-h: single-line control border-box height, so icon-only Buttons/IconButton match text Buttons per size. --br = that height * --br-unit. */
+    /* --min-h: single-line control border-box height, so icon-only Buttons/IconButton match text Buttons per size. --br = that height * --br-unit.
+       Every radius formula in this file is multiplied by --br-scale (tokens.css, 1 by default), so one
+       value makes the whole library sharper (0) or rounder (2). pill and sharp are not scaled. */
     [data-vane-type="ui"][data-size] {
         --min-h: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--py-unit)) * var(--spacing));
-        --br: calc(var(--min-h) * var(--br-unit));
+        --br: calc(var(--min-h) * var(--br-unit) * var(--br-scale));
     }
 
     /* Square by default, and declared here rather than per size so a component rule can override it:
@@ -112,12 +114,14 @@
        leaking in by inheritance (a Stack inside a Td). */
     [data-vane-type="layout"] { --aspect-ratio: 1; }
 
-    /* Layout gap/py units on the md-anchored curve (.5/.75/1/1.5/2x), so large sizes open up (md->xl doubles). */
-    [data-vane-type="layout"][data-size="xs"] { --br-unit: 3; --gap-unit: 2; --py-unit: 2; --shadow-base: var(--shadow-layout-xs); }
-    [data-vane-type="layout"][data-size="sm"] { --br-unit: 4; --gap-unit: 3; --py-unit: 3; --shadow-base: var(--shadow-layout-sm); }
-    [data-vane-type="layout"][data-size="md"] { --br-unit: 5; --gap-unit: 4; --py-unit: 4; --shadow-base: var(--shadow-layout-md); }
-    [data-vane-type="layout"][data-size="lg"] { --br-unit: 6; --gap-unit: 6; --py-unit: 6; --shadow-base: var(--shadow-layout-lg); }
-    [data-vane-type="layout"][data-size="xl"] { --br-unit: 7; --gap-unit: 8; --py-unit: 8; --shadow-base: var(--shadow-layout-xl); }
+    /* Layout gap/py units on the md-anchored curve (.5/.75/1/1.5/2x), so large sizes open up (md->xl doubles).
+       Surface corners (Card, Modal, Img, a rounded Stack) run 8/10/12/14/16px: a md Card sits at about
+       1.5x the corners of the sm Button inside it, just above the Menu (10px). */
+    [data-vane-type="layout"][data-size="xs"] { --br-unit: 2;   --gap-unit: 2; --py-unit: 2; --shadow-base: var(--shadow-layout-xs); }
+    [data-vane-type="layout"][data-size="sm"] { --br-unit: 2.5; --gap-unit: 3; --py-unit: 3; --shadow-base: var(--shadow-layout-sm); }
+    [data-vane-type="layout"][data-size="md"] { --br-unit: 3;   --gap-unit: 4; --py-unit: 4; --shadow-base: var(--shadow-layout-md); }
+    [data-vane-type="layout"][data-size="lg"] { --br-unit: 3.5; --gap-unit: 6; --py-unit: 6; --shadow-base: var(--shadow-layout-lg); }
+    [data-vane-type="layout"][data-size="xl"] { --br-unit: 4;   --gap-unit: 8; --py-unit: 8; --shadow-base: var(--shadow-layout-xl); }
 
     /* NON-RESPONSIVE COMPONENTS */
 
@@ -144,6 +148,8 @@
     .vane-icon[data-size="md"] { --fs-unit: var(--fs-unit-md); --icon-size: calc(var(--spacing) * 5); --py-unit: 2;   }
     .vane-icon[data-size="lg"] { --fs-unit: var(--fs-unit-lg); --icon-size: calc(var(--spacing) * 6); --py-unit: 2.5; }
     .vane-icon[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --icon-size: calc(var(--spacing) * 8); --py-unit: 3;   }
+    /* Corners from the Icon's own box (it has no padding), at the Button ratio */
+    .vane-icon[data-size] { --br: calc(var(--icon-size) * var(--br-unit) * var(--br-scale)); }
     /* Outline Icons override --bg-color to transparent so inline use stays un-boxed; filled opts into bg paint. */
     .vane-icon[data-variant="outline"] { --bg-color: transparent; }
 
@@ -207,7 +213,7 @@
     /* `rounded` on a Mark: its box is the surrounding text's 1em, so the radius is a share of 1em that
        grows with the size prop. Declared after the ui-type --min-h formula, which it beats: that one
        reads the control units the Mark inherits from its parent (a Card's padding unit made it a pill). */
-    .vane-mark[data-size] { --br: calc(var(--br-unit) * 1em); }
+    .vane-mark[data-size] { --br: calc(var(--br-unit) * 1em * var(--br-scale)); }
     .vane-mark[data-size="xs"] { --br-unit: 0.2; }
     .vane-mark[data-size="sm"] { --br-unit: 0.25; }
     .vane-mark[data-size="md"] { --br-unit: 0.3; }
@@ -272,7 +278,7 @@
     .vane-select option:disabled { color: color-mix(in oklab, var(--text-color) 70%, var(--bg-color)); }
 
     /* Checkbox height = size-unit * spacing. xs lifted off 12px (too small) to 14px, sm 15px; md stays 16px. */
-    .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
+    .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing) * var(--br-scale)); }
     .vane-checkbox[data-size="xs"] { --size-unit: 3.5; }
     .vane-checkbox[data-size="sm"] { --size-unit: 3.75; }
     .vane-checkbox[data-size="md"] { --size-unit: 4; }
@@ -280,7 +286,7 @@
     .vane-checkbox[data-size="xl"] { --size-unit: 5; }
 
     /* Radio: same size ramp as the checkbox. Circular by default, so --br only applies when a consumer opts into `rounded`. */
-    .vane-radio[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing)); }
+    .vane-radio[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing) * var(--br-scale)); }
     .vane-radio[data-size="xs"] { --size-unit: 3.5; }
     .vane-radio[data-size="sm"] { --size-unit: 3.75; }
     .vane-radio[data-size="md"] { --size-unit: 4; }
@@ -295,7 +301,7 @@
         --switch-thumb: calc(var(--size) - 2 * var(--switch-pad));
         --switch-travel: calc(var(--switch-w) - var(--size));
         /* `rounded` radius for the track; the thumb insets from this one value so the two stay concentric. */
-        --switch-br: calc(var(--size) * 0.25);
+        --switch-br: calc(var(--size) * 0.25 * var(--br-scale));
     }
     .vane-switch-wrapper[data-size="xs"] { --size-unit: 3.75; }
     .vane-switch-wrapper[data-size="sm"] { --size-unit: 4; }
@@ -312,7 +318,7 @@
         width: var(--switch-thumb);
         height: var(--switch-thumb);
         margin-inline-start: var(--switch-pad);
-        --br: calc(var(--switch-br) - var(--switch-pad));
+        --br: max(0px, var(--switch-br) - var(--switch-pad));
     }
     [dir="rtl"] .vane-switch-thumb { --switch-travel: calc(var(--size) - var(--switch-w)); }
 
@@ -451,6 +457,8 @@
     .vane-card {
         --gap-unit: 3; --aspect-ratio: 1;
         --py-unit: 6; --py-unit-desktop: 6; --py-unit-tablet: 5; --py-unit-mobile: 4;
+        /* the corners of an Img on the Card's edge (CARD MEDIA below): the Card's, less its border */
+        --card-corner: max(0px, var(--br) - var(--bw));
     }
     .vane-card[data-size="xs"] { --gap-unit: 1.5;  --py-unit: 3;   --py-unit-desktop: 3;   --py-unit-tablet: 3; --py-unit-mobile: 2; }
     .vane-card[data-size="sm"] { --gap-unit: 2.25; --py-unit: 4.5; --py-unit-desktop: 4.5; --py-unit-tablet: 4; --py-unit-mobile: 3; }
@@ -951,7 +959,7 @@
     }
 
     /* Progress track height per size; `rounded` follows the bar height, beating the ui-type --min-h formula. */
-    .vane-progress[data-size] { --br: calc(var(--size) * 0.25); }
+    .vane-progress[data-size] { --br: calc(var(--size) * 0.25 * var(--br-scale)); }
     .vane-progress[data-size="xs"] { --size-unit: 0.5; }
     .vane-progress[data-size="sm"] { --size-unit: 1; }
     .vane-progress[data-size="md"] { --size-unit: 2; }
@@ -960,7 +968,7 @@
 
     /* Avatar: a --size square (24, 32, 40, 48, 64px), clipped to its shape. Initials are 40% of
        the size, the fallback icon 60%, and the image covers the box. */
-    .vane-avatar[data-size] { --br: calc(var(--size) * 0.25); font-size: calc(var(--size) * 0.4); line-height: 1; }
+    .vane-avatar[data-size] { --br: calc(var(--size) * 0.25 * var(--br-scale)); font-size: calc(var(--size) * 0.4); line-height: 1; }
     .vane-avatar[data-size="xs"] { --size-unit: 6; }
     .vane-avatar[data-size="sm"] { --size-unit: 8; }
     .vane-avatar[data-size="md"] { --size-unit: 10; }
@@ -993,7 +1001,7 @@
     .vane-segmented-control[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 1.25; --control-py-unit: 3; }
     .vane-segmented-control[data-size] {
         --min-h: calc((var(--fs-unit) * 0.5 * var(--lh) + 2 * var(--control-py-unit)) * var(--spacing));
-        --br: calc(var(--min-h) * var(--br-unit));
+        --br: calc(var(--min-h) * var(--br-unit) * var(--br-scale));
     }
     .vane-segmented-control-item { --lh: 1.3; --br-unit: 0.2174; }
     .vane-segmented-control-item[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5;  --px: calc(var(--spacing) * 2); }
@@ -1488,7 +1496,7 @@
 
 /* A bare icon is a shape too, with the corners of an Icon. */
 svg:is([data-skeleton] *) {
-    border-radius: 25%;
+    border-radius: calc(21.74% * var(--br-scale));
 }
 
 /* Parts that only decorate a control are hidden with it: the check, dot and thumb of a toggle,
@@ -1547,6 +1555,24 @@ svg:is([data-skeleton] *) {
     opacity: 1;
 }
 
+/* CARD MEDIA — an Img that opens or closes a Card of parts sits on the Card's edge, since such a
+   Card has no inset of its own. It takes the Card's corners on that edge, less the border, and is
+   square where it meets the parts. Unlayered so it can replace the corners of the Img's own
+   rounded-(--br) utility. It needs that class on both: a sharp or pill Card or Img, or a radius
+   class of the user's own (tailwind-merge drops the theme's class for it), keeps its corners. */
+.vane-card.rounded-\(--br\):not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer)) > .vane-img.rounded-\(--br\):first-child {
+    border-top-left-radius: var(--card-corner);
+    border-top-right-radius: var(--card-corner);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.vane-card.rounded-\(--br\):not([data-own-padding]):has(> :is(.vane-card-header, .vane-card-body, .vane-card-footer)) > .vane-img.rounded-\(--br\):last-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: var(--card-corner);
+    border-bottom-right-radius: var(--card-corner);
+}
+
 /* STYLEABLE DROPDOWN — also unlayered, because `appearance-none` is a utility class and a
    layered `appearance: base-select` would lose to it no matter the specificity.
    Without this the option list is an OS surface: the options get no layout box at all, so
@@ -1559,15 +1585,24 @@ svg:is([data-skeleton] *) {
     /* the themed chevron already occupies the trailing edge */
     .vane-select::picker-icon { display: none; }
 
+    /* The list has the corners and inset of a Menu dropdown next to a Button of the field's size
+       (a sm field opens a list like the default Menu: 10px corners, 6px inset), and each option
+       the corners of a MenuItem of the field's size. */
+    .vane-select[data-size="xs"] { --picker-br-unit: 2;   --picker-py-unit: 1.25; --option-py-unit: 1; }
+    .vane-select[data-size="sm"] { --picker-br-unit: 2.5; --picker-py-unit: 1.5;  --option-py-unit: 1.5; }
+    .vane-select[data-size="md"] { --picker-br-unit: 3;   --picker-py-unit: 1.75; --option-py-unit: 2; }
+    .vane-select[data-size="lg"] { --picker-br-unit: 3.5; --picker-py-unit: 2;    --option-py-unit: 2.5; }
+    .vane-select[data-size="xl"] { --picker-br-unit: 4;   --picker-py-unit: 2.25; --option-py-unit: 3; }
+
     /* UA try-order is most-block-size: it flips the list up whenever room above is larger. */
     .vane-select::picker(select) {
         position-try-order: normal;
         background-color: var(--bg-color);
         color: var(--text-color);
         border: 1px solid var(--border-color);
-        border-radius: var(--br);
+        border-radius: calc(var(--picker-br-unit) * var(--br-base) * var(--br-scale));
         box-shadow: var(--shadow-base);
-        padding: calc(var(--py) * 0.5);
+        padding: calc(var(--picker-py-unit) * var(--spacing));
         /* both edges: the flipped-up position anchors the picker's bottom to the field */
         margin-block: calc(var(--gap) * 0.5);
     }
@@ -1585,7 +1620,7 @@ svg:is([data-skeleton] *) {
         gap: var(--gap);
         min-block-size: 0;
         padding: calc(var(--py) * 0.75) var(--px);
-        border-radius: var(--br);
+        border-radius: calc((var(--fs-unit) * 0.5 * var(--lh-base) + 2 * var(--option-py-unit)) * var(--spacing) * 0.15 * var(--br-scale));
     }
 
     /* a disabled option (a placeholder, typically) must not light up as if it were selectable */
@@ -1597,8 +1632,8 @@ svg:is([data-skeleton] *) {
 
     .vane-select optgroup { padding: calc(var(--py) * 0.5) var(--px); }
 
-    /* A sharp field must not open a rounded list. Pill keeps --br on purpose: the field's own
-       radius is effectively infinite, which on a tall list box swallows the first and last rows. */
+    /* A sharp field must not open a rounded list. A pill field opens the rounded list: the field's
+       own radius is effectively infinite, which on a tall list box swallows the first and last rows. */
     .vane-select[data-shape="sharp"]::picker(select),
     .vane-select[data-shape="sharp"] option { border-radius: 0; }
 }

@@ -128,8 +128,8 @@ Computed variables are calculated from unit variables in `@layer base`:
     /* Size: size-unit * spacing (for checkboxes, etc.) */
     --size: calc(var(--size-unit) * var(--spacing));
 
-    /* Border radius: br-unit * base */
-    --br: calc(var(--br-unit) * var(--br-base));
+    /* Border radius: br-unit * base, times the library-wide --br-scale (1 by default) */
+    --br: calc(var(--br-unit) * var(--br-base) * var(--br-scale));
   }
 }
 ```
@@ -188,7 +188,7 @@ All components use the same CSS variable names. The computed values are controll
 - `--px` - Padding X, computed from `--aspect-ratio * --py-unit * --spacing`
 - `--gap` - Gap, computed from `--gap-unit * --spacing`
 - `--fs` - Font size, computed from `--fs-unit * --fs-base`
-- `--br` - Border radius, computed from `--br-unit * --br-base`
+- `--br` - Border radius, computed from `--br-unit * --br-base * --br-scale` (UI components: `--min-h * --br-unit * --br-scale`)
 - `--size` - Size (for checkboxes), computed from `--size-unit * --spacing`
 - `--lh` - Line height (set directly, e.g., `[--lh:1.6]`)
 - `--bw` - Border width (default: 1px)

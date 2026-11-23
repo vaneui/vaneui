@@ -966,6 +966,62 @@ function SkeletonFixtures() {
   );
 }
 
+// Border radius: surface scale, --br-scale, Card media, Icon corners (radius.spec.ts)
+const RADIUS_IMG = 'data:image/gif;base64,R0lGODlhAQABAAAAACw=';
+function RadiusFixtures() {
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  const controls = (prefix: string) => (
+    <Row flexWrap>
+      <Button data-testid={`${prefix}-button`}>Save</Button>
+      <Input aria-label="Email" data-testid={`${prefix}-input`} />
+      <Checkbox aria-label="Agree" data-testid={`${prefix}-checkbox`} />
+      <Avatar rounded name="Ada Lovelace" data-testid={`${prefix}-avatar`} />
+      <Badge rounded data-testid={`${prefix}-badge`}>New</Badge>
+      <Progress rounded value={40} aria-label="Progress" data-testid={`${prefix}-progress`} />
+      <Icon filled data-testid={`${prefix}-icon`}><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /></svg></Icon>
+      <Skeleton style={{ width: 96 }} data-testid={`${prefix}-skeleton`} />
+      <Card data-testid={`${prefix}-card`}><Text>Card</Text></Card>
+      <Badge pill data-testid={`${prefix}-pill`}>Pill</Badge>
+    </Row>
+  );
+  return (
+    <Section data-testid="radius-section">
+      <Row flexWrap itemsStart>
+        {sizes.map(size => (
+          <Card key={size} {...{ [size]: true }} data-testid={`radius-card-${size}`}><Text>Card</Text></Card>
+        ))}
+        <Img md src={RADIUS_IMG} alt="" width={48} height={32} data-testid="radius-img-md" />
+      </Row>
+      <Row flexWrap>
+        {sizes.map(size => (
+          <Icon key={size} {...{ [size]: true }} filled data-testid={`radius-icon-${size}`}><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /></svg></Icon>
+        ))}
+      </Row>
+      <div data-testid="radius-scale-default">{controls('radius-scale-default')}</div>
+      <div style={{ ['--br-scale' as string]: 0 }}>{controls('radius-scale-0')}</div>
+      <div style={{ ['--br-scale' as string]: 2 }}>{controls('radius-scale-2')}</div>
+      <Row itemsStart>
+        <Card style={{ width: 224 }} data-testid="radius-media-top">
+          <Img src={RADIUS_IMG} alt="" height={64} style={{ width: '100%' }} data-testid="radius-media-top-img" />
+          <CardBody><Text>Image on the top edge</Text></CardBody>
+        </Card>
+        <Card style={{ width: 224 }} data-testid="radius-media-bottom">
+          <CardBody><Text>Image on the bottom edge</Text></CardBody>
+          <Img src={RADIUS_IMG} alt="" height={64} style={{ width: '100%' }} data-testid="radius-media-bottom-img" />
+        </Card>
+        <Card style={{ width: 224 }} data-testid="radius-media-padded">
+          <Img src={RADIUS_IMG} alt="" height={64} style={{ width: '100%' }} data-testid="radius-media-padded-img" />
+          <Text>An inset image keeps its corners</Text>
+        </Card>
+        <Card style={{ width: 224 }}>
+          <Img sharp src={RADIUS_IMG} alt="" height={64} style={{ width: '100%' }} data-testid="radius-media-sharp-img" />
+          <CardBody><Text>A sharp image stays sharp</Text></CardBody>
+        </Card>
+      </Row>
+    </Section>
+  );
+}
+
 function SegmentedControlFixtures() {
   const [view, setView] = useState('week');
   const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
@@ -3001,6 +3057,8 @@ export function TestHarness() {
         <SkeletonFixtures />
 
         <SegmentedControlFixtures />
+
+        <RadiusFixtures />
 
         <CompositionFixtures />
 

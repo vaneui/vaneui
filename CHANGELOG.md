@@ -11,8 +11,9 @@ rather than on a fixed calendar.
 ## Unreleased
 
 New components (Avatar, AvatarGroup, Breadcrumb, SegmentedControl, Skeleton), loading placeholders
-through one `skeleton` prop, start and end sections on fields, and small props that used to need a
-class or a wrapper.
+through one `skeleton` prop, start and end sections on fields, small props that used to need a
+class or a wrapper, and gentler corners on cards, modals and images with one setting that scales
+every radius.
 
 ### Added
 
@@ -72,14 +73,39 @@ class or a wrapper.
 - `Skeleton`: a placeholder box for an area that has no component of its own, such as a chart or
   a map. It is full width and one line of text tall at its size, with size-driven corners; the
   aspect, height and shape props or a class set its shape. It is hidden from assistive tech.
+- `--br-scale` (in the tokens, 1 by default) multiplies the corner radius of every component:
+  `0` gives square corners everywhere, `2` twice as round. `--br-base` used to move only the
+  layout components (Card, Modal, Img, Popup, Tooltip, Alert), and the controls ignored it.
+  `pill` and `sharp` keep their own shape.
 
 ### Changed
+
+- Card, Modal and Img have gentler corners: 8, 10, 12, 14 and 16px from `xs` to `xl`, where they
+  were 12, 16, 20, 24 and 28px (`--br-unit` 2 to 4 on the layout scale, was 3 to 7). A `md` Card
+  now has about 1.5 times the corners of the Button inside it, where it had three times. A
+  rounded Stack, Section, Row, Col or Container follows the same scale; Popup, Tooltip and Alert
+  keep their own.
+- An Img that opens or closes a Card built from parts (`CardHeader`, `CardBody`, `CardFooter`)
+  takes the Card's corners on that edge, less the border, and is square where it meets the
+  parts. It used to keep its own corners on all four sides, which did not line up with the Card.
+  An Img inside a padded Card, a `sharp` or `pill` Img, and one with a radius class of your own
+  keep their corners.
+- The open list of a `Select` has the corners and inset of a Menu dropdown (10px and 6px at the
+  default size, growing with the size), and its options the corners of a MenuItem. It used to
+  take the field's corners and half its padding, so the two dropdowns looked different side by
+  side.
 
 - `Label` renders each run of its own text in a `<span class="vane-label-text">`, so a
   `skeleton` draws a full bar over it in Safari, which drew a hairline over text placed straight
   in a flex container. The span has no styles of its own and the layout does not change; in tests,
   `getByText` on the label's text returns the span, not the label. White space and text passed as
   an element are not wrapped.
+
+### Fixed
+
+- A filled `Icon` has corners sized for its own box (about 22% of its size, as on a Button). Its
+  corners were still worked out from the 32px box it had before 1.7.1, so a 20px Icon had 7px
+  corners and an `xs` Icon looked almost round.
 
 ## 1.7.2
 
