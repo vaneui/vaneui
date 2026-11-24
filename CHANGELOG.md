@@ -10,6 +10,12 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.8.1
+
+`2026-11-24`
+
+The selected segment of a SegmentedControl is raised above its track in the dark scheme too.
+
 ### Fixed
 
 - `SegmentedControl` in the dark scheme: the selected segment of an outline control painted the
