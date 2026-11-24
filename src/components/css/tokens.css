@@ -182,6 +182,12 @@
     --shadow-alpha: 0.1;
     --shadow-alpha-soft: 0.06;
 
+    /* Internal: 0% here and 100% under data-theme="dark". A rule that needs a different formula in
+       the dark scheme mixes the two: color-mix(in oklab, <light>, <dark> var(--vane-dark-mix)). The
+       color pairs below take colors only, and a raised surface in the dark scheme is lighter than
+       what it sits on, where in the light scheme it is the white page color. */
+    --vane-dark-mix: 0%;
+
     /* UI shadows (compact, grounded — for buttons, inputs, checkboxes) */
     --shadow-ui-xs:  0 1px 2px 0 rgb(var(--shadow-color) / var(--shadow-alpha));
     --shadow-ui-sm:  0 1px 3px 0 rgb(var(--shadow-color) / var(--shadow-alpha));
@@ -259,14 +265,17 @@
     /* Shadows stay black; intensity moves via the alpha tokens (~4x). */
     --shadow-alpha: 0.4;
     --shadow-alpha-soft: 0.25;
+    --vane-dark-mix: 100%;
 }
 
-/* light-dark() takes colors only, so a light subtree resets the shadow alphas to their @theme values. */
+/* light-dark() takes colors only, so a light subtree resets the shadow alphas and --vane-dark-mix to
+   their @theme values. */
 [data-theme="light"]:not(:root),
 :host([data-theme="light"]) {
     color-scheme: light;
     --shadow-alpha: 0.1;
     --shadow-alpha-soft: 0.06;
+    --vane-dark-mix: 0%;
 }
 
 /* The shadow tokens are composed from the alphas, and a custom property is resolved where it is

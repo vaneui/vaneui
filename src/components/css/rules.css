@@ -991,7 +991,12 @@
     /* SegmentedControl: the track is as tall as a Button of its size (its padding plus a segment),
        with a Button's corners. A segment has the Button's text size, the rest of that height and
        corners that follow its own height. */
-    .vane-segmented-control { --lh: 1.3; --aspect-ratio: 1; --br-unit: 0.2174; --segmented-track: var(--color-bg-tertiary); }
+    /* The track is gray-100 on a light page. On a dark page it sits between gray-900 and gray-800,
+       so it shows on a gray-900 panel too and leaves room above it for the selected segment. */
+    .vane-segmented-control {
+        --lh: 1.3; --aspect-ratio: 1; --br-unit: 0.2174;
+        --segmented-track: color-mix(in oklab, var(--color-bg-tertiary), color-mix(in oklab, var(--color-bg-secondary), var(--color-bg-tertiary)) var(--vane-dark-mix));
+    }
     /* A ghost control has no track; its selected segment is tinted instead */
     .vane-segmented-control[data-variant="ghost"] { --segmented-track: transparent; }
     .vane-segmented-control[data-size="xs"] { --fs-unit: var(--fs-unit-xs); --py-unit: 0.5;  --control-py-unit: 1; }
@@ -1033,6 +1038,13 @@
     }
     .vane-segmented-control-item[data-variant="ghost"]:has(> .vane-segmented-control-input:checked) {
         background-color: var(--bg-active-color);
+    }
+    /* A raised surface reads by being lighter than the track. The page color does that on a light
+       page, but on a dark page it is the darkest color there is, so there the selected segment is
+       the track lifted toward its text color: lighter than the track, tinted by its appearance,
+       and its text keeps at least 4.5:1. */
+    .vane-segmented-control-item[data-variant="outline"]:has(> .vane-segmented-control-input:checked) {
+        background-color: color-mix(in oklab, var(--bg-color), color-mix(in oklab, var(--text-color) 14%, var(--segmented-track)) var(--vane-dark-mix));
     }
     .vane-segmented-control-item:not([data-variant="ghost"]):has(> .vane-segmented-control-input:checked) {
         box-shadow: var(--shadow-base), inset 0 0 0 1px var(--border-color);

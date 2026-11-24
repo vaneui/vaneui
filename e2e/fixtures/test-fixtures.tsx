@@ -1091,11 +1091,23 @@ function SegmentedControlFixtures() {
       </SegmentedControl>
 
       <div data-theme="dark" data-testid="seg-dark-box">
-        <Card>
+        <Card data-testid="seg-dark-card">
           <SegmentedControl aria-label="Dark" defaultValue="a" data-testid="seg-dark">
             <SegmentedControlItem value="a" data-testid="seg-dark-a">Day</SegmentedControlItem>
             <SegmentedControlItem value="b" data-testid="seg-dark-b">Week</SegmentedControlItem>
           </SegmentedControl>
+          <Section secondary data-testid="seg-dark-panel">
+            <SegmentedControl aria-label="Dark panel" defaultValue="a" data-testid="seg-dark-panel-control">
+              <SegmentedControlItem value="a" data-testid="seg-dark-panel-a">Day</SegmentedControlItem>
+              <SegmentedControlItem value="b">Week</SegmentedControlItem>
+            </SegmentedControl>
+          </Section>
+          <div data-theme="light">
+            <SegmentedControl aria-label="Light inside dark" defaultValue="a" data-testid="seg-light-in-dark">
+              <SegmentedControlItem value="a" data-testid="seg-light-in-dark-a">Day</SegmentedControlItem>
+              <SegmentedControlItem value="b">Week</SegmentedControlItem>
+            </SegmentedControl>
+          </div>
         </Card>
       </div>
     </section>

@@ -10,6 +10,15 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Fixed
+
+- `SegmentedControl` in the dark scheme: the selected segment of an outline control painted the
+  page color, the darkest color of the scheme, so it sat darker than its track and read as a hole
+  instead of a raised button. It is now the track lifted toward the text color, tinted by the
+  appearance and lighter than the track, with text that keeps at least 4.5:1. The dark track sits
+  between the gray-panel color and the one above it, so the control also shows on a `secondary`
+  Section or Card. The light scheme is unchanged.
+
 ## 1.8.0
 
 `2026-11-23`
