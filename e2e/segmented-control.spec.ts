@@ -198,13 +198,16 @@ test.describe('SegmentedControl colors', () => {
 test.describe('SegmentedControl behavior', () => {
   test('selects a segment on a click anywhere on it', async ({ page }) => {
     const open = segment(page, 'seg-default-open');
+    const all = segment(page, 'seg-default-all');
+    const raised = await getBg(all);
     await open.scrollIntoViewIfNeeded();
     const rect = await box(open);
     await page.mouse.click(rect.x + 3, rect.y + rect.height / 2);
     await expect(page.getByTestId('seg-default-open')).toBeChecked();
     await expect(page.getByTestId('seg-default-all')).not.toBeChecked();
-    expect(await getBg(open)).not.toBe(TRANSPARENT);
-    expect(await getBg(segment(page, 'seg-default-all'))).toBe(TRANSPARENT);
+    // the surface moves with a 200ms background transition, so wait for it to settle
+    await expect.poll(() => getBg(open)).toBe(raised);
+    await expect.poll(() => getBg(all)).toBe(TRANSPARENT);
   });
 
   test('moves the selection with the arrow keys and rings the focused segment', async ({ page }) => {
