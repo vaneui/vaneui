@@ -35,6 +35,18 @@ const contrast = (page: Page, fg: string, bg: string) => page.evaluate(([a, b]) 
   return (l1 + 0.05) / (l2 + 0.05);
 }, [fg, bg]);
 
+/** WCAG relative luminance of a color the browser resolved, through a canvas */
+const luminance = (page: Page, color: string) => page.evaluate(c => {
+  const ctx = document.createElement('canvas').getContext('2d')!;
+  ctx.fillStyle = c;
+  ctx.fillRect(0, 0, 1, 1);
+  const [r, g, b] = Array.from(ctx.getImageData(0, 0, 1, 1).data).map(v => {
+    const s = v / 255;
+    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}, color);
+
 const lineOpacity = (locator: Locator) =>
   locator.evaluate(el => {
     const style = getComputedStyle(el, '::before');
@@ -111,6 +123,8 @@ test.describe('SegmentedControl colors', () => {
     expect(await getStyle(selected, 'box-shadow')).not.toBe('none');
     expect(await getBg(other)).toBe(TRANSPARENT);
     expect(await getStyle(other, 'box-shadow')).toBe('none');
+    // raised: lighter than the track it sits on
+    expect(await luminance(page, await getBg(selected))).toBeGreaterThan(await luminance(page, track));
   });
 
   test('keeps readable text on every segment', async ({ page }) => {
@@ -158,6 +172,26 @@ test.describe('SegmentedControl colors', () => {
     expect(await getBg(selected)).not.toBe(track);
     expect(await contrast(page, await getColor(selected), await getBg(selected))).toBeGreaterThanOrEqual(4.5);
     expect(await contrast(page, await getColor(other), track)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  test('raises the selected segment above the track in a dark subtree too', async ({ page }) => {
+    for (const [control, item, surface] of [
+      ['seg-dark', 'seg-dark-a', 'seg-dark-card'],
+      ['seg-dark-panel-control', 'seg-dark-panel-a', 'seg-dark-panel'],
+    ]) {
+      const track = await getBg(page.getByTestId(control));
+      const selected = segment(page, item);
+      // lighter than the track, as on a light page
+      expect(await luminance(page, await getBg(selected))).toBeGreaterThan(await luminance(page, track));
+      expect(await contrast(page, await getColor(selected), await getBg(selected))).toBeGreaterThanOrEqual(4.5);
+      // the track shows on the surface behind it: the Card, or a gray panel
+      expect(track).not.toBe(await getBg(page.getByTestId(surface)));
+    }
+  });
+
+  test('takes the light colors again in a light subtree inside a dark one', async ({ page }) => {
+    expect(await getBg(page.getByTestId('seg-light-in-dark'))).toBe(await getBg(page.getByTestId('seg-default')));
+    expect(await getBg(segment(page, 'seg-light-in-dark-a'))).toBe(await getBg(segment(page, 'seg-default-all')));
   });
 });
 

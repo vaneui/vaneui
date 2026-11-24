@@ -40,15 +40,18 @@ describe('dark and light scheme tokens', () => {
     }
   });
 
-  it('sets the color scheme and shadow alphas per data-theme, with light alphas equal to @theme', () => {
+  it('sets the color scheme, shadow alphas and dark switch per data-theme, with light values equal to @theme', () => {
     const dark = rule(DARK)!;
     const light = rule(LIGHT)!;
     expect(dark.body).toContain('color-scheme: dark;');
     expect(light.body).toContain('color-scheme: light;');
-    expect([...declarations(dark.body).keys()]).toEqual(['shadow-alpha', 'shadow-alpha-soft']);
+    expect([...declarations(dark.body).keys()]).toEqual(['shadow-alpha', 'shadow-alpha-soft', 'vane-dark-mix']);
+    expect(declarations(dark.body).get('vane-dark-mix')).toBe('100%');
+    expect(themeTokens.get('vane-dark-mix')).toBe('0%');
     expect(declarations(light.body)).toEqual(new Map([
       ['shadow-alpha', themeTokens.get('shadow-alpha')],
       ['shadow-alpha-soft', themeTokens.get('shadow-alpha-soft')],
+      ['vane-dark-mix', themeTokens.get('vane-dark-mix')],
     ]));
   });
 
