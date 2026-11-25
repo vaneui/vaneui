@@ -140,9 +140,10 @@ test.describe('Raised surfaces in the dark scheme', () => {
 
   test('a scoped --color-bg-primary still reaches Cards and Buttons in the light scheme', async ({ page }) => {
     // the light scheme leaves --color-bg-raised unset, and the fallback resolves on each component
+    // a Button transitions its background, so poll until the transition has ended
     await page.locator('[data-testid="dm-light"]').evaluate(el => el.style.setProperty('--color-bg-primary', 'rgb(1, 2, 3)'));
-    expect(await getBg(page.locator('[data-testid="dm-light-surface"]'))).toBe('rgb(1, 2, 3)');
-    expect(await getBg(page.locator('[data-testid="dm-light-button-primary"]'))).toBe('rgb(1, 2, 3)');
+    await expect.poll(() => getBg(page.locator('[data-testid="dm-light-surface"]'))).toBe('rgb(1, 2, 3)');
+    await expect.poll(() => getBg(page.locator('[data-testid="dm-light-button-primary"]'))).toBe('rgb(1, 2, 3)');
   });
 
   test('an outline Button steps lighter on hover and again on press', async ({ page }) => {
