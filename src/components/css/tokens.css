@@ -266,16 +266,23 @@
     --shadow-alpha: 0.4;
     --shadow-alpha-soft: 0.25;
     --vane-dark-mix: 100%;
+
+    /* Raised surfaces in the primary appearance (Card, Modal, Popup and Menu dropdowns, the open
+       Select list, outline Buttons) sit one step above the dark page: gray-900. The light scheme
+       leaves it unset, and there they take --color-bg-primary, the page color, so an override of
+       that color still reaches them. Set it under your own dark selector to change the dark step. */
+    --color-bg-raised: oklch(21% 0.034 264.665); /* gray-900 */
 }
 
 /* light-dark() takes colors only, so a light subtree resets the shadow alphas and --vane-dark-mix to
-   their @theme values. */
+   their @theme values, and unsets --color-bg-raised again. */
 [data-theme="light"]:not(:root),
 :host([data-theme="light"]) {
     color-scheme: light;
     --shadow-alpha: 0.1;
     --shadow-alpha-soft: 0.06;
     --vane-dark-mix: 0%;
+    --color-bg-raised: initial;
 }
 
 /* The shadow tokens are composed from the alphas, and a custom property is resolved where it is
@@ -332,8 +339,9 @@
        carries the affordance. */
     --color-bg-form: light-dark(#fff, oklch(13% 0.028 261.692)); /* white / gray-950 */
 
-    /* UI Background Hover Colors */
-    --color-bg-hover-primary: light-dark(oklch(98.5% 0.002 247.839), oklch(21% 0.034 264.665)); /* gray-50 / gray-900 */
+    /* UI Background Hover Colors — the dark primary hover is gray-800, one step above a raised
+       gray-900 surface, so a hover shows on a Card or in a menu as well as on the page. */
+    --color-bg-hover-primary: light-dark(oklch(98.5% 0.002 247.839), oklch(27.8% 0.033 256.848)); /* gray-50 / gray-800 */
     --color-bg-hover-secondary: light-dark(oklch(96.7% 0.003 264.542), oklch(27.8% 0.033 256.848)); /* gray-100 / gray-800 */
     --color-bg-hover-tertiary: light-dark(oklch(92.8% 0.006 264.531), oklch(37.3% 0.034 259.733)); /* gray-200 / gray-700 */
     --color-bg-hover-accent: light-dark(oklch(94.1% 0.03 12.58), oklch(41% 0.159 10.272)); /* rose-100 / rose-900 */
@@ -345,7 +353,7 @@
     /* UI Background Active Colors — tertiary/accent/danger use a press-dim
        bounce back toward the bg step (a second lightening step would fall
        below 3:1 against their 400-level text). */
-    --color-bg-active-primary: light-dark(oklch(96.7% 0.003 264.542), oklch(27.8% 0.033 256.848)); /* gray-100 / gray-800 */
+    --color-bg-active-primary: light-dark(oklch(96.7% 0.003 264.542), oklch(37.3% 0.034 259.733)); /* gray-100 / gray-700 */
     --color-bg-active-secondary: light-dark(oklch(92.8% 0.006 264.531), oklch(37.3% 0.034 259.733)); /* gray-200 / gray-700 */
     --color-bg-active-tertiary: light-dark(oklch(87.2% 0.01 258.338), oklch(27.8% 0.033 256.848)); /* gray-300 / gray-800, press-dim bounce */
     --color-bg-active-accent: light-dark(oklch(89.2% 0.058 10.001), oklch(27.1% 0.105 12.094)); /* rose-200 / rose-950, press-dim bounce */

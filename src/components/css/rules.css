@@ -261,21 +261,24 @@
     .vane-select[data-size="xl"] { --fs-unit: var(--fs-unit-xl); --py-unit: 3; }
 
     /* The dropdown list is painted by the browser from the option's own colors; unset they are transparent + UA text. */
-    /* Both inherit the field's resolved colors, so a filled Select gets a filled list. */
+    /* Both inherit the field's resolved colors, so a filled Select gets a filled list. The list of a
+       primary outline field is a raised surface, like a Menu dropdown (--select-list-bg). */
+    .vane-select { --select-list-bg: var(--bg-color); }
+    .vane-select[data-appearance="primary"][data-variant="outline"] { --select-list-bg: var(--color-bg-raised, var(--bg-color)); }
     .vane-select option, .vane-select optgroup {
-        background-color: var(--bg-color);
+        background-color: var(--select-list-bg);
         color: var(--text-color);
     }
-    /* Ghost paints no surface of its own, so its list falls back to the theme surface. */
+    /* Ghost paints no surface of its own, so its list falls back to the raised theme surface. */
     .vane-select[data-variant="ghost"] option,
     .vane-select[data-variant="ghost"] optgroup {
-        background-color: var(--color-bg-primary);
+        background-color: var(--color-bg-raised, var(--color-bg-primary));
         color: var(--color-text-primary);
     }
     /* UA renders group labels bold italic; keep the weight cue, drop the slant. */
     .vane-select optgroup { font-style: normal; font-weight: 600; }
     /* Fades toward the list's own surface; 70% matches the contrast the pinned token gave. */
-    .vane-select option:disabled { color: color-mix(in oklab, var(--text-color) 70%, var(--bg-color)); }
+    .vane-select option:disabled { color: color-mix(in oklab, var(--text-color) 70%, var(--select-list-bg)); }
 
     /* Checkbox height = size-unit * spacing. xs lifted off 12px (too small) to 14px, sm 15px; md stays 16px. */
     .vane-checkbox[data-size] { --br-unit: 0.25; --br: calc(var(--size-unit) * var(--br-unit) * var(--spacing) * var(--br-scale)); }
@@ -991,11 +994,11 @@
     /* SegmentedControl: the track is as tall as a Button of its size (its padding plus a segment),
        with a Button's corners. A segment has the Button's text size, the rest of that height and
        corners that follow its own height. */
-    /* The track is gray-100 on a light page. On a dark page it sits between gray-900 and gray-800,
-       so it shows on a gray-900 panel too and leaves room above it for the selected segment. */
+    /* The track is the tertiary gray (gray-100, gray-800 in the dark scheme), one step above a raised
+       surface, so it shows on the page, on a Card and on a gray panel alike. */
     .vane-segmented-control {
         --lh: 1.3; --aspect-ratio: 1; --br-unit: 0.2174;
-        --segmented-track: color-mix(in oklab, var(--color-bg-tertiary), color-mix(in oklab, var(--color-bg-secondary), var(--color-bg-tertiary)) var(--vane-dark-mix));
+        --segmented-track: var(--color-bg-tertiary);
     }
     /* A ghost control has no track; its selected segment is tinted instead */
     .vane-segmented-control[data-variant="ghost"] { --segmented-track: transparent; }
@@ -1099,6 +1102,12 @@
         --app-bg-active-filled: var(--color-bg-filled-active-primary);
         --app-border: var(--color-border-primary);
         --app-focus: var(--color-focus-primary);
+    }
+    /* Raised surfaces take --color-bg-raised, set only in the dark scheme: one step lighter than
+       the page there, where a surface in the page color looks sunken on a gray panel. Unset (the
+       light scheme), they keep the page color, resolved here so a scoped override still applies. */
+    :is(.vane-card, .vane-modal, .vane-popup, .vane-button, .vane-icon-button)[data-appearance="primary"] {
+        --app-bg: var(--color-bg-raised, var(--color-bg-primary));
     }
     /* A table cell has no appearance of its own and follows its Table. Used outside a Table it has
        nothing to follow, so it keeps the neutral outline palette (see the outline rule below). */
@@ -1609,7 +1618,7 @@ svg:is([data-skeleton] *) {
     /* UA try-order is most-block-size: it flips the list up whenever room above is larger. */
     .vane-select::picker(select) {
         position-try-order: normal;
-        background-color: var(--bg-color);
+        background-color: var(--select-list-bg);
         color: var(--text-color);
         border: 1px solid var(--border-color);
         border-radius: calc(var(--picker-br-unit) * var(--br-base) * var(--br-scale));
@@ -1620,7 +1629,7 @@ svg:is([data-skeleton] *) {
     }
 
     .vane-select[data-variant="ghost"]::picker(select) {
-        background-color: var(--color-bg-primary);
+        background-color: var(--color-bg-raised, var(--color-bg-primary));
         color: var(--color-text-primary);
         border-color: var(--color-border-primary);
     }

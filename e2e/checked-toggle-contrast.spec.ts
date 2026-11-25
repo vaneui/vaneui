@@ -11,15 +11,21 @@ import { test, expect, getBg, type Page } from './base';
 
 const MIN_CONTRAST = 3;
 
-const SCHEMES = ['light', 'dark'] as const;
+// `raised` is a Card on the dark page: one step lighter than the page since 1.8.2
+const SCHEMES = ['light', 'dark', 'raised'] as const;
+const SURFACE = { light: 'light page', dark: 'dark page', raised: 'dark Card' } as const;
 const VARIANTS = ['filled', 'outline', 'ghost'] as const;
 const APPEARANCES = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
 const KINDS = ['checkbox', 'indeterminate', 'radio', 'switch'] as const;
 
-// `filled` is the default look and older than this spec. One pair sits under 3:1 (a secondary
-// fill on the dark page); it is pinned here so it cannot get worse unnoticed.
+// `filled` is the default look and older than this spec. One pair sits under 3:1 on the dark page
+// (a secondary fill), and three on a dark Card (gray-900, as on a gray panel): the secondary, accent
+// and danger fills. They are pinned here so they cannot get worse unnoticed.
 const KNOWN_LOW_BOX_CONTRAST: Record<string, number> = {
   'dark-filled-secondary': 2.6,
+  'raised-filled-secondary': 2.3,
+  'raised-filled-accent': 2.9,
+  'raised-filled-danger': 2.7,
 };
 
 type Measured = {
@@ -105,7 +111,7 @@ test.beforeEach(async ({ page, testPage }) => {
 
 for (const scheme of SCHEMES) {
   for (const variant of VARIANTS) {
-    test.describe(`${variant} on the ${scheme} page`, () => {
+    test.describe(`${variant} on the ${SURFACE[scheme]}`, () => {
       test('the mark shows against its box in every appearance', async ({ page }) => {
         const measured = await measureToggles(page);
         const tooFaint: string[] = [];
@@ -137,8 +143,9 @@ for (const scheme of SCHEMES) {
   }
 }
 
-test('the page surfaces of the two columns really differ (light and dark)', async ({ page }) => {
+test('the three surfaces really differ (light page, dark page, dark Card)', async ({ page }) => {
   const light = await getBg(page.locator('[data-testid="checked-toggle-page-light"]'));
   const dark = await getBg(page.locator('[data-testid="checked-toggle-page-dark"]'));
-  expect(light).not.toBe(dark);
+  const raised = await getBg(page.locator('[data-testid="checked-toggle-page-raised"]'));
+  expect(new Set([light, dark, raised]).size).toBe(3);
 });

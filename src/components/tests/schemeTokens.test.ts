@@ -45,14 +45,23 @@ describe('dark and light scheme tokens', () => {
     const light = rule(LIGHT)!;
     expect(dark.body).toContain('color-scheme: dark;');
     expect(light.body).toContain('color-scheme: light;');
-    expect([...declarations(dark.body).keys()]).toEqual(['shadow-alpha', 'shadow-alpha-soft', 'vane-dark-mix']);
+    expect([...declarations(dark.body).keys()]).toEqual(['shadow-alpha', 'shadow-alpha-soft', 'vane-dark-mix', 'color-bg-raised']);
     expect(declarations(dark.body).get('vane-dark-mix')).toBe('100%');
     expect(themeTokens.get('vane-dark-mix')).toBe('0%');
     expect(declarations(light.body)).toEqual(new Map([
       ['shadow-alpha', themeTokens.get('shadow-alpha')],
       ['shadow-alpha-soft', themeTokens.get('shadow-alpha-soft')],
       ['vane-dark-mix', themeTokens.get('vane-dark-mix')],
+      ['color-bg-raised', 'initial'],
     ]));
+  });
+
+  it('sets --color-bg-raised only in the dark scheme, so raised surfaces keep the page color in light', () => {
+    // unset in @theme and in a light subtree: the rules fall back to --color-bg-primary, resolved on
+    // each component, so a scoped override of the page color still reaches Cards and Buttons
+    expect(themeTokens.has('color-bg-raised')).toBe(false);
+    expect(declarations(rule(DARK)!.body).get('color-bg-raised')).toBe('oklch(21% 0.034 264.665)');
+    expect(declarations(rule([...DARK, ...LIGHT])!.body).get('color-bg-secondary')).toContain('oklch(21% 0.034 264.665)');
   });
 
   it('composes the shadow tokens again on a data-theme subtree, from the @theme strings', () => {
