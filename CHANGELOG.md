@@ -14,11 +14,11 @@ rather than on a fixed calendar.
 
 - Dark scheme: Cards, Modals, Popups (Menu dropdowns too), the open Select list and outline
   Buttons in the primary appearance painted the page color, the darkest gray of the scheme, so on
-  a `secondary` panel they sat darker than the panel and looked sunken. They now take the new
-  `--color-bg-raised` token: white in the light scheme (no change there) and gray-900 in the dark
-  one, one step above the page, as in most component libraries. On a gray panel they are level
-  with it, and their border sets them apart. A `Section` keeps the page color, and fields keep
-  `--color-bg-form`.
+  a `secondary` panel they sat darker than the panel and looked sunken. In the dark scheme they now
+  take the new `--color-bg-raised` (gray-900), one step above the page, as in most component
+  libraries; on a gray panel they are level with it, and their border sets them apart. The light
+  scheme leaves `--color-bg-raised` unset, so there they keep `--color-bg-primary` and an override
+  of it, scoped ones included. A `Section` keeps the page color, and fields keep `--color-bg-form`.
 - Dark scheme: the primary hover is gray-800 (was gray-900) and the pressed color gray-700 (was
   gray-800), the colors the secondary appearance already uses, so a hover shows on a Card and in a
   menu, whose surface is now gray-900. An active `NavLink` takes the pressed color too.

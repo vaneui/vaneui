@@ -264,7 +264,7 @@
     /* Both inherit the field's resolved colors, so a filled Select gets a filled list. The list of a
        primary outline field is a raised surface, like a Menu dropdown (--select-list-bg). */
     .vane-select { --select-list-bg: var(--bg-color); }
-    .vane-select[data-appearance="primary"][data-variant="outline"] { --select-list-bg: var(--color-bg-raised); }
+    .vane-select[data-appearance="primary"][data-variant="outline"] { --select-list-bg: var(--color-bg-raised, var(--bg-color)); }
     .vane-select option, .vane-select optgroup {
         background-color: var(--select-list-bg);
         color: var(--text-color);
@@ -272,7 +272,7 @@
     /* Ghost paints no surface of its own, so its list falls back to the raised theme surface. */
     .vane-select[data-variant="ghost"] option,
     .vane-select[data-variant="ghost"] optgroup {
-        background-color: var(--color-bg-raised);
+        background-color: var(--color-bg-raised, var(--color-bg-primary));
         color: var(--color-text-primary);
     }
     /* UA renders group labels bold italic; keep the weight cue, drop the slant. */
@@ -1103,10 +1103,11 @@
         --app-border: var(--color-border-primary);
         --app-focus: var(--color-focus-primary);
     }
-    /* Raised surfaces take --color-bg-raised: the page color in the light scheme, one step lighter
-       than the page in the dark one, where a surface in the page color looks sunken on a gray panel. */
+    /* Raised surfaces take --color-bg-raised, set only in the dark scheme: one step lighter than
+       the page there, where a surface in the page color looks sunken on a gray panel. Unset (the
+       light scheme), they keep the page color, resolved here so a scoped override still applies. */
     :is(.vane-card, .vane-modal, .vane-popup, .vane-button, .vane-icon-button)[data-appearance="primary"] {
-        --app-bg: var(--color-bg-raised);
+        --app-bg: var(--color-bg-raised, var(--color-bg-primary));
     }
     /* A table cell has no appearance of its own and follows its Table. Used outside a Table it has
        nothing to follow, so it keeps the neutral outline palette (see the outline rule below). */
@@ -1628,7 +1629,7 @@ svg:is([data-skeleton] *) {
     }
 
     .vane-select[data-variant="ghost"]::picker(select) {
-        background-color: var(--color-bg-raised);
+        background-color: var(--color-bg-raised, var(--color-bg-primary));
         color: var(--color-text-primary);
         border-color: var(--color-border-primary);
     }

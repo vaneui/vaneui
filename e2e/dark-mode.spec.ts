@@ -138,6 +138,13 @@ test.describe('Raised surfaces in the dark scheme', () => {
     expect(await getBg(page.locator('[data-testid="dm-light-island-surface"]'))).toBe('rgb(255, 255, 255)');
   });
 
+  test('a scoped --color-bg-primary still reaches Cards and Buttons in the light scheme', async ({ page }) => {
+    // the light scheme leaves --color-bg-raised unset, and the fallback resolves on each component
+    await page.locator('[data-testid="dm-light"]').evaluate(el => el.style.setProperty('--color-bg-primary', 'rgb(1, 2, 3)'));
+    expect(await getBg(page.locator('[data-testid="dm-light-surface"]'))).toBe('rgb(1, 2, 3)');
+    expect(await getBg(page.locator('[data-testid="dm-light-button-primary"]'))).toBe('rgb(1, 2, 3)');
+  });
+
   test('an outline Button steps lighter on hover and again on press', async ({ page }) => {
     const button = page.locator('[data-testid="dm-dark-page-button"]');
     await button.hover();
