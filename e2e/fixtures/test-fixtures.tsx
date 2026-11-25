@@ -1301,34 +1301,38 @@ const TOGGLE_VARIANTS = ['filled', 'outline', 'ghost'] as const;
 const TOGGLE_APPEARANCES = ['primary', 'accent', 'secondary', 'tertiary', 'success', 'danger', 'warning', 'info'] as const;
 
 /** A checked Checkbox, an indeterminate Checkbox, a checked Radio and a checked Switch in every
-    variant and appearance, on a light and on a dark page surface: the mark has to show against
-    its box, and the box against the page. */
+    variant and appearance, on a light and on a dark page (a primary Section) and on a dark Card
+    (`raised`, one step above the dark page): the mark has to show against its box, and the box
+    against the surface. */
 function CheckedToggleFixtures() {
   return (
     <>
-      {(['light', 'dark'] as const).map((scheme) => (
-        <div key={scheme} {...(scheme === 'dark' ? { 'data-theme': 'dark' } : undefined)}>
-          <Card data-testid={`checked-toggle-page-${scheme}`}>
-            {TOGGLE_VARIANTS.map((variant) => (
-              <Row key={variant} flexWrap>
-                {TOGGLE_APPEARANCES.map((appearance) => {
-                  const look = { [variant]: true, [appearance]: true };
-                  const id = `${scheme}-${variant}-${appearance}`;
-                  const name = `${scheme} ${variant} ${appearance}`;
-                  return (
-                    <React.Fragment key={appearance}>
-                      <Checkbox {...look} defaultChecked aria-label={`${name} checkbox`} data-testid={`checked-toggle-checkbox-${id}`} />
-                      <Checkbox {...look} indeterminate aria-label={`${name} mixed checkbox`} data-testid={`checked-toggle-indeterminate-${id}`} />
-                      <Radio {...look} defaultChecked name={`checked-toggle-${id}`} aria-label={`${name} radio`} data-testid={`checked-toggle-radio-${id}`} />
-                      <Switch {...look} defaultChecked aria-label={`${name} switch`} data-testid={`checked-toggle-switch-${id}`} />
-                    </React.Fragment>
-                  );
-                })}
-              </Row>
-            ))}
-          </Card>
-        </div>
-      ))}
+      {(['light', 'dark', 'raised'] as const).map((scheme) => {
+        const toggles = TOGGLE_VARIANTS.map((variant) => (
+          <Row key={variant} flexWrap>
+            {TOGGLE_APPEARANCES.map((appearance) => {
+              const look = { [variant]: true, [appearance]: true };
+              const id = `${scheme}-${variant}-${appearance}`;
+              const name = `${scheme} ${variant} ${appearance}`;
+              return (
+                <React.Fragment key={appearance}>
+                  <Checkbox {...look} defaultChecked aria-label={`${name} checkbox`} data-testid={`checked-toggle-checkbox-${id}`} />
+                  <Checkbox {...look} indeterminate aria-label={`${name} mixed checkbox`} data-testid={`checked-toggle-indeterminate-${id}`} />
+                  <Radio {...look} defaultChecked name={`checked-toggle-${id}`} aria-label={`${name} radio`} data-testid={`checked-toggle-radio-${id}`} />
+                  <Switch {...look} defaultChecked aria-label={`${name} switch`} data-testid={`checked-toggle-switch-${id}`} />
+                </React.Fragment>
+              );
+            })}
+          </Row>
+        ));
+        return (
+          <div key={scheme} {...(scheme === 'light' ? undefined : { 'data-theme': 'dark' })}>
+            {scheme === 'raised'
+              ? <Card data-testid={`checked-toggle-page-${scheme}`}>{toggles}</Card>
+              : <Section primary sm data-testid={`checked-toggle-page-${scheme}`}>{toggles}</Section>}
+          </div>
+        );
+      })}
     </>
   );
 }
@@ -2807,6 +2811,14 @@ export function TestHarness() {
               <Link href="#" data-testid="dm-dark-link">Dark link</Link>
             </Card>
             <Card shadow data-testid="dm-dark-shadow">Shadow</Card>
+
+            {/* Raised surfaces: a Section paints the page color, a Card and an outline Button sit one step above it */}
+            <Section primary data-testid="dm-dark-page-section">
+              <Button data-testid="dm-dark-page-button">Outline</Button>
+              <Card data-testid="dm-dark-page-card">
+                <Button ghost data-testid="dm-dark-page-ghost">Ghost</Button>
+              </Card>
+            </Section>
 
             {/* Contrast gate fixtures: all 10 appearances × filled + outline */}
             <Card filled primary data-testid="dm-contrast-filled-primary"><Text data-testid="dm-contrast-filled-text-primary">Primary filled</Text></Card>

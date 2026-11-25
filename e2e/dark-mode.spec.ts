@@ -12,6 +12,16 @@ import { test, expect, getBg, getColor, getContrastRatio, getStyle, type Locator
  *  --color-bg-primary literal in the tokens.css dark block. */
 const DARK_BG_PRIMARY = 'oklch(13% 0.028 261.692)';
 
+/** Dark-scheme raised surface (gray-900): Cards, Modals, Popups and outline
+ *  Buttons sit one step above the page — must match the --color-bg-raised
+ *  literal in the tokens.css dark block. */
+const DARK_BG_RAISED = 'oklch(21% 0.034 264.665)';
+
+/** Dark-scheme primary hover (gray-800) and press (gray-700): one and two
+ *  steps above a raised surface, so they show on a Card or in a menu. */
+const DARK_BG_HOVER = 'oklch(27.8% 0.033 256.848)';
+const DARK_BG_ACTIVE = 'oklch(37.3% 0.034 259.733)';
+
 /** Dark-scheme overlay scrim — must match the --overlay-bg literal in the
  *  tokens.css dark block (stronger veil than the light 50% scrim). */
 const DARK_OVERLAY_BG = 'oklch(0 0 0 / 70%)';
@@ -55,7 +65,7 @@ test.beforeEach(async ({ page, testPage }) => {
 // =========================================================================
 
 test.describe('Dark mode token flip', () => {
-  test('primary outline Button background flips and matches the dark bg token', async ({ page }) => {
+  test('primary outline Button background flips and matches the dark raised token', async ({ page }) => {
     const lightButton = page.locator('[data-testid="dm-light-button-primary"]');
     const darkButton = page.locator('[data-testid="dm-dark-button-primary"]');
 
@@ -63,15 +73,15 @@ test.describe('Dark mode token flip', () => {
     const darkBg = await getBg(darkButton);
 
     expect(darkBg).not.toBe(lightBg);
-    expect(await rendersAs(darkButton, 'background-color', DARK_BG_PRIMARY)).toBe(true);
+    expect(await rendersAs(darkButton, 'background-color', DARK_BG_RAISED)).toBe(true);
   });
 
-  test('primary Card surface paints the dark page surface (gray-950)', async ({ page }) => {
+  test('primary Card surface paints the dark raised surface (gray-900)', async ({ page }) => {
     const lightSurface = page.locator('[data-testid="dm-light-surface"]');
     const darkSurface = page.locator('[data-testid="dm-dark-surface"]');
 
     expect(await getBg(darkSurface)).not.toBe(await getBg(lightSurface));
-    expect(await rendersAs(darkSurface, 'background-color', DARK_BG_PRIMARY)).toBe(true);
+    expect(await rendersAs(darkSurface, 'background-color', DARK_BG_RAISED)).toBe(true);
   });
 
   test('inherited Text color flips inside the dark surface', async ({ page }) => {
@@ -102,6 +112,47 @@ test.describe('Dark mode token flip', () => {
     const lightIcon = page.locator('.vane-input-wrapper', { has: lightInput }).locator('.vane-input-error-icon');
     const darkIcon = page.locator('.vane-input-wrapper', { has: darkInput }).locator('.vane-input-error-icon');
     expect(await getColor(darkIcon)).not.toBe(await getColor(lightIcon));
+  });
+});
+
+// =========================================================================
+// Raised surfaces: in the dark scheme a surface in the page color looked
+// sunken on a gray panel, so Cards, Modals, Popups and outline Buttons take
+// --color-bg-raised (white / gray-900). A Section keeps the page color, and
+// the primary hover and press step above the raised surface.
+// =========================================================================
+
+test.describe('Raised surfaces in the dark scheme', () => {
+  test('a Card and an outline Button sit one step above the page; a Section keeps the page color', async ({ page }) => {
+    const section = page.locator('[data-testid="dm-dark-page-section"]');
+    expect(await rendersAs(section, 'background-color', DARK_BG_PRIMARY)).toBe(true);
+    expect(await rendersAs(page.locator('[data-testid="dm-dark-page-card"]'), 'background-color', DARK_BG_RAISED)).toBe(true);
+    expect(await rendersAs(page.locator('[data-testid="dm-dark-page-button"]'), 'background-color', DARK_BG_RAISED)).toBe(true);
+    // fields stay on the form color, the page color
+    expect(await rendersAs(page.locator('[data-testid="dm-dark-input"]'), 'background-color', DARK_BG_PRIMARY)).toBe(true);
+  });
+
+  test('the light scheme keeps raised surfaces white', async ({ page }) => {
+    expect(await getBg(page.locator('[data-testid="dm-light-surface"]'))).toBe('rgb(255, 255, 255)');
+    expect(await getBg(page.locator('[data-testid="dm-light-button-primary"]'))).toBe('rgb(255, 255, 255)');
+    expect(await getBg(page.locator('[data-testid="dm-light-island-surface"]'))).toBe('rgb(255, 255, 255)');
+  });
+
+  test('an outline Button steps lighter on hover and again on press', async ({ page }) => {
+    const button = page.locator('[data-testid="dm-dark-page-button"]');
+    await button.hover();
+    await expect.poll(() => rendersAs(button, 'background-color', DARK_BG_HOVER)).toBe(true);
+    await page.mouse.down();
+    await expect.poll(() => rendersAs(button, 'background-color', DARK_BG_ACTIVE)).toBe(true);
+    await page.mouse.up();
+  });
+
+  test('a ghost Button hover shows on a raised Card', async ({ page }) => {
+    const card = page.locator('[data-testid="dm-dark-page-card"]');
+    const ghost = page.locator('[data-testid="dm-dark-page-ghost"]');
+    await ghost.hover();
+    await expect.poll(() => rendersAs(ghost, 'background-color', DARK_BG_HOVER)).toBe(true);
+    expect(await getBg(ghost)).not.toBe(await getBg(card));
   });
 });
 
@@ -223,11 +274,11 @@ test.describe('html-level dark mode (primary documented mode)', () => {
     // ...and the light-column fixtures — OUTSIDE any data-theme wrapper —
     // now resolve the dark tokens declared at :root[data-theme="dark"]
     expect(await getBg(surface)).not.toBe(lightBg);
-    expect(await rendersAs(surface, 'background-color', DARK_BG_PRIMARY)).toBe(true);
+    expect(await rendersAs(surface, 'background-color', DARK_BG_RAISED)).toBe(true);
     expect(await getColor(text)).not.toBe(lightColor);
   });
 
-  test('portaled Modal content paints the dark surface', async ({ page }) => {
+  test('portaled Modal content paints the dark raised surface', async ({ page }) => {
     const content = page.locator('[data-testid="dark-portal-modal-content"]');
     const text = page.locator('[data-testid="dark-portal-modal-text"]');
 
@@ -239,7 +290,7 @@ test.describe('html-level dark mode (primary documented mode)', () => {
     // the modal lives in a portal at the end of <body> — only the html-level
     // attribute can reach it (a subtree wrapper never could)
     expect(await getBg(content)).not.toBe(lightBg);
-    expect(await rendersAs(content, 'background-color', DARK_BG_PRIMARY)).toBe(true);
+    expect(await rendersAs(content, 'background-color', DARK_BG_RAISED)).toBe(true);
     expect(await getColor(text)).not.toBe(lightColor);
   });
 
@@ -252,11 +303,25 @@ test.describe('html-level dark mode (primary documented mode)', () => {
 
     await enableHtmlDark(page);
 
-    // menu popup defaults are primary+outline, so its surface consumes the
-    // same --color-bg-primary token as the page surface (gray-950 in dark)
+    // menu popup defaults are primary+outline, so its surface consumes
+    // --color-bg-raised like a Card: one step above the page (gray-900 in dark)
     expect(await getBg(popup)).not.toBe(lightBg);
-    expect(await rendersAs(popup, 'background-color', DARK_BG_PRIMARY)).toBe(true);
+    expect(await rendersAs(popup, 'background-color', DARK_BG_RAISED)).toBe(true);
     expect(await getColor(item)).not.toBe(lightColor);
+  });
+
+  test('a menu item hover shows on the raised menu', async ({ page }) => {
+    const popup = page.locator('[data-testid="dark-portal-menu-popup"]');
+    const item = page.locator('[data-testid="dark-portal-menu-item"]');
+
+    await enableHtmlDark(page);
+    // the menu is fixed to its trigger at the end of the page: bring the trigger into view first
+    await page.locator('[data-testid="dark-portal-menu-trigger"]').evaluate(el => el.scrollIntoView({ block: 'center' }));
+    await item.hover();
+
+    // the hover was gray-900, the color the menu now has; it is gray-800
+    await expect.poll(() => rendersAs(item, 'background-color', DARK_BG_HOVER)).toBe(true);
+    expect(await getBg(item)).not.toBe(await getBg(popup));
   });
 
   test('open Modal overlay scrim deepens to the dark --overlay-bg', async ({ page }) => {

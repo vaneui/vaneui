@@ -93,11 +93,13 @@ This themes the whole page, including portaled content and native controls (`col
 
 ```tsx
 <div data-theme="dark">
-  <Card>...</Card>  {/* primary Card paints the dark page surface */}
+  <Card>...</Card>  {/* primary Card paints the dark raised surface, one step above the page */}
 </div>
 ```
 
 Tokens are CSS custom properties, so the dark values inherit down the wrapper's subtree. Give the subtree a surface: a `Card`, or a `Section` with an explicit appearance (`<Section primary>`). A bare `Section` and the wrapper div paint nothing.
+
+**Raised surfaces:** in the dark scheme a primary `Card`, `Modal`, `Popup` (a Menu dropdown too), the open `Select` list and an outline `Button` paint `--color-bg-raised` (gray-900), one step lighter than the page color a `Section primary` paints (`--color-bg-primary`, gray-950). The primary hover (gray-800) and pressed color (gray-700) sit above it, so they show on a Card and in a menu. In the light scheme `--color-bg-raised` is white, like the page. Fields keep `--color-bg-form`, the page color.
 
 **Portal caveat:** `Modal`, `Popup`, and `Overlay` render into a portal at the end of `<body>`, so they resolve the theme of `<html>`/`<body>`, not an inner wrapper's. `<html data-theme="dark">` is the primary supported mode; subtree theming covers in-flow content.
 
