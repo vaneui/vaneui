@@ -10,6 +10,12 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.8.2
+
+`2026-11-25`
+
+In the dark scheme Cards, menus, modals and outline Buttons sit one step above the page, and hover shows on them.
+
 ### Changed
 
 - Dark scheme: Cards, Modals, Popups (Menu dropdowns too), the open Select list and outline
