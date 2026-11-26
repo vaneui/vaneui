@@ -10,6 +10,12 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+## 1.8.3
+
+`2026-11-26`
+
+Card and Modal type reads one step smaller than the page, and Breadcrumb text follows its size prop.
+
 ### Changed
 
 - `Card` and `Modal`: a `Title` placed in the surface, in one of its parts (`CardHeader`,
