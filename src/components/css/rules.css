@@ -615,6 +615,30 @@
     .vane-page-title[data-size="lg"] { --fs-unit-desktop: 30; --fs-unit-tablet: 27; --fs-unit-mobile: 24; --lh: 1; }
     .vane-page-title[data-size="xl"] { --fs-unit-desktop: 36; --fs-unit-tablet: 33; --fs-unit-mobile: 30; --lh: 1; }
 
+    /* Title and Text inside a Card or Modal: a panel reads at a smaller scale than the page.
+       A Title there runs 14/16/18/20/24px from xs to xl (18px by default instead of 24px) at
+       every width. An unsized Text, List or Blockquote is 14px instead of 16px, the size of
+       `Text sm` (list items take the List's size); one with xs, sm, lg or xl keeps it, so a
+       `Text sm` already used for card copy does not shrink. They count when they sit directly in
+       the surface or one of its parts, or in a Col, Stack or Row there; ModalHeader wraps its
+       title in a display:contents span. */
+    :is(:is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer),
+        :is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer) > :is(.vane-col, .vane-stack, .vane-row)) > .vane-title[data-size] {
+        --fs-unit-desktop: var(--fs-unit); --fs-unit-tablet: var(--fs-unit); --fs-unit-mobile: var(--fs-unit);
+    }
+    :is(:is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer),
+        :is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer) > :is(.vane-col, .vane-stack, .vane-row)) > .vane-title[data-size="xs"] { --fs-unit: 7;  --lh: calc(20 / 14); }
+    :is(:is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer),
+        :is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer) > :is(.vane-col, .vane-stack, .vane-row)) > .vane-title[data-size="sm"] { --fs-unit: 8;  --lh: calc(24 / 16); }
+    :is(:is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer),
+        :is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer) > :is(.vane-col, .vane-stack, .vane-row)) > .vane-title[data-size="md"] { --fs-unit: 9;  --lh: calc(26 / 18); }
+    :is(:is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer),
+        :is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer) > :is(.vane-col, .vane-stack, .vane-row)) > .vane-title[data-size="lg"] { --fs-unit: 10; --lh: calc(28 / 20); }
+    :is(:is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer),
+        :is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer) > :is(.vane-col, .vane-stack, .vane-row)) > .vane-title[data-size="xl"] { --fs-unit: 12; --lh: calc(32 / 24); }
+    :is(:is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer),
+        :is(.vane-card, .vane-card-header, .vane-card-body, .vane-card-footer, .vane-modal, .vane-modal-header > .contents, .vane-modal-body, .vane-modal-footer) > :is(.vane-col, .vane-stack, .vane-row)) > :is(.vane-text, .vane-list, .vane-blockquote)[data-size="md"] { --fs-unit: var(--fs-unit-sm); }
+
     /* Long unbreakable tokens (URLs, hashes) wrap, and min-content collapses so fit-content ancestors stay in the viewport. */
     :is(.vane-text, .vane-title, .vane-section-title, .vane-page-title, .vane-blockquote, .vane-list) { overflow-wrap: anywhere; }
     /* Flex rows and auto tables shrink by min-content, so there words stay whole and the box is capped instead. */
@@ -989,6 +1013,12 @@
     /* Breadcrumb: a plain list (no markers or indent, also without a preflight), and a separator
        icon at the text size. */
     .vane-breadcrumb-list { list-style: none; margin: 0; padding: 0; }
+    /* The text follows the size prop: 12/14/16/18/20px from xs to xl, 14px by default. */
+    .vane-breadcrumb[data-size="xs"] { --fs-unit: var(--fs-unit-xs); }
+    .vane-breadcrumb[data-size="sm"] { --fs-unit: var(--fs-unit-sm); }
+    .vane-breadcrumb[data-size="md"] { --fs-unit: var(--fs-unit-md); }
+    .vane-breadcrumb[data-size="lg"] { --fs-unit: var(--fs-unit-lg); }
+    .vane-breadcrumb[data-size="xl"] { --fs-unit: var(--fs-unit-xl); }
     .vane-breadcrumb-separator :where(svg:not([class*='size-'])) { width: 1em; height: 1em; }
 
     /* SegmentedControl: the track is as tall as a Button of its size (its padding plus a segment),

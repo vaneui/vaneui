@@ -332,7 +332,8 @@ function App() {
             <Title>Header, body and footer</Title>
             <Text sm secondary>
               The parts meet one inset apart. A header with <Code sm>borderB</Code> keeps the room
-              for its line.
+              for its line. A card reads a step smaller than the page: its title is 18px and an
+              unsized text 14px.
             </Text>
             <Row tabletStack itemsStart>
               <Card><PlanParts /></Card>
@@ -447,7 +448,8 @@ function App() {
             <Title>Breadcrumb</Title>
             <Text sm secondary>
               A labelled <Code sm>nav</Code> with an ordered list. The last item is the current page
-              unless one item sets <Code sm>current</Code>. The trail wraps on a narrow screen.
+              unless one item sets <Code sm>current</Code>. The trail wraps on a narrow screen, and
+              its text follows the size prop (12 to 20px, 14px by default).
             </Text>
             <Breadcrumb>
               <BreadcrumbItem href="#home">Home</BreadcrumbItem>
@@ -460,6 +462,12 @@ function App() {
               <BreadcrumbItem href="#settings">Settings</BreadcrumbItem>
               <BreadcrumbItem>Billing</BreadcrumbItem>
             </Breadcrumb>
+            {(['xs', 'lg', 'xl'] as const).map((size) => (
+              <Breadcrumb key={size} {...{ [size]: true }}>
+                <BreadcrumbItem href="#home">Home</BreadcrumbItem>
+                <BreadcrumbItem>{size}</BreadcrumbItem>
+              </Breadcrumb>
+            ))}
           </Card>
 
           {/* ═══ 4. FIELD SECTIONS ═══════════════════════════════════════════ */}

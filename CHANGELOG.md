@@ -10,6 +10,23 @@ rather than on a fixed calendar.
 
 ## Unreleased
 
+### Changed
+
+- `Card` and `Modal`: a `Title` placed in the surface, in one of its parts (`CardHeader`,
+  `CardBody`, `CardFooter`, `ModalHeader`, `ModalBody`, `ModalFooter`) or in a `Col`, `Stack` or
+  `Row` there was 24px (20px on phones) and an unsized `Text` 16px, the sizes of page headings and
+  page copy, so a card title sat 6 to 8px above the 16 to 18px most component libraries use. There
+  a `Title` now runs 14/16/18/20/24px from `xs` to `xl` (18px by default) at every width, and an
+  unsized `Text`, `List` or `Blockquote` is 14px, the size of `Text sm` (list items follow their
+  `List`). One with `xs`, `sm`, `lg` or `xl` keeps its size, so a `<Text sm>` already used for card
+  copy renders as before. Text placed straight in a Card, without a `Text`, keeps the page size.
+
+### Fixed
+
+- `Breadcrumb` ignored its size prop for the text: it was 16px at every size, also next to the
+  14px controls of its default `sm`. It now follows the size like the other `sm`-default
+  components: 12/14/16/18/20px from `xs` to `xl`, 14px by default.
+
 ## 1.8.2
 
 `2026-11-25`
