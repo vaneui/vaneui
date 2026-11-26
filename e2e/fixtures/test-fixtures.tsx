@@ -1615,6 +1615,56 @@ function ThemeEngineFixtures() {
   );
 }
 
+/* ── Panel type scale (panel-type.spec.ts): Title and Text inside a Card or Modal, and the
+   Breadcrumb text at every size. The Modal stays closed until the spec opens it. ── */
+function PanelTypeFixtures() {
+  const [open, setOpen] = useState(false);
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  return (
+    <section data-testid="panel-type-section">
+      <Title data-testid="pt-page-title">Page title</Title>
+      <Text data-testid="pt-page-text">Page text</Text>
+      <List data-testid="pt-page-list"><ListItem>Page list item</ListItem></List>
+      <Card data-testid="pt-card">
+        <Title data-testid="pt-card-title">Card title</Title>
+        <Text data-testid="pt-card-text">Card text</Text>
+        <Text sm data-testid="pt-card-text-sm">Small card text</Text>
+        <Text lg data-testid="pt-card-text-lg">Large card text</Text>
+        <List data-testid="pt-card-list"><ListItem data-testid="pt-card-list-item">Feature</ListItem></List>
+        <List lg data-testid="pt-card-list-lg"><ListItem>Large feature</ListItem></List>
+        <Blockquote data-testid="pt-card-quote">A quote</Blockquote>
+        <Row><Title data-testid="pt-card-row-title">In a Row</Title></Row>
+        <Section><Title data-testid="pt-card-section-title">In a Section</Title></Section>
+        <span data-testid="pt-card-bare">Bare text</span>
+      </Card>
+      <Card>
+        {sizes.map(size => (
+          <Title key={size} {...{ [size]: true }} data-testid={`pt-card-title-${size}`}>Title {size}</Title>
+        ))}
+      </Card>
+      <Card>
+        <CardHeader><Title data-testid="pt-parts-title">Parts title</Title></CardHeader>
+        <CardBody><Text data-testid="pt-parts-text">Parts text</Text></CardBody>
+      </Card>
+      <button data-testid="pt-modal-open" onClick={() => setOpen(true)}>open panel modal</button>
+      <Modal open={open} onClose={() => setOpen(false)} noAnimation data-testid="pt-modal">
+        <ModalHeader><Title data-testid="pt-modal-title">Modal title</Title></ModalHeader>
+        <ModalBody><Text data-testid="pt-modal-text">Modal text</Text></ModalBody>
+      </Modal>
+      {sizes.map(size => (
+        <Breadcrumb key={size} {...{ [size]: true }} data-testid={`pt-breadcrumb-${size}`}>
+          <BreadcrumbItem href="#home" data-testid={`pt-breadcrumb-${size}-link`}>Home</BreadcrumbItem>
+          <BreadcrumbItem data-testid={`pt-breadcrumb-${size}-current`}>Docs</BreadcrumbItem>
+        </Breadcrumb>
+      ))}
+      <Breadcrumb data-testid="pt-breadcrumb-default">
+        <BreadcrumbItem data-testid="pt-breadcrumb-default-current">Docs</BreadcrumbItem>
+      </Breadcrumb>
+      <Button data-testid="pt-button-default">Save</Button>
+    </section>
+  );
+}
+
 export function TestHarness() {
   return (
     <ThemeProvider>
@@ -3077,6 +3127,8 @@ export function TestHarness() {
         <LayoutAdditionsFixtures />
 
         <QuickAdditionsFixtures />
+
+        <PanelTypeFixtures />
 
         <SkeletonFixtures />
 

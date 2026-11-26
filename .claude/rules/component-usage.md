@@ -371,7 +371,7 @@ An empty string for `error` or `description` means no message, so `error={errors
 <Alert warning itemsCenter>
   <Col noGap>
     <Text fontSemibold>Your trial ends in three days</Text>
-    <Text sm>Add a payment method to keep your projects running.</Text>
+    <Text>Add a payment method to keep your projects running.</Text>
   </Col>
   <Button warning filled>Add card</Button>
 </Alert>
@@ -379,7 +379,7 @@ An empty string for `error` or `description` means no message, so `error={errors
 
 A `Text`, `Col`, `Stack` or `Row` placed directly in an Alert takes the free width, so the Button after it sits at the end edge. Wrap a bare-text message in `Text` when an action follows it. `itemsCenter` centres the action on a short message; leave it out when the Alert has a leading icon and a message of several lines, so the icon stays on the first line. For a long message, put the buttons in the `Col`, under the text.
 
-Alert text is one step below body text (14px at `md`), and its radius, padding, gap and a leading icon follow the size prop. A `Text` that carries the message, on its own or in that `Col`, follows the Alert's size too: an unsized `Text` takes the Alert's text size, and `<Text sm>` sits one step below it. A plain `<svg>` icon is sized by the Alert; give it a `size-*` class to set your own.
+Alert text is one step below body text (14px at `md`), and its radius, padding, gap and a leading icon follow the size prop. A `Text` that carries the message, on its own or in that `Col`, follows the Alert's size too: an unsized `Text` takes the Alert's text size, and `<Text sm>` sits one step below it (12px at `md`, too small for a description, so give the title and the description the same size and set them apart with `fontSemibold`). A plain `<svg>` icon is sized by the Alert; give it a `size-*` class to set your own.
 
 A status dot before the text, or a dot on its own:
 
@@ -622,6 +622,8 @@ For size-driven floating dimensions, `constrainWidth` applies a size-dependent m
 With a part as its direct child, the Card drops its own padding and the parts carry the inset. That holds when the parts sit in a fragment, come from your own component or are rendered from a Server Component. A part nested inside another element does not count. An explicit `padding`, `paddingX` or `paddingY` on the Card keeps its own inset as well.
 
 The parts of a Card or a Modal meet one inset apart: the body keeps its padding, the header drops its bottom padding and the footer its top padding, and the surface puts no gap between them. For a divider, add `borderB` to the header or `borderT` to the footer; a part with a line (or a `filled` part) keeps its padding on that side.
+
+A Card or a Modal reads at a smaller scale than the page. A `Title` in the surface, in one of its parts or in a `Col`, `Stack` or `Row` there is 18px by default (14/16/18/20/24px from `xs` to `xl`, the same at every width), and an unsized `Text`, `List` or `Blockquote` there is 14px, the size of `Text sm`. One with `xs`, `sm`, `lg` or `xl` keeps its size (`md` is the default, so it is 14px there too). Text placed straight in the surface, without a `Text`, keeps the page size, so wrap card copy in `Text`.
 
 ## Responsive Layout
 
